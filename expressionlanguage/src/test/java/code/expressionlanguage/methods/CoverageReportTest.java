@@ -6092,6 +6092,82 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
     }
+    @Test
+    public void coverage146Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  int s = 1;\n");
+        xml_.append("  int sum = 0;\n");
+        xml_.append("  for (int j:{0,1}) lab {\n");
+        xml_.append("   int[] t = s == j ?{4i}:{6i};\n");
+        xml_.append("   sum += t[0];\n");
+        xml_.append("   break lab;\n");
+        xml_.append("  }\n");
+        xml_.append("  return sum;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElCoverageEnDefault();
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextFactory.validate(cont_.getKeyWords(),cont_.getStandards(),files_,cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateArgument("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = FileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class pkg.Ex {\n" +
+                " public static int <a name=\"m41\">exmeth</a>(){\n" +
+                "  int <span class=\"f\"><span class=\"f\"><a name=\"m57\">s</a> </span>=<span class=\"f\"> 1</span></span>;\n" +
+                "  int <span class=\"f\"><span class=\"f\"><a name=\"m70\">sum</a> </span>=<span class=\"f\"> 0</span></span>;\n" +
+                "  <span class=\"p\">for (int <a name=\"m90\">j</a></span>:<span class=\"f\">{<span class=\"f\">0</span>,<span class=\"f\">1</span>}</span>) <a name=\"m99\">lab</a> {\n" +
+                "   int[] <span class=\"f\"><span class=\"f\"><a name=\"m114\">t</a> </span>=<span class=\"f\"><span class=\"p\"><span class=\"f\"> <a href=\"#m57\">s</a> </span><a title=\"false\">==</a><span class=\"f\"> <a href=\"#m90\">j</a> </span></span>?<span class=\"n\">{<span class=\"n\">4i</span>}</span>:<span class=\"f\">{<span class=\"f\">6i</span>}</span></span></span>;\n" +
+                "   <span class=\"f\"><span class=\"f\"><a href=\"#m70\">sum</a> </span>+=<span class=\"f\"><span class=\"f\"> <a href=\"#m114\">t</a></span><span class=\"f\">[<span class=\"f\">0</span>]</span></span></span>;\n" +
+                "   break <a href=\"#99\">lab</a>;\n" +
+                "  }\n" +
+                "  return <span class=\"f\"><a href=\"#m70\">sum</a></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage147Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  int s = 1;\n");
+        xml_.append("  int sum = 0;\n");
+        xml_.append("  for (int j:{0,1}) lab {\n");
+        xml_.append("   int[] t = s == j ?{4i}:{6i};\n");
+        xml_.append("   sum += t[0];\n");
+        xml_.append("   continue lab;\n");
+        xml_.append("  }\n");
+        xml_.append("  return sum;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElCoverageEnDefault();
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextFactory.validate(cont_.getKeyWords(),cont_.getStandards(),files_,cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateArgument("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = FileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class pkg.Ex {\n" +
+                " public static int <a name=\"m41\">exmeth</a>(){\n" +
+                "  int <span class=\"f\"><span class=\"f\"><a name=\"m57\">s</a> </span>=<span class=\"f\"> 1</span></span>;\n" +
+                "  int <span class=\"f\"><span class=\"f\"><a name=\"m70\">sum</a> </span>=<span class=\"f\"> 0</span></span>;\n" +
+                "  <span class=\"f\">for (int <a name=\"m90\">j</a></span>:<span class=\"f\">{<span class=\"f\">0</span>,<span class=\"f\">1</span>}</span>) <a name=\"m99\">lab</a> {\n" +
+                "   int[] <span class=\"f\"><span class=\"f\"><a name=\"m114\">t</a> </span>=<span class=\"f\"><span class=\"f\"><span class=\"f\"> <a href=\"#m57\">s</a> </span>==<span class=\"f\"> <a href=\"#m90\">j</a> </span></span>?<span class=\"f\">{<span class=\"f\">4i</span>}</span>:<span class=\"f\">{<span class=\"f\">6i</span>}</span></span></span>;\n" +
+                "   <span class=\"f\"><span class=\"f\"><a href=\"#m70\">sum</a> </span>+=<span class=\"f\"><span class=\"f\"> <a href=\"#m114\">t</a></span><span class=\"f\">[<span class=\"f\">0</span>]</span></span></span>;\n" +
+                "   continue <a href=\"#99\">lab</a>;\n" +
+                "  }\n" +
+                "  return <span class=\"f\"><a href=\"#m70\">sum</a></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
     private static String getCustomPair() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.CustPair<U,V> :$pair<U,V>{\n");

@@ -100,6 +100,10 @@ public final class ForMutableIterativeLoop extends BracedStack implements
         return label;
     }
 
+    @Override
+    public int getRealLabelOffset() {
+        return getLabelOffset();
+    }
     public int getLabelOffset() {
         return labelOffset;
     }
@@ -591,6 +595,7 @@ public final class ForMutableIterativeLoop extends BracedStack implements
             int offsetEndBlock_ = off_ + step.length();
             ElUtil.buildCoverageReport(_cont,off_,this,opStep,offsetEndBlock_,_parts);
         }
+        refLabel(_parts,label,labelOffset);
     }
 
 

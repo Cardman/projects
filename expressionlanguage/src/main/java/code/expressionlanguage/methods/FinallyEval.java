@@ -34,6 +34,15 @@ public final class FinallyEval extends BracedStack implements Eval {
     }
 
     @Override
+    public int getRealLabelOffset() {
+        Block p_ = getPreviousSibling();
+        while (!(p_ instanceof TryEval)) {
+            p_ = p_.getPreviousSibling();
+        }
+        return ((TryEval)p_).getLabelOffset();
+    }
+
+    @Override
     public void buildExpressionLanguage(ContextEl _cont) {
         buildEmptyEl(_cont);
     }

@@ -99,6 +99,11 @@ public final class ForEachTable extends BracedStack implements Loop, WithNotEmpt
         return label;
     }
 
+    @Override
+    public int getRealLabelOffset() {
+        return getLabelOffset();
+    }
+
     public int getExpressionOffset() {
         return expressionOffset;
     }
@@ -710,6 +715,7 @@ public final class ForEachTable extends BracedStack implements Loop, WithNotEmpt
         ElUtil.buildCoverageReport(_cont,off_,this,opList,offsetEndBlock_,_parts);
         _cont.getCoverage().getLoopVars().put(variableNameFirst,variableNameOffsetFirst);
         _cont.getCoverage().getLoopVars().put(variableNameSecond,variableNameOffsetSecond);
+        refLabel(_parts,label,labelOffset);
     }
 
     public void incrementLoop(ContextEl _conf, LoopBlockStack _l,

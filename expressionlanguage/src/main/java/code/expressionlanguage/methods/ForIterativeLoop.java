@@ -101,6 +101,10 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
         return label;
     }
 
+    @Override
+    public int getRealLabelOffset() {
+        return getLabelOffset();
+    }
     public int getLabelOffset() {
         return labelOffset;
     }
@@ -567,6 +571,7 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
         offsetEndBlock_ = off_ + step.length();
         ElUtil.buildCoverageReport(_cont,off_,this,opStep,offsetEndBlock_,_parts);
         _cont.getCoverage().getLoopVars().put(variableName,variableNameOffset);
+        refLabel(_parts,label,labelOffset);
     }
     void processLoop(ContextEl _conf) {
         LgNames stds_ = _conf.getStandards();

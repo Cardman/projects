@@ -33,6 +33,11 @@ public final class WhileCondition extends Condition implements Loop {
     public String getRealLabel() {
         return label;
     }
+
+    @Override
+    public int getRealLabelOffset() {
+        return getLabelOffset();
+    }
     public int getLabelOffset() {
         return labelOffset;
     }
@@ -306,5 +311,6 @@ public final class WhileCondition extends Condition implements Loop {
         tag_ = "</span>";
         _parts.add(new PartOffset(tag_,off_+ _cont.getKeyWords().getKeyWordWhile().length()));
         super.processReport(_cont,_parts);
+        refLabel(_parts,label,labelOffset);
     }
 }

@@ -7,6 +7,7 @@ import code.expressionlanguage.calls.util.ReadWrite;
 import code.expressionlanguage.errors.custom.UnexpectedTagName;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
+import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.stacks.*;
 import code.util.CustList;
@@ -18,6 +19,7 @@ public final class BreakBlock extends AbruptBlock implements CallingFinally {
 
     private String label;
     private int labelOffset;
+    private int labelOffsetRef;
 
     public BreakBlock(OffsetStringInfo _label, OffsetsBlock _offset) {
         super(_offset);
@@ -47,6 +49,7 @@ public final class BreakBlock extends AbruptBlock implements CallingFinally {
                 } else {
                     if (StringList.quickEq(label, ((BreakableBlock)b_).getRealLabel())){
                         childOfBreakable_ = true;
+                        labelOffsetRef = ((BreakableBlock) b_).getRealLabelOffset();
                         break;
                     }
                 }
@@ -106,6 +109,13 @@ public final class BreakBlock extends AbruptBlock implements CallingFinally {
 
     @Override
     public void processReport(ContextEl _cont, CustList<PartOffset> _parts) {
+        if (getLabel().isEmpty()) {
+            return;
+        }
+        String tag_ = "<a href=\"#"+labelOffsetRef+"\">";
+        _parts.add(new PartOffset(tag_,labelOffset));
+        tag_ = "</a>";
+        _parts.add(new PartOffset(tag_,labelOffset+getLabel().length()));
     }
 
     @Override

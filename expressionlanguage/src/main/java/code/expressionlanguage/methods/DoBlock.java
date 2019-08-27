@@ -32,6 +32,11 @@ public final class DoBlock extends BracedStack implements Loop {
         return label;
     }
 
+    @Override
+    public int getRealLabelOffset() {
+        return getLabelOffset();
+    }
+
     public int getLabelOffset() {
         return labelOffset;
     }
@@ -57,7 +62,7 @@ public final class DoBlock extends BracedStack implements Loop {
 
     @Override
     public void processReport(ContextEl _cont, CustList<PartOffset> _parts) {
-
+        refLabel(_parts,label,labelOffset);
     }
 
     @Override

@@ -32,6 +32,15 @@ public final class ElseCondition extends BracedStack implements BlockCondition, 
     }
 
     @Override
+    public int getRealLabelOffset() {
+        Block p_ = getPreviousSibling();
+        while (!(p_ instanceof IfCondition)) {
+            p_ = p_.getPreviousSibling();
+        }
+        return ((IfCondition)p_).getLabelOffset();
+    }
+
+    @Override
     public void setAssignmentBeforeChild(Analyzable _an, AnalyzingEl _anEl) {
         assignWhenFalse(true, _an, _anEl);
     }

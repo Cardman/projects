@@ -49,6 +49,10 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock, Wi
         return label;
     }
 
+    @Override
+    public int getRealLabelOffset() {
+        return getLabelOffset();
+    }
     public String getLabel() {
         return label;
     }
@@ -238,6 +242,7 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock, Wi
         off_ = getValueOffset();
         int offsetEndBlock_ = off_ + getValue().length();
         ElUtil.buildCoverageReport(_cont,off_,this,getOpValue(),offsetEndBlock_,_parts);
+        refLabel(_parts,label,labelOffset);
     }
 
     private boolean hasDefaultCase() {

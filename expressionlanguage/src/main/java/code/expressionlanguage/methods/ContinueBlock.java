@@ -19,6 +19,7 @@ public final class ContinueBlock extends AbruptBlock implements CallingFinally {
 
     private String label;
     private int labelOffset;
+    private int labelOffsetRef;
 
     public ContinueBlock(OffsetStringInfo _label, OffsetsBlock _offset) {
         super(_offset);
@@ -46,6 +47,7 @@ public final class ContinueBlock extends AbruptBlock implements CallingFinally {
                 }
                 if (StringList.quickEq(label, ((BreakableBlock)b_).getRealLabel())){
                     childOfLoop_ = true;
+                    labelOffsetRef = ((BreakableBlock) b_).getRealLabelOffset();
                     break;
                 }
             }
@@ -101,6 +103,13 @@ public final class ContinueBlock extends AbruptBlock implements CallingFinally {
 
     @Override
     public void processReport(ContextEl _cont, CustList<PartOffset> _parts) {
+        if (getLabel().isEmpty()) {
+            return;
+        }
+        String tag_ = "<a href=\"#"+labelOffsetRef+"\">";
+        _parts.add(new PartOffset(tag_,labelOffset));
+        tag_ = "</a>";
+        _parts.add(new PartOffset(tag_,labelOffset+getLabel().length()));
     }
     @Override
     public void processEl(ContextEl _cont) {

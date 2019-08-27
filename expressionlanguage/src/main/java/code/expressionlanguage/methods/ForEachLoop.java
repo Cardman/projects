@@ -87,6 +87,11 @@ public final class ForEachLoop extends BracedStack implements ForLoop,ImportForE
         return label;
     }
 
+    @Override
+    public int getRealLabelOffset() {
+        return getLabelOffset();
+    }
+
     public int getLabelOffset() {
         return labelOffset;
     }
@@ -606,6 +611,7 @@ public final class ForEachLoop extends BracedStack implements ForLoop,ImportForE
         int offsetEndBlock_ = off_ + expression.length();
         ElUtil.buildCoverageReport(_cont,off_,this,opList,offsetEndBlock_,_parts);
         _cont.getCoverage().getLoopVars().put(variableName,variableNameOffset);
+        refLabel(_parts,label,labelOffset);
     }
     Struct processLoop(ContextEl _conf) {
         AbstractPageEl ip_ = _conf.getLastPage();

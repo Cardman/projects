@@ -38,6 +38,10 @@ public final class IfCondition extends Condition implements BlockCondition {
         return label;
     }
 
+    @Override
+    public int getRealLabelOffset() {
+        return getLabelOffset();
+    }
     public int getLabelOffset() {
         return labelOffset;
     }
@@ -162,6 +166,7 @@ public final class IfCondition extends Condition implements BlockCondition {
         tag_ = "</span>";
         _parts.add(new PartOffset(tag_,off_+ _cont.getKeyWords().getKeyWordIf().length()));
         super.processReport(_cont,_parts);
+        refLabel(_parts,label,labelOffset);
     }
     @Override
     public void exitStack(ContextEl _context) {

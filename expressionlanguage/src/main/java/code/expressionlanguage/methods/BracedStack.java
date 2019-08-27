@@ -7,6 +7,7 @@ import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.ConstType;
 import code.expressionlanguage.instr.OperationsSequence;
+import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.opers.*;
 import code.expressionlanguage.opers.util.*;
 import code.util.*;
@@ -16,7 +17,13 @@ public abstract class BracedStack extends BracedBlock {
     BracedStack(OffsetsBlock _offset) {
         super(_offset);
     }
-    
+    protected void refLabel(CustList<PartOffset> _parts, String _label, int _offset) {
+        if (_label.isEmpty()) {
+            return;
+        }
+        _parts.add(new PartOffset("<a name=\"m"+_offset+"\">",_offset));
+        _parts.add(new PartOffset("</a>",_offset+_label.length()));
+    }
     protected void buildConditions(ContextEl _cont) {
         AssignedBooleanVariables res_ = (AssignedBooleanVariables) _cont.getAnalyzing().getAssignedVariables().getFinalVariables().getVal(this);
         res_.getFieldsRootAfter().putAllMap(AssignmentsUtil.toBoolAssign(res_.getLastFieldsOrEmpty()));

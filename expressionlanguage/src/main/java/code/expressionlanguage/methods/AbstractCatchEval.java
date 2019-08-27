@@ -34,6 +34,15 @@ public abstract class AbstractCatchEval extends BracedStack implements Eval {
     }
 
     @Override
+    public int getRealLabelOffset() {
+        Block p_ = getPreviousSibling();
+        while (!(p_ instanceof TryEval)) {
+            p_ = p_.getPreviousSibling();
+        }
+        return ((TryEval)p_).getLabelOffset();
+    }
+
+    @Override
     public final void abruptGroup(AnalyzingEl _anEl) {
         if (canBeIncrementedCurGroup()) {
             return;

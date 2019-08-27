@@ -39,6 +39,15 @@ public final class ElseIfCondition extends Condition implements BlockCondition {
         return ((IfCondition)p_).getLabel();
     }
 
+    @Override
+    public int getRealLabelOffset() {
+        Block p_ = getPreviousSibling();
+        while (!(p_ instanceof IfCondition)) {
+            p_ = p_.getPreviousSibling();
+        }
+        return ((IfCondition)p_).getLabelOffset();
+    }
+
     private boolean canBeIncrementedCurGroup() {
         Block next_ = getNextSibling();
         return next_ instanceof ElseIfCondition || next_ instanceof ElseCondition;
