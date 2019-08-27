@@ -311,18 +311,18 @@ public final class ElUtil {
     }
 
     public static boolean isDeclaringLoopVariable(MutableLoopVariableOperation _var, Analyzable _an) {
-        if (!_an.isMerged()) {
-            return false;
-        }
-        if (!_an.hasLoopDeclarator()) {
-            return false;
-        }
-        if (_an.getForLoopPartState() != ForLoopPart.INIT) {
+        if (!isDeclaringLoopVariable(_an)) {
             return false;
         }
         return isDeclaringVariable(_var);
     }
     public static boolean isDeclaringLoopVariable(MethodOperation _par, Analyzable _an) {
+        if (!isDeclaringLoopVariable(_an)) {
+            return false;
+        }
+        return isDeclaringVariable(_par);
+    }
+    public static boolean isDeclaringLoopVariable(Analyzable _an) {
         if (!_an.isMerged()) {
             return false;
         }
@@ -332,25 +332,28 @@ public final class ElUtil {
         if (_an.getForLoopPartState() != ForLoopPart.INIT) {
             return false;
         }
-        return isDeclaringVariable(_par);
+        return true;
     }
     public static boolean isDeclaringVariable(VariableOperation _var, Analyzable _an) {
-        if (!_an.isMerged()) {
-            return false;
-        }
-        if (!_an.hasDeclarator()) {
+        if (!isDeclaringVariable(_an)) {
             return false;
         }
         return isDeclaringVariable(_var);
     }
     public static boolean isDeclaringVariable(MethodOperation _par, Analyzable _an) {
+        if (!isDeclaringVariable(_an)) {
+            return false;
+        }
+        return isDeclaringVariable(_par);
+    }
+    public static boolean isDeclaringVariable(Analyzable _an) {
         if (!_an.isMerged()) {
             return false;
         }
         if (!_an.hasDeclarator()) {
             return false;
         }
-        return isDeclaringVariable(_par);
+        return true;
     }
     public static boolean isDeclaringVariable(Operable _var) {
         ParentOperable par_ = _var.getParentOperable();

@@ -125,6 +125,7 @@ public final class ElResolver {
         ResultAfterOperators resOpers_ = new ResultAfterOperators();
         resOpers_.setParsBrackets(parsBrackets_);
         resOpers_.setPartOfString(partOfString_);
+        StringMap<Boolean> declaring_ = new StringMap<Boolean>();
 
         boolean constString_ = false;
         boolean constChar_ = false;
@@ -157,6 +158,8 @@ public final class ElResolver {
         resWords_.setNextIndex(i_);
         resWords_.setLastDoubleDot(i_);
         resWords_.setCallCtor(false);
+        resWords_.setDeclaring(declaring_);
+        resWords_.setStack(parsBrackets_);
         resOpers_.setDoubleDotted(resWords_);
         while (i_ < len_) {
             char curChar_ = _string.charAt(i_);
@@ -1436,6 +1439,19 @@ public final class ElResolver {
                 info_.setFirstChar(beginWord_);
                 info_.setLastChar(i_);
                 info_.setName(word_);
+                if (_out.getStack().isEmpty() && i_ < len_ && _string.substring(i_).trim().charAt(0) == '=') {
+                    if (prev_.endsWith(",") || prev_.isEmpty()) {
+                        if (ElUtil.isDeclaringVariable(_an)) {
+                            _out.getDeclaring().set(_out.getCurrentWord(),true);
+                            _out.setCurrentWord(word_);
+                            _out.getDeclaring().add(word_,false);
+                        } else if (ElUtil.isDeclaringLoopVariable(_an)) {
+                            _out.getDeclaring().set(_out.getCurrentWord(),true);
+                            _out.setCurrentWord(word_);
+                            _out.getDeclaring().add(word_,false);
+                        }
+                    }
+                }
                 String dot_ = String.valueOf(DOT_VAR);
                 String look_ = _an.getLookLocalClass();
                 int prChar_ = beginWord_ - 1;
@@ -1522,7 +1538,7 @@ public final class ElResolver {
                         } else {
                             _d.getVariables().add(info_);
                         }
-                    } else if (!prev_.endsWith(dot_) && i_ < len_ &&_string.charAt(i_) == DOT_VAR) {
+                    } else if (!_out.isDeclared(word_) && !prev_.endsWith(dot_) && i_ < len_ &&_string.charAt(i_) == DOT_VAR) {
                         i_ = processFieldsStaticAccess(_an, ctorCall_, _string, beginWord_, word_, i_, _d);
                     } else {
                         _d.getVariables().add(info_);
