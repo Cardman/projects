@@ -464,6 +464,65 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         assertEq("pkg.Ex-TWO", str_.getClassName(cont_));
     }
     @Test
+    public void initializeClass16Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Super {\n");
+        xml_.append(" $protected $int sup:\n");
+        xml_.append(" $protected Super($int sup){\n");
+        xml_.append("  sup = sup;.;:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $interface pkg.SuperInt {\n");
+        xml_.append(" $protected $int supTwo:\n");
+        xml_.append(" $protected SuperInt($int sup){\n");
+        xml_.append("  supTwo = sup;.;:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $enum pkg.Ex:Super:SuperInt {\n");
+        xml_.append(" ONE(4i),\n");
+        xml_.append(" TWO:\n");
+        xml_.append(" $public $int first:\n");
+        xml_.append(" $public ($int i){\n");
+        xml_.append("  $super(i;.;+2):\n");
+        xml_.append("  $interfaces(SuperInt)(i;.;+4):\n");
+        xml_.append("  first;;;=i;.;:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public (){\n");
+        xml_.append("  $this(5i):\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "ONE"));
+        assertEq("pkg.Ex", str_.getClassName(cont_));
+        Struct field_;
+        field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.Ex", "first"));
+        assertEq(INTEGER, field_.getClassName(cont_));
+        assertEq(4, ((NumberStruct)field_).intStruct());
+        field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.Super", "sup"));
+        assertEq(INTEGER, field_.getClassName(cont_));
+        assertEq(6, ((NumberStruct)field_).intStruct());
+        field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.SuperInt", "supTwo"));
+        assertEq(INTEGER, field_.getClassName(cont_));
+        assertEq(8, ((NumberStruct)field_).intStruct());
+        str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "TWO"));
+        assertEq("pkg.Ex", str_.getClassName(cont_));
+        field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.Ex", "first"));
+        assertEq(INTEGER, field_.getClassName(cont_));
+        assertEq(5, ((NumberStruct)field_).intStruct());
+        field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.Super", "sup"));
+        assertEq(INTEGER, field_.getClassName(cont_));
+        assertEq(7, ((NumberStruct)field_).intStruct());
+        field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.SuperInt", "supTwo"));
+        assertEq(INTEGER, field_.getClassName(cont_));
+        assertEq(9, ((NumberStruct)field_).intStruct());
+
+    }
+    @Test
     public void initializeClass1FailTest() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $enum pkg.Ex {\n");

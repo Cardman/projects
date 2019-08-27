@@ -612,7 +612,7 @@ public final class TypeUtil {
                 if (add_) {
                     continue;
                 }
-                for (String t: sub_.getImportedDirectBaseSuperTypes()) {
+                for (String t: sub_.getImportedDirectBaseSuperTypes().values()) {
                     addIfNotFound(visited_, new_, t);
                 }
             }
@@ -698,7 +698,7 @@ public final class TypeUtil {
                 if (!sub_.getImportedDirectBaseSuperTypes().isEmpty()) {
                     depends_.add(s);
                 }
-                for (String t: sub_.getImportedDirectBaseSuperTypes()) {
+                for (String t: sub_.getImportedDirectBaseSuperTypes().values()) {
                     addIfNotFound(visited_, new_, t);
                 }
             }

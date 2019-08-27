@@ -21,7 +21,7 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
     private StringList importedDirectSuperInterfaces = new StringList();
 
     public EnumBlock(int _idRowCol, int _categoryOffset, String _name, String _packageName, OffsetAccessInfo _access,
-                     String _templateDef, IntTreeMap< String> _directSuperTypes, OffsetsBlock _offset) {
+                     String _templateDef, IntMap< String> _directSuperTypes, OffsetsBlock _offset) {
         super(_idRowCol, _categoryOffset, _name, _packageName, _access, _templateDef, _directSuperTypes, _offset);
     }
 
@@ -86,15 +86,17 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
 
     @Override
     public void buildDirectGenericSuperTypes(ContextEl _classes) {
-        IntTreeMap< String> rcs_;
+        IntMap< String> rcs_;
         rcs_ = getRowColDirectSuperTypes();
         int i_ = 0;
         importedDirectSuperInterfaces.clear();
         for (String s: getDirectSuperTypes()) {
             int index_ = rcs_.getKey(i_);
             String s_ = _classes.resolveTypeInherits(s, this,index_,i_);
+            String c_ = getImportedDirectBaseSuperType(i_);
             i_++;
             String base_ = Templates.getIdFromAllTypes(s_);
+            _classes.getClasses().addErrorIfNoMatch(s_,c_,this,index_);
             RootBlock r_ = _classes.getClasses().getClassBody(base_);
             if (!(r_ instanceof ClassBlock)) {
                 importedDirectSuperInterfaces.add(s_);

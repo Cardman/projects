@@ -681,7 +681,7 @@ public final class FileResolver {
                 return out_;
             }
             StringBuilder str_ = new StringBuilder();
-            IntTreeMap< String> superTypes_ = new IntTreeMap< String>();
+            IntMap< String> superTypes_ = new IntMap< String>();
             StringBuilder typeNamePref_ = new StringBuilder();
             StringBuilder templateDef_ = new StringBuilder();
             int nbOpened_ = 0;
@@ -1647,7 +1647,7 @@ public final class FileResolver {
                                           Ints _offsetsImports, StringList _staticInitInterfaces, Ints _staticInitInterfacesOffset) {
         int locIndex_ = skipWhitespace(_locIndex, _file, _enLoc);
         StringBuilder str_ = new StringBuilder();
-        IntTreeMap< String> superTypes_ = new IntTreeMap< String>();
+        IntMap< String> superTypes_ = new IntMap< String>();
         StringBuilder typeNamePref_ = new StringBuilder();
         StringBuilder templateDef_ = new StringBuilder();
         int nbOpened_ = 0;

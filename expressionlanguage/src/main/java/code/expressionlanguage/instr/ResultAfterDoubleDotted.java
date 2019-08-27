@@ -1,7 +1,7 @@
 package code.expressionlanguage.instr;
 
 import code.util.IntTreeMap;
-import code.util.StringMap;
+import code.util.StringList;
 
 public final class ResultAfterDoubleDotted {
 
@@ -11,11 +11,9 @@ public final class ResultAfterDoubleDotted {
 
     private boolean callCtor;
 
-    private StringMap<Boolean> declaring;
+    private StringList declaring;
 
     private IntTreeMap<Character> stack;
-
-    private String currentWord = "";
 
     public int getNextIndex() {
         return nextIndex;
@@ -42,16 +40,13 @@ public final class ResultAfterDoubleDotted {
     }
 
     boolean isDeclared(String _var) {
-        if (!declaring.contains(_var)) {
-            return false;
-        }
-        return declaring.getVal(_var);
+        return StringList.contains(declaring,_var);
     }
-    public StringMap<Boolean> getDeclaring() {
+    public StringList getDeclaring() {
         return declaring;
     }
 
-    public void setDeclaring(StringMap<Boolean> _declaring) {
+    public void setDeclaring(StringList _declaring) {
         declaring = _declaring;
     }
 
@@ -63,11 +58,4 @@ public final class ResultAfterDoubleDotted {
         stack = _stack;
     }
 
-    public String getCurrentWord() {
-        return currentWord;
-    }
-
-    public void setCurrentWord(String _currentWord) {
-        currentWord = _currentWord;
-    }
 }

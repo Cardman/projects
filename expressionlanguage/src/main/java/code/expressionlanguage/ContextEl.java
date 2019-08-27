@@ -1628,6 +1628,16 @@ public abstract class ContextEl implements ExecutableCode {
         return getOtherParts(_inners,res_,_first,_root, _readyTypes, _static);
     }
 
+    public String lookupImportMemberType(String _type, RootBlock _rooted) {
+        String prefixedType_;
+        if (options.isSingleInnerParts()) {
+            prefixedType_ = getRealSinglePrefixedMemberType(_type,_rooted,true);
+        } else {
+            prefixedType_ = getRealPrefixedMemberType(_type, _rooted, true);
+        }
+        return prefixedType_;
+    }
+
     private String lookupImportMemberTypes(String _type, RootBlock _root,
             StringList _readyTypes) {
         boolean single_ = options.isSingleInnerParts();

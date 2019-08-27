@@ -23,7 +23,7 @@ public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
     private final boolean staticType;
 
     public ClassBlock(int _idRowCol, int _categoryOffset, String _name, String _packageName, OffsetAccessInfo _access,
-                      String _templateDef, IntTreeMap< String> _directSuperTypes,
+                      String _templateDef, IntMap< String> _directSuperTypes,
                       boolean _finalType,
                       boolean _abstractType, boolean _staticType,
                       OffsetsBlock _offset) {
@@ -88,16 +88,18 @@ public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
 
     @Override
     public void buildDirectGenericSuperTypes(ContextEl _classes) {
-        IntTreeMap< String> rcs_;
+        IntMap< String> rcs_;
         rcs_ = getRowColDirectSuperTypes();
         int i_ = 0;
         importedDirectSuperInterfaces.clear();
         for (String s: getDirectSuperTypes()) {
             int index_ = rcs_.getKey(i_);
             String s_ = _classes.resolveTypeInherits(s, this,index_,i_);
+            String c_ = getImportedDirectBaseSuperType(i_);
             i_++;
             String base_ = Templates.getIdFromAllTypes(s_);
             RootBlock r_ = _classes.getClasses().getClassBody(base_);
+            _classes.getClasses().addErrorIfNoMatch(s_,c_,this,index_);
             if (!(r_ instanceof ClassBlock)) {
                 importedDirectSuperInterfaces.add(s_);
             } else {

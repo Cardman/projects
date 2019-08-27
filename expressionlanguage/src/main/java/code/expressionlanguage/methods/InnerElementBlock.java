@@ -56,7 +56,7 @@ public final class InnerElementBlock extends RootBlock implements InnerTypeOrEle
     public InnerElementBlock(EnumBlock _m, OffsetStringInfo _fieldName,
                              OffsetStringInfo _type,
                              OffsetStringInfo _value, OffsetsBlock _offset) {
-        super(0, 0, StringList.concat(_m.getFullName(),"-",_fieldName.getInfo()), _m.getPackageName(), new OffsetAccessInfo(0,AccessEnum.PUBLIC), "", new IntTreeMap< String>(), _offset);
+        super(0, 0, StringList.concat(_m.getFullName(),"-",_fieldName.getInfo()), _m.getPackageName(), new OffsetAccessInfo(0,AccessEnum.PUBLIC), "", new IntMap< String>(), _offset);
         fieldNameOffest = _fieldName.getOffset();
         valueOffest = _value.getOffset();
         fieldName = _fieldName.getInfo();
@@ -255,13 +255,15 @@ public final class InnerElementBlock extends RootBlock implements InnerTypeOrEle
 
     @Override
     public void buildDirectGenericSuperTypes(ContextEl _classes) {
-        IntTreeMap< String> rcs_;
+        IntMap< String> rcs_;
         rcs_ = getRowColDirectSuperTypes();
         int i_ = 0;
         importedDirectSuperInterfaces.clear();
         for (String s: getDirectSuperTypes()) {
             int index_ = rcs_.getKey(i_);
             String s_ = _classes.resolveTypeInherits(s, this,index_,i_);
+            String c_ = getImportedDirectBaseSuperType(i_);
+            _classes.getClasses().addErrorIfNoMatch(s_,c_,this,index_);
             i_++;
             importedDirectSuperClass = s_;
         }

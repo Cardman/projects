@@ -52,10 +52,10 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
     private StringMap<TypeVar> paramTypesMap = new StringMap<TypeVar>();
 
     private final StringList directSuperTypes = new StringList();
-    private final StringList importedDirectBaseSuperTypes = new StringList();
+    private final IntMap<String> importedDirectBaseSuperTypes = new IntMap<String>();
 
-    private IntTreeMap< String> rowColDirectSuperTypes;
-    private IntTreeMap< Boolean> explicitDirectSuperTypes = new IntTreeMap< Boolean>();
+    private IntMap< String> rowColDirectSuperTypes;
+    private IntMap< Boolean> explicitDirectSuperTypes = new IntMap< Boolean>();
 
     private int idRowCol;
 
@@ -73,7 +73,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
 
     RootBlock(int _idRowCol, int _categoryOffset, String _name,
               String _packageName, OffsetAccessInfo _access, String _templateDef,
-              IntTreeMap< String> _directSuperTypes, OffsetsBlock _offset) {
+              IntMap< String> _directSuperTypes, OffsetsBlock _offset) {
         super(_offset);
         categoryOffset = _categoryOffset;
         allOverridingMethods = new ObjectMap<MethodId, EqList<ClassMethodId>>();
@@ -142,7 +142,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
 
     public abstract StringList getImportedDirectSuperTypes();
     public final StringList getDepends(Analyzable _an) {
-        IntTreeMap< String> rcs_;
+        IntMap< String> rcs_;
         rcs_ = getRowColDirectSuperTypes();
         StringList varsList_ = new StringList();
         for (RootBlock r: getSelfAndParentTypes()) {
@@ -175,7 +175,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
     public Ints getAncestorsIndexes() {
         return ancestorsIndexes;
     }
-    public IntTreeMap< Boolean> getExplicitDirectSuperTypes() {
+    public IntMap< Boolean> getExplicitDirectSuperTypes() {
         return explicitDirectSuperTypes;
     }
 
@@ -234,7 +234,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
         return importsOffset;
     }
 
-    public IntTreeMap< String> getRowColDirectSuperTypes() {
+    public IntMap< String> getRowColDirectSuperTypes() {
         return rowColDirectSuperTypes;
     }
 
@@ -246,9 +246,17 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
         return directSuperTypes;
     }
 
-    public StringList getImportedDirectBaseSuperTypes() {
+    public IntMap<String> getImportedDirectBaseSuperTypes() {
         return importedDirectBaseSuperTypes;
     }
+
+    public String getImportedDirectBaseSuperType(int _index) {
+        if (_index >= importedDirectBaseSuperTypes.size()) {
+            return EMPTY_STRING;
+        }
+        return importedDirectBaseSuperTypes.getValue(_index);
+    }
+
     protected void checkAccess(ContextEl _context) {
         useSuperTypesOverrides(_context);
         Classes classesRef_ = _context.getClasses();

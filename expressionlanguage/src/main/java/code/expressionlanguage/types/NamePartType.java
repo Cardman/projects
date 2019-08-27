@@ -366,7 +366,7 @@ final class NamePartType extends LeafPartType {
                 return true;
             }
         }
-        String owner_ = _an.lookupImportMemberType(type_, _rooted,true);
+        String owner_ = _an.getContextEl().lookupImportMemberType(type_, _rooted);
         if (!owner_.isEmpty()) {
             setAnalyzedType(owner_);
             return true;

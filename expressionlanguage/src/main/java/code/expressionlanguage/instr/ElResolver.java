@@ -125,7 +125,7 @@ public final class ElResolver {
         ResultAfterOperators resOpers_ = new ResultAfterOperators();
         resOpers_.setParsBrackets(parsBrackets_);
         resOpers_.setPartOfString(partOfString_);
-        StringMap<Boolean> declaring_ = new StringMap<Boolean>();
+        StringList declaring_ = new StringList();
 
         boolean constString_ = false;
         boolean constChar_ = false;
@@ -1442,13 +1442,9 @@ public final class ElResolver {
                 if (_out.getStack().isEmpty() && i_ < len_ && _string.substring(i_).trim().charAt(0) == '=') {
                     if (prev_.endsWith(",") || prev_.isEmpty()) {
                         if (ElUtil.isDeclaringVariable(_an)) {
-                            _out.getDeclaring().set(_out.getCurrentWord(),true);
-                            _out.setCurrentWord(word_);
-                            _out.getDeclaring().add(word_,false);
+                            _out.getDeclaring().add(word_);
                         } else if (ElUtil.isDeclaringLoopVariable(_an)) {
-                            _out.getDeclaring().set(_out.getCurrentWord(),true);
-                            _out.setCurrentWord(word_);
-                            _out.getDeclaring().add(word_,false);
+                            _out.getDeclaring().add(word_);
                         }
                     }
                 }
@@ -1568,7 +1564,8 @@ public final class ElResolver {
         parsBrackets_ = _out.getParsBrackets();
 
         int len_ = _string.length();
-        int i_ = _out.getDoubleDotted().getNextIndex();
+        ResultAfterDoubleDotted doubleDotted_ = _out.getDoubleDotted();
+        int i_ = doubleDotted_.getNextIndex();
         int lastDoubleDot_;
         boolean beginOrEnd_ = _out.isBeginOrEnd();
         Options opt_ = _conf.getOptions();
@@ -1609,7 +1606,7 @@ public final class ElResolver {
                 _dout.getDelSimpleAnnotations().add(last_);
             }
             i_ = j_;
-            _out.getDoubleDotted().setNextIndex(i_);
+            doubleDotted_.setNextIndex(i_);
             return;
         }
         if (curChar_ == DOT_VAR) {
@@ -1617,8 +1614,8 @@ public final class ElResolver {
                 lastDoubleDot_ = i_;
                 i_++;
                 i_++;
-                _out.getDoubleDotted().setLastDoubleDot(lastDoubleDot_);
-                _out.getDoubleDotted().setNextIndex(i_);
+                doubleDotted_.setLastDoubleDot(lastDoubleDot_);
+                doubleDotted_.setNextIndex(i_);
                 return;
             }
             if (isNumber(i_ + 1, len_, _string, opt_)) {
@@ -1632,7 +1629,7 @@ public final class ElResolver {
                 _dout.getDelNumbers().add(i_);
                 _dout.getDelNumbers().add(nextIndex_);
                 i_ = nextIndex_;
-                _out.getDoubleDotted().setNextIndex(i_);
+                doubleDotted_.setNextIndex(i_);
                 return;
             }
             if (i_ + 1 < len_ && Character.isWhitespace(_string.charAt(i_ + 1))) {
@@ -1651,7 +1648,7 @@ public final class ElResolver {
                     int j_ = i_ + 1;
                     _out.setBeginOrEnd(true);
                     i_ = j_;
-                    _out.getDoubleDotted().setNextIndex(i_);
+                    doubleDotted_.setNextIndex(i_);
                     return;
                 }
                 if (_string.charAt(i_+1) == end_) {
@@ -1659,7 +1656,7 @@ public final class ElResolver {
                     int j_ = i_ + 1;
                     _out.setBeginOrEnd(true);
                     i_ = j_;
-                    _out.getDoubleDotted().setNextIndex(i_);
+                    doubleDotted_.setNextIndex(i_);
                     return;
                 }
             }
@@ -1672,21 +1669,21 @@ public final class ElResolver {
             _out.setNbChars(nbChars_);
             _dout.getDelStringsChars().add(i_);
             i_++;
-            _out.getDoubleDotted().setNextIndex(i_);
+            doubleDotted_.setNextIndex(i_);
             return;
         }
         if (curChar_ == DELIMITER_STRING) {
             _out.setConstString(true);
             _dout.getDelStringsChars().add(i_);
             i_++;
-            _out.getDoubleDotted().setNextIndex(i_);
+            doubleDotted_.setNextIndex(i_);
             return;
         }
         if (curChar_ == DELIMITER_TEXT){
             _out.setConstText(true);
             _dout.getDelStringsChars().add(i_);
             i_++;
-            _out.getDoubleDotted().setNextIndex(i_);
+            doubleDotted_.setNextIndex(i_);
             return;
         }
         if (isLogicAndOr(end_, partOfString_, curChar_)) {
@@ -1694,7 +1691,7 @@ public final class ElResolver {
                 _out.setPartOfString(false);
                 _dout.setIndexBegin(_minIndex);
                 _dout.setIndexEnd(i_-1);
-                _out.getDoubleDotted().setNextIndex(len_);
+                doubleDotted_.setNextIndex(len_);
                 return;
             }
             beginOrEnd_ = false;
@@ -1708,13 +1705,13 @@ public final class ElResolver {
             _out.setBeginOrEnd(false);
         }
         if (curChar_ == PAR_LEFT) {
-            int j_ = indexAfterPossibleCast(_conf, _ctorCall, _string, i_, len_, _dout);
+            int j_ = indexAfterPossibleCast(_conf,doubleDotted_, _ctorCall, _string, i_, len_, _dout);
             if (_dout.getBadOffset() >= 0) {
                 return;
             }
             if (j_ > i_) {
                 i_ = j_;
-                _out.getDoubleDotted().setNextIndex(i_);
+                doubleDotted_.setNextIndex(i_);
                 return;
             }
             parsBrackets_.put(i_, curChar_);
@@ -1762,7 +1759,7 @@ public final class ElResolver {
                 _dout.getDimsAddonIndexes().add(i_);
                 _dout.getDimsAddonIndexes().add(j_);
                 i_ = j_ + 1;
-                _out.getDoubleDotted().setNextIndex(i_);
+                doubleDotted_.setNextIndex(i_);
                 return;
             }
             parsBrackets_.put(i_, curChar_);
@@ -1945,7 +1942,7 @@ public final class ElResolver {
                 }
                 if (curLoc_ == PAR_LEFT) {
                     int before_ = _dout.getDelCastExtract().size();
-                    int k_ = indexAfterPossibleCast(_conf, _ctorCall, _string, j_, len_, _dout);
+                    int k_ = indexAfterPossibleCast(_conf,doubleDotted_, _ctorCall, _string, j_, len_, _dout);
                     if (_dout.getBadOffset() >= 0) {
                         return;
                     }
@@ -1961,7 +1958,7 @@ public final class ElResolver {
                 _dout.getAllowedOperatorsIndexes().add(i_);
             }
             i_ = j_;
-            _out.getDoubleDotted().setNextIndex(i_);
+            doubleDotted_.setNextIndex(i_);
             return;
         }
         if (curChar_ == PLUS_CHAR){
@@ -1970,7 +1967,7 @@ public final class ElResolver {
             }
             i_++;
             i_++;
-            _out.getDoubleDotted().setNextIndex(i_);
+            doubleDotted_.setNextIndex(i_);
             return;
         }
         if (curChar_ == MINUS_CHAR){
@@ -1979,7 +1976,7 @@ public final class ElResolver {
             }
             i_++;
             i_++;
-            _out.getDoubleDotted().setNextIndex(i_);
+            doubleDotted_.setNextIndex(i_);
             return;
         }
         boolean idOp_ = false;
@@ -1999,7 +1996,7 @@ public final class ElResolver {
             _dout.getAllowedOperatorsIndexes().add(i_);
         }
         i_++;
-        _out.getDoubleDotted().setNextIndex(i_);
+        doubleDotted_.setNextIndex(i_);
     }
     private static int processFieldsStaticAccess(Analyzable _conf, boolean _ctor, String _string, int _from, String _word, int _to, Delimiters _d) {
         int i_ = _from;
@@ -3567,7 +3564,7 @@ public final class ElResolver {
         return j_;
     }
 
-    private static int indexAfterPossibleCast(Analyzable _conf, boolean _ctor,String _string, int _from, int _len, Delimiters _d) {
+    private static int indexAfterPossibleCast(Analyzable _conf,  ResultAfterDoubleDotted _out,boolean _ctor,String _string, int _from, int _len, Delimiters _d) {
         int indexParRight_ = _string.indexOf(PAR_RIGHT, _from +1);
         Options opt_ = _conf.getOptions();
         KeyWords keyWords_ = _conf.getKeyWords();
@@ -3744,7 +3741,7 @@ public final class ElResolver {
                 if (locCar_ == DOT_VAR) {
                     indexes_.add(j_);
                     String strPart_ = part_.toString();
-                    if (isFieldOrVariable(_conf, _ctor, partsFields_, strPart_)) {
+                    if (isFieldOrVariable(_conf, _out,_ctor, partsFields_, strPart_)) {
                        cast_ = false;
                         break;
                     }
@@ -3790,7 +3787,7 @@ public final class ElResolver {
         }
         if (cast_) {
            String strPart_ = part_.toString();
-           if (isFieldOrVariable(_conf, _ctor, partsFields_, strPart_)) {
+           if (isFieldOrVariable(_conf, _out,_ctor, partsFields_, strPart_)) {
                cast_ = false;
             }
         }
@@ -3805,7 +3802,7 @@ public final class ElResolver {
         }
         return _from;
     }
-    private static boolean isFieldOrVariable(Analyzable _conf, boolean _ctor, StringList _parts, String _partToAdd) {
+    private static boolean isFieldOrVariable(Analyzable _conf,  ResultAfterDoubleDotted _out,boolean _ctor, StringList _parts, String _partToAdd) {
        if (!_parts.isEmpty()) {
           return false;
        }
@@ -3813,6 +3810,9 @@ public final class ElResolver {
        if (_conf.getOptions().getSuffixVar() != VariableSuffix.NONE) {
           String gl_ = _conf.getGlobalClass();
           return isField(_conf, gl_, _ctor, word_);
+       }
+       if (_out.isDeclared(word_)) {
+           return true;
        }
        if (_conf.getParameters().contains(word_)) {
           return true;
