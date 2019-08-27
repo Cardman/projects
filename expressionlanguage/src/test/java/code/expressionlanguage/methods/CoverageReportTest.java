@@ -5763,7 +5763,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append("  t=ExEnum.ONE;\n");
         xml_.append("  switch(t){\n");
         xml_.append("   case(ONE):\n");
-        xml_.append("   case(TWO)\n");
+        xml_.append("   case(TWO):\n");
         xml_.append("    o=12;\n");
         xml_.append("  }\n");
         xml_.append("  return 1+(int)o;\n");
@@ -5788,8 +5788,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  <span class=\"f\"><span class=\"f\"><a href=\"#m109\">t</a></span>=<span class=\"f\"><span class=\"f\">ExEnum</span>.<span class=\"f\"><a title=\"pkg.ExEnum.ONE\" href=\"#m25\">ONE</a></span></span></span>;\n" +
                 "  <span class=\"p\"><a title=\"1/3\">switch</a></span>(<span class=\"f\"><a href=\"#m109\">t</a></span>){\n" +
                 "   case(<span class=\"f\"><a title=\"pkg.ExEnum.ONE\" href=\"#m25\">ONE</a></span>):\n" +
-                "   case(<span class=\"n\"><a title=\"pkg.ExEnum.TWO\" href=\"#m29\">TWO</a></span>)\n" +
-                "    o=12;\n" +
+                "   case(<span class=\"n\"><a title=\"pkg.ExEnum.TWO\" href=\"#m29\">TWO</a></span>):\n" +
+                "    <span class=\"f\"><span class=\"f\"><a href=\"#m92\">o</a></span>=<span class=\"f\">12</span></span>;\n" +
                 "  }\n" +
                 "  return <span class=\"f\"><span class=\"f\">1</span>+<span class=\"f\">(int)<span class=\"f\"><a href=\"#m92\">o</a></span></span></span>;\n" +
                 " }\n" +
@@ -5859,7 +5859,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append("  t=ExEnum.ONE;\n");
         xml_.append("  switch(t){\n");
         xml_.append("   case(ONE):\n");
-        xml_.append("   case(null)\n");
+        xml_.append("   case(null):\n");
         xml_.append("    o=12;\n");
         xml_.append("  }\n");
         xml_.append("  return 1+(int)o;\n");
@@ -5884,8 +5884,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  <span class=\"f\"><span class=\"f\"><a href=\"#m109\">t</a></span>=<span class=\"f\"><span class=\"f\">ExEnum</span>.<span class=\"f\"><a title=\"pkg.ExEnum.ONE\" href=\"#m25\">ONE</a></span></span></span>;\n" +
                 "  <span class=\"p\"><a title=\"1/3\">switch</a></span>(<span class=\"f\"><a href=\"#m109\">t</a></span>){\n" +
                 "   case(<span class=\"f\"><a title=\"pkg.ExEnum.ONE\" href=\"#m25\">ONE</a></span>):\n" +
-                "   case(<span class=\"n\">null</span>)\n" +
-                "    o=12;\n" +
+                "   case(<span class=\"n\">null</span>):\n" +
+                "    <span class=\"f\"><span class=\"f\"><a href=\"#m92\">o</a></span>=<span class=\"f\">12</span></span>;\n" +
                 "  }\n" +
                 "  return <span class=\"f\"><span class=\"f\">1</span>+<span class=\"f\">(int)<span class=\"f\"><a href=\"#m92\">o</a></span></span></span>;\n" +
                 " }\n" +
@@ -5958,7 +5958,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append("  t=ExEnum.ONE;\n");
         xml_.append("  switch(t){\n");
         xml_.append("   case(ExEnum.ONE):\n");
-        xml_.append("   case(ExEnum.TWO)\n");
+        xml_.append("   case(ExEnum.TWO):\n");
         xml_.append("    o=12;\n");
         xml_.append("  }\n");
         xml_.append("  return 1+(int)o;\n");
@@ -5984,8 +5984,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  <span class=\"f\"><span class=\"f\"><a href=\"#m168\">t</a></span>=<span class=\"f\"><span class=\"f\">ExEnum</span>.<span class=\"f\"><a title=\"pkg.ExEnum.ONE\" href=\"#m51\">ONE</a></span></span></span>;\n" +
                 "  <span class=\"p\"><a title=\"1/3\">switch</a></span>(<span class=\"f\"><a href=\"#m168\">t</a></span>){\n" +
                 "   case(<span class=\"f\">ExEnum.<a title=\"pkg.ExEnum.ONE\" href=\"#m51\">ONE</a></span>):\n" +
-                "   case(<span class=\"n\">ExEnum.<a title=\"pkg.ExEnum.TWO\" href=\"#m86\">TWO</a></span>)\n" +
-                "    o=12;\n" +
+                "   case(<span class=\"n\">ExEnum.<a title=\"pkg.ExEnum.TWO\" href=\"#m86\">TWO</a></span>):\n" +
+                "    <span class=\"f\"><span class=\"f\"><a href=\"#m154\">o</a></span>=<span class=\"f\">12</span></span>;\n" +
                 "  }\n" +
                 "  return <span class=\"f\"><span class=\"f\">1</span>+<span class=\"f\">(int)<span class=\"f\"><a href=\"#m154\">o</a></span></span></span>;\n" +
                 " }\n" +
@@ -6058,7 +6058,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append("  t=ExEnum.ONE;\n");
         xml_.append("  switch(t){\n");
         xml_.append("   case(ONE):\n");
-        xml_.append("   case(TWO)\n");
+        xml_.append("   case(TWO):\n");
         xml_.append("    o=12;\n");
         xml_.append("  }\n");
         xml_.append("  return 1+(int)o;\n");
@@ -6084,8 +6084,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  <span class=\"f\"><span class=\"f\"><a href=\"#m146\">t</a></span>=<span class=\"f\"><span class=\"f\">ExEnum</span>.<span class=\"f\"><a title=\"pkg.ExEnum.ONE\" href=\"#m25\">ONE</a></span></span></span>;\n" +
                 "  <span class=\"p\"><a title=\"1/3\">switch</a></span>(<span class=\"f\"><a href=\"#m146\">t</a></span>){\n" +
                 "   case(<span class=\"f\"><a title=\"pkg.ExEnum.ONE\" href=\"#m25\">ONE</a></span>):\n" +
-                "   case(<span class=\"n\"><a title=\"pkg.ExEnum.TWO\" href=\"#m29\">TWO</a></span>)\n" +
-                "    o=12;\n" +
+                "   case(<span class=\"n\"><a title=\"pkg.ExEnum.TWO\" href=\"#m29\">TWO</a></span>):\n" +
+                "    <span class=\"f\"><span class=\"f\"><a href=\"#m129\">o</a></span>=<span class=\"f\">12</span></span>;\n" +
                 "  }\n" +
                 "  return <span class=\"f\"><span class=\"f\">1</span>+<span class=\"f\">(int)<span class=\"f\"><a href=\"#m129\">o</a></span></span></span>;\n" +
                 " }\n" +
