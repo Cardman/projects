@@ -2,12 +2,15 @@ package code.expressionlanguage.opers;
 
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.instr.OperationsSequence;
+import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.util.CustList;
 import code.util.StringList;
 
 public final class ChoiceFieldOperation extends
         SettableAbstractFieldOperation {
+
+    private CustList<PartOffset> partOffsets = new CustList<PartOffset>();
 
     public ChoiceFieldOperation(int _indexInEl, int _indexChild,
             MethodOperation _m, OperationsSequence _op) {
@@ -22,6 +25,7 @@ public final class ChoiceFieldOperation extends
         int lenPref_ = className_.indexOf(PAR_LEFT)+1;
         className_ = className_.substring(lenPref_);
         className_ = _conf.resolveCorrectType(lenPref_,className_);
+        partOffsets.addAllElts(_conf.getContextEl().getCoverage().getCurrentParts());
         return new ClassArgumentMatching(className_);
     }
 
@@ -52,4 +56,8 @@ public final class ChoiceFieldOperation extends
         return false;
     }
 
+    @Override
+    public CustList<PartOffset> getPartOffsets() {
+        return partOffsets;
+    }
 }

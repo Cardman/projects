@@ -539,6 +539,15 @@ public final class ElUtil {
                 _parts.add(new PartOffset(tag_,sum_ + val_.getIndexInEl()));
             }
             if (curOp_ instanceof NamedCalledOperation) {
+                if (val_ instanceof FctOperation) {
+                    _parts.addAllElts(((FctOperation)val_).getPartOffsets());
+                }
+                if (val_ instanceof ChoiceFctOperation) {
+                    _parts.addAllElts(((ChoiceFctOperation)val_).getPartOffsets());
+                }
+                if (val_ instanceof SuperFctOperation) {
+                    _parts.addAllElts(((SuperFctOperation)val_).getPartOffsets());
+                }
                 int delta_ = ((NamedCalledOperation) curOp_).getDelta();
                 ClassMethodId classMethodId_ = ((NamedCalledOperation) curOp_).getClassMethodId();
                 String className_ = classMethodId_.getClassName();
@@ -680,6 +689,7 @@ public final class ElUtil {
                     tag_ = "</a>";
                     _parts.add(new PartOffset(tag_,sum_ + val_.getIndexInEl()+d_+c_.getFieldName().length()));
                 } else {
+                    _parts.addAllElts(((SettableAbstractFieldOperation) val_).getPartOffsets());
                     ClassField c_ = ((ExecSettableFieldOperation)curOp_).getFieldId();
                     int delta_ = ((SettableAbstractFieldOperation) val_).getOff();
                     updateFieldAnchor(_cont,_parts,c_,sum_ +delta_+ val_.getIndexInEl() + ((ExecSettableFieldOperation)curOp_).getDelta(),c_.getFieldName().length());
@@ -704,6 +714,10 @@ public final class ElUtil {
                         _parts.add(new PartOffset(tag_,offsetNew_+sum_ + val_.getIndexInEl()+_cont.getKeyWords().getKeyWordNew().length()));
                     }
                 }
+                _parts.addAllElts(((StandardInstancingOperation)val_).getPartOffsets());
+            }
+            if (curOp_ instanceof ExecDimensionArrayInstancing) {
+                _parts.addAllElts(((DimensionArrayInstancing)val_).getPartOffsets());
             }
             if (curOp_ instanceof ExecLambdaOperation) {
                 ClassMethodId classMethodId_ = ((ExecLambdaOperation) curOp_).getMethod();
@@ -752,6 +766,13 @@ public final class ElUtil {
                 } else {
                     updateFieldAnchor(_cont,_parts,fieldId_,sum_ + val_.getIndexInEl(),_cont.getKeyWords().getKeyWordLambda().length());
                 }
+                _parts.addAllElts(((LambdaOperation)val_).getPartOffsets());
+            }
+            if (curOp_ instanceof ExecStaticInfoOperation) {
+                _parts.addAllElts(((StaticInfoOperation)val_).getPartOffsets());
+            }
+            if (curOp_ instanceof ExecStaticAccessOperation) {
+                _parts.addAllElts(((StaticAccessOperation)val_).getPartOffsets());
             }
             if (curOp_ instanceof ExecCallDynMethodOperation) {
                 tag_ = "<b>";

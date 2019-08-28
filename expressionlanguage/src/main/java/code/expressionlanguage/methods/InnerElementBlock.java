@@ -325,6 +325,7 @@ public final class InnerElementBlock extends RootBlock implements InnerTypeOrEle
             tag_ = "</a>";
             _parts.add(new PartOffset(tag_,fieldNameOffest+fieldName.length()));
         }
+        _parts.addAllElts(partOffsets);
         int blOffset_ = valueOffest;
         int endBl_ = valueOffest + value.length();
         ElUtil.buildCoverageReport(_cont,blOffset_,this,opValue,endBl_,_parts,trOffset-1,fieldName);

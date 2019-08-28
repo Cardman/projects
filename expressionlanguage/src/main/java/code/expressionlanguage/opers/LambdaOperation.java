@@ -469,11 +469,12 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             CustList<ClassArgumentMatching> _methodTypes) {
         int offset_ = className.indexOf('(')+1;
         offset_ += StringList.getFirstPrintableCharIndex(_args.first());
+        String clFrom_ = EMPTY_STRING;
         if (!isIntermediateDottedOperation()) {
-            String cl_ = _conf.resolveCorrectType(offset_,_fromType);
+            clFrom_ = _conf.resolveCorrectType(offset_,_fromType);
             partOffsets.addAllElts(_conf.getContextEl().getCoverage().getCurrentParts());
-            if (cl_.startsWith(ARR)) {
-                processArray(_conf, _stds, _args, _len, _methodTypes, cl_);
+            if (clFrom_.startsWith(ARR)) {
+                processArray(_conf, _stds, _args, _len, _methodTypes, clFrom_);
                 return;
             }
         }
@@ -483,6 +484,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         KeyWords keyWords_ = _conf.getKeyWords();
         String keyWordId_ = keyWords_.getKeyWordId();
         boolean foundId_ = false;
+        CustList<PartOffset> argsPartOffsets_ = new CustList<PartOffset>();
         String type_ = EMPTY_STRING;
         if (_len > 2 &&StringList.quickEq(_args.get(2).trim(), keyWordId_)) {
             type_ = _conf.resolveCorrectType(offset_,_fromType);
@@ -521,37 +523,35 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             }
         }
         if (!isIntermediateDottedOperation()) {
-            String cl_ = _conf.resolveCorrectType(offset_,_fromType);
-            partOffsets.addAllElts(_conf.getContextEl().getCoverage().getCurrentParts());
-            String id_ = Templates.getIdFromAllTypes(cl_);
+            String id_ = Templates.getIdFromAllTypes(clFrom_);
             GeneType g_ = _conf.getClassBody(id_);
             if (g_.isAbstractType()) {
                 IllegalCallCtorByType call_ = new IllegalCallCtorByType();
-                call_.setType(cl_);
+                call_.setType(clFrom_);
                 call_.setFileName(_conf.getCurrentFileName());
                 call_.setIndexFile(_conf.getCurrentLocationIndex());
                 _conf.getClasses().addError(call_);
                 setResultClass(new ClassArgumentMatching(_stds.getAliasObject()));
                 return;
             }
-            for (String p:Templates.getAllTypes(cl_).mid(1)){
+            for (String p:Templates.getAllTypes(clFrom_).mid(1)){
                 if (p.startsWith(Templates.SUB_TYPE)) {
                     IllegalCallCtorByType call_ = new IllegalCallCtorByType();
-                    call_.setType(cl_);
+                    call_.setType(clFrom_);
                     call_.setFileName(_conf.getCurrentFileName());
                     call_.setIndexFile(_conf.getCurrentLocationIndex());
                     _conf.getClasses().addError(call_);
                 }
                 if (p.startsWith(Templates.SUP_TYPE)) {
                     IllegalCallCtorByType call_ = new IllegalCallCtorByType();
-                    call_.setType(cl_);
+                    call_.setType(clFrom_);
                     call_.setFileName(_conf.getCurrentFileName());
                     call_.setIndexFile(_conf.getCurrentLocationIndex());
                     _conf.getClasses().addError(call_);
                 }
             }
             ConstrustorIdVarArg ctorRes_;
-            ctorRes_ = getDeclaredCustConstructor(_conf, vararg_, new ClassArgumentMatching(cl_), feed_, ClassArgumentMatching.toArgArray(_methodTypes));
+            ctorRes_ = getDeclaredCustConstructor(_conf, vararg_, new ClassArgumentMatching(clFrom_), feed_, ClassArgumentMatching.toArgArray(_methodTypes));
             realId = ctorRes_.getRealId();
             if (realId == null) {
                 setResultClass(new ClassArgumentMatching(_stds.getAliasObject()));
@@ -561,7 +561,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             StringList parts_ = new StringList();
             if (!g_.isStaticType()) {
                 //From analyze
-                StringList innerParts_ = Templates.getAllInnerTypes(cl_);
+                StringList innerParts_ = Templates.getAllInnerTypes(clFrom_);
                 parts_.add(StringList.join(innerParts_.mid(0, innerParts_.size() - 1), ".."));
             }
             StringList params_ = fid_.getParametersTypes();
@@ -576,8 +576,8 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                     parts_.add(p);
                 }
             }
-            foundClass = cl_;
-            parts_.add(cl_);
+            foundClass = clFrom_;
+            parts_.add(clFrom_);
             StringBuilder fct_ = new StringBuilder(_stds.getAliasFct());
             fct_.append(Templates.TEMPLATE_BEGIN);
             fct_.append(StringList.join(parts_, Templates.TEMPLATE_SEP));
@@ -653,13 +653,17 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         }
         String sup_ = ownersMap_.values().first();
         StringList partsArgs_ = new StringList();
+        CustList<PartOffset> partOffsets_ = new CustList<PartOffset>();
         for (String a: Templates.getAllTypes(cl_).mid(1)) {
             int loc_ = StringList.getFirstPrintableCharIndex(a);
             String res_ = _conf.resolveCorrectType(offset_+loc_,a);
-            partOffsets.addAllElts(_conf.getContextEl().getCoverage().getCurrentParts());
+            partOffsets_.addAllElts(_conf.getContextEl().getCoverage().getCurrentParts());
             partsArgs_.add(res_);
             offset_ += a.length() + 1;
         }
+        partOffsets_.addAllElts(partOffsets);
+        partOffsets.clear();
+        partOffsets.addAllElts(partOffsets_);
         if (partsArgs_.isEmpty()) {
             cl_ = StringList.concat(sup_,"..",idClass_);
         } else {
@@ -1305,5 +1309,8 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
     public String getReturnFieldType() {
         return returnFieldType;
     }
-    
+
+    public CustList<PartOffset> getPartOffsets() {
+        return partOffsets;
+    }
 }

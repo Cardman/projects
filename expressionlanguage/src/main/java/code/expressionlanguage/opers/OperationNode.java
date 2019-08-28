@@ -1245,7 +1245,7 @@ public abstract class OperationNode implements Operable {
             String wc_ = Templates.wildCardFormatParam(static_, _class, _params[i].getClassName(), _context);
             formatPar_.add(wc_);
             if (_argsClass[i].isVariable()) {
-                if (_params[i].isPrimitive(_context)) {
+                if (wc_ != null && PrimitiveTypeUtil.isPrimitive(wc_,_context)) {
                     return false;
                 }
                 continue;

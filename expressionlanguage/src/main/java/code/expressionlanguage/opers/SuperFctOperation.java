@@ -7,6 +7,7 @@ import code.expressionlanguage.errors.custom.BadImplicitCast;
 import code.expressionlanguage.inherits.Mapping;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.OperationsSequence;
+import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ClassMethodIdReturn;
@@ -30,6 +31,8 @@ public final class SuperFctOperation extends InvokingOperation {
     private int naturalVararg = -1;
     private int anc;
     private int delta;
+    private CustList<PartOffset> partOffsets = new CustList<PartOffset>();
+
     public SuperFctOperation(int _index, int _indexChild, MethodOperation _m,
             OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
@@ -58,6 +61,7 @@ public final class SuperFctOperation extends InvokingOperation {
         int lenPref_ = methodName.indexOf(PAR_LEFT) + 1;
         className_ = className_.substring(lenPref_);
         className_ = _conf.resolveCorrectType(lenPref_,className_);
+        partOffsets.addAllElts(_conf.getContextEl().getCoverage().getCurrentParts());
         String clCurName_ = className_;
         StringList bounds_ = getBounds(clCurName_, _conf);
         CustList<ClassArgumentMatching> firstArgs_ = listClasses(chidren_, _conf);
@@ -156,5 +160,9 @@ public final class SuperFctOperation extends InvokingOperation {
 
     public int getDelta() {
         return delta;
+    }
+
+    public CustList<PartOffset> getPartOffsets() {
+        return partOffsets;
     }
 }

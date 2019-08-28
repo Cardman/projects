@@ -10,6 +10,7 @@ import code.expressionlanguage.inherits.Mapping;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.OperationsSequence;
+import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.opers.exec.Operable;
 import code.expressionlanguage.opers.exec.ParentOperable;
 import code.expressionlanguage.opers.exec.PossibleIntermediateDottedOperable;
@@ -43,6 +44,7 @@ public final class FctOperation extends InvokingOperation {
 
     private int delta;
 
+    private CustList<PartOffset> partOffsets = new CustList<PartOffset>();
     public FctOperation(int _index,
             int _indexChild, MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
@@ -95,6 +97,7 @@ public final class FctOperation extends InvokingOperation {
             int lenPref_ = trimMeth_.indexOf(PAR_LEFT) + 1;
             className_ = className_.substring(lenPref_);
             className_ = _conf.resolveCorrectType(lenPref_,className_);
+            partOffsets.addAllElts(_conf.getContextEl().getCoverage().getCurrentParts());
             Mapping map_ = new Mapping();
             map_.setParam(className_);
             map_.setArg(clCur_);
@@ -290,5 +293,9 @@ public final class FctOperation extends InvokingOperation {
 
     public int getDelta() {
         return delta;
+    }
+
+    public CustList<PartOffset> getPartOffsets() {
+        return partOffsets;
     }
 }

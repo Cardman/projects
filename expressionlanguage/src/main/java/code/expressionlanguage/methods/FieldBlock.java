@@ -354,6 +354,7 @@ public final class FieldBlock extends Leaf implements InfoBlock {
 
     @Override
     public void processReport(ContextEl _cont, CustList<PartOffset> _parts) {
+        _parts.addAllElts(partOffsets);
         int blOffset_ = valueOffset;
         int endBl_ = blOffset_ + value.length();
         ElUtil.buildCoverageReport(_cont,blOffset_,this,getOpValue(),endBl_,_parts);

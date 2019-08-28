@@ -382,7 +382,7 @@ public final class PartTypeUtil {
                         String rel_ = ElUtil.relativize(_fileName,ref_);
                         int id_ = ((RootBlock) g_).getIdRowCol();
                         int begin_ = _loc + l.getIndexInType();
-                        _offs.add(new PartOffset("<a href=\""+rel_+"#m"+id_+"\">", begin_));
+                        _offs.add(new PartOffset("<a title=\""+g_.getFullName()+"\" href=\""+rel_+"#m"+id_+"\">", begin_));
                         _offs.add(new PartOffset("</a>", begin_+type_.length()));
                         sh_ = true;
                     }

@@ -103,8 +103,10 @@ public final class OperatorBlock extends NamedFunctionBlock implements GeneMetho
         int endName_ = begName_ + getName().length();
         _parts.add(new PartOffset("<a name=\"m"+begName_+"\">",begName_));
         _parts.add(new PartOffset("</a>",endName_));
+        _parts.addAllElts(getPartOffsetsReturn());
         int len_ = getParametersNamesOffset().size();
         for (int i = 0; i < len_; i++) {
+            _parts.addAllElts(getPartOffsetsParams().get(i));
             Integer off_ = getParametersNamesOffset().get(i);
             String param_ = getParametersNames().get(i);
             _parts.add(new PartOffset("<a name=\"m"+off_+"\">",off_));

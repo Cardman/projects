@@ -7,6 +7,7 @@ import code.expressionlanguage.errors.custom.UnexpectedOperationAffect;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.instr.OperationsSequence;
+import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.opers.exec.Operable;
@@ -103,6 +104,7 @@ public abstract class SettableAbstractFieldOperation extends
     abstract String getFieldName();
     abstract boolean isBaseAccess();
     abstract boolean isSuperAccess();
+    public abstract CustList<PartOffset> getPartOffsets();
     public abstract int getDelta();
 
     @Override

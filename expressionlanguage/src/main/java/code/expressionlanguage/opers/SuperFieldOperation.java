@@ -2,6 +2,7 @@ package code.expressionlanguage.opers;
 
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.instr.OperationsSequence;
+import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.util.CustList;
 import code.util.StringList;
@@ -50,4 +51,8 @@ public final class SuperFieldOperation extends
         return true;
     }
 
+    @Override
+    public CustList<PartOffset> getPartOffsets() {
+        return new CustList<PartOffset>();
+    }
 }

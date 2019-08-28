@@ -122,7 +122,8 @@ public final class DimensionArrayInstancing extends
         String new_ = keyWords_.getKeyWordNew();
         String className_ = m_.trim().substring(new_.length());
         if (typeInfer.isEmpty()) {
-            className_ = _conf.resolveCorrectType(new_.length(),className_);
+            int local_ = StringList.getFirstPrintableCharIndex(className_);
+            className_ = _conf.resolveCorrectType(new_.length()+local_,className_.trim());
             partOffsets.addAllElts(_conf.getContextEl().getCoverage().getCurrentParts());
         } else {
             className_ = typeInfer;

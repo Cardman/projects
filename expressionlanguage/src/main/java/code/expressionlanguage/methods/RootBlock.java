@@ -1553,15 +1553,15 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
 
     @Override
     public void processReport(ContextEl _cont, CustList<PartOffset> _parts) {
-//        _parts.add(new PartOffset("<a name=\"m"+idRowCol+"\">",idRowCol));
-//        _parts.add(new PartOffset("</a>",idRowCol+nameLength));
-//        for (PartOffset p: constraintsParts) {
-//            _parts.add(p);
-//        }
-//
-//        for (PartOffset p: superTypesParts) {
-//            _parts.add(p);
-//        }
+        _parts.add(new PartOffset("<a name=\"m"+idRowCol+"\">",idRowCol));
+        _parts.add(new PartOffset("</a>",idRowCol+nameLength));
+        for (PartOffset p: constraintsParts) {
+            _parts.add(p);
+        }
+
+        for (PartOffset p: superTypesParts) {
+            _parts.add(p);
+        }
 
     }
 

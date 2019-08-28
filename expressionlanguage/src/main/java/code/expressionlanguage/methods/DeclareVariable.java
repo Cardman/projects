@@ -84,6 +84,8 @@ public final class DeclareVariable extends Leaf implements InitVariable,Buildabl
             _parts.add(new PartOffset(tag_,classNameOffset));
             tag_ = "</b>";
             _parts.add(new PartOffset(tag_,classNameOffset+ _cont.getKeyWords().getKeyWordFor().length()));
+        } else {
+            _parts.addAllElts(partOffsets);
         }
     }
     @Override

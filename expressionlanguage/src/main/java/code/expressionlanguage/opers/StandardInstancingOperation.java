@@ -215,7 +215,8 @@ public final class StandardInstancingOperation extends
             if (!typeInfer.isEmpty()) {
                 realClassName_ = typeInfer;
             } else if (fieldName.isEmpty()) {
-                realClassName_ = _conf.resolveCorrectType(newKeyWord_.length(),realClassName_);
+                int local_ = StringList.getFirstPrintableCharIndex(realClassName_);
+                realClassName_ = _conf.resolveCorrectType(newKeyWord_.length()+local_,realClassName_.trim());
                 partOffsets.addAllElts(_conf.getContextEl().getCoverage().getCurrentParts());
             } else {
                 realClassName_ = realClassName_.trim();

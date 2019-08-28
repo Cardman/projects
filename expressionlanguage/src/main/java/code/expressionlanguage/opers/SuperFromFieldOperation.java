@@ -5,6 +5,7 @@ import code.expressionlanguage.errors.custom.BadImplicitCast;
 import code.expressionlanguage.inherits.Mapping;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.OperationsSequence;
+import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
@@ -13,6 +14,8 @@ import code.util.StringMap;
 
 public final class SuperFromFieldOperation extends
         SettableAbstractFieldOperation {
+
+    private CustList<PartOffset> partOffsets = new CustList<PartOffset>();
 
     public SuperFromFieldOperation(int _indexInEl, int _indexChild,
             MethodOperation _m, OperationsSequence _op) {
@@ -28,6 +31,7 @@ public final class SuperFromFieldOperation extends
         int lenPref_ = className_.indexOf(PAR_LEFT)+1;
         className_ = className_.substring(lenPref_);
         className_ = _conf.resolveCorrectType(lenPref_,className_);
+        partOffsets.addAllElts(_conf.getContextEl().getCoverage().getCurrentParts());
         ClassArgumentMatching clCur_;
         if (!isIntermediateDottedOperation()) {
             clCur_ = new ClassArgumentMatching(_conf.getGlobalClass());
@@ -77,4 +81,8 @@ public final class SuperFromFieldOperation extends
         return true;
     }
 
+    @Override
+    public CustList<PartOffset> getPartOffsets() {
+        return partOffsets;
+    }
 }

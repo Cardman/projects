@@ -2,6 +2,7 @@ package code.expressionlanguage.opers;
 
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.instr.OperationsSequence;
+import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.opers.exec.StandardFieldOperable;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.util.CustList;
@@ -52,6 +53,11 @@ public final class StandardFieldOperation extends
     @Override
     boolean isSuperAccess() {
         return true;
+    }
+
+    @Override
+    public CustList<PartOffset> getPartOffsets() {
+        return new CustList<PartOffset>();
     }
 
 }
