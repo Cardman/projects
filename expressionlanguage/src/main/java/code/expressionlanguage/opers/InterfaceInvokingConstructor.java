@@ -29,7 +29,7 @@ public final class InterfaceInvokingConstructor extends AbstractInvokingConstruc
         String clCurName_ = _conf.getGlobalClass();
         String cl_ = getMethodName();
         cl_ = cl_.substring(cl_.indexOf(PAR_LEFT)+1, cl_.lastIndexOf(PAR_RIGHT));
-        cl_ = _conf.resolveAccessibleIdType(cl_);
+        cl_ = _conf.resolveAccessibleIdType(cl_.indexOf(PAR_LEFT)+1,cl_);
         if (!(_conf.getClasses().getClassBody(cl_) instanceof InterfaceBlock)) {
             BadConstructorCall call_ = new BadConstructorCall();
             call_.setFileName(_conf.getCurrentFileName());

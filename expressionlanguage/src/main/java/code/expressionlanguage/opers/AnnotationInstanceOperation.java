@@ -128,10 +128,11 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
                 className = _conf.getStandards().getAliasObject();
             }
         } else {
+            int off_ = StringList.getFirstPrintableCharIndex(methodName);
+            setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
             String className_ = methodName.trim().substring(AROBASE.length());
-            className_ = className_.trim();
             String realClassName_ = className_;
-            realClassName_ = _conf.resolveCorrectType(realClassName_);
+            realClassName_ = _conf.resolveCorrectType(1,realClassName_);
             GeneType g_ = _conf.getClassBody(realClassName_);
             if (!(g_ instanceof AnnotationBlock)) {
                 IllegalCallCtorByType call_ = new IllegalCallCtorByType();

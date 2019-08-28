@@ -26,8 +26,9 @@ public final class InstanceOfOperation extends AbstractUnaryOperation {
         LgNames stds_ = _conf.getStandards();
         KeyWords keyWords_ = _conf.getKeyWords();
         String keyWordInstanceof_ = keyWords_.getKeyWordInstanceof();
-        String sub_ = className.substring(keyWordInstanceof_.length() + className.indexOf(keyWordInstanceof_));
-        sub_ = _conf.resolveCorrectType(sub_, sub_.contains(Templates.TEMPLATE_BEGIN));
+        int begin_ = keyWordInstanceof_.length() + className.indexOf(keyWordInstanceof_);
+        String sub_ = className.substring(begin_);
+        sub_ = _conf.resolveCorrectType(begin_,sub_, sub_.contains(Templates.TEMPLATE_BEGIN));
         if (!sub_.contains(Templates.TEMPLATE_BEGIN)) {
             if (!sub_.startsWith(Templates.PREFIX_VAR_TYPE)) {
                 correctTemplate = Templates.correctNbParameters(sub_, _conf);

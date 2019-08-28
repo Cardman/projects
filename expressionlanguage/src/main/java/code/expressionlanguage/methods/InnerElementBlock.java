@@ -52,6 +52,7 @@ public final class InnerElementBlock extends RootBlock implements InnerTypeOrEle
 
     private String importedDirectSuperClass = "";
     private StringList importedDirectSuperInterfaces = new StringList();
+    private CustList<PartOffset> partOffsets = new CustList<PartOffset>();
 
     public InnerElementBlock(EnumBlock _m, OffsetStringInfo _fieldName,
                              OffsetStringInfo _type,
@@ -176,8 +177,10 @@ public final class InnerElementBlock extends RootBlock implements InnerTypeOrEle
         page_.setOffset(0);
         page_.setCurrentBlock(this);
         String className_ = getClassName();
+        int len_ = -className_.length();
         className_ = StringList.concat(className_, tempClass);
-        importedClassName = _cont.resolveCorrectType(className_);
+        importedClassName = _cont.resolveCorrectType(len_,className_);
+        partOffsets.addAllElts(_cont.getCoverage().getCurrentParts().mid(2));
     }
 
     @Override

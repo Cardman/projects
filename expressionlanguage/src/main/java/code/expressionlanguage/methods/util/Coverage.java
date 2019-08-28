@@ -6,11 +6,13 @@ import code.expressionlanguage.calls.AbstractPageEl;
 import code.expressionlanguage.calls.ReflectAnnotationPageEl;
 import code.expressionlanguage.calls.ReflectGetDefaultValuePageEl;
 import code.expressionlanguage.calls.util.ReadWrite;
+import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.NamedFunctionBlock;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.exec.ExecInternVariableOperation;
 import code.expressionlanguage.opers.exec.ExecOperationNode;
+import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringMap;
 
@@ -29,6 +31,7 @@ public final class Coverage {
     private StringMap<Integer> paramVars = new StringMap<Integer>();
     private String currentFileName = "";
     private boolean possibleDeclareLoopVars;
+    private CustList<PartOffset> currentParts = new CustList<PartOffset>();
     public void putBlockOperationsLoops(Analyzable _context, Block _block) {
         if (!_context.getContextEl().isCovering()) {
             return;
@@ -217,5 +220,9 @@ public final class Coverage {
 
     public void setCurrentFileName(String _currentFileName) {
         currentFileName = _currentFileName;
+    }
+
+    public CustList<PartOffset> getCurrentParts() {
+        return currentParts;
     }
 }

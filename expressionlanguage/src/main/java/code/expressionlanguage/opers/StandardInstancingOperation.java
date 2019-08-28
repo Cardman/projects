@@ -11,6 +11,7 @@ import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.inherits.TypeUtil;
 import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.instr.OperationsSequence;
+import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.methods.*;
 import code.expressionlanguage.opers.exec.Operable;
 import code.expressionlanguage.opers.exec.ParentOperable;
@@ -46,6 +47,7 @@ public final class StandardInstancingOperation extends
 
     private String lastType = EMPTY_STRING;
     private String typeInfer = EMPTY_STRING;
+    private CustList<PartOffset> partOffsets = new CustList<PartOffset>();
 
     public StandardInstancingOperation(int _index, int _indexChild,
             MethodOperation _m, OperationsSequence _op) {
@@ -110,6 +112,8 @@ public final class StandardInstancingOperation extends
         OperationNode current_;
         MethodOperation m_;
         if (!isIntermediateDottedOperation()) {
+            int off_ = StringList.getFirstPrintableCharIndex(methodName);
+            setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _an);
             type_ = _an.resolveAccessibleIdTypeWithoutError(inferForm_);
             if (type_.isEmpty()) {
                 return;
@@ -203,7 +207,7 @@ public final class StandardInstancingOperation extends
         className = _conf.getStandards().getAliasObject();
         KeyWords keyWords_ = _conf.getKeyWords();
         String newKeyWord_ = keyWords_.getKeyWordNew();
-        String realClassName_ = methodName.trim().substring(newKeyWord_.length()).trim();
+        String realClassName_ = methodName.trim().substring(newKeyWord_.length());
         CustList<OperationNode> filter_ = ElUtil.filterInvoking(chidren_);
         CustList<ClassArgumentMatching> firstArgs_ = listClasses(filter_, _conf);
         if (!isIntermediateDottedOperation()) {
@@ -211,7 +215,8 @@ public final class StandardInstancingOperation extends
             if (!typeInfer.isEmpty()) {
                 realClassName_ = typeInfer;
             } else if (fieldName.isEmpty()) {
-                realClassName_ = _conf.resolveCorrectType(realClassName_);
+                realClassName_ = _conf.resolveCorrectType(newKeyWord_.length(),realClassName_);
+                partOffsets.addAllElts(_conf.getContextEl().getCoverage().getCurrentParts());
             } else {
                 realClassName_ = realClassName_.trim();
             }
@@ -222,6 +227,7 @@ public final class StandardInstancingOperation extends
             analyzeCtor(_conf, typeInfer, firstArgs_);
             return;
         }
+        int offset_ = StringList.getFirstPrintableCharIndex(realClassName_);
         realClassName_ = realClassName_.trim();
         if (realClassName_.startsWith("..")) {
             StaticAccessError static_ = new StaticAccessError();
@@ -244,6 +250,7 @@ public final class StandardInstancingOperation extends
         }
         StringMap<String> ownersMap_ = new StringMap<String>();
         String idClass_ = Templates.getIdFromAllTypes(realClassName_);
+        offset_ += idClass_.length() + 1;
         String glClass_ = _conf.getGlobalClass();
         for (String o: arg_.getNames()) {
             boolean ok_ = true;
@@ -284,7 +291,10 @@ public final class StandardInstancingOperation extends
         String sup_ = ownersMap_.values().first();
         StringList partsArgs_ = new StringList();
         for (String a: Templates.getAllTypes(realClassName_).mid(1)) {
-            partsArgs_.add(_conf.resolveCorrectType(a));
+            int loc_ = StringList.getFirstPrintableCharIndex(a);
+            partsArgs_.add(_conf.resolveCorrectType(offset_+loc_,a));
+            partOffsets.addAllElts(_conf.getContextEl().getCoverage().getCurrentParts());
+            offset_ += a.length() + 1;
         }
         if (partsArgs_.isEmpty()) {
             realClassName_ = StringList.concat(sup_,"..",idClass_);
@@ -454,4 +464,7 @@ public final class StandardInstancingOperation extends
         return lastType;
     }
 
+    public CustList<PartOffset> getPartOffsets() {
+        return partOffsets;
+    }
 }

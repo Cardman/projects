@@ -46,6 +46,7 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
     private StringList annotations = new StringList();
     private CustList<CustList<ExecOperationNode>> annotationsOps = new CustList<CustList<ExecOperationNode>>();
     private Ints annotationsIndexes = new Ints();
+    private CustList<PartOffset> partOffsets = new CustList<PartOffset>();
 
     public ElementBlock(OffsetStringInfo _fieldName,
                         OffsetStringInfo _type,
@@ -120,8 +121,10 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
         page_.setOffset(0);
         page_.setCurrentBlock(this);
         String className_ = getClassName();
+        int len_ = -className_.length();
         className_ = StringList.concat(className_, tempClass);
-        importedClassName = _cont.resolveCorrectType(className_);
+        importedClassName = _cont.resolveCorrectType(len_,className_);
+        partOffsets.addAllElts(_cont.getCoverage().getCurrentParts().mid(2));
     }
     @Override
     public void setAssignmentBefore(Analyzable _an) {
@@ -246,12 +249,12 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
         cl_ = Templates.getIdFromAllTypes(cl_);
         ConstructorId c_ = ((ExecStandardInstancingOperation)root_).getConstId();
         GeneType type_ = _cont.getClassBody(cl_);
-        String file_ = ((RootBlock) type_).getFile().getFileName();
+        String file_ = ((RootBlock) type_).getFile().getRenderFileName();
         String fileName_ = _cont.getCoverage().getCurrentFileName();
         CustList<GeneConstructor> ctors_ = Classes.getConstructorBodiesById(_cont, cl_, c_);
         if (!ctors_.isEmpty()) {
             ConstructorBlock ctor_ = (ConstructorBlock) ctors_.first();
-            String rel_ = ElUtil.relativize(fileName_,file_+".html#m"+ctor_.getNameOffset());
+            String rel_ = ElUtil.relativize(fileName_,file_+"#m"+ctor_.getNameOffset());
             String tag_ = "<a name=\"m"+fieldNameOffest+"\" title=\""+ cl_ +"."+ c_.getSignature(_cont)+"\" href=\""+rel_+"\">";
             _parts.add(new PartOffset(tag_,fieldNameOffest));
             tag_ = "</a>";

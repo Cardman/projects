@@ -31,6 +31,7 @@ public final class OperationsSequence {
 
     private String extractType = "";
 
+    private CustList<PartOffset> partOffsets = new CustList<PartOffset>();
     private int countArrays;
     private Ints errorParts = new Ints();
     private boolean instance;
@@ -325,6 +326,14 @@ public final class OperationsSequence {
 
     public void setExtractType(String _extractType) {
         extractType = _extractType;
+    }
+
+    public CustList<PartOffset> getPartOffsets() {
+        return partOffsets;
+    }
+
+    public void setPartOffsets(CustList<PartOffset> _partOffsets) {
+        partOffsets = _partOffsets;
     }
 
     public int getDelta() {

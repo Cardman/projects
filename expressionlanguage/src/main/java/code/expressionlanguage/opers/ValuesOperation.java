@@ -33,7 +33,7 @@ public final class ValuesOperation extends LeafOperation {
         String glClass_ = _conf.getGlobalClass();
         Classes classes_ = _conf.getClasses();
         String clName_;
-        clName_ = _conf.resolveAccessibleIdType(className);
+        clName_ = _conf.resolveAccessibleIdType(0,className);
         RootBlock r_ = classes_.getClassBody(clName_);
         if (!(r_ instanceof EnumBlock)) {
             UnexpectedTypeError un_ = new UnexpectedTypeError();

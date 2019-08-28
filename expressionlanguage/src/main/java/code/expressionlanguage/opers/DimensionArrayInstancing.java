@@ -5,6 +5,7 @@ import code.expressionlanguage.errors.custom.UnexpectedTypeOperationError;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.OperationsSequence;
+import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.FunctionBlock;
 import code.expressionlanguage.methods.NamedFunctionBlock;
@@ -19,6 +20,7 @@ public final class DimensionArrayInstancing extends
         AbstractArrayInstancingOperation implements PreAnalyzableOperation {
     private int countArrayDims;
     private String typeInfer = EMPTY_STRING;
+    private CustList<PartOffset> partOffsets = new CustList<PartOffset>();
 
     public DimensionArrayInstancing(int _index, int _indexChild,
             MethodOperation _m, OperationsSequence _op) {
@@ -42,6 +44,9 @@ public final class DimensionArrayInstancing extends
         String type_;
         int nbParentsInfer_ = 0;
         OperationNode current_;
+        String mName_ = getMethodName();
+        int off_ = StringList.getFirstPrintableCharIndex(mName_);
+        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _an);
         MethodOperation m_;
         type_ = _an.resolveAccessibleIdTypeWithoutError(inferForm_);
         if (type_.isEmpty()) {
@@ -116,9 +121,9 @@ public final class DimensionArrayInstancing extends
         KeyWords keyWords_ = _conf.getKeyWords();
         String new_ = keyWords_.getKeyWordNew();
         String className_ = m_.trim().substring(new_.length());
-        className_ = className_.trim();
         if (typeInfer.isEmpty()) {
-            className_ = _conf.resolveCorrectType(className_);
+            className_ = _conf.resolveCorrectType(new_.length(),className_);
+            partOffsets.addAllElts(_conf.getContextEl().getCoverage().getCurrentParts());
         } else {
             className_ = typeInfer;
         }
@@ -144,4 +149,7 @@ public final class DimensionArrayInstancing extends
         return countArrayDims;
     }
 
+    public CustList<PartOffset> getPartOffsets() {
+        return partOffsets;
+    }
 }

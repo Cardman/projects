@@ -45,7 +45,7 @@ public final class VarargOperation extends LeafOperation implements VarargOperab
             return;
         }
         String str_ = className.substring(className.indexOf(PAR_LEFT)+1, className.lastIndexOf(PAR_RIGHT));
-        str_ = _conf.resolveCorrectType(str_);
+        str_ = _conf.resolveCorrectType(className.indexOf(PAR_LEFT)+1,str_);
         setResultClass(new ClassArgumentMatching(str_));
         className = str_;
         setSimpleArgument(new Argument());

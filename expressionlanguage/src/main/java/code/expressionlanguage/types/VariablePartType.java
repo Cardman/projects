@@ -37,7 +37,7 @@ final class VariablePartType extends LeafPartType {
             t_ = StringList.concat(Templates.PREFIX_VAR_TYPE,t_);
         }
         type_ = ContextEl.removeDottedSpaces(type_);
-        if (!StringList.contains(_an.getAvailableVariables(), type_)) {
+        if (!_an.getAvailableVariables().contains(type_)) {
             _an.getCurrentBadIndexes().add(getIndexInType());
         }
         setAnalyzedType(t_);
@@ -64,7 +64,7 @@ final class VariablePartType extends LeafPartType {
             t_ = StringList.concat(Templates.PREFIX_VAR_TYPE,t_);
         }
         type_ = ContextEl.removeDottedSpaces(type_);
-        if (!StringList.contains(_an.getAvailableVariables(), type_)) {
+        if (!_an.getAvailableVariables().contains(type_)) {
             _an.getCurrentBadIndexes().add(getIndexInType());
             return;
         }
@@ -100,7 +100,7 @@ final class VariablePartType extends LeafPartType {
             t_ = StringList.concat(Templates.PREFIX_VAR_TYPE,t_);
         }
         type_ = ContextEl.removeDottedSpaces(type_);
-        if (!StringList.contains(_an.getAvailableVariables(), type_)) {
+        if (!_an.getAvailableVariables().contains(type_)) {
             _an.getCurrentBadIndexes().add(getIndexInType());
             return;
         }
@@ -120,7 +120,7 @@ final class VariablePartType extends LeafPartType {
         String t_ = StringList.removeAllSpaces(type_);
         type_ = type_.trim().substring(Templates.PREFIX_VAR_TYPE.length()).trim();
         type_ = ContextEl.removeDottedSpaces(type_);
-        if (!StringList.contains(_an.getAvailableVariables(), type_)) {
+        if (!_an.getAvailableVariables().contains(type_)) {
             return;
         }
         setAnalyzedType(t_);

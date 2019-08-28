@@ -17,6 +17,7 @@ import code.expressionlanguage.errors.custom.UnknownClassName;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.inherits.TypeUtil;
+import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.instr.ResultAfterInstKeyWord;
 import code.expressionlanguage.methods.*;
 import code.expressionlanguage.methods.util.TypeVar;
@@ -703,7 +704,7 @@ public final class Configuration implements ExecutableCode {
     }
 
     @Override
-    public String resolveAccessibleIdType(String _in) {
+    public String resolveAccessibleIdType(int _loc,String _in) {
         int rc_ = getCurrentLocationIndex();
         String void_ = standards.getAliasVoid();
         if (StringList.quickEq(_in.trim(), void_)) {
@@ -766,14 +767,20 @@ public final class Configuration implements ExecutableCode {
         }
         AccessingImportingBlock r_ = analyzingDoc.getCurrentDoc();
         String gl_ = getGlobalClass();
-        return PartTypeUtil.processAnalyzeLine(_in,gl_,this,r_);
+        return PartTypeUtil.processAnalyzeLine(_in,gl_,this,r_, "",0,new CustList<PartOffset>());
     }
     @Override
     public String resolveCorrectType(String _in) {
-        return resolveCorrectType(_in,true);
+        return resolveCorrectType(0,_in,true);
     }
+
     @Override
-    public String resolveCorrectAccessibleType(String _in, String _fromType) {
+    public String resolveCorrectType(int _loc, String _in) {
+        return resolveCorrectType(_loc,_in,true);
+    }
+
+    @Override
+    public String resolveCorrectAccessibleType(int _loc,String _in, String _fromType) {
         int rc_ = getCurrentLocationIndex();
         String void_ = standards.getAliasVoid();
         if (StringList.quickEq(_in.trim(), void_)) {
@@ -785,17 +792,17 @@ public final class Configuration implements ExecutableCode {
             return standards.getAliasObject();
         }
         AccessedBlock r_ = analyzingDoc.getCurrentDoc();
-        StringList varsList_ = new StringList();
         StringMap<StringList> vars_ = new StringMap<StringList>();
         String idFromType_ = Templates.getIdFromAllTypes(_fromType);
         GeneType from_ = getClassBody(idFromType_);
+        StringMap<Integer> available_ = new StringMap<Integer>();
         for (TypeVar t: from_.getParamTypesMapValues()) {
-            varsList_.add(t.getName());
+            available_.addEntry(t.getName(),0);
             vars_.put(t.getName(), t.getConstraints());
         }
         getAvailableVariables().clear();
-        getAvailableVariables().addAllElts(varsList_);
-        String resType_ = PartTypeUtil.processAnalyzeAccessibleId(_in, this, r_);
+        getAvailableVariables().putAllMap(available_);
+        String resType_ = PartTypeUtil.processAnalyzeAccessibleId(_in, this, r_,"","",0,new CustList<PartOffset>());
         if (resType_.trim().isEmpty()) {
             UnknownClassName un_ = new UnknownClassName();
             un_.setClassName(_in);
@@ -815,8 +822,8 @@ public final class Configuration implements ExecutableCode {
         return resType_;
     }
     @Override
-    public String resolveCorrectType(String _in, boolean _exact) {
-        String res_ = resolveCorrectTypeWithoutErrors(_in, _exact);
+    public String resolveCorrectType(int _loc, String _in, boolean _exact) {
+        String res_ = resolveCorrectTypeWithoutErrors(0,_in, _exact);
         if (!res_.isEmpty()) {
             return res_;
         }
@@ -824,7 +831,17 @@ public final class Configuration implements ExecutableCode {
     }
 
     @Override
-    public String resolveCorrectTypeWithoutErrors(String _in, boolean _exact) {
+    public void appendMultiParts(int _begin, String _full, String _in, CustList<PartOffset> _parts) {
+        //implement
+    }
+
+    @Override
+    public void appendParts(int _begin, int _end, String _in, CustList<PartOffset> _parts) {
+        //implement
+    }
+
+    @Override
+    public String resolveCorrectTypeWithoutErrors(int _loc,String _in, boolean _exact) {
         String void_ = standards.getAliasVoid();
         if (StringList.quickEq(_in.trim(), void_)) {
             return "";
@@ -832,14 +849,18 @@ public final class Configuration implements ExecutableCode {
         AccessingImportingBlock r_ = analyzingDoc.getCurrentDoc();
         StringMap<StringList> vars_ = getCurrentConstraints();
         CustList<String> varsList_ = vars_.getKeys();
+        StringMap<Integer> available_ = new StringMap<Integer>();
+        for (String p: varsList_) {
+            available_.addEntry(p,0);
+        }
         getAvailableVariables().clear();
-        getAvailableVariables().addAllElts(varsList_);
+        getAvailableVariables().putAllMap(available_);
         String gl_ = getGlobalClass();
         String resType_;
         if (_exact) {
-            resType_ = PartTypeUtil.processAnalyze(_in, gl_, this, r_);
+            resType_ = PartTypeUtil.processAnalyze(_in, gl_, this, r_, "",0,new CustList<PartOffset>());
         } else {
-            resType_ = PartTypeUtil.processAnalyzeLine(_in, gl_, this, r_);
+            resType_ = PartTypeUtil.processAnalyzeLine(_in, gl_, this, r_, "",0,new CustList<PartOffset>());
         }
         if (resType_.trim().isEmpty()) {
             return "";
@@ -1323,7 +1344,7 @@ public final class Configuration implements ExecutableCode {
         return getTypeOrEmpty(res_);
     }
     @Override
-    public StringList getAvailableVariables() {
+    public StringMap<Integer> getAvailableVariables() {
         return context.getAvailableVariables();
     }
 

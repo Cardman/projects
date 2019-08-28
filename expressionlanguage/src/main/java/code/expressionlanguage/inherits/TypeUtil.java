@@ -59,8 +59,9 @@ public final class TypeUtil {
                 int offset_ = c.getStaticInitInterfacesOffset().get(i);
                 String base_ = ContextEl.removeDottedSpaces(ints_.get(i));
                 _context.getAnalyzing().setCurrentBlock(c);
-                _context.getAnalyzing().setOffset(offset_);
-                base_ = _context.resolveAccessibleIdType(base_);
+                _context.getAnalyzing().setGlobalOffset(offset_);
+                _context.getAnalyzing().setOffset(0);
+                base_ = _context.resolveAccessibleIdType(0,base_);
                 RootBlock r_ = classes_.getClassBody(base_);
                 if (!(r_ instanceof InterfaceBlock)) {
                     BadInheritedClass enum_;
@@ -78,8 +79,9 @@ public final class TypeUtil {
                 int offsetSup_ = c.getStaticInitInterfacesOffset().get(i);
                 _context.getAnalyzing().setCurrentBlock(c);
                 _context.getAnalyzing().setGlobalClass(c.getGenericString());
-                _context.getAnalyzing().setOffset(offsetSup_);
-                sup_ = _context.resolveAccessibleIdType(sup_);
+                _context.getAnalyzing().setGlobalOffset(offsetSup_);
+                _context.getAnalyzing().setOffset(0);
+                sup_ = _context.resolveAccessibleIdType(0,sup_);
                 RootBlock rs_ = classes_.getClassBody(sup_);
                 if (rs_ == null) {
                     continue;
@@ -89,8 +91,9 @@ public final class TypeUtil {
                     int offsetSub_ = c.getStaticInitInterfacesOffset().get(j);
                     _context.getAnalyzing().setCurrentBlock(c);
                     _context.getAnalyzing().setGlobalClass(c.getGenericString());
-                    _context.getAnalyzing().setOffset(offsetSub_);
-                    sub_ = _context.resolveAccessibleIdType(sub_);
+                    _context.getAnalyzing().setGlobalOffset(offsetSub_);
+                    _context.getAnalyzing().setOffset(0);
+                    sub_ = _context.resolveAccessibleIdType(0,sub_);
                     rs_ = classes_.getClassBody(sub_);
                     if (rs_ == null) {
                         continue;

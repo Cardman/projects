@@ -3,8 +3,10 @@ package code.expressionlanguage;
 import code.expressionlanguage.common.GeneMethod;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.inherits.TypeOwnersDepends;
+import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.instr.ResultAfterInstKeyWord;
 import code.expressionlanguage.methods.*;
+import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ClassMethodId;
@@ -101,12 +103,16 @@ public interface Analyzable {
 
 
     String resolveCorrectType(String _in);
-    String resolveAccessibleIdType(String _in);
+    String resolveCorrectType(int _loc,String _in);
+    String resolveAccessibleIdType(int _loc,String _in);
     String resolveAccessibleIdTypeWithoutError(String _in);
-    String resolveCorrectAccessibleType(String _in, String _fromType);
-    String resolveCorrectType(String _in, boolean _exact);
+    String resolveCorrectAccessibleType(int _loc,String _in, String _fromType);
+    String resolveCorrectType(int _loc,String _in, boolean _exact);
     StringMap<StringList> getCurrentConstraints();
-    String resolveCorrectTypeWithoutErrors(String _in, boolean _exact);
+
+    void appendMultiParts(int _begin, String _full, String _in, CustList<PartOffset> _parts);
+    void appendParts(int _begin, int _end, String _in, CustList<PartOffset> _parts);
+    String resolveCorrectTypeWithoutErrors(int _loc,String _in, boolean _exact);
 
     ObjectMap<ClassMethodId,Integer> lookupImportStaticMethods(String _glClass,String _method, Block _rooted);
     ObjectMap<ClassField,Integer> lookupImportStaticFields(String _glClass,String _field, Block _rooted);
@@ -116,7 +122,7 @@ public interface Analyzable {
     String lookupImportType(String _type, AccessedBlock _rooted);
     String lookupSingleImportType(String _type, AccessedBlock _rooted);
 
-    StringList getAvailableVariables();
+    StringMap<Integer> getAvailableVariables();
     StringList getVariablesNames();
 
     ForLoopPart getForLoopPartState();

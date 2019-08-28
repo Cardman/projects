@@ -30,8 +30,7 @@ public final class ElementArrayInstancing extends AbstractArrayInstancingOperati
         KeyWords keyWords_ = _conf.getKeyWords();
         String new_ = keyWords_.getKeyWordNew();
         String className_ = m_.trim().substring(new_.length());
-        className_ = className_.trim();
-        className_ = _conf.resolveCorrectType(className_);
+        className_ = _conf.resolveCorrectType(new_.length(),className_);
         if (!className_.startsWith(ARR)) {
             UnexpectedTypeOperationError un_ = new UnexpectedTypeOperationError();
             un_.setIndexFile(_conf.getCurrentLocationIndex());

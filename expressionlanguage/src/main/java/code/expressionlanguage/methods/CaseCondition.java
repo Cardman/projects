@@ -240,9 +240,9 @@ public final class CaseCondition extends SwitchPartBlock {
                 }
                 delta_ = f_.getFieldNameOffset();
             }
-            String file_ = ((RootBlock) type_).getFile().getFileName();
+            String file_ = ((RootBlock) type_).getFile().getRenderFileName();
             String currentFileName_ = _cont.getCoverage().getCurrentFileName();
-            String rel_ = ElUtil.relativize(currentFileName_,file_+".html#m"+delta_);
+            String rel_ = ElUtil.relativize(currentFileName_,file_+"#m"+delta_);
             tag_ = "<a title=\""+ElUtil.transform(typeEnum +"."+ getValue())+"\" href=\""+rel_+"\">";
             _parts.add(new PartOffset(tag_,off_));
             tag_ = "</a>";

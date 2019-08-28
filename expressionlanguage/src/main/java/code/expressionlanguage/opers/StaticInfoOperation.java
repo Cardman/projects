@@ -34,7 +34,7 @@ public final class StaticInfoOperation extends LeafOperation implements Reductib
             return;
         }
         String classStr_;
-        classStr_ = _conf.resolveCorrectType(realCl_, realCl_.contains(Templates.TEMPLATE_BEGIN));
+        classStr_ = _conf.resolveCorrectType(str_.indexOf(PAR_LEFT)+1,realCl_, realCl_.contains(Templates.TEMPLATE_BEGIN));
         className = classStr_;
         setResultClass(new ClassArgumentMatching(_conf.getStandards().getAliasClass()));
     }

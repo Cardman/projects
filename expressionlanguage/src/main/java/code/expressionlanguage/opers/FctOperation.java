@@ -94,7 +94,7 @@ public final class FctOperation extends InvokingOperation {
             String className_ = trimMeth_.substring(0, trimMeth_.lastIndexOf(PAR_RIGHT));
             int lenPref_ = trimMeth_.indexOf(PAR_LEFT) + 1;
             className_ = className_.substring(lenPref_);
-            className_ = _conf.resolveCorrectType(className_);
+            className_ = _conf.resolveCorrectType(lenPref_,className_);
             Mapping map_ = new Mapping();
             map_.setParam(className_);
             map_.setArg(clCur_);

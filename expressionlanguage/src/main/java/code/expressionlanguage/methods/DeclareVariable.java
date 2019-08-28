@@ -27,7 +27,7 @@ public final class DeclareVariable extends Leaf implements InitVariable,Buildabl
     private boolean finalVariable;
 
     private int finalVariableOffset;
-
+    private CustList<PartOffset> partOffsets = new CustList<PartOffset>();
     public DeclareVariable(OffsetBooleanInfo _finalVar, OffsetStringInfo _className, OffsetsBlock _offset) {
         super(_offset);
         finalVariable = _finalVar.isInfo();
@@ -62,6 +62,7 @@ public final class DeclareVariable extends Leaf implements InitVariable,Buildabl
             importedClassName = keyWordVar_;
         } else {
             importedClassName = _cont.resolveCorrectType(className);
+            partOffsets.addAllElts(_cont.getCoverage().getCurrentParts());
         }
         _cont.setMerged(true);
         _cont.setFinalVariable(finalVariable);

@@ -62,6 +62,13 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
     private int categoryOffset;
 
     private StringList staticInitInterfaces = new StringList();
+    private int templateDefOffset;
+    private int nameLength;
+
+    private CustList<Ints> paramTypesConstraintsOffset = new CustList<Ints>();
+    private CustList<PartOffset> superTypesParts = new CustList<PartOffset>();
+    private CustList<PartOffset> constraintsParts = new CustList<PartOffset>();
+
     private StringList staticInitImportedInterfaces = new StringList();
     private Ints staticInitInterfacesOffset = new Ints();
     private Ints ancestorsIndexes = new Ints();
@@ -82,6 +89,19 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
         access = _access.getInfo();
         accessOffset = _access.getOffset();
         templateDef = _templateDef;
+        if (!_templateDef.isEmpty()) {
+            nameLength = _name.length();
+            templateDefOffset = _idRowCol + nameLength;
+            if (!_packageName.isEmpty()) {
+                templateDefOffset += _packageName.length() + 1;
+                nameLength += _packageName.length() + 1;
+            }
+        } else {
+            nameLength = _name.length();
+            if (!_packageName.isEmpty()) {
+                nameLength += _packageName.length() + 1;
+            }
+        }
         rowColDirectSuperTypes = _directSuperTypes;
         idRowCol = _idRowCol;
         for (EntryCust<Integer, String> t: _directSuperTypes.entryList()) {
@@ -144,14 +164,16 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
     public final StringList getDepends(Analyzable _an) {
         IntMap< String> rcs_;
         rcs_ = getRowColDirectSuperTypes();
-        StringList varsList_ = new StringList();
+        StringMap<Integer> varsList_ = new StringMap<Integer>();
         for (RootBlock r: getSelfAndParentTypes()) {
+            int i_ = 0;
             for (TypeVar t: r.paramTypes) {
-                varsList_.add(t.getName());
+                varsList_.addEntry(t.getName(),t.getOffset());
+                i_ += 2;
             }
         }
         _an.getAvailableVariables().clear();
-        _an.getAvailableVariables().addAllElts(varsList_);
+        _an.getAvailableVariables().putAllMap(varsList_);
         Ints bi_ = _an.getCurrentBadIndexes();
         StringList all_ = new StringList();
         int i_ = 0;
@@ -374,10 +396,20 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
             int rc_ = r.idRowCol;
             for (TypeVar t: r.paramTypes) {
                 StringList const_ = new StringList();
+                if (r == this) {
+                    constraintsParts.add(new PartOffset("<a name=\"m"+t.getOffset()+"\">",t.getOffset()));
+                    constraintsParts.add(new PartOffset("</a>",t.getOffset()+t.getLength()));
+                }
+                _analyze.getCoverage().getCurrentParts().clear();
                 for (String c: t.getConstraints()) {
                     const_.add(_analyze.resolveTypeMapping(c,r, rc_));
                 }
+                if (r == this) {
+                    constraintsParts.addAllElts(_analyze.getCoverage().getCurrentParts());
+                }
                 TypeVar t_ = new TypeVar();
+                t_.setOffset(t.getOffset());
+                t_.setLength(t.getLength());
                 t_.setConstraints(const_);
                 t_.setName(t.getName());
                 paramTypesMap.put(t.getName(), t_);
@@ -406,6 +438,14 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
     @Override
     public CustList<TypeVar> getParamTypes() {
         return paramTypes;
+    }
+
+    public int getTemplateDefOffset() {
+        return templateDefOffset;
+    }
+
+    public CustList<Ints> getParamTypesConstraintsOffset() {
+        return paramTypesConstraintsOffset;
     }
 
     public final String getWildCardString() {
@@ -1513,7 +1553,24 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
 
     @Override
     public void processReport(ContextEl _cont, CustList<PartOffset> _parts) {
+//        _parts.add(new PartOffset("<a name=\"m"+idRowCol+"\">",idRowCol));
+//        _parts.add(new PartOffset("</a>",idRowCol+nameLength));
+//        for (PartOffset p: constraintsParts) {
+//            _parts.add(p);
+//        }
+//
+//        for (PartOffset p: superTypesParts) {
+//            _parts.add(p);
+//        }
 
+    }
+
+    public CustList<PartOffset> getConstraintsParts() {
+        return constraintsParts;
+    }
+
+    public CustList<PartOffset> getSuperTypesParts() {
+        return superTypesParts;
     }
 
     @Override

@@ -363,6 +363,7 @@ public final class ElResolver {
             _d.getDelCast().add(i_);
             _d.getDelCast().add(indexParRight_);
             _d.getDelCastExtract().add(EMPTY_STRING);
+            _d.getCastParts().add(new CustList<PartOffset>());
             i_ = indexParRight_ + 1;
             _out.setNextIndex(i_);
             return;
@@ -615,6 +616,7 @@ public final class ElResolver {
                         _d.getDelKeyWordStatic().add(i_);
                         _d.getDelKeyWordStatic().add(afterStatic_);
                         _d.getDelKeyWordStaticExtract().add(EMPTY_STRING);
+                        _d.getStaticParts().add(new CustList<PartOffset>());
                         i_ = afterStatic_;
                         break;
                     }
@@ -1523,14 +1525,13 @@ public final class ElResolver {
                             }
                         }
                         String id_ = allparts_.toString();
-                        String typeRes_ = _an.resolveCorrectTypeWithoutErrors(id_, false);
+                        String typeRes_ = _an.resolveCorrectTypeWithoutErrors(lastDoubleDot_,id_, false);
                         if (!typeRes_.isEmpty()) {
                             _d.getDelKeyWordStatic().add(lastDoubleDot_);
-                            int next_;
-                            next_ = j_;
-                            _d.getDelKeyWordStatic().add(next_);
+                            _d.getDelKeyWordStatic().add(j_);
+                            _d.getStaticParts().add(new CustList<PartOffset>(_an.getContextEl().getCoverage().getCurrentParts()));
                             _d.getDelKeyWordStaticExtract().add(typeRes_);
-                            i_ = next_;
+                            i_ = j_;
                         } else {
                             _d.getVariables().add(info_);
                         }
@@ -1937,6 +1938,7 @@ public final class ElResolver {
                     _dout.getDelCast().add(j_);
                     _dout.getDelCast().add(indexParRight_);
                     _dout.getDelCastExtract().add(EMPTY_STRING);
+                    _dout.getCastParts().add(new CustList<PartOffset>());
                     j_ = indexParRight_ + 1;
                     continue;
                 }
@@ -2121,36 +2123,47 @@ public final class ElResolver {
         }
         Options opt_ = _conf.getOptions();
         if (opt_.isSingleInnerParts()) {
+            CustList<PartOffset> partOffsets_ = new CustList<PartOffset>();
             int ik_ = 0;
             int lenk_ = partsFields_.size();
             StringBuilder idType_ = new StringBuilder();
+            StringBuilder idTypeFull_ = new StringBuilder();
             int nb_ = 0;
             boolean found_ = false;
             StringList allPkg_ = _conf.getClasses().getPackagesFound();
             while (ik_ < lenk_) {
                 String p_ = partsFields_.get(ik_);
                 idType_.append(p_.trim());
+                idTypeFull_.append(p_);
                 if (!StringList.contains(allPkg_, idType_.toString())) {
                     break;
                 }
                 found_ = true;
                 if (ik_ + 1 < lenk_) {
                     idType_.append('.');
+                    idTypeFull_.append('.');
                 }
                 nb_++;
                 ik_++;
             }
+            int nextOff_ = i_;
             String start_;
             if (found_) {
                 start_ = idType_.toString();
+                _conf.appendParts(i_,i_+idTypeFull_.length(),start_,partOffsets_);
                 ik_++;
+                nextOff_ += idTypeFull_.length() + 1;
             } else {
-                start_ = _conf.resolveCorrectTypeWithoutErrors(partsFields_.first(), false);
+                start_ = _conf.resolveCorrectTypeWithoutErrors(i_,partsFields_.first(), false);
+                partOffsets_.addAllElts(_conf.getContextEl().getCoverage().getCurrentParts());
                 ik_ = 1;
                 nb_ = 0;
+                nextOff_ += partsFields_.first().length() + 1;
             }
             while (ik_ < lenk_) {
-                String p_ = partsFields_.get(ik_).trim();
+                String fullPart_ = partsFields_.get(ik_);
+                int locOff_ = StringList.getFirstPrintableCharIndex(fullPart_);
+                String p_ = fullPart_.trim();
                 if (StringList.quickEq(p_, keyWordThis_)) {
                     break;
                 }
@@ -2161,6 +2174,8 @@ public final class ElResolver {
                 StringList res_ = TypeUtil.getInners(true, glClass_, start_, p_, false, _conf);
                 if (res_.size() == 1) {
                     start_ = res_.first();
+                    _conf.appendParts(nextOff_+locOff_,nextOff_+locOff_+p_.length(),start_,partOffsets_);
+                    nextOff_ += fullPart_.length() + 1;
                     nb_++;
                     ik_++;
                     continue;
@@ -2179,6 +2194,7 @@ public final class ElResolver {
             _d.getDelKeyWordStatic().add(i_);
             _d.getDelKeyWordStatic().add(n_);
             _d.getDelKeyWordStaticExtract().add(start_);
+            _d.getStaticParts().add(partOffsets_);
             return n_;
         }
         StringBuilder allparts_ = new StringBuilder();
@@ -2212,6 +2228,9 @@ public final class ElResolver {
                     _d.getDelKeyWordStatic().add(i_);
                     _d.getDelKeyWordStatic().add(n_);
                     _d.getDelKeyWordStaticExtract().add(tr_);
+                    CustList<PartOffset> partOffsets_ = new CustList<PartOffset>();
+                    _conf.appendParts(i_,n_,tr_,partOffsets_);
+                    _d.getStaticParts().add(partOffsets_);
                     i_ = n_;
                     found_ = true;
                     break;
@@ -2228,25 +2247,29 @@ public final class ElResolver {
                 _d.getDelKeyWordStatic().add(i_);
                 _d.getDelKeyWordStatic().add(k_);
                 _d.getDelKeyWordStaticExtract().add(tr_);
+                CustList<PartOffset> partOffsets_ = new CustList<PartOffset>();
+                _conf.appendMultiParts(i_,id_,tr_,partOffsets_);
+                _d.getStaticParts().add(partOffsets_);
                 return k_;
             }
-            String typeRes_ = _conf.resolveCorrectTypeWithoutErrors(id_, false);
+            String typeRes_ = _conf.resolveCorrectTypeWithoutErrors(i_,id_, false);
             if (!typeRes_.isEmpty()) {
                 _d.getDelKeyWordStatic().add(i_);
-                i_ = k_;
-                _d.getDelKeyWordStatic().add(i_);
+                _d.getDelKeyWordStatic().add(k_);
                 _d.getDelKeyWordStaticExtract().add(typeRes_);
-                return i_;
+                _d.getStaticParts().add(new CustList<PartOffset>(_conf.getContextEl().getCoverage().getCurrentParts()));
+                return k_;
             }
         }
         int index_ = 0;
         for (String c: candidates_) {
-            tr_ = _conf.resolveCorrectTypeWithoutErrors(c,false);
+            tr_ = _conf.resolveCorrectTypeWithoutErrors(i_,c,false);
             if (!tr_.isEmpty()) {
                 int n_ = indexes_.get(index_);
                 _d.getDelKeyWordStatic().add(i_);
                 _d.getDelKeyWordStatic().add(n_);
                 _d.getDelKeyWordStaticExtract().add(tr_);
+                _d.getStaticParts().add(new CustList<PartOffset>(_conf.getContextEl().getCoverage().getCurrentParts()));
                 return n_;
             }
             index_++;
@@ -2847,6 +2870,7 @@ public final class ElResolver {
         int iVar_ = -1;
         boolean preIncr_ = false;
         String extracted_ = EMPTY_STRING;
+        CustList<PartOffset> partsOffs_ = new CustList<PartOffset>();
         if (_string.charAt(firstPrintChar_) == MINUS_CHAR || _string.charAt(firstPrintChar_) == PLUS_CHAR) {
             if (firstPrintChar_ + 1 < _string.length()) {
                 if (_string.charAt(firstPrintChar_) == _string.charAt(firstPrintChar_ + 1)) {
@@ -2875,6 +2899,7 @@ public final class ElResolver {
             operators_.put(firstPrintChar_, _string.substring(firstPrintChar_, max_ + 1));
             int ext_ = min_ / 2;
             extracted_ = _d.getDelCastExtract().get(ext_);
+            partsOffs_ = _d.getCastParts().get(ext_);
             i_ = incrementUnary(_string, firstPrintChar_, lastPrintChar_, _offset, _d);
         } else if (opt_.getSuffixVar() != VariableSuffix.NONE){
             for (VariableInfo v: _d.getVariables()) {
@@ -3220,6 +3245,7 @@ public final class ElResolver {
         op_.setFctName(fctName_);
         op_.setupValues(_string, is_, instance_, laterIndexesDouble_);
         op_.setExtractType(extracted_);
+        op_.setPartOffsets(partsOffs_);
         op_.setDelimiter(_d);
         return op_;
     }
@@ -3315,6 +3341,7 @@ public final class ElResolver {
             OperationsSequence op_ = new OperationsSequence();
             op_.setConstType(ConstType.STATIC_ACCESS);
             op_.setExtractType(extracted_);
+            op_.setPartOffsets(_d.getStaticParts().get(ext_));
             op_.setOperators(new IntTreeMap< String>());
             op_.setValue(_string, firstPrintChar_);
             op_.setDelimiter(_d);
@@ -3775,11 +3802,12 @@ public final class ElResolver {
         }
         if (cast_) {
             if (type_) {
-                String typeRes_ = _conf.resolveCorrectTypeWithoutErrors(sub_, true);
+                String typeRes_ = _conf.resolveCorrectTypeWithoutErrors(_from+1,sub_, true);
                 if (!typeRes_.isEmpty()) {
                     _d.getDelCast().add(_from);
                     _d.getDelCast().add(indexParRight_);
                     _d.getDelCastExtract().add(typeRes_);
+                    _d.getCastParts().add(new CustList<PartOffset>(_conf.getContextEl().getCoverage().getCurrentParts()));
                     return indexParRight_ + 1;
                 }
                 cast_ = false;
@@ -3792,11 +3820,12 @@ public final class ElResolver {
             }
         }
         if (cast_) {
-            String typeRes_ = _conf.resolveCorrectTypeWithoutErrors(sub_, true);
+            String typeRes_ = _conf.resolveCorrectTypeWithoutErrors(_from+1,sub_, true);
             if (!typeRes_.isEmpty()) {
                 _d.getDelCast().add(_from);
                 _d.getDelCast().add(indexParRight_);
                 _d.getDelCastExtract().add(typeRes_);
+                _d.getCastParts().add(new CustList<PartOffset>(_conf.getContextEl().getCoverage().getCurrentParts()));
                 return indexParRight_ + 1;
             }
         }

@@ -8,6 +8,10 @@ public final class TypeVar {
 
     private StringList constraints;
 
+    private int offset;
+
+    private int length;
+
     public String getName() {
         return name;
     }
@@ -22,5 +26,21 @@ public final class TypeVar {
 
     public void setConstraints(StringList _constraints) {
         constraints = _constraints;
+    }
+
+    public int getOffset() {
+        return offset;
+    }
+
+    public void setOffset(int _offset) {
+        offset = _offset;
+    }
+
+    public int getLength() {
+        return length;
+    }
+
+    public void setLength(int _length) {
+        length = _length;
     }
 }

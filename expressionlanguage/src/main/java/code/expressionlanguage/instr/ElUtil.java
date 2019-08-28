@@ -546,9 +546,9 @@ public final class ElUtil {
                 MethodId id_ = classMethodId_.getConstraints();
                 GeneType type_ = _cont.getClassBody(className_);
                 if (isFromCustFile(type_)) {
-                    String file_ = ((RootBlock) type_).getFile().getFileName();
+                    String file_ = ((RootBlock) type_).getFile().getRenderFileName();
                     OverridableBlock method_ = Classes.getMethodBodiesById(_cont, className_, id_).first();
-                    String rel_ = relativize(currentFileName_, file_ + ".html#m" + method_.getNameOffset());
+                    String rel_ = relativize(currentFileName_, file_ + "#m" + method_.getNameOffset());
                     tag_ = "<a title=\""+transform(className_ +"."+ id_.getSignature(_cont))+"\" href=\""+rel_+"\">";
                     _parts.add(new PartOffset(tag_,sum_ +delta_+ val_.getIndexInEl()));
                     tag_ = "</a>";
@@ -691,12 +691,12 @@ public final class ElUtil {
                 ConstructorId c_ = ((ExecStandardInstancingOperation)curOp_).getConstId();
                 GeneType type_ = _cont.getClassBody(cl_);
                 if (isFromCustFile(type_)) {
-                    String file_ = ((RootBlock) type_).getFile().getFileName();
+                    String file_ = ((RootBlock) type_).getFile().getRenderFileName();
                     CustList<GeneConstructor> ctors_ = Classes.getConstructorBodiesById(_cont, cl_, c_);
                     StandardInstancingOperation inst_ = (StandardInstancingOperation) val_;
                     if (!ctors_.isEmpty() && inst_.getFieldName().isEmpty()) {
                         ConstructorBlock ctor_ = (ConstructorBlock) ctors_.first();
-                        String rel_ = relativize(currentFileName_, file_ + ".html#m" + ctor_.getNameOffset());
+                        String rel_ = relativize(currentFileName_, file_ + "#m" + ctor_.getNameOffset());
                         tag_ = "<a title=\""+ transform(cl_ +"."+ c_.getSignature(_cont))+"\" href=\""+rel_+"\">";
                         int offsetNew_ =StringList.getFirstPrintableCharIndex(inst_.getMethodName());
                         _parts.add(new PartOffset(tag_,offsetNew_+sum_ + val_.getIndexInEl()));
@@ -715,8 +715,8 @@ public final class ElUtil {
                     MethodId id_ = classMethodId_.getConstraints();
                     if (!StringList.isDollarWord(id_.getName()) && !id_.getName().startsWith("[]")) {
                         OperatorBlock operator_ = Classes.getOperatorsBodiesById(_cont, id_).first();
-                        String file_ = operator_.getFile().getFileName();
-                        String rel_ = relativize(currentFileName_, file_ + ".html#m" + operator_.getNameOffset());
+                        String file_ = operator_.getFile().getRenderFileName();
+                        String rel_ = relativize(currentFileName_, file_ + "#m" + operator_.getNameOffset());
                         tag_ = "<a title=\""+ transform(id_.getSignature(_cont))+"\" href=\""+rel_+"\">";
                         _parts.add(new PartOffset(tag_,sum_ + val_.getIndexInEl()));
                         tag_ = "</a>";
@@ -724,9 +724,9 @@ public final class ElUtil {
                     } else {
                         GeneType type_ = _cont.getClassBody(className_);
                         if (isFromCustFile(type_)) {
-                            String file_ = ((RootBlock) type_).getFile().getFileName();
+                            String file_ = ((RootBlock) type_).getFile().getRenderFileName();
                             OverridableBlock method_ = Classes.getMethodBodiesById(_cont, className_, id_).first();
-                            String rel_ = relativize(currentFileName_, file_ + ".html#m" + method_.getNameOffset());
+                            String rel_ = relativize(currentFileName_, file_ + "#m" + method_.getNameOffset());
                             tag_ = "<a title=\""+transform(className_ +"."+ id_.getSignature(_cont))+"\" href=\""+rel_+"\">";
                             _parts.add(new PartOffset(tag_,sum_ + val_.getIndexInEl()));
                             tag_ = "</a>";
@@ -738,11 +738,11 @@ public final class ElUtil {
                     cl_ = Templates.getIdFromAllTypes(cl_);
                     GeneType type_ = _cont.getClassBody(cl_);
                     if (isFromCustFile(type_)) {
-                        String file_ = ((RootBlock) type_).getFile().getFileName();
+                        String file_ = ((RootBlock) type_).getFile().getRenderFileName();
                         CustList<GeneConstructor> ctors_ = Classes.getConstructorBodiesById(_cont, cl_, realId_);
                         if (!ctors_.isEmpty()) {
                             ConstructorBlock ctor_ = (ConstructorBlock) ctors_.first();
-                            String rel_ = relativize(currentFileName_, file_ + ".html#m" + ctor_.getNameOffset());
+                            String rel_ = relativize(currentFileName_, file_ + "#m" + ctor_.getNameOffset());
                             tag_ = "<a title=\""+ transform(cl_ +"."+ realId_.getSignature(_cont))+"\" href=\""+rel_+"\">";
                             _parts.add(new PartOffset(tag_,sum_ + val_.getIndexInEl()));
                             tag_ = "</a>";
@@ -764,9 +764,9 @@ public final class ElUtil {
                 String cl_ = c_.getName();
                 cl_ = Templates.getIdFromAllTypes(cl_);
                 RootBlock type_ = (RootBlock) _cont.getClassBody(cl_);
-                String file_ = type_.getFile().getFileName();
+                String file_ = type_.getFile().getRenderFileName();
                 ConstructorBlock ctor_ = (ConstructorBlock) Classes.getConstructorBodiesById(_cont, cl_, c_).first();
-                String rel_ = relativize(currentFileName_, file_ + ".html#m" + ctor_.getNameOffset());
+                String rel_ = relativize(currentFileName_, file_ + "#m" + ctor_.getNameOffset());
                 tag_ = "<a title=\""+ transform(cl_ +"."+ c_.getSignature(_cont))+"\" href=\""+rel_+"\">";
                 _parts.add(new PartOffset(tag_,sum_ + val_.getIndexInEl()));
                 tag_ = "</a>";
@@ -777,8 +777,8 @@ public final class ElUtil {
                 ClassMethodId classMethodId_ = par_.getClassMethodId();
                 MethodId id_ = classMethodId_.getConstraints();
                 OperatorBlock operator_ = Classes.getOperatorsBodiesById(_cont, id_).first();
-                String file_ = operator_.getFile().getFileName();
-                String rel_ = relativize(currentFileName_, file_ + ".html#m" + operator_.getNameOffset());
+                String file_ = operator_.getFile().getRenderFileName();
+                String rel_ = relativize(currentFileName_, file_ + "#m" + operator_.getNameOffset());
                 tag_ = "<a title=\""+ transform(id_.getSignature(_cont))+"\" href=\""+rel_+"\">";
                 _parts.add(new PartOffset(tag_,sum_ + val_.getIndexInEl()+par_.getOpOffset()));
                 tag_ = "</a>";
@@ -808,8 +808,8 @@ public final class ElUtil {
                     if (classMethodId_ != null) {
                         MethodId id_ = classMethodId_.getConstraints();
                         OperatorBlock operator_ = Classes.getOperatorsBodiesById(_cont, id_).first();
-                        String file_ = operator_.getFile().getFileName();
-                        String rel_ = relativize(currentFileName_, file_ + ".html#m" + operator_.getNameOffset());
+                        String file_ = operator_.getFile().getRenderFileName();
+                        String rel_ = relativize(currentFileName_, file_ + "#m" + operator_.getNameOffset());
                         tag_ = "<a title=\""+ transform(id_.getSignature(_cont))+"\" href=\""+rel_+"\">";
                         _parts.add(new PartOffset(tag_,sum_ + val_.getIndexInEl()+offsetOp_));
                         tag_ = "</a>";
@@ -824,8 +824,8 @@ public final class ElUtil {
                         MethodId id_ = new MethodId(false,"[]=",methodId_.getParametersTypes(),methodId_.isVararg());
                         RootBlock type_ = (RootBlock) _cont.getClassBody(className_);
                         OverridableBlock method_ = Classes.getMethodBodiesById(_cont, className_, id_).first();
-                        String file_ = type_.getFile().getFileName();
-                        String rel_ = relativize(currentFileName_, file_ + ".html#m" + method_.getNameOffset());
+                        String file_ = type_.getFile().getRenderFileName();
+                        String rel_ = relativize(currentFileName_, file_ + "#m" + method_.getNameOffset());
                         tag_ = "<a title=\""+ transform(className_ +"."+ id_.getSignature(_cont))+"\" href=\""+rel_+"\">";
                         _parts.add(new PartOffset(tag_, sum_ + val_.getIndexInEl()+offsetOp_+1));
                         tag_ = "</a>";
@@ -847,9 +847,9 @@ public final class ElUtil {
                 }
                 RootBlock type_ = (RootBlock) _cont.getClassBody(className_);
                 OverridableBlock method_ = Classes.getMethodBodiesById(_cont, className_, id_).first();
-                String file_ = type_.getFile().getFileName();
+                String file_ = type_.getFile().getRenderFileName();
                 int offsetEnd_ = sum_ + val_.getIndexInEl();
-                String rel_ = relativize(currentFileName_, file_ + ".html#m" + method_.getNameOffset());
+                String rel_ = relativize(currentFileName_, file_ + "#m" + method_.getNameOffset());
                 tag_ = "<a title=\""+ transform(className_ +"."+ id_.getSignature(_cont))+"\" href=\""+rel_+"\">";
                 _parts.add(new PartOffset(tag_, offsetEnd_));
                 tag_ = "</a>";
@@ -898,8 +898,8 @@ public final class ElUtil {
                         ClassMethodId classMethodId_ = par_.getClassMethodId();
                         MethodId id_ = classMethodId_.getConstraints();
                         OperatorBlock operator_ = Classes.getOperatorsBodiesById(_cont, id_).first();
-                        String file_ = operator_.getFile().getFileName();
-                        String rel_ = relativize(currentFileName_, file_ + ".html#m" + operator_.getNameOffset());
+                        String file_ = operator_.getFile().getRenderFileName();
+                        String rel_ = relativize(currentFileName_, file_ + "#m" + operator_.getNameOffset());
                         tag_ = "<a title=\""+ transform(id_.getSignature(_cont))+"\" href=\""+rel_+"\">";
                         _parts.add(new PartOffset(tag_, offsetEnd_));
                         tag_ = "</a>";
@@ -912,8 +912,8 @@ public final class ElUtil {
                         if (classMethodId_ != null) {
                             MethodId id_ = classMethodId_.getConstraints();
                             OperatorBlock operator_ = Classes.getOperatorsBodiesById(_cont, id_).first();
-                            String file_ = operator_.getFile().getFileName();
-                            String rel_ = relativize(currentFileName_, file_ + ".html#m" + operator_.getNameOffset());
+                            String file_ = operator_.getFile().getRenderFileName();
+                            String rel_ = relativize(currentFileName_, file_ + "#m" + operator_.getNameOffset());
                             tag_ = "<a title=\""+ transform(id_.getSignature(_cont))+"\" href=\""+rel_+"\">";
                             _parts.add(new PartOffset(tag_, offsetEnd_));
                             tag_ = "</a>";
@@ -955,8 +955,8 @@ public final class ElUtil {
                             MethodId id_ = new MethodId(false,"[]=",methodId_.getParametersTypes(),methodId_.isVararg());
                             RootBlock type_ = (RootBlock) _cont.getClassBody(className_);
                             OverridableBlock method_ = Classes.getMethodBodiesById(_cont, className_, id_).first();
-                            String file_ = type_.getFile().getFileName();
-                            String rel_ = relativize(currentFileName_, file_ + ".html#m" + method_.getNameOffset());
+                            String file_ = type_.getFile().getRenderFileName();
+                            String rel_ = relativize(currentFileName_, file_ + "#m" + method_.getNameOffset());
                             tag_ = "<a title=\""+ transform(className_ +"."+ id_.getSignature(_cont))+"\" href=\""+rel_+"\">";
                             _parts.add(new PartOffset(tag_, opDelta_+offsetEnd_));
                             tag_ = "</a>";
@@ -1038,8 +1038,8 @@ public final class ElUtil {
                     }
                     RootBlock type_ = (RootBlock) _cont.getClassBody(className_);
                     OverridableBlock method_ = Classes.getMethodBodiesById(_cont, className_, id_).first();
-                    String file_ = type_.getFile().getFileName();
-                    String rel_ = relativize(currentFileName_, file_ + ".html#m" + method_.getNameOffset());
+                    String file_ = type_.getFile().getRenderFileName();
+                    String rel_ = relativize(currentFileName_, file_ + "#m" + method_.getNameOffset());
                     tag_ = "<a title=\""+ transform(className_ +"."+ id_.getSignature(_cont))+"\" href=\""+rel_+"\">";
                     _parts.add(new PartOffset(tag_, offsetEnd_));
                     tag_ = "</a>";
@@ -1052,8 +1052,8 @@ public final class ElUtil {
                         if (classMethodId_ != null) {
                             MethodId id_ = classMethodId_.getConstraints();
                             OperatorBlock operator_ = Classes.getOperatorsBodiesById(_cont, id_).first();
-                            String file_ = operator_.getFile().getFileName();
-                            String rel_ = relativize(currentFileName_, file_ + ".html#m" + operator_.getNameOffset());
+                            String file_ = operator_.getFile().getRenderFileName();
+                            String rel_ = relativize(currentFileName_, file_ + "#m" + operator_.getNameOffset());
                             tag_ = "<a title=\""+ transform(id_.getSignature(_cont))+"\" href=\""+rel_+"\">";
                             _parts.add(new PartOffset(tag_,offsetEnd_));
                             tag_ = "</a>";
@@ -1068,8 +1068,8 @@ public final class ElUtil {
                             MethodId id_ = new MethodId(false,"[]=",methodId_.getParametersTypes(),methodId_.isVararg());
                             RootBlock type_ = (RootBlock) _cont.getClassBody(className_);
                             OverridableBlock method_ = Classes.getMethodBodiesById(_cont, className_, id_).first();
-                            String file_ = type_.getFile().getFileName();
-                            String rel_ = relativize(currentFileName_, file_ + ".html#m" + method_.getNameOffset());
+                            String file_ = type_.getFile().getRenderFileName();
+                            String rel_ = relativize(currentFileName_, file_ + "#m" + method_.getNameOffset());
                             tag_ = "<a title=\""+ transform(className_ +"."+ id_.getSignature(_cont))+"\" href=\""+rel_+"\">";
                             _parts.add(new PartOffset(tag_, offsetEnd_+1));
                             tag_ = "</a>";
@@ -1119,8 +1119,8 @@ public final class ElUtil {
                 }
             }
             if (delta_ > -1) {
-                String file_ = ((RootBlock) type_).getFile().getFileName();
-                String rel_ = relativize(currentFileName_,file_+".html#m"+delta_);
+                String file_ = ((RootBlock) type_).getFile().getRenderFileName();
+                String rel_ = relativize(currentFileName_,file_+"#m"+delta_);
                 String tag_ = "<a title=\""+transform(className_ +"."+ _id.getFieldName())+"\" href=\""+rel_+"\">";
                 _parts.add(new PartOffset(tag_,_begin));
                 tag_ = "</a>";
@@ -1136,8 +1136,8 @@ public final class ElUtil {
                     }
                     delta_ = f_.getFieldNameOffset();
                 }
-                String file_ = ((RootBlock) type_).getFile().getFileName();
-                String rel_ = relativize(currentFileName_,file_+".html#m"+delta_);
+                String file_ = ((RootBlock) type_).getFile().getRenderFileName();
+                String rel_ = relativize(currentFileName_,file_+"#m"+delta_);
                 String tag_ = "<a title=\""+transform(className_ +"."+ _id.getFieldName())+"\" href=\""+rel_+"\">";
                 _parts.add(new PartOffset(tag_,_begin));
                 tag_ = "</a>";
@@ -1215,7 +1215,13 @@ public final class ElUtil {
         }
         return false;
     }
-    private static boolean isFromCustFile(GeneType _g) {
+    public static void addIfFromCustFile(GeneType _g, CustList<PartOffset> _parts, PartOffset _p) {
+        if (!isFromCustFile(_g)) {
+            return;
+        }
+        _parts.add(_p);
+    }
+    public static boolean isFromCustFile(GeneType _g) {
         if (!(_g instanceof RootBlock)) {
             return false;
         }

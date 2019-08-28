@@ -62,7 +62,6 @@ public final class ReturnMehod extends AbruptBlock implements CallingFinally, Wi
     public void buildExpressionLanguage(ContextEl _cont) {
         FunctionBlock f_ = _cont.getAnalyzing().getCurrentFct();
         AnalyzedPageEl page_ = _cont.getAnalyzing();
-        page_.setGlobalOffset(getOffset().getOffsetTrim());
         page_.setOffset(0);
         LgNames stds_ = _cont.getStandards();
         String retType_ = stds_.getAliasVoid();

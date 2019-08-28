@@ -50,7 +50,6 @@ public final class Throwing extends AbruptBlock implements StackableBlock, WithN
     public void buildExpressionLanguage(ContextEl _cont) {
         FunctionBlock f_ = _cont.getAnalyzing().getCurrentFct();
         AnalyzedPageEl page_ = _cont.getAnalyzing();
-        page_.setGlobalOffset(getOffset().getOffsetTrim());
         page_.setOffset(0);
         page_.setGlobalOffset(expressionOffset);
         opThrow = ElUtil.getAnalyzedOperations(expression, _cont, Calculation.staticCalculation(f_.isStaticContext()));

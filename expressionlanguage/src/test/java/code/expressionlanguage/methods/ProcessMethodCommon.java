@@ -108,6 +108,13 @@ public abstract class ProcessMethodCommon {
         ct_.setCovering(true);
         return ct_;
     }
+    protected static ContextEl contextElCoverageEnDefaultSingle() {
+        Options opt_ = new Options();
+        opt_.setSingleInnerParts(true);
+        ContextEl ct_ = InitializationLgNames.buildStdOne("en",opt_);
+        ct_.setCovering(true);
+        return ct_;
+    }
 
     protected static ContextEl contextElCoverageEnDefaultOtherIni() {
         Options opt_ = new Options();

@@ -6,6 +6,7 @@ import code.expressionlanguage.ErrorType;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.OperationsSequence;
+import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.opers.exec.Operable;
 import code.expressionlanguage.opers.exec.ParentOperable;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
@@ -16,6 +17,7 @@ public final class CastOperation extends AbstractUnaryOperation {
 
     private String className;
     private int offset;
+    private CustList<PartOffset> partOffsets;
     public CastOperation(int _index, int _indexChild, MethodOperation _m,
             OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
@@ -29,10 +31,12 @@ public final class CastOperation extends AbstractUnaryOperation {
         String ext_ = getOperations().getExtractType();
         if (!ext_.isEmpty()) {
             className = ext_;
+            partOffsets = getOperations().getPartOffsets();
         } else {
             String res_ = className.substring(className.indexOf(PAR_LEFT)+1, className.lastIndexOf(PAR_RIGHT));
-            res_ = _conf.resolveCorrectType(res_);
+            res_ = _conf.resolveCorrectType(className.indexOf(PAR_LEFT)+1,res_);
             className = res_;
+            partOffsets = new CustList<PartOffset>(_conf.getContextEl().getCoverage().getCurrentParts());
         }
         setResultClass(new ClassArgumentMatching(className));
         if (PrimitiveTypeUtil.isPrimitive(className, _conf)) {
@@ -69,5 +73,9 @@ public final class CastOperation extends AbstractUnaryOperation {
 
     public int getOffset() {
         return offset;
+    }
+
+    public CustList<PartOffset> getPartOffsets() {
+        return partOffsets;
     }
 }

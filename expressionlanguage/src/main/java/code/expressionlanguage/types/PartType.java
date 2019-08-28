@@ -41,7 +41,7 @@ abstract class PartType {
                     } else if (_parent instanceof TemplatePartType && _parent.getFirstChild() != null) {
                         okVarType_ = true;
                     }
-                    if (StringList.contains(_an.getAvailableVariables(), type_) && okVarType_) {
+                    if (_an.getAvailableVariables().contains(type_) && okVarType_) {
                         return new VariablePartType(_parent, _index, _indexInType, type_);
                     }
                 }

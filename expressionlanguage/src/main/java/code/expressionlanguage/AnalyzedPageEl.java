@@ -55,7 +55,7 @@ public final class AnalyzedPageEl {
     private String currentVarSetting;
     private boolean gearConst;
     private StringList needInterfaces = new StringList();
-    private StringList availableVariables = new StringList();
+    private StringMap<Integer> availableVariables = new StringMap<Integer>();
     private StringList variablesNames = new StringList();
     private boolean assignedStaticFields;
     private boolean assignedFields;
@@ -369,7 +369,7 @@ public final class AnalyzedPageEl {
     public StringMap<LocalVariable> getInternVars() {
         return internVars;
     }
-    public StringList getAvailableVariables() {
+    public StringMap<Integer> getAvailableVariables() {
         return availableVariables;
     }
     public StringList getVariablesNames() {

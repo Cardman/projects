@@ -8,6 +8,7 @@ import code.expressionlanguage.errors.stds.StdWordError;
 import code.expressionlanguage.files.FileResolver;
 import code.expressionlanguage.inherits.*;
 import code.expressionlanguage.instr.ElUtil;
+import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.methods.util.ClassEdge;
 import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.exec.ExecOperationNode;
@@ -143,6 +144,7 @@ public final class Classes {
             }
         }
         namesFromParent_.removeDuplicates();
+        int tempOff_ = _root.getTemplateDefOffset() + 1;
         for (String p: params_.mid(CustList.SECOND_INDEX)) {
             if (p.isEmpty()) {
                 BadClassName badCl_ = new BadClassName();
@@ -152,8 +154,10 @@ public final class Classes {
                 addError(badCl_);
                 continue;
             }
+            int delta_ = 0;
             String name_;
             if (p.startsWith(Templates.PREFIX_VAR_TYPE)) {
+                delta_++;
                 name_ = p.substring(Templates.PREFIX_VAR_TYPE.length());
             } else {
                 name_ = p;
@@ -186,15 +190,27 @@ public final class Classes {
             varTypes_.add(id_);
             StringList constraints_ = new StringList();
             if (indexDef_ != CustList.INDEX_NOT_FOUND_ELT) {
+                int begin_ = delta_ + indexDef_;
+                Ints ct_ = new Ints();
                 for (String b: StringList.splitChars(parts_.last().substring(1), Templates.SEP_BOUNDS)) {
+                    int off_ = begin_ + StringList.getFirstPrintableCharIndex(b);
                     constraints_.add(b);
+                    ct_.add(off_);
+                    begin_ += b.length() + 1;
                 }
+                _root.getParamTypesConstraintsOffset().add(ct_);
             } else {
+                Ints ct_ = new Ints();
+                _root.getParamTypesConstraintsOffset().add(ct_);
                 constraints_.add(objectClassName_);
             }
             type_.setConstraints(constraints_);
             type_.setName(id_);
             _root.getParamTypes().add(type_);
+            int off_ = tempOff_ + StringList.getFirstPrintableCharIndex(p);
+            type_.setOffset(off_);
+            type_.setLength(p.length());
+            tempOff_ += p.length() + 1;
         }
         if (_root instanceof EnumBlock) {
             StringBuilder generic_ = new StringBuilder(fullName_);

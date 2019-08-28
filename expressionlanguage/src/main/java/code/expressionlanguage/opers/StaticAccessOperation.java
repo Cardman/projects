@@ -6,13 +6,14 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.errors.custom.BadAccessClass;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.OperationsSequence;
+import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.util.CustList;
 import code.util.StringList;
 
 public final class StaticAccessOperation extends LeafOperation {
-
+    private CustList<PartOffset> partOffsets;
     public StaticAccessOperation(int _indexInEl, int _indexChild,
             MethodOperation _m, OperationsSequence _op) {
         super(_indexInEl, _indexChild, _m, _op);
@@ -24,6 +25,7 @@ public final class StaticAccessOperation extends LeafOperation {
         String ext_ = op_.getExtractType();
         ext_ = ContextEl.removeDottedSpaces(ext_);
         if (!ext_.isEmpty()) {
+            partOffsets = op_.getPartOffsets();
             Argument a_ = new Argument();
             setSimpleArgument(a_);
             setStaticResultClass(new ClassArgumentMatching(ext_));
@@ -38,9 +40,11 @@ public final class StaticAccessOperation extends LeafOperation {
         String glClass_ = _conf.getGlobalClass();
         String classStr_;
         if (!realCl_.trim().isEmpty()) {
-            classStr_ = _conf.resolveAccessibleIdType(realCl_);
+            classStr_ = _conf.resolveAccessibleIdType(str_.indexOf(PAR_LEFT)+1,realCl_);
+            partOffsets = new CustList<PartOffset>(_conf.getContextEl().getCoverage().getCurrentParts());
         } else {
             classStr_ = glClass_;
+            partOffsets = new CustList<PartOffset>();
         }
         Classes classes_ = _conf.getClasses();
         if (classes_.isCustomType(classStr_)) {
@@ -58,4 +62,7 @@ public final class StaticAccessOperation extends LeafOperation {
         setStaticResultClass(new ClassArgumentMatching(classStr_));
     }
 
+    public CustList<PartOffset> getPartOffsets() {
+        return partOffsets;
+    }
 }

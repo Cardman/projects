@@ -6,10 +6,12 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.errors.custom.VarargError;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.OperationsSequence;
+import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.stds.LgNames;
+import code.util.CustList;
 import code.util.StringList;
 
 public final class IdFctOperation extends LeafOperation {
@@ -18,6 +20,8 @@ public final class IdFctOperation extends LeafOperation {
     private int offset;
 
     private ClassMethodId method;
+
+    private CustList<PartOffset> partOffsets;
 
     public IdFctOperation(int _indexInEl, int _indexChild, MethodOperation _m,
             OperationsSequence _op) {
@@ -28,17 +32,21 @@ public final class IdFctOperation extends LeafOperation {
 
     @Override
     public void analyze(Analyzable _conf) {
+        partOffsets = new CustList<PartOffset>();
         setRelativeOffsetPossibleAnalyzable(getIndexInEl() + offset, _conf);
         LgNames stds_ = _conf.getStandards();
         MethodOperation m_ = getParent();
         String extr_ = className.substring(className.indexOf('(')+1, className.lastIndexOf(')'));
         StringList args_ = Templates.getAllSepCommaTypes(extr_);
-        String fromType_ = ContextEl.removeDottedSpaces(args_.first());
-        String cl_ = _conf.resolveAccessibleIdType(fromType_);
+        String firstFull_ = args_.first();
+        int off_ = StringList.getFirstPrintableCharIndex(firstFull_);
+        String fromType_ = ContextEl.removeDottedSpaces(firstFull_);
+        String cl_ = _conf.resolveAccessibleIdType(off_+className.indexOf('(')+1,fromType_);
         if (cl_.isEmpty()) {
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             return;
         }
+        partOffsets.addAllElts(_conf.getContextEl().getCoverage().getCurrentParts());
         String keyWordStatic_ = _conf.getKeyWords().getKeyWordStatic();
         boolean static_ = false;
         int i_ = 1;
@@ -79,8 +87,14 @@ public final class IdFctOperation extends LeafOperation {
         LgNames stds_ = _conf.getStandards();
         int len_ = _params.size();
         int vararg_ = -1;
+        int off_ = className.indexOf('(')+1;
+        for (int i = 0; i < _from; i++) {
+            off_ += _params.get(i).length() + 1;
+        }
         for (int i = _from; i < len_; i++) {
-            String arg_ = ContextEl.removeDottedSpaces(_params.get(i));
+            String full_ = _params.get(i);
+            int loc_ = StringList.getFirstPrintableCharIndex(full_);
+            String arg_ = ContextEl.removeDottedSpaces(full_);
             String type_;
             if (arg_.endsWith(VARARG_SUFFIX)) {
                 if (i + 1 != len_) {
@@ -98,7 +112,9 @@ public final class IdFctOperation extends LeafOperation {
             } else {
                 type_ = arg_;
             }
-            arg_ = _conf.resolveCorrectAccessibleType(type_, _fromType);
+            arg_ = _conf.resolveCorrectAccessibleType(off_ + loc_,type_, _fromType);
+            partOffsets.addAllElts(_conf.getContextEl().getCoverage().getCurrentParts());
+            off_ += _params.get(i).length() + 1;
             out_.add(arg_);
         }
         return new MethodId(_static, _name, out_, vararg_ != -1);
@@ -106,5 +122,9 @@ public final class IdFctOperation extends LeafOperation {
 
     public ClassMethodId getMethod() {
         return method;
+    }
+
+    public CustList<PartOffset> getPartOffsets() {
+        return partOffsets;
     }
 }

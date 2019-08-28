@@ -7,6 +7,7 @@ import code.expressionlanguage.files.OffsetAccessInfo;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.instr.ElUtil;
+import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.exec.ExecOperationNode;
 import code.expressionlanguage.opers.util.AssignedVariables;
@@ -46,6 +47,9 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
     private CustList<StringList> annotationsParams = new CustList<StringList>();
     private CustList<Ints> annotationsIndexesParams = new CustList<Ints>();
     private CustList<CustList<CustList<ExecOperationNode>>> annotationsOpsParams = new CustList<CustList<CustList<ExecOperationNode>>>();
+
+    private CustList<CustList<PartOffset>> partOffsetsParams = new CustList<CustList<PartOffset>>();
+    private CustList<PartOffset> partOffsetsReturn = new CustList<PartOffset>();
 
     public NamedFunctionBlock(OffsetAccessInfo _access,
                               OffsetStringInfo _retType, OffsetStringInfo _fctName,
@@ -170,14 +174,16 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
 
     public final void buildImportedTypes(Analyzable _stds) {
         StringList params_ = new StringList();
-        int off_ = getOffset().getOffsetTrim();
         int i_ = 0;
         _stds.getAnalyzing().setCurrentBlock(this);
         _stds.getAnalyzing().setCurrentFct(this);
-        _stds.getAnalyzing().setGlobalOffset(off_);
         for (String p: parametersTypes) {
-            _stds.getAnalyzing().setOffset(parametersTypesOffset.get(i_));
+            CustList<PartOffset> partOffsets_ = new CustList<PartOffset>();
+            _stds.getAnalyzing().setGlobalOffset(parametersTypesOffset.get(i_));
+            _stds.getAnalyzing().setOffset(0);
             params_.add(_stds.resolveCorrectType(p));
+            partOffsets_.addAllElts(_stds.getContextEl().getCoverage().getCurrentParts());
+            partOffsetsParams.add(partOffsets_);
             i_++;
         }
         importedParametersTypes.clear();
@@ -192,8 +198,10 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
             return;
         }
         _stds.getAnalyzing().setCurrentBlock(this);
-        _stds.getAnalyzing().setOffset(returnTypeOffset);
+        _stds.getAnalyzing().setGlobalOffset(returnTypeOffset);
+        _stds.getAnalyzing().setOffset(0);
         importedReturnType = _stds.resolveCorrectType(returnType);
+        partOffsetsReturn.addAllElts(_stds.getContextEl().getCoverage().getCurrentParts());
     }
     public String getReturnType() {
         return returnType;
@@ -240,5 +248,13 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
 
     public CustList<Ints> getAnnotationsIndexesParams() {
         return annotationsIndexesParams;
+    }
+
+    public CustList<CustList<PartOffset>> getPartOffsetsParams() {
+        return partOffsetsParams;
+    }
+
+    public CustList<PartOffset> getPartOffsetsReturn() {
+        return partOffsetsReturn;
     }
 }

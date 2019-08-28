@@ -118,6 +118,9 @@ public final class FileBlock extends BracedBlock implements ImportingBlock {
         return fileName;
     }
 
+    public String getRenderFileName() {
+        return fileName+".html";
+    }
     public void setFileName(String _fileName) {
         fileName = _fileName;
     }

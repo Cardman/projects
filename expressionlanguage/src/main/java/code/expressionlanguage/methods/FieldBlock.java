@@ -58,7 +58,7 @@ public final class FieldBlock extends Leaf implements InfoBlock {
     private StringList annotations = new StringList();
     private CustList<CustList<ExecOperationNode>> annotationsOps = new CustList<CustList<ExecOperationNode>>();
     private Ints annotationsIndexes = new Ints();
-
+    private CustList<PartOffset> partOffsets = new CustList<PartOffset>();
     public FieldBlock(OffsetAccessInfo _access,
                       OffsetBooleanInfo _static, OffsetBooleanInfo _final,
                       OffsetStringInfo _type, OffsetStringInfo _value, OffsetsBlock _offset) {
@@ -183,6 +183,7 @@ public final class FieldBlock extends Leaf implements InfoBlock {
         page_.setOffset(0);
         page_.setCurrentBlock(this);
         importedClassName = _cont.resolveCorrectType(className);
+        partOffsets.addAllElts(_cont.getCoverage().getCurrentParts());
     }
     public void retrieveNames(ContextEl _cont, StringList _fieldNames) {
         AnalyzedPageEl page_ = _cont.getAnalyzing();
