@@ -4573,6 +4573,21 @@ public final class TemplatesTest {
         assertNotNull(cont_.getException());
     }
     @Test
+    public void okArgs3Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        MethodId id_ = new MethodId(true,"method", new StringList("java.lang.Number"),true);
+        Struct[] instance_ = new Struct[1];
+        instance_[0] = new StringStruct("");
+        ArrayStruct arr_ = new ArrayStruct(instance_,"[java.lang.Number");
+        CustList<Argument> args_ = new CustList<Argument>();
+        args_.add(new Argument(arr_));
+        arr_ = new ArrayStruct(instance_,"[java.lang.Number");
+        args_.add(new Argument(arr_));
+        assertTrue(!Templates.okArgs(id_,"",args_, cont_,null));
+        assertNotNull(cont_.getException());
+    }
+    @Test
     public void getErrorWhenContain1Test() {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = unfullValidateOverridingMethods(files_);

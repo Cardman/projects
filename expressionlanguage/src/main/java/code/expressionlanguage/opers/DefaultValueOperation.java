@@ -5,6 +5,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.OperationsSequence;
+import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.opers.exec.Operable;
 import code.expressionlanguage.opers.exec.ReductibleOperable;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
@@ -15,6 +16,7 @@ public final class DefaultValueOperation extends LeafOperation implements Reduct
 
     private String className;
 
+    private CustList<PartOffset> partOffsets = new CustList<PartOffset>();
     DefaultValueOperation(int _indexInEl, int _indexChild, MethodOperation _m, OperationsSequence _op) {
         super(_indexInEl, _indexChild, _m, _op);
     }
@@ -27,9 +29,12 @@ public final class DefaultValueOperation extends LeafOperation implements Reduct
         String str_ = originalStr_.trim();
         int off_ = StringList.getFirstPrintableCharIndex(originalStr_) + relativeOff_;
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
-        String realCl_ = str_.substring(str_.indexOf(PAR_LEFT)+1, str_.lastIndexOf(PAR_RIGHT));
+        int afterLeftPar_ = str_.indexOf(PAR_LEFT) + 1;
+        String realCl_ = str_.substring(afterLeftPar_, str_.lastIndexOf(PAR_RIGHT));
+        int offLoc_ = StringList.getFirstPrintableCharIndex(realCl_);
         String classStr_;
-        classStr_ = _conf.resolveCorrectType(str_.indexOf(PAR_LEFT)+1,realCl_, realCl_.contains(Templates.TEMPLATE_BEGIN));
+        classStr_ = _conf.resolveCorrectType(afterLeftPar_+offLoc_,realCl_, realCl_.contains(Templates.TEMPLATE_BEGIN));
+        partOffsets.addAllElts(_conf.getContextEl().getCoverage().getCurrentParts());
         className = classStr_;
         setResultClass(new ClassArgumentMatching(className));
     }
@@ -49,5 +54,9 @@ public final class DefaultValueOperation extends LeafOperation implements Reduct
 
     public String getClassName() {
         return className;
+    }
+
+    public CustList<PartOffset> getPartOffsets() {
+        return partOffsets;
     }
 }

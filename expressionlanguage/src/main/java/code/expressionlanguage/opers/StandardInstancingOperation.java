@@ -63,7 +63,9 @@ public final class StandardInstancingOperation extends
     public void preAnalyze(Analyzable _an) {
         KeyWords keyWords_ = _an.getKeyWords();
         String newKeyWord_ = keyWords_.getKeyWordNew();
-        String className_ = methodName.trim().substring(newKeyWord_.length()).trim();
+        String afterNew_ = methodName.trim().substring(newKeyWord_.length());
+        int local_ = StringList.getFirstPrintableCharIndex(afterNew_);
+        String className_ = afterNew_.trim();
         ClassArgumentMatching arg_ = getPreviousResultClass();
         StringMap<String> ownersMap_ = new StringMap<String>();
         StringMap<String> vars_ = new StringMap<String>();
@@ -107,6 +109,7 @@ public final class StandardInstancingOperation extends
         if (inferForm_ == null) {
             return;
         }
+        CustList<PartOffset> partOffsets_ = new CustList<PartOffset>();
         String type_;
         int nbParentsInfer_ = 0;
         OperationNode current_;
@@ -114,17 +117,22 @@ public final class StandardInstancingOperation extends
         if (!isIntermediateDottedOperation()) {
             int off_ = StringList.getFirstPrintableCharIndex(methodName);
             setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _an);
-            type_ = _an.resolveAccessibleIdTypeWithoutError(inferForm_);
+            type_ = _an.resolveAccessibleIdTypeWithoutError(newKeyWord_.length()+local_,inferForm_);
+            partOffsets_.addAllElts(_an.getContextEl().getCoverage().getCurrentParts());
             if (type_.isEmpty()) {
                 return;
             }
             current_ = this;
             m_ = getParent();
         } else {
+            int off_ = StringList.getFirstPrintableCharIndex(methodName);
+            setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _an);
             String idClass_ = Templates.getIdFromAllTypes(className_).trim();
             String sup_ = ownersMap_.values().first();
             String id_ = Templates.getIdFromAllTypes(sup_);
             type_ = StringList.concat(id_,"..",idClass_);
+            int begin_ = newKeyWord_.length()+local_;
+            _an.appendParts(begin_,begin_+inferForm_.length(),type_,partOffsets_);
             current_ = getParent();
             m_ = current_.getParent();
         }
@@ -196,6 +204,10 @@ public final class StandardInstancingOperation extends
         if (infer_ == null) {
             return;
         }
+        partOffsets.addAllElts(partOffsets_);
+        int begin_ = newKeyWord_.length()+local_+className_.indexOf('<');
+        int end_ = newKeyWord_.length()+local_+className_.indexOf('>')+1;
+        _an.appendTitleParts(begin_,end_,infer_,partOffsets);
         typeInfer = infer_;
     }
 
@@ -216,7 +228,7 @@ public final class StandardInstancingOperation extends
                 realClassName_ = typeInfer;
             } else if (fieldName.isEmpty()) {
                 int local_ = StringList.getFirstPrintableCharIndex(realClassName_);
-                realClassName_ = _conf.resolveCorrectType(newKeyWord_.length()+local_,realClassName_.trim());
+                realClassName_ = _conf.resolveCorrectType(newKeyWord_.length()+local_,realClassName_);
                 partOffsets.addAllElts(_conf.getContextEl().getCoverage().getCurrentParts());
             } else {
                 realClassName_ = realClassName_.trim();

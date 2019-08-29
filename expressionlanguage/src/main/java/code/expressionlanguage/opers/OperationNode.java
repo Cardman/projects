@@ -1235,6 +1235,10 @@ public abstract class OperationNode implements Operable {
                 if (startOpt_ != _varargOnly - 1) {
                     return false;
                 }
+            } else if (_varargOnly == 0) {
+                if (_params.length != _argsClass.length) {
+                    return false;
+                }
             }
         }
         StringMap<StringList> mapCtr_ = _context.getCurrentConstraints();

@@ -807,6 +807,20 @@ public abstract class ContextEl implements ExecutableCode {
         return analyzing;
     }
 
+    @Override
+    public boolean isStaticAccess() {
+        Block bl_ = getCurrentBlock();
+        if (bl_ instanceof InfoBlock) {
+            return ((InfoBlock)bl_).isStaticField();
+        }
+        if (bl_ instanceof RootBlock) {
+            return ((RootBlock)bl_).isStaticType();
+        }
+        FunctionBlock fct_ = analyzing.getCurrentFct();
+        boolean st_ = fct_.isStaticContext();
+        return st_;
+    }
+
     public void setAnalyzing(AnalyzedPageEl _analyzing) {
         analyzing = _analyzing;
     }
@@ -1176,13 +1190,13 @@ public abstract class ContextEl implements ExecutableCode {
     }
 
     @Override
-    public String resolveAccessibleIdTypeWithoutError(String _in) {
+    public String resolveAccessibleIdTypeWithoutError(int _loc,String _in) {
         String void_ = standards.getAliasVoid();
         if (StringList.quickEq(_in.trim(), void_)) {
             return EMPTY_TYPE;
         }
         AccessingImportingBlock r_ = analyzing.getImporting();
-        int rc_ = getCurrentLocationIndex();
+        int rc_ = getCurrentLocationIndex()+_loc;
         String gl_ = getGlobalClass();
         String curr_ = ((Block)r_).getFile().getRenderFileName();
         CustList<PartOffset> offs_ = coverage.getCurrentParts();
@@ -1253,10 +1267,10 @@ public abstract class ContextEl implements ExecutableCode {
     @Override
     public String resolveCorrectType(int _loc,String _in, boolean _exact) {
         Block bl_ = getCurrentBlock();
-        int offset_ = StringList.getFirstPrintableCharIndex(_in);
-        int rc_ = getCurrentLocationIndex() + _loc + offset_;
+        int rc_ = getCurrentLocationIndex() + _loc;
         String void_ = standards.getAliasVoid();
-        if (StringList.quickEq(_in.trim(), void_)) {
+        String tr_ = _in.trim();
+        if (StringList.quickEq(tr_, void_)) {
             UnexpectedTypeError un_ = new UnexpectedTypeError();
             un_.setFileName(bl_.getFile().getFileName());
             un_.setIndexFile(rc_);
@@ -1277,9 +1291,9 @@ public abstract class ContextEl implements ExecutableCode {
         String gl_ = getGlobalClass();
         String resType_;
         if (_exact) {
-            resType_ = PartTypeUtil.processAnalyze(_in, gl_, this, r_,curr_,rc_,partOffsets_);
+            resType_ = PartTypeUtil.processAnalyze(tr_, gl_, this, r_,curr_,rc_,partOffsets_);
         } else {
-            resType_ = PartTypeUtil.processAnalyzeLine(_in, gl_, this, r_,curr_,rc_,partOffsets_);
+            resType_ = PartTypeUtil.processAnalyzeLine(tr_, gl_, this, r_,curr_,rc_,partOffsets_);
         }
         if (resType_.trim().isEmpty()) {
             UnknownClassName un_ = new UnknownClassName();
@@ -1371,6 +1385,13 @@ public abstract class ContextEl implements ExecutableCode {
         String rel_ = ElUtil.relativize(curr_,ref_);
         int id_ = ((RootBlock) g_).getIdRowCol();
         _parts.add(new PartOffset("<a title=\""+g_.getFullName()+"\" href=\""+rel_+"#m"+id_+"\">",rc_+_begin));
+        _parts.add(new PartOffset("</a>",rc_+_end));
+    }
+
+    @Override
+    public void appendTitleParts(int _begin, int _end, String _in, CustList<PartOffset> _parts) {
+        int rc_ = getCurrentLocationIndex();
+        _parts.add(new PartOffset("<a title=\""+ElUtil.transform(_in)+"\">",rc_+_begin));
         _parts.add(new PartOffset("</a>",rc_+_end));
     }
 
@@ -1578,7 +1599,11 @@ public abstract class ContextEl implements ExecutableCode {
             }
             return EMPTY_TYPE;
         }
-        if (getClassBody(res_) != null) {
+        GeneType cl_ = getClassBody(res_);
+        if (cl_ != null) {
+            if (!cl_.isStaticType() && isStaticAccess()) {
+                return EMPTY_TYPE;
+            }
             return res_;
         }
         return EMPTY_TYPE;

@@ -1006,6 +1006,16 @@ public final class Templates {
                 i_++;
             }
         }
+        if (_firstArgs.size() != params_.size()) {
+            LgNames stds_ = _conf.getStandards();
+            String cast_ = stds_.getAliasBadIndex();
+            StringBuilder mess_ = new StringBuilder();
+            mess_.append(_firstArgs.size());
+            mess_.append(">=");
+            mess_.append(params_.size());
+            _conf.setException(new ErrorStruct(_conf,mess_.toString(),cast_));
+            return false;
+        }
         int i_ = CustList.FIRST_INDEX;
         for (Argument a: _firstArgs) {
             String param_ = params_.get(i_);

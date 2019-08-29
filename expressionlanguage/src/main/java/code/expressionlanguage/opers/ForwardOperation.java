@@ -8,6 +8,7 @@ import code.expressionlanguage.errors.custom.StaticAccessThisError;
 import code.expressionlanguage.inherits.Mapping;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.OperationsSequence;
+import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.options.KeyWords;
 import code.util.CustList;
@@ -23,6 +24,7 @@ public final class ForwardOperation extends LeafOperation implements PossibleInt
     private boolean accessSuperTypes = true;
     private boolean accessFromSuper;
 
+    private CustList<PartOffset> partOffsets = new CustList<PartOffset>();
     ForwardOperation(int _indexInEl, int _indexChild, MethodOperation _m, OperationsSequence _op) {
         super(_indexInEl, _indexChild, _m, _op);
     }
@@ -62,7 +64,9 @@ public final class ForwardOperation extends LeafOperation implements PossibleInt
             String className_ = trimMeth_.substring(0, trimMeth_.lastIndexOf(PAR_RIGHT));
             int lenPref_ = trimMeth_.indexOf(PAR_LEFT) + 1;
             className_ = className_.substring(lenPref_);
-            classType = _conf.resolveCorrectType(lenPref_,className_);
+            int loc_ = StringList.getFirstPrintableCharIndex(className_);
+            classType = _conf.resolveCorrectType(lenPref_+loc_,className_);
+            partOffsets.addAllElts(_conf.getContextEl().getCoverage().getCurrentParts());
             Mapping map_ = new Mapping();
             map_.setParam(classType);
             map_.setArg(getResultClass());
@@ -80,7 +84,9 @@ public final class ForwardOperation extends LeafOperation implements PossibleInt
             String className_ = trimMeth_.substring(0, trimMeth_.lastIndexOf(PAR_RIGHT));
             int lenPref_ = trimMeth_.indexOf(PAR_LEFT) + 1;
             className_ = className_.substring(lenPref_);
-            classType = _conf.resolveCorrectType(lenPref_,className_);
+            int loc_ = StringList.getFirstPrintableCharIndex(className_);
+            classType = _conf.resolveCorrectType(lenPref_+loc_,className_);
+            partOffsets.addAllElts(_conf.getContextEl().getCoverage().getCurrentParts());
             setResultClass(new ClassArgumentMatching(classType));
             accessSuperTypes = false;
             staticChoiceMethod = true;
@@ -88,7 +94,9 @@ public final class ForwardOperation extends LeafOperation implements PossibleInt
             String className_ = trimMeth_.substring(0, trimMeth_.lastIndexOf(PAR_RIGHT));
             int lenPref_ = trimMeth_.indexOf(PAR_LEFT) + 1;
             className_ = className_.substring(lenPref_);
-            className_ = _conf.resolveCorrectType(lenPref_,className_);
+            int loc_ = StringList.getFirstPrintableCharIndex(className_);
+            className_ = _conf.resolveCorrectType(lenPref_+loc_,className_);
+            partOffsets.addAllElts(_conf.getContextEl().getCoverage().getCurrentParts());
             classType = className_;
             Mapping map_ = new Mapping();
             map_.setParam(classType);
@@ -144,5 +152,9 @@ public final class ForwardOperation extends LeafOperation implements PossibleInt
 
     public String getClassType() {
         return classType;
+    }
+
+    public CustList<PartOffset> getPartOffsets() {
+        return partOffsets;
     }
 }

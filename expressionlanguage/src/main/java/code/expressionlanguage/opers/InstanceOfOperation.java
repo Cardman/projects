@@ -3,6 +3,7 @@ package code.expressionlanguage.opers;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.OperationsSequence;
+import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.LgNames;
@@ -13,6 +14,7 @@ public final class InstanceOfOperation extends AbstractUnaryOperation {
     private String className;
     private int offset;
     private boolean correctTemplate = true;
+    private CustList<PartOffset> partOffsets = new CustList<PartOffset>();
     public InstanceOfOperation(int _index, int _indexChild, MethodOperation _m,
             OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
@@ -28,7 +30,9 @@ public final class InstanceOfOperation extends AbstractUnaryOperation {
         String keyWordInstanceof_ = keyWords_.getKeyWordInstanceof();
         int begin_ = keyWordInstanceof_.length() + className.indexOf(keyWordInstanceof_);
         String sub_ = className.substring(begin_);
-        sub_ = _conf.resolveCorrectType(begin_,sub_, sub_.contains(Templates.TEMPLATE_BEGIN));
+        int off_ = StringList.getFirstPrintableCharIndex(sub_);
+        sub_ = _conf.resolveCorrectType(begin_+off_,sub_, sub_.contains(Templates.TEMPLATE_BEGIN));
+        partOffsets.addAllElts(_conf.getContextEl().getCoverage().getCurrentParts());
         if (!sub_.contains(Templates.TEMPLATE_BEGIN)) {
             if (!sub_.startsWith(Templates.PREFIX_VAR_TYPE)) {
                 correctTemplate = Templates.correctNbParameters(sub_, _conf);
@@ -48,5 +52,9 @@ public final class InstanceOfOperation extends AbstractUnaryOperation {
 
     public boolean isCorrectTemplate() {
         return correctTemplate;
+    }
+
+    public CustList<PartOffset> getPartOffsets() {
+        return partOffsets;
     }
 }

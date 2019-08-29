@@ -3319,4 +3319,87 @@ public final class ProcessMethodInternOptionTypeTest extends ProcessMethodCommon
         calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq("$core.NullObject",cont_.getException().getClassName(cont_));
     }
+    @Test
+    public void calculateArgument18FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex<T> {\n");
+        xml_.append(" public class Inner<S> {\n");
+        xml_.append(" }\n");
+        xml_.append(" public static Inner<int> exmeth(){\n");
+        xml_.append("  return null;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExFour", xml_.toString());
+        ContextEl cont_ = contextEnElDefaultInternType();
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void calculateArgument19FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("static pkg.ExOuter.Inner;\n");
+        xml_.append("public class pkg.Ex<T> {\n");
+        xml_.append(" public static Inner<int> exmeth(){\n");
+        xml_.append("  return null;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExFour", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("public class pkg.ExOuter<T> {\n");
+        xml_.append(" public class Inner<S> {\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExFour2", xml_.toString());
+        ContextEl cont_ = contextEnElDefaultInternType();
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void calculateArgument20FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("pkg.ExOuter.Inner;\n");
+        xml_.append("public class pkg.Ex<T> {\n");
+        xml_.append(" public static Inner<int> exmeth(){\n");
+        xml_.append("  return null;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExFour", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("public class pkg.ExOuter<T> {\n");
+        xml_.append(" public class Inner<S> {\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExFour2", xml_.toString());
+        ContextEl cont_ = contextEnElDefaultInternType();
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void calculateArgument21FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("pkg.ExOuter.Inner;\n");
+        xml_.append("public class pkg.Ex<T> {\n");
+        xml_.append(" public static Inner<int> exmeth(){\n");
+        xml_.append("  return null;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExFour", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("public class pkg.ExOuter {\n");
+        xml_.append(" public class Inner<S> {\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExFour2", xml_.toString());
+        ContextEl cont_ = contextEnElDefaultInternType();
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
 }

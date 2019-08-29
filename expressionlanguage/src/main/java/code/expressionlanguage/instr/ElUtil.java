@@ -719,6 +719,9 @@ public final class ElUtil {
             if (curOp_ instanceof ExecDimensionArrayInstancing) {
                 _parts.addAllElts(((DimensionArrayInstancing)val_).getPartOffsets());
             }
+            if (val_ instanceof ElementArrayInstancing) {
+                _parts.addAllElts(((ElementArrayInstancing)val_).getPartOffsets());
+            }
             if (curOp_ instanceof ExecLambdaOperation) {
                 ClassMethodId classMethodId_ = ((ExecLambdaOperation) curOp_).getMethod();
                 ConstructorId realId_ = ((ExecLambdaOperation) curOp_).getRealId();
@@ -767,6 +770,18 @@ public final class ElUtil {
                     updateFieldAnchor(_cont,_parts,fieldId_,sum_ + val_.getIndexInEl(),_cont.getKeyWords().getKeyWordLambda().length());
                 }
                 _parts.addAllElts(((LambdaOperation)val_).getPartOffsets());
+            }
+            if (curOp_ instanceof ExecIdFctOperation) {
+                _parts.addAllElts(((IdFctOperation)val_).getPartOffsets());
+            }
+            if (curOp_ instanceof ExecVarargOperation) {
+                _parts.addAllElts(((VarargOperation)val_).getPartOffsets());
+            }
+            if (curOp_ instanceof ExecForwardOperation) {
+                _parts.addAllElts(((ForwardOperation)val_).getPartOffsets());
+            }
+            if (curOp_ instanceof ExecDefaultValueOperation) {
+                _parts.addAllElts(((DefaultValueOperation)val_).getPartOffsets());
             }
             if (curOp_ instanceof ExecStaticInfoOperation) {
                 _parts.addAllElts(((StaticInfoOperation)val_).getPartOffsets());
@@ -820,6 +835,9 @@ public final class ElUtil {
                         _parts.add(new PartOffset(tag_,sum_ + val_.getIndexInEl()+offsetOp_+1));
                     }
                 }
+            }
+            if (curOp_ instanceof ExecCastOperation) {
+                _parts.addAllElts(((CastOperation)val_).getPartOffsets());
             }
             if (curOp_ instanceof ExecSemiAffectationOperation) {
                 ExecSemiAffectationOperation par_ = (ExecSemiAffectationOperation) curOp_;
@@ -1065,6 +1083,9 @@ public final class ElUtil {
                     _parts.add(new PartOffset(tag_, offsetEnd_));
                     tag_ = "</a>";
                     _parts.add(new PartOffset(tag_, offsetEnd_+1));
+                }
+                if (parentOp_ instanceof ExecInstanceOfOperation) {
+                    _parts.addAllElts(((InstanceOfOperation)parent_).getPartOffsets());
                 }
                 if (parentOp_ instanceof ExecSemiAffectationOperation) {
                     ExecSemiAffectationOperation par_ = (ExecSemiAffectationOperation) parentOp_;

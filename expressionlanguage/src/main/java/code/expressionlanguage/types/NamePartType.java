@@ -6,10 +6,7 @@ import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.inherits.TypeOwnersDepends;
 import code.expressionlanguage.inherits.TypeUtil;
-import code.expressionlanguage.methods.AccessedBlock;
-import code.expressionlanguage.methods.AccessingImportingBlock;
-import code.expressionlanguage.methods.Classes;
-import code.expressionlanguage.methods.RootBlock;
+import code.expressionlanguage.methods.*;
 import code.util.CustList;
 import code.util.*;
 import code.util.StringList;
@@ -600,6 +597,9 @@ final class NamePartType extends LeafPartType {
                     RootBlock inner_ = classes_.getClassBody(in_);
                     if (inner_.isStaticType()) {
                         setAnalyzedType(StringList.concat(id_,"..",type_));
+                        return;
+                    }
+                    if (_an.isStaticAccess()) {
                         return;
                     }
                     String new_ = Templates.quickFormat(f_, genStr_, _an);

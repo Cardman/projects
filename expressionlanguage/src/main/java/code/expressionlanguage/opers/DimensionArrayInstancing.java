@@ -34,6 +34,7 @@ public final class DimensionArrayInstancing extends
         String newKeyWord_ = keyWords_.getKeyWordNew();
         String methodName_ = getMethodName();
         String className_ = methodName_.trim().substring(newKeyWord_.length());
+        int local_ = StringList.getFirstPrintableCharIndex(className_);
         className_ = className_.trim();
         StringMap<String> vars_ = new StringMap<String>();
 
@@ -47,8 +48,10 @@ public final class DimensionArrayInstancing extends
         String mName_ = getMethodName();
         int off_ = StringList.getFirstPrintableCharIndex(mName_);
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _an);
+        CustList<PartOffset> partOffsets_ = new CustList<PartOffset>();
         MethodOperation m_;
-        type_ = _an.resolveAccessibleIdTypeWithoutError(inferForm_);
+        type_ = _an.resolveAccessibleIdTypeWithoutError(newKeyWord_.length()+local_,inferForm_);
+        partOffsets_.addAllElts(_an.getContextEl().getCoverage().getCurrentParts());
         if (type_.isEmpty()) {
             return;
         }
@@ -108,6 +111,10 @@ public final class DimensionArrayInstancing extends
         if (infer_ == null) {
             return;
         }
+        partOffsets.addAllElts(partOffsets_);
+        int begin_ = newKeyWord_.length()+local_+className_.indexOf('<');
+        int end_ = newKeyWord_.length()+local_+className_.indexOf('>')+1;
+        _an.appendTitleParts(begin_,end_,infer_,partOffsets);
         typeInfer = infer_;
     }
 
@@ -123,7 +130,7 @@ public final class DimensionArrayInstancing extends
         String className_ = m_.trim().substring(new_.length());
         if (typeInfer.isEmpty()) {
             int local_ = StringList.getFirstPrintableCharIndex(className_);
-            className_ = _conf.resolveCorrectType(new_.length()+local_,className_.trim());
+            className_ = _conf.resolveCorrectType(new_.length()+local_,className_);
             partOffsets.addAllElts(_conf.getContextEl().getCoverage().getCurrentParts());
         } else {
             className_ = typeInfer;

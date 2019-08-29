@@ -484,7 +484,6 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         KeyWords keyWords_ = _conf.getKeyWords();
         String keyWordId_ = keyWords_.getKeyWordId();
         boolean foundId_ = false;
-        CustList<PartOffset> argsPartOffsets_ = new CustList<PartOffset>();
         String type_ = EMPTY_STRING;
         if (_len > 2 &&StringList.quickEq(_args.get(2).trim(), keyWordId_)) {
             type_ = _conf.resolveCorrectType(offset_,_fromType);
@@ -599,7 +598,6 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             return;
         }
         String idClass_ = Templates.getIdFromAllTypes(cl_);
-        offset_ += idClass_.length() + 1;
         StringMap<String> ownersMap_ = new StringMap<String>();
         String glClass_ = _conf.getGlobalClass();
         boolean ok_ = true;
@@ -652,8 +650,11 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             return;
         }
         String sup_ = ownersMap_.values().first();
-        StringList partsArgs_ = new StringList();
+        String idSup_ = Templates.getIdFromAllTypes(sup_);
         CustList<PartOffset> partOffsets_ = new CustList<PartOffset>();
+        _conf.appendParts(offset_,offset_+idClass_.length(),StringList.concat(idSup_,"..",idClass_),partOffsets_);
+        offset_ += idClass_.length() + 1;
+        StringList partsArgs_ = new StringList();
         for (String a: Templates.getAllTypes(cl_).mid(1)) {
             int loc_ = StringList.getFirstPrintableCharIndex(a);
             String res_ = _conf.resolveCorrectType(offset_+loc_,a);

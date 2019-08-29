@@ -187,6 +187,7 @@ public final class OverridableBlock extends NamedFunctionBlock implements GeneMe
     private void refParams(ContextEl _cont, CustList<PartOffset> _parts) {
         int len_ = getParametersNamesOffset().size();
         for (int i = 0; i < len_; i++) {
+            _parts.addAllElts(getPartOffsetsParams().get(i));
             Integer off_ = getParametersNamesOffset().get(i);
             String param_ = getParametersNames().get(i);
             _parts.add(new PartOffset("<a name=\"m"+off_+"\">",off_));

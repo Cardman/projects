@@ -760,7 +760,7 @@ public final class Configuration implements ExecutableCode {
     }
 
     @Override
-    public String resolveAccessibleIdTypeWithoutError(String _in) {
+    public String resolveAccessibleIdTypeWithoutError(int _loc,String _in) {
         String void_ = standards.getAliasVoid();
         if (StringList.quickEq(_in.trim(), void_)) {
             return "";
@@ -841,6 +841,11 @@ public final class Configuration implements ExecutableCode {
     }
 
     @Override
+    public void appendTitleParts(int _begin, int _end, String _in, CustList<PartOffset> _parts) {
+        //implement
+    }
+
+    @Override
     public String resolveCorrectTypeWithoutErrors(int _loc,String _in, boolean _exact) {
         String void_ = standards.getAliasVoid();
         if (StringList.quickEq(_in.trim(), void_)) {
@@ -885,6 +890,12 @@ public final class Configuration implements ExecutableCode {
     public AnalyzedPageEl getAnalyzing() {
         return context.getAnalyzing();
     }
+
+    @Override
+    public boolean isStaticAccess() {
+        return true;
+    }
+
     public CustList<StringMap<LocalVariable>> getLocalVarsAna() {
         return context.getAnalyzing().getLocalVars();
     }

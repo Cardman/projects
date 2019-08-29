@@ -7,6 +7,7 @@ import code.expressionlanguage.inherits.Mapping;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.OperationsSequence;
+import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.options.KeyWords;
 import code.util.CustList;
@@ -14,6 +15,8 @@ import code.util.StringList;
 import code.util.StringMap;
 
 public final class ElementArrayInstancing extends AbstractArrayInstancingOperation {
+
+    private CustList<PartOffset> partOffsets = new CustList<PartOffset>();
 
     public ElementArrayInstancing(int _index, int _indexChild,
             MethodOperation _m, OperationsSequence _op) {
@@ -30,7 +33,9 @@ public final class ElementArrayInstancing extends AbstractArrayInstancingOperati
         KeyWords keyWords_ = _conf.getKeyWords();
         String new_ = keyWords_.getKeyWordNew();
         String className_ = m_.trim().substring(new_.length());
-        className_ = _conf.resolveCorrectType(new_.length(),className_);
+        int loc_ = StringList.getFirstPrintableCharIndex(className_);
+        className_ = _conf.resolveCorrectType(new_.length()+loc_,className_);
+        partOffsets.addAllElts(_conf.getContextEl().getCoverage().getCurrentParts());
         if (!className_.startsWith(ARR)) {
             UnexpectedTypeOperationError un_ = new UnexpectedTypeOperationError();
             un_.setIndexFile(_conf.getCurrentLocationIndex());
@@ -71,4 +76,7 @@ public final class ElementArrayInstancing extends AbstractArrayInstancingOperati
         setResultClass(new ClassArgumentMatching(arrayCl_));
     }
 
+    public CustList<PartOffset> getPartOffsets() {
+        return partOffsets;
+    }
 }

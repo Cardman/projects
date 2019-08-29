@@ -30,7 +30,8 @@ public final class SuperFromFieldOperation extends
         String className_ = originalStr_.substring(0,originalStr_.lastIndexOf(PAR_RIGHT));
         int lenPref_ = className_.indexOf(PAR_LEFT)+1;
         className_ = className_.substring(lenPref_);
-        className_ = _conf.resolveCorrectType(lenPref_,className_);
+        int loc_ = StringList.getFirstPrintableCharIndex(className_);
+        className_ = _conf.resolveCorrectType(lenPref_+loc_,className_);
         partOffsets.addAllElts(_conf.getContextEl().getCoverage().getCurrentParts());
         ClassArgumentMatching clCur_;
         if (!isIntermediateDottedOperation()) {
