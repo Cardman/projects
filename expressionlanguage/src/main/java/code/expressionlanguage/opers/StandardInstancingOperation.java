@@ -368,14 +368,6 @@ public final class StandardInstancingOperation extends
                 _conf.getClasses().addError(call_);
             }
         }
-        if (!g_.withoutInstance() && !isIntermediateDottedOperation() && isStaticAccess()) {
-            StaticAccessError static_ = new StaticAccessError();
-            static_.setFileName(_conf.getCurrentFileName());
-            static_.setIndexFile(_conf.getCurrentLocationIndex());
-            _conf.getClasses().addError(static_);
-            setResultClass(new ClassArgumentMatching(_realClassName));
-            return;
-        }
         if (g_.isAbstractType() && !(g_ instanceof EnumBlock || g_ instanceof InnerElementBlock)) {
             IllegalCallCtorByType call_ = new IllegalCallCtorByType();
             call_.setType(_realClassName);

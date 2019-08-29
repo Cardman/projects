@@ -3112,6 +3112,39 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         assertEq(0, ret_.getNumber());
     }
     @Test
+    public void calculateArgument801Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $annotation pkg.MyAnnot {\n");
+        xml_.append("}\n");
+        xml_.append("$public $enum pkg.Ex {\n");
+        xml_.append(" @MyAnnot\n");
+        xml_.append(" catching{}:\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  $Annotation[] arr = $class(Ex).getDeclaredFields()[0].getAnnotations():\n");
+        xml_.append("  $if (arr;.length != 1i){\n");
+        xml_.append("   $return 3i:\n");
+        xml_.append("  }\n");
+        xml_.append("  $if ($static($Class).getClass(arr;.) != $class($Annotation[])){\n");
+        xml_.append("   $return 2i:\n");
+        xml_.append("  }\n");
+        xml_.append("  $if ($static($Class).getClass(arr;.[0i]) != $class(MyAnnot)){\n");
+        xml_.append("   $return 1i:\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 0i:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        Argument ret_;
+        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq(0, ret_.getNumber());
+    }
+    @Test
     public void calculateArgument81Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.MyClass {\n");
@@ -3123,6 +3156,32 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         xml_.append("$public $enum pkg.Ex {\n");
         xml_.append(" @MyAnnot(info={MyClass.stInfo})\n");
         xml_.append(" catching:\n");
+        xml_.append(" $public $static $void catching(){\n");
+        xml_.append("  $class(Ex).getDeclaredFields()[0].getAnnotations():\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq("code.util.exceptions.NullObjectException", cont_.getException().getClassName(cont_));
+    }
+    @Test
+    public void calculateArgument811Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MyClass {\n");
+        xml_.append(" $static $final Integer stInfo = $null:\n");
+        xml_.append("}\n");
+        xml_.append("$public $annotation pkg.MyAnnot {\n");
+        xml_.append(" $int[] info():\n");
+        xml_.append("}\n");
+        xml_.append("$public $enum pkg.Ex {\n");
+        xml_.append(" @MyAnnot(info={MyClass.stInfo})\n");
+        xml_.append(" catching{}:\n");
         xml_.append(" $public $static $void catching(){\n");
         xml_.append("  $class(Ex).getDeclaredFields()[0].getAnnotations():\n");
         xml_.append(" }\n");

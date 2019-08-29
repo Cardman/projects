@@ -853,11 +853,7 @@ public final class Configuration implements ExecutableCode {
         }
         AccessingImportingBlock r_ = analyzingDoc.getCurrentDoc();
         StringMap<StringList> vars_ = getCurrentConstraints();
-        CustList<String> varsList_ = vars_.getKeys();
         StringMap<Integer> available_ = new StringMap<Integer>();
-        for (String p: varsList_) {
-            available_.addEntry(p,0);
-        }
         getAvailableVariables().clear();
         getAvailableVariables().putAllMap(available_);
         String gl_ = getGlobalClass();
@@ -889,11 +885,6 @@ public final class Configuration implements ExecutableCode {
     @Override
     public AnalyzedPageEl getAnalyzing() {
         return context.getAnalyzing();
-    }
-
-    @Override
-    public boolean isStaticAccess() {
-        return true;
     }
 
     public CustList<StringMap<LocalVariable>> getLocalVarsAna() {

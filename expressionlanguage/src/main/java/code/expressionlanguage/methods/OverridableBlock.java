@@ -162,6 +162,7 @@ public final class OverridableBlock extends NamedFunctionBlock implements GeneMe
 
     @Override
     public void processReport(ContextEl _cont, CustList<PartOffset> _parts) {
+        buildAnnotationsReport(_cont,_parts);
         int begName_ = getNameOffset();
         _parts.addAllElts(getPartOffsetsReturn());
         if (kind == MethodKind.GET_INDEX) {
@@ -187,6 +188,7 @@ public final class OverridableBlock extends NamedFunctionBlock implements GeneMe
     private void refParams(ContextEl _cont, CustList<PartOffset> _parts) {
         int len_ = getParametersNamesOffset().size();
         for (int i = 0; i < len_; i++) {
+            buildAnnotationsReport(i,_cont,_parts);
             _parts.addAllElts(getPartOffsetsParams().get(i));
             Integer off_ = getParametersNamesOffset().get(i);
             String param_ = getParametersNames().get(i);

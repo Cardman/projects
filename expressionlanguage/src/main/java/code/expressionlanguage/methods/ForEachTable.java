@@ -69,6 +69,10 @@ public final class ForEachTable extends BracedStack implements Loop, WithNotEmpt
 
     private CustList<ExecOperationNode> opList;
 
+    private CustList<PartOffset> partOffsetsFirst = new CustList<PartOffset>();
+
+    private CustList<PartOffset> partOffsetsSecond = new CustList<PartOffset>();
+
     public ForEachTable(ContextEl _importingPage,
                         OffsetStringInfo _className, OffsetStringInfo _variable,
                         OffsetStringInfo _classNameSec, OffsetStringInfo _variableSec,
@@ -233,6 +237,7 @@ public final class ForEachTable extends BracedStack implements Loop, WithNotEmpt
         page_.setOffset(0);
         if (!StringList.quickEq(classNameFirst.trim(), keyWordVar_)) {
             importedClassNameFirst = _cont.resolveCorrectType(classNameFirst);
+            partOffsetsFirst.addAllElts(_cont.getCoverage().getCurrentParts());
         } else {
             importedClassNameFirst = "";
         }
@@ -240,6 +245,7 @@ public final class ForEachTable extends BracedStack implements Loop, WithNotEmpt
         page_.setOffset(0);
         if (!StringList.quickEq(classNameSecond.trim(), keyWordVar_)) {
             importedClassNameSecond = _cont.resolveCorrectType(classNameSecond);
+            partOffsetsSecond.addAllElts(_cont.getCoverage().getCurrentParts());
         } else {
             importedClassNameSecond = "";
         }
@@ -693,6 +699,8 @@ public final class ForEachTable extends BracedStack implements Loop, WithNotEmpt
             _parts.add(new PartOffset(tag_,classNameOffsetFirst));
             tag_ = "</b>";
             _parts.add(new PartOffset(tag_,classNameOffsetFirst+ _cont.getKeyWords().getKeyWordFor().length()));
+        } else {
+            _parts.addAllElts(partOffsetsFirst);
         }
         tag_ = "<a name=\"m"+ variableNameOffsetFirst +"\">";
         _parts.add(new PartOffset(tag_,variableNameOffsetFirst));
@@ -703,6 +711,8 @@ public final class ForEachTable extends BracedStack implements Loop, WithNotEmpt
             _parts.add(new PartOffset(tag_,classNameOffsetSecond));
             tag_ = "</b>";
             _parts.add(new PartOffset(tag_,classNameOffsetSecond+ _cont.getKeyWords().getKeyWordFor().length()));
+        } else {
+            _parts.addAllElts(partOffsetsSecond);
         }
         tag_ = "<a name=\"m"+ variableNameOffsetSecond +"\">";
         _parts.add(new PartOffset(tag_,variableNameOffsetSecond));

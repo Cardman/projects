@@ -7,6 +7,7 @@ import code.expressionlanguage.calls.ReflectAnnotationPageEl;
 import code.expressionlanguage.calls.ReflectGetDefaultValuePageEl;
 import code.expressionlanguage.calls.util.ReadWrite;
 import code.expressionlanguage.instr.PartOffset;
+import code.expressionlanguage.methods.AnnotationMethodBlock;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.NamedFunctionBlock;
 import code.expressionlanguage.opers.OperationNode;
@@ -24,6 +25,8 @@ public final class Coverage {
     private IdMap<Block,StandardCoverageResult> coverNoDefSwitchs = new IdMap<Block,StandardCoverageResult>();
     private IdMap<Block,Boolean> catches = new IdMap<Block,Boolean>();
     private IdMap<Block,IdMap<ExecOperationNode,OperationNode>> mapping = new IdMap<Block,IdMap<ExecOperationNode,OperationNode>>();
+    private IdMap<Block,IdMap<ExecOperationNode,OperationNode>> mappingAnnot = new IdMap<Block,IdMap<ExecOperationNode,OperationNode>>();
+    private IdMap<Block,IdMap<ExecOperationNode,OperationNode>> mappingAnnotMembers = new IdMap<Block,IdMap<ExecOperationNode,OperationNode>>();
     private StringMap<Integer> localVars = new StringMap<Integer>();
     private StringMap<Integer> mutableVars = new StringMap<Integer>();
     private StringMap<Integer> loopVars = new StringMap<Integer>();
@@ -60,11 +63,28 @@ public final class Coverage {
         covers.put(_block, new IdMap<ExecOperationNode, AbstractCoverageResult>());
         getMapping().put(_block,new IdMap<ExecOperationNode, OperationNode>());
     }
+    public void putBlockOperationsField(Analyzable _context, Block _block) {
+        if (!_context.getContextEl().isCovering()) {
+            return;
+        }
+        if (_context.getContextEl().isAnnotAnalysisField()) {
+            mappingAnnot.put(_block,new IdMap<ExecOperationNode, OperationNode>());
+            return;
+        }
+        mappingAnnotMembers.put(_block,new IdMap<ExecOperationNode, OperationNode>());
+    }
     public void putBlockOperation(Analyzable _context, Block _block, OperationNode _op, ExecOperationNode _exec) {
         if (!_context.getContextEl().isCovering() || _context.getContextEl().isEnabledInternVars()) {
             return;
         }
         if (_context.getContextEl().isAnnotAnalysis()) {
+            if (_context.getContextEl().isAnnotAnalysisField()) {
+                IdMap<ExecOperationNode, OperationNode> mapping_ = mappingAnnot.getVal(_block);
+                mapping_.put(_exec,_op);
+                return;
+            }
+            IdMap<ExecOperationNode, OperationNode> mapping_ = mappingAnnotMembers.getVal(_block);
+            mapping_.put(_exec,_op);
             return;
         }
         IdMap<ExecOperationNode,AbstractCoverageResult> instr_;
@@ -136,6 +156,9 @@ public final class Coverage {
         Block en_ = rw_.getBlock();
         IdMap<ExecOperationNode,AbstractCoverageResult> instr_;
         instr_ = covers.getVal(en_);
+        if (instr_ == null) {
+            return;
+        }
         AbstractCoverageResult result_ = instr_.getVal(_exec);
         if (result_ == null) {
             return;
@@ -168,6 +191,14 @@ public final class Coverage {
 
     public IdMap<Block, IdMap<ExecOperationNode, OperationNode>> getMapping() {
         return mapping;
+    }
+
+    public IdMap<Block, IdMap<ExecOperationNode, OperationNode>> getMappingAnnot() {
+        return mappingAnnot;
+    }
+
+    public IdMap<Block, IdMap<ExecOperationNode, OperationNode>> getMappingAnnotMembers() {
+        return mappingAnnotMembers;
     }
 
     public IdMap<Block, IdMap<Block, StandardCoverageResult>> getCoverSwitchs() {

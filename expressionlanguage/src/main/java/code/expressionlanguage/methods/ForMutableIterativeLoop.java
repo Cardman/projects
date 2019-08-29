@@ -65,6 +65,8 @@ public final class ForMutableIterativeLoop extends BracedStack implements
 
     private CustList<ExecOperationNode> opStep;
 
+    private CustList<PartOffset> partOffsets = new CustList<PartOffset>();
+
     public ForMutableIterativeLoop(ContextEl _importingPage,
                                    OffsetBooleanInfo _final,
                                    OffsetStringInfo _className,
@@ -270,6 +272,7 @@ public final class ForMutableIterativeLoop extends BracedStack implements
                 importedClassName = keyWordVar_;
             } else {
                 importedClassName = _cont.resolveCorrectType(className);
+                partOffsets.addAllElts(_cont.getCoverage().getCurrentParts());
             }
             _cont.setMerged(true);
             _cont.setFinalVariable(finalVariable);
@@ -577,6 +580,8 @@ public final class ForMutableIterativeLoop extends BracedStack implements
             _parts.add(new PartOffset(tag_,classNameOffset));
             tag_ = "</b>";
             _parts.add(new PartOffset(tag_,classNameOffset+ _cont.getKeyWords().getKeyWordFor().length()));
+        } else {
+            _parts.addAllElts(partOffsets);
         }
         if (!opInit.isEmpty()) {
             _cont.getCoverage().setPossibleDeclareLoopVars(true);

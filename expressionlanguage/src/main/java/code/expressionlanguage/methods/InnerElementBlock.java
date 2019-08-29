@@ -304,6 +304,7 @@ public final class InnerElementBlock extends RootBlock implements InnerTypeOrEle
 
     @Override
     public void processReport(ContextEl _cont, CustList<PartOffset> _parts) {
+        processAnnotationReport(_cont,_parts);
         ExecOperationNode root_ = opValue.last();
         String cl_ = ((ExecStandardInstancingOperation)root_).getClassName();
         cl_ = Templates.getIdFromAllTypes(cl_);
@@ -328,7 +329,7 @@ public final class InnerElementBlock extends RootBlock implements InnerTypeOrEle
         _parts.addAllElts(partOffsets);
         int blOffset_ = valueOffest;
         int endBl_ = valueOffest + value.length();
-        ElUtil.buildCoverageReport(_cont,blOffset_,this,opValue,endBl_,_parts,trOffset-1,fieldName);
+        ElUtil.buildCoverageReport(_cont,blOffset_,this,opValue,endBl_,_parts,trOffset-1,fieldName,false);
     }
 
     @Override

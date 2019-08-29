@@ -2515,4 +2515,36 @@ public final class RenderAliasTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(!conf_.getClasses().isEmptyErrors());
     }
+    @Test
+    public void process3FailTest() {
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String html_ = "<html c:alias='$static pkg.Outer..InnerTwo..Ex;'><body>{($void)$null+$new ..Ex(14).res($id(pkg.Outer..Inner..Ex,pkg.Outer..Inner..Ex),$new ..Ex(15))}</body></html>";
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Outer {\n");
+        xml_.append("$public $static $class Inner {\n");
+        xml_.append("$public $static $class Ex {\n");
+        xml_.append(" $public $int ance:\n");
+        xml_.append(" $public Ex($int p){\n");
+        xml_.append("  ance = p;.;:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $int res(..Ex v){\n");
+        xml_.append("  $return ance+v;.;ance:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("}\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        Configuration conf_ = contextElThird(files_);
+        conf_.setMessagesFolder(folder_);
+        conf_.setProperties(new StringMap<String>());
+        conf_.getProperties().put("msg_example", relative_);
+        Document doc_ = DocumentBuilder.parseSax(html_);
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
+        conf_.getRenders().put("page1.html",rendDocumentBlock_);
+        conf_.getAnalyzing().setEnabledInternVars(false);
+        rendDocumentBlock_.buildFctInstructions(conf_);
+        assertTrue(!conf_.getClasses().isEmptyErrors());
+    }
 }

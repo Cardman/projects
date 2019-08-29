@@ -369,8 +369,7 @@ public final class PartTypeUtil {
         return root_.getAnalyzedType();
     }
 
-    private static boolean addTypeParts(Analyzable _an, String _fileName, String _refFileName, int _loc, CustList<PartOffset> _offs, CustList<LeafPartType> _leaves) {
-        boolean sh_ = false;
+    private static void addTypeParts(Analyzable _an, String _fileName, String _refFileName, int _loc, CustList<PartOffset> _offs, CustList<LeafPartType> _leaves) {
         if (_an.getContextEl().isCovering()) {
             for (LeafPartType l: _leaves){
                 if (l instanceof NamePartType) {
@@ -385,27 +384,22 @@ public final class PartTypeUtil {
                         int begin_ = _loc + l.getIndexInType();
                         _offs.add(new PartOffset("<a title=\""+g_.getFullName()+"\" href=\""+rel_+"#m"+id_+"\">", begin_));
                         _offs.add(new PartOffset("</a>", begin_+type_.length()));
-                        sh_ = true;
                     }
                 }
                 if (l instanceof VariablePartType) {
                     String type_ = l.getTypeName();
                     String imported_ = l.getAnalyzedType();
-                    if (!imported_.isEmpty()) {
-                        Integer id_ = _an.getAvailableVariables().getVal(imported_.substring(1));
-                        String rel_ = "";
-                        if (!_refFileName.isEmpty()) {
-                            rel_ = ElUtil.relativize(_fileName,_refFileName);
-                        }
-                        int begin_ = _loc + l.getIndexInType();
-                        _offs.add(new PartOffset("<a href=\""+rel_+"#m"+id_+"\">", begin_));
-                        _offs.add(new PartOffset("</a>", begin_+type_.length()));
-                        sh_ = true;
+                    Integer id_ = _an.getAvailableVariables().getVal(imported_.substring(1));
+                    String rel_ = "";
+                    if (!_refFileName.isEmpty()) {
+                        rel_ = ElUtil.relativize(_fileName,_refFileName);
                     }
+                    int begin_ = _loc + l.getIndexInType();
+                    _offs.add(new PartOffset("<a href=\""+rel_+"#m"+id_+"\">", begin_));
+                    _offs.add(new PartOffset("</a>", begin_+type_.length()));
                 }
             }
         }
-        return sh_;
     }
     public static String processPrettyType(String _input) {
         StringBuilder out_ = new StringBuilder();

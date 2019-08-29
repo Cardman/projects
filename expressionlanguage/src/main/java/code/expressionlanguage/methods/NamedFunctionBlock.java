@@ -1,6 +1,7 @@
 package code.expressionlanguage.methods;
 
 import code.expressionlanguage.Analyzable;
+import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.errors.custom.MissingReturnMethod;
 import code.expressionlanguage.files.OffsetAccessInfo;
@@ -98,16 +99,34 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
     public void buildAnnotations(ContextEl _context) {
         super.buildAnnotations(_context);
         annotationsOpsParams = new CustList<CustList<CustList<ExecOperationNode>>>();
-        for (StringList p: annotationsParams) {
+        int j_ = 0;
+        for (Ints l: annotationsIndexesParams) {
             CustList<CustList<ExecOperationNode>> annotation_;
             annotation_ = new CustList<CustList<ExecOperationNode>>();
-            for (String a:p) {
+            int len_ = l.size();
+            AnalyzedPageEl page_ = _context.getAnalyzing();
+            StringList list_ = annotationsParams.get(j_);
+            for (int i = 0; i < len_; i++) {
+                int begin_ = l.get(i);
+                page_.setGlobalOffset(begin_);
+                page_.setOffset(0);
                 Calculation c_ = Calculation.staticCalculation(true);
-                annotation_.add(ElUtil.getAnalyzedOperations(a, _context, c_));
+                annotation_.add(ElUtil.getAnalyzedOperations(list_.get(i), _context, c_));
             }
             annotationsOpsParams.add(annotation_);
+            j_++;
         }
     }
+    protected void buildAnnotationsReport(int _index,ContextEl _cont, CustList<PartOffset> _parts) {
+        int len_ = annotationsIndexesParams.get(_index).size();
+        StringList list_ = annotationsParams.get(_index);
+        for (int i = 0; i < len_; i++) {
+            int begin_ = annotationsIndexesParams.get(_index).get(i);
+            int end_ = begin_ + list_.get(i).length();
+            ElUtil.buildCoverageReport(_cont,begin_,this,annotationsOpsParams.get(_index).get(i),end_,_parts,0,"",true);
+        }
+    }
+
     @Override
     public void reduce(ContextEl _context) {
         super.reduce(_context);

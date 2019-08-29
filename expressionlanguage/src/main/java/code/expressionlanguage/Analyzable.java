@@ -91,7 +91,7 @@ public interface Analyzable {
     Options getOptions();
 
     AnalyzedPageEl getAnalyzing();
-    boolean isStaticAccess();
+
     Ints getCurrentBadIndexes();
     Block getCurrentBlock();
     AnalyzedBlock getCurrentAnaBlock();

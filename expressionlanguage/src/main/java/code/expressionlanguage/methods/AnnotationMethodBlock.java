@@ -153,6 +153,7 @@ public final class AnnotationMethodBlock extends NamedFunctionBlock implements
         }
         page_.setGlobalOffset(defaultValueOffset);
         page_.setOffset(0);
+        _cont.getCoverage().putBlockOperationsField(_cont,this);
         opValue = ElUtil.getAnalyzedOperations(defaultValue, _cont, Calculation.staticCalculation(true));
         String import_ = getImportedReturnType();
         StringMap<StringList> vars_ = new StringMap<StringList>();
@@ -220,5 +221,16 @@ public final class AnnotationMethodBlock extends NamedFunctionBlock implements
 
     @Override
     public void processReport(ContextEl _cont, CustList<PartOffset> _parts) {
+        buildAnnotationsReport(_cont,_parts);
+        _parts.addAllElts(getPartOffsetsReturn());
+        int begName_ = getNameOffset();
+        _parts.add(new PartOffset("<a name=\"m"+begName_+"\">",begName_));
+        int endName_ = begName_ + getName().length();
+        _parts.add(new PartOffset("</a>",endName_));
+        if (!opValue.isEmpty()) {
+            int blOffset_ = defaultValueOffset;
+            int endBl_ = blOffset_ + defaultValue.length();
+            ElUtil.buildCoverageReport(_cont,blOffset_,this,opValue,endBl_,_parts);
+        }
     }
 }

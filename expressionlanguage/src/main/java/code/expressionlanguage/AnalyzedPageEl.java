@@ -61,6 +61,7 @@ public final class AnalyzedPageEl {
     private boolean assignedFields;
     private ForLoopPart forLoopPart;
     private AnalyzingEl analysisAss;
+    private boolean annotAnalysisField;
     private boolean annotAnalysis;
     private String lookLocalClass = "";
     private boolean okNumOp;
@@ -413,6 +414,15 @@ public final class AnalyzedPageEl {
     public void setAnnotAnalysis(boolean _annotAnalysis) {
         annotAnalysis = _annotAnalysis;
     }
+
+    public boolean isAnnotAnalysisField() {
+        return annotAnalysisField;
+    }
+
+    public void setAnnotAnalysisField(boolean _annotAnalysisField) {
+        annotAnalysisField = _annotAnalysisField;
+    }
+
     public StringList getLastLocalVarsInfers() {
         return localVarsInfers.last();
     }

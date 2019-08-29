@@ -8,6 +8,7 @@ import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.instr.OperationsSequence;
+import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.methods.AnnotationBlock;
 import code.expressionlanguage.methods.AnnotationMethodBlock;
 import code.expressionlanguage.methods.Block;
@@ -24,6 +25,8 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
     private String className;
     private StringMap<String> fieldNames = new StringMap<String>();
     private boolean array;
+
+    private CustList<PartOffset> partOffsets = new CustList<PartOffset>();
 
     public AnnotationInstanceOperation(int _index,
             int _indexChild, MethodOperation _m, OperationsSequence _op) {
@@ -61,15 +64,9 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
                     }
                     Block ann_ = (Block) typeInfo_;
                     String type_ = EMPTY_STRING;
-                    for (Block b: Classes.getDirectChildren(ann_)) {
-                        if (!(b instanceof AnnotationMethodBlock)) {
-                            continue;
-                        }
-                        AnnotationMethodBlock a_ = (AnnotationMethodBlock) b;
-                        if (StringList.quickEq(a_.getName(), fieldName_)) {
-                            type_ = a_.getImportedReturnType();
-                            break;
-                        }
+                    CustList<AnnotationMethodBlock> list_ = Classes.getMethodAnnotationBodiesById(ann_, fieldName_);
+                    if (!list_.isEmpty()) {
+                        type_ = list_.first().getImportedReturnType();
                     }
                     if (!type_.isEmpty()) {
                         className = type_;
@@ -133,6 +130,7 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
             String className_ = methodName.trim().substring(AROBASE.length());
             String realClassName_ = className_;
             realClassName_ = _conf.resolveCorrectType(1,realClassName_);
+            partOffsets.addAllElts(_conf.getContextEl().getCoverage().getCurrentParts());
             GeneType g_ = _conf.getClassBody(realClassName_);
             if (!(g_ instanceof AnnotationBlock)) {
                 IllegalCallCtorByType call_ = new IllegalCallCtorByType();
@@ -342,4 +340,7 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
         return fieldNames;
     }
 
+    public CustList<PartOffset> getPartOffsets() {
+        return partOffsets;
+    }
 }

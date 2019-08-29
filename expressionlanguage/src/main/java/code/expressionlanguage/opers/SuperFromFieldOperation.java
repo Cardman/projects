@@ -70,7 +70,7 @@ public final class SuperFromFieldOperation extends
         OperationsSequence op_ = getOperations();
         String originalStr_ = op_.getValues().getValue(CustList.FIRST_INDEX);
         int ind_ = originalStr_.lastIndexOf(PAR_RIGHT);
-        return ind_ + StringList.getFirstPrintableCharIndex(originalStr_.substring(ind_+1));
+        return ind_ +1+ StringList.getFirstPrintableCharIndex(originalStr_.substring(ind_+1));
     }
     @Override
     boolean isBaseAccess() {

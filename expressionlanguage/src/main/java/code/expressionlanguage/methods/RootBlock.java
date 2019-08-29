@@ -1,6 +1,7 @@
 package code.expressionlanguage.methods;
 
 import code.expressionlanguage.Analyzable;
+import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.GeneMethod;
 import code.expressionlanguage.common.GeneType;
@@ -215,9 +216,14 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
     @Override
     public void buildAnnotations(ContextEl _context) {
         annotationsOps = new CustList<CustList<ExecOperationNode>>();
-        for (String a: annotations) {
+        int len_ = annotationsIndexes.size();
+        AnalyzedPageEl page_ = _context.getAnalyzing();
+        for (int i = 0; i < len_; i++) {
+            int begin_ = annotationsIndexes.get(i);
+            page_.setGlobalOffset(begin_);
+            page_.setOffset(0);
             Calculation c_ = Calculation.staticCalculation(true);
-            annotationsOps.add(ElUtil.getAnalyzedOperations(a, _context, c_));
+            annotationsOps.add(ElUtil.getAnalyzedOperations(annotations.get(i), _context, c_));
         }
     }
     @Override
@@ -1553,6 +1559,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
 
     @Override
     public void processReport(ContextEl _cont, CustList<PartOffset> _parts) {
+        processAnnotationReport(_cont, _parts);
         _parts.add(new PartOffset("<a name=\"m"+idRowCol+"\">",idRowCol));
         _parts.add(new PartOffset("</a>",idRowCol+nameLength));
         for (PartOffset p: constraintsParts) {
@@ -1565,8 +1572,13 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
 
     }
 
-    public CustList<PartOffset> getConstraintsParts() {
-        return constraintsParts;
+    protected void processAnnotationReport(ContextEl _cont, CustList<PartOffset> _parts) {
+        int len_ = annotationsIndexes.size();
+        for (int i = 0; i < len_; i++) {
+            int begin_ = annotationsIndexes.get(i);
+            int end_ = begin_ + annotations.get(i).length();
+            ElUtil.buildCoverageReport(_cont,begin_,this,annotationsOps.get(i),end_,_parts,0,"",true);
+        }
     }
 
     public CustList<PartOffset> getSuperTypesParts() {

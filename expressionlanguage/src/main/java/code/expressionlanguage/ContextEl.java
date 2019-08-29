@@ -807,7 +807,6 @@ public abstract class ContextEl implements ExecutableCode {
         return analyzing;
     }
 
-    @Override
     public boolean isStaticAccess() {
         Block bl_ = getCurrentBlock();
         if (bl_ instanceof InfoBlock) {
@@ -1601,7 +1600,7 @@ public abstract class ContextEl implements ExecutableCode {
         }
         GeneType cl_ = getClassBody(res_);
         if (cl_ != null) {
-            if (!cl_.isStaticType() && isStaticAccess()) {
+            if (!cl_.isStaticType()) {
                 return EMPTY_TYPE;
             }
             return res_;
@@ -2705,6 +2704,13 @@ public abstract class ContextEl implements ExecutableCode {
 
     public void setAnnotAnalysis(boolean _ana) {
         analyzing.setAnnotAnalysis(_ana);
+    }
+    public boolean isAnnotAnalysisField() {
+        return analyzing.isAnnotAnalysisField();
+    }
+
+    public void setAnnotAnalysisField(boolean _ana) {
+        analyzing.setAnnotAnalysisField(_ana);
     }
 
     @Override

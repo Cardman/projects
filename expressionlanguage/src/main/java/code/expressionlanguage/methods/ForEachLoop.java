@@ -58,6 +58,8 @@ public final class ForEachLoop extends BracedStack implements ForLoop,ImportForE
 
     private CustList<ExecOperationNode> opList;
 
+    private CustList<PartOffset> partOffsets = new CustList<PartOffset>();
+
     public ForEachLoop(ContextEl _importingPage,
                        OffsetStringInfo _className, OffsetStringInfo _variable,
                        OffsetStringInfo _expression, OffsetStringInfo _classIndex, OffsetStringInfo _label, OffsetsBlock _offset) {
@@ -196,6 +198,7 @@ public final class ForEachLoop extends BracedStack implements ForLoop,ImportForE
         String keyWordVar_ = keyWords_.getKeyWordVar();
         if (!StringList.quickEq(className.trim(), keyWordVar_)) {
             importedClassName = _cont.resolveCorrectType(className);
+            partOffsets.addAllElts(_cont.getCoverage().getCurrentParts());
         } else {
             importedClassName = "";
         }
@@ -600,6 +603,8 @@ public final class ForEachLoop extends BracedStack implements ForLoop,ImportForE
             _parts.add(new PartOffset(tag_,classNameOffset));
             tag_ = "</b>";
             _parts.add(new PartOffset(tag_,classNameOffset+ _cont.getKeyWords().getKeyWordFor().length()));
+        } else {
+            _parts.addAllElts(partOffsets);
         }
         tag_ = "<a name=\"m"+ variableNameOffset +"\">";
         _parts.add(new PartOffset(tag_,variableNameOffset));

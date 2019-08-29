@@ -599,7 +599,7 @@ final class NamePartType extends LeafPartType {
                         setAnalyzedType(StringList.concat(id_,"..",type_));
                         return;
                     }
-                    if (_an.isStaticAccess()) {
+                    if (_an.getContextEl().isStaticAccess()) {
                         return;
                     }
                     String new_ = Templates.quickFormat(f_, genStr_, _an);

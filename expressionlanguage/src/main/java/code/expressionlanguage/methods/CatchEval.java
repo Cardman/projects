@@ -23,6 +23,8 @@ public final class CatchEval extends AbstractCatchEval {
 
     private int classNameOffset;
 
+    private CustList<PartOffset> partOffsets = new CustList<PartOffset>();
+
     private final String variableName;
 
     private int variableNameOffset;
@@ -94,6 +96,7 @@ public final class CatchEval extends AbstractCatchEval {
         page_.setGlobalOffset(classNameOffset);
         page_.setOffset(0);
         importedClassName = _an.resolveCorrectType(className);
+        partOffsets.addAllElts(_an.getContextEl().getCoverage().getCurrentParts());
         StringList classes_ = new StringList();
         Block p_ = getPreviousSibling();
         while (!(p_ instanceof TryEval)) {
@@ -131,6 +134,7 @@ public final class CatchEval extends AbstractCatchEval {
     @Override
     public void processReport(ContextEl _cont, CustList<PartOffset> _parts) {
         super.processReport(_cont, _parts);
+        _parts.addAllElts(partOffsets);
         String tag_ = "<a name=\"m"+ variableNameOffset +"\">";
         _parts.add(new PartOffset(tag_,variableNameOffset));
         tag_ = "</a>";

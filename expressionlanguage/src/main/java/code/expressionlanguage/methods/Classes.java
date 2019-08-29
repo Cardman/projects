@@ -1916,9 +1916,13 @@ public final class Classes {
             for (Block b:getSortedDescNodes(c)) {
                 _context.getAnalyzing().setCurrentBlock(b);
                 if (b instanceof AnnotationMethodBlock) {
+                    _context.setAnnotAnalysisField(true);
                     ((AnnotationMethodBlock)b).buildExpressionLanguage(_context);
+                    _context.setAnnotAnalysisField(false);
                 }
                 if (b instanceof AnnotableBlock) {
+                    _context.setAnnotAnalysisField(false);
+                    _context.getCoverage().putBlockOperationsField(_context,b);
                     ((AnnotableBlock)b).buildAnnotations(_context);
                 }
             }
@@ -1927,6 +1931,9 @@ public final class Classes {
             _context.setGlobalClass("");
             for (OperatorBlock o : getOperators()) {
                 page_.setImporting(o);
+                _context.getAnalyzing().setCurrentBlock(o);
+                _context.setAnnotAnalysisField(false);
+                _context.getCoverage().putBlockOperationsField(_context,o);
                 o.buildAnnotations(_context);
             }
         }
@@ -2126,6 +2133,19 @@ public final class Classes {
         return null;
     }
 
+    public static CustList<AnnotationMethodBlock> getMethodAnnotationBodiesById(Block _r, String _id) {
+        CustList<AnnotationMethodBlock> methods_ = new CustList<AnnotationMethodBlock>();
+        for (Block b: Classes.getDirectChildren(_r)) {
+            if (!(b instanceof AnnotationMethodBlock)) {
+                continue;
+            }
+            AnnotationMethodBlock a_ = (AnnotationMethodBlock) b;
+            if (StringList.quickEq(a_.getName(), _id)) {
+                methods_.add(a_);
+            }
+        }
+        return methods_;
+    }
     public static CustList<OverridableBlock> getMethodBodiesById(ContextEl _context,String _genericClassName, MethodId _id) {
         CustList<OverridableBlock> methods_ = new CustList<OverridableBlock>();
         String base_ = Templates.getIdFromAllTypes(_genericClassName);

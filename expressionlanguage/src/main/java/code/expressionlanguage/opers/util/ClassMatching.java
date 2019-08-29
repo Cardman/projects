@@ -26,10 +26,6 @@ public final class ClassMatching {
         return Templates.isCorrectOrNumbers(map_, _context);
     }
 
-    public boolean isPrimitive(Analyzable _context) {
-        return PrimitiveTypeUtil.isPrimitive(className, _context);
-    }
-
     public String getClassName() {
         return className;
     }

@@ -248,9 +248,14 @@ public final class FieldBlock extends Leaf implements InfoBlock {
     @Override
     public void buildAnnotations(ContextEl _context) {
         annotationsOps = new CustList<CustList<ExecOperationNode>>();
-        for (String a: annotations) {
+        int len_ = annotationsIndexes.size();
+        AnalyzedPageEl page_ = _context.getAnalyzing();
+        for (int i = 0; i < len_; i++) {
+            int begin_ = annotationsIndexes.get(i);
+            page_.setGlobalOffset(begin_);
+            page_.setOffset(0);
             Calculation c_ = Calculation.staticCalculation(true);
-            annotationsOps.add(ElUtil.getAnalyzedOperations(a, _context, c_));
+            annotationsOps.add(ElUtil.getAnalyzedOperations(annotations.get(i), _context, c_));
         }
     }
     @Override
@@ -354,6 +359,12 @@ public final class FieldBlock extends Leaf implements InfoBlock {
 
     @Override
     public void processReport(ContextEl _cont, CustList<PartOffset> _parts) {
+        int len_ = annotationsIndexes.size();
+        for (int i = 0; i < len_; i++) {
+            int begin_ = annotationsIndexes.get(i);
+            int end_ = begin_ + annotations.get(i).length();
+            ElUtil.buildCoverageReport(_cont,begin_,this,annotationsOps.get(i),end_,_parts,0,"",true);
+        }
         _parts.addAllElts(partOffsets);
         int blOffset_ = valueOffset;
         int endBl_ = blOffset_ + value.length();
