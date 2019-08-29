@@ -2,7 +2,9 @@ package code.expressionlanguage.opers;
 
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.errors.custom.BadImplicitCast;
+import code.expressionlanguage.errors.custom.UnassignedInfered;
 import code.expressionlanguage.errors.custom.UnexpectedOperationAffect;
 import code.expressionlanguage.inherits.Mapping;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
@@ -64,6 +66,7 @@ public final class AffectationOperation extends MethodOperation implements Affec
                     ClassArgumentMatching n_ = new ClassArgumentMatching(type_);
                     LocalVariable lv_ = _conf.getLocalVar(inf_);
                     lv_.setClassName(type_);
+                    _conf.getVariablesNamesToInfer().removeString(inf_);
                     _conf.setupDeclaratorClass(type_);
                     _conf.setCurrentVarSetting(type_);
                     v_.setResultClass(n_);
@@ -80,6 +83,7 @@ public final class AffectationOperation extends MethodOperation implements Affec
                     ClassArgumentMatching n_ = new ClassArgumentMatching(type_);
                     LoopVariable lv_ = _conf.getMutableLoopVar(inf_);
                     lv_.setClassName(type_);
+                    _conf.getVariablesNamesLoopToInfer().removeString(inf_);
                     _conf.setupLoopDeclaratorClass(type_);
                     _conf.setCurrentVarSetting(type_);
                     v_.setResultClass(n_);
@@ -155,6 +159,47 @@ public final class AffectationOperation extends MethodOperation implements Affec
         }
     }
 
+    public static void processInfer(Analyzable _cont, String _import) {
+        StringList vars_ = _cont.getVariablesNames();
+        if (StringList.quickEq(_import,_cont.getKeyWords().getKeyWordVar())) {
+            for (String v:vars_) {
+                UnassignedInfered un_ = new UnassignedInfered(v);
+                un_.setFileName(_cont.getCurrentFileName());
+                un_.setIndexFile(_cont.getCurrentLocationIndex());
+                _cont.getClasses().addError(un_);
+            }
+            UnassignedInfered un_ = new UnassignedInfered("");
+            un_.setFileName(_cont.getCurrentFileName());
+            un_.setIndexFile(_cont.getCurrentLocationIndex());
+            _cont.getClasses().addError(un_);
+        } else {
+            for (String v: _cont.getVariablesNamesToInfer()) {
+                LocalVariable lv_ = _cont.getLocalVar(v);
+                lv_.setClassName(_import);
+            }
+        }
+    }
+
+    public static void processInferLoop(Analyzable _cont, String _import) {
+        StringList vars_ = _cont.getVariablesNames();
+        if (StringList.quickEq(_import,_cont.getKeyWords().getKeyWordVar())) {
+            for (String v:vars_) {
+                UnassignedInfered un_ = new UnassignedInfered(v);
+                un_.setFileName(_cont.getCurrentFileName());
+                un_.setIndexFile(_cont.getCurrentLocationIndex());
+                _cont.getClasses().addError(un_);
+            }
+            UnassignedInfered un_ = new UnassignedInfered("");
+            un_.setFileName(_cont.getCurrentFileName());
+            un_.setIndexFile(_cont.getCurrentLocationIndex());
+            _cont.getClasses().addError(un_);
+        } else {
+            for (String v: _cont.getVariablesNamesLoopToInfer()) {
+                LoopVariable lv_ = _cont.getMutableLoopVar(v);
+                lv_.setClassName(_import);
+            }
+        }
+    }
     static SettableElResult tryGetSettable(MethodOperation _operation) {
         OperationNode root_ = getFirstToBeAnalyzed(_operation);
         SettableElResult elt_;

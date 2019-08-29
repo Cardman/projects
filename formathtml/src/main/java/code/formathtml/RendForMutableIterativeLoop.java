@@ -9,6 +9,7 @@ import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.inherits.Mapping;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.methods.ForLoopPart;
+import code.expressionlanguage.opers.AffectationOperation;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.LgNames;
@@ -128,6 +129,7 @@ public final class RendForMutableIterativeLoop extends RendParentBlock implement
         }
         boolean static_ = _doc.isStaticContext();
         _cont.getVariablesNames().clear();
+        _cont.getVariablesNamesLoopToInfer().clear();
         page_.setGlobalOffset(initOffset);
         page_.setOffset(0);
         _cont.getAnalyzingDoc().setAttribute(ATTRIBUTE_INIT);
@@ -139,6 +141,8 @@ public final class RendForMutableIterativeLoop extends RendParentBlock implement
         }
         if (_cont.isMerged()) {
             StringList vars_ = _cont.getVariablesNames();
+            String t_ = inferOrObject(_cont,importedClassName);
+            AffectationOperation.processInferLoop(_cont, t_);
             getVariableNames().addAllElts(vars_);
         }
         _cont.setMerged(false);
@@ -164,6 +168,7 @@ public final class RendForMutableIterativeLoop extends RendParentBlock implement
             elCondition_.getResultClass().setUnwrapObject(stds_.getAliasPrimBoolean());
         }
     }
+
     public void buildIncrementPart(Configuration _an,RendDocumentBlock _doc) {
         _an.setMerged(false);
         AnalyzedPageEl page_ = _an.getAnalyzing();

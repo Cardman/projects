@@ -152,6 +152,13 @@ public abstract class RendBlock implements AnalyzedBlock {
         offset = _offset;
     }
 
+    static String inferOrObject(Configuration _an, String _type) {
+        String t_ = _type;
+        if (StringList.quickEq(_type,_an.getKeyWords().getKeyWordVar())) {
+            t_ = _an.getStandards().getAliasObject();
+        }
+        return t_;
+    }
     public static String getRes(RendDocumentBlock _rend, Configuration _conf) {
         _conf.initForms();
         String beanName_ = _rend.getBeanName();

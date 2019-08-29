@@ -69,13 +69,8 @@ public final class MutableLoopVariableOperation extends LeafOperation implements
             KeyWords keyWords_ = _conf.getKeyWords();
             String keyWordVar_ = keyWords_.getKeyWordVar();
             if (StringList.quickEq(c_, keyWordVar_)) {
-                if (!(getParent() instanceof AffectationOperation)) {
-                    UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
-                    un_.setFileName(_conf.getCurrentFileName());
-                    un_.setIndexFile(_conf.getCurrentLocationIndex());
-                    _conf.getClasses().addError(un_);
-                }
                 _conf.putMutableLoopVar(str_);
+                _conf.getVariablesNamesLoopToInfer().add(str_);
             }
             LoopVariable lv_ = new LoopVariable();
             if (StringList.quickEq(c_, keyWordVar_)) {

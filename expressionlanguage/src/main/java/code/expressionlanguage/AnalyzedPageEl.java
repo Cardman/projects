@@ -57,6 +57,8 @@ public final class AnalyzedPageEl {
     private StringList needInterfaces = new StringList();
     private StringMap<Integer> availableVariables = new StringMap<Integer>();
     private StringList variablesNames = new StringList();
+    private StringList variablesNamesToInfer = new StringList();
+    private StringList variablesNamesLoopToInfer = new StringList();
     private boolean assignedStaticFields;
     private boolean assignedFields;
     private ForLoopPart forLoopPart;
@@ -375,6 +377,14 @@ public final class AnalyzedPageEl {
     }
     public StringList getVariablesNames() {
         return variablesNames;
+    }
+
+    public StringList getVariablesNamesToInfer() {
+        return variablesNamesToInfer;
+    }
+
+    public StringList getVariablesNamesLoopToInfer() {
+        return variablesNamesLoopToInfer;
     }
 
     public boolean isAssignedStaticFields() {

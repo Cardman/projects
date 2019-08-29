@@ -125,6 +125,8 @@ public interface Analyzable {
     String lookupSingleImportType(String _type, AccessedBlock _rooted);
 
     StringMap<Integer> getAvailableVariables();
+    StringList getVariablesNamesLoopToInfer();
+    StringList getVariablesNamesToInfer();
     StringList getVariablesNames();
 
     ForLoopPart getForLoopPartState();

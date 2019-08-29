@@ -2644,6 +2644,16 @@ public abstract class ContextEl implements ExecutableCode {
     }
 
     @Override
+    public StringList getVariablesNamesLoopToInfer() {
+        return analyzing.getVariablesNamesLoopToInfer();
+    }
+
+    @Override
+    public StringList getVariablesNamesToInfer() {
+        return analyzing.getVariablesNamesToInfer();
+    }
+
+    @Override
     public StringList getVariablesNames() {
         return analyzing.getVariablesNames();
     }

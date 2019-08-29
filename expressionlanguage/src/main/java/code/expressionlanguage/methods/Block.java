@@ -127,26 +127,6 @@ public abstract class Block implements AnalyzedBlock {
         } else {
             prev_.setAssignmentBeforeNextSibling(_an, _anEl);
         }
-        if (this instanceof BracedBlock) {
-            AssignedVariables v_ = _an.getContextEl().getAssignedVariables().getFinalVariables().getVal(this);
-            CustList<StringMap<AssignmentBefore>> as_ = v_.getVariablesRootBefore();
-            for (String v: _an.getInfersLocalVars()) {
-                for (StringMap<AssignmentBefore> a: as_) {
-                    for (EntryCust<String,AssignmentBefore> f: a.entryList()) {
-                        if (!StringList.quickEq(f.getKey(),v)) {
-                            continue;
-                        }
-                        if (!f.getValue().isAssignedBefore()) {
-                            //error
-                            UnassignedInfered un_ = new UnassignedInfered(v);
-                            un_.setFileName(getFile().getFileName());
-                            un_.setIndexFile(getOffset().getOffsetTrim());
-                            _an.getClasses().addError(un_);
-                        }
-                    }
-                }
-            }
-        }
     }
     protected AssignedVariables buildNewAssignedVariable() {
         return new AssignedVariables();

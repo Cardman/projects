@@ -17,6 +17,7 @@ import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.methods.util.AbstractCoverageResult;
 import code.expressionlanguage.methods.util.AssignedVariablesDesc;
+import code.expressionlanguage.opers.AffectationOperation;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.OperationNode;
@@ -282,6 +283,7 @@ public final class ForMutableIterativeLoop extends BracedStack implements
         }
         boolean static_ = f_.isStaticContext();
         _cont.getVariablesNames().clear();
+        _cont.getVariablesNamesLoopToInfer().clear();
         page_.setGlobalOffset(initOffset);
         page_.setOffset(0);
         _cont.setForLoopPartState(ForLoopPart.INIT);
@@ -292,6 +294,7 @@ public final class ForMutableIterativeLoop extends BracedStack implements
         }
         if (_cont.isMerged()) {
             StringList vars_ = _cont.getVariablesNames();
+            AffectationOperation.processInferLoop(_cont, importedClassName);
             getVariableNames().addAllElts(vars_);
         }
         _cont.setMerged(false);

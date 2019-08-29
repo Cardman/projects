@@ -69,6 +69,7 @@ public final class DeclareVariable extends Leaf implements InitVariable,Buildabl
         _cont.setFinalVariable(finalVariable);
         _cont.setCurrentVarSetting(importedClassName);
         _cont.getVariablesNames().clear();
+        _cont.getVariablesNamesToInfer().clear();
     }
 
     @Override
@@ -111,4 +112,7 @@ public final class DeclareVariable extends Leaf implements InitVariable,Buildabl
         return finalVariableOffset;
     }
 
+    public String getImportedClassName() {
+        return importedClassName;
+    }
 }

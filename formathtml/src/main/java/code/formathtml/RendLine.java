@@ -3,6 +3,7 @@ package code.formathtml;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
+import code.expressionlanguage.opers.AffectationOperation;
 import code.expressionlanguage.opers.Calculation;
 import code.formathtml.exec.RendDynOperationNode;
 import code.util.CustList;
@@ -35,7 +36,11 @@ public final class RendLine extends RendLeaf implements RendWithEl, RendReducabl
         opExp = RenderExpUtil.getAnalyzedOperations(expression,0,_cont, Calculation.staticCalculation(st_));
         if (_cont.isMerged()) {
             StringList vars_ = _cont.getVariablesNames();
-            ((RendDeclareVariable)getPreviousSibling()).getVariableNames().addAllElts(vars_);
+            RendDeclareVariable declaring_ = (RendDeclareVariable) getPreviousSibling();
+            String import_ = declaring_.getImportedClassName();
+            String t_ = inferOrObject(_cont,import_);
+            AffectationOperation.processInfer(_cont, t_);
+            declaring_.getVariableNames().addAllElts(vars_);
         }
         _cont.setMerged(false);
         _cont.setFinalVariable(false);

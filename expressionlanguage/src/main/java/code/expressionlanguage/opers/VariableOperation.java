@@ -78,6 +78,7 @@ public final class VariableOperation extends LeafOperation implements
             String keyWordVar_ = keyWords_.getKeyWordVar();
             if (StringList.quickEq(c_, keyWordVar_)) {
                 _conf.putLocalVar(str_);
+                _conf.getVariablesNamesToInfer().add(str_);
             }
             LocalVariable lv_ = new LocalVariable();
             if (StringList.quickEq(c_, keyWordVar_)) {

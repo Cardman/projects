@@ -1351,6 +1351,15 @@ public final class Configuration implements ExecutableCode {
     }
 
     @Override
+    public StringList getVariablesNamesLoopToInfer() {
+        return context.getVariablesNamesLoopToInfer();
+    }
+    @Override
+    public StringList getVariablesNamesToInfer() {
+        return context.getVariablesNamesToInfer();
+    }
+
+    @Override
     public StringList getVariablesNames() {
         return context.getVariablesNames();
     }

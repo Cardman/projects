@@ -50,6 +50,7 @@ public final class RendDeclareVariable extends RendLeaf implements RendInitVaria
         _cont.setFinalVariable(false);
         _cont.setCurrentVarSetting(importedClassName);
         _cont.getVariablesNames().clear();
+        _cont.getVariablesNamesToInfer().clear();
     }
 
     @Override
@@ -63,5 +64,9 @@ public final class RendDeclareVariable extends RendLeaf implements RendInitVaria
             ip_.putLocalVar(v, lv_);
         }
         processBlock(_cont);
+    }
+
+    public String getImportedClassName() {
+        return importedClassName;
     }
 }
