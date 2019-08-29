@@ -805,6 +805,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             shiftArgument = !static_;
             StringList params_ = new StringList();
             if (aff_) {
+                checkFinal(r_.getId(),_conf);
                 int offset_ = className.indexOf('(')+1;
                 for (int i = 0; i < i_; i++) {
                     offset_ += _args.get(i).length();
@@ -862,6 +863,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             ancestor = r_.getAnc();
             StringList params_ = new StringList();
             if (aff_) {
+                checkFinal(r_.getId(),_conf);
                 int offset_ = className.indexOf('(')+1;
                 for (int i = 0; i < i_; i++) {
                     offset_ += _args.get(i).length();
@@ -963,6 +965,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         boolean static_ = r_.getId().isStaticField();
         StringList params_ = new StringList();
         if (aff_) {
+            checkFinal(r_.getId(),_conf);
             int offset_ = className.indexOf('(')+1;
             for (int i = 0; i < i_; i++) {
                 offset_ += _args.get(i).length();
@@ -988,6 +991,15 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         }
         String fct_ = formatFieldReturn(_conf, static_, params_, out_, false);
         setResultClass(new ClassArgumentMatching(fct_));
+    }
+
+    private void checkFinal(FieldInfo _id, Analyzable _conf) {
+        if (_id.isFinalField()) {
+            UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
+            un_.setFileName(_conf.getCurrentFileName());
+            un_.setIndexFile(_conf.getCurrentLocationIndex());
+            _conf.getClasses().addError(un_);
+        }
     }
 
     private static void getRefConstraints(Analyzable _conf, StringMap<StringList> _map) {

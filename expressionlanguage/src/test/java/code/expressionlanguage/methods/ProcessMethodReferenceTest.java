@@ -5587,4 +5587,21 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         Classes.validateAll(files_, cont_);
         assertTrue(!cont_.getClasses().isEmptyErrors());
     }
+
+    @Test
+    public void calculateArgument59FailTest() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $final $int FIELD = 15:\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $static().$lambda(Ex,,FIELD,$int):\n");
+        xml_.append("  $return 0:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
 }
