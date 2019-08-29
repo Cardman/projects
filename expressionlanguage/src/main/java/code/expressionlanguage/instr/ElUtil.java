@@ -685,6 +685,14 @@ public final class ElUtil {
                 tag_ = "</b>";
                 _parts.add(new PartOffset(tag_,delta_+sum_ + val_.getIndexInEl()+_cont.getKeyWords().getKeyWordValue().length()));
             }
+            if (curOp_ instanceof ExecAssocationOperation) {
+                AssocationOperation a_ = (AssocationOperation) val_;
+                String fieldName_ = a_.getFieldName();
+                String annotation_ = a_.getAnnotation();
+                ClassField c_ = new ClassField(annotation_,fieldName_);
+                int delta_ = a_.getSum();
+                updateFieldAnchor(_cont,_parts,c_,sum_ +delta_+ val_.getIndexInEl(),fieldName_.length());
+            }
             if (curOp_ instanceof ExecSettableFieldOperation) {
                 if (_block instanceof FieldBlock && isDeclaringVariable(curOp_)) {
                     ClassField c_ = ((ExecSettableFieldOperation)curOp_).getFieldId();
@@ -1209,12 +1217,23 @@ public final class ElUtil {
                     }
                     delta_ = f_.getFieldNameOffset();
                 }
-                String file_ = ((RootBlock) type_).getFile().getRenderFileName();
-                String rel_ = relativize(currentFileName_,file_+"#m"+delta_);
-                String tag_ = "<a title=\""+transform(className_ +"."+ _id.getFieldName())+"\" href=\""+rel_+"\">";
-                _parts.add(new PartOffset(tag_,_begin));
-                tag_ = "</a>";
-                _parts.add(new PartOffset(tag_,_begin+_length));
+                if (delta_ > -1) {
+                    String file_ = ((RootBlock) type_).getFile().getRenderFileName();
+                    String rel_ = relativize(currentFileName_,file_+"#m"+delta_);
+                    String tag_ = "<a title=\""+transform(className_ +"."+ _id.getFieldName())+"\" href=\""+rel_+"\">";
+                    _parts.add(new PartOffset(tag_,_begin));
+                    tag_ = "</a>";
+                    _parts.add(new PartOffset(tag_,_begin+_length));
+                } else {
+                    for (AnnotationMethodBlock m: Classes.getMethodAnnotationBodiesById((Block) type_,_id.getFieldName())) {
+                        String file_ = ((RootBlock) type_).getFile().getRenderFileName();
+                        String rel_ = relativize(currentFileName_,file_+"#m"+m.getNameOffset());
+                        String tag_ = "<a title=\""+transform(className_ +"."+ _id.getFieldName())+"\" href=\""+rel_+"\">";
+                        _parts.add(new PartOffset(tag_,_begin));
+                        tag_ = "</a>";
+                        _parts.add(new PartOffset(tag_,_begin+_length));
+                    }
+                }
             }
         }
     }

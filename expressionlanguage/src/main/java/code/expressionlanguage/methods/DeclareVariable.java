@@ -7,6 +7,7 @@ import code.expressionlanguage.files.OffsetBooleanInfo;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
+import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.structs.Struct;
@@ -80,7 +81,7 @@ public final class DeclareVariable extends Leaf implements InitVariable,Buildabl
         KeyWords keyWords_ = _cont.getKeyWords();
         String keyWordVar_ = keyWords_.getKeyWordVar();
         if (StringList.quickEq(className.trim(), keyWordVar_)) {
-            String tag_ = "<b>";
+            String tag_ = "<b title=\""+ElUtil.transform(importedClassName)+"\">";
             _parts.add(new PartOffset(tag_,classNameOffset));
             tag_ = "</b>";
             _parts.add(new PartOffset(tag_,classNameOffset+ _cont.getKeyWords().getKeyWordFor().length()));

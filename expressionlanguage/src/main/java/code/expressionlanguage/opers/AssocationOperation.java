@@ -18,15 +18,21 @@ public final class AssocationOperation extends AbstractUnaryOperation implements
 
     private String fieldName;
 
+    private int offset;
+    private int delta;
+    private String annotation = EMPTY_STRING;
+
     public AssocationOperation(int _index, int _indexChild, MethodOperation _m,
             OperationsSequence _op, String _fieldName) {
         super(_index, _indexChild, _m, _op);
+        delta = StringList.getFirstPrintableCharIndex(_fieldName);
         fieldName = _fieldName.trim();
     }
 
     @Override
     void calculateChildren() {
         IntTreeMap< String> vs_ = getOperations().getValues();
+        offset = vs_.firstKey();
         vs_.removeKey(vs_.firstKey());
         getChildren().putAllMap(vs_);
     }
@@ -50,6 +56,7 @@ public final class AssocationOperation extends AbstractUnaryOperation implements
                 String annotationClass_ = par_.getClassName();
                 GeneType type_ = _conf.getClassBody(annotationClass_);
                 if (type_ instanceof Block) {
+                    annotation = annotationClass_;
                     Block ann_ = (Block) type_;
                     boolean ok_ = false;
                     for (Block b: Classes.getDirectChildren(ann_)) {
@@ -95,4 +102,11 @@ public final class AssocationOperation extends AbstractUnaryOperation implements
         return fieldName;
     }
 
+    public int getSum() {
+        return offset+delta;
+    }
+
+    public String getAnnotation() {
+        return annotation;
+    }
 }
