@@ -399,19 +399,28 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
     public void buildMapParamType(ContextEl _analyze) {
         paramTypesMap = new StringMap<TypeVar>();
         for (RootBlock r: getSelfAndParentTypes()) {
-            int rc_ = r.idRowCol;
+            int j_ = 0;
             for (TypeVar t: r.paramTypes) {
                 StringList const_ = new StringList();
+                Ints ints_ = r.paramTypesConstraintsOffset.get(j_);
                 if (r == this) {
                     constraintsParts.add(new PartOffset("<a name=\"m"+t.getOffset()+"\">",t.getOffset()));
                     constraintsParts.add(new PartOffset("</a>",t.getOffset()+t.getLength()));
                 }
                 _analyze.getCoverage().getCurrentParts().clear();
+                int off_ = t.getOffset() + 1;
+                int i_ = 0;
                 for (String c: t.getConstraints()) {
-                    const_.add(_analyze.resolveTypeMapping(c,r, rc_));
+                    int d_ = 0;
+                    if (r == this && ints_.isValidIndex(i_)) {
+                        d_ = ints_.get(i_);
+                    }
+                    const_.add(_analyze.resolveTypeMapping(c,r, off_+d_));
+                    i_++;
                 }
                 if (r == this) {
                     constraintsParts.addAllElts(_analyze.getCoverage().getCurrentParts());
+                    j_++;
                 }
                 TypeVar t_ = new TypeVar();
                 t_.setOffset(t.getOffset());

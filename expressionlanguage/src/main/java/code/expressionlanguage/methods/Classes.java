@@ -209,7 +209,7 @@ public final class Classes {
             _root.getParamTypes().add(type_);
             int off_ = tempOff_ + StringList.getFirstPrintableCharIndex(p);
             type_.setOffset(off_);
-            type_.setLength(p.length());
+            type_.setLength(id_.length()+delta_);
             tempOff_ += p.length() + 1;
         }
         if (_root instanceof EnumBlock) {

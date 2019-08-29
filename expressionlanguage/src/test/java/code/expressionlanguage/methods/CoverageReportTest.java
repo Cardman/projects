@@ -7837,6 +7837,142 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "</pre></body></html>", filesExp_.firstValue());
     }
     @Test
+    public void coverage196Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $annotation pkg.MyAnnot {\n");
+        xml_.append(" MyAnnotTwo method() @MyAnnotTwo:\n");
+        xml_.append("}\n");
+        xml_.append("$public $annotation pkg.MyAnnotTwo {\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  $return 0:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElCoverage();
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextFactory.validate(cont_.getKeyWords(),cont_.getStandards(),files_,cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        calculateArgument("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = FileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $annotation <a name=\"m20\">pkg.MyAnnot </a>{\n" +
+                " <a title=\"pkg.MyAnnotTwo\" href=\"#m90\">MyAnnotTwo</a> <a name=\"m46\">method</a>() @<a title=\"pkg.MyAnnotTwo\" href=\"#m90\">MyAnnotTwo</a>:\n" +
+                "}\n" +
+                "$public $annotation <a name=\"m90\">pkg.MyAnnotTwo </a>{\n" +
+                "}\n" +
+                "$public $class <a name=\"m124\">pkg.Ex </a>{\n" +
+                " $public $static $int <a name=\"m155\">catching</a>(){\n" +
+                "  $return <span class=\"f\">0</span>:\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage197Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.IntOne {}\n");
+        xml_.append("$public $interface pkg.IntTwo {}\n");
+        xml_.append("$public $interface pkg.IntThree {}\n");
+        xml_.append("$public $interface pkg.IntFour {}\n");
+        xml_.append("$public $class pkg.ExParam<T:IntOne&IntTwo,U:IntThree&IntFour> {}\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  $return 0:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElCoverage();
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextFactory.validate(cont_.getKeyWords(),cont_.getStandards(),files_,cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        calculateArgument("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = FileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $interface <a name=\"m19\">pkg.IntOne </a>{}\n" +
+                "$public $interface <a name=\"m52\">pkg.IntTwo </a>{}\n" +
+                "$public $interface <a name=\"m85\">pkg.IntThree </a>{}\n" +
+                "$public $interface <a name=\"m120\">pkg.IntFour </a>{}\n" +
+                "$public $class <a name=\"m150\">pkg.ExParam</a>&lt;<a name=\"m162\">T</a>:<a title=\"pkg.IntOne\" href=\"#m19\">IntOne</a>&amp;<a title=\"pkg.IntTwo\" href=\"#m52\">IntTwo</a>,<a name=\"m178\">U</a>:<a title=\"pkg.IntThree\" href=\"#m85\">IntThree</a>&amp;<a title=\"pkg.IntFour\" href=\"#m120\">IntFour</a>&gt; {}\n" +
+                "$public $class <a name=\"m216\">pkg.Ex </a>{\n" +
+                " $public $static $int <a name=\"m247\">catching</a>(){\n" +
+                "  $return <span class=\"f\">0</span>:\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage198Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.IntOne {}\n");
+        xml_.append("$public $interface pkg.IntTwo {}\n");
+        xml_.append("$public $interface pkg.IntThree {}\n");
+        xml_.append("$public $interface pkg.IntFour {}\n");
+        xml_.append("$public $class pkg.ExParam<TV:IntOne&IntTwo,UW:IntThree&IntFour> {}\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  $return 0:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElCoverage();
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextFactory.validate(cont_.getKeyWords(),cont_.getStandards(),files_,cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        calculateArgument("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = FileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $interface <a name=\"m19\">pkg.IntOne </a>{}\n" +
+                "$public $interface <a name=\"m52\">pkg.IntTwo </a>{}\n" +
+                "$public $interface <a name=\"m85\">pkg.IntThree </a>{}\n" +
+                "$public $interface <a name=\"m120\">pkg.IntFour </a>{}\n" +
+                "$public $class <a name=\"m150\">pkg.ExParam</a>&lt;<a name=\"m162\">TV</a>:<a title=\"pkg.IntOne\" href=\"#m19\">IntOne</a>&amp;<a title=\"pkg.IntTwo\" href=\"#m52\">IntTwo</a>,<a name=\"m179\">UW</a>:<a title=\"pkg.IntThree\" href=\"#m85\">IntThree</a>&amp;<a title=\"pkg.IntFour\" href=\"#m120\">IntFour</a>&gt; {}\n" +
+                "$public $class <a name=\"m218\">pkg.Ex </a>{\n" +
+                " $public $static $int <a name=\"m249\">catching</a>(){\n" +
+                "  $return <span class=\"f\">0</span>:\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage199Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.IntOne {}\n");
+        xml_.append("$public $interface pkg.IntTwo {}\n");
+        xml_.append("$public $interface pkg.IntThree {}\n");
+        xml_.append("$public $interface pkg.IntFour {}\n");
+        xml_.append("$public $class pkg.ExParam<TVX:IntOne&IntTwo,UWY:IntThree&IntFour> {}\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  $return 0:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElCoverage();
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextFactory.validate(cont_.getKeyWords(),cont_.getStandards(),files_,cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        calculateArgument("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = FileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $interface <a name=\"m19\">pkg.IntOne </a>{}\n" +
+                "$public $interface <a name=\"m52\">pkg.IntTwo </a>{}\n" +
+                "$public $interface <a name=\"m85\">pkg.IntThree </a>{}\n" +
+                "$public $interface <a name=\"m120\">pkg.IntFour </a>{}\n" +
+                "$public $class <a name=\"m150\">pkg.ExParam</a>&lt;<a name=\"m162\">TVX</a>:<a title=\"pkg.IntOne\" href=\"#m19\">IntOne</a>&amp;<a title=\"pkg.IntTwo\" href=\"#m52\">IntTwo</a>,<a name=\"m180\">UWY</a>:<a title=\"pkg.IntThree\" href=\"#m85\">IntThree</a>&amp;<a title=\"pkg.IntFour\" href=\"#m120\">IntFour</a>&gt; {}\n" +
+                "$public $class <a name=\"m220\">pkg.Ex </a>{\n" +
+                " $public $static $int <a name=\"m251\">catching</a>(){\n" +
+                "  $return <span class=\"f\">0</span>:\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
     public void coverageFailTest() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
