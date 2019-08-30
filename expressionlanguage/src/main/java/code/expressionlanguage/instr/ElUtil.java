@@ -557,15 +557,7 @@ public final class ElUtil {
                 GeneType type_ = _cont.getClassBody(className_);
                 if (isFromCustFile(type_)) {
                     String file_ = ((RootBlock) type_).getFile().getRenderFileName();
-                    OverridableBlock method_;
-                    String rel_;
-                    if (type_ instanceof AnnotationBlock) {
-                        CustList<AnnotationMethodBlock> list_ = Classes.getMethodAnnotationBodiesById((RootBlock)type_, id_.getName());
-                        rel_ = relativize(currentFileName_, file_ + "#m" + list_.first().getNameOffset());
-                    } else {
-                        method_ = Classes.getMethodBodiesById(_cont, className_, id_).first();
-                        rel_ = relativize(currentFileName_, file_ + "#m" + method_.getNameOffset());
-                    }
+                    String rel_ = getRelativize(_cont, currentFileName_, className_, id_, type_, file_);
                     tag_ = "<a title=\""+transform(className_ +"."+ id_.getSignature(_cont))+"\" href=\""+rel_+"\">";
                     _parts.add(new PartOffset(tag_,sum_ +delta_+ val_.getIndexInEl()));
                     tag_ = "</a>";
@@ -691,7 +683,7 @@ public final class ElUtil {
                 String annotation_ = a_.getAnnotation();
                 ClassField c_ = new ClassField(annotation_,fieldName_);
                 int delta_ = a_.getSum();
-                updateFieldAnchor(_cont,_parts,c_,sum_ +delta_+ val_.getIndexInEl(),fieldName_.length());
+                updateFieldAnchor(_cont,_parts,c_,sum_ +delta_+ val_.getIndexInEl(),fieldName_.length(),true);
             }
             if (curOp_ instanceof ExecSettableFieldOperation) {
                 if (_block instanceof FieldBlock && isDeclaringVariable(curOp_)) {
@@ -711,7 +703,7 @@ public final class ElUtil {
                     _parts.addAllElts(((SettableAbstractFieldOperation) val_).getPartOffsets());
                     ClassField c_ = ((ExecSettableFieldOperation)curOp_).getFieldId();
                     int delta_ = ((SettableAbstractFieldOperation) val_).getOff();
-                    updateFieldAnchor(_cont,_parts,c_,sum_ +delta_+ val_.getIndexInEl() + ((ExecSettableFieldOperation)curOp_).getDelta(),c_.getFieldName().length());
+                    updateFieldAnchor(_cont,_parts,c_,sum_ +delta_+ val_.getIndexInEl() + ((ExecSettableFieldOperation)curOp_).getDelta(),c_.getFieldName().length(),false);
                 }
             }
             if (curOp_ instanceof ExecStandardInstancingOperation) {
@@ -761,8 +753,7 @@ public final class ElUtil {
                         GeneType type_ = _cont.getClassBody(className_);
                         if (isFromCustFile(type_)) {
                             String file_ = ((RootBlock) type_).getFile().getRenderFileName();
-                            OverridableBlock method_ = Classes.getMethodBodiesById(_cont, className_, id_).first();
-                            String rel_ = relativize(currentFileName_, file_ + "#m" + method_.getNameOffset());
+                            String rel_ = getRelativize(_cont, currentFileName_, className_, id_, type_, file_);
                             tag_ = "<a title=\""+transform(className_ +"."+ id_.getSignature(_cont))+"\" href=\""+rel_+"\">";
                             _parts.add(new PartOffset(tag_,sum_ + val_.getIndexInEl()));
                             tag_ = "</a>";
@@ -786,7 +777,7 @@ public final class ElUtil {
                         }
                     }
                 } else {
-                    updateFieldAnchor(_cont,_parts,fieldId_,sum_ + val_.getIndexInEl(),_cont.getKeyWords().getKeyWordLambda().length());
+                    updateFieldAnchor(_cont,_parts,fieldId_,sum_ + val_.getIndexInEl(),_cont.getKeyWords().getKeyWordLambda().length(),false);
                 }
                 _parts.addAllElts(((LambdaOperation)val_).getPartOffsets());
             }
@@ -1155,6 +1146,19 @@ public final class ElUtil {
         }
     }
 
+    private static String getRelativize(ContextEl _cont, String _currentFileName, String _className, MethodId _id, GeneType _type, String _file) {
+        String rel_;
+        if (_type instanceof AnnotationBlock) {
+            CustList<AnnotationMethodBlock> list_ = Classes.getMethodAnnotationBodiesById((RootBlock) _type, _id.getName());
+            rel_ = relativize(_currentFileName, _file + "#m" + list_.first().getNameOffset());
+        } else {
+            OverridableBlock method_;
+            method_ = Classes.getMethodBodiesById(_cont, _className, _id).first();
+            rel_ = relativize(_currentFileName, _file + "#m" + method_.getNameOffset());
+        }
+        return rel_;
+    }
+
     private static AbstractCoverageResult getCovers(ContextEl _cont, Block _block, ExecOperationNode _oper, boolean _annotation) {
         if (_block instanceof AnnotationMethodBlock || _annotation) {
             StandardCoverageResult res_ = new StandardCoverageResult();
@@ -1174,48 +1178,40 @@ public final class ElUtil {
         return _cont.getCoverage().getMapping().getVal(_block).getVal(_curOp);
     }
 
-    private static void updateFieldAnchor(ContextEl _cont,CustList<PartOffset> _parts,ClassField _id, int _begin, int _length) {
+    private static void updateFieldAnchor(ContextEl _cont,CustList<PartOffset> _parts,ClassField _id, int _begin, int _length, boolean _annotation) {
         String className_ = _id.getClassName();
         String currentFileName_ = _cont.getCoverage().getCurrentFileName();
         className_ = Templates.getIdFromAllTypes(className_);
         GeneType type_ = _cont.getClassBody(className_);
         if (isFromCustFile(type_)) {
-            int delta_ = -1;
-            for (Block b: Classes.getDirectChildren((Block) type_)) {
-                if (!(b instanceof FieldBlock)) {
-                    continue;
+            if (_annotation) {
+                for (AnnotationMethodBlock m: Classes.getMethodAnnotationBodiesById((Block) type_,_id.getFieldName())) {
+                    String file_ = ((RootBlock) type_).getFile().getRenderFileName();
+                    String rel_ = relativize(currentFileName_,file_+"#m"+m.getNameOffset());
+                    String tag_ = "<a title=\""+transform(className_ +"."+ _id.getFieldName())+"\" href=\""+rel_+"\">";
+                    _parts.add(new PartOffset(tag_,_begin));
+                    tag_ = "</a>";
+                    _parts.add(new PartOffset(tag_,_begin+_length));
                 }
-                FieldBlock f_ = (FieldBlock) b;
-                int i_ = 0;
-                int index_ = -1;
-                for (String n: f_.getFieldName()) {
-                    if (StringList.quickEq(n, _id.getFieldName())) {
-                        index_ = i_;
-                        break;
-                    }
-                    i_++;
-                }
-                if (index_ > -1) {
-                    delta_ = f_.getValuesOffset().get(index_);
-                }
-            }
-            if (delta_ > -1) {
-                String file_ = ((RootBlock) type_).getFile().getRenderFileName();
-                String rel_ = relativize(currentFileName_,file_+"#m"+delta_);
-                String tag_ = "<a title=\""+transform(className_ +"."+ _id.getFieldName())+"\" href=\""+rel_+"\">";
-                _parts.add(new PartOffset(tag_,_begin));
-                tag_ = "</a>";
-                _parts.add(new PartOffset(tag_,_begin+_length));
             } else {
+                int delta_ = -1;
                 for (Block b: Classes.getDirectChildren((Block) type_)) {
-                    if (!(b instanceof InnerTypeOrElement)) {
+                    if (!(b instanceof FieldBlock)) {
                         continue;
                     }
-                    InnerTypeOrElement f_ = (InnerTypeOrElement)b;
-                    if (!StringList.quickEq(f_.getUniqueFieldName(),_id.getFieldName())) {
-                        continue;
+                    FieldBlock f_ = (FieldBlock) b;
+                    int i_ = 0;
+                    int index_ = -1;
+                    for (String n: f_.getFieldName()) {
+                        if (StringList.quickEq(n, _id.getFieldName())) {
+                            index_ = i_;
+                            break;
+                        }
+                        i_++;
                     }
-                    delta_ = f_.getFieldNameOffset();
+                    if (index_ > -1) {
+                        delta_ = f_.getValuesOffset().get(index_);
+                    }
                 }
                 if (delta_ > -1) {
                     String file_ = ((RootBlock) type_).getFile().getRenderFileName();
@@ -1225,14 +1221,22 @@ public final class ElUtil {
                     tag_ = "</a>";
                     _parts.add(new PartOffset(tag_,_begin+_length));
                 } else {
-                    for (AnnotationMethodBlock m: Classes.getMethodAnnotationBodiesById((Block) type_,_id.getFieldName())) {
-                        String file_ = ((RootBlock) type_).getFile().getRenderFileName();
-                        String rel_ = relativize(currentFileName_,file_+"#m"+m.getNameOffset());
-                        String tag_ = "<a title=\""+transform(className_ +"."+ _id.getFieldName())+"\" href=\""+rel_+"\">";
-                        _parts.add(new PartOffset(tag_,_begin));
-                        tag_ = "</a>";
-                        _parts.add(new PartOffset(tag_,_begin+_length));
+                    for (Block b: Classes.getDirectChildren((Block) type_)) {
+                        if (!(b instanceof InnerTypeOrElement)) {
+                            continue;
+                        }
+                        InnerTypeOrElement f_ = (InnerTypeOrElement)b;
+                        if (!StringList.quickEq(f_.getUniqueFieldName(),_id.getFieldName())) {
+                            continue;
+                        }
+                        delta_ = f_.getFieldNameOffset();
                     }
+                    String file_ = ((RootBlock) type_).getFile().getRenderFileName();
+                    String rel_ = relativize(currentFileName_,file_+"#m"+delta_);
+                    String tag_ = "<a title=\""+transform(className_ +"."+ _id.getFieldName())+"\" href=\""+rel_+"\">";
+                    _parts.add(new PartOffset(tag_,_begin));
+                    tag_ = "</a>";
+                    _parts.add(new PartOffset(tag_,_begin+_length));
                 }
             }
         }
