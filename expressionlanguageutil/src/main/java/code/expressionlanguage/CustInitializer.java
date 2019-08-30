@@ -82,6 +82,19 @@ public class CustInitializer extends DefaultInitializer {
         return toFile_;
     }
 
+    /**This method must be called only before exit, by one (main) thread only*/
+    void joinOthers() {
+        for (Thread t: threadIdDate.keySet()) {
+            if (t == Thread.currentThread()) {
+                continue;
+            }
+            try {
+                t.join();
+            } catch (Exception e) {
+                //skip exception
+            }
+        }
+    }
     void putNewCustTreadIdDate(Thread _id, String _value) {
 		threadIdDate.put(_id,_value);
 	}

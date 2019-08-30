@@ -32,8 +32,10 @@ public class LgNamesUtils extends LgNames {
 
     private String aliasRunnable;
     private String aliasThread;
+    private String aliasCurrentThread;
     private String aliasStart;
     private String aliasJoin;
+    private String aliasJoinOthers;
     private String aliasSleep;
     private String aliasRun;
     private String aliasIsAlive;
@@ -267,7 +269,11 @@ public class LgNamesUtils extends LgNames {
         stdcl_ = new StandardClass(aliasThread, fields_, constructors_, methods_, getAliasObject(), MethodModifier.FINAL);
         method_ = new StandardMethod(aliasStart, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
+        method_ = new StandardMethod(aliasCurrentThread, params_, aliasThread, false, MethodModifier.STATIC, stdcl_);
+        methods_.put(method_.getId(), method_);
         method_ = new StandardMethod(aliasJoin, params_, getAliasPrimBoolean(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        method_ = new StandardMethod(aliasJoinOthers, params_, getAliasVoid(), false, MethodModifier.STATIC, stdcl_);
         methods_.put(method_.getId(), method_);
         method_ = new StandardMethod(aliasIsAlive, params_, getAliasPrimBoolean(), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
@@ -579,6 +585,27 @@ public class LgNamesUtils extends LgNames {
                 res_.setResult(new BooleanStruct(alive_));
                 return res_;
             }
+            if (StringList.quickEq(name_,aliasCurrentThread)) {
+                if (_cont.isInitEnums()) {
+                    _cont.failInitEnums();
+                    res_.setResult(NullStruct.NULL_VALUE);
+                    return res_;
+                }
+                StdStruct std_ = StdStruct.newInstance(Thread.currentThread(),aliasThread);
+                res_.setResult(std_);
+                return res_;
+            }
+            if (StringList.quickEq(name_,aliasJoinOthers)) {
+                if (_cont.isInitEnums()) {
+                    _cont.failInitEnums();
+                    res_.setResult(NullStruct.NULL_VALUE);
+                    return res_;
+                }
+                CustInitializer cust_ = ((RunnableContextEl)_cont).getCustInit();
+                cust_.joinOthers();
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
             if (StringList.quickEq(name_,aliasIsAlive)) {
                 Thread thread_ = (Thread) ((StdStruct) _instance).getInstance();
                 CustInitializer cust_ = ((RunnableContextEl)_cont).getCustInit();
@@ -791,7 +818,9 @@ public class LgNamesUtils extends LgNames {
         m_.put(getAliasThread(), new StringList(
                 getAliasStart(),
                 getAliasIsAlive(),
+                getAliasCurrentThread(),
                 getAliasJoin(),
+                getAliasJoinOthers(),
                 getAliasGetId(),
                 getAliasGetPriority(),
                 getAliasSetPriority(),
@@ -870,12 +899,30 @@ public class LgNamesUtils extends LgNames {
     public void setAliasRun(String _aliasRun) {
         aliasRun = _aliasRun;
     }
+
+    public String getAliasCurrentThread() {
+        return aliasCurrentThread;
+    }
+
+    public void setAliasCurrentThread(String _aliasCurrentThread) {
+        aliasCurrentThread = _aliasCurrentThread;
+    }
+
     public String getAliasJoin() {
         return aliasJoin;
     }
     public void setAliasJoin(String _aliasJoin) {
         aliasJoin = _aliasJoin;
     }
+
+    public String getAliasJoinOthers() {
+        return aliasJoinOthers;
+    }
+
+    public void setAliasJoinOthers(String _aliasJoinOthers) {
+        aliasJoinOthers = _aliasJoinOthers;
+    }
+
     public String getAliasSleep() {
         return aliasSleep;
     }
@@ -1310,7 +1357,9 @@ public class LgNamesUtils extends LgNames {
             setAliasRun("run");
             setAliasThread("$core.Thread");
             setAliasStart("start");
+            setAliasCurrentThread("currentThread");
             setAliasJoin("join");
+            setAliasJoinOthers("joinOthers");
             setAliasSleep("sleep");
             setAliasIsAlive("isAlive");
             setAliasGetId("getId");
@@ -1374,7 +1423,9 @@ public class LgNamesUtils extends LgNames {
             setAliasRun("executer");
             setAliasThread("$coeur.Tache");
             setAliasStart("demarrer");
+            setAliasCurrentThread("tacheCourante");
             setAliasJoin("attendre");
+            setAliasJoinOthers("attendreAutres");
             setAliasSleep("dormir");
             setAliasIsAlive("estActif");
             setAliasGetId("valId");

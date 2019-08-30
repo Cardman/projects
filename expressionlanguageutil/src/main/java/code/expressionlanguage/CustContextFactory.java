@@ -31,6 +31,7 @@ public final class CustContextFactory {
         CustLockingClass cl_ = new CustLockingClass();
         CustInitializer ci_ = new CustInitializer();
         RunnableContextEl r_ = new RunnableContextEl(_stack, cl_, ci_, _options, _exec, _definedKw, _definedLgNames,_tabWidth);
+        r_.setCovering(_exec.isCovering());
         ContextFactory.validate(_definedKw,_definedLgNames,_files,r_);
         return r_;
     }

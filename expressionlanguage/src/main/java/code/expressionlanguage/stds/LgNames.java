@@ -248,7 +248,8 @@ public abstract class LgNames {
         map_.put(getAliasError(), new StringList(
                 getAliasCurrentStack(),
                 getAliasToString(),
-                getAliasGetMessage()));
+                getAliasGetMessage(),
+                getAliasGetCause()));
         map_.put(getAliasAnnotated(), new StringList(
                 getAliasGetAnnotations(),
                 getAliasGetAnnotationsParameters()));
@@ -896,6 +897,11 @@ public abstract class LgNames {
                 result_.setResult(err_.getMessage());
                 return result_;
             }
+            if (StringList.quickEq(name_, lgNames_.getAliasGetCause())) {
+                ErroneousStruct err_ = (ErroneousStruct) _struct;
+                result_.setResult(err_.getCause());
+                return result_;
+            }
             ErroneousStruct err_;
             if (args_.length == 0) {
                 err_ = (ErroneousStruct) _struct;
@@ -1301,6 +1307,14 @@ public abstract class LgNames {
     }
     public void setAliasGetMessage(String _aliasGetMessage) {
         coreNames.setAliasGetMessage(_aliasGetMessage);
+    }
+
+    public String getAliasGetCause() {
+        return coreNames.getAliasGetCause();
+    }
+
+    public void setAliasGetCause(String _aliasGetCause) {
+        coreNames.setAliasGetCause(_aliasGetCause);
     }
     public String getAliasBadSize() {
         return coreNames.getAliasBadSize();

@@ -34,6 +34,7 @@ public final class GuiContextFactory {
         if (!CustComponent.invokeAndWait(s_)) {
             return null;
         }
+        r_.setCovering(_exec.isCovering());
         ContextFactory.validate(_definedKw,_definedLgNames,_files,r_);
         return r_;
     }

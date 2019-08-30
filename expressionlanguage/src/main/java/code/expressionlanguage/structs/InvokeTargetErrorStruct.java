@@ -31,6 +31,7 @@ public final class InvokeTargetErrorStruct implements ErroneousStruct {
         return NullStruct.NULL_VALUE;
     }
 
+    @Override
     public Struct getCause() {
         return cause;
     }

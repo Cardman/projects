@@ -253,6 +253,7 @@ public final class RenderInitStdsTest {
         _lgNames.setAliasResources("java.lang.Resources");
         _lgNames.setAliasEnumValues("values");
         _lgNames.setAliasInvokeTarget("java.lang.$invokeTaget");
+        _lgNames.setAliasGetCause("getCause");
         _lgNames.setAliasClassNotFoundError("java.lang.$classNotFound");
         _lgNames.setAliasGetVariableOwner("getVariableOwner");
         _lgNames.setAliasGetGenericVariableOwner("getGenericVariableOwner");

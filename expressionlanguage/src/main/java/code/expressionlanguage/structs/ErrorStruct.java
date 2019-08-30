@@ -68,6 +68,11 @@ public final class ErrorStruct implements ErroneousStruct {
     }
 
     @Override
+    public Struct getCause() {
+        return NullStruct.NULL_VALUE;
+    }
+
+    @Override
     public ArrayStruct getStack() {
         return stack;
     }

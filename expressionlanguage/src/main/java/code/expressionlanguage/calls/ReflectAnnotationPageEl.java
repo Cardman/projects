@@ -26,8 +26,8 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
     private int indexAnnotationParam;
     private boolean onParameters;
     private ArrayStruct array;
-    private CustList<CustList<ExecOperationNode>> annotations;
-    private CustList<CustList<CustList<ExecOperationNode>>> annotationsParams;
+    private CustList<CustList<ExecOperationNode>> annotations = new CustList<CustList<ExecOperationNode>>();
+    private CustList<CustList<CustList<ExecOperationNode>>> annotationsParams = new CustList<CustList<CustList<ExecOperationNode>>>();
 
     @Override
     public boolean checkCondition(ContextEl _context) {

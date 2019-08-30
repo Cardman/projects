@@ -18,6 +18,7 @@ public final class AliasCore {
 
     private String aliasEnums;
     private String aliasError;
+    private String aliasGetCause;
     private String aliasGetMessage;
     private String aliasBadSize;
     private String aliasDivisionZero;
@@ -64,19 +65,22 @@ public final class AliasCore {
         String stackElt_ = _lgNames.getAliasStackTraceElement();
         stackElt_ = PrimitiveTypeUtil.getPrettyArrayType(stackElt_);
         params_ = new StringList();
-        method_ = new StandardMethod(_lgNames.getAliasCurrentStack(), params_, stackElt_, false, MethodModifier.NORMAL,std_);
+        method_ = new StandardMethod(_lgNames.getAliasCurrentStack(), params_, stackElt_, false, MethodModifier.NORMAL,stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
-        method_ = new StandardMethod(_lgNames.getAliasToString(), params_, _lgNames.getAliasString(), false, MethodModifier.NORMAL,std_);
+        method_ = new StandardMethod(_lgNames.getAliasToString(), params_, _lgNames.getAliasString(), false, MethodModifier.NORMAL,stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasError);
-        method_ = new StandardMethod(_lgNames.getAliasCurrentStack(), params_, stackElt_, false, MethodModifier.STATIC,std_);
+        method_ = new StandardMethod(_lgNames.getAliasCurrentStack(), params_, stackElt_, false, MethodModifier.STATIC,stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasError);
-        method_ = new StandardMethod(_lgNames.getAliasToString(), params_, _lgNames.getAliasString(), false, MethodModifier.STATIC,std_);
+        method_ = new StandardMethod(_lgNames.getAliasToString(), params_, _lgNames.getAliasString(), false, MethodModifier.STATIC,stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasGetMessage, params_, _lgNames.getAliasString(), false, MethodModifier.NORMAL,std_);
+        method_ = new StandardMethod(aliasGetMessage, params_, _lgNames.getAliasString(), false, MethodModifier.NORMAL,stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasGetCause, params_, _lgNames.getAliasObject(), false, MethodModifier.NORMAL,stdcl_);
         methods_.put(method_.getId(), method_);
         std_ = stdcl_;
         standards_.put(aliasError, std_);
@@ -219,6 +223,14 @@ public final class AliasCore {
 
     public void setAliasGetMessage(String _aliasGetMessage) {
         aliasGetMessage = _aliasGetMessage;
+    }
+
+    public String getAliasGetCause() {
+        return aliasGetCause;
+    }
+
+    public void setAliasGetCause(String _aliasGetCause) {
+        aliasGetCause = _aliasGetCause;
     }
 
     public String getAliasBadSize() {

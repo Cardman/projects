@@ -309,6 +309,7 @@ public final class KeyWordsMap {
         _lgNames.setAliasResources("$core.Resources");
         _lgNames.setAliasEnumValues("values");
         _lgNames.setAliasInvokeTarget("$core.InvokeTarget");
+        _lgNames.setAliasGetCause("getCause");
         _lgNames.setAliasClassNotFoundError("$core.ClassNotFound");
         _lgNames.setAliasGetVariableOwner("getVariableOwner");
         _lgNames.setAliasGetGenericVariableOwner("getGenericVariableOwner");
@@ -582,6 +583,7 @@ public final class KeyWordsMap {
         _lgNames.setAliasResources("$coeur.Ressources");
         _lgNames.setAliasEnumValues("valeurs");
         _lgNames.setAliasInvokeTarget("$coeur.InvoqueCible");
+        _lgNames.setAliasGetCause("valCause");
         _lgNames.setAliasClassNotFoundError("$coeur.ClasseNonTrouve");
         _lgNames.setAliasGetVariableOwner("valVariablePoss");
         _lgNames.setAliasGetGenericVariableOwner("valGeneVariablePoss");

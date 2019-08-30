@@ -34,6 +34,7 @@ public final class CausingErrorStruct implements ErroneousStruct {
     public Struct getParent() {
         return NullStruct.NULL_VALUE;
     }
+    @Override
     public Struct getCause() {
         return cause;
     }
