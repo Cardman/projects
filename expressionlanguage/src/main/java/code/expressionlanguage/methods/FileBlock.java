@@ -18,6 +18,9 @@ public final class FileBlock extends BracedBlock implements ImportingBlock {
     private Ints endTexts = new Ints();
     private Ints endChars = new Ints();
 
+    private Ints beginComments = new Ints();
+    private Ints endComments = new Ints();
+
     private StringList imports = new StringList();
 
     private Ints importsOffset = new Ints();
@@ -94,6 +97,14 @@ public final class FileBlock extends BracedBlock implements ImportingBlock {
         return endStrings;
     }
 
+    public Ints getBeginComments() {
+        return beginComments;
+    }
+
+    public Ints getEndComments() {
+        return endComments;
+    }
+
     public Ints getLeftSpaces() {
         return leftSpaces;
     }
@@ -165,6 +176,7 @@ public final class FileBlock extends BracedBlock implements ImportingBlock {
         cssContent_ += ".p{background-color:yellow;}\n";
         cssContent_ += ".n{background-color:red;}\n";
         cssContent_ += ".s{color:blue;}\n";
+        cssContent_ += ".c{color:grey;}\n";
         files_.addEntry("css/style.css",cssContent_);
         return files_;
     }
@@ -203,6 +215,16 @@ public final class FileBlock extends BracedBlock implements ImportingBlock {
                 return;
             }
             if (endTexts.containsObj(_index)) {
+                _xml.insert(0, "</span>");
+                _xml.insert(0, _ch);
+                return;
+            }
+            if (beginComments.containsObj(_index)) {
+                _xml.insert(0, _ch);
+                _xml.insert(0, "<span class=\"c\">");
+                return;
+            }
+            if (endComments.containsObj(_index)) {
                 _xml.insert(0, "</span>");
                 _xml.insert(0, _ch);
                 return;

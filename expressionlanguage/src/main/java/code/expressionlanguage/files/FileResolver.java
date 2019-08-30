@@ -80,6 +80,7 @@ public final class FileResolver {
                 if (currentChar_ == LINE_RETURN) {
                     commentedSingleLine_ = false;
                     enabledSpaces_.setCheckTabs(true);
+                    enabledSpaces_.getFile().getEndComments().add(i_-1);
                 }
                 i_ = incrementRowCol(i_, _file, enabledSpaces_);
                 continue;
@@ -96,6 +97,7 @@ public final class FileResolver {
                         commentedMultiLine_ = false;
                         enabledSpaces_.setCheckTabs(true);
                         i_ = incrementRowCol(i_, _file, enabledSpaces_);
+                        enabledSpaces_.getFile().getEndComments().add(i_);
                         i_ = incrementRowCol(i_, _file, enabledSpaces_);
                         previousChar_ = nextChar_;
                         continue;
@@ -160,6 +162,7 @@ public final class FileResolver {
                 if (nextChar_ == BEGIN_COMMENT) {
                     commentedSingleLine_ = true;
                     enabledSpaces_.setCheckTabs(false);
+                    enabledSpaces_.getFile().getBeginComments().add(i_);
                     i_ = incrementRowCol(i_, _file, enabledSpaces_);
                     i_ = incrementRowCol(i_, _file, enabledSpaces_);
                     previousChar_ = nextChar_;
@@ -168,6 +171,7 @@ public final class FileResolver {
                 if (nextChar_ == SECOND_COMMENT) {
                     commentedMultiLine_ = true;
                     enabledSpaces_.setCheckTabs(false);
+                    enabledSpaces_.getFile().getBeginComments().add(i_);
                     i_ = incrementRowCol(i_, _file, enabledSpaces_);
                     i_ = incrementRowCol(i_, _file, enabledSpaces_);
                     previousChar_ = nextChar_;
@@ -290,12 +294,14 @@ public final class FileResolver {
             }
             i_ = res_.getNextIndex();
             boolean hasNext_ = false;
+            boolean ended_ = true;
             while (i_ < len_) {
                 char currentChar_ = _file.charAt(i_);
                 if (commentedSingleLine_) {
                     if (currentChar_ == LINE_RETURN) {
                         commentedSingleLine_ = false;
                         enabledSpaces_.setCheckTabs(true);
+                        enabledSpaces_.getFile().getEndComments().add(i_-1);
                     }
                     i_ = incrementRowCol(i_, _file, enabledSpaces_);
                     continue;
@@ -310,6 +316,7 @@ public final class FileResolver {
                             commentedMultiLine_ = false;
                             enabledSpaces_.setCheckTabs(true);
                             i_ = incrementRowCol(i_, _file, enabledSpaces_);
+                            enabledSpaces_.getFile().getEndComments().add(i_);
                             i_ = incrementRowCol(i_, _file, enabledSpaces_);
                             continue;
                         }
@@ -319,10 +326,12 @@ public final class FileResolver {
                 }
                 if (StringList.isDollarWordChar(currentChar_)) {
                     hasNext_ = true;
+                    ended_ = false;
                     break;
                 }
                 if (currentChar_ == ANNOT) {
                     hasNext_ = true;
+                    ended_ = false;
                     break;
                 }
                 if (currentChar_ == BEGIN_COMMENT) {
@@ -333,6 +342,7 @@ public final class FileResolver {
                     if (nextChar_ == BEGIN_COMMENT) {
                         commentedSingleLine_ = true;
                         enabledSpaces_.setCheckTabs(false);
+                        enabledSpaces_.getFile().getBeginComments().add(i_);
                         i_ = incrementRowCol(i_, _file, enabledSpaces_);
                         i_ = incrementRowCol(i_, _file, enabledSpaces_);
                         continue;
@@ -340,20 +350,28 @@ public final class FileResolver {
                     if (nextChar_ == SECOND_COMMENT) {
                         commentedMultiLine_ = true;
                         enabledSpaces_.setCheckTabs(false);
+                        enabledSpaces_.getFile().getBeginComments().add(i_);
                         i_ = incrementRowCol(i_, _file, enabledSpaces_);
                         i_ = incrementRowCol(i_, _file, enabledSpaces_);
                         continue;
                     }
                     //ERROR
                     badIndexes_.add(i_);
+                    ended_ = false;
                     break;
                 }
                 if (!enabledSpaces_.isOk()) {
                     //ERROR
                     badIndexes_.add(i_);
+                    ended_ = false;
                     break;
                 }
                 i_ = incrementRowCol(i_, _file, enabledSpaces_);
+            }
+            if (ended_) {
+                if (commentedSingleLine_ || commentedMultiLine_) {
+                    enabledSpaces_.getFile().getEndComments().add(len_-1);
+                }
             }
             if (!hasNext_) {
                 for (int i: badIndexes_) {
@@ -817,6 +835,7 @@ public final class FileResolver {
                     commentedSingleLine_ = false;
                     enabledSpaces_.setCheckTabs(true);
                     instruction_.delete(0, instruction_.length());
+                    enabledSpaces_.getFile().getEndComments().add(i_-1);
                 }
                 i_ = incrementRowCol(i_, _file, enabledSpaces_);
                 continue;
@@ -834,6 +853,7 @@ public final class FileResolver {
                         enabledSpaces_.setCheckTabs(true);
                         instruction_.delete(0, instruction_.length());
                         i_ = incrementRowCol(i_, _file, enabledSpaces_);
+                        enabledSpaces_.getFile().getEndComments().add(i_);
                         i_ = incrementRowCol(i_, _file, enabledSpaces_);
                         continue;
                     }
@@ -927,6 +947,7 @@ public final class FileResolver {
                 char nextChar_ = _file.charAt(i_ + 1);
                 if (nextChar_ == BEGIN_COMMENT) {
                     if (allowedComments_) {
+                        enabledSpaces_.getFile().getBeginComments().add(i_);
                         commentedSingleLine_ = true;
                         enabledSpaces_.setCheckTabs(false);
                         i_ = incrementRowCol(i_, _file, enabledSpaces_);
@@ -936,6 +957,7 @@ public final class FileResolver {
                 }
                 if (nextChar_ == SECOND_COMMENT) {
                     if (allowedComments_) {
+                        enabledSpaces_.getFile().getBeginComments().add(i_);
                         commentedMultiLine_ = true;
                         enabledSpaces_.setCheckTabs(false);
                         i_ = incrementRowCol(i_, _file, enabledSpaces_);
