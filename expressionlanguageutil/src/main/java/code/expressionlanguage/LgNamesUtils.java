@@ -98,6 +98,7 @@ public class LgNamesUtils extends LgNames {
     private String aliasTableVarFirst;
     private String aliasTableVarSecond;
 
+    private String aliasInfoTest;
     private String aliasExecute;
     private String aliasResult;
     private String aliasExecutedTest;
@@ -141,6 +142,11 @@ public class LgNamesUtils extends LgNames {
     private String aliasDifferenceFoundNotTrue;
     private String aliasDifferenceStackDiff;
 
+    private String aliasInfoTestCount;
+    private String aliasInfoTestDone;
+    private String aliasInfoTestCurrentClass;
+    private String aliasInfoTestCurrentMethod;
+    private String aliasInfoTestCurrentParams;
     @Override
     public StringMap<String> buildFiles(ContextEl _context) {
         StringMap<String> stds_ = super.buildFiles(_context);
@@ -391,6 +397,7 @@ public class LgNamesUtils extends LgNames {
         map_.put("{Parameters}",aliasParameters);
         map_.put("{Assert}",aliasAssert);
         map_.put("{Difference}",aliasDifference);
+        map_.put("{InfoTest}",aliasInfoTest);
         map_.put("{exception}",aliasTestException);
         map_.put("{nullException}",aliasTestNullException);
         map_.put("{annotations}",aliasExecutedTestAnnotations);
@@ -418,8 +425,14 @@ public class LgNamesUtils extends LgNames {
         map_.put("{assertSame}",aliasAssertAssertSame);
         map_.put("{success}",aliasResultSuccess);
         map_.put("{tests}",aliasExecuteTests);
+        map_.put("{count}",aliasInfoTestCount);
+        map_.put("{done}",aliasInfoTestDone);
+        map_.put("{currentClass}",aliasInfoTestCurrentClass);
+        map_.put("{currentMethod}",aliasInfoTestCurrentMethod);
+        map_.put("{currentParams}",aliasInfoTestCurrentParams);
         content_ = StringList.formatQuote(content_, map_);
 
+        getPredefinedClasses().add(aliasInfoTest);
         getPredefinedClasses().add(aliasDifference);
         getPredefinedClasses().add(aliasAssert);
         getPredefinedClasses().add(aliasParameters);
@@ -430,6 +443,7 @@ public class LgNamesUtils extends LgNames {
         getPredefinedClasses().add(aliasResult);
         getPredefinedClasses().add(aliasExecute);
         stds_.put(aliasExecute, content_);
+        getPredefinedInterfacesInitOrder().add(aliasInfoTest);
         getPredefinedInterfacesInitOrder().add(aliasDifference);
         getPredefinedInterfacesInitOrder().add(aliasAssert);
         getPredefinedInterfacesInitOrder().add(aliasParameters);
@@ -1623,6 +1637,14 @@ public class LgNamesUtils extends LgNames {
         this.aliasDifference = aliasDifference;
     }
 
+    public String getAliasInfoTest() {
+        return aliasInfoTest;
+    }
+
+    public void setAliasInfoTest(String aliasInfoTest) {
+        this.aliasInfoTest = aliasInfoTest;
+    }
+
     public String getAliasTestException() {
         return aliasTestException;
     }
@@ -1839,6 +1861,46 @@ public class LgNamesUtils extends LgNames {
         this.aliasDifferenceStackDiff = aliasDifferenceStackDiff;
     }
 
+    public String getAliasInfoTestCount() {
+        return aliasInfoTestCount;
+    }
+
+    public void setAliasInfoTestCount(String aliasInfoTestCount) {
+        this.aliasInfoTestCount = aliasInfoTestCount;
+    }
+
+    public String getAliasInfoTestDone() {
+        return aliasInfoTestDone;
+    }
+
+    public void setAliasInfoTestDone(String aliasInfoTestDone) {
+        this.aliasInfoTestDone = aliasInfoTestDone;
+    }
+
+    public String getAliasInfoTestCurrentClass() {
+        return aliasInfoTestCurrentClass;
+    }
+
+    public void setAliasInfoTestCurrentClass(String aliasInfoTestCurrentClass) {
+        this.aliasInfoTestCurrentClass = aliasInfoTestCurrentClass;
+    }
+
+    public String getAliasInfoTestCurrentMethod() {
+        return aliasInfoTestCurrentMethod;
+    }
+
+    public void setAliasInfoTestCurrentMethod(String aliasInfoTestCurrentMethod) {
+        this.aliasInfoTestCurrentMethod = aliasInfoTestCurrentMethod;
+    }
+
+    public String getAliasInfoTestCurrentParams() {
+        return aliasInfoTestCurrentParams;
+    }
+
+    public void setAliasInfoTestCurrentParams(String aliasInfoTestCurrentParams) {
+        this.aliasInfoTestCurrentParams = aliasInfoTestCurrentParams;
+    }
+
     public void otherAlias(String _lang) {
         if (StringList.quickEq(_lang, "en")) {
             setAliasPrint("print");
@@ -1915,6 +1977,7 @@ public class LgNamesUtils extends LgNames {
             setAliasParameters("$core.Parameters");
             setAliasAssert("$core.Assert");
             setAliasDifference("$core.Difference");
+            setAliasInfoTest("$core.InfoTest");
             setAliasTestException("exception");
             setAliasTestNullException("nullException");
             setAliasExecutedTestAfter("after");
@@ -1942,6 +2005,11 @@ public class LgNamesUtils extends LgNames {
             setAliasDifferenceFoundNotTrue("foundNotTrue");
             setAliasDifferenceFoundNull("foundNull");
             setAliasDifferenceStackDiff("stackDiff");
+            setAliasInfoTestCount("count");
+            setAliasInfoTestCurrentClass("currentClass");
+            setAliasInfoTestCurrentMethod("currentMethod");
+            setAliasInfoTestCurrentParams("currentParams");
+            setAliasInfoTestDone("done");
         } else {
             setAliasPrint("afficher");
             setAliasRunnable("$coeur.Executable");
@@ -2008,6 +2076,7 @@ public class LgNamesUtils extends LgNames {
             setAliasRemoveTa("supprimer");
             setAliasTableVarFirst("T");
             setAliasTableVarSecond("U");
+            setAliasInfoTest("$coeur.InfoTest");
             setAliasExecute("$coeur.Executer");
             setAliasResult("$coeur.Resultat");
             setAliasExecutedTest("$coeur.TestExecute");
@@ -2044,6 +2113,11 @@ public class LgNamesUtils extends LgNames {
             setAliasDifferenceFoundNotTrue("trouvePasVrai");
             setAliasDifferenceFoundNull("trouveNull");
             setAliasDifferenceStackDiff("pileDiff");
+            setAliasInfoTestCount("nb");
+            setAliasInfoTestCurrentClass("classeCourante");
+            setAliasInfoTestCurrentMethod("methodCourante");
+            setAliasInfoTestCurrentParams("paramsCourants");
+            setAliasInfoTestDone("fait");
         }
     }
     private static boolean sleep(long _time) {

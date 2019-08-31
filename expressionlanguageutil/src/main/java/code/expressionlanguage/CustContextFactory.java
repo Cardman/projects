@@ -8,6 +8,8 @@ import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.KeyWordsMap;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stds.LgNames;
+import code.expressionlanguage.structs.NullStruct;
+import code.expressionlanguage.structs.Struct;
 import code.stream.StreamTextFile;
 import code.util.CustList;
 import code.util.EntryCust;
@@ -56,9 +58,12 @@ public final class CustContextFactory {
             return;
         }
         String aliasExecuteTests_ = _definedLgNames.getAliasExecuteTests();
-        MethodId fct_ = new MethodId(true, aliasExecuteTests_,new StringList());
+        String infoTest_ = _definedLgNames.getAliasInfoTest();
+        Struct infoStruct_ = rCont_.getInit().processInit(rCont_, NullStruct.NULL_VALUE, infoTest_, "", -1);
+        MethodId fct_ = new MethodId(true, aliasExecuteTests_,new StringList(infoTest_));
         Argument argGlLoc_ = new Argument();
-        ProcessMethod.calculateArgument(argGlLoc_, _definedLgNames.getAliasExecute(), fct_, new CustList<Argument>(), rCont_, null);
+        Argument argMethod_ = new Argument(infoStruct_);
+        ProcessMethod.calculateArgument(argGlLoc_, _definedLgNames.getAliasExecute(), fct_, new CustList<Argument>(argMethod_), rCont_, null);
         if (rCont_.isCovering()) {
             String exp_ = _exec.getCoverFolder();
             for (EntryCust<String,String> f:FileBlock.export(rCont_).entryList()) {

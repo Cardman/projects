@@ -22,7 +22,11 @@ public final class RunningTest implements Runnable {
         if (content_ == null) {
             return;
         }
-        StringList lines_ = StringList.splitStrings(content_, "\n", "\r\n");
+        launchByConfContent(content_);
+    }
+
+    public static void launchByConfContent(String _content) {
+        StringList lines_ = StringList.splitStrings(_content, "\n", "\r\n");
         StringList linesFiles_ = new StringList();
         for (String s: lines_) {
             if (s.trim().isEmpty()) {
@@ -34,10 +38,20 @@ public final class RunningTest implements Runnable {
             return;
         }
         String archive_ = linesFiles_.first();
-        StringMap<String> zipFiles_ = new StringMap<String>();
         String lg_ = linesFiles_.get(1);
-        if (new File(archive_).isDirectory()) {
-            for (String f: StreamTextFile.allSortedFiles(archive_)) {
+        StringMap<String> zipFiles_ = getFiles(archive_);
+        ExecutingOptions exec_ = new ExecutingOptions();
+        setupOptionals(2, exec_,linesFiles_);
+        Options opt_ = new Options();
+        CustContextFactory.executeDefKw(lg_,opt_,exec_,zipFiles_);
+    }
+
+    public static StringMap<String> getFiles(String _archiveOrFolder) {
+        StringMap<String> zipFiles_ = new StringMap<String>();
+        File file_ = new File(_archiveOrFolder);
+        if (file_.isDirectory()) {
+            String abs_ = file_.getAbsolutePath();
+            for (String f: StreamTextFile.allSortedFiles(_archiveOrFolder)) {
                 if (new File(f).isDirectory()) {
                     continue;
                 }
@@ -45,12 +59,12 @@ public final class RunningTest implements Runnable {
                 if (contentOfFile_ == null) {
                     continue;
                 }
-                zipFiles_.addEntry(f.substring(archive_.length()+1),contentOfFile_);
+                zipFiles_.addEntry(f.substring(abs_.length()+1),contentOfFile_);
             }
         } else {
-            StringMap<byte[]> zip_ =  StreamZipFile.zippedBinaryFiles(archive_);
+            StringMap<byte[]> zip_ =  StreamZipFile.zippedBinaryFiles(_archiveOrFolder);
             if (zip_ == null) {
-                return;
+                return zipFiles_;
             }
             for (EntryCust<String,byte[]> e: zip_.entryList()) {
                 String key_ = e.getKey();
@@ -64,25 +78,25 @@ public final class RunningTest implements Runnable {
                 zipFiles_.addEntry(key_,dec_);
             }
         }
-        ExecutingOptions exec_ = new ExecutingOptions();
-        for (String l: linesFiles_.mid(2)) {
+        return zipFiles_;
+    }
+    public static void setupOptionals(int _from, ExecutingOptions _exec, StringList _lines) {
+        for (String l: _lines.mid(_from)) {
             if (l.startsWith("log=")) {
                 String output_ = l.substring("log=".length());
                 int lastSep_ = output_.lastIndexOf('>');
                 if (lastSep_ > -1) {
-                    exec_.setLogFolder(output_.substring(0,lastSep_));
-                    exec_.setMainThread(output_.substring(lastSep_+1));
+                    _exec.setLogFolder(output_.substring(0,lastSep_));
+                    _exec.setMainThread(output_.substring(lastSep_+1));
                 }
             }
             if (l.startsWith("cover=")) {
-                exec_.setCovering(true);
+                _exec.setCovering(true);
                 String output_ = l.substring("cover=".length());
                 if (!output_.isEmpty()) {
-                    exec_.setCoverFolder(output_);
+                    _exec.setCoverFolder(output_);
                 }
             }
         }
-        Options opt_ = new Options();
-        CustContextFactory.executeDefKw(lg_,opt_,exec_,zipFiles_);
     }
 }

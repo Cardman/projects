@@ -655,7 +655,6 @@ public final class AliasReflection {
                 } else {
                     for (int i = 0; i < len_; i++) {
                         String int_ = geneInterfaces_.get(i);
-                        int_ = Templates.getIdFromAllTypes(int_);
                         superInts_[i] = _cont.getExtendedClassMetaInfo(int_,declaring_);
                     }
                 }
@@ -1543,7 +1542,6 @@ public final class AliasReflection {
                 } else {
                     for (int i = 0; i < len_; i++) {
                         String int_ = geneInterfaces_.get(i);
-                        int_ = Templates.getIdFromAllTypes(int_);
                         superInts_[i] = _cont.getExtendedClassMetaInfo(int_,declaring_);
                     }
                 }

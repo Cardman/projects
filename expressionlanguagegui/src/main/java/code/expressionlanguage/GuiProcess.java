@@ -44,23 +44,8 @@ public final class GuiProcess implements Runnable {
             return;
         }
         String archive_ = linesFiles_.first();
-        StringMap<byte[]> zip_ =  StreamZipFile.zippedBinaryFiles(archive_);
-        if (zip_ == null) {
-            return;
-        }
-        StringMap<String> zipFiles_ = new StringMap<String>();
+        StringMap<String> zipFiles_ = RunningTest.getFiles(archive_);
         String lg_ = linesFiles_.get(1);
-        for (EntryCust<String,byte[]> e: zip_.entryList()) {
-            String key_ = e.getKey();
-            if (key_.endsWith("/")) {
-                continue;
-            }
-            String dec_ = StringList.decode(e.getValue());
-            if (dec_ == null) {
-                continue;
-            }
-            zipFiles_.addEntry(key_,dec_);
-        }
         String clName_ = "";
         String mName_ = "";
         String line_ = ContextEl.removeDottedSpaces(linesFiles_.get(2));
@@ -70,14 +55,7 @@ public final class GuiProcess implements Runnable {
             mName_ = line_.substring(last_+1);
         }
         ExecutingOptions exec_ = new ExecutingOptions();
-        if (linesFiles_.size() > 3) {
-            String output_ = linesFiles_.get(3);
-            int lastSep_ = output_.lastIndexOf('>');
-            if (lastSep_ > -1) {
-                exec_.setLogFolder(output_.substring(0,lastSep_));
-                exec_.setMainThread(output_.substring(lastSep_+1));
-            }
-        }
+        RunningTest.setupOptionals(3,exec_,linesFiles_);
         String folder_ = exec_.getLogFolder();
         Options opt_ = new Options();
         LgNamesGui stds_ = new LgNamesGui();
