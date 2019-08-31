@@ -1,13 +1,20 @@
 package code.expressionlanguage;
 
+import code.expressionlanguage.methods.FileBlock;
+import code.expressionlanguage.methods.ProcessMethod;
+import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.options.ContextFactory;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.KeyWordsMap;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stds.LgNames;
+import code.stream.StreamTextFile;
 import code.util.CustList;
+import code.util.EntryCust;
 import code.util.StringList;
 import code.util.StringMap;
+
+import java.io.File;
 
 public final class CustContextFactory {
     private CustContextFactory(){}
@@ -25,6 +32,47 @@ public final class CustContextFactory {
             return null;
         }
         return build(CustList.INDEX_NOT_FOUND_ELT, _options, _exec,kwl_, _undefinedLgNames, _files, _tabWidth);
+    }
+    public static void executeDefKw(String _lang,
+                               Options _options, ExecutingOptions _exec,StringMap<String> _files) {
+        KeyWordsMap km_ = new KeyWordsMap();
+        KeyWords kwl_ = km_.getKeyWords(_lang);
+        LgNamesUtils stds_ = new LgNamesUtils();
+        if (StringList.quickEq(_lang, "en")) {
+            stds_.otherAlias(_lang);
+            km_.initEnStds(stds_);
+        } else if (StringList.quickEq(_lang, "fr")) {
+            stds_.otherAlias(_lang);
+            km_.initFrStds(stds_);
+        } else {
+            return;
+        }
+        execute(-1,_options,_exec,kwl_,stds_,_files);
+    }
+    public static void execute(int _stack,
+                               Options _options, ExecutingOptions _exec,KeyWords _definedKw, LgNamesUtils _definedLgNames, StringMap<String> _files) {
+        RunnableContextEl rCont_ = build(_stack, _options, _exec, _definedKw, _definedLgNames, _files, _exec.getTabWidth());
+        if (!rCont_.getClasses().isEmptyErrors()) {
+            return;
+        }
+        String aliasExecuteTests_ = _definedLgNames.getAliasExecuteTests();
+        MethodId fct_ = new MethodId(true, aliasExecuteTests_,new StringList());
+        Argument argGlLoc_ = new Argument();
+        ProcessMethod.calculateArgument(argGlLoc_, _definedLgNames.getAliasExecute(), fct_, new CustList<Argument>(), rCont_, null);
+        if (rCont_.isCovering()) {
+            String exp_ = _exec.getCoverFolder();
+            for (EntryCust<String,String> f:FileBlock.export(rCont_).entryList()) {
+                String full_ = exp_ + f.getKey();
+                int end_ = full_.lastIndexOf('/');
+                if (end_ > -1) {
+                    String par_ = full_.substring(0, end_);
+                    if (!par_.isEmpty()) {
+                        new File(par_).mkdirs();
+                    }
+                }
+                StreamTextFile.saveTextFile(full_,f.getValue());
+            }
+        }
     }
     public static RunnableContextEl build(int _stack,
             Options _options, ExecutingOptions _exec,KeyWords _definedKw, LgNamesUtils _definedLgNames, StringMap<String> _files, int _tabWidth) {
