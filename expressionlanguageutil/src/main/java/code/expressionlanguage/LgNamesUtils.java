@@ -98,6 +98,49 @@ public class LgNamesUtils extends LgNames {
     private String aliasTableVarFirst;
     private String aliasTableVarSecond;
 
+    private String aliasExecute;
+    private String aliasResult;
+    private String aliasExecutedTest;
+    private String aliasTest;
+    private String aliasAfter;
+    private String aliasBefore;
+    private String aliasParameters;
+    private String aliasAssert;
+    private String aliasDifference;
+
+    private String aliasTestException;
+    private String aliasTestNullException;
+    private String aliasExecutedTestAnnotations;
+    private String aliasExecutedTestTest;
+    private String aliasExecutedTestBefore;
+    private String aliasExecutedTestAfter;
+    private String aliasExecutedTestMethod;
+
+    private String aliasResultSuccess;
+    private String aliasResultFailMessage;
+    private String aliasResultParams;
+
+    private String aliasParametersMethod;
+    private String aliasParametersLocation;
+
+    private String aliasExecuteTests;
+    private String aliasExecuteExecute;
+    private String aliasExecuteConvert;
+    private String aliasExecuteSetupNoException;
+    private String aliasExecuteSetupError;
+
+    private String aliasAssertAssert;
+    private String aliasAssertAssertTrue;
+    private String aliasAssertAssertNull;
+    private String aliasAssertAssertNotNull;
+    private String aliasAssertAssertSame;
+
+    private String aliasDifferenceExpected;
+    private String aliasDifferenceFound;
+    private String aliasDifferenceFoundNull;
+    private String aliasDifferenceFoundNotTrue;
+    private String aliasDifferenceStackDiff;
+
     @Override
     public StringMap<String> buildFiles(ContextEl _context) {
         StringMap<String> stds_ = super.buildFiles(_context);
@@ -135,6 +178,12 @@ public class LgNamesUtils extends LgNames {
         } else if (_context.getOptions().getSuffixVar() != VariableSuffix.NONE) {
             suffixLoop_ = suffix_;
         }
+        String suffixCatch_ = "";
+        if (_context.getOptions().getSuffixVar() == VariableSuffix.DISTINCT) {
+            suffixCatch_ = StringList.concat(suffix_,"..");
+        } else if (_context.getOptions().getSuffixVar() != VariableSuffix.NONE) {
+            suffixCatch_ = suffix_;
+        }
         StringMap<String> map_;
         map_ = new StringMap<String>();
         map_.put("{public}", public_);
@@ -166,6 +215,7 @@ public class LgNamesUtils extends LgNames {
         map_.put("{param}", suffixParam_);
         map_.put("{local}", suffixLocal_);
         map_.put("{loop}", suffixLoop_);
+        map_.put("{cv}", suffixCatch_);
         map_.put("{iteratorType}", getAliasIteratorType());
         map_.put("{iterable}", getAliasIterable());
         map_.put("{listItr}", aliasListItr);
@@ -238,6 +288,157 @@ public class LgNamesUtils extends LgNames {
         getPredefinedInterfacesInitOrder().add(aliasCustPair);
         getPredefinedInterfacesInitOrder().add(aliasCustIterTable);
         getPredefinedInterfacesInitOrder().add(aliasTable);
+
+        content_ = ResourceFiles.ressourceFichier("resources_lg/tests/run.txt");
+        map_.put("{a}",tr("a",_context));
+        map_.put("{b}",tr("b",_context));
+        map_.put("{c}",tr("c",_context));
+        map_.put("{d}",tr("d",_context));
+        map_.put("{e}",tr("e",_context));
+        map_.put("{f}",tr("f",_context));
+        map_.put("{i}",tr("i",_context));
+        map_.put("{l}",tr("l",_context));
+        map_.put("{m}",tr("m",_context));
+        map_.put("{o}",tr("o",_context));
+        map_.put("{p}",tr("p",_context));
+        map_.put("{s}",tr("s",_context));
+        map_.put("{t}",tr("t",_context));
+        map_.put("{tt}",tr("tt",_context));
+        map_.put("{ex}",tr("ex",_context));
+        map_.put("{res}",tr("res",_context));
+        map_.put("{out}",tr("out",_context));
+        map_.put("{processEx}",tr("processEx",_context));
+        map_.put("{ctor}",tr("ctor",_context));
+        map_.put("{classTest}",tr("classTest",_context));
+        map_.put("{results}",tr("results",_context));
+        map_.put("{exc}",tr("exc",_context));
+        map_.put("{nbParams}",tr("nbParams",_context));
+        map_.put("{params}",tr("params",_context));
+        map_.put("{arr}",tr("arr",_context));
+        map_.put("{as}",tr("as",_context));
+        map_.put("{bs}",tr("bs",_context));
+        map_.put("{tts}",tr("tts",_context));
+        map_.put("{locType}",tr("locType",_context));
+        map_.put("{loc}",tr("loc",_context));
+        map_.put("{paramAnn}",tr("paramAnn",_context));
+        map_.put("{aParam}",tr("aParam",_context));
+        map_.put("{final}",keyWords_.getKeyWordFinal());
+        map_.put("{static}",keyWords_.getKeyWordStatic());
+        map_.put("{for}",keyWords_.getKeyWordFor());
+        map_.put("{if}",keyWords_.getKeyWordIf());
+        map_.put("{else}",keyWords_.getKeyWordElse());
+        map_.put("{var}",keyWords_.getKeyWordVar());
+        map_.put("{annotation}",keyWords_.getKeyWordAnnotation());
+        map_.put("{null}",keyWords_.getKeyWordNull());
+        map_.put("{throw}",keyWords_.getKeyWordThrow());
+        map_.put("{continue}",keyWords_.getKeyWordContinue());
+        map_.put("{break}",keyWords_.getKeyWordBreak());
+        map_.put("{instanceof}",keyWords_.getKeyWordInstanceof());
+        map_.put("{true}",keyWords_.getKeyWordTrue());
+        map_.put("{false}",keyWords_.getKeyWordFalse());
+        map_.put("{try}",keyWords_.getKeyWordTry());
+        map_.put("{catch}",keyWords_.getKeyWordCatch());
+        map_.put("{cast}",keyWords_.getKeyWordCast());
+        map_.put("{abstract}", abstract_);
+        map_.put("{long}",getAliasPrimLong());
+        map_.put("{double}",getAliasPrimDouble());
+        map_.put("{toSpecString}",keyWords_.getKeyWordToString());
+        map_.put("{Class}",getAliasClass());
+        map_.put("{InvokeTarget}",getAliasInvokeTarget());
+        map_.put("{Stack}",getAliasStackTraceElement());
+        map_.put("{Object}",getAliasObject());
+        map_.put("{String}",getAliasString());
+        map_.put("{StringBuilder}",getAliasStringBuilder());
+        map_.put("{Method}",getAliasMethod());
+        map_.put("{Annotation}",getAliasAnnotation());
+        map_.put("{Thread}",getAliasThread());
+        map_.put("{ObjectsUtil}",getAliasObjectsUtil());
+        map_.put("{Fct}",getAliasFct());
+        map_.put("{Math}",getAliasMath());
+        map_.put("{StringUtil}",getAliasStringUtil());
+        map_.put("{getAllClasses}",getAliasGetAllClasses());
+        map_.put("{getDeclaredMethods}",getAliasGetDeclaredMethods());
+        map_.put("{getAnnotations}",getAliasGetAnnotations());
+        map_.put("{length}",getAliasLength());
+        map_.put("{getMethodName}",getAliasGetName());
+        map_.put("{getClassName}",getAliasGetName());
+        map_.put("{getClass}",getAliasGetClass());
+        map_.put("{isStatic}",getAliasIsStatic());
+        map_.put("{getParameterTypes}",getAliasGetParameterTypes());
+        map_.put("{getDeclaredConstructors}",getAliasGetDeclaredConstructors());
+        map_.put("{invoke}",getAliasInvoke());
+        map_.put("{newInstance}",getAliasNewInstance());
+        map_.put("{getCause}",getAliasGetCause());
+        map_.put("{joinOthers}",getAliasJoinOthers());
+        map_.put("{isAssignableFrom}",getAliasIsAssignableFrom());
+        map_.put("{current}",getAliasCurrentStack());
+        map_.put("{eq}",getAliasSameRef());
+        map_.put("{call}",getAliasCall());
+        map_.put("{valueOf}",getAliasValueOf());
+        map_.put("{append}",getAliasAppend());
+        map_.put("{insert}",getAliasInsert());
+        map_.put("{toString}",getAliasToString());
+        map_.put("{plus}",getAliasPlus());
+        map_.put("{minus}",getAliasMinus());
+        map_.put("{lt}",getAliasLt());
+        map_.put("{gt}",getAliasGt());
+        map_.put("{Execute}",aliasExecute);
+        map_.put("{Result}",aliasResult);
+        map_.put("{ExecutedTest}",aliasExecutedTest);
+        map_.put("{Test}",aliasTest);
+        map_.put("{After}",aliasAfter);
+        map_.put("{Before}",aliasBefore);
+        map_.put("{Parameters}",aliasParameters);
+        map_.put("{Assert}",aliasAssert);
+        map_.put("{Difference}",aliasDifference);
+        map_.put("{exception}",aliasTestException);
+        map_.put("{nullException}",aliasTestNullException);
+        map_.put("{annotations}",aliasExecutedTestAnnotations);
+        map_.put("{test}",aliasExecutedTestTest);
+        map_.put("{before}",aliasExecutedTestBefore);
+        map_.put("{after}",aliasExecutedTestAfter);
+        map_.put("{methodParam}",aliasParametersMethod);
+        map_.put("{method}",aliasExecutedTestMethod);
+        map_.put("{location}",aliasParametersLocation);
+        map_.put("{pf}",aliasResultParams);
+        map_.put("{convert}",aliasExecuteConvert);
+        map_.put("{execute}",aliasExecuteExecute);
+        map_.put("{setupError}",aliasExecuteSetupError);
+        map_.put("{setupNoException}",aliasExecuteSetupNoException);
+        map_.put("{failMessage}",aliasResultFailMessage);
+        map_.put("{expected}",aliasDifferenceExpected);
+        map_.put("{found}",aliasDifferenceFound);
+        map_.put("{stackDiff}",aliasDifferenceStackDiff);
+        map_.put("{foundNull}",aliasDifferenceFoundNull);
+        map_.put("{foundNotTrue}",aliasDifferenceFoundNotTrue);
+        map_.put("{assert}",aliasAssertAssert);
+        map_.put("{assertTrue}",aliasAssertAssertTrue);
+        map_.put("{assertNull}",aliasAssertAssertNull);
+        map_.put("{assertNotNull}",aliasAssertAssertNotNull);
+        map_.put("{assertSame}",aliasAssertAssertSame);
+        map_.put("{success}",aliasResultSuccess);
+        map_.put("{tests}",aliasExecuteTests);
+        content_ = StringList.formatQuote(content_, map_);
+
+        getPredefinedClasses().add(aliasDifference);
+        getPredefinedClasses().add(aliasAssert);
+        getPredefinedClasses().add(aliasParameters);
+        getPredefinedClasses().add(aliasBefore);
+        getPredefinedClasses().add(aliasAfter);
+        getPredefinedClasses().add(aliasTest);
+        getPredefinedClasses().add(aliasExecutedTest);
+        getPredefinedClasses().add(aliasResult);
+        getPredefinedClasses().add(aliasExecute);
+        stds_.put(aliasExecute, content_);
+        getPredefinedInterfacesInitOrder().add(aliasDifference);
+        getPredefinedInterfacesInitOrder().add(aliasAssert);
+        getPredefinedInterfacesInitOrder().add(aliasParameters);
+        getPredefinedInterfacesInitOrder().add(aliasBefore);
+        getPredefinedInterfacesInitOrder().add(aliasAfter);
+        getPredefinedInterfacesInitOrder().add(aliasTest);
+        getPredefinedInterfacesInitOrder().add(aliasExecutedTest);
+        getPredefinedInterfacesInitOrder().add(aliasResult);
+        getPredefinedInterfacesInitOrder().add(aliasExecute);
         return stds_;
     }
     protected static String tr(String _var, ContextEl _context) {
@@ -1350,6 +1551,294 @@ public class LgNamesUtils extends LgNames {
         this.aliasTableVarSecond = aliasTableVarSecond;
     }
 
+    public String getAliasExecute() {
+        return aliasExecute;
+    }
+
+    public void setAliasExecute(String aliasExecute) {
+        this.aliasExecute = aliasExecute;
+    }
+
+    public String getAliasResult() {
+        return aliasResult;
+    }
+
+    public void setAliasResult(String aliasResult) {
+        this.aliasResult = aliasResult;
+    }
+
+    public String getAliasExecutedTest() {
+        return aliasExecutedTest;
+    }
+
+    public void setAliasExecutedTest(String aliasExecutedTest) {
+        this.aliasExecutedTest = aliasExecutedTest;
+    }
+
+    public String getAliasTest() {
+        return aliasTest;
+    }
+
+    public void setAliasTest(String aliasTest) {
+        this.aliasTest = aliasTest;
+    }
+
+    public String getAliasAfter() {
+        return aliasAfter;
+    }
+
+    public void setAliasAfter(String aliasAfter) {
+        this.aliasAfter = aliasAfter;
+    }
+
+    public String getAliasBefore() {
+        return aliasBefore;
+    }
+
+    public void setAliasBefore(String aliasBefore) {
+        this.aliasBefore = aliasBefore;
+    }
+
+    public String getAliasParameters() {
+        return aliasParameters;
+    }
+
+    public void setAliasParameters(String aliasParameters) {
+        this.aliasParameters = aliasParameters;
+    }
+
+    public String getAliasAssert() {
+        return aliasAssert;
+    }
+
+    public void setAliasAssert(String aliasAssert) {
+        this.aliasAssert = aliasAssert;
+    }
+
+    public String getAliasDifference() {
+        return aliasDifference;
+    }
+
+    public void setAliasDifference(String aliasDifference) {
+        this.aliasDifference = aliasDifference;
+    }
+
+    public String getAliasTestException() {
+        return aliasTestException;
+    }
+
+    public void setAliasTestException(String aliasTestException) {
+        this.aliasTestException = aliasTestException;
+    }
+
+    public String getAliasTestNullException() {
+        return aliasTestNullException;
+    }
+
+    public void setAliasTestNullException(String aliasTestNullException) {
+        this.aliasTestNullException = aliasTestNullException;
+    }
+
+    public String getAliasExecutedTestAnnotations() {
+        return aliasExecutedTestAnnotations;
+    }
+
+    public void setAliasExecutedTestAnnotations(String aliasExecutedTestAnnotations) {
+        this.aliasExecutedTestAnnotations = aliasExecutedTestAnnotations;
+    }
+
+    public String getAliasExecutedTestTest() {
+        return aliasExecutedTestTest;
+    }
+
+    public void setAliasExecutedTestTest(String aliasExecutedTestTest) {
+        this.aliasExecutedTestTest = aliasExecutedTestTest;
+    }
+
+    public String getAliasExecutedTestBefore() {
+        return aliasExecutedTestBefore;
+    }
+
+    public void setAliasExecutedTestBefore(String aliasExecutedTestBefore) {
+        this.aliasExecutedTestBefore = aliasExecutedTestBefore;
+    }
+
+    public String getAliasExecutedTestAfter() {
+        return aliasExecutedTestAfter;
+    }
+
+    public void setAliasExecutedTestAfter(String aliasExecutedTestAfter) {
+        this.aliasExecutedTestAfter = aliasExecutedTestAfter;
+    }
+
+    public String getAliasExecutedTestMethod() {
+        return aliasExecutedTestMethod;
+    }
+
+    public void setAliasExecutedTestMethod(String aliasExecutedTestMethod) {
+        this.aliasExecutedTestMethod = aliasExecutedTestMethod;
+    }
+
+    public String getAliasResultSuccess() {
+        return aliasResultSuccess;
+    }
+
+    public void setAliasResultSuccess(String aliasResultSuccess) {
+        this.aliasResultSuccess = aliasResultSuccess;
+    }
+
+    public String getAliasResultFailMessage() {
+        return aliasResultFailMessage;
+    }
+
+    public void setAliasResultFailMessage(String aliasResultFailMessage) {
+        this.aliasResultFailMessage = aliasResultFailMessage;
+    }
+
+    public String getAliasResultParams() {
+        return aliasResultParams;
+    }
+
+    public void setAliasResultParams(String aliasResultParams) {
+        this.aliasResultParams = aliasResultParams;
+    }
+
+    public String getAliasParametersMethod() {
+        return aliasParametersMethod;
+    }
+
+    public void setAliasParametersMethod(String aliasParametersMethod) {
+        this.aliasParametersMethod = aliasParametersMethod;
+    }
+
+    public String getAliasParametersLocation() {
+        return aliasParametersLocation;
+    }
+
+    public void setAliasParametersLocation(String aliasParametersLocation) {
+        this.aliasParametersLocation = aliasParametersLocation;
+    }
+
+    public String getAliasExecuteTests() {
+        return aliasExecuteTests;
+    }
+
+    public void setAliasExecuteTests(String aliasExecuteTests) {
+        this.aliasExecuteTests = aliasExecuteTests;
+    }
+
+    public String getAliasExecuteExecute() {
+        return aliasExecuteExecute;
+    }
+
+    public void setAliasExecuteExecute(String aliasExecuteExecute) {
+        this.aliasExecuteExecute = aliasExecuteExecute;
+    }
+
+    public String getAliasExecuteConvert() {
+        return aliasExecuteConvert;
+    }
+
+    public void setAliasExecuteConvert(String aliasExecuteConvert) {
+        this.aliasExecuteConvert = aliasExecuteConvert;
+    }
+
+    public String getAliasExecuteSetupNoException() {
+        return aliasExecuteSetupNoException;
+    }
+
+    public void setAliasExecuteSetupNoException(String aliasExecuteSetupNoException) {
+        this.aliasExecuteSetupNoException = aliasExecuteSetupNoException;
+    }
+
+    public String getAliasExecuteSetupError() {
+        return aliasExecuteSetupError;
+    }
+
+    public void setAliasExecuteSetupError(String aliasExecuteSetupError) {
+        this.aliasExecuteSetupError = aliasExecuteSetupError;
+    }
+
+    public String getAliasAssertAssert() {
+        return aliasAssertAssert;
+    }
+
+    public void setAliasAssertAssert(String aliasAssertAssert) {
+        this.aliasAssertAssert = aliasAssertAssert;
+    }
+
+    public String getAliasAssertAssertTrue() {
+        return aliasAssertAssertTrue;
+    }
+
+    public void setAliasAssertAssertTrue(String aliasAssertAssertTrue) {
+        this.aliasAssertAssertTrue = aliasAssertAssertTrue;
+    }
+
+    public String getAliasAssertAssertNull() {
+        return aliasAssertAssertNull;
+    }
+
+    public void setAliasAssertAssertNull(String aliasAssertAssertNull) {
+        this.aliasAssertAssertNull = aliasAssertAssertNull;
+    }
+
+    public String getAliasAssertAssertNotNull() {
+        return aliasAssertAssertNotNull;
+    }
+
+    public void setAliasAssertAssertNotNull(String aliasAssertAssertNotNull) {
+        this.aliasAssertAssertNotNull = aliasAssertAssertNotNull;
+    }
+
+    public String getAliasAssertAssertSame() {
+        return aliasAssertAssertSame;
+    }
+
+    public void setAliasAssertAssertSame(String aliasAssertAssertSame) {
+        this.aliasAssertAssertSame = aliasAssertAssertSame;
+    }
+
+    public String getAliasDifferenceExpected() {
+        return aliasDifferenceExpected;
+    }
+
+    public void setAliasDifferenceExpected(String aliasDifferenceExpected) {
+        this.aliasDifferenceExpected = aliasDifferenceExpected;
+    }
+
+    public String getAliasDifferenceFound() {
+        return aliasDifferenceFound;
+    }
+
+    public void setAliasDifferenceFound(String aliasDifferenceFound) {
+        this.aliasDifferenceFound = aliasDifferenceFound;
+    }
+
+    public String getAliasDifferenceFoundNull() {
+        return aliasDifferenceFoundNull;
+    }
+
+    public void setAliasDifferenceFoundNull(String aliasDifferenceFoundNull) {
+        this.aliasDifferenceFoundNull = aliasDifferenceFoundNull;
+    }
+
+    public String getAliasDifferenceFoundNotTrue() {
+        return aliasDifferenceFoundNotTrue;
+    }
+
+    public void setAliasDifferenceFoundNotTrue(String aliasDifferenceFoundNotTrue) {
+        this.aliasDifferenceFoundNotTrue = aliasDifferenceFoundNotTrue;
+    }
+
+    public String getAliasDifferenceStackDiff() {
+        return aliasDifferenceStackDiff;
+    }
+
+    public void setAliasDifferenceStackDiff(String aliasDifferenceStackDiff) {
+        this.aliasDifferenceStackDiff = aliasDifferenceStackDiff;
+    }
+
     public void otherAlias(String _lang) {
         if (StringList.quickEq(_lang, "en")) {
             setAliasPrint("print");
@@ -1417,6 +1906,42 @@ public class LgNamesUtils extends LgNames {
             setAliasRemoveTa("remove");
             setAliasTableVarFirst("T");
             setAliasTableVarSecond("U");
+            setAliasExecute("$core.Execute");
+            setAliasResult("$core.Result");
+            setAliasExecutedTest("$core.ExecutedTest");
+            setAliasTest("$core.Test");
+            setAliasAfter("$core.After");
+            setAliasBefore("$core.Before");
+            setAliasParameters("$core.Parameters");
+            setAliasAssert("$core.Assert");
+            setAliasDifference("$core.Difference");
+            setAliasTestException("exception");
+            setAliasTestNullException("nullException");
+            setAliasExecutedTestAfter("after");
+            setAliasExecutedTestBefore("before");
+            setAliasExecutedTestMethod("method");
+            setAliasExecutedTestAnnotations("annotations");
+            setAliasExecutedTestTest("test");
+            setAliasResultFailMessage("failMessage");
+            setAliasResultParams("params");
+            setAliasResultSuccess("success");
+            setAliasParametersLocation("location");
+            setAliasParametersMethod("method");
+            setAliasExecuteConvert("convert");
+            setAliasExecuteExecute("execute");
+            setAliasExecuteSetupError("setupError");
+            setAliasExecuteSetupNoException("setupNoException");
+            setAliasExecuteTests("tests");
+            setAliasAssertAssert("assert");
+            setAliasAssertAssertTrue("assertTrue");
+            setAliasAssertAssertNotNull("assertNotNull");
+            setAliasAssertAssertNull("assertNull");
+            setAliasAssertAssertSame("assertSame");
+            setAliasDifferenceExpected("expected");
+            setAliasDifferenceFound("found");
+            setAliasDifferenceFoundNotTrue("foundNotTrue");
+            setAliasDifferenceFoundNull("foundNull");
+            setAliasDifferenceStackDiff("stackDiff");
         } else {
             setAliasPrint("afficher");
             setAliasRunnable("$coeur.Executable");
@@ -1483,6 +2008,42 @@ public class LgNamesUtils extends LgNames {
             setAliasRemoveTa("supprimer");
             setAliasTableVarFirst("T");
             setAliasTableVarSecond("U");
+            setAliasExecute("$coeur.Executer");
+            setAliasResult("$coeur.Resultat");
+            setAliasExecutedTest("$coeur.TestExecute");
+            setAliasTest("$coeur.Test");
+            setAliasAfter("$coeur.Apres");
+            setAliasBefore("$coeur.Avant");
+            setAliasParameters("$coeur.Parametres");
+            setAliasAssert("$coeur.Assertion");
+            setAliasDifference("$coeur.Difference");
+            setAliasTestException("exception");
+            setAliasTestNullException("nulleException");
+            setAliasExecutedTestAfter("apres");
+            setAliasExecutedTestBefore("avant");
+            setAliasExecutedTestMethod("methode");
+            setAliasExecutedTestAnnotations("annotations");
+            setAliasExecutedTestTest("test");
+            setAliasResultFailMessage("messageErreur");
+            setAliasResultParams("params");
+            setAliasResultSuccess("succes");
+            setAliasParametersLocation("location");
+            setAliasParametersMethod("methode");
+            setAliasExecuteConvert("convertier");
+            setAliasExecuteExecute("executer");
+            setAliasExecuteSetupError("majErreur");
+            setAliasExecuteSetupNoException("majSansException");
+            setAliasExecuteTests("tests");
+            setAliasAssertAssert("assert");
+            setAliasAssertAssertTrue("assertVrai");
+            setAliasAssertAssertNotNull("assertNonNul");
+            setAliasAssertAssertNull("assertNul");
+            setAliasAssertAssertSame("assertMeme");
+            setAliasDifferenceExpected("attendu");
+            setAliasDifferenceFound("trouve");
+            setAliasDifferenceFoundNotTrue("trouvePasVrai");
+            setAliasDifferenceFoundNull("trouveNull");
+            setAliasDifferenceStackDiff("pileDiff");
         }
     }
     private static boolean sleep(long _time) {

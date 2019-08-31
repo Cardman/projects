@@ -1,0 +1,328 @@
+
+{public} {abstract} {final} {class} {Execute}'{'
+    {public} {static} {Table}<{Method},{Result}> {tests}()'{'
+        {Table}<{Class},{List}<{ExecutedTest}>> {out} = {new} {Table}<>(){endLine}
+        {for} ({var} {c}: {static}({Class}).{getAllClasses}())'{'
+            {List}<{Method}> {bs} = {new} {List}<>(){endLine}
+            {List}<{Method}> {as} = {new} {List}<>(){endLine}
+            {List}<{ExecutedTest}> {tts} = {new} {List}<>(){endLine}
+            {for} ({var} {m}: ({c}{loop}).{getDeclaredMethods}())'{'
+                {var} {e} = {new} {ExecutedTest}(){endLine}
+                {var} {a} = ({m}{loop}).{getAnnotations}({class}({Test})){endLine}
+                {if} ({static}({ObjectsUtil}).{eq}(({a}).{length}, 1) && !{static}({ObjectsUtil}).{eq}(({cast}({Test}){a}[0]).{exception}(), {class}({Difference})))'{'
+                    ({e}{local}).{test} = {m}{loop}{endLine}
+                    ({e}{local}).{annotations} = {a}{local}{endLine}
+                    ({e}{local}).{before} = {bs}{local}{endLine}
+                    ({e}{local}).{after} = {as}{local}{endLine}
+                    {var} {aParam} = ({m}{loop}).{getAnnotations}({class}({Parameters})){endLine}
+                    {if} ({static}({ObjectsUtil}).{eq}(({aParam}{local}).{length}, 1))'{'
+                        {var} {paramAnn} = {cast}({Parameters}){aParam}{local}[0]{endLine}
+                        {var} {loc} = ({paramAnn}{local}).{methodParam}(){endLine}
+                        {var} {locType} = ({paramAnn}{local}).{location}(){endLine}
+                        {if} ({static}({ObjectsUtil}).{eq}({locType}{local},{null}))'{'
+                            {locType}{local} = {c}{loop}{endLine}
+                        '}'
+                        {for} ({var} {p}: ({locType}{local}).{getDeclaredMethods}())'{'
+                            {if} (!{static}({ObjectsUtil}).{eq}(({p}{loop}).{getMethodName}(), {loc}{local}))'{'
+                                {continue}{endLine}
+                            '}'
+                            {if} (!({p}{loop}).{isStatic}())'{'
+                                {continue}{endLine}
+                            '}'
+                            {if} (!{static}({ObjectsUtil}).{eq}(({p}{loop}).{getParameterTypes}().{length},0))'{'
+                                {continue}{endLine}
+                            '}'
+                            ({e}{local}).{method} = {p}{endLine}
+                            {break}{endLine}
+                        '}'
+                    '}'
+                    ({tts}{local}).{add}({e}{local}){endLine}
+                '}'
+                {if} ({static}({Math}).{gt}(({m}{loop}).{getAnnotations}({class}({Before})).{length},0))'{'
+                    ({bs}{local}).{add}({m}{loop}){endLine}
+                '}'
+                {if} ({static}({Math}).{gt}(({m}{loop}).{getAnnotations}({class}({After})).{length},0))'{'
+                    ({as}{local}).{add}({m}{loop}){endLine}
+                '}'
+            '}'
+            {if} ({static}({Math}).{gt}(({tts}{local}).{sizeLi}(),0))'{'
+                ({out}{local}).{addTa}({c}{loop},{tts}{local}){endLine}
+            '}'
+        '}'
+
+        {Table}<{Method},{Result}> {results} = {new} {Table}<>(){endLine}
+
+        {for} ({var} {c}, {var} {l}: {out}{local})'{'
+            {for} ({var} {e}: {l}{loop})'{'
+                {var} {tt} = ({e}{loop}).{test}{endLine}
+                {if} (!{static}({ObjectsUtil}).{eq}(({e}{loop}).{method},{null}))'{'
+                    {Object} {arr} = {null}{endLine}
+                    {Object} {exc} = {null}{endLine}
+                    {try} '{'
+                        {arr}{local} = ({e}{loop}).{method}.{invoke}({null}){endLine}
+                    '}' {catch} ({InvokeTarget} {o})'{'
+                        {exc}{local} = ({o}{cv}).{getCause}(){endLine}
+                    '}'
+                    {if} ({arr}{local} {instanceof} {Object}[][])'{'
+                        {for} ({var} {p}: {cast}({Object}[][]){arr})'{'
+                            {var} {params} = {new} {StringBuilder}(){endLine}
+                            {var} {nbParams} = ({p}{loop}).{length}{endLine}
+                            {for} ({var} {i} = 0{endLine} {static}({Math}).{lt}({i}{loop}, {static}({Math}).{minus}({nbParams}{local},1)){endLine} {i}{loop}={static}({Math}).{plus}({i}{loop},1))'{'
+                                ({params}{local}).{append}({convert}({p}{loop}[{i}{loop}])).{append}(","){endLine}
+                            '}'
+                            {if} ({static}({Math}).{gt}({nbParams}{local},0))'{'
+                                ({params}{local}).{append}({convert}({p}{loop}[{static}({Math}).{minus}({nbParams}{local},1)])){endLine}
+                            '}'
+                            {var} {res} = {execute}({e}{loop},{c}{loop},{p}{loop}){endLine}
+                            ({res}{local}).{pf} = ({params}{local}).{toString}(){endLine}
+                            ({results}{local}).{addTa}({tt}{local},{res}{local}){endLine}
+                        '}'
+                    '}' {else} '{'
+                        ({results}{local}).{addTa}({tt}{local},{setupError}({e}{loop},{exc}{local})){endLine}
+                    '}'
+                '}' {else} '{'
+                    ({results}{local}).{addTa}({tt}{local},{execute}({e}{loop},{c}{loop},{new} {Object}[]'{''}')){endLine}
+                '}'
+                
+            '}'
+
+        '}'
+
+        {static}({Thread}).{joinOthers}(){endLine}
+        {return} {results}{local}{endLine}
+    '}'
+    {private} {static} {Result} {execute}({ExecutedTest} {e},{Class} {c},{Object}[] {p})'{'
+        {var} {processEx} = {false}{endLine}
+        {try} '{'
+            {var} {ctor} = ({c}{param}).{getDeclaredConstructors}({false})[0]{endLine}
+            {processEx}{local} = {true}{endLine}
+            {var} {classTest} = ({ctor}{local}).{newInstance}(){endLine}
+            {for} ({var} {b}: ({e}{param}).{before})'{'
+                ({b}{loop}).{invoke}({classTest}{local}){endLine}
+            '}'
+            ({e}{param}).{test}.{invoke}({classTest}{local}, {p}{param}){endLine}
+            {for} ({var} {b}: ({e}{param}).{after})'{'
+                ({b}{loop}).{invoke}({classTest}{local}){endLine}
+            '}'
+            {return} {setupNoException}({e}{param}){endLine}
+        '}' {catch} ({InvokeTarget} {o})'{'
+            {return} {setupError}({e}{param},{o}{cv},{processEx}{local}){endLine}
+        '}' {catch} ({Object} {o})'{'
+            {return} {setupError}({e}{param},{o}{cv}){endLine}
+        '}'
+    '}'
+    {private} {static} {String} {convert}({Object} {o})'{'
+        {try} '{'
+            {return} {static}({StringUtil}).{valueOf}({o}{param}){endLine}
+        '}' {catch} ({Object} {e})'{'
+            {return} {static}({Class}).{getClass}({o}{param}).{getClassName}(){endLine}
+        '}' {catch} '{'
+            {return} {static}({Class}).{getClass}({o}{param}).{getClassName}(){endLine}
+        '}'
+    '}'
+    {private} {static} {Result} {setupNoException}({ExecutedTest} {e})'{'
+        {var} {res} = {new} {Result}(){endLine}
+        {var} {tt} = {cast}({Test})({e}{param}).{annotations}[0]{endLine}
+        {if} (({tt}{local}).{nullException}())'{'
+            ({res}{local}).{success} = {false}{endLine}
+            ({res}{local}).{failMessage} = {new} {StringBuilder}("!=").{append}({static}({StringUtil}).{valueOf}({null})).{toString}(){endLine}
+        '}' {else} {if} (!{static}({ObjectsUtil}).{eq}(({tt}{local}).{exception}(),{null}))'{'
+            ({res}{local}).{success} = {false}{endLine}
+            ({res}{local}).{failMessage} = {new} {StringBuilder}("!=").{append}(({tt}{local}).{exception}().{getClassName}()).{toString}(){endLine}
+        '}'
+        {return} {res}{endLine}
+    '}'
+    {private} {static} {Result} {setupError}({ExecutedTest} {e}, {InvokeTarget} {t}, {boolean} {processEx})'{'
+        {var} {res} = {new} {Result}(){endLine}
+        {var} {ex} = ({t}{param}).{getCause}(){endLine}
+        {if} ({processEx}{param}) '{'
+            {var} {tt} = {cast}({Test})({e}{param}).{annotations}[0]{endLine}
+            {if} (({tt}{local}).{nullException}())'{'
+                {if} (!{static}({ObjectsUtil}).{eq}({ex}{local},{null}))'{'
+                    ({res}{local}).{success} = {false}{endLine}
+                    ({res}{local}).{failMessage} = {static}({StringUtil}).{valueOf}({ex}{local}){endLine}
+                '}'
+            '}' {else} {if} (!{static}({ObjectsUtil}).{eq}(({tt}{local}).{exception}(),{null})) '{'
+                {if} (!({tt}{local}).{exception}().{isAssignableFrom}({static}({Class}).{getClass}({ex}{local})))'{'
+                    ({res}{local}).{success} = {false}{endLine}
+                    ({res}{local}).{failMessage} = {static}({StringUtil}).{valueOf}({ex}{local}){endLine}
+                '}'
+            '}' {else} '{'
+                ({res}{local}).{success} = {false}{endLine}
+                ({res}{local}).{failMessage} = {static}({StringUtil}).{valueOf}({ex}{local}){endLine}
+            '}'
+        '}' {else} '{'
+            ({res}{local}).{success} = {false}{endLine}
+            ({res}{local}).{failMessage} = {static}({StringUtil}).{valueOf}({ex}{local}){endLine}
+        '}'
+        {return} {res}{endLine}
+    '}'
+    {private} {static} {Result} {setupError}({ExecutedTest} {e}, {Object} {t})'{'
+        {var} {res} = {new} {Result}(){endLine}
+        ({res}{local}).{success} = {false}{endLine}
+        ({res}{local}).{failMessage} = {static}({StringUtil}).{valueOf}({t}{param}){endLine}
+        {return} {res}{endLine}
+    '}'
+'}'
+
+{public} {class} {Result}'{'
+    {public} {boolean} {success} = {true}{endLine}
+    {public} {String} {pf} = ""{endLine}
+    {public} {String} {failMessage} = ""{endLine}
+'}'
+
+{public} {class} {ExecutedTest}'{'
+    {public} {List}<{Method}> {before}{endLine}
+    {public} {Method} {test}{endLine}
+    {public} {Annotation}[] {annotations}{endLine}
+    {public} {List}<{Method}> {after}{endLine}
+    {public} {Method} {method}{endLine}
+
+'}'
+
+{public} {annotation} {Before}'{''}'
+{public} {annotation} {After}'{''}'
+{public} {annotation} {Parameters}'{'
+    {String} {methodParam}(){endLine}
+    {Class} {location}(){null}{endLine}
+'}'
+
+{public} {annotation} {Test}'{'
+    {Class} {exception}(){null}{endLine}
+    {boolean} {nullException}(){false}{endLine}
+'}'
+
+{public} {abstract} {final} {class} {Assert}'{'
+
+    {public} {static} {void} {assert}({long} {e}, {long} {f})'{'
+        {if} (!{static}({ObjectsUtil}).{eq}({e}{param}, {f}{param}))'{'
+            {var} {d} = {new} {Difference}(){endLine}
+            ({d}{local}).{expected}={e}{param}{endLine}
+            ({d}{local}).{found}={f}{param}{endLine}
+            ({d}{local}).{stackDiff} = {static}({Stack}).{current}(){endLine}
+            {throw} {d}{local}{endLine}
+        '}'
+    '}'
+
+    {public} {static} {void} {assert}({double} {e}, {double} {f})'{'
+        {if} (!{static}({ObjectsUtil}).{eq}({e}{param}, {f}{param}))'{'
+            {var} {d} = {new} {Difference}(){endLine}
+            ({d}{local}).{expected}={e}{param}{endLine}
+            ({d}{local}).{found}={f}{param}{endLine}
+            ({d}{local}).{stackDiff} = {static}({Stack}).{current}(){endLine}
+            {throw} {d}{local}{endLine}
+        '}'
+    '}'
+
+    {public} {static} {void} {assert}({String} {e}, {String} {f})'{'
+        {if} (!{static}({ObjectsUtil}).{eq}({e}{param}, {f}{param}))'{'
+            {var} {d} = {new} {Difference}(){endLine}
+            ({d}{local}).{expected}={e}{param}{endLine}
+            ({d}{local}).{found}={f}{param}{endLine}
+            ({d}{local}).{stackDiff} = {static}({Stack}).{current}(){endLine}
+            {throw} {d}{local}{endLine}
+        '}'
+    '}'
+    {public} {static} {void} {assert}({StringBuilder} {e}, {StringBuilder} {f})'{'
+        {if} (!{static}({ObjectsUtil}).{eq}({e}{param}, {f}{param}))'{'
+            {var} {d} = {new} {Difference}(){endLine}
+            ({d}{local}).{expected}={e}{param}{endLine}
+            ({d}{local}).{found}={f}{param}{endLine}
+            ({d}{local}).{stackDiff} = {static}({Stack}).{current}(){endLine}
+            {throw} {d}{local}{endLine}
+        '}'
+    '}'
+    {public} {static} {void} {assert}({boolean} {e}, {boolean} {f})'{'
+        {if} (!{static}({ObjectsUtil}).{eq}({e}{param}, {f}{param}))'{'
+            {var} {d} = {new} {Difference}(){endLine}
+            ({d}{local}).{expected}={e}{param}{endLine}
+            ({d}{local}).{found}={f}{param}{endLine}
+            ({d}{local}).{stackDiff} = {static}({Stack}).{current}(){endLine}
+            {throw} {d}{local}{endLine}
+        '}'
+    '}'
+    {public} {static} {void} {assertTrue}({boolean} {f})'{'
+        {if} (!{f}{param})'{'
+            {var} {d} = {new} {Difference}(){endLine}
+            ({d}{local}).{expected}={true}{endLine}
+            ({d}{local}).{found}={false}{endLine}
+            ({d}{local}).{stackDiff} = {static}({Stack}).{current}(){endLine}
+            {throw} {d}{local}{endLine}
+        '}'
+    '}'
+    {public} {static} {void} {assertNull}({Object} {f})'{'
+        {if} (!{static}({ObjectsUtil}).{eq}({f}{param}, {null}))'{'
+            {var} {d} = {new} {Difference}(){endLine}
+            ({d}{local}).{expected}={null}{endLine}
+            ({d}{local}).{found}={f}{param}{endLine}
+            ({d}{local}).{stackDiff} = {static}({Stack}).{current}(){endLine}
+            {throw} {d}{local}{endLine}
+        '}'
+    '}'
+    {public} {static} {void} {assertNotNull}({Object} {f})'{'
+        {if} ({static}({ObjectsUtil}).{eq}({f}{param}, {null}))'{'
+            {var} {d} = {new} {Difference}(){endLine}
+            ({d}{local}).{foundNull}={true}{endLine}
+            ({d}{local}).{stackDiff} = {static}({Stack}).{current}(){endLine}
+            {throw} {d}{local}{endLine}
+        '}'
+    '}'
+    {public} {static} {void} {assertSame}({Object} {e}, {Object} {f})'{'
+        {if} (!{static}({ObjectsUtil}).{eq}({e}{param}, {f}{param}))'{'
+            {var} {d} = {new} {Difference}(){endLine}
+            ({d}{local}).{expected}={e}{param}{endLine}
+            ({d}{local}).{found}={f}{param}{endLine}
+            ({d}{local}).{stackDiff} = {static}({Stack}).{current}(){endLine}
+            {throw} {d}{local}{endLine}
+        '}'
+    '}'
+    {public} {static} {void} {assert}({Object} {e}, {Object} {f}, {Fct}<?,?,{boolean}> {c})'{'
+        {if} (!({c}{param}).{call}({e}{param}, {f}{param}))'{'
+            {var} {d} = {new} {Difference}(){endLine}
+            ({d}{local}).{expected}={e}{param}{endLine}
+            ({d}{local}).{found}={f}{param}{endLine}
+            ({d}{local}).{stackDiff} = {static}({Stack}).{current}(){endLine}
+            {throw} {d}{local}{endLine}
+        '}'
+    '}'
+    {public} {static} {void} {assert}({Object} {f}, {Fct}<?,{boolean}> {c})'{'
+        {if} (!({c}{param}).{call}({f}{param}))'{'
+            {var} {d} = {new} {Difference}(){endLine}
+            ({d}{local}).{foundNotTrue}={true}{endLine}
+            ({d}{local}).{found}={f}{param}{endLine}
+            ({d}{local}).{stackDiff} = {static}({Stack}).{current}(){endLine}
+            {throw} {d}{local}{endLine}
+        '}'
+    '}'
+
+'}'
+
+{public} {class} {Difference}'{'
+    {public} {Object} {expected}{endLine}
+    {public} {Object} {found}{endLine}
+    {public} {boolean} {foundNull}{endLine}
+    {public} {boolean} {foundNotTrue}{endLine}
+    {public} {Stack}[] {stackDiff}{endLine}
+
+    {public} {String} {toSpecString}()'{'
+        {var} {out} = {new} {StringBuilder}(){endLine}
+        {for} ({var} {s}: {this}.{stackDiff})'{'
+            ({out}{local}).{append}({static}({StringUtil}).{valueOf}({s}{loop})){endLine}
+        '}'
+        {if} ({this}.{foundNotTrue})'{'
+            ({out}{local}).{insert}(0,"\n"){endLine}
+            ({out}{local}).{insert}(0,{static}({StringUtil}).{valueOf}({this}.{found})){endLine}
+            {return} ({out}{local}).{toString}(){endLine}
+        '}'
+        {if} ({this}.{foundNull})'{'
+            ({out}{local}).{insert}(0,"\n"){endLine}
+            ({out}{local}).{insert}(0,{static}({StringUtil}).{valueOf}({null})){endLine}
+            {return} ({out}{local}).{toString}(){endLine}
+        '}'
+        ({out}{local}).{insert}(0,"\n"){endLine}
+        ({out}{local}).{insert}(0,{static}({StringUtil}).{valueOf}({this}.{found})){endLine}
+        ({out}{local}).{insert}(0,"!="){endLine}
+        ({out}{local}).{insert}(0,{static}({StringUtil}).{valueOf}({this}.{expected})){endLine}
+        {return} ({out}{local}).{toString}(){endLine}
+    '}'
+'}'
