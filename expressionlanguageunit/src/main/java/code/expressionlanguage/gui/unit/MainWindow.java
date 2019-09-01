@@ -49,7 +49,7 @@ public final class MainWindow extends GroupFrame {
         form.add(content);
         conf = new TextArea(64,64);
         ScrollPane scr_ = new ScrollPane(conf);
-        scr_.setPreferredSize(new Dimension(256,64));
+        scr_.setPreferredSize(new Dimension(256,96));
         form.add(scr_);
         launch = new PlainButton("OK");
         launch.addActionListener(new ListenerLaunchTests(this));
