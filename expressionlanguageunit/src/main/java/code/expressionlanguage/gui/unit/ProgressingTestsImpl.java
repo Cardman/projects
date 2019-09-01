@@ -12,7 +12,12 @@ public final class ProgressingTestsImpl implements ProgressingTests {
     }
 
     @Override
-    public void updateInfos(RunnableContextEl _ctx, Struct _infos, Struct _doneTests, Struct _method) {
-        mainWindow.showProgress(_ctx,_infos,_doneTests,_method);
+    public void updateInfos(RunnableContextEl _ctx, Struct _infos, Struct _doneTests, Struct _method, Struct _count) {
+        mainWindow.showProgress(_ctx,_infos,_doneTests,_method,_count);
+    }
+
+    @Override
+    public void finish(RunnableContextEl _ctx, Struct _infos) {
+        mainWindow.finish(_ctx,_infos);
     }
 }

@@ -31,6 +31,7 @@ public final class MainWindow extends GroupFrame {
 
     private TextLabel method;
     private TextLabel currentMethod;
+    private ProgressBar progressBar;
 
     private Thread th;
     protected MainWindow(String _lg) {
@@ -61,6 +62,8 @@ public final class MainWindow extends GroupFrame {
         progressing.add(method);
         currentMethod = new TextLabel("");
         progressing.add(currentMethod);
+        progressBar = new ProgressBar();
+        progressing.add(progressBar);
         contentPane.add(progressing);
         setContentPane(contentPane);
         pack();
@@ -108,7 +111,7 @@ public final class MainWindow extends GroupFrame {
             th_.start();
         }
     }
-    public void showProgress(RunnableContextEl _ctx, Struct _infos, Struct _doneTests, Struct _method) {
+    public void showProgress(RunnableContextEl _ctx, Struct _infos, Struct _doneTests, Struct _method, Struct _count) {
         String infoTest_ = ((LgNamesUtils)_ctx.getStandards()).getAliasInfoTest();
         String infoTestDone_ = ((LgNamesUtils)_ctx.getStandards()).getAliasInfoTestDone();
         String infoTestCount_ = ((LgNamesUtils)_ctx.getStandards()).getAliasInfoTestCount();
@@ -116,11 +119,23 @@ public final class MainWindow extends GroupFrame {
         Struct done_ = ((FieldableStruct) _infos).getStruct(new ClassField(infoTest_, infoTestDone_));
         Struct count_ = ((FieldableStruct) _infos).getStruct(new ClassField(infoTest_, infoTestCount_));
         Struct method_ = ((FieldableStruct) _infos).getStruct(new ClassField(infoTest_, curMethodName_));
+        if (!count_.sameReference(_count)) {
+            progressBar.setMinimum(0);
+            progressBar.setMaximum(((NumberStruct)count_).intStruct());
+        }
         if (!_doneTests.sameReference(done_)) {
             doneTestsCount.setText(((NumberStruct)done_).longStruct()+"/"+((NumberStruct)count_).longStruct());
+            progressBar.setValue(((NumberStruct)done_).intStruct());
         }
         if (!_method.sameReference(method_) && method_ instanceof MethodMetaInfo) {
             currentMethod.setText(((MethodMetaInfo)method_).getRealId().getSignature(_ctx));
         }
+    }
+    public void finish(RunnableContextEl _ctx, Struct _infos) {
+        String infoTest_ = ((LgNamesUtils)_ctx.getStandards()).getAliasInfoTest();
+        String infoTestCount_ = ((LgNamesUtils)_ctx.getStandards()).getAliasInfoTestCount();
+        Struct count_ = ((FieldableStruct) _infos).getStruct(new ClassField(infoTest_, infoTestCount_));
+        doneTestsCount.setText(((NumberStruct)count_).longStruct()+"/"+((NumberStruct)count_).longStruct());
+        progressBar.setValue(progressBar.getMaximum());
     }
 }

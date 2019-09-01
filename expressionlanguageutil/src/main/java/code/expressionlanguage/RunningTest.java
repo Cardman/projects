@@ -14,12 +14,6 @@ public final class RunningTest implements Runnable {
     private ProgressingTests progressingTests;
     private boolean file;
 
-    public RunningTest(String _fileConf, ProgressingTests _progressingTests) {
-        fileConfOrContent = _fileConf;
-        progressingTests = _progressingTests;
-        file = true;
-    }
-
     private RunningTest() {
     }
     public static RunningTest newFromFile(String _fileConf, ProgressingTests _progressingTests) {
