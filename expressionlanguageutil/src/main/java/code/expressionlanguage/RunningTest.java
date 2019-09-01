@@ -10,22 +10,47 @@ import code.util.StringMap;
 import java.io.File;
 
 public final class RunningTest implements Runnable {
-    private String fileConf;
+    private String fileConfOrContent;
+    private ProgressingTests progressingTests;
+    private boolean file;
 
-    public RunningTest(String _fileConf) {
-        fileConf = _fileConf;
+    public RunningTest(String _fileConf, ProgressingTests _progressingTests) {
+        fileConfOrContent = _fileConf;
+        progressingTests = _progressingTests;
+        file = true;
     }
 
+    private RunningTest() {
+    }
+    public static RunningTest newFromFile(String _fileConf, ProgressingTests _progressingTests) {
+        RunningTest r_ = new RunningTest();
+        r_.fileConfOrContent = _fileConf;
+        r_.progressingTests = _progressingTests;
+        r_.file = true;
+        return r_;
+    }
+
+    public static RunningTest newFromContent(String _fileConf, ProgressingTests _progressingTests) {
+        RunningTest r_ = new RunningTest();
+        r_.fileConfOrContent = _fileConf;
+        r_.progressingTests = _progressingTests;
+        return r_;
+    }
     @Override
     public void run() {
-        String content_ = StreamTextFile.contentsOfFile(fileConf);
-        if (content_ == null) {
-            return;
+        String content_ = "";
+        if (file) {
+            content_ = StreamTextFile.contentsOfFile(fileConfOrContent);
+            if (content_ == null) {
+                return;
+            }
+        } else {
+            content_ = fileConfOrContent;
         }
-        launchByConfContent(content_);
+        launchByConfContent(content_,progressingTests);
     }
 
-    public static void launchByConfContent(String _content) {
+    public static void launchByConfContent(String _content, ProgressingTests _progressingTests) {
         StringList lines_ = StringList.splitStrings(_content, "\n", "\r\n");
         StringList linesFiles_ = new StringList();
         for (String s: lines_) {
@@ -43,7 +68,7 @@ public final class RunningTest implements Runnable {
         ExecutingOptions exec_ = new ExecutingOptions();
         setupOptionals(2, exec_,linesFiles_);
         Options opt_ = new Options();
-        CustContextFactory.executeDefKw(lg_,opt_,exec_,zipFiles_);
+        CustContextFactory.executeDefKw(lg_,opt_,exec_,zipFiles_,_progressingTests);
     }
 
     public static StringMap<String> getFiles(String _archiveOrFolder) {

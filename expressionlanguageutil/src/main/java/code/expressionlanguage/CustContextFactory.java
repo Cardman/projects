@@ -36,7 +36,7 @@ public final class CustContextFactory {
         return build(CustList.INDEX_NOT_FOUND_ELT, _options, _exec,kwl_, _undefinedLgNames, _files, _tabWidth);
     }
     public static void executeDefKw(String _lang,
-                               Options _options, ExecutingOptions _exec,StringMap<String> _files) {
+                               Options _options, ExecutingOptions _exec,StringMap<String> _files, ProgressingTests _progressingTests) {
         KeyWordsMap km_ = new KeyWordsMap();
         KeyWords kwl_ = km_.getKeyWords(_lang);
         LgNamesUtils stds_ = new LgNamesUtils();
@@ -49,10 +49,10 @@ public final class CustContextFactory {
         } else {
             return;
         }
-        execute(-1,_options,_exec,kwl_,stds_,_files);
+        execute(-1,_options,_exec,kwl_,stds_,_files,_progressingTests);
     }
     public static void execute(int _stack,
-                               Options _options, ExecutingOptions _exec,KeyWords _definedKw, LgNamesUtils _definedLgNames, StringMap<String> _files) {
+                               Options _options, ExecutingOptions _exec,KeyWords _definedKw, LgNamesUtils _definedLgNames, StringMap<String> _files, ProgressingTests _progressingTests) {
         RunnableContextEl rCont_ = build(_stack, _options, _exec, _definedKw, _definedLgNames, _files, _exec.getTabWidth());
         if (!rCont_.getClasses().isEmptyErrors()) {
             return;
@@ -63,7 +63,10 @@ public final class CustContextFactory {
         MethodId fct_ = new MethodId(true, aliasExecuteTests_,new StringList(infoTest_));
         Argument argGlLoc_ = new Argument();
         Argument argMethod_ = new Argument(infoStruct_);
+        ShowUpdates showUpdates_ = rCont_.putInThread(infoStruct_,_progressingTests);
+        new Thread(showUpdates_).start();
         ProcessMethod.calculateArgument(argGlLoc_, _definedLgNames.getAliasExecute(), fct_, new CustList<Argument>(argMethod_), rCont_, null);
+        showUpdates_.stop();
         if (rCont_.isCovering()) {
             String exp_ = _exec.getCoverFolder();
             for (EntryCust<String,String> f:FileBlock.export(rCont_).entryList()) {

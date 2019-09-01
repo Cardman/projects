@@ -4,6 +4,7 @@ import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.ErrorStruct;
+import code.expressionlanguage.structs.Struct;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -50,6 +51,9 @@ public class RunnableContextEl extends ContextEl {
         return custInit;
     }
 
+    public ShowUpdates putInThread(Struct _info, ProgressingTests _progressingTests) {
+        return new ShowUpdates(_info,this,_progressingTests);
+    }
     public ExecutingOptions getExecutingOptions() {
         return executingOptions;
     }
