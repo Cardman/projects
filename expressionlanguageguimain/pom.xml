@@ -8,8 +8,8 @@
         <version>2.0</version>
         <relativePath>../expressionlanguageunitproject</relativePath>
     </parent>
-	<groupId>expressionlanguageunitmain</groupId>
-	<artifactId>expressionlanguageunitmain</artifactId>
+	<groupId>expressionlanguageguimain</groupId>
+	<artifactId>expressionlanguageguimain</artifactId>
 	<version>1.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
@@ -17,7 +17,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 	<build>
-		<finalName>UG</finalName>
+		<finalName>CDM</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -38,7 +38,7 @@
 				<configuration>
 					<archive>
 						<manifest>
-							<mainClass>code.expressionlanguage.main.unit.MainClass</mainClass>
+							<mainClass>code.expressionlanguage.main.gui.MainClass</mainClass>
 							<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
 							<addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
 						</manifest>
@@ -58,11 +58,11 @@
 						</goals>
 						<configuration>
 							<headerType>gui</headerType>
-							<jar>${project.build.directory}/UG.jar</jar>
-							<outfile>${project.build.directory}/UG.exe</outfile>
+							<jar>${project.build.directory}/CDM.jar</jar>
+							<outfile>${project.build.directory}/CDM.exe</outfile>
 							<downloadUrl>http://java.com/download</downloadUrl>
 							<classPath>
-								<mainClass>code.expressionlanguage.main.unit.MainClass</mainClass>
+								<mainClass>code.expressionlanguage.main.gui.MainClass</mainClass>
 								<preCp>anything</preCp>
 							</classPath>
 							<jre>
@@ -80,8 +80,8 @@
 	</build>
 	<dependencies>
 		<dependency>
-            <groupId>expressionlanguageunit</groupId>
-            <artifactId>expressionlanguageunit</artifactId>
+            <groupId>expressionlanguagegui</groupId>
+            <artifactId>expressionlanguagegui</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
 	</dependencies>
