@@ -29,5 +29,6 @@
 		<module>../musiccore</module>
 		<module>../expressionlanguageunit</module>
 		<module>../expressionlanguagegui</module>
+		<module>../rendersgui</module>
 	</modules>
 </project>

@@ -3,13 +3,13 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-       <groupId>expressionlanguageguipro</groupId>
-        <artifactId>expressionlanguageguipro</artifactId>
+       <groupId>renderspro</groupId>
+        <artifactId>renderspro</artifactId>
         <version>2.0</version>
-        <relativePath>../expressionlanguageguiproject</relativePath>
+        <relativePath>../rendersproject</relativePath>
     </parent>
-	<groupId>expressionlanguageguimain</groupId>
-	<artifactId>expressionlanguageguimain</artifactId>
+	<groupId>rendersmain</groupId>
+	<artifactId>rendersmain</artifactId>
 	<version>1.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
@@ -17,7 +17,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 	<build>
-		<finalName>CDM</finalName>
+		<finalName>RendersSites</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -38,7 +38,7 @@
 				<configuration>
 					<archive>
 						<manifest>
-							<mainClass>code.expressionlanguage.main.gui.MainClass</mainClass>
+							<mainClass>code.renders.main.MainClass</mainClass>
 							<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
 							<addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
 						</manifest>
@@ -58,11 +58,11 @@
 						</goals>
 						<configuration>
 							<headerType>gui</headerType>
-							<jar>${project.build.directory}/CDM.jar</jar>
-							<outfile>${project.build.directory}/CDM.exe</outfile>
+							<jar>${project.build.directory}/RendersSites.jar</jar>
+							<outfile>${project.build.directory}/RendersSites.exe</outfile>
 							<downloadUrl>http://java.com/download</downloadUrl>
 							<classPath>
-								<mainClass>code.expressionlanguage.main.gui.MainClass</mainClass>
+								<mainClass>code.renders.main.MainClass</mainClass>
 								<preCp>anything</preCp>
 							</classPath>
 							<jre>
@@ -76,13 +76,12 @@
 				</executions>
 			</plugin>
 		</plugins>
-
 	</build>
 	<dependencies>
 		<dependency>
-            <groupId>expressionlanguagegui</groupId>
-            <artifactId>expressionlanguagegui</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
+			<groupId>rendersgui</groupId>
+			<artifactId>rendersgui</artifactId>
+			<version>1.0-SNAPSHOT</version>
+		</dependency>
 	</dependencies>
 </project>
