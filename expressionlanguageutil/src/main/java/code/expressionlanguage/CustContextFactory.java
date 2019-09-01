@@ -65,7 +65,7 @@ public final class CustContextFactory {
         Argument argMethod_ = new Argument(infoStruct_);
         ShowUpdates showUpdates_ = rCont_.putInThread(infoStruct_,_progressingTests);
         new Thread(showUpdates_).start();
-        ProcessMethod.calculateArgument(argGlLoc_, _definedLgNames.getAliasExecute(), fct_, new CustList<Argument>(argMethod_), rCont_, null);
+        Argument arg_ = ProcessMethod.calculateArgument(argGlLoc_, _definedLgNames.getAliasExecute(), fct_, new CustList<Argument>(argMethod_), rCont_, null);
         showUpdates_.stop();
         if (rCont_.isCovering()) {
             String exp_ = _exec.getCoverFolder();
@@ -81,6 +81,7 @@ public final class CustContextFactory {
                 StreamTextFile.saveTextFile(full_,f.getValue());
             }
         }
+        _progressingTests.setResults(rCont_,arg_);
     }
     public static RunnableContextEl build(int _stack,
             Options _options, ExecutingOptions _exec,KeyWords _definedKw, LgNamesUtils _definedLgNames, StringMap<String> _files, int _tabWidth) {

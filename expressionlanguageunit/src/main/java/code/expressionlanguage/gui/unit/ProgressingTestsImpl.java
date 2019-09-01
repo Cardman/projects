@@ -1,5 +1,6 @@
 package code.expressionlanguage.gui.unit;
 
+import code.expressionlanguage.Argument;
 import code.expressionlanguage.ProgressingTests;
 import code.expressionlanguage.RunnableContextEl;
 import code.expressionlanguage.structs.Struct;
@@ -19,5 +20,10 @@ public final class ProgressingTestsImpl implements ProgressingTests {
     @Override
     public void finish(RunnableContextEl _ctx, Struct _infos) {
         mainWindow.finish(_ctx,_infos);
+    }
+
+    @Override
+    public void setResults(RunnableContextEl _ctx, Argument _res) {
+        mainWindow.setResults(_ctx,_res);
     }
 }
