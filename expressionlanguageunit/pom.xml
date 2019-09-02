@@ -15,6 +15,12 @@
 
 	<build>
 		<finalName>expressionlanguageunit</finalName>
+		<resources>
+			<resource>
+				<directory>resources_unit</directory>
+				<targetPath>resources_unit</targetPath>
+			</resource>
+		</resources>
 	</build>
 	<dependencies>
 		<dependency>

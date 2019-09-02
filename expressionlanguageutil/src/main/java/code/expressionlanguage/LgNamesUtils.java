@@ -2051,7 +2051,7 @@ public class LgNamesUtils extends LgNames {
             setAliasArrayLi("tableau");
             setAliasCustIteratorVar("T");
             setAliasListVar("T");
-            setAliasCustPair("$core.PairImpl");
+            setAliasCustPair("$coeur.PaireImpl");
             setAliasFirst("premier");
             setAliasSecond("deuxieme");
             setAliasSetFirst("majPremier");

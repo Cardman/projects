@@ -90,6 +90,9 @@ public abstract class CommonFrame implements ChangeableTitle {
         contentPane.repaint();
     }
 
+    public void simplePack() {
+        frame.pack();
+    }
     public void setFocusableWindowState(boolean _focusableWindowState) {
         frame.setFocusableWindowState(_focusableWindowState);
     }

@@ -7,71 +7,84 @@ import code.expressionlanguage.RunningTest;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.structs.*;
 import code.gui.*;
+import code.gui.Menu;
+import code.gui.MenuBar;
+import code.gui.MenuItem;
 import code.gui.Panel;
 import code.gui.ScrollPane;
 import code.gui.TextArea;
-import code.gui.TextField;
 import code.gui.events.QuittingEvent;
+import code.util.StringMap;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.awt.event.InputEvent;
+import java.awt.event.KeyEvent;
 
 public final class MainWindow extends GroupFrame {
+    private Menu menu;
+    private MenuItem open;
+
     private Panel contentPane;
     private Panel form;
-    private TextLabel file;
-    private TextField fileName;
-    private TextLabel content;
+    private PlainLabel content;
     private TextArea conf;
     private PlainButton launch;
     private Panel progressing;
-    private TextLabel doneTests;
-    private TextLabel doneTestsCount;
+    private PlainLabel doneTests;
+    private PlainLabel doneTestsCount;
 
-    private TextLabel method;
-    private TextLabel currentMethod;
+    private PlainLabel method;
+    private PlainLabel currentMethod;
     private TableGui resultsTable;
     private TextArea results;
     private ProgressBar progressBar;
 
     private DefaultTableModel model;
     private Thread th;
+    private StringMap<String> messages;
     protected MainWindow(String _lg) {
         super(_lg);
+        setAccessFile("unit.mainwindow");
+        messages = getMessages(this,"resources_unit/gui/messages");
+        setTitle(messages.getVal("title"));
+        setJMenuBar(new MenuBar());
+        menu = new Menu(messages.getVal("file"));
+        open = new MenuItem(messages.getVal("open"));
+        open.addActionListener(new FileOpenEvent(this));
+        open.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, InputEvent.CTRL_DOWN_MASK));
+        menu.addMenuItem(open);
+        getJMenuBar().add(menu);
         contentPane = Panel.newPageBox();
         form = Panel.newGrid(0,2);
-        file = new TextLabel("file");
-        form.add(file);
-        fileName = new TextField(32);
-        form.add(fileName);
-        content = new TextLabel("configuration");
+        content = new PlainLabel(messages.getVal("configuration"));
         form.add(content);
         conf = new TextArea(64,64);
         ScrollPane scr_ = new ScrollPane(conf);
         scr_.setPreferredSize(new Dimension(256,96));
         form.add(scr_);
-        launch = new PlainButton("OK");
+        launch = new PlainButton(messages.getVal("launch"));
         launch.addActionListener(new ListenerLaunchTests(this));
         form.add(launch);
         form.add(new TextLabel(""));
         contentPane.add(form);
         progressing = Panel.newPageBox();
-        doneTests = new TextLabel("tests:");
+        doneTests = new PlainLabel(messages.getVal("tests"));
         progressing.add(doneTests);
-        doneTestsCount = new TextLabel("");
+        doneTestsCount = new PlainLabel("");
         progressing.add(doneTestsCount);
-        method = new TextLabel("method:");
+        method = new PlainLabel(messages.getVal("method"));
         progressing.add(method);
-        currentMethod = new TextLabel("");
+        currentMethod = new PlainLabel("");
         progressing.add(currentMethod);
         progressBar = new ProgressBar();
         progressing.add(progressBar);
         Object[] cols_ = new Object[4];
-        cols_[0] ="Number";
-        cols_[1] ="Method";
-        cols_[2] ="Params";
-        cols_[3] ="Success";
+        cols_[0] =messages.getVal("number");
+        cols_[1] =messages.getVal("method");
+        cols_[2] =messages.getVal("params");
+        cols_[3] =messages.getVal("success");
         model = new DefaultTableModel(cols_,0);
         resultsTable = new TableGui(model);
         results = new TextArea(1024,1024);
@@ -84,7 +97,7 @@ public final class MainWindow extends GroupFrame {
         progressing.add(splitPane_);
         contentPane.add(progressing);
         setContentPane(contentPane);
-        pack();
+        simplePack();
         setVisible(true);
         addWindowListener(new QuittingEvent(this));
     }
@@ -116,18 +129,24 @@ public final class MainWindow extends GroupFrame {
 
     public void process() {
         String txt_ = conf.getText().trim();
-        if (!txt_.isEmpty()) {
-            RunningTest r_ = RunningTest.newFromContent(txt_, new ProgressingTestsImpl(this));
-            Thread th_ = new Thread(r_);
-            th = th_;
-            th_.start();
-        } else {
-            String fileName_ = fileName.getText();
-            RunningTest r_ = RunningTest.newFromFile(fileName_, new ProgressingTestsImpl(this));
-            Thread th_ = new Thread(r_);
-            th = th_;
-            th_.start();
+        RunningTest r_ = RunningTest.newFromContent(txt_, new ProgressingTestsImpl(this));
+        Thread th_ = new Thread(r_);
+        th = th_;
+        th_.start();
+    }
+    public void selectFile() {
+        FileOpenDialog.setFileOpenDialog(this,getLanguageKey(),true, "", ConstFiles.getHomePath());
+        String fichier_=FileOpenDialog.getStaticSelectedPath();
+        if (fichier_ == null) {
+            fichier_ = "";
         }
+        if (fichier_.isEmpty()) {
+            return;
+        }
+        RunningTest r_ = RunningTest.newFromFile(fichier_, new ProgressingTestsImpl(this));
+        Thread th_ = new Thread(r_);
+        th = th_;
+        th_.start();
     }
     public void showProgress(RunnableContextEl _ctx, Struct _infos, Struct _doneTests, Struct _method, Struct _count) {
         String infoTest_ = ((LgNamesUtils)_ctx.getStandards()).getAliasInfoTest();
@@ -190,10 +209,10 @@ public final class MainWindow extends GroupFrame {
                 Struct success_ = ((FieldableStruct) result_).getStruct(new ClassField(aliasResult_, aliasSuccess_));
                 Struct failMessage_ = ((FieldableStruct) result_).getStruct(new ClassField(aliasResult_, aliasFailMessage_));
                 if (((BooleanStruct)success_).getInstance()) {
-                    results.append("success\n");
+                    results.append(messages.getVal("success")+"\n");
                     resultsTable.setValueAt("x",i-1,3);
                 } else {
-                    results.append("fail\n");
+                    results.append(messages.getVal("fail")+"\n");
                     resultsTable.setValueAt("",i-1,3);
                 }
                 results.append(((StringStruct)failMessage_).getInstance()+"\n");
