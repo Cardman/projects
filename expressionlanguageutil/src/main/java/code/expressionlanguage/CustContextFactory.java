@@ -54,7 +54,8 @@ public final class CustContextFactory {
     public static void execute(int _stack,
                                Options _options, ExecutingOptions _exec,KeyWords _definedKw, LgNamesUtils _definedLgNames, StringMap<String> _files, ProgressingTests _progressingTests) {
         RunnableContextEl rCont_ = build(_stack, _options, _exec, _definedKw, _definedLgNames, _files, _exec.getTabWidth());
-        if (!rCont_.getClasses().isEmptyErrors()) {
+        if (!rCont_.getClasses().isEmptyErrors() || !rCont_.getClasses().isEmptyStdError()) {
+            _progressingTests.showErrors(rCont_,_exec);
             return;
         }
         String aliasExecuteTests_ = _definedLgNames.getAliasExecuteTests();
@@ -66,6 +67,7 @@ public final class CustContextFactory {
         ShowUpdates showUpdates_ = rCont_.putInThread(infoStruct_,_progressingTests);
         new Thread(showUpdates_).start();
         Argument arg_ = ProcessMethod.calculateArgument(argGlLoc_, _definedLgNames.getAliasExecute(), fct_, new CustList<Argument>(argMethod_), rCont_, null);
+        rCont_.getCustInit().prExc(rCont_);
         showUpdates_.stop();
         if (rCont_.isCovering()) {
             String exp_ = _exec.getCoverFolder();

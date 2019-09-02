@@ -1,15 +1,36 @@
 package code.expressionlanguage.gui.unit;
 
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.ExecutingOptions;
 import code.expressionlanguage.ProgressingTests;
 import code.expressionlanguage.RunnableContextEl;
 import code.expressionlanguage.structs.Struct;
+import code.gui.Clock;
+import code.stream.StreamTextFile;
 
 public final class ProgressingTestsImpl implements ProgressingTests {
     private MainWindow mainWindow;
 
     public ProgressingTestsImpl(MainWindow _mainWindow) {
         mainWindow = _mainWindow;
+    }
+
+    @Override
+    public void showErrors(RunnableContextEl _ctx, ExecutingOptions _exec) {
+        if (!_ctx.getClasses().isEmptyErrors() || !_ctx.getClasses().isEmptyStdError()) {
+            String folder_ = _exec.getLogFolder();
+            String time_ = Clock.getDateTimeText("_", "_", "_");
+            String dtPart_ = time_+".txt";
+            StreamTextFile.logToFile(folder_+"/_"+dtPart_, time_+":"+_ctx.getClasses().displayErrors());
+            StreamTextFile.logToFile(folder_+"/_"+dtPart_, time_+":"+_ctx.getClasses().displayWarnings());
+            StreamTextFile.logToFile(folder_+"/_"+dtPart_, time_+":"+_ctx.getClasses().displayStdErrors());
+        }
+        if (!_ctx.getClasses().isEmptyWarnings()) {
+            String folder_ = _exec.getLogFolder();
+            String time_ = Clock.getDateTimeText("_", "_", "_");
+            String dtPart_ = time_+".txt";
+            StreamTextFile.logToFile(folder_+"/_"+dtPart_, time_+":"+_ctx.getClasses().displayWarnings());
+        }
     }
 
     @Override

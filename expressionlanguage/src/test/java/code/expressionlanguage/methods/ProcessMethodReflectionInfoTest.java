@@ -728,6 +728,27 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         assertEq("pkg.ExParam<java.lang.Integer>",out_.getString());
     }
     @Test
+    public void processEl3441Test() {
+        StringBuilder xml_;
+        StringMap<String> files_ = new StringMap<String>();
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static Object exmeth(){\n");
+        xml_.append("  $return $class(ExParam<$int>).getTypeParameters()[0].makeGeneric($class(Integer)):\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExParam<T> {\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument out_ = calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        assertTrue(out_.isNull());
+    }
+    @Test
     public void processEl345Test() {
         StringBuilder xml_;
         StringMap<String> files_ = new StringMap<String>();

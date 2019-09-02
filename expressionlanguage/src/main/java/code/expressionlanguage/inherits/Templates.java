@@ -559,6 +559,9 @@ public final class Templates {
             return str_.toString();
         }
         GeneType root_ = _context.getClassBody(type_);
+        if (root_ == null) {
+            return null;
+        }
         String pref_ = root_.getGenericString();
         StringMap<String> varTypes_ = new StringMap<String>();
         CustList<TypeVar> typeVar_ = root_.getParamTypesMapValues();
