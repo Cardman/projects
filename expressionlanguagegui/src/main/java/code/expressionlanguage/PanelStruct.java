@@ -13,9 +13,30 @@ public class PanelStruct extends CustComponentStruct {
         super(_className);
         panel = new Panel();
     }
+    PanelStruct(String _className,Panel _panel) {
+        super(_className);
+        panel = _panel;
+    }
 
     public static PanelStruct newFlow(String _className) {
         return new PanelStruct(_className);
+    }
+
+    public static PanelStruct newAbsolute(String _className) {
+        return new PanelStruct(_className,Panel.newAbsolute());
+    }
+
+    public static PanelStruct newGrid(String _className,int _row,int _col) {
+        int r_ = _row;
+        int c_ = _col;
+        if (r_ == 0 && c_ == 0) {
+            c_ = 1;
+        }
+        return new PanelStruct(_className,Panel.newGrid(r_,c_));
+    }
+
+    public static PanelStruct newPageBox(String _className) {
+        return new PanelStruct(_className,Panel.newPageBox());
     }
 
     public int getComponentCount() {

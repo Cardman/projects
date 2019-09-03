@@ -43,6 +43,11 @@ public class LgNamesGui extends LgNamesUtils {
     private String aliasWindowEvent;
     private String aliasFrame;
     private String aliasPanel;
+    private String aliasPanelFlow;
+    private String aliasPanelAbsolute;
+    private String aliasPanelBorder;
+    private String aliasPanelGrid;
+    private String aliasPanelPageBox;
     private String aliasButton;
     private String aliasImageLabel;
     private String aliasTextLabel;
@@ -218,10 +223,37 @@ public class LgNamesGui extends LgNamesUtils {
         method_ = new StandardMethod(aliasCount, params_, getAliasPrimInteger(), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
+        method_ = new StandardMethod(aliasPanelFlow, params_, aliasPanel, false, MethodModifier.STATIC, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasPanelAbsolute, params_, aliasPanel, false, MethodModifier.STATIC, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasPanelPageBox, params_, aliasPanel, false, MethodModifier.STATIC, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasPrimInteger(),getAliasPrimInteger());
+        method_ = new StandardMethod(aliasPanelGrid, params_, aliasPanel, false, MethodModifier.STATIC, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
         ctor_ = new StandardConstructor(params_,false,stdcl_);
         constructors_.add(ctor_);
         std_ = stdcl_;
         getStandards().put(aliasPanel, std_);
+
+        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        constructors_ = new CustList<StandardConstructor>();
+        fields_ = new StringMap<StandardField>();
+        stdcl_ = new StandardClass(aliasPanelBorder, fields_, constructors_, methods_, aliasPanel, MethodModifier.FINAL);
+        params_ = new StringList(aliasComponent,getAliasString());
+        method_ = new StandardMethod(aliasAddCompo, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        ctor_ = new StandardConstructor(params_,false,stdcl_);
+        constructors_.add(ctor_);
+        std_ = stdcl_;
+        getStandards().put(aliasPanelBorder, std_);
+
+
         methods_ = new ObjectMap<MethodId, StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new StringMap<StandardField>();
@@ -426,6 +458,9 @@ public class LgNamesGui extends LgNamesUtils {
         if (StringList.quickEq(_id,aliasPanel)) {
             return new Argument(PanelStruct.newFlow(aliasPanel));
         }
+        if (StringList.quickEq(_id,aliasPanelBorder)) {
+            return new Argument(PanelBorderStruct.newBorder(aliasPanelBorder));
+        }
         if (StringList.quickEq(_id,aliasButton)) {
             return new Argument(new PlainButtonStruct(aliasButton));
         }
@@ -457,6 +492,15 @@ public class LgNamesGui extends LgNamesUtils {
                 return r_;
             }
             r_.setResult(PanelStruct.newFlow(aliasPanel));
+            return r_;
+        }
+        if (StringList.quickEq(name_,aliasPanelBorder)) {
+            if (_cont.isInitEnums()) {
+                _cont.failInitEnums();
+                r_.setResult(NullStruct.NULL_VALUE);
+                return r_;
+            }
+            r_.setResult(PanelBorderStruct.newBorder(aliasPanelBorder));
             return r_;
         }
         if (StringList.quickEq(name_,aliasButton)) {
@@ -627,6 +671,22 @@ public class LgNamesGui extends LgNamesUtils {
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
+            if (StringList.quickEq(name_, aliasPanelAbsolute)) {
+                res_.setResult(PanelStruct.newAbsolute(aliasPanel));
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasPanelFlow)) {
+                res_.setResult(PanelStruct.newFlow(aliasPanel));
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasPanelGrid)) {
+                res_.setResult(PanelStruct.newGrid(aliasPanel,((NumberStruct)_args[0]).intStruct(),((NumberStruct)_args[1]).intStruct()));
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasPanelPageBox)) {
+                res_.setResult(PanelStruct.newPageBox(aliasPanel));
+                return res_;
+            }
             PanelStruct strPan_ = (PanelStruct) _instance;
             if (StringList.quickEq(name_, aliasCount)) {
                 res_.setResult(new IntStruct(strPan_.getComponentCount()));
@@ -655,6 +715,21 @@ public class LgNamesGui extends LgNamesUtils {
                 return res_;
             }
             res_.setResult(strPan_.remove(_args[0]));
+            return res_;
+        }
+        if (StringList.quickEq(type_, aliasPanelBorder)) {
+            if (_cont.isInitEnums()) {
+                _cont.failInitEnums();
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            if (!(_args[0] instanceof CustComponentStruct)) {
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            PanelBorderStruct strPan_ = (PanelBorderStruct) _instance;
+            strPan_.add((CustComponentStruct)_args[0],_args[1]);
+            res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
         if (StringList.quickEq(type_, aliasTextLabel)) {
@@ -1051,6 +1126,13 @@ public class LgNamesGui extends LgNamesUtils {
         this.aliasPanel = aliasPanel;
     }
 
+    public String getAliasPanelBorder() {
+        return aliasPanelBorder;
+    }
+
+    public void setAliasPanelBorder(String _aliasPanelBorder) {
+        this.aliasPanelBorder = _aliasPanelBorder;
+    }
     public String getAliasButton() {
         return aliasButton;
     }
@@ -1403,6 +1485,38 @@ public class LgNamesGui extends LgNamesUtils {
         this.aliasGetIndexCompo = aliasGetIndexCompo;
     }
 
+    public String getAliasPanelFlow() {
+        return aliasPanelFlow;
+    }
+
+    public void setAliasPanelFlow(String aliasPanelFlow) {
+        this.aliasPanelFlow = aliasPanelFlow;
+    }
+
+    public String getAliasPanelAbsolute() {
+        return aliasPanelAbsolute;
+    }
+
+    public void setAliasPanelAbsolute(String aliasPanelAbsolute) {
+        this.aliasPanelAbsolute = aliasPanelAbsolute;
+    }
+
+    public String getAliasPanelGrid() {
+        return aliasPanelGrid;
+    }
+
+    public void setAliasPanelGrid(String aliasPanelGrid) {
+        this.aliasPanelGrid = aliasPanelGrid;
+    }
+
+    public String getAliasPanelPageBox() {
+        return aliasPanelPageBox;
+    }
+
+    public void setAliasPanelPageBox(String aliasPanelPageBox) {
+        this.aliasPanelPageBox = aliasPanelPageBox;
+    }
+
     public String getAliasAddListener() {
         return aliasAddListener;
     }
@@ -1678,6 +1792,7 @@ public class LgNamesGui extends LgNamesUtils {
             setAliasAddWindowListener("addWindowListener");
             setAliasFrame("$core.Frame");
             setAliasPanel("$core.Panel");
+            setAliasPanelBorder("$core.PanelBorder");
             setAliasButton("$core.Button");
             setAliasTextLabel("$core.TextLabel");
             setAliasImageLabel("$core.ImageLabel");
@@ -1699,6 +1814,10 @@ public class LgNamesGui extends LgNamesUtils {
             setAliasRemoveCompo("remove");
             setAliasCount("count");
             setAliasGetIndexCompo("get");
+            setAliasPanelAbsolute("absolute");
+            setAliasPanelFlow("flow");
+            setAliasPanelGrid("grid");
+            setAliasPanelPageBox("page");
             setAliasGetParentCompo("getParent");
             setAliasGetNextCompo("next");
             setAliasPack("pack");
@@ -1759,6 +1878,7 @@ public class LgNamesGui extends LgNamesUtils {
             setAliasAddWindowListener("ajFenetreEcout");
             setAliasFrame("$coeur.Fenetre");
             setAliasPanel("$coeur.Panneau");
+            setAliasPanelBorder("$coeur.PanneauBordure");
             setAliasButton("$coeur.Bouton");
             setAliasTextLabel("$coeur.Etiquette");
             setAliasImageLabel("$coeur.EtImage");
@@ -1780,6 +1900,10 @@ public class LgNamesGui extends LgNamesUtils {
             setAliasRemoveCompo("supprimer");
             setAliasCount("nb");
             setAliasGetIndexCompo("val");
+            setAliasPanelAbsolute("absolu");
+            setAliasPanelFlow("ligne");
+            setAliasPanelGrid("grille");
+            setAliasPanelPageBox("page");
             setAliasGetParentCompo("valParent");
             setAliasGetNextCompo("suivant");
             setAliasPack("cadrer");
