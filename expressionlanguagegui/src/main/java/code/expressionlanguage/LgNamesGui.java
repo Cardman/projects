@@ -103,6 +103,7 @@ public class LgNamesGui extends LgNamesUtils {
     private String aliasSetLabelImage;
     private String aliasPaint;
     private String aliasPaintMethod;
+    private String aliasPaintAdd;
     private String aliasRemoveCompo;
     private String aliasCount;
     private String aliasSetVisible;
@@ -110,7 +111,20 @@ public class LgNamesGui extends LgNamesUtils {
     private String aliasArgs;
     private String aliasPack;
     private String aliasDispose;
+    private String aliasRender;
+    private String aliasRenderGetHeight;
+    private String aliasRenderGetWidth;
+    private String aliasRenderGetPaint;
+    private String aliasRenderSetHeight;
+    private String aliasRenderSetWidth;
+    private String aliasRenderSetPaint;
+    private String aliasGrList;
+    private String aliasGrListAdd;
+    private String aliasGrListGetPanel;
+    private String aliasGrListGetRender;
+    private String aliasGrListSetRender;
 
+    private String aliasPrList;
     public void buildOther() {
         super.buildOther();
         StringMap<StandardField> fields_;
@@ -468,6 +482,55 @@ public class LgNamesGui extends LgNamesUtils {
         ctor_ = new StandardConstructor(params_,false,stdcl_);
         constructors_.add(ctor_);
         getStandards().put(aliasImage, stdcl_);
+
+        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        constructors_ = new CustList<StandardConstructor>();
+        fields_ = new StringMap<StandardField>();
+        stdcl_ = new StandardClass(aliasRender, fields_, constructors_, methods_, getAliasObject(), MethodModifier.FINAL);
+        String typeHeight_ = StringList.concat(getAliasFct(),"<",getAliasObject(),",",getAliasPrimInteger(),">");
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasRenderGetHeight, params_, typeHeight_, false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(typeHeight_);
+        method_ = new StandardMethod(aliasRenderSetHeight, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        String typeWidth_ = StringList.concat(getAliasFct(),"<",getAliasObject(),",",getAliasPrimInteger(),",",getAliasPrimInteger(),">");
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasRenderGetWidth, params_, typeWidth_, false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(typeWidth_);
+        method_ = new StandardMethod(aliasRenderSetWidth, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        String typePaint_ = StringList.concat(getAliasFct(),"<",aliasGrList,",",getAliasObject(),",",getAliasPrimInteger(),",",getAliasPrimBoolean(),",",aliasImage,",?>");
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasRenderGetPaint, params_, typePaint_, false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(typePaint_);
+        method_ = new StandardMethod(aliasRenderSetPaint, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        getStandards().put(aliasRender, stdcl_);
+
+
+        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        constructors_ = new CustList<StandardConstructor>();
+        fields_ = new StringMap<StandardField>();
+        stdcl_ = new StandardClass(aliasGrList, fields_, constructors_, methods_, aliasComponent, MethodModifier.FINAL);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasGrListGetPanel, params_, aliasPanel, false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasGrListGetRender, params_, aliasRender, false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasRender);
+        method_ = new StandardMethod(aliasGrListSetRender, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasPrimInteger(),getAliasObject());
+        method_ = new StandardMethod(aliasGrListAdd, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasPrimBoolean());
+        ctor_ = new StandardConstructor(params_,false,stdcl_);
+        constructors_.add(ctor_);
+        getStandards().put(aliasGrList, stdcl_);
     }
     public Argument defaultInstance(ExecutableCode _cont, String _id) {
         Argument arg_ = super.defaultInstance(_cont, _id);
@@ -501,6 +564,12 @@ public class LgNamesGui extends LgNamesUtils {
         }
         if (StringList.quickEq(_id,aliasImageLabel)) {
             return new Argument(new PreparedLabelStruct(aliasImageLabel));
+        }
+        if (StringList.quickEq(_id,aliasRender)) {
+            return new Argument(new RenderStruct());
+        }
+        if (StringList.quickEq(_id,aliasGrList)) {
+            return new Argument(new GraphicListStruct((GuiContextEl)_cont,aliasGrList,true));
         }
         return arg_;
     }
@@ -618,6 +687,28 @@ public class LgNamesGui extends LgNamesUtils {
         if (StringList.quickEq(name_,aliasImage)) {
             r_.setResult(new ImageStruct(((NumberStruct)_args[0]).intStruct(),((NumberStruct)_args[1]).intStruct(),((BooleanStruct)_args[2]).getInstance()));
             return r_;
+        }
+        if (StringList.quickEq(name_,aliasRender)) {
+            if (_cont.isInitEnums()) {
+                _cont.failInitEnums();
+                r_.setResult(NullStruct.NULL_VALUE);
+                return r_;
+            }
+            r_.setResult(new RenderStruct());
+            return r_;
+        }
+        if (StringList.quickEq(name_,aliasGrList)) {
+            if (_cont.isInitEnums()) {
+                _cont.failInitEnums();
+                r_.setResult(NullStruct.NULL_VALUE);
+                return r_;
+            }
+//            if (_method.getParametersTypes().size() == 1) {
+                r_.setResult(new GraphicListStruct((GuiContextEl)_cont,aliasGrList,((BooleanStruct)_args[0]).getInstance()));
+                return r_;
+//            }
+//            r_.setResult(new GraphicListStruct((GuiContextEl)_cont,aliasGrList,((BooleanStruct)_args[0]).getInstance(),_args[1],_args[2]));
+//            return r_;
         }
         return super.getOtherResult(_cont,_method,_args);
     }
@@ -1020,6 +1111,62 @@ public class LgNamesGui extends LgNamesUtils {
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
+        if (StringList.quickEq(type_, aliasRender)) {
+            RenderStruct image_ = (RenderStruct) _instance;
+            if (StringList.quickEq(name_, aliasRenderSetPaint)) {
+                image_.setPaint(_args[0]);
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasRenderSetWidth)) {
+                image_.setWidth(_args[0]);
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasRenderSetHeight)) {
+                image_.setHeight(_args[0]);
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasRenderGetPaint)) {
+                res_.setResult(image_.getPaint());
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasRenderGetHeight)) {
+                res_.setResult(image_.getHeight());
+                return res_;
+            }
+            res_.setResult(image_.getWidth());
+            return res_;
+        }
+        if (StringList.quickEq(type_, aliasGrList)) {
+            GraphicListStruct inst_ = (GraphicListStruct) _instance;
+            if (StringList.quickEq(name_, aliasGrListGetPanel)) {
+                res_.setResult(inst_.getPanel());
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasGrListSetRender)) {
+                inst_.setRender(_args[0]);
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasGrListGetRender)) {
+                res_.setResult(inst_.getRender());
+                return res_;
+            }
+            StringList params_ = new StringList(aliasGrList,getAliasPrimInteger(),getAliasObject());
+            ClassMethodId polymorph_ = new ClassMethodId(aliasPaint,new MethodId(true,aliasPaintAdd, params_));
+            String className_ = polymorph_.getClassName();
+            MethodId ct_ = polymorph_.getConstraints();
+            Argument arg_ = new Argument(inst_);
+            CustList<Argument> args_ = new CustList<Argument>(arg_);
+            args_.add(new Argument(_args[0]));
+            args_.add(new Argument(_args[1]));
+            _cont.setCallingState(new CustomFoundMethod(Argument.createVoid(),className_,ct_, args_,null));
+            return res_;
+//            res_.setResult(NullStruct.NULL_VALUE);
+//            return res_;
+        }
         return super.getOtherResult(_cont,_instance,_method,_args);
     }
     @Override
@@ -1039,9 +1186,12 @@ public class LgNamesGui extends LgNamesUtils {
         String return_ = keyWords_.getKeyWordReturn();
         String continue_ = keyWords_.getKeyWordContinue();
         String break_ = keyWords_.getKeyWordBreak();
+        String for_ = keyWords_.getKeyWordFor();
+        String new_ = keyWords_.getKeyWordNew();
         String null_ = keyWords_.getKeyWordNull();
         String cast_ = keyWords_.getKeyWordCast();
         String true_ = keyWords_.getKeyWordTrue();
+        String false_ = keyWords_.getKeyWordFalse();
         String is_ = keyWords_.getKeyWordInstanceof();
         String endLine_ = String.valueOf(_context.getOptions().getEndLine());
         StringMap<String> map_;
@@ -1109,6 +1259,12 @@ public class LgNamesGui extends LgNamesUtils {
         } else if (_context.getOptions().getSuffixVar() != VariableSuffix.NONE) {
             suffixParam_ = suffix_;
         }
+        String suffixLoop_ = "";
+        if (_context.getOptions().getSuffixVar() == VariableSuffix.DISTINCT) {
+            suffixLoop_ = suffix_;
+        } else if (_context.getOptions().getSuffixVar() != VariableSuffix.NONE) {
+            suffixLoop_ = suffix_;
+        }
         content_ = ResourceFiles.ressourceFichier("resources_lg_gui/repaint.txt");
         map_ = new StringMap<String>();
         map_.put("{public}", public_);
@@ -1117,10 +1273,12 @@ public class LgNamesGui extends LgNamesUtils {
         map_.put("{class}", class_);
         map_.put("{Paint}", aliasPaint);
         map_.put("{paint}", aliasPaintMethod);
+        map_.put("{add}", aliasPaintAdd);
         map_.put("{static}", static_);
         map_.put("{if}", if_);
         map_.put("{elseif}", elseif_);
         map_.put("{true}", true_);
+        map_.put("{false}", false_);
         map_.put("{return}", return_);
         map_.put("{break}", break_);
         map_.put("{continue}", continue_);
@@ -1130,6 +1288,7 @@ public class LgNamesGui extends LgNamesUtils {
         map_.put("{cast}", cast_);
         map_.put("{param}", suffixParam_);
         map_.put("{local}", suffixLocal_);
+        map_.put("{loop}", suffixLoop_);
         map_.put("{Component}", aliasComponent);
         map_.put("{Panel}", aliasPanel);
         map_.put("{Fct}", getAliasFct());
@@ -1142,10 +1301,37 @@ public class LgNamesGui extends LgNamesUtils {
         map_.put("{e}", tr("e",_context));
         map_.put("{c}", tr("c",_context));
         map_.put("{p}", tr("p",_context));
+        map_.put("{r}", tr("r",_context));
+        map_.put("{o}", tr("o",_context));
+        map_.put("{i}", tr("i",_context));
+        map_.put("{l}", tr("l",_context));
+        map_.put("{la}", tr("la",_context));
+        map_.put("{h}", tr("h",_context));
+        map_.put("{hf}", tr("hf",_context));
+        map_.put("{lf}", tr("lf",_context));
+        map_.put("{pf}", tr("pf",_context));
         map_.put("{par}", tr("par",_context));
         map_.put("{pan}", tr("pan",_context));
         map_.put("{fct}", tr("fct",_context));
+        map_.put("{nb}", tr("nb",_context));
+        map_.put("{img}", tr("img",_context));
         map_.put("{endLine}", endLine_);
+        map_.put("{suffix}", suffix_);
+        map_.put("{getPanel}",aliasGrListGetPanel);
+        map_.put("{getRender}",aliasGrListGetRender);
+        map_.put("{getHeight}",aliasRenderGetHeight);
+        map_.put("{getWidth}",aliasRenderGetWidth);
+        map_.put("{getPaint}",aliasRenderGetPaint);
+        map_.put("{Image}",aliasImage);
+        map_.put("{ImageLabel}",aliasImageLabel);
+        map_.put("{addCompo}",aliasAddCompo);
+        map_.put("{length}",getAliasLength());
+        map_.put("{for}",for_);
+        map_.put("{new}",new_);
+        map_.put("{var}",keyWords_.getKeyWordVar());
+        map_.put("{int}",getAliasPrimInteger());
+        map_.put("{GrList}",aliasGrList);
+        map_.put("{Object}",getAliasObject());
         content_ = StringList.formatQuote(content_, map_);
         getPredefinedClasses().add(aliasPaint);
         stds_.put(aliasPaint, content_);
@@ -1650,6 +1836,14 @@ public class LgNamesGui extends LgNamesUtils {
         this.aliasPaintMethod = aliasPaintMethod;
     }
 
+    public String getAliasPaintAdd() {
+        return aliasPaintAdd;
+    }
+
+    public void setAliasPaintAdd(String aliasPaintAdd) {
+        this.aliasPaintAdd = aliasPaintAdd;
+    }
+
     public String getAliasRemoveCompo() {
         return aliasRemoveCompo;
     }
@@ -1874,6 +2068,102 @@ public class LgNamesGui extends LgNamesUtils {
         this.aliasWindowEvent = aliasWindowEvent;
     }
 
+    public String getAliasRender() {
+        return aliasRender;
+    }
+
+    public void setAliasRender(String aliasRender) {
+        this.aliasRender = aliasRender;
+    }
+
+    public String getAliasRenderGetHeight() {
+        return aliasRenderGetHeight;
+    }
+
+    public void setAliasRenderGetHeight(String aliasRenderGetHeight) {
+        this.aliasRenderGetHeight = aliasRenderGetHeight;
+    }
+
+    public String getAliasRenderSetHeight() {
+        return aliasRenderSetHeight;
+    }
+
+    public void setAliasRenderSetHeight(String aliasRenderSetHeight) {
+        this.aliasRenderSetHeight = aliasRenderSetHeight;
+    }
+
+    public String getAliasRenderGetWidth() {
+        return aliasRenderGetWidth;
+    }
+
+    public void setAliasRenderGetWidth(String aliasRenderGetWidth) {
+        this.aliasRenderGetWidth = aliasRenderGetWidth;
+    }
+
+    public String getAliasRenderSetWidth() {
+        return aliasRenderSetWidth;
+    }
+
+    public void setAliasRenderSetWidth(String aliasRenderSetWidth) {
+        this.aliasRenderSetWidth = aliasRenderSetWidth;
+    }
+
+    public String getAliasRenderGetPaint() {
+        return aliasRenderGetPaint;
+    }
+
+    public void setAliasRenderGetPaint(String aliasRenderGetPaint) {
+        this.aliasRenderGetPaint = aliasRenderGetPaint;
+    }
+
+    public String getAliasRenderSetPaint() {
+        return aliasRenderSetPaint;
+    }
+
+    public void setAliasRenderSetPaint(String aliasRenderSetPaint) {
+        this.aliasRenderSetPaint = aliasRenderSetPaint;
+    }
+
+    public String getAliasGrList() {
+        return aliasGrList;
+    }
+
+    public void setAliasGrList(String aliasGrList) {
+        this.aliasGrList = aliasGrList;
+    }
+
+    public String getAliasGrListAdd() {
+        return aliasGrListAdd;
+    }
+
+    public void setAliasGrListAdd(String aliasGrListAdd) {
+        this.aliasGrListAdd = aliasGrListAdd;
+    }
+
+    public String getAliasGrListGetRender() {
+        return aliasGrListGetRender;
+    }
+
+    public void setAliasGrListGetRender(String aliasGrListGetRender) {
+        this.aliasGrListGetRender = aliasGrListGetRender;
+    }
+
+    public String getAliasGrListSetRender() {
+        return aliasGrListSetRender;
+    }
+
+    public void setAliasGrListSetRender(String aliasGrListSetRender) {
+        this.aliasGrListSetRender = aliasGrListSetRender;
+    }
+
+    public String getAliasGrListGetPanel() {
+        return aliasGrListGetPanel;
+    }
+
+    public void setAliasGrListGetPanel(String aliasGrListGetPanel) {
+        this.aliasGrListGetPanel = aliasGrListGetPanel;
+    }
+
     public void otherAlias(String _lang) {
         super.otherAlias(_lang);
         if (StringList.quickEq(_lang, "en")) {
@@ -1923,6 +2213,7 @@ public class LgNamesGui extends LgNamesUtils {
             setAliasSetLabelImage("setImage");
             setAliasPaint("$core.Painting");
             setAliasPaintMethod("paint");
+            setAliasPaintAdd("add");
             setAliasRemoveCompo("remove");
             setAliasCount("count");
             setAliasGetIndexCompo("get");
@@ -1967,6 +2258,18 @@ public class LgNamesGui extends LgNamesUtils {
             setAliasComponentRepaint("repaint");
             setAliasComponentSetAutoscrolls("setAutoscrolls");
             setAliasComponentIsAutoscrolls("isAutoscrolls");
+            setAliasRender("$core.Render");
+            setAliasRenderGetPaint("getPaint");
+            setAliasRenderGetWidth("getWidth");
+            setAliasRenderGetHeight("getHeight");
+            setAliasRenderSetPaint("setPaint");
+            setAliasRenderSetWidth("setWidth");
+            setAliasRenderSetHeight("setHeight");
+            setAliasGrList("$core.GrList");
+            setAliasGrListAdd("add");
+            setAliasGrListGetPanel("getPanel");
+            setAliasGrListGetRender("getRender");
+            setAliasGrListSetRender("setRender");
         } else {
             setAliasActionEvent("$coeur.ActionEvt");
             setAliasActionListener("$coeur.ActionEcouteur");
@@ -2014,6 +2317,7 @@ public class LgNamesGui extends LgNamesUtils {
             setAliasSetLabelImage("majImage");
             setAliasPaint("$coeur.Peinture");
             setAliasPaintMethod("peindre");
+            setAliasPaintAdd("ajout");
             setAliasRemoveCompo("supprimer");
             setAliasCount("nb");
             setAliasGetIndexCompo("val");
@@ -2058,6 +2362,18 @@ public class LgNamesGui extends LgNamesUtils {
             setAliasComponentRepaint("repeindre");
             setAliasComponentSetAutoscrolls("majAutoascenseur");
             setAliasComponentIsAutoscrolls("estAutoascenseur");
+            setAliasRender("$coeur.Rendu");
+            setAliasRenderGetPaint("valPeindre");
+            setAliasRenderGetWidth("valLargeur");
+            setAliasRenderGetHeight("valHauteur");
+            setAliasRenderSetPaint("majPeindre");
+            setAliasRenderSetWidth("majLargeur");
+            setAliasRenderSetHeight("majHauteur");
+            setAliasGrList("$coeur.GrListe");
+            setAliasGrListAdd("ajout");
+            setAliasGrListGetPanel("valPanneau");
+            setAliasGrListGetRender("valRendu");
+            setAliasGrListSetRender("majRendu");
         }
     }
     @Override

@@ -40,4 +40,45 @@
       '}'
       '}'
   '}'
+      {public} {static} {void} {add}({GrList} {l}, {int} {i},{Object} {e})'{'
+          {var} {r} = ({l}{param}).{getRender}(){endLine}
+          {if} ({r}{local} == {null})'{'
+              {return}{endLine}
+          '}'
+          {var} {hf} = ({r}{local}).{getHeight}(){endLine}
+          {var} {lf} = ({r}{local}).{getWidth}(){endLine}
+          {var} {pf} = ({r}{local}).{getPaint}(){endLine}
+          {if} ({hf}{local} == {null} || {lf}{local} == {null} || {pf}{local} == {null})'{'
+              {return}{endLine}
+          '}'
+          {var} {h} = ({hf}{local}).{call}({e}{param}){endLine}
+          {var} {la} = ({lf}{local}).{call}({e}{param},0){endLine}
+          {var} {img} = {new} {Image}({la}{local},{h}{local},{true}){endLine}
+          ({pf}{local}).{call}({l}{param},{e}{param},{i}{param},{false},{img}{local}){endLine}
+          ({l}{param}).{getPanel}().{addCompo}({new} {ImageLabel}({img}{local})){endLine}
+      '}'
+
+      {public} {static} {void} {add}({GrList} {l},{Object}[] {e})'{'
+          {var} {r} = ({l}{param}).{getRender}(){endLine}
+          {if} ({r} == {null})'{'
+              {return}{endLine}
+          '}'
+          {var} {hf} = ({r}{local}).{getHeight}(){endLine}
+          {var} {lf} = ({r}{local}).{getWidth}(){endLine}
+          {var} {pf} = ({r}{local}).{getPaint}(){endLine}
+          {if} ({hf}{local} == {null} || {lf}{local} == {null} || {pf}{local} == {null})'{'
+              {return}{endLine}
+          '}'
+          {var} {la} = 0{endLine}
+          {var} {nb} = ({e}{param}).{length}{endLine}
+          {for} ({var} {o}{suffix} {e}{param})'{'
+             {la}{local} = ({lf}{local}).{call}({o}{loop},{la}{local}){endLine}
+          '}'
+          {for} ({var} {o}{suffix} {e})'{'
+              {var} {h} = ({hf}{local}).{call}({o}{loop}){endLine}
+              {var} {img} = {new} {Image}({la}{local},{h}{local},{true}){endLine}
+              ({pf}{local}).{call}({l}{param},{o}{loop},{cast}({int})([{o}]),{false},{img}{local}){endLine}
+              ({l}{param}).{getPanel}().{addCompo}({new} {ImageLabel}({img}{local})){endLine}
+          '}'
+      '}'
 '}'
