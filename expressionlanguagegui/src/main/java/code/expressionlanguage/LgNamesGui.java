@@ -51,6 +51,9 @@ public class LgNamesGui extends LgNamesUtils {
     private String aliasButton;
     private String aliasImageLabel;
     private String aliasTextLabel;
+    private String aliasScrollPane;
+    private String aliasScrollPaneGetView;
+    private String aliasScrollPaneSetView;
     private String aliasGetFont;
     private String aliasFont;
     private String aliasFontGetName;
@@ -86,6 +89,8 @@ public class LgNamesGui extends LgNamesUtils {
     private String aliasComponentSetPaint;
     private String aliasComponentGetPaint;
     private String aliasComponentRepaint;
+    private String aliasComponentSetAutoscrolls;
+    private String aliasComponentIsAutoscrolls;
     private String aliasComponent;
     private String aliasSetContent;
     private String aliasAddCompo;
@@ -170,7 +175,13 @@ public class LgNamesGui extends LgNamesUtils {
         params_ = new StringList();
         method_ = new StandardMethod(aliasComponentRepaint, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
-
+        type_ = getAliasPrimBoolean();
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasComponentIsAutoscrolls, params_, type_, false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(type_);
+        method_ = new StandardMethod(aliasComponentSetAutoscrolls, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
         params_ = new StringList();
         ctor_ = new StandardConstructor(params_,false,stdcl_);
         constructors_.add(ctor_);
@@ -254,6 +265,24 @@ public class LgNamesGui extends LgNamesUtils {
         getStandards().put(aliasPanelBorder, std_);
 
 
+        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        constructors_ = new CustList<StandardConstructor>();
+        fields_ = new StringMap<StandardField>();
+        stdcl_ = new StandardClass(aliasScrollPane, fields_, constructors_, methods_, aliasComponent, MethodModifier.FINAL);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasScrollPaneGetView, params_,aliasComponent, false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasComponent);
+        method_ = new StandardMethod(aliasScrollPaneSetView, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        ctor_ = new StandardConstructor(params_,false,stdcl_);
+        constructors_.add(ctor_);
+        params_ = new StringList(aliasComponent);
+        ctor_ = new StandardConstructor(params_,false,stdcl_);
+        constructors_.add(ctor_);
+        std_ = stdcl_;
+        getStandards().put(aliasScrollPane, std_);
         methods_ = new ObjectMap<MethodId, StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new StringMap<StandardField>();
@@ -458,6 +487,9 @@ public class LgNamesGui extends LgNamesUtils {
         if (StringList.quickEq(_id,aliasPanel)) {
             return new Argument(PanelStruct.newFlow(aliasPanel));
         }
+        if (StringList.quickEq(_id,aliasScrollPane)) {
+            return new Argument(ScrollPaneStruct.newScroll(aliasScrollPane));
+        }
         if (StringList.quickEq(_id,aliasPanelBorder)) {
             return new Argument(PanelBorderStruct.newBorder(aliasPanelBorder));
         }
@@ -501,6 +533,19 @@ public class LgNamesGui extends LgNamesUtils {
                 return r_;
             }
             r_.setResult(PanelBorderStruct.newBorder(aliasPanelBorder));
+            return r_;
+        }
+        if (StringList.quickEq(name_,aliasScrollPane)) {
+            if (_cont.isInitEnums()) {
+                _cont.failInitEnums();
+                r_.setResult(NullStruct.NULL_VALUE);
+                return r_;
+            }
+            if (_method.getParametersTypes().size() == 1) {
+                r_.setResult(ScrollPaneStruct.newScroll(_args[0], aliasButton));
+            } else {
+                r_.setResult(ScrollPaneStruct.newScroll(aliasButton));
+            }
             return r_;
         }
         if (StringList.quickEq(name_,aliasButton)) {
@@ -654,6 +699,15 @@ public class LgNamesGui extends LgNamesUtils {
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
+            if (StringList.quickEq(name_, aliasComponentIsAutoscrolls)) {
+                res_.setResult(inst_.isAutoscrolls());
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasComponentSetAutoscrolls)) {
+                inst_.setAutoscrolls(_args[0]);
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
             if (StringList.quickEq(name_, aliasComponentRepaint)) {
                 ClassMethodId polymorph_ = new ClassMethodId(aliasPaint,new MethodId(true,aliasPaintMethod,new StringList(aliasComponent)));
                 String className_ = polymorph_.getClassName();
@@ -729,6 +783,21 @@ public class LgNamesGui extends LgNamesUtils {
             }
             PanelBorderStruct strPan_ = (PanelBorderStruct) _instance;
             strPan_.add((CustComponentStruct)_args[0],_args[1]);
+            res_.setResult(NullStruct.NULL_VALUE);
+            return res_;
+        }
+        if (StringList.quickEq(type_,aliasScrollPane)) {
+            if (_cont.isInitEnums()) {
+                _cont.failInitEnums();
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            ScrollPaneStruct strPan_ = (ScrollPaneStruct) _instance;
+            if (StringList.quickEq(name_, aliasScrollPaneGetView)) {
+                res_.setResult(strPan_.getView());
+                return res_;
+            }
+            strPan_.setViewportView(_args[0]);
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
@@ -1221,6 +1290,22 @@ public class LgNamesGui extends LgNamesUtils {
         this.aliasComponent = aliasComponent;
     }
 
+    public String getAliasComponentSetAutoscrolls() {
+        return aliasComponentSetAutoscrolls;
+    }
+
+    public void setAliasComponentSetAutoscrolls(String aliasComponentSetAutoscrolls) {
+        this.aliasComponentSetAutoscrolls = aliasComponentSetAutoscrolls;
+    }
+
+    public String getAliasComponentIsAutoscrolls() {
+        return aliasComponentIsAutoscrolls;
+    }
+
+    public void setAliasComponentIsAutoscrolls(String aliasComponentIsAutoscrolls) {
+        this.aliasComponentIsAutoscrolls = aliasComponentIsAutoscrolls;
+    }
+
     public String getAliasImage() {
         return aliasImage;
     }
@@ -1581,6 +1666,30 @@ public class LgNamesGui extends LgNamesUtils {
         this.aliasCount = aliasCount;
     }
 
+    public String getAliasScrollPane() {
+        return aliasScrollPane;
+    }
+
+    public void setAliasScrollPane(String aliasScrollPane) {
+        this.aliasScrollPane = aliasScrollPane;
+    }
+
+    public String getAliasScrollPaneGetView() {
+        return aliasScrollPaneGetView;
+    }
+
+    public void setAliasScrollPaneGetView(String aliasScrollPaneGetView) {
+        this.aliasScrollPaneGetView = aliasScrollPaneGetView;
+    }
+
+    public String getAliasScrollPaneSetView() {
+        return aliasScrollPaneSetView;
+    }
+
+    public void setAliasScrollPaneSetView(String aliasScrollPaneSetView) {
+        this.aliasScrollPaneSetView = aliasScrollPaneSetView;
+    }
+
     public String getAliasPack() {
         return aliasPack;
     }
@@ -1793,6 +1902,9 @@ public class LgNamesGui extends LgNamesUtils {
             setAliasFrame("$core.Frame");
             setAliasPanel("$core.Panel");
             setAliasPanelBorder("$core.PanelBorder");
+            setAliasScrollPane("$core.Scroll");
+            setAliasScrollPaneGetView("getView");
+            setAliasScrollPaneSetView("setView");
             setAliasButton("$core.Button");
             setAliasTextLabel("$core.TextLabel");
             setAliasImageLabel("$core.ImageLabel");
@@ -1853,6 +1965,8 @@ public class LgNamesGui extends LgNamesUtils {
             setAliasComponentGetPaint("getPaint");
             setAliasComponentSetPaint("setPaint");
             setAliasComponentRepaint("repaint");
+            setAliasComponentSetAutoscrolls("setAutoscrolls");
+            setAliasComponentIsAutoscrolls("isAutoscrolls");
         } else {
             setAliasActionEvent("$coeur.ActionEvt");
             setAliasActionListener("$coeur.ActionEcouteur");
@@ -1879,6 +1993,9 @@ public class LgNamesGui extends LgNamesUtils {
             setAliasFrame("$coeur.Fenetre");
             setAliasPanel("$coeur.Panneau");
             setAliasPanelBorder("$coeur.PanneauBordure");
+            setAliasScrollPane("$coeur.Ascenseur");
+            setAliasScrollPaneGetView("valVue");
+            setAliasScrollPaneSetView("majVue");
             setAliasButton("$coeur.Bouton");
             setAliasTextLabel("$coeur.Etiquette");
             setAliasImageLabel("$coeur.EtImage");
@@ -1939,6 +2056,8 @@ public class LgNamesGui extends LgNamesUtils {
             setAliasComponentGetPaint("valPeindre");
             setAliasComponentSetPaint("majPeindre");
             setAliasComponentRepaint("repeindre");
+            setAliasComponentSetAutoscrolls("majAutoascenseur");
+            setAliasComponentIsAutoscrolls("estAutoascenseur");
         }
     }
     @Override

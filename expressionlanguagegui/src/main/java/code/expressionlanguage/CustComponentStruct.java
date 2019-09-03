@@ -1,11 +1,12 @@
 package code.expressionlanguage;
 
+import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.gui.CustComponent;
 import code.util.CustList;
 
-import javax.swing.*;
+import javax.swing.SwingUtilities;
 
 public abstract class CustComponentStruct implements Struct {
 
@@ -85,6 +86,12 @@ public abstract class CustComponentStruct implements Struct {
         this.paintEvent = paintEvent;
     }
 
+    public BooleanStruct isAutoscrolls(){
+        return new BooleanStruct(getComponent().isAutoscrolls());
+    }
+    public void setAutoscrolls(Struct _autoscrolls) {
+        getComponent().setAutoscrolls(((BooleanStruct)_autoscrolls).getInstance());
+    }
     @Override
     public boolean sameReference(Struct _other) {
         if (!(_other instanceof CustComponentStruct)) {

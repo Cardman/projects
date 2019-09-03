@@ -25,6 +25,13 @@ public abstract class CustComponent {
             return false;
         }
     }
+
+    public boolean isAutoscrolls(){
+        return getComponent().getAutoscrolls();
+    }
+    public void setAutoscrolls(boolean _autoscrolls) {
+        getComponent().setAutoscrolls(_autoscrolls);
+    }
     public static Thread newThread(Runnable _r) {
         return new Thread(_r);
     }

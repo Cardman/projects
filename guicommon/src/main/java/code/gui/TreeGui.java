@@ -513,10 +513,6 @@ public final class TreeGui extends CustComponent {
         tree.scrollRectToVisible(aRect);
     }
 
-    public void setAutoscrolls(boolean autoscrolls) {
-        tree.setAutoscrolls(autoscrolls);
-    }
-
     public boolean getAutoscrolls() {
         return tree.getAutoscrolls();
     }

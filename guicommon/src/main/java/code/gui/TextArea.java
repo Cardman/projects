@@ -409,10 +409,6 @@ public final class TextArea extends CustComponent {
         textArea.scrollRectToVisible(aRect);
     }
 
-    public void setAutoscrolls(boolean autoscrolls) {
-        textArea.setAutoscrolls(autoscrolls);
-    }
-
     public boolean getAutoscrolls() {
         return textArea.getAutoscrolls();
     }

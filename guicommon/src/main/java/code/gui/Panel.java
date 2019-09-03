@@ -264,9 +264,6 @@ public class Panel extends CustComponent {
         panel.scrollRectToVisible(_aRect);
     }
 
-    public void setAutoscrolls(boolean _autoscrolls) {
-        panel.setAutoscrolls(_autoscrolls);
-    }
 
     public Dimension getSize(Dimension _rv) {
         return panel.getSize(_rv);
