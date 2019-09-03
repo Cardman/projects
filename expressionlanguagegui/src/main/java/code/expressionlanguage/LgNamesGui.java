@@ -2,7 +2,6 @@ package code.expressionlanguage;
 
 import code.expressionlanguage.calls.util.CustomFoundMethod;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
-import code.expressionlanguage.opers.exec.ExecInvokingOperation;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.MethodId;
@@ -61,20 +60,18 @@ public class LgNamesGui extends LgNamesUtils {
     private String aliasImageGetGraphics;
     private String aliasImageSet;
     private String aliasImageIsWithAlpha;
-    private String aliasComponentGetGraphics;
-    private String aliasGraphics;
-    private String aliasGraphicsGetColor;
-    private String aliasGraphicsSetColor;
-    private String aliasGraphicsGetFont;
-    private String aliasGraphicsSetFont;
-    private String aliasGraphicsDraw;
-    private String aliasGraphicsDrawLine;
-    private String aliasGraphicsDrawRect;
-    private String aliasGraphicsDrawOval;
-    private String aliasGraphicsFillRect;
-    private String aliasGraphicsFillOval;
-    private String aliasGraphicsDrawPolygon;
-    private String aliasGraphicsFillPolygon;
+    private String aliasImageGetColor;
+    private String aliasImageSetColor;
+    private String aliasImageGetFont;
+    private String aliasImageSetFont;
+    private String aliasImageDraw;
+    private String aliasImageDrawLine;
+    private String aliasImageDrawRect;
+    private String aliasImageDrawOval;
+    private String aliasImageFillRect;
+    private String aliasImageFillOval;
+    private String aliasImageDrawPolygon;
+    private String aliasImageFillPolygon;
     private String aliasColor;
     private String aliasColorRed;
     private String aliasColorGreen;
@@ -262,6 +259,25 @@ public class LgNamesGui extends LgNamesUtils {
         methods_ = new ObjectMap<MethodId, StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new StringMap<StandardField>();
+        stdcl_ = new StandardClass(aliasImageLabel, fields_, constructors_, methods_, aliasComponent, MethodModifier.FINAL);
+        params_ = new StringList(aliasMouseListener);
+        method_ = new StandardMethod(aliasAddListener, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasImage);
+        method_ = new StandardMethod(aliasSetLabelImage, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        ctor_ = new StandardConstructor(params_,false,stdcl_);
+        constructors_.add(ctor_);
+        params_ = new StringList(aliasImage);
+        ctor_ = new StandardConstructor(params_,false,stdcl_);
+        constructors_.add(ctor_);
+        std_ = stdcl_;
+        getStandards().put(aliasImageLabel, std_);
+
+        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        constructors_ = new CustList<StandardConstructor>();
+        fields_ = new StringMap<StandardField>();
         stdcl_ = new StandardClass(aliasFont, fields_, constructors_, methods_, getAliasObject(), MethodModifier.FINAL);
         params_ = new StringList();
         method_ = new StandardMethod(aliasFontGetName, params_, getAliasString(), false, MethodModifier.FINAL, stdcl_);
@@ -278,6 +294,9 @@ public class LgNamesGui extends LgNamesUtils {
         params_ = new StringList(getAliasString());
         method_ = new StandardMethod(aliasFontStringWidth, params_, getAliasPrimInteger(), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasImage,getAliasString());
+        method_ = new StandardMethod(aliasFontStringWidth, params_, getAliasPrimInteger(), false, MethodModifier.STATIC, stdcl_);
+        methods_.put(method_.getId(), method_);
         params_ = new StringList();
         ctor_ = new StandardConstructor(params_,false,stdcl_);
         constructors_.add(ctor_);
@@ -288,6 +307,106 @@ public class LgNamesGui extends LgNamesUtils {
         ctor_ = new StandardConstructor(params_,false,stdcl_);
         constructors_.add(ctor_);
         getStandards().put(aliasFont, stdcl_);
+
+        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        constructors_ = new CustList<StandardConstructor>();
+        fields_ = new StringMap<StandardField>();
+        stdcl_ = new StandardClass(aliasColor, fields_, constructors_, methods_, getAliasObject(), MethodModifier.FINAL);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasColorAlpha, params_, getAliasPrimInteger(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasColorBlue, params_, getAliasPrimInteger(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasColorRed, params_, getAliasPrimInteger(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasColorGreen, params_, getAliasPrimInteger(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasColorIsTransparent, params_, getAliasPrimInteger(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasPrimInteger());
+        ctor_ = new StandardConstructor(params_,false,stdcl_);
+        constructors_.add(ctor_);
+        params_ = new StringList(getAliasPrimInteger(),getAliasPrimBoolean());
+        ctor_ = new StandardConstructor(params_,false,stdcl_);
+        constructors_.add(ctor_);
+        params_ = new StringList(getAliasPrimInteger(),getAliasPrimInteger(),getAliasPrimInteger());
+        ctor_ = new StandardConstructor(params_,false,stdcl_);
+        constructors_.add(ctor_);
+        params_ = new StringList(getAliasPrimInteger(),getAliasPrimInteger(),getAliasPrimInteger(),getAliasPrimInteger());
+        ctor_ = new StandardConstructor(params_,false,stdcl_);
+        constructors_.add(ctor_);
+        getStandards().put(aliasColor, stdcl_);
+
+        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        constructors_ = new CustList<StandardConstructor>();
+        fields_ = new StringMap<StandardField>();
+        stdcl_ = new StandardClass(aliasImage, fields_, constructors_, methods_, getAliasObject(), MethodModifier.FINAL);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasImageIsWithAlpha, params_, getAliasPrimBoolean(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasImageGetHeight, params_, getAliasPrimInteger(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasImageGetWidth, params_, getAliasPrimInteger(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasPrimInteger(),getAliasPrimInteger());
+        method_ = new StandardMethod(aliasImageGet, params_, getAliasPrimInteger(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasPrimInteger(),getAliasPrimInteger(), getAliasPrimInteger());
+        method_ = new StandardMethod(aliasImageSet, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasImageGetColor, params_, aliasColor, false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasColor);
+        method_ = new StandardMethod(aliasImageSetColor, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasImageGetFont, params_, aliasFont, false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasFont);
+        method_ = new StandardMethod(aliasImageSetFont, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+
+        params_ = new StringList(aliasImage,getAliasPrimInteger(),getAliasPrimInteger());
+        method_ = new StandardMethod(aliasImageDraw, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasString(),getAliasPrimInteger(),getAliasPrimInteger());
+        method_ = new StandardMethod(aliasImageDraw, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+
+        String arrInt_ = PrimitiveTypeUtil.getPrettyArrayType(getAliasPrimInteger());
+        params_ = new StringList(getAliasPrimInteger(),getAliasPrimInteger(),getAliasPrimInteger(),getAliasPrimInteger());
+        method_ = new StandardMethod(aliasImageDrawLine, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasPrimInteger(),getAliasPrimInteger(),getAliasPrimInteger(),getAliasPrimInteger());
+        method_ = new StandardMethod(aliasImageDrawRect, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasPrimInteger(),getAliasPrimInteger(),getAliasPrimInteger(),getAliasPrimInteger());
+        method_ = new StandardMethod(aliasImageDrawOval, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(arrInt_,arrInt_);
+        method_ = new StandardMethod(aliasImageDrawPolygon, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasPrimInteger(),getAliasPrimInteger(),getAliasPrimInteger(),getAliasPrimInteger());
+        method_ = new StandardMethod(aliasImageFillRect, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasPrimInteger(),getAliasPrimInteger(),getAliasPrimInteger(),getAliasPrimInteger());
+        method_ = new StandardMethod(aliasImageFillOval, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(arrInt_,arrInt_);
+        method_ = new StandardMethod(aliasImageFillPolygon, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+
+        params_ = new StringList(getAliasPrimInteger(),getAliasPrimInteger(),getAliasPrimBoolean());
+        ctor_ = new StandardConstructor(params_,false,stdcl_);
+        constructors_.add(ctor_);
+        getStandards().put(aliasImage, stdcl_);
     }
     public Argument defaultInstance(ExecutableCode _cont, String _id) {
         Argument arg_ = super.defaultInstance(_cont, _id);
@@ -389,6 +508,26 @@ public class LgNamesGui extends LgNamesUtils {
                 return r_;
             }
             r_.setResult(new FontStruct(_args[0],((BooleanStruct)_args[1]).getInstance(),((BooleanStruct)_args[2]).getInstance(),((NumberStruct)_args[3]).intStruct()));
+            return r_;
+        }
+        if (StringList.quickEq(name_,aliasColor)) {
+            if (_method.getParametersTypes().size() == 1) {
+                r_.setResult(new ColorStruct(((NumberStruct)_args[0]).intStruct()));
+                return r_;
+            }
+            if (_method.getParametersTypes().size() == 2) {
+                r_.setResult(new ColorStruct(((NumberStruct)_args[0]).intStruct(),((BooleanStruct)_args[1]).getInstance()));
+                return r_;
+            }
+            if (_method.getParametersTypes().size() == 3) {
+                r_.setResult(new ColorStruct(((NumberStruct)_args[0]).intStruct(),((NumberStruct)_args[1]).intStruct(),((NumberStruct)_args[2]).intStruct()));
+                return r_;
+            }
+            r_.setResult(new ColorStruct(((NumberStruct)_args[0]).intStruct(),((NumberStruct)_args[1]).intStruct(),((NumberStruct)_args[2]).intStruct(),((NumberStruct)_args[3]).intStruct()));
+            return r_;
+        }
+        if (StringList.quickEq(name_,aliasImage)) {
+            r_.setResult(new ImageStruct(((NumberStruct)_args[0]).intStruct(),((NumberStruct)_args[1]).intStruct(),((BooleanStruct)_args[2]).getInstance()));
             return r_;
         }
         return super.getOtherResult(_cont,_method,_args);
@@ -511,7 +650,7 @@ public class LgNamesGui extends LgNamesUtils {
                 res_.setResult(strPan_.getComponent(((NumberStruct)_args[0]).intStruct()));
                 return res_;
             }
-            if (getAliasPrimInteger().equals(_method.getConstraints().getParametersTypes().first())) {
+            if (StringList.quickEq(getAliasPrimInteger(),_method.getConstraints().getParametersTypes().first())) {
                 res_.setResult(strPan_.remove(((NumberStruct)_args[0]).intStruct()));
                 return res_;
             }
@@ -576,6 +715,21 @@ public class LgNamesGui extends LgNamesUtils {
             return res_;
         }
         if (StringList.quickEq(type_, aliasFont)) {
+            if (_method.getConstraints().isStaticMethod()) {
+                Struct first_ = _args[0];
+                if (!(first_ instanceof ImageStruct)) {
+                    res_.setResult(new IntStruct(-1));
+                    return res_;
+                }
+                Struct font_ = ((ImageStruct) first_).getFont();
+                if (!(font_ instanceof FontStruct)) {
+                    res_.setResult(new IntStruct(-1));
+                    return res_;
+                }
+                FontStruct f_ = (FontStruct) font_;
+                res_.setResult(((GuiContextEl)_cont).stringWidth(f_,_args[1]));
+                return res_;
+            }
             FontStruct f_ = (FontStruct) _instance;
             if (StringList.quickEq(name_, aliasFontGetName)) {
                 res_.setResult(f_.getName());
@@ -594,6 +748,132 @@ public class LgNamesGui extends LgNamesUtils {
                 return res_;
             }
             res_.setResult(((GuiContextEl)_cont).stringWidth(f_,_args[0]));
+            return res_;
+        }
+        if (StringList.quickEq(type_, aliasColor)) {
+            ColorStruct c_ = (ColorStruct) _instance;
+            if (StringList.quickEq(name_, aliasColorAlpha)) {
+                res_.setResult(c_.getAlpha());
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasColorRed)) {
+                res_.setResult(c_.getRed());
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasColorGreen)) {
+                res_.setResult(c_.getGreen());
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasColorBlue)) {
+                res_.setResult(c_.getBlue());
+                return res_;
+            }
+            res_.setResult(c_.isTransparent());
+            return res_;
+        }
+        if (StringList.quickEq(type_,aliasImage)) {
+            ImageStruct image_ = (ImageStruct) _instance;
+            if (StringList.quickEq(name_, aliasImageGetHeight)) {
+                res_.setResult(image_.getHeight());
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasImageGetWidth)) {
+                res_.setResult(image_.getWidth());
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasImageSet)) {
+                if (_cont.isInitEnums() && _cont.isContainedSensibleFields(_instance)) {
+                    _cont.failInitEnums();
+                    res_.setResult(NullStruct.NULL_VALUE);
+                    return res_;
+                }
+                image_.setPixel(((NumberStruct)_args[0]).intStruct(),((NumberStruct)_args[1]).intStruct(),((NumberStruct)_args[2]).intStruct());
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasImageGet)) {
+                res_.setResult(image_.getPixel(((NumberStruct)_args[0]).intStruct(),((NumberStruct)_args[1]).intStruct()));
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasImageIsWithAlpha)) {
+                res_.setResult(image_.isWithAlpha());
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasImageGetColor)) {
+                res_.setResult(image_.getColor());
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasImageSetColor)) {
+                if (_cont.isInitEnums() && _cont.isContainedSensibleFields(_instance)) {
+                    _cont.failInitEnums();
+                    res_.setResult(NullStruct.NULL_VALUE);
+                    return res_;
+                }
+                image_.setColor(_args[0]);
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasImageGetFont)) {
+                res_.setResult(image_.getFont());
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasImageSetFont)) {
+                if (_cont.isInitEnums() && _cont.isContainedSensibleFields(_instance)) {
+                    _cont.failInitEnums();
+                    res_.setResult(NullStruct.NULL_VALUE);
+                    return res_;
+                }
+                image_.setFont(_args[0]);
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            if (_cont.isInitEnums() && _cont.isContainedSensibleFields(_instance)) {
+                _cont.failInitEnums();
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasImageDraw)) {
+                if (StringList.quickEq(getAliasImage(),_method.getConstraints().getParametersTypes().first())) {
+                    image_.drawImage(_args[0],((NumberStruct)_args[1]).intStruct(),((NumberStruct)_args[2]).intStruct());
+                    res_.setResult(NullStruct.NULL_VALUE);
+                    return res_;
+                }
+                image_.drawString(_args[0],((NumberStruct)_args[1]).intStruct(),((NumberStruct)_args[2]).intStruct());
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasImageDrawLine)) {
+                image_.drawLine(((NumberStruct)_args[0]).intStruct(),((NumberStruct)_args[1]).intStruct(),((NumberStruct)_args[2]).intStruct(),((NumberStruct)_args[3]).intStruct());
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasImageDrawRect)) {
+                image_.drawRect(((NumberStruct)_args[0]).intStruct(),((NumberStruct)_args[1]).intStruct(),((NumberStruct)_args[2]).intStruct(),((NumberStruct)_args[3]).intStruct());
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasImageDrawOval)) {
+                image_.drawOval(((NumberStruct)_args[0]).intStruct(),((NumberStruct)_args[1]).intStruct(),((NumberStruct)_args[2]).intStruct(),((NumberStruct)_args[3]).intStruct());
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasImageDrawPolygon)) {
+                image_.drawPolygon(_args[0],_args[1]);
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasImageFillRect)) {
+                image_.fillRect(((NumberStruct)_args[0]).intStruct(),((NumberStruct)_args[1]).intStruct(),((NumberStruct)_args[2]).intStruct(),((NumberStruct)_args[3]).intStruct());
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasImageFillOval)) {
+                image_.fillOval(((NumberStruct)_args[0]).intStruct(),((NumberStruct)_args[1]).intStruct(),((NumberStruct)_args[2]).intStruct(),((NumberStruct)_args[3]).intStruct());
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            image_.fillPolygon(_args[0],_args[1]);
+            res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
         return super.getOtherResult(_cont,_instance,_method,_args);
@@ -915,116 +1195,100 @@ public class LgNamesGui extends LgNamesUtils {
         this.aliasImageIsWithAlpha = aliasImageIsWithAlpha;
     }
 
-    public String getAliasComponentGetGraphics() {
-        return aliasComponentGetGraphics;
+    public String getAliasImageGetColor() {
+        return aliasImageGetColor;
     }
 
-    public void setAliasComponentGetGraphics(String aliasComponentGetGraphics) {
-        this.aliasComponentGetGraphics = aliasComponentGetGraphics;
+    public void setAliasImageGetColor(String aliasImageGetColor) {
+        this.aliasImageGetColor = aliasImageGetColor;
     }
 
-    public String getAliasGraphics() {
-        return aliasGraphics;
+    public String getAliasImageSetColor() {
+        return aliasImageSetColor;
     }
 
-    public void setAliasGraphics(String aliasGraphics) {
-        this.aliasGraphics = aliasGraphics;
+    public void setAliasImageSetColor(String aliasImageSetColor) {
+        this.aliasImageSetColor = aliasImageSetColor;
     }
 
-    public String getAliasGraphicsGetColor() {
-        return aliasGraphicsGetColor;
+    public String getAliasImageGetFont() {
+        return aliasImageGetFont;
     }
 
-    public void setAliasGraphicsGetColor(String aliasGraphicsGetColor) {
-        this.aliasGraphicsGetColor = aliasGraphicsGetColor;
+    public void setAliasImageGetFont(String aliasImageGetFont) {
+        this.aliasImageGetFont = aliasImageGetFont;
     }
 
-    public String getAliasGraphicsSetColor() {
-        return aliasGraphicsSetColor;
+    public String getAliasImageSetFont() {
+        return aliasImageSetFont;
     }
 
-    public void setAliasGraphicsSetColor(String aliasGraphicsSetColor) {
-        this.aliasGraphicsSetColor = aliasGraphicsSetColor;
+    public void setAliasImageSetFont(String aliasImageSetFont) {
+        this.aliasImageSetFont = aliasImageSetFont;
     }
 
-    public String getAliasGraphicsGetFont() {
-        return aliasGraphicsGetFont;
+    public String getAliasImageDraw() {
+        return aliasImageDraw;
     }
 
-    public void setAliasGraphicsGetFont(String aliasGraphicsGetFont) {
-        this.aliasGraphicsGetFont = aliasGraphicsGetFont;
+    public void setAliasImageDraw(String aliasImageDraw) {
+        this.aliasImageDraw = aliasImageDraw;
     }
 
-    public String getAliasGraphicsSetFont() {
-        return aliasGraphicsSetFont;
+    public String getAliasImageDrawLine() {
+        return aliasImageDrawLine;
     }
 
-    public void setAliasGraphicsSetFont(String aliasGraphicsSetFont) {
-        this.aliasGraphicsSetFont = aliasGraphicsSetFont;
+    public void setAliasImageDrawLine(String aliasImageDrawLine) {
+        this.aliasImageDrawLine = aliasImageDrawLine;
     }
 
-    public String getAliasGraphicsDraw() {
-        return aliasGraphicsDraw;
+    public String getAliasImageDrawRect() {
+        return aliasImageDrawRect;
     }
 
-    public void setAliasGraphicsDraw(String aliasGraphicsDraw) {
-        this.aliasGraphicsDraw = aliasGraphicsDraw;
+    public void setAliasImageDrawRect(String aliasImageDrawRect) {
+        this.aliasImageDrawRect = aliasImageDrawRect;
     }
 
-    public String getAliasGraphicsDrawLine() {
-        return aliasGraphicsDrawLine;
+    public String getAliasImageDrawOval() {
+        return aliasImageDrawOval;
     }
 
-    public void setAliasGraphicsDrawLine(String aliasGraphicsDrawLine) {
-        this.aliasGraphicsDrawLine = aliasGraphicsDrawLine;
+    public void setAliasImageDrawOval(String aliasImageDrawOval) {
+        this.aliasImageDrawOval = aliasImageDrawOval;
     }
 
-    public String getAliasGraphicsDrawRect() {
-        return aliasGraphicsDrawRect;
+    public String getAliasImageFillRect() {
+        return aliasImageFillRect;
     }
 
-    public void setAliasGraphicsDrawRect(String aliasGraphicsDrawRect) {
-        this.aliasGraphicsDrawRect = aliasGraphicsDrawRect;
+    public void setAliasImageFillRect(String aliasImageFillRect) {
+        this.aliasImageFillRect = aliasImageFillRect;
     }
 
-    public String getAliasGraphicsDrawOval() {
-        return aliasGraphicsDrawOval;
+    public String getAliasImageFillOval() {
+        return aliasImageFillOval;
     }
 
-    public void setAliasGraphicsDrawOval(String aliasGraphicsDrawOval) {
-        this.aliasGraphicsDrawOval = aliasGraphicsDrawOval;
+    public void setAliasImageFillOval(String aliasImageFillOval) {
+        this.aliasImageFillOval = aliasImageFillOval;
     }
 
-    public String getAliasGraphicsFillRect() {
-        return aliasGraphicsFillRect;
+    public String getAliasImageDrawPolygon() {
+        return aliasImageDrawPolygon;
     }
 
-    public void setAliasGraphicsFillRect(String aliasGraphicsFillRect) {
-        this.aliasGraphicsFillRect = aliasGraphicsFillRect;
+    public void setAliasImageDrawPolygon(String aliasImageDrawPolygon) {
+        this.aliasImageDrawPolygon = aliasImageDrawPolygon;
     }
 
-    public String getAliasGraphicsFillOval() {
-        return aliasGraphicsFillOval;
+    public String getAliasImageFillPolygon() {
+        return aliasImageFillPolygon;
     }
 
-    public void setAliasGraphicsFillOval(String aliasGraphicsFillOval) {
-        this.aliasGraphicsFillOval = aliasGraphicsFillOval;
-    }
-
-    public String getAliasGraphicsDrawPolygon() {
-        return aliasGraphicsDrawPolygon;
-    }
-
-    public void setAliasGraphicsDrawPolygon(String aliasGraphicsDrawPolygon) {
-        this.aliasGraphicsDrawPolygon = aliasGraphicsDrawPolygon;
-    }
-
-    public String getAliasGraphicsFillPolygon() {
-        return aliasGraphicsFillPolygon;
-    }
-
-    public void setAliasGraphicsFillPolygon(String aliasGraphicsFillPolygon) {
-        this.aliasGraphicsFillPolygon = aliasGraphicsFillPolygon;
+    public void setAliasImageFillPolygon(String aliasImageFillPolygon) {
+        this.aliasImageFillPolygon = aliasImageFillPolygon;
     }
 
     public String getAliasColor() {
@@ -1449,27 +1713,24 @@ public class LgNamesGui extends LgNamesUtils {
             setAliasImageGetHeight("h");
             setAliasImageGetWidth("w");
             setAliasImageIsWithAlpha("alpha");
-            setAliasGraphics("$core.Graphics");
-            setAliasGraphicsDraw("draw");
-            setAliasGraphicsDrawRect("drawRect");
-            setAliasGraphicsDrawLine("drawLine");
-            setAliasGraphicsDrawOval("drawOval");
-            setAliasGraphicsDrawPolygon("drawPolygon");
-            setAliasGraphicsFillRect("fillRect");
-            setAliasGraphicsFillOval("fillOval");
-            setAliasGraphicsFillPolygon("fillPolygon");
-            setAliasGraphicsGetColor("getColor");
-            setAliasGraphicsSetColor("setColor");
-            setAliasGraphicsGetFont("getFont");
-            setAliasGraphicsSetFont("setFont");
-            setAliasComponentGetGraphics("getGraphics");
+            setAliasImageDraw("draw");
+            setAliasImageDrawRect("drawRect");
+            setAliasImageDrawLine("drawLine");
+            setAliasImageDrawOval("drawOval");
+            setAliasImageDrawPolygon("drawPolygon");
+            setAliasImageFillRect("fillRect");
+            setAliasImageFillOval("fillOval");
+            setAliasImageFillPolygon("fillPolygon");
+            setAliasImageGetColor("getColor");
+            setAliasImageSetColor("setColor");
+            setAliasImageGetFont("getFont");
+            setAliasImageSetFont("setFont");
             setAliasColor("$core.Color");
             setAliasColorAlpha("a");
             setAliasColorRed("r");
             setAliasColorGreen("g");
             setAliasColorBlue("b");
             setAliasColorIsTransparent("transparent");
-            setAliasComponentGetGraphics("getGraphics");
             setAliasComponentGetPaint("getPaint");
             setAliasComponentSetPaint("setPaint");
             setAliasComponentRepaint("repaint");
@@ -1533,27 +1794,24 @@ public class LgNamesGui extends LgNamesUtils {
             setAliasImageGetHeight("h");
             setAliasImageGetWidth("l");
             setAliasImageIsWithAlpha("alpha");
-            setAliasGraphics("$coeur.Graphiques");
-            setAliasGraphicsDraw("dessiner");
-            setAliasGraphicsDrawRect("dessinerRect");
-            setAliasGraphicsDrawLine("dessinerLigne");
-            setAliasGraphicsDrawOval("dessinerOval");
-            setAliasGraphicsDrawPolygon("dessinerPolygone");
-            setAliasGraphicsFillRect("remplierRect");
-            setAliasGraphicsFillOval("remplierOval");
-            setAliasGraphicsFillPolygon("remplierPolygone");
-            setAliasGraphicsGetColor("valColor");
-            setAliasGraphicsSetColor("majColor");
-            setAliasGraphicsGetFont("valPolice");
-            setAliasGraphicsSetFont("majPolice");
-            setAliasComponentGetGraphics("valGraphiques");
+            setAliasImageDraw("dessiner");
+            setAliasImageDrawRect("dessinerRect");
+            setAliasImageDrawLine("dessinerLigne");
+            setAliasImageDrawOval("dessinerOval");
+            setAliasImageDrawPolygon("dessinerPolygone");
+            setAliasImageFillRect("remplirRect");
+            setAliasImageFillOval("remplirOval");
+            setAliasImageFillPolygon("remplirPolygone");
+            setAliasImageGetColor("valCouleur");
+            setAliasImageSetColor("majCouleur");
+            setAliasImageGetFont("valPolice");
+            setAliasImageSetFont("majPolice");
             setAliasColor("$coeur.Couleur");
             setAliasColorAlpha("a");
             setAliasColorRed("r");
             setAliasColorGreen("v");
             setAliasColorBlue("b");
             setAliasColorIsTransparent("transparent");
-            setAliasComponentGetGraphics("valGraphiques");
             setAliasComponentGetPaint("valPeindre");
             setAliasComponentSetPaint("majPeindre");
             setAliasComponentRepaint("repeindre");

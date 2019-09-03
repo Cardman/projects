@@ -10,20 +10,26 @@ import java.awt.*;
 public final class ColorStruct implements Struct {
 
     private static final int THREE_BYTES = 256 * 256 * 256;
-    private Color image;
+    private Color color;
     public ColorStruct(int _r,int _g, int _b, int _a) {
-        image= new Color(_r,_g,_b,_a);
+        color = new Color(range(_r),range(_g),range(_b),range(_a));
     }
     public ColorStruct(int _r,int _g, int _b) {
-        image= new Color(_r,_g,_b);
+        color = new Color(range(_r),range(_g),range(_b));
     }
     public ColorStruct(int _rgb) {
-        image= new Color(_rgb);
+        color = new Color(_rgb);
     }
     public ColorStruct(int _rgba, boolean _hasAlpha) {
-        image= new Color(_rgba,_hasAlpha);
+        color = new Color(_rgba,_hasAlpha);
+    }
+    ColorStruct(Color _color) {
+        color = _color;
     }
 
+    private static int range(int _value) {
+        return Math.min(Math.max(0, _value),255);
+    }
     @Override
     public Struct getParent() {
         return NullStruct.NULL_VALUE;
@@ -39,25 +45,29 @@ public final class ColorStruct implements Struct {
         if (!(_other instanceof ColorStruct)) {
             return false;
         }
-        return image.getRGB() == ((ColorStruct)_other).image.getRGB();
+        return color.getRGB() == ((ColorStruct)_other).color.getRGB();
+    }
+
+    public Color getColor() {
+        return color;
     }
 
     public IntStruct getRed() {
-        return new IntStruct(image.getRed());
+        return new IntStruct(color.getRed());
     }
 
     public IntStruct getGreen() {
-        return new IntStruct(image.getGreen());
+        return new IntStruct(color.getGreen());
     }
 
     public IntStruct getBlue() {
-        return new IntStruct(image.getBlue());
+        return new IntStruct(color.getBlue());
     }
     public IntStruct getAlpha() {
-        return new IntStruct(image.getAlpha());
+        return new IntStruct(color.getAlpha());
     }
 
     public BooleanStruct isTransparent() {
-        return new BooleanStruct(image.getRGB() / THREE_BYTES == 0);
+        return new BooleanStruct(color.getRGB() / THREE_BYTES == 0);
     }
 }
