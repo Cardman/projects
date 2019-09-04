@@ -17,9 +17,8 @@ public class Selecting extends PaintableLabel {
 
     @Override
     public void paintComponent(CustGraphics _g) {
-        Graphics g_ = getComponent().getGraphics();
         Rect r_ = facade.getSelection();
-        g_.setColor(Color.BLUE);
-        g_.drawRect(r_.getLeft(), r_.getTop(), r_.getWidth(), r_.getHeight());
+        _g.setColor(Color.BLUE);
+        _g.drawRect(r_.getLeft(), r_.getTop(), r_.getWidth(), r_.getHeight());
     }
 }
