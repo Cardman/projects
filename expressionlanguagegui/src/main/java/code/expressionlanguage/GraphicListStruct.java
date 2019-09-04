@@ -16,7 +16,7 @@ public class GraphicListStruct extends CustComponentStruct {
 
     private Struct render = NullStruct.NULL_VALUE;
 
-    private ListSelection listener;
+    private Struct listener = NullStruct.NULL_VALUE;
 
     private PanelStruct panel;
     private ScrollPaneStruct scroll;
@@ -140,6 +140,15 @@ public class GraphicListStruct extends CustComponentStruct {
         scroll.revalidate();
         panel.refresh();
     }
+
+    public void setListener(Struct _listener) {
+        listener = _listener;
+    }
+
+    public Struct getListener() {
+        return listener;
+    }
+
     public int getFirstIndex() {
         return firstIndex;
     }

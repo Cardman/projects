@@ -3,7 +3,7 @@ import aiki.gui.components.walk.ScenePanel;
 import code.gui.ListSelection;
 import code.gui.SelectionInfo;
 
-public class PokemonSelectionStorage extends ListSelection {
+public class PokemonSelectionStorage implements ListSelection {
 
     private ScenePanel window;
 

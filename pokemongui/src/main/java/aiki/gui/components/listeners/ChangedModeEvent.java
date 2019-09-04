@@ -8,7 +8,7 @@ import code.gui.SelectionInfo;
 import aiki.facade.enums.SearchingMode;
 import code.gui.TextField;
 
-public class ChangedModeEvent extends ListSelection {
+public class ChangedModeEvent implements ListSelection {
 
     private ComboBoxSearchingMode mode;
 

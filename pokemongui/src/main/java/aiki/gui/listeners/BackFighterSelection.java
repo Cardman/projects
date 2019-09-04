@@ -3,7 +3,7 @@ import aiki.gui.components.fight.Battle;
 import code.gui.ListSelection;
 import code.gui.SelectionInfo;
 
-public class BackFighterSelection extends ListSelection {
+public class BackFighterSelection implements ListSelection {
 
     private Battle battle;
 

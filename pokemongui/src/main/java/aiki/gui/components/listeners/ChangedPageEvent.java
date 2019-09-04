@@ -3,7 +3,7 @@ import aiki.gui.components.Paginator;
 import code.gui.ListSelection;
 import code.gui.SelectionInfo;
 
-public class ChangedPageEvent extends ListSelection {
+public class ChangedPageEvent implements ListSelection {
 
     private Paginator paginator;
 

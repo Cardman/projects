@@ -3,7 +3,7 @@ import cards.gui.panels.ViewablePanelTricksHands;
 import code.gui.ListSelection;
 import code.gui.SelectionInfo;
 
-public class ListenerCards extends ListSelection {
+public class ListenerCards implements ListSelection {
 
     private ViewablePanelTricksHands panel;
 

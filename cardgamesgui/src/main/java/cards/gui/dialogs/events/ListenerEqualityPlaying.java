@@ -3,7 +3,7 @@ import cards.gui.dialogs.DialogPresident;
 import code.gui.ListSelection;
 import code.gui.SelectionInfo;
 
-public class ListenerEqualityPlaying extends ListSelection {
+public class ListenerEqualityPlaying implements ListSelection {
 
     private DialogPresident dialog;
 

@@ -3,7 +3,7 @@ import cards.gui.dialogs.DialogTarot;
 import code.gui.ListSelection;
 import code.gui.SelectionInfo;
 
-public class ListenerHandfulName extends ListSelection {
+public class ListenerHandfulName implements ListSelection {
 
     private DialogTarot dialog;
 

@@ -5,7 +5,7 @@ import code.gui.ListSelection;
 import code.gui.SelectionInfo;
 import code.util.StringList;
 
-public class ListenerClickCardsList extends ListSelection {
+public class ListenerClickCardsList implements ListSelection {
 
     private String formatMessage;
 

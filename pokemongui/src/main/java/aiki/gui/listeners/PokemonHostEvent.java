@@ -3,7 +3,7 @@ import aiki.gui.components.walk.ScenePanel;
 import code.gui.ListSelection;
 import code.gui.SelectionInfo;
 
-public class PokemonHostEvent extends ListSelection {
+public class PokemonHostEvent implements ListSelection {
 
     private ScenePanel window;
 

@@ -45,6 +45,7 @@ public final class SimpleSelectEltListStruct extends MouseAdapter implements Ind
         if (sel_) {
             grList.addRange();
         }
+        SelectionStructUtil.selectEvent(index,index,grList,false);
     }
 
     private void invoke(GuiContextEl _r, String _typeName, String _methName, StringList _argTypes, CustList<Argument> _args) {

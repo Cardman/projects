@@ -11,7 +11,10 @@ import code.expressionlanguage.opers.util.MethodModifier;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.EnumerableStruct;
 import code.expressionlanguage.structs.FieldableStruct;
+import code.expressionlanguage.structs.IntStruct;
 import code.expressionlanguage.structs.Struct;
+import code.gui.ListSelection;
+import code.gui.SelectionInfo;
 import code.util.CustList;
 import code.util.ObjectMap;
 import code.util.StringList;
@@ -19,7 +22,7 @@ import code.util.StringList;
 import java.awt.event.*;
 
 public final class EventStruct implements FieldableStruct,EnumerableStruct,
-        ActionListener,Runnable,MouseListener,WindowListener {
+        ActionListener,Runnable,MouseListener,WindowListener,ListSelection {
 
     private final String className;
 
@@ -234,6 +237,15 @@ public final class EventStruct implements FieldableStruct,EnumerableStruct,
         invoke(r_,actList_,actPerf_,new StringList(actEv_),args_);
     }
 
+    @Override
+    public void valueChanged(SelectionInfo _e) {
+        String ind_ = original.getStandards().getAliasPrimInteger();
+        GuiContextEl r_ = newCtx();
+        CustList<Argument> args_ = new CustList<Argument>(new Argument(new IntStruct(_e.getFirstIndex())),new Argument(new IntStruct(_e.getLastIndex())));
+        String actPerf_ = ((LgNamesGui) original.getStandards()).getAliasValueChanged();
+        String actList_ = ((LgNamesGui) original.getStandards()).getAliasListSelection();
+        invoke(r_,actList_,actPerf_,new StringList(ind_,ind_),args_);
+    }
     private void invoke(GuiContextEl _r, String _typeName,String _methName, StringList _argTypes, CustList<Argument> _args) {
         MethodId id_ = new MethodId(MethodModifier.ABSTRACT, _methName, _argTypes);
         GeneType type_ = _r.getClassBody(_typeName);
@@ -260,4 +272,5 @@ public final class EventStruct implements FieldableStruct,EnumerableStruct,
         r_.getCustInit().putNewCustTreadIdDate(thread_, dtPart_.toString());
         return r_;
     }
+
 }

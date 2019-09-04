@@ -3,7 +3,7 @@ import cards.gui.containers.ContainerMulti;
 import code.gui.ListSelection;
 import code.gui.SelectionInfo;
 
-public class ChangePlaceEvent extends ListSelection {
+public class ChangePlaceEvent implements ListSelection {
 
     private ContainerMulti container;
 

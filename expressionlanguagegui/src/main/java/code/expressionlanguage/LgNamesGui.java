@@ -41,6 +41,9 @@ public class LgNamesGui extends LgNamesUtils {
     private String aliasWindowActivated;
     private String aliasWindowDeactivated;
     private String aliasWindowEvent;
+    private String aliasListSelection;
+    private String aliasValueChanged;
+
     private String aliasFrame;
     private String aliasPanel;
     private String aliasPanelFlow;
@@ -129,8 +132,9 @@ public class LgNamesGui extends LgNamesUtils {
     private String aliasGrListGetPanel;
     private String aliasGrListGetRender;
     private String aliasGrListSetRender;
+    private String aliasGrListGetSelection;
+    private String aliasGrListSetSelection;
 
-    private String aliasPrList;
     public void buildOther() {
         super.buildOther();
         StringMap<StandardField> fields_;
@@ -529,6 +533,12 @@ public class LgNamesGui extends LgNamesUtils {
         methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasRender);
         method_ = new StandardMethod(aliasGrListSetRender, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasGrListGetSelection, params_, aliasListSelection, false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasListSelection);
+        method_ = new StandardMethod(aliasGrListSetSelection, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(getAliasPrimInteger(),getAliasObject());
         method_ = new StandardMethod(aliasGrListAdd, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
@@ -1169,6 +1179,15 @@ public class LgNamesGui extends LgNamesUtils {
                 res_.setResult(inst_.getPanel());
                 return res_;
             }
+            if (StringList.quickEq(name_, aliasGrListSetSelection)) {
+                inst_.setListener(_args[0]);
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasGrListGetSelection)) {
+                res_.setResult(inst_.getListener());
+                return res_;
+            }
             if (StringList.quickEq(name_, aliasGrListSetRender)) {
                 inst_.setRender(_args[0]);
                 res_.setResult(NullStruct.NULL_VALUE);
@@ -1307,6 +1326,21 @@ public class LgNamesGui extends LgNamesUtils {
         getPredefinedClasses().add(aliasWindowListener);
         stds_.put(aliasWindowListener, content_);
         getPredefinedInterfacesInitOrder().add(aliasWindowListener);
+        content_ = ResourceFiles.ressourceFichier("resources_lg_gui/list_event.txt");
+        map_ = new StringMap<String>();
+        map_.put("{public}", public_);
+        map_.put("{interface}", interface_);
+        map_.put("{ListSelection}", aliasListSelection);
+        map_.put("{valueChanged}", aliasValueChanged);
+        map_.put("{int}", getAliasPrimInteger());
+        map_.put("{void}", getAliasVoid());
+        map_.put("{e}", tr("e",_context));
+        map_.put("{f}", tr("f",_context));
+        map_.put("{endLine}", endLine_);
+        content_ = StringList.formatQuote(content_, map_);
+        getPredefinedClasses().add(aliasListSelection);
+        stds_.put(aliasListSelection, content_);
+        getPredefinedInterfacesInitOrder().add(aliasListSelection);
         String suffix_ = String.valueOf(_context.getOptions().getSuffix());
         String suffixLocal_ = "";
         if (_context.getOptions().getSuffixVar() == VariableSuffix.DISTINCT) {
@@ -2142,6 +2176,22 @@ public class LgNamesGui extends LgNamesUtils {
         this.aliasWindowEvent = aliasWindowEvent;
     }
 
+    public String getAliasListSelection() {
+        return aliasListSelection;
+    }
+
+    public void setAliasListSelection(String aliasListSelection) {
+        this.aliasListSelection = aliasListSelection;
+    }
+
+    public String getAliasValueChanged() {
+        return aliasValueChanged;
+    }
+
+    public void setAliasValueChanged(String aliasValueChanged) {
+        this.aliasValueChanged = aliasValueChanged;
+    }
+
     public String getAliasRender() {
         return aliasRender;
     }
@@ -2270,6 +2320,22 @@ public class LgNamesGui extends LgNamesUtils {
         this.aliasGrListSetRender = aliasGrListSetRender;
     }
 
+    public String getAliasGrListGetSelection() {
+        return aliasGrListGetSelection;
+    }
+
+    public void setAliasGrListGetSelection(String aliasGrListGetSelection) {
+        this.aliasGrListGetSelection = aliasGrListGetSelection;
+    }
+
+    public String getAliasGrListSetSelection() {
+        return aliasGrListSetSelection;
+    }
+
+    public void setAliasGrListSetSelection(String aliasGrListSetSelection) {
+        this.aliasGrListSetSelection = aliasGrListSetSelection;
+    }
+
     public String getAliasGrListGetPanel() {
         return aliasGrListGetPanel;
     }
@@ -2303,6 +2369,8 @@ public class LgNamesGui extends LgNamesUtils {
             setAliasWindowClosed("closed");
             setAliasWindowClosing("closing");
             setAliasAddWindowListener("addWindowListener");
+            setAliasListSelection("$core.ListSelection");
+            setAliasValueChanged("valueChanged");
             setAliasFrame("$core.Frame");
             setAliasPanel("$core.Panel");
             setAliasPanelBorder("$core.PanelBorder");
@@ -2390,6 +2458,8 @@ public class LgNamesGui extends LgNamesUtils {
             setAliasGrListGetPanel("getPanel");
             setAliasGrListGetRender("getRender");
             setAliasGrListSetRender("setRender");
+            setAliasGrListGetSelection("getSelection");
+            setAliasGrListSetSelection("setSelection");
         } else {
             setAliasActionEvent("$coeur.ActionEvt");
             setAliasActionListener("$coeur.ActionEcouteur");
@@ -2413,6 +2483,8 @@ public class LgNamesGui extends LgNamesUtils {
             setAliasWindowClosed("ferme");
             setAliasWindowClosing("fermeture");
             setAliasAddWindowListener("ajFenetreEcout");
+            setAliasListSelection("$coeur.SelectionListe");
+            setAliasValueChanged("changement");
             setAliasFrame("$coeur.Fenetre");
             setAliasPanel("$coeur.Panneau");
             setAliasPanelBorder("$coeur.PanneauBordure");
@@ -2500,6 +2572,8 @@ public class LgNamesGui extends LgNamesUtils {
             setAliasGrListGetPanel("valPanneau");
             setAliasGrListGetRender("valRendu");
             setAliasGrListSetRender("majRendu");
+            setAliasGrListGetSelection("valSelection");
+            setAliasGrListSetSelection("majSelection");
         }
     }
     @Override

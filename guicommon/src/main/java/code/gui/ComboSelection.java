@@ -1,6 +1,6 @@
 package code.gui;
 
-public final class ComboSelection extends ListSelection {
+public final class ComboSelection implements ListSelection {
 
     private PopupMenu popup;
 
