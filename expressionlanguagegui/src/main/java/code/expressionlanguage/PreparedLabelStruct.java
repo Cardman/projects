@@ -30,6 +30,11 @@ public final class PreparedLabelStruct extends CustComponentStruct {
             textLabel.addMouseListener((MouseListener) _mouseListener);
         }
     }
+    public void addMouseListener(MouseListener _mouseListener) {
+        if (_mouseListener != null) {
+            textLabel.addMouseListener(_mouseListener);
+        }
+    }
     @Override
     protected CustComponent getComponent() {
         return textLabel;

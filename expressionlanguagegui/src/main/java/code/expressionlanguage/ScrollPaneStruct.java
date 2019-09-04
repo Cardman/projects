@@ -39,7 +39,9 @@ public final class ScrollPaneStruct extends CustComponentStruct {
         view = c_;
         scrollPane.setViewportView(c_.getComponent());
     }
-
+    public void revalidate() {
+        scrollPane.revalidate();
+    }
     public Struct getView() {
         return view;
     }
