@@ -1,8 +1,6 @@
 package minirts;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Point;
+import java.awt.*;
 import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelListener;
 import java.awt.image.BufferedImage;
@@ -82,7 +80,9 @@ public class PanelBattle {
                 continue;
             }
             BufferedImage img_ = new BufferedImage(w_, h_, BufferedImage.TYPE_INT_ARGB);
-            u_.paintComponent(new CustGraphics(img_.getGraphics()));
+            Graphics gr_ = img_.getGraphics();
+            gr_.setFont(u_.getFont());
+            u_.paintComponent(new CustGraphics(gr_));
             u_.setIcon(new ImageIcon(img_));
         }
         paintSelection();
@@ -93,7 +93,9 @@ public class PanelBattle {
             int w_ = selecting.getWidth();
             int h_ = selecting.getHeight();
             BufferedImage img_ = new BufferedImage(w_, h_, BufferedImage.TYPE_INT_ARGB);
-            selecting.paintComponent(new CustGraphics(img_.getGraphics()));
+            Graphics gr_ = img_.getGraphics();
+            gr_.setFont(selecting.getFont());
+            selecting.paintComponent(new CustGraphics(gr_));
             selecting.setIcon(new ImageIcon(img_));
         }
     }

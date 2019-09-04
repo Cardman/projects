@@ -749,15 +749,16 @@ public class FrontBattle extends PaintableLabel {
                 width_ = strWidth_;
             }
             image = new BufferedImage(width_, hMax_, BufferedImage.TYPE_INT_ARGB);
-            image.getGraphics().setColor(Color.WHITE);
-            image.getGraphics().fillRect(0, 0, width_, hMax_);
+            Graphics gr_ = image.getGraphics();
+            gr_.setColor(Color.WHITE);
+            gr_.fillRect(0, 0, width_, hMax_);
             int x_ = 0;
             for (BufferedImage i: types_.values()) {
-                image.getGraphics().drawImage(i, x_, 0, null);
+                gr_.drawImage(i, x_, 0, null);
                 x_ += i.getWidth();
             }
-            image.getGraphics().setColor(new Color(Color.BLACK.getRed(), Color.BLACK.getGreen(), Color.BLACK.getBlue(), 255));
-            image.getGraphics().drawString(damage, 0, hMax_);
+            gr_.setColor(new Color(Color.BLACK.getRed(), Color.BLACK.getGreen(), Color.BLACK.getBlue(), 255));
+            gr_.drawString(damage, 0, hMax_);
         } else if (_animation instanceof AnimationEffectStatistic) {
             AnimationEffectStatistic statis_ = (AnimationEffectStatistic) _animation;
             CustList<BufferedImage> types_ = new CustList<BufferedImage>();
