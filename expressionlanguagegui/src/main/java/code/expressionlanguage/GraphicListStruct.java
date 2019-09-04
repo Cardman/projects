@@ -64,6 +64,11 @@ public class GraphicListStruct extends CustComponentStruct {
             img_.addMouseListener(i_);
             indexableMouse.add(i_);
             reindex(indexableMouse);
+        } else {
+            MultSelectEltListStruct j_ = new MultSelectEltListStruct(_ctx, this, _index);
+            img_.addMouseListener(j_);
+            indexableMouse.add(j_);
+            reindex(indexableMouse);
         }
 //            MultSelectKeyEltList i_ = new MultSelectKeyEltList(this, _index);
 //            lab_.addKeyListener(i_);
@@ -93,6 +98,10 @@ public class GraphicListStruct extends CustComponentStruct {
             SimpleSelectEltListStruct i_ = new SimpleSelectEltListStruct(_ctx, this, _index);
             img_.addMouseListener(i_);
             indexableMouse.set(_index,i_);
+        } else {
+            MultSelectEltListStruct j_ = new MultSelectEltListStruct(_ctx, this, _index);
+            img_.addMouseListener(j_);
+            indexableMouse.add(j_);
         }
     }
     public ArrayStruct getListView(ContextEl _ctx) {
@@ -117,6 +126,10 @@ public class GraphicListStruct extends CustComponentStruct {
             }
             selectedIndexes = selectedIndexes_;
         }
+    }
+
+    public void clearSelection() {
+        selectedIndexes.clear();
     }
 
     public ArrayStruct getSelectedIndexes(ContextEl _ctx) {

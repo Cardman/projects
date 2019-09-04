@@ -1,5 +1,6 @@
 package code.gui;
 
+import java.awt.*;
 import java.awt.image.BufferedImage;
 
 import javax.swing.ImageIcon;
@@ -14,7 +15,9 @@ public abstract class CustCellRender {
     }
     public void paintComponent(PreparedLabel _component) {
         BufferedImage buff_ = new BufferedImage(getWidth(),getHeight(),BufferedImage.TYPE_INT_RGB);
-        paintComponent(new CustGraphics(buff_.getGraphics()));
+        Graphics gr_ = buff_.getGraphics();
+        gr_.setFont(_component.getFont());
+        paintComponent(new CustGraphics(gr_));
         _component.setIcon(new ImageIcon(buff_));
     }
 }

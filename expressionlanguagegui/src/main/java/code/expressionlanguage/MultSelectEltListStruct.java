@@ -10,26 +10,52 @@ import code.util.StringList;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public final class SimpleSelectEltListStruct extends MouseAdapter implements IndexableListener {
+public final class MultSelectEltListStruct extends MouseAdapter implements IndexableListener {
     private ContextEl original;
     private GraphicListStruct grList;
 
     private int index;
 
-    public SimpleSelectEltListStruct(ContextEl _contextEl, GraphicListStruct _graphicList, int _index) {
+    public MultSelectEltListStruct(ContextEl _contextEl, GraphicListStruct _graphicList, int _index) {
         original = _contextEl;
         grList = _graphicList;
         index = _index;
     }
 
+
     @Override
     public void mouseReleased(MouseEvent _e) {
-        grList.setFirstIndex(index);
-        grList.setLastIndex(index);
         boolean sel_ = !_e.isPopupTrigger();
-        grList.getSelectedIndexes().clear();
-        if (sel_) {
-            grList.getSelectedIndexes().add(index);
+        if (!_e.isShiftDown()) {
+            grList.setFirstIndex(index);
+            grList.setLastIndex(index);
+            if (!sel_) {
+                grList.getSelectedIndexes().removeObj(index);
+            } else {
+                grList.getSelectedIndexes().add(index);
+                grList.getSelectedIndexes().removeDuplicates();
+            }
+            GuiContextEl ctx_ = newCtx();
+            LgNamesGui stds_ = (LgNamesGui) original.getStandards();
+            StringList types_ = new StringList(stds_.getAliasGrList());
+            CustList<Argument> args_ = new CustList<Argument>();
+            args_.add(new Argument(grList));
+            invoke(ctx_,stds_.getAliasPaint(),stds_.getAliasPaintRefresh(), types_, args_);
+            SelectionStructUtil.selectEvent(index,index,grList,false);
+            return;
+        }
+        grList.setLastIndex(index);
+        int min_ = Math.min(grList.getFirstIndex(), grList.getLastIndex());
+        int max_ = Math.max(grList.getFirstIndex(), grList.getLastIndex());
+        if (!sel_) {
+            for (int i = min_; i <= max_; i++) {
+                grList.getSelectedIndexes().removeObj(i);
+            }
+        } else {
+            for (int i = min_; i <= max_; i++) {
+                grList.getSelectedIndexes().add(i);
+            }
+            grList.getSelectedIndexes().removeDuplicates();
         }
         GuiContextEl ctx_ = newCtx();
         LgNamesGui stds_ = (LgNamesGui) original.getStandards();
@@ -37,9 +63,8 @@ public final class SimpleSelectEltListStruct extends MouseAdapter implements Ind
         CustList<Argument> args_ = new CustList<Argument>();
         args_.add(new Argument(grList));
         invoke(ctx_,stds_.getAliasPaint(),stds_.getAliasPaintRefresh(), types_, args_);
-        SelectionStructUtil.selectEvent(index,index,grList,false);
+        SelectionStructUtil.selectEvent(min_,max_,grList,false);
     }
-
     private void invoke(GuiContextEl _r, String _typeName, String _methName, StringList _argTypes, CustList<Argument> _args) {
         ClassMethodId mId_ = new ClassMethodId(_typeName,new MethodId(true,_methName,_argTypes));
         Argument arg_ = new Argument();

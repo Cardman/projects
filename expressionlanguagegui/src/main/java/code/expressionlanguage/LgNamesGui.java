@@ -68,7 +68,6 @@ public class LgNamesGui extends LgNamesUtils {
     private String aliasImageGetWidth;
     private String aliasImageGetHeight;
     private String aliasImageGet;
-    private String aliasImageGetGraphics;
     private String aliasImageSet;
     private String aliasImageIsWithAlpha;
     private String aliasImageGetColor;
@@ -128,8 +127,8 @@ public class LgNamesGui extends LgNamesUtils {
     private String aliasGrListGetListView;
     private String aliasGrListGetSelectedIndexes;
     private String aliasGrListSetSelectedIndexes;
+    private String aliasGrListClearSelection;
     private String aliasGrListUpdateGraphics;
-    private String aliasGrListGetPanel;
     private String aliasGrListGetRender;
     private String aliasGrListSetRender;
     private String aliasGrListGetSelection;
@@ -526,9 +525,6 @@ public class LgNamesGui extends LgNamesUtils {
         fields_ = new StringMap<StandardField>();
         stdcl_ = new StandardClass(aliasGrList, fields_, constructors_, methods_, aliasComponent, MethodModifier.FINAL);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasGrListGetPanel, params_, aliasPanel, false, MethodModifier.FINAL, stdcl_);
-        methods_.put(method_.getId(), method_);
-        params_ = new StringList();
         method_ = new StandardMethod(aliasGrListGetRender, params_, aliasRender, false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasRender);
@@ -557,6 +553,9 @@ public class LgNamesGui extends LgNamesUtils {
         methods_.put(method_.getId(), method_);
         params_ = new StringList(getAliasPrimInteger());
         method_ = new StandardMethod(aliasGrListSetSelectedIndexes, params_, getAliasVoid(), true, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasGrListClearSelection, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasGrListUpdateGraphics, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
@@ -1175,10 +1174,6 @@ public class LgNamesGui extends LgNamesUtils {
         }
         if (StringList.quickEq(type_, aliasGrList)) {
             GraphicListStruct inst_ = (GraphicListStruct) _instance;
-            if (StringList.quickEq(name_, aliasGrListGetPanel)) {
-                res_.setResult(inst_.getPanel());
-                return res_;
-            }
             if (StringList.quickEq(name_, aliasGrListSetSelection)) {
                 inst_.setListener(_args[0]);
                 res_.setResult(NullStruct.NULL_VALUE);
@@ -1216,6 +1211,18 @@ public class LgNamesGui extends LgNamesUtils {
                     CustList<Argument> args_ = new CustList<Argument>(arg_);
                     _cont.setCallingState(new CustomFoundMethod(Argument.createVoid(),className_,ct_, args_,null));
                 }
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasGrListClearSelection)) {
+                inst_.clearSelection();
+                StringList params_ = new StringList(aliasGrList);
+                ClassMethodId polymorph_ = new ClassMethodId(aliasPaint,new MethodId(true,aliasPaintRefresh, params_));
+                String className_ = polymorph_.getClassName();
+                MethodId ct_ = polymorph_.getConstraints();
+                Argument arg_ = new Argument(inst_);
+                CustList<Argument> args_ = new CustList<Argument>(arg_);
+                _cont.setCallingState(new CustomFoundMethod(Argument.createVoid(),className_,ct_, args_,null));
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
@@ -1413,7 +1420,6 @@ public class LgNamesGui extends LgNamesUtils {
         map_.put("{img}", tr("img",_context));
         map_.put("{endLine}", endLine_);
         map_.put("{suffix}", suffix_);
-        map_.put("{getPanel}",aliasGrListGetPanel);
         map_.put("{getRender}",aliasGrListGetRender);
         map_.put("{getHeight}",aliasRenderGetHeight);
         map_.put("{getWidth}",aliasRenderGetWidth);
@@ -1622,14 +1628,6 @@ public class LgNamesGui extends LgNamesUtils {
 
     public void setAliasImageGet(String aliasImageGet) {
         this.aliasImageGet = aliasImageGet;
-    }
-
-    public String getAliasImageGetGraphics() {
-        return aliasImageGetGraphics;
-    }
-
-    public void setAliasImageGetGraphics(String aliasImageGetGraphics) {
-        this.aliasImageGetGraphics = aliasImageGetGraphics;
     }
 
     public String getAliasImageSet() {
@@ -2296,6 +2294,14 @@ public class LgNamesGui extends LgNamesUtils {
         this.aliasGrListSetSelectedIndexes = aliasGrListSetSelectedIndexes;
     }
 
+    public String getAliasGrListClearSelection() {
+        return aliasGrListClearSelection;
+    }
+
+    public void setAliasGrListClearSelection(String aliasGrListClearSelection) {
+        this.aliasGrListClearSelection = aliasGrListClearSelection;
+    }
+
     public String getAliasGrListUpdateGraphics() {
         return aliasGrListUpdateGraphics;
     }
@@ -2334,14 +2340,6 @@ public class LgNamesGui extends LgNamesUtils {
 
     public void setAliasGrListSetSelection(String aliasGrListSetSelection) {
         this.aliasGrListSetSelection = aliasGrListSetSelection;
-    }
-
-    public String getAliasGrListGetPanel() {
-        return aliasGrListGetPanel;
-    }
-
-    public void setAliasGrListGetPanel(String aliasGrListGetPanel) {
-        this.aliasGrListGetPanel = aliasGrListGetPanel;
     }
 
     public void otherAlias(String _lang) {
@@ -2414,7 +2412,6 @@ public class LgNamesGui extends LgNamesUtils {
             setAliasImage("$core.Image");
             setAliasImageGet("get");
             setAliasImageSet("set");
-            setAliasImageGetGraphics("getGraphics");
             setAliasImageGetHeight("h");
             setAliasImageGetWidth("w");
             setAliasImageIsWithAlpha("alpha");
@@ -2454,8 +2451,8 @@ public class LgNamesGui extends LgNamesUtils {
             setAliasGrListGetListView("getView");
             setAliasGrListGetSelectedIndexes("getSelectedIndexes");
             setAliasGrListSetSelectedIndexes("setSelectedIndexes");
+            setAliasGrListClearSelection("clearSelection");
             setAliasGrListUpdateGraphics("updateGraphics");
-            setAliasGrListGetPanel("getPanel");
             setAliasGrListGetRender("getRender");
             setAliasGrListSetRender("setRender");
             setAliasGrListGetSelection("getSelection");
@@ -2528,7 +2525,6 @@ public class LgNamesGui extends LgNamesUtils {
             setAliasImage("$coeur.Image");
             setAliasImageGet("val");
             setAliasImageSet("maj");
-            setAliasImageGetGraphics("valGraphiques");
             setAliasImageGetHeight("h");
             setAliasImageGetWidth("l");
             setAliasImageIsWithAlpha("alpha");
@@ -2568,8 +2564,8 @@ public class LgNamesGui extends LgNamesUtils {
             setAliasGrListGetListView("valVue");
             setAliasGrListGetSelectedIndexes("valIndicesSelection");
             setAliasGrListSetSelectedIndexes("majIndicesSelection");
+            setAliasGrListClearSelection("supprimerSelection");
             setAliasGrListUpdateGraphics("majGraphiques");
-            setAliasGrListGetPanel("valPanneau");
             setAliasGrListGetRender("valRendu");
             setAliasGrListSetRender("majRendu");
             setAliasGrListGetSelection("valSelection");
