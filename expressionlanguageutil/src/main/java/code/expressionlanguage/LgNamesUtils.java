@@ -32,6 +32,7 @@ public class LgNamesUtils extends LgNames {
 
     private String aliasRunnable;
     private String aliasThread;
+    private String aliasThreadExitHook;
     private String aliasCurrentThread;
     private String aliasStart;
     private String aliasJoin;
@@ -511,6 +512,9 @@ public class LgNamesUtils extends LgNames {
         params_ = new StringList(getAliasString(),getAliasObject());
         method_ = new StandardMethod(aliasPrint, params_, getAliasVoid(), true, MethodModifier.STATIC, stdcl_);
         methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasThread);
+        method_ = new StandardMethod(aliasThreadExitHook, params_, getAliasVoid(), false, MethodModifier.STATIC, stdcl_);
+        methods_.put(method_.getId(), method_);
         StandardConstructor ctor_;
         params_ = new StringList(aliasRunnable);
         ctor_ = new StandardConstructor(params_,false,stdcl_);
@@ -810,6 +814,21 @@ public class LgNamesUtils extends LgNames {
                 res_.setResult(std_);
                 return res_;
             }
+            if (StringList.quickEq(name_,aliasThreadExitHook)) {
+                if (_cont.isInitEnums()) {
+                    _cont.failInitEnums();
+                    res_.setResult(NullStruct.NULL_VALUE);
+                    return res_;
+                }
+                if (!(_args[0] instanceof StdStruct)) {
+                    res_.setResult(NullStruct.NULL_VALUE);
+                    return res_;
+                }
+                StdStruct a_ = (StdStruct) _args[0];
+                Runtime.getRuntime().addShutdownHook((Thread)a_.getInstance());
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
             if (StringList.quickEq(name_,aliasJoinOthers)) {
                 if (_cont.isInitEnums()) {
                     _cont.failInitEnums();
@@ -1102,6 +1121,15 @@ public class LgNamesUtils extends LgNames {
     public void setAliasThread(String _aliasThread) {
         aliasThread = _aliasThread;
     }
+
+    public String getAliasThreadExitHook() {
+        return aliasThreadExitHook;
+    }
+
+    public void setAliasThreadExitHook(String aliasThreadExitHook) {
+        this.aliasThreadExitHook = aliasThreadExitHook;
+    }
+
     public String getAliasStart() {
         return aliasStart;
     }
@@ -1907,6 +1935,7 @@ public class LgNamesUtils extends LgNames {
             setAliasRunnable("$core.Runnable");
             setAliasRun("run");
             setAliasThread("$core.Thread");
+            setAliasThreadExitHook("exitHook");
             setAliasStart("start");
             setAliasCurrentThread("currentThread");
             setAliasJoin("join");
@@ -2015,6 +2044,7 @@ public class LgNamesUtils extends LgNames {
             setAliasRunnable("$coeur.Executable");
             setAliasRun("executer");
             setAliasThread("$coeur.Tache");
+            setAliasThreadExitHook("sortieIntercept");
             setAliasStart("demarrer");
             setAliasCurrentThread("tacheCourante");
             setAliasJoin("attendre");
