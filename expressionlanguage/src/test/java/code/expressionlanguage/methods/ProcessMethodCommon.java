@@ -5,10 +5,14 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.InitializationLgNames;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.MethodId;
+import code.expressionlanguage.options.ContextFactory;
+import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
+import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.variables.VariableSuffix;
 import code.util.CustList;
 import code.util.StringList;
+import code.util.StringMap;
 
 public abstract class ProcessMethodCommon {
 
@@ -22,6 +26,9 @@ public abstract class ProcessMethodCommon {
     protected static final String STRING = "java.lang.String";
     protected static final String BOOLEAN = "java.lang.Boolean";
 
+    protected static void validate(KeyWords _definedKw, LgNames _definedLgNames, StringMap<String> _files, ContextEl _contextEl) {
+        ContextFactory.validate(_definedKw,_definedLgNames,_files,_contextEl,"src");
+    }
     protected static Argument calculateArgument(String _class, MethodId _method, CustList<Argument> _args, ContextEl _cont) {
         MethodId fct_ = new MethodId(_method.isStaticMethod(), _method.getName(),_method.getParametersTypes());
         OverridableBlock method_ = Classes.getMethodBodiesById(_cont, _class, fct_).first();

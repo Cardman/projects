@@ -35,7 +35,7 @@ public final class GuiContextFactory {
             return null;
         }
         r_.setCovering(_exec.isCovering());
-        ContextFactory.validate(_definedKw,_definedLgNames,_files,r_);
+        ContextFactory.validate(_definedKw,_definedLgNames,_files,r_,_exec.getSrcFolder());
         return r_;
     }
 }

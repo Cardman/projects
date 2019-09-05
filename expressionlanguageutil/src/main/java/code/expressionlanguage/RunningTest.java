@@ -4,6 +4,7 @@ import code.expressionlanguage.options.Options;
 import code.stream.StreamTextFile;
 import code.stream.StreamZipFile;
 import code.util.EntryCust;
+import code.util.Numbers;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -114,6 +115,23 @@ public final class RunningTest implements Runnable {
                 String output_ = l.substring("cover=".length());
                 if (!output_.isEmpty()) {
                     _exec.setCoverFolder(output_);
+                }
+            }
+            if (l.startsWith("src=")) {
+                _exec.setCovering(true);
+                String output_ = l.substring("src=".length());
+                if (!output_.isEmpty()) {
+                    if (output_.endsWith("/")) {
+                        output_ = output_.substring(0,output_.length()-1);
+                    }
+                    _exec.setSrcFolder(output_);
+                }
+            }
+            if (l.startsWith("tabWidth=")) {
+                String output_ = l.substring("tabWidth=".length());
+                int t_ = Numbers.parseInt(output_);
+                if (t_ > 0) {
+                    _exec.setTabWidth(t_);
                 }
             }
             if (l.startsWith("invokeDirect=")) {

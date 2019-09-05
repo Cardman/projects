@@ -100,6 +100,7 @@ public class LgNamesGui extends LgNamesUtils {
     private String aliasGetParentCompo;
     private String aliasGetNextCompo;
     private String aliasGetIndexCompo;
+    private String aliasRemoveAll;
     private String aliasAddListener;
     private String aliasAddWindowListener;
     private String aliasSetLabelText;
@@ -129,6 +130,8 @@ public class LgNamesGui extends LgNamesUtils {
     private String aliasGrListGetSelectedIndexes;
     private String aliasGrListSetSelectedIndexes;
     private String aliasGrListClearSelection;
+    private String aliasGrListClear;
+    private String aliasGrListRemove;
     private String aliasGrListUpdateGraphics;
     private String aliasGrListGetRender;
     private String aliasGrListSetRender;
@@ -139,7 +142,6 @@ public class LgNamesGui extends LgNamesUtils {
     private String aliasComboGetSelectedItem;
     private String aliasComboAddItem;
     private String aliasComboGetItemCount;
-    private String aliasComboPopup;
     private String aliasComboSelectItem;
     private String aliasComboSetListener;
     private String aliasComboGetListener;
@@ -278,6 +280,9 @@ public class LgNamesGui extends LgNamesUtils {
         methods_.put(method_.getId(), method_);
         params_ = new StringList(getAliasPrimInteger(),getAliasPrimInteger());
         method_ = new StandardMethod(aliasPanelGrid, params_, aliasPanel, false, MethodModifier.STATIC, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasRemoveAll, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
         ctor_ = new StandardConstructor(params_,false,stdcl_);
@@ -573,6 +578,12 @@ public class LgNamesGui extends LgNamesUtils {
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasGrListUpdateGraphics, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasPrimInteger());
+        method_ = new StandardMethod(aliasGrListRemove, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasGrListClear, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(getAliasPrimBoolean());
         ctor_ = new StandardConstructor(params_,false,stdcl_);
@@ -943,6 +954,11 @@ public class LgNamesGui extends LgNamesUtils {
                 res_.setResult(new IntStruct(strPan_.getComponentCount()));
                 return res_;
             }
+            if (StringList.quickEq(name_, aliasRemoveAll)) {
+                strPan_.removeAll();
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
             if (StringList.quickEq(name_, aliasAddCompo)) {
                 if (!(_args[0] instanceof CustComponentStruct)) {
                     res_.setResult(NullStruct.NULL_VALUE);
@@ -1276,6 +1292,16 @@ public class LgNamesGui extends LgNamesUtils {
             }
             if (StringList.quickEq(name_, aliasGrListGetSelectedIndexes)) {
                 res_.setResult(inst_.getSelectedIndexes(_cont));
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasGrListRemove)){
+                inst_.remove(((NumberStruct)_args[0]).intStruct());
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasGrListClear)){
+                inst_.clear();
+                res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
             if (StringList.quickEq(name_, aliasGrListSetSelectedIndexes)) {
@@ -1953,6 +1979,14 @@ public class LgNamesGui extends LgNamesUtils {
         this.aliasAddCompo = aliasAddCompo;
     }
 
+    public String getAliasRemoveAll() {
+        return aliasRemoveAll;
+    }
+
+    public void setAliasRemoveAll(String _aliasRemoveAll) {
+        aliasRemoveAll = _aliasRemoveAll;
+    }
+
     public String getAliasGetParentCompo() {
         return aliasGetParentCompo;
     }
@@ -2465,6 +2499,22 @@ public class LgNamesGui extends LgNamesUtils {
         this.aliasGrListSetSelection = aliasGrListSetSelection;
     }
 
+    public String getAliasGrListClear() {
+        return aliasGrListClear;
+    }
+
+    public void setAliasGrListClear(String aliasGrListClear) {
+        this.aliasGrListClear = aliasGrListClear;
+    }
+
+    public String getAliasGrListRemove() {
+        return aliasGrListRemove;
+    }
+
+    public void setAliasGrListRemove(String aliasGrListRemove) {
+        this.aliasGrListRemove = aliasGrListRemove;
+    }
+
     public String getAliasCombo() {
         return aliasCombo;
     }
@@ -2495,14 +2545,6 @@ public class LgNamesGui extends LgNamesUtils {
 
     public void setAliasComboGetItemCount(String aliasComboGetItemCount) {
         this.aliasComboGetItemCount = aliasComboGetItemCount;
-    }
-
-    public String getAliasComboPopup() {
-        return aliasComboPopup;
-    }
-
-    public void setAliasComboPopup(String aliasComboPopup) {
-        this.aliasComboPopup = aliasComboPopup;
     }
 
     public String getAliasComboSelectItem() {
@@ -2591,6 +2633,7 @@ public class LgNamesGui extends LgNamesUtils {
             setAliasComponent("$core.Component");
             setAliasSetContent("setContent");
             setAliasAddCompo("add");
+            setAliasRemoveAll("removeAll");
             setAliasAddListener("addList");
             setAliasSetLabelText("setText");
             setAliasSetLabelImage("setImage");
@@ -2661,6 +2704,8 @@ public class LgNamesGui extends LgNamesUtils {
             setAliasGrListSetRender("setRender");
             setAliasGrListGetSelection("getSelection");
             setAliasGrListSetSelection("setSelection");
+            setAliasGrListClear("clear");
+            setAliasGrListRemove("remove");
             setAliasCombo("$core.ComboBox");
             setAliasComboAddItem("addItem");
             setAliasComboGetItemCount("getItemCount");
@@ -2714,6 +2759,7 @@ public class LgNamesGui extends LgNamesUtils {
             setAliasComponent("$coeur.Composant");
             setAliasSetContent("majContenu");
             setAliasAddCompo("ajout");
+            setAliasRemoveAll("toutSuppr");
             setAliasAddListener("ajEcout");
             setAliasSetLabelText("majTexte");
             setAliasSetLabelImage("majImage");
@@ -2784,6 +2830,8 @@ public class LgNamesGui extends LgNamesUtils {
             setAliasGrListSetRender("majRendu");
             setAliasGrListGetSelection("valSelection");
             setAliasGrListSetSelection("majSelection");
+            setAliasGrListClear("toutSuppr");
+            setAliasGrListRemove("supprimer");
             setAliasCombo("$coeur.ListeDeroulante");
             setAliasComboAddItem("ajout");
             setAliasComboGetItemCount("nb");

@@ -4,6 +4,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 public final class ExecutingOptions {
 
+    private String srcFolder = "src";
     private String logFolder = "logs";
     private String mainThread = "main_thread.txt";
     private int tabWidth = 4;
@@ -11,6 +12,15 @@ public final class ExecutingOptions {
     private boolean covering;
     private String coverFolder = "coverage";
     private boolean invokeDirect;
+
+    public String getSrcFolder() {
+        return srcFolder;
+    }
+
+    public void setSrcFolder(String _srcFolder) {
+        srcFolder = _srcFolder;
+    }
+
     public String getLogFolder() {
         return logFolder;
     }

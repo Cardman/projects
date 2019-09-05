@@ -1409,7 +1409,7 @@ public class LgNamesTest {
         all_.putAllMap(srcFiles_);
         all_.putAllMap(others_);
         ContextEl contextEl_ = new SingleContextEl(-1, lk_, di_, opts_, kw_, lgName_, 4);
-        ContextFactory.validate(kw_,lgName_,all_,contextEl_);
+        ContextFactory.validate(kw_,lgName_,all_,contextEl_,"src");
         assertTrue(contextEl_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId fct_ = new MethodId(true, "exmeth",new StringList());
@@ -1438,7 +1438,7 @@ public class LgNamesTest {
         StringMap<String> all_ = new StringMap<String>();
         all_.putAllMap(srcFiles_);
         all_.putAllMap(others_);
-        ContextEl contextEl_ =ContextFactory.build(-1, lk_, di_, opts_, kw_, lgName_, all_,4);
+        ContextEl contextEl_ =ContextFactory.build(-1, lk_, di_, opts_, kw_, lgName_, all_,4,"src");
         assertTrue(contextEl_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId fct_ = new MethodId(true, "exmeth",new StringList());

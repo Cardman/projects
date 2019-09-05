@@ -153,7 +153,36 @@ public class GraphicListStruct extends CustComponentStruct {
         scroll.revalidate();
         panel.refresh();
     }
+    public void clear() {
+        list.clear();
+        PanelStruct panel_ = getPanel();
+        listComponents.clear();
+        panel_.removeAll();
+        selectedIndexes.clear();
+        indexableKey.clear();
+        indexableMouse.clear();
+    }
+    public void remove(int _index) {
+        if (!list.isValidIndex(_index)) {
+            return;
+        }
+        list.remove(_index);
+        PanelStruct panel_ = getPanel();
+        listComponents.remove(_index);
+        panel_.remove(_index);
+        selectedIndexes.removeObj(_index);
 
+        if (!simple) {
+            indexableKey.remove(_index);
+            indexableMouse.remove(_index);
+            reindex(indexableMouse);
+            reindex(indexableKey);
+        } else {
+            indexableMouse.remove(_index);
+            reindex(indexableMouse);
+        }
+        updateGraphics();
+    }
     public void setListener(Struct _listener) {
         listener = _listener;
     }

@@ -84,6 +84,7 @@ public class LgNamesUtils extends LgNames {
     private String aliasIndexItrTa;
     private String aliasTable;
     private String aliasListTa;
+    private String aliasListClear;
     private String aliasAddTa;
     private String aliasGetTa;
     private String aliasSizeTa;
@@ -244,6 +245,7 @@ public class LgNamesUtils extends LgNames {
         map_.put("{value}", value_);
         map_.put("{remove}", aliasRemoveLi);
         map_.put("{iterator}", getAliasIterator());
+        map_.put("{clear}",aliasListClear);
         map_.put("{endLine}", endLine_);
         content_ = StringList.formatQuote(content_, map_);
         getPredefinedClasses().add(aliasCustIterator);
@@ -1483,6 +1485,14 @@ public class LgNamesUtils extends LgNames {
         this.aliasListTa = aliasListTa;
     }
 
+    public String getAliasListClear() {
+        return aliasListClear;
+    }
+
+    public void setAliasListClear(String _aliasListClear) {
+        aliasListClear = _aliasListClear;
+    }
+
     public String getAliasAddTa() {
         return aliasAddTa;
     }
@@ -1989,6 +1999,7 @@ public class LgNamesUtils extends LgNames {
             setAliasIterTaVarSecond("U");
             setAliasTable("$core.Table");
             setAliasListTa("list");
+            setAliasListClear("clear");
             setAliasAddTa("add");
             setAliasGetTa("get");
             setAliasSizeTa("size");
@@ -2098,6 +2109,7 @@ public class LgNamesUtils extends LgNames {
             setAliasIterTaVarSecond("U");
             setAliasTable("$coeur.Table");
             setAliasListTa("liste");
+            setAliasListClear("toutSuppr");
             setAliasAddTa("ajouter");
             setAliasGetTa("val");
             setAliasSizeTa("taille");

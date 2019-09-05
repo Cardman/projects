@@ -64,6 +64,10 @@
   {this}.{array} = {out}{local}{endLine}
   {lengthLi}--{endLine}
  '}'
+ {public} {void} {clear}()'{'
+  {lengthLi}=0{endLine}
+  {this}.{array}={new} #{E}[0]{endLine}
+ '}'
  {public} {iteratorType}<#{E}> {iterator}()'{'
   {return} {new} {Iter}<#{E}>({this}){endLine}
  '}'

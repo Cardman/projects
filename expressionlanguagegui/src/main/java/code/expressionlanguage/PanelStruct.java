@@ -74,6 +74,14 @@ public class PanelStruct extends CustComponentStruct {
     public void refresh() {
         panel.repaint();
     }
+    public void removeAll() {
+        CustList<CustComponentStruct> ch_ = getChildren();
+        for (CustComponentStruct c: ch_) {
+            c.setNullParentComponent();
+        }
+        ch_.clear();
+        panel.removeAll();
+    }
     public Struct remove(int _index) {
         CustList<CustComponentStruct> ch_ = getChildren();
         if (!ch_.isValidIndex(_index)) {

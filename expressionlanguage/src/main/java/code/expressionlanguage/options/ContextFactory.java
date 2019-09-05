@@ -26,16 +26,17 @@ public final class ContextFactory {
         return build(CustList.INDEX_NOT_FOUND_ELT,_lock, _init, _options, kwl_, _undefinedLgNames, _tabWidth);
     }
     public static ContextEl build(int _stack, DefaultLockingClass _lock,Initializer _init,
-            Options _options,KeyWords _definedKw, LgNames _definedLgNames, StringMap<String> _files, int _tabWidth) {
+            Options _options,KeyWords _definedKw, LgNames _definedLgNames, StringMap<String> _files, int _tabWidth, String _folder) {
         ContextEl contextEl_ = new SingleContextEl(_stack, _lock, _init, _options, _definedKw, _definedLgNames, _tabWidth);
-        return validate(_definedKw, _definedLgNames, _files, contextEl_);
+        return validate(_definedKw, _definedLgNames, _files, contextEl_,_folder);
     }
 
-    public static ContextEl validate(KeyWords _definedKw, LgNames _definedLgNames, StringMap<String> _files, ContextEl _contextEl) {
+    public static ContextEl validate(KeyWords _definedKw, LgNames _definedLgNames, StringMap<String> _files, ContextEl _contextEl, String _folder) {
         validateStds(_contextEl, _definedKw, _definedLgNames);
         StringMap<String> srcFiles_ = new StringMap<String>();
+        String pref_ = StringList.concat(_folder,"/");
         for (EntryCust<String, String> e: _files.entryList()) {
-        	if (!e.getKey().startsWith("src/")) {
+        	if (!e.getKey().startsWith(pref_)) {
         		continue;
         	}
         	srcFiles_.addEntry(e.getKey(), e.getValue());
