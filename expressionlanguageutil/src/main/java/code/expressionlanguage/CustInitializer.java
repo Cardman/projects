@@ -19,6 +19,7 @@ public class CustInitializer extends DefaultInitializer {
 	/**Used map in order that the user can easily log when a few thread is used (depends on Thread class implementation)*/
 	private final ConcurrentHashMap<Thread, String> threadIdDate = new ConcurrentHashMap<Thread, String>();
 	private final ConcurrentHashMap<Thread, Boolean> alive = new ConcurrentHashMap<Thread, Boolean>();
+	private final ConcurrentHashMap<Thread, Boolean> hooks = new ConcurrentHashMap<Thread, Boolean>();
 	private final AtomicLong countThreads = new AtomicLong();
     @Override
     protected Struct init(ContextEl _context, Struct _parent,
@@ -95,6 +96,15 @@ public class CustInitializer extends DefaultInitializer {
             }
         }
     }
+    void joinHooks() {
+        for (Thread t: hooks.keySet()) {
+            try {
+                t.join();
+            } catch (Exception e) {
+                //skip exception
+            }
+        }
+    }
     void putNewCustTreadIdDate(Thread _id, String _value) {
 		threadIdDate.put(_id,_value);
 	}
@@ -105,6 +115,10 @@ public class CustInitializer extends DefaultInitializer {
 
     public void initAlive(Thread _id) {
         alive.put(_id, true);
+    }
+
+    public void initHook(Thread _id) {
+        hooks.put(_id, true);
     }
 
     long increment() {

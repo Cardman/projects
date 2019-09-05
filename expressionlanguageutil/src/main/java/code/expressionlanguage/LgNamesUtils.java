@@ -825,7 +825,9 @@ public class LgNamesUtils extends LgNames {
                     return res_;
                 }
                 StdStruct a_ = (StdStruct) _args[0];
-                Runtime.getRuntime().addShutdownHook((Thread)a_.getInstance());
+                Thread th_ = (Thread) a_.getInstance();
+                Runtime.getRuntime().addShutdownHook(th_);
+                ((RunnableContextEl)_cont).getCustInit().initHook(th_);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
