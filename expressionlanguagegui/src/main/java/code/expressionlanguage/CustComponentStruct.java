@@ -18,9 +18,23 @@ public abstract class CustComponentStruct implements Struct {
     protected CustComponentStruct(String _className) {
         className = _className;
     }
-    public static void invokeLater(Struct _r) {
+    public static void invokeLater(RunnableContextEl _run,Struct _r) {
         if (_r instanceof EventStruct) {
-            SwingUtilities.invokeLater((EventStruct) _r);
+            if (_run.getExecutingOptions().isInvokeDirect()) {
+                new Thread((EventStruct) _r).start();
+            } else {
+                SwingUtilities.invokeLater((EventStruct) _r);
+            }
+
+        }
+    }
+    public static void invokeRunnable(RunnableContextEl _run,Runnable _r) {
+        if (_r != null) {
+            if (_run.getExecutingOptions().isInvokeDirect()) {
+                new Thread(_r).start();
+            } else {
+                SwingUtilities.invokeLater(_r);
+            }
         }
     }
     @Override

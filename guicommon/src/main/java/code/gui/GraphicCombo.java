@@ -6,16 +6,12 @@ import java.awt.image.BufferedImage;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JPopupMenu;
-import javax.swing.SwingUtilities;
 
 import code.util.*;
 import code.util.Ints;
 import code.util.StringList;
 
-public class GraphicCombo extends CustComponent implements GraphicComboInt, Input  {
+public class GraphicCombo extends CustComponent implements WithPopup,GraphicComboInt, Input  {
 
     private GraphicStringList grList;
 
@@ -41,10 +37,6 @@ public class GraphicCombo extends CustComponent implements GraphicComboInt, Inpu
 
     public GraphicCombo(StringList _list, int _selectedIndex) {
         this(new GraphicStringList(true, true, _list),_selectedIndex);
-    }
-
-    public GraphicCombo(GraphicStringList _grList) {
-        this(_grList,0);
     }
 
     public GraphicCombo(GraphicStringList _grList, int _selectedIndex) {
@@ -79,10 +71,11 @@ public class GraphicCombo extends CustComponent implements GraphicComboInt, Inpu
     }
 
     public String getSelectedItem() {
-        if (selectedIndex == -1) {
+        CustList<String> list_ = grList.getList();
+        if (!list_.isValidIndex(selectedIndex)) {
             return null;
         }
-        return grList.getList().get(selectedIndex);
+        return list_.get(selectedIndex);
     }
 
     @Override
@@ -96,6 +89,7 @@ public class GraphicCombo extends CustComponent implements GraphicComboInt, Inpu
             int s_ = fontMetrics_.getHeight() + 2;
             BufferedImage img_ = new BufferedImage(w_, s_, BufferedImage.TYPE_INT_RGB);
             Graphics gr_ = img_.createGraphics();
+            gr_.setFont(currentSelected.getFont());
             gr_.setColor(Color.WHITE);
             gr_.fillRect(0, 0, w_, s_);
             gr_.setColor(Color.BLACK);
@@ -161,6 +155,10 @@ public class GraphicCombo extends CustComponent implements GraphicComboInt, Inpu
         return selectedIndex;
     }
 
+    public void setSelectedIndex(int _selectedIndex) {
+        selectedIndex = _selectedIndex;
+    }
+
     @Override
     public void selectItem(int _index) {
         selectedIndex = _index;
@@ -181,6 +179,7 @@ public class GraphicCombo extends CustComponent implements GraphicComboInt, Inpu
         int s_ = fontMetrics_.getHeight() + 2;
         BufferedImage img_ = new BufferedImage(w_, s_, BufferedImage.TYPE_INT_RGB);
         Graphics gr_ = img_.createGraphics();
+        gr_.setFont(currentSelected.getFont());
         gr_.setColor(Color.WHITE);
         gr_.fillRect(0, 0, w_, s_);
         gr_.setColor(Color.BLACK);
@@ -195,6 +194,7 @@ public class GraphicCombo extends CustComponent implements GraphicComboInt, Inpu
         int w_ = 5;
         BufferedImage img_ = new BufferedImage(w_, s_, BufferedImage.TYPE_INT_RGB);
         Graphics gr_ = img_.createGraphics();
+        gr_.setFont(currentSelected.getFont());
         gr_.setColor(Color.WHITE);
         gr_.fillRect(0, 0, w_, s_);
         currentSelected.setIcon(new ImageIcon(img_));

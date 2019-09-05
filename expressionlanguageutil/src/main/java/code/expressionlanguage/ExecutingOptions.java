@@ -10,6 +10,7 @@ public final class ExecutingOptions {
     private AtomicBoolean interrupt = new AtomicBoolean();
     private boolean covering;
     private String coverFolder = "coverage";
+    private boolean invokeDirect;
     public String getLogFolder() {
         return logFolder;
     }
@@ -52,5 +53,13 @@ public final class ExecutingOptions {
 
     public void setTabWidth(int _tabWidth) {
         tabWidth = _tabWidth;
+    }
+
+    public boolean isInvokeDirect() {
+        return invokeDirect;
+    }
+
+    public void setInvokeDirect(boolean _invokeDirect) {
+        invokeDirect = _invokeDirect;
     }
 }

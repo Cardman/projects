@@ -5,9 +5,9 @@ import java.awt.event.MouseEvent;
 
 public final class Popup extends MouseAdapter {
 
-    private GraphicComboInt grInt;
+    private WithPopup grInt;
 
-    public Popup(GraphicComboInt _grInt) {
+    public Popup(WithPopup _grInt) {
         grInt = _grInt;
     }
 

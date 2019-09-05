@@ -116,6 +116,9 @@ public final class RunningTest implements Runnable {
                     _exec.setCoverFolder(output_);
                 }
             }
+            if (l.startsWith("invokeDirect=")) {
+                _exec.setInvokeDirect(true);
+            }
         }
     }
 }

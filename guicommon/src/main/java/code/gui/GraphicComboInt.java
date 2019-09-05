@@ -16,5 +16,5 @@ public interface GraphicComboInt {
     void setListener(ListSelection _listener);
     int getMaxWidth();
     Panel getPanel();
-    void popup();
+
 }

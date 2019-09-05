@@ -135,6 +135,16 @@ public class LgNamesGui extends LgNamesUtils {
     private String aliasGrListGetSelection;
     private String aliasGrListSetSelection;
 
+    private String aliasCombo;
+    private String aliasComboGetSelectedItem;
+    private String aliasComboAddItem;
+    private String aliasComboGetItemCount;
+    private String aliasComboPopup;
+    private String aliasComboSelectItem;
+    private String aliasComboSetListener;
+    private String aliasComboGetListener;
+    private String aliasComboGetSelectedIndexes;
+    private String aliasComboGetSelectedIndex;
     public void buildOther() {
         super.buildOther();
         StringMap<StandardField> fields_;
@@ -568,6 +578,45 @@ public class LgNamesGui extends LgNamesUtils {
         ctor_ = new StandardConstructor(params_,false,stdcl_);
         constructors_.add(ctor_);
         getStandards().put(aliasGrList, stdcl_);
+
+        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        constructors_ = new CustList<StandardConstructor>();
+        fields_ = new StringMap<StandardField>();
+        stdcl_ = new StandardClass(aliasCombo, fields_, constructors_, methods_, aliasComponent, MethodModifier.FINAL);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasComboGetListener, params_, aliasListSelection, false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasListSelection);
+        method_ = new StandardMethod(aliasComboSetListener, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasString());
+        method_ = new StandardMethod(aliasComboAddItem, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasPrimInteger());
+        method_ = new StandardMethod(aliasComboSelectItem, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasComboGetItemCount, params_, getAliasPrimInteger(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasComboGetSelectedIndex, params_, getAliasPrimInteger(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasComboGetSelectedIndexes, params_, PrimitiveTypeUtil.getPrettyArrayType(getAliasPrimInteger()), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasComboGetSelectedItem, params_, getAliasString(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        ctor_ = new StandardConstructor(params_,false,stdcl_);
+        constructors_.add(ctor_);
+        params_ = new StringList(getAliasString());
+        ctor_ = new StandardConstructor(params_,true,stdcl_);
+        constructors_.add(ctor_);
+        params_ = new StringList(getAliasPrimInteger(),getAliasString());
+        ctor_ = new StandardConstructor(params_,true,stdcl_);
+        constructors_.add(ctor_);
+        getStandards().put(aliasCombo, stdcl_);
     }
     public Argument defaultInstance(ExecutableCode _cont, String _id) {
         Argument arg_ = super.defaultInstance(_cont, _id);
@@ -607,6 +656,9 @@ public class LgNamesGui extends LgNamesUtils {
         }
         if (StringList.quickEq(_id,aliasGrList)) {
             return new Argument(new GraphicListStruct((GuiContextEl)_cont,aliasGrList,true));
+        }
+        if (StringList.quickEq(_id,aliasCombo)) {
+            return new Argument(new GraphicComboStruct(aliasCombo));
         }
         return arg_;
     }
@@ -746,6 +798,23 @@ public class LgNamesGui extends LgNamesUtils {
 //            }
 //            r_.setResult(new GraphicListStruct((GuiContextEl)_cont,aliasGrList,((BooleanStruct)_args[0]).getInstance(),_args[1],_args[2]));
 //            return r_;
+        }
+        if (StringList.quickEq(name_, aliasCombo)) {
+            if (_cont.isInitEnums()) {
+                _cont.failInitEnums();
+                r_.setResult(NullStruct.NULL_VALUE);
+                return r_;
+            }
+            if (_method.getParametersTypes().size() == 0) {
+                r_.setResult(new GraphicComboStruct(aliasCombo));
+                return r_;
+            }
+            if (_method.getParametersTypes().size() == 1) {
+                r_.setResult(new GraphicComboStruct(aliasCombo,_args[0]));
+                return r_;
+            }
+            r_.setResult(new GraphicComboStruct(aliasCombo,((NumberStruct)_args[0]).intStruct(),_args[1]));
+            return r_;
         }
         return super.getOtherResult(_cont,_method,_args);
     }
@@ -1262,6 +1331,42 @@ public class LgNamesGui extends LgNamesUtils {
             return res_;
 //            res_.setResult(NullStruct.NULL_VALUE);
 //            return res_;
+        }
+        if (StringList.quickEq(type_, aliasCombo)) {
+            GraphicComboStruct inst_ = (GraphicComboStruct) _instance;
+            if (StringList.quickEq(name_, aliasComboSetListener)) {
+                inst_.setListener(_args[0]);
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasComboGetListener)) {
+                res_.setResult(inst_.getListener());
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasComboGetSelectedIndexes)) {
+                res_.setResult(inst_.getSelectedIndexes(_cont));
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasComboGetSelectedIndex)) {
+                res_.setResult(inst_.getSelectedIndex());
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasComboGetSelectedItem)) {
+                res_.setResult(inst_.getSelectedItem());
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasComboAddItem)) {
+                inst_.addItem(_args[0]);
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasComboSelectItem)) {
+                inst_.selectItem((RunnableContextEl) _cont,(NumberStruct) _args[0]);
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            res_.setResult(inst_.getItemCount());
+            return res_;
         }
         return super.getOtherResult(_cont,_instance,_method,_args);
     }
@@ -2360,6 +2465,86 @@ public class LgNamesGui extends LgNamesUtils {
         this.aliasGrListSetSelection = aliasGrListSetSelection;
     }
 
+    public String getAliasCombo() {
+        return aliasCombo;
+    }
+
+    public void setAliasCombo(String aliasCombo) {
+        this.aliasCombo = aliasCombo;
+    }
+
+    public String getAliasComboGetSelectedItem() {
+        return aliasComboGetSelectedItem;
+    }
+
+    public void setAliasComboGetSelectedItem(String aliasComboGetSelectedItem) {
+        this.aliasComboGetSelectedItem = aliasComboGetSelectedItem;
+    }
+
+    public String getAliasComboAddItem() {
+        return aliasComboAddItem;
+    }
+
+    public void setAliasComboAddItem(String aliasComboAddItem) {
+        this.aliasComboAddItem = aliasComboAddItem;
+    }
+
+    public String getAliasComboGetItemCount() {
+        return aliasComboGetItemCount;
+    }
+
+    public void setAliasComboGetItemCount(String aliasComboGetItemCount) {
+        this.aliasComboGetItemCount = aliasComboGetItemCount;
+    }
+
+    public String getAliasComboPopup() {
+        return aliasComboPopup;
+    }
+
+    public void setAliasComboPopup(String aliasComboPopup) {
+        this.aliasComboPopup = aliasComboPopup;
+    }
+
+    public String getAliasComboSelectItem() {
+        return aliasComboSelectItem;
+    }
+
+    public void setAliasComboSelectItem(String aliasComboSelectItem) {
+        this.aliasComboSelectItem = aliasComboSelectItem;
+    }
+
+    public String getAliasComboSetListener() {
+        return aliasComboSetListener;
+    }
+
+    public void setAliasComboSetListener(String aliasComboSetListener) {
+        this.aliasComboSetListener = aliasComboSetListener;
+    }
+
+    public String getAliasComboGetListener() {
+        return aliasComboGetListener;
+    }
+
+    public void setAliasComboGetListener(String aliasComboGetListener) {
+        this.aliasComboGetListener = aliasComboGetListener;
+    }
+
+    public String getAliasComboGetSelectedIndexes() {
+        return aliasComboGetSelectedIndexes;
+    }
+
+    public void setAliasComboGetSelectedIndexes(String aliasComboGetSelectedIndexes) {
+        this.aliasComboGetSelectedIndexes = aliasComboGetSelectedIndexes;
+    }
+
+    public String getAliasComboGetSelectedIndex() {
+        return aliasComboGetSelectedIndex;
+    }
+
+    public void setAliasComboGetSelectedIndex(String aliasComboGetSelectedIndex) {
+        this.aliasComboGetSelectedIndex = aliasComboGetSelectedIndex;
+    }
+
     public void otherAlias(String _lang) {
         super.otherAlias(_lang);
         if (StringList.quickEq(_lang, "en")) {
@@ -2476,6 +2661,15 @@ public class LgNamesGui extends LgNamesUtils {
             setAliasGrListSetRender("setRender");
             setAliasGrListGetSelection("getSelection");
             setAliasGrListSetSelection("setSelection");
+            setAliasCombo("$core.ComboBox");
+            setAliasComboAddItem("addItem");
+            setAliasComboGetItemCount("getItemCount");
+            setAliasComboGetListener("getListener");
+            setAliasComboSetListener("setListener");
+            setAliasComboGetSelectedIndex("getSelectedIndex");
+            setAliasComboGetSelectedIndexes("getSelectedIndexes");
+            setAliasComboGetSelectedItem("getSelectedItem");
+            setAliasComboSelectItem("selectItem");
         } else {
             setAliasActionEvent("$coeur.ActionEvt");
             setAliasActionListener("$coeur.ActionEcouteur");
@@ -2590,6 +2784,15 @@ public class LgNamesGui extends LgNamesUtils {
             setAliasGrListSetRender("majRendu");
             setAliasGrListGetSelection("valSelection");
             setAliasGrListSetSelection("majSelection");
+            setAliasCombo("$coeur.ListeDeroulante");
+            setAliasComboAddItem("ajout");
+            setAliasComboGetItemCount("nb");
+            setAliasComboGetListener("valEcouteur");
+            setAliasComboSetListener("majEcouteur");
+            setAliasComboGetSelectedIndex("valIndiceSelect");
+            setAliasComboGetSelectedIndexes("valIndicesSelect");
+            setAliasComboGetSelectedItem("valEltSelect");
+            setAliasComboSelectItem("selectElt");
         }
     }
     @Override

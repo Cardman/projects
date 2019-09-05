@@ -17,4 +17,13 @@ public final class SelectionStructUtil {
         SelectionInfo ev_ = new SelectionInfo(min_, max_, _grList, _methodAction);
         ((ListSelection)listener_).valueChanged(ev_);
     }
+    public static void selectEvent(int _firstIndex, int _lastIndex, GraphicComboStruct _origin, ListSelection _list, boolean _methodAction) {
+        if (_list != null) {
+            int min_ = Math.min(_firstIndex, _lastIndex);
+            int max_ = Math.max(_firstIndex, _lastIndex);
+            SelectionInfo ev_ = new SelectionInfo(min_, max_, _origin, _methodAction);
+            _list.valueChanged(ev_);
+        }
+        _origin.update();
+    }
 }
