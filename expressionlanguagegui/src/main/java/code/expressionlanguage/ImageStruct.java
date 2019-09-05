@@ -98,6 +98,10 @@ public final class ImageStruct implements Struct {
         graphics.setFont(((FontStruct)_font).getFont());
     }
 
+    public void dispose() {
+        graphics.dispose();
+    }
+
     public void drawLine(int x1, int y1, int x2, int y2) {
         graphics.drawLine(x1, y1, x2, y2);
     }

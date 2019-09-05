@@ -82,6 +82,7 @@ public class LgNamesGui extends LgNamesUtils {
     private String aliasImageFillOval;
     private String aliasImageDrawPolygon;
     private String aliasImageFillPolygon;
+    private String aliasImageDispose;
     private String aliasColor;
     private String aliasColorRed;
     private String aliasColorGreen;
@@ -485,6 +486,9 @@ public class LgNamesGui extends LgNamesUtils {
         methods_.put(method_.getId(), method_);
         params_ = new StringList(arrInt_,arrInt_);
         method_ = new StandardMethod(aliasImageFillPolygon, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasImageDispose, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
 
         params_ = new StringList(getAliasPrimInteger(),getAliasPrimInteger(),getAliasPrimBoolean());
@@ -1100,6 +1104,11 @@ public class LgNamesGui extends LgNamesUtils {
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
+            if (StringList.quickEq(name_, aliasImageDispose)) {
+                image_.dispose();
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
             if (StringList.quickEq(name_, aliasImageDraw)) {
                 if (StringList.quickEq(getAliasImage(),_method.getConstraints().getParametersTypes().first())) {
                     image_.drawImage(_args[0],((NumberStruct)_args[1]).intStruct(),((NumberStruct)_args[2]).intStruct());
@@ -1438,6 +1447,7 @@ public class LgNamesGui extends LgNamesUtils {
         map_.put("{int}",getAliasPrimInteger());
         map_.put("{GrList}",aliasGrList);
         map_.put("{Object}",getAliasObject());
+        map_.put("{dispose}",aliasImageDispose);
         content_ = StringList.formatQuote(content_, map_);
         getPredefinedClasses().add(aliasPaint);
         stds_.put(aliasPaint, content_);
@@ -1740,6 +1750,14 @@ public class LgNamesGui extends LgNamesUtils {
 
     public void setAliasImageFillPolygon(String aliasImageFillPolygon) {
         this.aliasImageFillPolygon = aliasImageFillPolygon;
+    }
+
+    public String getAliasImageDispose() {
+        return aliasImageDispose;
+    }
+
+    public void setAliasImageDispose(String aliasImageDispose) {
+        this.aliasImageDispose = aliasImageDispose;
     }
 
     public String getAliasColor() {
@@ -2423,6 +2441,7 @@ public class LgNamesGui extends LgNamesUtils {
             setAliasImageFillRect("fillRect");
             setAliasImageFillOval("fillOval");
             setAliasImageFillPolygon("fillPolygon");
+            setAliasImageDispose("dispose");
             setAliasImageGetColor("getColor");
             setAliasImageSetColor("setColor");
             setAliasImageGetFont("getFont");
@@ -2536,6 +2555,7 @@ public class LgNamesGui extends LgNamesUtils {
             setAliasImageFillRect("remplirRect");
             setAliasImageFillOval("remplirOval");
             setAliasImageFillPolygon("remplirPolygone");
+            setAliasImageDispose("liberer");
             setAliasImageGetColor("valCouleur");
             setAliasImageSetColor("majCouleur");
             setAliasImageGetFont("valPolice");
