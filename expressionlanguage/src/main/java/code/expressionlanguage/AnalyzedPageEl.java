@@ -68,6 +68,8 @@ public final class AnalyzedPageEl {
     private String lookLocalClass = "";
     private boolean okNumOp;
     private Ints currentBadIndexes = new Ints();
+    private StringList initFields = new StringList();
+    private StringList initFieldsCtors = new StringList();
     public AnalyzedPageEl() {
         setCatchVars(new CustList<StringMap<LocalVariable>>());
         setLocalVars(new CustList<StringMap<LocalVariable>>());
@@ -456,5 +458,13 @@ public final class AnalyzedPageEl {
 
     public Ints getCurrentBadIndexes() {
         return currentBadIndexes;
+    }
+
+    public StringList getInitFields() {
+        return initFields;
+    }
+
+    public StringList getInitFieldsCtors() {
+        return initFieldsCtors;
     }
 }

@@ -162,20 +162,30 @@ public final class ConstructorBlock extends NamedFunctionBlock implements GeneCo
         IdMap<Block, AssignedVariables> id_ = _an.getContextEl().getAssignedVariables().getFinalVariables();
         for (EntryCust<ReturnMehod, StringMap<SimpleAssignment>> r: _anEl.getAssignments().entryList()) {
             for (EntryCust<String, SimpleAssignment> f: r.getValue().entryList()) {
-                checkAssignments(_an, f);
+                checkAssignments(_an, f,false);
             }
         }
         if (_anEl.canCompleteNormally(this)) {
             AssignedVariables assTar_ = id_.getVal(this);
             for (EntryCust<String, SimpleAssignment> f: assTar_.getFieldsRoot().entryList()) {
-                checkAssignments(_an, f);
+                checkAssignments(_an, f,true);
+            }
+        } else {
+            AssignedVariables assTar_ = id_.getVal(this);
+            for (EntryCust<String, SimpleAssignment> f: assTar_.getFieldsRoot().entryList()) {
+                String name_ = f.getKey();
+                SimpleAssignment a_ = f.getValue();
+                if (a_.isAssignedAfter()) {
+                    _an.getAnalyzing().getInitFieldsCtors().add(name_);
+                }
             }
         }
     }
 
-    private void checkAssignments(Analyzable _an, EntryCust<String, SimpleAssignment> _pair) {
+    private void checkAssignments(Analyzable _an, EntryCust<String, SimpleAssignment> _pair, boolean _add) {
         String cl_ = Templates.getIdFromAllTypes(_an.getGlobalClass());
-        ClassField key_ = new ClassField(cl_, _pair.getKey());
+        String name_ = _pair.getKey();
+        ClassField key_ = new ClassField(cl_, name_);
         FieldInfo finfo_ = _an.getFieldInfo(key_);
         if (!finfo_.isFinalField()) {
             return;
@@ -187,6 +197,8 @@ public final class ConstructorBlock extends NamedFunctionBlock implements GeneCo
             un_.setFileName(getFile().getFileName());
             un_.setIndexFile(getOffset().getOffsetTrim());
             _an.getClasses().addError(un_);
+        } else if (_add){
+            _an.getAnalyzing().getInitFieldsCtors().add(name_);
         }
     }
 

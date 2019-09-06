@@ -208,6 +208,8 @@ public final class InnerElementBlock extends RootBlock implements InnerTypeOrEle
         StringMap<SimpleAssignment> as_ = varsAss_.getFieldsRoot();
         as_.putAllMap(AssignmentsUtil.assignAfterClassic(varsAss_.getFieldsRootBefore()));
         as_.put(fieldName, Assignment.assignClassic(true, false));
+        AnalyzedPageEl page_ = _an.getAnalyzing();
+        page_.getInitFields().add(fieldName);
     }
 
     @Override

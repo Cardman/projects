@@ -209,6 +209,8 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
         StringMap<SimpleAssignment> as_ = varsAss_.getFieldsRoot();
         as_.putAllMap(AssignmentsUtil.assignAfterClassic(varsAss_.getFieldsRootBefore()));
         as_.put(fieldName, Assignment.assignClassic(true, false));
+        AnalyzedPageEl page_ = _an.getAnalyzing();
+        page_.getInitFields().add(fieldName);
     }
     @Override
     public void processEl(ContextEl _cont) {

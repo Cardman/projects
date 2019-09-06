@@ -1518,6 +1518,7 @@ public final class Classes {
         _context.setAnalyzing(page_);
         for (RootBlock c: getClassBodies(_predefined)) {
             page_.setImporting(c);
+            page_.getInitFields().clear();
             String fullName_ = c.getFullName();
             CustList<Block> bl_ = getDirectChildren(c);
             StringMap<AssignmentBefore> ass_;
@@ -1584,7 +1585,7 @@ public final class Classes {
                 if (!finfo_.isFinalField()) {
                     continue;
                 }
-                if (!a.getValue().isAssignedAfter()) {
+                if (!StringList.contains(page_.getInitFields(),key_)) {
                     //error
                     UnassignedFinalField un_ = new UnassignedFinalField(id_);
                     un_.setFileName(c.getFile().getFileName());
@@ -1596,6 +1597,7 @@ public final class Classes {
         _context.setAssignedStaticFields(true);
         for (RootBlock c: getClassBodies(_predefined)) {
             page_.setImporting(c);
+            page_.getInitFields().clear();
             String fullName_ = c.getFullName();
             _context.getCoverage().putCalls(_context,fullName_);
             CustList<Block> bl_ = getDirectChildren(c);
@@ -1667,7 +1669,7 @@ public final class Classes {
                     if (!finfo_.isFinalField()) {
                         continue;
                     }
-                    if (a.getValue().isAssignedAfter()) {
+                    if (StringList.contains(page_.getInitFields(),fieldName_)) {
                         continue;
                     }
                     //error
@@ -1730,6 +1732,8 @@ public final class Classes {
             }
             for (Block b: bl_) {
                 if (b instanceof ConstructorBlock) {
+                    page_.getInitFieldsCtors().clear();
+                    page_.getInitFieldsCtors().addAllElts(page_.getInitFields());
                     page_.setGlobalClass(c.getGenericString());
                     ConstructorBlock method_ = (ConstructorBlock) b;
                     _context.getCoverage().putCalls(_context,fullName_,method_);
@@ -1759,6 +1763,23 @@ public final class Classes {
                         page_.getParameters().put(p_, lv_);
                     }
                     method_.buildFctInstructions(_context);
+                    IdMap<Block, AssignedVariables> id_ = _context.getContextEl().getAssignedVariables().getFinalVariables();
+                    AssignedVariables assTar_ = id_.getVal(b);
+                    for (EntryCust<String, SimpleAssignment> f: assTar_.getFieldsRoot().entryList()) {
+                        String fieldName_ = f.getKey();
+                        ClassField key_ = new ClassField(fullName_, fieldName_);
+                        FieldInfo finfo_ = _context.getFieldInfo(key_);
+                        if (!finfo_.isFinalField()) {
+                            continue;
+                        }
+                        if (StringList.contains(page_.getInitFieldsCtors(),fieldName_)) {
+                            continue;
+                        }
+                        UnassignedFinalField un_ = new UnassignedFinalField(key_);
+                        un_.setFileName(c.getFile().getFileName());
+                        un_.setIndexFile(method_.getNameOffset());
+                        _context.getClasses().addError(un_);
+                    }
                     page_.getParameters().clear();
                     page_.clearAllLocalVars();
                 }

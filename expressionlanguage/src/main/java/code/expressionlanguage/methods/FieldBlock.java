@@ -25,6 +25,7 @@ import code.expressionlanguage.opers.exec.ExecSettableFieldOperation;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.AssignmentsUtil;
 import code.expressionlanguage.opers.util.ClassField;
+import code.expressionlanguage.opers.util.SimpleAssignment;
 import code.util.*;
 
 public final class FieldBlock extends Leaf implements InfoBlock {
@@ -175,6 +176,16 @@ public final class FieldBlock extends Leaf implements InfoBlock {
 
     @Override
     public void setAssignmentAfter(Analyzable _an) {
+        AnalyzedPageEl page_ = _an.getAnalyzing();
+        AssignedVariablesBlock asBlock_ = page_.getAssignedVariables();
+        StringMap<SimpleAssignment> fieldsRoot_ = asBlock_.getFinalVariables().getVal(this).getFieldsRoot();
+        for (EntryCust<String, SimpleAssignment> f: fieldsRoot_.entryList()) {
+            String name_ = f.getKey();
+            SimpleAssignment a_ = f.getValue();
+            if (a_.isAssignedAfter()) {
+                _an.getAnalyzing().getInitFields().add(name_);
+            }
+        }
     }
     @Override
     public void buildImportedType(ContextEl _cont) {
