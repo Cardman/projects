@@ -35,6 +35,9 @@ public abstract class Leaf extends Block implements WithEl {
     }
 
     @Override
+    public void checkTree(Analyzable _an, AnalyzingEl _anEl) {
+    }
+    @Override
     public void setAssignmentAfter(Analyzable _an, AnalyzingEl _anEl) {
     }
 }

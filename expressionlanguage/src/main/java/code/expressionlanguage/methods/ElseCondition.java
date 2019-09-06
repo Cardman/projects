@@ -50,8 +50,7 @@ public final class ElseCondition extends BracedStack implements BlockCondition, 
     }
 
     @Override
-    public void setAssignmentAfter(Analyzable _an, AnalyzingEl _anEl) {
-        super.setAssignmentAfter(_an, _anEl);
+    public void checkTree(Analyzable _an, AnalyzingEl _anEl) {
         Block pBlock_ = getPreviousSibling();
         if (!(pBlock_ instanceof IfCondition)) {
             if (!(pBlock_ instanceof ElseIfCondition)) {
@@ -61,6 +60,12 @@ public final class ElseCondition extends BracedStack implements BlockCondition, 
                 _an.getClasses().addError(un_);
             }
         }
+    }
+
+    @Override
+    public void setAssignmentAfter(Analyzable _an, AnalyzingEl _anEl) {
+        super.setAssignmentAfter(_an, _anEl);
+        Block pBlock_ = getPreviousSibling();
         CustList<Block> prev_ = new CustList<Block>();
         prev_.add(this);
         while (!(pBlock_ instanceof IfCondition)) {

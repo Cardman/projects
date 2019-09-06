@@ -63,6 +63,7 @@ public final class RunningTest implements Runnable {
         ExecutingOptions exec_ = new ExecutingOptions();
         setupOptionals(2, exec_,linesFiles_);
         Options opt_ = new Options();
+        opt_.setReadOnly(true);
         CustContextFactory.executeDefKw(lg_,opt_,exec_,zipFiles_,_progressingTests);
     }
 

@@ -58,6 +58,7 @@ public final class GuiProcess implements Runnable {
         RunningTest.setupOptionals(3,exec_,linesFiles_);
         String folder_ = exec_.getLogFolder();
         Options opt_ = new Options();
+        opt_.setReadOnly(true);
         LgNamesGui stds_ = new LgNamesGui();
         GuiContextEl cont_ = GuiContextFactory.buildDefKw(lg_, mainArgs_,opt_, exec_, stds_, zipFiles_, exec_.getTabWidth());
         if (cont_ == null) {

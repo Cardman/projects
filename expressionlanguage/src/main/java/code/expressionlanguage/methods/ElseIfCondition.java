@@ -96,9 +96,9 @@ public final class ElseIfCondition extends Condition implements BlockCondition {
     public void setAssignmentBeforeChild(Analyzable _an, AnalyzingEl _anEl) {
         assignWhenTrue(_an);
     }
+
     @Override
-    public void setAssignmentAfter(Analyzable _an, AnalyzingEl _anEl) {
-        super.setAssignmentAfter(_an, _anEl);
+    public void checkTree(Analyzable _an, AnalyzingEl _anEl) {
         Block pBlock_ = getPreviousSibling();
         if (!(pBlock_ instanceof IfCondition)) {
             if (!(pBlock_ instanceof ElseIfCondition)) {
@@ -108,6 +108,12 @@ public final class ElseIfCondition extends Condition implements BlockCondition {
                 _an.getClasses().addError(un_);
             }
         }
+    }
+
+    @Override
+    public void setAssignmentAfter(Analyzable _an, AnalyzingEl _anEl) {
+        super.setAssignmentAfter(_an, _anEl);
+        Block pBlock_ = getPreviousSibling();
         if (canBeIncrementedCurGroup()) {
             return;
         }

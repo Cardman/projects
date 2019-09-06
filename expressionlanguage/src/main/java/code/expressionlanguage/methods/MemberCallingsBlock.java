@@ -43,7 +43,9 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
         CustList<Eval> parentsReturnable_ = anEl_.getParentsReturnables();
         StringList labels_ = anEl_.getLabels();
         if (firstChild_ == null) {
-            setAssignmentBeforeCall(_cont, anEl_);
+            if (!_cont.getOptions().isReadOnly()) {
+                setAssignmentBeforeCall(_cont, anEl_);
+            }
             anEl_.reach(this);
             abrupt(_cont, anEl_);
             setAssignmentAfterCall(_cont, anEl_);
@@ -60,10 +62,15 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
             }
             _cont.getCoverage().putBlockOperations(_cont,en_);
             if (en_ == this) {
-                setAssignmentBeforeCall(_cont,anEl_);
+                if (!_cont.getOptions().isReadOnly()) {
+                    setAssignmentBeforeCall(_cont, anEl_);
+                }
                 anEl_.reach(this);
             } else {
-                en_.setAssignmentBefore(_cont, anEl_);
+                en_.checkLabelReference(_cont, anEl_);
+                if (!_cont.getOptions().isReadOnly()) {
+                    en_.setAssignmentBefore(_cont, anEl_);
+                }
                 en_.reach(_cont, anEl_);
             }
             if (!anEl_.isReachable(en_)) {
@@ -113,7 +120,10 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
             if (en_ instanceof BracedBlock) {
                 ((BracedBlock)en_).abruptGroup(anEl_);
             }
-            en_.setAssignmentAfter(_cont, anEl_);
+            en_.checkTree(_cont, anEl_);
+            if (!_cont.getOptions().isReadOnly()) {
+                en_.setAssignmentAfter(_cont, anEl_);
+            }
             if (en_ instanceof BreakableBlock && !((BreakableBlock)en_).getRealLabel().isEmpty()) {
                 labels_.removeLast();
             }
@@ -139,7 +149,10 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
                 if (par_ instanceof ForMutableIterativeLoop) {
                     ((ForMutableIterativeLoop)par_).buildIncrementPart(_cont);
                 }
-                par_.setAssignmentAfter(_cont, anEl_);
+                par_.checkTree(_cont, anEl_);
+                if (!_cont.getOptions().isReadOnly()) {
+                    par_.setAssignmentAfter(_cont, anEl_);
+                }
                 parents_.removeLast();
                 if (par_ instanceof BreakableBlock) {
                     parentsBreakables_.removeLast();

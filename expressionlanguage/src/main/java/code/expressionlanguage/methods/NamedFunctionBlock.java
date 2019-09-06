@@ -145,7 +145,9 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
     }
     @Override
     public void setAssignmentAfterCall(Analyzable _an, AnalyzingEl _anEl) {
-        setAssignmentAfter(_an,_anEl);
+        if (!_an.getContextEl().getOptions().isReadOnly()) {
+            setAssignmentAfter(_an,_anEl);
+        }
         LgNames stds_ = _an.getStandards();
         if (!StringList.quickEq(getImportedReturnType(), stds_.getAliasVoid())) {
             if (_anEl.canCompleteNormally(this)) {

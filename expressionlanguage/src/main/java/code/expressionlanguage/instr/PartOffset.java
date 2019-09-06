@@ -1,8 +1,8 @@
 package code.expressionlanguage.instr;
 
 public final class PartOffset {
-    private String part;
-    private int offset;
+    private final String part;
+    private final int offset;
 
     public PartOffset(String _part, int _offset) {
         part = _part;

@@ -120,7 +120,9 @@ public final class OverridableBlock extends NamedFunctionBlock implements GeneMe
     }
     @Override
     public void setAssignmentAfterCall(Analyzable _an, AnalyzingEl _anEl) {
-        setAssignmentAfter(_an,_anEl);
+        if (!_an.getContextEl().getOptions().isReadOnly()) {
+            setAssignmentAfter(_an, _anEl);
+        }
         LgNames stds_ = _an.getStandards();
         if (!StringList.quickEq(getImportedReturnType(), stds_.getAliasVoid())) {
             if (!isAbstractMethod() && _anEl.canCompleteNormally(this)) {

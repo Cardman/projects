@@ -90,6 +90,24 @@ public final class AffectationOperation extends MethodOperation implements Affec
                 }
             }
         }
+        if (settable instanceof SettableAbstractFieldOperation) {
+            if (_conf.getContextEl().getOptions().isReadOnly()) {
+                SettableAbstractFieldOperation cst_ = (SettableAbstractFieldOperation)settable;
+                StringMap<Assignment> fieldsAfterLast_ = _conf.getAnalyzing().getDeclaredAssignments();
+                ClassField cl_ = cst_.getFieldId();
+                if (ElUtil.checkFinalField(_conf, cst_, fieldsAfterLast_)) {
+                    FieldInfo meta_ = _conf.getFieldInfo(cl_);
+                    if (meta_.isFinalField()) {
+                        //error if final field
+                        cst_.setRelativeOffsetPossibleAnalyzable(cst_.getIndexInEl(), _conf);
+                        UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
+                        un_.setFileName(_conf.getCurrentFileName());
+                        un_.setIndexFile(_conf.getCurrentLocationIndex());
+                        _conf.getClasses().addError(un_);
+                    }
+                }
+            }
+        }
         setResultClass(elt_.getResultClass());
         elt_.setVariable(true);
         ClassArgumentMatching clMatchRight_ = right_.getResultClass();

@@ -7,6 +7,8 @@ import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.ForLoopPart;
 import code.expressionlanguage.methods.MemberCallingsBlock;
+import code.expressionlanguage.opers.util.Assignment;
+import code.expressionlanguage.opers.util.SimpleAssignment;
 import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.LoopVariable;
 import code.util.CustList;
@@ -70,6 +72,8 @@ public final class AnalyzedPageEl {
     private Ints currentBadIndexes = new Ints();
     private StringList initFields = new StringList();
     private StringList initFieldsCtors = new StringList();
+    private StringList assignedDeclaredFields = new StringList();
+    private StringList allDeclaredFields = new StringList();
     public AnalyzedPageEl() {
         setCatchVars(new CustList<StringMap<LocalVariable>>());
         setLocalVars(new CustList<StringMap<LocalVariable>>());
@@ -289,6 +293,16 @@ public final class AnalyzedPageEl {
         return null;
     }
 
+    public StringMap<Assignment> getDeclaredAssignments() {
+        StringMap<Assignment> o_ = new StringMap<Assignment>();
+        for (String f: allDeclaredFields) {
+            SimpleAssignment ass_ = new SimpleAssignment();
+            ass_.setAssignedAfter(StringList.contains(assignedDeclaredFields,f));
+            ass_.setUnassignedAfter(!StringList.contains(assignedDeclaredFields,f));
+            o_.addEntry(f, ass_);
+        }
+        return o_;
+    }
     public StringMap<LocalVariable> getParameters() {
         return parameters;
     }
@@ -466,5 +480,13 @@ public final class AnalyzedPageEl {
 
     public StringList getInitFieldsCtors() {
         return initFieldsCtors;
+    }
+
+    public StringList getAssignedDeclaredFields() {
+        return assignedDeclaredFields;
+    }
+
+    public StringList getAllDeclaredFields() {
+        return allDeclaredFields;
     }
 }

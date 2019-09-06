@@ -10,6 +10,7 @@ public final class Options {
     private boolean endLineSemiColumn = true;
     private boolean allParametersSort = true;
     private boolean singleInnerParts;
+    private boolean readOnly;
 
     public char getEndLine() {
         if (endLineSemiColumn) {
@@ -66,4 +67,11 @@ public final class Options {
         singleInnerParts = _singleInnerParts;
     }
 
+    public boolean isReadOnly() {
+        return readOnly;
+    }
+
+    public void setReadOnly(boolean _readOnly) {
+        readOnly = _readOnly;
+    }
 }

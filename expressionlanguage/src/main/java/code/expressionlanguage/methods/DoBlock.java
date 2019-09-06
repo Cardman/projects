@@ -42,8 +42,7 @@ public final class DoBlock extends BracedStack implements Loop {
     }
 
     @Override
-    public void setAssignmentAfter(Analyzable _an, AnalyzingEl _anEl) {
-        super.setAssignmentAfter(_an, _anEl);
+    public void checkTree(Analyzable _an, AnalyzingEl _anEl) {
         Block nextSibling_ = getNextSibling();
         if (nextSibling_ == null) {
             UnexpectedTagName un_ = new UnexpectedTagName();

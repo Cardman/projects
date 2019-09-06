@@ -48,8 +48,7 @@ public final class FinallyEval extends BracedStack implements Eval {
     }
 
     @Override
-    public void setAssignmentAfter(Analyzable _an, AnalyzingEl _anEl) {
-        super.setAssignmentAfter(_an, _anEl);
+    public void checkTree(Analyzable _an, AnalyzingEl _anEl) {
         Block pBlock_ = getPreviousSibling();
         if (!(pBlock_ instanceof AbstractCatchEval)) {
             if (!(pBlock_ instanceof TryEval)) {
@@ -59,6 +58,12 @@ public final class FinallyEval extends BracedStack implements Eval {
                 _an.getClasses().addError(un_);
             }
         }
+    }
+
+    @Override
+    public void setAssignmentAfter(Analyzable _an, AnalyzingEl _anEl) {
+        super.setAssignmentAfter(_an, _anEl);
+        Block pBlock_ = getPreviousSibling();
         CustList<Block> prev_ = new CustList<Block>();
         while (!(pBlock_ instanceof TryEval)) {
             if (!(pBlock_ instanceof Eval)) {

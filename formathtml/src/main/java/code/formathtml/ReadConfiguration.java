@@ -100,7 +100,9 @@ public final class ReadConfiguration {
         DefaultLockingClass lk_ = new DefaultLockingClass();
         DefaultInitializer di_ = new DefaultInitializer();
         KeyWords kw_ = new KeyWords();
-        ContextEl context_ = ContextFactory.build(-1,lk_, di_, new Options(), kw_, _stds,4);
+        Options opt_ = new Options();
+        opt_.setReadOnly(true);
+        ContextEl context_ = ContextFactory.build(-1,lk_, di_, opt_, kw_, _stds,4);
         for (Element c: _elt.getChildElements()) {
             String fieldName_ = c.getAttribute("field");
             if (StringList.quickEq(fieldName_, "stackOverFlow")) {
@@ -120,6 +122,7 @@ public final class ReadConfiguration {
     }
     static Options loadOptions(Element _elt) {
         Options options_ = new Options();
+        options_.setReadOnly(true);
         for (Element c: _elt.getChildElements()) {
             String fieldName_ = c.getAttribute("field");
             if (StringList.quickEq(fieldName_, "initializeStaticClassFirst")) {

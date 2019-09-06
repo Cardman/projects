@@ -120,7 +120,9 @@ public final class ConstructorBlock extends NamedFunctionBlock implements GeneCo
     }
     @Override
     public void setAssignmentAfterCall(Analyzable _an, AnalyzingEl _anEl) {
-        setAssignmentAfter(_an,_anEl);
+        if (!_an.getContextEl().getOptions().isReadOnly()) {
+            setAssignmentAfter(_an,_anEl);
+        }
         Block firstChild_ = getFirstChild();
         StringList ints_ = new StringList();
         StringList filteredCtor_ = _an.getContextEl().getNeedInterfaces();
@@ -158,7 +160,9 @@ public final class ConstructorBlock extends NamedFunctionBlock implements GeneCo
                 _an.getClasses().addError(undef_);
             }
         }
-        
+        if (_an.getContextEl().getOptions().isReadOnly()) {
+            return;
+        }
         IdMap<Block, AssignedVariables> id_ = _an.getContextEl().getAssignedVariables().getFinalVariables();
         for (EntryCust<ReturnMehod, StringMap<SimpleAssignment>> r: _anEl.getAssignments().entryList()) {
             for (EntryCust<String, SimpleAssignment> f: r.getValue().entryList()) {

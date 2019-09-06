@@ -79,6 +79,11 @@ public abstract class BracedBlock extends Block implements BracedBlockInt {
         assBl_.getMutableLoopRootBefore().add(new StringMap<AssignmentBefore>());
         id_.put(firstChild_, assBl_);
     }
+
+    @Override
+    public void checkTree(Analyzable _an, AnalyzingEl _anEl) {
+    }
+
     @Override
     public void setAssignmentAfter(Analyzable _an, AnalyzingEl _anEl) {
         Block ch_ = getFirstChild();

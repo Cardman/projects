@@ -16,6 +16,7 @@ import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.instr.PartOffset;
+import code.expressionlanguage.instr.PartOffsetAffect;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.exec.ExecDeclaringOperation;
@@ -60,6 +61,7 @@ public final class FieldBlock extends Leaf implements InfoBlock {
     private CustList<CustList<ExecOperationNode>> annotationsOps = new CustList<CustList<ExecOperationNode>>();
     private Ints annotationsIndexes = new Ints();
     private CustList<PartOffset> partOffsets = new CustList<PartOffset>();
+    private StringList assignedDeclaredFields = new StringList();
     public FieldBlock(OffsetAccessInfo _access,
                       OffsetBooleanInfo _static, OffsetBooleanInfo _final,
                       OffsetStringInfo _type, OffsetStringInfo _value, OffsetsBlock _offset) {
@@ -143,6 +145,10 @@ public final class FieldBlock extends Leaf implements InfoBlock {
         return value;
     }
 
+    public StringList getAssignedDeclaredFields() {
+        return assignedDeclaredFields;
+    }
+
     @Override
     public void setAssignmentBefore(Analyzable _an) {
         Block prev_ = getPreviousSibling();
@@ -200,7 +206,7 @@ public final class FieldBlock extends Leaf implements InfoBlock {
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         page_.setGlobalOffset(valueOffset);
         page_.setOffset(0);
-        CustList<PartOffset> names_ = ElUtil.getFieldNames(valueOffset,value, _cont, Calculation.staticCalculation(staticField));
+        CustList<PartOffsetAffect> names_ = ElUtil.getFieldNames(valueOffset,value, _cont, Calculation.staticCalculation(staticField));
         if (names_.isEmpty()) {
             BadParamName b_;
             b_ = new BadParamName();
@@ -209,8 +215,9 @@ public final class FieldBlock extends Leaf implements InfoBlock {
             _cont.getClasses().addError(b_);
         }
         StringList idsField_ = new StringList(_fieldNames);
-        for (PartOffset n: names_) {
-            String trName_ = n.getPart();
+        for (PartOffsetAffect n: names_) {
+            PartOffset p_ = n.getPartOffset();
+            String trName_ = p_.getPart();
             if (!_cont.isValidToken(trName_)) {
                 BadFieldName b_;
                 b_ = new BadFieldName();
@@ -226,16 +233,21 @@ public final class FieldBlock extends Leaf implements InfoBlock {
                     duplicate_ = new DuplicateField();
                     duplicate_.setIndexFile(r_);
                     duplicate_.setFileName(getFile().getFileName());
-                    duplicate_.setId(n.getPart());
+                    duplicate_.setId(p_.getPart());
                     _cont.getClasses().addError(duplicate_);
                 }
             }
             idsField_.add(trName_);
         }
-        for (PartOffset n: names_) {
-            _fieldNames.add(n.getPart());
-            fieldName.add(n.getPart());
-            valuesOffset.add(n.getOffset());
+        for (PartOffsetAffect n: names_) {
+            PartOffset p_ = n.getPartOffset();
+            String name_ = p_.getPart();
+            if (n.isAffect()) {
+                assignedDeclaredFields.add(name_);
+            }
+            _fieldNames.add(name_);
+            fieldName.add(name_);
+            valuesOffset.add(p_.getOffset());
         }
     }
 

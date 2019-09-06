@@ -39,39 +39,39 @@ public final class ElUtil {
         return _right.getArgument();
     }
 
-    public static CustList<PartOffset> getFieldNames(int _valueOffset, String _el, ContextEl _conf, Calculation _calcul) {
+    public static CustList<PartOffsetAffect> getFieldNames(int _valueOffset, String _el, ContextEl _conf, Calculation _calcul) {
         boolean hiddenVarTypes_ = _calcul.isStaticBlock();
         _conf.setStaticContext(hiddenVarTypes_);
         Delimiters d_ = ElResolver.checkSyntax(_el, _conf, CustList.FIRST_INDEX);
         OperationsSequence opTwo_ = ElResolver.getOperationsSequence(CustList.FIRST_INDEX, _el, _conf, d_);
-        CustList<PartOffset> names_ = new CustList<PartOffset>();
+        CustList<PartOffsetAffect> names_ = new CustList<PartOffsetAffect>();
         if (opTwo_.getOperators().isEmpty()) {
             for (EntryCust<Integer,String> e: opTwo_.getValues().entryList()) {
-                addIfNotEmpty(names_,e.getValue(),_valueOffset+e.getKey());
+                addIfNotEmpty(names_,e.getValue(),_valueOffset+e.getKey(),false);
             }
             return names_;
         }
         if (opTwo_.getPriority() == ElResolver.DECL_PRIO) {
             for (EntryCust<Integer,String> e: opTwo_.getValues().entryList()) {
-                addIfNotEmpty(names_,e.getValue(),_valueOffset+e.getKey());
+                addIfNotEmpty(names_,e.getValue(),_valueOffset+e.getKey(),false);
             }
             return names_;
         }
         if (opTwo_.getPriority() == ElResolver.AFF_PRIO) {
             String var_ = opTwo_.getValues().firstValue();
             int off_ = opTwo_.getValues().firstKey();
-            addIfNotEmpty(names_,var_,_valueOffset+off_);
+            addIfNotEmpty(names_,var_,_valueOffset+off_,true);
         }
         return names_;
     }
 
-    private static void addIfNotEmpty(CustList<PartOffset> _list, String _name, int _offset) {
+    private static void addIfNotEmpty(CustList<PartOffsetAffect> _list, String _name, int _offset, boolean _aff) {
         String name_ = getFieldName(_name);
         if (name_.isEmpty()) {
             return;
         }
         int delta_ = StringList.getFirstPrintableCharIndex(_name);
-        _list.add(new PartOffset(name_,delta_+_offset));
+        _list.add(new PartOffsetAffect(new PartOffset(name_,delta_+_offset),_aff || _name.indexOf('=') > -1));
     }
     private static String getFieldName(String _v) {
         String v_ = _v.trim();
@@ -125,7 +125,7 @@ public final class ElUtil {
     }
 
     private static boolean processAssign(ContextEl _conf, Block _currentBlock) {
-        return _currentBlock != null && !_conf.isAnnotAnalysis() && !_conf.isGearConst();
+        return _currentBlock != null && !_conf.isAnnotAnalysis() && !_conf.isGearConst() && !_conf.getOptions().isReadOnly();
     }
 
 
@@ -156,7 +156,7 @@ public final class ElUtil {
         OperationNode next_ = createFirstChild(_current, _context, 0);
         if (next_ != null) {
             ((MethodOperation) _current).appendChild(next_);
-            if (!_context.isAnnotAnalysis() && !_context.isGearConst()) {
+            if (!_context.isAnnotAnalysis() && !_context.isGearConst() && !_context.getOptions().isReadOnly()) {
                 ((MethodOperation) _current).tryAnalyzeAssignmentBefore(_context, next_);
             }
             return next_;
@@ -169,7 +169,7 @@ public final class ElUtil {
             if (current_ instanceof ReductibleOperable) {
                 ((ReductibleOperable)current_).tryCalculateNode(_context);
             }
-            if (!_context.isAnnotAnalysis() && !_context.isGearConst()) {
+            if (!_context.isAnnotAnalysis() && !_context.isGearConst() && !_context.getOptions().isReadOnly()) {
                 current_.tryAnalyzeAssignmentAfter(_context);
             }
             _sortedNodes.add(current_);
@@ -198,7 +198,7 @@ public final class ElUtil {
                     }
                 }
                 par_.appendChild(next_);
-                if (!_context.isAnnotAnalysis() && !_context.isGearConst()) {
+                if (!_context.isAnnotAnalysis() && !_context.isGearConst() && !_context.getOptions().isReadOnly()) {
                     par_.tryAnalyzeAssignmentBeforeNextSibling(_context, next_, current_);
                 }
                 return next_;
@@ -212,7 +212,7 @@ public final class ElUtil {
                     par_.cancelArgument();
                 }
                 par_.tryCalculateNode(_context);
-                if (!_context.isAnnotAnalysis() && !_context.isGearConst()) {
+                if (!_context.isAnnotAnalysis() && !_context.isGearConst() && !_context.getOptions().isReadOnly()) {
                     par_.tryAnalyzeAssignmentAfter(_context);
                 }
                 par_.setOrder(_sortedNodes.size());
@@ -404,7 +404,7 @@ public final class ElUtil {
             return false;
         }
         String fieldName_ = cl_.getFieldName();
-        if (stepForLoop(_conf)) {
+        if (!_conf.getContextEl().getOptions().isReadOnly() && stepForLoop(_conf)) {
             return true;
         }
         boolean checkFinal_;

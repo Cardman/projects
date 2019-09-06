@@ -80,14 +80,19 @@ public final class DoWhileCondition extends Condition {
             _anEl.completeAbruptGroup(this);
         }
     }
+
     @Override
-    public void setAssignmentAfter(Analyzable _an, AnalyzingEl _anEl) {
+    public void checkTree(Analyzable _an, AnalyzingEl _anEl) {
         if (getFirstChild() != null) {
             EmptyTagName un_ = new EmptyTagName();
             un_.setFileName(getFile().getFileName());
             un_.setIndexFile(getOffset().getOffsetTrim());
             _an.getClasses().addError(un_);
         }
+    }
+
+    @Override
+    public void setAssignmentAfter(Analyzable _an, AnalyzingEl _anEl) {
         IdMap<Block, AssignedVariables> id_;
         id_ = _an.getContextEl().getAssignedVariables().getFinalVariables();
         //by do block

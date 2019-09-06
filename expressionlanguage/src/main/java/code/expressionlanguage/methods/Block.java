@@ -51,6 +51,9 @@ public abstract class Block implements AnalyzedBlock {
         return offset;
     }
     protected void buildEmptyEl(Analyzable _cont) {
+        if (_cont.getOptions().isReadOnly()) {
+            return;
+        }
         AssignedVariablesBlock glAss_ = _cont.getContextEl().getAssignedVariables();
         AssignedVariables ass_ = glAss_.getFinalVariables().getVal(this);
         ass_.getFieldsRoot().putAllMap(AssignmentsUtil.assignAfterClassic(ass_.getFieldsRootBefore()));
@@ -92,6 +95,16 @@ public abstract class Block implements AnalyzedBlock {
         id_.put(nextSibling_, assBl_);
     }
     public void setAssignmentBefore(Analyzable _an, AnalyzingEl _anEl) {
+        BracedBlock br_ = getParent();
+        Block prev_ = getPreviousSibling();
+        if (prev_ == null) {
+            br_.setAssignmentBeforeChild(_an, _anEl);
+        } else {
+            prev_.setAssignmentBeforeNextSibling(_an, _anEl);
+        }
+    }
+
+    public void checkLabelReference(Analyzable _an, AnalyzingEl _anEl) {
         if (this instanceof BreakableBlock) {
             String label_ = ((BreakableBlock)this).getRealLabel();
             boolean wc_ = true;
@@ -120,14 +133,8 @@ public abstract class Block implements AnalyzedBlock {
                 }
             }
         }
-        BracedBlock br_ = getParent();
-        Block prev_ = getPreviousSibling();
-        if (prev_ == null) {
-            br_.setAssignmentBeforeChild(_an, _anEl);
-        } else {
-            prev_.setAssignmentBeforeNextSibling(_an, _anEl);
-        }
     }
+
     protected AssignedVariables buildNewAssignedVariable() {
         return new AssignedVariables();
     }
@@ -150,6 +157,7 @@ public abstract class Block implements AnalyzedBlock {
 
     public abstract void abrupt(Analyzable _an, AnalyzingEl _anEl);
     public abstract void setAssignmentAfter(Analyzable _an, AnalyzingEl _anEl);
+    public abstract void checkTree(Analyzable _an, AnalyzingEl _anEl);
     protected StringMap<AssignmentBefore> makeHypothesisFields(Analyzable _an) {
         AssignedVariables vars_ = _an.getContextEl().getAssignedVariables().getFinalVariables().getVal(this);
         return AssignmentsUtil.getHypoAssignmentBefore(vars_.getFieldsRootBefore());

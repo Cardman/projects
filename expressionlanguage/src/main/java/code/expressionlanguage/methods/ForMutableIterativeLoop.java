@@ -319,6 +319,9 @@ public final class ForMutableIterativeLoop extends BracedStack implements
             elCondition_.getResultClass().setUnwrapObject(stds_.getAliasPrimBoolean());
             buildConditions(_cont);
         } else {
+            if (_cont.getOptions().isReadOnly()) {
+                return;
+            }
             AssignedBooleanVariables res_ = (AssignedBooleanVariables) _cont.getAnalyzing().getAssignedVariables().getFinalVariables().getVal(this);
             if (opInit.isEmpty()) {
                 res_.getFieldsRootAfter().putAllMap(AssignmentsUtil.conditionBefore(res_.getFieldsRootBefore()));

@@ -108,8 +108,7 @@ public abstract class AbstractCatchEval extends BracedStack implements Eval {
     }
 
     @Override
-    public final void setAssignmentAfter(Analyzable _an, AnalyzingEl _anEl) {
-        super.setAssignmentAfter(_an, _anEl);
+    public void checkTree(Analyzable _an, AnalyzingEl _anEl) {
         Block pBlock_ = getPreviousSibling();
         if (!(pBlock_ instanceof AbstractCatchEval)) {
             if (!(pBlock_ instanceof TryEval)) {
@@ -119,6 +118,12 @@ public abstract class AbstractCatchEval extends BracedStack implements Eval {
                 _an.getClasses().addError(un_);
             }
         }
+    }
+
+    @Override
+    public final void setAssignmentAfter(Analyzable _an, AnalyzingEl _anEl) {
+        super.setAssignmentAfter(_an, _anEl);
+        Block pBlock_ = getPreviousSibling();
         if (canBeIncrementedCurGroup()) {
             return;
         }

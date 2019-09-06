@@ -25,6 +25,9 @@ public abstract class BracedStack extends BracedBlock {
         _parts.add(new PartOffset("</a>",_offset+_label.length()));
     }
     protected void buildConditions(ContextEl _cont) {
+        if (_cont.getOptions().isReadOnly()) {
+            return;
+        }
         AssignedBooleanVariables res_ = (AssignedBooleanVariables) _cont.getAnalyzing().getAssignedVariables().getFinalVariables().getVal(this);
         res_.getFieldsRootAfter().putAllMap(AssignmentsUtil.toBoolAssign(res_.getLastFieldsOrEmpty()));
         res_.getVariablesRootAfter().addAllElts(AssignmentsUtil.toBoolAssign(res_.getLastVariablesOrEmpty()));

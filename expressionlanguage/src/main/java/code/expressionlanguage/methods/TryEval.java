@@ -58,9 +58,9 @@ public final class TryEval extends BracedStack implements Eval {
         assBl_.getMutableLoopRootBefore().addAllElts(buildAssMutableLoopBefNextCatchFinally(this,_an, _anEl,catchs_));
         id_.put(nextSibling_, assBl_);
     }
+
     @Override
-    public void setAssignmentAfter(Analyzable _an, AnalyzingEl _anEl) {
-        super.setAssignmentAfter(_an, _anEl);
+    public void checkTree(Analyzable _an, AnalyzingEl _anEl) {
         Block nBlock_ = getNextSibling();
         if (!(nBlock_ instanceof AbstractCatchEval)) {
             if (!(nBlock_ instanceof FinallyEval)) {
