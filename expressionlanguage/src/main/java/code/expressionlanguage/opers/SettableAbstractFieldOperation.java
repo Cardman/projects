@@ -162,6 +162,12 @@ public abstract class SettableAbstractFieldOperation extends
         if (par_.getFirstChild() instanceof StaticAccessOperation) {
             return StringList.quickEq(clField_.getClassName(), id_);
         }
+        if (par_.getFirstChild() instanceof DotOperation) {
+            OperationNode op_ = ((DotOperation)par_.getFirstChild()).getChildrenNodes().last();
+            if (op_ instanceof ThisOperation) {
+                return StringList.quickEq(clField_.getClassName(), id_);
+            }
+        }
         return false;
     }
     public final FieldInfo getFieldMetaInfo() {
@@ -234,6 +240,11 @@ public abstract class SettableAbstractFieldOperation extends
                     cancelCheck_ = true;
                 } else if (par_.getFirstChild() instanceof StaticAccessOperation) {
                     cancelCheck_ = true;
+                } else if (par_.getFirstChild() instanceof DotOperation) {
+                    OperationNode op_ = ((DotOperation)par_.getFirstChild()).getChildrenNodes().last();
+                    if (op_ instanceof ThisOperation) {
+                        cancelCheck_ = true;
+                    }
                 }
                 if (cancelCheck_) {
                     if (par_.getParent() instanceof AffectationOperation && par_.isFirstChild()) {
