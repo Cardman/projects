@@ -624,4 +624,17 @@ public final class ProcessReadonlyTest extends ProcessMethodCommon {
         Classes.validateAll(files_, cont_);
         assertTrue(!cont_.getClasses().isEmptyErrors());
     }
+    @Test
+    public void fail8Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElReadOnly();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.ExEnum{\n");
+        xml_.append("ONE:\n");
+        xml_.append(" $public $static ExEnum TWO = (ONE = $null):\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExThree", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
 }
