@@ -9,10 +9,7 @@ import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.MethodModifier;
 import code.expressionlanguage.stds.LgNames;
-import code.expressionlanguage.structs.EnumerableStruct;
-import code.expressionlanguage.structs.FieldableStruct;
-import code.expressionlanguage.structs.IntStruct;
-import code.expressionlanguage.structs.Struct;
+import code.expressionlanguage.structs.*;
 import code.gui.ListSelection;
 import code.gui.SelectionInfo;
 import code.util.CustList;
@@ -21,18 +18,19 @@ import code.util.StringList;
 
 import java.awt.event.*;
 
-public final class EventStruct implements FieldableStruct,EnumerableStruct,
+public final class EventStruct implements WithParentStruct,EnumerableStruct,
         ActionListener,Runnable,MouseListener,WindowListener,ListSelection {
 
     private final String className;
 
     private final ObjectMap<ClassField,Struct> fields;
 
-    private final Struct parent;
+    private Struct parent;
 
     private String name;
     private int ordinal;
     private final ContextEl original;
+    private final String parentClassName;
     public EventStruct(ContextEl _original, String _className,
                        String _name, int _ordinal,
                        ObjectMap<ClassField,Struct> _fields, Struct _parent) {
@@ -42,6 +40,7 @@ public final class EventStruct implements FieldableStruct,EnumerableStruct,
         className = _className;
         fields = _fields;
         parent = _parent;
+        parentClassName = _parent.getClassName(_original);
     }
     @Override
     public String getName() {
@@ -71,6 +70,16 @@ public final class EventStruct implements FieldableStruct,EnumerableStruct,
     @Override
     public Struct getParent() {
         return parent;
+    }
+
+    @Override
+    public String getParentClassName() {
+        return parentClassName;
+    }
+
+    @Override
+    public void setParent(Struct _parent) {
+        parent = _parent;
     }
 
     @Override

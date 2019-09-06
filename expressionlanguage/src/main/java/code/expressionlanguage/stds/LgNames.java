@@ -357,7 +357,8 @@ public abstract class LgNames {
                 getAliasSetPolymorph()));
         map_.put(getAliasObjectsUtil(), new StringList(
                 getAliasSameRef(),
-                getAliasGetParent()));
+                getAliasGetParent(),
+                getAliasSetParent()));
         map_.put(getAliasStringUtil(), new StringList(
                 getAliasValueOf()));
         map_.put(getAliasResources(), new StringList(
@@ -788,6 +789,26 @@ public abstract class LgNames {
             processError(_cont,result_);
             return result_;
         }
+        if (StringList.quickEq(type_, lgNames_.getAliasObjectsUtil())) {
+            Struct inst_ = args_[0];
+            if (!(inst_ instanceof WithParentStruct)) {
+                result_.setResult(NullStruct.NULL_VALUE);
+                return result_;
+            }
+            WithParentStruct i_ = (WithParentStruct) inst_;
+            Struct par_ = args_[1];
+            if (!StringList.quickEq(i_.getParentClassName(),par_.getClassName(_cont))) {
+                result_.setResult(NullStruct.NULL_VALUE);
+                return result_;
+            }
+            if (_cont.isContainedSensibleFields(i_)) {
+                _cont.failInitEnums();
+                return result_;
+            }
+            i_.setParent(par_);
+            result_.setResult(NullStruct.NULL_VALUE);
+            return result_;
+        }
         String mathType_ = lgNames_.getAliasMath();
         String stringUtil_ = lgNames_.getAliasStringUtil();
         if (StringList.quickEq(type_, stringUtil_)) {
@@ -858,11 +879,13 @@ public abstract class LgNames {
                 result_.setResult(new BooleanStruct(args_[0].sameReference(args_[1])));
                 return result_;
             }
-            Struct arg_ = args_[0];
-            Struct par_ = arg_.getParent();
-            _cont.getContextEl().addSensibleField(arg_, par_);
-            result_.setResult(par_);
-            return result_;
+            if (StringList.quickEq(name_, lgNames_.getAliasGetParent())) {
+                Struct arg_ = args_[0];
+                Struct par_ = arg_.getParent();
+                _cont.getContextEl().addSensibleField(arg_, par_);
+                result_.setResult(par_);
+                return result_;
+            }
         }
         if (StringList.quickEq(type_, replType_)) {
             ReplacementStruct.calculate(_cont, result_, _method, _struct);
@@ -2440,6 +2463,12 @@ public abstract class LgNames {
     }
     public void setAliasGetParent(String _aliasGetParent) {
         coreNames.setAliasGetParent(_aliasGetParent);
+    }
+    public String getAliasSetParent() {
+        return coreNames.getAliasSetParent();
+    }
+    public void setAliasSetParent(String _aliasGetParent) {
+        coreNames.setAliasSetParent(_aliasGetParent);
     }
 
     public String getAliasGetSuperClass() {

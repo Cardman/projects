@@ -110,7 +110,7 @@ public class DefaultInitializer implements Initializer {
             String _className, String _fieldName, int _ordinal, ObjectMap<ClassField,Struct> _fields) {
         if (_fieldName.isEmpty()) {
             if (_parent != NullStruct.NULL_VALUE) {
-                return new InnerCustStruct(_className, _fields, _parent);
+                return new InnerCustStruct(_className, _fields, _parent, _parent.getClassName(_context));
             }
             return new CustStruct(_className, _fields);
         }

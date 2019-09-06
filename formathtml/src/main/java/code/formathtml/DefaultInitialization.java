@@ -192,6 +192,7 @@ public final class DefaultInitialization {
         _lgNames.setAliasStringUtil("java.lang.$StringUtil");
         _lgNames.setAliasSameRef("eq");
         _lgNames.setAliasGetParent("getParent");
+        _lgNames.setAliasSetParent("setParent");
         _lgNames.setAliasNext("next");
         _lgNames.setAliasHasNext("hasNext");
         _lgNames.setAliasIterableTable("java.lang.$iterableTable");

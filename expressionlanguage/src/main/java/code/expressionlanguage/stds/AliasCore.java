@@ -38,6 +38,7 @@ public final class AliasCore {
     private String aliasObjectsUtil;
     private String aliasSameRef;
     private String aliasGetParent;
+    private String aliasSetParent;
     private String aliasReadResourcesNames;
     private String aliasReadResources;
     private String aliasResources;
@@ -170,6 +171,9 @@ public final class AliasCore {
         methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasObject);
         method_ = new StandardMethod(aliasGetParent, params_, aliasObject, false, MethodModifier.STATIC, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasObject,aliasObject);
+        method_ = new StandardMethod(aliasSetParent, params_, aliasVoid, false, MethodModifier.STATIC, stdcl_);
         methods_.put(method_.getId(), method_);
         standards_.put(aliasObjectsUtil, stdcl_);
         methods_ = new ObjectMap<MethodId, StandardMethod>();
@@ -367,6 +371,14 @@ public final class AliasCore {
 
     public void setAliasGetParent(String _aliasGetParent) {
         aliasGetParent = _aliasGetParent;
+    }
+
+    public String getAliasSetParent() {
+        return aliasSetParent;
+    }
+
+    public void setAliasSetParent(String _aliasSetParent) {
+        aliasSetParent = _aliasSetParent;
     }
 
     public String getAliasVoid() {

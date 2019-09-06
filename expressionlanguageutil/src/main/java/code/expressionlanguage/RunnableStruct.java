@@ -12,11 +12,12 @@ import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.EnumerableStruct;
 import code.expressionlanguage.structs.FieldableStruct;
 import code.expressionlanguage.structs.Struct;
+import code.expressionlanguage.structs.WithParentStruct;
 import code.util.CustList;
 import code.util.ObjectMap;
 import code.util.StringList;
 
-public final class RunnableStruct implements FieldableStruct, EnumerableStruct,Runnable {
+public final class RunnableStruct implements WithParentStruct, EnumerableStruct,Runnable {
     private ContextEl original;
     private Struct parent;
 
@@ -26,7 +27,7 @@ public final class RunnableStruct implements FieldableStruct, EnumerableStruct,R
 
     private String name;
     private int ordinal;
-
+    private final String parentClassName;
     RunnableStruct(ContextEl _original,String _className,
                       String _name, int _ordinal,
                       ObjectMap<ClassField,Struct> _fields, Struct _parent) {
@@ -36,6 +37,7 @@ public final class RunnableStruct implements FieldableStruct, EnumerableStruct,R
         className = _className;
         fields = _fields;
         parent = _parent;
+        parentClassName = _parent.getClassName(_original);
     }
     @Override
     public String getName() {
@@ -65,6 +67,16 @@ public final class RunnableStruct implements FieldableStruct, EnumerableStruct,R
     @Override
     public Struct getParent() {
         return parent;
+    }
+
+    @Override
+    public String getParentClassName() {
+        return parentClassName;
+    }
+
+    @Override
+    public void setParent(Struct _parent) {
+        parent = _parent;
     }
 
     @Override

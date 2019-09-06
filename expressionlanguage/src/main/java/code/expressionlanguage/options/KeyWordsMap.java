@@ -351,6 +351,7 @@ public final class KeyWordsMap {
         _lgNames.setAliasStringUtil("$core.StringUtil");
         _lgNames.setAliasSameRef("eq");
         _lgNames.setAliasGetParent("getParent");
+        _lgNames.setAliasSetParent("setParent");
         _lgNames.setAliasNext("next");
         _lgNames.setAliasHasNext("hasNext");
         _lgNames.setAliasIterableTable("$core.IterableTable");
@@ -625,6 +626,7 @@ public final class KeyWordsMap {
         _lgNames.setAliasStringUtil("$coeur.ChaineUtil");
         _lgNames.setAliasSameRef("eq");
         _lgNames.setAliasGetParent("valParent");
+        _lgNames.setAliasSetParent("majParent");
         _lgNames.setAliasNext("suivant");
         _lgNames.setAliasHasNext("aSuivant");
         _lgNames.setAliasIterableTable("$coeur.IterableTable");
