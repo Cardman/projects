@@ -1620,6 +1620,90 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         assertTrue(!cont_.getClasses().isEmptyErrors());
     }
     @Test
+    public void calculateArgument10600Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $return $static(pkg.ExTwo).getstatic()+8i:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl();
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $final $int myf:\n");
+        xml_.append(" $static{\n");
+        xml_.append("  $try{\n");
+        xml_.append("  }\n");
+        xml_.append("  $finally{\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $int getstatic(){\n");
+        xml_.append("  $return myf;;;:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void calculateArgument10601Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $return $new pkg.ExTwo().getinst()+8i:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl();
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $final $int myf:\n");
+        xml_.append(" {\n");
+        xml_.append("  $try{\n");
+        xml_.append("  }\n");
+        xml_.append("  $finally{\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $int getinst(){\n");
+        xml_.append("  $return myf;;;:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void calculateArgument10602Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $return $new pkg.ExTwo().getinst()+8i:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl();
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $final $int myf:\n");
+        xml_.append(" $public ExTwo(){\n");
+        xml_.append("  $try{\n");
+        xml_.append("  }\n");
+        xml_.append("  $finally{\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $int getinst(){\n");
+        xml_.append("  $return myf;;;:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
+    @Test
     public void calculateArgument1061Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
