@@ -770,6 +770,11 @@ public abstract class LgNames {
 
     public abstract void buildOther();
     public static ResultErrorStd invokeMethod(ContextEl _cont, ClassMethodId _method, Struct _struct, Argument... _args) {
+        LgNames lgNames_ = _cont.getStandards();
+        return lgNames_.invoke(_cont,_method,_struct,_args);
+    }
+
+    protected ResultErrorStd invoke(ContextEl _cont, ClassMethodId _method, Struct _struct, Argument... _args) {
         ResultErrorStd result_;
         Struct[] args_ = getObjects(_args);
         String type_ = _method.getClassName();
@@ -828,7 +833,6 @@ public abstract class LgNames {
         processError(_cont,result_);
         return result_;
     }
-
     public static ResultErrorStd invokeStdMethod(Analyzable _cont, ClassMethodId _method, Struct _struct, Argument... _args) {
         ResultErrorStd result_ = new ResultErrorStd();
         Struct[] args_ = getObjects(_args);
@@ -981,7 +985,7 @@ public abstract class LgNames {
         return result_;
     }
 
-    private static void processError(ContextEl _cont, ResultErrorStd _result) {
+    protected static void processError(ContextEl _cont, ResultErrorStd _result) {
         if (_result.getError() != null) {
             String errMessage_ = _result.getErrorMessage();
             if (errMessage_ != null) {

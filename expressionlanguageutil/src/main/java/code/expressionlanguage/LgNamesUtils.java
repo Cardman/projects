@@ -149,6 +149,9 @@ public class LgNamesUtils extends LgNames {
     private String aliasInfoTestCurrentClass;
     private String aliasInfoTestCurrentMethod;
     private String aliasInfoTestCurrentParams;
+
+    private String aliasConcurrentError;
+
     @Override
     public StringMap<String> buildFiles(ContextEl _context) {
         StringMap<String> stds_ = super.buildFiles(_context);
@@ -611,6 +614,11 @@ public class LgNamesUtils extends LgNames {
         fields_ = new StringMap<StandardField>();
         stdcl_ = new StandardClass(aliasIllegalThreadStateException, fields_, constructors_, methods_, getAliasError(), MethodModifier.ABSTRACT);
         getStandards().put(aliasIllegalThreadStateException, stdcl_);
+        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        constructors_ = new CustList<StandardConstructor>();
+        fields_ = new StringMap<StandardField>();
+        stdcl_ = new StandardClass(aliasConcurrentError, fields_, constructors_, methods_, getAliasError(), MethodModifier.ABSTRACT);
+        getStandards().put(aliasConcurrentError, stdcl_);
     }
     @Override
     public Argument defaultInstance(ExecutableCode _cont, String _id) {
@@ -746,6 +754,16 @@ public class LgNamesUtils extends LgNames {
         	return StringList.concat("0",Integer.toString(_millis));
         }
 		return Integer.toString(_millis);
+    }
+    protected ResultErrorStd invoke(ContextEl _cont, ClassMethodId _method, Struct _struct, Argument... _args) {
+        try {
+            return super.invoke(_cont,_method,_struct,_args);
+        } catch (Exception e) {
+            ResultErrorStd res_ = new ResultErrorStd();
+            res_.setError(aliasConcurrentError);
+            processError(_cont,res_);
+            return res_;
+        }
     }
     @Override
     public ResultErrorStd getOtherResult(ContextEl _cont, Struct _instance,
@@ -1107,6 +1125,7 @@ public class LgNamesUtils extends LgNames {
         ref_.add(getAliasIllegalThreadStateException());
         ref_.add(getAliasCustIterator());
         ref_.add(getAliasList());
+        ref_.add(getAliasConcurrentError());
         return ref_;
     }
 
@@ -1941,6 +1960,14 @@ public class LgNamesUtils extends LgNames {
         this.aliasInfoTestCurrentParams = aliasInfoTestCurrentParams;
     }
 
+    public String getAliasConcurrentError() {
+        return aliasConcurrentError;
+    }
+
+    public void setAliasConcurrentError(String _aliasConcurrentError) {
+        aliasConcurrentError = _aliasConcurrentError;
+    }
+
     public void otherAlias(String _lang) {
         if (StringList.quickEq(_lang, "en")) {
             setAliasPrint("print");
@@ -2052,6 +2079,7 @@ public class LgNamesUtils extends LgNames {
             setAliasInfoTestCurrentMethod("currentMethod");
             setAliasInfoTestCurrentParams("currentParams");
             setAliasInfoTestDone("done");
+            setAliasConcurrentError("$core.ConcurrentError");
         } else {
             setAliasPrint("afficher");
             setAliasRunnable("$coeur.Executable");
@@ -2162,6 +2190,7 @@ public class LgNamesUtils extends LgNames {
             setAliasInfoTestCurrentMethod("methodCourante");
             setAliasInfoTestCurrentParams("paramsCourants");
             setAliasInfoTestDone("fait");
+            setAliasConcurrentError("$coeur.ErreurConcurrentielle");
         }
     }
     private static boolean sleep(long _time) {
