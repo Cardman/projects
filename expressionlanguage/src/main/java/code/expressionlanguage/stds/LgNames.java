@@ -344,17 +344,16 @@ public abstract class LgNames {
                 getAliasGetParameterTypes(),
                 getAliasGetReturnType(),
                 getAliasInvoke(),
+                getAliasInvokeDirect(),
                 getAliasIsAbstract(),
                 getAliasIsFinal(),
                 getAliasIsNormal(),
                 getAliasIsPackage(),
-                getAliasIsPolymorph(),
                 getAliasIsPrivate(),
                 getAliasIsProtected(),
                 getAliasIsPublic(),
                 getAliasIsStatic(),
-                getAliasIsVarargs(),
-                getAliasSetPolymorph()));
+                getAliasIsVarargs()));
         map_.put(getAliasObjectsUtil(), new StringList(
                 getAliasSameRef(),
                 getAliasGetParent(),
@@ -2368,24 +2367,19 @@ public abstract class LgNames {
     public void setAliasInvoke(String _aliasInvoke) {
         reflect.setAliasInvoke(_aliasInvoke);
     }
+    public String getAliasInvokeDirect() {
+        return reflect.getAliasInvokeDirect();
+    }
+    public void setAliasInvokeDirect(String _aliasInvoke) {
+        reflect.setAliasInvokeDirect(_aliasInvoke);
+    }
     public String getAliasNewInstance() {
         return reflect.getAliasNewInstance();
     }
     public void setAliasNewInstance(String _aliasNewInstance) {
         reflect.setAliasNewInstance(_aliasNewInstance);
     }
-    public String getAliasIsPolymorph() {
-        return reflect.getAliasIsPolymorph();
-    }
-    public void setAliasIsPolymorph(String _aliasIsPolymorph) {
-        reflect.setAliasIsPolymorph(_aliasIsPolymorph);
-    }
-    public String getAliasSetPolymorph() {
-        return reflect.getAliasSetPolymorph();
-    }
-    public void setAliasSetPolymorph(String _aliasSetPolymorph) {
-        reflect.setAliasSetPolymorph(_aliasSetPolymorph);
-    }
+
     public String getAliasIsAbstract() {
         return reflect.getAliasIsAbstract();
     }

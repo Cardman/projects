@@ -20,8 +20,6 @@ public final class MethodMetaInfo implements Struct {
 
     private final String returnType;
 
-    private boolean polymorph = true;
-
     public MethodMetaInfo(AccessEnum _access, String _className, MethodId _realId, MethodModifier _modifier, String _returnType,
                           MethodId _fid, String _formClassName) {
         access = _access;
@@ -35,13 +33,6 @@ public final class MethodMetaInfo implements Struct {
     @Override
     public Struct getParent() {
         return NullStruct.NULL_VALUE;
-    }
-    public boolean isPolymorph() {
-        return polymorph;
-    }
-
-    public void setPolymorph(boolean _polymorph) {
-        polymorph = _polymorph;
     }
 
     public String getClassName() {
@@ -111,9 +102,6 @@ public final class MethodMetaInfo implements Struct {
             return false;
         }
         MethodMetaInfo info_ = (MethodMetaInfo) _other;
-        if (polymorph != info_.polymorph) {
-            return false;
-        }
         if (!StringList.quickEq(className, info_.className)) {
             return false;
         }

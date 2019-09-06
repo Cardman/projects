@@ -474,7 +474,9 @@ public abstract class ContextEl implements ExecutableCode {
         setCallingState(null);
         AbstractReflectPageEl pageLoc_;
         if (_reflect == ReflectingType.METHOD) {
-            pageLoc_ = new ReflectMethodPageEl();
+            pageLoc_ = new PolymorphRefectMethodPageEl();
+        } else if (_reflect == ReflectingType.DIRECT) {
+            pageLoc_ = new DirectRefectMethodPageEl();
         } else if (_reflect == ReflectingType.CONSTRUCTOR) {
             pageLoc_ = new ReflectConstructorPageEl();
         } else if (_reflect == ReflectingType.GET_FIELD) {

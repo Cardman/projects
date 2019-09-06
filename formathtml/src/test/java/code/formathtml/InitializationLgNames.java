@@ -266,9 +266,8 @@ public final class InitializationLgNames {
         _lgNames.setAliasField("java.lang.$Field");
         _lgNames.setAliasMethod("java.lang.$Method");
         _lgNames.setAliasInvoke("invoke");
+        _lgNames.setAliasInvokeDirect("invokeDirect");
         _lgNames.setAliasNewInstance("newInstance");
-        _lgNames.setAliasIsPolymorph("isPolymorph");
-        _lgNames.setAliasSetPolymorph("setPolymorph");
         _lgNames.setAliasIsAbstract("isAbstract");
         _lgNames.setAliasGetName("getName");
         _lgNames.setAliasGetPrettyName("getPrettyName");

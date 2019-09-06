@@ -176,8 +176,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         xml_.append(" $public $static $int inst:\n");
         xml_.append(" $public $static java.lang.String exmeth(){\n");
         xml_.append("  $Method m = $class(pkg.ExAbs).getDeclaredMethods(\"exmeth\",$false,$false)[0i]:\n");
-        xml_.append("  m;.setPolymorph($false):\n");
-        xml_.append("  $return $(java.lang.String) m;.invoke($new pkg.ExConc()):\n");
+        xml_.append("  $return $(java.lang.String) m;.invokeDirect($new pkg.ExConc()):\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
@@ -573,8 +572,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         xml_.append(" $public $static $int inst:\n");
         xml_.append(" $public $static java.lang.String exmeth(){\n");
         xml_.append("  $Method m = $class(pkg.ExAbs).getDeclaredMethods(\"exmeth\",$false,$false)[0i]:\n");
-        xml_.append("  m;.setPolymorph($false):\n");
-        xml_.append("  $return $(java.lang.String) m;.invoke($new pkg.ExConc()):\n");
+        xml_.append("  $return $(java.lang.String) m;.invokeDirect($new pkg.ExConc()):\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
@@ -5998,7 +5996,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertEq("code.expressionlanguage.exceptions.IllegalArgument",err_.getClassName(cont_));
     }
     @Test
-    public void reflectTest() {
+    public void reflect1Test() {
         ContextEl cont_ = contextEl();
         StringMap<String> files_ = new StringMap<String>();
         Classes.validateAll(files_, cont_);
@@ -6012,6 +6010,23 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ArrayStruct s_ = new ArrayStruct(arr_,"[java.lang.Object");
         args_.add(new Argument(s_));
         Argument out_ = ProcessMethod.reflectArgument(new Argument(m_), args_, cont_, ReflectingType.METHOD, false);
+        assertEq(1, out_.getNumber());
+    }
+    @Test
+    public void reflect2Test() {
+        ContextEl cont_ = contextEl();
+        StringMap<String> files_ = new StringMap<String>();
+        Classes.validateAll(files_, cont_);
+        MethodId id_ = new MethodId(true,"mod",new StringList("$int","$int"));
+        MethodMetaInfo m_ = new MethodMetaInfo(AccessEnum.PUBLIC,"java.lang.$math",id_,MethodModifier.STATIC,"$int",id_,"java.lang.$math");
+        CustList<Argument> args_ = new CustList<Argument>();
+        args_.add(Argument.createVoid());
+        Struct[] arr_ = new Struct[2];
+        arr_[0] = new IntStruct(4);
+        arr_[1] = new IntStruct(3);
+        ArrayStruct s_ = new ArrayStruct(arr_,"[java.lang.Object");
+        args_.add(new Argument(s_));
+        Argument out_ = ProcessMethod.reflectArgument(new Argument(m_), args_, cont_, ReflectingType.DIRECT, false);
         assertEq(1, out_.getNumber());
     }
 }

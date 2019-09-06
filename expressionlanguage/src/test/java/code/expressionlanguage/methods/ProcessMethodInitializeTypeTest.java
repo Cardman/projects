@@ -1096,66 +1096,6 @@ public final class ProcessMethodInitializeTypeTest extends ProcessMethodCommon {
         assertTrue(cont_.getClasses().isInitialized("pkg.ExTwo"));
     }
     @Test
-    public void calculate55Test() {
-        StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex {\n");
-        xml_.append(" $static{\n");
-        xml_.append("  ExTwo.inst.setPolymorph($true):\n");
-        xml_.append(" }\n");
-        xml_.append("}\n");
-        StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl();
-        files_.put("pkg/Ex", xml_.toString());
-        xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $Method inst = $class(ExTwo).getDeclaredMethods()[0]:\n");
-        xml_.append(" $public $static $void exec(){}\n");
-        xml_.append("}\n");
-        files_.put("pkg/ExTwo", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
-        assertTrue(!cont_.getClasses().isInitialized("pkg.Ex"));
-        assertTrue(cont_.getClasses().isInitialized("pkg.ExTwo"));
-    }
-    @Test
-    public void calculate56Test() {
-        StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl();
-        StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex {\n");
-        xml_.append(" $public $static $final $Method inst = $class(Ex).getDeclaredMethods()[0]:\n");
-        xml_.append(" $static {\n");
-        xml_.append("  inst.setPolymorph($false):\n");
-        xml_.append(" }\n");
-        xml_.append(" $static $void ex(){\n");
-        xml_.append(" }\n");
-        xml_.append("}\n");
-        files_.put("pkg/ExTwo", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
-        assertTrue(isNotPolymorph(cont_,"pkg.Ex","inst"));
-    }
-    @Test
-    public void calculate57Test() {
-        StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl();
-        StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex {\n");
-        xml_.append(" $public $static $Method inst = $class(Ex).getDeclaredMethods()[0]:\n");
-        xml_.append(" $static {\n");
-        xml_.append("  inst.setPolymorph($true):\n");
-        xml_.append(" }\n");
-        xml_.append(" $static $void ex(){\n");
-        xml_.append(" }\n");
-        xml_.append("}\n");
-        files_.put("pkg/ExTwo", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
-        assertTrue(isPolymorph(cont_,"pkg.Ex","inst"));
-    }
-    @Test
     public void calculate58Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
@@ -1551,14 +1491,6 @@ public final class ProcessMethodInitializeTypeTest extends ProcessMethodCommon {
     private String getString(ContextEl _cont,String _className, String _fieldName) {
         Struct str_ = _cont.getClasses().getStaticField(new ClassField(_className,_fieldName));
         return ((CharSequenceStruct)str_).toStringInstance();
-    }
-    private boolean isNotPolymorph(ContextEl _cont,String _className, String _fieldName) {
-        Struct str_ = _cont.getClasses().getStaticField(new ClassField(_className,_fieldName));
-        return !((MethodMetaInfo)str_).isPolymorph();
-    }
-    private boolean isPolymorph(ContextEl _cont,String _className, String _fieldName) {
-        Struct str_ = _cont.getClasses().getStaticField(new ClassField(_className,_fieldName));
-        return ((MethodMetaInfo)str_).isPolymorph();
     }
     private String getReplOldString(ContextEl _cont,String _className, String _fieldName) {
         Struct str_ = _cont.getClasses().getStaticField(new ClassField(_className,_fieldName));

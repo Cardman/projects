@@ -2914,8 +2914,7 @@ public final class RenderExpUtilTest {
         xml_.append(" $public $static $int inst:\n");
         xml_.append(" $public $static java.lang.String exmeth(){\n");
         xml_.append("  $Method m = $class(pkg.ExAbs).getDeclaredMethods(\"exmeth\",$false,$false)[0i]:\n");
-        xml_.append("  m;.setPolymorph($false):\n");
-        xml_.append("  $return $(java.lang.String) m;.invoke($new pkg.ExConc()):\n");
+        xml_.append("  $return $(java.lang.String) m;.invokeDirect($new pkg.ExConc()):\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
@@ -3227,8 +3226,7 @@ public final class RenderExpUtilTest {
         xml_.append(" $public $static $int inst:\n");
         xml_.append(" $public $static java.lang.String exmeth(){\n");
         xml_.append("  $Method m = $class(pkg.ExAbs).getDeclaredMethods(\"exmeth\",$false,$false)[0i]:\n");
-        xml_.append("  m;.setPolymorph($false):\n");
-        xml_.append("  $return $(java.lang.String) m;.invoke($new pkg.ExConc()):\n");
+        xml_.append("  $return $(java.lang.String) m;.invokeDirect($new pkg.ExConc()):\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());

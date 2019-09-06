@@ -335,9 +335,8 @@ public final class KeyWordsMap {
         _lgNames.setAliasField("$core.Field");
         _lgNames.setAliasMethod("$core.Method");
         _lgNames.setAliasInvoke("invoke");
+        _lgNames.setAliasInvokeDirect("invokeDirect");
         _lgNames.setAliasNewInstance("newInstance");
-        _lgNames.setAliasIsPolymorph("isPolymorph");
-        _lgNames.setAliasSetPolymorph("setPolymorph");
         _lgNames.setAliasIsAbstract("isAbstract");
         _lgNames.setAliasGetName("getName");
         _lgNames.setAliasGetPrettyName("getPrettyName");
@@ -610,9 +609,8 @@ public final class KeyWordsMap {
         _lgNames.setAliasField("$coeur.Champ");
         _lgNames.setAliasMethod("$coeur.Methode");
         _lgNames.setAliasInvoke("invoque");
+        _lgNames.setAliasInvokeDirect("invoqueDirect");
         _lgNames.setAliasNewInstance("nouvelleInstance");
-        _lgNames.setAliasIsPolymorph("estPolymorphe");
-        _lgNames.setAliasSetPolymorph("majPolymorphe");
         _lgNames.setAliasIsAbstract("estAbstrait");
         _lgNames.setAliasGetName("valNom");
         _lgNames.setAliasGetPrettyName("valJoliNom");

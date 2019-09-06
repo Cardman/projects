@@ -85,10 +85,9 @@ public final class AliasReflection {
     private String aliasField;
     private String aliasMethod;
     private String aliasInvoke;
+    private String aliasInvokeDirect;
     private String aliasNewInstance;
     private String aliasIsAbstract;
-    private String aliasIsPolymorph;
-    private String aliasSetPolymorph;
     private String aliasGetName;
     private String aliasGetPrettyName;
     private String aliasGetField;
@@ -394,11 +393,8 @@ public final class AliasReflection {
         params_ = new StringList(aliasObject_,aliasObject_);
         method_ = new StandardMethod(aliasInvoke, params_, aliasObject_, true, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
-        params_ = new StringList(aliasPrimBoolean_);
-        method_ = new StandardMethod(aliasSetPolymorph, params_, aliasVoid_, false, MethodModifier.FINAL, stdcl_);
-        methods_.put(method_.getId(), method_);
-        params_ = new StringList();
-        method_ = new StandardMethod(aliasIsPolymorph, params_, aliasPrimBoolean_, false, MethodModifier.FINAL, stdcl_);
+        params_ = new StringList(aliasObject_,aliasObject_);
+        method_ = new StandardMethod(aliasInvokeDirect, params_, aliasObject_, true, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasIsAbstract, params_, aliasPrimBoolean_, false, MethodModifier.FINAL, stdcl_);
@@ -560,11 +556,6 @@ public final class AliasReflection {
             return result_;
         }
         if (StringList.quickEq(type_, ref_.aliasMethod)) {
-            if (StringList.quickEq(name_, ref_.aliasIsPolymorph)) {
-                MethodMetaInfo method_ = (MethodMetaInfo) _struct;
-                result_.setResult(new BooleanStruct(method_.isPolymorph()));
-                return result_;
-            }
             if (StringList.quickEq(name_, ref_.aliasIsAbstract)) {
                 MethodMetaInfo method_ = (MethodMetaInfo) _struct;
                 result_.setResult(new BooleanStruct(method_.isAbstract()));
@@ -684,24 +675,13 @@ public final class AliasReflection {
                 result_.setResult(new StringStruct(method_.getName()));
                 return result_;
             }
-            if (StringList.quickEq(name_, ref_.aliasGetDeclaringClass)) {
-                MethodMetaInfo method_ = (MethodMetaInfo) _struct;
-                String cl_ = method_.getFormClassName();
-                if (cl_.isEmpty()) {
-                    result_.setResult(NullStruct.NULL_VALUE);
-                    return result_;
-                }
-                result_.setResult(_cont.getExtendedClassMetaInfo(cl_));
-                return result_;
-            }
-            if (_cont.isInitEnums() && _cont.isContainedSensibleFields(_struct)) {
-                _cont.failInitEnums();
-                return result_;
-            }
             MethodMetaInfo method_ = (MethodMetaInfo) _struct;
-            Boolean poly_ = ((BooleanStruct) args_[0]).getInstance();
-            method_.setPolymorph(poly_);
-            result_.setResult(NullStruct.NULL_VALUE);
+            String cl_ = method_.getFormClassName();
+            if (cl_.isEmpty()) {
+                result_.setResult(NullStruct.NULL_VALUE);
+                return result_;
+            }
+            result_.setResult(_cont.getExtendedClassMetaInfo(cl_));
             return result_;
         }
         if (StringList.quickEq(type_, aliasClass_)) {
@@ -2026,6 +2006,15 @@ public final class AliasReflection {
     public void setAliasInvoke(String _aliasInvoke) {
         aliasInvoke = _aliasInvoke;
     }
+
+    public String getAliasInvokeDirect() {
+        return aliasInvokeDirect;
+    }
+
+    public void setAliasInvokeDirect(String _aliasInvokeDirect) {
+        aliasInvokeDirect = _aliasInvokeDirect;
+    }
+
     public String getAliasNewInstance() {
         return aliasNewInstance;
     }
@@ -2038,18 +2027,7 @@ public final class AliasReflection {
     public void setAliasIsAbstract(String _aliasIsAbstract) {
         aliasIsAbstract = _aliasIsAbstract;
     }
-    public String getAliasIsPolymorph() {
-        return aliasIsPolymorph;
-    }
-    public void setAliasIsPolymorph(String _aliasIsPolymorph) {
-        aliasIsPolymorph = _aliasIsPolymorph;
-    }
-    public String getAliasSetPolymorph() {
-        return aliasSetPolymorph;
-    }
-    public void setAliasSetPolymorph(String _aliasSetPolymorph) {
-        aliasSetPolymorph = _aliasSetPolymorph;
-    }
+
     public String getAliasGetName() {
         return aliasGetName;
     }
