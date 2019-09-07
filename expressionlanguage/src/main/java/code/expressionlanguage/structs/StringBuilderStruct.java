@@ -17,6 +17,12 @@ public final class StringBuilderStruct extends CharSequenceStruct {
     public StringBuilderStruct(StringBuilder _instance) {
         instance = _instance;
     }
+
+    @Override
+    public boolean sameReference(Struct _other) {
+        return this == _other;
+    }
+
     public static void instantiate(Analyzable _cont, ResultErrorStd _res, ConstructorId _method, Struct... _args) {
         StringList list_ = _method.getParametersTypes();
         LgNames lgNames_ = _cont.getStandards();

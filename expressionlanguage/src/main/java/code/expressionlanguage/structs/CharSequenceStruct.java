@@ -13,18 +13,18 @@ public abstract class CharSequenceStruct implements DisplayableStruct, Exportabl
     public final Struct getParent() {
         return NullStruct.NULL_VALUE;
     }
-    @Override
-    public boolean sameReference(Struct _other) {
+
+    static boolean sameEq(CharSequenceStruct _current, Struct _other) {
         if (!(_other instanceof CharSequenceStruct)) {
             return false;
         }
         CharSequenceStruct other_ = (CharSequenceStruct) _other;
-        int len_ = length();
+        int len_ = _current.length();
         if (len_ != other_.length()) {
             return false;
         }
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
-            if (charAt(i) != other_.charAt(i)) {
+            if (_current.charAt(i) != other_.charAt(i)) {
                 return false;
             }
         }
@@ -35,7 +35,11 @@ public abstract class CharSequenceStruct implements DisplayableStruct, Exportabl
             ((CharSequenceStruct) _struct).calculateLocCharSeq(_cont, _res, _method, _args);
             return;
         }
-        _res.setResult(new BooleanStruct(_args[0].sameReference(_args[1])));
+        if (!(_args[0] instanceof CharSequenceStruct)) {
+            _res.setResult(new BooleanStruct(_args[1] == NullStruct.NULL_VALUE));
+            return;
+        }
+        _res.setResult(new BooleanStruct(sameEq((CharSequenceStruct)_args[0],_args[1])));
     }
     private void calculateLocCharSeq(Analyzable _cont, ResultErrorStd _res, ClassMethodId _method, Struct... _args) {
         String name_ = _method.getConstraints().getName();
