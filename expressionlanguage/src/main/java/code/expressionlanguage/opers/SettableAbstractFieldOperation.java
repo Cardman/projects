@@ -135,7 +135,12 @@ public abstract class SettableAbstractFieldOperation extends
         }
         return fieldMetaInfo.getClassField();
     }
-
+    public final ClassField getFieldIdReadOnly() {
+        if (fieldMetaInfo == null) {
+            return new ClassField(EMPTY_STRING,EMPTY_STRING);
+        }
+        return fieldMetaInfo.getClassField();
+    }
     public final boolean matchFieldId(ClassField _id) {
         if (fieldMetaInfo == null) {
             return false;

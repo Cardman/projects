@@ -125,7 +125,7 @@ public final class ElUtil {
     }
 
     private static boolean processAssign(ContextEl _conf, Block _currentBlock) {
-        return _currentBlock != null && !_conf.isAnnotAnalysis() && !_conf.isGearConst() && !_conf.getOptions().isReadOnly();
+        return processAssign(_conf) && _currentBlock != null;
     }
 
 
@@ -156,7 +156,7 @@ public final class ElUtil {
         OperationNode next_ = createFirstChild(_current, _context, 0);
         if (next_ != null) {
             ((MethodOperation) _current).appendChild(next_);
-            if (!_context.isAnnotAnalysis() && !_context.isGearConst() && !_context.getOptions().isReadOnly()) {
+            if (processAssign(_context)) {
                 ((MethodOperation) _current).tryAnalyzeAssignmentBefore(_context, next_);
             }
             return next_;
@@ -169,7 +169,7 @@ public final class ElUtil {
             if (current_ instanceof ReductibleOperable) {
                 ((ReductibleOperable)current_).tryCalculateNode(_context);
             }
-            if (!_context.isAnnotAnalysis() && !_context.isGearConst() && !_context.getOptions().isReadOnly()) {
+            if (processAssign(_context)) {
                 current_.tryAnalyzeAssignmentAfter(_context);
             }
             _sortedNodes.add(current_);
@@ -198,7 +198,7 @@ public final class ElUtil {
                     }
                 }
                 par_.appendChild(next_);
-                if (!_context.isAnnotAnalysis() && !_context.isGearConst() && !_context.getOptions().isReadOnly()) {
+                if (processAssign(_context)) {
                     par_.tryAnalyzeAssignmentBeforeNextSibling(_context, next_, current_);
                 }
                 return next_;
@@ -212,7 +212,7 @@ public final class ElUtil {
                     par_.cancelArgument();
                 }
                 par_.tryCalculateNode(_context);
-                if (!_context.isAnnotAnalysis() && !_context.isGearConst() && !_context.getOptions().isReadOnly()) {
+                if (processAssign(_context)) {
                     par_.tryAnalyzeAssignmentAfter(_context);
                 }
                 par_.setOrder(_sortedNodes.size());
@@ -225,6 +225,11 @@ public final class ElUtil {
             current_ = par_;
         }
     }
+
+    private static boolean processAssign(ContextEl _conf) {
+        return !_conf.getOptions().isReadOnly() && !_conf.isAnnotAnalysis() && !_conf.isGearConst();
+    }
+
     private static OperationNode createFirstChild(OperationNode _block, ContextEl _context, int _index) {
         if (!(_block instanceof MethodOperation)) {
             return null;
@@ -404,17 +409,31 @@ public final class ElUtil {
             return false;
         }
         String fieldName_ = cl_.getFieldName();
-        if (!_conf.getContextEl().getOptions().isReadOnly() && stepForLoop(_conf)) {
+        if (stepForLoop(_conf)) {
             return true;
         }
+        return checkFinal(_conf, _cst, _ass, fromCurClass_, cl_, fieldName_);
+    }
+
+    public static boolean checkFinalFieldReadOnly(Analyzable _conf, SettableAbstractFieldOperation _cst, StringMap<Assignment> _ass) {
+        boolean fromCurClass_ = _cst.isFromCurrentClass(_conf);
+        ClassField cl_ = _cst.getFieldIdReadOnly();
+        FieldInfo meta_ = _conf.getFieldInfo(cl_);
+        if (meta_ == null) {
+            return false;
+        }
+        String fieldName_ = cl_.getFieldName();
+        return meta_.isFinalField() && checkFinal(_conf, _cst, _ass, fromCurClass_, cl_, fieldName_);
+    }
+    private static boolean checkFinal(Analyzable _conf, SettableAbstractFieldOperation _cst, StringMap<Assignment> _ass, boolean _fromCurClass, ClassField _cl, String _fieldName) {
         boolean checkFinal_;
         if (_conf.getContextEl().isAssignedFields()) {
             checkFinal_ = true;
         } else if (_conf.getContextEl().isAssignedStaticFields()) {
-            FieldInfo meta_ = _conf.getFieldInfo(cl_);
+            FieldInfo meta_ = _conf.getFieldInfo(_cl);
             if (meta_.isStaticField()) {
                 checkFinal_ = true;
-            } else if (!fromCurClass_) {
+            } else if (!_fromCurClass) {
                 checkFinal_ = true;
             } else {
                 if (isDeclaringField(_cst, _conf)) {
@@ -422,7 +441,7 @@ public final class ElUtil {
                 } else {
                     checkFinal_ = false;
                     for (EntryCust<String, Assignment> e: _ass.entryList()) {
-                        if (!StringList.quickEq(e.getKey(),fieldName_)) {
+                        if (!StringList.quickEq(e.getKey(), _fieldName)) {
                             continue;
                         }
                         if (e.getValue().isUnassignedAfter()) {
@@ -432,7 +451,7 @@ public final class ElUtil {
                     }
                 }
             }
-        } else if (!fromCurClass_) {
+        } else if (!_fromCurClass) {
             checkFinal_ = true;
         } else {
             if (isDeclaringField(_cst, _conf)) {
@@ -440,7 +459,7 @@ public final class ElUtil {
             } else {
                 checkFinal_ = false;
                 for (EntryCust<String, Assignment> e: _ass.entryList()) {
-                    if (!StringList.quickEq(e.getKey(), fieldName_)) {
+                    if (!StringList.quickEq(e.getKey(), _fieldName)) {
                         continue;
                     }
                     if (e.getValue().isUnassignedAfter()) {
@@ -452,6 +471,7 @@ public final class ElUtil {
         }
         return checkFinal_;
     }
+
     private static boolean stepForLoop(Analyzable _conf) {
         if (_conf.getCurrentBlock() instanceof ForMutableIterativeLoop) {
             return _conf.getForLoopPartState() == ForLoopPart.STEP;
