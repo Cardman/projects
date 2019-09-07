@@ -1,23 +1,44 @@
 package code.gui;
 
-import javax.swing.*;
+import code.gui.events.ChangeRadioEvent;
+import code.util.CustList;
 
 public final class CustButtonGroup {
-    private ButtonGroup buttonGroup = new ButtonGroup();
+
+    private CustList<RadioButton> group = new CustList<RadioButton>();
+
+    private RadioButton selected;
 
     public void add(RadioButton b) {
-        buttonGroup.add((AbstractButton) b.getComponent());
+        if (b.getButtonGroup() != null) {
+            return;
+        }
+        b.setButtonGroup(this);
+        if (b.isSelected()) {
+            for (RadioButton c: group) {
+                c.setSelected(false);
+            }
+            selected = b;
+        }
+        group.add(b);
+        b.addActionListener(new ChangeRadioEvent(this,b));
     }
 
-    public void remove(RadioButton b) {
-        buttonGroup.remove((AbstractButton) b.getComponent());
+    public CustList<RadioButton> getGroup() {
+        return group;
+    }
+
+    public RadioButton getSelected() {
+        return selected;
     }
 
     public void clearSelection() {
-        buttonGroup.clearSelection();
+        for (RadioButton c: group) {
+            c.setSelected(false);
+        }
     }
 
     public int getButtonCount() {
-        return buttonGroup.getButtonCount();
+        return group.size();
     }
 }

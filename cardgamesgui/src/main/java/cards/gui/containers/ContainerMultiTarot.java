@@ -575,19 +575,19 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         handFuls_.add(scroll_);
         setChoosenHandful(Handfuls.NO);
         setSelectedMiseres(new EnumMap<Miseres,Boolean>());
-        setListHandfuls(new CustButtonGroup());
+        CustList<RadioButton> list_ = new CustList<RadioButton>();
         for (Handfuls h: Handfuls.getNonDeclarableHandFuls()) {
             RadioButton radio_ = new RadioButton(Games.toString(h,lg_));
-            radio_.addMouseListener(new ListenerNoHandfulTarot(this, radio_, h));
-            getListHandfuls().add(radio_);
+            list_.add(radio_);
+            radio_.addMouseListener(new ListenerNoHandfulTarot(this, radio_, h,list_));
             handFuls_.add(radio_);
         }
         for (Handfuls h: _declaration.getAllowedHandfuls()) {
             RadioButton radio_ = new RadioButton(Games.toString(h,lg_));
+            list_.add(radio_);
             int diff_ = getCurrentIncludedTrumps().total()-requiredTrumps.getVal(h);
             radio_.setEnabled(diff_ >= 0);
-            radio_.addMouseListener(new ListenerHandfulTarot(requiredTrumps.getVal(h), radio_, this, h));
-            getListHandfuls().add(radio_);
+            radio_.addMouseListener(new ListenerHandfulTarot(requiredTrumps.getVal(h), radio_, this, h,list_));
             handFuls_.add(radio_);
         }
         getPanneauBoutonsJeu().add(handFuls_);

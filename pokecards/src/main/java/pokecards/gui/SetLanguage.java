@@ -1,10 +1,12 @@
 package pokecards.gui;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import code.gui.GroupFrame;
 
-class SetLanguage extends MouseAdapter {
+class SetLanguage implements ActionListener {
 
     private String language;
 
@@ -13,7 +15,7 @@ class SetLanguage extends MouseAdapter {
     }
 
     @Override
-    public void mouseReleased(MouseEvent _arg) {
+    public void actionPerformed(ActionEvent _arg) {
         GroupFrame.changeStaticLanguage(language);
     }
 }

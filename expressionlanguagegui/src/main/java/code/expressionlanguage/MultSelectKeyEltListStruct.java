@@ -7,49 +7,32 @@ import code.gui.IndexableListener;
 import code.util.CustList;
 import code.util.StringList;
 
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
-public final class MultSelectEltListStruct extends MouseAdapter implements IndexableListener {
+public class MultSelectKeyEltListStruct extends KeyAdapter implements IndexableListener {
     private ContextEl original;
     private GraphicListStruct grList;
 
     private int index;
 
-    public MultSelectEltListStruct(ContextEl _contextEl, GraphicListStruct _graphicList, int _index) {
+    public MultSelectKeyEltListStruct(ContextEl _contextEl, GraphicListStruct _graphicList, int _index) {
         original = _contextEl;
         grList = _graphicList;
         index = _index;
     }
 
-
     @Override
-    public void mouseReleased(MouseEvent _e) {
-        boolean sel_ = !_e.isPopupTrigger();
-        if (!_e.isShiftDown()) {
-            grList.setFirstIndex(index);
-            grList.setLastIndex(index);
-            if (!sel_) {
-                grList.getSelectedIndexes().removeObj(index);
-            } else {
-                grList.getSelectedIndexes().add(index);
-                grList.getSelectedIndexes().removeDuplicates();
-            }
-            GuiContextEl ctx_ = newCtx();
-            LgNamesGui stds_ = (LgNamesGui) original.getStandards();
-            StringList types_ = new StringList(stds_.getAliasGrList());
-            CustList<Argument> args_ = new CustList<Argument>();
-            args_.add(new Argument(grList));
-            invoke(ctx_,stds_.getAliasPaint(),stds_.getAliasPaintRefresh(), types_, args_);
-            SelectionStructUtil.selectEvent(index,index,grList,false);
-            if (grList.getListComponents().isValidIndex(index)) {
-                grList.getListComponents().get(index).requestFocus();
-            }
+    public void keyReleased(KeyEvent _e) {
+        if (!_e.isControlDown()) {
             return;
         }
-        grList.setLastIndex(index);
-        int min_ = Math.min(grList.getFirstIndex(), grList.getLastIndex());
-        int max_ = Math.max(grList.getFirstIndex(), grList.getLastIndex());
+        if (_e.getKeyCode() != KeyEvent.VK_A) {
+            return;
+        }
+        boolean sel_ = !_e.isShiftDown();
+        int min_ = 0;
+        int max_ = grList.getListComponents().size() - 1;
         if (!sel_) {
             for (int i = min_; i <= max_; i++) {
                 grList.getSelectedIndexes().removeObj(i);
@@ -66,7 +49,18 @@ public final class MultSelectEltListStruct extends MouseAdapter implements Index
         CustList<Argument> args_ = new CustList<Argument>();
         args_.add(new Argument(grList));
         invoke(ctx_,stds_.getAliasPaint(),stds_.getAliasPaintRefresh(), types_, args_);
-        SelectionStructUtil.selectEvent(min_,max_,grList,false);
+        if (!sel_) {
+            grList.setFirstIndex(0);
+            grList.setLastIndex(max_);
+            grList.clearRange();
+            grList.setFirstIndex(-1);
+            grList.setLastIndex(-1);
+        } else {
+            grList.setFirstIndex(0);
+            grList.setLastIndex(max_);
+            grList.addRange();
+        }
+        SelectionStructUtil.selectEvent(0,max_,grList,false);
     }
     private void invoke(GuiContextEl _r, String _typeName, String _methName, StringList _argTypes, CustList<Argument> _args) {
         ClassMethodId mId_ = new ClassMethodId(_typeName,new MethodId(true,_methName,_argTypes));

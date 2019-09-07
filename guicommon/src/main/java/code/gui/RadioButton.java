@@ -7,6 +7,7 @@ import java.awt.event.MouseListener;
 
 public final class RadioButton extends CustComponent {
     private JRadioButton radioButton;
+    private CustButtonGroup buttonGroup;
     public RadioButton() {
         radioButton = new JRadioButton();
     }
@@ -52,6 +53,14 @@ public final class RadioButton extends CustComponent {
 
     public void setEnabled(boolean b) {
         radioButton.setEnabled(b);
+    }
+
+    public CustButtonGroup getButtonGroup() {
+        return buttonGroup;
+    }
+
+    public void setButtonGroup(CustButtonGroup _buttonGroup) {
+        buttonGroup = _buttonGroup;
     }
 
     public boolean isEnabled() {

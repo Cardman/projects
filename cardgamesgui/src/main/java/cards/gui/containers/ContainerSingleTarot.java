@@ -675,11 +675,11 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
             ScrollPane scroll_ = new ScrollPane(getInfoCurrentHandful());
             scroll_.setPreferredSize(new Dimension(getEvents().getWidth(),70));
             handFuls_.add(scroll_);
-            setListHandfuls(new CustButtonGroup());
+            CustList<RadioButton> list_ = new CustList<RadioButton>();
             for (Handfuls h: Handfuls.getNonDeclarableHandFuls()) {
                 RadioButton radio_ = new RadioButton(Games.toString(h,lg_));
-                radio_.addMouseListener(new ListenerNoHandfulTarot(this, radio_, h));
-                getListHandfuls().add(radio_);
+                list_.add(radio_);
+                radio_.addMouseListener(new ListenerNoHandfulTarot(this, radio_, h,list_));
                 handFuls_.add(radio_);
             }
             for (Handfuls h: Handfuls.getDeclarableHandFuls()) {
@@ -687,9 +687,9 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
                     continue;
                 }
                 RadioButton radio_ = new RadioButton(Games.toString(h,lg_));
+                list_.add(radio_);
                 radio_.setEnabled(poignees_.containsObj(h));
-                radio_.addMouseListener(new ListenerHandfulTarot(regles_.getPoigneesAutorisees().getVal(h), radio_, this, h));
-                getListHandfuls().add(radio_);
+                radio_.addMouseListener(new ListenerHandfulTarot(regles_.getPoigneesAutorisees().getVal(h), radio_, this, h,list_));
                 handFuls_.add(radio_);
             }
             panneau_.add(handFuls_);

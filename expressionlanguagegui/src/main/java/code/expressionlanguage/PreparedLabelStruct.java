@@ -5,6 +5,7 @@ import code.gui.CustComponent;
 import code.gui.PreparedLabel;
 
 import javax.swing.*;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
 
 public final class PreparedLabelStruct extends CustComponentStruct {
@@ -35,8 +36,17 @@ public final class PreparedLabelStruct extends CustComponentStruct {
             textLabel.addMouseListener(_mouseListener);
         }
     }
+
+    public void requestFocus() {
+        textLabel.requestFocus();
+    }
     @Override
     protected CustComponent getComponent() {
         return textLabel;
+    }
+
+    public void addKeyListener(KeyListener _i) {
+        textLabel.addKeyListener(_i);
+
     }
 }

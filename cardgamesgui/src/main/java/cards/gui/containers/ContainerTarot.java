@@ -1,8 +1,6 @@
 package cards.gui.containers;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import javax.swing.ButtonGroup;
-import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 
 import cards.facade.enumerations.GameEnum;
@@ -46,7 +44,6 @@ public class ContainerTarot extends ContainerGame{
     private boolean discardCall;
     /**Carte survol&eacute;e par la souris*/
     private Panel panelDiscardedTrumps;
-    private CustButtonGroup listHandfuls = new CustButtonGroup();
     private HandTarot currentIncludedTrumps = new HandTarot();
     private HandTarot currentExcludedTrumps = new HandTarot();
     private ScrollPane scrollDeclaringHandful;
@@ -164,12 +161,7 @@ public class ContainerTarot extends ContainerGame{
     public void setChoosenHandful(Handfuls _choosenHandful) {
         choosenHandful = _choosenHandful;
     }
-    protected CustButtonGroup getListHandfuls() {
-        return listHandfuls;
-    }
-    protected void setListHandfuls(CustButtonGroup _listHandfuls) {
-        listHandfuls = _listHandfuls;
-    }
+
     public ScrollPane getScrollDeclaringHandful() {
         return scrollDeclaringHandful;
     }

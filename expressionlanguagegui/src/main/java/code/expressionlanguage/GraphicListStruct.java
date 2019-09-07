@@ -65,19 +65,15 @@ public class GraphicListStruct extends CustComponentStruct {
             indexableMouse.add(i_);
             reindex(indexableMouse);
         } else {
+            MultSelectKeyEltListStruct i_ = new MultSelectKeyEltListStruct(_ctx,this, _index);
+            img_.addKeyListener(i_);
+            indexableKey.add(i_);
+            reindex(indexableKey);
             MultSelectEltListStruct j_ = new MultSelectEltListStruct(_ctx, this, _index);
             img_.addMouseListener(j_);
             indexableMouse.add(j_);
             reindex(indexableMouse);
         }
-//            MultSelectKeyEltList i_ = new MultSelectKeyEltList(this, _index);
-//            lab_.addKeyListener(i_);
-//            indexableKey.add(i_);
-//            MultSelectEltList j_ = new MultSelectEltList(this, _index);
-//            lab_.addMouseListener(j_);
-//            indexableMouse.add(j_);
-//            reindex(indexableMouse);
-//            reindex(indexableKey);
     }
     public void set(ContextEl _ctx,int _index, Struct _img, Struct _elt) {
         if (!(_img instanceof PreparedLabelStruct)) {
@@ -99,9 +95,12 @@ public class GraphicListStruct extends CustComponentStruct {
             img_.addMouseListener(i_);
             indexableMouse.set(_index,i_);
         } else {
+            MultSelectKeyEltListStruct i_ = new MultSelectKeyEltListStruct(_ctx,this, _index);
+            img_.addKeyListener(i_);
+            indexableKey.set(_index,i_);
             MultSelectEltListStruct j_ = new MultSelectEltListStruct(_ctx, this, _index);
             img_.addMouseListener(j_);
-            indexableMouse.add(j_);
+            indexableMouse.set(_index,j_);
         }
     }
     public ArrayStruct getListView(ContextEl _ctx) {
@@ -151,7 +150,6 @@ public class GraphicListStruct extends CustComponentStruct {
     void updateGraphics() {
         panel.revalidate();
         scroll.revalidate();
-        panel.refresh();
     }
     public void clear() {
         list.clear();
@@ -225,6 +223,11 @@ public class GraphicListStruct extends CustComponentStruct {
             selectedIndexes.removeObj(i);
         }
     }
+
+    public CustList<PreparedLabelStruct> getListComponents() {
+        return listComponents;
+    }
+
     public PanelStruct getPanel() {
         return panel;
     }

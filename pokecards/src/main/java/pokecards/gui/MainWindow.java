@@ -47,7 +47,7 @@ public final class MainWindow extends GroupFrame {
         panel_.add(new Clock());
         for (String l: Constants.getAvailableLanguages()) {
             RadioButton radio_ = new RadioButton(Constants.getDisplayLanguage(l));
-            radio_.addMouseListener(new SetLanguage(l));
+            radio_.addActionListener(new SetLanguage(l));
             radio_.setSelected(StringList.quickEq(l,_lg));
             group.add(radio_);
             panel_.add(radio_);
