@@ -18,6 +18,9 @@ public final class StringStruct extends CharSequenceStruct {
     }
 
     public boolean sameReference(Struct _other) {
+        if (!(_other instanceof StringStruct)) {
+            return false;
+        }
         return sameEq(this, _other);
     }
     public static void instantiate(LgNames _stds, ResultErrorStd _res, ConstructorId _method, Struct... _args) {
