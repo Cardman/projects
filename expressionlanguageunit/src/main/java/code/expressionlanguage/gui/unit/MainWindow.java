@@ -97,7 +97,7 @@ public final class MainWindow extends GroupFrame {
         progressing.add(splitPane_);
         contentPane.add(progressing);
         setContentPane(contentPane);
-        simplePack();
+        pack();
         setVisible(true);
         addWindowListener(new QuittingEvent(this));
     }

@@ -1,10 +1,6 @@
 package code.gui;
-import java.awt.GridLayout;
 import java.awt.Image;
 
-import javax.swing.ButtonGroup;
-import javax.swing.JFrame;
-import javax.swing.JRadioButton;
 import javax.swing.WindowConstants;
 
 import code.gui.events.LanguageChoice;
@@ -26,7 +22,6 @@ public class LanguageFrame extends CommonFrame implements SetterLanguage {
 
     private String dir;
 
-    private JFrame frame = new JFrame();
     LanguageFrame(String _dir, String[] _args, SoftApplicationCore _soft, Image _icon) {
         super(Constants.getDefaultLanguage());
         dir = _dir;
@@ -34,11 +29,6 @@ public class LanguageFrame extends CommonFrame implements SetterLanguage {
             setIconImage(_icon);
         }
         init(_args, _soft);
-    }
-
-    @Override
-    public void pack() {
-        frame.pack();
     }
 
     private void init(String[] _args, SoftApplicationCore _soft) {
