@@ -1434,14 +1434,19 @@ public final class ElResolver {
             }
         }
         if (other_) {
-            if (i_ >= len_ || _string.substring(i_).trim().charAt(0) != PAR_LEFT) {
+            String nextPart_ = "";
+            if (i_ < len_) {
+                nextPart_ = _string.substring(i_).trim();
+            }
+            int nextPartLen_ = nextPart_.length();
+            if (!nextCharIs(nextPart_,0,nextPartLen_,PAR_LEFT)) {
                 tolerateDot_ = true;
                 type_ = ConstType.WORD;
                 info_.setKind(type_);
                 info_.setFirstChar(beginWord_);
                 info_.setLastChar(i_);
                 info_.setName(word_);
-                if (_out.getStack().isEmpty() && i_ < len_ && _string.substring(i_).trim().charAt(0) == '=') {
+                if (_out.getStack().isEmpty() && nextCharIs(nextPart_,0,nextPartLen_,'=') && !nextCharIs(nextPart_,1,nextPartLen_,'=')) {
                     if (prev_.endsWith(",") || prev_.isEmpty()) {
                         if (ElUtil.isDeclaringVariable(_an)) {
                             _out.getDeclaring().add(word_);
