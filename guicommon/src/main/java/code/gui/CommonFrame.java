@@ -87,7 +87,6 @@ public abstract class CommonFrame implements ChangeableTitle {
     @Override
     public void pack() {
         frame.pack();
-        contentPane.repaint();
     }
 
     public void simplePack() {

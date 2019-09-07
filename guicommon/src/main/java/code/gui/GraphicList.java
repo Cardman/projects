@@ -289,7 +289,6 @@ public class GraphicList<T> extends CustComponent implements GraphicListable {
         scroll.setPreferredSize(new Dimension(width_ + 24, (h_ + 2)* Math.min(c_, visibleRowCount)));
         panel_.revalidate();
         scroll.revalidate();
-        panel_.repaint();
     }
     protected static void reindex(CustList<IndexableListener> _list) {
         int index_ = 0;
