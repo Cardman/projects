@@ -10,7 +10,7 @@ import code.sml.Element;
 import code.util.CustList;
 import code.util.*;
 
-public class AnchorEvent extends MouseAdapter {
+public final class AnchorEvent extends MouseAdapter {
 
     private Element anchor;
 

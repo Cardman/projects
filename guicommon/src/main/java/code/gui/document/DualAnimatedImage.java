@@ -15,7 +15,7 @@ import code.sml.Element;
 import code.util.CustList;
 
 
-public class DualAnimatedImage extends DualImage {
+public final class DualAnimatedImage extends DualImage {
     private String href;
 
     private int index;

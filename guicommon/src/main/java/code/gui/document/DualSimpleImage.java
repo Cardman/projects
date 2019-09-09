@@ -12,7 +12,7 @@ import code.gui.TextLabel;
 import code.sml.Element;
 
 
-public class DualSimpleImage extends DualImage {
+public final class DualSimpleImage extends DualImage {
     private String href;
     private int[][] image;
 

@@ -10,7 +10,7 @@ import code.gui.*;
 import code.util.CustList;
 import code.util.ObjectMap;
 
-public class WindowPage implements Runnable {
+public final class WindowPage implements Runnable {
 
     private RenderedPage page;
 
@@ -118,13 +118,14 @@ public class WindowPage implements Runnable {
                 cur_.add(dual_);
                 RadioButton radioButton_ = dual_.getRadio();
                 if (!radiosGroup_.isEmpty()) {
+                    String value_ = dual_.getValue();
                     ObjectMap<FormInputCoords,CustButtonGroup> grs_ = radiosGroup_.last();
                     if (radio_.getIndexButton() == 0) {
                         CustButtonGroup gr_ = new CustButtonGroup();
                         grs_.put(radio_.getId(), gr_);
-                        gr_.add(radioButton_);
+                        gr_.add(radioButton_,value_);
                     } else {
-                        grs_.getVal(radio_.getId()).add(radioButton_);
+                        grs_.getVal(radio_.getId()).add(radioButton_,value_);
                     }
                 }
             } else if (meta_ instanceof MetaComboBox) {

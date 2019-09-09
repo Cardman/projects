@@ -6,7 +6,7 @@ import java.awt.event.MouseEvent;
 import code.formathtml.render.SubmitForm;
 import code.gui.CustComponent;
 
-public class FormEvent extends MouseAdapter {
+public final class FormEvent extends MouseAdapter {
 
     private DualButton current;
 
