@@ -6,6 +6,8 @@ import code.gui.*;
 import code.util.CustList;
 import code.util.Ints;
 
+import java.awt.*;
+
 public class GraphicListStruct extends CustComponentStruct {
 
     private CustList<Struct> list;
@@ -28,6 +30,7 @@ public class GraphicListStruct extends CustComponentStruct {
     private boolean simple;
 
     private int visibleRowCount = 8;
+
     public GraphicListStruct(GuiContextEl _ctx,String _className,boolean _simple) {
         this(_ctx,_className,_simple,new ArrayStruct(new Struct[0],PrimitiveTypeUtil.getPrettyArrayType(_ctx.getStandards().getAliasPrimInteger())), new ArrayStruct(new Struct[0],PrimitiveTypeUtil.getPrettyArrayType(_ctx.getStandards().getAliasObject())));
     }
@@ -147,7 +150,32 @@ public class GraphicListStruct extends CustComponentStruct {
             index_++;
         }
     }
+
+    public Struct getVisibleRowCount() {
+        return new IntStruct(visibleRowCount);
+    }
+
+    public void setVisibleRowCount(Struct _visibleRowCount) {
+        int value_ = ((NumberStruct)_visibleRowCount).intStruct();
+        if (value_ < 0) {
+            value_ = 0;
+        }
+        visibleRowCount = value_;
+        updateGraphics();
+    }
+
     void updateGraphics() {
+        int width_ = 0;
+        for (PreparedLabelStruct c: getListComponents()) {
+            width_ = Math.max(width_, c.getWidth());
+        }
+        int h_ = 0;
+        int c_ = 0;
+        for (PreparedLabelStruct c: getListComponents()) {
+            h_ = Math.max(h_,c.getHeight());
+            c_++;
+        }
+        scroll.setPreferredSize(new Dimension(width_ + 24, (h_ + 2)* Math.min(c_, visibleRowCount)));
         scroll.revalidate();
     }
     public void clear() {

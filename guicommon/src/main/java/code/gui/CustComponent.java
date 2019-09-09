@@ -122,7 +122,7 @@ public abstract class CustComponent {
         getComponent().setCursor(cursor);
     }
 
-    protected Dimension getPreferredSize() {
+    public Dimension getPreferredSize() {
         return getComponent().getPreferredSize();
     }
 

@@ -3,12 +3,7 @@ package code.gui;
 import java.awt.Component;
 import java.awt.Dimension;
 
-import javax.swing.BoxLayout;
-import javax.swing.JComponent;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.SwingUtilities;
+import javax.swing.*;
 
 import code.util.CustList;
 import code.util.Ints;
@@ -112,15 +107,8 @@ public class GraphicList<T> extends CustComponent implements GraphicListable {
         indexableMouse.clear();
     }
     public void clearRevalidate() {
-        list.clear();
-        Panel panel_ = getPanel();
-        listComponents.clear();
-        panel_.removeAll();
-        selectedIndexes.clear();
-        panel_.repaint();
+        clear();
         scroll.revalidate();
-        indexableKey.clear();
-        indexableMouse.clear();
     }
     public void remove(int _index) {
         list.remove(_index);

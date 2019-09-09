@@ -7,6 +7,7 @@ import code.gui.CustComponent;
 import code.util.CustList;
 
 import javax.swing.SwingUtilities;
+import java.awt.*;
 
 public abstract class CustComponentStruct implements Struct {
 
@@ -112,5 +113,13 @@ public abstract class CustComponentStruct implements Struct {
             return false;
         }
         return getComponent() == ((CustComponentStruct)_other).getComponent();
+    }
+
+    protected Dimension getPreferredSize() {
+        return getComponent().getPreferredSize();
+    }
+
+    protected void setPreferredSize(Dimension _d) {
+        getComponent().setPreferredSize(_d);
     }
 }

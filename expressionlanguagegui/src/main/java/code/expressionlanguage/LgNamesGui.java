@@ -94,6 +94,8 @@ public class LgNamesGui extends LgNamesUtils {
     private String aliasComponentRepaint;
     private String aliasComponentSetAutoscrolls;
     private String aliasComponentIsAutoscrolls;
+    private String aliasComponentGetWidth;
+    private String aliasComponentGetHeight;
     private String aliasComponent;
     private String aliasSetContent;
     private String aliasAddCompo;
@@ -137,6 +139,8 @@ public class LgNamesGui extends LgNamesUtils {
     private String aliasGrListSetRender;
     private String aliasGrListGetSelection;
     private String aliasGrListSetSelection;
+    private String aliasGrListGetVisibleRowCount;
+    private String aliasGrListSetVisibleRowCount;
 
     private String aliasCombo;
     private String aliasComboGetSelectedItem;
@@ -557,6 +561,12 @@ public class LgNamesGui extends LgNamesUtils {
         params_ = new StringList(aliasListSelection);
         method_ = new StandardMethod(aliasGrListSetSelection, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasGrListGetVisibleRowCount, params_, getAliasPrimInteger(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasPrimInteger());
+        method_ = new StandardMethod(aliasGrListSetVisibleRowCount, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
         params_ = new StringList(getAliasPrimInteger(),getAliasObject());
         method_ = new StandardMethod(aliasGrListAdd, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
@@ -913,6 +923,14 @@ public class LgNamesGui extends LgNamesUtils {
             if (StringList.quickEq(name_, aliasComponentSetPaint)) {
                 inst_.setPaintEvent(_args[0]);
                 res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasComponentGetHeight)) {
+                res_.setResult(new IntStruct(inst_.getHeight()));
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasComponentGetWidth)) {
+                res_.setResult(new IntStruct(inst_.getWidth()));
                 return res_;
             }
             if (StringList.quickEq(name_, aliasComponentIsAutoscrolls)) {
@@ -1283,6 +1301,15 @@ public class LgNamesGui extends LgNamesUtils {
             }
             if (StringList.quickEq(name_, aliasGrListGetSelection)) {
                 res_.setResult(inst_.getListener());
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasGrListSetVisibleRowCount)) {
+                inst_.setVisibleRowCount(_args[0]);
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasGrListGetVisibleRowCount)) {
+                res_.setResult(inst_.getVisibleRowCount());
                 return res_;
             }
             if (StringList.quickEq(name_, aliasGrListSetRender)) {
@@ -1755,6 +1782,22 @@ public class LgNamesGui extends LgNamesUtils {
 
     public void setAliasComponentIsAutoscrolls(String aliasComponentIsAutoscrolls) {
         this.aliasComponentIsAutoscrolls = aliasComponentIsAutoscrolls;
+    }
+
+    public String getAliasComponentGetWidth() {
+        return aliasComponentGetWidth;
+    }
+
+    public void setAliasComponentGetWidth(String aliasComponentGetWidth) {
+        this.aliasComponentGetWidth = aliasComponentGetWidth;
+    }
+
+    public String getAliasComponentGetHeight() {
+        return aliasComponentGetHeight;
+    }
+
+    public void setAliasComponentGetHeight(String aliasComponentGetHeight) {
+        this.aliasComponentGetHeight = aliasComponentGetHeight;
     }
 
     public String getAliasImage() {
@@ -2517,6 +2560,22 @@ public class LgNamesGui extends LgNamesUtils {
         this.aliasGrListSetSelection = aliasGrListSetSelection;
     }
 
+    public String getAliasGrListGetVisibleRowCount() {
+        return aliasGrListGetVisibleRowCount;
+    }
+
+    public void setAliasGrListGetVisibleRowCount(String aliasGrListGetVisibleRowCount) {
+        this.aliasGrListGetVisibleRowCount = aliasGrListGetVisibleRowCount;
+    }
+
+    public String getAliasGrListSetVisibleRowCount() {
+        return aliasGrListSetVisibleRowCount;
+    }
+
+    public void setAliasGrListSetVisibleRowCount(String aliasGrListSetVisibleRowCount) {
+        this.aliasGrListSetVisibleRowCount = aliasGrListSetVisibleRowCount;
+    }
+
     public String getAliasGrListClear() {
         return aliasGrListClear;
     }
@@ -2719,6 +2778,8 @@ public class LgNamesGui extends LgNamesUtils {
             setAliasComponentRepaint("repaint");
             setAliasComponentSetAutoscrolls("setAutoscrolls");
             setAliasComponentIsAutoscrolls("isAutoscrolls");
+            setAliasComponentGetHeight("getHeight");
+            setAliasComponentGetWidth("getWidth");
             setAliasRender("$core.Render");
             setAliasRenderGetPaint("getPaint");
             setAliasRenderGetWidth("getWidth");
@@ -2738,6 +2799,8 @@ public class LgNamesGui extends LgNamesUtils {
             setAliasGrListSetRender("setRender");
             setAliasGrListGetSelection("getSelection");
             setAliasGrListSetSelection("setSelection");
+            setAliasGrListGetVisibleRowCount("getVisibleRowCount");
+            setAliasGrListSetVisibleRowCount("setVisibleRowCount");
             setAliasGrListClear("clear");
             setAliasGrListRemove("remove");
             setAliasCombo("$core.ComboBox");
@@ -2847,6 +2910,8 @@ public class LgNamesGui extends LgNamesUtils {
             setAliasComponentRepaint("repeindre");
             setAliasComponentSetAutoscrolls("majAutoascenseur");
             setAliasComponentIsAutoscrolls("estAutoascenseur");
+            setAliasComponentGetHeight("valHauteur");
+            setAliasComponentGetWidth("valLargeur");
             setAliasRender("$coeur.Rendu");
             setAliasRenderGetPaint("valPeindre");
             setAliasRenderGetWidth("valLargeur");
@@ -2866,6 +2931,8 @@ public class LgNamesGui extends LgNamesUtils {
             setAliasGrListSetRender("majRendu");
             setAliasGrListGetSelection("valSelection");
             setAliasGrListSetSelection("majSelection");
+            setAliasGrListGetVisibleRowCount("valNbLignesVisible");
+            setAliasGrListSetVisibleRowCount("majNbLignesVisible");
             setAliasGrListClear("toutSuppr");
             setAliasGrListRemove("supprimer");
             setAliasCombo("$coeur.ListeDeroulante");
