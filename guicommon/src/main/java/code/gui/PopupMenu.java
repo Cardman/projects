@@ -17,7 +17,7 @@ public final class PopupMenu extends CustComponent {
         popupMenu.setVisible(b);
     }
 
-    public void show(Panel panel, int i, int height) {
+    public void show(CustComponent panel, int i, int height) {
         popupMenu.show(panel.getComponent(),i,height);
     }
 

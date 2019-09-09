@@ -68,9 +68,7 @@ public class PanelStruct extends CustComponentStruct {
         getChildren().add(_index,_comp);
         panel.add(_comp.getComponent(), _index);
     }
-    public void revalidate() {
-        panel.revalidate();
-    }
+
     public void refresh() {
         panel.repaint();
     }

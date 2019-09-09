@@ -99,6 +99,17 @@ public final class GraphicComboStruct extends CustComponentStruct {
         int selectedIndex_ = graphicCombo.getSelectedIndex();
         return new IntStruct(selectedIndex_);
     }
+    public void removeAllItems() {
+        graphicCombo.getGrList().clearRevalidate();
+        graphicCombo.setSelectedIndex(-1);
+        graphicCombo.setNoSelected();
+    }
+    public void removeItem(Struct _index) {
+        int index_ = ((NumberStruct)_index).intStruct();
+        if (graphicCombo.getGrList().getList().isValidIndex(index_)) {
+            graphicCombo.removeItem(index_);
+        }
+    }
     @Override
     protected CustComponent getComponent() {
         return graphicCombo.getPanel();

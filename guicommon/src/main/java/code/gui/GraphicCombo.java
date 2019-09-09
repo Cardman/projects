@@ -187,7 +187,7 @@ public class GraphicCombo extends CustComponent implements WithPopup,GraphicComb
         currentSelected.setIcon(new ImageIcon(img_));
     }
 
-    void setNoSelected() {
+    public void setNoSelected() {
         Font font_ = panel.getFont();
         FontMetrics fontMetrics_ = panel.getFontMetrics(font_);
         int s_ = fontMetrics_.getHeight() + 2;

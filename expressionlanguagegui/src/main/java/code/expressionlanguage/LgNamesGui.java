@@ -147,6 +147,8 @@ public class LgNamesGui extends LgNamesUtils {
     private String aliasComboGetListener;
     private String aliasComboGetSelectedIndexes;
     private String aliasComboGetSelectedIndex;
+    private String aliasComboRemoveAllItems;
+    private String aliasComboRemoveItem;
     public void buildOther() {
         super.buildOther();
         StringMap<StandardField> fields_;
@@ -617,6 +619,12 @@ public class LgNamesGui extends LgNamesUtils {
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasComboGetSelectedItem, params_, getAliasString(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasPrimInteger());
+        method_ = new StandardMethod(aliasComboRemoveItem, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasComboRemoveAllItems, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
         ctor_ = new StandardConstructor(params_,false,stdcl_);
@@ -1388,6 +1396,16 @@ public class LgNamesGui extends LgNamesUtils {
             }
             if (StringList.quickEq(name_, aliasComboSelectItem)) {
                 inst_.selectItem((RunnableContextEl) _cont,(NumberStruct) _args[0]);
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasComboRemoveItem)) {
+                inst_.removeItem(_args[0]);
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasComboRemoveAllItems)) {
+                inst_.removeAllItems();
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
@@ -2587,6 +2605,22 @@ public class LgNamesGui extends LgNamesUtils {
         this.aliasComboGetSelectedIndex = aliasComboGetSelectedIndex;
     }
 
+    public String getAliasComboRemoveAllItems() {
+        return aliasComboRemoveAllItems;
+    }
+
+    public void setAliasComboRemoveAllItems(String aliasComboRemoveAllItems) {
+        this.aliasComboRemoveAllItems = aliasComboRemoveAllItems;
+    }
+
+    public String getAliasComboRemoveItem() {
+        return aliasComboRemoveItem;
+    }
+
+    public void setAliasComboRemoveItem(String aliasComboRemoveItem) {
+        this.aliasComboRemoveItem = aliasComboRemoveItem;
+    }
+
     public void otherAlias(String _lang) {
         super.otherAlias(_lang);
         if (StringList.quickEq(_lang, "en")) {
@@ -2715,6 +2749,8 @@ public class LgNamesGui extends LgNamesUtils {
             setAliasComboGetSelectedIndexes("getSelectedIndexes");
             setAliasComboGetSelectedItem("getSelectedItem");
             setAliasComboSelectItem("selectItem");
+            setAliasComboRemoveItem("removeItem");
+            setAliasComboRemoveAllItems("removeAllItems");
         } else {
             setAliasActionEvent("$coeur.ActionEvt");
             setAliasActionListener("$coeur.ActionEcouteur");
@@ -2841,6 +2877,8 @@ public class LgNamesGui extends LgNamesUtils {
             setAliasComboGetSelectedIndexes("valIndicesSelect");
             setAliasComboGetSelectedItem("valEltSelect");
             setAliasComboSelectItem("selectElt");
+            setAliasComboRemoveItem("supprElt");
+            setAliasComboRemoveAllItems("supprTousElt");
         }
     }
     @Override

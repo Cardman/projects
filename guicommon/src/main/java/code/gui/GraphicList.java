@@ -117,7 +117,6 @@ public class GraphicList<T> extends CustComponent implements GraphicListable {
         listComponents.clear();
         panel_.removeAll();
         selectedIndexes.clear();
-        panel_.revalidate();
         panel_.repaint();
         scroll.revalidate();
         indexableKey.clear();
@@ -274,7 +273,6 @@ public class GraphicList<T> extends CustComponent implements GraphicListable {
         return 0;
     }
     protected void resetDimensions(){
-        Panel panel_ = getPanel();
         int width_ = getMaxWidth();
         for (PreparedLabel c: getListComponents()) {
             width_ = Math.max(width_, c.getPreferredSize().width);
@@ -287,7 +285,6 @@ public class GraphicList<T> extends CustComponent implements GraphicListable {
             c_++;
         }
         scroll.setPreferredSize(new Dimension(width_ + 24, (h_ + 2)* Math.min(c_, visibleRowCount)));
-        panel_.revalidate();
         scroll.revalidate();
     }
     protected static void reindex(CustList<IndexableListener> _list) {

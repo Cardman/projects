@@ -823,13 +823,6 @@ public class ScenePanel extends Panel {
         setPaintingScene(false);
     }
 
-    public void repaintInteraction() {
-        if (interaction != null) {
-            interaction.revalidate();
-            interaction.repaint();
-        }
-    }
-
     private void initInteraction() {
         if (interaction != null) {
             return;

@@ -148,7 +148,6 @@ public class GraphicListStruct extends CustComponentStruct {
         }
     }
     void updateGraphics() {
-        panel.revalidate();
         scroll.revalidate();
     }
     public void clear() {
