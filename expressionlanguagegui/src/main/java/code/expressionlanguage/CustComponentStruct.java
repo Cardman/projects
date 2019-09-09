@@ -115,10 +115,18 @@ public abstract class CustComponentStruct implements Struct {
         return getComponent() == ((CustComponentStruct)_other).getComponent();
     }
 
-    protected Dimension getPreferredSize() {
-        return getComponent().getPreferredSize();
+    protected Struct getPreferredSize() {
+        return new DimensionStruct(getComponent().getPreferredSize());
     }
 
+    protected void setPreferredSize(Struct _d) {
+        if (!(_d instanceof DimensionStruct)) {
+            setPreferredSize((Dimension)null);
+            return;
+        }
+        DimensionStruct d_ = (DimensionStruct)_d;
+        setPreferredSize(d_.getDimension());
+    }
     protected void setPreferredSize(Dimension _d) {
         getComponent().setPreferredSize(_d);
     }

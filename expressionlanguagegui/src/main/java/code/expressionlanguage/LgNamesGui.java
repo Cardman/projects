@@ -96,7 +96,13 @@ public class LgNamesGui extends LgNamesUtils {
     private String aliasComponentIsAutoscrolls;
     private String aliasComponentGetWidth;
     private String aliasComponentGetHeight;
+    private String aliasComponentGetPreferredSize;
+    private String aliasComponentSetPreferredSize;
+    private String aliasComponentInvokeLater;
     private String aliasComponent;
+    private String aliasDimension;
+    private String aliasDimensionGetHeight;
+    private String aliasDimensionGetWidth;
     private String aliasSetContent;
     private String aliasAddCompo;
     private String aliasGetParentCompo;
@@ -225,10 +231,37 @@ public class LgNamesGui extends LgNamesUtils {
         method_ = new StandardMethod(aliasComponentSetAutoscrolls, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
+        method_ = new StandardMethod(aliasComponentGetPreferredSize, params_, aliasDimension, false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasDimension);
+        method_ = new StandardMethod(aliasComponentSetPreferredSize, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasRunnable());
+        method_ = new StandardMethod(aliasComponentInvokeLater, params_, getAliasVoid(), false, MethodModifier.STATIC, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
         ctor_ = new StandardConstructor(params_,false,stdcl_);
         constructors_.add(ctor_);
         std_ = stdcl_;
         getStandards().put(aliasComponent, std_);
+        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        constructors_ = new CustList<StandardConstructor>();
+        fields_ = new StringMap<StandardField>();
+        stdcl_ = new StandardClass(aliasDimension, fields_, constructors_, methods_, getAliasObject(), MethodModifier.FINAL);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasDimensionGetHeight, params_, getAliasPrimInteger(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasDimensionGetWidth, params_, getAliasPrimInteger(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasPrimInteger(),getAliasPrimInteger());
+        ctor_ = new StandardConstructor(params_,false,stdcl_);
+        constructors_.add(ctor_);
+        params_ = new StringList(aliasDimension);
+        ctor_ = new StandardConstructor(params_,false,stdcl_);
+        constructors_.add(ctor_);
+        std_ = stdcl_;
+        getStandards().put(aliasDimension, std_);
         methods_ = new ObjectMap<MethodId, StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new StringMap<StandardField>();
@@ -806,6 +839,18 @@ public class LgNamesGui extends LgNamesUtils {
             r_.setResult(new ImageStruct(((NumberStruct)_args[0]).intStruct(),((NumberStruct)_args[1]).intStruct(),((BooleanStruct)_args[2]).getInstance()));
             return r_;
         }
+        if (StringList.quickEq(name_,aliasDimension)) {
+            if (_method.getParametersTypes().size() == 1) {
+                if (!(_args[0] instanceof DimensionStruct)) {
+                    r_.setResult(new DimensionStruct(0,0));
+                    return r_;
+                }
+                r_.setResult(new DimensionStruct((DimensionStruct)_args[0]));
+                return r_;
+            }
+            r_.setResult(new DimensionStruct(((NumberStruct)_args[0]).intStruct(),((NumberStruct)_args[1]).intStruct()));
+            return r_;
+        }
         if (StringList.quickEq(name_,aliasRender)) {
             if (_cont.isInitEnums()) {
                 _cont.failInitEnums();
@@ -901,9 +946,23 @@ public class LgNamesGui extends LgNamesUtils {
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
+        if (StringList.quickEq(type_, aliasDimension)) {
+            DimensionStruct inst_ = (DimensionStruct)_instance;
+            if (StringList.quickEq(name_, aliasDimensionGetHeight)) {
+                res_.setResult(inst_.getHeight());
+                return res_;
+            }
+            res_.setResult(inst_.getWidth());
+            return res_;
+        }
         if (StringList.quickEq(type_, aliasComponent)) {
             if (_cont.isInitEnums()) {
                 _cont.failInitEnums();
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasComponentInvokeLater)) {
+                CustComponentStruct.invokeLater((RunnableContextEl) _cont,_args[0]);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
@@ -931,6 +990,15 @@ public class LgNamesGui extends LgNamesUtils {
             }
             if (StringList.quickEq(name_, aliasComponentGetWidth)) {
                 res_.setResult(new IntStruct(inst_.getWidth()));
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasComponentGetPreferredSize)) {
+                res_.setResult(inst_.getPreferredSize());
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasComponentSetPreferredSize)) {
+                inst_.setPreferredSize(_args[0]);
+                res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
             if (StringList.quickEq(name_, aliasComponentIsAutoscrolls)) {
@@ -1760,6 +1828,30 @@ public class LgNamesGui extends LgNamesUtils {
         this.aliasFontStringWidth = aliasFontStringWidth;
     }
 
+    public String getAliasDimension() {
+        return aliasDimension;
+    }
+
+    public void setAliasDimension(String aliasDimension) {
+        this.aliasDimension = aliasDimension;
+    }
+
+    public String getAliasDimensionGetHeight() {
+        return aliasDimensionGetHeight;
+    }
+
+    public void setAliasDimensionGetHeight(String aliasDimensionGetHeight) {
+        this.aliasDimensionGetHeight = aliasDimensionGetHeight;
+    }
+
+    public String getAliasDimensionGetWidth() {
+        return aliasDimensionGetWidth;
+    }
+
+    public void setAliasDimensionGetWidth(String aliasDimensionGetWidth) {
+        this.aliasDimensionGetWidth = aliasDimensionGetWidth;
+    }
+
     public String getAliasComponent() {
         return aliasComponent;
     }
@@ -1798,6 +1890,30 @@ public class LgNamesGui extends LgNamesUtils {
 
     public void setAliasComponentGetHeight(String aliasComponentGetHeight) {
         this.aliasComponentGetHeight = aliasComponentGetHeight;
+    }
+
+    public String getAliasComponentGetPreferredSize() {
+        return aliasComponentGetPreferredSize;
+    }
+
+    public void setAliasComponentGetPreferredSize(String aliasComponentGetPreferredSize) {
+        this.aliasComponentGetPreferredSize = aliasComponentGetPreferredSize;
+    }
+
+    public String getAliasComponentSetPreferredSize() {
+        return aliasComponentSetPreferredSize;
+    }
+
+    public void setAliasComponentSetPreferredSize(String aliasComponentSetPreferredSize) {
+        this.aliasComponentSetPreferredSize = aliasComponentSetPreferredSize;
+    }
+
+    public String getAliasComponentInvokeLater() {
+        return aliasComponentInvokeLater;
+    }
+
+    public void setAliasComponentInvokeLater(String aliasComponentInvokeLater) {
+        this.aliasComponentInvokeLater = aliasComponentInvokeLater;
     }
 
     public String getAliasImage() {
@@ -2773,6 +2889,9 @@ public class LgNamesGui extends LgNamesUtils {
             setAliasColorGreen("g");
             setAliasColorBlue("b");
             setAliasColorIsTransparent("transparent");
+            setAliasDimension("$core.Dimension");
+            setAliasDimensionGetHeight("getHeight");
+            setAliasDimensionGetWidth("getWidth");
             setAliasComponentGetPaint("getPaint");
             setAliasComponentSetPaint("setPaint");
             setAliasComponentRepaint("repaint");
@@ -2780,6 +2899,9 @@ public class LgNamesGui extends LgNamesUtils {
             setAliasComponentIsAutoscrolls("isAutoscrolls");
             setAliasComponentGetHeight("getHeight");
             setAliasComponentGetWidth("getWidth");
+            setAliasComponentGetPreferredSize("getPreferredSize");
+            setAliasComponentSetPreferredSize("setPreferredSize");
+            setAliasComponentInvokeLater("invokeLater");
             setAliasRender("$core.Render");
             setAliasRenderGetPaint("getPaint");
             setAliasRenderGetWidth("getWidth");
@@ -2905,6 +3027,9 @@ public class LgNamesGui extends LgNamesUtils {
             setAliasColorGreen("v");
             setAliasColorBlue("b");
             setAliasColorIsTransparent("transparent");
+            setAliasDimension("$coeur.Dimension");
+            setAliasDimensionGetHeight("valHauteur");
+            setAliasDimensionGetWidth("valLargeur");
             setAliasComponentGetPaint("valPeindre");
             setAliasComponentSetPaint("majPeindre");
             setAliasComponentRepaint("repeindre");
@@ -2912,6 +3037,9 @@ public class LgNamesGui extends LgNamesUtils {
             setAliasComponentIsAutoscrolls("estAutoascenseur");
             setAliasComponentGetHeight("valHauteur");
             setAliasComponentGetWidth("valLargeur");
+            setAliasComponentGetPreferredSize("valTaillePreferee");
+            setAliasComponentSetPreferredSize("majTaillePreferee");
+            setAliasComponentInvokeLater("invoquerPlusTard");
             setAliasRender("$coeur.Rendu");
             setAliasRenderGetPaint("valPeindre");
             setAliasRenderGetWidth("valLargeur");
