@@ -66,8 +66,7 @@ public final class CustContextFactory {
         Argument argMethod_ = new Argument(infoStruct_);
         ShowUpdates showUpdates_ = rCont_.putInThread(infoStruct_,_progressingTests);
         new Thread(showUpdates_).start();
-        Argument arg_ = ProcessMethod.calculateArgument(argGlLoc_, _definedLgNames.getAliasExecute(), fct_, new CustList<Argument>(argMethod_), rCont_, null);
-        rCont_.getCustInit().prExc(rCont_);
+        Argument arg_ = RunnableStruct.invoke(argGlLoc_, _definedLgNames.getAliasExecute(), fct_, new CustList<Argument>(argMethod_), rCont_, null);
         showUpdates_.stop();
         if (rCont_.isCovering()) {
             String exp_ = _exec.getCoverFolder();

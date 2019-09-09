@@ -4,8 +4,12 @@ import java.io.File;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 
+import code.expressionlanguage.calls.util.CallingState;
+import code.expressionlanguage.calls.util.CustomFoundMethod;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
+import code.expressionlanguage.methods.ProcessMethod;
+import code.expressionlanguage.opers.exec.ExecOperationNode;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.DisplayableStruct;
@@ -56,17 +60,45 @@ public class CustInitializer extends DefaultInitializer {
 	}
     public void prExc(RunnableContextEl _cont) {
     	Struct exception_ = _cont.getException();
-        if (exception_ instanceof DisplayableStruct) {
-        	String toFile_ = getCurrentFileThread(_cont);
-        	String text_ = ((DisplayableStruct)exception_).getDisplayedString(_cont).getInstance();
-        	text_ = StringList.concat(LgNamesUtils.getDateTimeText("_", "_", "_"),":",text_);
-        	ExecutingOptions ex_ = _cont.getExecutingOptions();
-        	String folder_ = ex_.getLogFolder();
-        	new File(folder_).mkdirs();
-        	toFile_ = StringList.concat(folder_,"/",toFile_);
-        	StreamTextFile.logToFile(toFile_, text_);
+    	if (exception_ != null) {
+            if (exception_ instanceof DisplayableStruct) {
+                String text_ = ((DisplayableStruct)exception_).getDisplayedString(_cont).getInstance();
+                log(_cont,text_);
+            } else {
+                _cont.setException(null);
+                Argument out_ = new Argument(exception_);
+                out_ = ExecOperationNode.processString(out_, _cont);
+                CallingState state_ = _cont.getCallingState();
+                boolean convert_ = false;
+                if (state_ instanceof CustomFoundMethod) {
+                    CustomFoundMethod method_ = (CustomFoundMethod) state_;
+                    out_ = ProcessMethod.calculateArgument(method_.getGl(), method_.getClassName(), method_.getId(), method_.getArguments(), _cont, method_.getRight());
+                    convert_ = true;
+                }
+                if (!_cont.hasException()) {
+                    if (convert_) {
+                        Argument outConv_ = new Argument();
+                        outConv_.setStruct(((DisplayableStruct)out_.getStruct()).getDisplayedString(_cont));
+                        out_ = outConv_;
+                    }
+                    String text_ = out_.getString();
+                    log(_cont,text_);
+                } else {
+                    log(_cont,_cont.getStandards().getNullString());
+                }
+            }
         }
         removeThreadFromList();
+    }
+
+    private void log(RunnableContextEl _cont,String _txt) {
+        String toFile_ = getCurrentFileThread(_cont);
+        String text_ = StringList.concat(LgNamesUtils.getDateTimeText("_", "_", "_"),":",_txt);
+        ExecutingOptions ex_ = _cont.getExecutingOptions();
+        String folder_ = ex_.getLogFolder();
+        new File(folder_).mkdirs();
+        toFile_ = StringList.concat(folder_,"/",toFile_);
+        StreamTextFile.logToFile(toFile_, text_);
     }
 
     public void removeThreadFromList() {

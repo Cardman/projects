@@ -172,6 +172,34 @@ public final class RenderTextTest extends CommonRender {
         String html_ = "<html><body>{$new pkg.Ex()}</body></html>";
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public String $toString()\n");
+        xml_.append(" {\n");
+        xml_.append("  $return $null:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        Configuration conf_ = contextElThird(files_);
+        conf_.setMessagesFolder(folder_);
+        conf_.setProperties(new StringMap<String>());
+        conf_.getProperties().put("msg_example", relative_);
+        Document doc_ = DocumentBuilder.parseSax(html_);
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
+        conf_.getRenders().put("page1.html",rendDocumentBlock_);
+        conf_.getAnalyzing().setEnabledInternVars(false);
+        rendDocumentBlock_.buildFctInstructions(conf_);
+        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertEq("<html><body></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
+        assertNull(conf_.getException());
+    }
+
+    @Test
+    public void process9Test() {
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String html_ = "<html><body>{$new pkg.Ex()}</body></html>";
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
         xml_.append(" $public $int[] inst={2,4}:\n");
         xml_.append(" $public String $toString()\n");
         xml_.append(" {\n");

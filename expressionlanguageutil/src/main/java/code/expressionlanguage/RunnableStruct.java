@@ -91,15 +91,8 @@ public final class RunnableStruct implements WithParentStruct, EnumerableStruct,
 
     @Override
     public void run() {
-        Thread thread_ = Thread.currentThread();
         RunnableContextEl r_ = new RunnableContextEl(original);
-        r_.getCustInit().initAlive(thread_);
-        StringBuilder dtPart_ = new StringBuilder();
-        dtPart_.append(LgNamesUtils.getDateTimeText("_", "_", "_"));
-        dtPart_.append("__");
-        dtPart_.append(r_.getCustInit().increment());
-        dtPart_.append(".txt");
-        r_.getCustInit().putNewCustTreadIdDate(thread_, dtPart_.toString());
+        setupThread(r_);
         LgNames stds_ = r_.getStandards();
         String run_ = r_.getCustInit().getRunTask(stds_);
         String runnable_ = r_.getCustInit().getInterfaceTask(stds_);
@@ -109,7 +102,22 @@ public final class RunnableStruct implements WithParentStruct, EnumerableStruct,
         ClassMethodId mId_ = TypeUtil.getConcreteMethodsToCall(type_, id_, r_).getVal(base_);
         Argument arg_ = new Argument();
         arg_.setStruct(this);
-        ProcessMethod.calculateArgument(arg_, mId_.getClassName(), mId_.getConstraints(), new CustList<Argument>(), r_,null);
-        r_.getCustInit().prExc(r_);
+        invoke(arg_, mId_.getClassName(), mId_.getConstraints(), new CustList<Argument>(), r_,null);
+    }
+    public static Argument invoke(Argument _global, String _class, MethodId _method, CustList<Argument> _args, RunnableContextEl _cont, Argument _right) {
+        Argument arg_ = ProcessMethod.calculateArgument(_global, _class, _method, _args, _cont, _right);
+        _cont.getCustInit().prExc(_cont);
+        return arg_;
+    }
+    public static void setupThread(RunnableContextEl _r) {
+        Thread thread_ = Thread.currentThread();
+        _r.getCustInit().initAlive(thread_);
+        StringBuilder dtPart_ = new StringBuilder();
+        dtPart_.append(LgNamesUtils.getDateTimeText("_", "_", "_"));
+        dtPart_.append("__");
+        dtPart_.append(_r.getCustInit().increment());
+        dtPart_.append(".txt");
+        _r.getCustInit().putNewCustTreadIdDate(thread_, dtPart_.toString());
+
     }
 }

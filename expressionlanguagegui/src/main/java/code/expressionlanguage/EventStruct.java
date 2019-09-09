@@ -266,19 +266,11 @@ public final class EventStruct implements WithParentStruct,EnumerableStruct,
         }
         Argument arg_ = new Argument();
         arg_.setStruct(this);
-        ProcessMethod.calculateArgument(arg_, mId_.getClassName(), mId_.getConstraints(), _args, _r,null);
-        _r.getCustInit().prExc(_r);
+        RunnableStruct.invoke(arg_, mId_.getClassName(), mId_.getConstraints(), _args, _r,null);
     }
     private GuiContextEl newCtx() {
-        Thread thread_ = Thread.currentThread();
         GuiContextEl r_ = new GuiContextEl(original);
-        r_.getCustInit().initAlive(thread_);
-        StringBuilder dtPart_ = new StringBuilder();
-        dtPart_.append(LgNamesUtils.getDateTimeText("_", "_", "_"));
-        dtPart_.append("__");
-        dtPart_.append(r_.getCustInit().increment());
-        dtPart_.append(".txt");
-        r_.getCustInit().putNewCustTreadIdDate(thread_, dtPart_.toString());
+        RunnableStruct.setupThread(r_);
         return r_;
     }
 

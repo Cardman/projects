@@ -15,6 +15,7 @@ import code.expressionlanguage.opers.exec.Operable;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.BooleanStruct;
+import code.expressionlanguage.structs.DisplayableStruct;
 import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.Configuration;
@@ -469,12 +470,19 @@ public abstract class RendDynOperationNode {
         ContextEl ctx_ = _conf.getContext();
         out_ = ExecOperationNode.processString(out_, ctx_);
         CallingState state_ = ctx_.getCallingState();
+        boolean convert_ = false;
         if (state_ instanceof CustomFoundMethod) {
             CustomFoundMethod method_ = (CustomFoundMethod) state_;
             out_ = ProcessMethod.calculateArgument(method_.getGl(), method_.getClassName(), method_.getId(), method_.getArguments(), ctx_,method_.getRight());
+            convert_ = true;
         }
         if (ctx_.hasException()) {
             return Argument.createVoid();
+        }
+        if (convert_) {
+            Argument outConv_ = new Argument();
+            outConv_.setStruct(((DisplayableStruct)out_.getStruct()).getDisplayedString(ctx_));
+            out_ = outConv_;
         }
         return out_;
     }

@@ -88,14 +88,7 @@ public final class GuiProcess implements Runnable {
 
     @Override
     public void run() {
-        Thread thread_ = Thread.currentThread();
-        context.getCustInit().initAlive(thread_);
-        StringBuilder dtPart_ = new StringBuilder();
-        dtPart_.append(LgNamesUtils.getDateTimeText("_", "_", "_"));
-        dtPart_.append("__");
-        dtPart_.append(context.getCustInit().increment());
-        dtPart_.append(".txt");
-        context.getCustInit().putNewCustTreadIdDate(thread_, dtPart_.toString());
+        RunnableStruct.setupThread(context);
         String folder_ = executingOptions.getLogFolder();
         new File(folder_).mkdirs();
         MethodId id_ = new MethodId(MethodModifier.STATIC, mName, new StringList());
@@ -108,12 +101,7 @@ public final class GuiProcess implements Runnable {
             }
             CustList<Argument> args_ = new CustList<Argument>();
             Argument arg_ = new Argument();
-            ProcessMethod.calculateArgument(arg_, clName, id_, args_, context, null);
-            if (context.hasException()) {
-                context.getCustInit().prExc(context);
-            } else {
-                context.getCustInit().removeThreadFromList();
-            }
+            RunnableStruct.invoke(arg_, clName, id_, args_, context, null);
         } else {
             context.getCustInit().removeThreadFromList();
         }
