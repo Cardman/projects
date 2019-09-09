@@ -159,6 +159,16 @@ public class LgNamesGui extends LgNamesUtils {
     private String aliasComboGetSelectedIndex;
     private String aliasComboRemoveAllItems;
     private String aliasComboRemoveItem;
+
+    private String aliasButtonGroup;
+    private String aliasButtonGroupAdd;
+    private String aliasRadio;
+    private String aliasRadioIsEnabled;
+    private String aliasRadioSetEnabled;
+    private String aliasRadioIsSelected;
+    private String aliasRadioSetSelected;
+    private String aliasRadioGetText;
+    private String aliasRadioSetText;
     public void buildOther() {
         super.buildOther();
         StringMap<StandardField> fields_;
@@ -679,6 +689,46 @@ public class LgNamesGui extends LgNamesUtils {
         ctor_ = new StandardConstructor(params_,true,stdcl_);
         constructors_.add(ctor_);
         getStandards().put(aliasCombo, stdcl_);
+        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        constructors_ = new CustList<StandardConstructor>();
+        fields_ = new StringMap<StandardField>();
+        stdcl_ = new StandardClass(aliasButtonGroup, fields_, constructors_, methods_, getAliasObject(), MethodModifier.FINAL);
+        params_ = new StringList(aliasRadio);
+        method_ = new StandardMethod(aliasButtonGroupAdd, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        getStandards().put(aliasButtonGroup, stdcl_);
+        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        constructors_ = new CustList<StandardConstructor>();
+        fields_ = new StringMap<StandardField>();
+        stdcl_ = new StandardClass(aliasRadio, fields_, constructors_, methods_, aliasComponent, MethodModifier.FINAL);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasRadioIsEnabled, params_, getAliasPrimBoolean(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasPrimBoolean());
+        method_ = new StandardMethod(aliasRadioSetEnabled, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasRadioIsSelected, params_, getAliasPrimBoolean(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasPrimBoolean());
+        method_ = new StandardMethod(aliasRadioSetSelected, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasRadioGetText, params_, getAliasString(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasString());
+        method_ = new StandardMethod(aliasRadioSetText, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        ctor_ = new StandardConstructor(params_,false,stdcl_);
+        constructors_.add(ctor_);
+        params_ = new StringList(getAliasString());
+        ctor_ = new StandardConstructor(params_,false,stdcl_);
+        constructors_.add(ctor_);
+        params_ = new StringList(getAliasString(),getAliasPrimBoolean());
+        ctor_ = new StandardConstructor(params_,false,stdcl_);
+        constructors_.add(ctor_);
+        getStandards().put(aliasRadio, stdcl_);
     }
     public Argument defaultInstance(ExecutableCode _cont, String _id) {
         Argument arg_ = super.defaultInstance(_cont, _id);
@@ -866,12 +916,8 @@ public class LgNamesGui extends LgNamesUtils {
                 r_.setResult(NullStruct.NULL_VALUE);
                 return r_;
             }
-//            if (_method.getParametersTypes().size() == 1) {
-                r_.setResult(new GraphicListStruct((GuiContextEl)_cont,aliasGrList,((BooleanStruct)_args[0]).getInstance()));
-                return r_;
-//            }
-//            r_.setResult(new GraphicListStruct((GuiContextEl)_cont,aliasGrList,((BooleanStruct)_args[0]).getInstance(),_args[1],_args[2]));
-//            return r_;
+            r_.setResult(new GraphicListStruct((GuiContextEl)_cont,aliasGrList,((BooleanStruct)_args[0]).getInstance()));
+            return r_;
         }
         if (StringList.quickEq(name_, aliasCombo)) {
             if (_cont.isInitEnums()) {
@@ -888,6 +934,32 @@ public class LgNamesGui extends LgNamesUtils {
                 return r_;
             }
             r_.setResult(new GraphicComboStruct(aliasCombo,((NumberStruct)_args[0]).intStruct(),_args[1]));
+            return r_;
+        }
+        if (StringList.quickEq(name_, aliasButtonGroup)) {
+            if (_cont.isInitEnums()) {
+                _cont.failInitEnums();
+                r_.setResult(NullStruct.NULL_VALUE);
+                return r_;
+            }
+            r_.setResult(new CustButtonGroupStruct());
+            return r_;
+        }
+        if (StringList.quickEq(name_, aliasRadio)) {
+            if (_cont.isInitEnums()) {
+                _cont.failInitEnums();
+                r_.setResult(NullStruct.NULL_VALUE);
+                return r_;
+            }
+            if (_method.getParametersTypes().size() == 0) {
+                r_.setResult(new RadioButtonStruct(aliasRadio));
+                return r_;
+            }
+            if (_method.getParametersTypes().size() == 1) {
+                r_.setResult(new RadioButtonStruct(aliasRadio,_args[0]));
+                return r_;
+            }
+            r_.setResult(new RadioButtonStruct(aliasRadio,_args[0],_args[1]));
             return r_;
         }
         return super.getOtherResult(_cont,_method,_args);
@@ -1458,8 +1530,6 @@ public class LgNamesGui extends LgNamesUtils {
             args_.add(new Argument(_args[1]));
             _cont.setCallingState(new CustomFoundMethod(Argument.createVoid(),className_,ct_, args_,null));
             return res_;
-//            res_.setResult(NullStruct.NULL_VALUE);
-//            return res_;
         }
         if (StringList.quickEq(type_, aliasCombo)) {
             GraphicComboStruct inst_ = (GraphicComboStruct) _instance;
@@ -1505,6 +1575,34 @@ public class LgNamesGui extends LgNamesUtils {
                 return res_;
             }
             res_.setResult(inst_.getItemCount());
+            return res_;
+        }
+        if (StringList.quickEq(type_, aliasRadio)) {
+            RadioButtonStruct inst_ = (RadioButtonStruct) _instance;
+            if (StringList.quickEq(name_, aliasRadioSetEnabled)) {
+                inst_.setEnabled(_args[0]);
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasRadioIsEnabled)) {
+                res_.setResult(inst_.isEnabled());
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasRadioSetSelected)) {
+                inst_.setSelected(_args[0]);
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasRadioIsEnabled)) {
+                res_.setResult(inst_.isSelected());
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasRadioSetText)) {
+                inst_.setText(_args[0]);
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            res_.setResult(inst_.getText());
             return res_;
         }
         return super.getOtherResult(_cont,_instance,_method,_args);
@@ -2796,6 +2894,78 @@ public class LgNamesGui extends LgNamesUtils {
         this.aliasComboRemoveItem = aliasComboRemoveItem;
     }
 
+    public String getAliasButtonGroup() {
+        return aliasButtonGroup;
+    }
+
+    public void setAliasButtonGroup(String aliasButtonGroup) {
+        this.aliasButtonGroup = aliasButtonGroup;
+    }
+
+    public String getAliasButtonGroupAdd() {
+        return aliasButtonGroupAdd;
+    }
+
+    public void setAliasButtonGroupAdd(String aliasButtonGroupAdd) {
+        this.aliasButtonGroupAdd = aliasButtonGroupAdd;
+    }
+
+    public String getAliasRadio() {
+        return aliasRadio;
+    }
+
+    public void setAliasRadio(String aliasRadio) {
+        this.aliasRadio = aliasRadio;
+    }
+
+    public String getAliasRadioIsEnabled() {
+        return aliasRadioIsEnabled;
+    }
+
+    public void setAliasRadioIsEnabled(String aliasRadioIsEnabled) {
+        this.aliasRadioIsEnabled = aliasRadioIsEnabled;
+    }
+
+    public String getAliasRadioSetEnabled() {
+        return aliasRadioSetEnabled;
+    }
+
+    public void setAliasRadioSetEnabled(String aliasRadioSetEnabled) {
+        this.aliasRadioSetEnabled = aliasRadioSetEnabled;
+    }
+
+    public String getAliasRadioIsSelected() {
+        return aliasRadioIsSelected;
+    }
+
+    public void setAliasRadioIsSelected(String aliasRadioIsSelected) {
+        this.aliasRadioIsSelected = aliasRadioIsSelected;
+    }
+
+    public String getAliasRadioSetSelected() {
+        return aliasRadioSetSelected;
+    }
+
+    public void setAliasRadioSetSelected(String aliasRadioSetSelected) {
+        this.aliasRadioSetSelected = aliasRadioSetSelected;
+    }
+
+    public String getAliasRadioGetText() {
+        return aliasRadioGetText;
+    }
+
+    public void setAliasRadioGetText(String aliasRadioGetText) {
+        this.aliasRadioGetText = aliasRadioGetText;
+    }
+
+    public String getAliasRadioSetText() {
+        return aliasRadioSetText;
+    }
+
+    public void setAliasRadioSetText(String aliasRadioSetText) {
+        this.aliasRadioSetText = aliasRadioSetText;
+    }
+
     public void otherAlias(String _lang) {
         super.otherAlias(_lang);
         if (StringList.quickEq(_lang, "en")) {
@@ -2936,6 +3106,15 @@ public class LgNamesGui extends LgNamesUtils {
             setAliasComboSelectItem("selectItem");
             setAliasComboRemoveItem("removeItem");
             setAliasComboRemoveAllItems("removeAllItems");
+            setAliasButtonGroup("$core.ButtonGroup");
+            setAliasButtonGroupAdd("add");
+            setAliasRadio("$core.Radio");
+            setAliasRadioIsEnabled("isEnabled");
+            setAliasRadioSetEnabled("setEnabled");
+            setAliasRadioIsSelected("isSelected");
+            setAliasRadioSetSelected("setSelected");
+            setAliasRadioGetText("getText");
+            setAliasRadioSetText("setText");
         } else {
             setAliasActionEvent("$coeur.ActionEvt");
             setAliasActionListener("$coeur.ActionEcouteur");
@@ -3074,6 +3253,15 @@ public class LgNamesGui extends LgNamesUtils {
             setAliasComboSelectItem("selectElt");
             setAliasComboRemoveItem("supprElt");
             setAliasComboRemoveAllItems("supprTousElt");
+            setAliasButtonGroup("$coeur.GroupeBoutons");
+            setAliasButtonGroupAdd("ajout");
+            setAliasRadio("$coeur.Radio");
+            setAliasRadioIsEnabled("estActif");
+            setAliasRadioSetEnabled("majActif");
+            setAliasRadioIsSelected("estSelect");
+            setAliasRadioSetSelected("majSelect");
+            setAliasRadioGetText("valTexte");
+            setAliasRadioSetText("majTexte");
         }
     }
     @Override
