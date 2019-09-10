@@ -82,7 +82,6 @@ public final class DialogHelpBelote extends Dialog {
         int nbBotPlayers_ = _pseudos.size();
         for(int indicePseudo_=CustList.SECOND_INDEX;indicePseudo_<nbBotPlayers_;indicePseudo_++) {
             zone_=new TextArea(EMPTY,37,15);
-            zone_.setRows(37);
             zone_.setEditable(false);
             zone_.append(StringList.concat(_pseudos.get(indicePseudo_),RETURN_LINE));
             for (Suit s: suits_) {

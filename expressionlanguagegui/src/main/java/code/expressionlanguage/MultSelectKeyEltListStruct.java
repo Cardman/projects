@@ -24,6 +24,9 @@ public final class MultSelectKeyEltListStruct extends KeyAdapter implements Inde
 
     @Override
     public void keyReleased(KeyEvent _e) {
+        if (!grList.isEnabledList()) {
+            return;
+        }
         if (!_e.isControlDown()) {
             return;
         }

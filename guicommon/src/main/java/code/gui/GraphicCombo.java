@@ -27,6 +27,8 @@ public class GraphicCombo extends CustComponent implements WithPopup,GraphicComb
 
     private int selectedIndex = -1;
 
+    private boolean enabled = true;
+
     public GraphicCombo() {
         this(new StringList());
     }
@@ -133,6 +135,9 @@ public class GraphicCombo extends CustComponent implements WithPopup,GraphicComb
 
     @Override
     public void popup() {
+        if (!enabled) {
+            return;
+        }
         menu.show(panel, 0, pseudoButton.getHeight());
     }
 
@@ -211,6 +216,14 @@ public class GraphicCombo extends CustComponent implements WithPopup,GraphicComb
             return new Ints();
         }
         return new Ints(selectedIndex);
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean _enabled) {
+        enabled = _enabled;
     }
 
     @Override

@@ -39,10 +39,6 @@ public final class Spinner extends CustComponent {
         return spinner.getChangeListeners();
     }
 
-    public void setVisible(boolean aFlag) {
-        spinner.setVisible(aFlag);
-    }
-
     public void setEnabled(boolean enabled) {
         spinner.setEnabled(enabled);
     }

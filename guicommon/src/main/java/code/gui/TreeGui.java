@@ -57,14 +57,6 @@ public final class TreeGui extends CustComponent {
         return tree.isFixedRowHeight();
     }
 
-    public void setLargeModel(boolean newValue) {
-        tree.setLargeModel(newValue);
-    }
-
-    public boolean isLargeModel() {
-        return tree.isLargeModel();
-    }
-
     public void setInvokesStopCellEditing(boolean newValue) {
         tree.setInvokesStopCellEditing(newValue);
     }
@@ -81,14 +73,6 @@ public final class TreeGui extends CustComponent {
         return tree.getScrollsOnExpand();
     }
 
-    public void setToggleClickCount(int clickCount) {
-        tree.setToggleClickCount(clickCount);
-    }
-
-    public int getToggleClickCount() {
-        return tree.getToggleClickCount();
-    }
-
     public void setExpandsSelectedPaths(boolean newValue) {
         tree.setExpandsSelectedPaths(newValue);
     }
@@ -103,14 +87,6 @@ public final class TreeGui extends CustComponent {
 
     public boolean getDragEnabled() {
         return tree.getDragEnabled();
-    }
-
-    public void setDropMode(DropMode dropMode) {
-        tree.setDropMode(dropMode);
-    }
-
-    public DropMode getDropMode() {
-        return tree.getDropMode();
     }
 
     public boolean isPathEditable(TreePath path) {
@@ -405,38 +381,6 @@ public final class TreeGui extends CustComponent {
         return tree.getInheritsPopupMenu();
     }
 
-    public void setComponentPopupMenu(JPopupMenu popup) {
-        tree.setComponentPopupMenu(popup);
-    }
-
-    public void setRequestFocusEnabled(boolean requestFocusEnabled) {
-        tree.setRequestFocusEnabled(requestFocusEnabled);
-    }
-
-    public void requestFocus() {
-        tree.requestFocus();
-    }
-
-    public boolean requestFocus(boolean temporary) {
-        return tree.requestFocus(temporary);
-    }
-
-    public boolean requestFocusInWindow() {
-        return tree.requestFocusInWindow();
-    }
-
-    public void grabFocus() {
-        tree.grabFocus();
-    }
-
-    public void setVerifyInputWhenFocusTarget(boolean verifyInputWhenFocusTarget) {
-        tree.setVerifyInputWhenFocusTarget(verifyInputWhenFocusTarget);
-    }
-
-    public boolean getVerifyInputWhenFocusTarget() {
-        return tree.getVerifyInputWhenFocusTarget();
-    }
-
     public boolean contains(int x, int y) {
         return tree.contains(x, y);
     }
@@ -477,10 +421,6 @@ public final class TreeGui extends CustComponent {
         return tree.getBaseline(width, height);
     }
 
-    public void setVisible(boolean aFlag) {
-        tree.setVisible(aFlag);
-    }
-
     public void setEnabled(boolean enabled) {
         tree.setEnabled(enabled);
     }
@@ -491,10 +431,6 @@ public final class TreeGui extends CustComponent {
 
     public void setBackground(Color bg) {
         tree.setBackground(bg);
-    }
-
-    public void setFont(Font font) {
-        tree.setFont(font);
     }
 
     public String getToolTipText() {
@@ -511,14 +447,6 @@ public final class TreeGui extends CustComponent {
 
     public void scrollRectToVisible(Rectangle aRect) {
         tree.scrollRectToVisible(aRect);
-    }
-
-    public boolean getAutoscrolls() {
-        return tree.getAutoscrolls();
-    }
-
-    public Object getClientProperty(Object key) {
-        return tree.getClientProperty(key);
     }
 
     public Rectangle getBounds(Rectangle rv) {
@@ -551,10 +479,6 @@ public final class TreeGui extends CustComponent {
 
     public Rectangle getVisibleRect() {
         return tree.getVisibleRect();
-    }
-
-    public void revalidate() {
-        tree.revalidate();
     }
 
     @Override

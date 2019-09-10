@@ -53,7 +53,6 @@ public final class DialogHelpTarot extends Dialog {
         //Dog hand
         for(int indicePseudo_=CustList.SECOND_INDEX;indicePseudo_<nbPlayers_;indicePseudo_++) {
             zone_=new TextArea(EMPTY,84,15);
-            zone_.setRows(84);
             zone_.setEditable(false);
             if(indicePseudo_<_pseudos.size()) {
                 zone_.append(StringList.concat(_pseudos.get(indicePseudo_),RETURN_LINE));

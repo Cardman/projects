@@ -76,6 +76,12 @@ public abstract class CustComponent {
         }
         _cust.getComponent().repaint();
     }
+    public boolean isVisible() {
+        return getComponent().isVisible();
+    }
+    public void setVisible(boolean _b) {
+        getComponent().setVisible(_b);
+    }
     public int getWidth() {
         return getComponent().getWidth();
     }
@@ -99,6 +105,9 @@ public abstract class CustComponent {
     }
     public Font getFont() {
         return getComponent().getFont();
+    }
+    public void setFont(Font _font) {
+        getComponent().setFont(_font);
     }
     public CustComponent getParent() {
         return parent;

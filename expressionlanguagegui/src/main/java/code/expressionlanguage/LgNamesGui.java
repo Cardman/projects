@@ -58,6 +58,7 @@ public class LgNamesGui extends LgNamesUtils {
     private String aliasScrollPaneGetView;
     private String aliasScrollPaneSetView;
     private String aliasGetFont;
+    private String aliasSetFont;
     private String aliasFont;
     private String aliasFontGetName;
     private String aliasFontGetSize;
@@ -98,6 +99,8 @@ public class LgNamesGui extends LgNamesUtils {
     private String aliasComponentGetHeight;
     private String aliasComponentGetPreferredSize;
     private String aliasComponentSetPreferredSize;
+    private String aliasComponentIsVisible;
+    private String aliasComponentSetVisible;
     private String aliasComponentInvokeLater;
     private String aliasComponent;
     private String aliasDimension;
@@ -124,6 +127,10 @@ public class LgNamesGui extends LgNamesUtils {
     private String aliasArgs;
     private String aliasPack;
     private String aliasDispose;
+    private String aliasInput;
+    private String aliasInputIsEnabled;
+    private String aliasInputSetEnabled;
+
     private String aliasRender;
     private String aliasRenderGetHeight;
     private String aliasRenderGetWidth;
@@ -163,12 +170,58 @@ public class LgNamesGui extends LgNamesUtils {
     private String aliasButtonGroup;
     private String aliasButtonGroupAdd;
     private String aliasRadio;
-    private String aliasRadioIsEnabled;
-    private String aliasRadioSetEnabled;
     private String aliasRadioIsSelected;
     private String aliasRadioSetSelected;
     private String aliasRadioGetText;
     private String aliasRadioSetText;
+    private String aliasPopupMenu;
+    private String aliasPopupMenuAdd;
+    private String aliasPopupMenuShow;
+    private String aliasTextField;
+    private String aliasTextFieldGetText;
+    private String aliasTextFieldSetText;
+    private String aliasTextFieldAuto;
+    private String aliasTextFieldAddAction;
+    private String aliasTextFieldAddDocument;
+    private String aliasTextFieldAddPopup;
+    private String aliasTextArea;
+    private String aliasTextAreaGetText;
+    private String aliasTextAreaSetText;
+    private String aliasTextAreaGetTabSize;
+    private String aliasTextAreaSetTabSize;
+    private String aliasTextAreaAppend;
+    private String aliasTextAreaInsert;
+    private String aliasTextAreaReplaceRange;
+    private String aliasTextAreaReplaceSelection;
+    private String aliasTextAreaGetSelectedText;
+    private String aliasTextAreaSetSelectionStart;
+    private String aliasTextAreaSetSelectionEnd;
+    private String aliasTextAreaSelect;
+    private String aliasTextAreaSelectAll;
+    private String aliasCheckBox;
+    private String aliasCheckBoxGetText;
+    private String aliasCheckBoxSetText;
+    private String aliasCheckBoxIsSelected;
+    private String aliasCheckBoxSetSelected;
+    private String aliasCheckBoxAddAction;
+    private String aliasSpinner;
+    private String aliasSpinnerGetValue;
+    private String aliasSpinnerSetValue;
+    private String aliasSpinnerGetMax;
+    private String aliasSpinnerSetMax;
+    private String aliasSpinnerGetMin;
+    private String aliasSpinnerSetMin;
+    private String aliasSpinnerGetStep;
+    private String aliasSpinnerSetStep;
+    private String aliasSpinnerAddAction;
+    private String aliasSlider;
+    private String aliasSliderGetValue;
+    private String aliasSliderSetValue;
+    private String aliasSliderGetMax;
+    private String aliasSliderSetMax;
+    private String aliasSliderGetMin;
+    private String aliasSliderSetMin;
+    private String aliasSliderAddAction;
     public void buildOther() {
         super.buildOther();
         StringMap<StandardField> fields_;
@@ -222,6 +275,9 @@ public class LgNamesGui extends LgNamesUtils {
         params_ = new StringList();
         method_ = new StandardMethod(aliasGetFont, params_, aliasFont, false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasFont);
+        method_ = new StandardMethod(aliasSetFont, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
 
         params_ = new StringList();
         String type_ = StringList.concat(getAliasFct(),"<",aliasComponent,",?>");
@@ -245,6 +301,12 @@ public class LgNamesGui extends LgNamesUtils {
         methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasDimension);
         method_ = new StandardMethod(aliasComponentSetPreferredSize, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasComponentIsVisible, params_, getAliasPrimBoolean(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasPrimBoolean());
+        method_ = new StandardMethod(aliasComponentSetVisible, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(getAliasRunnable());
         method_ = new StandardMethod(aliasComponentInvokeLater, params_, getAliasVoid(), false, MethodModifier.STATIC, stdcl_);
@@ -371,10 +433,25 @@ public class LgNamesGui extends LgNamesUtils {
         constructors_.add(ctor_);
         std_ = stdcl_;
         getStandards().put(aliasScrollPane, std_);
+
         methods_ = new ObjectMap<MethodId, StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new StringMap<StandardField>();
-        stdcl_ = new StandardClass(aliasButton, fields_, constructors_, methods_, aliasComponent, MethodModifier.FINAL);
+        stdcl_ = new StandardClass(aliasInput, fields_, constructors_, methods_, aliasComponent, MethodModifier.ABSTRACT);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasInputIsEnabled, params_, getAliasPrimBoolean(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasPrimBoolean());
+        method_ = new StandardMethod(aliasInputSetEnabled, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        std_ = stdcl_;
+        getStandards().put(aliasInput, std_);
+
+
+        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        constructors_ = new CustList<StandardConstructor>();
+        fields_ = new StringMap<StandardField>();
+        stdcl_ = new StandardClass(aliasButton, fields_, constructors_, methods_, aliasInput, MethodModifier.FINAL);
         params_ = new StringList(aliasActionListener);
         method_ = new StandardMethod(aliasAddListener, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
@@ -591,7 +668,7 @@ public class LgNamesGui extends LgNamesUtils {
         methods_ = new ObjectMap<MethodId, StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new StringMap<StandardField>();
-        stdcl_ = new StandardClass(aliasGrList, fields_, constructors_, methods_, aliasComponent, MethodModifier.FINAL);
+        stdcl_ = new StandardClass(aliasGrList, fields_, constructors_, methods_, aliasInput, MethodModifier.FINAL);
         params_ = new StringList();
         method_ = new StandardMethod(aliasGrListGetRender, params_, aliasRender, false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
@@ -648,7 +725,7 @@ public class LgNamesGui extends LgNamesUtils {
         methods_ = new ObjectMap<MethodId, StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new StringMap<StandardField>();
-        stdcl_ = new StandardClass(aliasCombo, fields_, constructors_, methods_, aliasComponent, MethodModifier.FINAL);
+        stdcl_ = new StandardClass(aliasCombo, fields_, constructors_, methods_, aliasInput, MethodModifier.FINAL);
         params_ = new StringList();
         method_ = new StandardMethod(aliasComboGetListener, params_, aliasListSelection, false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
@@ -700,13 +777,18 @@ public class LgNamesGui extends LgNamesUtils {
         methods_ = new ObjectMap<MethodId, StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new StringMap<StandardField>();
-        stdcl_ = new StandardClass(aliasRadio, fields_, constructors_, methods_, aliasComponent, MethodModifier.FINAL);
-        params_ = new StringList();
-        method_ = new StandardMethod(aliasRadioIsEnabled, params_, getAliasPrimBoolean(), false, MethodModifier.FINAL, stdcl_);
+        stdcl_ = new StandardClass(aliasPopupMenu, fields_, constructors_, methods_, aliasComponent, MethodModifier.FINAL);
+        params_ = new StringList(aliasComponent);
+        method_ = new StandardMethod(aliasPopupMenuAdd, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
-        params_ = new StringList(getAliasPrimBoolean());
-        method_ = new StandardMethod(aliasRadioSetEnabled, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        params_ = new StringList(aliasComponent,getAliasPrimInteger(),getAliasPrimInteger());
+        method_ = new StandardMethod(aliasPopupMenuShow, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
+        getStandards().put(aliasPopupMenu, stdcl_);
+        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        constructors_ = new CustList<StandardConstructor>();
+        fields_ = new StringMap<StandardField>();
+        stdcl_ = new StandardClass(aliasRadio, fields_, constructors_, methods_, aliasInput, MethodModifier.FINAL);
         params_ = new StringList();
         method_ = new StandardMethod(aliasRadioIsSelected, params_, getAliasPrimBoolean(), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
@@ -729,6 +811,111 @@ public class LgNamesGui extends LgNamesUtils {
         ctor_ = new StandardConstructor(params_,false,stdcl_);
         constructors_.add(ctor_);
         getStandards().put(aliasRadio, stdcl_);
+        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        constructors_ = new CustList<StandardConstructor>();
+        fields_ = new StringMap<StandardField>();
+        stdcl_ = new StandardClass(aliasCheckBox, fields_, constructors_, methods_, aliasInput, MethodModifier.FINAL);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasCheckBoxIsSelected, params_, getAliasPrimBoolean(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasPrimBoolean());
+        method_ = new StandardMethod(aliasCheckBoxSetSelected, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasCheckBoxGetText, params_, getAliasString(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasString());
+        method_ = new StandardMethod(aliasCheckBoxSetText, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        ctor_ = new StandardConstructor(params_,false,stdcl_);
+        constructors_.add(ctor_);
+        params_ = new StringList(getAliasString());
+        ctor_ = new StandardConstructor(params_,false,stdcl_);
+        constructors_.add(ctor_);
+        params_ = new StringList(getAliasString(),getAliasPrimBoolean());
+        ctor_ = new StandardConstructor(params_,false,stdcl_);
+        constructors_.add(ctor_);
+        getStandards().put(aliasCheckBox, stdcl_);
+        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        constructors_ = new CustList<StandardConstructor>();
+        fields_ = new StringMap<StandardField>();
+        stdcl_ = new StandardClass(aliasTextField, fields_, constructors_, methods_, aliasInput, MethodModifier.FINAL);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasTextFieldGetText, params_, getAliasString(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasString());
+        method_ = new StandardMethod(aliasTextFieldSetText, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        ctor_ = new StandardConstructor(params_,false,stdcl_);
+        constructors_.add(ctor_);
+        params_ = new StringList(getAliasString());
+        ctor_ = new StandardConstructor(params_,false,stdcl_);
+        constructors_.add(ctor_);
+        params_ = new StringList(getAliasPrimInteger());
+        ctor_ = new StandardConstructor(params_,false,stdcl_);
+        constructors_.add(ctor_);
+        params_ = new StringList(getAliasString(),getAliasPrimInteger());
+        ctor_ = new StandardConstructor(params_,false,stdcl_);
+        constructors_.add(ctor_);
+        getStandards().put(aliasTextField, stdcl_);
+        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        constructors_ = new CustList<StandardConstructor>();
+        fields_ = new StringMap<StandardField>();
+        stdcl_ = new StandardClass(aliasTextArea, fields_, constructors_, methods_, aliasInput, MethodModifier.FINAL);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasTextAreaGetText, params_, getAliasString(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasString());
+        method_ = new StandardMethod(aliasTextAreaSetText, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasString());
+        method_ = new StandardMethod(aliasTextAreaAppend, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasString(),getAliasPrimInteger());
+        method_ = new StandardMethod(aliasTextAreaInsert, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasTextAreaGetSelectedText, params_, getAliasString(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasPrimInteger());
+        method_ = new StandardMethod(aliasTextAreaSetSelectionStart, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasPrimInteger());
+        method_ = new StandardMethod(aliasTextAreaSetSelectionEnd, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasTextAreaGetTabSize, params_, getAliasPrimInteger(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasPrimInteger());
+        method_ = new StandardMethod(aliasTextAreaSetTabSize, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasString(),getAliasPrimInteger(),getAliasPrimInteger());
+        method_ = new StandardMethod(aliasTextAreaReplaceRange, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasString());
+        method_ = new StandardMethod(aliasTextAreaReplaceSelection, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasPrimInteger(),getAliasPrimInteger());
+        method_ = new StandardMethod(aliasTextAreaSelect, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasTextAreaSelectAll, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        ctor_ = new StandardConstructor(params_,false,stdcl_);
+        constructors_.add(ctor_);
+        params_ = new StringList(getAliasString());
+        ctor_ = new StandardConstructor(params_,false,stdcl_);
+        constructors_.add(ctor_);
+        params_ = new StringList(getAliasPrimInteger(),getAliasPrimInteger());
+        ctor_ = new StandardConstructor(params_,false,stdcl_);
+        constructors_.add(ctor_);
+        params_ = new StringList(getAliasString(),getAliasPrimInteger(),getAliasPrimInteger());
+        ctor_ = new StandardConstructor(params_,false,stdcl_);
+        constructors_.add(ctor_);
+        getStandards().put(aliasTextArea, stdcl_);
     }
     public Argument defaultInstance(ExecutableCode _cont, String _id) {
         Argument arg_ = super.defaultInstance(_cont, _id);
@@ -962,6 +1149,74 @@ public class LgNamesGui extends LgNamesUtils {
             r_.setResult(new RadioButtonStruct(aliasRadio,_args[0],_args[1]));
             return r_;
         }
+        if (StringList.quickEq(name_, aliasCheckBox)) {
+            if (_cont.isInitEnums()) {
+                _cont.failInitEnums();
+                r_.setResult(NullStruct.NULL_VALUE);
+                return r_;
+            }
+            if (_method.getParametersTypes().size() == 0) {
+                r_.setResult(new CheckBoxStruct(aliasCheckBox));
+                return r_;
+            }
+            if (_method.getParametersTypes().size() == 1) {
+                r_.setResult(new CheckBoxStruct(aliasCheckBox,_args[0]));
+                return r_;
+            }
+            r_.setResult(new CheckBoxStruct(aliasCheckBox,_args[0],_args[1]));
+            return r_;
+        }
+        if (StringList.quickEq(name_, aliasPopupMenu)) {
+            if (_cont.isInitEnums()) {
+                _cont.failInitEnums();
+                r_.setResult(NullStruct.NULL_VALUE);
+                return r_;
+            }
+            r_.setResult(new PopupStruct(aliasPopupMenu));
+            return r_;
+        }
+        if (StringList.quickEq(name_, aliasTextField)) {
+            if (_cont.isInitEnums()) {
+                _cont.failInitEnums();
+                r_.setResult(NullStruct.NULL_VALUE);
+                return r_;
+            }
+            if (_method.getParametersTypes().size() == 0) {
+                r_.setResult(new TextFieldStruct(aliasTextField));
+                return r_;
+            }
+            if (_method.getParametersTypes().size() == 1) {
+                if (!(_args[0] instanceof NumberStruct)) {
+                    r_.setResult(new TextFieldStruct(aliasTextField,_args[0]));
+                    return r_;
+                }
+                r_.setResult(new TextFieldStruct(aliasTextField,(NumberStruct) _args[0]));
+                return r_;
+            }
+            r_.setResult(new TextFieldStruct(aliasTextField,_args[0],_args[1]));
+            return r_;
+        }
+        if (StringList.quickEq(name_, aliasTextArea)) {
+            if (_cont.isInitEnums()) {
+                _cont.failInitEnums();
+                r_.setResult(NullStruct.NULL_VALUE);
+                return r_;
+            }
+            if (_method.getParametersTypes().size() == 0) {
+                r_.setResult(new TextAreaStruct(aliasTextArea));
+                return r_;
+            }
+            if (_method.getParametersTypes().size() == 1) {
+                r_.setResult(new TextAreaStruct(aliasTextArea,_args[0]));
+                return r_;
+            }
+            if (_method.getParametersTypes().size() == 2) {
+                r_.setResult(new TextAreaStruct(aliasTextArea,_args[0],_args[1]));
+                return r_;
+            }
+            r_.setResult(new TextAreaStruct(aliasTextArea,_args[0],_args[1],_args[2]));
+            return r_;
+        }
         return super.getOtherResult(_cont,_method,_args);
     }
     public ResultErrorStd getOtherResult(ContextEl _cont, Struct _instance,
@@ -1043,6 +1298,11 @@ public class LgNamesGui extends LgNamesUtils {
                 res_.setResult(inst_.getFont());
                 return res_;
             }
+            if (StringList.quickEq(name_, aliasSetFont)) {
+                inst_.setFont(_args[0]);
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
             if (StringList.quickEq(name_, aliasGetNextCompo)) {
                 res_.setResult(inst_.getNext());
                 return res_;
@@ -1070,6 +1330,15 @@ public class LgNamesGui extends LgNamesUtils {
             }
             if (StringList.quickEq(name_, aliasComponentSetPreferredSize)) {
                 inst_.setPreferredSize(_args[0]);
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasComponentIsVisible)) {
+                res_.setResult(inst_.isVisible());
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasComponentSetVisible)) {
+                inst_.setVisible(_args[0]);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
@@ -1224,6 +1493,16 @@ public class LgNamesGui extends LgNamesUtils {
                 return res_;
             }
             res_.setResult(new IntStruct(event_.getSecond()));
+            return res_;
+        }
+        if (StringList.quickEq(type_, aliasInput)) {
+            InputStruct in_ = (InputStruct) _instance;
+            if (StringList.quickEq(name_, aliasInputSetEnabled)) {
+                in_.setEnabled(_args[0]);
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            res_.setResult(in_.isEnabled());
             return res_;
         }
         if (StringList.quickEq(type_, aliasButton)) {
@@ -1579,25 +1858,119 @@ public class LgNamesGui extends LgNamesUtils {
         }
         if (StringList.quickEq(type_, aliasRadio)) {
             RadioButtonStruct inst_ = (RadioButtonStruct) _instance;
-            if (StringList.quickEq(name_, aliasRadioSetEnabled)) {
-                inst_.setEnabled(_args[0]);
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            if (StringList.quickEq(name_, aliasRadioIsEnabled)) {
-                res_.setResult(inst_.isEnabled());
-                return res_;
-            }
             if (StringList.quickEq(name_, aliasRadioSetSelected)) {
                 inst_.setSelected(_args[0]);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasRadioIsEnabled)) {
+            if (StringList.quickEq(name_, aliasRadioIsSelected)) {
                 res_.setResult(inst_.isSelected());
                 return res_;
             }
             if (StringList.quickEq(name_, aliasRadioSetText)) {
+                inst_.setText(_args[0]);
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            res_.setResult(inst_.getText());
+            return res_;
+        }
+        if (StringList.quickEq(type_, aliasCheckBox)) {
+            CheckBoxStruct inst_ = (CheckBoxStruct) _instance;
+            if (StringList.quickEq(name_, aliasCheckBoxSetSelected)) {
+                inst_.setSelected(_args[0]);
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasCheckBoxIsSelected)) {
+                res_.setResult(inst_.isSelected());
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasCheckBoxSetText)) {
+                inst_.setText(_args[0]);
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            res_.setResult(inst_.getText());
+            return res_;
+        }
+        if (StringList.quickEq(type_, aliasPopupMenu)) {
+            PopupStruct inst_ = (PopupStruct) _instance;
+            if (StringList.quickEq(name_, aliasPopupMenuAdd)) {
+                inst_.add(_args[0]);
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            inst_.show(_args[0],_args[1],_args[2]);
+            res_.setResult(NullStruct.NULL_VALUE);
+            return res_;
+        }
+        if (StringList.quickEq(type_, aliasTextField)) {
+            TextFieldStruct inst_ = (TextFieldStruct) _instance;
+            if (StringList.quickEq(name_, aliasTextFieldSetText)) {
+                inst_.setText(_args[0]);
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            res_.setResult(inst_.getText());
+            return res_;
+        }
+        if (StringList.quickEq(type_, aliasTextArea)) {
+            TextAreaStruct inst_ = (TextAreaStruct) _instance;
+            if (StringList.quickEq(name_, aliasTextAreaAppend)) {
+                inst_.append(_args[0]);
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasTextAreaInsert)) {
+                inst_.insert(_args[0],_args[1]);
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasTextAreaReplaceRange)) {
+                inst_.replaceRange(_args[0],_args[1],_args[2]);
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasTextAreaReplaceSelection)) {
+                inst_.replaceSelection(_args[0]);
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasTextAreaSelect)) {
+                inst_.select(_args[0],_args[1]);
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasTextAreaSelectAll)) {
+                inst_.selectAll();
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasTextAreaGetSelectedText)) {
+                res_.setResult(inst_.getSelectedText());
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasTextAreaSetSelectionStart)) {
+                inst_.setSelectionStart(_args[0]);
+                res_.setResult(inst_.getSelectedText());
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasTextAreaSetSelectionEnd)) {
+                inst_.setSelectionEnd(_args[0]);
+                res_.setResult(inst_.getSelectedText());
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasTextAreaSetTabSize)) {
+                inst_.setTabSize(_args[0]);
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasTextAreaGetTabSize)) {
+                res_.setResult(inst_.getTabSize());
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasTextAreaSetText)) {
                 inst_.setText(_args[0]);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
@@ -1878,6 +2251,14 @@ public class LgNamesGui extends LgNamesUtils {
         this.aliasGetFont = aliasGetFont;
     }
 
+    public String getAliasSetFont() {
+        return aliasSetFont;
+    }
+
+    public void setAliasSetFont(String aliasSetFont) {
+        this.aliasSetFont = aliasSetFont;
+    }
+
     public String getAliasFont() {
         return aliasFont;
     }
@@ -2004,6 +2385,22 @@ public class LgNamesGui extends LgNamesUtils {
 
     public void setAliasComponentSetPreferredSize(String aliasComponentSetPreferredSize) {
         this.aliasComponentSetPreferredSize = aliasComponentSetPreferredSize;
+    }
+
+    public String getAliasComponentIsVisible() {
+        return aliasComponentIsVisible;
+    }
+
+    public void setAliasComponentIsVisible(String aliasComponentIsVisible) {
+        this.aliasComponentIsVisible = aliasComponentIsVisible;
+    }
+
+    public String getAliasComponentSetVisible() {
+        return aliasComponentSetVisible;
+    }
+
+    public void setAliasComponentSetVisible(String aliasComponentSetVisible) {
+        this.aliasComponentSetVisible = aliasComponentSetVisible;
     }
 
     public String getAliasComponentInvokeLater() {
@@ -2622,6 +3019,30 @@ public class LgNamesGui extends LgNamesUtils {
         this.aliasValueChanged = aliasValueChanged;
     }
 
+    public String getAliasInput() {
+        return aliasInput;
+    }
+
+    public void setAliasInput(String _aliasInput) {
+        aliasInput = _aliasInput;
+    }
+
+    public String getAliasInputIsEnabled() {
+        return aliasInputIsEnabled;
+    }
+
+    public void setAliasInputIsEnabled(String _aliasInputIsEnabled) {
+        aliasInputIsEnabled = _aliasInputIsEnabled;
+    }
+
+    public String getAliasInputSetEnabled() {
+        return aliasInputSetEnabled;
+    }
+
+    public void setAliasInputSetEnabled(String _aliasInputSetEnabled) {
+        aliasInputSetEnabled = _aliasInputSetEnabled;
+    }
+
     public String getAliasRender() {
         return aliasRender;
     }
@@ -2918,22 +3339,6 @@ public class LgNamesGui extends LgNamesUtils {
         this.aliasRadio = aliasRadio;
     }
 
-    public String getAliasRadioIsEnabled() {
-        return aliasRadioIsEnabled;
-    }
-
-    public void setAliasRadioIsEnabled(String aliasRadioIsEnabled) {
-        this.aliasRadioIsEnabled = aliasRadioIsEnabled;
-    }
-
-    public String getAliasRadioSetEnabled() {
-        return aliasRadioSetEnabled;
-    }
-
-    public void setAliasRadioSetEnabled(String aliasRadioSetEnabled) {
-        this.aliasRadioSetEnabled = aliasRadioSetEnabled;
-    }
-
     public String getAliasRadioIsSelected() {
         return aliasRadioIsSelected;
     }
@@ -2964,6 +3369,390 @@ public class LgNamesGui extends LgNamesUtils {
 
     public void setAliasRadioSetText(String aliasRadioSetText) {
         this.aliasRadioSetText = aliasRadioSetText;
+    }
+
+    public String getAliasPopupMenu() {
+        return aliasPopupMenu;
+    }
+
+    public void setAliasPopupMenu(String aliasPopupMenu) {
+        this.aliasPopupMenu = aliasPopupMenu;
+    }
+
+    public String getAliasPopupMenuAdd() {
+        return aliasPopupMenuAdd;
+    }
+
+    public void setAliasPopupMenuAdd(String aliasPopupMenuAdd) {
+        this.aliasPopupMenuAdd = aliasPopupMenuAdd;
+    }
+
+    public String getAliasPopupMenuShow() {
+        return aliasPopupMenuShow;
+    }
+
+    public void setAliasPopupMenuShow(String aliasPopupMenuShow) {
+        this.aliasPopupMenuShow = aliasPopupMenuShow;
+    }
+
+    public String getAliasTextField() {
+        return aliasTextField;
+    }
+
+    public void setAliasTextField(String aliasTextField) {
+        this.aliasTextField = aliasTextField;
+    }
+
+    public String getAliasTextFieldGetText() {
+        return aliasTextFieldGetText;
+    }
+
+    public void setAliasTextFieldGetText(String aliasTextFieldGetText) {
+        this.aliasTextFieldGetText = aliasTextFieldGetText;
+    }
+
+    public String getAliasTextFieldSetText() {
+        return aliasTextFieldSetText;
+    }
+
+    public void setAliasTextFieldSetText(String aliasTextFieldSetText) {
+        this.aliasTextFieldSetText = aliasTextFieldSetText;
+    }
+
+    public String getAliasTextFieldAuto() {
+        return aliasTextFieldAuto;
+    }
+
+    public void setAliasTextFieldAuto(String aliasTextFieldAuto) {
+        this.aliasTextFieldAuto = aliasTextFieldAuto;
+    }
+
+    public String getAliasTextFieldAddAction() {
+        return aliasTextFieldAddAction;
+    }
+
+    public void setAliasTextFieldAddAction(String aliasTextFieldAddAction) {
+        this.aliasTextFieldAddAction = aliasTextFieldAddAction;
+    }
+
+    public String getAliasTextFieldAddDocument() {
+        return aliasTextFieldAddDocument;
+    }
+
+    public void setAliasTextFieldAddDocument(String aliasTextFieldAddDocument) {
+        this.aliasTextFieldAddDocument = aliasTextFieldAddDocument;
+    }
+
+    public String getAliasTextFieldAddPopup() {
+        return aliasTextFieldAddPopup;
+    }
+
+    public void setAliasTextFieldAddPopup(String aliasTextFieldAddPopup) {
+        this.aliasTextFieldAddPopup = aliasTextFieldAddPopup;
+    }
+
+    public String getAliasTextArea() {
+        return aliasTextArea;
+    }
+
+    public void setAliasTextArea(String aliasTextArea) {
+        this.aliasTextArea = aliasTextArea;
+    }
+
+    public String getAliasTextAreaGetText() {
+        return aliasTextAreaGetText;
+    }
+
+    public void setAliasTextAreaGetText(String aliasTextAreaGetText) {
+        this.aliasTextAreaGetText = aliasTextAreaGetText;
+    }
+
+    public String getAliasTextAreaSetText() {
+        return aliasTextAreaSetText;
+    }
+
+    public void setAliasTextAreaSetText(String aliasTextAreaSetText) {
+        this.aliasTextAreaSetText = aliasTextAreaSetText;
+    }
+
+    public String getAliasTextAreaGetTabSize() {
+        return aliasTextAreaGetTabSize;
+    }
+
+    public void setAliasTextAreaGetTabSize(String aliasTextAreaGetTabSize) {
+        this.aliasTextAreaGetTabSize = aliasTextAreaGetTabSize;
+    }
+
+    public String getAliasTextAreaSetTabSize() {
+        return aliasTextAreaSetTabSize;
+    }
+
+    public void setAliasTextAreaSetTabSize(String aliasTextAreaSetTabSize) {
+        this.aliasTextAreaSetTabSize = aliasTextAreaSetTabSize;
+    }
+
+    public String getAliasTextAreaAppend() {
+        return aliasTextAreaAppend;
+    }
+
+    public void setAliasTextAreaAppend(String aliasTextAreaAppend) {
+        this.aliasTextAreaAppend = aliasTextAreaAppend;
+    }
+
+    public String getAliasTextAreaInsert() {
+        return aliasTextAreaInsert;
+    }
+
+    public void setAliasTextAreaInsert(String aliasTextAreaInsert) {
+        this.aliasTextAreaInsert = aliasTextAreaInsert;
+    }
+
+    public String getAliasTextAreaReplaceRange() {
+        return aliasTextAreaReplaceRange;
+    }
+
+    public void setAliasTextAreaReplaceRange(String aliasTextAreaReplaceRange) {
+        this.aliasTextAreaReplaceRange = aliasTextAreaReplaceRange;
+    }
+
+    public String getAliasTextAreaReplaceSelection() {
+        return aliasTextAreaReplaceSelection;
+    }
+
+    public void setAliasTextAreaReplaceSelection(String aliasTextAreaReplaceSelection) {
+        this.aliasTextAreaReplaceSelection = aliasTextAreaReplaceSelection;
+    }
+
+    public String getAliasTextAreaGetSelectedText() {
+        return aliasTextAreaGetSelectedText;
+    }
+
+    public void setAliasTextAreaGetSelectedText(String aliasTextAreaGetSelectedText) {
+        this.aliasTextAreaGetSelectedText = aliasTextAreaGetSelectedText;
+    }
+
+    public String getAliasTextAreaSetSelectionStart() {
+        return aliasTextAreaSetSelectionStart;
+    }
+
+    public void setAliasTextAreaSetSelectionStart(String aliasTextAreaSetSelectionStart) {
+        this.aliasTextAreaSetSelectionStart = aliasTextAreaSetSelectionStart;
+    }
+
+    public String getAliasTextAreaSetSelectionEnd() {
+        return aliasTextAreaSetSelectionEnd;
+    }
+
+    public void setAliasTextAreaSetSelectionEnd(String aliasTextAreaSetSelectionEnd) {
+        this.aliasTextAreaSetSelectionEnd = aliasTextAreaSetSelectionEnd;
+    }
+
+    public String getAliasTextAreaSelect() {
+        return aliasTextAreaSelect;
+    }
+
+    public void setAliasTextAreaSelect(String aliasTextAreaSelect) {
+        this.aliasTextAreaSelect = aliasTextAreaSelect;
+    }
+
+    public String getAliasTextAreaSelectAll() {
+        return aliasTextAreaSelectAll;
+    }
+
+    public void setAliasTextAreaSelectAll(String aliasTextAreaSelectAll) {
+        this.aliasTextAreaSelectAll = aliasTextAreaSelectAll;
+    }
+
+    public String getAliasCheckBox() {
+        return aliasCheckBox;
+    }
+
+    public void setAliasCheckBox(String aliasCheckBox) {
+        this.aliasCheckBox = aliasCheckBox;
+    }
+
+    public String getAliasCheckBoxGetText() {
+        return aliasCheckBoxGetText;
+    }
+
+    public void setAliasCheckBoxGetText(String aliasCheckBoxGetText) {
+        this.aliasCheckBoxGetText = aliasCheckBoxGetText;
+    }
+
+    public String getAliasCheckBoxSetText() {
+        return aliasCheckBoxSetText;
+    }
+
+    public void setAliasCheckBoxSetText(String aliasCheckBoxSetText) {
+        this.aliasCheckBoxSetText = aliasCheckBoxSetText;
+    }
+
+    public String getAliasCheckBoxIsSelected() {
+        return aliasCheckBoxIsSelected;
+    }
+
+    public void setAliasCheckBoxIsSelected(String aliasCheckBoxIsSelected) {
+        this.aliasCheckBoxIsSelected = aliasCheckBoxIsSelected;
+    }
+
+    public String getAliasCheckBoxSetSelected() {
+        return aliasCheckBoxSetSelected;
+    }
+
+    public void setAliasCheckBoxSetSelected(String aliasCheckBoxSetSelected) {
+        this.aliasCheckBoxSetSelected = aliasCheckBoxSetSelected;
+    }
+
+    public String getAliasCheckBoxAddAction() {
+        return aliasCheckBoxAddAction;
+    }
+
+    public void setAliasCheckBoxAddAction(String aliasCheckBoxAddAction) {
+        this.aliasCheckBoxAddAction = aliasCheckBoxAddAction;
+    }
+
+    public String getAliasSpinner() {
+        return aliasSpinner;
+    }
+
+    public void setAliasSpinner(String aliasSpinner) {
+        this.aliasSpinner = aliasSpinner;
+    }
+
+    public String getAliasSpinnerGetValue() {
+        return aliasSpinnerGetValue;
+    }
+
+    public void setAliasSpinnerGetValue(String aliasSpinnerGetValue) {
+        this.aliasSpinnerGetValue = aliasSpinnerGetValue;
+    }
+
+    public String getAliasSpinnerSetValue() {
+        return aliasSpinnerSetValue;
+    }
+
+    public void setAliasSpinnerSetValue(String aliasSpinnerSetValue) {
+        this.aliasSpinnerSetValue = aliasSpinnerSetValue;
+    }
+
+    public String getAliasSpinnerGetMax() {
+        return aliasSpinnerGetMax;
+    }
+
+    public void setAliasSpinnerGetMax(String aliasSpinnerGetMax) {
+        this.aliasSpinnerGetMax = aliasSpinnerGetMax;
+    }
+
+    public String getAliasSpinnerSetMax() {
+        return aliasSpinnerSetMax;
+    }
+
+    public void setAliasSpinnerSetMax(String aliasSpinnerSetMax) {
+        this.aliasSpinnerSetMax = aliasSpinnerSetMax;
+    }
+
+    public String getAliasSpinnerGetMin() {
+        return aliasSpinnerGetMin;
+    }
+
+    public void setAliasSpinnerGetMin(String aliasSpinnerGetMin) {
+        this.aliasSpinnerGetMin = aliasSpinnerGetMin;
+    }
+
+    public String getAliasSpinnerSetMin() {
+        return aliasSpinnerSetMin;
+    }
+
+    public void setAliasSpinnerSetMin(String aliasSpinnerSetMin) {
+        this.aliasSpinnerSetMin = aliasSpinnerSetMin;
+    }
+
+    public String getAliasSpinnerGetStep() {
+        return aliasSpinnerGetStep;
+    }
+
+    public void setAliasSpinnerGetStep(String aliasSpinnerGetStep) {
+        this.aliasSpinnerGetStep = aliasSpinnerGetStep;
+    }
+
+    public String getAliasSpinnerSetStep() {
+        return aliasSpinnerSetStep;
+    }
+
+    public void setAliasSpinnerSetStep(String aliasSpinnerSetStep) {
+        this.aliasSpinnerSetStep = aliasSpinnerSetStep;
+    }
+
+    public String getAliasSpinnerAddAction() {
+        return aliasSpinnerAddAction;
+    }
+
+    public void setAliasSpinnerAddAction(String aliasSpinnerAddAction) {
+        this.aliasSpinnerAddAction = aliasSpinnerAddAction;
+    }
+
+    public String getAliasSlider() {
+        return aliasSlider;
+    }
+
+    public void setAliasSlider(String aliasSlider) {
+        this.aliasSlider = aliasSlider;
+    }
+
+    public String getAliasSliderGetValue() {
+        return aliasSliderGetValue;
+    }
+
+    public void setAliasSliderGetValue(String aliasSliderGetValue) {
+        this.aliasSliderGetValue = aliasSliderGetValue;
+    }
+
+    public String getAliasSliderSetValue() {
+        return aliasSliderSetValue;
+    }
+
+    public void setAliasSliderSetValue(String aliasSliderSetValue) {
+        this.aliasSliderSetValue = aliasSliderSetValue;
+    }
+
+    public String getAliasSliderGetMax() {
+        return aliasSliderGetMax;
+    }
+
+    public void setAliasSliderGetMax(String aliasSliderGetMax) {
+        this.aliasSliderGetMax = aliasSliderGetMax;
+    }
+
+    public String getAliasSliderSetMax() {
+        return aliasSliderSetMax;
+    }
+
+    public void setAliasSliderSetMax(String aliasSliderSetMax) {
+        this.aliasSliderSetMax = aliasSliderSetMax;
+    }
+
+    public String getAliasSliderGetMin() {
+        return aliasSliderGetMin;
+    }
+
+    public void setAliasSliderGetMin(String aliasSliderGetMin) {
+        this.aliasSliderGetMin = aliasSliderGetMin;
+    }
+
+    public String getAliasSliderSetMin() {
+        return aliasSliderSetMin;
+    }
+
+    public void setAliasSliderSetMin(String aliasSliderSetMin) {
+        this.aliasSliderSetMin = aliasSliderSetMin;
+    }
+
+    public String getAliasSliderAddAction() {
+        return aliasSliderAddAction;
+    }
+
+    public void setAliasSliderAddAction(String aliasSliderAddAction) {
+        this.aliasSliderAddAction = aliasSliderAddAction;
     }
 
     public void otherAlias(String _lang) {
@@ -3003,6 +3792,7 @@ public class LgNamesGui extends LgNamesUtils {
             setAliasTextLabel("$core.TextLabel");
             setAliasImageLabel("$core.ImageLabel");
             setAliasGetFont("getFont");
+            setAliasSetFont("setFont");
             setAliasFont("$core.Font");
             setAliasFontGetName("getName");
             setAliasFontGetSize("getSize");
@@ -3071,7 +3861,12 @@ public class LgNamesGui extends LgNamesUtils {
             setAliasComponentGetWidth("getWidth");
             setAliasComponentGetPreferredSize("getPreferredSize");
             setAliasComponentSetPreferredSize("setPreferredSize");
+            setAliasComponentIsVisible("isVisible");
+            setAliasComponentSetVisible("setVisible");
             setAliasComponentInvokeLater("invokeLater");
+            setAliasInput("$core.Input");
+            setAliasInputIsEnabled("isEnabled");
+            setAliasInputSetEnabled("setEnabled");
             setAliasRender("$core.Render");
             setAliasRenderGetPaint("getPaint");
             setAliasRenderGetWidth("getWidth");
@@ -3109,12 +3904,57 @@ public class LgNamesGui extends LgNamesUtils {
             setAliasButtonGroup("$core.ButtonGroup");
             setAliasButtonGroupAdd("add");
             setAliasRadio("$core.Radio");
-            setAliasRadioIsEnabled("isEnabled");
-            setAliasRadioSetEnabled("setEnabled");
             setAliasRadioIsSelected("isSelected");
             setAliasRadioSetSelected("setSelected");
             setAliasRadioGetText("getText");
             setAliasRadioSetText("setText");
+            setAliasCheckBox("$core.CheckBox");
+            setAliasCheckBoxIsSelected("isSelected");
+            setAliasCheckBoxSetSelected("setSelected");
+            setAliasCheckBoxGetText("getText");
+            setAliasCheckBoxSetText("setText");
+            setAliasCheckBoxAddAction("addAction");
+            setAliasPopupMenu("$core.Popup");
+            setAliasPopupMenuAdd("add");
+            setAliasPopupMenuShow("show");
+//            setAliasTextFieldAuto();
+            setAliasTextField("$core.TextField");
+            setAliasTextFieldAddPopup("add");
+            setAliasTextFieldGetText("getText");
+            setAliasTextFieldSetText("setText");
+            setAliasTextFieldAddAction("addAction");
+            setAliasTextArea("$core.TextArea");
+            setAliasTextAreaAppend("append");
+            setAliasTextAreaInsert("insert");
+            setAliasTextAreaGetSelectedText("getSelectedText");
+            setAliasTextAreaSetSelectionStart("setSelectionStart");
+            setAliasTextAreaSetSelectionEnd("setSelectionEnd");
+            setAliasTextAreaSelect("select");
+            setAliasTextAreaSelectAll("selectAll");
+            setAliasTextAreaGetText("getText");
+            setAliasTextAreaSetText("setText");
+            setAliasTextAreaGetTabSize("getTabSize");
+            setAliasTextAreaSetTabSize("setTabSize");
+            setAliasTextAreaReplaceRange("replaceRange");
+            setAliasTextAreaReplaceSelection("replaceSelection");
+            setAliasSpinner("$core.Spinner");
+            setAliasSpinnerAddAction("addAction");
+            setAliasSpinnerGetMax("getMax");
+            setAliasSpinnerSetMax("setMax");
+            setAliasSpinnerGetMin("getMin");
+            setAliasSpinnerSetMin("setMin");
+            setAliasSpinnerGetValue("getValue");
+            setAliasSpinnerSetValue("setValue");
+            setAliasSpinnerGetStep("getStep");
+            setAliasSpinnerSetStep("setStep");
+            setAliasSlider("$core.Slider");
+            setAliasSliderAddAction("addAction");
+            setAliasSliderGetMax("getMax");
+            setAliasSliderSetMax("setMax");
+            setAliasSliderGetMin("getMin");
+            setAliasSliderSetMin("setMin");
+            setAliasSliderGetValue("getValue");
+            setAliasSliderSetValue("setValue");
         } else {
             setAliasActionEvent("$coeur.ActionEvt");
             setAliasActionListener("$coeur.ActionEcouteur");
@@ -3150,6 +3990,7 @@ public class LgNamesGui extends LgNamesUtils {
             setAliasTextLabel("$coeur.Etiquette");
             setAliasImageLabel("$coeur.EtImage");
             setAliasGetFont("valPolice");
+            setAliasSetFont("majPolice");
             setAliasFont("$coeur.Police");
             setAliasFontGetName("valNom");
             setAliasFontGetSize("valTaille");
@@ -3218,7 +4059,12 @@ public class LgNamesGui extends LgNamesUtils {
             setAliasComponentGetWidth("valLargeur");
             setAliasComponentGetPreferredSize("valTaillePreferee");
             setAliasComponentSetPreferredSize("majTaillePreferee");
+            setAliasComponentIsVisible("estVisible");
+            setAliasComponentSetVisible("majVisible");
             setAliasComponentInvokeLater("invoquerPlusTard");
+            setAliasInput("$coeur.Saisie");
+            setAliasInputIsEnabled("estActif");
+            setAliasInputSetEnabled("majActif");
             setAliasRender("$coeur.Rendu");
             setAliasRenderGetPaint("valPeindre");
             setAliasRenderGetWidth("valLargeur");
@@ -3256,12 +4102,57 @@ public class LgNamesGui extends LgNamesUtils {
             setAliasButtonGroup("$coeur.GroupeBoutons");
             setAliasButtonGroupAdd("ajout");
             setAliasRadio("$coeur.Radio");
-            setAliasRadioIsEnabled("estActif");
-            setAliasRadioSetEnabled("majActif");
             setAliasRadioIsSelected("estSelect");
             setAliasRadioSetSelected("majSelect");
             setAliasRadioGetText("valTexte");
             setAliasRadioSetText("majTexte");
+            setAliasCheckBox("$coeur.Case");
+            setAliasCheckBoxIsSelected("estSelect");
+            setAliasCheckBoxSetSelected("majSelect");
+            setAliasCheckBoxGetText("valTexte");
+            setAliasCheckBoxSetText("majTexte");
+            setAliasCheckBoxAddAction("ajoutAction");
+            setAliasPopupMenu("$coeur.MenuContextuel");
+            setAliasPopupMenuAdd("ajout");
+            setAliasPopupMenuShow("afficher");
+//            setAliasTextFieldAuto();
+            setAliasTextField("$coeur.Champ");
+            setAliasTextFieldAddPopup("ajout");
+            setAliasTextFieldGetText("valTexte");
+            setAliasTextFieldSetText("majTexte");
+            setAliasTextFieldAddAction("ajoutAction");
+            setAliasTextArea("$coeur.Zone");
+            setAliasTextAreaAppend("ajout");
+            setAliasTextAreaInsert("inserer");
+            setAliasTextAreaGetSelectedText("valTextSelect");
+            setAliasTextAreaSetSelectionStart("majDebutSelection");
+            setAliasTextAreaSetSelectionEnd("majFinSelection");
+            setAliasTextAreaSelect("select");
+            setAliasTextAreaSelectAll("selectTous");
+            setAliasTextAreaGetText("valTexte");
+            setAliasTextAreaSetText("majTexte");
+            setAliasTextAreaGetTabSize("valTailleTab");
+            setAliasTextAreaSetTabSize("majTailleTab");
+            setAliasTextAreaReplaceRange("remplacerRang");
+            setAliasTextAreaReplaceSelection("remplacerSelect");
+            setAliasSpinner("$coeur.CurseurNum");
+            setAliasSpinnerAddAction("addAction");
+            setAliasSpinnerGetMax("valMax");
+            setAliasSpinnerSetMax("majMax");
+            setAliasSpinnerGetMin("valMin");
+            setAliasSpinnerSetMin("majMin");
+            setAliasSpinnerGetValue("val");
+            setAliasSpinnerSetValue("maj");
+            setAliasSpinnerGetStep("valPas");
+            setAliasSpinnerSetStep("majPas");
+            setAliasSlider("$coeur.CurseurBarre");
+            setAliasSliderAddAction("addAction");
+            setAliasSliderGetMax("valMax");
+            setAliasSliderSetMax("majMax");
+            setAliasSliderGetMin("valMin");
+            setAliasSliderSetMin("majMin");
+            setAliasSliderGetValue("val");
+            setAliasSliderSetValue("maj");
         }
     }
     @Override
@@ -3289,7 +4180,8 @@ public class LgNamesGui extends LgNamesUtils {
                 getAliasComponentRepaint(),
                 getAliasComponentGetPaint(),
                 getAliasComponentSetPaint(),
-                getAliasGetFont()
+                getAliasGetFont(),
+                getAliasSetFont()
         ));
         m_.put(getAliasTextLabel(), new StringList(
                 getAliasSetLabelText(),

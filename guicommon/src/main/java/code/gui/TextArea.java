@@ -54,6 +54,9 @@ public final class TextArea extends CustComponent {
     }
 
     public void insert(String str, int pos) {
+        if (pos < 0) {
+            return;
+        }
         textArea.insert(str, pos);
     }
 
@@ -62,6 +65,12 @@ public final class TextArea extends CustComponent {
     }
 
     public void replaceRange(String str, int start, int end) {
+        if (start < 0) {
+            return;
+        }
+        if (end < start) {
+            return;
+        }
         textArea.replaceRange(str, start, end);
     }
 
@@ -79,10 +88,6 @@ public final class TextArea extends CustComponent {
 
     public void setColumns(int columns) {
         textArea.setColumns(columns);
-    }
-
-    public void setFont(Font f) {
-        textArea.setFont(f);
     }
 
     public boolean getScrollableTracksViewportWidth() {
@@ -249,10 +254,6 @@ public final class TextArea extends CustComponent {
         textArea.selectAll();
     }
 
-    public String getToolTipText(MouseEvent event) {
-        return textArea.getToolTipText(event);
-    }
-
     public int getScrollableBlockIncrement(Rectangle visibleRect, int orientation, int direction) {
         return textArea.getScrollableBlockIncrement(visibleRect, orientation, direction);
     }
@@ -326,14 +327,6 @@ public final class TextArea extends CustComponent {
         return textArea.getBorder();
     }
 
-    public void setDebugGraphicsOptions(int debugOptions) {
-        textArea.setDebugGraphicsOptions(debugOptions);
-    }
-
-    public int getDebugGraphicsOptions() {
-        return textArea.getDebugGraphicsOptions();
-    }
-
     public void registerKeyboardAction(ActionListener anAction, String aCommand, KeyStroke aKeyStroke, int aCondition) {
         textArea.registerKeyboardAction(anAction, aCommand, aKeyStroke, aCondition);
     }
@@ -377,10 +370,6 @@ public final class TextArea extends CustComponent {
         return textArea.getBaseline(width, height);
     }
 
-    public void setVisible(boolean aFlag) {
-        textArea.setVisible(aFlag);
-    }
-
     public void setEnabled(boolean enabled) {
         textArea.setEnabled(enabled);
     }
@@ -407,18 +396,6 @@ public final class TextArea extends CustComponent {
 
     public void scrollRectToVisible(Rectangle aRect) {
         textArea.scrollRectToVisible(aRect);
-    }
-
-    public boolean getAutoscrolls() {
-        return textArea.getAutoscrolls();
-    }
-
-    public Object getClientProperty(Object key) {
-        return textArea.getClientProperty(key);
-    }
-
-    public void putClientProperty(Object key, Object value) {
-        textArea.putClientProperty(key, value);
     }
 
     public Rectangle getBounds(Rectangle rv) {
@@ -462,10 +439,6 @@ public final class TextArea extends CustComponent {
         return textArea.getVisibleRect();
     }
 
-    public void revalidate() {
-        textArea.revalidate();
-    }
-
     public boolean isValidateRoot() {
         return textArea.isValidateRoot();
     }
@@ -488,5 +461,9 @@ public final class TextArea extends CustComponent {
         } catch (Exception e) {
             return -1;
         }
+    }
+
+    public boolean isEnabled() {
+        return textArea.isEnabled();
     }
 }

@@ -6,7 +6,7 @@ import code.expressionlanguage.structs.Struct;
 import code.gui.CustComponent;
 import code.gui.RadioButton;
 
-public final class RadioButtonStruct extends CustComponentStruct {
+public final class RadioButtonStruct extends InputStruct {
     private RadioButton radioButton;
     protected RadioButtonStruct(String _className) {
         super(_className);
@@ -51,10 +51,12 @@ public final class RadioButtonStruct extends CustComponentStruct {
         radioButton.setSelected(((BooleanStruct)b).getInstance());
     }
 
+    @Override
     public Struct isEnabled() {
         return new BooleanStruct(radioButton.isEnabled());
     }
 
+    @Override
     public void setEnabled(Struct b) {
         radioButton.setEnabled(((BooleanStruct)b).getInstance());
     }

@@ -108,13 +108,6 @@ public class Panel extends CustComponent {
         getChildren().add(_comp);
         panel.add(_comp.getComponent(), _constraints);
     }
-    public boolean isDisplayable() {
-        return panel.isDisplayable();
-    }
-
-    public boolean isVisible() {
-        return panel.isVisible();
-    }
 
     public void remove(int _index) {
         getChildren().get(_index).setParent(null);
@@ -228,10 +221,6 @@ public class Panel extends CustComponent {
         panel.setBounds(_r);
     }
 
-    public void setVisible(boolean _aFlag) {
-        panel.setVisible(_aFlag);
-    }
-
     public void setEnabled(boolean _enabled) {
         panel.setEnabled(_enabled);
     }
@@ -242,10 +231,6 @@ public class Panel extends CustComponent {
 
     public void setBackground(Color _bg) {
         panel.setBackground(_bg);
-    }
-
-    public void setFont(Font _font) {
-        panel.setFont(_font);
     }
 
     public Cursor getCursor() {

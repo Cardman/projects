@@ -101,18 +101,6 @@ public abstract class PaintableLabel extends CustComponent {
         label.setBackground(_bg);
     }
 
-    public void setFont(Font _font) {
-        label.setFont(_font);
-    }
-
-    public boolean isVisible() {
-        return label.isVisible();
-    }
-
-    public void setVisible(boolean _aFlag) {
-        label.setVisible(_aFlag);
-    }
-
     public void setVerticalAlignment(int _alignment) {
         label.setVerticalAlignment(_alignment);
     }

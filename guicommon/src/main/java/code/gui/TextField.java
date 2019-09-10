@@ -34,10 +34,6 @@ public final class TextField extends CustComponent {
         textField.setDocument(doc);
     }
 
-    public void setFont(Font f) {
-        textField.setFont(f);
-    }
-
     public void addActionListener(ActionListener l) {
         textField.addActionListener(l);
     }
@@ -77,14 +73,6 @@ public final class TextField extends CustComponent {
         return textField.contains(x, y);
     }
 
-    public Border getBorder() {
-        return textField.getBorder();
-    }
-
-    public void setVisible(boolean aFlag) {
-        textField.setVisible(aFlag);
-    }
-
     public void setEnabled(boolean enabled) {
         textField.setEnabled(enabled);
     }
@@ -109,14 +97,6 @@ public final class TextField extends CustComponent {
         textField.setOpaque(isOpaque);
     }
 
-    public void revalidate() {
-        textField.revalidate();
-    }
-
-    public void validate() {
-        textField.validate();
-    }
-
     public void setLocation(int x, int y) {
         textField.setLocation(x, y);
     }
@@ -133,17 +113,18 @@ public final class TextField extends CustComponent {
         return textField.contains(p);
     }
 
-    public void addMouseListener(MouseListener l) {
-        textField.addMouseListener(l);
-    }
-
     public void add(PopupMenu popup) {
         textField.add(popup.getComponent());
+        textField.setComponentPopupMenu(popup.getPopupMenu());
     }
 
 
     @Override
     public JComponent getComponent() {
         return textField;
+    }
+
+    public boolean isEnabled() {
+        return textField.isEnabled();
     }
 }

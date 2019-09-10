@@ -32,10 +32,6 @@ public final class PreparedLabel extends CustComponent {
         label.setBackground(_bg);
     }
 
-    public void setFont(Font _font) {
-        label.setFont(_font);
-    }
-
     public void requestFocus() {
         label.requestFocus();
     }

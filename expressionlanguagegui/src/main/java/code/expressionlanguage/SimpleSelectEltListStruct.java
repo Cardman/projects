@@ -24,6 +24,9 @@ public final class SimpleSelectEltListStruct extends MouseAdapter implements Ind
 
     @Override
     public void mouseReleased(MouseEvent _e) {
+        if (!grList.isEnabledList()) {
+            return;
+        }
         grList.setFirstIndex(index);
         grList.setLastIndex(index);
         boolean sel_ = !_e.isPopupTrigger();

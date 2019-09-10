@@ -75,8 +75,7 @@ public class CarpetBelote {
             for(int i=0;i<12;i++) {
                 Panel surPanneau_=new Panel();
                 Panel panneau_=Panel.newBorder();
-                TextArea jta_=new TextArea(EMPTY);
-                jta_.setRows(3);
+                TextArea jta_=new TextArea(EMPTY,3,0);
                 jta_.setEditable(false);
                 if(i==3) {
                     surPanneau_=Panel.newFlow(FlowLayout.LEFT,0,0);
@@ -166,8 +165,7 @@ public class CarpetBelote {
                 Panel surPanneau_;
                 surPanneau_=Panel.newFlow(FlowLayout.CENTER,0,0);
                 Panel panneau_=Panel.newBorder();
-                TextArea jta_=new TextArea(EMPTY);
-                jta_.setRows(3);
+                TextArea jta_=new TextArea(EMPTY,3,0);
                 jta_.setEditable(false);
                 if(i==0) {
                     if(c_.horaire) {
@@ -214,8 +212,7 @@ public class CarpetBelote {
             for(int i=0;i<9;i++) {
                 Panel surPanneau_=new Panel();
                 Panel panneau_=Panel.newBorder();
-                TextArea jta_=new TextArea(EMPTY);
-                jta_.setRows(3);
+                TextArea jta_=new TextArea(EMPTY,3,0);
                 jta_.setEditable(false);
                 if(i==0) {
                     surPanneau_=Panel.newFlow(FlowLayout.RIGHT,0,0);

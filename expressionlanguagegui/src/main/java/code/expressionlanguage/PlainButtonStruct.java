@@ -7,7 +7,7 @@ import code.expressionlanguage.structs.Struct;
 import code.gui.CustComponent;
 import code.gui.PlainButton;
 
-public final class PlainButtonStruct extends CustComponentStruct {
+public final class PlainButtonStruct extends InputStruct {
     private PlainButton plainButton;
     public PlainButtonStruct(String _className) {
         super(_className);
@@ -35,9 +35,11 @@ public final class PlainButtonStruct extends CustComponentStruct {
         }
     }
 
+    @Override
     public Struct isEnabled() {
         return new BooleanStruct(plainButton.isEnabled());
     }
+    @Override
     public void setEnabled(Struct b) {
         plainButton.setEnabled(((BooleanStruct)b).getInstance());
     }

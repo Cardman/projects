@@ -64,11 +64,24 @@ public abstract class CustComponentStruct implements Struct {
     public FontStruct getFont() {
         return new FontStruct(getComponent().getFont());
     }
+    public void setFont(Struct _font) {
+        if (!(_font instanceof FontStruct)) {
+            getComponent().setFont(null);
+        } else {
+            getComponent().setFont(((FontStruct)_font).getFont());
+        }
+    }
     public int getWidth() {
         return getComponent().getWidth();
     }
     public int getHeight() {
         return getComponent().getHeight();
+    }
+    public Struct isVisible() {
+        return new BooleanStruct(getComponent().isVisible());
+    }
+    public void setVisible(Struct _b) {
+        getComponent().setVisible(((BooleanStruct)_b).getInstance());
     }
     protected abstract CustComponent getComponent();
 

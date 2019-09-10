@@ -1,7 +1,6 @@
 package code.gui;
 
 import javax.swing.*;
-import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
@@ -60,138 +59,6 @@ public final class CustCheckBox extends CustComponent {
         checkBox.doClick(pressTime);
     }
 
-    public Icon getIcon() {
-        return checkBox.getIcon();
-    }
-
-    public void setIcon(Icon defaultIcon) {
-        checkBox.setIcon(defaultIcon);
-    }
-
-    public Icon getPressedIcon() {
-        return checkBox.getPressedIcon();
-    }
-
-    public void setPressedIcon(Icon pressedIcon) {
-        checkBox.setPressedIcon(pressedIcon);
-    }
-
-    public Icon getSelectedIcon() {
-        return checkBox.getSelectedIcon();
-    }
-
-    public void setSelectedIcon(Icon selectedIcon) {
-        checkBox.setSelectedIcon(selectedIcon);
-    }
-
-    public Icon getRolloverIcon() {
-        return checkBox.getRolloverIcon();
-    }
-
-    public void setRolloverIcon(Icon rolloverIcon) {
-        checkBox.setRolloverIcon(rolloverIcon);
-    }
-
-    public Icon getRolloverSelectedIcon() {
-        return checkBox.getRolloverSelectedIcon();
-    }
-
-    public void setRolloverSelectedIcon(Icon rolloverSelectedIcon) {
-        checkBox.setRolloverSelectedIcon(rolloverSelectedIcon);
-    }
-
-    public void setDisabledIcon(Icon disabledIcon) {
-        checkBox.setDisabledIcon(disabledIcon);
-    }
-
-    public Icon getDisabledSelectedIcon() {
-        return checkBox.getDisabledSelectedIcon();
-    }
-
-    public void setDisabledSelectedIcon(Icon disabledSelectedIcon) {
-        checkBox.setDisabledSelectedIcon(disabledSelectedIcon);
-    }
-
-    public int getVerticalAlignment() {
-        return checkBox.getVerticalAlignment();
-    }
-
-    public void setVerticalAlignment(int alignment) {
-        checkBox.setVerticalAlignment(alignment);
-    }
-
-    public int getHorizontalAlignment() {
-        return checkBox.getHorizontalAlignment();
-    }
-
-    public void setHorizontalAlignment(int alignment) {
-        checkBox.setHorizontalAlignment(alignment);
-    }
-
-    public int getVerticalTextPosition() {
-        return checkBox.getVerticalTextPosition();
-    }
-
-    public void setVerticalTextPosition(int textPosition) {
-        checkBox.setVerticalTextPosition(textPosition);
-    }
-
-    public int getHorizontalTextPosition() {
-        return checkBox.getHorizontalTextPosition();
-    }
-
-    public void setHorizontalTextPosition(int textPosition) {
-        checkBox.setHorizontalTextPosition(textPosition);
-    }
-
-    public int getIconTextGap() {
-        return checkBox.getIconTextGap();
-    }
-
-    public void setIconTextGap(int iconTextGap) {
-        checkBox.setIconTextGap(iconTextGap);
-    }
-
-    public void setActionCommand(String actionCommand) {
-        checkBox.setActionCommand(actionCommand);
-    }
-
-    public String getActionCommand() {
-        return checkBox.getActionCommand();
-    }
-
-    public boolean isBorderPainted() {
-        return checkBox.isBorderPainted();
-    }
-
-    public void setBorderPainted(boolean b) {
-        checkBox.setBorderPainted(b);
-    }
-
-    public boolean isFocusPainted() {
-        return checkBox.isFocusPainted();
-    }
-
-    public void setFocusPainted(boolean b) {
-        checkBox.setFocusPainted(b);
-    }
-
-    public boolean isContentAreaFilled() {
-        return checkBox.isContentAreaFilled();
-    }
-
-    public void setContentAreaFilled(boolean b) {
-        checkBox.setContentAreaFilled(b);
-    }
-
-    public boolean isRolloverEnabled() {
-        return checkBox.isRolloverEnabled();
-    }
-
-    public void setRolloverEnabled(boolean b) {
-        checkBox.setRolloverEnabled(b);
-    }
-
     public int getMnemonic() {
         return checkBox.getMnemonic();
     }
@@ -216,18 +83,6 @@ public final class CustCheckBox extends CustComponent {
         return checkBox.getMultiClickThreshhold();
     }
 
-    public void addChangeListener(ChangeListener l) {
-        checkBox.addChangeListener(l);
-    }
-
-    public void removeChangeListener(ChangeListener l) {
-        checkBox.removeChangeListener(l);
-    }
-
-    public ChangeListener[] getChangeListeners() {
-        return checkBox.getChangeListeners();
-    }
-
     public void addActionListener(ActionListener l) {
         checkBox.addActionListener(l);
     }
@@ -240,6 +95,9 @@ public final class CustCheckBox extends CustComponent {
         return checkBox.getActionListeners();
     }
 
+    public boolean isEnabled() {
+        return checkBox.isEnabled();
+    }
     public void setEnabled(boolean b) {
         checkBox.setEnabled(b);
     }

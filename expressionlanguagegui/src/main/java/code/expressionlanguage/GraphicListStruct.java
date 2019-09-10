@@ -8,7 +8,7 @@ import code.util.Ints;
 
 import java.awt.*;
 
-public class GraphicListStruct extends CustComponentStruct {
+public class GraphicListStruct extends InputStruct {
 
     private CustList<Struct> list;
     private CustList<PreparedLabelStruct> listComponents = new CustList<PreparedLabelStruct>();
@@ -30,6 +30,8 @@ public class GraphicListStruct extends CustComponentStruct {
     private boolean simple;
 
     private int visibleRowCount = 8;
+
+    private boolean enabledList = true;
 
     public GraphicListStruct(GuiContextEl _ctx,String _className,boolean _simple) {
         this(_ctx,_className,_simple,new ArrayStruct(new Struct[0],PrimitiveTypeUtil.getPrettyArrayType(_ctx.getStandards().getAliasPrimInteger())), new ArrayStruct(new Struct[0],PrimitiveTypeUtil.getPrettyArrayType(_ctx.getStandards().getAliasObject())));
@@ -267,8 +269,22 @@ public class GraphicListStruct extends CustComponentStruct {
         this.render = render;
     }
 
+    public boolean isEnabledList() {
+        return enabledList;
+    }
+
     @Override
     protected CustComponent getComponent() {
         return scroll.getComponent();
+    }
+
+    @Override
+    public Struct isEnabled() {
+        return new BooleanStruct(enabledList);
+    }
+
+    @Override
+    public void setEnabled(Struct _enabled) {
+        enabledList = ((BooleanStruct)_enabled).getInstance();
     }
 }

@@ -6,7 +6,7 @@ import code.gui.*;
 import code.util.StringList;
 
 
-public final class GraphicComboStruct extends CustComponentStruct {
+public final class GraphicComboStruct extends InputStruct {
     private GraphicCombo graphicCombo;
 
     GraphicComboStruct(String _className) {
@@ -39,6 +39,17 @@ public final class GraphicComboStruct extends CustComponentStruct {
         }
         return l_;
     }
+
+    @Override
+    public Struct isEnabled() {
+        return new BooleanStruct(graphicCombo.isEnabled());
+    }
+
+    @Override
+    public void setEnabled(Struct _enabled) {
+        graphicCombo.setEnabled(((BooleanStruct)_enabled).getInstance());
+    }
+
     public Struct getSelectedItem() {
         String s_ = graphicCombo.getSelectedItem();
         if (s_ == null) {

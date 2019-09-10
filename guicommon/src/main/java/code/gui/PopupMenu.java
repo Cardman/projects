@@ -13,14 +13,13 @@ public final class PopupMenu extends CustComponent {
         return popupMenu;
     }
 
-    public void setVisible(boolean b) {
-        popupMenu.setVisible(b);
-    }
-
     public void show(CustComponent panel, int i, int height) {
         popupMenu.show(panel.getComponent(),i,height);
     }
 
+    public void show(int i, int height) {
+        popupMenu.show(null,i,height);
+    }
     public void add(CustComponent global) {
         popupMenu.add(global.getComponent());
     }

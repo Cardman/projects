@@ -21,14 +21,6 @@ public final class ScrollPane extends CustComponent {
         return component;
     }
 
-    public void setVisible(boolean _b) {
-        component.setVisible(_b);
-    }
-
-    public boolean isVisible() {
-        return component.isVisible();
-    }
-
     public void setViewportView(CustComponent _graphic) {
         component.setViewportView(_graphic.getComponent());
         _graphic.setParent(this);

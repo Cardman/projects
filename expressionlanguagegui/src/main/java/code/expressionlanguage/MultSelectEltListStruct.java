@@ -1,6 +1,5 @@
 package code.expressionlanguage;
 
-import code.expressionlanguage.methods.ProcessMethod;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.MethodId;
 import code.gui.IndexableListener;
@@ -25,6 +24,9 @@ public final class MultSelectEltListStruct extends MouseAdapter implements Index
 
     @Override
     public void mouseReleased(MouseEvent _e) {
+        if (!grList.isEnabledList()) {
+            return;
+        }
         boolean sel_ = !_e.isPopupTrigger();
         if (!_e.isShiftDown()) {
             grList.setFirstIndex(index);
