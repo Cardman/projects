@@ -69,57 +69,124 @@ public final class CaseCondition extends SwitchPartBlock {
         SwitchBlock sw_ = (SwitchBlock) par_;
         ClassArgumentMatching resSwitch_ = sw_.getOpValue().last().getResultClass();
         String type_ = resSwitch_.getSingleNameOrEmpty();
-        if (!type_.isEmpty()) {
+        EnumBlock e_ = getEnumType(_cont, type_);
+        if (e_ != null) {
             String id_ = Templates.getIdFromAllTypes(type_);
-            GeneType g_ = _cont.getClassBody(id_);
-            if (g_ instanceof EnumBlock) {
-                for (GeneField f: ContextEl.getFieldBlocks(g_)) {
-                    if (!(f instanceof InnerTypeOrElement)) {
-                        continue;
-                    }
-                    InnerTypeOrElement e_ = (InnerTypeOrElement) f;
-                    if (!StringList.quickEq(e_.getUniqueFieldName(), value.trim())) {
-                        continue;
-                    }
-                    _cont.setLookLocalClass(id_);
-                    _cont.setStaticContext(true);
-                    Delimiters d_ = ElResolver.checkSyntax(value, _cont, CustList.FIRST_INDEX);
-                    OperationsSequence opTwo_ = ElResolver.getOperationsSequence(CustList.FIRST_INDEX, value, _cont, d_);
-                    OperationNode op_ = OperationNode.createOperationNode(CustList.FIRST_INDEX, CustList.FIRST_INDEX, null, opTwo_, _cont);
-                    if (!_cont.getOptions().isReadOnly()) {
-                        defaultAssignmentBefore(_cont, op_);
-                    }
-                    op_.analyze(_cont);
-                    _cont.setLookLocalClass(EMPTY_STRING);
-                    if (!_cont.getOptions().isReadOnly()) {
-                        op_.tryAnalyzeAssignmentAfter(_cont);
-                    }
-                    op_.setOrder(0);
-                    builtEnum = true;
-                    typeEnum = id_;
-                    opValue = new CustList<ExecOperationNode>();
-                    opValue.add((ExecOperationNode) ExecOperationNode.createExecOperationNode(op_));
-                    if (!_cont.getOptions().isReadOnly()) {
-                        defaultAssignmentAfter(_cont, op_);
-                    }
-                    checkDuplicateEnumCase(_cont);
-                    return;
+            for (GeneField f: ContextEl.getFieldBlocks(e_)) {
+                if (!match(f)) {
+                    continue;
                 }
-                opValue = ElUtil.getAnalyzedOperations(value, _cont, Calculation.staticCalculation(stCtx_));
-                Argument a_ = opValue.last().getArgument();
-                if (Argument.isNullValue(a_)) {
-                    checkDuplicateCase(_cont, a_);
-                    return;
-                }
-                UnexpectedTypeError un_ = new UnexpectedTypeError();
-                un_.setFileName(getFile().getFileName());
-                un_.setIndexFile(valueOffset);
-                un_.setType(opValue.last().getResultClass());
-                _cont.getClasses().addError(un_);
+                _cont.setLookLocalClass(id_);
+                _cont.setStaticContext(true);
+                Delimiters d_ = ElResolver.checkSyntax(value, _cont, CustList.FIRST_INDEX);
+                OperationsSequence opTwo_ = ElResolver.getOperationsSequence(CustList.FIRST_INDEX, value, _cont, d_);
+                OperationNode op_ = OperationNode.createOperationNode(CustList.FIRST_INDEX, CustList.FIRST_INDEX, null, opTwo_, _cont);
+                defaultAssignmentBefore(_cont, op_);
+                op_.analyze(_cont);
+                _cont.setLookLocalClass(EMPTY_STRING);
+                op_.tryAnalyzeAssignmentAfter(_cont);
+                op_.setOrder(0);
+                builtEnum = true;
+                typeEnum = id_;
+                opValue = new CustList<ExecOperationNode>();
+                opValue.add((ExecOperationNode) ExecOperationNode.createExecOperationNode(op_));
+                defaultAssignmentAfter(_cont, op_);
+                checkDuplicateEnumCase(_cont);
                 return;
             }
+            opValue = ElUtil.getAnalyzedOperations(value, _cont, Calculation.staticCalculation(stCtx_));
+            processNullValue(_cont);
+            return;
         }
         opValue = ElUtil.getAnalyzedOperations(value, _cont, Calculation.staticCalculation(stCtx_));
+        processNumValues(_cont, resSwitch_);
+    }
+
+    @Override
+    public void buildExpressionLanguageReadOnly(ContextEl _cont) {
+        FunctionBlock f_ = _cont.getAnalyzing().getCurrentFct();
+        AnalyzedPageEl page_ = _cont.getAnalyzing();
+        page_.setGlobalOffset(valueOffset);
+        page_.setOffset(0);
+        BracedBlock par_ = getParent();
+        boolean stCtx_ = f_.isStaticContext();
+        if (!(par_ instanceof SwitchBlock)) {
+            page_.setGlobalOffset(getOffset().getOffsetTrim());
+            page_.setOffset(0);
+            UnexpectedTagName un_ = new UnexpectedTagName();
+            un_.setFileName(getFile().getFileName());
+            un_.setIndexFile(getOffset().getOffsetTrim());
+            _cont.getClasses().addError(un_);
+            opValue = ElUtil.getAnalyzedOperationsReadOnly(value, _cont, Calculation.staticCalculation(stCtx_));
+            return;
+        }
+        _cont.getCoverage().putBlockOperationsSwitchs(_cont,par_,this);
+        SwitchBlock sw_ = (SwitchBlock) par_;
+        ClassArgumentMatching resSwitch_ = sw_.getOpValue().last().getResultClass();
+        String type_ = resSwitch_.getSingleNameOrEmpty();
+        EnumBlock e_ = getEnumType(_cont, type_);
+        if (e_ != null) {
+            String id_ = Templates.getIdFromAllTypes(type_);
+            for (GeneField f: ContextEl.getFieldBlocks(e_)) {
+                if (!match(f)) {
+                    continue;
+                }
+                _cont.setLookLocalClass(id_);
+                _cont.setStaticContext(true);
+                Delimiters d_ = ElResolver.checkSyntax(value, _cont, CustList.FIRST_INDEX);
+                OperationsSequence opTwo_ = ElResolver.getOperationsSequence(CustList.FIRST_INDEX, value, _cont, d_);
+                OperationNode op_ = OperationNode.createOperationNode(CustList.FIRST_INDEX, CustList.FIRST_INDEX, null, opTwo_, _cont);
+                op_.analyze(_cont);
+                _cont.setLookLocalClass(EMPTY_STRING);
+                op_.setOrder(0);
+                builtEnum = true;
+                typeEnum = id_;
+                opValue = new CustList<ExecOperationNode>();
+                opValue.add((ExecOperationNode) ExecOperationNode.createExecOperationNode(op_));
+                checkDuplicateEnumCase(_cont);
+                return;
+            }
+            opValue = ElUtil.getAnalyzedOperationsReadOnly(value, _cont, Calculation.staticCalculation(stCtx_));
+            processNullValue(_cont);
+            return;
+        }
+        opValue = ElUtil.getAnalyzedOperationsReadOnly(value, _cont, Calculation.staticCalculation(stCtx_));
+        processNumValues(_cont, resSwitch_);
+    }
+
+    private EnumBlock getEnumType(ContextEl _cont,String _type) {
+        if (_type.isEmpty()) {
+            return null;
+        }
+        String id_ = Templates.getIdFromAllTypes(_type);
+        GeneType g_ = _cont.getClassBody(id_);
+        if (g_ instanceof EnumBlock) {
+            return (EnumBlock) g_;
+        }
+        return null;
+
+    }
+    private boolean match(GeneField _f) {
+        if (!(_f instanceof InnerTypeOrElement)) {
+            return false;
+        }
+        InnerTypeOrElement e_ = (InnerTypeOrElement) _f;
+        return StringList.quickEq(e_.getUniqueFieldName(), value.trim());
+    }
+    private void processNullValue(ContextEl _cont) {
+        Argument a_ = opValue.last().getArgument();
+        if (Argument.isNullValue(a_)) {
+            checkDuplicateCase(_cont, a_);
+            return;
+        }
+        UnexpectedTypeError un_ = new UnexpectedTypeError();
+        un_.setFileName(getFile().getFileName());
+        un_.setIndexFile(valueOffset);
+        un_.setType(opValue.last().getResultClass());
+        _cont.getClasses().addError(un_);
+    }
+
+    private void processNumValues(ContextEl _cont, ClassArgumentMatching _resSwitch) {
         ExecOperationNode op_ = opValue.last();
         ClassArgumentMatching resCase_ = op_.getResultClass();
         if (resCase_.matchVoid(_cont)) {
@@ -140,7 +207,7 @@ public final class CaseCondition extends SwitchPartBlock {
         } else {
             checkDuplicateCase(_cont, arg_);
         }
-        if (!PrimitiveTypeUtil.canBeUseAsArgument(resSwitch_, resCase_, _cont)) {
+        if (!PrimitiveTypeUtil.canBeUseAsArgument(_resSwitch, resCase_, _cont)) {
             UnexpectedTypeError un_ = new UnexpectedTypeError();
             un_.setFileName(getFile().getFileName());
             un_.setIndexFile(valueOffset);

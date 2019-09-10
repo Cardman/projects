@@ -105,50 +105,98 @@ public final class ElUtil {
             String argClName_ = _conf.getStandards().getAliasObject();
             e_.setResultClass(new ClassArgumentMatching(argClName_));    
             Block currentBlock_ = _conf.getCurrentBlock();
-            if (processAssign(_conf, currentBlock_)) {
-                currentBlock_.defaultAssignmentBefore(_conf, e_);
-                e_.tryAnalyzeAssignmentAfter(_conf);
-                currentBlock_.defaultAssignmentAfter(_conf, e_);
-            }
+            currentBlock_.defaultAssignmentBefore(_conf, e_);
+            e_.tryAnalyzeAssignmentAfter(_conf);
+            currentBlock_.defaultAssignmentAfter(_conf, e_);
             e_.setOrder(0);
             return new CustList<ExecOperationNode>((ExecOperationNode)ExecOperationNode.createExecOperationNode(e_));
         }
         OperationsSequence opTwo_ = ElResolver.getOperationsSequence(CustList.FIRST_INDEX, _el, _conf, d_);
         OperationNode op_ = OperationNode.createOperationNode(CustList.FIRST_INDEX, CustList.FIRST_INDEX, null, opTwo_, _conf);
         String fieldName_ = _calcul.getFieldName();
-        _conf.setStaticContext(hiddenVarTypes_ || op_ instanceof AbstractInvokingConstructor);
-        if (op_ instanceof StandardInstancingOperation) {
-            ((StandardInstancingOperation)op_).setFieldName(fieldName_);
-        }
+        setupStaticContext(_conf, hiddenVarTypes_, op_);
+        setFieldName(op_, fieldName_);
         CustList<OperationNode> all_ = getSortedDescNodes(op_, hiddenVarTypes_, _conf);
         return getExecutableNodes(_conf,all_);
     }
 
-    private static boolean processAssign(ContextEl _conf, Block _currentBlock) {
-        return processAssign(_conf) && _currentBlock != null;
+    private static void setupStaticContext(ContextEl _conf, boolean _hiddenVarTypes, OperationNode _op) {
+        _conf.setStaticContext(_hiddenVarTypes || _op instanceof AbstractInvokingConstructor);
+    }
+
+    public static CustList<ExecOperationNode> getAnalyzedOperationsReadOnly(String _el, ContextEl _conf, Calculation _calcul) {
+        boolean hiddenVarTypes_ = _calcul.isStaticBlock();
+        _conf.setStaticContext(hiddenVarTypes_);
+        Delimiters d_ = ElResolver.checkSyntax(_el, _conf, CustList.FIRST_INDEX);
+        if (d_.getBadOffset() >= 0) {
+            BadElError badEl_ = new BadElError();
+            badEl_.setOffsetInEl(d_.getBadOffset());
+            badEl_.setEl(_el);
+            badEl_.setFileName(_conf.getCurrentFileName());
+            badEl_.setIndexFile(_conf.getCurrentLocationIndex());
+            _conf.getClasses().addError(badEl_);
+            OperationsSequence tmpOp_ = new OperationsSequence();
+            tmpOp_.setDelimiter(new Delimiters());
+            ErrorPartOperation e_ = new ErrorPartOperation(0, 0, null, tmpOp_);
+            String argClName_ = _conf.getStandards().getAliasObject();
+            e_.setResultClass(new ClassArgumentMatching(argClName_));
+            e_.setOrder(0);
+            return new CustList<ExecOperationNode>((ExecOperationNode)ExecOperationNode.createExecOperationNode(e_));
+        }
+        OperationsSequence opTwo_ = ElResolver.getOperationsSequence(CustList.FIRST_INDEX, _el, _conf, d_);
+        OperationNode op_ = OperationNode.createOperationNode(CustList.FIRST_INDEX, CustList.FIRST_INDEX, null, opTwo_, _conf);
+        String fieldName_ = _calcul.getFieldName();
+        setupStaticContext(_conf, hiddenVarTypes_, op_);
+        setFieldName(op_, fieldName_);
+        CustList<OperationNode> all_ = getSortedDescNodesReadOnly(op_, hiddenVarTypes_, _conf);
+        return getExecutableNodes(_conf,all_);
+    }
+
+    private static void setFieldName(OperationNode _op, String _fieldName) {
+        if (_op instanceof StandardInstancingOperation) {
+            ((StandardInstancingOperation) _op).setFieldName(_fieldName);
+        }
     }
 
 
     private static CustList<OperationNode> getSortedDescNodes(OperationNode _root, boolean _staticBlock,ContextEl _context) {
         CustList<OperationNode> list_ = new CustList<OperationNode>();
         Block currentBlock_ = _context.getCurrentBlock();
-        if (processAssign(_context, currentBlock_)) {
+        if (currentBlock_ != null) {
             currentBlock_.defaultAssignmentBefore(_context, _root);
         }
         OperationNode c_ = _root;
         while (true) {
             if (c_ == null) {
-                if (processAssign(_context, currentBlock_)) {
+                if (currentBlock_ != null) {
                     currentBlock_.defaultAssignmentAfter(_context, _root);
                 }
                 break;
             }
-            if (c_ instanceof PreAnalyzableOperation) {
-                ((PreAnalyzableOperation)c_).preAnalyze(_context);
-            }
+            preAnalyze(_context, c_);
             c_ = getAnalyzedNext(c_, _root, list_, _staticBlock, _context);
         }
         return list_;
+    }
+
+
+    private static CustList<OperationNode> getSortedDescNodesReadOnly(OperationNode _root, boolean _staticBlock,ContextEl _context) {
+        CustList<OperationNode> list_ = new CustList<OperationNode>();
+        OperationNode c_ = _root;
+        while (true) {
+            if (c_ == null) {
+                break;
+            }
+            preAnalyze(_context, c_);
+            c_ = getAnalyzedNextReadOnly(c_, _root, list_, _staticBlock, _context);
+        }
+        return list_;
+    }
+
+    private static void preAnalyze(ContextEl _context, OperationNode _c) {
+        if (_c instanceof PreAnalyzableOperation) {
+            ((PreAnalyzableOperation) _c).preAnalyze(_context);
+        }
     }
 
     private static OperationNode getAnalyzedNext(OperationNode _current, OperationNode _root, CustList<OperationNode> _sortedNodes, boolean _staticBlock,ContextEl _context) {
@@ -156,9 +204,7 @@ public final class ElUtil {
         OperationNode next_ = createFirstChild(_current, _context, 0);
         if (next_ != null) {
             ((MethodOperation) _current).appendChild(next_);
-            if (processAssign(_context)) {
-                ((MethodOperation) _current).tryAnalyzeAssignmentBefore(_context, next_);
-            }
+            ((MethodOperation) _current).tryAnalyzeAssignmentBefore(_context, next_);
             return next_;
         }
         OperationNode current_ = _current;
@@ -166,55 +212,24 @@ public final class ElUtil {
             _context.setOkNumOp(true);
             current_.analyze(_context);
             current_.setOrder(_sortedNodes.size());
-            if (current_ instanceof ReductibleOperable) {
-                ((ReductibleOperable)current_).tryCalculateNode(_context);
-            }
-            if (processAssign(_context)) {
-                current_.tryAnalyzeAssignmentAfter(_context);
-            }
+            tryCalculateNode(_context, current_);
+            current_.tryAnalyzeAssignmentAfter(_context);
             _sortedNodes.add(current_);
-            if (current_ instanceof StaticInitOperation) {
-                next_ = createFirstChild(current_.getParent(), _context, 1);
-            } else {
-                next_ = createNextSibling(current_, _context);
-            }
+            next_ = processNext(_context, current_);
             MethodOperation par_ = current_.getParent();
             if (next_ != null) {
-                if (par_ instanceof DotOperation) {
-                    if (!(next_ instanceof PossibleIntermediateDotted)) {
-                        next_.setRelativeOffsetPossibleAnalyzable(next_.getIndexInEl(), _context);
-                        BadOperandsNumber badNb_ = new BadOperandsNumber();
-                        badNb_.setFileName(_context.getCurrentFileName());
-                        badNb_.setOperandsNumber(0);
-                        badNb_.setIndexFile(_context.getCurrentLocationIndex());
-                        _context.getClasses().addError(badNb_);
-                    } else {
-                        PossibleIntermediateDotted possible_ = (PossibleIntermediateDotted) next_;
-                        boolean static_ = current_ instanceof StaticAccessOperation;
-                        possible_.setIntermediateDotted();
-                        possible_.setPreviousArgument(current_.getArgument());
-                        possible_.setPreviousResultClass(current_.getResultClass(), static_);
-                        current_.setSiblingSet(possible_);
-                    }
-                }
+                processDot(_context, next_, current_, par_);
                 par_.appendChild(next_);
-                if (processAssign(_context)) {
-                    par_.tryAnalyzeAssignmentBeforeNextSibling(_context, next_, current_);
-                }
+                par_.tryAnalyzeAssignmentBeforeNextSibling(_context, next_, current_);
                 return next_;
             }
             if (par_ == _root) {
                 _context.setOkNumOp(true);
                 par_.analyze(_context);
                 ClassArgumentMatching cl_ = par_.getResultClass();
-                if (PrimitiveTypeUtil.isPrimitive(cl_, _context)) {
-                    cl_.setUnwrapObject(cl_);
-                    par_.cancelArgument();
-                }
+                unwrapPrimitive(_context, par_, cl_);
                 par_.tryCalculateNode(_context);
-                if (processAssign(_context)) {
-                    par_.tryAnalyzeAssignmentAfter(_context);
-                }
+                par_.tryAnalyzeAssignmentAfter(_context);
                 par_.setOrder(_sortedNodes.size());
                 _sortedNodes.add(par_);
                 return null;
@@ -226,8 +241,85 @@ public final class ElUtil {
         }
     }
 
-    private static boolean processAssign(ContextEl _conf) {
-        return !_conf.getOptions().isReadOnly() && !_conf.isAnnotAnalysis() && !_conf.isGearConst();
+    private static void tryCalculateNode(ContextEl _context, OperationNode _current) {
+        if (_current instanceof ReductibleOperable) {
+            ((ReductibleOperable) _current).tryCalculateNode(_context);
+        }
+    }
+
+    private static void processDot(ContextEl _context, OperationNode _next, OperationNode _current, MethodOperation _par) {
+        if (_par instanceof DotOperation) {
+            if (!(_next instanceof PossibleIntermediateDotted)) {
+                _next.setRelativeOffsetPossibleAnalyzable(_next.getIndexInEl(), _context);
+                BadOperandsNumber badNb_ = new BadOperandsNumber();
+                badNb_.setFileName(_context.getCurrentFileName());
+                badNb_.setOperandsNumber(0);
+                badNb_.setIndexFile(_context.getCurrentLocationIndex());
+                _context.getClasses().addError(badNb_);
+            } else {
+                PossibleIntermediateDotted possible_ = (PossibleIntermediateDotted) _next;
+                boolean static_ = _current instanceof StaticAccessOperation;
+                possible_.setIntermediateDotted();
+                possible_.setPreviousArgument(_current.getArgument());
+                possible_.setPreviousResultClass(_current.getResultClass(), static_);
+                _current.setSiblingSet(possible_);
+            }
+        }
+    }
+
+    private static OperationNode getAnalyzedNextReadOnly(OperationNode _current, OperationNode _root, CustList<OperationNode> _sortedNodes, boolean _staticBlock,ContextEl _context) {
+
+        OperationNode next_ = createFirstChild(_current, _context, 0);
+        if (next_ != null) {
+            ((MethodOperation) _current).appendChild(next_);
+            return next_;
+        }
+        OperationNode current_ = _current;
+        while (true) {
+            _context.setOkNumOp(true);
+            current_.analyze(_context);
+            current_.setOrder(_sortedNodes.size());
+            tryCalculateNode(_context, current_);
+            _sortedNodes.add(current_);
+            next_ = processNext(_context, current_);
+            MethodOperation par_ = current_.getParent();
+            if (next_ != null) {
+                processDot(_context, next_, current_, par_);
+                par_.appendChild(next_);
+                return next_;
+            }
+            if (par_ == _root) {
+                _context.setOkNumOp(true);
+                par_.analyze(_context);
+                ClassArgumentMatching cl_ = par_.getResultClass();
+                unwrapPrimitive(_context, par_, cl_);
+                par_.tryCalculateNode(_context);
+                par_.setOrder(_sortedNodes.size());
+                _sortedNodes.add(par_);
+                return null;
+            }
+            if (par_ == null) {
+                return null;
+            }
+            current_ = par_;
+        }
+    }
+
+    private static void unwrapPrimitive(ContextEl _context, MethodOperation _par, ClassArgumentMatching _cl) {
+        if (PrimitiveTypeUtil.isPrimitive(_cl, _context)) {
+            _cl.setUnwrapObject(_cl);
+            _par.cancelArgument();
+        }
+    }
+
+    private static OperationNode processNext(ContextEl _context, OperationNode _current) {
+        OperationNode next_;
+        if (_current instanceof StaticInitOperation) {
+            next_ = createFirstChild(_current.getParent(), _context, 1);
+        } else {
+            next_ = createNextSibling(_current, _context);
+        }
+        return next_;
     }
 
     private static OperationNode createFirstChild(OperationNode _block, ContextEl _context, int _index) {

@@ -111,7 +111,7 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
                 page_.setGlobalOffset(begin_);
                 page_.setOffset(0);
                 Calculation c_ = Calculation.staticCalculation(true);
-                annotation_.add(ElUtil.getAnalyzedOperations(list_.get(i), _context, c_));
+                annotation_.add(ElUtil.getAnalyzedOperationsReadOnly(list_.get(i), _context, c_));
             }
             annotationsOpsParams.add(annotation_);
             j_++;
@@ -143,11 +143,19 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
         }
         annotationsOpsParams = annotationsOpsParams_;
     }
+
+    @Override
+    public void setAssignmentAfterCallReadOnly(Analyzable _an, AnalyzingEl _anEl) {
+        checkReturnFct(_an, _anEl);
+    }
+
     @Override
     public void setAssignmentAfterCall(Analyzable _an, AnalyzingEl _anEl) {
-        if (!_an.getContextEl().getOptions().isReadOnly()) {
-            setAssignmentAfter(_an,_anEl);
-        }
+        setAssignmentAfter(_an,_anEl);
+        checkReturnFct(_an, _anEl);
+    }
+
+    private void checkReturnFct(Analyzable _an, AnalyzingEl _anEl) {
         LgNames stds_ = _an.getStandards();
         if (!StringList.quickEq(getImportedReturnType(), stds_.getAliasVoid())) {
             if (_anEl.canCompleteNormally(this)) {
@@ -161,6 +169,7 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
             }
         }
     }
+
     public CustList<CustList<CustList<ExecOperationNode>>> getAnnotationsOpsParams() {
         return annotationsOpsParams;
     }

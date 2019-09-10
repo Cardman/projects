@@ -48,6 +48,10 @@ public final class TryEval extends BracedStack implements Eval {
     }
 
     @Override
+    public void buildExpressionLanguageReadOnly(ContextEl _cont) {
+    }
+
+    @Override
     public void setAssignmentBeforeNextSibling(Analyzable _an, AnalyzingEl _anEl) {
         IdMap<Block, AssignedVariables> id_ = _an.getContextEl().getAssignedVariables().getFinalVariables();
         Block nextSibling_ = getNextSibling();

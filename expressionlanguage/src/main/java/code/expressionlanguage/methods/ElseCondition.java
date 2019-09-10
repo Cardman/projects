@@ -50,6 +50,10 @@ public final class ElseCondition extends BracedStack implements BlockCondition, 
     }
 
     @Override
+    public void buildExpressionLanguageReadOnly(ContextEl _cont) {
+    }
+
+    @Override
     public void checkTree(Analyzable _an, AnalyzingEl _anEl) {
         Block pBlock_ = getPreviousSibling();
         if (!(pBlock_ instanceof IfCondition)) {

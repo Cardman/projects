@@ -1142,21 +1142,21 @@ public abstract class LgNames {
         cl_.setIteratorVarCust(locName_);
         String iterator_ = getAliasIterator();
         exp_ = StringList.concat(locName_, LOC_VAR, StringList.concat(iterator_,PARS));
-        cl_.setExpsIteratorCust(ElUtil.getAnalyzedOperations(exp_, _context, Calculation.staticCalculation(true)));
+        cl_.setExpsIteratorCust(ElUtil.getAnalyzedOperationsReadOnly(exp_, _context, Calculation.staticCalculation(true)));
         locName_ = _context.getNextTempVar();
         locVar_ = new LocalVariable();
         locVar_.setClassName(StringList.concat(getAliasIteratorType(),"<?>"));
         _context.getInternVars().put(locName_, locVar_);
         cl_.setHasNextVarCust(locName_);
         exp_ = StringList.concat(locName_, LOC_VAR, StringList.concat(hasNext_,PARS));
-        cl_.setExpsHasNextCust(ElUtil.getAnalyzedOperations(exp_, _context, Calculation.staticCalculation(true)));
+        cl_.setExpsHasNextCust(ElUtil.getAnalyzedOperationsReadOnly(exp_, _context, Calculation.staticCalculation(true)));
         locName_ = _context.getNextTempVar();
         locVar_ = new LocalVariable();
         locVar_.setClassName(StringList.concat(getAliasIteratorType(),"<?>"));
         _context.getInternVars().put(locName_, locVar_);
         cl_.setNextVarCust(locName_);
         exp_ = StringList.concat(locName_, LOC_VAR, StringList.concat(next_,PARS));
-        cl_.setExpsNextCust(ElUtil.getAnalyzedOperations(exp_, _context, Calculation.staticCalculation(true)));
+        cl_.setExpsNextCust(ElUtil.getAnalyzedOperationsReadOnly(exp_, _context, Calculation.staticCalculation(true)));
         
         locVar_ = new LocalVariable();
         locVar_.setClassName(StringList.concat(getAliasIterableTable(),"<?,?>"));
@@ -1164,21 +1164,21 @@ public abstract class LgNames {
         cl_.setIteratorTableVarCust(locName_);
         String iteratorTable_ = getAliasIteratorTable();
         exp_ = StringList.concat(locName_, LOC_VAR, StringList.concat(iteratorTable_,PARS));
-        cl_.setExpsIteratorTableCust(ElUtil.getAnalyzedOperations(exp_, _context, Calculation.staticCalculation(true)));
+        cl_.setExpsIteratorTableCust(ElUtil.getAnalyzedOperationsReadOnly(exp_, _context, Calculation.staticCalculation(true)));
         locName_ = _context.getNextTempVar();
         locVar_ = new LocalVariable();
         locVar_.setClassName(StringList.concat(getAliasIteratorTableType(),"<?,?>"));
         _context.getInternVars().put(locName_, locVar_);
         cl_.setHasNextPairVarCust(locName_);
         exp_ = StringList.concat(locName_, LOC_VAR, StringList.concat(hasNextPair_,PARS));
-        cl_.setExpsHasNextPairCust(ElUtil.getAnalyzedOperations(exp_, _context, Calculation.staticCalculation(true)));
+        cl_.setExpsHasNextPairCust(ElUtil.getAnalyzedOperationsReadOnly(exp_, _context, Calculation.staticCalculation(true)));
         locName_ = _context.getNextTempVar();
         locVar_ = new LocalVariable();
         locVar_.setClassName(StringList.concat(getAliasIteratorTableType(),"<?,?>"));
         _context.getInternVars().put(locName_, locVar_);
         cl_.setNextPairVarCust(locName_);
         exp_ = StringList.concat(locName_, LOC_VAR, StringList.concat(nextPair_,PARS));
-        cl_.setExpsNextPairCust(ElUtil.getAnalyzedOperations(exp_, _context, Calculation.staticCalculation(true)));
+        cl_.setExpsNextPairCust(ElUtil.getAnalyzedOperationsReadOnly(exp_, _context, Calculation.staticCalculation(true)));
         locName_ = _context.getNextTempVar();
         locVar_ = new LocalVariable();
         locVar_.setClassName(StringList.concat(getAliasPairType(),"<?,?>"));
@@ -1186,7 +1186,7 @@ public abstract class LgNames {
         cl_.setFirstVarCust(locName_);
         String first_ = getAliasGetFirst();
         exp_ = StringList.concat(locName_, LOC_VAR, StringList.concat(first_,PARS));
-        cl_.setExpsFirstCust(ElUtil.getAnalyzedOperations(exp_, _context, Calculation.staticCalculation(true)));
+        cl_.setExpsFirstCust(ElUtil.getAnalyzedOperationsReadOnly(exp_, _context, Calculation.staticCalculation(true)));
         locName_ = _context.getNextTempVar();
         locVar_ = new LocalVariable();
         locVar_.setClassName(StringList.concat(getAliasPairType(),"<?,?>"));
@@ -1194,7 +1194,7 @@ public abstract class LgNames {
         cl_.setSecondVarCust(locName_);
         String second_ = getAliasGetSecond();
         exp_ = StringList.concat(locName_, LOC_VAR, StringList.concat(second_,PARS));
-        cl_.setExpsSecondCust(ElUtil.getAnalyzedOperations(exp_, _context, Calculation.staticCalculation(true)));
+        cl_.setExpsSecondCust(ElUtil.getAnalyzedOperationsReadOnly(exp_, _context, Calculation.staticCalculation(true)));
     }
     public IterableAnalysisResult getCustomType(StringList _names, ContextEl _context) {
         StringList out_ = new StringList();

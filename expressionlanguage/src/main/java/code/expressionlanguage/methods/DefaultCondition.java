@@ -18,6 +18,16 @@ public final class DefaultCondition extends SwitchPartBlock {
 
     @Override
     public void buildExpressionLanguage(ContextEl _cont) {
+        checkDefault(_cont);
+        buildEmptyEl(_cont);
+    }
+
+    @Override
+    public void buildExpressionLanguageReadOnly(ContextEl _cont) {
+        checkDefault(_cont);
+    }
+
+    private void checkDefault(ContextEl _cont) {
         BracedBlock b_ = getParent();
         if (!(b_ instanceof SwitchBlock)) {
             AnalyzedPageEl page_ = _cont.getAnalyzing();
@@ -41,7 +51,6 @@ public final class DefaultCondition extends SwitchPartBlock {
                 first_ = first_.getNextSibling();
             }
         }
-        buildEmptyEl(_cont);
     }
 
     @Override

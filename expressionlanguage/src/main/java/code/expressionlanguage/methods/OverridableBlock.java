@@ -118,11 +118,19 @@ public final class OverridableBlock extends NamedFunctionBlock implements GeneMe
     public GeneType belong() {
         return (RootBlock) getParent();
     }
+
+    @Override
+    public void setAssignmentAfterCallReadOnly(Analyzable _an, AnalyzingEl _anEl) {
+        checkReturnFct(_an, _anEl);
+    }
+
     @Override
     public void setAssignmentAfterCall(Analyzable _an, AnalyzingEl _anEl) {
-        if (!_an.getContextEl().getOptions().isReadOnly()) {
-            setAssignmentAfter(_an, _anEl);
-        }
+        setAssignmentAfter(_an, _anEl);
+        checkReturnFct(_an, _anEl);
+    }
+
+    private void checkReturnFct(Analyzable _an, AnalyzingEl _anEl) {
         LgNames stds_ = _an.getStandards();
         if (!StringList.quickEq(getImportedReturnType(), stds_.getAliasVoid())) {
             if (!isAbstractMethod() && _anEl.canCompleteNormally(this)) {

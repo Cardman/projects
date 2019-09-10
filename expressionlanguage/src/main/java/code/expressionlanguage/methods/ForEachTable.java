@@ -136,7 +136,21 @@ public final class ForEachTable extends BracedStack implements Loop, WithNotEmpt
 
     @Override
     public void buildExpressionLanguage(ContextEl _cont) {
-        buildEl(_cont);
+        boolean static_ = processVarTypes(_cont);
+        opList = ElUtil.getAnalyzedOperations(expression, _cont, Calculation.staticCalculation(static_));
+        checkMatchs(_cont);
+        putVariable(_cont);
+    }
+
+    @Override
+    public void buildExpressionLanguageReadOnly(ContextEl _cont) {
+        boolean static_ = processVarTypes(_cont);
+        opList = ElUtil.getAnalyzedOperationsReadOnly(expression, _cont, Calculation.staticCalculation(static_));
+        checkMatchs(_cont);
+        processVariables(_cont);
+    }
+
+    private void checkMatchs(ContextEl _cont) {
         ExecOperationNode el_ = opList.last();
         Argument arg_ = el_.getArgument();
         if (Argument.isNullValue(arg_)) {
@@ -149,7 +163,6 @@ public final class ForEachTable extends BracedStack implements Loop, WithNotEmpt
             StringList out_ = getCustomType(names_, _cont);
             checkIterableCandidates(out_, _cont);
         }
-        putVariable(_cont);
     }
 
     @Override
@@ -175,7 +188,7 @@ public final class ForEachTable extends BracedStack implements Loop, WithNotEmpt
         return classIndexName;
     }
 
-    public void buildEl(ContextEl _cont) {
+    private boolean processVarTypes(ContextEl _cont) {
         FunctionBlock f_ = _cont.getAnalyzing().getCurrentFct();
         importedClassIndexName = _cont.resolveCorrectType(classIndexName);
         if (!PrimitiveTypeUtil.isPrimitiveOrWrapper(importedClassIndexName, _cont)) {
@@ -253,8 +266,9 @@ public final class ForEachTable extends BracedStack implements Loop, WithNotEmpt
         page_.setOffset(0);
         boolean static_ = f_.isStaticContext();
         _cont.getCoverage().putBlockOperationsLoops(_cont,this);
-        opList = ElUtil.getAnalyzedOperations(expression, _cont, Calculation.staticCalculation(static_));
+        return static_;
     }
+
     public void checkIterableCandidates(StringList _types,ContextEl _cont) {
         if (_types.size() == 1) {
             KeyWords keyWords_ = _cont.getKeyWords();
@@ -320,6 +334,11 @@ public final class ForEachTable extends BracedStack implements Loop, WithNotEmpt
         }
     }
     public void putVariable(ContextEl _cont) {
+        processVariables(_cont);
+        buildConditions(_cont);
+    }
+
+    private void processVariables(ContextEl _cont) {
         if (StringList.quickEq(variableNameFirst, variableNameSecond)) {
             DuplicateVariable d_ = new DuplicateVariable();
             d_.setId(variableNameSecond);
@@ -343,7 +362,6 @@ public final class ForEachTable extends BracedStack implements Loop, WithNotEmpt
         }
         lv_.setIndexClassName(importedClassIndexName);
         _cont.getAnalyzing().putVar(variableNameSecond, lv_);
-        buildConditions(_cont);
     }
 
     @Override

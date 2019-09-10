@@ -48,6 +48,21 @@ public abstract class Condition extends BracedStack implements WithNotEmptyEl, B
         page_.setGlobalOffset(conditionOffset);
         page_.setOffset(0);
         opCondition = ElUtil.getAnalyzedOperations(condition, _cont, Calculation.staticCalculation(f_.isStaticContext()));
+        processBoolean(_cont);
+        buildConditions(_cont);
+    }
+
+    @Override
+    public void buildExpressionLanguageReadOnly(ContextEl _cont) {
+        FunctionBlock f_ = _cont.getAnalyzing().getCurrentFct();
+        AnalyzedPageEl page_ = _cont.getAnalyzing();
+        page_.setGlobalOffset(conditionOffset);
+        page_.setOffset(0);
+        opCondition = ElUtil.getAnalyzedOperationsReadOnly(condition, _cont, Calculation.staticCalculation(f_.isStaticContext()));
+        processBoolean(_cont);
+    }
+
+    private void processBoolean(ContextEl _cont) {
         ExecOperationNode elCondition_ = opCondition.last();
         LgNames stds_ = _cont.getStandards();
         if (!elCondition_.getResultClass().isBoolType(_cont)) {
@@ -58,7 +73,6 @@ public abstract class Condition extends BracedStack implements WithNotEmptyEl, B
             _cont.getClasses().addError(un_);
         }
         elCondition_.getResultClass().setUnwrapObject(stds_.getAliasPrimBoolean());
-        buildConditions(_cont);
     }
 
     @Override

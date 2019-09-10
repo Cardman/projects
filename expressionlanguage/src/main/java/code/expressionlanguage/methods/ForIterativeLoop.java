@@ -188,7 +188,79 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
     }
     @Override
     public void buildExpressionLanguage(ContextEl _cont) {
+        processVariableNames(_cont);
         FunctionBlock f_ = _cont.getAnalyzing().getCurrentFct();
+        AnalyzedPageEl page_ = _cont.getAnalyzing();
+        String cl_ = importedClassName;
+        ClassArgumentMatching elementClass_ = new ClassArgumentMatching(cl_);
+        page_.setGlobalOffset(initOffset);
+        page_.setOffset(0);
+        boolean static_ = f_.isStaticContext();
+        opInit = ElUtil.getAnalyzedOperations(init, _cont, Calculation.staticCalculation(static_));
+        ExecOperationNode initEl_ = opInit.last();
+        checkType(_cont, elementClass_, initEl_, initOffset);
+        page_.setGlobalOffset(expressionOffset);
+        page_.setOffset(0);
+        opExp = ElUtil.getAnalyzedOperations(expression, _cont, Calculation.staticCalculation(static_));
+        ExecOperationNode expressionEl_ = opExp.last();
+        checkType(_cont, elementClass_, expressionEl_, expressionOffset);
+        page_.setGlobalOffset(stepOffset);
+        page_.setOffset(0);
+        opStep = ElUtil.getAnalyzedOperations(step, _cont, Calculation.staticCalculation(static_));
+        ExecOperationNode stepEl_ = opStep.last();
+        checkType(_cont, elementClass_, stepEl_, stepOffset);
+        LoopVariable lv_ = new LoopVariable();
+        lv_.setClassName(cl_);
+        lv_.setIndexClassName(importedClassIndexName);
+        _cont.getAnalyzing().putVar(variableName, lv_);
+        _cont.getCoverage().putBlockOperationsLoops(_cont,this);
+        buildConditions(_cont);
+    }
+
+    @Override
+    public void buildExpressionLanguageReadOnly(ContextEl _cont) {
+        processVariableNames(_cont);
+        FunctionBlock f_ = _cont.getAnalyzing().getCurrentFct();
+        AnalyzedPageEl page_ = _cont.getAnalyzing();
+        String cl_ = importedClassName;
+        ClassArgumentMatching elementClass_ = new ClassArgumentMatching(cl_);
+        page_.setGlobalOffset(initOffset);
+        page_.setOffset(0);
+        boolean static_ = f_.isStaticContext();
+        opInit = ElUtil.getAnalyzedOperationsReadOnly(init, _cont, Calculation.staticCalculation(static_));
+        ExecOperationNode initEl_ = opInit.last();
+        checkType(_cont, elementClass_, initEl_, initOffset);
+        page_.setGlobalOffset(expressionOffset);
+        page_.setOffset(0);
+        opExp = ElUtil.getAnalyzedOperationsReadOnly(expression, _cont, Calculation.staticCalculation(static_));
+        ExecOperationNode expressionEl_ = opExp.last();
+        checkType(_cont, elementClass_, expressionEl_, expressionOffset);
+        page_.setGlobalOffset(stepOffset);
+        page_.setOffset(0);
+        opStep = ElUtil.getAnalyzedOperationsReadOnly(step, _cont, Calculation.staticCalculation(static_));
+        ExecOperationNode stepEl_ = opStep.last();
+        checkType(_cont, elementClass_, stepEl_, stepOffset);
+        LoopVariable lv_ = new LoopVariable();
+        lv_.setClassName(cl_);
+        lv_.setIndexClassName(importedClassIndexName);
+        _cont.getAnalyzing().putVar(variableName, lv_);
+        _cont.getCoverage().putBlockOperationsLoops(_cont,this);
+    }
+
+    private void checkType(ContextEl _cont, ClassArgumentMatching _elementClass, ExecOperationNode _stepEl, int stepOffset) {
+        if (!PrimitiveTypeUtil.canBeUseAsArgument(_elementClass, _stepEl.getResultClass(), _cont)) {
+            Mapping mapping_ = new Mapping();
+            mapping_.setArg(_stepEl.getResultClass());
+            mapping_.setParam(_elementClass);
+            BadImplicitCast cast_ = new BadImplicitCast();
+            cast_.setMapping(mapping_);
+            cast_.setFileName(getFile().getFileName());
+            cast_.setIndexFile(stepOffset);
+            _cont.getClasses().addError(cast_);
+        }
+    }
+
+    private void processVariableNames(ContextEl _cont) {
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         page_.setGlobalOffset(classIndexNameOffset);
         page_.setOffset(0);
@@ -241,55 +313,6 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
             b_.setVarName(variableName);
             _cont.getClasses().addError(b_);
         }
-        page_.setGlobalOffset(initOffset);
-        page_.setOffset(0);
-        boolean static_ = f_.isStaticContext();
-        opInit = ElUtil.getAnalyzedOperations(init, _cont, Calculation.staticCalculation(static_));
-        ExecOperationNode initEl_ = opInit.last();
-        if (!PrimitiveTypeUtil.canBeUseAsArgument(elementClass_, initEl_.getResultClass(), _cont)) {
-            Mapping mapping_ = new Mapping();
-            mapping_.setArg(initEl_.getResultClass());
-            mapping_.setParam(elementClass_);
-            BadImplicitCast cast_ = new BadImplicitCast();
-            cast_.setMapping(mapping_);
-            cast_.setFileName(getFile().getFileName());
-            cast_.setIndexFile(initOffset);
-            _cont.getClasses().addError(cast_);
-        }
-        page_.setGlobalOffset(expressionOffset);
-        page_.setOffset(0);
-        opExp = ElUtil.getAnalyzedOperations(expression, _cont, Calculation.staticCalculation(static_));
-        ExecOperationNode expressionEl_ = opExp.last();
-        if (!PrimitiveTypeUtil.canBeUseAsArgument(elementClass_, expressionEl_.getResultClass(), _cont)) {
-            Mapping mapping_ = new Mapping();
-            mapping_.setArg(expressionEl_.getResultClass());
-            mapping_.setParam(elementClass_);
-            BadImplicitCast cast_ = new BadImplicitCast();
-            cast_.setMapping(mapping_);
-            cast_.setFileName(getFile().getFileName());
-            cast_.setIndexFile(expressionOffset);
-            _cont.getClasses().addError(cast_);
-        }
-        page_.setGlobalOffset(stepOffset);
-        page_.setOffset(0);
-        opStep = ElUtil.getAnalyzedOperations(step, _cont, Calculation.staticCalculation(static_));
-        ExecOperationNode stepEl_ = opStep.last();
-        if (!PrimitiveTypeUtil.canBeUseAsArgument(elementClass_, stepEl_.getResultClass(), _cont)) {
-            Mapping mapping_ = new Mapping();
-            mapping_.setArg(stepEl_.getResultClass());
-            mapping_.setParam(elementClass_);
-            BadImplicitCast cast_ = new BadImplicitCast();
-            cast_.setMapping(mapping_);
-            cast_.setFileName(getFile().getFileName());
-            cast_.setIndexFile(stepOffset);
-            _cont.getClasses().addError(cast_);
-        }
-        LoopVariable lv_ = new LoopVariable();
-        lv_.setClassName(cl_);
-        lv_.setIndexClassName(importedClassIndexName);
-        _cont.getAnalyzing().putVar(variableName, lv_);
-        _cont.getCoverage().putBlockOperationsLoops(_cont,this);
-        buildConditions(_cont);
     }
     @Override
     public void setAssignmentBeforeChild(Analyzable _an, AnalyzingEl _anEl) {

@@ -102,6 +102,21 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock, Wi
         page_.setGlobalOffset(valueOffset);
         page_.setOffset(0);
         opValue = ElUtil.getAnalyzedOperations(value, _cont, Calculation.staticCalculation(f_.isStaticContext()));
+        processAfterEl(_cont);
+    }
+
+    @Override
+    public void buildExpressionLanguageReadOnly(ContextEl _cont) {
+        FunctionBlock f_ = _cont.getAnalyzing().getCurrentFct();
+        AnalyzedPageEl page_ = _cont.getAnalyzing();
+        page_.setGlobalOffset(valueOffset);
+        page_.setOffset(0);
+        opValue = ElUtil.getAnalyzedOperationsReadOnly(value, _cont, Calculation.staticCalculation(f_.isStaticContext()));
+        processAfterEl(_cont);
+    }
+
+    private void processAfterEl(ContextEl _cont) {
+        AnalyzedPageEl page_ = _cont.getAnalyzing();
         ExecOperationNode op_ = opValue.last();
         ClassArgumentMatching clArg_ = op_.getResultClass();
         if (clArg_.matchVoid(_cont)) {

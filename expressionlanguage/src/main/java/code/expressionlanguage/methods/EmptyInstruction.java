@@ -17,6 +17,10 @@ public final class EmptyInstruction extends Leaf implements BuildableElMethod {
     }
 
     @Override
+    public void buildExpressionLanguageReadOnly(ContextEl _cont) {
+    }
+
+    @Override
     public void processReport(ContextEl _cont, CustList<PartOffset> _parts) {
     }
     @Override

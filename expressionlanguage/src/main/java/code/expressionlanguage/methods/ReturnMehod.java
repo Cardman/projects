@@ -61,8 +61,34 @@ public final class ReturnMehod extends AbruptBlock implements CallingFinally, Wi
     @Override
     public void buildExpressionLanguage(ContextEl _cont) {
         FunctionBlock f_ = _cont.getAnalyzing().getCurrentFct();
+        String retType_ = processReturnValue(_cont);
+        if (retType_.isEmpty()) {
+            return;
+        }
+        boolean stCtx_ = f_.isStaticContext();
         AnalyzedPageEl page_ = _cont.getAnalyzing();
+        page_.setGlobalOffset(expressionOffset);
         page_.setOffset(0);
+        opRet = ElUtil.getAnalyzedOperations(expression, _cont, Calculation.staticCalculation(stCtx_));
+        checkTypes(_cont, retType_);
+    }
+
+    @Override
+    public void buildExpressionLanguageReadOnly(ContextEl _cont) {
+        FunctionBlock f_ = _cont.getAnalyzing().getCurrentFct();
+        String retType_ = processReturnValue(_cont);
+        if (retType_.isEmpty()) {
+            return;
+        }
+        boolean stCtx_ = f_.isStaticContext();
+        AnalyzedPageEl page_ = _cont.getAnalyzing();
+        page_.setGlobalOffset(expressionOffset);
+        page_.setOffset(0);
+        opRet = ElUtil.getAnalyzedOperationsReadOnly(expression, _cont, Calculation.staticCalculation(stCtx_));
+        checkTypes(_cont, retType_);
+    }
+
+    private String processReturnValue(ContextEl _cont) {
         LgNames stds_ = _cont.getStandards();
         String retType_ = stds_.getAliasVoid();
         BracedBlock par_ = getParent();
@@ -75,21 +101,21 @@ public final class ReturnMehod extends AbruptBlock implements CallingFinally, Wi
             }
             par_ = par_.getParent();
         }
-        page_.setGlobalOffset(expressionOffset);
-        page_.setOffset(0);
         if (StringList.quickEq(retType_, stds_.getAliasVoid())) {
             if (isEmpty()) {
-                return;
+                return EMPTY_STRING;
             }
         }
-        boolean stCtx_ = f_.isStaticContext();
-        opRet = ElUtil.getAnalyzedOperations(expression, _cont, Calculation.staticCalculation(stCtx_));
+        return retType_;
+    }
+    private void checkTypes(ContextEl _cont, String _retType) {
+        LgNames stds_ = _cont.getStandards();
         StringMap<StringList> vars_ = _cont.getCurrentConstraints();
         Mapping mapping_ = new Mapping();
         mapping_.setMapping(vars_);
         mapping_.setArg(opRet.last().getResultClass());
-        mapping_.setParam(retType_);
-        if (StringList.quickEq(retType_, stds_.getAliasVoid())) {
+        mapping_.setParam(_retType);
+        if (StringList.quickEq(_retType, stds_.getAliasVoid())) {
             BadImplicitCast cast_ = new BadImplicitCast();
             cast_.setMapping(mapping_);
             cast_.setFileName(getFile().getFileName());
@@ -104,8 +130,8 @@ public final class ReturnMehod extends AbruptBlock implements CallingFinally, Wi
             cast_.setIndexFile(expressionOffset);
             _cont.getClasses().addError(cast_);
         }
-        if (PrimitiveTypeUtil.isPrimitive(retType_, _cont)) {
-            opRet.last().getResultClass().setUnwrapObject(retType_);
+        if (PrimitiveTypeUtil.isPrimitive(_retType, _cont)) {
+            opRet.last().getResultClass().setUnwrapObject(_retType);
         }
     }
 

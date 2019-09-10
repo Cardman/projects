@@ -137,6 +137,25 @@ public final class InnerElementBlock extends RootBlock implements InnerTypeOrEle
     }
 
     @Override
+    public void buildExpressionLanguageReadOnly(ContextEl _cont) {
+        AnalyzedPageEl page_ = _cont.getAnalyzing();
+        page_.setGlobalOffset(fieldNameOffest);
+        page_.setOffset(0);
+        KeyWords keyWords_ = _cont.getKeyWords();
+        String newKeyWord_ = keyWords_.getKeyWordNew();
+        String idType_ = getFullName();
+        String fullInstance_ = StringList.concat(newKeyWord_," ",idType_, PAR_LEFT, value, PAR_RIGHT);
+        trOffset = valueOffest - fieldNameOffest - 2 - newKeyWord_.length() - idType_.length();
+        page_.setTranslatedOffset(trOffset);
+        int index_ = getIndex();
+        _cont.setCurrentChildTypeIndex(index_);
+        _cont.getCoverage().putBlockOperations(_cont,this);
+        opValue = ElUtil.getAnalyzedOperationsReadOnly(fullInstance_, _cont, new Calculation(fieldName));
+        page_.setTranslatedOffset(0);
+    }
+
+
+    @Override
     public void buildExpressionLanguage(ContextEl _cont) {
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         page_.setGlobalOffset(fieldNameOffest);
@@ -147,18 +166,22 @@ public final class InnerElementBlock extends RootBlock implements InnerTypeOrEle
         String fullInstance_ = StringList.concat(newKeyWord_," ",idType_, PAR_LEFT, value, PAR_RIGHT);
         trOffset = valueOffest - fieldNameOffest - 2 - newKeyWord_.length() - idType_.length();
         page_.setTranslatedOffset(trOffset);
-        int index_ = 0;
-        Block n_ = getPreviousSibling();
-        while (n_ != null) {
-            index_++;
-            n_ = n_.getPreviousSibling();
-        }
+        int index_ = getIndex();
         _cont.setCurrentChildTypeIndex(index_);
         _cont.getCoverage().putBlockOperations(_cont,this);
         opValue = ElUtil.getAnalyzedOperations(fullInstance_, _cont, new Calculation(fieldName));
         page_.setTranslatedOffset(0);
     }
 
+    private int getIndex() {
+        int index_ = 0;
+        Block n_ = getPreviousSibling();
+        while (n_ != null) {
+            index_++;
+            n_ = n_.getPreviousSibling();
+        }
+        return index_;
+    }
     public void reduce(ContextEl _context) {
         super.reduce(_context);
         ExecOperationNode r_ = opValue.last();

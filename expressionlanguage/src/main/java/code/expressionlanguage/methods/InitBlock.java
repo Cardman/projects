@@ -47,11 +47,13 @@ public abstract class InitBlock extends MemberCallingsBlock implements AloneBloc
             id_.put(this, assBl_);
         }
     }
+
+    @Override
+    public void setAssignmentAfterCallReadOnly(Analyzable _an, AnalyzingEl _anEl) {
+    }
+
     @Override
     public void setAssignmentAfterCall(Analyzable _an, AnalyzingEl _anEl) {
-        if (_an.getContextEl().getOptions().isReadOnly()) {
-            return;
-        }
         setAssignmentAfter(_an,_anEl);
         IdMap<Block, AssignedVariables> id_ = _an.getContextEl().getAssignedVariables().getFinalVariables();
         for (EntryCust<ReturnMehod, StringMap<SimpleAssignment>> r: _anEl.getAssignments().entryList()) {

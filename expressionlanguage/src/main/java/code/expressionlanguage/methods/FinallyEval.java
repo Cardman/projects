@@ -48,6 +48,10 @@ public final class FinallyEval extends BracedStack implements Eval {
     }
 
     @Override
+    public void buildExpressionLanguageReadOnly(ContextEl _cont) {
+    }
+
+    @Override
     public void checkTree(Analyzable _an, AnalyzingEl _anEl) {
         Block pBlock_ = getPreviousSibling();
         if (!(pBlock_ instanceof AbstractCatchEval)) {

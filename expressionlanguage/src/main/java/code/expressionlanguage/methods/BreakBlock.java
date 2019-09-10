@@ -37,6 +37,15 @@ public final class BreakBlock extends AbruptBlock implements CallingFinally {
 
     @Override
     public void buildExpressionLanguage(ContextEl _cont) {
+        checkBreakable(_cont);
+    }
+
+    @Override
+    public void buildExpressionLanguageReadOnly(ContextEl _cont) {
+        checkBreakable(_cont);
+    }
+
+    private void checkBreakable(ContextEl _cont) {
         boolean childOfBreakable_ = false;
         BracedBlock b_ = getParent();
         while (b_ != null) {

@@ -51,9 +51,6 @@ public abstract class Block implements AnalyzedBlock {
         return offset;
     }
     protected void buildEmptyEl(Analyzable _cont) {
-        if (_cont.getOptions().isReadOnly()) {
-            return;
-        }
         AssignedVariablesBlock glAss_ = _cont.getContextEl().getAssignedVariables();
         AssignedVariables ass_ = glAss_.getFinalVariables().getVal(this);
         ass_.getFieldsRoot().putAllMap(AssignmentsUtil.assignAfterClassic(ass_.getFieldsRootBefore()));
@@ -184,6 +181,17 @@ public abstract class Block implements AnalyzedBlock {
     protected static void tryBuildExpressionLanguage(Block _block, ContextEl _cont) {
         if (_block instanceof BuildableElMethod) {
             ((BuildableElMethod)_block).buildExpressionLanguage(_cont);
+            return;
+        }
+        UnexpectedTagName un_ = new UnexpectedTagName();
+        un_.setFileName(_block.getFile().getFileName());
+        un_.setIndexFile(_block.getOffset().getOffsetTrim());
+        _cont.getClasses().addError(un_);
+    }
+
+    protected static void tryBuildExpressionLanguageReadOnly(Block _block, ContextEl _cont) {
+        if (_block instanceof BuildableElMethod) {
+            ((BuildableElMethod)_block).buildExpressionLanguageReadOnly(_cont);
             return;
         }
         UnexpectedTagName un_ = new UnexpectedTagName();

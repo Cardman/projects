@@ -255,19 +255,39 @@ public final class FieldBlock extends Leaf implements InfoBlock {
         return valuesOffset;
     }
 
+
+    @Override
+    public void buildExpressionLanguageReadOnly(ContextEl _cont) {
+        AnalyzedPageEl page_ = _cont.getAnalyzing();
+        page_.setGlobalOffset(valueOffset);
+        page_.setOffset(0);
+        processPutCoverage(_cont);
+        opValue = ElUtil.getAnalyzedOperationsReadOnly(value, _cont, Calculation.staticCalculation(staticField));
+        processReducing(_cont);
+    }
+
+    private void processReducing(ContextEl _cont) {
+        if (_cont.isGearConst()) {
+            opValue = ElUtil.getReducedNodes(opValue.last());
+        }
+    }
+
     @Override
     public void buildExpressionLanguage(ContextEl _cont) {
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         page_.setGlobalOffset(valueOffset);
         page_.setOffset(0);
+        processPutCoverage(_cont);
+        opValue = ElUtil.getAnalyzedOperations(value, _cont, Calculation.staticCalculation(staticField));
+        processReducing(_cont);
+    }
+
+    private void processPutCoverage(ContextEl _cont) {
         if (!_cont.isGearConst()) {
             _cont.getCoverage().putBlockOperations(_cont,this);
         }
-        opValue = ElUtil.getAnalyzedOperations(value, _cont, Calculation.staticCalculation(staticField));
-        if (_cont.isGearConst()) {
-            opValue = ElUtil.getReducedNodes(opValue.last());
-        }
     }
+
     @Override
     public void buildAnnotations(ContextEl _context) {
         annotationsOps = new CustList<CustList<ExecOperationNode>>();
@@ -278,7 +298,7 @@ public final class FieldBlock extends Leaf implements InfoBlock {
             page_.setGlobalOffset(begin_);
             page_.setOffset(0);
             Calculation c_ = Calculation.staticCalculation(true);
-            annotationsOps.add(ElUtil.getAnalyzedOperations(annotations.get(i), _context, c_));
+            annotationsOps.add(ElUtil.getAnalyzedOperationsReadOnly(annotations.get(i), _context, c_));
         }
     }
     @Override

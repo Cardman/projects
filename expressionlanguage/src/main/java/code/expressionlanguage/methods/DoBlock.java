@@ -82,6 +82,10 @@ public final class DoBlock extends BracedStack implements Loop {
     }
 
     @Override
+    public void buildExpressionLanguageReadOnly(ContextEl _cont) {
+    }
+
+    @Override
     public void processEl(ContextEl _cont) {
         AbstractPageEl ip_ = _cont.getLastPage();
         ReadWrite rw_ = ip_.getReadWrite();

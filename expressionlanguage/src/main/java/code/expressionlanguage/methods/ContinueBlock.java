@@ -37,6 +37,15 @@ public final class ContinueBlock extends AbruptBlock implements CallingFinally {
 
     @Override
     public void buildExpressionLanguage(ContextEl _cont) {
+        checkLoop(_cont);
+    }
+
+    @Override
+    public void buildExpressionLanguageReadOnly(ContextEl _cont) {
+        checkLoop(_cont);
+    }
+
+    private void checkLoop(ContextEl _cont) {
         boolean childOfLoop_ = false;
         BracedBlock b_ = getParent();
         while (b_ != null) {

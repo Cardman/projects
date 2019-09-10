@@ -1725,6 +1725,52 @@ public final class Classes {
             asBlock_.getFinalVariablesGlobal().getFieldsBefore().clear();
             StringMap<AssignmentBefore> b_ = asBlock_.getFinalVariablesGlobal().getFieldsRootBefore();
             b_.clear();
+
+            for (RootBlock c: getClassBodies(_predefined)) {
+                page_.setImporting(c);
+                String fullName_ = c.getFullName();
+                CustList<Block> bl_ = getDirectChildren(c);
+                for (Block b: bl_) {
+                    if (!(b instanceof OverridableBlock)) {
+                        continue;
+                    }
+                    OverridableBlock method_ = (OverridableBlock) b;
+                    if (method_.getKind() == MethodKind.STD_METHOD) {
+                        page_.setGlobalClass(c.getGenericString());
+                        _context.getCoverage().putCalls(_context,fullName_,method_);
+                        StringList params_ = method_.getParametersNames();
+                        StringList types_ = method_.getImportedParametersTypes();
+                        prepareParams(page_, params_, types_, method_.isVarargs());
+                        method_.buildFctInstructions(_context);
+                        page_.getParameters().clear();
+                        page_.clearAllLocalVars();
+                    } else {
+                        page_.setGlobalClass(c.getGenericString());
+                        _context.getCoverage().putCalls(_context,fullName_,method_);
+                        StringList params_ = method_.getParametersNames();
+                        StringList types_ = method_.getImportedParametersTypes();
+                        prepareParams(page_, params_, types_, method_.isVarargs());
+                        processValueParam(_context, page_, c, method_);
+                        method_.buildFctInstructions(_context);
+                        page_.getParameters().clear();
+                        page_.clearAllLocalVars();
+                    }
+                }
+            }
+            _context.setGlobalClass("");
+            if (!_predefined) {
+                _context.getCoverage().putCalls(_context,"");
+                for (OperatorBlock o : getOperators()) {
+                    page_.setImporting(o);
+                    _context.getCoverage().putCalls(_context,"",o);
+                    StringList params_ = o.getParametersNames();
+                    StringList types_ = o.getImportedParametersTypes();
+                    prepareParams(page_, params_, types_, o.isVarargs());
+                    o.buildFctInstructions(_context);
+                    page_.getParameters().clear();
+                    page_.clearAllLocalVars();
+                }
+            }
         } else {
             for (RootBlock c: getClassBodies(_predefined)) {
                 page_.setImporting(c);
@@ -1760,12 +1806,12 @@ public final class Classes {
                             continue;
                         }
                         page_.setCurrentBlock(b);
-                        method_.buildExpressionLanguage(_context);
+                        method_.buildExpressionLanguageReadOnly(_context);
                     }
                     if (b instanceof StaticBlock) {
                         page_.setGlobalClass(c.getGenericString());
                         StaticBlock method_ = (StaticBlock) b;
-                        method_.buildFctInstructions(_context);
+                        method_.buildFctInstructionsReadOnly(_context);
                         page_.clearAllLocalVars();
                     }
                 }
@@ -1804,12 +1850,12 @@ public final class Classes {
                         page_.setGlobalClass(c.getGenericString());
                         FieldBlock method_ = (FieldBlock) b;
                         page_.setCurrentBlock(b);
-                        method_.buildExpressionLanguage(_context);
+                        method_.buildExpressionLanguageReadOnly(_context);
                     }
                     if (b instanceof InstanceBlock) {
                         page_.setGlobalClass(c.getGenericString());
                         InstanceBlock method_ = (InstanceBlock) b;
-                        method_.buildFctInstructions(_context);
+                        method_.buildFctInstructionsReadOnly(_context);
                     }
                 }
                 processInterfaceCtor(_context, c, fullName_, bl_);
@@ -1823,81 +1869,57 @@ public final class Classes {
                         StringList params_ = method_.getParametersNames();
                         StringList types_ = method_.getImportedParametersTypes();
                         prepareParams(page_, params_, types_, method_.isVarargs());
-                        method_.buildFctInstructions(_context);
+                        method_.buildFctInstructionsReadOnly(_context);
                         page_.getParameters().clear();
                         page_.clearAllLocalVars();
                     }
                 }
             }
             _context.setAssignedFields(true);
-        }
-
-        for (RootBlock c: getClassBodies(_predefined)) {
-            page_.setImporting(c);
-            String fullName_ = c.getFullName();
-            CustList<Block> bl_ = getDirectChildren(c);
-            for (Block b: bl_) {
-                if (!(b instanceof OverridableBlock)) {
-                    continue;
-                }
-                OverridableBlock method_ = (OverridableBlock) b;
-                if (method_.getKind() == MethodKind.STD_METHOD) {
-                    page_.setGlobalClass(c.getGenericString());
-                    _context.getCoverage().putCalls(_context,fullName_,method_);
-                    StringList params_ = method_.getParametersNames();
-                    StringList types_ = method_.getImportedParametersTypes();
-                    prepareParams(page_, params_, types_, method_.isVarargs());
-                    method_.buildFctInstructions(_context);
-                    page_.getParameters().clear();
-                    page_.clearAllLocalVars();
-                } else {
-                    page_.setGlobalClass(c.getGenericString());
-                    _context.getCoverage().putCalls(_context,fullName_,method_);
-                    StringList params_ = method_.getParametersNames();
-                    StringList types_ = method_.getImportedParametersTypes();
-                    prepareParams(page_, params_, types_, method_.isVarargs());
-                    if (method_.getKind() == MethodKind.SET_INDEX) {
-                        String p_ = _context.getKeyWords().getKeyWordValue();
-                        CustList<OverridableBlock> getIndexers_ = new CustList<OverridableBlock>();
-                        for (Block d: Classes.getDirectChildren(c)) {
-                            if (!(d instanceof OverridableBlock)) {
-                                continue;
-                            }
-                            OverridableBlock i_ = (OverridableBlock) d;
-                            if (i_.getKind() != MethodKind.GET_INDEX) {
-                                continue;
-                            }
-                            if (!i_.getId().eqPartial(method_.getId())) {
-                                continue;
-                            }
-                            getIndexers_.add(i_);
-                        }
-                        if (getIndexers_.size() == 1) {
-                            OverridableBlock matching_ = getIndexers_.first();
-                            String c_ = matching_.getImportedReturnType();
-                            LocalVariable lv_ = new LocalVariable();
-                            lv_.setClassName(c_);
-                            page_.getParameters().put(p_, lv_);
-                        }
+            for (RootBlock c: getClassBodies(_predefined)) {
+                page_.setImporting(c);
+                String fullName_ = c.getFullName();
+                CustList<Block> bl_ = getDirectChildren(c);
+                for (Block b: bl_) {
+                    if (!(b instanceof OverridableBlock)) {
+                        continue;
                     }
-                    method_.buildFctInstructions(_context);
-                    page_.getParameters().clear();
-                    page_.clearAllLocalVars();
+                    OverridableBlock method_ = (OverridableBlock) b;
+                    if (method_.getKind() == MethodKind.STD_METHOD) {
+                        page_.setGlobalClass(c.getGenericString());
+                        _context.getCoverage().putCalls(_context,fullName_,method_);
+                        StringList params_ = method_.getParametersNames();
+                        StringList types_ = method_.getImportedParametersTypes();
+                        prepareParams(page_, params_, types_, method_.isVarargs());
+                        method_.buildFctInstructionsReadOnly(_context);
+                        page_.getParameters().clear();
+                        page_.clearAllLocalVars();
+                    } else {
+                        page_.setGlobalClass(c.getGenericString());
+                        _context.getCoverage().putCalls(_context,fullName_,method_);
+                        StringList params_ = method_.getParametersNames();
+                        StringList types_ = method_.getImportedParametersTypes();
+                        prepareParams(page_, params_, types_, method_.isVarargs());
+                        processValueParam(_context, page_, c, method_);
+                        method_.buildFctInstructionsReadOnly(_context);
+                        page_.getParameters().clear();
+                        page_.clearAllLocalVars();
+                    }
                 }
             }
-        }
-        _context.setGlobalClass("");
-        if (!_predefined) {
-            _context.getCoverage().putCalls(_context,"");
-            for (OperatorBlock o : getOperators()) {
-                page_.setImporting(o);
-                _context.getCoverage().putCalls(_context,"",o);
-                StringList params_ = o.getParametersNames();
-                StringList types_ = o.getImportedParametersTypes();
-                prepareParams(page_, params_, types_, o.isVarargs());
-                o.buildFctInstructions(_context);
-                page_.getParameters().clear();
-                page_.clearAllLocalVars();
+            _context.setGlobalClass("");
+            if (!_predefined) {
+                _context.getCoverage().putCalls(_context,"");
+                for (OperatorBlock o : getOperators()) {
+                    page_.setImporting(o);
+                    _context.getCoverage().putCalls(_context,"",o);
+                    StringList params_ = o.getParametersNames();
+                    StringList types_ = o.getImportedParametersTypes();
+                    prepareParams(page_, params_, types_, o.isVarargs());
+                    o.buildFctInstructionsReadOnly(_context);
+                    page_.getParameters().clear();
+                    page_.clearAllLocalVars();
+                }
             }
         }
         _context.setAnnotAnalysis(true);
@@ -1931,6 +1953,33 @@ public final class Classes {
         //init annotations here
         for (RootBlock c: getClassBodies(_predefined)) {
             c.validateConstructors(_context);
+        }
+    }
+
+    private void processValueParam(ContextEl _context, AnalyzedPageEl _page, RootBlock _cl, OverridableBlock _method) {
+        if (_method.getKind() == MethodKind.SET_INDEX) {
+            String p_ = _context.getKeyWords().getKeyWordValue();
+            CustList<OverridableBlock> getIndexers_ = new CustList<OverridableBlock>();
+            for (Block d: Classes.getDirectChildren(_cl)) {
+                if (!(d instanceof OverridableBlock)) {
+                    continue;
+                }
+                OverridableBlock i_ = (OverridableBlock) d;
+                if (i_.getKind() != MethodKind.GET_INDEX) {
+                    continue;
+                }
+                if (!i_.getId().eqPartial(_method.getId())) {
+                    continue;
+                }
+                getIndexers_.add(i_);
+            }
+            if (getIndexers_.size() == 1) {
+                OverridableBlock matching_ = getIndexers_.first();
+                String c_ = matching_.getImportedReturnType();
+                LocalVariable lv_ = new LocalVariable();
+                lv_.setClassName(c_);
+                _page.getParameters().put(p_, lv_);
+            }
         }
     }
 
@@ -2090,7 +2139,7 @@ public final class Classes {
                 }
                 page_.setGlobalClass(c.getGenericString());
                 page_.setCurrentBlock(f_);
-                f_.buildExpressionLanguage(_context);
+                f_.buildExpressionLanguageReadOnly(_context);
                 String cl_ = c.getFullName();
                 for (String f: f_.getFieldName()) {
                     cstFields_.add(new ClassField(cl_, f));

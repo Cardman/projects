@@ -223,7 +223,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
             page_.setGlobalOffset(begin_);
             page_.setOffset(0);
             Calculation c_ = Calculation.staticCalculation(true);
-            annotationsOps.add(ElUtil.getAnalyzedOperations(annotations.get(i), _context, c_));
+            annotationsOps.add(ElUtil.getAnalyzedOperationsReadOnly(annotations.get(i), _context, c_));
         }
     }
     @Override

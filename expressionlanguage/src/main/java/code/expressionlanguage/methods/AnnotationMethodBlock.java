@@ -154,7 +154,7 @@ public final class AnnotationMethodBlock extends NamedFunctionBlock implements
         page_.setGlobalOffset(defaultValueOffset);
         page_.setOffset(0);
         _cont.getCoverage().putBlockOperationsField(_cont,this);
-        opValue = ElUtil.getAnalyzedOperations(defaultValue, _cont, Calculation.staticCalculation(true));
+        opValue = ElUtil.getAnalyzedOperationsReadOnly(defaultValue, _cont, Calculation.staticCalculation(true));
         String import_ = getImportedReturnType();
         StringMap<StringList> vars_ = new StringMap<StringList>();
         Mapping mapping_ = new Mapping();

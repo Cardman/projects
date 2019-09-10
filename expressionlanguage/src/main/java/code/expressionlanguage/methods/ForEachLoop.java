@@ -157,7 +157,8 @@ public final class ForEachLoop extends BracedStack implements ForLoop,ImportForE
     public String getImportedClassName() {
         return importedClassName;
     }
-    public void buildEl(ContextEl _cont) {
+
+    private boolean processVarTypes(ContextEl _cont) {
         FunctionBlock f_ = _cont.getAnalyzing().getCurrentFct();
         importedClassIndexName = _cont.resolveCorrectType(classIndexName);
         if (!PrimitiveTypeUtil.isPrimitiveOrWrapper(importedClassIndexName, _cont)) {
@@ -206,8 +207,9 @@ public final class ForEachLoop extends BracedStack implements ForLoop,ImportForE
         page_.setOffset(0);
         boolean static_ = f_.isStaticContext();
         _cont.getCoverage().putBlockOperationsLoops(_cont,this);
-        opList = ElUtil.getAnalyzedOperations(expression, _cont, Calculation.staticCalculation(static_));
+        return static_;
     }
+
     public void inferArrayClass(ContextEl _cont) {
         ExecOperationNode el_ = opList.last();
         ClassArgumentMatching compo_ = PrimitiveTypeUtil.getQuickComponentType(el_.getResultClass());
@@ -242,7 +244,21 @@ public final class ForEachLoop extends BracedStack implements ForLoop,ImportForE
     }
     @Override
     public void buildExpressionLanguage(ContextEl _cont) {
-        buildEl(_cont);
+        boolean static_ = processVarTypes(_cont);
+        opList = ElUtil.getAnalyzedOperations(expression, _cont, Calculation.staticCalculation(static_));
+        checkMatchs(_cont);
+        putVariable(_cont);
+    }
+
+    @Override
+    public void buildExpressionLanguageReadOnly(ContextEl _cont) {
+        boolean static_ = processVarTypes(_cont);
+        opList = ElUtil.getAnalyzedOperationsReadOnly(expression, _cont, Calculation.staticCalculation(static_));
+        checkMatchs(_cont);
+        processVariable(_cont);
+    }
+
+    private void checkMatchs(ContextEl _cont) {
         ExecOperationNode el_ = opList.last();
         Argument arg_ = el_.getArgument();
         if (Argument.isNullValue(arg_)) {
@@ -257,7 +273,6 @@ public final class ForEachLoop extends BracedStack implements ForLoop,ImportForE
             StringList out_ = getInferredIterable(names_, _cont);
             checkIterableCandidates(out_, _cont);
         }
-        putVariable(_cont);
     }
 
     public StringList getInferredIterable(StringList _types, ContextEl _cont) {
@@ -306,6 +321,11 @@ public final class ForEachLoop extends BracedStack implements ForLoop,ImportForE
         }
     }
     public void putVariable(ContextEl _cont) {
+        processVariable(_cont);
+        buildConditions(_cont);
+    }
+
+    private void processVariable(ContextEl _cont) {
         LoopVariable lv_ = new LoopVariable();
         if (!importedClassName.isEmpty()) {
             lv_.setClassName(importedClassName);
@@ -314,7 +334,6 @@ public final class ForEachLoop extends BracedStack implements ForLoop,ImportForE
         }
         lv_.setIndexClassName(importedClassIndexName);
         _cont.getAnalyzing().putVar(variableName, lv_);
-        buildConditions(_cont);
     }
 
     @Override

@@ -145,6 +145,23 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
     }
 
     @Override
+    public void buildExpressionLanguageReadOnly(ContextEl _cont) {
+        AnalyzedPageEl page_ = _cont.getAnalyzing();
+        page_.setGlobalOffset(fieldNameOffest);
+        page_.setOffset(0);
+        KeyWords keyWords_ = _cont.getKeyWords();
+        String newKeyWord_ = keyWords_.getKeyWordNew();
+        String fullInstance_ = StringList.concat(newKeyWord_," ",importedClassName, PAR_LEFT, value, PAR_RIGHT);
+        trOffset = valueOffest - fieldNameOffest - 2 - newKeyWord_.length() - importedClassName.length();
+        page_.setTranslatedOffset(trOffset);
+        int index_ = getIndex();
+        _cont.setCurrentChildTypeIndex(index_);
+        _cont.getCoverage().putBlockOperations(_cont,this);
+        opValue = ElUtil.getAnalyzedOperationsReadOnly(fullInstance_, _cont, new Calculation(fieldName));
+        page_.setTranslatedOffset(0);
+    }
+
+    @Override
     public void buildExpressionLanguage(ContextEl _cont) {
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         page_.setGlobalOffset(fieldNameOffest);
@@ -154,17 +171,23 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
         String fullInstance_ = StringList.concat(newKeyWord_," ",importedClassName, PAR_LEFT, value, PAR_RIGHT);
         trOffset = valueOffest - fieldNameOffest - 2 - newKeyWord_.length() - importedClassName.length();
         page_.setTranslatedOffset(trOffset);
+        int index_ = getIndex();
+        _cont.setCurrentChildTypeIndex(index_);
+        _cont.getCoverage().putBlockOperations(_cont,this);
+        opValue = ElUtil.getAnalyzedOperations(fullInstance_, _cont, new Calculation(fieldName));
+        page_.setTranslatedOffset(0);
+    }
+
+    private int getIndex() {
         int index_ = 0;
         Block n_ = getPreviousSibling();
         while (n_ != null) {
             index_++;
             n_ = n_.getPreviousSibling();
         }
-        _cont.setCurrentChildTypeIndex(index_);
-        _cont.getCoverage().putBlockOperations(_cont,this);
-        opValue = ElUtil.getAnalyzedOperations(fullInstance_, _cont, new Calculation(fieldName));
-        page_.setTranslatedOffset(0);
+        return index_;
     }
+
     @Override
     public void buildAnnotations(ContextEl _context) {
         annotationsOps = new CustList<CustList<ExecOperationNode>>();
@@ -175,7 +198,7 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
             page_.setGlobalOffset(begin_);
             page_.setOffset(0);
             Calculation c_ = Calculation.staticCalculation(true);
-            annotationsOps.add(ElUtil.getAnalyzedOperations(annotations.get(i), _context, c_));
+            annotationsOps.add(ElUtil.getAnalyzedOperationsReadOnly(annotations.get(i), _context, c_));
         }
     }
     @Override

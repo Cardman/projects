@@ -249,7 +249,88 @@ public final class ForMutableIterativeLoop extends BracedStack implements
     }
     @Override
     public void buildExpressionLanguage(ContextEl _cont) {
+        processVariables(_cont);
         FunctionBlock f_ = _cont.getAnalyzing().getCurrentFct();
+        AnalyzedPageEl page_ = _cont.getAnalyzing();
+        page_.setGlobalOffset(classNameOffset);
+        page_.setOffset(0);
+        boolean static_ = f_.isStaticContext();
+        _cont.getVariablesNames().clear();
+        _cont.getVariablesNamesLoopToInfer().clear();
+        page_.setGlobalOffset(initOffset);
+        page_.setOffset(0);
+        _cont.setForLoopPartState(ForLoopPart.INIT);
+        if (init.trim().isEmpty()) {
+            opInit = new CustList<ExecOperationNode>();
+        } else {
+            opInit = ElUtil.getAnalyzedOperations(init, _cont, Calculation.staticCalculation(static_));
+        }
+        addVars(_cont);
+        page_.setGlobalOffset(expressionOffset);
+        page_.setOffset(0);
+        _cont.setForLoopPartState(ForLoopPart.CONDITION);
+        if (expression.trim().isEmpty()) {
+            opExp = new CustList<ExecOperationNode>();
+        } else {
+            opExp = ElUtil.getAnalyzedOperations(expression, _cont, Calculation.staticCalculation(static_));
+        }
+        checkBoolCondition(_cont);
+        if (!opExp.isEmpty()) {
+            buildConditions(_cont);
+        } else {
+            AssignedBooleanVariables res_ = (AssignedBooleanVariables) _cont.getAnalyzing().getAssignedVariables().getFinalVariables().getVal(this);
+            if (opInit.isEmpty()) {
+                res_.getFieldsRootAfter().putAllMap(AssignmentsUtil.conditionBefore(res_.getFieldsRootBefore()));
+                res_.getVariablesRootAfter().addAllElts(AssignmentsUtil.conditionBefore(res_.getVariablesRootBefore()));
+                res_.getMutableLoopRootAfter().addAllElts(AssignmentsUtil.conditionBefore(res_.getMutableLoopRootBefore()));
+            } else {
+                res_.getFieldsRootAfter().putAllMap(AssignmentsUtil.conditionAfter(res_.getLastFieldsOrEmpty()));
+                res_.getVariablesRootAfter().addAllElts(AssignmentsUtil.conditionAfter(res_.getLastVariablesOrEmpty()));
+                res_.getMutableLoopRootAfter().addAllElts(AssignmentsUtil.conditionAfter(res_.getLastMutableLoopOrEmpty()));
+            }
+        }
+    }
+
+    @Override
+    public void buildExpressionLanguageReadOnly(ContextEl _cont) {
+        processVariables(_cont);
+        FunctionBlock f_ = _cont.getAnalyzing().getCurrentFct();
+        AnalyzedPageEl page_ = _cont.getAnalyzing();
+        page_.setGlobalOffset(classNameOffset);
+        page_.setOffset(0);
+        boolean static_ = f_.isStaticContext();
+        _cont.getVariablesNames().clear();
+        _cont.getVariablesNamesLoopToInfer().clear();
+        page_.setGlobalOffset(initOffset);
+        page_.setOffset(0);
+        _cont.setForLoopPartState(ForLoopPart.INIT);
+        if (init.trim().isEmpty()) {
+            opInit = new CustList<ExecOperationNode>();
+        } else {
+            opInit = ElUtil.getAnalyzedOperationsReadOnly(init, _cont, Calculation.staticCalculation(static_));
+        }
+        addVars(_cont);
+        page_.setGlobalOffset(expressionOffset);
+        page_.setOffset(0);
+        _cont.setForLoopPartState(ForLoopPart.CONDITION);
+        if (expression.trim().isEmpty()) {
+            opExp = new CustList<ExecOperationNode>();
+        } else {
+            opExp = ElUtil.getAnalyzedOperationsReadOnly(expression, _cont, Calculation.staticCalculation(static_));
+        }
+        checkBoolCondition(_cont);
+    }
+
+    private void addVars(ContextEl _cont) {
+        if (_cont.isMerged()) {
+            StringList vars_ = _cont.getVariablesNames();
+            AffectationOperation.processInferLoop(_cont, importedClassName);
+            getVariableNames().addAllElts(vars_);
+        }
+        _cont.setMerged(false);
+    }
+
+    private void processVariables(ContextEl _cont) {
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         page_.setGlobalOffset(classIndexNameOffset);
         page_.setOffset(0);
@@ -281,31 +362,8 @@ public final class ForMutableIterativeLoop extends BracedStack implements
         } else {
             _cont.setMerged(false);
         }
-        boolean static_ = f_.isStaticContext();
-        _cont.getVariablesNames().clear();
-        _cont.getVariablesNamesLoopToInfer().clear();
-        page_.setGlobalOffset(initOffset);
-        page_.setOffset(0);
-        _cont.setForLoopPartState(ForLoopPart.INIT);
-        if (init.trim().isEmpty()) {
-            opInit = new CustList<ExecOperationNode>();
-        } else {
-            opInit = ElUtil.getAnalyzedOperations(init, _cont, Calculation.staticCalculation(static_));
-        }
-        if (_cont.isMerged()) {
-            StringList vars_ = _cont.getVariablesNames();
-            AffectationOperation.processInferLoop(_cont, importedClassName);
-            getVariableNames().addAllElts(vars_);
-        }
-        _cont.setMerged(false);
-        page_.setGlobalOffset(expressionOffset);
-        page_.setOffset(0);
-        _cont.setForLoopPartState(ForLoopPart.CONDITION);
-        if (expression.trim().isEmpty()) {
-            opExp = new CustList<ExecOperationNode>();
-        } else {
-            opExp = ElUtil.getAnalyzedOperations(expression, _cont, Calculation.staticCalculation(static_));
-        }
+    }
+    private void checkBoolCondition(ContextEl _cont) {
         if (!opExp.isEmpty()) {
             ExecOperationNode elCondition_ = opExp.last();
             LgNames stds_ = _cont.getStandards();
@@ -317,23 +375,9 @@ public final class ForMutableIterativeLoop extends BracedStack implements
                 _cont.getClasses().addError(un_);
             }
             elCondition_.getResultClass().setUnwrapObject(stds_.getAliasPrimBoolean());
-            buildConditions(_cont);
-        } else {
-            if (_cont.getOptions().isReadOnly()) {
-                return;
-            }
-            AssignedBooleanVariables res_ = (AssignedBooleanVariables) _cont.getAnalyzing().getAssignedVariables().getFinalVariables().getVal(this);
-            if (opInit.isEmpty()) {
-                res_.getFieldsRootAfter().putAllMap(AssignmentsUtil.conditionBefore(res_.getFieldsRootBefore()));
-                res_.getVariablesRootAfter().addAllElts(AssignmentsUtil.conditionBefore(res_.getVariablesRootBefore()));
-                res_.getMutableLoopRootAfter().addAllElts(AssignmentsUtil.conditionBefore(res_.getMutableLoopRootBefore()));
-            } else {
-                res_.getFieldsRootAfter().putAllMap(AssignmentsUtil.conditionAfter(res_.getLastFieldsOrEmpty()));
-                res_.getVariablesRootAfter().addAllElts(AssignmentsUtil.conditionAfter(res_.getLastVariablesOrEmpty()));
-                res_.getMutableLoopRootAfter().addAllElts(AssignmentsUtil.conditionAfter(res_.getLastMutableLoopOrEmpty()));
-            }
         }
     }
+
     @Override
     public StringList getVariableNames() {
         return variableNames;
@@ -382,6 +426,23 @@ public final class ForMutableIterativeLoop extends BracedStack implements
             opStep = new CustList<ExecOperationNode>();
         } else {
             opStep = ElUtil.getAnalyzedOperations(step, (ContextEl) _an, Calculation.staticCalculation(static_));
+        }
+        _an.setMerged(false);
+    }
+    public void buildIncrementPartReadOnly(Analyzable _an) {
+        _an.setMerged(false);
+        FunctionBlock f_ = _an.getAnalyzing().getCurrentFct();
+        AnalyzedPageEl page_ = _an.getAnalyzing();
+        page_.setGlobalOffset(stepOffset);
+        page_.setOffset(0);
+        _an.setForLoopPartState(ForLoopPart.STEP);
+        _an.setMerged(true);
+        _an.getLocalVariables().last().clear();
+        boolean static_ = f_.isStaticContext();
+        if (step.trim().isEmpty()) {
+            opStep = new CustList<ExecOperationNode>();
+        } else {
+            opStep = ElUtil.getAnalyzedOperationsReadOnly(step, (ContextEl) _an, Calculation.staticCalculation(static_));
         }
         _an.setMerged(false);
     }
