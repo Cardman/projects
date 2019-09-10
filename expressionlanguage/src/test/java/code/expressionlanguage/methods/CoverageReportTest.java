@@ -891,7 +891,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  <span class=\"f\"><span class=\"f\"><a href=\"#m65\">t</a>;.</span>=<span class=\"f\">0i</span></span>:\n" +
                 "  $try{\n" +
                 "   <span class=\"p\">$if</span>(<span class=\"p\"><span class=\"f\"><a href=\"#m65\">t</a>;.</span><a title=\"true\">&gt;=</a><span class=\"f\">0</span></span>){\n" +
-                "    $return <span class=\"n\"><span class=\"f\">1i</span>/<span class=\"f\">0i</span></span>:\n" +
+                "    $return <span class=\"n\"><span class=\"n\">1i</span>/<span class=\"n\">0i</span></span>:\n" +
                 "   }\n" +
                 "   $return <span class=\"n\">2</span>:\n" +
                 "  } <span class=\"f\">$catch</span>(Object <a name=\"m158\">o</a>){\n" +
@@ -2758,7 +2758,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  <span class=\"f\"><span class=\"f\"><a href=\"#m65\">t</a>;.</span>=<span class=\"f\">0i</span></span>:\n" +
                 "  $try{\n" +
                 "   <span class=\"p\">$if</span>(<span class=\"p\"><span class=\"f\"><a href=\"#m65\">t</a>;.</span><a title=\"true\">&gt;=</a><span class=\"f\">0</span></span>){\n" +
-                "    $return <span class=\"n\"><span class=\"f\">1i</span>/<span class=\"f\">0i</span></span>:\n" +
+                "    $return <span class=\"n\"><span class=\"n\">1i</span>/<span class=\"n\">0i</span></span>:\n" +
                 "   }\n" +
                 "   $return <span class=\"n\">2</span>:\n" +
                 "  } <span class=\"f\">$catch</span>(Object <a name=\"m158\">o</a>){\n" +
@@ -8214,6 +8214,33 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
     }
+    @Test
+    public void coverage207Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $final $int FIELD = 2:\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $return FIELD+(FIELD+FIELD)+FIELD:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElCoverage();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validate(cont_.getKeyWords(),cont_.getStandards(),files_,cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateArgument("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = FileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex </a>{\n" +
+                " $public $static $final $int <span class=\"f\"><span class=\"f\"><a name=\"m53\">FIELD</a> </span>=<span class=\"f\"> 2</span></span>:\n" +
+                " $public $static $int <a name=\"m86\">exmeth</a>(){\n" +
+                "  $return <span class=\"f\"><span class=\"f\"><span class=\"f\"><a title=\"pkg.Ex.FIELD\" href=\"#m53\">FIELD</a></span>+<span class=\"f\">(<span class=\"f\"><span class=\"f\"><a title=\"pkg.Ex.FIELD\" href=\"#m53\">FIELD</a></span>+<span class=\"f\"><a title=\"pkg.Ex.FIELD\" href=\"#m53\">FIELD</a></span></span>)</span></span>+<span class=\"f\"><a title=\"pkg.Ex.FIELD\" href=\"#m53\">FIELD</a></span></span>:\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+
     @Test
     public void coverageComment1Test() {
         StringBuilder xml_ = new StringBuilder();

@@ -629,9 +629,15 @@ public final class ElUtil {
             String tag_;
             if (!addCover_ ||val_ instanceof StaticInitOperation) {
                 tag_ = "";
-            } else if (val_.getArgument() != null && val_.getParent() != null && val_.getParent().getArgument() != null) {
-                ExecMethodOperation parent_ = curOp_.getParent();
-                AbstractCoverageResult resultPar_ = getCovers(_cont, _block, parent_, _annotation);
+            } else if (val_.getArgument() != null) {
+                ExecOperationNode par_ = curOp_;
+                while (par_ != root_) {
+                    if (par_.getArgument() == null) {
+                        break;
+                    }
+                    par_ = par_.getParent();
+                }
+                AbstractCoverageResult resultPar_ = getCovers(_cont, _block, par_, _annotation);
                 if (resultPar_.isPartialCovered()) {
                     tag_ = "<span class=\"f\">";
                 } else {
