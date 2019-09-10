@@ -1,7 +1,5 @@
 package cards.gui.dialogs;
 
-import javax.swing.SpinnerNumberModel;
-
 import cards.consts.MixCardsChoice;
 import cards.facade.Games;
 import cards.gui.MainWindow;
@@ -24,7 +22,6 @@ import code.gui.*;
 import code.util.CustList;
 import code.util.EnumList;
 import code.util.EnumMap;
-import code.util.Ints;
 import code.util.StringMap;
 import code.util.ints.Listable;
 
@@ -129,7 +126,7 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
         nbCartesJoueur_ = Math.min(nbCartesJoueur_, nbTrumps_);
         poigneesAutorisees = new EnumMap<Handfuls,Integer>(getReglesTarot().getPoigneesAutorisees());
         int valeur_ = poigneesAutorisees.getVal(listeChoixFive.getCurrentElement());
-        nbAtoutsPoignee = new Spinner(new SpinnerNumberModel(valeur_,0,nbCartesJoueur_,1));
+        nbAtoutsPoignee = new Spinner(valeur_,0,nbCartesJoueur_,1);
         sousPanneau_.add(nbAtoutsPoignee);
         LabelButton boutonPoignees_ = new LabelButton(getMessages().getVal(VALIDATE_HANDFUL));
         boutonPoignees_.addMouseListener(new ListenerHandful(this));
@@ -212,20 +209,20 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
                 maxJoueurs_=r.getNombreJoueurs();
             }
         }
-        SpinnerNumberModel spin_ = new SpinnerNumberModel(minJoueurs_,minJoueurs_,maxJoueurs_,1);
+        int value_;
         if (_nbPlayers != 0) {
-            spin_.setValue(_nbPlayers);
+            value_ = _nbPlayers;
         } else {
-            spin_.setValue(getReglesTarot().getRepartition().getNombreJoueurs());
+            value_ = getReglesTarot().getRepartition().getNombreJoueurs();
         }
-        nbJoueurs=new Spinner(spin_);
+        nbJoueurs=new Spinner(value_,minJoueurs_,maxJoueurs_,1);
         if (_enabledChangingNbPlayers) {
             nbJoueurs.addChangeListener(new ListenerPlayers(this, _window));
         } else {
             nbJoueurs.setEnabled(false);
         }
         sousPanneau_.add(nbJoueurs);
-        valeur_=(Integer) nbJoueurs.getValue();
+        valeur_= nbJoueurs.getValue();
         listeChoixFour=new ComboBoxEnumCards<DealingTarot>();
         DealingTarot curThree_ = getReglesTarot().getRepartition();
         index_ = 0;
@@ -259,14 +256,13 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
 
     public void validateHandful() {
         int valeur_ = poigneesAutorisees.getVal(listeChoixFive.getCurrentElement());
-        SpinnerNumberModel modele_ = nbAtoutsPoignee.getModel();
-        modele_.setValue(valeur_);
+        nbAtoutsPoignee.setValue(valeur_);
     }
 
     @Override
     public void validateNbPlayers(MainWindow _window) {
         String lg_ = _window.getLanguageKey();
-        int nombreJoueursSel_=(Integer) nbJoueurs.getValue();
+        int nombreJoueursSel_= nbJoueurs.getValue();
         listeChoixFour.removeAllItems();
         EnumList<DealingTarot> repartitions_ = new EnumList<DealingTarot>();
         for(DealingTarot r:DealingTarot.getRepartitionsValides()) {
@@ -297,9 +293,8 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
             poigneesAutorisees.put(p, Handfuls.getConfigurationParDefautAnnoncePoignee(p).getVal(nbCartesJoueur_));
         }
         Handfuls poignee_ = listeChoixFive.getCurrentElement();
-        SpinnerNumberModel modele_ = nbAtoutsPoignee.getModel();
-        modele_.setMaximum(nbCartesJoueur_);
-        modele_.setValue(Handfuls.getConfigurationParDefautAnnoncePoignee(poignee_).getVal(nbCartesJoueur_));
+        int min_ = nbAtoutsPoignee.getMin();
+        nbAtoutsPoignee.setRangeValue(Handfuls.getConfigurationParDefautAnnoncePoignee(poignee_).getVal(nbCartesJoueur_),min_,nbCartesJoueur_);
     }
 
     public void validateDealingRules() {
@@ -313,15 +308,13 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
             poigneesAutorisees.put(p, Handfuls.getConfigurationParDefautAnnoncePoignee(p).getVal(nbCartesJoueur_));
         }
         Handfuls poignee_ = listeChoixFive.getCurrentElement();
-        SpinnerNumberModel modele_ = nbAtoutsPoignee.getModel();
-        modele_.setMaximum(nbCartesJoueur_);
-        modele_.setValue(Handfuls.getConfigurationParDefautAnnoncePoignee(poignee_).getVal(nbCartesJoueur_));
+        int min_ = nbAtoutsPoignee.getMin();
+        nbAtoutsPoignee.setRangeValue(Handfuls.getConfigurationParDefautAnnoncePoignee(poignee_).getVal(nbCartesJoueur_),min_,nbCartesJoueur_);
     }
 
     public void validateHandfulTrumps() {
         Handfuls poignee_ = listeChoixFive.getCurrentElement();
-        SpinnerNumberModel modele_ = nbAtoutsPoignee.getModel();
-        int valeur_ = (Integer) modele_.getValue();
+        int valeur_ = nbAtoutsPoignee.getValue();
         poigneesAutorisees.put(poignee_, valeur_);
     }
 

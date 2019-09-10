@@ -124,7 +124,7 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
         initMessageName(_parent);
         //Panneau Distribution
         String lg_ = _parent.getLanguageKey();
-        initJt(new Spinner(new SpinnerNumberModel(FileConst.MIN_DEALS,FileConst.MIN_DEALS,FileConst.MAX_DEALS,1)),lg_);
+        initJt(new Spinner(FileConst.MIN_DEALS,FileConst.MIN_DEALS,FileConst.MAX_DEALS,1),lg_);
         container_.add(getJt(),BorderLayout.CENTER);
         Panel panneau_=new Panel();
         LabelButton bouton_=new LabelButton(getMessages().getVal(NEXT));
@@ -137,7 +137,7 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
     @Override
     public void validateRulesDeal(MainWindow _parent) {
         validateRules();
-        getReglesBelote().setNombreParties((Integer) getNbGames().getValue());
+        getReglesBelote().setNombreParties(getNbGames().getValue());
         distribuer(_parent);
     }
     private String validerEgalite() {

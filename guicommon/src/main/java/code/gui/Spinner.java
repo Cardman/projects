@@ -8,23 +8,26 @@ public final class Spinner extends CustComponent {
 
     private JSpinner spinner;
 
-    private SpinnerNumberModel model;
+    private int min;
+    private int max;
+    private int step;
 
-    public Spinner() {
-        spinner = new JSpinner();
-        model = (SpinnerNumberModel) spinner.getModel();
+    public Spinner(int _value,int _min, int _max, int _step) {
+        min = _min;
+        max = _max;
+        step = _step;
+        if (invalid(_value,_min,_max)) {
+            min = Integer.MIN_VALUE;
+            max = Integer.MAX_VALUE;
+            step = 1;
+            spinner = new JSpinner();
+        } else {
+            SpinnerNumberModel model_ = new SpinnerNumberModel(_value,_min,_max,_step);
+            spinner = new JSpinner(model_);
+        }
     }
-
-    public Spinner(SpinnerNumberModel _model) {
-        spinner = new JSpinner(_model);
-        model = _model;
-    }
-    public Object getValue() {
-        return spinner.getValue();
-    }
-
-    public void setValue(Object value) {
-        spinner.setValue(value);
+    public int getValue() {
+        return (Integer) spinner.getValue();
     }
 
     public void addChangeListener(ChangeListener listener) {
@@ -56,12 +59,72 @@ public final class Spinner extends CustComponent {
         return spinner;
     }
 
-    public void setModel(SpinnerNumberModel _spin) {
-        spinner.setModel(_spin);
-        model = _spin;
+    public void setRange(int _min, int _max) {
+        if (invalid(getValue(), _min, _max)) {
+            return;
+        }
+        max = _max;
+        min = _min;
+        updateModel();
     }
 
-    public SpinnerNumberModel getModel() {
-        return model;
+    public void setRangeValue(int _value,int _min, int _max) {
+        if (invalid(_value, _min, _max)) {
+            return;
+        }
+        max = _max;
+        min = _min;
+        updateModel(_value);
     }
+    public int getMin() {
+        return min;
+    }
+    public void setMin(int _min) {
+        if (invalid(getValue(), _min, max)) {
+            return;
+        }
+        min = _min;
+        updateModel();
+    }
+
+    public int getMax() {
+        return max;
+    }
+    public void setMax(int _max) {
+        if (invalid(getValue(), min, _max)) {
+            return;
+        }
+        max = _max;
+        updateModel();
+    }
+
+    public void setValue(int _value) {
+        if (invalid(_value, min, max)) {
+            return;
+        }
+        updateModel(_value);
+    }
+
+    public int getStep() {
+        return step;
+    }
+    public void setStep(int _step) {
+        step = _step;
+        updateModel();
+    }
+    private static boolean invalid(int _value, int _min, int _max) {
+        if (_value < _min) {
+            return true;
+        }
+        return _value > _max;
+    }
+    private void updateModel() {
+        SpinnerNumberModel model_ = new SpinnerNumberModel(getValue(),min,max,step);
+        spinner.setModel(model_);
+    }
+    private void updateModel(int _value) {
+        SpinnerNumberModel model_ = new SpinnerNumberModel(_value,min,max,step);
+        spinner.setModel(model_);
+    }
+
 }

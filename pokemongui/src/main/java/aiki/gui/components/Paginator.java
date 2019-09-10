@@ -70,7 +70,7 @@ public abstract class Paginator {
 
     private TextField delta = new TextField(4);
 
-    private Spinner nbResults = new Spinner();
+    private Spinner nbResults = new Spinner(0,Integer.MIN_VALUE,Integer.MAX_VALUE,1);
 
     private NumComboBox pages = new NumComboBox();
 

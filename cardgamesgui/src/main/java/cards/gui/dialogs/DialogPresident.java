@@ -1,7 +1,5 @@
 package cards.gui.dialogs;
 
-import javax.swing.*;
-
 import cards.consts.MixCardsChoice;
 import cards.consts.Suit;
 import cards.facade.Games;
@@ -19,7 +17,6 @@ import code.gui.Spinner;
 import code.gui.TextLabel;
 import code.util.EnumList;
 import code.util.EnumMap;
-import code.util.Ints;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.ints.Listable;
@@ -157,13 +154,13 @@ public abstract class DialogPresident extends DialogCards implements DialogVaryi
 
         int minJoueurs_ = RulesPresident.getNbMinPlayers();
         int maxJoueurs_ = RulesPresident.getNbMaxPlayers();
-        SpinnerNumberModel spin_ = new SpinnerNumberModel(minJoueurs_,minJoueurs_,maxJoueurs_,1);
+        int value_;
         if (_nbPlayers != 0) {
-            spin_.setValue(_nbPlayers);
+            value_ = _nbPlayers;
         } else {
-            spin_.setValue(getReglesPresident().getNbPlayers());
+            value_ = getReglesPresident().getNbPlayers();
         }
-        nbJoueurs=new Spinner(spin_);
+        nbJoueurs=new Spinner(value_,minJoueurs_,maxJoueurs_,1);
         if (_enabledChangingNbPlayers) {
             nbJoueurs.addChangeListener(new ListenerPlayers(this, _window));
         } else {
@@ -172,9 +169,7 @@ public abstract class DialogPresident extends DialogCards implements DialogVaryi
         players_.add(nbJoueurs);
         int minStacks_ = getReglesPresident().getNbMinStacks();
         int maxStacks_ = getReglesPresident().getNbMaxStacks();
-        spin_ = new SpinnerNumberModel(minStacks_,minStacks_,maxStacks_,1);
-        spin_.setValue(getReglesPresident().getNbStacks());
-        nbStacks=new Spinner(spin_);
+        nbStacks=new Spinner(getReglesPresident().getNbStacks(),minStacks_,maxStacks_,1);
         nbStacks.addChangeListener(new ListenerStacks(this));
         players_.add(nbStacks);
         getJt().add(getMessages().getVal(REPARTITION),players_);
@@ -190,18 +185,16 @@ public abstract class DialogPresident extends DialogCards implements DialogVaryi
 
     @Override
     public void validateNbPlayers(MainWindow _window) {
-        int minStacks_ = RulesPresident.getNbMinStacks((Integer) nbJoueurs.getValue());
-        int maxStacks_ = RulesPresident.getNbMaxStacks((Integer) nbJoueurs.getValue());
-        int v_ = (Integer) nbStacks.getValue();
+        int minStacks_ = RulesPresident.getNbMinStacks(nbJoueurs.getValue());
+        int maxStacks_ = RulesPresident.getNbMaxStacks(nbJoueurs.getValue());
+        int v_ = nbStacks.getValue();
         if (v_ < minStacks_) {
             v_ = minStacks_;
         }
         if (v_ > maxStacks_) {
             v_ = maxStacks_;
         }
-        SpinnerNumberModel spin_ = new SpinnerNumberModel(minStacks_,minStacks_,maxStacks_,1);
-        nbStacks.setModel(spin_);
-        nbStacks.setValue(v_);
+        nbStacks.setRangeValue(v_,minStacks_,maxStacks_);
         int nbSuits_ = Suit.couleursOrdinaires().size();
         nbSuits_ *= v_;
         String message_ = StringList.simpleNumberFormat(getMessages().getVal(POSSIBLE_REVERSING), nbSuits_);
@@ -210,7 +203,7 @@ public abstract class DialogPresident extends DialogCards implements DialogVaryi
 
     public void validateStacks() {
         int nbSuits_ = Suit.couleursOrdinaires().size();
-        nbSuits_ *= (Integer) nbStacks.getValue();
+        nbSuits_ *= nbStacks.getValue();
         String message_ = StringList.simpleNumberFormat(getMessages().getVal(POSSIBLE_REVERSING), nbSuits_);
         possibleReversing.setText(message_);
     }
@@ -224,8 +217,8 @@ public abstract class DialogPresident extends DialogCards implements DialogVaryi
         getReglesPresident().setLoosingIfFinishByBestCards(looseFinishBestCards.isSelected());
         getReglesPresident().setSwitchCards(switchCards.isSelected());
         getReglesPresident().setLooserStartsFirst(looserStartsFirst.isSelected());
-        getReglesPresident().setNbPlayers((Integer) nbJoueurs.getValue());
-        getReglesPresident().setNbStacks((Integer) nbStacks.getValue());
+        getReglesPresident().setNbPlayers(nbJoueurs.getValue());
+        getReglesPresident().setNbStacks(nbStacks.getValue());
     }
 
     protected StringMap<String> getMessages() {

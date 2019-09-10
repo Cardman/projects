@@ -11,8 +11,7 @@ public final class DualSpinner extends DualInput implements IntSpinner {
 
     public DualSpinner(DualContainer _container, MetaSpinner _component, RenderedPage _page) {
         super(_container, _component, _page);
-        field = new Spinner();
-        field.setValue(Integer.parseInt(_component.getValue()));
+        field = new Spinner(Integer.parseInt(_component.getValue()),Integer.MIN_VALUE,Integer.MAX_VALUE,1);
         updateGraphics(field,_component);
     }
 
@@ -23,7 +22,7 @@ public final class DualSpinner extends DualInput implements IntSpinner {
 
     @Override
     public String getValue() {
-        return Integer.toString((Integer)field.getValue());
+        return Integer.toString(field.getValue());
     }
 
 }

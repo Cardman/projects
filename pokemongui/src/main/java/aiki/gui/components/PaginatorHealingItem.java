@@ -602,7 +602,7 @@ public final class PaginatorHealingItem extends Paginator {
 
     @Override
     public void changeNbResults() {
-        int int_ = (Integer)getNbResults().getValue();
+        int int_ = getNbResults().getValue();
         if (int_ <= 0) {
             return;
         }

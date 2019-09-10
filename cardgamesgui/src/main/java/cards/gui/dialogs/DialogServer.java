@@ -73,13 +73,13 @@ public final class DialogServer extends DialogCards implements AbstractDialogSer
                     maxJoueurs_=r.getNombreJoueurs();
                 }
             }
-            nbPlayers = new Spinner(new SpinnerNumberModel(minJoueurs_,minJoueurs_,maxJoueurs_,1));
+            nbPlayers = new Spinner(minJoueurs_,minJoueurs_,maxJoueurs_,1);
             panel_.add(new TextLabel(messages.getVal(NUMBER_PLAYERS)));
             panel_.add(nbPlayers);
         } else if (_game == GameEnum.PRESIDENT) {
             int minJoueurs_ = RulesPresident.getNbMinPlayers();
             int maxJoueurs_ = RulesPresident.getNbMaxPlayers();
-            nbPlayers = new Spinner(new SpinnerNumberModel(minJoueurs_,minJoueurs_,maxJoueurs_,1));
+            nbPlayers = new Spinner(minJoueurs_,minJoueurs_,maxJoueurs_,1);
             panel_.add(new TextLabel(messages.getVal(NUMBER_PLAYERS)));
             panel_.add(nbPlayers);
         } else {
@@ -94,7 +94,7 @@ public final class DialogServer extends DialogCards implements AbstractDialogSer
                     maxJoueurs_=r.getNombreJoueurs();
                 }
             }
-            nbPlayers = new Spinner(new SpinnerNumberModel(minJoueurs_,minJoueurs_,maxJoueurs_,1));
+            nbPlayers = new Spinner(minJoueurs_,minJoueurs_,maxJoueurs_,1);
             panel_.add(new TextLabel(messages.getVal(NUMBER_PLAYERS)));
             panel_.add(nbPlayers);
         }
@@ -150,7 +150,7 @@ public final class DialogServer extends DialogCards implements AbstractDialogSer
         return DIALOG.ipType.getCurrent();
     }
     public static int getNbPlayers() {
-        return (Integer)DIALOG.nbPlayers.getValue();
+        return DIALOG.nbPlayers.getValue();
     }
 //    public DealingTarot getReparitionTarot() {
 //        return (DealingTarot) repTarot.getSelectedItem();

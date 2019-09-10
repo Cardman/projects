@@ -120,7 +120,7 @@ public final class EditorPresident extends DialogPresident implements SetterSele
         Panel container_=Panel.newBorder();
         initMessageName(_window);
         //Panneau Distribution
-        initJt(new Spinner(new SpinnerNumberModel(FileConst.MIN_DEALS,FileConst.MIN_DEALS,FileConst.MAX_DEALS,1)),_enabledChangingNbPlayers,_nbPlayers, _window);
+        initJt(new Spinner(FileConst.MIN_DEALS,FileConst.MIN_DEALS,FileConst.MAX_DEALS,1),_enabledChangingNbPlayers,_nbPlayers, _window);
         container_.add(getJt(),BorderLayout.CENTER);
         Panel panneau_=new Panel();
         LabelButton bouton_=new LabelButton(getMessages().getVal(NEXT));
@@ -134,7 +134,7 @@ public final class EditorPresident extends DialogPresident implements SetterSele
     @Override
     public void validateRulesDeal(MainWindow _parent) {
         validateRules();
-        getReglesPresident().setNbDeals((Integer)getNbGames().getValue());
+        getReglesPresident().setNbDeals(getNbGames().getValue());
         distribuer(_parent);
     }
 

@@ -115,8 +115,7 @@ public final class DialogDisplayingPresident extends DialogCards implements Dial
         Panel sousPanneau_=Panel.newGrid(0,1);
         sousPanneau_.add(new TextLabel(messages.getVal(NB_DEALS_DEMO)));
         //Panneau Distribution
-        nbDealsDemo = new Spinner(new SpinnerNumberModel(FileConst.MIN_DEALS,FileConst.MIN_DEALS,FileConst.MAX_DEALS,1));
-        nbDealsDemo.setValue(displayingPresident.getNbDeals());
+        nbDealsDemo = new Spinner(displayingPresident.getNbDeals(),FileConst.MIN_DEALS,FileConst.MAX_DEALS,1);
         sousPanneau_.add(nbDealsDemo);
         panneau_.add(sousPanneau_);
         getJt().add(messages.getVal(SORTING),panneau_);
@@ -163,7 +162,7 @@ public final class DialogDisplayingPresident extends DialogCards implements Dial
             displayingPresident.setClockwise(checkClockwise.isSelected());
             displayingPresident.setSuits(new EnumList<Suit>(orderedSuits.getCouleurs()));
             displayingPresident.setDecreasing(sortByDecreasing.isSelected());
-            displayingPresident.setNbDeals((Integer) nbDealsDemo.getValue());
+            displayingPresident.setNbDeals(nbDealsDemo.getValue());
             closeWindow();
         }
     }
