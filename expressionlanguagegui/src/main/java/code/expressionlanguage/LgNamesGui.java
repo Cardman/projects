@@ -2,10 +2,7 @@ package code.expressionlanguage;
 
 import code.expressionlanguage.calls.util.CustomFoundMethod;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
-import code.expressionlanguage.opers.util.ClassMethodId;
-import code.expressionlanguage.opers.util.ConstructorId;
-import code.expressionlanguage.opers.util.MethodId;
-import code.expressionlanguage.opers.util.MethodModifier;
+import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
@@ -49,6 +46,15 @@ public class LgNamesGui extends LgNamesUtils {
     private String aliasPanelFlow;
     private String aliasPanelAbsolute;
     private String aliasPanelBorder;
+    private String aliasPanelBorderNorth;
+    private String aliasPanelBorderSouth;
+    private String aliasPanelBorderEast;
+    private String aliasPanelBorderWest;
+    private String aliasPanelBorderCenter;
+    private String aliasPanelBorderBeforeFirst;
+    private String aliasPanelBorderBeforeLineBegins;
+    private String aliasPanelBorderAfterLast;
+    private String aliasPanelBorderAfterLineEnds;
     private String aliasPanelGrid;
     private String aliasPanelPageBox;
     private String aliasButton;
@@ -411,6 +417,15 @@ public class LgNamesGui extends LgNamesUtils {
         params_ = new StringList();
         ctor_ = new StandardConstructor(params_,false,stdcl_);
         constructors_.add(ctor_);
+        fields_.add(aliasPanelBorderNorth,new StandardField(aliasPanelBorderNorth,getAliasString(),true,true,stdcl_));
+        fields_.add(aliasPanelBorderSouth,new StandardField(aliasPanelBorderSouth,getAliasString(),true,true,stdcl_));
+        fields_.add(aliasPanelBorderWest,new StandardField(aliasPanelBorderWest,getAliasString(),true,true,stdcl_));
+        fields_.add(aliasPanelBorderEast,new StandardField(aliasPanelBorderEast,getAliasString(),true,true,stdcl_));
+        fields_.add(aliasPanelBorderCenter,new StandardField(aliasPanelBorderCenter,getAliasString(),true,true,stdcl_));
+        fields_.add(aliasPanelBorderBeforeFirst,new StandardField(aliasPanelBorderBeforeFirst,getAliasString(),true,true,stdcl_));
+        fields_.add(aliasPanelBorderBeforeLineBegins,new StandardField(aliasPanelBorderBeforeLineBegins,getAliasString(),true,true,stdcl_));
+        fields_.add(aliasPanelBorderAfterLineEnds,new StandardField(aliasPanelBorderAfterLineEnds,getAliasString(),true,true,stdcl_));
+        fields_.add(aliasPanelBorderAfterLast,new StandardField(aliasPanelBorderAfterLast,getAliasString(),true,true,stdcl_));
         std_ = stdcl_;
         getStandards().put(aliasPanelBorder, std_);
 
@@ -636,7 +651,16 @@ public class LgNamesGui extends LgNamesUtils {
         ctor_ = new StandardConstructor(params_,false,stdcl_);
         constructors_.add(ctor_);
         getStandards().put(aliasImage, stdcl_);
-
+        buildInputs();
+    }
+    private void buildInputs() {
+        ObjectMap<MethodId, StandardMethod> methods_;
+        CustList<StandardConstructor> constructors_;
+        StringMap<StandardField> fields_;
+        StandardClass stdcl_;
+        StringList params_;
+        StandardMethod method_;
+        StandardConstructor ctor_;
         methods_ = new ObjectMap<MethodId, StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new StringMap<StandardField>();
@@ -917,6 +941,50 @@ public class LgNamesGui extends LgNamesUtils {
         constructors_.add(ctor_);
         getStandards().put(aliasTextArea, stdcl_);
     }
+
+    @Override
+    public ResultErrorStd getSimpleResult(Analyzable _conf, ClassField _classField) {
+        if (StringList.quickEq(_classField.getClassName(),aliasPanelBorder)) {
+            ResultErrorStd res_ = new ResultErrorStd();
+            String fieldName_ = _classField.getFieldName();
+            if (StringList.quickEq(fieldName_,aliasPanelBorderNorth)) {
+                res_.setResult(new StringStruct(PanelBorderStruct.NORTH));
+                return res_;
+            }
+            if (StringList.quickEq(fieldName_,aliasPanelBorderSouth)) {
+                res_.setResult(new StringStruct(PanelBorderStruct.SOUTH));
+                return res_;
+            }
+            if (StringList.quickEq(fieldName_,aliasPanelBorderWest)) {
+                res_.setResult(new StringStruct(PanelBorderStruct.WEST));
+                return res_;
+            }
+            if (StringList.quickEq(fieldName_,aliasPanelBorderEast)) {
+                res_.setResult(new StringStruct(PanelBorderStruct.EAST));
+                return res_;
+            }
+            if (StringList.quickEq(fieldName_,aliasPanelBorderCenter)) {
+                res_.setResult(new StringStruct(PanelBorderStruct.CENTER));
+                return res_;
+            }
+            if (StringList.quickEq(fieldName_,aliasPanelBorderBeforeFirst)) {
+                res_.setResult(new StringStruct(PanelBorderStruct.BEFORE_FIRST_LINE));
+                return res_;
+            }
+            if (StringList.quickEq(fieldName_,aliasPanelBorderBeforeLineBegins)) {
+                res_.setResult(new StringStruct(PanelBorderStruct.BEFORE_LINE_BEGINS));
+                return res_;
+            }
+            if (StringList.quickEq(fieldName_,aliasPanelBorderAfterLineEnds)) {
+                res_.setResult(new StringStruct(PanelBorderStruct.AFTER_LINE_ENDS));
+                return res_;
+            }
+            res_.setResult(new StringStruct(PanelBorderStruct.AFTER_LAST_LINE));
+            return res_;
+        }
+        return super.getSimpleResult(_conf, _classField);
+    }
+
     public Argument defaultInstance(ExecutableCode _cont, String _id) {
         Argument arg_ = super.defaultInstance(_cont, _id);
         if (!arg_.isNull() || _cont.getContextEl().hasExceptionOrFailInit()) {
@@ -2219,6 +2287,79 @@ public class LgNamesGui extends LgNamesUtils {
     public void setAliasPanelBorder(String _aliasPanelBorder) {
         this.aliasPanelBorder = _aliasPanelBorder;
     }
+
+    public String getAliasPanelBorderNorth() {
+        return aliasPanelBorderNorth;
+    }
+
+    public void setAliasPanelBorderNorth(String aliasPanelBorderNorth) {
+        this.aliasPanelBorderNorth = aliasPanelBorderNorth;
+    }
+
+    public String getAliasPanelBorderSouth() {
+        return aliasPanelBorderSouth;
+    }
+
+    public void setAliasPanelBorderSouth(String aliasPanelBorderSouth) {
+        this.aliasPanelBorderSouth = aliasPanelBorderSouth;
+    }
+
+    public String getAliasPanelBorderEast() {
+        return aliasPanelBorderEast;
+    }
+
+    public void setAliasPanelBorderEast(String aliasPanelBorderEast) {
+        this.aliasPanelBorderEast = aliasPanelBorderEast;
+    }
+
+    public String getAliasPanelBorderWest() {
+        return aliasPanelBorderWest;
+    }
+
+    public void setAliasPanelBorderWest(String aliasPanelBorderWest) {
+        this.aliasPanelBorderWest = aliasPanelBorderWest;
+    }
+
+    public String getAliasPanelBorderCenter() {
+        return aliasPanelBorderCenter;
+    }
+
+    public void setAliasPanelBorderCenter(String aliasPanelBorderCenter) {
+        this.aliasPanelBorderCenter = aliasPanelBorderCenter;
+    }
+
+    public String getAliasPanelBorderBeforeFirst() {
+        return aliasPanelBorderBeforeFirst;
+    }
+
+    public void setAliasPanelBorderBeforeFirst(String aliasPanelBorderBeforeFirst) {
+        this.aliasPanelBorderBeforeFirst = aliasPanelBorderBeforeFirst;
+    }
+
+    public String getAliasPanelBorderBeforeLineBegins() {
+        return aliasPanelBorderBeforeLineBegins;
+    }
+
+    public void setAliasPanelBorderBeforeLineBegins(String aliasPanelBorderBeforeLineBegins) {
+        this.aliasPanelBorderBeforeLineBegins = aliasPanelBorderBeforeLineBegins;
+    }
+
+    public String getAliasPanelBorderAfterLast() {
+        return aliasPanelBorderAfterLast;
+    }
+
+    public void setAliasPanelBorderAfterLast(String aliasPanelBorderAfterLast) {
+        this.aliasPanelBorderAfterLast = aliasPanelBorderAfterLast;
+    }
+
+    public String getAliasPanelBorderAfterLineEnds() {
+        return aliasPanelBorderAfterLineEnds;
+    }
+
+    public void setAliasPanelBorderAfterLineEnds(String aliasPanelBorderAfterLineEnds) {
+        this.aliasPanelBorderAfterLineEnds = aliasPanelBorderAfterLineEnds;
+    }
+
     public String getAliasButton() {
         return aliasButton;
     }
@@ -3785,6 +3926,15 @@ public class LgNamesGui extends LgNamesUtils {
             setAliasFrame("$core.Frame");
             setAliasPanel("$core.Panel");
             setAliasPanelBorder("$core.PanelBorder");
+            setAliasPanelBorderNorth("NORTH");
+            setAliasPanelBorderWest("WEST");
+            setAliasPanelBorderSouth("SOUTH");
+            setAliasPanelBorderEast("EAST");
+            setAliasPanelBorderCenter("CENTER");
+            setAliasPanelBorderBeforeFirst("BEFORE_FIRST_LINE");
+            setAliasPanelBorderAfterLast("AFTER_LAST_LINE");
+            setAliasPanelBorderBeforeLineBegins("BEFORE_LINE_BEGINS");
+            setAliasPanelBorderAfterLineEnds("AFTER_LINE_ENDS");
             setAliasScrollPane("$core.Scroll");
             setAliasScrollPaneGetView("getView");
             setAliasScrollPaneSetView("setView");
@@ -3983,6 +4133,15 @@ public class LgNamesGui extends LgNamesUtils {
             setAliasFrame("$coeur.Fenetre");
             setAliasPanel("$coeur.Panneau");
             setAliasPanelBorder("$coeur.PanneauBordure");
+            setAliasPanelBorderNorth("NORD");
+            setAliasPanelBorderWest("OUEST");
+            setAliasPanelBorderSouth("SUD");
+            setAliasPanelBorderEast("EST");
+            setAliasPanelBorderCenter("CENTRE");
+            setAliasPanelBorderBeforeFirst("AVANT_PREMIERE_LIGNE");
+            setAliasPanelBorderAfterLast("APRES_DERNIERE_LIGNE");
+            setAliasPanelBorderBeforeLineBegins("AVANT_DEBUT_LIGNE");
+            setAliasPanelBorderAfterLineEnds("APRES_FIN_LIGNE");
             setAliasScrollPane("$coeur.Ascenseur");
             setAliasScrollPaneGetView("valVue");
             setAliasScrollPaneSetView("majVue");

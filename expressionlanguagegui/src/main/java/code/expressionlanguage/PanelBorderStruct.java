@@ -9,6 +9,17 @@ import code.util.StringList;
 import java.awt.BorderLayout;
 
 public final class PanelBorderStruct extends PanelStruct {
+
+    public static final String CENTER = "4";
+    public static final String NORTH = "2";
+    public static final String SOUTH = "6";
+    public static final String WEST = "3";
+    public static final String EAST = "5";
+    public static final String BEFORE_FIRST_LINE = "0";
+    public static final String AFTER_LAST_LINE = "8";
+    public static final String BEFORE_LINE_BEGINS = "1";
+    public static final String AFTER_LINE_ENDS = "7";
+
     private PanelBorderStruct(String _className) {
         super(_className,Panel.newBorder());
     }
@@ -31,31 +42,31 @@ public final class PanelBorderStruct extends PanelStruct {
         String ct_ = c_.getInstance();
         String value_ = "";
         boolean ok_ = false;
-        if (StringList.quickEq(ct_,"4")) {
+        if (StringList.quickEq(ct_, CENTER)) {
             ok_ = true;
             value_ = BorderLayout.CENTER;
-        } else if (StringList.quickEq(ct_,"2")) {
+        } else if (StringList.quickEq(ct_, NORTH)) {
             ok_ = true;
             value_ = BorderLayout.NORTH;
-        } else if (StringList.quickEq(ct_,"6")) {
+        } else if (StringList.quickEq(ct_, SOUTH)) {
             ok_ = true;
             value_ = BorderLayout.SOUTH;
-        } else if (StringList.quickEq(ct_,"3")) {
+        } else if (StringList.quickEq(ct_, WEST)) {
             ok_ = true;
             value_ = BorderLayout.WEST;
-        } else if (StringList.quickEq(ct_,"5")) {
+        } else if (StringList.quickEq(ct_, EAST)) {
             ok_ = true;
             value_ = BorderLayout.EAST;
-        } else if (StringList.quickEq(ct_,"0")) {
+        } else if (StringList.quickEq(ct_, BEFORE_FIRST_LINE)) {
             ok_ = true;
             value_ = BorderLayout.BEFORE_FIRST_LINE;
-        } else if (StringList.quickEq(ct_,"8")) {
+        } else if (StringList.quickEq(ct_, AFTER_LAST_LINE)) {
             ok_ = true;
             value_ = BorderLayout.AFTER_LAST_LINE;
-        } else if (StringList.quickEq(ct_,"1")) {
+        } else if (StringList.quickEq(ct_, BEFORE_LINE_BEGINS)) {
             ok_ = true;
             value_ = BorderLayout.BEFORE_LINE_BEGINS;
-        } else if (StringList.quickEq(ct_,"7")) {
+        } else if (StringList.quickEq(ct_, AFTER_LINE_ENDS)) {
             ok_ = true;
             value_ = BorderLayout.AFTER_LINE_ENDS;
         }
