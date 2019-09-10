@@ -130,7 +130,7 @@ public final class KeyWordsMap {
         en_.setKeyWordOperator("operator");
         fr_.setKeyWordOperator("operateur");
         en_.setKeyWordToString("$toString");
-        fr_.setKeyWordToString("$versChaine");
+        fr_.setKeyWordToString("$chaine");
         en_.setKeyWordPackage("package");
         fr_.setKeyWordPackage("paquetage");
         en_.setKeyWordPrivate("private");
@@ -209,8 +209,8 @@ public final class KeyWordsMap {
         _lgNames.setAliasMod("mod");
         _lgNames.setAliasQuot("quot");
         _lgNames.setAliasSof("$core.StackOverFlow");
-        _lgNames.setAliasNbFormat("$core.badFormat");
-        _lgNames.setAliasBadEncode("$core.badEncode");
+        _lgNames.setAliasNbFormat("$core.BadFormat");
+        _lgNames.setAliasBadEncode("$core.BadEncode");
         _lgNames.setAliasPrimBoolean("boolean");
         _lgNames.setAliasPrimByte("byte");
         _lgNames.setAliasPrimShort("short");
@@ -315,7 +315,7 @@ public final class KeyWordsMap {
         _lgNames.setAliasGetGenericVariableOwner("getGenericVariableOwner");
         _lgNames.setAliasGetString("getString");
         _lgNames.setAliasClass("$core.Class");
-        _lgNames.setAliasStackTraceElement("$core.stack");
+        _lgNames.setAliasStackTraceElement("$core.Stack");
         _lgNames.setAliasCurrentStack("current");
         _lgNames.setAliasCurrentFullStack("currentFull");
         _lgNames.setAliasFct("$core.Fct");
@@ -460,8 +460,8 @@ public final class KeyWordsMap {
         _lgNames.setAliasEquals("egal");
         _lgNames.setAliasToString("chaine");
         _lgNames.setAliasValueOf("valeurDe");
-        _lgNames.setAliasMaxValueField("MAX_VALUE");
-        _lgNames.setAliasMinValueField("MIN_VALUE");
+        _lgNames.setAliasMaxValueField("MAX_VALEUR");
+        _lgNames.setAliasMinValueField("MIN_VALEUR");
         _lgNames.setAliasIteratorType("$coeur.Iterateur");
         _lgNames.setAliasIterator("iterateur");
         _lgNames.setAliasIterable("$coeur.Iterable");
@@ -589,7 +589,7 @@ public final class KeyWordsMap {
         _lgNames.setAliasGetGenericVariableOwner("valGeneVariablePoss");
         _lgNames.setAliasGetString("valChaine");
         _lgNames.setAliasClass("$coeur.Classe");
-        _lgNames.setAliasStackTraceElement("$coeur.pile");
+        _lgNames.setAliasStackTraceElement("$coeur.Pile");
         _lgNames.setAliasCurrentStack("courante");
         _lgNames.setAliasCurrentFullStack("couranteComplete");
         _lgNames.setAliasFct("$coeur.Fct");
