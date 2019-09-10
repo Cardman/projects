@@ -1282,6 +1282,51 @@ public final class ProcessReadonlyTest extends ProcessMethodCommon {
         Classes.validateAll(files_, cont_);
         assertTrue(!cont_.getClasses().isEmptyErrors());
     }
+    @Test
+    public void fail12Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElReadOnly();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExFour {\n");
+        xml_.append(" $public $static $final $int ance = 1:\n");
+        xml_.append(" $static {\n");
+        xml_.append("  Integer.MAX_VALUE=1i:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExFour", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void fail13Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElReadOnly();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExFour {\n");
+        xml_.append(" $public $static $final $int ance = 1:\n");
+        xml_.append(" {\n");
+        xml_.append("  Integer.MAX_VALUE=1i:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExFour", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void fail14Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElReadOnly();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExFour {\n");
+        xml_.append(" $public $static $final $int ance = 1:\n");
+        xml_.append(" $static $void method(){\n");
+        xml_.append("  Integer.MAX_VALUE=1i:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExFour", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
     private static String getCustomPair() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.CustPair<U,V> :$pair<U,V>{\n");
