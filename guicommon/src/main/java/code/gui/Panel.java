@@ -149,10 +149,6 @@ public class Panel extends CustComponent {
         panel.removeAll();
     }
 
-    public void requestFocus() {
-        panel.requestFocus();
-    }
-
     public boolean requestFocus(boolean _temporary) {
         return panel.requestFocus(_temporary);
     }
@@ -288,14 +284,6 @@ public class Panel extends CustComponent {
 
     public boolean isValidateRoot() {
         return panel.isValidateRoot();
-    }
-
-    public void addKeyListener(KeyListener _l) {
-        panel.addKeyListener(_l);
-    }
-
-    public void addMouseListener(MouseListener _l) {
-        panel.addMouseListener(_l);
     }
 
     @Override

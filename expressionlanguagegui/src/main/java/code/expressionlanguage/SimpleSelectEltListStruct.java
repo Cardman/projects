@@ -7,6 +7,7 @@ import code.gui.IndexableListener;
 import code.util.CustList;
 import code.util.StringList;
 
+import javax.swing.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -29,7 +30,7 @@ public final class SimpleSelectEltListStruct extends MouseAdapter implements Ind
         }
         grList.setFirstIndex(index);
         grList.setLastIndex(index);
-        boolean sel_ = !_e.isPopupTrigger();
+        boolean sel_ = SwingUtilities.isLeftMouseButton(_e);
         grList.getSelectedIndexes().clear();
         if (sel_) {
             grList.getSelectedIndexes().add(index);

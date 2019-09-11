@@ -3,7 +3,7 @@ package code.gui;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-import javax.swing.JLabel;
+import javax.swing.*;
 
 public final class MultSelectEltList extends MouseAdapter implements IndexableListener {
 
@@ -19,7 +19,7 @@ public final class MultSelectEltList extends MouseAdapter implements IndexableLi
     @Override
     public void mouseReleased(MouseEvent _e) {
         Object[] array_ = grList.toArray();
-        boolean sel_ = !_e.isPopupTrigger();
+        boolean sel_ = SwingUtilities.isLeftMouseButton(_e);
         if (!_e.isShiftDown()) {
             grList.setFirstIndex(index);
             grList.setLastIndex(index);

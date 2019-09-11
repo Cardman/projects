@@ -3,7 +3,7 @@ package code.gui;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-import javax.swing.JLabel;
+import javax.swing.*;
 
 public final class SimpleSelectEltList extends MouseAdapter implements IndexableListener {
 
@@ -22,7 +22,7 @@ public final class SimpleSelectEltList extends MouseAdapter implements Indexable
         grList.setLastIndex(index);
         CustCellRender r_ = grList.getRender();
         Object[] array_ = grList.toArray();
-        boolean sel_ = !_e.isPopupTrigger();
+        boolean sel_ = SwingUtilities.isLeftMouseButton(_e);
         if (!sel_) {
             Object v_ = array_[index];
             PreparedLabel c_;

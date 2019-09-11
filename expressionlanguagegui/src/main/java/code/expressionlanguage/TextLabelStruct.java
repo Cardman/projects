@@ -35,11 +35,7 @@ public final class TextLabelStruct extends CustComponentStruct {
             textLabel.setText(((StringStruct) text).getInstance());
         }
     }
-    public void addMouse(Struct _mouseListener) {
-        if (_mouseListener instanceof MouseListener) {
-            textLabel.addMouseListener((MouseListener) _mouseListener);
-        }
-    }
+
     @Override
     protected CustComponent getComponent() {
         return textLabel;

@@ -3,7 +3,6 @@ package code.expressionlanguage;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.inherits.TypeUtil;
-import code.expressionlanguage.methods.ProcessMethod;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.MethodId;
@@ -19,7 +18,8 @@ import code.util.StringList;
 import java.awt.event.*;
 
 public final class EventStruct implements WithParentStruct,EnumerableStruct,
-        ActionListener,Runnable,MouseListener,WindowListener,ListSelection {
+        ActionListener,Runnable,MouseListener,WindowListener,ListSelection,
+        KeyListener{
 
     private final String className;
 
@@ -95,7 +95,7 @@ public final class EventStruct implements WithParentStruct,EnumerableStruct,
     @Override
     public void actionPerformed(ActionEvent e) {
         String actEv_ = ((LgNamesGui) original.getStandards()).getAliasActionEvent();
-        ActionEventStruct a_ = new ActionEventStruct(e,actEv_);
+        ActionEventStruct a_ = new ActionEventStruct(actEv_);
         GuiContextEl r_ = newCtx();
         CustList<Argument> args_ = new CustList<Argument>(new Argument(a_));
         String actPerf_ = ((LgNamesGui) original.getStandards()).getAliasActionPerformed();
@@ -172,7 +172,7 @@ public final class EventStruct implements WithParentStruct,EnumerableStruct,
     @Override
     public void windowOpened(WindowEvent e) {
         String actEv_ = ((LgNamesGui) original.getStandards()).getAliasWindowEvent();
-        WindowEventStruct a_ = new WindowEventStruct(e,actEv_);
+        WindowEventStruct a_ = new WindowEventStruct(actEv_);
         GuiContextEl r_ = newCtx();
         CustList<Argument> args_ = new CustList<Argument>(new Argument(a_));
         String actPerf_ = ((LgNamesGui) original.getStandards()).getAliasWindowOpened();
@@ -183,7 +183,7 @@ public final class EventStruct implements WithParentStruct,EnumerableStruct,
     @Override
     public void windowClosing(WindowEvent e) {
         String actEv_ = ((LgNamesGui) original.getStandards()).getAliasWindowEvent();
-        WindowEventStruct a_ = new WindowEventStruct(e,actEv_);
+        WindowEventStruct a_ = new WindowEventStruct(actEv_);
         GuiContextEl r_ = newCtx();
         CustList<Argument> args_ = new CustList<Argument>(new Argument(a_));
         String actPerf_ = ((LgNamesGui) original.getStandards()).getAliasWindowClosing();
@@ -194,7 +194,7 @@ public final class EventStruct implements WithParentStruct,EnumerableStruct,
     @Override
     public void windowClosed(WindowEvent e) {
         String actEv_ = ((LgNamesGui) original.getStandards()).getAliasWindowEvent();
-        WindowEventStruct a_ = new WindowEventStruct(e,actEv_);
+        WindowEventStruct a_ = new WindowEventStruct(actEv_);
         GuiContextEl r_ = newCtx();
         CustList<Argument> args_ = new CustList<Argument>(new Argument(a_));
         String actPerf_ = ((LgNamesGui) original.getStandards()).getAliasWindowClosed();
@@ -205,7 +205,7 @@ public final class EventStruct implements WithParentStruct,EnumerableStruct,
     @Override
     public void windowIconified(WindowEvent e) {
         String actEv_ = ((LgNamesGui) original.getStandards()).getAliasWindowEvent();
-        WindowEventStruct a_ = new WindowEventStruct(e,actEv_);
+        WindowEventStruct a_ = new WindowEventStruct(actEv_);
         GuiContextEl r_ = newCtx();
         CustList<Argument> args_ = new CustList<Argument>(new Argument(a_));
         String actPerf_ = ((LgNamesGui) original.getStandards()).getAliasWindowIconified();
@@ -216,7 +216,7 @@ public final class EventStruct implements WithParentStruct,EnumerableStruct,
     @Override
     public void windowDeiconified(WindowEvent e) {
         String actEv_ = ((LgNamesGui) original.getStandards()).getAliasWindowEvent();
-        WindowEventStruct a_ = new WindowEventStruct(e,actEv_);
+        WindowEventStruct a_ = new WindowEventStruct(actEv_);
         GuiContextEl r_ = newCtx();
         CustList<Argument> args_ = new CustList<Argument>(new Argument(a_));
         String actPerf_ = ((LgNamesGui) original.getStandards()).getAliasWindowDeiconified();
@@ -227,7 +227,7 @@ public final class EventStruct implements WithParentStruct,EnumerableStruct,
     @Override
     public void windowActivated(WindowEvent e) {
         String actEv_ = ((LgNamesGui) original.getStandards()).getAliasWindowEvent();
-        WindowEventStruct a_ = new WindowEventStruct(e,actEv_);
+        WindowEventStruct a_ = new WindowEventStruct(actEv_);
         GuiContextEl r_ = newCtx();
         CustList<Argument> args_ = new CustList<Argument>(new Argument(a_));
         String actPerf_ = ((LgNamesGui) original.getStandards()).getAliasWindowActivated();
@@ -238,7 +238,7 @@ public final class EventStruct implements WithParentStruct,EnumerableStruct,
     @Override
     public void windowDeactivated(WindowEvent e) {
         String actEv_ = ((LgNamesGui) original.getStandards()).getAliasWindowEvent();
-        WindowEventStruct a_ = new WindowEventStruct(e,actEv_);
+        WindowEventStruct a_ = new WindowEventStruct(actEv_);
         GuiContextEl r_ = newCtx();
         CustList<Argument> args_ = new CustList<Argument>(new Argument(a_));
         String actPerf_ = ((LgNamesGui) original.getStandards()).getAliasWindowDeactivated();
@@ -254,6 +254,39 @@ public final class EventStruct implements WithParentStruct,EnumerableStruct,
         String actPerf_ = ((LgNamesGui) original.getStandards()).getAliasValueChanged();
         String actList_ = ((LgNamesGui) original.getStandards()).getAliasListSelection();
         invoke(r_,actList_,actPerf_,new StringList(ind_,ind_),args_);
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        String actEv_ = ((LgNamesGui) original.getStandards()).getAliasKeyEvent();
+        KeyEventStruct a_ = new KeyEventStruct(e,actEv_,e.getKeyChar(),e.getKeyCode());
+        GuiContextEl r_ = newCtx();
+        CustList<Argument> args_ = new CustList<Argument>(new Argument(a_));
+        String actPerf_ = ((LgNamesGui) original.getStandards()).getAliasKeyPressed();
+        String actList_ = ((LgNamesGui) original.getStandards()).getAliasKeyListener();
+        invoke(r_,actList_,actPerf_,new StringList(actEv_),args_);
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+        String actEv_ = ((LgNamesGui) original.getStandards()).getAliasKeyEvent();
+        KeyEventStruct a_ = new KeyEventStruct(e,actEv_,e.getKeyChar());
+        GuiContextEl r_ = newCtx();
+        CustList<Argument> args_ = new CustList<Argument>(new Argument(a_));
+        String actPerf_ = ((LgNamesGui) original.getStandards()).getAliasKeyTyped();
+        String actList_ = ((LgNamesGui) original.getStandards()).getAliasKeyListener();
+        invoke(r_,actList_,actPerf_,new StringList(actEv_),args_);
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        String actEv_ = ((LgNamesGui) original.getStandards()).getAliasKeyEvent();
+        KeyEventStruct a_ = new KeyEventStruct(e,actEv_,e.getKeyChar(),e.getKeyCode());
+        GuiContextEl r_ = newCtx();
+        CustList<Argument> args_ = new CustList<Argument>(new Argument(a_));
+        String actPerf_ = ((LgNamesGui) original.getStandards()).getAliasKeyReleased();
+        String actList_ = ((LgNamesGui) original.getStandards()).getAliasKeyListener();
+        invoke(r_,actList_,actPerf_,new StringList(actEv_),args_);
     }
     private void invoke(GuiContextEl _r, String _typeName,String _methName, StringList _argTypes, CustList<Argument> _args) {
         MethodId id_ = new MethodId(MethodModifier.ABSTRACT, _methName, _argTypes);

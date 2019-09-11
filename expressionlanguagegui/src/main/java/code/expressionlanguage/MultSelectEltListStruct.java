@@ -6,6 +6,7 @@ import code.gui.IndexableListener;
 import code.util.CustList;
 import code.util.StringList;
 
+import javax.swing.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -27,7 +28,7 @@ public final class MultSelectEltListStruct extends MouseAdapter implements Index
         if (!grList.isEnabledList()) {
             return;
         }
-        boolean sel_ = !_e.isPopupTrigger();
+        boolean sel_ = SwingUtilities.isLeftMouseButton(_e);
         if (!_e.isShiftDown()) {
             grList.setFirstIndex(index);
             grList.setLastIndex(index);

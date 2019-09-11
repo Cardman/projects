@@ -32,9 +32,6 @@ public final class PreparedLabel extends CustComponent {
         label.setBackground(_bg);
     }
 
-    public void requestFocus() {
-        label.requestFocus();
-    }
 
     @Override
     public JComponent getComponent() {
@@ -43,14 +40,6 @@ public final class PreparedLabel extends CustComponent {
 
     public void setOpaque(boolean b) {
         label.setOpaque(b);
-    }
-
-    public void addMouseListener(MouseListener anchorEvent) {
-        label.addMouseListener(anchorEvent);
-    }
-
-    public void addKeyListener(KeyListener _l) {
-        label.addKeyListener(_l);
     }
 
     JLabel getLabel() {

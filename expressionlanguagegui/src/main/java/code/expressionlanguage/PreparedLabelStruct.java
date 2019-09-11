@@ -34,20 +34,13 @@ public final class PreparedLabelStruct extends CustComponentStruct {
             height = img_.getHeight();
         }
     }
-    public void addMouse(Struct _mouseListener) {
-        if (_mouseListener instanceof MouseListener) {
-            textLabel.addMouseListener((MouseListener) _mouseListener);
-        }
-    }
+
     public void addMouseListener(MouseListener _mouseListener) {
         if (_mouseListener != null) {
             textLabel.addMouseListener(_mouseListener);
         }
     }
 
-    public void requestFocus() {
-        textLabel.requestFocus();
-    }
     @Override
     protected CustComponent getComponent() {
         return textLabel;

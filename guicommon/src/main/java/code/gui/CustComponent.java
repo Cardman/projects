@@ -1,6 +1,8 @@
 package code.gui;
 
 import java.awt.*;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.lang.reflect.InvocationTargetException;
 
@@ -75,6 +77,17 @@ public abstract class CustComponent {
             return;
         }
         _cust.getComponent().repaint();
+    }
+
+    public void addMouseListener(MouseListener _mouseListener) {
+        getComponent().addMouseListener(_mouseListener);
+    }
+    public void addKeyListener(KeyListener _l) {
+        getComponent().addKeyListener(_l);
+    }
+
+    public void requestFocus() {
+        getComponent().requestFocus();
     }
     public boolean isVisible() {
         return getComponent().isVisible();

@@ -38,10 +38,6 @@ public final class RadioButton extends CustComponent {
         radioButton.addChangeListener(l);
     }
 
-    public void addMouseListener(MouseListener _l) {
-        radioButton.addMouseListener(_l);
-    }
-
     @Override
     public JComponent getComponent() {
         return radioButton;

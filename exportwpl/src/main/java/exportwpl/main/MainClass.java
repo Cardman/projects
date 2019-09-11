@@ -1,6 +1,6 @@
 package exportwpl.main;
-import javax.swing.SwingUtilities;
 
+import code.gui.CustComponent;
 import code.util.consts.Constants;
 import exportwpl.gui.MainWindow;
 

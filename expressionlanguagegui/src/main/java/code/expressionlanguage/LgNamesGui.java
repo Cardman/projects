@@ -27,8 +27,15 @@ public class LgNamesGui extends LgNamesUtils {
     private String aliasMouseEntered;
     private String aliasMouseExited;
     private String aliasMouseEvent;
-    private String aliasGetMouseEventFirst;
-    private String aliasGetMouseEventSecond;
+    private String aliasMouseEventGetFirst;
+    private String aliasMouseEventGetSecond;
+    private String aliasMouseEventGetClicks;
+    private String aliasMouseEventIsAlt;
+    private String aliasMouseEventIsCtrl;
+    private String aliasMouseEventIsShift;
+    private String aliasMouseEventIsLeft;
+    private String aliasMouseEventIsMiddle;
+    private String aliasMouseEventIsRight;
     private String aliasWindowListener;
     private String aliasWindowOpened;
     private String aliasWindowClosed;
@@ -40,6 +47,18 @@ public class LgNamesGui extends LgNamesUtils {
     private String aliasWindowEvent;
     private String aliasListSelection;
     private String aliasValueChanged;
+    private String aliasRequestFocus;
+    private String aliasAddKeyListener;
+    private String aliasKeyListener;
+    private String aliasKeyPressed;
+    private String aliasKeyTyped;
+    private String aliasKeyReleased;
+    private String aliasKeyEvent;
+    private String aliasKeyEventChar;
+    private String aliasKeyEventCode;
+    private String aliasKeyEventIsShift;
+    private String aliasKeyEventIsAlt;
+    private String aliasKeyEventIsCtrl;
 
     private String aliasFrame;
     private String aliasPanel;
@@ -317,6 +336,15 @@ public class LgNamesGui extends LgNamesUtils {
         params_ = new StringList(getAliasRunnable());
         method_ = new StandardMethod(aliasComponentInvokeLater, params_, getAliasVoid(), false, MethodModifier.STATIC, stdcl_);
         methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasKeyListener);
+        method_ = new StandardMethod(aliasAddKeyListener, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasMouseListener);
+        method_ = new StandardMethod(aliasAddListener, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasRequestFocus, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
         params_ = new StringList();
         ctor_ = new StandardConstructor(params_,false,stdcl_);
         constructors_.add(ctor_);
@@ -340,30 +368,9 @@ public class LgNamesGui extends LgNamesUtils {
         constructors_.add(ctor_);
         std_ = stdcl_;
         getStandards().put(aliasDimension, std_);
-        methods_ = new ObjectMap<MethodId, StandardMethod>();
-        constructors_ = new CustList<StandardConstructor>();
-        fields_ = new StringMap<StandardField>();
-        stdcl_ = new StandardClass(aliasActionEvent, fields_, constructors_, methods_, getAliasObject(), MethodModifier.ABSTRACT);
-        std_ = stdcl_;
-        getStandards().put(aliasActionEvent, std_);
-        methods_ = new ObjectMap<MethodId, StandardMethod>();
-        constructors_ = new CustList<StandardConstructor>();
-        fields_ = new StringMap<StandardField>();
-        stdcl_ = new StandardClass(aliasWindowEvent, fields_, constructors_, methods_, getAliasObject(), MethodModifier.ABSTRACT);
-        std_ = stdcl_;
-        getStandards().put(aliasWindowEvent, std_);
-        methods_ = new ObjectMap<MethodId, StandardMethod>();
-        constructors_ = new CustList<StandardConstructor>();
-        fields_ = new StringMap<StandardField>();
-        stdcl_ = new StandardClass(aliasMouseEvent, fields_, constructors_, methods_, getAliasObject(), MethodModifier.ABSTRACT);
-        params_ = new StringList();
-        method_ = new StandardMethod(aliasGetMouseEventFirst, params_, getAliasPrimInteger(), false, MethodModifier.FINAL, stdcl_);
-        methods_.put(method_.getId(), method_);
-        params_ = new StringList();
-        method_ = new StandardMethod(aliasGetMouseEventSecond, params_, getAliasPrimInteger(), false, MethodModifier.FINAL, stdcl_);
-        methods_.put(method_.getId(), method_);
-        std_ = stdcl_;
-        getStandards().put(aliasMouseEvent, std_);
+
+        buildEvents();
+
         methods_ = new ObjectMap<MethodId, StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new StringMap<StandardField>();
@@ -482,9 +489,6 @@ public class LgNamesGui extends LgNamesUtils {
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new StringMap<StandardField>();
         stdcl_ = new StandardClass(aliasTextLabel, fields_, constructors_, methods_, aliasComponent, MethodModifier.FINAL);
-        params_ = new StringList(aliasMouseListener);
-        method_ = new StandardMethod(aliasAddListener, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
-        methods_.put(method_.getId(), method_);
         params_ = new StringList(getAliasString());
         method_ = new StandardMethod(aliasSetLabelText, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
@@ -501,9 +505,6 @@ public class LgNamesGui extends LgNamesUtils {
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new StringMap<StandardField>();
         stdcl_ = new StandardClass(aliasImageLabel, fields_, constructors_, methods_, aliasComponent, MethodModifier.FINAL);
-        params_ = new StringList(aliasMouseListener);
-        method_ = new StandardMethod(aliasAddListener, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
-        methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasImage);
         method_ = new StandardMethod(aliasSetLabelImage, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
@@ -652,6 +653,81 @@ public class LgNamesGui extends LgNamesUtils {
         constructors_.add(ctor_);
         getStandards().put(aliasImage, stdcl_);
         buildInputs();
+    }
+    private void buildEvents() {
+        ObjectMap<MethodId, StandardMethod> methods_;
+        CustList<StandardConstructor> constructors_;
+        StringMap<StandardField> fields_;
+        StandardClass stdcl_;
+        StringList params_;
+        StandardMethod method_;
+        StandardClass std_;
+        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        constructors_ = new CustList<StandardConstructor>();
+        fields_ = new StringMap<StandardField>();
+        stdcl_ = new StandardClass(aliasActionEvent, fields_, constructors_, methods_, getAliasObject(), MethodModifier.ABSTRACT);
+        std_ = stdcl_;
+        getStandards().put(aliasActionEvent, std_);
+        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        constructors_ = new CustList<StandardConstructor>();
+        fields_ = new StringMap<StandardField>();
+        stdcl_ = new StandardClass(aliasWindowEvent, fields_, constructors_, methods_, getAliasObject(), MethodModifier.ABSTRACT);
+        std_ = stdcl_;
+        getStandards().put(aliasWindowEvent, std_);
+        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        constructors_ = new CustList<StandardConstructor>();
+        fields_ = new StringMap<StandardField>();
+        stdcl_ = new StandardClass(aliasMouseEvent, fields_, constructors_, methods_, getAliasObject(), MethodModifier.ABSTRACT);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasMouseEventIsAlt, params_, getAliasPrimBoolean(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasMouseEventIsCtrl, params_, getAliasPrimBoolean(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasMouseEventIsShift, params_, getAliasPrimBoolean(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasMouseEventIsLeft, params_, getAliasPrimBoolean(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasMouseEventIsMiddle, params_, getAliasPrimBoolean(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasMouseEventIsRight, params_, getAliasPrimBoolean(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasMouseEventGetClicks, params_, getAliasPrimInteger(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasMouseEventGetFirst, params_, getAliasPrimInteger(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasMouseEventGetSecond, params_, getAliasPrimInteger(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        std_ = stdcl_;
+        getStandards().put(aliasMouseEvent, std_);
+        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        constructors_ = new CustList<StandardConstructor>();
+        fields_ = new StringMap<StandardField>();
+        stdcl_ = new StandardClass(aliasKeyEvent, fields_, constructors_, methods_, getAliasObject(), MethodModifier.ABSTRACT);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasKeyEventIsAlt, params_, getAliasPrimBoolean(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasKeyEventIsCtrl, params_, getAliasPrimBoolean(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasKeyEventIsShift, params_, getAliasPrimBoolean(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasKeyEventChar, params_, getAliasPrimChar(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasKeyEventCode, params_, getAliasPrimInteger(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        std_ = stdcl_;
+        getStandards().put(aliasKeyEvent, std_);
     }
     private void buildInputs() {
         ObjectMap<MethodId, StandardMethod> methods_;
@@ -1362,6 +1438,19 @@ public class LgNamesGui extends LgNamesUtils {
                 return res_;
             }
             CustComponentStruct inst_ = (CustComponentStruct)_instance;
+            if (StringList.quickEq(name_, aliasAddKeyListener)) {
+                inst_.addKeyListener(_args[0]);
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasAddListener)) {
+                inst_.addMouse(_args[0]);
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasRequestFocus)) {
+                inst_.requestFocus();
+                return res_;
+            }
             if (StringList.quickEq(name_, aliasGetFont)) {
                 res_.setResult(inst_.getFont());
                 return res_;
@@ -1524,11 +1613,6 @@ public class LgNamesGui extends LgNamesUtils {
                 return res_;
             }
             TextLabelStruct txt_ = (TextLabelStruct) _instance;
-            if (StringList.quickEq(name_, aliasAddListener)) {
-                txt_.addMouse(_args[0]);
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
             txt_.setText(_args[0]);
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
@@ -1540,27 +1624,66 @@ public class LgNamesGui extends LgNamesUtils {
                 return res_;
             }
             PreparedLabelStruct txt_ = (PreparedLabelStruct) _instance;
-            if (StringList.quickEq(name_, aliasAddListener)) {
-                txt_.addMouse(_args[0]);
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
             txt_.setImage(_args[0]);
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
         if (StringList.quickEq(type_, aliasMouseEvent)) {
-            if (_cont.isInitEnums()) {
-                _cont.failInitEnums();
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
             MouseEventStruct event_ = (MouseEventStruct)_instance;
-            if (StringList.quickEq(name_, aliasGetMouseEventFirst)) {
-                res_.setResult(new IntStruct(event_.getFirst()));
+            if (StringList.quickEq(name_, aliasMouseEventIsAlt)) {
+                res_.setResult(event_.isAlt());
                 return res_;
             }
-            res_.setResult(new IntStruct(event_.getSecond()));
+            if (StringList.quickEq(name_, aliasMouseEventIsCtrl)) {
+                res_.setResult(event_.isCtrl());
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasMouseEventIsShift)) {
+                res_.setResult(event_.isShift());
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasMouseEventIsLeft)) {
+                res_.setResult(event_.isLeft());
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasMouseEventIsMiddle)) {
+                res_.setResult(event_.isMiddle());
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasMouseEventIsRight)) {
+                res_.setResult(event_.isRight());
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasMouseEventGetClicks)) {
+                res_.setResult(event_.getClicks());
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasMouseEventGetFirst)) {
+                res_.setResult(event_.getFirst());
+                return res_;
+            }
+            res_.setResult(event_.getSecond());
+            return res_;
+        }
+        if (StringList.quickEq(type_, aliasKeyEvent)) {
+            KeyEventStruct event_ = (KeyEventStruct)_instance;
+            if (StringList.quickEq(name_, aliasKeyEventIsAlt)) {
+                res_.setResult(event_.isAlt());
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasKeyEventIsCtrl)) {
+                res_.setResult(event_.isCtrl());
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasKeyEventIsShift)) {
+                res_.setResult(event_.isShift());
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasKeyEventChar)) {
+                res_.setResult(event_.getKeyChar());
+                return res_;
+            }
+            res_.setResult(event_.getKeyCode());
             return res_;
         }
         if (StringList.quickEq(type_, aliasInput)) {
@@ -2105,6 +2228,22 @@ public class LgNamesGui extends LgNamesUtils {
         getPredefinedClasses().add(aliasMouseListener);
         stds_.put(aliasMouseListener, content_);
         getPredefinedInterfacesInitOrder().add(aliasMouseListener);
+        content_ = ResourceFiles.ressourceFichier("resources_lg_gui/key_event.txt");
+        map_ = new StringMap<String>();
+        map_.put("{public}", public_);
+        map_.put("{interface}", interface_);
+        map_.put("{KeyListener}", aliasKeyListener);
+        map_.put("{keyPressed}", aliasKeyPressed);
+        map_.put("{keyTyped}", aliasKeyTyped);
+        map_.put("{keyReleased}", aliasKeyReleased);
+        map_.put("{KeyEvent}", aliasKeyEvent);
+        map_.put("{void}", getAliasVoid());
+        map_.put("{e}", tr("e",_context));
+        map_.put("{endLine}", endLine_);
+        content_ = StringList.formatQuote(content_, map_);
+        getPredefinedClasses().add(aliasKeyListener);
+        stds_.put(aliasKeyListener, content_);
+        getPredefinedInterfacesInitOrder().add(aliasKeyListener);
         content_ = ResourceFiles.ressourceFichier("resources_lg_gui/window_event.txt");
         map_ = new StringMap<String>();
         map_.put("{public}", public_);
@@ -3056,20 +3195,172 @@ public class LgNamesGui extends LgNamesUtils {
         this.aliasMouseEvent = aliasMouseEvent;
     }
 
-    public String getAliasGetMouseEventFirst() {
-        return aliasGetMouseEventFirst;
+    public String getAliasMouseEventGetFirst() {
+        return aliasMouseEventGetFirst;
     }
 
-    public void setAliasGetMouseEventFirst(String aliasGetMouseEventFirst) {
-        this.aliasGetMouseEventFirst = aliasGetMouseEventFirst;
+    public void setAliasMouseEventGetFirst(String aliasMouseEventGetFirst) {
+        this.aliasMouseEventGetFirst = aliasMouseEventGetFirst;
     }
 
-    public String getAliasGetMouseEventSecond() {
-        return aliasGetMouseEventSecond;
+    public String getAliasMouseEventGetSecond() {
+        return aliasMouseEventGetSecond;
     }
 
-    public void setAliasGetMouseEventSecond(String aliasGetMouseEventSecond) {
-        this.aliasGetMouseEventSecond = aliasGetMouseEventSecond;
+    public void setAliasMouseEventGetSecond(String aliasMouseEventGetSecond) {
+        this.aliasMouseEventGetSecond = aliasMouseEventGetSecond;
+    }
+
+    public String getAliasMouseEventGetClicks() {
+        return aliasMouseEventGetClicks;
+    }
+
+    public void setAliasMouseEventGetClicks(String aliasMouseEventGetClicks) {
+        this.aliasMouseEventGetClicks = aliasMouseEventGetClicks;
+    }
+
+    public String getAliasMouseEventIsAlt() {
+        return aliasMouseEventIsAlt;
+    }
+
+    public void setAliasMouseEventIsAlt(String aliasMouseEventIsAlt) {
+        this.aliasMouseEventIsAlt = aliasMouseEventIsAlt;
+    }
+
+    public String getAliasMouseEventIsCtrl() {
+        return aliasMouseEventIsCtrl;
+    }
+
+    public void setAliasMouseEventIsCtrl(String aliasMouseEventIsCtrl) {
+        this.aliasMouseEventIsCtrl = aliasMouseEventIsCtrl;
+    }
+
+    public String getAliasMouseEventIsShift() {
+        return aliasMouseEventIsShift;
+    }
+
+    public void setAliasMouseEventIsShift(String aliasMouseEventIsShift) {
+        this.aliasMouseEventIsShift = aliasMouseEventIsShift;
+    }
+
+    public String getAliasMouseEventIsLeft() {
+        return aliasMouseEventIsLeft;
+    }
+
+    public void setAliasMouseEventIsLeft(String aliasMouseEventIsLeft) {
+        this.aliasMouseEventIsLeft = aliasMouseEventIsLeft;
+    }
+
+    public String getAliasMouseEventIsMiddle() {
+        return aliasMouseEventIsMiddle;
+    }
+
+    public void setAliasMouseEventIsMiddle(String aliasMouseEventIsMiddle) {
+        this.aliasMouseEventIsMiddle = aliasMouseEventIsMiddle;
+    }
+
+    public String getAliasMouseEventIsRight() {
+        return aliasMouseEventIsRight;
+    }
+
+    public void setAliasMouseEventIsRight(String aliasMouseEventIsRight) {
+        this.aliasMouseEventIsRight = aliasMouseEventIsRight;
+    }
+
+    public String getAliasRequestFocus() {
+        return aliasRequestFocus;
+    }
+
+    public void setAliasRequestFocus(String aliasRequestFocus) {
+        this.aliasRequestFocus = aliasRequestFocus;
+    }
+
+    public String getAliasAddKeyListener() {
+        return aliasAddKeyListener;
+    }
+
+    public void setAliasAddKeyListener(String aliasAddKeyListener) {
+        this.aliasAddKeyListener = aliasAddKeyListener;
+    }
+
+    public String getAliasKeyListener() {
+        return aliasKeyListener;
+    }
+
+    public void setAliasKeyListener(String aliasKeyListener) {
+        this.aliasKeyListener = aliasKeyListener;
+    }
+
+    public String getAliasKeyPressed() {
+        return aliasKeyPressed;
+    }
+
+    public void setAliasKeyPressed(String aliasKeyPressed) {
+        this.aliasKeyPressed = aliasKeyPressed;
+    }
+
+    public String getAliasKeyTyped() {
+        return aliasKeyTyped;
+    }
+
+    public void setAliasKeyTyped(String aliasKeyTyped) {
+        this.aliasKeyTyped = aliasKeyTyped;
+    }
+
+    public String getAliasKeyReleased() {
+        return aliasKeyReleased;
+    }
+
+    public void setAliasKeyReleased(String aliasKeyReleased) {
+        this.aliasKeyReleased = aliasKeyReleased;
+    }
+
+    public String getAliasKeyEvent() {
+        return aliasKeyEvent;
+    }
+
+    public void setAliasKeyEvent(String aliasKeyEvent) {
+        this.aliasKeyEvent = aliasKeyEvent;
+    }
+
+    public String getAliasKeyEventChar() {
+        return aliasKeyEventChar;
+    }
+
+    public void setAliasKeyEventChar(String aliasKeyEventChar) {
+        this.aliasKeyEventChar = aliasKeyEventChar;
+    }
+
+    public String getAliasKeyEventCode() {
+        return aliasKeyEventCode;
+    }
+
+    public void setAliasKeyEventCode(String aliasKeyEventCode) {
+        this.aliasKeyEventCode = aliasKeyEventCode;
+    }
+
+    public String getAliasKeyEventIsShift() {
+        return aliasKeyEventIsShift;
+    }
+
+    public void setAliasKeyEventIsShift(String aliasKeyEventIsShift) {
+        this.aliasKeyEventIsShift = aliasKeyEventIsShift;
+    }
+
+    public String getAliasKeyEventIsAlt() {
+        return aliasKeyEventIsAlt;
+    }
+
+    public void setAliasKeyEventIsAlt(String aliasKeyEventIsAlt) {
+        this.aliasKeyEventIsAlt = aliasKeyEventIsAlt;
+    }
+
+    public String getAliasKeyEventIsCtrl() {
+        return aliasKeyEventIsCtrl;
+    }
+
+    public void setAliasKeyEventIsCtrl(String aliasKeyEventIsCtrl) {
+        this.aliasKeyEventIsCtrl = aliasKeyEventIsCtrl;
     }
 
     public String getAliasWindowListener() {
@@ -3902,6 +4193,18 @@ public class LgNamesGui extends LgNamesUtils {
             setAliasActionEvent("$core.ActionEvent");
             setAliasActionListener("$core.ActionListener");
             setAliasActionPerformed("actionPerformed");
+            setAliasAddKeyListener("addKey");
+            setAliasRequestFocus("requestFocus");
+            setAliasKeyListener("$core.KeyListener");
+            setAliasKeyPressed("keyPressed");
+            setAliasKeyTyped("keyTyped");
+            setAliasKeyReleased("keyReleased");
+            setAliasKeyEvent("$core.KeyEvent");
+            setAliasKeyEventIsAlt("isAlt");
+            setAliasKeyEventIsCtrl("isCtrl");
+            setAliasKeyEventIsShift("isShift");
+            setAliasKeyEventChar("keyChar");
+            setAliasKeyEventCode("keyCode");
             setAliasMouseEvent("$core.MouseEvent");
             setAliasMouseListener("$core.MouseListener");
             setAliasMouseClicked("mouseClicked");
@@ -3909,8 +4212,15 @@ public class LgNamesGui extends LgNamesUtils {
             setAliasMouseReleased("mouseReleased");
             setAliasMouseEntered("mouseEntered");
             setAliasMouseExited("mouseExited");
-            setAliasGetMouseEventFirst("x");
-            setAliasGetMouseEventSecond("y");
+            setAliasMouseEventGetFirst("x");
+            setAliasMouseEventGetSecond("y");
+            setAliasMouseEventGetClicks("getClicks");
+            setAliasMouseEventIsAlt("isAlt");
+            setAliasMouseEventIsCtrl("isCtrl");
+            setAliasMouseEventIsShift("isShift");
+            setAliasMouseEventIsLeft("isLeft");
+            setAliasMouseEventIsMiddle("isMiddle");
+            setAliasMouseEventIsRight("isRight");
             setAliasWindowListener("$core.WindowListener");
             setAliasWindowEvent("$core.WindowEvent");
             setAliasWindowActivated("activated");
@@ -4116,8 +4426,27 @@ public class LgNamesGui extends LgNamesUtils {
             setAliasMouseReleased("relache");
             setAliasMouseEntered("entre");
             setAliasMouseExited("sorti");
-            setAliasGetMouseEventFirst("x");
-            setAliasGetMouseEventSecond("y");
+            setAliasMouseEventGetFirst("x");
+            setAliasMouseEventGetSecond("y");
+            setAliasMouseEventGetClicks("valClics");
+            setAliasMouseEventIsAlt("estAlt");
+            setAliasMouseEventIsCtrl("estCtrl");
+            setAliasMouseEventIsShift("estMaj");
+            setAliasMouseEventIsLeft("estGauche");
+            setAliasMouseEventIsMiddle("estMilieu");
+            setAliasMouseEventIsRight("estDroite");
+            setAliasKeyListener("$coeur.ClavierEcouteur");
+            setAliasAddKeyListener("ajClavier");
+            setAliasRequestFocus("demanderFocus");
+            setAliasKeyPressed("presse");
+            setAliasKeyTyped("tape");
+            setAliasKeyReleased("relache");
+            setAliasKeyEvent("$coeur.ClavierEvt");
+            setAliasKeyEventIsAlt("estAlt");
+            setAliasKeyEventIsCtrl("estCtrl");
+            setAliasKeyEventIsShift("estMaj");
+            setAliasKeyEventChar("carTouche");
+            setAliasKeyEventCode("codeTouche");
             setAliasWindowListener("$coeur.FenetreEcouteur");
             setAliasWindowEvent("$coeur.FenetreEvt");
             setAliasWindowActivated("active");
@@ -4331,8 +4660,8 @@ public class LgNamesGui extends LgNamesUtils {
                 getAliasAddCompo(),
                 getAliasRemoveCompo()));
         m_.put(getAliasMouseEvent(), new StringList(
-                getAliasGetMouseEventFirst(),
-                getAliasGetMouseEventSecond()));
+                getAliasMouseEventGetFirst(),
+                getAliasMouseEventGetSecond()));
         m_.put(getAliasComponent(), new StringList(
                 getAliasGetParentCompo(),
                 getAliasGetNextCompo(),

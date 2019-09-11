@@ -8,6 +8,8 @@ import code.util.CustList;
 
 import javax.swing.SwingUtilities;
 import java.awt.*;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseListener;
 
 public abstract class CustComponentStruct implements Struct {
 
@@ -70,6 +72,21 @@ public abstract class CustComponentStruct implements Struct {
         } else {
             getComponent().setFont(((FontStruct)_font).getFont());
         }
+    }
+
+    public void requestFocus() {
+        getComponent().requestFocus();
+    }
+    public void addMouse(Struct _mouseListener) {
+        if (_mouseListener instanceof MouseListener) {
+            getComponent().addMouseListener((MouseListener) _mouseListener);
+        }
+    }
+    public void addKeyListener(Struct _l) {
+        if (_l instanceof KeyListener) {
+            getComponent().addKeyListener((KeyListener)_l);
+        }
+
     }
     public int getWidth() {
         return getComponent().getWidth();

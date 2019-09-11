@@ -53,20 +53,12 @@ public abstract class PaintableLabel extends CustComponent {
         label.setOpaque(_b);
     }
 
-    public void requestFocus() {
-        label.requestFocus();
-    }
-
     public boolean requestFocus(boolean _temporary) {
         return label.requestFocus(_temporary);
     }
 
     public boolean requestFocusInWindow() {
         return label.requestFocusInWindow();
-    }
-
-    public void addKeyListener(KeyListener _l) {
-        label.addKeyListener(_l);
     }
 
     public void setFocusable(boolean _focusable) {
@@ -107,10 +99,6 @@ public abstract class PaintableLabel extends CustComponent {
 
     public void setHorizontalAlignment(int _alignment) {
         label.setHorizontalAlignment(_alignment);
-    }
-
-    public void addMouseListener(MouseListener _l) {
-        label.addMouseListener(_l);
     }
 
     @Override

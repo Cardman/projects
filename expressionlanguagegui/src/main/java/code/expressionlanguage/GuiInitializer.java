@@ -12,6 +12,7 @@ public class GuiInitializer extends CustInitializer {
         String base_ = Templates.getIdFromAllTypes(_className);
         String actList_ = ((LgNamesGui) _context.getStandards()).getAliasActionListener();
         String mouseList_ = ((LgNamesGui) _context.getStandards()).getAliasMouseListener();
+        String keyList_ = ((LgNamesGui) _context.getStandards()).getAliasKeyListener();
         String windowList_ = ((LgNamesGui) _context.getStandards()).getAliasWindowListener();
         String listSel_ = ((LgNamesGui) _context.getStandards()).getAliasListSelection();
         String run_ = ((LgNamesUtils)_context.getStandards()).getAliasRunnable();
@@ -19,6 +20,9 @@ public class GuiInitializer extends CustInitializer {
             return new EventStruct(_context,_className,_fieldName,_ordinal,_fields,_parent);
         }
         if (PrimitiveTypeUtil.canBeUseAsArgument(run_, base_, _context)) {
+            return new EventStruct(_context,_className,_fieldName,_ordinal,_fields,_parent);
+        }
+        if (PrimitiveTypeUtil.canBeUseAsArgument(keyList_, base_, _context)) {
             return new EventStruct(_context,_className,_fieldName,_ordinal,_fields,_parent);
         }
         if (PrimitiveTypeUtil.canBeUseAsArgument(mouseList_, base_, _context)) {

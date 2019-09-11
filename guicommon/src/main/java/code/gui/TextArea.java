@@ -295,10 +295,6 @@ public final class TextArea extends CustComponent {
         return textArea.isRequestFocusEnabled();
     }
 
-    public void requestFocus() {
-        textArea.requestFocus();
-    }
-
     public boolean requestFocus(boolean temporary) {
         return textArea.requestFocus(temporary);
     }
