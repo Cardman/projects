@@ -875,7 +875,6 @@ public final class FileResolver {
                     continue;
                 }
                 if (currentChar_ == DEL_CHAR) {
-                    enabledSpaces_.getFile().getEndChars().add(i_);
                     i_ = incrementRowCol(i_, _file, enabledSpaces_);
                     constChar_ = false;
                     allowedComments_ = false;
@@ -899,7 +898,6 @@ public final class FileResolver {
                     continue;
                 }
                 if (currentChar_ == DEL_STRING) {
-                    enabledSpaces_.getFile().getEndStrings().add(i_);
                     i_ = incrementRowCol(i_, _file, enabledSpaces_);
                     constString_ = false;
                     allowedComments_ = false;
@@ -918,7 +916,6 @@ public final class FileResolver {
                 }
                 if(currentChar_ == DEL_TEXT) {
                     if (_file.charAt(i_ + 1) != DEL_TEXT) {
-                        enabledSpaces_.getFile().getEndTexts().add(i_);
                         i_ = incrementRowCol(i_, _file, enabledSpaces_);
                         constText_ = false;
                         allowedComments_ = false;
@@ -970,7 +967,6 @@ public final class FileResolver {
                 if (instruction_.length() == 0) {
                     instructionLocation_ = i_;
                 }
-                enabledSpaces_.getFile().getBeginChars().add(i_);
                 instruction_.append(currentChar_);
                 constChar_ = true;
                 enabledSpaces_.setCheckTabs(false);
@@ -981,7 +977,6 @@ public final class FileResolver {
                 if (instruction_.length() == 0) {
                     instructionLocation_ = i_;
                 }
-                enabledSpaces_.getFile().getBeginStrings().add(i_);
                 instruction_.append(currentChar_);
                 constString_ = true;
                 enabledSpaces_.setCheckTabs(false);
@@ -992,7 +987,6 @@ public final class FileResolver {
                 if (instruction_.length() == 0) {
                     instructionLocation_ = i_;
                 }
-                enabledSpaces_.getFile().getBeginTexts().add(i_);
                 instruction_.append(currentChar_);
                 constText_ = true;
                 enabledSpaces_.setCheckTabs(false);

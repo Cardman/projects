@@ -788,6 +788,24 @@ public final class ElUtil {
                     _parts.add(new PartOffset(tag_,delta_+sum_ + val_.getIndexInEl()+varName_.length()));
                 }
             }
+            if (val_ instanceof ConstantOperation) {
+                if (val_.getOperations().getConstType() == ConstType.STRING) {
+                    int off_ = val_.getOperations().getOffset();
+                    tag_ = "<span class=\"s\">";
+                    int begin_ = sum_ + off_ + val_.getIndexInEl();
+                    _parts.add(new PartOffset(tag_, begin_));
+                    tag_ = "</span>";
+                    _parts.add(new PartOffset(tag_,begin_+ ((ConstantOperation)val_).getLength()));
+                }
+                if (val_.getOperations().getConstType() == ConstType.CHARACTER) {
+                    int off_ = val_.getOperations().getOffset();
+                    tag_ = "<span class=\"s\">";
+                    int begin_ = sum_ + off_ + val_.getIndexInEl();
+                    _parts.add(new PartOffset(tag_,begin_));
+                    tag_ = "</span>";
+                    _parts.add(new PartOffset(tag_,begin_+ ((ConstantOperation)val_).getLength()));
+                }
+            }
             if (curOp_ instanceof ExecValueOperation) {
                 int delta_ = ((ValueOperation) val_).getOff();
                 tag_ = "<b>";

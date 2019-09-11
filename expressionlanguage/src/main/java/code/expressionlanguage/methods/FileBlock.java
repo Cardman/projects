@@ -11,12 +11,6 @@ public final class FileBlock extends BracedBlock implements ImportingBlock {
     private Ints lineReturns = new Ints();
     private Ints leftSpaces = new Ints();
     private Ints tabulations = new Ints();
-    private Ints beginStrings = new Ints();
-    private Ints beginTexts = new Ints();
-    private Ints beginChars = new Ints();
-    private Ints endStrings = new Ints();
-    private Ints endTexts = new Ints();
-    private Ints endChars = new Ints();
 
     private Ints beginComments = new Ints();
     private Ints endComments = new Ints();
@@ -71,30 +65,6 @@ public final class FileBlock extends BracedBlock implements ImportingBlock {
 
     public boolean isPredefined() {
         return predefined;
-    }
-
-    public Ints getBeginChars() {
-        return beginChars;
-    }
-
-    public Ints getEndChars() {
-        return endChars;
-    }
-
-    public Ints getBeginTexts() {
-        return beginTexts;
-    }
-
-    public Ints getEndTexts() {
-        return endTexts;
-    }
-
-    public Ints getBeginStrings() {
-        return beginStrings;
-    }
-
-    public Ints getEndStrings() {
-        return endStrings;
     }
 
     public Ints getBeginComments() {
@@ -189,36 +159,6 @@ public final class FileBlock extends BracedBlock implements ImportingBlock {
         } else if (_ch == '&') {
             _xml.insert(0,"&amp;");
         } else {
-            if (beginChars.containsObj(_index)) {
-                _xml.insert(0, _ch);
-                _xml.insert(0, "<span class=\"s\">");
-                return;
-            }
-            if (endChars.containsObj(_index)) {
-                _xml.insert(0, "</span>");
-                _xml.insert(0, _ch);
-                return;
-            }
-            if (beginStrings.containsObj(_index)) {
-                _xml.insert(0, _ch);
-                _xml.insert(0, "<span class=\"s\">");
-                return;
-            }
-            if (endStrings.containsObj(_index)) {
-                _xml.insert(0, "</span>");
-                _xml.insert(0, _ch);
-                return;
-            }
-            if (beginTexts.containsObj(_index)) {
-                _xml.insert(0, _ch);
-                _xml.insert(0, "<span class=\"s\">");
-                return;
-            }
-            if (endTexts.containsObj(_index)) {
-                _xml.insert(0, "</span>");
-                _xml.insert(0, _ch);
-                return;
-            }
             if (beginComments.containsObj(_index)) {
                 _xml.insert(0, _ch);
                 _xml.insert(0, "<span class=\"c\">");

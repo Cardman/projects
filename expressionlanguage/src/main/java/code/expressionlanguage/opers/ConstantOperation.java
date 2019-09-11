@@ -3,6 +3,7 @@ import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.errors.custom.BadFormatNumber;
 import code.expressionlanguage.instr.ConstType;
+import code.expressionlanguage.instr.Delimiters;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.instr.ParsedArgument;
 import code.expressionlanguage.methods.Block;
@@ -90,6 +91,13 @@ public final class ConstantOperation extends LeafOperation {
         setResultClass(new ClassArgumentMatching(argClassName_));
     }
 
+    public int getLength() {
+        Delimiters d_ = getOperations().getDelimiter();
+        int firstPrintChar_ = getOperations().getOffset();
+        int offset_ = getIndexInEl();
+        int begin_ = d_.getDelStringsChars().indexOfObj(firstPrintChar_+offset_);
+        return d_.getDelStringsChars().get(begin_+1)-offset_+1-firstPrintChar_;
+    }
     @Override
     public void analyzeAssignmentAfter(Analyzable _conf) {
         setAssignments(this,_conf);
