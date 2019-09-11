@@ -28,7 +28,7 @@ public class ListenerCardTarotMultiHandful extends AbstractListenerCardTarot {
     }
     @Override
     protected boolean playCardExited(MouseEvent _event) {
-        return _event.getPoint().y < 0;
+        return _event.getY() < 0;
     }
     @Override
     protected void verifierRegles() {

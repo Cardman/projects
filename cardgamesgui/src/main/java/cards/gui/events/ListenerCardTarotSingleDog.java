@@ -1,5 +1,4 @@
 package cards.gui.events;
-import java.awt.Component;
 import java.awt.event.MouseEvent;
 
 import javax.swing.JOptionPane;
@@ -8,6 +7,7 @@ import cards.facade.Games;
 import cards.gui.MainWindow;
 import cards.gui.containers.ContainerGame;
 import cards.gui.containers.ContainerSingleTarot;
+import cards.gui.labels.GraphicTarotCard;
 import cards.tarot.GameTarot;
 import cards.tarot.enumerations.CardTarot;
 import cards.tarot.enumerations.ReasonDiscard;
@@ -18,10 +18,12 @@ public class ListenerCardTarotSingleDog extends AbstractListenerCardTarot {
 
     private ContainerSingleTarot container;
     private boolean inHand;
-    public ListenerCardTarotSingleDog(ContainerSingleTarot _container,CardTarot _pcarte,boolean _inHand) {
+    private GraphicTarotCard component;
+    public ListenerCardTarotSingleDog(ContainerSingleTarot _container,CardTarot _pcarte,boolean _inHand, GraphicTarotCard _component) {
         super(_container,_pcarte);
         container = _container;
         inHand = _inHand;
+        component = _component;
     }
     @Override
     protected boolean canListen() {
@@ -30,13 +32,9 @@ public class ListenerCardTarotSingleDog extends AbstractListenerCardTarot {
     @Override
     protected boolean playCardExited(MouseEvent _event) {
         if (inHand) {
-            return _event.getPoint().y < 0;
+            return _event.getY() < 0;
         }
-        Component c_ = _event.getComponent();
-        if (c_ == null) {
-            return false;
-        }
-        return _event.getPoint().y > c_.getHeight();
+        return _event.getY() > component.getHeight();
     }
     @Override
     protected void verifierRegles() {

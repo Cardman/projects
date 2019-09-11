@@ -33,8 +33,7 @@ public class InteractClick extends MouseAdapter {
     @Override
     public void mouseReleased(MouseEvent e) {
         if (!SwingUtilities.isLeftMouseButton(e)) {
-            Point pt_ = e.getPoint();
-            fenetre.setNewLocation(pt_.x, pt_.y);
+            fenetre.setNewLocation(e.getX(), e.getY());
             if (soundTh != null && soundTh.isAlive()) {
                 return;
             }
@@ -49,12 +48,10 @@ public class InteractClick extends MouseAdapter {
             return;
         }
         if (fenetre.isAddingSoldier()) {
-            Point pt_ = e.getPoint();
-            fenetre.addNewSoldier(pt_.x, pt_.y);
+            fenetre.addNewSoldier(e.getX(), e.getY());
             return;
         }
-        Point pt_ = e.getPoint();
-        fenetre.selectOrDeselect(pt_.x, pt_.y);
+        fenetre.selectOrDeselect(e.getX(), e.getY());
     }
 
     private Score getCloneSoldierSound() {
@@ -74,8 +71,7 @@ public class InteractClick extends MouseAdapter {
 
     @Override
     public void mousePressed(MouseEvent _e) {
-        Point pt_ = _e.getPoint();
-        fenetre.setFirst(pt_.x, pt_.y);
+        fenetre.setFirst(_e.getX(), _e.getY());
     }
 
 //    @Override
@@ -98,8 +94,7 @@ public class InteractClick extends MouseAdapter {
             return;
         }
         fenetre.setDragged(true);
-        Point pt_ = _e.getPoint();
-        fenetre.setLast(pt_.x, pt_.y);
+        fenetre.setLast(_e.getX(), _e.getY());
         fenetre.selectOrDeselectMulti();
     }
 }

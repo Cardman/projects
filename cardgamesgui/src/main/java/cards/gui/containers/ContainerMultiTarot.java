@@ -989,7 +989,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         _panel.removeAll();
         String lg_ = getOwner().getLanguageKey();
         for (GraphicTarotCard c: getGraphicCards(lg_,_hand)) {
-            c.addMouseListener(new ListenerCardTarotMultiDog(this, c.getCard(),_inHand));
+            c.addMouseListener(new ListenerCardTarotMultiDog(this, c.getCard(),_inHand,c));
             _panel.add(c);
         }
 //        boolean entered_ = false;

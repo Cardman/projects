@@ -1,8 +1,8 @@
 package cards.gui.events;
-import java.awt.Component;
 import java.awt.event.MouseEvent;
 
 import cards.gui.containers.ContainerPresident;
+import cards.gui.labels.GraphicPresidentCard;
 import cards.president.enumerations.CardPresident;
 
 public class ListenerCardPresidentDiscard extends
@@ -10,12 +10,14 @@ public class ListenerCardPresidentDiscard extends
 
     private ContainerPresident container;
     private boolean inHand;
+    private GraphicPresidentCard component;
 
     public ListenerCardPresidentDiscard(ContainerPresident _container,
-            CardPresident _card, byte _index, boolean _inHand) {
+            CardPresident _card, byte _index, boolean _inHand, GraphicPresidentCard _component) {
         super(_container, _card, _index);
         container = _container;
         inHand = _inHand;
+        component = _component;
     }
 
     @Override
@@ -26,13 +28,9 @@ public class ListenerCardPresidentDiscard extends
     @Override
     protected boolean playCardExited(MouseEvent _event) {
         if (inHand) {
-            return _event.getPoint().y < 0;
+            return _event.getY() < 0;
         }
-        Component c_ = _event.getComponent();
-        if (c_ == null) {
-            return false;
-        }
-        return _event.getPoint().y > c_.getHeight();
+        return _event.getY() > component.getHeight();
     }
 
     @Override

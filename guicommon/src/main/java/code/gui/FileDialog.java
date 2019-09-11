@@ -175,7 +175,7 @@ public abstract class FileDialog extends Dialog {
     }
 
     public void clickHeader(MouseEvent _e) {
-        int col_ = fileTable.columnAtPoint(_e.getPoint());
+        int col_ = fileTable.columnAtPoint(_e.getX(),_e.getY());
         fileModel.setSorting(col_);
     }
 

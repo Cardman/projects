@@ -282,8 +282,8 @@ public final class TableGui extends CustComponent {
         table.moveColumn(column, targetColumn);
     }
 
-    public int columnAtPoint(Point point) {
-        return table.columnAtPoint(point);
+    public int columnAtPoint(int _x,int _y) {
+        return table.columnAtPoint(new Point(_x,_y));
     }
 
     public int rowAtPoint(Point point) {

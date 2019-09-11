@@ -608,7 +608,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
         byte index_ = CustList.FIRST_INDEX;
         String lg_ = getOwner().getLanguageKey();
         for (GraphicPresidentCard c: getGraphicCards(lg_,_hand)) {
-            c.addMouseListener(new ListenerCardPresidentDiscard(this,c.getCard(),index_,_inHand));
+            c.addMouseListener(new ListenerCardPresidentDiscard(this,c.getCard(),index_,_inHand,c));
             _panel.add(c);
             index_++;
         }

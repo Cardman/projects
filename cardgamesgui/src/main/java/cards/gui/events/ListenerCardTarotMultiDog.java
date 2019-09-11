@@ -1,8 +1,8 @@
 package cards.gui.events;
-import java.awt.Component;
 import java.awt.event.MouseEvent;
 
 import cards.gui.containers.ContainerMultiTarot;
+import cards.gui.labels.GraphicTarotCard;
 import cards.network.tarot.actions.DiscardedCard;
 import cards.tarot.enumerations.CardTarot;
 
@@ -10,10 +10,12 @@ public class ListenerCardTarotMultiDog extends AbstractListenerCardTarot {
 
     private ContainerMultiTarot container;
     private boolean inHand;
-    public ListenerCardTarotMultiDog(ContainerMultiTarot _container, CardTarot _pcarte,boolean _inHand) {
+    private GraphicTarotCard component;
+    public ListenerCardTarotMultiDog(ContainerMultiTarot _container, CardTarot _pcarte,boolean _inHand, GraphicTarotCard _component) {
         super(_container, _pcarte);
         container = _container;
         inHand = _inHand;
+        component = _component;
     }
     @Override
     protected boolean canListen() {
@@ -22,13 +24,9 @@ public class ListenerCardTarotMultiDog extends AbstractListenerCardTarot {
     @Override
     protected boolean playCardExited(MouseEvent _event) {
         if (inHand) {
-            return _event.getPoint().y < 0;
+            return _event.getY() < 0;
         }
-        Component c_ = _event.getComponent();
-        if (c_ == null) {
-            return false;
-        }
-        return _event.getPoint().y > c_.getHeight();
+        return _event.getY() > component.getHeight();
     }
     @Override
     protected void verifierRegles() {
