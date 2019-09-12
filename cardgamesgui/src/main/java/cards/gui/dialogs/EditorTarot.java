@@ -126,7 +126,7 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
         //Panneau Distribution
         initJt(new Spinner(FileConst.MIN_DEALS,FileConst.MIN_DEALS,FileConst.MAX_DEALS,1),_enabledChangingNbPlayers,_nbPlayers, _window);
         container_.add(getJt(),BorderLayout.CENTER);
-        Panel panneau_=new Panel();
+        Panel panneau_=Panel.newLineBox();
         LabelButton bouton_=new LabelButton(getMessages().getVal(NEXT));
         bouton_.addMouseListener(new ValidateRulesDealEvent(this, window));
         panneau_.add(bouton_);
@@ -144,13 +144,13 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
 
         setTitle(getMessages().getVal(DEALING_CARDS));
         Panel c=Panel.newBorder();
-        Panel panneau_=new Panel();
+        Panel panneau_;
 //        byte nbJ_=(byte) getReglesTarot().getRepartition().getNombreJoueurs();
         byte nbCartesPJ_ = (byte) getReglesTarot().getRepartition().getNombreCartesParJoueur();
         byte nbCartesC_ = (byte) getReglesTarot().getRepartition().getNombreCartesChien();
 
         HandTarot pile_=HandTarot.pileBase();
-        panneau_=new Panel();
+        panneau_=Panel.newLineBox();
         panneau_.add(new TextLabel(getMessages().getVal(DEALER)));
         liste=new StringComboBox();
         liste.addItem(nickNames.getPseudo());
@@ -170,7 +170,7 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
         plc_.iniPileTarot(pile_);
         plc_.initSelectionCarteTarot(_parent);
         plc_.getListe().setListener(new ListenerClickCardsList(getMessages().getVal(SELECTED_CARDS), this));
-        panelsCards=new Panel();
+        panelsCards=Panel.newLineBox();
         stack = plc_;
         panelsCards.add(plc_.getContainer());
         plc_=new TarotCardsScrollableList(nbCartesPJ_,nbCartesPJ_,getMessages().getVal(USER_HAND));
@@ -206,7 +206,7 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
         dog = plc_;
         panneau_=Panel.newBorder();
         panneau_.add(panelsCards,BorderLayout.CENTER);
-        Panel sousPanneau_=new Panel();
+        Panel sousPanneau_=Panel.newLineBox();
         LabelButton bouton_=new LabelButton(getMessages().getVal(MOVE_CARDS));
         bouton_.addMouseListener(new MoveCardsEvent(this));
         sousPanneau_.add(bouton_);
@@ -228,7 +228,7 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
         panneau_.add(sousPanneau_,BorderLayout.SOUTH);
         c.add(panneau_,BorderLayout.CENTER);
 
-        panneau_=new Panel();
+        panneau_=Panel.newLineBox();
         bouton_=new LabelButton(getMessages().getVal(BACK));
         bouton_.addMouseListener(new BackToRulesEvent(this, _parent));
         panneau_.add(bouton_);

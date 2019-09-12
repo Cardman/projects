@@ -1,14 +1,10 @@
 package cards.gui.panels;
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.GridLayout;
 
-import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
-import cards.gui.MainWindow;
 import cards.gui.containers.ContainerTarot;
 import cards.gui.dialogs.FileConst;
 import cards.gui.labels.GraphicTarotCard;
@@ -60,7 +56,7 @@ public class PanelTricksHandsTarot implements ViewablePanelTricksHands {
         DealTarot dealt_ = tricksHands.getDistribution();
         CustList<TrickTarot> tricks_ = tricksHands.getTricks();
         container = Panel.newBorder();
-        cards=new Panel();
+        cards=Panel.newLineBox();
         Panel players_ = Panel.newGrid(0,1);
         for(byte joueur_=CustList.FIRST_INDEX;joueur_<_numberPlayers;joueur_++) {
             players_.add(getBlankCard(_pseudos, joueur_));
@@ -78,7 +74,7 @@ public class PanelTricksHandsTarot implements ViewablePanelTricksHands {
         Panel sousPanneau3_;
         //boolean entered_ = false;
         for (byte joueur_ = CustList.FIRST_INDEX;joueur_<_numberPlayers;joueur_++) {
-            sousPanneau3_=Panel.newFlow(FlowLayout.LEFT,0,0);
+            sousPanneau3_= Panel.newLineBox();
             for (GraphicTarotCard c: ContainerTarot.getGraphicCards(lg_, dealt_.hand(joueur_))) {
                 sousPanneau3_.add(c);
             }
@@ -93,11 +89,11 @@ public class PanelTricksHandsTarot implements ViewablePanelTricksHands {
             hands.add(sousPanneau3_);
         }
         for(byte joueur_=CustList.FIRST_INDEX;joueur_<nbBots_;joueur_++) {
-            hands.add(Panel.newFlow(FlowLayout.LEFT,0,0));
+            hands.add(Panel.newLineBox());
         }
         cards.add(hands);
         Panel sousPanneau2_=Panel.newGrid(0,1);
-        sousPanneau3_=Panel.newFlow(FlowLayout.LEFT,0,0);
+        sousPanneau3_= Panel.newLineBox();
         for (GraphicTarotCard c: ContainerTarot.getGraphicCards(lg_, dealt_.derniereMain())) {
             sousPanneau3_.add(c);
         }
@@ -111,7 +107,7 @@ public class PanelTricksHandsTarot implements ViewablePanelTricksHands {
 //        }
         sousPanneau2_.add(sousPanneau3_);
         if (!tricks_.isEmpty()) {
-            sousPanneau3_=Panel.newFlow(FlowLayout.LEFT,0,0);
+            sousPanneau3_= Panel.newLineBox();
             for (GraphicTarotCard c: ContainerTarot.getGraphicCards(lg_, tricks_.first())) {
                 sousPanneau3_.add(c);
             }
@@ -127,7 +123,7 @@ public class PanelTricksHandsTarot implements ViewablePanelTricksHands {
         }
         cards.add(sousPanneau2_);
         container.add(cards,BorderLayout.CENTER);
-        Panel selectionGameState_=new Panel();
+        Panel selectionGameState_=Panel.newLineBox();
         selectionGameState_.add(new TextLabel(messages.getVal(TRICK)));
         Integer[] numerosPlis_;
         numerosPlis_=new Integer[tricks_.size()+1];
@@ -169,7 +165,7 @@ public class PanelTricksHandsTarot implements ViewablePanelTricksHands {
         hands.removeAll();
         DealTarot restoredDeal_ = tricksHands.getDistribution();
         for(byte joueur_=CustList.FIRST_INDEX;joueur_<numberPlayers;joueur_++) {
-            Panel sousPanneau4_=Panel.newFlow(FlowLayout.LEFT,0,0);
+            Panel sousPanneau4_= Panel.newLineBox();
             for (GraphicTarotCard c: ContainerTarot.getGraphicCards(lg_, restoredDeal_.hand(joueur_))) {
                 sousPanneau4_.add(c);
             }
@@ -186,7 +182,7 @@ public class PanelTricksHandsTarot implements ViewablePanelTricksHands {
         int nbBots_ = numberPlayers;
         nbBots_--;
         for(byte joueur_=CustList.FIRST_INDEX;joueur_<nbBots_;joueur_++) {
-            hands.add(Panel.newFlow(FlowLayout.LEFT,0,0));
+            hands.add(Panel.newLineBox());
         }
         selectedTrick.removeAll();
         if(numeroPli_>0) {
@@ -274,7 +270,7 @@ public class PanelTricksHandsTarot implements ViewablePanelTricksHands {
         hands.removeAll();
         DealTarot restoredDeal_ = tricksHands.getDistribution();
         for(byte joueur_=CustList.FIRST_INDEX;joueur_<numberPlayers;joueur_++) {
-            Panel sousPanneau4_=Panel.newFlow(FlowLayout.LEFT,0,0);
+            Panel sousPanneau4_= Panel.newLineBox();
             for (GraphicTarotCard c: ContainerTarot.getGraphicCards(lg_, restoredDeal_.hand(joueur_))) {
                 sousPanneau4_.add(c);
             }
@@ -291,7 +287,7 @@ public class PanelTricksHandsTarot implements ViewablePanelTricksHands {
         int nbBots_ = numberPlayers;
         nbBots_--;
         for(byte joueur_=CustList.FIRST_INDEX;joueur_<nbBots_;joueur_++) {
-            hands.add(Panel.newFlow(FlowLayout.LEFT,0,0));
+            hands.add(Panel.newLineBox());
         }
         selectedTrick.removeAll();
         byte entameur_=tricks_.get(numeroPli_).getEntameur();

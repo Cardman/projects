@@ -100,7 +100,7 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
         getJt().add(getMessages().getVal(DEALING),dealing_);
         Panel declaring_=Panel.newPageBox();
         declaring_.add(new TextLabel(getMessages().getVal(BIDS)));
-        bidding=Panel.newFlow();
+        bidding=Panel.newLineBox();
         bids.clear();
         for (BidTarot enchere_:BidTarot.values()) {
             CustCheckBox caseCroix_=new CustCheckBox(Games.toString(enchere_,lg_));
@@ -133,7 +133,7 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
         sousPanneau_.add(boutonPoignees_);
         declaring_.add(sousPanneau_);
         //Panneau Miseres
-        declaringMiseres=Panel.newFlow();
+        declaringMiseres=Panel.newLineBox();
         miseres.clear();
         declaringMiseres.add(new TextLabel(getMessages().getVal(ALLOWED_MISERES)));
         for (Miseres annonce_:Miseres.values()) {
@@ -169,7 +169,7 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
         }
         sousPanneau_.add(listeChoixTwo);
         bidding_.add(sousPanneau_);
-        sousPanneau_=new Panel();
+        sousPanneau_=Panel.newLineBox();
         sousPanneau_.add(new TextLabel(getMessages().getVal(MODE_GAME)));
         listeChoixThree=new ComboBoxEnumCards<ModeTarot>();
         ModeTarot curTwo_ = getReglesTarot().getMode();

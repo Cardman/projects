@@ -50,7 +50,7 @@ public final class DialogHelpBelote extends Dialog {
             EnumMap<Suit,HandBelote> _repartitionJouees,
             Suit _couleurDemandee,BidBeloteSuit _bid,
             StringList _pseudos, String _lg) {
-        Panel container_=Panel.newFlow();
+        Panel container_=Panel.newLineBox();
         Panel panneau2_=Panel.newBorder();
         Panel panneau3_;
         TextArea zone_;
@@ -77,7 +77,7 @@ public final class DialogHelpBelote extends Dialog {
             tout_.trier(Suit.couleursOrdinaires(), true, ordre_);
         }
         EnumList<Suit> suits_ = Suit.couleursOrdinaires();
-        panneau3_=new Panel();
+        panneau3_=Panel.newLineBox();
 //        Suit couleur_;
         int nbBotPlayers_ = _pseudos.size();
         for(int indicePseudo_=CustList.SECOND_INDEX;indicePseudo_<nbBotPlayers_;indicePseudo_++) {

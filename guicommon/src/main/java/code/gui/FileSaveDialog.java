@@ -50,7 +50,7 @@ public final class FileSaveDialog extends FileDialog implements SingleFileSelect
 
     private TextField typedString = new TextField(NB_COLS);
 
-    private Panel searchingPanel = new Panel();
+    private Panel searchingPanel = Panel.newLineBox();
 
     private StringMap<String> messages;
     private CommonFrame frame;

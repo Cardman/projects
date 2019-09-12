@@ -1,13 +1,10 @@
 package code.gui;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.FontMetrics;
-import java.awt.Point;
+import java.awt.*;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelListener;
+import java.awt.image.BufferedImage;
 
 import javax.swing.*;
 
@@ -15,6 +12,15 @@ public abstract class PaintableLabel extends CustComponent {
 
     private JLabel label = new JLabel();
 
+    public void repaintLabel() {
+        int w_ = getWidth();
+        int h_ = getHeight();
+        BufferedImage img_ = new BufferedImage(w_, h_, BufferedImage.TYPE_INT_ARGB);
+        Graphics gr_ = img_.getGraphics();
+        gr_.setFont(getFont());
+        paintComponent(new CustGraphics(gr_));
+        setIcon(new ImageIcon(img_));
+    }
     public abstract void paintComponent(CustGraphics _g);
 
     public void validate() {

@@ -380,7 +380,7 @@ public final class PaginatorPokemon extends Paginator {
         sorting_.add(cmpPossEvosPrio);
         _p.add(sorting_);
         Panel top_;
-        top_ = new Panel();
+        top_ = Panel.newLineBox();
         LabelButton button_;
         button_ = new LabelButton(getMessages().getVal(SEARCH));
         button_.addMouseListener(new SearchEvent(this));
@@ -417,7 +417,7 @@ public final class PaginatorPokemon extends Paginator {
         getHeader().setPreferredSize(new Dimension(w_+secondCol_+thirdCol_, HEIGTH_CHARS+HEIGTH_CHARS));
         results.add(getHeader());
         _p.add(new ScrollPane(results));
-        Panel bottom_ = new Panel();
+        Panel bottom_ = Panel.newLineBox();
         getNbResults().setValue(getFacade().getNbResultsPerPageFirstBox());
         getNbResults().addChangeListener(new ChangedNbResultsEvent(this));
         bottom_.add(getNbResults());
@@ -672,7 +672,7 @@ public final class PaginatorPokemon extends Paginator {
 //        results.add(new JLabel(POKEMON));
         results.add(getHeader());
         for (PokemonLabel l: list_) {
-            l.repaint();
+            l.repaintLabel();
             //l.setGenderCoord(maxPixName_ + maxPixAbility_ + maxPixItem_ + maxPixItem_);
             //l.setPreferredSize(new Dimension(maxPixName_ + maxPixAbility_ + maxPixItem_ + maxPixLevel_ + maxPixGender_,10));
             results.add(l);

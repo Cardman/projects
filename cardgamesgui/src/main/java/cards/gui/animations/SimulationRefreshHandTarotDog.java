@@ -26,8 +26,8 @@ public final class SimulationRefreshHandTarotDog implements Runnable {
         for (GraphicTarotCard c: ContainerTarot.getGraphicCards(lg_,_hand)) {
             _panel.add(c);
         }
-        _panel.repaint();
-        _panel.revalidate();
+        _panel.repaintChildren();
+        _panel.validate();
     }
 
     @Override

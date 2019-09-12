@@ -42,7 +42,7 @@ public abstract class ProgressingDialog extends Dialog implements ProgressDialog
         perCent = PER_CENT;
         setLocationRelativeToWindow(_window);
         Panel contentPane_ = Panel.newPageBox();
-        Panel label_ = new Panel();
+        Panel label_ = Panel.newLineBox();
         if (!_images.isEmpty()) {
             anim = new PreparedLabel();
             anim.setPreferredSize(new Dimension(WIDTH_ANIM, HEIGTH_ANIM));

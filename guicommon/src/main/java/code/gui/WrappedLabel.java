@@ -36,7 +36,7 @@ public class WrappedLabel extends PaintableLabel {
             }
         }
         setPreferredSize(new Dimension(w_, h_));
-        repaint();
+        repaintLabel();
     }
 
     @Override

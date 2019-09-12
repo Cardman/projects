@@ -1,10 +1,7 @@
 package cards.gui.panels;
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.FlowLayout;
 
-import javax.swing.BoxLayout;
-import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
 import cards.facade.Games;
@@ -46,7 +43,7 @@ public class CarpetPresident {
         number = _nombre;
         pseudos = _pseudos;
         cards = new ByteMap<Playing>(_status);
-        centerDeck=Panel.newFlow(FlowLayout.LEFT, 0, 0);
+        centerDeck= Panel.newLineBox();
         centerDeck.setPreferredSize(GraphicPresidentCard.getDimensionForSeveralCards(_nombre));
         listCards.clear();
         boolean entered_ = false;
@@ -92,8 +89,7 @@ public class CarpetPresident {
     }
 
     public void repaintValidate() {
-        centerDeck.repaint();
-        centerDeck.validate();
+        centerDeck.repaintChildren();
     }
 
     public void setTalonPresident(String _lg, HandPresident _m) {

@@ -86,7 +86,7 @@ public class ContainerBelote extends ContainerGame {
             l.setSelected(_suit);
         }
         for (SuitLabel l: bidsButtons) {
-            l.repaint();
+            l.repaintLabel();
         }
         getBidOk().setEnabledLabel(getPts() > 0);
         //ajouterTexteDansZone(pseudo()+INTRODUCTION_PTS+bid_+RETURN_LINE_CHAR);

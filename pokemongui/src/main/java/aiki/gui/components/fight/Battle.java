@@ -144,7 +144,7 @@ public class Battle extends ChildFrame {
 
 //    private int heightUpper;
 
-    private Panel lower = new Panel();
+    private Panel lower = Panel.newLineBox();
 
     private FrontBattle frontBattle;
 
@@ -322,7 +322,7 @@ public class Battle extends ChildFrame {
         }
         if (plLabelBack != null) {
             plLabelBack.setText(messages.getVal(GO_BACK));
-            plLabelBack.repaint();
+            plLabelBack.repaintLabel();
         }
         if (frontBattle != null) {
             frontBattle.translate();
@@ -392,7 +392,7 @@ public class Battle extends ChildFrame {
             fleeWeb.add(validateActions);
             addFlee();
 //            UPPER.add(fleeWeb);
-            Panel forms_ = new Panel();
+            Panel forms_ = Panel.newLineBox();
             Panel team_ = Panel.newPageBox();
             fighterFrontPanel.initFighters(facade.getPlayerFrontTeam());
             team_.add(fighterFrontPanel.getContainer());
@@ -453,7 +453,7 @@ public class Battle extends ChildFrame {
             validateActions.addMouseListener(new LearnAndEvolveEvent(this));
             fleeWeb.add(validateActions);
 //            UPPER.add(fleeWeb);
-            Panel forms_ = new Panel();
+            Panel forms_ = Panel.newLineBox();
             Panel team_ = Panel.newPageBox();
             fighterPanel.initFighters(facade.getPlayerTeam());
             team_.add(fighterPanel.getContainer());
@@ -472,7 +472,7 @@ public class Battle extends ChildFrame {
 //            actionsBattle.add(new JScrollPane(lower));
 //            actionsBattle.setRightComponent(new JScrollPane(lower));
         } else if (facade.getFight().getState() == FightState.SWITCH_PROPOSE) {
-            Panel forms_ = new Panel();
+            Panel forms_ =Panel.newLineBox();
             Panel team_ = Panel.newPageBox();
             fighterFrontPanel.initFighters(facade.getPlayerFrontTeamForSubstituting());
             team_.add(fighterFrontPanel.getContainer());
@@ -519,7 +519,7 @@ public class Battle extends ChildFrame {
             fleeWeb.add(validateActions);
             addFlee();
 //            UPPER.add(fleeWeb);
-            Panel forms_ = new Panel();
+            Panel forms_ = Panel.newLineBox();
             Panel team_ = Panel.newPageBox();
 //            fighterFrontPanel.initFighters(new TreeMap<Byte,Fighter>(new));
 //            team_.add(fighterFrontPanel);
@@ -725,7 +725,7 @@ public class Battle extends ChildFrame {
 //        GridBagConstraints c_ = new GridBagConstraints();
 //        grid.setConstraints(frontBattle, c_);
         //upper.add(frontBattle);
-        Panel forms_ = new Panel();
+        Panel forms_ = Panel.newLineBox();
         forms_.add(new ScrollPane(commentsErrors));
 //        c_ = new GridBagConstraints();
 //        c_.gridwidth = GridBagConstraints.REMAINDER;
@@ -1088,7 +1088,7 @@ public class Battle extends ChildFrame {
             for (PlaceLabel p: placesLabels) {
                 p.setSelected(facade.getFight().getChosenSubstitute());
             }
-            panelPlaces.repaint();
+            panelPlaces.repaintChildren();
         }
         enableClick = true;
     }
@@ -1111,7 +1111,7 @@ public class Battle extends ChildFrame {
             for (PlaceLabel p: placesLabels) {
                 p.setSelected(facade.getFight().getChosenSubstitute());
             }
-            panelPlaces.repaint();
+            panelPlaces.repaintChildren();
         }
         enableClick = true;
     }
@@ -1209,7 +1209,7 @@ public class Battle extends ChildFrame {
             abilitiesLearnPanel.add(ab_);
         }
         abilitiesLearnPanel.validate();
-        abilitiesLearnPanel.repaint();
+        abilitiesLearnPanel.repaintChildren();
         changeAbility(facade.getAbility());
     }
 
@@ -1233,7 +1233,7 @@ public class Battle extends ChildFrame {
         facade.changeAction(_action);
         for (ActionLabel a: actionsLabels) {
             a.setSelected(_action);
-            a.repaint();
+            a.repaintLabel();
         }
         actions.removeAll();
         actions.add(actionType);
@@ -1362,7 +1362,7 @@ public class Battle extends ChildFrame {
         facade.chooseMove(_move);
         for (MoveLabel m: movesLabels) {
             m.setSelected(_move);
-            m.repaint();
+            m.repaintLabel();
         }
         if (facade.getFight().getSelectedActionCurFighter() == ActionType.MOVE) {
 //            if (targetsPanel != null) {
@@ -1410,7 +1410,7 @@ public class Battle extends ChildFrame {
         for (PlaceLabel p: placesLabels) {
             p.setSelected(_index);
         }
-        panelPlaces.repaint();
+        panelPlaces.repaintChildren();
     }
 
     public void chooseEvolution() {
@@ -1445,7 +1445,7 @@ public class Battle extends ChildFrame {
         for (AbilityLabel a: abilityLabels) {
             a.setSelected(_ability);
         }
-        abilitiesLearnPanel.repaint();
+        abilitiesLearnPanel.repaintChildren();
     }
 
     private void initComments() {

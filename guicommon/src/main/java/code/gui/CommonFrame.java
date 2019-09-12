@@ -12,7 +12,7 @@ public abstract class CommonFrame implements ChangeableTitle {
 
     private String accessFile;
 
-    private Panel contentPane = new Panel();
+    private Panel contentPane = Panel.newLineBox();
 
     private Ownable owner;
     private JFrame frame = new JFrame();
@@ -132,7 +132,7 @@ public abstract class CommonFrame implements ChangeableTitle {
     }
 
     public void setContentPane(ScrollPane _contentPane) {
-        Panel p_ = new Panel();
+        Panel p_ = Panel.newLineBox();
         p_.add(_contentPane);
         setContentPane(p_);
     }

@@ -2,15 +2,8 @@ package cards.gui.containers;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.GridLayout;
 
-import javax.swing.BoxLayout;
-import javax.swing.JCheckBox;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 
 import cards.belote.BidBeloteSuit;
@@ -146,7 +139,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         getBidOk().setEnabledLabel(false);
         getBidOk().addMouseListener(new BidEvent(this));
         Panel panel_ = Panel.newPageBox();
-        Panel panelSuits_ = new Panel();
+        Panel panelSuits_ = Panel.newLineBox();
         getBidsButtons().clear();
         for (Suit s: Suit.couleursOrdinaires()) {
             SuitLabel suitLabel_ = new SuitLabel();
@@ -161,7 +154,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
             panelSuits_.add(suitLabel_);
         }
         panel_.add(panelSuits_);
-        Panel panelBids_ = new Panel();
+        Panel panelBids_ = Panel.newLineBox();
         for (BidBelote b: BidBelote.getNonZeroBids()) {
             if (b.getCouleurDominante()) {
                 continue;
@@ -186,7 +179,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
             getBidsButtons().add(suitLabel_);
         }
         panel_.add(panelBids_);
-        Panel panelOk_ = new Panel();
+        Panel panelOk_ = Panel.newLineBox();
         LabelButton buttonSuit_ = new LabelButton(Games.toString(BidBelote.FOLD,lg_));
         buttonSuit_.addMouseListener(new FoldEvent(this));
         panelOk_.add(buttonSuit_);
@@ -541,7 +534,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         setCanPlay(true);
         String lg_ = getOwner().getLanguageKey();
         if (!_error.getCards().estVide()) {
-            Panel panneau_ = Panel.newFlow(FlowLayout.LEFT, 0, 0);
+            Panel panneau_ = Panel.newLineBox();
             HandBelote cartesBeloteRebelote_ = _error.getCards();
             for (GraphicBeloteCard c: getGraphicCards(lg_, cartesBeloteRebelote_)) {
                 panneau_.add(c);
@@ -716,7 +709,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         getTapis().setTapisBelote(tapis_);
         container_.add(tapis_.getContainer(), BorderLayout.CENTER);
         Panel panneau_;
-        panneau_=Panel.newFlow(FlowLayout.LEFT, 0, 0);
+        panneau_= Panel.newLineBox();
         panneau_.setBackground(Color.BLUE);
         setPanelHand(panneau_);
         container_.add(panneau_, BorderLayout.SOUTH);
@@ -731,14 +724,13 @@ public class ContainerMultiBelote extends ContainerBelote implements
         setDeclaredHandfuls(new ByteMap<Panel>());
         Panel declaredHandfuls_ = Panel.newGrid(0, 1);
         for (byte i = CustList.FIRST_INDEX; i < nbChoosenPlayers; i++) {
-            Panel declaredHandfulGroup_ = Panel.newFlow();
+            Panel declaredHandfulGroup_ = Panel.newLineBox();
             TextLabel lab_ = new TextLabel(pseudos_.getVal(i));
             declaredHandfulGroup_.add(lab_);
             TextLabel handful_ = new TextLabel(EMPTY_STRING);
             declaredHandfulGroup_.add(handful_);
             getHandfuls().put(i, handful_);
-            Panel declaredHandful_ = Panel.newFlow(
-                    FlowLayout.LEFT, 0, 0);
+            Panel declaredHandful_ = Panel.newLineBox();
             declaredHandfulGroup_.add(declaredHandful_);
             getDeclaredHandfuls().put(i, declaredHandful_);
             declaredHandfuls_.add(declaredHandfulGroup_);
@@ -795,7 +787,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
             _panel.add(c);
         }
         _panel.validate();
-        _panel.repaint();
+        _panel.repaintChildren();
 //        boolean entered_ = false;
 //        for (CardBelote c: _hand) {
 //            GraphicBeloteCard carte_ = new GraphicBeloteCard(

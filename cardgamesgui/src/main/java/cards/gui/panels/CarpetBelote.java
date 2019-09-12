@@ -2,10 +2,7 @@ package cards.gui.panels;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.GridLayout;
 
-import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 
 import cards.belote.HandBelote;
@@ -39,7 +36,7 @@ public class CarpetBelote {
         if(_nombreDeJoueurs==4) {
             for (int i = 0; i < 9; i++) {
                 Panel surPanneau_;
-                surPanneau_=Panel.newFlow(FlowLayout.CENTER, 0, 0);
+                surPanneau_= Panel.newLineBox();
                 if (i % 2 == 1) {
 
                     GraphicBeloteCard carte_ = new GraphicBeloteCard(_lg,
@@ -73,12 +70,12 @@ public class CarpetBelote {
             }
         } else if(_nombreDeJoueurs==6) {
             for(int i=0;i<12;i++) {
-                Panel surPanneau_=new Panel();
+                Panel surPanneau_=Panel.newLineBox();
                 Panel panneau_=Panel.newBorder();
                 TextArea jta_=new TextArea(EMPTY,3,0);
                 jta_.setEditable(false);
                 if(i==3) {
-                    surPanneau_=Panel.newFlow(FlowLayout.LEFT,0,0);
+                    surPanneau_= Panel.newLineBox();
                     if(c_.horaire) {
                         jta_.append(StringList.concat(_pseudos.get(2),RETURN_LINE));
                     } else {
@@ -92,7 +89,7 @@ public class CarpetBelote {
                     panneau_.add(carte_,BorderLayout.CENTER);
                     surPanneau_.add(panneau_);
                 } else if(i==5) {
-                    surPanneau_=Panel.newFlow(FlowLayout.RIGHT,0,0);
+                    surPanneau_= Panel.newLineBox();
                     if(c_.horaire) {
                         jta_.append(StringList.concat(_pseudos.get(4),RETURN_LINE));
                     } else {
@@ -106,7 +103,7 @@ public class CarpetBelote {
                     panneau_.add(carte_,BorderLayout.CENTER);
                     surPanneau_.add(panneau_);
                 } else if(i==6) {
-                    surPanneau_=Panel.newFlow(FlowLayout.LEFT,0,0);
+                    surPanneau_= Panel.newLineBox();
                     if(c_.horaire) {
                         jta_.append(StringList.concat(_pseudos.get(1),RETURN_LINE));
                     } else {
@@ -120,7 +117,7 @@ public class CarpetBelote {
                     panneau_.add(carte_,BorderLayout.CENTER);
                     surPanneau_.add(panneau_);
                 } else if(i==8) {
-                    surPanneau_=Panel.newFlow(FlowLayout.RIGHT,0,0);
+                    surPanneau_= Panel.newLineBox();
                     if(c_.horaire) {
                         jta_.append(StringList.concat(_pseudos.get(5),RETURN_LINE));
                     } else {
@@ -134,7 +131,7 @@ public class CarpetBelote {
                     panneau_.add(carte_,BorderLayout.CENTER);
                     surPanneau_.add(panneau_);
                 } else if(i==1) {
-                    surPanneau_=Panel.newFlow(FlowLayout.CENTER,0,0);
+                    surPanneau_= Panel.newLineBox();
                     jta_.append(StringList.concat(_pseudos.get(3),RETURN_LINE));
                     ScrollPane ascenseur_=new ScrollPane(jta_);
                     ascenseur_.setPreferredSize(new Dimension(100,50));
@@ -144,7 +141,7 @@ public class CarpetBelote {
                     panneau_.add(carte_,BorderLayout.CENTER);
                     surPanneau_.add(panneau_);
                 } else if(i==10) {
-                    surPanneau_=Panel.newFlow(FlowLayout.CENTER,0,0);
+                    surPanneau_= Panel.newLineBox();
                     jta_.append(StringList.concat(_pseudos.get(0),RETURN_LINE));
                     ScrollPane ascenseur_=new ScrollPane(jta_);
                     ascenseur_.setPreferredSize(new Dimension(100,50));
@@ -154,7 +151,7 @@ public class CarpetBelote {
                     panneau_.add(carte_,BorderLayout.CENTER);
                     surPanneau_.add(panneau_);
                 } else if(i==4) {
-                    surPanneau_=Panel.newFlow(FlowLayout.CENTER,0,0);
+                    surPanneau_= Panel.newLineBox();
                     surPanneau_.setPreferredSize(GraphicBeloteCard.getDimensionForSeveralCards(_nombre));
                 }
                 surPanneau_.setBackground(new Color(0,125,0));
@@ -163,7 +160,7 @@ public class CarpetBelote {
         } else if(_nombreDeJoueurs==3) {
             for(int i=0;i<9;i++) {
                 Panel surPanneau_;
-                surPanneau_=Panel.newFlow(FlowLayout.CENTER,0,0);
+                surPanneau_= Panel.newLineBox();
                 Panel panneau_=Panel.newBorder();
                 TextArea jta_=new TextArea(EMPTY,3,0);
                 jta_.setEditable(false);
@@ -210,12 +207,12 @@ public class CarpetBelote {
             }
         } else {
             for(int i=0;i<9;i++) {
-                Panel surPanneau_=new Panel();
+                Panel surPanneau_=Panel.newLineBox();
                 Panel panneau_=Panel.newBorder();
                 TextArea jta_=new TextArea(EMPTY,3,0);
                 jta_.setEditable(false);
                 if(i==0) {
-                    surPanneau_=Panel.newFlow(FlowLayout.RIGHT,0,0);
+                    surPanneau_= Panel.newLineBox();
                     if(c_.horaire) {
                         jta_.append(StringList.concat(_pseudos.get(2),RETURN_LINE));
                     } else {
@@ -229,7 +226,7 @@ public class CarpetBelote {
                     panneau_.add(carte_,BorderLayout.CENTER);
                     surPanneau_.add(panneau_);
                 } else if(i==2) {
-                    surPanneau_=Panel.newFlow(FlowLayout.LEFT,0,0);
+                    surPanneau_= Panel.newLineBox();
                     if(c_.horaire) {
                         jta_.append(StringList.concat(_pseudos.get(3),RETURN_LINE));
                     } else {
@@ -243,7 +240,7 @@ public class CarpetBelote {
                     panneau_.add(carte_,BorderLayout.CENTER);
                     surPanneau_.add(panneau_);
                 } else if(i==3) {
-                    surPanneau_=Panel.newFlow(FlowLayout.LEFT,0,0);
+                    surPanneau_= Panel.newLineBox();
                     if(c_.horaire) {
                         jta_.append(StringList.concat(_pseudos.get(1),RETURN_LINE));
                     } else {
@@ -257,7 +254,7 @@ public class CarpetBelote {
                     panneau_.add(carte_,BorderLayout.CENTER);
                     surPanneau_.add(panneau_);
                 } else if(i==5) {
-                    surPanneau_=Panel.newFlow(FlowLayout.RIGHT,0,0);
+                    surPanneau_= Panel.newLineBox();
                     if(c_.horaire) {
                         jta_.append(StringList.concat(_pseudos.get(4),RETURN_LINE));
                     } else {
@@ -271,7 +268,7 @@ public class CarpetBelote {
                     panneau_.add(carte_,BorderLayout.CENTER);
                     surPanneau_.add(panneau_);
                 } else if(i==7) {
-                    surPanneau_=Panel.newFlow(FlowLayout.CENTER,0,0);
+                    surPanneau_= Panel.newLineBox();
                     jta_.append(StringList.concat(_pseudos.get(0),RETURN_LINE));
                     ScrollPane ascenseur_=new ScrollPane(jta_);
                     ascenseur_.setPreferredSize(new Dimension(100,50));
@@ -281,7 +278,7 @@ public class CarpetBelote {
                     panneau_.add(carte_,BorderLayout.CENTER);
                     surPanneau_.add(panneau_);
                 } else if(i==4) {
-                    surPanneau_=Panel.newFlow(FlowLayout.CENTER,0,0);
+                    surPanneau_= Panel.newLineBox();
                     surPanneau_.setPreferredSize(GraphicBeloteCard.getDimensionForSeveralCards(_nombre));
                 }
                 surPanneau_.setBackground(new Color(0,125,0));
@@ -293,12 +290,9 @@ public class CarpetBelote {
 
     public void retirerCartes() {
         centerDeck.removeAll();
-        centerDeck.repaint();
+        centerDeck.validate();
     }
-    public void supprimerCarteTalon() {
-        centerDeck.remove(0);
-        centerDeck.repaint();
-    }
+
     public void setTalonBelote(String _lg, HandBelote _m) {
         GraphicBeloteCard cg_=new GraphicBeloteCard(_lg,_m.premiereCarte(),SwingConstants.RIGHT,true);
         cg_.setPreferredSize(GraphicBeloteCard.getMaxDimension());
@@ -310,7 +304,7 @@ public class CarpetBelote {
         for(byte joueur_=0;joueur_<_nombreDeJoueurs;joueur_++) {
             GraphicBeloteCard place_ = cards.getVal((int) joueur_);
             place_.setJeu(_lg);
-            place_.repaint();
+            place_.repaintLabel();
         }
     }
     /**Met a jour la carte a jouer d'un joueur
@@ -318,7 +312,7 @@ public class CarpetBelote {
     public void setCarteBelote(String _lg, byte _joueur,CardBelote _m) {
         GraphicBeloteCard place_= cards.getVal((int) _joueur);
         place_.setCarteEnJeu(_lg, _m);
-        place_.repaint();
+        place_.repaintLabel();
     }
 
     public Panel getContainer() {

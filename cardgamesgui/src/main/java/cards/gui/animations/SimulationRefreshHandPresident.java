@@ -28,7 +28,7 @@ public final class SimulationRefreshHandPresident implements Runnable {
         for (GraphicPresidentCard c: ContainerPresident.getGraphicCards(lg_,hand)) {
             panneau1_.add(c);
         }
-        panneau1_.repaint();
-        panneau1_.revalidate();
+        panneau1_.repaintChildren();
+        panneau1_.validate();
     }
 }

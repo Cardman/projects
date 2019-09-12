@@ -3,17 +3,9 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 
-import javax.swing.BoxLayout;
-import javax.swing.ButtonGroup;
-import javax.swing.JCheckBox;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JRadioButton;
-import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
-import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 
 import cards.consts.GameType;
@@ -118,10 +110,10 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         CarpetTarot tapis_ = CarpetTarot.initTapisTarot(lg_, partie_.getNombreDeJoueurs(), getDisplayingTarot().isClockwise(), partie_.getDistribution().derniereMain().total());
         getTapis().setTapisTarot(tapis_);
         container_.add(tapis_.getContainer(),BorderLayout.CENTER);
-        setPanelHand(Panel.newFlow(FlowLayout.LEFT,0,0));
-        Panel panneau_=new Panel();
+        setPanelHand(Panel.newLineBox());
+        Panel panneau_=Panel.newLineBox();
         panneau_.add(getPanelHand());
-        setPanelDiscardedTrumps(Panel.newFlow(FlowLayout.LEFT,0,0));
+        setPanelDiscardedTrumps(Panel.newLineBox());
         getPanelDiscardedTrumps().setVisible(false);
         panneau_.add(getPanelDiscardedTrumps());
         panneau_.setBackground(Color.BLUE);
@@ -133,10 +125,10 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         panneau2_.add(new ScrollPane(getEvents()));
         setMini(MiniCarpet.newCarpet(partie_.getNombreDeJoueurs(),getDisplayingTarot().isClockwise(),pseudos_));
         panneau2_.add(getMiniPanel());
-        setIncludedTrumpsForHandful(Panel.newFlow(FlowLayout.CENTER,0,0));
+        setIncludedTrumpsForHandful(Panel.newLineBox());
         ScrollPane scrollIncl_ = new ScrollPane(getIncludedTrumpsForHandful());
         scrollIncl_.setPreferredSize(new Dimension(125,60));
-        setExcludedTrumpsForHandful(Panel.newFlow(FlowLayout.CENTER,0,0));
+        setExcludedTrumpsForHandful(Panel.newLineBox());
         ScrollPane scrollExc_ = new ScrollPane(getExcludedTrumpsForHandful());
         scrollExc_.setPreferredSize(new Dimension(125,60));
         setDeclaringHandful(new SplitPane(JSplitPane.HORIZONTAL_SPLIT,scrollIncl_,scrollExc_));
@@ -152,20 +144,20 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         Panel declaredHandfuls_ = Panel.newGrid(0,1);
         int nbPlayers_ = partie_.getNombreDeJoueurs();
         for (byte i=CustList.FIRST_INDEX;i<nbPlayers_;i++) {
-            Panel declaredHandfulGroup_ = Panel.newFlow();
+            Panel declaredHandfulGroup_ = Panel.newLineBox();
             TextLabel lab_ = new TextLabel(pseudos_.get(i));
             declaredHandfulGroup_.add(lab_);
             TextLabel handful_ = new TextLabel(EMPTY_STRING);
             declaredHandfulGroup_.add(handful_);
             getHandfuls().put(i, handful_);
-            Panel declaredHandful_ = Panel.newFlow(FlowLayout.LEFT,0,0);
+            Panel declaredHandful_ = Panel.newLineBox();
             declaredHandfulGroup_.add(declaredHandful_);
             getDeclaredHandfuls().put(i, declaredHandful_);
             declaredHandfuls_.add(declaredHandfulGroup_);
         }
         ScrollPane scroll_ = new ScrollPane(declaredHandfuls_);
         panneau2_.add(scroll_);
-        setPanelCallableCards(Panel.newFlow(FlowLayout.LEFT,0,0));
+        setPanelCallableCards(Panel.newLineBox());
         setScrollCallableCards(new ScrollPane(getPanelCallableCards()));
         getScrollCallableCards().setVisible(false);
         panneau2_.add(getScrollCallableCards());
@@ -466,7 +458,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
 //                }
                 getPanelDiscardedTrumps().setVisible(true);
                 getPanelDiscardedTrumps().validate();
-                getPanelDiscardedTrumps().repaint();
+                getPanelDiscardedTrumps().repaintChildren();
             }
         }
         for (TrickTarot t: partie_.unionPlis()) {
@@ -562,7 +554,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
 //                }
                 getPanelDiscardedTrumps().setVisible(true);
                 getPanelDiscardedTrumps().validate();
-                getPanelDiscardedTrumps().repaint();
+                getPanelDiscardedTrumps().repaintChildren();
                 //pack();
             }
         }
@@ -742,7 +734,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
 
         /*On affiche la main de l'utilisateur avec des ecouteurs sur les cartes et on supprime tous les boutons de l'ihm places a droite avant d'executer un eventuel Thread*/
         getPanneauBoutonsJeu().removeAll();
-        getPanneauBoutonsJeu().repaint();
+        getPanneauBoutonsJeu().validate();
         setRaisonCourante(getMessages().getVal(MainWindow.WAIT_TURN));
         setThreadAnime(true);
         animCarteTarot=new AnimationCardTarot(this);
@@ -780,7 +772,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
 //                    }
                     getPanelDiscardedTrumps().setVisible(true);
                     getPanelDiscardedTrumps().validate();
-                    getPanelDiscardedTrumps().repaint();
+                    getPanelDiscardedTrumps().repaintChildren();
                     //pack();
                 }
             }
@@ -912,7 +904,6 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         getPause().setEnabledMenu(false);
         getPanneauBoutonsJeu().removeAll();
         getPanneauBoutonsJeu().validate();
-        getPanneauBoutonsJeu().repaint();
         animCarteTarot=new AnimationCardTarot(this);
         CustComponent.newThread(animCarteTarot).start();
         setThreadAnime(true);
@@ -1036,7 +1027,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         onglets_.add(getMessages().getVal(MainWindow.HANDS_TRICKS),panelCards_);
         container_.add(onglets_,BorderLayout.CENTER);
         Panel panneau_=Panel.newPageBox();
-        Panel buttons_ = new Panel();
+        Panel buttons_ = Panel.newLineBox();
         GameType type_;
         long nombreParties_;
         type_=partie_.getType();
@@ -1161,7 +1152,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
 //                }
                 getPanelDiscardedTrumps().setVisible(true);
                 getPanelDiscardedTrumps().validate();
-                getPanelDiscardedTrumps().repaint();
+                getPanelDiscardedTrumps().repaintChildren();
             }
             addButtonNextTrickTarot(getMessages().getVal(MainWindow.GO_CARD_GAME), true);
         }
@@ -1255,7 +1246,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
 //            entered_ = true;
 //        }
         _panel.validate();
-        _panel.repaint();
+        _panel.repaintChildren();
     }
     private void updateCardsInPanelTarotCallBeforeDog(Panel _panel, HandTarot _hand) {
         _panel.removeAll();
@@ -1274,11 +1265,11 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
 //            entered_ = true;
 //        }
         _panel.validate();
-        _panel.repaint();
+        _panel.repaintChildren();
     }
     private void updateCardsInPanelTarotHandful(Panel _panel, HandTarot _hand, boolean _included) {
         _panel.removeAll();
-        _panel.repaint();
+        _panel.validate();
         String lg_ = getOwner().getLanguageKey();
         for(CardTarot c: _hand) {
             MiniTarotCard carte_=new MiniTarotCard(lg_, c);
@@ -1295,7 +1286,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
             _panel.add(c);
         }
         _panel.validate();
-        _panel.repaint();
+        _panel.repaintChildren();
 //        boolean entered_ = false;
 //        for(CardTarot c: _hand)
 //        {

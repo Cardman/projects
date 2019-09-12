@@ -77,7 +77,7 @@ public final class FileOpenDialog extends FileDialog implements SingleFileSelect
         LabelButton search_ = new LabelButton(messages.getVal(SEARCH));
         search_.addMouseListener(new SearchingEvent(this));
         searchingPanel.removeAll();
-        Panel panel_ = new Panel();
+        Panel panel_ = Panel.newLineBox();
         panel_.add(label_);
         panel_.add(typedString);
         panel_.add(search_);

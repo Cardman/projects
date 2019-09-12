@@ -184,7 +184,7 @@ public class Scene extends PaintableLabel implements MouseListener {
                 _facade.getForegroundImages().removeKey(s);
             }
         }
-        repaint();
+        repaintLabel();
     }
 
     public void setDir(FacadeGame _f) {

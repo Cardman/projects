@@ -28,7 +28,6 @@ import javax.swing.*;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 
 public final class SimulatingBeloteImpl implements SimulatingBelote {
     private final ContainerSimuBelote container;
@@ -119,7 +118,7 @@ public final class SimulatingBeloteImpl implements SimulatingBelote {
         CarpetBelote tapis_ = CarpetBelote.initTapisBelote(lg_, partie_.getNombreDeJoueurs(), container.getDisplayingBelote().isClockwise(), pseudos_, 1);
         container.getTapis().setTapisBelote(tapis_);
         container_.add(tapis_.getContainer(),BorderLayout.CENTER);
-        Panel panneau_=Panel.newFlow(FlowLayout.LEFT,0,0);
+        Panel panneau_= Panel.newLineBox();
         panneau_.setBackground(Color.BLUE);
         container.setPanelHand(panneau_);
         container_.add(panneau_,BorderLayout.SOUTH);
@@ -134,13 +133,13 @@ public final class SimulatingBeloteImpl implements SimulatingBelote {
         Panel declaredHandfuls_ = Panel.newGrid(0,1);
         int nbPlayers_ = partie_.getNombreDeJoueurs();
         for (byte i=CustList.FIRST_INDEX;i<nbPlayers_;i++) {
-            Panel declaredHandfulGroup_ = Panel.newFlow();
+            Panel declaredHandfulGroup_ = Panel.newLineBox();
             TextLabel lab_ = new TextLabel(pseudos_.get(i));
             declaredHandfulGroup_.add(lab_);
             TextLabel handful_ = new TextLabel(ContainerGame.EMPTY_STRING);
             declaredHandfulGroup_.add(handful_);
             container.getHandfuls().put(i, handful_);
-            Panel declaredHandful_ = Panel.newFlow(FlowLayout.LEFT,0,0);
+            Panel declaredHandful_ = Panel.newLineBox();
             declaredHandfulGroup_.add(declaredHandful_);
             container.getDeclaredHandfuls().put(i, declaredHandful_);
             declaredHandfuls_.add(declaredHandfulGroup_);
@@ -166,8 +165,8 @@ public final class SimulatingBeloteImpl implements SimulatingBelote {
         for (GraphicBeloteCard c: ContainerBelote.getGraphicCards(lg_,partie_.getDeal().hand())) {
             panneau1_.add(c);
         }
-        panneau1_.repaint();
-        panneau1_.revalidate();
+        panneau1_.repaintChildren();
+        panneau1_.validate();
     }
     @Override
     public void beginDemo() {

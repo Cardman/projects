@@ -39,13 +39,13 @@ public final class DialogHelpTarot extends Dialog {
     }
     /**Cartes possibles et certaines &#224 la belote et au tarot*/
     public static void setDialogueTarot(EnumMap<Suit,CustList<HandTarot>> _cartesPossibles,EnumMap<Suit,CustList<HandTarot>> _cartesCertaines,EnumMap<Suit,HandTarot> _repartitionJouees,StringList _pseudos, String _lg) {
-        Panel container_=Panel.newFlow();
+        Panel container_=Panel.newLineBox();
         Panel panneau2_=Panel.newBorder();
         Panel panneau3_;
         TextArea zone_;
         HandTarot tout_ = HandTarot.pileBase();
         EnumList<Suit> suits_ = new EnumList<Suit>(Suit.values());
-        panneau3_=new Panel();
+        panneau3_=Panel.newLineBox();
 //        Suit couleur_;
 //        Suit couleurMemo_=null;
         int nbPlayers_ = _pseudos.size();

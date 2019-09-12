@@ -18,7 +18,7 @@ public abstract class Dialog implements ChangeableTitle {
 
     private Image imageIconFrame;
 
-    private Panel contentPane  = new Panel();
+    private Panel contentPane  = Panel.newLineBox();
 
     private JDialog dialog = new JDialog();
     private Ownable owner;
@@ -93,7 +93,7 @@ public abstract class Dialog implements ChangeableTitle {
     }
 
     public void setContentPane(ScrollPane _contentPane) {
-        Panel p_ = new Panel();
+        Panel p_ = Panel.newLineBox();
         p_.add(_contentPane);
         setContentPane(p_);
     }

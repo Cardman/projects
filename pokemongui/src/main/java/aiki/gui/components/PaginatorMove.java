@@ -356,7 +356,7 @@ public final class PaginatorMove extends Paginator {
         sorting_.add(cmpTargetsPrio);
         _p.add(sorting_);
         Panel top_;
-        top_ = new Panel();
+        top_ = Panel.newLineBox();
         LabelButton button_;
         button_ = new LabelButton(getMessages().getVal(SEARCH));
         button_.addMouseListener(new SearchEvent(this));
@@ -399,7 +399,7 @@ public final class PaginatorMove extends Paginator {
         results.add(getHeader());
         //results.add(new JLabel(getMessages().getVal(MOVE)));
         _p.add(new ScrollPane(results));
-        Panel bottom_ = new Panel();
+        Panel bottom_ = Panel.newLineBox();
         getNbResults().setValue(getFacade().getNbResultsPerPageMove());
         getNbResults().addChangeListener(new ChangedNbResultsEvent(this));
         bottom_.add(getNbResults());
@@ -635,7 +635,7 @@ public final class PaginatorMove extends Paginator {
 //        results.add(new JLabel(getMessages().getVal(MOVE)));
         results.add(getHeader());
         for (TmLabel l: list_) {
-            l.repaint();
+            l.repaintLabel();
             results.add(l);
             getResultsLabels().add(l);
         }

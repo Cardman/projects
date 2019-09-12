@@ -74,7 +74,7 @@ public class SongRenderer extends PaintableLabel implements MouseListener {
 
     @Override
     public void mouseReleased(MouseEvent _e) {
-        repaint();
+        repaintLabel();
     }
 
     @Override

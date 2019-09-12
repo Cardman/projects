@@ -253,7 +253,7 @@ public final class MainWindow extends NetGroupFrame {
         dataGame.setEnabledMenu(false);
         battle.setVisibleFrontBattle(false);
         mainPanel.add(battle);
-        mainPanel.add(scenePanel);
+        mainPanel.add(scenePanel.getComponent());
         time = new Clock();
         mainPanel.add(time);
         lastSavedGameDate = new TextLabel("");
@@ -445,7 +445,7 @@ public final class MainWindow extends NetGroupFrame {
             beginGame = Panel.newPageBox();
         }
         beginGame.removeAll();
-        Panel heros_ = new Panel();
+        Panel heros_ = Panel.newLineBox();
         for (Sex s: Sex.values()) {
             ImageHeroKey i_;
             i_ = new ImageHeroKey(EnvironmentType.ROAD, s);
@@ -457,7 +457,7 @@ public final class MainWindow extends NetGroupFrame {
             heros_.add(label_);
         }
         beginGame.add(heros_);
-        Panel nickname_ = new Panel();
+        Panel nickname_ = Panel.newLineBox();
         nickname_.add(new TextLabel(messages.getVal(NICKNAME)));
         if (nickname == null) {
             nickname = new TextField(16);
@@ -483,7 +483,7 @@ public final class MainWindow extends NetGroupFrame {
         chosenSex = _sex;
         herosLabels.getVal(_sex).setSelected(true);
         herosLabels.getVal(_sex.getOppositeSex()).setSelected(false);
-        beginGame.repaint();
+        beginGame.repaintSecondChildren();
     }
 
     private void newGame() {
@@ -592,7 +592,7 @@ public final class MainWindow extends NetGroupFrame {
             if (battle != null) {
                 battle.setWild(false);
             }
-            setFight(true, false, false);
+            setFight(false, false);
             return;
         }
         drawGameWalking(true);
@@ -605,7 +605,7 @@ public final class MainWindow extends NetGroupFrame {
 //        }
         difficulty.setEnabledMenu(true);
         battle.setVisibleFrontBattle(false);
-        scenePanel.setVisible(true);
+        scenePanel.getComponent().setVisible(true);
         inBattle = false;
         dataBattle.setEnabledMenu(false);
         scenePanel.drawGameWalking(_setPreferredSize);
@@ -1274,25 +1274,23 @@ public final class MainWindow extends NetGroupFrame {
         return path_;
     }
 
-    public void setFight(boolean _pack, boolean _animate, boolean _wild) {
+    public void setFight(boolean _animate, boolean _wild) {
         difficulty.setEnabledMenu(false);
         facade.setChangeToFightScene(false);
         enabledMove = false;
         battle.setVisibleFrontBattle(true);
-        scenePanel.setVisible(false);
+        scenePanel.getComponent().setVisible(false);
 //        mainPanel.remove(scenePanel);
         //initBattle();
         battle.enableAnimation(loadingConf.isEnableAnimation());
         battle.initializeFight(false);
         if (!_animate) {
-            battle.repaint();
+            battle.repaintLabel();
         }
 //        mainPanel.add(battle, CustList.FIRST_INDEX);
         inBattle = true;
         dataBattle.setEnabledMenu(true);
-        if (_pack) {
-            pack();
-        }
+        pack();
         if (loadingConf.isEnableAnimation() && _animate) {
             if (_wild) {
                 fightIntroThread = new FightWildIntroThread(facade, battle.getBattle());

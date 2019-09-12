@@ -122,7 +122,7 @@ public final class EditorPresident extends DialogPresident implements SetterSele
         //Panneau Distribution
         initJt(new Spinner(FileConst.MIN_DEALS,FileConst.MIN_DEALS,FileConst.MAX_DEALS,1),_enabledChangingNbPlayers,_nbPlayers, _window);
         container_.add(getJt(),BorderLayout.CENTER);
-        Panel panneau_=new Panel();
+        Panel panneau_=Panel.newLineBox();
         LabelButton bouton_=new LabelButton(getMessages().getVal(NEXT));
         bouton_.addMouseListener(new ValidateRulesDealEvent(this, window));
         panneau_.add(bouton_);
@@ -141,7 +141,7 @@ public final class EditorPresident extends DialogPresident implements SetterSele
     private void distribuer(MainWindow _parent) {
         setTitle(getMessages().getVal(DEALING_CARDS));
         Panel c=Panel.newBorder();
-        Panel panneau_=new Panel();
+        Panel panneau_=Panel.newLineBox();
         byte nbCartesPJ_;
 
         int nbCards_ = getReglesPresident().getNbStacks() * HandPresident.pileBase().total();
@@ -178,7 +178,7 @@ public final class EditorPresident extends DialogPresident implements SetterSele
         plc_.iniPilePresident(pile_);
         plc_.initSelectionCartePresident(_parent);
         plc_.getListe().setListener(new ListenerClickCardsList(getMessages().getVal(SELECTED_CARDS), this));
-        panelsCards=new Panel();
+        panelsCards=Panel.newLineBox();
         stack = plc_;
         panelsCards.add(plc_.getContainer());
         plc_=new PresidentCardsScrollableList(nbCartesPJ_,nbCartesPJ_,getMessages().getVal(USER_HAND));
@@ -211,7 +211,7 @@ public final class EditorPresident extends DialogPresident implements SetterSele
         scroll_.setPreferredSize(new Dimension(500, h_));
         panneau_=Panel.newBorder();
         panneau_.add(scroll_,BorderLayout.CENTER);
-        Panel sousPanneau_=new Panel();
+        Panel sousPanneau_=Panel.newLineBox();
         LabelButton bouton_=new LabelButton(getMessages().getVal(MOVE_CARDS));
         bouton_.addMouseListener(new MoveCardsEvent(this));
         sousPanneau_.add(bouton_);
@@ -232,7 +232,7 @@ public final class EditorPresident extends DialogPresident implements SetterSele
         panneau_.add(sousPanneau_,BorderLayout.SOUTH);
         c.add(panneau_,BorderLayout.CENTER);
 
-        panneau_=new Panel();
+        panneau_=Panel.newLineBox();
         bouton_=new LabelButton(getMessages().getVal(BACK));
         bouton_.addMouseListener(new BackToRulesEvent(this, _parent));
         panneau_.add(bouton_);

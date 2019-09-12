@@ -1,6 +1,5 @@
 package cards.gui.panels;
 import java.awt.Color;
-import java.awt.FlowLayout;
 
 import javax.swing.SwingConstants;
 
@@ -31,7 +30,7 @@ public class CarpetTarot {
             cont_ = Panel.newGrid(0, 3);
             for (int i = 0; i < 9; i++) {
                 Panel surPanneau_;
-                surPanneau_=Panel.newFlow(FlowLayout.CENTER, 0, 0);
+                surPanneau_= Panel.newLineBox();
                 if (i % 2 == 1) {
                     GraphicTarotCard carte_ = new GraphicTarotCard(_lg,
                             SwingConstants.RIGHT, true);
@@ -66,7 +65,7 @@ public class CarpetTarot {
             cont_ = Panel.newPageBox();
             Panel sub_ = Panel.newGrid(0,4);
             for (int i = 0; i < 4; i++) {
-                Panel surPanneau_ = new Panel();
+                Panel surPanneau_ = Panel.newLineBox();
                 if (i == 1) {
                     GraphicTarotCard carte_ = new GraphicTarotCard(_lg,
                             SwingConstants.RIGHT, true);
@@ -92,7 +91,7 @@ public class CarpetTarot {
             cont_.add(sub_);
             sub_ = Panel.newGrid(0,3);
             for (int i = 4; i < 7; i++) {
-                Panel surPanneau_ = new Panel();
+                Panel surPanneau_ = Panel.newLineBox();
                 if (i == 6) {
                     GraphicTarotCard carte_ = new GraphicTarotCard(_lg,
                             SwingConstants.RIGHT, true);
@@ -116,8 +115,7 @@ public class CarpetTarot {
                     }
                     surPanneau_.add(carte_);
                 } else {
-                    surPanneau_ =Panel.newFlow(FlowLayout.CENTER, 0,
-                            0);
+                    surPanneau_ = Panel.newLineBox();
                     surPanneau_.setPreferredSize(GraphicTarotCard.getDimensionForSeveralCards(_nombre));
                     c_.centerDeck = surPanneau_;
                 }
@@ -127,7 +125,7 @@ public class CarpetTarot {
             cont_.add(sub_);
             sub_ = Panel.newGrid(0,4);
             for (int i = 8; i < 12; i++) {
-                Panel surPanneau_ = new Panel();
+                Panel surPanneau_ = Panel.newLineBox();
                 if (i == 10) {
                     GraphicTarotCard carte_ = new GraphicTarotCard(_lg,
                             SwingConstants.RIGHT, true);
@@ -155,7 +153,7 @@ public class CarpetTarot {
             cont_ = Panel.newGrid(0, 3);
             for (int i = 0; i < 9; i++) {
                 Panel surPanneau_;
-                surPanneau_=Panel.newFlow(FlowLayout.CENTER, 0, 0);
+                surPanneau_= Panel.newLineBox();
                 if (i == 0) {
                     GraphicTarotCard carte_ = new GraphicTarotCard(_lg,
                             SwingConstants.RIGHT, true);
@@ -195,7 +193,7 @@ public class CarpetTarot {
         } else {
             cont_ = Panel.newGrid(0, 3);
             for (int i = 0; i < 9; i++) {
-                Panel surPanneau_ = new Panel();
+                Panel surPanneau_ = Panel.newLineBox();
                 if (i == 0) {
                     GraphicTarotCard carte_ = new GraphicTarotCard(_lg,
                             SwingConstants.RIGHT, true);
@@ -248,8 +246,7 @@ public class CarpetTarot {
                     c_.cards.put(0, carte_);
                     surPanneau_.add(carte_);
                 } else if (i == 4) {
-                    surPanneau_=Panel.newFlow(FlowLayout.CENTER, 0,
-                            0);
+                    surPanneau_= Panel.newLineBox();
                     surPanneau_.setPreferredSize(GraphicTarotCard.getDimensionForSeveralCards(_nombre));
                     c_.centerDeck = surPanneau_;
                 }
@@ -265,7 +262,6 @@ public class CarpetTarot {
     public void retirerCartes() {
         centerDeck.removeAll();
         centerDeck.validate();
-        centerDeck.repaint();
     }
 
 //    public void supprimerCarteTalon() {
@@ -300,7 +296,7 @@ public class CarpetTarot {
         for (byte joueur_ = 0; joueur_ < _nombreDeJoueurs; joueur_++) {
             GraphicTarotCard place_ = cards.getVal((int) joueur_);
             place_.setJeu(_lg);
-            place_.repaint();
+            place_.repaintLabel();
         }
     }
 
@@ -311,7 +307,7 @@ public class CarpetTarot {
     public void setCarteTarot(String _lg,byte _joueur, CardTarot _m) {
         GraphicTarotCard place_ = cards.getVal((int) _joueur);
         place_.setCarteEnJeu(_lg,_m);
-        place_.repaint();
+        place_.repaintLabel();
     }
 
     public Panel getCenterDeck() {

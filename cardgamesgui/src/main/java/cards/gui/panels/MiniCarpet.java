@@ -1,6 +1,5 @@
 package cards.gui.panels;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 
 import cards.consts.Status;
 import cards.gui.labels.CellPlayer;
@@ -25,7 +24,7 @@ public class MiniCarpet {
         if(_nombreDeJoueurs==4) {
             m_.container = Panel.newGrid(0,3);
             for(int i=0;i<9;i++) {
-                Panel surPanneau_=Panel.newFlow(FlowLayout.CENTER,0,0);
+                Panel surPanneau_= Panel.newLineBox();
                 CellPlayer cell_ = new CellPlayer();
                 cell_.setPreferredSize(new Dimension(20,10));
                 if(i%2==1) {
@@ -61,7 +60,7 @@ public class MiniCarpet {
         } else if(_nombreDeJoueurs==6) {
             m_.container = Panel.newGrid(0,4);
             for(int i=0;i<12;i++) {
-                Panel surPanneau_=new Panel();
+                Panel surPanneau_=Panel.newLineBox();
                 CellPlayer cell_ = new CellPlayer();
                 cell_.setPreferredSize(new Dimension(20,10));
                 if(i==1) {
@@ -74,7 +73,7 @@ public class MiniCarpet {
                     }
                     surPanneau_.add(cell_);
                 } else if(i==7) {
-                    surPanneau_=Panel.newFlow(FlowLayout.RIGHT,0,0);
+                    surPanneau_= Panel.newLineBox();
                     if(m_.horaire) {
                         cell_.setTextPlayer(_pseudos.get(4));
                         m_.cellsPlayers.put(4, cell_);
@@ -84,7 +83,7 @@ public class MiniCarpet {
                     }
                     surPanneau_.add(cell_);
                 } else if(i==4) {
-                    surPanneau_=Panel.newFlow(FlowLayout.LEFT,0,0);
+                    surPanneau_= Panel.newLineBox();
                     if(m_.horaire) {
                         cell_.setTextPlayer(_pseudos.get(1));
                         m_.cellsPlayers.put(1, cell_);
@@ -94,7 +93,7 @@ public class MiniCarpet {
                     }
                     surPanneau_.add(cell_);
                 } else if(i==10) {
-                    surPanneau_=Panel.newFlow(FlowLayout.RIGHT,0,0);
+                    surPanneau_= Panel.newLineBox();
                     if(m_.horaire) {
                         cell_.setTextPlayer(_pseudos.get(5));
                         m_.cellsPlayers.put(5, cell_);
@@ -104,12 +103,12 @@ public class MiniCarpet {
                     }
                     surPanneau_.add(cell_);
                 } else if(i==2) {
-                    surPanneau_=Panel.newFlow(FlowLayout.CENTER,0,0);
+                    surPanneau_= Panel.newLineBox();
                     cell_.setTextPlayer(_pseudos.get(3));
                     m_.cellsPlayers.put(3, cell_);
                     surPanneau_.add(cell_);
                 } else if(i==9) {
-                    surPanneau_=Panel.newFlow(FlowLayout.CENTER,0,0);
+                    surPanneau_= Panel.newLineBox();
                     cell_.setTextPlayer(_pseudos.get(0));
                     m_.cellsPlayers.put(0, cell_);
                     surPanneau_.add(cell_);
@@ -122,7 +121,7 @@ public class MiniCarpet {
             m_.container = Panel.newGrid(0,3);
             for(int i=0;i<9;i++) {
                 Panel surPanneau_;
-                surPanneau_=Panel.newFlow(FlowLayout.CENTER,0,0);
+                surPanneau_= Panel.newLineBox();
                 CellPlayer cell_ = new CellPlayer();
                 cell_.setPreferredSize(new Dimension(20,10));
                 if(i==0) {
@@ -155,11 +154,11 @@ public class MiniCarpet {
         } else {
             m_.container = Panel.newGrid(0,3);
             for(int i=0;i<9;i++) {
-                Panel surPanneau_=new Panel();
+                Panel surPanneau_=Panel.newLineBox();
                 CellPlayer cell_ = new CellPlayer();
                 cell_.setPreferredSize(new Dimension(20,10));
                 if(i==0) {
-                    surPanneau_=Panel.newFlow(FlowLayout.RIGHT,0,0);
+                    surPanneau_= Panel.newLineBox();
                     if(m_.horaire) {
                         cell_.setTextPlayer(_pseudos.get(2));
                         m_.cellsPlayers.put(2, cell_);
@@ -169,7 +168,7 @@ public class MiniCarpet {
                     }
                     surPanneau_.add(cell_);
                 } else if(i==2) {
-                    surPanneau_=Panel.newFlow(FlowLayout.LEFT,0,0);
+                    surPanneau_= Panel.newLineBox();
                     if(m_.horaire) {
                         cell_.setTextPlayer(_pseudos.get(3));
                         m_.cellsPlayers.put(3, cell_);
@@ -179,7 +178,7 @@ public class MiniCarpet {
                     }
                     surPanneau_.add(cell_);
                 } else if(i==3) {
-                    surPanneau_=Panel.newFlow(FlowLayout.LEFT,0,0);
+                    surPanneau_= Panel.newLineBox();
                     if(m_.horaire) {
                         cell_.setTextPlayer(_pseudos.get(1));
                         m_.cellsPlayers.put(1, cell_);
@@ -189,7 +188,7 @@ public class MiniCarpet {
                     }
                     surPanneau_.add(cell_);
                 } else if(i==5) {
-                    surPanneau_=Panel.newFlow(FlowLayout.RIGHT,0,0);
+                    surPanneau_= Panel.newLineBox();
                     if(m_.horaire) {
                         cell_.setTextPlayer(_pseudos.get(4));
                         m_.cellsPlayers.put(4, cell_);
@@ -199,7 +198,7 @@ public class MiniCarpet {
                     }
                     surPanneau_.add(cell_);
                 } else if(i==7) {
-                    surPanneau_=Panel.newFlow(FlowLayout.CENTER,0,0);
+                    surPanneau_= Panel.newLineBox();
                     cell_.setTextPlayer(_pseudos.get(0));
                     m_.cellsPlayers.put(0, cell_);
                     surPanneau_.add(cell_);
@@ -211,14 +210,14 @@ public class MiniCarpet {
         }
         for (CellPlayer c: m_.cellsPlayers.values()) {
             c.setStatus(Status.DEFENDER);
-            c.repaint();
+            c.repaintLabel();
         }
         return m_;
     }
 
     public void setStatus(Status _st, int _player) {
         cellsPlayers.getVal(_player).setStatus(_st);
-        cellsPlayers.getVal(_player).repaint();
+        cellsPlayers.getVal(_player).repaintLabel();
     }
 
     public Panel getContainer() {

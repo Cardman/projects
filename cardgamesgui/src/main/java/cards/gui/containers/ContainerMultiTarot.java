@@ -3,18 +3,9 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.GridLayout;
 
-import javax.swing.BoxLayout;
-import javax.swing.ButtonGroup;
-import javax.swing.JCheckBox;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JRadioButton;
-import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
-import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 
 import cards.consts.GameType;
@@ -522,7 +513,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
 //        }
         getPanelDiscardedTrumps().validate();
         getPanelDiscardedTrumps().setVisible(true);
-        getPanelDiscardedTrumps().repaint();
+        getPanelDiscardedTrumps().repaintChildren();
         //pack();
         SeenDiscardedTrumps dis_ = new SeenDiscardedTrumps();
         dis_.setDeclaringSlam(_discardedTrumps.isDeclaringSlam());
@@ -788,11 +779,11 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         CarpetTarot tapis_ = CarpetTarot.initTapisTarot(lg_, nbChoosenPlayers, getDisplayingTarot().isClockwise(), _dog.total());
         getTapis().setTapisTarot(tapis_);
         container_.add(tapis_.getContainer(),BorderLayout.CENTER);
-        setPanelHand(Panel.newFlow(FlowLayout.LEFT,0,0));
-        Panel panneau_=new Panel();
+        setPanelHand(Panel.newLineBox());
+        Panel panneau_=Panel.newLineBox();
         panneau_.add(getPanelHand());
         panneau_.setBackground(Color.BLUE);
-        setPanelDiscardedTrumps(Panel.newFlow(FlowLayout.LEFT,0,0));
+        setPanelDiscardedTrumps(Panel.newLineBox());
         getPanelDiscardedTrumps().setVisible(false);
         panneau_.add(getPanelDiscardedTrumps());
         container_.add(panneau_,BorderLayout.SOUTH);
@@ -803,10 +794,10 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         getEvents().append(StringList.concat(getMessages().getVal(MainWindow.PLAYER_HAVING_TO_PLAY),pseudos_.getVal(relative_),RETURN_LINE));
         panneau2_.add(new ScrollPane(getEvents()));
         panneau2_.add(getMiniPanel());
-        setIncludedTrumpsForHandful(Panel.newFlow(FlowLayout.CENTER,0,0));
+        setIncludedTrumpsForHandful(Panel.newLineBox());
         ScrollPane scrollInc_ = new ScrollPane(getIncludedTrumpsForHandful());
         scrollInc_.setPreferredSize(new Dimension(125,60));
-        setExcludedTrumpsForHandful(Panel.newFlow(FlowLayout.CENTER,0,0));
+        setExcludedTrumpsForHandful(Panel.newLineBox());
         ScrollPane scrollExc_ = new ScrollPane(getExcludedTrumpsForHandful());
         scrollExc_.setPreferredSize(new Dimension(125,60));
         setDeclaringHandful(new SplitPane(JSplitPane.HORIZONTAL_SPLIT,scrollInc_,scrollExc_));
@@ -822,13 +813,13 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         Panel declaredHandfuls_ = Panel.newGrid(0,1);
         for (byte i = CustList.FIRST_INDEX;i<nbChoosenPlayers;i++) {
             relative_ = relative(i);
-            Panel declaredHandfulGroup_ = Panel.newFlow();
+            Panel declaredHandfulGroup_ = Panel.newLineBox();
             TextLabel lab_ = new TextLabel(pseudos_.getVal(relative_));
             declaredHandfulGroup_.add(lab_);
             TextLabel handful_ = new TextLabel(EMPTY_STRING);
             declaredHandfulGroup_.add(handful_);
             getHandfuls().put(relative_, handful_);
-            Panel declaredHandful_ = Panel.newFlow(FlowLayout.LEFT,0,0);
+            Panel declaredHandful_ = Panel.newLineBox();
             declaredHandfulGroup_.add(declaredHandful_);
             getDeclaredHandfuls().put(relative_, declaredHandful_);
             declaredHandfuls_.add(declaredHandfulGroup_);
@@ -836,7 +827,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         ScrollPane scroll_ = new ScrollPane(declaredHandfuls_);
         panneau2_.add(scroll_);
 
-        setPanelCallableCards(Panel.newFlow(FlowLayout.LEFT,0,0));
+        setPanelCallableCards(Panel.newLineBox());
         setScrollCallableCards(new ScrollPane(getPanelCallableCards()));
         getScrollCallableCards().setVisible(false);
         panneau2_.add(getScrollCallableCards());
@@ -909,7 +900,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
     private void setChienMulti(HandTarot _main,boolean _ecouteur) {
         Panel panneau_=tapisTarot().getCenterDeck();
         panneau_.removeAll();
-        panneau_.repaint();
+        panneau_.validate();
         panneau_.setBackground(new Color(0,125,0));
         _main.trier(getDisplayingTarot().getSuits(), getDisplayingTarot().isDecreasing());
         setCanDiscard(_ecouteur);
@@ -1003,7 +994,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
 //            entered_ = true;
 //        }
         _panel.validate();
-        _panel.repaint();
+        _panel.repaintChildren();
     }
 
     private void updateCardsInPanelTarotCallBeforeDogMulti(Panel _panel, HandTarot _hand) {
@@ -1023,7 +1014,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
 //            entered_ = true;
 //        }
         _panel.validate();
-        _panel.repaint();
+        _panel.repaintChildren();
     }
     private void updateCardsInPanelTarotHandfulMulti(Panel _panel, HandTarot _hand, boolean _included) {
         _panel.removeAll();
@@ -1035,7 +1026,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
             _panel.add(carte_);
         }
         _panel.validate();
-        _panel.repaint();
+        _panel.repaintChildren();
     }
     private void updateCardsInPanelTarotJeuMulti(Panel _panel, HandTarot _hand) {
         _panel.removeAll();
@@ -1055,7 +1046,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
 //            entered_ = true;
 //        }
         _panel.validate();
-        _panel.repaint();
+        _panel.repaintChildren();
     }
 
     @Override

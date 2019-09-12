@@ -101,7 +101,7 @@ public final class SimulatingPresidentImpl implements SimulatingPresident {
         tapis_.initTapisPresident(lg_,pseudos_,partie_.getLastStatus(),Math.min(nbMax_, rules_.getNbMaxCardsPerPlayer()));
         container.getTapis().setTapisPresident(tapis_);
         container_.add(tapis_.getContainer(),BorderLayout.CENTER);
-        Panel panneau_=Panel.newFlow(FlowLayout.LEFT,0,0);
+        Panel panneau_= Panel.newLineBox();
         panneau_.setBackground(Color.BLUE);
         container.setPanelHand(panneau_);
         container_.add(panneau_,BorderLayout.SOUTH);
@@ -112,12 +112,12 @@ public final class SimulatingPresidentImpl implements SimulatingPresident {
         container.setHandfuls(new ByteMap<TextLabel>());
         container.setDeclaredHandfuls(new ByteMap<Panel>());
         Panel sousPanneau_=Panel.newGrid(0,1);
-        Panel panelCards_ = new Panel();
-        Panel panelDiscard_ = Panel.newFlow(FlowLayout.LEFT,0,0);
+        Panel panelCards_ = Panel.newLineBox();
+        Panel panelDiscard_ = Panel.newLineBox();
         panelDiscard_.setBackground(Color.BLUE);
         panelCards_.add(panelDiscard_);
         container.setPanelGivenCards(panelDiscard_);
-        Panel panelRec_ = Panel.newFlow(FlowLayout.LEFT,0,0);
+        Panel panelRec_ = Panel.newLineBox();
         panelRec_.setBackground(Color.BLUE);
         panelCards_.add(panelRec_);
         container.setPanelReceivedCards(panelRec_);
@@ -140,8 +140,8 @@ public final class SimulatingPresidentImpl implements SimulatingPresident {
         for (GraphicPresidentCard c: ContainerPresident.getGraphicCards(lg_,h_)) {
             panneau1_.add(c);
         }
-        panneau1_.repaint();
-        panneau1_.revalidate();
+        panneau1_.repaintChildren();
+        panneau1_.validate();
     }
 
     @Override

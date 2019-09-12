@@ -598,7 +598,7 @@ public class FrontBattle extends PaintableLabel {
         imageNumber = 0;
         xIni += maxWidth / 2;
         yIni += maxHeight / 2;
-        repaint();
+        repaintLabel();
     }
 
     void drawAnimationInstant(AnimationInt _animation) {
@@ -891,7 +891,7 @@ public class FrontBattle extends PaintableLabel {
         }
 //        koPlayerTargets.removeDuplicates();
 //        koFoeTargets.removeDuplicates();
-        repaint();
+        repaintLabel();
         /*if (_animation instanceof AnimationEffectDamage) {
             getGraphics().setColor(new Color(Color.BLACK.getRed(), Color.BLACK.getGreen(), Color.BLACK.getBlue(), 255));
             getGraphics().drawString(number_, xIni, hMax_ + yIni);
@@ -906,7 +906,7 @@ public class FrontBattle extends PaintableLabel {
         for (TargetLabel t: playerTargets.values()) {
             t.apply(this, facade);
         }
-        repaint();
+        repaintLabel();
     }
 
     void setHerosOppositeSex(BufferedImage _oppositeSex, boolean _paintTwoHeros) {
@@ -936,7 +936,7 @@ public class FrontBattle extends PaintableLabel {
             yPlayer = maxHeight * 3;
         }
         imageNumber = 0;
-        repaint();
+        repaintLabel();
     }
 
     void drawAnimationFightIniInst() {
@@ -960,7 +960,7 @@ public class FrontBattle extends PaintableLabel {
             keepAnimation = false;
             drawImages = false;
         }
-        repaint();
+        repaintLabel();
     }
 
     public void initBall() {
@@ -974,7 +974,7 @@ public class FrontBattle extends PaintableLabel {
         imageNumber = 0;
         xIni += maxWidth / 2;
         yIni += maxHeight / 2;
-        repaint();
+        repaintLabel();
     }
 
     /**
@@ -1011,7 +1011,7 @@ public class FrontBattle extends PaintableLabel {
             }
             caught = caught_;
         }
-        repaint();
+        repaintLabel();
     }
 
     public void setWild(boolean _wild) {

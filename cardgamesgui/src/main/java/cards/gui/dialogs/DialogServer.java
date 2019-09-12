@@ -111,7 +111,7 @@ public final class DialogServer extends DialogCards implements AbstractDialogSer
 //        ipType.setSelectedItem(IpType.HOST_NAME);
         panel_.add(ipType);
         pane_.add(panel_);
-        panel_ = new Panel();
+        panel_ = Panel.newLineBox();
         LabelButton button_ = new LabelButton(messages.getVal(CREATE_SERVER));
         button_.addMouseListener(new CreateServerEvent(this));
         panel_.add(button_);

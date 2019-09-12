@@ -34,12 +34,12 @@ public final class MainWindow extends GroupFrame {
         setFocusableWindowState(true);
         setTitle(POKE_CARDS);
         Panel panel_ = Panel.newPageBox();
-        Panel linePokemon_ = new Panel();
+        Panel linePokemon_ = Panel.newLineBox();
         buttonPokemon = new LabelButton(new ImageIcon(LaunchingPokemon.getIcon()));
         buttonPokemon.addMouseListener(new PokemonEvent(this));
         linePokemon_.add(buttonPokemon);
         panel_.add(linePokemon_);
-        Panel lineCards_ = new Panel();
+        Panel lineCards_ = Panel.newLineBox();
         buttonCards = new LabelButton(new ImageIcon(LaunchingCards.getIcon()));
         buttonCards.addMouseListener(new CardsEvent(this));
         lineCards_.add(buttonCards);

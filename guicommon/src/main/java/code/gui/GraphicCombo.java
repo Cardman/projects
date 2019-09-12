@@ -17,7 +17,7 @@ public class GraphicCombo extends CustComponent implements WithPopup,GraphicComb
 
     private ListSelection listener;
 
-    private Panel panel = Panel.newFlow(FlowLayout.LEFT, 0, 0);
+    private Panel panel = Panel.newLineBox();
 
     private PreparedLabel currentSelected = new PreparedLabel();
 

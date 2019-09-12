@@ -109,7 +109,7 @@ public final class MainWindow extends GroupFrame {
         contentPane_.add(left_, BorderLayout.WEST);
         contentPane_.add(right_, BorderLayout.EAST);
         animate.addActionListener(new Animate(this));
-        Panel buttons_ = new Panel();
+        Panel buttons_ = Panel.newLineBox();
         buttons_.add(animate);
         buttons_.add(addSoldier);
         pause.addActionListener(new Pause(this));

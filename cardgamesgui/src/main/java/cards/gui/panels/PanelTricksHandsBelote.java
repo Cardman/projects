@@ -1,11 +1,8 @@
 package cards.gui.panels;
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.GridLayout;
 
-import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
 import cards.belote.DealBelote;
@@ -13,7 +10,6 @@ import cards.belote.DisplayingBelote;
 import cards.belote.TrickBelote;
 import cards.belote.TricksHandsBelote;
 import cards.belote.enumerations.CardBelote;
-import cards.gui.MainWindow;
 import cards.gui.containers.ContainerBelote;
 import cards.gui.dialogs.FileConst;
 import cards.gui.labels.GraphicBeloteCard;
@@ -61,7 +57,7 @@ public class PanelTricksHandsBelote implements ViewablePanelTricksHands {
         DealBelote dealt_ = tricksHands.getDistribution();
         CustList<TrickBelote> tricks_ = tricksHands.getTricks();
         container = Panel.newBorder();
-        cards=new Panel();
+        cards=Panel.newLineBox();
         Panel players_ = Panel.newGrid(0,1);
         for(byte joueur_=CustList.FIRST_INDEX;joueur_<_numberPlayers;joueur_++) {
             players_.add(getBlankCard(_pseudos, joueur_));
@@ -79,7 +75,7 @@ public class PanelTricksHandsBelote implements ViewablePanelTricksHands {
         Panel sousPanneau3_;
         //boolean entered_ = false;
         for (byte joueur_ = CustList.FIRST_INDEX;joueur_<_numberPlayers;joueur_++) {
-            sousPanneau3_=Panel.newFlow(FlowLayout.LEFT,0,0);
+            sousPanneau3_= Panel.newLineBox();
             for (GraphicBeloteCard c: ContainerBelote.getGraphicCards(lg_,dealt_.hand(joueur_))) {
                 sousPanneau3_.add(c);
             }
@@ -94,11 +90,11 @@ public class PanelTricksHandsBelote implements ViewablePanelTricksHands {
             hands.add(sousPanneau3_);
         }
         for(byte joueur_=CustList.FIRST_INDEX;joueur_<nbBots_;joueur_++) {
-            hands.add(Panel.newFlow(FlowLayout.LEFT,0,0));
+            hands.add(Panel.newLineBox());
         }
         cards.add(hands);
         Panel sousPanneau2_=Panel.newGrid(0,1);
-        sousPanneau3_=Panel.newFlow(FlowLayout.LEFT,0,0);
+        sousPanneau3_= Panel.newLineBox();
         for (GraphicBeloteCard c: ContainerBelote.getGraphicCards(lg_,dealt_.derniereMain())) {
             sousPanneau3_.add(c);
         }
@@ -112,7 +108,7 @@ public class PanelTricksHandsBelote implements ViewablePanelTricksHands {
         sousPanneau2_.add(sousPanneau3_);
         cards.add(sousPanneau2_);
         container.add(cards,BorderLayout.CENTER);
-        Panel selectionGameState_=new Panel();
+        Panel selectionGameState_=Panel.newLineBox();
         selectionGameState_.add(new TextLabel(messages.getVal(TRICK)));
         Integer[] numerosPlis_;
         numerosPlis_=new Integer[tricks_.size()+2];
@@ -153,7 +149,7 @@ public class PanelTricksHandsBelote implements ViewablePanelTricksHands {
         CustList<TrickBelote> tricks_ = tricksHands.getTricks();
         String lg_ = window.getLanguageKey();
         for (byte joueur_ = CustList.FIRST_INDEX;joueur_<numberPlayers;joueur_++) {
-            Panel sousPanneau4_=Panel.newFlow(FlowLayout.LEFT,0,0);
+            Panel sousPanneau4_= Panel.newLineBox();
             for (GraphicBeloteCard c: ContainerBelote.getGraphicCards(lg_,dealt_.hand(joueur_))) {
                 sousPanneau4_.add(c);
             }
@@ -170,7 +166,7 @@ public class PanelTricksHandsBelote implements ViewablePanelTricksHands {
         int nbBots_ = numberPlayers;
         nbBots_--;
         for (byte joueur_ = CustList.FIRST_INDEX;joueur_<nbBots_;joueur_++) {
-            hands.add(Panel.newFlow(FlowLayout.LEFT,0,0));
+            hands.add(Panel.newLineBox());
         }
         selectedTrick.removeAll();
         if(numeroPli_>0) {
@@ -257,7 +253,7 @@ public class PanelTricksHandsBelote implements ViewablePanelTricksHands {
         hands.removeAll();
         String lg_ = window.getLanguageKey();
         for(byte joueur_=CustList.FIRST_INDEX;joueur_<numberPlayers;joueur_++) {
-            Panel sousPanneau4_=Panel.newFlow(FlowLayout.LEFT,0,0);
+            Panel sousPanneau4_= Panel.newLineBox();
             for (GraphicBeloteCard c: ContainerBelote.getGraphicCards(lg_, dealt_.hand(joueur_))) {
                 sousPanneau4_.add(c);
             }
@@ -273,42 +269,40 @@ public class PanelTricksHandsBelote implements ViewablePanelTricksHands {
         int nbBots_ = numberPlayers;
         nbBots_--;
         for(byte joueur_=CustList.FIRST_INDEX;joueur_<nbBots_;joueur_++) {
-            hands.add(Panel.newFlow(FlowLayout.LEFT,0,0));
+            hands.add(Panel.newLineBox());
         }
         selectedTrick.removeAll();
-        if(numeroPli_>0) {
-            byte entameur_=tricks_.get(numeroPli_-1).getEntameur();
-            byte indice_=0;
-            byte indice2_=0;
-            while(indice_<entameur_) {
-                TextLabel etiquette2_=new TextLabel(Long.toString(indice_));
-                etiquette2_.setHorizontalAlignment(SwingConstants.CENTER);
-                etiquette2_.setFont(new Font(DEFAULT,Font.BOLD,50));
-                etiquette2_.setOpaque(true);
-                etiquette2_.setBackground(Color.WHITE);
-                selectedTrick.add(etiquette2_);
+        byte entameur_=tricks_.get(numeroPli_-1).getEntameur();
+        byte indice_=0;
+        byte indice2_=0;
+        while(indice_<entameur_) {
+            TextLabel etiquette2_=new TextLabel(Long.toString(indice_));
+            etiquette2_.setHorizontalAlignment(SwingConstants.CENTER);
+            etiquette2_.setFont(new Font(DEFAULT,Font.BOLD,50));
+            etiquette2_.setOpaque(true);
+            etiquette2_.setBackground(Color.WHITE);
+            selectedTrick.add(etiquette2_);
+            indice_++;
+        }
+        for(CardBelote carte_:tricks_.get(numeroPli_-1)) {
+            if(indice2_<=numeroCarte_) {
+                GraphicBeloteCard carteGraphique2_=new GraphicBeloteCard(lg_,carte_,SwingConstants.RIGHT,true);
+                carteGraphique2_.setPreferredSize(GraphicBeloteCard.getMaxDimension());
+                selectedTrick.add(carteGraphique2_);
                 indice_++;
+                indice2_++;
+            } else {
+                break;
             }
-            for(CardBelote carte_:tricks_.get(numeroPli_-1)) {
-                if(indice2_<=numeroCarte_) {
-                    GraphicBeloteCard carteGraphique2_=new GraphicBeloteCard(lg_,carte_,SwingConstants.RIGHT,true);
-                    carteGraphique2_.setPreferredSize(GraphicBeloteCard.getMaxDimension());
-                    selectedTrick.add(carteGraphique2_);
-                    indice_++;
-                    indice2_++;
-                } else {
-                    break;
-                }
-            }
-            while(indice_<2*numberPlayers-1) {
-                TextLabel etiquette2_=new TextLabel(Long.toString(indice_-numberPlayers));
-                etiquette2_.setHorizontalAlignment(SwingConstants.CENTER);
-                etiquette2_.setFont(new Font(DEFAULT,Font.BOLD,50));
-                etiquette2_.setOpaque(true);
-                etiquette2_.setBackground(Color.WHITE);
-                selectedTrick.add(etiquette2_);
-                indice_++;
-            }
+        }
+        while(indice_<2*numberPlayers-1) {
+            TextLabel etiquette2_=new TextLabel(Long.toString(indice_-numberPlayers));
+            etiquette2_.setHorizontalAlignment(SwingConstants.CENTER);
+            etiquette2_.setFont(new Font(DEFAULT,Font.BOLD,50));
+            etiquette2_.setOpaque(true);
+            etiquette2_.setBackground(Color.WHITE);
+            selectedTrick.add(etiquette2_);
+            indice_++;
         }
         parent.pack();
 

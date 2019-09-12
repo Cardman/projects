@@ -3,8 +3,6 @@ package code.gui;
 import java.awt.*;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
-import java.awt.image.BufferedImage;
-import java.lang.reflect.InvocationTargetException;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -37,47 +35,6 @@ public abstract class CustComponent {
     public static Thread newThread(Runnable _r) {
         return new Thread(_r);
     }
-    public void repaint() {
-        if (children.isEmpty()) {
-            paint(this);
-            return;
-        }
-        CustComponent current_ = this;
-        while (true) {
-            paint(current_);
-            CustList<CustComponent> ch_ = current_.getChildren();
-            if (!ch_.isEmpty()) {
-                current_ = ch_.first();
-                continue;
-            }
-            while (true) {
-                CustComponent next_ = getNextSibling(current_);
-                if (next_ != null) {
-                    current_ = next_;
-                    break;
-                }
-                CustComponent parent_ = current_.getParent();
-                if (parent_ == this) {
-                    return;
-                }
-                current_ = parent_;
-            }
-        }
-    }
-    private static void paint(CustComponent _cust) {
-        if (_cust instanceof PaintableLabel) {
-            PaintableLabel p_ = (PaintableLabel) _cust;
-            int w_ = _cust.getWidth();
-            int h_ = _cust.getHeight();
-            BufferedImage img_ = new BufferedImage(w_, h_, BufferedImage.TYPE_INT_ARGB);
-            Graphics gr_ = img_.getGraphics();
-            gr_.setFont(p_.getFont());
-            p_.paintComponent(new CustGraphics(gr_));
-            p_.setIcon(new ImageIcon(img_));
-            return;
-        }
-        _cust.getComponent().repaint();
-    }
 
     public void addMouseListener(MouseListener _mouseListener) {
         getComponent().addMouseListener(_mouseListener);
@@ -101,21 +58,7 @@ public abstract class CustComponent {
     public int getHeight() {
         return getComponent().getHeight();
     }
-    private static CustComponent getNextSibling(CustComponent _current) {
-        CustComponent parent_ = _current.getParent();
-        CustList<CustComponent> children_ = parent_.getChildren();
-        int count_ = children_.size();
-        int i_ = 0;
-        while (true) {
-            if (children_.get(i_) == _current) {
-                if (i_ + 1 >= count_) {
-                    return null;
-                }
-                return children_.get(i_ + 1);
-            }
-            i_++;
-        }
-    }
+
     public Font getFont() {
         return getComponent().getFont();
     }

@@ -68,7 +68,7 @@ public final class SelectHealedMove extends Dialog {
         contentPane_.add(movesLearnt, BorderLayout.CENTER);
         //window.healMove(move);
         //contentPane_.add(new JScrollPane(new PaginatorHealingItem(this, _facade)), BorderLayout.CENTER);
-        Panel buttons_ = new Panel();
+        Panel buttons_ = Panel.newLineBox();
         LabelButton cancel_ = new LabelButton(messages.getVal(CANCEL));
         cancel_.addMouseListener(new ClosingDialogEvent(this));
         buttons_.add(cancel_);

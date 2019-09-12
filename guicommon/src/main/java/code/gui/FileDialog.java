@@ -35,7 +35,7 @@ public abstract class FileDialog extends Dialog {
     private static final int DIALOG_HEIGHT = 278;
     private static final Dimension DIM = new Dimension(DIALOG_WIDTH, DIALOG_HEIGHT);
     private Panel contentPane = Panel.newBorder();
-    private Panel buttons = new Panel();
+    private Panel buttons = Panel.newLineBox();
     private TextField fileName = new TextField(NB_COLS);
     private TreeGui folderSystem;
     private FileTable fileModel;
@@ -119,12 +119,12 @@ public abstract class FileDialog extends Dialog {
         Panel openSaveFile_ = Panel.newPageBox();
         fileName = AutoCompleteDocument.createAutoCompleteTextField(new StringList(),NB_COLS);
         if (addTypingFileName) {
-            Panel fieldFile_ = new Panel();
+            Panel fieldFile_ = Panel.newLineBox();
             fieldFile_.add(new TextLabel(messages.getVal(NAME)));
             fieldFile_.add(fileName);
             openSaveFile_.add(fieldFile_);
         }
-        buttons = new Panel();
+        buttons = Panel.newLineBox();
         openSaveFile_.add(buttons);
         contentPane.add(openSaveFile_, BorderLayout.SOUTH);
         if (currentFolderRoot) {

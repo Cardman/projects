@@ -28,7 +28,7 @@ public final class SimulationRefreshHandTarot implements Runnable {
         for (GraphicTarotCard c: ContainerTarot.getGraphicCards(lg_,hand)) {
             panneau1_.add(c);
         }
-        panneau1_.repaint();
-        panneau1_.revalidate();
+        panneau1_.repaintChildren();
+        panneau1_.validate();
     }
 }

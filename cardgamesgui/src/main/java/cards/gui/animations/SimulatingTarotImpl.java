@@ -21,7 +21,6 @@ import code.gui.document.RenderedPage;
 import code.util.*;
 
 import javax.swing.*;
-import java.awt.FlowLayout;
 import java.awt.Color;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -110,10 +109,10 @@ public final class SimulatingTarotImpl implements SimulatingTarot {
         CarpetTarot tapis_ = CarpetTarot.initTapisTarot(lg_, partie_.getNombreDeJoueurs(), container.getDisplayingTarot().isClockwise(), partie_.getDistribution().derniereMain().total());
         container.getTapis().setTapisTarot(tapis_);
         container_.add(tapis_.getContainer(),BorderLayout.CENTER);
-        container.setPanelHand(Panel.newFlow(FlowLayout.LEFT,0,0));
-        Panel panneau_=new Panel();
+        container.setPanelHand(Panel.newLineBox());
+        Panel panneau_=Panel.newLineBox();
         panneau_.add(container.getPanelHand());
-        container.setPanelDiscardedTrumps(Panel.newFlow(FlowLayout.LEFT,0,0));
+        container.setPanelDiscardedTrumps(Panel.newLineBox());
         container.getPanelDiscardedTrumps().setVisible(false);
         panneau_.add(container.getPanelDiscardedTrumps());
         panneau_.setBackground(Color.BLUE);
@@ -129,13 +128,13 @@ public final class SimulatingTarotImpl implements SimulatingTarot {
         Panel declaredHandfuls_ = Panel.newGrid(0,1);
         int nbPlayers_ = partie_.getNombreDeJoueurs();
         for (byte i=CustList.FIRST_INDEX;i<nbPlayers_;i++) {
-            Panel declaredHandfulGroup_ = Panel.newFlow();
+            Panel declaredHandfulGroup_ = Panel.newLineBox();
             TextLabel lab_ = new TextLabel(pseudos_.get(i));
             declaredHandfulGroup_.add(lab_);
             TextLabel handful_ = new TextLabel(ContainerGame.EMPTY_STRING);
             declaredHandfulGroup_.add(handful_);
             container.getHandfuls().put(i, handful_);
-            Panel declaredHandful_ = Panel.newFlow();
+            Panel declaredHandful_ = Panel.newLineBox();
             declaredHandfulGroup_.add(declaredHandful_);
             container.getDeclaredHandfuls().put(i, declaredHandful_);
             declaredHandfuls_.add(declaredHandfulGroup_);
@@ -158,8 +157,8 @@ public final class SimulatingTarotImpl implements SimulatingTarot {
         for (GraphicTarotCard c: ContainerTarot.getGraphicCards(lg_,partie_.getDeal().hand())) {
             panneau1_.add(c);
         }
-        panneau1_.repaint();
-        panneau1_.revalidate();
+        panneau1_.repaintChildren();
+        panneau1_.validate();
     }
     @Override
     public void beginDemo() {

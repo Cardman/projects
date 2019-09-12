@@ -2,14 +2,9 @@ package cards.gui.containers;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 
 import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 
 import cards.consts.GameType;
@@ -269,7 +264,6 @@ public class ContainerSinglePresident extends ContainerPresident implements
         getNoPlay().setEnabledLabel(!g_.getProgressingTrick().estVide());
 //        getPanneauBoutonsJeu().add(getNoPlay());
         getPanneauBoutonsJeu().validate();
-        getPanneauBoutonsJeu().repaint();
         getOwner().getTricksHands().setEnabledMenu(true);
         getOwner().getTeams().setEnabledMenu(true);
     }
@@ -326,7 +320,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
         getTapis().setTapisPresident(tapis_);
         container_.add(tapis_.getContainer(),BorderLayout.CENTER);
         Panel panneau_;
-        panneau_=Panel.newFlow(FlowLayout.LEFT,0,0);
+        panneau_= Panel.newLineBox();
         panneau_.setBackground(Color.BLUE);
         setPanelHand(panneau_);
         container_.add(panneau_,BorderLayout.SOUTH);
@@ -339,12 +333,12 @@ public class ContainerSinglePresident extends ContainerPresident implements
 //        JPanel declaredHandfuls_ = new JPanel(new GridLayout(0,1));
 //        int nbPlayers_ = partie_.getNombreDeJoueurs();
         Panel sousPanneau_=Panel.newPageBox();
-        Panel panelCards_ = new Panel();
-        Panel panelDiscard_ = Panel.newFlow(FlowLayout.LEFT,0,0);
+        Panel panelCards_ = Panel.newLineBox();
+        Panel panelDiscard_ = Panel.newLineBox();
         panelDiscard_.setBorder(BorderFactory.createTitledBorder(getMessages().getVal(MainWindow.GIVEN_CARDS)));
         panelCards_.add(panelDiscard_);
         setPanelGivenCards(panelDiscard_);
-        Panel panelRec_ = Panel.newFlow(FlowLayout.LEFT,0,0);
+        Panel panelRec_ = Panel.newLineBox();
         panelRec_.setBorder(BorderFactory.createTitledBorder(getMessages().getVal(MainWindow.RECEIVED_CARDS)));
         panelCards_.add(panelRec_);
         setPanelReceivedCards(panelRec_);
@@ -461,7 +455,6 @@ public class ContainerSinglePresident extends ContainerPresident implements
 //        getActionsHistory().repaint();
 //        getActionsHistory().validate();
         panneau_.validate();
-        panneau_.repaint();
         setRaisonCourante(getMessages().getVal(MainWindow.WAIT_TURN));
         setThreadAnime(true);
         animationPlaying = new AnimationCardPresident(this);
@@ -534,7 +527,6 @@ public class ContainerSinglePresident extends ContainerPresident implements
 //        getActionsHistory().repaint();
 //        getActionsHistory().validate();
         getPanneauBoutonsJeu().validate();
-        getPanneauBoutonsJeu().repaint();
         setThreadAnime(true);
         animationPlaying = new AnimationCardPresident(this);
         CustComponent.newThread(animationPlaying).start();
@@ -653,7 +645,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
         onglets_.add(getMessages().getVal(MainWindow.HANDS_TRICKS),panelCards_);
         container_.add(onglets_,BorderLayout.CENTER);
         Panel panneau_=Panel.newPageBox();
-        Panel buttons_ = new Panel();
+        Panel buttons_ = Panel.newLineBox();
         GameType type_;
         long nombreParties_;
         type_=partie_.getType();
@@ -705,7 +697,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
             _panel.add(c);
         }
         _panel.validate();
-        _panel.repaint();
+        _panel.repaintChildren();
     }
 
     private void updateCardsInPanelPresidentDiscard(Panel _panel, HandPresident _hand, boolean _inHand) {
@@ -733,7 +725,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
             }
         }
         _panel.validate();
-        _panel.repaint();
+        _panel.repaintChildren();
     }
 
     @Override

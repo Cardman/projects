@@ -1,5 +1,4 @@
 package cards.gui.events;
-import java.awt.FlowLayout;
 import java.awt.event.MouseEvent;
 
 import javax.swing.JOptionPane;
@@ -52,7 +51,7 @@ public class ListenerCardBeloteSingleGame extends AbstractListenerCardBelote {
                     //message d'erreur sur la belote rebelote
                     HandBelote cartesBeloteRebelote_=partie_.cartesBeloteRebelote();
                     /*On ordonne la poignee d'atouts*/
-                    Panel panneau_=Panel.newFlow(FlowLayout.LEFT,0,0);
+                    Panel panneau_= Panel.newLineBox();
                     for (GraphicBeloteCard c: ContainerBelote.getGraphicCards(lg_,cartesBeloteRebelote_)) {
                         panneau_.add(c);
                     }

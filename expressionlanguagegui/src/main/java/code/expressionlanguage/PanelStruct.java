@@ -11,7 +11,7 @@ public class PanelStruct extends CustComponentStruct {
     private Panel panel;
     private PanelStruct(String _className) {
         super(_className);
-        panel = new Panel();
+        panel = Panel.newLineBox();
     }
     PanelStruct(String _className,Panel _panel) {
         super(_className);
@@ -69,9 +69,6 @@ public class PanelStruct extends CustComponentStruct {
         panel.add(_comp.getComponent(), _index);
     }
 
-    public void refresh() {
-        panel.repaint();
-    }
     public void removeAll() {
         CustList<CustComponentStruct> ch_ = getChildren();
         for (CustComponentStruct c: ch_) {

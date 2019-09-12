@@ -14,6 +14,6 @@ public final class SetFightPanel implements Runnable {
 
     @Override
     public void run() {
-        window.setFight(true, true, true);
+        window.setFight(true, true);
     }
 }

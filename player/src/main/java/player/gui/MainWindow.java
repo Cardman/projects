@@ -115,7 +115,7 @@ public class MainWindow extends GroupFrame {
         pane_.add(songs);
         random.setText(_messages_.getVal(RANDOM));
         pane_.add(random);
-        Panel actions_ = new Panel();
+        Panel actions_ = Panel.newLineBox();
 //        playPrevious.setTextAndSize(PREVIOUS);
 //        playPrevious.repaint();
         playPrevious.addMouseListener(new PreviousSong(this));
@@ -313,7 +313,7 @@ public class MainWindow extends GroupFrame {
                 songRend.setNoSong(noSong);
                 songRend.setSize();
                 songRend.validate();
-                songRend.repaint();
+                songRend.repaintLabel();
                 PackingWindowAfter.pack(this);
                 clipStream.getClip().start();
                 clipStream.getClip().addLineListener(new SpeakingEvent(this));

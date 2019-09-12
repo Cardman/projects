@@ -109,7 +109,7 @@ public final class ConfirmDialog extends Dialog {
 //        message_.setPreferredSize(new Dimension(w_,h_));
 //        content_.add(message_);
         content_.add(new WrappedLabel(_message));
-        Panel buttons_ = new Panel();
+        Panel buttons_ = Panel.newLineBox();
         if (_option == JOptionPane.INFORMATION_MESSAGE) {
             buttons_.add(new PreparedLabel(UIManager.getIcon(INFORMATION_ICON)));
         } else if (_option == JOptionPane.ERROR_MESSAGE) {
@@ -132,7 +132,7 @@ public final class ConfirmDialog extends Dialog {
         setTitle(_title);
         Panel content_ = Panel.newGrid(0,1);
         content_.add(_message);
-        Panel buttons_ = new Panel();
+        Panel buttons_ = Panel.newLineBox();
         if (_option == JOptionPane.INFORMATION_MESSAGE) {
             buttons_.add(new PreparedLabel(UIManager.getIcon(INFORMATION_ICON)));
         } else if (_option == JOptionPane.ERROR_MESSAGE) {
@@ -161,7 +161,7 @@ public final class ConfirmDialog extends Dialog {
 //        message_.setPreferredSize(new Dimension(w_,h_));
 //        content_.add(message_);
         content_.add(new WrappedLabel(_message));
-        Panel buttons_ = new Panel();
+        Panel buttons_ = Panel.newLineBox();
         if (_option == JOptionPane.YES_NO_OPTION) {
             answer = JOptionPane.NO_OPTION;
             buttons_.add(new PreparedLabel(UIManager.getIcon(QUESTION_ICON)));
@@ -212,7 +212,7 @@ public final class ConfirmDialog extends Dialog {
         field.setText(_value);
         content_.add(field);
         answer = JOptionPane.NO_OPTION;
-        Panel buttons_ = new Panel();
+        Panel buttons_ = Panel.newLineBox();
         LabelButton button_ = new LabelButton(messages_.getVal(OK));
         button_.addMouseListener(new AnswerTextEvent(this, JOptionPane.YES_OPTION));
         buttons_.add(button_);

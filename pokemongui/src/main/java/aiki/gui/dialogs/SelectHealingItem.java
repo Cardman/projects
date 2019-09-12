@@ -48,7 +48,7 @@ public final class SelectHealingItem extends SelectDialog {
         Panel contentPane_ = Panel.newBorder();
         Panel pag_ = Panel.newPageBox();
         contentPane_.add(new ScrollPane(new PaginatorHealingItem(_parent,pag_, this, _facade).getContainer()), BorderLayout.CENTER);
-        Panel buttons_ = new Panel();
+        Panel buttons_ = Panel.newLineBox();
         LabelButton ok_ = new LabelButton(MainWindow.OK);
         ok_.addMouseListener(new ValidateSelectionEvent(this));
         buttons_.add(ok_);

@@ -20,7 +20,7 @@ public class TargetsPanel {
 
     private CustList<MiniTargetLabel> playerTargets = new CustList<MiniTargetLabel>();
 
-    private Panel container = Panel.newFlow();
+    private Panel container = Panel.newLineBox();
 
     public void setTargets(FacadeGame _facade, Battle _battle) {
         byte mult_ = _facade.getFight().getMult();
@@ -69,10 +69,10 @@ public class TargetsPanel {
         }
         foeTargets.get(_index).setSelected(_index);
         for (MiniTargetLabel l: foeTargets) {
-            l.repaint();
+            l.repaintLabel();
         }
         for (MiniTargetLabel l: playerTargets) {
-            l.repaint();
+            l.repaintLabel();
         }
     }
 
@@ -85,10 +85,10 @@ public class TargetsPanel {
         }
         playerTargets.get(_index).setSelected(_index);
         for (MiniTargetLabel l: foeTargets) {
-            l.repaint();
+            l.repaintLabel();
         }
         for (MiniTargetLabel l: playerTargets) {
-            l.repaint();
+            l.repaintLabel();
         }
     }
 

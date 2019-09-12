@@ -2,15 +2,11 @@ package aiki.gui.components.walk;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.GridLayout;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import javax.swing.BoxLayout;
-import javax.swing.JCheckBox;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.Timer;
 
 import aiki.beans.PokemonStandards;
@@ -93,7 +89,7 @@ import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
 
-public class ScenePanel extends Panel {
+public class ScenePanel {
 
     private static final String SCENE_PANEL = "aiki.gui.components.walk.scenepanel";
 
@@ -340,17 +336,19 @@ public class ScenePanel extends Panel {
 
     private AtomicBoolean paintingScene = new AtomicBoolean();
 
+    private Panel component = Panel.newLineBox();
+
     public ScenePanel(MainWindow _window, FacadeGame _facade) {
         facade = _facade;
         window = _window;
-        Panel panelHoriz_ = new Panel();
+        Panel panelHoriz_ = Panel.newLineBox();
         initMenu();
         panelHoriz_.add(panelMenu);
         panelOptions = Panel.newBorder();
         panelHoriz_.add(panelOptions);
-        add(panelHoriz_);
+        component.add(panelHoriz_);
         time = new TextLabel("");
-        add(time);
+        component.add(time);
         //gamePanel = new GamePanel(facade);
         mapPanel = new MapPanel();
         window.pack();
@@ -372,6 +370,7 @@ public class ScenePanel extends Panel {
 //            sceneInteract.remove(interaction);
 //        }
         panelMenu.setVisible(false);
+        disableFishing();
     }
 
     public void initMessages(String _lg) {
@@ -410,6 +409,7 @@ public class ScenePanel extends Panel {
     }
 
     public void drawGameWalking(boolean _setPreferredSize) {
+        panelOptions.removeAll();
         endGame.setText(facade.getEndGameMessage());
         endGame.setVisible(facade.isShowEndGame());
         panelMenu.setVisible(true);
@@ -459,7 +459,7 @@ public class ScenePanel extends Panel {
         sceneInteract.add(scene, BorderLayout.CENTER);
         initInteraction();
         if (fish != null) {
-            fish.setEnabledLabel(facade.isFishArea());
+            enableIfPossibleFishing();
         }
         sceneInteract.add(interaction, BorderLayout.SOUTH);
         if (facade.getInterfaceType() != InterfaceType.RIEN) {
@@ -468,9 +468,12 @@ public class ScenePanel extends Panel {
             buttonInteract.setEnabledLabel(false);
         }
         if (wasNull_) {
-            add(sceneInteract, CustList.FIRST_INDEX);
+            component.add(sceneInteract, CustList.FIRST_INDEX);
         } else {
-            repaint();
+            panelMenu.repaintSecondChildren();
+            time.repaintLabel();
+            sceneInteract.repaintSecondChildren();
+            component.validate();
         }
         scene.setFocus();
     }
@@ -541,6 +544,7 @@ public class ScenePanel extends Panel {
     public void manageTeam() {
         facade.openMenu();
         panelMenu.setVisible(false);
+        disableFishing();
         initTeam();
         teamPan.addListenerTeam(this);
         addButtonsTeam();
@@ -588,13 +592,14 @@ public class ScenePanel extends Panel {
         }
         facade.openMenu();
         panelMenu.setVisible(false);
+        disableFishing();
         panelOptions.removeAll();
         ByteTreeMap<UsablePokemon> pks_ = new ByteTreeMap<UsablePokemon>();
         for (byte i: facade.getPlayer().getIndexesOfPokemonTeam()) {
             pks_.put(i, facade.getPlayer().getTeam().get(i));
         }
 
-        Panel set_ = new Panel();
+        Panel set_ = Panel.newLineBox();
         teamPan = new TeamPanel(2, messages.getVal(POKEMON_SELECT), facade, pks_, true, messagesTeamPanel);
         teamPan.addListener(this);
         set_.add(teamPan.getContainer());
@@ -633,13 +638,14 @@ public class ScenePanel extends Panel {
         }
         facade.openMenu();
         panelMenu.setVisible(false);
+        disableFishing();
         panelOptions.removeAll();
         ByteTreeMap<UsablePokemon> pks_ = new ByteTreeMap<UsablePokemon>();
         for (byte i: facade.getPlayer().getIndexesOfPokemonTeam()) {
             pks_.put(i, facade.getPlayer().getTeam().get(i));
         }
 
-        Panel set_ = new Panel();
+        Panel set_ = Panel.newLineBox();
         teamPan = new TeamPanel(2, messages.getVal(POKEMON_SELECT), facade, pks_, true, messagesTeamPanel);
         teamPan.addListenerTm(this);
         set_.add(teamPan.getContainer());
@@ -691,6 +697,7 @@ public class ScenePanel extends Panel {
     public void setPlaces() {
         //facade.initPlaces();
         panelMenu.setVisible(false);
+        disableFishing();
 //        JPanel panelPlaces_ = new JPanel();
 //        panelPlaces_.setLayout(new GridLayout(0, 1));
 //        panelPlaces_.add(new JLabel(messages.getVal(GO_BACK)));
@@ -708,7 +715,7 @@ public class ScenePanel extends Panel {
         chosenCity.setBackground(box_.getBackground());
         chosenCity.setForeground(box_.getForeground());
         box_.add(chosenCity);
-        Panel line_ = new Panel();
+        Panel line_ = Panel.newLineBox();
         //avoid vertical spaces between tiles in map
         line_.add(mapPanel.getContainer());
         line_.add(new TextLabel(DataBase.EMPTY_STRING));
@@ -729,7 +736,7 @@ public class ScenePanel extends Panel {
         }
         window.setSavedGame(false);
         drawGameWalking(false);
-        scene.repaint();
+        scene.repaintLabel();
         exitInteractionPack();
     }
 
@@ -746,12 +753,13 @@ public class ScenePanel extends Panel {
         window.getNewGame().setEnabledMenu(false);
         facade.openMenu();
         panelMenu.setVisible(false);
+        disableFishing();
         panelNetWork = Panel.newPageBox();
         panelOptions.add(panelNetWork, BorderLayout.CENTER);
         LabelButton exit_ = new LabelButton(messages.getVal(EXIT));
         exit_.addMouseListener(new ExitTradeEvent(window));
         if (window.getIndexInGame() == CustList.FIRST_INDEX) {
-            Panel panel_ = new Panel();
+            Panel panel_ = Panel.newLineBox();
             LabelButton trade_ = new LabelButton(messages.getVal(TRADE));
             trade_.addMouseListener(new ValidateTradingEvent(window));
             panel_.add(trade_);
@@ -827,7 +835,7 @@ public class ScenePanel extends Panel {
         if (interaction != null) {
             return;
         }
-        interaction = new Panel();
+        interaction = Panel.newLineBox();
         buttonInteract = new LabelButton(messages.getVal(INTERACT));
         buttonInteract.addMouseListener(new InteractSceneEvent(this));
         interaction.add(buttonInteract);
@@ -856,7 +864,7 @@ public class ScenePanel extends Panel {
             facade.initFishing();
             if (facade.isChangeToFightScene()) {
                 window.setSavedGame(false);
-                window.setFight(true, true, true);
+                window.setFight(true, true);
             }
         }
     }
@@ -901,16 +909,17 @@ public class ScenePanel extends Panel {
             release.addMouseListener(new GearStorageEvent(this, StorageActions.RELEASE));
             storage_.add(release);
             storage_.add(selectedForSwitch);
-            Panel set_ = new Panel();
+            Panel set_ = Panel.newLineBox();
             initTeam();
             teamPan.addListenerStorage(this);
             set_.add(teamPan.getContainer());
             set_.add(storage_);
             panelOptions.add(set_, BorderLayout.CENTER);
             panelMenu.setVisible(false);
+            disableFishing();
         } else if (facade.getInterfaceType() == InterfaceType.MOVE_TUTORS) {
             initPkTeamMoveTutors();
-            Panel set_ = new Panel();
+            Panel set_ = Panel.newLineBox();
             set_.add(teamPan.getContainer());
             movesLearnt = Panel.newGrid(0,1);
             ScrollPane scroll_ = new ScrollPane(movesLearnt);
@@ -918,6 +927,7 @@ public class ScenePanel extends Panel {
             set_.add(scroll_);
             panelOptions.add(set_, BorderLayout.CENTER);
             panelMenu.setVisible(false);
+            disableFishing();
         } else if (facade.getInterfaceType() == InterfaceType.ACHATS_CT) {
             tmPanel = new TmPanel(5, messages.getVal(TM_TITLE), facade);
             Panel set_ = Panel.newPageBox();
@@ -933,6 +943,7 @@ public class ScenePanel extends Panel {
             set_.add(changeInv_);
             panelOptions.add(set_, BorderLayout.CENTER);
             panelMenu.setVisible(false);
+            disableFishing();
         } else if (facade.getInterfaceType() == InterfaceType.ACHATS) {
             Panel set_ = Panel.newPageBox();
             buy = new CustCheckBox(messages.getVal(ITEM_BUY));
@@ -955,8 +966,9 @@ public class ScenePanel extends Panel {
             set_.add(changeInv_);
             panelOptions.add(set_, BorderLayout.CENTER);
             panelMenu.setVisible(false);
+            disableFishing();
         } else if (facade.getInterfaceType() == InterfaceType.PENSION) {
-            Panel set_ = new Panel();
+            Panel set_ = Panel.newLineBox();
             ByteTreeMap<UsablePokemon> teamPks_ = new ByteTreeMap<UsablePokemon>();
             ByteTreeMap< PokemonPlayer> team_ = facade.getGame().getPlayer().getPokemonPlayerList();
             for (EntryCust<Byte, PokemonPlayer> e: team_.entryList()) {
@@ -981,14 +993,22 @@ public class ScenePanel extends Panel {
             set_.add(form_);
             panelOptions.add(set_, BorderLayout.CENTER);
             panelMenu.setVisible(false);
+            disableFishing();
         } else if (facade.getInterfaceType() == InterfaceType.FOSSILE) {
             window.setSavedGame(false);
         } else if (facade.isChangeToFightScene()) {
             window.setSavedGame(false);
-            window.setFight(true, true, false);
+            window.setFight(true, false);
             return;
         }
         addExit();
+    }
+
+    private void disableFishing() {
+        if (fish == null) {
+            return;
+        }
+        fish.setEnabledLabel(false);
     }
 
 //    private StringList getMessagesStorage() {
@@ -1221,7 +1241,7 @@ public class ScenePanel extends Panel {
     }
 
     private void addButtonsTeam() {
-        Panel set_ = new Panel();
+        Panel set_ = Panel.newLineBox();
         Panel teamMenu_ = Panel.newPageBox();
         switchUsable = new CustCheckBox(messages.getVal(SWITCH_PK_TEAM));
 //        enabledSwitchTeam = false;
@@ -1435,7 +1455,15 @@ public class ScenePanel extends Panel {
         }
 //        enabledSwitchTeam = false;
         panelMenu.setVisible(true);
+        enableIfPossibleFishing();
         facade.exitInteract();
+    }
+
+    private void enableIfPossibleFishing() {
+        if (fish == null) {
+            return;
+        }
+        fish.setEnabledLabel(facade.isFishArea());
     }
 
     private void showHtmlDialog(MainWindow _parent, RenderedPage _session) {
@@ -1618,7 +1646,7 @@ public class ScenePanel extends Panel {
         facade.getPlayer().setChosenAbilityForEvolution(_ability);
         for (AbilityLabel l: abilityLabels) {
             l.setSelected(_ability);
-            l.repaint();
+            l.repaintLabel();
         }
     }
 
@@ -1731,6 +1759,9 @@ public class ScenePanel extends Panel {
         game.setEnabledLabel(!_paintingScene);
         goBack.setEnabledLabel(!_paintingScene);
         server.setEnabledLabel(!_paintingScene);
-        panelMenu.repaint();
+        panelMenu.repaintSecondChildren();
+    }
+    public Panel getComponent() {
+        return component;
     }
 }

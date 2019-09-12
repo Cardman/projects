@@ -126,7 +126,7 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
         String lg_ = _parent.getLanguageKey();
         initJt(new Spinner(FileConst.MIN_DEALS,FileConst.MIN_DEALS,FileConst.MAX_DEALS,1),lg_);
         container_.add(getJt(),BorderLayout.CENTER);
-        Panel panneau_=new Panel();
+        Panel panneau_=Panel.newLineBox();
         LabelButton bouton_=new LabelButton(getMessages().getVal(NEXT));
         bouton_.addMouseListener(new ValidateRulesDealEvent(this, _parent));
         panneau_.add(bouton_);
@@ -164,7 +164,7 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
     private void distribuer(MainWindow _parent) {
         setTitle(getMessages().getVal(DEALING_CARDS));
         Panel c=Panel.newBorder();
-        Panel panneau_=new Panel();
+        Panel panneau_=Panel.newLineBox();
         panneau_.add(new TextLabel(getMessages().getVal(DEALER)));
         liste=new StringComboBox();
         liste.addItem(nickNames.getPseudo());
@@ -179,7 +179,7 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
         panneau_.add(liste);
         c.add(panneau_,BorderLayout.NORTH);
         panneau_=Panel.newBorder();
-        panelsCards=new Panel();
+        panelsCards=Panel.newLineBox();
         HandBelote pile_=HandBelote.pileBase();
         pile_.trier(displayingBelote.getSuits(), displayingBelote.isDecreasing(), displayingBelote.getOrderBeforeBids());
         BeloteCardsScrollableList plc_=new BeloteCardsScrollableList(12,pile_.total(),getMessages().getVal(DEALING_STACK));
@@ -224,7 +224,7 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
         panelsCards.add(plc_.getContainer());
         remaining = plc_;
         panneau_.add(panelsCards,BorderLayout.CENTER);
-        Panel sousPanneau_=new Panel();
+        Panel sousPanneau_=Panel.newLineBox();
         LabelButton bouton_=new LabelButton(getMessages().getVal(MOVE_CARDS));
         bouton_.addMouseListener(new MoveCardsEvent(this));
         sousPanneau_.add(bouton_);
@@ -245,7 +245,7 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
         sousPanneau_.add(labelSelectCards);
         panneau_.add(sousPanneau_,BorderLayout.SOUTH);
         c.add(panneau_,BorderLayout.CENTER);
-        panneau_=new Panel();
+        panneau_=Panel.newLineBox();
         bouton_=new LabelButton(getMessages().getVal(BACK));
         bouton_.addMouseListener(new BackToRulesEvent(this, _parent));
         panneau_.add(bouton_);

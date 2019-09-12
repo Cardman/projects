@@ -53,7 +53,7 @@ public final class Painting implements Runnable {
             facade.changeCamera();
             scene.load(facade, false);
             ThreadUtil.sleep(pause);
-            scene.repaint();
+            scene.repaintLabel();
             if (facade.isChangeToFightScene()) {
                 CustComponent.invokeLater(new SetFightPanel(window));
                 return;
@@ -68,14 +68,14 @@ public final class Painting implements Runnable {
                 facade.changeCamera();
                 scene.load(facade, false);
                 ThreadUtil.sleep(pause * 5);
-                scene.repaint();
+                scene.repaintLabel();
             } else {
                 facade.changeCamera(dir);
                 scene.load(facade, false);
                 for (int i = CustList.FIRST_INDEX; i <= side; i++) {
                     scene.setDelta(i - side, true);
                     ThreadUtil.sleep(pause);
-                    scene.repaint();
+                    scene.repaintLabel();
                 }
             }
             CustComponent.invokeLater(new SetFightPanel(window));
@@ -86,7 +86,7 @@ public final class Painting implements Runnable {
             scene.load(facade, false);
             scene.setDelta(0, false);
             ThreadUtil.sleep(pause);
-            scene.repaint();
+            scene.repaintLabel();
             CustComponent.invokeLater(new SetInteractionScene(window));
             return;
         }
@@ -95,7 +95,7 @@ public final class Painting implements Runnable {
             facade.changeCamera();
             scene.load(facade, false);
             ThreadUtil.sleep(pause);
-            scene.repaint();
+            scene.repaintLabel();
             CustComponent.invokeLater(new SetInteractionScene(window));
             return;
         }
@@ -104,7 +104,7 @@ public final class Painting implements Runnable {
         for (int i = CustList.FIRST_INDEX; i <= side; i++) {
             scene.setDelta(i - side, true);
             ThreadUtil.sleep(pause);
-            scene.repaint();
+            scene.repaintLabel();
         }
         CustComponent.invokeLater(new SetInteractionScene(window));
     }

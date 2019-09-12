@@ -107,7 +107,7 @@ public class ContainerPresident extends ContainerGame {
     }
 
     protected Panel assemble() {
-        Panel panelCards_ = new Panel();
+        Panel panelCards_ = Panel.newLineBox();
         panelCards_.add(getPanelGivenCards());
         panelCards_.add(getPanelReceivedCards());
         return panelCards_;
@@ -120,7 +120,7 @@ public class ContainerPresident extends ContainerGame {
             getPanelReceivedCards().add(c);
         }
         getPanelReceivedCards().validate();
-        getPanelReceivedCards().repaint();
+        getPanelReceivedCards().repaintChildren();
     }
 
     public void updateCardsInPanelPresidentGiven() {
@@ -130,7 +130,7 @@ public class ContainerPresident extends ContainerGame {
             getPanelGivenCards().add(c);
         }
         getPanelGivenCards().validate();
-        getPanelGivenCards().repaint();
+        getPanelGivenCards().repaintChildren();
     }
 
     public void discard() {
