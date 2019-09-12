@@ -768,7 +768,7 @@ public abstract class OperationNode implements Operable {
         ObjectMap<ClassMethodId, MethodInfo> methods_;
         methods_ = new ObjectMap<ClassMethodId, MethodInfo>();
         String baseCurName_ = Templates.getIdFromAllTypes(_class);
-        GeneType root_ = _conf.getClassBody(baseCurName_);
+        GeneType root_ = _conf.getClasses().getClassBody(baseCurName_);
         if (root_ != null) {
             fetchInstanceMethods(_conf, false, true, null, "", methods_, 0, root_, _class);
         }
