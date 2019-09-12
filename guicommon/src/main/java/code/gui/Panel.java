@@ -10,7 +10,7 @@ public final class Panel extends CustComponent {
 
     private JPanel panel;
 
-    public Panel() {
+    private Panel() {
         this(new JPanel());
     }
 

@@ -232,6 +232,7 @@ public class Battle extends ChildFrame {
     private boolean enabledClicked;
 
     private ScrollPane scroll;
+    private Panel comments = Panel.newPageBox();
     private Panel forms = Panel.newLineBox();
     private Panel team = Panel.newPageBox();
     public Battle(MainWindow _window, FacadeGame _facade, FrontBattle _frontBattle) {
@@ -706,12 +707,12 @@ public class Battle extends ChildFrame {
     }
 
     private Panel initCommentsPanel() {
-        Panel comments_ = Panel.newPageBox();
-        comments_.add(errorLabel);
-        comments_.add(new ScrollPane(commentsErrors));
-        comments_.add(roundLabel);
-        comments_.add(new ScrollPane(commentsRound));
-        return comments_;
+        comments.removeAll();
+        comments.add(errorLabel);
+        comments.add(new ScrollPane(commentsErrors));
+        comments.add(roundLabel);
+        comments.add(new ScrollPane(commentsRound));
+        return comments;
     }
 
     private void removeInteractiveComponents() {
@@ -729,18 +730,14 @@ public class Battle extends ChildFrame {
 //        GridBagConstraints c_ = new GridBagConstraints();
 //        grid.setConstraints(frontBattle, c_);
         //upper.add(frontBattle);
-        Panel forms_ = Panel.newLineBox();
-        forms_.add(new ScrollPane(commentsErrors));
+        forms.removeAll();
+        forms.add(new ScrollPane(commentsErrors));
 //        c_ = new GridBagConstraints();
 //        c_.gridwidth = GridBagConstraints.REMAINDER;
 //        grid.setConstraints(forms_, c_);
-        lower.add(forms_);
+        lower.add(forms);
         lower.add(new ScrollPane(commentsRound));
         //add(actionsBattle);
-    }
-
-    public void resetComments() {
-        commentsRound.setText(DataBase.EMPTY_STRING);
     }
 
     public void setComments() {
