@@ -1219,12 +1219,18 @@ public class Battle extends ChildFrame {
         actionsLabels.clear();
         EnumList<ActionType> actions_ = facade.getFight().getPossibleActionsCurFighter();
         StringMap<String> map_ = ExtractFromFiles.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, window.getLanguageKey(), ACTION_TYPE);
+        int maxWidth_ = 0;
         for (ActionType a: actions_) {
-            ActionLabel action_ = new ActionLabel(map_.getVal(a.name()), a);
+            String txt_ = map_.getVal(a.name());
+            ActionLabel action_ = new ActionLabel(txt_, a);
             action_.addMouseListener(new FighterAction(this, a));
             action_.setSelected(a == facade.getFight().getSelectedActionCurFighter());
             actionType.add(action_);
+            maxWidth_ = Math.max(maxWidth_, action_.getFontMetrics(action_.getFont()).stringWidth(txt_));
             actionsLabels.add(action_);
+        }
+        for (ActionLabel a: actionsLabels) {
+            a.setPreferredSize(new Dimension(maxWidth_,10));
         }
         changeAction(facade.getFight().getSelectedActionCurFighter());
     }
@@ -1337,6 +1343,7 @@ public class Battle extends ChildFrame {
                 movesPanel_.add(move_);
                 movesLabels.add(move_);
             }
+            movesPanel_.repaintChildren();
             actions.add(movesPanel_);
             boolean wasNull_ = targetsPanel == null;
             if (wasNull_) {

@@ -467,6 +467,7 @@ public final class MainWindow extends NetGroupFrame {
         LabelButton ok_ = new LabelButton(OK);
         ok_.addMouseListener(new ConfirmNewGameEvent(this));
         beginGame.add(ok_);
+        beginGame.repaintSecondChildren();
         scenePanel.addBeginGame(beginGame);
     }
 

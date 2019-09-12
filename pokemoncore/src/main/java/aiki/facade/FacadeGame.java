@@ -289,6 +289,12 @@ public class FacadeGame {
 
     // By clicking a button whose text depends on kind of interaction
     public void interact() {
+        interact(true);
+    }
+    public void interactNoFish() {
+        interact(false);
+    }
+    public void interact(boolean _allowFish) {
         changeToFightScene = false;
         comment.clearMessages();
         if (game.getInterfaceType() == InterfaceType.ACHATS_CT) {
@@ -297,7 +303,7 @@ public class FacadeGame {
             game.initLegendaryPokemonFight(data);
             comment.addComment(game.getCommentGame());
             setupMovingHeros();
-        } else if (game.getInterfaceType() == InterfaceType.PECHE) {
+        } else if (_allowFish && game.getInterfaceType() == InterfaceType.PECHE) {
             game.initFishing(data);
             comment.addComment(game.getCommentGame());
             setupMovingHeros();

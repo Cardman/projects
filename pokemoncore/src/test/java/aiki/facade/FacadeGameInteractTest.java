@@ -280,6 +280,23 @@ public final class FacadeGameInteractTest extends InitializationDataBase {
     }
 
     @Test
+    public void interact18Test() {
+        Game game_ = new Game(data);
+        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data);
+        game_.setPlayerCoords(newCoords(0, 0, 3, 2));
+        game_.setPlayerOrientation(Direction.RIGHT);
+        game_.getDifficulty().setRandomWildFight(false);
+        FacadeGame facadeGame_ = new FacadeGame();
+        facadeGame_.setData(data);
+        facadeGame_.setGame(game_);
+        facadeGame_.directInteraction();
+        assertTrue(facadeGame_.isFishArea());
+        facadeGame_.interactNoFish();
+        assertTrue(!facadeGame_.isChangeToFightScene());
+        assertEq(InterfaceType.PECHE, game_.getInterfaceType());
+    }
+
+    @Test
     public void nicknameTest() {
         Game game_ = new Game(data);
         game_.initUtilisateur(NICKNAME, null, new Difficulty(), data);

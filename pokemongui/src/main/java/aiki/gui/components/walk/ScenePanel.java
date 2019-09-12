@@ -469,12 +469,13 @@ public class ScenePanel {
         }
         if (wasNull_) {
             component.add(sceneInteract, CustList.FIRST_INDEX);
+            sceneInteract.repaintSecondChildren();
         } else {
             panelMenu.repaintSecondChildren();
             time.repaintLabel();
             sceneInteract.repaintSecondChildren();
-            component.validate();
         }
+        component.validate();
         scene.setFocus();
     }
 
@@ -851,7 +852,7 @@ public class ScenePanel {
         if (!buttonInteract.isEnabledLabel()) {
             return;
         }
-        facade.interact();
+        facade.interactNoFish();
         if (!facade.isChangeToFightScene()) {
             setTextArea(StringList.join(facade.getGame().getCommentGame().getMessages(), RETURN_LINE), JOptionPane.INFORMATION_MESSAGE);
         }

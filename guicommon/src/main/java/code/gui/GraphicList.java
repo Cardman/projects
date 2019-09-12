@@ -216,8 +216,6 @@ public class GraphicList<T> extends CustComponent implements GraphicListable {
             r_.paintComponent(c_);
             index_++;
         }
-        SelectionEvent sel_ = new SelectionEvent(min_, max_, this);
-        CustComponent.invokeLater(sel_);
     }
     public void setSelectedIndice(int _min) {
         selectedIndexes.add(_min);
@@ -231,8 +229,6 @@ public class GraphicList<T> extends CustComponent implements GraphicListable {
             r_.paintComponent(c_);
             index_++;
         }
-        SelectionEvent sel_ = new SelectionEvent(_min, _min, this);
-        CustComponent.invokeLater(sel_);
     }
     public void clearSelection() {
         CustCellRender r_ = getRender();
@@ -249,8 +245,6 @@ public class GraphicList<T> extends CustComponent implements GraphicListable {
         clearRange();
         setFirstIndex(-1);
         setLastIndex(-1);
-        SelectionEvent sel_ = new SelectionEvent(0, array_.length, this);
-        CustComponent.invokeLater(sel_);
     }
     @Override
     public Ints getSelectedIndexes() {
