@@ -3,6 +3,7 @@ package aiki.fight.moves.effects;
 import aiki.db.DataBase;
 import aiki.fight.enums.Statistic;
 import aiki.fight.moves.enums.TargetChoice;
+import code.maths.LgInt;
 import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloNumber;
 import code.maths.montecarlo.MonteCarloString;
@@ -90,6 +91,8 @@ public final class EffectDamage extends Effect {
             if (min_.lowerThanOne()) {
                 _data.setError(true);
             }
+        } else {
+            chLaw.addEvent(Rate.one(),LgInt.one());
         }
         if (!hitsLaw.events().isEmpty()) {
             Rate min_ = hitsLaw.minimum();
@@ -104,6 +107,8 @@ public final class EffectDamage extends Effect {
                     _data.setError(true);
                 }
             }
+        } else {
+            hitsLaw.addEvent(Rate.one(),LgInt.one());
         }
         if (!Statistic.getStatisticsWithBoost().containsAllObj(
                 ignVarStatTargetPos)) {
