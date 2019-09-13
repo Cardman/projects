@@ -5673,6 +5673,18 @@ public final class DocumentReaderAikiCoreUtil {
         return getGame(doc_.getDocumentElement());
     }
 
+    public static Game getGameOrNull(String _string) {
+        Document doc_ = DocumentBuilder.parseNoTextDocument(_string);
+        if (doc_ == null) {
+            return null;
+        }
+        String tagName_ = doc_.getDocumentElement().getTagName();
+        if (!StringList.quickEq(tagName_,"Game")) {
+            return null;
+        }
+        return getGame(doc_.getDocumentElement());
+    }
+
     private static Game getGame(Element _element) {
         ElementList childElements_ = _element.getChildElements();
         Game object_ = Instances.newGame();
@@ -6496,6 +6508,10 @@ public final class DocumentReaderAikiCoreUtil {
     public static LoadingGame getLoadingGameOrNull(String _string) {
         Document doc_ = DocumentBuilder.parseNoTextDocument(_string);
         if (doc_ == null) {
+            return null;
+        }
+        String tagName_ = doc_.getDocumentElement().getTagName();
+        if (!StringList.quickEq(tagName_,"LoadingGame")) {
             return null;
         }
         return getLoadingGame(doc_.getDocumentElement());

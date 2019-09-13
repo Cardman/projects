@@ -40,7 +40,11 @@ public final class DocumentReaderCardsUnionUtil {
 
     public static Object getObject(String _fileName) {
         String content_ = StreamTextFile.contentsOfFile(_fileName);
-        Document doc_ = DocumentBuilder.parseSax(content_);
+        return getContentObject(content_);
+    }
+
+    public static Object getContentObject(String _content) {
+        Document doc_ = DocumentBuilder.parseSax(_content);
         if (doc_ == null) {
             return null;
         }

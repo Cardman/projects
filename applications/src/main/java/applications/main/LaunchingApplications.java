@@ -16,6 +16,8 @@ import code.expressionlanguage.gui.unit.LaunchingAppUnitTests;
 import code.gui.*;
 import code.minirts.LaunchingDemo;
 import code.renders.LaunchingRenders;
+import code.sml.Document;
+import code.sml.DocumentBuilder;
 import code.stream.StreamTextFile;
 import code.util.StringList;
 import code.util.StringMap;
@@ -55,18 +57,16 @@ public class LaunchingApplications extends SoftApplicationCore {
                 isCardGameSave_ = true;
             }
             if (isCardGameSave_) {
-                TopLeftFrame topLeft_ = loadCoords(getTempFolder(),COORDS);
-                MainWindow w_ = getWindow(_language);
-                setLocation(w_, topLeft_);
+                launchWindow(_language);
                 LaunchingCards launch_ = new LaunchingCards();
-                //w_.hideRadioButtons();
                 launch_.launchWithoutLanguage(_language, _args);
             } else if (readObject_ instanceof LoadingGame || readObject_ instanceof Game) {
-                TopLeftFrame topLeft_ = loadCoords(getTempFolder(),COORDS);
-                MainWindow w_ = getWindow(_language);
-                setLocation(w_, topLeft_);
+                launchWindow(_language);
                 LaunchingPokemon launch_ = new LaunchingPokemon();
-                //w_.hideRadioButtons();
+                launch_.launchWithoutLanguage(_language, _args);
+            } else if (readObject_ instanceof Document) {
+                launchWindow(_language);
+                LaunchingDemo launch_ = new LaunchingDemo();
                 launch_.launchWithoutLanguage(_language, _args);
             } else if (readObject_ instanceof String) {
                 String fileContent_ = (String) readObject_;
@@ -82,18 +82,14 @@ public class LaunchingApplications extends SoftApplicationCore {
                     return;
                 }
                 if (linesFiles_.size() < 3) {
-                    TopLeftFrame topLeft_ = loadCoords(getTempFolder(),COORDS);
-                    MainWindow w_ = getWindow(_language);
-                    setLocation(w_, topLeft_);
+                    launchWindow(_language);
                     LaunchingAppUnitTests launch_ = new LaunchingAppUnitTests();
                     launch_.launchWithoutLanguage(_language, _args);
                     return;
                 }
                 String possibleMethod_ = ContextEl.removeDottedSpaces(linesFiles_.get(2));
                 if (possibleMethod_.startsWith("initDb=")) {
-                    TopLeftFrame topLeft_ = loadCoords(getTempFolder(),COORDS);
-                    MainWindow w_ = getWindow(_language);
-                    setLocation(w_, topLeft_);
+                    launchWindow(_language);
                     LaunchingRenders launch_ = new LaunchingRenders();
                     launch_.launchWithoutLanguage(_language, _args);
                     return;
@@ -107,20 +103,16 @@ public class LaunchingApplications extends SoftApplicationCore {
                     GuiProcess.launch(argsList_);
                     return;
                 }
-                TopLeftFrame topLeft_ = loadCoords(getTempFolder(),COORDS);
-                MainWindow w_ = getWindow(_language);
-                setLocation(w_, topLeft_);
+                launchWindow(_language);
                 LaunchingAppUnitTests launch_ = new LaunchingAppUnitTests();
-                launch_.launchWithoutLanguage(_language, _args);
-            } else {
-                TopLeftFrame topLeft_ = loadCoords(getTempFolder(),COORDS);
-                MainWindow w_ = getWindow(_language);
-                setLocation(w_, topLeft_);
-                LaunchingDemo launch_ = new LaunchingDemo();
                 launch_.launchWithoutLanguage(_language, _args);
             }
             return;
         }
+        launchWindow(_language);
+    }
+
+    private static void launchWindow(String _language) {
         TopLeftFrame topLeft_ = loadCoords(getTempFolder(),COORDS);
         MainWindow w_ = getWindow(_language);
         setLocation(w_, topLeft_);
@@ -138,17 +130,21 @@ public class LaunchingApplications extends SoftApplicationCore {
 
     @Override
     public Object getObject(String _fileName) {
-        Object game_ = DocumentReaderCardsUnionUtil.getObject(_fileName);
+        String file_ = StreamTextFile.contentsOfFile(_fileName);
+        Object game_ = DocumentReaderCardsUnionUtil.getContentObject(file_);
         if (game_ != null) {
             return game_;
         }
-        String file_ = StreamTextFile.contentsOfFile(_fileName);
-        Object o_ = DocumentReaderAikiCoreUtil.getGame(file_);
+        Object o_ = DocumentReaderAikiCoreUtil.getGameOrNull(file_);
         if (o_ != null) {
             return o_;
         }
         LoadingGame loadingGame_ = DocumentReaderAikiCoreUtil.getLoadingGameOrNull(file_);
         if (loadingGame_ == null) {
+            Document doc_ = DocumentBuilder.parseNoTextDocument(file_);
+            if (doc_ != null) {
+                return doc_;
+            }
             return file_;
         }
         return loadingGame_;
