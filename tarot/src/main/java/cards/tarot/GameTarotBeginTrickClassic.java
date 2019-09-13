@@ -679,7 +679,7 @@ public final class GameTarotBeginTrickClassic {
         if(defausseTousDefenseursIntermediaire_
                 && cartesPossibles_.getVal(Suit.TRUMP).get(taker_).contient(CardTarot.petit())
                 && takerNoPlay_) {
-            couleurs_ = GameTarotCommon.couleursLesPlusCourtes(cartesJouees_, couleursNonVidesAjouer_);
+            couleurs_ = GameTarotCommon.couleursLesPlusCourtes(cartesJouees_, couleursNonVides_);
             couleurs_ = GameTarotCommon.couleursLesPlusCourtes(currentHand, couleurs_);
             couleurs_ = GameTarotCommon.couleursLesPlusBasses(currentHand, couleurs_);
             return repartition_.getVal(couleurs_.first()).derniereCarte();
