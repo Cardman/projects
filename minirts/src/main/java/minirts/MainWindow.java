@@ -11,6 +11,7 @@ import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.awt.image.MemoryImageSource;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -55,6 +56,8 @@ public final class MainWindow extends GroupFrame {
 
     private CustCheckBox pause = new CustCheckBox("Pause");
 
+    private CustCheckBox withSound = new CustCheckBox("With sound");
+
     private PlainButton stop = new PlainButton("Stop");
 
     private Facade facade = new Facade();
@@ -66,7 +69,7 @@ public final class MainWindow extends GroupFrame {
 
     private CustCheckBox addSoldier = new CustCheckBox("Add soldier");
 
-    private boolean dragged;
+    private AtomicBoolean dragged = new AtomicBoolean();
 
     private CustPoint first = new CustPoint();
 
@@ -114,6 +117,7 @@ public final class MainWindow extends GroupFrame {
         buttons_.add(addSoldier);
         pause.addActionListener(new Pause(this));
         buttons_.add(pause);
+        buttons_.add(withSound);
         stop.addActionListener(new Stop(this));
         buttons_.add(stop);
         Toolkit tool_ = Toolkit.getDefaultToolkit();
@@ -136,6 +140,9 @@ public final class MainWindow extends GroupFrame {
         battlegroundWrapper_.setCursor(c_);
         scene_.add(buttons_, BorderLayout.SOUTH);
         contentPane_.add(scene_, BorderLayout.CENTER);
+        battlegroundWrapper_.repaintSecondChildren();
+        battleground.getContainer().repaintSecondChildren();
+        contentPane_.repaintSecondChildren();
         setContentPane(contentPane_);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         pack();
@@ -211,11 +218,11 @@ public final class MainWindow extends GroupFrame {
     }
 
     public boolean isDragged() {
-        return dragged;
+        return dragged.get();
     }
 
     public void setDragged(boolean _dragged) {
-        dragged = _dragged;
+        dragged.set(_dragged);
     }
 
     public CustPoint getFirst() {
@@ -232,6 +239,10 @@ public final class MainWindow extends GroupFrame {
 
     public void setLast(int _x, int _y) {
         last = new CustPoint(_x, _y);
+    }
+
+    public boolean isWithSound() {
+        return withSound.isSelected();
     }
 
     @Override

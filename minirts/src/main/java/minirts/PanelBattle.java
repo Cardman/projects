@@ -40,6 +40,9 @@ public class PanelBattle {
 
     public PanelBattle(Facade _facade) {
         facade = _facade;
+        content.setOpaque(true);
+        content.setBackground(Color.WHITE);
+        container.setOpaque(true);
         container.setBackground(Color.WHITE);
         selecting = new Selecting(_facade);
         container.add(selecting);
@@ -68,7 +71,6 @@ public class PanelBattle {
     }
 
     public void repaint(int _x, int _y, int _width, int _height) {
-        content.repaint(_x, _y, _width, _height);
         Rect gl_ = new Rect(_x,_y,_width,_height);
         for (EntryCust<UnitMapKey, UnitSoldier> e: soldierLabels.entryList()) {
             UnitSoldier u_ = e.getValue();
@@ -95,7 +97,17 @@ public class PanelBattle {
             BufferedImage img_ = new BufferedImage(w_, h_, BufferedImage.TYPE_INT_ARGB);
             Graphics gr_ = img_.getGraphics();
             gr_.setFont(selecting.getFont());
-            selecting.paintComponent(new CustGraphics(gr_));
+            Rect r_ = facade.getSelection();
+            gr_.setColor(Color.BLUE);
+            gr_.drawRect(r_.getLeft(), r_.getTop(), r_.getWidth(), r_.getHeight());
+            selecting.setIcon(new ImageIcon(img_));
+        } else {
+            int w_ = selecting.getWidth();
+            int h_ = selecting.getHeight();
+            BufferedImage img_ = new BufferedImage(w_, h_, BufferedImage.TYPE_INT_ARGB);
+            Graphics gr_ = img_.getGraphics();
+            gr_.setColor(new Color(255,255,255,0));
+            gr_.fillRect(0, 0, w_, h_);
             selecting.setIcon(new ImageIcon(img_));
         }
     }
@@ -140,7 +152,6 @@ public class PanelBattle {
 
     public void selectOrDeselectMany() {
         facade.selectOrDeselectMany();
-        paintSelection = true;
         CustPoint curTopLeft_ = facade.getTopLeftPoint();
         CustComponent parent_ = container.getParent();
         int w_ = parent_.getWidth();

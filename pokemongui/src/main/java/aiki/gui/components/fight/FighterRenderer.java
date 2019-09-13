@@ -61,7 +61,10 @@ public class FighterRenderer extends CustCellRender {
     @Override
     public void paintComponent(CustGraphics _g) {
         if (!enabled) {
-            _g.setColor(new Color(225, 225, 225));
+            _g.setColor(new Color(127, 127, 127));
+            _g.fillRect(0, 0, getWidth() - 1, getHeight() -1);
+        } else {
+            _g.setColor(Color.WHITE);
             _g.fillRect(0, 0, getWidth() - 1, getHeight() -1);
         }
         _g.drawImage(pkImage, 0, 0);

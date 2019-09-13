@@ -34,6 +34,9 @@ public class InteractClick extends MouseAdapter {
     public void mouseReleased(MouseEvent e) {
         if (!SwingUtilities.isLeftMouseButton(e)) {
             fenetre.setNewLocation(e.getX(), e.getY());
+            if (!fenetre.isWithSound()) {
+                return;
+            }
             if (soundTh != null && soundTh.isAlive()) {
                 return;
             }
