@@ -1,6 +1,7 @@
 package code.expressionlanguage;
 
 import code.expressionlanguage.options.Options;
+import code.stream.StreamFolderFile;
 import code.stream.StreamTextFile;
 import code.stream.StreamZipFile;
 import code.util.EntryCust;
@@ -68,38 +69,7 @@ public final class RunningTest implements Runnable {
     }
 
     public static StringMap<String> getFiles(String _archiveOrFolder) {
-        StringMap<String> zipFiles_ = new StringMap<String>();
-        File file_ = new File(_archiveOrFolder);
-        if (file_.isDirectory()) {
-            String abs_ = file_.getAbsolutePath();
-            for (String f: StreamTextFile.allSortedFiles(_archiveOrFolder)) {
-                if (new File(f).isDirectory()) {
-                    continue;
-                }
-                String contentOfFile_ = StreamTextFile.contentsOfFile(f);
-                if (contentOfFile_ == null) {
-                    continue;
-                }
-                zipFiles_.addEntry(f.substring(abs_.length()+1),contentOfFile_);
-            }
-        } else {
-            StringMap<byte[]> zip_ =  StreamZipFile.zippedBinaryFiles(_archiveOrFolder);
-            if (zip_ == null) {
-                return zipFiles_;
-            }
-            for (EntryCust<String,byte[]> e: zip_.entryList()) {
-                String key_ = e.getKey();
-                if (key_.endsWith("/")) {
-                    continue;
-                }
-                String dec_ = StringList.decode(e.getValue());
-                if (dec_ == null) {
-                    continue;
-                }
-                zipFiles_.addEntry(key_,dec_);
-            }
-        }
-        return zipFiles_;
+        return StreamFolderFile.getFiles(_archiveOrFolder);
     }
     public static void setupOptionals(int _from, ExecutingOptions _exec, StringList _lines) {
         for (String l: _lines.mid(_from)) {

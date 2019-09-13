@@ -6493,6 +6493,13 @@ public final class DocumentReaderAikiCoreUtil {
         }
     }
 
+    public static LoadingGame getLoadingGameOrNull(String _string) {
+        Document doc_ = DocumentBuilder.parseNoTextDocument(_string);
+        if (doc_ == null) {
+            return null;
+        }
+        return getLoadingGame(doc_.getDocumentElement());
+    }
     public static LoadingGame getLoadingGame(String _string) {
         Document doc_ = DocumentBuilder.parseNoTextDocument(_string);
         if (doc_ == null) {

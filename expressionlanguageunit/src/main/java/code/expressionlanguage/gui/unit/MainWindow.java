@@ -143,11 +143,16 @@ public final class MainWindow extends GroupFrame {
         if (fichier_.isEmpty()) {
             return;
         }
-        RunningTest r_ = RunningTest.newFromFile(fichier_, new ProgressingTestsImpl(this));
+        launchFileConf(fichier_);
+    }
+
+    public void launchFileConf(String _fichier) {
+        RunningTest r_ = RunningTest.newFromFile(_fichier, new ProgressingTestsImpl(this));
         Thread th_ = new Thread(r_);
         th = th_;
         th_.start();
     }
+
     public void showProgress(RunnableContextEl _ctx, Struct _infos, Struct _doneTests, Struct _method, Struct _count) {
         String infoTest_ = ((LgNamesUtils)_ctx.getStandards()).getAliasInfoTest();
         String infoTestDone_ = ((LgNamesUtils)_ctx.getStandards()).getAliasInfoTestDone();

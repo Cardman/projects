@@ -13,6 +13,7 @@ import code.gui.TextArea;
 import code.gui.TextField;
 import code.gui.document.RenderedPage;
 import code.gui.events.QuittingEvent;
+import code.stream.StreamFolderFile;
 import code.stream.StreamTextFile;
 import code.stream.StreamZipFile;
 import code.util.EntryCust;
@@ -73,7 +74,11 @@ public final class MainWindow extends GroupFrame {
         if (fichier_.isEmpty()) {
             return;
         }
-        String content_ = StreamTextFile.contentsOfFile(fichier_);
+        loadRenderConf(fichier_);
+    }
+
+    public void loadRenderConf(String _fichier) {
+        String content_ = StreamTextFile.contentsOfFile(_fichier);
         if (content_ == null) {
             return;
         }
@@ -89,38 +94,19 @@ public final class MainWindow extends GroupFrame {
             return;
         }
         String archive_ = linesFiles_.first();
-        StringMap<byte[]> zip_ =  StreamZipFile.zippedBinaryFiles(archive_);
-        if (zip_ == null) {
-            if (!new File(archive_).isDirectory()) {
-                return;
-            }
-            zip_ = new StringMap<byte[]>();
-            for (String a: StreamTextFile.allSortedFiles(archive_)) {
-                String input_ = StreamTextFile.contentsOfFile(a);
-                if (input_ == null) {
-                    continue;
-                }
-                zip_.addEntry(a.substring(archive_.length()+1),StringList.encode(input_));
-            }
-        }
-        StringMap<String> zipFiles_ = new StringMap<String>();
         String confRel_ = linesFiles_.get(1);
-        for (EntryCust<String,byte[]> e: zip_.entryList()) {
-            String key = e.getKey();
-            if (key.endsWith("/")) {
-                continue;
-            }
-            String dec_ = StringList.decode(e.getValue());
-            zipFiles_.addEntry(key,dec_);
-        }
+        StringMap<String> zipFiles_ = StreamFolderFile.getFiles(archive_);
         String clName_ = "";
         String mName_ = "";
         if (linesFiles_.size() > 2) {
             String line_ = ContextEl.removeDottedSpaces(linesFiles_.get(2));
-            int last_ = line_.lastIndexOf('.');
-            if (last_ > -1) {
-                clName_ = line_.substring(0,last_);
-                mName_ = line_.substring(last_+1);
+            if (line_.startsWith("initDb=")) {
+                String subLine_ = line_.substring("initDb=".length());
+                int last_ = subLine_.lastIndexOf('.');
+                if (last_ > -1) {
+                    clName_ = subLine_.substring(0,last_);
+                    mName_ = subLine_.substring(last_+1);
+                }
             }
         }
         BeanCustLgNames lgNames_ = new BeanCustLgNames();

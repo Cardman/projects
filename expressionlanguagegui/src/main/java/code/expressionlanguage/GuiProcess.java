@@ -49,11 +49,15 @@ public final class GuiProcess implements Runnable {
         String clName_ = "";
         String mName_ = "";
         String line_ = ContextEl.removeDottedSpaces(linesFiles_.get(2));
-        int last_ = line_.lastIndexOf('.');
-        if (last_ > -1) {
-            clName_ = line_.substring(0,last_);
-            mName_ = line_.substring(last_+1);
+        if (line_.startsWith("main=")) {
+            String subLine_ = line_.substring("main=".length());
+            int last_ = subLine_.lastIndexOf('.');
+            if (last_ > -1) {
+                clName_ = subLine_.substring(0,last_);
+                mName_ = subLine_.substring(last_+1);
+            }
         }
+
         ExecutingOptions exec_ = new ExecutingOptions();
         RunningTest.setupOptionals(3,exec_,linesFiles_);
         String folder_ = exec_.getLogFolder();
