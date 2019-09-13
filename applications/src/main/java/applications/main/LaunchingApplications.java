@@ -14,6 +14,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.GuiProcess;
 import code.expressionlanguage.gui.unit.LaunchingAppUnitTests;
 import code.gui.*;
+import code.minirts.LaunchingDemo;
 import code.renders.LaunchingRenders;
 import code.stream.StreamTextFile;
 import code.util.StringList;
@@ -110,6 +111,12 @@ public class LaunchingApplications extends SoftApplicationCore {
                 MainWindow w_ = getWindow(_language);
                 setLocation(w_, topLeft_);
                 LaunchingAppUnitTests launch_ = new LaunchingAppUnitTests();
+                launch_.launchWithoutLanguage(_language, _args);
+            } else {
+                TopLeftFrame topLeft_ = loadCoords(getTempFolder(),COORDS);
+                MainWindow w_ = getWindow(_language);
+                setLocation(w_, topLeft_);
+                LaunchingDemo launch_ = new LaunchingDemo();
                 launch_.launchWithoutLanguage(_language, _args);
             }
             return;

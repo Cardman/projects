@@ -61,9 +61,15 @@ public final class MainWindow extends GroupFrame {
         setContentPane(pane_);
         pack();
         setVisible(true);
+        setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         addWindowListener(new QuittingEvent(this));
     }
 
+    @Override
+    public void dispose() {
+        LaunchingRenders.decrement();
+        super.dispose();
+    }
 
     public void load() {
         FileOpenDialog.setFileOpenDialog(this,getLanguageKey(),true, "", ConstFiles.getHomePath());
@@ -149,7 +155,7 @@ public final class MainWindow extends GroupFrame {
 
     @Override
     public String getApplicationName() {
-        return "";
+        return "renders_sites";
     }
 
     @Override

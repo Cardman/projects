@@ -99,7 +99,14 @@ public final class MainWindow extends GroupFrame {
         setContentPane(contentPane);
         pack();
         setVisible(true);
+        setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         addWindowListener(new QuittingEvent(this));
+    }
+
+    @Override
+    public void dispose() {
+        LaunchingAppUnitTests.decrement();
+        super.dispose();
     }
 
     @Override
@@ -114,7 +121,7 @@ public final class MainWindow extends GroupFrame {
 
     @Override
     public String getApplicationName() {
-        return "";
+        return "ug";
     }
 
     @Override

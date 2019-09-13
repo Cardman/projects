@@ -18,6 +18,7 @@
 		<module>../coreproject</module>
 		<module>../pokemongroup</module>
 		<module>../cardsgroup</module>
+		<module>../applicationsmain</module>
 	</modules>
 	<build>
         <plugins>
