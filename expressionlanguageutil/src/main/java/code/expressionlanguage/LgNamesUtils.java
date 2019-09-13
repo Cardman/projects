@@ -1053,20 +1053,12 @@ public class LgNamesUtils extends LgNames {
         String stringAppFile_;
         StringList paramType_ = _method.getConstraints().getParametersTypes();
         if (paramType_.size() == 1) {
-            if (_args[0] instanceof DisplayableStruct) {
-                stringAppFile_ = ((DisplayableStruct)_args[0]).getDisplayedString(_cont).getInstance();
-            } else {
-                stringAppFile_ = StringList.concat(_args[0].getClassName(_cont),"...");
-            }
+            stringAppFile_ = getStandarString(_cont,_args[0]);
         } else {
             StringList values_ = new StringList();
             if (_args[1] instanceof ArrayStruct) {
                 for (Struct e: ((ArrayStruct)_args[1]).getInstance()) {
-                    if (e instanceof DisplayableStruct) {
-                        values_.add(((DisplayableStruct)e).getDisplayedString(_cont).getInstance());
-                    } else {
-                        values_.add(StringList.concat("<",_args[0].getClassName(_cont),"...>"));
-                    }
+                    values_.add(getStandarString(_cont,e));
                 }
                 if (_args[0] instanceof StringStruct) {
                     stringAppFile_ = StringList.simpleStringsFormat(((StringStruct)_args[0]).getInstance(), values_);
@@ -1074,15 +1066,17 @@ public class LgNamesUtils extends LgNames {
                     stringAppFile_ = _cont.getStandards().getNullString();
                 }
             } else {
-                if (_args[0] instanceof DisplayableStruct) {
-                    stringAppFile_ = ((DisplayableStruct)_args[0]).getDisplayedString(_cont).getInstance();
-                } else {
-                    stringAppFile_ = StringList.concat(_args[0].getClassName(_cont),"...");
-                }
+                stringAppFile_ = getStandarString(_cont,_args[0]);
 
             }
         }
         return stringAppFile_;
+    }
+    private static String getStandarString(ContextEl _cont, Struct _struct) {
+        if (_struct instanceof DisplayableStruct) {
+            return ((DisplayableStruct)_struct).getDisplayedString(_cont).getInstance();
+        }
+        return StringList.concat(((StringStruct)_cont.getStandards().getStringOfObject(_cont,_struct)).getInstance(),"...");
     }
     @Override
     public StringMap<StringList> allTableTypeMethodNames() {

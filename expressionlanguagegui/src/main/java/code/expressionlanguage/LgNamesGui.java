@@ -4710,6 +4710,8 @@ public class LgNamesGui extends LgNamesUtils {
         ref_.add(getAliasButton());
         ref_.add(getAliasTextLabel());
         ref_.add(getAliasFont());
+        ref_.add(getAliasTextArea());
+        ref_.add(getAliasTextField());
         return ref_;
     }
 }
