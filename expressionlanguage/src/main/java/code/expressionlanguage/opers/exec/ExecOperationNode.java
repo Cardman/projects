@@ -536,7 +536,7 @@ public abstract class ExecOperationNode implements Operable {
                 methodId_ = new ClassMethodId(foundClass_, id_);
             }
             if (methodId_ == null) {
-                out_.setStruct(new StringStruct(struct_.getClassName(_conf)));
+                out_.setStruct(_conf.getStandards().getStringOfObject(_conf,struct_));
             } else {
                 ClassMethodId polymorph_ = ExecInvokingOperation.polymorph(_conf, struct_, methodId_);
                 String className_ = polymorph_.getClassName();

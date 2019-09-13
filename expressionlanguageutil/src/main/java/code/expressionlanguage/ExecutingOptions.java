@@ -1,5 +1,7 @@
 package code.expressionlanguage;
 
+import code.util.StringList;
+
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public final class ExecutingOptions {
@@ -12,6 +14,8 @@ public final class ExecutingOptions {
     private boolean covering;
     private String coverFolder = "coverage";
     private boolean invokeDirect;
+    private boolean hasArg;
+    private StringList args = new StringList();
 
     public String getSrcFolder() {
         return srcFolder;
@@ -71,5 +75,21 @@ public final class ExecutingOptions {
 
     public void setInvokeDirect(boolean _invokeDirect) {
         invokeDirect = _invokeDirect;
+    }
+
+    public boolean isHasArg() {
+        return hasArg;
+    }
+
+    public void setHasArg(boolean _hasArg) {
+        hasArg = _hasArg;
+    }
+
+    public StringList getArgs() {
+        return args;
+    }
+
+    public void setArgs(StringList _args) {
+        args = _args;
     }
 }

@@ -61,6 +61,10 @@ public final class GuiProcess implements Runnable {
         ExecutingOptions exec_ = new ExecutingOptions();
         RunningTest.setupOptionals(3,exec_,linesFiles_);
         String folder_ = exec_.getLogFolder();
+        if (exec_.isHasArg()) {
+            mainArgs_ = exec_.getArgs();
+            mainArgs_.add(0,_args[0]);
+        }
         Options opt_ = new Options();
         opt_.setReadOnly(true);
         LgNamesGui stds_ = new LgNamesGui();

@@ -7,6 +7,10 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.locks.ReentrantLock;
 
+import code.expressionlanguage.inherits.Templates;
+import code.expressionlanguage.methods.EnumBlock;
+import code.expressionlanguage.methods.InnerElementBlock;
+import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.MethodId;
@@ -619,6 +623,18 @@ public class LgNamesUtils extends LgNames {
         fields_ = new StringMap<StandardField>();
         stdcl_ = new StandardClass(aliasConcurrentError, fields_, constructors_, methods_, getAliasError(), MethodModifier.ABSTRACT);
         getStandards().put(aliasConcurrentError, stdcl_);
+    }
+    @Override
+    public Struct getStringOfObject(ContextEl _cont, Struct _arg) {
+        if (_arg instanceof RunnableStruct) {
+            String className_ = _arg.getClassName(_cont);
+            String id_ = Templates.getIdFromAllTypes(className_);
+            RootBlock clBody_ = _cont.getClasses().getClassBody(id_);
+            if (!ContextEl.isEnumType(clBody_)) {
+                return new StringStruct(_arg.getClassName(_cont));
+            }
+        }
+        return super.getStringOfObject(_cont,_arg);
     }
     @Override
     public Argument defaultInstance(ExecutableCode _cont, String _id) {

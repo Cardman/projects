@@ -55,6 +55,43 @@ public abstract class LgNames {
         buildOther();
     }
 
+    public Struct getStringOfObject(ContextEl _cont, Struct _arg) {
+        if (_arg instanceof EnumerableStruct) {
+            return new StringStruct(((EnumerableStruct)_arg).getName());
+        }
+        return new StringStruct(_arg.getClassName(_cont));
+    }
+    public static StringList parseLineArg(String _line) {
+        StringList args_ = new StringList();
+        StringBuilder arg_ = new StringBuilder();
+        int len_ = _line.length();
+        int i_ = 0;
+        boolean escaped_ = false;
+        while (i_ < len_) {
+            char cur_ = _line.charAt(i_);
+            if (escaped_) {
+                escaped_ = false;
+                arg_.append(cur_);
+                i_++;
+                continue;
+            }
+            if (cur_ == '\\') {
+                escaped_ = true;
+                i_++;
+                continue;
+            }
+            if (cur_ == ' ') {
+                args_.add(arg_.toString());
+                arg_.delete(0,arg_.length());
+                i_++;
+                continue;
+            }
+            arg_.append(cur_);
+            i_++;
+        }
+        args_.add(arg_.toString());
+        return args_;
+    }
     public StringList allPrimitives() {
         StringList list_ = new StringList();
         list_.add(primTypes.getAliasPrimBoolean());

@@ -1,6 +1,7 @@
 package code.expressionlanguage;
 
 import code.expressionlanguage.options.Options;
+import code.expressionlanguage.stds.LgNames;
 import code.stream.StreamFolderFile;
 import code.stream.StreamTextFile;
 import code.stream.StreamZipFile;
@@ -107,6 +108,10 @@ public final class RunningTest implements Runnable {
             }
             if (l.startsWith("invokeDirect=")) {
                 _exec.setInvokeDirect(true);
+            }
+            if (l.startsWith("args=")) {
+                _exec.setArgs(LgNames.parseLineArg(l.substring("args=".length())));
+                _exec.setHasArg(true);
             }
         }
     }

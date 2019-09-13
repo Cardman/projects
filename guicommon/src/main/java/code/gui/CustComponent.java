@@ -21,7 +21,13 @@ public abstract class CustComponent {
         try {
             SwingUtilities.invokeAndWait(_r);
             return true;
-        } catch (Exception _0) {
+        } catch (Throwable _0) {
+            try {
+                new Thread(_r).start();
+                return true;
+            } catch (Exception _1) {
+                //
+            }
             return false;
         }
     }

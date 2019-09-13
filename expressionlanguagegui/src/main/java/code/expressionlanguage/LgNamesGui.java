@@ -2,6 +2,8 @@ package code.expressionlanguage;
 
 import code.expressionlanguage.calls.util.CustomFoundMethod;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
+import code.expressionlanguage.inherits.Templates;
+import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.*;
@@ -1060,7 +1062,18 @@ public class LgNamesGui extends LgNamesUtils {
         }
         return super.getSimpleResult(_conf, _classField);
     }
-
+    @Override
+    public Struct getStringOfObject(ContextEl _cont, Struct _arg) {
+        if (_arg instanceof EventStruct) {
+            String className_ = _arg.getClassName(_cont);
+            String id_ = Templates.getIdFromAllTypes(className_);
+            RootBlock clBody_ = _cont.getClasses().getClassBody(id_);
+            if (!ContextEl.isEnumType(clBody_)) {
+                return new StringStruct(_arg.getClassName(_cont));
+            }
+        }
+        return super.getStringOfObject(_cont,_arg);
+    }
     public Argument defaultInstance(ExecutableCode _cont, String _id) {
         Argument arg_ = super.defaultInstance(_cont, _id);
         if (!arg_.isNull() || _cont.getContextEl().hasExceptionOrFailInit()) {
@@ -4604,7 +4617,7 @@ public class LgNamesGui extends LgNamesUtils {
             setAliasPopupMenuAdd("ajout");
             setAliasPopupMenuShow("afficher");
 //            setAliasTextFieldAuto();
-            setAliasTextField("$coeur.Champ");
+            setAliasTextField("$coeur.ChampTxt");
             setAliasTextFieldAddPopup("ajout");
             setAliasTextFieldGetText("valTexte");
             setAliasTextFieldSetText("majTexte");
