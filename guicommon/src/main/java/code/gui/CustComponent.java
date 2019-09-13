@@ -18,16 +18,20 @@ public abstract class CustComponent {
         SwingUtilities.invokeLater(_r);
     }
     public static boolean invokeAndWait(Runnable _r) {
+        if (SwingUtilities.isEventDispatchThread()) {
+            Thread th_ = new Thread(_r);
+            th_.start();
+            try {
+                th_.join();
+            } catch (Exception _0) {
+                //ignore
+            }
+            return true;
+        }
         try {
             SwingUtilities.invokeAndWait(_r);
             return true;
         } catch (Throwable _0) {
-            try {
-                new Thread(_r).start();
-                return true;
-            } catch (Exception _1) {
-                //
-            }
             return false;
         }
     }
