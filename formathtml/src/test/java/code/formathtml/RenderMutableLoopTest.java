@@ -395,6 +395,18 @@ public final class RenderMutableLoopTest extends CommonRender {
         assertNull(context_.getException());
     }
     @Test
+    public void process29Test() {
+        Configuration context_ = contextElThird();
+        String html_ = "<html><c:set className=\"$int\" value=\"i,j\"/><c:for init=\"i;.=0,j;.=0\" condition=\"i;.&lt;4\" step=\"i;.++,j;.+=2\">{i;.}-{j;.}--<c:if condition=\"i;.%2==0\">Pair</c:if><c:else>Impair</c:else>-</c:for></html>";
+        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
+        context_.getAnalyzing().setEnabledInternVars(false);
+        rendDocumentBlock_.buildFctInstructions(context_);
+        assertTrue(context_.getClasses().isEmptyErrors());
+        assertEq("<html>0-0--Pair-1-2--Impair-2-4--Pair-3-6--Impair-</html>", RendBlock.getRes(rendDocumentBlock_,context_));
+        assertNull(context_.getException());
+    }
+    @Test
     public void process1FailTest() {
         Configuration context_ = contextElThird();
         String html_ = "<html><c:for className=\"$var\" init=\"i=0\" condition=\"i;&lt;4\" step=\"i;++\">{i;}-<c:if condition=\"i;%2==0\">Pair-<c:try>Cont-<c:continue label='label'/></c:try><c:finally>Finally-</c:finally></c:if>Impair-</c:for></html>";

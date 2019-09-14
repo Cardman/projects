@@ -147,6 +147,7 @@ public final class RendForMutableIterativeLoop extends RendParentBlock implement
             getVariableNames().addAllElts(vars_);
         }
         _cont.setMerged(false);
+        _cont.setAcceptCommaInstr(false);
         page_.setGlobalOffset(expressionOffset);
         page_.setOffset(0);
         _cont.getAnalyzingDoc().setAttribute(ATTRIBUTE_CONDITION);
