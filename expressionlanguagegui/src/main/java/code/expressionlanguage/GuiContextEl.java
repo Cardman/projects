@@ -40,10 +40,23 @@ public final class GuiContextEl extends RunnableContextEl {
         mainArgs = ((GuiContextEl)_context).mainArgs;
     }
 
-    public void addWindowListener(FrameStruct _frame,Struct _event) {
+    public void addWindowListener(WindowStruct _frame,Struct _event) {
         if (_event instanceof WindowListener) {
-            _frame.addWindowEvent((WindowListener)_event);
-            _frame.getCommonFrame().setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+            _frame.addWindowListener((WindowListener)_event);
+            _frame.getAbstractWindow().setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+        }
+    }
+
+    public void removeWindowListener(WindowStruct _inst, Struct _event) {
+        if (_event instanceof WindowListener) {
+            _inst.removeWindowListener((WindowListener)_event);
+            if (_inst.getWindowListeners().length == 0) {
+                if (_inst == frame) {
+                    _inst.getAbstractWindow().setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+                } else {
+                    _inst.getAbstractWindow().setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
+                }
+            }
         }
     }
     public String getLgExec() {
@@ -67,4 +80,5 @@ public final class GuiContextEl extends RunnableContextEl {
         }
         return new IntStruct(textLabel.getFontMetrics(_font.getFont()).stringWidth(((StringStruct)_string).getInstance()));
     }
+
 }

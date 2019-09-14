@@ -16,6 +16,8 @@ import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
 
+import java.awt.event.WindowListener;
+
 
 public class LgNamesGui extends LgNamesUtils {
 
@@ -63,6 +65,12 @@ public class LgNamesGui extends LgNamesUtils {
     private String aliasKeyEventIsCtrl;
 
     private String aliasFrame;
+    private String aliasDialog;
+    private String aliasDialogIsModal;
+    private String aliasDialogSetModal;
+    private String aliasWindowType;
+    private String aliasRemoveWindowListener;
+    private String aliasGetWindowListeners;
     private String aliasPanel;
     private String aliasPanelFlow;
     private String aliasPanelAbsolute;
@@ -149,6 +157,7 @@ public class LgNamesGui extends LgNamesUtils {
     private String aliasPaintRefresh;
     private String aliasRemoveCompo;
     private String aliasCount;
+    private String aliasIsVisible;
     private String aliasSetVisible;
     private String aliasWindow;
     private String aliasArgs;
@@ -261,7 +270,7 @@ public class LgNamesGui extends LgNamesUtils {
         methods_ = new ObjectMap<MethodId, StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new StringMap<StandardField>();
-        stdcl_ = new StandardClass(aliasFrame, fields_, constructors_, methods_, getAliasObject(), MethodModifier.FINAL);
+        stdcl_ = new StandardClass(aliasWindowType, fields_, constructors_, methods_, getAliasObject(), MethodModifier.FINAL);
         params_ = new StringList(aliasPanel);
         method_ = new StandardMethod(aliasSetContent, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
@@ -269,10 +278,22 @@ public class LgNamesGui extends LgNamesUtils {
         method_ = new StandardMethod(aliasPack, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasDispose, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        method_ = new StandardMethod(aliasIsVisible, params_, getAliasPrimBoolean(), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(getAliasPrimBoolean());
         method_ = new StandardMethod(aliasSetVisible, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasWindowListener);
+        method_ = new StandardMethod(aliasAddWindowListener, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        std_ = stdcl_;
+        getStandards().put(aliasWindowType, std_);
+        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        constructors_ = new CustList<StandardConstructor>();
+        fields_ = new StringMap<StandardField>();
+        stdcl_ = new StandardClass(aliasFrame, fields_, constructors_, methods_, aliasWindowType, MethodModifier.FINAL);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasDispose, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasWindow, params_, aliasFrame, false, MethodModifier.STATIC, stdcl_);
@@ -280,15 +301,27 @@ public class LgNamesGui extends LgNamesUtils {
         params_ = new StringList();
         method_ = new StandardMethod(aliasArgs, params_, PrimitiveTypeUtil.getPrettyArrayType(getAliasString()), false, MethodModifier.STATIC, stdcl_);
         methods_.put(method_.getId(), method_);
-        params_ = new StringList(aliasWindowListener);
-        method_ = new StandardMethod(aliasAddWindowListener, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
-        methods_.put(method_.getId(), method_);
         StandardConstructor ctor_;
         params_ = new StringList();
         ctor_ = new StandardConstructor(params_,false,stdcl_);
         constructors_.add(ctor_);
         std_ = stdcl_;
         getStandards().put(aliasFrame, std_);
+        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        constructors_ = new CustList<StandardConstructor>();
+        fields_ = new StringMap<StandardField>();
+        stdcl_ = new StandardClass(aliasDialog, fields_, constructors_, methods_, aliasWindowType, MethodModifier.FINAL);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasDialogIsModal, params_, getAliasPrimBoolean(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasPrimBoolean());
+        method_ = new StandardMethod(aliasDialogSetModal, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        ctor_ = new StandardConstructor(params_,false,stdcl_);
+        constructors_.add(ctor_);
+        std_ = stdcl_;
+        getStandards().put(aliasDialog, std_);
         methods_ = new ObjectMap<MethodId, StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new StringMap<StandardField>();
@@ -1089,6 +1122,9 @@ public class LgNamesGui extends LgNamesUtils {
         if (StringList.quickEq(_id,aliasFrame)) {
             return new Argument(new FrameStruct(new OtherFrame(((GuiContextEl)_cont).getLgExec())));
         }
+        if (StringList.quickEq(_id,aliasDialog)) {
+            return new Argument(new DialogStruct(new OtherDialog()));
+        }
         if (StringList.quickEq(_id,aliasPanel)) {
             return new Argument(PanelStruct.newFlow(aliasPanel));
         }
@@ -1129,6 +1165,15 @@ public class LgNamesGui extends LgNamesUtils {
                 return r_;
             }
             r_.setResult(new FrameStruct(new OtherFrame(((GuiContextEl)_cont).getLgExec())));
+            return r_;
+        }
+        if (StringList.quickEq(name_,aliasDialog)) {
+            if (_cont.isInitEnums()) {
+                _cont.failInitEnums();
+                r_.setResult(NullStruct.NULL_VALUE);
+                return r_;
+            }
+            r_.setResult(new DialogStruct(new OtherDialog()));
             return r_;
         }
         if (StringList.quickEq(name_,aliasPanel)) {
@@ -1381,6 +1426,48 @@ public class LgNamesGui extends LgNamesUtils {
         ResultErrorStd res_ = new ResultErrorStd();
         String type_ = _method.getClassName();
         String name_ = _method.getConstraints().getName();
+        if (StringList.quickEq(type_, aliasWindowType)) {
+            WindowStruct inst_ = (WindowStruct) _instance;
+            if (StringList.quickEq(name_, aliasPack)) {
+                inst_.pack();
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasAddWindowListener)) {
+                ((GuiContextEl)_cont).addWindowListener(inst_,_args[0]);
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasRemoveWindowListener)) {
+                ((GuiContextEl)_cont).removeWindowListener(inst_,_args[0]);
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasGetWindowListeners)) {
+                WindowListener[] listeners_ = inst_.getWindowListeners();
+                int len_ = listeners_.length;
+                ArrayStruct arr_ = new ArrayStruct(new Struct[len_],PrimitiveTypeUtil.getPrettyArrayType(aliasWindowListener));
+                for (int i = 0; i< len_; i++) {
+                    arr_.getInstance()[i] = (Struct)listeners_[i];
+                }
+                res_.setResult(arr_);
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasIsVisible)) {
+                res_.setResult(new BooleanStruct(inst_.isVisible()));
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasSetVisible)) {
+                inst_.setVisible(((BooleanStruct)_args[0]).getInstance());
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            if (_args[0] instanceof PanelStruct) {
+                inst_.setContentPane(((PanelStruct)_args[0]).getPanel());
+            }
+            res_.setResult(NullStruct.NULL_VALUE);
+            return res_;
+        }
         if (StringList.quickEq(type_, aliasFrame)) {
             if (_cont.isInitEnums()) {
                 _cont.failInitEnums();
@@ -1404,30 +1491,18 @@ public class LgNamesGui extends LgNamesUtils {
                 return res_;
             }
             GroupFrame inst_ = ((FrameStruct) _instance).getCommonFrame();
-            if (StringList.quickEq(name_, aliasPack)) {
-                inst_.pack();
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            if (StringList.quickEq(name_, aliasDispose)) {
-                inst_.dispose();
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            if (StringList.quickEq(name_, aliasAddWindowListener)) {
-                ((GuiContextEl)_cont).addWindowListener((FrameStruct) _instance,_args[0]);
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            if (StringList.quickEq(name_, aliasSetVisible)) {
-                inst_.setVisible(((BooleanStruct)_args[0]).getInstance());
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            if (_args[0] instanceof PanelStruct) {
-                inst_.setContentPane(((PanelStruct)_args[0]).getPanel());
-            }
+            inst_.dispose();
             res_.setResult(NullStruct.NULL_VALUE);
+            return res_;
+        }
+        if (StringList.quickEq(type_, aliasDialog)) {
+            OtherDialog inst_ = ((DialogStruct)_instance).getDialog();
+            if (StringList.quickEq(name_, aliasDialogSetModal)) {
+                inst_.setModal(((BooleanStruct)_args[0]).getInstance());
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            res_.setResult(new BooleanStruct(inst_.isModal()));
             return res_;
         }
         if (StringList.quickEq(type_, aliasDimension)) {
@@ -2424,6 +2499,54 @@ public class LgNamesGui extends LgNamesUtils {
         this.aliasFrame = aliasFrame;
     }
 
+    public String getAliasDialog() {
+        return aliasDialog;
+    }
+
+    public void setAliasDialog(String aliasDialog) {
+        this.aliasDialog = aliasDialog;
+    }
+
+    public String getAliasDialogIsModal() {
+        return aliasDialogIsModal;
+    }
+
+    public void setAliasDialogIsModal(String aliasDialogIsModal) {
+        this.aliasDialogIsModal = aliasDialogIsModal;
+    }
+
+    public String getAliasDialogSetModal() {
+        return aliasDialogSetModal;
+    }
+
+    public void setAliasDialogSetModal(String aliasDialogSetModal) {
+        this.aliasDialogSetModal = aliasDialogSetModal;
+    }
+
+    public String getAliasWindowType() {
+        return aliasWindowType;
+    }
+
+    public void setAliasWindowType(String aliasWindowType) {
+        this.aliasWindowType = aliasWindowType;
+    }
+
+    public String getAliasRemoveWindowListener() {
+        return aliasRemoveWindowListener;
+    }
+
+    public void setAliasRemoveWindowListener(String aliasRemoveWindowListener) {
+        this.aliasRemoveWindowListener = aliasRemoveWindowListener;
+    }
+
+    public String getAliasGetWindowListeners() {
+        return aliasGetWindowListeners;
+    }
+
+    public void setAliasGetWindowListeners(String aliasGetWindowListeners) {
+        this.aliasGetWindowListeners = aliasGetWindowListeners;
+    }
+
     public String getAliasPanel() {
         return aliasPanel;
     }
@@ -3126,6 +3249,14 @@ public class LgNamesGui extends LgNamesUtils {
 
     public void setAliasDispose(String aliasDispose) {
         this.aliasDispose = aliasDispose;
+    }
+
+    public String getAliasIsVisible() {
+        return aliasIsVisible;
+    }
+
+    public void setAliasIsVisible(String aliasIsVisible) {
+        this.aliasIsVisible = aliasIsVisible;
     }
 
     public String getAliasSetVisible() {
@@ -4247,6 +4378,12 @@ public class LgNamesGui extends LgNamesUtils {
             setAliasListSelection("$core.ListSelection");
             setAliasValueChanged("valueChanged");
             setAliasFrame("$core.Frame");
+            setAliasDialog("$core.Dialog");
+            setAliasDialogIsModal("isModal");
+            setAliasDialogSetModal("setModal");
+            setAliasWindowType("$core.Window");
+            setAliasRemoveWindowListener("removeWindowListener");
+            setAliasGetWindowListeners("getWindowListeners");
             setAliasPanel("$core.Panel");
             setAliasPanelBorder("$core.PanelBorder");
             setAliasPanelBorderNorth("NORTH");
@@ -4293,6 +4430,7 @@ public class LgNamesGui extends LgNamesUtils {
             setAliasGetParentCompo("getParent");
             setAliasGetNextCompo("next");
             setAliasPack("pack");
+            setAliasIsVisible("isVisible");
             setAliasSetVisible("setVisible");
             setAliasWindow("window");
             setAliasArgs("args");
@@ -4473,6 +4611,12 @@ public class LgNamesGui extends LgNamesUtils {
             setAliasListSelection("$coeur.SelectionListe");
             setAliasValueChanged("changement");
             setAliasFrame("$coeur.Fenetre");
+            setAliasDialog("$coeur.Dialogue");
+            setAliasDialogIsModal("estModale");
+            setAliasDialogSetModal("majModale");
+            setAliasWindowType("$coeur.AbsFenetre");
+            setAliasRemoveWindowListener("supprFenetreEcout");
+            setAliasGetWindowListeners("valFenetreEcouts");
             setAliasPanel("$coeur.Panneau");
             setAliasPanelBorder("$coeur.PanneauBordure");
             setAliasPanelBorderNorth("NORD");
@@ -4519,6 +4663,7 @@ public class LgNamesGui extends LgNamesUtils {
             setAliasGetParentCompo("valParent");
             setAliasGetNextCompo("suivant");
             setAliasPack("cadrer");
+            setAliasIsVisible("estVisible");
             setAliasSetVisible("majVisible");
             setAliasWindow("fenetre");
             setAliasArgs("args");
@@ -4664,7 +4809,32 @@ public class LgNamesGui extends LgNamesUtils {
                 getAliasWindow(),
                 getAliasArgs(),
                 getAliasAddWindowListener(),
+                getAliasRemoveWindowListener(),
+                getAliasGetWindowListeners(),
                 getAliasDispose(),
+                getAliasIsVisible(),
+                getAliasSetVisible(),
+                getAliasSetContent()));
+        m_.put(getAliasDialog(), new StringList(
+                getAliasPack(),
+                getAliasWindow(),
+                getAliasArgs(),
+                getAliasAddWindowListener(),
+                getAliasRemoveWindowListener(),
+                getAliasGetWindowListeners(),
+                getAliasDispose(),
+                getAliasDialogIsModal(),
+                getAliasDialogSetModal(),
+                getAliasIsVisible(),
+                getAliasSetVisible(),
+                getAliasSetContent()));
+        m_.put(getAliasWindowType(), new StringList(
+                getAliasPack(),
+                getAliasAddWindowListener(),
+                getAliasRemoveWindowListener(),
+                getAliasGetWindowListeners(),
+                getAliasDispose(),
+                getAliasIsVisible(),
                 getAliasSetVisible(),
                 getAliasSetContent()));
         m_.put(getAliasPanel(), new StringList(
@@ -4888,6 +5058,8 @@ public class LgNamesGui extends LgNamesUtils {
     public StringList allRefTypes() {
         StringList ref_ =  super.allRefTypes();
         ref_.add(getAliasFrame());
+        ref_.add(getAliasDialog());
+        ref_.add(getAliasWindowType());
         ref_.add(getAliasComponent());
         ref_.add(getAliasActionEvent());
         ref_.add(getAliasMouseEvent());

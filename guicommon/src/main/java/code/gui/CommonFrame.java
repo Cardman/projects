@@ -8,7 +8,7 @@ import javax.swing.JFrame;
 import code.sml.stream.ExtractFromFiles;
 import code.util.StringMap;
 
-public abstract class CommonFrame implements ChangeableTitle {
+public abstract class CommonFrame implements ChangeableTitle,WithListener {
 
     private String accessFile;
 
@@ -99,6 +99,16 @@ public abstract class CommonFrame implements ChangeableTitle {
 
     public void addWindowListener(WindowListener _l) {
         frame.addWindowListener(_l);
+    }
+
+    @Override
+    public void removeWindowListener(WindowListener _l) {
+        frame.removeWindowListener(_l);
+    }
+
+    @Override
+    public WindowListener[] getWindowListeners() {
+        return frame.getWindowListeners();
     }
 
     public void setDefaultCloseOperation(int _operation) {
