@@ -831,6 +831,56 @@ public final class ProcessMethodGeneForTest extends ProcessMethodCommon {
         assertEq(19, ret_.getNumber());
     }
     @Test
+    public void calculateArgument32Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  $int t:\n");
+        xml_.append("  t;.=0i:\n");
+        xml_.append("  $int i,j:\n");
+        xml_.append("  $for(i;.=4i,j;.=7i:i;.>0i:i;.--,j;.-=2i){\n");
+        xml_.append("   t;.+=i;.+j;.:\n");
+        xml_.append("  }\n");
+        xml_.append("  $return $($int)t;.:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElReadOnly();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        Argument ret_;
+        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq(26, ret_.getNumber());
+    }
+    @Test
+    public void calculateArgument33Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int catching(){\n");
+        xml_.append("  int t;\n");
+        xml_.append("  t=0i;\n");
+        xml_.append("  int i,j;\n");
+        xml_.append("  for(i=4i,j=7i;i>0;i--,j-=2){\n");
+        xml_.append("   t+=i+j;\n");
+        xml_.append("  }\n");
+        xml_.append("  return $(int)t;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElReadOnlyDefault();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        Argument ret_;
+        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq(26, ret_.getNumber());
+    }
+    @Test
     public void calculateArgument1FailTest() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");

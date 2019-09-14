@@ -1234,6 +1234,7 @@ public final class RenderExpUtilTest {
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", document_, html_);
         RendBlock nextSibling_ = rendDocumentBlock_.getFirstChild().getFirstChild().getNextSibling();
         context_.setMerged(true);
+        context_.setAcceptCommaInstr(true);
         context_.getAnalyzingDoc().setCurrentBlock(nextSibling_);
         context_.setCurrentVarSetting(context_.getStandards().getAliasLong());
         String expression_ = ((RendLine) nextSibling_).getExpression();

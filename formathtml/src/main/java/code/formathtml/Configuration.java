@@ -176,6 +176,16 @@ public final class Configuration implements ExecutableCode {
         context.setMerged(_merged);
     }
 
+    @Override
+    public boolean isAcceptCommaInstr() {
+        return context.isAcceptCommaInstr();
+    }
+
+    @Override
+    public void setAcceptCommaInstr(boolean _merged) {
+        context.setAcceptCommaInstr(_merged);
+    }
+
     public void init() {
         htmlPage = new HtmlPage();
         document = null;
@@ -1505,10 +1515,12 @@ public final class Configuration implements ExecutableCode {
 
     public void setupAnalyzing() {
         boolean merged_ = false;
+        boolean accept_ = false;
         String currentVarSetting_ = "";
         String globalClass_ = "";
         if (context.getAnalyzing() != null) {
             merged_ = isMerged();
+            accept_ = isAcceptCommaInstr();
             currentVarSetting_ = getCurrentVarSetting();
             globalClass_ = getGlobalClass();
         }
@@ -1527,6 +1539,7 @@ public final class Configuration implements ExecutableCode {
         context.getAnalyzing().setCatchVars(lc_);
         context.getAnalyzing().getParameters().putAllMap(getParameters());
         context.getAnalyzing().setMerged(merged_);
+        context.getAnalyzing().setAcceptCommaInstr(accept_);
         context.getAnalyzing().setCurrentVarSetting(currentVarSetting_);
     }
 

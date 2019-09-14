@@ -43,6 +43,7 @@ public final class RendLine extends RendLeaf implements RendWithEl, RendReducabl
             declaring_.getVariableNames().addAllElts(vars_);
         }
         _cont.setMerged(false);
+        _cont.setAcceptCommaInstr(false);
         _cont.setFinalVariable(false);
     }
 

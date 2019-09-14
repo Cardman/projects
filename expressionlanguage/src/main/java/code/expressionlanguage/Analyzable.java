@@ -84,6 +84,8 @@ public interface Analyzable {
 
 
     void setMerged(boolean _merged);
+    boolean isAcceptCommaInstr();
+    void setAcceptCommaInstr(boolean _acceptCommaInstr);
 
     boolean isFinalVariable();
     void setFinalVariable(boolean _finalVariable);

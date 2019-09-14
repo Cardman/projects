@@ -1798,7 +1798,7 @@ public final class ElResolver {
             }
         }
         if (curChar_ == SEP_ARG) {
-            if (parsBrackets_.isEmpty() && !_conf.isMerged() && !(_conf.getCurrentBlock() instanceof FieldBlock)) {
+            if (parsBrackets_.isEmpty() && !_conf.isAcceptCommaInstr() && !(_conf.getCurrentBlock() instanceof FieldBlock)) {
                 _dout.setBadOffset(i_);
                 return;
             }

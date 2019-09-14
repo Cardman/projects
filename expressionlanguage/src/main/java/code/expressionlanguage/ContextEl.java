@@ -1007,6 +1007,16 @@ public abstract class ContextEl implements ExecutableCode {
     }
 
     @Override
+    public boolean isAcceptCommaInstr() {
+        return analyzing.isAcceptCommaInstr();
+    }
+
+    @Override
+    public void setAcceptCommaInstr(boolean _merged) {
+        analyzing.setAcceptCommaInstr(_merged);
+    }
+
+    @Override
     public String getCurrentVarSetting() {
         return analyzing.getCurrentVarSetting();
     }

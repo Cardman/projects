@@ -47,6 +47,7 @@ public final class RendDeclareVariable extends RendLeaf implements RendInitVaria
             importedClassName = _cont.resolveCorrectType(className);
         }
         _cont.setMerged(true);
+        _cont.setAcceptCommaInstr(true);
         _cont.setFinalVariable(false);
         _cont.setCurrentVarSetting(importedClassName);
         _cont.getVariablesNames().clear();

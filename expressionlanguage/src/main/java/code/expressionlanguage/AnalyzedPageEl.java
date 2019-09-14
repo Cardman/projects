@@ -53,6 +53,7 @@ public final class AnalyzedPageEl {
     private int indexChildType;
 
     private boolean merged;
+    private boolean acceptCommaInstr;
     private boolean finalVariable;
     private String currentVarSetting;
     private boolean gearConst;
@@ -353,6 +354,14 @@ public final class AnalyzedPageEl {
 
     public void setMerged(boolean _merged) {
         merged = _merged;
+    }
+
+    public boolean isAcceptCommaInstr() {
+        return acceptCommaInstr;
+    }
+
+    public void setAcceptCommaInstr(boolean _acceptCommaInstr) {
+        acceptCommaInstr = _acceptCommaInstr;
     }
 
     public boolean isFinalVariable() {

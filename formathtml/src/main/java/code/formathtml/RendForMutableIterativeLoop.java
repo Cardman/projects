@@ -134,6 +134,7 @@ public final class RendForMutableIterativeLoop extends RendParentBlock implement
         page_.setOffset(0);
         _cont.getAnalyzingDoc().setAttribute(ATTRIBUTE_INIT);
         _cont.setForLoopPartState(ForLoopPart.INIT);
+        _cont.setAcceptCommaInstr(true);
         if (init.trim().isEmpty()) {
             opInit = new CustList<RendDynOperationNode>();
         } else {
@@ -176,6 +177,7 @@ public final class RendForMutableIterativeLoop extends RendParentBlock implement
         page_.setOffset(0);
         _an.setForLoopPartState(ForLoopPart.STEP);
         _an.setMerged(true);
+        _an.setAcceptCommaInstr(true);
         _an.getLocalVariables().last().clear();
         _an.getAnalyzingDoc().setAttribute(ATTRIBUTE_STEP);
         boolean static_ = _doc.isStaticContext();
@@ -185,6 +187,7 @@ public final class RendForMutableIterativeLoop extends RendParentBlock implement
             opStep = RenderExpUtil.getAnalyzedOperations(step, 0, _an, Calculation.staticCalculation(static_));
         }
         _an.setMerged(false);
+        _an.setAcceptCommaInstr(false);
     }
     @Override
     public void reduce(Configuration _context) {

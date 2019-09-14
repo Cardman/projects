@@ -75,6 +75,7 @@ public final class DeclareVariable extends Leaf implements InitVariable,Buildabl
             partOffsets.addAllElts(_cont.getCoverage().getCurrentParts());
         }
         _cont.setMerged(true);
+        _cont.setAcceptCommaInstr(true);
         _cont.setFinalVariable(finalVariable);
         _cont.setCurrentVarSetting(importedClassName);
         _cont.getVariablesNames().clear();
