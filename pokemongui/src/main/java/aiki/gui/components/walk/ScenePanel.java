@@ -852,6 +852,9 @@ public class ScenePanel {
         if (!buttonInteract.isEnabledLabel()) {
             return;
         }
+        if (!facade.isEnabledMovingHero()) {
+            return;
+        }
         facade.interactNoFish();
         if (!facade.isChangeToFightScene()) {
             setTextArea(StringList.join(facade.getGame().getCommentGame().getMessages(), RETURN_LINE), JOptionPane.INFORMATION_MESSAGE);

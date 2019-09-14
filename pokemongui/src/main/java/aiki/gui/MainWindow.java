@@ -488,6 +488,9 @@ public final class MainWindow extends NetGroupFrame {
     }
 
     private void newGame() {
+        if (chosenSex == null) {
+            return;
+        }
         facade.newGame(nickname.getText(), chosenSex);
         drawGame();
         savedGame = false;
