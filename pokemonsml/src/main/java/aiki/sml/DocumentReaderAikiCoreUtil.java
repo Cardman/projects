@@ -2425,6 +2425,21 @@ public final class DocumentReaderAikiCoreUtil {
                             .concat(common_, n_)));
             _d.completeMembers(DataBase.toUpperCase(f), move_);
         }
+        for (EntryCust<String,MoveData> e: _d.getMoves().entryList()) {
+            if (e.getValue() instanceof DamagingMoveData) {
+                for (Effect f: e.getValue().getEffects()) {
+                    if (f instanceof EffectDamage) {
+                        EffectDamage dam_ = (EffectDamage) f;
+                        if (dam_.getChLaw().events().isEmpty()) {
+                            dam_.getChLaw().addEvent(Rate.one(),LgInt.one());
+                        }
+                        if (dam_.getHitsLaw().events().isEmpty()) {
+                            dam_.getHitsLaw().addEvent(Rate.one(),LgInt.one());
+                        }
+                    }
+                }
+            }
+        }
         filesNames_.clear();
         for (String f : _d.getTranslatedItems().getVal(_lg)
                 .getKeys()) {
