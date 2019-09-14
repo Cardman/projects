@@ -163,6 +163,14 @@ public abstract class LgNames {
         list_.add(getAliasClassNotFoundError());
         list_.add(getAliasErrorInitClass());
         list_.add(getAliasInvokeTarget());
+        list_.add(getAliasEnum());
+        list_.add(getAliasIterable());
+        list_.add(getAliasIteratorType());
+        list_.add(getAliasEnumParam());
+        list_.add(getAliasEnums());
+        list_.add(getAliasIteratorTableType());
+        list_.add(getAliasIterableTable());
+        list_.add(getAliasPairType());
         list_.add(getAliasMath());
         list_.add(getAliasStackTraceElement());
         list_.add(getAliasBadEncode());
@@ -413,6 +421,14 @@ public abstract class LgNames {
         map_.put(getAliasIteratorType(), new StringList(
                 getAliasHasNext(),
                 getAliasNext()));
+        map_.put(getAliasIterableTable(), new StringList(
+                getAliasIteratorTable()));
+        map_.put(getAliasIteratorTableType(), new StringList(
+                getAliasHasNextPair(),
+                getAliasNextPair()));
+        map_.put(getAliasPairType(), new StringList(
+                getAliasGetFirst(),
+                getAliasGetSecond()));
         map_.put(getAliasStackTraceElement(), new StringList(
                 getAliasCurrentStack(),
                 getAliasCurrentFullStack(),
@@ -440,7 +456,8 @@ public abstract class LgNames {
                 getAliasBitShiftLeft(),
                 getAliasBitShiftRight(),
                 getAliasRotateLeft(),
-                getAliasRotateRight()));
+                getAliasRotateRight(),
+                getAliasRandom()));
         map_.put(getAliasReplacement(), new StringList(
                 getAliasGetNewString(),
                 getAliasGetOldString()));
@@ -467,6 +484,8 @@ public abstract class LgNames {
                 getAliasToString()));
         map_.put(getAliasCharSequence(), new StringList(
                 getAliasCharAt(),
+                getAliasEquals(),
+                getAliasCompareTo(),
                 getAliasContains(),
                 getAliasEndsWith(),
                 getAliasFormat(),
@@ -591,7 +610,6 @@ public abstract class LgNames {
         map_.put(getAliasString(), new StringList(
                 getAliasCharAt(),
                 getAliasCompare(),
-                getAliasCompareTo(),
                 getAliasCompareToIgnoreCase(),
                 getAliasContains(),
                 getAliasEndsWith(),
@@ -2912,6 +2930,9 @@ public abstract class LgNames {
     }
     public void setAliasRotateRight(String _aliasRotateRight) {
         mathRef.setAliasRotateRight(_aliasRotateRight);
+    }
+    public String getAliasRandom() {
+        return mathRef.getAliasRandom();
     }
     public void setAliasRandom(String _aliasRotateRight) {
         mathRef.setAliasRandom(_aliasRotateRight);

@@ -582,6 +582,10 @@ public final class AliasMath {
         aliasRotateRight = _aliasRotateRight;
     }
 
+    public String getAliasRandom() {
+        return aliasRandom;
+    }
+
     public void setAliasRandom(String _aliasRandom) {
         aliasRandom = _aliasRandom;
     }

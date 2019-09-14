@@ -243,14 +243,6 @@ public final class Panel extends CustComponent {
         return panel.getCursor();
     }
 
-    public void repaint(long _tm) {
-        panel.repaint(_tm);
-    }
-
-    public void repaint(int _x, int _y, int _width, int _height) {
-        panel.repaint(_x, _y, _width, _height);
-    }
-
     public void scrollRectToVisible(Rectangle _aRect) {
         panel.scrollRectToVisible(_aRect);
     }

@@ -1092,7 +1092,8 @@ public class LgNamesUtils extends LgNames {
                 getAliasSetPriority(),
                 getAliasYield(),
                 getAliasSleep(),
-                getAliasPrint()));
+                getAliasPrint(),
+                getAliasThreadExitHook()));
         m_.put(getAliasReentrantLock(), new StringList(
                 getAliasLock(),
                 getAliasUnlock(),
@@ -1119,7 +1120,51 @@ public class LgNamesUtils extends LgNames {
                 getAliasAddLi(),
                 getAliasSizeLi(),
                 getAliasRemoveLi(),
-                getAliasIterator()));
+                getAliasIterator(),
+                getAliasListClear()));
+        m_.put(getAliasCustPair(), new StringList(
+                getAliasGetFirst(),
+                getAliasSetFirst(),
+                getAliasGetSecond(),
+                getAliasSetSecond()));
+        m_.put(getAliasCustIterTable(), new StringList(
+                getAliasNextPair(),
+                getAliasHasNextPair()));
+        m_.put(getAliasTable(), new StringList(
+                getAliasGetFirstTa(),
+                getAliasGetSecondTa(),
+                getAliasSetFirstTa(),
+                getAliasSetSecondTa(),
+                getAliasAddTa(),
+                getAliasRemoveTa(),
+                getAliasSizeTa(),
+                getAliasGetTa(),
+                getAliasIteratorTable()
+        ));
+        m_.put(getAliasExecute(), new StringList(
+                getAliasExecuteTests(),
+                getAliasExecuteConvert(),
+                getAliasExecuteSetupError(),
+                getAliasExecuteSetupNoException(),
+                getAliasExecuteExecute()
+        ));
+        m_.put(getAliasParameters(), new StringList(
+                getAliasParametersLocation(),
+                getAliasParametersMethod()
+        ));
+        m_.put(getAliasTest(), new StringList(
+                getAliasTestException(),
+                getAliasTestNullException()
+        ));
+        m_.put(getAliasAssert(), new StringList(
+                getAliasAssertAssert(),
+                getAliasAssertAssertNotNull(),
+                getAliasAssertAssertNull(),
+                getAliasAssertAssertSame(),
+                getAliasAssertAssertTrue()
+        ));
+        m_.put(getAliasDifference(), new StringList(
+        ));
         return m_;
     }
 
@@ -1135,6 +1180,20 @@ public class LgNamesUtils extends LgNames {
         ref_.add(getAliasIllegalThreadStateException());
         ref_.add(getAliasCustIterator());
         ref_.add(getAliasList());
+        ref_.add(getAliasRunnable());
+        ref_.add(getAliasCustPair());
+        ref_.add(getAliasCustIterTable());
+        ref_.add(getAliasTable());
+        ref_.add(getAliasExecute());
+        ref_.add(getAliasInfoTest());
+        ref_.add(getAliasExecutedTest());
+        ref_.add(getAliasResult());
+        ref_.add(getAliasBefore());
+        ref_.add(getAliasAfter());
+        ref_.add(getAliasParameters());
+        ref_.add(getAliasTest());
+        ref_.add(getAliasAssert());
+        ref_.add(getAliasDifference());
         ref_.add(getAliasConcurrentError());
         return ref_;
     }
