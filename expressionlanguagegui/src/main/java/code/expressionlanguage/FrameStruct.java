@@ -5,10 +5,9 @@ import code.expressionlanguage.structs.Struct;
 import code.gui.GroupFrame;
 import code.gui.WithListener;
 
-import java.awt.event.WindowListener;
-
 public final class FrameStruct extends WindowStruct {
     private GroupFrame commonFrame;
+    private Struct menuBar = NullStruct.NULL_VALUE;
     public FrameStruct(GroupFrame _frame) {
         commonFrame = _frame;
     }
@@ -26,6 +25,19 @@ public final class FrameStruct extends WindowStruct {
     @Override
     public void pack() {
         getCommonFrame().pack();
+    }
+
+    @Override
+    public Struct getMenuBar() {
+        return menuBar;
+    }
+
+    @Override
+    public void setMenuBar(Struct _arg) {
+        if (_arg instanceof MenuBarStruct) {
+            menuBar = _arg;
+            commonFrame.setJMenuBar(((MenuBarStruct)_arg).getMenuBar());
+        }
     }
 
     public GroupFrame getCommonFrame() {

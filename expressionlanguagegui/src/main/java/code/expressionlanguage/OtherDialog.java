@@ -1,6 +1,7 @@
 package code.expressionlanguage;
 
 import code.gui.ChangeableTitle;
+import code.gui.MenuBar;
 import code.gui.Ownable;
 import code.gui.Panel;
 import code.gui.WithListener;
@@ -85,5 +86,9 @@ public final class OtherDialog implements ChangeableTitle,WithListener {
     @Override
     public void setOwner(Ownable _owner) {
         owner = _owner;
+    }
+
+    public void setJMenuBar(MenuBar menuBar) {
+        dialog.setJMenuBar(menuBar.getMenuBar());
     }
 }

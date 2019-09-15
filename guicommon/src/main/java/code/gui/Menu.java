@@ -60,6 +60,11 @@ public final class Menu implements EnabledMenu {
         menu.setEnabled(_enabled);
     }
 
+    @Override
+    public String getText() {
+        return menu.getText();
+    }
+
     public void setText(String _val) {
         menu.setText(_val);
     }

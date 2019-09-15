@@ -9,7 +9,6 @@ import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
 import code.expressionlanguage.variables.VariableSuffix;
-import code.gui.GroupFrame;
 import code.resources.ResourceFiles;
 import code.util.CustList;
 import code.util.ObjectMap;
@@ -258,6 +257,30 @@ public class LgNamesGui extends LgNamesUtils {
     private String aliasSliderGetMin;
     private String aliasSliderSetMin;
     private String aliasSliderAddAction;
+    private String aliasGetMenuBar;
+    private String aliasSetMenuBar;
+    private String aliasMenuBar;
+    private String aliasMenuBarAdd;
+    private String aliasMenuBarGet;
+    private String aliasMenuBarNb;
+    private String aliasAbsMenu;
+    private String aliasAbsMenuGetParent;
+    private String aliasAbsMenuIsEnabled;
+    private String aliasAbsMenuSetEnabled;
+    private String aliasAbsMenuSetDeepEnabled;
+    private String aliasAbsMenuGetText;
+    private String aliasAbsMenuSetText;
+    private String aliasMenu;
+    private String aliasMenuAdd;
+    private String aliasMenuGet;
+    private String aliasMenuNb;
+    private String aliasMenuAddSeparator;
+    private String aliasAbsMenuItem;
+    private String aliasAbsMenuItemAddAction;
+    private String aliasMenuItem;
+    private String aliasMenuItemCheck;
+    private String aliasMenuItemCheckIsSelected;
+    private String aliasMenuItemCheckSetSelected;
     public void buildOther() {
         super.buildOther();
         StringMap<StandardField> fields_;
@@ -282,6 +305,12 @@ public class LgNamesGui extends LgNamesUtils {
         methods_.put(method_.getId(), method_);
         params_ = new StringList(getAliasPrimBoolean());
         method_ = new StandardMethod(aliasSetVisible, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasGetMenuBar, params_, aliasMenuBar, false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasMenuBar);
+        method_ = new StandardMethod(aliasSetMenuBar, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasWindowListener);
         method_ = new StandardMethod(aliasAddWindowListener, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
@@ -688,6 +717,7 @@ public class LgNamesGui extends LgNamesUtils {
         constructors_.add(ctor_);
         getStandards().put(aliasImage, stdcl_);
         buildInputs();
+        buildMenus();
     }
     private void buildEvents() {
         ObjectMap<MethodId, StandardMethod> methods_;
@@ -763,6 +793,112 @@ public class LgNamesGui extends LgNamesUtils {
         methods_.put(method_.getId(), method_);
         std_ = stdcl_;
         getStandards().put(aliasKeyEvent, std_);
+    }
+    private void buildMenus() {
+        ObjectMap<MethodId, StandardMethod> methods_;
+        CustList<StandardConstructor> constructors_;
+        StringMap<StandardField> fields_;
+        StandardClass stdcl_;
+        StringList params_;
+        StandardMethod method_;
+        StandardConstructor ctor_;
+        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        constructors_ = new CustList<StandardConstructor>();
+        fields_ = new StringMap<StandardField>();
+        stdcl_ = new StandardClass(aliasMenuBar, fields_, constructors_, methods_, getAliasObject(), MethodModifier.FINAL);
+        params_ = new StringList(aliasMenu);
+        method_ = new StandardMethod(aliasMenuBarAdd, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasPrimInteger());
+        method_ = new StandardMethod(aliasMenuBarGet, params_, aliasMenu, false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasMenuBarNb, params_, getAliasPrimInteger(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        getStandards().put(aliasMenuBar, stdcl_);
+        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        constructors_ = new CustList<StandardConstructor>();
+        fields_ = new StringMap<StandardField>();
+        stdcl_ = new StandardClass(aliasAbsMenu, fields_, constructors_, methods_, getAliasObject(), MethodModifier.ABSTRACT);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasAbsMenuGetParent, params_, aliasMenu, false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasString());
+        method_ = new StandardMethod(aliasAbsMenuSetText, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasAbsMenuGetText, params_, getAliasString(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasPrimBoolean());
+        method_ = new StandardMethod(aliasAbsMenuSetEnabled, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasAbsMenuIsEnabled, params_, getAliasPrimBoolean(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasPrimBoolean());
+        method_ = new StandardMethod(aliasAbsMenuSetDeepEnabled, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        getStandards().put(aliasAbsMenu, stdcl_);
+        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        constructors_ = new CustList<StandardConstructor>();
+        fields_ = new StringMap<StandardField>();
+        stdcl_ = new StandardClass(aliasMenu, fields_, constructors_, methods_, aliasAbsMenu, MethodModifier.FINAL);
+        params_ = new StringList(aliasAbsMenu);
+        method_ = new StandardMethod(aliasMenuAdd, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasPrimInteger());
+        method_ = new StandardMethod(aliasMenuGet, params_, aliasAbsMenu, false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasMenuNb, params_, getAliasPrimInteger(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasMenuAddSeparator, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        ctor_ = new StandardConstructor(params_,false,stdcl_);
+        constructors_.add(ctor_);
+        params_ = new StringList(getAliasString());
+        ctor_ = new StandardConstructor(params_,false,stdcl_);
+        constructors_.add(ctor_);
+        getStandards().put(aliasMenu, stdcl_);
+        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        constructors_ = new CustList<StandardConstructor>();
+        fields_ = new StringMap<StandardField>();
+        stdcl_ = new StandardClass(aliasAbsMenuItem, fields_, constructors_, methods_, aliasAbsMenu, MethodModifier.ABSTRACT);
+        params_ = new StringList(aliasActionListener);
+        method_ = new StandardMethod(aliasAbsMenuItemAddAction, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        getStandards().put(aliasAbsMenuItem, stdcl_);
+        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        constructors_ = new CustList<StandardConstructor>();
+        fields_ = new StringMap<StandardField>();
+        stdcl_ = new StandardClass(aliasMenuItem, fields_, constructors_, methods_, aliasAbsMenuItem, MethodModifier.FINAL);
+        params_ = new StringList();
+        ctor_ = new StandardConstructor(params_,false,stdcl_);
+        constructors_.add(ctor_);
+        params_ = new StringList(getAliasString());
+        ctor_ = new StandardConstructor(params_,false,stdcl_);
+        constructors_.add(ctor_);
+        getStandards().put(aliasMenuItem, stdcl_);
+        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        constructors_ = new CustList<StandardConstructor>();
+        fields_ = new StringMap<StandardField>();
+        stdcl_ = new StandardClass(aliasMenuItemCheck, fields_, constructors_, methods_, aliasAbsMenuItem, MethodModifier.FINAL);
+        params_ = new StringList(getAliasPrimBoolean());
+        method_ = new StandardMethod(aliasMenuItemCheckSetSelected, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasMenuItemCheckIsSelected, params_, getAliasPrimBoolean(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        ctor_ = new StandardConstructor(params_,false,stdcl_);
+        constructors_.add(ctor_);
+        params_ = new StringList(getAliasString());
+        ctor_ = new StandardConstructor(params_,false,stdcl_);
+        constructors_.add(ctor_);
+        getStandards().put(aliasMenuItemCheck, stdcl_);
+
     }
     private void buildInputs() {
         ObjectMap<MethodId, StandardMethod> methods_;
@@ -1419,6 +1555,54 @@ public class LgNamesGui extends LgNamesUtils {
             r_.setResult(new TextAreaStruct(aliasTextArea,_args[0],_args[1],_args[2]));
             return r_;
         }
+        if (StringList.quickEq(name_, aliasMenuBar)) {
+            if (_cont.isInitEnums()) {
+                _cont.failInitEnums();
+                r_.setResult(NullStruct.NULL_VALUE);
+                return r_;
+            }
+            r_.setResult(new MenuBarStruct());
+            return r_;
+        }
+        if (StringList.quickEq(name_, aliasMenu)) {
+            if (_cont.isInitEnums()) {
+                _cont.failInitEnums();
+                r_.setResult(NullStruct.NULL_VALUE);
+                return r_;
+            }
+            if (_method.getParametersTypes().size() == 0) {
+                r_.setResult(new MenuStruct());
+                return r_;
+            }
+            r_.setResult(new MenuStruct(_args[0]));
+            return r_;
+        }
+        if (StringList.quickEq(name_, aliasMenuItem)) {
+            if (_cont.isInitEnums()) {
+                _cont.failInitEnums();
+                r_.setResult(NullStruct.NULL_VALUE);
+                return r_;
+            }
+            if (_method.getParametersTypes().size() == 0) {
+                r_.setResult(new MenuItemStruct());
+                return r_;
+            }
+            r_.setResult(new MenuItemStruct(_args[0]));
+            return r_;
+        }
+        if (StringList.quickEq(name_, aliasMenuItemCheck)) {
+            if (_cont.isInitEnums()) {
+                _cont.failInitEnums();
+                r_.setResult(NullStruct.NULL_VALUE);
+                return r_;
+            }
+            if (_method.getParametersTypes().size() == 0) {
+                r_.setResult(new MenuItemCheckStruct());
+                return r_;
+            }
+            r_.setResult(new MenuItemCheckStruct(_args[0]));
+            return r_;
+        }
         return super.getOtherResult(_cont,_method,_args);
     }
     public ResultErrorStd getOtherResult(ContextEl _cont, Struct _instance,
@@ -1428,6 +1612,15 @@ public class LgNamesGui extends LgNamesUtils {
         String name_ = _method.getConstraints().getName();
         if (StringList.quickEq(type_, aliasWindowType)) {
             WindowStruct inst_ = (WindowStruct) _instance;
+            if (StringList.quickEq(name_, aliasSetMenuBar)) {
+                inst_.setMenuBar(_args[0]);
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasGetMenuBar)) {
+                res_.setResult(inst_.getMenuBar());
+                return res_;
+            }
             if (StringList.quickEq(name_, aliasPack)) {
                 inst_.pack();
                 res_.setResult(NullStruct.NULL_VALUE);
@@ -1490,8 +1683,7 @@ public class LgNamesGui extends LgNamesUtils {
                 res_.setResult(new ArrayStruct(struct_,typeStr_));
                 return res_;
             }
-            GroupFrame inst_ = ((FrameStruct) _instance).getCommonFrame();
-            inst_.dispose();
+            ((FrameStruct) _instance).dispose();
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
@@ -2255,6 +2447,83 @@ public class LgNamesGui extends LgNamesUtils {
                 return res_;
             }
             res_.setResult(inst_.getText());
+            return res_;
+        }
+        if (StringList.quickEq(type_, aliasMenuBar)) {
+            MenuBarStruct inst_ = (MenuBarStruct)_instance;
+            if (StringList.quickEq(name_, aliasMenuBarAdd)) {
+                inst_.add(_args[0]);
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasMenuBarGet)) {
+                res_.setResult(inst_.getMenu(_args[0]));
+                return res_;
+            }
+            res_.setResult(inst_.getMenuCount());
+            return res_;
+        }
+        if (StringList.quickEq(type_, aliasAbsMenu)) {
+            AbsMenuStruct inst_ = (AbsMenuStruct)_instance;
+            if (StringList.quickEq(name_, aliasAbsMenuGetParent)) {
+                res_.setResult(inst_.getParentMenu());
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasAbsMenuGetText)) {
+                res_.setResult(inst_.getText());
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasAbsMenuSetText)) {
+                inst_.setText(_args[0]);
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasAbsMenuIsEnabled)) {
+                res_.setResult(inst_.isEnabled());
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasAbsMenuSetEnabled)) {
+                inst_.setEnabled(_args[0]);
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            inst_.setDeepEnabled(_args[0]);
+            res_.setResult(NullStruct.NULL_VALUE);
+            return res_;
+        }
+        if (StringList.quickEq(type_, aliasMenu)) {
+            MenuStruct inst_ = (MenuStruct) _instance;
+            if (StringList.quickEq(name_, aliasMenuAdd)) {
+                inst_.add(_args[0]);
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasMenuAddSeparator)) {
+                inst_.addSeparator();
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasMenuGet)) {
+                res_.setResult(inst_.getMenu(_args[0]));
+                return res_;
+            }
+            res_.setResult(inst_.getMenuCount());
+            return res_;
+        }
+        if (StringList.quickEq(type_, aliasAbsMenuItem)) {
+            AbsMenuItemStruct inst_ = (AbsMenuItemStruct) _instance;
+            inst_.addActionListener(_args[0]);
+            res_.setResult(NullStruct.NULL_VALUE);
+            return res_;
+        }
+        if (StringList.quickEq(type_, aliasMenuItemCheck)) {
+            MenuItemCheckStruct inst_ = (MenuItemCheckStruct) _instance;
+            if (StringList.quickEq(name_, aliasMenuItemCheckIsSelected)) {
+                res_.setResult(inst_.isSelected());
+                return res_;
+            }
+            inst_.setSelected(_args[0]);
+            res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
         return super.getOtherResult(_cont,_instance,_method,_args);
@@ -4331,6 +4600,198 @@ public class LgNamesGui extends LgNamesUtils {
         this.aliasSliderAddAction = aliasSliderAddAction;
     }
 
+    public String getAliasGetMenuBar() {
+        return aliasGetMenuBar;
+    }
+
+    public void setAliasGetMenuBar(String aliasGetMenuBar) {
+        this.aliasGetMenuBar = aliasGetMenuBar;
+    }
+
+    public String getAliasSetMenuBar() {
+        return aliasSetMenuBar;
+    }
+
+    public void setAliasSetMenuBar(String aliasSetMenuBar) {
+        this.aliasSetMenuBar = aliasSetMenuBar;
+    }
+
+    public String getAliasMenuBar() {
+        return aliasMenuBar;
+    }
+
+    public void setAliasMenuBar(String aliasMenuBar) {
+        this.aliasMenuBar = aliasMenuBar;
+    }
+
+    public String getAliasMenuBarAdd() {
+        return aliasMenuBarAdd;
+    }
+
+    public void setAliasMenuBarAdd(String aliasMenuBarAdd) {
+        this.aliasMenuBarAdd = aliasMenuBarAdd;
+    }
+
+    public String getAliasMenuBarGet() {
+        return aliasMenuBarGet;
+    }
+
+    public void setAliasMenuBarGet(String aliasMenuBarGet) {
+        this.aliasMenuBarGet = aliasMenuBarGet;
+    }
+
+    public String getAliasMenuBarNb() {
+        return aliasMenuBarNb;
+    }
+
+    public void setAliasMenuBarNb(String aliasMenuBarNb) {
+        this.aliasMenuBarNb = aliasMenuBarNb;
+    }
+
+    public String getAliasAbsMenu() {
+        return aliasAbsMenu;
+    }
+
+    public void setAliasAbsMenu(String aliasAbsMenu) {
+        this.aliasAbsMenu = aliasAbsMenu;
+    }
+
+    public String getAliasAbsMenuGetParent() {
+        return aliasAbsMenuGetParent;
+    }
+
+    public void setAliasAbsMenuGetParent(String aliasAbsMenuGetParent) {
+        this.aliasAbsMenuGetParent = aliasAbsMenuGetParent;
+    }
+
+    public String getAliasAbsMenuIsEnabled() {
+        return aliasAbsMenuIsEnabled;
+    }
+
+    public void setAliasAbsMenuIsEnabled(String aliasAbsMenuIsEnabled) {
+        this.aliasAbsMenuIsEnabled = aliasAbsMenuIsEnabled;
+    }
+
+    public String getAliasMenu() {
+        return aliasMenu;
+    }
+
+    public void setAliasMenu(String aliasMenu) {
+        this.aliasMenu = aliasMenu;
+    }
+
+    public String getAliasMenuAdd() {
+        return aliasMenuAdd;
+    }
+
+    public void setAliasMenuAdd(String aliasMenuAdd) {
+        this.aliasMenuAdd = aliasMenuAdd;
+    }
+
+    public String getAliasMenuGet() {
+        return aliasMenuGet;
+    }
+
+    public void setAliasMenuGet(String aliasMenuGet) {
+        this.aliasMenuGet = aliasMenuGet;
+    }
+
+    public String getAliasMenuNb() {
+        return aliasMenuNb;
+    }
+
+    public void setAliasMenuNb(String aliasMenuNb) {
+        this.aliasMenuNb = aliasMenuNb;
+    }
+
+    public String getAliasAbsMenuSetEnabled() {
+        return aliasAbsMenuSetEnabled;
+    }
+
+    public void setAliasAbsMenuSetEnabled(String aliasAbsMenuSetEnabled) {
+        this.aliasAbsMenuSetEnabled = aliasAbsMenuSetEnabled;
+    }
+
+    public String getAliasAbsMenuSetDeepEnabled() {
+        return aliasAbsMenuSetDeepEnabled;
+    }
+
+    public void setAliasAbsMenuSetDeepEnabled(String aliasAbsMenuSetDeepEnabled) {
+        this.aliasAbsMenuSetDeepEnabled = aliasAbsMenuSetDeepEnabled;
+    }
+
+    public String getAliasAbsMenuGetText() {
+        return aliasAbsMenuGetText;
+    }
+
+    public void setAliasAbsMenuGetText(String aliasAbsMenuGetText) {
+        this.aliasAbsMenuGetText = aliasAbsMenuGetText;
+    }
+
+    public String getAliasAbsMenuSetText() {
+        return aliasAbsMenuSetText;
+    }
+
+    public void setAliasAbsMenuSetText(String aliasAbsMenuSetText) {
+        this.aliasAbsMenuSetText = aliasAbsMenuSetText;
+    }
+
+    public String getAliasMenuAddSeparator() {
+        return aliasMenuAddSeparator;
+    }
+
+    public void setAliasMenuAddSeparator(String aliasMenuAddSeparator) {
+        this.aliasMenuAddSeparator = aliasMenuAddSeparator;
+    }
+
+    public String getAliasAbsMenuItem() {
+        return aliasAbsMenuItem;
+    }
+
+    public void setAliasAbsMenuItem(String aliasAbsMenuItem) {
+        this.aliasAbsMenuItem = aliasAbsMenuItem;
+    }
+
+    public String getAliasAbsMenuItemAddAction() {
+        return aliasAbsMenuItemAddAction;
+    }
+
+    public void setAliasAbsMenuItemAddAction(String aliasAbsMenuItemAddAction) {
+        this.aliasAbsMenuItemAddAction = aliasAbsMenuItemAddAction;
+    }
+
+    public String getAliasMenuItem() {
+        return aliasMenuItem;
+    }
+
+    public void setAliasMenuItem(String aliasMenuItem) {
+        this.aliasMenuItem = aliasMenuItem;
+    }
+
+    public String getAliasMenuItemCheck() {
+        return aliasMenuItemCheck;
+    }
+
+    public void setAliasMenuItemCheck(String aliasMenuItemCheck) {
+        this.aliasMenuItemCheck = aliasMenuItemCheck;
+    }
+
+    public String getAliasMenuItemCheckIsSelected() {
+        return aliasMenuItemCheckIsSelected;
+    }
+
+    public void setAliasMenuItemCheckIsSelected(String aliasMenuItemCheckIsSelected) {
+        this.aliasMenuItemCheckIsSelected = aliasMenuItemCheckIsSelected;
+    }
+
+    public String getAliasMenuItemCheckSetSelected() {
+        return aliasMenuItemCheckSetSelected;
+    }
+
+    public void setAliasMenuItemCheckSetSelected(String aliasMenuItemCheckSetSelected) {
+        this.aliasMenuItemCheckSetSelected = aliasMenuItemCheckSetSelected;
+    }
+
     public void otherAlias(String _lang) {
         super.otherAlias(_lang);
         if (StringList.quickEq(_lang, "en")) {
@@ -4566,6 +5027,30 @@ public class LgNamesGui extends LgNamesUtils {
             setAliasSliderSetMin("setMin");
             setAliasSliderGetValue("getValue");
             setAliasSliderSetValue("setValue");
+            setAliasGetMenuBar("getMenuBar");
+            setAliasSetMenuBar("setMenuBar");
+            setAliasMenuBar("$core.MenuBar");
+            setAliasMenuBarAdd("add");
+            setAliasMenuBarGet("get");
+            setAliasMenuBarNb("nb");
+            setAliasAbsMenu("$core.AbsMenu");
+            setAliasAbsMenuGetParent("getParent");
+            setAliasAbsMenuIsEnabled("isEnabled");
+            setAliasAbsMenuSetEnabled("setEnabled");
+            setAliasAbsMenuGetText("getText");
+            setAliasAbsMenuSetText("setText");
+            setAliasAbsMenuSetDeepEnabled("setDeepEnabled");
+            setAliasMenu("$core.Menu");
+            setAliasMenuAdd("add");
+            setAliasMenuGet("get");
+            setAliasMenuNb("nb");
+            setAliasMenuAddSeparator("addSeparator");
+            setAliasAbsMenuItem("$core.AbsMenuItem");
+            setAliasAbsMenuItemAddAction("add");
+            setAliasMenuItem("$core.MenuItem");
+            setAliasMenuItemCheck("$core.MenuItemCheck");
+            setAliasMenuItemCheckIsSelected("isSelected");
+            setAliasMenuItemCheckSetSelected("setSelected");
         } else {
             setAliasActionEvent("$coeur.ActionEvt");
             setAliasActionListener("$coeur.ActionEcouteur");
@@ -4799,6 +5284,30 @@ public class LgNamesGui extends LgNamesUtils {
             setAliasSliderSetMin("majMin");
             setAliasSliderGetValue("val");
             setAliasSliderSetValue("maj");
+            setAliasGetMenuBar("valBarreMenu");
+            setAliasSetMenuBar("majBarreMenu");
+            setAliasMenuBar("$coeur.BarreMenu");
+            setAliasMenuBarAdd("ajout");
+            setAliasMenuBarGet("val");
+            setAliasMenuBarNb("nb");
+            setAliasAbsMenu("$coeur.MenuAbs");
+            setAliasAbsMenuGetParent("valParent");
+            setAliasAbsMenuIsEnabled("estActif");
+            setAliasAbsMenuSetEnabled("majActif");
+            setAliasAbsMenuGetText("valText");
+            setAliasAbsMenuSetText("majText");
+            setAliasAbsMenuSetDeepEnabled("majActifProfond");
+            setAliasMenu("$coeur.Menu");
+            setAliasMenuAdd("ajout");
+            setAliasMenuGet("val");
+            setAliasMenuNb("nb");
+            setAliasMenuAddSeparator("ajSeparateur");
+            setAliasAbsMenuItem("$coeur.MenuEltAbs");
+            setAliasAbsMenuItemAddAction("ajout");
+            setAliasMenuItem("$coeur.MenuElt");
+            setAliasMenuItemCheck("$coeur.MenuEltCase");
+            setAliasMenuItemCheckIsSelected("estSelect");
+            setAliasMenuItemCheckSetSelected("majSelect");
         }
     }
     @Override
@@ -4836,7 +5345,9 @@ public class LgNamesGui extends LgNamesUtils {
                 getAliasDispose(),
                 getAliasIsVisible(),
                 getAliasSetVisible(),
-                getAliasSetContent()));
+                getAliasSetContent(),
+                getAliasGetMenuBar(),
+                getAliasSetMenuBar()));
         m_.put(getAliasPanel(), new StringList(
                 getAliasCount(),
                 getAliasGetIndexCompo(),
@@ -5051,6 +5562,32 @@ public class LgNamesGui extends LgNamesUtils {
                 getAliasPaintAdd(),
                 getAliasPaintRefresh())
         );
+        m_.put(getAliasMenuBar(),new StringList(
+                getAliasMenuBarAdd(),
+                getAliasMenuBarGet(),
+                getAliasMenuBarNb()
+        ));
+        m_.put(getAliasAbsMenu(),new StringList(
+                getAliasAbsMenuGetParent(),
+                getAliasAbsMenuGetText(),
+                getAliasAbsMenuIsEnabled(),
+                getAliasAbsMenuSetDeepEnabled(),
+                getAliasAbsMenuSetEnabled(),
+                getAliasAbsMenuSetText()
+        ));
+        m_.put(getAliasMenu(),new StringList(
+                getAliasMenuAdd(),
+                getAliasMenuGet(),
+                getAliasMenuNb(),
+                getAliasMenuAddSeparator()
+        ));
+        m_.put(getAliasAbsMenuItem(),new StringList(
+                getAliasAbsMenuItemAddAction()
+        ));
+        m_.put(getAliasMenuItemCheck(),new StringList(
+                getAliasMenuItemCheckIsSelected(),
+                getAliasMenuItemCheckSetSelected()
+        ));
         return m_;
     }
 
@@ -5091,6 +5628,12 @@ public class LgNamesGui extends LgNamesUtils {
         ref_.add(getAliasScrollPane());
         ref_.add(getAliasListSelection());
         ref_.add(getAliasPaint());
+        ref_.add(getAliasMenuBar());
+        ref_.add(getAliasAbsMenu());
+        ref_.add(getAliasMenu());
+        ref_.add(getAliasAbsMenuItem());
+        ref_.add(getAliasMenuItem());
+        ref_.add(getAliasMenuItemCheck());
         return ref_;
     }
 }

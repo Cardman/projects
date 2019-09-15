@@ -59,14 +59,29 @@ public class CheckBoxMenuItem implements EnabledMenu {
     }
 
     @Override
+    public boolean isEnabled() {
+        return menu.isEnabled();
+    }
+
+    @Override
     public void setEnabled(boolean _enabled) {
         menu.setEnabled(_enabled);
     }
 
+    @Override
+    public String getText() {
+        return menu.getText();
+    }
     public void setText(String _val) {
         menu.setText(_val);
     }
 
+    public boolean isSelected() {
+        return menu.isSelected();
+    }
+    public void setSelected(boolean _selected) {
+        menu.setSelected(_selected);
+    }
     public void addActionListener(ActionListener _pauseEvent) {
         menu.addActionListener(_pauseEvent);
     }

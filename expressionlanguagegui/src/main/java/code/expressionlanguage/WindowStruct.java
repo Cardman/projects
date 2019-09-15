@@ -44,4 +44,8 @@ public abstract class WindowStruct implements Struct {
     public void setContentPane(Panel _panel) {
         getAbstractWindow().setContentPane(_panel);
     }
+
+    public abstract void setMenuBar(Struct _arg);
+
+    public abstract Struct getMenuBar();
 }
