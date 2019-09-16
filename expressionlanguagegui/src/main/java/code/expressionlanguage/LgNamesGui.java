@@ -260,7 +260,8 @@ public class LgNamesGui extends LgNamesUtils {
     private String aliasSliderSetMax;
     private String aliasSliderGetMin;
     private String aliasSliderSetMin;
-    private String aliasSliderAddAction;
+    private String aliasSliderGetOrientation;
+    private String aliasSliderSetOrientation;
     private String aliasGetMenuBar;
     private String aliasSetMenuBar;
     private String aliasMenuBar;
@@ -1235,6 +1236,53 @@ public class LgNamesGui extends LgNamesUtils {
         ctor_ = new StandardConstructor(params_,false,stdcl_);
         constructors_.add(ctor_);
         getStandards().put(aliasSpinner, stdcl_);
+        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        constructors_ = new CustList<StandardConstructor>();
+        fields_ = new StringMap<StandardField>();
+        stdcl_ = new StandardClass(aliasSlider, fields_, constructors_, methods_, aliasInput, MethodModifier.FINAL);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasSliderGetMax, params_, getAliasPrimInteger(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasPrimInteger());
+        method_ = new StandardMethod(aliasSliderSetMax, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasSliderGetMin, params_, getAliasPrimInteger(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasPrimInteger());
+        method_ = new StandardMethod(aliasSliderSetMin, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasSliderGetValue, params_, getAliasPrimInteger(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasPrimInteger());
+        method_ = new StandardMethod(aliasSliderSetValue, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasSliderGetOrientation, params_, getAliasPrimInteger(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasPrimInteger());
+        method_ = new StandardMethod(aliasSliderSetOrientation, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasChangeListener);
+        method_ = new StandardMethod(aliasAddChange, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        ctor_ = new StandardConstructor(params_,false,stdcl_);
+        constructors_.add(ctor_);
+        params_ = new StringList(getAliasPrimInteger());
+        ctor_ = new StandardConstructor(params_,false,stdcl_);
+        constructors_.add(ctor_);
+        params_ = new StringList(getAliasPrimInteger(),getAliasPrimInteger());
+        ctor_ = new StandardConstructor(params_,false,stdcl_);
+        constructors_.add(ctor_);
+        params_ = new StringList(getAliasPrimInteger(),getAliasPrimInteger(),getAliasPrimInteger());
+        ctor_ = new StandardConstructor(params_,false,stdcl_);
+        constructors_.add(ctor_);
+        params_ = new StringList(getAliasPrimInteger(),getAliasPrimInteger(),getAliasPrimInteger(),getAliasPrimInteger());
+        ctor_ = new StandardConstructor(params_,false,stdcl_);
+        constructors_.add(ctor_);
+        getStandards().put(aliasSlider, stdcl_);
     }
 
     @Override
@@ -1610,6 +1658,31 @@ public class LgNamesGui extends LgNamesUtils {
                 return r_;
             }
             r_.setResult(new SpinnerStruct(aliasSpinner,_args[0],_args[1],_args[2],_args[3]));
+            return r_;
+        }
+        if (StringList.quickEq(name_, aliasSlider)) {
+            if (_cont.isInitEnums()) {
+                _cont.failInitEnums();
+                r_.setResult(NullStruct.NULL_VALUE);
+                return r_;
+            }
+            if (_method.getParametersTypes().size() == 0) {
+                r_.setResult(new SliderStruct(aliasSlider));
+                return r_;
+            }
+            if (_method.getParametersTypes().size() == 1) {
+                r_.setResult(new SliderStruct(aliasSlider,_args[0]));
+                return r_;
+            }
+            if (_method.getParametersTypes().size() == 2) {
+                r_.setResult(new SliderStruct(aliasSlider,_args[0],_args[1]));
+                return r_;
+            }
+            if (_method.getParametersTypes().size() == 3) {
+                r_.setResult(new SliderStruct(aliasSlider,_args[0],_args[1],_args[2]));
+                return r_;
+            }
+            r_.setResult(new SliderStruct(aliasSlider,_args[0],_args[1],_args[2],_args[3]));
             return r_;
         }
         if (StringList.quickEq(name_, aliasMenuBar)) {
@@ -2560,6 +2633,48 @@ public class LgNamesGui extends LgNamesUtils {
                 return res_;
             }
             inst_.setStep(_args[0]);
+            res_.setResult(NullStruct.NULL_VALUE);
+            return res_;
+        }
+        if (StringList.quickEq(type_, aliasSlider)) {
+            SliderStruct inst_ = (SliderStruct) _instance;
+            if (StringList.quickEq(name_, aliasAddChange)) {
+                inst_.addChangeListener(_args[0]);
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasSliderGetMin)) {
+                res_.setResult(inst_.getMin());
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasSliderSetMin)) {
+                inst_.setMin(_args[0]);
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasSliderGetMax)) {
+                res_.setResult(inst_.getMax());
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasSliderSetMax)) {
+                inst_.setMax(_args[0]);
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasSliderGetValue)) {
+                res_.setResult(inst_.getValue());
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasSliderSetValue)) {
+                inst_.setValue(_args[0]);
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasSliderGetOrientation)) {
+                res_.setResult(inst_.getOrientation());
+                return res_;
+            }
+            inst_.setOrientation(_args[0]);
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
@@ -4750,12 +4865,20 @@ public class LgNamesGui extends LgNamesUtils {
         this.aliasSliderSetMin = aliasSliderSetMin;
     }
 
-    public String getAliasSliderAddAction() {
-        return aliasSliderAddAction;
+    public String getAliasSliderGetOrientation() {
+        return aliasSliderGetOrientation;
     }
 
-    public void setAliasSliderAddAction(String aliasSliderAddAction) {
-        this.aliasSliderAddAction = aliasSliderAddAction;
+    public void setAliasSliderGetOrientation(String aliasSliderGetOrientation) {
+        this.aliasSliderGetOrientation = aliasSliderGetOrientation;
+    }
+
+    public String getAliasSliderSetOrientation() {
+        return aliasSliderSetOrientation;
+    }
+
+    public void setAliasSliderSetOrientation(String aliasSliderSetOrientation) {
+        this.aliasSliderSetOrientation = aliasSliderSetOrientation;
     }
 
     public String getAliasGetMenuBar() {
@@ -5182,13 +5305,14 @@ public class LgNamesGui extends LgNamesUtils {
             setAliasSpinnerGetStep("getStep");
             setAliasSpinnerSetStep("setStep");
             setAliasSlider("$core.Slider");
-            setAliasSliderAddAction("addAction");
             setAliasSliderGetMax("getMax");
             setAliasSliderSetMax("setMax");
             setAliasSliderGetMin("getMin");
             setAliasSliderSetMin("setMin");
             setAliasSliderGetValue("getValue");
             setAliasSliderSetValue("setValue");
+            setAliasSliderGetOrientation("getOrient");
+            setAliasSliderSetOrientation("setOrient");
             setAliasGetMenuBar("getMenuBar");
             setAliasSetMenuBar("setMenuBar");
             setAliasMenuBar("$core.MenuBar");
@@ -5443,13 +5567,14 @@ public class LgNamesGui extends LgNamesUtils {
             setAliasSpinnerGetStep("valPas");
             setAliasSpinnerSetStep("majPas");
             setAliasSlider("$coeur.CurseurBarre");
-            setAliasSliderAddAction("addAction");
             setAliasSliderGetMax("valMax");
             setAliasSliderSetMax("majMax");
             setAliasSliderGetMin("valMin");
             setAliasSliderSetMin("majMin");
             setAliasSliderGetValue("val");
             setAliasSliderSetValue("maj");
+            setAliasSliderGetOrientation("valOrient");
+            setAliasSliderSetOrientation("majOrient");
             setAliasGetMenuBar("valBarreMenu");
             setAliasSetMenuBar("majBarreMenu");
             setAliasMenuBar("$coeur.BarreMenu");

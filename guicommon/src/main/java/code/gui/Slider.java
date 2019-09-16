@@ -10,7 +10,7 @@ public final class Slider extends CustComponent {
         slider = new JSlider();
     }
     public Slider(int _o) {
-        slider = new JSlider(_o);
+        slider = new JSlider(getOrient(_o));
     }
     public Slider(int _min,int _max) {
         slider = new JSlider(_min,_max);
@@ -19,9 +19,18 @@ public final class Slider extends CustComponent {
         slider = new JSlider(_min,_max,_v);
     }
     public Slider(int _o,int _min,int _max,int _v) {
-        slider = new JSlider(_o,_min,_max,_v);
+        slider = new JSlider(getOrient(_o),_min,_max,_v);
     }
 
+    private static int getOrient(int _o) {
+        if (_o == SwingConstants.HORIZONTAL) {
+            return SwingConstants.HORIZONTAL;
+        }
+        if (_o == SwingConstants.VERTICAL) {
+            return SwingConstants.VERTICAL;
+        }
+        return SwingConstants.HORIZONTAL;
+    }
     public void addChangeListener(ChangeListener l) {
         slider.addChangeListener(l);
     }
@@ -59,10 +68,18 @@ public final class Slider extends CustComponent {
     }
 
     public void setOrientation(int orientation) {
-        slider.setOrientation(orientation);
+        slider.setOrientation(getOrient(orientation));
     }
     @Override
     public JComponent getComponent() {
         return slider;
+    }
+
+    public boolean isEnabled() {
+        return slider.isEnabled();
+    }
+
+    public void setEnabled(boolean _b) {
+        slider.setEnabled(_b);
     }
 }
