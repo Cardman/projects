@@ -6,6 +6,8 @@ import code.expressionlanguage.structs.Struct;
 import code.gui.CustComponent;
 import code.gui.RadioButton;
 
+import javax.swing.event.ChangeListener;
+
 public final class RadioButtonStruct extends InputStruct {
     private RadioButton radioButton;
     protected RadioButtonStruct(String _className) {
@@ -28,6 +30,12 @@ public final class RadioButtonStruct extends InputStruct {
             radioButton = new RadioButton(null,((BooleanStruct)_s).getInstance());
         }
 
+    }
+
+    public void addChangeListener(Struct _l) {
+        if (_l instanceof ChangeListener) {
+            radioButton.addChangeListener((ChangeListener) _l);
+        }
     }
 
     public Struct getText() {

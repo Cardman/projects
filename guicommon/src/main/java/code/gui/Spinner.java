@@ -42,6 +42,10 @@ public final class Spinner extends CustComponent {
         return spinner.getChangeListeners();
     }
 
+    public boolean isEnabled() {
+        return spinner.isEnabled();
+    }
+
     public void setEnabled(boolean enabled) {
         spinner.setEnabled(enabled);
     }

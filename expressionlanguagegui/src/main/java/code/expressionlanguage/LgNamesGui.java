@@ -23,6 +23,9 @@ public class LgNamesGui extends LgNamesUtils {
     private String aliasActionListener;
     private String aliasActionPerformed;
     private String aliasActionEvent;
+    private String aliasAddChange;
+    private String aliasChangeListener;
+    private String aliasStateChanged;
     private String aliasMouseListener;
     private String aliasMouseClicked;
     private String aliasMousePressed;
@@ -240,6 +243,8 @@ public class LgNamesGui extends LgNamesUtils {
     private String aliasCheckBoxSetSelected;
     private String aliasCheckBoxAddAction;
     private String aliasSpinner;
+    private String aliasSpinnerSetRange;
+    private String aliasSpinnerSetRangeValue;
     private String aliasSpinnerGetValue;
     private String aliasSpinnerSetValue;
     private String aliasSpinnerGetMax;
@@ -248,7 +253,6 @@ public class LgNamesGui extends LgNamesUtils {
     private String aliasSpinnerSetMin;
     private String aliasSpinnerGetStep;
     private String aliasSpinnerSetStep;
-    private String aliasSpinnerAddAction;
     private String aliasSlider;
     private String aliasSliderGetValue;
     private String aliasSliderSetValue;
@@ -1072,6 +1076,9 @@ public class LgNamesGui extends LgNamesUtils {
         params_ = new StringList(getAliasString());
         method_ = new StandardMethod(aliasRadioSetText, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasChangeListener);
+        method_ = new StandardMethod(aliasAddChange, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
         params_ = new StringList();
         ctor_ = new StandardConstructor(params_,false,stdcl_);
         constructors_.add(ctor_);
@@ -1187,6 +1194,47 @@ public class LgNamesGui extends LgNamesUtils {
         ctor_ = new StandardConstructor(params_,false,stdcl_);
         constructors_.add(ctor_);
         getStandards().put(aliasTextArea, stdcl_);
+        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        constructors_ = new CustList<StandardConstructor>();
+        fields_ = new StringMap<StandardField>();
+        stdcl_ = new StandardClass(aliasSpinner, fields_, constructors_, methods_, aliasInput, MethodModifier.FINAL);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasSpinnerGetMax, params_, getAliasPrimInteger(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasPrimInteger());
+        method_ = new StandardMethod(aliasSpinnerSetMax, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasSpinnerGetMin, params_, getAliasPrimInteger(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasPrimInteger());
+        method_ = new StandardMethod(aliasSpinnerSetMin, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasSpinnerGetValue, params_, getAliasPrimInteger(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasPrimInteger());
+        method_ = new StandardMethod(aliasSpinnerSetValue, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasSpinnerGetStep, params_, getAliasPrimInteger(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasPrimInteger());
+        method_ = new StandardMethod(aliasSpinnerSetStep, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasPrimInteger(),getAliasPrimInteger());
+        method_ = new StandardMethod(aliasSpinnerSetRange, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasPrimInteger(),getAliasPrimInteger(),getAliasPrimInteger());
+        method_ = new StandardMethod(aliasSpinnerSetRangeValue, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasChangeListener);
+        method_ = new StandardMethod(aliasAddChange, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasPrimInteger(),getAliasPrimInteger(),getAliasPrimInteger(),getAliasPrimInteger());
+        ctor_ = new StandardConstructor(params_,false,stdcl_);
+        constructors_.add(ctor_);
+        getStandards().put(aliasSpinner, stdcl_);
     }
 
     @Override
@@ -1553,6 +1601,15 @@ public class LgNamesGui extends LgNamesUtils {
                 return r_;
             }
             r_.setResult(new TextAreaStruct(aliasTextArea,_args[0],_args[1],_args[2]));
+            return r_;
+        }
+        if (StringList.quickEq(name_, aliasSpinner)) {
+            if (_cont.isInitEnums()) {
+                _cont.failInitEnums();
+                r_.setResult(NullStruct.NULL_VALUE);
+                return r_;
+            }
+            r_.setResult(new SpinnerStruct(aliasSpinner,_args[0],_args[1],_args[2],_args[3]));
             return r_;
         }
         if (StringList.quickEq(name_, aliasMenuBar)) {
@@ -2329,6 +2386,11 @@ public class LgNamesGui extends LgNamesUtils {
         }
         if (StringList.quickEq(type_, aliasRadio)) {
             RadioButtonStruct inst_ = (RadioButtonStruct) _instance;
+            if (StringList.quickEq(name_, aliasAddChange)) {
+                inst_.addChangeListener(_args[0]);
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
             if (StringList.quickEq(name_, aliasRadioSetSelected)) {
                 inst_.setSelected(_args[0]);
                 res_.setResult(NullStruct.NULL_VALUE);
@@ -2449,6 +2511,58 @@ public class LgNamesGui extends LgNamesUtils {
             res_.setResult(inst_.getText());
             return res_;
         }
+        if (StringList.quickEq(type_, aliasSpinner)) {
+            SpinnerStruct inst_ = (SpinnerStruct) _instance;
+            if (StringList.quickEq(name_, aliasAddChange)) {
+                inst_.addChangeListener(_args[0]);
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasSpinnerSetRange)) {
+                inst_.setRange(_args[0],_args[1]);
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasSpinnerSetRangeValue)) {
+                inst_.setRangeValue(_args[0],_args[1],_args[2]);
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasSpinnerGetMin)) {
+                res_.setResult(inst_.getMin());
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasSpinnerSetMin)) {
+                inst_.setMin(_args[0]);
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasSpinnerGetMax)) {
+                res_.setResult(inst_.getMax());
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasSpinnerSetMax)) {
+                inst_.setMax(_args[0]);
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasSpinnerGetValue)) {
+                res_.setResult(inst_.getValue());
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasSpinnerSetValue)) {
+                inst_.setValue(_args[0]);
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasSpinnerGetStep)) {
+                res_.setResult(inst_.getStep());
+                return res_;
+            }
+            inst_.setStep(_args[0]);
+            res_.setResult(NullStruct.NULL_VALUE);
+            return res_;
+        }
         if (StringList.quickEq(type_, aliasMenuBar)) {
             MenuBarStruct inst_ = (MenuBarStruct)_instance;
             if (StringList.quickEq(name_, aliasMenuBarAdd)) {
@@ -2567,6 +2681,18 @@ public class LgNamesGui extends LgNamesUtils {
         getPredefinedClasses().add(aliasActionListener);
         stds_.put(aliasActionListener, content_);
         getPredefinedInterfacesInitOrder().add(aliasActionListener);
+        content_ = ResourceFiles.ressourceFichier("resources_lg_gui/change_event.txt");
+        map_ = new StringMap<String>();
+        map_.put("{public}", public_);
+        map_.put("{interface}", interface_);
+        map_.put("{ChangeListener}", aliasChangeListener);
+        map_.put("{stateChanged}", aliasStateChanged);
+        map_.put("{void}", getAliasVoid());
+        map_.put("{endLine}", endLine_);
+        content_ = StringList.formatQuote(content_, map_);
+        getPredefinedClasses().add(aliasChangeListener);
+        stds_.put(aliasChangeListener, content_);
+        getPredefinedInterfacesInitOrder().add(aliasChangeListener);
         content_ = ResourceFiles.ressourceFichier("resources_lg_gui/mouse_event.txt");
         map_ = new StringMap<String>();
         map_.put("{public}", public_);
@@ -2758,6 +2884,30 @@ public class LgNamesGui extends LgNamesUtils {
 
     public void setAliasActionEvent(String aliasActionEvent) {
         this.aliasActionEvent = aliasActionEvent;
+    }
+
+    public String getAliasAddChange() {
+        return aliasAddChange;
+    }
+
+    public void setAliasAddChange(String aliasAddChange) {
+        this.aliasAddChange = aliasAddChange;
+    }
+
+    public String getAliasChangeListener() {
+        return aliasChangeListener;
+    }
+
+    public void setAliasChangeListener(String aliasChangeListener) {
+        this.aliasChangeListener = aliasChangeListener;
+    }
+
+    public String getAliasStateChanged() {
+        return aliasStateChanged;
+    }
+
+    public void setAliasStateChanged(String aliasStateChanged) {
+        this.aliasStateChanged = aliasStateChanged;
     }
 
     public String getAliasFrame() {
@@ -4464,6 +4614,22 @@ public class LgNamesGui extends LgNamesUtils {
         this.aliasSpinner = aliasSpinner;
     }
 
+    public String getAliasSpinnerSetRange() {
+        return aliasSpinnerSetRange;
+    }
+
+    public void setAliasSpinnerSetRange(String aliasSpinnerSetRange) {
+        this.aliasSpinnerSetRange = aliasSpinnerSetRange;
+    }
+
+    public String getAliasSpinnerSetRangeValue() {
+        return aliasSpinnerSetRangeValue;
+    }
+
+    public void setAliasSpinnerSetRangeValue(String aliasSpinnerSetRangeValue) {
+        this.aliasSpinnerSetRangeValue = aliasSpinnerSetRangeValue;
+    }
+
     public String getAliasSpinnerGetValue() {
         return aliasSpinnerGetValue;
     }
@@ -4526,14 +4692,6 @@ public class LgNamesGui extends LgNamesUtils {
 
     public void setAliasSpinnerSetStep(String aliasSpinnerSetStep) {
         this.aliasSpinnerSetStep = aliasSpinnerSetStep;
-    }
-
-    public String getAliasSpinnerAddAction() {
-        return aliasSpinnerAddAction;
-    }
-
-    public void setAliasSpinnerAddAction(String aliasSpinnerAddAction) {
-        this.aliasSpinnerAddAction = aliasSpinnerAddAction;
     }
 
     public String getAliasSlider() {
@@ -4798,6 +4956,9 @@ public class LgNamesGui extends LgNamesUtils {
             setAliasActionEvent("$core.ActionEvent");
             setAliasActionListener("$core.ActionListener");
             setAliasActionPerformed("actionPerformed");
+            setAliasAddChange("addChange");
+            setAliasChangeListener("$core.ChangeListener");
+            setAliasStateChanged("stateChanged");
             setAliasAddKeyListener("addKey");
             setAliasRequestFocus("requestFocus");
             setAliasKeyListener("$core.KeyListener");
@@ -5010,7 +5171,8 @@ public class LgNamesGui extends LgNamesUtils {
             setAliasTextAreaReplaceRange("replaceRange");
             setAliasTextAreaReplaceSelection("replaceSelection");
             setAliasSpinner("$core.Spinner");
-            setAliasSpinnerAddAction("addAction");
+            setAliasSpinnerSetRange("setRange");
+            setAliasSpinnerSetRangeValue("setRangeValue");
             setAliasSpinnerGetMax("getMax");
             setAliasSpinnerSetMax("setMax");
             setAliasSpinnerGetMin("getMin");
@@ -5055,6 +5217,9 @@ public class LgNamesGui extends LgNamesUtils {
             setAliasActionEvent("$coeur.ActionEvt");
             setAliasActionListener("$coeur.ActionEcouteur");
             setAliasActionPerformed("action");
+            setAliasAddChange("ajChange");
+            setAliasChangeListener("$coeur.ChangeEcouteur");
+            setAliasStateChanged("changeEtat");
             setAliasMouseEvent("$coeur.SourisEvt");
             setAliasMouseListener("$coeur.SourisEcouteur");
             setAliasMouseClicked("clic");
@@ -5267,7 +5432,8 @@ public class LgNamesGui extends LgNamesUtils {
             setAliasTextAreaReplaceRange("remplacerRang");
             setAliasTextAreaReplaceSelection("remplacerSelect");
             setAliasSpinner("$coeur.CurseurNum");
-            setAliasSpinnerAddAction("addAction");
+            setAliasSpinnerSetRange("majRang");
+            setAliasSpinnerSetRangeValue("majRangValeur");
             setAliasSpinnerGetMax("valMax");
             setAliasSpinnerSetMax("majMax");
             setAliasSpinnerGetMin("valMin");
@@ -5432,11 +5598,25 @@ public class LgNamesGui extends LgNamesUtils {
                 getAliasCheckBoxIsSelected(),
                 getAliasCheckBoxSetSelected())
         );
+        m_.put(getAliasSpinner(), new StringList(
+                getAliasSpinnerGetMax(),
+                getAliasSpinnerGetMin(),
+                getAliasSpinnerGetStep(),
+                getAliasSpinnerGetValue(),
+                getAliasSpinnerSetMax(),
+                getAliasSpinnerSetMin(),
+                getAliasSpinnerSetStep(),
+                getAliasSpinnerSetValue(),
+                getAliasSpinnerSetRange(),
+                getAliasSpinnerSetRangeValue(),
+                getAliasAddChange())
+        );
         m_.put(getAliasRadio(), new StringList(
                 getAliasRadioGetText(),
                 getAliasRadioSetText(),
                 getAliasRadioIsSelected(),
-                getAliasRadioSetSelected())
+                getAliasRadioSetSelected(),
+                getAliasAddChange())
         );
         m_.put(getAliasButtonGroup(), new StringList(
                 getAliasButtonGroupAdd())
@@ -5533,6 +5713,9 @@ public class LgNamesGui extends LgNamesUtils {
         m_.put(getAliasActionListener(), new StringList(
                 getAliasActionPerformed())
         );
+        m_.put(getAliasChangeListener(), new StringList(
+                getAliasStateChanged())
+        );
         m_.put(getAliasMouseListener(), new StringList(
                 getAliasMouseClicked(),
                 getAliasMouseEntered(),
@@ -5624,6 +5807,7 @@ public class LgNamesGui extends LgNamesUtils {
         ref_.add(getAliasKeyListener());
         ref_.add(getAliasMouseListener());
         ref_.add(getAliasActionListener());
+        ref_.add(getAliasChangeListener());
         ref_.add(getAliasWindowListener());
         ref_.add(getAliasScrollPane());
         ref_.add(getAliasListSelection());

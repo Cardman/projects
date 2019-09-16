@@ -15,11 +15,13 @@ import code.util.CustList;
 import code.util.ObjectMap;
 import code.util.StringList;
 
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.awt.event.*;
 
 public final class EventStruct implements WithParentStruct,EnumerableStruct,
         ActionListener,Runnable,MouseListener,WindowListener,ListSelection,
-        KeyListener{
+        KeyListener,ChangeListener {
 
     private final String className;
 
@@ -288,6 +290,16 @@ public final class EventStruct implements WithParentStruct,EnumerableStruct,
         String actList_ = ((LgNamesGui) original.getStandards()).getAliasKeyListener();
         invoke(r_,actList_,actPerf_,new StringList(actEv_),args_);
     }
+
+    @Override
+    public void stateChanged(ChangeEvent e) {
+        GuiContextEl r_ = newCtx();
+        CustList<Argument> args_ = new CustList<Argument>();
+        String actPerf_ = ((LgNamesGui) original.getStandards()).getAliasStateChanged();
+        String actList_ = ((LgNamesGui) original.getStandards()).getAliasChangeListener();
+        invoke(r_,actList_,actPerf_,new StringList(),args_);
+    }
+
     private void invoke(GuiContextEl _r, String _typeName,String _methName, StringList _argTypes, CustList<Argument> _args) {
         MethodId id_ = new MethodId(MethodModifier.ABSTRACT, _methName, _argTypes);
         GeneType type_ = _r.getClassBody(_typeName);
