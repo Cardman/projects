@@ -5,11 +5,7 @@ import javax.swing.JTabbedPane;
 
 public final class TabbedPane extends CustComponent {
 
-    private JTabbedPane component;
-
-    public TabbedPane() {
-        component = new JTabbedPane();
-    }
+    private JTabbedPane component = new JTabbedPane();
 
     public int getComponentCount() {
         return getChildren().size();
@@ -41,11 +37,4 @@ public final class TabbedPane extends CustComponent {
         component.removeAll();
     }
 
-    public void addTab(String _name, CustComponent _component) {
-        if (_component.getParent() != null) {
-            return;
-        }
-        component.addTab(_name,_component.getComponent());
-        getChildren().add(_component);
-    }
 }

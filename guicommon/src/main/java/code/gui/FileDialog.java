@@ -7,9 +7,7 @@ import java.io.File;
 import javax.swing.*;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
-import javax.swing.tree.TreeSelectionModel;
 
 import code.gui.events.ClickHeaderEvent;
 import code.gui.events.ClickRowEvent;
@@ -157,7 +155,6 @@ public abstract class FileDialog extends Dialog {
             folderSystem = new TreeGui(default_);
             folderSystem.setRootVisible(false);
         }
-        folderSystem.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
         SplitPane fileSelector_ = new SplitPane(JSplitPane.HORIZONTAL_SPLIT,new ScrollPane(folderSystem),new ScrollPane(fileTable));
         folderSystem.addTreeSelectionListener(new DeployTreeEvent(this));
         contentPane.add(fileSelector_, BorderLayout.CENTER);
@@ -193,13 +190,12 @@ public abstract class FileDialog extends Dialog {
         }
     }
 
-    public void deployTree(TreeSelectionEvent _e) {
-        DefaultMutableTreeNode selected_;
-        selected_ = (DefaultMutableTreeNode) folderSystem.getLastSelectedPathComponent();
-        if (selected_ == null) {
+    public void deployTree() {
+        TreePath sel_ = folderSystem.getSelectionPath();
+        if (sel_ == null) {
             return;
         }
-        applyTreeChange(_e.getPath());
+        applyTreeChange(sel_);
     }
 
     public void applyTreeChange() {
@@ -222,9 +218,7 @@ public abstract class FileDialog extends Dialog {
                 }
             }
         }
-        DefaultTreeModel d_;
-        d_ = (DefaultTreeModel) folderSystem.getModel();
-        d_.reload();
+        folderSystem.reload();
         refreshList(files_);
     }
 
@@ -234,15 +228,7 @@ public abstract class FileDialog extends Dialog {
 //        if (selected_ == null) {
 //            return;
 //        }
-        StringList pathFull_ = new StringList();
-        for (Object o: _treePath.getPath()) {
-            pathFull_.add((String) ((DefaultMutableTreeNode)o).getUserObject());
-        }
-        StringList.removeObj(pathFull_, EMPTY_STRING);
-        StringBuilder str_ = new StringBuilder();
-        for (String o: pathFull_) {
-            str_.append(o).append(StreamTextFile.SEPARATEUR);
-        }
+        StringBuilder str_ = buildPath(_treePath);
         currentFolder = str_.toString();
         currentTitle = StringList.simpleStringsFormat(messages.getVal(FILES_PARAM), currentFolder);
         setTitle(currentTitle);
@@ -273,11 +259,23 @@ public abstract class FileDialog extends Dialog {
         for (String f: folderList_) {
             selected_.add(new DefaultMutableTreeNode(f));
         }
-        DefaultTreeModel d_;
-        d_ = (DefaultTreeModel) folderSystem.getModel();
-        d_.reload(selected_);
+        folderSystem.reload();
         refreshList(files_);
     }
+
+    static StringBuilder buildPath(TreePath _treePath) {
+        StringList pathFull_ = new StringList();
+        for (Object o: _treePath.getPath()) {
+            pathFull_.add((String) ((DefaultMutableTreeNode)o).getUserObject());
+        }
+        StringList.removeObj(pathFull_, EMPTY_STRING);
+        StringBuilder str_ = new StringBuilder();
+        for (String o: pathFull_) {
+            str_.append(o).append(StreamTextFile.SEPARATEUR);
+        }
+        return str_;
+    }
+
     @Override
     public void pack() {
         setSize(DIM);

@@ -41,7 +41,6 @@ public final class MainWindow extends GroupFrame {
     private TextArea results;
     private ProgressBar progressBar;
 
-    private DefaultTableModel model;
     private Thread th;
     private StringMap<String> messages;
     protected MainWindow(String _lg) {
@@ -80,13 +79,12 @@ public final class MainWindow extends GroupFrame {
         progressing.add(currentMethod);
         progressBar = new ProgressBar();
         progressing.add(progressBar);
-        Object[] cols_ = new Object[4];
+        String[] cols_ = new String[4];
         cols_[0] =messages.getVal("number");
         cols_[1] =messages.getVal("method");
         cols_[2] =messages.getVal("params");
         cols_[3] =messages.getVal("success");
-        model = new DefaultTableModel(cols_,0);
-        resultsTable = new TableGui(model);
+        resultsTable = new TableGui(cols_);
         results = new TextArea(1024,1024);
         ScrollPane scrTable_ = new ScrollPane(resultsTable);
         scrTable_.setPreferredSize(new Dimension(256,96));
@@ -206,12 +204,12 @@ public final class MainWindow extends GroupFrame {
             String aliasFailMessage_ = stds_.getAliasResultFailMessage();
             String aliasParams_ = stds_.getAliasResultParams();
             int i =0;
-            model.setRowCount(((ArrayStruct)array_).getInstance().length);
+            resultsTable.setRowCount(((ArrayStruct)array_).getInstance().length);
             for (Struct t: ((ArrayStruct)array_).getInstance()) {
                 Struct method_ = ((FieldableStruct)t).getStruct(new ClassField(pairCl_,pairFirst_));
                 Struct result_ = ((FieldableStruct)t).getStruct(new ClassField(pairCl_,pairSecond_));
                 i++;
-                resultsTable.setValueAt(i,i-1,0);
+                resultsTable.setValueAt(Integer.toString(i),i-1,0);
                 results.append(Integer.toString(i)+"\n");
                 String methodInfo_ = ((MethodMetaInfo) method_).getClassName() + "." + ((MethodMetaInfo) method_).getRealId().getSignature(_ctx) + "\n";
                 resultsTable.setValueAt(methodInfo_,i-1,1);

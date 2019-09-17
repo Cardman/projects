@@ -3,9 +3,6 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import javax.swing.*;
-import javax.swing.table.*;
-
 import code.sml.stream.ExtractFromFiles;
 import code.util.CustList;
 import code.util.StringList;
@@ -58,18 +55,15 @@ public class FileTable {
 
     private boolean increasing;
 
-    private DefaultTableModel model;
-
     private TableGui table;
 
     public FileTable(String _lg) {
         messages = ExtractFromFiles.getMessagesFromLocaleClass(GuiConstants.FOLDER_MESSAGES_GUI, _lg,ACCESS);
-        Object[] cols_ = new Object[NB_COLS];
+        String[] cols_ = new String[NB_COLS];
         for (int i = 0; i < NB_COLS; i++) {
             cols_[i] = getColumnName(i);
         }
-        model = new DefaultTableModel(cols_,0);
-        table = new TableGui(model);
+        table = new TableGui(cols_);
     }
 
     public int getRowCount() {
@@ -87,17 +81,15 @@ public class FileTable {
         int s_ = files.size();
         for (int j = 0; j < s_; j++) {
             for (int i = 0; i < NB_COLS; i++) {
-                model.setValueAt(getValueAt(j, i), j, i);
+                table.setValueAt(getValueAt(j, i), j, i);
             }
         }
-        TableModel model_ = table.getModel();
-        Object[] cols_ = new Object[NB_COLS];
+        String[] cols_ = new String[NB_COLS];
         for (int i = 0; i < NB_COLS; i++) {
             cols_[i] = getColumnName(i);
         }
-        ((DefaultTableModel)model_).setColumnIdentifiers(cols_);
-        model.fireTableStructureChanged();
-        model.fireTableDataChanged();
+        table.setColumnIdentifiers(cols_);
+        applyChanges();
     }
 
     public String getColumnName(int _columnIndex) {
@@ -159,27 +151,25 @@ public class FileTable {
         files.clear();
         files.addAllElts(_list);
         int len_ = _list.size();
-        model.setRowCount(len_);
+        table.setRowCount(len_);
         folder = _folder;
         for (int j = 0; j <len_; j++) {
             int cols_ = getColumnCount();
             for (int i = 0; i < cols_; i++) {
-                model.setValueAt(getValueAt(j, i), j, i);
+                table.setValueAt(getValueAt(j, i), j, i);
             }
         }
-        model.fireTableDataChanged();
-        model.fireTableStructureChanged();
+        applyChanges();
     }
 
     public void setupFile(File _file) {
         files.add(_file);
-        model.setRowCount(files.size());
+        table.setRowCount(files.size());
         int cols_ = getColumnCount();
         for (int i = 0; i < cols_; i++) {
-            model.setValueAt(getValueAt(files.size() - 1, i), files.size() - 1, i);
+            table.setValueAt(getValueAt(files.size() - 1, i), files.size() - 1, i);
         }
-        model.fireTableDataChanged();
-        model.fireTableStructureChanged();
+        applyChanges();
     }
 
     public void init(String _folder, String _extension) {
@@ -194,16 +184,15 @@ public class FileTable {
         for (int j = 0; j <len_; j++) {
             int cols_ = getColumnCount();
             for (int i = 0; i < cols_; i++) {
-                model.setValueAt("", j, i);
+                table.setValueAt("", j, i);
             }
         }
         files.clear();
-        model.setRowCount(files.size());
+        table.setRowCount(files.size());
         applyChanges();
     }
     public void applyChanges() {
-        model.fireTableDataChanged();
-        model.fireTableStructureChanged();
+        table.applyChanges();
     }
 
     public CustList<File> getFiles() {
