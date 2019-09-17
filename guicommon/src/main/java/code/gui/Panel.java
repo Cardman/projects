@@ -102,10 +102,6 @@ public final class Panel extends CustComponent {
         panel.remove(_index);
     }
 
-    public boolean isEnabled() {
-        return panel.isEnabled();
-    }
-
     public int remove(CustComponent _cust) {
         int i_ = 0;
         int index_ = -1;
@@ -159,16 +155,9 @@ public final class Panel extends CustComponent {
         }
         validate();
     }
-    public boolean requestFocus(boolean _temporary) {
-        return panel.requestFocus(_temporary);
-    }
 
     public void invalidate() {
         panel.invalidate();
-    }
-
-    public boolean requestFocusInWindow() {
-        return panel.requestFocusInWindow();
     }
 
     public void validate() {
@@ -177,26 +166,6 @@ public final class Panel extends CustComponent {
 
     public FontMetrics getFontMetrics(Font _font) {
         return panel.getFontMetrics(_font);
-    }
-
-    public void setMaximumSize(Dimension _maximumSize) {
-        panel.setMaximumSize(_maximumSize);
-    }
-
-    public Dimension getMaximumSize() {
-        return panel.getMaximumSize();
-    }
-
-    public void setMinimumSize(Dimension _minimumSize) {
-        panel.setMinimumSize(_minimumSize);
-    }
-
-    public Dimension getMinimumSize() {
-        return panel.getMinimumSize();
-    }
-
-    public Point getLocationOnScreen() {
-        return panel.getLocationOnScreen();
     }
 
     public void setLocation(int _x, int _y) {
@@ -219,18 +188,6 @@ public final class Panel extends CustComponent {
         panel.setSize(_d);
     }
 
-    public void setBounds(int _x, int _y, int _width, int _height) {
-        panel.setBounds(_x, _y, _width, _height);
-    }
-
-    public void setBounds(Rectangle _r) {
-        panel.setBounds(_r);
-    }
-
-    public void setEnabled(boolean _enabled) {
-        panel.setEnabled(_enabled);
-    }
-
     public void setForeground(Color _fg) {
         panel.setForeground(_fg);
     }
@@ -239,30 +196,6 @@ public final class Panel extends CustComponent {
         panel.setBackground(_bg);
     }
 
-    public Cursor getCursor() {
-        return panel.getCursor();
-    }
-
-    public void scrollRectToVisible(Rectangle _aRect) {
-        panel.scrollRectToVisible(_aRect);
-    }
-
-
-    public Dimension getSize(Dimension _rv) {
-        return panel.getSize(_rv);
-    }
-
-    public Point getLocation(Point _rv) {
-        return panel.getLocation(_rv);
-    }
-
-    public int getX() {
-        return panel.getX();
-    }
-
-    public int getY() {
-        return panel.getY();
-    }
 
     public boolean isOpaque() {
         return panel.isOpaque();

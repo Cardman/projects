@@ -7,6 +7,8 @@ import code.expressionlanguage.structs.Struct;
 import code.gui.CustComponent;
 import code.gui.TextField;
 
+import java.awt.event.ActionListener;
+
 public final class TextFieldStruct extends InputStruct {
     private TextField textField;
     protected TextFieldStruct(String _className) {
@@ -56,5 +58,11 @@ public final class TextFieldStruct extends InputStruct {
     @Override
     protected CustComponent getComponent() {
         return textField;
+    }
+
+    public void addActionListener(Struct _arg) {
+        if (_arg instanceof ActionListener) {
+            textField.addActionListener((ActionListener) _arg);
+        }
     }
 }

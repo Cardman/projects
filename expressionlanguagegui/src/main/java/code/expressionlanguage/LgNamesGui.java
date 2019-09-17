@@ -90,6 +90,15 @@ public class LgNamesGui extends LgNamesUtils {
     private String aliasPanelGrid;
     private String aliasPanelPageBox;
     private String aliasPanelValidate;
+    private String aliasTabbedPane;
+    private String aliasTabbedPaneNb;
+    private String aliasTabbedPaneAdd;
+    private String aliasTabbedPaneGet;
+    private String aliasTabbedPaneGetTitle;
+    private String aliasTabbedPaneSet;
+    private String aliasTabbedPaneSetTitle;
+    private String aliasTabbedPaneRemove;
+    private String aliasTabbedPaneIndex;
     private String aliasButton;
     private String aliasImageLabel;
     private String aliasTextLabel;
@@ -525,6 +534,39 @@ public class LgNamesGui extends LgNamesUtils {
         std_ = stdcl_;
         getStandards().put(aliasPanelBorder, std_);
 
+        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        constructors_ = new CustList<StandardConstructor>();
+        fields_ = new StringMap<StandardField>();
+        stdcl_ = new StandardClass(aliasTabbedPane, fields_, constructors_, methods_, aliasComponent, MethodModifier.FINAL);
+        params_ = new StringList(getAliasString(),aliasComponent);
+        method_ = new StandardMethod(aliasTabbedPaneAdd, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasComponent);
+        method_ = new StandardMethod(aliasTabbedPaneRemove, params_, getAliasPrimInteger(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasPrimInteger());
+        method_ = new StandardMethod(aliasTabbedPaneRemove, params_, aliasComponent, false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasPrimInteger(),aliasComponent);
+        method_ = new StandardMethod(aliasTabbedPaneSet, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasPrimInteger(),getAliasString());
+        method_ = new StandardMethod(aliasTabbedPaneSetTitle, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasPrimInteger());
+        method_ = new StandardMethod(aliasTabbedPaneGet, params_, aliasComponent, false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasPrimInteger());
+        method_ = new StandardMethod(aliasTabbedPaneGetTitle, params_, getAliasString(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasTabbedPaneNb, params_, getAliasPrimInteger(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasRemoveAll, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        std_ = stdcl_;
+        getStandards().put(aliasTabbedPane, std_);
 
         methods_ = new ObjectMap<MethodId, StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
@@ -1198,6 +1240,9 @@ public class LgNamesGui extends LgNamesUtils {
         params_ = new StringList(getAliasString());
         method_ = new StandardMethod(aliasTextFieldSetText, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasActionListener);
+        method_ = new StandardMethod(aliasTextFieldAddAction, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
         params_ = new StringList();
         ctor_ = new StandardConstructor(params_,false,stdcl_);
         constructors_.add(ctor_);
@@ -1432,6 +1477,9 @@ public class LgNamesGui extends LgNamesUtils {
         if (StringList.quickEq(_id,aliasPanel)) {
             return new Argument(PanelStruct.newFlow(aliasPanel));
         }
+        if (StringList.quickEq(_id,aliasTabbedPane)) {
+            return new Argument(new TabbedPaneStruct(aliasTabbedPane));
+        }
         if (StringList.quickEq(_id,aliasScrollPane)) {
             return new Argument(ScrollPaneStruct.newScroll(aliasScrollPane));
         }
@@ -1496,6 +1544,15 @@ public class LgNamesGui extends LgNamesUtils {
                 return r_;
             }
             r_.setResult(PanelBorderStruct.newBorder(aliasPanelBorder));
+            return r_;
+        }
+        if (StringList.quickEq(name_,aliasTabbedPane)) {
+            if (_cont.isInitEnums()) {
+                _cont.failInitEnums();
+                r_.setResult(NullStruct.NULL_VALUE);
+                return r_;
+            }
+            r_.setResult(new TabbedPaneStruct(aliasTabbedPane));
             return r_;
         }
         if (StringList.quickEq(name_,aliasScrollPane)) {
@@ -2109,6 +2166,67 @@ public class LgNamesGui extends LgNamesUtils {
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
+        if (StringList.quickEq(type_, aliasTabbedPane)) {
+            TabbedPaneStruct strPan_ = (TabbedPaneStruct) _instance;
+            if (StringList.quickEq(name_, aliasTabbedPaneNb)) {
+                res_.setResult(strPan_.getComponentCount());
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasRemoveAll)) {
+                strPan_.removeAll();
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasTabbedPaneAdd)) {
+                if (!(_args[1] instanceof CustComponentStruct)) {
+                    res_.setResult(NullStruct.NULL_VALUE);
+                    return res_;
+                }
+                strPan_.add(_args[0],(CustComponentStruct)_args[1]);
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasTabbedPaneSet)) {
+                if (!(_args[1] instanceof CustComponentStruct)) {
+                    res_.setResult(NullStruct.NULL_VALUE);
+                    return res_;
+                }
+                strPan_.setTab(_args[0],(CustComponentStruct)_args[1]);
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasTabbedPaneSetTitle)) {
+                strPan_.setTitle(_args[0],_args[1]);
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasTabbedPaneGet)) {
+                res_.setResult(strPan_.getComponent(_args[0]));
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasTabbedPaneGetTitle)) {
+                res_.setResult(strPan_.getTitle(_args[0]));
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasTabbedPaneIndex)) {
+                if (!(_args[0] instanceof CustComponentStruct)) {
+                    res_.setResult(new IntStruct(-1));
+                    return res_;
+                }
+                res_.setResult(strPan_.index((CustComponentStruct)_args[0]));
+                return res_;
+            }
+            if (StringList.quickEq(getAliasPrimInteger(),_method.getConstraints().getParametersTypes().first())) {
+                res_.setResult(strPan_.remove(_args[0]));
+                return res_;
+            }
+            if (!(_args[0] instanceof CustComponentStruct)) {
+                res_.setResult(new IntStruct(-1));
+                return res_;
+            }
+            res_.setResult(strPan_.remove((CustComponentStruct) _args[0]));
+            return res_;
+        }
         if (StringList.quickEq(type_,aliasScrollPane)) {
             ScrollPaneStruct strPan_ = (ScrollPaneStruct) _instance;
             if (StringList.quickEq(name_, aliasScrollPaneGetView)) {
@@ -2683,6 +2801,11 @@ public class LgNamesGui extends LgNamesUtils {
             TextFieldStruct inst_ = (TextFieldStruct) _instance;
             if (StringList.quickEq(name_, aliasTextFieldSetText)) {
                 inst_.setText(_args[0]);
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasTextFieldAddAction)) {
+                inst_.addActionListener(_args[0]);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
@@ -3839,6 +3962,78 @@ public class LgNamesGui extends LgNamesUtils {
 
     public void setAliasPanelValidate(String aliasPanelValidate) {
         this.aliasPanelValidate = aliasPanelValidate;
+    }
+
+    public String getAliasTabbedPane() {
+        return aliasTabbedPane;
+    }
+
+    public void setAliasTabbedPane(String aliasTabbedPane) {
+        this.aliasTabbedPane = aliasTabbedPane;
+    }
+
+    public String getAliasTabbedPaneNb() {
+        return aliasTabbedPaneNb;
+    }
+
+    public void setAliasTabbedPaneNb(String aliasTabbedPaneNb) {
+        this.aliasTabbedPaneNb = aliasTabbedPaneNb;
+    }
+
+    public String getAliasTabbedPaneAdd() {
+        return aliasTabbedPaneAdd;
+    }
+
+    public void setAliasTabbedPaneAdd(String aliasTabbedPaneAdd) {
+        this.aliasTabbedPaneAdd = aliasTabbedPaneAdd;
+    }
+
+    public String getAliasTabbedPaneGet() {
+        return aliasTabbedPaneGet;
+    }
+
+    public void setAliasTabbedPaneGet(String aliasTabbedPaneGet) {
+        this.aliasTabbedPaneGet = aliasTabbedPaneGet;
+    }
+
+    public String getAliasTabbedPaneGetTitle() {
+        return aliasTabbedPaneGetTitle;
+    }
+
+    public void setAliasTabbedPaneGetTitle(String aliasTabbedPaneGetTitle) {
+        this.aliasTabbedPaneGetTitle = aliasTabbedPaneGetTitle;
+    }
+
+    public String getAliasTabbedPaneSet() {
+        return aliasTabbedPaneSet;
+    }
+
+    public void setAliasTabbedPaneSet(String aliasTabbedPaneSet) {
+        this.aliasTabbedPaneSet = aliasTabbedPaneSet;
+    }
+
+    public String getAliasTabbedPaneSetTitle() {
+        return aliasTabbedPaneSetTitle;
+    }
+
+    public void setAliasTabbedPaneSetTitle(String aliasTabbedPaneSetTitle) {
+        this.aliasTabbedPaneSetTitle = aliasTabbedPaneSetTitle;
+    }
+
+    public String getAliasTabbedPaneRemove() {
+        return aliasTabbedPaneRemove;
+    }
+
+    public void setAliasTabbedPaneRemove(String aliasTabbedPaneRemove) {
+        this.aliasTabbedPaneRemove = aliasTabbedPaneRemove;
+    }
+
+    public String getAliasTabbedPaneIndex() {
+        return aliasTabbedPaneIndex;
+    }
+
+    public void setAliasTabbedPaneIndex(String aliasTabbedPaneIndex) {
+        this.aliasTabbedPaneIndex = aliasTabbedPaneIndex;
     }
 
     public String getAliasAddListener() {
@@ -5484,6 +5679,15 @@ public class LgNamesGui extends LgNamesUtils {
             setAliasPanelGrid("grid");
             setAliasPanelPageBox("page");
             setAliasPanelValidate("validate");
+            setAliasTabbedPane("$core.TabbedPane");
+            setAliasTabbedPaneAdd("add");
+            setAliasTabbedPaneGet("get");
+            setAliasTabbedPaneGetTitle("getTitle");
+            setAliasTabbedPaneSet("set");
+            setAliasTabbedPaneSetTitle("setTitle");
+            setAliasTabbedPaneIndex("index");
+            setAliasTabbedPaneNb("nb");
+            setAliasTabbedPaneRemove("remove");
             setAliasGetParentCompo("getParent");
             setAliasGetNextCompo("next");
             setAliasPack("pack");
@@ -5762,6 +5966,15 @@ public class LgNamesGui extends LgNamesUtils {
             setAliasPanelGrid("grille");
             setAliasPanelPageBox("page");
             setAliasPanelValidate("valider");
+            setAliasTabbedPane("$coeur.Onglets");
+            setAliasTabbedPaneAdd("ajout");
+            setAliasTabbedPaneGet("val");
+            setAliasTabbedPaneGetTitle("valTitre");
+            setAliasTabbedPaneSet("maj");
+            setAliasTabbedPaneSetTitle("majTitre");
+            setAliasTabbedPaneIndex("indice");
+            setAliasTabbedPaneNb("nb");
+            setAliasTabbedPaneRemove("suppr");
             setAliasGetParentCompo("valParent");
             setAliasGetNextCompo("suivant");
             setAliasPack("cadrer");
@@ -5977,6 +6190,15 @@ public class LgNamesGui extends LgNamesUtils {
                 getAliasPanelPageBox(),
                 getAliasPanelGrid(),
                 getAliasPanelValidate(),
+                getAliasRemoveAll()));
+        m_.put(getAliasTabbedPane(), new StringList(
+                getAliasTabbedPaneNb(),
+                getAliasTabbedPaneAdd(),
+                getAliasTabbedPaneRemove(),
+                getAliasTabbedPaneGet(),
+                getAliasTabbedPaneGetTitle(),
+                getAliasTabbedPaneSet(),
+                getAliasTabbedPaneSetTitle(),
                 getAliasRemoveAll()));
         m_.put(getAliasPanelBorder(), new StringList(
                 getAliasCount(),
@@ -6255,6 +6477,7 @@ public class LgNamesGui extends LgNamesUtils {
         ref_.add(getAliasKeyEvent());
         ref_.add(getAliasWindowEvent());
         ref_.add(getAliasPanel());
+        ref_.add(getAliasTabbedPane());
         ref_.add(getAliasPanelBorder());
         ref_.add(getAliasButton());
         ref_.add(getAliasCheckBox());
