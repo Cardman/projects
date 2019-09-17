@@ -9,6 +9,7 @@ import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
 import code.expressionlanguage.variables.VariableSuffix;
+import code.gui.OtherDialog;
 import code.resources.ResourceFiles;
 import code.util.CustList;
 import code.util.ObjectMap;
@@ -88,12 +89,28 @@ public class LgNamesGui extends LgNamesUtils {
     private String aliasPanelBorderAfterLineEnds;
     private String aliasPanelGrid;
     private String aliasPanelPageBox;
+    private String aliasPanelValidate;
     private String aliasButton;
     private String aliasImageLabel;
     private String aliasTextLabel;
     private String aliasScrollPane;
     private String aliasScrollPaneGetView;
     private String aliasScrollPaneSetView;
+    private String aliasScrollPaneValidate;
+    private String aliasSplitPane;
+    private String aliasSplitPaneGetDividerLocation;
+    private String aliasSplitPaneSetDividerLocation;
+    private String aliasSplitPaneGetDividerSize;
+    private String aliasSplitPaneSetDividerSize;
+    private String aliasSplitPaneIsContinuousLayout;
+    private String aliasSplitPaneSetContinuousLayout;
+    private String aliasSplitPaneIsOneTouchExpandable;
+    private String aliasSplitPaneSetOneTouchExpandable;
+    private String aliasSplitPaneGetLeft;
+    private String aliasSplitPaneSetLeft;
+    private String aliasSplitPaneGetRight;
+    private String aliasSplitPaneSetRight;
+    private String aliasSplitPaneValidate;
     private String aliasGetFont;
     private String aliasSetFont;
     private String aliasFont;
@@ -478,6 +495,9 @@ public class LgNamesGui extends LgNamesUtils {
         method_ = new StandardMethod(aliasRemoveAll, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
+        method_ = new StandardMethod(aliasPanelValidate, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
         ctor_ = new StandardConstructor(params_,false,stdcl_);
         constructors_.add(ctor_);
         std_ = stdcl_;
@@ -513,6 +533,9 @@ public class LgNamesGui extends LgNamesUtils {
         params_ = new StringList();
         method_ = new StandardMethod(aliasScrollPaneGetView, params_,aliasComponent, false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasScrollPaneValidate, params_,getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasComponent);
         method_ = new StandardMethod(aliasScrollPaneSetView, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
@@ -524,6 +547,55 @@ public class LgNamesGui extends LgNamesUtils {
         constructors_.add(ctor_);
         std_ = stdcl_;
         getStandards().put(aliasScrollPane, std_);
+
+        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        constructors_ = new CustList<StandardConstructor>();
+        fields_ = new StringMap<StandardField>();
+        stdcl_ = new StandardClass(aliasSplitPane, fields_, constructors_, methods_, aliasComponent, MethodModifier.FINAL);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasSplitPaneGetLeft, params_,aliasComponent, false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasComponent);
+        method_ = new StandardMethod(aliasSplitPaneSetLeft, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasSplitPaneGetRight, params_,aliasComponent, false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasComponent);
+        method_ = new StandardMethod(aliasSplitPaneSetRight, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasSplitPaneGetDividerLocation, params_,getAliasPrimInteger(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasPrimInteger());
+        method_ = new StandardMethod(aliasSplitPaneSetDividerLocation, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasSplitPaneGetDividerSize, params_,getAliasPrimInteger(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasPrimInteger());
+        method_ = new StandardMethod(aliasSplitPaneSetDividerSize, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasSplitPaneIsOneTouchExpandable, params_,getAliasPrimBoolean(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasPrimBoolean());
+        method_ = new StandardMethod(aliasSplitPaneSetOneTouchExpandable, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasSplitPaneIsContinuousLayout, params_,getAliasPrimBoolean(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasPrimBoolean());
+        method_ = new StandardMethod(aliasSplitPaneSetContinuousLayout, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasSplitPaneValidate, params_,getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasPrimInteger(),aliasComponent,aliasComponent);
+        ctor_ = new StandardConstructor(params_,false,stdcl_);
+        constructors_.add(ctor_);
+        std_ = stdcl_;
+        getStandards().put(aliasSplitPane, std_);
 
         methods_ = new ObjectMap<MethodId, StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
@@ -1439,6 +1511,37 @@ public class LgNamesGui extends LgNamesUtils {
             }
             return r_;
         }
+        if (StringList.quickEq(name_,aliasSplitPane)) {
+            if (_cont.isInitEnums()) {
+                _cont.failInitEnums();
+                r_.setResult(NullStruct.NULL_VALUE);
+                return r_;
+            }
+            if (!(_args[1] instanceof CustComponentStruct)) {
+                r_.setError(getAliasNullPe());
+                r_.setResult(NullStruct.NULL_VALUE);
+                return r_;
+            }
+            if (!(_args[2] instanceof CustComponentStruct)) {
+                r_.setError(getAliasNullPe());
+                r_.setResult(NullStruct.NULL_VALUE);
+                return r_;
+            }
+            CustComponentStruct first_ = (CustComponentStruct) _args[1];
+            CustComponentStruct second_ = (CustComponentStruct) _args[2];
+            if (first_.getParentComponent() != NullStruct.NULL_VALUE) {
+                r_.setError(getAliasIllegalArg());
+                r_.setResult(NullStruct.NULL_VALUE);
+                return r_;
+            }
+            if (second_.getParentComponent() != NullStruct.NULL_VALUE) {
+                r_.setError(getAliasIllegalArg());
+                r_.setResult(NullStruct.NULL_VALUE);
+                return r_;
+            }
+            r_.setResult(new SplitPaneStruct(aliasSplitPane,_args[0],_args[1],_args[2]));
+            return r_;
+        }
         if (StringList.quickEq(name_,aliasButton)) {
             if (_cont.isInitEnums()) {
                 _cont.failInitEnums();
@@ -1956,6 +2059,11 @@ public class LgNamesGui extends LgNamesUtils {
                 res_.setResult(new IntStruct(strPan_.getComponentCount()));
                 return res_;
             }
+            if (StringList.quickEq(name_, aliasPanelValidate)) {
+                strPan_.validate();
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
             if (StringList.quickEq(name_, aliasRemoveAll)) {
                 strPan_.removeAll();
                 res_.setResult(NullStruct.NULL_VALUE);
@@ -2002,17 +2110,77 @@ public class LgNamesGui extends LgNamesUtils {
             return res_;
         }
         if (StringList.quickEq(type_,aliasScrollPane)) {
-            if (_cont.isInitEnums()) {
-                _cont.failInitEnums();
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
             ScrollPaneStruct strPan_ = (ScrollPaneStruct) _instance;
             if (StringList.quickEq(name_, aliasScrollPaneGetView)) {
                 res_.setResult(strPan_.getView());
                 return res_;
             }
+            if (StringList.quickEq(name_, aliasScrollPaneValidate)) {
+                strPan_.revalidate();
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
             strPan_.setViewportView(_args[0]);
+            res_.setResult(NullStruct.NULL_VALUE);
+            return res_;
+        }
+        if (StringList.quickEq(type_,aliasSplitPane)) {
+            SplitPaneStruct strPan_ = (SplitPaneStruct) _instance;
+            if (StringList.quickEq(name_, aliasScrollPaneValidate)) {
+                strPan_.revalidate();
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasSplitPaneIsOneTouchExpandable)) {
+                res_.setResult(strPan_.isOneTouchExpandable());
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasSplitPaneSetOneTouchExpandable)) {
+                strPan_.setOneTouchExpandable(_args[0]);
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasSplitPaneIsContinuousLayout)) {
+                res_.setResult(strPan_.isContinuousLayout());
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasSplitPaneSetContinuousLayout)) {
+                strPan_.setContinuousLayout(_args[0]);
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasSplitPaneGetLeft)) {
+                res_.setResult(strPan_.getLeftComponent());
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasSplitPaneSetLeft)) {
+                strPan_.setLeftComponent(_args[0]);
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasSplitPaneGetRight)) {
+                res_.setResult(strPan_.getRightComponent());
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasSplitPaneSetRight)) {
+                strPan_.setRightComponent(_args[0]);
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasSplitPaneGetDividerSize)) {
+                res_.setResult(strPan_.getDividerSize());
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasSplitPaneSetDividerSize)) {
+                strPan_.setDividerSize(_args[0]);
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasSplitPaneGetDividerLocation)) {
+                res_.setResult(strPan_.getDividerLocation());
+                return res_;
+            }
+            strPan_.setDividerLocation(_args[0]);
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
@@ -3665,6 +3833,14 @@ public class LgNamesGui extends LgNamesUtils {
         this.aliasPanelPageBox = aliasPanelPageBox;
     }
 
+    public String getAliasPanelValidate() {
+        return aliasPanelValidate;
+    }
+
+    public void setAliasPanelValidate(String aliasPanelValidate) {
+        this.aliasPanelValidate = aliasPanelValidate;
+    }
+
     public String getAliasAddListener() {
         return aliasAddListener;
     }
@@ -3767,6 +3943,126 @@ public class LgNamesGui extends LgNamesUtils {
 
     public void setAliasScrollPaneSetView(String aliasScrollPaneSetView) {
         this.aliasScrollPaneSetView = aliasScrollPaneSetView;
+    }
+
+    public String getAliasScrollPaneValidate() {
+        return aliasScrollPaneValidate;
+    }
+
+    public void setAliasScrollPaneValidate(String aliasScrollPaneValidate) {
+        this.aliasScrollPaneValidate = aliasScrollPaneValidate;
+    }
+
+    public String getAliasSplitPane() {
+        return aliasSplitPane;
+    }
+
+    public void setAliasSplitPane(String aliasSplitPane) {
+        this.aliasSplitPane = aliasSplitPane;
+    }
+
+    public String getAliasSplitPaneGetDividerLocation() {
+        return aliasSplitPaneGetDividerLocation;
+    }
+
+    public void setAliasSplitPaneGetDividerLocation(String aliasSplitPaneGetDividerLocation) {
+        this.aliasSplitPaneGetDividerLocation = aliasSplitPaneGetDividerLocation;
+    }
+
+    public String getAliasSplitPaneSetDividerLocation() {
+        return aliasSplitPaneSetDividerLocation;
+    }
+
+    public void setAliasSplitPaneSetDividerLocation(String aliasSplitPaneSetDividerLocation) {
+        this.aliasSplitPaneSetDividerLocation = aliasSplitPaneSetDividerLocation;
+    }
+
+    public String getAliasSplitPaneGetDividerSize() {
+        return aliasSplitPaneGetDividerSize;
+    }
+
+    public void setAliasSplitPaneGetDividerSize(String aliasSplitPaneGetDividerSize) {
+        this.aliasSplitPaneGetDividerSize = aliasSplitPaneGetDividerSize;
+    }
+
+    public String getAliasSplitPaneSetDividerSize() {
+        return aliasSplitPaneSetDividerSize;
+    }
+
+    public void setAliasSplitPaneSetDividerSize(String aliasSplitPaneSetDividerSize) {
+        this.aliasSplitPaneSetDividerSize = aliasSplitPaneSetDividerSize;
+    }
+
+    public String getAliasSplitPaneIsContinuousLayout() {
+        return aliasSplitPaneIsContinuousLayout;
+    }
+
+    public void setAliasSplitPaneIsContinuousLayout(String aliasSplitPaneIsContinuousLayout) {
+        this.aliasSplitPaneIsContinuousLayout = aliasSplitPaneIsContinuousLayout;
+    }
+
+    public String getAliasSplitPaneSetContinuousLayout() {
+        return aliasSplitPaneSetContinuousLayout;
+    }
+
+    public void setAliasSplitPaneSetContinuousLayout(String aliasSplitPaneSetContinuousLayout) {
+        this.aliasSplitPaneSetContinuousLayout = aliasSplitPaneSetContinuousLayout;
+    }
+
+    public String getAliasSplitPaneIsOneTouchExpandable() {
+        return aliasSplitPaneIsOneTouchExpandable;
+    }
+
+    public void setAliasSplitPaneIsOneTouchExpandable(String aliasSplitPaneIsOneTouchExpandable) {
+        this.aliasSplitPaneIsOneTouchExpandable = aliasSplitPaneIsOneTouchExpandable;
+    }
+
+    public String getAliasSplitPaneSetOneTouchExpandable() {
+        return aliasSplitPaneSetOneTouchExpandable;
+    }
+
+    public void setAliasSplitPaneSetOneTouchExpandable(String aliasSplitPaneSetOneTouchExpandable) {
+        this.aliasSplitPaneSetOneTouchExpandable = aliasSplitPaneSetOneTouchExpandable;
+    }
+
+    public String getAliasSplitPaneGetLeft() {
+        return aliasSplitPaneGetLeft;
+    }
+
+    public void setAliasSplitPaneGetLeft(String aliasSplitPaneGetLeft) {
+        this.aliasSplitPaneGetLeft = aliasSplitPaneGetLeft;
+    }
+
+    public String getAliasSplitPaneSetLeft() {
+        return aliasSplitPaneSetLeft;
+    }
+
+    public void setAliasSplitPaneSetLeft(String aliasSplitPaneSetLeft) {
+        this.aliasSplitPaneSetLeft = aliasSplitPaneSetLeft;
+    }
+
+    public String getAliasSplitPaneGetRight() {
+        return aliasSplitPaneGetRight;
+    }
+
+    public void setAliasSplitPaneGetRight(String aliasSplitPaneGetRight) {
+        this.aliasSplitPaneGetRight = aliasSplitPaneGetRight;
+    }
+
+    public String getAliasSplitPaneSetRight() {
+        return aliasSplitPaneSetRight;
+    }
+
+    public void setAliasSplitPaneSetRight(String aliasSplitPaneSetRight) {
+        this.aliasSplitPaneSetRight = aliasSplitPaneSetRight;
+    }
+
+    public String getAliasSplitPaneValidate() {
+        return aliasSplitPaneValidate;
+    }
+
+    public void setAliasSplitPaneValidate(String aliasSplitPaneValidate) {
+        this.aliasSplitPaneValidate = aliasSplitPaneValidate;
     }
 
     public String getAliasPack() {
@@ -5143,6 +5439,21 @@ public class LgNamesGui extends LgNamesUtils {
             setAliasScrollPane("$core.Scroll");
             setAliasScrollPaneGetView("getView");
             setAliasScrollPaneSetView("setView");
+            setAliasScrollPaneValidate("validate");
+            setAliasSplitPane("$core.SplitPane");
+            setAliasSplitPaneGetDividerLocation("getDividerLocation");
+            setAliasSplitPaneSetDividerLocation("setDividerLocation");
+            setAliasSplitPaneGetDividerSize("getDividerSize");
+            setAliasSplitPaneSetDividerSize("setDividerSize");
+            setAliasSplitPaneIsContinuousLayout("isContinuousLayout");
+            setAliasSplitPaneSetContinuousLayout("setContinuousLayout");
+            setAliasSplitPaneIsOneTouchExpandable("isOneTouchExpandable");
+            setAliasSplitPaneSetOneTouchExpandable("setOneTouchExpandable");
+            setAliasSplitPaneGetLeft("getLeft");
+            setAliasSplitPaneSetLeft("setLeft");
+            setAliasSplitPaneGetRight("getRight");
+            setAliasSplitPaneSetRight("setRight");
+            setAliasSplitPaneValidate("validate");
             setAliasButton("$core.Button");
             setAliasTextLabel("$core.TextLabel");
             setAliasImageLabel("$core.ImageLabel");
@@ -5172,6 +5483,7 @@ public class LgNamesGui extends LgNamesUtils {
             setAliasPanelFlow("flow");
             setAliasPanelGrid("grid");
             setAliasPanelPageBox("page");
+            setAliasPanelValidate("validate");
             setAliasGetParentCompo("getParent");
             setAliasGetNextCompo("next");
             setAliasPack("pack");
@@ -5405,6 +5717,21 @@ public class LgNamesGui extends LgNamesUtils {
             setAliasScrollPane("$coeur.Ascenseur");
             setAliasScrollPaneGetView("valVue");
             setAliasScrollPaneSetView("majVue");
+            setAliasScrollPaneValidate("valider");
+            setAliasSplitPane("$coeur.SepAj");
+            setAliasSplitPaneGetDividerLocation("valSepPos");
+            setAliasSplitPaneSetDividerLocation("majSepPos");
+            setAliasSplitPaneGetDividerSize("valSepTaille");
+            setAliasSplitPaneSetDividerSize("majSepTaille");
+            setAliasSplitPaneIsContinuousLayout("estPositCont");
+            setAliasSplitPaneSetContinuousLayout("majPositCont");
+            setAliasSplitPaneIsOneTouchExpandable("estExtTouche");
+            setAliasSplitPaneSetOneTouchExpandable("majExtTouche");
+            setAliasSplitPaneGetLeft("valGauche");
+            setAliasSplitPaneSetLeft("majGauche");
+            setAliasSplitPaneGetRight("valDroite");
+            setAliasSplitPaneSetRight("majDroite");
+            setAliasSplitPaneValidate("valider");
             setAliasButton("$coeur.Bouton");
             setAliasTextLabel("$coeur.Etiquette");
             setAliasImageLabel("$coeur.EtImage");
@@ -5434,6 +5761,7 @@ public class LgNamesGui extends LgNamesUtils {
             setAliasPanelFlow("ligne");
             setAliasPanelGrid("grille");
             setAliasPanelPageBox("page");
+            setAliasPanelValidate("valider");
             setAliasGetParentCompo("valParent");
             setAliasGetNextCompo("suivant");
             setAliasPack("cadrer");
@@ -5648,6 +5976,7 @@ public class LgNamesGui extends LgNamesUtils {
                 getAliasPanelFlow(),
                 getAliasPanelPageBox(),
                 getAliasPanelGrid(),
+                getAliasPanelValidate(),
                 getAliasRemoveAll()));
         m_.put(getAliasPanelBorder(), new StringList(
                 getAliasCount(),
@@ -5712,7 +6041,22 @@ public class LgNamesGui extends LgNamesUtils {
                 getAliasAddListener()));
         m_.put(getAliasScrollPane(), new StringList(
                 getAliasScrollPaneGetView(),
-                getAliasScrollPaneSetView()));
+                getAliasScrollPaneSetView(),
+                getAliasScrollPaneValidate()));
+        m_.put(getAliasSplitPane(), new StringList(
+                getAliasSplitPaneGetDividerLocation(),
+                getAliasSplitPaneSetDividerLocation(),
+                getAliasSplitPaneGetDividerSize(),
+                getAliasSplitPaneSetDividerSize(),
+                getAliasSplitPaneGetLeft(),
+                getAliasSplitPaneSetLeft(),
+                getAliasSplitPaneGetRight(),
+                getAliasSplitPaneSetRight(),
+                getAliasSplitPaneIsContinuousLayout(),
+                getAliasSplitPaneSetContinuousLayout(),
+                getAliasSplitPaneIsOneTouchExpandable(),
+                getAliasSplitPaneSetOneTouchExpandable(),
+                getAliasSplitPaneValidate()));
         m_.put(getAliasInput(), new StringList(
                 getAliasInputIsEnabled(),
                 getAliasInputSetEnabled()));
@@ -5935,6 +6279,7 @@ public class LgNamesGui extends LgNamesUtils {
         ref_.add(getAliasChangeListener());
         ref_.add(getAliasWindowListener());
         ref_.add(getAliasScrollPane());
+        ref_.add(getAliasSplitPane());
         ref_.add(getAliasListSelection());
         ref_.add(getAliasPaint());
         ref_.add(getAliasMenuBar());

@@ -153,6 +153,7 @@ public class Battle extends ChildFrame {
     private PokemonPanel pokemonPanel;
 
     private Panel movesLearnPanel;
+    private ScrollPane movesLearnPanelScroll;
 
     private Panel abilitiesLearnPanel;
 
@@ -217,10 +218,12 @@ public class Battle extends ChildFrame {
     private TextLabel errorLabel;
 
     private WrappedTextArea commentsErrors;
+    private ScrollPane commentsErrorsScroll;
 
     private TextLabel roundLabel;
 
     private WrappedTextArea commentsRound;
+    private ScrollPane commentsRoundScroll;
 
     private boolean enabledChangeLanguage;
 
@@ -386,7 +389,7 @@ public class Battle extends ChildFrame {
 //            c_.gridwidth = GridBagConstraints.REMAINDER;
 //            grid.setConstraints(forms_, c_);
             lower.add(validateActions);
-            lower.add(new ScrollPane(commentsRound));
+            lower.add(commentsRoundScroll);
         } else if (facade.getFight().getState() == FightState.ATTAQUES) {
             fleeWeb.add(webLabel);
             fleeWeb.add(web);
@@ -709,9 +712,9 @@ public class Battle extends ChildFrame {
     private Panel initCommentsPanel() {
         comments.removeAll();
         comments.add(errorLabel);
-        comments.add(new ScrollPane(commentsErrors));
+        comments.add(commentsErrorsScroll);
         comments.add(roundLabel);
-        comments.add(new ScrollPane(commentsRound));
+        comments.add(commentsRoundScroll);
         return comments;
     }
 
@@ -731,12 +734,12 @@ public class Battle extends ChildFrame {
 //        grid.setConstraints(frontBattle, c_);
         //upper.add(frontBattle);
         forms.removeAll();
-        forms.add(new ScrollPane(commentsErrors));
+        forms.add(commentsErrorsScroll);
 //        c_ = new GridBagConstraints();
 //        c_.gridwidth = GridBagConstraints.REMAINDER;
 //        grid.setConstraints(forms_, c_);
         lower.add(forms);
-        lower.add(new ScrollPane(commentsRound));
+        lower.add(commentsRoundScroll);
         //add(actionsBattle);
     }
 
@@ -894,6 +897,8 @@ public class Battle extends ChildFrame {
         }
         if (movesLearnPanel == null) {
             movesLearnPanel = Panel.newPageBox();
+            movesLearnPanelScroll = new ScrollPane(movesLearnPanel);
+            movesLearnPanelScroll.setPreferredSize(new Dimension(150,150));
         }
         if (abilitiesLearnPanel == null) {
             abilitiesLearnPanel = Panel.newPageBox();
@@ -1130,9 +1135,7 @@ public class Battle extends ChildFrame {
         initEvos();
         initLearntMovesAbilities();
         actions.add(pokemonPanel.getContainer());
-        ScrollPane scroll_ = new ScrollPane(movesLearnPanel);
-        scroll_.setPreferredSize(new Dimension(150,150));
-        actions.add(scroll_);
+        actions.add(movesLearnPanelScroll);
         actions.add(abilitiesLearnPanel);
 //        window.pack();
         pack();
@@ -1462,6 +1465,7 @@ public class Battle extends ChildFrame {
         }
         commentsRound = new WrappedTextArea(10,32);
         commentsRound.setEditable(false);
+        commentsRoundScroll = new ScrollPane(commentsRound);
     }
 
     private void initCommentsErrors() {
@@ -1471,6 +1475,7 @@ public class Battle extends ChildFrame {
         commentsErrors = new WrappedTextArea(6,32);
         commentsErrors.setEditable(false);
         commentsErrors.setForeground(Color.RED);
+        commentsErrorsScroll = new ScrollPane(commentsErrors);
     }
 
 //    public void initRoundAnimation() {

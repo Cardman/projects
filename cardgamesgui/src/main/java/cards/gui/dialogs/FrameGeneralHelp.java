@@ -72,6 +72,7 @@ public final class FrameGeneralHelp extends ChildFrame {
 
     private TextField field;
 
+    private SplitPane separateur;
     private LabelButton search;
 
     public FrameGeneralHelp(String _titre, MainWindow _fenetre) {
@@ -213,16 +214,22 @@ public final class FrameGeneralHelp extends ChildFrame {
             editor.addFinder();
         }
         search.setTextAndSize(messages.getVal(SEARCH_LABEL));
-        SplitPane separateur_ = new SplitPane(JSplitPane.HORIZONTAL_SPLIT,
-                new ScrollPane(arbre_), editor.getScroll());
-        separateur_.setPreferredSize(new Dimension(600, 550));
-        separateur_.setDividerLocation(150);
-        container_.add(separateur_);
-        container_.add(field);
-        container_.add(search);
         if (wasNull_) {
+            separateur = new SplitPane(JSplitPane.HORIZONTAL_SPLIT,
+                    new ScrollPane(arbre_), editor.getScroll());
+            separateur.setPreferredSize(new Dimension(600, 550));
+            separateur.setDividerLocation(150);
+            container_.add(separateur);
+            container_.add(field);
+            container_.add(search);
             setContentPane(container_);
+        } else {
+            separateur.setLeftComponent(new ScrollPane(arbre_));
+            container_.add(separateur);
+            container_.add(field);
+            container_.add(search);
         }
+        separateur.revalidate();
         pack();
         setVisible(true);
     }

@@ -115,6 +115,9 @@ public class PanelStruct extends CustComponentStruct {
         }
         return new IntStruct(index_);
     }
+    public void validate() {
+        panel.validate();
+    }
     @Override
     protected CustComponent getComponent() {
         return panel;

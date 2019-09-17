@@ -305,6 +305,7 @@ public class ScenePanel {
     private LabelButton buttonInteract;
 
     private WrappedTextArea commentsWalking;
+    private ScrollPane commentsWalkingScroll;
 
     private Pad pad;
 
@@ -479,19 +480,8 @@ public class ScenePanel {
         scene.setFocus();
     }
 
-    public void addToArea() {
-        commentsWalking.setText(StringList.join(facade.getComment().getMessages(), RETURN_LINE));
-    }
-
     public String getComment() {
         return StringList.join(facade.getComment().getMessages(), RETURN_LINE);
-    }
-
-    public void removeListeners() {
-        pad.getUp().removeMouseListener(pad.getUp().getMouseListeners()[0]);
-        pad.getDown().removeMouseListener(pad.getDown().getMouseListeners()[0]);
-        pad.getLeft().removeMouseListener(pad.getLeft().getMouseListeners()[0]);
-        pad.getRight().removeMouseListener(pad.getRight().getMouseListeners()[0]);
     }
 
     private void initMenu() {
@@ -845,6 +835,7 @@ public class ScenePanel {
         interaction.add(fish);
         commentsWalking = new WrappedTextArea(4, 32);
         commentsWalking.setEditable(false);
+        commentsWalkingScroll = new ScrollPane(commentsWalking);
         //interaction.add(new JScrollPane(commentsWalking));
     }
 
@@ -1739,7 +1730,7 @@ public class ScenePanel {
         }
         commentsWalking.setText(_text);
         String lg_ = window.getLanguageKey();
-        ConfirmDialog.showComponent(window, new ScrollPane(commentsWalking), messages.getVal(TITLE_COMMENTS), lg_, _messageType);
+        ConfirmDialog.showComponent(window, commentsWalkingScroll, messages.getVal(TITLE_COMMENTS), lg_, _messageType);
     }
 
     public Scene getScene() {

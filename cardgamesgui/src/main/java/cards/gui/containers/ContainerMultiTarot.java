@@ -801,7 +801,6 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         ScrollPane scrollExc_ = new ScrollPane(getExcludedTrumpsForHandful());
         scrollExc_.setPreferredSize(new Dimension(125,60));
         setDeclaringHandful(new SplitPane(JSplitPane.HORIZONTAL_SPLIT,scrollInc_,scrollExc_));
-        getDeclaringHandful().setAlignmentY(Component.LEFT_ALIGNMENT);
         getDeclaringHandful().setContinuousLayout(true);
         getDeclaringHandful().setOneTouchExpandable(true);
         setScrollDeclaringHandful(new ScrollPane(getDeclaringHandful()));

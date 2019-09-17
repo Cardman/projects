@@ -7,8 +7,7 @@ public final class MenuBar {
     private JMenuBar menuBar = new JMenuBar();
     private CustList<Menu> menus = new CustList<Menu>();
 
-    //only for interpreter
-    public JMenuBar getMenuBar() {
+    JMenuBar getMenuBar() {
         return menuBar;
     }
 

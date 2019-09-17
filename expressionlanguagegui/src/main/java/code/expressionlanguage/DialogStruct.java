@@ -2,6 +2,7 @@ package code.expressionlanguage;
 
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
+import code.gui.OtherDialog;
 import code.gui.WithListener;
 
 public final class DialogStruct extends WindowStruct {

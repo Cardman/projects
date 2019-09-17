@@ -1,10 +1,4 @@
-package code.expressionlanguage;
-
-import code.gui.ChangeableTitle;
-import code.gui.MenuBar;
-import code.gui.Ownable;
-import code.gui.Panel;
-import code.gui.WithListener;
+package code.gui;
 
 import javax.swing.*;
 import java.awt.*;

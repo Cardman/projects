@@ -294,16 +294,8 @@ public final class TableGui extends CustComponent {
         return table.getCellRect(row, column, includeSpacing);
     }
 
-    public void doLayout() {
-        table.doLayout();
-    }
-
     public void sizeColumnsToFit(int resizingColumn) {
         table.sizeColumnsToFit(resizingColumn);
-    }
-
-    public String getToolTipText(MouseEvent event) {
-        return table.getToolTipText(event);
     }
 
     public void setSurrendersFocusOnKeystroke(boolean surrendersFocusOnKeystroke) {

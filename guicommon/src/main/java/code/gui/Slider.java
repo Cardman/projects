@@ -23,9 +23,6 @@ public final class Slider extends CustComponent {
     }
 
     private static int getOrient(int _o) {
-        if (_o == SwingConstants.HORIZONTAL) {
-            return SwingConstants.HORIZONTAL;
-        }
         if (_o == SwingConstants.VERTICAL) {
             return SwingConstants.VERTICAL;
         }
@@ -67,8 +64,12 @@ public final class Slider extends CustComponent {
         return slider.getOrientation();
     }
 
-    public void setOrientation(int orientation) {
-        slider.setOrientation(getOrient(orientation));
+    public void setOrientation(int _orientation) {
+        if (getOrient(_orientation) == SwingConstants.VERTICAL) {
+            slider.setOrientation(SwingConstants.VERTICAL);
+        } else {
+            slider.setOrientation(SwingConstants.HORIZONTAL);
+        }
     }
     @Override
     public JComponent getComponent() {
