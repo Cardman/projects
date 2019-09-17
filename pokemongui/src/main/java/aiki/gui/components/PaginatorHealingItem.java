@@ -1,18 +1,11 @@
 package aiki.gui.components;
 import java.awt.Dimension;
-import java.awt.GridLayout;
-
-import javax.swing.BoxLayout;
-import javax.swing.JCheckBox;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
 
 import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
 import aiki.facade.PaginationHealingItem;
 import aiki.gui.MainWindow;
 import aiki.gui.components.labels.HealingItemLabel;
-import aiki.gui.components.listeners.ChangedDeltaPageEvent;
 import aiki.gui.components.listeners.ChangedModeEvent;
 import aiki.gui.components.listeners.ChangedNbResultsEvent;
 import aiki.gui.components.listeners.ChangedPageEvent;
@@ -23,6 +16,7 @@ import aiki.util.SortingHealingItem;
 import code.gui.*;
 import code.util.CustList;
 import code.util.EnumList;
+import code.util.Numbers;
 import code.util.StringList;
 import aiki.facade.enums.SearchingMode;
 import aiki.facade.enums.SelectedBoolean;
@@ -587,7 +581,6 @@ public final class PaginatorHealingItem extends Paginator {
         getNbResults().addChangeListener(new ChangedNbResultsEvent(this));
         bottom_.add(getNbResults());
         getPages().setListener(new ChangedPageEvent(this));
-        getDelta().addDocumentListener(new ChangedDeltaPageEvent(this));
         bottom_.add(getBegin());
         bottom_.add(getPreviousDelta());
         bottom_.add(getPrevious());
@@ -630,7 +623,7 @@ public final class PaginatorHealingItem extends Paginator {
             getFacade().setDeltaHealingItem(1);
             return;
         }
-        int nbDelta_ = Integer.parseInt(text_);
+        int nbDelta_ = Numbers.parseInt(text_);
         if (nbDelta_ <= 0) {
             return;
         }

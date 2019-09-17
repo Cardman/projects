@@ -13,6 +13,7 @@ import java.util.Collections;
 import code.network.enums.IpType;
 import code.stream.StreamTextFile;
 import code.util.CustList;
+import code.util.Numbers;
 import code.util.StringList;
 
 public final class NetCreate {
@@ -38,15 +39,11 @@ public final class NetCreate {
         if (!StringList.isPositiveNumber(content_)) {
             return _defaultPort;
         }
-        try {
-            int port_ = Integer.parseInt(content_);
-            if (port_ >= MAX_PORT) {
-                return _defaultPort;
-            }
-            return port_;
-        } catch (NumberFormatException _0) {
+        int port_ = Numbers.parseInt(content_);
+        if (port_ >= MAX_PORT) {
             return _defaultPort;
         }
+        return port_;
     }
 
     public static String getHostAddress(IpType _ipType, String _defaultIp) {

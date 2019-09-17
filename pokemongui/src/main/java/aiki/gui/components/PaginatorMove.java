@@ -1,10 +1,5 @@
 package aiki.gui.components;
 import java.awt.Dimension;
-import java.awt.GridLayout;
-
-import javax.swing.BoxLayout;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
 
 import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
@@ -13,7 +8,6 @@ import aiki.fight.moves.DamagingMoveData;
 import aiki.fight.moves.StatusMoveData;
 import aiki.gui.MainWindow;
 import aiki.gui.components.labels.TmLabel;
-import aiki.gui.components.listeners.ChangedDeltaPageEvent;
 import aiki.gui.components.listeners.ChangedModeEvent;
 import aiki.gui.components.listeners.ChangedNbResultsEvent;
 import aiki.gui.components.listeners.ChangedPageEvent;
@@ -404,7 +398,6 @@ public final class PaginatorMove extends Paginator {
         getNbResults().addChangeListener(new ChangedNbResultsEvent(this));
         bottom_.add(getNbResults());
         getPages().setListener(new ChangedPageEvent(this));
-        getDelta().addDocumentListener(new ChangedDeltaPageEvent(this));
         bottom_.add(getBegin());
         bottom_.add(getPreviousDelta());
         bottom_.add(getPrevious());

@@ -27,7 +27,7 @@ public abstract class FileDialog extends Dialog {
     private static final String EMPTY_STRING = "";
     private static final String NAME = "name";
     private static final String FILES = "files";
-//    private static final String SLASHES = "\\\\|/";
+
     private static final int NB_COLS = 32;
     private static final int DIALOG_WIDTH = 400;
     private static final int DIALOG_HEIGHT = 278;

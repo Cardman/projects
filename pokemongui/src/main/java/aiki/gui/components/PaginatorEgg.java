@@ -1,16 +1,10 @@
 package aiki.gui.components;
 import java.awt.Dimension;
-import java.awt.GridLayout;
-
-import javax.swing.BoxLayout;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
 
 import aiki.facade.FacadeGame;
 import aiki.facade.PaginationEgg;
 import aiki.gui.MainWindow;
 import aiki.gui.components.labels.EggLabel;
-import aiki.gui.components.listeners.ChangedDeltaPageEvent;
 import aiki.gui.components.listeners.ChangedModeEvent;
 import aiki.gui.components.listeners.ChangedNbResultsEvent;
 import aiki.gui.components.listeners.ChangedPageEvent;
@@ -21,6 +15,7 @@ import aiki.util.SortingEgg;
 import code.gui.*;
 import code.util.CustList;
 import code.util.EnumList;
+import code.util.Numbers;
 import code.util.StringList;
 import aiki.facade.enums.SearchingMode;
 
@@ -176,7 +171,6 @@ public final class PaginatorEgg extends Paginator {
         getNbResults().addChangeListener(new ChangedNbResultsEvent(this));
         bottom_.add(getNbResults());
         getPages().setListener(new ChangedPageEvent(this));
-        getDelta().addDocumentListener(new ChangedDeltaPageEvent(this));
         bottom_.add(getBegin());
         bottom_.add(getPreviousDelta());
         bottom_.add(getPrevious());
@@ -219,7 +213,7 @@ public final class PaginatorEgg extends Paginator {
             getFacade().setDeltaEgg(1);
             return;
         }
-        int nb_ = Integer.parseInt(text_);
+        int nb_ = Numbers.parseInt(text_);
         if (nb_ <= 0) {
             return;
         }

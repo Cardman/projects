@@ -1,18 +1,15 @@
 package code.gui;
 
 import javax.swing.*;
-import javax.swing.event.TreeModelListener;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.*;
 
 public final class TreeGui extends CustComponent {
-    private DefaultMutableTreeNode root;
     private JTree tree;
     private DefaultTreeModel model;
     private DefaultTreeSelectionModel selectionModel;
 
     public TreeGui(DefaultMutableTreeNode _t) {
-        root = _t;
         model = new DefaultTreeModel(_t);
         tree = new JTree(model);
         selectionModel = new DefaultTreeSelectionModel();

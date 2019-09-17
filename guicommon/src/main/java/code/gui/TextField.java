@@ -2,16 +2,11 @@ package code.gui;
 
 import javax.swing.JComponent;
 import javax.swing.JTextField;
-import javax.swing.border.Border;
-import javax.swing.event.DocumentListener;
 import javax.swing.text.Document;
 import java.awt.Color;
 import java.awt.Cursor;
-import java.awt.Font;
-import java.awt.FontMetrics;
 import java.awt.Point;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseListener;
 
 public final class TextField extends CustComponent {
 
@@ -42,9 +37,6 @@ public final class TextField extends CustComponent {
         return textField.getDocument();
     }
 
-    public void addDocumentListener(DocumentListener _listener) {
-        textField.getDocument().addDocumentListener(_listener);
-    }
     public void moveCaretPosition(int pos) {
         textField.moveCaretPosition(pos);
     }

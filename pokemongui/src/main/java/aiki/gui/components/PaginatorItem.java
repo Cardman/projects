@@ -1,16 +1,10 @@
 package aiki.gui.components;
 import java.awt.Dimension;
-import java.awt.GridLayout;
-
-import javax.swing.BoxLayout;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
 
 import aiki.facade.FacadeGame;
 import aiki.facade.PaginationItem;
 import aiki.gui.MainWindow;
 import aiki.gui.components.labels.ItemLabel;
-import aiki.gui.components.listeners.ChangedDeltaPageEvent;
 import aiki.gui.components.listeners.ChangedModeEvent;
 import aiki.gui.components.listeners.ChangedNbResultsEvent;
 import aiki.gui.components.listeners.ChangedPageEvent;
@@ -19,10 +13,7 @@ import aiki.gui.components.listeners.SearchEvent;
 import aiki.gui.listeners.PaginatorEvent;
 import aiki.util.SortingItem;
 import code.gui.*;
-import code.util.CustList;
-import code.util.EnumList;
-import code.util.Ints;
-import code.util.StringList;
+import code.util.*;
 import aiki.facade.enums.SearchingMode;
 
 public final class PaginatorItem extends Paginator {
@@ -279,7 +270,6 @@ public final class PaginatorItem extends Paginator {
         getNbResults().addChangeListener(new ChangedNbResultsEvent(this));
         bottom_.add(getNbResults());
         getPages().setListener(new ChangedPageEvent(this));
-        getDelta().addDocumentListener(new ChangedDeltaPageEvent(this));
         bottom_.add(getBegin());
         bottom_.add(getPreviousDelta());
         bottom_.add(getPrevious());
@@ -322,7 +312,7 @@ public final class PaginatorItem extends Paginator {
             getFacade().setDeltaItem(1);
             return;
         }
-        int nbDelta_ = Integer.parseInt(text_);
+        int nbDelta_ = Numbers.parseInt(text_);
         if (nbDelta_ <= 0) {
             return;
         }

@@ -9,6 +9,7 @@ public class NextDeltaEvent extends NavigationEvent {
 
     @Override
     protected void process() {
+        getPaginator().changeDeltaPage();
         getPaginator().nextDelta();
     }
 

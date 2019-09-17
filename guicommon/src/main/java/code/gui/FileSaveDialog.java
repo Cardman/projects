@@ -120,14 +120,15 @@ public final class FileSaveDialog extends FileDialog implements SingleFileSelect
     public void submit() {
         String errorTitle_ = messages.getVal(FORBIDDEN);
         String lg_ = frame.getLanguageKey();
-        if (getFileName().getText().trim().isEmpty()) {
+        String text_ = getFileName().getText();
+        if (text_.trim().isEmpty()) {
             String errorContent_ = messages.getVal(FORBIDDEN_SPACES);
             ConfirmDialog.showMessage(this, errorContent_, errorTitle_,lg_, JOptionPane.ERROR_MESSAGE);
             //JOptionPane.showMessageDialog(this, errorContent_, errorTitle_, JOptionPane.ERROR_MESSAGE);
             return;
         }
         boolean hasForbbidenChars_ = false;
-        for (char c: getFileName().getText().toCharArray()) {
+        for (char c: text_.toCharArray()) {
             for (char e: FORBIDDEN_CHARS_FILE_NAME) {
                 if (c == e) {
                     hasForbbidenChars_ = true;
@@ -138,21 +139,21 @@ public final class FileSaveDialog extends FileDialog implements SingleFileSelect
                 break;
             }
         }
-//        if (!StringList.matchingRegExp(getFileName().getText(), EXCLUDED_CHARS).isEmpty()) {
-//            String errorContent_ = messages.getVal(FORBIDDEN_SPECIAL_CHARS);
-//            ConfirmDialog.showMessage(this, errorContent_, errorTitle_, Constants.getLanguage(), JOptionPane.ERROR_MESSAGE);
-//            JOptionPane.showMessageDialog(this, errorContent_, errorTitle_, JOptionPane.ERROR_MESSAGE);
-//            return;
-//        }
+        if (StringList.quickEq(text_,"..")) {
+            hasForbbidenChars_ = true;
+        }
+        if (StringList.quickEq(text_,".")) {
+            hasForbbidenChars_ = true;
+        }
         if (hasForbbidenChars_) {
             String errorContent_ = messages.getVal(FORBIDDEN_SPECIAL_CHARS);
             ConfirmDialog.showMessage(this, errorContent_, errorTitle_, lg_, JOptionPane.ERROR_MESSAGE);
             return;
         }
         //get selected row first table
-        File file_ = new File(StringList.concat(getCurrentFolder(),getFileName().getText(),getExtension()));
+        File file_ = new File(StringList.concat(getCurrentFolder(), text_,getExtension()));
         if (file_.exists()) {
-            String mes_ = StringList.simpleStringsFormat(messages.getVal(BODY_CONF), StringList.concat(getCurrentFolder(),getFileName().getText()));
+            String mes_ = StringList.simpleStringsFormat(messages.getVal(BODY_CONF), StringList.concat(getCurrentFolder(), text_));
 //            ConfirmDialog conf_ = new ConfirmDialog(
 //                    this,
 //                    mes_, messages.getVal(TITLE_CONF),
@@ -168,7 +169,7 @@ public final class FileSaveDialog extends FileDialog implements SingleFileSelect
                 return;
             }
         }
-        setSelectedPath(StringList.concat(getCurrentFolder(),getFileName().getText(),getExtension()));
+        setSelectedPath(StringList.concat(getCurrentFolder(), text_,getExtension()));
         closeWindow();
     }
 
