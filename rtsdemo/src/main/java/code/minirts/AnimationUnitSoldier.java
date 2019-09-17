@@ -8,16 +8,11 @@ import code.minirts.rts.UnitMapKey;
 
 import java.awt.*;
 import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.concurrent.locks.ReentrantLock;
 
 
 /**AnimationBalle permet de deplacer
 un petit carre de 10 pixels noir en haut vers la droite*/
 public final class AnimationUnitSoldier implements Runnable {
-
-    private static final ReentrantLock MOVING_LOCK = new ReentrantLock();
-
-    private static final ReentrantLock MAIN_LOCK = new ReentrantLock();
 
     private static PanelBattle battleground;
 
@@ -48,21 +43,15 @@ public final class AnimationUnitSoldier implements Runnable {
     }
 
     public static void addNewSoldier(int _x, int _y) {
-        MAIN_LOCK.lock();
         battleground.addNewSoldier(_x, _y);
-        MAIN_LOCK.unlock();
     }
 
     public static void setNewLocation(int _x, int _y) {
-        MAIN_LOCK.lock();
         battleground.setNewLocation(_x, _y);
-        MAIN_LOCK.unlock();
     }
 
     public static void moveCamera(Point _pt) {
-        MOVING_LOCK.lock();
         battleground.moveCamera(_pt);
-        MOVING_LOCK.unlock();
     }
 
     public static void pause() {
@@ -89,15 +78,12 @@ public final class AnimationUnitSoldier implements Runnable {
     }
 
     static void loop() {
-        MAIN_LOCK.lock();
         Facade f_ = battleground.getFacade();
         f_.loop();
-        MAIN_LOCK.unlock();
         battleground.selectOrDeselectMany();
     }
 
     static void moving() {
-        MOVING_LOCK.lock();
         Facade f_ = battleground.getFacade();
         CustComponent parent_ = battleground.getContainer().getParent();
         int w_ = parent_.getWidth();
@@ -111,7 +97,6 @@ public final class AnimationUnitSoldier implements Runnable {
             battleground.setPaintSelection(false);
         }
         repaintBattleground();
-        MOVING_LOCK.unlock();
     }
 
     private static void repaintBattleground() {
