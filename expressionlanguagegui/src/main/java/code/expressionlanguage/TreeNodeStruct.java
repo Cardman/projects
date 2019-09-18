@@ -128,6 +128,9 @@ public final class TreeNodeStruct implements Struct {
         return new TreeNodeStruct(next_);
     }
 
+    IntStruct getChildCount() {
+        return new IntStruct(treeNode.getChildCount());
+    }
     Struct getFirstChild() {
         if (treeNode.getChildCount() == 0) {
             return NullStruct.NULL_VALUE;

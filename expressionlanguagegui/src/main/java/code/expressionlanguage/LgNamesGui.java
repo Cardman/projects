@@ -34,6 +34,7 @@ public class LgNamesGui extends LgNamesUtils {
     private String aliasTreeNodeRemoveFromParent;
     private String aliasTreeNodeRemoveAllChildren;
     private String aliasTreeNodeSetUserObject;
+    private String aliasTreeNodeNb;
     private String aliasTreeNodeGetFirstChild;
     private String aliasTreeNodeGetLastChild;
     private String aliasTreeNodeGetNextSibling;
@@ -514,6 +515,9 @@ public class LgNamesGui extends LgNamesUtils {
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasTreeNodeGetUserObject, params_, getAliasString(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasTreeNodeNb, params_,getAliasPrimInteger(), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasTreeNodeGetFirstChild, params_,aliasTreeNode, false, MethodModifier.FINAL, stdcl_);
@@ -2746,6 +2750,10 @@ public class LgNamesGui extends LgNamesUtils {
                 res_.setResult(inst_.getUserObject());
                 return res_;
             }
+            if (StringList.quickEq(name_, aliasTreeNodeNb)) {
+                res_.setResult(inst_.getChildCount());
+                return res_;
+            }
             if (StringList.quickEq(name_, aliasTreeNodeGetFirstChild)) {
                 res_.setResult(inst_.getFirstChild());
                 return res_;
@@ -3632,6 +3640,14 @@ public class LgNamesGui extends LgNamesUtils {
 
     public void setAliasTreeNodeSetUserObject(String aliasTreeNodeSetUserObject) {
         this.aliasTreeNodeSetUserObject = aliasTreeNodeSetUserObject;
+    }
+
+    public String getAliasTreeNodeNb() {
+        return aliasTreeNodeNb;
+    }
+
+    public void setAliasTreeNodeNb(String aliasTreeNodeNb) {
+        this.aliasTreeNodeNb = aliasTreeNodeNb;
     }
 
     public String getAliasTreeNodeGetFirstChild() {
@@ -6013,6 +6029,7 @@ public class LgNamesGui extends LgNamesUtils {
             setAliasTreeNodeRemoveAllChildren("removeAllChildren");
             setAliasTreeNodeSetUserObject("set");
             setAliasTreeNodeGetUserObject("get");
+            setAliasTreeNodeNb("nb");
             setAliasTreeNodeGetFirstChild("first");
             setAliasTreeNodeGetLastChild("last");
             setAliasTreeNodeGetNextSibling("next");
@@ -6340,6 +6357,7 @@ public class LgNamesGui extends LgNamesUtils {
             setAliasTreeNodeRemoveAllChildren("supprTsEnfants");
             setAliasTreeNodeSetUserObject("maj");
             setAliasTreeNodeGetUserObject("val");
+            setAliasTreeNodeNb("nb");
             setAliasTreeNodeGetFirstChild("prem");
             setAliasTreeNodeGetLastChild("der");
             setAliasTreeNodeGetNextSibling("suiv");
@@ -6918,6 +6936,7 @@ public class LgNamesGui extends LgNamesUtils {
                 getAliasTreeNodeRemoveAllChildren(),
                 getAliasTreeNodeSetUserObject(),
                 getAliasTreeNodeGetUserObject(),
+                getAliasTreeNodeNb(),
                 getAliasTreeNodeGetFirstChild(),
                 getAliasTreeNodeGetLastChild(),
                 getAliasTreeNodeGetNextSibling(),
