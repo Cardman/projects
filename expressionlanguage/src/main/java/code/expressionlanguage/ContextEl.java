@@ -1571,16 +1571,16 @@ public abstract class ContextEl implements ExecutableCode {
     }
 
     @Override
-    public String lookupImportMemberType(String _type, AccessingImportingBlock _rooted, boolean _inherits) {
+    public String lookupImportMemberType(String _type, AccessingImportingBlock _rooted, boolean _inherits, boolean _line) {
         String prefixedType_;
         if (options.isSingleInnerParts()) {
-            prefixedType_ = getRealSinglePrefixedMemberType(_type, _rooted, _inherits);
+            prefixedType_ = getRealSinglePrefixedMemberType(_type, _rooted, _inherits,_line);
         } else {
-            prefixedType_ = getRealPrefixedMemberType(_type, _rooted, _inherits);
+            prefixedType_ = getRealPrefixedMemberType(_type, _rooted, _inherits,_line);
         }
         return prefixedType_;
     }
-    private String exist(String _type, AccessingImportingBlock _rooted, boolean _inherits) {
+    private String exist(String _type, AccessingImportingBlock _rooted, boolean _inherits, boolean _line) {
         String trQual_ = _type;
         String typeFound_ = trQual_;
         String keyWordStatic_ = keyWords.getKeyWordStatic();
@@ -1612,7 +1612,7 @@ public abstract class ContextEl implements ExecutableCode {
         }
         GeneType cl_ = getClassBody(res_);
         if (cl_ != null) {
-            if (!cl_.isStaticType()) {
+            if (!cl_.isStaticType() && !_line) {
                 return EMPTY_TYPE;
             }
             return res_;
@@ -1771,9 +1771,9 @@ public abstract class ContextEl implements ExecutableCode {
     public String lookupImportMemberType(String _type, RootBlock _rooted) {
         String prefixedType_;
         if (options.isSingleInnerParts()) {
-            prefixedType_ = getRealSinglePrefixedMemberType(_type,_rooted,true);
+            prefixedType_ = getRealSinglePrefixedMemberType(_type,_rooted,true,false);
         } else {
-            prefixedType_ = getRealPrefixedMemberType(_type, _rooted, true);
+            prefixedType_ = getRealPrefixedMemberType(_type, _rooted, true,false);
         }
         return prefixedType_;
     }
@@ -1895,7 +1895,7 @@ public abstract class ContextEl implements ExecutableCode {
         return type_;
     }
 
-    private String getRealPrefixedMemberType(String _type, AccessingImportingBlock _rooted, boolean _inherits) {
+    private String getRealPrefixedMemberType(String _type, AccessingImportingBlock _rooted, boolean _inherits, boolean _line) {
         String look_ = _type.trim();
         StringList types_ = new StringList();
         CustList<StringList> imports_ = new CustList<StringList>();
@@ -1911,7 +1911,7 @@ public abstract class ContextEl implements ExecutableCode {
                     continue;
                 }
                 String typeLoc_ = removeDottedSpaces(StringList.concat(begin_, look_));
-                String ft_ = exist(typeLoc_, _rooted, _inherits);
+                String ft_ = exist(typeLoc_, _rooted, _inherits,_line);
                 if (ft_.isEmpty()) {
                     continue;
                 }
@@ -1933,7 +1933,7 @@ public abstract class ContextEl implements ExecutableCode {
                 }
                 String begin_ = removeDottedSpaces(i.substring(0, i.lastIndexOf("..")+2));
                 String typeLoc_ = StringList.concat(begin_,look_);
-                String ft_ = exist(typeLoc_, _rooted, _inherits);
+                String ft_ = exist(typeLoc_, _rooted, _inherits,_line);
                 if (ft_.isEmpty()) {
                     continue;
                 }
@@ -2156,7 +2156,7 @@ public abstract class ContextEl implements ExecutableCode {
         }
         return new TypeOwnersDepends();
     }
-    private String getRealSinglePrefixedMemberType(String _type, AccessingImportingBlock _rooted, boolean _inherits) {
+    private String getRealSinglePrefixedMemberType(String _type, AccessingImportingBlock _rooted, boolean _inherits, boolean _line) {
         String look_ = _type.trim();
         StringList types_ = new StringList();
         CustList<StringList> imports_ = new CustList<StringList>();
@@ -2181,7 +2181,7 @@ public abstract class ContextEl implements ExecutableCode {
                 String typeInner_ = StringList.concat(beginImp_, look_);
                 String foundCandidate_ = StringList.join(Templates.getAllInnerTypesSingleDotted(typeInner_, this), "..");
                 String typeLoc_ = removeDottedSpaces(StringList.concat(pre_," ", foundCandidate_));
-                String ft_ = exist(typeLoc_, _rooted, _inherits);
+                String ft_ = exist(typeLoc_, _rooted, _inherits,_line);
                 if (ft_.isEmpty()) {
                     continue;
                 }
@@ -2218,7 +2218,7 @@ public abstract class ContextEl implements ExecutableCode {
                 String typeInner_ = StringList.concat(beginImp_, look_);
                 String foundCandidate_ = StringList.join(Templates.getAllInnerTypesSingleDotted(typeInner_, this), "..");
                 String typeLoc_ = removeDottedSpaces(StringList.concat(pre_," ", foundCandidate_));
-                String ft_ = exist(typeLoc_, _rooted, _inherits);
+                String ft_ = exist(typeLoc_, _rooted, _inherits,_line);
                 if (ft_.isEmpty()) {
                     continue;
                 }

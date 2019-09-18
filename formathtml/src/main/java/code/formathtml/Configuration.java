@@ -1214,7 +1214,7 @@ public final class Configuration implements ExecutableCode {
     }
 
     @Override
-    public String lookupImportMemberType(String _type, AccessingImportingBlock _rooted, boolean _inherits) {
+    public String lookupImportMemberType(String _type, AccessingImportingBlock _rooted, boolean _inherits, boolean _line) {
         String prefixedType_;
         if (getOptions().isSingleInnerParts()) {
             prefixedType_ = getRealSinglePrefixedMemberType(_type, _rooted);

@@ -608,7 +608,7 @@ final class NamePartType extends LeafPartType {
                 }
             }
         }
-        lookupImports(_an, _rooted, type_);
+        lookupImports(_an, _rooted, type_,false);
     }
     private void tryAnalyzeInnerPartsLine(Analyzable _an, String _globalType,
                                       AccessingImportingBlock _rooted) {
@@ -630,11 +630,11 @@ final class NamePartType extends LeafPartType {
                 }
             }
         }
-        lookupImports(_an, _rooted, type_);
+        lookupImports(_an, _rooted, type_,true);
     }
 
-    private void lookupImports(Analyzable _an, AccessingImportingBlock _rooted, String _type) {
-        String res_ = _an.lookupImportMemberType(_type, _rooted, false);
+    private void lookupImports(Analyzable _an, AccessingImportingBlock _rooted, String _type, boolean _line) {
+        String res_ = _an.lookupImportMemberType(_type, _rooted, false,_line);
         if (!res_.isEmpty()) {
             setAnalyzedType(res_);
             return;
