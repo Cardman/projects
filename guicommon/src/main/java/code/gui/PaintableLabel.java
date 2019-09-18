@@ -27,14 +27,6 @@ public abstract class PaintableLabel extends CustComponent {
         label.validate();
     }
 
-    public void addMouseMotionListener(MouseMotionListener _l) {
-        label.addMouseMotionListener(_l);
-    }
-
-    public void addMouseWheelListener(MouseWheelListener _l) {
-        label.addMouseWheelListener(_l);
-    }
-
     public void setSize(Dimension _d) {
         label.setSize(_d);
     }

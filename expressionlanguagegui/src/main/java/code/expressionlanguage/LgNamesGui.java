@@ -81,6 +81,8 @@ public class LgNamesGui extends LgNamesUtils {
     private String aliasMouseReleased;
     private String aliasMouseEntered;
     private String aliasMouseExited;
+    private String aliasMouseDragged;
+    private String aliasMouseMoved;
     private String aliasMouseEvent;
     private String aliasMouseEventGetFirst;
     private String aliasMouseEventGetSecond;
@@ -3564,6 +3566,8 @@ public class LgNamesGui extends LgNamesUtils {
         map_.put("{mouseReleased}", aliasMouseReleased);
         map_.put("{mouseEntered}", aliasMouseEntered);
         map_.put("{mouseExited}", aliasMouseExited);
+        map_.put("{mouseDragged}", aliasMouseDragged);
+        map_.put("{mouseMoved}", aliasMouseMoved);
         map_.put("{MouseEvent}", aliasMouseEvent);
         map_.put("{void}", getAliasVoid());
         map_.put("{e}", tr("e",_context));
@@ -5187,6 +5191,22 @@ public class LgNamesGui extends LgNamesUtils {
         this.aliasMouseExited = aliasMouseExited;
     }
 
+    public String getAliasMouseDragged() {
+        return aliasMouseDragged;
+    }
+
+    public void setAliasMouseDragged(String aliasMouseDragged) {
+        this.aliasMouseDragged = aliasMouseDragged;
+    }
+
+    public String getAliasMouseMoved() {
+        return aliasMouseMoved;
+    }
+
+    public void setAliasMouseMoved(String aliasMouseMoved) {
+        this.aliasMouseMoved = aliasMouseMoved;
+    }
+
     public String getAliasMouseEvent() {
         return aliasMouseEvent;
     }
@@ -6469,6 +6489,8 @@ public class LgNamesGui extends LgNamesUtils {
             setAliasMouseReleased("mouseReleased");
             setAliasMouseEntered("mouseEntered");
             setAliasMouseExited("mouseExited");
+            setAliasMouseDragged("mouseDragged");
+            setAliasMouseMoved("mouseMoved");
             setAliasMouseEventGetFirst("x");
             setAliasMouseEventGetSecond("y");
             setAliasMouseEventGetClicks("getClicks");
@@ -6744,6 +6766,8 @@ public class LgNamesGui extends LgNamesUtils {
             setAliasMouseReleased("relache");
             setAliasMouseEntered("entre");
             setAliasMouseExited("sorti");
+            setAliasMouseDragged("appuye");
+            setAliasMouseMoved("bouge");
             setAliasMouseEventGetFirst("x");
             setAliasMouseEventGetSecond("y");
             setAliasMouseEventGetClicks("valClics");

@@ -10,6 +10,7 @@ import javax.swing.SwingUtilities;
 import java.awt.*;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 
 public abstract class CustComponentStruct implements Struct {
 
@@ -80,6 +81,9 @@ public abstract class CustComponentStruct implements Struct {
     public void addMouse(Struct _mouseListener) {
         if (_mouseListener instanceof MouseListener) {
             getComponent().addMouseListener((MouseListener) _mouseListener);
+        }
+        if (_mouseListener instanceof MouseMotionListener) {
+            getComponent().addMouseMotionListener((MouseMotionListener) _mouseListener);
         }
     }
     public void addKeyListener(Struct _l) {

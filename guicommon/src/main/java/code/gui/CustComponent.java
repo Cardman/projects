@@ -3,6 +3,8 @@ package code.gui;
 import java.awt.*;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
+import java.awt.event.MouseWheelListener;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -18,22 +20,14 @@ public abstract class CustComponent {
         SwingUtilities.invokeLater(_r);
     }
     public static boolean invokeAndWait(Runnable _r) {
-        if (SwingUtilities.isEventDispatchThread()) {
-            Thread th_ = new Thread(_r);
-            th_.start();
-            try {
-                th_.join();
-            } catch (Exception _0) {
-                //ignore
-            }
-            return true;
-        }
+        Thread th_ = new Thread(_r);
+        th_.start();
         try {
-            SwingUtilities.invokeAndWait(_r);
-            return true;
-        } catch (Throwable _0) {
-            return false;
+            th_.join();
+        } catch (Exception _0) {
+            //ignore
         }
+        return true;
     }
 
     public boolean isAutoscrolls(){
@@ -48,6 +42,14 @@ public abstract class CustComponent {
 
     public void addMouseListener(MouseListener _mouseListener) {
         getComponent().addMouseListener(_mouseListener);
+    }
+
+    public void addMouseMotionListener(MouseMotionListener _mouseListener) {
+        getComponent().addMouseMotionListener(_mouseListener);
+    }
+
+    public void addMouseWheelListener(MouseWheelListener _l) {
+        getComponent().addMouseWheelListener(_l);
     }
     public void addKeyListener(KeyListener _l) {
         getComponent().addKeyListener(_l);

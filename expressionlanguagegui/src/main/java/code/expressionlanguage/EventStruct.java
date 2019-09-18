@@ -21,7 +21,8 @@ import java.awt.event.*;
 
 public final class EventStruct implements WithParentStruct,EnumerableStruct,
         ActionListener,Runnable,MouseListener,WindowListener,ListSelection,
-        KeyListener,ChangeListener,TreeSelectionListener,ListSelectionListener {
+        KeyListener,ChangeListener,TreeSelectionListener,ListSelectionListener,
+        MouseMotionListener{
 
     private final String className;
 
@@ -170,6 +171,27 @@ public final class EventStruct implements WithParentStruct,EnumerableStruct,
         invoke(r_,actList_,actPerf_,new StringList(actEv_),args_);
     }
 
+    @Override
+    public void mouseDragged(MouseEvent e) {
+        String actEv_ = ((LgNamesGui) original.getStandards()).getAliasMouseEvent();
+        MouseEventStruct a_ = new MouseEventStruct(e,actEv_);
+        GuiContextEl r_ = newCtx();
+        CustList<Argument> args_ = new CustList<Argument>(new Argument(a_));
+        String actPerf_ = ((LgNamesGui) original.getStandards()).getAliasMouseDragged();
+        String actList_ = ((LgNamesGui) original.getStandards()).getAliasMouseListener();
+        invoke(r_,actList_,actPerf_,new StringList(actEv_),args_);
+   }
+
+    @Override
+    public void mouseMoved(MouseEvent e) {
+        String actEv_ = ((LgNamesGui) original.getStandards()).getAliasMouseEvent();
+        MouseEventStruct a_ = new MouseEventStruct(e,actEv_);
+        GuiContextEl r_ = newCtx();
+        CustList<Argument> args_ = new CustList<Argument>(new Argument(a_));
+        String actPerf_ = ((LgNamesGui) original.getStandards()).getAliasMouseMoved();
+        String actList_ = ((LgNamesGui) original.getStandards()).getAliasMouseListener();
+        invoke(r_,actList_,actPerf_,new StringList(actEv_),args_);
+    }
 
     @Override
     public void windowOpened(WindowEvent e) {

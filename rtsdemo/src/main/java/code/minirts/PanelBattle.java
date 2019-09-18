@@ -30,11 +30,11 @@ public class PanelBattle {
     private Panel container = Panel.newAbsolute();
     private Panel content = Panel.newAbsolute();
     public void addMouseMotionListener(MouseMotionListener _l) {
-        content.getComponent().addMouseMotionListener(_l);
+        content.addMouseMotionListener(_l);
     }
 
     public void addMouseWheelListener(MouseWheelListener _l) {
-        content.getComponent().addMouseWheelListener(_l);
+        content.addMouseWheelListener(_l);
     }
 
     public PanelBattle(Facade _facade) {

@@ -4,4 +4,6 @@
  {void} {mouseReleased}({MouseEvent} {e}){endLine}
  {void} {mouseEntered}({MouseEvent} {e}){endLine}
  {void} {mouseExited}({MouseEvent} {e}){endLine}
+ {void} {mouseDragged}({MouseEvent} {e}){endLine}
+ {void} {mouseMoved}({MouseEvent} {e}){endLine}
 '}'
