@@ -110,10 +110,10 @@ public abstract class FileDialog extends Dialog {
         }
         setTitle(currentTitle);
         fileTable = fileModel.getTable();
-        fileTable.getTableHeader().setReorderingAllowed(false);
-        fileTable.getTableHeader().addMouseListener(new ClickHeaderEvent(this));
-        fileTable.getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        fileTable.getSelectionModel().addListSelectionListener(new ClickRowEvent(this));
+        fileTable.setReorderingAllowed(false);
+        fileTable.addHeaderListener(new ClickHeaderEvent(this));
+        fileTable.setMultiSelect(false);
+        fileTable.addListSelectionListener(new ClickRowEvent(this));
         Panel openSaveFile_ = Panel.newPageBox();
         fileName = AutoCompleteDocument.createAutoCompleteTextField(new StringList(),NB_COLS);
         if (addTypingFileName) {

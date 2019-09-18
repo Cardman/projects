@@ -1,16 +1,18 @@
 package code.gui;
 
-import javax.swing.*;
-import javax.swing.table.*;
-import java.awt.*;
+import javax.swing.JComponent;
+import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
+import java.awt.Point;
+import java.awt.event.MouseListener;
 
 public final class TableGui extends CustComponent {
     private JTable table;
 
     private DefaultTableModel model;
-    public TableGui() {
-        this(new String[0]);
-    }
 
     public TableGui(String... _cols) {
         DefaultTableModel d_ = newModel(_cols);
@@ -21,7 +23,7 @@ public final class TableGui extends CustComponent {
         return new DefaultTableModel(_cols,0);
     }
 
-    JTableHeader getTableHeader() {
+    private JTableHeader getTableHeader() {
         return table.getTableHeader();
     }
 
@@ -52,8 +54,12 @@ public final class TableGui extends CustComponent {
         return table.getColumnName(column);
     }
 
-    public Object getValueAt(int row, int column) {
-        return table.getValueAt(row, column);
+    public String getValueAt(int row, int column) {
+        Object v_ = table.getValueAt(row, column);
+        if (!(v_ instanceof String)) {
+            return "";
+        }
+        return (String) v_;
     }
 
     public void setValueAt(String aValue, int row, int column) {
@@ -77,7 +83,17 @@ public final class TableGui extends CustComponent {
         model.fireTableStructureChanged();
     }
 
-    ListSelectionModel getSelectionModel() {
+    public boolean isMultiSelect() {
+        return table.getSelectionModel().getSelectionMode() == ListSelectionModel.MULTIPLE_INTERVAL_SELECTION;
+    }
+    public void setMultiSelect(boolean _mult) {
+        if (_mult) {
+            table.getSelectionModel().setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+        } else {
+            table.getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        }
+    }
+    private ListSelectionModel getSelectionModel() {
         return table.getSelectionModel();
     }
 
@@ -88,5 +104,20 @@ public final class TableGui extends CustComponent {
 
     public void setColumnIdentifiers(String[] _cols) {
         model.setColumnIdentifiers(_cols);
+    }
+
+    public boolean isReorderingAllowed() {
+        return getTableHeader().getReorderingAllowed();
+    }
+    public void setReorderingAllowed(boolean _b) {
+        getTableHeader().setReorderingAllowed(_b);
+    }
+
+    public void addHeaderListener(MouseListener _list) {
+        getTableHeader().addMouseListener(_list);
+    }
+
+    public void addListSelectionListener(ListSelectionListener _select) {
+        getSelectionModel().addListSelectionListener(_select);
     }
 }

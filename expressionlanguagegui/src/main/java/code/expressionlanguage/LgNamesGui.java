@@ -10,6 +10,7 @@ import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
 import code.expressionlanguage.variables.VariableSuffix;
 import code.gui.OtherDialog;
+import code.gui.TableGui;
 import code.resources.ResourceFiles;
 import code.util.CustList;
 import code.util.ObjectMap;
@@ -49,6 +50,29 @@ public class LgNamesGui extends LgNamesUtils {
     private String aliasTreeGetSelected;
     private String aliasTreeAddTreeListener;
     private String aliasTreeReload;
+    private String aliasTableListener;
+    private String aliasTableValueTableChanged;
+    private String aliasTableGui;
+    private String aliasTableGetSelectedRow;
+    private String aliasTableGetSelectedRows;
+    private String aliasTableGetSelectedRowCount;
+    private String aliasTableGetRowCount;
+    private String aliasTableSetRowCount;
+    private String aliasTableGetColumnCount;
+    private String aliasTableSetColumns;
+    private String aliasTableGetColumnName;
+    private String aliasTableGetValue;
+    private String aliasTableSetValue;
+    private String aliasTableGetRowAtPoint;
+    private String aliasTableGetColumnAtPoint;
+    private String aliasTableIsMultiple;
+    private String aliasTableSetMultiple;
+    private String aliasTableIsReorder;
+    private String aliasTableSetReorder;
+    private String aliasTableMoveColumn;
+    private String aliasTableApplyChanges;
+    private String aliasTableAddHeader;
+    private String aliasTableAddSelect;
     private String aliasChangeListener;
     private String aliasStateChanged;
     private String aliasMouseListener;
@@ -576,6 +600,74 @@ public class LgNamesGui extends LgNamesUtils {
         constructors_.add(ctor_);
         std_ = stdcl_;
         getStandards().put(aliasTree, std_);
+
+
+        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        constructors_ = new CustList<StandardConstructor>();
+        fields_ = new StringMap<StandardField>();
+        stdcl_ = new StandardClass(aliasTableGui, fields_, constructors_, methods_, aliasComponent, MethodModifier.FINAL);
+        params_ = new StringList(aliasMouseListener);
+        method_ = new StandardMethod(aliasTableAddHeader, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasTableListener);
+        method_ = new StandardMethod(aliasTableAddSelect, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasTableIsMultiple, params_, getAliasPrimBoolean(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasPrimBoolean());
+        method_ = new StandardMethod(aliasTableSetMultiple, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasTableIsReorder, params_, getAliasPrimBoolean(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasPrimBoolean());
+        method_ = new StandardMethod(aliasTableSetReorder, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasPrimInteger());
+        method_ = new StandardMethod(aliasTableGetColumnName, params_, getAliasString(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasTableGetColumnCount, params_, getAliasPrimInteger(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasPrimInteger(),getAliasPrimInteger());
+        method_ = new StandardMethod(aliasTableGetColumnAtPoint, params_, getAliasPrimInteger(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasPrimInteger(),getAliasPrimInteger());
+        method_ = new StandardMethod(aliasTableGetRowAtPoint, params_, getAliasPrimInteger(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasTableGetRowCount, params_, getAliasPrimInteger(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasPrimInteger());
+        method_ = new StandardMethod(aliasTableSetRowCount, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasString());
+        method_ = new StandardMethod(aliasTableSetColumns, params_, getAliasVoid(), true, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasTableGetSelectedRow, params_, getAliasPrimInteger(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasTableGetSelectedRowCount, params_, getAliasPrimInteger(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasTableGetSelectedRows, params_, PrimitiveTypeUtil.getPrettyArrayType(getAliasPrimInteger()), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasTableApplyChanges, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasString(),getAliasPrimInteger(),getAliasPrimInteger());
+        method_ = new StandardMethod(aliasTableSetValue, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasPrimInteger(),getAliasPrimInteger());
+        method_ = new StandardMethod(aliasTableGetValue, params_, getAliasString(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasString());
+        ctor_ = new StandardConstructor(params_,true,stdcl_);
+        constructors_.add(ctor_);
+        std_ = stdcl_;
+        getStandards().put(aliasTableGui, std_);
 
         buildEvents();
 
@@ -1821,6 +1913,15 @@ public class LgNamesGui extends LgNamesUtils {
             r_.setResult(new TreeStruct(aliasTree, (TreeNodeStruct) _args[0]));
             return r_;
         }
+        if (StringList.quickEq(name_,aliasTableGui)) {
+            if (_cont.isInitEnums()) {
+                _cont.failInitEnums();
+                r_.setResult(NullStruct.NULL_VALUE);
+                return r_;
+            }
+            r_.setResult(new TableStruct(aliasTableGui, _args[0]));
+            return r_;
+        }
         if (StringList.quickEq(name_,aliasRender)) {
             if (_cont.isInitEnums()) {
                 _cont.failInitEnums();
@@ -2810,6 +2911,91 @@ public class LgNamesGui extends LgNamesUtils {
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
+        if (StringList.quickEq(type_, aliasTableGui)) {
+            TableStruct inst_ = (TableStruct) _instance;
+            if (StringList.quickEq(name_, aliasTableAddSelect)) {
+                inst_.addListSelectionListener(_args[0]);
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasTableAddHeader)) {
+                inst_.addHeaderListener(_args[0]);
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasTableApplyChanges)) {
+                inst_.applyChanges();
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasTableGetColumnAtPoint)) {
+                res_.setResult(inst_.columnAtPoint(_args[0],_args[1]));
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasTableGetRowAtPoint)) {
+                res_.setResult(inst_.rowAtPoint(_args[0],_args[1]));
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasTableGetColumnCount)) {
+                res_.setResult(inst_.getColumnCount());
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasTableGetRowCount)) {
+                res_.setResult(inst_.getRowCount());
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasTableGetColumnName)) {
+                res_.setResult(inst_.getColumnName(_args[0]));
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasTableGetSelectedRow)) {
+                res_.setResult(inst_.getSelectedRow());
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasTableGetSelectedRows)) {
+                res_.setResult(inst_.getSelectedRows(_cont));
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasTableGetSelectedRowCount)) {
+                res_.setResult(inst_.getSelectedRowCount());
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasTableGetValue)) {
+                res_.setResult(inst_.getValueAt(_args[0],_args[1]));
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasTableSetValue)) {
+                inst_.setValueAt(_args[0],_args[1],_args[2]);
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasTableSetColumns)) {
+                inst_.setColumnIdentifiers(_args[0]);
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasTableSetMultiple)) {
+                inst_.setMultiSelect(_args[0]);
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasTableSetReorder)) {
+                inst_.setReorderingAllowed(_args[0]);
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasTableSetRowCount)) {
+                inst_.setRowCount(_args[0]);
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasTableIsMultiple)) {
+                res_.setResult(inst_.isMultiSelect());
+                return res_;
+            }
+            res_.setResult(inst_.isReorderingAllowed());
+            return res_;
+        }
         if (StringList.quickEq(type_, aliasRender)) {
             RenderStruct image_ = (RenderStruct) _instance;
             if (StringList.quickEq(name_, aliasRenderSetPaint)) {
@@ -3353,6 +3539,21 @@ public class LgNamesGui extends LgNamesUtils {
         getPredefinedClasses().add(aliasTreeListener);
         stds_.put(aliasTreeListener, content_);
         getPredefinedInterfacesInitOrder().add(aliasTreeListener);
+        content_ = ResourceFiles.ressourceFichier("resources_lg_gui/table_event.txt");
+        map_ = new StringMap<String>();
+        map_.put("{public}", public_);
+        map_.put("{interface}", interface_);
+        map_.put("{TableListener}", aliasTableListener);
+        map_.put("{valueChanged}", aliasTableValueTableChanged);
+        map_.put("{int}", getAliasPrimInteger());
+        map_.put("{void}", getAliasVoid());
+        map_.put("{e}", tr("e",_context));
+        map_.put("{f}", tr("f",_context));
+        map_.put("{endLine}", endLine_);
+        content_ = StringList.formatQuote(content_, map_);
+        getPredefinedClasses().add(aliasTableListener);
+        stds_.put(aliasTableListener, content_);
+        getPredefinedInterfacesInitOrder().add(aliasTableListener);
         content_ = ResourceFiles.ressourceFichier("resources_lg_gui/mouse_event.txt");
         map_ = new StringMap<String>();
         map_.put("{public}", public_);
@@ -3760,6 +3961,190 @@ public class LgNamesGui extends LgNamesUtils {
 
     public void setAliasTreeReload(String aliasTreeReload) {
         this.aliasTreeReload = aliasTreeReload;
+    }
+
+    public String getAliasTableListener() {
+        return aliasTableListener;
+    }
+
+    public void setAliasTableListener(String aliasTableListener) {
+        this.aliasTableListener = aliasTableListener;
+    }
+
+    public String getAliasTableValueTableChanged() {
+        return aliasTableValueTableChanged;
+    }
+
+    public void setAliasTableValueTableChanged(String aliasTableValueTableChanged) {
+        this.aliasTableValueTableChanged = aliasTableValueTableChanged;
+    }
+
+    public String getAliasTableGui() {
+        return aliasTableGui;
+    }
+
+    public void setAliasTableGui(String aliasTable) {
+        this.aliasTableGui = aliasTable;
+    }
+
+    public String getAliasTableGetSelectedRow() {
+        return aliasTableGetSelectedRow;
+    }
+
+    public void setAliasTableGetSelectedRow(String aliasTableGetSelectedRow) {
+        this.aliasTableGetSelectedRow = aliasTableGetSelectedRow;
+    }
+
+    public String getAliasTableGetSelectedRows() {
+        return aliasTableGetSelectedRows;
+    }
+
+    public void setAliasTableGetSelectedRows(String aliasTableGetSelectedRows) {
+        this.aliasTableGetSelectedRows = aliasTableGetSelectedRows;
+    }
+
+    public String getAliasTableGetSelectedRowCount() {
+        return aliasTableGetSelectedRowCount;
+    }
+
+    public void setAliasTableGetSelectedRowCount(String aliasTableGetSelectedRowCount) {
+        this.aliasTableGetSelectedRowCount = aliasTableGetSelectedRowCount;
+    }
+
+    public String getAliasTableGetRowCount() {
+        return aliasTableGetRowCount;
+    }
+
+    public void setAliasTableGetRowCount(String aliasTableGetRowCount) {
+        this.aliasTableGetRowCount = aliasTableGetRowCount;
+    }
+
+    public String getAliasTableSetRowCount() {
+        return aliasTableSetRowCount;
+    }
+
+    public void setAliasTableSetRowCount(String aliasTableSetRowCount) {
+        this.aliasTableSetRowCount = aliasTableSetRowCount;
+    }
+
+    public String getAliasTableGetColumnCount() {
+        return aliasTableGetColumnCount;
+    }
+
+    public void setAliasTableGetColumnCount(String aliasTableGetColumnCount) {
+        this.aliasTableGetColumnCount = aliasTableGetColumnCount;
+    }
+
+    public String getAliasTableSetColumns() {
+        return aliasTableSetColumns;
+    }
+
+    public void setAliasTableSetColumns(String aliasTableSetColumns) {
+        this.aliasTableSetColumns = aliasTableSetColumns;
+    }
+
+    public String getAliasTableGetColumnName() {
+        return aliasTableGetColumnName;
+    }
+
+    public void setAliasTableGetColumnName(String aliasTableGetColumnName) {
+        this.aliasTableGetColumnName = aliasTableGetColumnName;
+    }
+
+    public String getAliasTableGetValue() {
+        return aliasTableGetValue;
+    }
+
+    public void setAliasTableGetValue(String aliasTableGetValue) {
+        this.aliasTableGetValue = aliasTableGetValue;
+    }
+
+    public String getAliasTableSetValue() {
+        return aliasTableSetValue;
+    }
+
+    public void setAliasTableSetValue(String aliasTableSetValue) {
+        this.aliasTableSetValue = aliasTableSetValue;
+    }
+
+    public String getAliasTableGetRowAtPoint() {
+        return aliasTableGetRowAtPoint;
+    }
+
+    public void setAliasTableGetRowAtPoint(String aliasTableGetRowAtPoint) {
+        this.aliasTableGetRowAtPoint = aliasTableGetRowAtPoint;
+    }
+
+    public String getAliasTableGetColumnAtPoint() {
+        return aliasTableGetColumnAtPoint;
+    }
+
+    public void setAliasTableGetColumnAtPoint(String aliasTableGetColumnAtPoint) {
+        this.aliasTableGetColumnAtPoint = aliasTableGetColumnAtPoint;
+    }
+
+    public String getAliasTableIsMultiple() {
+        return aliasTableIsMultiple;
+    }
+
+    public void setAliasTableIsMultiple(String aliasTableIsMultiple) {
+        this.aliasTableIsMultiple = aliasTableIsMultiple;
+    }
+
+    public String getAliasTableSetMultiple() {
+        return aliasTableSetMultiple;
+    }
+
+    public void setAliasTableSetMultiple(String aliasTableSetMultiple) {
+        this.aliasTableSetMultiple = aliasTableSetMultiple;
+    }
+
+    public String getAliasTableIsReorder() {
+        return aliasTableIsReorder;
+    }
+
+    public void setAliasTableIsReorder(String aliasTableIsReorder) {
+        this.aliasTableIsReorder = aliasTableIsReorder;
+    }
+
+    public String getAliasTableSetReorder() {
+        return aliasTableSetReorder;
+    }
+
+    public void setAliasTableSetReorder(String aliasTableSetReorder) {
+        this.aliasTableSetReorder = aliasTableSetReorder;
+    }
+
+    public String getAliasTableMoveColumn() {
+        return aliasTableMoveColumn;
+    }
+
+    public void setAliasTableMoveColumn(String aliasTableMoveColumn) {
+        this.aliasTableMoveColumn = aliasTableMoveColumn;
+    }
+
+    public String getAliasTableApplyChanges() {
+        return aliasTableApplyChanges;
+    }
+
+    public void setAliasTableApplyChanges(String aliasTableApplyChanges) {
+        this.aliasTableApplyChanges = aliasTableApplyChanges;
+    }
+
+    public String getAliasTableAddHeader() {
+        return aliasTableAddHeader;
+    }
+
+    public void setAliasTableAddHeader(String aliasTableAddHeader) {
+        this.aliasTableAddHeader = aliasTableAddHeader;
+    }
+
+    public String getAliasTableAddSelect() {
+        return aliasTableAddSelect;
+    }
+
+    public void setAliasTableAddSelect(String aliasTableAddSelect) {
+        this.aliasTableAddSelect = aliasTableAddSelect;
     }
 
     public String getAliasFrame() {
@@ -6043,6 +6428,28 @@ public class LgNamesGui extends LgNamesUtils {
             setAliasTreeSetRootVisible("setRootVisible");
             setAliasTreeReload("reload");
             setAliasTreeGetSelected("selected");
+            setAliasTableListener("$core.TableListener");
+            setAliasTableValueTableChanged("valueTableChanged");
+            setAliasTableGui("$core.GridTable");
+            setAliasTableAddHeader("addHeader");
+            setAliasTableAddSelect("addSelect");
+            setAliasTableGetColumnAtPoint("columnAtPoint");
+            setAliasTableGetRowAtPoint("rowAtPoint");
+            setAliasTableGetColumnCount("colCount");
+            setAliasTableGetRowCount("getRowCount");
+            setAliasTableGetColumnName("colName");
+            setAliasTableGetSelectedRow("selectedRow");
+            setAliasTableGetSelectedRows("selectedRows");
+            setAliasTableGetSelectedRowCount("selectedRowCount");
+            setAliasTableGetValue("get");
+            setAliasTableSetValue("set");
+            setAliasTableSetRowCount("setRowCount");
+            setAliasTableSetColumns("setColumns");
+            setAliasTableSetReorder("setReorder");
+            setAliasTableSetMultiple("setMultiple");
+            setAliasTableIsMultiple("isMultiple");
+            setAliasTableIsReorder("isReorder");
+            setAliasTableApplyChanges("apply");
             setAliasAddKeyListener("addKey");
             setAliasRequestFocus("requestFocus");
             setAliasKeyListener("$core.KeyListener");
@@ -6371,6 +6778,28 @@ public class LgNamesGui extends LgNamesUtils {
             setAliasTreeSetRootVisible("majRacVisible");
             setAliasTreeReload("recharger");
             setAliasTreeGetSelected("select");
+            setAliasTableListener("$coeur.TableEcouteur");
+            setAliasTableValueTableChanged("valeurTableChange");
+            setAliasTableGui("$coeur.GrilleTable");
+            setAliasTableAddHeader("ajEntete");
+            setAliasTableAddSelect("ajSelect");
+            setAliasTableGetColumnAtPoint("colPt");
+            setAliasTableGetRowAtPoint("lgPt");
+            setAliasTableGetColumnCount("nbCol");
+            setAliasTableGetRowCount("nbRow");
+            setAliasTableGetColumnName("colNom");
+            setAliasTableGetSelectedRow("selectLg");
+            setAliasTableGetSelectedRows("selectLgs");
+            setAliasTableGetSelectedRowCount("selectLgNb");
+            setAliasTableGetValue("val");
+            setAliasTableSetValue("maj");
+            setAliasTableSetRowCount("majLgNb");
+            setAliasTableSetColumns("majCols");
+            setAliasTableSetReorder("majReord");
+            setAliasTableSetMultiple("majMultiple");
+            setAliasTableIsMultiple("estMultiple");
+            setAliasTableIsReorder("estReord");
+            setAliasTableApplyChanges("appliquer");
             setAliasAddKeyListener("ajClavier");
             setAliasRequestFocus("demanderFocus");
             setAliasKeyPressed("presse");
@@ -6951,6 +7380,30 @@ public class LgNamesGui extends LgNamesUtils {
                 getAliasTreeIsRootVisible(),
                 getAliasTreeSetRootVisible(),
                 getAliasTreeReload())
+        );
+        m_.put(getAliasTableListener(), new StringList(
+                getAliasTableValueTableChanged())
+        );
+        m_.put(getAliasTableGui(), new StringList(
+                getAliasTableAddHeader(),
+                getAliasTableAddSelect(),
+                getAliasTableApplyChanges(),
+                getAliasTableGetColumnAtPoint(),
+                getAliasTableGetColumnCount(),
+                getAliasTableGetColumnName(),
+                getAliasTableGetRowAtPoint(),
+                getAliasTableGetRowCount(),
+                getAliasTableGetSelectedRow(),
+                getAliasTableGetSelectedRowCount(),
+                getAliasTableGetSelectedRows(),
+                getAliasTableGetValue(),
+                getAliasTableSetColumns(),
+                getAliasTableSetMultiple(),
+                getAliasTableSetReorder(),
+                getAliasTableSetRowCount(),
+                getAliasTableSetValue(),
+                getAliasTableIsMultiple(),
+                getAliasTableIsReorder())
         );
         m_.put(getAliasPaint(), new StringList(
                 getAliasPaintMethod(),

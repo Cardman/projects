@@ -1,0 +1,3 @@
+{public} {interface} {TableListener} '{'
+ {void} {valueChanged}({int} {e}, {int} {f}){endLine}
+'}'

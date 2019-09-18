@@ -15,16 +15,13 @@ import code.util.CustList;
 import code.util.ObjectMap;
 import code.util.StringList;
 
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
-import javax.swing.event.TreeSelectionEvent;
-import javax.swing.event.TreeSelectionListener;
+import javax.swing.event.*;
 import javax.swing.tree.DefaultMutableTreeNode;
 import java.awt.event.*;
 
 public final class EventStruct implements WithParentStruct,EnumerableStruct,
         ActionListener,Runnable,MouseListener,WindowListener,ListSelection,
-        KeyListener,ChangeListener,TreeSelectionListener {
+        KeyListener,ChangeListener,TreeSelectionListener,ListSelectionListener {
 
     private final String className;
 
@@ -318,6 +315,16 @@ public final class EventStruct implements WithParentStruct,EnumerableStruct,
         String actPerf_ = ((LgNamesGui) original.getStandards()).getAliasTreeListenerValueChanged();
         String actList_ = ((LgNamesGui) original.getStandards()).getAliasTreeListener();
         invoke(r_,actList_,actPerf_,new StringList(actEv_),args_);
+    }
+
+    @Override
+    public void valueChanged(ListSelectionEvent _e) {
+        String ind_ = original.getStandards().getAliasPrimInteger();
+        GuiContextEl r_ = newCtx();
+        CustList<Argument> args_ = new CustList<Argument>(new Argument(new IntStruct(_e.getFirstIndex())),new Argument(new IntStruct(_e.getLastIndex())));
+        String actPerf_ = ((LgNamesGui) original.getStandards()).getAliasTableValueTableChanged();
+        String actList_ = ((LgNamesGui) original.getStandards()).getAliasTableListener();
+        invoke(r_,actList_,actPerf_,new StringList(ind_,ind_),args_);
     }
     private void invoke(GuiContextEl _r, String _typeName,String _methName, StringList _argTypes, CustList<Argument> _args) {
         MethodId id_ = new MethodId(MethodModifier.ABSTRACT, _methName, _argTypes);
