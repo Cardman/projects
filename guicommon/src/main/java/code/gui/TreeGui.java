@@ -1,5 +1,7 @@
 package code.gui;
 
+import code.util.CustList;
+
 import javax.swing.*;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.*;
@@ -25,24 +27,22 @@ public final class TreeGui extends CustComponent {
         tree.setRootVisible(rootVisible);
     }
 
-    public void setSelectionPath(TreePath path) {
-        tree.setSelectionPath(path);
-    }
-
     public Object getLastSelectedPathComponent() {
         return tree.getLastSelectedPathComponent();
     }
 
-    public TreePath getSelectionPath() {
-        return tree.getSelectionPath();
+    public void select(DefaultMutableTreeNode _node) {
+        TreeNode treeNode_ = _node.getParent();
+        CustList<Object> nodes_ = new CustList<Object>();
+        nodes_.add(_node);
+        while (treeNode_ != null) {
+            nodes_.add(0, treeNode_);
+            treeNode_ = treeNode_.getParent();
+        }
+        tree.setSelectionPath(new TreePath(nodes_.toArray()));
     }
-
     public void addTreeSelectionListener(TreeSelectionListener tsl) {
         tree.addTreeSelectionListener(tsl);
-    }
-
-    public String getToolTipText() {
-        return tree.getToolTipText();
     }
 
     public void reload() {

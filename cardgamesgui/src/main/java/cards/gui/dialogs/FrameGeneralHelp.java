@@ -1,11 +1,7 @@
 package cards.gui.dialogs;
 import java.awt.Dimension;
 
-import javax.swing.BoxLayout;
-import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
-import javax.swing.JTextField;
-import javax.swing.JTree;
 import javax.swing.WindowConstants;
 import javax.swing.tree.DefaultMutableTreeNode;
 
@@ -16,7 +12,6 @@ import cards.gui.dialogs.help.ElementHelp;
 import cards.gui.dialogs.help.HelpIndexes;
 import cards.gui.dialogs.help.NodeHelp;
 import cards.gui.dialogs.help.beans.GeneralHelpLgNames;
-import code.formathtml.DefaultInitialization;
 import code.formathtml.util.BeanLgNames;
 import code.gui.*;
 import code.gui.document.RenderedPage;

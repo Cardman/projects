@@ -7,7 +7,7 @@ import java.io.File;
 import javax.swing.*;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.TreePath;
+import javax.swing.tree.TreeNode;
 
 import code.gui.events.ClickHeaderEvent;
 import code.gui.events.ClickRowEvent;
@@ -190,14 +190,6 @@ public abstract class FileDialog extends Dialog {
         }
     }
 
-    public void deployTree() {
-        TreePath sel_ = folderSystem.getSelectionPath();
-        if (sel_ == null) {
-            return;
-        }
-        applyTreeChange(sel_);
-    }
-
     public void applyTreeChange() {
         String str_ = getFolder();
         currentFolder = str_;
@@ -222,13 +214,14 @@ public abstract class FileDialog extends Dialog {
         refreshList(files_);
     }
 
-    public void applyTreeChange(TreePath _treePath) {
-        DefaultMutableTreeNode selected_;
-        selected_ = (DefaultMutableTreeNode) folderSystem.getLastSelectedPathComponent();
-//        if (selected_ == null) {
-//            return;
-//        }
-        StringBuilder str_ = buildPath(_treePath);
+    public void applyTreeChangeSelected() {
+        Object sel_;
+        sel_ =folderSystem.getLastSelectedPathComponent();
+        if (!(sel_ instanceof DefaultMutableTreeNode)) {
+            return;
+        }
+        DefaultMutableTreeNode selected_ = (DefaultMutableTreeNode) sel_;
+        StringBuilder str_ = buildPath(selected_);
         currentFolder = str_.toString();
         currentTitle = StringList.simpleStringsFormat(messages.getVal(FILES_PARAM), currentFolder);
         setTitle(currentTitle);
@@ -263,10 +256,12 @@ public abstract class FileDialog extends Dialog {
         refreshList(files_);
     }
 
-    static StringBuilder buildPath(TreePath _treePath) {
+    static StringBuilder buildPath(DefaultMutableTreeNode _treePath) {
         StringList pathFull_ = new StringList();
-        for (Object o: _treePath.getPath()) {
-            pathFull_.add((String) ((DefaultMutableTreeNode)o).getUserObject());
+        TreeNode current_ = _treePath;
+        while (current_ != null) {
+            pathFull_.add(0,(String)((DefaultMutableTreeNode)current_).getUserObject());
+            current_ = current_.getParent();
         }
         StringList.removeObj(pathFull_, EMPTY_STRING);
         StringBuilder str_ = new StringBuilder();

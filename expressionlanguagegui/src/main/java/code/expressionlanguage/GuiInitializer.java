@@ -16,6 +16,7 @@ public class GuiInitializer extends CustInitializer {
         String windowList_ = ((LgNamesGui) _context.getStandards()).getAliasWindowListener();
         String listSel_ = ((LgNamesGui) _context.getStandards()).getAliasListSelection();
         String change_ = ((LgNamesGui) _context.getStandards()).getAliasChangeListener();
+        String tree_ = ((LgNamesGui) _context.getStandards()).getAliasTreeListener();
         String run_ = ((LgNamesUtils)_context.getStandards()).getAliasRunnable();
         if (PrimitiveTypeUtil.canBeUseAsArgument(actList_, base_, _context)) {
             return new EventStruct(_context,_className,_fieldName,_ordinal,_fields,_parent);
@@ -36,6 +37,9 @@ public class GuiInitializer extends CustInitializer {
             return new EventStruct(_context,_className,_fieldName,_ordinal,_fields,_parent);
         }
         if (PrimitiveTypeUtil.canBeUseAsArgument(change_, base_, _context)) {
+            return new EventStruct(_context,_className,_fieldName,_ordinal,_fields,_parent);
+        }
+        if (PrimitiveTypeUtil.canBeUseAsArgument(tree_, base_, _context)) {
             return new EventStruct(_context,_className,_fieldName,_ordinal,_fields,_parent);
         }
         return super.init(_context, _parent, _className, _fieldName, _ordinal, _fields);

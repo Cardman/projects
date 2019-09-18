@@ -25,6 +25,29 @@ public class LgNamesGui extends LgNamesUtils {
     private String aliasActionPerformed;
     private String aliasActionEvent;
     private String aliasAddChange;
+    private String aliasTreeListener;
+    private String aliasTreeListenerValueChanged;
+    private String aliasTreeNode;
+    private String aliasTreeNodeAdd;
+    private String aliasTreeNodeInsert;
+    private String aliasTreeNodeRemove;
+    private String aliasTreeNodeRemoveFromParent;
+    private String aliasTreeNodeRemoveAllChildren;
+    private String aliasTreeNodeSetUserObject;
+    private String aliasTreeNodeGetFirstChild;
+    private String aliasTreeNodeGetLastChild;
+    private String aliasTreeNodeGetNextSibling;
+    private String aliasTreeNodeGetPreviousSibling;
+    private String aliasTreeNodeGetParentNode;
+    private String aliasTreeNodeGetUserObject;
+    private String aliasTreeNodeIsAncestor;
+    private String aliasTreeNodeIsDescendant;
+    private String aliasTree;
+    private String aliasTreeSetRootVisible;
+    private String aliasTreeIsRootVisible;
+    private String aliasTreeGetSelected;
+    private String aliasTreeAddTreeListener;
+    private String aliasTreeReload;
     private String aliasChangeListener;
     private String aliasStateChanged;
     private String aliasMouseListener;
@@ -463,6 +486,92 @@ public class LgNamesGui extends LgNamesUtils {
         constructors_.add(ctor_);
         std_ = stdcl_;
         getStandards().put(aliasDimension, std_);
+
+        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        constructors_ = new CustList<StandardConstructor>();
+        fields_ = new StringMap<StandardField>();
+        stdcl_ = new StandardClass(aliasTreeNode, fields_, constructors_, methods_, getAliasObject(), MethodModifier.FINAL);
+        params_ = new StringList(aliasTreeNode);
+        method_ = new StandardMethod(aliasTreeNodeAdd, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasPrimInteger(),aliasTreeNode);
+        method_ = new StandardMethod(aliasTreeNodeInsert, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasPrimInteger());
+        method_ = new StandardMethod(aliasTreeNodeRemove, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasTreeNode);
+        method_ = new StandardMethod(aliasTreeNodeRemove, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasTreeNodeRemoveFromParent, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasTreeNodeRemoveAllChildren, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasString());
+        method_ = new StandardMethod(aliasTreeNodeSetUserObject, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasTreeNodeGetUserObject, params_, getAliasString(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasTreeNodeGetFirstChild, params_,aliasTreeNode, false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasTreeNodeGetLastChild, params_,aliasTreeNode, false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasTreeNodeGetPreviousSibling, params_,aliasTreeNode, false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasTreeNodeGetNextSibling, params_,aliasTreeNode, false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasTreeNodeGetParentNode, params_,aliasTreeNode, false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasTreeNode);
+        method_ = new StandardMethod(aliasTreeNodeIsAncestor, params_,getAliasPrimBoolean(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasTreeNode);
+        method_ = new StandardMethod(aliasTreeNodeIsDescendant, params_,getAliasPrimBoolean(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        ctor_ = new StandardConstructor(params_,false,stdcl_);
+        constructors_.add(ctor_);
+        params_ = new StringList(getAliasString());
+        ctor_ = new StandardConstructor(params_,false,stdcl_);
+        constructors_.add(ctor_);
+        std_ = stdcl_;
+        getStandards().put(aliasTreeNode, std_);
+
+        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        constructors_ = new CustList<StandardConstructor>();
+        fields_ = new StringMap<StandardField>();
+        stdcl_ = new StandardClass(aliasTree, fields_, constructors_, methods_, aliasComponent, MethodModifier.FINAL);
+        params_ = new StringList(aliasTreeListener);
+        method_ = new StandardMethod(aliasTreeAddTreeListener, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasPrimBoolean());
+        method_ = new StandardMethod(aliasTreeSetRootVisible, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasTreeIsRootVisible, params_, getAliasPrimBoolean(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasTreeGetSelected, params_, aliasTreeNode, false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasTreeNode);
+        method_ = new StandardMethod(aliasTreeGetSelected, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasTreeReload, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasTreeNode);
+        ctor_ = new StandardConstructor(params_,false,stdcl_);
+        constructors_.add(ctor_);
+        std_ = stdcl_;
+        getStandards().put(aliasTree, std_);
 
         buildEvents();
 
@@ -1682,6 +1791,32 @@ public class LgNamesGui extends LgNamesUtils {
             r_.setResult(new DimensionStruct(((NumberStruct)_args[0]).intStruct(),((NumberStruct)_args[1]).intStruct()));
             return r_;
         }
+        if (StringList.quickEq(name_,aliasTreeNode)) {
+            if (_cont.isInitEnums()) {
+                _cont.failInitEnums();
+                r_.setResult(NullStruct.NULL_VALUE);
+                return r_;
+            }
+            if (_method.getParametersTypes().size() == 0) {
+                r_.setResult(new TreeNodeStruct());
+                return r_;
+            }
+            r_.setResult(new TreeNodeStruct(_args[0]));
+            return r_;
+        }
+        if (StringList.quickEq(name_,aliasTree)) {
+            if (_cont.isInitEnums()) {
+                _cont.failInitEnums();
+                r_.setResult(NullStruct.NULL_VALUE);
+                return r_;
+            }
+            if (!(_args[0] instanceof TreeNodeStruct)) {
+                r_.setError(getAliasNullPe());
+                return r_;
+            }
+            r_.setResult(new TreeStruct(aliasTree, (TreeNodeStruct) _args[0]));
+            return r_;
+        }
         if (StringList.quickEq(name_,aliasRender)) {
             if (_cont.isInitEnums()) {
                 _cont.failInitEnums();
@@ -2570,6 +2705,103 @@ public class LgNamesGui extends LgNamesUtils {
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
+        if (StringList.quickEq(type_, aliasTreeNode)) {
+            TreeNodeStruct inst_ = (TreeNodeStruct) _instance;
+            if (StringList.quickEq(name_, aliasTreeNodeAdd)) {
+                inst_.add(_args[0]);
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasTreeNodeInsert)) {
+                inst_.insert(_args[0],_args[1]);
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasTreeNodeRemove)) {
+                if (StringList.quickEq(getAliasPrimInteger(),_method.getConstraints().getParametersTypes().first())) {
+                    inst_.remove(_args[0]);
+                    res_.setResult(NullStruct.NULL_VALUE);
+                    return res_;
+                }
+                inst_.removeNode(_args[0]);
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasTreeNodeRemoveFromParent)) {
+                inst_.removeFromParent();
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasTreeNodeRemoveAllChildren)) {
+                inst_.removeAllChildren();
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasTreeNodeSetUserObject)) {
+                inst_.setUserObject(_args[0]);
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasTreeNodeGetUserObject)) {
+                res_.setResult(inst_.getUserObject());
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasTreeNodeGetFirstChild)) {
+                res_.setResult(inst_.getFirstChild());
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasTreeNodeGetLastChild)) {
+                res_.setResult(inst_.getLastChild());
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasTreeNodeGetNextSibling)) {
+                res_.setResult(inst_.getNextSibling());
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasTreeNodeGetPreviousSibling)) {
+                res_.setResult(inst_.getPreviousSibling());
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasTreeNodeGetParentNode)) {
+                res_.setResult(inst_.getParentNode());
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasTreeNodeIsAncestor)) {
+                res_.setResult(inst_.isAncestorMethod(_args[0]));
+                return res_;
+            }
+            res_.setResult(inst_.isDescendantMethod(_args[0]));
+            return res_;
+        }
+        if (StringList.quickEq(type_, aliasTree)) {
+            TreeStruct inst_ = (TreeStruct) _instance;
+            if (StringList.quickEq(name_, aliasTreeAddTreeListener)) {
+                inst_.addTreeSelectionListener(_args[0]);
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasTreeGetSelected)) {
+                if (_method.getConstraints().getParametersTypes().size() == 1) {
+                    inst_.select(_args[0]);
+                    res_.setResult(NullStruct.NULL_VALUE);
+                    return res_;
+                }
+                res_.setResult(inst_.getLastSelectedPathComponent());
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasTreeIsRootVisible)) {
+                res_.setResult(inst_.isRootVisible());
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasTreeSetRootVisible)) {
+                inst_.setRootVisible(_args[0]);
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            inst_.reload();
+            res_.setResult(NullStruct.NULL_VALUE);
+            return res_;
+        }
         if (StringList.quickEq(type_, aliasRender)) {
             RenderStruct image_ = (RenderStruct) _instance;
             if (StringList.quickEq(name_, aliasRenderSetPaint)) {
@@ -3099,6 +3331,20 @@ public class LgNamesGui extends LgNamesUtils {
         getPredefinedClasses().add(aliasChangeListener);
         stds_.put(aliasChangeListener, content_);
         getPredefinedInterfacesInitOrder().add(aliasChangeListener);
+        content_ = ResourceFiles.ressourceFichier("resources_lg_gui/tree_event.txt");
+        map_ = new StringMap<String>();
+        map_.put("{public}", public_);
+        map_.put("{interface}", interface_);
+        map_.put("{TreeListener}", aliasTreeListener);
+        map_.put("{valueChanged}", aliasTreeListenerValueChanged);
+        map_.put("{TreeNode}", aliasTreeNode);
+        map_.put("{void}", getAliasVoid());
+        map_.put("{e}", tr("e",_context));
+        map_.put("{endLine}", endLine_);
+        content_ = StringList.formatQuote(content_, map_);
+        getPredefinedClasses().add(aliasTreeListener);
+        stds_.put(aliasTreeListener, content_);
+        getPredefinedInterfacesInitOrder().add(aliasTreeListener);
         content_ = ResourceFiles.ressourceFichier("resources_lg_gui/mouse_event.txt");
         map_ = new StringMap<String>();
         map_.put("{public}", public_);
@@ -3314,6 +3560,190 @@ public class LgNamesGui extends LgNamesUtils {
 
     public void setAliasStateChanged(String aliasStateChanged) {
         this.aliasStateChanged = aliasStateChanged;
+    }
+
+    public String getAliasTreeListener() {
+        return aliasTreeListener;
+    }
+
+    public void setAliasTreeListener(String aliasTreeListener) {
+        this.aliasTreeListener = aliasTreeListener;
+    }
+
+    public String getAliasTreeListenerValueChanged() {
+        return aliasTreeListenerValueChanged;
+    }
+
+    public void setAliasTreeListenerValueChanged(String aliasTreeListenerValueChanged) {
+        this.aliasTreeListenerValueChanged = aliasTreeListenerValueChanged;
+    }
+
+    public String getAliasTreeNode() {
+        return aliasTreeNode;
+    }
+
+    public void setAliasTreeNode(String aliasTreeNode) {
+        this.aliasTreeNode = aliasTreeNode;
+    }
+
+    public String getAliasTreeNodeAdd() {
+        return aliasTreeNodeAdd;
+    }
+
+    public void setAliasTreeNodeAdd(String aliasTreeNodeAdd) {
+        this.aliasTreeNodeAdd = aliasTreeNodeAdd;
+    }
+
+    public String getAliasTreeNodeInsert() {
+        return aliasTreeNodeInsert;
+    }
+
+    public void setAliasTreeNodeInsert(String aliasTreeNodeInsert) {
+        this.aliasTreeNodeInsert = aliasTreeNodeInsert;
+    }
+
+    public String getAliasTreeNodeRemove() {
+        return aliasTreeNodeRemove;
+    }
+
+    public void setAliasTreeNodeRemove(String aliasTreeNodeRemove) {
+        this.aliasTreeNodeRemove = aliasTreeNodeRemove;
+    }
+
+    public String getAliasTreeNodeRemoveFromParent() {
+        return aliasTreeNodeRemoveFromParent;
+    }
+
+    public void setAliasTreeNodeRemoveFromParent(String aliasTreeNodeRemoveFromParent) {
+        this.aliasTreeNodeRemoveFromParent = aliasTreeNodeRemoveFromParent;
+    }
+
+    public String getAliasTreeNodeRemoveAllChildren() {
+        return aliasTreeNodeRemoveAllChildren;
+    }
+
+    public void setAliasTreeNodeRemoveAllChildren(String aliasTreeNodeRemoveAllChildren) {
+        this.aliasTreeNodeRemoveAllChildren = aliasTreeNodeRemoveAllChildren;
+    }
+
+    public String getAliasTreeNodeSetUserObject() {
+        return aliasTreeNodeSetUserObject;
+    }
+
+    public void setAliasTreeNodeSetUserObject(String aliasTreeNodeSetUserObject) {
+        this.aliasTreeNodeSetUserObject = aliasTreeNodeSetUserObject;
+    }
+
+    public String getAliasTreeNodeGetFirstChild() {
+        return aliasTreeNodeGetFirstChild;
+    }
+
+    public void setAliasTreeNodeGetFirstChild(String aliasTreeNodeGetFirstChild) {
+        this.aliasTreeNodeGetFirstChild = aliasTreeNodeGetFirstChild;
+    }
+
+    public String getAliasTreeNodeGetLastChild() {
+        return aliasTreeNodeGetLastChild;
+    }
+
+    public void setAliasTreeNodeGetLastChild(String aliasTreeNodeGetLastChild) {
+        this.aliasTreeNodeGetLastChild = aliasTreeNodeGetLastChild;
+    }
+
+    public String getAliasTreeNodeGetNextSibling() {
+        return aliasTreeNodeGetNextSibling;
+    }
+
+    public void setAliasTreeNodeGetNextSibling(String aliasTreeNodeGetNextSibling) {
+        this.aliasTreeNodeGetNextSibling = aliasTreeNodeGetNextSibling;
+    }
+
+    public String getAliasTreeNodeGetPreviousSibling() {
+        return aliasTreeNodeGetPreviousSibling;
+    }
+
+    public void setAliasTreeNodeGetPreviousSibling(String aliasTreeNodeGetPreviousSibling) {
+        this.aliasTreeNodeGetPreviousSibling = aliasTreeNodeGetPreviousSibling;
+    }
+
+    public String getAliasTreeNodeGetParentNode() {
+        return aliasTreeNodeGetParentNode;
+    }
+
+    public void setAliasTreeNodeGetParentNode(String aliasTreeNodeGetParentNode) {
+        this.aliasTreeNodeGetParentNode = aliasTreeNodeGetParentNode;
+    }
+
+    public String getAliasTreeNodeGetUserObject() {
+        return aliasTreeNodeGetUserObject;
+    }
+
+    public void setAliasTreeNodeGetUserObject(String aliasTreeNodeGetUserObject) {
+        this.aliasTreeNodeGetUserObject = aliasTreeNodeGetUserObject;
+    }
+
+    public String getAliasTreeNodeIsAncestor() {
+        return aliasTreeNodeIsAncestor;
+    }
+
+    public void setAliasTreeNodeIsAncestor(String aliasTreeNodeIsAncestor) {
+        this.aliasTreeNodeIsAncestor = aliasTreeNodeIsAncestor;
+    }
+
+    public String getAliasTreeNodeIsDescendant() {
+        return aliasTreeNodeIsDescendant;
+    }
+
+    public void setAliasTreeNodeIsDescendant(String aliasTreeNodeIsDescendant) {
+        this.aliasTreeNodeIsDescendant = aliasTreeNodeIsDescendant;
+    }
+
+    public String getAliasTree() {
+        return aliasTree;
+    }
+
+    public void setAliasTree(String aliasTree) {
+        this.aliasTree = aliasTree;
+    }
+
+    public String getAliasTreeSetRootVisible() {
+        return aliasTreeSetRootVisible;
+    }
+
+    public void setAliasTreeSetRootVisible(String aliasTreeSetRootVisible) {
+        this.aliasTreeSetRootVisible = aliasTreeSetRootVisible;
+    }
+
+    public String getAliasTreeIsRootVisible() {
+        return aliasTreeIsRootVisible;
+    }
+
+    public void setAliasTreeIsRootVisible(String aliasTreeIsRootVisible) {
+        this.aliasTreeIsRootVisible = aliasTreeIsRootVisible;
+    }
+
+    public String getAliasTreeGetSelected() {
+        return aliasTreeGetSelected;
+    }
+
+    public void setAliasTreeGetSelected(String aliasTreeGetSelected) {
+        this.aliasTreeGetSelected = aliasTreeGetSelected;
+    }
+
+    public String getAliasTreeAddTreeListener() {
+        return aliasTreeAddTreeListener;
+    }
+
+    public void setAliasTreeAddTreeListener(String aliasTreeAddTreeListener) {
+        this.aliasTreeAddTreeListener = aliasTreeAddTreeListener;
+    }
+
+    public String getAliasTreeReload() {
+        return aliasTreeReload;
+    }
+
+    public void setAliasTreeReload(String aliasTreeReload) {
+        this.aliasTreeReload = aliasTreeReload;
     }
 
     public String getAliasFrame() {
@@ -5573,6 +6003,29 @@ public class LgNamesGui extends LgNamesUtils {
             setAliasAddChange("addChange");
             setAliasChangeListener("$core.ChangeListener");
             setAliasStateChanged("stateChanged");
+            setAliasTreeListener("$core.TreeListener");
+            setAliasTreeListenerValueChanged("valueChanged");
+            setAliasTreeNode("$core.TreeNode");
+            setAliasTreeNodeAdd("add");
+            setAliasTreeNodeInsert("insert");
+            setAliasTreeNodeRemove("remove");
+            setAliasTreeNodeRemoveFromParent("removeFromParent");
+            setAliasTreeNodeRemoveAllChildren("removeAllChildren");
+            setAliasTreeNodeSetUserObject("set");
+            setAliasTreeNodeGetUserObject("get");
+            setAliasTreeNodeGetFirstChild("first");
+            setAliasTreeNodeGetLastChild("last");
+            setAliasTreeNodeGetNextSibling("next");
+            setAliasTreeNodeGetParentNode("parent");
+            setAliasTreeNodeGetPreviousSibling("previous");
+            setAliasTreeNodeIsAncestor("isAncestor");
+            setAliasTreeNodeIsDescendant("isDescendant");
+            setAliasTree("$core.Tree");
+            setAliasTreeAddTreeListener("addTreeListener");
+            setAliasTreeIsRootVisible("isRootVisible");
+            setAliasTreeSetRootVisible("setRootVisible");
+            setAliasTreeReload("reload");
+            setAliasTreeGetSelected("selected");
             setAliasAddKeyListener("addKey");
             setAliasRequestFocus("requestFocus");
             setAliasKeyListener("$core.KeyListener");
@@ -5877,6 +6330,29 @@ public class LgNamesGui extends LgNamesUtils {
             setAliasMouseEventIsMiddle("estMilieu");
             setAliasMouseEventIsRight("estDroite");
             setAliasKeyListener("$coeur.ClavierEcouteur");
+            setAliasTreeListener("$coeur.ArbreEcouteur");
+            setAliasTreeListenerValueChanged("valeurChange");
+            setAliasTreeNode("$coeur.ArbreNoeud");
+            setAliasTreeNodeAdd("aj");
+            setAliasTreeNodeInsert("inserer");
+            setAliasTreeNodeRemove("suppr");
+            setAliasTreeNodeRemoveFromParent("supprDeParent");
+            setAliasTreeNodeRemoveAllChildren("supprTsEnfants");
+            setAliasTreeNodeSetUserObject("maj");
+            setAliasTreeNodeGetUserObject("val");
+            setAliasTreeNodeGetFirstChild("prem");
+            setAliasTreeNodeGetLastChild("der");
+            setAliasTreeNodeGetNextSibling("suiv");
+            setAliasTreeNodeGetParentNode("parent");
+            setAliasTreeNodeGetPreviousSibling("prec");
+            setAliasTreeNodeIsAncestor("estAncetre");
+            setAliasTreeNodeIsDescendant("estDescendant");
+            setAliasTree("$coeur.Arbre");
+            setAliasTreeAddTreeListener("ajArbreEcout");
+            setAliasTreeIsRootVisible("estRacVisible");
+            setAliasTreeSetRootVisible("majRacVisible");
+            setAliasTreeReload("recharger");
+            setAliasTreeGetSelected("select");
             setAliasAddKeyListener("ajClavier");
             setAliasRequestFocus("demanderFocus");
             setAliasKeyPressed("presse");
@@ -6431,6 +6907,32 @@ public class LgNamesGui extends LgNamesUtils {
         m_.put(getAliasListSelection(), new StringList(
                 getAliasValueChanged())
         );
+        m_.put(getAliasTreeListener(), new StringList(
+                getAliasTreeListenerValueChanged())
+        );
+        m_.put(getAliasTreeNode(), new StringList(
+                getAliasTreeNodeAdd(),
+                getAliasTreeNodeInsert(),
+                getAliasTreeNodeRemove(),
+                getAliasTreeNodeRemoveFromParent(),
+                getAliasTreeNodeRemoveAllChildren(),
+                getAliasTreeNodeSetUserObject(),
+                getAliasTreeNodeGetUserObject(),
+                getAliasTreeNodeGetFirstChild(),
+                getAliasTreeNodeGetLastChild(),
+                getAliasTreeNodeGetNextSibling(),
+                getAliasTreeNodeGetPreviousSibling(),
+                getAliasTreeNodeGetParentNode(),
+                getAliasTreeNodeIsAncestor(),
+                getAliasTreeNodeIsDescendant())
+        );
+        m_.put(getAliasTree(), new StringList(
+                getAliasTreeAddTreeListener(),
+                getAliasTreeGetSelected(),
+                getAliasTreeIsRootVisible(),
+                getAliasTreeSetRootVisible(),
+                getAliasTreeReload())
+        );
         m_.put(getAliasPaint(), new StringList(
                 getAliasPaintMethod(),
                 getAliasPaintAdd(),
@@ -6474,6 +6976,9 @@ public class LgNamesGui extends LgNamesUtils {
         ref_.add(getAliasComponent());
         ref_.add(getAliasActionEvent());
         ref_.add(getAliasMouseEvent());
+        ref_.add(getAliasTreeListener());
+        ref_.add(getAliasTree());
+        ref_.add(getAliasTreeNode());
         ref_.add(getAliasKeyEvent());
         ref_.add(getAliasWindowEvent());
         ref_.add(getAliasPanel());

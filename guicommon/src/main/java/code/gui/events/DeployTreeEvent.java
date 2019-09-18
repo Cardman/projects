@@ -14,7 +14,7 @@ public class DeployTreeEvent implements TreeSelectionListener {
 
     @Override
     public void valueChanged(TreeSelectionEvent _e) {
-        dialog.deployTree();
+        dialog.applyTreeChangeSelected();
     }
 
 }

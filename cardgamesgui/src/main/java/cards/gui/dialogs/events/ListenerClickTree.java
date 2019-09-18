@@ -2,7 +2,7 @@ package cards.gui.dialogs.events;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.TreePath;
+import javax.swing.tree.TreeNode;
 
 import cards.gui.dialogs.help.ElementHelp;
 import cards.gui.dialogs.help.NodeHelp;
@@ -30,17 +30,19 @@ public class ListenerClickTree implements TreeSelectionListener {
 
     @Override
     public void valueChanged(TreeSelectionEvent _e) {
-        TreePath sel_ = tree.getSelectionPath();
-        if (sel_ == null) {
+        Object sel_;
+        sel_ =tree.getLastSelectedPathComponent();
+        if (!(sel_ instanceof TreeNode)) {
             return;
         }
-        CustList<DefaultMutableTreeNode> chemin_;
-        chemin_ = new CustList<DefaultMutableTreeNode>();
-        for (Object o2_ : sel_.getPath()) {
-            chemin_.add((DefaultMutableTreeNode)o2_);
+        DefaultMutableTreeNode selected_ = (DefaultMutableTreeNode) sel_;
+        CustList<TreeNode> chemin_;
+        chemin_ = new CustList<TreeNode>();
+        for (TreeNode o2_ : selected_.getPath()) {
+            chemin_.add(o2_);
         }
-        DefaultMutableTreeNode noeudParent_;
-        DefaultMutableTreeNode noeud_;
+        TreeNode noeudParent_;
+        TreeNode noeud_;
         Ints indices_;
         if (!chemin_.isEmpty()) {
             indices_ = new Ints();

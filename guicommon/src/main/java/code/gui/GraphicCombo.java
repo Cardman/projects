@@ -138,6 +138,15 @@ public class GraphicCombo extends CustComponent implements WithPopup,GraphicComb
         if (!enabled) {
             return;
         }
+        Object[] array_ = grList.toArray();
+        CustCellRender r_ = grList.getRender();
+        int len_ = grList.getListComponents().size();
+        for (int i = 0; i < len_; i++) {
+            Object v_ = array_[i];
+            PreparedLabel c_;
+            c_ = r_.getListCellRendererComponent(grList, v_, i, false, false);
+            r_.paintComponent(c_);
+        }
         menu.show(panel, 0, pseudoButton.getHeight());
     }
 

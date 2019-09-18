@@ -17,11 +17,14 @@ import code.util.StringList;
 
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import javax.swing.event.TreeSelectionEvent;
+import javax.swing.event.TreeSelectionListener;
+import javax.swing.tree.DefaultMutableTreeNode;
 import java.awt.event.*;
 
 public final class EventStruct implements WithParentStruct,EnumerableStruct,
         ActionListener,Runnable,MouseListener,WindowListener,ListSelection,
-        KeyListener,ChangeListener {
+        KeyListener,ChangeListener,TreeSelectionListener {
 
     private final String className;
 
@@ -300,6 +303,22 @@ public final class EventStruct implements WithParentStruct,EnumerableStruct,
         invoke(r_,actList_,actPerf_,new StringList(),args_);
     }
 
+    @Override
+    public void valueChanged(TreeSelectionEvent e) {
+        String actEv_ = ((LgNamesGui) original.getStandards()).getAliasTreeNode();
+        GuiContextEl r_ = newCtx();
+        CustList<Argument> args_ = new CustList<Argument>();
+        Object sel_ = e.getPath().getLastPathComponent();
+        if (sel_ instanceof DefaultMutableTreeNode) {
+            TreeNodeStruct arg_ = new TreeNodeStruct((DefaultMutableTreeNode) sel_);
+            args_.add(new Argument(arg_));
+        } else {
+            args_.add(new Argument());
+        }
+        String actPerf_ = ((LgNamesGui) original.getStandards()).getAliasTreeListenerValueChanged();
+        String actList_ = ((LgNamesGui) original.getStandards()).getAliasTreeListener();
+        invoke(r_,actList_,actPerf_,new StringList(actEv_),args_);
+    }
     private void invoke(GuiContextEl _r, String _typeName,String _methName, StringList _argTypes, CustList<Argument> _args) {
         MethodId id_ = new MethodId(MethodModifier.ABSTRACT, _methName, _argTypes);
         GeneType type_ = _r.getClassBody(_typeName);

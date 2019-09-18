@@ -2,11 +2,8 @@ package code.gui;
 import java.awt.BorderLayout;
 import java.io.File;
 
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
 import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.TreePath;
 
 import code.gui.events.CancelSelectFileEvent;
 import code.gui.events.CreateFolderEvent;
@@ -97,15 +94,16 @@ public final class FileSaveDialog extends FileDialog implements SingleFileSelect
         if (typedString.getText().trim().isEmpty()) {
             return;
         }
-        TreePath treePath_ = getFolderSystem().getSelectionPath();
-        if (treePath_ == null) {
-            new File(StringList.concat(getFolder(),StreamTextFile.SEPARATEUR,typedString.getText().trim())).mkdirs();
-            applyTreeChange();
-        } else {
-            StringBuilder str_ = buildPath(treePath_);
+        Object sel_;
+        sel_ =getFolderSystem().getLastSelectedPathComponent();
+        if (sel_ instanceof DefaultMutableTreeNode) {
+            StringBuilder str_ = buildPath((DefaultMutableTreeNode) sel_);
             str_.append(typedString.getText());
             new File(str_.toString()).mkdirs();
-            applyTreeChange(treePath_);
+            applyTreeChangeSelected();
+        } else {
+            new File(StringList.concat(getFolder(),StreamTextFile.SEPARATEUR,typedString.getText().trim())).mkdirs();
+            applyTreeChange();
         }
     }
 
