@@ -22,7 +22,6 @@ import code.gui.Panel;
 import code.gui.TextLabel;
 import code.util.CustList;
 import code.util.*;
-import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -48,7 +47,7 @@ public class TeamPanel {
     private Panel container;
     public TeamPanel(int _nb, String _titre, FacadeGame _facade, ByteTreeMap<UsablePokemon> _team, boolean _single, StringMap<String> _mess) {
         facade = _facade;
-        liste = new GraphicList<UsablePokemon>(false,true);
+        liste = new GraphicList<UsablePokemon>(true);
         container = Panel.newBorder();
         container.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
         TextLabel titrePanneau_ = new TextLabel(_titre, SwingConstants.CENTER);

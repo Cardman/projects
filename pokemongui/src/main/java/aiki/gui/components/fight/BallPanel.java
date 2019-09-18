@@ -3,7 +3,6 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 
 import javax.swing.BorderFactory;
-import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.border.BevelBorder;
 
@@ -27,7 +26,7 @@ public class BallPanel {
     private Panel container;
 
     public BallPanel(int _nb, String _titre, FacadeGame _facade) {
-        liste = new GraphicList<BallNumberRate>(false,true);
+        liste = new GraphicList<BallNumberRate>(true);
         facade = _facade;
         container = Panel.newBorder();
         container.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));

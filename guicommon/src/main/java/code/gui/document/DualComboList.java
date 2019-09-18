@@ -12,7 +12,7 @@ public final class DualComboList extends DualInput implements IntComboList {
 
     public DualComboList(DualContainer _container, MetaComboList _component,
                          RenderedPage _page) {
-        super(_container, _component, new GraphicStringList(false, false, new StringList(_component.getChoicesStrings()), _component.getSelected(),_component.getVisible()), _page);
+        super(_container, _component, new GraphicStringList(false, new StringList(_component.getChoicesStrings()), _component.getSelected(),_component.getVisible()), _page);
         choicesValues = _component.getChoicesValues();
         updateGraphics(getSelect().getGlobal(),_component);
     }

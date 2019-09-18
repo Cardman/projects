@@ -2,7 +2,6 @@ package cards.gui.panels;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 
-import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
 import cards.consts.Suit;
@@ -24,7 +23,7 @@ public class PresidentCardsScrollableList extends CardsScrollableList {
     private TextLabel remCards;
 
     public PresidentCardsScrollableList(int _nb, int _pmax, String _titre) {
-        liste = new GraphicList<CardPresident>(false,false);
+        liste = new GraphicList<CardPresident>(false);
         setMax(_pmax);
         TextLabel titrePanneau_ = new TextLabel(_titre, SwingConstants.CENTER);
         getContainer().add(titrePanneau_, BorderLayout.NORTH);

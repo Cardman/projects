@@ -18,7 +18,7 @@ public final class GraphicComboStruct extends InputStruct {
     }
 
     GraphicComboStruct(String _className, int _selectedIndex,Struct _list) {
-        this(_className,new GraphicStringList(true, true, newList(_list)),_selectedIndex);
+        this(_className,new GraphicStringList(true, newList(_list)),_selectedIndex);
     }
 
     private GraphicComboStruct(String _className, GraphicStringList _grList, int _selectedIndex) {

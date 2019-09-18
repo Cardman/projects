@@ -1,6 +1,5 @@
 package code.gui;
 
-import java.awt.Component;
 import java.awt.Dimension;
 
 import javax.swing.*;
@@ -31,15 +30,12 @@ public class GraphicList<T> extends CustComponent implements GraphicListable {
 
     private int visibleRowCount = 8;
 
-    private boolean owned;
-
-    public GraphicList(boolean _owned, boolean _simple) {
-        this(_owned, _simple, new Ints(), new CustList<T>());
+    public GraphicList(boolean _simple) {
+        this(_simple, new Ints(), new CustList<T>());
     }
 
-    protected GraphicList(boolean _owned, boolean _simple, Ints _selectedIndexes, CustList<T> _objects) {
+    protected GraphicList(boolean _simple, Ints _selectedIndexes, CustList<T> _objects) {
         selectedIndexes = new Ints(_selectedIndexes);
-        owned = _owned;
         list = new CustList<T>(_objects);
         simple = _simple;
         panel = Panel.newPageBox();
@@ -48,10 +44,9 @@ public class GraphicList<T> extends CustComponent implements GraphicListable {
         buildList();
     }
 
-    protected GraphicList(boolean _owned, boolean _simple, Ints _selectedIndexes, CustList<T> _objects, int _visible) {
+    protected GraphicList(boolean _simple, Ints _selectedIndexes, CustList<T> _objects, int _visible) {
         selectedIndexes = new Ints(_selectedIndexes);
         visibleRowCount = _visible;
-        owned = _owned;
         list = new CustList<T>(_objects);
         simple = _simple;
         panel = Panel.newPageBox();
@@ -63,9 +58,6 @@ public class GraphicList<T> extends CustComponent implements GraphicListable {
         rebuild();
     }
 
-    public boolean isOwned() {
-        return owned;
-    }
     public void add(T _elt) {
         add(list.size(),_elt);
     }
@@ -91,11 +83,15 @@ public class GraphicList<T> extends CustComponent implements GraphicListable {
             reindex(indexableMouse);
             reindex(indexableKey);
         } else {
-            SimpleSelectEltList i_ = new SimpleSelectEltList(this, _index);
-            lab_.addMouseListener(i_);
+            IndexableListener i_ = buildSingleSelect(lab_,_index);
             indexableMouse.add(i_);
             reindex(indexableMouse);
         }
+    }
+    protected IndexableListener buildSingleSelect(PreparedLabel _lab,int _index) {
+        SimpleSelectEltList i_ = new SimpleSelectEltList(this, _index);
+        _lab.addMouseListener(i_);
+        return i_;
     }
     public void clear() {
         list.clear();
@@ -149,9 +145,8 @@ public class GraphicList<T> extends CustComponent implements GraphicListable {
         index_ = 0;
         if (simple) {
             for (PreparedLabel c: listComponents) {
-                SimpleSelectEltList i_ = new SimpleSelectEltList(this, index_);
+                IndexableListener i_ = buildSingleSelect(c,index_);
                 indexableMouse.add(i_);
-                c.addMouseListener(i_);
                 index_++;
             }
         } else {

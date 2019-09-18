@@ -1,7 +1,6 @@
 package cards.gui.panels;
 import java.awt.BorderLayout;
 
-import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
 import cards.consts.Suit;
@@ -28,7 +27,7 @@ public class SuitsScrollableList extends ScrollableList {
         TextLabel titrePanneau_ = new TextLabel(messages.getVal(SUITS), SwingConstants.CENTER);
         getContainer().add(titrePanneau_, BorderLayout.NORTH);
 //        suits = _couleurs;
-        liste=new GraphicList<Suit>(false,false);
+        liste=new GraphicList<Suit>(false);
         liste.setRender(new SuitCellRenderer(_window));
         for (Suit couleur_ : _couleurs) {
             liste.add(couleur_);

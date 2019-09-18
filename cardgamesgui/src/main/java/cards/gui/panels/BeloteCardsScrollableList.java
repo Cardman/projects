@@ -2,7 +2,6 @@ package cards.gui.panels;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 
-import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
 import cards.belote.HandBelote;
@@ -26,7 +25,7 @@ public class BeloteCardsScrollableList extends CardsScrollableList {
     private TextLabel remCards;
 
     public BeloteCardsScrollableList(int _nb, int _pmax, String _titre) {
-        liste = new GraphicList<CardBelote>(false, false);
+        liste = new GraphicList<CardBelote>(false);
         setMax(_pmax);
         TextLabel titrePanneau_ = new TextLabel(_titre, SwingConstants.CENTER);
         getContainer().add(titrePanneau_, BorderLayout.NORTH);

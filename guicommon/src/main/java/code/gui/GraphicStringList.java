@@ -3,23 +3,21 @@ package code.gui;
 import java.awt.Font;
 import java.awt.FontMetrics;
 
-import javax.swing.*;
-
 import code.util.Ints;
 import code.util.StringList;
 
 public class GraphicStringList extends GraphicList<String> implements Input {
 
-    public GraphicStringList(boolean _owned, boolean _simple, StringList _objects) {
-        this(_owned, _simple, _objects, new Ints());
+    public GraphicStringList(boolean _simple, StringList _objects) {
+        this(_simple, _objects, new Ints());
     }
 
-    public GraphicStringList(boolean _owned, boolean _simple, StringList _objects, Ints _selectedIndexes) {
-        super(_owned, _simple, _selectedIndexes, _objects);
+    public GraphicStringList(boolean _simple, StringList _objects, Ints _selectedIndexes) {
+        super(_simple, _selectedIndexes, _objects);
     }
 
-    public GraphicStringList(boolean _owned, boolean _simple, StringList _objects, Ints _selectedIndexes, int _visibleRows) {
-        super(_owned, _simple, _selectedIndexes, _objects,_visibleRows);
+    public GraphicStringList(boolean _simple, StringList _objects, Ints _selectedIndexes, int _visibleRows) {
+        super(_simple, _selectedIndexes, _objects,_visibleRows);
     }
 
     @Override
@@ -29,6 +27,14 @@ public class GraphicStringList extends GraphicList<String> implements Input {
         setRender(render_);
         super.buildList();
     }
+
+    @Override
+    protected IndexableListener buildSingleSelect(PreparedLabel _lab, int _index) {
+        SimpleSelectCombo i_ = new SimpleSelectCombo(this, _index);
+        _lab.addMouseListener(i_);
+        return i_;
+    }
+
     @Override
     public int getMaxWidth() {
         Panel panel_ = getPanel();

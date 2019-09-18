@@ -38,7 +38,7 @@ public class GraphicCombo extends CustComponent implements WithPopup,GraphicComb
     }
 
     public GraphicCombo(StringList _list, int _selectedIndex) {
-        this(new GraphicStringList(true, true, _list),_selectedIndex);
+        this(new GraphicStringList(true, _list),_selectedIndex);
     }
 
     public GraphicCombo(GraphicStringList _grList, int _selectedIndex) {
