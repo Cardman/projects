@@ -68,24 +68,12 @@ public final class TextField extends CustComponent {
         textField.setEnabled(enabled);
     }
 
-    public void setForeground(Color fg) {
-        textField.setForeground(fg);
-    }
-
-    public void setBackground(Color bg) {
-        textField.setBackground(bg);
-    }
-
     public int getX() {
         return textField.getX();
     }
 
     public int getY() {
         return textField.getY();
-    }
-
-    public void setOpaque(boolean isOpaque) {
-        textField.setOpaque(isOpaque);
     }
 
     public Cursor getCursor() {

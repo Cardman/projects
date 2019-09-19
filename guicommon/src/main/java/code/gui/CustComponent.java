@@ -132,15 +132,46 @@ public abstract class CustComponent {
         getComponent().setPreferredSize(dimension);
     }
 
-    public Point getLocation() {
-        return getComponent().getLocation();
+    public boolean isFocusable() {
+        return getComponent().isFocusable();
+    }
+    public void setFocusable(boolean _focusable) {
+        getComponent().setFocusable(_focusable);
+    }
+    public boolean isOpaque() {
+        return getComponent().isOpaque();
     }
 
+    public void setOpaque(boolean _b) {
+        getComponent().setOpaque(_b);
+    }
+
+    public int getXcoords() {
+        return getComponent().getX();
+    }
+
+    public int getYcoords() {
+        return getComponent().getY();
+    }
+    public void setLocation(int _x, int _y) {
+        getComponent().setLocation(_x,_y);
+    }
+
+    public void setBackground(Color _color) {
+        getComponent().setBackground(_color);
+    }
     public Color getBackground() {
         return getComponent().getBackground();
     }
 
+    public void setForeground(Color _color) {
+        getComponent().setForeground(_color);
+    }
     public Color getForeground() {
         return getComponent().getForeground();
+    }
+
+    public String getToolTipText() {
+        return getComponent().getToolTipText();
     }
 }

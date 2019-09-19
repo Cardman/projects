@@ -311,18 +311,6 @@ public final class TextArea extends CustComponent {
         textArea.setEnabled(enabled);
     }
 
-    public void setForeground(Color fg) {
-        textArea.setForeground(fg);
-    }
-
-    public void setBackground(Color bg) {
-        textArea.setBackground(bg);
-    }
-
-    public String getToolTipText() {
-        return textArea.getToolTipText();
-    }
-
     public void scrollToEnd() {
         int endPosition_ = getDocumentLength();
         Rectangle bottom_ =modelToView(endPosition_);
@@ -340,14 +328,6 @@ public final class TextArea extends CustComponent {
     @Override
     protected JComponent getComponent() {
         return textArea;
-    }
-
-    public boolean isOpaque() {
-        return textArea.isOpaque();
-    }
-
-    public void setOpaque(boolean isOpaque) {
-        textArea.setOpaque(isOpaque);
     }
 
     public int getCaretPosition() {

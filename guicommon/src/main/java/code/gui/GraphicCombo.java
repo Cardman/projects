@@ -207,6 +207,10 @@ public class GraphicCombo extends CustComponent implements WithPopup,GraphicComb
         currentSelected.setIcon(img_);
     }
 
+    public PreparedLabel getCurrentSelected() {
+        return currentSelected;
+    }
+
     @Override
     public CustComponent getGlobal() {
         return getPanel();

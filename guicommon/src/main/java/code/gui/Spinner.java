@@ -50,14 +50,6 @@ public final class Spinner extends CustComponent {
         spinner.setEnabled(enabled);
     }
 
-    public void setForeground(Color fg) {
-        spinner.setForeground(fg);
-    }
-
-    public void setBackground(Color bg) {
-        spinner.setBackground(bg);
-    }
-
     @Override
     protected JComponent getComponent() {
         return spinner;

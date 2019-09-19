@@ -106,14 +106,6 @@ public class LabelButton extends CustComponent {
         return label;
     }
 
-    public void setBackground(Color _background) {
-        label.setBackground(_background);
-    }
-
-    public void setForeground(Color _foreground) {
-        label.setForeground(_foreground);
-    }
-
     public MouseListener[] getMouseListeners() {
         return label.getMouseListeners();
     }

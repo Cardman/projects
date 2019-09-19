@@ -274,6 +274,11 @@ public class GraphicListStruct extends InputStruct {
     }
 
     @Override
+    protected CustComponent getVisibleComponent() {
+        return panel.getComponent();
+    }
+
+    @Override
     protected CustComponent getComponent() {
         return scroll.getComponent();
     }

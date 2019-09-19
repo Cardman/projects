@@ -72,9 +72,8 @@ public final class FindEvent extends MouseAdapter {
         int y_ = 0;
         DualComponent c_ = page.getRefs().getVal(lab_);
         while (c_ != r_) {
-            Point loc_ = c_.getGraphic().getLocation();
-            x_ += loc_.x;
-            y_ += loc_.y;
+            x_ +=  c_.getGraphic().getXcoords();
+            y_ +=  c_.getGraphic().getYcoords();
             c_ = c_.getContainer();
         }
         sc_.setHorizontalValue(x_);

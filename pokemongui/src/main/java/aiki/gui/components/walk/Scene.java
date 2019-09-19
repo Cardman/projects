@@ -276,7 +276,7 @@ public class Scene extends PaintableLabel implements MouseListener {
     }
 
     public void setFocus() {
-        requestFocus(false);
+        requestFocus();
         requestFocusInWindow();
     }
 }

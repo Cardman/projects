@@ -16,9 +16,7 @@ public final class CustCheckBox extends CustComponent {
     public CustCheckBox(String _t,boolean _s) {
         checkBox = new JCheckBox(_t,_s);
     }
-    public void setBackground(Color _c) {
-        checkBox.setBackground(_c);
-    }
+
     public void setBorderPaintedFlat(boolean b) {
         checkBox.setBorderPaintedFlat(b);
     }

@@ -27,10 +27,6 @@ public abstract class PaintableLabel extends CustComponent {
         label.validate();
     }
 
-    public void setSize(int _width, int _height) {
-        label.setSize(_width, _height);
-    }
-
     public void removeMouseListener(MouseListener _l) {
         label.removeMouseListener(_l);
     }
@@ -39,28 +35,8 @@ public abstract class PaintableLabel extends CustComponent {
         return label.getMouseListeners();
     }
 
-    public void setOpaque(boolean _b) {
-        label.setOpaque(_b);
-    }
-
-    public boolean requestFocus(boolean _temporary) {
-        return label.requestFocus(_temporary);
-    }
-
     public boolean requestFocusInWindow() {
         return label.requestFocusInWindow();
-    }
-
-    public void setFocusable(boolean _focusable) {
-        label.setFocusable(_focusable);
-    }
-
-    public String getToolTipText() {
-        return label.getToolTipText();
-    }
-
-    public void setLocation(int _x, int _y) {
-        label.setLocation(_x, _y);
     }
 
     public void setIcon(BufferedImage _icon) {
@@ -69,14 +45,6 @@ public abstract class PaintableLabel extends CustComponent {
 
     public FontMetrics getFontMetrics(Font _font) {
         return label.getFontMetrics(_font);
-    }
-
-    public void setForeground(Color _fg) {
-        label.setForeground(_fg);
-    }
-
-    public void setBackground(Color _bg) {
-        label.setBackground(_bg);
     }
 
     public void setVerticalAlignment(int _alignment) {

@@ -121,6 +121,12 @@ public final class GraphicComboStruct extends InputStruct {
             graphicCombo.removeItem(index_);
         }
     }
+
+    @Override
+    protected CustComponent getVisibleComponent() {
+        return graphicCombo.getCurrentSelected();
+    }
+
     @Override
     protected CustComponent getComponent() {
         return graphicCombo.getPanel();

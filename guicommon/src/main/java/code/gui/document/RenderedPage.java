@@ -250,9 +250,8 @@ public final class RenderedPage implements ProcessingSession {
             int x_ = 0;
             int y_ = 0;
             while (c_ != r_) {
-                Point loc_ = c_.getGraphic().getLocation();
-                x_ += loc_.x;
-                y_ += loc_.y;
+                x_ += c_.getGraphic().getXcoords();
+                y_ += c_.getGraphic().getYcoords();
                 c_ = c_.getContainer();
             }
             scroll.setHorizontalValue(x_);

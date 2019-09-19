@@ -22,14 +22,6 @@ public class WrappedTextArea extends CustComponent {
         textArea.setEditable(_b);
     }
 
-    public void setForeground(Color _fg) {
-        textArea.setForeground(_fg);
-    }
-
-    public void setBackground(Color _bg) {
-        textArea.setBackground(_bg);
-    }
-
     public void setText(String _t) {
         textArea.setText(StringList.wrapContent(_t, textArea.getColumns(), false));
     }

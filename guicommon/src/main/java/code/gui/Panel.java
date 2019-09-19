@@ -168,35 +168,6 @@ public final class Panel extends CustComponent {
         return panel.getFontMetrics(_font);
     }
 
-    public void setLocation(int _x, int _y) {
-        panel.setLocation(new Point(_x, _y));
-    }
-
-    public void setSize(int _width, int _height) {
-        panel.setSize(_width, _height);
-    }
-
-    public void setForeground(Color _fg) {
-        panel.setForeground(_fg);
-    }
-
-    public void setBackground(Color _bg) {
-        panel.setBackground(_bg);
-    }
-
-
-    public boolean isOpaque() {
-        return panel.isOpaque();
-    }
-
-    public void setOpaque(boolean _isOpaque) {
-        panel.setOpaque(_isOpaque);
-    }
-
-    public boolean isValidateRoot() {
-        return panel.isValidateRoot();
-    }
-
     @Override
     protected JComponent getComponent() {
         return panel;

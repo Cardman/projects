@@ -27,22 +27,9 @@ public final class PreparedLabel extends CustComponent {
         return label.getFontMetrics(_font);
     }
 
-    public void setForeground(Color _fg) {
-        label.setForeground(_fg);
-    }
-
-    public void setBackground(Color _bg) {
-        label.setBackground(_bg);
-    }
-
-
     @Override
     protected JComponent getComponent() {
         return label;
-    }
-
-    public void setOpaque(boolean b) {
-        label.setOpaque(b);
     }
 
     JLabel getLabel() {

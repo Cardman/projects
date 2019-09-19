@@ -1,8 +1,6 @@
 package code.expressionlanguage;
 
-import code.expressionlanguage.structs.BooleanStruct;
-import code.expressionlanguage.structs.NullStruct;
-import code.expressionlanguage.structs.Struct;
+import code.expressionlanguage.structs.*;
 import code.gui.CustComponent;
 import code.util.CustList;
 
@@ -60,8 +58,73 @@ public abstract class CustComponentStruct implements Struct {
         parentComponent = NullStruct.NULL_VALUE;
     }
 
-    public void setToolTipText(String _title) {
-        getComponent().setToolTipText(_title);
+    public Struct getToolTipText() {
+        String t_ = getVisibleComponent().getToolTipText();
+        if (t_ == null) {
+            return NullStruct.NULL_VALUE;
+        }
+        return new StringStruct(t_);
+    }
+
+    public void setToolTipText(Struct _title) {
+        if (_title instanceof StringStruct) {
+            getVisibleComponent().setToolTipText(((StringStruct)_title).getInstance());
+        } else {
+            getVisibleComponent().setToolTipText(null);
+        }
+    }
+
+    public BooleanStruct isFocusable() {
+        return new BooleanStruct(getVisibleComponent().isFocusable());
+    }
+    public void setFocusable(Struct _focusable) {
+        getVisibleComponent().setFocusable(((BooleanStruct)_focusable).getInstance());
+    }
+    public BooleanStruct isOpaque() {
+        return new BooleanStruct(getVisibleComponent().isOpaque());
+    }
+
+    public void setOpaque(Struct _b) {
+        getVisibleComponent().setOpaque(((BooleanStruct)_b).getInstance());
+    }
+
+    public IntStruct getXcoords() {
+        return new IntStruct(getComponent().getXcoords());
+    }
+
+    public IntStruct getYcoords() {
+        return new IntStruct(getComponent().getYcoords());
+    }
+    public void setLocation(Struct _x, Struct _y) {
+        getComponent().setLocation(((NumberStruct)_x).intStruct(),((NumberStruct)_y).intStruct());
+    }
+
+    public void setBackground(Struct _color) {
+        if (!(_color instanceof ColorStruct)) {
+            return;
+        }
+        getVisibleComponent().setBackground(((ColorStruct)_color).getColor());
+    }
+    public Struct getBackground() {
+        Color c_ = getVisibleComponent().getBackground();
+        if (c_ == null) {
+            return NullStruct.NULL_VALUE;
+        }
+        return new ColorStruct(c_);
+    }
+
+    public void setForeground(Struct _color) {
+        if (!(_color instanceof ColorStruct)) {
+            return;
+        }
+        getVisibleComponent().setForeground(((ColorStruct)_color).getColor());
+    }
+    public Struct getForeground() {
+        Color c_ = getVisibleComponent().getForeground();
+        if (c_ == null) {
+            return NullStruct.NULL_VALUE;
+        }
+        return new ColorStruct(c_);
     }
 
     public FontStruct getFont() {
@@ -76,19 +139,19 @@ public abstract class CustComponentStruct implements Struct {
     }
 
     public void requestFocus() {
-        getComponent().requestFocus();
+        getVisibleComponent().requestFocus();
     }
     public void addMouse(Struct _mouseListener) {
         if (_mouseListener instanceof MouseListener) {
-            getComponent().addMouseListener((MouseListener) _mouseListener);
+            getVisibleComponent().addMouseListener((MouseListener) _mouseListener);
         }
         if (_mouseListener instanceof MouseMotionListener) {
-            getComponent().addMouseMotionListener((MouseMotionListener) _mouseListener);
+            getVisibleComponent().addMouseMotionListener((MouseMotionListener) _mouseListener);
         }
     }
     public void addKeyListener(Struct _l) {
         if (_l instanceof KeyListener) {
-            getComponent().addKeyListener((KeyListener)_l);
+            getVisibleComponent().addKeyListener((KeyListener)_l);
         }
 
     }
@@ -103,6 +166,9 @@ public abstract class CustComponentStruct implements Struct {
     }
     public void setVisible(Struct _b) {
         getComponent().setVisible(((BooleanStruct)_b).getInstance());
+    }
+    protected CustComponent getVisibleComponent() {
+        return getComponent();
     }
     protected abstract CustComponent getComponent();
 

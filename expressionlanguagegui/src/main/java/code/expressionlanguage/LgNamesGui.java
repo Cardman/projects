@@ -106,6 +106,14 @@ public class LgNamesGui extends LgNamesUtils {
     private String aliasListSelection;
     private String aliasValueChanged;
     private String aliasRequestFocus;
+    private String aliasCompToolTip;
+    private String aliasCompFocusable;
+    private String aliasCompOpaque;
+    private String aliasCompBack;
+    private String aliasCompFore;
+    private String aliasCompGetFirstPos;
+    private String aliasCompGetSecondPos;
+    private String aliasCompLoc;
     private String aliasAddKeyListener;
     private String aliasKeyListener;
     private String aliasKeyPressed;
@@ -452,6 +460,45 @@ public class LgNamesGui extends LgNamesUtils {
         methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasFont);
         method_ = new StandardMethod(aliasSetFont, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasCompBack, params_, aliasColor, false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasColor);
+        method_ = new StandardMethod(aliasCompBack, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasCompFore, params_, aliasColor, false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasColor);
+        method_ = new StandardMethod(aliasCompFore, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasCompFocusable, params_, getAliasPrimBoolean(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasPrimBoolean());
+        method_ = new StandardMethod(aliasCompFocusable, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasCompOpaque, params_, getAliasPrimBoolean(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasPrimBoolean());
+        method_ = new StandardMethod(aliasCompOpaque, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasCompToolTip, params_, getAliasString(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasString());
+        method_ = new StandardMethod(aliasCompToolTip, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasCompGetFirstPos, params_, getAliasPrimInteger(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasCompGetSecondPos, params_, getAliasPrimInteger(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasPrimInteger(),getAliasPrimInteger());
+        method_ = new StandardMethod(aliasCompLoc, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
 
         params_ = new StringList();
@@ -2297,6 +2344,64 @@ public class LgNamesGui extends LgNamesUtils {
             }
             if (StringList.quickEq(name_, aliasAddListener)) {
                 inst_.addMouse(_args[0]);
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasCompBack)) {
+                if (_method.getConstraints().getParametersTypes().size() == 1) {
+                    inst_.setBackground(_args[0]);
+                    res_.setResult(NullStruct.NULL_VALUE);
+                    return res_;
+                }
+                res_.setResult(inst_.getBackground());
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasCompFore)) {
+                if (_method.getConstraints().getParametersTypes().size() == 1) {
+                    inst_.setForeground(_args[0]);
+                    res_.setResult(NullStruct.NULL_VALUE);
+                    return res_;
+                }
+                res_.setResult(inst_.getForeground());
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasCompFocusable)) {
+                if (_method.getConstraints().getParametersTypes().size() == 1) {
+                    inst_.setFocusable(_args[0]);
+                    res_.setResult(NullStruct.NULL_VALUE);
+                    return res_;
+                }
+                res_.setResult(inst_.isFocusable());
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasCompOpaque)) {
+                if (_method.getConstraints().getParametersTypes().size() == 1) {
+                    inst_.setOpaque(_args[0]);
+                    res_.setResult(NullStruct.NULL_VALUE);
+                    return res_;
+                }
+                res_.setResult(inst_.isOpaque());
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasCompToolTip)) {
+                if (_method.getConstraints().getParametersTypes().size() == 1) {
+                    inst_.setToolTipText(_args[0]);
+                    res_.setResult(NullStruct.NULL_VALUE);
+                    return res_;
+                }
+                res_.setResult(inst_.getToolTipText());
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasCompGetFirstPos)) {
+                res_.setResult(inst_.getXcoords());
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasCompGetSecondPos)) {
+                res_.setResult(inst_.getYcoords());
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasCompLoc)) {
+                inst_.setLocation(_args[0],_args[1]);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
@@ -5431,6 +5536,70 @@ public class LgNamesGui extends LgNamesUtils {
         this.aliasRequestFocus = aliasRequestFocus;
     }
 
+    public String getAliasCompToolTip() {
+        return aliasCompToolTip;
+    }
+
+    public void setAliasCompToolTip(String aliasCompToolTip) {
+        this.aliasCompToolTip = aliasCompToolTip;
+    }
+
+    public String getAliasCompFocusable() {
+        return aliasCompFocusable;
+    }
+
+    public void setAliasCompFocusable(String aliasCompFocusable) {
+        this.aliasCompFocusable = aliasCompFocusable;
+    }
+
+    public String getAliasCompOpaque() {
+        return aliasCompOpaque;
+    }
+
+    public void setAliasCompOpaque(String aliasCompOpaque) {
+        this.aliasCompOpaque = aliasCompOpaque;
+    }
+
+    public String getAliasCompBack() {
+        return aliasCompBack;
+    }
+
+    public void setAliasCompBack(String aliasCompBack) {
+        this.aliasCompBack = aliasCompBack;
+    }
+
+    public String getAliasCompFore() {
+        return aliasCompFore;
+    }
+
+    public void setAliasCompFore(String aliasCompFore) {
+        this.aliasCompFore = aliasCompFore;
+    }
+
+    public String getAliasCompGetFirstPos() {
+        return aliasCompGetFirstPos;
+    }
+
+    public void setAliasCompGetFirstPos(String aliasCompGetFirstPos) {
+        this.aliasCompGetFirstPos = aliasCompGetFirstPos;
+    }
+
+    public String getAliasCompGetSecondPos() {
+        return aliasCompGetSecondPos;
+    }
+
+    public void setAliasCompGetSecondPos(String aliasCompGetSecondPos) {
+        this.aliasCompGetSecondPos = aliasCompGetSecondPos;
+    }
+
+    public String getAliasCompLoc() {
+        return aliasCompLoc;
+    }
+
+    public void setAliasCompLoc(String aliasCompLoc) {
+        this.aliasCompLoc = aliasCompLoc;
+    }
+
     public String getAliasAddKeyListener() {
         return aliasAddKeyListener;
     }
@@ -6611,6 +6780,14 @@ public class LgNamesGui extends LgNamesUtils {
             setAliasTableMoveColumn("move");
             setAliasAddKeyListener("addKey");
             setAliasRequestFocus("requestFocus");
+            setAliasCompBack("back");
+            setAliasCompFore("fore");
+            setAliasCompFocusable("focus");
+            setAliasCompGetFirstPos("x");
+            setAliasCompGetSecondPos("y");
+            setAliasCompOpaque("opaque");
+            setAliasCompToolTip("tooltip");
+            setAliasCompLoc("loc");
             setAliasKeyListener("$core.KeyListener");
             setAliasKeyPressed("keyPressed");
             setAliasKeyTyped("keyTyped");
@@ -6972,6 +7149,14 @@ public class LgNamesGui extends LgNamesUtils {
             setAliasTableMoveColumn("depl");
             setAliasAddKeyListener("ajClavier");
             setAliasRequestFocus("demanderFocus");
+            setAliasCompBack("arriere");
+            setAliasCompFore("avant");
+            setAliasCompFocusable("focus");
+            setAliasCompGetFirstPos("x");
+            setAliasCompGetSecondPos("y");
+            setAliasCompOpaque("opaque");
+            setAliasCompToolTip("infobulle");
+            setAliasCompLoc("lieu");
             setAliasKeyPressed("presse");
             setAliasKeyTyped("tape");
             setAliasKeyReleased("relache");
@@ -7345,7 +7530,15 @@ public class LgNamesGui extends LgNamesUtils {
                 getAliasComponentInvokeLater(),
                 getAliasAddKeyListener(),
                 getAliasAddListener(),
-                getAliasRequestFocus()
+                getAliasRequestFocus(),
+                getAliasCompBack(),
+                getAliasCompFocusable(),
+                getAliasCompFore(),
+                getAliasCompGetFirstPos(),
+                getAliasCompGetSecondPos(),
+                getAliasCompOpaque(),
+                getAliasCompToolTip(),
+                getAliasCompLoc()
         ));
         m_.put(getAliasDimension(), new StringList(
                 getAliasDimensionGetHeight(),
