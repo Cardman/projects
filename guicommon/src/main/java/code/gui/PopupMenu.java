@@ -23,4 +23,13 @@ public final class PopupMenu extends CustComponent {
     public void add(CustComponent global) {
         popupMenu.add(global.getComponent());
     }
+    public void add(Menu global) {
+        popupMenu.add(global.getMenu());
+    }
+    public void add(MenuItem global) {
+        popupMenu.add(global.getMenu());
+    }
+    public void add(CheckBoxMenuItem global) {
+        popupMenu.add(global.getMenu());
+    }
 }
