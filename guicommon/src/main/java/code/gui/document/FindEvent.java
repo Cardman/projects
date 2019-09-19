@@ -77,7 +77,7 @@ public final class FindEvent extends MouseAdapter {
             y_ += loc_.y;
             c_ = c_.getContainer();
         }
-        sc_.getHorizontalScrollBar().setValue(x_);
-        sc_.getVerticalScrollBar().setValue(y_);
+        sc_.setHorizontalValue(x_);
+        sc_.setVerticalValue(y_);
     }
 }

@@ -24,6 +24,13 @@ public final class TabbedPaneStruct extends CustComponentStruct {
         return ch_.get(index_);
     }
 
+    public IntStruct getSelectedIndex() {
+        return new IntStruct(tabbedPane.getSelectedIndex());
+    }
+
+    public void setSelectedIndex(Struct _index) {
+        tabbedPane.setSelectedIndex(((NumberStruct)_index).intStruct());
+    }
     public void add(Struct _title, CustComponentStruct _comp) {
         if (_comp.getParentComponent() != NullStruct.NULL_VALUE) {
             return;

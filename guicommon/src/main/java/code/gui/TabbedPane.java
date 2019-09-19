@@ -13,6 +13,16 @@ public final class TabbedPane extends CustComponent {
         return getChildren().size();
     }
 
+    public int getSelectedIndex() {
+        return component.getSelectedIndex();
+    }
+
+    public void setSelectedIndex(int _index) {
+        if (!getChildren().isValidIndex(_index)) {
+            return;
+        }
+        component.setSelectedIndex(_index);
+    }
     public void add(String _title, CustComponent _component) {
         if (_component.getParent() != null) {
             return;

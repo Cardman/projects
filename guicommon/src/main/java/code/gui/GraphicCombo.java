@@ -3,7 +3,6 @@ package code.gui;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-import javax.swing.BorderFactory;
 import javax.swing.JComponent;
 
 import code.util.*;
@@ -37,7 +36,7 @@ public class GraphicCombo extends CustComponent implements WithPopup,GraphicComb
     }
 
     public GraphicCombo(StringList _list, int _selectedIndex) {
-        this(new GraphicStringList(true, _list),_selectedIndex);
+        this(new GraphicStringList(_list),_selectedIndex);
     }
 
     public GraphicCombo(GraphicStringList _grList, int _selectedIndex) {
@@ -137,14 +136,9 @@ public class GraphicCombo extends CustComponent implements WithPopup,GraphicComb
         if (!enabled) {
             return;
         }
-        Object[] array_ = grList.toArray();
-        CustCellRender r_ = grList.getRender();
         int len_ = grList.getListComponents().size();
         for (int i = 0; i < len_; i++) {
-            Object v_ = array_[i];
-            PreparedLabel c_;
-            c_ = r_.getListCellRendererComponent(grList, v_, i, false, false);
-            r_.paintComponent(c_);
+            grList.repaintSelect(i,false);
         }
         menu.show(panel, 0, pseudoButton.getHeight());
     }

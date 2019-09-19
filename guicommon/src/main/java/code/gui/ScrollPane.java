@@ -38,16 +38,20 @@ public final class ScrollPane extends CustComponent {
             getChildren().clear();
         }
     }
+    public int getHorizontalValue() {
+        return component.getHorizontalScrollBar().getValue();
+    }
+    public void setHorizontalValue(int _value) {
+        component.getHorizontalScrollBar().setValue(_value);
+    }
+    public int getVerticalValue() {
+        return component.getVerticalScrollBar().getValue();
+    }
+    public void setVerticalValue(int _value) {
+        component.getVerticalScrollBar().setValue(_value);
+    }
     public void validate() {
         component.validate();
-    }
-
-    public ScrollBar getHorizontalScrollBar() {
-        return new ScrollBar(component.getHorizontalScrollBar());
-    }
-
-    public ScrollBar getVerticalScrollBar() {
-        return new ScrollBar(component.getVerticalScrollBar());
     }
 
     public void revalidate() {

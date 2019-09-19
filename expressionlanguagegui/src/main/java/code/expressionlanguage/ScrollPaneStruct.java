@@ -1,6 +1,8 @@
 package code.expressionlanguage;
 
+import code.expressionlanguage.structs.IntStruct;
 import code.expressionlanguage.structs.NullStruct;
+import code.expressionlanguage.structs.NumberStruct;
 import code.expressionlanguage.structs.Struct;
 import code.gui.CustComponent;
 import code.gui.ScrollPane;
@@ -48,6 +50,19 @@ public final class ScrollPaneStruct extends CustComponentStruct {
         }
         view = c_;
         scrollPane.setViewportView(c_.getComponent());
+    }
+
+    public IntStruct getHorizontalValue() {
+        return new IntStruct(scrollPane.getHorizontalValue());
+    }
+    public void setHorizontalValue(Struct _value) {
+        scrollPane.setHorizontalValue(((NumberStruct)_value).intStruct());
+    }
+    public IntStruct getVerticalValue() {
+        return new IntStruct(scrollPane.getVerticalValue());
+    }
+    public void setVerticalValue(Struct _value) {
+        scrollPane.setVerticalValue(((NumberStruct)_value).intStruct());
     }
     public void revalidate() {
         scrollPane.revalidate();

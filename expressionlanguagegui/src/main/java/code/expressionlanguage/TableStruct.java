@@ -53,6 +53,13 @@ public final class TableStruct extends CustComponentStruct {
         return new IntStruct(table.getSelectedRowCount());
     }
 
+    public void addSelectInterval(Struct _from, Struct _to) {
+        table.addSelectInterval(((NumberStruct)_from).intStruct(),((NumberStruct)_to).intStruct());
+    }
+
+    public void removeSelectInterval(Struct _from, Struct _to) {
+        table.removeSelectInterval(((NumberStruct)_from).intStruct(),((NumberStruct)_to).intStruct());
+    }
     public void setRowCount(Struct _rowCount) {
         table.setRowCount(((NumberStruct)_rowCount).intStruct());
     }

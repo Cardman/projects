@@ -255,8 +255,8 @@ public final class RenderedPage implements ProcessingSession {
                 y_ += loc_.y;
                 c_ = c_.getContainer();
             }
-            scroll.getHorizontalScrollBar().setValue(x_);
-            scroll.getVerticalScrollBar().setValue(y_);
+            scroll.setHorizontalValue(x_);
+            scroll.setVerticalValue(y_);
         }
         if (frame != null) {
             frame.pack();

@@ -143,10 +143,7 @@ public abstract class CustComponentStruct implements Struct {
     }
     @Override
     public boolean sameReference(Struct _other) {
-        if (!(_other instanceof CustComponentStruct)) {
-            return false;
-        }
-        return getComponent() == ((CustComponentStruct)_other).getComponent();
+        return this == _other;
     }
 
     protected Struct getPreferredSize() {
@@ -160,6 +157,14 @@ public abstract class CustComponentStruct implements Struct {
         }
         DimensionStruct d_ = (DimensionStruct)_d;
         setPreferredSize(d_.getDimension());
+    }
+
+    protected void setSize(Struct _d) {
+        if (!(_d instanceof DimensionStruct)) {
+            return;
+        }
+        DimensionStruct d_ = (DimensionStruct)_d;
+        getComponent().setSize(d_.getDimension());
     }
     protected void setPreferredSize(Dimension _d) {
         getComponent().setPreferredSize(_d);

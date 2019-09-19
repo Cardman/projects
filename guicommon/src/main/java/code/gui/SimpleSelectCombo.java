@@ -16,22 +16,12 @@ public final class SimpleSelectCombo extends MouseAdapter implements IndexableLi
 
     @Override
     public void mouseExited(MouseEvent e) {
-        CustCellRender r_ = grList.getRender();
-        Object[] array_ = grList.toArray();
-        Object v_ = array_[index];
-        PreparedLabel c_;
-        c_ = r_.getListCellRendererComponent(grList, v_, index, false, false);
-        r_.paintComponent(c_);
+        grList.repaintSelect(index,false);
     }
 
     @Override
     public void mouseEntered(MouseEvent e) {
-        CustCellRender r_ = grList.getRender();
-        Object[] array_ = grList.toArray();
-        Object v_ = array_[index];
-        PreparedLabel c_;
-        c_ = r_.getListCellRendererComponent(grList, v_, index, true, false);
-        r_.paintComponent(c_);
+        grList.repaintSelect(index,true);
     }
 
     @Override

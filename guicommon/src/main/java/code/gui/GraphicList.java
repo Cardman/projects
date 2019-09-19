@@ -58,6 +58,10 @@ public class GraphicList<T> extends CustComponent implements GraphicListable {
         rebuild();
     }
 
+    protected void setList(CustList<T> _list) {
+        list = _list;
+    }
+
     public void add(T _elt) {
         add(list.size(),_elt);
     }
@@ -67,11 +71,7 @@ public class GraphicList<T> extends CustComponent implements GraphicListable {
         PreparedLabel lab_ = new PreparedLabel();
         listComponents.add(_index, lab_);
         panel_.add(lab_, _index);
-        CustCellRender r_ = getRender();
-        if (r_ != null) {
-            PreparedLabel c_ = r_.getListCellRendererComponent(this, _elt, _index, false, false);
-            r_.paintComponent(c_);
-        }
+        repaintAdded(_index);
         resetDimensions();
         if (!simple) {
             MultSelectKeyEltList i_ = new MultSelectKeyEltList(this, _index);
@@ -86,6 +86,15 @@ public class GraphicList<T> extends CustComponent implements GraphicListable {
             IndexableListener i_ = buildSingleSelect(lab_,_index);
             indexableMouse.add(i_);
             reindex(indexableMouse);
+        }
+    }
+
+    protected void repaintAdded(int _index) {
+        CustCellRender r_ = getRender();
+        if (r_ != null) {
+            T elt_ = list.get(_index);
+            PreparedLabel c_ = r_.getListCellRendererComponent(this, elt_, _index, false, false);
+            r_.paintComponent(c_);
         }
     }
     protected IndexableListener buildSingleSelect(PreparedLabel _lab,int _index) {
@@ -133,23 +142,16 @@ public class GraphicList<T> extends CustComponent implements GraphicListable {
         panel_.removeAll();
         indexableMouse.clear();
         indexableKey.clear();
-        int index_ = 0;
-        for (Object o: list) {
-            PreparedLabel lab_ = new PreparedLabel();
-            listComponents.add(lab_);
-            panel_.add(lab_);
-            PreparedLabel c_ = r_.getListCellRendererComponent(this, o, index_, selectedIndexes.containsObj(index_), false);
-            r_.paintComponent(c_);
-            index_++;
-        }
-        index_ = 0;
+        repaintAll();
         if (simple) {
+            int index_ = 0;
             for (PreparedLabel c: listComponents) {
                 IndexableListener i_ = buildSingleSelect(c,index_);
                 indexableMouse.add(i_);
                 index_++;
             }
         } else {
+            int index_ = 0;
             for (PreparedLabel c: listComponents) {
                 MultSelectKeyEltList i_ = new MultSelectKeyEltList(this, index_);
                 indexableKey.add(i_);
@@ -161,6 +163,19 @@ public class GraphicList<T> extends CustComponent implements GraphicListable {
             }
         }
         resetDimensions();
+    }
+    protected void repaintAll() {
+        CustCellRender r_ = getRender();
+        int index_ = 0;
+        Panel panel_ = getPanel();
+        for (Object o: list) {
+            PreparedLabel lab_ = new PreparedLabel();
+            listComponents.add(lab_);
+            panel_.add(lab_);
+            PreparedLabel c_ = r_.getListCellRendererComponent(this, o, index_, selectedIndexes.containsObj(index_), false);
+            r_.paintComponent(c_);
+            index_++;
+        }
     }
     public int getVisibleRowCount() {
         return visibleRowCount;

@@ -39,6 +39,13 @@ public final class TableGui extends CustComponent {
         return table.getSelectedRowCount();
     }
 
+    public void addSelectInterval(int _from, int _to) {
+        table.getSelectionModel().addSelectionInterval(_from,_to);
+    }
+
+    public void removeSelectInterval(int _from, int _to) {
+        table.getSelectionModel().removeIndexInterval(_from,_to);
+    }
     public void setRowCount(int _rowCount) {
         model.setRowCount(_rowCount);
     }

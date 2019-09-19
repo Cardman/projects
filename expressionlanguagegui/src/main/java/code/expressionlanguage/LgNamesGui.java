@@ -10,7 +10,6 @@ import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
 import code.expressionlanguage.variables.VariableSuffix;
 import code.gui.OtherDialog;
-import code.gui.TableGui;
 import code.resources.ResourceFiles;
 import code.util.CustList;
 import code.util.ObjectMap;
@@ -70,6 +69,8 @@ public class LgNamesGui extends LgNamesUtils {
     private String aliasTableIsReorder;
     private String aliasTableSetReorder;
     private String aliasTableMoveColumn;
+    private String aliasTableAddInterval;
+    private String aliasTableRemoveInterval;
     private String aliasTableApplyChanges;
     private String aliasTableAddHeader;
     private String aliasTableAddSelect;
@@ -149,12 +150,15 @@ public class LgNamesGui extends LgNamesUtils {
     private String aliasTabbedPaneSetTitle;
     private String aliasTabbedPaneRemove;
     private String aliasTabbedPaneIndex;
+    private String aliasTabbedPaneSelIndex;
     private String aliasButton;
     private String aliasImageLabel;
     private String aliasTextLabel;
     private String aliasScrollPane;
     private String aliasScrollPaneGetView;
     private String aliasScrollPaneSetView;
+    private String aliasScrollPaneHorizontalValue;
+    private String aliasScrollPaneVerticalValue;
     private String aliasScrollPaneValidate;
     private String aliasSplitPane;
     private String aliasSplitPaneGetDividerLocation;
@@ -212,6 +216,7 @@ public class LgNamesGui extends LgNamesUtils {
     private String aliasComponentGetHeight;
     private String aliasComponentGetPreferredSize;
     private String aliasComponentSetPreferredSize;
+    private String aliasComponentSetSize;
     private String aliasComponentIsVisible;
     private String aliasComponentSetVisible;
     private String aliasComponentInvokeLater;
@@ -491,6 +496,12 @@ public class LgNamesGui extends LgNamesUtils {
         method_ = new StandardMethod(aliasRequestFocus, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
+        method_ = new StandardMethod(aliasComponentGetHeight, params_, getAliasPrimInteger(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasComponentGetWidth, params_, getAliasPrimInteger(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
         ctor_ = new StandardConstructor(params_,false,stdcl_);
         constructors_.add(ctor_);
         std_ = stdcl_;
@@ -656,6 +667,15 @@ public class LgNamesGui extends LgNamesUtils {
         params_ = new StringList();
         method_ = new StandardMethod(aliasTableGetSelectedRows, params_, PrimitiveTypeUtil.getPrettyArrayType(getAliasPrimInteger()), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasPrimInteger(),getAliasPrimInteger());
+        method_ = new StandardMethod(aliasTableMoveColumn, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasPrimInteger(),getAliasPrimInteger());
+        method_ = new StandardMethod(aliasTableAddInterval, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasPrimInteger(),getAliasPrimInteger());
+        method_ = new StandardMethod(aliasTableRemoveInterval, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasTableApplyChanges, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
@@ -748,6 +768,15 @@ public class LgNamesGui extends LgNamesUtils {
         params_ = new StringList(getAliasString(),aliasComponent);
         method_ = new StandardMethod(aliasTabbedPaneAdd, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasTabbedPaneSelIndex, params_, getAliasPrimInteger(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasPrimInteger());
+        method_ = new StandardMethod(aliasTabbedPaneSelIndex, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasComponent);
+        method_ = new StandardMethod(aliasTabbedPaneIndex, params_, getAliasPrimInteger(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasComponent);
         method_ = new StandardMethod(aliasTabbedPaneRemove, params_, getAliasPrimInteger(), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
@@ -779,6 +808,18 @@ public class LgNamesGui extends LgNamesUtils {
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new StringMap<StandardField>();
         stdcl_ = new StandardClass(aliasScrollPane, fields_, constructors_, methods_, aliasComponent, MethodModifier.FINAL);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasScrollPaneHorizontalValue, params_,getAliasPrimInteger(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasPrimInteger());
+        method_ = new StandardMethod(aliasScrollPaneHorizontalValue, params_,getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasScrollPaneVerticalValue, params_,getAliasPrimInteger(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasPrimInteger());
+        method_ = new StandardMethod(aliasScrollPaneVerticalValue, params_,getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasScrollPaneGetView, params_,aliasComponent, false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
@@ -2297,6 +2338,11 @@ public class LgNamesGui extends LgNamesUtils {
                 res_.setResult(inst_.getPreferredSize());
                 return res_;
             }
+            if (StringList.quickEq(name_, aliasComponentSetSize)) {
+                inst_.setSize(_args[0]);
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
             if (StringList.quickEq(name_, aliasComponentSetPreferredSize)) {
                 inst_.setPreferredSize(_args[0]);
                 res_.setResult(NullStruct.NULL_VALUE);
@@ -2450,6 +2496,15 @@ public class LgNamesGui extends LgNamesUtils {
                 res_.setResult(strPan_.getTitle(_args[0]));
                 return res_;
             }
+            if (StringList.quickEq(name_, aliasTabbedPaneSelIndex)) {
+                if (_method.getConstraints().getParametersTypes().size() == 1) {
+                    strPan_.setSelectedIndex(_args[0]);
+                    res_.setResult(NullStruct.NULL_VALUE);
+                    return res_;
+                }
+                res_.setResult(strPan_.getSelectedIndex());
+                return res_;
+            }
             if (StringList.quickEq(name_, aliasTabbedPaneIndex)) {
                 if (!(_args[0] instanceof CustComponentStruct)) {
                     res_.setResult(new IntStruct(-1));
@@ -2471,6 +2526,24 @@ public class LgNamesGui extends LgNamesUtils {
         }
         if (StringList.quickEq(type_,aliasScrollPane)) {
             ScrollPaneStruct strPan_ = (ScrollPaneStruct) _instance;
+            if (StringList.quickEq(name_, aliasScrollPaneHorizontalValue)) {
+                if (_method.getConstraints().getParametersTypes().size() == 1) {
+                    strPan_.setHorizontalValue(_args[0]);
+                    res_.setResult(NullStruct.NULL_VALUE);
+                    return res_;
+                }
+                res_.setResult(strPan_.getHorizontalValue());
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasScrollPaneVerticalValue)) {
+                if (_method.getConstraints().getParametersTypes().size() == 1) {
+                    strPan_.setVerticalValue(_args[0]);
+                    res_.setResult(NullStruct.NULL_VALUE);
+                    return res_;
+                }
+                res_.setResult(strPan_.getVerticalValue());
+                return res_;
+            }
             if (StringList.quickEq(name_, aliasScrollPaneGetView)) {
                 res_.setResult(strPan_.getView());
                 return res_;
@@ -2922,6 +2995,21 @@ public class LgNamesGui extends LgNamesUtils {
             }
             if (StringList.quickEq(name_, aliasTableAddHeader)) {
                 inst_.addHeaderListener(_args[0]);
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasTableMoveColumn)) {
+                inst_.moveColumn(_args[0],_args[1]);
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasTableAddInterval)) {
+                inst_.addSelectInterval(_args[0],_args[1]);
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasTableRemoveInterval)) {
+                inst_.removeSelectInterval(_args[0],_args[1]);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
@@ -4127,6 +4215,22 @@ public class LgNamesGui extends LgNamesUtils {
         this.aliasTableMoveColumn = aliasTableMoveColumn;
     }
 
+    public String getAliasTableAddInterval() {
+        return aliasTableAddInterval;
+    }
+
+    public void setAliasTableAddInterval(String aliasTableAddInterval) {
+        this.aliasTableAddInterval = aliasTableAddInterval;
+    }
+
+    public String getAliasTableRemoveInterval() {
+        return aliasTableRemoveInterval;
+    }
+
+    public void setAliasTableRemoveInterval(String aliasTableRemoveInterval) {
+        this.aliasTableRemoveInterval = aliasTableRemoveInterval;
+    }
+
     public String getAliasTableApplyChanges() {
         return aliasTableApplyChanges;
     }
@@ -4461,6 +4565,14 @@ public class LgNamesGui extends LgNamesUtils {
 
     public void setAliasComponentSetPreferredSize(String aliasComponentSetPreferredSize) {
         this.aliasComponentSetPreferredSize = aliasComponentSetPreferredSize;
+    }
+
+    public String getAliasComponentSetSize() {
+        return aliasComponentSetSize;
+    }
+
+    public void setAliasComponentSetSize(String aliasComponentSetSize) {
+        this.aliasComponentSetSize = aliasComponentSetSize;
     }
 
     public String getAliasComponentIsVisible() {
@@ -4871,6 +4983,14 @@ public class LgNamesGui extends LgNamesUtils {
         this.aliasTabbedPaneIndex = aliasTabbedPaneIndex;
     }
 
+    public String getAliasTabbedPaneSelIndex() {
+        return aliasTabbedPaneSelIndex;
+    }
+
+    public void setAliasTabbedPaneSelIndex(String aliasTabbedPaneSelIndex) {
+        this.aliasTabbedPaneSelIndex = aliasTabbedPaneSelIndex;
+    }
+
     public String getAliasAddListener() {
         return aliasAddListener;
     }
@@ -4973,6 +5093,22 @@ public class LgNamesGui extends LgNamesUtils {
 
     public void setAliasScrollPaneSetView(String aliasScrollPaneSetView) {
         this.aliasScrollPaneSetView = aliasScrollPaneSetView;
+    }
+
+    public String getAliasScrollPaneHorizontalValue() {
+        return aliasScrollPaneHorizontalValue;
+    }
+
+    public void setAliasScrollPaneHorizontalValue(String aliasScrollPaneHorizontalValue) {
+        this.aliasScrollPaneHorizontalValue = aliasScrollPaneHorizontalValue;
+    }
+
+    public String getAliasScrollPaneVerticalValue() {
+        return aliasScrollPaneVerticalValue;
+    }
+
+    public void setAliasScrollPaneVerticalValue(String aliasScrollPaneVerticalValue) {
+        this.aliasScrollPaneVerticalValue = aliasScrollPaneVerticalValue;
     }
 
     public String getAliasScrollPaneValidate() {
@@ -6470,6 +6606,9 @@ public class LgNamesGui extends LgNamesUtils {
             setAliasTableIsMultiple("isMultiple");
             setAliasTableIsReorder("isReorder");
             setAliasTableApplyChanges("apply");
+            setAliasTableAddInterval("addInterval");
+            setAliasTableRemoveInterval("removeInterval");
+            setAliasTableMoveColumn("move");
             setAliasAddKeyListener("addKey");
             setAliasRequestFocus("requestFocus");
             setAliasKeyListener("$core.KeyListener");
@@ -6533,6 +6672,8 @@ public class LgNamesGui extends LgNamesUtils {
             setAliasScrollPane("$core.Scroll");
             setAliasScrollPaneGetView("getView");
             setAliasScrollPaneSetView("setView");
+            setAliasScrollPaneHorizontalValue("hValue");
+            setAliasScrollPaneVerticalValue("vValue");
             setAliasScrollPaneValidate("validate");
             setAliasSplitPane("$core.SplitPane");
             setAliasSplitPaneGetDividerLocation("getDividerLocation");
@@ -6585,6 +6726,7 @@ public class LgNamesGui extends LgNamesUtils {
             setAliasTabbedPaneSet("set");
             setAliasTabbedPaneSetTitle("setTitle");
             setAliasTabbedPaneIndex("index");
+            setAliasTabbedPaneSelIndex("selIndex");
             setAliasTabbedPaneNb("nb");
             setAliasTabbedPaneRemove("remove");
             setAliasGetParentCompo("getParent");
@@ -6632,6 +6774,7 @@ public class LgNamesGui extends LgNamesUtils {
             setAliasComponentGetWidth("getWidth");
             setAliasComponentGetPreferredSize("getPreferredSize");
             setAliasComponentSetPreferredSize("setPreferredSize");
+            setAliasComponentSetSize("setSize");
             setAliasComponentIsVisible("isVisible");
             setAliasComponentSetVisible("setVisible");
             setAliasComponentInvokeLater("invokeLater");
@@ -6824,6 +6967,9 @@ public class LgNamesGui extends LgNamesUtils {
             setAliasTableIsMultiple("estMultiple");
             setAliasTableIsReorder("estReord");
             setAliasTableApplyChanges("appliquer");
+            setAliasTableAddInterval("ajInterval");
+            setAliasTableRemoveInterval("supprInterval");
+            setAliasTableMoveColumn("depl");
             setAliasAddKeyListener("ajClavier");
             setAliasRequestFocus("demanderFocus");
             setAliasKeyPressed("presse");
@@ -6868,6 +7014,8 @@ public class LgNamesGui extends LgNamesUtils {
             setAliasScrollPane("$coeur.Ascenseur");
             setAliasScrollPaneGetView("valVue");
             setAliasScrollPaneSetView("majVue");
+            setAliasScrollPaneHorizontalValue("hValeur");
+            setAliasScrollPaneVerticalValue("vValeur");
             setAliasScrollPaneValidate("valider");
             setAliasSplitPane("$coeur.SepAj");
             setAliasSplitPaneGetDividerLocation("valSepPos");
@@ -6920,6 +7068,7 @@ public class LgNamesGui extends LgNamesUtils {
             setAliasTabbedPaneSet("maj");
             setAliasTabbedPaneSetTitle("majTitre");
             setAliasTabbedPaneIndex("indice");
+            setAliasTabbedPaneSelIndex("selIndice");
             setAliasTabbedPaneNb("nb");
             setAliasTabbedPaneRemove("suppr");
             setAliasGetParentCompo("valParent");
@@ -6967,6 +7116,7 @@ public class LgNamesGui extends LgNamesUtils {
             setAliasComponentGetWidth("valLargeur");
             setAliasComponentGetPreferredSize("valTaillePreferee");
             setAliasComponentSetPreferredSize("majTaillePreferee");
+            setAliasComponentSetSize("majTaille");
             setAliasComponentIsVisible("estVisible");
             setAliasComponentSetVisible("majVisible");
             setAliasComponentInvokeLater("invoquerPlusTard");
@@ -7142,6 +7292,8 @@ public class LgNamesGui extends LgNamesUtils {
                 getAliasTabbedPaneNb(),
                 getAliasTabbedPaneAdd(),
                 getAliasTabbedPaneRemove(),
+                getAliasTabbedPaneSelIndex(),
+                getAliasTabbedPaneIndex(),
                 getAliasTabbedPaneGet(),
                 getAliasTabbedPaneGetTitle(),
                 getAliasTabbedPaneSet(),
@@ -7181,10 +7333,13 @@ public class LgNamesGui extends LgNamesUtils {
                 getAliasComponentSetPaint(),
                 getAliasGetFont(),
                 getAliasSetFont(),
+                getAliasComponentGetHeight(),
+                getAliasComponentGetWidth(),
                 getAliasComponentIsAutoscrolls(),
                 getAliasComponentSetAutoscrolls(),
                 getAliasComponentGetPreferredSize(),
                 getAliasComponentSetPreferredSize(),
+                getAliasComponentSetSize(),
                 getAliasComponentIsVisible(),
                 getAliasComponentSetVisible(),
                 getAliasComponentInvokeLater(),
@@ -7209,6 +7364,8 @@ public class LgNamesGui extends LgNamesUtils {
         m_.put(getAliasButton(), new StringList(
                 getAliasAddListener()));
         m_.put(getAliasScrollPane(), new StringList(
+                getAliasScrollPaneHorizontalValue(),
+                getAliasScrollPaneVerticalValue(),
                 getAliasScrollPaneGetView(),
                 getAliasScrollPaneSetView(),
                 getAliasScrollPaneValidate()));
@@ -7247,6 +7404,17 @@ public class LgNamesGui extends LgNamesUtils {
                 getAliasSpinnerSetValue(),
                 getAliasSpinnerSetRange(),
                 getAliasSpinnerSetRangeValue(),
+                getAliasAddChange())
+        );
+        m_.put(getAliasSlider(), new StringList(
+                getAliasSliderGetMax(),
+                getAliasSliderGetMin(),
+                getAliasSliderGetOrientation(),
+                getAliasSliderGetValue(),
+                getAliasSliderSetMax(),
+                getAliasSliderSetMin(),
+                getAliasSliderSetOrientation(),
+                getAliasSliderSetValue(),
                 getAliasAddChange())
         );
         m_.put(getAliasRadio(), new StringList(
@@ -7412,6 +7580,9 @@ public class LgNamesGui extends LgNamesUtils {
                 getAliasTableAddHeader(),
                 getAliasTableAddSelect(),
                 getAliasTableApplyChanges(),
+                getAliasTableAddInterval(),
+                getAliasTableRemoveInterval(),
+                getAliasTableMoveColumn(),
                 getAliasTableGetColumnAtPoint(),
                 getAliasTableGetColumnCount(),
                 getAliasTableGetColumnName(),
@@ -7472,6 +7643,8 @@ public class LgNamesGui extends LgNamesUtils {
         ref_.add(getAliasComponent());
         ref_.add(getAliasActionEvent());
         ref_.add(getAliasMouseEvent());
+        ref_.add(getAliasTableListener());
+        ref_.add(getAliasTableGui());
         ref_.add(getAliasTreeListener());
         ref_.add(getAliasTree());
         ref_.add(getAliasTreeNode());
@@ -7512,6 +7685,8 @@ public class LgNamesGui extends LgNamesUtils {
         ref_.add(getAliasAbsMenuItem());
         ref_.add(getAliasMenuItem());
         ref_.add(getAliasMenuItemCheck());
+        ref_.add(getAliasSpinner());
+        ref_.add(getAliasSlider());
         return ref_;
     }
 }
