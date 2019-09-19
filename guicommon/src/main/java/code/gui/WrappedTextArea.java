@@ -39,7 +39,7 @@ public class WrappedTextArea extends CustComponent {
     }
 
     @Override
-    public JComponent getComponent() {
+    protected JComponent getComponent() {
         return textArea;
     }
 }

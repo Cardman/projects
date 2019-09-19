@@ -1,5 +1,5 @@
 package code.gui;
-import java.awt.Image;
+import java.awt.image.BufferedImage;
 
 import javax.swing.JOptionPane;
 
@@ -19,7 +19,7 @@ public abstract class GroupFrame extends CommonFrame {
 
     private StringMap<String> messages;
 
-    private Image imageIconFrame;
+    private BufferedImage imageIconFrame;
 
     private boolean opened;
 
@@ -42,13 +42,13 @@ public abstract class GroupFrame extends CommonFrame {
         return false;
     }
 
-    public void setImageIconFrame(Image _imageIconFrame) {
+    public void setImageIconFrame(BufferedImage _imageIconFrame) {
         imageIconFrame = _imageIconFrame;
         setIconImage(imageIconFrame);
     }
 
     @Override
-    public Image getImageIconFrame() {
+    public BufferedImage getImageIconFrame() {
         return imageIconFrame;
     }
 

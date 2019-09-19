@@ -1,9 +1,9 @@
 package code.gui;
-import java.awt.Image;
+import java.awt.image.BufferedImage;
 
 public interface Iconifiable extends Packable {
 
-    Image getImageIconFrame();
+    BufferedImage getImageIconFrame();
 
     boolean isVisible();
 }

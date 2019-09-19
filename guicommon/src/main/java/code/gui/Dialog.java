@@ -1,9 +1,9 @@
 package code.gui;
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.Image;
 import java.awt.Window;
 import java.awt.event.WindowListener;
+import java.awt.image.BufferedImage;
 
 import javax.swing.JDialog;
 import javax.swing.WindowConstants;
@@ -16,7 +16,7 @@ public abstract class Dialog implements ChangeableTitle {
 
     private String accessFile;
 
-    private Image imageIconFrame;
+    private BufferedImage imageIconFrame;
 
     private Panel contentPane  = Panel.newLineBox();
 
@@ -26,14 +26,6 @@ public abstract class Dialog implements ChangeableTitle {
         dialog.setModal(true);
         dialog.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         dialog.addWindowListener(new CrossClosingDialogEvent(this));
-    }
-
-    public void setSize(Dimension _d) {
-        dialog.setSize(_d);
-    }
-
-    public void setSize(int _width, int _height) {
-        dialog.setSize(_width, _height);
     }
 
 
@@ -48,12 +40,20 @@ public abstract class Dialog implements ChangeableTitle {
     public void setDefaultCloseOperation(int _operation) {
         dialog.setDefaultCloseOperation(_operation);
     }
-    @Override
-    public Window getComponent() {
+
+    protected Window getComponent() {
         return dialog;
     }
 
-    public void setLocationRelativeTo(ChangeableTitle _onwer) {
+    public void setLocationRelativeTo(CommonFrame _onwer) {
+        dialog.setLocationRelativeTo(_onwer.getComponent());
+    }
+
+    public void setLocationRelativeTo(Dialog _onwer) {
+        dialog.setLocationRelativeTo(_onwer.getComponent());
+    }
+
+    public void setLocationRelativeTo(OtherDialog _onwer) {
         dialog.setLocationRelativeTo(_onwer.getComponent());
     }
 
@@ -83,7 +83,7 @@ public abstract class Dialog implements ChangeableTitle {
     }
 
     @Override
-    public Image getImageIconFrame() {
+    public BufferedImage getImageIconFrame() {
         return imageIconFrame;
     }
 
@@ -100,7 +100,7 @@ public abstract class Dialog implements ChangeableTitle {
     public Panel getPane() {
         return contentPane;
     }
-    public void setModal(boolean _modal) {
+    protected void setModal(boolean _modal) {
         dialog.setModal(_modal);
     }
     @Override

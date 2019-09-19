@@ -3,14 +3,11 @@ package code.gui.document;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
-
 import code.formathtml.render.MetaAnchorLabel;
 import code.formathtml.render.MetaStyle;
 import code.formathtml.render.SegmentPart;
+import code.gui.CustGraphics;
 import code.gui.PreparedLabel;
-import code.gui.TextLabel;
 
 public final class DualAnchoredLabel extends DualLabel {
 
@@ -47,7 +44,7 @@ public final class DualAnchoredLabel extends DualLabel {
         String text_ = getText();
         int w_ = fontMetrics_.stringWidth(text_);
         BufferedImage img_ = new BufferedImage(w_, h_, BufferedImage.TYPE_INT_RGB);
-        Graphics gr_ = img_.createGraphics();
+        CustGraphics gr_ = new CustGraphics(img_.createGraphics());
         gr_.setFont(copy_);
         gr_.setColor(new Color(style_.getBgColor()));
         gr_.fillRect(0, 0, w_, h_);
@@ -61,7 +58,7 @@ public final class DualAnchoredLabel extends DualLabel {
         gr_.setColor(Color.BLUE);
         gr_.drawString(text_, 0, h_ - 1);
         gr_.drawLine(0, h_ - 1, w_, h_ - 1);
-        lab_.setIcon(new ImageIcon(img_));
+        lab_.setIcon(img_);
         gr_.dispose();
     }
 }

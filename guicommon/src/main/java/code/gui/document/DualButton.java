@@ -21,7 +21,7 @@ public final class DualButton extends DualInput {
         super(_container, _component, _page);
         label = new PreparedLabel();
         updateGraphics(label,_component);
-        label.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+        label.setLineBorder(Color.BLACK, 1);
         label.setCursor(new Cursor(Cursor.HAND_CURSOR));
         label.addMouseListener(new FormEvent(this, _page));
         value = _component.getValue();
@@ -43,6 +43,6 @@ public final class DualButton extends DualInput {
 
     public void paint() {
         BufferedImage img_ = LabelButtonUtil.paintButton(label, value, true);
-        label.setIcon(new ImageIcon(img_));
+        label.setIcon(img_);
     }
 }

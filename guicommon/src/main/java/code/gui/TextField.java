@@ -5,7 +5,6 @@ import javax.swing.JTextField;
 import javax.swing.text.Document;
 import java.awt.Color;
 import java.awt.Cursor;
-import java.awt.Point;
 import java.awt.event.ActionListener;
 
 public final class TextField extends CustComponent {
@@ -89,20 +88,8 @@ public final class TextField extends CustComponent {
         textField.setOpaque(isOpaque);
     }
 
-    public void setLocation(int x, int y) {
-        textField.setLocation(x, y);
-    }
-
-    public void setLocation(Point p) {
-        textField.setLocation(p);
-    }
-
     public Cursor getCursor() {
         return textField.getCursor();
-    }
-
-    public boolean contains(Point p) {
-        return textField.contains(p);
     }
 
     public void add(PopupMenu popup) {
@@ -112,7 +99,7 @@ public final class TextField extends CustComponent {
 
 
     @Override
-    public JComponent getComponent() {
+    protected JComponent getComponent() {
         return textField;
     }
 

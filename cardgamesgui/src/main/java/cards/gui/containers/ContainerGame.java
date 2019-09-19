@@ -132,9 +132,7 @@ public class ContainerGame implements Containable {
 
     public void ajouterTexteDansZone(String _texte) {
         getEvents().append(_texte);
-        int endPosition_ = getEvents().getDocumentLength();
-        Rectangle bottom_ = getEvents().modelToView(endPosition_);
-        getEvents().scrollRectToVisible(bottom_);
+        getEvents().scrollToEnd();
     }
 
     public void revalidate() {

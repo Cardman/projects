@@ -1,6 +1,10 @@
 package code.gui;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Rectangle;
+import java.awt.image.BufferedImage;
 
 public final class CustGraphics {
     private Graphics graphics;
@@ -36,24 +40,12 @@ public final class CustGraphics {
         graphics.setFont(font);
     }
 
-    public Rectangle getClipBounds() {
-        return graphics.getClipBounds();
-    }
-
     public void clipRect(int x, int y, int width, int height) {
         graphics.clipRect(x, y, width, height);
     }
 
     public void setClip(int x, int y, int width, int height) {
         graphics.setClip(x, y, width, height);
-    }
-
-    public Shape getClip() {
-        return graphics.getClip();
-    }
-
-    public void setClip(Shape clip) {
-        graphics.setClip(clip);
     }
 
     public void copyArea(int x, int y, int width, int height, int dx, int dy) {
@@ -116,16 +108,8 @@ public final class CustGraphics {
         graphics.drawPolygon(xPoints, yPoints, nPoints);
     }
 
-    public void drawPolygon(Polygon p) {
-        graphics.drawPolygon(p);
-    }
-
     public void fillPolygon(int[] xPoints, int[] yPoints, int nPoints) {
         graphics.fillPolygon(xPoints, yPoints, nPoints);
-    }
-
-    public void fillPolygon(Polygon p) {
-        graphics.fillPolygon(p);
     }
 
     public void drawString(String str, int x, int y) {
@@ -140,35 +124,15 @@ public final class CustGraphics {
         graphics.drawBytes(data, offset, length, x, y);
     }
 
-    public boolean drawImage(Image img, int x, int y) {
+    public boolean drawImage(BufferedImage img, int x, int y) {
         return graphics.drawImage(img, x, y, null);
-    }
-
-    public boolean drawImage(Image img, int x, int y, int width, int height) {
-        return graphics.drawImage(img, x, y, width, height, null);
-    }
-
-    public boolean drawImage(Image img, int x, int y, Color bgcolor) {
-        return graphics.drawImage(img, x, y, bgcolor, null);
-    }
-
-    public boolean drawImage(Image img, int x, int y, int width, int height, Color bgcolor) {
-        return graphics.drawImage(img, x, y, width, height, bgcolor, null);
-    }
-
-    public boolean drawImage(Image img, int dx1, int dy1, int dx2, int dy2, int sx1, int sy1, int sx2, int sy2) {
-        return graphics.drawImage(img, dx1, dy1, dx2, dy2, sx1, sy1, sx2, sy2, null);
-    }
-
-    public boolean drawImage(Image img, int dx1, int dy1, int dx2, int dy2, int sx1, int sy1, int sx2, int sy2, Color bgcolor) {
-        return graphics.drawImage(img, dx1, dy1, dx2, dy2, sx1, sy1, sx2, sy2, bgcolor, null);
     }
 
     public boolean hitClip(int x, int y, int width, int height) {
         return graphics.hitClip(x, y, width, height);
     }
 
-    public Rectangle getClipBounds(Rectangle r) {
-        return graphics.getClipBounds(r);
+    public void dispose() {
+        graphics.dispose();
     }
 }

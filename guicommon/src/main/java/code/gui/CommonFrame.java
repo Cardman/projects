@@ -25,19 +25,11 @@ public abstract class CommonFrame implements ChangeableTitle,WithListener {
     public String getLanguageKey() {
         return languageKey;
     }
-    public void setLanguageKey(String _language) {
+    protected void setLanguageKey(String _language) {
         languageKey = _language;
     }
     public void dispose() {
         frame.dispose();
-    }
-
-    public void setSize(Dimension _d) {
-        frame.setSize(_d);
-    }
-
-    public void setSize(int _width, int _height) {
-        frame.setSize(_width, _height);
     }
 
     public void setLocationRelativeTo(CommonFrame _c) {
@@ -64,24 +56,12 @@ public abstract class CommonFrame implements ChangeableTitle,WithListener {
         frame.setLocation(_p);
     }
 
-    public Dimension getSize() {
-        return frame.getSize();
-    }
-
     public int getWidth() {
         return frame.getWidth();
     }
 
     public int getHeight() {
         return frame.getHeight();
-    }
-
-    public Dimension getSize(Dimension _rv) {
-        return frame.getSize(_rv);
-    }
-
-    public Point getLocation(Point _rv) {
-        return frame.getLocation(_rv);
     }
 
     @Override
@@ -115,15 +95,14 @@ public abstract class CommonFrame implements ChangeableTitle,WithListener {
         frame.setDefaultCloseOperation(_operation);
     }
 
-    @Override
-    public Window getComponent() {
+    protected Window getComponent() {
         return frame;
     }
     public void revalidateFrame() {
         PackingWindowAfter.pack(this);
     }
 
-    public void setIconImage(Image _image) {
+    protected void setIconImage(BufferedImage _image) {
         frame.setIconImage(_image);
     }
 

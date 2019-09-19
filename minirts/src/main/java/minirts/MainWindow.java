@@ -4,19 +4,14 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
-import java.awt.Graphics;
 import java.awt.Image;
-import java.awt.LayoutManager;
 import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.awt.image.MemoryImageSource;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 import javax.swing.Timer;
 
 import code.gui.CustCheckBox;
@@ -88,10 +83,7 @@ public final class MainWindow extends GroupFrame {
         Panel battlegroundWrapper_ = Panel.newAbsolute();
         battlegroundWrapper_.add(battleground.getContainer());
         CustPoint cust_ = facade.getTopLeftPoint();
-        Point pt_ = new Point();
-        pt_.x = -cust_.getX();
-        pt_.y = -cust_.getY();
-        battleground.setLocation(pt_);
+        battleground.setLocation(cust_);
 //        battleground.setLocation(facade.getTopLeftPoint());
         battlegroundWrapper_.setPreferredSize(new Dimension(256, 256));
         scene_.add(battlegroundWrapper_, BorderLayout.CENTER);

@@ -1,5 +1,5 @@
 package aiki.main;
-import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.io.File;
 
 import aiki.db.DataBase;
@@ -95,7 +95,7 @@ public class LaunchingPokemon extends SoftApplicationCore {
         ThreadInvoker.invokeNow(new CreateMainWindow(param_, _args, path_, topLeft_, _language));
     }
 
-    public static Image getIcon() {
+    public static BufferedImage getIcon() {
         return getImage(Resources.RESOURCES_FOLDER, Resources.ICON_TXT);
     }
 
@@ -118,7 +118,7 @@ public class LaunchingPokemon extends SoftApplicationCore {
     }
 
     @Override
-    protected Image getImageIcon() {
+    protected BufferedImage getImageIcon() {
         return getIcon();
     }
 

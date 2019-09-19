@@ -40,7 +40,7 @@ public final class PlainButton extends CustComponent {
     }
 
     @Override
-    public JComponent getComponent() {
+    protected JComponent getComponent() {
         return button;
     }
 }

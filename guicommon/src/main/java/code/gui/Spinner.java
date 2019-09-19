@@ -59,7 +59,7 @@ public final class Spinner extends CustComponent {
     }
 
     @Override
-    public JComponent getComponent() {
+    protected JComponent getComponent() {
         return spinner;
     }
 

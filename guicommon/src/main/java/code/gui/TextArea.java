@@ -1,12 +1,9 @@
 package code.gui;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import javax.swing.event.CaretListener;
 import javax.swing.text.*;
 import java.awt.*;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
 
 public final class TextArea extends CustComponent {
 
@@ -94,14 +91,6 @@ public final class TextArea extends CustComponent {
         return textArea.getScrollableTracksViewportWidth();
     }
 
-    public Dimension getPreferredScrollableViewportSize() {
-        return textArea.getPreferredScrollableViewportSize();
-    }
-
-    public int getScrollableUnitIncrement(Rectangle visibleRect, int orientation, int direction) {
-        return textArea.getScrollableUnitIncrement(visibleRect, orientation, direction);
-    }
-
     public void addCaretListener(CaretListener listener) {
         textArea.addCaretListener(listener);
     }
@@ -112,10 +101,6 @@ public final class TextArea extends CustComponent {
 
     public CaretListener[] getCaretListeners() {
         return textArea.getCaretListeners();
-    }
-
-    public void setDocument(Document doc) {
-        textArea.setDocument(doc);
     }
 
     public int getDocumentLength() {
@@ -132,14 +117,6 @@ public final class TextArea extends CustComponent {
 
     public boolean getDragEnabled() {
         return textArea.getDragEnabled();
-    }
-
-    public void setDropMode(DropMode dropMode) {
-        textArea.setDropMode(dropMode);
-    }
-
-    public DropMode getDropMode() {
-        return textArea.getDropMode();
     }
 
     public Color getCaretColor() {
@@ -178,16 +155,12 @@ public final class TextArea extends CustComponent {
         textArea.replaceSelection(content);
     }
 
-    public Rectangle modelToView(int pos) {
+    private Rectangle modelToView(int pos) {
         try {
             return textArea.modelToView(pos);
         } catch (Exception e) {
             return new Rectangle();
         }
-    }
-
-    public int viewToModel(Point pt) {
-        return textArea.viewToModel(pt);
     }
 
     public void cut() {
@@ -254,10 +227,6 @@ public final class TextArea extends CustComponent {
         textArea.selectAll();
     }
 
-    public int getScrollableBlockIncrement(Rectangle visibleRect, int orientation, int direction) {
-        return textArea.getScrollableBlockIncrement(visibleRect, orientation, direction);
-    }
-
     public boolean getScrollableTracksViewportHeight() {
         return textArea.getScrollableTracksViewportHeight();
     }
@@ -319,34 +288,6 @@ public final class TextArea extends CustComponent {
         return textArea.contains(x, y);
     }
 
-    public Border getBorder() {
-        return textArea.getBorder();
-    }
-
-    public void registerKeyboardAction(ActionListener anAction, String aCommand, KeyStroke aKeyStroke, int aCondition) {
-        textArea.registerKeyboardAction(anAction, aCommand, aKeyStroke, aCondition);
-    }
-
-    public void registerKeyboardAction(ActionListener anAction, KeyStroke aKeyStroke, int aCondition) {
-        textArea.registerKeyboardAction(anAction, aKeyStroke, aCondition);
-    }
-
-    public void unregisterKeyboardAction(KeyStroke aKeyStroke) {
-        textArea.unregisterKeyboardAction(aKeyStroke);
-    }
-
-    public KeyStroke[] getRegisteredKeyStrokes() {
-        return textArea.getRegisteredKeyStrokes();
-    }
-
-    public int getConditionForKeyStroke(KeyStroke aKeyStroke) {
-        return textArea.getConditionForKeyStroke(aKeyStroke);
-    }
-
-    public ActionListener getActionForKeyStroke(KeyStroke aKeyStroke) {
-        return textArea.getActionForKeyStroke(aKeyStroke);
-    }
-
     public void resetKeyboardActions() {
         textArea.resetKeyboardActions();
     }
@@ -382,28 +323,10 @@ public final class TextArea extends CustComponent {
         return textArea.getToolTipText();
     }
 
-    public Point getToolTipLocation(MouseEvent event) {
-        return textArea.getToolTipLocation(event);
-    }
-
-    public Point getPopupLocation(MouseEvent event) {
-        return textArea.getPopupLocation(event);
-    }
-
-    public void scrollRectToVisible(Rectangle aRect) {
-        textArea.scrollRectToVisible(aRect);
-    }
-
-    public Rectangle getBounds(Rectangle rv) {
-        return textArea.getBounds(rv);
-    }
-
-    public Dimension getSize(Dimension rv) {
-        return textArea.getSize(rv);
-    }
-
-    public Point getLocation(Point rv) {
-        return textArea.getLocation(rv);
+    public void scrollToEnd() {
+        int endPosition_ = getDocumentLength();
+        Rectangle bottom_ =modelToView(endPosition_);
+        textArea.scrollRectToVisible(bottom_);
     }
 
     public int getX() {
@@ -415,7 +338,7 @@ public final class TextArea extends CustComponent {
     }
 
     @Override
-    public JComponent getComponent() {
+    protected JComponent getComponent() {
         return textArea;
     }
 
@@ -425,18 +348,6 @@ public final class TextArea extends CustComponent {
 
     public void setOpaque(boolean isOpaque) {
         textArea.setOpaque(isOpaque);
-    }
-
-    public void computeVisibleRect(Rectangle visibleRect) {
-        textArea.computeVisibleRect(visibleRect);
-    }
-
-    public Rectangle getVisibleRect() {
-        return textArea.getVisibleRect();
-    }
-
-    public boolean isValidateRoot() {
-        return textArea.isValidateRoot();
     }
 
     public int getCaretPosition() {

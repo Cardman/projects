@@ -2,10 +2,6 @@ package pokecards.gui;
 import java.awt.Dimension;
 import java.awt.Point;
 
-import javax.swing.BoxLayout;
-import javax.swing.ButtonGroup;
-import javax.swing.ImageIcon;
-import javax.swing.JRadioButton;
 import javax.swing.WindowConstants;
 
 import code.gui.*;
@@ -35,12 +31,12 @@ public final class MainWindow extends GroupFrame {
         setTitle(POKE_CARDS);
         Panel panel_ = Panel.newPageBox();
         Panel linePokemon_ = Panel.newLineBox();
-        buttonPokemon = new LabelButton(new ImageIcon(LaunchingPokemon.getIcon()));
+        buttonPokemon = new LabelButton(LaunchingPokemon.getIcon());
         buttonPokemon.addMouseListener(new PokemonEvent(this));
         linePokemon_.add(buttonPokemon);
         panel_.add(linePokemon_);
         Panel lineCards_ = Panel.newLineBox();
-        buttonCards = new LabelButton(new ImageIcon(LaunchingCards.getIcon()));
+        buttonCards = new LabelButton(LaunchingCards.getIcon());
         buttonCards.addMouseListener(new CardsEvent(this));
         lineCards_.add(buttonCards);
         panel_.add(lineCards_);

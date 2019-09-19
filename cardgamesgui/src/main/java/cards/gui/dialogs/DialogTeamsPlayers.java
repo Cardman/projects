@@ -42,7 +42,7 @@ public final class DialogTeamsPlayers extends DialogCards {
         for (Bytes t: _teamsPlayers.getTeams()) {
             String stringTeamLoc_ = StringList.simpleNumberFormat(stringTeam_, i_);
             Panel team_ = Panel.newGrid(0,1);
-            team_.setBorder(BorderFactory.createTitledBorder(stringTeamLoc_));
+            team_.setTitledBorder(stringTeamLoc_);
             for (byte p:t) {
                 TextLabel player_ = new TextLabel(_pseudos.get(p));
                 team_.add(player_);

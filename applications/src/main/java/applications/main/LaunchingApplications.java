@@ -23,6 +23,7 @@ import code.util.StringList;
 import code.util.StringMap;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.File;
 
 public class LaunchingApplications extends SoftApplicationCore {
@@ -124,7 +125,7 @@ public class LaunchingApplications extends SoftApplicationCore {
     }
 
     @Override
-    protected final Image getImageIcon() {
+    protected final BufferedImage getImageIcon() {
         return null;
     }
 

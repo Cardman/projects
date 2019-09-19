@@ -1,10 +1,8 @@
 package code.gui;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 
-import javax.swing.Action;
-import javax.swing.Icon;
-import javax.swing.JCheckBoxMenuItem;
-import javax.swing.KeyStroke;
+import javax.swing.*;
 
 public class CheckBoxMenuItem implements EnabledMenu {
 
@@ -15,28 +13,24 @@ public class CheckBoxMenuItem implements EnabledMenu {
         menu = new JCheckBoxMenuItem();
     }
 
-    public CheckBoxMenuItem(Icon _icon) {
-        menu = new JCheckBoxMenuItem(_icon);
+    public CheckBoxMenuItem(BufferedImage _icon) {
+        menu = new JCheckBoxMenuItem(new ImageIcon(_icon));
     }
 
     public CheckBoxMenuItem(String _text) {
         menu = new JCheckBoxMenuItem(_text);
     }
 
-    public CheckBoxMenuItem(Action _a) {
-        menu = new JCheckBoxMenuItem(_a);
-    }
-
-    public CheckBoxMenuItem(String _text, Icon _icon) {
-        menu = new JCheckBoxMenuItem(_text, _icon);
+    public CheckBoxMenuItem(String _text, BufferedImage _icon) {
+        menu = new JCheckBoxMenuItem(_text, new ImageIcon(_icon));
     }
 
     public CheckBoxMenuItem(String _text, boolean _b) {
         menu = new JCheckBoxMenuItem(_text, _b);
     }
 
-    public CheckBoxMenuItem(String _text, Icon _icon, boolean _b) {
-        menu = new JCheckBoxMenuItem(_text, _icon, _b);
+    public CheckBoxMenuItem(String _text, BufferedImage _icon, boolean _b) {
+        menu = new JCheckBoxMenuItem(_text, new ImageIcon(_icon), _b);
     }
 
     JCheckBoxMenuItem getMenu() {

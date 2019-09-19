@@ -30,7 +30,7 @@ public final class ProgressBar extends CustComponent {
     }
 
     @Override
-    public JComponent getComponent() {
+    protected JComponent getComponent() {
         return progressBar;
     }
 }

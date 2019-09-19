@@ -103,7 +103,7 @@ public final class CustCheckBox extends CustComponent {
     }
 
     @Override
-    public JComponent getComponent() {
+    protected JComponent getComponent() {
         return checkBox;
     }
 }

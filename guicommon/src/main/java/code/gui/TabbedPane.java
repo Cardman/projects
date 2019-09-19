@@ -96,7 +96,7 @@ public final class TabbedPane extends CustComponent {
     }
 
     @Override
-    public JComponent getComponent() {
+    protected JComponent getComponent() {
         return component;
     }
 

@@ -14,7 +14,7 @@ public final class ScrollBar extends CustComponent {
         scrollBar.setValue(_value);
     }
     @Override
-    public JComponent getComponent() {
+    protected JComponent getComponent() {
         return scrollBar;
     }
 }

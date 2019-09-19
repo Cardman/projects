@@ -1,10 +1,6 @@
 package code.gui;
 
-import java.awt.*;
 import java.awt.image.BufferedImage;
-
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
 
 public abstract class CustCellRender {
     public abstract PreparedLabel getListCellRendererComponent(GraphicListable _list, Object _value,
@@ -15,9 +11,9 @@ public abstract class CustCellRender {
     }
     public void paintComponent(PreparedLabel _component) {
         BufferedImage buff_ = new BufferedImage(getWidth(),getHeight(),BufferedImage.TYPE_INT_RGB);
-        Graphics gr_ = buff_.getGraphics();
+        CustGraphics gr_ = new CustGraphics(buff_.getGraphics());
         gr_.setFont(_component.getFont());
-        paintComponent(new CustGraphics(gr_));
-        _component.setIcon(new ImageIcon(buff_));
+        paintComponent(gr_);
+        _component.setIcon(buff_);
     }
 }

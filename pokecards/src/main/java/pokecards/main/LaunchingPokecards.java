@@ -1,5 +1,5 @@
 package pokecards.main;
-import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.io.File;
 
 import pokecards.gui.MainWindow;
@@ -73,7 +73,7 @@ public class LaunchingPokecards extends SoftApplicationCore {
     }
 
     @Override
-    protected final Image getImageIcon() {
+    protected final BufferedImage getImageIcon() {
         return null;
     }
 

@@ -1,5 +1,6 @@
 package cards.main;
 import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.io.File;
 
 import javax.swing.SwingUtilities;
@@ -66,7 +67,7 @@ public class LaunchingCards extends SoftApplicationCore {
         return _nbInstances_ > 0;
     }
 
-    public static Image getIcon() {
+    public static BufferedImage getIcon() {
         return getImage(FileConst.RESOURCES_IMAGES, FileConst.SUITS_TXT);
     }
 
@@ -125,7 +126,7 @@ public class LaunchingCards extends SoftApplicationCore {
     }
 
     @Override
-    protected Image getImageIcon() {
+    protected BufferedImage getImageIcon() {
         return getIcon();
     }
 

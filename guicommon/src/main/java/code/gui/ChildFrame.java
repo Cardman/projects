@@ -1,9 +1,9 @@
 package code.gui;
-import java.awt.Image;
+import java.awt.image.BufferedImage;
 
 public abstract class ChildFrame extends CommonFrame {
 
-    private Image imageIconFrame;
+    private BufferedImage imageIconFrame;
 
     protected ChildFrame(String _lg) {
         super(_lg);
@@ -17,7 +17,7 @@ public abstract class ChildFrame extends CommonFrame {
     public abstract void closeWindow();
 
     @Override
-    public Image getImageIconFrame() {
+    public BufferedImage getImageIconFrame() {
         return imageIconFrame;
     }
 }

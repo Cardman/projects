@@ -20,13 +20,12 @@ public final class OtherDialog implements ChangeableTitle,WithListener {
         dialog.setTitle(_title);
     }
 
-    @Override
-    public Window getComponent() {
+    protected Window getComponent() {
         return dialog;
     }
 
     @Override
-    public Image getImageIconFrame() {
+    public BufferedImage getImageIconFrame() {
         return image;
     }
 

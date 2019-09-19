@@ -1,9 +1,9 @@
 package code.gui.images;
 
 import java.awt.Color;
-import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
+import code.gui.CustGraphics;
 import code.images.ConverterBufferedImage;
 import code.images.Image;
 import code.images.IntPoint;
@@ -50,8 +50,8 @@ public final class ConverterGraphicBufferedImage {
         int wMin_ = img_.getWidth();
         int hMin_ = img_.getHeight();
         BufferedImage combined_ = new BufferedImage(_side, _side, BufferedImage.TYPE_INT_ARGB);
-        Graphics g_ = combined_.getGraphics();
-        g_.drawImage(img_, (_side - wMin_) / 2, (_side - hMin_) / 2, null);
+        CustGraphics g_ = new CustGraphics(combined_.getGraphics());
+        g_.drawImage(img_, (_side - wMin_) / 2, (_side - hMin_) / 2);
         return combined_;
     }
     public static BufferedImage centerImage(int[][] _front, int _width, int _height) {
@@ -59,8 +59,8 @@ public final class ConverterGraphicBufferedImage {
         int wMin_ = img_.getWidth();
         int hMin_ = img_.getHeight();
         BufferedImage combined_ = new BufferedImage(_width, _height, BufferedImage.TYPE_INT_ARGB);
-        Graphics g_ = combined_.getGraphics();
-        g_.drawImage(img_, (_width - wMin_) / 2, (_height - hMin_) / 2, null);
+        CustGraphics g_ = new CustGraphics(combined_.getGraphics());
+        g_.drawImage(img_, (_width - wMin_) / 2, (_height - hMin_) / 2);
         return combined_;
     }
 

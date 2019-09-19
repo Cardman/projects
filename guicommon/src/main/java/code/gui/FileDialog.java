@@ -273,7 +273,6 @@ public abstract class FileDialog extends Dialog {
 
     @Override
     public void pack() {
-        setSize(DIM);
         setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         super.pack();
         setVisible(true);

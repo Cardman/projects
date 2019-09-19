@@ -1,7 +1,6 @@
 package code.gui;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
-import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 
@@ -34,7 +33,7 @@ public abstract class SoftApplicationCore {
 
     private static final String EMPTY_STRING = "";
 
-    protected void loadLaungage(String _dir, String[] _args, Image _icon) {
+    protected void loadLaungage(String _dir, String[] _args, BufferedImage _icon) {
         String lg_ = prepareLanguage(_dir, _args, _icon);
         if (lg_.isEmpty()) {
             return;
@@ -43,7 +42,7 @@ public abstract class SoftApplicationCore {
         launchWithoutLanguage(lg_, files_);
     }
 
-    protected final String prepareLanguage(String _dir, String[] _args, Image _icon) {
+    protected final String prepareLanguage(String _dir, String[] _args, BufferedImage _icon) {
         String language_ = loadLanguage(_dir);
         if (language_.isEmpty()) {
             proponeLanguage(_dir, _args, _icon);
@@ -62,7 +61,7 @@ public abstract class SoftApplicationCore {
         return files_;
     }
 
-    private LanguageFrame proponeLanguage(String _dir, String[] _args, Image _icon) {
+    private LanguageFrame proponeLanguage(String _dir, String[] _args, BufferedImage _icon) {
         return new LanguageFrame(_dir, _args, this, _icon);
     }
 
@@ -186,5 +185,5 @@ public abstract class SoftApplicationCore {
         StreamTextFile.saveTextFile(StringList.concat(_folder,StreamTextFile.SEPARATEUR,_file), DocumentWriterGuiUtil.setTopLeftFrame(topLeft_));
     }
 
-    protected abstract Image getImageIcon();
+    protected abstract BufferedImage getImageIcon();
 }

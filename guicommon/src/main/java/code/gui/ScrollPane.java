@@ -17,7 +17,7 @@ public final class ScrollPane extends CustComponent {
     }
 
     @Override
-    public JComponent getComponent() {
+    protected JComponent getComponent() {
         return component;
     }
 

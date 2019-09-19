@@ -335,11 +335,11 @@ public class ContainerSinglePresident extends ContainerPresident implements
         Panel sousPanneau_=Panel.newPageBox();
         Panel panelCards_ = Panel.newLineBox();
         Panel panelDiscard_ = Panel.newLineBox();
-        panelDiscard_.setBorder(BorderFactory.createTitledBorder(getMessages().getVal(MainWindow.GIVEN_CARDS)));
+        panelDiscard_.setTitledBorder(getMessages().getVal(MainWindow.GIVEN_CARDS));
         panelCards_.add(panelDiscard_);
         setPanelGivenCards(panelDiscard_);
         Panel panelRec_ = Panel.newLineBox();
-        panelRec_.setBorder(BorderFactory.createTitledBorder(getMessages().getVal(MainWindow.RECEIVED_CARDS)));
+        panelRec_.setTitledBorder(getMessages().getVal(MainWindow.RECEIVED_CARDS));
         panelCards_.add(panelRec_);
         setPanelReceivedCards(panelRec_);
         sousPanneau_.add(panelCards_);

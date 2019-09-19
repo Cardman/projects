@@ -39,7 +39,7 @@ public final class RadioButton extends CustComponent {
     }
 
     @Override
-    public JComponent getComponent() {
+    protected JComponent getComponent() {
         return radioButton;
     }
 

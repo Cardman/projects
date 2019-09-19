@@ -13,7 +13,6 @@ import code.util.ObjectMap;
 import javax.swing.ImageIcon;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelListener;
@@ -81,10 +80,10 @@ public class PanelBattle {
                 continue;
             }
             BufferedImage img_ = new BufferedImage(w_, h_, BufferedImage.TYPE_INT_ARGB);
-            Graphics gr_ = img_.getGraphics();
+            CustGraphics gr_ = new CustGraphics(img_.getGraphics());
             gr_.setFont(u_.getFont());
-            u_.paintComponent(new CustGraphics(gr_));
-            u_.setIcon(new ImageIcon(img_));
+            u_.paintComponent(gr_);
+            u_.setIcon(img_);
         }
         paintSelection();
     }
@@ -94,20 +93,20 @@ public class PanelBattle {
             int w_ = selecting.getWidth();
             int h_ = selecting.getHeight();
             BufferedImage img_ = new BufferedImage(w_, h_, BufferedImage.TYPE_INT_ARGB);
-            Graphics gr_ = img_.getGraphics();
+            CustGraphics gr_ = new CustGraphics(img_.getGraphics());
             gr_.setFont(selecting.getFont());
             Rect r_ = facade.getSelection();
             gr_.setColor(Color.BLUE);
             gr_.drawRect(r_.getLeft(), r_.getTop(), r_.getWidth(), r_.getHeight());
-            selecting.setIcon(new ImageIcon(img_));
+            selecting.setIcon(img_);
         } else {
             int w_ = selecting.getWidth();
             int h_ = selecting.getHeight();
             BufferedImage img_ = new BufferedImage(w_, h_, BufferedImage.TYPE_INT_ARGB);
-            Graphics gr_ = img_.getGraphics();
+            CustGraphics gr_ = new CustGraphics(img_.getGraphics());
             gr_.setColor(new Color(255,255,255,0));
             gr_.fillRect(0, 0, w_, h_);
-            selecting.setIcon(new ImageIcon(img_));
+            selecting.setIcon(img_);
         }
     }
 
@@ -170,10 +169,7 @@ public class PanelBattle {
         int h_ = parent_.getHeight();
         facade.moveCamera(_pt.x, _pt.y, w_, h_);
         CustPoint curTopLeft_ = facade.getTopLeftPoint();
-        Point pt_ = new Point();
-        pt_.x = -curTopLeft_.getXcoords();
-        pt_.y = -curTopLeft_.getYcoords();
-        container.setLocation(pt_);
+        container.setLocation(-curTopLeft_.getXcoords(),-curTopLeft_.getYcoords());
 //        setLocation(curTopLeft_);
         paintSelection = false;
 //        repaint(-curTopLeft_.x, -curTopLeft_.y, w_, h_);
@@ -204,7 +200,7 @@ public class PanelBattle {
         content.setSize(_dimension);
     }
 
-    public void setLocation(Point _pt) {
-        container.setLocation(_pt);
+    public void setLocation(CustPoint _pt) {
+        container.setLocation(-_pt.getXcoords(),-_pt.getYcoords());
     }
 }

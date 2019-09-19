@@ -26,7 +26,7 @@ public final class SplitPane extends CustComponent {
         return JSplitPane.HORIZONTAL_SPLIT;
     }
     @Override
-    public JComponent getComponent() {
+    protected JComponent getComponent() {
         return component;
     }
 

@@ -4,7 +4,6 @@ import code.expressionlanguage.structs.Struct;
 import code.gui.CustComponent;
 import code.gui.PreparedLabel;
 
-import javax.swing.*;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
@@ -24,12 +23,12 @@ public final class PreparedLabelStruct extends CustComponentStruct {
     }
     public void setImage(Struct text) {
         if (!(text instanceof ImageStruct)) {
-            textLabel.setIcon(new ImageIcon());
+            textLabel.setEmptyIcon();
             width = 0;
             height = 0;
         } else {
             BufferedImage img_ = ((ImageStruct) text).getImage();
-            textLabel.setIcon(new ImageIcon(img_));
+            textLabel.setIcon(img_);
             width = img_.getWidth();
             height = img_.getHeight();
         }

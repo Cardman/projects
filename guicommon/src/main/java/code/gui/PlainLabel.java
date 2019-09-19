@@ -27,7 +27,7 @@ public final class PlainLabel extends CustComponent {
     }
 
     @Override
-    public JComponent getComponent() {
+    protected JComponent getComponent() {
         return label;
     }
 }

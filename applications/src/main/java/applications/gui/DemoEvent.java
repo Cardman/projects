@@ -2,7 +2,6 @@ package applications.gui;
 
 import code.gui.GroupFrame;
 import code.minirts.LaunchingDemo;
-import code.renders.LaunchingRenders;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;

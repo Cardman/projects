@@ -2,7 +2,6 @@ package aiki.gui.components.fight;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FontMetrics;
-import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 import aiki.db.DataBase;
@@ -749,12 +748,12 @@ public class FrontBattle extends PaintableLabel {
                 width_ = strWidth_;
             }
             image = new BufferedImage(width_, hMax_, BufferedImage.TYPE_INT_ARGB);
-            Graphics gr_ = image.getGraphics();
+            CustGraphics gr_ = new CustGraphics(image.getGraphics());
             gr_.setColor(Color.WHITE);
             gr_.fillRect(0, 0, width_, hMax_);
             int x_ = 0;
             for (BufferedImage i: types_.values()) {
-                gr_.drawImage(i, x_, 0, null);
+                gr_.drawImage(i, x_, 0);
                 x_ += i.getWidth();
             }
             gr_.setColor(new Color(Color.BLACK.getRed(), Color.BLACK.getGreen(), Color.BLACK.getBlue(), 255));
@@ -774,8 +773,8 @@ public class FrontBattle extends PaintableLabel {
                     widthVar_ = statSide_;
                 }
                 BufferedImage varStat_ = new BufferedImage(widthVar_, h_ + statSide_, BufferedImage.TYPE_INT_ARGB);
-                Graphics g_ = varStat_.createGraphics();
-                g_.drawImage(t_, 0, 0, null);
+                CustGraphics g_ = new CustGraphics(varStat_.createGraphics());
+                g_.drawImage(t_, 0, 0);
                 g_.setColor(Color.BLACK);
                 g_.drawString(var_, 0, statSide_ + h_);
                 g_.dispose();
@@ -810,12 +809,12 @@ public class FrontBattle extends PaintableLabel {
                 }
                 if (width_ > 0) {
                     image = new BufferedImage(width_, hMax_, BufferedImage.TYPE_INT_ARGB);
-                    Graphics g_ = image.createGraphics();
+                    CustGraphics g_ = new CustGraphics(image.createGraphics());
                     g_.setColor(Color.WHITE);
                     g_.fillRect(0, 0, width_, hMax_);
                     int x_ = 0;
                     for (BufferedImage i: types_) {
-                        g_.drawImage(i, x_, 0, null);
+                        g_.drawImage(i, x_, 0);
                         x_ += i.getWidth();
                     }
                     g_.dispose();

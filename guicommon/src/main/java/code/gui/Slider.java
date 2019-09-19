@@ -72,7 +72,7 @@ public final class Slider extends CustComponent {
         }
     }
     @Override
-    public JComponent getComponent() {
+    protected JComponent getComponent() {
         return slider;
     }
 

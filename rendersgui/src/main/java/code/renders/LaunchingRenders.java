@@ -9,6 +9,7 @@ import code.util.StringList;
 import code.util.StringMap;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.File;
 
 public class LaunchingRenders extends SoftApplicationCore {
@@ -50,7 +51,7 @@ public class LaunchingRenders extends SoftApplicationCore {
         return "renders_sites";
     }
     @Override
-    protected Image getImageIcon() {
+    protected BufferedImage getImageIcon() {
         return null;
     }
 

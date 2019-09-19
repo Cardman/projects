@@ -30,7 +30,7 @@ public class FighterPanel {
         liste = new GraphicList<Fighter>(true);
         facade = _facade;
         container = Panel.newBorder();
-        container.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
+        container.setLoweredBorder();
         title = new TextLabel(_titre, SwingConstants.CENTER);
         container.add(title, BorderLayout.NORTH);
         //On peut slectionner plusieurs elements dans la liste listeCouleurs en

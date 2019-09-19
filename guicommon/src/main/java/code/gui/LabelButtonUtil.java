@@ -3,7 +3,6 @@ package code.gui;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
-import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 import javax.swing.ImageIcon;
@@ -51,7 +50,7 @@ public final class LabelButtonUtil {
         int w_ = fontMetrics_.stringWidth(_text);
         w_ = Math.max(_w, w_);
         BufferedImage img_ = new BufferedImage(w_ + 2, h_ + 2, BufferedImage.TYPE_INT_RGB);
-        Graphics gr_ = img_.createGraphics();
+        CustGraphics gr_ = new CustGraphics(img_.createGraphics());
         gr_.setFont(font_);
         gr_.setColor(_back);
         gr_.fillRect(0, 0, w_ + 2, h_ + 2);
@@ -67,7 +66,7 @@ public final class LabelButtonUtil {
         int h_ = fontMetrics_.getHeight();
         int w_ = fontMetrics_.stringWidth(_text);
         BufferedImage img_ = new BufferedImage(w_ + 2, h_ + 2, BufferedImage.TYPE_INT_RGB);
-        Graphics gr_ = img_.createGraphics();
+        CustGraphics gr_ = new CustGraphics(img_.createGraphics());
         gr_.setFont(font_);
         gr_.setColor(_back);
         gr_.fillRect(0, 0, w_ + 2, h_ + 2);

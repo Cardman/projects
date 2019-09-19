@@ -1,10 +1,8 @@
 package code.gui;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 
-import javax.swing.Action;
-import javax.swing.Icon;
-import javax.swing.JMenuItem;
-import javax.swing.KeyStroke;
+import javax.swing.*;
 
 public final class MenuItem implements EnabledMenu {
 
@@ -16,16 +14,12 @@ public final class MenuItem implements EnabledMenu {
         menu =new JMenuItem();
     }
 
-    public MenuItem(Action _a) {
-        menu =new JMenuItem(_a);
+    public MenuItem(BufferedImage _icon) {
+        menu =new JMenuItem(new ImageIcon(_icon));
     }
 
-    public MenuItem(Icon _icon) {
-        menu =new JMenuItem(_icon);
-    }
-
-    public MenuItem(String _text, Icon _icon) {
-        menu =new JMenuItem(_text, _icon);
+    public MenuItem(String _text, BufferedImage _icon) {
+        menu =new JMenuItem(_text, new ImageIcon(_icon));
     }
 
     public MenuItem(String _text, int _mnemonic) {

@@ -3,13 +3,9 @@ package code.gui.document;
 import java.awt.Cursor;
 import java.awt.image.BufferedImage;
 
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
-
 import code.formathtml.render.MetaAnimatedImage;
 import code.gui.CustComponent;
 import code.gui.PreparedLabel;
-import code.gui.TextLabel;
 import code.gui.ThreadUtil;
 import code.sml.Element;
 import code.util.CustList;
@@ -84,7 +80,7 @@ public final class DualAnimatedImage extends DualImage {
             }
             y_++;
         }
-        getLabel().setIcon(new ImageIcon(imgBuf_));
+        getLabel().setIcon(imgBuf_);
     }
     public String getHref() {
         return href;

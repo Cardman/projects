@@ -377,7 +377,7 @@ public class GraphicList<T> extends CustComponent implements GraphicListable {
     }
 
     @Override
-    public JComponent getComponent() {
+    protected JComponent getComponent() {
         return scroll.getComponent();
     }
 }

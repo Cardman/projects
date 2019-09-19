@@ -1,5 +1,4 @@
 package code.gui;
-import java.awt.Image;
 
 import javax.swing.WindowConstants;
 
@@ -7,6 +6,8 @@ import code.gui.events.LanguageChoice;
 import code.gui.events.SetterLanguage;
 import code.util.StringMap;
 import code.util.consts.Constants;
+
+import java.awt.image.BufferedImage;
 
 public class LanguageFrame extends CommonFrame implements SetterLanguage {
 
@@ -22,7 +23,7 @@ public class LanguageFrame extends CommonFrame implements SetterLanguage {
 
     private String dir;
 
-    LanguageFrame(String _dir, String[] _args, SoftApplicationCore _soft, Image _icon) {
+    LanguageFrame(String _dir, String[] _args, SoftApplicationCore _soft, BufferedImage _icon) {
         super(Constants.getDefaultLanguage());
         dir = _dir;
         if (_icon != null) {
@@ -65,7 +66,7 @@ public class LanguageFrame extends CommonFrame implements SetterLanguage {
     }
 
     @Override
-    public Image getImageIconFrame() {
+    public BufferedImage getImageIconFrame() {
         return null;
     }
 

@@ -66,9 +66,19 @@ public final class DialogHtmlData extends Dialog {
         DIALOG.initSession();
     }
 
-    private void init(MainWindow _window,ChangeableTitle _parent, RenderedPage _session) {
+    private void init(MainWindow _window,Dialog _parent, RenderedPage _session) {
         messages = getMessages(_window,Resources.MESSAGES_FOLDER);
         setLocationRelativeTo(_parent);
+        initSession(_session);
+    }
+
+    private void init(MainWindow _window,MainWindow _parent, RenderedPage _session) {
+        messages = getMessages(_window,Resources.MESSAGES_FOLDER);
+        setLocationRelativeTo(_parent);
+        initSession(_session);
+    }
+
+    private void initSession(RenderedPage _session) {
         session = _session;
         _session.setFrame(this);
         Panel panel_ = Panel.newPageBox();

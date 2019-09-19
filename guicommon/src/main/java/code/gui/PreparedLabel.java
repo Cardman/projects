@@ -2,8 +2,7 @@ package code.gui;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyListener;
-import java.awt.event.MouseListener;
+import java.awt.image.BufferedImage;
 
 public final class PreparedLabel extends CustComponent {
     private JLabel label;
@@ -12,12 +11,16 @@ public final class PreparedLabel extends CustComponent {
         label = new JLabel();
     }
 
-    public PreparedLabel(Icon _icon) {
+    PreparedLabel(Icon _icon) {
         label = new JLabel(_icon);
     }
 
-    public void setIcon(ImageIcon _icon) {
-        label.setIcon(_icon);
+    public void setEmptyIcon() {
+        label.setIcon(new ImageIcon());
+    }
+
+    public void setIcon(BufferedImage _icon) {
+        label.setIcon(new ImageIcon(_icon));
     }
 
     public FontMetrics getFontMetrics(Font _font) {
@@ -34,7 +37,7 @@ public final class PreparedLabel extends CustComponent {
 
 
     @Override
-    public JComponent getComponent() {
+    protected JComponent getComponent() {
         return label;
     }
 

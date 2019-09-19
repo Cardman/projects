@@ -1,5 +1,5 @@
 package code.gui;
-import java.awt.Image;
+import java.awt.image.BufferedImage;
 
 /**This class thread is used by EDT (invokeLater of SwingUtilities),
 Thread safe class*/
@@ -11,11 +11,11 @@ public final class LoadLanguage implements Runnable {
 
     private String[] args;
 
-    private Image icon;
+    private BufferedImage icon;
 
     /**This class thread is used by EDT (invokeLater of SwingUtilities)*/
     public LoadLanguage(String _dir, SoftApplicationCore _application, String[] _args,
-            Image _icon) {
+            BufferedImage _icon) {
         dir = _dir;
         application = _application;
         args = _args;

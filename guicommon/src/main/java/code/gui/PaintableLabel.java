@@ -16,23 +16,15 @@ public abstract class PaintableLabel extends CustComponent {
         int w_ = getWidth();
         int h_ = getHeight();
         BufferedImage img_ = new BufferedImage(w_, h_, BufferedImage.TYPE_INT_ARGB);
-        Graphics gr_ = img_.getGraphics();
+        CustGraphics gr_ = new CustGraphics(img_.getGraphics());
         gr_.setFont(getFont());
-        paintComponent(new CustGraphics(gr_));
-        setIcon(new ImageIcon(img_));
+        paintComponent(gr_);
+        setIcon(img_);
     }
     public abstract void paintComponent(CustGraphics _g);
 
     public void validate() {
         label.validate();
-    }
-
-    public void setSize(Dimension _d) {
-        label.setSize(_d);
-    }
-
-    public Dimension getSize() {
-        return label.getSize();
     }
 
     public void setSize(int _width, int _height) {
@@ -71,12 +63,8 @@ public abstract class PaintableLabel extends CustComponent {
         label.setLocation(_x, _y);
     }
 
-    public void setIcon(Icon _icon) {
-        label.setIcon(_icon);
-    }
-
-    public void setLocation(Point _p) {
-        label.setLocation(_p);
+    public void setIcon(BufferedImage _icon) {
+        label.setIcon(new ImageIcon(_icon));
     }
 
     public FontMetrics getFontMetrics(Font _font) {
@@ -118,7 +106,7 @@ public abstract class PaintableLabel extends CustComponent {
     }
 
     @Override
-    public JComponent getComponent() {
+    protected JComponent getComponent() {
         return label;
     }
 

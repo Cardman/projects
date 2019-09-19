@@ -3,14 +3,12 @@ package code.gui.document;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-import javax.swing.*;
-
 import code.formathtml.render.MetaLabel;
 import code.formathtml.render.MetaStyle;
 import code.formathtml.render.SegmentPart;
 import code.gui.CustComponent;
+import code.gui.CustGraphics;
 import code.gui.PreparedLabel;
-import code.gui.TextLabel;
 import code.util.CustList;
 
 public abstract class DualLabel extends DualLeaf {
@@ -67,7 +65,7 @@ public abstract class DualLabel extends DualLeaf {
             w_ = fontMetrics_.stringWidth(" ");
         }
         BufferedImage img_ = new BufferedImage(w_, h_, BufferedImage.TYPE_INT_RGB);
-        Graphics gr_ = img_.createGraphics();
+        CustGraphics gr_ = new CustGraphics(img_.createGraphics());
         gr_.setFont(copy_);
         gr_.setColor(new Color(style_.getBgColor()));
         gr_.fillRect(0, 0, w_, h_);
@@ -80,7 +78,7 @@ public abstract class DualLabel extends DualLeaf {
         }
         gr_.setColor(new Color(style_.getFgColor()));
         gr_.drawString(text, 0, h_ - 1);
-        label.setIcon(new ImageIcon(img_));
+        label.setIcon(img_);
         gr_.dispose();
     }
 

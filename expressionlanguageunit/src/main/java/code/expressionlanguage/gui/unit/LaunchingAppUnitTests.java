@@ -9,6 +9,7 @@ import code.util.StringList;
 import code.util.StringMap;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.File;
 
 public class LaunchingAppUnitTests extends SoftApplicationCore {
@@ -52,7 +53,7 @@ public class LaunchingAppUnitTests extends SoftApplicationCore {
         return "ug";
     }
     @Override
-    protected Image getImageIcon() {
+    protected BufferedImage getImageIcon() {
         return null;
     }
 

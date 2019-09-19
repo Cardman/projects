@@ -7,6 +7,7 @@ import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelListener;
 
 import javax.swing.*;
+import javax.swing.border.BevelBorder;
 import javax.swing.border.Border;
 
 import code.util.CustList;
@@ -15,7 +16,7 @@ public abstract class CustComponent {
 
     private CustComponent parent;
     private CustList<CustComponent> children = new CustList<CustComponent>();
-    public abstract JComponent getComponent();
+    protected abstract JComponent getComponent();
     public static void invokeLater(Runnable _r) {
         SwingUtilities.invokeLater(_r);
     }
@@ -87,8 +88,24 @@ public abstract class CustComponent {
         return children;
     }
 
-    public void setBorder(Border lineBorder) {
-        getComponent().setBorder(lineBorder);
+    public void setLineBorder(Color _color) {
+        getComponent().setBorder(BorderFactory.createLineBorder(_color,1));
+    }
+
+    public void setLineBorder(Color _color, int _thick) {
+        getComponent().setBorder(BorderFactory.createLineBorder(_color,_thick));
+    }
+
+    public void setTitledBorder(String _title) {
+        getComponent().setBorder(BorderFactory.createTitledBorder(_title));
+    }
+
+    public void setLoweredBorder() {
+        getComponent().setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
+    }
+
+    public void setRaisedBorder() {
+        getComponent().setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
     }
 
     public void setToolTipText(String _title) {
@@ -97,6 +114,14 @@ public abstract class CustComponent {
 
     public void setCursor(Cursor cursor) {
         getComponent().setCursor(cursor);
+    }
+
+    public Dimension getSize() {
+        return getComponent().getSize();
+    }
+
+    public void setSize(Dimension dimension) {
+        getComponent().setSize(dimension);
     }
 
     public Dimension getPreferredSize() {

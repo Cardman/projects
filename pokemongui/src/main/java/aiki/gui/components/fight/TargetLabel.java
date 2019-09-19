@@ -5,6 +5,7 @@ import java.awt.image.BufferedImage;
 import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
 import aiki.fight.enums.Statistic;
+import code.gui.CustGraphics;
 import code.gui.PaintableLabel;
 import code.gui.images.ConverterGraphicBufferedImage;
 import code.maths.LgInt;
@@ -184,12 +185,12 @@ public class TargetLabel {
                 }
                 widthStatis_ += i.getWidth();
             }
-            Graphics g_ = image.createGraphics();
+            CustGraphics g_ = new CustGraphics(image.createGraphics());
             g_.setColor(Color.WHITE);
             g_.fillRect(deltaWidth_, 0, widthStatis_, hMax_);
             int x_ = 0;
             for (BufferedImage i: statistics) {
-                g_.drawImage(i, x_ + deltaWidth_, 0, null);
+                g_.drawImage(i, x_ + deltaWidth_, 0);
                 x_ += i.getWidth();
             }
             BufferedImage image_;
@@ -204,7 +205,7 @@ public class TargetLabel {
                 BufferedImage img_;
                 int[][] b_ = _facade.getData().getMiniItems().getVal(ball);
                 img_ = ConverterGraphicBufferedImage.decodeToImage(b_);
-                g_.drawImage(img_, width_ - img_.getWidth(), 0, null);
+                g_.drawImage(img_, width_ - img_.getWidth(), 0);
                 //h_ += img_.getHeight();
             }
             h_ += heightString_;
@@ -220,7 +221,7 @@ public class TargetLabel {
             red_ = red_ * ((Rate.CENT - rate_) / Rate.CENT);
             g_.setColor(new Color(red_, green_, 0));
             g_.drawString(StringList.concat(percentHp.toNumberString(),PER_CENT), 0, h_);
-            g_.drawImage(image_, 0, delta_, null);
+            g_.drawImage(image_, 0, delta_);
             if (ko) {
                 g_.setColor(Color.RED);
                 g_.drawLine(0, h_, width_, height_);

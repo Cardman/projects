@@ -3,14 +3,11 @@ package code.gui.document;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
-
 import code.formathtml.render.MetaPointForm;
 import code.formathtml.render.MetaPointLabel;
 import code.formathtml.render.MetaStyle;
+import code.gui.CustGraphics;
 import code.gui.PreparedLabel;
-import code.gui.TextLabel;
 
 public final class DualMetaPointLabel extends DualLabel {
 
@@ -31,7 +28,7 @@ public final class DualMetaPointLabel extends DualLabel {
         int h_ = fontMetrics_.getHeight();
         int w_ = h_;
         BufferedImage img_ = new BufferedImage(w_, h_, BufferedImage.TYPE_INT_RGB);
-        Graphics gr_ = img_.createGraphics();
+        CustGraphics gr_ = new CustGraphics(img_.createGraphics());
         gr_.setFont(copy_);
         gr_.setColor(new Color(style_.getBgColor()));
         gr_.fillRect(0, 0, w_, h_);
@@ -45,7 +42,7 @@ public final class DualMetaPointLabel extends DualLabel {
         } else {
             gr_.drawRect(2, 2, w_ - 4, h_ - 4);
         }
-        lab_.setIcon(new ImageIcon(img_));
+        lab_.setIcon(img_);
         gr_.dispose();
     }
 }

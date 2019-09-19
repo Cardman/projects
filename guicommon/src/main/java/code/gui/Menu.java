@@ -1,5 +1,4 @@
 package code.gui;
-import javax.swing.Action;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 
@@ -11,10 +10,6 @@ public final class Menu implements EnabledMenu {
 
     public Menu() {
         menu = new JMenu();
-    }
-
-    public Menu(Action _a) {
-        menu = new JMenu(_a);
     }
 
     public Menu(String _s, boolean _b) {

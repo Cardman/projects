@@ -3,12 +3,8 @@ package code.gui.document;
 import java.awt.Cursor;
 import java.awt.image.BufferedImage;
 
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
-
 import code.formathtml.render.MetaSimpleImage;
 import code.gui.PreparedLabel;
-import code.gui.TextLabel;
 import code.sml.Element;
 
 
@@ -55,7 +51,7 @@ public final class DualSimpleImage extends DualImage {
             }
             y_++;
         }
-        getLabel().setIcon(new ImageIcon(imgBuf_));
+        getLabel().setIcon(imgBuf_);
     }
     public String getHref() {
         return href;

@@ -4,7 +4,6 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 
 import code.util.*;
@@ -49,14 +48,14 @@ public class GraphicCombo extends CustComponent implements WithPopup,GraphicComb
         FontMetrics fontMetrics_ = panel.getFontMetrics(font_);
         int s_ = fontMetrics_.getHeight() + 2;
         BufferedImage img_ = new BufferedImage(s_, s_, BufferedImage.TYPE_INT_RGB);
-        Graphics gr_ = img_.createGraphics();
+        CustGraphics gr_ = new CustGraphics(img_.createGraphics());
         gr_.setColor(Color.WHITE);
         gr_.fillRect(0, 0, s_, s_);
         gr_.setColor(Color.BLACK);
         gr_.fillPolygon(Numbers.wrapIntArray(s_/4,s_*3/4,s_/2), Numbers.wrapIntArray(s_/4,s_/4,s_*3/4), 3);
-        pseudoButton.setIcon(new ImageIcon(img_));
+        pseudoButton.setIcon(img_);
         pseudoButton.addMouseListener(new Popup(this));
-        currentSelected.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        currentSelected.setLineBorder(Color.BLACK);
         gr_.dispose();
         panel.add(currentSelected);
         panel.add(pseudoButton);
@@ -90,13 +89,13 @@ public class GraphicCombo extends CustComponent implements WithPopup,GraphicComb
             FontMetrics fontMetrics_ = panel.getFontMetrics(font_);
             int s_ = fontMetrics_.getHeight() + 2;
             BufferedImage img_ = new BufferedImage(w_, s_, BufferedImage.TYPE_INT_RGB);
-            Graphics gr_ = img_.createGraphics();
+            CustGraphics gr_ = new CustGraphics(img_.createGraphics());
             gr_.setFont(currentSelected.getFont());
             gr_.setColor(Color.WHITE);
             gr_.fillRect(0, 0, w_, s_);
             gr_.setColor(Color.BLACK);
             gr_.drawString(_object, 0, s_ - 1);
-            currentSelected.setIcon(new ImageIcon(img_));
+            currentSelected.setIcon(img_);
         }
     }
 
@@ -192,13 +191,13 @@ public class GraphicCombo extends CustComponent implements WithPopup,GraphicComb
         FontMetrics fontMetrics_ = panel.getFontMetrics(font_);
         int s_ = fontMetrics_.getHeight() + 2;
         BufferedImage img_ = new BufferedImage(w_, s_, BufferedImage.TYPE_INT_RGB);
-        Graphics gr_ = img_.createGraphics();
+        CustGraphics gr_ = new CustGraphics(img_.createGraphics());
         gr_.setFont(currentSelected.getFont());
         gr_.setColor(Color.WHITE);
         gr_.fillRect(0, 0, w_, s_);
         gr_.setColor(Color.BLACK);
         gr_.drawString(selected_, 0, s_ - 1);
-        currentSelected.setIcon(new ImageIcon(img_));
+        currentSelected.setIcon(img_);
     }
 
     public void setNoSelected() {
@@ -207,11 +206,11 @@ public class GraphicCombo extends CustComponent implements WithPopup,GraphicComb
         int s_ = fontMetrics_.getHeight() + 2;
         int w_ = 5;
         BufferedImage img_ = new BufferedImage(w_, s_, BufferedImage.TYPE_INT_RGB);
-        Graphics gr_ = img_.createGraphics();
+        CustGraphics gr_ = new CustGraphics(img_.createGraphics());
         gr_.setFont(currentSelected.getFont());
         gr_.setColor(Color.WHITE);
         gr_.fillRect(0, 0, w_, s_);
-        currentSelected.setIcon(new ImageIcon(img_));
+        currentSelected.setIcon(img_);
     }
 
     @Override
@@ -236,7 +235,7 @@ public class GraphicCombo extends CustComponent implements WithPopup,GraphicComb
     }
 
     @Override
-    public JComponent getComponent() {
+    protected JComponent getComponent() {
         return getPanel().getComponent();
     }
 

@@ -69,10 +69,7 @@ public final class MainWindow extends GroupFrame {
         Panel battlegroundWrapper_ = Panel.newAbsolute();
         battlegroundWrapper_.add(battleground.getContainer());
         CustPoint cust_ = facade.getTopLeftPoint();
-        Point pt_ = new Point();
-        pt_.x = -cust_.getXcoords();
-        pt_.y = -cust_.getYcoords();
-        battleground.setLocation(pt_);
+        battleground.setLocation(cust_);
 //        battleground.setLocation(facade.getTopLeftPoint());
         battlegroundWrapper_.setPreferredSize(new Dimension(256, 256));
         scene_.add(battlegroundWrapper_, BorderLayout.CENTER);

@@ -54,7 +54,7 @@ public final class TreeGui extends CustComponent {
         }
     }
     @Override
-    public JComponent getComponent() {
+    protected JComponent getComponent() {
         return tree;
     }
 

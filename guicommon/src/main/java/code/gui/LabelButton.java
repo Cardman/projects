@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.FontMetrics;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseListener;
+import java.awt.image.BufferedImage;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -42,16 +43,16 @@ public class LabelButton extends CustComponent {
 
     public LabelButton() {
         label = new JLabel();
-        label.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+        setLineBorder(Color.BLACK, 1);
         label.setCursor(new Cursor(Cursor.HAND_CURSOR));
         label.setOpaque(true);
         label.setForeground(DEFAULT_FOREGROUND);
         label.setBackground(Color.WHITE);
     }
 
-    public LabelButton(ImageIcon _imageIcon) {
-        label = new JLabel(_imageIcon);
-        label.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+    public LabelButton(BufferedImage _imageIcon) {
+        label = new JLabel(new ImageIcon(_imageIcon));
+        setLineBorder(Color.BLACK, 1);
         label.setCursor(new Cursor(Cursor.HAND_CURSOR));
     }
 
@@ -101,7 +102,7 @@ public class LabelButton extends CustComponent {
     }
 
     @Override
-    public JComponent getComponent() {
+    protected JComponent getComponent() {
         return label;
     }
 

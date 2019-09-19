@@ -30,7 +30,7 @@ public class TmPanel {
         liste = new GraphicList<String>(true);
         facade = _facade;
         container = Panel.newBorder();
-        container.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
+        container.setLoweredBorder();
         TextLabel titrePanneau_ = new TextLabel(_titre, SwingConstants.CENTER);
         container.add(titrePanneau_, BorderLayout.NORTH);
         //On peut slectionner plusieurs elements dans la liste listeCouleurs en

@@ -9,6 +9,7 @@ import code.util.StringList;
 import code.util.StringMap;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.File;
 
 public class LaunchingDemo extends SoftApplicationCore {
@@ -54,7 +55,7 @@ public class LaunchingDemo extends SoftApplicationCore {
     }
 
     @Override
-    protected Image getImageIcon() {
+    protected BufferedImage getImageIcon() {
         return null;
     }
 

@@ -169,23 +169,11 @@ public final class Panel extends CustComponent {
     }
 
     public void setLocation(int _x, int _y) {
-        panel.setLocation(_x, _y);
-    }
-
-    public void setLocation(Point _p) {
-        panel.setLocation(_p);
-    }
-
-    public Dimension getSize() {
-        return panel.getSize();
+        panel.setLocation(new Point(_x, _y));
     }
 
     public void setSize(int _width, int _height) {
         panel.setSize(_width, _height);
-    }
-
-    public void setSize(Dimension _d) {
-        panel.setSize(_d);
     }
 
     public void setForeground(Color _fg) {
@@ -210,7 +198,7 @@ public final class Panel extends CustComponent {
     }
 
     @Override
-    public JComponent getComponent() {
+    protected JComponent getComponent() {
         return panel;
     }
 

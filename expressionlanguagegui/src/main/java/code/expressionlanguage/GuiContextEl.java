@@ -71,9 +71,6 @@ public final class GuiContextEl extends RunnableContextEl {
         return mainArgs;
     }
 
-    public boolean matchMain(WindowEvent _event) {
-        return frame.getCommonFrame().getComponent() == _event.getWindow();
-    }
     public IntStruct stringWidth(FontStruct _font, Struct _string) {
         if (!(_string instanceof StringStruct)) {
             return new IntStruct(-1);
