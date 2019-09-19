@@ -114,6 +114,10 @@ public class LgNamesGui extends LgNamesUtils {
     private String aliasCompGetFirstPos;
     private String aliasCompGetSecondPos;
     private String aliasCompLoc;
+    private String aliasCompBorLine;
+    private String aliasCompBorTitle;
+    private String aliasCompBorLower;
+    private String aliasCompBorRaise;
     private String aliasAddKeyListener;
     private String aliasKeyListener;
     private String aliasKeyPressed;
@@ -499,6 +503,21 @@ public class LgNamesGui extends LgNamesUtils {
         methods_.put(method_.getId(), method_);
         params_ = new StringList(getAliasPrimInteger(),getAliasPrimInteger());
         method_ = new StandardMethod(aliasCompLoc, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasColor);
+        method_ = new StandardMethod(aliasCompBorLine, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasColor,getAliasPrimInteger());
+        method_ = new StandardMethod(aliasCompBorLine, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasString());
+        method_ = new StandardMethod(aliasCompBorTitle, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasCompBorLower, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasCompBorRaise, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
 
         params_ = new StringList();
@@ -2402,6 +2421,31 @@ public class LgNamesGui extends LgNamesUtils {
             }
             if (StringList.quickEq(name_, aliasCompLoc)) {
                 inst_.setLocation(_args[0],_args[1]);
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasCompBorLine)) {
+                if (_method.getConstraints().getParametersTypes().size() == 1) {
+                    inst_.setLineBorder(_args[0]);
+                    res_.setResult(NullStruct.NULL_VALUE);
+                    return res_;
+                }
+                inst_.setLineBorder(_args[0],_args[1]);
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasCompBorTitle)) {
+                inst_.setTitledBorder(_args[0]);
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasCompBorLower)) {
+                inst_.setLoweredBorder();
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasCompBorRaise)) {
+                inst_.setRaisedBorder();
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
@@ -5600,6 +5644,38 @@ public class LgNamesGui extends LgNamesUtils {
         this.aliasCompLoc = aliasCompLoc;
     }
 
+    public String getAliasCompBorLine() {
+        return aliasCompBorLine;
+    }
+
+    public void setAliasCompBorLine(String aliasCompBorLine) {
+        this.aliasCompBorLine = aliasCompBorLine;
+    }
+
+    public String getAliasCompBorTitle() {
+        return aliasCompBorTitle;
+    }
+
+    public void setAliasCompBorTitle(String aliasCompBorTitle) {
+        this.aliasCompBorTitle = aliasCompBorTitle;
+    }
+
+    public String getAliasCompBorLower() {
+        return aliasCompBorLower;
+    }
+
+    public void setAliasCompBorLower(String aliasCompBorLower) {
+        this.aliasCompBorLower = aliasCompBorLower;
+    }
+
+    public String getAliasCompBorRaise() {
+        return aliasCompBorRaise;
+    }
+
+    public void setAliasCompBorRaise(String aliasCompBorRaise) {
+        this.aliasCompBorRaise = aliasCompBorRaise;
+    }
+
     public String getAliasAddKeyListener() {
         return aliasAddKeyListener;
     }
@@ -6788,6 +6864,10 @@ public class LgNamesGui extends LgNamesUtils {
             setAliasCompOpaque("opaque");
             setAliasCompToolTip("tooltip");
             setAliasCompLoc("loc");
+            setAliasCompBorLine("line");
+            setAliasCompBorLower("lower");
+            setAliasCompBorRaise("raise");
+            setAliasCompBorTitle("title");
             setAliasKeyListener("$core.KeyListener");
             setAliasKeyPressed("keyPressed");
             setAliasKeyTyped("keyTyped");
@@ -7157,6 +7237,10 @@ public class LgNamesGui extends LgNamesUtils {
             setAliasCompOpaque("opaque");
             setAliasCompToolTip("infobulle");
             setAliasCompLoc("lieu");
+            setAliasCompBorLine("ligne");
+            setAliasCompBorLower("bas");
+            setAliasCompBorRaise("haut");
+            setAliasCompBorTitle("titre");
             setAliasKeyPressed("presse");
             setAliasKeyTyped("tape");
             setAliasKeyReleased("relache");
@@ -7538,7 +7622,11 @@ public class LgNamesGui extends LgNamesUtils {
                 getAliasCompGetSecondPos(),
                 getAliasCompOpaque(),
                 getAliasCompToolTip(),
-                getAliasCompLoc()
+                getAliasCompLoc(),
+                getAliasCompBorLine(),
+                getAliasCompBorLower(),
+                getAliasCompBorRaise(),
+                getAliasCompBorTitle()
         ));
         m_.put(getAliasDimension(), new StringList(
                 getAliasDimensionGetHeight(),

@@ -58,6 +58,35 @@ public abstract class CustComponentStruct implements Struct {
         parentComponent = NullStruct.NULL_VALUE;
     }
 
+    public void setLineBorder(Struct _color) {
+        if (!(_color instanceof ColorStruct)) {
+            return;
+        }
+        getComponent().setLineBorder(((ColorStruct)_color).getColor());
+    }
+
+    public void setLineBorder(Struct _color, Struct _thick) {
+        if (!(_color instanceof ColorStruct)) {
+            return;
+        }
+        getComponent().setLineBorder(((ColorStruct)_color).getColor(),((NumberStruct)_thick).intStruct());
+    }
+
+    public void setTitledBorder(Struct _title) {
+        if (!(_title instanceof StringStruct)) {
+            return;
+        }
+        getComponent().setTitledBorder(((StringStruct)_title).getInstance());
+    }
+
+    public void setLoweredBorder() {
+        getComponent().setLoweredBorder();
+    }
+
+    public void setRaisedBorder() {
+        getComponent().setRaisedBorder();
+    }
+
     public Struct getToolTipText() {
         String t_ = getVisibleComponent().getToolTipText();
         if (t_ == null) {
