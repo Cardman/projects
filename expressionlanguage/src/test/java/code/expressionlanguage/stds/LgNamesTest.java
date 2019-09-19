@@ -1487,4 +1487,46 @@ public class LgNamesTest {
         assertEq("first_arg", args_.get(0));
         assertEq("second\\arg", args_.get(1));
     }
+    @Test
+    public void parseLineArg7Test() {
+        StringList args_ = LgNames.parseLineArg("first\\narg second_arg");
+        assertEq(2, args_.size());
+        assertEq("first\narg", args_.get(0));
+        assertEq("second_arg", args_.get(1));
+    }
+    @Test
+    public void parseLineArg8Test() {
+        StringList args_ = LgNames.parseLineArg("first_arg second\\narg");
+        assertEq(2, args_.size());
+        assertEq("first_arg", args_.get(0));
+        assertEq("second\narg", args_.get(1));
+    }
+    @Test
+    public void parseLineArg9Test() {
+        StringList args_ = LgNames.parseLineArg("first\\earg second_arg");
+        assertEq(2, args_.size());
+        assertEq("first arg", args_.get(0));
+        assertEq("second_arg", args_.get(1));
+    }
+    @Test
+    public void parseLineArg10Test() {
+        StringList args_ = LgNames.parseLineArg("first_arg second\\earg");
+        assertEq(2, args_.size());
+        assertEq("first_arg", args_.get(0));
+        assertEq("second arg", args_.get(1));
+    }
+    @Test
+    public void parseLineArg11Test() {
+        StringList args_ = LgNames.parseLineArg("first\\targ second_arg");
+        assertEq(2, args_.size());
+        assertEq("first\targ", args_.get(0));
+        assertEq("second_arg", args_.get(1));
+    }
+    @Test
+    public void parseLineArg12Test() {
+        StringList args_ = LgNames.parseLineArg("first_arg second\\targ");
+        assertEq(2, args_.size());
+        assertEq("first_arg", args_.get(0));
+        assertEq("second\targ", args_.get(1));
+    }
 }

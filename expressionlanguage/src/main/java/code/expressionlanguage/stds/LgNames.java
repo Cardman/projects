@@ -71,6 +71,21 @@ public abstract class LgNames {
             char cur_ = _line.charAt(i_);
             if (escaped_) {
                 escaped_ = false;
+                if (cur_ == 'n') {
+                    arg_.append('\n');
+                    i_++;
+                    continue;
+                }
+                if (cur_ == 'e') {
+                    arg_.append(' ');
+                    i_++;
+                    continue;
+                }
+                if (cur_ == 't') {
+                    arg_.append('\t');
+                    i_++;
+                    continue;
+                }
                 arg_.append(cur_);
                 i_++;
                 continue;
