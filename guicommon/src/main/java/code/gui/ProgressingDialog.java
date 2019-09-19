@@ -35,12 +35,12 @@ public abstract class ProgressingDialog extends Dialog implements ProgressDialog
 
     private AnimatedImage animation;
 
-    public void init(Iconifiable _window, CustList<BufferedImage> _images, boolean _setVisibility) {
+    public void init(CommonFrame _window, CustList<BufferedImage> _images, boolean _setVisibility) {
         if (_window != null) {
             setDialogIcon(_window);
         }
         perCent = PER_CENT;
-        setLocationRelativeToWindow(_window);
+        setLocationRelativeTo(_window);
         Panel contentPane_ = Panel.newPageBox();
         Panel label_ = Panel.newLineBox();
         if (!_images.isEmpty()) {

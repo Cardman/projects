@@ -135,6 +135,7 @@ public class LgNamesGui extends LgNamesUtils {
     private String aliasDialogIsModal;
     private String aliasDialogSetModal;
     private String aliasWindowType;
+    private String aliasWindowTypeRelative;
     private String aliasRemoveWindowListener;
     private String aliasGetWindowListeners;
     private String aliasPanel;
@@ -404,6 +405,9 @@ public class LgNamesGui extends LgNamesUtils {
         stdcl_ = new StandardClass(aliasWindowType, fields_, constructors_, methods_, getAliasObject(), MethodModifier.FINAL);
         params_ = new StringList(aliasPanel);
         method_ = new StandardMethod(aliasSetContent, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasObject());
+        method_ = new StandardMethod(aliasWindowTypeRelative, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasPack, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
@@ -2326,6 +2330,11 @@ public class LgNamesGui extends LgNamesUtils {
             }
             if (StringList.quickEq(name_, aliasPack)) {
                 inst_.pack();
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasWindowTypeRelative)) {
+                inst_.setLocationRelativeTo(_args[0]);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
@@ -4564,6 +4573,14 @@ public class LgNamesGui extends LgNamesUtils {
 
     public void setAliasWindowType(String aliasWindowType) {
         this.aliasWindowType = aliasWindowType;
+    }
+
+    public String getAliasWindowTypeRelative() {
+        return aliasWindowTypeRelative;
+    }
+
+    public void setAliasWindowTypeRelative(String aliasWindowTypeRelative) {
+        this.aliasWindowTypeRelative = aliasWindowTypeRelative;
     }
 
     public String getAliasRemoveWindowListener() {
@@ -7115,6 +7132,7 @@ public class LgNamesGui extends LgNamesUtils {
             setAliasDialogIsModal("isModal");
             setAliasDialogSetModal("setModal");
             setAliasWindowType("$core.Window");
+            setAliasWindowTypeRelative("rel");
             setAliasRemoveWindowListener("removeWindowListener");
             setAliasGetWindowListeners("getWindowListeners");
             setAliasPanel("$core.Panel");
@@ -7479,6 +7497,7 @@ public class LgNamesGui extends LgNamesUtils {
             setAliasDialogIsModal("estModale");
             setAliasDialogSetModal("majModale");
             setAliasWindowType("$coeur.AbsFenetre");
+            setAliasWindowTypeRelative("rel");
             setAliasRemoveWindowListener("supprFenetreEcout");
             setAliasGetWindowListeners("valFenetreEcouts");
             setAliasPanel("$coeur.Panneau");
@@ -7763,6 +7782,7 @@ public class LgNamesGui extends LgNamesUtils {
                 getAliasRemoveWindowListener(),
                 getAliasGetWindowListeners(),
                 getAliasDispose(),
+                getAliasWindowTypeRelative(),
                 getAliasIsVisible(),
                 getAliasSetVisible(),
                 getAliasSetContent(),

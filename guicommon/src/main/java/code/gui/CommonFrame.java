@@ -32,14 +32,6 @@ public abstract class CommonFrame implements ChangeableTitle,WithListener {
         frame.dispose();
     }
 
-    public void setLocationRelativeTo(CommonFrame _c) {
-        if (_c == null) {
-            frame.setLocationRelativeTo(null);
-        } else {
-            frame.setLocationRelativeTo(_c.getFrame());
-        }
-    }
-
     public void requestFocus() {
         frame.requestFocus();
     }
@@ -152,6 +144,31 @@ public abstract class CommonFrame implements ChangeableTitle,WithListener {
 
     public void setVisible(boolean _b) {
         frame.setVisible(_b);
+    }
+
+    @Override
+    public void setLocationRelativeTo(CustComponent _c) {
+        if (_c != null) {
+            frame.setLocationRelativeTo(_c.getComponent());
+        } else {
+            frame.setLocationRelativeTo(null);
+        }
+    }
+
+    @Override
+    public void setLocationRelativeToNull() {
+        frame.setLocationRelativeTo(null);
+    }
+
+    @Override
+    public void setLocationRelativeTo(WithListener c) {
+        if (c instanceof CommonFrame) {
+            frame.setLocationRelativeTo(((CommonFrame)c).getComponent());
+        } else if (c instanceof OtherDialog) {
+            frame.setLocationRelativeTo(((OtherDialog)c).getComponent());
+        } else {
+            frame.setLocationRelativeTo(null);
+        }
     }
 
     @Override

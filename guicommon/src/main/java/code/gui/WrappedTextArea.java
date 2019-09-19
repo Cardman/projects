@@ -1,5 +1,4 @@
 package code.gui;
-import java.awt.Color;
 
 import javax.swing.JComponent;
 import javax.swing.JTextArea;

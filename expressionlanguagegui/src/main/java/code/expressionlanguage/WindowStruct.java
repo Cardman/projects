@@ -2,6 +2,7 @@ package code.expressionlanguage;
 
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
+import code.gui.CustComponent;
 import code.gui.Panel;
 import code.gui.WithListener;
 
@@ -32,7 +33,15 @@ public abstract class WindowStruct implements Struct {
     protected abstract WithListener getAbstractWindow();
 
     public abstract void pack();
-
+    void setLocationRelativeTo(Struct _c){
+        if (_c instanceof CustComponentStruct) {
+            getAbstractWindow().setLocationRelativeTo(((CustComponentStruct)_c).getComponent());
+        } else if (_c instanceof WindowStruct) {
+            getAbstractWindow().setLocationRelativeTo(((WindowStruct)_c).getAbstractWindow());
+        } else {
+            getAbstractWindow().setLocationRelativeToNull();
+        }
+    }
     public boolean isVisible() {
         return getAbstractWindow().isVisible();
     }

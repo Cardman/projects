@@ -58,8 +58,10 @@ public abstract class Dialog implements ChangeableTitle {
     }
 
     public void setLocationRelativeToWindow(Iconifiable _i) {
-        if (_i instanceof Component) {
-            dialog.setLocationRelativeTo((Component)_i);
+        if (_i instanceof CommonFrame) {
+            setLocationRelativeTo((CommonFrame) _i);
+        } else if (_i instanceof Dialog) {
+            setLocationRelativeTo((Dialog) _i);
         }
     }
 

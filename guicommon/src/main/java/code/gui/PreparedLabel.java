@@ -15,6 +15,10 @@ public final class PreparedLabel extends CustComponent {
         label = new JLabel(_icon);
     }
 
+    PreparedLabel(BufferedImage _icon) {
+        label = new JLabel(new ImageIcon(_icon));
+    }
+
     public void setEmptyIcon() {
         label.setIcon(new ImageIcon());
     }

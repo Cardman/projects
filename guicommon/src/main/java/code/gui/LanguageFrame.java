@@ -45,7 +45,7 @@ public class LanguageFrame extends CommonFrame implements SetterLanguage {
         }
         setContentPane(panneau_);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
+        setLocationRelativeToNull();
         setVisible(true);
         pack();
     }

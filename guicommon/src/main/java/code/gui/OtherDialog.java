@@ -34,6 +34,31 @@ public final class OtherDialog implements ChangeableTitle,WithListener {
     }
 
     @Override
+    public void setLocationRelativeTo(CustComponent _c) {
+        if (_c != null) {
+            dialog.setLocationRelativeTo(_c.getComponent());
+        } else {
+            dialog.setLocationRelativeTo(null);
+        }
+    }
+
+    @Override
+    public void setLocationRelativeTo(WithListener c) {
+        if (c instanceof CommonFrame) {
+            dialog.setLocationRelativeTo(((CommonFrame)c).getComponent());
+        } else if (c instanceof OtherDialog) {
+            dialog.setLocationRelativeTo(((OtherDialog)c).getComponent());
+        } else {
+            dialog.setLocationRelativeTo(null);
+        }
+    }
+
+    @Override
+    public void setLocationRelativeToNull() {
+        dialog.setLocationRelativeTo(null);
+    }
+
+    @Override
     public boolean isVisible() {
         return dialog.isVisible();
     }
