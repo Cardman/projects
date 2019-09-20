@@ -8,6 +8,7 @@ import code.gui.*;
 import code.gui.Panel;
 import code.gui.events.QuittingEvent;
 import code.minirts.LaunchingDemo;
+import code.player.main.LaunchingPlayer;
 import code.renders.LaunchingRenders;
 import code.util.CustList;
 import code.util.StringList;
@@ -26,6 +27,7 @@ public final class MainWindow extends GroupFrame {
     private LabelButton buttonTests;
     private LabelButton buttonRenders;
     private LabelButton buttonDemo;
+    private LabelButton buttonPlayer;
 
     private CustButtonGroup group = new CustButtonGroup();
 
@@ -61,6 +63,11 @@ public final class MainWindow extends GroupFrame {
         buttonDemo.addMouseListener(new DemoEvent(this));
         lineDemo_.add(buttonDemo);
         panel_.add(lineDemo_);
+        Panel linePlayer_ = Panel.newLineBox();
+        buttonPlayer = new LabelButton(LaunchingPlayer.getIcon());
+        buttonPlayer.addMouseListener(new PlayerEvent(this));
+        linePlayer_.add(buttonPlayer);
+        panel_.add(linePlayer_);
         panel_.add(new Clock());
         for (String l: Constants.getAvailableLanguages()) {
             RadioButton radio_ = new RadioButton(Constants.getDisplayLanguage(l));
@@ -93,6 +100,9 @@ public final class MainWindow extends GroupFrame {
             nb_++;
         }
         if (LaunchingDemo.alreadyLaunched()) {
+            nb_++;
+        }
+        if (LaunchingPlayer.alreadyLaunched()) {
             nb_++;
         }
         if (nb_ > CustList.SIZE_EMPTY) {

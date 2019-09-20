@@ -1,4 +1,4 @@
-package player.gui;
+package code.player.gui;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FontMetrics;

@@ -1,4 +1,4 @@
-package player.gui;
+package code.player.gui;
 import javax.sound.sampled.LineEvent;
 import javax.sound.sampled.LineListener;
 

@@ -1,6 +1,5 @@
-package player.gui;
+package code.player.gui;
 import java.awt.Dimension;
-import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 import javax.sound.sampled.LineEvent;
@@ -9,11 +8,10 @@ import javax.swing.Timer;
 import javax.swing.WindowConstants;
 
 import code.gui.*;
-import code.gui.images.ConverterGraphicBufferedImage;
-import code.images.BaseSixtyFourUtil;
+import code.gui.events.QuittingEvent;
 import code.maths.montecarlo.AbMonteCarlo;
+import code.player.main.LaunchingPlayer;
 import code.resources.ClipStream;
-import code.resources.ResourceFiles;
 import code.sml.Document;
 import code.sml.DocumentBuilder;
 import code.sml.Element;
@@ -34,7 +32,6 @@ public class MainWindow extends GroupFrame {
     private static final String START = "start";
     private static final String CLOSE = "close";
     private static final String STOP_EVT = "stop";
-    private static final String ICON = "player.txt";
     private static final String TITLE_PLAYER = "titlePlayer";
     private static final String SONGS = "songs";
     private static final String RANDOM = "random";
@@ -51,6 +48,8 @@ public class MainWindow extends GroupFrame {
     private static final String SPACE = " ";
     private static final String REL_SEP = " / ";
     private static final String PAUSE = "||";
+    private static final String KEY_PAUSE = "pause";
+    private static final String ATTR_VALUE = "value";
     private static final String MEDIA = "media";
     private static final String SRC = "src";
     private static final String STOP = "[]";
@@ -63,14 +62,10 @@ public class MainWindow extends GroupFrame {
     private static final String WAV = ".wav";
     private static final String TXT = ".txt";
     private static final int SECOND_MILLIS = 1000;
-    private static final short LIMIT_ASCII = 128;
-    private static final String BEGIN_ESC = "&#";
 
-    private static final String END_ESC = ";";
     private static final int FIRST_DIGIT = '0';
     private static final int FIRST_LOW_LETTER = 'a';
     private static final int FIRST_UPP_LETTER = 'A';
-    private static final short BYTE = 256;
     private static final byte SIXTY_FOUR_BITS = 64;
     private static final byte SIXTEEN_BITS = 16;
     private static final byte FOUR_BITS = 4;
@@ -99,16 +94,17 @@ public class MainWindow extends GroupFrame {
     private boolean playSong;
     private int lastFrame;
     private StringList songsList = new StringList();
+    private String contentList = "";
 
     private CustButtonGroup group = new CustButtonGroup();
 
     private CustList<RadioButton> radios = new CustList<RadioButton>();
 
-    public MainWindow(String _lg,String[] _args) {
+    public MainWindow(String _lg) {
         super(_lg);
         initMessages(_lg);
         setTitle(_messages_.getVal(TITLE_PLAYER));
-        setIconImage(getImage());
+        setIconImage(LaunchingPlayer.getIcon());
         Panel pane_ = Panel.newPageBox();
         songsLabel.setText(_messages_.getVal(SONGS));
         pane_.add(songsLabel);
@@ -126,24 +122,6 @@ public class MainWindow extends GroupFrame {
         actions_.add(playNext);
         stop.addMouseListener(new StopSong(this));
         actions_.add(stop);
-        if (_args.length > 1) {
-            //a list
-            for (String s: _args) {
-                if (!s.endsWith(TXT)) {
-                    if (!s.endsWith(WAV)) {
-                        continue;
-                    }
-                }
-                songs.append(s+LINE_RETURN);
-            }
-        } else {
-            //one or zero files
-            if (_args.length == 1) {
-                if (_args[0].endsWith(WAV) || _args[0].endsWith(TXT) || _args[0].endsWith(WPL)) {
-                    songs.append(_args[0]);
-                }
-            }
-        }
         pane_.add(actions_);
         ScrollPane scr_ = new ScrollPane(songRend);
         scr_.setPreferredSize(new Dimension(100, 60));
@@ -162,21 +140,28 @@ public class MainWindow extends GroupFrame {
         setContentPane(pane_);
         pack();
         setVisible(true);
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+        addWindowListener(new QuittingEvent(this));
+    }
+
+    @Override
+    public void dispose() {
+        saveState();
+        LaunchingPlayer.decrement();
+        super.dispose();
+    }
+
+    public void loadList(String _fileName) {
+        songs.append(_fileName);
+        String txt_ = StreamTextFile.contentsOfFile(_fileName);
+        Document doc_ = DocumentBuilder.parseSax(txt_);
+        if (doc_ != null) {
+            playOrPause(true);
+        }
     }
 
     public static void initMessages(String _lg) {
         _messages_ = ExtractFromFiles.getMessagesFromLocaleClass(RESOURCES_FOLDER,_lg, ACCESS);
-    }
-
-    private static BufferedImage getImage() {
-        BufferedImage image_ = null;
-        try {
-            String file_ = ResourceFiles.ressourceFichier(RESOURCES_FOLDER+StreamTextFile.SEPARATEUR+ ICON);
-            image_ = ConverterGraphicBufferedImage.decodeToImage(BaseSixtyFourUtil.getImageByString(file_));
-        } catch (RuntimeException _0) {
-        }
-        return image_;
     }
 
     public void playOrPause(boolean _click) {
@@ -236,25 +221,6 @@ public class MainWindow extends GroupFrame {
                 } else if (songsList.get(noSong).endsWith(WPL)) {
                     //.wpl
                     String txt_ = StreamTextFile.contentsOfFile(songsList.get(noSong));
-                    txt_ = StringList.replace(txt_, WPL_HEADER, XML_HEADER);
-                    int endHeader_ = txt_.indexOf(XML_END_HEADER);
-                    if (endHeader_ < 0) {
-                        endHeader_ = 0;
-                    } else {
-                        endHeader_ += 2;
-                    }
-                    txt_ = txt_.substring(endHeader_);
-                    StringBuilder escapedXml_ = new StringBuilder();
-                    for (char c: txt_.toCharArray()) {
-                        if (c >= LIMIT_ASCII) {
-                            escapedXml_.append(BEGIN_ESC);
-                            escapedXml_.append((int)c);
-                            escapedXml_.append(END_ESC);
-                        } else {
-                            escapedXml_.append(c);
-                        }
-                    }
-                    txt_ = escapedXml_.toString();
                     Document doc_ = DocumentBuilder.parseSax(txt_);
                     ElementList e_ = doc_.getElementsByTagName(MEDIA);
                     int len_ = e_.getLength();
@@ -274,13 +240,31 @@ public class MainWindow extends GroupFrame {
                         ConfirmDialog.showMessage(this,_messages_.getVal(CANNOT_READ_MESSAGE_WPL),_messages_.getVal(CANNOT_READ_TITLE),getLanguageKey(),JOptionPane.ERROR_MESSAGE);
                         return;
                     }
-                    if (random.isSelected()) {
+                    ElementList elts_ = doc_.getDocumentElement().getChildElements();
+                    boolean applyRand_ = true;
+                    if (elts_.getLength() > 0 && StringList.quickEq(KEY_PAUSE,elts_.get(0).getTagName())) {
+                        String txtCont_ = elts_.get(0).getAttribute(ATTR_VALUE);
+                        int paused_ = Numbers.parseInt(txtCont_);
+                        if (songsList.isValidIndex(paused_)) {
+                            noSong = paused_;
+                            applyRand_ = false;
+                        }
+                    }
+                    if (applyRand_ && random.isSelected()) {
                         StringList songsList_ = new StringList();
                         for (String o: suffledSongsNames(songsList)) {
                             songsList_.add(o);
                         }
                         songsList = songsList_;
                     }
+                    Document list_ = DocumentBuilder.newXmlDocument();
+                    Element mainDoc_ = list_.createElement("smil");
+                    for (String s: songsList) {
+                        Element elt_ = list_.createElement(MEDIA);
+                        elt_.setAttribute(SRC,s);
+                        mainDoc_.appendChild(elt_);
+                    }
+                    contentList = mainDoc_.export();
                     ClipStream c_;
                     if (songsList.get(noSong).endsWith(WAV)) {
                         c_ = StreamSoundFile.openClip(StreamBinaryFile.loadFile(songsList.get(noSong)));
@@ -330,6 +314,7 @@ public class MainWindow extends GroupFrame {
             }
         } else {
             if (clipStream.getClip().isRunning()) {
+                saveState();
                 lastFrame = clipStream.getClip().getFramePosition();
                 pausing = true;
                 clipStream.getClip().stop();
@@ -344,6 +329,24 @@ public class MainWindow extends GroupFrame {
             }
 
         }
+    }
+
+    void saveState() {
+        if (songsList.isEmpty()) {
+            return;
+        }
+        Document list_ = DocumentBuilder.newXmlDocument();
+        Element mainDoc_ = list_.createElement("smil");
+        Element pause_ = list_.createElement(KEY_PAUSE);
+        pause_.setAttribute(ATTR_VALUE,Integer.toString(noSong));
+        mainDoc_.appendChild(pause_);
+        for (String s: songsList) {
+            Element elt_ = list_.createElement(MEDIA);
+            elt_.setAttribute(SRC,s);
+            mainDoc_.appendChild(elt_);
+        }
+        contentList = mainDoc_.export();
+        StreamTextFile.saveTextFile("last.wpl",contentList);
     }
 
     public static StringList suffledSongsNames(StringList _list) {

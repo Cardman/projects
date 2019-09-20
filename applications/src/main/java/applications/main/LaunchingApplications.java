@@ -15,6 +15,8 @@ import code.expressionlanguage.GuiProcess;
 import code.expressionlanguage.gui.unit.LaunchingAppUnitTests;
 import code.gui.*;
 import code.minirts.LaunchingDemo;
+import code.player.SongList;
+import code.player.main.LaunchingPlayer;
 import code.renders.LaunchingRenders;
 import code.sml.Document;
 import code.sml.DocumentBuilder;
@@ -64,6 +66,10 @@ public class LaunchingApplications extends SoftApplicationCore {
             } else if (readObject_ instanceof LoadingGame || readObject_ instanceof Game) {
                 launchWindow(_language);
                 LaunchingPokemon launch_ = new LaunchingPokemon();
+                launch_.launchWithoutLanguage(_language, _args);
+            } else if (readObject_ instanceof SongList) {
+                launchWindow(_language);
+                LaunchingPlayer launch_ = new LaunchingPlayer();
                 launch_.launchWithoutLanguage(_language, _args);
             } else if (readObject_ instanceof Document) {
                 launchWindow(_language);
@@ -144,6 +150,11 @@ public class LaunchingApplications extends SoftApplicationCore {
         if (loadingGame_ == null) {
             Document doc_ = DocumentBuilder.parseNoTextDocument(file_);
             if (doc_ != null) {
+                if (StringList.quickEq("smil",  doc_.getDocumentElement().getTagName())) {
+                    SongList list_ = new SongList();
+                    list_.addSongs(doc_);
+                    return list_;
+                }
                 return doc_;
             }
             return file_;

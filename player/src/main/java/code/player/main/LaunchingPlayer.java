@@ -1,0 +1,86 @@
+package code.player.main;
+
+
+import code.gui.ConstFiles;
+import code.gui.LoadLanguage;
+import code.gui.SoftApplicationCore;
+import code.gui.ThreadInvoker;
+import code.gui.images.ConverterGraphicBufferedImage;
+import code.images.BaseSixtyFourUtil;
+import code.resources.ResourceFiles;
+import code.player.gui.CreateMainWindow;
+import code.stream.StreamTextFile;
+import code.util.StringList;
+import code.util.StringMap;
+
+import java.awt.image.BufferedImage;
+import java.io.File;
+
+public class LaunchingPlayer extends SoftApplicationCore {
+
+    private static final String RESOURCES_FOLDER = "resources_player";
+    private static final String ICON = "player.txt";
+    private static final String TEMP_FOLDER = "playersongs";
+
+    private static int _nbInstances_;
+
+    protected static void loadLaungage(String[] _args) {
+        ThreadInvoker.invokeNow(new LoadLanguage(getTempFolder(), new LaunchingPlayer(), _args, null));
+    }
+
+    @Override
+    public Object getObject(String _fileName) {
+        return null;
+    }
+
+    @Override
+    public void launchWithoutLanguage(String _language, StringMap<Object> _args) {
+        launch(_language, _args);
+    }
+
+    @Override
+    protected void launch(String _language, StringMap<Object> _args) {
+        ThreadInvoker.invokeNow(new CreateMainWindow(_language,_args));
+    }
+
+    public static void increment() {
+        _nbInstances_++;
+    }
+
+    public static void decrement() {
+        _nbInstances_--;
+    }
+
+    public static boolean alreadyLaunched() {
+        return _nbInstances_ > 0;
+    }
+
+    public static String getMainWindowClass() {
+        return "musicplayer";
+    }
+
+    @Override
+    protected BufferedImage getImageIcon() {
+        return getIcon();
+    }
+
+    public static BufferedImage getIcon() {
+        BufferedImage image_ = null;
+        try {
+            String file_ = ResourceFiles.ressourceFichier(RESOURCES_FOLDER+StreamTextFile.SEPARATEUR+ ICON);
+            image_ = ConverterGraphicBufferedImage.decodeToImage(BaseSixtyFourUtil.getImageByString(file_));
+        } catch (RuntimeException _0) {
+        }
+        return image_;
+    }
+
+    public static String getTempFolderSl() {
+        return StringList.concat(getTempFolder(), StreamTextFile.SEPARATEUR);
+    }
+
+    public static String getTempFolder() {
+        new File(StringList.concat(ConstFiles.getTmpUserFolderSl(),TEMP_FOLDER)).mkdirs();
+        return StringList.concat(ConstFiles.getTmpUserFolderSl(),TEMP_FOLDER);
+    }
+}
+

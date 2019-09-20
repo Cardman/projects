@@ -3,8 +3,8 @@
 					http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>applicationspro</groupId>
-	<artifactId>applicationspro</artifactId>
+	<groupId>playerpro</groupId>
+	<artifactId>playerpro</artifactId>
 	<version>2.0</version>
 	<packaging>pom</packaging>
     <properties>
@@ -16,12 +16,8 @@
     </properties>
 	<modules>
 		<module>../coreproject</module>
-		<module>../pokemongroup</module>
-		<module>../cardsgroup</module>
-		<module>../rtsdemo</module>
 		<module>../player</module>
-		<module>../applications</module>
-		<module>../applicationsmain</module>
+		<module>../playermain</module>
 	</modules>
 	<build>
         <plugins>

@@ -1,4 +1,4 @@
-package player.gui;
+package code.player.gui;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 

@@ -3,13 +3,13 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-       <groupId>applicationspro</groupId>
-        <artifactId>applicationspro</artifactId>
+       <groupId>playerpro</groupId>
+        <artifactId>playerpro</artifactId>
         <version>2.0</version>
-        <relativePath>../applicationsproject</relativePath>
+        <relativePath>../playerproject</relativePath>
     </parent>
-	<groupId>applicationsmain</groupId>
-	<artifactId>applicationsmain</artifactId>
+	<groupId>playermain</groupId>
+	<artifactId>playermain</artifactId>
 	<version>1.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
@@ -17,7 +17,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 	<build>
-		<finalName>Applications</finalName>
+		<finalName>Player</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -38,7 +38,7 @@
 				<configuration>
 					<archive>
 						<manifest>
-							<mainClass>applications.main.MainClass</mainClass>
+							<mainClass>code.player.main.MainClass</mainClass>
 							<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
 							<addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
 						</manifest>
@@ -58,13 +58,14 @@
 						</goals>
 						<configuration>
 							<headerType>gui</headerType>
-							<jar>${project.build.directory}/Applications.jar</jar>
-							<outfile>${project.build.directory}/Applications.exe</outfile>
+							<jar>${project.build.directory}/Player.jar</jar>
+							<outfile>${project.build.directory}/Player.exe</outfile>
 							<downloadUrl>http://java.com/download</downloadUrl>
 							<classPath>
-								<mainClass>applications.main.MainClass</mainClass>
+								<mainClass>code.player.main.MainClass</mainClass>
 								<preCp>anything</preCp>
 							</classPath>
+							<icon>resources_player/player.ico</icon>
 							<jre>
 								<path>jre</path>
 								<opts>
@@ -79,8 +80,8 @@
 	</build>
 	<dependencies>
 		<dependency>
-			<groupId>applications</groupId>
-			<artifactId>applications</artifactId>
+			<groupId>player</groupId>
+			<artifactId>player</artifactId>
 			<version>1.0-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
