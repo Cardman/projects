@@ -36,8 +36,28 @@ public final class PopupStruct extends CustComponentStruct {
                     return;
                 }
             }
+            (((CustComponentStruct) global)).setParentComponent(this);
             compo.add((CustComponentStruct) global);
             popupMenu.add(((CustComponentStruct)global).getComponent());
+        }
+    }
+
+    public void remove(Struct global) {
+        if (global instanceof CustComponentStruct) {
+            int i_ = 0;
+            int index_ = -1;
+            for (CustComponentStruct a: compo) {
+                if (a.sameReference(global)) {
+                    index_ = i_;
+                    break;
+                }
+                i_++;
+            }
+            if (index_ < 0) {
+                return;
+            }
+            compo.remove(index_);
+            popupMenu.remove(((CustComponentStruct)global).getComponent());
         }
     }
     Struct getCompo(Struct _index) {
@@ -67,6 +87,30 @@ public final class PopupStruct extends CustComponentStruct {
                 popupMenu.add(((MenuItemStruct)global).getComponent());
             } else {
                 popupMenu.add(((MenuItemCheckStruct)global).getComponent());
+            }
+        }
+    }
+    public void removeMenu(Struct global) {
+        if (global instanceof AbsMenuStruct) {
+            int i_ = 0;
+            int index_ = -1;
+            for (CustComponentStruct a: compo) {
+                if (a.sameReference(global)) {
+                    index_ = i_;
+                    break;
+                }
+                i_++;
+            }
+            if (index_ < 0) {
+                return;
+            }
+            menus.remove(index_);
+            if (global instanceof MenuStruct) {
+                popupMenu.remove(((MenuStruct)global).getComponent());
+            } else if (global instanceof MenuItemStruct) {
+                popupMenu.remove(((MenuItemStruct)global).getComponent());
+            } else {
+                popupMenu.remove(((MenuItemCheckStruct)global).getComponent());
             }
         }
     }

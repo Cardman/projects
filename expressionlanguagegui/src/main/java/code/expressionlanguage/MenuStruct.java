@@ -37,6 +37,34 @@ public final class MenuStruct extends AbsMenuStruct {
         }
     }
 
+    public void remove(Struct _c) {
+        if (_c instanceof AbsMenuStruct) {
+            int i_ = 0;
+            int index_ = -1;
+            for (AbsMenuStruct a: menus) {
+                if (a.sameReference(_c)) {
+                    index_ = i_;
+                    break;
+                }
+                i_++;
+            }
+            if (index_ < 0) {
+                return;
+            }
+            (((AbsMenuStruct) _c)).setParentMenu(NullStruct.NULL_VALUE);
+            if (_c instanceof MenuStruct) {
+                menu.removeMenuItem(((MenuStruct)_c).getComponent());
+                menus.remove(index_);
+            } else if (_c instanceof MenuItemStruct) {
+                menu.removeMenuItem(((MenuItemStruct)_c).getComponent());
+                menus.remove(index_);
+            } else if (_c instanceof MenuItemCheckStruct) {
+                menu.removeMenuItem(((MenuItemCheckStruct)_c).getComponent());
+                menus.remove(index_);
+            }
+        }
+    }
+
     public Struct getMenu(Struct _index) {
         if (!menus.isValidIndex(((NumberStruct)_index).intStruct())) {
             return NullStruct.NULL_VALUE;

@@ -43,12 +43,25 @@ public final class Menu implements EnabledMenu {
         _menuItem.setParentMenu(this);
         menu.add(_menuItem.getMenu());
     }
-    JMenu getMenu() {
-        return menu;
-    }
     public void addMenuItem(Menu _menuItem) {
         _menuItem.setParentMenu(this);
         menu.add(_menuItem.menu);
+    }
+
+    public void removeMenuItem(CheckBoxMenuItem _menuItem) {
+        _menuItem.setParentMenu(null);
+        menu.remove(_menuItem.getMenu());
+    }
+    public void removeMenuItem(MenuItem _menuItem) {
+        _menuItem.setParentMenu(null);
+        menu.remove(_menuItem.getMenu());
+    }
+    public void removeMenuItem(Menu _menuItem) {
+        _menuItem.setParentMenu(null);
+        menu.remove(_menuItem.menu);
+    }
+    JMenu getMenu() {
+        return menu;
     }
     @Override
     public void setEnabled(boolean _enabled) {

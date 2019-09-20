@@ -24,4 +24,7 @@ public final class MenuBar {
         return menus.size();
     }
 
+    public void remove(Menu _component) {
+        menuBar.remove(_component.getMenu());
+    }
 }

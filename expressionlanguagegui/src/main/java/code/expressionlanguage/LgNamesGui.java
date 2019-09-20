@@ -326,9 +326,11 @@ public class LgNamesGui extends LgNamesUtils {
     private String aliasPopupMenu;
     private String aliasPopupMenuAdd;
     private String aliasPopupMenuGetComp;
+    private String aliasPopupMenuRemoveComp;
     private String aliasPopupMenuNbComp;
     private String aliasPopupMenuAddMenu;
     private String aliasPopupMenuGetMenu;
+    private String aliasPopupMenuRemoveMenu;
     private String aliasPopupMenuNbMenu;
     private String aliasPopupMenuShow;
     private String aliasTextField;
@@ -383,6 +385,7 @@ public class LgNamesGui extends LgNamesUtils {
     private String aliasMenuBar;
     private String aliasMenuBarAdd;
     private String aliasMenuBarGet;
+    private String aliasMenuBarRemove;
     private String aliasMenuBarNb;
     private String aliasAbsMenu;
     private String aliasAbsMenuGetParent;
@@ -394,6 +397,7 @@ public class LgNamesGui extends LgNamesUtils {
     private String aliasMenu;
     private String aliasMenuAdd;
     private String aliasMenuGet;
+    private String aliasMenuRemove;
     private String aliasMenuNb;
     private String aliasMenuAddSeparator;
     private String aliasAbsMenuItem;
@@ -1340,6 +1344,9 @@ public class LgNamesGui extends LgNamesUtils {
         params_ = new StringList(aliasMenu);
         method_ = new StandardMethod(aliasMenuBarAdd, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasMenu);
+        method_ = new StandardMethod(aliasMenuBarRemove, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
         params_ = new StringList(getAliasPrimInteger());
         method_ = new StandardMethod(aliasMenuBarGet, params_, aliasMenu, false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
@@ -1376,6 +1383,9 @@ public class LgNamesGui extends LgNamesUtils {
         stdcl_ = new StandardClass(aliasMenu, fields_, constructors_, methods_, aliasAbsMenu, MethodModifier.FINAL);
         params_ = new StringList(aliasAbsMenu);
         method_ = new StandardMethod(aliasMenuAdd, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasAbsMenu);
+        method_ = new StandardMethod(aliasMenuRemove, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(getAliasPrimInteger());
         method_ = new StandardMethod(aliasMenuGet, params_, aliasAbsMenu, false, MethodModifier.FINAL, stdcl_);
@@ -1586,6 +1596,9 @@ public class LgNamesGui extends LgNamesUtils {
         params_ = new StringList(getAliasPrimInteger());
         method_ = new StandardMethod(aliasPopupMenuGetComp, params_, aliasComponent, false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasComponent);
+        method_ = new StandardMethod(aliasPopupMenuRemoveComp, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasPopupMenuNbComp, params_, getAliasPrimInteger(), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
@@ -1594,6 +1607,9 @@ public class LgNamesGui extends LgNamesUtils {
         methods_.put(method_.getId(), method_);
         params_ = new StringList(getAliasPrimInteger());
         method_ = new StandardMethod(aliasPopupMenuGetMenu, params_, aliasAbsMenu, false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasAbsMenu);
+        method_ = new StandardMethod(aliasPopupMenuRemoveMenu, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasPopupMenuNbMenu, params_, getAliasPrimInteger(), false, MethodModifier.FINAL, stdcl_);
@@ -3691,6 +3707,11 @@ public class LgNamesGui extends LgNamesUtils {
                 res_.setResult(inst_.getCompo(_args[0]));
                 return res_;
             }
+            if (StringList.quickEq(name_, aliasPopupMenuRemoveComp)) {
+                inst_.remove(_args[0]);
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
             if (StringList.quickEq(name_, aliasPopupMenuNbComp)) {
                 res_.setResult(inst_.getCompoCount());
                 return res_;
@@ -3702,6 +3723,11 @@ public class LgNamesGui extends LgNamesUtils {
             }
             if (StringList.quickEq(name_, aliasPopupMenuGetMenu)) {
                 res_.setResult(inst_.getMenu(_args[0]));
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasPopupMenuRemoveMenu)) {
+                inst_.removeMenu(_args[0]);
+                res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
             if (StringList.quickEq(name_, aliasPopupMenuNbMenu)) {
@@ -3891,6 +3917,11 @@ public class LgNamesGui extends LgNamesUtils {
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
+            if (StringList.quickEq(name_, aliasMenuBarRemove)) {
+                inst_.remove(_args[0]);
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
             if (StringList.quickEq(name_, aliasMenuBarGet)) {
                 res_.setResult(inst_.getMenu(_args[0]));
                 return res_;
@@ -3930,6 +3961,11 @@ public class LgNamesGui extends LgNamesUtils {
             MenuStruct inst_ = (MenuStruct) _instance;
             if (StringList.quickEq(name_, aliasMenuAdd)) {
                 inst_.add(_args[0]);
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasMenuRemove)) {
+                inst_.remove(_args[0]);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
@@ -6606,6 +6642,14 @@ public class LgNamesGui extends LgNamesUtils {
         this.aliasPopupMenuGetComp = aliasPopupMenuGetComp;
     }
 
+    public String getAliasPopupMenuRemoveComp() {
+        return aliasPopupMenuRemoveComp;
+    }
+
+    public void setAliasPopupMenuRemoveComp(String aliasPopupMenuRemoveComp) {
+        this.aliasPopupMenuRemoveComp = aliasPopupMenuRemoveComp;
+    }
+
     public String getAliasPopupMenuNbComp() {
         return aliasPopupMenuNbComp;
     }
@@ -6628,6 +6672,14 @@ public class LgNamesGui extends LgNamesUtils {
 
     public void setAliasPopupMenuGetMenu(String aliasPopupMenuGetMenu) {
         this.aliasPopupMenuGetMenu = aliasPopupMenuGetMenu;
+    }
+
+    public String getAliasPopupMenuRemoveMenu() {
+        return aliasPopupMenuRemoveMenu;
+    }
+
+    public void setAliasPopupMenuRemoveMenu(String aliasPopupMenuRemoveMenu) {
+        this.aliasPopupMenuRemoveMenu = aliasPopupMenuRemoveMenu;
     }
 
     public String getAliasPopupMenuNbMenu() {
@@ -7062,6 +7114,14 @@ public class LgNamesGui extends LgNamesUtils {
         this.aliasMenuBarGet = aliasMenuBarGet;
     }
 
+    public String getAliasMenuBarRemove() {
+        return aliasMenuBarRemove;
+    }
+
+    public void setAliasMenuBarRemove(String aliasMenuBarRemove) {
+        this.aliasMenuBarRemove = aliasMenuBarRemove;
+    }
+
     public String getAliasMenuBarNb() {
         return aliasMenuBarNb;
     }
@@ -7116,6 +7176,14 @@ public class LgNamesGui extends LgNamesUtils {
 
     public void setAliasMenuGet(String aliasMenuGet) {
         this.aliasMenuGet = aliasMenuGet;
+    }
+
+    public String getAliasMenuRemove() {
+        return aliasMenuRemove;
+    }
+
+    public void setAliasMenuRemove(String aliasMenuRemove) {
+        this.aliasMenuRemove = aliasMenuRemove;
     }
 
     public String getAliasMenuNb() {
@@ -7523,8 +7591,10 @@ public class LgNamesGui extends LgNamesUtils {
             setAliasPopupMenuAdd("add");
             setAliasPopupMenuAddMenu("addMenu");
             setAliasPopupMenuGetComp("comp");
+            setAliasPopupMenuRemoveComp("removeComp");
             setAliasPopupMenuNbComp("nbComps");
             setAliasPopupMenuGetMenu("menu");
+            setAliasPopupMenuRemoveMenu("removeMenu");
             setAliasPopupMenuNbMenu("nbMenus");
             setAliasPopupMenuShow("show");
 //            setAliasTextFieldAuto();
@@ -7572,6 +7642,7 @@ public class LgNamesGui extends LgNamesUtils {
             setAliasMenuBar("$core.MenuBar");
             setAliasMenuBarAdd("add");
             setAliasMenuBarGet("get");
+            setAliasMenuBarRemove("remove");
             setAliasMenuBarNb("nb");
             setAliasAbsMenu("$core.AbsMenu");
             setAliasAbsMenuGetParent("getParent");
@@ -7583,6 +7654,7 @@ public class LgNamesGui extends LgNamesUtils {
             setAliasMenu("$core.Menu");
             setAliasMenuAdd("add");
             setAliasMenuGet("get");
+            setAliasMenuRemove("remove");
             setAliasMenuNb("nb");
             setAliasMenuAddSeparator("addSeparator");
             setAliasAbsMenuItem("$core.AbsMenuItem");
@@ -7898,8 +7970,10 @@ public class LgNamesGui extends LgNamesUtils {
             setAliasPopupMenuAdd("ajout");
             setAliasPopupMenuAddMenu("ajMenu");
             setAliasPopupMenuGetComp("comp");
+            setAliasPopupMenuRemoveComp("supprComp");
             setAliasPopupMenuNbComp("nbComps");
             setAliasPopupMenuGetMenu("menu");
+            setAliasPopupMenuRemoveMenu("supprMenu");
             setAliasPopupMenuNbMenu("nbMenus");
             setAliasPopupMenuShow("afficher");
 //            setAliasTextFieldAuto();
@@ -7947,6 +8021,7 @@ public class LgNamesGui extends LgNamesUtils {
             setAliasMenuBar("$coeur.BarreMenu");
             setAliasMenuBarAdd("ajout");
             setAliasMenuBarGet("val");
+            setAliasMenuBarRemove("suppr");
             setAliasMenuBarNb("nb");
             setAliasAbsMenu("$coeur.MenuAbs");
             setAliasAbsMenuGetParent("valParent");
@@ -7958,6 +8033,7 @@ public class LgNamesGui extends LgNamesUtils {
             setAliasMenu("$coeur.Menu");
             setAliasMenuAdd("ajout");
             setAliasMenuGet("val");
+            setAliasMenuRemove("suppr");
             setAliasMenuNb("nb");
             setAliasMenuAddSeparator("ajSeparateur");
             setAliasAbsMenuItem("$coeur.MenuEltAbs");
@@ -8242,8 +8318,10 @@ public class LgNamesGui extends LgNamesUtils {
                 getAliasPopupMenuAdd(),
                 getAliasPopupMenuAddMenu(),
                 getAliasPopupMenuGetComp(),
+                getAliasPopupMenuRemoveComp(),
                 getAliasPopupMenuNbComp(),
                 getAliasPopupMenuGetMenu(),
+                getAliasPopupMenuRemoveMenu(),
                 getAliasPopupMenuNbMenu(),
                 getAliasPopupMenuShow())
         );
@@ -8366,6 +8444,7 @@ public class LgNamesGui extends LgNamesUtils {
         m_.put(getAliasMenuBar(),new StringList(
                 getAliasMenuBarAdd(),
                 getAliasMenuBarGet(),
+                getAliasMenuBarRemove(),
                 getAliasMenuBarNb()
         ));
         m_.put(getAliasAbsMenu(),new StringList(
@@ -8379,6 +8458,7 @@ public class LgNamesGui extends LgNamesUtils {
         m_.put(getAliasMenu(),new StringList(
                 getAliasMenuAdd(),
                 getAliasMenuGet(),
+                getAliasMenuRemove(),
                 getAliasMenuNb(),
                 getAliasMenuAddSeparator()
         ));

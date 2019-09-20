@@ -32,4 +32,16 @@ public final class PopupMenu extends CustComponent {
     public void add(CheckBoxMenuItem global) {
         popupMenu.add(global.getMenu());
     }
+    public void remove(CustComponent global) {
+        popupMenu.remove(global.getComponent());
+    }
+    public void remove(Menu global) {
+        popupMenu.remove(global.getMenu());
+    }
+    public void remove(MenuItem global) {
+        popupMenu.remove(global.getMenu());
+    }
+    public void remove(CheckBoxMenuItem global) {
+        popupMenu.remove(global.getMenu());
+    }
 }

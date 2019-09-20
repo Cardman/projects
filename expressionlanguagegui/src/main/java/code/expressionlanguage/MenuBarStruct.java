@@ -17,8 +17,32 @@ public final class MenuBarStruct implements Struct {
 
     public void add(Struct _c) {
         if (_c instanceof MenuStruct) {
+            for (AbsMenuStruct a: menus) {
+                if (a.sameReference(_c)) {
+                    return;
+                }
+            }
             menuBar.add(((MenuStruct)_c).getComponent());
             menus.add((MenuStruct) _c);
+        }
+    }
+
+    public void remove(Struct _c) {
+        if (_c instanceof MenuStruct) {
+            int i_ = 0;
+            int index_ = -1;
+            for (AbsMenuStruct a: menus) {
+                if (a.sameReference(_c)) {
+                    index_ = i_;
+                    break;
+                }
+                i_++;
+            }
+            if (index_ < 0) {
+                return;
+            }
+            menuBar.remove(((MenuStruct)_c).getComponent());
+            menus.remove(index_);
         }
     }
 
