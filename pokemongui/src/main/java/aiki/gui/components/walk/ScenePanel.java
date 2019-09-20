@@ -304,9 +304,6 @@ public class ScenePanel {
 
     private LabelButton buttonInteract;
 
-    private WrappedTextArea commentsWalking;
-    private ScrollPane commentsWalkingScroll;
-
     private Pad pad;
 
     private TextLabel time;
@@ -833,10 +830,6 @@ public class ScenePanel {
         fish = new LabelButton(messages.getVal(FISH));
         fish.addMouseListener(new FishingEvent(this));
         interaction.add(fish);
-        commentsWalking = new WrappedTextArea(4, 32);
-        commentsWalking.setEditable(false);
-        commentsWalkingScroll = new ScrollPane(commentsWalking);
-        //interaction.add(new JScrollPane(commentsWalking));
     }
 
     public void interactScene() {
@@ -1728,9 +1721,11 @@ public class ScenePanel {
         if (_text.isEmpty()) {
             return;
         }
-        commentsWalking.setText(_text);
         String lg_ = window.getLanguageKey();
-        ConfirmDialog.showComponent(window, commentsWalkingScroll, messages.getVal(TITLE_COMMENTS), lg_, _messageType);
+        WrappedTextArea commentsWalking_ = new WrappedTextArea(4, 32);
+        commentsWalking_.setEditable(false);
+        commentsWalking_.setText(_text);
+        ConfirmDialog.showComponent(window, new ScrollPane(commentsWalking_), messages.getVal(TITLE_COMMENTS), lg_, _messageType);
     }
 
     public Scene getScene() {

@@ -9,6 +9,7 @@ import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
 import code.expressionlanguage.variables.VariableSuffix;
+import code.gui.OtherConfirmDialog;
 import code.gui.OtherFrame;
 import code.gui.OtherDialog;
 import code.resources.ResourceFiles;
@@ -131,6 +132,16 @@ public class LgNamesGui extends LgNamesUtils {
     private String aliasKeyEventIsAlt;
     private String aliasKeyEventIsCtrl;
 
+    private String aliasConfirm;
+    private String aliasConfirmMessage;
+    private String aliasConfirmField;
+    private String aliasConfirmOk;
+    private String aliasConfirmYesNo;
+    private String aliasConfirmFull;
+    private String aliasConfirmFieldOk;
+    private String aliasConfirmFieldCancel;
+    private String aliasConfirmFieldYes;
+    private String aliasConfirmFieldNo;
     private String aliasFrame;
     private String aliasDialog;
     private String aliasDialogIsModal;
@@ -430,6 +441,48 @@ public class LgNamesGui extends LgNamesUtils {
         methods_.put(method_.getId(), method_);
         std_ = stdcl_;
         getStandards().put(aliasWindowType, std_);
+
+        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        constructors_ = new CustList<StandardConstructor>();
+        fields_ = new StringMap<StandardField>();
+        stdcl_ = new StandardClass(aliasConfirm, fields_, constructors_, methods_, getAliasObject(), MethodModifier.ABSTRACT);
+        params_ = new StringList(aliasImage,aliasWindowType,getAliasString(),getAliasString(),getAliasString(),getAliasString(),getAliasString());
+        method_ = new StandardMethod(aliasConfirmField, params_, getAliasString(), false, MethodModifier.STATIC, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasWindowType,getAliasString(),getAliasString(),getAliasString(),getAliasString(),getAliasString());
+        method_ = new StandardMethod(aliasConfirmField, params_, getAliasString(), false, MethodModifier.STATIC, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasImage,aliasWindowType,getAliasString(),getAliasString(),getAliasString(),getAliasString(),getAliasString());
+        method_ = new StandardMethod(aliasConfirmFull, params_, getAliasPrimInteger(), false, MethodModifier.STATIC, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasWindowType,getAliasString(),getAliasString(),getAliasString(),getAliasString(),getAliasString());
+        method_ = new StandardMethod(aliasConfirmFull, params_, getAliasPrimInteger(), false, MethodModifier.STATIC, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasImage,aliasWindowType,getAliasString(),getAliasString(),getAliasString(),getAliasString());
+        method_ = new StandardMethod(aliasConfirmYesNo, params_, getAliasPrimInteger(), false, MethodModifier.STATIC, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasWindowType,getAliasString(),getAliasString(),getAliasString(),getAliasString());
+        method_ = new StandardMethod(aliasConfirmYesNo, params_, getAliasPrimInteger(), false, MethodModifier.STATIC, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasImage,aliasWindowType,getAliasString(),getAliasString(),getAliasString());
+        method_ = new StandardMethod(aliasConfirmOk, params_, getAliasPrimInteger(), false, MethodModifier.STATIC, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasWindowType,getAliasString(),getAliasString(),getAliasString());
+        method_ = new StandardMethod(aliasConfirmOk, params_, getAliasPrimInteger(), false, MethodModifier.STATIC, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasImage,aliasWindowType,getAliasString(),getAliasString(),getAliasString());
+        method_ = new StandardMethod(aliasConfirmMessage, params_, getAliasVoid(), false, MethodModifier.STATIC, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasWindowType,getAliasString(),getAliasString(),getAliasString());
+        method_ = new StandardMethod(aliasConfirmMessage, params_, getAliasVoid(), false, MethodModifier.STATIC, stdcl_);
+        methods_.put(method_.getId(), method_);
+        fields_.add(aliasConfirmFieldOk,new StandardField(aliasConfirmFieldOk,getAliasPrimInteger(),true,true,stdcl_));
+        fields_.add(aliasConfirmFieldYes,new StandardField(aliasConfirmFieldYes,getAliasPrimInteger(),true,true,stdcl_));
+        fields_.add(aliasConfirmFieldNo,new StandardField(aliasConfirmFieldNo,getAliasPrimInteger(),true,true,stdcl_));
+        fields_.add(aliasConfirmFieldCancel,new StandardField(aliasConfirmFieldCancel,getAliasPrimInteger(),true,true,stdcl_));
+        std_ = stdcl_;
+        getStandards().put(aliasConfirm, std_);
+
         methods_ = new ObjectMap<MethodId, StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new StringMap<StandardField>();
@@ -1778,6 +1831,24 @@ public class LgNamesGui extends LgNamesUtils {
 
     @Override
     public ResultErrorStd getSimpleResult(Analyzable _conf, ClassField _classField) {
+        if (StringList.quickEq(_classField.getClassName(),aliasConfirm)) {
+            ResultErrorStd res_ = new ResultErrorStd();
+            String fieldName_ = _classField.getFieldName();
+            if (StringList.quickEq(fieldName_,aliasConfirmFieldOk)) {
+                res_.setResult(new IntStruct(OtherConfirmDialog.OK_OPTION));
+                return res_;
+            }
+            if (StringList.quickEq(fieldName_,aliasConfirmFieldYes)) {
+                res_.setResult(new IntStruct(OtherConfirmDialog.YES_OPTION));
+                return res_;
+            }
+            if (StringList.quickEq(fieldName_,aliasConfirmFieldNo)) {
+                res_.setResult(new IntStruct(OtherConfirmDialog.NO_OPTION));
+                return res_;
+            }
+            res_.setResult(new IntStruct(OtherConfirmDialog.CANCEL_OPTION));
+            return res_;
+        }
         if (StringList.quickEq(_classField.getClassName(),aliasPanelBorder)) {
             ResultErrorStd res_ = new ResultErrorStd();
             String fieldName_ = _classField.getFieldName();
@@ -2371,6 +2442,53 @@ public class LgNamesGui extends LgNamesUtils {
             if (_args[0] instanceof PanelStruct) {
                 inst_.setContentPane(((PanelStruct)_args[0]).getPanel());
             }
+            res_.setResult(NullStruct.NULL_VALUE);
+            return res_;
+        }
+        if (StringList.quickEq(type_, aliasConfirm)) {
+            if (_cont.isInitEnums()) {
+                _cont.failInitEnums();
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasConfirmField)) {
+                if (_method.getConstraints().getParametersTypes().size() == 7) {
+                    res_.setResult(((GuiContextEl)_cont).showTextField(_args[0],_args[1],_args[2],_args[3],_args[4],_args[5],_args[6]));
+                    return res_;
+                }
+                res_.setResult(((GuiContextEl)_cont).showTextField(_args[0],_args[1],_args[2],_args[3],_args[4],_args[5]));
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasConfirmFull)) {
+                if (_method.getConstraints().getParametersTypes().size() == 7) {
+                    res_.setResult(((GuiContextEl)_cont).getAnswer(_args[0],_args[1],_args[2],_args[3],_args[4],_args[5],_args[6]));
+                    return res_;
+                }
+                res_.setResult(((GuiContextEl)_cont).getAnswer(_args[0],_args[1],_args[2],_args[3],_args[4],_args[5]));
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasConfirmYesNo)) {
+                if (_method.getConstraints().getParametersTypes().size() == 6) {
+                    res_.setResult(((GuiContextEl)_cont).getAnswerYesNo(_args[0],_args[1],_args[2],_args[3],_args[4],_args[5]));
+                    return res_;
+                }
+                res_.setResult(((GuiContextEl)_cont).getAnswerYesNo(_args[0],_args[1],_args[2],_args[3],_args[4]));
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasConfirmOk)) {
+                if (_method.getConstraints().getParametersTypes().size() == 5) {
+                    res_.setResult(((GuiContextEl)_cont).getAnswerOk(_args[0],_args[1],_args[2],_args[3],_args[4]));
+                    return res_;
+                }
+                res_.setResult(((GuiContextEl)_cont).getAnswerOk(_args[0],_args[1],_args[2],_args[3]));
+                return res_;
+            }
+            if (_method.getConstraints().getParametersTypes().size() == 5) {
+                ((GuiContextEl)_cont).showMessage(_args[0],_args[1],_args[2],_args[3],_args[4]);
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            ((GuiContextEl)_cont).showMessage(_args[0],_args[1],_args[2],_args[3]);
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
@@ -4534,6 +4652,86 @@ public class LgNamesGui extends LgNamesUtils {
 
     public void setAliasTableAddSelect(String aliasTableAddSelect) {
         this.aliasTableAddSelect = aliasTableAddSelect;
+    }
+
+    public String getAliasConfirm() {
+        return aliasConfirm;
+    }
+
+    public void setAliasConfirm(String aliasConfirm) {
+        this.aliasConfirm = aliasConfirm;
+    }
+
+    public String getAliasConfirmMessage() {
+        return aliasConfirmMessage;
+    }
+
+    public void setAliasConfirmMessage(String aliasConfirmMessage) {
+        this.aliasConfirmMessage = aliasConfirmMessage;
+    }
+
+    public String getAliasConfirmField() {
+        return aliasConfirmField;
+    }
+
+    public void setAliasConfirmField(String aliasConfirmField) {
+        this.aliasConfirmField = aliasConfirmField;
+    }
+
+    public String getAliasConfirmOk() {
+        return aliasConfirmOk;
+    }
+
+    public void setAliasConfirmOk(String aliasConfirmOk) {
+        this.aliasConfirmOk = aliasConfirmOk;
+    }
+
+    public String getAliasConfirmYesNo() {
+        return aliasConfirmYesNo;
+    }
+
+    public void setAliasConfirmYesNo(String aliasConfirmYesNo) {
+        this.aliasConfirmYesNo = aliasConfirmYesNo;
+    }
+
+    public String getAliasConfirmFull() {
+        return aliasConfirmFull;
+    }
+
+    public void setAliasConfirmFull(String aliasConfirmFull) {
+        this.aliasConfirmFull = aliasConfirmFull;
+    }
+
+    public String getAliasConfirmFieldOk() {
+        return aliasConfirmFieldOk;
+    }
+
+    public void setAliasConfirmFieldOk(String aliasConfirmFieldOk) {
+        this.aliasConfirmFieldOk = aliasConfirmFieldOk;
+    }
+
+    public String getAliasConfirmFieldCancel() {
+        return aliasConfirmFieldCancel;
+    }
+
+    public void setAliasConfirmFieldCancel(String aliasConfirmFieldCancel) {
+        this.aliasConfirmFieldCancel = aliasConfirmFieldCancel;
+    }
+
+    public String getAliasConfirmFieldYes() {
+        return aliasConfirmFieldYes;
+    }
+
+    public void setAliasConfirmFieldYes(String aliasConfirmFieldYes) {
+        this.aliasConfirmFieldYes = aliasConfirmFieldYes;
+    }
+
+    public String getAliasConfirmFieldNo() {
+        return aliasConfirmFieldNo;
+    }
+
+    public void setAliasConfirmFieldNo(String aliasConfirmFieldNo) {
+        this.aliasConfirmFieldNo = aliasConfirmFieldNo;
     }
 
     public String getAliasFrame() {
@@ -7128,6 +7326,16 @@ public class LgNamesGui extends LgNamesUtils {
             setAliasAddWindowListener("addWindowListener");
             setAliasListSelection("$core.ListSelection");
             setAliasValueChanged("valueChanged");
+            setAliasConfirm("$core.Confirm");
+            setAliasConfirmField("field");
+            setAliasConfirmFull("yesNoCancel");
+            setAliasConfirmYesNo("yesNo");
+            setAliasConfirmMessage("message");
+            setAliasConfirmOk("ok");
+            setAliasConfirmFieldCancel("CANCEL");
+            setAliasConfirmFieldOk("OK");
+            setAliasConfirmFieldNo("NO");
+            setAliasConfirmFieldYes("YES");
             setAliasFrame("$core.Frame");
             setAliasDialog("$core.Dialog");
             setAliasDialogIsModal("isModal");
@@ -7493,6 +7701,16 @@ public class LgNamesGui extends LgNamesUtils {
             setAliasAddWindowListener("ajFenetreEcout");
             setAliasListSelection("$coeur.SelectionListe");
             setAliasValueChanged("changement");
+            setAliasConfirm("$coeur.Confirmation");
+            setAliasConfirmField("champ");
+            setAliasConfirmFull("ouiNonAnnuler");
+            setAliasConfirmYesNo("ouiNon");
+            setAliasConfirmMessage("message");
+            setAliasConfirmOk("ok");
+            setAliasConfirmFieldCancel("ANNULER");
+            setAliasConfirmFieldOk("OK");
+            setAliasConfirmFieldNo("NON");
+            setAliasConfirmFieldYes("OUI");
             setAliasFrame("$coeur.Fenetre");
             setAliasDialog("$coeur.Dialogue");
             setAliasDialogIsModal("estModale");
@@ -7753,6 +7971,12 @@ public class LgNamesGui extends LgNamesUtils {
     @Override
     public StringMap<StringList> allTableTypeMethodNames() {
         StringMap<StringList> m_ = super.allTableTypeMethodNames();
+        m_.put(getAliasConfirm(), new StringList(
+                getAliasConfirmField(),
+                getAliasConfirmFull(),
+                getAliasConfirmMessage(),
+                getAliasConfirmOk(),
+                getAliasConfirmYesNo()));
         m_.put(getAliasFrame(), new StringList(
                 getAliasPack(),
                 getAliasWindow(),
@@ -8172,6 +8396,7 @@ public class LgNamesGui extends LgNamesUtils {
     public StringList allRefTypes() {
         StringList ref_ =  super.allRefTypes();
         ref_.add(getAliasFrame());
+        ref_.add(getAliasConfirm());
         ref_.add(getAliasDialog());
         ref_.add(getAliasWindowType());
         ref_.add(getAliasComponent());

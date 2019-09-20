@@ -7,6 +7,10 @@ import java.awt.image.BufferedImage;
 
 public final class OtherConfirmDialog {
 
+    public static int OK_OPTION = JOptionPane.OK_OPTION;
+    public static int YES_OPTION = JOptionPane.YES_OPTION;
+    public static int NO_OPTION = JOptionPane.NO_OPTION;
+    public static int CANCEL_OPTION = JOptionPane.CANCEL_OPTION;
     private static final String EMPTY_STRING = "";
     private JDialog dialog = new JDialog();
 
@@ -20,109 +24,110 @@ public final class OtherConfirmDialog {
         dialog.addWindowListener(new OtherCrossClosingDialogEvent(this));
     }
 
-    public String showTextField(BufferedImage _img,GroupFrame _frame, String _value, String _message, String _title, String _ok, String _cancel) {
+    public String showTextField(WithListener _frame, String _value, String _message, String _title, String _ok, String _cancel) {
+        dialog.setModal(true);
+        setLocationRelativeTo(_frame);
+        initField(_message, _value, _title, _ok,_cancel);
+        return getTypedText();
+    }
+
+    public String showTextField(BufferedImage _img,WithListener _frame, String _value, String _message, String _title, String _ok, String _cancel) {
         dialog.setModal(true);
         setLocationRelativeTo(_frame);
         initField(_img,_message, _value, _title, _ok,_cancel);
         return getTypedText();
     }
 
-    public void showComponent(GroupFrame _frame, CustComponent _message, String _title, String _language) {
-        dialog.setModal(true);
-        setLocationRelativeTo(_frame);
-        initComponentSingleButton(_message, _title, _language);
-    }
-
-    public void showComponent(BufferedImage _img, GroupFrame _frame, CustComponent _message, String _title, String _language) {
-        dialog.setModal(true);
-        setLocationRelativeTo(_frame);
-        initComponentSingleButton(_img,_message, _title, _language);
-    }
-
-    public void showMessage(GroupFrame _frame, String _message, String _title, String _language) {
+    public void showMessage(WithListener _frame, String _message, String _title, String _language) {
         dialog.setModal(true);
         setLocationRelativeTo(_frame);
         initMessageSingleButton(_message, _title, _language);
     }
 
-    public void showMessage(BufferedImage _img, GroupFrame _frame, String _message, String _title, String _language) {
+    public void showMessage(BufferedImage _img, WithListener _frame, String _message, String _title, String _language) {
         dialog.setModal(true);
         setLocationRelativeTo(_frame);
         initMessageSingleButton(_img, _message,_title, _language);
     }
 
-    public int getAnswerOk(GroupFrame _frame, String _message, String _title, String _language) {
+    public int getAnswerOk(WithListener _frame, String _message, String _title, String _language) {
         return showMiniDialogOk(_frame, _message, _title, _language).getAnswer();
     }
 
-    private OtherConfirmDialog showMiniDialogOk(GroupFrame _frame, String _message, String _title, String _language) {
+    private OtherConfirmDialog showMiniDialogOk(WithListener _frame, String _message, String _title, String _language) {
         dialog.setModal(true);
         setLocationRelativeTo(_frame);
         initOk(_message, _title, _language);
         return this;
     }
 
-    public int getAnswerOk(BufferedImage _img,GroupFrame _frame, String _message, String _title, String _language) {
+    public int getAnswerOk(BufferedImage _img,WithListener _frame, String _message, String _title, String _language) {
         return showMiniDialogOk(_img,_frame, _message, _title, _language).getAnswer();
     }
 
-    private OtherConfirmDialog showMiniDialogOk(BufferedImage _img,GroupFrame _frame, String _message, String _title, String _language) {
+    private OtherConfirmDialog showMiniDialogOk(BufferedImage _img,WithListener _frame, String _message, String _title, String _language) {
         dialog.setModal(true);
         setLocationRelativeTo(_frame);
         initOk(_img,_message, _title, _language);
         return this;
     }
 
-    public int getAnswerYesNo(GroupFrame _frame, String _message, String _title, String _yes, String _no) {
+    public int getAnswerYesNo(WithListener _frame, String _message, String _title, String _yes, String _no) {
         return showMiniDialogYesNo(_frame, _message, _title, _yes, _no).getAnswer();
     }
 
-    private OtherConfirmDialog showMiniDialogYesNo(GroupFrame _frame, String _message, String _title, String _yes, String _no) {
+    private OtherConfirmDialog showMiniDialogYesNo(WithListener _frame, String _message, String _title, String _yes, String _no) {
         dialog.setModal(true);
         setLocationRelativeTo(_frame);
         initYesNo(_message, _title, _yes, _no);
         return this;
     }
 
-    public int getAnswerYesNo(BufferedImage _img,GroupFrame _frame, String _message, String _title, String _yes, String _no) {
+    public int getAnswerYesNo(BufferedImage _img,WithListener _frame, String _message, String _title, String _yes, String _no) {
         return showMiniDialogYesNo(_img,_frame, _message, _title, _yes, _no).getAnswer();
     }
 
-    private OtherConfirmDialog showMiniDialogYesNo(BufferedImage _img,GroupFrame _frame, String _message, String _title, String _yes, String _no) {
+    private OtherConfirmDialog showMiniDialogYesNo(BufferedImage _img,WithListener _frame, String _message, String _title, String _yes, String _no) {
         dialog.setModal(true);
         setLocationRelativeTo(_frame);
         initYesNo(_img,_message, _title, _yes, _no);
         return this;
     }
 
-    public int getAnswer(GroupFrame _frame, String _message, String _title, String _yes, String _no, String _cancel) {
+    public int getAnswer(WithListener _frame, String _message, String _title, String _yes, String _no, String _cancel) {
         return showMiniDialog(_frame, _message, _title, _yes, _no,_cancel).getAnswer();
     }
 
-    private OtherConfirmDialog showMiniDialog(GroupFrame _frame, String _message, String _title, String _yes, String _no, String _cancel) {
+    private OtherConfirmDialog showMiniDialog(WithListener _frame, String _message, String _title, String _yes, String _no, String _cancel) {
         dialog.setModal(true);
         setLocationRelativeTo(_frame);
         init(_message, _title, _yes, _no,_cancel);
         return this;
     }
 
-    public int getAnswer(BufferedImage _img,GroupFrame _frame, String _message, String _title, String _yes, String _no, String _cancel) {
+    public int getAnswer(BufferedImage _img,WithListener _frame, String _message, String _title, String _yes, String _no, String _cancel) {
         return showMiniDialog(_img,_frame, _message, _title, _yes, _no,_cancel).getAnswer();
     }
 
-    private OtherConfirmDialog showMiniDialog(BufferedImage _img,GroupFrame _frame, String _message, String _title, String _yes, String _no, String _cancel) {
+    private OtherConfirmDialog showMiniDialog(BufferedImage _img,WithListener _frame, String _message, String _title, String _yes, String _no, String _cancel) {
         dialog.setModal(true);
         setLocationRelativeTo(_frame);
         init(_img,_message, _title, _yes, _no,_cancel);
         return this;
     }
 
-    private void setLocationRelativeTo(GroupFrame _frame) {
+    private void setLocationRelativeTo(WithListener _frame) {
         if (_frame == null) {
             dialog.setLocationRelativeTo(null);
             return;
         }
-        dialog.setLocationRelativeTo(_frame.getComponent());
+        if (_frame instanceof OtherDialog) {
+            dialog.setLocationRelativeTo(((OtherDialog)_frame).getComponent());
+            return;
+        }
+        if (_frame instanceof OtherFrame) {
+            dialog.setLocationRelativeTo(((OtherFrame)_frame).getComponent());
+        }
     }
 
     private void initMessageSingleButton(String _message, String _title, String _language) {
@@ -156,43 +161,13 @@ public final class OtherConfirmDialog {
         dialog.setVisible(true);
     }
 
-    private void initComponentSingleButton(CustComponent _message, String _title, String _language) {
-        dialog.setTitle(_title);
-        Panel content_ = Panel.newGrid(0,1);
-        content_.add(_message);
-        Panel buttons_ = Panel.newLineBox();
-        LabelButton button_ = new LabelButton(_language);
-        button_.addMouseListener(new OtherClosingDialogEvent(this));
-        buttons_.add(button_);
-        content_.add(buttons_);
-        dialog.setContentPane(content_.getComponent());
-        dialog.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-        dialog.pack();
-        dialog.setVisible(true);
-    }
-
-    private void initComponentSingleButton(BufferedImage _img, CustComponent _message, String _title, String _language) {
-        dialog.setTitle(_title);
-        Panel content_ = Panel.newGrid(0,1);
-        content_.add(_message);
-        Panel buttons_ = Panel.newLineBox();
-        buttons_.add(new PreparedLabel(_img));
-        LabelButton button_ = new LabelButton(_language);
-        button_.addMouseListener(new OtherClosingDialogEvent(this));
-        buttons_.add(button_);
-        content_.add(buttons_);
-        dialog.setContentPane(content_.getComponent());
-        dialog.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-        dialog.pack();
-        dialog.setVisible(true);
-    }
     private void initOk(String _message, String _title, String _language) {
         dialog.setTitle(_title);
         Panel content_ = Panel.newGrid(0,1);
         content_.add(new WrappedLabel(_message));
         Panel buttons_ = Panel.newLineBox();
         LabelButton button_ = new LabelButton(_language);
-        button_.addMouseListener(new OtherAnswerEvent(this, JOptionPane.OK_OPTION));
+        button_.addMouseListener(new OtherAnswerEvent(this, OK_OPTION));
         buttons_.add(button_);
         content_.add(buttons_);
         dialog.setContentPane(content_.getComponent());
@@ -207,7 +182,7 @@ public final class OtherConfirmDialog {
         Panel buttons_ = Panel.newLineBox();
         buttons_.add(new PreparedLabel(_img));
         LabelButton button_ = new LabelButton(_language);
-        button_.addMouseListener(new OtherAnswerEvent(this, JOptionPane.OK_OPTION));
+        button_.addMouseListener(new OtherAnswerEvent(this, OK_OPTION));
         buttons_.add(button_);
         content_.add(buttons_);
         dialog.setContentPane(content_.getComponent());
@@ -220,12 +195,12 @@ public final class OtherConfirmDialog {
         Panel content_ = Panel.newGrid(0,1);
         content_.add(new WrappedLabel(_message));
         Panel buttons_ = Panel.newLineBox();
-        answer = JOptionPane.NO_OPTION;
+        answer = NO_OPTION;
         LabelButton button_ = new LabelButton(_yes);
-        button_.addMouseListener(new OtherAnswerEvent(this, JOptionPane.YES_OPTION));
+        button_.addMouseListener(new OtherAnswerEvent(this, YES_OPTION));
         buttons_.add(button_);
         button_ = new LabelButton(_no);
-        button_.addMouseListener(new OtherAnswerEvent(this, JOptionPane.NO_OPTION));
+        button_.addMouseListener(new OtherAnswerEvent(this, NO_OPTION));
         buttons_.add(button_);
         content_.add(buttons_);
         dialog.setContentPane(content_.getComponent());
@@ -238,13 +213,13 @@ public final class OtherConfirmDialog {
         Panel content_ = Panel.newGrid(0,1);
         content_.add(new WrappedLabel(_message));
         Panel buttons_ = Panel.newLineBox();
-        answer = JOptionPane.NO_OPTION;
+        answer = NO_OPTION;
         buttons_.add(new PreparedLabel(_img));
         LabelButton button_ = new LabelButton(_yes);
-        button_.addMouseListener(new OtherAnswerEvent(this, JOptionPane.YES_OPTION));
+        button_.addMouseListener(new OtherAnswerEvent(this, YES_OPTION));
         buttons_.add(button_);
         button_ = new LabelButton(_no);
-        button_.addMouseListener(new OtherAnswerEvent(this, JOptionPane.NO_OPTION));
+        button_.addMouseListener(new OtherAnswerEvent(this, NO_OPTION));
         buttons_.add(button_);
         content_.add(buttons_);
         dialog.setContentPane(content_.getComponent());
@@ -257,15 +232,15 @@ public final class OtherConfirmDialog {
         Panel content_ = Panel.newGrid(0,1);
         content_.add(new WrappedLabel(_message));
         Panel buttons_ = Panel.newLineBox();
-        answer = JOptionPane.CANCEL_OPTION;
+        answer = CANCEL_OPTION;
         LabelButton button_ = new LabelButton(_yes);
-        button_.addMouseListener(new OtherAnswerEvent(this, JOptionPane.YES_OPTION));
+        button_.addMouseListener(new OtherAnswerEvent(this, YES_OPTION));
         buttons_.add(button_);
         button_ = new LabelButton(_no);
-        button_.addMouseListener(new OtherAnswerEvent(this, JOptionPane.NO_OPTION));
+        button_.addMouseListener(new OtherAnswerEvent(this, NO_OPTION));
         buttons_.add(button_);
         button_ = new LabelButton(_cancel);
-        button_.addMouseListener(new OtherAnswerEvent(this, JOptionPane.CANCEL_OPTION));
+        button_.addMouseListener(new OtherAnswerEvent(this, CANCEL_OPTION));
         buttons_.add(button_);
         content_.add(buttons_);
         dialog.setContentPane(content_.getComponent());
@@ -278,16 +253,38 @@ public final class OtherConfirmDialog {
         Panel content_ = Panel.newGrid(0,1);
         content_.add(new WrappedLabel(_message));
         Panel buttons_ = Panel.newLineBox();
-        answer = JOptionPane.CANCEL_OPTION;
+        answer = CANCEL_OPTION;
         buttons_.add(new PreparedLabel(_img));
         LabelButton button_ = new LabelButton(_yes);
-        button_.addMouseListener(new OtherAnswerEvent(this, JOptionPane.YES_OPTION));
+        button_.addMouseListener(new OtherAnswerEvent(this, YES_OPTION));
         buttons_.add(button_);
         button_ = new LabelButton(_no);
-        button_.addMouseListener(new OtherAnswerEvent(this, JOptionPane.NO_OPTION));
+        button_.addMouseListener(new OtherAnswerEvent(this, NO_OPTION));
         buttons_.add(button_);
         button_ = new LabelButton(_cancel);
-        button_.addMouseListener(new OtherAnswerEvent(this, JOptionPane.CANCEL_OPTION));
+        button_.addMouseListener(new OtherAnswerEvent(this, CANCEL_OPTION));
+        buttons_.add(button_);
+        content_.add(buttons_);
+        dialog.setContentPane(content_.getComponent());
+        dialog.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+        dialog.pack();
+        dialog.setVisible(true);
+    }
+
+    private void initField(String _message, String _value, String _title, String _ok, String _cancel) {
+        dialog.setTitle(_title);
+        Panel content_ = Panel.newGrid(0,1);
+        content_.add(new WrappedLabel(_message));
+        field = new TextField();
+        field.setText(_value);
+        content_.add(field);
+        answer = NO_OPTION;
+        Panel buttons_ = Panel.newLineBox();
+        LabelButton button_ = new LabelButton(_ok);
+        button_.addMouseListener(new OtherAnswerTextEvent(this, YES_OPTION));
+        buttons_.add(button_);
+        button_ = new LabelButton(_cancel);
+        button_.addMouseListener(new OtherAnswerTextEvent(this, NO_OPTION));
         buttons_.add(button_);
         content_.add(buttons_);
         dialog.setContentPane(content_.getComponent());
@@ -304,13 +301,13 @@ public final class OtherConfirmDialog {
         field = new TextField();
         field.setText(_value);
         content_.add(field);
-        answer = JOptionPane.NO_OPTION;
+        answer = NO_OPTION;
         Panel buttons_ = Panel.newLineBox();
         LabelButton button_ = new LabelButton(_ok);
-        button_.addMouseListener(new OtherAnswerTextEvent(this, JOptionPane.YES_OPTION));
+        button_.addMouseListener(new OtherAnswerTextEvent(this, YES_OPTION));
         buttons_.add(button_);
         button_ = new LabelButton(_cancel);
-        button_.addMouseListener(new OtherAnswerTextEvent(this, JOptionPane.NO_OPTION));
+        button_.addMouseListener(new OtherAnswerTextEvent(this, NO_OPTION));
         buttons_.add(button_);
         content_.add(buttons_);
         dialog.setContentPane(content_.getComponent());
@@ -321,8 +318,12 @@ public final class OtherConfirmDialog {
 
     public void closeWindowText(int _answer) {
         answer = _answer;
-        typedText = field.getText();
-        if (answer == JOptionPane.NO_OPTION) {
+        if (field != null) {
+            typedText = field.getText();
+        } else {
+            typedText = EMPTY_STRING;
+        }
+        if (answer == NO_OPTION) {
             typedText = EMPTY_STRING;
         }
         closeWindow();

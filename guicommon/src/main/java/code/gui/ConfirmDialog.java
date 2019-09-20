@@ -228,7 +228,11 @@ public final class ConfirmDialog extends Dialog {
 
     public void closeWindowText(int _answer) {
         answer = _answer;
-        typedText = field.getText();
+        if (field != null) {
+            typedText = field.getText();
+        } else {
+            typedText = EMPTY_STRING;
+        }
         if (answer == JOptionPane.NO_OPTION) {
             typedText = EMPTY_STRING;
         }
