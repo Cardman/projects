@@ -94,7 +94,7 @@ public final class PopupStruct extends CustComponentStruct {
         if (global instanceof AbsMenuStruct) {
             int i_ = 0;
             int index_ = -1;
-            for (CustComponentStruct a: compo) {
+            for (AbsMenuStruct a: menus) {
                 if (a.sameReference(global)) {
                     index_ = i_;
                     break;
