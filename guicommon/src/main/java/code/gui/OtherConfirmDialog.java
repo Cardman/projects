@@ -318,12 +318,13 @@ public final class OtherConfirmDialog {
 
     public void closeWindowText(int _answer) {
         answer = _answer;
+        typedText = EMPTY_STRING;
         if (field != null) {
             typedText = field.getText();
-        } else {
-            typedText = EMPTY_STRING;
         }
         if (answer == NO_OPTION) {
+            typedText = null;
+        } else if (typedText == null) {
             typedText = EMPTY_STRING;
         }
         closeWindow();
