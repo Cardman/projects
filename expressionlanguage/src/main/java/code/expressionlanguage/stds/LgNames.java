@@ -86,6 +86,18 @@ public abstract class LgNames {
                     i_++;
                     continue;
                 }
+                if (cur_ == 'c') {
+                    if (i_ + 2 < len_) {
+                        String sub_ = _line.substring(i_ + 1,i_ + 3);
+                        Long char_ = NumParsers.parseLong(sub_, 16);
+                        if (char_ != null && char_ >= 0 && char_ < ' ') {
+                            char ch_ = (char) char_.intValue();
+                            arg_.append(ch_);
+                            i_ += 3;
+                            continue;
+                        }
+                    }
+                }
                 arg_.append(cur_);
                 i_++;
                 continue;
