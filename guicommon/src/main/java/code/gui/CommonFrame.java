@@ -8,7 +8,7 @@ import javax.swing.JFrame;
 import code.sml.stream.ExtractFromFiles;
 import code.util.StringMap;
 
-public abstract class CommonFrame implements ChangeableTitle,WithListener {
+public abstract class CommonFrame extends AbsFrame implements ChangeableTitle {
 
     private String accessFile;
 
@@ -73,20 +73,11 @@ public abstract class CommonFrame implements ChangeableTitle,WithListener {
         frame.addWindowListener(_l);
     }
 
-    @Override
-    public void removeWindowListener(WindowListener _l) {
-        frame.removeWindowListener(_l);
-    }
-
-    @Override
-    public WindowListener[] getWindowListeners() {
-        return frame.getWindowListeners();
-    }
-
     public void setDefaultCloseOperation(int _operation) {
         frame.setDefaultCloseOperation(_operation);
     }
 
+    @Override
     protected Window getComponent() {
         return frame;
     }
@@ -146,7 +137,6 @@ public abstract class CommonFrame implements ChangeableTitle,WithListener {
         frame.setVisible(_b);
     }
 
-    @Override
     public void setLocationRelativeTo(CustComponent _c) {
         if (_c != null) {
             frame.setLocationRelativeTo(_c.getComponent());
@@ -155,20 +145,16 @@ public abstract class CommonFrame implements ChangeableTitle,WithListener {
         }
     }
 
-    @Override
-    public void setLocationRelativeToNull() {
-        frame.setLocationRelativeTo(null);
-    }
-
-    @Override
-    public void setLocationRelativeTo(WithListener c) {
-        if (c instanceof CommonFrame) {
-            frame.setLocationRelativeTo(((CommonFrame)c).getComponent());
-        } else if (c instanceof OtherDialog) {
-            frame.setLocationRelativeTo(((OtherDialog)c).getComponent());
+    public void setLocationRelativeTo(CommonFrame _c) {
+        if (_c != null) {
+            frame.setLocationRelativeTo(_c.getComponent());
         } else {
             frame.setLocationRelativeTo(null);
         }
+    }
+
+    public void setLocationRelativeToNull() {
+        frame.setLocationRelativeTo(null);
     }
 
     @Override

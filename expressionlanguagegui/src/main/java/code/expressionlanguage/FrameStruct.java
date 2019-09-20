@@ -2,13 +2,13 @@ package code.expressionlanguage;
 
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
-import code.gui.GroupFrame;
+import code.gui.OtherFrame;
 import code.gui.WithListener;
 
 public final class FrameStruct extends WindowStruct {
-    private GroupFrame commonFrame;
+    private OtherFrame commonFrame;
     private Struct menuBar = NullStruct.NULL_VALUE;
-    public FrameStruct(GroupFrame _frame) {
+    public FrameStruct(OtherFrame _frame) {
         commonFrame = _frame;
     }
 
@@ -40,7 +40,7 @@ public final class FrameStruct extends WindowStruct {
         }
     }
 
-    public GroupFrame getCommonFrame() {
+    public OtherFrame getCommonFrame() {
         return commonFrame;
     }
 

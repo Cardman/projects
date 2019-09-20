@@ -6,37 +6,34 @@ import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.IntStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
+import code.gui.OtherFrame;
 import code.gui.TextLabel;
 import code.util.StringList;
 
 import javax.swing.*;
-import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
 public final class GuiContextEl extends RunnableContextEl {
     private TextLabel textLabel;
     private FrameStruct frame;
-    private String lgExec;
     private StringList mainArgs;
 
     GuiContextEl(int _stackOverFlow, DefaultLockingClass _lock, CustInitializer _init, Options _options, ExecutingOptions _exec, KeyWords _keyWords, LgNames _stds, int _tabWidth) {
         super(_stackOverFlow, _lock, _init, _options, _exec, _keyWords, _stds, _tabWidth);
     }
 
-    public void initApplicationParts(String _lgExec, StringList _mainArgs) {
+    public void initApplicationParts(StringList _mainArgs) {
         mainArgs = _mainArgs;
         textLabel = new TextLabel("");
-        MainInitFrame fr_ = new MainInitFrame(_lgExec);
+        OtherFrame fr_ = new OtherFrame();
         fr_.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame = new FrameStruct(fr_);
-        lgExec = _lgExec;
     }
 
     GuiContextEl(ContextEl _context) {
         super(_context);
         textLabel = ((GuiContextEl)_context).textLabel;
         frame = ((GuiContextEl)_context).frame;
-        lgExec = ((GuiContextEl)_context).lgExec;
         mainArgs = ((GuiContextEl)_context).mainArgs;
     }
 
@@ -58,9 +55,6 @@ public final class GuiContextEl extends RunnableContextEl {
                 }
             }
         }
-    }
-    public String getLgExec() {
-        return lgExec;
     }
 
     public FrameStruct getFrame() {

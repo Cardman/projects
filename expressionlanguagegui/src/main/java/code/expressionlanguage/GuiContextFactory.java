@@ -23,14 +23,14 @@ public final class GuiContextFactory {
         } else {
             return null;
         }
-        return build(_lang,_mainArgs,CustList.INDEX_NOT_FOUND_ELT, _options, _exec,kwl_, _undefinedLgNames, _files, _tabWidth);
+        return build(_mainArgs,CustList.INDEX_NOT_FOUND_ELT, _options, _exec,kwl_, _undefinedLgNames, _files, _tabWidth);
     }
-    public static GuiContextEl build(String _lgExec,StringList _mainArgs,int _stack,
+    public static GuiContextEl build(StringList _mainArgs, int _stack,
                                      Options _options, ExecutingOptions _exec, KeyWords _definedKw, LgNamesGui _definedLgNames, StringMap<String> _files, int _tabWidth) {
         CustLockingClass cl_ = new CustLockingClass();
         CustInitializer ci_ = new GuiInitializer();
         GuiContextEl r_ = new GuiContextEl(_stack, cl_, ci_, _options, _exec, _definedKw, _definedLgNames,_tabWidth);
-        InitStandardComponents s_ = new InitStandardComponents(r_,_mainArgs,_lgExec);
+        InitStandardComponents s_ = new InitStandardComponents(r_,_mainArgs);
         if (!CustComponent.invokeAndWait(s_)) {
             return null;
         }

@@ -9,6 +9,7 @@ import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
 import code.expressionlanguage.variables.VariableSuffix;
+import code.gui.OtherFrame;
 import code.gui.OtherDialog;
 import code.resources.ResourceFiles;
 import code.util.CustList;
@@ -1842,7 +1843,7 @@ public class LgNamesGui extends LgNamesUtils {
             return new Argument();
         }
         if (StringList.quickEq(_id,aliasFrame)) {
-            return new Argument(new FrameStruct(new OtherFrame(((GuiContextEl)_cont).getLgExec())));
+            return new Argument(new FrameStruct(new OtherFrame()));
         }
         if (StringList.quickEq(_id,aliasDialog)) {
             return new Argument(new DialogStruct(new OtherDialog()));
@@ -1889,7 +1890,7 @@ public class LgNamesGui extends LgNamesUtils {
                 r_.setResult(NullStruct.NULL_VALUE);
                 return r_;
             }
-            r_.setResult(new FrameStruct(new OtherFrame(((GuiContextEl)_cont).getLgExec())));
+            r_.setResult(new FrameStruct(new OtherFrame()));
             return r_;
         }
         if (StringList.quickEq(name_,aliasDialog)) {

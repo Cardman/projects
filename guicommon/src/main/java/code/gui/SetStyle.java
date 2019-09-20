@@ -9,7 +9,7 @@ final class SetStyle {
     private SetStyle() {
     }
 
-    static void setupStyle(CommonFrame _frame) {
+    static void setupStyle(AbsFrame _frame) {
         try {
             /*Permet d avoir une application graphique comme si c etait Windows*/
             String className_ = UIManager.getSystemLookAndFeelClassName();
