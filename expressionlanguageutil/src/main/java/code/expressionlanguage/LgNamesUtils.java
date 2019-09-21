@@ -771,6 +771,19 @@ public class LgNamesUtils extends LgNames {
         }
 		return Integer.toString(_millis);
     }
+
+    @Override
+    protected ResultErrorStd instance(ContextEl _cont, ConstructorId _method, Argument... _args) {
+        try {
+            return super.instance(_cont, _method, _args);
+        } catch (Exception e) {
+            ResultErrorStd res_ = new ResultErrorStd();
+            res_.setError(aliasConcurrentError);
+            processError(_cont,res_);
+            return res_;
+        }
+    }
+
     protected ResultErrorStd invoke(ContextEl _cont, ClassMethodId _method, Struct _struct, Argument... _args) {
         try {
             return super.invoke(_cont,_method,_struct,_args);

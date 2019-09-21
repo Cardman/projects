@@ -1066,6 +1066,11 @@ public abstract class LgNames {
         return new Argument(new SimpleObjectStruct());
     }
     public static ResultErrorStd newInstance(ContextEl _cont, ConstructorId _method, Argument... _args) {
+        LgNames lgNames_ = _cont.getStandards();
+        return lgNames_.instance(_cont,_method,_args);
+    }
+
+    protected ResultErrorStd instance(ContextEl _cont, ConstructorId _method, Argument... _args) {
         ResultErrorStd result_;
         Struct[] args_ = getObjects(_args);
         String type_ = _method.getName();
@@ -1088,7 +1093,6 @@ public abstract class LgNames {
         processError(_cont,result_);
         return result_;
     }
-
     protected static void processError(ContextEl _cont, ResultErrorStd _result) {
         if (_result.getError() != null) {
             String errMessage_ = _result.getErrorMessage();
