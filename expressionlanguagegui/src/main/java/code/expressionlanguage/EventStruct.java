@@ -354,7 +354,7 @@ public final class EventStruct implements WithParentStruct,EnumerableStruct,
         String base_ = Templates.getIdFromAllTypes(className);
         ClassMethodId mId_ = TypeUtil.getConcreteMethodsToCall(type_, id_, _r).getVal(base_);
         if (mId_ == null) {
-            _r.getCustInit().removeThreadFromList();
+            _r.getCustInit().removeThreadFromList(_r);
             return;
         }
         Argument arg_ = new Argument();
@@ -363,7 +363,7 @@ public final class EventStruct implements WithParentStruct,EnumerableStruct,
     }
     private GuiContextEl newCtx() {
         GuiContextEl r_ = new GuiContextEl(original);
-        RunnableStruct.setupThread(r_);
+        r_.setNumber(RunnableStruct.setupThread(r_));
         return r_;
     }
 

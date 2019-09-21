@@ -92,7 +92,7 @@ public final class RunnableStruct implements WithParentStruct, EnumerableStruct,
     @Override
     public void run() {
         RunnableContextEl r_ = new RunnableContextEl(original);
-        setupThread(r_);
+        r_.setNumber(setupThread(r_));
         LgNames stds_ = r_.getStandards();
         String run_ = r_.getCustInit().getRunTask(stds_);
         String runnable_ = r_.getCustInit().getInterfaceTask(stds_);
@@ -109,15 +109,15 @@ public final class RunnableStruct implements WithParentStruct, EnumerableStruct,
         _cont.getCustInit().prExc(_cont);
         return arg_;
     }
-    public static void setupThread(RunnableContextEl _r) {
+    public static long setupThread(RunnableContextEl _r) {
         Thread thread_ = Thread.currentThread();
-        _r.getCustInit().initAlive(thread_);
+        long nb_ = _r.getCustInit().increment();
         StringBuilder dtPart_ = new StringBuilder();
         dtPart_.append(LgNamesUtils.getDateTimeText("_", "_", "_"));
         dtPart_.append("__");
-        dtPart_.append(_r.getCustInit().increment());
+        dtPart_.append(nb_);
         dtPart_.append(".txt");
-        _r.getCustInit().putNewCustTreadIdDate(thread_, dtPart_.toString());
-
+        _r.getCustInit().putNewCustTreadIdDate(thread_,nb_, dtPart_.toString());
+        return nb_;
     }
 }

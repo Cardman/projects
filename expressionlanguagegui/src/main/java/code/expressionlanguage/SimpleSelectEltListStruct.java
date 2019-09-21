@@ -51,7 +51,7 @@ public final class SimpleSelectEltListStruct extends MouseAdapter implements Ind
     }
     private GuiContextEl newCtx() {
         GuiContextEl r_ = new GuiContextEl(original);
-        RunnableStruct.setupThread(r_);
+        r_.setNumber(RunnableStruct.setupThread(r_));
         return r_;
     }
     @Override

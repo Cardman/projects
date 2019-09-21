@@ -831,7 +831,7 @@ public class LgNamesUtils extends LgNames {
             if (StringList.quickEq(name_,aliasJoin)) {
                 Thread thread_ = (Thread) ((StdStruct) _instance).getInstance();
                 CustInitializer cust_ = ((RunnableContextEl)_cont).getCustInit();
-                boolean alive_ = cust_.isAlive(thread_);
+                boolean alive_ = thread_.isAlive();
                 try {
                     thread_.join();
                 } catch (Exception e) {
@@ -874,14 +874,13 @@ public class LgNamesUtils extends LgNames {
                     return res_;
                 }
                 CustInitializer cust_ = ((RunnableContextEl)_cont).getCustInit();
-                cust_.joinOthers();
+                cust_.joinOthers((RunnableContextEl) _cont);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
             if (StringList.quickEq(name_,aliasIsAlive)) {
                 Thread thread_ = (Thread) ((StdStruct) _instance).getInstance();
-                CustInitializer cust_ = ((RunnableContextEl)_cont).getCustInit();
-                boolean alive_ = cust_.isAlive(thread_);
+                boolean alive_ = thread_.isAlive();
                 res_.setResult(new BooleanStruct(alive_));
                 return res_;
             }

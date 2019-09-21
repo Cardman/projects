@@ -1,6 +1,8 @@
 package code.expressionlanguage;
 
 import java.io.File;
+import java.util.Iterator;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -21,9 +23,8 @@ import code.util.StringList;
 public class CustInitializer extends DefaultInitializer {
 
 	/**Used map in order that the user can easily log when a few thread is used (depends on Thread class implementation)*/
-	private final ConcurrentHashMap<Thread, String> threadIdDate = new ConcurrentHashMap<Thread, String>();
-	private final ConcurrentHashMap<Thread, Boolean> alive = new ConcurrentHashMap<Thread, Boolean>();
-	private final ConcurrentHashMap<Thread, Boolean> hooks = new ConcurrentHashMap<Thread, Boolean>();
+	private final ConcurrentHashMap<ThreadNumber, String> threadIdDate = new ConcurrentHashMap<ThreadNumber, String>();
+    private final ConcurrentHashMap<Thread, Boolean> hooks = new ConcurrentHashMap<Thread, Boolean>();
 	private final AtomicLong countThreads = new AtomicLong();
     @Override
     protected Struct init(ContextEl _context, Struct _parent,
@@ -54,9 +55,17 @@ public class CustInitializer extends DefaultInitializer {
     public String getRunTask(LgNames _stds) {
         return ((LgNamesUtils)_stds).getAliasRun();
     }
-    String getCurrentTreadIdDate() {
+    String getCurrentTreadIdDate(RunnableContextEl _ctx) {
     	Thread thread_ = Thread.currentThread();
-		return threadIdDate.get(thread_);
+        ThreadNumber id_ = new ThreadNumber(thread_, _ctx.getNumber());
+        Iterator<Map.Entry<ThreadNumber, String>> itr_ = threadIdDate.entrySet().iterator();
+        while (itr_.hasNext()) {
+            Map.Entry<ThreadNumber, String> n_ = itr_.next();
+            if (n_.getKey().eq(id_)) {
+                return n_.getValue();
+            }
+        }
+		return null;
 	}
     public void prExc(RunnableContextEl _cont) {
     	Struct exception_ = _cont.getException();
@@ -88,7 +97,7 @@ public class CustInitializer extends DefaultInitializer {
                 }
             }
         }
-        removeThreadFromList();
+        removeThreadFromList(_cont);
     }
 
     private void log(RunnableContextEl _cont,String _txt) {
@@ -101,14 +110,20 @@ public class CustInitializer extends DefaultInitializer {
         StreamTextFile.logToFile(toFile_, text_);
     }
 
-    public void removeThreadFromList() {
+    public void removeThreadFromList(RunnableContextEl _ctx) {
         Thread thread_ = Thread.currentThread();
-        threadIdDate.remove(thread_);
-        alive.remove(thread_);
+        Iterator<Map.Entry<ThreadNumber, String>> itr_ = threadIdDate.entrySet().iterator();
+        ThreadNumber id_ = new ThreadNumber(thread_, _ctx.getNumber());
+        while (itr_.hasNext()) {
+            Map.Entry<ThreadNumber, String> n_ = itr_.next();
+            if (n_.getKey().eq(id_)) {
+                itr_.remove();
+            }
+        }
     }
 
     public String getCurrentFileThread(RunnableContextEl _cont) {
-        String toFile_ = getCurrentTreadIdDate();
+        String toFile_ = getCurrentTreadIdDate(_cont);
         if (toFile_ == null) {
             toFile_ = _cont.getExecutingOptions().getMainThread();
         }
@@ -116,13 +131,14 @@ public class CustInitializer extends DefaultInitializer {
     }
 
     /**This method must be called only before exit, by one (main) thread only*/
-    void joinOthers() {
-        for (Thread t: threadIdDate.keySet()) {
-            if (t == Thread.currentThread()) {
+    void joinOthers(RunnableContextEl _ctx) {
+        ThreadNumber id_ = new ThreadNumber(Thread.currentThread(), _ctx.getNumber());
+        for (ThreadNumber t: threadIdDate.keySet()) {
+            if (t.eq(id_)) {
                 continue;
             }
             try {
-                t.join();
+                t.getThread().join();
             } catch (Exception e) {
                 //skip exception
             }
@@ -137,17 +153,9 @@ public class CustInitializer extends DefaultInitializer {
             }
         }
     }
-    void putNewCustTreadIdDate(Thread _id, String _value) {
-		threadIdDate.put(_id,_value);
+    void putNewCustTreadIdDate(Thread _id, long _nb, String _value) {
+		threadIdDate.put(new ThreadNumber(_id,_nb),_value);
 	}
-
-	boolean isAlive(Thread _id) {
-        return alive.containsKey(_id);
-    }
-
-    public void initAlive(Thread _id) {
-        alive.put(_id, true);
-    }
 
     public void initHook(Thread _id) {
         hooks.put(_id, true);

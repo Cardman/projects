@@ -96,7 +96,8 @@ public final class GuiProcess implements Runnable {
 
     @Override
     public void run() {
-        RunnableStruct.setupThread(context);
+        long nb_ = RunnableStruct.setupThread(context);
+        context.setNumber(nb_);
         String folder_ = executingOptions.getLogFolder();
         new File(folder_).mkdirs();
         MethodId id_ = new MethodId(MethodModifier.STATIC, mName, new StringList());
@@ -111,7 +112,7 @@ public final class GuiProcess implements Runnable {
             Argument arg_ = new Argument();
             RunnableStruct.invoke(arg_, clName, id_, args_, context, null);
         } else {
-            context.getCustInit().removeThreadFromList();
+            context.getCustInit().removeThreadFromList(context);
         }
     }
 }
