@@ -118,6 +118,7 @@ public class CustInitializer extends DefaultInitializer {
             Map.Entry<ThreadNumber, String> n_ = itr_.next();
             if (n_.getKey().eq(id_)) {
                 itr_.remove();
+                break;
             }
         }
     }
