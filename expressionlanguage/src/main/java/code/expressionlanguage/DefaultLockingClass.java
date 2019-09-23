@@ -34,7 +34,7 @@ public class DefaultLockingClass {
             }
         }
     }
-    final StringList getAlwayasInit() {
+    protected final StringList getAlwayasInit() {
         return alwayasInit;
     }
     public final void initClass(String _className) {

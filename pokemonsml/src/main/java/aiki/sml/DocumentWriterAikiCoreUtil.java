@@ -208,7 +208,7 @@ import code.maths.montecarlo.MonteCarloEnum;
 import code.sml.maths.DocumentWriterMathUtil;
 import code.sml.Document;
 import code.sml.DocumentBuilder;
-import code.sml.DocumentWriterCoreUtil;
+import code.sml.core.DocumentWriterCoreUtil;
 import code.sml.Element;
 import code.util.CustList;
 import code.util.EntryCust;

@@ -73,7 +73,7 @@ import cards.tarot.TricksHandsTarot;
 import cards.tarot.sml.DocumentWriterTarotUtil;
 import code.sml.Document;
 import code.sml.DocumentBuilder;
-import code.sml.DocumentWriterCoreUtil;
+import code.sml.core.DocumentWriterCoreUtil;
 import code.sml.Element;
 public final class DocumentWriterCardsMultiUtil {
 

@@ -214,7 +214,7 @@ import code.resources.ResourceFiles;
 import code.sml.maths.DocumentReaderMathUtil;
 import code.sml.Document;
 import code.sml.DocumentBuilder;
-import code.sml.DocumentReaderCoreUtil;
+import code.sml.core.DocumentReaderCoreUtil;
 import code.sml.Element;
 import code.sml.ElementList;
 import code.sml.stream.ExtractFromFiles;

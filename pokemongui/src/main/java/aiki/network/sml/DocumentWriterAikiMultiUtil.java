@@ -14,7 +14,7 @@ import aiki.network.stream.SentPokemon;
 import aiki.sml.DocumentWriterAikiCoreUtil;
 import code.sml.Document;
 import code.sml.DocumentBuilder;
-import code.sml.DocumentWriterCoreUtil;
+import code.sml.core.DocumentWriterCoreUtil;
 import code.sml.Element;
 public final class DocumentWriterAikiMultiUtil {
 

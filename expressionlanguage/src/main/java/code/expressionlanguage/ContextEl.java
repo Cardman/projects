@@ -696,7 +696,7 @@ public abstract class ContextEl implements ExecutableCode {
         options = _options;
     }
 
-    int getStackOverFlow() {
+    public int getStackOverFlow() {
         return stackOverFlow;
     }
     public void setStackOverFlow(int _stackOverFlow) {

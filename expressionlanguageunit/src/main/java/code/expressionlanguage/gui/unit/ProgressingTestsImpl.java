@@ -1,9 +1,9 @@
 package code.expressionlanguage.gui.unit;
 
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ExecutingOptions;
-import code.expressionlanguage.ProgressingTests;
-import code.expressionlanguage.RunnableContextEl;
+import code.expressionlanguage.utilcompo.ExecutingOptions;
+import code.expressionlanguage.utilcompo.ProgressingTests;
+import code.expressionlanguage.utilcompo.RunnableContextEl;
 import code.expressionlanguage.structs.Struct;
 import code.gui.Clock;
 import code.stream.StreamTextFile;

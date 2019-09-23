@@ -3,7 +3,7 @@ package code.gui.stream;
 import code.gui.TopLeftFrame;
 import code.sml.Document;
 import code.sml.DocumentBuilder;
-import code.sml.DocumentWriterCoreUtil;
+import code.sml.core.DocumentWriterCoreUtil;
 import code.sml.Element;
 
 public final class DocumentWriterGuiUtil {

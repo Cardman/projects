@@ -4,7 +4,7 @@ import cards.consts.MixCardsChoice;
 import cards.consts.Order;
 import cards.consts.Suit;
 import code.sml.Document;
-import code.sml.DocumentWriterCoreUtil;
+import code.sml.core.DocumentWriterCoreUtil;
 import code.sml.Element;
 import code.util.EnumList;
 public final class DocumentWriterCardsCommonUtil {

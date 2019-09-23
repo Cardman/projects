@@ -14,12 +14,11 @@ import cards.president.enumerations.EqualtyPlaying;
 import cards.president.enumerations.Playing;
 import code.sml.Document;
 import code.sml.DocumentBuilder;
-import code.sml.DocumentWriterCoreUtil;
+import code.sml.core.DocumentWriterCoreUtil;
 import code.sml.Element;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EnumList;
-import code.util.EqList;
 import code.util.*;
 public final class DocumentWriterPresidentUtil {
 

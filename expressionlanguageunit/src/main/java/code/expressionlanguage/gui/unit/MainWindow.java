@@ -1,9 +1,9 @@
 package code.expressionlanguage.gui.unit;
 
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.LgNamesUtils;
-import code.expressionlanguage.RunnableContextEl;
-import code.expressionlanguage.RunningTest;
+import code.expressionlanguage.utilcompo.LgNamesUtils;
+import code.expressionlanguage.utilcompo.RunnableContextEl;
+import code.expressionlanguage.utilcompo.RunningTest;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.structs.*;
 import code.gui.*;
@@ -17,7 +17,6 @@ import code.gui.events.QuittingEvent;
 import code.util.StringMap;
 
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;

@@ -18,7 +18,7 @@ import cards.tarot.enumerations.Miseres;
 import cards.tarot.enumerations.ModeTarot;
 import code.sml.Document;
 import code.sml.DocumentBuilder;
-import code.sml.DocumentReaderCoreUtil;
+import code.sml.core.DocumentReaderCoreUtil;
 import code.sml.Element;
 import code.sml.ElementList;
 import code.util.CollCapacity;

@@ -11,7 +11,7 @@ import cards.main.LaunchingCards;
 import cards.president.GamePresident;
 import cards.tarot.GameTarot;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.GuiProcess;
+import code.expressionlanguage.guicompos.GuiProcess;
 import code.expressionlanguage.gui.unit.LaunchingAppUnitTests;
 import code.gui.*;
 import code.images.BaseSixtyFourUtil;

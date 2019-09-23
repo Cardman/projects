@@ -13,7 +13,7 @@ import aiki.network.stream.SentPokemon;
 import aiki.sml.DocumentReaderAikiCoreUtil;
 import code.sml.Document;
 import code.sml.DocumentBuilder;
-import code.sml.DocumentReaderCoreUtil;
+import code.sml.core.DocumentReaderCoreUtil;
 import code.sml.Element;
 import code.sml.ElementList;
 import code.util.StringList;

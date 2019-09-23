@@ -18,14 +18,13 @@ import cards.consts.sml.DocumentReaderCardsCommonUtil;
 import cards.gameresults.sml.DocumentReaderCardsResultsUtil;
 import code.sml.Document;
 import code.sml.DocumentBuilder;
-import code.sml.DocumentReaderCoreUtil;
+import code.sml.core.DocumentReaderCoreUtil;
 import code.sml.Element;
 import code.sml.ElementList;
 import code.util.CollCapacity;
 import code.util.CustList;
 import code.util.EnumList;
 import code.util.EnumMap;
-import code.util.EqList;
 import code.util.StringList;
 public final class DocumentReaderBeloteUtil {
 

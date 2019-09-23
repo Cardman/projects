@@ -5,7 +5,7 @@ import cards.tarot.ResultsTarot;
 import code.resources.ResourceFiles;
 import code.sml.DocumentBuilder;
 import code.sml.maths.DocumentReaderMathUtil;
-import code.sml.DocumentReaderCoreUtil;
+import code.sml.core.DocumentReaderCoreUtil;
 import code.sml.Element;
 import code.sml.util.ResourcesMessagesUtil;
 import code.util.StringList;

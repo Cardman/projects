@@ -9,13 +9,11 @@ import code.maths.montecarlo.MonteCarloBoolean;
 import code.maths.montecarlo.MonteCarloNumber;
 import code.maths.montecarlo.MonteCarloString;
 import code.sml.Document;
-import code.sml.DocumentWriterCoreUtil;
+import code.sml.core.DocumentWriterCoreUtil;
 import code.sml.Element;
-import code.util.BooleanMap;
 import code.util.EntryCust;
 import code.util.EqList;
 import code.util.*;
-import code.util.ObjectMap;
 import code.util.StringMap;
 
 public final class DocumentWriterMathUtil {

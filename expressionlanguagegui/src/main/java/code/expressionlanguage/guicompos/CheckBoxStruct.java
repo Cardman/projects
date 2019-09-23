@@ -1,0 +1,67 @@
+package code.expressionlanguage.guicompos;
+
+import code.expressionlanguage.structs.BooleanStruct;
+import code.expressionlanguage.structs.NullStruct;
+import code.expressionlanguage.structs.StringStruct;
+import code.expressionlanguage.structs.Struct;
+import code.gui.CustCheckBox;
+import code.gui.CustComponent;
+
+public final class CheckBoxStruct extends InputStruct {
+    private CustCheckBox checkBox;
+
+    protected CheckBoxStruct(String _className) {
+        super(_className);
+        checkBox = new CustCheckBox();
+    }
+
+    protected CheckBoxStruct(String _className, Struct _txt) {
+        super(_className);
+        checkBox = new CustCheckBox(getText(_txt));
+    }
+
+    protected CheckBoxStruct(String _className, Struct _txt, Struct _sel) {
+        super(_className);
+        checkBox = new CustCheckBox(getText(_txt),((BooleanStruct)_sel).getInstance());
+    }
+
+    public Struct getText() {
+        String t_ = checkBox.getText();
+        if (t_ == null) {
+            return NullStruct.NULL_VALUE;
+        }
+        return new StringStruct(t_);
+    }
+    public void setText(Struct _txt) {
+        checkBox.setText(getText(_txt));
+    }
+    private static String getText(Struct _txt) {
+        if (_txt instanceof StringStruct) {
+            return ((StringStruct)_txt).getInstance();
+        }
+        return null;
+    }
+
+    public Struct isSelected() {
+        return new BooleanStruct(checkBox.isSelected());
+    }
+
+    public void setSelected(Struct b) {
+        checkBox.setSelected(((BooleanStruct)b).getInstance());
+    }
+
+    @Override
+    public Struct isEnabled() {
+        return new BooleanStruct(checkBox.isEnabled());
+    }
+
+    @Override
+    public void setEnabled(Struct _enabled) {
+        checkBox.setEnabled(((BooleanStruct)_enabled).getInstance());
+    }
+
+    @Override
+    protected CustComponent getComponent() {
+        return checkBox;
+    }
+}

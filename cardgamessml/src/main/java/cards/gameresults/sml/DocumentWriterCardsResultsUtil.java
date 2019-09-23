@@ -4,7 +4,7 @@ import cards.president.ResultsPresident;
 import cards.tarot.ResultsTarot;
 import code.sml.maths.DocumentWriterMathUtil;
 import code.sml.Document;
-import code.sml.DocumentWriterCoreUtil;
+import code.sml.core.DocumentWriterCoreUtil;
 import code.sml.Element;
 public final class DocumentWriterCardsResultsUtil {
 

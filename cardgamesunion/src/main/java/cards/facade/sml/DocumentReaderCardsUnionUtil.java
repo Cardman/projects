@@ -8,7 +8,7 @@ import cards.president.sml.DocumentReaderPresidentUtil;
 import cards.tarot.sml.DocumentReaderTarotUtil;
 import code.sml.Document;
 import code.sml.DocumentBuilder;
-import code.sml.DocumentReaderCoreUtil;
+import code.sml.core.DocumentReaderCoreUtil;
 import code.sml.Element;
 import code.sml.ElementList;
 import code.stream.StreamTextFile;

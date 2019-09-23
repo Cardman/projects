@@ -18,13 +18,13 @@ import cards.consts.sml.DocumentWriterCardsCommonUtil;
 import cards.gameresults.sml.DocumentWriterCardsResultsUtil;
 import code.sml.Document;
 import code.sml.DocumentBuilder;
-import code.sml.DocumentWriterCoreUtil;
+import code.sml.core.DocumentWriterCoreUtil;
 import code.sml.Element;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EnumList;
 import code.util.EnumMap;
-import code.util.EqList;
+
 public final class DocumentWriterBeloteUtil {
 
     private static final String ATTR_VALUE = "value";

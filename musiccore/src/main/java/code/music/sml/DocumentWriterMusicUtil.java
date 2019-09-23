@@ -7,7 +7,7 @@ import code.music.core.EvolvedScore;
 import code.music.enums.Gamme;
 import code.sml.Document;
 import code.sml.DocumentBuilder;
-import code.sml.DocumentWriterCoreUtil;
+import code.sml.core.DocumentWriterCoreUtil;
 import code.sml.Element;
 import code.util.EqList;
 public final class DocumentWriterMusicUtil {
