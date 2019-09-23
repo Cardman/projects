@@ -335,6 +335,7 @@ public abstract class LgNames {
                 getAliasGetMessage(),
                 getAliasGetCause()));
         map_.put(getAliasAnnotated(), new StringList(
+                getAliasGetFileName(),
                 getAliasGetAnnotations(),
                 getAliasGetAnnotationsParameters()));
         map_.put(getAliasAnnotation(), new StringList(getAliasGetString()));
@@ -361,6 +362,7 @@ public abstract class LgNames {
                 getAliasGetInterfaces(),
                 getAliasArrayGetLength(),
                 getAliasGetLowerBounds(),
+                getAliasGetFileName(),
                 getAliasGetName(),
                 getAliasGetOperators(),
                 getAliasGetPrettyName(),
@@ -395,6 +397,7 @@ public abstract class LgNames {
         map_.put(getAliasConstructor(), new StringList(
                 getAliasGetDeclaringClass(),
                 getAliasGetGenericReturnType(),
+                getAliasGetFileName(),
                 getAliasGetName(),
                 getAliasGetParameterNames(),
                 getAliasGetParameterTypes(),
@@ -410,6 +413,7 @@ public abstract class LgNames {
                 getAliasArrayGet(),
                 getAliasGetDeclaringClass(),
                 getAliasGetGenericType(),
+                getAliasGetFileName(),
                 getAliasGetName(),
                 getAliasGetType(),
                 getAliasIsFinal(),
@@ -423,6 +427,7 @@ public abstract class LgNames {
                 getAliasGetDeclaringClass(),
                 getAliasGetDefaultValue(),
                 getAliasGetGenericReturnType(),
+                getAliasGetFileName(),
                 getAliasGetName(),
                 getAliasGetParameterNames(),
                 getAliasGetParameterTypes(),
@@ -2483,6 +2488,12 @@ public abstract class LgNames {
     }
     public void setAliasIsAbstract(String _aliasIsAbstract) {
         reflect.setAliasIsAbstract(_aliasIsAbstract);
+    }
+    public String getAliasGetFileName() {
+        return reflect.getAliasGetFileName();
+    }
+    public void setAliasGetFileName(String _aliasGetName) {
+        reflect.setAliasGetFileName(_aliasGetName);
     }
     public String getAliasGetName() {
         return reflect.getAliasGetName();

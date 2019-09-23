@@ -5,7 +5,9 @@ import code.expressionlanguage.methods.AccessEnum;
 import code.util.StringList;
 
 
-public final class FieldMetaInfo implements Struct {
+public final class FieldMetaInfo implements AnnotatedStruct {
+
+    private static final String EMPTY_STRING = "";
     private final AccessEnum access;
     private final String declaringClass;
     private final String name;
@@ -15,7 +17,7 @@ public final class FieldMetaInfo implements Struct {
     private final boolean staticField;
 
     private final boolean finalField;
-
+    private String fileName = EMPTY_STRING;
     public FieldMetaInfo(String _declaringClass,
                          String _name,
                          String _returnType, boolean _static,
@@ -27,6 +29,15 @@ public final class FieldMetaInfo implements Struct {
         staticField = _static;
         finalField = _finalField;
         access = _access;
+    }
+
+    @Override
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String _fileName) {
+        fileName = _fileName;
     }
     @Override
     public Struct getParent() {

@@ -88,6 +88,7 @@ public final class AliasReflection {
     private String aliasInvokeDirect;
     private String aliasNewInstance;
     private String aliasIsAbstract;
+    private String aliasGetFileName;
     private String aliasGetName;
     private String aliasGetPrettyName;
     private String aliasGetField;
@@ -479,6 +480,9 @@ public final class AliasReflection {
         params_ = new StringList(aliasClass);
         method_ = new StandardMethod(aliasGetAnnotationsParameters, params_, PrimitiveTypeUtil.getPrettyArrayType(PrimitiveTypeUtil.getPrettyArrayType(aliasAnnotation)), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasGetFileName, params_, aliasString_, false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
         _stds.getStandards().put(aliasAnnotated, stdcl_);
     }
     public static ResultErrorStd invokeMethod(ContextEl _cont, ClassMethodId _method, Struct _struct, Argument... _args) {
@@ -868,7 +872,9 @@ public final class AliasReflection {
                         MethodId fid_;
                         fid_ = id_;
                         String decl_ = o.getDeclaringType();
-                        operators_.add(new MethodMetaInfo(acc_,decl_, id_, o.getModifier(), ret_, fid_, decl_));
+                        MethodMetaInfo met_ = new MethodMetaInfo(acc_, decl_, id_, o.getModifier(), ret_, fid_, decl_);
+                        met_.setFileName(o.getFile().getFileName());
+                        operators_.add(met_);
                     }
                     operators_.sortElts(new OperatorCmp());
                     Struct[] ctorsArr_ = new Struct[operators_.size()];
@@ -891,7 +897,9 @@ public final class AliasReflection {
                         MethodId fid_;
                         fid_ = id_;
                         String decl_ = o.getDeclaringType();
-                        candidates_.add(new MethodMetaInfo(acc_,decl_, id_, o.getModifier(), ret_, fid_, decl_));
+                        MethodMetaInfo met_ = new MethodMetaInfo(acc_, decl_, id_, o.getModifier(), ret_, fid_, decl_);
+                        met_.setFileName(o.getFile().getFileName());
+                        candidates_.add(met_);
                     }
                 }
                 Struct[] methodsArr_ = new Struct[candidates_.size()];
@@ -2026,6 +2034,14 @@ public final class AliasReflection {
     }
     public void setAliasIsAbstract(String _aliasIsAbstract) {
         aliasIsAbstract = _aliasIsAbstract;
+    }
+
+    public String getAliasGetFileName() {
+        return aliasGetFileName;
+    }
+
+    public void setAliasGetFileName(String _aliasGetFileName) {
+        aliasGetFileName = _aliasGetFileName;
     }
 
     public String getAliasGetName() {

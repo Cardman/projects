@@ -338,6 +338,7 @@ public final class KeyWordsMap {
         _lgNames.setAliasInvokeDirect("invokeDirect");
         _lgNames.setAliasNewInstance("newInstance");
         _lgNames.setAliasIsAbstract("isAbstract");
+        _lgNames.setAliasGetFileName("getFileName");
         _lgNames.setAliasGetName("getName");
         _lgNames.setAliasGetPrettyName("getPrettyName");
         _lgNames.setAliasGetField("get");
@@ -612,6 +613,7 @@ public final class KeyWordsMap {
         _lgNames.setAliasInvokeDirect("invoqueDirect");
         _lgNames.setAliasNewInstance("nouvelleInstance");
         _lgNames.setAliasIsAbstract("estAbstrait");
+        _lgNames.setAliasGetFileName("valNomFichier");
         _lgNames.setAliasGetName("valNom");
         _lgNames.setAliasGetPrettyName("valJoliNom");
         _lgNames.setAliasGetField("obtenir");

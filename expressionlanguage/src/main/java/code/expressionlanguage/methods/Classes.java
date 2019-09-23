@@ -2546,6 +2546,7 @@ public final class Classes {
         ObjectMap<ConstructorId, ConstructorMetaInfo> infosConst_;
         infosConst_ = new ObjectMap<ConstructorId, ConstructorMetaInfo>();
         CustList<Block> bl_ = getDirectChildren(_type);
+        String fileName_ = _type.getFile().getFileName();
         StringList inners_ = new StringList();
         boolean existCtor_ = false;
         for (Block b: bl_) {
@@ -2560,6 +2561,7 @@ public final class Classes {
                 AccessEnum acc_ = method_.getAccess();
                 for (String f: method_.getFieldName()) {
                     FieldMetaInfo met_ = new FieldMetaInfo(_name, f, ret_, staticElement_, finalElement_, acc_);
+                    met_.setFileName(fileName_);
                     infosFields_.put(f, met_);
                 }
             }
@@ -2577,6 +2579,7 @@ public final class Classes {
                     fid_ = id_;
                 }
                 MethodMetaInfo met_ = new MethodMetaInfo(acc_,_type.getFullName(), id_, method_.getModifier(), ret_, fid_, formCl_);
+                met_.setFileName(fileName_);
                 infos_.put(id_, met_);
             }
             if (b instanceof AnnotationMethodBlock) {
@@ -2588,6 +2591,7 @@ public final class Classes {
                 String formCl_ = _type.getFullName();
                 fid_ = id_;
                 MethodMetaInfo met_ = new MethodMetaInfo(acc_,_type.getFullName(), id_, method_.getModifier(), ret_, fid_, formCl_);
+                met_.setFileName(fileName_);
                 infos_.put(id_, met_);
             }
             if (b instanceof ConstructorBlock) {
@@ -2604,6 +2608,7 @@ public final class Classes {
                     fid_ = id_;
                 }
                 ConstructorMetaInfo met_ = new ConstructorMetaInfo(_name, acc_, id_, ret_, fid_, formCl_);
+                met_.setFileName(fileName_);
                 infosConst_.put(id_, met_);
             }
         }
@@ -2614,6 +2619,7 @@ public final class Classes {
             String ret_ = _context.getStandards().getAliasVoid();
             fid_ = id_;
             ConstructorMetaInfo met_ = new ConstructorMetaInfo(_name, acc_, id_, ret_, fid_, _name);
+            met_.setFileName(fileName_);
             infosConst_.put(id_, met_);
         }
         if (_type instanceof EnumBlock) {
@@ -2626,11 +2632,13 @@ public final class Classes {
             fid_ = id_;
             String decl_ = _type.getFullName();
             MethodMetaInfo met_ = new MethodMetaInfo(AccessEnum.PUBLIC,decl_, id_, MethodModifier.STATIC, ret_, fid_, decl_);
+            met_.setFileName(fileName_);
             infos_.put(id_, met_);
             id_ = new MethodId(true, values_, new StringList());
             ret_ = PrimitiveTypeUtil.getPrettyArrayType(ret_);
             fid_ = id_;
             met_ = new MethodMetaInfo(AccessEnum.PUBLIC,decl_, id_, MethodModifier.STATIC, ret_, fid_, decl_);
+            met_.setFileName(fileName_);
             infos_.put(id_, met_);
         }
         RootBlock par_ = _type.getParentType();
@@ -2648,12 +2656,16 @@ public final class Classes {
         AccessEnum acc_ = _type.getAccess();
         boolean st_ = _type.isStaticType();
         if (_type instanceof InterfaceBlock) {
-            return new ClassMetaInfo(_name, ((InterfaceBlock)_type).getImportedDirectSuperInterfaces(), format_, inners_,
-                    infosFields_,infos_, infosConst_, ClassCategory.INTERFACE,st_,acc_);
+            ClassMetaInfo cl_ = new ClassMetaInfo(_name, ((InterfaceBlock) _type).getImportedDirectSuperInterfaces(), format_, inners_,
+                    infosFields_, infos_, infosConst_, ClassCategory.INTERFACE, st_, acc_);
+            cl_.setFileName(fileName_);
+            return cl_;
         }
         if (_type instanceof AnnotationBlock) {
-            return new ClassMetaInfo(_name, new StringList(), format_, inners_,
-                    infosFields_,infos_, infosConst_, ClassCategory.ANNOTATION,st_,acc_);
+            ClassMetaInfo cl_ = new ClassMetaInfo(_name, new StringList(), format_, inners_,
+                    infosFields_, infos_, infosConst_, ClassCategory.ANNOTATION, st_, acc_);
+            cl_.setFileName(fileName_);
+            return cl_;
         }
         ClassCategory cat_ = ClassCategory.CLASS;
         if (_type instanceof EnumBlock) {
@@ -2663,8 +2675,10 @@ public final class Classes {
         boolean final_ = _type.isFinalType();
         String superClass_ = ((UniqueRootedBlock) _type).getImportedDirectGenericSuperClass();
         StringList superInterfaces_ = ((UniqueRootedBlock) _type).getImportedDirectGenericSuperInterfaces();
-        return new ClassMetaInfo(_name, superClass_, superInterfaces_, format_, inners_,
-                infosFields_,infos_, infosConst_, cat_, abs_, st_, final_,acc_);
+        ClassMetaInfo cl_ = new ClassMetaInfo(_name, superClass_, superInterfaces_, format_, inners_,
+                infosFields_, infos_, infosConst_, cat_, abs_, st_, final_, acc_);
+        cl_.setFileName(fileName_);
+        return cl_;
     }
     public DefaultLockingClass getLocks() {
         return locks;

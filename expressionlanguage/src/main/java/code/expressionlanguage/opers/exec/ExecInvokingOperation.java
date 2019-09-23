@@ -222,6 +222,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         String aliasAnnotated_ = stds_.getAliasAnnotated();
         String aliasGetAnnotations_ = stds_.getAliasGetAnnotations();
         String aliasGetAnnotationsParam_ = stds_.getAliasGetAnnotationsParameters();
+        String aliasGetFileName_ = stds_.getAliasGetFileName();
         if (!_methodId.isStaticMethod()) {
             String clName_ = _previous.getObjectClassName(_conf.getContextEl());
             Struct prev_ =_previous.getStruct();
@@ -267,6 +268,10 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             if (StringList.quickEq(aliasGetAnnotationsParam_, _methodId.getName())) {
                 _conf.getContextEl().setCallingState(new CustomReflectMethod(ReflectingType.ANNOTATION_PARAM, _previous, _firstArgs, false));
                 return new Argument();
+            }
+            if (StringList.quickEq(aliasGetFileName_, _methodId.getName())) {
+                String fileName_ = ((AnnotatedStruct) _previous.getStruct()).getFileName();
+                return new Argument(new StringStruct(fileName_));
             }
         }
         if (StringList.quickEq(aliasClass_, _classNameFound)) {

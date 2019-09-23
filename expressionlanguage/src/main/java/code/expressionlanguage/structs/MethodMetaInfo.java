@@ -7,7 +7,9 @@ import code.expressionlanguage.opers.util.MethodModifier;
 import code.util.StringList;
 
 
-public final class MethodMetaInfo implements Struct {
+public final class MethodMetaInfo implements AnnotatedStruct {
+
+    private static final String EMPTY_STRING = "";
 
     private final String className;
     private final String formClassName;
@@ -19,7 +21,7 @@ public final class MethodMetaInfo implements Struct {
     private final MethodModifier modifier;
 
     private final String returnType;
-
+    private String fileName = EMPTY_STRING;
     public MethodMetaInfo(AccessEnum _access, String _className, MethodId _realId, MethodModifier _modifier, String _returnType,
                           MethodId _fid, String _formClassName) {
         access = _access;
@@ -30,6 +32,16 @@ public final class MethodMetaInfo implements Struct {
         fid = _fid;
         formClassName = _formClassName;
     }
+
+    @Override
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String _fileName) {
+        fileName = _fileName;
+    }
+
     @Override
     public Struct getParent() {
         return NullStruct.NULL_VALUE;

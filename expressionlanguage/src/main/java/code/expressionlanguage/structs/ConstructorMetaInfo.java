@@ -5,7 +5,9 @@ import code.expressionlanguage.methods.AccessEnum;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.util.StringList;
 
-public final class ConstructorMetaInfo implements Struct {
+public final class ConstructorMetaInfo implements AnnotatedStruct {
+
+    private static final String EMPTY_STRING = "";
 
     private final String className;
     private final String formClassName;
@@ -13,7 +15,7 @@ public final class ConstructorMetaInfo implements Struct {
     private final AccessEnum access;
     private final ConstructorId fid;
     private final String returnType;
-
+    private String fileName = EMPTY_STRING;
     public ConstructorMetaInfo(String _className, AccessEnum _access, ConstructorId _realId, String _returnType,
                                ConstructorId _fid, String _formClassName) {
         className = _className;
@@ -24,6 +26,14 @@ public final class ConstructorMetaInfo implements Struct {
         formClassName = _formClassName;
     }
 
+    @Override
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String _fileName) {
+        fileName = _fileName;
+    }
     public String getClassName() {
         return className;
     }

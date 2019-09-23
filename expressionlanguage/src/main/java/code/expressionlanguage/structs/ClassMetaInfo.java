@@ -15,7 +15,7 @@ import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
 
-public final class ClassMetaInfo implements Struct, ExportableStringStruct {
+public final class ClassMetaInfo implements AnnotatedStruct, ExportableStringStruct {
 
     private static final String EMPTY_STRING = "";
 
@@ -43,6 +43,7 @@ public final class ClassMetaInfo implements Struct, ExportableStringStruct {
 
     private final String variableOwner;
     private final AccessEnum access;
+    private String fileName = EMPTY_STRING;
     public ClassMetaInfo(String _name, ContextEl _context, ClassCategory _cat, String _variableOwner) {
         name = _name;
         variableOwner = _variableOwner;
@@ -141,6 +142,15 @@ public final class ClassMetaInfo implements Struct, ExportableStringStruct {
         staticType = _staticType;
         finalType = false;
         access = _access;
+    }
+
+    @Override
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String _fileName) {
+        fileName = _fileName;
     }
     @Override
     public Struct getParent() {

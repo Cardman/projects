@@ -225,6 +225,7 @@ public final class InitializationLgNames {
         _lgNames.setAliasInvokeDirect("invokeDirect");
         _lgNames.setAliasNewInstance("newInstance");
         _lgNames.setAliasIsAbstract("isAbstract");
+        _lgNames.setAliasGetFileName("getFileName");
         _lgNames.setAliasGetName("getName");
         _lgNames.setAliasGetPrettyName("getPrettyName");
         _lgNames.setAliasGetField("get");
