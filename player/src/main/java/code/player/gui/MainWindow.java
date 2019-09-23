@@ -39,9 +39,6 @@ public class MainWindow extends GroupFrame {
     private static final String CANNOT_READ_MESSAGE_WPL = "cannotReadMessageWpl";
     private static final String CANNOT_READ_MESSAGE_WAV = "cannotReadMessageWav";
     private static final String RESOURCES_FOLDER = "resources_player";
-    private static final String XML_HEADER = "<?xml";
-    private static final String XML_END_HEADER = "?>";
-    private static final String WPL_HEADER = "<?wpl";
     private static final String SEC = " s ";
     private static final String MIN = " m ";
     private static final String HOUR = " h ";
@@ -49,6 +46,7 @@ public class MainWindow extends GroupFrame {
     private static final String REL_SEP = " / ";
     private static final String PAUSE = "||";
     private static final String KEY_PAUSE = "pause";
+    private static final String KEY_RANDOM = "random";
     private static final String ATTR_VALUE = "value";
     private static final String MEDIA = "media";
     private static final String SRC = "src";
@@ -249,6 +247,8 @@ public class MainWindow extends GroupFrame {
                             noSong = paused_;
                             applyRand_ = false;
                         }
+                    } else if (elts_.getLength() > 0 && StringList.quickEq(KEY_RANDOM,elts_.get(0).getTagName())) {
+                        random.setSelected(true);
                     }
                     if (applyRand_ && random.isSelected()) {
                         StringList songsList_ = new StringList();
