@@ -1,12 +1,8 @@
-package converterimages.gui;
+package code.converterimages.gui;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.IOException;
 
 import javax.imageio.ImageIO;
-import javax.swing.BoxLayout;
-import javax.swing.JCheckBox;
-import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
 import code.gui.*;
@@ -17,7 +13,7 @@ import code.stream.StreamTextFile;
 import code.util.StringList;
 import code.util.consts.Constants;
 
-public class MainWindow extends GroupFrame {
+public final class MainWindow extends GroupFrame {
 
     private static final String EMPTY_STRING = "";
 
@@ -77,12 +73,12 @@ public class MainWindow extends GroupFrame {
     }
 
     public void export() {
-//        FolderOpenDialog folder_ = new FolderOpenDialog(this, Constants.getLanguage(), false);
-//        String folderPathRead_ = folder_.getSelectedPath();
-//        if (folderPathRead_.isEmpty()) {
-//            return;
-//        }
-        if (readImages.isSelected()) {
+        boolean read_ = readImages.isSelected();
+        export(read_);
+    }
+
+    void export(boolean _readImages) {
+        if (_readImages) {
             StringList files_ = StreamTextFile.files(pathExport.getText());
             for (String f: files_) {
                 String f_ = StringList.replaceBackSlash(f);
@@ -128,7 +124,22 @@ public class MainWindow extends GroupFrame {
             }
         }
     }
-
+    public void readOneImageArg(String _readPath) {
+        try {
+            BufferedImage img_ = ImageIO.read(new File(_readPath));
+            String txt_ = BaseSixtyFourUtil.getStringByImage(ConverterGraphicBufferedImage.toArrays(img_));
+            StreamTextFile.saveTextFile(StringList.replace(_readPath, DOT+PNG_EXT, DOT+TXT_EXT), txt_);
+        } catch (Exception _0) {
+        }
+    }
+    public void writeOneImageArg(String _writePath) {
+        try {
+            String readImage_ = StreamTextFile.contentsOfFile(_writePath);
+            BufferedImage img_ = ConverterGraphicBufferedImage.decodeToImage(BaseSixtyFourUtil.getImageByString(readImage_));
+            ImageIO.write(img_, PNG_EXT, new File(StringList.replace(_writePath, DOT+TXT_EXT, DOT+PNG_EXT)));
+        } catch (Exception _0) {
+        }
+    }
     @Override
     public void quit() {
         ThreadUtil.exit();

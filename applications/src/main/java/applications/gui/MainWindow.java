@@ -3,6 +3,7 @@ package applications.gui;
 import aiki.main.LaunchingPokemon;
 import applications.main.LaunchingApplications;
 import cards.main.LaunchingCards;
+import code.converterimages.main.LaunchingConverter;
 import code.expressionlanguage.gui.unit.LaunchingAppUnitTests;
 import code.gui.*;
 import code.gui.Panel;
@@ -28,6 +29,7 @@ public final class MainWindow extends GroupFrame {
     private LabelButton buttonRenders;
     private LabelButton buttonDemo;
     private LabelButton buttonPlayer;
+    private LabelButton buttonConverter;
 
     private CustButtonGroup group = new CustButtonGroup();
 
@@ -68,6 +70,11 @@ public final class MainWindow extends GroupFrame {
         buttonPlayer.addMouseListener(new PlayerEvent(this));
         linePlayer_.add(buttonPlayer);
         panel_.add(linePlayer_);
+        Panel lineConverter_ = Panel.newLineBox();
+        buttonConverter = new LabelButton("7");
+        buttonConverter.addMouseListener(new ConverterEvent(this));
+        lineConverter_.add(buttonConverter);
+        panel_.add(lineConverter_);
         panel_.add(new Clock());
         for (String l: Constants.getAvailableLanguages()) {
             RadioButton radio_ = new RadioButton(Constants.getDisplayLanguage(l));
@@ -103,6 +110,9 @@ public final class MainWindow extends GroupFrame {
             nb_++;
         }
         if (LaunchingPlayer.alreadyLaunched()) {
+            nb_++;
+        }
+        if (LaunchingConverter.alreadyLaunched()) {
             nb_++;
         }
         if (nb_ > CustList.SIZE_EMPTY) {

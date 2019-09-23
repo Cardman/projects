@@ -14,6 +14,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.GuiProcess;
 import code.expressionlanguage.gui.unit.LaunchingAppUnitTests;
 import code.gui.*;
+import code.images.BaseSixtyFourUtil;
 import code.minirts.LaunchingDemo;
 import code.player.SongList;
 import code.player.main.LaunchingPlayer;
@@ -23,8 +24,9 @@ import code.sml.DocumentBuilder;
 import code.stream.StreamTextFile;
 import code.util.StringList;
 import code.util.StringMap;
+import code.converterimages.main.LaunchingConverter;
 
-import java.awt.*;
+import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 
@@ -74,6 +76,10 @@ public class LaunchingApplications extends SoftApplicationCore {
             } else if (readObject_ instanceof Document) {
                 launchWindow(_language);
                 LaunchingDemo launch_ = new LaunchingDemo();
+                launch_.launchWithoutLanguage(_language, _args);
+            } else if (readObject_ instanceof BufferedImage || readObject_ instanceof int[][]) {
+                launchWindow(_language);
+                LaunchingConverter launch_ = new LaunchingConverter();
                 launch_.launchWithoutLanguage(_language, _args);
             } else if (readObject_ instanceof String) {
                 String fileContent_ = (String) readObject_;
@@ -137,7 +143,15 @@ public class LaunchingApplications extends SoftApplicationCore {
 
     @Override
     public Object getObject(String _fileName) {
+        try {
+            return ImageIO.read(new File(_fileName));
+        } catch (Exception e) {
+            //skip
+        }
         String file_ = StreamTextFile.contentsOfFile(_fileName);
+        if (file_ == null) {
+            return null;
+        }
         Object game_ = DocumentReaderCardsUnionUtil.getContentObject(file_);
         if (game_ != null) {
             return game_;
@@ -156,6 +170,9 @@ public class LaunchingApplications extends SoftApplicationCore {
                     return list_;
                 }
                 return doc_;
+            }
+            if (file_.indexOf('\n') < 0) {
+                return BaseSixtyFourUtil.getImageByString(file_);
             }
             return file_;
         }
