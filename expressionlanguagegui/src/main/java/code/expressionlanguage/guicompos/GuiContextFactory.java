@@ -33,10 +33,7 @@ public final class GuiContextFactory {
         CustLockingClass cl_ = new CustLockingClass();
         CustInitializer ci_ = new GuiInitializer();
         GuiContextEl r_ = new GuiContextEl(_stack, cl_, ci_, _options, _exec, _definedKw, _definedLgNames,_tabWidth);
-        InitStandardComponents s_ = new InitStandardComponents(r_,_mainArgs);
-        if (!CustComponent.invokeAndWait(s_)) {
-            return null;
-        }
+        r_.initApplicationParts(_mainArgs);
         r_.setCovering(_exec.isCovering());
         ContextFactory.validate(_definedKw,_definedLgNames,_files,r_,_exec.getSrcFolder());
         return r_;

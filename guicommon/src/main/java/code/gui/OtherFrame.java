@@ -1,7 +1,5 @@
 package code.gui;
 
-import code.util.CustList;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowListener;
@@ -9,26 +7,16 @@ import java.awt.image.BufferedImage;
 
 public final class OtherFrame extends AbsFrame implements ChangeableTitle,WithListener {
 
-    private static final CustList<OtherFrame> FRAMES = new CustList<OtherFrame>();
-
     private BufferedImage imageIconFrame;
 
-    private boolean opened;
+    private boolean mainFrame;
 
     private Ownable owner;
     private JFrame frame = new JFrame();
 
-    public OtherFrame() {
-        SetStyle.setupStyle(this);
-        FRAMES.add(this);
-    }
-
-    protected static OtherFrame getFrame(int _i) {
-        return FRAMES.get(_i);
-    }
-
-    protected static int getFrameCount() {
-        return FRAMES.size();
+    public void setMainFrame(boolean _mainFrame) {
+        mainFrame = _mainFrame;
+        SetStyle.setupStyle();
     }
 
     @Override
@@ -42,7 +30,7 @@ public final class OtherFrame extends AbsFrame implements ChangeableTitle,WithLi
     }
     public void dispose() {
         setVisible(false);
-        if(!FRAMES.first().opened) {
+        if (mainFrame) {
             exit();
         }
     }
@@ -96,7 +84,6 @@ public final class OtherFrame extends AbsFrame implements ChangeableTitle,WithLi
 
     @Override
     public void setVisible(boolean _v) {
-        opened = _v;
         frame.setVisible(_v);
     }
     public void setJMenuBar(MenuBar _menu) {

@@ -33,6 +33,9 @@ public abstract class SoftApplicationCore {
 
     private static final String EMPTY_STRING = "";
 
+    protected SoftApplicationCore() {
+        SetStyle.setupStyle();
+    }
     protected void loadLaungage(String _dir, String[] _args, BufferedImage _icon) {
         String lg_ = prepareLanguage(_dir, _args, _icon);
         if (lg_.isEmpty()) {

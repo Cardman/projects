@@ -19,16 +19,6 @@ public abstract class CustComponent {
     public static void invokeLater(Runnable _r) {
         SwingUtilities.invokeLater(_r);
     }
-    public static boolean invokeAndWait(Runnable _r) {
-        Thread th_ = new Thread(_r);
-        th_.start();
-        try {
-            th_.join();
-        } catch (Exception _0) {
-            //ignore
-        }
-        return true;
-    }
 
     public boolean isAutoscrolls(){
         return getComponent().getAutoscrolls();

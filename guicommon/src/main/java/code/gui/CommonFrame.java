@@ -19,7 +19,6 @@ public abstract class CommonFrame extends AbsFrame implements ChangeableTitle {
     private MenuBar menuBar;
     private String languageKey;
     protected CommonFrame(String _languageKey) {
-        SetStyle.setupStyle(this);
         languageKey = _languageKey;
     }
     public String getLanguageKey() {
