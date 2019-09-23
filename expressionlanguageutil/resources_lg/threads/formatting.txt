@@ -1,0 +1,12 @@
+{public} {abstract} {final} {class} {Format} '{'
+    {public} {static} {void} {print}({Object} {p})'{'
+        {static}({Thread}).{print}({static}({StringUtil}).{valueOf}({p}{param})){endLine}
+    '}'
+    {public} {static} {void} {print}({String} {p},{Object}... {a})'{'
+        {String}[] {as} = {new} {String}[({a}{param}).{length}]{endLine}
+        {for}({var} {e}:{a}{param})'{'
+            {as}{local}[{cast}({int})([{e}])] = {static}({StringUtil}).{valueOf}({e}{loop}){endLine}
+        '}'
+        {static}({Thread}).{print}(({p}{param}).{format}({as}{local})){endLine}
+    '}'
+'}'

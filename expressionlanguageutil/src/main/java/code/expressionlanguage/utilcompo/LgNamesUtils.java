@@ -10,6 +10,7 @@ import java.util.concurrent.locks.ReentrantLock;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ExecutableCode;
+import code.expressionlanguage.calls.util.CustomFoundMethod;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.opers.util.ClassMethodId;
@@ -59,6 +60,7 @@ public class LgNamesUtils extends LgNames {
     private String aliasAtomicLong;
     private String aliasSetAtomic;
     private String aliasGetAtomic;
+    private String aliasFormatType;
     private String aliasPrint;
     private String aliasFile;
     private String aliasRead;
@@ -465,6 +467,15 @@ public class LgNamesUtils extends LgNames {
         getPredefinedInterfacesInitOrder().add(aliasExecutedTest);
         getPredefinedInterfacesInitOrder().add(aliasResult);
         getPredefinedInterfacesInitOrder().add(aliasExecute);
+        content_ = ResourceFiles.ressourceFichier("resources_lg/threads/formatting.txt");
+        map_.put("{Format}",aliasFormatType);
+        map_.put("{int}", int_);
+        map_.put("{print}",getAliasPrint());
+        map_.put("{format}",getAliasFormat());
+        content_ = StringList.formatQuote(content_, map_);
+        getPredefinedClasses().add(aliasFormatType);
+        stds_.put(aliasFormatType, content_);
+        getPredefinedInterfacesInitOrder().add(aliasFormatType);
         return stds_;
     }
     protected static String tr(String _var, ContextEl _context) {
@@ -518,6 +529,9 @@ public class LgNamesUtils extends LgNames {
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasYield, params_, getAliasVoid(), false, MethodModifier.STATIC, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasObject());
+        method_ = new StandardMethod(aliasPrint, params_, getAliasVoid(), false, MethodModifier.STATIC, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(getAliasString());
         method_ = new StandardMethod(aliasPrint, params_, getAliasVoid(), false, MethodModifier.STATIC, stdcl_);
@@ -1063,35 +1077,42 @@ public class LgNamesUtils extends LgNames {
 
     private static void log(String _dtPart, RunnableContextEl _cont,
                             ClassMethodId _method, Struct... _args) {
-        String stringAppFile_ = buildLog(_cont, _method, _args);
+        if (_method.getConstraints().getParametersTypes().size() == 1) {
+            String type_ = _method.getConstraints().getParametersTypes().first();
+            LgNamesUtils stds_ = (LgNamesUtils) _cont.getStandards();
+            String aliasObject_ = stds_.getAliasObject();
+            if (StringList.quickEq(type_, aliasObject_)) {
+                ClassMethodId polymorph_ = new ClassMethodId(stds_.aliasFormatType,new MethodId(true,stds_.aliasPrint,new StringList(aliasObject_)));
+                String className_ = polymorph_.getClassName();
+                MethodId ct_ = polymorph_.getConstraints();
+                Argument arg_ = new Argument(_args[0]);
+                _cont.setCallingState(new CustomFoundMethod(Argument.createVoid(),className_,ct_,new CustList<Argument>(arg_),null));
+                return;
+            }
+        }
+        if (_method.getConstraints().getParametersTypes().size() == 2) {
+            LgNamesUtils stds_ = (LgNamesUtils) _cont.getStandards();
+            String aliasString_ = stds_.getAliasString();
+            String aliasObject_ = stds_.getAliasObject();
+            ClassMethodId polymorph_ = new ClassMethodId(stds_.aliasFormatType,new MethodId(true,stds_.aliasPrint,new StringList(aliasString_,aliasObject_),true));
+            String className_ = polymorph_.getClassName();
+            MethodId ct_ = polymorph_.getConstraints();
+            Argument arg_ = new Argument(_args[0]);
+            Argument argArr_ = new Argument(_args[1]);
+            _cont.setCallingState(new CustomFoundMethod(Argument.createVoid(),className_,ct_,new CustList<Argument>(arg_,argArr_),null));
+            return;
+        }
+        String stringAppFile_ = buildLog(_cont, _args);
         stringAppFile_ = StringList.concat(getDateTimeText("_", "_", "_"),":",stringAppFile_);
         String folder_ = _cont.getExecutingOptions().getLogFolder();
         new File(folder_).mkdirs();
         String toFile_ = StringList.concat(folder_,"/",_dtPart);
         StreamTextFile.logToFile(toFile_, stringAppFile_);
     }
-    private static String buildLog(ContextEl _cont, ClassMethodId _method,
-            Struct... _args) {
+    private static String buildLog(ContextEl _cont,
+                                   Struct... _args) {
         String stringAppFile_;
-        StringList paramType_ = _method.getConstraints().getParametersTypes();
-        if (paramType_.size() == 1) {
-            stringAppFile_ = getStandarString(_cont,_args[0]);
-        } else {
-            StringList values_ = new StringList();
-            if (_args[1] instanceof ArrayStruct) {
-                for (Struct e: ((ArrayStruct)_args[1]).getInstance()) {
-                    values_.add(getStandarString(_cont,e));
-                }
-                if (_args[0] instanceof StringStruct) {
-                    stringAppFile_ = StringList.simpleStringsFormat(((StringStruct)_args[0]).getInstance(), values_);
-                } else {
-                    stringAppFile_ = _cont.getStandards().getNullString();
-                }
-            } else {
-                stringAppFile_ = getStandarString(_cont,_args[0]);
-
-            }
-        }
+        stringAppFile_ = getStandarString(_cont,_args[0]);
         return stringAppFile_;
     }
     private static String getStandarString(ContextEl _cont, Struct _struct) {
@@ -1123,6 +1144,8 @@ public class LgNamesUtils extends LgNames {
                 getAliasIsHeldByCurrentThread()));
         m_.put(getAliasRunnable(), new StringList(
                 getAliasRun()));
+        m_.put(getAliasFormatType(), new StringList(
+                getAliasPrint()));
         m_.put(getAliasAtomicBoolean(), new StringList(
                 getAliasGetAtomic(),
                 getAliasSetAtomic()));
@@ -1204,6 +1227,7 @@ public class LgNamesUtils extends LgNames {
         ref_.add(getAliasCustIterator());
         ref_.add(getAliasList());
         ref_.add(getAliasRunnable());
+        ref_.add(getAliasFormatType());
         ref_.add(getAliasCustPair());
         ref_.add(getAliasCustIterTable());
         ref_.add(getAliasTable());
@@ -1381,7 +1405,16 @@ public class LgNamesUtils extends LgNames {
     public void setAliasGetAtomic(String _aliasGetAtomic) {
         aliasGetAtomic = _aliasGetAtomic;
     }
-	public String getAliasPrint() {
+
+    public String getAliasFormatType() {
+        return aliasFormatType;
+    }
+
+    public void setAliasFormatType(String _aliasFormatType) {
+        aliasFormatType = _aliasFormatType;
+    }
+
+    public String getAliasPrint() {
 		return aliasPrint;
 	}
 	public void setAliasPrint(String _aliasPrint) {
@@ -2072,6 +2105,7 @@ public class LgNamesUtils extends LgNames {
         if (StringList.quickEq(_lang, "en")) {
             setAliasPrint("print");
             setAliasRunnable("$core.Runnable");
+            setAliasFormatType("$core.Formatting");
             setAliasRun("run");
             setAliasThread("$core.Thread");
             setAliasThreadExitHook("exitHook");
@@ -2184,6 +2218,7 @@ public class LgNamesUtils extends LgNames {
         } else {
             setAliasPrint("afficher");
             setAliasRunnable("$coeur.Executable");
+            setAliasFormatType("$coeur.Formattage");
             setAliasRun("executer");
             setAliasThread("$coeur.Tache");
             setAliasThreadExitHook("sortieIntercept");
