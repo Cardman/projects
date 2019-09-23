@@ -4,6 +4,7 @@ import code.gui.ConstFiles;
 import code.gui.LoadLanguage;
 import code.gui.SoftApplicationCore;
 import code.gui.ThreadInvoker;
+import code.stream.StreamBinaryFile;
 import code.stream.StreamTextFile;
 import code.util.StringList;
 import code.util.StringMap;
@@ -26,7 +27,10 @@ public class LaunchingConverter extends SoftApplicationCore {
     @Override
     public Object getObject(String _fileName) {
         try {
-            return ImageIO.read(new File(_fileName));
+            if (isPng(StreamBinaryFile.loadFile(_fileName))) {
+                return ImageIO.read(new File(_fileName));
+            }
+            return StreamTextFile.contentsOfFile(_fileName);
         } catch (Exception e) {
             return StreamTextFile.contentsOfFile(_fileName);
         }
@@ -42,6 +46,13 @@ public class LaunchingConverter extends SoftApplicationCore {
         ThreadInvoker.invokeNow(new CreateMainWindow(_language,_args));
     }
 
+    public static boolean isPng(byte[] _bytes) {
+        return _bytes != null && _bytes.length > 7
+                && _bytes[0] == (byte)0x89 && _bytes[1] == (byte)0x50
+                && _bytes[2] == (byte)0x4e && _bytes[3] == (byte)0x47
+                && _bytes[4] == (byte)0x0d && _bytes[5] == (byte)0x0a
+                && _bytes[6] == (byte)0x1a && _bytes[7] == (byte)0x0a;
+    }
     public static void increment() {
         _nbInstances_++;
     }

@@ -21,6 +21,7 @@ import code.player.main.LaunchingPlayer;
 import code.renders.LaunchingRenders;
 import code.sml.Document;
 import code.sml.DocumentBuilder;
+import code.stream.StreamBinaryFile;
 import code.stream.StreamTextFile;
 import code.util.StringList;
 import code.util.StringMap;
@@ -143,10 +144,16 @@ public class LaunchingApplications extends SoftApplicationCore {
 
     @Override
     public Object getObject(String _fileName) {
-        try {
-            return ImageIO.read(new File(_fileName));
-        } catch (Exception e) {
-            //skip
+        byte[] bytes_ = StreamBinaryFile.loadFile(_fileName);
+        if (LaunchingConverter.isPng(bytes_)) {
+            try {
+                BufferedImage img_ = ImageIO.read(new File(_fileName));
+                if (img_ != null) {
+                    return img_;
+                }
+            } catch (Exception e) {
+                //skip
+            }
         }
         String file_ = StreamTextFile.contentsOfFile(_fileName);
         if (file_ == null) {
