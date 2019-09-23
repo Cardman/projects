@@ -1,10 +1,7 @@
 package code.expressionlanguage.guicompos;
 
 import code.expressionlanguage.ExecutableCode;
-import code.expressionlanguage.structs.BooleanStruct;
-import code.expressionlanguage.structs.IntStruct;
-import code.expressionlanguage.structs.NullStruct;
-import code.expressionlanguage.structs.Struct;
+import code.expressionlanguage.structs.*;
 
 import javax.swing.*;
 import java.awt.event.MouseEvent;
@@ -33,6 +30,46 @@ public final class MouseEventStruct implements Struct {
         clicks = _action.getClickCount();
         className = _className;
     }
+    public MouseEventStruct(String _className) {
+        className = _className;
+    }
+
+    public void setFirst(Struct _first) {
+        first = ((NumberStruct)_first).intStruct();
+    }
+
+    public void setSecond(Struct _second) {
+        second = ((NumberStruct)_second).intStruct();
+    }
+
+    public void setAlt(Struct _alt) {
+        alt = ((BooleanStruct)_alt).getInstance();
+    }
+
+    public void setCtrl(Struct _ctrl) {
+        ctrl = ((BooleanStruct)_ctrl).getInstance();
+    }
+
+    public void setShift(Struct _shift) {
+        shift = ((BooleanStruct)_shift).getInstance();
+    }
+
+    public void setLeft(Struct _left) {
+        left = ((BooleanStruct)_left).getInstance();
+    }
+
+    public void setMiddle(Struct _middle) {
+        middle = ((BooleanStruct)_middle).getInstance();
+    }
+
+    public void setRight(Struct _right) {
+        right = ((BooleanStruct)_right).getInstance();
+    }
+
+    public void setClicks(Struct _clicks) {
+        clicks = ((NumberStruct)_clicks).intStruct();
+    }
+
     @Override
     public Struct getParent() {
         return NullStruct.NULL_VALUE;

@@ -37,6 +37,7 @@ public class LgNamesUtils extends LgNames {
 
     private String aliasRunnable;
     private String aliasThread;
+    private String aliasThreadCurrentTime;
     private String aliasThreadExitHook;
     private String aliasCurrentThread;
     private String aliasStart;
@@ -497,6 +498,8 @@ public class LgNamesUtils extends LgNames {
         methods_.put(method_.getId(), method_);
         method_ = new StandardMethod(aliasCurrentThread, params_, aliasThread, false, MethodModifier.STATIC, stdcl_);
         methods_.put(method_.getId(), method_);
+        method_ = new StandardMethod(aliasThreadCurrentTime, params_, getAliasPrimLong(), false, MethodModifier.STATIC, stdcl_);
+        methods_.put(method_.getId(), method_);
         method_ = new StandardMethod(aliasJoin, params_, getAliasPrimBoolean(), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         method_ = new StandardMethod(aliasJoinOthers, params_, getAliasVoid(), false, MethodModifier.STATIC, stdcl_);
@@ -844,7 +847,6 @@ public class LgNamesUtils extends LgNames {
             }
             if (StringList.quickEq(name_,aliasJoin)) {
                 Thread thread_ = (Thread) ((StdStruct) _instance).getInstance();
-                CustInitializer cust_ = ((RunnableContextEl)_cont).getCustInit();
                 boolean alive_ = thread_.isAlive();
                 try {
                     thread_.join();
@@ -928,6 +930,13 @@ public class LgNamesUtils extends LgNames {
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
+            if (_cont.isInitEnums()) {
+                _cont.failInitEnums();
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            res_.setResult(new LongStruct(System.currentTimeMillis()));
+            return res_;
         }
         if (StringList.quickEq(className_,aliasReentrantLock)) {
             if (_cont.isInitEnums()) {
@@ -1096,6 +1105,7 @@ public class LgNamesUtils extends LgNames {
         StringMap<StringList> m_ = super.allTableTypeMethodNames();
         m_.put(getAliasThread(), new StringList(
                 getAliasStart(),
+                getAliasThreadCurrentTime(),
                 getAliasIsAlive(),
                 getAliasCurrentThread(),
                 getAliasJoin(),
@@ -1233,6 +1243,14 @@ public class LgNamesUtils extends LgNames {
 
     public void setAliasThreadExitHook(String aliasThreadExitHook) {
         this.aliasThreadExitHook = aliasThreadExitHook;
+    }
+
+    public String getAliasThreadCurrentTime() {
+        return aliasThreadCurrentTime;
+    }
+
+    public void setAliasThreadCurrentTime(String _aliasThreadCurrentTime) {
+        aliasThreadCurrentTime = _aliasThreadCurrentTime;
     }
 
     public String getAliasStart() {
@@ -2058,6 +2076,7 @@ public class LgNamesUtils extends LgNames {
             setAliasThread("$core.Thread");
             setAliasThreadExitHook("exitHook");
             setAliasStart("start");
+            setAliasThreadCurrentTime("currentTime");
             setAliasCurrentThread("currentThread");
             setAliasJoin("join");
             setAliasJoinOthers("joinOthers");
@@ -2169,6 +2188,7 @@ public class LgNamesUtils extends LgNames {
             setAliasThread("$coeur.Tache");
             setAliasThreadExitHook("sortieIntercept");
             setAliasStart("demarrer");
+            setAliasThreadCurrentTime("instant");
             setAliasCurrentThread("tacheCourante");
             setAliasJoin("attendre");
             setAliasJoinOthers("attendreAutres");

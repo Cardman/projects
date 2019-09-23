@@ -1260,6 +1260,7 @@ public class LgNamesGui extends LgNamesUtils {
     private void buildEvents() {
         ObjectMap<MethodId, StandardMethod> methods_;
         CustList<StandardConstructor> constructors_;
+        StandardConstructor ctor_;
         StringMap<StandardField> fields_;
         StandardClass stdcl_;
         StringList params_;
@@ -1268,19 +1269,19 @@ public class LgNamesGui extends LgNamesUtils {
         methods_ = new ObjectMap<MethodId, StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new StringMap<StandardField>();
-        stdcl_ = new StandardClass(aliasActionEvent, fields_, constructors_, methods_, getAliasObject(), MethodModifier.ABSTRACT);
+        stdcl_ = new StandardClass(aliasActionEvent, fields_, constructors_, methods_, getAliasObject(), MethodModifier.FINAL);
         std_ = stdcl_;
         getStandards().put(aliasActionEvent, std_);
         methods_ = new ObjectMap<MethodId, StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new StringMap<StandardField>();
-        stdcl_ = new StandardClass(aliasWindowEvent, fields_, constructors_, methods_, getAliasObject(), MethodModifier.ABSTRACT);
+        stdcl_ = new StandardClass(aliasWindowEvent, fields_, constructors_, methods_, getAliasObject(), MethodModifier.FINAL);
         std_ = stdcl_;
         getStandards().put(aliasWindowEvent, std_);
         methods_ = new ObjectMap<MethodId, StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new StringMap<StandardField>();
-        stdcl_ = new StandardClass(aliasMouseEvent, fields_, constructors_, methods_, getAliasObject(), MethodModifier.ABSTRACT);
+        stdcl_ = new StandardClass(aliasMouseEvent, fields_, constructors_, methods_, getAliasObject(), MethodModifier.FINAL);
         params_ = new StringList();
         method_ = new StandardMethod(aliasMouseEventIsAlt, params_, getAliasPrimBoolean(), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
@@ -1308,12 +1309,18 @@ public class LgNamesGui extends LgNamesUtils {
         params_ = new StringList();
         method_ = new StandardMethod(aliasMouseEventGetSecond, params_, getAliasPrimInteger(), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasPrimInteger(),getAliasPrimInteger(),
+                getAliasPrimBoolean(),getAliasPrimBoolean(),getAliasPrimBoolean(),
+                getAliasPrimBoolean(),getAliasPrimBoolean(),getAliasPrimBoolean(),
+                getAliasPrimInteger());
+        ctor_ = new StandardConstructor(params_,false,stdcl_);
+        constructors_.add(ctor_);
         std_ = stdcl_;
         getStandards().put(aliasMouseEvent, std_);
         methods_ = new ObjectMap<MethodId, StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new StringMap<StandardField>();
-        stdcl_ = new StandardClass(aliasKeyEvent, fields_, constructors_, methods_, getAliasObject(), MethodModifier.ABSTRACT);
+        stdcl_ = new StandardClass(aliasKeyEvent, fields_, constructors_, methods_, getAliasObject(), MethodModifier.FINAL);
         params_ = new StringList();
         method_ = new StandardMethod(aliasKeyEventIsAlt, params_, getAliasPrimBoolean(), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
@@ -1329,6 +1336,12 @@ public class LgNamesGui extends LgNamesUtils {
         params_ = new StringList();
         method_ = new StandardMethod(aliasKeyEventCode, params_, getAliasPrimInteger(), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
+        params_ = new StringList(
+                getAliasPrimBoolean(),getAliasPrimBoolean(),getAliasPrimBoolean(),
+                getAliasPrimInteger(),getAliasPrimInteger());
+        ctor_ = new StandardConstructor(params_,false,stdcl_);
+        constructors_.add(ctor_);
+
         std_ = stdcl_;
         getStandards().put(aliasKeyEvent, std_);
     }
@@ -1974,6 +1987,58 @@ public class LgNamesGui extends LgNamesUtils {
                                          ConstructorId _method, Struct... _args) {
         String name_ = _method.getName();
         ResultErrorStd r_ = new ResultErrorStd();
+        if (StringList.quickEq(name_,aliasActionEvent)) {
+            if (_cont.isInitEnums()) {
+                _cont.failInitEnums();
+                r_.setResult(NullStruct.NULL_VALUE);
+                return r_;
+            }
+            r_.setResult(new ActionEventStruct(aliasActionEvent));
+            return r_;
+        }
+        if (StringList.quickEq(name_,aliasWindowEvent)) {
+            if (_cont.isInitEnums()) {
+                _cont.failInitEnums();
+                r_.setResult(NullStruct.NULL_VALUE);
+                return r_;
+            }
+            r_.setResult(new WindowEventStruct(aliasWindowEvent));
+            return r_;
+        }
+        if (StringList.quickEq(name_,aliasMouseEvent)) {
+            if (_cont.isInitEnums()) {
+                _cont.failInitEnums();
+                r_.setResult(NullStruct.NULL_VALUE);
+                return r_;
+            }
+            MouseEventStruct res_ = new MouseEventStruct(aliasMouseEvent);
+            res_.setFirst(_args[0]);
+            res_.setSecond(_args[1]);
+            res_.setAlt(_args[2]);
+            res_.setCtrl(_args[3]);
+            res_.setShift(_args[4]);
+            res_.setLeft(_args[5]);
+            res_.setMiddle(_args[6]);
+            res_.setRight(_args[7]);
+            res_.setClicks(_args[8]);
+            r_.setResult(res_);
+            return r_;
+        }
+        if (StringList.quickEq(name_,aliasKeyEvent)) {
+            if (_cont.isInitEnums()) {
+                _cont.failInitEnums();
+                r_.setResult(NullStruct.NULL_VALUE);
+                return r_;
+            }
+            KeyEventStruct res_ = new KeyEventStruct(aliasKeyEvent);
+            res_.setAlt(_args[0]);
+            res_.setCtrl(_args[1]);
+            res_.setShift(_args[2]);
+            res_.setKeyChar(_args[3]);
+            res_.setKeyCode(_args[4]);
+            r_.setResult(res_);
+            return r_;
+        }
         if (StringList.quickEq(name_,aliasFrame)) {
             if (_cont.isInitEnums()) {
                 _cont.failInitEnums();
