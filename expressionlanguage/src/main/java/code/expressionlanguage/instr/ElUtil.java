@@ -639,17 +639,21 @@ public final class ElUtil {
                 }
                 AbstractCoverageResult resultPar_ = getCovers(_cont, _block, par_, _annotation);
                 if (resultPar_.isPartialCovered()) {
-                    tag_ = "<span class=\"f\">";
+                    tag_ = getFullInit(resultPar_);
                 } else {
                     tag_ = "<span class=\"n\">";
                 }
             } else if (result_.isFullCovered()) {
-                tag_ = "<span class=\"f\">";
+                tag_ = getFullInit(result_);
             } else if (result_.isPartialCovered()) {
                 if (val_ instanceof AffectationOperation && val_.getFirstChild().getNextSibling().getArgument() != null) {
-                    tag_ = "<span class=\"f\">";
+                    tag_ = getFullInit(result_);
                 } else {
-                    tag_ = "<span class=\"p\">";
+                    if (result_.isInit()) {
+                        tag_ = "<span class=\"q\">";
+                    } else {
+                        tag_ = "<span class=\"p\">";
+                    }
                 }
             } else {
                 tag_ = "<span class=\"n\">";
@@ -1280,6 +1284,16 @@ public final class ElUtil {
                 break;
             }
         }
+    }
+
+    static String getFullInit(AbstractCoverageResult _resultPar) {
+        String tag_;
+        if (_resultPar.isInit()) {
+            tag_ = "<span class=\"g\">";
+        } else {
+            tag_ = "<span class=\"f\">";
+        }
+        return tag_;
     }
 
     private static String getRelativize(ContextEl _cont, String _currentFileName, String _className, MethodId _id, GeneType _type, String _file) {

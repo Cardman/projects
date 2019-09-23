@@ -125,7 +125,9 @@ public final class Coverage {
         }
         ReadWrite rw_ = _context.getContextEl().getLastPage().getReadWrite();
         Block en_ = rw_.getBlock();
-        coverLoops.getVal(en_).cover(_value);
+        BooleanCoverageResult cov_ = coverLoops.getVal(en_);
+        cov_.setInit(_context.getContextEl().isInitEnums());
+        cov_.cover(_value);
     }
     public void passSwitch(Analyzable _context, Block _child,Argument _value) {
         if (!_context.getContextEl().isCovering()) {
@@ -133,7 +135,9 @@ public final class Coverage {
         }
         ReadWrite rw_ = _context.getContextEl().getLastPage().getReadWrite();
         Block en_ = rw_.getBlock();
-        coverSwitchs.getVal(en_).getVal(_child).cover(_value);
+        StandardCoverageResult cov_ = coverSwitchs.getVal(en_).getVal(_child);
+        cov_.setInit(_context.getContextEl().isInitEnums());
+        cov_.cover(_value);
     }
     public void passSwitch(Analyzable _context, Argument _value) {
         if (!_context.getContextEl().isCovering()) {
@@ -142,6 +146,7 @@ public final class Coverage {
         ReadWrite rw_ = _context.getContextEl().getLastPage().getReadWrite();
         Block en_ = rw_.getBlock();
         StandardCoverageResult cov_ = coverNoDefSwitchs.getVal(en_);
+        cov_.setInit(_context.getContextEl().isInitEnums());
         cov_.cover(_value);
     }
     public void passBlockOperation(Analyzable _context, ExecOperationNode _exec, Argument _value, boolean _full) {
@@ -163,6 +168,7 @@ public final class Coverage {
         if (result_ == null) {
             return;
         }
+        result_.setInit(_context.getContextEl().isInitEnums());
         if (_full) {
             result_.fullCover();
         } else {

@@ -143,7 +143,9 @@ public final class FileBlock extends BracedBlock implements ImportingBlock {
             files_.addEntry(fileExp_,"<html>"+cssPart_+"<body><pre>"+xml_+"</pre></body></html>");
         }
         String cssContent_ = ".f{background-color:green;}\n";
+        cssContent_ += ".g{background-color:lightgreen;}\n";
         cssContent_ += ".p{background-color:yellow;}\n";
+        cssContent_ += ".q{background-color:lightyellow;}\n";
         cssContent_ += ".n{background-color:red;}\n";
         cssContent_ += ".s{color:blue;}\n";
         cssContent_ += ".c{color:grey;}\n";

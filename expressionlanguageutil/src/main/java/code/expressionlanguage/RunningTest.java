@@ -73,6 +73,7 @@ public final class RunningTest implements Runnable {
         return StreamFolderFile.getFiles(_archiveOrFolder);
     }
     public static void setupOptionals(int _from, ExecutingOptions _exec, StringList _lines) {
+        StringBuilder argParts_ = new StringBuilder();
         for (String l: _lines.mid(_from)) {
             if (l.startsWith("log=")) {
                 String output_ = l.substring("log=".length());
@@ -110,9 +111,12 @@ public final class RunningTest implements Runnable {
                 _exec.setInvokeDirect(true);
             }
             if (l.startsWith("args=")) {
-                _exec.setArgs(LgNames.parseLineArg(l.substring("args=".length())));
                 _exec.setHasArg(true);
+                argParts_.append(l.substring("args=".length()));
             }
+        }
+        if (_exec.isHasArg()) {
+            _exec.setArgs(LgNames.parseLineArg(argParts_.toString()));
         }
     }
 }
