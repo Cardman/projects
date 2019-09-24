@@ -294,7 +294,7 @@ public abstract class BeanLgNames extends LgNames {
             if (order_ == 0) {
                 Double val_ = parseDouble(_values.first());
                 if (val_ == null) {
-                    res_.setError(getAliasCast());
+                    res_.setError(getAliasCastType());
                     return res_;
                 }
                 res_.setResult(PrimitiveTypeUtil.convertObject(cl_,new DoubleStruct(val_),this));
@@ -302,7 +302,7 @@ public abstract class BeanLgNames extends LgNames {
             }
             Long val_ = parseLong(_values.first());
             if (val_ == null) {
-                res_.setError(getAliasCast());
+                res_.setError(getAliasCastType());
                 return res_;
             }
             res_.setResult(PrimitiveTypeUtil.convertObject(cl_,new LongStruct(val_),this));

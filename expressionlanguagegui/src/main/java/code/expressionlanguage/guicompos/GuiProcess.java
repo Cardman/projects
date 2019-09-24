@@ -50,18 +50,33 @@ public final class GuiProcess implements Runnable {
         String lg_ = linesFiles_.get(1);
         String clName_ = "";
         String mName_ = "";
-        String line_ = ContextEl.removeDottedSpaces(linesFiles_.get(2));
-        if (line_.startsWith("main=")) {
-            String subLine_ = line_.substring("main=".length());
-            int last_ = subLine_.lastIndexOf('.');
-            if (last_ > -1) {
-                clName_ = subLine_.substring(0,last_);
-                mName_ = subLine_.substring(last_+1);
+        int from_ = 2;
+        if (lg_.startsWith("main=")) {
+            String line_ = ContextEl.removeDottedSpaces(lg_);
+            if (line_.startsWith("main=")) {
+                String subLine_ = line_.substring("main=".length());
+                int last_ = subLine_.lastIndexOf('.');
+                if (last_ > -1) {
+                    clName_ = subLine_.substring(0,last_);
+                    mName_ = subLine_.substring(last_+1);
+                }
+            }
+        } else {
+            from_++;
+            String line_ = ContextEl.removeDottedSpaces(linesFiles_.get(2));
+            if (line_.startsWith("main=")) {
+                String subLine_ = line_.substring("main=".length());
+                int last_ = subLine_.lastIndexOf('.');
+                if (last_ > -1) {
+                    clName_ = subLine_.substring(0,last_);
+                    mName_ = subLine_.substring(last_+1);
+                }
             }
         }
 
+
         ExecutingOptions exec_ = new ExecutingOptions();
-        RunningTest.setupOptionals(3,exec_,linesFiles_);
+        RunningTest.setupOptionals(from_,exec_,linesFiles_);
         String folder_ = exec_.getLogFolder();
         if (exec_.isHasArg()) {
             mainArgs_ = exec_.getArgs();

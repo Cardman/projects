@@ -31,7 +31,7 @@ public final class AliasStackTraceElement {
         fields_ = new StringMap<StandardField>();
         String aliasObject_ = _stds.getAliasObject();
         String aliasString_ = _stds.getAliasString();
-        String aliasToString_ = _stds.getAliasToString();
+        String aliasToString_ = _stds.getAliasToStringMethod();
         stdcl_ = new StandardClass(aliasStackTraceElement, fields_, constructors_, methods_, aliasObject_ , MethodModifier.ABSTRACT);
         String out_ = aliasStackTraceElement;
         out_ = PrimitiveTypeUtil.getPrettyArrayType(out_);

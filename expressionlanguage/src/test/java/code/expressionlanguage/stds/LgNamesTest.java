@@ -1695,4 +1695,92 @@ public class LgNamesTest {
         assertEq("first_arg", args_.get(0));
         assertEq("second_argu-111", args_.get(1));
     }
+    @Test
+    public void parseValue1Test() {
+        assertEq("first_arg", LgNames.parseValue("first_arg"));
+    }
+    @Test
+    public void parseValue2Test() {
+        assertEq("first_arg ", LgNames.parseValue("first_arg\\e"));
+    }
+    @Test
+    public void parseValue3Test() {
+        assertEq("first_arg after", LgNames.parseValue("first_arg\\eafter"));
+    }
+    @Test
+    public void parseValue4Test() {
+        assertEq("first_arg\t", LgNames.parseValue("first_arg\\t"));
+    }
+    @Test
+    public void parseValue5Test() {
+        assertEq("first_arg\tafter", LgNames.parseValue("first_arg\\tafter"));
+    }
+    @Test
+    public void parseValue6Test() {
+        assertEq("first_argc", LgNames.parseValue("first_arg\\c"));
+    }
+    @Test
+    public void parseValue7Test() {
+        assertEq("first_argc0", LgNames.parseValue("first_arg\\c0"));
+    }
+    @Test
+    public void parseValue8Test() {
+        assertEq("first_arg\n", LgNames.parseValue("first_arg\\c0A"));
+    }
+    @Test
+    public void parseValue9Test() {
+        assertEq("first_argc20", LgNames.parseValue("first_arg\\c20"));
+    }
+    @Test
+    public void parseValue10Test() {
+        assertEq("first_arg\nafter", LgNames.parseValue("first_arg\\c0Aafter"));
+    }
+    @Test
+    public void parseValue11Test() {
+        assertEq("first_argc-1", LgNames.parseValue("first_arg\\c-1"));
+    }
+    @Test
+    public void parseValue12Test() {
+        assertEq("first_argu", LgNames.parseValue("first_arg\\u"));
+    }
+    @Test
+    public void parseValue13Test() {
+        assertEq("first_argu0", LgNames.parseValue("first_arg\\u0"));
+    }
+    @Test
+    public void parseValue14Test() {
+        assertEq("first_arg\n", LgNames.parseValue("first_arg\\u000A"));
+    }
+    @Test
+    public void parseValue15Test() {
+        assertEq("first_arg\nafter", LgNames.parseValue("first_arg\\u000Aafter"));
+    }
+    @Test
+    public void parseValue16Test() {
+        assertEq("first_argu-111", LgNames.parseValue("first_arg\\u-111"));
+    }
+    @Test
+    public void parseValue17Test() {
+        assertEq("first_arg\\", LgNames.parseValue("first_arg\\\\"));
+    }
+    @Test
+    public void parseValue18Test() {
+        assertEq("first_arg\\after", LgNames.parseValue("first_arg\\\\after"));
+    }
+    @Test
+    public void parseValue19Test() {
+        assertEq("first_arg\n", LgNames.parseValue("first_arg\\n"));
+    }
+    @Test
+    public void parseValue20Test() {
+        assertEq("first_arg\nafter", LgNames.parseValue("first_arg\\nafter"));
+    }
+    @Test
+    public void parseValue22Test() {
+        assertEq("first_argcgg", LgNames.parseValue("first_arg\\cgg"));
+    }
+    @Test
+    public void parseValue23Test() {
+        assertEq("first_argugggg", LgNames.parseValue("first_arg\\ugggg"));
+    }
 }

@@ -19,14 +19,14 @@ import code.expressionlanguage.types.PartTypeUtil;
 import code.util.*;
 
 public final class AliasReflection {
-    private String aliasAnnotation;
+    private String aliasAnnotationType;
     private String aliasAnnotated;
     private String aliasGetDefaultValue;
     private String aliasGetAnnotations;
     private String aliasGetAnnotationsParameters;
     private String aliasFct;
     private String aliasCall;
-    private String aliasClass;
+    private String aliasClassType;
     private String aliasGetClass;
     private String aliasGetEnclosingType;
     private String aliasGetDeclaredClasses;
@@ -120,7 +120,7 @@ public final class AliasReflection {
         String aliasPrimInt_ = _stds.getAliasPrimInteger();
         String aliasVoid_ = _stds.getAliasVoid();
         String aliasError_ = _stds.getAliasError();
-        String aliasEnum_ = _stds.getAliasEnum();
+        String aliasEnum_ = _stds.getAliasEnumType();
         stdcl_ = new StandardClass(aliasFct, fields_, constructors_, methods_, aliasObject_ , MethodModifier.ABSTRACT);
         params_ = new StringList(aliasObject_);
         method_ = new StandardMethod(aliasCall, params_, aliasObject_, true, MethodModifier.FINAL, stdcl_);
@@ -129,7 +129,7 @@ public final class AliasReflection {
         methods_ = new ObjectMap<MethodId, StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new StringMap<StandardField>();
-        stdcl_ = new StandardClass(aliasClass, fields_, constructors_, methods_, aliasAnnotated , MethodModifier.ABSTRACT);
+        stdcl_ = new StandardClass(aliasClassType, fields_, constructors_, methods_, aliasAnnotated , MethodModifier.ABSTRACT);
         params_ = new StringList();
         method_ = new StandardMethod(aliasGetName, params_, aliasString_, false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
@@ -137,16 +137,16 @@ public final class AliasReflection {
         method_ = new StandardMethod(aliasGetPrettyName, params_, aliasString_, false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasObject_);
-        method_ = new StandardMethod(aliasGetClass, params_, aliasClass, false, MethodModifier.STATIC, stdcl_);
+        method_ = new StandardMethod(aliasGetClass, params_, aliasClassType, false, MethodModifier.STATIC, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasGetEnclosingType, params_, aliasClass, false, MethodModifier.FINAL, stdcl_);
+        method_ = new StandardMethod(aliasGetEnclosingType, params_, aliasClassType, false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasGetDeclaredClasses, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasClass), false, MethodModifier.FINAL, stdcl_);
+        method_ = new StandardMethod(aliasGetDeclaredClasses, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasClassType), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasString_,aliasPrimBoolean_);
-        method_ = new StandardMethod(aliasForName, params_, aliasClass, false, MethodModifier.STATIC, stdcl_);
+        method_ = new StandardMethod(aliasForName, params_, aliasClassType, false, MethodModifier.STATIC, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasInit, params_, aliasVoid_, false, MethodModifier.FINAL, stdcl_);
@@ -200,12 +200,12 @@ public final class AliasReflection {
         method_ = new StandardMethod(aliasIsPublic, params_, aliasPrimBoolean_, false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasGetActualTypeArguments, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasClass), false, MethodModifier.FINAL, stdcl_);
+        method_ = new StandardMethod(aliasGetActualTypeArguments, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasClassType), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasObject_);
         method_ = new StandardMethod(aliasIsInstance, params_, aliasPrimBoolean_, false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
-        params_ = new StringList(aliasClass);
+        params_ = new StringList(aliasClassType);
         method_ = new StandardMethod(aliasIsAssignableFrom, params_, aliasPrimBoolean_, false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
@@ -220,13 +220,13 @@ public final class AliasReflection {
         params_ = new StringList();
         method_ = new StandardMethod(aliasGetEnumConstants, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasEnum_), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
-        params_ = new StringList(aliasBoolean_,aliasClass);
+        params_ = new StringList(aliasBoolean_, aliasClassType);
         method_ = new StandardMethod(aliasGetDeclaredConstructors, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasConstructor), true, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasString_);
         method_ = new StandardMethod(aliasGetDeclaredFields, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasField), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
-        params_ = new StringList(aliasString_,aliasBoolean_,aliasBoolean_,aliasClass);
+        params_ = new StringList(aliasString_,aliasBoolean_,aliasBoolean_, aliasClassType);
         method_ = new StandardMethod(aliasGetDeclaredMethods, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasMethod), true, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
@@ -239,54 +239,54 @@ public final class AliasReflection {
         method_ = new StandardMethod(aliasGetDeclaredMethods, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasMethod), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasGetSuperClass, params_, aliasClass, false, MethodModifier.FINAL, stdcl_);
+        method_ = new StandardMethod(aliasGetSuperClass, params_, aliasClassType, false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasGetGenericSuperClass, params_, aliasClass, false, MethodModifier.FINAL, stdcl_);
+        method_ = new StandardMethod(aliasGetGenericSuperClass, params_, aliasClassType, false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasGetInterfaces, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasClass), false, MethodModifier.FINAL, stdcl_);
+        method_ = new StandardMethod(aliasGetInterfaces, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasClassType), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasGetGenericInterfaces, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasClass), false, MethodModifier.FINAL, stdcl_);
+        method_ = new StandardMethod(aliasGetGenericInterfaces, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasClassType), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasGetUpperBounds, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasClass), false, MethodModifier.FINAL, stdcl_);
+        method_ = new StandardMethod(aliasGetUpperBounds, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasClassType), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasGetLowerBounds, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasClass), false, MethodModifier.FINAL, stdcl_);
+        method_ = new StandardMethod(aliasGetLowerBounds, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasClassType), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
-        params_ = new StringList(aliasClass);
-        method_ = new StandardMethod(aliasMakeGeneric, params_, aliasClass, true, MethodModifier.FINAL, stdcl_);
+        params_ = new StringList(aliasClassType);
+        method_ = new StandardMethod(aliasMakeGeneric, params_, aliasClassType, true, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasMakeArray, params_, aliasClass, false, MethodModifier.FINAL, stdcl_);
+        method_ = new StandardMethod(aliasMakeArray, params_, aliasClassType, false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasBoolean_);
-        method_ = new StandardMethod(aliasMakeWildCard, params_, aliasClass, false, MethodModifier.FINAL, stdcl_);
+        method_ = new StandardMethod(aliasMakeWildCard, params_, aliasClassType, false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasGetComponentType, params_, aliasClass, false, MethodModifier.FINAL, stdcl_);
+        method_ = new StandardMethod(aliasGetComponentType, params_, aliasClassType, false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasGetVariableOwner, params_, aliasClass, false, MethodModifier.FINAL, stdcl_);
+        method_ = new StandardMethod(aliasGetVariableOwner, params_, aliasClassType, false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasGetGenericVariableOwner, params_, aliasClass, false, MethodModifier.FINAL, stdcl_);
+        method_ = new StandardMethod(aliasGetGenericVariableOwner, params_, aliasClassType, false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasGetTypeParameters, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasClass), false, MethodModifier.FINAL, stdcl_);
+        method_ = new StandardMethod(aliasGetTypeParameters, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasClassType), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasGetBounds, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasClass), false, MethodModifier.FINAL, stdcl_);
+        method_ = new StandardMethod(aliasGetBounds, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasClassType), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasGetGenericBounds, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasClass), false, MethodModifier.FINAL, stdcl_);
+        method_ = new StandardMethod(aliasGetGenericBounds, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasClassType), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasGetAllClasses, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasClass), false, MethodModifier.STATIC, stdcl_);
+        method_ = new StandardMethod(aliasGetAllClasses, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasClassType), false, MethodModifier.STATIC, stdcl_);
         methods_.put(method_.getId(), method_);
-        params_ = new StringList(aliasString_,aliasBoolean_,aliasClass);
+        params_ = new StringList(aliasString_,aliasBoolean_, aliasClassType);
         method_ = new StandardMethod(aliasGetOperators, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasMethod), true, MethodModifier.STATIC, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
@@ -304,7 +304,7 @@ public final class AliasReflection {
         params_ = new StringList(aliasObject_,aliasPrimInt_,aliasObject_);
         method_ = new StandardMethod(aliasArraySet, params_, aliasVoid_, false, MethodModifier.STATIC, stdcl_);
         methods_.put(method_.getId(), method_);
-        _stds.getStandards().put(aliasClass, stdcl_);
+        _stds.getStandards().put(aliasClassType, stdcl_);
         methods_ = new ObjectMap<MethodId, StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new StringMap<StandardField>();
@@ -313,22 +313,22 @@ public final class AliasReflection {
         method_ = new StandardMethod(aliasNewInstance, params_, aliasObject_, true, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasGetParameterTypes, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasClass), false, MethodModifier.FINAL, stdcl_);
+        method_ = new StandardMethod(aliasGetParameterTypes, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasClassType), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasGetParameterNames, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasClass), false, MethodModifier.FINAL, stdcl_);
+        method_ = new StandardMethod(aliasGetParameterNames, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasClassType), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasGetDeclaringClass, params_, aliasClass, false, MethodModifier.FINAL, stdcl_);
+        method_ = new StandardMethod(aliasGetDeclaringClass, params_, aliasClassType, false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasGetName, params_, aliasString_, false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasGetGenericReturnType, params_, aliasClass, false, MethodModifier.FINAL, stdcl_);
+        method_ = new StandardMethod(aliasGetGenericReturnType, params_, aliasClassType, false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasGetReturnType, params_, aliasClass, false, MethodModifier.FINAL, stdcl_);
+        method_ = new StandardMethod(aliasGetReturnType, params_, aliasClassType, false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasIsPackage, params_, aliasPrimBoolean_, false, MethodModifier.FINAL, stdcl_);
@@ -360,7 +360,7 @@ public final class AliasReflection {
         method_ = new StandardMethod(aliasGetName, params_, aliasString_, false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasGetDeclaringClass, params_, aliasClass, false, MethodModifier.FINAL, stdcl_);
+        method_ = new StandardMethod(aliasGetDeclaringClass, params_, aliasClassType, false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasIsPackage, params_, aliasPrimBoolean_, false, MethodModifier.FINAL, stdcl_);
@@ -381,10 +381,10 @@ public final class AliasReflection {
         method_ = new StandardMethod(aliasIsFinal, params_, aliasPrimBoolean_, false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasGetType, params_, aliasClass, false, MethodModifier.FINAL, stdcl_);
+        method_ = new StandardMethod(aliasGetType, params_, aliasClassType, false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasGetGenericType, params_, aliasClass, false, MethodModifier.FINAL, stdcl_);
+        method_ = new StandardMethod(aliasGetGenericType, params_, aliasClassType, false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         _stds.getStandards().put(aliasField, stdcl_);
         methods_ = new ObjectMap<MethodId, StandardMethod>();
@@ -425,13 +425,13 @@ public final class AliasReflection {
         method_ = new StandardMethod(aliasIsVarargs, params_, aliasPrimBoolean_, false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasGetParameterTypes, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasClass), false, MethodModifier.FINAL, stdcl_);
+        method_ = new StandardMethod(aliasGetParameterTypes, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasClassType), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasGetParameterNames, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasClass), false, MethodModifier.FINAL, stdcl_);
+        method_ = new StandardMethod(aliasGetParameterNames, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasClassType), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasGetDeclaringClass, params_, aliasClass, false, MethodModifier.FINAL, stdcl_);
+        method_ = new StandardMethod(aliasGetDeclaringClass, params_, aliasClassType, false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasGetDefaultValue, params_, aliasObject_, false, MethodModifier.FINAL, stdcl_);
@@ -440,10 +440,10 @@ public final class AliasReflection {
         method_ = new StandardMethod(aliasGetName, params_, aliasString_, false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasGetGenericReturnType, params_, aliasClass, false, MethodModifier.FINAL, stdcl_);
+        method_ = new StandardMethod(aliasGetGenericReturnType, params_, aliasClassType, false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasGetReturnType, params_, aliasClass, false, MethodModifier.FINAL, stdcl_);
+        method_ = new StandardMethod(aliasGetReturnType, params_, aliasClassType, false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         _stds.getStandards().put(aliasMethod, stdcl_);
         methods_ = new ObjectMap<MethodId, StandardMethod>();
@@ -459,26 +459,26 @@ public final class AliasReflection {
         methods_ = new ObjectMap<MethodId, StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new StringMap<StandardField>();
-        stdcl_ = new StandardClass(aliasAnnotation, fields_, constructors_, methods_, aliasObject_, MethodModifier.ABSTRACT);
-        params_ = new StringList(aliasAnnotation);
+        stdcl_ = new StandardClass(aliasAnnotationType, fields_, constructors_, methods_, aliasObject_, MethodModifier.ABSTRACT);
+        params_ = new StringList(aliasAnnotationType);
         method_ = new StandardMethod(aliasGetString, params_, aliasString_, false, MethodModifier.STATIC, stdcl_);
         methods_.put(method_.getId(), method_);
-        _stds.getStandards().put(aliasAnnotation, stdcl_);
+        _stds.getStandards().put(aliasAnnotationType, stdcl_);
         methods_ = new ObjectMap<MethodId, StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new StringMap<StandardField>();
         stdcl_ = new StandardClass(aliasAnnotated, fields_, constructors_, methods_, aliasObject_, MethodModifier.ABSTRACT);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasGetAnnotations, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasAnnotation), false, MethodModifier.FINAL, stdcl_);
+        method_ = new StandardMethod(aliasGetAnnotations, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasAnnotationType), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasGetAnnotationsParameters, params_, PrimitiveTypeUtil.getPrettyArrayType(PrimitiveTypeUtil.getPrettyArrayType(aliasAnnotation)), false, MethodModifier.FINAL, stdcl_);
+        method_ = new StandardMethod(aliasGetAnnotationsParameters, params_, PrimitiveTypeUtil.getPrettyArrayType(PrimitiveTypeUtil.getPrettyArrayType(aliasAnnotationType)), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
-        params_ = new StringList(aliasClass);
-        method_ = new StandardMethod(aliasGetAnnotations, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasAnnotation), false, MethodModifier.FINAL, stdcl_);
+        params_ = new StringList(aliasClassType);
+        method_ = new StandardMethod(aliasGetAnnotations, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasAnnotationType), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
-        params_ = new StringList(aliasClass);
-        method_ = new StandardMethod(aliasGetAnnotationsParameters, params_, PrimitiveTypeUtil.getPrettyArrayType(PrimitiveTypeUtil.getPrettyArrayType(aliasAnnotation)), false, MethodModifier.FINAL, stdcl_);
+        params_ = new StringList(aliasClassType);
+        method_ = new StandardMethod(aliasGetAnnotationsParameters, params_, PrimitiveTypeUtil.getPrettyArrayType(PrimitiveTypeUtil.getPrettyArrayType(aliasAnnotationType)), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasGetFileName, params_, aliasString_, false, MethodModifier.FINAL, stdcl_);
@@ -492,12 +492,12 @@ public final class AliasReflection {
         String name_ = _method.getConstraints().getName();
         LgNames lgNames_ = _cont.getStandards();
         AliasReflection ref_ = lgNames_.getReflect();
-        String aliasClass_ = ref_.aliasClass;
+        String aliasClass_ = ref_.aliasClassType;
         String aliasMethod_ = ref_.aliasMethod;
         String aliasConstructor_ = ref_.aliasConstructor;
         String aliasField_ = ref_.aliasField;
         String aliasVoid_ = lgNames_.getAliasVoid();
-        if (StringList.quickEq(type_, ref_.aliasAnnotation)) {
+        if (StringList.quickEq(type_, ref_.aliasAnnotationType)) {
             FieldableStruct poly_ = (FieldableStruct) args_[0];
             result_.setResult(new StringStruct(ExportAnnotationUtil.exportAnnotation(poly_)));
             return result_;
@@ -1619,11 +1619,11 @@ public final class AliasReflection {
         return true;
     }
 
-    public String getAliasClass() {
-        return aliasClass;
+    public String getAliasClassType() {
+        return aliasClassType;
     }
-    public void setAliasClass(String _aliasClass) {
-        aliasClass = _aliasClass;
+    public void setAliasClassType(String _aliasClass) {
+        aliasClassType = _aliasClass;
     }
     public String getAliasFct() {
         return aliasFct;
@@ -1637,11 +1637,11 @@ public final class AliasReflection {
     public void setAliasCall(String _aliasCall) {
         aliasCall = _aliasCall;
     }
-    public String getAliasAnnotation() {
-        return aliasAnnotation;
+    public String getAliasAnnotationType() {
+        return aliasAnnotationType;
     }
-    public void setAliasAnnotation(String _aliasAnnotation) {
-        aliasAnnotation = _aliasAnnotation;
+    public void setAliasAnnotationType(String _aliasAnnotation) {
+        aliasAnnotationType = _aliasAnnotation;
     }
     public String getAliasAnnotated() {
         return aliasAnnotated;

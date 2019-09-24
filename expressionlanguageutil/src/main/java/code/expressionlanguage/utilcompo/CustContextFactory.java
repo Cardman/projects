@@ -5,7 +5,6 @@ import code.expressionlanguage.methods.FileBlock;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.options.ContextFactory;
 import code.expressionlanguage.options.KeyWords;
-import code.expressionlanguage.options.KeyWordsMap;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
@@ -21,32 +20,32 @@ public final class CustContextFactory {
     private CustContextFactory(){}
     public static RunnableContextEl buildDefKw(String _lang,
             Options _options, ExecutingOptions _exec,LgNamesUtils _undefinedLgNames, StringMap<String> _files, int _tabWidth) {
-        KeyWordsMap km_ = new KeyWordsMap(); 
-        KeyWords kwl_ = km_.getKeyWords(_lang);
+        KeyWords kwl_ = new KeyWords();
         if (StringList.quickEq(_lang, "en")) {
-            km_.initEnStds(_undefinedLgNames);
-            _undefinedLgNames.otherAlias(_lang);
+            _undefinedLgNames.keyWord(kwl_,_lang,_exec.getKeyWords());
+            _undefinedLgNames.otherAlias(_lang,_exec.getAliases());
         } else if (StringList.quickEq(_lang, "fr")) {
-            km_.initFrStds(_undefinedLgNames);
-            _undefinedLgNames.otherAlias(_lang);
+            _undefinedLgNames.keyWord(kwl_,_lang,_exec.getKeyWords());
+            _undefinedLgNames.otherAlias(_lang,_exec.getAliases());
         } else {
-            return null;
+            _undefinedLgNames.keyWord(kwl_,_exec.getKeyWords(), new StringMap<String>());
+            _undefinedLgNames.allAlias(_exec.getAliases(), new StringMap<String>());
         }
         return build(CustList.INDEX_NOT_FOUND_ELT, _options, _exec,kwl_, _undefinedLgNames, _files, _tabWidth);
     }
     public static void executeDefKw(String _lang,
                                Options _options, ExecutingOptions _exec,StringMap<String> _files, ProgressingTests _progressingTests) {
-        KeyWordsMap km_ = new KeyWordsMap();
-        KeyWords kwl_ = km_.getKeyWords(_lang);
+        KeyWords kwl_ = new KeyWords();
         LgNamesUtils stds_ = new LgNamesUtils();
         if (StringList.quickEq(_lang, "en")) {
-            stds_.otherAlias(_lang);
-            km_.initEnStds(stds_);
+            stds_.keyWord(kwl_,_lang,_exec.getKeyWords());
+            stds_.otherAlias(_lang,_exec.getAliases());
         } else if (StringList.quickEq(_lang, "fr")) {
-            stds_.otherAlias(_lang);
-            km_.initFrStds(stds_);
+            stds_.keyWord(kwl_,_lang,_exec.getKeyWords());
+            stds_.otherAlias(_lang,_exec.getAliases());
         } else {
-            return;
+            stds_.keyWord(kwl_,_exec.getKeyWords(), new StringMap<String>());
+            stds_.allAlias(_exec.getAliases(), new StringMap<String>());
         }
         execute(-1,_options,_exec,kwl_,stds_,_files,_progressingTests);
     }

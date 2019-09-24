@@ -3,9 +3,11 @@ package code.expressionlanguage;
 import code.expressionlanguage.classes.CustLgNames;
 import code.expressionlanguage.options.ContextFactory;
 import code.expressionlanguage.options.KeyWords;
+import code.expressionlanguage.options.KeyWordsMap;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
+import code.util.StringList;
 import org.junit.Assert;
 
 public final class InitializationLgNames {
@@ -51,7 +53,7 @@ public final class InitializationLgNames {
     private static ContextEl buildLg(String _lang, LgNames _lgNames, Options _opt) {
         DefaultLockingClass lk_ = new DefaultLockingClass();
         DefaultInitializer di_ = new DefaultInitializer();
-        ContextEl out_ = ContextFactory.buildDefKw(_lang, lk_, di_, _opt, _lgNames,4);
+        ContextEl out_ = buildDefKw(_lang, lk_, di_, _opt, _lgNames,4);
         Assert.assertTrue(out_.getClasses().isEmptyStdError());
         return out_;
     }
@@ -63,15 +65,15 @@ public final class InitializationLgNames {
         _lgNames.setAliasCompareTo("compareTo");
         _lgNames.setAliasCompare("compare");
         _lgNames.setAliasEquals("equals");
-        _lgNames.setAliasToString("toString");
-        _lgNames.setAliasValueOf("valueOf");
+        _lgNames.setAliasToStringMethod("toString");
+        _lgNames.setAliasValueOfMethod("valueOf");
         _lgNames.setAliasMaxValueField("MAX_VALUE");
         _lgNames.setAliasMinValueField("MIN_VALUE");
         _lgNames.setAliasIteratorType("java.lang.$iterator");
         _lgNames.setAliasIterator("iterator");
         _lgNames.setAliasIterable("java.lang.$iterable");
         _lgNames.setAliasEnumParam("java.lang.$Enum");
-        _lgNames.setAliasEnum("java.lang.$en");
+        _lgNames.setAliasEnumType("java.lang.$en");
         _lgNames.setAliasEnums("java.lang.$enums");
         _lgNames.setAliasReplacement("code.util.Replacement");
 //        _lgNames.setAliasStore("$badStore");
@@ -87,8 +89,7 @@ public final class InitializationLgNames {
 //        _lgNames.setAliasError("$error");
         _lgNames.setAliasError("java.lang.Exception");
         _lgNames.setAliasGetMessage("getMessage");
-//        _lgNames.setAliasCast("$badCast");
-        _lgNames.setAliasCast("code.expressionlanguage.exceptions.DynamicCastClassException");
+        _lgNames.setAliasCastType("code.expressionlanguage.exceptions.DynamicCastClassException");
 //        _lgNames.setAliasDivisionZero("$divZero");
         _lgNames.setAliasDivisionZero("code.expressionlanguage.exceptions.DivideZeroException");
         //_lgNames.setAliasSof("$sofe");
@@ -201,13 +202,13 @@ public final class InitializationLgNames {
         _lgNames.setAliasGetVariableOwner("getVariableOwner");
         _lgNames.setAliasGetGenericVariableOwner("getGenericVariableOwner");
         _lgNames.setAliasGetString("getString");
-        _lgNames.setAliasClass("java.lang.$Class");
+        _lgNames.setAliasClassType("java.lang.$Class");
         _lgNames.setAliasStackTraceElement("java.lang.$stack");
         _lgNames.setAliasCurrentStack("current");
         _lgNames.setAliasCurrentFullStack("currentFull");
         _lgNames.setAliasFct("java.lang.$Fct");
         _lgNames.setAliasCall("call");
-        _lgNames.setAliasAnnotation("java.lang.$Annotation");
+        _lgNames.setAliasAnnotationType("java.lang.$Annotation");
         _lgNames.setAliasAnnotated("java.lang.$Annotated");
         _lgNames.setAliasGetDefaultValue("getDefaultValue");
         _lgNames.setAliasGetAnnotations("getAnnotations");
@@ -336,5 +337,17 @@ public final class InitializationLgNames {
         _lgNames.setFalseString("false");
         _lgNames.setTrueString("true");
         _lgNames.setNullString("");
+    }
+
+    public static ContextEl buildDefKw(String _lang, DefaultLockingClass _lock, Initializer _init,
+                                       Options _options, LgNames _undefinedLgNames, int _tabWidth) {
+        KeyWordsMap km_ = new KeyWordsMap();
+        KeyWords kwl_ = km_.getKeyWords(_lang);
+        if (StringList.quickEq(_lang, "en")) {
+            km_.initEnStds(_undefinedLgNames);
+        } else {
+            km_.initFrStds(_undefinedLgNames);
+        }
+        return ContextFactory.build(CustList.INDEX_NOT_FOUND_ELT,_lock, _init, _options, kwl_, _undefinedLgNames, _tabWidth);
     }
 }

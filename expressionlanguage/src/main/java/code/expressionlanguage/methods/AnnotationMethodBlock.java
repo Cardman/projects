@@ -75,7 +75,7 @@ public final class AnnotationMethodBlock extends NamedFunctionBlock implements
         super.buildImportedReturnTypes(_stds);
         LgNames stds_ = _stds.getStandards();
         String string_ = stds_.getAliasString();
-        String class_ = stds_.getAliasClass();
+        String class_ = stds_.getAliasClassType();
         String itype_ = getImportedReturnType();
         String type_ = itype_;
         String ctype_ = PrimitiveTypeUtil.getQuickComponentType(type_);

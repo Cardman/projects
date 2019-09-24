@@ -2374,7 +2374,7 @@ public final class RenderExpUtilTest {
         assertTrue(context_.getClasses().isEmptyErrors());
         Struct exc_ = context_.getContext().getException();
         assertNotNull(exc_);
-        assertEq(context_.getStandards().getAliasCast(),exc_.getClassName(context_.getContext()));
+        assertEq(context_.getStandards().getAliasCastType(),exc_.getClassName(context_.getContext()));
     }
     @Test
     public void processEl203Test() {

@@ -956,7 +956,7 @@ public final class Templates {
     	ErrorType err_ = safeObject(_param, _arg, _context);
     	LgNames stds_ = _context.getStandards();
         if (err_ == ErrorType.CAST) {
-    		String cast_ = stds_.getAliasCast();
+    		String cast_ = stds_.getAliasCastType();
             _context.setException(new ErrorStruct(_context,cast_));
             return false;
     	}
@@ -1134,7 +1134,7 @@ public final class Templates {
             return;
         }
         if (err_ == ErrorType.CAST) {
-            String cast_ = stds_.getAliasCast();
+            String cast_ = stds_.getAliasCastType();
             String type_ = _array.getClassName(_context);
             _context.setException(new ErrorStruct(_context,type_,cast_));
             return;
@@ -1237,7 +1237,7 @@ public final class Templates {
             _context.setException(new ErrorStruct(_context,mess_.toString(),cast_));
             return NullStruct.NULL_VALUE;
         }
-        String cast_ = stds_.getAliasCast();
+        String cast_ = stds_.getAliasCastType();
         String type_ = _array.getClassName(_context);
         _context.setException(new ErrorStruct(_context,type_,cast_));
         return NullStruct.NULL_VALUE;

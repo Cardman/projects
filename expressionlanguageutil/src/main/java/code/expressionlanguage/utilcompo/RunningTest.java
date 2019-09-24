@@ -7,6 +7,7 @@ import code.stream.StreamTextFile;
 import code.util.Numbers;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.consts.Constants;
 
 public final class RunningTest implements Runnable {
     private String fileConfOrContent;
@@ -59,7 +60,11 @@ public final class RunningTest implements Runnable {
         String lg_ = linesFiles_.get(1);
         StringMap<String> zipFiles_ = getFiles(archive_);
         ExecutingOptions exec_ = new ExecutingOptions();
-        setupOptionals(2, exec_,linesFiles_);
+        if (!StringList.contains(Constants.getAvailableLanguages(),lg_)){
+            setupOptionals(1, exec_,linesFiles_);
+        } else {
+            setupOptionals(2, exec_, linesFiles_);
+        }
         Options opt_ = new Options();
         opt_.setReadOnly(true);
         CustContextFactory.executeDefKw(lg_,opt_,exec_,zipFiles_,_progressingTests);
@@ -70,6 +75,8 @@ public final class RunningTest implements Runnable {
     }
     public static void setupOptionals(int _from, ExecutingOptions _exec, StringList _lines) {
         StringBuilder argParts_ = new StringBuilder();
+        StringBuilder aliasesPart_ = new StringBuilder();
+        StringBuilder keyWordsPart_ = new StringBuilder();
         for (String l: _lines.mid(_from)) {
             if (l.startsWith("log=")) {
                 String output_ = l.substring("log=".length());
@@ -110,9 +117,45 @@ public final class RunningTest implements Runnable {
                 _exec.setHasArg(true);
                 argParts_.append(l.substring("args=".length()));
             }
+            if (l.startsWith("aliases=")) {
+                aliasesPart_.append(l.substring("aliases=".length()));
+            }
+            if (l.startsWith("keyWords=")) {
+                keyWordsPart_.append(l.substring("keyWords=".length()));
+            }
         }
         if (_exec.isHasArg()) {
             _exec.setArgs(LgNames.parseLineArg(argParts_.toString()));
+        }
+        if (aliasesPart_.length() > 0) {
+            StringList infos_ = StringList.splitChars(aliasesPart_.toString(),',');
+            StringMap<String> al_ = new StringMap<String>();
+            for (String l: infos_) {
+                int sep_ = l.indexOf('=');
+                if (sep_ < 0) {
+                    continue;
+                }
+                String key_ = l.substring(0, sep_).trim();
+                String value_ = StringList.removeAllSpaces(l.substring(sep_ +1));
+                value_ = LgNames.parseValue(value_);
+                al_.put(key_,value_);
+            }
+            _exec.setAliases(al_);
+        }
+        if (keyWordsPart_.length() > 0) {
+            StringList infos_ = StringList.splitChars(keyWordsPart_.toString(),',');
+            StringMap<String> kw_ = new StringMap<String>();
+            for (String l: infos_) {
+                int sep_ = l.indexOf('=');
+                if (sep_ < 0) {
+                    continue;
+                }
+                String key_ = l.substring(0, sep_).trim();
+                String value_ = StringList.removeAllSpaces(l.substring(sep_ +1));
+                value_ = LgNames.parseValue(value_);
+                kw_.put(key_,value_);
+            }
+            _exec.setKeyWords(kw_);
         }
     }
 }

@@ -127,7 +127,7 @@ public final class PredefinedClasses {
         String interface_ = keyWords_.getKeyWordInterface();
         StringBuilder iterable_ = new StringBuilder(public_).append(SPACE);
         iterable_.append(interface_).append(SPACE);
-        iterable_.append(stds_.getAliasEnum()).append("{\n");
+        iterable_.append(stds_.getAliasEnumType()).append("{\n");
         char endLine_ = _context.getOptions().getEndLine();
         String abstract_ = keyWords_.getKeyWordAbstract();
         String string_ = stds_.getAliasString();
@@ -152,7 +152,7 @@ public final class PredefinedClasses {
         String public_ = keyWords_.getKeyWordPublic();
         String interface_ = keyWords_.getKeyWordInterface();
         String type_ = stds_.getAliasEnumParam();
-        String typeSup_ = stds_.getAliasEnum();
+        String typeSup_ = stds_.getAliasEnumType();
         String var_ = stds_.getAliasEnumParamVar();
         StringBuilder iterable_ = new StringBuilder(public_).append(SPACE);
         iterable_.append(interface_).append(SPACE);

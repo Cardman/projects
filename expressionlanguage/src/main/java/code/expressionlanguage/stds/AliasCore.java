@@ -22,7 +22,7 @@ public final class AliasCore {
     private String aliasGetMessage;
     private String aliasBadSize;
     private String aliasDivisionZero;
-    private String aliasCast;
+    private String aliasCastType;
     private String aliasStore;
     private String aliasNullPe;
     private String aliasNbFormat;
@@ -69,13 +69,13 @@ public final class AliasCore {
         method_ = new StandardMethod(_lgNames.getAliasCurrentStack(), params_, stackElt_, false, MethodModifier.NORMAL,stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
-        method_ = new StandardMethod(_lgNames.getAliasToString(), params_, _lgNames.getAliasString(), false, MethodModifier.NORMAL,stdcl_);
+        method_ = new StandardMethod(_lgNames.getAliasToStringMethod(), params_, _lgNames.getAliasString(), false, MethodModifier.NORMAL,stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasError);
         method_ = new StandardMethod(_lgNames.getAliasCurrentStack(), params_, stackElt_, false, MethodModifier.STATIC,stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasError);
-        method_ = new StandardMethod(_lgNames.getAliasToString(), params_, _lgNames.getAliasString(), false, MethodModifier.STATIC,stdcl_);
+        method_ = new StandardMethod(_lgNames.getAliasToStringMethod(), params_, _lgNames.getAliasString(), false, MethodModifier.STATIC,stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasGetMessage, params_, _lgNames.getAliasString(), false, MethodModifier.NORMAL,stdcl_);
@@ -100,9 +100,9 @@ public final class AliasCore {
         methods_ = new ObjectMap<MethodId, StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new StringMap<StandardField>();
-        stdcl_ = new StandardClass(aliasCast, fields_, constructors_, methods_, aliasError, MethodModifier.ABSTRACT);
+        stdcl_ = new StandardClass(aliasCastType, fields_, constructors_, methods_, aliasError, MethodModifier.ABSTRACT);
         std_ = stdcl_;
-        standards_.put(aliasCast, std_);
+        standards_.put(aliasCastType, std_);
         methods_ = new ObjectMap<MethodId, StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new StringMap<StandardField>();
@@ -155,10 +155,10 @@ public final class AliasCore {
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new StringMap<StandardField>();
         stdcl_ = new StandardClass(aliasEnums, fields_, constructors_, methods_, aliasObject, MethodModifier.ABSTRACT);
-        params_ = new StringList(_lgNames.getAliasEnum());
+        params_ = new StringList(_lgNames.getAliasEnumType());
         method_ = new StandardMethod(aliasName, params_, _lgNames.getAliasString(), false, MethodModifier.STATIC, stdcl_);
         methods_.put(method_.getId(), method_);
-        params_ = new StringList(_lgNames.getAliasEnum());
+        params_ = new StringList(_lgNames.getAliasEnumType());
         method_ = new StandardMethod(aliasOrdinal, params_, _lgNames.getAliasPrimInteger(), false, MethodModifier.STATIC, stdcl_);
         methods_.put(method_.getId(), method_);
         standards_.put(aliasEnums, stdcl_);
@@ -181,7 +181,7 @@ public final class AliasCore {
         fields_ = new StringMap<StandardField>();
         stdcl_ = new StandardClass(aliasStringUtil, fields_, constructors_, methods_, aliasObject, MethodModifier.ABSTRACT);
         params_ = new StringList(aliasObject);
-        method_ = new StandardMethod(_lgNames.getAliasValueOf(), params_, _lgNames.getAliasString(), false, MethodModifier.STATIC, stdcl_);
+        method_ = new StandardMethod(_lgNames.getAliasValueOfMethod(), params_, _lgNames.getAliasString(), false, MethodModifier.STATIC, stdcl_);
         methods_.put(method_.getId(), method_);
         standards_.put(aliasStringUtil, stdcl_);
         methods_ = new ObjectMap<MethodId, StandardMethod>();
@@ -253,12 +253,12 @@ public final class AliasCore {
         aliasDivisionZero = _aliasDivisionZero;
     }
 
-    public String getAliasCast() {
-        return aliasCast;
+    public String getAliasCastType() {
+        return aliasCastType;
     }
 
-    public void setAliasCast(String _aliasCast) {
-        aliasCast = _aliasCast;
+    public void setAliasCastType(String _aliasCast) {
+        aliasCastType = _aliasCast;
     }
 
     public String getAliasStore() {

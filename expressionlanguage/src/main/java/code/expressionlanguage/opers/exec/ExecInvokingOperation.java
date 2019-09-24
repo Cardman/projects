@@ -140,7 +140,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                 String arg_ = _previous.getObjectClassName(_conf.getContextEl());
                 if (!Templates.isCorrectExecute(arg_, param_, _conf)) {
                     String cast_;
-                    cast_ = stds_.getAliasCast();
+                    cast_ = stds_.getAliasCastType();
                     _conf.setException(new ErrorStruct(_conf,cast_));
                     return new Argument();
                 }
@@ -200,7 +200,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         checkParameters(_conf, _classNameFound, _methodId, _previous, _firstArgs, false,true,null, _right);
         LgNames stds_ = _conf.getStandards();
         String cast_;
-        cast_ = stds_.getAliasCast();
+        cast_ = stds_.getAliasCastType();
         if (_conf.getContextEl().hasExceptionOrFailInit()) {
             return Argument.createVoid();
         }
@@ -213,7 +213,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             return Argument.createVoid();
         }
         Classes classes_ = _conf.getClasses();
-        String aliasClass_ = stds_.getAliasClass();
+        String aliasClass_ = stds_.getAliasClassType();
         String aliasForName_ = stds_.getAliasForName();
         String aliasValueOf_ = stds_.getAliasEnumValueOf();
         String aliasEnumsValues_ = stds_.getAliasGetEnumConstants();
@@ -510,7 +510,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             Argument arg_ = _firstArgs.first();
             return getEnumValue(_classNameFound, arg_, _conf);
         }
-        String enum_ = context_.getStandards().getAliasEnum();
+        String enum_ = context_.getStandards().getAliasEnumType();
         if (StringList.quickEq(enum_, _classNameFound)) {
             String name_ = context_.getStandards().getAliasEnumName();
             EnumerableStruct en_ = (EnumerableStruct) _previous.getStruct();
@@ -526,7 +526,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
     static void checkParameters(ExecutableCode _conf, String _classNameFound, Identifiable _methodId, Argument _previous, CustList<Argument> _firstArgs, boolean _ctor, boolean _method, InstancingStep _kindCall, Argument _right) {
         LgNames stds_ = _conf.getStandards();
         String cast_;
-        cast_ = stds_.getAliasCast();
+        cast_ = stds_.getAliasCastType();
         String classFormat_ = _classNameFound;
         if (!_methodId.isStaticMethod()) {
             if (_previous != null) {
@@ -820,7 +820,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
     public static Argument getField(String _className, String _fieldName, boolean _isStaticField, Argument _previous, ExecutableCode _conf, int _possibleOffset) {
         LgNames stds_ = _conf.getStandards();
         String cast_;
-        cast_ = stds_.getAliasCast();
+        cast_ = stds_.getAliasCastType();
         Argument a_;
         if (_possibleOffset > -1) {
             _conf.setOffset(_possibleOffset);
@@ -869,7 +869,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
     public static Argument setField(String _className, String _fieldName, boolean _isStaticField, boolean _finalField, boolean _failIfFinal, String _returnType, Argument _previous, Argument _right,ExecutableCode _conf, int _possibleOffset) {
         LgNames stds_ = _conf.getStandards();
         String cast_;
-        cast_ = stds_.getAliasCast();
+        cast_ = stds_.getAliasCastType();
         if (_possibleOffset > -1) {
             _conf.setOffset(_possibleOffset);
         }

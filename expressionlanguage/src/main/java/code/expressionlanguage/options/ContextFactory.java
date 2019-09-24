@@ -14,17 +14,7 @@ import code.util.StringMap;
 public final class ContextFactory {
 
     private ContextFactory(){}
-    public static ContextEl buildDefKw(String _lang, DefaultLockingClass _lock, Initializer _init,
-                                       Options _options, LgNames _undefinedLgNames, int _tabWidth) {
-        KeyWordsMap km_ = new KeyWordsMap(); 
-        KeyWords kwl_ = km_.getKeyWords(_lang);
-        if (StringList.quickEq(_lang, "en")) {
-            km_.initEnStds(_undefinedLgNames);
-        } else {
-            km_.initFrStds(_undefinedLgNames);
-        }
-        return build(CustList.INDEX_NOT_FOUND_ELT,_lock, _init, _options, kwl_, _undefinedLgNames, _tabWidth);
-    }
+
     public static ContextEl build(int _stack, DefaultLockingClass _lock,Initializer _init,
             Options _options,KeyWords _definedKw, LgNames _definedLgNames, StringMap<String> _files, int _tabWidth, String _folder) {
         ContextEl contextEl_ = new SingleContextEl(_stack, _lock, _init, _options, _definedKw, _definedLgNames, _tabWidth);

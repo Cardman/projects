@@ -252,7 +252,7 @@ public final class PrimitiveTypeUtil {
         String id_ = Templates.getIdFromAllTypes(_required);
         LgNames lgNames_ = _an.getStandards();
         Argument arg_ = new Argument();
-        String cast_ = lgNames_.getAliasCast();
+        String cast_ = lgNames_.getAliasCastType();
         if (_current != NullStruct.NULL_VALUE) {
             String className_ = lgNames_.getStructClassName(_current, _an.getContextEl());
             String cl_ = Templates.getIdFromAllTypes(className_);

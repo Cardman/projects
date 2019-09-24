@@ -5,9 +5,7 @@ import code.expressionlanguage.utilcompo.CustLockingClass;
 import code.expressionlanguage.utilcompo.ExecutingOptions;
 import code.expressionlanguage.options.ContextFactory;
 import code.expressionlanguage.options.KeyWords;
-import code.expressionlanguage.options.KeyWordsMap;
 import code.expressionlanguage.options.Options;
-import code.gui.CustComponent;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
@@ -15,16 +13,16 @@ import code.util.StringMap;
 public final class GuiContextFactory {
     public static GuiContextEl buildDefKw(String _lang, StringList _mainArgs,
                                           Options _options, ExecutingOptions _exec, LgNamesGui _undefinedLgNames, StringMap<String> _files, int _tabWidth) {
-        KeyWordsMap km_ = new KeyWordsMap();
-        KeyWords kwl_ = km_.getKeyWords(_lang);
+        KeyWords kwl_ = new KeyWords();
         if (StringList.quickEq(_lang, "en")) {
-            km_.initEnStds(_undefinedLgNames);
-            _undefinedLgNames.otherAlias(_lang);
+            _undefinedLgNames.keyWord(kwl_,_lang,_exec.getKeyWords());
+            _undefinedLgNames.otherAlias(_lang,_exec.getAliases());
         } else if (StringList.quickEq(_lang, "fr")) {
-            km_.initFrStds(_undefinedLgNames);
-            _undefinedLgNames.otherAlias(_lang);
+            _undefinedLgNames.keyWord(kwl_,_lang,_exec.getKeyWords());
+            _undefinedLgNames.otherAlias(_lang,_exec.getAliases());
         } else {
-            return null;
+            _undefinedLgNames.keyWord(kwl_,_exec.getKeyWords(), new StringMap<String>());
+            _undefinedLgNames.allAlias(_exec.getAliases(), new StringMap<String>());
         }
         return build(_mainArgs,CustList.INDEX_NOT_FOUND_ELT, _options, _exec,kwl_, _undefinedLgNames, _files, _tabWidth);
     }

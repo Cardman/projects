@@ -240,7 +240,7 @@ public final class Classes {
             _root.getRowColDirectSuperTypes().put(-1, type_);
         }
         if (_root instanceof AnnotationBlock) {
-            String type_ = _context.getStandards().getAliasAnnotation();
+            String type_ = _context.getStandards().getAliasAnnotationType();
             _root.getDirectSuperTypes().add(type_);
             _root.getExplicitDirectSuperTypes().put(-1, false);
             _root.getRowColDirectSuperTypes().put(-1, type_);
@@ -572,9 +572,9 @@ public final class Classes {
     public void validateInheritingClassesId(ContextEl _context, boolean _predefined) {
         _context.setAnalyzing(new AnalyzedPageEl());
         String objectClassName_ = _context.getStandards().getAliasObject();
-        String enumClassName_ = _context.getStandards().getAliasEnum();
+        String enumClassName_ = _context.getStandards().getAliasEnumType();
         String enumParamClassName_ = _context.getStandards().getAliasEnumParam();
-        String annotName_ = _context.getStandards().getAliasAnnotation();
+        String annotName_ = _context.getStandards().getAliasAnnotationType();
         CustList<RootBlock> staticClBodies_ = new CustList<RootBlock>();
         CustList<RootBlock> instClBodies_ = new CustList<RootBlock>();
         for (RootBlock r: getClassBodies(_predefined)) {

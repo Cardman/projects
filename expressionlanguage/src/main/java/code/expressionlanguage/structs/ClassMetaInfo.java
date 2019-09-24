@@ -294,7 +294,7 @@ public final class ClassMetaInfo implements AnnotatedStruct, ExportableStringStr
 
     @Override
     public String getClassName(ExecutableCode _contextEl) {
-        return _contextEl.getStandards().getAliasClass();
+        return _contextEl.getStandards().getAliasClassType();
     }
 
     @Override

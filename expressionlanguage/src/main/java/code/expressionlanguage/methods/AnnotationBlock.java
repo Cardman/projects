@@ -69,7 +69,7 @@ public final class AnnotationBlock extends RootBlock {
     @Override
     public void buildDirectGenericSuperTypes(ContextEl _classes) {
         importedDirectSuperInterfaces.clear();
-        importedDirectSuperInterfaces.add(_classes.getStandards().getAliasAnnotation());
+        importedDirectSuperInterfaces.add(_classes.getStandards().getAliasAnnotationType());
     }
 
     @Override

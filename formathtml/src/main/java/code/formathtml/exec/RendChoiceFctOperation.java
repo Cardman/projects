@@ -66,7 +66,7 @@ public final class RendChoiceFctOperation extends RendInvokingOperation implemen
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
         LgNames stds_ = _conf.getStandards();
         String cast_;
-        cast_ = stds_.getAliasCast();
+        cast_ = stds_.getAliasCastType();
         CustList<Argument> firstArgs_;
         MethodId methodId_ = classMethodId.getConstraints();
         String lastType_ = lastType;

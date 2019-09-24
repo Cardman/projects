@@ -83,10 +83,10 @@ public final class AliasCharSequence {
         String aliasPrimChar_ = _lgNames.getAliasPrimChar();
         String aliasPrimShort_ = _lgNames.getAliasPrimShort();
         String aliasPrimByte_ = _lgNames.getAliasPrimByte();
-        String aliasToString_ = _lgNames.getAliasToString();
+        String aliasToString_ = _lgNames.getAliasToStringMethod();
         String aliasCompareTo_ = _lgNames.getAliasCompareTo();
         String aliasObject_ = _lgNames.getAliasObject();
-        String aliasValueOf_ = _lgNames.getAliasValueOf();
+        String aliasValueOf_ = _lgNames.getAliasValueOfMethod();
         params_ = new StringList(aliasPrimInteger_,aliasPrimInteger_);
         method_ = new StandardMethod(aliasSubSequence, params_, aliasString, false, MethodModifier.NORMAL,std_);
         methods_.put(method_.getId(), method_);

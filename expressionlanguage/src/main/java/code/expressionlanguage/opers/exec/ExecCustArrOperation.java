@@ -139,7 +139,7 @@ public final class ExecCustArrOperation extends ExecInvokingOperation implements
             if (!Templates.isCorrectExecute(argClassName_, classNameFound_, _conf)) {
                 setRelativeOffsetPossibleLastPage(chidren_.last().getIndexInEl(), _conf);
                 String cast_;
-                cast_ = stds_.getAliasCast();
+                cast_ = stds_.getAliasCastType();
                 _conf.setException(new ErrorStruct(_conf, StringList.concat(argClassName_,RETURN_LINE,classNameFound_,RETURN_LINE),cast_));
                 return new Argument();
             }

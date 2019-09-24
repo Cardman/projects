@@ -11,8 +11,8 @@ public final class AliasNumber {
     private String aliasCompareTo;
     private String aliasCompare;
     private String aliasEquals;
-    private String aliasToString;
-    private String aliasValueOf;
+    private String aliasToStringMethod;
+    private String aliasValueOfMethod;
     private String aliasMaxValueField;
     private String aliasMinValueField;
     private String aliasBoolean;
@@ -97,16 +97,16 @@ public final class AliasNumber {
         method_ = new StandardMethod(aliasParseBoolean, params_, aliasPrimBoolean_, false, MethodModifier.STATIC, std_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasToString, params_, _lgNames.getAliasString(), false, MethodModifier.NORMAL, std_);
+        method_ = new StandardMethod(aliasToStringMethod, params_, _lgNames.getAliasString(), false, MethodModifier.NORMAL, std_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasPrimBoolean_);
-        method_ = new StandardMethod(aliasToString, params_, _lgNames.getAliasString(), false, MethodModifier.STATIC, std_);
+        method_ = new StandardMethod(aliasToStringMethod, params_, _lgNames.getAliasString(), false, MethodModifier.STATIC, std_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasPrimBoolean_);
-        method_ = new StandardMethod(aliasValueOf, params_, aliasBoolean, false, MethodModifier.STATIC, std_);
+        method_ = new StandardMethod(aliasValueOfMethod, params_, aliasBoolean, false, MethodModifier.STATIC, std_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(_lgNames.getAliasString());
-        method_ = new StandardMethod(aliasValueOf, params_, aliasBoolean, false, MethodModifier.STATIC, std_);
+        method_ = new StandardMethod(aliasValueOfMethod, params_, aliasBoolean, false, MethodModifier.STATIC, std_);
         methods_.put(method_.getId(), method_);
         StandardConstructor ctor_;
         params_ = new StringList(_lgNames.getAliasString());
@@ -250,7 +250,7 @@ public final class AliasNumber {
         method_ = new StandardMethod(_lgNames.getAliasToUpperCase(), params_, aliasPrimChar_, false, MethodModifier.STATIC, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasPrimChar_);
-        method_ = new StandardMethod(aliasToString, params_, _lgNames.getAliasString(), false, MethodModifier.STATIC, stdcl_);
+        method_ = new StandardMethod(aliasToStringMethod, params_, _lgNames.getAliasString(), false, MethodModifier.STATIC, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasPrimChar_);
         ctor_ = new StandardConstructor(params_, false, stdcl_);
@@ -280,8 +280,8 @@ public final class AliasNumber {
         StringList params_;
         StandardMethod method_;
         params_ = new StringList(_primitive);
-        method_ = new StandardMethod(aliasToString, params_, _lgNames.getAliasString(), false, MethodModifier.STATIC, _type);
-        _methods.put(new MethodId(MethodModifier.STATIC, aliasToString, params_), method_);
+        method_ = new StandardMethod(aliasToStringMethod, params_, _lgNames.getAliasString(), false, MethodModifier.STATIC, _type);
+        _methods.put(new MethodId(MethodModifier.STATIC, aliasToStringMethod, params_), method_);
         params_ = new StringList(_lgNames.getAliasString());
         method_ = new StandardMethod(_parserName, params_, _owner, false, MethodModifier.STATIC, _type);
         _methods.put(new MethodId(MethodModifier.STATIC, _parserName, params_), method_);
@@ -340,11 +340,11 @@ public final class AliasNumber {
         method_ = new StandardMethod(aliasDoubleValue, params_, aliasPrimDouble_, false, MethodModifier.NORMAL, _type);
         _methods.put(new MethodId(MethodModifier.ABSTRACT, aliasDoubleValue, params_), method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasToString, params_, _lgNames.getAliasString(), false, MethodModifier.NORMAL, _type);
-        _methods.put(new MethodId(MethodModifier.NORMAL, aliasToString, params_), method_);
+        method_ = new StandardMethod(aliasToStringMethod, params_, _lgNames.getAliasString(), false, MethodModifier.NORMAL, _type);
+        _methods.put(new MethodId(MethodModifier.NORMAL, aliasToStringMethod, params_), method_);
         params_ = new StringList(_owner);
-        method_ = new StandardMethod(aliasToString, params_, _lgNames.getAliasString(), false, MethodModifier.STATIC, _type);
-        _methods.put(new MethodId(MethodModifier.STATIC, aliasToString, params_), method_);
+        method_ = new StandardMethod(aliasToStringMethod, params_, _lgNames.getAliasString(), false, MethodModifier.STATIC, _type);
+        _methods.put(new MethodId(MethodModifier.STATIC, aliasToStringMethod, params_), method_);
         params_ = new StringList(aliasNumber);
         method_ = new StandardMethod(aliasEquals, params_, aliasPrimBoolean_, false, MethodModifier.NORMAL, _type);
         _methods.put(new MethodId(MethodModifier.NORMAL, aliasEquals, params_), method_);
@@ -373,17 +373,17 @@ public final class AliasNumber {
     public void setAliasEquals(String _aliasEquals) {
         aliasEquals = _aliasEquals;
     }
-    public String getAliasToString() {
-        return aliasToString;
+    public String getAliasToStringMethod() {
+        return aliasToStringMethod;
     }
-    public void setAliasToString(String _aliasToString) {
-        aliasToString = _aliasToString;
+    public void setAliasToStringMethod(String _aliasToString) {
+        aliasToStringMethod = _aliasToString;
     }
-    public String getAliasValueOf() {
-        return aliasValueOf;
+    public String getAliasValueOfMethod() {
+        return aliasValueOfMethod;
     }
-    public void setAliasValueOf(String _aliasValueOf) {
-        aliasValueOf = _aliasValueOf;
+    public void setAliasValueOfMethod(String _aliasValueOf) {
+        aliasValueOfMethod = _aliasValueOf;
     }
     public String getAliasMaxValueField() {
         return aliasMaxValueField;

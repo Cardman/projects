@@ -1,6 +1,7 @@
 package code.expressionlanguage.utilcompo;
 
 import code.util.StringList;
+import code.util.StringMap;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -16,6 +17,8 @@ public final class ExecutingOptions {
     private boolean invokeDirect;
     private boolean hasArg;
     private StringList args = new StringList();
+    private StringMap<String> keyWords = new StringMap<String>();
+    private StringMap<String> aliases = new StringMap<String>();
 
     public String getSrcFolder() {
         return srcFolder;
@@ -91,5 +94,21 @@ public final class ExecutingOptions {
 
     public void setArgs(StringList _args) {
         args = _args;
+    }
+
+    public StringMap<String> getAliases() {
+        return aliases;
+    }
+
+    public void setAliases(StringMap<String> _aliases) {
+        aliases = _aliases;
+    }
+
+    public StringMap<String> getKeyWords() {
+        return keyWords;
+    }
+
+    public void setKeyWords(StringMap<String> _keyWords) {
+        keyWords = _keyWords;
     }
 }

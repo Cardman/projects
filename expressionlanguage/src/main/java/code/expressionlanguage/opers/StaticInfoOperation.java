@@ -33,7 +33,7 @@ public final class StaticInfoOperation extends LeafOperation implements Reductib
         String realCl_ = str_.substring(afterLeftPar_, str_.lastIndexOf(PAR_RIGHT));
         if (StringList.quickEq(realCl_.trim(), _conf.getStandards().getAliasVoid())) {
             className = realCl_.trim();
-            setResultClass(new ClassArgumentMatching(_conf.getStandards().getAliasClass()));
+            setResultClass(new ClassArgumentMatching(_conf.getStandards().getAliasClassType()));
             return;
         }
         int off_ = StringList.getFirstPrintableCharIndex(realCl_);
@@ -41,7 +41,7 @@ public final class StaticInfoOperation extends LeafOperation implements Reductib
         classStr_ = _conf.resolveCorrectType(afterLeftPar_+off_,realCl_, realCl_.contains(Templates.TEMPLATE_BEGIN));
         partOffsets.addAllElts(_conf.getContextEl().getCoverage().getCurrentParts());
         className = classStr_;
-        setResultClass(new ClassArgumentMatching(_conf.getStandards().getAliasClass()));
+        setResultClass(new ClassArgumentMatching(_conf.getStandards().getAliasClassType()));
     }
 
     @Override

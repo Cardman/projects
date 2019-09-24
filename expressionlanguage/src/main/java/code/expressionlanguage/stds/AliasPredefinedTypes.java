@@ -24,7 +24,7 @@ public final class AliasPredefinedTypes {
     private String aliasPairTypeVarSecond;
 
     private String aliasEnumParam;
-    private String aliasEnum;
+    private String aliasEnumType;
     private String aliasEnumName;
     private String aliasEnumOrdinal;
     private String aliasEnumValues;
@@ -115,11 +115,11 @@ public final class AliasPredefinedTypes {
     public void setAliasEnumParam(String _aliasEnumParam) {
         aliasEnumParam = _aliasEnumParam;
     }
-    public String getAliasEnum() {
-        return aliasEnum;
+    public String getAliasEnumType() {
+        return aliasEnumType;
     }
-    public void setAliasEnum(String _aliasEnum) {
-        aliasEnum = _aliasEnum;
+    public void setAliasEnumType(String _aliasEnum) {
+        aliasEnumType = _aliasEnum;
     }
     public String getAliasEnumName() {
         return aliasEnumName;

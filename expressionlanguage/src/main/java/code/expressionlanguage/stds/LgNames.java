@@ -131,6 +131,68 @@ public abstract class LgNames {
         args_.add(arg_.toString());
         return args_;
     }
+    public static String parseValue(String _line) {
+        StringBuilder arg_ = new StringBuilder();
+        int len_ = _line.length();
+        int i_ = 0;
+        boolean escaped_ = false;
+        while (i_ < len_) {
+            char cur_ = _line.charAt(i_);
+            if (escaped_) {
+                escaped_ = false;
+                if (cur_ == 'n') {
+                    arg_.append('\n');
+                    i_++;
+                    continue;
+                }
+                if (cur_ == 'e') {
+                    arg_.append(' ');
+                    i_++;
+                    continue;
+                }
+                if (cur_ == 't') {
+                    arg_.append('\t');
+                    i_++;
+                    continue;
+                }
+                if (cur_ == 'c') {
+                    if (i_ + 2 < len_) {
+                        String sub_ = _line.substring(i_ + 1,i_ + 3);
+                        Long char_ = NumParsers.parseLong(sub_, 16);
+                        if (char_ != null && char_ >= 0 && char_ < ' ') {
+                            char ch_ = (char) char_.intValue();
+                            arg_.append(ch_);
+                            i_ += 3;
+                            continue;
+                        }
+                    }
+                }
+                if (cur_ == 'u') {
+                    if (i_ + 4 < len_) {
+                        String sub_ = _line.substring(i_ + 1,i_ + 5);
+                        Long char_ = NumParsers.parseLong(sub_, 16);
+                        if (char_ != null && char_ >= 0) {
+                            char ch_ = (char) char_.intValue();
+                            arg_.append(ch_);
+                            i_ += 5;
+                            continue;
+                        }
+                    }
+                }
+                arg_.append(cur_);
+                i_++;
+                continue;
+            }
+            if (cur_ == '\\') {
+                escaped_ = true;
+                i_++;
+                continue;
+            }
+            arg_.append(cur_);
+            i_++;
+        }
+        return arg_.toString();
+    }
     public StringList allPrimitives() {
         StringList list_ = new StringList();
         list_.add(primTypes.getAliasPrimBoolean());
@@ -190,8 +252,8 @@ public abstract class LgNames {
     public StringList allRefTypes() {
         StringList list_ = new StringList();
         list_.add(getAliasAnnotated());
-        list_.add(getAliasAnnotation());
-        list_.add(getAliasClass());
+        list_.add(getAliasAnnotationType());
+        list_.add(getAliasClassType());
         list_.add(getAliasConstructor());
         list_.add(getAliasFct());
         list_.add(getAliasField());
@@ -202,7 +264,7 @@ public abstract class LgNames {
         list_.add(getAliasClassNotFoundError());
         list_.add(getAliasErrorInitClass());
         list_.add(getAliasInvokeTarget());
-        list_.add(getAliasEnum());
+        list_.add(getAliasEnumType());
         list_.add(getAliasIterable());
         list_.add(getAliasIteratorType());
         list_.add(getAliasEnumParam());
@@ -217,7 +279,7 @@ public abstract class LgNames {
         list_.add(getAliasIllegalArg());
         list_.add(getAliasDivisionZero());
         list_.add(getAliasStore());
-        list_.add(getAliasCast());
+        list_.add(getAliasCastType());
         list_.add(getAliasBadSize());
         list_.add(getAliasSof());
         list_.add(getAliasReplacement());
@@ -331,15 +393,15 @@ public abstract class LgNames {
         StringMap<StringList> map_ = new StringMap<StringList>();
         map_.put(getAliasError(), new StringList(
                 getAliasCurrentStack(),
-                getAliasToString(),
+                getAliasToStringMethod(),
                 getAliasGetMessage(),
                 getAliasGetCause()));
         map_.put(getAliasAnnotated(), new StringList(
                 getAliasGetFileName(),
                 getAliasGetAnnotations(),
                 getAliasGetAnnotationsParameters()));
-        map_.put(getAliasAnnotation(), new StringList(getAliasGetString()));
-        map_.put(getAliasClass(), new StringList(
+        map_.put(getAliasAnnotationType(), new StringList(getAliasGetString()));
+        map_.put(getAliasClassType(), new StringList(
                 getAliasDefaultInstance(),
                 getAliasEnumValueOf(),
                 getAliasForName(),
@@ -448,11 +510,11 @@ public abstract class LgNames {
                 getAliasGetParent(),
                 getAliasSetParent()));
         map_.put(getAliasStringUtil(), new StringList(
-                getAliasValueOf()));
+                getAliasValueOfMethod()));
         map_.put(getAliasResources(), new StringList(
                 getAliasReadResourcesNames(),
                 getAliasReadResources()));
-        map_.put(getAliasEnum(), new StringList(
+        map_.put(getAliasEnumType(), new StringList(
                 getAliasEnumName(),
                 getAliasEnumOrdinal(),
                 getAliasEnumPredValueOf(),
@@ -476,7 +538,7 @@ public abstract class LgNames {
         map_.put(getAliasStackTraceElement(), new StringList(
                 getAliasCurrentStack(),
                 getAliasCurrentFullStack(),
-                getAliasToString()));
+                getAliasToStringMethod()));
         map_.put(getAliasMath(), new StringList(
                 getAliasAbs(),
                 getAliasMod(),
@@ -511,8 +573,8 @@ public abstract class LgNames {
                 getAliasCompareTo(),
                 getAliasEquals(),
                 getAliasParseBoolean(),
-                getAliasToString(),
-                getAliasValueOf()));
+                getAliasToStringMethod(),
+                getAliasValueOfMethod()));
         map_.put(getAliasByte(), new StringList(
                 getAliasByteValue(),
                 getAliasCompare(),
@@ -525,7 +587,7 @@ public abstract class LgNames {
                 getAliasParseByte(),
                 getAliasParseByteOrNull(),
                 getAliasShortValue(),
-                getAliasToString()));
+                getAliasToStringMethod()));
         map_.put(getAliasCharSequence(), new StringList(
                 getAliasCharAt(),
                 getAliasEquals(),
@@ -547,7 +609,7 @@ public abstract class LgNames {
                 getAliasSubSequence(),
                 getAliasSubstring(),
                 getAliasToCharArray(),
-                getAliasToString(),
+                getAliasToStringMethod(),
                 getAliasTrim()));
         map_.put(getAliasCharacter(), new StringList(
                 getAliasCharAt(),
@@ -569,7 +631,7 @@ public abstract class LgNames {
                 getAliasLength(),
                 getAliasSubSequence(),
                 getAliasToLowerCase(),
-                getAliasToString(),
+                getAliasToStringMethod(),
                 getAliasToUpperCase()));
         map_.put(getAliasDouble(), new StringList(
                 getAliasByteValue(),
@@ -585,7 +647,7 @@ public abstract class LgNames {
                 getAliasParseDouble(),
                 getAliasParseDoubleOrNull(),
                 getAliasShortValue(),
-                getAliasToString()));
+                getAliasToStringMethod()));
         map_.put(getAliasFloat(), new StringList(
                 getAliasByteValue(),
                 getAliasCompare(),
@@ -600,7 +662,7 @@ public abstract class LgNames {
                 getAliasParseFloat(),
                 getAliasParseFloatOrNull(),
                 getAliasShortValue(),
-                getAliasToString()));
+                getAliasToStringMethod()));
         map_.put(getAliasInteger(), new StringList(
                 getAliasByteValue(),
                 getAliasCompare(),
@@ -613,7 +675,7 @@ public abstract class LgNames {
                 getAliasParseInt(),
                 getAliasParseIntOrNull(),
                 getAliasShortValue(),
-                getAliasToString()));
+                getAliasToStringMethod()));
         map_.put(getAliasLong(), new StringList(
                 getAliasByteValue(),
                 getAliasCompare(),
@@ -626,7 +688,7 @@ public abstract class LgNames {
                 getAliasParseLong(),
                 getAliasParseLongOrNull(),
                 getAliasShortValue(),
-                getAliasToString()));
+                getAliasToStringMethod()));
         map_.put(getAliasNumber(), new StringList(
                 getAliasByteValue(),
                 getAliasCompare(),
@@ -637,7 +699,7 @@ public abstract class LgNames {
                 getAliasIntValue(),
                 getAliasLongValue(),
                 getAliasShortValue(),
-                getAliasToString()));
+                getAliasToStringMethod()));
         map_.put(getAliasShort(), new StringList(
                 getAliasByteValue(),
                 getAliasCompare(),
@@ -650,7 +712,7 @@ public abstract class LgNames {
                 getAliasParseShort(),
                 getAliasParseShortOrNull(),
                 getAliasShortValue(),
-                getAliasToString()));
+                getAliasToStringMethod()));
         map_.put(getAliasString(), new StringList(
                 getAliasCharAt(),
                 getAliasCompare(),
@@ -676,9 +738,9 @@ public abstract class LgNames {
                 getAliasToCharArray(),
                 getAliasToLowerCase(),
                 getAliasToUpperCase(),
-                getAliasToString(),
+                getAliasToStringMethod(),
                 getAliasTrim(),
-                getAliasValueOf()));
+                getAliasValueOfMethod()));
         map_.put(getAliasStringBuilder(), new StringList(
 
                 getAliasCharAt(),
@@ -699,7 +761,7 @@ public abstract class LgNames {
                 getAliasSubSequence(),
                 getAliasSubstring(),
                 getAliasToCharArray(),
-                getAliasToString(),
+                getAliasToStringMethod(),
                 getAliasTrim(),
                 getAliasAppend(),
                 getAliasCapacity(),
@@ -1416,7 +1478,7 @@ public abstract class LgNames {
         predefinedClasses.add(name_);
         files_.put(name_, content_);
         content_ = PredefinedClasses.getBracedEnumType(_context);
-        name_ = stds_.getAliasEnum();
+        name_ = stds_.getAliasEnumType();
         predefinedClasses.add(name_);
         files_.put(name_, content_);
         content_ = PredefinedClasses.getBracedEnumParamType(_context);
@@ -1429,7 +1491,7 @@ public abstract class LgNames {
         predefinedInterfacesInitOrder.add(stds_.getAliasIteratorTableType());
         predefinedInterfacesInitOrder.add(stds_.getAliasPairType());
         predefinedInterfacesInitOrder.add(stds_.getAliasEnumParam());
-        predefinedInterfacesInitOrder.add(stds_.getAliasEnum());
+        predefinedInterfacesInitOrder.add(stds_.getAliasEnumType());
         return files_;
     }
 
@@ -1486,11 +1548,11 @@ public abstract class LgNames {
     public void setAliasEnumParam(String _aliasEnumParam) {
         predefTypes.setAliasEnumParam(_aliasEnumParam);
     }
-    public String getAliasEnum() {
-        return predefTypes.getAliasEnum();
+    public String getAliasEnumType() {
+        return predefTypes.getAliasEnumType();
     }
-    public void setAliasEnum(String _aliasEnum) {
-        predefTypes.setAliasEnum(_aliasEnum);
+    public void setAliasEnumType(String _aliasEnum) {
+        predefTypes.setAliasEnumType(_aliasEnum);
     }
     public String getAliasEnums() {
         return coreNames.getAliasEnums();
@@ -1530,11 +1592,11 @@ public abstract class LgNames {
     public void setAliasDivisionZero(String _aliasDivisionZero) {
         coreNames.setAliasDivisionZero(_aliasDivisionZero);
     }
-    public String getAliasCast() {
-        return coreNames.getAliasCast();
+    public String getAliasCastType() {
+        return coreNames.getAliasCastType();
     }
-    public void setAliasCast(String _aliasCast) {
-        coreNames.setAliasCast(_aliasCast);
+    public void setAliasCastType(String _aliasCast) {
+        coreNames.setAliasCastType(_aliasCast);
     }
     public String getAliasStore() {
         return coreNames.getAliasStore();
@@ -1653,17 +1715,17 @@ public abstract class LgNames {
     public void setAliasEquals(String _aliasEquals) {
         nbAlias.setAliasEquals(_aliasEquals);
     }
-    public String getAliasToString() {
-        return nbAlias.getAliasToString();
+    public String getAliasToStringMethod() {
+        return nbAlias.getAliasToStringMethod();
     }
-    public void setAliasToString(String _aliasToString) {
-        nbAlias.setAliasToString(_aliasToString);
+    public void setAliasToStringMethod(String _aliasToString) {
+        nbAlias.setAliasToStringMethod(_aliasToString);
     }
-    public String getAliasValueOf() {
-        return nbAlias.getAliasValueOf();
+    public String getAliasValueOfMethod() {
+        return nbAlias.getAliasValueOfMethod();
     }
-    public void setAliasValueOf(String _aliasValueOf) {
-        nbAlias.setAliasValueOf(_aliasValueOf);
+    public void setAliasValueOfMethod(String _aliasValueOf) {
+        nbAlias.setAliasValueOfMethod(_aliasValueOf);
     }
 
     public void setAliasMaxValueField(String _aliasMaxValueField) {
@@ -2435,11 +2497,11 @@ public abstract class LgNames {
         reflect.setAliasGetString(_aliasTypeVariable);
     }
 
-    public String getAliasClass() {
-        return reflect.getAliasClass();
+    public String getAliasClassType() {
+        return reflect.getAliasClassType();
     }
-    public void setAliasClass(String _aliasClass) {
-        reflect.setAliasClass(_aliasClass);
+    public void setAliasClassType(String _aliasClass) {
+        reflect.setAliasClassType(_aliasClass);
     }
     public String getAliasFct() {
         return reflect.getAliasFct();
@@ -2453,11 +2515,11 @@ public abstract class LgNames {
     public void setAliasCall(String _aliasCall) {
         reflect.setAliasCall(_aliasCall);
     }
-    public String getAliasAnnotation() {
-        return reflect.getAliasAnnotation();
+    public String getAliasAnnotationType() {
+        return reflect.getAliasAnnotationType();
     }
-    public void setAliasAnnotation(String _aliasAnnotation) {
-        reflect.setAliasAnnotation(_aliasAnnotation);
+    public void setAliasAnnotationType(String _aliasAnnotation) {
+        reflect.setAliasAnnotationType(_aliasAnnotation);
     }
     public String getAliasAnnotated() {
         return reflect.getAliasAnnotated();
