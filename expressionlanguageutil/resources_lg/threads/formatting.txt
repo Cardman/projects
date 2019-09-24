@@ -5,7 +5,7 @@
     {public} {static} {void} {print}({String} {p},{Object}... {a})'{'
         {String}[] {as} = {new} {String}[({a}{param}).{length}]{endLine}
         {for}({var} {e}:{a}{param})'{'
-            {as}{local}[{cast}({int})([{e}])] = {static}({StringUtil}).{valueOf}({e}{loop}){endLine}
+            {as}{local}[([{e}])] = {static}({StringUtil}).{valueOf}({e}{loop}){endLine}
         '}'
         {static}({Thread}).{print}(({p}{param}).{format}({as}{local})){endLine}
     '}'

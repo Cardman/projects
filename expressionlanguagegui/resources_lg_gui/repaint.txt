@@ -86,8 +86,8 @@
           {for} ({var} {o}{suffix} {e})'{'
               {var} {h} = ({hf}{local}).{call}({o}{loop}){endLine}
               {var} {img} = {new} {Image}({la}{local},{h}{local},{true}){endLine}
-              ({pf}{local}).{call}({l}{param},{o}{loop},{cast}({int})([{o}]),{false},{img}{local}){endLine}
-              ({l}{param}).{addCompo}({cast}({int})([{o}]),{new} {ImageLabel}({img}{local}),{o}{loop}){endLine}
+              ({pf}{local}).{call}({l}{param},{o}{loop},([{o}]),{false},{img}{local}){endLine}
+              ({l}{param}).{addCompo}(([{o}]),{new} {ImageLabel}({img}{local}),{o}{loop}){endLine}
               ({img}{local}).{dispose}(){endLine}
           '}'
           {refresh}({l}{param}){endLine}
@@ -117,8 +117,8 @@
                          {break}{endLine}
                     '}'
                '}'
-               ({pf}{local}).{call}({l}{param},{o}{loop},{cast}({int})([{o}]),{nb}{local},{img}{local}){endLine}
-               ({l}{param}).{setCompo}({cast}({int})([{o}]),{new} {ImageLabel}({img}{local}),{o}{loop}){endLine}
+               ({pf}{local}).{call}({l}{param},{o}{loop},([{o}]),{nb}{local},{img}{local}){endLine}
+               ({l}{param}).{setCompo}(([{o}]),{new} {ImageLabel}({img}{local}),{o}{loop}){endLine}
                ({img}{local}).{dispose}(){endLine}
            '}'
            ({l}{param}).{updateGraphics}(){endLine}
