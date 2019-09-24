@@ -84,7 +84,7 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
         eqOffset = _eq.getOffset();
         String classIndex_ = _classIndex.getInfo();
         if (classIndex_.isEmpty()) {
-            classIndex_ = _importingPage.getStandards().getAliasPrimLong();
+            classIndex_ = _importingPage.getStandards().getAliasPrimInteger();
         }
         classIndexName = classIndex_;
         classIndexNameOffset = _classIndex.getOffset();

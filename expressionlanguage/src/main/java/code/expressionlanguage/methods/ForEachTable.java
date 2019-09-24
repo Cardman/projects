@@ -90,7 +90,7 @@ public final class ForEachTable extends BracedStack implements Loop, WithNotEmpt
         expressionOffset = _expression.getOffset();
         String classIndex_ = _classIndex.getInfo();
         if (classIndex_.isEmpty()) {
-            classIndex_ = _importingPage.getStandards().getAliasPrimLong();
+            classIndex_ = _importingPage.getStandards().getAliasPrimInteger();
         }
         classIndexName = classIndex_;
         label = _label.getInfo();

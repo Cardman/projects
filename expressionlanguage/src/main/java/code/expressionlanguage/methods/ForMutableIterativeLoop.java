@@ -84,7 +84,7 @@ public final class ForMutableIterativeLoop extends BracedStack implements
         stepOffset = _step.getOffset();
         String classIndex_ = _classIndex.getInfo();
         if (classIndex_.isEmpty()) {
-            classIndex_ = _importingPage.getStandards().getAliasPrimLong();
+            classIndex_ = _importingPage.getStandards().getAliasPrimInteger();
         }
         classIndexName = classIndex_;
         classIndexNameOffset = _classIndex.getOffset();

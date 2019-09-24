@@ -72,7 +72,7 @@ public final class ForEachLoop extends BracedStack implements ForLoop,ImportForE
         expressionOffset = _expression.getOffset();
         String classIndex_ = _classIndex.getInfo();
         if (classIndex_.isEmpty()) {
-            classIndex_ = _importingPage.getStandards().getAliasPrimLong();
+            classIndex_ = _importingPage.getStandards().getAliasPrimInteger();
         }
         classIndexName = classIndex_;
         label = _label.getInfo();

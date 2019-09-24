@@ -666,7 +666,7 @@ public final class FileResolverTest {
         instr_ = method_.getFirstChild();
         assertTrue(instr_ instanceof ForIterativeLoop);
         ForIterativeLoop for_ = (ForIterativeLoop) instr_;
-        assertEq("$long",for_.getClassIndexName());
+        assertEq("$int",for_.getClassIndexName());
         assertEq("$int",for_.getClassName());
         assertEq("0i",for_.getInit());
         assertEq("1i",for_.getStep());
@@ -945,7 +945,7 @@ public final class FileResolverTest {
         instr_ = method_.getFirstChild();
         assertTrue(instr_ instanceof ForIterativeLoop);
         ForIterativeLoop for_ = (ForIterativeLoop) instr_;
-        assertEq("$long",for_.getClassIndexName());
+        assertEq("$int",for_.getClassIndexName());
         assertEq("$int",for_.getClassName());
         assertEq("0i",for_.getInit());
         assertEq("1i",for_.getStep());
@@ -3098,7 +3098,7 @@ public final class FileResolverTest {
         Block instr_ = child_.getFirstChild();
         assertTrue(instr_ instanceof ForEachLoop);
         ForEachLoop th_ = (ForEachLoop) instr_;
-        assertEq("$long",th_.getClassIndexName());
+        assertEq("$int",th_.getClassIndexName());
         assertEq("$int",th_.getClassName());
         assertEq("i",th_.getVariableName());
         assertEq("list;.",th_.getExpression());
@@ -4186,7 +4186,7 @@ public final class FileResolverTest {
         instr_ = method_.getFirstChild();
         assertTrue(instr_ instanceof ForIterativeLoop);
         ForIterativeLoop for_ = (ForIterativeLoop) instr_;
-        assertEq("$long",for_.getClassIndexName());
+        assertEq("$int",for_.getClassIndexName());
         assertEq("$int",for_.getClassName());
         assertEq("0i",for_.getInit());
         assertEq("1i",for_.getStep());
@@ -4312,7 +4312,7 @@ public final class FileResolverTest {
         Block instr_ = child_.getFirstChild();
         assertTrue(instr_ instanceof ForEachLoop);
         ForEachLoop th_ = (ForEachLoop) instr_;
-        assertEq("$long",th_.getClassIndexName());
+        assertEq("$int",th_.getClassIndexName());
         assertEq("$int",th_.getClassName());
         assertEq("i",th_.getVariableName());
         assertEq("list;.",th_.getExpression());
@@ -4830,7 +4830,7 @@ public final class FileResolverTest {
         instr_ = method_.getFirstChild();
         assertTrue(instr_ instanceof ForIterativeLoop);
         ForIterativeLoop for_ = (ForIterativeLoop) instr_;
-        assertEq("$long",for_.getClassIndexName());
+        assertEq("$int",for_.getClassIndexName());
         assertEq("$int",for_.getClassName());
         assertEq("0i",for_.getInit());
         assertEq("1i",for_.getStep());
@@ -5140,7 +5140,7 @@ public final class FileResolverTest {
         instr_ = method_.getFirstChild();
         assertTrue(instr_ instanceof ForIterativeLoop);
         ForIterativeLoop for_ = (ForIterativeLoop) instr_;
-        assertEq("$long",for_.getClassIndexName());
+        assertEq("$int",for_.getClassIndexName());
         assertEq("$int",for_.getClassName());
         assertEq("0i",for_.getInit());
         assertEq("1i",for_.getStep());
@@ -6970,7 +6970,7 @@ public final class FileResolverTest {
         instr_ = method_.getFirstChild();
         assertTrue(instr_ instanceof ForEachLoop);
         ForEachLoop for_ = (ForEachLoop) instr_;
-        assertEq("$long",for_.getClassIndexName());
+        assertEq("$int",for_.getClassIndexName());
         assertEq("$int",for_.getClassName());
         assertEq("i",for_.getVariableName());
         assertEq("$new $int[]{}",for_.getExpression());
@@ -7332,7 +7332,7 @@ public final class FileResolverTest {
         instr_ = method_.getFirstChild();
         assertTrue(instr_ instanceof ForMutableIterativeLoop);
         ForMutableIterativeLoop for_ = (ForMutableIterativeLoop) instr_;
-        assertEq("$long",for_.getClassIndexName());
+        assertEq("$int",for_.getClassIndexName());
         assertEq("$int",for_.getClassName());
         assertEq("i=0i",for_.getInit());
         assertEq("i<10i",for_.getExpression());
@@ -7642,7 +7642,7 @@ public final class FileResolverTest {
         instr_ = method_.getFirstChild();
         assertTrue(instr_ instanceof ForEachLoop);
         ForEachLoop for_ = (ForEachLoop) instr_;
-        assertEq("$long",for_.getClassIndexName());
+        assertEq("$int",for_.getClassIndexName());
         assertEq("$int",for_.getClassName());
         assertEq("i",for_.getVariableName());
         assertEq("$new $int[]{}",for_.getExpression());
@@ -7793,7 +7793,7 @@ public final class FileResolverTest {
         instr_ = method_.getFirstChild();
         assertTrue(instr_ instanceof ForMutableIterativeLoop);
         ForMutableIterativeLoop for_ = (ForMutableIterativeLoop) instr_;
-        assertEq("$long",for_.getClassIndexName());
+        assertEq("$int",for_.getClassIndexName());
         assertEq("$int",for_.getClassName());
         assertEq("i=0",for_.getInit());
         assertEq("i<1",for_.getExpression());
@@ -8814,7 +8814,7 @@ public final class FileResolverTest {
         Block instr_ = child_.getFirstChild();
         assertTrue(instr_ instanceof ForEachTable);
         ForEachTable th_ = (ForEachTable) instr_;
-        assertEq("$long",th_.getClassIndexName());
+        assertEq("$int",th_.getClassIndexName());
         assertEq("$int",th_.getClassNameFirst());
         assertEq("$long",th_.getClassNameSecond());
         assertEq("i",th_.getVariableNameFirst());
@@ -10198,7 +10198,7 @@ public final class FileResolverTest {
         instr_ = method_.getFirstChild();
         assertTrue(instr_ instanceof ForMutableIterativeLoop);
         ForMutableIterativeLoop for_ = (ForMutableIterativeLoop) instr_;
-        assertEq("$long",for_.getClassIndexName());
+        assertEq("$int",for_.getClassIndexName());
         assertEq("$int",for_.getClassName());
         assertEq("i=0i",for_.getInit());
         assertEq("i<10i",for_.getExpression());
@@ -10339,7 +10339,7 @@ public final class FileResolverTest {
         instr_ = method_.getFirstChild();
         assertTrue(instr_ instanceof ForMutableIterativeLoop);
         ForMutableIterativeLoop for_ = (ForMutableIterativeLoop) instr_;
-        assertEq("$long",for_.getClassIndexName());
+        assertEq("$int",for_.getClassIndexName());
         assertEq("$int",for_.getClassName());
         assertEq("i=0i",for_.getInit());
         assertEq("i<10i",for_.getExpression());
