@@ -1,3 +1,0 @@
-/** */
-package exportwpl.main;
-
