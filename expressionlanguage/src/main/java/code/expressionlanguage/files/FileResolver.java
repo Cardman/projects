@@ -803,9 +803,9 @@ public final class FileResolver {
         String keyWordCase_ = keyWords_.getKeyWordCase();
         String keyWordDefault_ = keyWords_.getKeyWordDefault();
         String keyWordReturn_ = keyWords_.getKeyWordReturn();
-        boolean allowedComments_ = false;
         IdMap<SwitchPartBlock, Boolean> bracedSwitchPart_ = new IdMap<SwitchPartBlock, Boolean>();
         StringBuilder instruction_ = new StringBuilder();
+        int instLen_ = 0;
         int instructionLocation_ = -1;
         EnablingSpaces enabledSpaces_ = _input.getEnabledSpaces();
         Ints badIndexes_ = _input.getBadIndexes();
@@ -835,6 +835,7 @@ public final class FileResolver {
                     commentedSingleLine_ = false;
                     enabledSpaces_.setCheckTabs(true);
                     instruction_.delete(0, instruction_.length());
+                    instLen_ = 0;
                     enabledSpaces_.getFile().getEndComments().add(i_-1);
                 }
                 i_ = incrementRowCol(i_, _file, enabledSpaces_);
@@ -852,6 +853,7 @@ public final class FileResolver {
                         commentedMultiLine_ = false;
                         enabledSpaces_.setCheckTabs(true);
                         instruction_.delete(0, instruction_.length());
+                        instLen_ = 0;
                         i_ = incrementRowCol(i_, _file, enabledSpaces_);
                         enabledSpaces_.getFile().getEndComments().add(i_);
                         i_ = incrementRowCol(i_, _file, enabledSpaces_);
@@ -862,6 +864,7 @@ public final class FileResolver {
                 continue;
             }
             if (constChar_) {
+                instLen_++;
                 instruction_.append(currentChar_);
                 if (currentChar_ == ESCAPE) {
                     if (i_ + 1 >= len_) {
@@ -869,6 +872,7 @@ public final class FileResolver {
                         badIndexes_.add(i_);
                         break;
                     }
+                    instLen_++;
                     instruction_.append(_file.charAt(i_+1));
                     i_ = incrementRowCol(i_, _file, enabledSpaces_);
                     i_ = incrementRowCol(i_, _file, enabledSpaces_);
@@ -877,7 +881,6 @@ public final class FileResolver {
                 if (currentChar_ == DEL_CHAR) {
                     i_ = incrementRowCol(i_, _file, enabledSpaces_);
                     constChar_ = false;
-                    allowedComments_ = false;
                     enabledSpaces_.setCheckTabs(true);
                     continue;
                 }
@@ -885,6 +888,7 @@ public final class FileResolver {
                 continue;
             }
             if (constString_) {
+                instLen_++;
                 instruction_.append(currentChar_);
                 if (currentChar_ == ESCAPE) {
                     if (i_ + 1 >= len_) {
@@ -892,6 +896,7 @@ public final class FileResolver {
                         badIndexes_.add(i_);
                         break;
                     }
+                    instLen_++;
                     instruction_.append(_file.charAt(i_+1));
                     i_ = incrementRowCol(i_, _file, enabledSpaces_);
                     i_ = incrementRowCol(i_, _file, enabledSpaces_);
@@ -900,7 +905,6 @@ public final class FileResolver {
                 if (currentChar_ == DEL_STRING) {
                     i_ = incrementRowCol(i_, _file, enabledSpaces_);
                     constString_ = false;
-                    allowedComments_ = false;
                     enabledSpaces_.setCheckTabs(true);
                     continue;
                 }
@@ -908,6 +912,7 @@ public final class FileResolver {
                 continue;
             }
             if (constText_) {
+                instLen_++;
                 instruction_.append(currentChar_);
                 if (i_ + 1 >= len_) {
                     //ERROR
@@ -918,10 +923,10 @@ public final class FileResolver {
                     if (_file.charAt(i_ + 1) != DEL_TEXT) {
                         i_ = incrementRowCol(i_, _file, enabledSpaces_);
                         constText_ = false;
-                        allowedComments_ = false;
                         enabledSpaces_.setCheckTabs(true);
                         continue;
                     }
+                    instLen_++;
                     instruction_.append(_file.charAt(i_+1));
                     i_ = incrementRowCol(i_, _file, enabledSpaces_);
                     i_ = incrementRowCol(i_, _file, enabledSpaces_);
@@ -943,7 +948,7 @@ public final class FileResolver {
                 }
                 char nextChar_ = _file.charAt(i_ + 1);
                 if (nextChar_ == BEGIN_COMMENT) {
-                    if (allowedComments_) {
+                    if (instLen_ == 0) {
                         enabledSpaces_.getFile().getBeginComments().add(i_);
                         commentedSingleLine_ = true;
                         enabledSpaces_.setCheckTabs(false);
@@ -953,7 +958,7 @@ public final class FileResolver {
                     }
                 }
                 if (nextChar_ == SECOND_COMMENT) {
-                    if (allowedComments_) {
+                    if (instLen_ == 0) {
                         enabledSpaces_.getFile().getBeginComments().add(i_);
                         commentedMultiLine_ = true;
                         enabledSpaces_.setCheckTabs(false);
@@ -967,6 +972,7 @@ public final class FileResolver {
                 if (instruction_.length() == 0) {
                     instructionLocation_ = i_;
                 }
+                instLen_++;
                 instruction_.append(currentChar_);
                 constChar_ = true;
                 enabledSpaces_.setCheckTabs(false);
@@ -977,6 +983,7 @@ public final class FileResolver {
                 if (instruction_.length() == 0) {
                     instructionLocation_ = i_;
                 }
+                instLen_++;
                 instruction_.append(currentChar_);
                 constString_ = true;
                 enabledSpaces_.setCheckTabs(false);
@@ -987,6 +994,7 @@ public final class FileResolver {
                 if (instruction_.length() == 0) {
                     instructionLocation_ = i_;
                 }
+                instLen_++;
                 instruction_.append(currentChar_);
                 constText_ = true;
                 enabledSpaces_.setCheckTabs(false);
@@ -1064,11 +1072,7 @@ public final class FileResolver {
                 instruction_.append(currentChar_);
             }
             if (!Character.isWhitespace(currentChar_)) {
-                allowedComments_ = false;
-            } else if (currentChar_ == LINE_RETURN) {
-                if (instruction_.toString().trim().isEmpty()) {
-                    allowedComments_ = true;
-                }
+                instLen_++;
             }
             if (currentChar_ == BEGIN_CALLING) {
                 parentheses_.add(i_);
@@ -1110,6 +1114,7 @@ public final class FileResolver {
             }
             if (endInstruction_) {
                 after_ = processInstruction(_context, _input, currentChar_, currentParent_, bracedSwitchPart_, _braces, instructionLocation_, instruction_, _file, declType_, i_, _nextIndex, enableByEndLine_);
+                instLen_ = 0;
                 if (after_ == null) {
                     badIndexes_.add(_nextIndex);
                     return _out;
@@ -2332,9 +2337,7 @@ public final class FileResolver {
             String variableName_ = variable_.trim();
             LgNames stds_ = _context.getStandards();
             if (StringList.isDollarWord(variableName_)) {
-                br_ = stds_.newForeachLoop(_context, new OffsetStringInfo(typeOffset_, declaringType_.trim()), new OffsetStringInfo(varOffset_, variableName_),
-                        new OffsetStringInfo(expOffset_, exp_.trim()), new OffsetStringInfo(indexClassOffest_, indexClassName_.trim()),
-                        new OffsetStringInfo(labelOff_, label_.trim()), new OffsetsBlock(_instructionRealLocation, _instructionLocation));
+                br_ = new ForEachLoop(_context, new OffsetStringInfo(typeOffset_, declaringType_.trim()), new OffsetStringInfo(varOffset_, variableName_), new OffsetStringInfo(expOffset_, exp_.trim()), new OffsetStringInfo(indexClassOffest_, indexClassName_.trim()), new OffsetStringInfo(labelOff_, label_.trim()), new OffsetsBlock(_instructionRealLocation, _instructionLocation));
             } else {
                 int nextIndexVar_ = variableName_.indexOf(',');
                 if (nextIndexVar_ < 0) {
@@ -2535,9 +2538,7 @@ public final class FileResolver {
                             LgNames stds_ = _context.getStandards();
                             label_ = label_.substring(lastPar_ + 1);
                             labelOff_ += getLabelOffset(label_);
-                            br_ = stds_.newForeachLoop(_context, new OffsetStringInfo(typeOffset_, declaringType_.trim()), new OffsetStringInfo(varOffset_, variableName_),
-                                    new OffsetStringInfo(expOffset_, exp_.trim()), new OffsetStringInfo(indexClassOffest_, indexClassName_.trim()),
-                                    new OffsetStringInfo(labelOff_, label_.trim()), new OffsetsBlock(_instructionRealLocation, _instructionLocation));
+                            br_ = new ForEachLoop(_context, new OffsetStringInfo(typeOffset_, declaringType_.trim()), new OffsetStringInfo(varOffset_, variableName_), new OffsetStringInfo(expOffset_, exp_.trim()), new OffsetStringInfo(indexClassOffest_, indexClassName_.trim()), new OffsetStringInfo(labelOff_, label_.trim()), new OffsetsBlock(_instructionRealLocation, _instructionLocation));
                             _currentParent.appendChild(br_);
                             ok_ = true;
                         } else {
@@ -2601,9 +2602,7 @@ public final class FileResolver {
                     LgNames stds_ = _context.getStandards();
                     String variableName_ = init_.trim();
                     if (StringList.isDollarWord(variableName_)) {
-                        br_ = stds_.newForeachLoop(_context, new OffsetStringInfo(typeOffset_, declaringType_.trim()), new OffsetStringInfo(varOffset_, variableName_),
-                                new OffsetStringInfo(expOffset_, exp_.trim()), new OffsetStringInfo(indexClassOffest_, indexClassName_.trim()),
-                                new OffsetStringInfo(labelOff_, label_.trim()), new OffsetsBlock(_instructionRealLocation, _instructionLocation));
+                        br_ = new ForEachLoop(_context, new OffsetStringInfo(typeOffset_, declaringType_.trim()), new OffsetStringInfo(varOffset_, variableName_), new OffsetStringInfo(expOffset_, exp_.trim()), new OffsetStringInfo(indexClassOffest_, indexClassName_.trim()), new OffsetStringInfo(labelOff_, label_.trim()), new OffsetsBlock(_instructionRealLocation, _instructionLocation));
                     } else {
                         int nextIndexVar_ = variableName_.indexOf(',');
                         if (nextIndexVar_ < 0) {
