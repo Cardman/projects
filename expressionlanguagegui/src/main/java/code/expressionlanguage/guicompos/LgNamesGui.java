@@ -8005,6 +8005,12 @@ public class LgNamesGui extends LgNamesUtils {
                 getAliasAbsMenuSetText()
         ));
         m_.put(getAliasMenu(),new StringList(
+                getAliasAbsMenuGetParent(),
+                getAliasAbsMenuGetText(),
+                getAliasAbsMenuIsEnabled(),
+                getAliasAbsMenuSetDeepEnabled(),
+                getAliasAbsMenuSetEnabled(),
+                getAliasAbsMenuSetText(),
                 getAliasMenuAdd(),
                 getAliasMenuGet(),
                 getAliasMenuRemove(),
@@ -8012,9 +8018,22 @@ public class LgNamesGui extends LgNamesUtils {
                 getAliasMenuAddSeparator()
         ));
         m_.put(getAliasAbsMenuItem(),new StringList(
+                getAliasAbsMenuGetParent(),
+                getAliasAbsMenuGetText(),
+                getAliasAbsMenuIsEnabled(),
+                getAliasAbsMenuSetDeepEnabled(),
+                getAliasAbsMenuSetEnabled(),
+                getAliasAbsMenuSetText(),
                 getAliasAbsMenuItemAddAction()
         ));
         m_.put(getAliasMenuItemCheck(),new StringList(
+                getAliasAbsMenuGetParent(),
+                getAliasAbsMenuGetText(),
+                getAliasAbsMenuIsEnabled(),
+                getAliasAbsMenuSetDeepEnabled(),
+                getAliasAbsMenuSetEnabled(),
+                getAliasAbsMenuSetText(),
+                getAliasAbsMenuItemAddAction(),
                 getAliasMenuItemCheckIsSelected(),
                 getAliasMenuItemCheckSetSelected()
         ));
