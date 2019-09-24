@@ -74,6 +74,8 @@ public final class ContextFactory {
         _definedLgNames.validateMethodsDuplicates(_context, methods_);
         _definedLgNames.validateFieldsDuplicates(_context, fields_);
         _definedLgNames.validateVarTypesDuplicates(_context, varTypes_);
+        CustList<StringList> merge_ = _definedLgNames.allMergeTableTypeMethodNames();
+        _definedLgNames.validateMergedDuplicates(_context, merge_);
         if (!_context.getClasses().isEmptyStdError()) {
             return;
         }

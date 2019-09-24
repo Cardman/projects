@@ -7853,6 +7853,49 @@ public class LgNamesGui extends LgNamesUtils {
         setAliasAbsMenu(get(_util,_cust,"AbsMenu"));
         setAliasMenuGet(get(_util,_cust,"MenuGet"));
     }
+
+    @Override
+    public CustList<StringList> allMergeTableTypeMethodNames() {
+        CustList<StringList> list_ = super.allMergeTableTypeMethodNames();
+        list_.add(new StringList(
+                getAliasIterator(),
+                getAliasHasNext(),
+                getAliasNext(),
+                getAliasIteratorTable(),
+                getAliasHasNextPair(),
+                getAliasNextPair(),
+                getAliasGetFirst(),
+                getAliasGetSecond(),
+                getAliasEnumOrdinal(),
+                getAliasEnumName(),
+                getAliasRun(),
+                getAliasActionPerformed(),
+                getAliasStateChanged(),
+                getAliasKeyTyped(),
+                getAliasKeyPressed(),
+                getAliasKeyReleased(),
+                getAliasValueChanged(),
+                getAliasTableValueTableChanged(),
+                getAliasMouseClicked(),
+                getAliasMouseEntered(),
+                getAliasMouseExited(),
+                getAliasMousePressed(),
+                getAliasMouseReleased(),
+                getAliasMouseDragged(),
+                getAliasMouseMoved(),
+                getAliasTreeListenerValueChanged(),
+                getAliasWheelMove(),
+                getAliasWindowActivated(),
+                getAliasWindowClosed(),
+                getAliasWindowClosing(),
+                getAliasWindowDeactivated(),
+                getAliasWindowDeiconified(),
+                getAliasWindowIconified(),
+                getAliasWindowOpened()
+        ));
+        return list_;
+    }
+
     @Override
     public StringMap<StringList> allTableTypeFieldNames() {
         StringMap<StringList> f_ = super.allTableTypeFieldNames();

@@ -1281,6 +1281,25 @@ public class LgNamesUtils extends LgNames {
     }
 
     @Override
+    public CustList<StringList> allMergeTableTypeMethodNames() {
+        CustList<StringList> list_ = super.allMergeTableTypeMethodNames();
+        list_.add(new StringList(
+                getAliasIterator(),
+                getAliasHasNext(),
+                getAliasNext(),
+                getAliasIteratorTable(),
+                getAliasHasNextPair(),
+                getAliasNextPair(),
+                getAliasGetFirst(),
+                getAliasGetSecond(),
+                getAliasEnumOrdinal(),
+                getAliasEnumName(),
+                getAliasRun()
+        ));
+        return list_;
+    }
+
+    @Override
     public StringMap<StringList> allTableTypeFieldNames() {
         StringMap<StringList> f_ = super.allTableTypeFieldNames();
         f_.put(getAliasDifference(), new StringList(

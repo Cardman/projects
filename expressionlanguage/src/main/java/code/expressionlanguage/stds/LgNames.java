@@ -389,6 +389,22 @@ public abstract class LgNames {
             _cont.getClasses().addStdError(err_);
         }
     }
+    public CustList<StringList> allMergeTableTypeMethodNames() {
+        CustList<StringList> list_ = new CustList<StringList>();
+        list_.add(new StringList(
+                getAliasIterator(),
+                getAliasHasNext(),
+                getAliasNext(),
+                getAliasIteratorTable(),
+                getAliasHasNextPair(),
+                getAliasNextPair(),
+                getAliasGetFirst(),
+                getAliasGetSecond(),
+                getAliasEnumOrdinal(),
+                getAliasEnumName()
+        ));
+        return list_;
+    }
     public StringMap<StringList> allTableTypeMethodNames() {
         StringMap<StringList> map_ = new StringMap<StringList>();
         map_.put(getAliasError(), new StringList(
@@ -845,6 +861,20 @@ public abstract class LgNames {
             if (size_ != keyWords_.size()) {
                 StdWordError err_ = new StdWordError();
                 err_.setMessage(StringList.concat(e.getKey()," duplicate methods ",e.getValue().display()));
+                err_.setErrCat(ErrorCat.DUPLICATE_METHOD_WORD);
+                _cont.getClasses().addStdError(err_);
+            }
+        }
+    }
+
+    public void validateMergedDuplicates(ContextEl _cont, CustList<StringList> _methods){
+        for (StringList e: _methods) {
+            StringList keyWords_ = new StringList(e);
+            int size_ = keyWords_.size();
+            keyWords_.removeDuplicates();
+            if (size_ != keyWords_.size()) {
+                StdWordError err_ = new StdWordError();
+                err_.setMessage(StringList.concat("duplicate methods ",e.display()));
                 err_.setErrCat(ErrorCat.DUPLICATE_METHOD_WORD);
                 _cont.getClasses().addStdError(err_);
             }
