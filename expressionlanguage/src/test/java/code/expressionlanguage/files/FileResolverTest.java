@@ -5282,7 +5282,7 @@ public final class FileResolverTest {
         ClassBlock cl_ = (ClassBlock) r_;
         assertEq(2, cl_.getFile().getImports().size());
         assertEq("$static pkg.Ex.method", cl_.getFile().getImports().first());
-        assertEq("pkg.ExTwo", cl_.getFile().getImports().last());
+        assertEq("\npkg.ExTwo", cl_.getFile().getImports().last());
         Block ch_ = cl_.getFirstChild();
         assertTrue(ch_ instanceof FieldBlock);
         assertNull(ch_.getNextSibling());
@@ -5307,7 +5307,7 @@ public final class FileResolverTest {
         ClassBlock cl_ = (ClassBlock) r_;
         assertEq(2, cl_.getFile().getImports().size());
         assertEq("$static pkg.Ex.method", cl_.getFile().getImports().first());
-        assertEq("pkg.ExTwo", cl_.getFile().getImports().last());
+        assertEq("\npkg.ExTwo", cl_.getFile().getImports().last());
         assertEq(2, cl_.getImports().size());
         assertEq("pkg.ExThree", cl_.getImports().first());
         assertEq("$static pkg.ExFour.methodtwo", cl_.getImports().last());

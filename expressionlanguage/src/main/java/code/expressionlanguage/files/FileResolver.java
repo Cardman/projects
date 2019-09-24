@@ -53,7 +53,7 @@ public final class FileResolver {
         enabledSpaces_.setFile(fileBlock_);
         StringList importedTypes_ = new StringList();
         StringBuilder str_ = new StringBuilder();
-        boolean allowedComments_ = true;
+        int instLen_ = 0;
         KeyWords keyWords_ = _context.getKeyWords();
         String keyWordOperator_ = keyWords_.getKeyWordOperator();
         String keyWordPackage_ = keyWords_.getKeyWordPackage();
@@ -66,7 +66,6 @@ public final class FileResolver {
         String keyWordEnum_ = keyWords_.getKeyWordEnum();
         String keyWordFinal_ = keyWords_.getKeyWordFinal();
         String keyWordInterface_ = keyWords_.getKeyWordInterface();
-        char previousChar_ = LINE_RETURN;
         int i_ = CustList.FIRST_INDEX;
         int len_ = _file.length();
         boolean commentedSingleLine_ = false;
@@ -99,7 +98,6 @@ public final class FileResolver {
                         i_ = incrementRowCol(i_, _file, enabledSpaces_);
                         enabledSpaces_.getFile().getEndComments().add(i_);
                         i_ = incrementRowCol(i_, _file, enabledSpaces_);
-                        previousChar_ = nextChar_;
                         continue;
                     }
                 }
@@ -148,57 +146,47 @@ public final class FileResolver {
                 break;
             }
             if (currentChar_ == BEGIN_COMMENT) {
-                if (!allowedComments_) {
-                    //ERROR
-                    badIndexes_.add(i_);
-                    break;
+                if (instLen_ == 0) {
+                    if (i_ + 1 >= len_) {
+                        //ERROR
+                        badIndexes_.add(i_);
+                        break;
+                    }
+                    char nextChar_ = _file.charAt(i_ + 1);
+                    if (nextChar_ == BEGIN_COMMENT) {
+                        commentedSingleLine_ = true;
+                        enabledSpaces_.setCheckTabs(false);
+                        enabledSpaces_.getFile().getBeginComments().add(i_);
+                        i_ = incrementRowCol(i_, _file, enabledSpaces_);
+                        i_ = incrementRowCol(i_, _file, enabledSpaces_);
+                        continue;
+                    }
+                    if (nextChar_ == SECOND_COMMENT) {
+                        commentedMultiLine_ = true;
+                        enabledSpaces_.setCheckTabs(false);
+                        enabledSpaces_.getFile().getBeginComments().add(i_);
+                        i_ = incrementRowCol(i_, _file, enabledSpaces_);
+                        i_ = incrementRowCol(i_, _file, enabledSpaces_);
+                        continue;
+                    }
                 }
-                if (i_ + 1 >= len_) {
-                    //ERROR
-                    badIndexes_.add(i_);
-                    break;
-                }
-                char nextChar_ = _file.charAt(i_ + 1);
-                if (nextChar_ == BEGIN_COMMENT) {
-                    commentedSingleLine_ = true;
-                    enabledSpaces_.setCheckTabs(false);
-                    enabledSpaces_.getFile().getBeginComments().add(i_);
-                    i_ = incrementRowCol(i_, _file, enabledSpaces_);
-                    i_ = incrementRowCol(i_, _file, enabledSpaces_);
-                    previousChar_ = nextChar_;
-                    continue;
-                }
-                if (nextChar_ == SECOND_COMMENT) {
-                    commentedMultiLine_ = true;
-                    enabledSpaces_.setCheckTabs(false);
-                    enabledSpaces_.getFile().getBeginComments().add(i_);
-                    i_ = incrementRowCol(i_, _file, enabledSpaces_);
-                    i_ = incrementRowCol(i_, _file, enabledSpaces_);
-                    previousChar_ = nextChar_;
-                    continue;
-                }
-                //ERROR
-                badIndexes_.add(i_);
-                break;
             }
             if (currentChar_ == END_IMPORTS) {
                 importedTypes_.add(str_.toString());
                 offsetsImports_.add(indexImport_);
                 str_.delete(0, str_.length());
+                instLen_ = 0;
             } else {
                 if (!Character.isWhitespace(currentChar_)) {
-                    allowedComments_ = false;
                     if (str_.length() == 0) {
                         indexImport_ = i_;
                     }
                     str_.append(currentChar_);
-                } else if (currentChar_ == LINE_RETURN && previousChar_ == END_IMPORTS) {
-                    allowedComments_ = true;
+                    instLen_++;
                 } else {
                     str_.append(currentChar_);
                 }
             }
-            previousChar_ = currentChar_;
             i_ = incrementRowCol(i_, _file, enabledSpaces_);
         }
         if (i_ >= len_) {
