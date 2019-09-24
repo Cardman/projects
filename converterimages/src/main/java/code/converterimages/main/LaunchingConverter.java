@@ -27,8 +27,11 @@ public class LaunchingConverter extends SoftApplicationCore {
     @Override
     public Object getObject(String _fileName) {
         try {
-            if (isPng(StreamBinaryFile.loadFile(_fileName))) {
-                return ImageIO.read(new File(_fileName));
+            if (isBinary(StreamBinaryFile.loadFile(_fileName))) {
+                BufferedImage img_ = ImageIO.read(new File(_fileName));
+                if (img_ != null) {
+                    return img_;
+                }
             }
             return StreamTextFile.contentsOfFile(_fileName);
         } catch (Exception e) {
@@ -46,12 +49,25 @@ public class LaunchingConverter extends SoftApplicationCore {
         ThreadInvoker.invokeNow(new CreateMainWindow(_language,_args));
     }
 
-    public static boolean isPng(byte[] _bytes) {
-        return _bytes != null && _bytes.length > 7
-                && _bytes[0] == (byte)0x89 && _bytes[1] == (byte)0x50
-                && _bytes[2] == (byte)0x4e && _bytes[3] == (byte)0x47
-                && _bytes[4] == (byte)0x0d && _bytes[5] == (byte)0x0a
-                && _bytes[6] == (byte)0x1a && _bytes[7] == (byte)0x0a;
+    public static boolean isBinary(byte[] _bytes) {
+        if (_bytes == null) {
+            return false;
+        }
+        for (byte b: _bytes) {
+            if (b < ' ') {
+                if (b == '\n') {
+                    continue;
+                }
+                if (b == '\t') {
+                    continue;
+                }
+                if (b == '\r') {
+                    continue;
+                }
+                return true;
+            }
+        }
+        return false;
     }
     public static void increment() {
         _nbInstances_++;

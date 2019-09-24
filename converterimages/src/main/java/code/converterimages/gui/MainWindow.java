@@ -22,6 +22,8 @@ public final class MainWindow extends GroupFrame {
 
     private static final String TXT_EXT = "txt";
 
+    private static final String JPEG_EXT = "jpeg";
+    private static final String JPG_EXT = "jpg";
     private static final String PNG_EXT = "png";
 
     private static final String OK = "ok";
@@ -96,7 +98,16 @@ public final class MainWindow extends GroupFrame {
                 try {
                     BufferedImage img_ = ImageIO.read(new File(pathExport.getText()+f));
                     String txt_ = BaseSixtyFourUtil.getStringByImage(ConverterGraphicBufferedImage.toArrays(img_));
-                    StreamTextFile.saveTextFile(path.getText()+StreamTextFile.SEPARATEUR+StringList.replace(f_, DOT+PNG_EXT, DOT+TXT_EXT), txt_);
+                    if (f_.endsWith(DOT+PNG_EXT)) {
+                        String path_ = StringList.replace(f_, DOT + PNG_EXT, DOT + TXT_EXT);
+                        StreamTextFile.saveTextFile(path.getText()+StreamTextFile.SEPARATEUR+ path_, txt_);
+                    } else if (f_.endsWith(DOT+JPG_EXT)) {
+                        String path_ = StringList.replace(f_, DOT + JPG_EXT, DOT + TXT_EXT);
+                        StreamTextFile.saveTextFile(path.getText()+StreamTextFile.SEPARATEUR+ path_, txt_);
+                    } else if (f_.endsWith(DOT+JPEG_EXT)) {
+                        String path_ = StringList.replace(f_, DOT + JPEG_EXT, DOT + TXT_EXT);
+                        StreamTextFile.saveTextFile(path.getText()+StreamTextFile.SEPARATEUR+ path_, txt_);
+                    }
                 } catch (Exception _0) {
                 }
                 //ConverterBufferedImage.
@@ -129,7 +140,13 @@ public final class MainWindow extends GroupFrame {
         try {
             BufferedImage img_ = ImageIO.read(new File(_readPath));
             String txt_ = BaseSixtyFourUtil.getStringByImage(ConverterGraphicBufferedImage.toArrays(img_));
-            StreamTextFile.saveTextFile(StringList.replace(_readPath, DOT+PNG_EXT, DOT+TXT_EXT), txt_);
+            if (_readPath.endsWith(DOT+PNG_EXT)) {
+                StreamTextFile.saveTextFile(StringList.replace(_readPath, DOT+PNG_EXT, DOT+TXT_EXT), txt_);
+            } else  if (_readPath.endsWith(DOT+JPG_EXT)) {
+                StreamTextFile.saveTextFile(StringList.replace(_readPath, DOT+JPG_EXT, DOT+TXT_EXT), txt_);
+            } else  if (_readPath.endsWith(DOT+JPEG_EXT)) {
+                StreamTextFile.saveTextFile(StringList.replace(_readPath, DOT+JPEG_EXT, DOT+TXT_EXT), txt_);
+            }
         } catch (Exception _0) {
         }
     }

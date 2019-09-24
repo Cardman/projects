@@ -142,10 +142,16 @@ public class LaunchingApplications extends SoftApplicationCore {
         return null;
     }
 
+    private static boolean isZip(byte[] _bytes) {
+        return _bytes != null && _bytes.length > 3
+                && _bytes[0] == (byte)0x50&& _bytes[1] == (byte)0x4b
+                && _bytes[2] == (byte)0x03&& _bytes[3] == (byte)0x04;
+
+    }
     @Override
     public Object getObject(String _fileName) {
         byte[] bytes_ = StreamBinaryFile.loadFile(_fileName);
-        if (LaunchingConverter.isPng(bytes_)) {
+        if (LaunchingConverter.isBinary(bytes_) && !isZip(bytes_)) {
             try {
                 BufferedImage img_ = ImageIO.read(new File(_fileName));
                 if (img_ != null) {
