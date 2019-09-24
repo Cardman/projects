@@ -1388,6 +1388,95 @@ public class LgNamesTest {
         assertTrue(s_.getClasses().displayStdErrors(),!s_.getClasses().isEmptyStdError());
     }
     @Test
+    public void fail59Test() {
+        DefaultLockingClass lk_ = new DefaultLockingClass();
+        DefaultInitializer di_ = new DefaultInitializer();
+        KeyWords kw_ = new KeyWords();
+        LgNames lgName_ = new CustLgNames();
+        InitializationLgNames.basicStandards(lgName_);
+        Options opts_ = new Options();
+        lgName_.setAliasIterableTableVarFirst(",E");
+        lgName_.setAliasIterableTableVarSecond("0E");
+        lgName_.setAliasEnumParamVar("");
+        lgName_.setAliasIteratorTypeVar("$if");
+        lgName_.setAliasIterableVar("$int");
+        SingleContextEl s_ = new SingleContextEl(-1,lk_,di_,opts_,kw_,lgName_,4);
+        s_.setStandards(lgName_);
+        StringList keyWords_ = kw_.allKeyWords();
+        kw_.validateKeyWordContents(s_, keyWords_);
+        StringList escapings_ = kw_.allEscapings();
+        kw_.validateEscapingsContents(s_, escapings_);
+        StringList nbWords_ = kw_.allNbWords(kw_.getKeyWordNbExpDec(), kw_.getKeyWordNbExpBin(),kw_.getKeyWordNbHex());
+        kw_.validateNbWordContents(s_, nbWords_);
+        kw_.validateBinarySeparators(s_);
+        StringList prims_ = lgName_.allPrimitives();
+        lgName_.validatePrimitiveContents(s_, prims_);
+        StringList refTypes_ = lgName_.allRefTypes();
+        lgName_.validateRefTypeContents(s_, refTypes_, prims_);
+        StringMap<StringList> methods_ = lgName_.allTableTypeMethodNames();
+        lgName_.validateMethodsContents(s_, methods_, prims_);
+        StringMap<StringList> fields_ = lgName_.allTableTypeFieldNames();
+        lgName_.validateFieldsContents(s_, fields_, prims_);
+        StringMap<StringList> varTypes_ = lgName_.allTableTypeVarTypes();
+        lgName_.validateVarTypesContents(s_, varTypes_, prims_);
+        kw_.validateKeyWordDuplicates(s_, keyWords_);
+        kw_.validateEscapingsDuplicates(s_, escapings_);
+        StringList nbWordsDec_ = kw_.allNbWords(kw_.getKeyWordNbExpDec());
+        kw_.validateNbWordDuplicates(s_, nbWordsDec_);
+        StringList nbWordsBin_ = kw_.allNbWords(kw_.getKeyWordNbExpBin(),kw_.getKeyWordNbHex());
+        kw_.validateNbWordDuplicates(s_, nbWordsBin_);
+        kw_.validateStartsPrefixesDuplicates(s_);
+        lgName_.validatePrimitiveDuplicates(s_, prims_);
+        lgName_.validateRefTypeDuplicates(s_, refTypes_);
+        lgName_.validateMethodsDuplicates(s_, methods_);
+        lgName_.validateFieldsDuplicates(s_, fields_);
+        lgName_.validateVarTypesDuplicates(s_, varTypes_);
+        assertTrue(!s_.getClasses().isEmptyStdError());
+    }
+    @Test
+    public void fail60Test() {
+        DefaultLockingClass lk_ = new DefaultLockingClass();
+        DefaultInitializer di_ = new DefaultInitializer();
+        KeyWords kw_ = new KeyWords();
+        LgNames lgName_ = new CustLgNames();
+        InitializationLgNames.basicStandards(lgName_);
+        Options opts_ = new Options();
+        lgName_.setAliasIterableTableVarFirst("E");
+        lgName_.setAliasIterableTableVarSecond("E");
+        SingleContextEl s_ = new SingleContextEl(-1,lk_,di_,opts_,kw_,lgName_,4);
+        s_.setStandards(lgName_);
+        StringList keyWords_ = kw_.allKeyWords();
+        kw_.validateKeyWordContents(s_, keyWords_);
+        StringList escapings_ = kw_.allEscapings();
+        kw_.validateEscapingsContents(s_, escapings_);
+        StringList nbWords_ = kw_.allNbWords(kw_.getKeyWordNbExpDec(), kw_.getKeyWordNbExpBin(),kw_.getKeyWordNbHex());
+        kw_.validateNbWordContents(s_, nbWords_);
+        kw_.validateBinarySeparators(s_);
+        StringList prims_ = lgName_.allPrimitives();
+        lgName_.validatePrimitiveContents(s_, prims_);
+        StringList refTypes_ = lgName_.allRefTypes();
+        lgName_.validateRefTypeContents(s_, refTypes_, prims_);
+        StringMap<StringList> methods_ = lgName_.allTableTypeMethodNames();
+        lgName_.validateMethodsContents(s_, methods_, prims_);
+        StringMap<StringList> fields_ = lgName_.allTableTypeFieldNames();
+        lgName_.validateFieldsContents(s_, fields_, prims_);
+        StringMap<StringList> varTypes_ = lgName_.allTableTypeVarTypes();
+        lgName_.validateVarTypesContents(s_, varTypes_, prims_);
+        kw_.validateKeyWordDuplicates(s_, keyWords_);
+        kw_.validateEscapingsDuplicates(s_, escapings_);
+        StringList nbWordsDec_ = kw_.allNbWords(kw_.getKeyWordNbExpDec());
+        kw_.validateNbWordDuplicates(s_, nbWordsDec_);
+        StringList nbWordsBin_ = kw_.allNbWords(kw_.getKeyWordNbExpBin(),kw_.getKeyWordNbHex());
+        kw_.validateNbWordDuplicates(s_, nbWordsBin_);
+        kw_.validateStartsPrefixesDuplicates(s_);
+        lgName_.validatePrimitiveDuplicates(s_, prims_);
+        lgName_.validateRefTypeDuplicates(s_, refTypes_);
+        lgName_.validateMethodsDuplicates(s_, methods_);
+        lgName_.validateFieldsDuplicates(s_, fields_);
+        lgName_.validateVarTypesDuplicates(s_, varTypes_);
+        assertTrue(!s_.getClasses().isEmptyStdError());
+    }
+    @Test
     public void success1Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");

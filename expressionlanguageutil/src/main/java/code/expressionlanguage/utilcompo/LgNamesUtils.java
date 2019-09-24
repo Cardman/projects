@@ -1261,6 +1261,25 @@ public class LgNamesUtils extends LgNames {
     }
 
     @Override
+    public StringMap<StringList> allTableTypeVarTypes() {
+        StringMap<StringList> t_ = super.allTableTypeVarTypes();
+        t_.put(getAliasList(), new StringList(
+                getAliasListVar()));
+        t_.put(getAliasCustIterator(), new StringList(
+                getAliasCustIteratorVar()));
+        t_.put(getAliasTable(), new StringList(
+                getAliasTableVarFirst(),
+                getAliasTableVarSecond()));
+        t_.put(getAliasCustIterTable(), new StringList(
+                getAliasIterTaVarFirst(),
+                getAliasIterTaVarSecond()));
+        t_.put(getAliasCustPair(), new StringList(
+                getAliasPairVarFirst(),
+                getAliasPairVarSecond()));
+        return t_;
+    }
+
+    @Override
     public StringMap<StringList> allTableTypeFieldNames() {
         StringMap<StringList> f_ = super.allTableTypeFieldNames();
         f_.put(getAliasDifference(), new StringList(

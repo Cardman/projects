@@ -69,6 +69,8 @@ public final class ContextFactory {
         _definedLgNames.validateMethodsContents(_context, methods_, prims_);
         StringMap<StringList> fields_ = _definedLgNames.allTableTypeFieldNames();
         _definedLgNames.validateFieldsContents(_context, fields_, prims_);
+        StringMap<StringList> varTypes_ = _definedLgNames.allTableTypeVarTypes();
+        _definedLgNames.validateVarTypesContents(_context, varTypes_, prims_);
         //duplicates
         _definedKw.validateKeyWordDuplicates(_context, keyWords_);
         _definedKw.validateEscapingsDuplicates(_context, escapings_);
@@ -81,6 +83,7 @@ public final class ContextFactory {
         _definedLgNames.validateRefTypeDuplicates(_context, refTypes_);
         _definedLgNames.validateMethodsDuplicates(_context, methods_);
         _definedLgNames.validateFieldsDuplicates(_context, fields_);
+        _definedLgNames.validateVarTypesDuplicates(_context, varTypes_);
         if (!_context.getClasses().isEmptyStdError()) {
             return;
         }

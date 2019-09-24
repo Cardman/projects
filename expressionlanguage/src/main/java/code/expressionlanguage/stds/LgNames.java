@@ -793,6 +793,25 @@ public abstract class LgNames {
                 nbAlias.getAliasMaxValueField()));
         return map_;
     }
+    public StringMap<StringList> allTableTypeVarTypes() {
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        map_.put(getAliasEnumParam(), new StringList(
+                getAliasEnumParamVar()));
+        map_.put(getAliasIterable(), new StringList(
+                getAliasIterableVar()));
+        map_.put(getAliasIteratorType(), new StringList(
+                getAliasIteratorTypeVar()));
+        map_.put(getAliasIterableTable(), new StringList(
+                getAliasIterableTableVarFirst(),
+                getAliasIterableTableVarSecond()));
+        map_.put(getAliasIteratorTableType(), new StringList(
+                getAliasIteratorTableTypeVarFirst(),
+                getAliasIteratorTableTypeVarSecond()));
+        map_.put(getAliasPairType(), new StringList(
+                getAliasPairTypeVarFirst(),
+                getAliasPairTypeVarSecond()));
+        return map_;
+    }
     public void validateFieldsContents(ContextEl _cont, StringMap<StringList> _methods, StringList _prims){
         for (EntryCust<String, StringList> e: _methods.entryList()) {
             for (String k: e.getValue()) {
@@ -842,6 +861,60 @@ public abstract class LgNames {
                 StdWordError err_ = new StdWordError();
                 err_.setMessage(StringList.concat("duplicate methods ",e.getValue().display()));
                 err_.setErrCat(ErrorCat.DUPLICATE_FIELD_WORD);
+                _cont.getClasses().addStdError(err_);
+            }
+        }
+    }
+    public void validateVarTypesContents(ContextEl _cont, StringMap<StringList> _methods, StringList _prims){
+        for (EntryCust<String, StringList> e: _methods.entryList()) {
+            for (String k: e.getValue()) {
+                if (k.isEmpty()) {
+                    StdWordError err_ = new StdWordError();
+                    err_.setMessage("empty word");
+                    err_.setErrCat(ErrorCat.WRITE_VAR_TYPE_WORD);
+                    _cont.getClasses().addStdError(err_);
+                    continue;
+                }
+                if (_cont.getKeyWords().isKeyWord(k)) {
+                    StdWordError err_ = new StdWordError();
+                    err_.setMessage(StringList.concat("key word ", k));
+                    err_.setErrCat(ErrorCat.WRITE_VAR_TYPE_WORD);
+                    _cont.getClasses().addStdError(err_);
+                }
+                if (StringList.contains(_prims, k)) {
+                    StdWordError err_ = new StdWordError();
+                    err_.setMessage(StringList.concat("primitive ", k));
+                    err_.setErrCat(ErrorCat.WRITE_VAR_TYPE_WORD);
+                    _cont.getClasses().addStdError(err_);
+                }
+                for (char c: k.toCharArray()) {
+                    if (!StringList.isDollarWordChar(c)) {
+                        StdWordError err_ = new StdWordError();
+                        err_.setMessage(StringList.concat("not word char ", Character.toString(c)));
+                        err_.setErrCat(ErrorCat.WRITE_VAR_TYPE_WORD);
+                        _cont.getClasses().addStdError(err_);
+                        break;
+                    }
+                }
+                if (ContextEl.isDigit(k.charAt(0))) {
+                    StdWordError err_ = new StdWordError();
+                    err_.setMessage(StringList.concat("digit ", Character.toString(k.charAt(0))));
+                    err_.setErrCat(ErrorCat.WRITE_VAR_TYPE_WORD);
+                    _cont.getClasses().addStdError(err_);
+                }
+            }
+        }
+    }
+
+    public void validateVarTypesDuplicates(ContextEl _cont, StringMap<StringList> _methods){
+        for (EntryCust<String, StringList> e: _methods.entryList()) {
+            StringList keyWords_ = new StringList(e.getValue());
+            int size_ = keyWords_.size();
+            keyWords_.removeDuplicates();
+            if (size_ != keyWords_.size()) {
+                StdWordError err_ = new StdWordError();
+                err_.setMessage(StringList.concat("duplicate types ",e.getValue().display()));
+                err_.setErrCat(ErrorCat.DUPLICATE_VAR_TYPE_WORD);
                 _cont.getClasses().addStdError(err_);
             }
         }
