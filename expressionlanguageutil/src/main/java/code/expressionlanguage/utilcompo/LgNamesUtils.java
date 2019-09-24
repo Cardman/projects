@@ -1259,6 +1259,59 @@ public class LgNamesUtils extends LgNames {
         }
         return StringList.concat(((StringStruct)_cont.getStandards().getStringOfObject(_cont,_struct)).getInstance(),"...");
     }
+
+    @Override
+    public StringMap<StringList> allTableTypeFieldNames() {
+        StringMap<StringList> f_ = super.allTableTypeFieldNames();
+        f_.put(getAliasDifference(), new StringList(
+                getAliasDifferenceExpected(),
+                getAliasDifferenceFound(),
+                getAliasDifferenceFoundNotTrue(),
+                getAliasDifferenceFoundNull(),
+                getAliasDifferenceStackDiff()
+        ));
+        f_.put(getAliasInfoTest(), new StringList(
+                getAliasInfoTestCount(),
+                getAliasInfoTestCurrentMethod(),
+                getAliasInfoTestDone(),
+                getAliasInfoTestCurrentParams()
+        ));
+        f_.put(getAliasResult(), new StringList(
+                getAliasResultFailMessage(),
+                getAliasResultParams(),
+                getAliasResultSuccess()
+        ));
+        f_.put(getAliasExecutedTest(), new StringList(
+                getAliasExecutedTestAfter(),
+                getAliasExecutedTestBefore(),
+                getAliasExecutedTestAnnotations(),
+                getAliasExecutedTestMethod(),
+                getAliasExecutedTestTest()
+        ));
+        f_.put(getAliasCustIterator(), new StringList(
+                getAliasListItr(),
+                getAliasLengthItrLi(),
+                getAliasIndexItrLi()
+        ));
+        f_.put(getAliasList(), new StringList(
+                getAliasArrayLi(),
+                getAliasLengthLi()
+        ));
+        f_.put(getAliasCustIterTable(), new StringList(
+                getAliasListIterTable(),
+                getAliasLengthItrTa(),
+                getAliasIndexItrTa()
+        ));
+        f_.put(getAliasCustPair(), new StringList(
+                getAliasFirst(),
+                getAliasSecond()
+        ));
+        f_.put(getAliasTable(), new StringList(
+                getAliasListTa()
+        ));
+        return f_;
+    }
+
     @Override
     public StringMap<StringList> allTableTypeMethodNames() {
         StringMap<StringList> m_ = super.allTableTypeMethodNames();

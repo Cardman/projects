@@ -8228,6 +8228,30 @@ public class LgNamesGui extends LgNamesUtils {
             setAliasMenuItemCheckSetSelected("majSelect");
         }
     }
+
+    @Override
+    public StringMap<StringList> allTableTypeFieldNames() {
+        StringMap<StringList> f_ = super.allTableTypeFieldNames();
+        f_.put(getAliasConfirm(),new StringList(
+             getAliasConfirmFieldOk(),
+             getAliasConfirmFieldYes(),
+             getAliasConfirmFieldNo(),
+             getAliasConfirmFieldCancel()
+        ));
+        f_.put(getAliasPanelBorder(),new StringList(
+            getAliasPanelBorderAfterLast(),
+            getAliasPanelBorderAfterLineEnds(),
+            getAliasPanelBorderBeforeFirst(),
+            getAliasPanelBorderBeforeLineBegins(),
+            getAliasPanelBorderEast(),
+            getAliasPanelBorderWest(),
+            getAliasPanelBorderNorth(),
+            getAliasPanelBorderSouth(),
+            getAliasPanelBorderCenter()
+        ));
+        return f_;
+    }
+
     @Override
     public StringMap<StringList> allTableTypeMethodNames() {
         StringMap<StringList> m_ = super.allTableTypeMethodNames();
