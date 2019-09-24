@@ -5647,6 +5647,24 @@ public final class ExpressionLanguageTest {
         Argument arg_ = directCalculate("$defaultValue(String)");
         assertTrue(arg_.isNull());
     }
+
+    @Test
+    public void processEl103048Test() {
+        Argument arg_ = directCalculate("$null+$null");
+        assertEq("", arg_.getString());
+    }
+
+    @Test
+    public void processEl103049Test() {
+        Argument arg_ = directCalculate("$null+\"\"");
+        assertEq("", arg_.getString());
+    }
+
+    @Test
+    public void processEl103050Test() {
+        Argument arg_ = directCalculate("\"\"+$null");
+        assertEq("", arg_.getString());
+    }
     @Test
     public void processElCmp1est() {
         Argument arg_ = directCalculate("Number.compare(1L,2d)");

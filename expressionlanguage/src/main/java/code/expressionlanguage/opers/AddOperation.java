@@ -61,10 +61,10 @@ public final class AddOperation extends NumericOperation {
                 return res_;
             }
             boolean str_ = false;
-            if (_a.matchClass(stringType_)) {
+            if (_a.matchClass(stringType_) || _a.isVariable()) {
                 str_ = true;
             }
-            if (_b.matchClass(stringType_)) {
+            if (_b.matchClass(stringType_) || _b.isVariable()) {
                 str_ = true;
             }
             if (str_) {
