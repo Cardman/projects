@@ -86,6 +86,7 @@ public class MainWindow extends GroupFrame {
     private LabelButton playNext = new LabelButton(NEXT);
     private LabelButton stop = new LabelButton(STOP);
     private TextLabel currentSong = new TextLabel(EMPTY);
+    private ScrollPane scroll;
     private TextLabel elapsedTime = new TextLabel(EMPTY);
     private boolean pausing;
     private boolean next;
@@ -121,9 +122,9 @@ public class MainWindow extends GroupFrame {
         stop.addMouseListener(new StopSong(this));
         actions_.add(stop);
         pane_.add(actions_);
-        ScrollPane scr_ = new ScrollPane(songRend);
-        scr_.setPreferredSize(new Dimension(100, 60));
-        pane_.add(scr_);
+        scroll = new ScrollPane(songRend);
+        scroll.setPreferredSize(new Dimension(100, 60));
+        pane_.add(scroll);
         pane_.add(currentSong);
         pane_.add(elapsedTime);
         pane_.add(new Clock());
@@ -297,6 +298,7 @@ public class MainWindow extends GroupFrame {
                 songRend.setNoSong(noSong);
                 songRend.setSize();
                 songRend.validate();
+                scroll.validate();
                 songRend.repaintLabel();
                 PackingWindowAfter.pack(this);
                 clipStream.getClip().start();
@@ -578,7 +580,7 @@ public class MainWindow extends GroupFrame {
 
     @Override
     public void quit() {
-        ThreadUtil.exit();
+        dispose();
     }
 
     @Override

@@ -11,6 +11,7 @@ import java.awt.*;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.awt.event.MouseWheelListener;
 
 public abstract class CustComponentStruct implements Struct {
 
@@ -178,6 +179,11 @@ public abstract class CustComponentStruct implements Struct {
         }
         if (_mouseListener instanceof MouseMotionListener) {
             getVisibleComponent().addMouseMotionListener((MouseMotionListener) _mouseListener);
+        }
+    }
+    public void addWheel(Struct _wheelListener) {
+        if (_wheelListener instanceof MouseWheelListener) {
+            getVisibleComponent().addMouseWheelListener((MouseWheelListener) _wheelListener);
         }
     }
     public void addKeyListener(Struct _l) {

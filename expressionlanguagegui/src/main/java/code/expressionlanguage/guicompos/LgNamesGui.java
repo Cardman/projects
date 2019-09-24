@@ -29,6 +29,10 @@ public class LgNamesGui extends LgNamesUtils {
     private String aliasActionListener;
     private String aliasActionPerformed;
     private String aliasActionEvent;
+    private String aliasWheelListener;
+    private String aliasWheelMove;
+    private String aliasWheelEvent;
+    private String aliasWheelRotatedClicks;
     private String aliasAddChange;
     private String aliasTreeListener;
     private String aliasTreeListenerValueChanged;
@@ -123,6 +127,7 @@ public class LgNamesGui extends LgNamesUtils {
     private String aliasCompBorTitle;
     private String aliasCompBorLower;
     private String aliasCompBorRaise;
+    private String aliasAddWheelListener;
     private String aliasAddKeyListener;
     private String aliasKeyListener;
     private String aliasKeyPressed;
@@ -629,6 +634,9 @@ public class LgNamesGui extends LgNamesUtils {
         methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasKeyListener);
         method_ = new StandardMethod(aliasAddKeyListener, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasWheelListener);
+        method_ = new StandardMethod(aliasAddWheelListener, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasMouseListener);
         method_ = new StandardMethod(aliasAddListener, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
@@ -1281,7 +1289,7 @@ public class LgNamesGui extends LgNamesUtils {
         methods_ = new ObjectMap<MethodId, StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new StringMap<StandardField>();
-        stdcl_ = new StandardClass(aliasMouseEvent, fields_, constructors_, methods_, getAliasObject(), MethodModifier.FINAL);
+        stdcl_ = new StandardClass(aliasMouseEvent, fields_, constructors_, methods_, getAliasObject(), MethodModifier.NORMAL);
         params_ = new StringList();
         method_ = new StandardMethod(aliasMouseEventIsAlt, params_, getAliasPrimBoolean(), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
@@ -1317,6 +1325,21 @@ public class LgNamesGui extends LgNamesUtils {
         constructors_.add(ctor_);
         std_ = stdcl_;
         getStandards().put(aliasMouseEvent, std_);
+        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        constructors_ = new CustList<StandardConstructor>();
+        fields_ = new StringMap<StandardField>();
+        stdcl_ = new StandardClass(aliasWheelEvent, fields_, constructors_, methods_, aliasMouseEvent, MethodModifier.NORMAL);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasWheelRotatedClicks, params_, getAliasPrimInteger(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasPrimInteger(),getAliasPrimInteger(),
+                getAliasPrimBoolean(),getAliasPrimBoolean(),getAliasPrimBoolean(),
+                getAliasPrimBoolean(),getAliasPrimBoolean(),getAliasPrimBoolean(),
+                getAliasPrimInteger(),getAliasPrimInteger());
+        ctor_ = new StandardConstructor(params_,false,stdcl_);
+        constructors_.add(ctor_);
+        std_ = stdcl_;
+        getStandards().put(aliasWheelEvent, std_);
         methods_ = new ObjectMap<MethodId, StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new StringMap<StandardField>();
@@ -2024,6 +2047,26 @@ public class LgNamesGui extends LgNamesUtils {
             r_.setResult(res_);
             return r_;
         }
+        if (StringList.quickEq(name_,aliasWheelEvent)) {
+            if (_cont.isInitEnums()) {
+                _cont.failInitEnums();
+                r_.setResult(NullStruct.NULL_VALUE);
+                return r_;
+            }
+            MouseWheelEventStruct res_ = new MouseWheelEventStruct(aliasWheelEvent);
+            res_.setFirst(_args[0]);
+            res_.setSecond(_args[1]);
+            res_.setAlt(_args[2]);
+            res_.setCtrl(_args[3]);
+            res_.setShift(_args[4]);
+            res_.setLeft(_args[5]);
+            res_.setMiddle(_args[6]);
+            res_.setRight(_args[7]);
+            res_.setClicks(_args[8]);
+            res_.setRotated(_args[9]);
+            r_.setResult(res_);
+            return r_;
+        }
         if (StringList.quickEq(name_,aliasKeyEvent)) {
             if (_cont.isInitEnums()) {
                 _cont.failInitEnums();
@@ -2637,6 +2680,10 @@ public class LgNamesGui extends LgNamesUtils {
                 inst_.addKeyListener(_args[0]);
                 return res_;
             }
+            if (StringList.quickEq(name_, aliasAddWheelListener)) {
+                inst_.addWheel(_args[0]);
+                return res_;
+            }
             if (StringList.quickEq(name_, aliasAddListener)) {
                 inst_.addMouse(_args[0]);
                 res_.setResult(NullStruct.NULL_VALUE);
@@ -3099,6 +3146,11 @@ public class LgNamesGui extends LgNamesUtils {
                 return res_;
             }
             res_.setResult(event_.getSecond());
+            return res_;
+        }
+        if (StringList.quickEq(type_, aliasWheelEvent)) {
+            MouseWheelEventStruct event_ = (MouseWheelEventStruct)_instance;
+            res_.setResult(event_.getRotated());
             return res_;
         }
         if (StringList.quickEq(type_, aliasKeyEvent)) {
@@ -4167,6 +4219,20 @@ public class LgNamesGui extends LgNamesUtils {
         getPredefinedClasses().add(aliasMouseListener);
         stds_.put(aliasMouseListener, content_);
         getPredefinedInterfacesInitOrder().add(aliasMouseListener);
+        content_ = ResourceFiles.ressourceFichier("resources_lg_gui/wheel_event.txt");
+        map_ = new StringMap<String>();
+        map_.put("{public}", public_);
+        map_.put("{interface}", interface_);
+        map_.put("{WheelListener}", aliasWheelListener);
+        map_.put("{mouseMoveWheel}", aliasWheelMove);
+        map_.put("{MouseWheelEvent}", aliasWheelEvent);
+        map_.put("{e}", tr("e",_context));
+        map_.put("{void}", getAliasVoid());
+        map_.put("{endLine}", endLine_);
+        content_ = StringList.formatQuote(content_, map_);
+        getPredefinedClasses().add(aliasWheelListener);
+        stds_.put(aliasWheelListener, content_);
+        getPredefinedInterfacesInitOrder().add(aliasWheelListener);
         content_ = ResourceFiles.ressourceFichier("resources_lg_gui/key_event.txt");
         map_ = new StringMap<String>();
         map_.put("{public}", public_);
@@ -6054,6 +6120,38 @@ public class LgNamesGui extends LgNamesUtils {
         this.aliasMouseEventIsRight = aliasMouseEventIsRight;
     }
 
+    public String getAliasWheelListener() {
+        return aliasWheelListener;
+    }
+
+    public void setAliasWheelListener(String aliasWheelListener) {
+        this.aliasWheelListener = aliasWheelListener;
+    }
+
+    public String getAliasWheelMove() {
+        return aliasWheelMove;
+    }
+
+    public void setAliasWheelMove(String aliasWheelMove) {
+        this.aliasWheelMove = aliasWheelMove;
+    }
+
+    public String getAliasWheelEvent() {
+        return aliasWheelEvent;
+    }
+
+    public void setAliasWheelEvent(String aliasWheelEvent) {
+        this.aliasWheelEvent = aliasWheelEvent;
+    }
+
+    public String getAliasWheelRotatedClicks() {
+        return aliasWheelRotatedClicks;
+    }
+
+    public void setAliasWheelRotatedClicks(String aliasWheelRotatedClicks) {
+        this.aliasWheelRotatedClicks = aliasWheelRotatedClicks;
+    }
+
     public String getAliasRequestFocus() {
         return aliasRequestFocus;
     }
@@ -6164,6 +6262,14 @@ public class LgNamesGui extends LgNamesUtils {
 
     public void setAliasAddKeyListener(String aliasAddKeyListener) {
         this.aliasAddKeyListener = aliasAddKeyListener;
+    }
+
+    public String getAliasAddWheelListener() {
+        return aliasAddWheelListener;
+    }
+
+    public void setAliasAddWheelListener(String aliasAddWheelListener) {
+        this.aliasAddWheelListener = aliasAddWheelListener;
     }
 
     public String getAliasKeyListener() {
@@ -7409,6 +7515,7 @@ public class LgNamesGui extends LgNamesUtils {
             setAliasTableRemoveInterval("removeInterval");
             setAliasTableMoveColumn("move");
             setAliasAddKeyListener("addKey");
+            setAliasAddWheelListener("addWheel");
             setAliasRequestFocus("requestFocus");
             setAliasCompBack("back");
             setAliasCompFore("fore");
@@ -7450,6 +7557,10 @@ public class LgNamesGui extends LgNamesUtils {
             setAliasMouseEventIsLeft("isLeft");
             setAliasMouseEventIsMiddle("isMiddle");
             setAliasMouseEventIsRight("isRight");
+            setAliasWheelListener("$core.MouseWheelListener");
+            setAliasWheelEvent("$core.MouseWheelEvent");
+            setAliasWheelMove("mouseWheelMoved");
+            setAliasWheelRotatedClicks("rotatedClicks");
             setAliasWindowListener("$core.WindowListener");
             setAliasWindowEvent("$core.WindowEvent");
             setAliasWindowActivated("activated");
@@ -7756,6 +7867,10 @@ public class LgNamesGui extends LgNamesUtils {
             setAliasMouseEventIsLeft("estGauche");
             setAliasMouseEventIsMiddle("estMilieu");
             setAliasMouseEventIsRight("estDroite");
+            setAliasWheelListener("$coeur.MoletteSourisEcouteur");
+            setAliasWheelEvent("$coeur.MoletteSourisEvt");
+            setAliasWheelMove("moletteDepl");
+            setAliasWheelRotatedClicks("crans");
             setAliasKeyListener("$coeur.ClavierEcouteur");
             setAliasTreeListener("$coeur.ArbreEcouteur");
             setAliasTreeListenerValueChanged("valeurChange");
@@ -7807,6 +7922,7 @@ public class LgNamesGui extends LgNamesUtils {
             setAliasTableRemoveInterval("supprInterval");
             setAliasTableMoveColumn("depl");
             setAliasAddKeyListener("ajClavier");
+            setAliasAddWheelListener("ajMolette");
             setAliasRequestFocus("demanderFocus");
             setAliasCompBack("arriere");
             setAliasCompFore("avant");
@@ -8199,6 +8315,9 @@ public class LgNamesGui extends LgNamesUtils {
                 getAliasMouseEventIsLeft(),
                 getAliasMouseEventIsRight(),
                 getAliasMouseEventIsMiddle()));
+        m_.put(getAliasWheelEvent(), new StringList(
+                getAliasWheelRotatedClicks())
+        );
         m_.put(getAliasKeyEvent(), new StringList(
                 getAliasKeyEventCode(),
                 getAliasKeyEventChar(),
@@ -8224,6 +8343,7 @@ public class LgNamesGui extends LgNamesUtils {
                 getAliasComponentSetVisible(),
                 getAliasComponentInvokeLater(),
                 getAliasAddKeyListener(),
+                getAliasAddWheelListener(),
                 getAliasAddListener(),
                 getAliasRequestFocus(),
                 getAliasCompBack(),
@@ -8426,6 +8546,9 @@ public class LgNamesGui extends LgNamesUtils {
         m_.put(getAliasChangeListener(), new StringList(
                 getAliasStateChanged())
         );
+        m_.put(getAliasWheelListener(), new StringList(
+                getAliasWheelMove())
+        );
         m_.put(getAliasMouseListener(), new StringList(
                 getAliasMouseClicked(),
                 getAliasMouseEntered(),
@@ -8580,6 +8703,8 @@ public class LgNamesGui extends LgNamesUtils {
         ref_.add(getAliasDimension());
         ref_.add(getAliasKeyListener());
         ref_.add(getAliasMouseListener());
+        ref_.add(getAliasWheelListener());
+        ref_.add(getAliasWheelEvent());
         ref_.add(getAliasActionListener());
         ref_.add(getAliasChangeListener());
         ref_.add(getAliasWindowListener());

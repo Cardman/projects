@@ -6,7 +6,7 @@ import code.expressionlanguage.structs.*;
 import javax.swing.*;
 import java.awt.event.MouseEvent;
 
-public final class MouseEventStruct implements Struct {
+public class MouseEventStruct implements Struct {
 
     private int first;
     private int second;

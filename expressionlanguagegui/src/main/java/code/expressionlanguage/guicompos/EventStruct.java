@@ -26,7 +26,7 @@ import java.awt.event.*;
 public final class EventStruct implements WithParentStruct,EnumerableStruct,
         ActionListener,Runnable,MouseListener,WindowListener,ListSelection,
         KeyListener,ChangeListener,TreeSelectionListener,ListSelectionListener,
-        MouseMotionListener{
+        MouseMotionListener,MouseWheelListener{
 
     private final String className;
 
@@ -197,6 +197,16 @@ public final class EventStruct implements WithParentStruct,EnumerableStruct,
         invoke(r_,actList_,actPerf_,new StringList(actEv_),args_);
     }
 
+    @Override
+    public void mouseWheelMoved(MouseWheelEvent e) {
+        String actEv_ = ((LgNamesGui) original.getStandards()).getAliasWheelEvent();
+        MouseWheelEventStruct a_ = new MouseWheelEventStruct(e,actEv_);
+        GuiContextEl r_ = newCtx();
+        CustList<Argument> args_ = new CustList<Argument>(new Argument(a_));
+        String actPerf_ = ((LgNamesGui) original.getStandards()).getAliasWheelMove();
+        String actList_ = ((LgNamesGui) original.getStandards()).getAliasWheelListener();
+        invoke(r_,actList_,actPerf_,new StringList(actEv_),args_);
+    }
     @Override
     public void windowOpened(WindowEvent e) {
         String actEv_ = ((LgNamesGui) original.getStandards()).getAliasWindowEvent();

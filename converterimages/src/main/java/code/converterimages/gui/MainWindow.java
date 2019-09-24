@@ -5,6 +5,7 @@ import java.io.File;
 import javax.imageio.ImageIO;
 import javax.swing.WindowConstants;
 
+import code.converterimages.main.LaunchingConverter;
 import code.gui.*;
 import code.gui.events.QuittingEvent;
 import code.gui.images.ConverterGraphicBufferedImage;
@@ -142,9 +143,13 @@ public final class MainWindow extends GroupFrame {
     }
     @Override
     public void quit() {
-        ThreadUtil.exit();
+        dispose();
     }
 
+    public void dispose() {
+        LaunchingConverter.decrement();
+        super.dispose();
+    }
     @Override
     public boolean canChangeLanguage() {
         return false;
