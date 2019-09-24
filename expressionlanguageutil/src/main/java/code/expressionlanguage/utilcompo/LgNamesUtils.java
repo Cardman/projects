@@ -11,6 +11,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.calls.util.CustomFoundMethod;
+import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.opers.util.ClassMethodId;
@@ -66,6 +67,16 @@ public class LgNamesUtils extends LgNames {
     private String aliasRead;
     private String aliasWrite;
     private String aliasAppendToFile;
+    private String aliasFileIsDirectory;
+    private String aliasFileIsFile;
+    private String aliasFileGetParentPath;
+    private String aliasFileGetName;
+    private String aliasFileGetLength;
+    private String aliasFileAbsolutePath;
+    private String aliasFileLastModif;
+    private String aliasFileListFiles;
+    private String aliasFileListDirectories;
+    private String aliasFileMakeDirs;
     private String aliasIllegalThreadStateException;
 
     private String aliasCustIterator;
@@ -629,6 +640,36 @@ public class LgNamesUtils extends LgNames {
         params_ = new StringList(getAliasString(),getAliasString());
         method_ = new StandardMethod(aliasAppendToFile, params_, getAliasPrimBoolean(), false, MethodModifier.STATIC, stdcl_);
         methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasString());
+        method_ = new StandardMethod(aliasFileAbsolutePath, params_, getAliasString(), false, MethodModifier.STATIC, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasString());
+        method_ = new StandardMethod(aliasFileGetName, params_, getAliasString(), false, MethodModifier.STATIC, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasString());
+        method_ = new StandardMethod(aliasFileGetParentPath, params_, getAliasString(), false, MethodModifier.STATIC, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasString());
+        method_ = new StandardMethod(aliasFileGetLength, params_, getAliasPrimLong(), false, MethodModifier.STATIC, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasString());
+        method_ = new StandardMethod(aliasFileLastModif, params_, getAliasPrimLong(), false, MethodModifier.STATIC, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasString());
+        method_ = new StandardMethod(aliasFileListDirectories, params_, PrimitiveTypeUtil.getPrettyArrayType(getAliasString()), false, MethodModifier.STATIC, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasString());
+        method_ = new StandardMethod(aliasFileListFiles, params_, PrimitiveTypeUtil.getPrettyArrayType(getAliasString()), false, MethodModifier.STATIC, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasString());
+        method_ = new StandardMethod(aliasFileIsDirectory, params_, getAliasPrimBoolean(), false, MethodModifier.STATIC, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasString());
+        method_ = new StandardMethod(aliasFileIsFile, params_, getAliasPrimBoolean(), false, MethodModifier.STATIC, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasString());
+        method_ = new StandardMethod(aliasFileMakeDirs, params_, getAliasPrimBoolean(), false, MethodModifier.STATIC, stdcl_);
+        methods_.put(method_.getId(), method_);
         std_ = stdcl_;
         getStandards().put(aliasFile, std_);
         methods_ = new ObjectMap<MethodId, StandardMethod>();
@@ -1049,6 +1090,10 @@ public class LgNamesUtils extends LgNames {
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
         	}
+        	if (!(_args[0] instanceof StringStruct)) {
+        	    res_.setError(getAliasNullPe());
+                return res_;
+            }
         	if (StringList.quickEq(name_,aliasRead)) {
         		StringStruct str_ = (StringStruct)_args[0];
         		String read_ = StreamTextFile.contentsOfFile(str_.getInstance());
@@ -1061,16 +1106,109 @@ public class LgNamesUtils extends LgNames {
         	}
         	if (StringList.quickEq(name_,aliasWrite)) {
         		String file_ = ((StringStruct)_args[0]).getInstance();
-        		String txt_ = ((StringStruct)_args[1]).getInstance();
+        		String txt_ = getStandarString(_cont,_args[1]);
         		res_.setResult(new BooleanStruct(StreamTextFile.saveTextFile(file_, txt_)));
         		return res_;
         	}
         	if (StringList.quickEq(name_,aliasAppendToFile)) {
         		String file_ = ((StringStruct)_args[0]).getInstance();
-        		String txt_ = ((StringStruct)_args[1]).getInstance();
+        		String txt_ = getStandarString(_cont,_args[1]);
         		res_.setResult(new BooleanStruct(StreamTextFile.logToFile(file_, txt_)));
         		return res_;
         	}
+            if (StringList.quickEq(name_,aliasFileAbsolutePath)) {
+                String file_ = ((StringStruct)_args[0]).getInstance();
+                res_.setResult(new StringStruct(StringList.replaceBackSlash(new File(file_).getAbsolutePath())));
+                return res_;
+            }
+            if (StringList.quickEq(name_,aliasFileGetLength)) {
+                String file_ = ((StringStruct)_args[0]).getInstance();
+                res_.setResult(new LongStruct(new File(file_).length()));
+                return res_;
+            }
+            if (StringList.quickEq(name_,aliasFileGetName)) {
+                String file_ = ((StringStruct)_args[0]).getInstance();
+                res_.setResult(new StringStruct(new File(file_).getName()));
+                return res_;
+            }
+            if (StringList.quickEq(name_,aliasFileGetParentPath)) {
+                String file_ = ((StringStruct)_args[0]).getInstance();
+                res_.setResult(new StringStruct(StringList.replaceBackSlash(new File(file_).getParentFile().getAbsolutePath())));
+                return res_;
+            }
+            if (StringList.quickEq(name_,aliasFileIsDirectory)) {
+                String file_ = ((StringStruct)_args[0]).getInstance();
+                File info_ = new File(file_);
+                res_.setResult(new BooleanStruct(info_.exists()&&info_.isDirectory()));
+                return res_;
+            }
+            if (StringList.quickEq(name_,aliasFileIsFile)) {
+                String file_ = ((StringStruct)_args[0]).getInstance();
+                File info_ = new File(file_);
+                res_.setResult(new BooleanStruct(info_.exists()&&!info_.isDirectory()));
+                return res_;
+            }
+            if (StringList.quickEq(name_,aliasFileLastModif)) {
+                String file_ = ((StringStruct)_args[0]).getInstance();
+                File info_ = new File(file_);
+                res_.setResult(new LongStruct(info_.lastModified()));
+                return res_;
+            }
+            if (StringList.quickEq(name_,aliasFileListFiles)) {
+                String file_ = ((StringStruct)_args[0]).getInstance();
+                File info_ = new File(file_);
+                File[] files_ = info_.listFiles();
+                if (files_ == null) {
+                    res_.setResult(NullStruct.NULL_VALUE);
+                    return res_;
+                }
+                StringList filesList_ = new StringList();
+                for (File f: files_) {
+                    if (!f.exists()) {
+                        continue;
+                    }
+                    if (f.isDirectory()) {
+                        continue;
+                    }
+                    filesList_.add(StringList.replaceBackSlash(f.getAbsolutePath()));
+                }
+                int len_ = filesList_.size();
+                ArrayStruct arr_ = new ArrayStruct(new Struct[len_],PrimitiveTypeUtil.getPrettyArrayType(getAliasString()));
+                for (int i = 0; i < len_; i++) {
+                    arr_.getInstance()[i] = new StringStruct(filesList_.get(i));
+                }
+                res_.setResult(arr_);
+                return res_;
+            }
+            if (StringList.quickEq(name_,aliasFileListDirectories)) {
+                String file_ = ((StringStruct)_args[0]).getInstance();
+                File info_ = new File(file_);
+                File[] files_ = info_.listFiles();
+                if (files_ == null) {
+                    res_.setResult(NullStruct.NULL_VALUE);
+                    return res_;
+                }
+                StringList filesList_ = new StringList();
+                for (File f: files_) {
+                    if (!f.exists()) {
+                        continue;
+                    }
+                    if (!f.isDirectory()) {
+                        continue;
+                    }
+                    filesList_.add(StringList.replaceBackSlash(f.getAbsolutePath()));
+                }
+                int len_ = filesList_.size();
+                ArrayStruct arr_ = new ArrayStruct(new Struct[len_],PrimitiveTypeUtil.getPrettyArrayType(getAliasString()));
+                for (int i = 0; i < len_; i++) {
+                    arr_.getInstance()[i] = new StringStruct(filesList_.get(i));
+                }
+                res_.setResult(arr_);
+                return res_;
+            }
+            String file_ = ((StringStruct)_args[0]).getInstance();
+            res_.setResult(new BooleanStruct(new File(file_).mkdirs()));
+            return res_;
         }
         return res_;
     }
@@ -1158,7 +1296,17 @@ public class LgNamesUtils extends LgNames {
         m_.put(getAliasFile(), new StringList(
                 getAliasRead(),
                 getAliasWrite(),
-                getAliasAppendToFile()));
+                getAliasAppendToFile(),
+                getAliasFileAbsolutePath(),
+                getAliasFileGetLength(),
+                getAliasFileGetName(),
+                getAliasFileGetParentPath(),
+                getAliasFileIsDirectory(),
+                getAliasFileIsFile(),
+                getAliasFileLastModif(),
+                getAliasFileListDirectories(),
+                getAliasFileListFiles(),
+                getAliasFileMakeDirs()));
         m_.put(getAliasCustIterator(), new StringList(
                 getAliasNext(),
                 getAliasHasNext()));
@@ -1444,6 +1592,86 @@ public class LgNamesUtils extends LgNames {
 	public void setAliasAppendToFile(String _aliasAppendToFile) {
 		aliasAppendToFile = _aliasAppendToFile;
 	}
+
+    public String getAliasFileIsDirectory() {
+        return aliasFileIsDirectory;
+    }
+
+    public void setAliasFileIsDirectory(String aliasFileIsDirectory) {
+        this.aliasFileIsDirectory = aliasFileIsDirectory;
+    }
+
+    public String getAliasFileIsFile() {
+        return aliasFileIsFile;
+    }
+
+    public void setAliasFileIsFile(String aliasFileIsFile) {
+        this.aliasFileIsFile = aliasFileIsFile;
+    }
+
+    public String getAliasFileGetParentPath() {
+        return aliasFileGetParentPath;
+    }
+
+    public void setAliasFileGetParentPath(String aliasFileGetParentPath) {
+        this.aliasFileGetParentPath = aliasFileGetParentPath;
+    }
+
+    public String getAliasFileGetName() {
+        return aliasFileGetName;
+    }
+
+    public void setAliasFileGetName(String aliasFileGetName) {
+        this.aliasFileGetName = aliasFileGetName;
+    }
+
+    public String getAliasFileGetLength() {
+        return aliasFileGetLength;
+    }
+
+    public void setAliasFileGetLength(String aliasFileGetLength) {
+        this.aliasFileGetLength = aliasFileGetLength;
+    }
+
+    public String getAliasFileAbsolutePath() {
+        return aliasFileAbsolutePath;
+    }
+
+    public void setAliasFileAbsolutePath(String aliasFileAbsolutePath) {
+        this.aliasFileAbsolutePath = aliasFileAbsolutePath;
+    }
+
+    public String getAliasFileLastModif() {
+        return aliasFileLastModif;
+    }
+
+    public void setAliasFileLastModif(String aliasFileLastModif) {
+        this.aliasFileLastModif = aliasFileLastModif;
+    }
+
+    public String getAliasFileListFiles() {
+        return aliasFileListFiles;
+    }
+
+    public void setAliasFileListFiles(String aliasFileListFiles) {
+        this.aliasFileListFiles = aliasFileListFiles;
+    }
+
+    public String getAliasFileListDirectories() {
+        return aliasFileListDirectories;
+    }
+
+    public void setAliasFileListDirectories(String aliasFileListDirectories) {
+        this.aliasFileListDirectories = aliasFileListDirectories;
+    }
+
+    public String getAliasFileMakeDirs() {
+        return aliasFileMakeDirs;
+    }
+
+    public void setAliasFileMakeDirs(String aliasFileMakeDirs) {
+        this.aliasFileMakeDirs = aliasFileMakeDirs;
+    }
 
     public String getAliasIllegalThreadStateException() {
         return aliasIllegalThreadStateException;
@@ -2133,6 +2361,16 @@ public class LgNamesUtils extends LgNames {
             setAliasRead("read");
             setAliasWrite("write");
             setAliasAppendToFile("appendToFile");
+            setAliasFileAbsolutePath("absolute");
+            setAliasFileGetLength("length");
+            setAliasFileGetName("name");
+            setAliasFileGetParentPath("parentPath");
+            setAliasFileIsDirectory("isDirectory");
+            setAliasFileIsFile("isFile");
+            setAliasFileLastModif("lastModification");
+            setAliasFileListDirectories("directories");
+            setAliasFileListFiles("files");
+            setAliasFileMakeDirs("makeDirectories");
             setAliasIllegalThreadStateException("$core.IllegalThreadState");
             setAliasCustIterator("$core.CustIterator");
             setAliasList("$core.List");
@@ -2246,6 +2484,16 @@ public class LgNamesUtils extends LgNames {
             setAliasRead("lire");
             setAliasWrite("ecrire");
             setAliasAppendToFile("ajouterFinFichier");
+            setAliasFileAbsolutePath("absolu");
+            setAliasFileGetLength("lg");
+            setAliasFileGetName("nom");
+            setAliasFileGetParentPath("chParent");
+            setAliasFileIsDirectory("estDossier");
+            setAliasFileIsFile("estFichier");
+            setAliasFileLastModif("derModification");
+            setAliasFileListDirectories("dossiers");
+            setAliasFileListFiles("fichiers");
+            setAliasFileMakeDirs("acheminerDossiers");
             setAliasIllegalThreadStateException("$coeur.IllegalEtatTache");
             setAliasCustIterator("$coeur.CustIterateur");
             setAliasList("$coeur.Liste");
