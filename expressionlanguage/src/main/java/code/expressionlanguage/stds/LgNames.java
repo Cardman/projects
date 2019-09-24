@@ -402,6 +402,8 @@ public abstract class LgNames {
                 getAliasGetAnnotationsParameters()));
         map_.put(getAliasAnnotationType(), new StringList(getAliasGetString()));
         map_.put(getAliasClassType(), new StringList(
+                getAliasGetAnnotations(),
+                getAliasGetAnnotationsParameters(),
                 getAliasDefaultInstance(),
                 getAliasEnumValueOf(),
                 getAliasForName(),
@@ -457,6 +459,8 @@ public abstract class LgNames {
                 getAliasArrayNewInstance(),
                 getAliasArraySet()));
         map_.put(getAliasConstructor(), new StringList(
+                getAliasGetAnnotations(),
+                getAliasGetAnnotationsParameters(),
                 getAliasGetDeclaringClass(),
                 getAliasGetGenericReturnType(),
                 getAliasGetFileName(),
@@ -472,6 +476,8 @@ public abstract class LgNames {
                 getAliasNewInstance()));
         map_.put(getAliasFct(), new StringList(getAliasCall()));
         map_.put(getAliasField(), new StringList(
+                getAliasGetAnnotations(),
+                getAliasGetAnnotationsParameters(),
                 getAliasArrayGet(),
                 getAliasGetDeclaringClass(),
                 getAliasGetGenericType(),
@@ -486,6 +492,8 @@ public abstract class LgNames {
                 getAliasIsStatic(),
                 getAliasSetField()));
         map_.put(getAliasMethod(), new StringList(
+                getAliasGetAnnotations(),
+                getAliasGetAnnotationsParameters(),
                 getAliasGetDeclaringClass(),
                 getAliasGetDefaultValue(),
                 getAliasGetGenericReturnType(),
@@ -612,6 +620,15 @@ public abstract class LgNames {
                 getAliasToStringMethod(),
                 getAliasTrim()));
         map_.put(getAliasCharacter(), new StringList(
+                getAliasByteValue(),
+                getAliasDoubleValue(),
+                getAliasEquals(),
+                getAliasFloatValue(),
+                getAliasIntValue(),
+                getAliasLongValue(),
+                getAliasParseInt(),
+                getAliasParseIntOrNull(),
+                getAliasShortValue(),
                 getAliasCharAt(),
                 getAliasCharValue(),
                 getAliasCompare(),
@@ -714,6 +731,8 @@ public abstract class LgNames {
                 getAliasShortValue(),
                 getAliasToStringMethod()));
         map_.put(getAliasString(), new StringList(
+                getAliasEquals(),
+                getAliasCompareTo(),
                 getAliasCharAt(),
                 getAliasCompare(),
                 getAliasCompareToIgnoreCase(),
@@ -742,7 +761,8 @@ public abstract class LgNames {
                 getAliasTrim(),
                 getAliasValueOfMethod()));
         map_.put(getAliasStringBuilder(), new StringList(
-
+                getAliasEquals(),
+                getAliasCompareTo(),
                 getAliasCharAt(),
                 getAliasContains(),
                 getAliasEndsWith(),
@@ -824,7 +844,7 @@ public abstract class LgNames {
             keyWords_.removeDuplicates();
             if (size_ != keyWords_.size()) {
                 StdWordError err_ = new StdWordError();
-                err_.setMessage(StringList.concat("duplicate methods ",e.getValue().display()));
+                err_.setMessage(StringList.concat(e.getKey()," duplicate methods ",e.getValue().display()));
                 err_.setErrCat(ErrorCat.DUPLICATE_METHOD_WORD);
                 _cont.getClasses().addStdError(err_);
             }

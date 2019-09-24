@@ -7879,268 +7879,20 @@ public class LgNamesGui extends LgNamesUtils {
     @Override
     public StringMap<StringList> allTableTypeMethodNames() {
         StringMap<StringList> m_ = super.allTableTypeMethodNames();
-        m_.put(getAliasConfirm(), new StringList(
-                getAliasConfirmField(),
-                getAliasConfirmFull(),
-                getAliasConfirmMessage(),
-                getAliasConfirmOk(),
-                getAliasConfirmYesNo()));
-        m_.put(getAliasFrame(), new StringList(
-                getAliasPack(),
-                getAliasWindow(),
-                getAliasArgs(),
-                getAliasAddWindowListener(),
-                getAliasRemoveWindowListener(),
-                getAliasGetWindowListeners(),
-                getAliasDispose(),
-                getAliasIsVisible(),
-                getAliasSetVisible(),
-                getAliasSetContent()));
-        m_.put(getAliasDialog(), new StringList(
-                getAliasPack(),
-                getAliasWindow(),
-                getAliasArgs(),
-                getAliasAddWindowListener(),
-                getAliasRemoveWindowListener(),
-                getAliasGetWindowListeners(),
-                getAliasDispose(),
-                getAliasDialogIsModal(),
-                getAliasDialogSetModal(),
-                getAliasIsVisible(),
-                getAliasSetVisible(),
-                getAliasSetContent()));
-        m_.put(getAliasWindowType(), new StringList(
-                getAliasPack(),
-                getAliasAddWindowListener(),
-                getAliasRemoveWindowListener(),
-                getAliasGetWindowListeners(),
-                getAliasDispose(),
-                getAliasWindowTypeRelative(),
-                getAliasIsVisible(),
-                getAliasSetVisible(),
-                getAliasSetContent(),
-                getAliasGetMenuBar(),
-                getAliasSetMenuBar()));
-        m_.put(getAliasPanel(), new StringList(
-                getAliasCount(),
-                getAliasGetIndexCompo(),
-                getAliasAddCompo(),
-                getAliasRemoveCompo(),
-                getAliasPanelAbsolute(),
-                getAliasPanelFlow(),
-                getAliasPanelPageBox(),
-                getAliasPanelGrid(),
-                getAliasPanelValidate(),
-                getAliasRemoveAll()));
-        m_.put(getAliasTabbedPane(), new StringList(
-                getAliasTabbedPaneNb(),
-                getAliasTabbedPaneAdd(),
-                getAliasTabbedPaneRemove(),
-                getAliasTabbedPaneSelIndex(),
-                getAliasTabbedPaneIndex(),
-                getAliasTabbedPaneGet(),
-                getAliasTabbedPaneGetTitle(),
-                getAliasTabbedPaneSet(),
-                getAliasTabbedPaneSetTitle(),
-                getAliasRemoveAll()));
-        m_.put(getAliasPanelBorder(), new StringList(
-                getAliasCount(),
-                getAliasGetIndexCompo(),
-                getAliasAddCompo(),
-                getAliasRemoveCompo(),
-                getAliasPanelAbsolute(),
-                getAliasPanelFlow(),
-                getAliasPanelPageBox(),
-                getAliasPanelGrid(),
-                getAliasRemoveAll()));
-        m_.put(getAliasMouseEvent(), new StringList(
-                getAliasMouseEventGetFirst(),
-                getAliasMouseEventGetSecond(),
-                getAliasMouseEventGetClicks(),
-                getAliasMouseEventIsAlt(),
-                getAliasMouseEventIsShift(),
-                getAliasMouseEventIsCtrl(),
-                getAliasMouseEventIsLeft(),
-                getAliasMouseEventIsRight(),
-                getAliasMouseEventIsMiddle()));
-        m_.put(getAliasWheelEvent(), new StringList(
-                getAliasWheelRotatedClicks())
-        );
-        m_.put(getAliasKeyEvent(), new StringList(
-                getAliasKeyEventCode(),
-                getAliasKeyEventChar(),
-                getAliasKeyEventIsAlt(),
-                getAliasKeyEventIsShift(),
-                getAliasKeyEventIsCtrl()));
-        m_.put(getAliasComponent(), new StringList(
-                getAliasGetParentCompo(),
-                getAliasGetNextCompo(),
-                getAliasComponentRepaint(),
-                getAliasComponentGetPaint(),
-                getAliasComponentSetPaint(),
-                getAliasGetFont(),
-                getAliasSetFont(),
-                getAliasComponentGetHeight(),
-                getAliasComponentGetWidth(),
-                getAliasComponentIsAutoscrolls(),
-                getAliasComponentSetAutoscrolls(),
-                getAliasComponentGetPreferredSize(),
-                getAliasComponentSetPreferredSize(),
-                getAliasComponentSetSize(),
-                getAliasComponentIsVisible(),
-                getAliasComponentSetVisible(),
-                getAliasComponentInvokeLater(),
-                getAliasAddKeyListener(),
-                getAliasAddWheelListener(),
-                getAliasAddListener(),
-                getAliasRequestFocus(),
-                getAliasCompBack(),
-                getAliasCompFocusable(),
-                getAliasCompFore(),
-                getAliasCompGetFirstPos(),
-                getAliasCompGetSecondPos(),
-                getAliasCompOpaque(),
-                getAliasCompToolTip(),
-                getAliasCompLoc(),
-                getAliasCompBorLine(),
-                getAliasCompBorLower(),
-                getAliasCompBorRaise(),
-                getAliasCompBorTitle()
-        ));
+        allWindowMethods(m_);
+        allEventTypes(m_);
+        allComponents(m_);
         m_.put(getAliasDimension(), new StringList(
                 getAliasDimensionGetHeight(),
                 getAliasDimensionGetWidth()));
-        m_.put(getAliasTextLabel(), new StringList(
-                getAliasSetLabelText(),
-                getAliasAddListener()));
-        m_.put(getAliasImageLabel(), new StringList(
-                getAliasSetLabelImage()));
         m_.put(getAliasFont(), new StringList(
                 getAliasFontGetName(),
                 getAliasFontGetSize(),
                 getAliasFontIsBold(),
                 getAliasFontIsItalic(),
                 getAliasFontStringWidth()));
-        m_.put(getAliasButton(), new StringList(
-                getAliasAddListener()));
-        m_.put(getAliasProgBar(), new StringList(
-                getAliasProgBarOr(),
-                getAliasProgBarValue(),
-                getAliasProgBarMin(),
-                getAliasProgBarMax()));
-        m_.put(getAliasScrollPane(), new StringList(
-                getAliasScrollPaneHorizontalValue(),
-                getAliasScrollPaneVerticalValue(),
-                getAliasScrollPaneGetView(),
-                getAliasScrollPaneSetView(),
-                getAliasScrollPaneValidate()));
-        m_.put(getAliasSplitPane(), new StringList(
-                getAliasSplitPaneGetDividerLocation(),
-                getAliasSplitPaneSetDividerLocation(),
-                getAliasSplitPaneGetDividerSize(),
-                getAliasSplitPaneSetDividerSize(),
-                getAliasSplitPaneGetLeft(),
-                getAliasSplitPaneSetLeft(),
-                getAliasSplitPaneGetRight(),
-                getAliasSplitPaneSetRight(),
-                getAliasSplitPaneIsContinuousLayout(),
-                getAliasSplitPaneSetContinuousLayout(),
-                getAliasSplitPaneIsOneTouchExpandable(),
-                getAliasSplitPaneSetOneTouchExpandable(),
-                getAliasSplitPaneValidate()));
-        m_.put(getAliasInput(), new StringList(
-                getAliasInputIsEnabled(),
-                getAliasInputSetEnabled()));
-        m_.put(getAliasCheckBox(), new StringList(
-                getAliasCheckBoxAddAction(),
-                getAliasCheckBoxGetText(),
-                getAliasCheckBoxSetText(),
-                getAliasCheckBoxIsSelected(),
-                getAliasCheckBoxSetSelected())
-        );
-        m_.put(getAliasSpinner(), new StringList(
-                getAliasSpinnerGetMax(),
-                getAliasSpinnerGetMin(),
-                getAliasSpinnerGetStep(),
-                getAliasSpinnerGetValue(),
-                getAliasSpinnerSetMax(),
-                getAliasSpinnerSetMin(),
-                getAliasSpinnerSetStep(),
-                getAliasSpinnerSetValue(),
-                getAliasSpinnerSetRange(),
-                getAliasSpinnerSetRangeValue(),
-                getAliasAddChange())
-        );
-        m_.put(getAliasSlider(), new StringList(
-                getAliasSliderGetMax(),
-                getAliasSliderGetMin(),
-                getAliasSliderGetOrientation(),
-                getAliasSliderGetValue(),
-                getAliasSliderSetMax(),
-                getAliasSliderSetMin(),
-                getAliasSliderSetOrientation(),
-                getAliasSliderSetValue(),
-                getAliasAddChange())
-        );
-        m_.put(getAliasRadio(), new StringList(
-                getAliasRadioGetText(),
-                getAliasRadioSetText(),
-                getAliasRadioIsSelected(),
-                getAliasRadioSetSelected(),
-                getAliasAddChange())
-        );
         m_.put(getAliasButtonGroup(), new StringList(
                 getAliasButtonGroupAdd())
-        );
-        m_.put(getAliasTextField(), new StringList(
-                getAliasTextFieldAddAction(),
-                getAliasTextFieldAddPopup(),
-                getAliasTextFieldGetText(),
-                getAliasTextFieldSetText())
-        );
-        m_.put(getAliasTextArea(), new StringList(
-                getAliasTextAreaAppend(),
-                getAliasTextAreaInsert(),
-                getAliasTextAreaReplaceRange(),
-                getAliasTextAreaReplaceSelection(),
-                getAliasTextAreaGetSelectedText(),
-                getAliasTextAreaSetSelectionStart(),
-                getAliasTextAreaSetSelectionEnd(),
-                getAliasTextAreaGetTabSize(),
-                getAliasTextAreaSetTabSize(),
-                getAliasTextAreaGetText(),
-                getAliasTextAreaSetText(),
-                getAliasTextAreaSelect(),
-                getAliasTextAreaSelectAll())
-        );
-        m_.put(getAliasCombo(), new StringList(
-                getAliasComboAddItem(),
-                getAliasComboGetItemCount(),
-                getAliasComboGetListener(),
-                getAliasComboGetSelectedIndex(),
-                getAliasComboGetSelectedIndexes(),
-                getAliasComboGetSelectedItem(),
-                getAliasComboRemoveAllItems(),
-                getAliasComboRemoveItem(),
-                getAliasComboSelectItem(),
-                getAliasComboSetListener())
-        );
-        m_.put(getAliasGrList(), new StringList(
-                getAliasGrListAdd(),
-                getAliasGrListClear(),
-                getAliasGrListClearSelection(),
-                getAliasGrListGetListView(),
-                getAliasGrListGetRender(),
-                getAliasGrListGetSelectedIndexes(),
-                getAliasGrListGetSelection(),
-                getAliasGrListGetVisibleRowCount(),
-                getAliasGrListRemove(),
-                getAliasGrListSet(),
-                getAliasGrListSetRender(),
-                getAliasGrListSetSelectedIndexes(),
-                getAliasGrListSetSelection(),
-                getAliasGrListSetVisibleRowCount(),
-                getAliasGrListUpdateGraphics())
         );
         m_.put(getAliasRender(), new StringList(
                 getAliasRenderGetHeight(),
@@ -8150,17 +7902,6 @@ public class LgNamesGui extends LgNamesUtils {
                 getAliasRenderSetPaint(),
                 getAliasRenderSetWidth()
         ));
-        m_.put(getAliasPopupMenu(), new StringList(
-                getAliasPopupMenuAdd(),
-                getAliasPopupMenuAddMenu(),
-                getAliasPopupMenuGetComp(),
-                getAliasPopupMenuRemoveComp(),
-                getAliasPopupMenuNbComp(),
-                getAliasPopupMenuGetMenu(),
-                getAliasPopupMenuRemoveMenu(),
-                getAliasPopupMenuNbMenu(),
-                getAliasPopupMenuShow())
-        );
         m_.put(getAliasColor(), new StringList(
                 getAliasColorAlpha(),
                 getAliasColorBlue(),
@@ -8241,39 +7982,8 @@ public class LgNamesGui extends LgNamesUtils {
                 getAliasTreeNodeIsAncestor(),
                 getAliasTreeNodeIsDescendant())
         );
-        m_.put(getAliasTree(), new StringList(
-                getAliasTreeAddTreeListener(),
-                getAliasTreeGetSelected(),
-                getAliasTreeIsRootVisible(),
-                getAliasTreeSetRootVisible(),
-                getAliasTreeReload())
-        );
         m_.put(getAliasTableListener(), new StringList(
                 getAliasTableValueTableChanged())
-        );
-        m_.put(getAliasTableGui(), new StringList(
-                getAliasTableAddHeader(),
-                getAliasTableAddSelect(),
-                getAliasTableApplyChanges(),
-                getAliasTableAddInterval(),
-                getAliasTableRemoveInterval(),
-                getAliasTableMoveColumn(),
-                getAliasTableGetColumnAtPoint(),
-                getAliasTableGetColumnCount(),
-                getAliasTableGetColumnName(),
-                getAliasTableGetRowAtPoint(),
-                getAliasTableGetRowCount(),
-                getAliasTableGetSelectedRow(),
-                getAliasTableGetSelectedRowCount(),
-                getAliasTableGetSelectedRows(),
-                getAliasTableGetValue(),
-                getAliasTableSetColumns(),
-                getAliasTableSetMultiple(),
-                getAliasTableSetReorder(),
-                getAliasTableSetRowCount(),
-                getAliasTableSetValue(),
-                getAliasTableIsMultiple(),
-                getAliasTableIsReorder())
         );
         m_.put(getAliasPaint(), new StringList(
                 getAliasPaintMethod(),
@@ -8309,6 +8019,331 @@ public class LgNamesGui extends LgNamesUtils {
                 getAliasMenuItemCheckSetSelected()
         ));
         return m_;
+    }
+
+    void allComponents(StringMap<StringList> _m) {
+        StringList names_ = getCompoMethodNames();
+        _m.put(getAliasPanel(),merge(new StringList(
+                getAliasCount(),
+                getAliasGetIndexCompo(),
+                getAliasAddCompo(),
+                getAliasRemoveCompo(),
+                getAliasPanelAbsolute(),
+                getAliasPanelFlow(),
+                getAliasPanelPageBox(),
+                getAliasPanelGrid(),
+                getAliasPanelValidate(),
+                getAliasRemoveAll()),names_));
+        _m.put(getAliasTabbedPane(),merge(new StringList(
+                getAliasTabbedPaneNb(),
+                getAliasTabbedPaneAdd(),
+                getAliasTabbedPaneRemove(),
+                getAliasTabbedPaneSelIndex(),
+                getAliasTabbedPaneIndex(),
+                getAliasTabbedPaneGet(),
+                getAliasTabbedPaneGetTitle(),
+                getAliasTabbedPaneSet(),
+                getAliasTabbedPaneSetTitle(),
+                getAliasRemoveAll()),names_));
+        _m.put(getAliasPanelBorder(),merge(new StringList(
+                getAliasCount(),
+                getAliasGetIndexCompo(),
+                getAliasAddCompo(),
+                getAliasRemoveCompo(),
+                getAliasPanelAbsolute(),
+                getAliasPanelFlow(),
+                getAliasPanelPageBox(),
+                getAliasPanelGrid(),
+                getAliasPanelValidate(),
+                getAliasRemoveAll()),names_));
+        _m.put(getAliasComponent(), names_);
+        _m.put(getAliasTextLabel(),merge(new StringList(
+                getAliasSetLabelText()),names_));
+        _m.put(getAliasImageLabel(),merge(new StringList(
+                getAliasSetLabelImage()),names_));
+        _m.put(getAliasButton(),merge(new StringList(),names_));
+        _m.put(getAliasProgBar(),merge(new StringList(
+                getAliasProgBarOr(),
+                getAliasProgBarValue(),
+                getAliasProgBarMin(),
+                getAliasProgBarMax()),names_));
+        _m.put(getAliasScrollPane(),merge(new StringList(
+                getAliasScrollPaneHorizontalValue(),
+                getAliasScrollPaneVerticalValue(),
+                getAliasScrollPaneGetView(),
+                getAliasScrollPaneSetView(),
+                getAliasScrollPaneValidate()),names_));
+        _m.put(getAliasSplitPane(),merge(new StringList(
+                getAliasSplitPaneGetDividerLocation(),
+                getAliasSplitPaneSetDividerLocation(),
+                getAliasSplitPaneGetDividerSize(),
+                getAliasSplitPaneSetDividerSize(),
+                getAliasSplitPaneGetLeft(),
+                getAliasSplitPaneSetLeft(),
+                getAliasSplitPaneGetRight(),
+                getAliasSplitPaneSetRight(),
+                getAliasSplitPaneIsContinuousLayout(),
+                getAliasSplitPaneSetContinuousLayout(),
+                getAliasSplitPaneIsOneTouchExpandable(),
+                getAliasSplitPaneSetOneTouchExpandable(),
+                getAliasSplitPaneValidate()),names_));
+        _m.put(getAliasInput(),merge(new StringList(
+                getAliasInputIsEnabled(),
+                getAliasInputSetEnabled()),names_));
+        _m.put(getAliasCheckBox(),merge(new StringList(
+                getAliasCheckBoxAddAction(),
+                getAliasCheckBoxGetText(),
+                getAliasCheckBoxSetText(),
+                getAliasCheckBoxIsSelected(),
+                getAliasCheckBoxSetSelected()),names_)
+        );
+        _m.put(getAliasSpinner(),merge(new StringList(
+                getAliasSpinnerGetMax(),
+                getAliasSpinnerGetMin(),
+                getAliasSpinnerGetStep(),
+                getAliasSpinnerGetValue(),
+                getAliasSpinnerSetMax(),
+                getAliasSpinnerSetMin(),
+                getAliasSpinnerSetStep(),
+                getAliasSpinnerSetValue(),
+                getAliasSpinnerSetRange(),
+                getAliasSpinnerSetRangeValue(),
+                getAliasAddChange()),names_)
+        );
+        _m.put(getAliasSlider(),merge(new StringList(
+                getAliasSliderGetMax(),
+                getAliasSliderGetMin(),
+                getAliasSliderGetOrientation(),
+                getAliasSliderGetValue(),
+                getAliasSliderSetMax(),
+                getAliasSliderSetMin(),
+                getAliasSliderSetOrientation(),
+                getAliasSliderSetValue(),
+                getAliasAddChange()),names_)
+        );
+        _m.put(getAliasRadio(),merge(new StringList(
+                getAliasRadioGetText(),
+                getAliasRadioSetText(),
+                getAliasRadioIsSelected(),
+                getAliasRadioSetSelected(),
+                getAliasAddChange()),names_)
+        );
+        _m.put(getAliasTextField(),merge(new StringList(
+                getAliasTextFieldAddAction(),
+                getAliasTextFieldAddPopup(),
+                getAliasTextFieldGetText(),
+                getAliasTextFieldSetText()),names_)
+        );
+        _m.put(getAliasTextArea(),merge(new StringList(
+                getAliasTextAreaAppend(),
+                getAliasTextAreaInsert(),
+                getAliasTextAreaReplaceRange(),
+                getAliasTextAreaReplaceSelection(),
+                getAliasTextAreaGetSelectedText(),
+                getAliasTextAreaSetSelectionStart(),
+                getAliasTextAreaSetSelectionEnd(),
+                getAliasTextAreaGetTabSize(),
+                getAliasTextAreaSetTabSize(),
+                getAliasTextAreaGetText(),
+                getAliasTextAreaSetText(),
+                getAliasTextAreaSelect(),
+                getAliasTextAreaSelectAll()),names_)
+        );
+        _m.put(getAliasCombo(),merge(new StringList(
+                getAliasComboAddItem(),
+                getAliasComboGetItemCount(),
+                getAliasComboGetListener(),
+                getAliasComboGetSelectedIndex(),
+                getAliasComboGetSelectedIndexes(),
+                getAliasComboGetSelectedItem(),
+                getAliasComboRemoveAllItems(),
+                getAliasComboRemoveItem(),
+                getAliasComboSelectItem(),
+                getAliasComboSetListener()),names_)
+        );
+        _m.put(getAliasGrList(),merge(new StringList(
+                getAliasGrListAdd(),
+                getAliasGrListClear(),
+                getAliasGrListClearSelection(),
+                getAliasGrListGetListView(),
+                getAliasGrListGetRender(),
+                getAliasGrListGetSelectedIndexes(),
+                getAliasGrListGetSelection(),
+                getAliasGrListGetVisibleRowCount(),
+                getAliasGrListRemove(),
+                getAliasGrListSet(),
+                getAliasGrListSetRender(),
+                getAliasGrListSetSelectedIndexes(),
+                getAliasGrListSetSelection(),
+                getAliasGrListSetVisibleRowCount(),
+                getAliasGrListUpdateGraphics()),names_)
+        );
+        _m.put(getAliasPopupMenu(),merge(new StringList(
+                getAliasPopupMenuAdd(),
+                getAliasPopupMenuAddMenu(),
+                getAliasPopupMenuGetComp(),
+                getAliasPopupMenuRemoveComp(),
+                getAliasPopupMenuNbComp(),
+                getAliasPopupMenuGetMenu(),
+                getAliasPopupMenuRemoveMenu(),
+                getAliasPopupMenuNbMenu(),
+                getAliasPopupMenuShow()),names_)
+        );
+        _m.put(getAliasTree(),merge(new StringList(
+                getAliasTreeAddTreeListener(),
+                getAliasTreeGetSelected(),
+                getAliasTreeIsRootVisible(),
+                getAliasTreeSetRootVisible(),
+                getAliasTreeReload()),names_)
+        );
+        _m.put(getAliasTableGui(),merge(new StringList(
+                getAliasTableAddHeader(),
+                getAliasTableAddSelect(),
+                getAliasTableApplyChanges(),
+                getAliasTableAddInterval(),
+                getAliasTableRemoveInterval(),
+                getAliasTableMoveColumn(),
+                getAliasTableGetColumnAtPoint(),
+                getAliasTableGetColumnCount(),
+                getAliasTableGetColumnName(),
+                getAliasTableGetRowAtPoint(),
+                getAliasTableGetRowCount(),
+                getAliasTableGetSelectedRow(),
+                getAliasTableGetSelectedRowCount(),
+                getAliasTableGetSelectedRows(),
+                getAliasTableGetValue(),
+                getAliasTableSetColumns(),
+                getAliasTableSetMultiple(),
+                getAliasTableSetReorder(),
+                getAliasTableSetRowCount(),
+                getAliasTableSetValue(),
+                getAliasTableIsMultiple(),
+                getAliasTableIsReorder()),names_)
+        );
+    }
+
+    StringList merge(StringList _one, StringList _two) {
+        StringList all_ = new StringList();
+        all_.addAllElts(_one);
+        all_.addAllElts(_two);
+        return all_;
+    }
+    StringList getCompoMethodNames() {
+        return new StringList(
+                getAliasGetParentCompo(),
+                getAliasGetNextCompo(),
+                getAliasComponentRepaint(),
+                getAliasComponentGetPaint(),
+                getAliasComponentSetPaint(),
+                getAliasGetFont(),
+                getAliasSetFont(),
+                getAliasComponentGetHeight(),
+                getAliasComponentGetWidth(),
+                getAliasComponentIsAutoscrolls(),
+                getAliasComponentSetAutoscrolls(),
+                getAliasComponentGetPreferredSize(),
+                getAliasComponentSetPreferredSize(),
+                getAliasComponentSetSize(),
+                getAliasComponentIsVisible(),
+                getAliasComponentSetVisible(),
+                getAliasComponentInvokeLater(),
+                getAliasAddKeyListener(),
+                getAliasAddWheelListener(),
+                getAliasAddListener(),
+                getAliasRequestFocus(),
+                getAliasCompBack(),
+                getAliasCompFocusable(),
+                getAliasCompFore(),
+                getAliasCompGetFirstPos(),
+                getAliasCompGetSecondPos(),
+                getAliasCompOpaque(),
+                getAliasCompToolTip(),
+                getAliasCompLoc(),
+                getAliasCompBorLine(),
+                getAliasCompBorLower(),
+                getAliasCompBorRaise(),
+                getAliasCompBorTitle()
+        );
+    }
+
+    void allEventTypes(StringMap<StringList> _m) {
+        _m.put(getAliasMouseEvent(), new StringList(
+                getAliasMouseEventGetFirst(),
+                getAliasMouseEventGetSecond(),
+                getAliasMouseEventGetClicks(),
+                getAliasMouseEventIsAlt(),
+                getAliasMouseEventIsShift(),
+                getAliasMouseEventIsCtrl(),
+                getAliasMouseEventIsLeft(),
+                getAliasMouseEventIsRight(),
+                getAliasMouseEventIsMiddle()));
+        _m.put(getAliasWheelEvent(), new StringList(
+                getAliasMouseEventGetFirst(),
+                getAliasMouseEventGetSecond(),
+                getAliasMouseEventGetClicks(),
+                getAliasMouseEventIsAlt(),
+                getAliasMouseEventIsShift(),
+                getAliasMouseEventIsCtrl(),
+                getAliasMouseEventIsLeft(),
+                getAliasMouseEventIsRight(),
+                getAliasMouseEventIsMiddle(),
+                getAliasWheelRotatedClicks())
+        );
+        _m.put(getAliasKeyEvent(), new StringList(
+                getAliasKeyEventCode(),
+                getAliasKeyEventChar(),
+                getAliasKeyEventIsAlt(),
+                getAliasKeyEventIsShift(),
+                getAliasKeyEventIsCtrl()));
+    }
+
+    void allWindowMethods(StringMap<StringList> _m) {
+        _m.put(getAliasConfirm(), new StringList(
+                getAliasConfirmField(),
+                getAliasConfirmFull(),
+                getAliasConfirmMessage(),
+                getAliasConfirmOk(),
+                getAliasConfirmYesNo()));
+        _m.put(getAliasFrame(), new StringList(
+                getAliasPack(),
+                getAliasAddWindowListener(),
+                getAliasRemoveWindowListener(),
+                getAliasGetWindowListeners(),
+                getAliasDispose(),
+                getAliasWindowTypeRelative(),
+                getAliasIsVisible(),
+                getAliasSetVisible(),
+                getAliasSetContent(),
+                getAliasGetMenuBar(),
+                getAliasSetMenuBar(),
+                getAliasWindow(),
+                getAliasArgs()));
+        _m.put(getAliasDialog(), new StringList(
+                getAliasPack(),
+                getAliasAddWindowListener(),
+                getAliasRemoveWindowListener(),
+                getAliasGetWindowListeners(),
+                getAliasDispose(),
+                getAliasWindowTypeRelative(),
+                getAliasIsVisible(),
+                getAliasSetVisible(),
+                getAliasSetContent(),
+                getAliasGetMenuBar(),
+                getAliasSetMenuBar(),
+                getAliasDialogIsModal(),
+                getAliasDialogSetModal()));
+        _m.put(getAliasWindowType(), new StringList(
+                getAliasPack(),
+                getAliasAddWindowListener(),
+                getAliasRemoveWindowListener(),
+                getAliasGetWindowListeners(),
+                getAliasDispose(),
+                getAliasWindowTypeRelative(),
+                getAliasIsVisible(),
+                getAliasSetVisible(),
+                getAliasSetContent(),
+                getAliasGetMenuBar(),
+                getAliasSetMenuBar()));
     }
 
     @Override
