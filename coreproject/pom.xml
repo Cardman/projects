@@ -26,7 +26,6 @@
 		<module>../formathtml</module>
 		<module>../guicommon</module>
 		<module>../network</module>
-		<module>../musiccore</module>
 		<module>../expressionlanguageunit</module>
 		<module>../expressionlanguagegui</module>
 		<module>../rendersgui</module>
