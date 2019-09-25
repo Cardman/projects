@@ -13,6 +13,7 @@ import javax.swing.WindowConstants;
 import aiki.beans.PokemonStandards;
 import aiki.comparators.ComparatorTrStrings;
 import aiki.db.DataBase;
+import aiki.gui.threads.*;
 import aiki.sml.Resources;
 import aiki.facade.FacadeGame;
 import aiki.game.fight.BallNumberRate;
@@ -43,12 +44,6 @@ import aiki.gui.listeners.AbilityFightEvent;
 import aiki.gui.listeners.FighterAction;
 import aiki.gui.listeners.MoveEvent;
 import aiki.gui.listeners.SelectPlaceEvent;
-import aiki.gui.threads.RoundBallThread;
-import aiki.gui.threads.RoundBasicThread;
-import aiki.gui.threads.RoundFailBallThread;
-import aiki.gui.threads.RoundFleeThread;
-import aiki.gui.threads.RoundKoUserThread;
-import aiki.gui.threads.RoundThread;
 import code.gui.*;
 import code.gui.document.RenderedPage;
 import code.gui.events.ClosingChildFrameEvent;
@@ -1011,27 +1006,29 @@ public class Battle extends ChildFrame {
         if (!enabledClicked) {
             return;
         }
+        Thread fightThread_ = window.getPreparedFightThread();
+        PreparedRenderedPages fightTask_ = window.getPreparedDiffTask();
+        if (fightThread_ == null || fightThread_.isAlive() || fightTask_ == null) {
+            return;
+        }
         if (!htmlDialogs.isEmpty()) {
             if (!htmlDialogs.first().isVisible()) {
-                reinitWebFight();
+                reinitWebFight(fightTask_);
                 htmlDialogs.first().setVisible(true);
             }
             return;
         }
         RenderedPage session_;
         session_ = new RenderedPage(new ScrollPane());
-        session_.setLanguage(facade.getLanguage());
-        session_.setDataBase(facade);
         session_.setProcess(window.getVideoLoading().getVideo());
         FrameHtmlData dialog_ = new FrameHtmlData(window, messages.getVal(TITLE), session_);
-        dialog_.initSession(Resources.ACCESS_TO_DEFAULT_FIGHT);
+        dialog_.initSessionLg(facade,fightTask_.getNavigation(),facade.getLanguage());
         htmlDialogs.add(dialog_);
     }
 
-    private void reinitWebFight() {
+    private void reinitWebFight(PreparedRenderedPages _task) {
         htmlDialogs.first().setTitle(messages.getVal(TITLE));
-        htmlDialogs.first().getSession().setFiles(Resources.ACCESS_TO_DEFAULT_FILES);
-        htmlDialogs.first().getSession().initializeOnlyConf(Resources.ACCESS_TO_DEFAULT_FIGHT, new PokemonStandards());
+        htmlDialogs.first().initSessionLg(facade,_task.getNavigation(),facade.getLanguage());
         htmlDialogs.first().pack();
     }
 

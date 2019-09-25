@@ -105,17 +105,20 @@ public final class RenderedPage implements ProcessingSession {
             return;
         }
         updateFiles();
-        navigation.setupRendClasses();
         navigation.initializeRendSession();
         setupText();
     }
 
-    public void initializeOnlyConf(String _conf, BeanLgNames _stds) {
+
+    public void initializeOnlyConf(Object _dataBase,Navigation _navigation, String _lg) {
         if (processing.get()) {
             return;
         }
-        standards = _stds;
-        threadAction = CustComponent.newThread(new ThreadActions(this, _stds, "", _conf, false, false, true));
+        navigation = _navigation;
+        navigation.setDataBase(_dataBase);
+        navigation.setLanguage(_lg);
+        standards = _navigation.getSession().getAdvStandards();
+        threadAction = CustComponent.newThread(new ThreadActions(this));
         threadAction.start();
         animateProcess();
     }
@@ -149,7 +152,6 @@ public final class RenderedPage implements ProcessingSession {
             return;
         }
         updateFiles();
-        navigation.setupRendClasses();
         navigation.initializeRendSession();
         setupText();
         finish(false);
@@ -188,7 +190,6 @@ public final class RenderedPage implements ProcessingSession {
             return;
         }
         updateFiles();
-        navigation.setupRendClasses();
         navigation.initializeRendSession();
         setupText();
     }
@@ -212,6 +213,7 @@ public final class RenderedPage implements ProcessingSession {
         String rel_ = StringList.concat(resourcesFolder,realFilePath_);
         files_.put(realFilePath_,ResourceFiles.ressourceFichier(rel_));
         navigation.setFiles(files_);
+        navigation.setupRendClasses();
     }
     public void start() {
         processing.set(true);

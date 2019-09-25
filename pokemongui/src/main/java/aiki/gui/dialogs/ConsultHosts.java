@@ -5,6 +5,7 @@ import java.awt.GridLayout;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 
+import aiki.gui.threads.PreparedRenderedPages;
 import aiki.sml.Resources;
 import aiki.facade.FacadeGame;
 import aiki.game.HostPokemonDuo;
@@ -13,6 +14,7 @@ import aiki.gui.listeners.SelectHostedPokemon;
 import aiki.map.places.Place;
 import aiki.map.pokemon.PokemonPlayer;
 import aiki.util.Coords;
+import code.formathtml.Navigation;
 import code.gui.*;
 import code.gui.document.RenderedPage;
 import code.util.EqList;
@@ -108,18 +110,19 @@ public final class ConsultHosts extends Dialog {
     }
 
     public void seeHostedPokemon(boolean _first, Coords _coords) {
+        Thread thread_ = window.getPreparedPkThread();
+        PreparedRenderedPages task_ = window.getPreparedPkTask();
+        if (thread_ == null || thread_.isAlive() || task_ == null) {
+            return;
+        }
         facade.setHostedPokemon(_first, _coords);
         RenderedPage session_;
         session_ = new RenderedPage(new ScrollPane());
-        session_.setLanguage(facade.getLanguage());
-        session_.setDataBase(facade);
-//        session_.setFiles(facade.getData().getWebPk(), Resources.ACCESS_TO_DEFAULT_FILES);
-        session_.setFiles(Resources.ACCESS_TO_DEFAULT_FILES);
-        showHtmlDialog(session_);
+        showHtmlDialog(session_,facade,task_.getNavigation(),facade.getLanguage());
     }
 
-    private void showHtmlDialog(RenderedPage _session) {
+    private void showHtmlDialog(RenderedPage _session, Object _dataBase, Navigation _navigation, String _lg) {
 //        DialogHtmlData.setDialogHtmlData(this, messages.getVal(TITLE_DETAIL), _session, window.isSuccessfulCompile());
-        DialogHtmlData.setDialogHtmlData(window, this, messages.getVal(TITLE_DETAIL), _session);
+        DialogHtmlData.setDialogHtmlData(window, this, messages.getVal(TITLE_DETAIL), _session,_dataBase,_navigation,_lg);
     }
 }

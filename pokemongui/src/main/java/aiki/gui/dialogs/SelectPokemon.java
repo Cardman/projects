@@ -1,8 +1,7 @@
 package aiki.gui.dialogs;
 import java.awt.BorderLayout;
 
-import javax.swing.JScrollPane;
-
+import aiki.gui.threads.PreparedRenderedPages;
 import aiki.sml.Resources;
 import aiki.facade.FacadeGame;
 import aiki.gui.MainWindow;
@@ -10,6 +9,7 @@ import aiki.gui.components.PaginatorPokemon;
 import aiki.gui.dialogs.events.SeePkDetailEvent;
 import aiki.gui.dialogs.events.ValidateSelectionEvent;
 import aiki.map.pokemon.UsablePokemon;
+import code.formathtml.Navigation;
 import code.gui.LabelButton;
 import code.gui.Panel;
 import code.gui.ScrollPane;
@@ -80,18 +80,18 @@ public final class SelectPokemon extends SelectDialog {
     }
 
     public void seePkDetail() {
+        Thread thread_ = window.getPreparedPkThread();
+        PreparedRenderedPages task_ = window.getPreparedPkTask();
+        if (thread_ == null || thread_.isAlive() || task_ == null) {
+            return;
+        }
         UsablePokemon p_ = facade.getSelectedPokemonFirstBox();
         if (p_ == null) {
             return;
         }
         RenderedPage session_;
         session_ = new RenderedPage(new ScrollPane());
-        session_.setLanguage(facade.getLanguage());
-        session_.setDataBase(facade);
-        //session_.setFiles(facade.getData().getWebPk(), new Map<String,String>());
-//        session_.setFiles(facade.getData().getWebPk(), Resources.ACCESS_TO_DEFAULT_FILES);
-        session_.setFiles(Resources.ACCESS_TO_DEFAULT_FILES);
-        showHtmlDialog(session_);
+        showHtmlDialog(session_,facade,task_.getNavigation(),facade.getLanguage());
     }
 
     @Override
@@ -121,9 +121,9 @@ public final class SelectPokemon extends SelectDialog {
         return DIALOG.isOk();
     }
 
-    private void showHtmlDialog(RenderedPage _session) {
+    private void showHtmlDialog(RenderedPage _session, Object _dataBase, Navigation _navigation, String _lg) {
 //        DialogHtmlData.setDialogHtmlData(DIALOG, DIALOG.messages.getVal(TITLE_DETAIL), _session, window.isSuccessfulCompile());
-        DialogHtmlData.setDialogHtmlData(window, DIALOG, DIALOG.messages.getVal(TITLE_DETAIL), _session);
+        DialogHtmlData.setDialogHtmlData(window, DIALOG, DIALOG.messages.getVal(TITLE_DETAIL), _session,_dataBase,_navigation,_lg);
     }
 
     public static void setVisible() {

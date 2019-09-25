@@ -11,6 +11,7 @@ import aiki.beans.PokemonStandards;
 import aiki.sml.Resources;
 import aiki.facade.FacadeGame;
 import aiki.gui.MainWindow;
+import code.formathtml.Navigation;
 import code.gui.*;
 import code.gui.document.RenderedPage;
 import code.util.StringMap;
@@ -32,11 +33,11 @@ public final class DialogGameProgess extends Dialog {
         setAccessFile(DIALOG_ACCESS);
     }
 
-    public static void setGameProgress(MainWindow _window, String _title, FacadeGame _facade) {
-        DIALOG.init(_window, _title, _facade);
+    public static void setGameProgress(MainWindow _window, String _title, FacadeGame _facade, Navigation _navigation) {
+        DIALOG.init(_window, _title, _facade,_navigation);
     }
 
-    private void init(MainWindow _window, String _title, FacadeGame _facade) {
+    private void init(MainWindow _window, String _title, FacadeGame _facade, Navigation _navigation) {
         //super(_window, true);
         setDialogIcon(_window);
         messages = getMessages(_window,Resources.MESSAGES_FOLDER);
@@ -45,14 +46,8 @@ public final class DialogGameProgess extends Dialog {
         setLocationRelativeTo(_window);
         ScrollPane scrollSession_ = new ScrollPane();
         session = new RenderedPage(scrollSession_);
-        //session.setProcess(VideoLoading.getVideo());
-        session.setLanguage(_facade.getLanguage());
-        session.setDataBase(_facade);
-        //dialog.setLocationRelativeTo(this);
-        //session.setDialog(dialog);
         session.setFrame(this);
-        session.setFiles(Resources.ACCESS_TO_DEFAULT_FILES);
-        session.initializeOnlyConf(Resources.ACCESS_TO_DEFAULT_PROG, new PokemonStandards());
+        session.initializeOnlyConf(_facade,_navigation,_facade.getLanguage());
         Panel panel_ = Panel.newPageBox();
         TextLabel area_ = new TextLabel(TEXT);
         TextField field_;

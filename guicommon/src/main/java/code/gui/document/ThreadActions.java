@@ -37,6 +37,7 @@ public final class ThreadActions implements Runnable {
     private String fileName;
     private StringMap<String> fileNames;
 
+    private boolean directFirst;
     private boolean usedFirstUrl;
 
     private BeanLgNames stds;
@@ -50,6 +51,12 @@ public final class ThreadActions implements Runnable {
     private String classDbName;
 
     private String methodName;
+
+    public ThreadActions(RenderedPage _page) {
+        page = _page;
+        page.start();
+        directFirst = true;
+    }
 
     public ThreadActions(RenderedPage _page, BeanLgNames _lgNames, String _anchor, String _fileName, boolean _form, boolean _refresh, boolean _usedFirstUrl) {
         page = _page;
@@ -84,6 +91,11 @@ public final class ThreadActions implements Runnable {
 
     @Override
     public void run() {
+        if (directFirst) {
+            page.getNavigation().initializeRendSession();
+            afterAction();
+            return;
+        }
         if (refresh) {
             page.getNavigation().rendRefresh();
             afterAction();
@@ -106,7 +118,6 @@ public final class ThreadActions implements Runnable {
                 htmlPage_.setUrl(-1);
                 if (fileNames == null) {
                     page.updateFiles();
-                    page.getNavigation().setupRendClasses();
                 } else {
                     page.getNavigation().setFiles(fileNames);
                     page.getNavigation().setupRendClasses();

@@ -10,6 +10,7 @@ import javax.swing.WindowConstants;
 import aiki.beans.PokemonStandards;
 import aiki.sml.Resources;
 import aiki.gui.MainWindow;
+import code.formathtml.Navigation;
 import code.gui.*;
 import code.gui.document.RenderedPage;
 import code.gui.events.ClosingChildFrameEvent;
@@ -68,10 +69,9 @@ public final class FrameHtmlData extends ChildFrame {
         setVisible(false);
     }
 
-    public void initSession(String _fileResConf) {
-        session.setFiles( Resources.ACCESS_TO_DEFAULT_FILES);
+    public void initSessionLg(Object _dataBase,Navigation _nav, String _lg) {
         setVisible(true);
-        session.initializeOnlyConf(_fileResConf, new PokemonStandards());
+        session.initializeOnlyConf(_dataBase,_nav, _lg);
     }
 
     public ProgressingWebDialog getDialog() {

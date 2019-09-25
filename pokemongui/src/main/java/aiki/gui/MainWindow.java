@@ -219,6 +219,16 @@ public final class MainWindow extends NetGroupFrame {
 
     private VideoLoading videoLoading = new VideoLoading();
     private LoadFlag loadFlag = new LoadFlagImpl();
+    private PreparedRenderedPages preparedDataWebTask;
+    private PreparedRenderedPages preparedFightTask;
+    private PreparedRenderedPages preparedPkTask;
+    private PreparedRenderedPages preparedDiffTask;
+    private PreparedRenderedPages preparedProgTask;
+    private Thread preparedDataWebThread;
+    private Thread preparedFightThread;
+    private Thread preparedPkThread;
+    private Thread preparedDiffThread;
+    private Thread preparedProgThread;
 //    private KeyPadListener keyPadListener;
 
 //    private ForwardingJavaCompiler compiling;
@@ -901,10 +911,13 @@ public final class MainWindow extends NetGroupFrame {
     }
 
     public void manageDifficulty() {
+        if (preparedDiffThread == null || preparedDiffThread.isAlive() || preparedDiffTask == null) {
+            return;
+        }
 //        if (showErrorMessageDialog(ForwardingJavaCompiler.getMess(Constants.getLanguage()))) {
 //            return;
 //        }
-        DialogDifficulty.setDialogDifficulty(this, messages.getVal(TITLE_DIFFICULTY), facade);
+        DialogDifficulty.setDialogDifficulty(this, messages.getVal(TITLE_DIFFICULTY), facade,preparedDiffTask.getNavigation());
     }
 
     @Override
@@ -956,6 +969,9 @@ public final class MainWindow extends NetGroupFrame {
         if (!dataWeb.isEnabled()) {
             return;
         }
+        if (preparedDataWebThread == null || preparedDataWebThread.isAlive() || preparedDataWebTask == null) {
+            return;
+        }
 //        if (showErrorMessageDialog(ForwardingJavaCompiler.getMess(Constants.getLanguage()))) {
 //            return;
 //        }
@@ -970,28 +986,30 @@ public final class MainWindow extends NetGroupFrame {
         //JTextArea area_ = new JTextArea();
         RenderedPage session_;
         session_ = new RenderedPage(new ScrollPane());
-        session_.setLanguage(facade.getLanguage());
-        session_.setDataBase(facade.getData());
         session_.setProcess(videoLoading.getVideo());
         FrameHtmlData dialog_ = new FrameHtmlData(this, messages.getVal(TITLE_WEB), session_);
 //        dialog_.initSession(facade.getData().getWebFiles(), successfulCompile, Resources.CONFIG_DATA, Resources.ACCESS_TO_DEFAULT_DATA);
-        dialog_.initSession(Resources.ACCESS_TO_DEFAULT_DATA);
+        dialog_.initSessionLg(facade.getData(),preparedDataWebTask.getNavigation(),facade.getLanguage());
         htmlDialogs.add(dialog_);
     }
 
     public void showGameProgressing() {
+        if (preparedProgThread == null || preparedProgThread.isAlive() || preparedProgTask == null) {
+            return;
+        }
 //        if (showErrorMessageDialog(ForwardingJavaCompiler.getMess(Constants.getLanguage()))) {
 //            return;
 //        }
-        DialogGameProgess.setGameProgress(this, messages.getVal(GAME_PROGRESS), facade);
+        DialogGameProgess.setGameProgress(this, messages.getVal(GAME_PROGRESS), facade,preparedProgTask.getNavigation());
     }
 
     private void reinitWebData() {
         htmlDialogs.first().setTitle(messages.getVal(TITLE_WEB));
 //        htmlDialogs.first().getSession().setFiles(facade.getData().getWebFiles(), Resources.ACCESS_TO_DEFAULT_FILES);
-        htmlDialogs.first().getSession().setFiles(Resources.ACCESS_TO_DEFAULT_FILES);
-        htmlDialogs.first().getSession().setDataBase(facade.getData());
-        htmlDialogs.first().getSession().initializeOnlyConf(Resources.ACCESS_TO_DEFAULT_DATA, new PokemonStandards());
+//        htmlDialogs.first().getSession().setFiles(Resources.ACCESS_TO_DEFAULT_FILES);
+//        htmlDialogs.first().getSession().setDataBase(facade.getData());
+//        htmlDialogs.first().getSession().initializeOnlyConf(Resources.ACCESS_TO_DEFAULT_DATA, new PokemonStandards());
+        htmlDialogs.first().initSessionLg(facade.getData(),preparedDataWebTask.getNavigation(),facade.getLanguage());
         htmlDialogs.first().pack();
     }
 
@@ -1521,5 +1539,85 @@ public final class MainWindow extends NetGroupFrame {
 
     public LoadFlag getLoadFlag() {
         return loadFlag;
+    }
+
+    public PreparedRenderedPages getPreparedDataWebTask() {
+        return preparedDataWebTask;
+    }
+
+    public void setPreparedDataWebTask(PreparedRenderedPages _preparedDataWebTask) {
+        preparedDataWebTask = _preparedDataWebTask;
+    }
+
+    public PreparedRenderedPages getPreparedFightTask() {
+        return preparedFightTask;
+    }
+
+    public void setPreparedFightTask(PreparedRenderedPages _preparedFightTask) {
+        preparedFightTask = _preparedFightTask;
+    }
+
+    public PreparedRenderedPages getPreparedPkTask() {
+        return preparedPkTask;
+    }
+
+    public void setPreparedPkTask(PreparedRenderedPages _preparedPkTask) {
+        preparedPkTask = _preparedPkTask;
+    }
+
+    public PreparedRenderedPages getPreparedDiffTask() {
+        return preparedDiffTask;
+    }
+
+    public void setPreparedDiffTask(PreparedRenderedPages _preparedDiffTask) {
+        preparedDiffTask = _preparedDiffTask;
+    }
+
+    public PreparedRenderedPages getPreparedProgTask() {
+        return preparedProgTask;
+    }
+
+    public void setPreparedProgTask(PreparedRenderedPages _preparedProgTask) {
+        preparedProgTask = _preparedProgTask;
+    }
+
+    public Thread getPreparedDataWebThread() {
+        return preparedDataWebThread;
+    }
+
+    public void setPreparedDataWebThread(Thread _preparedDataWebThread) {
+        preparedDataWebThread = _preparedDataWebThread;
+    }
+
+    public Thread getPreparedFightThread() {
+        return preparedFightThread;
+    }
+
+    public void setPreparedFightThread(Thread _preparedFightThread) {
+        preparedFightThread = _preparedFightThread;
+    }
+
+    public Thread getPreparedPkThread() {
+        return preparedPkThread;
+    }
+
+    public void setPreparedPkThread(Thread _preparedPkThread) {
+        preparedPkThread = _preparedPkThread;
+    }
+
+    public Thread getPreparedDiffThread() {
+        return preparedDiffThread;
+    }
+
+    public void setPreparedDiffThread(Thread _preparedDiffThread) {
+        preparedDiffThread = _preparedDiffThread;
+    }
+
+    public Thread getPreparedProgThread() {
+        return preparedProgThread;
+    }
+
+    public void setPreparedProgThread(Thread _preparedProgThread) {
+        preparedProgThread = _preparedProgThread;
     }
 }

@@ -1,18 +1,13 @@
 package aiki.gui.dialogs;
 import java.awt.Dimension;
 
-import javax.swing.BoxLayout;
-import javax.swing.JLabel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextField;
-import javax.swing.SwingUtilities;
 import javax.swing.WindowConstants;
 
-import aiki.beans.PokemonStandards;
 import aiki.sml.Resources;
 import aiki.facade.FacadeGame;
 import aiki.gui.MainWindow;
 import aiki.gui.threads.AfterSettingDifficutyThread;
+import code.formathtml.Navigation;
 import code.gui.*;
 import code.gui.document.RenderedPage;
 import code.util.StringMap;
@@ -38,11 +33,11 @@ public final class DialogDifficulty extends Dialog {
         setAccessFile(DIALOG_ACCESS);
     }
 
-    public static void setDialogDifficulty(MainWindow _window, String _title, FacadeGame _facade) {
-        DIALOG.init(_window, _title, _facade);
+    public static void setDialogDifficulty(MainWindow _window, String _title, FacadeGame _facade,Navigation _navigation) {
+        DIALOG.init(_window, _title, _facade,_navigation);
     }
 
-    private void init(MainWindow _window, String _title, FacadeGame _facade) {
+    private void init(MainWindow _window, String _title, FacadeGame _facade, Navigation _navigation) {
         setDialogIcon(_window);
         facade = _facade;
         window = _window;
@@ -53,11 +48,8 @@ public final class DialogDifficulty extends Dialog {
         setLocationRelativeTo(_window);
         ScrollPane scrollSession_ = new ScrollPane();
         session = new RenderedPage(scrollSession_);
-        session.setLanguage(_facade.getLanguage());
-        session.setDataBase(_facade);
         session.setFrame(this);
-        session.setFiles(Resources.ACCESS_TO_DEFAULT_FILES);
-        session.initializeOnlyConf(Resources.ACCESS_TO_DEFAULT_DIFF, new PokemonStandards());
+        session.initializeOnlyConf(facade,_navigation,_facade.getLanguage());
         Panel panel_ = Panel.newPageBox();
         TextLabel area_ = new TextLabel(TEXT);
         TextField field_;

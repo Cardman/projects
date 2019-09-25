@@ -12,6 +12,7 @@ import javax.swing.Timer;
 import aiki.beans.PokemonStandards;
 import aiki.comparators.TrMovesComparator;
 import aiki.db.DataBase;
+import aiki.gui.threads.PreparedRenderedPages;
 import aiki.sml.Resources;
 import aiki.facade.FacadeGame;
 import aiki.facade.enums.StorageActions;
@@ -75,6 +76,7 @@ import aiki.map.pokemon.PokemonPlayer;
 import aiki.map.pokemon.UsablePokemon;
 import aiki.network.Net;
 import aiki.network.stream.SentPokemon;
+import code.formathtml.Navigation;
 import code.gui.*;
 import code.gui.document.RenderedPage;
 import code.maths.LgInt;
@@ -1279,13 +1281,14 @@ public class ScenePanel {
 //        if (!(p_ instanceof PokemonPlayer)) {
 //            return;
 //        }
+        Thread thread_ = window.getPreparedPkThread();
+        PreparedRenderedPages task_ = window.getPreparedPkTask();
+        if (thread_ == null || thread_.isAlive() || task_ == null) {
+            return;
+        }
         RenderedPage session_;
         session_ = new RenderedPage(new ScrollPane());
-        session_.setLanguage(facade.getLanguage());
-        session_.setDataBase(facade);
-//        session_.setFiles(facade.getData().getWebPk(), Resources.ACCESS_TO_DEFAULT_FILES);
-        session_.setFiles(Resources.ACCESS_TO_DEFAULT_FILES);
-        showHtmlDialog(window, session_);
+        showHtmlDialog(window, session_,facade,task_.getNavigation(),facade.getLanguage());
     }
 
     public void healPokemon() {
@@ -1454,9 +1457,9 @@ public class ScenePanel {
         fish.setEnabledLabel(facade.isFishArea());
     }
 
-    private void showHtmlDialog(MainWindow _parent, RenderedPage _session) {
+    private void showHtmlDialog(MainWindow _parent, RenderedPage _session, Object _dataBase, Navigation _navigation, String _lg) {
 //        DialogHtmlData.setDialogHtmlData(_parent, messages.getVal(TITLE_DETAIL), _session, window.isSuccessfulCompile());
-        DialogHtmlData.setDialogHtmlData(_parent, messages.getVal(TITLE_DETAIL), _session);
+        DialogHtmlData.setDialogHtmlData(_parent, messages.getVal(TITLE_DETAIL), _session,_dataBase,_navigation,_lg);
     }
 
     public void selectPokemon() {
