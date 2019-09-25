@@ -4,21 +4,20 @@ import java.awt.Dimension;
 import java.awt.FontMetrics;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.image.BufferedImage;
 
 import code.gui.CustGraphics;
 import code.gui.PaintableLabel;
 import code.util.CustList;
 import code.util.StringList;
 
-public class SongRenderer extends PaintableLabel implements MouseListener {
+public class SongRenderer extends PaintableLabel {
 
     private int noSong;
 
     private StringList songs = new StringList();
 
     public SongRenderer() {
-        addMouseListener(this);
-        setDefaultSize();
     }
 
     public SongRenderer(StringList _songs) {
@@ -42,10 +41,15 @@ public class SongRenderer extends PaintableLabel implements MouseListener {
                 w_ = ws_;
             }
         }
-        setPreferredSize(new Dimension(w_, f_.getHeight() * songs.size()));
-    }
-    public void setDefaultSize() {
-        setSize(new Dimension(100, 60));
+        int h_ = f_.getHeight() * songs.size();
+        if (w_ <= 0 || h_ <= 0) {
+            return;
+        }
+        BufferedImage img_ = new BufferedImage(w_, h_, BufferedImage.TYPE_INT_ARGB);
+        CustGraphics gr_ = new CustGraphics(img_.getGraphics());
+        gr_.setFont(getFont());
+        paintComponent(gr_);
+        setIcon(img_);
     }
 
     @Override
@@ -64,24 +68,4 @@ public class SongRenderer extends PaintableLabel implements MouseListener {
         }
     }
 
-    @Override
-    public void mouseClicked(MouseEvent _e) {
-    }
-
-    @Override
-    public void mousePressed(MouseEvent _e) {
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent _e) {
-        repaintLabel();
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent _e) {
-    }
-
-    @Override
-    public void mouseExited(MouseEvent _e) {
-    }
 }

@@ -187,132 +187,136 @@ public class MainWindow extends GroupFrame {
                     return;
                 }
             }
-            try {
-                if (songsList.get(noSong).endsWith(WAV) || songsList.get(noSong).endsWith(TXT)) {
-                    //.wav or .txt
-                    ClipStream c_;
+            if (!songsList.isValidIndex(noSong)) {
+                ConfirmDialog.showMessage(this,_messages_.getVal(CANNOT_READ_MESSAGE_WPL),_messages_.getVal(CANNOT_READ_TITLE),getLanguageKey(),JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if (songsList.get(noSong).endsWith(WAV) || songsList.get(noSong).endsWith(TXT)) {
+                //.wav or .txt
+                ClipStream c_;
+                if (songsList.get(noSong).endsWith(WAV)) {
+                    c_ = StreamSoundFile.openClip(StreamBinaryFile.loadFile(songsList.get(noSong)));
+                } else {
+                    String txt_ = StreamTextFile.contentsOfFile(songsList.get(noSong));
+                    c_ = openClip(txt_);
+                }
+                while (true) {
+                    if (c_ != null) {
+                        break;
+                    }
+                    noSong ++;
+                    if (noSong >= songsList.size()) {
+                        break;
+                    }
                     if (songsList.get(noSong).endsWith(WAV)) {
                         c_ = StreamSoundFile.openClip(StreamBinaryFile.loadFile(songsList.get(noSong)));
                     } else {
                         String txt_ = StreamTextFile.contentsOfFile(songsList.get(noSong));
                         c_ = openClip(txt_);
                     }
-                    while (true) {
-                        if (c_ != null) {
-                            break;
-                        }
-                        noSong ++;
-                        if (noSong >= songsList.size()) {
-                            break;
-                        }
-                        if (songsList.get(noSong).endsWith(WAV)) {
-                            c_ = StreamSoundFile.openClip(StreamBinaryFile.loadFile(songsList.get(noSong)));
-                        } else {
-                            String txt_ = StreamTextFile.contentsOfFile(songsList.get(noSong));
-                            c_ = openClip(txt_);
+                }
+                if (songsList.isEmpty()) {
+                    ConfirmDialog.showMessage(this,_messages_.getVal(CANNOT_READ_MESSAGE_WAV),_messages_.getVal(CANNOT_READ_TITLE),getLanguageKey(),JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+                clipStream = c_;
+            } else if (songsList.get(noSong).endsWith(WPL)) {
+                //.wpl
+                String txt_ = StreamTextFile.contentsOfFile(songsList.get(noSong));
+                Document doc_ = DocumentBuilder.parseSax(txt_);
+                if (doc_ == null) {
+                    ConfirmDialog.showMessage(this,_messages_.getVal(CANNOT_READ_MESSAGE_WPL),_messages_.getVal(CANNOT_READ_TITLE),getLanguageKey(),JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+                ElementList e_ = doc_.getElementsByTagName(MEDIA);
+                int len_ = e_.getLength();
+                songsList.clear();
+                for (int i = CustList.FIRST_INDEX; i < len_; i++) {
+                    Element elt_ = e_.item(i);
+                    String v_ = elt_.getAttribute(SRC);
+                    if (!v_.endsWith(WAV)) {
+                        if (!v_.endsWith(TXT)) {
+                            continue;
                         }
                     }
-                    if (songsList.isEmpty()) {
-                        ConfirmDialog.showMessage(this,_messages_.getVal(CANNOT_READ_MESSAGE_WAV),_messages_.getVal(CANNOT_READ_TITLE),getLanguageKey(),JOptionPane.ERROR_MESSAGE);
-                        return;
-                    }
-                    clipStream = c_;
-                } else if (songsList.get(noSong).endsWith(WPL)) {
-                    //.wpl
-                    String txt_ = StreamTextFile.contentsOfFile(songsList.get(noSong));
-                    Document doc_ = DocumentBuilder.parseSax(txt_);
-                    ElementList e_ = doc_.getElementsByTagName(MEDIA);
-                    int len_ = e_.getLength();
-                    songsList.clear();
-                    for (int i = CustList.FIRST_INDEX; i < len_; i++) {
-                        Element elt_ = e_.item(i);
-                        String v_ = elt_.getAttribute(SRC);
-                        if (!v_.endsWith(WAV)) {
-                            if (!v_.endsWith(TXT)) {
-                                continue;
-                            }
-                        }
-                        songsList.add(v_);
-                    }
-                    songsList.removeAllString(EMPTY);
-                    if (songsList.isEmpty()) {
-                        ConfirmDialog.showMessage(this,_messages_.getVal(CANNOT_READ_MESSAGE_WPL),_messages_.getVal(CANNOT_READ_TITLE),getLanguageKey(),JOptionPane.ERROR_MESSAGE);
-                        return;
-                    }
-                    ElementList elts_ = doc_.getDocumentElement().getChildElements();
-                    boolean applyRand_ = true;
-                    if (elts_.getLength() > 0 && StringList.quickEq(KEY_PAUSE,elts_.get(0).getTagName())) {
+                    songsList.add(v_);
+                }
+                songsList.removeAllString(EMPTY);
+                if (songsList.isEmpty()) {
+                    ConfirmDialog.showMessage(this,_messages_.getVal(CANNOT_READ_MESSAGE_WPL),_messages_.getVal(CANNOT_READ_TITLE),getLanguageKey(),JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+                ElementList elts_ = doc_.getDocumentElement().getChildElements();
+                boolean applyRand_ = true;
+                if (elts_.getLength() > 0) {
+                    if (StringList.quickEq(KEY_PAUSE,elts_.get(0).getTagName())) {
                         String txtCont_ = elts_.get(0).getAttribute(ATTR_VALUE);
                         int paused_ = Numbers.parseInt(txtCont_);
                         if (songsList.isValidIndex(paused_)) {
                             noSong = paused_;
                             applyRand_ = false;
                         }
-                    } else if (elts_.getLength() > 0 && StringList.quickEq(KEY_RANDOM,elts_.get(0).getTagName())) {
+                    } else if (StringList.quickEq(KEY_RANDOM,elts_.get(0).getTagName())) {
                         random.setSelected(true);
                     }
-                    if (applyRand_ && random.isSelected()) {
-                        StringList songsList_ = new StringList();
-                        for (String o: suffledSongsNames(songsList)) {
-                            songsList_.add(o);
-                        }
-                        songsList = songsList_;
+                }
+                if (applyRand_ && random.isSelected()) {
+                    StringList songsList_ = new StringList();
+                    for (String o: suffledSongsNames(songsList)) {
+                        songsList_.add(o);
                     }
-                    Document list_ = DocumentBuilder.newXmlDocument();
-                    Element mainDoc_ = list_.createElement("smil");
-                    for (String s: songsList) {
-                        Element elt_ = list_.createElement(MEDIA);
-                        elt_.setAttribute(SRC,s);
-                        mainDoc_.appendChild(elt_);
+                    songsList = songsList_;
+                }
+                Document list_ = DocumentBuilder.newXmlDocument();
+                Element mainDoc_ = list_.createElement("smil");
+                for (String s: songsList) {
+                    Element elt_ = list_.createElement(MEDIA);
+                    elt_.setAttribute(SRC,s);
+                    mainDoc_.appendChild(elt_);
+                }
+                contentList = mainDoc_.export();
+                ClipStream c_;
+                if (songsList.get(noSong).endsWith(WAV)) {
+                    c_ = StreamSoundFile.openClip(StreamBinaryFile.loadFile(songsList.get(noSong)));
+                } else {
+                    String txtIn_ = StreamTextFile.contentsOfFile(songsList.get(noSong));
+                    c_ = openClip(txtIn_);
+                }
+                while (true) {
+                    if (c_ != null) {
+                        break;
                     }
-                    contentList = mainDoc_.export();
-                    ClipStream c_;
+                    noSong ++;
+                    if (noSong >= songsList.size()) {
+                        break;
+                    }
                     if (songsList.get(noSong).endsWith(WAV)) {
                         c_ = StreamSoundFile.openClip(StreamBinaryFile.loadFile(songsList.get(noSong)));
                     } else {
                         String txtIn_ = StreamTextFile.contentsOfFile(songsList.get(noSong));
                         c_ = openClip(txtIn_);
                     }
-                    while (true) {
-                        if (c_ != null) {
-                            break;
-                        }
-                        noSong ++;
-                        if (noSong >= songsList.size()) {
-                            break;
-                        }
-                        if (songsList.get(noSong).endsWith(WAV)) {
-                            c_ = StreamSoundFile.openClip(StreamBinaryFile.loadFile(songsList.get(noSong)));
-                        } else {
-                            String txtIn_ = StreamTextFile.contentsOfFile(songsList.get(noSong));
-                            c_ = openClip(txtIn_);
-                        }
-                    }
-                    clipStream = c_;
-                    if (songsList.isEmpty()) {
-                        ConfirmDialog.showMessage(this,_messages_.getVal(CANNOT_READ_MESSAGE_WPL),_messages_.getVal(CANNOT_READ_TITLE),getLanguageKey(),JOptionPane.ERROR_MESSAGE);
-                        return;
-                    }
                 }
-                songRend.setSongs(songsList);
-                songRend.setNoSong(noSong);
-                songRend.setSize();
-                songRend.validate();
-                scroll.validate();
-                songRend.repaintLabel();
-                PackingWindowAfter.pack(this);
-                clipStream.getClip().start();
-                clipStream.getClip().addLineListener(new SpeakingEvent(this));
-                play.setTextAndSize(PAUSE);
-                currentSong.setText(songsList.get(noSong));
-                String strBegin_ = getStringTime(0);
-                elapsedTime.setText(strBegin_+REL_SEP+getStringTime(clipStream.getClip().getMicrosecondLength()));
-                if (timer == null) {
-                    timer = new Timer(SECOND_MILLIS, new UpdateTimeEvent(this));
-                    timer.start();
+                clipStream = c_;
+                if (songsList.isEmpty()) {
+                    ConfirmDialog.showMessage(this,_messages_.getVal(CANNOT_READ_MESSAGE_WPL),_messages_.getVal(CANNOT_READ_TITLE),getLanguageKey(),JOptionPane.ERROR_MESSAGE);
+                    return;
                 }
-            } catch (RuntimeException _0) {
-                ConfirmDialog.showMessage(this,_messages_.getVal(CANNOT_READ_MESSAGE_WPL),_messages_.getVal(CANNOT_READ_TITLE),getLanguageKey(),JOptionPane.ERROR_MESSAGE);
+            }
+            songRend.setSongs(songsList);
+            songRend.setNoSong(noSong);
+            songRend.setSize();
+            scroll.revalidate();
+            pack();
+            clipStream.getClip().start();
+            clipStream.getClip().addLineListener(new SpeakingEvent(this));
+            play.setTextAndSize(PAUSE);
+            currentSong.setText(songsList.get(noSong));
+            String strBegin_ = getStringTime(0);
+            elapsedTime.setText(strBegin_+REL_SEP+getStringTime(clipStream.getClip().getMicrosecondLength()));
+            if (timer == null) {
+                timer = new Timer(SECOND_MILLIS, new UpdateTimeEvent(this));
+                timer.start();
             }
         } else {
             if (clipStream.getClip().isRunning()) {
@@ -376,6 +380,9 @@ public class MainWindow extends GroupFrame {
     }
 
     public static ClipStream openClip(String _imageString) {
+        if (_imageString == null) {
+            return null;
+        }
         return StreamSoundFile.openClip(parseBaseSixtyFourBinary(_imageString));
     }
 
@@ -461,10 +468,7 @@ public class MainWindow extends GroupFrame {
         if (clipStream != null && !next) {
             lastFrame = 0;
             clipStream.getClip().close();
-            try {
-                clipStream.getStream().close();
-            } catch (IOException _0) {
-            }
+            tryClose();
             clipStream = null;
         }
     }
@@ -475,10 +479,7 @@ public class MainWindow extends GroupFrame {
             noSong--;
             noSong--;
             clipStream.getClip().close();
-            try {
-                clipStream.getStream().close();
-            } catch (IOException _0) {
-            }
+            tryClose();
             clipStream = null;
         }
     }
@@ -490,11 +491,15 @@ public class MainWindow extends GroupFrame {
             songsList.clear();
             noSong = songsList.size();
             clipStream.getClip().close();
-            try {
-                clipStream.getStream().close();
-            } catch (IOException _0) {
-            }
+            tryClose();
             clipStream = null;
+        }
+    }
+
+    void tryClose() {
+        try {
+            clipStream.getStream().close();
+        } catch (IOException _0) {
         }
     }
 
@@ -511,10 +516,7 @@ public class MainWindow extends GroupFrame {
                 next = true;
                 playSong = true;
                 clipStream.getClip().close();
-                try {
-                    clipStream.getStream().close();
-                } catch (IOException _0) {
-                }
+                tryClose();
                 next = false;
             }
         } else if (StringList.quickEq(ev_, CLOSE)) {
