@@ -640,6 +640,14 @@ public abstract class OperationNode implements Operable {
         String clCurName_ = _class.getName();
         LgNames stds_ = _conf.getStandards();
         String glClass_ = _conf.getGlobalClass();
+        int varargOnly_ = _varargOnly;
+        boolean uniq_ = false;
+        if (_uniqueId != null) {
+            if (varargOnly_ > -1) {
+                uniq_ = true;
+            }
+            varargOnly_ = -1;
+        }
         for (ClassArgumentMatching c:_args) {
             if (c.matchVoid(_conf)) {
                 Mapping mapping_ = new Mapping();
@@ -666,7 +674,7 @@ public abstract class OperationNode implements Operable {
         for (GeneConstructor e: constructors_) {
             ConstructorId ctor_ = e.getId();
             boolean varArg_ = ctor_.isVararg();
-            if (_varargOnly > -1) {
+            if (varargOnly_ > -1) {
                 if (!varArg_) {
                     continue;
                 }
@@ -689,7 +697,7 @@ public abstract class OperationNode implements Operable {
             mloc_.setConstraints(ctor_);
             mloc_.setParameters(pg_);
             mloc_.setClassName(clCurName_);
-            if (!isPossibleMethod(_conf, clCurName_, _varargOnly, mloc_, p_, _args)) {
+            if (!isPossibleMethod(_conf, uniq_,clCurName_, varargOnly_, mloc_, p_, _args)) {
                 continue;
             }
             signatures_.add(mloc_);
@@ -716,7 +724,7 @@ public abstract class OperationNode implements Operable {
         ConstructorId ctor_ = cInfo_.getConstraints();
         ConstrustorIdVarArg out_;
         out_ = new ConstrustorIdVarArg();
-        if (_varargOnly == -1 && cInfo_.isVarArgWrap()) {
+        if (varargOnly_ == -1 && cInfo_.isVarArgWrap()) {
             out_.setVarArgToCall(true);
         }
         out_.setRealId(ctor_);
@@ -851,12 +859,20 @@ public abstract class OperationNode implements Operable {
     protected static ClassMethodIdReturn tryGetDeclaredCustMethod(Analyzable _conf, int _varargOnly, boolean _staticContext, StringList _classes, String _name, boolean _superClass, boolean _accessFromSuper, boolean _import, ClassMethodId _uniqueId, ClassArgumentMatching[] _argsClass) {
         ObjectMap<ClassMethodId, MethodInfo> methods_;
         methods_ = getDeclaredCustMethodByType(_conf, _staticContext, _accessFromSuper, _superClass, _classes, _name, _import, _uniqueId);
-        return getCustResult(_conf, _varargOnly, methods_, _name, _argsClass);
+        int varargOnly_ = _varargOnly;
+        boolean uniq_ = false;
+        if (_uniqueId != null) {
+            if (varargOnly_ > -1) {
+                uniq_ = true;
+            }
+            varargOnly_ = -1;
+        }
+        return getCustResult(_conf,uniq_, varargOnly_, methods_, _name, _argsClass);
     }
 
     static ClassMethodIdReturn getOperator(Analyzable _cont, String _op, ClassArgumentMatching... _argsClass) {
         ObjectMap<ClassMethodId, MethodInfo> ops_ = getOperators(_cont);
-        return getCustResult(_cont, -1, ops_, _op, _argsClass);
+        return getCustResult(_cont,false, -1, ops_, _op, _argsClass);
     }
     static ObjectMap<ClassMethodId, MethodInfo> getOperators(Analyzable _cont){
         String objType_ = _cont.getStandards().getAliasObject();
@@ -1163,7 +1179,7 @@ public abstract class OperationNode implements Operable {
         methods_.add(clId_, mloc_);
         return methods_;
     }
-    private static ClassMethodIdReturn getCustResult(Analyzable _conf, int _varargOnly,
+    private static ClassMethodIdReturn getCustResult(Analyzable _conf, boolean _unique,int _varargOnly,
                                                      ObjectMap<ClassMethodId, MethodInfo> _methods,
             String _name, ClassArgumentMatching... _argsClass) {
         CustList<MethodInfo> signatures_ = new CustList<MethodInfo>();
@@ -1182,7 +1198,7 @@ public abstract class OperationNode implements Operable {
             ClassMatching[] p_ = getParameters(id_);
             MethodInfo mi_ = e.getValue();
             String formattedType_ = mi_.getClassName();
-            if (!isPossibleMethod(_conf, formattedType_, _varargOnly, mi_, p_, _argsClass)) {
+            if (!isPossibleMethod(_conf, _unique,formattedType_, _varargOnly, mi_, p_, _argsClass)) {
                 continue;
             }
             signatures_.add(mi_);
@@ -1211,7 +1227,7 @@ public abstract class OperationNode implements Operable {
         return res_;
     }
 
-    private static boolean isPossibleMethod(Analyzable _context, String _class, int _varargOnly, Parametrable _id, ClassMatching[] _params,
+    private static boolean isPossibleMethod(Analyzable _context, boolean _unique,String _class, int _varargOnly, Parametrable _id, ClassMatching[] _params,
                                             ClassArgumentMatching... _argsClass) {
         int startOpt_ = _argsClass.length;
         boolean checkOnlyDem_ = true;
@@ -1310,6 +1326,13 @@ public abstract class OperationNode implements Operable {
                     _id.setInvocation(InvocationMethod.STRICT);
                 } else {
                     _id.setInvocation(InvocationMethod.BOX_UNBOX);
+                }
+                if (_unique) {
+                    map_.setParam(compo_);
+                    if (Templates.isCorrectOrNumbers(map_, _context)) {
+                        _id.setInvocation(InvocationMethod.ALL);
+                        _id.setVarArgWrap(true);
+                    }
                 }
                 return true;
             }

@@ -288,17 +288,22 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
                 return -1;
             }
         }
-        if (!(first_ instanceof VarargOperation)) {
+        if (!(first_ instanceof VarargOperation)&&!(first_ instanceof IdFctOperation)) {
             return -1;
         }
         CustList<OperationNode> ch_ = getChildrenNodes();
         int firstOpt_ = 0;
+        boolean found_ = false;
         int len_ = ch_.size();
         for (int i = from_; i < len_;i++) {
             if (ch_.get(i) instanceof FirstOptOperation) {
                 firstOpt_ = i + 1 - from_;
+                found_ = true;
                 break;
             }
+        }
+        if (!found_ && first_ instanceof IdFctOperation) {
+            return -1;
         }
         return firstOpt_;
     }
