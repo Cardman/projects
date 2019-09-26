@@ -79,6 +79,14 @@ public class LgNamesUtils extends LgNames {
     private String aliasFileListFiles;
     private String aliasFileListDirectories;
     private String aliasFileMakeDirs;
+    private String aliasFileZippedBin;
+    private String aliasFileZippedText;
+    private String aliasFileZipBin;
+    private String aliasFileZipText;
+    private String aliasEntryBinary;
+    private String aliasEntryText;
+    private String aliasEntryName;
+    private String aliasEntryValue;
     private String aliasIllegalThreadStateException;
 
     private String aliasCustIterator;
@@ -628,7 +636,38 @@ public class LgNamesUtils extends LgNames {
         constructors_.add(ctor_);
         std_ = stdcl_;
         getStandards().put(aliasAtomicLong, std_);
-        
+
+        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        constructors_ = new CustList<StandardConstructor>();
+        fields_ = new StringMap<StandardField>();
+        params_ = new StringList();
+        stdcl_ = new StandardClass(aliasEntryBinary, fields_, constructors_, methods_, getAliasObject(), MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasEntryName, params_, getAliasString(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasEntryValue, params_, PrimitiveTypeUtil.getPrettyArrayType(getAliasPrimByte()), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasString(), PrimitiveTypeUtil.getPrettyArrayType(getAliasPrimByte()));
+        ctor_ = new StandardConstructor(params_,false,stdcl_);
+        constructors_.add(ctor_);
+        std_ = stdcl_;
+        getStandards().put(aliasEntryBinary, std_);
+        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        constructors_ = new CustList<StandardConstructor>();
+        fields_ = new StringMap<StandardField>();
+        params_ = new StringList();
+        stdcl_ = new StandardClass(aliasEntryText, fields_, constructors_, methods_, getAliasObject(), MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasEntryName, params_, getAliasString(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasEntryValue, params_, getAliasString(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasString(), getAliasString());
+        ctor_ = new StandardConstructor(params_,false,stdcl_);
+        constructors_.add(ctor_);
+        std_ = stdcl_;
+        getStandards().put(aliasEntryText, std_);
+
         methods_ = new ObjectMap<MethodId, StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new StringMap<StandardField>();
@@ -668,6 +707,18 @@ public class LgNamesUtils extends LgNames {
         methods_.put(method_.getId(), method_);
         params_ = new StringList(getAliasString());
         method_ = new StandardMethod(aliasFileIsFile, params_, getAliasPrimBoolean(), false, MethodModifier.STATIC, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasString(),aliasEntryBinary);
+        method_ = new StandardMethod(aliasFileZipBin, params_, getAliasPrimBoolean(), true, MethodModifier.STATIC, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasString(),aliasEntryText);
+        method_ = new StandardMethod(aliasFileZipText, params_, getAliasPrimBoolean(), true, MethodModifier.STATIC, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasString());
+        method_ = new StandardMethod(aliasFileZippedBin, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasEntryBinary), false, MethodModifier.STATIC, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasString());
+        method_ = new StandardMethod(aliasFileZippedText, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasEntryText), false, MethodModifier.STATIC, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(getAliasString());
         method_ = new StandardMethod(aliasFileMakeDirs, params_, getAliasPrimBoolean(), false, MethodModifier.STATIC, stdcl_);
@@ -792,6 +843,18 @@ public class LgNamesUtils extends LgNames {
             }
             AtomicLong at_ = new AtomicLong(((NumberStruct)_args[0]).longStruct());
             StdStruct std_ = StdStruct.newInstance(at_, aliasAtomicLong);
+            res_.setResult(std_);
+            return res_;
+        }
+        if (StringList.quickEq(name_,aliasEntryBinary)) {
+            String cont_ = _cont.getStandards().getAliasPrimByte();
+            cont_ = PrimitiveTypeUtil.getPrettyArrayType(cont_);
+            EntryBinaryStruct std_ = new EntryBinaryStruct(_args[0],_args[1],cont_);
+            res_.setResult(std_);
+            return res_;
+        }
+        if (StringList.quickEq(name_,aliasEntryText)) {
+            EntryTextStruct std_ = new EntryTextStruct(_args[0],_args[1]);
             res_.setResult(std_);
             return res_;
         }
@@ -1079,6 +1142,28 @@ public class LgNamesUtils extends LgNames {
                 return res_;
             }
         }
+        if (StringList.quickEq(className_,aliasEntryText)) {
+            String name_ = _method.getConstraints().getName();
+            EntryTextStruct inst_ = (EntryTextStruct) _instance;
+            if (StringList.quickEq(name_,aliasEntryName)) {
+                res_.setResult(inst_.getName());
+                return res_;
+            }
+            res_.setResult(inst_.getText());
+            return res_;
+        }
+        if (StringList.quickEq(className_,aliasEntryBinary)) {
+            String name_ = _method.getConstraints().getName();
+            EntryBinaryStruct inst_ = (EntryBinaryStruct) _instance;
+            if (StringList.quickEq(name_,aliasEntryName)) {
+                res_.setResult(inst_.getName());
+                return res_;
+            }
+            ArrayStruct bin_ = inst_.getBinary();
+            _cont.getContextEl().addSensibleField(inst_, bin_);
+            res_.setResult(bin_);
+            return res_;
+        }
         if (StringList.quickEq(className_,aliasFile)) {
         	String name_ = _method.getConstraints().getName();
         	if (_cont.isInitEnums()) {
@@ -1200,6 +1285,22 @@ public class LgNamesUtils extends LgNames {
                     arr_.getInstance()[i] = new StringStruct(filesList_.get(i));
                 }
                 res_.setResult(arr_);
+                return res_;
+            }
+            if (StringList.quickEq(name_,aliasFileZipBin)) {
+                res_.setResult(ZipStructUtil.zipBinFiles(_args[0],_args[1]));
+                return res_;
+            }
+            if (StringList.quickEq(name_,aliasFileZipText)) {
+                res_.setResult(ZipStructUtil.zipTextFiles(_args[0],_args[1]));
+                return res_;
+            }
+            if (StringList.quickEq(name_,aliasFileZippedBin)) {
+                res_.setResult(ZipStructUtil.zippedBinaryFiles(_args[0], (RunnableContextEl) _cont));
+                return res_;
+            }
+            if (StringList.quickEq(name_,aliasFileZippedText)) {
+                res_.setResult(ZipStructUtil.zippedTextFiles(_args[0], (RunnableContextEl) _cont));
                 return res_;
             }
             String file_ = ((StringStruct)_args[0]).getInstance();
@@ -1393,7 +1494,17 @@ public class LgNamesUtils extends LgNames {
                 getAliasFileLastModif(),
                 getAliasFileListDirectories(),
                 getAliasFileListFiles(),
+                getAliasFileZipBin(),
+                getAliasFileZipText(),
+                getAliasFileZippedBin(),
+                getAliasFileZippedText(),
                 getAliasFileMakeDirs()));
+        m_.put(getAliasEntryBinary(), new StringList(
+                getAliasEntryName(),
+                getAliasEntryValue()));
+        m_.put(getAliasEntryText(), new StringList(
+                getAliasEntryName(),
+                getAliasEntryValue()));
         m_.put(getAliasCustIterator(), new StringList(
                 getAliasNext(),
                 getAliasHasNext()));
@@ -1750,6 +1861,70 @@ public class LgNamesUtils extends LgNames {
 
     public void setAliasFileListDirectories(String aliasFileListDirectories) {
         this.aliasFileListDirectories = aliasFileListDirectories;
+    }
+
+    public String getAliasFileZippedBin() {
+        return aliasFileZippedBin;
+    }
+
+    public void setAliasFileZippedBin(String aliasFileZippedBin) {
+        this.aliasFileZippedBin = aliasFileZippedBin;
+    }
+
+    public String getAliasFileZippedText() {
+        return aliasFileZippedText;
+    }
+
+    public void setAliasFileZippedText(String aliasFileZippedText) {
+        this.aliasFileZippedText = aliasFileZippedText;
+    }
+
+    public String getAliasFileZipBin() {
+        return aliasFileZipBin;
+    }
+
+    public void setAliasFileZipBin(String aliasFileZipBin) {
+        this.aliasFileZipBin = aliasFileZipBin;
+    }
+
+    public String getAliasFileZipText() {
+        return aliasFileZipText;
+    }
+
+    public void setAliasFileZipText(String aliasFileZipText) {
+        this.aliasFileZipText = aliasFileZipText;
+    }
+
+    public String getAliasEntryBinary() {
+        return aliasEntryBinary;
+    }
+
+    public void setAliasEntryBinary(String aliasEntryBinary) {
+        this.aliasEntryBinary = aliasEntryBinary;
+    }
+
+    public String getAliasEntryText() {
+        return aliasEntryText;
+    }
+
+    public void setAliasEntryText(String aliasEntryText) {
+        this.aliasEntryText = aliasEntryText;
+    }
+
+    public String getAliasEntryName() {
+        return aliasEntryName;
+    }
+
+    public void setAliasEntryName(String aliasEntryName) {
+        this.aliasEntryName = aliasEntryName;
+    }
+
+    public String getAliasEntryValue() {
+        return aliasEntryValue;
+    }
+
+    public void setAliasEntryValue(String aliasEntryValue) {
+        this.aliasEntryValue = aliasEntryValue;
     }
 
     public String getAliasFileMakeDirs() {
@@ -2444,6 +2619,20 @@ public class LgNamesUtils extends LgNames {
         _kw.setKeyWordPrivate(get(_util,_cust,"Private"));
         _kw.setKeyWordAnnotation(get(_util,_cust,"Annotation"));
         _kw.setKeyWordToString(get(_util,_cust,"ToString"));
+        _kw.setKeyWordNbSufBytePrim(get(_util,_cust,"NbSufBytePrim"));
+        _kw.setKeyWordNbSufByte(get(_util,_cust,"NbSufByte"));
+        _kw.setKeyWordNbSufShortPrim(get(_util,_cust,"NbSufShortPrim"));
+        _kw.setKeyWordNbSufShort(get(_util,_cust,"NbSufShort"));
+        _kw.setKeyWordNbSufCharacterPrim(get(_util,_cust,"NbSufCharacterPrim"));
+        _kw.setKeyWordNbSufCharacter(get(_util,_cust,"NbSufCharacter"));
+        _kw.setKeyWordNbSufIntegerPrim(get(_util,_cust,"NbSufIntegerPrim"));
+        _kw.setKeyWordNbSufInteger(get(_util,_cust,"NbSufInteger"));
+        _kw.setKeyWordNbSufLongPrim(get(_util,_cust,"NbSufLongPrim"));
+        _kw.setKeyWordNbSufLong(get(_util,_cust,"NbSufLong"));
+        _kw.setKeyWordNbSufFloatPrim(get(_util,_cust,"NbSufFloatPrim"));
+        _kw.setKeyWordNbSufFloat(get(_util,_cust,"NbSufFloat"));
+        _kw.setKeyWordNbSufDoublePrim(get(_util,_cust,"NbSufDoublePrim"));
+        _kw.setKeyWordNbSufDouble(get(_util,_cust,"NbSufDouble"));
         _kw.setKeyWordIter(get(_util,_cust,"Iter"));
         _kw.setKeyWordValue(get(_util,_cust,"Value"));
         _kw.setKeyWordElse(get(_util,_cust,"Else"));
@@ -2809,6 +2998,14 @@ public class LgNamesUtils extends LgNames {
         setAliasGetFirstTa(get(_util,_cust,"GetFirstTa"));
         setAliasSetSecondTa(get(_util,_cust,"SetSecondTa"));
         setAliasFileMakeDirs(get(_util,_cust,"FileMakeDirs"));
+        setAliasFileZippedBin(get(_util,_cust,"FileZippedBin"));
+        setAliasFileZippedText(get(_util,_cust,"FileZippedText"));
+        setAliasFileZipBin(get(_util,_cust,"FileZipBin"));
+        setAliasFileZipText(get(_util,_cust,"FileZipText"));
+        setAliasEntryBinary(get(_util,_cust,"EntryBinary"));
+        setAliasEntryText(get(_util,_cust,"EntryText"));
+        setAliasEntryName(get(_util,_cust,"EntryName"));
+        setAliasEntryValue(get(_util,_cust,"EntryValue"));
         setAliasCustIterTable(get(_util,_cust,"CustIterTable"));
         setAliasTableVarFirst(get(_util,_cust,"TableVarFirst"));
         setAliasSetSecond(get(_util,_cust,"SetSecond"));

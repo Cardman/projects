@@ -14,27 +14,6 @@ public final class StreamZipFile {
     private StreamZipFile() {
     }
 
-    public static StringList zippedFiles(String _zipFileName) {
-        StringList files_ = new StringList();
-        ZipFile zipFile_ = null;
-        try {
-            zipFile_ = new ZipFile(_zipFileName);
-
-            for (ZipEntry entry_ :Collections.list(zipFile_.entries())) {
-                files_.add(entry_.getName());
-            }
-            return files_;
-        } catch (Throwable _0) {
-            return null;
-        } finally {
-            if (zipFile_ != null) {
-                try {
-                    zipFile_.close();
-                } catch (Throwable _0) {
-                }
-            }
-        }
-    }
     public static StringMap<byte[]> zippedBinaryFiles(String _zipFileName) {
         StringMap<byte[]> files_ = new StringMap<byte[]>();
         ZipFile zipFile_ = null;
