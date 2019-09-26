@@ -3,7 +3,7 @@ import java.awt.image.BufferedImage;
 
 import aiki.facade.FacadeGame;
 import aiki.gui.components.fight.Battle;
-import code.gui.ThreadUtil;
+import code.stream.ThreadUtil;
 import code.gui.images.ConverterGraphicBufferedImage;
 
 /**This class thread is independant from EDT,

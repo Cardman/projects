@@ -18,6 +18,7 @@ import code.gui.*;
 import code.gui.Panel;
 import code.gui.ScrollPane;
 import code.gui.document.RenderedPage;
+import code.stream.ThreadUtil;
 import code.util.*;
 
 import javax.swing.*;

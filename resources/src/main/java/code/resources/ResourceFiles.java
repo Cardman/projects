@@ -1,23 +1,10 @@
 package code.resources;
 
-import javax.imageio.ImageIO;
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
-import javax.swing.ImageIcon;
-import java.awt.image.BufferedImage;
-import java.io.BufferedInputStream;
 import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
-import java.net.URL;
-import java.net.URLConnection;
 
 public final class ResourceFiles {
     public static final String SEPARATEUR = "/";
@@ -27,61 +14,20 @@ public final class ResourceFiles {
     private ResourceFiles() {
     }
 
-    public static ClipStream resourceSound(String _file) {
-        try {
-            Clip clip_ = AudioSystem.getClip();
-            InputStream in_ = ClassLoader.getSystemResourceAsStream(_file);
-            AudioInputStream audioIn_ = AudioSystem.getAudioInputStream(in_);
-            clip_.open(audioIn_);
-            in_.close();
-            ClipStream c_ = new ClipStream();
-            c_.setClip(clip_);
-            c_.setStream(audioIn_);
-            return c_;
-        } catch (RuntimeException _0) {
-            return null;
-        } catch (LineUnavailableException _0) {
-            return null;
-        } catch (UnsupportedAudioFileException _0) {
-            return null;
-        } catch (IOException _0) {
-            return null;
-        }
-    }
-
     public static String ressourceFichier(String _filePath) {
-        return resourceTextFile(EMPTY_STRING, _filePath, false);
+        return resourceTextFile(_filePath);
     }
 
-    public static String ressourceFichierUrls(String _filePath, String... _resourcesFolder) {
-        String file_ = resourceTextFile(EMPTY_STRING, _filePath, true);
-        if (file_ != null) {
-            return file_;
+    private static String resourceTextFile(String _filePath) {
+        String lignes_ = readFile(_filePath, StandardCharsets.UTF_8.getName());
+        if (lignes_ == null) {
+            return EMPTY_STRING;
         }
-        for (String u: _resourcesFolder) {
-            file_ = resourceTextFile(u, _filePath, true);
-            if (file_ != null) {
-                return file_;
-            }
+        int ind_ = lignes_.indexOf(INVALID_CHARACTER);
+        if (ind_ >= 0) {
+            lignes_ = readFile(_filePath, StandardCharsets.ISO_8859_1.getName());
         }
-        return EMPTY_STRING;
-    }
-
-    private static String resourceTextFile(String _url, String _filePath, boolean _returnNullFail) {
-        String lignes_ = EMPTY_STRING;
-        try {
-            lignes_ = readFile(new StringBuilder(_url).append(_filePath).toString(), StandardCharsets.UTF_8.getName());
-            int ind_ = lignes_.indexOf(INVALID_CHARACTER);
-            if (ind_ >= 0) {
-                lignes_ = readFile(new StringBuilder(_url).append(_filePath).toString(), StandardCharsets.ISO_8859_1.getName());
-            }
-            return lignes_;
-        } catch (RuntimeException _0) {
-            if (_returnNullFail) {
-                return null;
-            }
-            return lignes_;
-        }
+        return lignes_;
     }
 
     private static String readFile(String _file, String _encoding) {
@@ -100,88 +46,6 @@ public final class ResourceFiles {
         }
     }
 
-    public static BufferedImage resourceBufferedImage(String _nomFichier) {
-        ByteArrayInputStream bis_ = null;
-        try {
-            byte[] data_ = ResourceFiles.resourceFileAsBytes(_nomFichier);
-            bis_ = new ByteArrayInputStream(data_);
-            return ImageIO.read(bis_);
-        } catch (RuntimeException _0) {
-            try {
-                return ImageIO.read(new File(_nomFichier));
-            } catch (RuntimeException _1) {
-            } catch (IOException _1) {
-            }
-            return null;
-        } catch (IOException _0) {
-            try {
-                return ImageIO.read(new File(_nomFichier));
-            } catch (RuntimeException _1) {
-            } catch (IOException _1) {
-            }
-            return null;
-        } finally {
-            try {
-                if (bis_ != null) {
-                    bis_.close();
-                }
-            } catch (RuntimeException _0) {
-            } catch (IOException _0) {
-            }
-        }
-    }
-
-    public static ImageIcon ressourceIcon(String _nomFichier) {
-        try {
-            byte[] data_ = ResourceFiles.resourceFileAsBytes(_nomFichier);
-            return new ImageIcon(data_);
-        } catch (RuntimeException _0) {
-            return new ImageIcon(_nomFichier);
-        }
-    }
-
-    public static byte[] resourceFileAsBytes(String _file) {
-        ClassLoader classLoader_;
-        classLoader_ = ClassLoader.getSystemClassLoader();
-        URL url_ = classLoader_.getResource(_file);
-        URLConnection connect_;
-        InputStream inputStream_ = null;
-        BufferedInputStream buff_ = null;
-        try {
-            connect_ = url_.openConnection();
-            inputStream_ = connect_.getInputStream();
-            buff_ = new BufferedInputStream(inputStream_);
-            int len_ = connect_.getContentLength();
-            int index_ = 0;
-            byte[] bytes_ = new byte[len_];
-            while (true) {
-                int read_ = buff_.read(bytes_, index_, len_ - index_);
-                if (read_ == -1) {
-                    break;
-                }
-                if (index_ == len_) {
-                    break;
-                }
-                index_ += read_;
-            }
-            return bytes_;
-        } catch (RuntimeException _0) {
-            return null;
-        } catch (IOException _0) {
-            return null;
-        } finally {
-            try {
-                if (buff_ != null) {
-                    buff_.close();
-                }
-                if (inputStream_ != null) {
-                    inputStream_.close();
-                }
-            } catch (IOException _0) {
-            } catch (RuntimeException _0) {
-            }
-        }
-    }
     /**
      @param _br reader
     @return

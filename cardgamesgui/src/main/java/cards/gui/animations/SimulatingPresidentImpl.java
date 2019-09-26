@@ -18,6 +18,7 @@ import code.gui.Panel;
 import code.gui.ScrollPane;
 import code.gui.TextArea;
 import code.gui.document.RenderedPage;
+import code.stream.ThreadUtil;
 import code.util.ByteMap;
 import code.util.Bytes;
 import code.util.CustList;

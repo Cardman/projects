@@ -1,10 +1,9 @@
 package aiki.gui.threads;
-import javax.swing.SwingUtilities;
 
 import aiki.facade.FacadeGame;
 import aiki.gui.components.fight.Battle;
 import code.gui.CustComponent;
-import code.gui.ThreadUtil;
+import code.stream.ThreadUtil;
 
 /**This class thread is independant from EDT,
 Thread safe class*/

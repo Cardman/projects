@@ -1,9 +1,6 @@
 package aiki.main;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
 
 import aiki.db.DataBase;
 import code.gui.images.ConverterGraphicBufferedImage;
@@ -12,6 +9,7 @@ import code.maths.LgInt;
 import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloNumber;
 import code.resources.ResourceFiles;
+import code.stream.StreamImageFile;
 import code.util.CustList;
 import code.util.StringList;
 
@@ -29,19 +27,20 @@ public final class VideoLoading {
         if (!initialized) {
             String path_ = VIDEO;
             File file_ = new File(path_);
-            if (file_.isDirectory()) {
-                for (File folder_: file_.listFiles()) {
-                    if (!folder_.isDirectory()) {
-                        continue;
-                    }
+            File[] filesLists_ = file_.listFiles();
+            if (filesLists_ != null) {
+                for (File folder_: filesLists_) {
                     CustList<BufferedImage> imgs_ = new CustList<BufferedImage>();
                     File[] files_ = folder_.listFiles();
+                    if (files_ == null) {
+                        continue;
+                    }
                     int len_;
                     len_ = files_.length;
                     for (int i = CustList.FIRST_INDEX; i < len_; i++) {
-                        try {
-                            imgs_.add(ImageIO.read(new File(StringList.concat(path_,DataBase.SEPARATOR_FILES,folder_.getName(),DataBase.SEPARATOR_FILES,FILE,Long.toString(i),DataBase.IMG_FILES_RES_EXT))));
-                        } catch (IOException _0) {
+                        BufferedImage img_ = StreamImageFile.read(StringList.concat(path_, DataBase.SEPARATOR_FILES, folder_.getName(), DataBase.SEPARATOR_FILES, FILE, Long.toString(i), DataBase.IMG_FILES_RES_EXT));
+                        if (img_ != null) {
+                            imgs_.add(img_);
                         }
                     }
                     images.add(imgs_);

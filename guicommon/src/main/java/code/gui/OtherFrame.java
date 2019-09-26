@@ -35,7 +35,7 @@ public final class OtherFrame extends AbsFrame implements ChangeableTitle,WithLi
         }
     }
     protected void exit() {
-        ThreadUtil.exit();
+        ProcessUtil.exit();
     }
 
     public void setImageIconFrame(BufferedImage _imageIconFrame) {

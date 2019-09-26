@@ -5,60 +5,12 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.nio.channels.FileChannel;
 
 import code.util.CustList;
-import code.util.StringList;
 
 public final class StreamBinaryFile {
 
-//    private static final String END_PATH = "/$";
-//    private static final String EMPTY_STRING = "";
-
     private StreamBinaryFile() {
-    }
-
-    public static void copyFileToFolder(String _fromFile, String _toFolder) {
-        StringList list_ = StringList.splitStrings(_fromFile, StreamTextFile.SEPARATEUR);
-        String toFolder_ = _toFolder;
-        if (toFolder_.endsWith(StreamTextFile.SEPARATEUR)) {
-            toFolder_ = toFolder_.substring(CustList.FIRST_INDEX, toFolder_.length() - 1);
-        }
-        String toFile_ = StringList.concat(toFolder_, StreamTextFile.SEPARATEUR, list_.last());
-        copyFile(_fromFile, toFile_);
-    }
-
-    public static void copyFile(String _fromFolder, String _fileName, String _toFolder) {
-        String from_ = StringList.concat(_fromFolder, StreamTextFile.SEPARATEUR, _fileName);
-        String to_ = StringList.concat(_toFolder, StreamTextFile.SEPARATEUR, _fileName);
-        copyFile(from_, to_);
-    }
-    public static void copyFile(String _fromFile, String _toFile) {
-        FileOutputStream out_ = null;
-        FileInputStream in_ = null;
-        try {
-            FileChannel src_ = null;
-            FileChannel dest_ = null;
-            in_ = new FileInputStream(_fromFile);
-            src_ = in_.getChannel();
-            out_ = new FileOutputStream(_toFile);
-            dest_ = out_.getChannel();
-            dest_.transferFrom(src_, CustList.FIRST_INDEX, src_.size());
-        } catch (Throwable _0) {
-        } finally {
-            if (in_ != null) {
-                try {
-                    in_.close();
-                } catch (IOException _0) {
-                }
-            }
-            if (out_ != null) {
-                try {
-                    out_.close();
-                } catch (IOException _0) {
-                }
-            }
-        }
     }
 
     public static byte[] loadFile(String _file) {
@@ -89,15 +41,16 @@ public final class StreamBinaryFile {
         }
     }
 
-    public static void writeFile(String _file, byte[] _content) {
+    public static boolean writeFile(String _file, byte[] _content) {
         try {
             FileOutputStream fos_ = new FileOutputStream(new File(_file));
             BufferedOutputStream buff_ = new BufferedOutputStream(fos_);
             buff_.write(_content);
             buff_.close();
             fos_.close();
-        } catch (RuntimeException _0) {
-        } catch (IOException _0) {
+            return true;
+        } catch (Exception _0) {
+            return false;
         }
     }
 }

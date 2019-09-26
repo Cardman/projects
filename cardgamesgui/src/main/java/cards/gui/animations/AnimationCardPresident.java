@@ -1,12 +1,11 @@
 package cards.gui.animations;
-import javax.swing.SwingUtilities;
 
 import cards.gui.containers.ContainerSinglePresident;
 import cards.president.DealPresident;
 import cards.president.GamePresident;
 import code.gui.CustComponent;
 import code.gui.ThreadInvoker;
-import code.gui.ThreadUtil;
+import code.stream.ThreadUtil;
 import code.util.StringList;
 
 /**This class thread is independant from EDT,

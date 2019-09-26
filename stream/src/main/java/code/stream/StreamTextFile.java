@@ -8,15 +8,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.io.Reader;
 
-import code.resources.ResourceFiles;
 import code.sml.Document;
 import code.sml.DocumentBuilder;
 import code.sml.Element;
 import code.util.CustList;
 import code.util.StringList;
-import code.util.StringMap;
 
 public final class StreamTextFile {
 
@@ -27,42 +24,16 @@ public final class StreamTextFile {
     private StreamTextFile() {
     }
 
-    public static StringMap<byte[]> getFilesInBin(String _folder) {
-        StringMap<byte[]> map_ = new StringMap<byte[]>();
-        for (String f: files(_folder)) {
-            if (new File(f).isDirectory()) {
-                continue;
-            }
-            map_.put(f, StreamBinaryFile.loadFile(f));
-        }
-        return map_;
-    }
-
-    public static StringMap<String> getTextFiles(String _folder) {
-        StringMap<String> map_ = new StringMap<String>();
-        for (String f: files(_folder)) {
-            if (new File(StringList.concat(_folder,f)).isDirectory()) {
-                continue;
-            }
-            map_.put(f, contentsOfFile(StringList.concat(_folder,f)));
-        }
-        return map_;
-    }
-
     public static StringList allSortedFiles(String _folder) {
         FileInfo f_ = new FileInfo(new File(_folder));
         StringList files_ = new StringList();
         for (FileInfo s: getSortedDescNodes(f_)) {
-            FileInfo c_ = s;
-            files_.add(StringList.replaceBackSlash(c_.getInfo().getAbsolutePath()));
+            files_.add(StringList.replaceBackSlash(s.getInfo().getAbsolutePath()));
         }
         return files_;
     }
-    static CustList<FileInfo> getSortedDescNodes(FileInfo _root) {
+    private static CustList<FileInfo> getSortedDescNodes(FileInfo _root) {
         CustList<FileInfo> list_ = new CustList<FileInfo>();
-        if (_root == null) {
-            return list_;
-        }
         FileInfo c_ = _root;
         while (true) {
             if (c_ == null) {
@@ -74,37 +45,23 @@ public final class StreamTextFile {
         return list_;
     }
 
-    static FileInfo getNext(FileInfo _current, FileInfo _root) {
+    private static FileInfo getNext(FileInfo _current, FileInfo _root) {
         FileInfo n_ = _current.getFirstChild();
         if (n_ != null) {
             return n_;
         }
-        n_ = _current.getNextSibling();
-        if (n_ != null) {
-            return n_;
-        }
-        n_ = _current.getParent();
-        if (n_ == _root) {
-            return null;
-        }
-        if (n_ != null) {
-            FileInfo next_ = n_.getNextSibling();
-            while (next_ == null) {
-                FileInfo par_ = n_.getParent();
-                if (par_ == _root) {
-                    break;
-                }
-                if (par_ == null) {
-                    break;
-                }
-                next_ = par_.getNextSibling();
-                n_ = par_;
-            }
+        FileInfo curr_ = _current;
+        while (true) {
+            FileInfo next_ = curr_.getNextSibling();
             if (next_ != null) {
                 return next_;
             }
+            FileInfo par_ = curr_.getParent();
+            if (par_ == null || par_ == _root) {
+                return null;
+            }
+            curr_ = par_;
         }
-        return null;
     }
     public static StringList files(String _folder) {
         StringList files_ = new StringList();
@@ -140,54 +97,21 @@ public final class StreamTextFile {
         return files_;
     }
 
-    public static Element documentXmlInterne(String _dossier, String _fichier) {
-        Document doc_ = DocumentBuilder.parseSax(ResourceFiles.ressourceFichier(StringList.concat(_dossier,SEPARATEUR, _fichier)));
-        Element element_ = doc_.getDocumentElement();
-        return element_;
-    }
-
     public static Document documentXmlExterne(String _nomFichier) {
         return DocumentBuilder.parseSax(contentsOfFile(_nomFichier));
     }
 
-    public static int nbLines(String _nomFichier) {
-        try {
-            File file_ = new File(_nomFichier);
-            InputStream inputStream_ = new FileInputStream(file_);
-            Reader reader_ = new InputStreamReader(inputStream_, StandardCharsets.UTF_8.getName());
-//            Reader reader_ = new InputStreamReader(inputStream_, StandardCharsets.ISO_8859_1);
-            BufferedReader br_ = new BufferedReader(reader_);
-            int i_ = 0;
-            while (true) {
-
-                String ligne_ = br_.readLine();
-                if (ligne_ == null) {
-                    break;
-                }
-                i_++;
-            }
-            br_.close();
-            reader_.close();
-            return i_;
-        } catch (RuntimeException _0) {
-            return 0;
-        } catch (IOException _0) {
-            return 0;
-        }
-    }
-
     public static String contentsOfFile(String _nomFichier) {
-        String file_ = EMPTY_STRING;
-        try {
-            file_ = readFile(_nomFichier, StandardCharsets.UTF_8.getName());
-            int ind_ = file_.indexOf(INVALID_CHARACTER);
-            if (ind_ >= 0) {
-                file_ = readFile(_nomFichier, StandardCharsets.ISO_8859_1.getName());
-            }
-            return file_;
-        } catch (RuntimeException _0) {
+        String file_;
+        file_ = readFile(_nomFichier, StandardCharsets.UTF_8.getName());
+        if (file_ == null) {
             return null;
         }
+        int ind_ = file_.indexOf(INVALID_CHARACTER);
+        if (ind_ >= 0) {
+            file_ = readFile(_nomFichier, StandardCharsets.ISO_8859_1.getName());
+        }
+        return file_;
     }
 
     private static String readFile(String _filePath, String _encoding) {

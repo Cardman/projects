@@ -43,17 +43,16 @@ public abstract class NetGroupFrame extends GroupFrame implements NetWindow {
             connection=new ConnectionToServer(serverSocket_,this,ip_, _port);
             connectionTh = CustComponent.newThread(connection);
             connectionTh.start();
-            return;
         } catch (RuntimeException _0) {
         }
     }
 
     /**server and client*/
-    public boolean closeConnexion() {
+    public boolean closeConnexion(Socket _socket) {
         if (connection == null) {
             return true;
         }
-        return connection.fermer();
+        return connection.fermer(_socket);
     }
 
     public SocketResults createClient(String _host, IpType _ipType, boolean _first, int _port) {
@@ -117,19 +116,12 @@ public abstract class NetGroupFrame extends GroupFrame implements NetWindow {
         }
     }
 
-    /**
-    Method allowing the client to send text by its socket
-    @param _text the text to be sent*/
-    public void sendText(String _text) {
-        sendText(socket,_text);
-    }
-
     public static void sendText(Socket _socket, String _text) {
         try {
             OutputStream output_ = _socket.getOutputStream();
             PrintWriter out_ = new PrintWriter(output_, true);
             out_.println(_text);
-        } catch (IOException _0) {
+        } catch (Exception _0) {
         }
     }
 

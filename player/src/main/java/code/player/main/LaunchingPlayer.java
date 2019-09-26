@@ -5,9 +5,6 @@ import code.gui.ConstFiles;
 import code.gui.LoadLanguage;
 import code.gui.SoftApplicationCore;
 import code.gui.ThreadInvoker;
-import code.gui.images.ConverterGraphicBufferedImage;
-import code.images.BaseSixtyFourUtil;
-import code.resources.ResourceFiles;
 import code.player.gui.CreateMainWindow;
 import code.stream.StreamTextFile;
 import code.util.StringList;
@@ -65,13 +62,7 @@ public class LaunchingPlayer extends SoftApplicationCore {
     }
 
     public static BufferedImage getIcon() {
-        BufferedImage image_ = null;
-        try {
-            String file_ = ResourceFiles.ressourceFichier(RESOURCES_FOLDER+StreamTextFile.SEPARATEUR+ ICON);
-            image_ = ConverterGraphicBufferedImage.decodeToImage(BaseSixtyFourUtil.getImageByString(file_));
-        } catch (RuntimeException _0) {
-        }
-        return image_;
+        return getImage(RESOURCES_FOLDER,ICON);
     }
 
     public static String getTempFolderSl() {

@@ -1,13 +1,10 @@
 package code.gui;
-import javax.swing.JTextField;
 import javax.swing.event.DocumentListener;
 import javax.swing.event.UndoableEditListener;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
-import javax.swing.text.DocumentFilter;
 import javax.swing.text.Element;
-import javax.swing.text.JTextComponent;
 import javax.swing.text.PlainDocument;
 import javax.swing.text.Position;
 import javax.swing.text.Segment;
@@ -86,22 +83,6 @@ public final class AutoCompleteDocument implements Document {
         return doc.getDefaultRootElement();
     }
 
-    public Element getParagraphElement(int _pos) {
-        return doc.getParagraphElement(_pos);
-    }
-
-    public void setAsynchronousLoadPriority(int _p) {
-        doc.setAsynchronousLoadPriority(_p);
-    }
-
-    public void setDocumentFilter(DocumentFilter _filter) {
-        doc.setDocumentFilter(_filter);
-    }
-
-    public DocumentFilter getDocumentFilter() {
-        return doc.getDocumentFilter();
-    }
-
     @Override
     public void render(Runnable _r) {
         doc.render(_r);
@@ -112,22 +93,10 @@ public final class AutoCompleteDocument implements Document {
         return doc.getLength();
     }
 
-    public DocumentListener[] getDocumentListeners() {
-        return doc.getDocumentListeners();
-    }
-
     @Override
     public void remove(int _offs, int _len) {
         try {
             doc.remove(_offs, _len);
-        } catch (BadLocationException _0) {
-        }
-    }
-
-    public void replace(int _offset, int _length, String _text,
-            AttributeSet _attrs) {
-        try {
-            doc.replace(_offset, _length, _text, _attrs);
         } catch (BadLocationException _0) {
         }
     }
@@ -152,10 +121,6 @@ public final class AutoCompleteDocument implements Document {
     @Override
     public Element[] getRootElements() {
         return doc.getRootElements();
-    }
-
-    public Element getBidiRootElement() {
-        return doc.getBidiRootElement();
     }
 
     public void addDictionaryEntry(String _item) {

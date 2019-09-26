@@ -19,11 +19,14 @@ public final class ConnectionToServer implements Runnable {
         serverWindow = _serverWindow;
         serverWindow.createClient(_ipHost, null, true, _port);
     }
-    public boolean fermer() {
+    public boolean fermer(Socket _socket) {
         try {
             serverSocket.close();
+            if (_socket != null) {
+                _socket.close();
+            }
             return true;
-        } catch (IOException _0) {
+        } catch (Exception _0) {
             return false;
         }
     }

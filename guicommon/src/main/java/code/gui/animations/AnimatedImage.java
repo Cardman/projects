@@ -4,7 +4,7 @@ import java.awt.image.BufferedImage;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import code.gui.PreparedLabel;
-import code.gui.ThreadUtil;
+import code.stream.ThreadUtil;
 import code.util.CustList;
 
 public final class AnimatedImage implements Runnable {

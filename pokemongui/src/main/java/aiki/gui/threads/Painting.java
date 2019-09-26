@@ -1,12 +1,11 @@
 package aiki.gui.threads;
-import javax.swing.SwingUtilities;
 
 import aiki.facade.FacadeGame;
 import aiki.gui.MainWindow;
 import aiki.gui.components.walk.Scene;
 import aiki.map.enums.Direction;
 import code.gui.CustComponent;
-import code.gui.ThreadUtil;
+import code.stream.ThreadUtil;
 import code.util.CustList;
 
 /**This class thread is independant from EDT,

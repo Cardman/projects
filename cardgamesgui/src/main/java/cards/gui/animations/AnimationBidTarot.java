@@ -1,5 +1,4 @@
 package cards.gui.animations;
-import javax.swing.SwingUtilities;
 
 import cards.facade.Games;
 import cards.gui.containers.ContainerGame;
@@ -9,7 +8,7 @@ import cards.tarot.GameTarot;
 import cards.tarot.enumerations.BidTarot;
 import code.gui.CustComponent;
 import code.gui.ThreadInvoker;
-import code.gui.ThreadUtil;
+import code.stream.ThreadUtil;
 import code.util.StringList;
 
 /**This class thread is independant from EDT,

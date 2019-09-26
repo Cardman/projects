@@ -5,12 +5,12 @@ import code.gui.LoadLanguage;
 import code.gui.SoftApplicationCore;
 import code.gui.ThreadInvoker;
 import code.stream.StreamBinaryFile;
+import code.stream.StreamImageFile;
 import code.stream.StreamTextFile;
 import code.util.StringList;
 import code.util.StringMap;
 import code.converterimages.gui.CreateMainWindow;
 
-import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 
@@ -26,17 +26,13 @@ public class LaunchingConverter extends SoftApplicationCore {
 
     @Override
     public Object getObject(String _fileName) {
-        try {
-            if (isBinary(StreamBinaryFile.loadFile(_fileName))) {
-                BufferedImage img_ = ImageIO.read(new File(_fileName));
-                if (img_ != null) {
-                    return img_;
-                }
+        if (isBinary(StreamBinaryFile.loadFile(_fileName))) {
+            BufferedImage img_ = StreamImageFile.read(_fileName);
+            if (img_ != null) {
+                return img_;
             }
-            return StreamTextFile.contentsOfFile(_fileName);
-        } catch (Exception e) {
-            return StreamTextFile.contentsOfFile(_fileName);
         }
+        return StreamTextFile.contentsOfFile(_fileName);
     }
 
     @Override

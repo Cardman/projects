@@ -113,7 +113,7 @@ public abstract class GroupFrame extends CommonFrame {
     }
 
     protected void exit() {
-        ThreadUtil.exit();
+        ProcessUtil.exit();
     }
 
     @Override

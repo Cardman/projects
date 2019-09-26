@@ -22,12 +22,12 @@ import code.renders.LaunchingRenders;
 import code.sml.Document;
 import code.sml.DocumentBuilder;
 import code.stream.StreamBinaryFile;
+import code.stream.StreamImageFile;
 import code.stream.StreamTextFile;
 import code.util.StringList;
 import code.util.StringMap;
 import code.converterimages.main.LaunchingConverter;
 
-import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 
@@ -152,13 +152,9 @@ public class LaunchingApplications extends SoftApplicationCore {
     public Object getObject(String _fileName) {
         byte[] bytes_ = StreamBinaryFile.loadFile(_fileName);
         if (LaunchingConverter.isBinary(bytes_) && !isZip(bytes_)) {
-            try {
-                BufferedImage img_ = ImageIO.read(new File(_fileName));
-                if (img_ != null) {
-                    return img_;
-                }
-            } catch (Exception e) {
-                //skip
+            BufferedImage img_ = StreamImageFile.read(_fileName);
+            if (img_ != null) {
+                return img_;
             }
         }
         String file_ = StreamTextFile.contentsOfFile(_fileName);

@@ -89,7 +89,7 @@ import cards.tarot.ResultsTarot;
 import cards.tarot.RulesTarot;
 import cards.tarot.TricksHandsTarot;
 import cards.tarot.enumerations.*;
-import code.gui.ThreadUtil;
+import code.stream.ThreadUtil;
 import code.network.AddingPlayer;
 import code.network.BasicServer;
 import code.network.NetGroupFrame;

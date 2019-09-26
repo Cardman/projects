@@ -31,6 +31,7 @@ import code.expressionlanguage.variables.VariableSuffix;
 import code.resources.ResourceFiles;
 import code.sml.stream.ExtractFromFiles;
 import code.stream.StreamTextFile;
+import code.stream.ThreadUtil;
 import code.util.CustList;
 import code.util.ObjectMap;
 import code.util.StringList;
@@ -880,10 +881,9 @@ public class LgNamesUtils extends LgNames {
             }
             if (StringList.quickEq(name_,aliasStart)) {
                 Thread thread_ = (Thread)((StdStruct) _instance).getInstance();
-                try {
-                    thread_.start();
+                if (ThreadUtil.start(thread_)) {
                     res_.setResult(NullStruct.NULL_VALUE);
-                } catch (Exception e) {
+                } else {
                     res_.setError(getAliasIllegalThreadStateException());
                 }
                 return res_;
@@ -904,11 +904,7 @@ public class LgNamesUtils extends LgNames {
             if (StringList.quickEq(name_,aliasJoin)) {
                 Thread thread_ = (Thread) ((StdStruct) _instance).getInstance();
                 boolean alive_ = thread_.isAlive();
-                try {
-                    thread_.join();
-                } catch (Exception e) {
-                    //skip exception
-                }
+                ThreadUtil.join(thread_);
                 res_.setResult(new BooleanStruct(alive_));
                 return res_;
             }
@@ -968,10 +964,9 @@ public class LgNamesUtils extends LgNames {
             }
             if (StringList.quickEq(name_,aliasSetPriority)) {
                 Thread thread_ = (Thread) ((StdStruct) _instance).getInstance();
-                try {
-                    thread_.setPriority(((NumberStruct)_args[0]).intStruct());
+                if (ThreadUtil.setPriority(thread_,((NumberStruct)_args[0]).intStruct())) {
                     res_.setResult(NullStruct.NULL_VALUE);
-                } catch (Exception e) {
+                } else {
                     res_.setError(getAliasIllegalArg());
                 }
                 return res_;

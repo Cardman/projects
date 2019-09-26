@@ -20,6 +20,7 @@ import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.DisplayableStruct;
 import code.expressionlanguage.structs.Struct;
 import code.stream.StreamTextFile;
+import code.stream.ThreadUtil;
 import code.util.ObjectMap;
 import code.util.StringList;
 
@@ -141,20 +142,12 @@ public class CustInitializer extends DefaultInitializer {
             if (t.eq(id_)) {
                 continue;
             }
-            try {
-                t.getThread().join();
-            } catch (Exception e) {
-                //skip exception
-            }
+            ThreadUtil.join(t.getThread());
         }
     }
     public void joinHooks() {
         for (Thread t: hooks.keySet()) {
-            try {
-                t.join();
-            } catch (Exception e) {
-                //skip exception
-            }
+            ThreadUtil.join(t);
         }
     }
     void putNewCustTreadIdDate(Thread _id, long _nb, String _value) {

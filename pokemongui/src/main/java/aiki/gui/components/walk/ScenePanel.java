@@ -738,6 +738,7 @@ public class ScenePanel {
 
     //called while connection to a server succeeds.
     public void setNetworkPanel() {
+        window.getFolderLoad().setEnabledMenu(false);
         window.getZipLoad().setEnabledMenu(false);
         window.getGameLoad().setEnabledMenu(false);
         window.getNewGame().setEnabledMenu(false);

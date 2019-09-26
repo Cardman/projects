@@ -701,19 +701,6 @@ public final class MainWindow extends NetGroupFrame {
         LaunchingCards.decrement();
         super.dispose();
     }
-    public void close() {
-        closeConnexion();
-        //LaunchingCards.decrement();
-        ecrireCoordonnees();
-        if (!helpFrames.isEmpty()) {
-//            helpFrames.first().dispose();
-            helpFrames.first().setVisible(false);
-        }
-        dispose();
-//        if (Standalone.isStandalone()) {
-//            Constants.exit();
-//        }
-    }
 
     private int saving() {
         //warning message
@@ -1032,11 +1019,7 @@ public final class MainWindow extends NetGroupFrame {
     @Override
     public void quitNetwork(Exiting _exit, Socket _socket) {
         menuPrincipal();
-        try {
-            closeConnexion();
-            _socket.close();
-        } catch (Exception _0) {
-        }
+        closeConnexion(_socket);
         if (_exit.isClosing()) {
             dispose();
             return;

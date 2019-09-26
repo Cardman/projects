@@ -69,8 +69,7 @@ public abstract class SoftApplicationCore {
     }
 
     protected static BufferedImage getImage(String _folder, String _fileTxt) {
-        //, String _filePng
-        BufferedImage image_ = null;
+        BufferedImage image_;
         String icon_ = ResourceFiles.ressourceFichier(StringList.concat(_folder,StreamTextFile.SEPARATEUR,_fileTxt));
         int[][] file_ = BaseSixtyFourUtil.getImageByString(icon_);
         image_ = ConverterGraphicBufferedImage.decodeToImage(file_);

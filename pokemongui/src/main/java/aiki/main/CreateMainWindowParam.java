@@ -9,6 +9,7 @@ import aiki.sml.LoadingGame;
 import aiki.gui.MainWindow;
 import aiki.gui.threads.PerCentIncr;
 import code.gui.CustComponent;
+import code.stream.StreamFolderFile;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -38,8 +39,9 @@ public final class CreateMainWindowParam implements Runnable {
         boolean stoppedLoading_ = false;
         String path_;
         if (!load.getLastRom().isEmpty()) {
-            File file_ = new File(StringList.replaceBackSlash(load.getLastRom()));
-            if (!file_.isAbsolute()) {
+            String lastRom_ = StringList.replaceBackSlash(load.getLastRom());
+            File file_ = new File(lastRom_);
+            if (!StreamFolderFile.isAbsolute(lastRom_)) {
                 path_ = StringList.concat(path,load.getLastRom());
             } else {
                 path_ = file_.getAbsolutePath();

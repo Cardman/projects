@@ -1,12 +1,11 @@
 package cards.gui.animations;
-import javax.swing.SwingUtilities;
 
 import cards.belote.DealBelote;
 import cards.belote.GameBelote;
 import cards.gui.containers.ContainerSingleBelote;
 import code.gui.CustComponent;
 import code.gui.ThreadInvoker;
-import code.gui.ThreadUtil;
+import code.stream.ThreadUtil;
 import code.util.StringList;
 
 /**This class thread is independant from EDT,

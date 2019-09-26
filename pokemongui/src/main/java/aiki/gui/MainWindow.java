@@ -10,7 +10,6 @@ import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 import javax.swing.WindowConstants;
 
-import aiki.beans.PokemonStandards;
 import aiki.db.DataBase;
 import aiki.db.ImageHeroKey;
 import aiki.db.LoadFlag;
@@ -66,8 +65,8 @@ import code.network.AttemptConnecting;
 import code.network.BasicClient;
 import code.network.Exiting;
 import code.network.NetGroupFrame;
+import code.stream.StreamFolderFile;
 import code.stream.StreamTextFile;
-import code.stream.StreamZipFile;
 import code.util.CustList;
 import code.util.EnumMap;
 import code.util.*;
@@ -84,6 +83,7 @@ public final class MainWindow extends NetGroupFrame {
     private static final String TITLE = "title";
 
     private static final String FILE = "file";
+    private static final String FOLDER_LOAD = "folderLoad";
     private static final String ZIP_LOAD = "zipLoad";
     private static final String GAME_LOAD = "gameLoad";
     private static final String GAME_SAVE = "gameSave";
@@ -155,6 +155,8 @@ public final class MainWindow extends NetGroupFrame {
     private Menu file;
 
     private MenuItem zipLoad;
+
+    private MenuItem folderLoad;
 
     private MenuItem gameLoad;
 
@@ -287,17 +289,7 @@ public final class MainWindow extends NetGroupFrame {
             quit_.setClosing(true);
             quit_.setPlace(indexInGame);
             quit_.setLocale(getLanguageKey());
-            try {
-                sendObject(quit_);
-            } catch (RuntimeException _0) {
-                //LaunchingPokemon.decrement();
-                exitFromTrading();
-                resetIndexInGame();
-                dispose();
-//                if (Standalone.isStandalone()) {
-//                    Constants.exit();
-//                }
-            }
+            sendObject(quit_);
             return;
         }
         if (battle != null) {
@@ -415,6 +407,7 @@ public final class MainWindow extends NetGroupFrame {
         messages = getMessages(this,Resources.MESSAGES_FOLDER);
         file.setText(messages.getVal(FILE));
         zipLoad.setText(messages.getVal(ZIP_LOAD));
+        folderLoad.setText(messages.getVal(FOLDER_LOAD));
         gameLoad.setText(messages.getVal(GAME_LOAD));
         gameSave.setText(messages.getVal(GAME_SAVE));
         language.setText(messages.getVal(LANGUAGE));
@@ -512,7 +505,7 @@ public final class MainWindow extends NetGroupFrame {
     public void loadOnlyRom(String _file, PerCent _p) {
         if (!_file.isEmpty()) {
             //startThread = true;
-            StringMap<String> files_ = StreamZipFile.zippedTextFiles(_file);
+            StringMap<String> files_ = StreamFolderFile.getFiles(_file);
             DocumentReaderAikiCoreUtil.loadRomAndCheck(facade,_file, files_,_p,loadFlag);
             if (!facade.isLoadedData()) {
                 DocumentReaderAikiCoreUtil.loadResources(facade,_p,loadFlag);
@@ -534,14 +527,15 @@ public final class MainWindow extends NetGroupFrame {
     public void loadRomGame(LoadingGame _configuration, String _path, StringMap<Object> _files, boolean _param, PerCent _p) {
         String path_;
         if (!_configuration.getLastRom().isEmpty()) {
-            File file_ = new File(StringList.replaceBackSlash(_configuration.getLastRom()));
-            if (!file_.isAbsolute()) {
+            String lastRom_ = StringList.replaceBackSlash(_configuration.getLastRom());
+            File file_ = new File(lastRom_);
+            if (!StreamFolderFile.isAbsolute(lastRom_)) {
                 path_ = StringList.concat(_path,_configuration.getLastRom());
             } else {
                 path_ = file_.getAbsolutePath();
             }
             path_ = StringList.replaceBackSlash(path_);
-            StringMap<String> files_ = StreamZipFile.zippedTextFiles(path_);
+            StringMap<String> files_ = StreamFolderFile.getFiles(path_);
             DocumentReaderAikiCoreUtil.loadRomAndCheck(facade,path_, files_,_p,loadFlag);
             if (!facade.isLoadedData()) {
                 DocumentReaderAikiCoreUtil.loadResources(facade,_p,loadFlag);
@@ -566,8 +560,9 @@ public final class MainWindow extends NetGroupFrame {
                 return;
             }
         } else {
-            File file_ = new File(StringList.replaceBackSlash(_configuration.getLastSavedGame()));
-            if (!file_.isAbsolute()) {
+            String lastSave_ = StringList.replaceBackSlash(_configuration.getLastSavedGame());
+            File file_ = new File(lastSave_);
+            if (!StreamFolderFile.isAbsolute(lastSave_)) {
                 path_ = StringList.concat(_path,_configuration.getLastSavedGame());
             } else {
                 path_ = file_.getAbsolutePath();
@@ -642,9 +637,13 @@ public final class MainWindow extends NetGroupFrame {
         MenuBar bar_ = new MenuBar();
         file = new Menu();
         zipLoad = new MenuItem();
-        zipLoad.addActionListener(new LoadZipEvent(this));
+        zipLoad.addActionListener(new LoadZipEvent(this,false));
         zipLoad.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_M, InputEvent.CTRL_DOWN_MASK));
         file.addMenuItem(zipLoad);
+        folderLoad = new MenuItem();
+        folderLoad.addActionListener(new LoadZipEvent(this,true));
+        folderLoad.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_D, InputEvent.CTRL_DOWN_MASK));
+        file.addMenuItem(folderLoad);
         gameLoad = new MenuItem();
         gameLoad.addActionListener(new LoadGameEvent(this));
         gameLoad.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, InputEvent.CTRL_DOWN_MASK));
@@ -716,7 +715,7 @@ public final class MainWindow extends NetGroupFrame {
         setJMenuBar(bar_);
     }
 
-    public void loadZip() {
+    public void loadZip(boolean _folder) {
         if (openedHmlFrames()) {
             //error message if data html
             String message_ = getOpenedHtmlString();
@@ -758,7 +757,13 @@ public final class MainWindow extends NetGroupFrame {
             }
             StreamTextFile.saveTextFile(StringList.concat(LaunchingPokemon.getTempFolderSl(),Resources.LOAD_CONFIG_FILE), DocumentWriterAikiCoreUtil.setLoadingGame(loadingConf));
         }
-        String fileName_ = fileDialogLoad(Resources.ZIPPED_DATA_EXT, true);
+        String fileName_;
+        if (_folder) {
+            FolderOpenDialog.setFolderOpenDialog(this, getLanguageKey(), false);
+            fileName_ = FolderOpenDialog.getStaticSelectedPath();
+        } else {
+            fileName_ = fileDialogLoad(Resources.ZIPPED_DATA_EXT, true);
+        }
         if (fileName_.isEmpty()) {
             return;
         }
@@ -1030,7 +1035,7 @@ public final class MainWindow extends NetGroupFrame {
     }
 
     public void processLoad(String _fileName, PerCent _p) {
-        StringMap<String> files_ = StreamZipFile.zippedTextFiles(_fileName);
+        StringMap<String> files_ = StreamFolderFile.getFiles(_fileName);
         DocumentReaderAikiCoreUtil.loadRomAndCheck(facade,_fileName, files_,_p,loadFlag);
         if (!facade.isLoadedData()) {
             DocumentReaderAikiCoreUtil.loadResources(facade,_p,loadFlag);
@@ -1081,16 +1086,11 @@ public final class MainWindow extends NetGroupFrame {
         }
     }
 
-    public void close() {
-        closeConnexion();
-        //LaunchingPokemon.decrement();
-        dispose();
-    }
-
     public void exitFromTrading() {
         setSavedGame(false);
         facade.closeTrading();
         scenePanel.exitInteraction();
+        getFolderLoad().setEnabledMenu(true);
         getZipLoad().setEnabledMenu(true);
         getGameLoad().setEnabledMenu(true);
         getNewGame().setEnabledMenu(true);
@@ -1219,11 +1219,7 @@ public final class MainWindow extends NetGroupFrame {
     public void quitNetwork(Exiting _exit, Socket _socket) {
         exitFromTrading();
         resetIndexInGame();
-        try {
-            closeConnexion();
-            _socket.close();
-        } catch (Exception _0) {
-        }
+        closeConnexion(_socket);
         if (_exit.isClosing()) {
             dispose();
             return;
@@ -1501,6 +1497,10 @@ public final class MainWindow extends NetGroupFrame {
 
     public ProgressingDialogPokemon getDialog() {
         return dialog;
+    }
+
+    public MenuItem getFolderLoad() {
+        return folderLoad;
     }
 
     public MenuItem getZipLoad() {

@@ -82,7 +82,7 @@ public final class Net {
             OutputStream output_ = _socket.getOutputStream();
             PrintWriter out_ = new PrintWriter(output_, true);
             out_.println(_text);
-        } catch (IOException _0) {
+        } catch (Exception _0) {
         }
     }
 //

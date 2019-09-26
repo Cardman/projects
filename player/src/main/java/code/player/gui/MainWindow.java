@@ -499,7 +499,7 @@ public class MainWindow extends GroupFrame {
     void tryClose() {
         try {
             clipStream.getStream().close();
-        } catch (IOException _0) {
+        } catch (Exception _0) {
         }
     }
 

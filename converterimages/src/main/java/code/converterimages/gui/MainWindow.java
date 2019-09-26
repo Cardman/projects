@@ -2,7 +2,6 @@ package code.converterimages.gui;
 import java.awt.image.BufferedImage;
 import java.io.File;
 
-import javax.imageio.ImageIO;
 import javax.swing.WindowConstants;
 
 import code.converterimages.main.LaunchingConverter;
@@ -10,6 +9,7 @@ import code.gui.*;
 import code.gui.events.QuittingEvent;
 import code.gui.images.ConverterGraphicBufferedImage;
 import code.images.BaseSixtyFourUtil;
+import code.stream.StreamImageFile;
 import code.stream.StreamTextFile;
 import code.util.StringList;
 import code.util.consts.Constants;
@@ -95,22 +95,21 @@ public final class MainWindow extends GroupFrame {
                     continue;
                 }
                 String f_ = StringList.replaceBackSlash(f);
-                try {
-                    BufferedImage img_ = ImageIO.read(new File(pathExport.getText()+f));
-                    String txt_ = BaseSixtyFourUtil.getStringByImage(ConverterGraphicBufferedImage.toArrays(img_));
-                    if (f_.endsWith(DOT+PNG_EXT)) {
-                        String path_ = StringList.replace(f_, DOT + PNG_EXT, DOT + TXT_EXT);
-                        StreamTextFile.saveTextFile(path.getText()+StreamTextFile.SEPARATEUR+ path_, txt_);
-                    } else if (f_.endsWith(DOT+JPG_EXT)) {
-                        String path_ = StringList.replace(f_, DOT + JPG_EXT, DOT + TXT_EXT);
-                        StreamTextFile.saveTextFile(path.getText()+StreamTextFile.SEPARATEUR+ path_, txt_);
-                    } else if (f_.endsWith(DOT+JPEG_EXT)) {
-                        String path_ = StringList.replace(f_, DOT + JPEG_EXT, DOT + TXT_EXT);
-                        StreamTextFile.saveTextFile(path.getText()+StreamTextFile.SEPARATEUR+ path_, txt_);
-                    }
-                } catch (Exception _0) {
+                BufferedImage img_ = StreamImageFile.read(pathExport.getText()+f);
+                if (img_ == null) {
+                    continue;
                 }
-                //ConverterBufferedImage.
+                String txt_ = BaseSixtyFourUtil.getStringByImage(ConverterGraphicBufferedImage.toArrays(img_));
+                if (f_.endsWith(DOT+PNG_EXT)) {
+                    String path_ = StringList.replace(f_, DOT + PNG_EXT, DOT + TXT_EXT);
+                    StreamTextFile.saveTextFile(path.getText()+StreamTextFile.SEPARATEUR+ path_, txt_);
+                } else if (f_.endsWith(DOT+JPG_EXT)) {
+                    String path_ = StringList.replace(f_, DOT + JPG_EXT, DOT + TXT_EXT);
+                    StreamTextFile.saveTextFile(path.getText()+StreamTextFile.SEPARATEUR+ path_, txt_);
+                } else if (f_.endsWith(DOT+JPEG_EXT)) {
+                    String path_ = StringList.replace(f_, DOT + JPEG_EXT, DOT + TXT_EXT);
+                    StreamTextFile.saveTextFile(path.getText()+StreamTextFile.SEPARATEUR+ path_, txt_);
+                }
             }
         } else {
             StringList files_ = StreamTextFile.files(pathExport.getText());
@@ -126,37 +125,36 @@ public final class MainWindow extends GroupFrame {
                     continue;
                 }
                 String f_ = StringList.replaceBackSlash(f);
-                try {
-                    String readImage_ = StreamTextFile.contentsOfFile(pathExport.getText()+f);
-                    BufferedImage img_ = ConverterGraphicBufferedImage.decodeToImage(BaseSixtyFourUtil.getImageByString(readImage_));
-                    ImageIO.write(img_, PNG_EXT, new File(path.getText()+StreamTextFile.SEPARATEUR+StringList.replace(f_, DOT+TXT_EXT, DOT+PNG_EXT)));
-                } catch (Exception _0) {
+                String readImage_ = StreamTextFile.contentsOfFile(pathExport.getText()+f);
+                if (readImage_ == null) {
+                    continue;
                 }
-                //ConverterBufferedImage.
+                BufferedImage img_ = ConverterGraphicBufferedImage.decodeToImage(BaseSixtyFourUtil.getImageByString(readImage_));
+                StreamImageFile.write(PNG_EXT,path.getText()+StreamTextFile.SEPARATEUR+StringList.replace(f_, DOT+TXT_EXT, DOT+PNG_EXT),img_);
             }
         }
     }
     public void readOneImageArg(String _readPath) {
-        try {
-            BufferedImage img_ = ImageIO.read(new File(_readPath));
-            String txt_ = BaseSixtyFourUtil.getStringByImage(ConverterGraphicBufferedImage.toArrays(img_));
-            if (_readPath.endsWith(DOT+PNG_EXT)) {
-                StreamTextFile.saveTextFile(StringList.replace(_readPath, DOT+PNG_EXT, DOT+TXT_EXT), txt_);
-            } else  if (_readPath.endsWith(DOT+JPG_EXT)) {
-                StreamTextFile.saveTextFile(StringList.replace(_readPath, DOT+JPG_EXT, DOT+TXT_EXT), txt_);
-            } else  if (_readPath.endsWith(DOT+JPEG_EXT)) {
-                StreamTextFile.saveTextFile(StringList.replace(_readPath, DOT+JPEG_EXT, DOT+TXT_EXT), txt_);
-            }
-        } catch (Exception _0) {
+        BufferedImage img_ = StreamImageFile.read(_readPath);
+        if (img_ == null) {
+            return;
+        }
+        String txt_ = BaseSixtyFourUtil.getStringByImage(ConverterGraphicBufferedImage.toArrays(img_));
+        if (_readPath.endsWith(DOT+PNG_EXT)) {
+            StreamTextFile.saveTextFile(StringList.replace(_readPath, DOT+PNG_EXT, DOT+TXT_EXT), txt_);
+        } else  if (_readPath.endsWith(DOT+JPG_EXT)) {
+            StreamTextFile.saveTextFile(StringList.replace(_readPath, DOT+JPG_EXT, DOT+TXT_EXT), txt_);
+        } else  if (_readPath.endsWith(DOT+JPEG_EXT)) {
+            StreamTextFile.saveTextFile(StringList.replace(_readPath, DOT+JPEG_EXT, DOT+TXT_EXT), txt_);
         }
     }
     public void writeOneImageArg(String _writePath) {
-        try {
-            String readImage_ = StreamTextFile.contentsOfFile(_writePath);
-            BufferedImage img_ = ConverterGraphicBufferedImage.decodeToImage(BaseSixtyFourUtil.getImageByString(readImage_));
-            ImageIO.write(img_, PNG_EXT, new File(StringList.replace(_writePath, DOT+TXT_EXT, DOT+PNG_EXT)));
-        } catch (Exception _0) {
+        String readImage_ = StreamTextFile.contentsOfFile(_writePath);
+        if (readImage_ == null) {
+            return;
         }
+        BufferedImage img_ = ConverterGraphicBufferedImage.decodeToImage(BaseSixtyFourUtil.getImageByString(readImage_));
+        StreamImageFile.write(PNG_EXT,StringList.replace(_writePath, DOT+TXT_EXT, DOT+PNG_EXT),img_);
     }
     @Override
     public void quit() {

@@ -3,10 +3,7 @@ import java.awt.BorderLayout;
 import java.io.File;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import javax.swing.BoxLayout;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 import code.gui.events.CancelSelectFileEvent;
@@ -14,6 +11,7 @@ import code.gui.events.SearchingEvent;
 import code.gui.events.StopSearchingEvent;
 import code.gui.events.SubmitKeyEvent;
 import code.gui.events.SubmitMouseEvent;
+import code.stream.StreamFolderFile;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
@@ -248,7 +246,7 @@ public final class FileOpenDialog extends FileDialog implements SingleFileSelect
 //            closeWindow();
 //            return;
         }
-        if (!new File(extFileName_).isAbsolute()) {
+        if (!StreamFolderFile.isAbsolute(extFileName_)) {
             selectedPath_ = StringList.concat(getCurrentFolder(), extFileName_);
         } else {
             selectedPath_ = extFileName_;
