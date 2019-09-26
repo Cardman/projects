@@ -30,6 +30,8 @@ import code.expressionlanguage.structs.*;
 import code.expressionlanguage.variables.VariableSuffix;
 import code.resources.ResourceFiles;
 import code.sml.stream.ExtractFromFiles;
+import code.stream.StreamBinaryFile;
+import code.stream.StreamFolderFile;
 import code.stream.StreamTextFile;
 import code.stream.ThreadUtil;
 import code.util.CustList;
@@ -87,6 +89,9 @@ public class LgNamesUtils extends LgNames {
     private String aliasEntryText;
     private String aliasEntryName;
     private String aliasEntryValue;
+    private String aliasFileIsAbsolute;
+    private String aliasFileReadBin;
+    private String aliasFileWriteBin;
     private String aliasIllegalThreadStateException;
 
     private String aliasCustIterator;
@@ -678,6 +683,12 @@ public class LgNamesUtils extends LgNames {
         params_ = new StringList(getAliasString(),getAliasString());
         method_ = new StandardMethod(aliasWrite, params_, getAliasPrimBoolean(), false, MethodModifier.STATIC, stdcl_);
         methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasString());
+        method_ = new StandardMethod(aliasFileReadBin, params_, PrimitiveTypeUtil.getPrettyArrayType(getAliasPrimByte()), false, MethodModifier.STATIC, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasString(),PrimitiveTypeUtil.getPrettyArrayType(getAliasPrimByte()));
+        method_ = new StandardMethod(aliasFileWriteBin, params_, getAliasPrimBoolean(), false, MethodModifier.STATIC, stdcl_);
+        methods_.put(method_.getId(), method_);
         params_ = new StringList(getAliasString(),getAliasString());
         method_ = new StandardMethod(aliasAppendToFile, params_, getAliasPrimBoolean(), false, MethodModifier.STATIC, stdcl_);
         methods_.put(method_.getId(), method_);
@@ -707,6 +718,9 @@ public class LgNamesUtils extends LgNames {
         methods_.put(method_.getId(), method_);
         params_ = new StringList(getAliasString());
         method_ = new StandardMethod(aliasFileIsFile, params_, getAliasPrimBoolean(), false, MethodModifier.STATIC, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasString());
+        method_ = new StandardMethod(aliasFileIsAbsolute, params_, getAliasPrimBoolean(), false, MethodModifier.STATIC, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(getAliasString(),aliasEntryBinary);
         method_ = new StandardMethod(aliasFileZipBin, params_, getAliasPrimBoolean(), true, MethodModifier.STATIC, stdcl_);
@@ -1191,6 +1205,40 @@ public class LgNamesUtils extends LgNames {
         		res_.setResult(new BooleanStruct(StreamTextFile.saveTextFile(file_, txt_)));
         		return res_;
         	}
+            if (StringList.quickEq(name_,aliasFileReadBin)) {
+                StringStruct str_ = (StringStruct)_args[0];
+                byte[] read_ = StreamBinaryFile.loadFile(str_.getInstance());
+                if (read_ == null) {
+                    res_.setResult(NullStruct.NULL_VALUE);
+                    return res_;
+                }
+                int len_ = read_.length;
+                ArrayStruct bin_ = new ArrayStruct(new Struct[len_],PrimitiveTypeUtil.getPrettyArrayType(getAliasPrimByte()));
+                for (int i = 0; i < len_; i++) {
+                    bin_.getInstance()[i] = new ByteStruct(read_[i]);
+                }
+                res_.setResult(bin_);
+                return res_;
+            }
+            if (StringList.quickEq(name_,aliasFileWriteBin)) {
+                String file_ = ((StringStruct)_args[0]).getInstance();
+                if (!(_args[1] instanceof ArrayStruct)) {
+                    res_.setResult(new BooleanStruct(false));
+                    return res_;
+                }
+                ArrayStruct arr_ = (ArrayStruct) _args[1];
+                int len_ = arr_.getInstance().length;
+                byte[] bin_ = new byte[len_];
+                for (int i = 0; i < len_; i++) {
+                    Struct byte_ = arr_.getInstance()[i];
+                    if (!(byte_ instanceof NumberStruct)) {
+                        continue;
+                    }
+                    bin_[i] = ((NumberStruct)byte_).byteStruct();
+                }
+                res_.setResult(new BooleanStruct(StreamBinaryFile.writeFile(file_, bin_)));
+                return res_;
+            }
         	if (StringList.quickEq(name_,aliasAppendToFile)) {
         		String file_ = ((StringStruct)_args[0]).getInstance();
         		String txt_ = getStandarString(_cont,_args[1]);
@@ -1301,6 +1349,11 @@ public class LgNamesUtils extends LgNames {
             }
             if (StringList.quickEq(name_,aliasFileZippedText)) {
                 res_.setResult(ZipStructUtil.zippedTextFiles(_args[0], (RunnableContextEl) _cont));
+                return res_;
+            }
+            if (StringList.quickEq(name_,aliasFileIsAbsolute)) {
+                String file_ = ((StringStruct)_args[0]).getInstance();
+                res_.setResult(new BooleanStruct(StreamFolderFile.isAbsolute(file_)));
                 return res_;
             }
             String file_ = ((StringStruct)_args[0]).getInstance();
@@ -1491,6 +1544,9 @@ public class LgNamesUtils extends LgNames {
                 getAliasFileGetParentPath(),
                 getAliasFileIsDirectory(),
                 getAliasFileIsFile(),
+                getAliasFileIsAbsolute(),
+                getAliasFileReadBin(),
+                getAliasFileWriteBin(),
                 getAliasFileLastModif(),
                 getAliasFileListDirectories(),
                 getAliasFileListFiles(),
@@ -1925,6 +1981,30 @@ public class LgNamesUtils extends LgNames {
 
     public void setAliasEntryValue(String aliasEntryValue) {
         this.aliasEntryValue = aliasEntryValue;
+    }
+
+    public String getAliasFileIsAbsolute() {
+        return aliasFileIsAbsolute;
+    }
+
+    public void setAliasFileIsAbsolute(String aliasFileIsAbsolute) {
+        this.aliasFileIsAbsolute = aliasFileIsAbsolute;
+    }
+
+    public String getAliasFileReadBin() {
+        return aliasFileReadBin;
+    }
+
+    public void setAliasFileReadBin(String aliasFileReadBin) {
+        this.aliasFileReadBin = aliasFileReadBin;
+    }
+
+    public String getAliasFileWriteBin() {
+        return aliasFileWriteBin;
+    }
+
+    public void setAliasFileWriteBin(String aliasFileWriteBin) {
+        this.aliasFileWriteBin = aliasFileWriteBin;
     }
 
     public String getAliasFileMakeDirs() {
@@ -3006,6 +3086,9 @@ public class LgNamesUtils extends LgNames {
         setAliasEntryText(get(_util,_cust,"EntryText"));
         setAliasEntryName(get(_util,_cust,"EntryName"));
         setAliasEntryValue(get(_util,_cust,"EntryValue"));
+        setAliasFileIsAbsolute(get(_util,_cust,"FileIsAbsolute"));
+        setAliasFileReadBin(get(_util,_cust,"FileReadBin"));
+        setAliasFileWriteBin(get(_util,_cust,"FileWriteBin"));
         setAliasCustIterTable(get(_util,_cust,"CustIterTable"));
         setAliasTableVarFirst(get(_util,_cust,"TableVarFirst"));
         setAliasSetSecond(get(_util,_cust,"SetSecond"));
