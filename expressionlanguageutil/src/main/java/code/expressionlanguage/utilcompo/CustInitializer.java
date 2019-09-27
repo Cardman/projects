@@ -39,14 +39,15 @@ public class CustInitializer extends DefaultInitializer {
         }
         return super.init(_context, _parent, _className, _fieldName, _ordinal, _fields);
     }
+
     @Override
-    protected boolean simpleCall(ContextEl _owner) {
+    protected boolean exitAfterCall(ContextEl _owner) {
         try {
-            return super.simpleCall(_owner);
+            return super.exitAfterCall(_owner);
         } catch (OutOfMemoryError _0) {
             _owner.setException(_owner.getMemoryError());
             _owner.getThrowing().removeBlockFinally(_owner);
-            return !_owner.hasException();
+            return _owner.hasException();
         }
     }
 

@@ -2,6 +2,7 @@ package code.expressionlanguage.utilcompo;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.DefaultLockingClass;
+import code.expressionlanguage.EndCallValue;
 import code.expressionlanguage.Initializer;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
@@ -82,6 +83,26 @@ public class RunnableContextEl extends ContextEl {
 
     public void setExecutingOptions(ExecutingOptions _executing) {
         executingOptions = _executing;
+    }
+    protected EndCallValue removeCall() {
+        try {
+            return super.removeCall();
+        } catch (OutOfMemoryError _0) {
+            setException(getMemoryError());
+            getThrowing().removeBlockFinally(this);
+            if (hasException()) {
+                return EndCallValue.EXIT;
+            }
+            return EndCallValue.NEXT;
+        }
+    }
+    protected void processTags() {
+        try {
+            super.processTags();
+        } catch (OutOfMemoryError _0) {
+            setException(getMemoryError());
+            getThrowing().removeBlockFinally(this);
+        }
     }
     @Override
     public boolean hasException() {

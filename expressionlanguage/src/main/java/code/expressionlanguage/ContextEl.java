@@ -184,7 +184,7 @@ public abstract class ContextEl implements ExecutableCode {
         }
         return true;
     }
-    void processTags() {
+    protected void processTags() {
         AbstractPageEl ip_ = getLastPage();
         if (!ip_.checkCondition(this)) {
             return;
@@ -231,22 +231,22 @@ public abstract class ContextEl implements ExecutableCode {
         return null;
     }
 
-    Boolean removeCall() {
+    protected EndCallValue removeCall() {
         AbstractPageEl p_ = getLastPage();
         if (p_.getReadWrite() == null) {
             removeLastPage();
             if (nbPages() == 0) {
-                return null;
+                return EndCallValue.EXIT;
             }
             if (p_ instanceof ForwardPageEl) {
                 if(((ForwardPageEl)p_).forwardTo(getLastPage(), this)) {
-                    return true;
+                    return EndCallValue.FORWARD;
                 }
-                return null;
+                return EndCallValue.EXIT;
             }
-            return true;
+            return EndCallValue.FORWARD;
         }
-        return false;
+        return EndCallValue.NEXT;
     }
     private AbstractPageEl createInstancingClass(NotInitializedClass _e) {
         return createInstancingClass(_e.getClassName());

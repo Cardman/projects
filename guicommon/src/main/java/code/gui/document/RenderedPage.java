@@ -15,6 +15,7 @@ import code.gui.*;
 import code.resources.ResourceFiles;
 import code.sml.Document;
 import code.sml.util.ResourcesMessagesUtil;
+import code.stream.ThreadUtil;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringList;
@@ -226,7 +227,7 @@ public final class RenderedPage implements ProcessingSession {
             return;
         }
         while (threadAction.isAlive()) {
-            continue;
+            ThreadUtil.sleep(0);
         }
     }
 

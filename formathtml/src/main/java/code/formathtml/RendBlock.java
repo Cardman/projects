@@ -1,6 +1,7 @@
 package code.formathtml;
 
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.EndCallValue;
 import code.expressionlanguage.errors.custom.BadElError;
 import code.expressionlanguage.files.OffsetBooleanInfo;
 import code.expressionlanguage.files.OffsetStringInfo;
@@ -190,11 +191,11 @@ public abstract class RendBlock implements AnalyzedBlock {
         rw_.setDocument(doc_);
         ip_.setRendReadWrite(rw_);
         while (true) {
-            Boolean res_ = removeCall(_conf);
-            if (res_ == null) {
+            EndCallValue res_ = removeCall(_conf);
+            if (res_ == EndCallValue.EXIT) {
                 break;
             }
-            if (res_) {
+            if (res_ == EndCallValue.FORWARD) {
                 continue;
             }
             processTags(_conf);
@@ -225,16 +226,16 @@ public abstract class RendBlock implements AnalyzedBlock {
         return doc_.export();
     }
 
-    private static Boolean removeCall(Configuration _context) {
+    private static EndCallValue removeCall(Configuration _context) {
         ImportingPage p_ = _context.getLastPage();
         if (p_.getRendReadWrite() == null) {
             _context.removeLastPage();
             if (_context.getImporting().isEmpty()) {
-                return null;
+                return EndCallValue.EXIT;
             }
-            return true;
+            return EndCallValue.FORWARD;
         }
-        return false;
+        return EndCallValue.NEXT;
     }
 
     private static void processTags(Configuration _context) {

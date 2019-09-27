@@ -79,27 +79,31 @@ public class DefaultInitializer implements Initializer {
     }
     @Override
     public final void loopCalling(ContextEl _owner) {
-        while (simpleCall(_owner)) {
-            continue;
+        while (true) {
+            EndCallValue res_ = _owner.removeCall();
+            if (res_ == EndCallValue.EXIT) {
+                break;
+            }
+            if (res_ == EndCallValue.FORWARD) {
+                continue;
+            }
+            if (!_owner.callsOrException()) {
+                _owner.processTags();
+            }
+            if (exitAfterCall(_owner)) {
+                break;
+            }
         }
     }
-    protected boolean simpleCall(ContextEl _owner) {
-        Boolean res_ = _owner.removeCall();
-        if (res_ == null) {
-            return false;
-        }
-        if (res_) {
-            return true;
-        }
-        if (!_owner.callsOrException()) {
-            _owner.processTags();
-        }
+
+    protected boolean exitAfterCall(ContextEl _owner) {
         AbstractPageEl abs_ = _owner.processAfterOperation();
         if (abs_ != null) {
             addPage(_owner, abs_);
         }
-        return !_owner.hasExceptionOrFailInit();
+        return _owner.hasExceptionOrFailInit();
     }
+
     private void addPage(ContextEl _conf, AbstractPageEl _page) {
         _conf.addPage(_page);
         if (_conf.hasException()) {

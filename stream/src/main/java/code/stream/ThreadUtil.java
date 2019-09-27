@@ -29,8 +29,10 @@ public final class ThreadUtil {
     }
     public static void sleep(long _time) {
         long millis_ = System.currentTimeMillis();
-        while (millis_ + _time > System.currentTimeMillis()) {
-            continue;
+        while (true) {
+            if (millis_ + _time <= System.currentTimeMillis()) {
+                break;
+            }
         }
     }
 

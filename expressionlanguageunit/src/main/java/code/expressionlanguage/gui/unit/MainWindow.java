@@ -14,6 +14,7 @@ import code.gui.Panel;
 import code.gui.ScrollPane;
 import code.gui.TextArea;
 import code.gui.events.QuittingEvent;
+import code.stream.ThreadUtil;
 import code.util.StringMap;
 
 import javax.swing.*;
@@ -110,7 +111,7 @@ public final class MainWindow extends GroupFrame {
     public void quit() {
         if (th != null) {
             while (th.isAlive()) {
-                continue;
+                ThreadUtil.sleep(0);
             }
         }
         dispose();

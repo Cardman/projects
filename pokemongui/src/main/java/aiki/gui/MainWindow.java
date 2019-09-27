@@ -67,6 +67,7 @@ import code.network.Exiting;
 import code.network.NetGroupFrame;
 import code.stream.StreamFolderFile;
 import code.stream.StreamTextFile;
+import code.stream.ThreadUtil;
 import code.util.CustList;
 import code.util.EnumMap;
 import code.util.*;
@@ -294,7 +295,7 @@ public final class MainWindow extends NetGroupFrame {
         }
         if (battle != null) {
             while (isAliveThread()) {
-                continue;
+                ThreadUtil.sleep(0);
             }
         }
 //        if (compiling.isAlive()) {
@@ -733,11 +734,11 @@ public final class MainWindow extends NetGroupFrame {
         }
         if (battle != null) {
             while (isAliveThread()) {
-                continue;
+                ThreadUtil.sleep(0);
             }
         }
         while (isPaintingScene()) {
-            continue;
+            ThreadUtil.sleep(0);
         }
         if (!savedGame && facade.getGame() != null) {
             int choix_=saving();
@@ -781,11 +782,11 @@ public final class MainWindow extends NetGroupFrame {
         }
         if (battle != null) {
             while (isAliveThread()) {
-                continue;
+                ThreadUtil.sleep(0);
             }
         }
         while (isPaintingScene()) {
-            continue;
+            ThreadUtil.sleep(0);
         }
         if (!savedGame && facade.getGame() != null) {
             int choix_=saving();
@@ -848,7 +849,7 @@ public final class MainWindow extends NetGroupFrame {
         }
         if (battle != null) {
             while (isAliveThread()) {
-                continue;
+                ThreadUtil.sleep(0);
             }
         }
         save(fileName_);
@@ -886,11 +887,11 @@ public final class MainWindow extends NetGroupFrame {
     public void manageParams() {
         if (battle != null) {
             while (isAliveThread()) {
-                continue;
+                ThreadUtil.sleep(0);
             }
         }
         while (isPaintingScene()) {
-            continue;
+            ThreadUtil.sleep(0);
         }
         SoftParams.setSoftParams(this, loadingConf);
         SoftParams.setParams(loadingConf);
@@ -902,11 +903,11 @@ public final class MainWindow extends NetGroupFrame {
     public void proponeNewGame() {
         if (battle != null) {
             while (isAliveThread()) {
-                continue;
+                ThreadUtil.sleep(0);
             }
         }
         while (isPaintingScene()) {
-            continue;
+            ThreadUtil.sleep(0);
         }
         if (!Numbers.eq(indexInGame, CustList.INDEX_NOT_FOUND_ELT)) {
             return;
