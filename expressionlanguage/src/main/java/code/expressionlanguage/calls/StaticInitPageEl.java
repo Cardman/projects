@@ -84,7 +84,7 @@ public final class StaticInitPageEl extends AbstractPageEl implements WithElPage
     public void postBlock(ContextEl _context) {
         String curClass_ = getGlobalClass();
         String curClassBase_ = Templates.getIdFromAllTypes(curClass_);
-        _context.getClasses().getLocks().successClass(_context, curClassBase_);
+        _context.getClasses().getLocks().successClass(curClassBase_);
         setNullReadWrite();
     }
 
@@ -92,7 +92,7 @@ public final class StaticInitPageEl extends AbstractPageEl implements WithElPage
         Classes classes_ = _context.getClasses();
         String curClass_ = getGlobalClass();
         String curClassBase_ = Templates.getIdFromAllTypes(curClass_);
-        classes_.getLocks().successClass(_context, curClassBase_);
+        classes_.getLocks().successClass(curClassBase_);
         setNullReadWrite();
     }
 

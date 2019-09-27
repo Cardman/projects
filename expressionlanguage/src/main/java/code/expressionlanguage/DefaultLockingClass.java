@@ -16,46 +16,43 @@ import code.util.StringMap;
 public class DefaultLockingClass {
 
     private StringMap<InitClassState> classes = new StringMap<InitClassState>();
-    private StringList alwayasInit = new StringList();
 
     public final void init(ContextEl _context) {
         Classes cl_ = _context.getClasses();
         for (RootBlock r: cl_.getClassBodies()) {
             String name_ = r.getFullName();
-            getClasses().addEntry(name_, InitClassState.NOT_YET);
+            classes.addEntry(name_, InitClassState.NOT_YET);
         }
     }
-    public void initAlwaysSuccess() {
+    public StringList initAlwaysSuccess() {
+        StringList notInit_ = new StringList();
         for (EntryCust<String, InitClassState> e: classes.entryList()) {
-            if (e.getValue() == InitClassState.SUCCESS) {
-                getAlwayasInit().add(e.getKey());
-            } else {
+            if (e.getValue() != InitClassState.SUCCESS) {
+                notInit_.add(e.getKey());
                 e.setValue(InitClassState.NOT_YET);
             }
         }
-    }
-    protected final StringList getAlwayasInit() {
-        return alwayasInit;
+        return notInit_;
     }
     public final void initClass(String _className) {
         String base_ = Templates.getIdFromAllTypes(_className);
-        getClasses().put(base_, InitClassState.PROGRESSING);
+        classes.put(base_, InitClassState.PROGRESSING);
     }
     public final InitClassState getState(String _className) {
         String base_ = Templates.getIdFromAllTypes(_className);
-        return getClasses().getVal(base_);
+        return classes.getVal(base_);
     }
     public InitClassState getState(ContextEl _context, String _className) {
         String base_ = Templates.getIdFromAllTypes(_className);
         InitClassState old_ = classes.getVal(base_);
         if (old_ == InitClassState.NOT_YET) {
-            getClasses().put(base_, InitClassState.PROGRESSING);
+            classes.put(base_, InitClassState.PROGRESSING);
         }
         return old_;
     }
-    public void successClass(ContextEl _context, String _className) {
+    public void successClass(String _className) {
         String base_ = Templates.getIdFromAllTypes(_className);
-        getClasses().put(base_, InitClassState.SUCCESS);
+        classes.put(base_, InitClassState.SUCCESS);
     }
     public final void processErrorClass(ContextEl _context, Struct _cause) {
         AbstractPageEl pageEl_ = _context.getLastPage();
@@ -75,12 +72,9 @@ public class DefaultLockingClass {
         CausingErrorStruct causing_ = new CausingErrorStruct(_cause,_context);
         _context.setException(causing_);
     }
-    public void errorClass(ContextEl _context, String _className) {
+    private void errorClass(ContextEl _context, String _className) {
         _context.failInitEnums();
         String base_ = Templates.getIdFromAllTypes(_className);
-        getClasses().put(base_, InitClassState.ERROR);
-    }
-    protected final StringMap<InitClassState> getClasses() {
-        return classes;
+        classes.put(base_, InitClassState.ERROR);
     }
 }

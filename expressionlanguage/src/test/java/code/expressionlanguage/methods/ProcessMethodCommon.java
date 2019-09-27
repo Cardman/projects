@@ -163,6 +163,15 @@ public abstract class ProcessMethodCommon {
         ContextEl ct_ = InitializationLgNames.buildStdOne("en", opt_);
         return ct_;
     }
+    protected static ContextEl contextElReadOnlyMustInit() {
+        Options opt_ = new Options();
+        opt_.setEndLineSemiColumn(false);
+        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        opt_.setReadOnly(true);
+        opt_.setFailIfNotAllInit(true);
+        ContextEl ct_ = InitializationLgNames.buildStdOne(opt_);
+        return ct_;
+    }
     protected static ContextEl contextElToString() {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);

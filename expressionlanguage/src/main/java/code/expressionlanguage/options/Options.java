@@ -11,6 +11,7 @@ public final class Options {
     private boolean allParametersSort = true;
     private boolean singleInnerParts;
     private boolean readOnly;
+    private boolean failIfNotAllInit;
 
     public char getEndLine() {
         if (endLineSemiColumn) {
@@ -73,5 +74,13 @@ public final class Options {
 
     public void setReadOnly(boolean _readOnly) {
         readOnly = _readOnly;
+    }
+
+    public boolean isFailIfNotAllInit() {
+        return failIfNotAllInit;
+    }
+
+    public void setFailIfNotAllInit(boolean _failIfNotAllInit) {
+        failIfNotAllInit = _failIfNotAllInit;
     }
 }

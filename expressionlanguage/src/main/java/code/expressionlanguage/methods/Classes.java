@@ -357,7 +357,18 @@ public final class Classes {
         }
         _context.resetInitEnums();
         _context.setInitEnums(false);
-        dl_.initAlwaysSuccess();
+        StringList notInit_ = dl_.initAlwaysSuccess();
+        if (_context.getOptions().isFailIfNotAllInit()) {
+            for (String s: notInit_) {
+                RootBlock r_ = cl_.getClassBody(s);
+                FileBlock file_ = r_.getFile();
+                NotInitClass n_ = new NotInitClass();
+                n_.setFileName(file_.getFileName());
+                n_.setIndexFile(r_.getIdRowCol());
+                n_.setClassName(s);
+                _context.getClasses().addError(n_);
+            }
+        }
     }
     private static StringMap<StringMap<Struct>> buildFieldValues(StringMap<StringMap<Struct>> _infos) {
         StringMap<StringMap<Struct>> bkSt_ = new StringMap<StringMap<Struct>>();
