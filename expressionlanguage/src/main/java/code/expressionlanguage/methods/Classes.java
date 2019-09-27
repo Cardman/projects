@@ -2258,13 +2258,7 @@ public final class Classes {
         }
     }
     public RootBlock getClassBody(String _className) {
-        for (EntryCust<String, RootBlock> c: classesBodies.entryList()) {
-            if (!StringList.quickEq(c.getKey(), _className)) {
-                continue;
-            }
-            return c.getValue();
-        }
-        return null;
+        return classesBodies.getVal(_className);
     }
 
     public static CustList<AnnotationMethodBlock> getMethodAnnotationBodiesById(Block _r, String _id) {
