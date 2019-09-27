@@ -112,14 +112,14 @@ public final class RunnableStruct implements WithParentStruct, EnumerableStruct,
         return arg_;
     }
     public static long setupThread(RunnableContextEl _r) {
-        Thread thread_ = Thread.currentThread();
         long nb_ = _r.getCustInit().increment();
         StringBuilder dtPart_ = new StringBuilder();
         dtPart_.append(LgNamesUtils.getDateTimeText("_", "_", "_"));
         dtPart_.append("__");
         dtPart_.append(nb_);
         dtPart_.append(".txt");
-        _r.getCustInit().putNewCustTreadIdDate(thread_,nb_, dtPart_.toString());
+        _r.setThread(Thread.currentThread());
+        _r.getCustInit().putNewCustTreadIdDate(_r, dtPart_.toString());
         return nb_;
     }
 }

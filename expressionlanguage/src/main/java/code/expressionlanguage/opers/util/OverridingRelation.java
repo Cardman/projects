@@ -6,8 +6,6 @@ public final class OverridingRelation {
 
     private ClassMethodId supMethod;
 
-    private boolean base;
-
     public ClassMethodId getSubMethod() {
         return subMethod;
     }
@@ -24,11 +22,4 @@ public final class OverridingRelation {
         supMethod = _supMethod;
     }
 
-    public boolean isBase() {
-        return base;
-    }
-
-    public void setBase(boolean _base) {
-        base = _base;
-    }
 }

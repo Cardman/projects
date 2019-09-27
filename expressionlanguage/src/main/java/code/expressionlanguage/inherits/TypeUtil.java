@@ -251,7 +251,8 @@ public final class TypeUtil {
             CustList<OverridingRelation> pairs_ = new CustList<OverridingRelation>();
             StringMap<MethodId> defs_ = new StringMap<MethodId>();
             StringList list_ = new StringList();
-            for (ClassMethodId v: e.getValue()) {
+            EqList<ClassMethodId> allMethods_ = e.getValue();
+            for (ClassMethodId v: allMethods_) {
                 defs_.put(v.getClassName(), v.getConstraints());
                 list_.add(v.getClassName());
             }
@@ -264,7 +265,6 @@ public final class TypeUtil {
                 OverridingRelation ovRelBase_ = new OverridingRelation();
                 ovRelBase_.setSubMethod(t);
                 ovRelBase_.setSupMethod(t);
-                ovRelBase_.setBase(true);
                 pairs_.add(ovRelBase_);
                 current_.add(t);
                 visited_.add(Templates.getIdFromAllTypes(t.getClassName()));
@@ -275,20 +275,19 @@ public final class TypeUtil {
                 for (ClassMethodId c: current_) {
                     String templClass_ = c.getClassName();
                     String typeName_ = Templates.getIdFromAllTypes(templClass_);
-                    GeneType root_ = _context.getClassBody(typeName_);
-                    for (String u:root_.getAllGenericSuperTypes()) {
-                        String superType_ = Templates.quickFormat(templClass_, u, _context);
-                        String superTypeName_ = Templates.getIdFromAllTypes(u);
-                        GeneType super_ = _context.getClassBody(superTypeName_);
-                        for (GeneMethod m: ContextEl.getMethodBlocks(super_)) {
-                            MethodId f_ = m.getId().quickFormat(superType_, _context);
-                            if (f_.eq(c.getConstraints().quickFormat(templClass_, _context))) {
-                                OverridingRelation ovRel_ = new OverridingRelation();
-                                ovRel_.setSubMethod(c);
-                                ovRel_.setSupMethod(new ClassMethodId(superType_, m.getId()));
-                                newpairs_.add(ovRel_);
-                            }
+                    for (ClassMethodId s: allMethods_) {
+                        if (c.eq(s)) {
+                            continue;
                         }
+                        String super_ = s.getClassName();
+                        String isSuper_ = Templates.getIdFromAllTypes(super_);
+                        if (!PrimitiveTypeUtil.canBeUseAsArgument(isSuper_,typeName_,_context)) {
+                            continue;
+                        }
+                        OverridingRelation ovRel_ = new OverridingRelation();
+                        ovRel_.setSubMethod(c);
+                        ovRel_.setSupMethod(s);
+                        newpairs_.add(ovRel_);
                     }
                 }
                 for (OverridingRelation p: newpairs_) {
@@ -318,40 +317,6 @@ public final class TypeUtil {
                 } else if (Classes.canAccess(subId_.getClassName(), sup_, _context)) {
                     relations_.add(l);
                 }
-            }
-            current_ = new CustList<ClassMethodId>();
-            pairs_ = new CustList<OverridingRelation>();
-            for (OverridingRelation t: relations_) {
-                if (!t.isBase()) {
-                    continue;
-                }
-                current_.add(t.getSubMethod());
-                pairs_.add(t);
-            }
-            EqList<ClassMethodId> all_ = new EqList<ClassMethodId>();
-            while (true) {
-                CustList<ClassMethodId> next_ = new CustList<ClassMethodId>();
-                for (ClassMethodId c: current_) {
-                    for (OverridingRelation a: relations_) {
-                        ClassMethodId clSup_ = a.getSupMethod();
-                        ClassMethodId clSub_ = a.getSubMethod();
-                        if (clSub_.eq(clSup_)) {
-                            continue;
-                        }
-                        if (clSub_.eq(c)) {
-                            if (all_.containsObj(clSup_)) {
-                                continue;
-                            }
-                            all_.add(clSup_);
-                            next_.add(clSup_);
-                            pairs_.add(a);
-                        }
-                    }
-                }
-                if (next_.isEmpty()) {
-                    break;
-                }
-                current_ = next_;
             }
             for (OverridingRelation l: relations_) {
                 ClassMethodId subId_ = l.getSubMethod();

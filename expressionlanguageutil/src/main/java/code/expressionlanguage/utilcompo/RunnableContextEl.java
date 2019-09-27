@@ -18,6 +18,7 @@ public class RunnableContextEl extends ContextEl {
 
     private ExecutingOptions executingOptions;
 
+    private Thread thread;
     private long number;
     protected RunnableContextEl(int _stackOverFlow, DefaultLockingClass _lock,
                       CustInitializer _init, Options _options, ExecutingOptions _exec, KeyWords _keyWords, LgNames _stds, int _tabWidth) {
@@ -41,6 +42,14 @@ public class RunnableContextEl extends ContextEl {
         executingOptions = ((RunnableContextEl)_context).executingOptions;
         interrupt = ((RunnableContextEl)_context).interrupt;
         custInit = ((RunnableContextEl)_context).getCustInit();
+    }
+
+    public Thread getThread() {
+        return thread;
+    }
+
+    public void setThread(Thread _thread) {
+        thread = _thread;
     }
 
     public long getNumber() {
