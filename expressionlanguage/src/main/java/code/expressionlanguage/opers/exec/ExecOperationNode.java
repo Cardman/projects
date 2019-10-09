@@ -19,6 +19,7 @@ import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.*;
 import code.util.CustList;
 import code.util.IdMap;
+import code.util.StringList;
 
 public abstract class ExecOperationNode implements Operable {
 
@@ -437,6 +438,21 @@ public abstract class ExecOperationNode implements Operable {
     public static int getNextIndex(ExecOperationNode _operation, Struct _value) {
         int index_ = _operation.getIndexChild();
         ExecMethodOperation par_ = _operation.getParent();
+        if (_value instanceof BooleanStruct) {
+            if (par_ instanceof ExecCompoundAffectationOperation) {
+                ExecCompoundAffectationOperation p_ = (ExecCompoundAffectationOperation)par_;
+                if (StringList.quickEq(p_.getOper(),"&&=")) {
+                    if (!((BooleanStruct)_value).getInstance()) {
+                        return par_.getOrder();
+                    }
+                }
+                if (StringList.quickEq(p_.getOper(),"||=")) {
+                    if (((BooleanStruct)_value).getInstance()) {
+                        return par_.getOrder();
+                    }
+                }
+            }
+        }
         if (par_ instanceof ExecQuickOperation) {
             ExecQuickOperation q_ = (ExecQuickOperation) par_;
             BooleanStruct bs_ = q_.absorbingStruct();

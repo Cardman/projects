@@ -20,6 +20,8 @@ import code.util.*;
 public abstract class Block implements AnalyzedBlock {
     public static final String OR_EQ = "|=";
     public static final String AND_EQ = "&=";
+    public static final String OR_LOG_EQ = "||=";
+    public static final String AND_LOG_EQ = "&&=";
     public static final String XOR_EQ = "^=";
     public static final String PLUS_EQ = "+=";
     public static final String INCR = "++";

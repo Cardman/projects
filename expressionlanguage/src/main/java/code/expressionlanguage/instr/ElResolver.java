@@ -1893,7 +1893,8 @@ public final class ElResolver {
             }
             if (andOr_ && j_ < len_ && _string.charAt(j_) == curChar_) {
                 j_++;
-            } else if (j_ < len_ && _string.charAt(j_) == EQ_CHAR) {
+            }
+            if (j_ < len_ && _string.charAt(j_) == EQ_CHAR) {
                 j_++;
             }
             while (j_ < len_) {
@@ -3099,7 +3100,7 @@ public final class ElResolver {
                     increment_ = 2;
                 } else {
                     builtOperator_.append(curChar_);
-                    if (prio_ > AFF_PRIO && prio_ != TERNARY_PRIO) {
+                    if (isGreaterThanAff(prio_)) {
                         clearOperators_ = true;
                         prio_ = AFF_PRIO;
                         foundOperator_ = true;
@@ -3155,21 +3156,31 @@ public final class ElResolver {
                         processDefaultOp_ = false;
                     } else if (isLogicAndOr(curChar_, andOr_, nextChar_)) {
                         builtOperator_.append(curChar_);
-                        if (prio_ > prioOpMult_) {
-                            prio_ = prioOpMult_;
+                        if (nextCharIs(_string,i_+2,len_,EQ_CHAR)) {
+                            increment_ = 3;
+                            if (isGreaterThanAff(prio_)) {
+                                clearOperators_ = true;
+                                prio_ = AFF_PRIO;
+                                foundOperator_ = true;
+                            }
+                            builtOperator_.append(EQ_CHAR);
+                        } else {
+                            if (prio_ > prioOpMult_) {
+                                prio_ = prioOpMult_;
+                            }
+                            if (prio_ == prioOpMult_) {
+                                clearOperators_ = true;
+                                foundOperator_ = true;
+                            }
+                            increment_ = 2;
                         }
-                        if (prio_ == prioOpMult_) {
-                            clearOperators_ = true;
-                            foundOperator_ = true;
-                        }
-                        increment_ = 2;
                         processDefaultOp_ = false;
                     } else if (isAffectation(nextChar_, prioOpMult_, _string, delta_+i_ + 2, len_)) {
                         increment_ = 2;
                         if (prioOpMult_ == SHIFT_PRIO) {
                             increment_++;
                         }
-                        if (prio_ > AFF_PRIO && prio_ != TERNARY_PRIO) {
+                        if (isGreaterThanAff(prio_)) {
                             clearOperators_ = true;
                             prio_ = AFF_PRIO;
                             foundOperator_ = true;
@@ -3253,6 +3264,10 @@ public final class ElResolver {
         op_.setPartOffsets(partsOffs_);
         op_.setDelimiter(_d);
         return op_;
+    }
+
+    static boolean isGreaterThanAff(int _prio) {
+        return _prio > AFF_PRIO && _prio != TERNARY_PRIO;
     }
 
     private static void addOperIfBegin(IntTreeMap< String> _operators, int _i, int _first, String _arr) {

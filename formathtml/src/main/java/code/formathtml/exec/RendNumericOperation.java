@@ -8,6 +8,7 @@ import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.stds.ResultErrorStd;
+import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.NumberStruct;
 import code.util.CustList;
 
@@ -21,7 +22,11 @@ public abstract class RendNumericOperation extends RendMethodOperation implement
 
     static Argument calculateAffect(Argument _left,ExecutableCode _conf, Argument _right, String _op, boolean _catString, ClassArgumentMatching _arg) {
         ResultErrorStd res_= new ResultErrorStd();
-        NumberStruct.calculateOperator(_conf, res_, _arg, _op, _catString, _left.getStruct(), _right.getStruct());
+        if (_right == null) {
+            NumberStruct.calculateOperator(_conf, res_, _arg, _op, _catString, _left.getStruct(), NullStruct.NULL_VALUE);
+        } else {
+            NumberStruct.calculateOperator(_conf, res_, _arg, _op, _catString, _left.getStruct(), _right.getStruct());
+        }
         return new Argument(res_.getResult());
     }
 

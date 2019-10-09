@@ -1664,7 +1664,74 @@ public final class RenderExpUtilTest {
         Argument argument_ = processEl("$bool(arg;.,5+arg2;.,6+arg2;.)", context_);
         assertEq(5,argument_.getNumber());
     }
-
+    @Test
+    public void processEl500Test() {
+        Configuration context_ = getConfiguration4();
+        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
+        LocalVariable lv_ = new LocalVariable();
+        lv_.setClassName(context_.getStandards().getAliasPrimBoolean());
+        lv_.setStruct(new BooleanStruct(false));
+        localVars_.put("arg", lv_);
+        lv_ = new LocalVariable();
+        lv_.setClassName(context_.getStandards().getAliasPrimBoolean());
+        lv_.setStruct(new BooleanStruct(false));
+        localVars_.put("arg2", lv_);
+        addImportingPage(context_);
+        context_.getLastPage().setLocalVars(localVars_);
+        Argument argument_ = processEl("arg;.&&=1/0>1", context_);
+        assertTrue(argument_.isFalse());
+    }
+    @Test
+    public void processEl501Test() {
+        Configuration context_ = getConfiguration4();
+        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
+        LocalVariable lv_ = new LocalVariable();
+        lv_.setClassName(context_.getStandards().getAliasPrimBoolean());
+        lv_.setStruct(new BooleanStruct(true));
+        localVars_.put("arg", lv_);
+        lv_ = new LocalVariable();
+        lv_.setClassName(context_.getStandards().getAliasPrimBoolean());
+        lv_.setStruct(new BooleanStruct(false));
+        localVars_.put("arg2", lv_);
+        addImportingPage(context_);
+        context_.getLastPage().setLocalVars(localVars_);
+        Argument argument_ = processEl("arg;.||=1/0>1", context_);
+        assertTrue(argument_.isTrue());
+    }
+    @Test
+    public void processEl502Test() {
+        Configuration context_ = getConfiguration4();
+        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
+        LocalVariable lv_ = new LocalVariable();
+        lv_.setClassName(context_.getStandards().getAliasPrimBoolean());
+        lv_.setStruct(new BooleanStruct(true));
+        localVars_.put("arg", lv_);
+        lv_ = new LocalVariable();
+        lv_.setClassName(context_.getStandards().getAliasPrimBoolean());
+        lv_.setStruct(new BooleanStruct(false));
+        localVars_.put("arg2", lv_);
+        addImportingPage(context_);
+        context_.getLastPage().setLocalVars(localVars_);
+        Argument argument_ = processEl("arg;.&&=arg2;.", context_);
+        assertTrue(argument_.isFalse());
+    }
+    @Test
+    public void processEl503Test() {
+        Configuration context_ = getConfiguration4();
+        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
+        LocalVariable lv_ = new LocalVariable();
+        lv_.setClassName(context_.getStandards().getAliasPrimBoolean());
+        lv_.setStruct(new BooleanStruct(false));
+        localVars_.put("arg", lv_);
+        lv_ = new LocalVariable();
+        lv_.setClassName(context_.getStandards().getAliasPrimBoolean());
+        lv_.setStruct(new BooleanStruct(true));
+        localVars_.put("arg2", lv_);
+        addImportingPage(context_);
+        context_.getLastPage().setLocalVars(localVars_);
+        Argument argument_ = processEl("arg;.||=arg2;.", context_);
+        assertTrue(argument_.isTrue());
+    }
     @Test
     public void processEl6FailTest() {
         Configuration context_ = getConfiguration4();

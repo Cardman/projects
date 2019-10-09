@@ -21,6 +21,7 @@ import code.expressionlanguage.structs.Struct;
 import code.formathtml.Configuration;
 import code.util.CustList;
 import code.util.IdMap;
+import code.util.StringList;
 
 public abstract class RendDynOperationNode {
 
@@ -397,6 +398,21 @@ public abstract class RendDynOperationNode {
     public static int getNextIndex(RendDynOperationNode _operation, Struct _value) {
         int index_ = _operation.getIndexChild();
         RendMethodOperation par_ = _operation.getParent();
+        if (_value instanceof BooleanStruct) {
+            if (par_ instanceof RendCompoundAffectationOperation) {
+                RendCompoundAffectationOperation p_ = (RendCompoundAffectationOperation)par_;
+                if (StringList.quickEq(p_.getOper(),"&&=")) {
+                    if (!((BooleanStruct)_value).getInstance()) {
+                        return par_.getOrder();
+                    }
+                }
+                if (StringList.quickEq(p_.getOper(),"||=")) {
+                    if (((BooleanStruct)_value).getInstance()) {
+                        return par_.getOrder();
+                    }
+                }
+            }
+        }
         if (par_ instanceof RendQuickOperation) {
             RendQuickOperation q_ = (RendQuickOperation) par_;
             BooleanStruct bs_ = q_.absorbingStruct();

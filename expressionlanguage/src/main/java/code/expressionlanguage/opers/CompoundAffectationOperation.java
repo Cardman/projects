@@ -144,6 +144,15 @@ public final class CompoundAffectationOperation extends MethodOperation {
                 _conf.getClasses().addError(cast_);
                 return;
             }
+        } else if (StringList.quickEq(oper, Block.AND_LOG_EQ) || StringList.quickEq(oper, Block.OR_LOG_EQ)) {
+            if (!clMatchLeft_.isBoolType(_conf) || !clMatchRight_.isBoolType(_conf)) {
+                BadImplicitCast cast_ = new BadImplicitCast();
+                cast_.setMapping(mapping_);
+                cast_.setFileName(_conf.getCurrentFileName());
+                cast_.setIndexFile(_conf.getCurrentLocationIndex());
+                _conf.getClasses().addError(cast_);
+                return;
+            }
         } else if (!PrimitiveTypeUtil.isPureNumberClass(clMatchLeft_, _conf)) {
             BadImplicitCast cast_ = new BadImplicitCast();
             cast_.setMapping(mapping_);

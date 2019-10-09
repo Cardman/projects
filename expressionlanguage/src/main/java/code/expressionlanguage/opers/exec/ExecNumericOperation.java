@@ -22,7 +22,11 @@ public abstract class ExecNumericOperation extends ExecMethodOperation implement
 
     static Argument calculateAffect(Argument _left,ExecutableCode _conf, Argument _right, String _op, boolean _catString, ClassArgumentMatching _arg) {
         ResultErrorStd res_= new ResultErrorStd();
-        NumberStruct.calculateOperator(_conf, res_, _arg, _op, _catString, _left.getStruct(), _right.getStruct());
+        if (_right == null) {
+            NumberStruct.calculateOperator(_conf, res_, _arg, _op, _catString, _left.getStruct(), NullStruct.NULL_VALUE);
+        } else {
+            NumberStruct.calculateOperator(_conf, res_, _arg, _op, _catString, _left.getStruct(), _right.getStruct());
+        }
         return new Argument(res_.getResult());
     }
     public static Argument calculateIncrDecr(Argument _left,ExecutableCode _conf, String _op, ClassArgumentMatching _arg) {

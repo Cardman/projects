@@ -79,7 +79,25 @@ public abstract class NumberStruct implements DisplayableStruct, ExportableStrin
             _res.setResult(calculateRotateLeft((NumberStruct)_args[0], (NumberStruct)_args[1], _cont, _order));
             return;
         }
-        _res.setResult(calculateRotateRight((NumberStruct)_args[0], (NumberStruct)_args[1], _cont, _order));
+        if (StringList.quickEq(op_, ">>>>")) {
+            _res.setResult(calculateRotateRight((NumberStruct)_args[0], (NumberStruct)_args[1], _cont, _order));
+            return;
+        }
+        if (StringList.quickEq(op_, "&&")) {
+            BooleanStruct b_ = (BooleanStruct) _args[0];
+            if (!b_.getInstance()) {
+                _res.setResult(b_);
+                return;
+            }
+            _res.setResult(_args[1]);
+            return;
+        }
+        BooleanStruct b_ = (BooleanStruct) _args[0];
+        if (b_.getInstance()) {
+            _res.setResult(b_);
+            return;
+        }
+        _res.setResult(_args[1]);
     }
 
   private static void catenize(Analyzable _cont, ResultErrorStd _res, Struct... _args) {

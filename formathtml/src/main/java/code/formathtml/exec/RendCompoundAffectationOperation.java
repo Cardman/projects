@@ -49,4 +49,8 @@ public final class RendCompoundAffectationOperation extends RendMethodOperation 
         Argument arg_ = settable.calculateCompoundSetting(_nodes, _conf, oper, rightArg_);
         setSimpleArgument(arg_, _conf,_nodes);
     }
+
+    public String getOper() {
+        return oper;
+    }
 }
