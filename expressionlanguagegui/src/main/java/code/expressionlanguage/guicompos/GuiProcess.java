@@ -26,6 +26,7 @@ public final class GuiProcess implements Runnable {
     private ExecutingOptions executingOptions;
     private String clName;
     private String mName;
+    private MainWindow window;
 
     public static GuiProcess build(String _conf, MainWindow _window, String _content) {
         StringList mainArgs_ = new StringList(_conf);
@@ -103,6 +104,7 @@ public final class GuiProcess implements Runnable {
         pr_.context = cont_;
         pr_.clName = clName_;
         pr_.mName = mName_;
+        pr_.window = _window;
         return pr_;
     }
     @Override
@@ -127,6 +129,7 @@ public final class GuiProcess implements Runnable {
         }
         if (!context.getFrame().isVisible()) {
             context.getGuiInit().launchHooks(context);
+            window.setNullCurrent();
             Thread th_ = CustComponent.newThread(new CoveringCodeTask(context, executingOptions));
             th_.start();
             ThreadUtil.join(th_);
