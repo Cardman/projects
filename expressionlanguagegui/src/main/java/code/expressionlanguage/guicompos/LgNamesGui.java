@@ -282,6 +282,12 @@ public class LgNamesGui extends LgNamesUtils {
     private String aliasIsVisible;
     private String aliasSetVisible;
     private String aliasWindow;
+    private String aliasWindowSet;
+    private String aliasWindowSetAll;
+    private String aliasWindowSetAdd;
+    private String aliasWindowSetContains;
+    private String aliasWindowSetRemove;
+    private String aliasWindowSetSnapshot;
     private String aliasArgs;
     private String aliasPack;
     private String aliasDispose;
@@ -452,6 +458,9 @@ public class LgNamesGui extends LgNamesUtils {
         params_ = new StringList(aliasWindowListener);
         method_ = new StandardMethod(aliasAddWindowListener, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasDispose, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
         std_ = stdcl_;
         getStandards().put(aliasWindowType, std_);
 
@@ -496,13 +505,29 @@ public class LgNamesGui extends LgNamesUtils {
         std_ = stdcl_;
         getStandards().put(aliasConfirm, std_);
 
+        fields_ = new StringMap<StandardField>();
+        stdcl_ = new StandardClass(aliasWindowSet, fields_, constructors_, methods_, getAliasObject(), MethodModifier.FINAL);
+        params_ = new StringList(aliasWindow);
+        method_ = new StandardMethod(aliasWindowSetAdd, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasWindowSetAll, params_, aliasWindowSet, false, MethodModifier.STATIC, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasWindow);
+        method_ = new StandardMethod(aliasWindowSetContains, params_, getAliasPrimBoolean(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasWindow);
+        method_ = new StandardMethod(aliasWindowSetRemove, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasWindowSetSnapshot, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasWindowType), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        std_ = stdcl_;
+        getStandards().put(aliasWindowSet, std_);
         methods_ = new ObjectMap<MethodId, StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new StringMap<StandardField>();
         stdcl_ = new StandardClass(aliasFrame, fields_, constructors_, methods_, aliasWindowType, MethodModifier.FINAL);
-        params_ = new StringList();
-        method_ = new StandardMethod(aliasDispose, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
-        methods_.put(method_.getId(), method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasWindow, params_, aliasFrame, false, MethodModifier.STATIC, stdcl_);
         methods_.put(method_.getId(), method_);
@@ -1970,10 +1995,14 @@ public class LgNamesGui extends LgNamesUtils {
             return new Argument();
         }
         if (StringList.quickEq(_id,aliasFrame)) {
-            return new Argument(new FrameStruct(new OtherFrame()));
+            FrameStruct fr_ = new FrameStruct(new OtherFrame());
+            ((GuiContextEl)_cont).getGuiInit().getWindows().add(fr_);
+            return new Argument(fr_);
         }
         if (StringList.quickEq(_id,aliasDialog)) {
-            return new Argument(new DialogStruct(new OtherDialog()));
+            DialogStruct di_ = new DialogStruct(new OtherDialog());
+            ((GuiContextEl)_cont).getGuiInit().getWindows().add(di_);
+            return new Argument(di_);
         }
         if (StringList.quickEq(_id,aliasPanel)) {
             return new Argument(PanelStruct.newFlow(aliasPanel));
@@ -2089,7 +2118,9 @@ public class LgNamesGui extends LgNamesUtils {
                 r_.setResult(NullStruct.NULL_VALUE);
                 return r_;
             }
-            r_.setResult(new FrameStruct(new OtherFrame()));
+            FrameStruct fr_ = new FrameStruct(new OtherFrame());
+            ((GuiContextEl)_cont).getGuiInit().getWindows().add(fr_);
+            r_.setResult(fr_);
             return r_;
         }
         if (StringList.quickEq(name_,aliasDialog)) {
@@ -2098,7 +2129,9 @@ public class LgNamesGui extends LgNamesUtils {
                 r_.setResult(NullStruct.NULL_VALUE);
                 return r_;
             }
-            r_.setResult(new DialogStruct(new OtherDialog()));
+            DialogStruct di_ = new DialogStruct(new OtherDialog());
+            ((GuiContextEl)_cont).getGuiInit().getWindows().add(di_);
+            r_.setResult(di_);
             return r_;
         }
         if (StringList.quickEq(name_,aliasPanel)) {
@@ -2567,10 +2600,70 @@ public class LgNamesGui extends LgNamesUtils {
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
+            if (StringList.quickEq(name_, aliasDispose)) {
+                if (inst_ instanceof FrameStruct && ((FrameStruct)inst_).getCommonFrame().isMainFrame()) {
+                    ((GuiContextEl)_cont).disposeAll();
+                } else {
+                    ((GuiContextEl)_cont).getGuiInit().getWindows().remove(inst_);
+                    inst_.dispose();
+                }
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
             if (_args[0] instanceof PanelStruct) {
                 inst_.setContentPane(((PanelStruct)_args[0]).getPanel());
             }
             res_.setResult(NullStruct.NULL_VALUE);
+            return res_;
+        }
+        if (StringList.quickEq(type_, aliasWindowSet)) {
+            if (StringList.quickEq(name_,aliasWindowSetAdd)) {
+                if (_cont.isInitEnums() && _cont.isContainedSensibleFields(_instance)) {
+                    _cont.failInitEnums();
+                    res_.setResult(NullStruct.NULL_VALUE);
+                    return res_;
+                }
+                WindowSetStruct ins_ = (WindowSetStruct)_instance;
+                ins_.add(_args[0]);
+                if (!(_args[0] instanceof WindowStruct)) {
+                    res_.setError(getAliasNullPe());
+                } else {
+                    res_.setResult(NullStruct.NULL_VALUE);
+                }
+                return res_;
+            }
+            if (StringList.quickEq(name_,aliasWindowSetAll)) {
+                if (_cont.isInitEnums()) {
+                    _cont.failInitEnums();
+                    res_.setResult(NullStruct.NULL_VALUE);
+                    return res_;
+                }
+                res_.setResult(((GuiContextEl)_cont).getGuiInit().getWindows());
+                return res_;
+            }
+            if (StringList.quickEq(name_,aliasWindowSetRemove)) {
+                if (_cont.isInitEnums() && _cont.isContainedSensibleFields(_instance)) {
+                    _cont.failInitEnums();
+                    res_.setResult(NullStruct.NULL_VALUE);
+                    return res_;
+                }
+                WindowSetStruct ins_ = (WindowSetStruct)_instance;
+                ins_.remove(_args[0]);
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            if (StringList.quickEq(name_,aliasWindowSetContains)) {
+                if (_cont.isInitEnums() && _cont.isContainedSensibleFields(_instance)) {
+                    _cont.failInitEnums();
+                    res_.setResult(NullStruct.NULL_VALUE);
+                    return res_;
+                }
+                WindowSetStruct ins_ = (WindowSetStruct)_instance;
+                res_.setResult(ins_.contains(_args[0]));
+                return res_;
+            }
+            WindowSetStruct ins_ = (WindowSetStruct)_instance;
+            res_.setResult(ins_.toSnapshotArray(_cont));
             return res_;
         }
         if (StringList.quickEq(type_, aliasConfirm)) {
@@ -2630,20 +2723,15 @@ public class LgNamesGui extends LgNamesUtils {
                 res_.setResult(((GuiContextEl)_cont).getFrame());
                 return res_;
             }
-            if (StringList.quickEq(name_, aliasArgs)) {
-                StringList mainArgs_ = ((GuiContextEl) _cont).getMainArgs();
-                String typeStr_ = getAliasString();
-                typeStr_ = PrimitiveTypeUtil.getPrettyArrayType(typeStr_);
-                int len_ = mainArgs_.size();
-                Struct[] struct_ = new Struct[len_];
-                for (int i = 0; i < len_; i++) {
-                    struct_[i] = new StringStruct(mainArgs_.get(i));
-                }
-                res_.setResult(new ArrayStruct(struct_,typeStr_));
-                return res_;
+            StringList mainArgs_ = ((GuiContextEl) _cont).getMainArgs();
+            String typeStr_ = getAliasString();
+            typeStr_ = PrimitiveTypeUtil.getPrettyArrayType(typeStr_);
+            int len_ = mainArgs_.size();
+            Struct[] struct_ = new Struct[len_];
+            for (int i = 0; i < len_; i++) {
+                struct_[i] = new StringStruct(mainArgs_.get(i));
             }
-            ((FrameStruct) _instance).dispose();
-            res_.setResult(NullStruct.NULL_VALUE);
+            res_.setResult(new ArrayStruct(struct_,typeStr_));
             return res_;
         }
         if (StringList.quickEq(type_, aliasDialog)) {
@@ -5969,6 +6057,54 @@ public class LgNamesGui extends LgNamesUtils {
         this.aliasWindow = aliasWindow;
     }
 
+    public String getAliasWindowSet() {
+        return aliasWindowSet;
+    }
+
+    public void setAliasWindowSet(String aliasWindowSet) {
+        this.aliasWindowSet = aliasWindowSet;
+    }
+
+    public String getAliasWindowSetAll() {
+        return aliasWindowSetAll;
+    }
+
+    public void setAliasWindowSetAll(String aliasWindowSetAll) {
+        this.aliasWindowSetAll = aliasWindowSetAll;
+    }
+
+    public String getAliasWindowSetAdd() {
+        return aliasWindowSetAdd;
+    }
+
+    public void setAliasWindowSetAdd(String aliasWindowSetAdd) {
+        this.aliasWindowSetAdd = aliasWindowSetAdd;
+    }
+
+    public String getAliasWindowSetContains() {
+        return aliasWindowSetContains;
+    }
+
+    public void setAliasWindowSetContains(String aliasWindowSetContains) {
+        this.aliasWindowSetContains = aliasWindowSetContains;
+    }
+
+    public String getAliasWindowSetRemove() {
+        return aliasWindowSetRemove;
+    }
+
+    public void setAliasWindowSetRemove(String aliasWindowSetRemove) {
+        this.aliasWindowSetRemove = aliasWindowSetRemove;
+    }
+
+    public String getAliasWindowSetSnapshot() {
+        return aliasWindowSetSnapshot;
+    }
+
+    public void setAliasWindowSetSnapshot(String aliasWindowSetSnapshot) {
+        this.aliasWindowSetSnapshot = aliasWindowSetSnapshot;
+    }
+
     public String getAliasArgs() {
         return aliasArgs;
     }
@@ -7494,6 +7630,12 @@ public class LgNamesGui extends LgNamesUtils {
         setAliasPack(get(_util,_cust,"Pack"));
         setAliasColor(get(_util,_cust,"Color"));
         setAliasWindow(get(_util,_cust,"Window"));
+        setAliasWindowSet(get(_util,_cust,"WindowSet"));
+        setAliasWindowSetAdd(get(_util,_cust,"WindowSetAdd"));
+        setAliasWindowSetAll(get(_util,_cust,"WindowSetAll"));
+        setAliasWindowSetContains(get(_util,_cust,"WindowSetContains"));
+        setAliasWindowSetRemove(get(_util,_cust,"WindowSetRemove"));
+        setAliasWindowSetSnapshot(get(_util,_cust,"WindowSetSnapshot"));
         setAliasCompBack(get(_util,_cust,"CompBack"));
         setAliasPaint(get(_util,_cust,"Paint"));
         setAliasCompLoc(get(_util,_cust,"CompLoc"));
@@ -8380,6 +8522,12 @@ public class LgNamesGui extends LgNamesUtils {
                 getAliasSetMenuBar(),
                 getAliasWindow(),
                 getAliasArgs()));
+        _m.put(getAliasWindowSet(), new StringList(
+                getAliasWindowSetAdd(),
+                getAliasWindowSetAll(),
+                getAliasWindowSetContains(),
+                getAliasWindowSetRemove(),
+                getAliasWindowSetSnapshot()));
         _m.put(getAliasDialog(), new StringList(
                 getAliasPack(),
                 getAliasAddWindowListener(),
@@ -8411,6 +8559,7 @@ public class LgNamesGui extends LgNamesUtils {
     @Override
     public StringList allRefTypes() {
         StringList ref_ =  super.allRefTypes();
+        ref_.add(getAliasWindowSet());
         ref_.add(getAliasFrame());
         ref_.add(getAliasConfirm());
         ref_.add(getAliasDialog());

@@ -11,7 +11,7 @@ import code.util.StringList;
 import code.util.StringMap;
 
 public final class GuiContextFactory {
-    public static GuiContextEl buildDefKw(String _lang, StringList _mainArgs,
+    public static GuiContextEl buildDefKw(String _lang, StringList _mainArgs, MainWindow _window,
                                           Options _options, ExecutingOptions _exec, LgNamesGui _undefinedLgNames, StringMap<String> _files, int _tabWidth) {
         KeyWords kwl_ = new KeyWords();
         if (StringList.quickEq(_lang, "en")) {
@@ -24,14 +24,14 @@ public final class GuiContextFactory {
             _undefinedLgNames.keyWord(kwl_,_exec.getKeyWords(), new StringMap<String>());
             _undefinedLgNames.allAlias(_exec.getAliases(), new StringMap<String>());
         }
-        return build(_mainArgs,CustList.INDEX_NOT_FOUND_ELT, _options, _exec,kwl_, _undefinedLgNames, _files, _tabWidth);
+        return build(_mainArgs,_window,CustList.INDEX_NOT_FOUND_ELT, _options, _exec,kwl_, _undefinedLgNames, _files, _tabWidth);
     }
-    public static GuiContextEl build(StringList _mainArgs, int _stack,
+    public static GuiContextEl build(StringList _mainArgs, MainWindow _window, int _stack,
                                      Options _options, ExecutingOptions _exec, KeyWords _definedKw, LgNamesGui _definedLgNames, StringMap<String> _files, int _tabWidth) {
         CustLockingClass cl_ = new CustLockingClass();
-        CustInitializer ci_ = new GuiInitializer();
+        GuiInitializer ci_ = new GuiInitializer();
         GuiContextEl r_ = new GuiContextEl(_stack, cl_, ci_, _options, _exec, _definedKw, _definedLgNames,_tabWidth);
-        r_.initApplicationParts(_mainArgs);
+        r_.initApplicationParts(_mainArgs,_window);
         r_.setCovering(_exec.isCovering());
         ContextFactory.validate(_definedKw,_definedLgNames,_files,r_,_exec.getSrcFolder());
         return r_;

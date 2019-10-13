@@ -5,6 +5,7 @@ import applications.main.LaunchingApplications;
 import cards.main.LaunchingCards;
 import code.converterimages.main.LaunchingConverter;
 import code.expressionlanguage.gui.unit.LaunchingAppUnitTests;
+import code.expressionlanguage.guicompos.LaunchingFull;
 import code.gui.*;
 import code.gui.Panel;
 import code.gui.events.QuittingEvent;
@@ -25,6 +26,7 @@ public final class MainWindow extends GroupFrame {
     private LabelButton buttonPokemon;
 
     private LabelButton buttonCards;
+    private LabelButton buttonApps;
     private LabelButton buttonTests;
     private LabelButton buttonRenders;
     private LabelButton buttonDemo;
@@ -75,6 +77,11 @@ public final class MainWindow extends GroupFrame {
         buttonConverter.addMouseListener(new ConverterEvent(this));
         lineConverter_.add(buttonConverter);
         panel_.add(lineConverter_);
+        Panel lineApp_ = Panel.newLineBox();
+        buttonApps = new LabelButton("8");
+        buttonApps.addMouseListener(new AppsEvent(this));
+        lineApp_.add(buttonApps);
+        panel_.add(lineApp_);
         panel_.add(new Clock());
         for (String l: Constants.getAvailableLanguages()) {
             RadioButton radio_ = new RadioButton(Constants.getDisplayLanguage(l));
@@ -113,6 +120,9 @@ public final class MainWindow extends GroupFrame {
             nb_++;
         }
         if (LaunchingConverter.alreadyLaunched()) {
+            nb_++;
+        }
+        if (LaunchingFull.alreadyLaunched()) {
             nb_++;
         }
         if (nb_ > CustList.SIZE_EMPTY) {

@@ -118,7 +118,7 @@ public final class RunnableStruct implements WithParentStruct, EnumerableStruct,
         dtPart_.append("__");
         dtPart_.append(nb_);
         dtPart_.append(".txt");
-        _r.setThread(Thread.currentThread());
+        _r.setThread(new ThreadStruct(Thread.currentThread()));
         _r.getCustInit().putNewCustTreadIdDate(_r, dtPart_.toString());
         return nb_;
     }

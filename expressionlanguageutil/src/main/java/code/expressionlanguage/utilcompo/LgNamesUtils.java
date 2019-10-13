@@ -42,6 +42,12 @@ import code.util.StringMap;
 public class LgNamesUtils extends LgNames {
 
     private String aliasRunnable;
+    private String aliasThreadSet;
+    private String aliasThreadSetAll;
+    private String aliasThreadSetAdd;
+    private String aliasThreadSetContains;
+    private String aliasThreadSetRemove;
+    private String aliasThreadSetSnapshot;
     private String aliasThread;
     private String aliasThreadCurrentTime;
     private String aliasThreadExitHook;
@@ -574,6 +580,25 @@ public class LgNamesUtils extends LgNames {
         constructors_.add(ctor_);
         std_ = stdcl_;
         getStandards().put(aliasThread, std_);
+        fields_ = new StringMap<StandardField>();
+        stdcl_ = new StandardClass(aliasThreadSet, fields_, constructors_, methods_, getAliasObject(), MethodModifier.FINAL);
+        params_ = new StringList(aliasThread);
+        method_ = new StandardMethod(aliasThreadSetAdd, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasThreadSetAll, params_, aliasThreadSet, false, MethodModifier.STATIC, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasThread);
+        method_ = new StandardMethod(aliasThreadSetContains, params_, getAliasPrimBoolean(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasThread);
+        method_ = new StandardMethod(aliasThreadSetRemove, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasThreadSetSnapshot, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasThread), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        std_ = stdcl_;
+        getStandards().put(aliasThreadSet, std_);
         methods_ = new ObjectMap<MethodId, StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new StringMap<StandardField>();
@@ -771,6 +796,10 @@ public class LgNamesUtils extends LgNames {
             _cont.setException(new ErrorStruct(_cont,getAliasIllegalArg()));
             return Argument.createVoid();
         }
+        if (StringList.quickEq(_id,aliasThreadSet)) {
+            ThreadSetStruct std_ = new ThreadSetStruct();
+            return new Argument(std_);
+        }
         if (StringList.quickEq(_id,aliasReentrantLock)) {
             ReentrantLock re_ = new ReentrantLock();
             StdStruct std_ = StdStruct.newInstance(re_, aliasReentrantLock);
@@ -801,6 +830,11 @@ public class LgNamesUtils extends LgNames {
         if (StringList.quickEq(name_,getAliasObject())) {
             return super.getOtherResult(_cont,_method,_args);
         }
+        if (StringList.quickEq(name_,aliasThreadSet)) {
+            ThreadSetStruct std_ = new ThreadSetStruct();
+            res_.setResult(std_);
+            return res_;
+        }
         if (StringList.quickEq(name_,aliasThread)) {
             if (_cont.isInitEnums()) {
                 _cont.failInitEnums();
@@ -814,7 +848,7 @@ public class LgNamesUtils extends LgNames {
             } else {
                 thread_ = new Thread((Runnable) null);
             }
-            StdStruct std_ = StdStruct.newInstance(thread_, aliasThread);
+            ThreadStruct std_ = new ThreadStruct(thread_);
             res_.setResult(std_);
             return res_;
         }
@@ -941,6 +975,57 @@ public class LgNamesUtils extends LgNames {
         if (StringList.quickEq(type_, getAliasEnums())) {
             return super.getOtherResult(_cont,_instance,_method,_args);
         }
+        if (StringList.quickEq(className_,aliasThreadSet)) {
+            String name_ = _method.getConstraints().getName();
+            if (StringList.quickEq(name_,aliasThreadSetAdd)) {
+                if (_cont.isInitEnums() && _cont.isContainedSensibleFields(_instance)) {
+                    _cont.failInitEnums();
+                    res_.setResult(NullStruct.NULL_VALUE);
+                    return res_;
+                }
+                ThreadSetStruct ins_ = (ThreadSetStruct)_instance;
+                ins_.add(_args[0]);
+                if (!(_args[0] instanceof ThreadStruct)) {
+                    res_.setError(getAliasNullPe());
+                } else {
+                    res_.setResult(NullStruct.NULL_VALUE);
+                }
+                return res_;
+            }
+            if (StringList.quickEq(name_,aliasThreadSetAll)) {
+                if (_cont.isInitEnums()) {
+                    _cont.failInitEnums();
+                    res_.setResult(NullStruct.NULL_VALUE);
+                    return res_;
+                }
+                res_.setResult(((RunnableContextEl)_cont).getCustInit().getThreadSet());
+                return res_;
+            }
+            if (StringList.quickEq(name_,aliasThreadSetRemove)) {
+                if (_cont.isInitEnums() && _cont.isContainedSensibleFields(_instance)) {
+                    _cont.failInitEnums();
+                    res_.setResult(NullStruct.NULL_VALUE);
+                    return res_;
+                }
+                ThreadSetStruct ins_ = (ThreadSetStruct)_instance;
+                ins_.remove(_args[0]);
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            if (StringList.quickEq(name_,aliasThreadSetContains)) {
+                if (_cont.isInitEnums() && _cont.isContainedSensibleFields(_instance)) {
+                    _cont.failInitEnums();
+                    res_.setResult(NullStruct.NULL_VALUE);
+                    return res_;
+                }
+                ThreadSetStruct ins_ = (ThreadSetStruct)_instance;
+                res_.setResult(ins_.contains(_args[0]));
+                return res_;
+            }
+            ThreadSetStruct ins_ = (ThreadSetStruct)_instance;
+            res_.setResult(ins_.toSnapshotArray(_cont));
+            return res_;
+        }
         if (StringList.quickEq(className_,aliasThread)) {
             String name_ = _method.getConstraints().getName();
             if (StringList.quickEq(name_,aliasPrint)) {
@@ -957,7 +1042,7 @@ public class LgNamesUtils extends LgNames {
                 return out_;
             }
             if (StringList.quickEq(name_,aliasStart)) {
-                Thread thread_ = (Thread)((StdStruct) _instance).getInstance();
+                Thread thread_ = ((ThreadStruct) _instance).getThread();
                 if (ThreadUtil.start(thread_)) {
                     res_.setResult(NullStruct.NULL_VALUE);
                 } else {
@@ -979,7 +1064,7 @@ public class LgNamesUtils extends LgNames {
                 return res_;
             }
             if (StringList.quickEq(name_,aliasJoin)) {
-                Thread thread_ = (Thread) ((StdStruct) _instance).getInstance();
+                Thread thread_ = ((ThreadStruct) _instance).getThread();
                 boolean alive_ = thread_.isAlive();
                 ThreadUtil.join(thread_);
                 res_.setResult(new BooleanStruct(alive_));
@@ -991,8 +1076,7 @@ public class LgNamesUtils extends LgNames {
                     res_.setResult(NullStruct.NULL_VALUE);
                     return res_;
                 }
-                StdStruct std_ = StdStruct.newInstance(Thread.currentThread(),aliasThread);
-                res_.setResult(std_);
+                res_.setResult(((RunnableContextEl)_cont).getThread());
                 return res_;
             }
             if (StringList.quickEq(name_,aliasThreadExitHook)) {
@@ -1001,14 +1085,12 @@ public class LgNamesUtils extends LgNames {
                     res_.setResult(NullStruct.NULL_VALUE);
                     return res_;
                 }
-                if (!(_args[0] instanceof StdStruct)) {
+                if (!(_args[0] instanceof ThreadStruct)) {
                     res_.setResult(NullStruct.NULL_VALUE);
                     return res_;
                 }
-                StdStruct a_ = (StdStruct) _args[0];
-                Thread th_ = (Thread) a_.getInstance();
-                Runtime.getRuntime().addShutdownHook(th_);
-                ((RunnableContextEl)_cont).getCustInit().initHook(th_);
+                ThreadStruct a_ = (ThreadStruct) _args[0];
+                ((RunnableContextEl)_cont).getCustInit().initHook(a_);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
@@ -1024,23 +1106,23 @@ public class LgNamesUtils extends LgNames {
                 return res_;
             }
             if (StringList.quickEq(name_,aliasIsAlive)) {
-                Thread thread_ = (Thread) ((StdStruct) _instance).getInstance();
+                Thread thread_ = ((ThreadStruct) _instance).getThread();
                 boolean alive_ = thread_.isAlive();
                 res_.setResult(new BooleanStruct(alive_));
                 return res_;
             }
             if (StringList.quickEq(name_,aliasGetId)) {
-                Thread thread_ = (Thread) ((StdStruct) _instance).getInstance();
+                Thread thread_ = ((ThreadStruct) _instance).getThread();
                 res_.setResult(new LongStruct(thread_.getId()));
                 return res_;
             }
             if (StringList.quickEq(name_,aliasGetPriority)) {
-                Thread thread_ = (Thread) ((StdStruct) _instance).getInstance();
+                Thread thread_ = ((ThreadStruct) _instance).getThread();
                 res_.setResult(new IntStruct(thread_.getPriority()));
                 return res_;
             }
             if (StringList.quickEq(name_,aliasSetPriority)) {
-                Thread thread_ = (Thread) ((StdStruct) _instance).getInstance();
+                Thread thread_ = ((ThreadStruct) _instance).getThread();
                 if (ThreadUtil.setPriority(thread_,((NumberStruct)_args[0]).intStruct())) {
                     res_.setResult(NullStruct.NULL_VALUE);
                 } else {
@@ -1517,6 +1599,12 @@ public class LgNamesUtils extends LgNames {
                 getAliasSleep(),
                 getAliasPrint(),
                 getAliasThreadExitHook()));
+        m_.put(getAliasThreadSet(), new StringList(
+                getAliasThreadSetAdd(),
+                getAliasThreadSetAll(),
+                getAliasThreadSetContains(),
+                getAliasThreadSetRemove(),
+                getAliasThreadSetSnapshot()));
         m_.put(getAliasReentrantLock(), new StringList(
                 getAliasLock(),
                 getAliasUnlock(),
@@ -1620,6 +1708,7 @@ public class LgNamesUtils extends LgNames {
     public StringList allRefTypes() {
         StringList ref_ =  super.allRefTypes();
         ref_.add(getAliasThread());
+        ref_.add(getAliasThreadSet());
         ref_.add(getAliasReentrantLock());
         ref_.add(getAliasAtomicBoolean());
         ref_.add(getAliasAtomicInteger());
@@ -1653,6 +1742,54 @@ public class LgNamesUtils extends LgNames {
 
     public void setAliasRunnable(String _aliasRunnable) {
         aliasRunnable = _aliasRunnable;
+    }
+
+    public String getAliasThreadSet() {
+        return aliasThreadSet;
+    }
+
+    public void setAliasThreadSet(String _aliasThreadSet) {
+        aliasThreadSet = _aliasThreadSet;
+    }
+
+    public String getAliasThreadSetAll() {
+        return aliasThreadSetAll;
+    }
+
+    public void setAliasThreadSetAll(String _aliasThreadSetAll) {
+        aliasThreadSetAll = _aliasThreadSetAll;
+    }
+
+    public String getAliasThreadSetAdd() {
+        return aliasThreadSetAdd;
+    }
+
+    public void setAliasThreadSetAdd(String _aliasThreadSetAdd) {
+        aliasThreadSetAdd = _aliasThreadSetAdd;
+    }
+
+    public String getAliasThreadSetContains() {
+        return aliasThreadSetContains;
+    }
+
+    public void setAliasThreadSetContains(String _aliasThreadSetContains) {
+        aliasThreadSetContains = _aliasThreadSetContains;
+    }
+
+    public String getAliasThreadSetRemove() {
+        return aliasThreadSetRemove;
+    }
+
+    public void setAliasThreadSetRemove(String _aliasThreadSetRemove) {
+        aliasThreadSetRemove = _aliasThreadSetRemove;
+    }
+
+    public String getAliasThreadSetSnapshot() {
+        return aliasThreadSetSnapshot;
+    }
+
+    public void setAliasThreadSetSnapshot(String _aliasThreadSetSnapshot) {
+        aliasThreadSetSnapshot = _aliasThreadSetSnapshot;
     }
 
     public String getAliasThread() {
@@ -3129,6 +3266,12 @@ public class LgNamesUtils extends LgNames {
         setAliasInfoTestCurrentParams(get(_util,_cust,"InfoTestCurrentParams"));
         setAliasRunnable(get(_util,_cust,"Runnable"));
         setAliasThread(get(_util,_cust,"Thread"));
+        setAliasThreadSet(get(_util,_cust,"ThreadSet"));
+        setAliasThreadSetAll(get(_util,_cust,"ThreadSetAll"));
+        setAliasThreadSetAdd(get(_util,_cust,"ThreadSetAdd"));
+        setAliasThreadSetContains(get(_util,_cust,"ThreadSetContains"));
+        setAliasThreadSetRemove(get(_util,_cust,"ThreadSetRemove"));
+        setAliasThreadSetSnapshot(get(_util,_cust,"ThreadSetSnapshot"));
         setAliasStart(get(_util,_cust,"Start"));
         setAliasJoin(get(_util,_cust,"Join"));
         setAliasRun(get(_util,_cust,"Run"));

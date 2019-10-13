@@ -24,9 +24,7 @@ public final class StdStruct implements Struct {
     public Struct getParent() {
         return NullStruct.NULL_VALUE;
     }
-    public static StdStruct newInstance(Thread _instance, String _className) {
-        return new StdStruct(_instance, _className);
-    }
+
     public static StdStruct newInstance(AtomicBoolean _instance, String _className) {
         return new StdStruct(_instance, _className);
     }

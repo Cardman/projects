@@ -17,4 +17,6 @@ public interface WithListener {
     void setLocationRelativeTo(WithListener c);
     void setLocationRelativeToNull();
     boolean isVisible();
+
+    void dispose();
 }

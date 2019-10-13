@@ -30,12 +30,10 @@ public final class OtherFrame extends AbsFrame implements ChangeableTitle,WithLi
     }
     public void dispose() {
         setVisible(false);
-        if (mainFrame) {
-            exit();
-        }
     }
-    protected void exit() {
-        ProcessUtil.exit();
+
+    public boolean isMainFrame() {
+        return mainFrame;
     }
 
     public void setImageIconFrame(BufferedImage _imageIconFrame) {

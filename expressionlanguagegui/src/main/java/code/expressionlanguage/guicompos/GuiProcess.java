@@ -13,6 +13,7 @@ import code.expressionlanguage.utilcompo.RunningTest;
 import code.gui.Clock;
 import code.gui.CustComponent;
 import code.stream.StreamTextFile;
+import code.stream.ThreadUtil;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
@@ -25,16 +26,10 @@ public final class GuiProcess implements Runnable {
     private ExecutingOptions executingOptions;
     private String clName;
     private String mName;
-    public static void launch(String[] _args) {
-        if (_args.length == 0) {
-            return;
-        }
-        StringList mainArgs_ = new StringList(_args);
-        String content_ = StreamTextFile.contentsOfFile(_args[0]);
-        if (content_ == null) {
-            return;
-        }
-        StringList lines_ = StringList.splitStrings(content_, "\n", "\r\n");
+
+    public static GuiProcess build(String _conf, MainWindow _window, String _content) {
+        StringList mainArgs_ = new StringList(_conf);
+        StringList lines_ = StringList.splitStrings(_content, "\n", "\r\n");
         StringList linesFiles_ = new StringList();
         for (String s: lines_) {
             if (s.trim().isEmpty()) {
@@ -43,7 +38,7 @@ public final class GuiProcess implements Runnable {
             linesFiles_.add(s.trim());
         }
         if (linesFiles_.size() < 3) {
-            return;
+            return null;
         }
         String archive_ = linesFiles_.first();
         StringMap<String> zipFiles_ = RunningTest.getFiles(archive_);
@@ -80,15 +75,15 @@ public final class GuiProcess implements Runnable {
         String folder_ = exec_.getLogFolder();
         if (exec_.isHasArg()) {
             mainArgs_ = exec_.getArgs();
-            mainArgs_.add(0,_args[0]);
+            mainArgs_.add(0, _conf);
         }
         Options opt_ = new Options();
         opt_.setReadOnly(true);
         opt_.setFailIfNotAllInit(true);
         LgNamesGui stds_ = new LgNamesGui();
-        GuiContextEl cont_ = GuiContextFactory.buildDefKw(lg_, mainArgs_,opt_, exec_, stds_, zipFiles_, exec_.getTabWidth());
+        GuiContextEl cont_ = GuiContextFactory.buildDefKw(lg_, mainArgs_,_window,opt_, exec_, stds_, zipFiles_, exec_.getTabWidth());
         if (cont_ == null) {
-            return;
+            return null;
         }
         if (!cont_.getClasses().isEmptyErrors() || !cont_.getClasses().isEmptyStdError()) {
             String time_ = Clock.getDateTimeText("_", "_", "_");
@@ -96,9 +91,8 @@ public final class GuiProcess implements Runnable {
             StreamTextFile.logToFile(folder_+"/_"+dtPart_, time_+":"+cont_.getClasses().displayErrors());
             StreamTextFile.logToFile(folder_+"/_"+dtPart_, time_+":"+cont_.getClasses().displayWarnings());
             StreamTextFile.logToFile(folder_+"/_"+dtPart_, time_+":"+cont_.getClasses().displayStdErrors());
-            return;
+            return null;
         }
-        Runtime.getRuntime().addShutdownHook(new Thread(new CoveringCodeTask(cont_,exec_)));
         if (!cont_.getClasses().isEmptyWarnings()) {
             String time_ = Clock.getDateTimeText("_", "_", "_");
             String dtPart_ = time_+".txt";
@@ -109,9 +103,8 @@ public final class GuiProcess implements Runnable {
         pr_.context = cont_;
         pr_.clName = clName_;
         pr_.mName = mName_;
-        CustComponent.invokeLater(pr_);
+        return pr_;
     }
-
     @Override
     public void run() {
         long nb_ = RunnableStruct.setupThread(context);
@@ -131,6 +124,12 @@ public final class GuiProcess implements Runnable {
             RunnableStruct.invoke(arg_, clName, id_, args_, context, null);
         } else {
             context.getCustInit().removeThreadFromList(context);
+        }
+        if (!context.getFrame().isVisible()) {
+            context.getGuiInit().launchHooks(context);
+            Thread th_ = CustComponent.newThread(new CoveringCodeTask(context, executingOptions));
+            th_.start();
+            ThreadUtil.join(th_);
         }
     }
 }

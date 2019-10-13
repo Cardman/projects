@@ -19,7 +19,8 @@ public class RunnableContextEl extends ContextEl {
 
     private ExecutingOptions executingOptions;
 
-    private Thread thread;
+    private ThreadStruct thread;
+    private String idDate;
     private long number;
     protected RunnableContextEl(int _stackOverFlow, DefaultLockingClass _lock,
                       CustInitializer _init, Options _options, ExecutingOptions _exec, KeyWords _keyWords, LgNames _stds, int _tabWidth) {
@@ -45,12 +46,20 @@ public class RunnableContextEl extends ContextEl {
         custInit = ((RunnableContextEl)_context).getCustInit();
     }
 
-    public Thread getThread() {
+    public ThreadStruct getThread() {
         return thread;
     }
 
-    public void setThread(Thread _thread) {
+    public void setThread(ThreadStruct _thread) {
         thread = _thread;
+    }
+
+    public String getIdDate() {
+        return idDate;
+    }
+
+    public void setIdDate(String _idDate) {
+        idDate = _idDate;
     }
 
     public long getNumber() {
@@ -85,6 +94,9 @@ public class RunnableContextEl extends ContextEl {
         executingOptions = _executing;
     }
     protected EndCallValue removeCall() {
+        if (interrupt.get()) {
+            return EndCallValue.EXIT;
+        }
         try {
             return super.removeCall();
         } catch (OutOfMemoryError _0) {

@@ -1,7 +1,6 @@
 package code.expressionlanguage.utilcompo;
 
 import java.io.File;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 
 import code.expressionlanguage.Argument;
@@ -25,8 +24,8 @@ import code.util.StringList;
 public class CustInitializer extends DefaultInitializer {
 
 	/**Used map in order that the user can easily log when a few thread is used (depends on Thread class implementation)*/
-	private final ConcurrentHashMap<RunnableContextEl, String> threadIdDate = new ConcurrentHashMap<RunnableContextEl, String>();
-    private final ConcurrentHashMap<Thread, Boolean> hooks = new ConcurrentHashMap<Thread, Boolean>();
+	private final ThreadSetStruct threadSet = new ThreadSetStruct();
+    private final ThreadSetStruct hooks = new ThreadSetStruct();
 	private final AtomicLong countThreads = new AtomicLong();
     @Override
     protected Struct init(ContextEl _context, Struct _parent,
@@ -59,7 +58,7 @@ public class CustInitializer extends DefaultInitializer {
         return ((LgNamesUtils)_stds).getAliasRun();
     }
     String getCurrentTreadIdDate(RunnableContextEl _ctx) {
-    	return threadIdDate.get(_ctx);
+    	return _ctx.getIdDate();
 	}
     public void prExc(RunnableContextEl _cont) {
     	Struct exception_ = _cont.getException();
@@ -105,7 +104,7 @@ public class CustInitializer extends DefaultInitializer {
     }
 
     public void removeThreadFromList(RunnableContextEl _ctx) {
-        threadIdDate.remove(_ctx);
+        threadSet.remove(_ctx.getThread());
     }
 
     public String getCurrentFileThread(RunnableContextEl _cont) {
@@ -118,24 +117,54 @@ public class CustInitializer extends DefaultInitializer {
 
     /**This method must be called only before exit, by one (main) thread only*/
     void joinOthers(RunnableContextEl _ctx) {
-        for (RunnableContextEl t: threadIdDate.keySet()) {
-            if (t == _ctx) {
+        for (Struct s: threadSet.toSnapshotArray(_ctx).getInstance()) {
+            if (!(s instanceof ThreadStruct)) {
                 continue;
             }
-            ThreadUtil.join(t.getThread());
+            if (s.sameReference(_ctx.getThread())) {
+                continue;
+            }
+            Thread t_ = ((ThreadStruct)s).getThread();
+            ThreadUtil.join(t_);
         }
     }
-    public void joinHooks() {
-        for (Thread t: hooks.keySet()) {
-            ThreadUtil.join(t);
+    public void launchHooks(RunnableContextEl _ctx) {
+        Struct[] inst_ = hooks.toSnapshotArray(_ctx).getInstance();
+        for (Struct s: inst_) {
+            if (!(s instanceof ThreadStruct)) {
+                continue;
+            }
+            Thread t_ = ((ThreadStruct)s).getThread();
+            t_.start();
+        }
+        for (Struct s: inst_) {
+            if (!(s instanceof ThreadStruct)) {
+                continue;
+            }
+            Thread t_ = ((ThreadStruct)s).getThread();
+            ThreadUtil.join(t_);
+        }
+    }
+    public void joinHooks(RunnableContextEl _ctx) {
+        for (Struct s: hooks.toSnapshotArray(_ctx).getInstance()) {
+            if (!(s instanceof ThreadStruct)) {
+                continue;
+            }
+            Thread t_ = ((ThreadStruct)s).getThread();
+            ThreadUtil.join(t_);
         }
     }
     void putNewCustTreadIdDate(RunnableContextEl _id, String _value) {
-		threadIdDate.put(_id,_value);
+        _id.setIdDate(_value);
+        threadSet.add(_id.getThread());
 	}
 
-    public void initHook(Thread _id) {
-        hooks.put(_id, true);
+    public ThreadSetStruct getThreadSet() {
+        return threadSet;
+    }
+
+    public void initHook(ThreadStruct _id) {
+        hooks.add(_id);
     }
 
     long increment() {

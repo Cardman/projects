@@ -1,9 +1,9 @@
 package code.expressionlanguage.main.gui;
 
-import code.expressionlanguage.guicompos.GuiProcess;
+import code.expressionlanguage.guicompos.LaunchingFull;
 
-public class MainClass {
+public class MainClass extends LaunchingFull {
     public static void main(String[] _args) {
-        GuiProcess.launch(_args);
+        loadLaungage(_args);
     }
 }

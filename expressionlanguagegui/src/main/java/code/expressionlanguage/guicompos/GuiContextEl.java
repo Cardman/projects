@@ -11,9 +11,11 @@ import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.utilcompo.CustInitializer;
 import code.expressionlanguage.utilcompo.ExecutingOptions;
 import code.expressionlanguage.utilcompo.RunnableContextEl;
+import code.gui.CustComponent;
 import code.gui.OtherConfirmDialog;
 import code.gui.OtherFrame;
 import code.gui.TextLabel;
+import code.stream.ThreadUtil;
 import code.util.StringList;
 
 import javax.swing.WindowConstants;
@@ -24,18 +26,23 @@ public final class GuiContextEl extends RunnableContextEl {
     private FrameStruct frame;
     private StringList mainArgs;
     private OtherConfirmDialog confirm;
+    private GuiInitializer guiInit;
+    private MainWindow window;
 
-    GuiContextEl(int _stackOverFlow, DefaultLockingClass _lock, CustInitializer _init, Options _options, ExecutingOptions _exec, KeyWords _keyWords, LgNames _stds, int _tabWidth) {
+    GuiContextEl(int _stackOverFlow, DefaultLockingClass _lock, GuiInitializer _init, Options _options, ExecutingOptions _exec, KeyWords _keyWords, LgNames _stds, int _tabWidth) {
         super(_stackOverFlow, _lock, _init, _options, _exec, _keyWords, _stds, _tabWidth);
+        guiInit = _init;
     }
 
-    public void initApplicationParts(StringList _mainArgs) {
+    public void initApplicationParts(StringList _mainArgs, MainWindow _window) {
         mainArgs = _mainArgs;
+        window = _window;
         textLabel = new TextLabel("");
         OtherFrame fr_ = new OtherFrame();
         fr_.setMainFrame(true);
         fr_.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame = new FrameStruct(fr_);
+        guiInit.getWindows().add(frame);
         confirm = new OtherConfirmDialog();
     }
 
@@ -44,7 +51,30 @@ public final class GuiContextEl extends RunnableContextEl {
         textLabel = ((GuiContextEl)_context).textLabel;
         frame = ((GuiContextEl)_context).frame;
         mainArgs = ((GuiContextEl)_context).mainArgs;
+        guiInit = ((GuiContextEl)_context).guiInit;
         confirm = ((GuiContextEl)_context).confirm;
+        window = ((GuiContextEl)_context).window;
+    }
+
+    public void disposeAll() {
+        for (Struct s: guiInit.getWindows().toSnapshotArray(this).getInstance()) {
+            if (!(s instanceof WindowStruct)) {
+                continue;
+            }
+            ((WindowStruct)s).setVisible(false);
+            ((WindowStruct)s).dispose();
+        }
+        frame.setVisible(false);
+        frame.dispose();
+        getGuiInit().launchHooks(this);
+        window.setNullCurrent();
+        Thread th_ = CustComponent.newThread(new CoveringCodeTask(this, getExecutingOptions()));
+        th_.start();
+        ThreadUtil.join(th_);
+
+    }
+    public GuiInitializer getGuiInit() {
+        return guiInit;
     }
 
     public Struct showTextField(Struct _img,Struct _frame, Struct _value, Struct _message, Struct _title, Struct _ok, Struct _cancel) {
@@ -202,7 +232,7 @@ public final class GuiContextEl extends RunnableContextEl {
             _inst.removeWindowListener((WindowListener)_event);
             if (_inst.getWindowListeners().length == 0) {
                 if (_inst == frame) {
-                    _inst.getAbstractWindow().setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+                    _inst.getAbstractWindow().setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
                 } else {
                     _inst.getAbstractWindow().setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
                 }

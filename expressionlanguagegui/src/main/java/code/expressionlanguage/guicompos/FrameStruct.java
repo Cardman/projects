@@ -45,7 +45,4 @@ public final class FrameStruct extends WindowStruct {
         return commonFrame;
     }
 
-    public void dispose() {
-        commonFrame.dispose();
-    }
 }

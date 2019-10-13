@@ -62,6 +62,12 @@ public final class OtherDialog implements ChangeableTitle,WithListener {
     public boolean isVisible() {
         return dialog.isVisible();
     }
+
+    @Override
+    public void dispose() {
+        dialog.dispose();
+    }
+
     public void setVisible(boolean _b) {
         dialog.setVisible(_b);
     }

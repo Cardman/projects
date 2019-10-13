@@ -13,6 +13,7 @@ import cards.tarot.GameTarot;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.guicompos.GuiProcess;
 import code.expressionlanguage.gui.unit.LaunchingAppUnitTests;
+import code.expressionlanguage.guicompos.LaunchingFull;
 import code.gui.*;
 import code.images.BaseSixtyFourUtil;
 import code.minirts.LaunchingDemo;
@@ -109,12 +110,9 @@ public class LaunchingApplications extends SoftApplicationCore {
                     return;
                 }
                 if (possibleMethod_.startsWith("main=")) {
-                    int len_ = _args.size();
-                    String[] argsList_ = new String[len_];
-                    for (int i = 0; i < len_; i++) {
-                        argsList_[i] = _args.getKey(i);
-                    }
-                    GuiProcess.launch(argsList_);
+                    launchWindow(_language);
+                    LaunchingFull launch_ = new LaunchingFull();
+                    launch_.launchWithoutLanguage(_language, _args);
                     return;
                 }
                 launchWindow(_language);
