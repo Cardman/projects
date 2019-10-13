@@ -12,6 +12,16 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public final class WindowSetStruct implements Struct {
     private ConcurrentHashMap<WindowStruct,Struct> elementSet = new ConcurrentHashMap<WindowStruct,Struct>();
+    private boolean writable;
+
+    public boolean isWritable() {
+        return writable;
+    }
+
+    public void setWritable(boolean _writable) {
+        writable = _writable;
+    }
+
     @Override
     public Struct getParent() {
         return NullStruct.NULL_VALUE;
@@ -33,13 +43,19 @@ public final class WindowSetStruct implements Struct {
         }
         return arr_;
     }
-    public void add(Struct _key) {
+    public void add(Struct _key, boolean _ch) {
+        if (!writable && _ch) {
+            return;
+        }
         if (!(_key instanceof WindowStruct)) {
             return;
         }
         elementSet.put((WindowStruct) _key,NullStruct.NULL_VALUE);
     }
-    public void remove(Struct _key) {
+    public void remove(Struct _key, boolean _ch) {
+        if (!writable && _ch) {
+            return;
+        }
         if (!(_key instanceof WindowStruct)) {
             return;
         }

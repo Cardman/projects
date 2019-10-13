@@ -7,7 +7,6 @@ import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.structs.Struct;
-import code.expressionlanguage.utilcompo.ThreadSetStruct;
 import code.util.ObjectMap;
 
 public class GuiInitializer extends CustInitializer {
