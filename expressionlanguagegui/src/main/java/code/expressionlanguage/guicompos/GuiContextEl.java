@@ -66,6 +66,7 @@ public final class GuiContextEl extends RunnableContextEl {
         }
         frame.setVisible(false);
         frame.dispose();
+        interrupt();
         getGuiInit().launchHooks(this);
         window.setNullCurrent();
         Thread th_ = CustComponent.newThread(new CoveringCodeTask(this, getExecutingOptions()));
