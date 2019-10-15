@@ -25,6 +25,7 @@ public final class ExecLambdaOperation extends ExecLeafOperation implements Atom
     private boolean shiftArgument;
     private boolean polymorph;
     private boolean abstractMethod;
+    private boolean directCast;
     private ConstructorId realId;
     private ClassField fieldId;
     private boolean affField;
@@ -44,6 +45,7 @@ public final class ExecLambdaOperation extends ExecLeafOperation implements Atom
         fieldId = _l.getFieldId();
         affField = _l.isAffField();
         returnFieldType = _l.getReturnFieldType();
+        directCast = _l.isDirectCast();
     }
 
     @Override
@@ -76,6 +78,7 @@ public final class ExecLambdaOperation extends ExecLeafOperation implements Atom
         MethodId id_ = method.getConstraints();
         LambdaMethodStruct l_ = new LambdaMethodStruct(clArg_, ownerType_, id_, polymorph, shiftArgument, ancestor,abstractMethod);
         l_.setInstanceCall(_previous);
+        l_.setDirectCast(directCast);
         arg_.setStruct(l_);
         return arg_;
     }
@@ -101,6 +104,10 @@ public final class ExecLambdaOperation extends ExecLeafOperation implements Atom
 
     public ConstructorId getRealId() {
         return realId;
+    }
+
+    public boolean isDirectCast() {
+        return directCast;
     }
 
     public ClassField getFieldId() {

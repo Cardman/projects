@@ -31,6 +31,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
     private ClassMethodId method;
     private String foundClass;
     private int ancestor;
+    private boolean directCast;
     private boolean shiftArgument;
     private boolean polymorph;
     private boolean abstractMethod;
@@ -92,6 +93,126 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             CustList<ClassArgumentMatching> _methodTypes, String _name) {
         StringList str_;
         String name_ = _name;
+        if (StringList.quickEq(name_,_conf.getKeyWords().getKeyWordExplicit())) {
+            String exp_ = _conf.getKeyWords().getKeyWordExplicit();
+            int i_ = 2;
+            ClassMethodId feed_ = null;
+            KeyWords keyWords_ = _conf.getKeyWords();
+            String keyWordId_ = keyWords_.getKeyWordId();
+            int offset_ = className.indexOf('(')+1;
+            offset_ += StringList.getFirstPrintableCharIndex(_args.first());
+            String type_ = _conf.resolveCorrectType(offset_,_fromType, true);
+            partOffsets.addAllElts(_conf.getContextEl().getCoverage().getCurrentParts());
+            MethodId argsRes_;
+            if (matchIdKeyWord(_args, _len, i_, keyWordId_)) {
+                String cl_ = Templates.getIdFromAllTypes(type_);
+                argsRes_ = resolveArguments(i_+1, _conf, cl_, true, _args);
+                if (argsRes_ == null) {
+                    return;
+                }
+                boolean varargFct_ = argsRes_.isVararg();
+                StringList params_ = argsRes_.getParametersTypes();
+                feed_ = new ClassMethodId(type_, new MethodId(true, name_, params_, varargFct_));
+                for (String s: argsRes_.getParametersTypes()) {
+                    String format_ = Templates.wildCardFormatParam(false, type_, s, _conf);
+                    if (format_ == null) {
+                        ClassMethodIdReturn idDef_ = new ClassMethodIdReturn(true);
+                        MethodId idCast_ = new MethodId(true,exp_,new StringList(_stds.getAliasObject()));
+                        idDef_.setId(new ClassMethodId(type_, idCast_));
+                        idDef_.setRealId(idCast_);
+                        idDef_.setRealClass(type_);
+                        idDef_.setReturnType(type_);
+                        idDef_.setStaticMethod(true);
+                        foundClass = type_;
+                        MethodId idCt_ = new MethodId(true,exp_,new StringList(_stds.getAliasObject()));
+                        method = new ClassMethodId(type_, idCt_);
+                        ancestor = idDef_.getAncestor();
+                        abstractMethod = idDef_.isAbstractMethod();
+                        shiftArgument = false;
+                        directCast = true;
+                        String fct_ = formatReturn(_conf, false, idDef_, false);
+                        fct_ = Templates.quickFormat(type_,fct_,_conf);
+                        setResultClass(new ClassArgumentMatching(fct_));
+                        return;
+                    }
+                    _methodTypes.add(new ClassArgumentMatching(format_));
+                }
+            } else {
+                argsRes_ = resolveArguments(i_, _conf, _args);
+                if (argsRes_ == null) {
+                    return;
+                }
+                for (String s: argsRes_.getParametersTypes()) {
+                    _methodTypes.add(new ClassArgumentMatching(s));
+                }
+            }
+            if (argsRes_.getParametersTypes().size() > 1) {
+                StaticAccessError static_ = new StaticAccessError();
+                static_.setFileName(_conf.getCurrentFileName());
+                static_.setIndexFile(_conf.getCurrentLocationIndex());
+                _conf.getClasses().addError(static_);
+                setResultClass(new ClassArgumentMatching(_stds.getAliasObject()));
+                return;
+            }
+            if (!ExplicitOperation.customCast(type_)) {
+                ClassMethodIdReturn idDef_ = new ClassMethodIdReturn(true);
+                MethodId idCast_ = new MethodId(true,exp_,new StringList(_stds.getAliasObject()));
+                idDef_.setId(new ClassMethodId(type_, idCast_));
+                idDef_.setRealId(idCast_);
+                idDef_.setRealClass(type_);
+                idDef_.setReturnType(type_);
+                idDef_.setStaticMethod(true);
+                foundClass = type_;
+                MethodId idCt_ = new MethodId(true,exp_,new StringList(_stds.getAliasObject()));
+                method = new ClassMethodId(type_, idCt_);
+                ancestor = idDef_.getAncestor();
+                abstractMethod = idDef_.isAbstractMethod();
+                shiftArgument = false;
+                directCast = true;
+                String fct_ = formatReturn(_conf, false, idDef_, false);
+                fct_ = Templates.quickFormat(type_,fct_,_conf);
+                setResultClass(new ClassArgumentMatching(fct_));
+                return;
+            }
+            ClassMethodIdReturn id_ = tryGetDeclaredCast(_conf,type_,exp_,feed_,ClassArgumentMatching.toArgArray(_methodTypes));
+            if (!id_.isFoundMethod()) {
+                ClassMethodIdReturn idDef_ = new ClassMethodIdReturn(true);
+                MethodId idCast_;
+                if (argsRes_.getParametersTypes().isEmpty()) {
+                    idCast_ = new MethodId(true,exp_,new StringList(_stds.getAliasObject()));
+                } else {
+                    idCast_ = new MethodId(true,exp_,new StringList(argsRes_.getParametersTypes()));
+                }
+                idDef_.setId(new ClassMethodId(type_, idCast_));
+                idDef_.setRealId(idCast_);
+                idDef_.setRealClass(type_);
+                idDef_.setReturnType(type_);
+                idDef_.setStaticMethod(true);
+                foundClass = type_;
+                MethodId idCt_ = new MethodId(true,exp_,new StringList(_stds.getAliasObject()));
+                method = new ClassMethodId(type_, idCt_);
+                ancestor = idDef_.getAncestor();
+                abstractMethod = idDef_.isAbstractMethod();
+                shiftArgument = false;
+                directCast = true;
+                String fct_ = formatReturn(_conf, false, idDef_, false);
+                fct_ = Templates.quickFormat(type_,fct_,_conf);
+                setResultClass(new ClassArgumentMatching(fct_));
+                return;
+            }
+            String foundClass_ = id_.getRealClass();
+            foundClass_ = Templates.getIdFromAllTypes(foundClass_);
+            foundClass = id_.getId().getClassName();
+            MethodId idCt_ = id_.getRealId();
+            method = new ClassMethodId(foundClass_, idCt_);
+            ancestor = id_.getAncestor();
+            abstractMethod = id_.isAbstractMethod();
+            shiftArgument = false;
+            String fct_ = formatReturn(_conf, false, id_, false);
+            fct_ = Templates.quickFormat(type_,fct_,_conf);
+            setResultClass(new ClassArgumentMatching(fct_));
+            return;
+        }
         if (!isIntermediateDottedOperation()) {
             int i_ = 2;
             boolean staticChoiceMethod_ = false;
@@ -127,7 +248,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             int vararg_ = -1;
             MethodId argsRes_;
             ClassMethodId feed_ = null;
-            if (i_ < _len && StringList.quickEq(_args.get(i_).trim(), keyWordId_)) {
+            if (matchIdKeyWord(_args, _len, i_, keyWordId_)) {
                 boolean staticFlag_ = false;
                 if (i_ + 1 < _len) {
                     String keyWordStatic_ = _conf.getKeyWords().getKeyWordStatic();
@@ -303,7 +424,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         }
         MethodId argsRes_;
         ClassMethodId feed_ = null;
-        if (i_ < _len && StringList.quickEq(_args.get(i_).trim(), keyWordId_)) {
+        if (matchIdKeyWord(_args, _len, i_, keyWordId_)) {
             stCtx_ = false;
             if (i_ + 1 < _len) {
                 String keyWordStatic_ = _conf.getKeyWords().getKeyWordStatic();
@@ -407,6 +528,10 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         String fct_ = formatReturn(_conf, false, id_, false);
         setResultClass(new ClassArgumentMatching(fct_));
         processAbstract(_conf, staticChoiceMethod_, id_);
+    }
+
+    private boolean matchIdKeyWord(StringList _args, int _len, int _i, String _keyWordId) {
+        return _i < _len && StringList.quickEq(_args.get(_i).trim(), _keyWordId);
     }
 
     private boolean cloneArray(StringList _bounds) {
@@ -1295,6 +1420,10 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         return ancestor;
     }
 
+    public boolean isDirectCast() {
+        return directCast;
+    }
+
     public boolean isShiftArgument() {
         return shiftArgument;
     }
@@ -1325,5 +1454,9 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
 
     public CustList<PartOffset> getPartOffsets() {
         return partOffsets;
+    }
+
+    public int getClassNameOffset() {
+        return StringList.getFirstPrintableCharIndex(className);
     }
 }

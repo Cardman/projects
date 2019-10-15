@@ -3,6 +3,13 @@ package code.expressionlanguage.calls;
 import code.expressionlanguage.structs.MethodMetaInfo;
 
 public final class DirectRefectMethodPageEl extends AbstractRefectMethodPageEl {
+
+    @Override
+    boolean initType() {
+        MethodMetaInfo method_ = (MethodMetaInfo) getGlobalArgument().getStruct();
+        return method_.isStatic();
+    }
+
     @Override
     boolean isAbstract() {
         MethodMetaInfo method_ = (MethodMetaInfo) getGlobalArgument().getStruct();

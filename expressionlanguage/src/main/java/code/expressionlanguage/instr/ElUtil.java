@@ -877,6 +877,7 @@ public final class ElUtil {
                 ClassMethodId classMethodId_ = ((ExecLambdaOperation) curOp_).getMethod();
                 ConstructorId realId_ = ((ExecLambdaOperation) curOp_).getRealId();
                 ClassField fieldId_ = ((ExecLambdaOperation) curOp_).getFieldId();
+                int off_ = ((LambdaOperation)val_).getClassNameOffset();
                 if (classMethodId_ != null) {
                     String className_ = classMethodId_.getClassName();
                     className_ = Templates.getIdFromAllTypes(className_);
@@ -886,18 +887,27 @@ public final class ElUtil {
                         String file_ = operator_.getFile().getRenderFileName();
                         String rel_ = relativize(currentFileName_, file_ + "#m" + operator_.getNameOffset());
                         tag_ = "<a title=\""+ transform(id_.getSignature(_cont))+"\" href=\""+rel_+"\">";
-                        _parts.add(new PartOffset(tag_,sum_ + val_.getIndexInEl()));
+                        _parts.add(new PartOffset(tag_,off_+sum_ + val_.getIndexInEl()));
                         tag_ = "</a>";
-                        _parts.add(new PartOffset(tag_,sum_ + val_.getIndexInEl()+_cont.getKeyWords().getKeyWordLambda().length()));
+                        _parts.add(new PartOffset(tag_,off_+sum_ + val_.getIndexInEl()+_cont.getKeyWords().getKeyWordLambda().length()));
                     } else {
                         GeneType type_ = _cont.getClassBody(className_);
                         if (isFromCustFile(type_)) {
-                            String file_ = ((RootBlock) type_).getFile().getRenderFileName();
-                            String rel_ = getRelativize(_cont, currentFileName_, className_, id_, type_, file_);
-                            tag_ = "<a title=\""+transform(className_ +"."+ id_.getSignature(_cont))+"\" href=\""+rel_+"\">";
-                            _parts.add(new PartOffset(tag_,sum_ + val_.getIndexInEl()));
-                            tag_ = "</a>";
-                            _parts.add(new PartOffset(tag_,sum_ + val_.getIndexInEl()+_cont.getKeyWords().getKeyWordLambda().length()));
+                            if (!StringList.quickEq(id_.getName(),_cont.getKeyWords().getKeyWordExplicit())) {
+                                String file_ = ((RootBlock) type_).getFile().getRenderFileName();
+                                String rel_ = getRelativize(_cont, currentFileName_, className_, id_, type_, file_);
+                                tag_ = "<a title=\""+transform(className_ +"."+ id_.getSignature(_cont))+"\" href=\""+rel_+"\">";
+                                _parts.add(new PartOffset(tag_,off_+sum_ + val_.getIndexInEl()));
+                                tag_ = "</a>";
+                                _parts.add(new PartOffset(tag_,off_+sum_ + val_.getIndexInEl()+_cont.getKeyWords().getKeyWordLambda().length()));
+                            } else if (!((ExecLambdaOperation) curOp_).isDirectCast()){
+                                String file_ = ((RootBlock) type_).getFile().getRenderFileName();
+                                String rel_ = getRelativize(_cont, currentFileName_, className_, id_, type_, file_);
+                                tag_ = "<a title=\""+transform(className_ +"."+ id_.getSignature(_cont))+"\" href=\""+rel_+"\">";
+                                _parts.add(new PartOffset(tag_,off_+sum_ + val_.getIndexInEl()));
+                                tag_ = "</a>";
+                                _parts.add(new PartOffset(tag_,off_+sum_ + val_.getIndexInEl()+_cont.getKeyWords().getKeyWordLambda().length()));
+                            }
                         }
                     }
                 } else if (realId_ != null) {
@@ -911,13 +921,13 @@ public final class ElUtil {
                             ConstructorBlock ctor_ = (ConstructorBlock) ctors_.first();
                             String rel_ = relativize(currentFileName_, file_ + "#m" + ctor_.getNameOffset());
                             tag_ = "<a title=\""+ transform(cl_ +"."+ realId_.getSignature(_cont))+"\" href=\""+rel_+"\">";
-                            _parts.add(new PartOffset(tag_,sum_ + val_.getIndexInEl()));
+                            _parts.add(new PartOffset(tag_,off_+sum_ + val_.getIndexInEl()));
                             tag_ = "</a>";
-                            _parts.add(new PartOffset(tag_,sum_ + val_.getIndexInEl()+_cont.getKeyWords().getKeyWordLambda().length()));
+                            _parts.add(new PartOffset(tag_,off_+sum_ + val_.getIndexInEl()+_cont.getKeyWords().getKeyWordLambda().length()));
                         }
                     }
                 } else {
-                    updateFieldAnchor(_cont,_parts,fieldId_,sum_ + val_.getIndexInEl(),_cont.getKeyWords().getKeyWordLambda().length(),false);
+                    updateFieldAnchor(_cont,_parts,fieldId_,off_+sum_ + val_.getIndexInEl(),_cont.getKeyWords().getKeyWordLambda().length(),false);
                 }
                 _parts.addAllElts(((LambdaOperation)val_).getPartOffsets());
             }
@@ -988,6 +998,22 @@ public final class ElUtil {
             }
             if (curOp_ instanceof ExecCastOperation) {
                 _parts.addAllElts(((CastOperation)val_).getPartOffsets());
+            }
+            if (curOp_ instanceof ExecExplicitOperation) {
+                String className_ = ((ExplicitOperation) val_).getClassName();
+                GeneType type_ = _cont.getClassBody(className_);
+                if (isFromCustFile(type_)) {
+                    MethodId castId_ = ((ExplicitOperation) val_).getCastOpId();
+                    if (castId_ != null) {
+                        String file_ = ((RootBlock) type_).getFile().getRenderFileName();
+                        String rel_ = getRelativize(_cont, currentFileName_, className_, castId_, type_, file_);
+                        tag_ = "<a title=\""+transform(className_ +"."+ castId_.getSignature(_cont))+"\" href=\""+rel_+"\">";
+                        _parts.add(new PartOffset(tag_,sum_ + val_.getIndexInEl()));
+                        tag_ = "</a>";
+                        _parts.add(new PartOffset(tag_,sum_ + val_.getIndexInEl()+_cont.getKeyWords().getKeyWordExplicit().length()));
+                    }
+                }
+                _parts.addAllElts(((ExplicitOperation)val_).getPartOffsets());
             }
             if (curOp_ instanceof ExecSemiAffectationOperation) {
                 ExecSemiAffectationOperation par_ = (ExecSemiAffectationOperation) curOp_;

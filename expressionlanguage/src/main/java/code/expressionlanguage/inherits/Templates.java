@@ -985,9 +985,16 @@ public final class Templates {
             arr_[i] = _args.get(i).getStruct();
         }
     }
-    public static boolean okArgs(Identifiable _id, String _classNameFound, CustList<Argument> _firstArgs, ExecutableCode _conf, Argument _right) {
+    public static boolean okArgs(Identifiable _id, boolean _format, String _classNameFound, CustList<Argument> _firstArgs, ExecutableCode _conf, Argument _right) {
         StringList params_ = new StringList();
-        if (!_id.isStaticMethod()) {
+        boolean hasFormat_ = !_id.isStaticMethod() || _format;
+        if (hasFormat_ && !correctNbParameters(_classNameFound,_conf)) {
+            LgNames stds_ = _conf.getStandards();
+            String npe_ = stds_.getAliasIllegalArg();
+            _conf.setException(new ErrorStruct(_conf,npe_));
+            return false;
+        }
+        if (hasFormat_) {
             int i_ = 0;
             for (String c: _id.getParametersTypes()) {
                 String c_ = c;

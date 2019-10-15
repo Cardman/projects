@@ -20,6 +20,7 @@ public final class Delimiters {
     private Ints delKeyWordStatic = new Ints();
     private StringList delKeyWordStaticExtract = new StringList();
     private CustList<CustList<PartOffset>> staticParts = new CustList<CustList<PartOffset>>();
+    private Ints delExplicit = new Ints();
     private Ints delCast = new Ints();
     private StringList delCastExtract = new StringList();
     private CustList<CustList<PartOffset>> castParts = new CustList<CustList<PartOffset>>();
@@ -81,6 +82,10 @@ public final class Delimiters {
 
     public CustList<CustList<PartOffset>> getStaticParts() {
         return staticParts;
+    }
+
+    public Ints getDelExplicit() {
+        return delExplicit;
     }
 
     public Ints getDelCast() {

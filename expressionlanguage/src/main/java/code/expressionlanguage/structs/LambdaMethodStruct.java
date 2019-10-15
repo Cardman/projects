@@ -21,6 +21,7 @@ public class LambdaMethodStruct implements Struct {
 
     private final boolean abstractMethod;
 
+    private boolean directCast;
     public LambdaMethodStruct(String _className,String _formClassName, MethodId _fid,
             boolean _polymorph, boolean _shiftInstance, int _ancestor, boolean _abstractMethod) {
         className = _className;
@@ -61,6 +62,14 @@ public class LambdaMethodStruct implements Struct {
     }
     public boolean isAbstractMethod() {
         return abstractMethod;
+    }
+
+    public boolean isDirectCast() {
+        return directCast;
+    }
+
+    public void setDirectCast(boolean _directCast) {
+        directCast = _directCast;
     }
 
     @Override

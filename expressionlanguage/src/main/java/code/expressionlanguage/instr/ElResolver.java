@@ -323,6 +323,7 @@ public final class ElResolver {
         KeyWords keyWords_ = _conf.getKeyWords();
         String keyWordBool_ = keyWords_.getKeyWordBool();
         String keyWordCast_ = keyWords_.getKeyWordCast();
+        String keyWordExplicit_ = keyWords_.getKeyWordExplicit();
         String keyWordClass_ = keyWords_.getKeyWordClass();
         String keyWordClasschoice_ = keyWords_.getKeyWordClasschoice();
         String keyWordFalse_ = keyWords_.getKeyWordFalse();
@@ -364,6 +365,27 @@ public final class ElResolver {
             _d.getDelCast().add(indexParRight_);
             _d.getDelCastExtract().add(EMPTY_STRING);
             _d.getCastParts().add(new CustList<PartOffset>());
+            i_ = indexParRight_ + 1;
+            _out.setNextIndex(i_);
+            return;
+        }
+        if (ContextEl.startsWithKeyWord(sub_, keyWordExplicit_)) {
+            int indexParLeft_ = _string.indexOf(PAR_LEFT,i_+1);
+            if (indexParLeft_ < 0) {
+                _d.setBadOffset(len_);
+                return;
+            }
+            int indexParRight_ = _string.indexOf(PAR_RIGHT,indexParLeft_+1);
+            if (indexParRight_ < 0) {
+                _d.setBadOffset(len_);
+                return;
+            }
+            if (indexParRight_ + 1 >= len_) {
+                _d.setBadOffset(len_);
+                return;
+            }
+            _d.getDelExplicit().add(i_);
+            _d.getDelExplicit().add(indexParRight_);
             i_ = indexParRight_ + 1;
             _out.setNextIndex(i_);
             return;
@@ -1583,6 +1605,7 @@ public final class ElResolver {
         resWords_.setNextIndex(i_);
         resWords_.setLastDoubleDot(i_);
         String keyWordCast_ = keyWords_.getKeyWordCast();
+        String keyWordExplicit_ = keyWords_.getKeyWordExplicit();
         char curChar_ = _string.charAt(i_);
         if (_conf.isAnnotAnalysis() && curChar_ == ANNOT) {
             int j_ = i_ + 1;
@@ -1945,6 +1968,26 @@ public final class ElResolver {
                     _dout.getDelCast().add(indexParRight_);
                     _dout.getDelCastExtract().add(EMPTY_STRING);
                     _dout.getCastParts().add(new CustList<PartOffset>());
+                    j_ = indexParRight_ + 1;
+                    continue;
+                }
+                if (ContextEl.startsWithKeyWord(subAfter_, keyWordExplicit_)) {
+                    int indexParLeft_ = _string.indexOf(PAR_LEFT,j_+1);
+                    if (indexParLeft_ < 0) {
+                        _dout.setBadOffset(len_);
+                        return;
+                    }
+                    int indexParRight_ = _string.indexOf(PAR_RIGHT,indexParLeft_+1);
+                    if (indexParRight_ < 0) {
+                        _dout.setBadOffset(len_);
+                        return;
+                    }
+                    if (indexParRight_ + 1 >= len_) {
+                        _dout.setBadOffset(len_);
+                        return;
+                    }
+                    _dout.getDelExplicit().add(j_);
+                    _dout.getDelExplicit().add(indexParRight_);
                     j_ = indexParRight_ + 1;
                     continue;
                 }
@@ -2907,6 +2950,12 @@ public final class ElResolver {
             extracted_ = _d.getDelCastExtract().get(ext_);
             partsOffs_ = _d.getCastParts().get(ext_);
             i_ = incrementUnary(_string, firstPrintChar_, lastPrintChar_, _offset, _d);
+        } else if (_d.getDelExplicit().contains(firstPrintChar_+_offset)) {
+            prio_ = UNARY_PRIO;
+            int min_ = _d.getDelExplicit().indexOfObj(firstPrintChar_+_offset);
+            int max_ = _d.getDelExplicit().get(min_ + 1) - _offset;
+            operators_.put(firstPrintChar_, _string.substring(firstPrintChar_, max_ + 1));
+            i_ = incrementUnary(_string, firstPrintChar_, lastPrintChar_, _offset, _d);
         } else if (opt_.getSuffixVar() != VariableSuffix.NONE){
             for (VariableInfo v: _d.getVariables()) {
                 if (v.getFirstChar() != _offset + firstPrintChar_) {
@@ -3596,6 +3645,13 @@ public final class ElResolver {
                                 int indexCast_ = _d.getDelCast().indexOfObj(sum_);
                                 if (indexCast_ > -1) {
                                     int next_ = _d.getDelCast().get(indexCast_ + 1);
+                                    next_ -= _offset;
+                                    j_ = next_ + 1;
+                                    continue;
+                                }
+                                indexCast_ = _d.getDelExplicit().indexOfObj(sum_);
+                                if (indexCast_ > -1) {
+                                    int next_ = _d.getDelExplicit().get(indexCast_ + 1);
                                     next_ -= _offset;
                                     j_ = next_ + 1;
                                     continue;

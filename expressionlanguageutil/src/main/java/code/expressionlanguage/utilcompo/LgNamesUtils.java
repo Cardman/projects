@@ -2819,6 +2819,7 @@ public class LgNamesUtils extends LgNames {
         _kw.setKeyWordAbstract(get(_util,_cust,"Abstract"));
         _kw.setKeyWordElseif(get(_util,_cust,"Elseif"));
         _kw.setKeyWordCast(get(_util,_cust,"Cast"));
+        _kw.setKeyWordExplicit(get(_util,_cust,"Explicit"));
         _kw.setKeyWordFor(get(_util,_cust,"For"));
         _kw.setKeyWordVar(get(_util,_cust,"Var"));
         _kw.setKeyWordStatic(get(_util,_cust,"Static"));

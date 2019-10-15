@@ -25,6 +25,8 @@ public final class KeyWordsMap {
         fr_.setKeyWordCase("cas");
         en_.setKeyWordCast("$");
         fr_.setKeyWordCast("$");
+        en_.setKeyWordExplicit("explicit");
+        fr_.setKeyWordExplicit("explicite");
         en_.setKeyWordCatch("catch");
         fr_.setKeyWordCatch("capture");
         en_.setKeyWordClass("class");

@@ -4922,6 +4922,59 @@ public final class ElResolverTest extends ProcessMethodCommon{
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         assertEq(14, d_.getBadOffset());
     }
+
+    @Test
+    public void checkSyntax298FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_);
+        String el_ = "1+explicit(";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        assertEq(11, d_.getBadOffset());
+    }
+
+    @Test
+    public void checkSyntax299FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_);
+        String el_ = "1+explicit()";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        assertEq(12, d_.getBadOffset());
+    }
+
+    @Test
+    public void checkSyntax300FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_);
+        String el_ = "1+explicit)";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        assertEq(11, d_.getBadOffset());
+    }
+    @Test
+    public void checkSyntax301FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_);
+        String el_ = "explicit(";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        assertEq(9, d_.getBadOffset());
+    }
+
+    @Test
+    public void checkSyntax302FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_);
+        String el_ = "explicit()";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        assertEq(10, d_.getBadOffset());
+    }
+
+    @Test
+    public void checkSyntax303FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_);
+        String el_ = "explicit)";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        assertEq(9, d_.getBadOffset());
+    }
     @Test
     public void checkSyntaxDelimiters10Test() {
         ContextEl conf_ = contextEl();

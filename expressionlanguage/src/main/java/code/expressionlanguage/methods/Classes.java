@@ -2577,13 +2577,18 @@ public final class Classes {
                 AccessEnum acc_ = method_.getAccess();
                 MethodId fid_;
                 String formCl_ = _type.getFullName();
+                boolean exp_ = StringList.quickEq(id_.getName(), _context.getKeyWords().getKeyWordExplicit());
                 if (Templates.correctNbParameters(_name, _context)) {
                     fid_ = id_.reflectFormat(_name, _context);
                     formCl_ = _name;
                 } else {
                     fid_ = id_;
                 }
-                MethodMetaInfo met_ = new MethodMetaInfo(acc_,_type.getFullName(), id_, method_.getModifier(), ret_, fid_, formCl_);
+                String idCl_ = _type.getFullName();
+                if (exp_) {
+                    idCl_ = _name;
+                }
+                MethodMetaInfo met_ = new MethodMetaInfo(acc_, idCl_, id_, method_.getModifier(), ret_, fid_, formCl_);
                 met_.setFileName(fileName_);
                 infos_.put(id_, met_);
             }

@@ -618,7 +618,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                     }
                 }
                 if (b instanceof FunctionBlock) {
-                    if (((FunctionBlock)b).isStaticContext()) {
+                    if (((FunctionBlock)b).isStaticContext() && !_context.isExplicitFct((FunctionBlock) b)) {
                         int where_ = b.getOffset().getOffsetTrim();
                         UnexpectedTagName unexp_ = new UnexpectedTagName();
                         unexp_.setFileName(getFile().getFileName());
@@ -637,7 +637,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                     OverridableBlock m_ = (OverridableBlock) method_;
                     if (m_.getKind() == MethodKind.STD_METHOD) {
                         m_.buildImportedTypes(_context);
-                        if (!_context.isValidToken(name_) && !StringList.quickEq(name_, keyWords_.getKeyWordToString())) {
+                        if (!_context.isValidToken(name_) && !StringList.quickEq(name_, keyWords_.getKeyWordToString()) && !StringList.quickEq(name_, keyWords_.getKeyWordExplicit())) {
                             int r_ = m_.getNameOffset();
                             BadMethodName badMeth_ = new BadMethodName();
                             badMeth_.setFileName(getFile().getFileName());
@@ -653,6 +653,36 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                                 badMeth_.setName(name_);
                                 _context.getClasses().addError(badMeth_);
                             } else if (m_.getAccess() != AccessEnum.PUBLIC) {
+                                int r_ = m_.getNameOffset();
+                                BadMethodName badMeth_ = new BadMethodName();
+                                badMeth_.setFileName(getFile().getFileName());
+                                badMeth_.setIndexFile(r_);
+                                badMeth_.setName(name_);
+                                _context.getClasses().addError(badMeth_);
+                            }
+                        } else if (StringList.quickEq(name_, keyWords_.getKeyWordExplicit())) {
+                            if (!StringList.quickEq(m_.getImportedReturnType(),getGenericString())) {
+                                int r_ = m_.getNameOffset();
+                                BadMethodName badMeth_ = new BadMethodName();
+                                badMeth_.setFileName(getFile().getFileName());
+                                badMeth_.setIndexFile(r_);
+                                badMeth_.setName(name_);
+                                _context.getClasses().addError(badMeth_);
+                            } else if (m_.getParametersTypes().size() != 1) {
+                                int r_ = m_.getNameOffset();
+                                BadMethodName badMeth_ = new BadMethodName();
+                                badMeth_.setFileName(getFile().getFileName());
+                                badMeth_.setIndexFile(r_);
+                                badMeth_.setName(name_);
+                                _context.getClasses().addError(badMeth_);
+                            } else if (!m_.isStaticMethod()) {
+                                int r_ = m_.getNameOffset();
+                                BadMethodName badMeth_ = new BadMethodName();
+                                badMeth_.setFileName(getFile().getFileName());
+                                badMeth_.setIndexFile(r_);
+                                badMeth_.setName(name_);
+                                _context.getClasses().addError(badMeth_);
+                            } else if (m_.isVarargs()) {
                                 int r_ = m_.getNameOffset();
                                 BadMethodName badMeth_ = new BadMethodName();
                                 badMeth_.setFileName(getFile().getFileName());

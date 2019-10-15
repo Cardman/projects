@@ -3,6 +3,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.calls.AbstractCallingInstancingPageEl;
 import code.expressionlanguage.calls.AbstractReflectPageEl;
+import code.expressionlanguage.calls.CastPageEl;
 import code.expressionlanguage.calls.MethodPageEl;
 import code.expressionlanguage.calls.util.CallConstructor;
 import code.expressionlanguage.opers.util.ConstructorId;
@@ -48,6 +49,13 @@ public final class ProcessMethod {
 
     public static Argument reflectArgument(Argument _global, CustList<Argument> _args, ContextEl _cont, ReflectingType _reflect, boolean _lambda) {
         AbstractReflectPageEl page_ = _cont.createReflectMethod(_global, _args, _reflect, _lambda);
+        _cont.addPage(page_);
+        _cont.getInit().loopCalling(_cont);
+        return page_.getReturnedArgument();
+    }
+
+    public static Argument castArgument(String _class, MethodId _method, CustList<Argument> _args, ContextEl _cont) {
+        CastPageEl page_ = _cont.createCallingCast(_class, _method,_args);
         _cont.addPage(page_);
         _cont.getInit().loopCalling(_cont);
         return page_.getReturnedArgument();

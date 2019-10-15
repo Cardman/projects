@@ -153,7 +153,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         if (_format) {
             className_ = page_.formatVarType(className_, _conf);
         }
-        if (!Templates.okArgs(_constId,className_,_arguments, _conf,null)) {
+        if (!Templates.okArgs(_constId,false,className_,_arguments, _conf,null)) {
             return new Argument();
         }
         if (!_conf.getClasses().isCustomType(base_)) {
@@ -447,11 +447,23 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                 _conf.getContextEl().setCallingState(new CustomReflectMethod(ReflectingType.DEFAULT_VALUE, _previous, _firstArgs, false));
                 return new Argument();
             }
-            if (StringList.quickEq(aliasInvoke_, _methodId.getName())) {
+            boolean invoke_ = StringList.quickEq(aliasInvoke_, _methodId.getName());
+            boolean invokeDirect_ = StringList.quickEq(aliasInvokeDirect_, _methodId.getName());
+            if (invoke_) {
+                MethodMetaInfo m_ = (MethodMetaInfo) _previous.getStruct();
+                if (StringList.quickEq(m_.getRealId().getName(),_conf.getKeyWords().getKeyWordExplicit())) {
+                    _conf.getContextEl().setCallingState(new CustomReflectMethod(ReflectingType.CAST, _previous, _firstArgs, false));
+                    return new Argument();
+                }
                 _conf.getContextEl().setCallingState(new CustomReflectMethod(ReflectingType.METHOD, _previous, _firstArgs, false));
                 return new Argument();
             }
-            if (StringList.quickEq(aliasInvokeDirect_, _methodId.getName())) {
+            if (invokeDirect_) {
+                MethodMetaInfo m_ = (MethodMetaInfo) _previous.getStruct();
+                if (StringList.quickEq(m_.getRealId().getName(),_conf.getKeyWords().getKeyWordExplicit())) {
+                    _conf.getContextEl().setCallingState(new CustomReflectMethod(ReflectingType.CAST_DIRECT, _previous, _firstArgs, false));
+                    return new Argument();
+                }
                 _conf.getContextEl().setCallingState(new CustomReflectMethod(ReflectingType.DIRECT, _previous, _firstArgs, false));
                 return new Argument();
             }
@@ -538,7 +550,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                 }
             }
         }
-        if (!Templates.okArgs(_methodId,classFormat_,_firstArgs, _conf, _right)) {
+        if (!Templates.okArgs(_methodId,false,classFormat_,_firstArgs, _conf, _right)) {
             return;
         }
         if (_method) {
@@ -669,8 +681,13 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         }
         LambdaMethodStruct l_ =  (LambdaMethodStruct) ls_;
         int nbAncestors_ = l_.getAncestor();
-        String id_ = Templates.getIdFromAllTypes(l_.getFormClassName());
+        String id_;
         MethodId fid_ = l_.getFid();
+        if (StringList.quickEq(fid_.getName(),_conf.getKeyWords().getKeyWordExplicit())) {
+            id_ = l_.getFormClassName();
+        } else {
+            id_ = Templates.getIdFromAllTypes(l_.getFormClassName());
+        }
         MethodModifier met_;
         boolean static_ = fid_.isStaticMethod();
         if (l_.isAbstractMethod()) {
@@ -703,12 +720,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             }
             nList_.add(instance_);
             nList_.add(new Argument(arr_));
-            if (!l_.isPolymorph()) {
-                _conf.getContextEl().setCallingState(new CustomReflectMethod(ReflectingType.DIRECT, pr_, nList_, true));
-                return new Argument();
-            }
-            _conf.getContextEl().setCallingState(new CustomReflectMethod(ReflectingType.METHOD, pr_, nList_, true));
-            return new Argument();
+            return redirect(_conf, l_, pr_, nList_);
         }
         if (!StringList.isDollarWord(fid_.getName()) && !fid_.getName().startsWith("[]")) {
             ArrayStruct arr_ = new ArrayStruct(new Struct[_values.size()+1],obj_);
@@ -738,11 +750,23 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         }
         nList_.add(firstValue_);
         nList_.add(new Argument(arr_));
-        if (!l_.isPolymorph()) {
-            _conf.getContextEl().setCallingState(new CustomReflectMethod(ReflectingType.DIRECT, pr_, nList_, true));
+        return redirect(_conf, l_, pr_, nList_);
+    }
+
+    private static Argument redirect(ExecutableCode _conf, LambdaMethodStruct _l, Argument _pr, CustList<Argument> _nList) {
+        if (StringList.quickEq(_l.getFid().getName(),_conf.getKeyWords().getKeyWordExplicit())) {
+            if (_l.isDirectCast()) {
+                _conf.getContextEl().setCallingState(new CustomReflectMethod(ReflectingType.CAST_DIRECT, _pr, _nList, true));
+                return new Argument();
+            }
+            _conf.getContextEl().setCallingState(new CustomReflectMethod(ReflectingType.CAST, _pr, _nList, true));
             return new Argument();
         }
-        _conf.getContextEl().setCallingState(new CustomReflectMethod(ReflectingType.METHOD, pr_, nList_, true));
+        if (!_l.isPolymorph()) {
+            _conf.getContextEl().setCallingState(new CustomReflectMethod(ReflectingType.DIRECT, _pr, _nList, true));
+            return new Argument();
+        }
+        _conf.getContextEl().setCallingState(new CustomReflectMethod(ReflectingType.METHOD, _pr, _nList, true));
         return new Argument();
     }
     public static Struct getElement(Struct _struct, NumberStruct _index, ExecutableCode _conf) {

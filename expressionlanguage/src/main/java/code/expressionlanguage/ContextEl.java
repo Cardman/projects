@@ -208,6 +208,9 @@ public abstract class ContextEl implements ExecutableCode {
         if (callingState instanceof CustomFoundMethod) {
             return createCallingMethod((CustomFoundMethod)callingState);
         }
+        if (callingState instanceof CustomFoundCast) {
+            return createCallingCast((CustomFoundCast)callingState);
+        }
         if (callingState instanceof CustomReflectMethod) {
             return createReflectMethod((CustomReflectMethod)callingState);
         }
@@ -296,6 +299,40 @@ public abstract class ContextEl implements ExecutableCode {
             String idCl_ = Templates.getIdFromAllTypes(_class);
             coverage.passCalls(this,idCl_,methodLoc_);
         }
+        StringList paramsLoc_ = methodLoc_.getParametersNames();
+        StringList typesLoc_ = methodLoc_.getImportedParametersTypes();
+        int lenLoc_ = paramsLoc_.size();
+        for (int i = CustList.FIRST_INDEX; i < lenLoc_; i++) {
+            String p_ = paramsLoc_.get(i);
+            String c_ = typesLoc_.get(i);
+            LocalVariable lv_ = new LocalVariable();
+            lv_.setStruct(_args.get(i).getStruct());
+            lv_.setClassName(c_);
+            pageLoc_.getParameters().put(p_, lv_);
+        }
+        ReadWrite rwLoc_ = new ReadWrite();
+        rwLoc_.setBlock(methodLoc_.getFirstChild());
+        pageLoc_.setReadWrite(rwLoc_);
+        pageLoc_.setBlockRoot(methodLoc_);
+        pageLoc_.setFile(methodLoc_.getFile());
+        return pageLoc_;
+    }
+
+    private AbstractPageEl createCallingCast(CustomFoundCast _e) {
+        String cl_ = _e.getClassName();
+        MethodId id_ = _e.getId();
+        CustList<Argument> args_ = _e.getArguments();
+        return createCallingCast(cl_, id_, args_);
+    }
+    public CastPageEl createCallingCast(String _class, MethodId _method, CustList<Argument> _args) {
+        setCallingState(null);
+        CastPageEl pageLoc_ = new CastPageEl(this);
+        pageLoc_.setGlobalArgument(Argument.createVoid());
+        pageLoc_.setGlobalClass(_class);
+        NamedFunctionBlock methodLoc_;
+        methodLoc_ = Classes.getMethodBodiesById(this, _class, _method).first();
+        String idCl_ = Templates.getIdFromAllTypes(_class);
+        coverage.passCalls(this,idCl_,methodLoc_);
         StringList paramsLoc_ = methodLoc_.getParametersNames();
         StringList typesLoc_ = methodLoc_.getImportedParametersTypes();
         int lenLoc_ = paramsLoc_.size();
@@ -477,6 +514,10 @@ public abstract class ContextEl implements ExecutableCode {
             pageLoc_ = new PolymorphRefectMethodPageEl();
         } else if (_reflect == ReflectingType.DIRECT) {
             pageLoc_ = new DirectRefectMethodPageEl();
+        } else if (_reflect == ReflectingType.CAST) {
+            pageLoc_ = new CastRefectMethodPageEl(false);
+        } else if (_reflect == ReflectingType.CAST_DIRECT) {
+            pageLoc_ = new CastRefectMethodPageEl(true);
         } else if (_reflect == ReflectingType.CONSTRUCTOR) {
             pageLoc_ = new ReflectConstructorPageEl();
         } else if (_reflect == ReflectingType.GET_FIELD) {
@@ -1345,6 +1386,8 @@ public abstract class ContextEl implements ExecutableCode {
             FunctionBlock fct_ = analyzing.getCurrentFct();
             if (fct_ == null) {
                 static_ = true;
+            } else if (isExplicitFct(fct_)){
+                static_ = false;
             } else {
                 static_ = fct_.isStaticContext();
             }
@@ -1355,6 +1398,10 @@ public abstract class ContextEl implements ExecutableCode {
             }
         }
         return vars_;
+    }
+
+    public boolean isExplicitFct(FunctionBlock _fct) {
+        return _fct instanceof OverridableBlock && StringList.quickEq(((OverridableBlock) _fct).getName(),keyWords.getKeyWordExplicit());
     }
 
     @Override

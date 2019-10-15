@@ -24,23 +24,6 @@ public abstract class RendInvokingOperation extends RendMethodOperation implemen
         previousArgument = _inter.getPreviousArgument();
     }
 
-    void processCall(IdMap<RendDynOperationNode,ArgumentsPair> _nodes, Configuration _conf, Argument _res) {
-        CallingState callingState_ = _conf.getContextEl().getCallingState();
-        Argument res_;
-        if (callingState_ instanceof CustomFoundConstructor) {
-            CustomFoundConstructor ctor_ = (CustomFoundConstructor)callingState_;
-            res_ = ProcessMethod.instanceArgument(ctor_.getClassName(), ctor_.getCurrentObject(), ctor_.getId(), ctor_.getArguments(), _conf.getContextEl());
-        } else if (callingState_ instanceof CustomFoundMethod) {
-            CustomFoundMethod method_ = (CustomFoundMethod) callingState_;
-            res_ = ProcessMethod.calculateArgument(method_.getGl(), method_.getClassName(), method_.getId(), method_.getArguments(), _conf.getContextEl(),method_.getRight());
-        } else if (callingState_ instanceof CustomReflectMethod) {
-            CustomReflectMethod ref_ = (CustomReflectMethod) callingState_;
-            res_ = ProcessMethod.reflectArgument(ref_.getGl(), ref_.getArguments(), _conf.getContextEl(), ref_.getReflect(), ref_.isLambda());
-        } else {
-            res_ = _res;
-        }
-        setSimpleArgument(res_, _conf,_nodes);
-    }
     static CustList<Argument> listArguments(CustList<RendDynOperationNode> _children, int _natVararg, String _lastType, CustList<Argument> _nodes, ExecutableCode _context) {
         if (!_children.isEmpty() && _children.first() instanceof RendVarargOperation) {
             CustList<Argument> firstArgs_ = new CustList<Argument>();

@@ -24,7 +24,7 @@ public abstract class AbstractRefectMethodPageEl extends AbstractReflectPageEl {
         MethodMetaInfo method_ = (MethodMetaInfo) getGlobalArgument().getStruct();
         if (!initClass) {
             initClass = true;
-            if (method_.isStatic()) {
+            if (initType()) {
                 if (ExecInvokingOperation.hasToExit(_context, method_.getClassName())) {
                     setWrapException(true);
                     return false;
@@ -103,7 +103,7 @@ public abstract class AbstractRefectMethodPageEl extends AbstractReflectPageEl {
                 args_ = args_.mid(0,args_.size()-1);
             }
             setWrapException(false);
-            Argument arg_ = ExecInvokingOperation.callPrepare(_context, className_, mid_, instance_, args_, right_);
+            Argument arg_ = prepare(_context, className_, mid_, instance_, args_, right_);
             if (_context.getCallingState() instanceof NotInitializedClass) {
                 setWrapException(true);
                 return false;
@@ -116,6 +116,12 @@ public abstract class AbstractRefectMethodPageEl extends AbstractReflectPageEl {
         }
         return true;
     }
+
+    Argument prepare(ContextEl _context, String _className, MethodId _mid, Argument _instance, CustList<Argument> _args, Argument _right) {
+        return ExecInvokingOperation.callPrepare(_context, _className, _mid, _instance, _args, _right);
+    }
+
+    abstract boolean initType();
     abstract boolean isAbstract();
     abstract boolean isPolymorph();
 }

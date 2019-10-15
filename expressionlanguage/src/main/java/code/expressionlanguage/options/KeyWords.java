@@ -77,6 +77,7 @@ public final class KeyWords {
     private String keyWordNbBin = "b";
     
     private String keyWordCast = "$";
+    private String keyWordExplicit = "explicit";
     private String keyWordClasschoice = "$classchoice";
     private String keyWordIntern = "$intern";
     private String keyWordNew = "$new";
@@ -394,6 +395,7 @@ public final class KeyWords {
     public StringList allKeyWords() {
         StringList keyWords_ = new StringList();
         keyWords_.add(keyWordValue);
+        keyWords_.add(keyWordExplicit);
         keyWords_.add(keyWordVar);
         keyWords_.add(keyWordInterfaces);
         keyWords_.add(keyWordPublic);
@@ -897,6 +899,15 @@ public final class KeyWords {
     public void setKeyWordCast(String _keyWordCast) {
         keyWordCast = _keyWordCast;
     }
+
+    public String getKeyWordExplicit() {
+        return keyWordExplicit;
+    }
+
+    public void setKeyWordExplicit(String _keyWordExplicit) {
+        keyWordExplicit = _keyWordExplicit;
+    }
+
     public String getKeyWordClasschoice() {
         return keyWordClasschoice;
     }

@@ -349,6 +349,9 @@ public abstract class OperationNode implements Operable {
             if (value_.startsWith(MINUS) || value_.startsWith(PLUS)) {
                 return new SemiAffectationOperation(_index, _indexChild, _m, _op, false);
             }
+            if (ContextEl.startsWithKeyWord(value_, _an.getKeyWords().getKeyWordExplicit())) {
+                return new ExplicitOperation(_index, _indexChild, _m, _op);
+            }
             return new CastOperation(_index, _indexChild, _m, _op);
         }
         if (_op.getPriority() == ElResolver.MULT_PRIO) {
@@ -869,6 +872,11 @@ public abstract class OperationNode implements Operable {
         }
         return getCustResult(_conf,uniq_, varargOnly_, methods_, _name, _argsClass);
     }
+    protected static ClassMethodIdReturn tryGetDeclaredCast(Analyzable _conf, String _classes, String _name, ClassMethodId _uniqueId, ClassArgumentMatching[] _argsClass) {
+        ObjectMap<ClassMethodId, MethodInfo> methods_;
+        methods_ = getDeclaredCustCast(_conf, _classes, _uniqueId);
+        return getCustResult(_conf,false, -1, methods_, _name, _argsClass);
+    }
 
     static ClassMethodIdReturn getOperator(Analyzable _cont, String _op, ClassArgumentMatching... _argsClass) {
         ObjectMap<ClassMethodId, MethodInfo> ops_ = getOperators(_cont);
@@ -896,6 +904,18 @@ public abstract class OperationNode implements Operable {
         }
         return methods_;
     }
+    private static ObjectMap<ClassMethodId, MethodInfo>
+    getDeclaredCustCast(Analyzable _conf,
+                        String _fromClass, ClassMethodId _uniqueId) {
+        String glClass_ = _conf.getGlobalClass();
+        ObjectMap<ClassMethodId, MethodInfo> methods_;
+        methods_ = new ObjectMap<ClassMethodId, MethodInfo>();
+        String id_ = Templates.getIdFromAllTypes(_fromClass);
+        GeneType root_ = _conf.getClassBody(id_);
+        fetchCastMethods(_conf,  _uniqueId, glClass_, methods_, _fromClass, root_);
+        return methods_;
+    }
+
     private static ObjectMap<ClassMethodId, MethodInfo>
     getDeclaredCustMethodByType(Analyzable _conf, boolean _staticContext, boolean _accessFromSuper,
                                 boolean _superClass, StringList _fromClasses, String _name, boolean _import, ClassMethodId _uniqueId) {
@@ -1035,6 +1055,16 @@ public abstract class OperationNode implements Operable {
         return false;
     }
 
+    private static void fetchCastMethods(Analyzable _conf, ClassMethodId _uniqueId, String _glClass, ObjectMap<ClassMethodId, MethodInfo> _methods, String _cl, GeneType _root) {
+        for (GeneMethod e: ContextEl.getMethodBlocks(_root)) {
+            MethodInfo stMeth_ = getCastMeth(_conf, _uniqueId, _glClass, e, _cl);
+            if (stMeth_ == null) {
+                continue;
+            }
+            ClassMethodId clId_ = new ClassMethodId(_cl, e.getId());
+            _methods.add(clId_, stMeth_);
+        }
+    }
     private static void fetchStaticMethods(Analyzable _conf, boolean _accessFromSuper, int _anc,boolean _superClass, ClassMethodId _uniqueId, String _glClass, ObjectMap<ClassMethodId, MethodInfo> _methods, StringMap<String> _superTypesBase, String _cl, GeneType _root) {
         for (GeneMethod e: ContextEl.getMethodBlocks(_root)) {
             MethodInfo stMeth_ = getStMeth(_conf, _accessFromSuper,_anc, _superClass, _uniqueId, _glClass, e, _cl, _superTypesBase);
@@ -1094,6 +1124,31 @@ public abstract class OperationNode implements Operable {
         }
     }
 
+    private static MethodInfo getCastMeth(Analyzable _conf,
+                                          ClassMethodId _uniqueId, String _glClass, GeneMethod _e, String _t) {
+        if (!Classes.canAccess(_glClass, _e, _conf)) {
+            return null;
+        }
+        MethodId id_ = _e.getId();
+        if (isCandidateMethod(_uniqueId, _t, id_)) {
+            return null;
+        }
+        if (_e.isStaticMethod()) {
+            String returnType_ = _e.getImportedReturnType();
+            ParametersGroup p_ = new ParametersGroup();
+            for (String c: id_.getParametersTypes()) {
+                p_.add(new ClassMatching(c));
+            }
+            MethodInfo mloc_ = new MethodInfo();
+            mloc_.setClassName(_t);
+            mloc_.setStatic(false);
+            mloc_.setConstraints(id_);
+            mloc_.setParameters(p_);
+            mloc_.setReturnType(returnType_);
+            return mloc_;
+        }
+        return null;
+    }
     private static MethodInfo getStMeth(Analyzable _conf, boolean _accessFromSuper,int _anc,
                                         boolean _superClass, ClassMethodId _uniqueId, String _glClass, GeneMethod _e, String _t, StringMap<String> _superTypesBase) {
         if (!Classes.canAccess(_glClass, _e, _conf)) {

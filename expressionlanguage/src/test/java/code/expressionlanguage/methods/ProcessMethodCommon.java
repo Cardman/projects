@@ -100,6 +100,13 @@ public abstract class ProcessMethodCommon {
         return ct_;
     }
 
+    protected static ContextEl contextElCoverageReadOnlyDefault() {
+        Options opt_ = new Options();
+        opt_.setReadOnly(true);
+        ContextEl ct_ = InitializationLgNames.buildStdOne("en", opt_);
+        ct_.setCovering(true);
+        return ct_;
+    }
     protected static ContextEl contextElCoverageDisplay() {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
