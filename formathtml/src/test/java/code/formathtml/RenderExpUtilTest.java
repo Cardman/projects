@@ -8527,6 +8527,16 @@ public final class RenderExpUtilTest {
     }
     @Test
     public void processEl465Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        Configuration conf_ = getConfiguration4(files_);
+        addImportingPage(conf_);
+        Argument arg_ = processEl("explicit($int)5", conf_);
+        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertEq(5, arg_.getNumber());
+
+    }
+    @Test
+    public void processEl466Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
         xml_.append(" $public $int field:\n");
@@ -8545,6 +8555,16 @@ public final class RenderExpUtilTest {
         Struct struct_ = arg_.getStruct();
         assertEq("pkg.Ex", struct_.getClassName(conf_));
         assertEq(5, ((IntStruct)((FieldableStruct)struct_).getStruct(new ClassField("pkg.Ex","field"))).intStruct());
+
+    }
+    @Test
+    public void processEl467Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        Configuration conf_ = getConfiguration4(files_);
+        addImportingPage(conf_);
+        processEl("explicit($int)\"5\"", conf_);
+        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertNotNull(conf_.getException());
 
     }
     @Test
