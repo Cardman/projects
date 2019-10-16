@@ -10412,6 +10412,8 @@ public final class FileResolverTest {
         StringBuilder file_ = new StringBuilder();
         file_.append("$public $class pkg.Outer {\t\n");
         file_.append("}\n");
+        file_.append("$public $class pkg.Outer {\t\n");
+        file_.append("}\n");
         ContextEl context_ = simpleContext();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertTrue(!context_.getClasses().isEmptyErrors());
@@ -10508,6 +10510,8 @@ public final class FileResolverTest {
         StringBuilder file_ = new StringBuilder();
         file_.append("$annotation\tpkgtwo.ExClass {");
         file_.append("}");
+        file_.append("$annotation\tpkgtwo.ExClass {");
+        file_.append("}");
         ContextEl context_ = simpleContext();
         FileResolver.parseFile("my_file", file_.toString(), false, context_);
         assertTrue(!context_.getClasses().isEmptyErrors());
@@ -10515,6 +10519,8 @@ public final class FileResolverTest {
     @Test
     public void parseFile15FailTest() {
         StringBuilder file_ = new StringBuilder();
+        file_.append("$annotation []\tpkgtwo.ExClass {");
+        file_.append("}");
         file_.append("$annotation []\tpkgtwo.ExClass {");
         file_.append("}");
         ContextEl context_ = simpleContext();

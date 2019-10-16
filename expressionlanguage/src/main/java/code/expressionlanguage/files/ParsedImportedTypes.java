@@ -12,7 +12,7 @@ public final class ParsedImportedTypes {
     private final Ints offsetsImports = new Ints();
     private int nextIndex;
     private boolean ok;
-    public ParsedImportedTypes(int _nextIndex, String _fullFile, Ints _badIndexes, EnablingSpaces _enabledSpaces) {
+    public ParsedImportedTypes(int _nextIndex, String _fullFile, EnablingSpaces _enabledSpaces) {
         nextIndex = _nextIndex;
         if (_nextIndex >= _fullFile.length()) {
             return;
@@ -45,13 +45,7 @@ public final class ParsedImportedTypes {
             }
             nextIndex = FileResolver.incrementRowCol(nextIndex, _fullFile, _enabledSpaces);
         }
-        int bk_ = nextIndex;
         nextIndex = FileResolver.skipWhitespace(nextIndex, _fullFile, _enabledSpaces);
-        if (nextIndex < 0) {
-            _badIndexes.add(bk_);
-            //ERROR
-            return;
-        }
         ok = true;
     }
 

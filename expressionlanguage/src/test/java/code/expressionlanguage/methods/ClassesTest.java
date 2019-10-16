@@ -7313,6 +7313,7 @@ public final class ClassesTest {
         xml_.append("$public $class pkg.Apply {\n");
         xml_.append(" $public $static $class\tInner{}\n");
         xml_.append("}\n");
+        xml_.append("$public $class pkg.Apply {}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
@@ -7680,6 +7681,9 @@ public final class ClassesTest {
         xml_ = new StringBuilder();
         xml_.append("$class pkg.OuterBad{ $static{$switch (a]:}}");
         files_.put("pkg/ExThirtySixty", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$class");
+        files_.put("pkg/ExThirtySixtyOne", xml_.toString());
         ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().displayErrors(), !cont_.getClasses().isEmptyErrors());

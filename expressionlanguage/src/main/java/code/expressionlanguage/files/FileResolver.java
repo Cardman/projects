@@ -7,7 +7,6 @@ import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.methods.*;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
-import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.variables.VariableSuffix;
 import code.util.*;
 
@@ -48,8 +47,6 @@ public final class FileResolver {
         FileBlock fileBlock_ = new FileBlock(new OffsetsBlock(),_predefined,tabWidth_);
         fileBlock_.setFileName(_fileName);
         EnablingSpaces enabledSpaces_ = new EnablingSpaces();
-        enabledSpaces_.setEnabledSpace(true);
-        enabledSpaces_.setEnabledTab(true);
         enabledSpaces_.setFile(fileBlock_);
         StringList importedTypes_ = new StringList();
         StringBuilder str_ = new StringBuilder();
@@ -78,7 +75,6 @@ public final class FileResolver {
             if (commentedSingleLine_) {
                 if (currentChar_ == LINE_RETURN) {
                     commentedSingleLine_ = false;
-                    enabledSpaces_.setCheckTabs(true);
                     enabledSpaces_.getFile().getEndComments().add(i_-1);
                 }
                 i_ = incrementRowCol(i_, _file, enabledSpaces_);
@@ -94,7 +90,6 @@ public final class FileResolver {
                     char nextChar_ = _file.charAt(i_ + 1);
                     if (nextChar_ == BEGIN_COMMENT) {
                         commentedMultiLine_ = false;
-                        enabledSpaces_.setCheckTabs(true);
                         i_ = incrementRowCol(i_, _file, enabledSpaces_);
                         enabledSpaces_.getFile().getEndComments().add(i_);
                         i_ = incrementRowCol(i_, _file, enabledSpaces_);
@@ -140,11 +135,6 @@ public final class FileResolver {
             if (currentChar_ == ANNOT) {
                 break;
             }
-            if (!enabledSpaces_.isOk()) {
-                //ERROR
-                badIndexes_.add(i_);
-                break;
-            }
             if (currentChar_ == BEGIN_COMMENT) {
                 if (instLen_ == 0) {
                     if (i_ + 1 >= len_) {
@@ -155,7 +145,6 @@ public final class FileResolver {
                     char nextChar_ = _file.charAt(i_ + 1);
                     if (nextChar_ == BEGIN_COMMENT) {
                         commentedSingleLine_ = true;
-                        enabledSpaces_.setCheckTabs(false);
                         enabledSpaces_.getFile().getBeginComments().add(i_);
                         i_ = incrementRowCol(i_, _file, enabledSpaces_);
                         i_ = incrementRowCol(i_, _file, enabledSpaces_);
@@ -163,7 +152,6 @@ public final class FileResolver {
                     }
                     if (nextChar_ == SECOND_COMMENT) {
                         commentedMultiLine_ = true;
-                        enabledSpaces_.setCheckTabs(false);
                         enabledSpaces_.getFile().getBeginComments().add(i_);
                         i_ = incrementRowCol(i_, _file, enabledSpaces_);
                         i_ = incrementRowCol(i_, _file, enabledSpaces_);
@@ -288,7 +276,6 @@ public final class FileResolver {
                 if (commentedSingleLine_) {
                     if (currentChar_ == LINE_RETURN) {
                         commentedSingleLine_ = false;
-                        enabledSpaces_.setCheckTabs(true);
                         enabledSpaces_.getFile().getEndComments().add(i_-1);
                     }
                     i_ = incrementRowCol(i_, _file, enabledSpaces_);
@@ -302,7 +289,6 @@ public final class FileResolver {
                         char nextChar_ = _file.charAt(i_ + 1);
                         if (nextChar_ == BEGIN_COMMENT) {
                             commentedMultiLine_ = false;
-                            enabledSpaces_.setCheckTabs(true);
                             i_ = incrementRowCol(i_, _file, enabledSpaces_);
                             enabledSpaces_.getFile().getEndComments().add(i_);
                             i_ = incrementRowCol(i_, _file, enabledSpaces_);
@@ -329,7 +315,6 @@ public final class FileResolver {
                     char nextChar_ = _file.charAt(i_ + 1);
                     if (nextChar_ == BEGIN_COMMENT) {
                         commentedSingleLine_ = true;
-                        enabledSpaces_.setCheckTabs(false);
                         enabledSpaces_.getFile().getBeginComments().add(i_);
                         i_ = incrementRowCol(i_, _file, enabledSpaces_);
                         i_ = incrementRowCol(i_, _file, enabledSpaces_);
@@ -337,18 +322,11 @@ public final class FileResolver {
                     }
                     if (nextChar_ == SECOND_COMMENT) {
                         commentedMultiLine_ = true;
-                        enabledSpaces_.setCheckTabs(false);
                         enabledSpaces_.getFile().getBeginComments().add(i_);
                         i_ = incrementRowCol(i_, _file, enabledSpaces_);
                         i_ = incrementRowCol(i_, _file, enabledSpaces_);
                         continue;
                     }
-                    //ERROR
-                    badIndexes_.add(i_);
-                    ended_ = false;
-                    break;
-                }
-                if (!enabledSpaces_.isOk()) {
                     //ERROR
                     badIndexes_.add(i_);
                     ended_ = false;
@@ -452,11 +430,6 @@ public final class FileResolver {
             badIndexes_.add(nextIndex_);
             return out_;
         }
-        if (nextIndex_ < 0) {
-            //ERROR
-            badIndexes_.add(0);
-            return out_;
-        }
         if (oper_) {
             symbolIndex_ = nextIndex_;
             while (nextIndex_ < len_) {
@@ -468,13 +441,7 @@ public final class FileResolver {
                 symbol_.append(currentChar_);
                 nextIndex_ = incrementRowCol(nextIndex_, _file, enabledSpaces_);
             }
-            int bk_ = nextIndex_;
             nextIndex_ = skipWhitespace(nextIndex_, _file, enabledSpaces_);
-            if (nextIndex_ < 0) {
-                //ERROR
-                badIndexes_.add(bk_);
-                return out_;
-            }
         }
         StringList importedTypes_;
         Ints offsetsImports_;
@@ -482,7 +449,7 @@ public final class FileResolver {
         BracedBlock currentParent_;
         Ints braces_ = new Ints();
         if (oper_) {
-            ParsedImportedTypes p_ = new ParsedImportedTypes(nextIndex_, _file, badIndexes_, enabledSpaces_);
+            ParsedImportedTypes p_ = new ParsedImportedTypes(nextIndex_, _file, enabledSpaces_);
             importedTypes_ = p_.getImportedTypes();
             offsetsImports_ = p_.getOffsetsImports();
             nextIndex_ = p_.getNextIndex();
@@ -587,28 +554,17 @@ public final class FileResolver {
             char currentChar_;
             boolean abstractType_ = false;
             boolean finalType_ = false;
-            int bk_ = nextIndex_;
             String beforeQu_ = _file.substring(nextIndex_);
             if (ContextEl.startsWithKeyWord(beforeQu_, keyWordAbstract_)) {
                 abstractType_ = true;
                 nextIndex_ = incrementRowCol(nextIndex_, keyWordAbstract_.length(), _file, enabledSpaces_);
                 nextIndex_ = skipWhitespace(nextIndex_, _file, enabledSpaces_);
-                if (nextIndex_ < 0) {
-                    //ERROR
-                    badIndexes_.add(bk_);
-                    return out_;
-                }
             }
             beforeQu_ = _file.substring(nextIndex_);
             if (ContextEl.startsWithKeyWord(beforeQu_, keyWordFinal_)) {
                 finalType_ = true;
                 nextIndex_ = incrementRowCol(nextIndex_, keyWordFinal_.length(), _file, enabledSpaces_);
                 nextIndex_ = skipWhitespace(nextIndex_, _file, enabledSpaces_);
-                if (nextIndex_ < 0) {
-                    //ERROR
-                    badIndexes_.add(bk_);
-                    return out_;
-                }
             }
             int categoryOffset_ = nextIndex_ - 1;
             String type_;
@@ -630,14 +586,8 @@ public final class FileResolver {
                 badIndexes_.add(nextIndex_);
                 return out_;
             }
-            bk_ = nextIndex_;
             nextIndex_ = skipWhitespace(nextIndex_, _file, enabledSpaces_);
-            if (nextIndex_ < 0) {
-                //ERROR
-                badIndexes_.add(bk_);
-                return out_;
-            }
-            ParsedImportedTypes p_ = new ParsedImportedTypes(nextIndex_, _file, badIndexes_, enabledSpaces_);
+            ParsedImportedTypes p_ = new ParsedImportedTypes(nextIndex_, _file, enabledSpaces_);
             importedTypes_ = p_.getImportedTypes();
             offsetsImports_ = p_.getOffsetsImports();
             nextIndex_ = p_.getNextIndex();
@@ -666,11 +616,6 @@ public final class FileResolver {
                 String interfacesInfo_ = _file.substring(begin_ + 1, end_);
                 for (int i = begin_ + 1; i < end_; i++) {
                     updateAllowedSpaces(i, _file, enabledSpaces_);
-                    if (!enabledSpaces_.isOk()) {
-                        //ERROR
-                        badIndexes_.add(i);
-                        return out_;
-                    }
                 }
                 for (String p: StringList.splitChars(interfacesInfo_, SEP_CALLING)) {
                     staticInitInterfaces_.add(p);
@@ -679,13 +624,7 @@ public final class FileResolver {
                 }
                 nextIndex_ = end_ + 1;
             }
-            bk_ = nextIndex_;
             nextIndex_ = skipWhitespace(nextIndex_, _file, enabledSpaces_);
-            if (nextIndex_ < 0) {
-                //ERROR
-                badIndexes_.add(bk_);
-                return out_;
-            }
             StringBuilder str_ = new StringBuilder();
             IntMap< String> superTypes_ = new IntMap< String>();
             StringBuilder typeNamePref_ = new StringBuilder();
@@ -697,11 +636,6 @@ public final class FileResolver {
             int inheritIndex_ = -1;
             while (nextIndex_ < len_) {
                 currentChar_ = _file.charAt(nextIndex_);
-                if (!enabledSpaces_.isOk()) {
-                    //ERROR
-                    badIndexes_.add(nextIndex_);
-                    return out_;
-                }
                 if (currentChar_ == BEGIN_TEMPLATE) {
                     nbOpened_++;
                 }
@@ -821,7 +755,6 @@ public final class FileResolver {
             if (commentedSingleLine_) {
                 if (currentChar_ == LINE_RETURN) {
                     commentedSingleLine_ = false;
-                    enabledSpaces_.setCheckTabs(true);
                     instruction_.delete(0, instruction_.length());
                     instLen_ = 0;
                     enabledSpaces_.getFile().getEndComments().add(i_-1);
@@ -839,7 +772,6 @@ public final class FileResolver {
                     char nextChar_ = _file.charAt(i_ + 1);
                     if (nextChar_ == BEGIN_COMMENT) {
                         commentedMultiLine_ = false;
-                        enabledSpaces_.setCheckTabs(true);
                         instruction_.delete(0, instruction_.length());
                         instLen_ = 0;
                         i_ = incrementRowCol(i_, _file, enabledSpaces_);
@@ -869,7 +801,6 @@ public final class FileResolver {
                 if (currentChar_ == DEL_CHAR) {
                     i_ = incrementRowCol(i_, _file, enabledSpaces_);
                     constChar_ = false;
-                    enabledSpaces_.setCheckTabs(true);
                     continue;
                 }
                 i_ = incrementRowCol(i_, _file, enabledSpaces_);
@@ -893,7 +824,6 @@ public final class FileResolver {
                 if (currentChar_ == DEL_STRING) {
                     i_ = incrementRowCol(i_, _file, enabledSpaces_);
                     constString_ = false;
-                    enabledSpaces_.setCheckTabs(true);
                     continue;
                 }
                 i_ = incrementRowCol(i_, _file, enabledSpaces_);
@@ -911,7 +841,6 @@ public final class FileResolver {
                     if (_file.charAt(i_ + 1) != DEL_TEXT) {
                         i_ = incrementRowCol(i_, _file, enabledSpaces_);
                         constText_ = false;
-                        enabledSpaces_.setCheckTabs(true);
                         continue;
                     }
                     instLen_++;
@@ -922,11 +851,6 @@ public final class FileResolver {
                 }
                 i_ = incrementRowCol(i_, _file, enabledSpaces_);
                 continue;
-            }
-            if (!enabledSpaces_.isOk()) {
-                //ERROR
-                badIndexes_.add(i_);
-                break;
             }
             if (currentChar_ == BEGIN_COMMENT) {
                 if (i_ + 1 >= len_) {
@@ -939,7 +863,6 @@ public final class FileResolver {
                     if (instLen_ == 0) {
                         enabledSpaces_.getFile().getBeginComments().add(i_);
                         commentedSingleLine_ = true;
-                        enabledSpaces_.setCheckTabs(false);
                         i_ = incrementRowCol(i_, _file, enabledSpaces_);
                         i_ = incrementRowCol(i_, _file, enabledSpaces_);
                         continue;
@@ -949,7 +872,6 @@ public final class FileResolver {
                     if (instLen_ == 0) {
                         enabledSpaces_.getFile().getBeginComments().add(i_);
                         commentedMultiLine_ = true;
-                        enabledSpaces_.setCheckTabs(false);
                         i_ = incrementRowCol(i_, _file, enabledSpaces_);
                         i_ = incrementRowCol(i_, _file, enabledSpaces_);
                         continue;
@@ -963,7 +885,6 @@ public final class FileResolver {
                 instLen_++;
                 instruction_.append(currentChar_);
                 constChar_ = true;
-                enabledSpaces_.setCheckTabs(false);
                 i_ = incrementRowCol(i_, _file, enabledSpaces_);
                 continue;
             }
@@ -974,7 +895,6 @@ public final class FileResolver {
                 instLen_++;
                 instruction_.append(currentChar_);
                 constString_ = true;
-                enabledSpaces_.setCheckTabs(false);
                 i_ = incrementRowCol(i_, _file, enabledSpaces_);
                 continue;
             }
@@ -985,7 +905,6 @@ public final class FileResolver {
                 instLen_++;
                 instruction_.append(currentChar_);
                 constText_ = true;
-                enabledSpaces_.setCheckTabs(false);
                 i_ = incrementRowCol(i_, _file, enabledSpaces_);
                 continue;
             }
@@ -1550,12 +1469,8 @@ public final class FileResolver {
         locIndex_ += StringList.getFirstPrintableCharIndex(afterAccess_);
         EnablingSpaces enLoc_ = new EnablingSpaces();
         enLoc_.setBegin(_enLoc.getBegin());
-        enLoc_.setCheckTabs(_enLoc.isCheckTabs());
-        enLoc_.setEnabledSpace(_enLoc.isEnabledSpace());
-        enLoc_.setEnabledTab(_enLoc.isEnabledTab());
         enLoc_.setEnd(_enLoc.getEnd());
         enLoc_.setFile(_enLoc.getFile());
-        enLoc_.setOk(_enLoc.isOk());
         enLoc_.setOnlySpacesLine(_enLoc.isOnlySpacesLine());
         Ints badIndexes_ = _input.getBadIndexes();
         boolean staticType_ = _defStatic;
@@ -1614,7 +1529,7 @@ public final class FileResolver {
                                                    Ints _annotationsIndexes, StringList _annotations, int _typeOffset, int _locIndex, EnablingSpaces _enLoc, Ints _badIndexes,
                                                    boolean _staticType, boolean _abstractType, boolean _finalType, String _keyWordClass, String _keyWordEnum, String _keyWordInterface, String _keyWordInterfaces, String _type,
                                                    int _categoryOffset) {
-        ParsedImportedTypes p_ = new ParsedImportedTypes(_locIndex, _file, _badIndexes, _enLoc);
+        ParsedImportedTypes p_ = new ParsedImportedTypes(_locIndex, _file, _enLoc);
         StringList importedTypes_ = p_.getImportedTypes();
         Ints offsetsImports_ = p_.getOffsetsImports();
         int locIndex_ = p_.getNextIndex();
@@ -2323,7 +2238,6 @@ public final class FileResolver {
             exp_ = exp_.substring(forBlocks_ + 1, endIndex_);
             expOffset_ += StringList.getFirstPrintableCharIndex(exp_);
             String variableName_ = variable_.trim();
-            LgNames stds_ = _context.getStandards();
             if (StringList.isDollarWord(variableName_)) {
                 br_ = new ForEachLoop(_context, new OffsetStringInfo(typeOffset_, declaringType_.trim()), new OffsetStringInfo(varOffset_, variableName_), new OffsetStringInfo(expOffset_, exp_.trim()), new OffsetStringInfo(indexClassOffest_, indexClassName_.trim()), new OffsetStringInfo(labelOff_, label_.trim()), new OffsetsBlock(_instructionRealLocation, _instructionLocation));
             } else {
@@ -2523,7 +2437,6 @@ public final class FileResolver {
                             int expOffset_ = varOffset_;
                             expOffset_ += init_.length();
                             expOffset_ += StringList.getFirstPrintableCharIndex(exp_);
-                            LgNames stds_ = _context.getStandards();
                             label_ = label_.substring(lastPar_ + 1);
                             labelOff_ += getLabelOffset(label_);
                             br_ = new ForEachLoop(_context, new OffsetStringInfo(typeOffset_, declaringType_.trim()), new OffsetStringInfo(varOffset_, variableName_), new OffsetStringInfo(expOffset_, exp_.trim()), new OffsetStringInfo(indexClassOffest_, indexClassName_.trim()), new OffsetStringInfo(labelOff_, label_.trim()), new OffsetsBlock(_instructionRealLocation, _instructionLocation));
@@ -2587,7 +2500,6 @@ public final class FileResolver {
                     if (!label_.isEmpty()) {
                         labelOff_ += StringList.getFirstPrintableCharIndex(label_);
                     }
-                    LgNames stds_ = _context.getStandards();
                     String variableName_ = init_.trim();
                     if (StringList.isDollarWord(variableName_)) {
                         br_ = new ForEachLoop(_context, new OffsetStringInfo(typeOffset_, declaringType_.trim()), new OffsetStringInfo(varOffset_, variableName_), new OffsetStringInfo(expOffset_, exp_.trim()), new OffsetStringInfo(indexClassOffest_, indexClassName_.trim()), new OffsetStringInfo(labelOff_, label_.trim()), new OffsetsBlock(_instructionRealLocation, _instructionLocation));
@@ -3289,7 +3201,6 @@ public final class FileResolver {
                 _enabledSpaces.getFile().getLeftSpaces().add(length_);
             }
             _enabledSpaces.setOnlySpacesLine(true);
-            _enabledSpaces.setEnabledTab(true);
             _enabledSpaces.setBegin(_index);
             return;
         }
@@ -3313,18 +3224,10 @@ public final class FileResolver {
                 _enabledSpaces.getFile().getLeftSpaces().add(length_);
             }
             _enabledSpaces.setOnlySpacesLine(false);
-            _enabledSpaces.setEnabledTab(false);
             return;
         }
         if (cur_ == TAB) {
-            if (!_enabledSpaces.isOnlySpacesLine()) {
-                _enabledSpaces.getFile().getTabulations().add(_index);
-            }
-        }
-        if (cur_ == TAB && _enabledSpaces.isCheckTabs()) {
-            if (!_enabledSpaces.isEnabledTab()) {
-                _enabledSpaces.setOk(false);
-            }
+            _enabledSpaces.getFile().getTabulations().add(_index);
         }
     }
 
@@ -3347,10 +3250,6 @@ public final class FileResolver {
         int len_ = _file.length();
         while (nextIndex_ < len_) {
             char currentChar_ = _file.charAt(nextIndex_);
-            if (!_enabledSpaces.isOk()) {
-                //ERROR
-                return -1;
-            }
             if (!Character.isWhitespace(currentChar_)) {
                 break;
             }
