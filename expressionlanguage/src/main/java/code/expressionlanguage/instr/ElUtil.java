@@ -1001,6 +1001,7 @@ public final class ElUtil {
             }
             if (curOp_ instanceof ExecExplicitOperation) {
                 String className_ = ((ExplicitOperation) val_).getClassName();
+                int offsetOp_ = val_.getOperations().getOperators().firstKey();
                 GeneType type_ = _cont.getClassBody(className_);
                 if (isFromCustFile(type_)) {
                     MethodId castId_ = ((ExplicitOperation) val_).getCastOpId();
@@ -1008,9 +1009,9 @@ public final class ElUtil {
                         String file_ = ((RootBlock) type_).getFile().getRenderFileName();
                         String rel_ = getRelativize(_cont, currentFileName_, className_, castId_, type_, file_);
                         tag_ = "<a title=\""+transform(className_ +"."+ castId_.getSignature(_cont))+"\" href=\""+rel_+"\">";
-                        _parts.add(new PartOffset(tag_,sum_ + val_.getIndexInEl()));
+                        _parts.add(new PartOffset(tag_,offsetOp_+sum_ + val_.getIndexInEl()));
                         tag_ = "</a>";
-                        _parts.add(new PartOffset(tag_,sum_ + val_.getIndexInEl()+_cont.getKeyWords().getKeyWordExplicit().length()));
+                        _parts.add(new PartOffset(tag_,offsetOp_+sum_ + val_.getIndexInEl()+_cont.getKeyWords().getKeyWordExplicit().length()));
                     }
                 }
                 _parts.addAllElts(((ExplicitOperation)val_).getPartOffsets());

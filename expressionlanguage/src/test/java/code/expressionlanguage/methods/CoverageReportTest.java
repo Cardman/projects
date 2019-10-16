@@ -8841,6 +8841,62 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "</pre></body></html>", filesExp_.firstValue());
     }
     @Test
+    public void coverage225Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Apply {\n");
+        xml_.append(" public static ExClassTwo method(){\n");
+        xml_.append("  return explicit(ExClassTwo,ExClass) explicit(ExClass,int)5;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExClass {\n");
+        xml_.append(" public int field;\n");
+        xml_.append(" public static ExClass explicit(int i){\n");
+        xml_.append("  ExClass out = new ExClass();\n");
+        xml_.append("  out.field = i;\n");
+        xml_.append("  return out;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExClassTwo {\n");
+        xml_.append(" public int field;\n");
+        xml_.append(" public static ExClassTwo explicit(ExClass i){\n");
+        xml_.append("  ExClassTwo out = new ExClassTwo();\n");
+        xml_.append("  out.field = i.field;\n");
+        xml_.append("  return out;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElCoverageReadOnlyDefault();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validate(cont_.getKeyWords(),cont_.getStandards(),files_,cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("method");
+        calculateArgument("pkg.Apply", id_, args_, cont_);
+        StringMap<String> filesExp_ = FileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Apply </a>{\n" +
+                " public static <a title=\"pkg.ExClassTwo\" href=\"#m294\">ExClassTwo</a> <a name=\"m51\">method</a>(){\n" +
+                "  return <span class=\"f\"><a title=\"pkg.ExClassTwo.static explicit(pkg.ExClass)\" href=\"#m356\">explicit</a>(<a title=\"pkg.ExClassTwo\" href=\"#m294\">ExClassTwo</a>,<a title=\"pkg.ExClass\" href=\"#m141\">ExClass</a>)<span class=\"f\"> <a title=\"pkg.ExClass.static explicit(int)\" href=\"#m197\">explicit</a>(<a title=\"pkg.ExClass\" href=\"#m141\">ExClass</a>,int)<span class=\"f\">5</span></span></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "public class <a name=\"m141\">pkg.ExClass </a>{\n" +
+                " public int <span class=\"f\"><a name=\"m167\">field</a></span>;\n" +
+                " public static <a title=\"pkg.ExClass\" href=\"#m141\">ExClass</a> <a name=\"m197\">explicit</a>(int <a name=\"m210\">i</a>){\n" +
+                "  <a title=\"pkg.ExClass\" href=\"#m141\">ExClass</a> <span class=\"f\"><span class=\"f\"><a name=\"m224\">out</a> </span>=<span class=\"f\"> new <a title=\"pkg.ExClass\" href=\"#m141\">ExClass</a>()</span></span>;\n" +
+                "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m224\">out</a></span>.<span class=\"f\"><a title=\"pkg.ExClass.field\" href=\"#m167\">field</a> </span></span>=<span class=\"f\"> <a href=\"#m210\">i</a></span></span>;\n" +
+                "  return <span class=\"f\"><a href=\"#m224\">out</a></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "public class <a name=\"m294\">pkg.ExClassTwo </a>{\n" +
+                " public int <span class=\"f\"><a name=\"m323\">field</a></span>;\n" +
+                " public static <a title=\"pkg.ExClassTwo\" href=\"#m294\">ExClassTwo</a> <a name=\"m356\">explicit</a>(<a title=\"pkg.ExClass\" href=\"#m141\">ExClass</a> <a name=\"m373\">i</a>){\n" +
+                "  <a title=\"pkg.ExClassTwo\" href=\"#m294\">ExClassTwo</a> <span class=\"f\"><span class=\"f\"><a name=\"m390\">out</a> </span>=<span class=\"f\"> new <a title=\"pkg.ExClassTwo\" href=\"#m294\">ExClassTwo</a>()</span></span>;\n" +
+                "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m390\">out</a></span>.<span class=\"f\"><a title=\"pkg.ExClassTwo.field\" href=\"#m323\">field</a> </span></span>=<span class=\"f\"><span class=\"f\"> <a href=\"#m373\">i</a></span>.<span class=\"f\"><a title=\"pkg.ExClass.field\" href=\"#m167\">field</a></span></span></span>;\n" +
+                "  return <span class=\"f\"><a href=\"#m390\">out</a></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
     public void coverageComment1Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
