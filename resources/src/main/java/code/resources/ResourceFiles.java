@@ -36,6 +36,9 @@ public final class ResourceFiles {
         BufferedReader br_ = null;
         try {
             inputStream_ = ClassLoader.getSystemResourceAsStream(_file);
+            if (inputStream_ == null) {
+                return null;
+            }
             reader_ = new InputStreamReader(inputStream_, _encoding);
             br_ = new BufferedReader(reader_);
             return readingFile(br_);
