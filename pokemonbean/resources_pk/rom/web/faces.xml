@@ -2928,8 +2928,6 @@
 		<java.lang.String class="m" value="items/itemforbattle"/>
 		<java.lang.String class="m" key="" value="msg_repel"/>
 		<java.lang.String class="m" value="items/repel"/>
-		<java.lang.String class="m" key="" value="msg_sellingitem"/>
-		<java.lang.String class="m" value="items/sellingitem"/>
 		<java.lang.String class="m" key="" value="msg_abilities"/>
 		<java.lang.String class="m" value="ability/abilities"/>
 		<java.lang.String class="m" key="" value="msg_ability"/>
