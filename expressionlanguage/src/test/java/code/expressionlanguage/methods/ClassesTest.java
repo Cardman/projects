@@ -2475,7 +2475,7 @@ public final class ClassesTest {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.OuterOne<#T:ExFinal<Number>&ExFinal<Object>&Object[]> {\n");
+        xml_.append("$public $class pkg.OuterOne<#T:ExFinal<Number>&ExFinal<Object>&Object[]&$int> {\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.ExFinal<#U> {\n");
         xml_.append("}\n");

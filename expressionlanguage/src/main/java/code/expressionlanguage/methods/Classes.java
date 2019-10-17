@@ -1084,6 +1084,13 @@ public final class Classes {
                         un_.setIndexFile(s.getIdRowCol());
                         addError(un_);
                     }
+                    if (PrimitiveTypeUtil.isPrimitive(b,_context)) {
+                        UnknownClassName un_ = new UnknownClassName();
+                        un_.setClassName(c);
+                        un_.setFileName(s.getFile().getFileName());
+                        un_.setIndexFile(s.getIdRowCol());
+                        addError(un_);
+                    }
                     String baseParams_ = Templates.getIdFromAllTypes(b);
                     String base_ = PrimitiveTypeUtil.getQuickComponentBaseType(baseParams_).getComponent();
                     upperNotObj_.add(b);
