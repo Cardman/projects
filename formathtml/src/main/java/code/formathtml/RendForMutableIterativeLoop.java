@@ -11,6 +11,7 @@ import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.methods.ForLoopPart;
 import code.expressionlanguage.opers.AffectationOperation;
 import code.expressionlanguage.opers.Calculation;
+import code.expressionlanguage.opers.util.MethodAccessKind;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.BooleanStruct;
@@ -127,7 +128,7 @@ public final class RendForMutableIterativeLoop extends RendParentBlock implement
         } else {
             _cont.setMerged(false);
         }
-        boolean static_ = _doc.isStaticContext();
+        MethodAccessKind static_ = _doc.getStaticContext();
         _cont.getVariablesNames().clear();
         _cont.getVariablesNamesLoopToInfer().clear();
         page_.setGlobalOffset(initOffset);
@@ -181,7 +182,7 @@ public final class RendForMutableIterativeLoop extends RendParentBlock implement
         _an.setAcceptCommaInstr(true);
         _an.getLocalVariables().last().clear();
         _an.getAnalyzingDoc().setAttribute(ATTRIBUTE_STEP);
-        boolean static_ = _doc.isStaticContext();
+        MethodAccessKind static_ = _doc.getStaticContext();
         if (step.trim().isEmpty()) {
             opStep = new CustList<RendDynOperationNode>();
         } else {

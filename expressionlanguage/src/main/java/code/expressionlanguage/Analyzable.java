@@ -8,10 +8,7 @@ import code.expressionlanguage.instr.ResultAfterInstKeyWord;
 import code.expressionlanguage.methods.*;
 import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.OperationNode;
-import code.expressionlanguage.opers.util.ClassField;
-import code.expressionlanguage.opers.util.ClassMethodId;
-import code.expressionlanguage.opers.util.FieldInfo;
-import code.expressionlanguage.opers.util.MethodId;
+import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stds.LgNames;
@@ -68,9 +65,11 @@ public interface Analyzable {
 
     void setOffset(int _offset);
 
+    MethodAccessKind getStaticContext();
     boolean isStaticContext();
 
-    void setStaticContext(boolean _staticContext);
+    void setAccessStaticContext(MethodAccessKind _staticContext);
+
     GeneType getClassBody(String _type);
 
 

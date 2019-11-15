@@ -7,7 +7,7 @@ public final class DirectRefectMethodPageEl extends AbstractRefectMethodPageEl {
     @Override
     boolean initType() {
         MethodMetaInfo method_ = (MethodMetaInfo) getGlobalArgument().getStruct();
-        return method_.isStatic();
+        return method_.isWideStatic();
     }
 
     @Override

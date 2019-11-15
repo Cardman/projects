@@ -7,6 +7,7 @@ import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.errors.custom.BadElError;
 import code.expressionlanguage.opers.Calculation;
+import code.expressionlanguage.opers.util.MethodAccessKind;
 import code.expressionlanguage.stds.ResultErrorStd;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
@@ -199,12 +200,12 @@ public final class Navigation {
         String keyWordNew_ = session.getKeyWords().getKeyWordNew();
         for (EntryCust<String, BeanInfo> e: session.getBeansInfos().entryList()) {
             BeanInfo info_ = e.getValue();
-            CustList<RendDynOperationNode> exps_ = RenderExpUtil.getAnalyzedOperations(StringList.concat(keyWordNew_, " ", info_.getClassName(), "()"), 0, session, Calculation.staticCalculation(true));
+            CustList<RendDynOperationNode> exps_ = RenderExpUtil.getAnalyzedOperations(StringList.concat(keyWordNew_, " ", info_.getClassName(), "()"), 0, session, Calculation.staticCalculation(MethodAccessKind.STATIC));
             info_.setExps(exps_);
         }
         for (EntryCust<String,ValidatorInfo> e: session.getLateValidators().entryList()) {
             ValidatorInfo v_ = e.getValue();
-            CustList<RendDynOperationNode> exps_ = RenderExpUtil.getAnalyzedOperations(StringList.concat(keyWordNew_, " ", v_.getClassName(), "()"), 0, session, Calculation.staticCalculation(true));
+            CustList<RendDynOperationNode> exps_ = RenderExpUtil.getAnalyzedOperations(StringList.concat(keyWordNew_, " ", v_.getClassName(), "()"), 0, session, Calculation.staticCalculation(MethodAccessKind.STATIC));
             v_.setExps(exps_);
         }
     }

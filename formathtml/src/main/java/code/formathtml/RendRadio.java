@@ -6,6 +6,7 @@ import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.inherits.Mapping;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.opers.Calculation;
+import code.expressionlanguage.opers.util.MethodAccessKind;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.variables.LocalVariable;
@@ -37,7 +38,7 @@ public final class RendRadio extends RendInput {
         _list.removeAllString(StringList.concat(_cont.getPrefix(),ATTRIBUTE_VAR_VALUE));
         _list.removeAllString(StringList.concat(_cont.getPrefix(),ATTRIBUTE_VALIDATOR));
         _list.removeAllString(ATTRIBUTE_TYPE);
-        boolean st_ = _doc.isStaticContext();
+        MethodAccessKind st_ = _doc.getStaticContext();
         String converterFieldValue_ = _read.getAttribute(StringList.concat(_cont.getPrefix(),ATTRIBUTE_CONVERT_FIELD_VALUE));
         if (!converterFieldValue_.trim().isEmpty()) {
             String object_ = _cont.getStandards().getAliasObject();

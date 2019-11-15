@@ -23,12 +23,12 @@ public abstract class InitBlock extends MemberCallingsBlock implements AloneBloc
         Block prev_ = getPreviousSibling();
         while (prev_ != null) {
             if (prev_ instanceof InitBlock) {
-                if (((InitBlock)prev_).isStaticContext() == isStaticContext()) {
+                if (((InitBlock)prev_).getStaticContext() == getStaticContext()) {
                     break;
                 }
             }
             if (prev_ instanceof InfoBlock) {
-                if (((InfoBlock)prev_).isStaticField() == isStaticContext()) {
+                if (((InfoBlock)prev_).isStaticField() == (getStaticContext() == MethodAccessKind.STATIC)) {
                     break;
                 }
             }

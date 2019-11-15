@@ -158,7 +158,7 @@ public final class ForEachLoop extends BracedStack implements ForLoop,ImportForE
         return importedClassName;
     }
 
-    private boolean processVarTypes(ContextEl _cont) {
+    private MethodAccessKind processVarTypes(ContextEl _cont) {
         FunctionBlock f_ = _cont.getAnalyzing().getCurrentFct();
         importedClassIndexName = _cont.resolveCorrectType(classIndexName);
         if (!PrimitiveTypeUtil.isPrimitiveOrWrapper(importedClassIndexName, _cont)) {
@@ -205,7 +205,7 @@ public final class ForEachLoop extends BracedStack implements ForLoop,ImportForE
         }
         page_.setGlobalOffset(expressionOffset);
         page_.setOffset(0);
-        boolean static_ = f_.isStaticContext();
+        MethodAccessKind static_ = f_.getStaticContext();
         _cont.getCoverage().putBlockOperationsLoops(_cont,this);
         return static_;
     }
@@ -244,7 +244,7 @@ public final class ForEachLoop extends BracedStack implements ForLoop,ImportForE
     }
     @Override
     public void buildExpressionLanguage(ContextEl _cont) {
-        boolean static_ = processVarTypes(_cont);
+        MethodAccessKind static_ = processVarTypes(_cont);
         opList = ElUtil.getAnalyzedOperations(expression, _cont, Calculation.staticCalculation(static_));
         checkMatchs(_cont);
         putVariable(_cont);
@@ -252,7 +252,7 @@ public final class ForEachLoop extends BracedStack implements ForLoop,ImportForE
 
     @Override
     public void buildExpressionLanguageReadOnly(ContextEl _cont) {
-        boolean static_ = processVarTypes(_cont);
+        MethodAccessKind static_ = processVarTypes(_cont);
         opList = ElUtil.getAnalyzedOperationsReadOnly(expression, _cont, Calculation.staticCalculation(static_));
         checkMatchs(_cont);
         processVariable(_cont);

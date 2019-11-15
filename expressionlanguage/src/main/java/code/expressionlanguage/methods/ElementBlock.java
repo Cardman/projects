@@ -197,7 +197,7 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
             int begin_ = annotationsIndexes.get(i);
             page_.setGlobalOffset(begin_);
             page_.setOffset(0);
-            Calculation c_ = Calculation.staticCalculation(true);
+            Calculation c_ = Calculation.staticCalculation(MethodAccessKind.STATIC);
             annotationsOps.add(ElUtil.getAnalyzedOperationsReadOnly(annotations.get(i), _context, c_));
         }
     }

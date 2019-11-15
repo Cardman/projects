@@ -19,6 +19,7 @@ import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.exec.ExecOperationNode;
 import code.expressionlanguage.opers.util.AssignedVariables;
+import code.expressionlanguage.opers.util.MethodAccessKind;
 import code.expressionlanguage.opers.util.SimpleAssignment;
 import code.expressionlanguage.stacks.RemovableVars;
 import code.expressionlanguage.stacks.TryBlockStack;
@@ -65,7 +66,7 @@ public final class ReturnMehod extends AbruptBlock implements CallingFinally, Wi
         if (retType_.isEmpty()) {
             return;
         }
-        boolean stCtx_ = f_.isStaticContext();
+        MethodAccessKind stCtx_ = f_.getStaticContext();
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         page_.setGlobalOffset(expressionOffset);
         page_.setOffset(0);
@@ -80,7 +81,7 @@ public final class ReturnMehod extends AbruptBlock implements CallingFinally, Wi
         if (retType_.isEmpty()) {
             return;
         }
-        boolean stCtx_ = f_.isStaticContext();
+        MethodAccessKind stCtx_ = f_.getStaticContext();
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         page_.setGlobalOffset(expressionOffset);
         page_.setOffset(0);

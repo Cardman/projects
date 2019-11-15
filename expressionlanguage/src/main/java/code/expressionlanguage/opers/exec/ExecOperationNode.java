@@ -169,7 +169,11 @@ public abstract class ExecOperationNode implements Operable {
             return new ExecFirstOptOperation(f_);
         }
         if (_anaNode instanceof StaticAccessOperation) {
-            StaticAccessOperation f_ = (StaticAccessOperation) _anaNode;
+            LeafOperation f_ = (LeafOperation) _anaNode;
+            return new ExecStaticAccessOperation(f_);
+        }
+        if (_anaNode instanceof StaticCallAccessOperation) {
+            LeafOperation f_ = (LeafOperation) _anaNode;
             return new ExecStaticAccessOperation(f_);
         }
         if (_anaNode instanceof VarargOperation) {

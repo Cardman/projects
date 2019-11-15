@@ -19,6 +19,7 @@ import code.expressionlanguage.methods.InnerTypeOrElement;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
+import code.expressionlanguage.opers.util.MethodAccessKind;
 import code.formathtml.exec.RendDynOperationNode;
 import code.formathtml.stacks.RendReadWrite;
 import code.formathtml.stacks.RendSwitchBlockStack;
@@ -52,7 +53,7 @@ public final class RendCaseCondition extends RendParentBlock implements RendBuil
         page_.setOffset(0);
         _cont.getAnalyzingDoc().setAttribute(ATTRIBUTE_VALUE);
         RendParentBlock par_ = getParent();
-        boolean stCtx_ = _doc.isStaticContext();
+        MethodAccessKind stCtx_ = _doc.getStaticContext();
         if (!(par_ instanceof RendSwitchBlock)) {
             page_.setGlobalOffset(getOffset().getOffsetTrim());
             page_.setOffset(0);
@@ -79,7 +80,7 @@ public final class RendCaseCondition extends RendParentBlock implements RendBuil
                         continue;
                     }
                     _cont.setLookLocalClass(id_);
-                    _cont.setStaticContext(true);
+                    _cont.setAccessStaticContext(MethodAccessKind.STATIC);
                     Delimiters d_ = ElResolver.checkSyntax(value, _cont, CustList.FIRST_INDEX);
                     OperationsSequence opTwo_ = ElResolver.getOperationsSequence(CustList.FIRST_INDEX, value, _cont, d_);
                     OperationNode op_ = OperationNode.createOperationNode(CustList.FIRST_INDEX, CustList.FIRST_INDEX, null, opTwo_, _cont);

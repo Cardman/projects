@@ -5,10 +5,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.errors.custom.AbstractMethod;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.instr.PartOffset;
-import code.expressionlanguage.opers.util.ClassArgumentMatching;
-import code.expressionlanguage.opers.util.ClassMethodId;
-import code.expressionlanguage.opers.util.ClassMethodIdReturn;
-import code.expressionlanguage.opers.util.MethodId;
+import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
 import code.util.*;
@@ -49,7 +46,7 @@ public final class ChoiceFctOperation extends InvokingOperation {
         boolean import_ = false;
         if (!isIntermediateDottedOperation()) {
             import_ = true;
-            setStaticAccess(_conf.isStaticContext());
+            setStaticAccess(_conf.getStaticContext());
         }
         String className_ = methodName.substring(0, methodName.lastIndexOf(PAR_RIGHT));
         int lenPref_ = methodName.indexOf(PAR_LEFT) + 1;
@@ -75,7 +72,7 @@ public final class ChoiceFctOperation extends InvokingOperation {
             MethodId mid_ = idMethod_.getConstraints();
             boolean vararg_ = mid_.isVararg();
             StringList params_ = mid_.getParametersTypes();
-            boolean static_ = isStaticAccess() || mid_.isStaticMethod();
+            MethodAccessKind static_ = MethodId.getKind(isStaticAccess(), mid_.getKind());
             feed_ = new ClassMethodId(idClass_, new MethodId(static_, trimMeth_, params_, vararg_));
         }
         ClassMethodIdReturn clMeth_ = getDeclaredCustMethod(_conf, varargOnly_, isStaticAccess(), bounds_, trimMeth_, false, false, import_, feed_,ClassArgumentMatching.toArgArray(firstArgs_));
@@ -102,7 +99,7 @@ public final class ChoiceFctOperation extends InvokingOperation {
             naturalVararg = paramtTypes_.size() - 1;
             lastType = paramtTypes_.last();
         }
-        staticMethod = clMeth_.isStaticMethod();
+        staticMethod = realId.getKind() != MethodAccessKind.INSTANCE;
         unwrapArgsFct(chidren_, realId, naturalVararg, lastType, firstArgs_, _conf);
         setResultClass(new ClassArgumentMatching(clMeth_.getReturnType()));
         if (isIntermediateDottedOperation() && !staticMethod) {

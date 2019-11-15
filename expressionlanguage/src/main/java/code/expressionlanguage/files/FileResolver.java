@@ -1669,6 +1669,7 @@ public final class FileResolver {
         String keyWordProtected_ = keyWords_.getKeyWordProtected();
         String keyWordPublic_ = keyWords_.getKeyWordPublic();
         String keyWordStatic_ = keyWords_.getKeyWordStatic();
+        String keyWordStaticCall_ = keyWords_.getKeyWordStaticCall();
         if (found_.trim().charAt(0) == ANNOT) {
             ParsedAnnotations par_ = new ParsedAnnotations(trimmedInstruction_, accessOffest_);
             par_.parse();
@@ -1741,6 +1742,12 @@ public final class FileResolver {
                 String sub_ = infoModifiers_.substring(lenLoc_);
                 int delta_ = StringList.getFirstPrintableCharIndex(sub_);
                 infoModifiers_ = sub_.substring(delta_);
+            } else if (ContextEl.startsWithKeyWord(infoModifiers_,keyWordStaticCall_)) {
+                otherModifier_ = keyWordStaticCall_;
+                int lenLoc_ = otherModifier_.length();
+                String sub_ = infoModifiers_.substring(lenLoc_);
+                int delta_ = StringList.getFirstPrintableCharIndex(sub_);
+                infoModifiers_ = sub_.substring(delta_);
             } else if (ContextEl.startsWithKeyWord(infoModifiers_,keyWordFinal_)) {
                 otherModifier_ = keyWordFinal_;
                 int lenLoc_ = otherModifier_.length();
@@ -1803,6 +1810,9 @@ public final class FileResolver {
                     prefModifier_ = modifier_;
                 } else if (ContextEl.startsWithKeyWord(info_,keyWordStatic_)) {
                     modifier_ = keyWordStatic_;
+                    prefModifier_ = modifier_;
+                } else if (ContextEl.startsWithKeyWord(info_,keyWordStaticCall_)) {
+                    modifier_ = keyWordStaticCall_;
                     prefModifier_ = modifier_;
                 } else if (ContextEl.startsWithKeyWord(info_,keyWordFinal_)) {
                     modifier_ = keyWordFinal_;

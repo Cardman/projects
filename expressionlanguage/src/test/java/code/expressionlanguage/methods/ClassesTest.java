@@ -33,7 +33,7 @@ public final class ClassesTest {
         assertEq("$void",info_.getName());
         Struct infoField_ = cont_.getClasses().getStaticField(new ClassField("java.lang.$iterable","other"),cont_);
         assertSame(NullStruct.NULL_VALUE,infoField_);
-        MethodId id_ = new MethodId(true, "", new StringList());
+        MethodId id_ = new MethodId(MethodAccessKind.STATIC, "", new StringList());
         assertEq(0, Classes.getOperatorsBodiesById(cont_, id_).size());
         assertTrue(Classes.isHiddenField("","java.lang.$iterable","other",cont_));
         assertNull(cont_.getCallingState());
@@ -62,10 +62,10 @@ public final class ClassesTest {
         assertEq("super", i_.getDirectSuperClasses(cont_).first());
         assertTrue(i_.isAbstractType());
         assertTrue(!i_.isFinalType());
-        assertTrue(!cont_.getStandards().getStandards().getVal("java.lang.String").getMethods().getVal(new MethodId(false,"replace",new StringList("java.lang.String","java.lang.String"))).isAbstractMethod());
+        assertTrue(!cont_.getStandards().getStandards().getVal("java.lang.String").getMethods().getVal(new MethodId(MethodAccessKind.INSTANCE,"replace",new StringList("java.lang.String","java.lang.String"))).isAbstractMethod());
         StandardMethod sMeth_ = new StandardMethod("abs",new StringList(),"java.lang.Object",false, MethodModifier.ABSTRACT,i_);
         assertTrue(sMeth_.isAbstractMethod());
-        assertSame(cont_.getStandards().getStandards().getVal("java.lang.Number"),cont_.getStandards().getStandards().getVal("java.lang.Number").getMethods().getVal(new MethodId(false,"byteValue",new StringList())).belong());
+        assertSame(cont_.getStandards().getStandards().getVal("java.lang.Number"),cont_.getStandards().getStandards().getVal("java.lang.Number").getMethods().getVal(new MethodId(MethodAccessKind.INSTANCE,"byteValue",new StringList())).belong());
         assertSame(cont_.getStandards().getStandards().getVal("java.lang.Integer"),cont_.getStandards().getStandards().getVal("java.lang.Integer").getFields().getVal("MAX_VALUE").belong());
     }
 
@@ -2531,7 +2531,7 @@ public final class ClassesTest {
         ObjectMap<MethodId, StringList> sgn_ = toList(TypeUtil.getAllInstanceSignatures(i_, context_));
         sgn_ = toList(RootBlock.getAllOverridingMethods(toId(sgn_), context_));
         assertEq(1, sgn_.size());
-        assertEq(new StringList("pkg.ExFour"),sgn_.getVal(new MethodId(false, "absgetter", new StringList())));
+        assertEq(new StringList("pkg.ExFour"),sgn_.getVal(new MethodId(MethodAccessKind.INSTANCE, "absgetter", new StringList())));
     }
 
     @Test
@@ -2561,10 +2561,10 @@ public final class ClassesTest {
         InterfaceBlock i_ = (InterfaceBlock) context_.getClassBody("pkg.Ex");
         ObjectMap<MethodId, StringList> sgn_ = toList(TypeUtil.getAllInstanceSignatures(i_, context_));
         assertEq(1, sgn_.size());
-        assertEq(new StringList("pkg.Ex","pkg.ExFour"),sgn_.getVal(new MethodId(false, "absgetter", new StringList())));
+        assertEq(new StringList("pkg.Ex","pkg.ExFour"),sgn_.getVal(new MethodId(MethodAccessKind.INSTANCE, "absgetter", new StringList())));
         sgn_ = toList(RootBlock.getAllOverridingMethods(toId(sgn_), context_));
         assertEq(1, sgn_.size());
-        assertEq(new StringList("pkg.Ex"),sgn_.getVal(new MethodId(false, "absgetter", new StringList())));
+        assertEq(new StringList("pkg.Ex"),sgn_.getVal(new MethodId(MethodAccessKind.INSTANCE, "absgetter", new StringList())));
     }
 
     @Test
@@ -2596,10 +2596,10 @@ public final class ClassesTest {
         InterfaceBlock i_ = (InterfaceBlock) context_.getClassBody("pkg.Ex");
         ObjectMap<MethodId, StringList> sgn_ = toList(TypeUtil.getAllInstanceSignatures(i_, context_));
         assertEq(1, sgn_.size());
-        assertEq(new StringList("pkg.ExTwo","pkg.ExThree"),sgn_.getVal(new MethodId(false,"absgetter", new StringList())));
+        assertEq(new StringList("pkg.ExTwo","pkg.ExThree"),sgn_.getVal(new MethodId(MethodAccessKind.INSTANCE,"absgetter", new StringList())));
         sgn_ = toList(RootBlock.getAllOverridingMethods(toId(sgn_), context_));
         assertEq(1, sgn_.size());
-        assertEq(new StringList("pkg.ExTwo","pkg.ExThree"),sgn_.getVal(new MethodId(false,"absgetter", new StringList())));
+        assertEq(new StringList("pkg.ExTwo","pkg.ExThree"),sgn_.getVal(new MethodId(MethodAccessKind.INSTANCE,"absgetter", new StringList())));
     }
     @Test
     public void calculateStaticField1Test() {

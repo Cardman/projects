@@ -8,6 +8,7 @@ import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.OverridableBlock;
 import code.expressionlanguage.methods.ProcessMethod;
+import code.expressionlanguage.opers.util.MethodAccessKind;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.MethodModifier;
 import code.expressionlanguage.stds.LgNames;
@@ -126,7 +127,7 @@ public final class ThreadActions implements Runnable {
                     if (cls_.isEmptyErrors()) {
                         LgNames stds_ = conf_.getStandards();
                         String arrStr_ = PrimitiveTypeUtil.getPrettyArrayType(stds_.getAliasString());
-                        MethodId id_ = new MethodId(MethodModifier.STATIC, methodName, new StringList(arrStr_,arrStr_));
+                        MethodId id_ = new MethodId(MethodAccessKind.STATIC, methodName, new StringList(arrStr_,arrStr_));
                         ContextEl ctx_ = conf_.getContext();
                         CustList<OverridableBlock> methods_ = Classes.getMethodBodiesById(ctx_, classDbName, id_);
                         if (!methods_.isEmpty()) {

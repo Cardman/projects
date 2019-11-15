@@ -2,7 +2,9 @@ package code.expressionlanguage.utilcompo;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.methods.FileBlock;
+import code.expressionlanguage.opers.util.MethodAccessKind;
 import code.expressionlanguage.opers.util.MethodId;
+import code.expressionlanguage.opers.util.MethodModifier;
 import code.expressionlanguage.options.ContextFactory;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
@@ -59,7 +61,7 @@ public final class CustContextFactory {
         String aliasExecuteTests_ = _definedLgNames.getAliasExecuteTests();
         String infoTest_ = _definedLgNames.getAliasInfoTest();
         Struct infoStruct_ = rCont_.getInit().processInit(rCont_, NullStruct.NULL_VALUE, infoTest_, "", -1);
-        MethodId fct_ = new MethodId(true, aliasExecuteTests_,new StringList(infoTest_));
+        MethodId fct_ = new MethodId(MethodAccessKind.STATIC, aliasExecuteTests_,new StringList(infoTest_));
         Argument argGlLoc_ = new Argument();
         Argument argMethod_ = new Argument(infoStruct_);
         ShowUpdates showUpdates_ = rCont_.putInThread(infoStruct_,_progressingTests);

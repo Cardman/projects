@@ -8,6 +8,8 @@ import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.ExplicitOperation;
 import code.expressionlanguage.opers.util.MethodId;
+import code.expressionlanguage.stds.LgNames;
+import code.expressionlanguage.structs.ErrorStruct;
 import code.util.CustList;
 import code.util.IdMap;
 
@@ -26,18 +28,26 @@ public final class ExecExplicitOperation extends ExecAbstractUnaryOperation {
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf) {
         setRelativeOffsetPossibleLastPage(getIndexInEl()+offset, _conf);
         CustList<Argument> arguments_ = getArguments(_nodes, this);
-        Argument argres_ =  prepare(false,castOpId,arguments_,className,_conf);
+        Argument argres_ =  prepare(false,castOpId,arguments_,className,_conf,false);
         setSimpleArgument(argres_, _conf, _nodes);
     }
-    public static Argument prepare(boolean _direct,MethodId _castOpId, CustList<Argument> _arguments, String _className, ExecutableCode _conf) {
-        if (_direct) {
-            return getArgument(_arguments,_className, _conf);
-        }
-        if (!ExplicitOperation.customCast(_className)) {
-            return getArgument(_arguments,_className, _conf);
-        }
-        if (_castOpId == null) {
-            return getArgument(_arguments,_className, _conf);
+    public static Argument prepare(boolean _direct,MethodId _castOpId, CustList<Argument> _arguments, String _className, ExecutableCode _conf, boolean _simpleCall) {
+        if (!_simpleCall) {
+            if (_direct) {
+                return getArgument(_arguments,_className, _conf);
+            }
+            if (!ExplicitOperation.customCast(_className)) {
+                return getArgument(_arguments,_className, _conf);
+            }
+            if (_castOpId == null) {
+                return getArgument(_arguments,_className, _conf);
+            }
+        } else if (!ExplicitOperation.customCast(_className)) {
+            LgNames stds_ = _conf.getStandards();
+            String null_;
+            null_ = stds_.getAliasIllegalArg();
+            _conf.setException(new ErrorStruct(_conf,null_));
+            return Argument.createVoid();
         }
         String paramName_ = _conf.getOperationPageEl().formatVarType(_className, _conf);
         if (!Templates.okArgs(_castOpId,true, paramName_,_arguments, _conf, null)) {

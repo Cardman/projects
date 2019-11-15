@@ -3,14 +3,11 @@ package code.expressionlanguage.guicompos;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ExecutableCode;
+import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.utilcompo.RunnableStruct;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.inherits.TypeUtil;
-import code.expressionlanguage.opers.util.ClassField;
-import code.expressionlanguage.opers.util.ClassMethodId;
-import code.expressionlanguage.opers.util.MethodId;
-import code.expressionlanguage.opers.util.MethodModifier;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.*;
 import code.gui.ListSelection;
@@ -363,7 +360,7 @@ public final class EventStruct implements WithParentStruct,EnumerableStruct,
         invoke(r_,actList_,actPerf_,new StringList(ind_,ind_),args_);
     }
     private void invoke(GuiContextEl _r, String _typeName,String _methName, StringList _argTypes, CustList<Argument> _args) {
-        MethodId id_ = new MethodId(MethodModifier.ABSTRACT, _methName, _argTypes);
+        MethodId id_ = new MethodId(MethodAccessKind.INSTANCE, _methName, _argTypes);
         GeneType type_ = _r.getClassBody(_typeName);
         String base_ = Templates.getIdFromAllTypes(className);
         ClassMethodId mId_ = TypeUtil.getConcreteMethodsToCall(type_, id_, _r).getVal(base_);

@@ -2036,7 +2036,7 @@ public final class Classes {
                     }
                     if (b instanceof AloneBlock) {
                         AloneBlock a_ = (AloneBlock) b;
-                        if (!a_.isStaticContext()) {
+                        if (a_.getStaticContext() == MethodAccessKind.INSTANCE) {
                             filteredCtor_.add(i);
                         }
                     }
@@ -2584,7 +2584,7 @@ public final class Classes {
                 AccessEnum acc_ = method_.getAccess();
                 MethodId fid_;
                 String formCl_ = _type.getFullName();
-                boolean exp_ = StringList.quickEq(id_.getName(), _context.getKeyWords().getKeyWordExplicit());
+                boolean param_ = id_.canAccessParamTypesStatic(_context);
                 if (Templates.correctNbParameters(_name, _context)) {
                     fid_ = id_.reflectFormat(_name, _context);
                     formCl_ = _name;
@@ -2592,7 +2592,7 @@ public final class Classes {
                     fid_ = id_;
                 }
                 String idCl_ = _type.getFullName();
-                if (exp_) {
+                if (param_) {
                     idCl_ = _name;
                 }
                 MethodMetaInfo met_ = new MethodMetaInfo(acc_, idCl_, id_, method_.getModifier(), ret_, fid_, formCl_);
@@ -2643,7 +2643,7 @@ public final class Classes {
             String valueOf_ = _context.getStandards().getAliasEnumPredValueOf();
             String values_ = _context.getStandards().getAliasEnumValues();
             String string_ = _context.getStandards().getAliasString();
-            MethodId id_ = new MethodId(true, valueOf_, new StringList(string_));
+            MethodId id_ = new MethodId(MethodAccessKind.STATIC, valueOf_, new StringList(string_));
             String ret_ = _type.getWildCardString();
             MethodId fid_;
             fid_ = id_;
@@ -2651,7 +2651,7 @@ public final class Classes {
             MethodMetaInfo met_ = new MethodMetaInfo(AccessEnum.PUBLIC,decl_, id_, MethodModifier.STATIC, ret_, fid_, decl_);
             met_.setFileName(fileName_);
             infos_.put(id_, met_);
-            id_ = new MethodId(true, values_, new StringList());
+            id_ = new MethodId(MethodAccessKind.STATIC, values_, new StringList());
             ret_ = PrimitiveTypeUtil.getPrettyArrayType(ret_);
             fid_ = id_;
             met_ = new MethodMetaInfo(AccessEnum.PUBLIC,decl_, id_, MethodModifier.STATIC, ret_, fid_, decl_);

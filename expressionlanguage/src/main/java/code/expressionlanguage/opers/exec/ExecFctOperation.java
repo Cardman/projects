@@ -8,6 +8,7 @@ import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.FctOperation;
 import code.expressionlanguage.opers.util.ClassMethodId;
+import code.expressionlanguage.opers.util.MethodAccessKind;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.ArrayStruct;
@@ -99,8 +100,10 @@ public final class ExecFctOperation extends ExecInvokingOperation implements Nam
                 classNameFound_ = methodToCall_.getClassName();
             }
         } else {
-            firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, _arguments, _conf);
             classNameFound_ = classMethodId.getClassName();
+            classNameFound_ = classMethodId.formatType(classNameFound_,_conf);
+            lastType_ = classMethodId.formatType(classNameFound_,lastType_,_conf);
+            firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, _arguments, _conf);
             if (hasToExit(_conf, classNameFound_)) {
                 return Argument.createVoid();
             }

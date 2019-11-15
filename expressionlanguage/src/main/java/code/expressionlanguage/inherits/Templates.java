@@ -987,7 +987,12 @@ public final class Templates {
     }
     public static boolean okArgs(Identifiable _id, boolean _format, String _classNameFound, CustList<Argument> _firstArgs, ExecutableCode _conf, Argument _right) {
         StringList params_ = new StringList();
-        boolean hasFormat_ = !_id.isStaticMethod() || _format;
+        boolean hasFormat_;
+        if (_id instanceof MethodId) {
+            hasFormat_ = ((MethodId)_id).canAccessParamTypes() || _format;
+        } else {
+            hasFormat_ = true;
+        }
         if (hasFormat_ && !correctNbParameters(_classNameFound,_conf)) {
             LgNames stds_ = _conf.getStandards();
             String npe_ = stds_.getAliasIllegalArg();

@@ -187,7 +187,7 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
             setResultClass(new ClassArgumentMatching(className));
             return;
         }
-        setStaticAccess(_conf.isStaticContext());
+        setStaticAccess(_conf.getStaticContext());
         analyzeCtor(_conf);
     }
 

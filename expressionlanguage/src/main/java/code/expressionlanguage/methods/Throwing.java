@@ -52,7 +52,7 @@ public final class Throwing extends AbruptBlock implements StackableBlock, WithN
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         page_.setOffset(0);
         page_.setGlobalOffset(expressionOffset);
-        opThrow = ElUtil.getAnalyzedOperations(expression, _cont, Calculation.staticCalculation(f_.isStaticContext()));
+        opThrow = ElUtil.getAnalyzedOperations(expression, _cont, Calculation.staticCalculation(f_.getStaticContext()));
     }
 
     @Override
@@ -61,7 +61,7 @@ public final class Throwing extends AbruptBlock implements StackableBlock, WithN
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         page_.setOffset(0);
         page_.setGlobalOffset(expressionOffset);
-        opThrow = ElUtil.getAnalyzedOperationsReadOnly(expression, _cont, Calculation.staticCalculation(f_.isStaticContext()));
+        opThrow = ElUtil.getAnalyzedOperationsReadOnly(expression, _cont, Calculation.staticCalculation(f_.getStaticContext()));
     }
 
     @Override

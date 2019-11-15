@@ -4,6 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.errors.custom.BadElError;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.opers.Calculation;
+import code.expressionlanguage.opers.util.MethodAccessKind;
 import code.expressionlanguage.variables.LocalVariable;
 import code.formathtml.exec.RendDynOperationNode;
 import code.formathtml.stacks.RendReadWrite;
@@ -38,7 +39,7 @@ public final class RendMessage extends RendParentBlock implements RendWithEl, Re
         if (preformatted.isEmpty()) {
             return;
         }
-        boolean st_ = _doc.isStaticContext();
+        MethodAccessKind st_ = _doc.getStaticContext();
         for (Element n: elt.getChildElements()) {
             String attribute_ = n.getAttribute(ATTRIBUTE_VALUE);
             if (n.hasAttribute(ATTRIBUTE_QUOTED)) {

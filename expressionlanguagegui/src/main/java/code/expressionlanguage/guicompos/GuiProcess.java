@@ -4,6 +4,7 @@ import code.expressionlanguage.*;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.OverridableBlock;
 import code.expressionlanguage.methods.ProcessMethod;
+import code.expressionlanguage.opers.util.MethodAccessKind;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.MethodModifier;
 import code.expressionlanguage.options.Options;
@@ -113,7 +114,7 @@ public final class GuiProcess implements Runnable {
         context.setNumber(nb_);
         String folder_ = executingOptions.getLogFolder();
         new File(folder_).mkdirs();
-        MethodId id_ = new MethodId(MethodModifier.STATIC, mName, new StringList());
+        MethodId id_ = new MethodId(MethodAccessKind.STATIC, mName, new StringList());
         CustList<OverridableBlock> methods_ = Classes.getMethodBodiesById(context, clName, id_);
         if (!methods_.isEmpty()) {
             ProcessMethod.initializeClass(clName,context);

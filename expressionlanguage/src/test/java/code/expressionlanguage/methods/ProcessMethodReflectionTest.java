@@ -3,6 +3,7 @@ package code.expressionlanguage.methods;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.opers.util.ClassField;
+import code.expressionlanguage.opers.util.MethodAccessKind;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.MethodModifier;
 import code.expressionlanguage.structs.*;
@@ -6000,7 +6001,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ContextEl cont_ = contextEl();
         StringMap<String> files_ = new StringMap<String>();
         Classes.validateAll(files_, cont_);
-        MethodId id_ = new MethodId(true,"mod",new StringList("$int","$int"));
+        MethodId id_ = new MethodId(MethodAccessKind.STATIC,"mod",new StringList("$int","$int"));
         MethodMetaInfo m_ = new MethodMetaInfo(AccessEnum.PUBLIC,"java.lang.$math",id_,MethodModifier.STATIC,"$int",id_,"java.lang.$math");
         CustList<Argument> args_ = new CustList<Argument>();
         args_.add(Argument.createVoid());
@@ -6017,7 +6018,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ContextEl cont_ = contextEl();
         StringMap<String> files_ = new StringMap<String>();
         Classes.validateAll(files_, cont_);
-        MethodId id_ = new MethodId(true,"mod",new StringList("$int","$int"));
+        MethodId id_ = new MethodId(MethodAccessKind.STATIC,"mod",new StringList("$int","$int"));
         MethodMetaInfo m_ = new MethodMetaInfo(AccessEnum.PUBLIC,"java.lang.$math",id_,MethodModifier.STATIC,"$int",id_,"java.lang.$math");
         CustList<Argument> args_ = new CustList<Argument>();
         args_.add(Argument.createVoid());

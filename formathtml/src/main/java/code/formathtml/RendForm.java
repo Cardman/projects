@@ -5,6 +5,7 @@ import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.inherits.Mapping;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.opers.Calculation;
+import code.expressionlanguage.opers.util.MethodAccessKind;
 import code.formathtml.exec.RendDynOperationNode;
 import code.formathtml.util.NodeContainer;
 import code.sml.Element;
@@ -61,7 +62,7 @@ public final class RendForm extends RendElement {
             if (pref_.indexOf('(') < 0) {
                 pref_ = StringList.concat(pref_,"()");
             }
-            boolean st_ = _doc.isStaticContext();
+            MethodAccessKind st_ = _doc.getStaticContext();
             RenderExpUtil.getAnalyzedOperations(pref_,0,_cont,Calculation.staticCalculation(st_));
         }
     }

@@ -433,6 +433,7 @@ public abstract class LgNames {
                 getAliasGetDeclaredConstructors(),
                 getAliasGetDeclaredFields(),
                 getAliasGetDeclaredMethods(),
+                getAliasGetDeclaredStaticMethods(),
                 getAliasGetEnclosingType(),
                 getAliasGetEnumConstants(),
                 getAliasGetGenericBounds(),
@@ -1430,21 +1431,21 @@ public abstract class LgNames {
         cl_.setIteratorVarCust(locName_);
         String iterator_ = getAliasIterator();
         exp_ = StringList.concat(locName_, LOC_VAR, StringList.concat(iterator_,PARS));
-        cl_.setExpsIteratorCust(ElUtil.getAnalyzedOperationsReadOnly(exp_, _context, Calculation.staticCalculation(true)));
+        cl_.setExpsIteratorCust(ElUtil.getAnalyzedOperationsReadOnly(exp_, _context, Calculation.staticCalculation(MethodAccessKind.STATIC)));
         locName_ = _context.getNextTempVar();
         locVar_ = new LocalVariable();
         locVar_.setClassName(StringList.concat(getAliasIteratorType(),"<?>"));
         _context.getInternVars().put(locName_, locVar_);
         cl_.setHasNextVarCust(locName_);
         exp_ = StringList.concat(locName_, LOC_VAR, StringList.concat(hasNext_,PARS));
-        cl_.setExpsHasNextCust(ElUtil.getAnalyzedOperationsReadOnly(exp_, _context, Calculation.staticCalculation(true)));
+        cl_.setExpsHasNextCust(ElUtil.getAnalyzedOperationsReadOnly(exp_, _context, Calculation.staticCalculation(MethodAccessKind.STATIC)));
         locName_ = _context.getNextTempVar();
         locVar_ = new LocalVariable();
         locVar_.setClassName(StringList.concat(getAliasIteratorType(),"<?>"));
         _context.getInternVars().put(locName_, locVar_);
         cl_.setNextVarCust(locName_);
         exp_ = StringList.concat(locName_, LOC_VAR, StringList.concat(next_,PARS));
-        cl_.setExpsNextCust(ElUtil.getAnalyzedOperationsReadOnly(exp_, _context, Calculation.staticCalculation(true)));
+        cl_.setExpsNextCust(ElUtil.getAnalyzedOperationsReadOnly(exp_, _context, Calculation.staticCalculation(MethodAccessKind.STATIC)));
         
         locVar_ = new LocalVariable();
         locVar_.setClassName(StringList.concat(getAliasIterableTable(),"<?,?>"));
@@ -1452,21 +1453,21 @@ public abstract class LgNames {
         cl_.setIteratorTableVarCust(locName_);
         String iteratorTable_ = getAliasIteratorTable();
         exp_ = StringList.concat(locName_, LOC_VAR, StringList.concat(iteratorTable_,PARS));
-        cl_.setExpsIteratorTableCust(ElUtil.getAnalyzedOperationsReadOnly(exp_, _context, Calculation.staticCalculation(true)));
+        cl_.setExpsIteratorTableCust(ElUtil.getAnalyzedOperationsReadOnly(exp_, _context, Calculation.staticCalculation(MethodAccessKind.STATIC)));
         locName_ = _context.getNextTempVar();
         locVar_ = new LocalVariable();
         locVar_.setClassName(StringList.concat(getAliasIteratorTableType(),"<?,?>"));
         _context.getInternVars().put(locName_, locVar_);
         cl_.setHasNextPairVarCust(locName_);
         exp_ = StringList.concat(locName_, LOC_VAR, StringList.concat(hasNextPair_,PARS));
-        cl_.setExpsHasNextPairCust(ElUtil.getAnalyzedOperationsReadOnly(exp_, _context, Calculation.staticCalculation(true)));
+        cl_.setExpsHasNextPairCust(ElUtil.getAnalyzedOperationsReadOnly(exp_, _context, Calculation.staticCalculation(MethodAccessKind.STATIC)));
         locName_ = _context.getNextTempVar();
         locVar_ = new LocalVariable();
         locVar_.setClassName(StringList.concat(getAliasIteratorTableType(),"<?,?>"));
         _context.getInternVars().put(locName_, locVar_);
         cl_.setNextPairVarCust(locName_);
         exp_ = StringList.concat(locName_, LOC_VAR, StringList.concat(nextPair_,PARS));
-        cl_.setExpsNextPairCust(ElUtil.getAnalyzedOperationsReadOnly(exp_, _context, Calculation.staticCalculation(true)));
+        cl_.setExpsNextPairCust(ElUtil.getAnalyzedOperationsReadOnly(exp_, _context, Calculation.staticCalculation(MethodAccessKind.STATIC)));
         locName_ = _context.getNextTempVar();
         locVar_ = new LocalVariable();
         locVar_.setClassName(StringList.concat(getAliasPairType(),"<?,?>"));
@@ -1474,7 +1475,7 @@ public abstract class LgNames {
         cl_.setFirstVarCust(locName_);
         String first_ = getAliasGetFirst();
         exp_ = StringList.concat(locName_, LOC_VAR, StringList.concat(first_,PARS));
-        cl_.setExpsFirstCust(ElUtil.getAnalyzedOperationsReadOnly(exp_, _context, Calculation.staticCalculation(true)));
+        cl_.setExpsFirstCust(ElUtil.getAnalyzedOperationsReadOnly(exp_, _context, Calculation.staticCalculation(MethodAccessKind.STATIC)));
         locName_ = _context.getNextTempVar();
         locVar_ = new LocalVariable();
         locVar_.setClassName(StringList.concat(getAliasPairType(),"<?,?>"));
@@ -1482,7 +1483,7 @@ public abstract class LgNames {
         cl_.setSecondVarCust(locName_);
         String second_ = getAliasGetSecond();
         exp_ = StringList.concat(locName_, LOC_VAR, StringList.concat(second_,PARS));
-        cl_.setExpsSecondCust(ElUtil.getAnalyzedOperationsReadOnly(exp_, _context, Calculation.staticCalculation(true)));
+        cl_.setExpsSecondCust(ElUtil.getAnalyzedOperationsReadOnly(exp_, _context, Calculation.staticCalculation(MethodAccessKind.STATIC)));
     }
     public IterableAnalysisResult getCustomType(StringList _names, ContextEl _context) {
         StringList out_ = new StringList();
@@ -2595,6 +2596,15 @@ public abstract class LgNames {
     public void setAliasGetDeclaredMethods(String _aliasGetDeclaredMethods) {
         reflect.setAliasGetDeclaredMethods(_aliasGetDeclaredMethods);
     }
+
+    public String getAliasGetDeclaredStaticMethods() {
+        return reflect.getAliasGetDeclaredStaticMethods();
+    }
+
+    public void setAliasGetDeclaredStaticMethods(String _aliasGetDeclaredStaticMethods) {
+        reflect.setAliasGetDeclaredStaticMethods(_aliasGetDeclaredStaticMethods);
+    }
+
     public String getAliasGetDeclaredConstructors() {
         return reflect.getAliasGetDeclaredConstructors();
     }

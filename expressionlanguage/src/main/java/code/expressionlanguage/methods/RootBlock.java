@@ -18,10 +18,7 @@ import code.expressionlanguage.methods.util.ConstructorEdge;
 import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.exec.ExecOperationNode;
-import code.expressionlanguage.opers.util.ClassFormattedMethodId;
-import code.expressionlanguage.opers.util.ClassMethodId;
-import code.expressionlanguage.opers.util.ConstructorId;
-import code.expressionlanguage.opers.util.MethodId;
+import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.StandardMethod;
@@ -222,7 +219,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
             int begin_ = annotationsIndexes.get(i);
             page_.setGlobalOffset(begin_);
             page_.setOffset(0);
-            Calculation c_ = Calculation.staticCalculation(true);
+            Calculation c_ = Calculation.staticCalculation(MethodAccessKind.STATIC);
             annotationsOps.add(ElUtil.getAnalyzedOperationsReadOnly(annotations.get(i), _context, c_));
         }
     }
@@ -617,15 +614,13 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                         _context.getClasses().addError(unexp_);
                     }
                 }
-                if (b instanceof FunctionBlock) {
-                    if (((FunctionBlock)b).isStaticContext() && !_context.isExplicitFct((FunctionBlock) b)) {
-                        int where_ = b.getOffset().getOffsetTrim();
-                        UnexpectedTagName unexp_ = new UnexpectedTagName();
-                        unexp_.setFileName(getFile().getFileName());
-                        unexp_.setFoundTag(EMPTY_STRING);
-                        unexp_.setIndexFile(where_);
-                        _context.getClasses().addError(unexp_);
-                    }
+                if (b instanceof StaticBlock) {
+                    int where_ = b.getOffset().getOffsetTrim();
+                    UnexpectedTagName unexp_ = new UnexpectedTagName();
+                    unexp_.setFileName(getFile().getFileName());
+                    unexp_.setFoundTag(EMPTY_STRING);
+                    unexp_.setIndexFile(where_);
+                    _context.getClasses().addError(unexp_);
                 }
             }
         }
@@ -644,7 +639,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                             badMeth_.setIndexFile(r_);
                             badMeth_.setName(name_);
                             _context.getClasses().addError(badMeth_);
-                        } else if (StringList.quickEq(name_, keyWords_.getKeyWordToString()) && !m_.isStaticMethod() && m_.getParametersTypes().isEmpty()) {
+                        } else if (StringList.quickEq(name_, keyWords_.getKeyWordToString()) && !m_.hiddenInstance() && m_.getParametersTypes().isEmpty()) {
                             if (!StringList.quickEq(m_.getImportedReturnType(),stds_.getAliasString())) {
                                 int r_ = m_.getNameOffset();
                                 BadMethodName badMeth_ = new BadMethodName();
@@ -738,7 +733,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                             String valueOf_ = stds_.getAliasEnumPredValueOf();
                             String values_ = stds_.getAliasEnumValues();
                             String string_ = stds_.getAliasString();
-                            if (id_.eq(new MethodId(false, aliasName_, new StringList()))) {
+                            if (id_.eq(new MethodId(MethodAccessKind.INSTANCE, aliasName_, new StringList()))) {
                                 int r_ = m_.getOffset().getOffsetTrim();
                                 DuplicateMethod duplicate_;
                                 duplicate_ = new DuplicateMethod();
@@ -747,7 +742,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                                 duplicate_.setId(id_.getSignature(_context));
                                 _context.getClasses().addError(duplicate_);
                             }
-                            if (id_.eq(new MethodId(false, ordinal_, new StringList()))) {
+                            if (id_.eq(new MethodId(MethodAccessKind.INSTANCE, ordinal_, new StringList()))) {
                                 int r_ = m_.getOffset().getOffsetTrim();
                                 DuplicateMethod duplicate_;
                                 duplicate_ = new DuplicateMethod();
@@ -756,7 +751,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                                 duplicate_.setId(id_.getSignature(_context));
                                 _context.getClasses().addError(duplicate_);
                             }
-                            if (id_.eq(new MethodId(true, valueOf_, new StringList(string_)))) {
+                            if (id_.eq(new MethodId(MethodAccessKind.STATIC, valueOf_, new StringList(string_)))) {
                                 int r_ = m_.getOffset().getOffsetTrim();
                                 DuplicateMethod duplicate_;
                                 duplicate_ = new DuplicateMethod();
@@ -765,7 +760,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                                 duplicate_.setId(id_.getSignature(_context));
                                 _context.getClasses().addError(duplicate_);
                             }
-                            if (id_.eq(new MethodId(true, values_, new StringList()))) {
+                            if (id_.eq(new MethodId(MethodAccessKind.STATIC, values_, new StringList()))) {
                                 int r_ = m_.getOffset().getOffsetTrim();
                                 DuplicateMethod duplicate_;
                                 duplicate_ = new DuplicateMethod();
@@ -812,7 +807,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                             duplicate_ = new DuplicateMethod();
                             duplicate_.setIndexFile(r_);
                             duplicate_.setFileName(getFile().getFileName());
-                            duplicate_.setId(new MethodId(false, id_, new StringList()).getSignature(_context));
+                            duplicate_.setId(new MethodId(MethodAccessKind.INSTANCE, id_, new StringList()).getSignature(_context));
                             _context.getClasses().addError(duplicate_);
                         }
                     }

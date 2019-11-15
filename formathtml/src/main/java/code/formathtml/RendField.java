@@ -5,6 +5,7 @@ import code.expressionlanguage.errors.custom.UnexpectedTagName;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.opers.Calculation;
+import code.expressionlanguage.opers.util.MethodAccessKind;
 import code.formathtml.exec.RendDynOperationNode;
 import code.util.CustList;
 
@@ -29,7 +30,7 @@ public final class RendField extends RendParentBlock {
             RendClass cl_ = (RendClass) getParent();
             String intern_ = cl_.getFullName();
             _cont.getAnalyzingDoc().setInternGlobalClass(intern_);
-            boolean st_ = _doc.isStaticContext();
+            MethodAccessKind st_ = _doc.getStaticContext();
             AnalyzedPageEl page_ = _cont.getAnalyzing();
             page_.setGlobalOffset(prepareOffset);
             page_.setOffset(0);

@@ -1,4 +1,6 @@
 package code.expressionlanguage.opers.util;
+import code.expressionlanguage.ExecutableCode;
+import code.expressionlanguage.inherits.Templates;
 import code.util.StringList;
 import code.util.ints.Equallable;
 
@@ -11,6 +13,20 @@ public final class ClassMethodId implements Equallable<ClassMethodId> {
     public ClassMethodId(String _className, MethodId _constraints) {
         className = _className;
         constraints = _constraints;
+    }
+
+    public String formatType(String _type, ExecutableCode _conf) {
+        if (getConstraints().getKind() == MethodAccessKind.STATIC_CALL) {
+            return _conf.getOperationPageEl().formatVarType(_type,_conf);
+        }
+        return _type;
+    }
+
+    public String formatType(String _owner, String _formatted,ExecutableCode _conf) {
+        if (getConstraints().getKind() == MethodAccessKind.STATIC_CALL) {
+            return Templates.quickFormat(_owner, _formatted, _conf);
+        }
+        return _formatted;
     }
 
     public String getClassName() {

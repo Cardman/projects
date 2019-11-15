@@ -7,7 +7,7 @@ public final class PolymorphRefectMethodPageEl extends AbstractRefectMethodPageE
     @Override
     boolean initType() {
         MethodMetaInfo method_ = (MethodMetaInfo) getGlobalArgument().getStruct();
-        return method_.isStatic();
+        return method_.isWideStatic();
     }
 
     @Override
@@ -19,6 +19,6 @@ public final class PolymorphRefectMethodPageEl extends AbstractRefectMethodPageE
     boolean isPolymorph() {
         MethodMetaInfo method_ = (MethodMetaInfo) getGlobalArgument().getStruct();
         String className_ = method_.getClassName();
-        return !method_.isStatic() && !className_.startsWith("[");
+        return !method_.isWideStatic() && !className_.startsWith("[");
     }
 }

@@ -9,6 +9,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.util.ClassField;
+import code.expressionlanguage.opers.util.MethodAccessKind;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.ResultErrorStd;
 import code.expressionlanguage.structs.*;
@@ -122,7 +123,7 @@ public final class BeanCustLgNames extends BeanLgNames {
         iteratorVar = locName_;
         String simpleIterator_ = getAliasIterator();
         exp_ = StringList.concat(locName_, LOC_VAR, StringList.concat(simpleIterator_,PARS));
-        expsIterator = RenderExpUtil.getAnalyzedOperations(exp_,0, _context, Calculation.staticCalculation(true));
+        expsIterator = RenderExpUtil.getAnalyzedOperations(exp_,0, _context, Calculation.staticCalculation(MethodAccessKind.STATIC));
         locName_ = context_.getNextTempVar();
         locVar_ = new LocalVariable();
         locVar_.setClassName(StringList.concat(getAliasIteratorType(),"<?>"));
@@ -130,7 +131,7 @@ public final class BeanCustLgNames extends BeanLgNames {
         hasNextVar = locName_;
         String hasNext_ = getAliasHasNext();
         exp_ = StringList.concat(locName_, LOC_VAR, StringList.concat(hasNext_,PARS));
-        expsHasNext = RenderExpUtil.getAnalyzedOperations(exp_, 0,_context, Calculation.staticCalculation(true));
+        expsHasNext = RenderExpUtil.getAnalyzedOperations(exp_, 0,_context, Calculation.staticCalculation(MethodAccessKind.STATIC));
         locName_ = context_.getNextTempVar();
         locVar_ = new LocalVariable();
         locVar_.setClassName(StringList.concat(getAliasIteratorType(),"<?>"));
@@ -138,7 +139,7 @@ public final class BeanCustLgNames extends BeanLgNames {
         nextVar = locName_;
         String next_ = getAliasNext();
         exp_ = StringList.concat(locName_, LOC_VAR, StringList.concat(next_,PARS));
-        expsNext = RenderExpUtil.getAnalyzedOperations(exp_, 0,_context, Calculation.staticCalculation(true));
+        expsNext = RenderExpUtil.getAnalyzedOperations(exp_, 0,_context, Calculation.staticCalculation(MethodAccessKind.STATIC));
 
         String nextPair_ = getAliasNextPair();
         String hasNextPair_ = getAliasHasNextPair();
@@ -148,21 +149,21 @@ public final class BeanCustLgNames extends BeanLgNames {
         iteratorTableVarCust= locName_;
         String iteratorTable_ = getAliasIteratorTable();
         exp_ = StringList.concat(locName_, LOC_VAR, StringList.concat(iteratorTable_,PARS));
-        expsIteratorTableCust= RenderExpUtil.getAnalyzedOperations(exp_, 0,_context, Calculation.staticCalculation(true));
+        expsIteratorTableCust= RenderExpUtil.getAnalyzedOperations(exp_, 0,_context, Calculation.staticCalculation(MethodAccessKind.STATIC));
         locName_ = context_.getNextTempVar();
         locVar_ = new LocalVariable();
         locVar_.setClassName(StringList.concat(getAliasIteratorTableType(),"<?,?>"));
         _context.getInternVars().put(locName_, locVar_);
         hasNextPairVarCust= locName_;
         exp_ = StringList.concat(locName_, LOC_VAR, StringList.concat(hasNextPair_,PARS));
-        expsHasNextPairCust= RenderExpUtil.getAnalyzedOperations(exp_, 0,_context, Calculation.staticCalculation(true));
+        expsHasNextPairCust= RenderExpUtil.getAnalyzedOperations(exp_, 0,_context, Calculation.staticCalculation(MethodAccessKind.STATIC));
         locName_ = context_.getNextTempVar();
         locVar_ = new LocalVariable();
         locVar_.setClassName(StringList.concat(getAliasIteratorTableType(),"<?,?>"));
         _context.getInternVars().put(locName_, locVar_);
         nextPairVarCust= locName_;
         exp_ = StringList.concat(locName_, LOC_VAR, StringList.concat(nextPair_,PARS));
-        expsNextPairCust= RenderExpUtil.getAnalyzedOperations(exp_, 0,_context, Calculation.staticCalculation(true));
+        expsNextPairCust= RenderExpUtil.getAnalyzedOperations(exp_, 0,_context, Calculation.staticCalculation(MethodAccessKind.STATIC));
         locName_ = context_.getNextTempVar();
         locVar_ = new LocalVariable();
         locVar_.setClassName(StringList.concat(getAliasPairType(),"<?,?>"));
@@ -170,7 +171,7 @@ public final class BeanCustLgNames extends BeanLgNames {
         firstVarCust= locName_;
         String first_ = getAliasGetFirst();
         exp_ = StringList.concat(locName_, LOC_VAR, StringList.concat(first_,PARS));
-        expsFirstCust= RenderExpUtil.getAnalyzedOperations(exp_, 0,_context, Calculation.staticCalculation(true));
+        expsFirstCust= RenderExpUtil.getAnalyzedOperations(exp_, 0,_context, Calculation.staticCalculation(MethodAccessKind.STATIC));
         locName_ = context_.getNextTempVar();
         locVar_ = new LocalVariable();
         locVar_.setClassName(StringList.concat(getAliasPairType(),"<?,?>"));
@@ -178,7 +179,7 @@ public final class BeanCustLgNames extends BeanLgNames {
         secondVarCust= locName_;
         String second_ = getAliasGetSecond();
         exp_ = StringList.concat(locName_, LOC_VAR, StringList.concat(second_,PARS));
-        expsSecondCust= RenderExpUtil.getAnalyzedOperations(exp_, 0,_context, Calculation.staticCalculation(true));
+        expsSecondCust= RenderExpUtil.getAnalyzedOperations(exp_, 0,_context, Calculation.staticCalculation(MethodAccessKind.STATIC));
 
         locName_ = context_.getNextTempVar();
         locVar_ = new LocalVariable();
@@ -187,7 +188,7 @@ public final class BeanCustLgNames extends BeanLgNames {
         beforeDisplayingVar = locName_;
         String beforeDisplaying_ = getAliasBeforeDisplaying();
         exp_ = StringList.concat(locName_, LOC_VAR, StringList.concat(beforeDisplaying_,PARS));
-        expsBeforeDisplaying= RenderExpUtil.getAnalyzedOperations(exp_, 0,_context, Calculation.staticCalculation(true));
+        expsBeforeDisplaying= RenderExpUtil.getAnalyzedOperations(exp_, 0,_context, Calculation.staticCalculation(MethodAccessKind.STATIC));
 
         locName_ = context_.getNextTempVar();
         locVar_ = new LocalVariable();
@@ -206,7 +207,7 @@ public final class BeanCustLgNames extends BeanLgNames {
         putVarCustValue = locName_;
         String put_ = getAliasMapPut();
         exp_ = StringList.concat(putVarCust, LOC_VAR, StringList.concat(put_,"(",putVarCustKey,",",putVarCustValue,")"));
-        expsPut= RenderExpUtil.getAnalyzedOperations(exp_, 0,_context, Calculation.staticCalculation(true));
+        expsPut= RenderExpUtil.getAnalyzedOperations(exp_, 0,_context, Calculation.staticCalculation(MethodAccessKind.STATIC));
 
         locName_ = context_.getNextTempVar();
         locVar_ = new LocalVariable();
@@ -220,7 +221,7 @@ public final class BeanCustLgNames extends BeanLgNames {
         putAllVarCustArg = locName_;
         String putAll_ = getAliasMapPutAll();
         exp_ = StringList.concat(putAllVarCust, LOC_VAR, StringList.concat(putAll_,"(",putAllVarCustArg,")"));
-        expsPutAll= RenderExpUtil.getAnalyzedOperations(exp_, 0,_context, Calculation.staticCalculation(true));
+        expsPutAll= RenderExpUtil.getAnalyzedOperations(exp_, 0,_context, Calculation.staticCalculation(MethodAccessKind.STATIC));
 
         locName_ = context_.getNextTempVar();
         locVar_ = new LocalVariable();
@@ -234,7 +235,7 @@ public final class BeanCustLgNames extends BeanLgNames {
         getValVarArg = locName_;
         String getVal_ = getAliasMapGetVal();
         exp_ = StringList.concat(getValVar, LOC_VAR, StringList.concat(getVal_,"(",getValVarArg,")"));
-        expsGetVal= RenderExpUtil.getAnalyzedOperations(exp_, 0,_context, Calculation.staticCalculation(true));
+        expsGetVal= RenderExpUtil.getAnalyzedOperations(exp_, 0,_context, Calculation.staticCalculation(MethodAccessKind.STATIC));
 
         locName_ = context_.getNextTempVar();
         locVar_ = new LocalVariable();
@@ -248,7 +249,7 @@ public final class BeanCustLgNames extends BeanLgNames {
         setFormsVarArg = locName_;
         String setForms_ = getAliasSetForms();
         exp_ = StringList.concat(setFormsVar, LOC_VAR, StringList.concat(setForms_,"(",setFormsVarArg,")"));
-        expsSetForms= RenderExpUtil.getAnalyzedOperations(exp_, 0,_context, Calculation.staticCalculation(true));
+        expsSetForms= RenderExpUtil.getAnalyzedOperations(exp_, 0,_context, Calculation.staticCalculation(MethodAccessKind.STATIC));
 
         locName_ = context_.getNextTempVar();
         locVar_ = new LocalVariable();
@@ -257,7 +258,7 @@ public final class BeanCustLgNames extends BeanLgNames {
         getFormsVar = locName_;
         String getForms_ = getAliasGetForms();
         exp_ = StringList.concat(getFormsVar, LOC_VAR, StringList.concat(getForms_,PARS));
-        expsGetForms= RenderExpUtil.getAnalyzedOperations(exp_, 0,_context, Calculation.staticCalculation(true));
+        expsGetForms= RenderExpUtil.getAnalyzedOperations(exp_, 0,_context, Calculation.staticCalculation(MethodAccessKind.STATIC));
 
         locName_ = context_.getNextTempVar();
         locVar_ = new LocalVariable();
@@ -271,7 +272,7 @@ public final class BeanCustLgNames extends BeanLgNames {
         setDataBaseVarArg = locName_;
         String setDataBase_ = getAliasSetDataBase();
         exp_ = StringList.concat(setDataBaseVar, LOC_VAR, StringList.concat(setDataBase_,"(",setDataBaseVarArg,")"));
-        expsSetDataBase= RenderExpUtil.getAnalyzedOperations(exp_, 0,_context, Calculation.staticCalculation(true));
+        expsSetDataBase= RenderExpUtil.getAnalyzedOperations(exp_, 0,_context, Calculation.staticCalculation(MethodAccessKind.STATIC));
 
         locName_ = context_.getNextTempVar();
         locVar_ = new LocalVariable();
@@ -280,7 +281,7 @@ public final class BeanCustLgNames extends BeanLgNames {
         getDataBaseVar = locName_;
         String getDataBase_ = getAliasGetDataBase();
         exp_ = StringList.concat(getDataBaseVar, LOC_VAR, StringList.concat(getDataBase_,PARS));
-        expsGetDataBase= RenderExpUtil.getAnalyzedOperations(exp_, 0,_context, Calculation.staticCalculation(true));
+        expsGetDataBase= RenderExpUtil.getAnalyzedOperations(exp_, 0,_context, Calculation.staticCalculation(MethodAccessKind.STATIC));
 
         locName_ = context_.getNextTempVar();
         locVar_ = new LocalVariable();
@@ -294,7 +295,7 @@ public final class BeanCustLgNames extends BeanLgNames {
         setScopeVarArg = locName_;
         String setScope_ = getAliasSetScope();
         exp_ = StringList.concat(setScopeVar, LOC_VAR, StringList.concat(setScope_,"(",setScopeVarArg,")"));
-        expsSetScope= RenderExpUtil.getAnalyzedOperations(exp_, 0,_context, Calculation.staticCalculation(true));
+        expsSetScope= RenderExpUtil.getAnalyzedOperations(exp_, 0,_context, Calculation.staticCalculation(MethodAccessKind.STATIC));
 
         locName_ = context_.getNextTempVar();
         locVar_ = new LocalVariable();
@@ -303,7 +304,7 @@ public final class BeanCustLgNames extends BeanLgNames {
         getScopeVar = locName_;
         String getScope_ = getAliasGetScope();
         exp_ = StringList.concat(getScopeVar, LOC_VAR, StringList.concat(getScope_,PARS));
-        expsGetScope= RenderExpUtil.getAnalyzedOperations(exp_, 0,_context, Calculation.staticCalculation(true));
+        expsGetScope= RenderExpUtil.getAnalyzedOperations(exp_, 0,_context, Calculation.staticCalculation(MethodAccessKind.STATIC));
 
         locName_ = context_.getNextTempVar();
         locVar_ = new LocalVariable();
@@ -317,7 +318,7 @@ public final class BeanCustLgNames extends BeanLgNames {
         setLanguageVarArg = locName_;
         String setLanguage_ = getAliasSetLanguage();
         exp_ = StringList.concat(setLanguageVar, LOC_VAR, StringList.concat(setLanguage_,"(",setLanguageVarArg,")"));
-        expsSetLanguage= RenderExpUtil.getAnalyzedOperations(exp_, 0,_context, Calculation.staticCalculation(true));
+        expsSetLanguage= RenderExpUtil.getAnalyzedOperations(exp_, 0,_context, Calculation.staticCalculation(MethodAccessKind.STATIC));
 
         StringList vars_ = new StringList();
         locName_ = context_.getNextTempVar();
@@ -364,10 +365,10 @@ public final class BeanCustLgNames extends BeanLgNames {
 
         String validate_ = aliasValidate;
         exp_ = StringList.concat(validateVar, LOC_VAR, StringList.concat(validate_,"(",StringList.join(vars_,','),")"));
-        expsValidate= RenderExpUtil.getAnalyzedOperations(exp_, 0,_context, Calculation.staticCalculation(true));
+        expsValidate= RenderExpUtil.getAnalyzedOperations(exp_, 0,_context, Calculation.staticCalculation(MethodAccessKind.STATIC));
         String aliasStringMapObject_ = getAliasStringMapObject();
         String keyWordNew_ = _context.getKeyWords().getKeyWordNew();
-        opsMap = RenderExpUtil.getAnalyzedOperations(StringList.concat(keyWordNew_, " ", aliasStringMapObject_, "()"), 0, _context, Calculation.staticCalculation(false));
+        opsMap = RenderExpUtil.getAnalyzedOperations(StringList.concat(keyWordNew_, " ", aliasStringMapObject_, "()"), 0, _context, Calculation.staticCalculation(MethodAccessKind.INSTANCE));
 
         _context.clearPages();
     }

@@ -18,6 +18,7 @@ import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.exec.ExecOperationNode;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
+import code.expressionlanguage.opers.util.MethodAccessKind;
 import code.expressionlanguage.stacks.SwitchBlockStack;
 import code.util.CustList;
 import code.util.StringList;
@@ -54,7 +55,7 @@ public final class CaseCondition extends SwitchPartBlock {
         page_.setGlobalOffset(valueOffset);
         page_.setOffset(0);
         BracedBlock par_ = getParent();
-        boolean stCtx_ = f_.isStaticContext();
+        MethodAccessKind stCtx_ = f_.getStaticContext();
         if (!(par_ instanceof SwitchBlock)) {
             page_.setGlobalOffset(getOffset().getOffsetTrim());
             page_.setOffset(0);
@@ -77,7 +78,7 @@ public final class CaseCondition extends SwitchPartBlock {
                     continue;
                 }
                 _cont.setLookLocalClass(id_);
-                _cont.setStaticContext(true);
+                _cont.setAccessStaticContext(MethodAccessKind.STATIC);
                 Delimiters d_ = ElResolver.checkSyntax(value, _cont, CustList.FIRST_INDEX);
                 OperationsSequence opTwo_ = ElResolver.getOperationsSequence(CustList.FIRST_INDEX, value, _cont, d_);
                 OperationNode op_ = OperationNode.createOperationNode(CustList.FIRST_INDEX, CustList.FIRST_INDEX, null, opTwo_, _cont);
@@ -109,7 +110,7 @@ public final class CaseCondition extends SwitchPartBlock {
         page_.setGlobalOffset(valueOffset);
         page_.setOffset(0);
         BracedBlock par_ = getParent();
-        boolean stCtx_ = f_.isStaticContext();
+        MethodAccessKind stCtx_ = f_.getStaticContext();
         if (!(par_ instanceof SwitchBlock)) {
             page_.setGlobalOffset(getOffset().getOffsetTrim());
             page_.setOffset(0);
@@ -132,7 +133,7 @@ public final class CaseCondition extends SwitchPartBlock {
                     continue;
                 }
                 _cont.setLookLocalClass(id_);
-                _cont.setStaticContext(true);
+                _cont.setAccessStaticContext(MethodAccessKind.STATIC);
                 Delimiters d_ = ElResolver.checkSyntax(value, _cont, CustList.FIRST_INDEX);
                 OperationsSequence opTwo_ = ElResolver.getOperationsSequence(CustList.FIRST_INDEX, value, _cont, d_);
                 OperationNode op_ = OperationNode.createOperationNode(CustList.FIRST_INDEX, CustList.FIRST_INDEX, null, opTwo_, _cont);

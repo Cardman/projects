@@ -4,7 +4,9 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.InitializationLgNames;
 import code.expressionlanguage.opers.util.ConstructorId;
+import code.expressionlanguage.opers.util.MethodAccessKind;
 import code.expressionlanguage.opers.util.MethodId;
+import code.expressionlanguage.opers.util.MethodModifier;
 import code.expressionlanguage.options.ContextFactory;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
@@ -30,7 +32,7 @@ public abstract class ProcessMethodCommon {
         ContextFactory.validate(_definedKw,_definedLgNames,_files,_contextEl,"src");
     }
     protected static Argument calculateArgument(String _class, MethodId _method, CustList<Argument> _args, ContextEl _cont) {
-        MethodId fct_ = new MethodId(_method.isStaticMethod(), _method.getName(),_method.getParametersTypes());
+        MethodId fct_ = new MethodId(_method.getKind(), _method.getName(),_method.getParametersTypes());
         OverridableBlock method_ = Classes.getMethodBodiesById(_cont, _class, fct_).first();
         Block firstChild_ = method_.getFirstChild();
         if (firstChild_ == null) {
@@ -45,7 +47,7 @@ public abstract class ProcessMethodCommon {
         for (String c: _classNames) {
             cl_.add(c);
         }
-        return new MethodId(true, _name, cl_);
+        return new MethodId(MethodAccessKind.STATIC, _name, cl_);
     }
 
     protected static Argument instanceArgument(String _class, Argument _global, ConstructorId _id, CustList<Argument> _args, ContextEl _cont) {

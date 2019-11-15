@@ -5,6 +5,7 @@ import code.expressionlanguage.errors.custom.BadElError;
 import code.expressionlanguage.inherits.Mapping;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.opers.Calculation;
+import code.expressionlanguage.opers.util.MethodAccessKind;
 import code.formathtml.exec.RendDynOperationNode;
 import code.formathtml.util.BeanLgNames;
 import code.sml.Element;
@@ -27,7 +28,7 @@ public final class ResultText {
     private Ints expEnds = new Ints();
     public void build(String _expression,Configuration _conf, RendDocumentBlock _doc) {
         opExp = new CustList<CustList<RendDynOperationNode>>();
-        boolean st_ = _doc.isStaticContext();
+        MethodAccessKind st_ = _doc.getStaticContext();
         StringBuilder str_ = new StringBuilder();
         int length_ = _expression.length();
         boolean escaped_ = false;
@@ -98,7 +99,7 @@ public final class ResultText {
     }
     public void buildId(String _expression,Configuration _conf, RendDocumentBlock _doc) {
         opExp = new CustList<CustList<RendDynOperationNode>>();
-        boolean st_ = _doc.isStaticContext();
+        MethodAccessKind st_ = _doc.getStaticContext();
         StringBuilder str_ = new StringBuilder();
         int length_ = _expression.length();
         boolean escaped_ = false;
@@ -204,7 +205,7 @@ public final class ResultText {
             if (pref_.indexOf('(') < 0) {
                 pref_ = StringList.concat(pref_,"()");
             }
-            boolean st_ = _doc.isStaticContext();
+            MethodAccessKind st_ = _doc.getStaticContext();
             RenderExpUtil.getAnalyzedOperations(pref_,0,_cont,Calculation.staticCalculation(st_));
         }
         return r_;

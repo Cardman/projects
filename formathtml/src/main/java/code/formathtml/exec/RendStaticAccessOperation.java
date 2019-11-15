@@ -1,10 +1,10 @@
 package code.formathtml.exec;
 
-import code.expressionlanguage.opers.StaticAccessOperation;
+import code.expressionlanguage.opers.LeafOperation;
 
 public final class RendStaticAccessOperation extends RendLeafOperation {
 
-    public RendStaticAccessOperation(StaticAccessOperation _s) {
+    public RendStaticAccessOperation(LeafOperation _s) {
         super(_s);
     }
 

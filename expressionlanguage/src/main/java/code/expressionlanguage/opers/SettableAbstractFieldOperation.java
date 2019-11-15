@@ -26,7 +26,7 @@ public abstract class SettableAbstractFieldOperation extends
 
     private boolean variable;
     private FieldInfo fieldMetaInfo;
-    private boolean staticAccess;
+    private MethodAccessKind staticAccess;
 
     private boolean catString;
 
@@ -46,7 +46,7 @@ public abstract class SettableAbstractFieldOperation extends
         boolean import_ = false;
         if (!isIntermediateDottedOperation()) {
             import_ = true;
-            staticAccess = _conf.isStaticContext();
+            staticAccess = _conf.getStaticContext();
         }
         LgNames stds_ = _conf.getStandards();
         ClassArgumentMatching cl_ = getFrom(_conf);
@@ -117,15 +117,15 @@ public abstract class SettableAbstractFieldOperation extends
         variable = _variable;
     }
 
-    public final void setStaticAccess(boolean _staticAccess) {
+    public final void setStaticAccess(MethodAccessKind _staticAccess) {
         staticAccess = _staticAccess;
     }
 
-    public final boolean isStaticAccess() {
+    public final MethodAccessKind isStaticAccess() {
         return staticAccess;
     }
     @Override
-    public void setPreviousResultClass(ClassArgumentMatching _previousResultClass, boolean _staticAccess) {
+    public void setPreviousResultClass(ClassArgumentMatching _previousResultClass, MethodAccessKind _staticAccess) {
         setPreviousResultClass(_previousResultClass);
         setStaticAccess(_staticAccess);
     }

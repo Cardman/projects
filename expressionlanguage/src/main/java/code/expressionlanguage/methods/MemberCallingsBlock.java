@@ -10,6 +10,7 @@ import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.exec.ExecOperationNode;
+import code.expressionlanguage.opers.util.MethodAccessKind;
 import code.util.CustList;
 import code.util.Ints;
 import code.util.StringList;
@@ -321,7 +322,7 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
             int begin_ = annotationsIndexes.get(i);
             page_.setGlobalOffset(begin_);
             page_.setOffset(0);
-            Calculation c_ = Calculation.staticCalculation(true);
+            Calculation c_ = Calculation.staticCalculation(MethodAccessKind.STATIC);
             annotationsOps.add(ElUtil.getAnalyzedOperationsReadOnly(annotations.get(i), _context, c_));
         }
     }

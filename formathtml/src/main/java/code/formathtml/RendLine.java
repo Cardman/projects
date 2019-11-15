@@ -5,6 +5,7 @@ import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.opers.AffectationOperation;
 import code.expressionlanguage.opers.Calculation;
+import code.expressionlanguage.opers.util.MethodAccessKind;
 import code.formathtml.exec.RendDynOperationNode;
 import code.util.CustList;
 import code.util.StringList;
@@ -28,7 +29,7 @@ public final class RendLine extends RendLeaf implements RendWithEl, RendReducabl
 
     @Override
     public void buildExpressionLanguage(Configuration _cont,RendDocumentBlock _doc) {
-        boolean st_ = _doc.isStaticContext();
+        MethodAccessKind st_ = _doc.getStaticContext();
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         page_.setGlobalOffset(expressionOffset);
         page_.setOffset(0);

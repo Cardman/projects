@@ -254,7 +254,7 @@ public final class ForMutableIterativeLoop extends BracedStack implements
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         page_.setGlobalOffset(classNameOffset);
         page_.setOffset(0);
-        boolean static_ = f_.isStaticContext();
+        MethodAccessKind static_ = f_.getStaticContext();
         _cont.getVariablesNames().clear();
         _cont.getVariablesNamesLoopToInfer().clear();
         page_.setGlobalOffset(initOffset);
@@ -299,7 +299,7 @@ public final class ForMutableIterativeLoop extends BracedStack implements
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         page_.setGlobalOffset(classNameOffset);
         page_.setOffset(0);
-        boolean static_ = f_.isStaticContext();
+        MethodAccessKind static_ = f_.getStaticContext();
         _cont.getVariablesNames().clear();
         _cont.getVariablesNamesLoopToInfer().clear();
         page_.setGlobalOffset(initOffset);
@@ -425,7 +425,7 @@ public final class ForMutableIterativeLoop extends BracedStack implements
         _an.setMerged(true);
         _an.setAcceptCommaInstr(true);
         _an.getLocalVariables().last().clear();
-        boolean static_ = f_.isStaticContext();
+        MethodAccessKind static_ = f_.getStaticContext();
         if (step.trim().isEmpty()) {
             opStep = new CustList<ExecOperationNode>();
         } else {
@@ -444,7 +444,7 @@ public final class ForMutableIterativeLoop extends BracedStack implements
         _an.setMerged(true);
         _an.setAcceptCommaInstr(true);
         _an.getLocalVariables().last().clear();
-        boolean static_ = f_.isStaticContext();
+        MethodAccessKind static_ = f_.getStaticContext();
         if (step.trim().isEmpty()) {
             opStep = new CustList<ExecOperationNode>();
         } else {

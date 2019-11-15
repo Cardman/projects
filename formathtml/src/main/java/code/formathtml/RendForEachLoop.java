@@ -15,6 +15,7 @@ import code.expressionlanguage.methods.ImportForEachLoop;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.exec.ExecInvokingOperation;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
+import code.expressionlanguage.opers.util.MethodAccessKind;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.IterableAnalysisResult;
 import code.expressionlanguage.structs.*;
@@ -137,7 +138,7 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
         page_.setGlobalOffset(expressionOffset);
         page_.setOffset(0);
         _cont.getAnalyzingDoc().setAttribute(ATTRIBUTE_LIST);
-        boolean static_ = _doc.isStaticContext();
+        MethodAccessKind static_ = _doc.getStaticContext();
         opList = RenderExpUtil.getAnalyzedOperations(expression,0, _cont, Calculation.staticCalculation(static_));
     }
     public void inferArrayClass(Configuration _cont) {

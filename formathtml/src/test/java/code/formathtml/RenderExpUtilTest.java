@@ -7,6 +7,7 @@ import static org.junit.Assert.assertTrue;
 
 import code.expressionlanguage.*;
 import code.expressionlanguage.errors.custom.BadElError;
+import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.*;
 import code.sml.Document;
@@ -1857,8 +1858,7 @@ public final class RenderExpUtilTest {
         OperationNode op_ = OperationNode.createOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, ctx_);
         assertNotNull(op_);
         Argument argGl_ = context_.getOperationPageEl().getGlobalArgument();
-        boolean static_ = argGl_ == null || argGl_.isNull();
-        ctx_.setStaticContext(static_);
+        boolean static_ = setupStaticCtx(ctx_, argGl_);
         CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, static_, context_);
         assertTrue(context_.getClasses().isEmptyErrors());
         ctx_.setAnalyzing(null);
@@ -1885,8 +1885,7 @@ public final class RenderExpUtilTest {
         OperationNode op_ = OperationNode.createOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, ctx_);
         assertNotNull(op_);
         Argument argGl_ = context_.getOperationPageEl().getGlobalArgument();
-        boolean static_ = argGl_ == null || argGl_.isNull();
-        ctx_.setStaticContext(static_);
+        boolean static_ = setupStaticCtx(ctx_, argGl_);
         CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, static_, context_);
         assertTrue(context_.getClasses().isEmptyErrors());
         ctx_.setAnalyzing(null);
@@ -1913,8 +1912,7 @@ public final class RenderExpUtilTest {
         OperationNode op_ = OperationNode.createOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, ctx_);
         assertNotNull(op_);
         Argument argGl_ = context_.getOperationPageEl().getGlobalArgument();
-        boolean static_ = argGl_ == null || argGl_.isNull();
-        ctx_.setStaticContext(static_);
+        boolean static_ = setupStaticCtx(ctx_, argGl_);
         CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, static_, context_);
         assertTrue(context_.getClasses().isEmptyErrors());
         ctx_.setAnalyzing(null);
@@ -1941,8 +1939,7 @@ public final class RenderExpUtilTest {
         OperationNode op_ = OperationNode.createOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, ctx_);
         assertNotNull(op_);
         Argument argGl_ = context_.getOperationPageEl().getGlobalArgument();
-        boolean static_ = argGl_ == null || argGl_.isNull();
-        ctx_.setStaticContext(static_);
+        boolean static_ = setupStaticCtx(ctx_, argGl_);
         CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, static_, context_);
         assertTrue(context_.getClasses().isEmptyErrors());
         ctx_.setAnalyzing(null);
@@ -1970,8 +1967,7 @@ public final class RenderExpUtilTest {
         OperationNode op_ = OperationNode.createOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, ctx_);
         assertNotNull(op_);
         Argument argGl_ = context_.getOperationPageEl().getGlobalArgument();
-        boolean static_ = argGl_ == null || argGl_.isNull();
-        ctx_.setStaticContext(static_);
+        boolean static_ = setupStaticCtx(ctx_, argGl_);
         CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, static_, context_);
         assertTrue(context_.getClasses().isEmptyErrors());
         ctx_.setAnalyzing(null);
@@ -1999,8 +1995,7 @@ public final class RenderExpUtilTest {
         OperationNode op_ = OperationNode.createOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, ctx_);
         assertNotNull(op_);
         Argument argGl_ = context_.getOperationPageEl().getGlobalArgument();
-        boolean static_ = argGl_ == null || argGl_.isNull();
-        ctx_.setStaticContext(static_);
+        boolean static_ = setupStaticCtx(ctx_, argGl_);
         CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, static_, context_);
         assertTrue(context_.getClasses().isEmptyErrors());
         ctx_.setAnalyzing(null);
@@ -2028,8 +2023,7 @@ public final class RenderExpUtilTest {
         OperationNode op_ = OperationNode.createOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, ctx_);
         assertNotNull(op_);
         Argument argGl_ = context_.getOperationPageEl().getGlobalArgument();
-        boolean static_ = argGl_ == null || argGl_.isNull();
-        ctx_.setStaticContext(static_);
+        boolean static_ = setupStaticCtx(ctx_, argGl_);
         CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, static_, context_);
         assertTrue(context_.getClasses().isEmptyErrors());
         ctx_.setAnalyzing(null);
@@ -2057,8 +2051,7 @@ public final class RenderExpUtilTest {
         OperationNode op_ = OperationNode.createOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, ctx_);
         assertNotNull(op_);
         Argument argGl_ = context_.getOperationPageEl().getGlobalArgument();
-        boolean static_ = argGl_ == null || argGl_.isNull();
-        ctx_.setStaticContext(static_);
+        boolean static_ = setupStaticCtx(ctx_, argGl_);
         CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, static_, context_);
         assertTrue(context_.getClasses().isEmptyErrors());
         ctx_.setAnalyzing(null);
@@ -2085,8 +2078,7 @@ public final class RenderExpUtilTest {
         OperationNode op_ = OperationNode.createOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, ctx_);
         assertNotNull(op_);
         Argument argGl_ = context_.getOperationPageEl().getGlobalArgument();
-        boolean static_ = argGl_ == null || argGl_.isNull();
-        ctx_.setStaticContext(static_);
+        boolean static_ = setupStaticCtx(ctx_, argGl_);
         CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, static_, context_);
         assertTrue(context_.getClasses().isEmptyErrors());
         ctx_.setAnalyzing(null);
@@ -2114,8 +2106,7 @@ public final class RenderExpUtilTest {
         OperationNode op_ = OperationNode.createOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, ctx_);
         assertNotNull(op_);
         Argument argGl_ = context_.getOperationPageEl().getGlobalArgument();
-        boolean static_ = argGl_ == null || argGl_.isNull();
-        ctx_.setStaticContext(static_);
+        boolean static_ = setupStaticCtx(ctx_, argGl_);
         CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, static_, context_);
         assertTrue(context_.getClasses().isEmptyErrors());
         ctx_.setAnalyzing(null);
@@ -2145,8 +2136,7 @@ public final class RenderExpUtilTest {
         OperationNode op_ = OperationNode.createOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, ctx_);
         assertNotNull(op_);
         Argument argGl_ = context_.getOperationPageEl().getGlobalArgument();
-        boolean static_ = argGl_ == null || argGl_.isNull();
-        ctx_.setStaticContext(static_);
+        boolean static_ = setupStaticCtx(ctx_, argGl_);
         CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, static_, context_);
         assertTrue(context_.getClasses().isEmptyErrors());
         ctx_.setAnalyzing(null);
@@ -2176,8 +2166,7 @@ public final class RenderExpUtilTest {
         OperationNode op_ = OperationNode.createOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, ctx_);
         assertNotNull(op_);
         Argument argGl_ = context_.getOperationPageEl().getGlobalArgument();
-        boolean static_ = argGl_ == null || argGl_.isNull();
-        ctx_.setStaticContext(static_);
+        boolean static_ = setupStaticCtx(ctx_, argGl_);
         CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, static_, context_);
         assertTrue(context_.getClasses().isEmptyErrors());
         ctx_.setAnalyzing(null);
@@ -2205,8 +2194,7 @@ public final class RenderExpUtilTest {
         OperationNode op_ = OperationNode.createOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, ctx_);
         assertNotNull(op_);
         Argument argGl_ = context_.getOperationPageEl().getGlobalArgument();
-        boolean static_ = argGl_ == null || argGl_.isNull();
-        ctx_.setStaticContext(static_);
+        boolean static_ = setupStaticCtx(ctx_, argGl_);
         CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, static_, context_);
         assertTrue(context_.getClasses().isEmptyErrors());
         ctx_.setAnalyzing(null);
@@ -2236,8 +2224,7 @@ public final class RenderExpUtilTest {
         OperationNode op_ = OperationNode.createOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, ctx_);
         assertNotNull(op_);
         Argument argGl_ = context_.getOperationPageEl().getGlobalArgument();
-        boolean static_ = argGl_ == null || argGl_.isNull();
-        ctx_.setStaticContext(static_);
+        boolean static_ = setupStaticCtx(ctx_, argGl_);
         CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, static_, context_);
         assertTrue(context_.getClasses().isEmptyErrors());
         ctx_.setAnalyzing(null);
@@ -2269,8 +2256,7 @@ public final class RenderExpUtilTest {
         OperationNode op_ = OperationNode.createOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, ctx_);
         assertNotNull(op_);
         Argument argGl_ = context_.getOperationPageEl().getGlobalArgument();
-        boolean static_ = argGl_ == null || argGl_.isNull();
-        ctx_.setStaticContext(static_);
+        boolean static_ = setupStaticCtx(ctx_, argGl_);
         CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, static_, context_);
         assertTrue(context_.getClasses().isEmptyErrors());
         ctx_.setAnalyzing(null);
@@ -2303,8 +2289,7 @@ public final class RenderExpUtilTest {
         OperationNode op_ = OperationNode.createOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, ctx_);
         assertNotNull(op_);
         Argument argGl_ = context_.getOperationPageEl().getGlobalArgument();
-        boolean static_ = argGl_ == null || argGl_.isNull();
-        ctx_.setStaticContext(static_);
+        boolean static_ = setupStaticCtx(ctx_, argGl_);
         CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, static_, context_);
         assertTrue(context_.getClasses().isEmptyErrors());
         ctx_.setAnalyzing(null);
@@ -2337,8 +2322,7 @@ public final class RenderExpUtilTest {
         OperationNode op_ = OperationNode.createOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, ctx_);
         assertNotNull(op_);
         Argument argGl_ = context_.getOperationPageEl().getGlobalArgument();
-        boolean static_ = argGl_ == null || argGl_.isNull();
-        ctx_.setStaticContext(static_);
+        boolean static_ = setupStaticCtx(ctx_, argGl_);
         CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, static_, context_);
         assertTrue(context_.getClasses().isEmptyErrors());
         ctx_.setAnalyzing(null);
@@ -2371,8 +2355,7 @@ public final class RenderExpUtilTest {
         OperationNode op_ = OperationNode.createOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, ctx_);
         assertNotNull(op_);
         Argument argGl_ = context_.getOperationPageEl().getGlobalArgument();
-        boolean static_ = argGl_ == null || argGl_.isNull();
-        ctx_.setStaticContext(static_);
+        boolean static_ = setupStaticCtx(ctx_, argGl_);
         CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, static_, context_);
         assertTrue(context_.getClasses().isEmptyErrors());
         ctx_.setAnalyzing(null);
@@ -2395,8 +2378,7 @@ public final class RenderExpUtilTest {
         OperationNode op_ = OperationNode.createOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, ctx_);
         assertNotNull(op_);
         Argument argGl_ = context_.getOperationPageEl().getGlobalArgument();
-        boolean static_ = argGl_ == null || argGl_.isNull();
-        ctx_.setStaticContext(static_);
+        boolean static_ = setupStaticCtx(ctx_, argGl_);
         CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, static_, context_);
         assertTrue(context_.getClasses().isEmptyErrors());
         ctx_.setAnalyzing(null);
@@ -2501,8 +2483,7 @@ public final class RenderExpUtilTest {
         OperationNode op_ = OperationNode.createOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, ctx_);
         assertNotNull(op_);
         Argument argGl_ = context_.getOperationPageEl().getGlobalArgument();
-        boolean static_ = argGl_ == null || argGl_.isNull();
-        ctx_.setStaticContext(static_);
+        boolean static_ = setupStaticCtx(ctx_, argGl_);
         CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, static_, context_);
         assertTrue(context_.getClasses().isEmptyErrors());
         ctx_.setAnalyzing(null);
@@ -2529,8 +2510,7 @@ public final class RenderExpUtilTest {
         OperationNode op_ = OperationNode.createOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, ctx_);
         assertNotNull(op_);
         Argument argGl_ = context_.getOperationPageEl().getGlobalArgument();
-        boolean static_ = argGl_ == null || argGl_.isNull();
-        ctx_.setStaticContext(static_);
+        boolean static_ = setupStaticCtx(ctx_, argGl_);
         CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, static_, context_);
         assertTrue(context_.getClasses().isEmptyErrors());
         ctx_.setAnalyzing(null);
@@ -2560,8 +2540,7 @@ public final class RenderExpUtilTest {
         OperationNode op_ = OperationNode.createOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, ctx_);
         assertNotNull(op_);
         Argument argGl_ = context_.getOperationPageEl().getGlobalArgument();
-        boolean static_ = argGl_ == null || argGl_.isNull();
-        ctx_.setStaticContext(static_);
+        boolean static_ = setupStaticCtx(ctx_, argGl_);
         CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, static_, context_);
         assertTrue(context_.getClasses().isEmptyErrors());
         ctx_.setAnalyzing(null);
@@ -2569,6 +2548,7 @@ public final class RenderExpUtilTest {
         assertTrue(context_.getClasses().isEmptyErrors());
         assertEq(ctx_.getStandards().getAliasNullPe(), ctx_.getException().getClassName(ctx_));
     }
+
     @Test
     public void processEl209Test() {
         Configuration context_ = getConfiguration4();
@@ -2591,8 +2571,7 @@ public final class RenderExpUtilTest {
         OperationNode op_ = OperationNode.createOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, ctx_);
         assertNotNull(op_);
         Argument argGl_ = context_.getOperationPageEl().getGlobalArgument();
-        boolean static_ = argGl_ == null || argGl_.isNull();
-        ctx_.setStaticContext(static_);
+        boolean static_ = setupStaticCtx(ctx_, argGl_);
         CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, static_, context_);
         assertTrue(context_.getClasses().isEmptyErrors());
         ctx_.setAnalyzing(null);
@@ -5556,8 +5535,7 @@ public final class RenderExpUtilTest {
         OperationNode op_ = OperationNode.createOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, ctx_);
         assertNotNull(op_);
         Argument argGl_ = context_.getOperationPageEl().getGlobalArgument();
-        boolean static_ = argGl_ == null || argGl_.isNull();
-        ctx_.setStaticContext(static_);
+        boolean static_ = setupStaticCtx(ctx_, argGl_);
         CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, static_, context_);
         assertTrue(context_.getClasses().isEmptyErrors());
         ctx_.setAnalyzing(null);
@@ -8568,6 +8546,23 @@ public final class RenderExpUtilTest {
 
     }
     @Test
+    public void processEl468Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $staticCall $int exmeth(){\n");
+        xml_.append("  $long t:\n");
+        xml_.append("  t;.=8:\n");
+        xml_.append("  $return 1i+$($int)t;.:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        Configuration cont_ = getConfiguration4(files_);
+        addImportingPage(cont_);
+        Argument arg_ = processEl("$staticCall(pkg.Ex).exmeth()", cont_);
+        assertEq(9, arg_.getNumber());
+    }
+    @Test
     public void procesAffect00Test() {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);
@@ -9212,8 +9207,7 @@ public final class RenderExpUtilTest {
         OperationsSequence opTwo_ = RenderExpUtil.getOperationsSequence(_minIndex, el_, _conf, d_);
         OperationNode op_ = RenderExpUtil.createOperationNode(_minIndex, CustList.FIRST_INDEX, null, opTwo_, _conf);
         Argument argGl_ = _conf.getOperationPageEl().getGlobalArgument();
-        boolean static_ = argGl_ == null || argGl_.isNull();
-        _conf.setStaticContext(static_);
+        boolean static_ = setupStaticCtx(_conf,argGl_);
         CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, static_, _conf);
         CustList<RendDynOperationNode> out_ = RenderExpUtil.getExecutableNodes(all_);
         if (!_conf.getClasses().isEmptyErrors()) {
@@ -9228,6 +9222,13 @@ public final class RenderExpUtilTest {
         out_ = RenderExpUtil.getReducedNodes(out_.last());
         return RenderExpUtil.calculateReuse(out_, _conf);
     }
+
+    private static boolean setupStaticCtx(Analyzable _ctx, Argument _argGl) {
+        boolean static_ = _argGl == null || _argGl.isNull();
+        _ctx.setAccessStaticContext(MethodId.getKind(static_));
+        return static_;
+    }
+
     private static Argument calculate(CustList<OperationNode> _ops, Configuration _an) {
         CustList<RendDynOperationNode> out_ = RenderExpUtil.getExecutableNodes(_ops);
         out_ = RenderExpUtil.getReducedNodes(out_.last());

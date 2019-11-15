@@ -451,7 +451,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             boolean invokeDirect_ = StringList.quickEq(aliasInvokeDirect_, _methodId.getName());
             if (invoke_) {
                 MethodMetaInfo m_ = (MethodMetaInfo) _previous.getStruct();
-                if (StringList.quickEq(m_.getRealId().getName(),_conf.getKeyWords().getKeyWordExplicit())) {
+                if (m_.getRealId().canAccessParamTypesStatic(_conf)) {
                     _conf.getContextEl().setCallingState(new CustomReflectMethod(ReflectingType.CAST, _previous, _firstArgs, false));
                     return new Argument();
                 }
@@ -460,7 +460,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             }
             if (invokeDirect_) {
                 MethodMetaInfo m_ = (MethodMetaInfo) _previous.getStruct();
-                if (StringList.quickEq(m_.getRealId().getName(),_conf.getKeyWords().getKeyWordExplicit())) {
+                if (m_.getRealId().canAccessParamTypesStatic(_conf)) {
                     _conf.getContextEl().setCallingState(new CustomReflectMethod(ReflectingType.CAST_DIRECT, _previous, _firstArgs, false));
                     return new Argument();
                 }
@@ -530,6 +530,10 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                 return new Argument(new StringStruct(en_.getName()));
             }
             return new Argument(new IntStruct(en_.getOrdinal()));
+        }
+        if (_methodId.getKind() == MethodAccessKind.STATIC_CALL) {
+            context_.setCallingState(new CustomFoundCast(_classNameFound, _methodId, _firstArgs));
+            return Argument.createVoid();
         }
         context_.setCallingState(new CustomFoundMethod(_previous, _classNameFound, _methodId, _firstArgs, _right));
         return Argument.createVoid();
@@ -683,7 +687,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         int nbAncestors_ = l_.getAncestor();
         String id_;
         MethodId fid_ = l_.getFid();
-        if (StringList.quickEq(fid_.getName(),_conf.getKeyWords().getKeyWordExplicit())) {
+        if (fid_.canAccessParamTypesStatic(_conf)) {
             id_ = l_.getFormClassName();
         } else {
             id_ = Templates.getIdFromAllTypes(l_.getFormClassName());
@@ -754,7 +758,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
     }
 
     private static Argument redirect(ExecutableCode _conf, LambdaMethodStruct _l, Argument _pr, CustList<Argument> _nList) {
-        if (StringList.quickEq(_l.getFid().getName(),_conf.getKeyWords().getKeyWordExplicit())) {
+        if (_l.getFid().canAccessParamTypesStatic(_conf)) {
             if (_l.isDirectCast()) {
                 _conf.getContextEl().setCallingState(new CustomReflectMethod(ReflectingType.CAST_DIRECT, _pr, _nList, true));
                 return new Argument();

@@ -18,6 +18,7 @@ import code.expressionlanguage.opers.exec.ExecInterfaceInvokingConstructor;
 import code.expressionlanguage.opers.exec.ExecOperationNode;
 import code.expressionlanguage.opers.exec.ExecSuperInvokingConstructor;
 import code.expressionlanguage.opers.util.ConstructorId;
+import code.expressionlanguage.opers.util.MethodAccessKind;
 import code.util.CustList;
 import code.util.StringList;
 
@@ -49,7 +50,7 @@ public final class Line extends Leaf implements StackableBlock, WithNotEmptyEl,B
     @Override
     public void buildExpressionLanguage(ContextEl _cont) {
         FunctionBlock f_ = _cont.getAnalyzing().getCurrentFct();
-        boolean st_ = f_.isStaticContext();
+        MethodAccessKind st_ = f_.getStaticContext();
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         page_.setGlobalOffset(expressionOffset);
         page_.setOffset(0);
@@ -69,7 +70,7 @@ public final class Line extends Leaf implements StackableBlock, WithNotEmptyEl,B
     @Override
     public void buildExpressionLanguageReadOnly(ContextEl _cont) {
         FunctionBlock f_ = _cont.getAnalyzing().getCurrentFct();
-        boolean st_ = f_.isStaticContext();
+        MethodAccessKind st_ = f_.getStaticContext();
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         page_.setGlobalOffset(expressionOffset);
         page_.setOffset(0);

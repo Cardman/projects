@@ -5,6 +5,7 @@ import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.FieldInfo;
+import code.expressionlanguage.opers.util.MethodAccessKind;
 import code.expressionlanguage.variables.LocalVariable;
 import code.formathtml.exec.*;
 import code.formathtml.util.BeanCustLgNames;
@@ -90,7 +91,7 @@ public final class ResultInput {
     private ClassField idField;
     public void build(Configuration _cont, RendDocumentBlock _doc, Element _read,String _varValue) {
         String name_ = _read.getAttribute(ATTRIBUTE_NAME);
-        boolean st_ = _doc.isStaticContext();
+        MethodAccessKind st_ = _doc.getStaticContext();
         if (!name_.isEmpty()) {
             opsRead = RenderExpUtil.getAnalyzedOperations(name_, 0, _cont, Calculation.staticCalculation(st_));
             RendDynOperationNode last_ = opsRead.last();

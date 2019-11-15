@@ -3466,6 +3466,8 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append("$public $class pkgtwo.OuterThree<#A> {\n");
         xml_.append(" $public $class InnerFive<#E> {\n");
         xml_.append("  $public $class InnerInner<#G> {\n");
+        xml_.append("   $static{\n");
+        xml_.append("   }\n");
         xml_.append("   $public $static java.lang.String get(){\n");
         xml_.append("    $return $static($Class).getClass($static(OuterThree..InnerFive).$this).getName():\n");
         xml_.append("   }\n");

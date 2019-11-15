@@ -1,5 +1,6 @@
 package code.expressionlanguage.methods;
 import code.expressionlanguage.files.OffsetsBlock;
+import code.expressionlanguage.opers.util.MethodAccessKind;
 
 public final class InstanceBlock extends InitBlock {
 
@@ -8,7 +9,7 @@ public final class InstanceBlock extends InitBlock {
     }
 
     @Override
-    public boolean isStaticContext() {
-        return false;
+    public MethodAccessKind getStaticContext() {
+        return MethodAccessKind.INSTANCE;
     }
 }

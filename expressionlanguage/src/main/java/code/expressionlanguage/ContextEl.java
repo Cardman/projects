@@ -859,7 +859,7 @@ public abstract class ContextEl implements ExecutableCode {
             return ((RootBlock)bl_).isStaticType();
         }
         FunctionBlock fct_ = analyzing.getCurrentFct();
-        boolean st_ = fct_.isStaticContext();
+        boolean st_ = fct_.getStaticContext() == MethodAccessKind.STATIC;
         return st_;
     }
 
@@ -941,11 +941,6 @@ public abstract class ContextEl implements ExecutableCode {
     @Override
     public boolean isStaticContext() {
         return analyzing.isStaticContext();
-    }
-
-    @Override
-    public void setStaticContext(boolean _staticContext) {
-        analyzing.setStaticContext(_staticContext);
     }
 
     @Override
@@ -1389,7 +1384,7 @@ public abstract class ContextEl implements ExecutableCode {
             } else if (isExplicitFct(fct_)){
                 static_ = false;
             } else {
-                static_ = fct_.isStaticContext();
+                static_ = fct_.getStaticContext() == MethodAccessKind.STATIC;
             }
         }
         if (r_ instanceof RootBlock && !static_) {
@@ -1398,6 +1393,16 @@ public abstract class ContextEl implements ExecutableCode {
             }
         }
         return vars_;
+    }
+
+    @Override
+    public void setAccessStaticContext(MethodAccessKind _staticContext) {
+        analyzing.setAccessStaticContext(_staticContext);
+    }
+
+    @Override
+    public MethodAccessKind getStaticContext() {
+        return analyzing.getStaticContext();
     }
 
     public boolean isExplicitFct(FunctionBlock _fct) {

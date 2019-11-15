@@ -3,7 +3,9 @@ package code.expressionlanguage.stds;
 import code.expressionlanguage.*;
 import code.expressionlanguage.classes.CustLgNames;
 import code.expressionlanguage.methods.ProcessMethod;
+import code.expressionlanguage.opers.util.MethodAccessKind;
 import code.expressionlanguage.opers.util.MethodId;
+import code.expressionlanguage.opers.util.MethodModifier;
 import code.expressionlanguage.options.ContextFactory;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
@@ -1545,7 +1547,7 @@ public class LgNamesTest {
         ContextFactory.validate(kw_,lgName_,all_,contextEl_,"src");
         assertTrue(contextEl_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
-        MethodId fct_ = new MethodId(true, "exmeth",new StringList());
+        MethodId fct_ = new MethodId(MethodAccessKind.STATIC, "exmeth",new StringList());
         Argument argGlLoc_ = new Argument();
         Argument ret_ = ProcessMethod.calculateArgument(argGlLoc_, "pkg.Ex", fct_, args_, contextEl_,null);
         assertEq(2, ret_.getNumber());
@@ -1574,7 +1576,7 @@ public class LgNamesTest {
         ContextEl contextEl_ =ContextFactory.build(-1, lk_, di_, opts_, kw_, lgName_, all_,4,"src");
         assertTrue(contextEl_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
-        MethodId fct_ = new MethodId(true, "exmeth",new StringList());
+        MethodId fct_ = new MethodId(MethodAccessKind.STATIC, "exmeth",new StringList());
         Argument argGlLoc_ = new Argument();
         Argument ret_ = ProcessMethod.calculateArgument(argGlLoc_, "pkg.Ex", fct_, args_, contextEl_,null);
         assertEq(2, ret_.getNumber());

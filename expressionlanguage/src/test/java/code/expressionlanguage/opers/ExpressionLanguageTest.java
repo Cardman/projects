@@ -10,6 +10,7 @@ import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.FieldBlock;
 import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.opers.exec.ExecOperationNode;
+import code.expressionlanguage.opers.util.MethodAccessKind;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.structs.*;
 import code.expressionlanguage.variables.LocalVariable;
@@ -5863,7 +5864,7 @@ public final class ExpressionLanguageTest {
         cont_.getAnalyzing().initLocalVars();
         cont_.getAnalyzing().putLocalVar(_var, lv_);
         cont_.getAnalyzing().setGlobalClass(_className);
-        Calculation calc_ = Calculation.staticCalculation(true);
+        Calculation calc_ = Calculation.staticCalculation(MethodAccessKind.STATIC);
         CustList<ExecOperationNode> list_ = ElUtil.getAnalyzedOperations(_el, cont_, calc_);
         addImportingPage(cont_);
         lv_ = new LocalVariable();
@@ -5889,7 +5890,7 @@ public final class ExpressionLanguageTest {
         cont_.getAnalyzing().initVars();
         cont_.getAnalyzing().putVar(_var, lv_);
         cont_.getAnalyzing().setGlobalClass(_className);
-        Calculation calc_ = Calculation.staticCalculation(true);
+        Calculation calc_ = Calculation.staticCalculation(MethodAccessKind.STATIC);
         CustList<ExecOperationNode> list_ = ElUtil.getAnalyzedOperations(_el, cont_, calc_);
         addImportingPage(cont_);
         lv_ = new LoopVariable();
@@ -5917,7 +5918,7 @@ public final class ExpressionLanguageTest {
         cont_.getAnalyzing().putLocalVar(var_, lv_);
         cont_.getAnalyzing().setGlobalClass(_className);
         String form_ = StringList.concat(var_, ";.", _el);
-        Calculation calc_ = Calculation.staticCalculation(true);
+        Calculation calc_ = Calculation.staticCalculation(MethodAccessKind.STATIC);
         CustList<ExecOperationNode> list_ = ElUtil.getAnalyzedOperations(form_, cont_, calc_);
         addImportingPage(cont_);
         lv_ = new LocalVariable();

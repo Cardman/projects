@@ -7,9 +7,7 @@ import code.expressionlanguage.errors.custom.VarargError;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.instr.PartOffset;
-import code.expressionlanguage.opers.util.ClassArgumentMatching;
-import code.expressionlanguage.opers.util.ClassMethodId;
-import code.expressionlanguage.opers.util.MethodId;
+import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
 import code.util.StringList;
@@ -48,14 +46,12 @@ public final class IdFctOperation extends LeafOperation {
         }
         partOffsets.addAllElts(_conf.getContextEl().getCoverage().getCurrentParts());
         String keyWordStatic_ = _conf.getKeyWords().getKeyWordStatic();
-        boolean static_ = false;
-        int i_ = 1;
-        if (args_.size() > 1) {
-            if (StringList.quickEq(args_.get(1).trim(), keyWordStatic_)) {
-                i_++;
-                static_ = true;
-            }
-        }
+        String keyWordStaticCall_ = _conf.getKeyWords().getKeyWordStaticCall();
+        MethodAccessId idUpdate_ = new MethodAccessId(1);
+        idUpdate_.setupInfos(1,args_,keyWordStatic_,keyWordStaticCall_);
+        MethodAccessKind static_;
+        int i_ = idUpdate_.getIndex();
+        static_ = idUpdate_.getKind();
         MethodId argsRes_ = resolveArguments(i_, _conf, cl_, EMPTY_STRING, static_, args_);
         if (m_ == null ||!m_.isCallMethodCtor()) {
             VarargError varg_ = new VarargError();
@@ -82,7 +78,7 @@ public final class IdFctOperation extends LeafOperation {
         setSimpleArgument(new Argument());
         setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
     }
-    private MethodId resolveArguments(int _from,Analyzable _conf, String _fromType, String _name,boolean _static, StringList _params){
+    private MethodId resolveArguments(int _from, Analyzable _conf, String _fromType, String _name, MethodAccessKind _static, StringList _params){
         StringList out_ = new StringList();
         LgNames stds_ = _conf.getStandards();
         int len_ = _params.size();

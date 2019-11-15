@@ -7,6 +7,7 @@ import code.expressionlanguage.inherits.Mapping;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.util.ClassField;
+import code.expressionlanguage.opers.util.MethodAccessKind;
 import code.expressionlanguage.variables.LocalVariable;
 import code.formathtml.exec.*;
 import code.formathtml.util.BeanCustLgNames;
@@ -37,7 +38,7 @@ public abstract class RendInput extends RendElement {
         opsWrite = r_.getOpsWrite();
         varName = r_.getVarName();
         idField = r_.getIdField();
-        boolean st_ = _doc.isStaticContext();
+        MethodAccessKind st_ = _doc.getStaticContext();
         String converterValue_ = _read.getAttribute(StringList.concat(_cont.getPrefix(),ATTRIBUTE_CONVERT_VALUE));
         if (!converterValue_.trim().isEmpty()) {
             Mapping m_ = new Mapping();

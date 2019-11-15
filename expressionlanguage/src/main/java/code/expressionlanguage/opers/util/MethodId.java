@@ -13,7 +13,7 @@ public final class MethodId implements Equallable<MethodId>, Identifiable {
     private static final String LEFT = "(";
     private static final String RIGHT = ")";
 
-    private final boolean staticMethod;
+    private final MethodAccessKind kind;
 
     private final String name;
 
@@ -21,27 +21,58 @@ public final class MethodId implements Equallable<MethodId>, Identifiable {
 
     private final boolean vararg;
 
-    public MethodId(MethodModifier _staticMethod,String _name, StringList _classNames) {
-        this(_staticMethod == MethodModifier.STATIC, _name, _classNames, false);
-    }
-
-    public MethodId(boolean _staticMethod,String _name, StringList _classNames) {
+    public MethodId(MethodAccessKind _staticMethod, String _name, StringList _classNames) {
         this(_staticMethod, _name, _classNames, false);
     }
 
-    public MethodId(boolean _staticMethod,String _name, StringList _classNames, boolean _vararg) {
-        staticMethod = _staticMethod;
+    public MethodId(MethodAccessKind _staticMethod, String _name, StringList _classNames, boolean _vararg) {
+        kind = _staticMethod;
         vararg = _vararg;
         name = _name;
         classNames = new StringList();
+        feedParamTypes(_classNames);
+    }
+
+    private void feedParamTypes(StringList _classNames) {
         for (String s: _classNames) {
             classNames.add(s);
         }
     }
+
+    public static MethodAccessKind getKind(MethodAccessKind _context, MethodAccessKind _mod) {
+        if (_context == MethodAccessKind.STATIC) {
+            return MethodAccessKind.STATIC;
+        }
+        if (_mod == MethodAccessKind.STATIC) {
+            return MethodAccessKind.STATIC;
+        }
+        if (_context == MethodAccessKind.STATIC_CALL) {
+            return MethodAccessKind.STATIC_CALL;
+        }
+        if (_mod == MethodAccessKind.STATIC_CALL) {
+            return MethodAccessKind.STATIC_CALL;
+        }
+        return MethodAccessKind.INSTANCE;
+    }
+    public static MethodAccessKind getKind(MethodModifier _mod) {
+        if (_mod == MethodModifier.STATIC) {
+            return MethodAccessKind.STATIC;
+        }
+        if (_mod == MethodModifier.STATIC_CALL) {
+            return MethodAccessKind.STATIC_CALL;
+        }
+        return MethodAccessKind.INSTANCE;
+    }
+    public static MethodAccessKind getKind(boolean _static) {
+        if (_static) {
+            return MethodAccessKind.STATIC;
+        }
+        return MethodAccessKind.INSTANCE;
+    }
     @Override
     public String getSignature(Analyzable _ana) {
         String pref_ = EMPTY;
-        if (staticMethod) {
+        if (kind == MethodAccessKind.STATIC) {
             pref_ = StringList.concat(_ana.getKeyWords().getKeyWordStatic()," ");
         }
         String suf_ = EMPTY;
@@ -64,7 +95,7 @@ public final class MethodId implements Equallable<MethodId>, Identifiable {
         if (len_ != _other.classNames.size()) {
             return false;
         }
-        if (staticMethod != _other.staticMethod) {
+        if (kind != _other.kind) {
             return false;
         }
         if (vararg != _other.vararg) {
@@ -90,7 +121,7 @@ public final class MethodId implements Equallable<MethodId>, Identifiable {
             String formatted_ = Templates.reflectFormat(_genericClass, n_, _context);
             pTypes_.add(formatted_);
         }
-        return new MethodId(isStaticMethod(), name_, pTypes_, isVararg());
+        return new MethodId(kind, name_, pTypes_, isVararg());
     }
     
     public MethodId quickFormat(String _genericClass, Analyzable _context) {
@@ -103,7 +134,7 @@ public final class MethodId implements Equallable<MethodId>, Identifiable {
             String formatted_ = Templates.quickFormat(_genericClass, n_, _context);
             pTypes_.add(formatted_);
         }
-        return new MethodId(isStaticMethod(), name_, pTypes_, isVararg());
+        return new MethodId(kind, name_, pTypes_, isVararg());
     }
 
 
@@ -112,9 +143,20 @@ public final class MethodId implements Equallable<MethodId>, Identifiable {
         return name;
     }
 
+    public boolean canAccessParamTypesStatic(Analyzable _an) {
+        return kind == MethodAccessKind.STATIC_CALL || StringList.quickEq(name,_an.getKeyWords().getKeyWordExplicit());
+    }
+    public boolean canAccessParamTypes() {
+        return kind != MethodAccessKind.STATIC;
+    }
+
     @Override
     public boolean isStaticMethod() {
-        return staticMethod;
+        return kind != MethodAccessKind.INSTANCE;
+    }
+
+    public MethodAccessKind getKind() {
+        return kind;
     }
 
     @Override

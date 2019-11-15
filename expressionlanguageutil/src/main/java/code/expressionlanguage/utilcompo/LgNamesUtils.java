@@ -14,10 +14,7 @@ import code.expressionlanguage.calls.util.CustomFoundMethod;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.methods.RootBlock;
-import code.expressionlanguage.opers.util.ClassMethodId;
-import code.expressionlanguage.opers.util.ConstructorId;
-import code.expressionlanguage.opers.util.MethodId;
-import code.expressionlanguage.opers.util.MethodModifier;
+import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.ResultErrorStd;
@@ -1452,7 +1449,7 @@ public class LgNamesUtils extends LgNames {
             LgNamesUtils stds_ = (LgNamesUtils) _cont.getStandards();
             String aliasObject_ = stds_.getAliasObject();
             if (StringList.quickEq(type_, aliasObject_)) {
-                ClassMethodId polymorph_ = new ClassMethodId(stds_.aliasFormatType,new MethodId(true,stds_.aliasPrint,new StringList(aliasObject_)));
+                ClassMethodId polymorph_ = new ClassMethodId(stds_.aliasFormatType,new MethodId(MethodAccessKind.STATIC,stds_.aliasPrint,new StringList(aliasObject_)));
                 String className_ = polymorph_.getClassName();
                 MethodId ct_ = polymorph_.getConstraints();
                 Argument arg_ = new Argument(_args[0]);
@@ -1464,7 +1461,7 @@ public class LgNamesUtils extends LgNames {
             LgNamesUtils stds_ = (LgNamesUtils) _cont.getStandards();
             String aliasString_ = stds_.getAliasString();
             String aliasObject_ = stds_.getAliasObject();
-            ClassMethodId polymorph_ = new ClassMethodId(stds_.aliasFormatType,new MethodId(true,stds_.aliasPrint,new StringList(aliasString_,aliasObject_),true));
+            ClassMethodId polymorph_ = new ClassMethodId(stds_.aliasFormatType,new MethodId(MethodAccessKind.STATIC,stds_.aliasPrint,new StringList(aliasString_,aliasObject_),true));
             String className_ = polymorph_.getClassName();
             MethodId ct_ = polymorph_.getConstraints();
             Argument arg_ = new Argument(_args[0]);
@@ -2823,6 +2820,7 @@ public class LgNamesUtils extends LgNames {
         _kw.setKeyWordFor(get(_util,_cust,"For"));
         _kw.setKeyWordVar(get(_util,_cust,"Var"));
         _kw.setKeyWordStatic(get(_util,_cust,"Static"));
+        _kw.setKeyWordStaticCall(get(_util,_cust,"StaticCall"));
         _kw.setKeyWordNull(get(_util,_cust,"Null"));
         _kw.setKeyWordClass(get(_util,_cust,"Class"));
         _kw.setKeyWordFalse(get(_util,_cust,"False"));
@@ -3077,6 +3075,7 @@ public class LgNamesUtils extends LgNames {
         setAliasGetAllClasses(get(_util,_cust,"GetAllClasses"));
         setAliasGetOperators(get(_util,_cust,"GetOperators"));
         setAliasGetDeclaredMethods(get(_util,_cust,"GetDeclaredMethods"));
+        setAliasGetDeclaredStaticMethods(get(_util,_cust,"GetDeclaredStaticMethods"));
         setAliasGetDeclaredConstructors(get(_util,_cust,"GetDeclaredConstructors"));
         setAliasGetDeclaredFields(get(_util,_cust,"GetDeclaredFields"));
         setAliasField(get(_util,_cust,"Field"));

@@ -12,6 +12,7 @@ import code.expressionlanguage.inherits.Mapping;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
+import code.expressionlanguage.opers.util.MethodAccessKind;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.LongStruct;
@@ -157,7 +158,7 @@ public final class RendForIterativeLoop extends RendParentBlock implements RendL
         page_.setGlobalOffset(initOffset);
         page_.setOffset(0);
         _cont.getAnalyzingDoc().setAttribute(ATTRIBUTE_FROM);
-        boolean static_ = _doc.isStaticContext();
+        MethodAccessKind static_ = _doc.getStaticContext();
         opInit = RenderExpUtil.getAnalyzedOperations(init,0, _cont, Calculation.staticCalculation(static_));
         RendDynOperationNode initEl_ = opInit.last();
         if (!PrimitiveTypeUtil.canBeUseAsArgument(elementClass_, initEl_.getResultClass(), _cont)) {

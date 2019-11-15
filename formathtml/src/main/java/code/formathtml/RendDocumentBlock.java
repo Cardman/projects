@@ -9,6 +9,7 @@ import code.expressionlanguage.methods.AccessEnum;
 import code.expressionlanguage.methods.AccessingImportingBlock;
 import code.expressionlanguage.methods.FunctionBlock;
 import code.expressionlanguage.methods.util.TypeVar;
+import code.expressionlanguage.opers.util.MethodAccessKind;
 import code.formathtml.util.BeanCustLgNames;
 import code.sml.Element;
 import code.util.StringList;
@@ -37,9 +38,9 @@ public final class RendDocumentBlock extends RendParentBlock implements Function
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         page_.setGlobalOffset(getOffset().getOffsetTrim());
         page_.setOffset(0);
-        _cont.setStaticContext(true);
+        _cont.setAccessStaticContext(MethodAccessKind.STATIC);
         if (_cont.getBeansInfos().contains(beanName)) {
-            _cont.setStaticContext(false);
+            _cont.setAccessStaticContext(MethodAccessKind.INSTANCE);
             page_.setGlobalClass(_cont.getBeansInfos().getVal(beanName).getClassName());
         }
         RendBlock root_ = this;
@@ -194,9 +195,13 @@ public final class RendDocumentBlock extends RendParentBlock implements Function
             }
         }
     }
+
     @Override
-    public boolean isStaticContext() {
-        return staticContext;
+    public MethodAccessKind getStaticContext() {
+        if (staticContext) {
+            return MethodAccessKind.STATIC;
+        }
+        return MethodAccessKind.INSTANCE;
     }
 
     public Element getElt() {

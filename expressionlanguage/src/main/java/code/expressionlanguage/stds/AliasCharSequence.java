@@ -5,6 +5,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.opers.util.ClassMethodId;
+import code.expressionlanguage.opers.util.MethodAccessKind;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.MethodModifier;
 import code.expressionlanguage.structs.CharSequenceStruct;
@@ -195,7 +196,7 @@ public final class AliasCharSequence {
         methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasString, aliasString);
         method_ = new StandardMethod(_lgNames.getAliasCompare(), params_, aliasPrimInteger_, false, MethodModifier.STATIC, std_);
-        methods_.put(new MethodId(MethodModifier.STATIC, _lgNames.getAliasCompare(), params_), method_);
+        methods_.put(new MethodId(MethodAccessKind.STATIC, _lgNames.getAliasCompare(), params_), method_);
         params_ = new StringList(aliasString);
         method_ = new StandardMethod(aliasCompareToIgnoreCase, params_, aliasPrimInteger_, false, MethodModifier.NORMAL, std_);
         methods_.put(method_.getId(), method_);

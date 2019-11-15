@@ -54,7 +54,7 @@ public final class RendSwitchBlock extends RendParentBlock implements RendBreaka
         page_.setGlobalOffset(valueOffset);
         page_.setOffset(0);
         _cont.getAnalyzingDoc().setAttribute(ATTRIBUTE_VALUE);
-        opValue = RenderExpUtil.getAnalyzedOperations(value,0, _cont, Calculation.staticCalculation(_doc.isStaticContext()));
+        opValue = RenderExpUtil.getAnalyzedOperations(value,0, _cont, Calculation.staticCalculation(_doc.getStaticContext()));
         RendDynOperationNode op_ = opValue.last();
         ClassArgumentMatching clArg_ = op_.getResultClass();
         if (clArg_.matchVoid(_cont)) {

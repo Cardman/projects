@@ -8,10 +8,7 @@ import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.opers.exec.Operable;
-import code.expressionlanguage.opers.util.ClassArgumentMatching;
-import code.expressionlanguage.opers.util.ClassMethodId;
-import code.expressionlanguage.opers.util.ClassMethodIdReturn;
-import code.expressionlanguage.opers.util.MethodId;
+import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.NumberStruct;
 import code.util.CustList;
@@ -65,7 +62,7 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
             MethodId mid_ = idMethod_.getConstraints();
             boolean vararg_ = mid_.isVararg();
             StringList params_ = mid_.getParametersTypes();
-            feed_ = new ClassMethodId(idClass_, new MethodId(false, trimMeth_, params_, vararg_));
+            feed_ = new ClassMethodId(idClass_, new MethodId(MethodAccessKind.INSTANCE, trimMeth_, params_, vararg_));
         }
         ClassArgumentMatching class_ = getPreviousResultClass();
         String classType_ = "";

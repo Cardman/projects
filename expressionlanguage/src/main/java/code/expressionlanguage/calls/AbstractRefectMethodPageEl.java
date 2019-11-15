@@ -34,7 +34,7 @@ public abstract class AbstractRefectMethodPageEl extends AbstractReflectPageEl {
         setWrapException(false);
         if (methodToCall == null) {
             LgNames stds_ = _context.getStandards();
-            if (!method_.isStatic()) {
+            if (!method_.isWideStatic()) {
                 Argument instance_ = getArguments().first();
                 if (instance_.isNull()) {
                     String null_;
@@ -63,7 +63,7 @@ public abstract class AbstractRefectMethodPageEl extends AbstractReflectPageEl {
             String className_ = methodToCall.getClassName();
             MethodId mid_ = methodToCall.getConstraints();
             Argument instance_;
-            if (method_.isStatic()) {
+            if (method_.isWideStatic()) {
                 instance_ = new Argument();
             } else {
                 instance_ = getArguments().first();

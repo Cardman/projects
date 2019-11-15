@@ -1,10 +1,10 @@
 package code.expressionlanguage.opers.exec;
 
-import code.expressionlanguage.opers.StaticAccessOperation;
+import code.expressionlanguage.opers.LeafOperation;
 
 public final class ExecStaticAccessOperation extends ExecLeafOperation {
 
-    public ExecStaticAccessOperation(StaticAccessOperation _s) {
+    public ExecStaticAccessOperation(LeafOperation _s) {
         super(_s);
     }
 

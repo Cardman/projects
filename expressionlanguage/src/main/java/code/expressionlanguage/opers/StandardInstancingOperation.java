@@ -223,7 +223,7 @@ public final class StandardInstancingOperation extends
         CustList<OperationNode> filter_ = ElUtil.filterInvoking(chidren_);
         CustList<ClassArgumentMatching> firstArgs_ = listClasses(filter_, _conf);
         if (!isIntermediateDottedOperation()) {
-            setStaticAccess(_conf.isStaticContext());
+            setStaticAccess(_conf.getStaticContext());
             if (!typeInfer.isEmpty()) {
                 realClassName_ = typeInfer;
             } else if (fieldName.isEmpty()) {

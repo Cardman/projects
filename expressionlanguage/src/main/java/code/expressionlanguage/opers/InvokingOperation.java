@@ -13,6 +13,7 @@ import code.expressionlanguage.opers.exec.Operable;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.Identifiable;
+import code.expressionlanguage.opers.util.MethodAccessKind;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.Struct;
@@ -23,7 +24,7 @@ import code.util.StringMap;
 
 public abstract class InvokingOperation extends MethodOperation implements PossibleIntermediateDotted {
     private ClassArgumentMatching previousResultClass;
-    private boolean staticAccess;
+    private MethodAccessKind staticAccess;
     private boolean intermediate;
 
     private Argument previousArgument;
@@ -348,7 +349,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
     }
 
     @Override
-    public final void setPreviousResultClass(ClassArgumentMatching _previousResultClass, boolean _staticAccess) {
+    public final void setPreviousResultClass(ClassArgumentMatching _previousResultClass, MethodAccessKind _staticAccess) {
         previousResultClass = _previousResultClass;
         staticAccess = _staticAccess;
     }
@@ -362,11 +363,11 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         previousArgument = _previousArgument;
     }
 
-    public final boolean isStaticAccess() {
+    public final MethodAccessKind isStaticAccess() {
         return staticAccess;
     }
 
-    public final void setStaticAccess(boolean _staticAccess) {
+    public final void setStaticAccess(MethodAccessKind _staticAccess) {
         staticAccess = _staticAccess;
     }
 

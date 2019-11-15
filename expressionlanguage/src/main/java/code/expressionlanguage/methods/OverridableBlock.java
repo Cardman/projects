@@ -10,6 +10,7 @@ import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.PartOffset;
+import code.expressionlanguage.opers.util.MethodAccessKind;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.MethodModifier;
 import code.expressionlanguage.options.KeyWords;
@@ -23,6 +24,7 @@ public final class OverridableBlock extends NamedFunctionBlock implements GeneMe
     private int modifierOffset;
 
     private final boolean staticMethod;
+    private final boolean staticCallMethod;
 
     private final boolean finalMethod;
     private final boolean abstractMethod;
@@ -41,10 +43,12 @@ public final class OverridableBlock extends NamedFunctionBlock implements GeneMe
         String modifier_ = _modifier.getInfo();
         KeyWords keyWords_ = _importingPage.getKeyWords();
         String keyWordStatic_ = keyWords_.getKeyWordStatic();
+        String keyWordStaticCall_ = keyWords_.getKeyWordStaticCall();
         String keyWordFinal_ = keyWords_.getKeyWordFinal();
         String keyWordAbstract_ = keyWords_.getKeyWordAbstract();
         String keyWordNormal_ = keyWords_.getKeyWordNormal();
         staticMethod = StringList.quickEq(modifier_, keyWordStatic_);
+        staticCallMethod = StringList.quickEq(modifier_, keyWordStaticCall_);
         finalMethod = StringList.quickEq(modifier_, keyWordFinal_);
         abstractMethod = StringList.quickEq(modifier_, keyWordAbstract_);
         normalMethod = StringList.quickEq(modifier_, keyWordNormal_);
@@ -66,6 +70,9 @@ public final class OverridableBlock extends NamedFunctionBlock implements GeneMe
         if (finalMethod) {
             return MethodModifier.FINAL;
         }
+        if (staticCallMethod) {
+            return MethodModifier.STATIC_CALL;
+        }
         if (staticMethod) {
             return MethodModifier.STATIC;
         }
@@ -83,11 +90,15 @@ public final class OverridableBlock extends NamedFunctionBlock implements GeneMe
             String n_ = types_.get(i);
             pTypes_.add(n_);
         }
-        return new MethodId(isStaticMethod(), name_, pTypes_, isVarargs());
+        return new MethodId(MethodId.getKind(getModifier()), name_, pTypes_, isVarargs());
     }
 
     public boolean isConcreteMethod() {
         return isNormalMethod() || isFinalMethod();
+    }
+
+    public boolean hiddenInstance() {
+        return staticCallMethod || staticMethod;
     }
 
     @Override
@@ -110,8 +121,14 @@ public final class OverridableBlock extends NamedFunctionBlock implements GeneMe
     }
 
     @Override
-    public boolean isStaticContext() {
-        return staticMethod;
+    public MethodAccessKind getStaticContext() {
+        if (staticMethod) {
+            return MethodAccessKind.STATIC;
+        }
+        if (staticCallMethod) {
+            return MethodAccessKind.STATIC_CALL;
+        }
+        return MethodAccessKind.INSTANCE;
     }
 
     @Override
@@ -159,7 +176,7 @@ public final class OverridableBlock extends NamedFunctionBlock implements GeneMe
             }
             pTypes_.add(formatted_);
         }
-        return new MethodId(isStaticMethod(), name_, pTypes_, isVarargs());
+        return new MethodId(MethodId.getKind(getModifier()), name_, pTypes_, isVarargs());
     }
 
     public MethodKind getKind() {

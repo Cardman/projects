@@ -8,6 +8,7 @@ import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
+import code.expressionlanguage.opers.util.MethodAccessKind;
 import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
 import code.util.StringList;
@@ -51,7 +52,7 @@ public final class ThisOperation extends LeafOperation implements PossibleInterm
             RootBlock r_ = (RootBlock) g_;
             for (RootBlock r: r_.getSelfAndParentTypes().getReverse()) {
                 if (StringList.quickEq(r.getFullName(), id_)) {
-                    if (_conf.isStaticContext()) {
+                    if (_conf.getStaticContext() != MethodAccessKind.INSTANCE) {
                         MethodOperation root_ = getParent();
                         while (true) {
                             MethodOperation par_ = root_.getParent();
@@ -97,7 +98,7 @@ public final class ThisOperation extends LeafOperation implements PossibleInterm
         int off_ = StringList.getFirstPrintableCharIndex(originalStr_) + relativeOff_;
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
         String arg_ = _conf.getGlobalClass();
-        if (_conf.isStaticContext()) {
+        if (_conf.getStaticContext() != MethodAccessKind.INSTANCE) {
             StaticAccessThisError static_ = new StaticAccessThisError();
             static_.setClassName(arg_);
             static_.setFileName(_conf.getCurrentFileName());
@@ -117,7 +118,7 @@ public final class ThisOperation extends LeafOperation implements PossibleInterm
     }
 
     @Override
-    public void setPreviousResultClass(ClassArgumentMatching _previousResultClass, boolean _staticAccess) {
+    public void setPreviousResultClass(ClassArgumentMatching _previousResultClass, MethodAccessKind _staticAccess) {
         previousResultClass = _previousResultClass;
     }
 

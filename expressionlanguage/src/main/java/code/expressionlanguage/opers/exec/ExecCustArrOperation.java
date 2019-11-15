@@ -7,9 +7,7 @@ import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.ArrOperation;
-import code.expressionlanguage.opers.util.ClassArgumentMatching;
-import code.expressionlanguage.opers.util.ClassMethodId;
-import code.expressionlanguage.opers.util.MethodId;
+import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.Struct;
@@ -159,7 +157,7 @@ public final class ExecCustArrOperation extends ExecInvokingOperation implements
             classNameFound_ = methodToCall_.getClassName();
         }
         if (_right != null) {
-            methodId_ = new MethodId(false,"[]=",methodId_.getParametersTypes(),methodId_.isVararg());
+            methodId_ = new MethodId(MethodAccessKind.INSTANCE,"[]=",methodId_.getParametersTypes(),methodId_.isVararg());
         }
         return callPrepare(_conf, classNameFound_, methodId_, prev_, firstArgs_, _right);
     }

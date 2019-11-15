@@ -3,6 +3,7 @@ package code.expressionlanguage.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
+import code.expressionlanguage.opers.util.MethodAccessKind;
 import code.util.CustList;
 import code.util.StringList;
 
@@ -36,7 +37,7 @@ public abstract class AbstractFieldOperation extends LeafOperation implements Po
     }
 
     @Override
-    public void setPreviousResultClass(ClassArgumentMatching _previousResultClass, boolean _staticAccess) {
+    public void setPreviousResultClass(ClassArgumentMatching _previousResultClass, MethodAccessKind _staticAccess) {
         setPreviousResultClass(_previousResultClass);
     }
 

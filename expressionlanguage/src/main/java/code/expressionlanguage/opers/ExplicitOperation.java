@@ -7,10 +7,7 @@ import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.instr.PartOffset;
-import code.expressionlanguage.opers.util.ClassArgumentMatching;
-import code.expressionlanguage.opers.util.ClassMethodId;
-import code.expressionlanguage.opers.util.ClassMethodIdReturn;
-import code.expressionlanguage.opers.util.MethodId;
+import code.expressionlanguage.opers.util.*;
 import code.util.CustList;
 import code.util.StringList;
 
@@ -64,7 +61,7 @@ public final class ExplicitOperation extends AbstractUnaryOperation {
             String arg_ = types_.last();
             lastType_ = _conf.resolveCorrectAccessibleType(leftPar_ +types_.first().length()+2,arg_, className);
             partOffsets.addAllElts(_conf.getContextEl().getCoverage().getCurrentParts());
-            uniq_ = new ClassMethodId(className,new MethodId(true,exp_,new StringList(lastType_)));
+            uniq_ = new ClassMethodId(className,new MethodId(MethodAccessKind.STATIC,exp_,new StringList(lastType_)));
         }
         ClassArgumentMatching resultClass_ = getFirstChild().getResultClass();
         ClassArgumentMatching[] argsClass_ = ClassArgumentMatching.toArgArray(new CustList<ClassArgumentMatching>(resultClass_));

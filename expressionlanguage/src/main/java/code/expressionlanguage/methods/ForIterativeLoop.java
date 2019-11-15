@@ -195,7 +195,7 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
         ClassArgumentMatching elementClass_ = new ClassArgumentMatching(cl_);
         page_.setGlobalOffset(initOffset);
         page_.setOffset(0);
-        boolean static_ = f_.isStaticContext();
+        MethodAccessKind static_ = f_.getStaticContext();
         opInit = ElUtil.getAnalyzedOperations(init, _cont, Calculation.staticCalculation(static_));
         ExecOperationNode initEl_ = opInit.last();
         checkType(_cont, elementClass_, initEl_, initOffset);
@@ -226,7 +226,7 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
         ClassArgumentMatching elementClass_ = new ClassArgumentMatching(cl_);
         page_.setGlobalOffset(initOffset);
         page_.setOffset(0);
-        boolean static_ = f_.isStaticContext();
+        MethodAccessKind static_ = f_.getStaticContext();
         opInit = ElUtil.getAnalyzedOperationsReadOnly(init, _cont, Calculation.staticCalculation(static_));
         ExecOperationNode initEl_ = opInit.last();
         checkType(_cont, elementClass_, initEl_, initOffset);

@@ -13,6 +13,7 @@ import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.methods.ImportForEachTable;
 import code.expressionlanguage.opers.Calculation;
+import code.expressionlanguage.opers.util.MethodAccessKind;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.ErrorStruct;
@@ -209,7 +210,7 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
         page_.setGlobalOffset(expressionOffset);
         page_.setOffset(0);
         _cont.getAnalyzingDoc().setAttribute(ATTRIBUTE_MAP);
-        boolean static_ = _doc.isStaticContext();
+        MethodAccessKind static_ = _doc.getStaticContext();
         opList = RenderExpUtil.getAnalyzedOperations(expression, 0, _cont, Calculation.staticCalculation(static_));
     }
 

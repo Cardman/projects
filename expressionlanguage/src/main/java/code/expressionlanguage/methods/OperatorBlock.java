@@ -9,6 +9,7 @@ import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.methods.util.TypeVar;
+import code.expressionlanguage.opers.util.MethodAccessKind;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.MethodModifier;
 import code.util.CustList;
@@ -52,7 +53,12 @@ public final class OperatorBlock extends NamedFunctionBlock implements GeneMetho
             String n_ = types_.get(i);
             pTypes_.add(n_);
         }
-        return new MethodId(isStaticMethod(), name_, pTypes_, isVarargs());
+        return new MethodId(MethodAccessKind.STATIC, name_, pTypes_, isVarargs());
+    }
+
+    @Override
+    public boolean hiddenInstance() {
+        return true;
     }
 
     @Override
@@ -71,8 +77,8 @@ public final class OperatorBlock extends NamedFunctionBlock implements GeneMetho
     }
 
     @Override
-    public boolean isStaticContext() {
-        return true;
+    public MethodAccessKind getStaticContext() {
+        return MethodAccessKind.STATIC;
     }
 
     @Override

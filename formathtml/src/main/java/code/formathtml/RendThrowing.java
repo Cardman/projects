@@ -28,7 +28,7 @@ public final class RendThrowing extends RendLeaf implements RendBuildableElMetho
         page_.setOffset(0);
         page_.setGlobalOffset(expressionOffset);
         _cont.getAnalyzingDoc().setAttribute(ATTRIBUTE_VALUE);
-        opThrow = RenderExpUtil.getAnalyzedOperations(expression,0, _cont, Calculation.staticCalculation(_doc.isStaticContext()));
+        opThrow = RenderExpUtil.getAnalyzedOperations(expression,0, _cont, Calculation.staticCalculation(_doc.getStaticContext()));
 
     }
     @Override

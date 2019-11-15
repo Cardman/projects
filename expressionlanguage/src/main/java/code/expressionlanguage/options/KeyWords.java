@@ -19,6 +19,7 @@ public final class KeyWords {
     private String keyWordClass = "$class";
     private String keyWordEnum = "$enum";
     private String keyWordStatic = "$static";
+    private String keyWordStaticCall = "$staticCall";
     private String keyWordAbstract = "$abstract";
     private String keyWordFinal = "$final";
     private String keyWordNormal = "$normal";
@@ -407,6 +408,7 @@ public final class KeyWords {
         keyWords_.add(keyWordClass);
         keyWords_.add(keyWordEnum);
         keyWords_.add(keyWordStatic);
+        keyWords_.add(keyWordStaticCall);
         keyWords_.add(keyWordAbstract);
         keyWords_.add(keyWordFinal);
         keyWords_.add(keyWordNormal);
@@ -627,6 +629,15 @@ public final class KeyWords {
     public void setKeyWordStatic(String _keyWordStatic) {
         keyWordStatic = _keyWordStatic;
     }
+
+    public String getKeyWordStaticCall() {
+        return keyWordStaticCall;
+    }
+
+    public void setKeyWordStaticCall(String _keyWordStaticCall) {
+        keyWordStaticCall = _keyWordStaticCall;
+    }
+
     public String getKeyWordAbstract() {
         return keyWordAbstract;
     }

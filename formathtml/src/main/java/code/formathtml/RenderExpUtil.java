@@ -14,6 +14,8 @@ import code.expressionlanguage.opers.*;
 import code.expressionlanguage.opers.exec.ReductibleOperable;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.FieldInfo;
+import code.expressionlanguage.opers.util.MethodAccessKind;
+import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.Struct;
@@ -103,7 +105,7 @@ public final class RenderExpUtil {
         _conf.setupAnalyzing();
         Argument argGl_ = _conf.getOperationPageEl().getGlobalArgument();
         boolean static_ = argGl_ == null || argGl_.isNull();
-        _conf.setStaticContext(static_);
+        _conf.setAccessStaticContext(MethodId.getKind(static_));
         Delimiters d_ = ElResolver.checkSyntax(_el, _conf, _index);
         if (d_.getBadOffset() >= 0) {
             _conf.getLastPage().setOffset(d_.getBadOffset());
@@ -248,7 +250,7 @@ public final class RenderExpUtil {
                         _context.getClasses().addError(badNb_);
                     } else {
                         PossibleIntermediateDotted possible_ = (PossibleIntermediateDotted) next_;
-                        boolean static_ = current_ instanceof StaticAccessOperation;
+                        MethodAccessKind static_ = MethodId.getKind(current_ instanceof StaticAccessOperation);
                         possible_.setIntermediateDotted();
                         possible_.setPreviousArgument(current_.getArgument());
                         possible_.setPreviousResultClass(current_.getResultClass(), static_);

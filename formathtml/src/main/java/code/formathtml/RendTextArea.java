@@ -6,6 +6,7 @@ import code.expressionlanguage.inherits.Mapping;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.util.ClassField;
+import code.expressionlanguage.opers.util.MethodAccessKind;
 import code.expressionlanguage.variables.LocalVariable;
 import code.formathtml.exec.RendDynOperationNode;
 import code.formathtml.stacks.RendReadWrite;
@@ -46,7 +47,7 @@ public final class RendTextArea extends RendParentBlock implements RendWithEl, R
         opsWrite = r_.getOpsWrite();
         varName = r_.getVarName();
         idField = r_.getIdField();
-        boolean st_ = _doc.isStaticContext();
+        MethodAccessKind st_ = _doc.getStaticContext();
         String converterValue_ = elt.getAttribute(StringList.concat(_cont.getPrefix(),ATTRIBUTE_CONVERT_VALUE));
         if (!opsRead.isEmpty()){
             Mapping m_ = new Mapping();

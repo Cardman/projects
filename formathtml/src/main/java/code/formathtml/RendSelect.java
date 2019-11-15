@@ -8,6 +8,7 @@ import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.util.ClassField;
+import code.expressionlanguage.opers.util.MethodAccessKind;
 import code.expressionlanguage.stds.IterableAnalysisResult;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.NullStruct;
@@ -66,7 +67,7 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
             rId_.buildId(groupId_,_cont,_doc);
             attributesText.put(prefGr_,rId_);
         }
-        boolean st_ = _doc.isStaticContext();
+        MethodAccessKind st_ = _doc.getStaticContext();
         multiple = elt.hasAttribute(ATTRIBUTE_MULTIPLE);
         String map_ = elt.getAttribute(ATTRIBUTE_MAP);
         opsMap = RenderExpUtil.getAnalyzedOperations(map_, 0, _cont, Calculation.staticCalculation(st_));

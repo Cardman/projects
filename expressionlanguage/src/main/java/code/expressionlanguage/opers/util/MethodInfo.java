@@ -12,7 +12,7 @@ public final class MethodInfo implements Parametrable {
 
     private String returnType;
 
-    private boolean staticMethod;
+    private MethodAccessKind staticMethod;
 
     private boolean finalMethod;
 
@@ -60,11 +60,15 @@ public final class MethodInfo implements Parametrable {
 
     @Override
     public boolean isStatic() {
-        return staticMethod;
+        return staticMethod == MethodAccessKind.STATIC;
+    }
+
+    public void setStaticMethod(MethodAccessKind _staticMethod) {
+        staticMethod = _staticMethod;
     }
 
     public void setStatic(boolean _staticMethod) {
-        staticMethod = _staticMethod;
+        staticMethod = MethodId.getKind(_staticMethod);
     }
 
     @Override

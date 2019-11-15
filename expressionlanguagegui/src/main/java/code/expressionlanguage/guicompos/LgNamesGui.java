@@ -2939,7 +2939,7 @@ public class LgNamesGui extends LgNamesUtils {
                 return res_;
             }
             if (StringList.quickEq(name_, aliasComponentRepaint)) {
-                ClassMethodId polymorph_ = new ClassMethodId(aliasPaint,new MethodId(true,aliasPaintMethod,new StringList(aliasComponent)));
+                ClassMethodId polymorph_ = new ClassMethodId(aliasPaint,new MethodId(MethodAccessKind.STATIC,aliasPaintMethod,new StringList(aliasComponent)));
                 String className_ = polymorph_.getClassName();
                 MethodId ct_ = polymorph_.getConstraints();
                 Argument arg_ = new Argument(inst_);
@@ -3779,7 +3779,7 @@ public class LgNamesGui extends LgNamesUtils {
                 inst_.setSelectedIndexes(_args[0]);
                 if (_args[0] instanceof ArrayStruct) {
                     StringList params_ = new StringList(aliasGrList);
-                    ClassMethodId polymorph_ = new ClassMethodId(aliasPaint,new MethodId(true,aliasPaintRefresh, params_));
+                    ClassMethodId polymorph_ = new ClassMethodId(aliasPaint,new MethodId(MethodAccessKind.STATIC,aliasPaintRefresh, params_));
                     String className_ = polymorph_.getClassName();
                     MethodId ct_ = polymorph_.getConstraints();
                     Argument arg_ = new Argument(inst_);
@@ -3792,7 +3792,7 @@ public class LgNamesGui extends LgNamesUtils {
             if (StringList.quickEq(name_, aliasGrListClearSelection)) {
                 inst_.clearSelection();
                 StringList params_ = new StringList(aliasGrList);
-                ClassMethodId polymorph_ = new ClassMethodId(aliasPaint,new MethodId(true,aliasPaintRefresh, params_));
+                ClassMethodId polymorph_ = new ClassMethodId(aliasPaint,new MethodId(MethodAccessKind.STATIC,aliasPaintRefresh, params_));
                 String className_ = polymorph_.getClassName();
                 MethodId ct_ = polymorph_.getConstraints();
                 Argument arg_ = new Argument(inst_);
@@ -3817,7 +3817,7 @@ public class LgNamesGui extends LgNamesUtils {
                 return res_;
             }
             StringList params_ = new StringList(aliasGrList,getAliasPrimInteger(),getAliasObject());
-            ClassMethodId polymorph_ = new ClassMethodId(aliasPaint,new MethodId(true,aliasPaintAdd, params_));
+            ClassMethodId polymorph_ = new ClassMethodId(aliasPaint,new MethodId(MethodAccessKind.STATIC,aliasPaintAdd, params_));
             String className_ = polymorph_.getClassName();
             MethodId ct_ = polymorph_.getConstraints();
             Argument arg_ = new Argument(inst_);

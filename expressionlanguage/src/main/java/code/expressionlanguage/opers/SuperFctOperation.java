@@ -8,10 +8,7 @@ import code.expressionlanguage.inherits.Mapping;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.instr.PartOffset;
-import code.expressionlanguage.opers.util.ClassArgumentMatching;
-import code.expressionlanguage.opers.util.ClassMethodId;
-import code.expressionlanguage.opers.util.ClassMethodIdReturn;
-import code.expressionlanguage.opers.util.MethodId;
+import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
 import code.util.*;
@@ -53,7 +50,7 @@ public final class SuperFctOperation extends InvokingOperation {
         if (!isIntermediateDottedOperation()) {
             clCur_ = new ClassArgumentMatching(_conf.getGlobalClass());
             import_ = true;
-            setStaticAccess(_conf.isStaticContext());
+            setStaticAccess(_conf.getStaticContext());
         } else {
             clCur_ = getPreviousResultClass();
         }
@@ -96,7 +93,7 @@ public final class SuperFctOperation extends InvokingOperation {
             MethodId mid_ = idMethod_.getConstraints();
             boolean vararg_ = mid_.isVararg();
             StringList params_ = mid_.getParametersTypes();
-            boolean static_ = isStaticAccess() || mid_.isStaticMethod();
+            MethodAccessKind static_ = MethodId.getKind(isStaticAccess(), mid_.getKind());
             feed_ = new ClassMethodId(idClass_, new MethodId(static_, trimMeth_, params_, vararg_));
         }
         ClassMethodIdReturn clMeth_ = getDeclaredCustMethod(_conf, varargOnly_, isStaticAccess(), bounds_, trimMeth_, true, false, import_, feed_, ClassArgumentMatching.toArgArray(firstArgs_));
@@ -117,8 +114,10 @@ public final class SuperFctOperation extends InvokingOperation {
             return;
         }
         String foundClass_ = clMeth_.getRealClass();
-        foundClass_ = Templates.getIdFromAllTypes(foundClass_);
         MethodId id_ = clMeth_.getRealId();
+        if (id_.getKind() != MethodAccessKind.STATIC_CALL) {
+            foundClass_ = Templates.getIdFromAllTypes(foundClass_);
+        }
         classMethodId = new ClassMethodId(foundClass_, id_);
         MethodId realId_ = clMeth_.getRealId();
         if (clMeth_.isVarArgToCall()) {
@@ -126,7 +125,7 @@ public final class SuperFctOperation extends InvokingOperation {
             naturalVararg = paramtTypes_.size() - 1;
             lastType = paramtTypes_.last();
         }
-        staticMethod = clMeth_.isStaticMethod();
+        staticMethod = id_.getKind() != MethodAccessKind.INSTANCE;
         unwrapArgsFct(chidren_, realId_, naturalVararg, lastType, firstArgs_, _conf);
         setResultClass(new ClassArgumentMatching(clMeth_.getReturnType()));
         if (isIntermediateDottedOperation() && !staticMethod) {

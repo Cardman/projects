@@ -12,6 +12,7 @@ import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.exec.ExecOperationNode;
 import code.expressionlanguage.opers.util.AssignedVariables;
+import code.expressionlanguage.opers.util.MethodAccessKind;
 import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
 import code.util.IdMap;
@@ -110,7 +111,7 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
                 int begin_ = l.get(i);
                 page_.setGlobalOffset(begin_);
                 page_.setOffset(0);
-                Calculation c_ = Calculation.staticCalculation(true);
+                Calculation c_ = Calculation.staticCalculation(MethodAccessKind.STATIC);
                 annotation_.add(ElUtil.getAnalyzedOperationsReadOnly(list_.get(i), _context, c_));
             }
             annotationsOpsParams.add(annotation_);

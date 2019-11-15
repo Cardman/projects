@@ -160,7 +160,11 @@ public abstract class RendDynOperationNode {
             return new RendFirstOptOperation(f_);
         }
         if (_anaNode instanceof StaticAccessOperation) {
-            StaticAccessOperation f_ = (StaticAccessOperation) _anaNode;
+            LeafOperation f_ = (LeafOperation) _anaNode;
+            return new RendStaticAccessOperation(f_);
+        }
+        if (_anaNode instanceof StaticCallAccessOperation) {
+            LeafOperation f_ = (LeafOperation) _anaNode;
             return new RendStaticAccessOperation(f_);
         }
         if (_anaNode instanceof VarargOperation) {

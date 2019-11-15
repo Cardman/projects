@@ -9,10 +9,7 @@ import code.expressionlanguage.errors.custom.BadReturnTypeInherit;
 import code.expressionlanguage.errors.custom.FinalMethod;
 import code.expressionlanguage.methods.*;
 import code.expressionlanguage.methods.util.TypeVar;
-import code.expressionlanguage.opers.util.ClassField;
-import code.expressionlanguage.opers.util.ClassMethodId;
-import code.expressionlanguage.opers.util.MethodId;
-import code.expressionlanguage.opers.util.OverridingRelation;
+import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.stds.StandardClass;
 import code.expressionlanguage.stds.StandardInterface;
 import code.expressionlanguage.stds.StandardType;
@@ -155,7 +152,7 @@ public final class TypeUtil {
                     }
                     if (b instanceof AloneBlock) {
                         AloneBlock a_ = (AloneBlock) b;
-                        if (a_.isStaticContext()) {
+                        if (a_.getStaticContext() == MethodAccessKind.STATIC) {
                             filteredStatic_.add(i);
                         }
                     }
@@ -652,7 +649,7 @@ public final class TypeUtil {
             String base_ = Templates.getIdFromAllTypes(s);
             GeneType b_ = _classes.getClassBody(base_);
             for (GeneMethod b: ContextEl.getMethodBlocks(b_)) {
-                if (b.isStaticMethod()) {
+                if (b.hiddenInstance()) {
                     continue;
                 }
                 MethodId id_ = b.getId().quickFormat(s, _classes);
@@ -670,7 +667,7 @@ public final class TypeUtil {
         ObjectMap<MethodId, EqList<ClassMethodId>> map_;
         map_ = new ObjectMap<MethodId, EqList<ClassMethodId>>();
         for (GeneMethod b: ContextEl.getMethodBlocks(_type)) {
-            if (b.isStaticMethod()) {
+            if (b.hiddenInstance()) {
                 continue;
             }
             MethodId m_ = b.getId();
@@ -680,7 +677,7 @@ public final class TypeUtil {
             String base_ = Templates.getIdFromAllTypes(s);
             GeneType b_ = _classes.getClassBody(base_);
             for (GeneMethod b: ContextEl.getMethodBlocks(b_)) {
-                if (b.isStaticMethod()) {
+                if (b.hiddenInstance()) {
                     continue;
                 }
                 MethodId m_ = b.getId();

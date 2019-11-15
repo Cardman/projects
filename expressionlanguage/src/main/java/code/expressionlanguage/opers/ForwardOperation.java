@@ -10,6 +10,7 @@ import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
+import code.expressionlanguage.opers.util.MethodAccessKind;
 import code.expressionlanguage.options.KeyWords;
 import code.util.CustList;
 import code.util.StringList;
@@ -40,7 +41,7 @@ public final class ForwardOperation extends LeafOperation implements PossibleInt
             setResultClass(new ClassArgumentMatching(previousResultClass.getNames()));
         } else {
             String arg_ = _conf.getGlobalClass();
-            if (_conf.isStaticContext()) {
+            if (_conf.getStaticContext() != MethodAccessKind.INSTANCE) {
                 StaticAccessThisError static_ = new StaticAccessThisError();
                 static_.setClassName(arg_);
                 static_.setFileName(_conf.getCurrentFileName());
@@ -124,7 +125,7 @@ public final class ForwardOperation extends LeafOperation implements PossibleInt
     }
 
     @Override
-    public void setPreviousResultClass(ClassArgumentMatching _previousResultClass, boolean _static) {
+    public void setPreviousResultClass(ClassArgumentMatching _previousResultClass, MethodAccessKind _static) {
         previousResultClass = _previousResultClass;
     }
 

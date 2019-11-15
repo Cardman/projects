@@ -8,6 +8,8 @@ import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.ForLoopPart;
 import code.expressionlanguage.methods.MemberCallingsBlock;
 import code.expressionlanguage.opers.util.Assignment;
+import code.expressionlanguage.opers.util.MethodAccessKind;
+import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.SimpleAssignment;
 import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.LoopVariable;
@@ -45,7 +47,7 @@ public final class AnalyzedPageEl {
 
     private int offset;
 
-    private boolean staticContext;
+    private MethodAccessKind staticContext;
 
     private int globalOffset;
 
@@ -316,11 +318,15 @@ public final class AnalyzedPageEl {
         offset = _offset;
     }
 
-    public boolean isStaticContext() {
+    public MethodAccessKind getStaticContext() {
         return staticContext;
     }
 
-    public void setStaticContext(boolean _staticContext) {
+    public boolean isStaticContext() {
+        return staticContext == MethodAccessKind.STATIC;
+    }
+
+    public void setAccessStaticContext(MethodAccessKind _staticContext) {
         staticContext = _staticContext;
     }
 

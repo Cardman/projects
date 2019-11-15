@@ -18,6 +18,7 @@ public final class Delimiters {
     private Ints delKeyWordSuperAccess = new Ints();
     private Ints delKeyWordClassChoice = new Ints();
     private Ints delKeyWordStatic = new Ints();
+    private Ints delKeyWordStaticCall = new Ints();
     private StringList delKeyWordStaticExtract = new StringList();
     private CustList<CustList<PartOffset>> staticParts = new CustList<CustList<PartOffset>>();
     private Ints delExplicit = new Ints();
@@ -74,6 +75,10 @@ public final class Delimiters {
 
     public Ints getDelKeyWordStatic() {
         return delKeyWordStatic;
+    }
+
+    public Ints getDelKeyWordStaticCall() {
+        return delKeyWordStaticCall;
     }
 
     public StringList getDelKeyWordStaticExtract() {

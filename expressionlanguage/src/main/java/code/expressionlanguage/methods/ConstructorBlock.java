@@ -94,10 +94,9 @@ public final class ConstructorBlock extends NamedFunctionBlock implements GeneCo
     }
 
     @Override
-    public boolean isStaticContext() {
-        return false;
+    public MethodAccessKind getStaticContext() {
+        return MethodAccessKind.INSTANCE;
     }
-
     @Override
     public void buildImportedReturnTypes(Analyzable _stds) {
         String void_ = _stds.getStandards().getAliasVoid();

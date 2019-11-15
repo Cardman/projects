@@ -523,6 +523,53 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
 
     }
     @Test
+    public void initializeClass17Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExOther {}\n");
+        xml_.append("$public $enum pkg.Ex<T> {\n");
+        xml_.append(" ONE<String>{\n");
+        xml_.append(" (){$super(4):second=\"\":}\n");
+        xml_.append(" $public $int custMethod(){\n");
+        xml_.append("  $int v = 8, w = 6:\n");
+        xml_.append("  $return first+v;.+w;.:\n");
+        xml_.append(" }\n");
+        xml_.append(" },TWO<ExOther>{\n");
+        xml_.append(" (){$super(5):second=$new ExOther():}\n");
+        xml_.append(" $public $int custMethod(){\n");
+        xml_.append("  $int v = 10, w = 7:\n");
+        xml_.append("  $return first+v;.+w;.:\n");
+        xml_.append(" }}:\n");
+        xml_.append(" $public $static $int outOne = Ex.values()[0].custMethod():\n");
+        xml_.append(" $public $static $int outTwo = Ex.values()[1].custMethod():\n");
+        xml_.append(" $public $int first:\n");
+        xml_.append(" $public T second:\n");
+        xml_.append(" $public Ex($int p){\n");
+        xml_.append("  first = p;.;:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $int custMethod(){\n");
+        xml_.append("  $return first:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "outOne"));
+        assertEq(INTEGER, str_.getClassName(cont_));
+        assertEq(18, ((NumberStruct)str_).intStruct());
+        str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "outTwo"));
+        assertEq(INTEGER, str_.getClassName(cont_));
+        assertEq(22, ((NumberStruct)str_).intStruct());
+        str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "ONE"));
+        assertEq("pkg.Ex-ONE", str_.getClassName(cont_));
+        assertEq(STRING, ((FieldableStruct)str_).getStruct(new ClassField("pkg.Ex", "second")).getClassName(cont_));
+        str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "TWO"));
+        assertEq("pkg.Ex-TWO", str_.getClassName(cont_));
+        assertEq("pkg.ExOther", ((FieldableStruct)str_).getStruct(new ClassField("pkg.Ex", "second")).getClassName(cont_));
+    }
+    @Test
     public void initializeClass1FailTest() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $enum pkg.Ex {\n");
@@ -646,6 +693,40 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append(" $public Ex($int p){\n");
         xml_.append("  first = p;.;:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().displayErrors(),!cont_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void initializeClass5FailTest() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExOther {}\n");
+        xml_.append("$public $enum pkg.Ex<T> {\n");
+        xml_.append(" ONE<String>{\n");
+        xml_.append(" (){$super(4):}\n");
+        xml_.append(" $public $int custMethod(){\n");
+        xml_.append("  T x:\n");
+        xml_.append("  $int v = 8, w = 6:\n");
+        xml_.append("  $return first+v;.+w;.:\n");
+        xml_.append(" }\n");
+        xml_.append(" },TWO<ExOther>{\n");
+        xml_.append(" (){$super(5):}\n");
+        xml_.append(" $public $int custMethod(){\n");
+        xml_.append("  $int v = 10, w = 7:\n");
+        xml_.append("  $return first+v;.+w;.:\n");
+        xml_.append(" }}:\n");
+        xml_.append(" $public $static $int outOne = Ex.values()[0].custMethod():\n");
+        xml_.append(" $public $static $int outTwo = Ex.values()[1].custMethod():\n");
+        xml_.append(" $public $int first:\n");
+        xml_.append(" $public Ex($int p){\n");
+        xml_.append("  first = p;.;:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $int custMethod(){\n");
+        xml_.append("  $return first:\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();

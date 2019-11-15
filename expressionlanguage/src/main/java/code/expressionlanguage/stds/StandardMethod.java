@@ -26,7 +26,12 @@ public final class StandardMethod extends StandardNamedFunction implements GeneM
             String n_ = types_.get(i);
             pTypes_.add(n_);
         }
-        return new MethodId(isStaticMethod(), name_, pTypes_, isVarargs());
+        return new MethodId(MethodId.getKind(modifier), name_, pTypes_, isVarargs());
+    }
+
+    @Override
+    public boolean hiddenInstance() {
+        return isStaticMethod();
     }
 
     @Override

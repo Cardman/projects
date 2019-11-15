@@ -69,8 +69,10 @@ public final class ExecSuperFctOperation extends ExecInvokingOperation implement
             firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, _arguments, _conf);
             methodId_ = classMethodId.getConstraints();
         } else {
-            firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, _arguments, _conf);
             classNameFound_ = classMethodId.getClassName();
+            classNameFound_ = classMethodId.formatType(classNameFound_,_conf);
+            lastType_ = classMethodId.formatType(classNameFound_,lastType_,_conf);
+            firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, _arguments, _conf);
             if (hasToExit(_conf, classNameFound_)) {
                 return Argument.createVoid();
             }

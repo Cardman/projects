@@ -31,6 +31,7 @@ public final class AliasReflection {
     private String aliasGetEnclosingType;
     private String aliasGetDeclaredClasses;
     private String aliasGetDeclaredMethods;
+    private String aliasGetDeclaredStaticMethods;
     private String aliasGetDeclaredConstructors;
     private String aliasGetDeclaredFields;
     private String aliasGetSuperClass;
@@ -227,6 +228,9 @@ public final class AliasReflection {
         method_ = new StandardMethod(aliasGetDeclaredFields, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasField), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasString_,aliasBoolean_,aliasBoolean_, aliasClassType);
+        method_ = new StandardMethod(aliasGetDeclaredStaticMethods, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasMethod), true, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasString_,aliasBoolean_,aliasBoolean_, aliasClassType);
         method_ = new StandardMethod(aliasGetDeclaredMethods, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasMethod), true, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
@@ -234,6 +238,9 @@ public final class AliasReflection {
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasGetDeclaredFields, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasField), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasGetDeclaredStaticMethods, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasMethod), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasGetDeclaredMethods, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasMethod), false, MethodModifier.FINAL, stdcl_);
@@ -999,7 +1006,7 @@ public final class AliasReflection {
                 if (args_.length == 0) {
                     if (cl_.isTypeArray()) {
                         String instClassName_ = cl_.getName();
-                        MethodId id_ = new MethodId(false, lgNames_.getAliasClone(), new StringList());
+                        MethodId id_ = new MethodId(MethodAccessKind.INSTANCE, lgNames_.getAliasClone(), new StringList());
                         AccessEnum acc_ = AccessEnum.PUBLIC;
                         String idCl_ = Templates.getIdFromAllTypes(instClassName_);
                         String ret_ = getReturnTypeClone(_cont, instClassName_, idCl_);
@@ -1020,7 +1027,7 @@ public final class AliasReflection {
                     return result_;
                 }
                 if (cl_.isTypeArray()) {
-                    MethodId id_ = new MethodId(false, lgNames_.getAliasClone(), new StringList());
+                    MethodId id_ = new MethodId(MethodAccessKind.INSTANCE, lgNames_.getAliasClone(), new StringList());
                     if (!eq(id_,args_[0],args_[1],args_[2],args_[3])) {
                         Struct[] methodsArr_ = new Struct[0];
                         ArrayStruct str_ = new ArrayStruct(methodsArr_, className_);
@@ -1051,6 +1058,63 @@ public final class AliasReflection {
                     for (EntryCust<MethodId, MethodMetaInfo> e : methods_.entryList()) {
                         MethodId id_ = e.getKey();
                         if (eq(id_,args_[0],args_[1],args_[2],args_[3])) {
+                            candidates_.add(e.getValue());
+                        }
+                    }
+                }
+                Struct[] methodsArr_ = new Struct[candidates_.size()];
+                int index_ = 0;
+                for (MethodMetaInfo c: candidates_) {
+                    methodsArr_[index_] = c;
+                    index_++;
+                }
+                ArrayStruct str_ = new ArrayStruct(methodsArr_, className_);
+                result_.setResult(str_);
+                return result_;
+            }
+            if (StringList.quickEq(name_, ref_.aliasGetDeclaredStaticMethods)) {
+                ClassMetaInfo cl_ = (ClassMetaInfo) _struct;
+                ObjectMap<MethodId, MethodMetaInfo> methods_;
+                methods_ = cl_.getMethodsInfos();
+                String className_= PrimitiveTypeUtil.getPrettyArrayType(aliasMethod_);
+                if (cl_.isTypeArray()) {
+                    Struct[] methodsArr_ = new Struct[0];
+                    ArrayStruct str_ = new ArrayStruct(methodsArr_, className_);
+                    result_.setResult(str_);
+                    return result_;
+                }
+                if (args_.length == 0) {
+                    CustList<MethodMetaInfo> stMethods_ = new CustList<MethodMetaInfo>();
+                    for (EntryCust<MethodId, MethodMetaInfo> e: methods_.entryList()) {
+                        if (e.getValue().getRealId().getKind() == MethodAccessKind.INSTANCE) {
+                            continue;
+                        }
+                        stMethods_.add(e.getValue());
+                    }
+                    Struct[] methodsArr_ = new Struct[stMethods_.size()];
+                    int index_ = 0;
+                    for (MethodMetaInfo e: stMethods_) {
+                        methodsArr_[index_] = e;
+                        index_++;
+                    }
+                    ArrayStruct str_ = new ArrayStruct(methodsArr_, className_);
+                    result_.setResult(str_);
+                    return result_;
+                }
+                CustList<MethodMetaInfo> candidates_;
+                candidates_ = new CustList<MethodMetaInfo>();
+                String instClassName_ = cl_.getName();
+                if (Templates.correctNbParameters(instClassName_,_cont)) {
+                    for (EntryCust<MethodId, MethodMetaInfo> e: methods_.entryList()) {
+                        MethodId id_ = e.getKey();
+                        if (eqType(id_.reflectFormat(instClassName_, _cont),args_[0],args_[1],args_[2],args_[3])) {
+                            candidates_.add(e.getValue());
+                        }
+                    }
+                } else {
+                    for (EntryCust<MethodId, MethodMetaInfo> e : methods_.entryList()) {
+                        MethodId id_ = e.getKey();
+                        if (eqType(id_,args_[0],args_[1],args_[2],args_[3])) {
                             candidates_.add(e.getValue());
                         }
                     }
@@ -1580,6 +1644,19 @@ public final class AliasReflection {
     }
 
     private static boolean eq(Identifiable _id, Struct _name, Struct _static, Struct _vararg, Struct _params) {
+        boolean stMeth_ = _id.isStaticMethod();
+        return eqStatic(_id, _name, _static, _vararg, _params, stMeth_);
+    }
+
+    private static boolean eqType(MethodId _id, Struct _name, Struct _static, Struct _vararg, Struct _params) {
+        if (_id.getKind() == MethodAccessKind.INSTANCE) {
+            return false;
+        }
+        boolean stMeth_ = !_id.canAccessParamTypes();
+        return eqStatic(_id, _name, _static, _vararg, _params, stMeth_);
+    }
+
+    private static boolean eqStatic(Identifiable _id, Struct _name, Struct _static, Struct _vararg, Struct _params, boolean _stMeth) {
         if (_name instanceof StringStruct) {
             StringStruct name_ = (StringStruct) _name;
             if (!StringList.quickEq(name_.getInstance(), _id.getName())) {
@@ -1588,7 +1665,7 @@ public final class AliasReflection {
         }
         if (_static instanceof BooleanStruct) {
             BooleanStruct static_ = (BooleanStruct) _static;
-            if (static_.getInstance() != _id.isStaticMethod()) {
+            if (static_.getInstance() != _stMeth) {
                 return false;
             }
         }
@@ -1691,6 +1768,15 @@ public final class AliasReflection {
     public void setAliasGetDeclaredMethods(String _aliasGetDeclaredMethods) {
         aliasGetDeclaredMethods = _aliasGetDeclaredMethods;
     }
+
+    public String getAliasGetDeclaredStaticMethods() {
+        return aliasGetDeclaredStaticMethods;
+    }
+
+    public void setAliasGetDeclaredStaticMethods(String _aliasGetDeclaredStaticMethods) {
+        aliasGetDeclaredStaticMethods = _aliasGetDeclaredStaticMethods;
+    }
+
     public String getAliasGetDeclaredConstructors() {
         return aliasGetDeclaredConstructors;
     }

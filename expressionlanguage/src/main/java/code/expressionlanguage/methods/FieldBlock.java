@@ -23,10 +23,7 @@ import code.expressionlanguage.opers.exec.ExecDeclaringOperation;
 import code.expressionlanguage.opers.exec.ExecMethodOperation;
 import code.expressionlanguage.opers.exec.ExecOperationNode;
 import code.expressionlanguage.opers.exec.ExecSettableFieldOperation;
-import code.expressionlanguage.opers.util.AssignedVariables;
-import code.expressionlanguage.opers.util.AssignmentsUtil;
-import code.expressionlanguage.opers.util.ClassField;
-import code.expressionlanguage.opers.util.SimpleAssignment;
+import code.expressionlanguage.opers.util.*;
 import code.util.*;
 
 public final class FieldBlock extends Leaf implements InfoBlock {
@@ -154,7 +151,7 @@ public final class FieldBlock extends Leaf implements InfoBlock {
         Block prev_ = getPreviousSibling();
         while (prev_ != null) {
             if (prev_ instanceof InitBlock) {
-                if (((InitBlock)prev_).isStaticContext() == isStaticField()) {
+                if ((((InitBlock)prev_).getStaticContext() == MethodAccessKind.STATIC) == isStaticField()) {
                     break;
                 }
             }
@@ -297,7 +294,7 @@ public final class FieldBlock extends Leaf implements InfoBlock {
             int begin_ = annotationsIndexes.get(i);
             page_.setGlobalOffset(begin_);
             page_.setOffset(0);
-            Calculation c_ = Calculation.staticCalculation(true);
+            Calculation c_ = Calculation.staticCalculation(MethodAccessKind.STATIC);
             annotationsOps.add(ElUtil.getAnalyzedOperationsReadOnly(annotations.get(i), _context, c_));
         }
     }

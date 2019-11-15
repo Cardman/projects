@@ -20,10 +20,7 @@ import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.exec.ExecOperationNode;
-import code.expressionlanguage.opers.util.ClassArgumentMatching;
-import code.expressionlanguage.opers.util.ClassField;
-import code.expressionlanguage.opers.util.MethodId;
-import code.expressionlanguage.opers.util.MethodModifier;
+import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.FieldableStruct;
 import code.expressionlanguage.structs.Struct;
@@ -57,8 +54,8 @@ public final class AnnotationMethodBlock extends NamedFunctionBlock implements
     }
 
     @Override
-    public boolean isStaticContext() {
-        return false;
+    public MethodAccessKind getStaticContext() {
+        return MethodAccessKind.INSTANCE;
     }
 
     public MethodModifier getModifier() {
@@ -67,7 +64,7 @@ public final class AnnotationMethodBlock extends NamedFunctionBlock implements
 
     @Override
     public MethodId getId() {
-        return new MethodId(false, getName(), new StringList(), false);
+        return new MethodId(MethodAccessKind.INSTANCE, getName(), new StringList(), false);
     }
 
     @Override
@@ -127,6 +124,11 @@ public final class AnnotationMethodBlock extends NamedFunctionBlock implements
     }
 
     @Override
+    public boolean hiddenInstance() {
+        return false;
+    }
+
+    @Override
     public boolean isStaticMethod() {
         return false;
     }
@@ -154,7 +156,7 @@ public final class AnnotationMethodBlock extends NamedFunctionBlock implements
         page_.setGlobalOffset(defaultValueOffset);
         page_.setOffset(0);
         _cont.getCoverage().putBlockOperationsField(_cont,this);
-        opValue = ElUtil.getAnalyzedOperationsReadOnly(defaultValue, _cont, Calculation.staticCalculation(true));
+        opValue = ElUtil.getAnalyzedOperationsReadOnly(defaultValue, _cont, Calculation.staticCalculation(MethodAccessKind.STATIC));
         String import_ = getImportedReturnType();
         StringMap<StringList> vars_ = new StringMap<StringList>();
         Mapping mapping_ = new Mapping();

@@ -63,7 +63,7 @@ public final class FctOperation extends InvokingOperation {
         } else {
             import_ = true;
             clCur_ = new ClassArgumentMatching(_conf.getGlobalClass());
-            setStaticAccess(_conf.isStaticContext());
+            setStaticAccess(_conf.getStaticContext());
         }
 
         StringList l_ = clCur_.getNames();
@@ -123,7 +123,7 @@ public final class FctOperation extends InvokingOperation {
             MethodId mid_ = idMethod_.getConstraints();
             boolean vararg_ = mid_.isVararg();
             StringList params_ = mid_.getParametersTypes();
-            boolean static_ = isStaticAccess() || mid_.isStaticMethod();
+            MethodAccessKind static_ = MethodId.getKind(isStaticAccess(), mid_.getKind());
             feed_ = new ClassMethodId(idClass_, new MethodId(static_, trimMeth_, params_, vararg_));
         }
         StringList bounds_ = new StringList();
@@ -139,16 +139,15 @@ public final class FctOperation extends InvokingOperation {
             if (!StringList.quickEq(trimMeth_, stds_.getAliasClone())) {
                 StringList classesNames_ = new StringList();
                 UndefinedMethodError undefined_ = new UndefinedMethodError();
-                MethodModifier mod_ = MethodModifier.FINAL;
                 undefined_.setClassName(bounds_);
-                undefined_.setId(new MethodId(mod_, trimMeth_, classesNames_).getSignature(_conf));
+                undefined_.setId(new MethodId(MethodAccessKind.INSTANCE, trimMeth_, classesNames_).getSignature(_conf));
                 undefined_.setFileName(_conf.getCurrentFileName());
                 undefined_.setIndexFile(_conf.getCurrentLocationIndex());
                 _conf.getClasses().addError(undefined_);
                 return;
             }
             String foundClass_ = PrimitiveTypeUtil.getPrettyArrayType(stds_.getAliasObject());
-            MethodId id_ = new MethodId(false, trimMeth_, new StringList());
+            MethodId id_ = new MethodId(MethodAccessKind.INSTANCE, trimMeth_, new StringList());
             classMethodId = new ClassMethodId(foundClass_, id_);
             setResultClass(new ClassArgumentMatching(arrayBounds_));
             Argument arg_ = getPreviousArgument();
@@ -176,8 +175,10 @@ public final class FctOperation extends InvokingOperation {
             }
         }
         String foundClass_ = clMeth_.getRealClass();
-        foundClass_ = Templates.getIdFromAllTypes(foundClass_);
         MethodId id_ = clMeth_.getRealId();
+        if (id_.getKind() != MethodAccessKind.STATIC_CALL) {
+            foundClass_ = Templates.getIdFromAllTypes(foundClass_);
+        }
         classMethodId = new ClassMethodId(foundClass_, id_);
         MethodId realId_ = clMeth_.getRealId();
         if (clMeth_.isVarArgToCall()) {
@@ -186,7 +187,7 @@ public final class FctOperation extends InvokingOperation {
             lastType = paramtTypes_.last();
         }
         staticChoiceMethod = staticChoiceMethod_;
-        staticMethod = clMeth_.isStaticMethod();
+        staticMethod = id_.getKind() != MethodAccessKind.INSTANCE;
         unwrapArgsFct(chidren_, realId_, naturalVararg, lastType, firstArgs_, _conf);
         setResultClass(new ClassArgumentMatching(clMeth_.getReturnType()));
         if (isIntermediateDottedOperation() && !staticMethod) {

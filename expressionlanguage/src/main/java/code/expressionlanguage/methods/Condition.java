@@ -47,7 +47,7 @@ public abstract class Condition extends BracedStack implements WithNotEmptyEl, B
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         page_.setGlobalOffset(conditionOffset);
         page_.setOffset(0);
-        opCondition = ElUtil.getAnalyzedOperations(condition, _cont, Calculation.staticCalculation(f_.isStaticContext()));
+        opCondition = ElUtil.getAnalyzedOperations(condition, _cont, Calculation.staticCalculation(f_.getStaticContext()));
         processBoolean(_cont);
         buildConditions(_cont);
     }
@@ -58,7 +58,7 @@ public abstract class Condition extends BracedStack implements WithNotEmptyEl, B
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         page_.setGlobalOffset(conditionOffset);
         page_.setOffset(0);
-        opCondition = ElUtil.getAnalyzedOperationsReadOnly(condition, _cont, Calculation.staticCalculation(f_.isStaticContext()));
+        opCondition = ElUtil.getAnalyzedOperationsReadOnly(condition, _cont, Calculation.staticCalculation(f_.getStaticContext()));
         processBoolean(_cont);
     }
 

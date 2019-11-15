@@ -6,7 +6,9 @@ import code.expressionlanguage.ErrorType;
 import code.expressionlanguage.InitializationLgNames;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.methods.Classes;
+import code.expressionlanguage.opers.util.MethodAccessKind;
 import code.expressionlanguage.opers.util.MethodId;
+import code.expressionlanguage.opers.util.MethodModifier;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.structs.*;
 import code.expressionlanguage.variables.VariableSuffix;
@@ -4550,7 +4552,7 @@ public final class TemplatesTest {
     public void okArgs1Test() {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        MethodId id_ = new MethodId(true,"method", new StringList("$int"),true);
+        MethodId id_ = new MethodId(MethodAccessKind.STATIC,"method", new StringList("$int"),true);
         Struct[] instance_ = new Struct[1];
         instance_[0] = NullStruct.NULL_VALUE;
         ArrayStruct arr_ = new ArrayStruct(instance_,"[$int");
@@ -4563,7 +4565,7 @@ public final class TemplatesTest {
     public void okArgs2Test() {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        MethodId id_ = new MethodId(true,"method", new StringList("java.lang.Number"),true);
+        MethodId id_ = new MethodId(MethodAccessKind.STATIC,"method", new StringList("java.lang.Number"),true);
         Struct[] instance_ = new Struct[1];
         instance_[0] = new StringStruct("");
         ArrayStruct arr_ = new ArrayStruct(instance_,"[java.lang.Number");
@@ -4576,7 +4578,7 @@ public final class TemplatesTest {
     public void okArgs3Test() {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        MethodId id_ = new MethodId(true,"method", new StringList("java.lang.Number"),true);
+        MethodId id_ = new MethodId(MethodAccessKind.STATIC,"method", new StringList("java.lang.Number"),true);
         Struct[] instance_ = new Struct[1];
         instance_[0] = new StringStruct("");
         ArrayStruct arr_ = new ArrayStruct(instance_,"[java.lang.Number");

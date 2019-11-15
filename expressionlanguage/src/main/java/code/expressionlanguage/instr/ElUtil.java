@@ -40,8 +40,8 @@ public final class ElUtil {
     }
 
     public static CustList<PartOffsetAffect> getFieldNames(int _valueOffset, String _el, ContextEl _conf, Calculation _calcul) {
-        boolean hiddenVarTypes_ = _calcul.isStaticBlock();
-        _conf.setStaticContext(hiddenVarTypes_);
+        MethodAccessKind hiddenVarTypes_ = _calcul.getStaticBlock();
+        _conf.setAccessStaticContext(hiddenVarTypes_);
         Delimiters d_ = ElResolver.checkSyntax(_el, _conf, CustList.FIRST_INDEX);
         OperationsSequence opTwo_ = ElResolver.getOperationsSequence(CustList.FIRST_INDEX, _el, _conf, d_);
         CustList<PartOffsetAffect> names_ = new CustList<PartOffsetAffect>();
@@ -89,8 +89,8 @@ public final class ElUtil {
         return fieldName_.toString();
     }
     public static CustList<ExecOperationNode> getAnalyzedOperations(String _el, ContextEl _conf, Calculation _calcul) {
-        boolean hiddenVarTypes_ = _calcul.isStaticBlock();
-        _conf.setStaticContext(hiddenVarTypes_);
+        MethodAccessKind hiddenVarTypes_ = _calcul.getStaticBlock();
+        _conf.setAccessStaticContext(hiddenVarTypes_);
         Delimiters d_ = ElResolver.checkSyntax(_el, _conf, CustList.FIRST_INDEX);
         if (d_.getBadOffset() >= 0) {
             BadElError badEl_ = new BadElError();
@@ -120,13 +120,20 @@ public final class ElUtil {
         return getExecutableNodes(_conf,all_);
     }
 
-    private static void setupStaticContext(ContextEl _conf, boolean _hiddenVarTypes, OperationNode _op) {
-        _conf.setStaticContext(_hiddenVarTypes || _op instanceof AbstractInvokingConstructor);
+    private static void setupStaticContext(ContextEl _conf, MethodAccessKind _hiddenVarTypes, OperationNode _op) {
+        MethodAccessKind ctorAcc_;
+        if (_op instanceof AbstractInvokingConstructor) {
+            ctorAcc_ = MethodAccessKind.STATIC_CALL;
+        } else {
+            ctorAcc_ = MethodAccessKind.INSTANCE;
+        }
+        MethodAccessKind access_ = MethodId.getKind(_hiddenVarTypes,ctorAcc_);
+        _conf.setAccessStaticContext(access_);
     }
 
     public static CustList<ExecOperationNode> getAnalyzedOperationsReadOnly(String _el, ContextEl _conf, Calculation _calcul) {
-        boolean hiddenVarTypes_ = _calcul.isStaticBlock();
-        _conf.setStaticContext(hiddenVarTypes_);
+        MethodAccessKind hiddenVarTypes_ = _calcul.getStaticBlock();
+        _conf.setAccessStaticContext(hiddenVarTypes_);
         Delimiters d_ = ElResolver.checkSyntax(_el, _conf, CustList.FIRST_INDEX);
         if (d_.getBadOffset() >= 0) {
             BadElError badEl_ = new BadElError();
@@ -159,7 +166,7 @@ public final class ElUtil {
     }
 
 
-    private static CustList<OperationNode> getSortedDescNodes(OperationNode _root, boolean _staticBlock,ContextEl _context) {
+    private static CustList<OperationNode> getSortedDescNodes(OperationNode _root, MethodAccessKind _staticBlock,ContextEl _context) {
         CustList<OperationNode> list_ = new CustList<OperationNode>();
         Block currentBlock_ = _context.getCurrentBlock();
         if (currentBlock_ != null) {
@@ -180,7 +187,7 @@ public final class ElUtil {
     }
 
 
-    private static CustList<OperationNode> getSortedDescNodesReadOnly(OperationNode _root, boolean _staticBlock,ContextEl _context) {
+    private static CustList<OperationNode> getSortedDescNodesReadOnly(OperationNode _root, MethodAccessKind _staticBlock,ContextEl _context) {
         CustList<OperationNode> list_ = new CustList<OperationNode>();
         OperationNode c_ = _root;
         while (true) {
@@ -199,7 +206,7 @@ public final class ElUtil {
         }
     }
 
-    private static OperationNode getAnalyzedNext(OperationNode _current, OperationNode _root, CustList<OperationNode> _sortedNodes, boolean _staticBlock,ContextEl _context) {
+    private static OperationNode getAnalyzedNext(OperationNode _current, OperationNode _root, CustList<OperationNode> _sortedNodes, MethodAccessKind _staticBlock,ContextEl _context) {
         
         OperationNode next_ = createFirstChild(_current, _context, 0);
         if (next_ != null) {
@@ -256,9 +263,15 @@ public final class ElUtil {
                 badNb_.setOperandsNumber(0);
                 badNb_.setIndexFile(_context.getCurrentLocationIndex());
                 _context.getClasses().addError(badNb_);
+            } else if (_current instanceof StaticCallAccessOperation){
+                PossibleIntermediateDotted possible_ = (PossibleIntermediateDotted) _next;
+                possible_.setIntermediateDotted();
+                possible_.setPreviousArgument(Argument.createVoid());
+                possible_.setPreviousResultClass(_current.getResultClass(), MethodAccessKind.STATIC_CALL);
+                _current.setSiblingSet(possible_);
             } else {
                 PossibleIntermediateDotted possible_ = (PossibleIntermediateDotted) _next;
-                boolean static_ = _current instanceof StaticAccessOperation;
+                MethodAccessKind static_ = MethodId.getKind(_current instanceof StaticAccessOperation);
                 possible_.setIntermediateDotted();
                 possible_.setPreviousArgument(_current.getArgument());
                 possible_.setPreviousResultClass(_current.getResultClass(), static_);
@@ -267,7 +280,7 @@ public final class ElUtil {
         }
     }
 
-    private static OperationNode getAnalyzedNextReadOnly(OperationNode _current, OperationNode _root, CustList<OperationNode> _sortedNodes, boolean _staticBlock,ContextEl _context) {
+    private static OperationNode getAnalyzedNextReadOnly(OperationNode _current, OperationNode _root, CustList<OperationNode> _sortedNodes, MethodAccessKind _staticBlock,ContextEl _context) {
 
         OperationNode next_ = createFirstChild(_current, _context, 0);
         if (next_ != null) {
@@ -946,8 +959,11 @@ public final class ElUtil {
             if (curOp_ instanceof ExecStaticInfoOperation) {
                 _parts.addAllElts(((StaticInfoOperation)val_).getPartOffsets());
             }
-            if (curOp_ instanceof ExecStaticAccessOperation) {
+            if (val_ instanceof StaticAccessOperation) {
                 _parts.addAllElts(((StaticAccessOperation)val_).getPartOffsets());
+            }
+            if (val_ instanceof StaticCallAccessOperation) {
+                _parts.addAllElts(((StaticCallAccessOperation)val_).getPartOffsets());
             }
             if (curOp_ instanceof ExecCallDynMethodOperation) {
                 tag_ = "<b>";
@@ -1037,7 +1053,7 @@ public final class ElUtil {
                         String className_ = classMethodIdArr_.getClassName();
                         className_ = Templates.getIdFromAllTypes(className_);
                         MethodId methodId_ = classMethodIdArr_.getConstraints();
-                        MethodId id_ = new MethodId(false,"[]=",methodId_.getParametersTypes(),methodId_.isVararg());
+                        MethodId id_ = new MethodId(MethodAccessKind.INSTANCE,"[]=",methodId_.getParametersTypes(),methodId_.isVararg());
                         RootBlock type_ = (RootBlock) _cont.getClassBody(className_);
                         OverridableBlock method_ = Classes.getMethodBodiesById(_cont, className_, id_).first();
                         String file_ = type_.getFile().getRenderFileName();
@@ -1057,9 +1073,9 @@ public final class ElUtil {
                 MethodId methodId_ = classMethodId_.getConstraints();
                 MethodId id_;
                 if (par_.resultCanBeSet()) {
-                    id_ = new MethodId(false,"[]=",methodId_.getParametersTypes(),methodId_.isVararg());
+                    id_ = new MethodId(MethodAccessKind.INSTANCE,"[]=",methodId_.getParametersTypes(),methodId_.isVararg());
                 } else {
-                    id_ = new MethodId(false,"[]",methodId_.getParametersTypes(),methodId_.isVararg());
+                    id_ = new MethodId(MethodAccessKind.INSTANCE,"[]",methodId_.getParametersTypes(),methodId_.isVararg());
                 }
                 RootBlock type_ = (RootBlock) _cont.getClassBody(className_);
                 OverridableBlock method_ = Classes.getMethodBodiesById(_cont, className_, id_).first();
@@ -1168,7 +1184,7 @@ public final class ElUtil {
                             String className_ = classMethodIdArr_.getClassName();
                             className_ = Templates.getIdFromAllTypes(className_);
                             MethodId methodId_ = classMethodIdArr_.getConstraints();
-                            MethodId id_ = new MethodId(false,"[]=",methodId_.getParametersTypes(),methodId_.isVararg());
+                            MethodId id_ = new MethodId(MethodAccessKind.INSTANCE,"[]=",methodId_.getParametersTypes(),methodId_.isVararg());
                             RootBlock type_ = (RootBlock) _cont.getClassBody(className_);
                             OverridableBlock method_ = Classes.getMethodBodiesById(_cont, className_, id_).first();
                             String file_ = type_.getFile().getRenderFileName();
@@ -1248,9 +1264,9 @@ public final class ElUtil {
                     MethodId methodId_ = classMethodId_.getConstraints();
                     MethodId id_;
                     if (par_.resultCanBeSet()) {
-                        id_ = new MethodId(false,"[]=",methodId_.getParametersTypes(),methodId_.isVararg());
+                        id_ = new MethodId(MethodAccessKind.INSTANCE,"[]=",methodId_.getParametersTypes(),methodId_.isVararg());
                     } else {
-                        id_ = new MethodId(false,"[]",methodId_.getParametersTypes(),methodId_.isVararg());
+                        id_ = new MethodId(MethodAccessKind.INSTANCE,"[]",methodId_.getParametersTypes(),methodId_.isVararg());
                     }
                     RootBlock type_ = (RootBlock) _cont.getClassBody(className_);
                     OverridableBlock method_ = Classes.getMethodBodiesById(_cont, className_, id_).first();
@@ -1284,7 +1300,7 @@ public final class ElUtil {
                             String className_ = classMethodIdArr_.getClassName();
                             className_ = Templates.getIdFromAllTypes(className_);
                             MethodId methodId_ = classMethodIdArr_.getConstraints();
-                            MethodId id_ = new MethodId(false,"[]=",methodId_.getParametersTypes(),methodId_.isVararg());
+                            MethodId id_ = new MethodId(MethodAccessKind.INSTANCE,"[]=",methodId_.getParametersTypes(),methodId_.isVararg());
                             RootBlock type_ = (RootBlock) _cont.getClassBody(className_);
                             OverridableBlock method_ = Classes.getMethodBodiesById(_cont, className_, id_).first();
                             String file_ = type_.getFile().getRenderFileName();

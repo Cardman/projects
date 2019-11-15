@@ -578,13 +578,18 @@ public final class Configuration implements ExecutableCode {
     }
 
     @Override
+    public MethodAccessKind getStaticContext() {
+        return MethodId.getKind(staticContext);
+    }
+
+    @Override
     public boolean isStaticContext() {
         return staticContext;
     }
 
     @Override
-    public void setStaticContext(boolean _staticContext) {
-        staticContext = _staticContext;
+    public void setAccessStaticContext(MethodAccessKind _staticContext) {
+        staticContext = _staticContext == MethodAccessKind.STATIC;
     }
 
     @Override

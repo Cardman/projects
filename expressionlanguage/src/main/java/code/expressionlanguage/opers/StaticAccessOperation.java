@@ -3,11 +3,8 @@ package code.expressionlanguage.opers;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.errors.custom.BadAccessClass;
-import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.instr.PartOffset;
-import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.util.CustList;
 import code.util.StringList;
@@ -46,17 +43,7 @@ public final class StaticAccessOperation extends LeafOperation {
             classStr_ = glClass_;
             partOffsets = new CustList<PartOffset>();
         }
-        Classes classes_ = _conf.getClasses();
-        if (classes_.isCustomType(classStr_)) {
-            String curClassBase_ = Templates.getIdFromAllTypes(glClass_);
-            if (!Classes.canAccessClass(curClassBase_, classStr_, _conf)) {
-                BadAccessClass badAccess_ = new BadAccessClass();
-                badAccess_.setId(classStr_);
-                badAccess_.setIndexFile(_conf.getCurrentLocationIndex());
-                badAccess_.setFileName(_conf.getCurrentFileName());
-                _conf.getClasses().addError(badAccess_);
-            }
-        }
+        checkClassAccess(_conf, glClass_, classStr_);
         Argument a_ = new Argument();
         setSimpleArgument(a_);
         setStaticResultClass(new ClassArgumentMatching(classStr_));

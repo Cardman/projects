@@ -5,10 +5,9 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.inherits.TypeUtil;
 import code.expressionlanguage.methods.FieldBlock;
+import code.expressionlanguage.opers.AbstractInvokingConstructor;
 import code.expressionlanguage.opers.OperationNode;
-import code.expressionlanguage.opers.util.ClassArgumentMatching;
-import code.expressionlanguage.opers.util.FieldResult;
-import code.expressionlanguage.opers.util.SearchingMemberStatus;
+import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stds.NumParsers;
@@ -335,6 +334,7 @@ public final class ElResolver {
         String keyWordNew_ = keyWords_.getKeyWordNew();
         String keyWordNull_ = keyWords_.getKeyWordNull();
         String keyWordStatic_ = keyWords_.getKeyWordStatic();
+        String keyWordStaticCall_ = keyWords_.getKeyWordStaticCall();
         String keyWordSuper_ = keyWords_.getKeyWordSuper();
         String keyWordSuperaccess_ = keyWords_.getKeyWordSuperaccess();
         String keyWordThat_ = keyWords_.getKeyWordThat();
@@ -599,8 +599,18 @@ public final class ElResolver {
             _out.setNextIndex(i_);
             return;
         }
-        if (ContextEl.startsWithKeyWord(sub_, keyWordStatic_)) {
-            int afterStatic_ = i_ + keyWordStatic_.length();
+        boolean isKeySt_ = ContextEl.startsWithKeyWord(sub_, keyWordStatic_);
+        boolean isKeyStCall_ = ContextEl.startsWithKeyWord(sub_, keyWordStaticCall_);
+        if (isKeySt_||isKeyStCall_) {
+            Ints indexes_;
+            int afterStatic_;
+            if (isKeySt_) {
+                indexes_ = _d.getDelKeyWordStatic();
+                afterStatic_ = i_ + keyWordStatic_.length();
+            } else {
+                indexes_ = _d.getDelKeyWordStaticCall();
+                afterStatic_ = i_ + keyWordStaticCall_.length();
+            }
             boolean foundHat_ = false;
             while (afterStatic_ < len_) {
                 if (_string.charAt(afterStatic_) == PAR_LEFT) {
@@ -635,10 +645,8 @@ public final class ElResolver {
             while (afterStatic_ < len_) {
                 if (!Character.isWhitespace(_string.charAt(afterStatic_))) {
                     if (_string.charAt(afterStatic_) == DOT_VAR) {
-                        _d.getDelKeyWordStatic().add(i_);
-                        _d.getDelKeyWordStatic().add(afterStatic_);
-                        _d.getDelKeyWordStaticExtract().add(EMPTY_STRING);
-                        _d.getStaticParts().add(new CustList<PartOffset>());
+                        indexes_.add(i_);
+                        indexes_.add(afterStatic_);
                         i_ = afterStatic_;
                         break;
                     }
@@ -650,6 +658,10 @@ public final class ElResolver {
             if (afterStatic_ >= len_) {
                 _d.setBadOffset(afterStatic_);
                 return;
+            }
+            if (isKeySt_) {
+                _d.getDelKeyWordStaticExtract().add(EMPTY_STRING);
+                _d.getStaticParts().add(new CustList<PartOffset>());
             }
             _out.setNextIndex(i_);
             return;
@@ -3411,6 +3423,17 @@ public final class ElResolver {
             op_.setConstType(ConstType.STATIC_ACCESS);
             op_.setExtractType(extracted_);
             op_.setPartOffsets(_d.getStaticParts().get(ext_));
+            op_.setOperators(new IntTreeMap< String>());
+            op_.setValue(_string, firstPrintChar_);
+            op_.setDelimiter(_d);
+            return op_;
+        }
+        begin_ = _d.getDelKeyWordStaticCall().indexOfObj(_offset + firstPrintChar_);
+        end_ = _d.getDelKeyWordStaticCall().indexOfObj(_offset + strLen_);
+        if (delimits(begin_, end_)) {
+            OperationsSequence op_ = new OperationsSequence();
+            op_.setConstType(ConstType.STATIC_CALL_ACCESS);
+            op_.setPartOffsets(new CustList<PartOffset>());
             op_.setOperators(new IntTreeMap< String>());
             op_.setValue(_string, firstPrintChar_);
             op_.setDelimiter(_d);

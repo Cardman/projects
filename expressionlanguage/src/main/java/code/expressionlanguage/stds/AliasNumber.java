@@ -281,21 +281,21 @@ public final class AliasNumber {
         StandardMethod method_;
         params_ = new StringList(_primitive);
         method_ = new StandardMethod(aliasToStringMethod, params_, _lgNames.getAliasString(), false, MethodModifier.STATIC, _type);
-        _methods.put(new MethodId(MethodModifier.STATIC, aliasToStringMethod, params_), method_);
+        _methods.put(method_.getId(), method_);
         params_ = new StringList(_lgNames.getAliasString());
         method_ = new StandardMethod(_parserName, params_, _owner, false, MethodModifier.STATIC, _type);
-        _methods.put(new MethodId(MethodModifier.STATIC, _parserName, params_), method_);
+        _methods.put(method_.getId(), method_);
         if (_radix) {
             params_ = new StringList(_lgNames.getAliasString(), aliasPrimInteger_);
             method_ = new StandardMethod(_parserName, params_, _owner, false, MethodModifier.STATIC, _type);
-            _methods.put(new MethodId(MethodModifier.STATIC, _parserName, params_), method_);
+            _methods.put(method_.getId(), method_);
         }
         params_ = new StringList(_owner);
         method_ = new StandardMethod(aliasCompareTo, params_, aliasPrimInteger_, false, MethodModifier.NORMAL, _type);
-        _methods.put(new MethodId(MethodModifier.NORMAL, aliasCompareTo, params_), method_);
+        _methods.put(method_.getId(), method_);
         params_ = new StringList(_primitive, _primitive);
         method_ = new StandardMethod(aliasCompare, params_, aliasPrimInteger_, false, MethodModifier.STATIC, _type);
-        _methods.put(new MethodId(MethodModifier.STATIC, aliasCompare, params_), method_);
+        _methods.put(method_.getId(), method_);
     }
     private void numbersSafeParsersMethods(LgNames _lgNames,ObjectMap<MethodId, StandardMethod> _methods, String _owner, String _parserName, StandardType _type, boolean _radix) {
         String aliasPrimInteger_ = _lgNames.getAliasPrimInteger();
@@ -303,13 +303,13 @@ public final class AliasNumber {
         StandardMethod method_;
         params_ = new StringList(_lgNames.getAliasString());
         method_ = new StandardMethod(_parserName, params_, _owner, false, MethodModifier.STATIC, _type);
-        _methods.put(new MethodId(MethodModifier.STATIC, _parserName, params_), method_);
+        _methods.put(method_.getId(), method_);
         if (!_radix) {
             return;
         }
         params_ = new StringList(_lgNames.getAliasString(), aliasPrimInteger_);
         method_ = new StandardMethod(_parserName, params_, _owner, false, MethodModifier.STATIC, _type);
-        _methods.put(new MethodId(MethodModifier.STATIC, _parserName, params_), method_);
+        _methods.put(method_.getId(), method_);
     }
     private void numbersAbsMethods(LgNames _lgNames,ObjectMap<MethodId, StandardMethod> _methods, String _owner, StandardType _type) {
         String aliasPrimBoolean_ = _lgNames.getAliasPrimBoolean();
@@ -323,37 +323,37 @@ public final class AliasNumber {
         StandardMethod method_;
         params_ = new StringList();
         method_ = new StandardMethod(aliasByteValue, params_, aliasPrimByte_, false, MethodModifier.NORMAL, _type);
-        _methods.put(new MethodId(MethodModifier.ABSTRACT, aliasByteValue, params_), method_);
+        _methods.put(method_.getId(), method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasShortValue, params_, aliasPrimShort_, false, MethodModifier.NORMAL, _type);
-        _methods.put(new MethodId(MethodModifier.ABSTRACT, aliasShortValue, params_), method_);
+        _methods.put(method_.getId(), method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasIntValue, params_, aliasPrimInteger_, false, MethodModifier.NORMAL, _type);
-        _methods.put(new MethodId(MethodModifier.ABSTRACT, aliasIntValue, params_), method_);
+        _methods.put(method_.getId(), method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasLongValue, params_, aliasPrimLong_, false, MethodModifier.NORMAL, _type);
-        _methods.put(new MethodId(MethodModifier.ABSTRACT, aliasLongValue, params_), method_);
+        _methods.put(method_.getId(), method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasFloatValue, params_, aliasPrimFloat_, false, MethodModifier.NORMAL, _type);
-        _methods.put(new MethodId(MethodModifier.ABSTRACT, aliasFloatValue, params_), method_);
+        _methods.put(method_.getId(), method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasDoubleValue, params_, aliasPrimDouble_, false, MethodModifier.NORMAL, _type);
-        _methods.put(new MethodId(MethodModifier.ABSTRACT, aliasDoubleValue, params_), method_);
+        _methods.put(method_.getId(), method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasToStringMethod, params_, _lgNames.getAliasString(), false, MethodModifier.NORMAL, _type);
-        _methods.put(new MethodId(MethodModifier.NORMAL, aliasToStringMethod, params_), method_);
+        _methods.put(method_.getId(), method_);
         params_ = new StringList(_owner);
         method_ = new StandardMethod(aliasToStringMethod, params_, _lgNames.getAliasString(), false, MethodModifier.STATIC, _type);
-        _methods.put(new MethodId(MethodModifier.STATIC, aliasToStringMethod, params_), method_);
+        _methods.put(method_.getId(), method_);
         params_ = new StringList(aliasNumber);
         method_ = new StandardMethod(aliasEquals, params_, aliasPrimBoolean_, false, MethodModifier.NORMAL, _type);
-        _methods.put(new MethodId(MethodModifier.NORMAL, aliasEquals, params_), method_);
+        _methods.put(method_.getId(), method_);
         params_ = new StringList(_owner);
         method_ = new StandardMethod(aliasCompareTo, params_, aliasPrimInteger_, false, MethodModifier.NORMAL, _type);
-        _methods.put(new MethodId(MethodModifier.NORMAL, aliasCompareTo, params_), method_);
+        _methods.put(method_.getId(), method_);
         params_ = new StringList(_owner, _owner);
         method_ = new StandardMethod(aliasCompare, params_, aliasPrimInteger_, false, MethodModifier.STATIC, _type);
-        _methods.put(new MethodId(MethodModifier.STATIC, aliasCompareTo, params_), method_);
+        _methods.put(method_.getId(), method_);
     }
     public String getAliasCompareTo() {
         return aliasCompareTo;

@@ -30,7 +30,7 @@ public abstract class RendCondition extends RendParentBlock implements RendWithE
         page_.setGlobalOffset(conditionOffset);
         page_.setOffset(0);
         _cont.getAnalyzingDoc().setAttribute(ATTRIBUTE_CONDITION);
-        opCondition = RenderExpUtil.getAnalyzedOperations(condition,0, _cont, Calculation.staticCalculation(_doc.isStaticContext()));
+        opCondition = RenderExpUtil.getAnalyzedOperations(condition,0, _cont, Calculation.staticCalculation(_doc.getStaticContext()));
         RendDynOperationNode elCondition_ = opCondition.last();
         LgNames stds_ = _cont.getStandards();
         if (!elCondition_.getResultClass().isBoolType(_cont)) {
