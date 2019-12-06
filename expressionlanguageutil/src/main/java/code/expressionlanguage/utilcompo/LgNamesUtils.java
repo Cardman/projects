@@ -3091,6 +3091,8 @@ public class LgNamesUtils extends LgNames {
         setAliasInit(get(_util,_cust,"Init"));
         setAliasForName(get(_util,_cust,"ForName"));
         setAliasIsStatic(get(_util,_cust,"IsStatic"));
+        setAliasIsStaticCall(get(_util,_cust,"IsStaticCall"));
+        setAliasIsInstanceMethod(get(_util,_cust,"IsInstanceMethod"));
         setAliasGetName(get(_util,_cust,"GetName"));
         setAliasIsClass(get(_util,_cust,"IsClass"));
         setAliasSetField(get(_util,_cust,"SetField"));

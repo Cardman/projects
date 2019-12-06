@@ -54,6 +54,8 @@ public final class AliasReflection {
     private String aliasIsTypeVariable;
     private String aliasIsVariable;
     private String aliasIsStatic;
+    private String aliasIsStaticCall;
+    private String aliasIsInstanceMethod;
     private String aliasIsVarargs;
     private String aliasIsNormal;
     private String aliasIsPublic;
@@ -414,6 +416,12 @@ public final class AliasReflection {
         method_ = new StandardMethod(aliasIsStatic, params_, aliasPrimBoolean_, false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
+        method_ = new StandardMethod(aliasIsStaticCall, params_, aliasPrimBoolean_, false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasIsInstanceMethod, params_, aliasPrimBoolean_, false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
         method_ = new StandardMethod(aliasIsFinal, params_, aliasPrimBoolean_, false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
@@ -580,6 +588,16 @@ public final class AliasReflection {
             if (StringList.quickEq(name_, ref_.aliasIsStatic)) {
                 MethodMetaInfo class_ = (MethodMetaInfo) _struct;
                 result_.setResult(new BooleanStruct(class_.isStatic()));
+                return result_;
+            }
+            if (StringList.quickEq(name_, ref_.aliasIsStaticCall)) {
+                MethodMetaInfo class_ = (MethodMetaInfo) _struct;
+                result_.setResult(new BooleanStruct(class_.isStaticCall()));
+                return result_;
+            }
+            if (StringList.quickEq(name_, ref_.aliasIsInstanceMethod)) {
+                MethodMetaInfo class_ = (MethodMetaInfo) _struct;
+                result_.setResult(new BooleanStruct(class_.isInstanceMethod()));
                 return result_;
             }
             if (StringList.quickEq(name_, ref_.aliasIsNormal)) {
@@ -1884,6 +1902,20 @@ public final class AliasReflection {
     }
     public void setAliasIsStatic(String _aliasIsStatic) {
         aliasIsStatic = _aliasIsStatic;
+    }
+    public String getAliasIsStaticCall() {
+        return aliasIsStaticCall;
+    }
+    public void setAliasIsStaticCall(String _aliasIsStaticCall) {
+        aliasIsStaticCall = _aliasIsStaticCall;
+    }
+
+    public String getAliasIsInstanceMethod() {
+        return aliasIsInstanceMethod;
+    }
+
+    public void setAliasIsInstanceMethod(String _aliasIsInstanceMethod) {
+        aliasIsInstanceMethod = _aliasIsInstanceMethod;
     }
 
     public String getAliasIsTypeVariable() {

@@ -403,6 +403,8 @@ public final class KeyWordsMap {
         _lgNames.setAliasIsTypeVariable("isTypeVariable");
         _lgNames.setAliasIsVariable("isVariable");
         _lgNames.setAliasIsStatic("isStatic");
+        _lgNames.setAliasIsStaticCall("isStaticCall");
+        _lgNames.setAliasIsInstanceMethod("isInstanceMethod");
         _lgNames.setAliasIsVarargs("isVarargs");
         _lgNames.setAliasIsNormal("isNormal");
         _lgNames.setAliasIsPublic("isPublic");
@@ -679,6 +681,8 @@ public final class KeyWordsMap {
         _lgNames.setAliasIsTypeVariable("estTypeVariable");
         _lgNames.setAliasIsVariable("estVariable");
         _lgNames.setAliasIsStatic("estStatic");
+        _lgNames.setAliasIsStaticCall("estStaticAppel");
+        _lgNames.setAliasIsInstanceMethod("estMethInstance");
         _lgNames.setAliasIsVarargs("estVarargs");
         _lgNames.setAliasIsNormal("estNormal");
         _lgNames.setAliasIsPublic("estPublic");

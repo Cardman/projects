@@ -529,6 +529,8 @@ public abstract class LgNames {
                 getAliasIsProtected(),
                 getAliasIsPublic(),
                 getAliasIsStatic(),
+                getAliasIsStaticCall(),
+                getAliasIsInstanceMethod(),
                 getAliasIsVarargs()));
         map_.put(getAliasObjectsUtil(), new StringList(
                 getAliasSameRef(),
@@ -2884,6 +2886,20 @@ public abstract class LgNames {
     }
     public void setAliasIsStatic(String _aliasIsStatic) {
         reflect.setAliasIsStatic(_aliasIsStatic);
+    }
+    public String getAliasIsStaticCall() {
+        return reflect.getAliasIsStaticCall();
+    }
+    public void setAliasIsStaticCall(String _aliasIsStatic) {
+        reflect.setAliasIsStaticCall(_aliasIsStatic);
+    }
+
+    public String getAliasIsInstanceMethod() {
+        return reflect.getAliasIsInstanceMethod();
+    }
+
+    public void setAliasIsInstanceMethod(String _aliasIsInstanceMethod) {
+        reflect.setAliasIsInstanceMethod(_aliasIsInstanceMethod);
     }
     public String getAliasIsVarargs() {
         return reflect.getAliasIsVarargs();

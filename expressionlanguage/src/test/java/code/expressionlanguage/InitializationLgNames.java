@@ -287,6 +287,8 @@ public final class InitializationLgNames {
         _lgNames.setAliasIsTypeVariable("isTypeVariable");
         _lgNames.setAliasIsVariable("isVariable");
         _lgNames.setAliasIsStatic("isStatic");
+        _lgNames.setAliasIsStaticCall("isStaticCall");
+        _lgNames.setAliasIsInstanceMethod("isInstanceMethod");
         _lgNames.setAliasIsVarargs("isVarargs");
         _lgNames.setAliasIsNormal("isNormal");
         _lgNames.setAliasIsPublic("isPublic");

@@ -8304,4 +8304,112 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
         assertEq(0, ret_.getNumber());
     }
+    @Test
+    public void calculate205Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $public $static $boolean exmeth(){\n");
+        xml_.append("  $return $class(pkg.Ex).getDeclaredMethods()[0].isStaticCall():\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $staticCall $int exmeth($int e){\n");
+        xml_.append("  $return 0i:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $int exmethtwo($int e){\n");
+        xml_.append("  $return 0i:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        assertTrue(ret_.isTrue());
+    }
+    @Test
+    public void calculate206Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $public $static $boolean exmeth(){\n");
+        xml_.append("  $return $class(pkg.Ex).getDeclaredMethods()[0].isStaticCall():\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth($int e){\n");
+        xml_.append("  $return 0i:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $int exmethtwo($int e){\n");
+        xml_.append("  $return 0i:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        assertTrue(ret_.isFalse());
+    }
+    @Test
+    public void calculate207Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $public $static $boolean exmeth(){\n");
+        xml_.append("  $return $class(pkg.Ex).getDeclaredMethods()[0].isInstanceMethod():\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $staticCall $int exmeth($int e){\n");
+        xml_.append("  $return 0i:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $int exmethtwo($int e){\n");
+        xml_.append("  $return 0i:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        assertTrue(ret_.isFalse());
+    }
+    @Test
+    public void calculate208Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $public $static $boolean exmeth(){\n");
+        xml_.append("  $return $class(pkg.Ex).getDeclaredMethods()[1].isInstanceMethod():\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth($int e){\n");
+        xml_.append("  $return 0i:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $int exmethtwo($int e){\n");
+        xml_.append("  $return 0i:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        assertTrue(ret_.isTrue());
+    }
 }

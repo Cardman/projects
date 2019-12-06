@@ -71,6 +71,12 @@ public final class MethodMetaInfo implements AnnotatedStruct {
     public boolean isStatic() {
         return modifier == MethodModifier.STATIC;
     }
+    public boolean isStaticCall() {
+        return modifier == MethodModifier.STATIC_CALL;
+    }
+    public boolean isInstanceMethod() {
+        return !isWideStatic();
+    }
     public boolean isWideStatic() {
         return modifier == MethodModifier.STATIC || modifier == MethodModifier.STATIC_CALL;
     }

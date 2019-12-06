@@ -74,6 +74,8 @@ public final class MethodId implements Equallable<MethodId>, Identifiable {
         String pref_ = EMPTY;
         if (kind == MethodAccessKind.STATIC) {
             pref_ = StringList.concat(_ana.getKeyWords().getKeyWordStatic()," ");
+        } else if (kind == MethodAccessKind.STATIC_CALL) {
+            pref_ = StringList.concat(_ana.getKeyWords().getKeyWordStaticCall()," ");
         }
         String suf_ = EMPTY;
         if (vararg) {
