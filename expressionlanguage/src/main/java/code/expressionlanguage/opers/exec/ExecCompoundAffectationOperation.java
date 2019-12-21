@@ -63,6 +63,9 @@ public final class ExecCompoundAffectationOperation extends ExecMethodOperation 
                 return;
             }
             s_.setCalledIndexer(true);
+            Argument arg_ = settable.endCalculate(_conf, _nodes, _right);
+            setSimpleArgument(arg_, _conf, _nodes);
+            return;
         }
         if (pair_.isConvertToString()) {
             if (pair_.isCalledToString()) {

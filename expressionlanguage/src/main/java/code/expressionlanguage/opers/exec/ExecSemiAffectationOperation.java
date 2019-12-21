@@ -66,6 +66,9 @@ public final class ExecSemiAffectationOperation extends ExecAbstractUnaryOperati
                 return;
             }
             s_.setCalledIndexer(true);
+            Argument arg_ = settable.endCalculate(_conf, _nodes, post, stored_, _right);
+            setSimpleArgument(arg_, _conf, _nodes);
+            return;
         }
         if (pair_.isConvertToString()) {
             if (pair_.isCalledToString()) {
