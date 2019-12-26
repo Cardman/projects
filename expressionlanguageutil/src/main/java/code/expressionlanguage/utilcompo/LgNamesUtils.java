@@ -95,6 +95,8 @@ public class LgNamesUtils extends LgNames {
     private String aliasFileIsAbsolute;
     private String aliasFileReadBin;
     private String aliasFileWriteBin;
+    private String aliasFileDelete;
+    private String aliasFileRename;
     private String aliasIllegalThreadStateException;
 
     private String aliasCustIterator;
@@ -711,6 +713,12 @@ public class LgNamesUtils extends LgNames {
         params_ = new StringList(getAliasString(),PrimitiveTypeUtil.getPrettyArrayType(getAliasPrimByte()));
         method_ = new StandardMethod(aliasFileWriteBin, params_, getAliasPrimBoolean(), false, MethodModifier.STATIC, stdcl_);
         methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasString());
+        method_ = new StandardMethod(aliasFileDelete, params_, getAliasPrimBoolean(), false, MethodModifier.STATIC, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasString(),getAliasString());
+        method_ = new StandardMethod(aliasFileRename, params_, getAliasPrimBoolean(), false, MethodModifier.STATIC, stdcl_);
+        methods_.put(method_.getId(), method_);
         params_ = new StringList(getAliasString(),getAliasString());
         method_ = new StandardMethod(aliasAppendToFile, params_, getAliasPrimBoolean(), false, MethodModifier.STATIC, stdcl_);
         methods_.put(method_.getId(), method_);
@@ -1318,6 +1326,21 @@ public class LgNamesUtils extends LgNames {
                 res_.setResult(new BooleanStruct(StreamBinaryFile.writeFile(file_, bin_)));
                 return res_;
             }
+            if (StringList.quickEq(name_,aliasFileDelete)) {
+                String file_ = ((StringStruct)_args[0]).getInstance();
+                res_.setResult(new BooleanStruct(new File(file_).delete()));
+                return res_;
+            }
+            if (StringList.quickEq(name_,aliasFileRename)) {
+                if (!(_args[1] instanceof StringStruct)) {
+                    res_.setError(getAliasNullPe());
+                    return res_;
+                }
+                String file_ = ((StringStruct)_args[0]).getInstance();
+                String dest_ = ((StringStruct)_args[1]).getInstance();
+                res_.setResult(new BooleanStruct(new File(file_).renameTo(new File(dest_))));
+                return res_;
+            }
         	if (StringList.quickEq(name_,aliasAppendToFile)) {
         		String file_ = ((StringStruct)_args[0]).getInstance();
         		String txt_ = getStandarString(_cont,_args[1]);
@@ -1632,6 +1655,8 @@ public class LgNamesUtils extends LgNames {
                 getAliasFileIsAbsolute(),
                 getAliasFileReadBin(),
                 getAliasFileWriteBin(),
+                getAliasFileDelete(),
+                getAliasFileRename(),
                 getAliasFileLastModif(),
                 getAliasFileListDirectories(),
                 getAliasFileListFiles(),
@@ -2139,6 +2164,22 @@ public class LgNamesUtils extends LgNames {
 
     public void setAliasFileWriteBin(String aliasFileWriteBin) {
         this.aliasFileWriteBin = aliasFileWriteBin;
+    }
+
+    public String getAliasFileDelete() {
+        return aliasFileDelete;
+    }
+
+    public void setAliasFileDelete(String aliasFileDelete) {
+        this.aliasFileDelete = aliasFileDelete;
+    }
+
+    public String getAliasFileRename() {
+        return aliasFileRename;
+    }
+
+    public void setAliasFileRename(String aliasFileRename) {
+        this.aliasFileRename = aliasFileRename;
     }
 
     public String getAliasFileMakeDirs() {
@@ -3228,6 +3269,8 @@ public class LgNamesUtils extends LgNames {
         setAliasFileIsAbsolute(get(_util,_cust,"FileIsAbsolute"));
         setAliasFileReadBin(get(_util,_cust,"FileReadBin"));
         setAliasFileWriteBin(get(_util,_cust,"FileWriteBin"));
+        setAliasFileDelete(get(_util,_cust,"FileDelete"));
+        setAliasFileRename(get(_util,_cust,"FileRename"));
         setAliasCustIterTable(get(_util,_cust,"CustIterTable"));
         setAliasTableVarFirst(get(_util,_cust,"TableVarFirst"));
         setAliasSetSecond(get(_util,_cust,"SetSecond"));
