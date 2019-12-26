@@ -758,6 +758,31 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
     }
 
     private static Argument redirect(ExecutableCode _conf, LambdaMethodStruct _l, Argument _pr, CustList<Argument> _nList) {
+        if (_l.getFormClassName().startsWith(PrimitiveTypeUtil.ARR_CLASS) && _l.getFid().getName().startsWith("[]")) {
+            Struct arr_ = _nList.first().getStruct();
+            ArrayStruct argArr_ = (ArrayStruct) _nList.get(1).getStruct();
+            int len_ = argArr_.getInstance().length - 1;
+            if (len_ < 0) {
+                return new Argument(new IntStruct(((ArrayStruct)arr_).getInstance().length));
+            }
+            if (!StringList.quickEq(_l.getFid().getName(),"[]")) {
+                len_--;
+            }
+            for (int i = 0; i < len_; i++) {
+                NumberStruct ind_ = (NumberStruct) argArr_.getInstance()[i];
+                arr_ = getElement(arr_,ind_,_conf);
+                if (_conf.getContextEl().hasExceptionOrFailInit()) {
+                    return new Argument();
+                }
+            }
+            NumberStruct ind_ = (NumberStruct) argArr_.getInstance()[len_];
+            if (StringList.quickEq(_l.getFid().getName(),"[]")) {
+                return new Argument(getElement(arr_,ind_,_conf));
+            }
+            Struct right_ = argArr_.getInstance()[len_ + 1];
+            setElement(arr_,ind_, right_,_conf);
+            return new Argument(right_);
+        }
         if (_l.getFid().canAccessParamTypesStatic(_conf)) {
             if (_l.isDirectCast()) {
                 _conf.getContextEl().setCallingState(new CustomReflectMethod(ReflectingType.CAST_DIRECT, _pr, _nList, true));

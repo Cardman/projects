@@ -10,7 +10,7 @@ import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.util.CustList;
 import code.util.StringList;
 
-public class StaticCallAccessOperation extends LeafOperation {
+public final class StaticCallAccessOperation extends LeafOperation {
     private CustList<PartOffset> partOffsets;
     public StaticCallAccessOperation(int _indexInEl, int _indexChild,
                                  MethodOperation _m, OperationsSequence _op) {

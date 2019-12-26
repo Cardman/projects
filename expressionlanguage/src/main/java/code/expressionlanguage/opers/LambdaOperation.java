@@ -275,6 +275,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                         static_.setFileName(_conf.getCurrentFileName());
                         static_.setIndexFile(_conf.getCurrentLocationIndex());
                         _conf.getClasses().addError(static_);
+                        setResultClass(new ClassArgumentMatching(_stds.getAliasObject()));
                         return;
                     }
                     _methodTypes.add(new ClassArgumentMatching(format_));
@@ -296,7 +297,74 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             StringList a_ = new StringList();
             getArrayBounds(str_, a_);
             if (cloneArray_) {
+                if (name_.startsWith("[]")) {
+                    if (_methodTypes.isEmpty()) {
+                        shiftArgument = true;
+                        String foundClass_ = PrimitiveTypeUtil.getPrettyArrayType(_stds.getAliasObject());
+                        MethodId id_ = new MethodId(MethodAccessKind.INSTANCE, name_, new StringList());
+                        method = new ClassMethodId(foundClass_, id_);
+                        StringBuilder fct_ = new StringBuilder(_stds.getAliasFct());
+                        fct_.append(Templates.TEMPLATE_BEGIN);
+                        String comp_ = foundClass;
+                        fct_.append(comp_);
+                        fct_.append(Templates.TEMPLATE_SEP);
+                        fct_.append(_stds.getAliasPrimInteger());
+                        fct_.append(Templates.TEMPLATE_END);
+                        setResultClass(new ClassArgumentMatching(fct_.toString()));
+                        checkNull(_conf);
+                        return;
+                    }
+                    String foundClass_ = PrimitiveTypeUtil.getPrettyArrayType(_stds.getAliasObject());
+                    shiftArgument = true;
+                    StringBuilder fct_ = new StringBuilder(_stds.getAliasFct());
+                    fct_.append(Templates.TEMPLATE_BEGIN);
+                    String comp_ = foundClass;
+                    fct_.append(comp_);
+                    fct_.append(Templates.TEMPLATE_SEP);
+                    boolean err_ = false;
+                    StringList params_ = new StringList();
+                    for (ClassArgumentMatching p: _methodTypes) {
+                        if (!p.isNumericInt(_conf)) {
+                            UnexpectedTypeOperationError un_ = new UnexpectedTypeOperationError();
+                            un_.setIndexFile(_conf.getCurrentLocationIndex());
+                            un_.setFileName(_conf.getCurrentFileName());
+                            un_.setExpectedResult(_conf.getStandards().getAliasPrimInteger());
+                            un_.setOperands(p);
+                            _conf.getClasses().addError(un_);
+                        }
+                        comp_ = PrimitiveTypeUtil.getQuickComponentType(comp_);
+                        if (comp_ == null) {
+                            UnexpectedTypeOperationError un_ = new UnexpectedTypeOperationError();
+                            un_.setIndexFile(_conf.getCurrentLocationIndex());
+                            un_.setFileName(_conf.getCurrentFileName());
+                            un_.setExpectedResult(_conf.getStandards().getAliasPrimInteger());
+                            un_.setOperands(p);
+                            _conf.getClasses().addError(un_);
+                            err_ = true;
+                            break;
+                        }
+                        fct_.append(p.getName());
+                        params_.add(p.getName());
+                        fct_.append(Templates.TEMPLATE_SEP);
+                    }
+                    MethodId id_ = new MethodId(MethodAccessKind.INSTANCE, name_, params_);
+                    method = new ClassMethodId(foundClass_, id_);
+                    if (err_) {
+                        setResultClass(new ClassArgumentMatching(_stds.getAliasObject()));
+                        return;
+                    }
+                    if (StringList.quickEq(name_,"[]=")) {
+                        fct_.append(comp_);
+                        fct_.append(Templates.TEMPLATE_SEP);
+                    }
+                    fct_.append(comp_);
+                    fct_.append(Templates.TEMPLATE_END);
+                    setResultClass(new ClassArgumentMatching(fct_.toString()));
+                    checkNull(_conf);
+                    return;
+                }
                 if (checkArrayMethod(_conf, _stds, str_, name_)) {
+                    setResultClass(new ClassArgumentMatching(_stds.getAliasObject()));
                     return;
                 }
                 String foundClass_ = PrimitiveTypeUtil.getPrettyArrayType(_stds.getAliasObject());
@@ -459,6 +527,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                     static_.setFileName(_conf.getCurrentFileName());
                     static_.setIndexFile(_conf.getCurrentLocationIndex());
                     _conf.getClasses().addError(static_);
+                    setResultClass(new ClassArgumentMatching(_stds.getAliasObject()));
                     return;
                 }
                 _methodTypes.add(new ClassArgumentMatching(format_));
@@ -482,6 +551,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         StringList bounds_ = new StringList();
         for (String c: l_) {
             if (InvokingOperation.hasVoidPrevious(c, _conf)) {
+                setResultClass(new ClassArgumentMatching(_stds.getAliasObject()));
                 return;
             }
             bounds_.addAllElts(InvokingOperation.getBounds(c, _conf));
@@ -490,7 +560,67 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         StringList a_ = new StringList();
         getArrayBounds(bounds_, a_);
         if (cloneArray_) {
+            if (name_.startsWith("[]")) {
+                if (_methodTypes.isEmpty()) {
+                    String foundClass_ = PrimitiveTypeUtil.getPrettyArrayType(_stds.getAliasObject());
+                    MethodId id_ = new MethodId(MethodAccessKind.INSTANCE, name_, new StringList());
+                    method = new ClassMethodId(foundClass_, id_);
+                    StringBuilder fct_ = new StringBuilder(_stds.getAliasFct());
+                    fct_.append(Templates.TEMPLATE_BEGIN);
+                    fct_.append(_stds.getAliasPrimInteger());
+                    fct_.append(Templates.TEMPLATE_END);
+                    setResultClass(new ClassArgumentMatching(fct_.toString()));
+                    checkNull(_conf);
+                    return;
+                }
+                String foundClass_ = PrimitiveTypeUtil.getPrettyArrayType(_stds.getAliasObject());
+                StringBuilder fct_ = new StringBuilder(_stds.getAliasFct());
+                fct_.append(Templates.TEMPLATE_BEGIN);
+                String comp_ = foundClass;
+                boolean err_ = false;
+                StringList params_ = new StringList();
+                for (ClassArgumentMatching p: _methodTypes) {
+                    if (!p.isNumericInt(_conf)) {
+                        UnexpectedTypeOperationError un_ = new UnexpectedTypeOperationError();
+                        un_.setIndexFile(_conf.getCurrentLocationIndex());
+                        un_.setFileName(_conf.getCurrentFileName());
+                        un_.setExpectedResult(_conf.getStandards().getAliasPrimInteger());
+                        un_.setOperands(p);
+                        _conf.getClasses().addError(un_);
+                    }
+                    comp_ = PrimitiveTypeUtil.getQuickComponentType(comp_);
+                    if (comp_ == null) {
+                        UnexpectedTypeOperationError un_ = new UnexpectedTypeOperationError();
+                        un_.setIndexFile(_conf.getCurrentLocationIndex());
+                        un_.setFileName(_conf.getCurrentFileName());
+                        un_.setExpectedResult(_conf.getStandards().getAliasPrimInteger());
+                        un_.setOperands(p);
+                        _conf.getClasses().addError(un_);
+                        err_ = true;
+                        break;
+                    }
+                    params_.add(p.getName());
+                    fct_.append(p.getName());
+                    fct_.append(Templates.TEMPLATE_SEP);
+                }
+                MethodId id_ = new MethodId(MethodAccessKind.INSTANCE, name_, params_);
+                method = new ClassMethodId(foundClass_, id_);
+                if (err_) {
+                    setResultClass(new ClassArgumentMatching(_stds.getAliasObject()));
+                    return;
+                }
+                if (StringList.quickEq(name_,"[]=")) {
+                    fct_.append(comp_);
+                    fct_.append(Templates.TEMPLATE_SEP);
+                }
+                fct_.append(comp_);
+                fct_.append(Templates.TEMPLATE_END);
+                setResultClass(new ClassArgumentMatching(fct_.toString()));
+                checkNull(_conf);
+                return;
+            }
             if (checkArrayMethod(_conf, _stds, bounds_, name_)) {
+                setResultClass(new ClassArgumentMatching(_stds.getAliasObject()));
                 return;
             }
             String foundClass_ = PrimitiveTypeUtil.getPrettyArrayType(_stds.getAliasObject());
@@ -633,6 +763,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                     static_.setFileName(_conf.getCurrentFileName());
                     static_.setIndexFile(_conf.getCurrentLocationIndex());
                     _conf.getClasses().addError(static_);
+                    setResultClass(new ClassArgumentMatching(_stds.getAliasObject()));
                     return;
                 }
                 _methodTypes.add(new ClassArgumentMatching(format_));
@@ -1051,6 +1182,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         StringList bounds_ = new StringList();
         for (String c: l_) {
             if (InvokingOperation.hasVoidPrevious(c, _conf)) {
+                setResultClass(new ClassArgumentMatching(_stds.getAliasObject()));
                 return;
             }
             bounds_.addAllElts(InvokingOperation.getBounds(c, _conf));
