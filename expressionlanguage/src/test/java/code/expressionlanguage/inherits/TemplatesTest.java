@@ -3765,6 +3765,22 @@ public final class TemplatesTest {
         assertTrue(Templates.isCorrect(m_,context_));
     }
     @Test
+    public void isCorrect102Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Param<#T>{}\n");
+        xml_.append("$public $class pkg.ParamSub<#S>:Param<#S>{}\n");
+        files_.put("pkg/ExThree", xml_.toString());
+        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        Mapping m_ = new Mapping();
+        m_.setArg("pkg.ParamSub");
+        m_.setParam("pkg.Param<?>");
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        m_.setMapping(t_);
+        assertTrue(!Templates.isCorrect(m_,context_));
+    }
+    @Test
     public void isCorrectTemplate48Test() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;

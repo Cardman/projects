@@ -1736,6 +1736,9 @@ public final class Templates {
     }
 
     private static String requestGenericSuperType(String _baseArg, StringList _subTypes, String _erasedSuperType, Analyzable _context) {
+        if (!correctNbParameters(_baseArg,_context)) {
+            return null;
+        }
         String generic_ = null;
         String idSuperType_ = getIdFromAllTypes(_erasedSuperType);
         DimComp dBaseParam_ = PrimitiveTypeUtil.getQuickComponentBaseType(idSuperType_);
