@@ -2323,6 +2323,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         damagingMoveData_.getEffects().add(Instances.newEffectDamage());
         data_.completeMembers(CHARGE, damagingMoveData_);
         initConstants(data_);
+        data_.setDefMove(CHARGE);
         initExpPoints(data_);
         initRandomLaws(data_);
         data_.completeVariables();
@@ -2347,6 +2348,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         DamagingMoveData damagingMoveData_ = Instances.newDamagingMoveData();
         data_.completeMembers(CHARGE, damagingMoveData_);
         initConstants(data_);
+        data_.setDefMove(CHARGE);
         initExpPoints(data_);
         initRandomLaws(data_);
         data_.completeVariables();
@@ -2370,6 +2372,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         DamagingMoveData damagingMoveData_ = Instances.newDamagingMoveData();
         data_.completeMembers(CHARGE, damagingMoveData_);
         initConstants(data_);
+        data_.setDefMove(CHARGE);
         initExpPoints(data_);
         initRandomLaws(data_);
         data_.completeVariables();
@@ -2389,6 +2392,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         DamagingMoveData damagingMoveData_ = Instances.newDamagingMoveData();
         data_.completeMembers(CHARGE, damagingMoveData_);
         initConstants(data_);
+        data_.setDefMove(CHARGE);
         initExpPoints(data_);
         initRandomLaws(data_);
         data_.completeVariables();
@@ -2507,6 +2511,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         DamagingMoveData damagingMoveData_ = Instances.newDamagingMoveData();
         data_.completeMembers(CHARGE, damagingMoveData_);
         initConstants(data_);
+        data_.setDefMove(CHARGE);
         initExpPoints(data_);
         initRandomLaws(data_);
         data_.completeVariables();
@@ -2535,6 +2540,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         DamagingMoveData damagingMoveData_ = Instances.newDamagingMoveData();
         data_.completeMembers(CHARGE, damagingMoveData_);
         initConstants(data_);
+        data_.setDefMove(CHARGE);
         data_.getConstNum().addEntry(DataBase.STRONG_MOVE,Rate.newRate("90"));
         initExpPoints(data_);
         initRandomLaws(data_);
@@ -2582,6 +2588,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         damagingMoveData_.setTargetChoice(TargetChoice.ANY_FOE);
         data_.completeMembers(CHARGE2, damagingMoveData_);
         initConstants(data_);
+        data_.setDefMove(CHARGE);
         data_.getConstNum().addEntry(DataBase.STRONG_MOVE,Rate.newRate("90"));
         initExpPoints(data_);
         initRandomLaws(data_);
@@ -2630,6 +2637,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         damagingMoveData_.setTargetChoice(TargetChoice.ANY_FOE);
         data_.completeMembers(CHARGE2, damagingMoveData_);
         initConstants(data_);
+        data_.setDefMove(CHARGE);
         data_.getConstNum().addEntry(DataBase.STRONG_MOVE,Rate.newRate("90"));
         initExpPoints(data_);
         initRandomLaws(data_);
@@ -2678,6 +2686,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         damagingMoveData_.setTargetChoice(TargetChoice.ANY_FOE);
         data_.completeMembers(CHARGE2, damagingMoveData_);
         initConstants(data_);
+        data_.setDefMove(CHARGE);
         data_.getConstNum().addEntry(DataBase.STRONG_MOVE,Rate.newRate("85"));
         initExpPoints(data_);
         initRandomLaws(data_);
@@ -2759,6 +2768,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         damagingMoveData_.setTargetChoice(TargetChoice.ANY_FOE);
         data_.completeMembers(TREMPETTE2, damagingMoveData_);
         initConstants(data_);
+        data_.setDefMove(CHARGE);
         data_.getConstNum().addEntry(DataBase.STRONG_MOVE,Rate.newRate("90"));
         initExpPoints(data_);
         initRandomLaws(data_);
@@ -2811,6 +2821,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         damagingMoveData_.setTargetChoice(TargetChoice.ANY_FOE);
         data_.completeMembers(CHARGE2, damagingMoveData_);
         initConstants(data_);
+        data_.setDefMove(CHARGE);
         data_.getConstNum().addEntry(DataBase.STRONG_MOVE,Rate.newRate("90"));
         initExpPoints(data_);
         initRandomLaws(data_);
@@ -2855,6 +2866,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         damagingMoveData_.setTargetChoice(TargetChoice.ANY_FOE);
         data_.completeMembers(CHARGE2, damagingMoveData_);
         initConstants(data_);
+        data_.setDefMove(CHARGE);
         data_.getConstNum().addEntry(DataBase.STRONG_MOVE,Rate.newRate("90"));
         initExpPoints(data_);
         initRandomLaws(data_);

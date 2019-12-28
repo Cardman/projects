@@ -55,15 +55,7 @@ public final class CheckNumericStringsFight {
         Player user_ = new Player(DataBase.EMPTY_STRING, null, diff_, false,
                 _data);
         WildPk pk_ = new WildPk();
-        if (_data.getPokedex().isEmpty()) {
-            _data.setError(true);
-            return;
-        }
         pk_.setName(_data.getPokedex().firstKey());
-        if (_data.getAbilities().isEmpty()) {
-            _data.setError(true);
-            return;
-        }
         PokemonData pokemonData_ = _data.getPokedex().firstValue();
         if (!Statistic.equalsSet(pokemonData_.getStatistics().getKeys(),
                 Statistic.getStatisticsWithBase())) {

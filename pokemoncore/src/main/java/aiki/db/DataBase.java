@@ -502,7 +502,11 @@ public class DataBase {
         _perCentLoading.setPercent(60);
         validateConstants();
         setCheckTranslation(true);
-        CheckNumericStringsFight.validateNumericBooleanStrings(this);
+        if (!getPokedex().isEmpty() && !getAbilities().isEmpty() && moves.getVal(defMove) != null) {
+            CheckNumericStringsFight.validateNumericBooleanStrings(this);
+        } else {
+            setError(true);
+        }
         if (!_loading.get()) {
             return;
         }
