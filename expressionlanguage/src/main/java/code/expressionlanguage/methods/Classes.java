@@ -1210,7 +1210,7 @@ public final class Classes {
             }
             for (TypeVar t: s.getParamTypesMapValues()) {
                 for (String b: t.getConstraints()) {
-                    if (!Templates.isCorrectTemplateAll(b, map_, _context, true)) {
+                    if (!Templates.isCorrectTemplateAll(b, map_, _context)) {
                         UnknownClassName un_ = new UnknownClassName();
                         un_.setClassName(b);
                         un_.setFileName(s.getFile().getFileName());
@@ -1220,7 +1220,7 @@ public final class Classes {
                 }
             }
             for (String t: s.getDirectGenericSuperTypes(_context)) {
-                if (!Templates.isCorrectTemplateAll(t, map_, _context, true)) {
+                if (!Templates.isCorrectTemplateAll(t, map_, _context)) {
                     UnknownClassName un_ = new UnknownClassName();
                     un_.setClassName(t);
                     un_.setFileName(s.getFile().getFileName());

@@ -415,7 +415,7 @@ public final class Templates {
         return generic_;
     }
 
-    static boolean isCorrectTemplateAll(String _className, StringMap<StringList> _inherit, Analyzable _context) {
+    public static boolean isCorrectTemplateAll(String _className, StringMap<StringList> _inherit, Analyzable _context) {
         return isCorrectTemplateAll(_className, _inherit, _context, true);
     }
     public static boolean isCorrectTemplateAll(String _className, StringMap<StringList> _inherit, Analyzable _context, boolean _exact) {
@@ -578,7 +578,7 @@ public final class Templates {
             i_++;
         }
         String formatted_ = getQuickFormattedType(pref_, varTypes_);
-        if (!isCorrectTemplateAll(formatted_, new StringMap<StringList>(), _context, true)) {
+        if (!isCorrectTemplateAll(formatted_, new StringMap<StringList>(), _context)) {
             return null;
         }
         return formatted_;

@@ -1300,7 +1300,7 @@ public abstract class ContextEl implements ExecutableCode {
             classes.addError(un_);
             return standards.getAliasObject();
         }
-        if (!Templates.isCorrectTemplateAll(resType_, vars_, this, true)) {
+        if (!Templates.isCorrectTemplateAll(resType_, vars_, this)) {
             UnknownClassName un_ = new UnknownClassName();
             un_.setClassName(_in);
             un_.setFileName(bl_.getFile().getFileName());

@@ -315,7 +315,7 @@ public final class StandardInstancingOperation extends
             realClassName_ = StringList.concat(sup_,"..",idClass_,"<", StringList.join(partsArgs_, ","),">");
         }
         StringMap<StringList> vars_ = _conf.getCurrentConstraints();
-        if (!Templates.isCorrectTemplateAll(realClassName_, vars_, _conf, true)) {
+        if (!Templates.isCorrectTemplateAll(realClassName_, vars_, _conf)) {
             int rc_ = _conf.getCurrentLocationIndex();
             UnknownClassName un_ = new UnknownClassName();
             un_.setClassName(realClassName_);
