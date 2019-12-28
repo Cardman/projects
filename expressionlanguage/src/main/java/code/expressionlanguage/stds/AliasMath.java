@@ -103,12 +103,6 @@ public final class AliasMath {
         params_ = new StringList(aliasPrimLong_);
         method_ = new StandardMethod(aliasNegBin, params_, aliasPrimLong_, false, MethodModifier.STATIC,std_);
         methods_.put(method_.getId(), method_);
-        params_ = new StringList(aliasPrimFloat_);
-        method_ = new StandardMethod(aliasNegBin, params_, aliasPrimFloat_, false, MethodModifier.STATIC,std_);
-        methods_.put(method_.getId(), method_);
-        params_ = new StringList(aliasPrimDouble_);
-        method_ = new StandardMethod(aliasNegBin, params_, aliasPrimDouble_, false, MethodModifier.STATIC,std_);
-        methods_.put(method_.getId(), method_);
         _stds.getStandards().put(aliasMath, std_);
         params_ = new StringList(aliasPrimInteger_,aliasPrimInteger_);
         method_ = new StandardMethod(aliasPlus, params_, aliasPrimInteger_, false, MethodModifier.STATIC,std_);
@@ -195,7 +189,7 @@ public final class AliasMath {
         method_ = new StandardMethod(aliasXor, params_, aliasPrimLong_, false, MethodModifier.STATIC,std_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasPrimBoolean_,aliasPrimBoolean_);
-        method_ = new StandardMethod(aliasXor, params_, aliasPrimLong_, false, MethodModifier.STATIC,std_);
+        method_ = new StandardMethod(aliasXor, params_, aliasPrimBoolean_, false, MethodModifier.STATIC,std_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasPrimInteger_,aliasPrimInteger_);
         method_ = new StandardMethod(aliasShiftLeft, params_, aliasPrimInteger_, false, MethodModifier.STATIC,std_);

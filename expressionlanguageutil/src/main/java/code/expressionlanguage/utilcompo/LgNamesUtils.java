@@ -85,8 +85,10 @@ public class LgNamesUtils extends LgNames {
     private String aliasFileListDirectories;
     private String aliasFileMakeDirs;
     private String aliasFileZippedBin;
+    private String aliasFileZippedBinArray;
     private String aliasFileZippedText;
     private String aliasFileZipBin;
+    private String aliasFileZipBinArray;
     private String aliasFileZipText;
     private String aliasEntryBinary;
     private String aliasEntryText;
@@ -755,11 +757,17 @@ public class LgNamesUtils extends LgNames {
         params_ = new StringList(getAliasString(),aliasEntryBinary);
         method_ = new StandardMethod(aliasFileZipBin, params_, getAliasPrimBoolean(), true, MethodModifier.STATIC, stdcl_);
         methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasEntryBinary);
+        method_ = new StandardMethod(aliasFileZipBinArray, params_, PrimitiveTypeUtil.getPrettyArrayType(getAliasPrimByte()), true, MethodModifier.STATIC, stdcl_);
+        methods_.put(method_.getId(), method_);
         params_ = new StringList(getAliasString(),aliasEntryText);
         method_ = new StandardMethod(aliasFileZipText, params_, getAliasPrimBoolean(), true, MethodModifier.STATIC, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(getAliasString());
         method_ = new StandardMethod(aliasFileZippedBin, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasEntryBinary), false, MethodModifier.STATIC, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(PrimitiveTypeUtil.getPrettyArrayType(getAliasPrimByte()));
+        method_ = new StandardMethod(aliasFileZippedBinArray, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasEntryBinary), false, MethodModifier.STATIC, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(getAliasString());
         method_ = new StandardMethod(aliasFileZippedText, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasEntryText), false, MethodModifier.STATIC, stdcl_);
@@ -1272,7 +1280,15 @@ public class LgNamesUtils extends LgNames {
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
         	}
-        	if (!(_args[0] instanceof StringStruct)) {
+            if (StringList.quickEq(name_,aliasFileZipBinArray)) {
+                res_.setResult(ZipStructUtil.zipBinFiles(_args[0],(RunnableContextEl) _cont));
+                return res_;
+            }
+            if (StringList.quickEq(name_,aliasFileZippedBinArray)) {
+                res_.setResult(ZipStructUtil.zippedBinaryFilesByteArray(_args[0], (RunnableContextEl) _cont));
+                return res_;
+            }
+            if (!(_args[0] instanceof StringStruct)) {
         	    res_.setError(getAliasNullPe());
                 return res_;
             }
@@ -1661,8 +1677,10 @@ public class LgNamesUtils extends LgNames {
                 getAliasFileListDirectories(),
                 getAliasFileListFiles(),
                 getAliasFileZipBin(),
+                getAliasFileZipBinArray(),
                 getAliasFileZipText(),
                 getAliasFileZippedBin(),
+                getAliasFileZippedBinArray(),
                 getAliasFileZippedText(),
                 getAliasFileMakeDirs()));
         m_.put(getAliasEntryBinary(), new StringList(
@@ -2086,6 +2104,14 @@ public class LgNamesUtils extends LgNames {
         this.aliasFileZippedBin = aliasFileZippedBin;
     }
 
+    public String getAliasFileZippedBinArray() {
+        return aliasFileZippedBinArray;
+    }
+
+    public void setAliasFileZippedBinArray(String aliasFileZippedBinArray) {
+        this.aliasFileZippedBinArray = aliasFileZippedBinArray;
+    }
+
     public String getAliasFileZippedText() {
         return aliasFileZippedText;
     }
@@ -2100,6 +2126,14 @@ public class LgNamesUtils extends LgNames {
 
     public void setAliasFileZipBin(String aliasFileZipBin) {
         this.aliasFileZipBin = aliasFileZipBin;
+    }
+
+    public String getAliasFileZipBinArray() {
+        return aliasFileZipBinArray;
+    }
+
+    public void setAliasFileZipBinArray(String aliasFileZipBinArray) {
+        this.aliasFileZipBinArray = aliasFileZipBinArray;
     }
 
     public String getAliasFileZipText() {
@@ -3259,8 +3293,10 @@ public class LgNamesUtils extends LgNames {
         setAliasSetSecondTa(get(_util,_cust,"SetSecondTa"));
         setAliasFileMakeDirs(get(_util,_cust,"FileMakeDirs"));
         setAliasFileZippedBin(get(_util,_cust,"FileZippedBin"));
+        setAliasFileZippedBinArray(get(_util,_cust,"FileZippedBinArray"));
         setAliasFileZippedText(get(_util,_cust,"FileZippedText"));
         setAliasFileZipBin(get(_util,_cust,"FileZipBin"));
+        setAliasFileZipBinArray(get(_util,_cust,"FileZipBinArray"));
         setAliasFileZipText(get(_util,_cust,"FileZipText"));
         setAliasEntryBinary(get(_util,_cust,"EntryBinary"));
         setAliasEntryText(get(_util,_cust,"EntryText"));

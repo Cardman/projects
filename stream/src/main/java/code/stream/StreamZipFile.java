@@ -1,12 +1,10 @@
 package code.stream;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.util.Collections;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.util.zip.ZipEntry;
-import java.util.zip.ZipFile;
+import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
-import code.util.StringList;
 import code.util.StringMap;
 
 public final class StreamZipFile {
@@ -14,55 +12,42 @@ public final class StreamZipFile {
     private StreamZipFile() {
     }
 
-    public static StringMap<byte[]> zippedBinaryFiles(String _zipFileName) {
+    public static StringMap<byte[]> zippedBinaryFiles(byte[] _bytes) {
         StringMap<byte[]> files_ = new StringMap<byte[]>();
-        ZipFile zipFile_ = null;
         try {
-            zipFile_ = new ZipFile(_zipFileName);
-
-            for (ZipEntry entry_ :Collections.list(zipFile_.entries())) {
-                InputStream stream_ = zipFile_.getInputStream(entry_);
-                byte[] bytes_ = new byte[(int) entry_.getSize()];
-                stream_.read(bytes_);
-                stream_.close();
-                files_.put(entry_.getName(), bytes_);
+            ByteArrayInputStream bais_ = new ByteArrayInputStream(_bytes);
+            ZipInputStream zis_ = new ZipInputStream(bais_);
+            while (true) {
+                ZipEntry e_ = zis_.getNextEntry();
+                if (e_ == null) {
+                    break;
+                }
+                if (e_.isDirectory()) {
+                    byte[] bytes_ = new byte[(int) e_.getSize()];
+                    files_.put(e_.getName(), bytes_);
+                    zis_.closeEntry();
+                    continue;
+                }
+                byte[] bytes_ = new byte[(int) e_.getSize()];
+                int i = 0;
+                while (i < bytes_.length) {
+                    i += zis_.read(bytes_, i, bytes_.length - i);
+                }
+                files_.put(e_.getName(), bytes_);
+                zis_.closeEntry();
             }
+            zis_.close();
             return files_;
         } catch (Throwable _0) {
             return null;
-        } finally {
-            if (zipFile_ != null) {
-                try {
-                    zipFile_.close();
-                } catch (Throwable _0) {
-                }
-            }
         }
+
     }
 
-    public static boolean zipFiles(String _zipFileName, StringMap<String> _files) {
-        try{
-            FileOutputStream fos_ = new FileOutputStream(_zipFileName);
-            ZipOutputStream zos_ = new ZipOutputStream(fos_);
-            for (String n: _files.getKeys()) {
-                String file_ = _files.getVal( n);
-                ZipEntry ze_ = new ZipEntry(n);
-                zos_.putNextEntry(ze_);
-                zos_.write(StringList.encode(file_));
-            }
-            zos_.closeEntry();
-            //remember close it
-            zos_.close();
-            return true;
-        }catch(Throwable _0){
-        	return false;
-        }
-    }
-
-    public static boolean zipBinFiles(String _zipFileName, StringMap<byte[]> _files) {
+    public static byte[] zipBinFiles(StringMap<byte[]> _files) {
         try {
-            FileOutputStream fos_ = new FileOutputStream(_zipFileName);
-            ZipOutputStream zos_ = new ZipOutputStream(fos_);
+            ByteArrayOutputStream baos_ = new ByteArrayOutputStream();
+            ZipOutputStream zos_ = new ZipOutputStream(baos_);
             for (String n : _files.getKeys()) {
                 byte[] file_ = _files.getVal(n);
                 ZipEntry ze_ = new ZipEntry(n);
@@ -72,10 +57,9 @@ public final class StreamZipFile {
             zos_.closeEntry();
             // remember close it
             zos_.close();
-            return true;
+            return baos_.toByteArray();
         } catch (Throwable _0) {
-        	return false;
+            return null;
         }
     }
-
 }

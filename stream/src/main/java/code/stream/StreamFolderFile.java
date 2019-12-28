@@ -32,7 +32,7 @@ public final class StreamFolderFile {
                 zipFiles_.addEntry(f.substring(abs_.length()+1),contentOfFile_);
             }
         } else {
-            StringMap<byte[]> zip_ =  StreamZipFile.zippedBinaryFiles(_archiveOrFolder);
+            StringMap<byte[]> zip_ =  StreamZipFile.zippedBinaryFiles(StreamBinaryFile.loadFile(_archiveOrFolder));
             if (zip_ == null) {
                 return zipFiles_;
             }
@@ -45,7 +45,7 @@ public final class StreamFolderFile {
                 if (dec_ == null) {
                     continue;
                 }
-                zipFiles_.addEntry(key_,dec_);
+                zipFiles_.addEntry(key_,StringList.removeChars(dec_,'\r'));
             }
         }
         return zipFiles_;
@@ -66,7 +66,7 @@ public final class StreamFolderFile {
                 zipFiles_.addEntry(f.substring(abs_.length()+1), bytes_);
             }
         } else {
-            StringMap<byte[]> zip_ =  StreamZipFile.zippedBinaryFiles(_archiveOrFolder);
+            StringMap<byte[]> zip_ =  StreamZipFile.zippedBinaryFiles(StreamBinaryFile.loadFile(_archiveOrFolder));
             if (zip_ == null) {
                 return zipFiles_;
             }
