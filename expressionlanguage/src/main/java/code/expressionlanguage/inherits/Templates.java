@@ -1523,20 +1523,22 @@ public final class Templates {
         }
         String fct_ = _context.getStandards().getAliasFct();
         String obj_ = _context.getStandards().getAliasObject();
+        String idBaseArrayArg_ = getIdFromAllTypes(baseArrayArg_);
+        String idBaseArrayParam_ = getIdFromAllTypes(baseArrayParam_);
         if (StringList.quickEq(baseArg_, baseParam_)) {
             int len_ = typesParam_.size();
             if (typesArg_.size() != len_) {
                 return null;
             }
-            if (StringList.quickEq(baseArg_, fct_)) {
+            if (StringList.quickEq(idBaseArrayArg_, fct_)) {
                 return newMappingPairsFct(typesArg_, typesParam_, obj_);
             }
             return newMappingPairs(_arg, typesParam_);
         }
-        if (StringList.quickEq(baseArg_, fct_)) {
+        if (StringList.quickEq(idBaseArrayArg_, fct_)) {
             return null;
         }
-        if (StringList.quickEq(baseParam_, fct_)) {
+        if (StringList.quickEq(idBaseArrayParam_, fct_)) {
             return null;
         }
         String generic_ = null;
@@ -1574,6 +1576,7 @@ public final class Templates {
         DimComp dArg_ = PrimitiveTypeUtil.getQuickComponentBaseType(_arg);
         DimComp dParam_ = PrimitiveTypeUtil.getQuickComponentBaseType(_param);
         String baseArrayArg_ = dArg_.getComponent();
+        String baseArrayParam_ = dParam_.getComponent();
         if (typesParam_.size() == 1) {
             String base_ = getIdFromAllTypes(baseArg_);
             if (PrimitiveTypeUtil.canBeUseAsArgument(baseParam_, base_, _context)) {
@@ -1591,20 +1594,22 @@ public final class Templates {
         }
         String fct_ = _context.getStandards().getAliasFct();
         String obj_ = _context.getStandards().getAliasObject();
+        String idBaseArrayArg_ = getIdFromAllTypes(baseArrayArg_);
+        String idBaseArrayParam_ = getIdFromAllTypes(baseArrayParam_);
         if (StringList.quickEq(baseArg_, baseParam_)) {
             int len_ = typesParam_.size();
             if (typesArg_.size() != len_) {
                 return null;
             }
-            if (StringList.quickEq(baseArg_, fct_)) {
+            if (StringList.quickEq(idBaseArrayArg_, fct_)) {
                 return newMappingPairsFct(typesArg_, typesParam_, obj_);
             }
             return newMappingPairs(_arg, typesParam_);
         }
-        if (StringList.quickEq(baseArg_, fct_)) {
+        if (StringList.quickEq(idBaseArrayArg_, fct_)) {
             return null;
         }
-        if (StringList.quickEq(baseParam_, fct_)) {
+        if (StringList.quickEq(idBaseArrayParam_, fct_)) {
             return null;
         }
         String generic_;
