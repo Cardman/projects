@@ -1919,6 +1919,42 @@ public final class TemplatesTest {
         String inferred_ = Templates.tryInfer("pkg.ExTwo", new StringMap<String>(),"pkg.ExTwo<java.lang.$iterable<java.lang.Number>>", cont_);
         assertEq("pkg.ExTwo<java.lang.$iterable<java.lang.Number>>", inferred_);
     }
+
+    @Test
+    public void tryInfer14Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.Ex<T>:ExFour<T> {}\n");
+        xml_.append("$public $interface pkg.ExThree<V>:ExFour<V> {}\n");
+        xml_.append("$public $interface pkg.ExFour<W>:ExFive<W> {}\n");
+        xml_.append("$public $interface pkg.ExFive<X> {}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo<U> :pkg.Ex<U>:ExThree<U>{}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        String inferred_ = Templates.tryInfer("pkg.ExTwo",new StringMap<String>(), "pkg.ExTwo<java.lang.Number>", cont_);
+        assertEq("pkg.ExTwo<java.lang.Number>", inferred_);
+    }
+
+    @Test
+    public void tryInfer15Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.Ex<T>:ExFour<T> {}\n");
+        xml_.append("$public $interface pkg.ExThree<V>:ExFour<V> {}\n");
+        xml_.append("$public $interface pkg.ExFour<W>:ExFive<W> {}\n");
+        xml_.append("$public $interface pkg.ExFive<X> {}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo<U> :pkg.Ex<U>:ExThree<U>{}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        String inferred_ = Templates.tryInfer("java.lang.$Fct",new StringMap<String>(), "java.lang.$Fct<java.lang.Number>", cont_);
+        assertEq("java.lang.$Fct<java.lang.Number>", inferred_);
+    }
     @Test
     public void getInferForm1Test() {
         assertNull(Templates.getInferForm("java.lang.Number"));

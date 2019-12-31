@@ -272,6 +272,9 @@ public final class Templates {
         return ContextEl.removeDottedSpaces(tr_);
     }
     public static String tryInfer(String _erased, StringMap<String> _vars, String _declaring, Analyzable _context) {
+        if (StringList.quickEq(_erased,_context.getStandards().getAliasFct())) {
+            return _declaring;
+        }
         GeneType g_ = _context.getClassBody(_erased);
         String idParam_ = getIdFromAllTypes(_declaring);
         String gene_ = g_.getGenericString();
