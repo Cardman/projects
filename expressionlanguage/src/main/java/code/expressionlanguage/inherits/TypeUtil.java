@@ -577,6 +577,11 @@ public final class TypeUtil {
                     continue;
                 }
                 for (String t: sub_.getDirectGenericSuperTypes(_an)) {
+                    if (!Templates.correctNbParameters(s,_an)) {
+                        String format_ = Templates.getIdFromAllTypes(t);
+                        addIfNotFound(visited_, new_, format_);
+                        continue;
+                    }
                     String format_ = Templates.quickFormat(s, t, _an);
                     addIfNotFound(visited_, new_, format_);
                 }

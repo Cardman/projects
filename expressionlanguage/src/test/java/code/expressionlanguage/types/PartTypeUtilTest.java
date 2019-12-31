@@ -811,6 +811,110 @@ public final class PartTypeUtilTest {
         assertEq("", solved_);
     }
     @Test
+    public void process5FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("pkgtwo.OuterTwo;\n");
+        xml_.append("$public $class pkg.Outer<#U>: OuterTwo<#U> {\n");
+        xml_.append(" $public $class Inner {\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $class InnerTwo:OuterTwo<java.lang.Number>..InnerThree {\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkgtwo.OuterTwo<#T> {\n");
+        xml_.append(" $public $class InnerThree {\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $class InnerFour:..InnerThree {\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl context_ = unfullValidateInheritingClasses(files_);
+        Classes cl_ = context_.getClasses();
+        RootBlock root_ = cl_.getClassBody("pkg.Outer");
+
+        String solved_ = PartTypeUtil.processAnalyze("Outer<java.lang.Number,java.lang.Number>..InnerThree", "",context_, root_);
+        assertEq("", solved_);
+    }
+    @Test
+    public void process6FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("pkgtwo.OuterTwo;\n");
+        xml_.append("$public $class pkg.Outer<#U>: OuterTwo<#U> {\n");
+        xml_.append(" $public $class Inner {\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $class InnerTwo:OuterTwo<java.lang.Number>..InnerThree {\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkgtwo.OuterTwo<#T> {\n");
+        xml_.append(" $public $class InnerThree {\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $class InnerFour:..InnerThree {\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl context_ = unfullValidateInheritingClasses(files_);
+        Classes cl_ = context_.getClasses();
+        RootBlock root_ = cl_.getClassBody("pkg.Outer");
+
+        String solved_ = PartTypeUtil.processAnalyze("Outer..InnerThree", "",context_, root_);
+        assertEq("", solved_);
+    }
+    @Test
+    public void process7FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("pkgtwo.OuterTwo;\n");
+        xml_.append("$public $class pkg.Outer<#U>: OuterTwo<#U> {\n");
+        xml_.append(" $public $class Inner {\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $class InnerTwo:OuterTwo<java.lang.Number>..InnerThree {\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkgtwo.OuterTwo<#T> {\n");
+        xml_.append(" $public $class InnerThree {\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $class InnerFour:..InnerThree {\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl context_ = unfullValidateInheritingClasses(files_);
+        Classes cl_ = context_.getClasses();
+        RootBlock root_ = cl_.getClassBody("pkg.Outer");
+
+        String solved_ = PartTypeUtil.processAnalyze("Outer..Inner", "",context_, root_);
+        assertEq("", solved_);
+    }
+    @Test
+    public void process8FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("pkgtwo.OuterTwo;\n");
+        xml_.append("$public $class pkg.Outer<#U> {\n");
+        xml_.append(" $public $class Inner {\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $class InnerTwo {\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl context_ = unfullValidateInheritingClasses(files_);
+        Classes cl_ = context_.getClasses();
+        RootBlock root_ = cl_.getClassBody("pkg.Outer");
+
+        String solved_ = PartTypeUtil.processAnalyze("Outer..Inner", "",context_, root_);
+        assertEq("", solved_);
+    }
+    @Test
     public void processLine1Test() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
