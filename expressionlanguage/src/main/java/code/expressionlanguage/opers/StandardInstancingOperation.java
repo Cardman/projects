@@ -2,10 +2,12 @@ package code.expressionlanguage.opers;
 
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.errors.custom.IllegalCallCtorByType;
 import code.expressionlanguage.errors.custom.StaticAccessError;
 import code.expressionlanguage.errors.custom.UnknownClassName;
+import code.expressionlanguage.inherits.Mapping;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.inherits.TypeUtil;
@@ -17,10 +19,7 @@ import code.expressionlanguage.opers.exec.Operable;
 import code.expressionlanguage.opers.exec.ParentOperable;
 import code.expressionlanguage.opers.exec.PossibleIntermediateDottedOperable;
 import code.expressionlanguage.opers.exec.StaticInitOperable;
-import code.expressionlanguage.opers.util.ClassArgumentMatching;
-import code.expressionlanguage.opers.util.ClassMethodId;
-import code.expressionlanguage.opers.util.ConstructorId;
-import code.expressionlanguage.opers.util.ConstrustorIdVarArg;
+import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.ResultErrorStd;
@@ -233,6 +232,31 @@ public final class StandardInstancingOperation extends
             } else {
                 realClassName_ = realClassName_.trim();
             }
+            String base_ = Templates.getIdFromAllTypes(realClassName_);
+            GeneType g_ = _conf.getClassBody(base_);
+            if (g_ != null && !g_.isStaticType() && !ContextEl.isEnumType(g_)) {
+                String glClass_ = _conf.getGlobalClass();
+                StringList parts_ = Templates.getAllInnerTypes(realClassName_);
+                String outer_ = StringList.join(parts_.mid(0, parts_.size() - 1),"..");
+                if (isStaticAccess() != MethodAccessKind.INSTANCE) {
+                    StaticAccessError static_ = new StaticAccessError();
+                    static_.setFileName(_conf.getCurrentFileName());
+                    static_.setIndexFile(_conf.getCurrentLocationIndex());
+                    _conf.getClasses().addError(static_);
+                } else {
+                    StringMap<StringList> vars_ = _conf.getCurrentConstraints();
+                    Mapping m_ = new Mapping();
+                    m_.setArg(glClass_);
+                    m_.setParam(outer_);
+                    m_.setMapping(vars_);
+                    if (!Templates.isCorrectOrNumbers(m_, _conf)){
+                        StaticAccessError static_ = new StaticAccessError();
+                        static_.setFileName(_conf.getCurrentFileName());
+                        static_.setIndexFile(_conf.getCurrentLocationIndex());
+                        _conf.getClasses().addError(static_);
+                    }
+                }
+            }
             analyzeCtor(_conf, realClassName_, firstArgs_);
             return;
         }
@@ -368,7 +392,7 @@ public final class StandardInstancingOperation extends
                 _conf.getClasses().addError(call_);
             }
         }
-        if (g_.isAbstractType() && !(g_ instanceof EnumBlock || g_ instanceof InnerElementBlock)) {
+        if (g_.isAbstractType() && !ContextEl.isEnumType(g_)) {
             IllegalCallCtorByType call_ = new IllegalCallCtorByType();
             call_.setType(_realClassName);
             call_.setFileName(_conf.getCurrentFileName());
