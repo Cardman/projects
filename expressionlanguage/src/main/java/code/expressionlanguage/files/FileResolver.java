@@ -2937,9 +2937,10 @@ public final class FileResolver {
         boolean typeDeclaring_ = false;
         StringBuilder declTypeName_ = new StringBuilder();
         int nbOpenedTmp_ = 0;
+        char prevPrintChar_ = ' ';
         while (indexInstr_ < instLen_) {
             char currentCharFound_ = _found.charAt(indexInstr_);
-            if (Character.isWhitespace(currentCharFound_) && nbOpenedTmp_ == 0) {
+            if (Character.isWhitespace(currentCharFound_)) {
                 String trimmed_ = declTypeName_.toString().trim();
                 if (StringList.quickEq(trimmed_,keyWordNew_)) {
                     break;
@@ -2972,6 +2973,7 @@ public final class FileResolver {
             if (currentCharFound_ == BEGIN_TEMPLATE) {
                 nbOpenedTmp_++;
                 declTypeName_.append(currentCharFound_);
+                prevPrintChar_ = currentCharFound_;
                 indexInstr_++;
                 continue;
             }
@@ -2981,11 +2983,13 @@ public final class FileResolver {
                     String nextPart_ = _found.substring(indexInstr_+1).trim();
                     if (nextPart_.startsWith(".")) {
                         declTypeName_.append(currentCharFound_);
+                        prevPrintChar_ = currentCharFound_;
                         indexInstr_++;
                         continue;
                     }
                     if (nextPart_.startsWith(String.valueOf(BEGIN_ARRAY))) {
                         declTypeName_.append(currentCharFound_);
+                        prevPrintChar_ = currentCharFound_;
                         indexInstr_++;
                         continue;
                     }
@@ -2994,27 +2998,55 @@ public final class FileResolver {
                     break;
                 }
                 declTypeName_.append(currentCharFound_);
+                prevPrintChar_ = currentCharFound_;
                 indexInstr_++;
                 continue;
             }
             if (nbOpenedTmp_ > 0) {
-                declTypeName_.append(currentCharFound_);
-                indexInstr_++;
-                continue;
+                if (currentCharFound_ == SEP_CALLING
+                   || currentCharFound_ == BEGIN_ARRAY) {
+                    declTypeName_.append(currentCharFound_);
+                    prevPrintChar_ = currentCharFound_;
+                    indexInstr_++;
+                    continue;
+                }
+                if (currentCharFound_ == END_ARRAY) {
+                    if (prevPrintChar_ == BEGIN_ARRAY) {
+                        declTypeName_.append(currentCharFound_);
+                        prevPrintChar_ = currentCharFound_;
+                        indexInstr_++;
+                        continue;
+                    }
+                    break;
+                }
+                if (currentCharFound_ == Templates.SUB_TYPE_CHAR
+                   || currentCharFound_ == Templates.SUP_TYPE_CHAR) {
+                    if (prevPrintChar_ == SEP_CALLING
+                            || prevPrintChar_ == BEGIN_TEMPLATE) {
+                        declTypeName_.append(currentCharFound_);
+                        prevPrintChar_ = currentCharFound_;
+                        indexInstr_++;
+                        continue;
+                    }
+                    break;
+                }
             }
             // !Character.isWhitespace(currentCharFound_)
             if (StringList.isDollarWordChar(currentCharFound_)) {
                 declTypeName_.append(currentCharFound_);
+                prevPrintChar_ = currentCharFound_;
                 indexInstr_++;
                 continue;
             }
             if (currentCharFound_ == PKG) {
                 declTypeName_.append(currentCharFound_);
+                prevPrintChar_ = currentCharFound_;
                 indexInstr_++;
                 continue;
             }
             if (currentCharFound_ == TYPE_VAR) {
                 declTypeName_.append(currentCharFound_);
+                prevPrintChar_ = currentCharFound_;
                 indexInstr_++;
                 continue;
             }

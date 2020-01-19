@@ -10357,6 +10357,90 @@ public final class FileResolverTest {
         assertEq(392,for_.getLabelOffset());
     }
     @Test
+    public void parseFile167Test() {
+        StringBuilder file_ = new StringBuilder();
+        file_.append("$public $class pkgtwo.Toto<#T> {\n");
+        file_.append("\t$private $normal $String exfield(){\n");
+        file_.append("\t\t$badthrowbis<y,tab[8]>p:\n");
+        file_.append("\t}\n");
+        file_.append("}");
+        ContextEl context_ = simpleContext();
+        FileResolver.parseFile("my_file",file_.toString(), false, context_);
+        assertEq(1, countCustomTypes(context_));
+        assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
+        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.Toto");
+        assertTrue(r_ instanceof ClassBlock);
+        ClassBlock cl_ = (ClassBlock) r_;
+        assertEq("<#T>",r_.getTemplateDef());
+        assertEq(0,r_.getDirectSuperTypes().size());
+        Block child_ = cl_.getFirstChild();
+        assertTrue(child_ instanceof OverridableBlock);
+        OverridableBlock method_ = (OverridableBlock) child_;
+        assertTrue(!method_.isStaticMethod());
+        assertTrue(!method_.isFinalMethod());
+        assertTrue(!method_.isAbstractMethod());
+        assertTrue(method_.isNormalMethod());
+        assertSame(AccessEnum.PRIVATE, method_.getAccess());
+        assertEq("exfield", method_.getName());
+        assertEq("$String", method_.getReturnType());
+        assertEq(0, method_.getParametersNames().size());
+        assertEq(0, method_.getParametersTypes().size());
+        assertEq(34, method_.getAccessOffset());
+        assertEq(43, method_.getModifierOffset());
+        assertEq(51, method_.getReturnTypeOffset());
+        assertEq(59, method_.getNameOffset());
+        assertEq(0, method_.getParametersTypesOffset().size());
+        assertEq(0, method_.getParametersNamesOffset().size());
+        Block instr_ = method_.getFirstChild();
+        assertTrue(instr_ instanceof Line);
+        Line th_ = (Line) instr_;
+        assertEq("$badthrowbis<y,tab[8]>p",th_.getExpression());
+        assertEq(72, th_.getExpressionOffset());
+        assertNull(instr_.getNextSibling());
+    }
+    @Test
+    public void parseFile168Test() {
+        StringBuilder file_ = new StringBuilder();
+        file_.append("$public $class pkgtwo.Toto<#T> {\n");
+        file_.append("\t$private $normal $String exfield(){\n");
+        file_.append("\t\t$badthrowbis<y?tab[8]>p:\n");
+        file_.append("\t}\n");
+        file_.append("}");
+        ContextEl context_ = simpleContext();
+        FileResolver.parseFile("my_file",file_.toString(), false, context_);
+        assertEq(1, countCustomTypes(context_));
+        assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
+        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.Toto");
+        assertTrue(r_ instanceof ClassBlock);
+        ClassBlock cl_ = (ClassBlock) r_;
+        assertEq("<#T>",r_.getTemplateDef());
+        assertEq(0,r_.getDirectSuperTypes().size());
+        Block child_ = cl_.getFirstChild();
+        assertTrue(child_ instanceof OverridableBlock);
+        OverridableBlock method_ = (OverridableBlock) child_;
+        assertTrue(!method_.isStaticMethod());
+        assertTrue(!method_.isFinalMethod());
+        assertTrue(!method_.isAbstractMethod());
+        assertTrue(method_.isNormalMethod());
+        assertSame(AccessEnum.PRIVATE, method_.getAccess());
+        assertEq("exfield", method_.getName());
+        assertEq("$String", method_.getReturnType());
+        assertEq(0, method_.getParametersNames().size());
+        assertEq(0, method_.getParametersTypes().size());
+        assertEq(34, method_.getAccessOffset());
+        assertEq(43, method_.getModifierOffset());
+        assertEq(51, method_.getReturnTypeOffset());
+        assertEq(59, method_.getNameOffset());
+        assertEq(0, method_.getParametersTypesOffset().size());
+        assertEq(0, method_.getParametersNamesOffset().size());
+        Block instr_ = method_.getFirstChild();
+        assertTrue(instr_ instanceof Line);
+        Line th_ = (Line) instr_;
+        assertEq("$badthrowbis<y?tab[8]>p",th_.getExpression());
+        assertEq(72, th_.getExpressionOffset());
+        assertNull(instr_.getNextSibling());
+    }
+    @Test
     public void parseFile1FailTest() {
         StringBuilder file_ = new StringBuilder();
         file_.append("$public $class pkg.Outer {\n");
