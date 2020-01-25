@@ -564,10 +564,10 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         assertEq(22, ((NumberStruct)str_).intStruct());
         str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "ONE"));
         assertEq("pkg.Ex-ONE", str_.getClassName(cont_));
-        assertEq(STRING, ((FieldableStruct)str_).getStruct(new ClassField("pkg.Ex", "second")).getClassName(cont_));
+        assertEq(STRING, getStruct(str_,new ClassField("pkg.Ex", "second")).getClassName(cont_));
         str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "TWO"));
         assertEq("pkg.Ex-TWO", str_.getClassName(cont_));
-        assertEq("pkg.ExOther", ((FieldableStruct)str_).getStruct(new ClassField("pkg.Ex", "second")).getClassName(cont_));
+        assertEq("pkg.ExOther", getStruct(str_,new ClassField("pkg.Ex", "second")).getClassName(cont_));
     }
     @Test
     public void initializeClass1FailTest() {

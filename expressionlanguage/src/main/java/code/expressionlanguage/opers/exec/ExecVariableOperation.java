@@ -73,7 +73,7 @@ public final class ExecVariableOperation extends ExecLeafOperation implements
         Argument a_ = getArgument(_nodes,this);
         Struct store_;
         store_ = a_.getStruct();
-        Argument arg_ = getCommonCompoundSetting(_conf, store_, _op, _right);
+        Argument arg_ = getCommonCompoundSetting(_conf, store_, _op, _right,getResultClass());
         return arg_;
     }
 
@@ -102,16 +102,14 @@ public final class ExecVariableOperation extends ExecLeafOperation implements
         _loc.setStruct(_right.getStruct());
         return _right;
     }
-    private Argument getCommonCompoundSetting(ExecutableCode _conf, Struct _store, String _op, Argument _right) {
+    private Argument getCommonCompoundSetting(ExecutableCode _conf, Struct _store, String _op, Argument _right, ClassArgumentMatching _arg) {
         PageEl ip_ = _conf.getOperationPageEl();
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off, _conf);
         LocalVariable locVar_ = ip_.getLocalVar(variableName);
         Argument left_ = new Argument();
-        String formattedClassVar_ = locVar_.getClassName();
         left_.setStruct(_store);
-        ClassArgumentMatching cl_ = new ClassArgumentMatching(formattedClassVar_);
         Argument res_;
-        res_ = ExecNumericOperation.calculateAffect(left_, _conf, _right, _op, catString, cl_);
+        res_ = ExecNumericOperation.calculateAffect(left_, _conf, _right, _op, catString, _arg);
         setVar(_conf, locVar_, res_);
         return res_;
     }

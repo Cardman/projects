@@ -13,6 +13,7 @@ import code.expressionlanguage.structs.EnumerableStruct;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.structs.WithParentStruct;
 import code.util.CustList;
+import code.util.EntryCust;
 import code.util.ObjectMap;
 import code.util.StringList;
 
@@ -49,18 +50,13 @@ public final class RunnableStruct implements WithParentStruct, EnumerableStruct,
     }
 
     @Override
-    public Struct getStruct(ClassField _classField) {
-        return fields.getVal(_classField);
+    public EntryCust<ClassField, Struct> getEntryStruct(ClassField _classField) {
+        return fields.getEntryByKey(_classField);
     }
 
     @Override
     public ObjectMap<ClassField, Struct> getFields() {
         return fields;
-    }
-
-    @Override
-    public void setStruct(ClassField _classField, Struct _value) {
-        fields.set(_classField,_value);
     }
 
     @Override

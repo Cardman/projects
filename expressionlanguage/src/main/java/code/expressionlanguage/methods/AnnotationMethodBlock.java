@@ -19,6 +19,7 @@ import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.ExpressionLanguage;
+import code.expressionlanguage.opers.exec.ExecInvokingOperation;
 import code.expressionlanguage.opers.exec.ExecOperationNode;
 import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.stds.LgNames;
@@ -195,23 +196,29 @@ public final class AnnotationMethodBlock extends NamedFunctionBlock implements
         if (in_ && !defaultValue.trim().isEmpty()) {
             ip_.setGlobalOffset(defaultValueOffset);
             ip_.setOffset(0);
-            String name_ = getName();
-            Struct struct_;
             ExpressionLanguage el_ = ip_.getCurrentEl(_cont,this, CustList.FIRST_INDEX, CustList.FIRST_INDEX);
             Argument arg_ = el_.calculateMember(_cont);
+            setValue(_cont,arg_);
             if (_cont.callsOrException()) {
                 return;
             }
-            struct_ = arg_.getStruct();
-            ip_.clearCurrentEls();
-            RootBlock r_ = (RootBlock) getParent();
-            ClassField staticField_ = new ClassField(r_.getFullName(), name_);
-            Argument gl_ = ip_.getGlobalArgument();
-            ((FieldableStruct) gl_.getStruct()).setStruct(staticField_, struct_);
         }
         processBlock(_cont);
     }
 
+    private void setValue(ContextEl _cont, Argument _arg) {
+        if (_cont.callsOrException()) {
+            return;
+        }
+        AbstractPageEl ip_ = _cont.getLastPage();
+        ip_.clearCurrentEls();
+        String name_ = getName();
+        RootBlock r_ = (RootBlock) getParent();
+        String idCl_ = r_.getFullName();
+        Argument gl_ = ip_.getGlobalArgument();
+        String ret_ = getImportedReturnType();
+        ExecInvokingOperation.setField(idCl_, name_, false, false, false, ret_, gl_, _arg, _cont, -1);
+    }
     @Override
     public ExpressionLanguage getEl(ContextEl _context,
             int _indexProcess) {

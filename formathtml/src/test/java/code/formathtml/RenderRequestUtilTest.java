@@ -636,8 +636,8 @@ public final class RenderRequestUtilTest extends CommonRender {
         NodeContainer nCont_ = conf_.getContainersMap().firstValue().getValue(0);
         NodeContainer nContBis_ = conf_.getContainersMap().firstValue().getValue(1);
         RendRequestUtil.setRendObject(conf_,nCont_,new IntStruct(2));
-        assertEq(2, ((NumberStruct)((FieldableStruct)bean_).getStruct(nCont_.getIdField())).intStruct());
-        assertEq(6, ((NumberStruct)((FieldableStruct)bean_).getStruct(nContBis_.getIdField())).intStruct());
+        assertEq(2, ((NumberStruct)getStruct(bean_,nCont_.getIdField())).intStruct());
+        assertEq(6, ((NumberStruct)getStruct(bean_,nContBis_.getIdField())).intStruct());
     }
     @Test
     public void setRendObject2Test() {
@@ -689,7 +689,7 @@ public final class RenderRequestUtilTest extends CommonRender {
         addImportingPage(conf_);
         NodeContainer nCont_ = conf_.getContainersMap().firstValue().getValue(0);
         RendRequestUtil.setRendObject(conf_, nCont_,new IntStruct(2));
-        Struct dto_ = ((FieldableStruct) bean_).getStruct(new ClassField("pkg.BeanOne", "first"));
-        assertEq(2, ((NumberStruct)((FieldableStruct)dto_).getStruct(nCont_.getIdField())).intStruct());
+        Struct dto_ = getStruct(bean_,new ClassField("pkg.BeanOne", "first"));
+        assertEq(2, ((NumberStruct)getStruct(dto_,nCont_.getIdField())).intStruct());
     }
 }

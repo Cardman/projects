@@ -33,7 +33,7 @@ import code.formathtml.structs.StdStruct;
 import code.util.CustList;
 import code.util.StringMap;
 
-public final class RenderExpUtilTest {
+public final class RenderExpUtilTest extends CommonRender {
     private static final String ARR_INT = "[$int";
     private static final String ARR_ARR_INT = "[[$int";
     private static final String ARR_INTEGER = "[java.lang.Integer";
@@ -160,7 +160,7 @@ public final class RenderExpUtilTest {
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         Struct str_ = context_.getContext().getInit().processInit(context_.getContext(), NullStruct.NULL_VALUE, "pkg.Ex", "", -1);
-        ((FieldableStruct)str_).setStruct(new ClassField("pkg.Ex","inst"), new IntStruct(2));
+        setStruct(str_,new ClassField("pkg.Ex","inst"), new IntStruct(2));
         lv_.setStruct(str_);
         lv_.setClassName("pkg.Ex");
         localVars_.put("v", lv_);
@@ -181,7 +181,7 @@ public final class RenderExpUtilTest {
         StringMap<LoopVariable> localVars_ = new StringMap<LoopVariable>();
         LoopVariable lv_ = new LoopVariable();
         Struct str_ = context_.getContext().getInit().processInit(context_.getContext(), NullStruct.NULL_VALUE, "pkg.Ex", "", -1);
-        ((FieldableStruct)str_).setStruct(new ClassField("pkg.Ex","inst"), new IntStruct(2));
+        setStruct(str_,new ClassField("pkg.Ex","inst"), new IntStruct(2));
         lv_.setStruct(str_);
         lv_.setClassName("pkg.Ex");
         localVars_.put("v", lv_);
@@ -776,7 +776,7 @@ public final class RenderExpUtilTest {
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         Struct str_ = context_.getContext().getInit().processInit(context_.getContext(), NullStruct.NULL_VALUE, "pkg.Ex", "", -1);
-        ((FieldableStruct)str_).setStruct(new ClassField("pkg.Ex","inst"), new IntStruct(2));
+        setStruct(str_,new ClassField("pkg.Ex","inst"), new IntStruct(2));
         lv_.setStruct(str_);
         lv_.setClassName("pkg.Ex");
         localVars_.put("v", lv_);
@@ -1625,7 +1625,7 @@ public final class RenderExpUtilTest {
         Configuration context_ = getConfiguration4(files_);
         addImportingPage(context_);
         Struct str_ = context_.getContext().getInit().processInit(context_.getContext(), NullStruct.NULL_VALUE, "pkg.Ex", "", -1);
-        ((FieldableStruct)str_).setStruct(new ClassField("pkg.Ex","inst"), new IntStruct(2));
+        setStruct(str_,new ClassField("pkg.Ex","inst"), new IntStruct(2));
         context_.getLastPage().setGlobalArgumentStruct(str_,context_);
         Argument arg_ = processEl("$this.inst", context_);
         assertEq(2, arg_.getNumber());
@@ -6191,7 +6191,7 @@ public final class RenderExpUtilTest {
         Configuration context_ = getConfiguration4(files_);
         addImportingPage(context_);
         Struct str_ = context_.getContext().getInit().processInit(context_.getContext(), NullStruct.NULL_VALUE, "pkg.Ex", "", -1);
-        ((FieldableStruct)str_).setStruct(new ClassField("pkg.Ex","inst"), new IntStruct(2));
+        setStruct(str_,new ClassField("pkg.Ex","inst"), new IntStruct(2));
         context_.getLastPage().setGlobalArgumentStruct(str_,context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
@@ -7583,7 +7583,7 @@ public final class RenderExpUtilTest {
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         Struct value_ = cont_.getInit().processInit(cont_, NullStruct.NULL_VALUE, "pkg.Ex", "", -1);
-        ((FieldableStruct)value_).setStruct(new ClassField("pkg.Ex","inst"),new IntStruct(6));
+        setStruct(value_,new ClassField("pkg.Ex","inst"),new IntStruct(6));
         lv_.setStruct(value_);
         lv_.setClassName("pkg.Ex");
         localVars_.put("v", lv_);
@@ -7591,7 +7591,7 @@ public final class RenderExpUtilTest {
         conf_.getLastPage().setLocalVars(localVars_);
         Argument argument_ = processEl("(v;.+=$new pkg.Ex(8)).inst", conf_);
         assertEq(14,argument_.getNumber());
-        assertEq(14,((NumberStruct)((FieldableStruct)lv_.getStruct()).getStruct(new ClassField("pkg.Ex","inst"))).intStruct());
+        assertEq(14,((NumberStruct)getStruct(lv_.getStruct(),new ClassField("pkg.Ex","inst"))).intStruct());
     }
 
     @Test
@@ -7620,7 +7620,7 @@ public final class RenderExpUtilTest {
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         Struct value_ = cont_.getInit().processInit(cont_, NullStruct.NULL_VALUE, "pkg.Ex", "", -1);
-        ((FieldableStruct)value_).setStruct(new ClassField("pkg.Ex","inst"),new IntStruct(6));
+        setStruct(value_,new ClassField("pkg.Ex","inst"),new IntStruct(6));
         lv_.setStruct(value_);
         lv_.setClassName("pkg.Ex");
         localVars_.put("v", lv_);
@@ -7628,7 +7628,7 @@ public final class RenderExpUtilTest {
         conf_.getLastPage().setLocalVars(localVars_);
         Argument argument_ = processEl("(v;.++).inst", conf_);
         assertEq(6,argument_.getNumber());
-        assertEq(7,((NumberStruct)((FieldableStruct)lv_.getStruct()).getStruct(new ClassField("pkg.Ex","inst"))).intStruct());
+        assertEq(7,((NumberStruct)getStruct(lv_.getStruct(),new ClassField("pkg.Ex","inst"))).intStruct());
     }
     @Test
     public void processEl432Test() {
@@ -7656,7 +7656,7 @@ public final class RenderExpUtilTest {
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         Struct value_ = cont_.getInit().processInit(cont_, NullStruct.NULL_VALUE, "pkg.Ex", "", -1);
-        ((FieldableStruct)value_).setStruct(new ClassField("pkg.Ex","inst"),new IntStruct(6));
+        setStruct(value_,new ClassField("pkg.Ex","inst"),new IntStruct(6));
         lv_.setStruct(value_);
         lv_.setClassName("pkg.Ex");
         localVars_.put("v", lv_);
@@ -7664,7 +7664,7 @@ public final class RenderExpUtilTest {
         conf_.getLastPage().setLocalVars(localVars_);
         Argument argument_ = processEl("(++v;.).inst", conf_);
         assertEq(7,argument_.getNumber());
-        assertEq(7,((NumberStruct)((FieldableStruct)lv_.getStruct()).getStruct(new ClassField("pkg.Ex","inst"))).intStruct());
+        assertEq(7,((NumberStruct)getStruct(lv_.getStruct(),new ClassField("pkg.Ex","inst"))).intStruct());
     }
     @Test
     public void processEl434Test() {
@@ -7689,7 +7689,7 @@ public final class RenderExpUtilTest {
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         Struct value_ = cont_.getInit().processInit(cont_, NullStruct.NULL_VALUE, "pkg.Ex", "", -1);
-        ((FieldableStruct)value_).setStruct(new ClassField("pkg.Ex","inst"),new IntStruct(6));
+        setStruct(value_,new ClassField("pkg.Ex","inst"),new IntStruct(6));
         lv_.setStruct(value_);
         lv_.setClassName("pkg.Ex");
         localVars_.put("v", lv_);
@@ -7721,7 +7721,7 @@ public final class RenderExpUtilTest {
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         Struct value_ = cont_.getInit().processInit(cont_, NullStruct.NULL_VALUE, "pkg.Ex", "", -1);
-        ((FieldableStruct)value_).setStruct(new ClassField("pkg.Ex","inst"),new IntStruct(6));
+        setStruct(value_,new ClassField("pkg.Ex","inst"),new IntStruct(6));
         lv_.setStruct(value_);
         lv_.setClassName("pkg.Ex");
         localVars_.put("v", lv_);
@@ -7753,7 +7753,7 @@ public final class RenderExpUtilTest {
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         Struct value_ = cont_.getInit().processInit(cont_, NullStruct.NULL_VALUE, "pkg.Ex", "", -1);
-        ((FieldableStruct)value_).setStruct(new ClassField("pkg.Ex","inst"),new IntStruct(6));
+        setStruct(value_,new ClassField("pkg.Ex","inst"),new IntStruct(6));
         lv_.setStruct(value_);
         lv_.setClassName("pkg.Ex");
         localVars_.put("v", lv_);
@@ -7785,7 +7785,7 @@ public final class RenderExpUtilTest {
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         Struct value_ = cont_.getInit().processInit(cont_, NullStruct.NULL_VALUE, "pkg.Ex", "", -1);
-        ((FieldableStruct)value_).setStruct(new ClassField("pkg.Ex","inst"),new IntStruct(6));
+        setStruct(value_,new ClassField("pkg.Ex","inst"),new IntStruct(6));
         lv_.setStruct(value_);
         lv_.setClassName("pkg.Ex");
         localVars_.put("v", lv_);
@@ -7817,7 +7817,7 @@ public final class RenderExpUtilTest {
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         Struct value_ = cont_.getInit().processInit(cont_, NullStruct.NULL_VALUE, "pkg.Ex", "", -1);
-        ((FieldableStruct)value_).setStruct(new ClassField("pkg.Ex","inst"),new IntStruct(6));
+        setStruct(value_,new ClassField("pkg.Ex","inst"),new IntStruct(6));
         lv_.setStruct(value_);
         lv_.setClassName("pkg.Ex");
         localVars_.put("v", lv_);
@@ -7856,7 +7856,7 @@ public final class RenderExpUtilTest {
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         Struct value_ = cont_.getInit().processInit(cont_, NullStruct.NULL_VALUE, "pkg.Ex", "", -1);
-        ((FieldableStruct)value_).setStruct(new ClassField("pkg.Ex","inst"),new IntStruct(6));
+        setStruct(value_,new ClassField("pkg.Ex","inst"),new IntStruct(6));
         lv_.setStruct(value_);
         lv_.setClassName("pkg.Ex");
         localVars_.put("v", lv_);
@@ -7895,7 +7895,7 @@ public final class RenderExpUtilTest {
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         Struct value_ = cont_.getInit().processInit(cont_, NullStruct.NULL_VALUE, "pkg.Ex", "", -1);
-        ((FieldableStruct)value_).setStruct(new ClassField("pkg.Ex","inst"),new IntStruct(6));
+        setStruct(value_,new ClassField("pkg.Ex","inst"),new IntStruct(6));
         lv_.setStruct(value_);
         lv_.setClassName("pkg.Ex");
         localVars_.put("v", lv_);
@@ -7939,7 +7939,7 @@ public final class RenderExpUtilTest {
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         Struct value_ = cont_.getInit().processInit(cont_, NullStruct.NULL_VALUE, "pkg.Ex", "", -1);
-        ((FieldableStruct)value_).setStruct(new ClassField("pkg.Ex","inst"),new IntStruct(6));
+        setStruct(value_,new ClassField("pkg.Ex","inst"),new IntStruct(6));
         lv_.setStruct(value_);
         lv_.setClassName("pkg.Ex");
         localVars_.put("v", lv_);
@@ -7983,7 +7983,7 @@ public final class RenderExpUtilTest {
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         Struct value_ = cont_.getInit().processInit(cont_, NullStruct.NULL_VALUE, "pkg.Ex", "", -1);
-        ((FieldableStruct)value_).setStruct(new ClassField("pkg.Ex","inst"),new IntStruct(6));
+        setStruct(value_,new ClassField("pkg.Ex","inst"),new IntStruct(6));
         lv_.setStruct(value_);
         lv_.setClassName("pkg.Ex");
         localVars_.put("v", lv_);
@@ -8027,7 +8027,7 @@ public final class RenderExpUtilTest {
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         Struct value_ = cont_.getInit().processInit(cont_, NullStruct.NULL_VALUE, "pkg.Ex", "", -1);
-        ((FieldableStruct)value_).setStruct(new ClassField("pkg.Ex","inst"),new IntStruct(6));
+        setStruct(value_,new ClassField("pkg.Ex","inst"),new IntStruct(6));
         lv_.setStruct(value_);
         lv_.setClassName("pkg.Ex");
         localVars_.put("v", lv_);
@@ -8110,7 +8110,7 @@ public final class RenderExpUtilTest {
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         Struct value_ = cont_.getInit().processInit(cont_, NullStruct.NULL_VALUE, "pkg.Ex", "", -1);
-        ((FieldableStruct)value_).setStruct(new ClassField("pkg.Ex","inst"),new IntStruct(6));
+        setStruct(value_,new ClassField("pkg.Ex","inst"),new IntStruct(6));
         lv_.setStruct(value_);
         lv_.setClassName("pkg.Ex");
         localVars_.put("v", lv_);
@@ -8142,7 +8142,7 @@ public final class RenderExpUtilTest {
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         Struct value_ = cont_.getInit().processInit(cont_, NullStruct.NULL_VALUE, "pkg.Ex", "", -1);
-        ((FieldableStruct)value_).setStruct(new ClassField("pkg.Ex","inst"),new IntStruct(6));
+        setStruct(value_,new ClassField("pkg.Ex","inst"),new IntStruct(6));
         lv_.setStruct(value_);
         lv_.setClassName("pkg.Ex");
         localVars_.put("v", lv_);
@@ -8188,7 +8188,7 @@ public final class RenderExpUtilTest {
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         Struct value_ = cont_.getInit().processInit(cont_, NullStruct.NULL_VALUE, "pkg.Ex", "", -1);
-        ((FieldableStruct)value_).setStruct(new ClassField("pkg.Ex","inst"),new IntStruct(6));
+        setStruct(value_,new ClassField("pkg.Ex","inst"),new IntStruct(6));
         lv_.setStruct(value_);
         lv_.setClassName("pkg.Ex");
         localVars_.put("v", lv_);
@@ -8532,7 +8532,7 @@ public final class RenderExpUtilTest {
         assertTrue(conf_.getClasses().isEmptyErrors());
         Struct struct_ = arg_.getStruct();
         assertEq("pkg.Ex", struct_.getClassName(conf_));
-        assertEq(5, ((IntStruct)((FieldableStruct)struct_).getStruct(new ClassField("pkg.Ex","field"))).intStruct());
+        assertEq(5, ((IntStruct)getStruct(struct_,new ClassField("pkg.Ex","field"))).intStruct());
 
     }
     @Test
@@ -8673,7 +8673,7 @@ public final class RenderExpUtilTest {
         localVars_.put("v", lv_);
         cont_.getLastPage().setLocalVars(localVars_);
         Argument res_ = processEl("v;.integer-=12i", cont_);
-        assertEq(-12, ((NumberStruct)((FieldableStruct)var_).getStruct(new ClassField("pkg.Composite","integer"))).intStruct());
+        assertEq(-12, ((NumberStruct)getStruct(var_,new ClassField("pkg.Composite","integer"))).intStruct());
         assertEq(-12, res_.getNumber());
     }
     @Test
@@ -8940,7 +8940,7 @@ public final class RenderExpUtilTest {
         cont_.getLastPage().setLocalVars(localVars_);
         Argument res_ = processEl("v;.integer++", cont_);
         assertEq("pkg.Composite", lv_.getClassName());
-        assertEq(1, ((NumberStruct)((FieldableStruct)var_).getStruct(new ClassField("pkg.Composite","integer"))).intStruct());
+        assertEq(1, ((NumberStruct)getStruct(var_,new ClassField("pkg.Composite","integer"))).intStruct());
         assertEq(0, res_.getNumber());
     }
     @Test
@@ -8963,7 +8963,7 @@ public final class RenderExpUtilTest {
         cont_.getLastPage().setLocalVars(localVars_);
         Argument res_ = processEl("++v;.integer", cont_);
         assertEq("pkg.Composite", lv_.getClassName());
-        assertEq(1, ((NumberStruct)((FieldableStruct)var_).getStruct(new ClassField("pkg.Composite","integer"))).intStruct());
+        assertEq(1, ((NumberStruct)getStruct(var_,new ClassField("pkg.Composite","integer"))).intStruct());
         assertEq(1, res_.getNumber());
     }
 
@@ -8986,7 +8986,7 @@ public final class RenderExpUtilTest {
         localVars_.put("v", lv_);
         cont_.getLastPage().setLocalVars(localVars_);
         Argument res_ = processEl("(v;.integer-=12i)", cont_);
-        assertEq(-12, ((NumberStruct)((FieldableStruct)var_).getStruct(new ClassField("pkg.Composite","integer"))).intStruct());
+        assertEq(-12, ((NumberStruct)getStruct(var_,new ClassField("pkg.Composite","integer"))).intStruct());
         assertEq(-12, res_.getNumber());
     }
     @Test
@@ -9233,10 +9233,6 @@ public final class RenderExpUtilTest {
         CustList<RendDynOperationNode> out_ = RenderExpUtil.getExecutableNodes(_ops);
         out_ = RenderExpUtil.getReducedNodes(out_.last());
         return RenderExpUtil.calculateReuse(out_, _an);
-    }
-    private static void addImportingPage(Configuration _conf) {
-        _conf.addPage(new ImportingPage());
-        _conf.getContext().setAnalyzing(new AnalyzedPageEl());
     }
     private static void addBean(Configuration _conf, Object _bean, String _beanClass) {
         _conf.getLastPage().setGlobalArgumentStruct(StdStruct.newInstance(_bean, _beanClass),_conf);

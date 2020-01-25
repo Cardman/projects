@@ -243,7 +243,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             }
             if (prev_ instanceof AnnotationStruct) {
                 FieldableStruct f_ = (FieldableStruct) prev_;
-                Struct ret_ = f_.getStruct(new ClassField(clName_, _methodId.getName()));
+                Struct ret_ = f_.getEntryStruct(new ClassField(clName_, _methodId.getName())).getValue();
                 Argument a_ = new Argument();
                 if (ret_ instanceof ArrayStruct) {
                     ArrayStruct orig_ = (ArrayStruct) ret_;
@@ -892,20 +892,27 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             a_.setStruct(struct_);
             return a_;
         }
-        if (_previous.isNull()) {
-            String npe_;
-            npe_ = stds_.getAliasNullPe();
-            _conf.setException(new ErrorStruct(_conf,npe_));
-            return Argument.createVoid();
-        }
-        String argClassName_ = _previous.getObjectClassName(_conf.getContextEl());
-        String base_ = Templates.getIdFromAllTypes(argClassName_);
-        if (!PrimitiveTypeUtil.canBeUseAsArgument(_className, base_, _conf)) {
+        Struct previous_ = _previous.getStruct();
+        String argClassName_ = previous_.getClassName(_conf);
+        if (!(previous_ instanceof FieldableStruct)) {
+            if (previous_ == NullStruct.NULL_VALUE) {
+                String npe_;
+                npe_ = stds_.getAliasNullPe();
+                _conf.setException(new ErrorStruct(_conf,npe_));
+                return Argument.createVoid();
+            }
+            String base_ = Templates.getIdFromAllTypes(argClassName_);
             _conf.setException(new ErrorStruct(_conf, StringList.concat(base_,RETURN_LINE,_className,RETURN_LINE),cast_));
             return _previous;
         }
-        Struct struct_ = ((FieldableStruct) _previous.getStruct()).getStruct(fieldId_);
-        _conf.getContextEl().addSensibleField(_previous.getStruct(), struct_);
+        String base_ = Templates.getIdFromAllTypes(argClassName_);
+        EntryCust<ClassField, Struct> entry_ = ((FieldableStruct) previous_).getEntryStruct(fieldId_);
+        if (entry_ == null) {
+            _conf.setException(new ErrorStruct(_conf, StringList.concat(base_,RETURN_LINE,_className,RETURN_LINE),cast_));
+            return _previous;
+        }
+        Struct struct_ = entry_.getValue();
+        _conf.getContextEl().addSensibleField(previous_, struct_);
         a_ = new Argument();
         a_.setStruct(struct_);
         return a_;
@@ -950,16 +957,23 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             classes_.initializeStaticField(fieldId_, _right.getStruct());
             return _right;
         }
-        if (_previous.isNull()) {
-            String npe_;
-            npe_ = stds_.getAliasNullPe();
-            _conf.setException(new ErrorStruct(_conf,npe_));
+        Struct previous_ = _previous.getStruct();
+        String argClassName_ = previous_.getClassName(_conf);
+        if (!(previous_ instanceof FieldableStruct)) {
+            if (previous_ == NullStruct.NULL_VALUE) {
+                String npe_;
+                npe_ = stds_.getAliasNullPe();
+                _conf.setException(new ErrorStruct(_conf,npe_));
+                return Argument.createVoid();
+            }
+            String base_ = Templates.getIdFromAllTypes(argClassName_);
+            _conf.setException(new ErrorStruct(_conf, StringList.concat(base_,RETURN_LINE,_className,RETURN_LINE),cast_));
             return Argument.createVoid();
         }
-        String argClassName_ = _previous.getObjectClassName(_conf.getContextEl());
         String base_ = Templates.getIdFromAllTypes(argClassName_);
         String classNameFound_ = _className;
-        if (!PrimitiveTypeUtil.canBeUseAsArgument(classNameFound_, base_, _conf)) {
+        EntryCust<ClassField, Struct> entry_ = ((FieldableStruct) previous_).getEntryStruct(fieldId_);
+        if (entry_ == null) {
             _conf.setException(new ErrorStruct(_conf, StringList.concat(base_,RETURN_LINE,classNameFound_,RETURN_LINE),cast_));
             return Argument.createVoid();
         }
@@ -969,11 +983,11 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         if (!Templates.checkObject(fieldType_, _right, _conf)) {
             return Argument.createVoid();
         }
-        if (_conf.getContextEl().isContainedSensibleFields(_previous.getStruct())) {
+        if (_conf.getContextEl().isContainedSensibleFields(previous_)) {
             _conf.getContextEl().failInitEnums();
             return _right;
         }
-        ((FieldableStruct) _previous.getStruct()).setStruct(fieldId_, _right.getStruct());
+        entry_.setValue(_right.getStruct());
         return _right;
     }
 }

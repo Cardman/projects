@@ -82,7 +82,7 @@ public final class ExecSettableFieldOperation extends
         Argument previous_ = getPreviousArg(this, _nodes, _conf);
         Argument current_ = getArgument(_nodes,this);
         Struct store_ = current_.getStruct();
-        Argument arg_ = getCommonCompoundSetting(previous_, store_, _conf, _op, _right);
+        Argument arg_ = getCommonCompoundSetting(previous_, store_, _conf, _op, _right, getResultClass());
         return arg_;
     }
     @Override
@@ -113,46 +113,18 @@ public final class ExecSettableFieldOperation extends
         //Come from code directly so constant static fields can be initialized here
         return ExecInvokingOperation.setField(className_, fieldName_, isStatic_, isFinal_, false, fieldType_, previous_, _right, _conf, off_);
     }
-    Argument getCommonCompoundSetting(Argument _previous, Struct _store, ExecutableCode _conf, String _op, Argument _right) {
+    Argument getCommonCompoundSetting(Argument _previous, Struct _store, ExecutableCode _conf, String _op, Argument _right, ClassArgumentMatching _arg) {
         int off_ = getOff();
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
         Argument left_ = new Argument();
         Argument res_;
 
-        String fieldType_;
-        Classes classes_ = _conf.getClasses();
-        ClassField fieldId_ = fieldMetaInfo.getClassField();
-        String className_ = fieldId_.getClassName();
-        if (fieldMetaInfo.isStaticField()) {
-            fieldType_ = fieldMetaInfo.getRealType();
-            left_.setStruct(_store);
-            ClassArgumentMatching cl_ = new ClassArgumentMatching(fieldType_);
-            res_ = ExecNumericOperation.calculateAffect(left_, _conf, _right, _op, catString, cl_);
-            if (_conf.getContextEl().hasExceptionOrFailInit()) {
-                return res_;
-            }
-            if (_conf.getContextEl().isSensibleField(fieldId_.getClassName())) {
-                _conf.getContextEl().failInitEnums();
-                return _right;
-            }
-            classes_.initializeStaticField(fieldId_, res_.getStruct());
-            return res_;
-        }
-        Argument previous_ = new Argument();
-        previous_.setStruct(PrimitiveTypeUtil.getParent(anc, className_, _previous.getStruct(), _conf));
         left_.setStruct(_store);
-        fieldType_ = _conf.getStandards().getStructClassName(_store, _conf.getContextEl());
-        ClassArgumentMatching cl_ = new ClassArgumentMatching(fieldType_);
-        res_ = ExecNumericOperation.calculateAffect(left_, _conf, _right, _op, catString, cl_);
+        res_ = ExecNumericOperation.calculateAffect(left_, _conf, _right, _op, catString, _arg);
         if (_conf.getContextEl().hasExceptionOrFailInit()) {
             return res_;
         }
-        if (_conf.getContextEl().isContainedSensibleFields(previous_.getStruct())) {
-            _conf.getContextEl().failInitEnums();
-            return _right;
-        }
-        ((FieldableStruct) previous_.getStruct()).setStruct(fieldId_, res_.getStruct());
-        return res_;
+        return getCommonSetting(_previous,_conf,res_);
     }
     Argument getCommonSemiSetting(Argument _previous, Struct _store, ExecutableCode _conf, String _op, boolean _post) {
         int off_ = getOff();
@@ -161,32 +133,11 @@ public final class ExecSettableFieldOperation extends
         Argument res_;
 
         String fieldType_;
-        Classes classes_ = _conf.getClasses();
-        ClassField fieldId_ = fieldMetaInfo.getClassField();
-        String className_ = fieldId_.getClassName();
-        fieldType_ = fieldMetaInfo.getRealType();
+        fieldType_ = _conf.getStandards().getStructClassName(_store, _conf.getContextEl());
         left_.setStruct(_store);
         ClassArgumentMatching cl_ = new ClassArgumentMatching(fieldType_);
         res_ = ExecNumericOperation.calculateIncrDecr(left_, _conf, _op, cl_);
-        if (fieldMetaInfo.isStaticField()) {
-            if (_conf.getContextEl().isSensibleField(fieldId_.getClassName())) {
-                _conf.getContextEl().failInitEnums();
-                return res_;
-            }
-            classes_.initializeStaticField(fieldId_, res_.getStruct());
-            return ExecSemiAffectationOperation.getPrePost(_post, left_, res_);
-        }
-        Argument previous_ = new Argument();
-        previous_.setStruct(PrimitiveTypeUtil.getParent(anc, className_, _previous.getStruct(), _conf));
-        left_.setStruct(_store);
-        fieldType_ = _conf.getStandards().getStructClassName(_store, _conf.getContextEl());
-        cl_ = new ClassArgumentMatching(fieldType_);
-        res_ = ExecNumericOperation.calculateIncrDecr(left_, _conf, _op, cl_);
-        if (_conf.getContextEl().isContainedSensibleFields(previous_.getStruct())) {
-            _conf.getContextEl().failInitEnums();
-            return res_;
-        }
-        ((FieldableStruct) previous_.getStruct()).setStruct(fieldId_, res_.getStruct());
+        getCommonSetting(_previous,_conf,res_);
         return ExecSemiAffectationOperation.getPrePost(_post, left_, res_);
     }
 
@@ -200,26 +151,11 @@ public final class ExecSettableFieldOperation extends
             Argument _stored, Argument _right) {
         int off_ = getOff();
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
-        Classes classes_ = _conf.getClasses();
-        ClassField fieldId_ = fieldMetaInfo.getClassField();
-        String className_ = fieldId_.getClassName();
-        if (fieldMetaInfo.isStaticField()) {
-            if (_conf.isSensibleField(fieldId_.getClassName())) {
-                _conf.failInitEnums();
-                return _right;
-            }
-            classes_.initializeStaticField(fieldId_, _right.getStruct());
-            Argument a_ = ExecSemiAffectationOperation.getPrePost(_post, _stored, _right);
-            return a_;
+        Argument prev_ = Argument.createVoid();
+        if (!fieldMetaInfo.isStaticField()) {
+            prev_ = getPreviousArg(this, _nodes, _conf);
         }
-        Argument previousNode_ = getPreviousArg(this, _nodes, _conf);
-        Argument previous_ = new Argument();
-        previous_.setStruct(PrimitiveTypeUtil.getParent(anc, className_, previousNode_.getStruct(), _conf));
-        if (_conf.isContainedSensibleFields(previous_.getStruct())) {
-            _conf.failInitEnums();
-            return _right;
-        }
-        ((FieldableStruct) previous_.getStruct()).setStruct(fieldId_, _right.getStruct());
+        getCommonSetting(prev_,_conf,_right);
         Argument a_ = ExecSemiAffectationOperation.getPrePost(_post, _stored, _right);
         return a_;
     }

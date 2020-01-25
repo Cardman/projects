@@ -4,7 +4,9 @@ import code.bean.BeanInfo;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.methods.Classes;
+import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.options.Options;
+import code.expressionlanguage.structs.FieldableStruct;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.variables.VariableSuffix;
 import code.formathtml.util.BeanLgNames;
@@ -97,5 +99,11 @@ public abstract class CommonRender {
         b_.setClassName(_str.getClassName(_conf));
         _conf.getBeansInfos().addEntry(_id,b_);
         _conf.getBuiltBeans().addEntry(_id,_str);
+    }
+    protected static Struct getStruct(Struct _struct, ClassField _cl) {
+        return ((FieldableStruct) _struct).getEntryStruct(_cl).getValue();
+    }
+    protected static void setStruct(Struct _struct, ClassField _cl, Struct _value) {
+        ((FieldableStruct) _struct).getEntryStruct(_cl).setValue(_value);
     }
 }

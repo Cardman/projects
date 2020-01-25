@@ -289,14 +289,14 @@ public final class PrimitiveTypeUtil {
                 break;
             }
             list_.add(cl_);
-            Struct par_ = current_.getParent();
-            if (par_ == NullStruct.NULL_VALUE) {
+            if (!(current_ instanceof WithParentStruct)) {
                 _an.setException(new ErrorStruct(_an,cast_));
                 break;
             }
+            Struct par_ = current_.getParent();
             _an.getContextEl().addSensibleField(current_, par_);
+            className_ = ((WithParentStruct)current_).getParentClassName();
             current_ = par_;
-            className_ = lgNames_.getStructClassName(current_, _an.getContextEl());
             cl_ = Templates.getIdFromAllTypes(className_);
         }
         return current_;

@@ -92,7 +92,7 @@ public final class ExecArrOperation extends ExecInvokingOperation implements Exe
         Struct array_;
         array_ = getPreviousArgument(_nodes, this).getStruct();
         Argument lastArg_ = getArgument(_nodes, lastElement_);
-        a_.setStruct(compoundAffectArray(array_, store_, lastArg_, lastElement_.getIndexInEl(), _op,_right, _conf));
+        a_.setStruct(compoundAffectArray(array_, store_, lastArg_, lastElement_.getIndexInEl(), _op,_right, _conf,getResultClass()));
         return a_;
     }
 
@@ -120,14 +120,13 @@ public final class ExecArrOperation extends ExecInvokingOperation implements Exe
         return _right.getStruct();
     }
 
-    Struct compoundAffectArray(Struct _array,Struct _stored,Argument _index, int _indexEl, String _op, Argument _right, ExecutableCode _conf) {
+    Struct compoundAffectArray(Struct _array,Struct _stored,Argument _index, int _indexEl, String _op, Argument _right, ExecutableCode _conf, ClassArgumentMatching _arg) {
         setRelativeOffsetPossibleLastPage(_indexEl, _conf);
         NumberStruct o_ = (NumberStruct)_index.getStruct();
         Argument left_ = new Argument();
         left_.setStruct(_stored);
-        ClassArgumentMatching clArg_ = getResultClass();
         Argument res_;
-        res_ = ExecNumericOperation.calculateAffect(left_, _conf, _right, _op, catString, clArg_);
+        res_ = ExecNumericOperation.calculateAffect(left_, _conf, _right, _op, catString, _arg);
         if (_conf.getContextEl().hasExceptionOrFailInit()) {
             return _stored;
         }

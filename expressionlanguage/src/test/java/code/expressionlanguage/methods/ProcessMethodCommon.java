@@ -3,14 +3,13 @@ package code.expressionlanguage.methods;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.InitializationLgNames;
-import code.expressionlanguage.opers.util.ConstructorId;
-import code.expressionlanguage.opers.util.MethodAccessKind;
-import code.expressionlanguage.opers.util.MethodId;
-import code.expressionlanguage.opers.util.MethodModifier;
+import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.options.ContextFactory;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stds.LgNames;
+import code.expressionlanguage.structs.FieldableStruct;
+import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.variables.VariableSuffix;
 import code.util.CustList;
 import code.util.StringList;
@@ -237,5 +236,8 @@ public abstract class ProcessMethodCommon {
             ct_ = InitializationLgNames.buildStdOne(_m[0], opt_);
         }
         return ct_;
+    }
+    protected static Struct getStruct(Struct _struct, ClassField _cl) {
+        return ((FieldableStruct) _struct).getEntryStruct(_cl).getValue();
     }
 }

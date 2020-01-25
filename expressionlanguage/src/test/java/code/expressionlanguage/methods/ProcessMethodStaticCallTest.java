@@ -42,7 +42,7 @@ public class ProcessMethodStaticCallTest extends ProcessMethodCommon {
         Argument ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
         Struct struct_ = ret_.getStruct();
         assertEq("pkg.ExClass", struct_.getClassName(cont_));
-        assertEq(5, ((IntStruct)((FieldableStruct)struct_).getStruct(new ClassField("pkg.ExClass","field"))).intStruct());
+        assertEq(5, ((IntStruct)getStruct(struct_,new ClassField("pkg.ExClass","field"))).intStruct());
     }
     @Test
     public void calculate2Test() {
@@ -70,7 +70,7 @@ public class ProcessMethodStaticCallTest extends ProcessMethodCommon {
         Argument ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
         Struct struct_ = ret_.getStruct();
         assertEq("pkg.ExClass<int>", struct_.getClassName(cont_));
-        assertEq(5, ((IntStruct)((FieldableStruct)struct_).getStruct(new ClassField("pkg.ExClass","field"))).intStruct());
+        assertEq(5, ((IntStruct)getStruct(struct_,new ClassField("pkg.ExClass","field"))).intStruct());
     }
     @Test
     public void calculate3Test() {
@@ -103,7 +103,7 @@ public class ProcessMethodStaticCallTest extends ProcessMethodCommon {
         Argument ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
         Struct struct_ = ret_.getStruct();
         assertEq("pkg.ExClass<int>", struct_.getClassName(cont_));
-        assertEq(5, ((IntStruct)((FieldableStruct)struct_).getStruct(new ClassField("pkg.ExClass","field"))).intStruct());
+        assertEq(5, ((IntStruct)getStruct(struct_,new ClassField("pkg.ExClass","field"))).intStruct());
     }
     @Test
     public void calculate4Test() {
@@ -134,7 +134,7 @@ public class ProcessMethodStaticCallTest extends ProcessMethodCommon {
         Argument ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
         Struct struct_ = ret_.getStruct();
         assertEq("pkg.ExClass<int>", struct_.getClassName(cont_));
-        assertEq(5, ((IntStruct)((FieldableStruct)struct_).getStruct(new ClassField("pkg.ExClass","field"))).intStruct());
+        assertEq(5, ((IntStruct)getStruct(struct_,new ClassField("pkg.ExClass","field"))).intStruct());
     }
     @Test
     public void calculate5Test() {
@@ -162,7 +162,7 @@ public class ProcessMethodStaticCallTest extends ProcessMethodCommon {
         Argument ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
         Struct struct_ = ret_.getStruct();
         assertEq("pkg.ExClass", struct_.getClassName(cont_));
-        assertEq(5, ((IntStruct)((FieldableStruct)struct_).getStruct(new ClassField("pkg.ExClass","field"))).intStruct());
+        assertEq(5, ((IntStruct)getStruct(struct_,new ClassField("pkg.ExClass","field"))).intStruct());
     }
     @Test
     public void calculate6Test() {
@@ -190,7 +190,7 @@ public class ProcessMethodStaticCallTest extends ProcessMethodCommon {
         Argument ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
         Struct struct_ = ret_.getStruct();
         assertEq("pkg.ExClass<int>", struct_.getClassName(cont_));
-        assertEq(5, ((IntStruct)((FieldableStruct)struct_).getStruct(new ClassField("pkg.ExClass","field"))).intStruct());
+        assertEq(5, ((IntStruct)getStruct(struct_,new ClassField("pkg.ExClass","field"))).intStruct());
     }
     @Test
     public void calculate7Test() {
@@ -218,7 +218,7 @@ public class ProcessMethodStaticCallTest extends ProcessMethodCommon {
         Argument ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
         Struct struct_ = ret_.getStruct();
         assertEq("pkg.ExClass", struct_.getClassName(cont_));
-        assertEq(5, ((IntStruct)((FieldableStruct)struct_).getStruct(new ClassField("pkg.ExClass","field"))).intStruct());
+        assertEq(5, ((IntStruct)getStruct(struct_,new ClassField("pkg.ExClass","field"))).intStruct());
     }
     @Test
     public void calculate8Test() {
@@ -246,7 +246,7 @@ public class ProcessMethodStaticCallTest extends ProcessMethodCommon {
         Argument ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
         Struct struct_ = ret_.getStruct();
         assertEq("pkg.ExClass<int>", struct_.getClassName(cont_));
-        assertEq(5, ((IntStruct)((FieldableStruct)struct_).getStruct(new ClassField("pkg.ExClass","field"))).intStruct());
+        assertEq(5, ((IntStruct)getStruct(struct_,new ClassField("pkg.ExClass","field"))).intStruct());
     }
     @Test
     public void calculate9Test() {
@@ -274,7 +274,7 @@ public class ProcessMethodStaticCallTest extends ProcessMethodCommon {
         Argument ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
         Struct struct_ = ret_.getStruct();
         assertEq("pkg.ExClass", struct_.getClassName(cont_));
-        assertEq(45, ((IntStruct)((FieldableStruct)struct_).getStruct(new ClassField("pkg.ExClass","field"))).intStruct());
+        assertEq(45, ((IntStruct)getStruct(struct_,new ClassField("pkg.ExClass","field"))).intStruct());
     }
     @Test
     public void calculate10Test() {
@@ -302,7 +302,7 @@ public class ProcessMethodStaticCallTest extends ProcessMethodCommon {
         Argument ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
         Struct struct_ = ret_.getStruct();
         assertEq("pkg.ExClass", struct_.getClassName(cont_));
-        assertEq(2, ((IntStruct)((FieldableStruct)struct_).getStruct(new ClassField("pkg.ExClass","field"))).intStruct());
+        assertEq(2, ((IntStruct)getStruct(struct_,new ClassField("pkg.ExClass","field"))).intStruct());
     }
     @Test
     public void calculate11Test() {
@@ -330,7 +330,7 @@ public class ProcessMethodStaticCallTest extends ProcessMethodCommon {
         Argument ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
         Struct struct_ = ret_.getStruct();
         assertEq("pkg.ExClass", struct_.getClassName(cont_));
-        assertEq(5, ((IntStruct)((FieldableStruct)struct_).getStruct(new ClassField("pkg.ExClass","field"))).intStruct());
+        assertEq(5, ((IntStruct)getStruct(struct_,new ClassField("pkg.ExClass","field"))).intStruct());
     }
     @Test
     public void calculate12Test() {
@@ -358,7 +358,7 @@ public class ProcessMethodStaticCallTest extends ProcessMethodCommon {
         Argument ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
         Struct struct_ = ret_.getStruct();
         assertEq("pkg.ExClass<int>", struct_.getClassName(cont_));
-        assertEq(5, ((IntStruct)((FieldableStruct)struct_).getStruct(new ClassField("pkg.ExClass","field"))).intStruct());
+        assertEq(5, ((IntStruct)getStruct(struct_,new ClassField("pkg.ExClass","field"))).intStruct());
     }
     @Test
     public void calculate13Test() {
@@ -391,7 +391,7 @@ public class ProcessMethodStaticCallTest extends ProcessMethodCommon {
         Argument ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
         Struct struct_ = ret_.getStruct();
         assertEq("pkg.ExClass<int>", struct_.getClassName(cont_));
-        assertEq(5, ((IntStruct)((FieldableStruct)struct_).getStruct(new ClassField("pkg.ExClass","field"))).intStruct());
+        assertEq(5, ((IntStruct)getStruct(struct_,new ClassField("pkg.ExClass","field"))).intStruct());
     }
     @Test
     public void calculate14Test() {
@@ -422,7 +422,7 @@ public class ProcessMethodStaticCallTest extends ProcessMethodCommon {
         Argument ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
         Struct struct_ = ret_.getStruct();
         assertEq("pkg.ExClass<int>", struct_.getClassName(cont_));
-        assertEq(5, ((IntStruct)((FieldableStruct)struct_).getStruct(new ClassField("pkg.ExClass","field"))).intStruct());
+        assertEq(5, ((IntStruct)getStruct(struct_,new ClassField("pkg.ExClass","field"))).intStruct());
     }
     @Test
     public void calculate15Test() {
@@ -450,7 +450,7 @@ public class ProcessMethodStaticCallTest extends ProcessMethodCommon {
         Argument ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
         Struct struct_ = ret_.getStruct();
         assertEq("pkg.ExClass<int>", struct_.getClassName(cont_));
-        assertEq(5, ((IntStruct)((FieldableStruct)struct_).getStruct(new ClassField("pkg.ExClass","field"))).intStruct());
+        assertEq(5, ((IntStruct)getStruct(struct_,new ClassField("pkg.ExClass","field"))).intStruct());
     }
     @Test
     public void calculate16Test() {
@@ -483,7 +483,7 @@ public class ProcessMethodStaticCallTest extends ProcessMethodCommon {
         Argument ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
         Struct struct_ = ret_.getStruct();
         assertEq("pkg.ExClass<int>", struct_.getClassName(cont_));
-        assertEq(5, ((IntStruct)((FieldableStruct)struct_).getStruct(new ClassField("pkg.ExClass","field"))).intStruct());
+        assertEq(5, ((IntStruct)getStruct(struct_,new ClassField("pkg.ExClass","field"))).intStruct());
     }
     @Test
     public void calculate17Test() {
@@ -511,7 +511,7 @@ public class ProcessMethodStaticCallTest extends ProcessMethodCommon {
         Argument ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
         Struct struct_ = ret_.getStruct();
         assertEq("pkg.ExClass", struct_.getClassName(cont_));
-        assertEq(5, ((IntStruct)((FieldableStruct)struct_).getStruct(new ClassField("pkg.ExClass","field"))).intStruct());
+        assertEq(5, ((IntStruct)getStruct(struct_,new ClassField("pkg.ExClass","field"))).intStruct());
     }
     @Test
     public void calculate18Test() {
@@ -539,7 +539,7 @@ public class ProcessMethodStaticCallTest extends ProcessMethodCommon {
         Argument ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
         Struct struct_ = ret_.getStruct();
         assertEq("pkg.ExClass", struct_.getClassName(cont_));
-        assertEq(5, ((IntStruct)((FieldableStruct)struct_).getStruct(new ClassField("pkg.ExClass","field"))).intStruct());
+        assertEq(5, ((IntStruct)getStruct(struct_,new ClassField("pkg.ExClass","field"))).intStruct());
     }
     @Test
     public void calculate19Test() {
@@ -567,7 +567,7 @@ public class ProcessMethodStaticCallTest extends ProcessMethodCommon {
         Argument ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
         Struct struct_ = ret_.getStruct();
         assertEq("pkg.ExClass", struct_.getClassName(cont_));
-        assertEq(5, ((IntStruct)((FieldableStruct)struct_).getStruct(new ClassField("pkg.ExClass","field"))).intStruct());
+        assertEq(5, ((IntStruct)getStruct(struct_,new ClassField("pkg.ExClass","field"))).intStruct());
     }
     @Test
     public void calculate20Test() {
@@ -595,7 +595,7 @@ public class ProcessMethodStaticCallTest extends ProcessMethodCommon {
         Argument ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
         Struct struct_ = ret_.getStruct();
         assertEq("pkg.ExClass", struct_.getClassName(cont_));
-        assertEq(5, ((IntStruct)((FieldableStruct)struct_).getStruct(new ClassField("pkg.ExClass","field"))).intStruct());
+        assertEq(5, ((IntStruct)getStruct(struct_,new ClassField("pkg.ExClass","field"))).intStruct());
     }
     @Test
     public void calculate21Test() {
@@ -625,7 +625,7 @@ public class ProcessMethodStaticCallTest extends ProcessMethodCommon {
         Argument ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
         Struct struct_ = ret_.getStruct();
         assertEq("pkg.ExClass", struct_.getClassName(cont_));
-        assertEq(5, ((IntStruct)((FieldableStruct)struct_).getStruct(new ClassField("pkg.ExClass","field"))).intStruct());
+        assertEq(5, ((IntStruct)getStruct(struct_,new ClassField("pkg.ExClass","field"))).intStruct());
     }
     @Test
     public void calculate22Test() {
@@ -660,7 +660,7 @@ public class ProcessMethodStaticCallTest extends ProcessMethodCommon {
         Argument ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
         Struct struct_ = ret_.getStruct();
         assertEq("pkg.ExClass", struct_.getClassName(cont_));
-        assertEq(5, ((IntStruct)((FieldableStruct)struct_).getStruct(new ClassField("pkg.ExClass","field"))).intStruct());
+        assertEq(5, ((IntStruct)getStruct(struct_,new ClassField("pkg.ExClass","field"))).intStruct());
     }
     @Test
     public void calculate23Test() {
@@ -700,7 +700,7 @@ public class ProcessMethodStaticCallTest extends ProcessMethodCommon {
         Argument ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
         Struct struct_ = ret_.getStruct();
         assertEq("pkg.ExClass<int>", struct_.getClassName(cont_));
-        assertEq(5, ((IntStruct)((FieldableStruct)struct_).getStruct(new ClassField("pkg.ExClass","field"))).intStruct());
+        assertEq(5, ((IntStruct)getStruct(struct_,new ClassField("pkg.ExClass","field"))).intStruct());
     }
     @Test
     public void calculate24Test() {
@@ -965,7 +965,7 @@ public class ProcessMethodStaticCallTest extends ProcessMethodCommon {
         Argument ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
         Struct struct_ = ret_.getStruct();
         assertEq("pkg.ExClass", struct_.getClassName(cont_));
-        assertEq(5, ((IntStruct)((FieldableStruct)struct_).getStruct(new ClassField("pkg.ExClass","field"))).intStruct());
+        assertEq(5, ((IntStruct)getStruct(struct_,new ClassField("pkg.ExClass","field"))).intStruct());
     }
     @Test
     public void calculate34Test() {
@@ -1001,7 +1001,7 @@ public class ProcessMethodStaticCallTest extends ProcessMethodCommon {
         Argument ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
         Struct struct_ = ret_.getStruct();
         assertEq("pkg.ExClass", struct_.getClassName(cont_));
-        assertEq(5, ((IntStruct)((FieldableStruct)struct_).getStruct(new ClassField("pkg.ExClass","field"))).intStruct());
+        assertEq(5, ((IntStruct)getStruct(struct_,new ClassField("pkg.ExClass","field"))).intStruct());
     }
     @Test
     public void calculate35Test() {
@@ -1037,7 +1037,7 @@ public class ProcessMethodStaticCallTest extends ProcessMethodCommon {
         Argument ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
         Struct struct_ = ret_.getStruct();
         assertEq("pkg.ExClass", struct_.getClassName(cont_));
-        assertEq(5, ((IntStruct)((FieldableStruct)struct_).getStruct(new ClassField("pkg.ExClass","field"))).intStruct());
+        assertEq(5, ((IntStruct)getStruct(struct_,new ClassField("pkg.ExClass","field"))).intStruct());
     }
     @Test
     public void calculate36Test() {
@@ -1070,7 +1070,7 @@ public class ProcessMethodStaticCallTest extends ProcessMethodCommon {
         Argument ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
         Struct struct_ = ret_.getStruct();
         assertEq("pkg.ExClass", struct_.getClassName(cont_));
-        assertEq(5, ((IntStruct)((FieldableStruct)struct_).getStruct(new ClassField("pkg.ExClass","field"))).intStruct());
+        assertEq(5, ((IntStruct)getStruct(struct_,new ClassField("pkg.ExClass","field"))).intStruct());
     }
     @Test
     public void calculate1FailTest() {

@@ -163,9 +163,9 @@ public final class MainWindow extends GroupFrame {
         String infoTestDone_ = ((LgNamesUtils)_ctx.getStandards()).getAliasInfoTestDone();
         String infoTestCount_ = ((LgNamesUtils)_ctx.getStandards()).getAliasInfoTestCount();
         String curMethodName_ = ((LgNamesUtils) _ctx.getStandards()).getAliasInfoTestCurrentMethod();
-        Struct done_ = ((FieldableStruct) _infos).getStruct(new ClassField(infoTest_, infoTestDone_));
-        Struct count_ = ((FieldableStruct) _infos).getStruct(new ClassField(infoTest_, infoTestCount_));
-        Struct method_ = ((FieldableStruct) _infos).getStruct(new ClassField(infoTest_, curMethodName_));
+        Struct done_ = ((FieldableStruct) _infos).getEntryStruct(new ClassField(infoTest_, infoTestDone_)).getValue();
+        Struct count_ = ((FieldableStruct) _infos).getEntryStruct(new ClassField(infoTest_, infoTestCount_)).getValue();
+        Struct method_ = ((FieldableStruct) _infos).getEntryStruct(new ClassField(infoTest_, curMethodName_)).getValue();
         if (!count_.sameReference(_count)) {
             progressBar.setMinimum(0);
             progressBar.setMaximum(((NumberStruct)count_).intStruct());
@@ -181,7 +181,7 @@ public final class MainWindow extends GroupFrame {
     public void finish(RunnableContextEl _ctx, Struct _infos) {
         String infoTest_ = ((LgNamesUtils)_ctx.getStandards()).getAliasInfoTest();
         String infoTestCount_ = ((LgNamesUtils)_ctx.getStandards()).getAliasInfoTestCount();
-        Struct count_ = ((FieldableStruct) _infos).getStruct(new ClassField(infoTest_, infoTestCount_));
+        Struct count_ = ((FieldableStruct) _infos).getEntryStruct(new ClassField(infoTest_, infoTestCount_)).getValue();
         doneTestsCount.setText(((NumberStruct)count_).longStruct()+"/"+((NumberStruct)count_).longStruct());
         progressBar.setValue(progressBar.getMaximum());
     }
@@ -192,10 +192,10 @@ public final class MainWindow extends GroupFrame {
             Struct results_ = _res.getStruct();
             String tableCl_ = stds_.getAliasTable();
             String listTable_ = stds_.getAliasListTa();
-            Struct list_ = ((FieldableStruct)results_).getStruct(new ClassField(tableCl_,listTable_));
+            Struct list_ = ((FieldableStruct)results_).getEntryStruct(new ClassField(tableCl_,listTable_)).getValue();
             String listCl_ = stds_.getAliasList();
             String arrList_ = stds_.getAliasArrayLi();
-            Struct array_ = ((FieldableStruct)list_).getStruct(new ClassField(listCl_,arrList_));
+            Struct array_ = ((FieldableStruct)list_).getEntryStruct(new ClassField(listCl_,arrList_)).getValue();
             String pairCl_ = stds_.getAliasCustPair();
             String pairFirst_ = stds_.getAliasFirst();
             String pairSecond_ = stds_.getAliasSecond();
@@ -206,18 +206,18 @@ public final class MainWindow extends GroupFrame {
             int i =0;
             resultsTable.setRowCount(((ArrayStruct)array_).getInstance().length);
             for (Struct t: ((ArrayStruct)array_).getInstance()) {
-                Struct method_ = ((FieldableStruct)t).getStruct(new ClassField(pairCl_,pairFirst_));
-                Struct result_ = ((FieldableStruct)t).getStruct(new ClassField(pairCl_,pairSecond_));
+                Struct method_ = ((FieldableStruct)t).getEntryStruct(new ClassField(pairCl_,pairFirst_)).getValue();
+                Struct result_ = ((FieldableStruct)t).getEntryStruct(new ClassField(pairCl_,pairSecond_)).getValue();
                 i++;
                 resultsTable.setValueAt(Integer.toString(i),i-1,0);
                 results.append(Integer.toString(i)+"\n");
                 String methodInfo_ = ((MethodMetaInfo) method_).getClassName() + "." + ((MethodMetaInfo) method_).getRealId().getSignature(_ctx) + "\n";
                 resultsTable.setValueAt(methodInfo_,i-1,1);
                 results.append(methodInfo_);
-                Struct params_ = ((FieldableStruct) result_).getStruct(new ClassField(aliasResult_, aliasParams_));
+                Struct params_ = ((FieldableStruct) result_).getEntryStruct(new ClassField(aliasResult_, aliasParams_)).getValue();
                 resultsTable.setValueAt(((StringStruct)params_).getInstance(),i-1,2);
-                Struct success_ = ((FieldableStruct) result_).getStruct(new ClassField(aliasResult_, aliasSuccess_));
-                Struct failMessage_ = ((FieldableStruct) result_).getStruct(new ClassField(aliasResult_, aliasFailMessage_));
+                Struct success_ = ((FieldableStruct) result_).getEntryStruct(new ClassField(aliasResult_, aliasSuccess_)).getValue();
+                Struct failMessage_ = ((FieldableStruct) result_).getEntryStruct(new ClassField(aliasResult_, aliasFailMessage_)).getValue();
                 if (((BooleanStruct)success_).getInstance()) {
                     results.append(messages.getVal("success")+"\n");
                     resultsTable.setValueAt("x",i-1,3);

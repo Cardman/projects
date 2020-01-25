@@ -132,63 +132,22 @@ public final class RendSettableFieldOperation extends
     Argument getCommonCompoundSetting(Argument _previous, Struct _store, Configuration _conf, String _op, Argument _right) {
         int off_ = getOff();
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
-        Argument left_ = new Argument();
+        Argument left_ = new Argument(_store);
         Argument res_;
 
-        String fieldType_;
-        Classes classes_ = _conf.getClasses();
-        ClassField fieldId_ = fieldMetaInfo.getClassField();
-        String className_ = fieldId_.getClassName();
-        if (fieldMetaInfo.isStaticField()) {
-            fieldType_ = fieldMetaInfo.getRealType();
-            left_.setStruct(_store);
-            ClassArgumentMatching cl_ = new ClassArgumentMatching(fieldType_);
-            res_ = RendNumericOperation.calculateAffect(left_, _conf, _right, _op, catString, cl_);
-            if (_conf.getContextEl().hasExceptionOrFailInit()) {
-                return res_;
-            }
-            classes_.initializeStaticField(fieldId_, res_.getStruct());
-            Argument a_ = res_;
-            return a_;
-        }
-        Argument previous_ = new Argument();
-        previous_.setStruct(PrimitiveTypeUtil.getParent(anc, className_, _previous.getStruct(), _conf));
-        left_.setStruct(_store);
-        fieldType_ = _conf.getStandards().getStructClassName(_store, _conf.getContextEl());
-        ClassArgumentMatching cl_ = new ClassArgumentMatching(fieldType_);
+        ClassArgumentMatching cl_ = getResultClass();
         res_ = RendNumericOperation.calculateAffect(left_, _conf, _right, _op, catString, cl_);
-        if (_conf.getContextEl().hasExceptionOrFailInit()) {
-            return res_;
-        }
-        ((FieldableStruct) previous_.getStruct()).setStruct(fieldId_, res_.getStruct());
-        Argument a_ = res_;
-        return a_;
+        return getCommonSetting(_previous,_conf,res_);
     }
     Argument getCommonSemiSetting(Argument _previous, Struct _store, Configuration _conf, String _op, boolean _post) {
         int off_ = getOff();
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
-        Argument left_ = new Argument();
+        Argument left_ = new Argument(_store);
         Argument res_;
 
-        String fieldType_;
-        Classes classes_ = _conf.getClasses();
-        ClassField fieldId_ = fieldMetaInfo.getClassField();
-        String className_ = fieldId_.getClassName();
-        if (fieldMetaInfo.isStaticField()) {
-            fieldType_ = fieldMetaInfo.getRealType();
-            left_.setStruct(_store);
-            ClassArgumentMatching cl_ = new ClassArgumentMatching(fieldType_);
-            res_ = ExecNumericOperation.calculateIncrDecr(left_, _conf, _op, cl_);
-            classes_.initializeStaticField(fieldId_, res_.getStruct());
-            return RendSemiAffectationOperation.getPrePost(_post, left_, res_);
-        }
-        Argument previous_ = new Argument();
-        previous_.setStruct(PrimitiveTypeUtil.getParent(anc, className_, _previous.getStruct(), _conf));
-        left_.setStruct(_store);
-        fieldType_ = _conf.getStandards().getStructClassName(_store, _conf.getContextEl());
-        ClassArgumentMatching cl_ = new ClassArgumentMatching(fieldType_);
+        ClassArgumentMatching cl_ = getResultClass();
         res_ = ExecNumericOperation.calculateIncrDecr(left_, _conf, _op, cl_);
-        ((FieldableStruct) previous_.getStruct()).setStruct(fieldId_, res_.getStruct());
+        getCommonSetting(_previous,_conf,res_);
         return RendSemiAffectationOperation.getPrePost(_post, left_, res_);
     }
 
@@ -201,18 +160,11 @@ public final class RendSettableFieldOperation extends
     public Argument endCalculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, boolean _post, Argument _stored, Argument _right) {
         int off_ = getOff();
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
-        Classes classes_ = _conf.getClasses();
-        ClassField fieldId_ = fieldMetaInfo.getClassField();
-        String className_ = fieldId_.getClassName();
-        if (fieldMetaInfo.isStaticField()) {
-            classes_.initializeStaticField(fieldId_, _right.getStruct());
-            Argument a_ = RendSemiAffectationOperation.getPrePost(_post, _stored, _right);
-            return a_;
+        Argument prev_ = Argument.createVoid();
+        if (!fieldMetaInfo.isStaticField()) {
+            prev_ = getPreviousArg(this, _nodes, _conf);
         }
-        Argument previousNode_ = getPreviousArg(this,_nodes,_conf);
-        Argument previous_ = new Argument();
-        previous_.setStruct(PrimitiveTypeUtil.getParent(anc, className_, previousNode_.getStruct(), _conf));
-        ((FieldableStruct) previous_.getStruct()).setStruct(fieldId_, _right.getStruct());
+        getCommonSetting(prev_,_conf,_right);
         Argument a_ = RendSemiAffectationOperation.getPrePost(_post, _stored, _right);
         return a_;
     }

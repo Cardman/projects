@@ -1,14 +1,14 @@
 package code.expressionlanguage.structs;
 
 import code.expressionlanguage.opers.util.ClassField;
+import code.util.EntryCust;
 import code.util.ObjectMap;
 
 
 public interface FieldableStruct extends Struct {
 
-    Struct getStruct(ClassField _classField);
+    EntryCust<ClassField,Struct> getEntryStruct(ClassField _classField);
 
     ObjectMap<ClassField,Struct> getFields();
 
-    void setStruct(ClassField _classField, Struct _value);
 }

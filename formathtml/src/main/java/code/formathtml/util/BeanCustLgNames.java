@@ -690,10 +690,10 @@ public final class BeanCustLgNames extends BeanLgNames {
                 continue;
             }
             Struct map_ = RenderExpUtil.calculateReuse(opsMap, _conf).getStruct();
-            ((FieldableStruct)strBean_).setStruct(new ClassField(getAliasBean(),getAliasForms()),map_);
-            ((FieldableStruct)strBean_).setStruct(new ClassField(getAliasBean(),getAliasDataBaseField()),_db);
-            ((FieldableStruct)strBean_).setStruct(new ClassField(getAliasBean(),getAliasLanguage()),new StringStruct(_language));
-            ((FieldableStruct)strBean_).setStruct(new ClassField(getAliasBean(),getAliasScope()),new StringStruct(info_.getScope()));
+            ((FieldableStruct)strBean_).getEntryStruct(new ClassField(getAliasBean(),getAliasForms())).setValue(map_);
+            ((FieldableStruct)strBean_).getEntryStruct(new ClassField(getAliasBean(),getAliasDataBaseField())).setValue(_db);
+            ((FieldableStruct)strBean_).getEntryStruct(new ClassField(getAliasBean(),getAliasLanguage())).setValue(new StringStruct(_language));
+            ((FieldableStruct)strBean_).getEntryStruct(new ClassField(getAliasBean(),getAliasScope())).setValue(new StringStruct(info_.getScope()));
             _conf.removeLastPage();
             _conf.getBuiltBeans().setValue(index_,strBean_);
             index_++;

@@ -447,12 +447,12 @@ public final class Templates {
     public static String getFullTypeByBases(String _subType, String _superType, Analyzable _context) {
         String baseSubType_ = getIdFromAllTypes(_subType);
         String baseSuperType_ = getIdFromAllTypes(_superType);
-        if (!PrimitiveTypeUtil.canBeUseAsArgument(baseSuperType_, baseSubType_, _context)) {
-            return null;
-        }
         DimComp dc_ = PrimitiveTypeUtil.getQuickComponentBaseType(baseSubType_);
         String compo_ = dc_.getComponent();
         if (PrimitiveTypeUtil.isPrimitive(compo_,_context)) {
+            if (!PrimitiveTypeUtil.canBeUseAsArgument(baseSuperType_, baseSubType_, _context)) {
+                return null;
+            }
             return _superType;
         }
         GeneType inf_ = _context.getClassBody(compo_);

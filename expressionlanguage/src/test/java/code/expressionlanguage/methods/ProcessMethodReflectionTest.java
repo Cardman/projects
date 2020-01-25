@@ -1873,6 +1873,54 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertNotNull(cont_.getException());
     }
     @Test
+    public void processEl2811Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $int inst=15i:\n");
+        xml_.append(" $public $normal $int exmeth($int... e){\n");
+        xml_.append("  $long t:\n");
+        xml_.append("  t;.=8:\n");
+        xml_.append("  $if(e;.;!=$null){\n");
+        xml_.append("   $foreach($int i:e;.;){\n");
+        xml_.append("    t;.+=i;:\n");
+        xml_.append("   }\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 1i+$($int)t;.:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $int inst:\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $return $($int)$class(pkg.Ex).getDeclaredFields(\"inst\")[0i].get($new pkg.ExConc()):\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $abstract $class pkg.ExAbs {\n");
+        xml_.append(" $public $normal java.lang.String exmeth(){\n");
+        xml_.append("  $return \"super\":\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExAbs", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExConc:pkg.ExAbs {\n");
+        xml_.append(" $public $normal java.lang.String exmeth(){\n");
+        xml_.append("  $return \"out\":\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExConc", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        assertNotNull(cont_.getException());
+    }
+    @Test
     public void processEl282Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
@@ -2196,6 +2244,55 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         xml_.append(" $public $static $int inst:\n");
         xml_.append(" $public $static java.lang.Integer exmeth(){\n");
         xml_.append("  $class(pkg.Ex).getDeclaredFields(\"inst\")[0i].set(\"\",$null):\n");
+        xml_.append("  $return 1i:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $abstract $class pkg.ExAbs {\n");
+        xml_.append(" $public $normal java.lang.String exmeth(){\n");
+        xml_.append("  $return \"super\":\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExAbs", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExConc:pkg.ExAbs {\n");
+        xml_.append(" $public $normal java.lang.String exmeth(){\n");
+        xml_.append("  $return \"out\":\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExConc", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        assertNotNull(cont_.getException());
+    }
+    @Test
+    public void processEl2881Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#T> {\n");
+        xml_.append(" $public java.lang.Integer inst=15i:\n");
+        xml_.append(" $public $normal $int exmeth(#T... e){\n");
+        xml_.append("  $long t:\n");
+        xml_.append("  t;.=8:\n");
+        xml_.append("  $if(e;.;!=$null){\n");
+        xml_.append("   $foreach(#T i:e;.;){\n");
+        xml_.append("    t;.+=$($int)i;:\n");
+        xml_.append("   }\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 1i+$($int)t;.:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $int inst:\n");
+        xml_.append(" $public $static java.lang.Integer exmeth(){\n");
+        xml_.append("  $class(pkg.Ex).getDeclaredFields(\"inst\")[0i].set($new pkg.ExConc(),$null):\n");
         xml_.append("  $return 1i:\n");
         xml_.append(" }\n");
         xml_.append("}\n");

@@ -362,13 +362,13 @@ public final class TypeUtil {
             EqList<ClassMethodId> finalMethods_ = new EqList<ClassMethodId>();
             EqList<ClassMethodId> methods_ = new EqList<ClassMethodId>();
             for (String s: subClassBlock_.getAllInterfaces()) {
-                if (!PrimitiveTypeUtil.canBeUseAsArgument(baseClassFound_, s, _conf)) {
-                    continue;
-                }
                 GeneType r_ = _conf.getClassBody(s);
-                //r_, as super interface of c, is a sub type of type input
                 String gene_ = r_.getGenericString();
                 String v_ = Templates.getFullTypeByBases(gene_, baseClassFound_, _conf);
+                if (v_ == null) {
+                    continue;
+                }
+                //r_, as super interface of c, is a sub type of type input
                 MethodId l_ = _realId.quickFormat(v_, _conf);
                 ObjectMap<MethodId, EqList<ClassMethodId>> ov_ = r_.getAllOverridingMethods();
                 //r_ inherit the formatted method
@@ -444,13 +444,13 @@ public final class TypeUtil {
         StringList allBaseClasses_ = new StringList(name_);
         allBaseClasses_.addAllElts(subClassBlock_.getAllSuperClasses());
         for (String s: allBaseClasses_) {
-            if (!PrimitiveTypeUtil.canBeUseAsArgument(_subTypeName, s, _conf)) {
-                continue;
-            }
             GeneClass r_ = (GeneClass) _conf.getClassBody(s);
-            //r_, as super class of c, is a sub type of type input
             String gene_ = r_.getGenericString();
             String v_ = Templates.getFullTypeByBases(gene_, _subTypeName, _conf);
+            if (v_ == null) {
+                continue;
+            }
+            //r_, as super class of c, is a sub type of type input
             MethodId l_ = _realId.quickFormat(v_, _conf);
             ObjectMap<MethodId, EqList<ClassMethodId>> ov_ = r_.getAllOverridingMethods();
             //r_ inherit the formatted method

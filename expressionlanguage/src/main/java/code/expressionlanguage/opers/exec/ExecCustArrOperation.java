@@ -73,9 +73,8 @@ public final class ExecCustArrOperation extends ExecInvokingOperation implements
         store_ = a_.getStruct();
         Argument left_ = new Argument();
         left_.setStruct(store_);
-        ClassArgumentMatching clArg_ = getResultClass();
         Argument res_;
-        res_ = ExecNumericOperation.calculateAffect(left_, _conf, _right, _op, catString, clArg_);
+        res_ = ExecNumericOperation.calculateAffect(left_, _conf, _right, _op, catString, getResultClass());
         if (_conf.getContextEl().hasExceptionOrFailInit()) {
             return Argument.createVoid();
         }

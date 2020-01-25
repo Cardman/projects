@@ -813,7 +813,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
 
-        Struct choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "choice"));
+        Struct choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choice"));
         assertEq("TWO", ((StringStruct) choice_).getInstance());
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
@@ -900,7 +900,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
         
-        Struct choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "choice"));
+        Struct choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choice"));
         assertEq("TWO", ((StringStruct) choice_).getInstance());
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
@@ -920,7 +920,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><select name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\" selected=\"selected\">1</option><option value=\"TWO\">2</option></select></form></body></html>", nav_.getHtmlText());
-        choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "choice"));
+        choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choice"));
         assertEq("ONE", ((StringStruct) choice_).getInstance());
     }
 
@@ -999,9 +999,9 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
         
-        Struct choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "choice"));
-        assertEq(1, ((NumberStruct)((FieldableStruct)choice_).getStruct(new ClassField("pkg.CustList","length"))).intStruct());
-        Struct array_ = ((FieldableStruct) choice_).getStruct(new ClassField("pkg.CustList", "list"));
+        Struct choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choice"));
+        assertEq(1, ((NumberStruct)getStruct(choice_,new ClassField("pkg.CustList","length"))).intStruct());
+        Struct array_ = getStruct(choice_,new ClassField("pkg.CustList", "list"));
         assertEq(1, ((ArrayStruct)array_).getInstance().length);
         assertEq("TWO", ((StringStruct) ((ArrayStruct)array_).getInstance()[0]).getInstance());
         HtmlPage htmlPage_ = nav_.getHtmlPage();
@@ -1022,9 +1022,9 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><select multiple=\"multiple\" name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\" selected=\"selected\">1</option><option value=\"TWO\">2</option></select></form></body></html>", nav_.getHtmlText());
-        choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "choice"));
-        assertEq(1, ((NumberStruct)((FieldableStruct)choice_).getStruct(new ClassField("pkg.CustList","length"))).intStruct());
-        array_ = ((FieldableStruct) choice_).getStruct(new ClassField("pkg.CustList", "list"));
+        choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choice"));
+        assertEq(1, ((NumberStruct)getStruct(choice_,new ClassField("pkg.CustList","length"))).intStruct());
+        array_ = getStruct(choice_,new ClassField("pkg.CustList", "list"));
         assertEq(1, ((ArrayStruct)array_).getInstance().length);
         assertEq("ONE", ((StringStruct) ((ArrayStruct)array_).getInstance()[0]).getInstance());
     }
@@ -1088,9 +1088,9 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
         
-        Struct choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "index"));
+        Struct choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "index"));
         assertEq(4, ((NumberStruct) choice_).intStruct());
-        choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "indexTwo"));
+        choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "indexTwo"));
         assertEq(6, ((NumberStruct) choice_).intStruct());
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
@@ -1116,9 +1116,9 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6\" checked=\"checked\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"2\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"4\" checked=\"checked\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"6\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
-        choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "index"));
+        choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "index"));
         assertEq(6, ((NumberStruct) choice_).intStruct());
-        choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "indexTwo"));
+        choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "indexTwo"));
         assertEq(4, ((NumberStruct) choice_).intStruct());
 
     }
@@ -1182,9 +1182,9 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
         
-        Struct choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "index"));
+        Struct choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "index"));
         assertEq(-1, ((NumberStruct) choice_).intStruct());
-        choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "indexTwo"));
+        choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "indexTwo"));
         assertEq(-1, ((NumberStruct) choice_).intStruct());
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
@@ -1210,9 +1210,9 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"2\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"4\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"6\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
-        choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "index"));
+        choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "index"));
         assertEq(-1, ((NumberStruct) choice_).intStruct());
-        choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "indexTwo"));
+        choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "indexTwo"));
         assertEq(-1, ((NumberStruct) choice_).intStruct());
 
     }
@@ -1279,9 +1279,9 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
         
-        Struct choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "index"));
+        Struct choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "index"));
         assertEq(4, ((NumberStruct) choice_).intStruct());
-        choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "indexTwo"));
+        choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "indexTwo"));
         assertEq(6, ((NumberStruct) choice_).intStruct());
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
@@ -1307,9 +1307,9 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6\" checked=\"checked\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"2\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"4\" checked=\"checked\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"6\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
-        choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "index"));
+        choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "index"));
         assertEq(6, ((NumberStruct) choice_).intStruct());
-        choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "indexTwo"));
+        choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "indexTwo"));
         assertEq(4, ((NumberStruct) choice_).intStruct());
 
     }
@@ -1381,7 +1381,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
         
-        Struct choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "choice"));
+        Struct choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choice"));
         assertEq("TWO", ((StringStruct) choice_).getInstance());
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
@@ -1401,7 +1401,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><select name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\" selected=\"selected\">1</option><option value=\"TWO\">2</option></select></form></body></html>", nav_.getHtmlText());
-        choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "choice"));
+        choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choice"));
         assertEq("ONE", ((StringStruct) choice_).getInstance());
     }
     @Test
@@ -1472,7 +1472,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
         
-        Struct choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "choice"));
+        Struct choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choice"));
         assertEq("TWO", ((StringStruct) choice_).getInstance());
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
@@ -1491,7 +1491,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><select name=\"bean_one.choice\" n-i=\"0\"/></form></body></html>", nav_.getHtmlText());
-        choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "choice"));
+        choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choice"));
         assertSame(NullStruct.NULL_VALUE,choice_);
     }
 
@@ -1557,9 +1557,9 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
         
-        Struct choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "index"));
+        Struct choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "index"));
         assertEq(4, ((NumberStruct) choice_).intStruct());
-        choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "indexTwo"));
+        choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "indexTwo"));
         assertEq(6, ((NumberStruct) choice_).intStruct());
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
@@ -1648,9 +1648,9 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
         
-        Struct choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "index"));
+        Struct choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "index"));
         assertEq(4, ((NumberStruct) choice_).intStruct());
-        choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "indexTwo"));
+        choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "indexTwo"));
         assertEq(6, ((NumberStruct) choice_).intStruct());
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
@@ -1733,7 +1733,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
         
-        Struct choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "choice"));
+        Struct choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choice"));
         assertEq(2, ((NumberStruct) choice_).intStruct());
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
@@ -1753,7 +1753,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><textarea n-i=\"0\" name=\"bean_one.choice\">1</textarea></form></body></html>", nav_.getHtmlText());
-        choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "choice"));
+        choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choice"));
         assertEq(1, ((NumberStruct) choice_).intStruct());
     }
     @Test
@@ -1829,7 +1829,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
         
-        Struct choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "choice"));
+        Struct choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choice"));
         assertEq("TWO", ((StringStruct) choice_).getInstance());
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
@@ -1849,7 +1849,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><select id=\"myId\" c:validator=\"valRef\" name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\" selected=\"selected\">1</option><option value=\"TWO\">2</option></select></form></body></html>", nav_.getHtmlText());
-        choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "choice"));
+        choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choice"));
         assertEq("ONE", ((StringStruct) choice_).getInstance());
     }
     @Test
@@ -1926,7 +1926,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
         
-        Struct choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "choice"));
+        Struct choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choice"));
         assertEq("TWO", ((StringStruct) choice_).getInstance());
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
@@ -1946,7 +1946,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><select id=\"myId\" c:validator=\"valRef\" name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\" selected=\"selected\">1</option><option value=\"TWO\">2</option></select><span c:for=\"myId\" c:valueMessage=\"msg_example,one\">Description one</span></form></body></html>", nav_.getHtmlText());
-        choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "choice"));
+        choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choice"));
         assertEq("TWO", ((StringStruct) choice_).getInstance());
     }
     @Test
@@ -2023,7 +2023,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
         
-        Struct choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "choice"));
+        Struct choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choice"));
         assertEq("TWO", ((StringStruct) choice_).getInstance());
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
@@ -2043,7 +2043,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><select id=\"myId\" c:validator=\"valRef\" name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\" selected=\"selected\">1</option><option value=\"TWO\">2</option></select><span c:for=\"myId\">Description one</span></form></body></html>", nav_.getHtmlText());
-        choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "choice"));
+        choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choice"));
         assertEq("TWO", ((StringStruct) choice_).getInstance());
     }
     @Test
@@ -2129,7 +2129,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
         
-        Struct choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "choice"));
+        Struct choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choice"));
         assertEq("TWO", ((StringStruct) choice_).getInstance());
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
@@ -2149,7 +2149,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><select id=\"myId\" c:validator=\"valRef\" name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\" selected=\"selected\">1</option><option value=\"TWO\">2</option></select><span c:for=\"myId\" c:valueMessage=\"msg_example,three\">desc an arg</span></form></body></html>", nav_.getHtmlText());
-        choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "choice"));
+        choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choice"));
         assertEq("TWO", ((StringStruct) choice_).getInstance());
     }
     @Test
@@ -2226,7 +2226,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
         
-        Struct choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "choice"));
+        Struct choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choice"));
         assertEq("TWO", ((StringStruct) choice_).getInstance());
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
@@ -2246,7 +2246,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><textarea id=\"myId\" c:validator=\"valRef\" n-i=\"0\" name=\"bean_one.choice\">ONE</textarea><span c:for=\"myId\" c:valueMessage=\"msg_example,one\">Description one</span></form></body></html>", nav_.getHtmlText());
-        choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "choice"));
+        choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choice"));
         assertEq("TWO", ((StringStruct) choice_).getInstance());
     }
     @Test
@@ -2324,7 +2324,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
         
-        Struct choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "choice"));
+        Struct choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choice"));
         assertEq("TWO", ((StringStruct) choice_).getInstance());
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
@@ -2350,9 +2350,9 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"text\" c:validator=\"valRef\" id=\"myId\" name=\"bean_one.choice\" n-i=\"0\" value=\"ONE\"/><input type=\"checkbox\" c:validator=\"valRef\" id=\"myId2\" name=\"bean_one.choiceBool\" n-i=\"1\"/><span c:for=\"myId\" c:valueMessage=\"msg_example,one\">Description one</span><span c:for=\"myId2\" c:valueMessage=\"msg_example,two\">Description two</span></form></body></html>", nav_.getHtmlText());
-        choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "choice"));
+        choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choice"));
         assertEq("TWO", ((StringStruct) choice_).getInstance());
-        choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "choiceBool"));
+        choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choiceBool"));
         assertTrue(!((BooleanStruct) choice_).getInstance());
     }
     @Test
@@ -2430,7 +2430,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
         
-        Struct choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "choice"));
+        Struct choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choice"));
         assertEq("TWO", ((StringStruct) choice_).getInstance());
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
@@ -2456,9 +2456,9 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"text\" c:validator=\"valRef\" id=\"myId\" name=\"bean_one.choice\" n-i=\"0\" value=\"ONE\"/><input type=\"checkbox\" c:validator=\"valRef\" id=\"myId2\" name=\"bean_one.choiceBool\" n-i=\"1\" checked=\"checked\"/><span c:for=\"myId\" c:valueMessage=\"msg_example,one\">Description one</span><span c:for=\"myId2\" c:valueMessage=\"msg_example,two\">Description two</span></form></body></html>", nav_.getHtmlText());
-        choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "choice"));
+        choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choice"));
         assertEq("TWO", ((StringStruct) choice_).getInstance());
-        choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "choiceBool"));
+        choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choiceBool"));
         assertTrue(((BooleanStruct) choice_).getInstance());
     }
     @Test
@@ -2526,9 +2526,9 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
         
-        Struct choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "index"));
+        Struct choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "index"));
         assertEq(4, ((NumberStruct) choice_).intStruct());
-        choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "indexTwo"));
+        choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "indexTwo"));
         assertEq(6, ((NumberStruct) choice_).intStruct());
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
@@ -2548,9 +2548,9 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input c:validator=\"valRef\" c:groupId=\"myId\" type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2\"/><input c:validator=\"valRef\" c:groupId=\"myId\" type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4\"/><input c:validator=\"valRef\" c:groupId=\"myId\" type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6\" checked=\"checked\"/><span c:for=\"myId\" c:valueMessage=\"msg_example,one\">Description one</span><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
-        choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "index"));
+        choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "index"));
         assertEq(4, ((NumberStruct) choice_).intStruct());
-        choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "indexTwo"));
+        choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "indexTwo"));
         assertEq(6, ((NumberStruct) choice_).intStruct());
     }
     @Test
@@ -2628,7 +2628,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
         
-        Struct choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "choice"));
+        Struct choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choice"));
         assertEq("TWO", ((StringStruct) choice_).getInstance());
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
@@ -2654,9 +2654,9 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"text\" c:validator=\"valRef\" id=\"myId\" name=\"bean_one.choice\" n-i=\"0\" value=\"ONE\"/><input type=\"text\"/><input type=\"checkbox\" c:validator=\"valRef\" id=\"myId2\" name=\"bean_one.choiceBool\" n-i=\"1\" checked=\"checked\"/><textarea/><select name=\"\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select><span c:for=\"myId\" c:valueMessage=\"msg_example,one\">Description one</span><span c:for=\"myId2\" c:valueMessage=\"msg_example,two\">Description two</span></form></body></html>", nav_.getHtmlText());
-        choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "choice"));
+        choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choice"));
         assertEq("TWO", ((StringStruct) choice_).getInstance());
-        choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "choiceBool"));
+        choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choiceBool"));
         assertTrue(((BooleanStruct) choice_).getInstance());
     }
     @Test
@@ -2734,7 +2734,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
         
-        Struct choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "choice"));
+        Struct choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choice"));
         assertEq("TWO", ((StringStruct) choice_).getInstance());
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
@@ -2754,7 +2754,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"text\" c:validator=\"valRef\" id=\"myId\" name=\"bean_one.choice\" n-i=\"0\" value=\"TWO\"/><span c:for=\"myId\" c:valueMessage=\"msg_example,one\"/></form></body></html>", nav_.getHtmlText());
-        choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "choice"));
+        choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choice"));
         assertEq("TWO", ((StringStruct) choice_).getInstance());
     }
     @Test
@@ -2831,7 +2831,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
         
-        Struct choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "choice"));
+        Struct choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choice"));
         assertEq("TWO", ((StringStruct) choice_).getInstance());
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
@@ -2851,7 +2851,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><select id=\"myId\" c:validator=\"valRef\" name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\" selected=\"selected\">1</option><option value=\"TWO\">2</option></select><span c:for=\"myId\" c:valueMessage=\"msg_example,one\">Description one</span></form></body></html>", nav_.getHtmlText());
-        choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "choice"));
+        choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choice"));
         assertEq("TWO", ((StringStruct) choice_).getInstance());
     }
     @Test
@@ -2928,7 +2928,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
         
-        Struct choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "choice"));
+        Struct choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choice"));
         assertEq("TWO", ((StringStruct) choice_).getInstance());
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
@@ -2948,7 +2948,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><select id=\"myId\" c:validator=\"valRef\" name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\" selected=\"selected\">1</option><option value=\"TWO\">2</option></select><span c:for=\"myId\" c:valueMessage=\"msg_example,one\">Description one</span></form></body></html>", nav_.getHtmlText());
-        choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "choice"));
+        choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choice"));
         assertEq("TWO", ((StringStruct) choice_).getInstance());
     }
     @Test
@@ -3025,7 +3025,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
         
-        Struct choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "choice"));
+        Struct choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choice"));
         assertEq("TWO", ((StringStruct) choice_).getInstance());
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
@@ -3045,7 +3045,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><select id=\"myId\" c:validator=\"valRef\" name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\" selected=\"selected\">1</option><option value=\"TWO\">2</option></select><span>NOT DELETE</span></form></body></html>", nav_.getHtmlText());
-        choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "choice"));
+        choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choice"));
         assertEq("TWO", ((StringStruct) choice_).getInstance());
     }
     @Test
@@ -3194,9 +3194,9 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
         
-        Struct choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "choice"));
+        Struct choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choice"));
         assertEq(2, ((NumberStruct) choice_).intStruct());
-        choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "choiceSec"));
+        choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choiceSec"));
         assertEq(4, ((NumberStruct) choice_).intStruct());
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
@@ -3222,9 +3222,9 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"number\" c:validator=\"valRef\" id=\"myId\" name=\"bean_one.choice\" n-i=\"0\" value=\"6\"/><input type=\"range\" c:validator=\"valRef\" id=\"myId2\" name=\"bean_one.choiceSec\" n-i=\"1\" value=\"8\"/><span c:for=\"myId\" c:valueMessage=\"msg_example,one\">Description one</span><span c:for=\"myId2\" c:valueMessage=\"msg_example,two\">Description two</span></form></body></html>", nav_.getHtmlText());
-        choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "choice"));
+        choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choice"));
         assertEq(2, ((NumberStruct) choice_).intStruct());
-        choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "choiceSec"));
+        choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choiceSec"));
         assertEq(4, ((NumberStruct) choice_).intStruct());
     }
     @Test
@@ -3303,9 +3303,9 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
         
-        Struct choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "choice"));
+        Struct choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choice"));
         assertEq(2, ((NumberStruct) choice_).intStruct());
-        choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "choiceSec"));
+        choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choiceSec"));
         assertEq(4, ((NumberStruct) choice_).intStruct());
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
@@ -3331,9 +3331,9 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"number\" id=\"myId\" name=\"bean_one.choice\" n-i=\"0\" value=\"6\"/><input type=\"range\" id=\"myId2\" name=\"bean_one.choiceSec\" n-i=\"1\" value=\"8\"/><span c:for=\"myId\" c:valueMessage=\"msg_example,one\"/><span c:for=\"myId2\" c:valueMessage=\"msg_example,two\"/></form></body></html>", nav_.getHtmlText());
-        choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "choice"));
+        choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choice"));
         assertEq(6, ((NumberStruct) choice_).intStruct());
-        choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "choiceSec"));
+        choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choiceSec"));
         assertEq(8, ((NumberStruct) choice_).intStruct());
     }
     @Test
@@ -3756,9 +3756,9 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
         
-        Struct choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "index"));
+        Struct choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "index"));
         assertEq(4, ((NumberStruct) choice_).intStruct());
-        choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "indexTwo"));
+        choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "indexTwo"));
         assertEq(6, ((NumberStruct) choice_).intStruct());
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
@@ -3784,9 +3784,9 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4\" checked=\"checked\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"2\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"4\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"6\" checked=\"checked\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
-        choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "index"));
+        choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "index"));
         assertEq(6, ((NumberStruct) choice_).intStruct());
-        choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "indexTwo"));
+        choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "indexTwo"));
         assertEq(4, ((NumberStruct) choice_).intStruct());
     }
 
@@ -3849,9 +3849,9 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
         
-        Struct choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "index"));
+        Struct choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "index"));
         assertEq(4, ((NumberStruct) choice_).intStruct());
-        choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "indexTwo"));
+        choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "indexTwo"));
         assertEq(6, ((NumberStruct) choice_).intStruct());
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
@@ -3877,9 +3877,9 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate(2,4)\" action=\"\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"2\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"4\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"6\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
-        choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "index"));
+        choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "index"));
         assertEq(14, ((NumberStruct) choice_).intStruct());
-        choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "indexTwo"));
+        choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "indexTwo"));
         assertEq(12, ((NumberStruct) choice_).intStruct());
 
     }
@@ -3934,7 +3934,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
         
-        Struct choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "index"));
+        Struct choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "index"));
         assertEq(4, ((NumberStruct) choice_).doubleStruct());
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
@@ -3954,7 +3954,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2.0\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4.0\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6.0\" checked=\"checked\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
-        choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "index"));
+        choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "index"));
         assertEq(6, ((NumberStruct) choice_).doubleStruct());
 
     }
@@ -4009,7 +4009,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
         
-        Struct choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "index"));
+        Struct choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "index"));
         assertEq(4, ((NumberStruct) choice_).doubleStruct());
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
@@ -4029,7 +4029,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2.0\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4.0\" checked=\"checked\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6.0\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
-        choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "index"));
+        choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "index"));
         assertEq(4, ((NumberStruct) choice_).doubleStruct());
 
     }
@@ -4084,7 +4084,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
         
-        Struct choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "index"));
+        Struct choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "index"));
         assertEq(4, ((NumberStruct) choice_).doubleStruct());
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
@@ -4104,7 +4104,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4\" checked=\"checked\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
-        choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "index"));
+        choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "index"));
         assertEq(4, ((NumberStruct) choice_).doubleStruct());
 
     }
@@ -4209,7 +4209,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
         
-        Struct choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "index"));
+        Struct choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "index"));
         assertSame(NullStruct.NULL_VALUE, choice_);
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
@@ -4229,7 +4229,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6\" checked=\"checked\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
-        choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "index"));
+        choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "index"));
         assertEq(6, ((NumberStruct) choice_).doubleStruct());
 
     }
@@ -4272,7 +4272,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
         
-        Struct choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "textField"));
+        Struct choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "textField"));
         assertEq("txt", ((StringStruct)choice_).getInstance());
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
@@ -4292,7 +4292,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form action=\"\" c:command=\"page1.html\" name=\"myform\" n-f=\"0\"><input type=\"text\" name=\"bean_one.textField\" n-i=\"0\" value=\"after\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
-        choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "textField"));
+        choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "textField"));
         assertEq("after", ((StringStruct)choice_).getInstance());
 
     }
@@ -4335,7 +4335,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
         
-        Struct choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "textField"));
+        Struct choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "textField"));
         assertEq("txt", ((StringStruct)choice_).getInstance());
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
@@ -4354,7 +4354,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form action=\"\" c:command=\"page1.html\" name=\"myform\" n-f=\"0\"><input type=\"text\" name=\"bean_one.textField\" n-i=\"0\" value=\"\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
-        choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "textField"));
+        choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "textField"));
         assertSame(NullStruct.NULL_VALUE, choice_);
 
     }
@@ -4397,7 +4397,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
         
-        Struct choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "boolField"));
+        Struct choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "boolField"));
         assertTrue(!((BooleanStruct)choice_).getInstance());
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
@@ -4417,7 +4417,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form action=\"\" c:command=\"page1.html\" name=\"myform\" n-f=\"0\"><input type=\"checkbox\" name=\"bean_one.boolField\" n-i=\"0\" checked=\"checked\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
-        choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "boolField"));
+        choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "boolField"));
         assertTrue(((BooleanStruct)choice_).getInstance());
     }
 
@@ -4459,7 +4459,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
         
-        Struct choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "boolField"));
+        Struct choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "boolField"));
         assertTrue(((BooleanStruct)choice_).getInstance());
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
@@ -4479,7 +4479,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form action=\"\" c:command=\"page1.html\" name=\"myform\" n-f=\"0\"><input type=\"checkbox\" name=\"bean_one.boolField\" n-i=\"0\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
-        choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "boolField"));
+        choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "boolField"));
         assertTrue(!((BooleanStruct)choice_).getInstance());
     }
 
@@ -4532,7 +4532,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
         
-        Struct choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "index"));
+        Struct choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "index"));
         assertSame(NullStruct.NULL_VALUE, choice_);
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
@@ -4551,7 +4551,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
-        choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "index"));
+        choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "index"));
         assertSame(NullStruct.NULL_VALUE, choice_);
 
     }
@@ -4606,7 +4606,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
         
-        Struct choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "index"));
+        Struct choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "index"));
         assertEq('4', ((CharStruct) choice_).getChar());
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
@@ -4626,7 +4626,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6\" checked=\"checked\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
-        choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "index"));
+        choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "index"));
         assertEq('6', ((CharStruct) choice_).getChar());
 
     }
@@ -4680,7 +4680,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
         
-        Struct choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "index"));
+        Struct choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "index"));
         assertSame(NullStruct.NULL_VALUE, choice_);
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
@@ -4700,7 +4700,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
-        choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "index"));
+        choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "index"));
         assertSame(NullStruct.NULL_VALUE, choice_);
 
     }
@@ -4784,9 +4784,9 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
         
-        Struct choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "choice"));
+        Struct choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choice"));
         assertEq(2, ((NumberStruct) choice_).intStruct());
-        choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "choiceSec"));
+        choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choiceSec"));
         assertEq(4, ((NumberStruct) choice_).intStruct());
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
@@ -4812,9 +4812,9 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"number\" id=\"myId\" name=\"bean_one.choice\" n-i=\"0\" value=\"6\"/><input type=\"range\" id=\"myId2\" name=\"bean_one.choiceSec\" n-i=\"1\" value=\"8\"/><span c:for=\"myId\" c:valueMessage=\"msg_example,one\"/><span c:for=\"myId2\" c:valueMessage=\"msg_example,two\"/></form></body></html>", nav_.getHtmlText());
-        choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "choice"));
+        choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choice"));
         assertEq(6, ((NumberStruct) choice_).intStruct());
-        choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "choiceSec"));
+        choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choiceSec"));
         assertEq(8, ((NumberStruct) choice_).intStruct());
     }
     @Test
@@ -5037,9 +5037,9 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
         
-        Struct choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "choice"));
+        Struct choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choice"));
         assertEq(2, ((NumberStruct) choice_).intStruct());
-        choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "choiceSec"));
+        choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choiceSec"));
         assertEq(4, ((NumberStruct) choice_).intStruct());
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
@@ -5065,9 +5065,9 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"number\" id=\"myId\" name=\"bean_one.choice\" n-i=\"0\" value=\"6\"/><input type=\"range\" id=\"myId2\" name=\"bean_one.choiceSec\" n-i=\"1\" value=\"8\"/><span c:for=\"myId\" c:valueMessage=\"msg_example,one\"/><span c:for=\"myId2\" c:valueMessage=\"msg_example,two\"/></form></body></html>", nav_.getHtmlText());
-        choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "choice"));
+        choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choice"));
         assertEq(6, ((NumberStruct) choice_).intStruct());
-        choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "choiceSec"));
+        choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choiceSec"));
         assertEq(8, ((NumberStruct) choice_).intStruct());
     }
 
@@ -5149,9 +5149,9 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
         
-        Struct choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "choice"));
+        Struct choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choice"));
         assertEq(2, ((NumberStruct) choice_).intStruct());
-        choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "choiceSec"));
+        choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choiceSec"));
         assertEq(4, ((NumberStruct) choice_).intStruct());
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
@@ -5177,9 +5177,9 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("page2.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"page2.html\" action=\"\" n-f=\"0\"><input type=\"number\" id=\"myId\" name=\"bean_one.choice\" n-i=\"0\" value=\"2\"/><input type=\"range\" id=\"myId2\" name=\"bean_one.choiceSec\" n-i=\"1\" value=\"4\"/><span c:for=\"myId\" c:valueMessage=\"msg_example,one\"/><span c:for=\"myId2\" c:valueMessage=\"msg_example,two\"/></form></body></html>", nav_.getHtmlText());
-        choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "choice"));
+        choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choice"));
         assertEq(2, ((NumberStruct) choice_).intStruct());
-        choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "choiceSec"));
+        choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choiceSec"));
         assertEq(4, ((NumberStruct) choice_).intStruct());
     }
     @Test
@@ -5474,7 +5474,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
 
-        Struct choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "choice"));
+        Struct choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choice"));
         assertEq("TWO", ((StringStruct) choice_).getInstance());
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
@@ -5494,7 +5494,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><select id=\"myId\" c:validator=\"valRef\" name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\" selected=\"selected\">1</option><option value=\"TWO\">2</option></select><span c:for=\"myId\" c:valueMessage=\"msg_example,one\">Description one</span></form><span c:for=\"myId\" c:valueMessage=\"msg_example,one\"/></body></html>", nav_.getHtmlText());
-        choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "choice"));
+        choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choice"));
         assertEq("TWO", ((StringStruct) choice_).getInstance());
     }
     @Test
@@ -5580,7 +5580,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
 
-        Struct choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "choice"));
+        Struct choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choice"));
         assertEq("TWO", ((StringStruct) choice_).getInstance());
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
