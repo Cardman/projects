@@ -126,8 +126,8 @@ public abstract class BracedBlock extends Block implements BracedBlockInt {
 
     public final void removeLocalVars(AbstractPageEl _ip) {
         for (Block s: Classes.getDirectChildren(this)) {
-            if (s instanceof InitVariable) {
-                for (String v: ((InitVariable)s).getVariableNames()) {
+            if (s instanceof DeclareVariable) {
+                for (String v: ((DeclareVariable)s).getVariableNames()) {
                     _ip.removeLocalVar(v);
                 }
             }

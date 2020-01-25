@@ -126,7 +126,7 @@ public final class RendVariableOperation extends RendLeafOperation implements
         PageEl ip_ = _conf.getOperationPageEl();
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off, _conf);
         LocalVariable locVar_ = ip_.getLocalVar(variableName);
-        locVar_.setStruct(_right.getStruct());
+        ExecVariableOperation.checkSet(_conf, locVar_, _right);
         Argument out_ = RendSemiAffectationOperation.getPrePost(_post, _stored, _right);
         return out_;
     }

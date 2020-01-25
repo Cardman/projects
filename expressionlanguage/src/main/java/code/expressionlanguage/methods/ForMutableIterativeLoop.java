@@ -32,7 +32,7 @@ import code.expressionlanguage.variables.LoopVariable;
 import code.util.*;
 
 public final class ForMutableIterativeLoop extends BracedStack implements
-        ForLoop, InitVariable {
+        ForLoop {
 
     private String label;
     private int labelOffset;
@@ -381,7 +381,6 @@ public final class ForMutableIterativeLoop extends BracedStack implements
         }
     }
 
-    @Override
     public StringList getVariableNames() {
         return variableNames;
     }
@@ -731,9 +730,7 @@ public final class ForMutableIterativeLoop extends BracedStack implements
         	String formatted_ = ip_.formatVarType(importedClassName, _cont);
             Struct struct_ = PrimitiveTypeUtil.defaultValue(formatted_, _cont);
             for (String v: variableNames) {
-                LoopVariable lv_ = new LoopVariable();
-                lv_.setClassName(formatted_);
-                lv_.setStruct(struct_);
+                LoopVariable lv_ = LoopVariable.newLoopVariable(struct_,formatted_);
                 ip_.getVars().put(v, lv_);
             }
         }

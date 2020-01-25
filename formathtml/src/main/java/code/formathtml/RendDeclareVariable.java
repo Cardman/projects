@@ -59,9 +59,7 @@ public final class RendDeclareVariable extends RendLeaf implements RendInitVaria
         ImportingPage ip_ = _cont.getLastPage();
         Struct struct_ = PrimitiveTypeUtil.defaultValue(importedClassName, _cont);
         for (String v: getVariableNames()) {
-            LocalVariable lv_ = new LocalVariable();
-            lv_.setClassName(importedClassName);
-            lv_.setStruct(struct_);
+            LocalVariable lv_ = LocalVariable.newLocalVariable(struct_,importedClassName);
             ip_.putLocalVar(v, lv_);
         }
         processBlock(_cont);

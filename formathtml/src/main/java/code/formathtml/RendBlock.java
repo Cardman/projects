@@ -913,9 +913,7 @@ public abstract class RendBlock implements AnalyzedBlock {
     private static Argument convertField(Configuration _cont, Argument _o,String _varNameConv, CustList<RendDynOperationNode> _opsConv) {
         Argument o_ = _o;
         if (!_opsConv.isEmpty()) {
-            LocalVariable locVar_ = new LocalVariable();
-            locVar_.setClassName(_cont.getStandards().getAliasObject());
-            locVar_.setStruct(o_.getStruct());
+            LocalVariable locVar_ = LocalVariable.newLocalVariable(o_.getStruct(),_cont.getStandards().getAliasObject());
             _cont.getLastPage().putLocalVar(_varNameConv, locVar_);
             Argument arg_ = RenderExpUtil.calculateReuse(_opsConv, _cont);
             _cont.getLastPage().removeLocalVar(_varNameConv);

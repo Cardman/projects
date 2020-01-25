@@ -123,7 +123,7 @@ public final class RendMutableLoopVariableOperation extends RendLeafOperation im
         PageEl ip_ = _conf.getOperationPageEl();
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off, _conf);
         LoopVariable locVar_ = ip_.getVars().getVal(variableName);
-        locVar_.setStruct(_right.getStruct());
+        ExecMutableLoopVariableOperation.checkSet(_conf,locVar_,_right);
         Argument out_ = RendSemiAffectationOperation.getPrePost(_post, _stored, _right);
         return out_;
     }

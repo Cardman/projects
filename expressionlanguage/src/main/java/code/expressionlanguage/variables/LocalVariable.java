@@ -1,4 +1,5 @@
 package code.expressionlanguage.variables;
+import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 
@@ -10,6 +11,16 @@ public final class LocalVariable {
 
     private boolean finalVariable;
 
+    public static LocalVariable newLocalVariable(Struct _struct, ExecutableCode _cont) {
+        return newLocalVariable(_struct,_cont.getStandards().getStructClassName(_struct,_cont.getContextEl()));
+    }
+
+    public static LocalVariable newLocalVariable(Struct _struct, String _type) {
+        LocalVariable loc_ = new LocalVariable();
+        loc_.setStruct(_struct);
+        loc_.setClassName(_type);
+        return loc_;
+    }
     public Struct getStruct() {
         return element;
     }

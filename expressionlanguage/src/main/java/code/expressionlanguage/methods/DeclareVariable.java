@@ -106,9 +106,7 @@ public final class DeclareVariable extends Leaf implements InitVariable,Buildabl
         String formatted_ = ip_.formatVarType(importedClassName, _cont);
         Struct struct_ = PrimitiveTypeUtil.defaultValue(formatted_, _cont);
         for (String v: getVariableNames()) {
-            LocalVariable lv_ = new LocalVariable();
-            lv_.setClassName(formatted_);
-            lv_.setStruct(struct_);
+            LocalVariable lv_ = LocalVariable.newLocalVariable(struct_,formatted_);
             ip_.putLocalVar(v, lv_);
         }
         processBlock(_cont);

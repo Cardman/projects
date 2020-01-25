@@ -39,9 +39,7 @@ final class RendRequestUtil {
         ImportingPage ip_ = _conf.getLastPage();
         int s_ = varNames_.size();
         for (int i =0; i< s_; i++) {
-            LocalVariable locVar_ = new LocalVariable();
-            locVar_.setClassName(_conf.getStandards().getAliasPrimInteger());
-            locVar_.setStruct(new IntStruct(Numbers.parseInt(args_.get(i))));
+            LocalVariable locVar_ = LocalVariable.newLocalVariable(new IntStruct(Numbers.parseInt(args_.get(i))),_conf.getStandards().getAliasPrimInteger());
             ip_.putLocalVar(varNames_.get(i), locVar_);
         }
         CustList<RendDynOperationNode> exps_ = _conf.getHtmlPage().getCallsExps().get(_url);
@@ -61,14 +59,9 @@ final class RendRequestUtil {
         String prev_ = _nodeContainer.getVarPrevName();
         CustList<RendDynOperationNode> wr_ = _nodeContainer.getOpsWrite();
         ImportingPage ip_ = _conf.getLastPage();
-        LocalVariable lv_ = new LocalVariable();
-        BeanLgNames stds_ = _conf.getAdvStandards();
-        lv_.setClassName(stds_.getStructClassName(obj_, _conf.getContext()));
-        lv_.setStruct(obj_);
+        LocalVariable lv_ = LocalVariable.newLocalVariable(obj_, _conf);
         ip_.putLocalVar(prev_, lv_);
-        lv_ = new LocalVariable();
-        lv_.setClassName(stds_.getStructClassName(_attribute, _conf.getContext()));
-        lv_.setStruct(_attribute);
+        lv_ = LocalVariable.newLocalVariable(_attribute,_conf);
         ip_.putLocalVar(attrName_, lv_);
         RenderExpUtil.calculateReuse(wr_,_conf);
         ip_.removeLocalVar(prev_);

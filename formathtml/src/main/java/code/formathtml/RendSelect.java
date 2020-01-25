@@ -427,9 +427,7 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
         if (opsConverterField.isEmpty()) {
             return getStringKey(_conf, _arg);
         }
-        LocalVariable locVar_ = new LocalVariable();
-        locVar_.setClassName(_conf.getStandards().getAliasObject());
-        locVar_.setStruct(_arg);
+        LocalVariable locVar_ = LocalVariable.newLocalVariable(_arg,_conf.getStandards().getAliasObject());
         _conf.getLastPage().putLocalVar(varNameConverterField, locVar_);
         Argument arg_ = RenderExpUtil.calculateReuse(opsConverterField, _conf);
         _conf.getLastPage().removeLocalVar(varNameConverterField);
@@ -443,9 +441,7 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
         if (opsConverterFieldValue.isEmpty()) {
             return stds_.processString(_arg,_conf);
         }
-        LocalVariable locVar_ = new LocalVariable();
-        locVar_.setClassName(_conf.getStandards().getAliasObject());
-        locVar_.setStruct(_arg.getStruct());
+        LocalVariable locVar_ = LocalVariable.newLocalVariable(_arg.getStruct(),_conf.getStandards().getAliasObject());
         _conf.getLastPage().putLocalVar(varNameConverterFieldValue, locVar_);
         Argument arg_ = RenderExpUtil.calculateReuse(opsConverterFieldValue, _conf);
         _conf.getLastPage().removeLocalVar(varNameConverterFieldValue);

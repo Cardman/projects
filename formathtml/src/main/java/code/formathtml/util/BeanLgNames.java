@@ -246,7 +246,6 @@ public abstract class BeanLgNames extends LgNames {
         return out_;
     }
     protected LocalVariable newLocVar(NodeContainer _container, Configuration _conf) {
-        LocalVariable locVar_ = new LocalVariable();
         StringList values_ = _container.getValue();
         if (_container.isArrayConverter()) {
             int len_ = values_.size();
@@ -254,17 +253,12 @@ public abstract class BeanLgNames extends LgNames {
             for (int i = 0; i < len_; i++) {
                 arr_.getInstance()[i] = new StringStruct(values_.get(i));
             }
-            locVar_.setClassName(getStructClassName(arr_, _conf.getContext()));
-            locVar_.setStruct(arr_);
-        } else {
-            locVar_.setClassName(getAliasString());
-            if (!values_.isEmpty()) {
-                locVar_.setStruct(new StringStruct(values_.first()));
-            } else {
-                locVar_.setStruct(NullStruct.NULL_VALUE);
-            }
+            return LocalVariable.newLocalVariable(arr_,_conf);
         }
-        return locVar_;
+        if (!values_.isEmpty()) {
+            return LocalVariable.newLocalVariable(new StringStruct(values_.first()),_conf);
+        }
+        return LocalVariable.newLocalVariable(NullStruct.NULL_VALUE,getAliasString());
     }
     public ResultErrorStd getStructToBeValidated(StringList _values, String _className, ContextEl _context) {
         ResultErrorStd res_ = new ResultErrorStd();

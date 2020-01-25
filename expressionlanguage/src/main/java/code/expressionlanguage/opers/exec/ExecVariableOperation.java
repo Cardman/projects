@@ -133,7 +133,7 @@ public final class ExecVariableOperation extends ExecLeafOperation implements
         if (_conf.getContextEl().hasExceptionOrFailInit()) {
             return;
         }
-        _var.setStruct(_value.getStruct());
+        checkSet(_conf,_var,_value);
     }
     @Override
     public Argument endCalculate(ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, Argument _right) {
@@ -147,7 +147,7 @@ public final class ExecVariableOperation extends ExecLeafOperation implements
         PageEl ip_ = _conf.getOperationPageEl();
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off, _conf);
         LocalVariable locVar_ = ip_.getLocalVar(variableName);
-        locVar_.setStruct(_right.getStruct());
+        checkSet(_conf,locVar_,_right);
         Argument out_ = ExecSemiAffectationOperation.getPrePost(_post, _stored, _right);
         return out_;
     }

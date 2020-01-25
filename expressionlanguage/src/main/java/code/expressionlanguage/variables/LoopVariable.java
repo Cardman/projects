@@ -1,4 +1,5 @@
 package code.expressionlanguage.variables;
+import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 
@@ -18,6 +19,12 @@ public final class LoopVariable {
 
     private boolean finalVariable;
 
+    public static LoopVariable newLoopVariable(Struct _struct, String _type) {
+        LoopVariable loc_ = new LoopVariable();
+        loc_.setStruct(_struct);
+        loc_.setClassName(_type);
+        return loc_;
+    }
     public boolean isFinalVariable() {
         return finalVariable;
     }

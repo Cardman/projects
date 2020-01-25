@@ -42,6 +42,7 @@ public final class RendLocalThrowing implements RendCallingFinally {
                     continue;
                 }
                 RendBlock n_ = currentBlock_.getNextSibling();
+                String excType_ = "";
                 //process try block
                 while (n_ instanceof RendAbstractCatchEval || n_ instanceof RendPossibleEmpty) {
                     if (n_ instanceof RendPossibleEmpty) {
@@ -57,6 +58,7 @@ public final class RendLocalThrowing implements RendCallingFinally {
                         }
                         Argument arg_ = new Argument(custCause_);
                         if (Templates.safeObject(name_, arg_, _conf) == ErrorType.NOTHING) {
+                            excType_ = name_;
                             catchElt_ = ca_;
                             try_.setCurrentBlock(ca_);
                             break;
@@ -78,9 +80,7 @@ public final class RendLocalThrowing implements RendCallingFinally {
                     if (catchElt_ instanceof RendCatchEval) {
                         RendCatchEval c_ = (RendCatchEval) catchElt_;
                         String var_ = c_.getVariableName();
-                        LocalVariable lv_ = new LocalVariable();
-                        lv_.setStruct(custCause_);
-                        lv_.setClassName(c_.getImportedClassName());
+                        LocalVariable lv_ = LocalVariable.newLocalVariable(custCause_,excType_);
                         bkIp_.getCatchVars().put(var_, lv_);
                     }
                     bkIp_.getRendReadWrite().setRead(childCatch_);

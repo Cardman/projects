@@ -47,6 +47,7 @@ public final class LocalThrowing implements CallingFinally {
                     continue;
                 }
                 Block n_ = currentBlock_.getNextSibling();
+                String excType_ = "";
                 //process try block
                 while (n_ instanceof AbstractCatchEval) {
                     if (n_ instanceof CatchEval) {
@@ -59,6 +60,7 @@ public final class LocalThrowing implements CallingFinally {
                         name_ = bkIp_.formatVarType(name_, _conf);
                         Argument arg_ = new Argument(custCause_);
                         if (Templates.safeObject(name_, arg_, _conf) == ErrorType.NOTHING) {
+                            excType_ = name_;
                             catchElt_ = ca_;
                             try_.setCurrentBlock(ca_);
                             break;
@@ -82,9 +84,7 @@ public final class LocalThrowing implements CallingFinally {
                     if (catchElt_ instanceof CatchEval) {
                         CatchEval c_ = (CatchEval) catchElt_;
                         String var_ = c_.getVariableName();
-                        LocalVariable lv_ = new LocalVariable();
-                        lv_.setStruct(custCause_);
-                        lv_.setClassName(c_.getImportedClassName());
+                        LocalVariable lv_ = LocalVariable.newLocalVariable(custCause_,excType_);
                         bkIp_.getCatchVars().put(var_, lv_);
                     }
                     bkIp_.getReadWrite().setBlock(childCatch_);

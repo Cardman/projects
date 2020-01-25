@@ -300,14 +300,10 @@ public abstract class ContextEl implements ExecutableCode {
             coverage.passCalls(this,idCl_,methodLoc_);
         }
         StringList paramsLoc_ = methodLoc_.getParametersNames();
-        StringList typesLoc_ = methodLoc_.getImportedParametersTypes();
         int lenLoc_ = paramsLoc_.size();
         for (int i = CustList.FIRST_INDEX; i < lenLoc_; i++) {
             String p_ = paramsLoc_.get(i);
-            String c_ = typesLoc_.get(i);
-            LocalVariable lv_ = new LocalVariable();
-            lv_.setStruct(_args.get(i).getStruct());
-            lv_.setClassName(c_);
+            LocalVariable lv_ = LocalVariable.newLocalVariable(_args.get(i).getStruct(),this);
             pageLoc_.getParameters().put(p_, lv_);
         }
         ReadWrite rwLoc_ = new ReadWrite();
@@ -334,14 +330,10 @@ public abstract class ContextEl implements ExecutableCode {
         String idCl_ = Templates.getIdFromAllTypes(_class);
         coverage.passCalls(this,idCl_,methodLoc_);
         StringList paramsLoc_ = methodLoc_.getParametersNames();
-        StringList typesLoc_ = methodLoc_.getImportedParametersTypes();
         int lenLoc_ = paramsLoc_.size();
         for (int i = CustList.FIRST_INDEX; i < lenLoc_; i++) {
             String p_ = paramsLoc_.get(i);
-            String c_ = typesLoc_.get(i);
-            LocalVariable lv_ = new LocalVariable();
-            lv_.setStruct(_args.get(i).getStruct());
-            lv_.setClassName(c_);
+            LocalVariable lv_ = LocalVariable.newLocalVariable(_args.get(i).getStruct(),this);
             pageLoc_.getParameters().put(p_, lv_);
         }
         ReadWrite rwLoc_ = new ReadWrite();
@@ -385,14 +377,10 @@ public abstract class ContextEl implements ExecutableCode {
             method_ = (ConstructorBlock) methods_.first();
             coverage.passCalls(this,idCl_,method_);
             StringList params_ = method_.getParametersNames();
-            StringList types_ = method_.getImportedParametersTypes();
             int len_ = params_.size();
             for (int i = CustList.FIRST_INDEX; i < len_; i++) {
                 String p_ = params_.get(i);
-                String c_ = types_.get(i);
-                LocalVariable lv_ = new LocalVariable();
-                lv_.setStruct(_args.get(i).getStruct());
-                lv_.setClassName(c_);
+                LocalVariable lv_ = LocalVariable.newLocalVariable(_args.get(i).getStruct(),this);
                 page_.getParameters().put(p_, lv_);
             }
             Block firstChild_ = method_.getFirstChild();
@@ -447,14 +435,10 @@ public abstract class ContextEl implements ExecutableCode {
             method_ = (ConstructorBlock) methods_.first();
             coverage.passCalls(this,idCl_,method_);
             StringList params_ = method_.getParametersNames();
-            StringList types_ = method_.getImportedParametersTypes();
             int len_ = params_.size();
             for (int i = CustList.FIRST_INDEX; i < len_; i++) {
                 String p_ = params_.get(i);
-                String c_ = types_.get(i);
-                LocalVariable lv_ = new LocalVariable();
-                lv_.setStruct(_args.get(i).getStruct());
-                lv_.setClassName(c_);
+                LocalVariable lv_ = LocalVariable.newLocalVariable(_args.get(i).getStruct(),this);
                 page_.getParameters().put(p_, lv_);
             }
             Block firstChild_ = method_.getFirstChild();

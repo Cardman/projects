@@ -131,7 +131,7 @@ public final class ExecMutableLoopVariableOperation extends ExecLeafOperation im
         if (_conf.getContextEl().hasExceptionOrFailInit()) {
             return;
         }
-        _var.setStruct(_value.getStruct());
+        checkSet(_conf,_var,_value);
     }
     @Override
     public Argument endCalculate(ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, Argument _right) {
@@ -145,7 +145,7 @@ public final class ExecMutableLoopVariableOperation extends ExecLeafOperation im
         PageEl ip_ = _conf.getOperationPageEl();
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off, _conf);
         LoopVariable locVar_ = ip_.getVars().getVal(variableName);
-        locVar_.setStruct(_right.getStruct());
+        checkSet(_conf,locVar_,_right);
         Argument out_ = ExecSemiAffectationOperation.getPrePost(_post, _stored, _right);
         setSimpleArgument(out_, _conf, _nodes);
         return out_;

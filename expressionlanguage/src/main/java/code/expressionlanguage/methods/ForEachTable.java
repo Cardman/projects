@@ -597,7 +597,6 @@ public final class ForEachTable extends BracedStack implements Loop, WithNotEmpt
             processBlock(_cont);
             return;
         }
-        LgNames stds_ = _cont.getStandards();
         Struct its_ = processLoop(_cont);
         if (_cont.callsOrException()) {
             return;
@@ -606,9 +605,7 @@ public final class ForEachTable extends BracedStack implements Loop, WithNotEmpt
         long length_ = CustList.INDEX_NOT_FOUND_ELT;
         Classes cls_ = _cont.getClasses();
         String locName_ = cls_.getIteratorTableVarCust();
-        LocalVariable locVar_ = new LocalVariable();
-        locVar_.setClassName(stds_.getStructClassName(its_, _cont));
-        locVar_.setStruct(its_);
+        LocalVariable locVar_ = LocalVariable.newLocalVariable(its_,_cont);
         _cont.getLastPage().getInternVars().put(locName_, locVar_);
         ExpressionLanguage dyn_ = _cont.getLastPage().getCurrentEl(_cont,this, CustList.SECOND_INDEX,CustList.SECOND_INDEX);
         Argument arg_ = dyn_.calculateMember(_cont);
@@ -627,15 +624,16 @@ public final class ForEachTable extends BracedStack implements Loop, WithNotEmpt
         ip_.clearCurrentEls();
         l_.setEvaluatingKeepLoop(true);
         StringMap<LoopVariable> varsLoop_ = ip_.getVars();
-        LoopVariable lv_ = new LoopVariable();
+        String className_;
+        className_ = ip_.formatVarType(importedClassNameFirst, _cont);
+        LoopVariable lv_ = LoopVariable.newLoopVariable(PrimitiveTypeUtil.defaultValue(className_,_cont),className_);
         lv_.setIndex(-1);
-        lv_.setClassName(importedClassNameFirst);
         lv_.setIndexClassName(importedClassIndexName);
         lv_.setContainer(its_);
         varsLoop_.put(variableNameFirst, lv_);
-        lv_ = new LoopVariable();
+        className_ = ip_.formatVarType(importedClassNameSecond, _cont);
+        lv_ = LoopVariable.newLoopVariable(PrimitiveTypeUtil.defaultValue(className_,_cont),className_);
         lv_.setIndex(-1);
-        lv_.setClassName(importedClassNameSecond);
         lv_.setIndexClassName(importedClassIndexName);
         lv_.setContainer(its_);
         varsLoop_.put(variableNameSecond, lv_);
@@ -750,14 +748,11 @@ public final class ForEachTable extends BracedStack implements Loop, WithNotEmpt
             StringMap<LoopVariable> _vars) {
         _l.setIndex(_l.getIndex() + 1);
         Classes cls_ = _conf.getClasses();
-        LgNames stds_ = _conf.getStandards();
         Struct iterator_ = _l.getStructIterator();
         AbstractPageEl call_ = _conf.getLastPage();
         if (call_.sizeEl() < 2) {
             String locName_ = cls_.getNextPairVarCust();
-            LocalVariable locVar_ = new LocalVariable();
-            locVar_.setClassName(stds_.getStructClassName(iterator_, _conf));
-            locVar_.setStruct(iterator_);
+            LocalVariable locVar_ = LocalVariable.newLocalVariable(iterator_,_conf);
             _conf.getLastPage().getInternVars().put(locName_, locVar_);
         }
         ExpressionLanguage nextEl_ = call_.getCurrentEl(_conf,this, CustList.SECOND_INDEX, 3);
@@ -768,10 +763,8 @@ public final class ForEachTable extends BracedStack implements Loop, WithNotEmpt
         String classNameFirst_ = _conf.getLastPage().formatVarType(importedClassNameFirst, _conf);
         if (call_.sizeEl() < 3) {
             String locName_ = cls_.getFirstVarCust();
-            LocalVariable locVar_ = new LocalVariable();
             Struct value_ = call_.getValue(1).getStruct();
-            locVar_.setClassName(stds_.getStructClassName(value_, _conf));
-            locVar_.setStruct(value_);
+            LocalVariable locVar_ = LocalVariable.newLocalVariable(value_,_conf);
             _conf.getLastPage().getInternVars().put(locName_, locVar_);
         }
         ExpressionLanguage firstEl_ = call_.getCurrentEl(_conf,this, 2, 4);
@@ -788,10 +781,8 @@ public final class ForEachTable extends BracedStack implements Loop, WithNotEmpt
             lv_.setStruct(arg_.getStruct());
             lv_.setIndex(lv_.getIndex() + 1);
             String locName_ = cls_.getSecondVarCust();
-            LocalVariable locVar_ = new LocalVariable();
             Struct value_ = call_.getValue(1).getStruct();
-            locVar_.setClassName(stds_.getStructClassName(value_, _conf));
-            locVar_.setStruct(value_);
+            LocalVariable locVar_ = LocalVariable.newLocalVariable(value_,_conf);
             _conf.getLastPage().getInternVars().put(locName_, locVar_);
         }
         ExpressionLanguage secondEl_ = call_.getCurrentEl(_conf,this, 3, 5);
@@ -811,14 +802,11 @@ public final class ForEachTable extends BracedStack implements Loop, WithNotEmpt
     }
     private Boolean iteratorHasNext(ContextEl _conf) {
         AbstractPageEl ip_ = _conf.getLastPage();
-        LgNames stds_ = _conf.getStandards();
         LoopBlockStack l_ = (LoopBlockStack) ip_.getLastStack();
         Struct strIter_ = l_.getStructIterator();
         Classes cls_ = _conf.getClasses();
         String locName_ = cls_.getHasNextPairVarCust();
-        LocalVariable locVar_ = new LocalVariable();
-        locVar_.setClassName(stds_.getStructClassName(strIter_, _conf));
-        locVar_.setStruct(strIter_);
+        LocalVariable locVar_ = LocalVariable.newLocalVariable(strIter_,_conf);
         _conf.getLastPage().getInternVars().put(locName_, locVar_);
         ExpressionLanguage dyn_ = _conf.getLastPage().getCurrentEl(_conf,this, CustList.FIRST_INDEX, 2);
         Argument arg_ = dyn_.calculateMember(_conf);

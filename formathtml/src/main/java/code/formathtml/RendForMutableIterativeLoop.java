@@ -224,9 +224,7 @@ public final class RendForMutableIterativeLoop extends RendParentBlock implement
         ip_.setProcessingAttribute(ATTRIBUTE_INIT);
         Struct struct_ = PrimitiveTypeUtil.defaultValue(importedClassName, _cont);
         for (String v: variableNames) {
-            LoopVariable lv_ = new LoopVariable();
-            lv_.setClassName(importedClassName);
-            lv_.setStruct(struct_);
+            LoopVariable lv_ = LoopVariable.newLoopVariable(struct_,importedClassName);
             ip_.getVars().put(v, lv_);
         }
         if (!opInit.isEmpty()) {
