@@ -43,11 +43,21 @@ public final class Templates {
     public static final char COMMA = ',';
     private Templates() {
     }
-
+    /** Returns the id of a type<br/>
+     Sample 1: "int" => ["int"]<br/>
+     Sample 2: "Pair&lt;int,long&gt;" => ["Pair"]<br/>
+     Sample 3: "Solo&lt;Pair&lt;int,long&gt;&gt;" => ["Solo"]<br/>
+     */
     public static String getIdFromAllTypes(String _type) {
         return getAllTypes(_type).first();
     }
 
+    /** Splits by comma the input string into parts<br/>
+     Sample 1: "int" => ["int"]<br/>
+     Sample 2: "int,long" => ["int","long"]<br/>
+     Sample 3: "Pair&lt;int,long&gt;" => ["Pair&lt;int,long&gt;"]<br/>
+     Sample 4: "Solo&lt;int&gt;,&lt;,List&lt;long&gt;" => ["Solo&lt;int&gt;","&lt;","List&lt;long&gt;"]<br/>
+      */
     public static StringList getAllSepCommaTypes(String _type) {
         StringList types_ = new StringList();
         StringBuilder out_ = new StringBuilder();
@@ -86,6 +96,23 @@ public final class Templates {
         types_.add(out_.toString());
         return types_;
     }
+    /** Splits by single dot the input string into parts regarding packages<br/>
+     Let this code:<br/>
+     <code><pre>public class my.pkg.MyClass{}</pre>
+     <pre>public class my.pkg.MySecondClass{</pre>
+     <pre>     public class Inner{}</pre>
+     <pre>}</pre></code><br/>
+     <pre>public class my.pkg.MyThirdClass{</pre>
+     <pre>     public class Inner{</pre>
+     <pre>         public class SecInner{}</pre>
+     <pre>     }</pre></code>
+     <pre>}</pre></code><br/>
+     Sample 1: "int" => ["int"]<br/>
+     Sample 2: "my.pkg.MyClass" => ["my.pkg.MyClass"]<br/>
+     Sample 3: "my.pkg.MySecondClass.Inner" => ["my.pkg.MySecondClass","Inner"]<br/>
+     Sample 4: "my.pkg.MyThirdClass.Inner.SecInner" => ["my.pkg.MySecondClass","Inner","SecInner"]<br/>
+     Sample 5: "List&lt;my.pkg.MyThirdClass.Inner.SecInner&gt;" => ["List&lt;my.pkg.MyThirdClass.Inner.SecInner&gt;"]<br/>
+     */
     public static StringList getAllInnerTypesSingleDotted(String _type, Analyzable _an) {
         StringList types_ = new StringList();
         int len_ = _type.length();
@@ -144,6 +171,11 @@ public final class Templates {
         types_.add(builtId_.toString());
         return types_;
     }
+    /** Splits by double dots the input string into parts<br/>
+     Sample 1: "int" => ["int"]<br/>
+     Sample 2: "int..long" => ["int","long"]<br/>
+     Sample 3: "Pair&lt;int..long&gt;" => ["Pair&lt;int..long&gt;"]<br/>
+     */
     public static StringList getAllInnerTypes(String _type) {
         StringList types_ = new StringList();
         StringBuilder out_ = new StringBuilder();
@@ -181,6 +213,11 @@ public final class Templates {
         types_.add(out_.toString());
         return types_;
     }
+    /** Splits by comma the input string into parts<br/>
+     Sample 1: "int" => ["int"]<br/>
+     Sample 2: "Pair&lt;int,long&gt;" => ["Pair","int","long"]<br/>
+     Sample 3: "Solo&lt;Pair&lt;int,long&gt;&gt;" => ["Solo","Pair&lt;int,long&gt;"]<br/>
+     */
     public static StringList getAllTypes(String _type) {
         StringList types_ = new StringList();
         StringBuilder out_ = new StringBuilder();
@@ -249,7 +286,14 @@ public final class Templates {
         }
         return "";
     }
-
+    /** Return if possible the inferred form<br/>
+     Sample 1: "int" => null<br/>
+     Sample 2: "Pair&gt;" => null<br/>
+     Sample 3: "Pair&lt;int&gt;" => null<br/>
+     Sample 4: "Pa,ir&lt;&gt;" => null<br/>
+     Sample 5: "Pair&lt;&gt;" => Pair<br/>
+     Sample 6: "Pa..ir&lt;&gt;" => Pa..ir<br/>
+     */
     public static String getInferForm(String _type) {
         String tr_ = _type.trim();
         if (!tr_.endsWith(TEMPLATE_END)) {
@@ -391,6 +435,15 @@ public final class Templates {
         }
         return getQuickFormattedType(gene_,vars_);
     }
+    /**parameriterized sub type (possibly array) - super type<br/>
+     Let this code:<br/>
+     <code><pre>public class my.pkg.MyClass&lt;A,B&gt;:MySecondClass&lt;A,B&gt;{}</pre>
+     <pre>public class my.pkg.MySecondClass&lt;C,D&gt;{}</pre></code><br/>
+     Sample 1: "my.pkg.MyClass&lt;long,int&gt;" - "my.pkg.MySecondClass" => "my.pkg.MySecondClass&lt;long,int&gt;"<br/>
+     Sample 2: "my.pkg.MyClass" - "my.pkg.MySecondClass" => null<br/>
+     Sample 3: "my.pkg.MySecondClass&lt;long,int&gt;" - "my.pkg.MyClass" => null<br/>
+     Sample 4: "my.pkg.MyClass&lt;long,int&gt;" - "my.pkg.MySecondClass[]" => "my.pkg.MySecondClass&lt;long,int&gt;[]"<br/>
+     */
     public static String getFullTypeByBases(String _subType, String _superType, Analyzable _context) {
         String baseSubType_ = getIdFromAllTypes(_subType);
         String baseSuperType_ = getIdFromAllTypes(_superType);
@@ -518,10 +571,37 @@ public final class Templates {
         StringMap<String> varTypes_ = getVarTypes(_first, _context);
         return getReflectFormattedType(_second, varTypes_);
     }
+    /**Returns a formatted string (variables present in second type are defined in the scope of the first type id)<br/>
+     Let this code:<br/>
+     <code><pre>public class my.pkg.MyClass&lt;K,V&gt;{}</pre>
+     <pre>public class my.pkg.MySecondClass&lt;K&gt;{</pre>
+     <pre>     public class Inner&lt;V&gt;{}</pre>
+     <pre>}</pre></code><br/>
+     <pre>public class my.pkg.MyThirdClass&lt;K&gt;{</pre>
+     <pre>     public static class Inner&lt;V&gt;{}</pre></code>
+     <pre>}</pre></code><br/>
+     Sample 1: "my.pkg.MyClass&lt;long,int&gt;" - "?#K" => null<br/>
+     Sample 2: "my.pkg.MyClass&lt;?long,int&gt;" - "#K" => "long"<br/>
+     Sample 3: "my.pkg.MyClass&lt;?long,int&gt;" - "?#K" => null<br/>
+     */
     public static String format(String _first, String _second, Analyzable _context) {
         StringMap<String> varTypes_ = getVarTypes(_first, _context);
         return getFormattedType(_second, varTypes_);
     }
+    /**Returns a formatted string (variables present in second type are defined in the scope of the first type id)<br/>
+     Let this code:<br/>
+     <code><pre>public class my.pkg.MyClass&lt;K,V&gt;{}</pre>
+     <pre>public class my.pkg.MySecondClass&lt;K&gt;{</pre>
+     <pre>     public class Inner&lt;V&gt;{}</pre>
+     <pre>}</pre></code><br/>
+     <pre>public class my.pkg.MyThirdClass&lt;K&gt;{</pre>
+     <pre>     public static class Inner&lt;V&gt;{}</pre></code>
+     <pre>}</pre></code><br/>
+     Sample 1: "my.pkg.MyClass&lt;long,int&gt;" - "#K" => "long"<br/>
+     Sample 2: "my.pkg.MyClass&lt;long,int&gt;" - "#V" => "int"<br/>
+     Sample 3: "my.pkg.MySecondClass&lt;long&gt;..Inner&lt;int&gt;" - "#K" => "long"<br/>
+     Sample 4: "my.pkg.MyThirdClass..Inner&lt;int&gt;" - "#V" => "int"<br/>
+     */
     public static String quickFormat(String _first, String _second, Analyzable _context) {
         StringMap<String> varTypes_ = getVarTypes(_first, _context);
         return getQuickFormattedType(_second, varTypes_);
@@ -586,6 +666,20 @@ public final class Templates {
         }
         return formatted_;
     }
+    /**Returns the map of variables of a paramethized type<br/>
+      Let this code:<br/>
+           <code><pre>public class my.pkg.MyClass&lt;K,V&gt;{}</pre>
+           <pre>public class my.pkg.MySecondClass&lt;K&gt;{</pre>
+           <pre>     public class Inner&lt;V&gt;{}</pre>
+           <pre>}</pre></code><br/>
+           <pre>public class my.pkg.MyThirdClass&lt;K&gt;{</pre>
+           <pre>     public static class Inner&lt;V&gt;{}</pre></code>
+           <pre>}</pre></code><br/>
+     Sample 1: "my.pkg.MyClass&lt;long,int&gt;" => ["K"-"long","V"-"int"]<br/>
+     Sample 2: "my.pkg.MySecondClass&lt;long&gt;..Inner&lt;int&gt;" => ["K"-"long","V"-"int"]<br/>
+     Sample 3: "my.pkg.MyThirdClass..Inner&lt;int&gt;" => ["V"-"int"]<br/>
+     Sample 4: "my.pkg.MyClass&lt;long,int&gt;[]" => ["K"-"long","V"-"int"]<br/>
+     */
     public static StringMap<String> getVarTypes(String _className, Analyzable _context) {
         StringList types_ = getAllTypes(_className);
         String className_ = PrimitiveTypeUtil.getQuickComponentBaseType(types_.first()).getComponent();
@@ -1625,6 +1719,7 @@ public final class Templates {
         }
         return newMappingPairs(generic_, typesParam_);
     }
+    /**arg - param*/
     private static MappingPairs newMappingPairsFct(StringList _args, StringList _params, String _objectType) {
         CustList<Matching> pairsArgParam_ = new CustList<Matching>();
         int len_ = _params.size();
@@ -1670,6 +1765,7 @@ public final class Templates {
         m_.setPairsArgParam(pairsArgParam_);
         return m_;
     }
+    /**arg - param*/
     private static MappingPairs newMappingPairs(String _generic, StringList _params) {
         int len_;
         StringList foundSuperClass_ = getAllTypes(_generic);
@@ -1743,6 +1839,15 @@ public final class Templates {
         return m_;
     }
 
+    /**parameriterized type (possibly array) - generic sub types start - super type
+     Let this code:<br/>
+     <code><pre>public class my.pkg.MyClass&lt;A,B&gt;:MySecondClass&lt;A,B&gt;{}</pre>
+     <pre>public class my.pkg.MySecondClass&lt;C,D&gt;{}</pre></code><br/>
+     Sample 1: "my.pkg.MyClass&lt;long,int&gt;" - ["my.pkg.MyClass&lt;#A,#B&gt;"] - "my.pkg.MySecondClass" => "my.pkg.MySecondClass&lt;long,int&gt;"<br/>
+     Sample 2: "my.pkg.MyClass" - ["my.pkg.MyClass&lt;#A,#B&gt;"] - "my.pkg.MySecondClass" => null<br/>
+     Sample 3: "my.pkg.MySecondClass&lt;long,int&gt;" - ["my.pkg.MySecondClass&lt;#A,#B&gt;"] - "my.pkg.MyClass" => null<br/>
+     Sample 4: "my.pkg.MyClass&lt;long,int&gt;" - ["my.pkg.MyClass&lt;#A,#B&gt;"] - "my.pkg.MySecondClass[]" => "my.pkg.MySecondClass&lt;long,int&gt;[]"<br/>
+    */
     private static String requestGenericSuperType(String _baseArg, StringList _subTypes, String _erasedSuperType, Analyzable _context) {
         if (!correctNbParameters(_baseArg,_context)) {
             return null;
@@ -1841,6 +1946,29 @@ public final class Templates {
         return ((StandardInterface)r_).getDirectSuperClasses();
     }
 
+    /**Checks nb parameters of the most wrapping type<br/>
+     Let this code:<br/>
+     <code><pre>public class my.pkg.MySimpleClass{}</pre>
+     <pre>public class my.pkg.MyClass&lt;K&gt;{}</pre>
+     <pre>public class my.pkg.MySecondClass&lt;K&gt;{</pre>
+     <pre>     public class Inner&lt;V&gt;{}</pre>
+     <pre>}</pre></code><br/>
+     <pre>public class my.pkg.MyThirdClass&lt;K&gt;{</pre>
+     <pre>     public static class Inner&lt;V&gt;{}</pre></code>
+     <pre>}</pre></code><br/>
+    Sample 1: int => true<br/>
+    Sample 2: my.pkg.MySimpleClass => true<br/>
+    Sample 3: my.pkg.MyClass => false<br/>
+    Sample 4: my.pkg.MyClass&lt;Integer&gt; => true<br/>
+    Sample 5: my.pkg.MyClass&lt;my.pkg.MyClass&gt; => true<br/>
+    Sample 6: my.pkg.MyClass&lt;Integer,Integer&gt; => false<br/>
+    Sample 7: my.pkg.MySecondClass..Inner&lt;Integer&gt; => false<br/>
+    Sample 8: my.pkg.MySecondClass&lt;Integer&gt;..Inner&lt;Integer&gt; => true<br/>
+    Sample 9: my.pkg.MySecondClass..Inner&lt;Integer,Integer&gt; => false<br/>
+    Sample 10: my.pkg.MyThirdClass..Inner&lt;Integer,Integer&gt; => true<br/>
+    Sample 11: my.pkg.MyThirdClass&lt;Integer&gt;..Inner&lt;Integer&gt; => false<br/>
+    Sample 12: my.pkg.MyThirdClass..Inner&lt;Integer,Integer&gt; => false<br/>
+    */
     public static boolean correctNbParameters(String _genericClass, Analyzable _context) {
         StringBuilder id_ = new StringBuilder();
         //From analyze

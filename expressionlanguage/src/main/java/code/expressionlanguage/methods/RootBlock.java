@@ -550,7 +550,10 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
     public AccessEnum getAccess() {
         return access;
     }
-
+    /**
+     @return a map with formatted id from super types as key
+     and a list of (formatted super types and id) as value
+     */
     @Override
     public ObjectMap<MethodId, EqList<ClassMethodId>> getAllOverridingMethods() {
         return allOverridingMethods;

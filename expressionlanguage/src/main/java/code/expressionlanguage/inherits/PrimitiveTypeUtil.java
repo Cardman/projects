@@ -248,6 +248,9 @@ public final class PrimitiveTypeUtil {
         superTypes_.removeDuplicates();
         return superTypes_;
     }
+    /** nb calls of getParent - super type - arg object
+    use class parent of object
+    */
     public static Struct getParent(int _nbAncestors,String _required, Struct _current, ExecutableCode _an) {
         String id_ = Templates.getIdFromAllTypes(_required);
         LgNames lgNames_ = _an.getStandards();
@@ -565,6 +568,9 @@ public final class PrimitiveTypeUtil {
         }
         return CustList.EQ_CMP;
     }
+    /**
+     param type id - arg type id
+     */
     public static boolean canBeUseAsArgument(String _param, String _arg, Analyzable _context) {
         LgNames stds_ = _context.getStandards();
         if (StringList.quickEq(_param, stds_.getAliasVoid())) {
@@ -580,6 +586,9 @@ public final class PrimitiveTypeUtil {
         return a_ == AssignableFrom.YES;
     }
 
+    /**
+     param type id - arg type id
+     */
     private static AssignableFrom isAssignableFromCust(String _param, String _arg, Analyzable _classes) {
         LgNames stds_ = _classes.getStandards();
         if (StringList.quickEq(_param, stds_.getAliasObject())) {
@@ -614,6 +623,9 @@ public final class PrimitiveTypeUtil {
         }
         return AssignableFrom.NO;
     }
+    /**
+     arg type id - param type id (not for primtives types)
+     */
     private static boolean isArrayAssignable(String _arrArg, String _arrParam, Analyzable _context) {
         LgNames stds_ = _context.getStandards();
         String aliasObject_ = stds_.getAliasObject();
@@ -634,6 +646,15 @@ public final class PrimitiveTypeUtil {
         return StringList.quickEq(p_, a_);
     }
 
+    /**
+     param type id - arg type id
+     Sample 1: int - int => true
+     Sample 2: long - int => true
+     Sample 3: int - long => false
+     Sample 4: Integer - Integer => true
+     Sample 5: Integer - int => true
+     Sample 6: int - Integer => false
+     */
     private static boolean canBeUseAsArgumentStd(String _param, String _arg, Analyzable _context) {
         LgNames stds_ = _context.getStandards();
         //Here, one of the parameters types names base array is not a reference type

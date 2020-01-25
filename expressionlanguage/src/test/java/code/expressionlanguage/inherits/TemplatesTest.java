@@ -587,11 +587,30 @@ public final class TemplatesTest {
         assertEq("java.lang.Number",Templates.format(first_, second_, cont_));
     }
 
+    @Test
+    public void format5Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#W> {}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        String first_ = "pkg.Ex<?java.lang.Number>";
+        String second_ = "#W";
+        assertEq("?java.lang.Number",Templates.format(first_, second_, cont_));
+    }
 
 
-
-
-
+    @Test
+    public void format6Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#W> {}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        String first_ = "pkg.Ex<java.lang.Number>";
+        String second_ = "?#W";
+        assertNull(Templates.format(first_, second_, cont_));
+    }
 
 
 
