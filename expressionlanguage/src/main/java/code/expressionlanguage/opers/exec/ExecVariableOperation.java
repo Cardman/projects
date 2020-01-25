@@ -118,9 +118,8 @@ public final class ExecVariableOperation extends ExecLeafOperation implements
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off, _conf);
         LocalVariable locVar_ = ip_.getLocalVar(variableName);
         Argument left_ = new Argument();
-        String formattedClassVar_ = locVar_.getClassName();
         left_.setStruct(_store);
-        ClassArgumentMatching cl_ = new ClassArgumentMatching(formattedClassVar_);
+        ClassArgumentMatching cl_ = getResultClass();
         Argument res_;
         res_ = ExecNumericOperation.calculateIncrDecr(left_, _conf, _op, cl_);
         setVar(_conf, locVar_, res_);

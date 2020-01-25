@@ -51,7 +51,7 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
                 _conf.getClasses().addError(un_);
             }
         }
-        setResultClass(new ClassArgumentMatching(settable.getResultClass()));
+        setResultClass(new ClassArgumentMatching(PrimitiveTypeUtil.toPrimitive(settable.getResultClass(),_conf)));
         settable.setVariable(false);
         IntTreeMap< String> ops_ = getOperations().getOperators();
         String op_ = ops_.firstValue();

@@ -132,10 +132,8 @@ public final class ExecSettableFieldOperation extends
         Argument left_ = new Argument();
         Argument res_;
 
-        String fieldType_;
-        fieldType_ = _conf.getStandards().getStructClassName(_store, _conf.getContextEl());
         left_.setStruct(_store);
-        ClassArgumentMatching cl_ = new ClassArgumentMatching(fieldType_);
+        ClassArgumentMatching cl_ = getResultClass();
         res_ = ExecNumericOperation.calculateIncrDecr(left_, _conf, _op, cl_);
         getCommonSetting(_previous,_conf,res_);
         return ExecSemiAffectationOperation.getPrePost(_post, left_, res_);

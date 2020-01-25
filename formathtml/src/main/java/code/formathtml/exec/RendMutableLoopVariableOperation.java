@@ -103,10 +103,8 @@ public final class RendMutableLoopVariableOperation extends RendLeafOperation im
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off, _conf);
         LoopVariable locVar_ = ip_.getVars().getVal(variableName);
         Argument left_ = new Argument();
-        String formattedClassVar_ = locVar_.getClassName();
-        formattedClassVar_ = _conf.getOperationPageEl().formatVarType(formattedClassVar_, _conf);
         left_.setStruct(_store);
-        ClassArgumentMatching cl_ = new ClassArgumentMatching(formattedClassVar_);
+        ClassArgumentMatching cl_ = getResultClass();
         Argument res_;
         res_ = ExecNumericOperation.calculateIncrDecr(left_, _conf, _op, cl_);
         ExecMutableLoopVariableOperation.setVar(_conf,locVar_,res_);

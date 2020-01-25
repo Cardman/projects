@@ -92,7 +92,7 @@ public final class CompoundAffectationOperation extends MethodOperation {
             }
             return;
         }
-        setResultClass(new ClassArgumentMatching(elt_.getResultClass()));
+        setResultClass(new ClassArgumentMatching(PrimitiveTypeUtil.toPrimitive(elt_.getResultClass(),_conf)));
         elt_.setVariable(false);
         String stringType_ = stds_.getAliasString();
         boolean isString_ = elt_.getResultClass().matchClass(stringType_);
