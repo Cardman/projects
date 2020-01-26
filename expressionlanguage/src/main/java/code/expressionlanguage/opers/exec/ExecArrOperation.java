@@ -48,7 +48,7 @@ public final class ExecArrOperation extends ExecInvokingOperation implements Exe
         Argument a_ = new Argument();
         for (int i = CustList.FIRST_INDEX; i < _maxIndexChildren; i++) {
             ExecOperationNode op_ = chidren_.get(i);
-            NumberStruct o_ = (NumberStruct) getArgument(_nodes,op_).getStruct();
+            Struct o_ = getArgument(_nodes,op_).getStruct();
             int indexEl_ = chidren_.get(i).getIndexInEl();
             setRelativeOffsetPossibleLastPage(indexEl_, _conf);
             array_ = ExecInvokingOperation.getElement(array_, o_, _conf);
@@ -115,14 +115,14 @@ public final class ExecArrOperation extends ExecInvokingOperation implements Exe
 
     Struct affectArray(Struct _array,Argument _index, int _indexEl, Argument _right, ExecutableCode _conf) {
         setRelativeOffsetPossibleLastPage(_indexEl, _conf);
-        NumberStruct o_ = (NumberStruct)_index.getStruct();
+        Struct o_ = _index.getStruct();
         ExecInvokingOperation.setElement(_array, o_, _right.getStruct(), _conf);
         return _right.getStruct();
     }
 
     Struct compoundAffectArray(Struct _array,Struct _stored,Argument _index, int _indexEl, String _op, Argument _right, ExecutableCode _conf, ClassArgumentMatching _arg) {
         setRelativeOffsetPossibleLastPage(_indexEl, _conf);
-        NumberStruct o_ = (NumberStruct)_index.getStruct();
+        Struct o_ = _index.getStruct();
         Argument left_ = new Argument();
         left_.setStruct(_stored);
         Argument res_;
@@ -135,7 +135,7 @@ public final class ExecArrOperation extends ExecInvokingOperation implements Exe
     }
     Struct semiAffectArray(Struct _array,Struct _stored,Argument _index, int _indexEl, String _op, boolean _post, ExecutableCode _conf) {
         setRelativeOffsetPossibleLastPage(_indexEl, _conf);
-        NumberStruct o_ = (NumberStruct)_index.getStruct();
+        Struct o_ = _index.getStruct();
         Argument left_ = new Argument();
         left_.setStruct(_stored);
         ClassArgumentMatching clArg_ = getResultClass();
@@ -161,7 +161,7 @@ public final class ExecArrOperation extends ExecInvokingOperation implements Exe
         setRelativeOffsetPossibleLastPage(chidren_.first().getIndexInEl(), _conf);
         ExecOperationNode lastElement_ = chidren_.last();
         Argument index_ = getArgument(_nodes, lastElement_);
-        ExecInvokingOperation.setElement(array_, (NumberStruct)index_.getStruct(), _right.getStruct(), _conf);
+        ExecInvokingOperation.setElement(array_, index_.getStruct(), _right.getStruct(), _conf);
         Argument out_ = ExecSemiAffectationOperation.getPrePost(_post, _stored, _right);
         return out_;
     }

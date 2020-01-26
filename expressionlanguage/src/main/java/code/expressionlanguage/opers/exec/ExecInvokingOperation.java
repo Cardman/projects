@@ -242,8 +242,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                 return a_;
             }
             if (prev_ instanceof AnnotationStruct) {
-                FieldableStruct f_ = (FieldableStruct) prev_;
-                Struct ret_ = f_.getEntryStruct(new ClassField(clName_, _methodId.getName())).getValue();
+                Struct ret_ = getField(clName_, _methodId.getName(),false,_previous,_conf,-1).getStruct();
                 Argument a_ = new Argument();
                 if (ret_ instanceof ArrayStruct) {
                     ArrayStruct orig_ = (ArrayStruct) ret_;
@@ -769,13 +768,13 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                 len_--;
             }
             for (int i = 0; i < len_; i++) {
-                NumberStruct ind_ = (NumberStruct) argArr_.getInstance()[i];
+                Struct ind_ = argArr_.getInstance()[i];
                 arr_ = getElement(arr_,ind_,_conf);
                 if (_conf.getContextEl().hasExceptionOrFailInit()) {
                     return new Argument();
                 }
             }
-            NumberStruct ind_ = (NumberStruct) argArr_.getInstance()[len_];
+            Struct ind_ = argArr_.getInstance()[len_];
             if (StringList.quickEq(_l.getFid().getName(),"[]")) {
                 return new Argument(getElement(arr_,ind_,_conf));
             }
@@ -798,12 +797,12 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         _conf.getContextEl().setCallingState(new CustomReflectMethod(ReflectingType.METHOD, _pr, _nList, true));
         return new Argument();
     }
-    public static Struct getElement(Struct _struct, NumberStruct _index, ExecutableCode _conf) {
+    public static Struct getElement(Struct _struct, Struct _index, ExecutableCode _conf) {
         Struct elt_ = Templates.gearErrorWhenIndex(_struct, _index, _conf);
         _conf.getContextEl().addSensibleField(_struct, elt_);
         return elt_;
     }
-    public static void setElement(Struct _struct, NumberStruct _index, Struct _value, ExecutableCode _conf) {
+    public static void setElement(Struct _struct, Struct _index, Struct _value, ExecutableCode _conf) {
         Templates.gearErrorWhenContain(_struct, _index, _value, _conf);
     }
     public static Argument getEnumValues(String _class, ExecutableCode _conf) {

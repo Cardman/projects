@@ -45,7 +45,7 @@ public final class RendArrOperation extends RendInvokingOperation implements Ren
         array_ = getPreviousArgument(_nodes,this).getStruct();
         Argument a_ = new Argument();
         for (int i = CustList.FIRST_INDEX; i < _maxIndexChildren; i++) {
-            NumberStruct o_ = (NumberStruct)getArgument(_nodes, chidren_.get(i)).getStruct();
+            Struct o_ = getArgument(_nodes, chidren_.get(i)).getStruct();
             int indexEl_ = chidren_.get(i).getIndexInEl();
             setRelativeOffsetPossibleLastPage(indexEl_, _conf);
             array_ = ExecInvokingOperation.getElement(array_, o_, _conf);
@@ -104,14 +104,14 @@ public final class RendArrOperation extends RendInvokingOperation implements Ren
 
     Struct affectArray(Struct _array, Argument _index, int _indexEl, Argument _right, Configuration _conf) {
         setRelativeOffsetPossibleLastPage(_indexEl, _conf);
-        NumberStruct o_ = (NumberStruct)_index.getStruct();
+        Struct o_ = _index.getStruct();
         ExecInvokingOperation.setElement(_array, o_, _right.getStruct(), _conf);
         return _right.getStruct();
     }
 
     Struct compoundAffectArray(Struct _array,Struct _stored,Argument _index, int _indexEl, String _op, Argument _right, Configuration _conf) {
         setRelativeOffsetPossibleLastPage(_indexEl, _conf);
-        NumberStruct o_ = (NumberStruct)_index.getStruct();
+        Struct o_ = _index.getStruct();
         Argument left_ = new Argument();
         left_.setStruct(_stored);
         ClassArgumentMatching clArg_ = getResultClass();
@@ -125,7 +125,7 @@ public final class RendArrOperation extends RendInvokingOperation implements Ren
     }
     Struct semiAffectArray(Struct _array,Struct _stored,Argument _index, int _indexEl, String _op, boolean _post, Configuration _conf) {
         setRelativeOffsetPossibleLastPage(_indexEl, _conf);
-        NumberStruct o_ = (NumberStruct)_index.getStruct();
+        Struct o_ = _index.getStruct();
         Argument left_ = new Argument();
         left_.setStruct(_stored);
         ClassArgumentMatching clArg_ = getResultClass();
@@ -149,7 +149,7 @@ public final class RendArrOperation extends RendInvokingOperation implements Ren
         setRelativeOffsetPossibleLastPage(chidren_.first().getIndexInEl(), _conf);
         RendDynOperationNode lastElement_ = chidren_.last();
         Argument index_ = getArgument(_nodes,lastElement_);
-        ExecInvokingOperation.setElement(array_, (NumberStruct)index_.getStruct(), _right.getStruct(), _conf);
+        ExecInvokingOperation.setElement(array_, index_.getStruct(), _right.getStruct(), _conf);
         Argument out_ = RendSemiAffectationOperation.getPrePost(_post, _stored, _right);
         return out_;
     }
