@@ -89,16 +89,9 @@ public final class DoBlock extends BracedStack implements Loop {
     public void processEl(ContextEl _cont) {
         AbstractPageEl ip_ = _cont.getLastPage();
         ReadWrite rw_ = ip_.getReadWrite();
-        LoopBlockStack c_ = ip_.getLastLoopIfPossible();
-        if (c_ != null && c_.getBlock() == this) {
-            if (c_.isFinished()) {
-                removeVarAndLoop(ip_);
-                Block next_ = getNextSibling();
-                rw_.setBlock(next_);
-                next_.processBlock(_cont);
-                return;
-            }
-            rw_.setBlock(getFirstChild());
+        LoopBlockStack c_ = ip_.getLastLoopIfPossible(this);
+        if (c_ != null) {
+            ip_.processVisitedLoop(c_,this,getNextSibling(),_cont);
             return;
         }
         LoopBlockStack l_ = new LoopBlockStack();

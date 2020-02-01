@@ -178,11 +178,11 @@ public abstract class ContextEl implements ExecutableCode {
         return importing.first().getGlobalClass();
     }
     public boolean processException() {
-        if (exception != null) {
+        if (!failInit && exception != null) {
             getThrowing().removeBlockFinally(this);
             return exception == null;
         }
-        return true;
+        return !failInit;
     }
     protected void processTags() {
         AbstractPageEl ip_ = getLastPage();
@@ -225,18 +225,16 @@ public abstract class ContextEl implements ExecutableCode {
             CustomFoundBlock b_ = (CustomFoundBlock) callingState;
             return createBlockPageEl(b_.getClassName(), b_.getCurrentObject(), b_.getBlock());
         }
-        if (failInit) {
-            return null;
-        }
-        if (exception != null) {
-            getThrowing().removeBlockFinally(this);
-        }
+        processException();
         return null;
     }
 
     protected EndCallValue removeCall() {
         AbstractPageEl p_ = getLastPage();
         if (p_.getReadWrite() == null) {
+            if (p_ instanceof StaticInitPageEl) {
+                ((StaticInitPageEl)p_).sucessClass(this);
+            }
             removeLastPage();
             if (nbPages() == 0) {
                 return EndCallValue.EXIT;
@@ -289,7 +287,6 @@ public abstract class ContextEl implements ExecutableCode {
         setCallingState(null);
         MethodPageEl pageLoc_ = new MethodPageEl(this,_right);
         pageLoc_.setGlobalArgument(_gl);
-        pageLoc_.setGlobalClass(_class);
         NamedFunctionBlock methodLoc_;
         if (!StringList.isDollarWord(_method.getName()) && !_method.getName().startsWith("[]")) {
             methodLoc_ = Classes.getOperatorsBodiesById(this, _method).first();
@@ -299,18 +296,7 @@ public abstract class ContextEl implements ExecutableCode {
             String idCl_ = Templates.getIdFromAllTypes(_class);
             coverage.passCalls(this,idCl_,methodLoc_);
         }
-        StringList paramsLoc_ = methodLoc_.getParametersNames();
-        int lenLoc_ = paramsLoc_.size();
-        for (int i = CustList.FIRST_INDEX; i < lenLoc_; i++) {
-            String p_ = paramsLoc_.get(i);
-            LocalVariable lv_ = LocalVariable.newLocalVariable(_args.get(i).getStruct(),this);
-            pageLoc_.getParameters().put(p_, lv_);
-        }
-        ReadWrite rwLoc_ = new ReadWrite();
-        rwLoc_.setBlock(methodLoc_.getFirstChild());
-        pageLoc_.setReadWrite(rwLoc_);
-        pageLoc_.setBlockRoot(methodLoc_);
-        pageLoc_.setFile(methodLoc_.getFile());
+        setMethodInfos(pageLoc_,methodLoc_,_class,_args);
         return pageLoc_;
     }
 
@@ -324,24 +310,27 @@ public abstract class ContextEl implements ExecutableCode {
         setCallingState(null);
         CastPageEl pageLoc_ = new CastPageEl(this);
         pageLoc_.setGlobalArgument(Argument.createVoid());
-        pageLoc_.setGlobalClass(_class);
         NamedFunctionBlock methodLoc_;
         methodLoc_ = Classes.getMethodBodiesById(this, _class, _method).first();
         String idCl_ = Templates.getIdFromAllTypes(_class);
         coverage.passCalls(this,idCl_,methodLoc_);
-        StringList paramsLoc_ = methodLoc_.getParametersNames();
+        setMethodInfos(pageLoc_,methodLoc_,_class,_args);
+        return pageLoc_;
+    }
+    private void setMethodInfos(AbstractMethodPageEl _page, NamedFunctionBlock _block, String _class, CustList<Argument> _args) {
+        _page.setGlobalClass(_class);
+        StringList paramsLoc_ = _block.getParametersNames();
         int lenLoc_ = paramsLoc_.size();
         for (int i = CustList.FIRST_INDEX; i < lenLoc_; i++) {
             String p_ = paramsLoc_.get(i);
             LocalVariable lv_ = LocalVariable.newLocalVariable(_args.get(i).getStruct(),this);
-            pageLoc_.getParameters().put(p_, lv_);
+            _page.getParameters().put(p_, lv_);
         }
         ReadWrite rwLoc_ = new ReadWrite();
-        rwLoc_.setBlock(methodLoc_.getFirstChild());
-        pageLoc_.setReadWrite(rwLoc_);
-        pageLoc_.setBlockRoot(methodLoc_);
-        pageLoc_.setFile(methodLoc_.getFile());
-        return pageLoc_;
+        rwLoc_.setBlock(_block.getFirstChild());
+        _page.setReadWrite(rwLoc_);
+        _page.setBlockRoot(_block);
+        _page.setFile(_block.getFile());
     }
     private AbstractPageEl createInstancing(CustomFoundConstructor _e) {
         String cl_ = _e.getClassName();
@@ -350,18 +339,14 @@ public abstract class ContextEl implements ExecutableCode {
         if (in_ == InstancingStep.NEWING) {
             return createInstancing(cl_, _e.getCall(), args_);
         }
-        return createInstancing(cl_, _e.getCall(), in_, args_);
+        return createForwardingInstancing(cl_, _e.getCall(), args_);
     }
-    public NewInstancingPageEl createInstancing(String _class, CallConstructor _call, CustList<Argument> _args) {
+    public CallConstructorPageEl createInstancing(String _class, CallConstructor _call, CustList<Argument> _args) {
         setCallingState(null);
-        NewInstancingPageEl page_;
+        CallConstructorPageEl page_;
         Argument global_ = _call.getArgument();
-        ConstructorId id_ = _call.getId();
-        FileBlock file_ = getFile(_class);
-        CustList<GeneConstructor> methods_ = Classes.getConstructorBodiesById(this, _class, id_);
-        ConstructorBlock method_ = null;
         Argument argGl_ = new Argument();
-        page_ = new NewInstancingPageEl();
+        page_ = new CallConstructorPageEl();
         Struct str_ = NullStruct.NULL_VALUE;
         if (global_ != null) {
             str_ = global_.getStruct();
@@ -369,26 +354,8 @@ public abstract class ContextEl implements ExecutableCode {
         String fieldName_ = _call.getFieldName();
         int ordinal_ = _call.getChildIndex();
         argGl_.setStruct(getInit().processInit(this, str_, _class, fieldName_, ordinal_));
-        page_.setGlobalClass(_class);
         page_.setGlobalArgument(argGl_);
-        ReadWrite rw_ = new ReadWrite();
-        if (!methods_.isEmpty()) {
-            String idCl_ = Templates.getIdFromAllTypes(_class);
-            method_ = (ConstructorBlock) methods_.first();
-            coverage.passCalls(this,idCl_,method_);
-            StringList params_ = method_.getParametersNames();
-            int len_ = params_.size();
-            for (int i = CustList.FIRST_INDEX; i < len_; i++) {
-                String p_ = params_.get(i);
-                LocalVariable lv_ = LocalVariable.newLocalVariable(_args.get(i).getStruct(),this);
-                page_.getParameters().put(p_, lv_);
-            }
-            Block firstChild_ = method_.getFirstChild();
-            rw_.setBlock(firstChild_);
-        }
-        page_.setReadWrite(rw_);
-        page_.setBlockRoot(method_);
-        page_.setFile(file_);
+        setInstanciationInfos(page_,_class,_call,_args);
         return page_;
     }
     private NewAnnotationPageEl createAnnotation(String _class,
@@ -406,29 +373,25 @@ public abstract class ContextEl implements ExecutableCode {
         page_.setGlobalArgument(argGl_);
         ReadWrite rw_ = new ReadWrite();
         page_.setReadWrite(rw_);
-        page_.setBlockRoot(null);
         page_.setFile(file_);
         return page_;
     }
-    private AbstractPageEl createInstancing(String _class, CallConstructor _call, InstancingStep _in, CustList<Argument> _args) {
+    private AbstractPageEl createForwardingInstancing(String _class, CallConstructor _call, CustList<Argument> _args) {
         setCallingState(null);
-        AbstractPageEl page_;
-        FileBlock file_ = getFile(_class);
+        AbstractPageEl page_ = new CallConstructorPageEl();
         Argument global_ = _call.getArgument();
+        Argument argGl_ = new Argument();
+        argGl_.setStruct(global_.getStruct());
+        page_.setGlobalArgument(argGl_);
+        setInstanciationInfos(page_,_class,_call,_args);
+        return page_;
+    }
+    private void setInstanciationInfos(AbstractPageEl _page,String _class, CallConstructor _call, CustList<Argument> _args) {
         ConstructorId id_ = _call.getId();
+        FileBlock file_ = getFile(_class);
         CustList<GeneConstructor> methods_ = Classes.getConstructorBodiesById(this, _class, id_);
         ConstructorBlock method_ = null;
-        Argument argGl_ = new Argument();
-        if (_in == InstancingStep.USING_SUPER) {
-            page_ = new SuperInstancingPageEl();
-        } else if (_in == InstancingStep.USING_SUPER_IMPL) {
-            page_ = new SuperInstancingImplicitPageEl();
-        } else {
-            page_ = new CurrentInstancingPageEl();
-        }
-        argGl_.setStruct(global_.getStruct());
-        page_.setGlobalClass(_class);
-        page_.setGlobalArgument(argGl_);
+        _page.setGlobalClass(_class);
         ReadWrite rw_ = new ReadWrite();
         if (!methods_.isEmpty()) {
             String idCl_ = Templates.getIdFromAllTypes(_class);
@@ -439,15 +402,14 @@ public abstract class ContextEl implements ExecutableCode {
             for (int i = CustList.FIRST_INDEX; i < len_; i++) {
                 String p_ = params_.get(i);
                 LocalVariable lv_ = LocalVariable.newLocalVariable(_args.get(i).getStruct(),this);
-                page_.getParameters().put(p_, lv_);
+                _page.getParameters().put(p_, lv_);
             }
             Block firstChild_ = method_.getFirstChild();
             rw_.setBlock(firstChild_);
         }
-        page_.setReadWrite(rw_);
-        page_.setBlockRoot(method_);
-        page_.setFile(file_);
-        return page_;
+        _page.setReadWrite(rw_);
+        _page.setBlockRoot(method_);
+        _page.setFile(file_);
     }
     private FieldInitPageEl createInitFields(String _class, Argument _current) {
         setCallingState(null);
@@ -936,10 +898,7 @@ public abstract class ContextEl implements ExecutableCode {
         if (calls()) {
             return true;
         }
-        if (failInit) {
-            return true;
-        }
-        return hasException();
+        return hasExceptionOrFailInit();
     }
 
     public boolean calls() {

@@ -53,7 +53,7 @@ public final class ExecSettableFieldOperation extends
         if (!staticField_) {
             previous_.setStruct(PrimitiveTypeUtil.getParent(anc, className_, _previous.getStruct(), _conf));
         }
-        if (_conf.getContextEl().hasException()) {
+        if (_conf.getContextEl().hasExceptionOrFailInit()) {
             return Argument.createVoid();
         }
         return ExecInvokingOperation.getField(className_, fieldName_, staticField_, previous_, _conf, off_);

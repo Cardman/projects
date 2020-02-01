@@ -220,10 +220,10 @@ public final class RendForIterativeLoop extends RendParentBlock implements RendL
     @Override
     public void processEl(Configuration _cont) {
         ImportingPage ip_ = _cont.getLastPage();
-        RendLoopBlockStack c_ = ip_.getLastLoopIfPossible();
-        if (c_ != null && c_.getBlock() == this) {
-            removeVarAndLoop(ip_);
-            processBlock(_cont);
+        RendLoopBlockStack c_ = ip_.getLastLoopIfPossible(this);
+        if (c_ != null) {
+            removeAllVars(ip_);
+            processBlockAndRemove(_cont);
             return;
         }
         processLoop(_cont);
@@ -232,8 +232,7 @@ public final class RendForIterativeLoop extends RendParentBlock implements RendL
         }
         c_ = (RendLoopBlockStack) ip_.getRendLastStack();
         if (c_.isFinished()) {
-            ip_.removeRendLastBlock();
-            processBlock(_cont);
+            processBlockAndRemove(_cont);
             return;
         }
         ip_.getRendReadWrite().setRead(getFirstChild());
@@ -346,8 +345,8 @@ public final class RendForIterativeLoop extends RendParentBlock implements RendL
     }
 
     @Override
-    public void removeVarAndLoop(ImportingPage _ip) {
-        super.removeVarAndLoop(_ip);
+    public void removeAllVars(ImportingPage _ip) {
+        super.removeAllVars(_ip);
         StringMap<LoopVariable> v_ = _ip.getVars();
         String var_ = getVariableName();
         v_.removeKey(var_);
@@ -360,7 +359,6 @@ public final class RendForIterativeLoop extends RendParentBlock implements RendL
         StringMap<LoopVariable> vars_ = ip_.getVars();
         RendLoopBlockStack l_ = (RendLoopBlockStack) ip_.getRendLastStack();
         RendBlock forLoopLoc_ = l_.getBlock();
-        rw_.setRead(forLoopLoc_);
         if (l_.hasNext()) {
             incrementLoop(_conf, l_, vars_);
             rw_.setRead(forLoopLoc_.getFirstChild());

@@ -10,7 +10,6 @@ import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.SimpleAssignment;
 import code.expressionlanguage.stacks.TryBlockStack;
-import code.expressionlanguage.structs.NullStruct;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringMap;
@@ -164,10 +163,8 @@ public abstract class AbstractCatchEval extends BracedStack implements Eval {
         AbstractPageEl ip_ = _cont.getLastPage();
         ReadWrite rw_ = ip_.getReadWrite();
         TryBlockStack ts_ = (TryBlockStack) ip_.getLastStack();
-        ts_.setException(NullStruct.NULL_VALUE);
         if (ts_.getLastBlock() == this) {
-            ip_.removeLastBlock();
-            processBlock(_cont);
+            processBlockAndRemove(_cont);
         } else {
             ts_.setCurrentBlock(this);
             rw_.setBlock(getNextSibling());
@@ -188,16 +185,4 @@ public abstract class AbstractCatchEval extends BracedStack implements Eval {
         _parts.add(new PartOffset(tag_,off_+ _cont.getKeyWords().getKeyWordCatch().length()));
     }
 
-    @Override
-    public void processToFinally(AbstractPageEl _ip, TryBlockStack _stack) {
-        removeLocalVars(_ip);
-        BracedBlock br_ = _stack.getLastBlock();
-        if (br_ instanceof FinallyEval) {
-            _ip.clearCurrentEls();
-            _ip.getReadWrite().setBlock(br_);
-            _ip.setFinallyToProcess(true);
-            return;
-        }
-        _ip.removeLastBlock();
-    }
 }

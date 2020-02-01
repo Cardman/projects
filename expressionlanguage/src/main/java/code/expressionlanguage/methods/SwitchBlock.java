@@ -19,7 +19,6 @@ import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.exec.ExecOperationNode;
 import code.expressionlanguage.opers.util.*;
-import code.expressionlanguage.stacks.RemovableVars;
 import code.expressionlanguage.stacks.SwitchBlockStack;
 import code.expressionlanguage.structs.EnumerableStruct;
 import code.util.*;
@@ -278,13 +277,9 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock, Wi
     public void processEl(ContextEl _cont) {
         AbstractPageEl ip_ = _cont.getLastPage();
         ReadWrite rw_ = ip_.getReadWrite();
-        if (ip_.hasBlock()) {
-            RemovableVars bl_ = ip_.getLastStack();
-            if (bl_.getBlock() == this) {
-                ip_.removeLastBlock();
-                processBlock(_cont);
-                return;
-            }
+        if (ip_.matchStatement(this)) {
+            processBlockAndRemove(_cont);
+            return;
         }
         ExpressionLanguage el_ = ip_.getCurrentEl(_cont,this, CustList.FIRST_INDEX, CustList.FIRST_INDEX);
         ip_.setGlobalOffset(valueOffset);
@@ -305,7 +300,7 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock, Wi
         }
         if_.setBlock(this);
         Block def_ = null;
-        boolean found_ = false;
+        Block found_ = null;
         if (arg_.isNull()) {
             for (Block b: children_) {
                 if (!(b instanceof CaseCondition)) {
@@ -318,9 +313,8 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock, Wi
                     continue;
                 }
                 if (argRes_.isNull()) {
-                    found_ = true;
-                    _cont.getCoverage().passSwitch(_cont,c_,arg_);
-                    rw_.setBlock(c_);
+                    found_ = b;
+                    break;
                 }
             }
         } else if (enumTest) {
@@ -335,12 +329,10 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock, Wi
                 if (op_.getArgument() != null) {
                     continue;
                 }
-                if (!StringList.quickEq(c_.getValue().trim(), en_.getName())) {
-                    continue;
+                if (StringList.quickEq(c_.getValue().trim(), en_.getName())) {
+                    found_ = b;
+                    break;
                 }
-                found_ = true;
-                _cont.getCoverage().passSwitch(_cont,c_,arg_);
-                rw_.setBlock(c_);
             }
         } else {
             for (Block b: children_) {
@@ -350,21 +342,22 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock, Wi
                 }
                 CaseCondition c_ = (CaseCondition) b;
                 Argument argRes_ = c_.getOpValue().last().getArgument();
-                if (!argRes_.getStruct().sameReference(arg_.getStruct())) {
-                    continue;
+                if (argRes_.getStruct().sameReference(arg_.getStruct())) {
+                    found_ = b;
+                    break;
                 }
-                found_ = true;
-                _cont.getCoverage().passSwitch(_cont,c_,arg_);
-                rw_.setBlock(c_);
             }
         }
-        if (!found_) {
+        if (found_ == null) {
             if (def_ != null) {
                 _cont.getCoverage().passSwitch(_cont,def_,arg_);
                 rw_.setBlock(def_);
             } else {
                 _cont.getCoverage().passSwitch(_cont,arg_);
             }
+        } else {
+            _cont.getCoverage().passSwitch(_cont,found_,arg_);
+            rw_.setBlock(found_);
         }
         ip_.addBlock(if_);
     }

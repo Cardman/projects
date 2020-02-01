@@ -64,8 +64,7 @@ public final class RendElseIfCondition extends RendCondition implements RendBrea
             }
         }
         if (if_.getLastBlock() == this) {
-            ip_.removeRendLastBlock();
-            processBlock(_cont);
+            processBlockAndRemove(_cont);
             return;
         }
         rw_.setRead(getNextSibling());
@@ -76,9 +75,7 @@ public final class RendElseIfCondition extends RendCondition implements RendBrea
         ImportingPage ip_ = _conf.getLastPage();
         RendReadWrite rw_ = ip_.getRendReadWrite();
         RendIfStack if_ = (RendIfStack) ip_.getRendLastStack();
-        if (if_.getLastBlock() == this) {
-            rw_.setRead(this);
-        } else {
+        if (if_.getLastBlock() != this) {
             rw_.setRead(getNextSibling());
         }
     }

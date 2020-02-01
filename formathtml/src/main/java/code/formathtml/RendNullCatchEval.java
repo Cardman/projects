@@ -30,11 +30,4 @@ public final class RendNullCatchEval extends RendAbstractCatchEval {
             }
         }
     }
-
-    @Override
-    public void exitStack(Configuration _context) {
-        ImportingPage ip_ = _context.getLastPage();
-        RendReadWrite rw_ = ip_.getRendReadWrite();
-        rw_.setRead(this);
-    }
 }

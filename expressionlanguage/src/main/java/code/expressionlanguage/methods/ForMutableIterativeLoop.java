@@ -706,21 +706,9 @@ public final class ForMutableIterativeLoop extends BracedStack implements
     public void processEl(ContextEl _cont) {
         AbstractPageEl ip_ = _cont.getLastPage();
         ReadWrite rw_ = ip_.getReadWrite();
-        LoopBlockStack c_ = ip_.getLastLoopIfPossible();
-        if (c_ != null && c_.getBlock() == this) {
-            if (c_.isEvaluatingKeepLoop()) {
-                processLastElementLoop(_cont);
-                return;
-            }
-            if (c_.isFinished()) {
-                for (String v: variableNames) {
-                    ip_.getVars().removeKey(v);
-                }
-                removeVarAndLoop(ip_);
-                processBlock(_cont);
-                return;
-            }
-            rw_.setBlock(getFirstChild());
+        LoopBlockStack c_ = ip_.getLastLoopIfPossible(this);
+        if (c_ != null) {
+            ip_.processVisitedLoop(c_,this,this,_cont);
             return;
         }
         ip_.setGlobalOffset(initOffset);
@@ -748,18 +736,23 @@ public final class ForMutableIterativeLoop extends BracedStack implements
         }
         LoopBlockStack l_ = new LoopBlockStack();
         l_.setBlock(this);
-        l_.setFinished(!res_);
+        boolean finished_ = !res_;
+        l_.setFinished(finished_);
         ip_.addBlock(l_);
-        c_ = (LoopBlockStack) ip_.getLastStack();
-        if (c_.isFinished()) {
-            for (String v: variableNames) {
-                ip_.getVars().removeKey(v);
-            }
-            ip_.removeLastBlock();
-            processBlock(_cont);
+        if (finished_) {
+            removeAllVars(ip_);
+            processBlockAndRemove(_cont);
             return;
         }
         rw_.setBlock(getFirstChild());
+    }
+
+    @Override
+    public void removeAllVars(AbstractPageEl _ip) {
+        super.removeAllVars(_ip);
+        for (String v: variableNames) {
+            _ip.getVars().removeKey(v);
+        }
     }
 
     private Boolean evaluateCondition(ContextEl _context, int _index) {
@@ -786,11 +779,8 @@ public final class ForMutableIterativeLoop extends BracedStack implements
     @Override
     public void processLastElementLoop(ContextEl _conf) {
         AbstractPageEl ip_ = _conf.getLastPage();
-        ReadWrite rw_ = ip_.getReadWrite();
         LoopBlockStack l_ = (LoopBlockStack) ip_.getLastStack();
         l_.setEvaluatingKeepLoop(true);
-        Block forLoopLoc_ = l_.getBlock();
-        rw_.setBlock(forLoopLoc_);
         int index_ = 0;
         ip_.setOffset(0);
         ip_.setGlobalOffset(stepOffset);

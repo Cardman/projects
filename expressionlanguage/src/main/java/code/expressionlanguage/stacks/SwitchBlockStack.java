@@ -1,12 +1,9 @@
 package code.expressionlanguage.stacks;
-import code.expressionlanguage.calls.AbstractPageEl;
 import code.expressionlanguage.methods.BracedBlock;
 
-public final class SwitchBlockStack extends SwitchStack implements RemovableVars {
+public final class SwitchBlockStack implements RemovableVars {
 
     private BracedBlock block;
-
-    private BracedBlock curentVisitedBlock;
 
     private BracedBlock lastVisitedBlock;
 
@@ -17,21 +14,6 @@ public final class SwitchBlockStack extends SwitchStack implements RemovableVars
 
     public void setBlock(BracedBlock _block) {
         block = _block;
-    }
-
-    public BracedBlock getCurentVisitedBlock() {
-        return curentVisitedBlock;
-    }
-
-    public void setCurentVisitedBlock(BracedBlock _curentVisitedBlock) {
-        curentVisitedBlock = _curentVisitedBlock;
-    }
-
-    @Override
-    public void removeVarAndLoop(AbstractPageEl _ip) {
-        BracedBlock cur_ = getCurentVisitedBlock();
-        cur_.removeLocalVars(_ip);
-        _ip.removeLastBlock();
     }
 
     @Override

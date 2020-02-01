@@ -28,7 +28,6 @@ public final class DoWhileCondition extends Condition {
         ReadWrite rw_ = ip_.getReadWrite();
         LoopBlockStack l_ = (LoopBlockStack) ip_.getLastStack();
         l_.setEvaluatingKeepLoop(true);
-        rw_.setBlock(this);
         _cont.getLastPage().setGlobalOffset(getOffset().getOffsetTrim());
         _cont.getLastPage().setOffset(0);
         Boolean keep_ = evaluateCondition(_cont);

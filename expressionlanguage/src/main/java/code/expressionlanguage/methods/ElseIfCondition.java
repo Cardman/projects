@@ -175,8 +175,7 @@ public final class ElseIfCondition extends Condition implements BlockCondition {
             }
         }
         if (if_.getLastBlock() == this) {
-            ip_.removeLastBlock();
-            processBlock(_cont);
+            processBlockAndRemove(_cont);
             return;
         }
         rw_.setBlock(getNextSibling());
@@ -205,9 +204,7 @@ public final class ElseIfCondition extends Condition implements BlockCondition {
         AbstractPageEl ip_ = _context.getLastPage();
         ReadWrite rw_ = ip_.getReadWrite();
         IfBlockStack if_ = (IfBlockStack) ip_.getLastStack();
-        if (if_.getLastBlock() == this) {
-            rw_.setBlock(this);
-        } else {
+        if (if_.getLastBlock() != this) {
             rw_.setBlock(getNextSibling());
         }
     }

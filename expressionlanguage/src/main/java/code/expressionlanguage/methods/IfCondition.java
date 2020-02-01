@@ -13,7 +13,6 @@ import code.expressionlanguage.opers.util.AssignedBooleanVariables;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.SimpleAssignment;
 import code.expressionlanguage.stacks.IfBlockStack;
-import code.expressionlanguage.stacks.RemovableVars;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringMap;
@@ -115,13 +114,9 @@ public final class IfCondition extends Condition implements BlockCondition {
     public void processEl(ContextEl _cont) {
         AbstractPageEl ip_ = _cont.getLastPage();
         ReadWrite rw_ = ip_.getReadWrite();
-        if (ip_.hasBlock()) {
-            RemovableVars bl_ = ip_.getLastStack();
-            if (bl_.getBlock() == this) {
-                ip_.removeLastBlock();
-                processBlock(_cont);
-                return;
-            }
+        if (ip_.matchStatement(this)) {
+            processBlockAndRemove(_cont);
+            return;
         }
         Boolean assert_ = evaluateCondition(_cont);
         if (assert_ == null) {
@@ -142,10 +137,7 @@ public final class IfCondition extends Condition implements BlockCondition {
             rw_.setBlock(getFirstChild());
         } else {
             ip_.addBlock(if_);
-            if (if_.getLastBlock() == this) {
-                return;
-            }
-            rw_.setBlock(getNextSibling());
+            exitStack(_cont);
         }
     }
 
@@ -173,9 +165,7 @@ public final class IfCondition extends Condition implements BlockCondition {
         AbstractPageEl ip_ = _context.getLastPage();
         ReadWrite rw_ = ip_.getReadWrite();
         IfBlockStack if_ = (IfBlockStack) ip_.getLastStack();
-        if (if_.getLastBlock() == this) {
-            rw_.setBlock(this);
-        } else {
+        if (if_.getLastBlock() != this) {
             rw_.setBlock(getNextSibling());
         }
     }

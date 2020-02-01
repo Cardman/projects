@@ -1,11 +1,8 @@
 package code.formathtml.stacks;
 
-import code.formathtml.ImportingPage;
 import code.formathtml.RendParentBlock;
 
 public interface RendRemovableVars {
-
-    void removeVarAndLoop(ImportingPage _ip);
 
     RendParentBlock getBlock();
     RendParentBlock getCurrentVisitedBlock();

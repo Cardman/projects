@@ -26,17 +26,6 @@ public final class RendTryEval extends RendParentBlock implements RendEval {
     }
 
     @Override
-    public void processToFinally(ImportingPage _ip, RendTryBlockStack _stack) {
-        removeLocalVars(_ip);
-        if (_stack.getLastBlock() instanceof RendFinallyEval) {
-            _ip.getRendReadWrite().setRead(_stack.getLastBlock());
-            _ip.setFinallyToProcess(true);
-            return;
-        }
-        _ip.removeRendLastBlock();
-    }
-
-    @Override
     public void buildExpressionLanguage(Configuration _cont,RendDocumentBlock _doc) {
         RendBlock nBlock_ = getNextSibling();
         if (!(nBlock_ instanceof RendAbstractCatchEval)) {

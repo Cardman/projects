@@ -1,5 +1,6 @@
 package code.expressionlanguage.methods;
 import code.expressionlanguage.Analyzable;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.calls.AbstractPageEl;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.opers.util.AssignedVariables;
@@ -119,6 +120,8 @@ public abstract class BracedBlock extends Block implements BracedBlockInt {
     public void abruptGroup(AnalyzingEl _anEl) {
     }
 
+    public void exitStack(ContextEl _context){
+    }
     @Override
     public final Block getFirstChild() {
         return firstChild;
@@ -149,7 +152,8 @@ public abstract class BracedBlock extends Block implements BracedBlockInt {
         }
     }
 
-    public void removeVarAndLoop(AbstractPageEl _ip) {
-        _ip.removeLastBlock();
+    public void removeAllVars(AbstractPageEl _ip) {
+        removeLocalVars(_ip);
     }
+
 }

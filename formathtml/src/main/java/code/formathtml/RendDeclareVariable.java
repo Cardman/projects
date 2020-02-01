@@ -9,7 +9,7 @@ import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.variables.LocalVariable;
 import code.util.StringList;
 
-public final class RendDeclareVariable extends RendLeaf implements RendInitVariable,RendBuildableElMethod {
+public final class RendDeclareVariable extends RendLeaf implements RendBuildableElMethod {
 
     private final StringList variableNames = new StringList();
 
@@ -25,7 +25,6 @@ public final class RendDeclareVariable extends RendLeaf implements RendInitVaria
         classNameOffset = _className.getOffset();
     }
 
-    @Override
     public StringList getVariableNames() {
         return variableNames;
     }

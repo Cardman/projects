@@ -1,17 +1,33 @@
 package code.expressionlanguage.methods;
 
 import code.expressionlanguage.Analyzable;
+import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.calls.AbstractPageEl;
+import code.expressionlanguage.calls.util.ReadWrite;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.opers.util.*;
+import code.expressionlanguage.stacks.SwitchBlockStack;
 import code.util.*;
 
 public abstract class SwitchPartBlock extends BracedStack implements
-        StackableBlockGroup, BuildableElMethod {
+        StackableBlock, BuildableElMethod {
 
     protected SwitchPartBlock(OffsetsBlock _offset) {
         super(_offset);
     }
 
+
+    @Override
+    public void exitStack(ContextEl _context) {
+        AbstractPageEl ip_ = _context.getLastPage();
+        ReadWrite rw_ = ip_.getReadWrite();
+        SwitchBlockStack if_ = (SwitchBlockStack) ip_.getLastStack();
+        if (if_.getLastVisitedBlock() == this) {
+            rw_.setBlock(if_.getBlock());
+        } else {
+            rw_.setBlock(getNextSibling());
+        }
+    }
     @Override
     public final void setAssignmentBeforeNextSibling(Analyzable _an, AnalyzingEl _anEl) {
         IdMap<Block, AssignedVariables> id_ = _an.getContextEl().getAssignedVariables().getFinalVariables();

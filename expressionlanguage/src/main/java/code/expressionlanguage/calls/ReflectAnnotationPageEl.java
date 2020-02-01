@@ -192,13 +192,7 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
                 int lenLoc_ = annotationsParams.get(i).size();
                 for (int j = indexAnnotation; j < lenLoc_; j++) {
                     CustList<ExecOperationNode> ops_ = annotationsParams.get(i).get(j);
-                    ExpressionLanguage el_;
-                    if (!isEmptyEl()) {
-                        el_ = getLastEl();
-                    } else {
-                        el_ = new ExpressionLanguage(ops_);
-                        addCurrentEl(el_);
-                    }
+                    ExpressionLanguage el_ = getCurrentEl(0,ops_);
                     Argument ret_ = el_.calculateMember(_context);
                     if (_context.callsOrException()) {
                         return false;
@@ -214,13 +208,7 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
             int len_ = annotations.size();
             for (int i = indexAnnotation; i < len_; i++) {
                 CustList<ExecOperationNode> ops_ = annotations.get(i);
-                ExpressionLanguage el_;
-                if (!isEmptyEl()) {
-                    el_ = getLastEl();
-                } else {
-                    el_ = new ExpressionLanguage(ops_);
-                    addCurrentEl(el_);
-                }
+                ExpressionLanguage el_ = getCurrentEl(0,ops_);
                 Argument ret_ = el_.calculateMember(_context);
                 if (_context.callsOrException()) {
                     return false;

@@ -29,13 +29,6 @@ public final class RendIfStack extends IfStack implements RendRemovableVars {
     }
 
     @Override
-    public void removeVarAndLoop(ImportingPage _ip) {
-        RendParentBlock cur_ = getCurrentVisitedBlock();
-        cur_.removeLocalVars(_ip);
-        _ip.removeRendLastBlock();
-    }
-
-    @Override
     public RendParentBlock getCurrentVisitedBlock() {
         return curentVisitedBlock;
     }}

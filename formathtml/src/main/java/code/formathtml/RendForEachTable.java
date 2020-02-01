@@ -23,9 +23,7 @@ import code.expressionlanguage.variables.LoopVariable;
 import code.formathtml.exec.RendDynOperationNode;
 import code.formathtml.util.BeanCustLgNames;
 import code.formathtml.util.BeanLgNames;
-import code.formathtml.util.BeanNatLgNames;
 import code.formathtml.stacks.RendLoopBlockStack;
-import code.formathtml.stacks.RendReadWrite;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
@@ -325,10 +323,10 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
     @Override
     public void processEl(Configuration _cont) {
         ImportingPage ip_ = _cont.getLastPage();
-        RendLoopBlockStack c_ = ip_.getLastLoopIfPossible();
-        if (c_ != null && c_.getBlock() == this) {
-            removeVarAndLoop(ip_);
-            processBlock(_cont);
+        RendLoopBlockStack c_ = ip_.getLastLoopIfPossible(this);
+        if (c_ != null) {
+            removeAllVars(ip_);
+            processBlockAndRemove(_cont);
             return;
         }
         Struct its_ = processLoop(_cont);
@@ -388,8 +386,8 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
     }
 
     @Override
-    public void removeVarAndLoop(ImportingPage _ip) {
-        super.removeVarAndLoop(_ip);
+    public void removeAllVars(ImportingPage _ip) {
+        super.removeAllVars(_ip);
         StringMap<LoopVariable> v_ = _ip.getVars();
         v_.removeKey(variableNameFirst);
         v_.removeKey(variableNameSecond);
@@ -398,11 +396,8 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
     @Override
     public void processLastElementLoop(Configuration _conf) {
         ImportingPage ip_ = _conf.getLastPage();
-        RendReadWrite rw_ = ip_.getRendReadWrite();
         StringMap<LoopVariable> vars_ = ip_.getVars();
         RendLoopBlockStack l_ = (RendLoopBlockStack) ip_.getRendLastStack();
-        RendBlock forLoopLoc_ = l_.getBlock();
-        rw_.setRead(forLoopLoc_);
         Boolean has_ = iteratorHasNext(_conf);
         if (has_ == null) {
             return;

@@ -5,11 +5,10 @@ import code.expressionlanguage.calls.util.CustomFoundBlock;
 import code.expressionlanguage.calls.util.ReadWrite;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.methods.*;
-import code.expressionlanguage.methods.util.ParentStackBlock;
 import code.expressionlanguage.opers.exec.ExecInvokingOperation;
 import code.util.IdMap;
 
-public final class StaticInitPageEl extends AbstractPageEl implements WithElPageEl {
+public final class StaticInitPageEl extends AbstractPageEl {
 
     private IdMap<InitBlock, Boolean> processedBlocks = new IdMap<InitBlock, Boolean>();
 
@@ -20,15 +19,18 @@ public final class StaticInitPageEl extends AbstractPageEl implements WithElPage
         String curClass_ = getGlobalClass();
         String curClassBase_ = Templates.getIdFromAllTypes(curClass_);
         RootBlock root_ =  classes_.getClassBody(curClassBase_);
+        //Super interfaces have no super classes
         if (root_ instanceof UniqueRootedBlock) {
             String gene_ = ((UniqueRootedBlock) root_).getImportedDirectGenericSuperClass();
             String superClass_ = Templates.getIdFromAllTypes(gene_);
             if (classes_.getClassBody(superClass_) != null) {
+                //initialize the super class first
                 if (ExecInvokingOperation.hasToExit(_context, superClass_)) {
                     return false;
                 }
             }
             for (String i: root_.getStaticInitImportedInterfaces()) {
+                //then initialize the additional super interfaces (not provided by the super class)
                 if (ExecInvokingOperation.hasToExit(_context, i)) {
                     return false;
                 }
@@ -38,6 +40,7 @@ public final class StaticInitPageEl extends AbstractPageEl implements WithElPage
     }
     @Override
     public void tryProcessEl(ContextEl _context) {
+        //initializing static fields in the type walk through
         ReadWrite rw_ = getReadWrite();
         Block en_ = rw_.getBlock();
         if (en_ instanceof WithEl) {
@@ -66,37 +69,16 @@ public final class StaticInitPageEl extends AbstractPageEl implements WithElPage
             en_.processBlock(_context);
             return;
         }
-        endRoot(_context);
-    }
-    @Override
-    public ParentStackBlock getNextBlock(Block _bl) {
-        ParentStackBlock parElt_;
-        Block nextSibling_ = _bl.getNextSibling();
-        if (nextSibling_ != null) {
-            parElt_ = new ParentStackBlock(null);
-        } else {
-            parElt_ = null;
-        }
-        return parElt_;
-    }
-
-    @Override
-    public void postBlock(ContextEl _context) {
-        String curClass_ = getGlobalClass();
-        String curClassBase_ = Templates.getIdFromAllTypes(curClass_);
-        _context.getClasses().getLocks().successClass(curClassBase_);
-        setNullReadWrite();
-    }
-
-    private void endRoot(ContextEl _context) {
-        Classes classes_ = _context.getClasses();
-        String curClass_ = getGlobalClass();
-        String curClassBase_ = Templates.getIdFromAllTypes(curClass_);
-        classes_.getLocks().successClass(curClassBase_);
         setNullReadWrite();
     }
 
     public IdMap<InitBlock, Boolean> getProcessedBlocks() {
         return processedBlocks;
+    }
+
+    public void sucessClass(ContextEl _context) {
+        String curClass_ = getGlobalClass();
+        String curClassBase_ = Templates.getIdFromAllTypes(curClass_);
+        _context.getClasses().getLocks().successClass(curClassBase_);
     }
 }

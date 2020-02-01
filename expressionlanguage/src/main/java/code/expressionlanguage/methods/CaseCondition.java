@@ -265,28 +265,9 @@ public final class CaseCondition extends SwitchPartBlock {
     public void processEl(ContextEl _cont) {
         AbstractPageEl ip_ = _cont.getLastPage();
         ReadWrite rw_ = ip_.getReadWrite();
-        SwitchBlockStack sw_ = (SwitchBlockStack) ip_.getLastStack();
-        sw_.setCurentVisitedBlock(this);
-        if (sw_.isEntered()) {
-            rw_.setBlock(getFirstChild());
-            return;
-        }
         ip_.setGlobalOffset(valueOffset);
         ip_.setOffset(0);
-        sw_.setEntered(true);
         rw_.setBlock(getFirstChild());
-    }
-
-    @Override
-    public void exitStack(ContextEl _context) {
-        AbstractPageEl ip_ = _context.getLastPage();
-        ReadWrite rw_ = ip_.getReadWrite();
-        SwitchBlockStack if_ = (SwitchBlockStack) ip_.getLastStack();
-        if (if_.getLastVisitedBlock() == this) {
-            rw_.setBlock(if_.getBlock());
-        } else {
-            rw_.setBlock(getNextSibling());
-        }
     }
 
     @Override

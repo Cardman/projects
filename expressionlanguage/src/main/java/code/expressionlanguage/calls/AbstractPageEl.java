@@ -3,12 +3,13 @@ package code.expressionlanguage.calls;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.calls.util.ReadWrite;
-import code.expressionlanguage.methods.Block;
-import code.expressionlanguage.methods.FileBlock;
-import code.expressionlanguage.methods.WithNotEmptyEl;
+import code.expressionlanguage.methods.*;
+import code.expressionlanguage.methods.util.ParentStackBlock;
 import code.expressionlanguage.opers.ExpressionLanguage;
+import code.expressionlanguage.opers.exec.ExecOperationNode;
 import code.expressionlanguage.stacks.LoopBlockStack;
 import code.expressionlanguage.stacks.RemovableVars;
+import code.expressionlanguage.stacks.TryBlockStack;
 import code.expressionlanguage.variables.LocalVariable;
 import code.util.CustList;
 import code.util.StringMap;
@@ -24,8 +25,6 @@ public abstract class AbstractPageEl extends PageEl {
 
     private CustList<ExpressionLanguage> currentEls = new CustList<ExpressionLanguage>();
 
-    private boolean finallyToProcess;
-
     private int globalOffset;
 
     private int translatedOffset;
@@ -39,13 +38,25 @@ public abstract class AbstractPageEl extends PageEl {
     }
 
     boolean basicReceive(Argument _argument, ContextEl _context) {
-        getLastEl().setArgument(_argument, _context);
-        if (_context.isFailInit()) {
-            return false;
+        if (isEmptyEl()) {
+            return true;
         }
+        getLastEl().setArgument(_argument, _context);
         return _context.processException();
     }
 
+    public void processVisitedLoop(LoopBlockStack _l,Loop _bl,Block _next,ContextEl _context) {
+        if (_l.isEvaluatingKeepLoop()) {
+            _bl.processLastElementLoop(_context);
+            return;
+        }
+        if (_l.isFinished()) {
+            _l.getBlock().removeAllVars(this);
+            _next.processBlockAndRemove(_context);
+            return;
+        }
+        getReadWrite().setBlock(_l.getBlock().getFirstChild());
+    }
     public void setTranslatedOffset(int _translatedOffset) {
         translatedOffset = _translatedOffset;
     }
@@ -64,27 +75,66 @@ public abstract class AbstractPageEl extends PageEl {
 
     public abstract boolean checkCondition(ContextEl _context);
 
+
     public ExpressionLanguage getCurrentEl(ContextEl _context, WithNotEmptyEl _block, int _index, int _indexProcess) {
-        ExpressionLanguage el_;
-        if (_index < currentEls.size()) {
-            el_ = currentEls.get(_index);
-        } else {
+        ExpressionLanguage el_ = getNullableExp(_index);
+        if (el_ == null) {
             el_ = _block.getEl(_context, _indexProcess);
             currentEls.add(el_);
         }
         return el_;
     }
+    public ExpressionLanguage getCurrentEl(int _index, CustList<ExecOperationNode> _e) {
+        ExpressionLanguage el_ = getNullableExp(_index);
+        if (el_ == null) {
+            el_ = new ExpressionLanguage(_e);
+            currentEls.add(el_);
+        }
+        return el_;
+    }
 
+    private ExpressionLanguage getNullableExp(int _index) {
+        if (_index < currentEls.size()) {
+            return currentEls.get(_index);
+        }
+        return null;
+    }
     public boolean hasBlock() {
         return !blockStacks.isEmpty();
     }
 
-    public LoopBlockStack getLastLoopIfPossible() {
+    public LoopBlockStack getLastLoopIfPossible(Block _bl) {
         LoopBlockStack c_ = null;
         if (hasBlock() && getLastStack() instanceof LoopBlockStack) {
             c_ = (LoopBlockStack) getLastStack();
         }
-        return c_;
+        if (c_ != null && c_.getBlock() == _bl) {
+            return c_;
+        }
+        return null;
+    }
+    public boolean matchStatement(Block _bl) {
+        if (!hasBlock()) {
+            return false;
+        }
+        return _bl == getLastStack().getBlock();
+    }
+    public ParentStackBlock getNextBlock(Block _bl) {
+        ParentStackBlock parElt_;
+        Block nextSibling_ = _bl.getNextSibling();
+        if (nextSibling_ != null) {
+            parElt_ = new ParentStackBlock(null);
+        } else {
+            BracedBlock n_ = _bl.getParent();
+            //n_ != null because strictly in class
+            if (n_ != blockRoot) {
+                parElt_ =  new ParentStackBlock(n_);
+            } else {
+                //directly at the root => last element in the block root
+                parElt_ = null;
+            }
+        }
+        return parElt_;
     }
 
     public RemovableVars getLastStack() {
@@ -99,12 +149,24 @@ public abstract class AbstractPageEl extends PageEl {
         blockStacks.removeLast();
     }
 
-    public boolean isFinallyToProcess() {
-        return finallyToProcess;
-    }
-
-    public void setFinallyToProcess(boolean _finallyToProcess) {
-        finallyToProcess = _finallyToProcess;
+    public static boolean setRemovedCallingFinallyToProcess(AbstractPageEl _ip,RemovableVars _vars, CallingFinally _call) {
+        if (!(_vars instanceof TryBlockStack)) {
+            _ip.removeLastBlock();
+            return false;
+        }
+        TryBlockStack try_ = (TryBlockStack) _vars;
+        if (try_.getCurrentVisitedBlock() instanceof FinallyEval) {
+            _ip.removeLastBlock();
+            return false;
+        }
+        BracedBlock br_ = try_.getLastBlock();
+        if (br_ instanceof FinallyEval) {
+            _ip.getReadWrite().setBlock(br_);
+            try_.setCalling(_call);
+            return true;
+        }
+        _ip.removeLastBlock();
+        return false;
     }
 
     public void clearCurrentEls() {
@@ -126,14 +188,10 @@ public abstract class AbstractPageEl extends PageEl {
         return currentEls.last();
     }
 
-    void addCurrentEl(ExpressionLanguage _el) {
-        currentEls.add(_el);
-    }
-
     public ReadWrite getReadWrite() {
         return readWrite;
     }
-    void setNullReadWrite() {
+    public void setNullReadWrite() {
         readWrite = null;
     }
 

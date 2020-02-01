@@ -60,14 +60,7 @@ public final class RendElseCondition extends RendParentBlock implements RendWith
             ip_.getRendReadWrite().setRead(getFirstChild());
             return;
         }
-        ip_.removeRendLastBlock();
-        processBlock(_cont);
+        processBlockAndRemove(_cont);
     }
 
-    @Override
-    public void exitStack(Configuration _conf) {
-        ImportingPage ip_ = _conf.getLastPage();
-        RendReadWrite rw_ = ip_.getRendReadWrite();
-        rw_.setRead(this);
-    }
 }

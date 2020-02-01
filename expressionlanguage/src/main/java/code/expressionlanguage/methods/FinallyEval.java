@@ -2,7 +2,6 @@ package code.expressionlanguage.methods;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.calls.AbstractPageEl;
-import code.expressionlanguage.calls.util.ReadWrite;
 import code.expressionlanguage.errors.custom.UnexpectedTagName;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.instr.PartOffset;
@@ -10,10 +9,7 @@ import code.expressionlanguage.methods.util.LocalThrowing;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.SimpleAssignment;
 import code.expressionlanguage.stacks.TryBlockStack;
-import code.util.CustList;
-import code.util.EntryCust;
-import code.util.IdMap;
-import code.util.StringMap;
+import code.util.*;
 
 public final class FinallyEval extends BracedStack implements Eval {
 
@@ -105,8 +101,7 @@ public final class FinallyEval extends BracedStack implements Eval {
         TryBlockStack ts_ = (TryBlockStack) ip_.getLastStack();
         ts_.setCurrentBlock(this);
         if (ts_.isVisitedFinally()) {
-            ip_.removeLastBlock();
-            processBlock(_cont);
+            processBlockAndRemove(_cont);
             return;
         }
         ts_.setVisitedFinally(true);
@@ -116,18 +111,14 @@ public final class FinallyEval extends BracedStack implements Eval {
     @Override
     public void exitStack(ContextEl _context) {
         AbstractPageEl ip_ = _context.getLastPage();
-        ReadWrite rw_ = ip_.getReadWrite();
         TryBlockStack tryStack_ = (TryBlockStack) ip_.getLastStack();
         CallingFinally call_ = tryStack_.getCalling();
         if (call_ != null) {
-            ip_.removeLastBlock();
             if (call_ instanceof LocalThrowing) {
                 _context.setException(tryStack_.getException());
             }
             call_.removeBlockFinally(_context);
-            return;
         }
-        rw_.setBlock(this);
     }
 
     @Override
@@ -199,9 +190,4 @@ public final class FinallyEval extends BracedStack implements Eval {
         }
     }
 
-    @Override
-    public void processToFinally(AbstractPageEl _ip, TryBlockStack _stack) {
-        removeLocalVars(_ip);
-        _ip.removeLastBlock();
-    }
 }

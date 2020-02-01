@@ -2,7 +2,7 @@ package code.expressionlanguage.methods;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.calls.AbstractInstancingPageEl;
+import code.expressionlanguage.calls.AbstractCallingInstancingPageEl;
 import code.expressionlanguage.calls.AbstractPageEl;
 import code.expressionlanguage.calls.util.NotInitializedFields;
 import code.expressionlanguage.files.OffsetStringInfo;
@@ -137,7 +137,7 @@ public final class Line extends Leaf implements StackableBlock, WithNotEmptyEl,B
             return;
         }
         if (isCallSuper() || isCallInts()) {
-            AbstractInstancingPageEl inst_ = (AbstractInstancingPageEl)ip_;
+            AbstractCallingInstancingPageEl inst_ = (AbstractCallingInstancingPageEl)ip_;
             String curClass_ = inst_.getGlobalClass();
 
             boolean initFields_ = false;
@@ -150,12 +150,14 @@ public final class Line extends Leaf implements StackableBlock, WithNotEmptyEl,B
                     initFields_ = true;
                 }
             }
+            //initialize fields if there is no interface constructors to call
             if (!inst_.isFirstField() && initFields_) {
                 inst_.setFirstField(true);
                 Argument global_ = inst_.getGlobalArgument();
                 _cont.setCallingState(new NotInitializedFields(curClass_, global_));
                 return;
             }
+            //fields of the current class are initialized if there is no other interface constructors to call
         }
         ip_.clearCurrentEls();
         processBlock(_cont);

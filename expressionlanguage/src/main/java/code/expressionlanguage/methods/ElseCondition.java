@@ -114,15 +114,7 @@ public final class ElseCondition extends BracedStack implements BlockCondition, 
             ip_.getReadWrite().setBlock(getFirstChild());
             return;
         }
-        ip_.removeLastBlock();
-        processBlock(_cont);
-    }
-
-    @Override
-    public void exitStack(ContextEl _context) {
-        AbstractPageEl ip_ = _context.getLastPage();
-        ReadWrite rw_ = ip_.getReadWrite();
-        rw_.setBlock(this);
+        processBlockAndRemove(_cont);
     }
 
     @Override

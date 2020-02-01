@@ -4,10 +4,9 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.calls.util.CustomFoundBlock;
 import code.expressionlanguage.calls.util.ReadWrite;
 import code.expressionlanguage.methods.*;
-import code.expressionlanguage.methods.util.ParentStackBlock;
 import code.util.IdMap;
 
-public final class FieldInitPageEl extends AbstractPageEl implements WithElPageEl {
+public final class FieldInitPageEl extends AbstractPageEl {
 
     private IdMap<InitBlock, Boolean> processedBlocks = new IdMap<InitBlock, Boolean>();
 
@@ -18,6 +17,7 @@ public final class FieldInitPageEl extends AbstractPageEl implements WithElPageE
 
     @Override
     public void tryProcessEl(ContextEl _context) {
+        //initializing instance fields in the type walk through
         ReadWrite rw_ = getReadWrite();
         Block en_ = rw_.getBlock();
         if (en_ instanceof WithEl) {
@@ -46,25 +46,6 @@ public final class FieldInitPageEl extends AbstractPageEl implements WithElPageE
             en_.processBlock(_context);
             return;
         }
-        endRoot();
-    }
-    @Override
-    public ParentStackBlock getNextBlock(Block _bl) {
-        ParentStackBlock parElt_;
-        Block nextSibling_ = _bl.getNextSibling();
-        if (nextSibling_ != null) {
-            parElt_ = new ParentStackBlock(null);
-        } else {
-            parElt_ = null;
-        }
-        return parElt_;
-    }
-    @Override
-    public void postBlock(ContextEl _context) {
-        setNullReadWrite();
-    }
-
-    private void endRoot() {
         setNullReadWrite();
     }
 

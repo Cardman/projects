@@ -23,7 +23,7 @@ import code.formathtml.stacks.RendReadWrite;
 import code.util.CustList;
 import code.util.StringList;
 
-public final class RendForMutableIterativeLoop extends RendParentBlock implements RendLoop,RendWithEl,RendReducableOperations,RendInitVariable {
+public final class RendForMutableIterativeLoop extends RendParentBlock implements RendLoop,RendWithEl,RendReducableOperations {
 
 
     private String label;
@@ -91,7 +91,6 @@ public final class RendForMutableIterativeLoop extends RendParentBlock implement
         importedClassName = _importedClassName;
     }
 
-    @Override
     public StringList getVariableNames() {
         return variableNames;
     }
@@ -211,13 +210,10 @@ public final class RendForMutableIterativeLoop extends RendParentBlock implement
     public void processEl(Configuration _cont) {
         ImportingPage ip_ = _cont.getLastPage();
         RendReadWrite rw_ = ip_.getRendReadWrite();
-        RendLoopBlockStack c_ = ip_.getLastLoopIfPossible();
-        if (c_ != null && c_.getBlock() == this) {
-            for (String v: variableNames) {
-                ip_.getVars().removeKey(v);
-            }
-            removeVarAndLoop(ip_);
-            processBlock(_cont);
+        RendLoopBlockStack c_ = ip_.getLastLoopIfPossible(this);
+        if (c_ != null) {
+            removeAllVars(ip_);
+            processBlockAndRemove(_cont);
             return;
         }
         ip_.setOffset(initOffset);
@@ -243,14 +239,19 @@ public final class RendForMutableIterativeLoop extends RendParentBlock implement
         ip_.addBlock(l_);
         c_ = (RendLoopBlockStack) ip_.getRendLastStack();
         if (c_.isFinished()) {
-            for (String v: variableNames) {
-                ip_.getVars().removeKey(v);
-            }
-            ip_.removeRendLastBlock();
-            processBlock(_cont);
+            removeAllVars(ip_);
+            processBlockAndRemove(_cont);
             return;
         }
         rw_.setRead(getFirstChild());
+    }
+
+    @Override
+    public void removeAllVars(ImportingPage _ip) {
+        super.removeAllVars(_ip);
+        for (String v: variableNames) {
+            _ip.getVars().removeKey(v);
+        }
     }
 
     private Boolean evaluateCondition(Configuration _context) {
@@ -277,7 +278,6 @@ public final class RendForMutableIterativeLoop extends RendParentBlock implement
         RendReadWrite rw_ = ip_.getRendReadWrite();
         RendLoopBlockStack l_ = (RendLoopBlockStack) ip_.getRendLastStack();
         RendBlock forLoopLoc_ = l_.getBlock();
-        rw_.setRead(forLoopLoc_);
         ip_.setOffset(stepOffset);
         ip_.setProcessingAttribute(ATTRIBUTE_STEP);
         if (!opStep.isEmpty()) {

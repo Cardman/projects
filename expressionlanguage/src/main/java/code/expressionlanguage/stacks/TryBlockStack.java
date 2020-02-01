@@ -1,8 +1,6 @@
 package code.expressionlanguage.stacks;
-import code.expressionlanguage.calls.AbstractPageEl;
 import code.expressionlanguage.methods.BracedBlock;
 import code.expressionlanguage.methods.CallingFinally;
-import code.expressionlanguage.methods.Eval;
 
 public final class TryBlockStack extends TryStack implements RemovableVars {
 
@@ -12,7 +10,7 @@ public final class TryBlockStack extends TryStack implements RemovableVars {
 
     private BracedBlock lastBlock;
 
-    private Eval currentBlock;
+    private BracedBlock currentBlock;
 
     @Override
     public BracedBlock getBlock() {
@@ -33,10 +31,10 @@ public final class TryBlockStack extends TryStack implements RemovableVars {
 
     @Override
     public BracedBlock getCurrentVisitedBlock() {
-        return (BracedBlock) currentBlock;
+        return currentBlock;
     }
 
-    public void setCurrentBlock(Eval _currentBlock) {
+    public void setCurrentBlock(BracedBlock _currentBlock) {
         currentBlock = _currentBlock;
     }
 
@@ -48,9 +46,5 @@ public final class TryBlockStack extends TryStack implements RemovableVars {
         calling = _calling;
     }
 
-    @Override
-    public void removeVarAndLoop(AbstractPageEl _ip) {
-        currentBlock.processToFinally(_ip, this);
-    }
 
 }

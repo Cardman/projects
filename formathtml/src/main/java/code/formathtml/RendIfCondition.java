@@ -29,13 +29,9 @@ public final class RendIfCondition extends RendCondition implements RendBreakabl
     public void processEl(Configuration _cont) {
         ImportingPage ip_ = _cont.getLastPage();
         RendReadWrite rw_ = ip_.getRendReadWrite();
-        if (ip_.hasBlock()) {
-            RendRemovableVars bl_ = ip_.getRendLastStack();
-            if (bl_.getBlock() == this) {
-                ip_.removeRendLastBlock();
-                processBlock(_cont);
-                return;
-            }
+        if (ip_.matchStatement(this)) {
+            processBlockAndRemove(_cont);
+            return;
         }
         Boolean assert_ = evaluateCondition(_cont);
         if (assert_ == null) {
@@ -58,10 +54,7 @@ public final class RendIfCondition extends RendCondition implements RendBreakabl
             rw_.setRead(getFirstChild());
         } else {
             ip_.addBlock(if_);
-            if (if_.getLastBlock() == this) {
-                return;
-            }
-            rw_.setRead(getNextSibling());
+            exitStack(_cont);
         }
     }
 
@@ -70,9 +63,7 @@ public final class RendIfCondition extends RendCondition implements RendBreakabl
         ImportingPage ip_ = _conf.getLastPage();
         RendReadWrite rw_ = ip_.getRendReadWrite();
         RendIfStack if_ = (RendIfStack) ip_.getRendLastStack();
-        if (if_.getLastBlock() == this) {
-            rw_.setRead(this);
-        } else {
+        if (if_.getLastBlock() != this) {
             rw_.setRead(getNextSibling());
         }
     }

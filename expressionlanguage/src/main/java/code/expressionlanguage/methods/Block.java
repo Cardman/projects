@@ -3,11 +3,9 @@ package code.expressionlanguage.methods;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.calls.AbstractPageEl;
-import code.expressionlanguage.calls.WithElPageEl;
 import code.expressionlanguage.calls.util.ReadWrite;
 import code.expressionlanguage.errors.custom.BadLabelName;
 import code.expressionlanguage.errors.custom.DuplicateLabel;
-import code.expressionlanguage.errors.custom.UnassignedInfered;
 import code.expressionlanguage.errors.custom.UnexpectedTagName;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.instr.PartOffset;
@@ -203,22 +201,32 @@ public abstract class Block implements AnalyzedBlock {
     }
 
     public abstract void processReport(ContextEl _cont, CustList<PartOffset> _parts);
+    public final void processBlockAndRemove(ContextEl _conf) {
+        AbstractPageEl ip_ = _conf.getLastPage();
+        ip_.removeLastBlock();
+        processBlock(_conf);
+    }
     public final void processBlock(ContextEl _conf) {
         AbstractPageEl ip_ = _conf.getLastPage();
-        ParentStackBlock parElt_ = ((WithElPageEl)ip_).getNextBlock(this);
+        ParentStackBlock parElt_ = ip_.getNextBlock(this);
         if (parElt_ == null) {
-            ((WithElPageEl)ip_).postBlock(_conf);
+            ip_.setNullReadWrite();
             return;
         }
         BracedBlock par_ = parElt_.getElement();
+        ReadWrite rw_ = ip_.getReadWrite();
         if (par_ == null) {
-            ReadWrite rw_ = ip_.getReadWrite();
             Block n_ = getNextSibling();
             rw_.setBlock(n_);
             return;
         }
-        par_.removeLocalVars(ip_);
-        ((StackableBlockGroup)par_).exitStack(_conf);
+        if (par_ instanceof Loop) {
+            par_.removeLocalVars(ip_);
+        } else {
+            par_.removeAllVars(ip_);
+        }
+        rw_.setBlock(par_);
+        par_.exitStack(_conf);
     }
 
     public final FunctionBlock getFunction() {

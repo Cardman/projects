@@ -1,5 +1,4 @@
 package code.expressionlanguage.stacks;
-import code.expressionlanguage.calls.AbstractPageEl;
 import code.expressionlanguage.methods.BracedBlock;
 
 
@@ -27,13 +26,6 @@ public final class IfBlockStack extends IfStack implements RemovableVars {
 
     public void setLastBlock(BracedBlock _lastBlock) {
         lastBlock = _lastBlock;
-    }
-
-    @Override
-    public void removeVarAndLoop(AbstractPageEl _ip) {
-        BracedBlock cur_ = getCurrentVisitedBlock();
-        cur_.removeLocalVars(_ip);
-        _ip.removeLastBlock();
     }
 
     @Override

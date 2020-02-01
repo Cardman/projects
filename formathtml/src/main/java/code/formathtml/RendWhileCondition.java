@@ -29,10 +29,9 @@ public final class RendWhileCondition extends RendCondition implements RendLoop 
     public void processEl(Configuration _cont) {
         ImportingPage ip_ = _cont.getLastPage();
         RendReadWrite rw_ = ip_.getRendReadWrite();
-        RendLoopBlockStack c_ = ip_.getLastLoopIfPossible();
-        if (c_ != null && c_.getBlock() == this) {
-            removeVarAndLoop(ip_);
-            processBlock(_cont);
+        RendLoopBlockStack c_ = ip_.getLastLoopIfPossible(this);
+        if (c_ != null) {
+            processBlockAndRemove(_cont);
             return;
         }
         Boolean res_ = evaluateCondition(_cont);
@@ -45,8 +44,7 @@ public final class RendWhileCondition extends RendCondition implements RendLoop 
         ip_.addBlock(l_);
         c_ = (RendLoopBlockStack) ip_.getRendLastStack();
         if (c_.isFinished()) {
-            ip_.removeRendLastBlock();
-            processBlock(_cont);
+            processBlockAndRemove(_cont);
             return;
         }
         rw_.setRead(getFirstChild());
@@ -63,7 +61,6 @@ public final class RendWhileCondition extends RendCondition implements RendLoop 
         RendReadWrite rw_ = ip_.getRendReadWrite();
         RendLoopBlockStack l_ = (RendLoopBlockStack) ip_.getRendLastStack();
         RendBlock forLoopLoc_ = l_.getBlock();
-        rw_.setRead(forLoopLoc_);
         Boolean keep_ = keepLoop(_conf);
         if (keep_ == null) {
             return;

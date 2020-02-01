@@ -136,26 +136,25 @@ public final class BreakBlock extends AbruptBlock implements CallingFinally {
     public void removeBlockFinally(ContextEl _conf) {
         AbstractPageEl ip_ = _conf.getLastPage();
         ReadWrite rw_ = ip_.getReadWrite();
+        //when labelled this loop does not remove if
+        //the last statement is a "try" with "finally" clause
+        //and the current block is a "try" or a "catch"
         RemovableVars stack_;
         while (true) {
             RemovableVars bl_ = ip_.getLastStack();
             stack_ = bl_;
+            bl_.getCurrentVisitedBlock().removeAllVars(ip_);
             if (label.isEmpty()) {
                 if (bl_ instanceof LoopBlockStack || bl_ instanceof SwitchBlockStack) {
-                    bl_.getBlock().removeLocalVars(ip_);
                     break;
                 }
             } else {
                 BreakableBlock br_ = (BreakableBlock) bl_.getBlock();
                 if (StringList.quickEq(label, br_.getRealLabel())){
-                    bl_.getCurrentVisitedBlock().removeLocalVars(ip_);
                     break;
                 }
             }
-            ip_.setFinallyToProcess(false);
-            bl_.removeVarAndLoop(ip_);
-            if (bl_ instanceof TryBlockStack&&ip_.isFinallyToProcess()) {
-                ((TryBlockStack)bl_).setCalling(this);
+            if (AbstractPageEl.setRemovedCallingFinallyToProcess(ip_,bl_,this)) {
                 return;
             }
         }

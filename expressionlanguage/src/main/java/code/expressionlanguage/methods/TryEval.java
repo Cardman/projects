@@ -103,15 +103,4 @@ public final class TryEval extends BracedStack implements Eval {
         rw_.setBlock(getNextSibling());
     }
 
-    @Override
-    public void processToFinally(AbstractPageEl _ip, TryBlockStack _stack) {
-        removeLocalVars(_ip);
-        if (_stack.getLastBlock() instanceof FinallyEval) {
-            _ip.clearCurrentEls();
-            _ip.getReadWrite().setBlock(_stack.getLastBlock());
-            _ip.setFinallyToProcess(true);
-            return;
-        }
-        _ip.removeLastBlock();
-    }
 }

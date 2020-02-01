@@ -1,6 +1,5 @@
 package code.formathtml.stacks;
 import code.expressionlanguage.stacks.LoopStack;
-import code.formathtml.ImportingPage;
 import code.formathtml.RendParentBlock;
 
 
@@ -15,11 +14,6 @@ public final class RendLoopBlockStack extends LoopStack implements RendRemovable
 
     public void setBlock(RendParentBlock _block) {
         block = _block;
-    }
-    @Override
-    public void removeVarAndLoop(ImportingPage _ip) {
-        block.removeLocalVars(_ip);
-        block.removeVarAndLoop(_ip);
     }
 
     @Override

@@ -122,13 +122,9 @@ public final class RendSwitchBlock extends RendParentBlock implements RendBreaka
     public void processEl(Configuration _cont) {
         ImportingPage ip_ = _cont.getLastPage();
         RendReadWrite rw_ = ip_.getRendReadWrite();
-        if (ip_.hasBlock()) {
-            RendRemovableVars bl_ = ip_.getRendLastStack();
-            if (bl_.getBlock() == this) {
-                ip_.removeRendLastBlock();
-                processBlock(_cont);
-                return;
-            }
+        if (ip_.matchStatement(this)) {
+            processBlockAndRemove(_cont);
+            return;
         }
         ip_.setOffset(valueOffset);
         ip_.setProcessingAttribute(ATTRIBUTE_VALUE);
@@ -149,7 +145,7 @@ public final class RendSwitchBlock extends RendParentBlock implements RendBreaka
         }
         if_.setBlock(this);
         RendBlock def_ = null;
-        boolean found_ = false;
+        RendBlock found_ = null;
         if (arg_.isNull()) {
             for (RendBlock b: children_) {
                 if (!(b instanceof RendCaseCondition)) {
@@ -162,8 +158,8 @@ public final class RendSwitchBlock extends RendParentBlock implements RendBreaka
                     continue;
                 }
                 if (argRes_.isNull()) {
-                    found_ = true;
-                    rw_.setRead(c_);
+                    found_ = b;
+                    break;
                 }
             }
         } else if (enumTest) {
@@ -178,11 +174,10 @@ public final class RendSwitchBlock extends RendParentBlock implements RendBreaka
                 if (op_.getArgument() != null) {
                     continue;
                 }
-                if (!StringList.quickEq(c_.getValue().trim(), en_.getName())) {
-                    continue;
+                if (StringList.quickEq(c_.getValue().trim(), en_.getName())) {
+                    found_ = b;
+                    break;
                 }
-                found_ = true;
-                rw_.setRead(c_);
             }
         } else {
             for (RendBlock b: children_) {
@@ -192,17 +187,18 @@ public final class RendSwitchBlock extends RendParentBlock implements RendBreaka
                 }
                 RendCaseCondition c_ = (RendCaseCondition) b;
                 Argument argRes_ = c_.getOpValue().last().getArgument();
-                if (!argRes_.getStruct().sameReference(arg_.getStruct())) {
-                    continue;
+                if (argRes_.getStruct().sameReference(arg_.getStruct())) {
+                    found_ = b;
+                    break;
                 }
-                found_ = true;
-                rw_.setRead(c_);
             }
         }
-        if (!found_) {
+        if (found_ == null) {
             if (def_ != null) {
                 rw_.setRead(def_);
             }
+        } else {
+            rw_.setRead(found_);
         }
         ip_.addBlock(if_);
     }

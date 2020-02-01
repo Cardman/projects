@@ -1,6 +1,5 @@
 package code.formathtml.stacks;
 import code.expressionlanguage.stacks.TryStack;
-import code.formathtml.ImportingPage;
 import code.formathtml.RendCallingFinally;
 import code.formathtml.RendEval;
 import code.formathtml.RendParentBlock;
@@ -47,11 +46,6 @@ public final class RendTryBlockStack extends TryStack implements RendRemovableVa
 
     public void setCalling(RendCallingFinally _calling) {
         calling = _calling;
-    }
-
-    @Override
-    public void removeVarAndLoop(ImportingPage _ip) {
-        currentBlock.processToFinally(_ip, this);
     }
 
 }

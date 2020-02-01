@@ -106,9 +106,7 @@ public class DefaultInitializer implements Initializer {
 
     private void addPage(ContextEl _conf, AbstractPageEl _page) {
         _conf.addPage(_page);
-        if (_conf.hasException()) {
-            _conf.getThrowing().removeBlockFinally(_conf);
-        }
+        _conf.processException();
     }
     protected Struct init(ContextEl _context, Struct _parent,
             String _className, String _fieldName, int _ordinal, ObjectMap<ClassField,Struct> _fields) {

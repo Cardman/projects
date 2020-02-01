@@ -205,18 +205,9 @@ public final class WhileCondition extends Condition implements Loop {
     public void processEl(ContextEl _cont) {
         AbstractPageEl ip_ = _cont.getLastPage();
         ReadWrite rw_ = ip_.getReadWrite();
-        LoopBlockStack c_ = ip_.getLastLoopIfPossible();
-        if (c_ != null && c_.getBlock() == this) {
-            if (c_.isEvaluatingKeepLoop()) {
-                processLastElementLoop(_cont);
-                return;
-            }
-            if (c_.isFinished()) {
-                removeVarAndLoop(ip_);
-                processBlock(_cont);
-                return;
-            }
-            rw_.setBlock(getFirstChild());
+        LoopBlockStack c_ = ip_.getLastLoopIfPossible(this);
+        if (c_ != null) {
+            ip_.processVisitedLoop(c_,this,this,_cont);
             return;
         }
         Boolean res_ = evaluateCondition(_cont);
@@ -225,12 +216,11 @@ public final class WhileCondition extends Condition implements Loop {
         }
         LoopBlockStack l_ = new LoopBlockStack();
         l_.setBlock(this);
-        l_.setFinished(!res_);
+        boolean finished_ = !res_;
+        l_.setFinished(finished_);
         ip_.addBlock(l_);
-        c_ = (LoopBlockStack) ip_.getLastStack();
-        if (c_.isFinished()) {
-            ip_.removeLastBlock();
-            processBlock(_cont);
+        if (finished_) {
+            processBlockAndRemove(_cont);
             return;
         }
         rw_.setBlock(getFirstChild());
@@ -244,11 +234,8 @@ public final class WhileCondition extends Condition implements Loop {
     @Override
     public void processLastElementLoop(ContextEl _conf) {
         AbstractPageEl ip_ = _conf.getLastPage();
-        ReadWrite rw_ = ip_.getReadWrite();
         LoopBlockStack l_ = (LoopBlockStack) ip_.getLastStack();
         l_.setEvaluatingKeepLoop(true);
-        Block forLoopLoc_ = l_.getBlock();
-        rw_.setBlock(forLoopLoc_);
         Boolean keep_ = keepLoop(_conf);
         if (keep_ == null) {
             return;

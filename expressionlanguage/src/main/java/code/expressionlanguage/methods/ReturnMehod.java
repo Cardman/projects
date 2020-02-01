@@ -5,7 +5,6 @@ import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.calls.AbstractPageEl;
-import code.expressionlanguage.calls.ReturnablePageEl;
 import code.expressionlanguage.calls.ReturnableValuePageEl;
 import code.expressionlanguage.errors.custom.BadImplicitCast;
 import code.expressionlanguage.files.OffsetStringInfo;
@@ -22,7 +21,6 @@ import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.MethodAccessKind;
 import code.expressionlanguage.opers.util.SimpleAssignment;
 import code.expressionlanguage.stacks.RemovableVars;
-import code.expressionlanguage.stacks.TryBlockStack;
 import code.expressionlanguage.stds.LgNames;
 import code.util.*;
 
@@ -225,14 +223,11 @@ public final class ReturnMehod extends AbruptBlock implements CallingFinally, Wi
         AbstractPageEl ip_ = _conf.getLastPage();
         while (ip_.hasBlock()) {
             RemovableVars bl_ = ip_.getLastStack();
-            ip_.setFinallyToProcess(false);
-            bl_.removeVarAndLoop(ip_);
-            if (ip_.isFinallyToProcess()) {
-                ((TryBlockStack)bl_).setCalling(this);
+            if (AbstractPageEl.setRemovedCallingFinallyToProcess(ip_,bl_,this)) {
                 return;
             }
         }
-        ((ReturnablePageEl) ip_).postReturn();
+        ip_.setNullReadWrite();
     }
 
     @Override

@@ -43,11 +43,4 @@ public final class NullCatchEval extends AbstractCatchEval {
         _cont.getCoverage().putCatches(_cont,this);
     }
 
-    @Override
-    public void exitStack(ContextEl _context) {
-        AbstractPageEl ip_ = _context.getLastPage();
-        ReadWrite rw_ = ip_.getReadWrite();
-        rw_.setBlock(this);
-    }
-
 }

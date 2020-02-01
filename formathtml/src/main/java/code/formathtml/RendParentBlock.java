@@ -34,8 +34,8 @@ public abstract class RendParentBlock extends RendBlock {
 
     public final void removeLocalVars(ImportingPage _ip) {
         for (RendBlock s: getDirectChildren(this)) {
-            if (s instanceof RendInitVariable) {
-                for (String v: ((RendInitVariable)s).getVariableNames()) {
+            if (s instanceof RendDeclareVariable) {
+                for (String v: ((RendDeclareVariable)s).getVariableNames()) {
                     _ip.removeLocalVar(v);
                 }
             }
@@ -46,7 +46,8 @@ public abstract class RendParentBlock extends RendBlock {
         //overrides
     }
 
-    public void removeVarAndLoop(ImportingPage _ip) {
-        _ip.removeRendLastBlock();
+    public void removeAllVars(ImportingPage _ip) {
+        removeLocalVars(_ip);
     }
+
 }

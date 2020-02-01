@@ -144,13 +144,12 @@ public final class ContinueBlock extends AbruptBlock implements CallingFinally {
                     break;
                 }
             }
-            ip_.setFinallyToProcess(false);
-            bl_.removeVarAndLoop(ip_);
-            if (bl_ instanceof TryBlockStack&&ip_.isFinallyToProcess()) {
-                ((TryBlockStack)bl_).setCalling(this);
+            bl_.getCurrentVisitedBlock().removeAllVars(ip_);
+            if (AbstractPageEl.setRemovedCallingFinallyToProcess(ip_,bl_,this)) {
                 return;
             }
         }
+        ip_.getReadWrite().setBlock((Block) loop_);
         loop_.processLastElementLoop(_conf);
     }
 

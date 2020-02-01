@@ -5,11 +5,9 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.calls.util.ReadWrite;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.methods.Block;
-import code.expressionlanguage.methods.BracedBlock;
 import code.expressionlanguage.methods.WithEl;
-import code.expressionlanguage.methods.util.ParentStackBlock;
 
-public abstract class AbstractMethodPageEl extends AbstractPageEl implements ForwardPageEl,ReturnablePageEl,ReturnableValuePageEl,WithElPageEl {
+public abstract class AbstractMethodPageEl extends AbstractPageEl implements ForwardPageEl,ReturnableValuePageEl {
 
     private Argument returnedArgument;
 
@@ -33,43 +31,13 @@ public abstract class AbstractMethodPageEl extends AbstractPageEl implements For
 
     @Override
     public void tryProcessEl(ContextEl _context) {
+        //method walk through
         ReadWrite rw_ = getReadWrite();
         Block en_ = rw_.getBlock();
         if (en_ instanceof WithEl) {
             ((WithEl)en_).processEl(_context);
             return;
         }
-        endRoot();
-    }
-    @Override
-    public ParentStackBlock getNextBlock(Block _bl) {
-        ParentStackBlock parElt_;
-        Block nextSibling_ = _bl.getNextSibling();
-        if (nextSibling_ != null) {
-            parElt_ = new ParentStackBlock(null);
-        } else {
-            BracedBlock n_ = _bl.getParent();
-            //n_ != null because strictly in class
-            if (hasBlock()) {
-                parElt_ =  new ParentStackBlock(n_);
-            } else {
-                //directly at the root => last element in the block root
-                parElt_ = null;
-            }
-        }
-        return parElt_;
-    }
-    @Override
-    public void postBlock(ContextEl _context) {
-        setNullReadWrite();
-    }
-
-    @Override
-    public void postReturn() {
-        setNullReadWrite();
-    }
-
-    private void endRoot() {
         setNullReadWrite();
     }
 

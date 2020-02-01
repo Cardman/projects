@@ -5,7 +5,6 @@ import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.calls.AbstractPageEl;
-import code.expressionlanguage.calls.util.ReadWrite;
 import code.expressionlanguage.errors.custom.BadImplicitCast;
 import code.expressionlanguage.errors.custom.BadVariableName;
 import code.expressionlanguage.errors.custom.DuplicateVariable;
@@ -587,14 +586,9 @@ public final class ForEachTable extends BracedStack implements Loop, WithNotEmpt
     @Override
     public void processEl(ContextEl _cont) {
         AbstractPageEl ip_ = _cont.getLastPage();
-        LoopBlockStack c_ = ip_.getLastLoopIfPossible();
-        if (c_ != null && c_.getBlock() == this) {
-            if (c_.isEvaluatingKeepLoop()) {
-                processLastElementLoop(_cont);
-                return;
-            }
-            removeVarAndLoop(ip_);
-            processBlock(_cont);
+        LoopBlockStack c_ = ip_.getLastLoopIfPossible(this);
+        if (c_ != null) {
+            ip_.processVisitedLoop(c_,this,this,_cont);
             return;
         }
         Struct its_ = processLoop(_cont);
@@ -612,7 +606,6 @@ public final class ForEachTable extends BracedStack implements Loop, WithNotEmpt
         if (_cont.callsOrException()) {
             return;
         }
-        _cont.getLastPage().clearCurrentEls();
         iterStr_ = arg_.getStruct();
         LoopBlockStack l_ = new LoopBlockStack();
         l_.setIndex(-1);
@@ -662,8 +655,8 @@ public final class ForEachTable extends BracedStack implements Loop, WithNotEmpt
     }
 
     @Override
-    public void removeVarAndLoop(AbstractPageEl _ip) {
-        super.removeVarAndLoop(_ip);
+    public void removeAllVars(AbstractPageEl _ip) {
+        super.removeAllVars(_ip);
         StringMap<LoopVariable> v_ = _ip.getVars();
         v_.removeKey(variableNameFirst);
         v_.removeKey(variableNameSecond);
@@ -672,11 +665,8 @@ public final class ForEachTable extends BracedStack implements Loop, WithNotEmpt
     @Override
     public void processLastElementLoop(ContextEl _conf) {
         AbstractPageEl ip_ = _conf.getLastPage();
-        ReadWrite rw_ = ip_.getReadWrite();
         StringMap<LoopVariable> vars_ = ip_.getVars();
         LoopBlockStack l_ = (LoopBlockStack) ip_.getLastStack();
-        Block forLoopLoc_ = l_.getBlock();
-        rw_.setBlock(forLoopLoc_);
         l_.setEvaluatingKeepLoop(true);
         Boolean has_ = iteratorHasNext(_conf);
         if (has_ == null) {
@@ -744,8 +734,8 @@ public final class ForEachTable extends BracedStack implements Loop, WithNotEmpt
         refLabel(_parts,label,labelOffset);
     }
 
-    public void incrementLoop(ContextEl _conf, LoopBlockStack _l,
-            StringMap<LoopVariable> _vars) {
+    private void incrementLoop(ContextEl _conf, LoopBlockStack _l,
+                               StringMap<LoopVariable> _vars) {
         _l.setIndex(_l.getIndex() + 1);
         Classes cls_ = _conf.getClasses();
         Struct iterator_ = _l.getStructIterator();

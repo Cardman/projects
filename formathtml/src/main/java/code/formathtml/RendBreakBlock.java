@@ -63,9 +63,10 @@ public final class RendBreakBlock extends RendLeaf implements RendBuildableElMet
         while (true) {
             RendRemovableVars bl_ = ip_.getRendLastStack();
             stack_ = bl_;
+            RendParentBlock cur_ = bl_.getCurrentVisitedBlock();
+            cur_.removeAllVars(ip_);
             if (label.isEmpty()) {
                 if (bl_ instanceof RendLoopBlockStack || bl_ instanceof RendSwitchBlockStack) {
-                    bl_.getBlock().removeLocalVars(ip_);
                     break;
                 }
             } else {
@@ -73,15 +74,11 @@ public final class RendBreakBlock extends RendLeaf implements RendBuildableElMet
                 if (par_ instanceof RendBreakableBlock) {
                     RendBreakableBlock br_ = (RendBreakableBlock) par_;
                     if (StringList.quickEq(label, br_.getRealLabel())){
-                        bl_.getCurrentVisitedBlock().removeLocalVars(ip_);
                         break;
                     }
                 }
             }
-            ip_.setFinallyToProcess(false);
-            bl_.removeVarAndLoop(ip_);
-            if (bl_ instanceof RendTryBlockStack &&ip_.isFinallyToProcess()) {
-                ((RendTryBlockStack)bl_).setCalling(this);
+            if (ImportingPage.setRemovedCallingFinallyToProcess(ip_,bl_,this)) {
                 return;
             }
         }

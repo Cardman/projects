@@ -48,13 +48,7 @@ public final class ReflectGetDefaultValuePageEl extends AbstractReflectPageEl {
             }
             init = true;
         }
-        ExpressionLanguage el_;
-        if (!isEmptyEl()) {
-            el_ = getLastEl();
-        } else {
-            el_ = new ExpressionLanguage(ops);
-            addCurrentEl(el_);
-        }
+        ExpressionLanguage el_ = getCurrentEl(0,ops);
         Argument ret_ = el_.calculateMember(_context);
         if (_context.callsOrException()) {
             return false;

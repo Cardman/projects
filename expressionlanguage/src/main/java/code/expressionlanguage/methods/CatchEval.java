@@ -3,17 +3,14 @@ import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.calls.AbstractPageEl;
-import code.expressionlanguage.calls.util.ReadWrite;
 import code.expressionlanguage.errors.custom.BadVariableName;
 import code.expressionlanguage.errors.custom.DuplicateVariable;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.instr.PartOffset;
-import code.expressionlanguage.stacks.TryBlockStack;
 import code.expressionlanguage.variables.LocalVariable;
 import code.util.CustList;
 import code.util.StringList;
-import code.util.StringMap;
 
 public final class CatchEval extends AbstractCatchEval {
 
@@ -90,16 +87,6 @@ public final class CatchEval extends AbstractCatchEval {
     }
 
     @Override
-    public void exitStack(ContextEl _context) {
-        AbstractPageEl ip_ = _context.getLastPage();
-        ReadWrite rw_ = ip_.getReadWrite();
-        String var_ = getVariableName();
-        StringMap<LocalVariable> vars_ = ip_.getCatchVars();
-        vars_.removeKey(var_);
-        rw_.setBlock(this);
-    }
-
-    @Override
     public void reach(Analyzable _an, AnalyzingEl _anEl) {
         AnalyzedPageEl page_ = _an.getAnalyzing();
         page_.setGlobalOffset(classNameOffset);
@@ -134,10 +121,10 @@ public final class CatchEval extends AbstractCatchEval {
     }
 
     @Override
-    public void processToFinally(AbstractPageEl _ip, TryBlockStack _stack) {
+    public void removeAllVars(AbstractPageEl _ip) {
+        super.removeAllVars(_ip);
         String var_ = getVariableName();
         _ip.getCatchVars().removeKey(var_);
-        super.processToFinally(_ip, _stack);
     }
 
     @Override

@@ -15,7 +15,6 @@ public final class RendDoWhileCondition extends RendCondition {
         ImportingPage ip_ = _cont.getLastPage();
         RendReadWrite rw_ = ip_.getRendReadWrite();
         RendLoopBlockStack l_ = (RendLoopBlockStack) ip_.getRendLastStack();
-        rw_.setRead(this);
         Boolean keep_ = evaluateCondition(_cont);
         if (keep_ == null) {
             return;

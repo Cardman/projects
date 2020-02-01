@@ -73,13 +73,9 @@ public abstract class RendElement extends RendParentBlock implements RendWithEl,
         ImportingPage ip_ = _cont.getLastPage();
         RendReadWrite rw_ = ip_.getRendReadWrite();
         Node write_ = rw_.getWrite();
-        if (ip_.hasBlock()) {
-            RendRemovableVars bl_ = ip_.getRendLastStack();
-            if (bl_.getBlock() == this) {
-                ip_.removeRendLastBlock();
-                processBlock(_cont);
-                return;
-            }
+        if (ip_.matchStatement(this)) {
+            processBlockAndRemove(_cont);
+            return;
         }
         Document ownerDocument_ = rw_.getDocument();
         appendChild(ownerDocument_, write_,read);
@@ -115,12 +111,5 @@ public abstract class RendElement extends RendParentBlock implements RendWithEl,
     }
 
     protected abstract void processExecAttr(Configuration _cont, MutableNode _nextWrite, Element _read);
-
-    @Override
-    public void exitStack(Configuration _conf) {
-        ImportingPage ip_ = _conf.getLastPage();
-        RendReadWrite rw_ = ip_.getRendReadWrite();
-        rw_.setRead(this);
-    }
 
 }

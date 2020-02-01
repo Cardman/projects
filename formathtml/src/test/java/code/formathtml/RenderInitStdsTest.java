@@ -79,8 +79,6 @@ public final class RenderInitStdsTest {
     @Test
     public void process6Test() {
         new BeanCustLgNames().getOtherStructToBeValidated(null,null,null);
-        SimpleRender simpleRender_ = new SimpleRender();
-        simpleRender_.exitStack(null);
         RendDocumentBlock doc_ = new RendDocumentBlock(null,null,null,null);
         doc_.buildExpressionLanguage(null,null);
         BeanOne b_ = new BeanOne();

@@ -180,13 +180,6 @@ public final class RendCaseCondition extends RendParentBlock implements RendBuil
     public void processEl(Configuration _cont) {
         ImportingPage ip_ = _cont.getLastPage();
         RendReadWrite rw_ = ip_.getRendReadWrite();
-        RendSwitchBlockStack sw_ = (RendSwitchBlockStack) ip_.getRendLastStack();
-        sw_.setCurentVisitedBlock(this);
-        if (sw_.isEntered()) {
-            rw_.setRead(getFirstChild());
-            return;
-        }
-        sw_.setEntered(true);
         rw_.setRead(getFirstChild());
     }
 

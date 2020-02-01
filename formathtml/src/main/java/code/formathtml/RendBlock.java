@@ -187,6 +187,7 @@ public abstract class RendBlock implements AnalyzedBlock {
         RendReadWrite rw_ = new RendReadWrite();
         rw_.setConf(_conf);
         rw_.setRead(_rend.getFirstChild());
+        ip_.setRoot(_rend);
         rw_.setWrite(doc_);
         rw_.setDocument(doc_);
         ip_.setRendReadWrite(rw_);
@@ -992,7 +993,11 @@ public abstract class RendBlock implements AnalyzedBlock {
         }
         return varLoc_;
     }
-
+    public final void processBlockAndRemove(Configuration _conf) {
+        ImportingPage ip_ = _conf.getLastPage();
+        ip_.removeRendLastBlock();
+        processBlock(_conf);
+    }
     public final void processBlock(Configuration _conf) {
         ImportingPage ip_ = _conf.getLastPage();
         RendParentElement parElt_ = getNextBlock(ip_,this);
@@ -1001,13 +1006,18 @@ public abstract class RendBlock implements AnalyzedBlock {
             return;
         }
         RendParentBlock par_ = parElt_.getElement();
+        RendReadWrite rw_ = ip_.getRendReadWrite();
         if (par_ == null) {
-            RendReadWrite rw_ = ip_.getRendReadWrite();
             RendBlock n_ = getNextSibling();
             rw_.setRead(n_);
             return;
         }
-        par_.removeLocalVars(ip_);
+        if (par_ instanceof RendLoop) {
+            par_.removeLocalVars(ip_);
+        } else {
+            par_.removeAllVars(ip_);
+        }
+        rw_.setRead(par_);
         par_.exitStack(_conf);
     }
     public static RendParentElement getNextBlock(ImportingPage _ip,RendBlock _bl) {
@@ -1018,7 +1028,7 @@ public abstract class RendBlock implements AnalyzedBlock {
         } else {
             RendParentBlock n_ = _bl.getParent();
             //n_ != null because strictly in class
-            if (_ip.hasBlock()) {
+            if (n_ != _ip.getRoot()) {
                 parElt_ =  new RendParentElement(n_);
             } else {
                 //directly at the root => last element in the block root

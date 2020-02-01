@@ -83,19 +83,10 @@ public final class RendCatchEval extends RendAbstractCatchEval {
     }
 
     @Override
-    public void exitStack(Configuration _conf) {
-        ImportingPage ip_ = _conf.getLastPage();
-        RendReadWrite rw_ = ip_.getRendReadWrite();
-        String var_ = getVariableName();
-        StringMap<LocalVariable> vars_ = ip_.getCatchVars();
-        vars_.removeKey(var_);
-        rw_.setRead(this);
-    }
-
-    @Override
-    public void processToFinally(ImportingPage _ip, RendTryBlockStack _stack) {
+    public void removeAllVars(ImportingPage _ip) {
+        super.removeAllVars(_ip);
         String var_ = getVariableName();
         _ip.getCatchVars().removeKey(var_);
-        super.processToFinally(_ip, _stack);
     }
+
 }

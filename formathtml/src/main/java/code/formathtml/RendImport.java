@@ -51,13 +51,9 @@ public final class RendImport extends RendParentBlock implements RendWithEl, Ren
         ImportingPage ip_ = _cont.getLastPage();
         RendReadWrite rw_ = ip_.getRendReadWrite();
         Node write_ = rw_.getWrite();
-        if (ip_.hasBlock()) {
-            RendRemovableVars bl_ = ip_.getRendLastStack();
-            if (bl_.getBlock() == this) {
-                ip_.removeRendLastBlock();
-                processBlock(_cont);
-                return;
-            }
+        if (ip_.matchStatement(this)) {
+            processBlockAndRemove(_cont);
+            return;
         }
         ip_.setProcessingAttribute(PAGE_ATTRIBUTE);
         ip_.setOffset(pageOffset);
@@ -132,6 +128,7 @@ public final class RendImport extends RendParentBlock implements RendWithEl, Ren
         rwLoc_.setDocument(rw_.getDocument());
         rwLoc_.setWrite(write_);
         rwLoc_.setRead(val_.getBodies().first().getFirstChild());
+        newIp_.setRoot(val_.getBodies().first());
         newIp_.setRendReadWrite(rwLoc_);
         if (newBean_ != null) {
             newIp_.setGlobalArgumentStruct(newBean_, _cont);

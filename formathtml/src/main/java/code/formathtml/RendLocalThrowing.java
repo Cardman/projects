@@ -19,7 +19,8 @@ public final class RendLocalThrowing implements RendCallingFinally {
             while (bkIp_.hasBlock()) {
                 RendRemovableVars bl_ = bkIp_.getRendLastStack();
                 if (!(bl_ instanceof RendTryBlockStack)) {
-                    bl_.removeVarAndLoop(bkIp_);
+                    bl_.getCurrentVisitedBlock().removeAllVars(bkIp_);
+                    bkIp_.removeRendLastBlock();
                     continue;
                 }
                 RendTryBlockStack try_ = (RendTryBlockStack)bl_;
@@ -42,7 +43,6 @@ public final class RendLocalThrowing implements RendCallingFinally {
                     continue;
                 }
                 RendBlock n_ = currentBlock_.getNextSibling();
-                String excType_ = "";
                 //process try block
                 while (n_ instanceof RendAbstractCatchEval || n_ instanceof RendPossibleEmpty) {
                     if (n_ instanceof RendPossibleEmpty) {
@@ -58,7 +58,6 @@ public final class RendLocalThrowing implements RendCallingFinally {
                         }
                         Argument arg_ = new Argument(custCause_);
                         if (Templates.safeObject(name_, arg_, _conf) == ErrorType.NOTHING) {
-                            excType_ = name_;
                             catchElt_ = ca_;
                             try_.setCurrentBlock(ca_);
                             break;
@@ -80,7 +79,7 @@ public final class RendLocalThrowing implements RendCallingFinally {
                     if (catchElt_ instanceof RendCatchEval) {
                         RendCatchEval c_ = (RendCatchEval) catchElt_;
                         String var_ = c_.getVariableName();
-                        LocalVariable lv_ = LocalVariable.newLocalVariable(custCause_,excType_);
+                        LocalVariable lv_ = LocalVariable.newLocalVariable(custCause_,_conf);
                         bkIp_.getCatchVars().put(var_, lv_);
                     }
                     bkIp_.getRendReadWrite().setRead(childCatch_);

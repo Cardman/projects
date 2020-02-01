@@ -2,7 +2,6 @@ package code.formathtml;
 
 import code.expressionlanguage.errors.custom.UnexpectedTagName;
 import code.expressionlanguage.files.OffsetsBlock;
-import code.formathtml.stacks.RendReadWrite;
 import code.formathtml.stacks.RendTryBlockStack;
 
 public final class RendFinallyEval extends RendParentBlock implements RendEval {
@@ -44,12 +43,6 @@ public final class RendFinallyEval extends RendParentBlock implements RendEval {
         }
     }
 
-    @Override
-    public void processToFinally(ImportingPage _ip, RendTryBlockStack _stack) {
-        removeLocalVars(_ip);
-        _ip.removeRendLastBlock();
-    }
-
 
     @Override
     public void processEl(Configuration _cont) {
@@ -57,8 +50,7 @@ public final class RendFinallyEval extends RendParentBlock implements RendEval {
         RendTryBlockStack ts_ = (RendTryBlockStack) ip_.getRendLastStack();
         ts_.setCurrentBlock(this);
         if (ts_.isVisitedFinally()) {
-            ip_.removeRendLastBlock();
-            processBlock(_cont);
+            processBlockAndRemove(_cont);
             return;
         }
         ts_.setVisitedFinally(true);
@@ -68,17 +60,13 @@ public final class RendFinallyEval extends RendParentBlock implements RendEval {
     @Override
     public void exitStack(Configuration _context) {
         ImportingPage ip_ = _context.getLastPage();
-        RendReadWrite rw_ = ip_.getRendReadWrite();
         RendTryBlockStack tryStack_ = (RendTryBlockStack) ip_.getRendLastStack();
         RendCallingFinally call_ = tryStack_.getCalling();
         if (call_ != null) {
-            ip_.removeRendLastBlock();
             if (call_ instanceof RendLocalThrowing) {
                 _context.setException(tryStack_.getException());
             }
             call_.removeBlockFinally(_context);
-            return;
         }
-        rw_.setRead(this);
     }
 }

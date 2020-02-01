@@ -15,6 +15,7 @@ public final class NewAnnotationPageEl extends AbstractCallingInstancingPageEl {
     private CustList<Argument> args;
     @Override
     public void tryProcessEl(ContextEl _context) {
+        //set fields for annotation after calculating default one
         int len_ = names.size();
         AnnotationStruct str_ = (AnnotationStruct) getGlobalArgument().getStruct();
         String className_ = str_.getClassName();
