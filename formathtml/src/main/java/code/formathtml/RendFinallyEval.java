@@ -48,7 +48,7 @@ public final class RendFinallyEval extends RendParentBlock implements RendEval {
     public void processEl(Configuration _cont) {
         ImportingPage ip_ = _cont.getLastPage();
         RendTryBlockStack ts_ = (RendTryBlockStack) ip_.getRendLastStack();
-        ts_.setCurrentBlock(this);
+        ts_.setCurrentVisitedBlock(this);
         if (ts_.isVisitedFinally()) {
             processBlockAndRemove(_cont);
             return;

@@ -103,7 +103,7 @@ public abstract class RendElement extends RendParentBlock implements RendWithEl,
         RendIfStack if_ = new RendIfStack();
         if_.setLastBlock(this);
         if_.setBlock(this);
-        if_.setCurentVisitedBlock(this);
+        if_.setCurrentVisitedBlock(this);
         ip_.addBlock(if_);
         if_.setEntered(true);
         rw_.setRead(getFirstChild());

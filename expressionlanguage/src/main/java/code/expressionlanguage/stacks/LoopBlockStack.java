@@ -35,4 +35,8 @@ public final class LoopBlockStack extends LoopStack implements RemovableVars {
         return block;
     }
 
+    @Override
+    public void setCurrentVisitedBlock(BracedBlock _bl) {
+        block = _bl;
+    }
 }

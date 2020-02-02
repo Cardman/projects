@@ -200,6 +200,7 @@ public final class ImportingPage {
     }
     public void removeRendLastBlock() {
         RendRemovableVars last_ = rendBlockStacks.last();
+        last_.getCurrentVisitedBlock().removeAllVars(this);
         if (last_ instanceof RendIfStack) {
             if (last_.getBlock() instanceof RendElement) {
                 rendReadWrite.setWrite(rendReadWrite.getWrite().getParentNode());

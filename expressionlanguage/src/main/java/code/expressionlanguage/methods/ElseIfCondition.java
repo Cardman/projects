@@ -162,7 +162,7 @@ public final class ElseIfCondition extends Condition implements BlockCondition {
         AbstractPageEl ip_ = _cont.getLastPage();
         ReadWrite rw_ = ip_.getReadWrite();
         IfBlockStack if_ = (IfBlockStack) ip_.getLastStack();
-        if_.setCurentVisitedBlock(this);
+        if_.setCurrentVisitedBlock(this);
         if (!if_.isEntered()) {
             Boolean assert_ = evaluateCondition(_cont);
             if (assert_ == null) {

@@ -736,11 +736,11 @@ public final class ForMutableIterativeLoop extends BracedStack implements
         }
         LoopBlockStack l_ = new LoopBlockStack();
         l_.setBlock(this);
+        l_.setCurrentVisitedBlock(this);
         boolean finished_ = !res_;
         l_.setFinished(finished_);
         ip_.addBlock(l_);
         if (finished_) {
-            removeAllVars(ip_);
             processBlockAndRemove(_cont);
             return;
         }

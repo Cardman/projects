@@ -34,8 +34,9 @@ public final class TryBlockStack extends TryStack implements RemovableVars {
         return currentBlock;
     }
 
-    public void setCurrentBlock(BracedBlock _currentBlock) {
-        currentBlock = _currentBlock;
+    @Override
+    public void setCurrentVisitedBlock(BracedBlock _bl) {
+        currentBlock = _bl;
     }
 
     public CallingFinally getCalling() {

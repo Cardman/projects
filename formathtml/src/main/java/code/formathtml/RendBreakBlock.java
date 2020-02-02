@@ -63,8 +63,6 @@ public final class RendBreakBlock extends RendLeaf implements RendBuildableElMet
         while (true) {
             RendRemovableVars bl_ = ip_.getRendLastStack();
             stack_ = bl_;
-            RendParentBlock cur_ = bl_.getCurrentVisitedBlock();
-            cur_.removeAllVars(ip_);
             if (label.isEmpty()) {
                 if (bl_ instanceof RendLoopBlockStack || bl_ instanceof RendSwitchBlockStack) {
                     break;

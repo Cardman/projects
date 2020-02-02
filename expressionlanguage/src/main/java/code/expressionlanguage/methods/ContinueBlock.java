@@ -144,7 +144,6 @@ public final class ContinueBlock extends AbruptBlock implements CallingFinally {
                     break;
                 }
             }
-            bl_.getCurrentVisitedBlock().removeAllVars(ip_);
             if (AbstractPageEl.setRemovedCallingFinallyToProcess(ip_,bl_,this)) {
                 return;
             }

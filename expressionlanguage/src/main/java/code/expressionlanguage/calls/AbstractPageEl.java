@@ -51,7 +51,6 @@ public abstract class AbstractPageEl extends PageEl {
             return;
         }
         if (_l.isFinished()) {
-            _l.getBlock().removeAllVars(this);
             _next.processBlockAndRemove(_context);
             return;
         }
@@ -146,6 +145,8 @@ public abstract class AbstractPageEl extends PageEl {
     }
 
     public void removeLastBlock() {
+        RemovableVars last_ = blockStacks.last();
+        last_.getCurrentVisitedBlock().removeAllVars(this);
         blockStacks.removeLast();
     }
 

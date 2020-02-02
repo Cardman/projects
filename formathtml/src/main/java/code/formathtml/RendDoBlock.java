@@ -46,6 +46,7 @@ public final class RendDoBlock extends RendParentBlock implements RendLoop {
         }
         RendLoopBlockStack l_ = new RendLoopBlockStack();
         l_.setBlock(this);
+        l_.setCurrentVisitedBlock(this);
         ip_.addBlock(l_);
         rw_.setRead(getFirstChild());
     }

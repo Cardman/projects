@@ -611,6 +611,7 @@ public final class ForEachTable extends BracedStack implements Loop, WithNotEmpt
         l_.setIndex(-1);
         l_.setFinished(false);
         l_.setBlock(this);
+        l_.setCurrentVisitedBlock(this);
         l_.setStructIterator(iterStr_);
         l_.setMaxIteration(length_);
         ip_.addBlock(l_);

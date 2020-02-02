@@ -562,6 +562,7 @@ public final class ForEachLoop extends BracedStack implements ForLoop,ImportForE
         l_.setIndex(-1);
         l_.setFinished(finished_);
         l_.setBlock(this);
+        l_.setCurrentVisitedBlock(this);
         l_.setStructIterator(iterStr_);
         l_.setMaxIteration(length_);
         ip_.addBlock(l_);
@@ -588,7 +589,6 @@ public final class ForEachLoop extends BracedStack implements ForLoop,ImportForE
             _cont.getCoverage().passLoop(_cont, new Argument(new BooleanStruct(false)));
             l_.setEvaluatingKeepLoop(false);
             l_.setFinished(true);
-            removeAllVars(ip_);
             processBlockAndRemove(_cont);
             return;
         }

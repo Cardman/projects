@@ -13,15 +13,17 @@ public final class IfBlockStack extends IfStack implements RemovableVars {
         return block;
     }
 
+    @Override
+    public void setCurrentVisitedBlock(BracedBlock _bl) {
+        curentVisitedBlock = _bl;
+    }
+
     public void setBlock(BracedBlock _block) {
         block = _block;
     }
     @Override
     public BracedBlock getLastBlock() {
         return lastBlock;
-    }
-    public void setCurentVisitedBlock(BracedBlock _curentVisitedBlock) {
-        curentVisitedBlock = _curentVisitedBlock;
     }
 
     public void setLastBlock(BracedBlock _lastBlock) {

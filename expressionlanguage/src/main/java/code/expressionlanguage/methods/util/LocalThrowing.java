@@ -23,7 +23,6 @@ public final class LocalThrowing implements CallingFinally {
             while (bkIp_.hasBlock()) {
                 RemovableVars bl_ = bkIp_.getLastStack();
                 if (!(bl_ instanceof TryBlockStack)) {
-                    bl_.getCurrentVisitedBlock().removeAllVars(bkIp_);
                     bkIp_.removeLastBlock();
                     continue;
                 }
@@ -62,14 +61,14 @@ public final class LocalThrowing implements CallingFinally {
                         Argument arg_ = new Argument(custCause_);
                         if (Templates.safeObject(name_, arg_, _conf) == ErrorType.NOTHING) {
                             catchElt_ = ca_;
-                            try_.setCurrentBlock(ca_);
+                            try_.setCurrentVisitedBlock(ca_);
                             break;
                         }
                     } else {
                         NullCatchEval ca_ = (NullCatchEval) n_;
                         if (custCause_ == NullStruct.NULL_VALUE) {
                             catchElt_ = ca_;
-                            try_.setCurrentBlock(ca_);
+                            try_.setCurrentVisitedBlock(ca_);
                             break;
                         }
                     }

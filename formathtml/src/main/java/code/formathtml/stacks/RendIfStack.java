@@ -20,8 +20,10 @@ public final class RendIfStack extends IfStack implements RendRemovableVars {
     public RendParentBlock getLastBlock() {
         return lastBlock;
     }
-    public void setCurentVisitedBlock(RendParentBlock _curentVisitedBlock) {
-        curentVisitedBlock = _curentVisitedBlock;
+
+    @Override
+    public void setCurrentVisitedBlock(RendParentBlock _bl) {
+        curentVisitedBlock = _bl;
     }
 
     public void setLastBlock(RendParentBlock _lastBlock) {

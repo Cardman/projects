@@ -130,7 +130,7 @@ public final class IfCondition extends Condition implements BlockCondition {
             n_ = n_.getNextSibling();
         }
         if_.setBlock(this);
-        if_.setCurentVisitedBlock(this);
+        if_.setCurrentVisitedBlock(this);
         if (assert_) {
             ip_.addBlock(if_);
             if_.setEntered(true);

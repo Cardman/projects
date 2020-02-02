@@ -7,6 +7,7 @@ public final class SwitchBlockStack implements RemovableVars {
 
     private BracedBlock lastVisitedBlock;
 
+    private BracedBlock currentVisitedBlock;
     @Override
     public BracedBlock getBlock() {
         return block;
@@ -17,13 +18,18 @@ public final class SwitchBlockStack implements RemovableVars {
     }
 
     @Override
+    public void setCurrentVisitedBlock(BracedBlock _bl) {
+        currentVisitedBlock = _bl;
+    }
+
+    @Override
     public BracedBlock getLastBlock() {
         return block;
     }
 
     @Override
     public BracedBlock getCurrentVisitedBlock() {
-        return block;
+        return currentVisitedBlock;
     }
 
     public BracedBlock getLastVisitedBlock() {

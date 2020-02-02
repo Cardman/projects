@@ -12,7 +12,7 @@ public final class RendTryBlockStack extends TryStack implements RendRemovableVa
 
     private RendParentBlock lastBlock;
 
-    private RendEval currentBlock;
+    private RendParentBlock currentBlock;
 
     @Override
     public RendParentBlock getBlock() {
@@ -33,11 +33,12 @@ public final class RendTryBlockStack extends TryStack implements RendRemovableVa
 
     @Override
     public RendParentBlock getCurrentVisitedBlock() {
-        return (RendParentBlock) currentBlock;
+        return currentBlock;
     }
 
-    public void setCurrentBlock(RendEval _currentBlock) {
-        currentBlock = _currentBlock;
+    @Override
+    public void setCurrentVisitedBlock(RendParentBlock _bl) {
+        currentBlock = _bl;
     }
 
     public RendCallingFinally getCalling() {

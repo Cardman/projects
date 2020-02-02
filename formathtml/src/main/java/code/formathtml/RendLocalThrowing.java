@@ -19,7 +19,6 @@ public final class RendLocalThrowing implements RendCallingFinally {
             while (bkIp_.hasBlock()) {
                 RendRemovableVars bl_ = bkIp_.getRendLastStack();
                 if (!(bl_ instanceof RendTryBlockStack)) {
-                    bl_.getCurrentVisitedBlock().removeAllVars(bkIp_);
                     bkIp_.removeRendLastBlock();
                     continue;
                 }
@@ -59,14 +58,14 @@ public final class RendLocalThrowing implements RendCallingFinally {
                         Argument arg_ = new Argument(custCause_);
                         if (Templates.safeObject(name_, arg_, _conf) == ErrorType.NOTHING) {
                             catchElt_ = ca_;
-                            try_.setCurrentBlock(ca_);
+                            try_.setCurrentVisitedBlock(ca_);
                             break;
                         }
                     } else {
                         RendNullCatchEval ca_ = (RendNullCatchEval) n_;
                         if (custCause_ == NullStruct.NULL_VALUE) {
                             catchElt_ = ca_;
-                            try_.setCurrentBlock(ca_);
+                            try_.setCurrentVisitedBlock(ca_);
                             break;
                         }
                     }

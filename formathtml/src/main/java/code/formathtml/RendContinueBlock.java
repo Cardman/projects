@@ -73,7 +73,6 @@ public final class RendContinueBlock extends RendLeaf implements RendBuildableEl
                     break;
                 }
             }
-            bl_.getCurrentVisitedBlock().removeAllVars(ip_);
             if (ImportingPage.setRemovedCallingFinallyToProcess(ip_,bl_,this)) {
                 return;
             }

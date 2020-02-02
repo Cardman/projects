@@ -252,7 +252,6 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
         ImportingPage ip_ = _cont.getLastPage();
         RendLoopBlockStack c_ = ip_.getLastLoopIfPossible(this);
         if (c_ != null) {
-            removeAllVars(ip_);
             processBlockAndRemove(_cont);
             return;
         }
@@ -281,6 +280,7 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
         l_.setIndex(-1);
         l_.setFinished(finished_);
         l_.setBlock(this);
+        l_.setCurrentVisitedBlock(this);
         l_.setStructIterator(iterStr_);
         l_.setMaxIteration(length_);
         ip_.addBlock(l_);

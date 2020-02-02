@@ -26,4 +26,8 @@ public final class RendLoopBlockStack extends LoopStack implements RendRemovable
         return block;
     }
 
+    @Override
+    public void setCurrentVisitedBlock(RendParentBlock _bl) {
+        block = _bl;
+    }
 }

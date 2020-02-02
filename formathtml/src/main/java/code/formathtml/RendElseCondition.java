@@ -54,7 +54,7 @@ public final class RendElseCondition extends RendParentBlock implements RendWith
     public void processEl(Configuration _cont) {
         ImportingPage ip_ = _cont.getLastPage();
         RendIfStack if_ = (RendIfStack) ip_.getRendLastStack();
-        if_.setCurentVisitedBlock(this);
+        if_.setCurrentVisitedBlock(this);
         if (!if_.isEntered()) {
             if_.setEntered(true);
             ip_.getRendReadWrite().setRead(getFirstChild());

@@ -222,7 +222,6 @@ public final class RendForIterativeLoop extends RendParentBlock implements RendL
         ImportingPage ip_ = _cont.getLastPage();
         RendLoopBlockStack c_ = ip_.getLastLoopIfPossible(this);
         if (c_ != null) {
-            removeAllVars(ip_);
             processBlockAndRemove(_cont);
             return;
         }
@@ -326,6 +325,7 @@ public final class RendForIterativeLoop extends RendParentBlock implements RendL
         RendLoopBlockStack l_ = new RendLoopBlockStack();
         l_.setFinished(finished_);
         l_.setBlock(this);
+        l_.setCurrentVisitedBlock(this);
         l_.setMaxIteration(length_);
         ip_.addBlock(l_);
         if (finished_) {

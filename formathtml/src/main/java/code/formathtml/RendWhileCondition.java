@@ -40,6 +40,7 @@ public final class RendWhileCondition extends RendCondition implements RendLoop 
         }
         RendLoopBlockStack l_ = new RendLoopBlockStack();
         l_.setBlock(this);
+        l_.setCurrentVisitedBlock(this);
         l_.setFinished(!res_);
         ip_.addBlock(l_);
         c_ = (RendLoopBlockStack) ip_.getRendLastStack();

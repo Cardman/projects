@@ -6,7 +6,7 @@ public final class RendSwitchBlockStack implements RendRemovableVars {
     private RendParentBlock block;
 
     private RendParentBlock lastVisitedBlock;
-
+    private RendParentBlock currentVisitedBlock;
     @Override
     public RendParentBlock getBlock() {
         return block;
@@ -23,7 +23,12 @@ public final class RendSwitchBlockStack implements RendRemovableVars {
 
     @Override
     public RendParentBlock getCurrentVisitedBlock() {
-        return block;
+        return currentVisitedBlock;
+    }
+
+    @Override
+    public void setCurrentVisitedBlock(RendParentBlock _currentVisitedBlock) {
+        currentVisitedBlock = _currentVisitedBlock;
     }
 
     public RendParentBlock getLastVisitedBlock() {

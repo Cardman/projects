@@ -51,7 +51,7 @@ public final class RendElseIfCondition extends RendCondition implements RendBrea
         ImportingPage ip_ = _cont.getLastPage();
         RendReadWrite rw_ = ip_.getRendReadWrite();
         RendIfStack if_ = (RendIfStack) ip_.getRendLastStack();
-        if_.setCurentVisitedBlock(this);
+        if_.setCurrentVisitedBlock(this);
         if (!if_.isEntered()) {
             Boolean assert_ = evaluateCondition(_cont);
             if (assert_ == null) {

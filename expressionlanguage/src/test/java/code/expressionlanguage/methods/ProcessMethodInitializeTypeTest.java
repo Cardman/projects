@@ -1498,6 +1498,60 @@ public final class ProcessMethodInitializeTypeTest extends ProcessMethodCommon {
         assertTrue(cont_.getClasses().isInitialized("pkg.ExTwo"));
     }
     @Test
+    public void calculate77Test() {
+        StringBuilder xml_;
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl();
+        xml_ = new StringBuilder();
+        xml_.append("$public $annotation pkg.Ann {\n");
+        xml_.append("MyEnum f() MyEnum.ONE:\n");
+        xml_.append("}\n");
+        xml_.append("$public $enum pkg.MyEnum {\n");
+        xml_.append("ONE:\n");
+        xml_.append("$public $int i:\n");
+        xml_.append("}\n");
+        xml_.append("@Ann\n");
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $static {\n");
+        xml_.append("  Ann field = (Ann)$class(ExTwo).getAnnotations()[0]:\n");
+        xml_.append("  field;.f().i = 5:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.getClasses().isInitialized("pkg.MyEnum"));
+        assertTrue(cont_.getClasses().isInitialized("pkg.Ann"));
+        assertTrue(!cont_.getClasses().isInitialized("pkg.ExTwo"));
+    }
+    @Test
+    public void calculate78Test() {
+        StringBuilder xml_;
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl();
+        xml_ = new StringBuilder();
+        xml_.append("$public $annotation pkg.Ann {\n");
+        xml_.append("MyEnum f():\n");
+        xml_.append("}\n");
+        xml_.append("$public $enum pkg.MyEnum {\n");
+        xml_.append("ONE:\n");
+        xml_.append("$public $int i:\n");
+        xml_.append("}\n");
+        xml_.append("@Ann(MyEnum.ONE)\n");
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $static {\n");
+        xml_.append("  Ann field = (Ann)$class(ExTwo).getAnnotations()[0]:\n");
+        xml_.append("  field;.f().i = 5:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.getClasses().isInitialized("pkg.MyEnum"));
+        assertTrue(cont_.getClasses().isInitialized("pkg.Ann"));
+        assertTrue(!cont_.getClasses().isInitialized("pkg.ExTwo"));
+    }
+    @Test
     public void calculateFailTest() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");

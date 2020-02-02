@@ -60,6 +60,7 @@ public final class DefaultCondition extends SwitchPartBlock {
         ip_.setGlobalOffset(getOffset().getOffsetTrim());
         ip_.setOffset(0);
         rw_.setBlock(getFirstChild());
+        ip_.getLastStack().setCurrentVisitedBlock(this);
     }
 
     @Override

@@ -212,7 +212,6 @@ public final class RendForMutableIterativeLoop extends RendParentBlock implement
         RendReadWrite rw_ = ip_.getRendReadWrite();
         RendLoopBlockStack c_ = ip_.getLastLoopIfPossible(this);
         if (c_ != null) {
-            removeAllVars(ip_);
             processBlockAndRemove(_cont);
             return;
         }
@@ -235,11 +234,11 @@ public final class RendForMutableIterativeLoop extends RendParentBlock implement
         }
         RendLoopBlockStack l_ = new RendLoopBlockStack();
         l_.setBlock(this);
+        l_.setCurrentVisitedBlock(this);
         l_.setFinished(!res_);
         ip_.addBlock(l_);
         c_ = (RendLoopBlockStack) ip_.getRendLastStack();
         if (c_.isFinished()) {
-            removeAllVars(ip_);
             processBlockAndRemove(_cont);
             return;
         }

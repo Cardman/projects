@@ -268,6 +268,7 @@ public final class CaseCondition extends SwitchPartBlock {
         ip_.setGlobalOffset(valueOffset);
         ip_.setOffset(0);
         rw_.setBlock(getFirstChild());
+        ip_.getLastStack().setCurrentVisitedBlock(this);
     }
 
     @Override

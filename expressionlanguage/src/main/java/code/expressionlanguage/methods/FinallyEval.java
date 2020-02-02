@@ -99,7 +99,7 @@ public final class FinallyEval extends BracedStack implements Eval {
     public void processEl(ContextEl _cont) {
         AbstractPageEl ip_ = _cont.getLastPage();
         TryBlockStack ts_ = (TryBlockStack) ip_.getLastStack();
-        ts_.setCurrentBlock(this);
+        ts_.setCurrentVisitedBlock(this);
         if (ts_.isVisitedFinally()) {
             processBlockAndRemove(_cont);
             return;

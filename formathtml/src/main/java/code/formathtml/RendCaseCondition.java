@@ -181,6 +181,7 @@ public final class RendCaseCondition extends RendParentBlock implements RendBuil
         ImportingPage ip_ = _cont.getLastPage();
         RendReadWrite rw_ = ip_.getRendReadWrite();
         rw_.setRead(getFirstChild());
+        ip_.getRendLastStack().setCurrentVisitedBlock(this);
     }
 
     @Override

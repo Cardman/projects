@@ -96,6 +96,7 @@ public final class DoBlock extends BracedStack implements Loop {
         }
         LoopBlockStack l_ = new LoopBlockStack();
         l_.setBlock(this);
+        l_.setCurrentVisitedBlock(this);
         ip_.addBlock(l_);
         rw_.setBlock(getFirstChild());
     }

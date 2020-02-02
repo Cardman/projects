@@ -300,7 +300,7 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock, Wi
         }
         if_.setBlock(this);
         Block def_ = null;
-        Block found_ = null;
+        BracedBlock found_ = null;
         if (arg_.isNull()) {
             for (Block b: children_) {
                 if (!(b instanceof CaseCondition)) {
@@ -313,7 +313,7 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock, Wi
                     continue;
                 }
                 if (argRes_.isNull()) {
-                    found_ = b;
+                    found_ = c_;
                     break;
                 }
             }
@@ -330,7 +330,7 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock, Wi
                     continue;
                 }
                 if (StringList.quickEq(c_.getValue().trim(), en_.getName())) {
-                    found_ = b;
+                    found_ = c_;
                     break;
                 }
             }
@@ -343,7 +343,7 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock, Wi
                 CaseCondition c_ = (CaseCondition) b;
                 Argument argRes_ = c_.getOpValue().last().getArgument();
                 if (argRes_.getStruct().sameReference(arg_.getStruct())) {
-                    found_ = b;
+                    found_ = c_;
                     break;
                 }
             }
@@ -352,12 +352,15 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock, Wi
             if (def_ != null) {
                 _cont.getCoverage().passSwitch(_cont,def_,arg_);
                 rw_.setBlock(def_);
+                if_.setCurrentVisitedBlock((BracedBlock) def_);
             } else {
                 _cont.getCoverage().passSwitch(_cont,arg_);
+                if_.setCurrentVisitedBlock(this);
             }
         } else {
             _cont.getCoverage().passSwitch(_cont,found_,arg_);
             rw_.setBlock(found_);
+            if_.setCurrentVisitedBlock(found_);
         }
         ip_.addBlock(if_);
     }

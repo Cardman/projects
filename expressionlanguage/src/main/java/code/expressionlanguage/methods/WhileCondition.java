@@ -216,6 +216,7 @@ public final class WhileCondition extends Condition implements Loop {
         }
         LoopBlockStack l_ = new LoopBlockStack();
         l_.setBlock(this);
+        l_.setCurrentVisitedBlock(this);
         boolean finished_ = !res_;
         l_.setFinished(finished_);
         ip_.addBlock(l_);

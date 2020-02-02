@@ -29,7 +29,7 @@ public abstract class RendAbstractCatchEval extends RendParentBlock implements R
         if (ts_.getLastBlock() == this) {
             processBlockAndRemove(_cont);
         } else {
-            ts_.setCurrentBlock(this);
+            ts_.setCurrentVisitedBlock(this);
             rw_.setRead(getNextSibling());
         }
     }

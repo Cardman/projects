@@ -166,7 +166,7 @@ public abstract class AbstractCatchEval extends BracedStack implements Eval {
         if (ts_.getLastBlock() == this) {
             processBlockAndRemove(_cont);
         } else {
-            ts_.setCurrentBlock(this);
+            ts_.setCurrentVisitedBlock(this);
             rw_.setBlock(getNextSibling());
         }
     }

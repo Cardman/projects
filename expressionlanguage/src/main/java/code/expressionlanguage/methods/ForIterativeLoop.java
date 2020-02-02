@@ -681,6 +681,7 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
         LoopBlockStack l_ = new LoopBlockStack();
         l_.setFinished(finished_);
         l_.setBlock(this);
+        l_.setCurrentVisitedBlock(this);
         l_.setMaxIteration(length_);
         ip_.addBlock(l_);
         if (finished_) {

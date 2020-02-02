@@ -108,7 +108,7 @@ public final class ElseCondition extends BracedStack implements BlockCondition, 
     public void processEl(ContextEl _cont) {
         AbstractPageEl ip_ = _cont.getLastPage();
         IfBlockStack if_ = (IfBlockStack) ip_.getLastStack();
-        if_.setCurentVisitedBlock(this);
+        if_.setCurrentVisitedBlock(this);
         if (!if_.isEntered()) {
             if_.setEntered(true);
             ip_.getReadWrite().setBlock(getFirstChild());
