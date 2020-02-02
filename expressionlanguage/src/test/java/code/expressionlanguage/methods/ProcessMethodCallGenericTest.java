@@ -19,6 +19,30 @@ import static org.junit.Assert.assertTrue;
 public final class ProcessMethodCallGenericTest extends ProcessMethodCommon {
 
     @Test
+    public void instanceArgument98Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public pkg.ExTwo<$int> inst=$new pkg.ExTwo<$int>():\n");
+        xml_.append(" $public $int ance=inst;;;get():\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo<#T> {\n");
+        xml_.append(" $public $normal #T get(){\n");
+        xml_.append("  $return $null:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        ConstructorId id_ = getConstructorId("pkg.Ex");
+        instanceArgument("pkg.Ex", null, id_, args_, cont_);
+        assertNotNull(cont_.getException());
+    }
+    @Test
     public void instanceArgument99Test() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_ = new StringBuilder();

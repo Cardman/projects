@@ -213,6 +213,11 @@ public final class ReturnMehod extends AbruptBlock implements CallingFinally, Wi
                 return;
             }
             ip_.clearCurrentEls();
+            String type_ = processReturnValue(_cont);
+            type_ = ip_.formatVarType(type_,_cont);
+            if (!Templates.checkObject(type_,arg_,_cont)) {
+                return;
+            }
             ((ReturnableValuePageEl) _cont.getLastPage()).setReturnedArgument(arg_);
         }
         removeBlockFinally(_cont);
