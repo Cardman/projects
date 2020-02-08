@@ -28,7 +28,7 @@ public final class TypeUtil {
             StandardType s_ = s.getValue();
             if (s_ instanceof StandardClass) {
                 s_.getAllSuperTypes().addAllElts(s_.getAllSuperClasses());
-                s_.getAllSuperTypes().addAllElts(((StandardClass)s_).getAllInterfaces());
+                s_.getAllSuperTypes().addAllElts(s_.getAllInterfaces());
             } else {
                 s_.getAllSuperTypes().addAllElts(s_.getAllSuperClasses());
             }
@@ -125,7 +125,7 @@ public final class TypeUtil {
             String id_ = Templates.getIdFromAllTypes(clName_);
             RootBlock superType_ = classes_.getClassBody(id_);
             if (superType_ instanceof UniqueRootedBlock) {
-                StringList.removeAllElements(allCopy_, ((UniqueRootedBlock)superType_).getAllInterfaces());
+                StringList.removeAllElements(allCopy_, superType_.getAllInterfaces());
             }
             StringList filteredStatic_ = new StringList();
             for (String i: allCopy_) {
@@ -355,14 +355,16 @@ public final class TypeUtil {
                 eq_.put(name_, f_);
                 continue;
             }
-            if (!(c instanceof GeneClass)) {
-                continue;
-            }
-            GeneClass subClassBlock_ = (GeneClass) c;
             EqList<ClassMethodId> finalMethods_ = new EqList<ClassMethodId>();
             EqList<ClassMethodId> methods_ = new EqList<ClassMethodId>();
-            for (String s: subClassBlock_.getAllInterfaces()) {
+            StringList all_ = new StringList();
+            all_.add(name_);
+            all_.addAllElts(c.getAllInterfaces());
+            for (String s: all_) {
                 GeneType r_ = _conf.getClassBody(s);
+                if (!(r_ instanceof GeneInterface)) {
+                    continue;
+                }
                 String gene_ = r_.getGenericString();
                 String v_ = Templates.getFullTypeByBases(gene_, baseClassFound_, _conf);
                 if (v_ == null) {

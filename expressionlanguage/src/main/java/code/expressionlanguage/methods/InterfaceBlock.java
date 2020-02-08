@@ -18,6 +18,8 @@ public final class InterfaceBlock extends RootBlock implements GeneInterface {
     private StringList importedDirectSuperInterfaces = new StringList();
     private final boolean staticType;
 
+    private final StringList allInterfaces = new StringList();
+
     public InterfaceBlock(int _idRowCol, int _categoryOffset, String _name, String _packageName, OffsetAccessInfo _access,
                           String _templateDef, IntMap< String> _directSuperTypes, boolean _staticType, OffsetsBlock _offset) {
         super(_idRowCol, _categoryOffset, _name, _packageName, _access, _templateDef, _directSuperTypes, _offset);
@@ -44,7 +46,12 @@ public final class InterfaceBlock extends RootBlock implements GeneInterface {
     public StringList getAllSuperClasses() {
         return allSuperClasses;
     }
-    
+
+    @Override
+    public StringList getAllInterfaces() {
+        return allInterfaces;
+    }
+
     @Override
     public StringList getAllSuperTypes() {
         return allSuperTypes;

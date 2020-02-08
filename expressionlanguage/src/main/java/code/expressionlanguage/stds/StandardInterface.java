@@ -16,6 +16,7 @@ public final class StandardInterface extends StandardType implements GeneInterfa
 
     private final StringList superInterfaces;
 
+    private final StringList allInterfaces = new StringList();
     public StandardInterface(String _name,
             ObjectMap<MethodId, StandardMethod> _methods,
             StringList _superInterfaces) {
@@ -49,6 +50,11 @@ public final class StandardInterface extends StandardType implements GeneInterfa
     @Override
     public StringList getAllSuperTypes() {
         return allSuperTypes;
+    }
+
+    @Override
+    public StringList getAllInterfaces() {
+        return allInterfaces;
     }
 
     public StringList getDirectSuperClasses(Analyzable _classes) {

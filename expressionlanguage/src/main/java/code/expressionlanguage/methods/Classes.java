@@ -778,15 +778,13 @@ public final class Classes {
                 if (nbDirectSuperClass_ <= 1) {
                     prSupTypes(r_,dirSuper_,_context);
                 }
-                if (r_ instanceof UniqueRootedBlock) {
-                    for (String t: r_.getAllSuperTypes()) {
-                        GeneType g_ = _context.getClassBody(t);
-                        if (g_ instanceof GeneInterface) {
-                            ((UniqueRootedBlock) r_).getAllInterfaces().add(t);
-                        }
+                for (String t: r_.getAllSuperTypes()) {
+                    GeneType g_ = _context.getClassBody(t);
+                    if (g_ instanceof GeneInterface) {
+                        r_.getAllInterfaces().add(t);
                     }
-                    ((UniqueRootedBlock) r_).getAllInterfaces().removeDuplicates();
                 }
+                r_.getAllInterfaces().removeDuplicates();
                 r_.getAllSuperTypes().removeDuplicates();
                 builtTypes_.set(c, true);
                 next_.add(c);
@@ -990,15 +988,13 @@ public final class Classes {
                 if (nbDirectSuperClass_ <= 1) {
                     prSupTypes(r_,dirSuper_,_context);
                 }
-                if (r_ instanceof UniqueRootedBlock) {
-                    for (String t: r_.getAllSuperTypes()) {
-                        GeneType g_ = _context.getClassBody(t);
-                        if (g_ instanceof GeneInterface) {
-                            ((UniqueRootedBlock)r_).getAllInterfaces().add(t);
-                        }
+                for (String t: r_.getAllSuperTypes()) {
+                    GeneType g_ = _context.getClassBody(t);
+                    if (g_ instanceof GeneInterface) {
+                        r_.getAllInterfaces().add(t);
                     }
-                    ((UniqueRootedBlock)r_).getAllInterfaces().removeDuplicates();
                 }
+                r_.getAllInterfaces().removeDuplicates();
                 r_.getAllSuperTypes().removeDuplicates();
             }
             for (RootBlock c: instClBodies_) {

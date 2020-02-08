@@ -13,6 +13,8 @@ public final class AnnotationBlock extends RootBlock {
     private final StringList allSuperClasses = new StringList();
 
     private final StringList allSuperTypes = new StringList();
+
+    private final StringList allInterfaces = new StringList();
     private StringList importedDirectSuperInterfaces = new StringList();
     public AnnotationBlock(int _idRowCol, int _categoryOffset, String _name,
                            String _packageName, OffsetAccessInfo _access, String _templateDef,
@@ -39,6 +41,11 @@ public final class AnnotationBlock extends RootBlock {
     @Override
     public StringList getAllSuperTypes() {
         return allSuperTypes;
+    }
+
+    @Override
+    public StringList getAllInterfaces() {
+        return allInterfaces;
     }
 
     @Override
