@@ -6015,7 +6015,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverage();
+        ContextEl cont_ = contextElCoverageReadOnly();
         files_.put("src/pkg/Ex", xml_.toString());
         validate(cont_.getKeyWords(),cont_.getStandards(),files_,cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
@@ -6065,7 +6065,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
+        ContextEl cont_ = contextElCoverageReadOnlyEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
         validate(cont_.getKeyWords(),cont_.getStandards(),files_,cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());

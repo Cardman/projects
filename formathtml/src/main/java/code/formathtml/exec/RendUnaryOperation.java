@@ -3,6 +3,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.UnaryOperation;
+import code.expressionlanguage.opers.exec.ExecUnaryOperation;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.structs.NumberStruct;
 import code.formathtml.Configuration;
@@ -28,14 +29,8 @@ public final class RendUnaryOperation extends RendAbstractUnaryOperation {
 
     Argument getArgument(Configuration _conf,
                          Argument _in) {
-        Argument out_ = new Argument();
         setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
         ClassArgumentMatching to_ = getResultClass();
-        if (StringList.quickEq(oper, PLUS)) {
-            out_.setStruct(NumberStruct.idNumber((NumberStruct) _in.getStruct(), _conf, to_));
-        } else {
-            out_.setStruct(NumberStruct.opposite((NumberStruct) _in.getStruct(), _conf, to_));
-        }
-        return out_;
+        return ExecUnaryOperation.getArgument(_conf,_in,to_,oper);
     }
 }

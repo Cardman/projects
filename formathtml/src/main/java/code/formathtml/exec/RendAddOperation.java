@@ -2,6 +2,7 @@ package code.formathtml.exec;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.opers.AddOperation;
+import code.expressionlanguage.opers.exec.ExecCatOperation;
 import code.expressionlanguage.structs.DisplayableStruct;
 import code.expressionlanguage.structs.NumberStruct;
 import code.expressionlanguage.structs.StringStruct;
@@ -28,10 +29,7 @@ public final class RendAddOperation extends RendStdNumericOperation {
             ExecutableCode _cont) {
         if (StringList.quickEq(_op.trim(), PLUS)) {
             if (catString) {
-                StringBuilder str_ = new StringBuilder();
-                str_.append(((DisplayableStruct)_a.getStruct()).getDisplayedString(_cont).getInstance());
-                str_.append(((DisplayableStruct)_b.getStruct()).getDisplayedString(_cont).getInstance());
-                return new Argument(new StringStruct(str_.toString()));
+                return ExecCatOperation.localSumDiff(_a, _b, _cont);
             }
             return new Argument(NumberStruct.calculateSum((NumberStruct)_a.getStruct(),(NumberStruct) _b.getStruct(), _cont, getResultClass()));
         }

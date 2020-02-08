@@ -60,9 +60,6 @@ public final class FirstOptOperation extends AbstractUnaryOperation implements F
     }
 
     public static void setArg(Analyzable _conf, ParentOperable _par) {
-        if (!_conf.isGearConst()) {
-            return;
-        }
         CustList<Operable> chidren_ = _par.getChildrenOperable();
         CustList<Argument> arguments_ = new CustList<Argument>();
         for (Operable o: chidren_) {

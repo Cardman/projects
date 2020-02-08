@@ -1823,6 +1823,9 @@ public final class Classes {
                         if (!method_.isStaticField()) {
                             continue;
                         }
+                        if (method_ instanceof FieldBlock && method_.isFinalField()) {
+                            continue;
+                        }
                         page_.setCurrentBlock(b);
                         method_.buildExpressionLanguageReadOnly(_context);
                     }

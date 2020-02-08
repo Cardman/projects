@@ -264,9 +264,7 @@ public final class FieldBlock extends Leaf implements InfoBlock {
     }
 
     private void processReducing(ContextEl _cont) {
-        if (_cont.isGearConst()) {
-            opValue = ElUtil.getReducedNodes(opValue.last());
-        }
+        opValue = ElUtil.getReducedNodes(opValue.last());
     }
 
     @Override
@@ -280,9 +278,7 @@ public final class FieldBlock extends Leaf implements InfoBlock {
     }
 
     private void processPutCoverage(ContextEl _cont) {
-        if (!_cont.isGearConst()) {
-            _cont.getCoverage().putBlockOperations(_cont,this);
-        }
+        _cont.getCoverage().putBlockOperations(_cont,this);
     }
 
     @Override

@@ -231,9 +231,6 @@ public final class FctOperation extends InvokingOperation {
 
     public static void tryGetArg(PossibleIntermediateDottedOperable _current, Argument _pr,Analyzable _conf,
                                  ClassMethodId _classMethodId, int _naturalVararg, String _lastType) {
-        if (!_conf.isGearConst()) {
-            return;
-        }
         CustList<Operable> chidren_ = ((ParentOperable)_current).getChildrenOperable();
         CustList<Argument> arguments_ = new CustList<Argument>();
         for (Operable o: chidren_) {
@@ -245,7 +242,8 @@ public final class FctOperation extends InvokingOperation {
         Argument previous_;
         previous_ = _pr;
         Struct str_;
-        if (!_classMethodId.getConstraints().isStaticMethod()) {
+        MethodId id_ = _classMethodId.getConstraints();
+        if (!id_.isStaticMethod()) {
             if (previous_ == null || previous_.isNull()) {
                 return;
             }
@@ -256,6 +254,11 @@ public final class FctOperation extends InvokingOperation {
             str_ = NullStruct.NULL_VALUE;
         }
         CustList<Argument> firstArgs_ = quickListArguments(chidren_, _naturalVararg, _lastType, arguments_, _conf);
+        String className_ = _classMethodId.getClassName();
+        Struct ex_ = Templates.okArgsEx(id_, false, className_, firstArgs_, _conf.getContextEl(), null);
+        if (ex_ != null) {
+            return;
+        }
         ResultErrorStd res_ = LgNames.invokeStdMethod(_conf, _classMethodId, str_, Argument.toArgArray(firstArgs_));
         Struct out_ = res_.getResult();
         if (out_ == null || out_ instanceof ArrayStruct) {

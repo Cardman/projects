@@ -35,13 +35,17 @@ public final class ExecUnaryOperation extends ExecAbstractUnaryOperation {
 
     Argument getArgument(ExecutableCode _conf,
             Argument _in) {
-        Argument out_ = new Argument();
         setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
         ClassArgumentMatching to_ = getResultClass();
-        if (StringList.quickEq(oper, PLUS)) {
-            out_.setStruct(NumberStruct.idNumber((NumberStruct) _in.getStruct(), _conf, to_));
+        return getArgument(_conf, _in, to_, oper);
+    }
+
+    public static Argument getArgument(ExecutableCode _conf, Argument _in, ClassArgumentMatching _to, String _oper) {
+        Argument out_ = new Argument();
+        if (StringList.quickEq(_oper, PLUS)) {
+            out_.setStruct(NumberStruct.idNumber((NumberStruct) _in.getStruct(), _conf, _to));
         } else {
-            out_.setStruct(NumberStruct.opposite((NumberStruct) _in.getStruct(), _conf, to_));
+            out_.setStruct(NumberStruct.opposite((NumberStruct) _in.getStruct(), _conf, _to));
         }
         return out_;
     }

@@ -1050,19 +1050,26 @@ public final class Templates {
     }
 
     public static boolean checkObject(String _param, Argument _arg, ExecutableCode _context) {
-    	ErrorType err_ = safeObject(_param, _arg, _context);
-    	LgNames stds_ = _context.getStandards();
-        if (err_ == ErrorType.CAST) {
-    		String cast_ = stds_.getAliasCastType();
-            _context.setException(new ErrorStruct(_context,cast_));
+    	Struct ex_ = checkObjectEx(_param,_arg,_context);
+        if (ex_ != null) {
+            _context.setException(ex_);
             return false;
     	}
-        if (err_ == ErrorType.NPE) {
-        	String npe_ = stds_.getAliasNullPe();
-            _context.setException(new ErrorStruct(_context,npe_));
-            return false;
-        }
         return true;
+    }
+
+    public static Struct checkObjectEx(String _param, Argument _arg, ExecutableCode _context) {
+        ErrorType err_ = safeObject(_param, _arg, _context);
+        LgNames stds_ = _context.getStandards();
+        if (err_ == ErrorType.CAST) {
+            String cast_ = stds_.getAliasCastType();
+            return new ErrorStruct(_context,cast_);
+        }
+        if (err_ == ErrorType.NPE) {
+            String npe_ = stds_.getAliasNullPe();
+            return new ErrorStruct(_context,npe_);
+        }
+        return null;
     }
     public static void setCheckedElements(CustList<Argument> _args, Struct _arr, ExecutableCode _context) {
         int len_ = _args.size();
@@ -1082,7 +1089,7 @@ public final class Templates {
             arr_[i] = _args.get(i).getStruct();
         }
     }
-    public static boolean okArgs(Identifiable _id, boolean _format, String _classNameFound, CustList<Argument> _firstArgs, ExecutableCode _conf, Argument _right) {
+    public static Struct okArgsEx(Identifiable _id, boolean _format, String _classNameFound, CustList<Argument> _firstArgs, ExecutableCode _conf, Argument _right) {
         StringList params_ = new StringList();
         boolean hasFormat_;
         if (_id instanceof MethodId) {
@@ -1093,8 +1100,7 @@ public final class Templates {
         if (hasFormat_ && !correctNbParameters(_classNameFound,_conf)) {
             LgNames stds_ = _conf.getStandards();
             String npe_ = stds_.getAliasIllegalArg();
-            _conf.setException(new ErrorStruct(_conf,npe_));
-            return false;
+            return new ErrorStruct(_conf,npe_);
         }
         if (hasFormat_) {
             int i_ = 0;
@@ -1125,14 +1131,14 @@ public final class Templates {
             mess_.append(_firstArgs.size());
             mess_.append(">=");
             mess_.append(params_.size());
-            _conf.setException(new ErrorStruct(_conf,mess_.toString(),cast_));
-            return false;
+            return new ErrorStruct(_conf,mess_.toString(),cast_);
         }
         int i_ = CustList.FIRST_INDEX;
         for (Argument a: _firstArgs) {
             String param_ = params_.get(i_);
-            if (!Templates.checkObject(param_, a, _conf)) {
-                return false;
+            Struct ex_ = Templates.checkObjectEx(param_, a, _conf);
+            if (ex_ != null) {
+                return ex_;
             }
             i_++;
         }
@@ -1146,7 +1152,7 @@ public final class Templates {
                         LgNames stds_ = _conf.getStandards();
                         if (state_ == ErrorType.NPE) {
                             String npe_ = stds_.getAliasNullPe();
-                            _conf.setException(new ErrorStruct(_conf,npe_));
+                            return new ErrorStruct(_conf,npe_);
                         } else {
                             String arrType_ = arr_.getClassName();
                             String param_ = PrimitiveTypeUtil.getQuickComponentType(arrType_);
@@ -1158,9 +1164,8 @@ public final class Templates {
                             mess_.append(arg_);
                             mess_.append("!=");
                             mess_.append(param_);
-                            _conf.setException(new ErrorStruct(_conf,mess_.toString(),cast_));
+                            return new ErrorStruct(_conf,mess_.toString(),cast_);
                         }
-                        return false;
                     }
                 }
             }
@@ -1177,10 +1182,19 @@ public final class Templates {
                 }
                 String type_ = g.getImportedReturnType();
                 type_ = Templates.quickFormat(_classNameFound, type_, _conf);
-                if (!Templates.checkObject(type_, _right, _conf)) {
-                    return false;
+                Struct ex_ = Templates.checkObjectEx(type_, _right, _conf);
+                if (ex_ != null) {
+                    return ex_;
                 }
             }
+        }
+        return null;
+    }
+    public static boolean okArgs(Identifiable _id, boolean _format, String _classNameFound, CustList<Argument> _firstArgs, ExecutableCode _conf, Argument _right) {
+        Struct ex_ = okArgsEx(_id, _format, _classNameFound, _firstArgs, _conf, _right);
+        if (ex_ != null) {
+            _conf.setException(ex_);
+            return false;
         }
         return true;
     }
