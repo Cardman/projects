@@ -174,6 +174,8 @@ public final class CompoundAffectationOperation extends MethodOperation {
             right_.getResultClass().setUnwrapObject(unwrapped_);
             ((OperationNode) elt_).cancelArgument();
             right_.cancelArgument();
+        } else {
+            right_.cancelArgumentString();
         }
     }
 

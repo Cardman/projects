@@ -37,17 +37,8 @@ public final class ExecCatOperation extends ExecNumericOperation {
     public void quickCalculate(Analyzable _conf) {
         CustList<ExecOperationNode> chidren_ = getChildrenNodes();
         Argument a_ = chidren_.first().getArgument();
-        if (!(a_.getStruct() instanceof DisplayableStruct)) {
-            return;
-        }
         Argument c_ = chidren_.last().getArgument();
-        if (!(c_.getStruct() instanceof DisplayableStruct)) {
-            return;
-        }
-        StringBuilder str_ = new StringBuilder();
-        str_.append(((DisplayableStruct)a_.getStruct()).getDisplayedString(_conf).getInstance());
-        str_.append(((DisplayableStruct)c_.getStruct()).getDisplayedString(_conf).getInstance());
-        setSimpleArgumentAna(new Argument(new StringStruct(str_.toString())), _conf);
+        setSimpleArgumentAna(localSumDiff(a_,c_,_conf.getContextEl()),_conf);
     }
 
     public static Argument localSumDiff(Argument _a, Argument _b,

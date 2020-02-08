@@ -19,7 +19,7 @@ public final class RendReturnMehod extends RendLeaf implements RendCallingFinall
         ImportingPage ip_ = _conf.getLastPage();
         while (ip_.hasBlock()) {
             RendRemovableVars bl_ = ip_.getRendLastStack();
-            if (ImportingPage.setRemovedCallingFinallyToProcess(ip_,bl_,this)) {
+            if (ImportingPage.setRemovedCallingFinallyToProcess(ip_,bl_,this,null)) {
                 return;
             }
         }

@@ -5708,6 +5708,7 @@ public final class FileResolverTest {
         assertEq(0, method_.getAnnotationsIndexesParams().size());
         assertEq(1, countFileTypes(context_));
         assertSame(cl_, method_.belong());
+        assertTrue(!method_.isConcreteMethod());
     }
     @Test
     public void parseFile60Test() {
@@ -5920,6 +5921,7 @@ public final class FileResolverTest {
         assertNull(op_.belong());
         assertTrue(!op_.isAbstractMethod());
         assertTrue(!op_.isFinalMethod());
+        assertTrue(!op_.isConcreteMethod());
     }
     @Test
     public void parseFile65Test() {

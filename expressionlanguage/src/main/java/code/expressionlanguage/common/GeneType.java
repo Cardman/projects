@@ -24,7 +24,7 @@ public interface GeneType extends AccessibleBlock {
 
     CustList<TypeVar> getParamTypes();
 
-    boolean mustImplement();
+
     String getGenericString();
 
     String getPackageName();

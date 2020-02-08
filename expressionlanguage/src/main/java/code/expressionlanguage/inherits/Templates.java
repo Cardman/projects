@@ -3,10 +3,7 @@ package code.expressionlanguage.inherits;
 import code.expressionlanguage.*;
 import code.expressionlanguage.common.GeneMethod;
 import code.expressionlanguage.common.GeneType;
-import code.expressionlanguage.methods.Classes;
-import code.expressionlanguage.methods.InterfaceBlock;
-import code.expressionlanguage.methods.RootBlock;
-import code.expressionlanguage.methods.UniqueRootedBlock;
+import code.expressionlanguage.methods.*;
 import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.exec.ExecInvokingOperation;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
@@ -1953,6 +1950,9 @@ public final class Templates {
         }
         if (r_ instanceof InterfaceBlock) {
             return ((InterfaceBlock)r_).getImportedDirectSuperInterfaces();
+        }
+        if (r_ instanceof AnnotationBlock) {
+            return new StringList();
         }
         if (r_ instanceof StandardClass) {
             return ((StandardClass)r_).getDirectInterfaces();

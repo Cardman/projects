@@ -96,8 +96,13 @@ public abstract class NumericOperation extends MethodOperation implements Middle
             return;
         }
         r_ = analyzeOper(a_, ops_.firstValue(), c_, _conf);
-        chidren_.first().cancelArgument();
-        chidren_.last().cancelArgument();
+        if (!r_.isCatString()) {
+            chidren_.first().cancelArgument();
+            chidren_.last().cancelArgument();
+        } else {
+            chidren_.first().cancelArgumentString();
+            chidren_.last().cancelArgumentString();
+        }
         setCatenize(r_);
         okNum = _conf.isOkNumOp();
         a_ = r_.getResult();

@@ -179,7 +179,7 @@ public final class ImportingPage {
         rendBlockStacks.add(_b);
     }
 
-    public static boolean setRemovedCallingFinallyToProcess(ImportingPage _ip,RendRemovableVars _vars, RendCallingFinally _call) {
+    public static boolean setRemovedCallingFinallyToProcess(ImportingPage _ip,RendRemovableVars _vars, RendCallingFinally _call, Struct _ex) {
         if (!(_vars instanceof RendTryBlockStack)) {
             _ip.removeRendLastBlock();
             return false;
@@ -192,6 +192,7 @@ public final class ImportingPage {
         RendParentBlock br_ = try_.getLastBlock();
         if (br_ instanceof RendFinallyEval) {
             _ip.getRendReadWrite().setRead(br_);
+            try_.setException(_ex);
             try_.setCalling(_call);
             return true;
         }

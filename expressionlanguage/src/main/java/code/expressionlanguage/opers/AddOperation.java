@@ -31,12 +31,6 @@ public final class AddOperation extends NumericOperation {
             ExecutableCode _cont) {
         if (StringList.quickEq(_op.trim(), PLUS)) {
             if (catString) {
-                if (!(_a.getStruct() instanceof DisplayableStruct)) {
-                    return new Argument();
-                }
-                if (!(_b.getStruct() instanceof DisplayableStruct)) {
-                    return new Argument();
-                }
                 StringBuilder str_ = new StringBuilder();
                 str_.append(((DisplayableStruct)_a.getStruct()).getDisplayedString(_cont).getInstance());
                 str_.append(((DisplayableStruct)_b.getStruct()).getDisplayedString(_cont).getInstance());

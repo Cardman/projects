@@ -13,5 +13,4 @@ public interface GeneMethod extends GeneFunction {
     boolean isFinalMethod();
 
     boolean isAbstractMethod();
-
 }

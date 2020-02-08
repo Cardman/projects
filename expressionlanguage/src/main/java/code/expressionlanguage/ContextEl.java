@@ -2,10 +2,7 @@ package code.expressionlanguage;
 
 import code.expressionlanguage.calls.*;
 import code.expressionlanguage.calls.util.*;
-import code.expressionlanguage.common.GeneConstructor;
-import code.expressionlanguage.common.GeneField;
-import code.expressionlanguage.common.GeneMethod;
-import code.expressionlanguage.common.GeneType;
+import code.expressionlanguage.common.*;
 import code.expressionlanguage.errors.custom.BadInheritedClass;
 import code.expressionlanguage.errors.custom.IllegalCallCtorByType;
 import code.expressionlanguage.errors.custom.UnexpectedTypeError;
@@ -592,7 +589,7 @@ public abstract class ContextEl implements ExecutableCode {
             }
             return methods_;
         }
-        for (GeneMethod m: Classes.getMethodBlocks((RootBlock) r_)) {
+        for (GeneCustMethod m: Classes.getMethodBlocks((RootBlock) r_)) {
             if (m.getId().eq(_id)) {
                 methods_.add(m);
                 break;

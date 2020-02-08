@@ -10,6 +10,7 @@ import code.expressionlanguage.opers.exec.ExecOperationNode;
 import code.expressionlanguage.stacks.LoopBlockStack;
 import code.expressionlanguage.stacks.RemovableVars;
 import code.expressionlanguage.stacks.TryBlockStack;
+import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.variables.LocalVariable;
 import code.util.CustList;
 import code.util.StringMap;
@@ -150,7 +151,7 @@ public abstract class AbstractPageEl extends PageEl {
         blockStacks.removeLast();
     }
 
-    public static boolean setRemovedCallingFinallyToProcess(AbstractPageEl _ip,RemovableVars _vars, CallingFinally _call) {
+    public static boolean setRemovedCallingFinallyToProcess(AbstractPageEl _ip,RemovableVars _vars, CallingFinally _call, Struct _ex) {
         if (!(_vars instanceof TryBlockStack)) {
             _ip.removeLastBlock();
             return false;
@@ -163,6 +164,7 @@ public abstract class AbstractPageEl extends PageEl {
         BracedBlock br_ = try_.getLastBlock();
         if (br_ instanceof FinallyEval) {
             _ip.getReadWrite().setBlock(br_);
+            try_.setException(_ex);
             try_.setCalling(_call);
             return true;
         }

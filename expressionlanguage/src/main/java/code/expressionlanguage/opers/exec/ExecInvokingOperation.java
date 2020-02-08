@@ -12,6 +12,7 @@ import code.expressionlanguage.opers.InvokingOperation;
 import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.ResultErrorStd;
+import code.expressionlanguage.stds.StandardType;
 import code.expressionlanguage.structs.*;
 import code.util.*;
 
@@ -509,7 +510,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             return argRes_;
         }
         ContextEl context_ = _conf.getContextEl();
-        CustList<OverridableBlock> methods_ = Classes.getMethodBodiesById(context_, _classNameFound, _methodId);
+        CustList<NamedFunctionBlock> methods_ = Classes.getMethodBodiesById(context_, _classNameFound, _methodId);
         if (methods_.isEmpty()) {
             //static enum methods
             String values_ = context_.getStandards().getAliasEnumValues();

@@ -76,7 +76,7 @@ public final class RendBreakBlock extends RendLeaf implements RendBuildableElMet
                     }
                 }
             }
-            if (ImportingPage.setRemovedCallingFinallyToProcess(ip_,bl_,this)) {
+            if (ImportingPage.setRemovedCallingFinallyToProcess(ip_,bl_,this,null)) {
                 return;
             }
         }

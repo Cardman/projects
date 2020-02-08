@@ -38,11 +38,6 @@ public final class StandardInterface extends StandardType implements GeneInterfa
     }
 
     @Override
-    public boolean mustImplement() {
-        return false;
-    }
-
-    @Override
     public StringList getAllSuperClasses() {
         return allSuperClasses;
     }

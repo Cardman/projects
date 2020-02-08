@@ -3,6 +3,7 @@ package code.expressionlanguage.methods;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.common.GeneCustMethod;
 import code.expressionlanguage.common.GeneMethod;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.errors.custom.*;
@@ -1030,16 +1031,17 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                             if (formattedType_ == null) {
                                 continue;
                             }
-                            OverridableBlock m_ = Classes.getMethodBodiesById(_context, c_, s.getConstraints()).first();
+                            NamedFunctionBlock m_ = Classes.getMethodBodiesById(_context, c_, s.getConstraints()).first();
                             if (!Classes.canAccess(getFullName(), m_, _context)) {
                                 continue;
                             }
-                            MethodId id_ =  m_.getWildCardFormattedId(c, _context);
+                            OverridableBlock ov_ = (OverridableBlock) m_;
+                            MethodId id_ =  ov_.getWildCardFormattedId(c, _context);
                             if (id_ == null) {
                                 //the method is never callable
                                 continue;
                             }
-                            addClass(signatures_, id_, new ClassMethodId(formattedType_, m_.getId()));
+                            addClass(signatures_, id_, new ClassMethodId(formattedType_, ov_.getId()));
                         }
                     }
                 } else {
@@ -1066,7 +1068,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                     if (m.getValue().size() > 1) {
                         for (String s: m.getValue()) {
                             MethodId id_ = defs_.getVal(s);
-                            OverridableBlock mDer_ = Classes.getMethodBodiesById(_context, s, id_).first();
+                            GeneCustMethod mDer_ = (GeneCustMethod) Classes.getMethodBodiesById(_context, s, id_).first();
                             IncompatibilityReturnType err_ = new IncompatibilityReturnType();
                             err_.setFileName(getFile().getFileName());
                             err_.setIndexFile(idRowCol);
@@ -1085,7 +1087,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
             for (EntryCust<MethodId, EqList<ClassMethodId>> e: er_.entryList()) {
                 for (ClassMethodId s: e.getValue()) {
                     String s_ = s.getClassName();
-                    OverridableBlock mDer_ = Classes.getMethodBodiesById(_context, s_, s.getConstraints()).first();
+                    GeneCustMethod mDer_ = (GeneCustMethod) Classes.getMethodBodiesById(_context, s_, s.getConstraints()).first();
                     IncompatibilityReturnType err_ = new IncompatibilityReturnType();
                     err_.setFileName(getFile().getFileName());
                     err_.setIndexFile(idRowCol);
@@ -1099,7 +1101,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
             for (EntryCust<MethodId, EqList<ClassMethodId>> e: er_.entryList()) {
                 for (ClassMethodId s: e.getValue()) {
                     String s_ = s.getClassName();
-                    OverridableBlock mDer_ = Classes.getMethodBodiesById(_context, s_, s.getConstraints()).first();
+                    GeneCustMethod mDer_ = (GeneCustMethod) Classes.getMethodBodiesById(_context, s_, s.getConstraints()).first();
                     IncompatibilityReturnType err_ = new IncompatibilityReturnType();
                     err_.setFileName(getFile().getFileName());
                     err_.setIndexFile(idRowCol);
@@ -1130,7 +1132,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                 if (m.getValue().size() > 1) {
                     for (String s: m.getValue()) {
                         MethodId id_ = defs_.getVal(s);
-                        OverridableBlock mDer_ = Classes.getMethodBodiesById(_context, s, id_).first();
+                        GeneCustMethod mDer_ = (GeneCustMethod) Classes.getMethodBodiesById(_context, s, id_).first();
                         IncompatibilityReturnType err_ = new IncompatibilityReturnType();
                         err_.setFileName(getFile().getFileName());
                         err_.setIndexFile(idRowCol);
@@ -1150,7 +1152,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
         for (EntryCust<MethodId, EqList<ClassMethodId>> e: er_.entryList()) {
             for (ClassMethodId s: e.getValue()) {
                 String s_ = s.getClassName();
-                OverridableBlock mDer_ = Classes.getMethodBodiesById(_context, s_, s.getConstraints()).first();
+                GeneCustMethod mDer_ = (GeneCustMethod) Classes.getMethodBodiesById(_context, s_, s.getConstraints()).first();
                 IncompatibilityReturnType err_ = new IncompatibilityReturnType();
                 err_.setFileName(getFile().getFileName());
                 err_.setIndexFile(idRowCol);
@@ -1164,7 +1166,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
         for (EntryCust<MethodId, EqList<ClassMethodId>> e: er_.entryList()) {
             for (ClassMethodId s: e.getValue()) {
                 String s_ = s.getClassName();
-                OverridableBlock mDer_ = Classes.getMethodBodiesById(_context, s_, s.getConstraints()).first();
+                GeneCustMethod mDer_ = (GeneCustMethod) Classes.getMethodBodiesById(_context, s_, s.getConstraints()).first();
                 IncompatibilityReturnType err_ = new IncompatibilityReturnType();
                 err_.setFileName(getFile().getFileName());
                 err_.setIndexFile(idRowCol);
@@ -1205,7 +1207,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
             }
         }
         if (concreteClass_) {
-            for (GeneMethod b: Classes.getMethodBlocks(this)) {
+            for (GeneCustMethod b: Classes.getMethodBlocks(this)) {
                 MethodId idFor_ = b.getId();
                 if (b.isAbstractMethod()) {
                     AbstractMethod err_;
@@ -1221,7 +1223,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
             for (String s: allSuperClass_) {
                 String base_ = Templates.getIdFromAllTypes(s);
                 RootBlock superBl_ = classesRef_.getClassBody(base_);
-                for (GeneMethod m: Classes.getMethodBlocks(superBl_)) {
+                for (GeneCustMethod m: Classes.getMethodBlocks(superBl_)) {
                     if (m.isAbstractMethod()) {
                         abstractMethods_.add(new ClassFormattedMethodId(s, m.getId()));
                     }
@@ -1292,9 +1294,6 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
             if (!PrimitiveTypeUtil.canBeUseAsArgument(baseClassFound_, name_, _conf)) {
                 continue;
             }
-            if (!c.mustImplement()) {
-                continue;
-            }
             ClassMethodId f_ = TypeUtil.tryGetUniqueId(baseClassFound_, c, _realId, _conf);
             if (f_ != null) {
                 eq_.put(name_, f_);
@@ -1354,7 +1353,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                     }
                     continue;
                 }
-                OverridableBlock sup_ = Classes.getMethodBodiesById(_context, name_, s.getConstraints()).first();
+                GeneCustMethod sup_ = (GeneCustMethod) Classes.getMethodBodiesById(_context, name_, s.getConstraints()).first();
                 if (sup_.isFinalMethod()) {
                     fClasses_.add(s);
                 }
@@ -1375,12 +1374,12 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
             if (fClasses_.size() == 1) {
                 ClassMethodId subInt_ = fClasses_.first();
                 String name_ = subInt_.getClassName();
-                OverridableBlock sub_ = Classes.getMethodBodiesById(_context, name_, subInt_.getConstraints()).first();
+                NamedFunctionBlock sub_ = Classes.getMethodBodiesById(_context, name_, subInt_.getConstraints()).first();
                 String subType_ = sub_.getImportedReturnType();
                 subType_ = Templates.quickFormat(name_, subType_, _context);
                 for (ClassMethodId s: e.getValue()) {
                     String supName_ = s.getClassName();
-                    OverridableBlock sup_ = Classes.getMethodBodiesById(_context, supName_, s.getConstraints()).first();
+                    NamedFunctionBlock sup_ = Classes.getMethodBodiesById(_context, supName_, s.getConstraints()).first();
                     String supType_ = sup_.getImportedReturnType();
                     String formattedSup_ = Templates.quickFormat(supName_, supType_, _context);
                     if (!Templates.isReturnCorrect(formattedSup_, subType_,_vars, _context)) {
@@ -1435,7 +1434,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                 if (classes_.getClassBody(base_) == null) {
                     continue;
                 }
-                OverridableBlock sup_ = Classes.getMethodBodiesById(_context, name_, s.getConstraints()).first();
+                GeneCustMethod sup_ = (GeneCustMethod) Classes.getMethodBodiesById(_context, name_, s.getConstraints()).first();
                 if (sup_.isAbstractMethod()) {
                     aClasses_.add(s);
                 }
@@ -1476,7 +1475,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
             int nbFinal_ = 0;
             for (ClassMethodId f: e.getValue()) {
                 String f_ = f.getClassName();
-                OverridableBlock method_ = Classes.getMethodBodiesById(_context, f_, f.getConstraints()).first();
+                GeneCustMethod method_ = (GeneCustMethod) Classes.getMethodBodiesById(_context, f_, f.getConstraints()).first();
                 if (!Classes.canAccess(_fullName, method_, _context)) {
                     continue;
                 }
@@ -1621,7 +1620,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
     public CustList<PartOffset> getSuperTypesParts() {
         return superTypesParts;
     }
-
+    public abstract boolean mustImplement();
     @Override
     public boolean isTypeHidden(String _class, Analyzable _analyzable) {
         return !Classes.canAccessClass(getFullName(), _class, _analyzable);

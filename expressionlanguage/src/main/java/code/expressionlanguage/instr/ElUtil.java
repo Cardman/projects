@@ -1055,7 +1055,7 @@ public final class ElUtil {
                         MethodId methodId_ = classMethodIdArr_.getConstraints();
                         MethodId id_ = new MethodId(MethodAccessKind.INSTANCE,"[]=",methodId_.getParametersTypes(),methodId_.isVararg());
                         RootBlock type_ = (RootBlock) _cont.getClassBody(className_);
-                        OverridableBlock method_ = Classes.getMethodBodiesById(_cont, className_, id_).first();
+                        NamedFunctionBlock method_ = Classes.getMethodBodiesById(_cont, className_, id_).first();
                         String file_ = type_.getFile().getRenderFileName();
                         String rel_ = relativize(currentFileName_, file_ + "#m" + method_.getNameOffset());
                         tag_ = "<a title=\""+ transform(className_ +"."+ id_.getSignature(_cont))+"\" href=\""+rel_+"\">";
@@ -1078,7 +1078,7 @@ public final class ElUtil {
                     id_ = new MethodId(MethodAccessKind.INSTANCE,"[]",methodId_.getParametersTypes(),methodId_.isVararg());
                 }
                 RootBlock type_ = (RootBlock) _cont.getClassBody(className_);
-                OverridableBlock method_ = Classes.getMethodBodiesById(_cont, className_, id_).first();
+                NamedFunctionBlock method_ = Classes.getMethodBodiesById(_cont, className_, id_).first();
                 String file_ = type_.getFile().getRenderFileName();
                 int offsetEnd_ = sum_ + val_.getIndexInEl();
                 String rel_ = relativize(currentFileName_, file_ + "#m" + method_.getNameOffset());
@@ -1186,7 +1186,7 @@ public final class ElUtil {
                             MethodId methodId_ = classMethodIdArr_.getConstraints();
                             MethodId id_ = new MethodId(MethodAccessKind.INSTANCE,"[]=",methodId_.getParametersTypes(),methodId_.isVararg());
                             RootBlock type_ = (RootBlock) _cont.getClassBody(className_);
-                            OverridableBlock method_ = Classes.getMethodBodiesById(_cont, className_, id_).first();
+                            NamedFunctionBlock method_ = Classes.getMethodBodiesById(_cont, className_, id_).first();
                             String file_ = type_.getFile().getRenderFileName();
                             String rel_ = relativize(currentFileName_, file_ + "#m" + method_.getNameOffset());
                             tag_ = "<a title=\""+ transform(className_ +"."+ id_.getSignature(_cont))+"\" href=\""+rel_+"\">";
@@ -1269,7 +1269,7 @@ public final class ElUtil {
                         id_ = new MethodId(MethodAccessKind.INSTANCE,"[]",methodId_.getParametersTypes(),methodId_.isVararg());
                     }
                     RootBlock type_ = (RootBlock) _cont.getClassBody(className_);
-                    OverridableBlock method_ = Classes.getMethodBodiesById(_cont, className_, id_).first();
+                    NamedFunctionBlock method_ = Classes.getMethodBodiesById(_cont, className_, id_).first();
                     String file_ = type_.getFile().getRenderFileName();
                     String rel_ = relativize(currentFileName_, file_ + "#m" + method_.getNameOffset());
                     tag_ = "<a title=\""+ transform(className_ +"."+ id_.getSignature(_cont))+"\" href=\""+rel_+"\">";
@@ -1302,7 +1302,7 @@ public final class ElUtil {
                             MethodId methodId_ = classMethodIdArr_.getConstraints();
                             MethodId id_ = new MethodId(MethodAccessKind.INSTANCE,"[]=",methodId_.getParametersTypes(),methodId_.isVararg());
                             RootBlock type_ = (RootBlock) _cont.getClassBody(className_);
-                            OverridableBlock method_ = Classes.getMethodBodiesById(_cont, className_, id_).first();
+                            NamedFunctionBlock method_ = Classes.getMethodBodiesById(_cont, className_, id_).first();
                             String file_ = type_.getFile().getRenderFileName();
                             String rel_ = relativize(currentFileName_, file_ + "#m" + method_.getNameOffset());
                             tag_ = "<a title=\""+ transform(className_ +"."+ id_.getSignature(_cont))+"\" href=\""+rel_+"\">";
@@ -1345,7 +1345,7 @@ public final class ElUtil {
             CustList<AnnotationMethodBlock> list_ = Classes.getMethodAnnotationBodiesById((RootBlock) _type, _id.getName());
             rel_ = relativize(_currentFileName, _file + "#m" + list_.first().getNameOffset());
         } else {
-            OverridableBlock method_;
+            NamedFunctionBlock method_;
             method_ = Classes.getMethodBodiesById(_cont, _className, _id).first();
             rel_ = relativize(_currentFileName, _file + "#m" + method_.getNameOffset());
         }

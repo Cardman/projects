@@ -6,6 +6,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.methods.Classes;
+import code.expressionlanguage.methods.NamedFunctionBlock;
 import code.expressionlanguage.methods.OverridableBlock;
 import code.expressionlanguage.methods.ProcessMethod;
 import code.expressionlanguage.opers.util.MethodAccessKind;
@@ -129,7 +130,7 @@ public final class ThreadActions implements Runnable {
                         String arrStr_ = PrimitiveTypeUtil.getPrettyArrayType(stds_.getAliasString());
                         MethodId id_ = new MethodId(MethodAccessKind.STATIC, methodName, new StringList(arrStr_,arrStr_));
                         ContextEl ctx_ = conf_.getContext();
-                        CustList<OverridableBlock> methods_ = Classes.getMethodBodiesById(ctx_, classDbName, id_);
+                        CustList<NamedFunctionBlock> methods_ = Classes.getMethodBodiesById(ctx_, classDbName, id_);
                         if (!methods_.isEmpty()) {
                             ProcessMethod.initializeClass(classDbName,ctx_);
                             if (ctx_.hasException()) {

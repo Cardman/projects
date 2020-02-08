@@ -350,12 +350,12 @@ public final class TypeUtil {
             if (!PrimitiveTypeUtil.canBeUseAsArgument(baseClassFound_, name_, _conf)) {
                 continue;
             }
-            if (!c.mustImplement()) {
-                continue;
-            }
             ClassMethodId f_ = tryGetUniqueId(baseClassFound_, c, _realId, _conf);
             if (f_ != null) {
                 eq_.put(name_, f_);
+                continue;
+            }
+            if (!(c instanceof GeneClass)) {
                 continue;
             }
             GeneClass subClassBlock_ = (GeneClass) c;
@@ -440,11 +440,10 @@ public final class TypeUtil {
             }
         }
         //c is a concrete sub type of type input
-        GeneClass subClassBlock_ = (GeneClass) _type;
         StringList allBaseClasses_ = new StringList(name_);
-        allBaseClasses_.addAllElts(subClassBlock_.getAllSuperClasses());
+        allBaseClasses_.addAllElts(_type.getAllSuperClasses());
         for (String s: allBaseClasses_) {
-            GeneClass r_ = (GeneClass) _conf.getClassBody(s);
+            GeneType r_ = _conf.getClassBody(s);
             String gene_ = r_.getGenericString();
             String v_ = Templates.getFullTypeByBases(gene_, _subTypeName, _conf);
             if (v_ == null) {

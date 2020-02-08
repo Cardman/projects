@@ -228,7 +228,7 @@ public final class ReturnMehod extends AbruptBlock implements CallingFinally, Wi
         AbstractPageEl ip_ = _conf.getLastPage();
         while (ip_.hasBlock()) {
             RemovableVars bl_ = ip_.getLastStack();
-            if (AbstractPageEl.setRemovedCallingFinallyToProcess(ip_,bl_,this)) {
+            if (AbstractPageEl.setRemovedCallingFinallyToProcess(ip_,bl_,this,null)) {
                 return;
             }
         }

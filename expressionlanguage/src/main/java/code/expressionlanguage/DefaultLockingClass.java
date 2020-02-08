@@ -65,6 +65,7 @@ public class DefaultLockingClass {
                     return;
                 }
             }
+            _context.setException(_cause);
             return;
         }
         String curClass_ = pageEl_.getGlobalClass();

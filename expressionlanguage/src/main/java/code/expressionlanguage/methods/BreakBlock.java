@@ -153,7 +153,7 @@ public final class BreakBlock extends AbruptBlock implements CallingFinally {
                     break;
                 }
             }
-            if (AbstractPageEl.setRemovedCallingFinallyToProcess(ip_,bl_,this)) {
+            if (AbstractPageEl.setRemovedCallingFinallyToProcess(ip_,bl_,this,null)) {
                 return;
             }
         }

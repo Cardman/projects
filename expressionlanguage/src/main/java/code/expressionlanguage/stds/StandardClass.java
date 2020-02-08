@@ -58,10 +58,7 @@ public final class StandardClass extends StandardType implements GeneClass {
         superTypes_.addAllElts(directInterfaces);
         return superTypes_;
     }
-    @Override
-    public boolean mustImplement() {
-        return !isAbstractType();
-    }
+
     @Override
     public StringList getAllSuperClasses() {
         return allSuperClasses;

@@ -1624,6 +1624,11 @@ public abstract class OperationNode implements Operable {
             argument = null;
         }
     }
+    public void cancelArgumentString() {
+        if (Argument.isNotDisplayableValue(argument)) {
+            argument = null;
+        }
+    }
     private static ConstructorInfo sortCtors(CustList<ConstructorInfo> _fct, ArgumentsGroup _context) {
         int len_ = _fct.size();
         if (_context.getContext().getOptions().isAllParametersSort()) {
