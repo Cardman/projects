@@ -147,9 +147,14 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
             CustList<Argument> firstArgs_ = new CustList<Argument>();
             CustList<Argument> optArgs_ = new CustList<Argument>();
             int lenCh_ = _children.size();
+            int natVarArg_ = _natVararg;
             for (int i = CustList.FIRST_INDEX; i < lenCh_; i++) {
+                if (_children.get(i) instanceof IdFctOperable) {
+                    natVarArg_++;
+                    continue;
+                }
                 Argument a_ = _nodes.get(i);
-                if (i >= _natVararg) {
+                if (i >= natVarArg_) {
                     optArgs_.add(a_);
                 } else {
                     firstArgs_.add(a_);
@@ -165,7 +170,16 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
             firstArgs_.add(argRem_);
             return firstArgs_;
         }
-        return new CustList<Argument>(_nodes);
+        CustList<Argument> firstArgs_ = new CustList<Argument>();
+        int lenCh_ = _children.size();
+        for (int i = CustList.FIRST_INDEX; i < lenCh_; i++) {
+            if (_children.get(i) instanceof IdFctOperable) {
+                continue;
+            }
+            Argument a_ = _nodes.get(i);
+            firstArgs_.add(a_);
+        }
+        return firstArgs_;
     }
     static StringList getBounds(String _cl, Analyzable _conf) {
         LgNames stds_ = _conf.getStandards();

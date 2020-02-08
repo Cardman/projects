@@ -254,11 +254,6 @@ public final class FctOperation extends InvokingOperation {
             str_ = NullStruct.NULL_VALUE;
         }
         CustList<Argument> firstArgs_ = quickListArguments(chidren_, _naturalVararg, _lastType, arguments_, _conf);
-        String className_ = _classMethodId.getClassName();
-        Struct ex_ = Templates.okArgsEx(id_, false, className_, firstArgs_, _conf.getContextEl(), null);
-        if (ex_ != null) {
-            return;
-        }
         ResultErrorStd res_ = LgNames.invokeStdMethod(_conf, _classMethodId, str_, Argument.toArgArray(firstArgs_));
         Struct out_ = res_.getResult();
         if (out_ == null || out_ instanceof ArrayStruct) {

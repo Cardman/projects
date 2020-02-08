@@ -12,7 +12,7 @@ import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
 import code.util.StringList;
 
-public final class IdFctOperation extends LeafOperation {
+public final class IdFctOperation extends LeafOperation implements IdFctOperable {
 
     private String className;
     private int offset;

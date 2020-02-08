@@ -451,11 +451,6 @@ public final class StandardInstancingOperation extends
             return;
         }
         CustList<Argument> firstArgs_ = quickListArguments(filter_, _naturalVararg, _lastType, arguments_, _conf);
-        String className_ = _constId.getName();
-        Struct ex_ = Templates.okArgsEx(_constId, false, className_, firstArgs_, _conf.getContextEl(), null);
-        if (ex_ != null) {
-            return;
-        }
         ResultErrorStd res_ = LgNames.newInstanceStd(_conf, _constId, Argument.toArgArray(firstArgs_));
         Struct out_ = res_.getResult();
         if (out_ == null) {

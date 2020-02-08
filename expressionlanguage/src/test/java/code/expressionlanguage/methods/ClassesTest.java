@@ -8050,7 +8050,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Apply {\n");
-        xml_.append(" $public $static $void p($int... i) {$new Integer($(Integer)$null):$new Integer($id(Integer,$int),0):}\n");
+        xml_.append(" $public $static $void p($int... i) {$new Integer($(Integer)$null):$new Integer($id(Integer,$int),0):\"\".format($id(CharSequence,CharSequence...),\"\",\"\"):}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();

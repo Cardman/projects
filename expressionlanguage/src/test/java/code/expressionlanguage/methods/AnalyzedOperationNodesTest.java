@@ -3088,8 +3088,24 @@ public final class AnalyzedOperationNodesTest {
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void processEl2300Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $static {$var c = \" \": c;.charAt($id(CharSequence,$int),0):}\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        Options opt_ = new Options();
+        opt_.setEndLineSemiColumn(false);
+        opt_.setAllParametersSort(false);
+        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
         RootBlock r_ = cont_.getClasses().getClassBody("pkg.ExTwo");
-        Line f_ = (Line) r_.getFirstChild().getFirstChild();
+        Line f_ = (Line) r_.getFirstChild().getFirstChild().getNextSibling().getNextSibling();
         ExecFctOperation fct_ = getFct(f_.getExp());
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
@@ -3394,8 +3410,24 @@ public final class AnalyzedOperationNodesTest {
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void processEl2440Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $static {$var c=` `:c;.charAt($id(CharSequence,$int),0):}\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        Options opt_ = new Options();
+        opt_.setEndLineSemiColumn(false);
+        opt_.setAllParametersSort(false);
+        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
         RootBlock r_ = cont_.getClasses().getClassBody("pkg.ExTwo");
-        Line f_ = (Line) r_.getFirstChild().getFirstChild();
+        Line f_ = (Line) r_.getFirstChild().getFirstChild().getNextSibling().getNextSibling();
         ExecFctOperation fct_ = getFct(f_.getExp());
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
@@ -3424,8 +3456,24 @@ public final class AnalyzedOperationNodesTest {
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void processEl2450Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $static {$var c =' '+\" \":c;.charAt($id(CharSequence,$int),0):}\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        Options opt_ = new Options();
+        opt_.setEndLineSemiColumn(false);
+        opt_.setAllParametersSort(false);
+        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
         RootBlock r_ = cont_.getClasses().getClassBody("pkg.ExTwo");
-        Line f_ = (Line) r_.getFirstChild().getFirstChild();
+        Line f_ = (Line) r_.getFirstChild().getFirstChild().getNextSibling().getNextSibling();
         ExecFctOperation fct_ = getFct(f_.getExp());
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
