@@ -104,7 +104,7 @@ public final class RenderExpUtil {
         ContextEl context_ = _conf.getContext();
         _conf.setupAnalyzing();
         Argument argGl_ = _conf.getOperationPageEl().getGlobalArgument();
-        boolean static_ = argGl_ == null || argGl_.isNull();
+        boolean static_ = argGl_.isNull();
         _conf.setAccessStaticContext(MethodId.getKind(static_));
         Delimiters d_ = ElResolver.checkSyntax(_el, _conf, _index);
         if (d_.getBadOffset() >= 0) {

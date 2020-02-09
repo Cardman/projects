@@ -5969,7 +5969,7 @@ public final class ExpressionLanguageTest {
     }
 
     private static void addImportingPage(ContextEl _conf) {
-        _conf.addPage(new MethodPageEl(_conf,null));
+        _conf.addPage(new MethodPageEl(_conf,"",Argument.createVoid(),"",Argument.createVoid()));
     }
 
     private static ContextEl contextEl(StringMap<String> _files) {

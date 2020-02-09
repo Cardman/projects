@@ -282,8 +282,6 @@ public abstract class ContextEl implements ExecutableCode {
     }
     public MethodPageEl createCallingMethod(Argument _gl, String _class, MethodId _method, CustList<Argument> _args,Argument _right) {
         setCallingState(null);
-        MethodPageEl pageLoc_ = new MethodPageEl(this,_right);
-        pageLoc_.setGlobalArgument(_gl);
         NamedFunctionBlock methodLoc_;
         if (!StringList.isDollarWord(_method.getName()) && !_method.getName().startsWith("[]")) {
             methodLoc_ = Classes.getOperatorsBodiesById(this, _method).first();
@@ -293,6 +291,8 @@ public abstract class ContextEl implements ExecutableCode {
             String idCl_ = Templates.getIdFromAllTypes(_class);
             coverage.passCalls(this,idCl_,methodLoc_);
         }
+        String ret_ = methodLoc_.getImportedReturnType();
+        MethodPageEl pageLoc_ = new MethodPageEl(this,ret_,_gl,_class,_right);
         setMethodInfos(pageLoc_,methodLoc_,_class,_args);
         return pageLoc_;
     }
@@ -305,17 +305,16 @@ public abstract class ContextEl implements ExecutableCode {
     }
     public CastPageEl createCallingCast(String _class, MethodId _method, CustList<Argument> _args) {
         setCallingState(null);
-        CastPageEl pageLoc_ = new CastPageEl(this);
-        pageLoc_.setGlobalArgument(Argument.createVoid());
         NamedFunctionBlock methodLoc_;
         methodLoc_ = Classes.getMethodBodiesById(this, _class, _method).first();
         String idCl_ = Templates.getIdFromAllTypes(_class);
         coverage.passCalls(this,idCl_,methodLoc_);
+        String ret_ = methodLoc_.getImportedReturnType();
+        CastPageEl pageLoc_ = new CastPageEl(this,ret_,Argument.createVoid(),_class);
         setMethodInfos(pageLoc_,methodLoc_,_class,_args);
         return pageLoc_;
     }
     private void setMethodInfos(AbstractMethodPageEl _page, NamedFunctionBlock _block, String _class, CustList<Argument> _args) {
-        _page.setGlobalClass(_class);
         StringList paramsLoc_ = _block.getParametersNames();
         int lenLoc_ = paramsLoc_.size();
         for (int i = CustList.FIRST_INDEX; i < lenLoc_; i++) {

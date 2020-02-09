@@ -11,7 +11,7 @@ public abstract class PageEl {
 
     private String globalClass = "";
 
-    private Argument globalArgument;
+    private Argument globalArgument = Argument.createVoid();
 
     private StringMap<LoopVariable> vars;
 
@@ -35,9 +35,6 @@ public abstract class PageEl {
         globalClass = _globalClass;
     }
     public String formatVarType(String _varType, ExecutableCode _cont) {
-        if (globalArgument == null) {
-            return _varType;
-        }
         if (globalArgument.isNull()) {
             return _varType;
         }

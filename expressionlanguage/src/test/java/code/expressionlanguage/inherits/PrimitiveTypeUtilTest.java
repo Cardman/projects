@@ -921,34 +921,6 @@ public final class PrimitiveTypeUtilTest {
     }
 
     @Test
-    public void dafaultValue1Test() {
-        StringMap<String> files_ = new StringMap<String>();
-        StringBuilder xml_;
-        xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex{\n");
-        xml_.append(" $public Ex(){}\n");
-        xml_.append("}\n");
-        files_.put("pkg/Ex", xml_.toString());
-        ContextEl c_ = unfullValidateCheckInterfaces(files_);
-        Block b_ = c_.getClasses().getClassBody("pkg.Ex").getFirstChild();
-        assertSame(NullStruct.NULL_VALUE, PrimitiveTypeUtil.defaultValue(b_,Argument.createVoid(),c_).getStruct());
-    }
-
-    @Test
-    public void dafaultValue2Test() {
-        StringMap<String> files_ = new StringMap<String>();
-        StringBuilder xml_;
-        xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex{\n");
-        xml_.append(" $public $void m(){}\n");
-        xml_.append("}\n");
-        files_.put("pkg/Ex", xml_.toString());
-        ContextEl c_ = unfullValidateCheckInterfaces(files_);
-        Block b_ = c_.getClasses().getClassBody("pkg.Ex").getFirstChild();
-        assertSame(NullStruct.NULL_VALUE, PrimitiveTypeUtil.defaultValue(b_,Argument.createVoid(),c_).getStruct());
-    }
-
-    @Test
     public void getParent1Test() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
