@@ -235,7 +235,7 @@ public final class ElUtil {
                 par_.analyze(_context);
                 ClassArgumentMatching cl_ = par_.getResultClass();
                 unwrapPrimitive(_context, par_, cl_);
-                par_.tryCalculateNode(_context);
+                tryCalculateNode(_context,par_);
                 par_.tryAnalyzeAssignmentAfter(_context);
                 par_.setOrder(_sortedNodes.size());
                 _sortedNodes.add(par_);
@@ -306,7 +306,7 @@ public final class ElUtil {
                 par_.analyze(_context);
                 ClassArgumentMatching cl_ = par_.getResultClass();
                 unwrapPrimitive(_context, par_, cl_);
-                par_.tryCalculateNode(_context);
+                tryCalculateNode(_context,par_);
                 par_.setOrder(_sortedNodes.size());
                 _sortedNodes.add(par_);
                 return null;
