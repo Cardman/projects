@@ -1,9 +1,11 @@
 package code.expressionlanguage.structs;
 
 import code.expressionlanguage.Analyzable;
+import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.instr.NumberInfos;
+import code.expressionlanguage.opers.exec.ExecCatOperation;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ConstructorId;
@@ -101,10 +103,8 @@ public abstract class NumberStruct implements DisplayableStruct, ExportableStrin
     }
 
   private static void catenize(Analyzable _cont, ResultErrorStd _res, Struct... _args) {
-    StringBuilder str_ = new StringBuilder();
-    str_.append(((DisplayableStruct)_args[0]).getDisplayedString(_cont).getInstance());
-    str_.append(((DisplayableStruct)_args[1]).getDisplayedString(_cont).getInstance());
-    _res.setResult(new StringStruct(str_.toString()));
+      Argument arg_ = ExecCatOperation.localSumDiff(new Argument(_args[0]), new Argument(_args[1]), _cont.getContextEl());
+      _res.setResult(arg_.getStruct());
   }
 
   public static void instantiate(Analyzable _cont, ResultErrorStd _res, ConstructorId _method, Struct... _args) {

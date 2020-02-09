@@ -5,6 +5,7 @@ import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.errors.custom.UnexpectedTypeOperationError;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.instr.OperationsSequence;
+import code.expressionlanguage.opers.exec.ExecCatOperation;
 import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.structs.DisplayableStruct;
 import code.expressionlanguage.structs.NumberStruct;
@@ -31,10 +32,7 @@ public final class AddOperation extends NumericOperation {
             ExecutableCode _cont) {
         if (StringList.quickEq(_op.trim(), PLUS)) {
             if (catString) {
-                StringBuilder str_ = new StringBuilder();
-                str_.append(((DisplayableStruct)_a.getStruct()).getDisplayedString(_cont).getInstance());
-                str_.append(((DisplayableStruct)_b.getStruct()).getDisplayedString(_cont).getInstance());
-                return new Argument(new StringStruct(str_.toString()));
+                return ExecCatOperation.localSumDiff(_a,_b,_cont);
             }
             return new Argument(NumberStruct.calculateSum((NumberStruct)_a.getStruct(),(NumberStruct) _b.getStruct(), _cont, getResultClass()));
         }
