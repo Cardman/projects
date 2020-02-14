@@ -791,7 +791,7 @@ public abstract class OperationNode implements Operable {
         String baseCurName_ = Templates.getIdFromAllTypes(_class);
         GeneType root_ = _conf.getClasses().getClassBody(baseCurName_);
         if (root_ != null) {
-            fetchInstanceMethods(_conf, false, true, null, "", methods_, 0, root_, _class);
+            fetchToStringMethods(_conf,_class,methods_);
         }
         return getCustResultExec(_conf, methods_, toString_);
     }
@@ -930,149 +930,14 @@ public abstract class OperationNode implements Operable {
     getDeclaredCustMethodByType(Analyzable _conf, MethodAccessKind _staticContext, boolean _accessFromSuper,
                                 boolean _superClass, StringList _fromClasses, String _name, boolean _import, ClassMethodId _uniqueId) {
         String glClass_ = _conf.getGlobalClass();
-        CustList<GeneType> roots_ = new CustList<GeneType>();
         ObjectMap<ClassMethodId, MethodInfo> methods_;
         methods_ = new ObjectMap<ClassMethodId, MethodInfo>();
-        StringList superTypes_ = new StringList();
-        StringList basesTypes_ = new StringList();
-        StringList geneSuperTypes_ = new StringList();
-        StringMap<String> superTypesBase_ = new StringMap<String>();
-        for (String s: _fromClasses) {
-            String baseCurName_ = Templates.getIdFromAllTypes(s);
-            superTypes_.add(baseCurName_);
-            basesTypes_.add(baseCurName_);
-            geneSuperTypes_.add(s);
-            superTypesBase_.put(baseCurName_,baseCurName_);
-            GeneType root_ = _conf.getClassBody(baseCurName_);
-            if (root_ == null) {
-                continue;
-            }
-            roots_.add(root_);
-            for (String m: root_.getAllSuperTypes()) {
-                superTypesBase_.put(m, baseCurName_);
-                superTypes_.add(m);
-            }
-            if (_staticContext != MethodAccessKind.STATIC) {
-                for (String m : root_.getAllGenericSuperTypes()) {
-                    geneSuperTypes_.add(Templates.quickFormat(s, m, _conf));
-                }
-            }
-        }
-        for (String t: superTypes_) {
-            if (isStaticCandidate(_uniqueId, t)) {
-                continue;
-            }
-            GeneType root_ = _conf.getClassBody(t);
-            fetchStaticMethods(_conf, _accessFromSuper,0, _superClass, _uniqueId, glClass_, methods_, superTypesBase_, t, root_);
-            methods_.putAllMap(getPredefineStaticEnumMethods(_conf, t, 0));
-        }
-        CustList<CustList<GeneType>> rootsAncs_ = new CustList<CustList<GeneType>>();
-        StringMap<Integer> superTypesAnc_ = new StringMap<Integer>();
-        StringMap<String> superTypesBaseAnc_ = new StringMap<String>();
-        for (String s: _fromClasses) {
-            String baseCurName_ = Templates.getIdFromAllTypes(s);
-            GeneType root_ = _conf.getClassBody(baseCurName_);
-            if (!(root_ instanceof RootBlock)) {
-                continue;
-            }
-            RootBlock r_ = (RootBlock) root_;
-            int anc_ = 1;
-            CustList<GeneType> rootsAnc_= new CustList<GeneType>();
-            boolean add_ = !root_.isStaticType();
-            for (RootBlock p: r_.getAllParentTypes()) {
-                if (add_) {
-                    rootsAnc_.add(p);
-                }
-                if (p.isStaticType()) {
-                    add_ = false;
-                }
-                String baseCur_ = p.getFullName();
-                superTypesAnc_.put(baseCur_,anc_);
-                superTypesBaseAnc_.put(baseCur_, baseCur_);
-                for (String m: p.getAllSuperTypes()) {
-                    superTypesBaseAnc_.put(m, baseCur_);
-                    superTypesAnc_.put(m,anc_);
-                }
-                anc_++;
-            }
-            rootsAncs_.add(rootsAnc_);
-        }
-        for (EntryCust<String, Integer> t: superTypesAnc_.entryList()) {
-            if (isStaticCandidate(_uniqueId, t.getKey())) {
-                continue;
-            }
-            String cl_ = t.getKey();
-            GeneType root_ = _conf.getClassBody(cl_);
-            int anc_ = t.getValue();
-            fetchStaticMethods(_conf, _accessFromSuper, anc_,_superClass, _uniqueId, glClass_, methods_, superTypesBaseAnc_, cl_, root_);
-            methods_.putAllMap(getPredefineStaticEnumMethods(_conf, cl_, anc_));
-        }
+        fetchParamClassAncMethods(_conf,_fromClasses,MethodAccessKind.STATIC,_accessFromSuper,_superClass,_uniqueId,methods_);
         if (_staticContext != MethodAccessKind.STATIC){
-            for (String t: geneSuperTypes_) {
-                String cl_ = Templates.getIdFromAllTypes(t);
-                GeneType root_ = _conf.getClassBody(cl_);
-                fetchStaticCallMethods(_conf,_accessFromSuper,_superClass,0,_uniqueId,glClass_,methods_,t,root_,basesTypes_,superTypesBase_);
-            }
-            for (String t: geneSuperTypes_) {
-                String cl_ = Templates.getIdFromAllTypes(t);
-                GeneType root_ = _conf.getClassBody(cl_);
-                if (!(root_ instanceof RootBlock)) {
-                    continue;
-                }
-                RootBlock r_ = (RootBlock) root_;
-                StringList geneTypes_ = new StringList();
-                StringMap<Integer> allGeneTypes_ = new StringMap<Integer>();
-                CustList<GeneType> rootsAnc_= new CustList<GeneType>();
-                StringMap<String> superTypesBaseAncBis_ = new StringMap<String>();
-                boolean add_ = !root_.isStaticType();
-                int anc_ = 1;
-                for (RootBlock p: r_.getAllParentTypes()) {
-                    if (add_) {
-                        rootsAnc_.add(p);
-                        String gene_ = p.getGenericString();
-                        gene_ = Templates.quickFormat(t,gene_,_conf);
-                        geneTypes_.add(gene_);
-                        allGeneTypes_.put(gene_,anc_);
-                    }
-                    if (p.isStaticType()) {
-                        add_ = false;
-                    }
-                    for (String m : p.getAllGenericSuperTypes()) {
-                        allGeneTypes_.put(Templates.quickFormat(t, m, _conf),anc_);
-                    }
-                    String baseCur_ = p.getFullName();
-                    superTypesBaseAncBis_.put(baseCur_, baseCur_);
-                    for (String m: p.getAllSuperTypes()) {
-                        superTypesBaseAncBis_.put(m, baseCur_);
-                    }
-                    anc_++;
-                }
-                for (EntryCust<String,Integer> e: allGeneTypes_.entryList()) {
-                    String u_ = e.getKey();
-                    String clOuter_ = Templates.getIdFromAllTypes(u_);
-                    GeneType rootOuter_ = _conf.getClassBody(clOuter_);
-                    fetchStaticCallMethods(_conf,_accessFromSuper,_superClass,e.getValue(),_uniqueId,glClass_,methods_,u_,rootOuter_,geneTypes_,superTypesBaseAncBis_);
-                }
-            }
+            fetchParamClassAncMethods(_conf,_fromClasses,MethodAccessKind.STATIC_CALL,_accessFromSuper,_superClass,_uniqueId,methods_);
         }
         if (_staticContext == MethodAccessKind.INSTANCE){
-            int indexType_ = 0;
-            for (GeneType t: roots_) {
-                String clCurName_ = _fromClasses.get(indexType_);
-                fetchInstanceMethods(_conf, _accessFromSuper, _superClass, _uniqueId, glClass_, methods_, 0, t, clCurName_);
-                indexType_++;
-            }
-            indexType_ = 0;
-            for (CustList<GeneType> l: rootsAncs_) {
-                String clCurName_ = _fromClasses.get(indexType_);
-                indexType_++;
-                int anc_ = 1;
-                for (GeneType t: l) {
-                    String f_ = Templates.quickFormat(clCurName_, t.getGenericString(), _conf);
-                    fetchInstanceMethods(_conf, _accessFromSuper, _superClass, _uniqueId, glClass_, methods_, anc_, t, f_);
-                    anc_++;
-                }
-            }
+            fetchParamClassAncMethods(_conf,_fromClasses,MethodAccessKind.INSTANCE,_accessFromSuper,_superClass,_uniqueId,methods_);
         }
         if (_import) {
             for (EntryCust<ClassMethodId, Integer> e: _conf.lookupImportStaticMethods(glClass_, _name, _conf.getCurrentBlock()).entryList()) {
@@ -1113,13 +978,93 @@ public abstract class OperationNode implements Operable {
         return false;
     }
 
-    private static boolean isStaticCandidate(ClassMethodId _uniqueId, String _key) {
-        if (_uniqueId != null) {
-            if (!StringList.quickEq(_uniqueId.getClassName(), _key)) {
-                return true;
+    private static void fetchParamClassAncMethods(Analyzable _conf, StringList _fromClasses, MethodAccessKind _staticContext, boolean _accessFromSuper,
+                                                  boolean _superClass, ClassMethodId _uniqueId, ObjectMap<ClassMethodId, MethodInfo> _methods) {
+        String glClass_ = _conf.getGlobalClass();
+        StringList superTypes_ = new StringList();
+        StringList basesTypes_ = new StringList();
+        StringList geneSuperTypes_ = new StringList();
+        StringMap<String> superTypesBase_ = new StringMap<String>();
+        for (String s: _fromClasses) {
+            String baseCurName_ = Templates.getIdFromAllTypes(s);
+            GeneType root_ = _conf.getClassBody(baseCurName_);
+            if (root_ == null) {
+                continue;
+            }
+            superTypes_.add(baseCurName_);
+            basesTypes_.add(baseCurName_);
+            if (_staticContext != MethodAccessKind.STATIC) {
+                geneSuperTypes_.add(s);
+            } else {
+                geneSuperTypes_.add(baseCurName_);
+            }
+            superTypesBase_.put(baseCurName_,baseCurName_);
+            for (String m: root_.getAllSuperTypes()) {
+                superTypesBase_.put(m, baseCurName_);
+                superTypes_.add(m);
+            }
+            if (_staticContext != MethodAccessKind.STATIC) {
+                for (String m : root_.getAllGenericSuperTypes()) {
+                    geneSuperTypes_.add(Templates.quickFormat(s, m, _conf));
+                }
+            } else {
+                for (String m : root_.getAllSuperTypes()) {
+                    geneSuperTypes_.add(m);
+                }
             }
         }
-        return false;
+        for (String t: geneSuperTypes_) {
+            String cl_ = Templates.getIdFromAllTypes(t);
+            GeneType root_ = _conf.getClassBody(cl_);
+            fetchParamClassMethods(_conf,_accessFromSuper,_superClass,0,_staticContext,_uniqueId,glClass_,_methods,t,root_,basesTypes_,superTypesBase_);
+        }
+        for (String t: geneSuperTypes_) {
+            String cl_ = Templates.getIdFromAllTypes(t);
+            GeneType root_ = _conf.getClassBody(cl_);
+            if (!(root_ instanceof RootBlock)) {
+                continue;
+            }
+            RootBlock r_ = (RootBlock) root_;
+            StringList baseTypes_ = new StringList();
+            StringMap<Integer> allGeneTypes_ = new StringMap<Integer>();
+            CustList<GeneType> rootsAnc_= new CustList<GeneType>();
+            StringMap<String> superTypesBaseAncBis_ = new StringMap<String>();
+            boolean add_ = !root_.isStaticType();
+            int anc_ = 1;
+            for (RootBlock p: r_.getAllParentTypes()) {
+                if (add_) {
+                    rootsAnc_.add(p);
+                    String gene_ = p.getGenericString();
+                    if (_staticContext != MethodAccessKind.STATIC) {
+                        gene_ = Templates.quickFormat(t, gene_, _conf);
+                    }
+                    baseTypes_.add(p.getFullName());
+                    allGeneTypes_.put(gene_,anc_);
+                }
+                if (p.isStaticType()) {
+                    add_ = false;
+                }
+                for (String m : p.getAllGenericSuperTypes()) {
+                    if (_staticContext != MethodAccessKind.STATIC) {
+                        allGeneTypes_.put(Templates.quickFormat(t, m, _conf),anc_);
+                    } else {
+                        allGeneTypes_.put(m,anc_);
+                    }
+                }
+                String baseCur_ = p.getFullName();
+                superTypesBaseAncBis_.put(baseCur_, baseCur_);
+                for (String m: p.getAllSuperTypes()) {
+                    superTypesBaseAncBis_.put(m, baseCur_);
+                }
+                anc_++;
+            }
+            for (EntryCust<String,Integer> e: allGeneTypes_.entryList()) {
+                String u_ = e.getKey();
+                String clOuter_ = Templates.getIdFromAllTypes(u_);
+                GeneType rootOuter_ = _conf.getClassBody(clOuter_);
+                fetchParamClassMethods(_conf,_accessFromSuper,_superClass,e.getValue(),_staticContext,_uniqueId,glClass_,_methods,u_,rootOuter_,baseTypes_,superTypesBaseAncBis_);
+            }
+        }
     }
 
     private static void fetchCastMethods(Analyzable _conf, ClassMethodId _uniqueId, String _glClass, ObjectMap<ClassMethodId, MethodInfo> _methods, String _cl, GeneType _root) {
@@ -1133,77 +1078,63 @@ public abstract class OperationNode implements Operable {
         }
     }
 
-    private static void fetchStaticMethods(Analyzable _conf, boolean _accessFromSuper, int _anc,boolean _superClass, ClassMethodId _uniqueId, String _glClass, ObjectMap<ClassMethodId, MethodInfo> _methods, StringMap<String> _superTypesBase, String _cl, GeneType _root) {
+    private static void fetchParamClassMethods(Analyzable _conf, boolean _accessFromSuper, boolean _superClass, int _anc, MethodAccessKind _kind,
+                                               ClassMethodId _uniqueId, String _glClass, ObjectMap<ClassMethodId, MethodInfo> _methods,
+                                               String _cl, GeneType _root, StringList _superTypesBase, StringMap<String> _superTypesBaseMap) {
+        String fullName_ = _root.getFullName();
+        String genericString_ = _root.getGenericString();
         for (GeneMethod e: ContextEl.getMethodBlocks(_root)) {
-            MethodInfo stMeth_ = getStMeth(_conf, _accessFromSuper,_anc, _superClass, _uniqueId, _glClass, e, _cl, _superTypesBase);
-            if (stMeth_ == null) {
+            if (e.getId().getKind() != _kind) {
                 continue;
             }
-            ClassMethodId clId_ = new ClassMethodId(_cl, e.getId());
-            _methods.add(clId_, stMeth_);
-        }
-    }
-
-    private static void fetchStaticCallMethods(Analyzable _conf, boolean _accessFromSuper, boolean _superClass, int _anc,ClassMethodId _uniqueId, String _glClass, ObjectMap<ClassMethodId, MethodInfo> _methods, String _cl, GeneType _root, StringList _superTypesBase, StringMap<String> _superTypesBaseMap) {
-        for (GeneMethod e: ContextEl.getMethodBlocks(_root)) {
-            if (e.getId().getKind() != MethodAccessKind.STATIC_CALL) {
-                continue;
-            }
-            String subType_ = _superTypesBaseMap.getVal(_cl);
+            String subType_ = _superTypesBaseMap.getVal(fullName_);
             if (!Classes.canAccess(subType_, e, _conf)) {
                 continue;
             }
             if (_accessFromSuper) {
-                if (StringList.contains(_superTypesBase, _root.getFullName())) {
+                if (StringList.contains(_superTypesBase, fullName_)) {
                     continue;
                 }
             }
             if (!_superClass) {
-                if (!StringList.contains(_superTypesBase, _root.getFullName())) {
+                if (!StringList.contains(_superTypesBase, fullName_)) {
                     continue;
                 }
             }
-            ClassMethodId cId_ = new ClassMethodId(_cl,e.getId());
+            ClassMethodId cId_ = new ClassMethodId(genericString_,e.getId());
             MethodInfo stMeth_ = fetchedParamMethod(cId_,_conf, _superClass,_uniqueId,_glClass,_anc,_root,_cl);
             if (stMeth_ == null) {
                 continue;
             }
-            ClassMethodId clId_ = new ClassMethodId(_cl, e.getId());
+            ClassMethodId clId_ = new ClassMethodId(fullName_, e.getId());
             _methods.add(clId_, stMeth_);
         }
-    }
-    private static void fetchInstanceMethods(Analyzable _conf, boolean _accessFromSuper, boolean _superClass, ClassMethodId _uniqueId, String _glClass, ObjectMap<ClassMethodId, MethodInfo> _methods, int _anc, GeneType _t, String _f) {
-        for (EntryCust<MethodId, EqList<ClassMethodId>> e: _t.getAllOverridingMethods().entryList()) {
-            for (ClassMethodId s: e.getValue()) {
-                String name_ = s.getClassName();
-                MethodId id_ = s.getConstraints();
-                if (_accessFromSuper) {
-                    String base_ = Templates.getIdFromAllTypes(name_);
-                    if (StringList.quickEq(base_, _t.getFullName())) {
-                        continue;
-                    }
-                }
-                if (!_superClass) {
-                    String base_ = Templates.getIdFromAllTypes(name_);
-                    if (!StringList.quickEq(base_, _t.getFullName())) {
-                        continue;
-                    }
-                }
-                MethodInfo mloc_ = fetchedParamMethod(s,_conf, _superClass,_uniqueId,_glClass,_anc,_t,_f);
-                if (mloc_ == null) {
-                    continue;
-                }
-                String formattedClass_;
-                if (_superClass) {
-                    formattedClass_ = Templates.quickFormat(_f, name_, _conf);
-                } else {
-                    formattedClass_ = _f;
-                }
-                ClassMethodId clId_ = new ClassMethodId(formattedClass_, id_);
-                _methods.add(clId_, mloc_);
-            }
+        if (_kind == MethodAccessKind.STATIC) {
+            _methods.putAllMap(getPredefineStaticEnumMethods(_conf,genericString_,_anc));
         }
     }
+    private static void fetchToStringMethods(Analyzable _conf, String _cl, ObjectMap<ClassMethodId, MethodInfo> _methods) {
+        StringList basesTypes_ = new StringList();
+        StringList geneSuperTypes_ = new StringList();
+        StringMap<String> superTypesBase_ = new StringMap<String>();
+        String baseCurName_ = Templates.getIdFromAllTypes(_cl);
+        GeneType rootBase_ = _conf.getClassBody(baseCurName_);
+        basesTypes_.add(baseCurName_);
+        geneSuperTypes_.add(_cl);
+        superTypesBase_.put(baseCurName_,baseCurName_);
+        for (String m: rootBase_.getAllSuperTypes()) {
+            superTypesBase_.put(m, baseCurName_);
+        }
+        for (String m : rootBase_.getAllGenericSuperTypes()) {
+            geneSuperTypes_.add(Templates.quickFormat(_cl, m, _conf));
+        }
+        for (String t: geneSuperTypes_) {
+            String cl_ = Templates.getIdFromAllTypes(t);
+            GeneType root_ = _conf.getClassBody(cl_);
+            fetchParamClassMethods(_conf,false,true,0,MethodAccessKind.INSTANCE,null,"",_methods,t,root_,basesTypes_,superTypesBase_);
+        }
+    }
+
     private static MethodInfo fetchedParamMethod(ClassMethodId _s, Analyzable _conf, boolean _superClass, ClassMethodId _uniqueId, String _glClass, int _anc, GeneType _t, String _f) {
         String name_ = _s.getClassName();
         String base_ = Templates.getIdFromAllTypes(name_);
@@ -1212,7 +1143,9 @@ public abstract class OperationNode implements Operable {
             return null;
         }
         String formattedClass_;
-        if (_superClass) {
+        if (!id_.canAccessParamTypes()) {
+            formattedClass_ = name_;
+        } else if (_superClass) {
             formattedClass_ = Templates.quickFormat(_f, name_, _conf);
         } else {
             formattedClass_ = _f;
@@ -1265,50 +1198,6 @@ public abstract class OperationNode implements Operable {
         return null;
     }
 
-    private static MethodInfo getStMeth(Analyzable _conf, boolean _accessFromSuper,int _anc,
-                                        boolean _superClass, ClassMethodId _uniqueId, String _glClass, GeneMethod _e, String _t, StringMap<String> _superTypesBase) {
-        if (!Classes.canAccess(_glClass, _e, _conf)) {
-            return null;
-        }
-        String subType_ = _superTypesBase.getVal(_t);
-        if (!Classes.canAccess(subType_, _e, _conf)) {
-            return null;
-        }
-        if (_accessFromSuper) {
-            StringList l_ = new StringList(_superTypesBase.values());
-            if (StringList.contains(l_, _t)) {
-                return null;
-            }
-        }
-        if (!_superClass) {
-            StringList l_ = new StringList(_superTypesBase.values());
-            if (!StringList.contains(l_, _t)) {
-                return null;
-            }
-        }
-        if (_e.isStaticMethod()) {
-            MethodId id_ = _e.getId();
-            if (_uniqueId != null) {
-                if (!_uniqueId.getConstraints().eq(id_)) {
-                    return null;
-                }
-            }
-            String returnType_ = _e.getImportedReturnType();
-            ParametersGroup p_ = new ParametersGroup();
-            for (String c: id_.getParametersTypes()) {
-                p_.add(new ClassMatching(c));
-            }
-            MethodInfo mloc_ = new MethodInfo();
-            mloc_.setClassName(_t);
-            mloc_.setStatic(true);
-            mloc_.setAncestor(_anc);
-            mloc_.setConstraints(id_);
-            mloc_.setParameters(p_);
-            mloc_.setReturnType(returnType_);
-            return mloc_;
-        }
-        return null;
-    }
     private static ObjectMap<ClassMethodId, MethodInfo> getPredefineStaticEnumMethods(Analyzable _conf, String _className, int _ancestor) {
         ObjectMap<ClassMethodId, MethodInfo> methods_;
         methods_ = new ObjectMap<ClassMethodId, MethodInfo>();
