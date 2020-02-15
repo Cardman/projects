@@ -9,6 +9,7 @@ import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
+import code.expressionlanguage.utilcompo.AbstractResourcesReader;
 import code.expressionlanguage.utilcompo.LgNamesUtils;
 import code.expressionlanguage.utilcompo.RunnableContextEl;
 import code.expressionlanguage.variables.VariableSuffix;
@@ -421,6 +422,9 @@ public class LgNamesGui extends LgNamesUtils {
     private String aliasMenuItemCheck;
     private String aliasMenuItemCheckIsSelected;
     private String aliasMenuItemCheckSetSelected;
+    public LgNamesGui(AbstractResourcesReader _reader) {
+        super(_reader);
+    }
     public void buildOther() {
         super.buildOther();
         StringMap<StandardField> fields_;

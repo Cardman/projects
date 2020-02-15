@@ -1,6 +1,7 @@
 package code.expressionlanguage.gui.unit;
 
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.utilcompo.DefaultResourcesReader;
 import code.expressionlanguage.utilcompo.LgNamesUtils;
 import code.expressionlanguage.utilcompo.RunnableContextEl;
 import code.expressionlanguage.utilcompo.RunningTest;
@@ -134,7 +135,7 @@ public final class MainWindow extends GroupFrame {
 
     public void process() {
         String txt_ = conf.getText().trim();
-        RunningTest r_ = RunningTest.newFromContent(txt_, new ProgressingTestsImpl(this));
+        RunningTest r_ = RunningTest.newFromContent(txt_, new ProgressingTestsImpl(this), new DefaultResourcesReader());
         Thread th_ = new Thread(r_);
         th = th_;
         th_.start();
@@ -152,7 +153,7 @@ public final class MainWindow extends GroupFrame {
     }
 
     public void launchFileConf(String _fichier) {
-        RunningTest r_ = RunningTest.newFromFile(_fichier, new ProgressingTestsImpl(this));
+        RunningTest r_ = RunningTest.newFromFile(_fichier, new ProgressingTestsImpl(this),new DefaultResourcesReader());
         Thread th_ = new Thread(r_);
         th = th_;
         th_.start();

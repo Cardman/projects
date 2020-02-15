@@ -24,8 +24,8 @@ import code.expressionlanguage.stds.StandardMethod;
 import code.expressionlanguage.stds.StandardType;
 import code.expressionlanguage.structs.*;
 import code.expressionlanguage.variables.VariableSuffix;
-import code.resources.ResourceFiles;
-import code.sml.stream.ExtractFromFiles;
+import code.sml.DocumentBuilder;
+import code.sml.util.ResourcesMessagesUtil;
 import code.stream.*;
 import code.util.CustList;
 import code.util.ObjectMap;
@@ -199,11 +199,15 @@ public class LgNamesUtils extends LgNames {
     private String aliasInfoTestCurrentParams;
 
     private String aliasConcurrentError;
+    private AbstractResourcesReader reader;
 
+    public LgNamesUtils(AbstractResourcesReader _reader) {
+        reader = _reader;
+    }
     @Override
     public StringMap<String> buildFiles(ContextEl _context) {
         StringMap<String> stds_ = super.buildFiles(_context);
-        String content_ = ResourceFiles.ressourceFichier("resources_lg/threads/runnable.txt");
+        String content_ = reader.read("resources_lg/threads/runnable.txt");
         KeyWords keyWords_ = _context.getKeyWords();
         String public_ = keyWords_.getKeyWordPublic();
         String private_ = keyWords_.getKeyWordPrivate();
@@ -256,7 +260,7 @@ public class LgNamesUtils extends LgNames {
         getPredefinedClasses().add(aliasRunnable);
         stds_.put(aliasRunnable, content_);
         getPredefinedInterfacesInitOrder().add(aliasRunnable);
-        content_ = ResourceFiles.ressourceFichier("resources_lg/collections/list.txt");
+        content_ = reader.read("resources_lg/collections/list.txt");
         map_ = new StringMap<String>();
         map_.put("{public}", public_);
         map_.put("{private}", private_);
@@ -304,7 +308,7 @@ public class LgNamesUtils extends LgNames {
         stds_.put(aliasList, content_);
         getPredefinedInterfacesInitOrder().add(aliasCustIterator);
         getPredefinedInterfacesInitOrder().add(aliasList);
-        content_ = ResourceFiles.ressourceFichier("resources_lg/collections/table.txt");
+        content_ = reader.read("resources_lg/collections/table.txt");
         map_.put("{CustPair}",aliasCustPair);
         map_.put("{Pair}",getAliasPairType());
         map_.put("{U}",aliasPairVarFirst);
@@ -349,7 +353,7 @@ public class LgNamesUtils extends LgNames {
         getPredefinedInterfacesInitOrder().add(aliasCustIterTable);
         getPredefinedInterfacesInitOrder().add(aliasTable);
 
-        content_ = ResourceFiles.ressourceFichier("resources_lg/tests/run.txt");
+        content_ = reader.read("resources_lg/tests/run.txt");
         map_.put("{a}",tr("a",_context));
         map_.put("{b}",tr("b",_context));
         map_.put("{c}",tr("c",_context));
@@ -507,7 +511,7 @@ public class LgNamesUtils extends LgNames {
         getPredefinedInterfacesInitOrder().add(aliasExecutedTest);
         getPredefinedInterfacesInitOrder().add(aliasResult);
         getPredefinedInterfacesInitOrder().add(aliasExecute);
-        content_ = ResourceFiles.ressourceFichier("resources_lg/threads/formatting.txt");
+        content_ = reader.read("resources_lg/threads/formatting.txt");
         map_.put("{Format}",aliasFormatType);
         map_.put("{int}", int_);
         map_.put("{print}",getAliasPrint());
@@ -3171,7 +3175,9 @@ public class LgNamesUtils extends LgNames {
     }
 
     public void keyWord(KeyWords _kw,String _lang, StringMap<String> _cust) {
-        StringMap<String> util_ = ExtractFromFiles.getMessagesFromLocaleClass("resources_lg/aliases",_lang,"keywords");
+        String fileName_ = ResourcesMessagesUtil.getPropertiesPath("resources_lg/aliases",_lang,"keywords");
+        String content_ = reader.read(fileName_);
+        StringMap<String> util_ = DocumentBuilder.getMessagesFromContent(content_);
         keyWord(_kw,util_,_cust);
     }
     public void keyWord(KeyWords _kw,StringMap<String> _util,StringMap<String> _cust) {
@@ -3259,7 +3265,9 @@ public class LgNamesUtils extends LgNames {
         _kw.setKeyWordDefault(get(_util,_cust,"Default"));
     }
     public void otherAlias(String _lang, StringMap<String>_cust) {
-        StringMap<String> util_ = ExtractFromFiles.getMessagesFromLocaleClass("resources_lg/aliases",_lang,"types");
+        String fileName_ = ResourcesMessagesUtil.getPropertiesPath("resources_lg/aliases",_lang,"types");
+        String content_ = reader.read(fileName_);
+        StringMap<String> util_ = DocumentBuilder.getMessagesFromContent(content_);
         otherAlias(util_,_cust);
     }
     public void allAlias(StringMap<String> _util, StringMap<String> _cust) {
@@ -3707,4 +3715,5 @@ public class LgNamesUtils extends LgNames {
         }
         return val_;
     }
+
 }

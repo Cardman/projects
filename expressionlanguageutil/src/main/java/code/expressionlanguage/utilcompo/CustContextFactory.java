@@ -36,9 +36,9 @@ public final class CustContextFactory {
         return build(CustList.INDEX_NOT_FOUND_ELT, _options, _exec,kwl_, _undefinedLgNames, _files, _tabWidth);
     }
     public static void executeDefKw(String _lang,
-                               Options _options, ExecutingOptions _exec,StringMap<String> _files, ProgressingTests _progressingTests) {
+                               Options _options, ExecutingOptions _exec,StringMap<String> _files, ProgressingTests _progressingTests,AbstractResourcesReader _reader) {
         KeyWords kwl_ = new KeyWords();
-        LgNamesUtils stds_ = new LgNamesUtils();
+        LgNamesUtils stds_ = new LgNamesUtils(_reader);
         if (StringList.quickEq(_lang, "en")) {
             stds_.keyWord(kwl_,_lang,_exec.getKeyWords());
             stds_.otherAlias(_lang,_exec.getAliases());

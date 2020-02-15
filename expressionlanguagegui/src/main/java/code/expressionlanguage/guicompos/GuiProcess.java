@@ -9,6 +9,7 @@ import code.expressionlanguage.opers.util.MethodAccessKind;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.MethodModifier;
 import code.expressionlanguage.options.Options;
+import code.expressionlanguage.utilcompo.DefaultResourcesReader;
 import code.expressionlanguage.utilcompo.ExecutingOptions;
 import code.expressionlanguage.utilcompo.RunnableStruct;
 import code.expressionlanguage.utilcompo.RunningTest;
@@ -83,7 +84,7 @@ public final class GuiProcess implements Runnable {
         Options opt_ = new Options();
         opt_.setReadOnly(true);
         opt_.setFailIfNotAllInit(true);
-        LgNamesGui stds_ = new LgNamesGui();
+        LgNamesGui stds_ = new LgNamesGui(new DefaultResourcesReader());
         GuiContextEl cont_ = GuiContextFactory.buildDefKw(lg_, mainArgs_,_window,opt_, exec_, stds_, zipFiles_, exec_.getTabWidth());
         if (cont_ == null) {
             return null;

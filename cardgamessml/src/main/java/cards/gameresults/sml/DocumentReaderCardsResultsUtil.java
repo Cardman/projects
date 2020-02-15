@@ -2,15 +2,13 @@ package cards.gameresults.sml;
 import cards.belote.ResultsBelote;
 import cards.president.ResultsPresident;
 import cards.tarot.ResultsTarot;
-import code.resources.ResourceFiles;
-import code.sml.DocumentBuilder;
 import code.sml.maths.DocumentReaderMathUtil;
 import code.sml.core.DocumentReaderCoreUtil;
 import code.sml.Element;
+import code.sml.stream.ExtractFromFiles;
 import code.sml.util.ResourcesMessagesUtil;
 import code.util.StringList;
 import code.util.StringMap;
-import code.util.opers.MessagesUtil;
 
 public final class DocumentReaderCardsResultsUtil {
 
@@ -27,7 +25,6 @@ public final class DocumentReaderCardsResultsUtil {
     private static final String FIELD_SCORES = "scores";
     private static final String FIELD_SIGMAS = "sigmas";
     private static final String FIELD_SUMS = "sums";
-    private static final String TAB = "\t";
 
 
     public static void setMessages(ResultsBelote _r, String _loc) {
@@ -55,24 +52,9 @@ public final class DocumentReaderCardsResultsUtil {
     }
     private static StringMap<String> getMessagesFromLocaleClass(String _folder, String _loc, String _class) {
         String fileName_ = ResourcesMessagesUtil.getPropertiesPath(_folder, _loc, _class);
-        return getMessagesFromLocale(fileName_, _loc);
+        return ExtractFromFiles.getMessagesFromLocale(fileName_);
     }
 
-    private static StringMap<String> getMessagesFromLocale(String _fileName, String _loc) {
-        String loadedResourcesMessages_ = ResourceFiles.ressourceFichier(_fileName);
-        if (loadedResourcesMessages_.isEmpty()) {
-            return new StringMap<String>();
-        }
-        StringMap<String> messages_ = MessagesUtil.getMessages(loadedResourcesMessages_);
-        for (String k: messages_.getKeys()) {
-            if (k.startsWith(TAB)) {
-                continue;
-            }
-            String value_ = messages_.getVal(k);
-            messages_.put(k, DocumentBuilder.transformSpecialChars(value_));
-        }
-        return messages_;
-    }
     public static void getResultsGame(ResultsBelote _object, String _fieldName, Element _element) {
         if (StringList.quickEq(_fieldName, FIELD_GLOBAL_RESULTS_PAGE_TITLE)) {
             _object.setGlobalResultsPageTitle(DocumentReaderCoreUtil.getString(_element));
