@@ -1,6 +1,7 @@
 package code.sml;
 
 import code.util.*;
+import code.util.opers.MessagesUtil;
 
 public final class DocumentBuilder {
 
@@ -2749,6 +2750,17 @@ public final class DocumentBuilder {
         return indexes_;
     }
 
+    public static StringMap<String> getMessagesFromContent(String _loadedResourcesMessages) {
+        if (_loadedResourcesMessages.isEmpty()) {
+            return new StringMap<String>();
+        }
+        StringMap<String> messages_ = MessagesUtil.getMessages(_loadedResourcesMessages);
+        for (String k: messages_.getKeys()) {
+            String value_ = messages_.getVal(k);
+            messages_.put(k, DocumentBuilder.transformSpecialChars(value_));
+        }
+        return messages_;
+    }
     public int getTabWidth() {
         return tabWidth;
     }
