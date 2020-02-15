@@ -586,10 +586,10 @@ public final class ForEachLoop extends BracedStack implements ForLoop,ImportForE
         AbstractPageEl ip_ = _cont.getLastPage();
         LoopBlockStack l_ = (LoopBlockStack) ip_.getLastStack();
         if (_finished) {
+            ip_.clearCurrentEls();
             _cont.getCoverage().passLoop(_cont, new Argument(new BooleanStruct(false)));
             l_.setEvaluatingKeepLoop(false);
             l_.setFinished(true);
-            processBlockAndRemove(_cont);
             return;
         }
         _cont.getCoverage().passLoop(_cont, new Argument(new BooleanStruct(true)));
