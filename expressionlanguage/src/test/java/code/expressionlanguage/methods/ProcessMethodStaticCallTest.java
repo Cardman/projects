@@ -1004,6 +1004,39 @@ public class ProcessMethodStaticCallTest extends ProcessMethodCommon {
         assertEq(5, ((IntStruct)getStruct(struct_,new ClassField("pkg.ExClass","field"))).intStruct());
     }
     @Test
+    public void calculate341Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Apply {\n");
+        xml_.append(" public static ExClass method(){\n");
+        xml_.append("  return staticCall(ExClass).myfct(5);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExClass {\n");
+        xml_.append(" public int field;\n");
+        xml_.append(" public staticCall ExClass myfct(long i){\n");
+        xml_.append("  ExClass out = new ExClass();\n");
+        xml_.append("  out.field = (int)i;\n");
+        xml_.append("  return out;\n");
+        xml_.append(" }\n");
+        xml_.append(" public ExClass myfct(long i){\n");
+        xml_.append("  ExClass out = new ExClass();\n");
+        xml_.append("  out.field = (int)i+2;\n");
+        xml_.append("  return out;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextElReadOnlyDefault();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("method");
+        Argument ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        Struct struct_ = ret_.getStruct();
+        assertEq("pkg.ExClass", struct_.getClassName(cont_));
+        assertEq(5, ((IntStruct)getStruct(struct_,new ClassField("pkg.ExClass","field"))).intStruct());
+    }
+    @Test
     public void calculate35Test() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_ = new StringBuilder();
