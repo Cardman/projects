@@ -604,13 +604,13 @@ public final class ElUtil {
             }
             AtomicExecCalculableOperation a_ = (AtomicExecCalculableOperation)o;
             a_.calculate(_nodes, _context);
-            if (_context.hasExceptionOrFailInit()) {
+            if (_context.callsOrException()) {
+                if (_context.calls()) {
+                    _el.setCurrentOper(o);
+                    return;
+                }
                 pageEl_.setTranslatedOffset(0);
                 pageEl_.clearCurrentEls();
-                return;
-            }
-            if (_context.calls()) {
-                _el.setCurrentOper(o);
                 return;
             }
             Argument res_ = pair_.getArgument();

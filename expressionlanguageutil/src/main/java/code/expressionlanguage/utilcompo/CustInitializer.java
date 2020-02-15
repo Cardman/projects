@@ -41,6 +41,9 @@ public class CustInitializer extends DefaultInitializer {
 
     @Override
     protected boolean exitAfterCall(ContextEl _owner) {
+        if (((RunnableContextEl)_owner).stopped()) {
+            return true;
+        }
         try {
             return super.exitAfterCall(_owner);
         } catch (OutOfMemoryError _0) {

@@ -95,10 +95,15 @@ public class RunnableContextEl extends ContextEl implements Locking {
         return executingOptions;
     }
 
-    protected EndCallValue removeCall() {
+    @Override
+    public boolean callsOrException() {
         if (stopped()) {
-            return EndCallValue.EXIT;
+            return true;
         }
+        return super.callsOrException();
+    }
+
+    protected EndCallValue removeCall() {
         try {
             return super.removeCall();
         } catch (OutOfMemoryError _0) {
@@ -118,12 +123,8 @@ public class RunnableContextEl extends ContextEl implements Locking {
             getThrowing().removeBlockFinally(this);
         }
     }
-    @Override
-    public boolean hasException() {
-        return super.hasException() && !stopped();
-    }
 
-    private boolean stopped() {
+    boolean stopped() {
         return interrupt.get() || isCurrentThreadEnded();
     }
 
