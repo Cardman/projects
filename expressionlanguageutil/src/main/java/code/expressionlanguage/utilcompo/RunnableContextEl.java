@@ -9,10 +9,11 @@ import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.Struct;
+import code.stream.Locking;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
-public class RunnableContextEl extends ContextEl {
+public class RunnableContextEl extends ContextEl implements Locking {
 
     private CustInitializer custInit;
     private AtomicBoolean interrupt;
@@ -21,13 +22,14 @@ public class RunnableContextEl extends ContextEl {
 
     private ThreadStruct thread;
     private String idDate;
-    private long number;
+
     protected RunnableContextEl(int _stackOverFlow, DefaultLockingClass _lock,
                       CustInitializer _init, Options _options, ExecutingOptions _exec, KeyWords _keyWords, LgNames _stds, int _tabWidth) {
         super(_exec.isCovering(),_stackOverFlow, _lock, _options, _keyWords, _stds, _tabWidth);
         custInit = _init;
         executingOptions = _exec;
         interrupt = _exec.getInterrupt();
+        setThread();
     }
     protected RunnableContextEl(ContextEl _context) {
         setClasses(_context.getClasses());
@@ -44,30 +46,33 @@ public class RunnableContextEl extends ContextEl {
         executingOptions = ((RunnableContextEl)_context).executingOptions;
         interrupt = ((RunnableContextEl)_context).interrupt;
         custInit = ((RunnableContextEl)_context).getCustInit();
+        setThread();
+    }
+
+    @Override
+    public boolean isCurrentThreadEnded() {
+        return thread.isEnded();
+    }
+
+    @Override
+    public Thread getCurrentThread() {
+        return thread.getThread();
     }
 
     public ThreadStruct getThread() {
         return thread;
     }
 
-    public void setThread(ThreadStruct _thread) {
-        thread = _thread;
+    private void setThread() {
+        thread = new ThreadStruct(Thread.currentThread());
     }
 
-    public String getIdDate() {
+    String getIdDate() {
         return idDate;
     }
 
-    public void setIdDate(String _idDate) {
+    void setIdDate(String _idDate) {
         idDate = _idDate;
-    }
-
-    public long getNumber() {
-        return number;
-    }
-
-    public void setNumber(long _number) {
-        number = _number;
     }
 
     @Override
@@ -90,11 +95,8 @@ public class RunnableContextEl extends ContextEl {
         return executingOptions;
     }
 
-    public void setExecutingOptions(ExecutingOptions _executing) {
-        executingOptions = _executing;
-    }
     protected EndCallValue removeCall() {
-        if (interrupt.get()) {
+        if (stopped()) {
             return EndCallValue.EXIT;
         }
         try {
@@ -118,8 +120,13 @@ public class RunnableContextEl extends ContextEl {
     }
     @Override
     public boolean hasException() {
-        return super.hasException() && !interrupt.get();
+        return super.hasException() && !stopped();
     }
+
+    private boolean stopped() {
+        return interrupt.get() || isCurrentThreadEnded();
+    }
+
     public void interrupt() {
         interrupt.set(true);
     }

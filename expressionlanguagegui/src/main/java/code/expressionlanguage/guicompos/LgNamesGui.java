@@ -2001,12 +2001,12 @@ public class LgNamesGui extends LgNamesUtils {
         }
         if (StringList.quickEq(_id,aliasFrame)) {
             FrameStruct fr_ = new FrameStruct(new OtherFrame());
-            ((GuiContextEl)_cont).getGuiInit().getWindows().add(fr_,false);
+            ((GuiContextEl)_cont).getGuiInit().getWindows().add(fr_,false,(GuiContextEl)_cont);
             return new Argument(fr_);
         }
         if (StringList.quickEq(_id,aliasDialog)) {
             DialogStruct di_ = new DialogStruct(new OtherDialog());
-            ((GuiContextEl)_cont).getGuiInit().getWindows().add(di_,false);
+            ((GuiContextEl)_cont).getGuiInit().getWindows().add(di_,false,(GuiContextEl)_cont);
             return new Argument(di_);
         }
         if (StringList.quickEq(_id,aliasPanel)) {
@@ -2130,7 +2130,7 @@ public class LgNamesGui extends LgNamesUtils {
                 return r_;
             }
             FrameStruct fr_ = new FrameStruct(new OtherFrame());
-            ((GuiContextEl)_cont).getGuiInit().getWindows().add(fr_,false);
+            ((GuiContextEl)_cont).getGuiInit().getWindows().add(fr_,false,(GuiContextEl)_cont);
             r_.setResult(fr_);
             return r_;
         }
@@ -2141,7 +2141,7 @@ public class LgNamesGui extends LgNamesUtils {
                 return r_;
             }
             DialogStruct di_ = new DialogStruct(new OtherDialog());
-            ((GuiContextEl)_cont).getGuiInit().getWindows().add(di_,false);
+            ((GuiContextEl)_cont).getGuiInit().getWindows().add(di_,false,(GuiContextEl)_cont);
             r_.setResult(di_);
             return r_;
         }
@@ -2615,7 +2615,7 @@ public class LgNamesGui extends LgNamesUtils {
                 if (inst_ instanceof FrameStruct && ((FrameStruct)inst_).getCommonFrame().isMainFrame()) {
                     ((GuiContextEl)_cont).disposeAll();
                 } else {
-                    ((GuiContextEl)_cont).getGuiInit().getWindows().remove(inst_,false);
+                    ((GuiContextEl)_cont).getGuiInit().getWindows().remove(inst_,false,(GuiContextEl)_cont);
                     inst_.dispose();
                 }
                 res_.setResult(NullStruct.NULL_VALUE);
@@ -2635,7 +2635,7 @@ public class LgNamesGui extends LgNamesUtils {
                     return res_;
                 }
                 WindowSetStruct ins_ = (WindowSetStruct)_instance;
-                ins_.add(_args[0],true);
+                ins_.add(_args[0],true,(GuiContextEl)_cont);
                 if (!(_args[0] instanceof WindowStruct)) {
                     res_.setError(getAliasNullPe());
                 } else {
@@ -2659,7 +2659,7 @@ public class LgNamesGui extends LgNamesUtils {
                     return res_;
                 }
                 WindowSetStruct ins_ = (WindowSetStruct)_instance;
-                ins_.remove(_args[0],true);
+                ins_.remove(_args[0],true, (GuiContextEl) _cont);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
@@ -2670,7 +2670,7 @@ public class LgNamesGui extends LgNamesUtils {
                     return res_;
                 }
                 WindowSetStruct ins_ = (WindowSetStruct)_instance;
-                res_.setResult(ins_.contains(_args[0]));
+                res_.setResult(ins_.contains(_args[0],(GuiContextEl)_cont));
                 return res_;
             }
             WindowSetStruct ins_ = (WindowSetStruct)_instance;

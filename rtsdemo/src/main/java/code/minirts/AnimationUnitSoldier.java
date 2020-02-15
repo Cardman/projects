@@ -5,6 +5,7 @@ import code.maths.geo.CustPoint;
 import code.minirts.rts.Facade;
 import code.minirts.rts.Soldier;
 import code.minirts.rts.UnitMapKey;
+import code.stream.ThreadUtil;
 
 import java.awt.*;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -111,10 +112,7 @@ public final class AnimationUnitSoldier implements Runnable {
 
     /**La methode pause est utilisee pour permettre de voir l'avancement a l'oeil nu*/
     static void pause(long _tempsMillis) {
-        long dateMillis_ = System.currentTimeMillis();
-        while (dateMillis_ + _tempsMillis > System.currentTimeMillis()) {
-            continue;
-        }
+        ThreadUtil.sleep(_tempsMillis);
         window.setEnabledPause(true);
         while (paused.get()) {
             battleground.paintSelection();

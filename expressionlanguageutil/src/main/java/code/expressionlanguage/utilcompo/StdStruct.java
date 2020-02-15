@@ -3,11 +3,11 @@ package code.expressionlanguage.utilcompo;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
-import java.util.concurrent.locks.ReentrantLock;
 
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
+import code.stream.AbstractLock;
 
 public final class StdStruct implements Struct {
 
@@ -34,7 +34,7 @@ public final class StdStruct implements Struct {
     public static StdStruct newInstance(AtomicLong _instance, String _className) {
         return new StdStruct(_instance, _className);
     }
-    public static StdStruct newInstance(ReentrantLock _instance, String _className) {
+    public static StdStruct newInstance(AbstractLock _instance, String _className) {
         return new StdStruct(_instance, _className);
     }
 

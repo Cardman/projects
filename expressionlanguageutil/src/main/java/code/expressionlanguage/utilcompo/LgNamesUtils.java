@@ -5,7 +5,6 @@ import java.util.Calendar;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
-import java.util.concurrent.locks.ReentrantLock;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
@@ -27,10 +26,7 @@ import code.expressionlanguage.structs.*;
 import code.expressionlanguage.variables.VariableSuffix;
 import code.resources.ResourceFiles;
 import code.sml.stream.ExtractFromFiles;
-import code.stream.StreamBinaryFile;
-import code.stream.StreamFolderFile;
-import code.stream.StreamTextFile;
-import code.stream.ThreadUtil;
+import code.stream.*;
 import code.util.CustList;
 import code.util.ObjectMap;
 import code.util.StringList;
@@ -55,6 +51,8 @@ public class LgNamesUtils extends LgNames {
     private String aliasSleep;
     private String aliasRun;
     private String aliasIsAlive;
+    private String aliasIsEnded;
+    private String aliasEnd;
     private String aliasGetId;
     private String aliasGetPriority;
     private String aliasSetPriority;
@@ -66,8 +64,17 @@ public class LgNamesUtils extends LgNames {
     private String aliasAtomicBoolean;
     private String aliasAtomicInteger;
     private String aliasAtomicLong;
+    private String aliasCompareAndSetAtomic;
+    private String aliasLazySetAtomic;
     private String aliasSetAtomic;
     private String aliasGetAtomic;
+    private String aliasAddAndGetAtomic;
+    private String aliasGetAndAddAtomic;
+    private String aliasGetAndSetAtomic;
+    private String aliasIncrementAndGetAtomic;
+    private String aliasGetAndIncrementAtomic;
+    private String aliasDecrementAndGetAtomic;
+    private String aliasGetAndDecrementAtomic;
     private String aliasFormatType;
     private String aliasPrint;
     private String aliasFile;
@@ -550,6 +557,10 @@ public class LgNamesUtils extends LgNames {
         methods_.put(method_.getId(), method_);
         method_ = new StandardMethod(aliasIsAlive, params_, getAliasPrimBoolean(), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
+        method_ = new StandardMethod(aliasIsEnded, params_, getAliasPrimBoolean(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        method_ = new StandardMethod(aliasEnd, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
         method_ = new StandardMethod(aliasGetId, params_, getAliasPrimLong(), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         method_ = new StandardMethod(aliasGetPriority, params_, getAliasPrimInteger(), false, MethodModifier.FINAL, stdcl_);
@@ -605,9 +616,9 @@ public class LgNamesUtils extends LgNames {
         fields_ = new StringMap<StandardField>();
         params_ = new StringList();
         stdcl_ = new StandardClass(aliasReentrantLock, fields_, constructors_, methods_, getAliasObject(), MethodModifier.FINAL);
-        method_ = new StandardMethod(aliasLock, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        method_ = new StandardMethod(aliasLock, params_, getAliasPrimInteger(), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
-        method_ = new StandardMethod(aliasUnlock, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        method_ = new StandardMethod(aliasUnlock, params_, getAliasPrimInteger(), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         method_ = new StandardMethod(aliasIsHeldByCurrentThread, params_, getAliasPrimBoolean(), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
@@ -622,6 +633,15 @@ public class LgNamesUtils extends LgNames {
         methods_.put(method_.getId(), method_);
         params_ = new StringList(getAliasPrimBoolean());
         method_ = new StandardMethod(aliasSetAtomic, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasPrimBoolean(),getAliasPrimBoolean());
+        method_ = new StandardMethod(aliasCompareAndSetAtomic, params_, getAliasPrimBoolean(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasPrimBoolean());
+        method_ = new StandardMethod(aliasGetAndSetAtomic, params_, getAliasPrimBoolean(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasPrimBoolean());
+        method_ = new StandardMethod(aliasLazySetAtomic, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
         ctor_ = new StandardConstructor(params_,false,stdcl_);
@@ -641,6 +661,33 @@ public class LgNamesUtils extends LgNames {
         params_ = new StringList(getAliasPrimInteger());
         method_ = new StandardMethod(aliasSetAtomic, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasPrimInteger(),getAliasPrimInteger());
+        method_ = new StandardMethod(aliasCompareAndSetAtomic, params_, getAliasPrimBoolean(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasPrimInteger());
+        method_ = new StandardMethod(aliasGetAndSetAtomic, params_, getAliasPrimInteger(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasPrimInteger());
+        method_ = new StandardMethod(aliasLazySetAtomic, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasPrimInteger());
+        method_ = new StandardMethod(aliasAddAndGetAtomic, params_, getAliasPrimInteger(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasPrimInteger());
+        method_ = new StandardMethod(aliasGetAndAddAtomic, params_, getAliasPrimInteger(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasIncrementAndGetAtomic, params_, getAliasPrimInteger(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasGetAndIncrementAtomic, params_, getAliasPrimInteger(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasDecrementAndGetAtomic, params_, getAliasPrimInteger(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasGetAndDecrementAtomic, params_, getAliasPrimInteger(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
         params_ = new StringList();
         ctor_ = new StandardConstructor(params_,false,stdcl_);
         constructors_.add(ctor_);
@@ -658,6 +705,33 @@ public class LgNamesUtils extends LgNames {
         methods_.put(method_.getId(), method_);
         params_ = new StringList(getAliasPrimLong());
         method_ = new StandardMethod(aliasSetAtomic, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasPrimLong(),getAliasPrimLong());
+        method_ = new StandardMethod(aliasCompareAndSetAtomic, params_, getAliasPrimBoolean(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasPrimLong());
+        method_ = new StandardMethod(aliasGetAndSetAtomic, params_, getAliasPrimLong(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasPrimLong());
+        method_ = new StandardMethod(aliasLazySetAtomic, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasPrimLong());
+        method_ = new StandardMethod(aliasAddAndGetAtomic, params_, getAliasPrimLong(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasPrimLong());
+        method_ = new StandardMethod(aliasGetAndAddAtomic, params_, getAliasPrimLong(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasIncrementAndGetAtomic, params_, getAliasPrimLong(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasGetAndIncrementAtomic, params_, getAliasPrimLong(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasDecrementAndGetAtomic, params_, getAliasPrimLong(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasGetAndDecrementAtomic, params_, getAliasPrimLong(), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
         ctor_ = new StandardConstructor(params_,false,stdcl_);
@@ -814,7 +888,7 @@ public class LgNamesUtils extends LgNames {
             return new Argument(std_);
         }
         if (StringList.quickEq(_id,aliasReentrantLock)) {
-            ReentrantLock re_ = new ReentrantLock();
+            AbstractLock re_ = LockFactory.newLock();
             StdStruct std_ = StdStruct.newInstance(re_, aliasReentrantLock);
             return new Argument(std_);
         }
@@ -866,7 +940,7 @@ public class LgNamesUtils extends LgNames {
             return res_;
         }
         if (StringList.quickEq(name_,aliasReentrantLock)) {
-            ReentrantLock re_ = new ReentrantLock();
+            AbstractLock re_ = LockFactory.newLock();
             StdStruct std_ = StdStruct.newInstance(re_, aliasReentrantLock);
             res_.setResult(std_);
             return res_;
@@ -997,7 +1071,7 @@ public class LgNamesUtils extends LgNames {
                     return res_;
                 }
                 ThreadSetStruct ins_ = (ThreadSetStruct)_instance;
-                ins_.add(_args[0]);
+                ins_.add(_args[0],(RunnableContextEl)_cont);
                 if (!(_args[0] instanceof ThreadStruct)) {
                     res_.setError(getAliasNullPe());
                 } else {
@@ -1021,7 +1095,7 @@ public class LgNamesUtils extends LgNames {
                     return res_;
                 }
                 ThreadSetStruct ins_ = (ThreadSetStruct)_instance;
-                ins_.remove(_args[0]);
+                ins_.remove(_args[0], (RunnableContextEl) _cont);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
@@ -1032,7 +1106,7 @@ public class LgNamesUtils extends LgNames {
                     return res_;
                 }
                 ThreadSetStruct ins_ = (ThreadSetStruct)_instance;
-                res_.setResult(ins_.contains(_args[0]));
+                res_.setResult(ins_.contains(_args[0], (RunnableContextEl) _cont));
                 return res_;
             }
             ThreadSetStruct ins_ = (ThreadSetStruct)_instance;
@@ -1073,7 +1147,7 @@ public class LgNamesUtils extends LgNames {
                     res_.setError(getAliasNullPe());
                     return res_;
                 }
-                res_.setResult(new BooleanStruct(sleep(((NumberStruct)_args[0]).longStruct())));
+                res_.setResult(new BooleanStruct(ThreadUtil.sleep(((NumberStruct)_args[0]).longStruct())));
                 return res_;
             }
             if (StringList.quickEq(name_,aliasJoin)) {
@@ -1103,7 +1177,7 @@ public class LgNamesUtils extends LgNames {
                     return res_;
                 }
                 ThreadStruct a_ = (ThreadStruct) _args[0];
-                ((RunnableContextEl)_cont).getCustInit().initHook(a_);
+                ((RunnableContextEl)_cont).getCustInit().initHook(a_,(RunnableContextEl)_cont);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
@@ -1122,6 +1196,16 @@ public class LgNamesUtils extends LgNames {
                 Thread thread_ = ((ThreadStruct) _instance).getThread();
                 boolean alive_ = thread_.isAlive();
                 res_.setResult(new BooleanStruct(alive_));
+                return res_;
+            }
+            if (StringList.quickEq(name_,aliasIsEnded)) {
+                boolean alive_ = ((ThreadStruct) _instance).isEnded();
+                res_.setResult(new BooleanStruct(alive_));
+                return res_;
+            }
+            if (StringList.quickEq(name_,aliasEnd)) {
+                ((ThreadStruct) _instance).end();
+                res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
             if (StringList.quickEq(name_,aliasGetId)) {
@@ -1169,24 +1253,18 @@ public class LgNamesUtils extends LgNames {
             }
             String name_ = _method.getConstraints().getName();
             if (StringList.quickEq(name_,aliasLock)) {
-                ReentrantLock re_ = (ReentrantLock) ((StdStruct) _instance).getInstance();
-                re_.lock();
-                res_.setResult(NullStruct.NULL_VALUE);
+                AbstractLock re_ = (AbstractLock) ((StdStruct) _instance).getInstance();
+                res_.setResult(new IntStruct(re_.lock((RunnableContextEl)_cont)));
                 return res_;
             }
             if (StringList.quickEq(name_,aliasUnlock)) {
-                ReentrantLock re_ = (ReentrantLock) ((StdStruct) _instance).getInstance();
-                if (!re_.isHeldByCurrentThread()) {
-                    res_.setError(getAliasIllegalThreadStateException());
-                } else {
-                    re_.unlock();
-                    res_.setResult(NullStruct.NULL_VALUE);
-                }
+                AbstractLock re_ = (AbstractLock) ((StdStruct) _instance).getInstance();
+                res_.setResult(new IntStruct(re_.unlock((RunnableContextEl)_cont)));
                 return res_;
             }
             if (StringList.quickEq(name_,aliasIsHeldByCurrentThread)) {
-                ReentrantLock re_ = (ReentrantLock) ((StdStruct) _instance).getInstance();
-                boolean held_ = re_.isHeldByCurrentThread();
+                AbstractLock re_ = (AbstractLock) ((StdStruct) _instance).getInstance();
+                boolean held_ = re_.heldLock((RunnableContextEl)_cont);
                 res_.setResult(new BooleanStruct(held_));
                 return res_;
             }
@@ -1199,17 +1277,31 @@ public class LgNamesUtils extends LgNames {
                 res_.setResult(new BooleanStruct(held_));
                 return res_;
             }
+            if (_cont.isInitEnums() && _cont.isContainedSensibleFields(_instance)) {
+                _cont.failInitEnums();
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
             if (StringList.quickEq(name_,aliasSetAtomic)) {
-                if (_cont.isInitEnums() && _cont.isContainedSensibleFields(_instance)) {
-                    _cont.failInitEnums();
-                    res_.setResult(NullStruct.NULL_VALUE);
-                    return res_;
-                }
                 AtomicBoolean re_ = (AtomicBoolean) ((StdStruct) _instance).getInstance();
                 re_.set(((BooleanStruct)_args[0]).getInstance());
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
+            if (StringList.quickEq(name_,aliasCompareAndSetAtomic)) {
+                AtomicBoolean re_ = (AtomicBoolean) ((StdStruct) _instance).getInstance();
+                res_.setResult(new BooleanStruct(re_.compareAndSet(((BooleanStruct)_args[0]).getInstance(),((BooleanStruct)_args[1]).getInstance())));
+                return res_;
+            }
+            if (StringList.quickEq(name_,aliasGetAndSetAtomic)) {
+                AtomicBoolean re_ = (AtomicBoolean) ((StdStruct) _instance).getInstance();
+                res_.setResult(new BooleanStruct(re_.getAndSet(((BooleanStruct)_args[0]).getInstance())));
+                return res_;
+            }
+            AtomicBoolean re_ = (AtomicBoolean) ((StdStruct) _instance).getInstance();
+            re_.lazySet(((BooleanStruct)_args[0]).getInstance());
+            res_.setResult(NullStruct.NULL_VALUE);
+            return res_;
         }
         if (StringList.quickEq(className_,aliasAtomicInteger)) {
             String name_ = _method.getConstraints().getName();
@@ -1219,17 +1311,61 @@ public class LgNamesUtils extends LgNames {
                 res_.setResult(new IntStruct(held_));
                 return res_;
             }
+            if (_cont.isInitEnums() && _cont.isContainedSensibleFields(_instance)) {
+                _cont.failInitEnums();
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
             if (StringList.quickEq(name_,aliasSetAtomic)) {
-                if (_cont.isInitEnums() && _cont.isContainedSensibleFields(_instance)) {
-                    _cont.failInitEnums();
-                    res_.setResult(NullStruct.NULL_VALUE);
-                    return res_;
-                }
                 AtomicInteger re_ = (AtomicInteger) ((StdStruct) _instance).getInstance();
                 re_.set(((NumberStruct)_args[0]).intStruct());
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
+            if (StringList.quickEq(name_,aliasCompareAndSetAtomic)) {
+                AtomicInteger re_ = (AtomicInteger) ((StdStruct) _instance).getInstance();
+                res_.setResult(new BooleanStruct(re_.compareAndSet(((NumberStruct)_args[0]).intStruct(),((NumberStruct)_args[1]).intStruct())));
+                return res_;
+            }
+            if (StringList.quickEq(name_,aliasGetAndSetAtomic)) {
+                AtomicInteger re_ = (AtomicInteger) ((StdStruct) _instance).getInstance();
+                res_.setResult(new IntStruct(re_.getAndSet(((NumberStruct)_args[0]).intStruct())));
+                return res_;
+            }
+            if (StringList.quickEq(name_,aliasGetAndAddAtomic)) {
+                AtomicInteger re_ = (AtomicInteger) ((StdStruct) _instance).getInstance();
+                res_.setResult(new IntStruct(re_.getAndAdd(((NumberStruct)_args[0]).intStruct())));
+                return res_;
+            }
+            if (StringList.quickEq(name_,aliasAddAndGetAtomic)) {
+                AtomicInteger re_ = (AtomicInteger) ((StdStruct) _instance).getInstance();
+                res_.setResult(new IntStruct(re_.addAndGet(((NumberStruct)_args[0]).intStruct())));
+                return res_;
+            }
+            if (StringList.quickEq(name_,aliasGetAndIncrementAtomic)) {
+                AtomicInteger re_ = (AtomicInteger) ((StdStruct) _instance).getInstance();
+                res_.setResult(new IntStruct(re_.getAndIncrement()));
+                return res_;
+            }
+            if (StringList.quickEq(name_,aliasIncrementAndGetAtomic)) {
+                AtomicInteger re_ = (AtomicInteger) ((StdStruct) _instance).getInstance();
+                res_.setResult(new IntStruct(re_.incrementAndGet()));
+                return res_;
+            }
+            if (StringList.quickEq(name_,aliasGetAndDecrementAtomic)) {
+                AtomicInteger re_ = (AtomicInteger) ((StdStruct) _instance).getInstance();
+                res_.setResult(new IntStruct(re_.getAndDecrement()));
+                return res_;
+            }
+            if (StringList.quickEq(name_,aliasDecrementAndGetAtomic)) {
+                AtomicInteger re_ = (AtomicInteger) ((StdStruct) _instance).getInstance();
+                res_.setResult(new IntStruct(re_.decrementAndGet()));
+                return res_;
+            }
+            AtomicInteger re_ = (AtomicInteger) ((StdStruct) _instance).getInstance();
+            re_.lazySet(((NumberStruct)_args[0]).intStruct());
+            res_.setResult(NullStruct.NULL_VALUE);
+            return res_;
         }
         if (StringList.quickEq(className_,aliasAtomicLong)) {
             String name_ = _method.getConstraints().getName();
@@ -1239,17 +1375,61 @@ public class LgNamesUtils extends LgNames {
                 res_.setResult(new LongStruct(held_));
                 return res_;
             }
+            if (_cont.isInitEnums() && _cont.isContainedSensibleFields(_instance)) {
+                _cont.failInitEnums();
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
             if (StringList.quickEq(name_,aliasSetAtomic)) {
-                if (_cont.isInitEnums() && _cont.isContainedSensibleFields(_instance)) {
-                    _cont.failInitEnums();
-                    res_.setResult(NullStruct.NULL_VALUE);
-                    return res_;
-                }
                 AtomicLong re_ = (AtomicLong) ((StdStruct) _instance).getInstance();
                 re_.set(((NumberStruct)_args[0]).longStruct());
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
+            if (StringList.quickEq(name_,aliasCompareAndSetAtomic)) {
+                AtomicLong re_ = (AtomicLong) ((StdStruct) _instance).getInstance();
+                res_.setResult(new BooleanStruct(re_.compareAndSet(((NumberStruct)_args[0]).longStruct(),((NumberStruct)_args[1]).longStruct())));
+                return res_;
+            }
+            if (StringList.quickEq(name_,aliasGetAndSetAtomic)) {
+                AtomicLong re_ = (AtomicLong) ((StdStruct) _instance).getInstance();
+                res_.setResult(new LongStruct(re_.getAndSet(((NumberStruct)_args[0]).longStruct())));
+                return res_;
+            }
+            if (StringList.quickEq(name_,aliasGetAndAddAtomic)) {
+                AtomicLong re_ = (AtomicLong) ((StdStruct) _instance).getInstance();
+                res_.setResult(new LongStruct(re_.getAndAdd(((NumberStruct)_args[0]).longStruct())));
+                return res_;
+            }
+            if (StringList.quickEq(name_,aliasAddAndGetAtomic)) {
+                AtomicLong re_ = (AtomicLong) ((StdStruct) _instance).getInstance();
+                res_.setResult(new LongStruct(re_.addAndGet(((NumberStruct)_args[0]).longStruct())));
+                return res_;
+            }
+            if (StringList.quickEq(name_,aliasGetAndIncrementAtomic)) {
+                AtomicLong re_ = (AtomicLong) ((StdStruct) _instance).getInstance();
+                res_.setResult(new LongStruct(re_.getAndIncrement()));
+                return res_;
+            }
+            if (StringList.quickEq(name_,aliasIncrementAndGetAtomic)) {
+                AtomicLong re_ = (AtomicLong) ((StdStruct) _instance).getInstance();
+                res_.setResult(new LongStruct(re_.incrementAndGet()));
+                return res_;
+            }
+            if (StringList.quickEq(name_,aliasGetAndDecrementAtomic)) {
+                AtomicLong re_ = (AtomicLong) ((StdStruct) _instance).getInstance();
+                res_.setResult(new LongStruct(re_.getAndDecrement()));
+                return res_;
+            }
+            if (StringList.quickEq(name_,aliasDecrementAndGetAtomic)) {
+                AtomicLong re_ = (AtomicLong) ((StdStruct) _instance).getInstance();
+                res_.setResult(new LongStruct(re_.decrementAndGet()));
+                return res_;
+            }
+            AtomicLong re_ = (AtomicLong) ((StdStruct) _instance).getInstance();
+            re_.lazySet(((NumberStruct)_args[0]).longStruct());
+            res_.setResult(NullStruct.NULL_VALUE);
+            return res_;
         }
         if (StringList.quickEq(className_,aliasEntryText)) {
             String name_ = _method.getConstraints().getName();
@@ -1651,13 +1831,34 @@ public class LgNamesUtils extends LgNames {
                 getAliasPrint()));
         m_.put(getAliasAtomicBoolean(), new StringList(
                 getAliasGetAtomic(),
-                getAliasSetAtomic()));
+                getAliasSetAtomic(),
+                getAliasCompareAndSetAtomic(),
+                getAliasGetAndSetAtomic(),
+                getAliasLazySetAtomic()));
         m_.put(getAliasAtomicInteger(), new StringList(
                 getAliasGetAtomic(),
-                getAliasSetAtomic()));
+                getAliasSetAtomic(),
+                getAliasCompareAndSetAtomic(),
+                getAliasGetAndSetAtomic(),
+                getAliasLazySetAtomic(),
+                getAliasAddAndGetAtomic(),
+                getAliasGetAndAddAtomic(),
+                getAliasIncrementAndGetAtomic(),
+                getAliasGetAndIncrementAtomic(),
+                getAliasDecrementAndGetAtomic(),
+                getAliasGetAndDecrementAtomic()));
         m_.put(getAliasAtomicLong(), new StringList(
                 getAliasGetAtomic(),
-                getAliasSetAtomic()));
+                getAliasSetAtomic(),
+                getAliasCompareAndSetAtomic(),
+                getAliasGetAndSetAtomic(),
+                getAliasLazySetAtomic(),
+                getAliasAddAndGetAtomic(),
+                getAliasGetAndAddAtomic(),
+                getAliasIncrementAndGetAtomic(),
+                getAliasGetAndIncrementAtomic(),
+                getAliasDecrementAndGetAtomic(),
+                getAliasGetAndDecrementAtomic()));
         m_.put(getAliasFile(), new StringList(
                 getAliasRead(),
                 getAliasWrite(),
@@ -1904,6 +2105,23 @@ public class LgNamesUtils extends LgNames {
     public void setAliasIsAlive(String _aliasIsAlive) {
         aliasIsAlive = _aliasIsAlive;
     }
+
+    public String getAliasIsEnded() {
+        return aliasIsEnded;
+    }
+
+    public void setAliasIsEnded(String aliasIsEnded) {
+        this.aliasIsEnded = aliasIsEnded;
+    }
+
+    public String getAliasEnd() {
+        return aliasEnd;
+    }
+
+    public void setAliasEnd(String aliasEnd) {
+        this.aliasEnd = aliasEnd;
+    }
+
     public String getAliasGetId() {
         return aliasGetId;
     }
@@ -1983,6 +2201,78 @@ public class LgNamesUtils extends LgNames {
 
     public void setAliasGetAtomic(String _aliasGetAtomic) {
         aliasGetAtomic = _aliasGetAtomic;
+    }
+
+    public String getAliasCompareAndSetAtomic() {
+        return aliasCompareAndSetAtomic;
+    }
+
+    public void setAliasCompareAndSetAtomic(String aliasCompareAndSetAtomic) {
+        this.aliasCompareAndSetAtomic = aliasCompareAndSetAtomic;
+    }
+
+    public String getAliasLazySetAtomic() {
+        return aliasLazySetAtomic;
+    }
+
+    public void setAliasLazySetAtomic(String aliasLazySetAtomic) {
+        this.aliasLazySetAtomic = aliasLazySetAtomic;
+    }
+
+    public String getAliasAddAndGetAtomic() {
+        return aliasAddAndGetAtomic;
+    }
+
+    public void setAliasAddAndGetAtomic(String aliasAddAndGetAtomic) {
+        this.aliasAddAndGetAtomic = aliasAddAndGetAtomic;
+    }
+
+    public String getAliasGetAndAddAtomic() {
+        return aliasGetAndAddAtomic;
+    }
+
+    public void setAliasGetAndAddAtomic(String aliasGetAndAddAtomic) {
+        this.aliasGetAndAddAtomic = aliasGetAndAddAtomic;
+    }
+
+    public String getAliasGetAndSetAtomic() {
+        return aliasGetAndSetAtomic;
+    }
+
+    public void setAliasGetAndSetAtomic(String aliasGetAndSetAtomic) {
+        this.aliasGetAndSetAtomic = aliasGetAndSetAtomic;
+    }
+
+    public String getAliasIncrementAndGetAtomic() {
+        return aliasIncrementAndGetAtomic;
+    }
+
+    public void setAliasIncrementAndGetAtomic(String aliasIncrementAndGetAtomic) {
+        this.aliasIncrementAndGetAtomic = aliasIncrementAndGetAtomic;
+    }
+
+    public String getAliasGetAndIncrementAtomic() {
+        return aliasGetAndIncrementAtomic;
+    }
+
+    public void setAliasGetAndIncrementAtomic(String aliasGetAndIncrementAtomic) {
+        this.aliasGetAndIncrementAtomic = aliasGetAndIncrementAtomic;
+    }
+
+    public String getAliasDecrementAndGetAtomic() {
+        return aliasDecrementAndGetAtomic;
+    }
+
+    public void setAliasDecrementAndGetAtomic(String aliasDecrementAndGetAtomic) {
+        this.aliasDecrementAndGetAtomic = aliasDecrementAndGetAtomic;
+    }
+
+    public String getAliasGetAndDecrementAtomic() {
+        return aliasGetAndDecrementAtomic;
+    }
+
+    public void setAliasGetAndDecrementAtomic(String aliasGetAndDecrementAtomic) {
+        this.aliasGetAndDecrementAtomic = aliasGetAndDecrementAtomic;
     }
 
     public String getAliasFormatType() {
@@ -3262,6 +3552,15 @@ public class LgNamesUtils extends LgNames {
         setAliasFileLastModif(get(_util,_cust,"FileLastModif"));
         setAliasFileGetName(get(_util,_cust,"FileGetName"));
         setAliasGetAtomic(get(_util,_cust,"GetAtomic"));
+        setAliasLazySetAtomic(get(_util,_cust,"LazySetAtomic"));
+        setAliasCompareAndSetAtomic(get(_util,_cust,"CompareAndSetAtomic"));
+        setAliasGetAndAddAtomic(get(_util,_cust,"GetAndAddAtomic"));
+        setAliasAddAndGetAtomic(get(_util,_cust,"AddAndGetAtomic"));
+        setAliasGetAndIncrementAtomic(get(_util,_cust,"GetAndIncrementAtomic"));
+        setAliasIncrementAndGetAtomic(get(_util,_cust,"IncrementAndGetAtomic"));
+        setAliasGetAndDecrementAtomic(get(_util,_cust,"GetAndDecrementAtomic"));
+        setAliasDecrementAndGetAtomic(get(_util,_cust,"DecrementAndGetAtomic"));
+        setAliasGetAndSetAtomic(get(_util,_cust,"GetAndSetAtomic"));
         setAliasReentrantLock(get(_util,_cust,"ReentrantLock"));
         setAliasJoinOthers(get(_util,_cust,"JoinOthers"));
         setAliasFileIsFile(get(_util,_cust,"FileIsFile"));
@@ -3361,6 +3660,8 @@ public class LgNamesUtils extends LgNames {
         setAliasListTa(get(_util,_cust,"ListTa"));
         setAliasGetId(get(_util,_cust,"GetId"));
         setAliasIsAlive(get(_util,_cust,"IsAlive"));
+        setAliasIsEnded(get(_util,_cust,"IsEnded"));
+        setAliasEnd(get(_util,_cust,"End"));
         setAliasPrint(get(_util,_cust,"Print"));
         setAliasListItr(get(_util,_cust,"ListItr"));
         setAliasRemoveLi(get(_util,_cust,"RemoveLi"));
@@ -3405,13 +3706,5 @@ public class LgNamesUtils extends LgNames {
             return def_;
         }
         return val_;
-    }
-    private static boolean sleep(long _time) {
-        long millis_ = System.currentTimeMillis();
-        boolean slept_ = false;
-        while (millis_ + _time > System.currentTimeMillis()) {
-            slept_ = true;
-        }
-        return slept_;
     }
 }

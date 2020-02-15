@@ -4,9 +4,13 @@ import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 
+import java.util.concurrent.atomic.AtomicBoolean;
+
 public final class ThreadStruct implements Struct {
 
     private Thread thread;
+
+    private AtomicBoolean ended = new AtomicBoolean();
 
     public ThreadStruct(Thread _thread) {
         thread = _thread;
@@ -15,6 +19,14 @@ public final class ThreadStruct implements Struct {
     @Override
     public Struct getParent() {
         return NullStruct.NULL_VALUE;
+    }
+
+    public boolean isEnded() {
+        return ended.get();
+    }
+
+    public void end() {
+        ended.set(true);
     }
 
     public Thread getThread() {
@@ -28,19 +40,9 @@ public final class ThreadStruct implements Struct {
 
     @Override
     public boolean sameReference(Struct _other) {
-        return equals(_other);
-    }
-
-    @Override
-    public boolean equals(Object _other) {
         if (!(_other instanceof ThreadStruct)) {
             return false;
         }
         return thread == ((ThreadStruct)_other).thread;
-    }
-
-    @Override
-    public int hashCode() {
-        return thread.hashCode();
     }
 }

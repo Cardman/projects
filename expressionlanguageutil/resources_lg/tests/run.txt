@@ -135,7 +135,7 @@
             ({res}{local}).{success} = {false}{endLine}
             ({res}{local}).{failMessage} = {new} {StringBuilder}("!=").{append}(({tt}{local}).{exception}().{getClassName}()).{toString}(){endLine}
         '}'
-        {return} {res}{endLine}
+        {return} {res}{local}{endLine}
     '}'
     {private} {static} {Result} {setupError}({ExecutedTest} {e}, {InvokeTarget} {t}, {boolean} {processEx})'{'
         {var} {res} = {new} {Result}(){endLine}

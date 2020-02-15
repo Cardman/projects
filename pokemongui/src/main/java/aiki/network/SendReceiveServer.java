@@ -1,6 +1,5 @@
 package aiki.network;
 import java.net.Socket;
-import java.util.concurrent.locks.ReentrantLock;
 
 import aiki.map.pokemon.PokemonPlayer;
 import aiki.network.stream.Bye;
@@ -15,6 +14,7 @@ import aiki.network.stream.SentPokemon;
 import code.network.AddingPlayer;
 import code.network.BasicServer;
 import code.network.NetGroupFrame;
+import code.stream.AbstractLock;
 import code.util.CustList;
 import code.util.*;
 
@@ -22,18 +22,19 @@ import code.util.*;
 Thread safe class*/
 public final class SendReceiveServer extends BasicServer {
 
-    private static final ReentrantLock LOCK = new ReentrantLock();
+    private final AbstractLock lock;
 
     /**This class thread is independant from EDT*/
-    public SendReceiveServer(Socket _socket, NetGroupFrame _net) {
+    public SendReceiveServer(Socket _socket, NetGroupFrame _net, AbstractLock _lock) {
         super(_socket, _net);
+        lock = _lock;
     }
 
     @Override
     public void loopServer(String _input, Object _object) {
-        LOCK.lock();
+        lock.lock(this);
         loop(_input, _object);
-        LOCK.unlock();
+        lock.unlock(this);
     }
 
     private static void loop(String _input, Object _readObject) {

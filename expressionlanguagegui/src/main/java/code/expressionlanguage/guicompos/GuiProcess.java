@@ -111,8 +111,7 @@ public final class GuiProcess implements Runnable {
     }
     @Override
     public void run() {
-        long nb_ = RunnableStruct.setupThread(context);
-        context.setNumber(nb_);
+        RunnableStruct.setupThread(context);
         String folder_ = executingOptions.getLogFolder();
         new File(folder_).mkdirs();
         MethodId id_ = new MethodId(MethodAccessKind.STATIC, mName, new StringList());

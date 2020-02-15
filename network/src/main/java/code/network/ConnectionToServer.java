@@ -1,11 +1,15 @@
 package code.network;
+import code.stream.AbstractLock;
+import code.stream.LockFactory;
+import code.stream.Locking;
+
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
 
 /**Thread safe class*/
-public final class ConnectionToServer implements Runnable {
+public final class ConnectionToServer implements Runnable, Locking {
 
     private ServerSocket serverSocket;
     private NetGroupFrame serverWindow;
@@ -13,10 +17,12 @@ public final class ConnectionToServer implements Runnable {
     private boolean accept;
     private boolean errorSocket;
     private boolean error;
+    private AbstractLock lock;
     /**This class thread is independant from EDT*/
     public ConnectionToServer(ServerSocket _serverSocket,NetGroupFrame _serverWindow,String _ipHost, int _port){
         serverSocket=_serverSocket;
         serverWindow = _serverWindow;
+        lock = LockFactory.newLock();
         serverWindow.createClient(_ipHost, null, true, _port);
     }
     public boolean fermer(Socket _socket) {
@@ -38,7 +44,7 @@ public final class ConnectionToServer implements Runnable {
             Socket socket_ = acceptSocket();
             //If the server is started without client ==> pause.
             if (!error && !errorSocket) {
-                serverWindow.gearClient(socket_);
+                serverWindow.gearClient(socket_,lock);
                 accept = false;
             } else if (errorSocket) {
                 if (serverSocket.isClosed()) {
@@ -64,5 +70,15 @@ public final class ConnectionToServer implements Runnable {
             }
         }
         return socket;
+    }
+
+    @Override
+    public Thread getCurrentThread() {
+        return Thread.currentThread();
+    }
+
+    @Override
+    public boolean isCurrentThreadEnded() {
+        return false;
     }
 }

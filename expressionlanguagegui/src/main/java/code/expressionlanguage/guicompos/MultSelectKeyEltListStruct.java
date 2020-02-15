@@ -76,7 +76,7 @@ public final class MultSelectKeyEltListStruct extends KeyAdapter implements Inde
     }
     private GuiContextEl newCtx() {
         GuiContextEl r_ = new GuiContextEl(original);
-        r_.setNumber(RunnableStruct.setupThread(r_));
+        RunnableStruct.setupThread(r_);
         return r_;
     }
     @Override

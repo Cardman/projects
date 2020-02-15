@@ -87,7 +87,7 @@ public final class RunnableStruct implements WithParentStruct, EnumerableStruct,
     @Override
     public void run() {
         RunnableContextEl r_ = new RunnableContextEl(original);
-        r_.setNumber(setupThread(r_));
+        setupThread(r_);
         LgNames stds_ = r_.getStandards();
         String run_ = r_.getCustInit().getRunTask(stds_);
         String runnable_ = r_.getCustInit().getInterfaceTask(stds_);
@@ -111,7 +111,6 @@ public final class RunnableStruct implements WithParentStruct, EnumerableStruct,
         dtPart_.append("__");
         dtPart_.append(nb_);
         dtPart_.append(".txt");
-        _r.setThread(new ThreadStruct(Thread.currentThread()));
         _r.getCustInit().putNewCustTreadIdDate(_r, dtPart_.toString());
         return nb_;
     }

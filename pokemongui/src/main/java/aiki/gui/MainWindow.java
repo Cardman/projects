@@ -65,6 +65,7 @@ import code.network.AttemptConnecting;
 import code.network.BasicClient;
 import code.network.Exiting;
 import code.network.NetGroupFrame;
+import code.stream.AbstractLock;
 import code.stream.StreamFolderFile;
 import code.stream.StreamTextFile;
 import code.stream.ThreadUtil;
@@ -1130,9 +1131,9 @@ public final class MainWindow extends NetGroupFrame {
     }
 
     @Override
-    public void gearClient(Socket _newSocket) {
+    public void gearClient(Socket _newSocket, AbstractLock _lock) {
         Net.getSockets().put(Net.getSockets().size(), _newSocket);
-        SendReceiveServer sendReceiveServer_=new SendReceiveServer(_newSocket,this);
+        SendReceiveServer sendReceiveServer_=new SendReceiveServer(_newSocket,this,_lock);
         CustComponent.newThread(sendReceiveServer_).start();
         Net.getConnectionsServer().put(Net.getSockets().size()-1,sendReceiveServer_);
         IndexOfArriving index_ = new IndexOfArriving();

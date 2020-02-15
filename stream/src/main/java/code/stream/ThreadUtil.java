@@ -27,12 +27,15 @@ public final class ThreadUtil {
             sleep(0);
         }
     }
-    public static void sleep(long _time) {
-        long millis_ = System.currentTimeMillis();
-        while (true) {
-            if (millis_ + _time <= System.currentTimeMillis()) {
-                break;
-            }
+    public static boolean sleep(long _time) {
+        if (_time <= 0) {
+            return false;
+        }
+        try {
+            Thread.sleep(_time);
+            return true;
+        } catch (Exception e) {
+            return false;
         }
     }
 

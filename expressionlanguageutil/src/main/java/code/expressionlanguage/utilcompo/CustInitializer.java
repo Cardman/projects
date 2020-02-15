@@ -104,7 +104,8 @@ public class CustInitializer extends DefaultInitializer {
     }
 
     public void removeThreadFromList(RunnableContextEl _ctx) {
-        threadSet.remove(_ctx.getThread());
+        threadSet.remove(_ctx.getThread(),_ctx);
+        _ctx.getThread().end();
     }
 
     public String getCurrentFileThread(RunnableContextEl _cont) {
@@ -156,15 +157,15 @@ public class CustInitializer extends DefaultInitializer {
     }
     void putNewCustTreadIdDate(RunnableContextEl _id, String _value) {
         _id.setIdDate(_value);
-        threadSet.add(_id.getThread());
+        threadSet.add(_id.getThread(),_id);
 	}
 
     public ThreadSetStruct getThreadSet() {
         return threadSet;
     }
 
-    public void initHook(ThreadStruct _id) {
-        hooks.add(_id);
+    public void initHook(ThreadStruct _id, RunnableContextEl _rCont) {
+        hooks.add(_id,_rCont);
     }
 
     long increment() {

@@ -145,6 +145,7 @@ import code.network.NetGroupFrame;
 import code.network.SocketResults;
 import code.network.enums.ErrorHostConnectionType;
 import code.network.enums.IpType;
+import code.stream.AbstractLock;
 import code.stream.StreamTextFile;
 import code.util.CustList;
 import code.util.EnumMap;
@@ -755,9 +756,9 @@ public final class MainWindow extends NetGroupFrame {
     }
 
     @Override
-    public void gearClient(Socket _newSocket) {
+    public void gearClient(Socket _newSocket, AbstractLock _lock) {
         Net.getSockets().put(Net.getSockets().size(), _newSocket);
-        SendReceiveServer sendReceiveServer_=new SendReceiveServer(_newSocket,this);
+        SendReceiveServer sendReceiveServer_=new SendReceiveServer(_newSocket,this,_lock);
         CustComponent.newThread(sendReceiveServer_).start();
         Net.getConnectionsServer().put(Net.getSockets().size()-1,sendReceiveServer_);
         IndexOfArriving index_ = new IndexOfArriving();
