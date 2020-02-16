@@ -6,6 +6,7 @@ public final class CustomLock implements AbstractLock {
     private AtomicBoolean lock = new AtomicBoolean();
     private long heldCount;
     private Thread exclusiveThread;
+    private long sleep = 1;
     @Override
     public int lock(Locking _context) {
         Thread currentThread_ = _context.getCurrentThread();
@@ -14,7 +15,7 @@ public final class CustomLock implements AbstractLock {
             return -1;
         }
         while (!lock.compareAndSet(false,true)) {
-            ThreadUtil.sleep(1);
+            ThreadUtil.sleep(sleep);
             if (_context.isCurrentThreadEnded()) {
                 return 1;
             }
@@ -41,5 +42,13 @@ public final class CustomLock implements AbstractLock {
         }
         heldCount--;
         return 1;
+    }
+
+    public long getSleep() {
+        return sleep;
+    }
+
+    public void setSleep(long sleep) {
+        this.sleep = Math.max(1,sleep);
     }
 }

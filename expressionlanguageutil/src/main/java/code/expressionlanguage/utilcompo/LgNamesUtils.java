@@ -627,6 +627,12 @@ public class LgNamesUtils extends LgNames {
         methods_.put(method_.getId(), method_);
         method_ = new StandardMethod(aliasIsHeldByCurrentThread, params_, getAliasPrimBoolean(), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        ctor_ = new StandardConstructor(params_,false,stdcl_);
+        constructors_.add(ctor_);
+        params_ = new StringList(getAliasPrimLong());
+        ctor_ = new StandardConstructor(params_,false,stdcl_);
+        constructors_.add(ctor_);
         std_ = stdcl_;
         getStandards().put(aliasReentrantLock, std_);
         methods_ = new ObjectMap<MethodId, StandardMethod>();
@@ -945,7 +951,14 @@ public class LgNamesUtils extends LgNames {
             return res_;
         }
         if (StringList.quickEq(name_,aliasReentrantLock)) {
+            if (_method.getParametersTypes().isEmpty()) {
+                AbstractLock re_ = LockFactory.newLock();
+                StdStruct std_ = StdStruct.newInstance(re_, aliasReentrantLock);
+                res_.setResult(std_);
+                return res_;
+            }
             AbstractLock re_ = LockFactory.newLock();
+            re_.setSleep(((NumberStruct)_args[0]).longStruct());
             StdStruct std_ = StdStruct.newInstance(re_, aliasReentrantLock);
             res_.setResult(std_);
             return res_;
