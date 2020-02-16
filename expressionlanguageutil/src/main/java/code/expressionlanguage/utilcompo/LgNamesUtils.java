@@ -1767,6 +1767,9 @@ public class LgNamesUtils extends LgNames {
     void log(String _folerName,String _fileName, String _content,RunnableContextEl _cont){
         infos.getLogger().log(_folerName,_fileName,_content,_cont);
     }
+    void coverFile(String _folder, String _fileName, String _content, RunnableContextEl _rCont) {
+        infos.getReporter().coverFile(_folder,_fileName,_content,_rCont);
+    }
     private static String buildLog(ContextEl _cont,
                                    Struct... _args) {
         String stringAppFile_;

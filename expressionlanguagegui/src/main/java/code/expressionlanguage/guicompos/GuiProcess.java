@@ -10,6 +10,7 @@ import code.expressionlanguage.options.Options;
 import code.expressionlanguage.utilcompo.*;
 import code.gui.Clock;
 import code.gui.CustComponent;
+import code.stream.StreamFolderFile;
 import code.stream.StreamTextFile;
 import code.stream.ThreadUtil;
 import code.util.CustList;
@@ -40,7 +41,7 @@ public final class GuiProcess implements Runnable {
             return null;
         }
         String archive_ = linesFiles_.first();
-        StringMap<String> zipFiles_ = RunningTest.getFiles(archive_);
+        StringMap<String> zipFiles_ = StreamFolderFile.getFiles(archive_);
         String lg_ = linesFiles_.get(1);
         String clName_ = "";
         String mName_ = "";
@@ -79,7 +80,7 @@ public final class GuiProcess implements Runnable {
         Options opt_ = new Options();
         opt_.setReadOnly(true);
         opt_.setFailIfNotAllInit(true);
-        LgNamesGui stds_ = new LgNamesGui(new FileInfos(new DefaultResourcesReader(),new DefaultLogger(), new DefaultFileSystem()));
+        LgNamesGui stds_ = new LgNamesGui(new FileInfos(new DefaultResourcesReader(),new DefaultLogger(), new DefaultFileSystem(), new DefaultReporter()));
         GuiContextEl cont_ = GuiContextFactory.buildDefKw(lg_, mainArgs_,_window,opt_, exec_, stds_, zipFiles_, exec_.getTabWidth());
         if (cont_ == null) {
             return null;

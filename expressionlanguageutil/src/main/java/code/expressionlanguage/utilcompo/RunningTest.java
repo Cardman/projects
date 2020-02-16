@@ -2,8 +2,6 @@ package code.expressionlanguage.utilcompo;
 
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stds.LgNames;
-import code.stream.StreamFolderFile;
-import code.stream.StreamTextFile;
 import code.util.Numbers;
 import code.util.StringList;
 import code.util.StringMap;
@@ -37,7 +35,7 @@ public final class RunningTest implements Runnable {
     public void run() {
         String content_ = "";
         if (file) {
-            content_ = StreamTextFile.contentsOfFile(fileConfOrContent);
+            content_ = infos.getReporter().conf(fileConfOrContent);
             if (content_ == null) {
                 return;
             }
@@ -61,7 +59,7 @@ public final class RunningTest implements Runnable {
         }
         String archive_ = linesFiles_.first();
         String lg_ = linesFiles_.get(1);
-        StringMap<String> zipFiles_ = getFiles(archive_);
+        StringMap<String> zipFiles_ = _infos.getReporter().getFiles(archive_);
         ExecutingOptions exec_ = new ExecutingOptions();
         if (!StringList.contains(Constants.getAvailableLanguages(),lg_)){
             setupOptionals(1, exec_,linesFiles_);
@@ -74,9 +72,6 @@ public final class RunningTest implements Runnable {
         CustContextFactory.executeDefKw(lg_,opt_,exec_,zipFiles_,_progressingTests,_infos);
     }
 
-    public static StringMap<String> getFiles(String _archiveOrFolder) {
-        return StreamFolderFile.getFiles(_archiveOrFolder);
-    }
     public static void setupOptionals(int _from, ExecutingOptions _exec, StringList _lines) {
         StringBuilder argParts_ = new StringBuilder();
         StringBuilder aliasesPart_ = new StringBuilder();

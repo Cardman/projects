@@ -9,13 +9,10 @@ import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
-import code.stream.StreamTextFile;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.StringList;
 import code.util.StringMap;
-
-import java.io.File;
 
 public final class CustContextFactory {
     private CustContextFactory(){}
@@ -70,15 +67,7 @@ public final class CustContextFactory {
         if (rCont_.isCovering()) {
             String exp_ = _exec.getCoverFolder();
             for (EntryCust<String,String> f:FileBlock.export(rCont_).entryList()) {
-                String full_ = exp_ + f.getKey();
-                int end_ = full_.lastIndexOf('/');
-                if (end_ > -1) {
-                    String par_ = full_.substring(0, end_);
-                    if (!par_.isEmpty()) {
-                        new File(par_).mkdirs();
-                    }
-                }
-                StreamTextFile.saveTextFile(full_,f.getValue());
+                _definedLgNames.coverFile(exp_,f.getKey(),f.getValue(),rCont_);
             }
         }
         _progressingTests.setResults(rCont_,arg_);
