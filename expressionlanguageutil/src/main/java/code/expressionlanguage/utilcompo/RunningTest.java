@@ -13,24 +13,24 @@ public final class RunningTest implements Runnable {
     private String fileConfOrContent;
     private ProgressingTests progressingTests;
     private boolean file;
-    private AbstractResourcesReader reader;
+    private FileInfos infos;
 
     private RunningTest() {
     }
-    public static RunningTest newFromFile(String _fileConf, ProgressingTests _progressingTests, AbstractResourcesReader _reader) {
+    public static RunningTest newFromFile(String _fileConf, ProgressingTests _progressingTests, FileInfos _infos) {
         RunningTest r_ = new RunningTest();
         r_.fileConfOrContent = _fileConf;
         r_.progressingTests = _progressingTests;
         r_.file = true;
-        r_.reader = _reader;
+        r_.infos = _infos;
         return r_;
     }
 
-    public static RunningTest newFromContent(String _fileConf, ProgressingTests _progressingTests, AbstractResourcesReader _reader) {
+    public static RunningTest newFromContent(String _fileConf, ProgressingTests _progressingTests, FileInfos _infos) {
         RunningTest r_ = new RunningTest();
         r_.fileConfOrContent = _fileConf;
         r_.progressingTests = _progressingTests;
-        r_.reader = _reader;
+        r_.infos = _infos;
         return r_;
     }
     @Override
@@ -44,10 +44,10 @@ public final class RunningTest implements Runnable {
         } else {
             content_ = fileConfOrContent;
         }
-        launchByConfContent(content_,progressingTests,reader);
+        launchByConfContent(content_,progressingTests,infos);
     }
 
-    public static void launchByConfContent(String _content, ProgressingTests _progressingTests, AbstractResourcesReader _reader) {
+    public static void launchByConfContent(String _content, ProgressingTests _progressingTests, FileInfos _infos) {
         StringList lines_ = StringList.splitStrings(_content, "\n", "\r\n");
         StringList linesFiles_ = new StringList();
         for (String s: lines_) {
@@ -71,7 +71,7 @@ public final class RunningTest implements Runnable {
         Options opt_ = new Options();
         opt_.setReadOnly(true);
         opt_.setFailIfNotAllInit(true);
-        CustContextFactory.executeDefKw(lg_,opt_,exec_,zipFiles_,_progressingTests,_reader);
+        CustContextFactory.executeDefKw(lg_,opt_,exec_,zipFiles_,_progressingTests,_infos);
     }
 
     public static StringMap<String> getFiles(String _archiveOrFolder) {

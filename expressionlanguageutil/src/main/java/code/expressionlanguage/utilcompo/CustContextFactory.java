@@ -4,7 +4,6 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.methods.FileBlock;
 import code.expressionlanguage.opers.util.MethodAccessKind;
 import code.expressionlanguage.opers.util.MethodId;
-import code.expressionlanguage.opers.util.MethodModifier;
 import code.expressionlanguage.options.ContextFactory;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
@@ -36,9 +35,9 @@ public final class CustContextFactory {
         return build(CustList.INDEX_NOT_FOUND_ELT, _options, _exec,kwl_, _undefinedLgNames, _files, _tabWidth);
     }
     public static void executeDefKw(String _lang,
-                               Options _options, ExecutingOptions _exec,StringMap<String> _files, ProgressingTests _progressingTests,AbstractResourcesReader _reader) {
+                               Options _options, ExecutingOptions _exec,StringMap<String> _files, ProgressingTests _progressingTests,FileInfos _infos) {
         KeyWords kwl_ = new KeyWords();
-        LgNamesUtils stds_ = new LgNamesUtils(_reader);
+        LgNamesUtils stds_ = new LgNamesUtils(_infos);
         if (StringList.quickEq(_lang, "en")) {
             stds_.keyWord(kwl_,_lang,_exec.getKeyWords());
             stds_.otherAlias(_lang,_exec.getAliases());

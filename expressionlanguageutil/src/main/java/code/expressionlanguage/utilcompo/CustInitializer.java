@@ -1,6 +1,5 @@
 package code.expressionlanguage.utilcompo;
 
-import java.io.File;
 import java.util.concurrent.atomic.AtomicLong;
 
 import code.expressionlanguage.Argument;
@@ -16,7 +15,6 @@ import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.DisplayableStruct;
 import code.expressionlanguage.structs.Struct;
-import code.stream.StreamTextFile;
 import code.stream.ThreadUtil;
 import code.util.ObjectMap;
 import code.util.StringList;
@@ -101,9 +99,7 @@ public class CustInitializer extends DefaultInitializer {
         String text_ = StringList.concat(LgNamesUtils.getDateTimeText("_", "_", "_"),":",_txt);
         ExecutingOptions ex_ = _cont.getExecutingOptions();
         String folder_ = ex_.getLogFolder();
-        new File(folder_).mkdirs();
-        toFile_ = StringList.concat(folder_,"/",toFile_);
-        StreamTextFile.logToFile(toFile_, text_);
+        ((LgNamesUtils)_cont.getStandards()).log(folder_, toFile_,text_,_cont);
     }
 
     public void removeThreadFromList(RunnableContextEl _ctx) {

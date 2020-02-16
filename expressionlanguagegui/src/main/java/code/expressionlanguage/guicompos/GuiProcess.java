@@ -3,16 +3,11 @@ package code.expressionlanguage.guicompos;
 import code.expressionlanguage.*;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.NamedFunctionBlock;
-import code.expressionlanguage.methods.OverridableBlock;
 import code.expressionlanguage.methods.ProcessMethod;
 import code.expressionlanguage.opers.util.MethodAccessKind;
 import code.expressionlanguage.opers.util.MethodId;
-import code.expressionlanguage.opers.util.MethodModifier;
 import code.expressionlanguage.options.Options;
-import code.expressionlanguage.utilcompo.DefaultResourcesReader;
-import code.expressionlanguage.utilcompo.ExecutingOptions;
-import code.expressionlanguage.utilcompo.RunnableStruct;
-import code.expressionlanguage.utilcompo.RunningTest;
+import code.expressionlanguage.utilcompo.*;
 import code.gui.Clock;
 import code.gui.CustComponent;
 import code.stream.StreamTextFile;
@@ -84,7 +79,7 @@ public final class GuiProcess implements Runnable {
         Options opt_ = new Options();
         opt_.setReadOnly(true);
         opt_.setFailIfNotAllInit(true);
-        LgNamesGui stds_ = new LgNamesGui(new DefaultResourcesReader());
+        LgNamesGui stds_ = new LgNamesGui(new FileInfos(new DefaultResourcesReader(),new DefaultLogger(), new DefaultFileSystem()));
         GuiContextEl cont_ = GuiContextFactory.buildDefKw(lg_, mainArgs_,_window,opt_, exec_, stds_, zipFiles_, exec_.getTabWidth());
         if (cont_ == null) {
             return null;

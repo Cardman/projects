@@ -9,9 +9,7 @@ import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
-import code.expressionlanguage.utilcompo.AbstractResourcesReader;
-import code.expressionlanguage.utilcompo.LgNamesUtils;
-import code.expressionlanguage.utilcompo.RunnableContextEl;
+import code.expressionlanguage.utilcompo.*;
 import code.expressionlanguage.variables.VariableSuffix;
 import code.gui.OtherConfirmDialog;
 import code.gui.OtherFrame;
@@ -422,8 +420,8 @@ public class LgNamesGui extends LgNamesUtils {
     private String aliasMenuItemCheck;
     private String aliasMenuItemCheckIsSelected;
     private String aliasMenuItemCheckSetSelected;
-    public LgNamesGui(AbstractResourcesReader _reader) {
-        super(_reader);
+    public LgNamesGui(FileInfos _infos) {
+        super(_infos);
     }
     public void buildOther() {
         super.buildOther();

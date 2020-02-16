@@ -1,6 +1,5 @@
 package code.expressionlanguage.utilcompo;
 
-import java.io.File;
 import java.util.Calendar;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -26,7 +25,9 @@ import code.expressionlanguage.structs.*;
 import code.expressionlanguage.variables.VariableSuffix;
 import code.sml.DocumentBuilder;
 import code.sml.util.ResourcesMessagesUtil;
-import code.stream.*;
+import code.stream.AbstractLock;
+import code.stream.LockFactory;
+import code.stream.ThreadUtil;
 import code.util.CustList;
 import code.util.ObjectMap;
 import code.util.StringList;
@@ -199,15 +200,15 @@ public class LgNamesUtils extends LgNames {
     private String aliasInfoTestCurrentParams;
 
     private String aliasConcurrentError;
-    private AbstractResourcesReader reader;
+    private FileInfos infos;
 
-    public LgNamesUtils(AbstractResourcesReader _reader) {
-        reader = _reader;
+    public LgNamesUtils(FileInfos _infos) {
+        infos = _infos;
     }
     @Override
     public StringMap<String> buildFiles(ContextEl _context) {
         StringMap<String> stds_ = super.buildFiles(_context);
-        String content_ = reader.read("resources_lg/threads/runnable.txt");
+        String content_ = infos.getReader().read("resources_lg/threads/runnable.txt");
         KeyWords keyWords_ = _context.getKeyWords();
         String public_ = keyWords_.getKeyWordPublic();
         String private_ = keyWords_.getKeyWordPrivate();
@@ -260,7 +261,7 @@ public class LgNamesUtils extends LgNames {
         getPredefinedClasses().add(aliasRunnable);
         stds_.put(aliasRunnable, content_);
         getPredefinedInterfacesInitOrder().add(aliasRunnable);
-        content_ = reader.read("resources_lg/collections/list.txt");
+        content_ = infos.getReader().read("resources_lg/collections/list.txt");
         map_ = new StringMap<String>();
         map_.put("{public}", public_);
         map_.put("{private}", private_);
@@ -308,7 +309,7 @@ public class LgNamesUtils extends LgNames {
         stds_.put(aliasList, content_);
         getPredefinedInterfacesInitOrder().add(aliasCustIterator);
         getPredefinedInterfacesInitOrder().add(aliasList);
-        content_ = reader.read("resources_lg/collections/table.txt");
+        content_ = infos.getReader().read("resources_lg/collections/table.txt");
         map_.put("{CustPair}",aliasCustPair);
         map_.put("{Pair}",getAliasPairType());
         map_.put("{U}",aliasPairVarFirst);
@@ -353,7 +354,7 @@ public class LgNamesUtils extends LgNames {
         getPredefinedInterfacesInitOrder().add(aliasCustIterTable);
         getPredefinedInterfacesInitOrder().add(aliasTable);
 
-        content_ = reader.read("resources_lg/tests/run.txt");
+        content_ = infos.getReader().read("resources_lg/tests/run.txt");
         map_.put("{a}",tr("a",_context));
         map_.put("{b}",tr("b",_context));
         map_.put("{c}",tr("c",_context));
@@ -511,7 +512,7 @@ public class LgNamesUtils extends LgNames {
         getPredefinedInterfacesInitOrder().add(aliasExecutedTest);
         getPredefinedInterfacesInitOrder().add(aliasResult);
         getPredefinedInterfacesInitOrder().add(aliasExecute);
-        content_ = reader.read("resources_lg/threads/formatting.txt");
+        content_ = infos.getReader().read("resources_lg/threads/formatting.txt");
         map_.put("{Format}",aliasFormatType);
         map_.put("{int}", int_);
         map_.put("{print}",getAliasPrint());
@@ -1465,11 +1466,11 @@ public class LgNamesUtils extends LgNames {
                 return res_;
         	}
             if (StringList.quickEq(name_,aliasFileZipBinArray)) {
-                res_.setResult(ZipStructUtil.zipBinFiles(_args[0],(RunnableContextEl) _cont));
+                res_.setResult(ZipBinStructUtil.zipBinFiles(_args[0],(RunnableContextEl) _cont));
                 return res_;
             }
             if (StringList.quickEq(name_,aliasFileZippedBinArray)) {
-                res_.setResult(ZipStructUtil.zippedBinaryFilesByteArray(_args[0], (RunnableContextEl) _cont));
+                res_.setResult(ZipBinStructUtil.zippedBinaryFilesByteArray(_args[0], (RunnableContextEl) _cont));
                 return res_;
             }
             if (!(_args[0] instanceof StringStruct)) {
@@ -1478,7 +1479,7 @@ public class LgNamesUtils extends LgNames {
             }
         	if (StringList.quickEq(name_,aliasRead)) {
         		StringStruct str_ = (StringStruct)_args[0];
-        		String read_ = StreamTextFile.contentsOfFile(str_.getInstance());
+        		String read_ = infos.getFileSystem().contentsOfFile(str_.getInstance(), (RunnableContextEl) _cont);
         		if (read_ == null) {
         			res_.setResult(NullStruct.NULL_VALUE);
                     return res_;
@@ -1489,12 +1490,12 @@ public class LgNamesUtils extends LgNames {
         	if (StringList.quickEq(name_,aliasWrite)) {
         		String file_ = ((StringStruct)_args[0]).getInstance();
         		String txt_ = getStandarString(_cont,_args[1]);
-        		res_.setResult(new BooleanStruct(StreamTextFile.saveTextFile(file_, txt_)));
+        		res_.setResult(new BooleanStruct(infos.getFileSystem().saveTextFile(file_, txt_, (RunnableContextEl) _cont)));
         		return res_;
         	}
             if (StringList.quickEq(name_,aliasFileReadBin)) {
                 StringStruct str_ = (StringStruct)_args[0];
-                byte[] read_ = StreamBinaryFile.loadFile(str_.getInstance());
+                byte[] read_ = infos.getFileSystem().loadFile(str_.getInstance(), (RunnableContextEl) _cont);
                 if (read_ == null) {
                     res_.setResult(NullStruct.NULL_VALUE);
                     return res_;
@@ -1523,12 +1524,12 @@ public class LgNamesUtils extends LgNames {
                     }
                     bin_[i] = ((NumberStruct)byte_).byteStruct();
                 }
-                res_.setResult(new BooleanStruct(StreamBinaryFile.writeFile(file_, bin_)));
+                res_.setResult(new BooleanStruct(infos.getFileSystem().writeFile(file_, bin_, (RunnableContextEl) _cont)));
                 return res_;
             }
             if (StringList.quickEq(name_,aliasFileDelete)) {
                 String file_ = ((StringStruct)_args[0]).getInstance();
-                res_.setResult(new BooleanStruct(new File(file_).delete()));
+                res_.setResult(new BooleanStruct(infos.getFileSystem().delete(file_, (RunnableContextEl) _cont)));
                 return res_;
             }
             if (StringList.quickEq(name_,aliasFileRename)) {
@@ -1538,134 +1539,200 @@ public class LgNamesUtils extends LgNames {
                 }
                 String file_ = ((StringStruct)_args[0]).getInstance();
                 String dest_ = ((StringStruct)_args[1]).getInstance();
-                res_.setResult(new BooleanStruct(new File(file_).renameTo(new File(dest_))));
+                res_.setResult(new BooleanStruct(infos.getFileSystem().rename(file_,dest_, (RunnableContextEl) _cont)));
                 return res_;
             }
         	if (StringList.quickEq(name_,aliasAppendToFile)) {
         		String file_ = ((StringStruct)_args[0]).getInstance();
         		String txt_ = getStandarString(_cont,_args[1]);
-        		res_.setResult(new BooleanStruct(StreamTextFile.logToFile(file_, txt_)));
+        		res_.setResult(new BooleanStruct(infos.getFileSystem().logToFile(file_, txt_, (RunnableContextEl) _cont)));
         		return res_;
         	}
             if (StringList.quickEq(name_,aliasFileAbsolutePath)) {
                 String file_ = ((StringStruct)_args[0]).getInstance();
-                res_.setResult(new StringStruct(StringList.replaceBackSlash(new File(file_).getAbsolutePath())));
+                res_.setResult(new StringStruct(infos.getFileSystem().absolutePath(file_, (RunnableContextEl) _cont)));
                 return res_;
             }
             if (StringList.quickEq(name_,aliasFileGetLength)) {
                 String file_ = ((StringStruct)_args[0]).getInstance();
-                res_.setResult(new LongStruct(new File(file_).length()));
+                res_.setResult(new LongStruct(infos.getFileSystem().length(file_, (RunnableContextEl) _cont)));
                 return res_;
             }
             if (StringList.quickEq(name_,aliasFileGetName)) {
                 String file_ = ((StringStruct)_args[0]).getInstance();
-                res_.setResult(new StringStruct(new File(file_).getName()));
+                res_.setResult(new StringStruct(infos.getFileSystem().getName(file_, (RunnableContextEl) _cont)));
                 return res_;
             }
             if (StringList.quickEq(name_,aliasFileGetParentPath)) {
                 String file_ = ((StringStruct)_args[0]).getInstance();
-                res_.setResult(new StringStruct(StringList.replaceBackSlash(new File(file_).getParentFile().getAbsolutePath())));
+                res_.setResult(new StringStruct(infos.getFileSystem().getParentPath(file_, (RunnableContextEl) _cont)));
                 return res_;
             }
             if (StringList.quickEq(name_,aliasFileIsDirectory)) {
                 String file_ = ((StringStruct)_args[0]).getInstance();
-                File info_ = new File(file_);
-                res_.setResult(new BooleanStruct(info_.exists()&&info_.isDirectory()));
+                res_.setResult(new BooleanStruct(infos.getFileSystem().isDirectory(file_, (RunnableContextEl) _cont)));
                 return res_;
             }
             if (StringList.quickEq(name_,aliasFileIsFile)) {
                 String file_ = ((StringStruct)_args[0]).getInstance();
-                File info_ = new File(file_);
-                res_.setResult(new BooleanStruct(info_.exists()&&!info_.isDirectory()));
+                res_.setResult(new BooleanStruct(infos.getFileSystem().isFile(file_, (RunnableContextEl) _cont)));
                 return res_;
             }
             if (StringList.quickEq(name_,aliasFileLastModif)) {
                 String file_ = ((StringStruct)_args[0]).getInstance();
-                File info_ = new File(file_);
-                res_.setResult(new LongStruct(info_.lastModified()));
+                res_.setResult(new LongStruct(infos.getFileSystem().lastModified(file_, (RunnableContextEl) _cont)));
                 return res_;
             }
             if (StringList.quickEq(name_,aliasFileListFiles)) {
                 String file_ = ((StringStruct)_args[0]).getInstance();
-                File info_ = new File(file_);
-                File[] files_ = info_.listFiles();
+                StringList files_ = infos.getFileSystem().getFiles(file_, (RunnableContextEl) _cont);
                 if (files_ == null) {
                     res_.setResult(NullStruct.NULL_VALUE);
                     return res_;
                 }
-                StringList filesList_ = new StringList();
-                for (File f: files_) {
-                    if (!f.exists()) {
-                        continue;
-                    }
-                    if (f.isDirectory()) {
-                        continue;
-                    }
-                    filesList_.add(StringList.replaceBackSlash(f.getAbsolutePath()));
-                }
-                int len_ = filesList_.size();
+                int len_ = files_.size();
                 ArrayStruct arr_ = new ArrayStruct(new Struct[len_],PrimitiveTypeUtil.getPrettyArrayType(getAliasString()));
                 for (int i = 0; i < len_; i++) {
-                    arr_.getInstance()[i] = new StringStruct(filesList_.get(i));
+                    arr_.getInstance()[i] = new StringStruct(files_.get(i));
                 }
                 res_.setResult(arr_);
                 return res_;
             }
             if (StringList.quickEq(name_,aliasFileListDirectories)) {
                 String file_ = ((StringStruct)_args[0]).getInstance();
-                File info_ = new File(file_);
-                File[] files_ = info_.listFiles();
+                StringList files_ = infos.getFileSystem().getFolders(file_, (RunnableContextEl) _cont);
                 if (files_ == null) {
                     res_.setResult(NullStruct.NULL_VALUE);
                     return res_;
                 }
-                StringList filesList_ = new StringList();
-                for (File f: files_) {
-                    if (!f.exists()) {
-                        continue;
-                    }
-                    if (!f.isDirectory()) {
-                        continue;
-                    }
-                    filesList_.add(StringList.replaceBackSlash(f.getAbsolutePath()));
-                }
-                int len_ = filesList_.size();
+                int len_ = files_.size();
                 ArrayStruct arr_ = new ArrayStruct(new Struct[len_],PrimitiveTypeUtil.getPrettyArrayType(getAliasString()));
                 for (int i = 0; i < len_; i++) {
-                    arr_.getInstance()[i] = new StringStruct(filesList_.get(i));
+                    arr_.getInstance()[i] = new StringStruct(files_.get(i));
                 }
                 res_.setResult(arr_);
                 return res_;
             }
             if (StringList.quickEq(name_,aliasFileZipBin)) {
-                res_.setResult(ZipStructUtil.zipBinFiles(_args[0],_args[1]));
+                String fileName_ = ((StringStruct)_args[0]).getInstance();
+                Struct struct_ = ZipBinStructUtil.zipBinFiles(_args[1], (RunnableContextEl) _cont);
+                if (struct_ instanceof ArrayStruct) {
+                    Struct[] as_ = ((ArrayStruct)struct_).getInstance();
+                    int len_ = as_.length;
+                    byte[] file_ = new byte[len_];
+                    for (int i = 0; i < len_; i++) {
+                        Struct byte_ = as_[i];
+                        if (!(byte_ instanceof ByteStruct)) {
+                            continue;
+                        }
+                        file_[i] = ((ByteStruct)byte_).byteStruct();
+                    }
+                    res_.setResult(new BooleanStruct(infos.getFileSystem().writeFile(fileName_,file_, (RunnableContextEl) _cont)));
+                } else {
+                    res_.setResult(new BooleanStruct(false));
+                }
                 return res_;
             }
             if (StringList.quickEq(name_,aliasFileZipText)) {
-                res_.setResult(ZipStructUtil.zipTextFiles(_args[0],_args[1]));
+        	    CustList<EntryBinaryStruct> bins_ = new CustList<EntryBinaryStruct>();
+        	    if (_args[1] instanceof ArrayStruct) {
+                    ArrayStruct arr_ = (ArrayStruct) _args[1];
+                    for (Struct s: arr_.getInstance()) {
+                        if (s instanceof EntryTextStruct) {
+                            EntryTextStruct cont_ = (EntryTextStruct)s;
+                            byte[] encoded_ = StringList.encode(cont_.getText().getInstance());
+                            String contType_ = _cont.getStandards().getAliasPrimByte();
+                            contType_ = PrimitiveTypeUtil.getPrettyArrayType(contType_);
+                            int bLen_ = encoded_.length;
+                            ArrayStruct bs_ = new ArrayStruct(new Struct[bLen_],contType_);
+                            for (int j = 0; j < bLen_; j++) {
+                                bs_.getInstance()[j] = new ByteStruct(encoded_[j]);
+                            }
+                            bins_.add(new EntryBinaryStruct(cont_.getName(), bs_));
+                        }
+                    }
+                }
+                int bLen_ = bins_.size();
+                String arrType_ = getAliasEntryBinary();
+                arrType_ = PrimitiveTypeUtil.getPrettyArrayType(arrType_);
+                ArrayStruct bs_ = new ArrayStruct(new Struct[bLen_],arrType_);
+                for (int j = 0; j < bLen_; j++) {
+                    bs_.getInstance()[j] = bins_.get(j);
+                }
+                byte[] finalFile_ = ZipBinStructUtil.getZipBinFileAsArray(bs_);
+                if (finalFile_ != null) {
+                    StringStruct str_ = (StringStruct)_args[0];
+                    res_.setResult(new BooleanStruct(infos.getFileSystem().writeFile(str_.getInstance(),finalFile_, (RunnableContextEl) _cont)));
+                    return res_;
+                }
+                res_.setResult(new BooleanStruct(false));
                 return res_;
             }
             if (StringList.quickEq(name_,aliasFileZippedBin)) {
-                res_.setResult(ZipStructUtil.zippedBinaryFiles(_args[0], (RunnableContextEl) _cont));
+                StringStruct str_ = (StringStruct)_args[0];
+                byte[] bytes_ = infos.getFileSystem().loadFile(str_.getInstance(), (RunnableContextEl) _cont);
+                if (bytes_ == null) {
+                    res_.setResult(NullStruct.NULL_VALUE);
+                    return res_;
+                }
+                String cont_ = _cont.getStandards().getAliasPrimByte();
+                cont_ = PrimitiveTypeUtil.getPrettyArrayType(cont_);
+                int bLen_ = bytes_.length;
+                ArrayStruct bs_ = new ArrayStruct(new Struct[bLen_],cont_);
+                for (int j = 0; j < bLen_; j++) {
+                    bs_.getInstance()[j] = new ByteStruct(bytes_[j]);
+                }
+                res_.setResult(ZipBinStructUtil.zippedBinaryFilesByteArray(bs_, (RunnableContextEl) _cont));
                 return res_;
             }
             if (StringList.quickEq(name_,aliasFileZippedText)) {
-                res_.setResult(ZipStructUtil.zippedTextFiles(_args[0], (RunnableContextEl) _cont));
+                StringStruct str_ = (StringStruct)_args[0];
+                byte[] bytes_ = infos.getFileSystem().loadFile(str_.getInstance(), (RunnableContextEl) _cont);
+                if (bytes_ == null) {
+                    res_.setResult(NullStruct.NULL_VALUE);
+                    return res_;
+                }
+                CustList<EntryBinaryStruct> arrList_ = ZipBinStructUtil.getEntryBinaryStructs(bytes_, (RunnableContextEl) _cont);
+                if (arrList_ != null) {
+                    String arrType_ = getAliasEntryText();
+                    arrType_ = PrimitiveTypeUtil.getPrettyArrayType(arrType_);
+                    int len_ = arrList_.size();
+                    ArrayStruct filesOut_ = new ArrayStruct(new Struct[len_],arrType_);
+                    for (int i = 0; i < len_; i++) {
+                        EntryBinaryStruct fileBin_ = arrList_.get(i);
+                        ArrayStruct bin_ = fileBin_.getBinary();
+                        Struct[] contBin_ = bin_.getInstance();
+                        int contLen_ = contBin_.length;
+                        byte[] prim_ = new byte[contLen_];
+                        for (int j = 0; j < contLen_; j++) {
+                            prim_[j] = ((NumberStruct)contBin_[j]).byteStruct();
+                        }
+                        String dec_ = StringList.decode(prim_);
+                        if (dec_ == null) {
+                            filesOut_.getInstance()[i] = new EntryTextStruct(fileBin_.getName(),NullStruct.NULL_VALUE);
+                        } else {
+                            filesOut_.getInstance()[i] = new EntryTextStruct(fileBin_.getName(),new StringStruct(dec_));
+                        }
+                    }
+                    res_.setResult(filesOut_);
+                    return res_;
+                }
+                res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
             if (StringList.quickEq(name_,aliasFileIsAbsolute)) {
                 String file_ = ((StringStruct)_args[0]).getInstance();
-                res_.setResult(new BooleanStruct(StreamFolderFile.isAbsolute(file_)));
+                res_.setResult(new BooleanStruct(infos.getFileSystem().isAbsolute(file_, (RunnableContextEl) _cont)));
                 return res_;
             }
             String file_ = ((StringStruct)_args[0]).getInstance();
-            res_.setResult(new BooleanStruct(new File(file_).mkdirs()));
+            res_.setResult(new BooleanStruct(infos.getFileSystem().mkdirs(file_, (RunnableContextEl) _cont)));
             return res_;
         }
         return res_;
     }
 
-    private static void log(String _dtPart, RunnableContextEl _cont,
+    private void log(String _dtPart, RunnableContextEl _cont,
                             ClassMethodId _method, Struct... _args) {
         if (_method.getConstraints().getParametersTypes().size() == 1) {
             String type_ = _method.getConstraints().getParametersTypes().first();
@@ -1695,9 +1762,10 @@ public class LgNamesUtils extends LgNames {
         String stringAppFile_ = buildLog(_cont, _args);
         stringAppFile_ = StringList.concat(getDateTimeText("_", "_", "_"),":",stringAppFile_);
         String folder_ = _cont.getExecutingOptions().getLogFolder();
-        new File(folder_).mkdirs();
-        String toFile_ = StringList.concat(folder_,"/",_dtPart);
-        StreamTextFile.logToFile(toFile_, stringAppFile_);
+        log(folder_,_dtPart,stringAppFile_,_cont);
+    }
+    void log(String _folerName,String _fileName, String _content,RunnableContextEl _cont){
+        infos.getLogger().log(_folerName,_fileName,_content,_cont);
     }
     private static String buildLog(ContextEl _cont,
                                    Struct... _args) {
@@ -3176,7 +3244,7 @@ public class LgNamesUtils extends LgNames {
 
     public void keyWord(KeyWords _kw,String _lang, StringMap<String> _cust) {
         String fileName_ = ResourcesMessagesUtil.getPropertiesPath("resources_lg/aliases",_lang,"keywords");
-        String content_ = reader.read(fileName_);
+        String content_ = infos.getReader().read(fileName_);
         StringMap<String> util_ = DocumentBuilder.getMessagesFromContent(content_);
         keyWord(_kw,util_,_cust);
     }
@@ -3266,7 +3334,7 @@ public class LgNamesUtils extends LgNames {
     }
     public void otherAlias(String _lang, StringMap<String>_cust) {
         String fileName_ = ResourcesMessagesUtil.getPropertiesPath("resources_lg/aliases",_lang,"types");
-        String content_ = reader.read(fileName_);
+        String content_ = infos.getReader().read(fileName_);
         StringMap<String> util_ = DocumentBuilder.getMessagesFromContent(content_);
         otherAlias(util_,_cust);
     }

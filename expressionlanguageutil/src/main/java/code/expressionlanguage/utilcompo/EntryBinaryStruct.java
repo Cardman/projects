@@ -13,6 +13,10 @@ public final class EntryBinaryStruct implements Struct {
         name = getString(_name);
         binary = getArray(_binary,_arrType);
     }
+    EntryBinaryStruct(Struct _name, ArrayStruct _binary) {
+        name = getString(_name);
+        binary = _binary;
+    }
     private static StringStruct getString(Struct _str) {
         if (_str instanceof StringStruct) {
             return (StringStruct) _str;
