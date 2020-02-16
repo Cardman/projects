@@ -1131,9 +1131,9 @@ public final class MainWindow extends NetGroupFrame {
     }
 
     @Override
-    public void gearClient(Socket _newSocket, AbstractLock _lock) {
+    public void gearClient(Socket _newSocket) {
         Net.getSockets().put(Net.getSockets().size(), _newSocket);
-        SendReceiveServer sendReceiveServer_=new SendReceiveServer(_newSocket,this,_lock);
+        SendReceiveServer sendReceiveServer_=new SendReceiveServer(_newSocket,this);
         CustComponent.newThread(sendReceiveServer_).start();
         Net.getConnectionsServer().put(Net.getSockets().size()-1,sendReceiveServer_);
         IndexOfArriving index_ = new IndexOfArriving();

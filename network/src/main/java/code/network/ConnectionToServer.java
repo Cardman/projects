@@ -1,6 +1,4 @@
 package code.network;
-import code.stream.AbstractLock;
-import code.stream.LockFactory;
 import code.stream.Locking;
 
 import java.io.IOException;
@@ -17,12 +15,10 @@ public final class ConnectionToServer implements Runnable, Locking {
     private boolean accept;
     private boolean errorSocket;
     private boolean error;
-    private AbstractLock lock;
     /**This class thread is independant from EDT*/
     public ConnectionToServer(ServerSocket _serverSocket,NetGroupFrame _serverWindow,String _ipHost, int _port){
         serverSocket=_serverSocket;
         serverWindow = _serverWindow;
-        lock = LockFactory.newLock();
         serverWindow.createClient(_ipHost, null, true, _port);
     }
     public boolean fermer(Socket _socket) {
@@ -44,7 +40,7 @@ public final class ConnectionToServer implements Runnable, Locking {
             Socket socket_ = acceptSocket();
             //If the server is started without client ==> pause.
             if (!error && !errorSocket) {
-                serverWindow.gearClient(socket_,lock);
+                serverWindow.gearClient(socket_);
                 accept = false;
             } else if (errorSocket) {
                 if (serverSocket.isClosed()) {

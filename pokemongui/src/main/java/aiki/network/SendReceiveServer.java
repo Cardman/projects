@@ -25,9 +25,9 @@ public final class SendReceiveServer extends BasicServer {
     private final AbstractLock lock;
 
     /**This class thread is independant from EDT*/
-    public SendReceiveServer(Socket _socket, NetGroupFrame _net, AbstractLock _lock) {
+    public SendReceiveServer(Socket _socket, NetGroupFrame _net) {
         super(_socket, _net);
-        lock = _lock;
+        lock = _net.getLock();
     }
 
     @Override

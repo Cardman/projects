@@ -10,6 +10,8 @@ import code.gui.CustComponent;
 import code.gui.GroupFrame;
 import code.network.enums.ErrorHostConnectionType;
 import code.network.enums.IpType;
+import code.stream.AbstractLock;
+import code.stream.LockFactory;
 import code.util.StringList;
 
 public abstract class NetGroupFrame extends GroupFrame implements NetWindow {
@@ -22,6 +24,7 @@ public abstract class NetGroupFrame extends GroupFrame implements NetWindow {
     private String ipHost;
 
     private int port;
+    private AbstractLock lock = LockFactory.newLock();
 
     protected NetGroupFrame(String _lg) {
         super(_lg);
@@ -135,6 +138,11 @@ public abstract class NetGroupFrame extends GroupFrame implements NetWindow {
 
     public String getIpHost() {
         return ipHost;
+    }
+
+    @Override
+    public AbstractLock getLock() {
+        return lock;
     }
 
     /**

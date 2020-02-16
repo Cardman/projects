@@ -109,9 +109,9 @@ public final class SendReceiveServer extends BasicServer {
     private static final String EMPTY_STRING = "";
 
     /**This class thread is independant from EDT*/
-    public SendReceiveServer(Socket _socket, NetGroupFrame _net, AbstractLock _lock) {
+    public SendReceiveServer(Socket _socket, NetGroupFrame _net) {
         super(_socket, _net);
-        lock = _lock;
+        lock = _net.getLock();
     }
 
     @Override
