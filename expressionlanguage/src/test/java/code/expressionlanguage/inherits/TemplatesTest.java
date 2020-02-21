@@ -4,6 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ErrorType;
 import code.expressionlanguage.InitializationLgNames;
+import code.expressionlanguage.calls.util.CallingState;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.opers.util.MethodAccessKind;
@@ -4655,7 +4656,7 @@ public final class TemplatesTest {
         CustList<Argument> args_ = new CustList<Argument>();
         args_.add(Argument.createVoid());
         Templates.setCheckedElements(args_,arr_,cont_);
-        assertNotNull(cont_.getException());
+        assertNotNull(getException(cont_));
     }
     @Test
     public void okArgs1Test() {
@@ -4668,7 +4669,7 @@ public final class TemplatesTest {
         CustList<Argument> args_ = new CustList<Argument>();
         args_.add(new Argument(arr_));
         assertTrue(!Templates.okArgs(id_,false,"",args_, cont_,null));
-        assertNotNull(cont_.getException());
+        assertNotNull(getException(cont_));
     }
     @Test
     public void okArgs2Test() {
@@ -4681,7 +4682,7 @@ public final class TemplatesTest {
         CustList<Argument> args_ = new CustList<Argument>();
         args_.add(new Argument(arr_));
         assertTrue(!Templates.okArgs(id_,false,"",args_, cont_,null));
-        assertNotNull(cont_.getException());
+        assertNotNull(getException(cont_));
     }
     @Test
     public void okArgs3Test() {
@@ -4696,7 +4697,7 @@ public final class TemplatesTest {
         arr_ = new ArrayStruct(instance_,"[java.lang.Number");
         args_.add(new Argument(arr_));
         assertTrue(!Templates.okArgs(id_,false,"",args_, cont_,null));
-        assertNotNull(cont_.getException());
+        assertNotNull(getException(cont_));
     }
     @Test
     public void getErrorWhenContain1Test() {
@@ -4759,7 +4760,13 @@ public final class TemplatesTest {
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
         return cont_;
     }
-    
+    private static Struct getException(ContextEl _cont) {
+        CallingState str_ = _cont.getCallingState();
+        if (str_ instanceof Struct) {
+            return (Struct) str_;
+        }
+        return null;
+    }
     private static ContextEl simpleContextEl() {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);

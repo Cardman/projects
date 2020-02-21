@@ -1986,7 +1986,7 @@ public class LgNamesGui extends LgNamesUtils {
     }
     public Argument defaultInstance(ExecutableCode _cont, String _id) {
         Argument arg_ = super.defaultInstance(_cont, _id);
-        if (!arg_.isNull() || _cont.getContextEl().hasExceptionOrFailInit()) {
+        if (!arg_.isNull() || _cont.getContextEl().callsOrException()) {
             return arg_;
         }
         if (StringList.quickEq(_id,aliasFont)) {

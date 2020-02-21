@@ -66,7 +66,7 @@ public final class RenderRadioTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
         assertEq("<html><body>HEAD<form action=\"\" c:command=\"page1.html\" name=\"myform\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4\" checked=\"checked\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"2\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"4\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"6\" checked=\"checked\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(conf_.getException());
+        assertNull(getException(conf_));
     }
     @Test
     public void process2Test() {
@@ -117,7 +117,7 @@ public final class RenderRadioTest extends CommonRender {
         assertTrue(conf_.getClasses().isEmptyErrors());
         String res_ = RendBlock.getRes(rendDocumentBlock_, conf_);
         assertEq("<html><body><form action=\"\" c:command=\"page1.html\" name=\"myform\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.first.value\" n-i=\"0\" value=\"2\"/><input type=\"radio\" name=\"bean_one.first.value\" n-i=\"0\" value=\"4\" checked=\"checked\"/></form></body></html>",res_);
-        assertNull(conf_.getException());
+        assertNull(getException(conf_));
     }
     @Test
     public void process3Test() {
@@ -170,7 +170,7 @@ public final class RenderRadioTest extends CommonRender {
         assertTrue(conf_.getClasses().isEmptyErrors());
         String res_ = RendBlock.getRes(rendDocumentBlock_, conf_);
         assertEq("<html><body><form action=\"\" c:command=\"page1.html\" name=\"myform\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.first.value\" n-i=\"0\" value=\"2\"/><input type=\"radio\" name=\"bean_one.first.value\" n-i=\"0\" value=\"4\" checked=\"checked\"/><input type=\"radio\" name=\"bean_one.second.value\" n-i=\"1\" value=\"6\" checked=\"checked\"/><input type=\"radio\" name=\"bean_one.second.value\" n-i=\"1\" value=\"8\"/></form></body></html>",res_);
-        assertNull(conf_.getException());
+        assertNull(getException(conf_));
     }
     @Test
     public void process4Test() {
@@ -223,7 +223,7 @@ public final class RenderRadioTest extends CommonRender {
         assertTrue(conf_.getClasses().isEmptyErrors());
         String res_ = RendBlock.getRes(rendDocumentBlock_, conf_);
         assertEq("<html><body><form action=\"\" c:command=\"page1.html\" name=\"myform\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.first.value\" n-i=\"0\" value=\"2\"/><input type=\"radio\" name=\"bean_one.first.value\" n-i=\"0\" value=\"4\"/></form></body></html>",res_);
-        assertNull(conf_.getException());
+        assertNull(getException(conf_));
     }
     @Test
     public void process5Test() {
@@ -276,7 +276,7 @@ public final class RenderRadioTest extends CommonRender {
         assertTrue(conf_.getClasses().isEmptyErrors());
         String res_ = RendBlock.getRes(rendDocumentBlock_, conf_);
         assertEq("<html><body><form action=\"\" c:command=\"page1.html\" name=\"myform\" n-f=\"0\"><input type=\"radio\"/></form></body></html>",res_);
-        assertNull(conf_.getException());
+        assertNull(getException(conf_));
     }
     @Test
     public void process6Test() {
@@ -327,7 +327,7 @@ public final class RenderRadioTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
         assertEq("<html><body>HEAD<form action=\"\" c:command=\"page1.html\" name=\"myform\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.(index)\" n-i=\"0\" value=\"2\"/><input type=\"radio\" name=\"bean_one.(index)\" n-i=\"0\" value=\"4\" checked=\"checked\"/><input type=\"radio\" name=\"bean_one.(index)\" n-i=\"0\" value=\"6\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"2\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"4\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"6\" checked=\"checked\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(conf_.getException());
+        assertNull(getException(conf_));
     }
     @Test
     public void process7Test() {
@@ -376,7 +376,7 @@ public final class RenderRadioTest extends CommonRender {
         conf_.setDocument(doc_);
         assertTrue(conf_.getClasses().isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_, conf_);
-        assertNotNull(conf_.getException());
+        assertNotNull(getException(conf_));
     }
     @Test
     public void process8Test() {
@@ -426,7 +426,7 @@ public final class RenderRadioTest extends CommonRender {
         conf_.setDocument(doc_);
         assertTrue(conf_.getClasses().isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_, conf_);
-        assertNotNull(conf_.getException());
+        assertNotNull(getException(conf_));
     }
     @Test
     public void process9Test() {
@@ -480,7 +480,7 @@ public final class RenderRadioTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
         assertEq("<html><body>HEAD<form action=\"\" c:command=\"page1.html\" name=\"myform\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4\" checked=\"checked\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"2\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"4\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"6\" checked=\"checked\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(conf_.getException());
+        assertNull(getException(conf_));
     }
     @Test
     public void process10Test() {
@@ -534,7 +534,7 @@ public final class RenderRadioTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_,conf_);
-        assertNotNull(conf_.getException());
+        assertNotNull(getException(conf_));
     }
     @Test
     public void process11Test() {
@@ -592,7 +592,7 @@ public final class RenderRadioTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
         assertEq("<html><body>HEAD<form action=\"\" c:command=\"page1.html\" name=\"myform\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4\" checked=\"checked\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(conf_.getException());
+        assertNull(getException(conf_));
     }
     @Test
     public void process12Test() {
@@ -650,7 +650,7 @@ public final class RenderRadioTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_,conf_);
-        assertNotNull(conf_.getException());
+        assertNotNull(getException(conf_));
     }
     @Test
     public void process13Test() {
@@ -708,7 +708,7 @@ public final class RenderRadioTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
         assertEq("<html><body>HEAD<form action=\"\" c:command=\"page1.html\" name=\"myform\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4\" checked=\"checked\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(conf_.getException());
+        assertNull(getException(conf_));
     }
     @Test
     public void process14Test() {
@@ -766,7 +766,7 @@ public final class RenderRadioTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_,conf_);
-        assertNotNull(conf_.getException());
+        assertNotNull(getException(conf_));
     }
     @Test
     public void process1FailTest() {

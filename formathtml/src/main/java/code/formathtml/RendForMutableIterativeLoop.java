@@ -224,7 +224,7 @@ public final class RendForMutableIterativeLoop extends RendParentBlock implement
         }
         if (!opInit.isEmpty()) {
             RenderExpUtil.calculateReuse(opInit,_cont);
-            if (_cont.getContext().hasExceptionOrFailInit()) {
+            if (_cont.getContext().hasException()) {
                 return;
             }
         }
@@ -261,7 +261,7 @@ public final class RendForMutableIterativeLoop extends RendParentBlock implement
         last_.setOffset(expressionOffset);
         last_.setProcessingAttribute(ATTRIBUTE_CONDITION);
         Argument arg_ = RenderExpUtil.calculateReuse(opExp,_context);
-        if (_context.getContext().hasExceptionOrFailInit()) {
+        if (_context.getContext().hasException()) {
             return null;
         }
         return ((BooleanStruct)arg_.getStruct()).getInstance();
@@ -281,7 +281,7 @@ public final class RendForMutableIterativeLoop extends RendParentBlock implement
         ip_.setProcessingAttribute(ATTRIBUTE_STEP);
         if (!opStep.isEmpty()) {
             RenderExpUtil.calculateReuse(opStep,_conf);
-            if (_conf.getContext().hasExceptionOrFailInit()) {
+            if (_conf.getContext().hasException()) {
                 return;
             }
         }

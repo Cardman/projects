@@ -13,6 +13,5 @@ public interface ExecutableCode extends Analyzable {
     StackTraceElementStruct newStackTraceElement(int _index);
     void setException(Struct _struct);
 
-    Struct getException();
     boolean hasToExit(String _className);
 }

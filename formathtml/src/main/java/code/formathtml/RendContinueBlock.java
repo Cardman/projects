@@ -4,6 +4,8 @@ import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.errors.custom.UnexpectedTagName;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
+import code.expressionlanguage.structs.Struct;
+import code.formathtml.stacks.RendAbruptCallingFinally;
 import code.formathtml.stacks.RendLoopBlockStack;
 import code.formathtml.stacks.RendRemovableVars;
 import code.formathtml.stacks.RendTryBlockStack;
@@ -79,5 +81,10 @@ public final class RendContinueBlock extends RendLeaf implements RendBuildableEl
         }
         ip_.getRendReadWrite().setRead((RendBlock) loop_);
         loop_.processLastElementLoop(_conf);
+    }
+
+    @Override
+    public RendAbruptCallingFinally newAbruptCallingFinally(Struct _struct) {
+        return new RendAbruptCallingFinally(this);
     }
 }

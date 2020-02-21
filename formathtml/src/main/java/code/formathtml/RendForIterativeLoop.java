@@ -226,7 +226,7 @@ public final class RendForIterativeLoop extends RendParentBlock implements RendL
             return;
         }
         processLoop(_cont);
-        if (_cont.getContext().hasExceptionOrFailInit()) {
+        if (_cont.getContext().hasException()) {
             return;
         }
         c_ = (RendLoopBlockStack) ip_.getRendLastStack();
@@ -251,7 +251,7 @@ public final class RendForIterativeLoop extends RendParentBlock implements RendL
         ip_.setOffset(initOffset);
         ip_.setProcessingAttribute(ATTRIBUTE_FROM);
         Argument argFrom_ = RenderExpUtil.calculateReuse(opInit,_conf);
-        if (_conf.getContext().hasExceptionOrFailInit()) {
+        if (_conf.getContext().hasException()) {
             return;
         }
         if (argFrom_.isNull()) {
@@ -261,7 +261,7 @@ public final class RendForIterativeLoop extends RendParentBlock implements RendL
         ip_.setOffset(expressionOffset);
         ip_.setProcessingAttribute(ATTRIBUTE_TO);
         Argument argTo_ = RenderExpUtil.calculateReuse(opExp,_conf);
-        if (_conf.getContext().hasExceptionOrFailInit()) {
+        if (_conf.getContext().hasException()) {
             return;
         }
         if (argTo_.isNull()) {
@@ -271,7 +271,7 @@ public final class RendForIterativeLoop extends RendParentBlock implements RendL
         ip_.setOffset(stepOffset);
         ip_.setProcessingAttribute(ATTRIBUTE_STEP);
         Argument argStep_ = RenderExpUtil.calculateReuse(opStep,_conf);
-        if (_conf.getContext().hasExceptionOrFailInit()) {
+        if (_conf.getContext().hasException()) {
             return;
         }
         if (argStep_.isNull()) {

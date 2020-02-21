@@ -53,7 +53,7 @@ public final class RenderTextAreaTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
         assertEq("<html><body><form action=\"\" c:command=\"page1.html\" name=\"myform\" n-f=\"0\"><textarea n-i=\"0\" name=\"bean_one.textField\">txt</textarea><input type=\"submit\" value=\"OK\"/></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(conf_.getException());
+        assertNull(getException(conf_));
     }
     @Test
     public void process2Test() {
@@ -93,7 +93,7 @@ public final class RenderTextAreaTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
         assertEq("<html><body><form action=\"\" c:command=\"page1.html\" name=\"myform\" n-f=\"0\"><textarea n-i=\"0\" name=\"bean_one.textField\"></textarea><input type=\"submit\" value=\"OK\"/></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(conf_.getException());
+        assertNull(getException(conf_));
     }
     @Test
     public void process3Test() {
@@ -133,7 +133,7 @@ public final class RenderTextAreaTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
         assertEq("<html><body><form action=\"\" c:command=\"page1.html\" name=\"myform\" n-f=\"0\"><textarea n-i=\"0\" name=\"bean_one.textField\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(conf_.getException());
+        assertNull(getException(conf_));
     }
     @Test
     public void process4Test() {
@@ -173,7 +173,7 @@ public final class RenderTextAreaTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
         assertEq("<html><body><form action=\"\" c:command=\"page1.html\" name=\"myform\" n-f=\"0\"><textarea n-i=\"0\" name=\"bean_one.textField\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(conf_.getException());
+        assertNull(getException(conf_));
     }
     @Test
     public void process5Test() {
@@ -213,7 +213,7 @@ public final class RenderTextAreaTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
         assertEq("<html><body><form action=\"\" c:command=\"page1.html\" name=\"myform\" n-f=\"0\"><textarea/><input type=\"submit\" value=\"OK\"/></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(conf_.getException());
+        assertNull(getException(conf_));
     }
     @Test
     public void process6Test() {
@@ -256,7 +256,7 @@ public final class RenderTextAreaTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_,conf_);
-        assertNotNull(conf_.getException());
+        assertNotNull(getException(conf_));
     }
     @Test
     public void process7Test() {
@@ -299,7 +299,7 @@ public final class RenderTextAreaTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
         assertEq("<html><body><form action=\"\" c:command=\"page1.html\" name=\"myform\" n-f=\"0\"><textarea n-i=\"0\" name=\"bean_one.textField\">txt</textarea><input type=\"submit\" value=\"OK\"/></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(conf_.getException());
+        assertNull(getException(conf_));
     }
     @Test
     public void process8Test() {
@@ -342,7 +342,7 @@ public final class RenderTextAreaTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_,conf_);
-        assertNotNull(conf_.getException());
+        assertNotNull(getException(conf_));
     }
     @Test
     public void process9Test() {
@@ -382,7 +382,7 @@ public final class RenderTextAreaTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
         assertEq("<html><body><form action=\"\" c:command=\"page1.html\" name=\"myform\" n-f=\"0\"><textarea c:groupId=\"myId\" n-i=\"0\" name=\"bean_one.textField\">txt</textarea><input type=\"submit\" value=\"OK\"/></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(conf_.getException());
+        assertNull(getException(conf_));
     }
     @Test
     public void process10Test() {
@@ -422,7 +422,7 @@ public final class RenderTextAreaTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_,conf_);
-        assertNotNull(conf_.getException());
+        assertNotNull(getException(conf_));
     }
     @Test
     public void process11Test() {
@@ -462,7 +462,7 @@ public final class RenderTextAreaTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
         assertEq("<html><body><form action=\"\" c:command=\"page1.html\" name=\"myform\" n-f=\"0\"><textarea n-i=\"0\" name=\"bean_one.textField\" rows=\"40\" cols=\"40\">txt</textarea><input type=\"submit\" value=\"OK\"/></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(conf_.getException());
+        assertNull(getException(conf_));
     }
     @Test
     public void process12Test() {
@@ -502,7 +502,7 @@ public final class RenderTextAreaTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_,conf_);
-        assertNotNull(conf_.getException());
+        assertNotNull(getException(conf_));
     }
     @Test
     public void process13Test() {
@@ -553,7 +553,7 @@ public final class RenderTextAreaTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_,conf_);
-        assertNotNull(conf_.getException());
+        assertNotNull(getException(conf_));
     }
     @Test
     public void process1FailTest() {

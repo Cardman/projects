@@ -59,7 +59,7 @@ public final class RenderImgTest extends CommonRender {
         conf_.setDocument(doc_);
         assertTrue(conf_.getClasses().isEmptyErrors());
         assertEq("<html><body><img src=\"7\"/></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(conf_.getException());
+        assertNull(getException(conf_));
     }
     @Test
     public void process1Test() {
@@ -107,7 +107,7 @@ public final class RenderImgTest extends CommonRender {
         conf_.setDocument(doc_);
         assertTrue(conf_.getClasses().isEmptyErrors());
         assertEq("<html><body><img src=\"content\"/></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(conf_.getException());
+        assertNull(getException(conf_));
     }
     @Test
     public void process2Test() {
@@ -155,7 +155,7 @@ public final class RenderImgTest extends CommonRender {
         conf_.setDocument(doc_);
         assertTrue(conf_.getClasses().isEmptyErrors());
         assertEq("<html><body><img src=\"{info}\"/></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(conf_.getException());
+        assertNull(getException(conf_));
     }
     @Test
     public void process3Test() {
@@ -203,7 +203,7 @@ public final class RenderImgTest extends CommonRender {
         conf_.setDocument(doc_);
         assertTrue(conf_.getClasses().isEmptyErrors());
         assertEq("<html><body><img name=\"\"/></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(conf_.getException());
+        assertNull(getException(conf_));
     }
     @Test
     public void process4Test() {
@@ -251,7 +251,7 @@ public final class RenderImgTest extends CommonRender {
         conf_.setDocument(doc_);
         assertTrue(conf_.getClasses().isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_,conf_);
-        assertNotNull(conf_.getException());
+        assertNotNull(getException(conf_));
     }
     @Test
     public void process5Test() {
@@ -299,6 +299,6 @@ public final class RenderImgTest extends CommonRender {
         conf_.setDocument(doc_);
         assertTrue(conf_.getClasses().isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_,conf_);
-        assertNotNull(conf_.getException());
+        assertNotNull(getException(conf_));
     }
 }

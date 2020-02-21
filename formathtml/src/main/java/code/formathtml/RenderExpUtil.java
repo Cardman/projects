@@ -460,7 +460,7 @@ public final class RenderExpUtil {
             }
             RendCalculableOperation a_ = (RendCalculableOperation)o;
             a_.calculate(arguments_, _context);
-            if (_context.getException() != null) {
+            if (_context.getContext().hasException()) {
                 return arguments_;
             }
             Argument res_ = pair_.getArgument();

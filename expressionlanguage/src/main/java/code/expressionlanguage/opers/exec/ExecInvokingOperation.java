@@ -159,9 +159,6 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         }
         if (!_conf.getClasses().isCustomType(base_)) {
             ResultErrorStd res_ = LgNames.newInstance(_conf.getContextEl(), _constId, Argument.toArgArray(_arguments));
-            if (_conf.getContextEl().hasExceptionOrFailInit()) {
-                return new Argument();
-            }
             Argument arg_ = new Argument();
             arg_.setStruct(res_.getResult());
             return arg_;
@@ -202,7 +199,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         LgNames stds_ = _conf.getStandards();
         String cast_;
         cast_ = stds_.getAliasCastType();
-        if (_conf.getContextEl().hasExceptionOrFailInit()) {
+        if (_conf.getContextEl().callsOrException()) {
             return Argument.createVoid();
         }
         if (_right != null) {
@@ -502,9 +499,6 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         if (!classes_.isCustomType(_classNameFound)) {
             ClassMethodId dyn_ = new ClassMethodId(_classNameFound, _methodId);
             ResultErrorStd res_ = LgNames.invokeMethod(_conf.getContextEl(), dyn_, _previous.getStruct(), Argument.toArgArray(_firstArgs));
-            if (_conf.getContextEl().hasExceptionOrFailInit()) {
-                return new Argument();
-            }
             Argument argRes_ = new Argument();
             argRes_.setStruct(res_.getResult());
             return argRes_;
@@ -672,7 +666,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             if (!static_) {
                 Struct value_ = realInstance_.getStruct();
                 realInstance_.setStruct(PrimitiveTypeUtil.getParent(nbAncestors_, clName_, value_, _conf));
-                if (_conf.getContextEl().hasExceptionOrFailInit()) {
+                if (_conf.getContextEl().callsOrException()) {
                     return new Argument();
                 }
             }
@@ -718,7 +712,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             if (!static_) {
                 Struct value_ = instance_.getStruct();
                 instance_.setStruct(PrimitiveTypeUtil.getParent(nbAncestors_, id_, value_, _conf));
-                if (_conf.getContextEl().hasExceptionOrFailInit()) {
+                if (_conf.getContextEl().callsOrException()) {
                     return new Argument();
                 }
             }
@@ -749,7 +743,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         Argument firstValue_ = _values.first();
         Struct value_ = firstValue_.getStruct();
         firstValue_.setStruct(PrimitiveTypeUtil.getParent(nbAncestors_, id_, value_, _conf));
-        if (_conf.getContextEl().hasExceptionOrFailInit()) {
+        if (_conf.getContextEl().callsOrException()) {
             return new Argument();
         }
         nList_.add(firstValue_);
@@ -771,7 +765,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             for (int i = 0; i < len_; i++) {
                 Struct ind_ = argArr_.getInstance()[i];
                 arr_ = getElement(arr_,ind_,_conf);
-                if (_conf.getContextEl().hasExceptionOrFailInit()) {
+                if (_conf.getContextEl().callsOrException()) {
                     return new Argument();
                 }
             }

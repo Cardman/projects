@@ -20,8 +20,10 @@ import code.expressionlanguage.opers.exec.ExecOperationNode;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.MethodAccessKind;
 import code.expressionlanguage.opers.util.SimpleAssignment;
+import code.expressionlanguage.stacks.AbruptCallingFinally;
 import code.expressionlanguage.stacks.RemovableVars;
 import code.expressionlanguage.stds.LgNames;
+import code.expressionlanguage.structs.Struct;
 import code.util.*;
 
 public final class ReturnMehod extends AbruptBlock implements CallingFinally, WithNotEmptyEl  {
@@ -235,6 +237,10 @@ public final class ReturnMehod extends AbruptBlock implements CallingFinally, Wi
         ip_.setNullReadWrite();
     }
 
+    @Override
+    public AbruptCallingFinally newAbruptCallingFinally(Struct _struct) {
+        return new AbruptCallingFinally(this);
+    }
     @Override
     public ExpressionLanguage getEl(ContextEl _context,
             int _indexProcess) {

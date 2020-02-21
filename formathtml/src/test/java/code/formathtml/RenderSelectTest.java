@@ -78,7 +78,7 @@ public final class RenderSelectTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
         assertEq("<html><body><form c:command=\"page1.html\" action=\"\" n-f=\"0\"><select name=\"\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(conf_.getException());
+        assertNull(getException(conf_));
     }
     @Test
     public void process1Test() {
@@ -137,7 +137,7 @@ public final class RenderSelectTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
         assertEq("<html><body><form c:command=\"page1.html\" action=\"\" n-f=\"0\"><select name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(conf_.getException());
+        assertNull(getException(conf_));
     }
     @Test
     public void process100Test() {
@@ -196,7 +196,7 @@ public final class RenderSelectTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
         assertEq("<html><body><form c:command=\"page1.html\" action=\"\" n-f=\"0\"><select id=\"5\" name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(conf_.getException());
+        assertNull(getException(conf_));
     }
     @Test
     public void process101Test() {
@@ -255,7 +255,7 @@ public final class RenderSelectTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
         assertEq("<html><body><form c:command=\"page1.html\" action=\"\" n-f=\"0\"><select c:groupId=\"5\" name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(conf_.getException());
+        assertNull(getException(conf_));
     }
     @Test
     public void process102Test() {
@@ -317,7 +317,7 @@ public final class RenderSelectTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
         assertEq("<html><body><form c:command=\"page1.html\" action=\"\" n-f=\"0\"><select name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(conf_.getException());
+        assertNull(getException(conf_));
     }
     @Test
     public void process103Test() {
@@ -379,7 +379,7 @@ public final class RenderSelectTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
         assertEq("<html><body><form c:command=\"page1.html\" action=\"\" n-f=\"0\"><select name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(conf_.getException());
+        assertNull(getException(conf_));
     }
     @Test
     public void process2Test() {
@@ -447,7 +447,7 @@ public final class RenderSelectTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
         assertEq("<html><body><form c:command=\"page1.html\" action=\"\" n-f=\"0\"><select multiple=\"multiple\" name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(conf_.getException());
+        assertNull(getException(conf_));
     }
     @Test
     public void process200Test() {
@@ -518,7 +518,7 @@ public final class RenderSelectTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
         assertEq("<html><body><form c:command=\"page1.html\" action=\"\" n-f=\"0\"><select multiple=\"multiple\" name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(conf_.getException());
+        assertNull(getException(conf_));
     }
     @Test
     public void process201Test() {
@@ -589,7 +589,7 @@ public final class RenderSelectTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
         assertEq("<html><body><form c:command=\"page1.html\" action=\"\" n-f=\"0\"><select multiple=\"multiple\" name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(conf_.getException());
+        assertNull(getException(conf_));
     }
     @Test
     public void process202Test() {
@@ -657,7 +657,7 @@ public final class RenderSelectTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
         assertEq("<html><body><form c:command=\"page1.html\" action=\"\" n-f=\"0\"><select multiple=\"multiple\" name=\"bean_one.choice\" n-i=\"0\" rows=\"4\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(conf_.getException());
+        assertNull(getException(conf_));
     }
     @Test
     public void process203Test() {
@@ -725,7 +725,7 @@ public final class RenderSelectTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_,conf_);
-        assertNotNull(conf_.getException());
+        assertNotNull(getException(conf_));
     }
     @Test
     public void process3Test() {
@@ -787,7 +787,7 @@ public final class RenderSelectTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
         assertEq("<html><body><form c:command=\"page1.html\" action=\"\" n-f=\"0\"><select name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(conf_.getException());
+        assertNull(getException(conf_));
     }
     @Test
     public void process4Test() {
@@ -862,7 +862,7 @@ public final class RenderSelectTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
         assertEq("<html><body><form c:command=\"page1.html\" action=\"\" n-f=\"0\"><select multiple=\"multiple\" name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(conf_.getException());
+        assertNull(getException(conf_));
     }
     @Test
     public void process5Test() {
@@ -930,7 +930,7 @@ public final class RenderSelectTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_,conf_);
-        assertNotNull(conf_.getException());
+        assertNotNull(getException(conf_));
     }
     @Test
     public void process6Test() {
@@ -998,7 +998,7 @@ public final class RenderSelectTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_,conf_);
-        assertNotNull(conf_.getException());
+        assertNotNull(getException(conf_));
     }
     @Test
     public void process7Test() {
@@ -1063,7 +1063,7 @@ public final class RenderSelectTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_,conf_);
-        assertNotNull(conf_.getException());
+        assertNotNull(getException(conf_));
     }
     @Test
     public void process700Test() {
@@ -1128,7 +1128,7 @@ public final class RenderSelectTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_,conf_);
-        assertNotNull(conf_.getException());
+        assertNotNull(getException(conf_));
     }
     @Test
     public void process8Test() {
@@ -1196,7 +1196,7 @@ public final class RenderSelectTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_,conf_);
-        assertNotNull(conf_.getException());
+        assertNotNull(getException(conf_));
     }
 
     @Test
@@ -1265,7 +1265,7 @@ public final class RenderSelectTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_,conf_);
-        assertNotNull(conf_.getException());
+        assertNotNull(getException(conf_));
     }
     @Test
     public void process10Test() {
@@ -1333,7 +1333,7 @@ public final class RenderSelectTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_,conf_);
-        assertNotNull(conf_.getException());
+        assertNotNull(getException(conf_));
     }
     @Test
     public void process11Test() {
@@ -1401,7 +1401,7 @@ public final class RenderSelectTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_,conf_);
-        assertNotNull(conf_.getException());
+        assertNotNull(getException(conf_));
     }
     @Test
     public void process12Test() {
@@ -1469,7 +1469,7 @@ public final class RenderSelectTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_,conf_);
-        assertNotNull(conf_.getException());
+        assertNotNull(getException(conf_));
     }
     @Test
     public void process13Test() {
@@ -1532,7 +1532,7 @@ public final class RenderSelectTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
         assertEq("<html><body><form c:command=\"page1.html\" action=\"\" n-f=\"0\"><select name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(conf_.getException());
+        assertNull(getException(conf_));
     }
     @Test
     public void process14Test() {
@@ -1601,7 +1601,7 @@ public final class RenderSelectTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
         assertEq("<html><body><form c:command=\"page1.html\" action=\"\" n-f=\"0\"><select multiple=\"multiple\" name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(conf_.getException());
+        assertNull(getException(conf_));
     }
     @Test
     public void process15Test() {
@@ -1664,7 +1664,7 @@ public final class RenderSelectTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_,conf_);
-        assertNotNull(conf_.getException());
+        assertNotNull(getException(conf_));
     }
     @Test
     public void process16Test() {
@@ -1730,7 +1730,7 @@ public final class RenderSelectTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_,conf_);
-        assertNotNull(conf_.getException());
+        assertNotNull(getException(conf_));
     }
     @Test
     public void process17Test() {
@@ -1790,7 +1790,7 @@ public final class RenderSelectTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_,conf_);
-        assertNotNull(conf_.getException());
+        assertNotNull(getException(conf_));
     }
     @Test
     public void process18Test() {
@@ -1849,7 +1849,7 @@ public final class RenderSelectTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_,conf_);
-        assertNotNull(conf_.getException());
+        assertNotNull(getException(conf_));
     }
     @Test
     public void process19Test() {
@@ -1911,7 +1911,7 @@ public final class RenderSelectTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_,conf_);
-        assertNotNull(conf_.getException());
+        assertNotNull(getException(conf_));
     }
     @Test
     public void process20Test() {
@@ -1973,7 +1973,7 @@ public final class RenderSelectTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_,conf_);
-        assertNotNull(conf_.getException());
+        assertNotNull(getException(conf_));
     }
     @Test
     public void process21Test() {
@@ -2023,7 +2023,7 @@ public final class RenderSelectTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
         assertEq("<html><body><form c:command=\"page1.html\" action=\"\" n-f=\"0\"><select name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\" selected=\"selected\">1</option></select><select name=\"bean_one.choice2\" n-i=\"1\"><option value=\"ONE\" selected=\"selected\">1</option></select></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(conf_.getException());
+        assertNull(getException(conf_));
     }
     @Test
     public void process22Test() {
@@ -2073,7 +2073,7 @@ public final class RenderSelectTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
         assertEq("<html><body><form c:command=\"page1.html\" action=\"\" n-f=\"0\"><select name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\" selected=\"selected\">1</option></select></form><form c:command=\"page1.html\" action=\"\" n-f=\"1\"><select name=\"bean_one.choice2\" n-i=\"0\"><option value=\"ONE\" selected=\"selected\">1</option></select></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(conf_.getException());
+        assertNull(getException(conf_));
     }
     @Test
     public void process23Test() {
@@ -2132,7 +2132,7 @@ public final class RenderSelectTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
         assertEq("<html><body><select name=\"choice\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(conf_.getException());
+        assertNull(getException(conf_));
     }
     @Test
     public void process1FailTest() {

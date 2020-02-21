@@ -856,7 +856,7 @@ public class ProcessMethodStaticCallTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertNotNull(cont_.getException());
+        assertNotNull(getException(cont_));
     }
     @Test
     public void calculate30Test() {
@@ -880,7 +880,7 @@ public class ProcessMethodStaticCallTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertNotNull(cont_.getException());
+        assertNotNull(getException(cont_));
     }
     @Test
     public void calculate31Test() {
@@ -904,7 +904,7 @@ public class ProcessMethodStaticCallTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertNotNull(cont_.getException());
+        assertNotNull(getException(cont_));
     }
     @Test
     public void calculate32Test() {

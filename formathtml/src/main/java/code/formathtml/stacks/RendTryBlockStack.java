@@ -6,7 +6,7 @@ import code.formathtml.RendParentBlock;
 
 public final class RendTryBlockStack extends TryStack implements RendRemovableVars {
 
-    private RendCallingFinally calling;
+    private RendAbruptCallingFinally calling;
 
     private RendParentBlock block;
 
@@ -41,11 +41,11 @@ public final class RendTryBlockStack extends TryStack implements RendRemovableVa
         currentBlock = _bl;
     }
 
-    public RendCallingFinally getCalling() {
+    public RendAbruptCallingFinally getCalling() {
         return calling;
     }
 
-    public void setCalling(RendCallingFinally _calling) {
+    public void setCalling(RendAbruptCallingFinally _calling) {
         calling = _calling;
     }
 

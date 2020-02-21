@@ -3081,7 +3081,7 @@ public final class ProcessMethodInternOptionTypeTest extends ProcessMethodCommon
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertNotNull(cont_.getException());
+        assertNotNull(getException(cont_));
     }
     @Test
     public void calculateArgument2FailTest() {
@@ -3253,7 +3253,7 @@ public final class ProcessMethodInternOptionTypeTest extends ProcessMethodCommon
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertNotNull(cont_.getException());
+        assertNotNull(getException(cont_));
     }
     @Test
     public void calculateArgument7FailTest() {
@@ -3313,7 +3313,7 @@ public final class ProcessMethodInternOptionTypeTest extends ProcessMethodCommon
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertNotNull(cont_.getException());
+        assertNotNull(getException(cont_));
     }
     @Test
     public void calculateArgument8FailTest() {
@@ -3458,7 +3458,7 @@ public final class ProcessMethodInternOptionTypeTest extends ProcessMethodCommon
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertNotNull(cont_.getException());
+        assertNotNull(getException(cont_));
     }
     @Test
     public void calculateArgument14FailTest() {
@@ -3510,7 +3510,7 @@ public final class ProcessMethodInternOptionTypeTest extends ProcessMethodCommon
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertNotNull(cont_.getException());
+        assertNotNull(getException(cont_));
     }
     @Test
     public void calculateArgument15FailTest() {
@@ -3594,7 +3594,7 @@ public final class ProcessMethodInternOptionTypeTest extends ProcessMethodCommon
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq("$core.NullObject",cont_.getException().getClassName(cont_));
+        assertEq("$core.NullObject",getException(cont_).getClassName(cont_));
     }
     @Test
     public void calculateArgument18FailTest() {

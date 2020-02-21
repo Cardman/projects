@@ -677,7 +677,7 @@ public final class BeanCustLgNames extends BeanLgNames {
             BeanInfo info_ = e.getValue();
             _conf.addPage(new ImportingPage());
             Argument arg_ = RenderExpUtil.calculateReuse(info_.getExps(), _conf);
-            if (_conf.getContext().getException() != null) {
+            if (_conf.getContext().hasException()) {
                 _conf.removeLastPage();
                 return;
             }
@@ -704,7 +704,7 @@ public final class BeanCustLgNames extends BeanLgNames {
             _conf.addPage(new ImportingPage());
             Argument arg_ = RenderExpUtil.calculateReuse(info_.getExps(), _conf);
             _conf.removeLastPage();
-            if (_conf.getContext().getException() != null) {
+            if (_conf.getContext().hasException()) {
                 return;
             }
             Struct strBean_ = arg_.getStruct();
@@ -719,7 +719,7 @@ public final class BeanCustLgNames extends BeanLgNames {
         _conf.getLastPage().setEnabledOp(false);
         Argument argument_ = RenderExpUtil.calculateReuse(expsGetDataBase, _conf);
         _conf.getLastPage().getInternVars().removeKey(getDataBaseVar);
-        if (_conf.getContext().hasExceptionOrFailInit()) {
+        if (_conf.getContext().hasException()) {
             _conf.getLastPage().setEnabledOp(true);
             return;
         }
@@ -737,7 +737,7 @@ public final class BeanCustLgNames extends BeanLgNames {
     public void storeForms(Struct _bean, Configuration _conf) {
         Argument forms_ = getForms(_bean, _conf);
         _conf.getLastPage().setEnabledOp(true);
-        if (_conf.getContext().hasExceptionOrFailInit()) {
+        if (_conf.getContext().hasException()) {
             return;
         }
         storedForms = forms_.getStruct();
@@ -753,7 +753,7 @@ public final class BeanCustLgNames extends BeanLgNames {
         _conf.getLastPage().getInternVars().put(getFormsVar, locVar_);
         Argument argument_ = RenderExpUtil.calculateReuse(expsGetForms, _conf);
         _conf.getLastPage().getInternVars().removeKey(getFormsVar);
-        if (_conf.getContext().hasExceptionOrFailInit()) {
+        if (_conf.getContext().hasException()) {
             return argument_;
         }
         if (argument_.isNull()) {
@@ -778,12 +778,12 @@ public final class BeanCustLgNames extends BeanLgNames {
     @Override
     protected void gearFw(Configuration _conf, Struct _mainBean, RendImport _node, boolean _keepField, Struct _bean) {
         Argument forms_ = getForms(_bean, _conf);
-        if (_conf.getContext().getException() != null) {
+        if (_conf.getContext().hasException()) {
             _conf.getLastPage().setEnabledOp(true);
             return;
         }
         Argument formsMap_ = getForms(_mainBean,_conf);
-        if (_conf.getContext().getException() != null) {
+        if (_conf.getContext().hasException()) {
             _conf.getLastPage().setEnabledOp(true);
             return;
         }
@@ -794,7 +794,7 @@ public final class BeanCustLgNames extends BeanLgNames {
                 }
                 String name_ = ((RendImportForm)f_).getName();
                 forwardMap(formsMap_.getStruct(),forms_.getStruct(),new StringStruct(name_),_conf);
-                if (_conf.getContext().getException() != null) {
+                if (_conf.getContext().hasException()) {
                     _conf.getLastPage().setEnabledOp(true);
                     return;
                 }
@@ -814,7 +814,7 @@ public final class BeanCustLgNames extends BeanLgNames {
         Argument argument_ = RenderExpUtil.calculateReuse(expsGetVal, _conf);
         _conf.getLastPage().getInternVars().removeKey(getValVar);
         _conf.getLastPage().getInternVars().removeKey(getValVarArg);
-        if (_conf.getContext().hasExceptionOrFailInit()) {
+        if (_conf.getContext().hasException()) {
             return;
         }
         locVar_ = LocalVariable.newLocalVariable(_to, _conf);
@@ -978,7 +978,7 @@ public final class BeanCustLgNames extends BeanLgNames {
         Argument argument_ = RenderExpUtil.calculateReuse(expsGetScope, _cont);
         _cont.getLastPage().setEnabledOp(true);
         _cont.getLastPage().getInternVars().removeKey(getScopeVar);
-        if (_cont.getContext().hasExceptionOrFailInit() || argument_.isNull()) {
+        if (_cont.getContext().hasException() || argument_.isNull()) {
             return "";
         }
         return argument_.getString();

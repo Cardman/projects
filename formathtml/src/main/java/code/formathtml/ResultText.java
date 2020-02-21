@@ -251,11 +251,11 @@ public final class ResultText {
             str_.append(_texts.get(i));
             CustList<RendDynOperationNode> exp_ = _opExp.get(i);
             Argument argument_ = RenderExpUtil.calculateReuse(exp_, _cont);
-            if (_cont.getContext().hasExceptionOrFailInit()) {
+            if (_cont.getContext().hasException()) {
                 return str_.toString();
             }
             String string_ = standards_.processString(argument_, _cont);
-            if (_cont.getContext().hasExceptionOrFailInit()) {
+            if (_cont.getContext().hasException()) {
                 return str_.toString();
             }
             str_.append(string_);

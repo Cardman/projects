@@ -329,13 +329,13 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
             return;
         }
         Struct its_ = processLoop(_cont);
-        if (_cont.getContext().hasExceptionOrFailInit()) {
+        if (_cont.getContext().hasException()) {
             return;
         }
         Struct iterStr_;
         long length_ = CustList.INDEX_NOT_FOUND_ELT;
         Argument arg_ = iteratorMultTable(its_,_cont);
-        if (_cont.getContext().hasExceptionOrFailInit()) {
+        if (_cont.getContext().hasException()) {
             return;
         }
         iterStr_ = arg_.getStruct();
@@ -368,7 +368,7 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
         ip_.setOffset(expressionOffset);
         ip_.setProcessingAttribute(ATTRIBUTE_MAP);
         Argument arg_ = RenderExpUtil.calculateReuse(opList,_conf);
-        if (_conf.getContext().hasExceptionOrFailInit()) {
+        if (_conf.getContext().hasException()) {
             return NullStruct.NULL_VALUE;
         }
         Struct ito_ = arg_.getStruct();
@@ -415,12 +415,12 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
         Struct iterator_ = _l.getStructIterator();
         ImportingPage call_ = _conf.getLastPage();
         Argument nextPair_ = nextPair(iterator_,_conf);
-        if (_conf.getContext().hasExceptionOrFailInit()) {
+        if (_conf.getContext().hasException()) {
             return;
         }
         Struct value_ = nextPair_.getStruct();
         Argument arg_ = first(value_,_conf);
-        if (_conf.getContext().hasExceptionOrFailInit()) {
+        if (_conf.getContext().hasException()) {
             return;
         }
         if (!Templates.checkObject(importedClassNameFirst, arg_, _conf)) {
@@ -430,7 +430,7 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
         lv_.setStruct(arg_.getStruct());
         lv_.setIndex(lv_.getIndex() + 1);
         arg_ = second(value_,_conf);
-        if (_conf.getContext().hasExceptionOrFailInit()) {
+        if (_conf.getContext().hasException()) {
             return;
         }
         if (!Templates.checkObject(importedClassNameSecond, arg_, _conf)) {
@@ -446,7 +446,7 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
         RendLoopBlockStack l_ = (RendLoopBlockStack) ip_.getRendLastStack();
         Struct strIter_ = l_.getStructIterator();
         Argument arg_ = hasNextPair(strIter_,_conf);
-        if (_conf.getContext().hasExceptionOrFailInit()) {
+        if (_conf.getContext().hasException()) {
             return null;
         }
         return ((BooleanStruct) arg_.getStruct()).getInstance();

@@ -59,7 +59,7 @@ public final class ExecSuperFctOperation extends ExecInvokingOperation implement
             prev_.setStruct(_previous.getStruct());
             classNameFound_ = classMethodId.getClassName();
             prev_.setStruct(PrimitiveTypeUtil.getParent(anc, classNameFound_, prev_.getStruct(), _conf));
-            if (_conf.getContextEl().hasExceptionOrFailInit()) {
+            if (_conf.getContextEl().callsOrException()) {
                 return new Argument();
             }
             String argClassName_ = prev_.getObjectClassName(_conf.getContextEl());

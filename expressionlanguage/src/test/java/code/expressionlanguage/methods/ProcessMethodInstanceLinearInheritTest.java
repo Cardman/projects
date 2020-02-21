@@ -4026,7 +4026,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         MethodId id_ = getMethodId("execute");
         calculateArgument("pkg.ExThree", id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
-        assertEq("code.util.exceptions.NullObjectException", cont_.getException().getClassName(cont_));
+        assertEq("code.util.exceptions.NullObjectException", getException(cont_).getClassName(cont_));
     }
     @Test
     public void instanceArgumentNullPe2() {
@@ -4054,7 +4054,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         MethodId id_ = getMethodId("execute");
         calculateArgument("pkg.ExThree", id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
-        assertEq("code.util.exceptions.NullObjectException", cont_.getException().getClassName(cont_));
+        assertEq("code.util.exceptions.NullObjectException", getException(cont_).getClassName(cont_));
     }
     @Test
     public void instanceArgumentNullPe3() {
@@ -4082,7 +4082,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         MethodId id_ = getMethodId("execute");
         calculateArgument("pkg.ExThree", id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
-        assertEq("code.util.exceptions.NullObjectException", cont_.getException().getClassName(cont_));
+        assertEq("code.util.exceptions.NullObjectException", getException(cont_).getClassName(cont_));
     }
     @Test
     public void instanceArgumentNullPe4() {
@@ -4107,7 +4107,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         MethodId id_ = getMethodId("execute");
         calculateArgument("pkg.ExThree", id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
-        assertEq("code.util.exceptions.NullObjectException", cont_.getException().getClassName(cont_));
+        assertEq("code.util.exceptions.NullObjectException", getException(cont_).getClassName(cont_));
     }
     @Test
     public void instanceArgumentNullPe5() {
@@ -4132,7 +4132,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         MethodId id_ = getMethodId("execute");
         calculateArgument("pkg.ExThree", id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
-        assertEq("code.util.exceptions.NullObjectException", cont_.getException().getClassName(cont_));
+        assertEq("code.util.exceptions.NullObjectException", getException(cont_).getClassName(cont_));
     }
     @Test
     public void instanceArgument9FailTest() {

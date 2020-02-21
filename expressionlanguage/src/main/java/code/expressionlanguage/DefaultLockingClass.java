@@ -54,24 +54,20 @@ public class DefaultLockingClass {
         String base_ = Templates.getIdFromAllTypes(_className);
         classes.put(base_, InitClassState.SUCCESS);
     }
-    public final void processErrorClass(ContextEl _context, Struct _cause) {
+    public final Struct processErrorClass(ContextEl _context, Struct _cause) {
         AbstractPageEl pageEl_ = _context.getLastPage();
         if (!(pageEl_ instanceof StaticInitPageEl)) {
             if (pageEl_ instanceof AbstractReflectPageEl) {
                 AbstractReflectPageEl p_ = (AbstractReflectPageEl) pageEl_;
                 if (p_.isWrapException()) {
-                    InvokeTargetErrorStruct causing_ = new InvokeTargetErrorStruct(_cause,_context);
-                    _context.setException(causing_);
-                    return;
+                    return new InvokeTargetErrorStruct(_cause,_context);
                 }
             }
-            _context.setException(_cause);
-            return;
+            return _cause;
         }
         String curClass_ = pageEl_.getGlobalClass();
         errorClass(_context, curClass_);
-        CausingErrorStruct causing_ = new CausingErrorStruct(_cause,_context);
-        _context.setException(causing_);
+        return new CausingErrorStruct(_cause,_context);
     }
     private void errorClass(ContextEl _context, String _className) {
         _context.failInitEnums();

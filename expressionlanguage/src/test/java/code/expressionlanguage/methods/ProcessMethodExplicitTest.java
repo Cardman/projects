@@ -92,7 +92,7 @@ public final class ProcessMethodExplicitTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         calculateArgument("pkg.Apply", id_, args_, cont_);
-        assertNotNull(cont_.getException());
+        assertNotNull(getException(cont_));
     }
     @Test
     public void calculate5Test() {
@@ -110,7 +110,7 @@ public final class ProcessMethodExplicitTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         calculateArgument("pkg.Apply", id_, args_, cont_);
-        assertNotNull(cont_.getException());
+        assertNotNull(getException(cont_));
     }
     @Test
     public void calculate6Test() {
@@ -129,7 +129,7 @@ public final class ProcessMethodExplicitTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("method");
         Argument ret_;
         ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
-        assertNull(cont_.getException());
+        assertNull(getException(cont_));
         assertTrue(ret_.isNull());
     }
     @Test
@@ -518,7 +518,7 @@ public final class ProcessMethodExplicitTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         calculateArgument("pkg.Apply", id_, args_, cont_);
-        assertNotNull(cont_.getException());
+        assertNotNull(getException(cont_));
     }
     @Test
     public void calculate20Test() {
@@ -544,7 +544,7 @@ public final class ProcessMethodExplicitTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         calculateArgument("pkg.Apply", id_, args_, cont_);
-        assertNotNull(cont_.getException());
+        assertNotNull(getException(cont_));
     }
     @Test
     public void calculate21Test() {
@@ -683,7 +683,7 @@ public final class ProcessMethodExplicitTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("method");
         Argument ret_;
         ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
-        assertNull(cont_.getException());
+        assertNull(getException(cont_));
         assertTrue(ret_.isNull());
     }
     @Test
@@ -888,7 +888,7 @@ public final class ProcessMethodExplicitTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         calculateArgument("pkg.Apply", id_, args_, cont_);
-        assertNotNull(cont_.getException());
+        assertNotNull(getException(cont_));
     }
     @Test
     public void calculate33Test() {
@@ -926,7 +926,7 @@ public final class ProcessMethodExplicitTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         calculateArgument("pkg.Apply", id_, args_, cont_);
-        assertNotNull(cont_.getException());
+        assertNotNull(getException(cont_));
     }
 
     @Test
@@ -982,7 +982,7 @@ public final class ProcessMethodExplicitTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         calculateArgument("pkg.Apply", id_, args_, cont_);
-        assertNotNull(cont_.getException());
+        assertNotNull(getException(cont_));
 
     }
     @Test
@@ -1032,7 +1032,7 @@ public final class ProcessMethodExplicitTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         calculateArgument("pkg.Apply", id_, args_, cont_);
-        assertNotNull(cont_.getException());
+        assertNotNull(getException(cont_));
 
     }
     @Test
@@ -1087,7 +1087,7 @@ public final class ProcessMethodExplicitTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         calculateArgument("pkg.Apply", id_, args_, cont_);
-        assertNotNull(cont_.getException());
+        assertNotNull(getException(cont_));
     }
     @Test
     public void calculate41Test() {
@@ -1143,7 +1143,7 @@ public final class ProcessMethodExplicitTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         calculateArgument("pkg.Apply", id_, args_, cont_);
-        assertNotNull(cont_.getException());
+        assertNotNull(getException(cont_));
 
     }
     @Test
@@ -1189,7 +1189,7 @@ public final class ProcessMethodExplicitTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         calculateArgument("pkg.Apply", id_, args_, cont_);
-        assertNotNull(cont_.getException());
+        assertNotNull(getException(cont_));
     }
     @Test
     public void calculate45Test() {
@@ -1247,7 +1247,7 @@ public final class ProcessMethodExplicitTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         calculateArgument("pkg.Apply", id_, args_, cont_);
-        assertNotNull(cont_.getException());
+        assertNotNull(getException(cont_));
     }
     @Test
     public void calculateCastTest() {

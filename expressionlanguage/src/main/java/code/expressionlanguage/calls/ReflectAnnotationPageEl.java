@@ -226,8 +226,8 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
     }
 
     @Override
-    public boolean receive(Argument _argument, ContextEl _context) {
-        return basicReceive(_argument,_context);
+    public void receive(Argument _argument, ContextEl _context) {
+        basicReceive(_argument,_context);
     }
 
     public void setOnParameters(boolean _onParameters) {

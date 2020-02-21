@@ -6,14 +6,16 @@ import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.variables.LocalVariable;
+import code.formathtml.stacks.RendAbruptCallingFinally;
+import code.formathtml.stacks.RendExceptionCallingFinally;
 import code.formathtml.stacks.RendRemovableVars;
 
 public final class RendLocalThrowing implements RendCallingFinally {
     @Override
     public void removeBlockFinally(Configuration _conf) {
         RendAbstractCatchEval catchElt_ = null;
+        Struct custCause_ = (Struct) _conf.getContext().getCallingState();
         while (_conf.hasPages()) {
-            Struct custCause_ = _conf.getException();
             _conf.setException(null);
             ImportingPage bkIp_ = _conf.getLastPage();
             while (bkIp_.hasBlock()) {
@@ -67,7 +69,12 @@ public final class RendLocalThrowing implements RendCallingFinally {
                 }
             }
             _conf.removeLastPage();
-            _conf.setException(custCause_);
         }
+        _conf.setException(custCause_);
+    }
+
+    @Override
+    public RendAbruptCallingFinally newAbruptCallingFinally(Struct _struct) {
+        return new RendExceptionCallingFinally(this,_struct);
     }
 }

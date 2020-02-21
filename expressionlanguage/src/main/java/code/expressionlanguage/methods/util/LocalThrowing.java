@@ -6,6 +6,8 @@ import code.expressionlanguage.ErrorType;
 import code.expressionlanguage.calls.AbstractPageEl;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.methods.*;
+import code.expressionlanguage.stacks.AbruptCallingFinally;
+import code.expressionlanguage.stacks.ExceptionCallingFinally;
 import code.expressionlanguage.stacks.RemovableVars;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
@@ -15,9 +17,9 @@ public final class LocalThrowing implements CallingFinally {
 
     @Override
     public void removeBlockFinally(ContextEl _conf) {
+        Struct custCause_ = (Struct) _conf.getCallingState();
         AbstractCatchEval catchElt_ = null;
         while (_conf.hasPages()) {
-            Struct custCause_ = _conf.getException();
             AbstractPageEl bkIp_ = _conf.getLastPage();
             bkIp_.clearCurrentEls();
             _conf.setException(null);
@@ -69,9 +71,15 @@ public final class LocalThrowing implements CallingFinally {
                     return;
                 }
             }
-            _conf.getClasses().getLocks().processErrorClass(_conf, custCause_);
+            custCause_ = _conf.getClasses().getLocks().processErrorClass(_conf, custCause_);
             _conf.removeLastPage();
         }
+        _conf.setException(custCause_);
     }
 
+
+    @Override
+    public AbruptCallingFinally newAbruptCallingFinally(Struct _struct) {
+        return new ExceptionCallingFinally(this,_struct);
+    }
 }

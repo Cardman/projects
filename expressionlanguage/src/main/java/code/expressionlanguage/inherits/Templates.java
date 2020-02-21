@@ -1074,7 +1074,7 @@ public final class Templates {
             Argument chArg_ = _args.get(i);
             IntStruct ind_ = new IntStruct(i);
             ExecInvokingOperation.setElement(_arr, ind_, chArg_.getStruct(), _context);
-            if (_context.getContextEl().hasExceptionOrFailInit()) {
+            if (_context.getContextEl().callsOrException()) {
                 return;
             }
         }

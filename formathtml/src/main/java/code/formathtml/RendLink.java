@@ -45,7 +45,7 @@ public final class RendLink extends RendElement {
             for (EntryCust<String,ResultText> e:opExpTitle.entryList()) {
                 ResultText r_ = e.getValue();
                 objects_.add(ResultText.render(r_.getOpExp(), r_.getTexts(),_cont));
-                if (_cont.getContext().hasExceptionOrFailInit()) {
+                if (_cont.getContext().hasException()) {
                     return;
                 }
                 curWr_.removeAttribute(e.getKey());

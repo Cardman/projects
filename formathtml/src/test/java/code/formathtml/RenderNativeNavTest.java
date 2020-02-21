@@ -147,7 +147,7 @@ public final class RenderNativeNavTest extends CommonRender {
         rendDocumentBlockSec_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
         assertEq("<html><body><a href=\"\" c:command=\"go\" n-a=\"0\">Test {0}2</a></body></html>", RendBlock.getRes(rendDocumentBlock_, conf_));
-        assertNull(conf_.getException());
+        assertNull(getException(conf_));
         assertEq(1, beanTwo_.getForms().size());
         assertEq("key", beanTwo_.getForms().getKeys().first());
         assertEq("sample_value", (String)beanTwo_.getForms().values().first());

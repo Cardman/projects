@@ -1,6 +1,8 @@
 package code.formathtml;
 
 import code.expressionlanguage.files.OffsetsBlock;
+import code.expressionlanguage.structs.Struct;
+import code.formathtml.stacks.RendAbruptCallingFinally;
 import code.formathtml.stacks.RendRemovableVars;
 import code.formathtml.stacks.RendTryBlockStack;
 
@@ -26,6 +28,10 @@ public final class RendReturnMehod extends RendLeaf implements RendCallingFinall
         ip_.setNullRendReadWrite();
     }
 
+    @Override
+    public RendAbruptCallingFinally newAbruptCallingFinally(Struct _struct) {
+        return new RendAbruptCallingFinally(this);
+    }
     @Override
     public void buildExpressionLanguage(Configuration _cont, RendDocumentBlock _doc) {
 

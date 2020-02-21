@@ -67,7 +67,7 @@ public final class ExecChoiceFctOperation extends ExecInvokingOperation implemen
         if (!staticMethod) {
             classNameFound_ = classMethodId.getClassName();
             prev_.setStruct(PrimitiveTypeUtil.getParent(anc, classNameFound_, _previous.getStruct(), _conf));
-            if (_conf.getContextEl().hasExceptionOrFailInit()) {
+            if (_conf.getContextEl().callsOrException()) {
                 return new Argument();
             }
             String argClassName_ = prev_.getObjectClassName(_conf.getContextEl());

@@ -117,7 +117,7 @@ public final class RendArrOperation extends RendInvokingOperation implements Ren
         ClassArgumentMatching clArg_ = getResultClass();
         Argument res_;
         res_ = RendNumericOperation.calculateAffect(left_, _conf, _right, _op, catString, clArg_);
-        if (_conf.getContextEl().hasExceptionOrFailInit()) {
+        if (_conf.getContextEl().hasException()) {
             return _stored;
         }
         ExecInvokingOperation.setElement(_array, o_, res_.getStruct(), _conf);

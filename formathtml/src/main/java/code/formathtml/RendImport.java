@@ -60,7 +60,7 @@ public final class RendImport extends RendParentBlock implements RendWithEl, Ren
         ip_.setOpOffset(0);
         String lg_ = _cont.getCurrentLanguage();
         String pageName_ = ResultText.render(opExp,texts,_cont);
-        if (_cont.getContext().getException() != null) {
+        if (_cont.getContext().hasException()) {
             return;
         }
         String link_ = RendExtractFromResources.getRealFilePath(lg_,pageName_);
@@ -87,7 +87,7 @@ public final class RendImport extends RendParentBlock implements RendWithEl, Ren
         Struct mainBean_ = _cont.getMainBean();
         _cont.getAdvStandards().setBeanForms(_cont, mainBean_, this, keepField_,
                 beanName_);
-        if (_cont.getContext().getException() != null) {
+        if (_cont.getContext().hasException()) {
             return;
         }
         if (newBean_ != null) {
@@ -109,7 +109,7 @@ public final class RendImport extends RendParentBlock implements RendWithEl, Ren
                             CustList<RendDynOperationNode> exps_ = ((RendField) f).getExps();
                             ip_.setInternGlobal(newBean_);
                             RenderExpUtil.calculateReuse(exps_,_cont);
-                            if (_cont.getContext().getException() != null) {
+                            if (_cont.getContext().hasException()) {
                                 return;
                             }
                             ip_.setInternGlobal(null);
@@ -122,7 +122,7 @@ public final class RendImport extends RendParentBlock implements RendWithEl, Ren
         ip_.setOpOffset(0);
         ip_.setProcessingAttribute(PAGE_ATTRIBUTE);
         beforeDisplaying(newBean_,_cont);
-        if (_cont.getContext().getException() != null) {
+        if (_cont.getContext().hasException()) {
             return;
         }
         rwLoc_.setDocument(rw_.getDocument());

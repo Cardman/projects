@@ -165,7 +165,7 @@ public final class RendTextArea extends RendParentBlock implements RendWithEl, R
         for (EntryCust<String,ResultText> e: attributesText.entryList()) {
             ResultText res_ = e.getValue();
             String txt_ = ResultText.render(res_.getOpExp(), res_.getTexts(), _cont);
-            if (_cont.getContext().hasExceptionOrFailInit()) {
+            if (_cont.getContext().hasException()) {
                 return;
             }
             docElementSelect_.setAttribute(e.getKey(),txt_);
@@ -175,13 +175,13 @@ public final class RendTextArea extends RendParentBlock implements RendWithEl, R
         }
         fetchName(_cont, elt, docElementSelect_, f_);
         fetchValue(_cont,elt,docElementSelect_,opsValue,varNameConverterField,opsConverterField);
-        if (_cont.getContext().hasExceptionOrFailInit()) {
+        if (_cont.getContext().hasException()) {
             return;
         }
         for (EntryCust<String,ResultText> e: attributes.entryList()) {
             ResultText res_ = e.getValue();
             String txt_ = ResultText.render(res_.getOpExp(), res_.getTexts(), _cont);
-            if (_cont.getContext().hasExceptionOrFailInit()) {
+            if (_cont.getContext().hasException()) {
                 return;
             }
             docElementSelect_.setAttribute(e.getKey(),txt_);

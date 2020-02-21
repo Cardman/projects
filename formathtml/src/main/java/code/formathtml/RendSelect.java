@@ -276,11 +276,11 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
     @Override
     public void processEl(Configuration _cont) {
         Argument value_ = RenderExpUtil.calculateReuse(opsValue, _cont);
-        if (_cont.getContext().getException() != null) {
+        if (_cont.getContext().hasException()) {
             return;
         }
         Argument map_ = RenderExpUtil.calculateReuse(opsMap, _cont);
-        if (_cont.getContext().getException() != null) {
+        if (_cont.getContext().hasException()) {
             return;
         }
         RendReadWrite rw_ = _cont.getLastPage().getRendReadWrite();
@@ -304,7 +304,7 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
         for (EntryCust<String,ResultText> e: attributesText.entryList()) {
             ResultText res_ = e.getValue();
             String txt_ = ResultText.render(res_.getOpExp(), res_.getTexts(), _cont);
-            if (_cont.getContext().hasExceptionOrFailInit()) {
+            if (_cont.getContext().hasException()) {
                 return;
             }
             id_ = true;
@@ -320,7 +320,7 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
         write_.appendChild(docElementSelect_);
         if (!name_.isEmpty()) {
             processIndexes(_cont,elt,docElementSelect_);
-            if (_cont.getContext().getException() != null) {
+            if (_cont.getContext().hasException()) {
                 return;
             }
             Longs stack_ = _cont.getFormsNb();
@@ -341,7 +341,7 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
         for (EntryCust<String,ResultText> e: attributes.entryList()) {
             ResultText res_ = e.getValue();
             String txt_ = ResultText.render(res_.getOpExp(), res_.getTexts(), _cont);
-            if (_cont.getContext().hasExceptionOrFailInit()) {
+            if (_cont.getContext().hasException()) {
                 return;
             }
             docElementSelect_.setAttribute(e.getKey(),txt_);
@@ -355,7 +355,7 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
     private void processOptionsMapEnum(Configuration _conf, Struct _extractedMap,
                                        Document _docSelect, Element _docElementSelect) {
         Argument argDef_ = RenderExpUtil.calculateReuse(opsDefault, _conf);
-        if (_conf.getContext().hasExceptionOrFailInit()) {
+        if (_conf.getContext().hasException()) {
             return;
         }
         processOptionsMapEnumName(_conf,_extractedMap,_docSelect,_docElementSelect,argDef_.getStruct());
@@ -364,11 +364,11 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
     private void processOptionsMapEnumName(Configuration _conf, Struct _extractedMap,
                                            Document _docSelect, Element _docElementSelect, Struct _returnedVarValue) {
         CustList<Struct> obj_ = values(_conf,_returnedVarValue);
-        if (_conf.getContext().getException() != null) {
+        if (_conf.getContext().hasException()) {
             return;
         }
         Argument arg_ = iteratorMultTable(_extractedMap,_conf);
-        if (_conf.getContext().getException() != null) {
+        if (_conf.getContext().hasException()) {
             return;
         }
         Struct l_;
@@ -379,19 +379,19 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
     private void processOptions(Configuration _conf, Document _docSelect, Element _docElementSelect, CustList<Struct> _obj, Struct _l) {
         while (true) {
             Argument hasNext_ = hasNextPair(_l, _conf);
-            if (_conf.getContext().getException() != null) {
+            if (_conf.getContext().hasException()) {
                 return;
             }
             if (!((BooleanStruct)hasNext_.getStruct()).getInstance()) {
                 break;
             }
             Argument nextPair_ = nextPair(_l, _conf);
-            if (_conf.getContext().getException() != null) {
+            if (_conf.getContext().hasException()) {
                 return;
             }
             Struct entry_ = nextPair_.getStruct();
             Argument first_ = first(entry_, _conf);
-            if (_conf.getContext().getException() != null) {
+            if (_conf.getContext().hasException()) {
                 return;
             }
             Struct o_ = first_.getStruct();
@@ -400,7 +400,7 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
             }
             Element option_ = _docSelect.createElement(TAG_OPTION);
             String value_ = processOptionValue(_conf, o_);
-            if (_conf.getContext().getException() != null) {
+            if (_conf.getContext().hasException()) {
                 return;
             }
             option_.setAttribute(ATTRIBUTE_VALUE,value_);
@@ -411,11 +411,11 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
                 }
             }
             Argument second_ = second(entry_, _conf);
-            if (_conf.getContext().getException() != null) {
+            if (_conf.getContext().hasException()) {
                 return;
             }
             String txt_ = processOptionText(_conf, second_);
-            if (_conf.getContext().getException() != null) {
+            if (_conf.getContext().hasException()) {
                 return;
             }
             option_.appendChild(_docSelect.createTextNode(txt_));
@@ -431,7 +431,7 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
         _conf.getLastPage().putLocalVar(varNameConverterField, locVar_);
         Argument arg_ = RenderExpUtil.calculateReuse(opsConverterField, _conf);
         _conf.getLastPage().removeLocalVar(varNameConverterField);
-        if (_conf.getContext().getException() != null) {
+        if (_conf.getContext().hasException()) {
             return EMPTY_STRING;
         }
         return stds_.processString(arg_,_conf);
@@ -445,7 +445,7 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
         _conf.getLastPage().putLocalVar(varNameConverterFieldValue, locVar_);
         Argument arg_ = RenderExpUtil.calculateReuse(opsConverterFieldValue, _conf);
         _conf.getLastPage().removeLocalVar(varNameConverterFieldValue);
-        if (_conf.getContext().getException() != null) {
+        if (_conf.getContext().hasException()) {
             return EMPTY_STRING;
         }
         return stds_.processString(arg_,_conf);
@@ -455,20 +455,20 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
         IdList<Struct> obj_ = new IdList<Struct>();
         if (multiple) {
             Argument arg_ = iterator(_returnedVarValue,_conf);
-            if (_conf.getContext().getException() != null) {
+            if (_conf.getContext().hasException()) {
                 return obj_;
             }
             Struct it_ = arg_.getStruct();
             while (true) {
                 Argument hasNext_ = hasNext(it_, _conf);
-                if (_conf.getContext().getException() != null) {
+                if (_conf.getContext().hasException()) {
                     return obj_;
                 }
                 if (!((BooleanStruct)hasNext_.getStruct()).getInstance()) {
                     break;
                 }
                 Argument next_ = next(it_, _conf);
-                if (_conf.getContext().getException() != null) {
+                if (_conf.getContext().hasException()) {
                     return obj_;
                 }
                 obj_.add(next_.getStruct());

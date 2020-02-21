@@ -200,7 +200,7 @@ public final class RenderNavigationTest extends CommonRender {
         nav_.getSession().getRenderFiles().add("page1.html");
         nav_.getSession().getRenderFiles().add("page2.html");
         initSession(nav_);
-        assertNotNull(nav_.getSession().getException());
+        assertNotNull(getException(nav_.getSession()));
     }
     @Test
     public void validatorInitTest() {
@@ -272,7 +272,7 @@ public final class RenderNavigationTest extends CommonRender {
         nav_.getSession().getBeansInfos().addEntry("bean_one",i_);
         addVal(nav_,"valRef","pkg.MyVal");
         initSession(nav_);
-        assertNotNull(nav_.getSession().getException());
+        assertNotNull(getException(nav_.getSession()));
     }
     @Test
     public void titleTest() {
@@ -1582,7 +1582,7 @@ public final class RenderNavigationTest extends CommonRender {
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
         nav_.processRendFormRequest();
-        assertNotNull(nav_.getSession().getException());
+        assertNotNull(getException(nav_.getSession()));
 
     }
 
@@ -1673,7 +1673,7 @@ public final class RenderNavigationTest extends CommonRender {
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
         nav_.processRendFormRequest();
-        assertNotNull(nav_.getSession().getException());
+        assertNotNull(getException(nav_.getSession()));
 
     }
     @Test
@@ -3406,7 +3406,7 @@ public final class RenderNavigationTest extends CommonRender {
         initSession(nav_);
         nav_.getHtmlPage().setUrl(0);
         nav_.processRendFormRequest();
-        assertNotNull(nav_.getSession().getException());
+        assertNotNull(getException(nav_.getSession()));
     }
     @Test
     public void form28Test() {
@@ -3479,7 +3479,7 @@ public final class RenderNavigationTest extends CommonRender {
         initSession(nav_);
         nav_.getHtmlPage().setUrl(0);
         nav_.processRendFormRequest();
-        assertNotNull(nav_.getSession().getException());
+        assertNotNull(getException(nav_.getSession()));
     }
     @Test
     public void form29Test() {
@@ -3552,7 +3552,7 @@ public final class RenderNavigationTest extends CommonRender {
         initSession(nav_);
         nav_.getHtmlPage().setUrl(0);
         nav_.processRendFormRequest();
-        assertNotNull(nav_.getSession().getException());
+        assertNotNull(getException(nav_.getSession()));
     }
     @Test
     public void form30Test() {
@@ -3616,10 +3616,10 @@ public final class RenderNavigationTest extends CommonRender {
         i_.setClassName("pkg.BeanOne");
         nav_.getSession().getBeansInfos().addEntry("bean_one",i_);
         initSession(nav_);
-        assertNull(nav_.getSession().getException());
+        assertNull(getException(nav_.getSession()));
         nav_.getHtmlPage().setUrl(0);
         nav_.processRendFormRequest();
-        assertNotNull(nav_.getSession().getException());
+        assertNotNull(getException(nav_.getSession()));
     }
     @Test
     public void form31Test() {
@@ -3691,7 +3691,7 @@ public final class RenderNavigationTest extends CommonRender {
         initSession(nav_);
         nav_.getHtmlPage().setUrl(0);
         nav_.processRendFormRequest();
-        assertNotNull(nav_.getSession().getException());
+        assertNotNull(getException(nav_.getSession()));
     }
 
     @Test
@@ -4882,10 +4882,10 @@ public final class RenderNavigationTest extends CommonRender {
         i_.setClassName("pkg.BeanOne");
         nav_.getSession().getBeansInfos().addEntry("bean_one",i_);
         initSession(nav_);
-        assertNull(nav_.getSession().getException());
+        assertNull(getException(nav_.getSession()));
         nav_.getHtmlPage().setUrl(0);
         nav_.processRendFormRequest();
-        assertNotNull(nav_.getSession().getException());
+        assertNotNull(getException(nav_.getSession()));
     }
     @Test
     public void form48Test() {
@@ -4955,10 +4955,10 @@ public final class RenderNavigationTest extends CommonRender {
         i_.setClassName("pkg.BeanOne");
         nav_.getSession().getBeansInfos().addEntry("bean_one",i_);
         initSession(nav_);
-        assertNull(nav_.getSession().getException());
+        assertNull(getException(nav_.getSession()));
         nav_.getHtmlPage().setUrl(0);
         nav_.processRendFormRequest();
-        assertNotNull(nav_.getSession().getException());
+        assertNotNull(getException(nav_.getSession()));
     }
 
     @Test
@@ -5250,10 +5250,10 @@ public final class RenderNavigationTest extends CommonRender {
         i_.setClassName("pkg.BeanOne");
         nav_.getSession().getBeansInfos().addEntry("bean_one",i_);
         initSession(nav_);
-        assertNull(nav_.getSession().getException());
+        assertNull(getException(nav_.getSession()));
         nav_.getHtmlPage().setUrl(0);
         nav_.processRendFormRequest();
-        assertNotNull(nav_.getSession().getException());
+        assertNotNull(getException(nav_.getSession()));
     }
     @Test
     public void form52Test() {
@@ -5322,10 +5322,10 @@ public final class RenderNavigationTest extends CommonRender {
         i_.setClassName("pkg.BeanOne");
         nav_.getSession().getBeansInfos().addEntry("bean_one",i_);
         initSession(nav_);
-        assertNull(nav_.getSession().getException());
+        assertNull(getException(nav_.getSession()));
         nav_.getHtmlPage().setUrl(0);
         nav_.processRendFormRequest();
-        assertNotNull(nav_.getSession().getException());
+        assertNotNull(getException(nav_.getSession()));
     }
     @Test
     public void form53Test() {
@@ -5395,10 +5395,10 @@ public final class RenderNavigationTest extends CommonRender {
         i_.setClassName("pkg.BeanOne");
         nav_.getSession().getBeansInfos().addEntry("bean_one",i_);
         initSession(nav_);
-        assertNull(nav_.getSession().getException());
+        assertNull(getException(nav_.getSession()));
         nav_.getHtmlPage().setUrl(0);
         nav_.processRendFormRequest();
-        assertNotNull(nav_.getSession().getException());
+        assertNotNull(getException(nav_.getSession()));
     }
     @Test
     public void form54Test() {

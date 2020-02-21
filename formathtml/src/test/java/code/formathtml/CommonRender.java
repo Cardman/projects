@@ -3,6 +3,7 @@ package code.formathtml;
 import code.bean.BeanInfo;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.calls.util.CallingState;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.options.Options;
@@ -105,5 +106,12 @@ public abstract class CommonRender {
     }
     protected static void setStruct(Struct _struct, ClassField _cl, Struct _value) {
         ((FieldableStruct) _struct).getEntryStruct(_cl).setValue(_value);
+    }
+    protected static Struct getException(Configuration _cont) {
+        CallingState str_ = _cont.getContext().getCallingState();
+        if (str_ instanceof Struct) {
+            return (Struct) str_;
+        }
+        return null;
     }
 }

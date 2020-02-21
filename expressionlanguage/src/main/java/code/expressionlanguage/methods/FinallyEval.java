@@ -8,6 +8,8 @@ import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.methods.util.LocalThrowing;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.SimpleAssignment;
+import code.expressionlanguage.stacks.AbruptCallingFinally;
+import code.expressionlanguage.stacks.ExceptionCallingFinally;
 import code.expressionlanguage.stacks.TryBlockStack;
 import code.util.*;
 
@@ -112,12 +114,13 @@ public final class FinallyEval extends BracedStack implements Eval {
     public void exitStack(ContextEl _context) {
         AbstractPageEl ip_ = _context.getLastPage();
         TryBlockStack tryStack_ = (TryBlockStack) ip_.getLastStack();
-        CallingFinally call_ = tryStack_.getCalling();
+        AbruptCallingFinally call_ = tryStack_.getCalling();
         if (call_ != null) {
-            if (call_ instanceof LocalThrowing) {
-                _context.setException(tryStack_.getException());
+            CallingFinally callingFinally_ = call_.getCallingFinally();
+            if (call_ instanceof ExceptionCallingFinally) {
+                _context.setException(((ExceptionCallingFinally)call_).getException());
             }
-            call_.removeBlockFinally(_context);
+            callingFinally_.removeBlockFinally(_context);
         }
     }
 

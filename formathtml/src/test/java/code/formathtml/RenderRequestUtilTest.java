@@ -484,7 +484,7 @@ public final class RenderRequestUtilTest extends CommonRender {
         addImportingPage(conf_);
         conf_.getLastPage().setGlobalArgumentStruct(bean_,conf_);
         RendRequestUtil.redirect(conf_, new Argument(bean_), 0);
-        assertNotNull(conf_.getException());
+        assertNotNull(getException(conf_));
     }
     @Test
     public void process10Test() {
@@ -533,7 +533,7 @@ public final class RenderRequestUtilTest extends CommonRender {
         addImportingPage(conf_);
         conf_.getLastPage().setGlobalArgumentStruct(bean_,conf_);
         RendRequestUtil.redirect(conf_, new Argument(bean_), 0);
-        assertNotNull(conf_.getException());
+        assertNotNull(getException(conf_));
     }
     @Test
     public void process11Test() {
@@ -582,7 +582,7 @@ public final class RenderRequestUtilTest extends CommonRender {
         addImportingPage(conf_);
         conf_.getLastPage().setGlobalArgumentStruct(bean_,conf_);
         RendRequestUtil.invokeMethodWithNumbersBis(conf_, "");
-        assertNotNull(conf_.getException());
+        assertNotNull(getException(conf_));
     }
     @Test
     public void setRendObject1Test() {

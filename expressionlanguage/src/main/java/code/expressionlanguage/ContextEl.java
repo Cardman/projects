@@ -40,8 +40,6 @@ public abstract class ContextEl implements ExecutableCode {
 
     private Options options;
 
-    private Struct exception;
-
     private Struct memoryError;
 
     private LocalThrowing throwing;
@@ -167,19 +165,17 @@ public abstract class ContextEl implements ExecutableCode {
 
     public void resetInitEnums() {
         failInit = false;
-        exception = null;
+        callingState = null;
         sensibleFields.clear();
         clearPages();
     }
     private String getCurInitType() {
         return importing.first().getGlobalClass();
     }
-    public boolean processException() {
-        if (!failInit && exception != null) {
+    public void processException() {
+        if (!failInit && callingState instanceof Struct) {
             getThrowing().removeBlockFinally(this);
-            return exception == null;
         }
-        return !failInit;
     }
     protected void processTags() {
         AbstractPageEl ip_ = getLastPage();
@@ -222,7 +218,6 @@ public abstract class ContextEl implements ExecutableCode {
             CustomFoundBlock b_ = (CustomFoundBlock) callingState;
             return createBlockPageEl(b_.getClassName(), b_.getCurrentObject(), b_.getBlock());
         }
-        processException();
         return null;
     }
 
@@ -237,10 +232,7 @@ public abstract class ContextEl implements ExecutableCode {
                 return EndCallValue.EXIT;
             }
             if (p_ instanceof ForwardPageEl) {
-                if(((ForwardPageEl)p_).forwardTo(getLastPage(), this)) {
-                    return EndCallValue.FORWARD;
-                }
-                return EndCallValue.EXIT;
+                ((ForwardPageEl)p_).forwardTo(getLastPage(), this);
             }
             return EndCallValue.FORWARD;
         }
@@ -741,7 +733,7 @@ public abstract class ContextEl implements ExecutableCode {
         LgNames stds_ = getStandards();
         String sof_ = stds_.getAliasSof();
         if (getStackOverFlow() >= CustList.FIRST_INDEX && getStackOverFlow() <= importing.size()) {
-            exception = new ErrorStruct(this,sof_);
+            callingState = new ErrorStruct(this,sof_);
         } else {
             importing.add(_page);
         }
@@ -891,27 +883,18 @@ public abstract class ContextEl implements ExecutableCode {
     }
 
     public boolean callsOrException() {
-        if (calls()) {
+        if (callingState != null) {
             return true;
         }
-        return hasExceptionOrFailInit();
+        return isFailInit();
     }
 
     public boolean calls() {
-        return callingState != null;
+        return !hasException();
     }
-    @Override
-    public Struct getException() {
-        return exception;
-    }
-    public boolean hasExceptionOrFailInit() {
-        if (isFailInit()) {
-            return true;
-        }
-        return hasException();
-    }
+
     public boolean hasException() {
-        return exception != null;
+        return callingState instanceof Struct;
     }
     public boolean isFailInit() {
         return failInit;
@@ -919,7 +902,7 @@ public abstract class ContextEl implements ExecutableCode {
 
     @Override
     public void setException(Struct _exception) {
-        exception = _exception;
+        callingState = _exception;
     }
 
     public LocalThrowing getThrowing() {

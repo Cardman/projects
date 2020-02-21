@@ -7,9 +7,11 @@ import code.expressionlanguage.errors.custom.UnexpectedTagName;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.instr.PartOffset;
+import code.expressionlanguage.stacks.AbruptCallingFinally;
 import code.expressionlanguage.stacks.LoopBlockStack;
 import code.expressionlanguage.stacks.RemovableVars;
 import code.expressionlanguage.stacks.TryBlockStack;
+import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.IdList;
 import code.util.IdMap;
@@ -152,4 +154,8 @@ public final class ContinueBlock extends AbruptBlock implements CallingFinally {
         loop_.processLastElementLoop(_conf);
     }
 
+    @Override
+    public AbruptCallingFinally newAbruptCallingFinally(Struct _struct) {
+        return new AbruptCallingFinally(this);
+    }
 }

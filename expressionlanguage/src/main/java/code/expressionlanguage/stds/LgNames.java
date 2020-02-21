@@ -1071,8 +1071,8 @@ public abstract class LgNames {
         if (result_.getResult() != null) {
             return result_;
         }
-        if (result_.getError() != null) {
-            processError(_cont,result_);
+        processError(_cont,result_);
+        if (_cont.callsOrException()) {
             return result_;
         }
         if (StringList.quickEq(type_, lgNames_.getAliasObjectsUtil())) {
@@ -1129,11 +1129,8 @@ public abstract class LgNames {
         if (result_.getResult() != null) {
             return result_;
         }
-        if (result_.getError() != null) {
-            processError(_cont,result_);
-            return result_;
-        }
-        if (_cont.hasExceptionOrFailInit()) {
+        processError(_cont,result_);
+        if (_cont.callsOrException()) {
             return result_;
         }
         result_ = lgNames_.getOtherResult(_cont, _struct, _method, args_);

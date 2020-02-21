@@ -67,7 +67,7 @@ public final class RendTitledAnchor extends RendElement {
         for (EntryCust<String,ResultText> e:opExpTitle.entryList()) {
             ResultText r_ = e.getValue();
             objects_.add(ResultText.render(r_.getOpExp(), r_.getTexts(),_cont));
-            if (_cont.getContext().hasExceptionOrFailInit()) {
+            if (_cont.getContext().hasException()) {
                 _cont.getAnchorsNames().add(EMPTY_STRING);
                 incrAncNb(_cont, (Element) _nextWrite);
                 return;

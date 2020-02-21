@@ -217,6 +217,6 @@ public final class ProcessMethodForeachArrayTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq("code.util.exceptions.NullObjectException", cont_.getException().getClassName(cont_));
+        assertEq("code.util.exceptions.NullObjectException", getException(cont_).getClassName(cont_));
     }
 }

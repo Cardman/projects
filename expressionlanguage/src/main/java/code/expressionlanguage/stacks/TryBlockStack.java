@@ -4,7 +4,7 @@ import code.expressionlanguage.methods.CallingFinally;
 
 public final class TryBlockStack extends TryStack implements RemovableVars {
 
-    private CallingFinally calling;
+    private AbruptCallingFinally calling;
 
     private BracedBlock block;
 
@@ -39,11 +39,11 @@ public final class TryBlockStack extends TryStack implements RemovableVars {
         currentBlock = _bl;
     }
 
-    public CallingFinally getCalling() {
+    public AbruptCallingFinally getCalling() {
         return calling;
     }
 
-    public void setCalling(CallingFinally _calling) {
+    public void setCalling(AbruptCallingFinally _calling) {
         calling = _calling;
     }
 

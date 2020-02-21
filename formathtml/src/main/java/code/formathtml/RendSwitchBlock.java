@@ -129,7 +129,7 @@ public final class RendSwitchBlock extends RendParentBlock implements RendBreaka
         ip_.setOffset(valueOffset);
         ip_.setProcessingAttribute(ATTRIBUTE_VALUE);
         Argument arg_ =  RenderExpUtil.calculateReuse(opValue,_cont);
-        if (_cont.getContext().hasExceptionOrFailInit()) {
+        if (_cont.getContext().hasException()) {
             return;
         }
         RendSwitchBlockStack if_ = new RendSwitchBlockStack();

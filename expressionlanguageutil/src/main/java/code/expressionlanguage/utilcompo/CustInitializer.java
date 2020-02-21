@@ -62,8 +62,9 @@ public class CustInitializer extends DefaultInitializer {
     	return _ctx.getIdDate();
 	}
     public void prExc(RunnableContextEl _cont) {
-    	Struct exception_ = _cont.getException();
-    	if (exception_ != null) {
+        CallingState exc_ = _cont.getCallingState();
+    	if (exc_ instanceof Struct) {
+            Struct exception_ = (Struct) exc_;
             if (exception_ instanceof DisplayableStruct) {
                 String text_ = ((DisplayableStruct)exception_).getDisplayedString(_cont).getInstance();
                 log(_cont,text_);

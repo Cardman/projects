@@ -78,7 +78,7 @@ public final class RendFctOperation extends RendInvokingOperation implements Ren
         if (!staticMethod) {
             classNameFound_ = classMethodId.getClassName();
             prev_.setStruct(PrimitiveTypeUtil.getParent(anc, classNameFound_, _previous.getStruct(), _conf));
-            if (_conf.getContextEl().hasExceptionOrFailInit()) {
+            if (_conf.getContextEl().hasException()) {
                 Argument a_ = new Argument();
                 return a_;
             }

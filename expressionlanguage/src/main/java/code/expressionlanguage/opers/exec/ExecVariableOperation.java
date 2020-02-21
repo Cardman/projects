@@ -127,7 +127,7 @@ public final class ExecVariableOperation extends ExecLeafOperation implements
     }
 
     public static void setVar(ExecutableCode _conf, LocalVariable _var,Argument _value) {
-        if (_conf.getContextEl().hasExceptionOrFailInit()) {
+        if (_conf.getContextEl().callsOrException()) {
             return;
         }
         checkSet(_conf,_var,_value);

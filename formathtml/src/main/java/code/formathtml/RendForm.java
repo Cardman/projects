@@ -91,7 +91,7 @@ public final class RendForm extends RendElement {
             return;
         }
         String render_ = ResultText.render(opExp, texts, _cont);
-        if (_cont.getContext().hasExceptionOrFailInit()) {
+        if (_cont.getContext().hasException()) {
             _cont.getFormsNames().add(EMPTY_STRING);
             currentForm_ = _cont.getCurrentForm();
             elt_.setAttribute(NUMBER_FORM, String.valueOf(currentForm_ - 1));

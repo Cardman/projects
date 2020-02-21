@@ -60,7 +60,7 @@ public final class RenderImportTest extends CommonRender {
         rendDocumentBlockSec_.buildFctInstructions(context_);
         assertTrue(context_.getClasses().isEmptyErrors());
         assertEq("<html><body><ul><li>3</li><li>4</li></ul></body></html>", RendBlock.getRes(rendDocumentBlock_, context_));
-        assertNull(context_.getException());
+        assertNull(getException(context_));
     }
     @Test
     public void process1Test() {
@@ -87,7 +87,7 @@ public final class RenderImportTest extends CommonRender {
         rendSecDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
         assertEq("<html><body><td>Content</td></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(conf_.getException());
+        assertNull(getException(conf_));
     }
     @Test
     public void process2Test() {
@@ -114,7 +114,7 @@ public final class RenderImportTest extends CommonRender {
         rendSecDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
         assertEq("<html><body><td>Content</td>NextAfter</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(conf_.getException());
+        assertNull(getException(conf_));
     }
     @Test
     public void process3Test() {
@@ -141,7 +141,7 @@ public final class RenderImportTest extends CommonRender {
         rendSecDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
         assertEq("<html><body><td>Content</td>1After</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(conf_.getException());
+        assertNull(getException(conf_));
     }
     @Test
     public void process4Test() {
@@ -168,7 +168,7 @@ public final class RenderImportTest extends CommonRender {
         rendSecDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_,conf_);
-        assertNotNull(conf_.getException());
+        assertNotNull(getException(conf_));
     }
     @Test
     public void process5Test() {
@@ -195,7 +195,7 @@ public final class RenderImportTest extends CommonRender {
         rendSecDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_,conf_);
-        assertNotNull(conf_.getException());
+        assertNotNull(getException(conf_));
     }
     @Test
     public void process6Test() {
@@ -222,7 +222,7 @@ public final class RenderImportTest extends CommonRender {
         rendSecDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
         assertEq("<html><body><td>Content</td>NextAfter</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(conf_.getException());
+        assertNull(getException(conf_));
     }
     @Test
     public void process7Test() {
@@ -249,7 +249,7 @@ public final class RenderImportTest extends CommonRender {
         rendSecDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
         assertEq("<html><body><pre> </pre></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(conf_.getException());
+        assertNull(getException(conf_));
     }
     @Test
     public void process8Test() {
@@ -300,7 +300,7 @@ public final class RenderImportTest extends CommonRender {
         rendDocumentBlockSec_.buildFctInstructions(context_);
         assertTrue(context_.getClasses().isEmptyErrors());
         assertEq("<html><body><ul><li>3</li><li>4</li></ul></body></html>", RendBlock.getRes(rendDocumentBlock_, context_));
-        assertNull(context_.getException());
+        assertNull(getException(context_));
     }
     @Test
     public void process9Test() {
@@ -327,7 +327,7 @@ public final class RenderImportTest extends CommonRender {
         rendSecDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
         assertEq("<html><body><td>Content</td>1Exc</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(conf_.getException());
+        assertNull(getException(conf_));
     }
     @Test
     public void process10Test() {
@@ -388,7 +388,7 @@ public final class RenderImportTest extends CommonRender {
         rendDocumentBlockThird_.buildFctInstructions(context_);
         assertTrue(context_.getClasses().isEmptyErrors());
         assertEq("<html><body>3</body></html>", RendBlock.getRes(rendDocumentBlock_, context_));
-        assertNull(context_.getException());
+        assertNull(getException(context_));
     }
     @Test
     public void process11Test() {
@@ -449,7 +449,7 @@ public final class RenderImportTest extends CommonRender {
         rendDocumentBlockThird_.buildFctInstructions(context_);
         assertTrue(context_.getClasses().isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_, context_);
-        assertNotNull(context_.getException());
+        assertNotNull(getException(context_));
     }
     @Test
     public void process12Test() {
@@ -513,7 +513,7 @@ public final class RenderImportTest extends CommonRender {
         rendDocumentBlockThird_.buildFctInstructions(context_);
         assertTrue(context_.getClasses().isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_, context_);
-        assertNotNull(context_.getException());
+        assertNotNull(getException(context_));
     }
     @Test
     public void process13Test() {
@@ -564,7 +564,7 @@ public final class RenderImportTest extends CommonRender {
         rendDocumentBlockSec_.buildFctInstructions(context_);
         assertTrue(context_.getClasses().isEmptyErrors());
         assertEq("<html><body><ul><li>3</li><li>4</li></ul></body></html>", RendBlock.getRes(rendDocumentBlock_, context_));
-        assertNull(context_.getException());
+        assertNull(getException(context_));
     }
     @Test
     public void process14Test() {
@@ -615,7 +615,7 @@ public final class RenderImportTest extends CommonRender {
         rendDocumentBlockSec_.buildFctInstructions(context_);
         assertTrue(context_.getClasses().isEmptyErrors());
         assertEq("<html><body/></html>", RendBlock.getRes(rendDocumentBlock_, context_));
-        assertNull(context_.getException());
+        assertNull(getException(context_));
     }
     @Test
     public void process15Test() {
@@ -666,7 +666,7 @@ public final class RenderImportTest extends CommonRender {
         rendDocumentBlockSec_.buildFctInstructions(context_);
         assertTrue(context_.getClasses().isEmptyErrors());
         assertEq("<html><body/></html>", RendBlock.getRes(rendDocumentBlock_, context_));
-        assertNull(context_.getException());
+        assertNull(getException(context_));
     }
     @Test
     public void process16Test() {
@@ -717,7 +717,7 @@ public final class RenderImportTest extends CommonRender {
         rendDocumentBlockSec_.buildFctInstructions(context_);
         assertTrue(context_.getClasses().isEmptyErrors());
         assertEq("<html><body/></html>", RendBlock.getRes(rendDocumentBlock_, context_));
-        assertNull(context_.getException());
+        assertNull(getException(context_));
     }
     @Test
     public void process17Test() {
@@ -768,7 +768,7 @@ public final class RenderImportTest extends CommonRender {
         rendDocumentBlockSec_.buildFctInstructions(context_);
         assertTrue(context_.getClasses().isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_, context_);
-        assertNotNull(context_.getException());
+        assertNotNull(getException(context_));
     }
     @Test
     public void process18Test() {
@@ -825,7 +825,7 @@ public final class RenderImportTest extends CommonRender {
         rendDocumentBlockSec_.buildFctInstructions(context_);
         assertTrue(context_.getClasses().isEmptyErrors());
         assertEq("<html><body><ul><li>3</li><li>4</li></ul></body></html>", RendBlock.getRes(rendDocumentBlock_, context_));
-        assertNull(context_.getException());
+        assertNull(getException(context_));
     }
     @Test
     public void process19Test() {
@@ -885,7 +885,7 @@ public final class RenderImportTest extends CommonRender {
         rendDocumentBlockSec_.buildFctInstructions(context_);
         assertTrue(context_.getClasses().isEmptyErrors());
         assertEq("<html><body><ul><li>3</li><li>4</li></ul></body></html>", RendBlock.getRes(rendDocumentBlock_, context_));
-        assertNull(context_.getException());
+        assertNull(getException(context_));
     }
     @Test
     public void process20Test() {
@@ -945,7 +945,7 @@ public final class RenderImportTest extends CommonRender {
         rendDocumentBlockSec_.buildFctInstructions(context_);
         assertTrue(context_.getClasses().isEmptyErrors());
         assertEq("<html><body><ul><li>5</li><li>6</li></ul></body></html>", RendBlock.getRes(rendDocumentBlock_, context_));
-        assertNull(context_.getException());
+        assertNull(getException(context_));
     }
     @Test
     public void process21Test() {
@@ -1006,7 +1006,7 @@ public final class RenderImportTest extends CommonRender {
         rendDocumentBlockSec_.buildFctInstructions(context_);
         assertTrue(context_.getClasses().isEmptyErrors());
         assertEq("<html><body><ul><li>5</li><li>6</li></ul></body></html>", RendBlock.getRes(rendDocumentBlock_, context_));
-        assertNull(context_.getException());
+        assertNull(getException(context_));
     }
     @Test
     public void process22Test() {
@@ -1072,7 +1072,7 @@ public final class RenderImportTest extends CommonRender {
         rendDocumentBlockSec_.buildFctInstructions(context_);
         assertTrue(context_.getClasses().isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_, context_);
-        assertNotNull(context_.getException());
+        assertNotNull(getException(context_));
     }
     @Test
     public void process23Test() {
@@ -1137,7 +1137,7 @@ public final class RenderImportTest extends CommonRender {
         rendDocumentBlockSec_.buildFctInstructions(context_);
         assertTrue(context_.getClasses().isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_, context_);
-        assertNotNull(context_.getException());
+        assertNotNull(getException(context_));
     }
     @Test
     public void process24Test() {
@@ -1206,7 +1206,7 @@ public final class RenderImportTest extends CommonRender {
         rendDocumentBlockSec_.buildFctInstructions(context_);
         assertTrue(context_.getClasses().isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_, context_);
-        assertNotNull(context_.getException());
+        assertNotNull(getException(context_));
     }
     @Test
     public void process25Test() {
@@ -1272,7 +1272,7 @@ public final class RenderImportTest extends CommonRender {
         rendDocumentBlockSec_.buildFctInstructions(context_);
         assertTrue(context_.getClasses().isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_, context_);
-        assertNotNull(context_.getException());
+        assertNotNull(getException(context_));
     }
     @Test
     public void process26Test() {
@@ -1318,7 +1318,7 @@ public final class RenderImportTest extends CommonRender {
         rendDocumentBlockSec_.buildFctInstructions(context_);
         assertTrue(context_.getClasses().isEmptyErrors());
         assertEq("<html><body><ul><li>5</li><li>6</li></ul></body></html>", RendBlock.getRes(rendDocumentBlock_, context_));
-        assertNull(context_.getException());
+        assertNull(getException(context_));
     }
     @Test
     public void process27Test() {
@@ -1389,7 +1389,7 @@ public final class RenderImportTest extends CommonRender {
         assertTrue(context_.getClasses().isEmptyErrors());
         context_.setCurrentUrl("page1.html");
         assertEq("<html>\n<body>\n\n\n\t\ncode.expressionlanguage.exceptions.DivideZeroException\n\npage1.html:4,17:56\npkg.BeanOne.\npage2.html:3,21:49\npkg.BeanTwo.\nmy_file:17,3:371\npkg.BeanThree.beforeDisplaying()\nmy_file:20,7:415\npkg.BeanThree.callee()\n\n</body>\n</html>",RendBlock.getRes(rendDocumentBlock_, context_));
-        assertNull(context_.getException());
+        assertNull(getException(context_));
     }
     @Test
     public void process1FailTest() {

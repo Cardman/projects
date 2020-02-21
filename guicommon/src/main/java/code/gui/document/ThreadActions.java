@@ -4,6 +4,7 @@ import javax.swing.Timer;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.calls.util.CallingState;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.NamedFunctionBlock;
@@ -177,9 +178,10 @@ public final class ThreadActions implements Runnable {
     private void afterAction() {
         Configuration conf_ = page.getNavigation().getSession();
         ContextEl context_ = conf_.getContext();
-        if (context_.getException() != null) {
+        CallingState exc_ = context_.getCallingState();
+        if (exc_ instanceof Struct) {
             if (page.getArea() != null) {
-                Struct exception_ = context_.getException();
+                Struct exception_ = (Struct) exc_;
                 if (exception_ instanceof ErroneousStruct) {
                     ArrayStruct fullStack_ = ((ErroneousStruct) exception_).getFullStack();
                     page.getArea().append(((ErroneousStruct) exception_).getStringRep(conf_,fullStack_.getInstance()));

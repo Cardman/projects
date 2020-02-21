@@ -2,6 +2,8 @@ package code.formathtml;
 
 import code.expressionlanguage.errors.custom.UnexpectedTagName;
 import code.expressionlanguage.files.OffsetsBlock;
+import code.formathtml.stacks.RendAbruptCallingFinally;
+import code.formathtml.stacks.RendExceptionCallingFinally;
 import code.formathtml.stacks.RendTryBlockStack;
 
 public final class RendFinallyEval extends RendParentBlock implements RendEval {
@@ -61,12 +63,13 @@ public final class RendFinallyEval extends RendParentBlock implements RendEval {
     public void exitStack(Configuration _context) {
         ImportingPage ip_ = _context.getLastPage();
         RendTryBlockStack tryStack_ = (RendTryBlockStack) ip_.getRendLastStack();
-        RendCallingFinally call_ = tryStack_.getCalling();
+        RendAbruptCallingFinally call_ = tryStack_.getCalling();
         if (call_ != null) {
-            if (call_ instanceof RendLocalThrowing) {
-                _context.setException(tryStack_.getException());
+            RendCallingFinally callingFinally_ = call_.getCallingFinally();
+            if (call_ instanceof RendExceptionCallingFinally) {
+                _context.setException(((RendExceptionCallingFinally)call_).getException());
             }
-            call_.removeBlockFinally(_context);
+            callingFinally_.removeBlockFinally(_context);
         }
     }
 }

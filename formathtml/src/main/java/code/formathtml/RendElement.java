@@ -83,19 +83,19 @@ public abstract class RendElement extends RendParentBlock implements RendWithEl,
         for (EntryCust<String,ResultText> e: attributesText.entryList()) {
             ResultText res_ = e.getValue();
             String txt_ = ResultText.render(res_.getOpExp(), res_.getTexts(), _cont);
-            if (_cont.getContext().hasExceptionOrFailInit()) {
+            if (_cont.getContext().hasException()) {
                 return;
             }
             ((Element)nextWrite_).setAttribute(e.getKey(),txt_);
         }
         processExecAttr(_cont,nextWrite_,read);
-        if (_cont.getContext().hasExceptionOrFailInit()) {
+        if (_cont.getContext().hasException()) {
             return;
         }
         for (EntryCust<String,ResultText> e: attributes.entryList()) {
             ResultText res_ = e.getValue();
             String txt_ = ResultText.render(res_.getOpExp(), res_.getTexts(), _cont);
-            if (_cont.getContext().hasExceptionOrFailInit()) {
+            if (_cont.getContext().hasException()) {
                 return;
             }
             ((Element)nextWrite_).setAttribute(e.getKey(),txt_);

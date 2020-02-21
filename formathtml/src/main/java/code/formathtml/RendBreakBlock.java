@@ -5,6 +5,7 @@ import code.expressionlanguage.errors.custom.UnexpectedTagName;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.stacks.LoopStack;
+import code.expressionlanguage.structs.Struct;
 import code.formathtml.stacks.*;
 import code.util.StringList;
 
@@ -85,5 +86,10 @@ public final class RendBreakBlock extends RendLeaf implements RendBuildableElMet
         if (stack_ instanceof LoopStack) {
             ((LoopStack)stack_).setFinished(true);
         }
+    }
+
+    @Override
+    public RendAbruptCallingFinally newAbruptCallingFinally(Struct _struct) {
+        return new RendAbruptCallingFinally(this);
     }
 }

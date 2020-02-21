@@ -50,7 +50,7 @@ public final class RenderForEachTableTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
         assertEq("<html><body><table><tr><td>ONE</td><td>1</td></tr><tr><td>TWO</td><td>2</td></tr></table></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(conf_.getException());
+        assertNull(getException(conf_));
     }
     @Test
     public void process2Test() {
@@ -77,7 +77,7 @@ public final class RenderForEachTableTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(context_);
         assertTrue(context_.getClasses().isEmptyErrors());
         assertEq("<html><body><table><tr><td>ONE</td><td>1</td></tr><tr><td>TWO</td><td>2</td></tr></table></body></html>", RendBlock.getRes(rendDocumentBlock_,context_));
-        assertNull(context_.getException());
+        assertNull(getException(context_));
     }
     @Test
     public void process3Test() {
@@ -103,7 +103,7 @@ public final class RenderForEachTableTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(context_);
         assertTrue(context_.getClasses().isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_, context_);
-        assertNotNull(context_.getException());
+        assertNotNull(getException(context_));
     }
     @Test
     public void process4Test() {
@@ -129,7 +129,7 @@ public final class RenderForEachTableTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(context_);
         assertTrue(context_.getClasses().isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_, context_);
-        assertNotNull(context_.getException());
+        assertNotNull(getException(context_));
     }
 
     @Test
@@ -162,7 +162,7 @@ public final class RenderForEachTableTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
         assertEq("<html><body><table><tr><td>ONE</td><td>1</td></tr><tr><td>TWO</td><td>2</td></tr></table></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(conf_.getException());
+        assertNull(getException(conf_));
     }
 
     @Test
@@ -195,7 +195,7 @@ public final class RenderForEachTableTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
         assertEq("<html><body><table><tr><td>ONE</td><td>1</td><td>ONE</td><td>1</td></tr><tr><td>ONE</td><td>1</td><td>TWO</td><td>2</td></tr><tr><td>TWO</td><td>2</td><td>ONE</td><td>1</td></tr><tr><td>TWO</td><td>2</td><td>TWO</td><td>2</td></tr></table></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(conf_.getException());
+        assertNull(getException(conf_));
     }
     @Test
     public void process7Test() {
@@ -221,7 +221,7 @@ public final class RenderForEachTableTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(context_);
         assertTrue(context_.getClasses().isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_, context_);
-        assertNotNull(context_.getException());
+        assertNotNull(getException(context_));
     }
     @Test
     public void process8Test() {
@@ -247,7 +247,7 @@ public final class RenderForEachTableTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(context_);
         assertTrue(context_.getClasses().isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_, context_);
-        assertNotNull(context_.getException());
+        assertNotNull(getException(context_));
     }
     @Test
     public void process9Test() {
@@ -273,7 +273,7 @@ public final class RenderForEachTableTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(context_);
         assertTrue(context_.getClasses().isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_, context_);
-        assertNotNull(context_.getException());
+        assertNotNull(getException(context_));
     }
     @Test
     public void process10Test() {
@@ -299,7 +299,7 @@ public final class RenderForEachTableTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(context_);
         assertTrue(context_.getClasses().isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_, context_);
-        assertNotNull(context_.getException());
+        assertNotNull(getException(context_));
     }
     @Test
     public void process11Test() {
@@ -325,7 +325,7 @@ public final class RenderForEachTableTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(context_);
         assertTrue(context_.getClasses().isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_, context_);
-        assertNotNull(context_.getException());
+        assertNotNull(getException(context_));
     }
     @Test
     public void process12Test() {
@@ -350,7 +350,7 @@ public final class RenderForEachTableTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(context_);
         assertTrue(context_.getClasses().isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_, context_);
-        assertNotNull(context_.getException());
+        assertNotNull(getException(context_));
     }
     @Test
     public void process13Test() {
@@ -374,7 +374,7 @@ public final class RenderForEachTableTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(context_);
         assertTrue(context_.getClasses().isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_, context_);
-        assertNotNull(context_.getException());
+        assertNotNull(getException(context_));
     }
     @Test
     public void process14Test() {
@@ -401,7 +401,7 @@ public final class RenderForEachTableTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(context_);
         assertTrue(context_.getClasses().isEmptyErrors());
         assertEq("<html><body><table><tr><td>ONE</td><td>1</td></tr><tr><td>TWO</td><td>2</td></tr></table></body></html>", RendBlock.getRes(rendDocumentBlock_,context_));
-        assertNull(context_.getException());
+        assertNull(getException(context_));
     }
     @Test
     public void process15Test() {
@@ -428,7 +428,7 @@ public final class RenderForEachTableTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(context_);
         assertTrue(context_.getClasses().isEmptyErrors());
         assertEq("<html><body><table><tr><td>ONE</td><td>1</td></tr><tr><td>TWO</td><td>2</td></tr></table></body></html>", RendBlock.getRes(rendDocumentBlock_,context_));
-        assertNull(context_.getException());
+        assertNull(getException(context_));
     }
     @Test
     public void process16Test() {
@@ -455,7 +455,7 @@ public final class RenderForEachTableTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(context_);
         assertTrue(context_.getClasses().isEmptyErrors());
         assertEq("<html><body><table><tr><td>ONE</td><td>1</td></tr><tr><td>TWO</td><td>2</td></tr></table></body></html>", RendBlock.getRes(rendDocumentBlock_,context_));
-        assertNull(context_.getException());
+        assertNull(getException(context_));
     }
 
     @Test
@@ -495,7 +495,7 @@ public final class RenderForEachTableTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
         assertEq("<html><body><table><tr><td>ONE</td><td>1</td></tr><tr><td>TWO</td><td>2</td></tr></table></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(conf_.getException());
+        assertNull(getException(conf_));
     }
 
     @Test
@@ -537,7 +537,7 @@ public final class RenderForEachTableTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
         assertEq("<html><body><table><tr><td>ONE</td><td>1</td><td>ONE</td><td>1</td></tr><tr><td>ONE</td><td>1</td><td>TWO</td><td>2</td></tr><tr><td>TWO</td><td>2</td><td>ONE</td><td>1</td></tr><tr><td>TWO</td><td>2</td><td>TWO</td><td>2</td></tr></table></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(conf_.getException());
+        assertNull(getException(conf_));
     }
     @Test
     public void process19Test() {
@@ -561,7 +561,7 @@ public final class RenderForEachTableTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(context_);
         assertTrue(context_.getClasses().isEmptyErrors());
         assertEq("<html><body><table/></body></html>", RendBlock.getRes(rendDocumentBlock_,context_));
-        assertNull(context_.getException());
+        assertNull(getException(context_));
     }
     @Test
     public void process1FailTest() {

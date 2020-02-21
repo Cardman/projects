@@ -53,7 +53,7 @@ public final class ExecSettableFieldOperation extends
         if (!staticField_) {
             previous_.setStruct(PrimitiveTypeUtil.getParent(anc, className_, _previous.getStruct(), _conf));
         }
-        if (_conf.getContextEl().hasExceptionOrFailInit()) {
+        if (_conf.getContextEl().callsOrException()) {
             return Argument.createVoid();
         }
         return ExecInvokingOperation.getField(className_, fieldName_, staticField_, previous_, _conf, off_);
@@ -107,7 +107,7 @@ public final class ExecSettableFieldOperation extends
         if (!isStatic_) {
             previous_.setStruct(PrimitiveTypeUtil.getParent(anc, className_, _previous.getStruct(), _conf));
         }
-        if (_conf.getContextEl().hasExceptionOrFailInit()) {
+        if (_conf.getContextEl().callsOrException()) {
             return Argument.createVoid();
         }
         //Come from code directly so constant static fields can be initialized here
@@ -121,7 +121,7 @@ public final class ExecSettableFieldOperation extends
 
         left_.setStruct(_store);
         res_ = ExecNumericOperation.calculateAffect(left_, _conf, _right, _op, catString, _arg);
-        if (_conf.getContextEl().hasExceptionOrFailInit()) {
+        if (_conf.getContextEl().callsOrException()) {
             return res_;
         }
         return getCommonSetting(_previous,_conf,res_);

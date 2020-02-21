@@ -70,7 +70,7 @@ public final class RendSuperFctOperation extends RendInvokingOperation implement
             prev_.setStruct(_previous.getStruct());
             classNameFound_ = classMethodId.getClassName();
             prev_.setStruct(PrimitiveTypeUtil.getParent(anc, classNameFound_, prev_.getStruct(), _conf));
-            if (_conf.getContextEl().hasExceptionOrFailInit()) {
+            if (_conf.getContextEl().hasException()) {
                 Argument a_ = new Argument();
                 return a_;
             }

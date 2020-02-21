@@ -3168,7 +3168,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq("code.util.exceptions.NullObjectException", cont_.getException().getClassName(cont_));
+        assertEq("code.util.exceptions.NullObjectException", getException(cont_).getClassName(cont_));
     }
     @Test
     public void calculateArgument811Test() {
@@ -3194,7 +3194,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq("code.util.exceptions.NullObjectException", cont_.getException().getClassName(cont_));
+        assertEq("code.util.exceptions.NullObjectException", getException(cont_).getClassName(cont_));
     }
     @Test
     public void calculateArgument82Test() {

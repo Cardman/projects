@@ -3,6 +3,7 @@ package code.expressionlanguage.methods;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.InitializationLgNames;
+import code.expressionlanguage.calls.util.CallingState;
 import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.options.ContextFactory;
 import code.expressionlanguage.options.KeyWords;
@@ -246,5 +247,12 @@ public abstract class ProcessMethodCommon {
     }
     protected static Struct getStruct(Struct _struct, ClassField _cl) {
         return ((FieldableStruct) _struct).getEntryStruct(_cl).getValue();
+    }
+    protected static Struct getException(ContextEl _cont) {
+        CallingState str_ = _cont.getCallingState();
+        if (str_ instanceof Struct) {
+            return (Struct) str_;
+        }
+        return null;
     }
 }

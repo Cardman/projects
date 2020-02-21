@@ -99,15 +99,12 @@ public class DefaultInitializer implements Initializer {
     protected boolean exitAfterCall(ContextEl _owner) {
         AbstractPageEl abs_ = _owner.processAfterOperation();
         if (abs_ != null) {
-            addPage(_owner, abs_);
+            _owner.addPage(abs_);
         }
-        return _owner.hasExceptionOrFailInit();
+        _owner.processException();
+        return _owner.callsOrException();
     }
 
-    private void addPage(ContextEl _conf, AbstractPageEl _page) {
-        _conf.addPage(_page);
-        _conf.processException();
-    }
     protected Struct init(ContextEl _context, Struct _parent,
             String _className, String _fieldName, int _ordinal, ObjectMap<ClassField,Struct> _fields) {
         if (_fieldName.isEmpty()) {

@@ -43,7 +43,7 @@ public final class RendThrowing extends RendLeaf implements RendBuildableElMetho
         ip_.setOffset(expressionOffset);
         ip_.setProcessingAttribute(ATTRIBUTE_VALUE);
         Argument argument_ = RenderExpUtil.calculateReuse(opThrow, _cont);
-        if (_cont.getContext().hasExceptionOrFailInit()) {
+        if (_cont.getContext().hasException()) {
             return;
         }
         Struct o_ = argument_.getStruct();

@@ -734,7 +734,7 @@ public final class ProcessMethodCompoundOperatorTest extends ProcessMethodCommon
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         calculateArgument("pkg.Apply", id_, args_, cont_);
-        Struct exc_ = cont_.getException();
+        Struct exc_ = getException(cont_);
         assertEq("$core.DefErrorClass",exc_.getClassName(cont_));
         CausingErrorStruct cause_ = (CausingErrorStruct)exc_;
         assertEq("$core.DivideZero",cause_.getCause().getClassName(cont_));
@@ -828,7 +828,7 @@ public final class ProcessMethodCompoundOperatorTest extends ProcessMethodCommon
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         calculateArgument("pkg.Apply", id_, args_, cont_);
-        Struct exc_ = cont_.getException();
+        Struct exc_ = getException(cont_);
         assertEq("$core.DefErrorClass",exc_.getClassName(cont_));
         CausingErrorStruct cause_ = (CausingErrorStruct)exc_;
         assertEq("$core.DivideZero",cause_.getCause().getClassName(cont_));
@@ -862,7 +862,7 @@ public final class ProcessMethodCompoundOperatorTest extends ProcessMethodCommon
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         calculateArgument("pkg.Apply", id_, args_, cont_);
-        Struct exc_ = cont_.getException();
+        Struct exc_ = getException(cont_);
         assertEq("$core.DefErrorClass",exc_.getClassName(cont_));
         CausingErrorStruct cause_ = (CausingErrorStruct)exc_;
         assertEq("$core.DivideZero",cause_.getCause().getClassName(cont_));

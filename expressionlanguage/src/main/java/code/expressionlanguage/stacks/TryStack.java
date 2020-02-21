@@ -1,10 +1,8 @@
 package code.expressionlanguage.stacks;
-import code.expressionlanguage.structs.Struct;
 
 public abstract class TryStack {
 
     private boolean visitedFinally;
-    private Struct exception;
 
     public boolean isVisitedFinally() {
         return visitedFinally;
@@ -12,14 +10,6 @@ public abstract class TryStack {
 
     public void setVisitedFinally(boolean _visitedFinally) {
         visitedFinally = _visitedFinally;
-    }
-
-    public Struct getException() {
-        return exception;
-    }
-
-    public void setException(Struct _exception) {
-        exception = _exception;
     }
 
 }

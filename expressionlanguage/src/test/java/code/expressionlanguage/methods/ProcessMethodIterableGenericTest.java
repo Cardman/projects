@@ -567,7 +567,7 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
 
         instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
-        assertNotNull(cont_.getException());
+        assertNotNull(getException(cont_));
     }
     @Test
     public void instanceArgument134Test() {
@@ -1737,7 +1737,7 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         instanceArgument("pkg.Ex", null, id_, args_, cont_);
-        assertNotNull(cont_.getException());
+        assertNotNull(getException(cont_));
     }
     @Test
     public void instanceArgument163Test() {
@@ -2087,7 +2087,7 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
         instanceArgument("pkg.Ex", null, id_, args_, cont_);
-        assertEq("code.util.exceptions.NullObjectException",cont_.getException().getClassName(cont_));
+        assertEq("code.util.exceptions.NullObjectException",getException(cont_).getClassName(cont_));
     }
     @Test
     public void instanceArgument5FailTest() {
@@ -2111,7 +2111,7 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
         instanceArgument("pkg.Ex", null, id_, args_, cont_);
-        assertEq("code.util.exceptions.NullObjectException",cont_.getException().getClassName(cont_));
+        assertEq("code.util.exceptions.NullObjectException",getException(cont_).getClassName(cont_));
     }
     @Test
     public void instanceArgument6FailTest() {
@@ -2135,7 +2135,7 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
         instanceArgument("pkg.Ex", null, id_, args_, cont_);
-        assertEq("code.util.exceptions.NullObjectException",cont_.getException().getClassName(cont_));
+        assertEq("code.util.exceptions.NullObjectException",getException(cont_).getClassName(cont_));
     }
     @Test
     public void instanceArgument7FailTest() {

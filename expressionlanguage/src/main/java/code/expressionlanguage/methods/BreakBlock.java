@@ -10,6 +10,7 @@ import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.stacks.*;
+import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.IdList;
 import code.util.IdMap;
@@ -164,4 +165,8 @@ public final class BreakBlock extends AbruptBlock implements CallingFinally {
         }
     }
 
+    @Override
+    public AbruptCallingFinally newAbruptCallingFinally(Struct _struct) {
+        return new AbruptCallingFinally(this);
+    }
 }

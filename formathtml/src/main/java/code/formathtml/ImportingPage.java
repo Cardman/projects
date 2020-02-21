@@ -192,8 +192,7 @@ public final class ImportingPage {
         RendParentBlock br_ = try_.getLastBlock();
         if (br_ instanceof RendFinallyEval) {
             _ip.getRendReadWrite().setRead(br_);
-            try_.setException(_ex);
-            try_.setCalling(_call);
+            try_.setCalling(_call.newAbruptCallingFinally(_ex));
             return true;
         }
         _ip.removeRendLastBlock();

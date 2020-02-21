@@ -256,7 +256,7 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
             return;
         }
         Struct its_ = processLoop(_cont);
-        if (_cont.getContext().hasExceptionOrFailInit()) {
+        if (_cont.getContext().hasException()) {
             return;
         }
         Struct iterStr_ = null;
@@ -271,7 +271,7 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
             }
         } else {
             Argument arg_ = iterator(its_,_cont);
-            if (_cont.getContext().hasExceptionOrFailInit()) {
+            if (_cont.getContext().hasException()) {
                 return;
             }
             iterStr_ = arg_.getStruct();
@@ -299,7 +299,7 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
         ip_.setOffset(expressionOffset);
         ip_.setProcessingAttribute(ATTRIBUTE_LIST);
         Argument arg_ = RenderExpUtil.calculateReuse(opList,_conf);
-        if (_conf.getContext().hasExceptionOrFailInit()) {
+        if (_conf.getContext().hasException()) {
             return NullStruct.NULL_VALUE;
         }
         Struct ito_ = arg_.getStruct();
@@ -352,7 +352,7 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
         RendLoopBlockStack l_ = (RendLoopBlockStack) ip_.getRendLastStack();
         Struct strIter_ = l_.getStructIterator();
         Argument arg_ = hasNext(strIter_,_conf);
-        if (_conf.getContext().hasExceptionOrFailInit()) {
+        if (_conf.getContext().hasException()) {
             return null;
         }
         return ((BooleanStruct) arg_.getStruct()).getInstance();
@@ -376,7 +376,7 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
             LongStruct lg_ = new LongStruct(_l.getIndex());
             element_ = ExecInvokingOperation.getElement(container_, lg_, _conf);
         }
-        if (_conf.getContext().hasExceptionOrFailInit()) {
+        if (_conf.getContext().hasException()) {
             return;
         }
         if (!el_.getResultClass().isArray()) {

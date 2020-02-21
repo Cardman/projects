@@ -34,16 +34,15 @@ public abstract class AbstractPageEl extends PageEl {
     private StringMap<LocalVariable> internVars = new StringMap<LocalVariable>();
     private FileBlock file;
 
-    public boolean receive(Argument _argument, ContextEl _context) {
-        return basicReceive(_argument,_context);
+    public void receive(Argument _argument, ContextEl _context) {
+        basicReceive(_argument,_context);
     }
 
-    boolean basicReceive(Argument _argument, ContextEl _context) {
+    void basicReceive(Argument _argument, ContextEl _context) {
         if (isEmptyEl()) {
-            return true;
+            return;
         }
         getLastEl().setArgument(_argument, _context);
-        return _context.processException();
     }
 
     public void processVisitedLoop(LoopBlockStack _l,Loop _bl,Block _next,ContextEl _context) {
@@ -164,8 +163,7 @@ public abstract class AbstractPageEl extends PageEl {
         BracedBlock br_ = try_.getLastBlock();
         if (br_ instanceof FinallyEval) {
             _ip.getReadWrite().setBlock(br_);
-            try_.setException(_ex);
-            try_.setCalling(_call);
+            try_.setCalling(_call.newAbruptCallingFinally(_ex));
             return true;
         }
         _ip.removeLastBlock();

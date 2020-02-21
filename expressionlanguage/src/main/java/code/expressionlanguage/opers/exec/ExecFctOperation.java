@@ -78,7 +78,7 @@ public final class ExecFctOperation extends ExecInvokingOperation implements Nam
                 return callPrepare(_conf, classNameFound_, methodId_, _previous, firstArgs_, null);
             }
             prev_.setStruct(PrimitiveTypeUtil.getParent(anc, classNameFound_, argPrev_, _conf));
-            if (_conf.getContextEl().hasExceptionOrFailInit()) {
+            if (_conf.getContextEl().callsOrException()) {
                 return new Argument();
             }
             String base_ = Templates.getIdFromAllTypes(classNameFound_);

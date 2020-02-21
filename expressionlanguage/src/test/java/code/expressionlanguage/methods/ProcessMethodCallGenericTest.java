@@ -40,7 +40,7 @@ public final class ProcessMethodCallGenericTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
         instanceArgument("pkg.Ex", null, id_, args_, cont_);
-        assertNotNull(cont_.getException());
+        assertNotNull(getException(cont_));
     }
     @Test
     public void instanceArgument99Test() {
@@ -1840,7 +1840,7 @@ public final class ProcessMethodCallGenericTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
         instanceArgument("pkg.Ex", null, id_, args_, cont_);
-        assertNotNull(cont_.getException());
+        assertNotNull(getException(cont_));
     }
     @Test
     public void instanceArgument139Test() {
@@ -1867,7 +1867,7 @@ public final class ProcessMethodCallGenericTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
         instanceArgument("pkg.Ex", null, id_, args_, cont_);
-        assertNotNull(cont_.getException());
+        assertNotNull(getException(cont_));
     }
     @Test
     public void instanceArgument140Test() {

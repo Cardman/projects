@@ -3,6 +3,7 @@ package code.expressionlanguage.inherits;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.InitializationLgNames;
+import code.expressionlanguage.calls.util.CallingState;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
@@ -930,7 +931,7 @@ public final class PrimitiveTypeUtilTest {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl c_ = unfullValidateOverridingMethods(files_);
         assertSame(NullStruct.NULL_VALUE, PrimitiveTypeUtil.getParent(0,"pkg.Ex",new IntStruct(1),c_));
-        assertNotNull(c_.getException());
+        assertNotNull(getException(c_));
     }
 
     @Test
@@ -947,7 +948,7 @@ public final class PrimitiveTypeUtilTest {
         Struct par_  = c_.getInit().processInit(c_,NullStruct.NULL_VALUE,"pkg.Ex","",-1);
         Struct in_ = c_.getInit().processInit(c_,par_,"pkg.Ex..Inner","",-1);
         PrimitiveTypeUtil.getParent(0,"java.lang.Integer",in_,c_);
-        assertNotNull(c_.getException());
+        assertNotNull(getException(c_));
     }
     @Test
     public void getParent3Test() {
@@ -964,7 +965,7 @@ public final class PrimitiveTypeUtilTest {
         Struct in_ = c_.getInit().processInit(c_,par_,"pkg.Ex..Inner","",-1);
         Struct inTwo_ = c_.getInit().processInit(c_,in_,"pkg.Ex..Inner","",-1);
         PrimitiveTypeUtil.getParent(0,"java.lang.Integer",inTwo_,c_);
-        assertNotNull(c_.getException());
+        assertNotNull(getException(c_));
     }
     @Test
     public void getSubclasses1Test() {
@@ -3665,6 +3666,13 @@ public final class PrimitiveTypeUtilTest {
         classes_.validateEl(cont_, false);
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
         return cont_;
+    }
+    private static Struct getException(ContextEl _cont) {
+        CallingState str_ = _cont.getCallingState();
+        if (str_ instanceof Struct) {
+            return (Struct) str_;
+        }
+        return null;
     }
     private ContextEl simpleContextEl() {
         Options opt_ = new Options();

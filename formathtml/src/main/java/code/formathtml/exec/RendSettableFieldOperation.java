@@ -123,7 +123,7 @@ public final class RendSettableFieldOperation extends
         if (!isStatic_) {
             previous_.setStruct(PrimitiveTypeUtil.getParent(anc, className_, _previous.getStruct(), _conf));
         }
-        if (_conf.getContextEl().hasExceptionOrFailInit()) {
+        if (_conf.getContextEl().hasException()) {
             return Argument.createVoid();
         }
         //Come from code directly so constant static fields can be initialized here

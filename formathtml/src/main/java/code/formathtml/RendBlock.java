@@ -168,7 +168,7 @@ public abstract class RendBlock implements AnalyzedBlock {
         _conf.addPage(new ImportingPage());
         beforeDisplaying(bean_,_conf);
         _conf.removeLastPage();
-        if (_conf.getContext().hasExceptionOrFailInit()) {
+        if (_conf.getContext().hasException()) {
             return EMPTY_STRING;
         }
         ImportingPage ip_ = new ImportingPage();
@@ -200,14 +200,14 @@ public abstract class RendBlock implements AnalyzedBlock {
                 continue;
             }
             processTags(_conf);
-            if (_conf.getContext().hasExceptionOrFailInit()) {
+            if (_conf.getContext().hasException()) {
                 _conf.getRendLocalThrowing().removeBlockFinally(_conf);
             }
-            if (_conf.getContext().hasExceptionOrFailInit()) {
+            if (_conf.getContext().hasException()) {
                 break;
             }
         }
-        if (_conf.getContext().hasExceptionOrFailInit()) {
+        if (_conf.getContext().hasException()) {
             return EMPTY_STRING;
         }
         LongMap<LongTreeMap<NodeContainer>> containersMap_ = _conf.getContainersMap();
@@ -633,7 +633,7 @@ public abstract class RendBlock implements AnalyzedBlock {
             return;
         }
         String render_ = ResultText.render(_opExp, _texts, _cont);
-        if (_cont.getContext().hasExceptionOrFailInit()) {
+        if (_cont.getContext().hasException()) {
             _cont.getAnchorsNames().add(EMPTY_STRING);
             incrAncNb(_cont, _nextWrite);
             return;
@@ -780,7 +780,7 @@ public abstract class RendBlock implements AnalyzedBlock {
         ClassField idField_ = _f.getIdField();
         String varName_ = _f.getVarName();
         IdMap<RendDynOperationNode, ArgumentsPair> args_ = RenderExpUtil.getAllArgs(opsRead_, _cont);
-        if (_cont.getContext().hasExceptionOrFailInit()) {
+        if (_cont.getContext().hasException()) {
             return Argument.createVoid();
         }
         RendDynOperationNode root_ = args_.lastKey();
@@ -859,7 +859,7 @@ public abstract class RendBlock implements AnalyzedBlock {
 //        _conf.getLastPage().setProcessingAttribute(StringList.concat(_cont.getPrefix(),ATTRIBUTE_VAR_VALUE));
 //        _conf.getLastPage().setLookForAttrValue(true);
 //        _conf.getLastPage().setOffset(0);
-        if (_cont.getContext().hasExceptionOrFailInit()) {
+        if (_cont.getContext().hasException()) {
             return;
         }
         String name_ = _read.getAttribute(ATTRIBUTE_NAME);
@@ -871,7 +871,7 @@ public abstract class RendBlock implements AnalyzedBlock {
         }
         if (StringList.quickEq(_read.getTagName(),INPUT_TAG)) {
             Argument o_ = RenderExpUtil.calculateReuse(_ops,_cont);
-            if (_cont.getContext().getException() != null) {
+            if (_cont.getContext().hasException()) {
                 return;
             }
             if (StringList.quickEq(_read.getAttribute(ATTRIBUTE_TYPE),CHECKBOX)) {
@@ -882,11 +882,11 @@ public abstract class RendBlock implements AnalyzedBlock {
                 }
             } else {
                 o_ = convertField(_cont,o_,_varNameConv,_opsConv);
-                if (_cont.getContext().getException() != null) {
+                if (_cont.getContext().hasException()) {
                     return;
                 }
                 String value_ = _cont.getAdvStandards().processString(o_, _cont);
-                if (_cont.getContext().getException() != null) {
+                if (_cont.getContext().hasException()) {
                     return;
                 }
                 _write.setAttribute(ATTRIBUTE_VALUE, value_);
@@ -894,16 +894,16 @@ public abstract class RendBlock implements AnalyzedBlock {
         }
         if (StringList.quickEq(_read.getTagName(),TEXT_AREA)) {
             Argument o_ = RenderExpUtil.calculateReuse(_ops,_cont);
-            if (_cont.getContext().getException() != null) {
+            if (_cont.getContext().hasException()) {
                 return;
             }
             o_ = convertField(_cont,o_,_varNameConv,_opsConv);
-            if (_cont.getContext().getException() != null) {
+            if (_cont.getContext().hasException()) {
                 return;
             }
             Document doc_ = _write.getOwnerDocument();
             String value_ = _cont.getAdvStandards().processString(o_, _cont);
-            if (_cont.getContext().getException() != null) {
+            if (_cont.getContext().hasException()) {
                 return;
             }
             Text text_ = doc_.createTextNode(value_);
@@ -918,7 +918,7 @@ public abstract class RendBlock implements AnalyzedBlock {
             _cont.getLastPage().putLocalVar(_varNameConv, locVar_);
             Argument arg_ = RenderExpUtil.calculateReuse(_opsConv, _cont);
             _cont.getLastPage().removeLocalVar(_varNameConv);
-            if (_cont.getContext().getException() != null) {
+            if (_cont.getContext().hasException()) {
                 return Argument.createVoid();
             }
             o_ = arg_;
@@ -933,7 +933,7 @@ public abstract class RendBlock implements AnalyzedBlock {
     }
     static String escapeParam(Configuration _conf, Argument _arg) {
         String str_ = _conf.getAdvStandards().processString(_arg,_conf);
-        if (_conf.getContext().hasExceptionOrFailInit()) {
+        if (_conf.getContext().hasException()) {
             return str_;
         }
         StringMap<String> rep_ = new StringMap<String>();

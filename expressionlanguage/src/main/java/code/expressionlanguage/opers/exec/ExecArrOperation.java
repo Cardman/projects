@@ -52,7 +52,7 @@ public final class ExecArrOperation extends ExecInvokingOperation implements Exe
             int indexEl_ = chidren_.get(i).getIndexInEl();
             setRelativeOffsetPossibleLastPage(indexEl_, _conf);
             array_ = ExecInvokingOperation.getElement(array_, o_, _conf);
-            if (_conf.hasExceptionOrFailInit()) {
+            if (_conf.callsOrException()) {
                 return a_;
             }
         }
@@ -127,7 +127,7 @@ public final class ExecArrOperation extends ExecInvokingOperation implements Exe
         left_.setStruct(_stored);
         Argument res_;
         res_ = ExecNumericOperation.calculateAffect(left_, _conf, _right, _op, catString, _arg);
-        if (_conf.getContextEl().hasExceptionOrFailInit()) {
+        if (_conf.getContextEl().callsOrException()) {
             return _stored;
         }
         ExecInvokingOperation.setElement(_array, o_, res_.getStruct(), _conf);

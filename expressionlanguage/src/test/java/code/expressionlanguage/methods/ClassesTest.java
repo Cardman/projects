@@ -36,7 +36,6 @@ public final class ClassesTest {
         MethodId id_ = new MethodId(MethodAccessKind.STATIC, "", new StringList());
         assertEq(0, Classes.getOperatorsBodiesById(cont_, id_).size());
         assertTrue(Classes.isHiddenField("","java.lang.$iterable","other",cont_));
-        assertNull(cont_.getCallingState());
         assertNull(cont_.getFile(""));
         assertEq(0,ContextEl.getConstructorBlocks(null).size());
         assertEq(0,ContextEl.getFieldBlocks(null).size());

@@ -20,7 +20,7 @@ final class RendRequestUtil {
 
     static Struct invokeMethodWithNumbersBis(Configuration _conf, String _action) {
         Argument arg_ = RenderExpUtil.processEl(_action, 0, _conf);
-        if (!_conf.getClasses().getErrorsDet().isEmpty() || _conf.getContext().getException() != null) {
+        if (!_conf.getClasses().getErrorsDet().isEmpty() || _conf.getContext().hasException()) {
             return NullStruct.NULL_VALUE;
         }
         return arg_.getStruct();
@@ -47,7 +47,7 @@ final class RendRequestUtil {
         for (String n: varNames_) {
             ip_.removeLocalVar(n);
         }
-        if (_conf.getContext().getException() != null) {
+        if (_conf.getContext().hasException()) {
             return NullStruct.NULL_VALUE;
         }
         return arg_.getStruct();

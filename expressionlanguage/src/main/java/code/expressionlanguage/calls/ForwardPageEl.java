@@ -4,5 +4,5 @@ import code.expressionlanguage.ContextEl;
 
 public interface ForwardPageEl {
 
-    boolean forwardTo(AbstractPageEl _page, ContextEl _context);
+    void forwardTo(AbstractPageEl _page, ContextEl _context);
 }

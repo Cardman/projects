@@ -225,7 +225,7 @@ public abstract class BeanLgNames extends LgNames {
             _conf.getLastPage().setGlobalArgumentStruct(_container.getBean(), _conf);
             Argument res_ = RenderExpUtil.calculateReuse(ops_, _conf);
             ResultErrorStd out_ = new ResultErrorStd();
-            if (_conf.getContext().hasExceptionOrFailInit()) {
+            if (_conf.getContext().hasException()) {
                 return out_;
             }
             out_.setResult(res_.getStruct());

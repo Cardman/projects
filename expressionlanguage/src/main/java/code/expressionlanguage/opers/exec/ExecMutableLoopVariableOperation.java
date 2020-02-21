@@ -125,7 +125,7 @@ public final class ExecMutableLoopVariableOperation extends ExecLeafOperation im
     }
 
     public static void setVar(ExecutableCode _conf, LoopVariable _var,Argument _value) {
-        if (_conf.getContextEl().hasExceptionOrFailInit()) {
+        if (_conf.getContextEl().callsOrException()) {
             return;
         }
         checkSet(_conf,_var,_value);

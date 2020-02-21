@@ -658,7 +658,7 @@ public final class ProcessMethodSimpleTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq("code.expressionlanguage.exceptions.DynamicCastClassException", cont_.getException().getClassName(cont_));
+        assertEq("code.expressionlanguage.exceptions.DynamicCastClassException", getException(cont_).getClassName(cont_));
     }
     @Test
     public void calculateArgument37Test() {
@@ -676,7 +676,7 @@ public final class ProcessMethodSimpleTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq("code.expressionlanguage.exceptions.DynamicCastClassException", cont_.getException().getClassName(cont_));
+        assertEq("code.expressionlanguage.exceptions.DynamicCastClassException", getException(cont_).getClassName(cont_));
     }
     @Test
     public void calculateArgument38Test() {

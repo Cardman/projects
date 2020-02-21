@@ -75,7 +75,7 @@ public final class ExecCustArrOperation extends ExecInvokingOperation implements
         left_.setStruct(store_);
         Argument res_;
         res_ = ExecNumericOperation.calculateAffect(left_, _conf, _right, _op, catString, getResultClass());
-        if (_conf.getContextEl().hasExceptionOrFailInit()) {
+        if (_conf.getContextEl().callsOrException()) {
             return Argument.createVoid();
         }
         return getArgument(previous_, arguments_, _conf,res_);
@@ -126,7 +126,7 @@ public final class ExecCustArrOperation extends ExecInvokingOperation implements
         classNameFound_ = classMethodId.getClassName();
         Struct argPrev_ = _previous.getStruct();
         prev_.setStruct(PrimitiveTypeUtil.getParent(anc, classNameFound_, argPrev_, _conf));
-        if (_conf.getContextEl().hasExceptionOrFailInit()) {
+        if (_conf.getContextEl().callsOrException()) {
             return new Argument();
         }
         String base_ = Templates.getIdFromAllTypes(classNameFound_);

@@ -43,9 +43,9 @@ public abstract class AbstractMethodPageEl extends AbstractPageEl implements For
     }
 
     @Override
-    public boolean forwardTo(AbstractPageEl _page, ContextEl _context) {
+    public void forwardTo(AbstractPageEl _page, ContextEl _context) {
         Argument a_ = getReturnedArgument();
-        return _page.receive(a_, _context);
+        _page.receive(a_, _context);
     }
 
 }

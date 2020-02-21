@@ -5,6 +5,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.InitializationLgNames;
 import code.expressionlanguage.calls.MethodPageEl;
+import code.expressionlanguage.calls.util.CallingState;
 import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.FieldBlock;
@@ -5843,7 +5844,7 @@ public final class ExpressionLanguageTest {
         ContextEl c_ = analyze(_el);
         addImportingPage(c_);
         calculatePrepareStaticResult(c_, true);
-        return c_.getException();
+        return (Struct)c_.getCallingState();
     }
 
     private static ContextEl analyze(String _el) {
@@ -5938,13 +5939,20 @@ public final class ExpressionLanguageTest {
         ExpressionLanguage el_ = f_.getValueEl();
         Argument arg_ = el_.calculateMember(_context);
         if (!_exc) {
-            assertNull(_context.getException());
+            assertNull(getException(_context));
         } else {
-            assertNotNull(_context.getException());
+            assertNotNull(getException(_context));
         }
         return arg_;
     }
 
+    protected static Struct getException(ContextEl _cont) {
+        CallingState str_ = _cont.getCallingState();
+        if (str_ instanceof Struct) {
+            return (Struct) str_;
+        }
+        return null;
+    }
     private static String addonFileStaticResult(String _el) {
         StringBuilder str_ = new StringBuilder();
         str_.append("$public $class code.formathtml.classes.Apply {\n");

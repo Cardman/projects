@@ -127,7 +127,7 @@ public final class RendCustArrOperation extends RendInvokingOperation implements
         classNameFound_ = classMethodId.getClassName();
         Struct argPrev_ = _previous.getStruct();
         prev_.setStruct(PrimitiveTypeUtil.getParent(anc, classNameFound_, argPrev_, _conf));
-        if (_conf.getContextEl().hasExceptionOrFailInit()) {
+        if (_conf.getContextEl().hasException()) {
             return new Argument();
         }
         String base_ = Templates.getIdFromAllTypes(classNameFound_);

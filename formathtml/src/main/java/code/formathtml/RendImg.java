@@ -30,7 +30,7 @@ public final class RendImg extends RendElement {
     @Override
     protected void processExecAttr(Configuration _cont, MutableNode _nextWrite, Element _read) {
         String pageName_ = ResultText.render(opExp,texts,_cont);
-        if (_cont.getContext().getException() != null) {
+        if (_cont.getContext().hasException()) {
             return;
         }
         String lg_ = _cont.getCurrentLanguage();

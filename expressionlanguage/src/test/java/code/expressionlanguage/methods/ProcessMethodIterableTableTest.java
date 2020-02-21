@@ -238,7 +238,7 @@ public final class ProcessMethodIterableTableTest extends ProcessMethodCommon {
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         instanceArgument("pkg.Ex", null, id_, args_, cont_);
-        assertEq("code.util.exceptions.NullObjectException",cont_.getException().getClassName(cont_));
+        assertEq("code.util.exceptions.NullObjectException",getException(cont_).getClassName(cont_));
     }
     @Test
     public void instanceArgument125Test() {
@@ -267,7 +267,7 @@ public final class ProcessMethodIterableTableTest extends ProcessMethodCommon {
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         instanceArgument("pkg.Ex", null, id_, args_, cont_);
-        assertEq("code.util.exceptions.NullObjectException",cont_.getException().getClassName(cont_));
+        assertEq("code.util.exceptions.NullObjectException",getException(cont_).getClassName(cont_));
     }
     @Test
     public void instanceArgument126Test() {
@@ -295,7 +295,7 @@ public final class ProcessMethodIterableTableTest extends ProcessMethodCommon {
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         instanceArgument("pkg.Ex", null, id_, args_, cont_);
-        assertEq("code.util.exceptions.NullObjectException",cont_.getException().getClassName(cont_));
+        assertEq("code.util.exceptions.NullObjectException",getException(cont_).getClassName(cont_));
     }
     @Test
     public void instanceArgument127Test() {
