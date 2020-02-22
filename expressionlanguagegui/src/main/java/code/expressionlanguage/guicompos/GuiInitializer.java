@@ -10,7 +10,7 @@ import code.expressionlanguage.structs.Struct;
 import code.util.ObjectMap;
 
 public class GuiInitializer extends CustInitializer {
-    private final WindowSetStruct windows = new WindowSetStruct();
+    private final WindowSetStruct windows = new WindowSetStruct(false);
     @Override
     protected Struct init(ContextEl _context, Struct _parent, String _className, String _fieldName, int _ordinal, ObjectMap<ClassField, Struct> _fields) {
         String base_ = Templates.getIdFromAllTypes(_className);

@@ -1089,7 +1089,7 @@ public class LgNamesUtils extends LgNames {
                     return res_;
                 }
                 ThreadSetStruct ins_ = (ThreadSetStruct)_instance;
-                ins_.add(_args[0],(RunnableContextEl)_cont);
+                ins_.add(_args[0]);
                 if (!(_args[0] instanceof ThreadStruct)) {
                     res_.setError(getAliasNullPe());
                 } else {
@@ -1113,7 +1113,7 @@ public class LgNamesUtils extends LgNames {
                     return res_;
                 }
                 ThreadSetStruct ins_ = (ThreadSetStruct)_instance;
-                ins_.remove(_args[0], (RunnableContextEl) _cont);
+                ins_.remove(_args[0]);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
@@ -1124,7 +1124,7 @@ public class LgNamesUtils extends LgNames {
                     return res_;
                 }
                 ThreadSetStruct ins_ = (ThreadSetStruct)_instance;
-                res_.setResult(ins_.contains(_args[0], (RunnableContextEl) _cont));
+                res_.setResult(ins_.contains(_args[0]));
                 return res_;
             }
             ThreadSetStruct ins_ = (ThreadSetStruct)_instance;
@@ -1195,7 +1195,7 @@ public class LgNamesUtils extends LgNames {
                     return res_;
                 }
                 ThreadStruct a_ = (ThreadStruct) _args[0];
-                ((RunnableContextEl)_cont).getCustInit().initHook(a_,(RunnableContextEl)_cont);
+                ((RunnableContextEl)_cont).getCustInit().initHook(a_);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }

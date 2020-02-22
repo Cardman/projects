@@ -6,22 +6,16 @@ import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
-import code.stream.AbstractLock;
-import code.stream.LockFactory;
-import code.stream.Locking;
 import code.util.CustList;
-import code.util.IdMap;
+
+import java.util.concurrent.ConcurrentHashMap;
 
 public final class WindowSetStruct implements Struct {
-    private IdMap<WindowStruct,Struct> elementSet = new IdMap<WindowStruct,Struct>();
-    private final AbstractLock lock = LockFactory.newLock();
-    private boolean writable;
+    private ConcurrentHashMap<WindowStruct,Struct> elementSet = new ConcurrentHashMap<WindowStruct,Struct>();
 
-    public boolean isWritable() {
-        return writable;
-    }
+    private final boolean writable;
 
-    public void setWritable(boolean _writable) {
+    public WindowSetStruct(boolean _writable) {
         writable = _writable;
     }
 
@@ -31,12 +25,9 @@ public final class WindowSetStruct implements Struct {
     }
 
     public ArrayStruct toSnapshotArray(ExecutableCode _contextEl) {
-        CustList<WindowStruct> instantKeys_;
-        try {
-            lock.lock((Locking) _contextEl);
-            instantKeys_ = elementSet.getKeys();
-        } finally {
-            lock.unlock((Locking) _contextEl);
+        CustList<WindowStruct> instantKeys_ = new CustList<WindowStruct>();
+        for (WindowStruct s: elementSet.keySet()) {
+            instantKeys_.add(s);
         }
         String thClass_ = ((LgNamesGui)_contextEl.getStandards()).getAliasWindow();
         int len_ = instantKeys_.size();
@@ -49,44 +40,29 @@ public final class WindowSetStruct implements Struct {
         }
         return arr_;
     }
-    public void add(Struct _key, boolean _ch, GuiContextEl _rCont) {
+    public void add(Struct _key, boolean _ch) {
         if (!writable && _ch) {
             return;
         }
         if (!(_key instanceof WindowStruct)) {
             return;
         }
-        try {
-            lock.lock(_rCont);
-            elementSet.put((WindowStruct) _key,NullStruct.NULL_VALUE);
-        } finally {
-            lock.unlock(_rCont);
-        }
+        elementSet.put((WindowStruct) _key,NullStruct.NULL_VALUE);
     }
-    public void remove(Struct _key, boolean _ch, GuiContextEl _rCont) {
+    public void remove(Struct _key, boolean _ch) {
         if (!writable && _ch) {
             return;
         }
         if (!(_key instanceof WindowStruct)) {
             return;
         }
-        try {
-            lock.lock(_rCont);
-            elementSet.removeKey((WindowStruct) _key);
-        } finally {
-            lock.unlock(_rCont);
-        }
+        elementSet.remove(_key);
     }
-    public Struct contains(Struct _key, GuiContextEl _rCont) {
+    public Struct contains(Struct _key) {
         if (!(_key instanceof WindowStruct)) {
             return new BooleanStruct(false);
         }
-        try {
-            lock.lock(_rCont);
-            return new BooleanStruct(elementSet.contains((WindowStruct) _key));
-        } finally {
-            lock.unlock(_rCont);
-        }
+        return new BooleanStruct(elementSet.containsKey(_key));
     }
     @Override
     public String getClassName(ExecutableCode _contextEl) {

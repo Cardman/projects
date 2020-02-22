@@ -6,31 +6,22 @@ import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
-import code.stream.AbstractLock;
-import code.stream.LockFactory;
-import code.stream.Locking;
 import code.util.CustList;
-import code.util.IdMap;
+
+import java.util.concurrent.ConcurrentHashMap;
 
 public final class ThreadSetStruct implements Struct {
 
-    private IdMap<Thread,Struct> elementSet = new IdMap<Thread,Struct>();
-    private final AbstractLock lock = LockFactory.newLock();
+    private ConcurrentHashMap<Thread,Struct> elementSet = new ConcurrentHashMap<Thread,Struct>();
+
     @Override
     public Struct getParent() {
         return NullStruct.NULL_VALUE;
     }
 
     public ArrayStruct toSnapshotArray(ExecutableCode _contextEl) {
-        CustList<Thread> instant_;
-        try {
-            lock.lock((Locking) _contextEl);
-            instant_ = new CustList<Thread>(elementSet.getKeys());
-        } finally {
-            lock.unlock((Locking) _contextEl);
-        }
         CustList<Struct> instantKeys_ = new CustList<Struct>();
-        for (Thread s: instant_) {
+        for (Thread s: elementSet.keySet()) {
             instantKeys_.add(new ThreadStruct(s));
         }
         String thClass_ = ((LgNamesUtils)_contextEl.getStandards()).getAliasThread();
@@ -44,38 +35,23 @@ public final class ThreadSetStruct implements Struct {
         }
         return arr_;
     }
-    public void add(Struct _key, RunnableContextEl _rCont) {
+    public void add(Struct _key) {
         if (!(_key instanceof ThreadStruct)) {
             return;
         }
-        try {
-            lock.lock(_rCont);
-            elementSet.put(((ThreadStruct) _key).getThread(),NullStruct.NULL_VALUE);
-        } finally {
-            lock.unlock(_rCont);
-        }
+        elementSet.put(((ThreadStruct) _key).getThread(),NullStruct.NULL_VALUE);
     }
-    public void remove(Struct _key, RunnableContextEl _rCont) {
+    public void remove(Struct _key) {
         if (!(_key instanceof ThreadStruct)) {
             return;
         }
-        try {
-            lock.lock(_rCont);
-            elementSet.removeKey(((ThreadStruct) _key).getThread());
-        } finally {
-            lock.unlock(_rCont);
-        }
+        elementSet.remove(((ThreadStruct) _key).getThread());
     }
-    public Struct contains(Struct _key, RunnableContextEl _rCont) {
+    public Struct contains(Struct _key) {
         if (!(_key instanceof ThreadStruct)) {
             return new BooleanStruct(false);
         }
-        try {
-            lock.lock(_rCont);
-            return new BooleanStruct(elementSet.contains(((ThreadStruct) _key).getThread()));
-        } finally {
-            lock.unlock(_rCont);
-        }
+        return new BooleanStruct(elementSet.containsKey(((ThreadStruct) _key).getThread()));
     }
     @Override
     public String getClassName(ExecutableCode _contextEl) {

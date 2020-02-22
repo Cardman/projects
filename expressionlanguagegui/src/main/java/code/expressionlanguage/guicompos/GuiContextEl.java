@@ -8,7 +8,6 @@ import code.expressionlanguage.structs.IntStruct;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
-import code.expressionlanguage.utilcompo.CustInitializer;
 import code.expressionlanguage.utilcompo.ExecutingOptions;
 import code.expressionlanguage.utilcompo.RunnableContextEl;
 import code.gui.CustComponent;
@@ -42,7 +41,7 @@ public final class GuiContextEl extends RunnableContextEl {
         fr_.setMainFrame(true);
         fr_.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame = new FrameStruct(fr_);
-        guiInit.getWindows().add(frame,false,this);
+        guiInit.getWindows().add(frame,false);
         confirm = new OtherConfirmDialog();
     }
 
