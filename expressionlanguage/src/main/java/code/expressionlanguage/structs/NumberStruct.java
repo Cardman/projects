@@ -128,7 +128,7 @@ public abstract class NumberStruct implements DisplayableStruct, ExportableStrin
                     _res.setResult(new BooleanStruct(false));
                 }
             } else {
-                Boolean one_ = ((BooleanStruct) _args[0]).getInstance();
+                boolean one_ = ((BooleanStruct) _args[0]).getInstance();
                 _res.setResult(new BooleanStruct(one_));
             }
         } else if (StringList.quickEq(type_, charType_)) {
@@ -846,8 +846,8 @@ public abstract class NumberStruct implements DisplayableStruct, ExportableStrin
         String bool_ = stds_.getAliasPrimBoolean();
         String int_ = stds_.getAliasPrimInteger();
         if (_order.matchClass(bool_)) {
-            Boolean left_ = ((BooleanStruct) _a).getInstance();
-            Boolean right_ = ((BooleanStruct) _b).getInstance();
+            boolean left_ = ((BooleanStruct) _a).getInstance();
+            boolean right_ = ((BooleanStruct) _b).getInstance();
             return new BooleanStruct(left_ && right_);
         }
         if (_order.matchClass(int_)) {
@@ -881,8 +881,8 @@ public abstract class NumberStruct implements DisplayableStruct, ExportableStrin
         String bool_ = stds_.getAliasPrimBoolean();
         String int_ = stds_.getAliasPrimInteger();
         if (_order.matchClass(bool_)) {
-            Boolean left_ = ((BooleanStruct) _a).getInstance();
-            Boolean right_ = ((BooleanStruct) _b).getInstance();
+            boolean left_ = ((BooleanStruct) _a).getInstance();
+            boolean right_ = ((BooleanStruct) _b).getInstance();
             return new BooleanStruct(left_ || right_);
         }
         if (_order.matchClass(int_)) {
@@ -916,8 +916,8 @@ public abstract class NumberStruct implements DisplayableStruct, ExportableStrin
         String bool_ = stds_.getAliasPrimBoolean();
         String int_ = stds_.getAliasPrimInteger();
         if (_order.matchClass(bool_)) {
-            Boolean left_ = ((BooleanStruct) _a).getInstance();
-            Boolean right_ = ((BooleanStruct) _b).getInstance();
+            boolean left_ = ((BooleanStruct) _a).getInstance();
+            boolean right_ = ((BooleanStruct) _b).getInstance();
             return new BooleanStruct(left_ != right_);
         }
         if (_order.matchClass(int_)) {

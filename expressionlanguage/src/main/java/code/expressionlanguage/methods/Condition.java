@@ -1,6 +1,7 @@
 package code.expressionlanguage.methods;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.ConditionReturn;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.calls.AbstractPageEl;
 import code.expressionlanguage.errors.custom.UnexpectedTypeError;
@@ -102,17 +103,20 @@ public abstract class Condition extends BracedStack implements WithNotEmptyEl, B
         return condition;
     }
 
-    final Boolean evaluateCondition(ContextEl _context) {
+    final ConditionReturn evaluateCondition(ContextEl _context) {
         AbstractPageEl last_ = _context.getLastPage();
         ExpressionLanguage exp_ = last_.getCurrentEl(_context,this, CustList.FIRST_INDEX, CustList.FIRST_INDEX);
         last_.setOffset(0);
         last_.setGlobalOffset(conditionOffset);
         Argument arg_ = ElUtil.tryToCalculate(_context,exp_,0);
         if (_context.callsOrException()) {
-            return null;
+            return ConditionReturn.CALL_EX;
         }
         last_.clearCurrentEls();
-        return ((BooleanStruct) arg_.getStruct()).getInstance();
+        if (((BooleanStruct) arg_.getStruct()).getInstance()) {
+            return ConditionReturn.YES;
+        }
+        return ConditionReturn.NO;
     }
 
     @Override

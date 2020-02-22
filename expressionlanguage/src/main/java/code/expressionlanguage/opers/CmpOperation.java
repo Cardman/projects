@@ -196,7 +196,7 @@ public final class CmpOperation extends MethodOperation implements MiddleSymbolO
         } else {
             arg_ = NumberStruct.quickCalculateGreaterNb(_one.getStruct(), _two.getStruct());
         }
-        Boolean b_ = arg_.getInstance();
+        boolean b_ = arg_.getInstance();
         if (complement_) {
             b_ = !b_;
         }
@@ -218,7 +218,7 @@ public final class CmpOperation extends MethodOperation implements MiddleSymbolO
         } else {
             arg_ = NumberStruct.quickCalculateGreaterStr(_one.getStruct(), _two.getStruct());
         }
-        Boolean b_ = arg_.getInstance();
+        boolean b_ = arg_.getInstance();
         if (complement_) {
             b_ = !b_;
         }

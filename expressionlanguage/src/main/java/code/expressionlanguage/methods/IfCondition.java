@@ -1,6 +1,7 @@
 package code.expressionlanguage.methods;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.ConditionReturn;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.calls.AbstractPageEl;
 import code.expressionlanguage.calls.util.ReadWrite;
@@ -118,8 +119,8 @@ public final class IfCondition extends Condition implements BlockCondition {
             processBlockAndRemove(_cont);
             return;
         }
-        Boolean assert_ = evaluateCondition(_cont);
-        if (assert_ == null) {
+        ConditionReturn assert_ = evaluateCondition(_cont);
+        if (assert_ == ConditionReturn.CALL_EX) {
             return;
         }
         IfBlockStack if_ = new IfBlockStack();
@@ -131,7 +132,7 @@ public final class IfCondition extends Condition implements BlockCondition {
         }
         if_.setBlock(this);
         if_.setCurrentVisitedBlock(this);
-        if (assert_) {
+        if (assert_ == ConditionReturn.YES) {
             ip_.addBlock(if_);
             if_.setEntered(true);
             rw_.setBlock(getFirstChild());

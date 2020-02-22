@@ -2,6 +2,7 @@ package code.expressionlanguage.methods;
 
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.ConditionReturn;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.calls.AbstractPageEl;
 import code.expressionlanguage.calls.util.ReadWrite;
@@ -30,11 +31,11 @@ public final class DoWhileCondition extends Condition {
         l_.setEvaluatingKeepLoop(true);
         _cont.getLastPage().setGlobalOffset(getOffset().getOffsetTrim());
         _cont.getLastPage().setOffset(0);
-        Boolean keep_ = evaluateCondition(_cont);
-        if (keep_ == null) {
+        ConditionReturn keep_ = evaluateCondition(_cont);
+        if (keep_ == ConditionReturn.CALL_EX) {
             return;
         }
-        if (!keep_) {
+        if (keep_ == ConditionReturn.NO) {
             l_.setFinished(true);
         }
         l_.setEvaluatingKeepLoop(false);

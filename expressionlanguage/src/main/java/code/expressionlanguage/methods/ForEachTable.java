@@ -1,9 +1,6 @@
 package code.expressionlanguage.methods;
 
-import code.expressionlanguage.Analyzable;
-import code.expressionlanguage.AnalyzedPageEl;
-import code.expressionlanguage.Argument;
-import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.*;
 import code.expressionlanguage.calls.AbstractPageEl;
 import code.expressionlanguage.errors.custom.BadImplicitCast;
 import code.expressionlanguage.errors.custom.BadVariableName;
@@ -669,11 +666,11 @@ public final class ForEachTable extends BracedStack implements Loop, WithNotEmpt
         StringMap<LoopVariable> vars_ = ip_.getVars();
         LoopBlockStack l_ = (LoopBlockStack) ip_.getLastStack();
         l_.setEvaluatingKeepLoop(true);
-        Boolean has_ = iteratorHasNext(_conf);
-        if (has_ == null) {
+        ConditionReturn has_ = iteratorHasNext(_conf);
+        if (has_ == ConditionReturn.CALL_EX) {
             return;
         }
-        boolean hasNext_ = has_;
+        boolean hasNext_ = has_ == ConditionReturn.YES;
 
         if (hasNext_) {
             _conf.getCoverage().passLoop(_conf, new Argument(new BooleanStruct(true)));
@@ -791,7 +788,7 @@ public final class ForEachTable extends BracedStack implements Loop, WithNotEmpt
         call_.getReadWrite().setBlock(getFirstChild());
         _l.setEvaluatingKeepLoop(false);
     }
-    private Boolean iteratorHasNext(ContextEl _conf) {
+    private ConditionReturn iteratorHasNext(ContextEl _conf) {
         AbstractPageEl ip_ = _conf.getLastPage();
         LoopBlockStack l_ = (LoopBlockStack) ip_.getLastStack();
         Struct strIter_ = l_.getStructIterator();
@@ -802,9 +799,12 @@ public final class ForEachTable extends BracedStack implements Loop, WithNotEmpt
         ExpressionLanguage dyn_ = _conf.getLastPage().getCurrentEl(_conf,this, CustList.FIRST_INDEX, 2);
         Argument arg_ = ElUtil.tryToCalculate(_conf,dyn_,0);
         if (_conf.callsOrException()) {
-            return null;
+            return ConditionReturn.CALL_EX;
         }
-        return ((BooleanStruct) arg_.getStruct()).getInstance();
+        if (((BooleanStruct) arg_.getStruct()).getInstance()) {
+            return ConditionReturn.YES;
+        }
+        return ConditionReturn.NO;
     }
     @Override
     public ExpressionLanguage getEl(ContextEl _context, int _indexProcess) {

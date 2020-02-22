@@ -1,9 +1,6 @@
 package code.expressionlanguage.methods;
 
-import code.expressionlanguage.Analyzable;
-import code.expressionlanguage.AnalyzedPageEl;
-import code.expressionlanguage.Argument;
-import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.*;
 import code.expressionlanguage.calls.AbstractPageEl;
 import code.expressionlanguage.calls.util.ReadWrite;
 import code.expressionlanguage.errors.custom.BadImplicitCast;
@@ -730,14 +727,14 @@ public final class ForMutableIterativeLoop extends BracedStack implements
             }
             index_++;
         }
-        Boolean res_ = evaluateCondition(_cont, index_);
-        if (res_ == null) {
+        ConditionReturn res_ = evaluateCondition(_cont, index_);
+        if (res_ == ConditionReturn.CALL_EX) {
             return;
         }
         LoopBlockStack l_ = new LoopBlockStack();
         l_.setBlock(this);
         l_.setCurrentVisitedBlock(this);
-        boolean finished_ = !res_;
+        boolean finished_ = res_ == ConditionReturn.NO;
         l_.setFinished(finished_);
         ip_.addBlock(l_);
         if (finished_) {
@@ -755,21 +752,24 @@ public final class ForMutableIterativeLoop extends BracedStack implements
         }
     }
 
-    private Boolean evaluateCondition(ContextEl _context, int _index) {
+    private ConditionReturn evaluateCondition(ContextEl _context, int _index) {
         AbstractPageEl last_ = _context.getLastPage();
         if (opExp.isEmpty()) {
             last_.clearCurrentEls();
-            return true;
+            return ConditionReturn.YES;
         }
         ExpressionLanguage exp_ = last_.getCurrentEl(_context,this, _index, CustList.SECOND_INDEX);
         last_.setOffset(0);
         last_.setGlobalOffset(expressionOffset);
         Argument arg_ = ElUtil.tryToCalculate(_context,exp_,0);
         if (_context.callsOrException()) {
-            return null;
+            return ConditionReturn.CALL_EX;
         }
         last_.clearCurrentEls();
-        return ((BooleanStruct)arg_.getStruct()).getInstance();
+        if (((BooleanStruct)arg_.getStruct()).getInstance()) {
+            return ConditionReturn.YES;
+        }
+        return ConditionReturn.NO;
     }
     @Override
     public void exitStack(ContextEl _context) {
@@ -792,11 +792,11 @@ public final class ForMutableIterativeLoop extends BracedStack implements
             }
             index_++;
         }
-        Boolean keep_ = evaluateCondition(_conf, index_);
-        if (keep_ == null) {
+        ConditionReturn keep_ = evaluateCondition(_conf, index_);
+        if (keep_ == ConditionReturn.CALL_EX) {
             return;
         }
-        if (!keep_) {
+        if (keep_ == ConditionReturn.NO) {
             l_.setFinished(true);
         }
         l_.setEvaluatingKeepLoop(false);

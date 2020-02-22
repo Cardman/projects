@@ -738,7 +738,7 @@ public final class AliasReflection {
                     result_.setResult(_cont.getExtendedClassMetaInfo(Templates.SUB_TYPE, varOwn_));
                     return result_;
                 }
-                Boolean isUpperValue_ = ((BooleanStruct) isUpper_).getInstance();
+                boolean isUpperValue_ = ((BooleanStruct) isUpper_).getInstance();
                 String baseWildCard_ = nameCl_;
                 if (StringList.quickEq(nameCl_,Templates.SUB_TYPE)) {
                     result_.setResult(_cont.getExtendedClassMetaInfo(Templates.SUB_TYPE, varOwn_));

@@ -62,7 +62,7 @@ public abstract class AbstractTernaryOperation extends MethodOperation {
         if (!(str_ instanceof BooleanStruct)) {
             return;
         }
-        Boolean obj_ = ((BooleanStruct) str_).getInstance();
+        boolean obj_ = ((BooleanStruct) str_).getInstance();
         Argument arg_;
         if (obj_) {
             arg_ = arguments_.get(CustList.SECOND_INDEX);

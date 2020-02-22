@@ -1,6 +1,7 @@
 package code.expressionlanguage.methods;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.ConditionReturn;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.calls.AbstractPageEl;
 import code.expressionlanguage.calls.util.ReadWrite;
@@ -210,14 +211,14 @@ public final class WhileCondition extends Condition implements Loop {
             ip_.processVisitedLoop(c_,this,this,_cont);
             return;
         }
-        Boolean res_ = evaluateCondition(_cont);
-        if (res_ == null) {
+        ConditionReturn res_ = evaluateCondition(_cont);
+        if (res_ == ConditionReturn.CALL_EX) {
             return;
         }
         LoopBlockStack l_ = new LoopBlockStack();
         l_.setBlock(this);
         l_.setCurrentVisitedBlock(this);
-        boolean finished_ = !res_;
+        boolean finished_ = res_ == ConditionReturn.NO;
         l_.setFinished(finished_);
         ip_.addBlock(l_);
         if (finished_) {
@@ -237,17 +238,17 @@ public final class WhileCondition extends Condition implements Loop {
         AbstractPageEl ip_ = _conf.getLastPage();
         LoopBlockStack l_ = (LoopBlockStack) ip_.getLastStack();
         l_.setEvaluatingKeepLoop(true);
-        Boolean keep_ = keepLoop(_conf);
-        if (keep_ == null) {
+        ConditionReturn keep_ = keepLoop(_conf);
+        if (keep_ == ConditionReturn.CALL_EX) {
             return;
         }
-        if (!keep_) {
+        if (keep_ == ConditionReturn.NO) {
             l_.setFinished(true);
         }
         l_.setEvaluatingKeepLoop(false);
     }
 
-    public Boolean keepLoop(ContextEl _conf) {
+    public ConditionReturn keepLoop(ContextEl _conf) {
         _conf.getLastPage().setGlobalOffset(getOffset().getOffsetTrim());
         _conf.getLastPage().setOffset(0);
         return evaluateCondition(_conf);

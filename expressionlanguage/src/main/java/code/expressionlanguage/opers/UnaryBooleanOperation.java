@@ -61,7 +61,7 @@ public final class UnaryBooleanOperation extends AbstractUnaryOperation {
             return;
         }
         BooleanStruct o_ = (BooleanStruct) value_;
-        Boolean b_ = o_.getInstance();
+        boolean b_ = o_.getInstance();
         b_ = !b_;
         Argument a_ = new Argument();
         a_.setObject(b_);

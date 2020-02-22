@@ -303,7 +303,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                     a_.setStruct(_conf.getExtendedClassMetaInfo(clDyn_));
                     return a_;
                 }
-                Boolean init_ = ((BooleanStruct) _firstArgs.last().getStruct()).getInstance();
+                boolean init_ = ((BooleanStruct) _firstArgs.last().getStruct()).getInstance();
                 boolean gene_ = clDyn_.contains(Templates.TEMPLATE_BEGIN);
                 String res_ = Templates.correctClassPartsDynamic(clDyn_, _conf, gene_, false);
                 if (res_.isEmpty()) {

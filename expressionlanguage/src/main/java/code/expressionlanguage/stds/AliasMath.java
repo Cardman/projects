@@ -375,7 +375,7 @@ public final class AliasMath {
                 result_.setResult(new LongStruct(NumParsers.toLong(bits_)));
             }
         } else if (StringList.quickEq(name_, am_.aliasNeg)) {
-            Boolean left_ = ((BooleanStruct)_args[0].getStruct()).getInstance();
+            boolean left_ = ((BooleanStruct)_args[0].getStruct()).getInstance();
             result_.setResult(new BooleanStruct(!left_));
         } else if (StringList.quickEq(name_, am_.aliasAnd)) {
             ClassArgumentMatching clArg_ = new ClassArgumentMatching(paramList_.first());

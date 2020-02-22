@@ -1,9 +1,6 @@
 package code.expressionlanguage.methods;
 
-import code.expressionlanguage.Analyzable;
-import code.expressionlanguage.AnalyzedPageEl;
-import code.expressionlanguage.Argument;
-import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.*;
 import code.expressionlanguage.calls.AbstractPageEl;
 import code.expressionlanguage.errors.custom.BadImplicitCast;
 import code.expressionlanguage.errors.custom.BadVariableName;
@@ -670,18 +667,18 @@ public final class ForEachLoop extends BracedStack implements ForLoop,ImportForE
         l_.setEvaluatingKeepLoop(true);
         boolean hasNext_;
         if (l_.getStructIterator() != null) {
-            Boolean has_ = iteratorHasNext(_conf);
-            if (has_ == null) {
+            ConditionReturn has_ = iteratorHasNext(_conf);
+            if (has_ == ConditionReturn.CALL_EX) {
                 return;
             }
-            hasNext_ = has_;
+            hasNext_ = has_ == ConditionReturn.YES;
         } else {
             hasNext_ = l_.hasNext();
         }
         incrOrFinish(_conf, !hasNext_);
     }
 
-    private Boolean iteratorHasNext(ContextEl _conf) {
+    private ConditionReturn iteratorHasNext(ContextEl _conf) {
         AbstractPageEl ip_ = _conf.getLastPage();
         LoopBlockStack l_ = (LoopBlockStack) ip_.getLastStack();
         Struct strIter_ = l_.getStructIterator();
@@ -691,9 +688,12 @@ public final class ForEachLoop extends BracedStack implements ForLoop,ImportForE
         ExpressionLanguage dyn_ = _conf.getLastPage().getCurrentEl(_conf,this, CustList.FIRST_INDEX, 2);
         Argument arg_ = ElUtil.tryToCalculate(_conf,dyn_,0);
         if (_conf.callsOrException()) {
-            return null;
+            return ConditionReturn.CALL_EX;
         }
-        return ((BooleanStruct) arg_.getStruct()).getInstance();
+        if (((BooleanStruct) arg_.getStruct()).getInstance()) {
+            return ConditionReturn.YES;
+        }
+        return ConditionReturn.NO;
     }
 
     private void incrementLoop(ContextEl _conf, LoopBlockStack _l,

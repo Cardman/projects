@@ -36,7 +36,7 @@ public final class BooleanStruct implements DisplayableStruct, ExportableStringS
         return new StringStruct("0");
     }
 
-    public Boolean getInstance() {
+    public boolean getInstance() {
         return value;
     }
 
@@ -46,7 +46,7 @@ public final class BooleanStruct implements DisplayableStruct, ExportableStringS
             return false;
         }
         BooleanStruct other_ = (BooleanStruct) _other;
-        return getInstance().booleanValue() == other_.getInstance().booleanValue();
+        return getInstance() == other_.getInstance();
     }
 
 }
