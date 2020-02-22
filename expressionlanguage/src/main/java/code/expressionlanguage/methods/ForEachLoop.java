@@ -552,7 +552,7 @@ public final class ForEachLoop extends BracedStack implements ForLoop,ImportForE
             LocalVariable locVar_ = LocalVariable.newLocalVariable(its_,_cont);
             ip_.getInternVars().put(locName_, locVar_);
             ExpressionLanguage dyn_ = ip_.getCurrentEl(_cont,this, CustList.SECOND_INDEX,CustList.SECOND_INDEX);
-            Argument arg_ = dyn_.calculateMember(_cont);
+            Argument arg_ = ElUtil.tryToCalculate(_cont,dyn_,0);
             if (_cont.callsOrException()) {
                 return;
             }
@@ -637,7 +637,7 @@ public final class ForEachLoop extends BracedStack implements ForLoop,ImportForE
         ip_.setGlobalOffset(expressionOffset);
         ip_.setOffset(0);
         ExpressionLanguage el_ = ip_.getCurrentEl(_conf, this, CustList.FIRST_INDEX, CustList.FIRST_INDEX);
-        Argument arg_ = el_.calculateMember(_conf);
+        Argument arg_ = ElUtil.tryToCalculate(_conf,el_,0);
         if (_conf.callsOrException()) {
             return NullStruct.NULL_VALUE;
         }
@@ -689,7 +689,7 @@ public final class ForEachLoop extends BracedStack implements ForLoop,ImportForE
         LocalVariable locVar_ = LocalVariable.newLocalVariable(strIter_,_conf);
         _conf.getLastPage().getInternVars().put(locName_, locVar_);
         ExpressionLanguage dyn_ = _conf.getLastPage().getCurrentEl(_conf,this, CustList.FIRST_INDEX, 2);
-        Argument arg_ = dyn_.calculateMember(_conf);
+        Argument arg_ = ElUtil.tryToCalculate(_conf,dyn_,0);
         if (_conf.callsOrException()) {
             return null;
         }
@@ -713,7 +713,7 @@ public final class ForEachLoop extends BracedStack implements ForLoop,ImportForE
             LocalVariable locVar_ = LocalVariable.newLocalVariable(iterator_,_conf);
             abs_.getInternVars().put(locName_, locVar_);
             ExpressionLanguage dyn_ = abs_.getCurrentEl(_conf,this, CustList.SECOND_INDEX, 3);
-            arg_ = dyn_.calculateMember(_conf);
+            arg_ = ElUtil.tryToCalculate(_conf,dyn_,0);
         } else {
             Struct container_ = lv_.getContainer();
             LongStruct lg_ = new LongStruct(_l.getIndex());
@@ -722,8 +722,8 @@ public final class ForEachLoop extends BracedStack implements ForLoop,ImportForE
         if (_conf.callsOrException()) {
             return;
         }
+        abs_.clearCurrentEls();
         if (!el_.getResultClass().isArray()) {
-            abs_.clearCurrentEls();
             element_ = arg_.getStruct();
         } else {
             arg_ = new Argument(element_);

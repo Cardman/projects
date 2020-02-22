@@ -8,6 +8,7 @@ import code.expressionlanguage.common.GeneMethod;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
+import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.methods.AnnotableBlock;
 import code.expressionlanguage.methods.NamedFunctionBlock;
 import code.expressionlanguage.methods.OperatorBlock;
@@ -193,7 +194,7 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
                 for (int j = indexAnnotation; j < lenLoc_; j++) {
                     CustList<ExecOperationNode> ops_ = annotationsParams.get(i).get(j);
                     ExpressionLanguage el_ = getCurrentEl(0,ops_);
-                    Argument ret_ = el_.calculateMember(_context);
+                    Argument ret_ = ElUtil.tryToCalculate(_context,el_,0);
                     if (_context.callsOrException()) {
                         return false;
                     }
@@ -209,7 +210,7 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
             for (int i = indexAnnotation; i < len_; i++) {
                 CustList<ExecOperationNode> ops_ = annotations.get(i);
                 ExpressionLanguage el_ = getCurrentEl(0,ops_);
-                Argument ret_ = el_.calculateMember(_context);
+                Argument ret_ = ElUtil.tryToCalculate(_context,el_,0);
                 if (_context.callsOrException()) {
                     return false;
                 }

@@ -210,7 +210,7 @@ public final class ReturnMehod extends AbruptBlock implements CallingFinally, Wi
             ip_.setOffset(0);
             ip_.setGlobalOffset(expressionOffset);
             ExpressionLanguage el_ = ip_.getCurrentEl(_cont,this, CustList.FIRST_INDEX, CustList.FIRST_INDEX);
-            Argument arg_ = el_.calculateMember(_cont);
+            Argument arg_ = ElUtil.tryToCalculate(_cont,el_,0);
             if (_cont.callsOrException()) {
                 return;
             }

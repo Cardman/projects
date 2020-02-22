@@ -4,7 +4,6 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.calls.util.ReadWrite;
 import code.expressionlanguage.methods.*;
-import code.expressionlanguage.methods.util.ParentStackBlock;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.exec.ExecOperationNode;
 import code.expressionlanguage.stacks.LoopBlockStack;
@@ -121,23 +120,6 @@ public abstract class AbstractPageEl extends PageEl {
             return false;
         }
         return _bl == getLastStack().getBlock();
-    }
-    public ParentStackBlock getNextBlock(Block _bl) {
-        ParentStackBlock parElt_;
-        Block nextSibling_ = _bl.getNextSibling();
-        if (nextSibling_ != null) {
-            parElt_ = new ParentStackBlock(null);
-        } else {
-            BracedBlock n_ = _bl.getParent();
-            //n_ != null because strictly in class
-            if (n_ != blockRoot) {
-                parElt_ =  new ParentStackBlock(n_);
-            } else {
-                //directly at the root => last element in the block root
-                parElt_ = null;
-            }
-        }
-        return parElt_;
     }
 
     public RemovableVars getLastStack() {

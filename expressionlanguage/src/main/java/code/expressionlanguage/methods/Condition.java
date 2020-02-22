@@ -107,7 +107,7 @@ public abstract class Condition extends BracedStack implements WithNotEmptyEl, B
         ExpressionLanguage exp_ = last_.getCurrentEl(_context,this, CustList.FIRST_INDEX, CustList.FIRST_INDEX);
         last_.setOffset(0);
         last_.setGlobalOffset(conditionOffset);
-        Argument arg_ = exp_.calculateMember(_context);
+        Argument arg_ = ElUtil.tryToCalculate(_context,exp_,0);
         if (_context.callsOrException()) {
             return null;
         }

@@ -1,7 +1,6 @@
 package code.expressionlanguage.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.methods.util.TwoStepsArgumentsPair;
 import code.expressionlanguage.opers.exec.*;
@@ -78,13 +77,6 @@ public final class ExpressionLanguage {
 
     public IdMap<ExecOperationNode, ArgumentsPair> getArguments() {
         return arguments;
-    }
-
-    public Argument calculateMember(ContextEl _context) {
-        return calculateMember(_context, 0);
-    }
-    public Argument calculateMember(ContextEl _context, int _offset) {
-        return ElUtil.tryToCalculate(_context, this, _offset);
     }
 
     public void setCurrentOper(ExecOperationNode _currentOper) {

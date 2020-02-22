@@ -724,7 +724,7 @@ public final class ForMutableIterativeLoop extends BracedStack implements
         }
         if (!opInit.isEmpty()) {
             ExpressionLanguage from_ = ip_.getCurrentEl(_cont,this, CustList.FIRST_INDEX, CustList.FIRST_INDEX);
-            from_.calculateMember(_cont);
+            ElUtil.tryToCalculate(_cont,from_,0);
             if (_cont.callsOrException()) {
                 return;
             }
@@ -764,7 +764,7 @@ public final class ForMutableIterativeLoop extends BracedStack implements
         ExpressionLanguage exp_ = last_.getCurrentEl(_context,this, _index, CustList.SECOND_INDEX);
         last_.setOffset(0);
         last_.setGlobalOffset(expressionOffset);
-        Argument arg_ = exp_.calculateMember(_context);
+        Argument arg_ = ElUtil.tryToCalculate(_context,exp_,0);
         if (_context.callsOrException()) {
             return null;
         }
@@ -786,7 +786,7 @@ public final class ForMutableIterativeLoop extends BracedStack implements
         ip_.setGlobalOffset(stepOffset);
         if (!opStep.isEmpty()) {
             ExpressionLanguage from_ = ip_.getCurrentEl(_conf,this, CustList.FIRST_INDEX, 2);
-            from_.calculateMember(_conf);
+            ElUtil.tryToCalculate(_conf,from_,0);
             if (_conf.callsOrException()) {
                 return;
             }

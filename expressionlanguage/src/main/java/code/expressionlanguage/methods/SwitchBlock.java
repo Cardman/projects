@@ -284,7 +284,7 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock, Wi
         ExpressionLanguage el_ = ip_.getCurrentEl(_cont,this, CustList.FIRST_INDEX, CustList.FIRST_INDEX);
         ip_.setGlobalOffset(valueOffset);
         ip_.setOffset(0);
-        Argument arg_ =  el_.calculateMember(_cont);
+        Argument arg_ =  ElUtil.tryToCalculate(_cont,el_,0);
         if (_cont.callsOrException()) {
             return;
         }

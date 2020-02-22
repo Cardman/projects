@@ -203,11 +203,12 @@ public final class AnnotationMethodBlock extends NamedFunctionBlock implements
             ip_.setGlobalOffset(defaultValueOffset);
             ip_.setOffset(0);
             ExpressionLanguage el_ = ip_.getCurrentEl(_cont,this, CustList.FIRST_INDEX, CustList.FIRST_INDEX);
-            Argument arg_ = el_.calculateMember(_cont);
+            Argument arg_ = ElUtil.tryToCalculate(_cont,el_,0);
             setValue(_cont,arg_);
             if (_cont.callsOrException()) {
                 return;
             }
+            ip_.clearCurrentEls();
         }
         processBlock(_cont);
     }

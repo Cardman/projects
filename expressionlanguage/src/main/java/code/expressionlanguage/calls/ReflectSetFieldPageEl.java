@@ -38,6 +38,9 @@ public final class ReflectSetFieldPageEl extends AbstractReflectPageEl {
         Argument instance_ = getArguments().first();
         Argument right_ = getArguments().last();
         Argument arg_ = ExecInvokingOperation.setField(method_, instance_, right_, _context);
+        if (_context.callsOrException()) {
+            return false;
+        }
         setReturnedArgument(arg_);
         return true;
     }

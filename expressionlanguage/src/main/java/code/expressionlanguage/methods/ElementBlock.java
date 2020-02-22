@@ -243,7 +243,7 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
             ip_.setOffset(0);
             Struct struct_;
             ExpressionLanguage el_ = ip_.getCurrentEl(_cont, this, CustList.FIRST_INDEX, CustList.FIRST_INDEX);
-            Argument arg_ = el_.calculateMember(_cont, trOffset);
+            Argument arg_ = ElUtil.tryToCalculate(_cont,el_, trOffset);
             if (_cont.callsOrException()) {
                 return;
             }

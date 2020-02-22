@@ -373,7 +373,7 @@ public final class FieldBlock extends Leaf implements InfoBlock {
             ip_.setGlobalOffset(valueOffset);
             ip_.setOffset(0);
             ExpressionLanguage el_ = ip_.getCurrentEl(_cont,this, CustList.FIRST_INDEX, CustList.FIRST_INDEX);
-            el_.calculateMember(_cont);
+            ElUtil.tryToCalculate(_cont,el_,0);
             if (_cont.callsOrException()) {
                 return;
             }

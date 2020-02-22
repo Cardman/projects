@@ -9,7 +9,6 @@ import code.expressionlanguage.errors.custom.DuplicateLabel;
 import code.expressionlanguage.errors.custom.UnexpectedTagName;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.instr.PartOffset;
-import code.expressionlanguage.methods.util.ParentStackBlock;
 import code.expressionlanguage.opers.CurrentInvokingConstructor;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.*;
@@ -207,26 +206,25 @@ public abstract class Block implements AnalyzedBlock {
         processBlock(_conf);
     }
     public final void processBlock(ContextEl _conf) {
+        Block n_ = getNextSibling();
         AbstractPageEl ip_ = _conf.getLastPage();
-        ParentStackBlock parElt_ = ip_.getNextBlock(this);
-        if (parElt_ == null) {
-            ip_.setNullReadWrite();
-            return;
-        }
-        BracedBlock par_ = parElt_.getElement();
         ReadWrite rw_ = ip_.getReadWrite();
-        if (par_ == null) {
-            Block n_ = getNextSibling();
+        if (n_ != null) {
             rw_.setBlock(n_);
             return;
         }
-        if (par_ instanceof Loop) {
-            par_.removeLocalVars(ip_);
-        } else {
-            par_.removeAllVars(ip_);
+        BracedBlock par_ = getParent();
+        if (par_ != ip_.getBlockRoot()) {
+            if (par_ instanceof Loop) {
+                par_.removeLocalVars(ip_);
+            } else {
+                par_.removeAllVars(ip_);
+            }
+            rw_.setBlock(par_);
+            par_.exitStack(_conf);
+            return;
         }
-        rw_.setBlock(par_);
-        par_.exitStack(_conf);
+        ip_.setNullReadWrite();
     }
 
     public final FunctionBlock getFunction() {

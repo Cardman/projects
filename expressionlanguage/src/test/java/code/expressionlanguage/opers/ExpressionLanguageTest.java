@@ -5875,7 +5875,7 @@ public final class ExpressionLanguageTest {
         cont_.getLastPage().setGlobalArgumentStruct(fresh_);
         cont_.setGlobalClass(_className);
         ExpressionLanguage el_ = new ExpressionLanguage(list_);
-        return el_.calculateMember(cont_);
+        return ElUtil.tryToCalculate(cont_,el_,0);
 
     }
 
@@ -5901,7 +5901,7 @@ public final class ExpressionLanguageTest {
         cont_.getLastPage().setGlobalArgumentStruct(fresh_);
         cont_.setGlobalClass(_className);
         ExpressionLanguage el_ = new ExpressionLanguage(list_);
-        return el_.calculateMember(cont_);
+        return ElUtil.tryToCalculate(cont_,el_,0);
 
     }
 
@@ -5929,7 +5929,7 @@ public final class ExpressionLanguageTest {
         cont_.getLastPage().setGlobalArgumentStruct(fresh_);
         cont_.setGlobalClass(_className);
         ExpressionLanguage el_ = new ExpressionLanguage(list_);
-        return el_.calculateMember(cont_);
+        return ElUtil.tryToCalculate(cont_,el_,0);
     }
 
     private static Argument calculatePrepareStaticResult(ContextEl _context, boolean _exc) {
@@ -5937,7 +5937,7 @@ public final class ExpressionLanguageTest {
         _context.getLastPage().setGlobalClass("code.formathtml.classes.Apply");
         FieldBlock f_ = (FieldBlock) cl_.getFirstChild();
         ExpressionLanguage el_ = f_.getValueEl();
-        Argument arg_ = el_.calculateMember(_context);
+        Argument arg_ = ElUtil.tryToCalculate(_context,el_,0);
         if (!_exc) {
             assertNull(getException(_context));
         } else {

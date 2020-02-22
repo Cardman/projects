@@ -5,6 +5,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
+import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.methods.AnnotationBlock;
 import code.expressionlanguage.methods.AnnotationMethodBlock;
 import code.expressionlanguage.opers.ExpressionLanguage;
@@ -49,7 +50,7 @@ public final class ReflectGetDefaultValuePageEl extends AbstractReflectPageEl {
             init = true;
         }
         ExpressionLanguage el_ = getCurrentEl(0,ops);
-        Argument ret_ = el_.calculateMember(_context);
+        Argument ret_ = ElUtil.tryToCalculate(_context,el_,0);
         if (_context.callsOrException()) {
             return false;
         }

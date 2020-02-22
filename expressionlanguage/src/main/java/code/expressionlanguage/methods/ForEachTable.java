@@ -602,7 +602,7 @@ public final class ForEachTable extends BracedStack implements Loop, WithNotEmpt
         LocalVariable locVar_ = LocalVariable.newLocalVariable(its_,_cont);
         _cont.getLastPage().getInternVars().put(locName_, locVar_);
         ExpressionLanguage dyn_ = _cont.getLastPage().getCurrentEl(_cont,this, CustList.SECOND_INDEX,CustList.SECOND_INDEX);
-        Argument arg_ = dyn_.calculateMember(_cont);
+        Argument arg_ = ElUtil.tryToCalculate(_cont,dyn_,0);
         if (_cont.callsOrException()) {
             return;
         }
@@ -638,7 +638,7 @@ public final class ForEachTable extends BracedStack implements Loop, WithNotEmpt
         ip_.setGlobalOffset(expressionOffset);
         ip_.setOffset(0);
         ExpressionLanguage el_ = ip_.getCurrentEl(_conf, this, CustList.FIRST_INDEX, CustList.FIRST_INDEX);
-        Argument arg_ = el_.calculateMember(_conf);
+        Argument arg_ = ElUtil.tryToCalculate(_conf,el_,0);
         if (_conf.callsOrException()) {
             return NullStruct.NULL_VALUE;
         }
@@ -747,7 +747,7 @@ public final class ForEachTable extends BracedStack implements Loop, WithNotEmpt
             _conf.getLastPage().getInternVars().put(locName_, locVar_);
         }
         ExpressionLanguage nextEl_ = call_.getCurrentEl(_conf,this, CustList.SECOND_INDEX, 3);
-        nextEl_.calculateMember(_conf);
+        ElUtil.tryToCalculate(_conf,nextEl_,0);
         if (_conf.callsOrException()) {
             return;
         }
@@ -759,7 +759,7 @@ public final class ForEachTable extends BracedStack implements Loop, WithNotEmpt
             _conf.getLastPage().getInternVars().put(locName_, locVar_);
         }
         ExpressionLanguage firstEl_ = call_.getCurrentEl(_conf,this, 2, 4);
-        Argument arg_ = firstEl_.calculateMember(_conf);
+        Argument arg_ = ElUtil.tryToCalculate(_conf,firstEl_,0);
         if (_conf.callsOrException()) {
             return;
         }
@@ -777,7 +777,7 @@ public final class ForEachTable extends BracedStack implements Loop, WithNotEmpt
             _conf.getLastPage().getInternVars().put(locName_, locVar_);
         }
         ExpressionLanguage secondEl_ = call_.getCurrentEl(_conf,this, 3, 5);
-        arg_ = secondEl_.calculateMember(_conf);
+        arg_ = ElUtil.tryToCalculate(_conf,secondEl_,0);
         if (_conf.callsOrException()) {
             return;
         }
@@ -800,7 +800,7 @@ public final class ForEachTable extends BracedStack implements Loop, WithNotEmpt
         LocalVariable locVar_ = LocalVariable.newLocalVariable(strIter_,_conf);
         _conf.getLastPage().getInternVars().put(locName_, locVar_);
         ExpressionLanguage dyn_ = _conf.getLastPage().getCurrentEl(_conf,this, CustList.FIRST_INDEX, 2);
-        Argument arg_ = dyn_.calculateMember(_conf);
+        Argument arg_ = ElUtil.tryToCalculate(_conf,dyn_,0);
         if (_conf.callsOrException()) {
             return null;
         }

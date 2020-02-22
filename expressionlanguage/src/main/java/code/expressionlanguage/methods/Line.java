@@ -132,7 +132,7 @@ public final class Line extends Leaf implements StackableBlock, WithNotEmptyEl,B
         ip_.setGlobalOffset(expressionOffset);
         ip_.setOffset(0);
         ExpressionLanguage el_ = ip_.getCurrentEl(_cont ,this, CustList.FIRST_INDEX, CustList.FIRST_INDEX);
-        el_.calculateMember(_cont);
+        ElUtil.tryToCalculate(_cont,el_,0);
         if (_cont.callsOrException()) {
             return;
         }
