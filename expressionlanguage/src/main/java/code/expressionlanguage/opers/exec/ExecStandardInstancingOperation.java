@@ -60,6 +60,9 @@ public final class ExecStandardInstancingOperation extends
         CustList<ExecOperationNode> chidren_ = getChildrenNodes();
         CustList<ExecOperationNode> filter_ = filterInvoking(chidren_);
         int off_ = StringList.getFirstPrintableCharIndex(methodName);
+        if (!fieldName.isEmpty()) {
+            off_ -= _conf.getContextEl().getLastPage().getTranslatedOffset();
+        }
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
         String className_;
         PageEl page_ = _conf.getOperationPageEl();

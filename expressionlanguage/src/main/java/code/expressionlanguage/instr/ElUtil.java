@@ -606,14 +606,16 @@ public final class ElUtil {
             a_.calculate(_nodes, _context);
             if (_context.callsOrException()) {
                 _el.setCurrentOper(o);
-                pageEl_.setTranslatedOffset(0);
+                if (!_context.calls()) {
+                    pageEl_.setTranslatedOffset(0);
+                }
                 return;
             }
             Argument res_ = pair_.getArgument();
             Struct st_ = res_.getStruct();
             fr_ = ExecOperationNode.getNextIndex(o, st_);
         }
-        _context.getLastPage().setTranslatedOffset(0);
+        pageEl_.setTranslatedOffset(0);
     }
     public static void buildCoverageReport(ContextEl _cont,int _offsetBlock,
                                            Block _block,

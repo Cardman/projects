@@ -3,10 +3,7 @@ package code.expressionlanguage.methods;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.InitClassState;
 import code.expressionlanguage.opers.util.ClassField;
-import code.expressionlanguage.structs.CausingErrorStruct;
-import code.expressionlanguage.structs.FieldableStruct;
-import code.expressionlanguage.structs.NumberStruct;
-import code.expressionlanguage.structs.Struct;
+import code.expressionlanguage.structs.*;
 import code.util.StringMap;
 import org.junit.Test;
 
@@ -569,6 +566,229 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         assertEq("pkg.Ex-TWO", str_.getClassName(cont_));
         assertEq("pkg.ExOther", getStruct(str_,new ClassField("pkg.Ex", "second")).getClassName(cont_));
     }
+
+    @Test
+    public void initializeClass18Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Ex {\n");
+        xml_.append(" ONE(4i):\n");
+        xml_.append(" $public $int first:\n");
+        xml_.append(" $public $stack[] second:\n");
+        xml_.append(" $public ($int i){\n");
+        xml_.append("  first;;;=i;.;:\n");
+        xml_.append("  second=$stack.current():\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "ONE"));
+        assertEq("pkg.Ex", str_.getClassName(cont_));
+        Struct field_;
+        field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.Ex", "first"));
+        assertEq(INTEGER, field_.getClassName(cont_));
+        assertEq(4, ((NumberStruct)field_).intStruct());
+        field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.Ex", "second"));
+        assertEq("[java.lang.$stack", field_.getClassName(cont_));
+        assertEq(2, ((ArrayStruct)field_).getInstance().length);
+        assertEq("pkg/Ex:2,2:24\npkg.Ex.", ((StackTraceElementStruct)((ArrayStruct)field_).getInstance()[0]).getDisplayedString(cont_).getInstance());
+        assertEq("pkg/Ex:7,17:132\npkg.Ex.pkg.Ex($int)", ((StackTraceElementStruct)((ArrayStruct)field_).getInstance()[1]).getDisplayedString(cont_).getInstance());
+    }
+
+    @Test
+    public void initializeClass19Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Ex {\n");
+        xml_.append(" ONE(4i,$stack.current()):\n");
+        xml_.append(" $public $int first:\n");
+        xml_.append(" $public $stack[] second:\n");
+        xml_.append(" $public ($int i,$stack[] st){\n");
+        xml_.append("  first;;;=i;.;:\n");
+        xml_.append("  second=st;.;:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "ONE"));
+        assertEq("pkg.Ex", str_.getClassName(cont_));
+        Struct field_;
+        field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.Ex", "first"));
+        assertEq(INTEGER, field_.getClassName(cont_));
+        assertEq(4, ((NumberStruct)field_).intStruct());
+        field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.Ex", "second"));
+        assertEq("[java.lang.$stack", field_.getClassName(cont_));
+        assertEq(1, ((ArrayStruct)field_).getInstance().length);
+        assertEq("pkg/Ex:2,16:38\npkg.Ex.", ((StackTraceElementStruct)((ArrayStruct)field_).getInstance()[0]).getDisplayedString(cont_).getInstance());
+    }
+
+    @Test
+    public void initializeClass20Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Ex {\n");
+        xml_.append(" ONE(4){($int i){$super(i;.;):}}:\n");
+        xml_.append(" $public $int first:\n");
+        xml_.append(" $public $stack[] second:\n");
+        xml_.append(" $public ($int i){\n");
+        xml_.append("  first;;;=i;.;:\n");
+        xml_.append("  second=$stack.current():\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "ONE"));
+        assertEq("pkg.Ex-ONE", str_.getClassName(cont_));
+        Struct field_;
+        field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.Ex", "first"));
+        assertEq(INTEGER, field_.getClassName(cont_));
+        assertEq(4, ((NumberStruct)field_).intStruct());
+        field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.Ex", "second"));
+        assertEq("[java.lang.$stack", field_.getClassName(cont_));
+        assertEq(3, ((ArrayStruct)field_).getInstance().length);
+        assertEq("pkg/Ex:2,2:24\npkg.Ex.", ((StackTraceElementStruct)((ArrayStruct)field_).getInstance()[0]).getDisplayedString(cont_).getInstance());
+        assertEq("pkg/Ex:2,24:46\npkg.Ex-ONE.pkg.Ex-ONE($int)", ((StackTraceElementStruct)((ArrayStruct)field_).getInstance()[1]).getDisplayedString(cont_).getInstance());
+        assertEq("pkg/Ex:7,17:156\npkg.Ex.pkg.Ex($int)", ((StackTraceElementStruct)((ArrayStruct)field_).getInstance()[2]).getDisplayedString(cont_).getInstance());
+    }
+
+    @Test
+    public void initializeClass21Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Ex {\n");
+        xml_.append(" ONE{(){$super(4i,$stack.current()):}}:\n");
+        xml_.append(" $public $int first:\n");
+        xml_.append(" $public $stack[] second:\n");
+        xml_.append(" $public ($int i,$stack[] st){\n");
+        xml_.append("  first;;;=i;.;:\n");
+        xml_.append("  second=st;.;:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "ONE"));
+        assertEq("pkg.Ex-ONE", str_.getClassName(cont_));
+        Struct field_;
+        field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.Ex", "first"));
+        assertEq(INTEGER, field_.getClassName(cont_));
+        assertEq(4, ((NumberStruct)field_).intStruct());
+        field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.Ex", "second"));
+        assertEq("[java.lang.$stack", field_.getClassName(cont_));
+        assertEq(2, ((ArrayStruct)field_).getInstance().length);
+        assertEq("pkg/Ex:2,2:24\npkg.Ex.", ((StackTraceElementStruct)((ArrayStruct)field_).getInstance()[0]).getDisplayedString(cont_).getInstance());
+        assertEq("pkg/Ex:2,26:48\npkg.Ex-ONE.pkg.Ex-ONE()", ((StackTraceElementStruct)((ArrayStruct)field_).getInstance()[1]).getDisplayedString(cont_).getInstance());
+    }
+
+    @Test
+    public void initializeClass22Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Ex {\n");
+        xml_.append(" ONE(4,$stack.current()){($int i,$stack[] st){$super(i;.;,st;.;):}}:\n");
+        xml_.append(" $public $int first:\n");
+        xml_.append(" $public $stack[] second:\n");
+        xml_.append(" $public ($int i,$stack[] st){\n");
+        xml_.append("  first;;;=i;.;:\n");
+        xml_.append("  second=st;.;:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "ONE"));
+        assertEq("pkg.Ex-ONE", str_.getClassName(cont_));
+        Struct field_;
+        field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.Ex", "first"));
+        assertEq(INTEGER, field_.getClassName(cont_));
+        assertEq(4, ((NumberStruct)field_).intStruct());
+        field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.Ex", "second"));
+        assertEq("[java.lang.$stack", field_.getClassName(cont_));
+        assertEq(1, ((ArrayStruct)field_).getInstance().length);
+        assertEq("pkg/Ex:2,15:37\npkg.Ex.", ((StackTraceElementStruct)((ArrayStruct)field_).getInstance()[0]).getDisplayedString(cont_).getInstance());
+    }
+
+    @Test
+    public void initializeClass23Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Ex {\n");
+        xml_.append(" ONE(4i,tr()):\n");
+        xml_.append(" $public $int first:\n");
+        xml_.append(" $public $stack[] second:\n");
+        xml_.append(" $public ($int i, $stack[] st){\n");
+        xml_.append("  first;;;=i;.;:\n");
+        xml_.append("  second=st;.;:\n");
+        xml_.append(" }\n");
+        xml_.append(" $private $static $stack[] tr(){\n");
+        xml_.append("  $return $stack.current():\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "ONE"));
+        assertEq("pkg.Ex", str_.getClassName(cont_));
+        Struct field_;
+        field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.Ex", "first"));
+        assertEq(INTEGER, field_.getClassName(cont_));
+        assertEq(4, ((NumberStruct)field_).intStruct());
+        field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.Ex", "second"));
+        assertEq("[java.lang.$stack", field_.getClassName(cont_));
+        assertEq(2, ((ArrayStruct)field_).getInstance().length);
+        assertEq("pkg/Ex:2,9:31\npkg.Ex.", ((StackTraceElementStruct)((ArrayStruct)field_).getInstance()[0]).getDisplayedString(cont_).getInstance());
+        assertEq("pkg/Ex:10,18:203\npkg.Ex.$static tr()", ((StackTraceElementStruct)((ArrayStruct)field_).getInstance()[1]).getDisplayedString(cont_).getInstance());
+    }
+
+    @Test
+    public void initializeClass24Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Ex {\n");
+        xml_.append(" ONE(4,tr()){($int i,$stack[] st){$super(i;.;,st;.;):}}:\n");
+        xml_.append(" $public $int first:\n");
+        xml_.append(" $public $stack[] second:\n");
+        xml_.append(" $public ($int i,$stack[] st){\n");
+        xml_.append("  first;;;=i;.;:\n");
+        xml_.append("  second=st;.;:\n");
+        xml_.append(" }\n");
+        xml_.append(" $private $static $stack[] tr(){\n");
+        xml_.append("  $return $stack.current():\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "ONE"));
+        assertEq("pkg.Ex-ONE", str_.getClassName(cont_));
+        Struct field_;
+        field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.Ex", "first"));
+        assertEq(INTEGER, field_.getClassName(cont_));
+        assertEq(4, ((NumberStruct)field_).intStruct());
+        field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.Ex", "second"));
+        assertEq("[java.lang.$stack", field_.getClassName(cont_));
+        assertEq(2, ((ArrayStruct)field_).getInstance().length);
+        assertEq("pkg/Ex:2,8:30\npkg.Ex.", ((StackTraceElementStruct)((ArrayStruct)field_).getInstance()[0]).getDisplayedString(cont_).getInstance());
+        assertEq("pkg/Ex:10,18:244\npkg.Ex.$static tr()", ((StackTraceElementStruct)((ArrayStruct)field_).getInstance()[1]).getDisplayedString(cont_).getInstance());
+    }
+
     @Test
     public void initializeClass1FailTest() {
         StringBuilder xml_ = new StringBuilder();

@@ -1012,19 +1012,21 @@ public abstract class OperationNode implements Operable {
             StringMap<String> superTypesBaseAncBis_ = new StringMap<String>();
             boolean add_ = !root_.isStaticType();
             int anc_ = 1;
+            MethodAccessKind scope_ = _staticContext;
             for (RootBlock p: r_.getAllParentTypes()) {
-                if (add_) {
-                    String gene_ = p.getGenericString();
-                    baseTypes_.add(p.getFullName());
-                    allGeneTypes_.put(tryQuickFormat(_conf,t,gene_),anc_);
-                    for (String m : p.getAllGenericSuperTypes()) {
-                        allGeneTypes_.put(tryQuickFormat(_conf,t,m),anc_);
-                    }
-                    String baseCur_ = p.getFullName();
-                    superTypesBaseAncBis_.put(baseCur_, baseCur_);
-                    for (String m: p.getAllSuperTypes()) {
-                        superTypesBaseAncBis_.put(m, baseCur_);
-                    }
+                if (!add_) {
+                    scope_ = MethodAccessKind.STATIC;
+                }
+                String gene_ = p.getGenericString();
+                baseTypes_.add(p.getFullName());
+                allGeneTypes_.put(tryQuickFormat(_conf,t,gene_),anc_);
+                for (String m : p.getAllGenericSuperTypes()) {
+                    allGeneTypes_.put(tryQuickFormat(_conf,t,m),anc_);
+                }
+                String baseCur_ = p.getFullName();
+                superTypesBaseAncBis_.put(baseCur_, baseCur_);
+                for (String m: p.getAllSuperTypes()) {
+                    superTypesBaseAncBis_.put(m, baseCur_);
                 }
                 if (p.isStaticType()) {
                     add_ = false;
@@ -1035,7 +1037,7 @@ public abstract class OperationNode implements Operable {
                 String u_ = e.getKey();
                 String clOuter_ = Templates.getIdFromAllTypes(u_);
                 GeneType rootOuter_ = _conf.getClassBody(clOuter_);
-                fetchParamClassMethods(_conf,_accessFromSuper,_superClass,e.getValue(),_staticContext,_uniqueId,glClass_,_methods,u_,rootOuter_,baseTypes_,superTypesBaseAncBis_);
+                fetchParamClassMethods(_conf,_accessFromSuper,_superClass,e.getValue(),scope_,_uniqueId,glClass_,_methods,u_,rootOuter_,baseTypes_,superTypesBaseAncBis_);
             }
         }
     }

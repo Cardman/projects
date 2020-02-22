@@ -365,7 +365,7 @@ public final class InnerElementBlock extends RootBlock implements InnerTypeOrEle
             ip_.setOffset(0);
             Struct struct_;
             ExpressionLanguage el_ = ip_.getCurrentEl(_cont, this, CustList.FIRST_INDEX, CustList.FIRST_INDEX);
-            Argument arg_ = el_.calculateMember(_cont, trOffset + 1);
+            Argument arg_ = el_.calculateMember(_cont, trOffset);
             if (_cont.callsOrException()) {
                 return;
             }

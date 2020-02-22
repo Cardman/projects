@@ -72,6 +72,10 @@ public abstract class AbstractPageEl extends PageEl {
         return globalOffset + offset + translatedOffset;
     }
 
+    public int getTranslatedOffset() {
+        return translatedOffset;
+    }
+
     public abstract boolean checkCondition(ContextEl _context);
 
 
