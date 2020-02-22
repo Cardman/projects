@@ -1232,6 +1232,22 @@ public abstract class ContextEl implements ExecutableCode {
         }
         return resType_;
     }
+
+    @Override
+    public String checkExactType(int _loc, String _in) {
+        if (!_in.isEmpty()) {
+            return _in;
+        }
+        Block bl_ = getCurrentBlock();
+        int rc_ = getCurrentLocationIndex() + _loc;
+        UnknownClassName un_ = new UnknownClassName();
+        un_.setClassName(_in);
+        un_.setFileName(bl_.getFile().getFileName());
+        un_.setIndexFile(rc_);
+        classes.addError(un_);
+        return standards.getAliasObject();
+    }
+
     /**Used at analyzing instructions*/
     @Override
     public String resolveCorrectType(int _loc,String _in, boolean _exact) {

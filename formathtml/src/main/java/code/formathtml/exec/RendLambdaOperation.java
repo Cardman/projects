@@ -8,9 +8,7 @@ import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.MethodId;
-import code.expressionlanguage.structs.LambdaConstructorStruct;
-import code.expressionlanguage.structs.LambdaFieldStruct;
-import code.expressionlanguage.structs.LambdaMethodStruct;
+import code.expressionlanguage.structs.*;
 import code.formathtml.Configuration;
 import code.util.IdMap;
 
@@ -30,6 +28,7 @@ public final class RendLambdaOperation extends RendLeafOperation implements Rend
     private boolean affField;
     private boolean directCast;
     private String returnFieldType;
+    private String classInst;
 
     public RendLambdaOperation(LambdaOperation _l) {
         super(_l);
@@ -46,6 +45,7 @@ public final class RendLambdaOperation extends RendLeafOperation implements Rend
         affField = _l.isAffField();
         returnFieldType = _l.getReturnFieldType();
         directCast = _l.isDirectCast();
+        classInst = _l.getClassInst();
     }
 
     @Override
@@ -57,6 +57,17 @@ public final class RendLambdaOperation extends RendLeafOperation implements Rend
 
     Argument getCommonArgument(Argument _previous, ExecutableCode _conf) {
         Argument arg_ = new Argument();
+        if (!classInst.isEmpty()) {
+            String clInst_ = _conf.getOperationPageEl().formatVarType(classInst, _conf);
+            FunctionalInstance struct_ = new FunctionalInstance(clInst_);
+            struct_.setFunctional(newLambda(_previous,_conf));
+            arg_.setStruct(struct_);
+            return arg_;
+        }
+        arg_.setStruct(newLambda(_previous,_conf));
+        return arg_;
+    }
+    private Struct newLambda(Argument _previous, ExecutableCode _conf) {
         String clArg_ = getResultClass().getName();
         String ownerType_ = foundClass;
         ownerType_ = _conf.getOperationPageEl().formatVarType(ownerType_, _conf);
@@ -65,21 +76,18 @@ public final class RendLambdaOperation extends RendLeafOperation implements Rend
             String formatType_ = _conf.getOperationPageEl().formatVarType(returnFieldType, _conf);
             LambdaFieldStruct l_ = new LambdaFieldStruct(clArg_, fieldId, shiftArgument, ancestor,affField, formatType_);
             l_.setInstanceCall(_previous);
-            arg_.setStruct(l_);
-            return arg_;
+            return l_;
         }
         if (method == null) {
             LambdaConstructorStruct l_ = new LambdaConstructorStruct(clArg_, ownerType_, realId, shiftArgument);
             l_.setInstanceCall(_previous);
-            arg_.setStruct(l_);
-            return arg_;
+            return l_;
         }
         MethodId id_ = method.getConstraints();
         LambdaMethodStruct l_ = new LambdaMethodStruct(clArg_, ownerType_, id_, polymorph, shiftArgument, ancestor,abstractMethod);
         l_.setInstanceCall(_previous);
         l_.setDirectCast(directCast);
-        arg_.setStruct(l_);
-        return arg_;
+        return l_;
     }
 
     @Override

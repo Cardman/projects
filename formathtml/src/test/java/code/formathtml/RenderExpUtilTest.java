@@ -8562,6 +8562,20 @@ public final class RenderExpUtilTest extends CommonRender {
         Argument arg_ = processEl("$staticCall(pkg.Ex).exmeth()", cont_);
         assertEq(9, arg_.getNumber());
     }
+
+    @Test
+    public void processEl469Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.Interface {\n");
+        xml_.append(" $int opTwo($int a,$int b):\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        Configuration cont_ = getConfiguration4(files_);
+        addImportingPage(cont_);
+        Argument arg_ = processEl("((pkg.Interface) $static($math).$lambda($math,plus,$int,$int)).opTwo(1,2)", cont_);
+        assertEq(3, arg_.getNumber());
+    }
     @Test
     public void procesAffect00Test() {
         Configuration context_ = getConfiguration4();

@@ -3,6 +3,8 @@ package code.expressionlanguage.opers.exec;
 import code.expressionlanguage.*;
 import code.expressionlanguage.calls.PageEl;
 import code.expressionlanguage.calls.util.*;
+import code.expressionlanguage.common.GeneCustMethod;
+import code.expressionlanguage.common.GeneMethod;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
@@ -465,6 +467,9 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                 return new Argument();
             }
         }
+        Struct prev_ =_previous.getStruct();
+        ContextEl context_ = _conf.getContextEl();
+        CustList<NamedFunctionBlock> methods_ = Classes.getMethodBodiesById(context_, _classNameFound, _methodId);
         if (StringList.quickEq(aliasFct_, _classNameFound)) {
             Argument instance_ = _firstArgs.first();
             Struct inst_ = instance_.getStruct();
@@ -503,8 +508,6 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             argRes_.setStruct(res_.getResult());
             return argRes_;
         }
-        ContextEl context_ = _conf.getContextEl();
-        CustList<NamedFunctionBlock> methods_ = Classes.getMethodBodiesById(context_, _classNameFound, _methodId);
         if (methods_.isEmpty()) {
             //static enum methods
             String values_ = context_.getStandards().getAliasEnumValues();
@@ -515,6 +518,13 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             }
             Argument arg_ = _firstArgs.first();
             return getEnumValue(_classNameFound, arg_, _conf);
+        }
+        if (prev_ instanceof FunctionalInstance) {
+            GeneCustMethod gene_ = (GeneCustMethod) methods_.first();
+            if (gene_.isAbstractMethod()) {
+                Argument fct_ = new Argument(((FunctionalInstance)prev_).getFunctional());
+                return prepareCallDyn(fct_, _firstArgs, _conf);
+            }
         }
         String enum_ = context_.getStandards().getAliasEnumType();
         if (StringList.quickEq(enum_, _classNameFound)) {

@@ -40,6 +40,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
     private boolean affField;
     private String returnFieldType;
     private CustList<PartOffset> partOffsets = new CustList<PartOffset>();
+    private String classInst = EMPTY_STRING;
 
     public LambdaOperation(int _indexInEl, int _indexChild, MethodOperation _m,
             OperationsSequence _op) {
@@ -53,7 +54,6 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
     public void analyze(Analyzable _conf) {
         setRelativeOffsetPossibleAnalyzable(getIndexInEl() + offset, _conf);
         LgNames stds_ = _conf.getStandards();
-        MethodOperation m_ = getParent();
         String extr_ = className.substring(className.indexOf('(')+1, className.lastIndexOf(')'));
         StringList args_ = Templates.getAllSepCommaTypes(extr_);
         int len_ = args_.size();
@@ -66,25 +66,94 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             return;
         }
-        String fromType_ = ContextEl.removeDottedSpaces(args_.first());
+        generalProcess(_conf, args_);
+        MethodOperation m_ = getParent();
+        if (m_ instanceof DotOperation) {
+            m_ = m_.getParent();
+        }
+        if (m_ instanceof IdOperation) {
+            m_ = m_.getParent();
+        }
+        if (m_ instanceof CastOperation) {
+            String dest_ = ((CastOperation) m_).getClassName();
+            if (ExplicitOperation.customCast(dest_)) {
+                String id_ = Templates.getIdFromAllTypes(dest_);
+                GeneType r_ = _conf.getClassBody(id_);
+                if (r_ instanceof InterfaceBlock && r_.isStaticType()) {
+                    //abstract type
+                    int instEltCount_ = 0;
+                    StringList superType_ = new StringList(id_);
+                    superType_.addAllElts(r_.getAllSuperTypes());
+                    for (String i: superType_) {
+                        for (Block b: Classes.getDirectChildren(_conf.getClasses().getClassBody(i))) {
+                            if ((b instanceof FieldBlock)) {
+                                if (((FieldBlock)b).isStaticField()) {
+                                    continue;
+                                }
+                                instEltCount_++;
+                            }
+                            if (b instanceof InstanceBlock) {
+                                instEltCount_++;
+                            }
+                            if (b instanceof ConstructorBlock) {
+                                instEltCount_++;
+                            }
+                        }
+                    }
+                    CustList<ClassMethodId> functional_ = ((RootBlock) r_).getFunctional();
+                    if (instEltCount_ == 0 && functional_.size() == 1) {
+                        ClassMethodId clRealId_ = functional_.first();
+                        MethodId realId_ = clRealId_.getConstraints();
+                        MethodId idMeth_ = realId_.quickFormat(dest_, _conf);
+                        String gene_ = clRealId_.getClassName();
+                        String geneFor_ = Templates.quickFormat(dest_,gene_,_conf);
+                        String ret_ = _conf.getMethodBodiesById(gene_, realId_).first().getImportedReturnType();
+                        ret_ = Templates.quickFormat(dest_,ret_,_conf);
+                        ClassMethodIdReturn parmMe_ = new ClassMethodIdReturn(true);
+                        parmMe_.setId(clRealId_);
+                        parmMe_.setRealId(idMeth_);
+                        parmMe_.setReturnType(ret_);
+                        parmMe_.setRealClass(gene_);
+                        String fctParam_ = formatReturn(_conf, false, parmMe_, false);
+                        fctParam_ = Templates.quickFormat(geneFor_,fctParam_,_conf);
+                        StringMap<StringList> vars_ = _conf.getCurrentConstraints();
+                        Mapping mapping_ = new Mapping();
+                        mapping_.setMapping(vars_);
+                        ClassArgumentMatching cl_ = getResultClass();
+                        mapping_.setArg(cl_);
+                        mapping_.setParam(fctParam_);
+                        if (Templates.isCorrectOrNumbers(mapping_, _conf)) {
+                            classInst = dest_;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private void generalProcess(Analyzable _conf, StringList _args) {
+        LgNames stds_ = _conf.getStandards();
+        int len_ = _args.size();
+        MethodOperation m_ = getParent();
+        String fromType_ = ContextEl.removeDottedSpaces(_args.first());
         CustList<ClassArgumentMatching> methodTypes_ = new CustList<ClassArgumentMatching>();
         KeyWords keyWords_ = _conf.getKeyWords();
         String operator_ = keyWords_.getKeyWordOperator();
         String new_ = keyWords_.getKeyWordNew();
         if (StringList.quickEq(fromType_, operator_)) {
-            processOperator(_conf, stds_, args_, methodTypes_);
+            processOperator(_conf, stds_, _args, methodTypes_);
             return;
         }
-        String name_ = args_.get(1).trim();
+        String name_ = _args.get(1).trim();
         if (name_.isEmpty()) {
-            processField(_conf, stds_, m_, args_, len_, fromType_);
+            processField(_conf, stds_, m_, _args, len_, fromType_);
             return;
         }
         if (StringList.quickEq(name_, new_)) {
-            processInstance(_conf, stds_, args_, len_, fromType_, methodTypes_);
+            processInstance(_conf, stds_, _args, len_, fromType_, methodTypes_);
             return;
         }
-        processMethod(_conf, stds_, m_, args_, len_, fromType_, methodTypes_,
+        processMethod(_conf, stds_, m_, _args, len_, fromType_, methodTypes_,
                 name_);
     }
 
@@ -1602,5 +1671,9 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
 
     public int getClassNameOffset() {
         return StringList.getFirstPrintableCharIndex(className);
+    }
+
+    public String getClassInst() {
+        return classInst;
     }
 }

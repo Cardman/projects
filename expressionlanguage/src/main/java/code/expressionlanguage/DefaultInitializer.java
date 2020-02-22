@@ -14,6 +14,11 @@ public class DefaultInitializer implements Initializer {
     @Override
     public final Struct processInit(ContextEl _context, Struct _parent,
             String _className, String _fieldName, int _ordinal) {
+        ObjectMap<ClassField, Struct> fields_ = feedFields(_context, _className);
+        return init(_context, _parent, _className, _fieldName, _ordinal, fields_);
+    }
+
+    public ObjectMap<ClassField, Struct> feedFields(ContextEl _context, String _className) {
         Classes classes_ = _context.getClasses();
         String baseClass_ = Templates.getIdFromAllTypes(_className);
         RootBlock class_ = classes_.getClassBody(baseClass_);
@@ -41,7 +46,7 @@ public class DefaultInitializer implements Initializer {
                 }
             }
         }
-        return init(_context, _parent, _className, _fieldName, _ordinal, fields_);
+        return fields_;
     }
 
     @Override

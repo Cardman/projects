@@ -115,6 +115,7 @@ public interface Analyzable {
     void appendMultiParts(int _begin, String _full, String _in, CustList<PartOffset> _parts);
     void appendParts(int _begin, int _end, String _in, CustList<PartOffset> _parts);
     void appendTitleParts(int _begin, int _end, String _in, CustList<PartOffset> _parts);
+    String checkExactType(int _loc,String _in);
     String resolveCorrectTypeWithoutErrors(int _loc,String _in, boolean _exact);
 
     ObjectMap<ClassMethodId,Integer> lookupImportStaticMethods(String _glClass,String _method, Block _rooted);

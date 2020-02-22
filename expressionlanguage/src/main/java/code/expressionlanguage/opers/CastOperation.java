@@ -11,12 +11,12 @@ import code.expressionlanguage.opers.exec.Operable;
 import code.expressionlanguage.opers.exec.ParentOperable;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.util.CustList;
-import code.util.*;
 
-public final class CastOperation extends AbstractUnaryOperation {
+public final class CastOperation extends AbstractUnaryOperation implements PreAnalyzableOperation {
 
     private String className;
     private int offset;
+    private int beginType;
     private CustList<PartOffset> partOffsets;
     public CastOperation(int _index, int _indexChild, MethodOperation _m,
             OperationsSequence _op) {
@@ -26,18 +26,30 @@ public final class CastOperation extends AbstractUnaryOperation {
     }
 
     @Override
-    public void analyzeUnary(Analyzable _conf) {
-        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+offset, _conf);
+    public void preAnalyze(Analyzable _an) {
+        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+offset, _an);
         String ext_ = getOperations().getExtractType();
         if (!ext_.isEmpty()) {
             className = ext_;
             partOffsets = getOperations().getPartOffsets();
         } else {
-            String res_ = className.substring(className.indexOf(PAR_LEFT)+1, className.lastIndexOf(PAR_RIGHT));
-            res_ = _conf.resolveCorrectType(className.indexOf(PAR_LEFT)+1,res_);
-            className = res_;
-            partOffsets = new CustList<PartOffset>(_conf.getContextEl().getCoverage().getCurrentParts());
+            beginType = className.indexOf(PAR_LEFT) + 1;
+            String res_ = className.substring(beginType, className.lastIndexOf(PAR_RIGHT));
+            res_ = _an.resolveCorrectTypeWithoutErrors(className.indexOf(PAR_LEFT)+1,res_,true);
+            if (!res_.isEmpty()) {
+                className = res_;
+                partOffsets = new CustList<PartOffset>(_an.getContextEl().getCoverage().getCurrentParts());
+            } else {
+                className = EMPTY_STRING;
+                partOffsets = new CustList<PartOffset>();
+            }
         }
+    }
+
+    @Override
+    public void analyzeUnary(Analyzable _conf) {
+        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+offset, _conf);
+        className = _conf.checkExactType(beginType, className);
         setResultClass(new ClassArgumentMatching(className));
         if (PrimitiveTypeUtil.isPrimitive(className, _conf)) {
             getFirstChild().getResultClass().setUnwrapObject(className);

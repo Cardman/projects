@@ -870,6 +870,11 @@ public final class Configuration implements ExecutableCode {
     }
 
     @Override
+    public String checkExactType(int _loc, String _in) {
+        return _in;
+    }
+
+    @Override
     public String resolveCorrectTypeWithoutErrors(int _loc,String _in, boolean _exact) {
         String void_ = standards.getAliasVoid();
         if (StringList.quickEq(_in.trim(), void_)) {

@@ -76,6 +76,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
     private CustList<CustList<ExecOperationNode>> annotationsOps = new CustList<CustList<ExecOperationNode>>();
     private Ints annotationsIndexes = new Ints();
     private final StringList allGenericSuperTypes = new StringList();
+    private final CustList<ClassMethodId> functional = new CustList<ClassMethodId>();
 
     RootBlock(int _idRowCol, int _categoryOffset, String _name,
               String _packageName, OffsetAccessInfo _access, String _templateDef,
@@ -1179,7 +1180,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
     }
     public final void checkImplements(ContextEl _context) {
         Classes classesRef_ = _context.getClasses();
-        CustList<ClassFormattedMethodId> abstractMethods_ = new CustList<ClassFormattedMethodId>();
+        CustList<ClassMethodId> abstractMethods_ = new CustList<ClassMethodId>();
         boolean concreteClass_ = false;
         if (mustImplement()) {
             concreteClass_ = true;
@@ -1225,11 +1226,11 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                 RootBlock superBl_ = classesRef_.getClassBody(base_);
                 for (GeneCustMethod m: Classes.getMethodBlocks(superBl_)) {
                     if (m.isAbstractMethod()) {
-                        abstractMethods_.add(new ClassFormattedMethodId(s, m.getId()));
+                        abstractMethods_.add(new ClassMethodId(s, m.getId()));
                     }
                 }
             }
-            for (ClassFormattedMethodId m: abstractMethods_) {
+            for (ClassMethodId m: abstractMethods_) {
                 String baseClass_ = m.getClassName();
                 baseClass_ = Templates.getIdFromAllTypes(baseClass_);
                 RootBlock info_ = classesRef_.getClassBody(baseClass_);
@@ -1242,6 +1243,27 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                     err_.setIndexFile(idRowCol);
                     err_.setSgn(m.getConstraints().getSignature(_context));
                     classesRef_.addError(err_);
+                }
+            }
+        } else {
+            StringList allSuperClass_ = new StringList(getGenericString());
+            allSuperClass_.addAllElts(getAllGenericSuperTypes());
+            for (String s: allSuperClass_) {
+                String base_ = Templates.getIdFromAllTypes(s);
+                RootBlock superBl_ = classesRef_.getClassBody(base_);
+                for (GeneCustMethod m: Classes.getMethodBlocks(superBl_)) {
+                    if (m.isAbstractMethod()) {
+                        abstractMethods_.add(new ClassMethodId(s, m.getId()));
+                    }
+                }
+            }
+            for (ClassMethodId m: abstractMethods_) {
+                String baseClass_ = m.getClassName();
+                baseClass_ = Templates.getIdFromAllTypes(baseClass_);
+                RootBlock info_ = classesRef_.getClassBody(baseClass_);
+                StringMap<ClassMethodId> map_ = TypeUtil.getConcreteMethodsToCall(info_, m.getConstraints(), _context);
+                if (!map_.contains(getFullName())) {
+                    functional.add(m);
                 }
             }
         }
@@ -1266,7 +1288,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
         ov_ = RootBlock.getAllOverridingMethods(signatures_, _context);
         if (concreteClass_) {
             abstractMethods_ = RootBlock.remainingInterfaceMethodsToImplement(ov_, getFullName(), _context);
-            for (ClassFormattedMethodId m: abstractMethods_) {
+            for (ClassMethodId m: abstractMethods_) {
                 String baseClass_ = m.getClassName();
                 baseClass_ = Templates.getIdFromAllTypes(baseClass_);
                 RootBlock info_ = classesRef_.getClassBody(baseClass_);
@@ -1465,11 +1487,11 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
         }
         return output_;
     }
-    public static CustList<ClassFormattedMethodId> remainingInterfaceMethodsToImplement(
+    public static CustList<ClassMethodId> remainingInterfaceMethodsToImplement(
             ObjectMap<MethodId, EqList<ClassMethodId>> _methodIds,
             String _fullName,
             ContextEl _context) {
-        CustList<ClassFormattedMethodId> rem_ = new CustList<ClassFormattedMethodId>();
+        CustList<ClassMethodId> rem_ = new CustList<ClassMethodId>();
         for (EntryCust<MethodId, EqList<ClassMethodId>> e: _methodIds.entryList()) {
             int nbConcrete_ = 0;
             int nbFinal_ = 0;
@@ -1489,7 +1511,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
             if (nbConcrete_ > 1 && nbFinal_ == 0) {
                 for (ClassMethodId f: e.getValue()) {
                     String f_ = f.getClassName();
-                    ClassFormattedMethodId id_ = new ClassFormattedMethodId(f_, f.getConstraints());
+                    ClassMethodId id_ = new ClassMethodId(f_, f.getConstraints());
                     rem_.add(id_);
                 }
             }
@@ -1615,6 +1637,10 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
             int end_ = begin_ + annotations.get(i).length();
             ElUtil.buildCoverageReport(_cont,begin_,this,annotationsOps.get(i),end_,_parts,0,"",true);
         }
+    }
+
+    public CustList<ClassMethodId> getFunctional() {
+        return functional;
     }
 
     public CustList<PartOffset> getSuperTypesParts() {
