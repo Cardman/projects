@@ -2,10 +2,12 @@ package code.expressionlanguage.methods;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.opers.util.MethodAccessKind;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.structs.FunctionalInstance;
 import code.expressionlanguage.structs.NullStruct;
 import code.util.CustList;
+import code.util.StringList;
 import code.util.StringMap;
 import org.junit.Test;
 
@@ -531,6 +533,64 @@ public final class ProcessMethodFunctionalInterfaceTest extends ProcessMethodCom
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
+        Argument ret_;
+        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        assertEq("simple 0", ret_.getString());
+    }
+    @Test
+    public void calculate13Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply<T> {\n");
+        xml_.append(" $public $static Object test(){\n");
+        xml_.append("  $return $staticCall(Apply<java.lang.String>).test():\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $staticCall T test(){\n");
+        xml_.append("  Interface<T> res = (Interface<T>) $staticCall().$lambda(Apply<T>,gene,T...):\n");
+        xml_.append("  $return res;.opTwo((T)\"call\",(T)\"here\"):\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $staticCall T gene(T... args){\n");
+        xml_.append("  $return (T)(\"simple \"+args;.;[0]+\" \"+args;.;[1]):\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $interface pkg.Interface<T> {\n");
+        xml_.append(" T opTwo(T... args):\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextElReadOnly();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ =getMethodId("test");
+        Argument ret_;
+        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        assertEq("simple call here", ret_.getString());
+    }
+    @Test
+    public void calculate14Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply<T> {\n");
+        xml_.append(" $public $static Object test(){\n");
+        xml_.append("  $return $staticCall(Apply<java.lang.String>).test():\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $staticCall T test(){\n");
+        xml_.append("  Interface<T> res = (Interface<T>) $staticCall().$lambda(Apply<T>,gene,T...):\n");
+        xml_.append("  $return res;.opTwo():\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $staticCall T gene(T... args){\n");
+        xml_.append("  $return (T)(\"simple \"+args;.;length):\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $interface pkg.Interface<T> {\n");
+        xml_.append(" T opTwo(T... args):\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextElReadOnly();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ =getMethodId("test");
         Argument ret_;
         ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
         assertEq("simple 0", ret_.getString());
