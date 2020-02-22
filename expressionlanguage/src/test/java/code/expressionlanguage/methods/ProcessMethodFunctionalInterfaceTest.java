@@ -484,6 +484,58 @@ public final class ProcessMethodFunctionalInterfaceTest extends ProcessMethodCom
         assertEq(3, ret_.getNumber());
     }
     @Test
+    public void calculate11Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $public $static Object test(){\n");
+        xml_.append("  Interface res = (Interface) $static().$lambda(Apply,gene,String...):\n");
+        xml_.append("  $return res;.opTwo(\"call\",\"here\"):\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static String gene(String... args){\n");
+        xml_.append("  $return \"simple \"+args;.;[0]+\" \"+args;.;[1]:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $interface pkg.Interface {\n");
+        xml_.append(" Object opTwo(String... args):\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextElReadOnly();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("test");
+        Argument ret_;
+        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        assertEq("simple call here", ret_.getString());
+    }
+    @Test
+    public void calculate12Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $public $static Object test(){\n");
+        xml_.append("  Interface res = (Interface) $static().$lambda(Apply,gene,String...):\n");
+        xml_.append("  $return res;.opTwo():\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static String gene(String... args){\n");
+        xml_.append("  $return \"simple \"+args;.;length:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $interface pkg.Interface {\n");
+        xml_.append(" Object opTwo(String... args):\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextElReadOnly();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("test");
+        Argument ret_;
+        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        assertEq("simple 0", ret_.getString());
+    }
+    @Test
     public void calculate1ExTest() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_ = new StringBuilder();
