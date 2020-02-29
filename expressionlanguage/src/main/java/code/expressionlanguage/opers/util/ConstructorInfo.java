@@ -1,5 +1,7 @@
 package code.expressionlanguage.opers.util;
 
+import code.expressionlanguage.Analyzable;
+import code.expressionlanguage.inherits.Templates;
 import code.util.StringList;
 
 public final class ConstructorInfo implements Parametrable {
@@ -74,9 +76,12 @@ public final class ConstructorInfo implements Parametrable {
         varArgWrap = _v;
     }
 
-    @Override
-    public void format(StringList _params) {
-        formatted = new ConstructorId(className, _params, isVararg());
+    public void format(Analyzable _an) {
+        StringList params_ = new StringList();
+        for (String p: constraints.getParametersTypes()) {
+            params_.add(Templates.wildCardFormatParam(isStatic(),className,p,_an));
+        }
+        formatted = new ConstructorId(className, params_, isVararg());
     }
 
     @Override

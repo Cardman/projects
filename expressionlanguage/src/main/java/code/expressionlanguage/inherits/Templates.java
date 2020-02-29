@@ -542,7 +542,7 @@ public final class Templates {
                     String formatted_ = types_.get(index_+1);
                     //parameters, field affectation
                     if (formatted_.startsWith(SUB_TYPE)) {
-                        return null;
+                        return "";
                     }
                     if (formatted_.startsWith(SUP_TYPE)) {
                         return PrimitiveTypeUtil.getPrettyArrayType(formatted_.substring(SUP_TYPE.length()),arr_);
@@ -550,10 +550,10 @@ public final class Templates {
                     return PrimitiveTypeUtil.getPrettyArrayType(formatted_,arr_);
                 }
             }
-            return null;
+            return "";
         }
         if (typeVar_.size() != types_.size() - 1){
-            return null;
+            return "";
         }
         StringMap<String> varTypes_ = new StringMap<String>();
         int i_ = CustList.FIRST_INDEX;
@@ -915,7 +915,7 @@ public final class Templates {
                         var_ = false;
                         continue;
                     }
-                    return null;
+                    return "";
                 }
                 if (value_.startsWith(SUB_TYPE)) {
                     String bound_= value_.substring(SUB_TYPE.length());
@@ -925,7 +925,7 @@ public final class Templates {
                         var_ = false;
                         continue;
                     }
-                    return null;
+                    return "";
                 }
                 if (value_.startsWith(SUP_TYPE)) {
                     String bound_= value_.substring(SUP_TYPE.length());
@@ -942,7 +942,7 @@ public final class Templates {
                         var_ = false;
                         continue;
                     }
-                    return null;
+                    return "";
                 }
                 str_.append(value_);
             } else {
@@ -2011,6 +2011,9 @@ public final class Templates {
                     String baseArrNext_ = PrimitiveTypeUtil.getQuickComponentBaseType(idNext_).getComponent();
                     String n_ = StringList.concat(baseArr_,"..",baseArrNext_);
                     GeneType next_ = _context.getClassBody(n_);
+                    if (next_ == null) {
+                        return false;
+                    }
                     if (next_.isStaticType()) {
                         if (nbParams_ != 0) {
                             return false;

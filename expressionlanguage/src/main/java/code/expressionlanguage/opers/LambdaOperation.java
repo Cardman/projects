@@ -184,7 +184,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 feed_ = new ClassMethodId(type_, new MethodId(MethodAccessKind.STATIC, name_, params_, varargFct_));
                 for (String s: argsRes_.getParametersTypes()) {
                     String format_ = Templates.wildCardFormatParam(false, type_, s, _conf);
-                    if (format_ == null) {
+                    if (format_.isEmpty()) {
                         ClassMethodIdReturn idDef_ = new ClassMethodIdReturn(true);
                         MethodId idCast_ = new MethodId(MethodAccessKind.STATIC,exp_,new StringList(_stds.getAliasObject()));
                         idDef_.setId(new ClassMethodId(type_, idCast_));
@@ -339,7 +339,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 feed_ = new ClassMethodId(cl_, new MethodId(staticFlag_, name_, params_, varargFct_));
                 for (String s: argsRes_.getParametersTypes()) {
                     String format_ = Templates.wildCardFormatParam(staticFlag_ == MethodAccessKind.STATIC, type_, s, _conf);
-                    if (format_ == null) {
+                    if (format_.isEmpty()) {
                         StaticAccessError static_ = new StaticAccessError();
                         static_.setFileName(_conf.getCurrentFileName());
                         static_.setIndexFile(_conf.getCurrentLocationIndex());
@@ -591,7 +591,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             feed_ = new ClassMethodId(cl_, new MethodId(stCtx_, name_, params_, varargFct_));
             for (String s: argsRes_.getParametersTypes()) {
                 String format_ = Templates.wildCardFormatParam(stCtx_ == MethodAccessKind.STATIC, type_, s, _conf);
-                if (format_ == null) {
+                if (format_.isEmpty()) {
                     StaticAccessError static_ = new StaticAccessError();
                     static_.setFileName(_conf.getCurrentFileName());
                     static_.setIndexFile(_conf.getCurrentLocationIndex());
@@ -827,7 +827,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             feed_ = new ConstructorId(cl_, params_, varargFct_);
             for (String s: argsRes_.getParametersTypes()) {
                 String format_ = Templates.wildCardFormatParam(false, type_, s, _conf);
-                if (format_ == null) {
+                if (format_.isEmpty()) {
                     StaticAccessError static_ = new StaticAccessError();
                     static_.setFileName(_conf.getCurrentFileName());
                     static_.setIndexFile(_conf.getCurrentLocationIndex());

@@ -707,7 +707,6 @@ public abstract class OperationNode implements Operable {
             if (!Classes.canAccess(glClass_, ctors_.first(), _conf)) {
                 continue;
             }
-            ClassMatching[] p_ = getParameters(ctor_);
             ParametersGroup pg_ = new ParametersGroup();
             for (String c: ctor_.getParametersTypes()) {
                 pg_.add(new ClassMatching(c));
@@ -716,7 +715,8 @@ public abstract class OperationNode implements Operable {
             mloc_.setConstraints(ctor_);
             mloc_.setParameters(pg_);
             mloc_.setClassName(clCurName_);
-            if (!isPossibleMethod(_conf, uniq_,clCurName_, varargOnly_, mloc_, p_, _args)) {
+            mloc_.format(_conf);
+            if (!isPossibleMethod(_conf, uniq_, varargOnly_, mloc_, _args)) {
                 continue;
             }
             signatures_.add(mloc_);
@@ -909,6 +909,7 @@ public abstract class OperationNode implements Operable {
             mloc_.setConstraints(id_);
             mloc_.setParameters(p_);
             mloc_.setReturnType(ret_);
+            mloc_.format(_cont);
             ClassMethodId clId_ = new ClassMethodId(objType_, id_);
             methods_.put(clId_, mloc_);
         }
@@ -953,6 +954,7 @@ public abstract class OperationNode implements Operable {
                 mloc_.setStatic(true);
                 mloc_.setConstraints(id_);
                 mloc_.setParameters(p_);
+                mloc_.format(_conf);
                 mloc_.setReturnType(returnType_);
                 methods_.add(m, mloc_);
             }
@@ -972,6 +974,10 @@ public abstract class OperationNode implements Operable {
         return false;
     }
 
+
+    public static void fetchParamClassAncMethods(Analyzable _conf, StringList _fromClasses, ObjectMap<ClassMethodId, MethodInfo> _methods) {
+        fetchParamClassAncMethods(_conf,_fromClasses,MethodAccessKind.INSTANCE,false,true,null,_methods);
+    }
     private static void fetchParamClassAncMethods(Analyzable _conf, StringList _fromClasses, MethodAccessKind _staticContext, boolean _accessFromSuper,
                                                   boolean _superClass, ClassMethodId _uniqueId, ObjectMap<ClassMethodId, MethodInfo> _methods) {
         String glClass_ = _conf.getGlobalClass();
@@ -1064,6 +1070,7 @@ public abstract class OperationNode implements Operable {
                 continue;
             }
             stMeth_.setStatic(false);
+            stMeth_.format(_conf);
             stMeth_.setReturnType(e.getImportedReturnType());
             _methods.add(cId_, stMeth_);
         }
@@ -1108,6 +1115,7 @@ public abstract class OperationNode implements Operable {
             if (stMeth_ == null) {
                 continue;
             }
+            stMeth_.format(_conf);
             ClassMethodId clId_ = new ClassMethodId(fullName_, id_);
             _methods.add(clId_, stMeth_);
         }
@@ -1192,6 +1200,7 @@ public abstract class OperationNode implements Operable {
         mloc_.setStatic(true);
         mloc_.setConstraints(realId_);
         mloc_.setParameters(p_);
+        mloc_.format(_conf);
         mloc_.setReturnType(returnType_);
         mloc_.setAncestor(_ancestor);
         ClassMethodId clId_ = new ClassMethodId(idClass_, realId_);
@@ -1204,6 +1213,7 @@ public abstract class OperationNode implements Operable {
         mloc_.setStatic(true);
         mloc_.setConstraints(realId_);
         mloc_.setParameters(p_);
+        mloc_.format(_conf);
         returnType_ = PrimitiveTypeUtil.getPrettyArrayType(returnType_);
         mloc_.setReturnType(returnType_);
         mloc_.setAncestor(_ancestor);
@@ -1227,10 +1237,8 @@ public abstract class OperationNode implements Operable {
             if (!StringList.quickEq(id_.getName(), _name)) {
                 continue;
             }
-            ClassMatching[] p_ = getParameters(id_);
             MethodInfo mi_ = e.getValue();
-            String formattedType_ = mi_.getClassName();
-            if (!isPossibleMethod(_conf, _unique,formattedType_, _varargOnly, mi_, p_, _argsClass)) {
+            if (!isPossibleMethod(_conf, _unique, _varargOnly, mi_, _argsClass)) {
                 continue;
             }
             signatures_.add(mi_);
@@ -1259,45 +1267,46 @@ public abstract class OperationNode implements Operable {
         return res_;
     }
 
-    private static boolean isPossibleMethod(Analyzable _context, boolean _unique,String _class, int _varargOnly, Parametrable _id, ClassMatching[] _params,
+    private static boolean isPossibleMethod(Analyzable _context, boolean _unique, int _varargOnly, Parametrable _id,
                                             ClassArgumentMatching... _argsClass) {
         int startOpt_ = _argsClass.length;
         boolean checkOnlyDem_ = true;
-        int nbDem_ = _params.length;
-        boolean static_ = _id.isStatic();
+        StringList params_ = _id.getGeneFormatted().getParametersTypes();
+        int nbDem_ = params_.size();
+        int last_ = params_.getLastIndex();
         boolean vararg_ = _id.isVararg();
         if (!vararg_) {
-            if (_params.length != _argsClass.length) {
+            if (params_.size() != _argsClass.length) {
                 return false;
             }
         } else {
-            if (_params.length > _argsClass.length + 1) {
+            if (params_.size() > _argsClass.length + 1) {
                 return false;
             }
             if (_varargOnly != 0) {
                 checkOnlyDem_ = false;
                 nbDem_--;
-                startOpt_ = _params.length - 1;
+                startOpt_ = params_.size() - 1;
             }
             if (_varargOnly > 0) {
                 if (startOpt_ != _varargOnly - 1) {
                     return false;
                 }
             } else if (_varargOnly == 0) {
-                if (_params.length != _argsClass.length) {
+                if (params_.size() != _argsClass.length) {
                     return false;
                 }
             }
         }
         StringMap<StringList> mapCtr_ = _context.getCurrentConstraints();
-        int len_ = nbDem_;
-        StringList formatPar_ = new StringList();
         boolean allNotBoxUnbox_ = true;
-        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
-            String wc_ = Templates.wildCardFormatParam(static_, _class, _params[i].getClassName(), _context);
-            formatPar_.add(wc_);
+        for (int i = CustList.FIRST_INDEX; i < nbDem_; i++) {
+            String wc_ = params_.get(i);
+            if (vararg_ && i == last_) {
+                wc_ = PrimitiveTypeUtil.getPrettyArrayType(wc_);
+            }
             if (_argsClass[i].isVariable()) {
-                if (wc_ != null && PrimitiveTypeUtil.isPrimitive(wc_,_context)) {
+                if (PrimitiveTypeUtil.isPrimitive(wc_,_context)) {
                     return false;
                 }
                 continue;
@@ -1306,7 +1315,7 @@ public abstract class OperationNode implements Operable {
             ClassArgumentMatching arg_ = _argsClass[i];
             map_.setArg(arg_);
             map_.getMapping().putAllMap(mapCtr_);
-            if (wc_ == null) {
+            if (wc_.isEmpty()) {
                 return false;
             }
             map_.setParam(wc_);
@@ -1326,7 +1335,6 @@ public abstract class OperationNode implements Operable {
         if (checkOnlyDem_) {
             if (vararg_) {
                 allNotBoxUnbox_ = false;
-                formatPar_.setLast(PrimitiveTypeUtil.getQuickComponentType(formatPar_.last()));
             }
             if (allNotBoxUnbox_) {
                 _id.setInvocation(InvocationMethod.STRICT);
@@ -1335,24 +1343,19 @@ public abstract class OperationNode implements Operable {
             } else {
                 _id.setInvocation(InvocationMethod.ALL);
             }
-            _id.format(formatPar_);
             return true;
         }
-        if (_params.length == _argsClass.length) {
-            int last_ = _params.length - 1;
+        if (params_.size() == _argsClass.length) {
             Mapping map_ = new Mapping();
             ClassArgumentMatching arg_ = _argsClass[last_];
             map_.setArg(arg_);
             map_.getMapping().putAllMap(mapCtr_);
-            String param_ = _params[last_].getClassName();
-            String wc_ = Templates.wildCardFormatParam(static_, _class, param_, _context);
-            if (wc_ == null) {
+            String wc_ = params_.last();
+            if (wc_.isEmpty()) {
                 return false;
             }
-            String compo_ = PrimitiveTypeUtil.getQuickComponentType(wc_);
-            formatPar_.add(compo_);
-            _id.format(formatPar_);
-            map_.setParam(wc_);
+            String arr_ = PrimitiveTypeUtil.getPrettyArrayType(wc_);
+            map_.setParam(arr_);
             if (Templates.isCorrectOrNumbers(map_, _context)) {
                 if (allNotBoxUnbox_) {
                     _id.setInvocation(InvocationMethod.STRICT);
@@ -1360,7 +1363,7 @@ public abstract class OperationNode implements Operable {
                     _id.setInvocation(InvocationMethod.BOX_UNBOX);
                 }
                 if (_unique) {
-                    map_.setParam(compo_);
+                    map_.setParam(wc_);
                     if (Templates.isCorrectOrNumbers(map_, _context)) {
                         _id.setInvocation(InvocationMethod.ALL);
                         _id.setVarArgWrap(true);
@@ -1368,7 +1371,7 @@ public abstract class OperationNode implements Operable {
                 }
                 return true;
             }
-            map_.setParam(compo_);
+            map_.setParam(wc_);
             if (Templates.isCorrectOrNumbers(map_, _context)) {
                 _id.setInvocation(InvocationMethod.ALL);
                 _id.setVarArgWrap(true);
@@ -1376,20 +1379,15 @@ public abstract class OperationNode implements Operable {
             }
             return false;
         }
-        len_ = _argsClass.length;
+        nbDem_ = _argsClass.length;
         Mapping map_ = new Mapping();
-        int last_ = _params.length - 1;
-        String param_ = _params[last_].getClassName();
-        param_ = PrimitiveTypeUtil.getQuickComponentType(param_);
         map_.getMapping().putAllMap(mapCtr_);
-        String wc_ = Templates.wildCardFormatParam(static_, _class, param_, _context);
-        if (wc_ == null) {
+        String wc_ = params_.last();
+        if (wc_.isEmpty()) {
             return false;
         }
-        formatPar_.add(wc_);
-        _id.format(formatPar_);
         map_.setParam(wc_);
-        for (int i = startOpt_; i < len_; i++) {
+        for (int i = startOpt_; i < nbDem_; i++) {
             map_.setArg(_argsClass[i]);
             if (!Templates.isCorrectOrNumbers(map_, _context)) {
                 return false;
@@ -1398,30 +1396,6 @@ public abstract class OperationNode implements Operable {
         _id.setInvocation(InvocationMethod.ALL);
         _id.setVarArgWrap(true);
         return true;
-    }
-    private static ClassMatching[] getParameters(Identifiable _id) {
-        StringList params_ = _id.getParametersTypes();
-        int nbParams_ = params_.size();
-        ClassMatching[] p_ = new ClassMatching[nbParams_];
-        int i_ = CustList.FIRST_INDEX;
-        if (!_id.isVararg()) {
-            for (String c: params_) {
-                p_[i_] = new ClassMatching(c);
-                i_++;
-            }
-        } else {
-            for (String c: params_) {
-                if (i_ == nbParams_ - 1) {
-                    String c_ = StringList.replace(c, VARARG_SUFFIX, EMPTY_STRING);
-                    c_ = PrimitiveTypeUtil.getPrettyArrayType(c_);
-                    p_[i_] = new ClassMatching(c_);
-                } else {
-                    p_[i_] = new ClassMatching(c);
-                }
-                i_++;
-            }
-        }
-        return p_;
     }
 
     private static MethodInfo sortFct(CustList<MethodInfo> _fct, ArgumentsGroup _context) {
@@ -1797,14 +1771,14 @@ public abstract class OperationNode implements Operable {
     private static int swapCasePreferred(String _paramFctOne, String _paramFctTwo, StringMap<StringList> _map, Analyzable _ana) {
         ClassMatching one_;
         ClassMatching two_;
-        if (_paramFctOne == null) {
-            if (_paramFctTwo == null) {
+        if (_paramFctOne.isEmpty()) {
+            if (_paramFctTwo.isEmpty()) {
                 return CustList.EQ_CMP;
             } else {
                 return CustList.SWAP_SORT;
             }
         }
-        if (_paramFctTwo == null) {
+        if (_paramFctTwo.isEmpty()) {
             return CustList.NO_SWAP_SORT;
         }
         one_ = new ClassMatching(_paramFctOne);

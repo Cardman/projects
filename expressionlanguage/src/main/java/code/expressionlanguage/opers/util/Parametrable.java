@@ -1,5 +1,6 @@
 package code.expressionlanguage.opers.util;
 
+import code.expressionlanguage.Analyzable;
 import code.util.StringList;
 
 public interface Parametrable {
@@ -18,7 +19,7 @@ public interface Parametrable {
     int getAncestor();
     boolean isVarArgWrap();
     void setVarArgWrap(boolean _v);
-    void format(StringList _params);
+
     Identifiable getGeneFormatted();
 
     void setInvocation(InvocationMethod _inv);

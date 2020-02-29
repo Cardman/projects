@@ -164,23 +164,6 @@ public final class OverridableBlock extends NamedFunctionBlock implements GeneCu
         }
     }
 
-    public MethodId getWildCardFormattedId(String _genericClass, ContextEl _context) {
-        String name_ = getName();
-        StringList types_ = getImportedParametersTypes();
-        int len_ = types_.size();
-        StringList pTypes_ = new StringList();
-        boolean isStatic_ = isStaticMethod();
-        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
-            String n_ = types_.get(i);
-            String formatted_ = Templates.wildCardFormatParam(isStatic_, _genericClass, n_, _context);
-            if (formatted_ == null) {
-                return null;
-            }
-            pTypes_.add(formatted_);
-        }
-        return new MethodId(MethodId.getKind(getModifier()), name_, pTypes_, isVarargs());
-    }
-
     public MethodKind getKind() {
         return kind;
     }

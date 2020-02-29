@@ -28,7 +28,7 @@ public final class FieldInfo {
         } else {
             formattedType_ = Templates.wildCardFormatReturn(_staticField,_declaringClass, formattedType_, _cont);
         }
-        if (formattedType_ == null) {
+        if (formattedType_.isEmpty()) {
             return null;
         }
         return new FieldInfo(_name, _declaringClass, formattedType_, _type, _staticField, _finalField);
