@@ -322,6 +322,81 @@ public final class AnalyzedOperationNodesTest {
         assertTrue(!id_.isStaticMethod());
     }
     @Test
+    public void processEl1221Test() {
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOverridenEight1(1,2)", "composite", COMPOSITE, false);
+        ExecFctOperation fct_ = getFct(opers_);
+        assertNotNull(fct_);
+        ClassMethodId cid_ = fct_.getClassMethodId();
+        assertEq(COMPOSITE, cid_.getClassName());
+        MethodId id_ = cid_.getConstraints();
+        assertEq("getOverridenEight1", id_.getName());
+        StringList params_ = id_.getParametersTypes();
+        assertEq(2, params_.size());
+        assertEq("$int", params_.first());
+        assertEq("$long", params_.last());
+        assertTrue(!id_.isVararg());
+        assertTrue(!id_.isStaticMethod());
+    }
+    @Test
+    public void processEl1222Test() {
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOverridenEight2(1,2)", "composite", COMPOSITE, false);
+        ExecFctOperation fct_ = getFct(opers_);
+        assertNotNull(fct_);
+        ClassMethodId cid_ = fct_.getClassMethodId();
+        assertEq(COMPOSITE, cid_.getClassName());
+        MethodId id_ = cid_.getConstraints();
+        assertEq("getOverridenEight2", id_.getName());
+        StringList params_ = id_.getParametersTypes();
+        assertEq(3, params_.size());
+        assertEq("$int", params_.first());
+        assertEq("$int", params_.get(1));
+        assertEq("$int", params_.last());
+        assertEq(2, fct_.getNaturalVararg());
+        assertTrue(id_.isVararg());
+        assertTrue(!id_.isStaticMethod());
+    }
+    @Test
+    public void processEl1223Test() {
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOverridenEight3(1,2)", "composite", COMPOSITE, false);
+        ExecFctOperation fct_ = getFct(opers_);
+        assertNotNull(fct_);
+        ClassMethodId cid_ = fct_.getClassMethodId();
+        assertEq(COMPOSITE, cid_.getClassName());
+        MethodId id_ = cid_.getConstraints();
+        assertEq("getOverridenEight3", id_.getName());
+        StringList params_ = id_.getParametersTypes();
+        assertEq(3, params_.size());
+        assertEq("$int", params_.first());
+        assertEq("$int", params_.get(1));
+        assertEq("$int", params_.last());
+        assertEq(2, fct_.getNaturalVararg());
+        assertTrue(id_.isVararg());
+        assertTrue(!id_.isStaticMethod());
+    }
+    @Test
+    public void processEl1224Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", file());
+        ContextEl cont_ = contextEl(files_, false);
+        RootBlock r_ = cont_.getClasses().getClassBody("code.formathtml.classes.CompositeImported");
+        Line f_ = (Line) r_.getFirstChild().getFirstChild();
+        CustList<ExecOperationNode> opers_ = f_.getExp();
+        ExecFctOperation fct_ = getFct(opers_);
+        assertNotNull(fct_);
+        ClassMethodId cid_ = fct_.getClassMethodId();
+        assertEq("code.formathtml.classes.CompositeImported", cid_.getClassName());
+        MethodId id_ = cid_.getConstraints();
+        assertEq("getOverridenEight3", id_.getName());
+        StringList params_ = id_.getParametersTypes();
+        assertEq(3, params_.size());
+        assertEq("$int", params_.first());
+        assertEq("$int", params_.get(1));
+        assertEq("$int", params_.last());
+        assertEq(2, fct_.getNaturalVararg());
+        assertTrue(id_.isVararg());
+        assertTrue(id_.isStaticMethod());
+    }
+    @Test
     public void processEl123Test() {
         CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOverridenNine(1,2)", "composite", COMPOSITE, false);
         ExecFctOperation fct_ = getFct(opers_);
@@ -944,6 +1019,54 @@ public final class AnalyzedOperationNodesTest {
         assertTrue(!id_.isStaticMethod());
     }
     @Test
+    public void processEl1601Test() {
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("myvar.sampleSeven(1)", "myvar", MY_CLASS, false);
+        ExecFctOperation fct_ = getFct(opers_);
+        assertNotNull(fct_);
+        ClassMethodId cid_ = fct_.getClassMethodId();
+        assertEq("myimpl.MyIntOne", cid_.getClassName());
+        MethodId id_ = cid_.getConstraints();
+        assertEq("sampleSeven", id_.getName());
+        StringList params_ = id_.getParametersTypes();
+        assertEq(1, params_.size());
+        assertEq("$int", params_.first());
+        assertTrue(!id_.isVararg());
+        assertEq(-1, fct_.getNaturalVararg());
+        assertTrue(!id_.isStaticMethod());
+    }
+    @Test
+    public void processEl1602Test() {
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("myvar.sampleEight(1)", "myvar", MY_CLASS, false);
+        ExecFctOperation fct_ = getFct(opers_);
+        assertNotNull(fct_);
+        ClassMethodId cid_ = fct_.getClassMethodId();
+        assertEq("myimpl.MyIntOne", cid_.getClassName());
+        MethodId id_ = cid_.getConstraints();
+        assertEq("sampleEight", id_.getName());
+        StringList params_ = id_.getParametersTypes();
+        assertEq(1, params_.size());
+        assertEq("$int", params_.first());
+        assertTrue(!id_.isVararg());
+        assertEq(-1, fct_.getNaturalVararg());
+        assertTrue(id_.isStaticMethod());
+    }
+    @Test
+    public void processEl1603Test() {
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("myvar.sampleNine(1)", "myvar", MY_CLASS, false);
+        ExecFctOperation fct_ = getFct(opers_);
+        assertNotNull(fct_);
+        ClassMethodId cid_ = fct_.getClassMethodId();
+        assertEq("myimpl.MyIntTwo", cid_.getClassName());
+        MethodId id_ = cid_.getConstraints();
+        assertEq("sampleNine", id_.getName());
+        StringList params_ = id_.getParametersTypes();
+        assertEq(1, params_.size());
+        assertEq("$int", params_.first());
+        assertTrue(!id_.isVararg());
+        assertEq(-1, fct_.getNaturalVararg());
+        assertTrue(id_.isStaticMethod());
+    }
+    @Test
     public void processEl161Test() {
         CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOvVarargEleven($vararg(java.lang.Integer),0i,$firstopt(0i))", "composite", COMPOSITE, false);
         ExecFctOperation fct_ = getFct(opers_);
@@ -1546,7 +1669,7 @@ public final class AnalyzedOperationNodesTest {
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
-        opt_.setAllParametersSort(false);
+        
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
@@ -1761,7 +1884,7 @@ public final class AnalyzedOperationNodesTest {
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
-        opt_.setAllParametersSort(false);
+        
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
@@ -1911,7 +2034,7 @@ public final class AnalyzedOperationNodesTest {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
-        opt_.setAllParametersSort(false);
+        
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
@@ -1944,7 +2067,7 @@ public final class AnalyzedOperationNodesTest {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
-        opt_.setAllParametersSort(false);
+        
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
@@ -1977,7 +2100,7 @@ public final class AnalyzedOperationNodesTest {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
-        opt_.setAllParametersSort(false);
+        
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
@@ -2010,7 +2133,7 @@ public final class AnalyzedOperationNodesTest {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
-        opt_.setAllParametersSort(false);
+        
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
@@ -2043,7 +2166,7 @@ public final class AnalyzedOperationNodesTest {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
-        opt_.setAllParametersSort(false);
+        
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
@@ -2074,7 +2197,7 @@ public final class AnalyzedOperationNodesTest {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
-        opt_.setAllParametersSort(false);
+        
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
@@ -2107,7 +2230,7 @@ public final class AnalyzedOperationNodesTest {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
-        opt_.setAllParametersSort(false);
+        
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
@@ -2138,7 +2261,7 @@ public final class AnalyzedOperationNodesTest {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
-        opt_.setAllParametersSort(false);
+        
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
@@ -2169,7 +2292,7 @@ public final class AnalyzedOperationNodesTest {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
-        opt_.setAllParametersSort(false);
+        
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
@@ -2200,7 +2323,7 @@ public final class AnalyzedOperationNodesTest {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
-        opt_.setAllParametersSort(false);
+        
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
@@ -2231,7 +2354,7 @@ public final class AnalyzedOperationNodesTest {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
-        opt_.setAllParametersSort(false);
+        
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
@@ -2262,7 +2385,7 @@ public final class AnalyzedOperationNodesTest {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
-        opt_.setAllParametersSort(false);
+        
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
@@ -2293,7 +2416,7 @@ public final class AnalyzedOperationNodesTest {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
-        opt_.setAllParametersSort(false);
+        
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
@@ -2324,7 +2447,7 @@ public final class AnalyzedOperationNodesTest {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
-        opt_.setAllParametersSort(false);
+        
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
@@ -2355,7 +2478,7 @@ public final class AnalyzedOperationNodesTest {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
-        opt_.setAllParametersSort(false);
+        
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
@@ -2387,7 +2510,7 @@ public final class AnalyzedOperationNodesTest {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
-        opt_.setAllParametersSort(false);
+        
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
@@ -2419,7 +2542,7 @@ public final class AnalyzedOperationNodesTest {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
-        opt_.setAllParametersSort(false);
+        
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
@@ -2451,7 +2574,7 @@ public final class AnalyzedOperationNodesTest {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
-        opt_.setAllParametersSort(false);
+        
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
@@ -2484,7 +2607,7 @@ public final class AnalyzedOperationNodesTest {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
-        opt_.setAllParametersSort(false);
+        
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
@@ -2517,7 +2640,7 @@ public final class AnalyzedOperationNodesTest {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
-        opt_.setAllParametersSort(false);
+        
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
@@ -2550,7 +2673,7 @@ public final class AnalyzedOperationNodesTest {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
-        opt_.setAllParametersSort(false);
+        
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
@@ -2583,7 +2706,7 @@ public final class AnalyzedOperationNodesTest {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
-        opt_.setAllParametersSort(false);
+        
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
@@ -2616,7 +2739,7 @@ public final class AnalyzedOperationNodesTest {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
-        opt_.setAllParametersSort(false);
+        
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
@@ -2655,7 +2778,7 @@ public final class AnalyzedOperationNodesTest {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
-        opt_.setAllParametersSort(false);
+        
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
@@ -2693,7 +2816,7 @@ public final class AnalyzedOperationNodesTest {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
-        opt_.setAllParametersSort(false);
+        
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
@@ -2878,7 +3001,7 @@ public final class AnalyzedOperationNodesTest {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
-        opt_.setAllParametersSort(false);
+        
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
@@ -2911,7 +3034,7 @@ public final class AnalyzedOperationNodesTest {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
-        opt_.setAllParametersSort(false);
+        
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
@@ -2947,7 +3070,7 @@ public final class AnalyzedOperationNodesTest {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
-        opt_.setAllParametersSort(false);
+        
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
@@ -2983,7 +3106,7 @@ public final class AnalyzedOperationNodesTest {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
-        opt_.setAllParametersSort(false);
+        
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
@@ -3019,7 +3142,7 @@ public final class AnalyzedOperationNodesTest {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
-        opt_.setAllParametersSort(false);
+        
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
@@ -3055,7 +3178,7 @@ public final class AnalyzedOperationNodesTest {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
-        opt_.setAllParametersSort(false);
+        
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
@@ -3083,7 +3206,7 @@ public final class AnalyzedOperationNodesTest {
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
-        opt_.setAllParametersSort(false);
+        
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
@@ -3099,7 +3222,7 @@ public final class AnalyzedOperationNodesTest {
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
-        opt_.setAllParametersSort(false);
+        
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
@@ -3206,7 +3329,7 @@ public final class AnalyzedOperationNodesTest {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
-        opt_.setAllParametersSort(false);
+        
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
@@ -3239,7 +3362,7 @@ public final class AnalyzedOperationNodesTest {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
-        opt_.setAllParametersSort(false);
+        
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
@@ -3271,7 +3394,7 @@ public final class AnalyzedOperationNodesTest {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
-        opt_.setAllParametersSort(false);
+        
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
@@ -3304,7 +3427,7 @@ public final class AnalyzedOperationNodesTest {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
-        opt_.setAllParametersSort(false);
+        
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
@@ -3336,7 +3459,7 @@ public final class AnalyzedOperationNodesTest {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
-        opt_.setAllParametersSort(false);
+        
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
@@ -3356,7 +3479,7 @@ public final class AnalyzedOperationNodesTest {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
-        opt_.setAllParametersSort(false);
+        
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
         assertTrue(!cont_.getClasses().isEmptyErrors());
@@ -3376,7 +3499,7 @@ public final class AnalyzedOperationNodesTest {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
-        opt_.setAllParametersSort(false);
+        
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
@@ -3405,7 +3528,7 @@ public final class AnalyzedOperationNodesTest {
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
-        opt_.setAllParametersSort(false);
+        
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
@@ -3421,7 +3544,7 @@ public final class AnalyzedOperationNodesTest {
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
-        opt_.setAllParametersSort(false);
+        
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
@@ -3451,7 +3574,7 @@ public final class AnalyzedOperationNodesTest {
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
-        opt_.setAllParametersSort(false);
+        
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
@@ -3467,7 +3590,7 @@ public final class AnalyzedOperationNodesTest {
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
-        opt_.setAllParametersSort(false);
+        
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
@@ -3912,7 +4035,7 @@ public final class AnalyzedOperationNodesTest {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
-        opt_.setAllParametersSort(false);
+        
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
         assertTrue(!cont_.getClasses().isEmptyErrors());
@@ -3954,7 +4077,7 @@ public final class AnalyzedOperationNodesTest {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
-        opt_.setAllParametersSort(false);
+        
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
@@ -3978,7 +4101,7 @@ public final class AnalyzedOperationNodesTest {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
-        opt_.setAllParametersSort(false);
+        
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
@@ -3995,7 +4118,7 @@ public final class AnalyzedOperationNodesTest {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
-        opt_.setAllParametersSort(false);
+        
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
@@ -4012,7 +4135,7 @@ public final class AnalyzedOperationNodesTest {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
-        opt_.setAllParametersSort(false);
+        
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
@@ -4031,7 +4154,7 @@ public final class AnalyzedOperationNodesTest {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.NONE);
-        opt_.setAllParametersSort(false);
+        
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
@@ -4051,7 +4174,7 @@ public final class AnalyzedOperationNodesTest {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.NONE);
-        opt_.setAllParametersSort(false);
+        
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
@@ -4071,7 +4194,7 @@ public final class AnalyzedOperationNodesTest {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.NONE);
-        opt_.setAllParametersSort(false);
+        
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
@@ -4091,7 +4214,7 @@ public final class AnalyzedOperationNodesTest {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.NONE);
-        opt_.setAllParametersSort(false);
+        
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
@@ -4112,7 +4235,7 @@ public final class AnalyzedOperationNodesTest {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.NONE);
-        opt_.setAllParametersSort(false);
+        
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
@@ -4134,7 +4257,7 @@ public final class AnalyzedOperationNodesTest {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.NONE);
-        opt_.setAllParametersSort(false);
+        
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
@@ -4152,7 +4275,7 @@ public final class AnalyzedOperationNodesTest {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.NONE);
-        opt_.setAllParametersSort(false);
+        
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne("en", opt_);
         Classes.validateAll(files_, cont_);
@@ -4173,7 +4296,7 @@ public final class AnalyzedOperationNodesTest {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
-        opt_.setAllParametersSort(false);
+        
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
@@ -4194,7 +4317,7 @@ public final class AnalyzedOperationNodesTest {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
-        opt_.setAllParametersSort(false);
+        
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
@@ -4213,7 +4336,7 @@ public final class AnalyzedOperationNodesTest {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
-        opt_.setAllParametersSort(false);
+        
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
@@ -4232,7 +4355,7 @@ public final class AnalyzedOperationNodesTest {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
-        opt_.setAllParametersSort(false);
+        
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
@@ -4253,7 +4376,7 @@ public final class AnalyzedOperationNodesTest {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
-        opt_.setAllParametersSort(false);
+        
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
@@ -4274,7 +4397,7 @@ public final class AnalyzedOperationNodesTest {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
-        opt_.setAllParametersSort(false);
+        
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
@@ -4295,7 +4418,7 @@ public final class AnalyzedOperationNodesTest {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
-        opt_.setAllParametersSort(false);
+        
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
@@ -4316,7 +4439,7 @@ public final class AnalyzedOperationNodesTest {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
-        opt_.setAllParametersSort(false);
+        
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
@@ -4337,7 +4460,7 @@ public final class AnalyzedOperationNodesTest {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
-        opt_.setAllParametersSort(false);
+        
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
@@ -4358,7 +4481,7 @@ public final class AnalyzedOperationNodesTest {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
-        opt_.setAllParametersSort(false);
+        
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
@@ -4379,7 +4502,7 @@ public final class AnalyzedOperationNodesTest {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
-        opt_.setAllParametersSort(false);
+        
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
@@ -4400,7 +4523,7 @@ public final class AnalyzedOperationNodesTest {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
-        opt_.setAllParametersSort(false);
+        
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
@@ -4421,7 +4544,7 @@ public final class AnalyzedOperationNodesTest {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
-        opt_.setAllParametersSort(false);
+        
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
@@ -4442,7 +4565,7 @@ public final class AnalyzedOperationNodesTest {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
-        opt_.setAllParametersSort(false);
+        
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
@@ -4463,7 +4586,7 @@ public final class AnalyzedOperationNodesTest {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
-        opt_.setAllParametersSort(false);
+        
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
@@ -4484,7 +4607,7 @@ public final class AnalyzedOperationNodesTest {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
-        opt_.setAllParametersSort(false);
+        
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
@@ -4505,7 +4628,7 @@ public final class AnalyzedOperationNodesTest {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
-        opt_.setAllParametersSort(false);
+        
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
@@ -4526,7 +4649,7 @@ public final class AnalyzedOperationNodesTest {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
-        opt_.setAllParametersSort(false);
+        
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
@@ -4547,7 +4670,7 @@ public final class AnalyzedOperationNodesTest {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
-        opt_.setAllParametersSort(false);
+        
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
@@ -4568,7 +4691,7 @@ public final class AnalyzedOperationNodesTest {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
-        opt_.setAllParametersSort(false);
+        
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
@@ -4589,7 +4712,7 @@ public final class AnalyzedOperationNodesTest {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
-        opt_.setAllParametersSort(false);
+        
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
@@ -4610,7 +4733,7 @@ public final class AnalyzedOperationNodesTest {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
-        opt_.setAllParametersSort(false);
+        
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
@@ -4631,7 +4754,7 @@ public final class AnalyzedOperationNodesTest {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
-        opt_.setAllParametersSort(false);
+        
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
@@ -4652,7 +4775,7 @@ public final class AnalyzedOperationNodesTest {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
-        opt_.setAllParametersSort(false);
+        
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
@@ -4673,7 +4796,7 @@ public final class AnalyzedOperationNodesTest {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
-        opt_.setAllParametersSort(false);
+        
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
         assertTrue(!cont_.getClasses().isEmptyErrors());
@@ -4693,7 +4816,7 @@ public final class AnalyzedOperationNodesTest {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
-        opt_.setAllParametersSort(false);
+        
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
         assertTrue(!cont_.getClasses().isEmptyErrors());
@@ -4713,7 +4836,7 @@ public final class AnalyzedOperationNodesTest {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
-        opt_.setAllParametersSort(false);
+        
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
         assertTrue(!cont_.getClasses().isEmptyErrors());
@@ -4733,7 +4856,7 @@ public final class AnalyzedOperationNodesTest {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
-        opt_.setAllParametersSort(false);
+        
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
         assertTrue(!cont_.getClasses().isEmptyErrors());
@@ -4753,7 +4876,7 @@ public final class AnalyzedOperationNodesTest {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
-        opt_.setAllParametersSort(false);
+        
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
@@ -4774,7 +4897,7 @@ public final class AnalyzedOperationNodesTest {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
-        opt_.setAllParametersSort(false);
+        
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
@@ -4795,7 +4918,7 @@ public final class AnalyzedOperationNodesTest {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
-        opt_.setAllParametersSort(false);
+        
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
@@ -4816,7 +4939,7 @@ public final class AnalyzedOperationNodesTest {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
-        opt_.setAllParametersSort(false);
+        
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
@@ -4837,7 +4960,7 @@ public final class AnalyzedOperationNodesTest {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
-        opt_.setAllParametersSort(false);
+        
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
@@ -4858,7 +4981,7 @@ public final class AnalyzedOperationNodesTest {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
-        opt_.setAllParametersSort(false);
+        
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
@@ -4879,7 +5002,7 @@ public final class AnalyzedOperationNodesTest {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
-        opt_.setAllParametersSort(false);
+        
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
@@ -4900,7 +5023,7 @@ public final class AnalyzedOperationNodesTest {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
-        opt_.setAllParametersSort(false);
+        
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
@@ -4924,7 +5047,7 @@ public final class AnalyzedOperationNodesTest {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
-        opt_.setAllParametersSort(false);
+        
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
@@ -4944,7 +5067,7 @@ public final class AnalyzedOperationNodesTest {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
-        opt_.setAllParametersSort(false);
+        
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
@@ -4967,7 +5090,7 @@ public final class AnalyzedOperationNodesTest {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
-        opt_.setAllParametersSort(false);
+        
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
@@ -4990,7 +5113,7 @@ public final class AnalyzedOperationNodesTest {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
-        opt_.setAllParametersSort(false);
+        
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
@@ -5013,7 +5136,7 @@ public final class AnalyzedOperationNodesTest {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
-        opt_.setAllParametersSort(false);
+        
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
@@ -5037,7 +5160,7 @@ public final class AnalyzedOperationNodesTest {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
-        opt_.setAllParametersSort(false);
+        
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
@@ -5092,7 +5215,7 @@ public final class AnalyzedOperationNodesTest {
         files_.put("pkg/Ex", _file);
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
-        opt_.setAllParametersSort(false);
+        
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
@@ -5155,6 +5278,21 @@ public final class AnalyzedOperationNodesTest {
         StringBuilder str_ = new StringBuilder();
         str_.append("$public $class code.formathtml.classes.InheritedComposite : Composite {\n");
         str_.append("\n");
+        str_.append("}\n");
+        str_.append("\n");
+        str_.append("$public $class code.formathtml.classes.CompositeImport {\n");
+        str_.append("    $public $static java.lang.String getOverridenEight3($int _double,$int... _three) {\n");
+        str_.append("        $return \"Double\":\n");
+        str_.append("    }\n");
+        str_.append("}\n");
+        str_.append("\n");
+        str_.append("$public $class [$static code.formathtml.classes.CompositeImport.getOverridenEight3;] code.formathtml.classes.CompositeImported {\n");
+        str_.append("    $static {\n");
+        str_.append("     getOverridenEight3(1,2):\n");
+        str_.append("    }\n");
+        str_.append("    $public $static java.lang.String getOverridenEight3($int _double,$int _do,$int... _three) {\n");
+        str_.append("        $return \"long\":\n");
+        str_.append("    }\n");
         str_.append("}\n");
         str_.append("\n");
         str_.append("$public $class code.formathtml.classes.Composite {\n");
@@ -5282,6 +5420,24 @@ public final class AnalyzedOperationNodesTest {
         str_.append("    }\n");
         str_.append("    $public $normal java.lang.String getOverridenEight($long _double,$int _do) {\n");
         str_.append("        $return \"Double\":\n");
+        str_.append("    }\n");
+        str_.append("    $public $normal java.lang.String getOverridenEight1($long _double,$int _do) {\n");
+        str_.append("        $return \"Double\":\n");
+        str_.append("    }\n");
+        str_.append("    $public $normal java.lang.String getOverridenEight1($int _double,$long _do) {\n");
+        str_.append("        $return \"long\":\n");
+        str_.append("    }\n");
+        str_.append("    $public $normal java.lang.String getOverridenEight2($int _double,$int _do,$int... _three) {\n");
+        str_.append("        $return \"Double\":\n");
+        str_.append("    }\n");
+        str_.append("    $public $normal java.lang.String getOverridenEight2($int _double,$int... _do) {\n");
+        str_.append("        $return \"long\":\n");
+        str_.append("    }\n");
+        str_.append("    $public $normal java.lang.String getOverridenEight3($int _double,$int... _three) {\n");
+        str_.append("        $return \"Double\":\n");
+        str_.append("    }\n");
+        str_.append("    $public $normal java.lang.String getOverridenEight3($int _double,$int _do,$int... _three) {\n");
+        str_.append("        $return \"long\":\n");
         str_.append("    }\n");
         str_.append("    $public $normal java.lang.String getOverridenNine($int _double,$long _do) {\n");
         str_.append("        $return \"long\":\n");
@@ -5434,6 +5590,9 @@ public final class AnalyzedOperationNodesTest {
         str_.append("    $long sampleTwo($int p):\n");
         str_.append("    $normal $int sampleFive($int p){$return 0:}\n");
         str_.append("    $normal $int sampleSix($int... p){$return 0:}\n");
+        str_.append("    Number sampleSeven($int p):\n");
+        str_.append("    $static Number sampleEight($int p){$return 0:}\n");
+        str_.append("    $static Object sampleNine($int p){$return 0:}\n");
         str_.append("}\n");
         str_.append("$public $class myimpl.MySuperOne {\n");
         str_.append("    $public $final $int sampleThree($int p){$return 0:}\n");
@@ -5444,8 +5603,11 @@ public final class AnalyzedOperationNodesTest {
         str_.append("    $int sampleTwo($int p):\n");
         str_.append("    $normal $long sampleThree($int p){$return 0:}\n");
         str_.append("    $long sampleFour($int p):\n");
-        str_.append("    $normal $int sampleFive($int p){$return 0:}\n");
-        str_.append("    $normal $int sampleSix($int... p){$return 0:}\n");
+        str_.append("    $int sampleFive($int p):\n");
+        str_.append("    $int sampleSix($int... p):\n");
+        str_.append("    Object sampleSeven($int p):\n");
+        str_.append("    $static Object sampleEight($int p){$return 0:}\n");
+        str_.append("    $static Number sampleNine($int p){$return 0:}\n");
         str_.append("}\n");
         str_.append("$public $abstract $class myimpl.MyGeneClass<#T> : MyGeneIntOne<#T> : MyGeneIntTwo<#T> {\n");
         str_.append("\n");

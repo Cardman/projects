@@ -580,7 +580,7 @@ public abstract class ContextEl implements ExecutableCode {
             }
             return methods_;
         }
-        for (GeneCustMethod m: Classes.getMethodBlocks((RootBlock) r_)) {
+        for (GeneMethod m: Classes.getMethodBlocks((RootBlock) r_)) {
             if (m.getId().eq(_id)) {
                 methods_.add(m);
                 break;

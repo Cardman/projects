@@ -863,6 +863,16 @@ public abstract class OperationNode implements Operable {
         if (nonAbs_.size() == 1) {
             return nonAbs_.first();
         }
+        nonAbs_.clear();
+        for (MethodInfo p: _fct) {
+            if (p.isAbstractMethod()) {
+                continue;
+            }
+            nonAbs_.add(p);
+        }
+        if (nonAbs_.size() == 1) {
+            return nonAbs_.first();
+        }
         if (_fct.isEmpty()) {
             return null;
         }
@@ -1399,18 +1409,13 @@ public abstract class OperationNode implements Operable {
     }
 
     private static MethodInfo sortFct(CustList<MethodInfo> _fct, ArgumentsGroup _context) {
-        if (_context.getContext().getOptions().isAllParametersSort()) {
-            MethodInfo meth_ = getFoundMethod(_fct, _context);
-            if (meth_ != null) {
-                return meth_;
-            }
+        MethodInfo meth_ = getFoundMethod(_fct, _context);
+        if (meth_ != null) {
+            return meth_;
         }
-        if (_fct.isEmpty()) {
-            return null;
-        }
-        CustList<MethodInfo> instances_ = new CustList<MethodInfo>();
-        CustList<MethodInfo> staticsCall_ = new CustList<MethodInfo>();
-        CustList<MethodInfo> statics_ = new CustList<MethodInfo>();
+        CustList<Parametrable> instances_ = new CustList<Parametrable>();
+        CustList<Parametrable> staticsCall_ = new CustList<Parametrable>();
+        CustList<Parametrable> statics_ = new CustList<Parametrable>();
         for (MethodInfo m : _fct) {
             MethodAccessKind kind_ = m.getConstraints().getKind();
             if (kind_ == MethodAccessKind.STATIC_CALL) {
@@ -1423,17 +1428,17 @@ public abstract class OperationNode implements Operable {
             }
             instances_.add(m);
         }
-        MethodInfo best_ = getBest(instances_, _context);
+        MethodInfo best_ = (MethodInfo) getBest(instances_, _context);
         if (best_ != null) {
             return best_;
         }
-        best_ = getBest(staticsCall_, _context);
+        best_ = (MethodInfo) getBest(staticsCall_, _context);
         if (best_ != null) {
             return best_;
         }
-        return getBest(statics_, _context);
+        return (MethodInfo) getBest(statics_, _context);
     }
-    private static MethodInfo getBest(CustList<MethodInfo> _fct, ArgumentsGroup _context) {
+    private static Parametrable getBest(CustList<Parametrable> _fct, ArgumentsGroup _context) {
         int len_;
         if (!_fct.isEmpty()) {
             len_ = _fct.size();
@@ -1465,28 +1470,15 @@ public abstract class OperationNode implements Operable {
         }
     }
     private static ConstructorInfo sortCtors(CustList<ConstructorInfo> _fct, ArgumentsGroup _context) {
-        int len_ = _fct.size();
-        if (_context.getContext().getOptions().isAllParametersSort()) {
-            ConstructorInfo ctor_ = getFoundConstructor(_fct, _context);
-            if (ctor_ != null) {
-                return ctor_;
-            }
+        ConstructorInfo ctor_ = getFoundConstructor(_fct, _context);
+        if (ctor_ != null) {
+            return ctor_;
         }
-        if (_fct.isEmpty()) {
-            return null;
+        CustList<Parametrable> instances_ = new CustList<Parametrable>();
+        for (Parametrable m : _fct) {
+            instances_.add(m);
         }
-        for (int i = CustList.SECOND_INDEX; i < len_; i++) {
-            Parametrable pFirst_ = _fct.first();
-            Parametrable pCurrent_ = _fct.get(i);
-            int res_ = compare(_context, pFirst_, pCurrent_);
-            if (res_ == CustList.SWAP_SORT) {
-                _fct.swapIndexes(CustList.FIRST_INDEX, i);
-            }
-        }
-        if (_fct.first().getParameters().isError()) {
-            return null;
-        }
-        return _fct.first();
+        return (ConstructorInfo) getBest(instances_,_context);
     }
 
     private static MethodInfo getFoundMethod(CustList<MethodInfo> _fct, ArgumentsGroup _context) {
@@ -1538,6 +1530,7 @@ public abstract class OperationNode implements Operable {
             }
         }
         CustList<Parametrable> nonAbs_ = new CustList<Parametrable>();
+        CustList<Parametrable> abs_ = new CustList<Parametrable>();
         CustList<Parametrable> finals_ = new CustList<Parametrable>();
         if (allOvEq_) {
             for (Parametrable p: allMaxInst_) {
@@ -1566,28 +1559,55 @@ public abstract class OperationNode implements Operable {
             if (nonAbs_.size() == 1) {
                 return (MethodInfo) nonAbs_.first();
             }
+            nonAbs_.clear();
+            for (Parametrable p: allMaxInst_) {
+                MethodInfo m_ = (MethodInfo)p;
+                if (m_.isAbstractMethod()) {
+                    abs_.add(m_);
+                    continue;
+                }
+                nonAbs_.add(p);
+            }
+            if (nonAbs_.size() == 1) {
+                return (MethodInfo) nonAbs_.first();
+            }
             StringMap<StringList> map_;
             map_ = _context.getMap();
-            int lenAllMax_ = allMaxInst_.size();
+            int lenAllMax_ = nonAbs_.size();
             for (int i = 0; i < lenAllMax_; i++) {
-                MethodInfo curMi_ = (MethodInfo) allMaxInst_.get(i);
+                MethodInfo curMi_ = (MethodInfo) nonAbs_.get(i);
                 boolean spec_ = true;
                 String curRet_ = curMi_.getReturnType();
-                String cl_ = Templates.getIdFromAllTypes(curMi_.getClassName());
                 for (int j = 0; j < lenAllMax_; j++) {
                     if (i == j) {
                         continue;
                     }
-                    MethodInfo otherMi_ = (MethodInfo) allMaxInst_.get(j);
-                    String clOther_ = Templates.getIdFromAllTypes(otherMi_.getClassName());
+                    MethodInfo otherMi_ = (MethodInfo) nonAbs_.get(j);
                     String otherRet_ = otherMi_.getReturnType();
                     if (StringList.quickEq(curRet_, otherRet_)) {
-                        if (StringList.quickEq(clOther_, cl_)) {
-                            spec_ = false;
-                            break;
-                        }
+                        spec_ = false;
+                        break;
+                    }
+                    if (!Templates.isReturnCorrect(otherRet_, curRet_, map_, context_)) {
+                        spec_ = false;
+                        break;
+                    }
+                }
+                if (spec_) {
+                    return curMi_;
+                }
+            }
+            lenAllMax_ = abs_.size();
+            for (int i = 0; i < lenAllMax_; i++) {
+                MethodInfo curMi_ = (MethodInfo) abs_.get(i);
+                boolean spec_ = true;
+                String curRet_ = curMi_.getReturnType();
+                for (int j = 0; j < lenAllMax_; j++) {
+                    if (i == j) {
                         continue;
                     }
+                    MethodInfo otherMi_ = (MethodInfo) abs_.get(j);
+                    String otherRet_ = otherMi_.getReturnType();
                     if (!Templates.isReturnCorrect(otherRet_, curRet_, map_, context_)) {
                         spec_ = false;
                         break;
@@ -1793,61 +1813,22 @@ public abstract class OperationNode implements Operable {
     }
 
     private static int compare(ArgumentsGroup _context, Parametrable _o1, Parametrable _o2) {
-        int cmp_ = compareImportAncestor(_o1, _o2);
-        if (cmp_ != CustList.EQ_CMP) {
-            return cmp_;
-        }
         int len_ = _o1.getParameters().size();
         Analyzable context_ = _context.getContext();
         StringMap<StringList> map_;
         map_ = _context.getMap();
         String glClassOne_ = _o1.getClassName();
         String glClassTwo_ = _o2.getClassName();
-        if (_o1.isVararg()) {
-            if (!_o2.isVararg()) {
-                return CustList.SWAP_SORT;
-            }
-        }
-        if (!_o1.isVararg()) {
-            if (_o2.isVararg()) {
-                return CustList.NO_SWAP_SORT;
-            }
-        }
-        boolean vararg_ = false;
-        if (_o1.isVararg()) {
+        if (len_ != _o2.getParameters().size()) {
             if (len_ < _o2.getParameters().size()) {
                 return CustList.SWAP_SORT;
             }
-            if (len_ > _o2.getParameters().size()) {
-                return CustList.NO_SWAP_SORT;
-            }
-            boolean varOne_ = _o1.isVarArgWrap();
-            boolean varTwo_ = _o2.isVarArgWrap();
-            if (varOne_ && !varTwo_) {
-                return CustList.SWAP_SORT;
-            }
-            if (!varOne_ && varTwo_) {
-                return CustList.NO_SWAP_SORT;
-            }
-            vararg_ = true;
-        }
-        if (vararg_) {
-            len_--;
+            return CustList.NO_SWAP_SORT;
         }
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
             String wcOne_ = _o1.getGeneFormatted().getParametersTypes().get(i);
             String wcTwo_ = _o2.getGeneFormatted().getParametersTypes().get(i);
             int res_ = checkPreferred(wcOne_, wcTwo_, map_, context_, _o1, _o2);
-            if (res_ != CustList.EQ_CMP) {
-                return res_;
-            }
-        }
-        if (vararg_) {
-            String paramOne_ = _o1.getGeneFormatted().getParametersTypes().last();
-            paramOne_ = PrimitiveTypeUtil.getPrettyArrayType(paramOne_);
-            String paramTwo_ = _o2.getGeneFormatted().getParametersTypes().last();
-            paramTwo_ = PrimitiveTypeUtil.getPrettyArrayType(paramTwo_);
-            int res_ = checkPreferred(paramOne_, paramTwo_, map_, context_, _o1, _o2);
             if (res_ != CustList.EQ_CMP) {
                 return res_;
             }

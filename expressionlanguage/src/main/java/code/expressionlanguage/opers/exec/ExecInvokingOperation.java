@@ -3,7 +3,6 @@ package code.expressionlanguage.opers.exec;
 import code.expressionlanguage.*;
 import code.expressionlanguage.calls.PageEl;
 import code.expressionlanguage.calls.util.*;
-import code.expressionlanguage.common.GeneCustMethod;
 import code.expressionlanguage.common.GeneMethod;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
@@ -520,7 +519,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             return getEnumValue(_classNameFound, arg_, _conf);
         }
         if (prev_ instanceof FunctionalInstance) {
-            GeneCustMethod gene_ = (GeneCustMethod) methods_.first();
+            GeneMethod gene_ = (GeneMethod) methods_.first();
             if (gene_.isAbstractMethod()) {
                 Argument fct_ = new Argument(((FunctionalInstance)prev_).getFunctional());
                 return prepareCallDyn(fct_, _firstArgs, _conf);

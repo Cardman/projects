@@ -2,7 +2,6 @@ package code.expressionlanguage.methods;
 
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.common.GeneCustMethod;
 import code.expressionlanguage.common.GeneMethod;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.errors.custom.MissingReturnMethod;
@@ -20,7 +19,7 @@ import code.util.CustList;
 import code.util.Ints;
 import code.util.StringList;
 
-public final class OverridableBlock extends NamedFunctionBlock implements GeneCustMethod,ReturnableWithSignature {
+public final class OverridableBlock extends NamedFunctionBlock implements GeneMethod,ReturnableWithSignature {
 
     private int modifierOffset;
 
@@ -92,11 +91,6 @@ public final class OverridableBlock extends NamedFunctionBlock implements GeneCu
             pTypes_.add(n_);
         }
         return new MethodId(MethodId.getKind(getModifier()), name_, pTypes_, isVarargs());
-    }
-
-    @Override
-    public boolean isConcreteMethod() {
-        return isNormalMethod() || isFinalMethod();
     }
 
     public boolean hiddenInstance() {

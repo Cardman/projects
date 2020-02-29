@@ -472,11 +472,11 @@ public final class Classes {
             current_ = n_;
         }
     }
-    public static CustList<GeneCustMethod> getMethodBlocks(RootBlock _element) {
-        CustList<GeneCustMethod> methods_ = new CustList<GeneCustMethod>();
+    public static CustList<GeneMethod> getMethodBlocks(RootBlock _element) {
+        CustList<GeneMethod> methods_ = new CustList<GeneMethod>();
         for (Block b: Classes.getDirectChildren(_element)) {
             if (b instanceof OverridableBlock) {
-                methods_.add((GeneCustMethod) b);
+                methods_.add((GeneMethod) b);
             }
             if (b instanceof AnnotationMethodBlock) {
                 methods_.add((AnnotationMethodBlock) b);
@@ -2287,7 +2287,7 @@ public final class Classes {
         String base_ = Templates.getIdFromAllTypes(_genericClassName);
         Classes classes_ = _context.getClasses();
         RootBlock r_ = classes_.getClassBody(base_);
-        for (GeneCustMethod m: Classes.getMethodBlocks(r_)) {
+        for (GeneMethod m: Classes.getMethodBlocks(r_)) {
             if (m.getId().eq(_id)) {
                 methods_.add((NamedFunctionBlock)m);
                 break;
@@ -2298,7 +2298,7 @@ public final class Classes {
     public static CustList<OperatorBlock> getOperatorsBodiesById(ContextEl _context,MethodId _id) {
         CustList<OperatorBlock> methods_ = new CustList<OperatorBlock>();
         Classes classes_ = _context.getClasses();
-        for (GeneCustMethod m: classes_.getOperators()) {
+        for (GeneMethod m: classes_.getOperators()) {
             if (m.getId().eq(_id)) {
                 methods_.add((OperatorBlock)m);
                 break;

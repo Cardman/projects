@@ -8,7 +8,6 @@ public final class Options {
     private VariableSuffix suffixVar = VariableSuffix.NONE;
     private boolean varTypeFirst = true;
     private boolean endLineSemiColumn = true;
-    private boolean allParametersSort = true;
     private boolean singleInnerParts;
     private boolean readOnly;
     private boolean failIfNotAllInit;
@@ -51,14 +50,6 @@ public final class Options {
 
     public void setEndLineSemiColumn(boolean _endLineSemiColumn) {
         endLineSemiColumn = _endLineSemiColumn;
-    }
-
-    public boolean isAllParametersSort() {
-        return allParametersSort;
-    }
-
-    public void setAllParametersSort(boolean _allParametersSort) {
-        allParametersSort = _allParametersSort;
     }
 
     public boolean isSingleInnerParts() {

@@ -6,7 +6,6 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.calls.AbstractPageEl;
 import code.expressionlanguage.calls.FieldInitPageEl;
-import code.expressionlanguage.common.GeneCustMethod;
 import code.expressionlanguage.common.GeneMethod;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.errors.custom.BadImplicitCast;
@@ -32,7 +31,7 @@ import code.util.StringList;
 import code.util.StringMap;
 
 public final class AnnotationMethodBlock extends NamedFunctionBlock implements
-        GeneCustMethod, WithNotEmptyEl {
+        GeneMethod, WithNotEmptyEl {
 
     private String defaultValue;
     private int defaultValueOffset;
@@ -127,11 +126,6 @@ public final class AnnotationMethodBlock extends NamedFunctionBlock implements
 
     @Override
     public boolean hiddenInstance() {
-        return false;
-    }
-
-    @Override
-    public boolean isConcreteMethod() {
         return false;
     }
 
