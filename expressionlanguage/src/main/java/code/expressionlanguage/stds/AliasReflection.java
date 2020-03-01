@@ -487,13 +487,18 @@ public final class AliasReflection {
         method_ = new StandardMethod(aliasGetAnnotations, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasAnnotationType), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasGetAnnotationsParameters, params_, PrimitiveTypeUtil.getPrettyArrayType(PrimitiveTypeUtil.getPrettyArrayType(aliasAnnotationType)), false, MethodModifier.FINAL, stdcl_);
+        method_ = new StandardMethod(aliasGetAnnotationsParameters, params_,
+                PrimitiveTypeUtil.getPrettyArrayType(PrimitiveTypeUtil.getPrettyArrayType(aliasAnnotationType)), false,
+                MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasClassType);
-        method_ = new StandardMethod(aliasGetAnnotations, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasAnnotationType), false, MethodModifier.FINAL, stdcl_);
+        method_ = new StandardMethod(aliasGetAnnotations, params_,
+                PrimitiveTypeUtil.getPrettyArrayType(aliasAnnotationType), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasClassType);
-        method_ = new StandardMethod(aliasGetAnnotationsParameters, params_, PrimitiveTypeUtil.getPrettyArrayType(PrimitiveTypeUtil.getPrettyArrayType(aliasAnnotationType)), false, MethodModifier.FINAL, stdcl_);
+        method_ = new StandardMethod(aliasGetAnnotationsParameters, params_,
+                PrimitiveTypeUtil.getPrettyArrayType(PrimitiveTypeUtil.getPrettyArrayType(aliasAnnotationType)),
+                false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasGetFileName, params_, aliasString_, false, MethodModifier.FINAL, stdcl_);

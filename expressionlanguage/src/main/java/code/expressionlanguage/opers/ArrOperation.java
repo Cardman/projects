@@ -83,7 +83,9 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
             }
             bounds_.addAllElts(getBounds(c, _conf));
         }
-        ClassMethodIdReturn clMeth_ = tryGetDeclaredCustMethod(_conf, varargOnly_, isStaticAccess(), bounds_, trimMeth_, accessSuperTypes_, accessFromSuper_, false, feed_, ClassArgumentMatching.toArgArray(firstArgs_));
+        ClassMethodIdReturn clMeth_ = tryGetDeclaredCustMethod(_conf, varargOnly_, isStaticAccess(),
+                bounds_, trimMeth_, accessSuperTypes_, accessFromSuper_, false, feed_,
+                ClassArgumentMatching.toArgArray(firstArgs_));
         if (clMeth_.isFoundMethod()) {
             if (staticChoiceMethod_) {
                 if (clMeth_.isAbstractMethod()) {

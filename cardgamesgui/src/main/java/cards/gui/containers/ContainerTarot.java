@@ -82,7 +82,9 @@ public class ContainerTarot extends ContainerGame{
     /**Permet de charger une main de distribution
     a partir d'un fichier*/
     protected static HandTarot chargerPileTarot() {
-        return DocumentReaderTarotUtil.getHandTarot(StreamTextFile.contentsOfFile(StringList.concat(LaunchingCards.getTempFolderSl(),FileConst.DECK_FOLDER,StreamTextFile.SEPARATEUR,GameEnum.TAROT.name(),FileConst.DECK_EXT)));
+        return DocumentReaderTarotUtil.getHandTarot(StreamTextFile.contentsOfFile(
+                StringList.concat(LaunchingCards.getTempFolderSl(),FileConst.DECK_FOLDER,
+                        StreamTextFile.SEPARATEUR,GameEnum.TAROT.name(),FileConst.DECK_EXT)));
     }
 
     public static CustList<GraphicTarotCard> getGraphicCards(String _lg, Iterable<CardTarot> _hand) {

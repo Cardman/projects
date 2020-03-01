@@ -38,7 +38,9 @@ public final class DialogHelpTarot extends Dialog {
         DIALOG.setTitle(_title);
     }
     /**Cartes possibles et certaines &#224 la belote et au tarot*/
-    public static void setDialogueTarot(EnumMap<Suit,CustList<HandTarot>> _cartesPossibles,EnumMap<Suit,CustList<HandTarot>> _cartesCertaines,EnumMap<Suit,HandTarot> _repartitionJouees,StringList _pseudos, String _lg) {
+    public static void setDialogueTarot(EnumMap<Suit,CustList<HandTarot>> _cartesPossibles,
+                                        EnumMap<Suit,CustList<HandTarot>> _cartesCertaines,EnumMap<Suit,HandTarot> _repartitionJouees,
+                                        StringList _pseudos, String _lg) {
         Panel container_=Panel.newLineBox();
         Panel panneau2_=Panel.newBorder();
         Panel panneau3_;

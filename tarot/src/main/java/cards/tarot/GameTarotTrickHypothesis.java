@@ -1103,7 +1103,8 @@ final class GameTarotTrickHypothesis {
         return beatByTrumpNormalSuitStrength(_equipeABattre, _couleurDemandee, _cartesPossibles, _cartesCertaines, strength_);
     }
 
-    static boolean beatSureListTrumpDemand(Bytes _equipeABattre, Bytes _equipeDom, EnumMap<Suit, CustList<HandTarot>> _cartesPossibles, EnumMap<Suit, CustList<HandTarot>> _cartesCertaines, byte _strength) {
+    static boolean beatSureListTrumpDemand(Bytes _equipeABattre, Bytes _equipeDom, EnumMap<Suit, CustList<HandTarot>> _cartesPossibles,
+                                           EnumMap<Suit, CustList<HandTarot>> _cartesCertaines, byte _strength) {
         boolean ramasseurDeter_ = false;
         for (byte joueur_ : _equipeDom) {
             if (!_cartesCertaines.getVal(Suit.TRUMP).get(joueur_).estVide()) {
@@ -1141,7 +1142,9 @@ final class GameTarotTrickHypothesis {
         }
         return joueurBatAdversaire_;
     }
-    static boolean beatSureListTrumpNormalSuit(Bytes _equipeABattre, Bytes _equipeDom, Suit _couleurDemandee, EnumMap<Suit, CustList<HandTarot>> _cartesPossibles, EnumMap<Suit, CustList<HandTarot>> _cartesCertaines, byte _strength) {
+    static boolean beatSureListTrumpNormalSuit(Bytes _equipeABattre, Bytes _equipeDom, Suit _couleurDemandee,
+                                               EnumMap<Suit, CustList<HandTarot>> _cartesPossibles,
+                                               EnumMap<Suit, CustList<HandTarot>> _cartesCertaines, byte _strength) {
         boolean ramasseurDeter_ = false;
         for (byte joueur_ : _equipeDom) {
             if (vaCouper(_couleurDemandee, joueur_, _cartesPossibles,
@@ -1158,13 +1161,15 @@ final class GameTarotTrickHypothesis {
         return ramasseurDeter_;
     }
 
-    static boolean beatByTrumpNormalSuit(Bytes _equipeABattre, Suit _couleurDemandee, EnumMap<Suit, CustList<HandTarot>> _cartesPossibles, EnumMap<Suit, CustList<HandTarot>> _cartesCertaines, byte _joueur) {
+    static boolean beatByTrumpNormalSuit(Bytes _equipeABattre, Suit _couleurDemandee, EnumMap<Suit, CustList<HandTarot>> _cartesPossibles,
+                                         EnumMap<Suit, CustList<HandTarot>> _cartesCertaines, byte _joueur) {
         byte strength_ = _cartesCertaines.getVal(Suit.TRUMP).get(_joueur).premiereCarte().strength(_couleurDemandee);
         return beatByTrumpNormalSuitStrength(_equipeABattre, _couleurDemandee, _cartesPossibles, _cartesCertaines, strength_);
     }
 
 
-    static boolean beatByTrumpNormalSuitStrength(Bytes _equipeABattre, Suit _couleurDemandee, EnumMap<Suit, CustList<HandTarot>> _cartesPossibles, EnumMap<Suit, CustList<HandTarot>> _cartesCertaines, byte _strength) {
+    static boolean beatByTrumpNormalSuitStrength(Bytes _equipeABattre, Suit _couleurDemandee, EnumMap<Suit, CustList<HandTarot>> _cartesPossibles,
+                                                 EnumMap<Suit, CustList<HandTarot>> _cartesCertaines, byte _strength) {
         boolean joueurBatAdversaire_ = true;
         for (byte joueur_ : _equipeABattre) {
             boolean ramasseurVirtuelEgalCertain_;

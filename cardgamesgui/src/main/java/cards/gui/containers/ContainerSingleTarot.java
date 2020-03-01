@@ -919,7 +919,10 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
 
         if(isChangerPileFin()) {
             GameTarot partie_=partieTarot();
-            StreamTextFile.saveTextFile(StringList.concat(LaunchingCards.getTempFolderSl(),FileConst.DECK_FOLDER,StreamTextFile.SEPARATEUR,GameEnum.TAROT.name(),FileConst.DECK_EXT),DocumentWriterTarotUtil.setHandTarot(partie_.empiler()));
+            StreamTextFile.saveTextFile(StringList.concat(
+                    LaunchingCards.getTempFolderSl(),FileConst.DECK_FOLDER,
+                    StreamTextFile.SEPARATEUR,GameEnum.TAROT.name(),FileConst.DECK_EXT),
+                    DocumentWriterTarotUtil.setHandTarot(partie_.empiler()));
         }
         /*Le nombre de parties jouees depuis le lancement du logiciel*/
         setThreadAnime(false);
@@ -1310,7 +1313,8 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
             if (!partie_.getRegles().getDiscardAfterCall()) {
                 if (partie_.getContrat().getJeuChien() == PlayingDog.WITH) {
                     CallDiscard cartesAppeler_ = partie_.strategieAppelApresEcart(true);
-                    String message_ = StringList.simpleStringsFormat(getMessages().getVal(MainWindow.CONSULT_TAROT_CALL), Games.toString(cartesAppeler_.getCarteAppelee().premiereCarte(),lg_),RETURN_LINE);
+                    String message_ = StringList.simpleStringsFormat(getMessages().getVal(MainWindow.CONSULT_TAROT_CALL),
+                            Games.toString(cartesAppeler_.getCarteAppelee().premiereCarte(),lg_),RETURN_LINE);
                     message_ = StringList.concat(message_,StringList.simpleStringsFormat(getMessages().getVal(MainWindow.CONSULT_TAROT_DISCARD), Games.toString(cartesAppeler_.getEcartAFaire(),lg_)));
                     ConfirmDialog.showMessage(getWindow(),message_,getMessages().getVal(MainWindow.CONSULT_TITLE), lg_, JOptionPane.INFORMATION_MESSAGE);
                     //JOptionPane.showMessageDialog(getWindow(),message_,getMessages().getVal(MainWindow.CONSULT_TITLE),JOptionPane.INFORMATION_MESSAGE);

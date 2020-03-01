@@ -646,7 +646,9 @@ public abstract class RendBlock implements AnalyzedBlock {
     }
 
     protected static void incrAncNb(Configuration _cont, Element _nextEltWrite) {
-        if (StringList.quickEq(_nextEltWrite.getTagName(), TAG_A) && (_nextEltWrite.hasAttribute(StringList.concat(_cont.getPrefix(),ATTRIBUTE_COMMAND))|| !_nextEltWrite.getAttribute(ATTRIBUTE_HREF).isEmpty() )) {
+        if (StringList.quickEq(_nextEltWrite.getTagName(), TAG_A)
+                && (_nextEltWrite.hasAttribute(StringList.concat(_cont.getPrefix(),ATTRIBUTE_COMMAND))
+                || !_nextEltWrite.getAttribute(ATTRIBUTE_HREF).isEmpty() )) {
             long currentAnchor_ = _cont.getIndexes().getAnchor();
             _nextEltWrite.setAttribute(NUMBER_ANCHOR, String.valueOf(currentAnchor_));
             currentAnchor_++;

@@ -457,8 +457,10 @@ public abstract class OperationNode implements Operable {
         nextSibling = _nextSibling;
     }
 
-    static FieldResult getDeclaredCustField(Analyzable _cont, MethodAccessKind _staticContext, ClassArgumentMatching _class, boolean _baseClass, boolean _superClass, String _name, boolean _import, boolean _aff) {
-        FieldResult fr_ = resolveDeclaredCustField(_cont, _staticContext != MethodAccessKind.INSTANCE, _class, _baseClass, _superClass, _name, _import, _aff);
+    static FieldResult getDeclaredCustField(Analyzable _cont, MethodAccessKind _staticContext, ClassArgumentMatching _class,
+                                            boolean _baseClass, boolean _superClass, String _name, boolean _import, boolean _aff) {
+        FieldResult fr_ = resolveDeclaredCustField(_cont, _staticContext != MethodAccessKind.INSTANCE,
+                _class, _baseClass, _superClass, _name, _import, _aff);
         if (fr_.getStatus() == SearchingMemberStatus.UNIQ) {
             return fr_;
         }
@@ -473,7 +475,8 @@ public abstract class OperationNode implements Operable {
         return res_;
     }
 
-    public static FieldResult resolveDeclaredCustField(Analyzable _cont, boolean _staticContext, ClassArgumentMatching _class, boolean _baseClass, boolean _superClass, String _name, boolean _import, boolean _aff) {
+    public static FieldResult resolveDeclaredCustField(Analyzable _cont, boolean _staticContext, ClassArgumentMatching _class,
+                                                       boolean _baseClass, boolean _superClass, String _name, boolean _import, boolean _aff) {
         if (!_staticContext) {
             FieldResult resIns_ = getDeclaredCustFieldByContext(_cont, false, _class, _baseClass, _superClass, _name, _import, _aff);
             if (resIns_.getStatus() == SearchingMemberStatus.UNIQ) {
@@ -482,7 +485,8 @@ public abstract class OperationNode implements Operable {
         }
         return getDeclaredCustFieldByContext(_cont, true, _class, _baseClass, _superClass, _name, _import,_aff);
     }
-    private static FieldResult getDeclaredCustFieldByContext(Analyzable _cont, boolean _static, ClassArgumentMatching _class, boolean _baseClass, boolean _superClass, String _name, boolean _import, boolean _aff) {
+    private static FieldResult getDeclaredCustFieldByContext(Analyzable _cont, boolean _static, ClassArgumentMatching _class,
+                                                             boolean _baseClass, boolean _superClass, String _name, boolean _import, boolean _aff) {
         StringMap<String> clCurNames_ = new StringMap<String>();
         StringMap<String> clCurNamesBase_ = new StringMap<String>();
         StringList classeNames_ = new StringList();

@@ -329,18 +329,22 @@ public final class Games {
             }
         } else {
             if (_card.strength(_g.isReversed()) <= str_) {
-                errorPlaying_.append(Format.formatter(FOLDER, PRESIDENT_FILE_NAME, _loc, PRESIDENT_CANNOT_USE_LOWER, toString(l_.premiereCarte(),_loc))).append(RETURN_LINE);
+                errorPlaying_.append(Format.formatter(FOLDER, PRESIDENT_FILE_NAME,
+                        _loc, PRESIDENT_CANNOT_USE_LOWER, toString(l_.premiereCarte(),_loc))).append(RETURN_LINE);
             }
         }
         if (_nb != _g.getProgressingTrick().getNombreDeCartesParJoueur()) {
-            errorPlaying_.append(Format.formatter(FOLDER, PRESIDENT_FILE_NAME, _loc, PRESIDENT_HAVE_PLAY_GIVEN_NUMBER_CARDS, Long.toString(_g.getProgressingTrick().getNombreDeCartesParJoueur()))).append(RETURN_LINE);
+            errorPlaying_.append(Format.formatter(FOLDER, PRESIDENT_FILE_NAME,
+                    _loc, PRESIDENT_HAVE_PLAY_GIVEN_NUMBER_CARDS,
+                    Long.toString(_g.getProgressingTrick().getNombreDeCartesParJoueur()))).append(RETURN_LINE);
         }
         return errorPlaying_;
     }
 
     public static String canPassMess(GamePresident _g, String _loc) {
         HandPresident b_ = _g.getProgressingTrick().getBestCards();
-        return Format.formatter(FOLDER, PRESIDENT_FILE_NAME, _loc, PRESIDENT_CANNOT_PASS, toString(b_.premiereCarte(),_loc));
+        return Format.formatter(FOLDER, PRESIDENT_FILE_NAME, _loc, PRESIDENT_CANNOT_PASS,
+                toString(b_.premiereCarte(),_loc));
     }
     public static String autoriseTarot(GameTarot _g, String _loc) {
         HandTarot main_ = _g.getDistribution().hand(_g.playerHavingToPlay());

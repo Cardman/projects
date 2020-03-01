@@ -119,10 +119,13 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
     public static boolean hasToExit(ExecutableCode _conf, String _className) {
         return _conf.hasToExit(_className);
     }
-    public static Argument instancePrepare(ExecutableCode _conf, String _className, ConstructorId _constId, Argument _previous, CustList<Argument> _arguments) {
+    public static Argument instancePrepare(ExecutableCode _conf, String _className, ConstructorId _constId,
+                                           Argument _previous, CustList<Argument> _arguments) {
         return instancePrepare(_conf, _className, _constId, _previous, _arguments, "", -1, false);
     }
-    public static Argument instancePrepare(ExecutableCode _conf, String _className, ConstructorId _constId, Argument _previous, CustList<Argument> _arguments, String _fieldName, int _blockIndex, boolean _format) {
+    public static Argument instancePrepare(ExecutableCode _conf, String _className, ConstructorId _constId,
+                                           Argument _previous, CustList<Argument> _arguments, String _fieldName,
+                                           int _blockIndex, boolean _format) {
         LgNames stds_ = _conf.getStandards();
         String idCl_ = Templates.getIdFromAllTypes(_className);
         GeneType g_ = _conf.getClassBody(idCl_);

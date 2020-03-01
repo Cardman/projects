@@ -211,40 +211,9 @@ public final class FileOpenDialog extends FileDialog implements SingleFileSelect
             closeWindow();
             return;
         }
-//        if (getFileTable().getSelectedRowCount() == 1) {
-////            String selectedPath_ = getFileModel().getSelectedFilePath(getFileTable().getSelectedRow());
-////            String selectedPath_ = getSelectedPath();
-////            if (selectedPath_ != null) {
-////
-////            }
-//            selectedPath_ = selectedPath_.replace(StringList.BACK_SLASH, StreamTextFile.SEPARATEUR);
-//            if (!new File(selectedPath_).exists()) {
-//                ConfirmDialog.showMessage(this, StringList.simpleFormat(messages.getVal(ERROR_MESSAGE), selectedPath_), messages.getVal(ERROR_TITLE), Constants.getLanguage(), JOptionPane.ERROR_MESSAGE);
-//                selectedPath_ = null;
-//                setSelectedPath(selectedPath_);
-//                return;
-//            }
-//            setSelectedPath(selectedPath_);
-//            closeWindow();
-//            return;
-//        }
         if (fileName_.isEmpty()) {
             ConfirmDialog.showMessage(this, messages.getVal(ERROR_TYPING), messages.getVal(ERROR_TITLE),lg_, JOptionPane.ERROR_MESSAGE);
             return;
-//            if (getFileTable().getSelectedRowCount() != 1) {
-//                return;
-//            }
-//            String selectedPath_ = getFileModel().getSelectedFilePath(getFileTable().getSelectedRow());
-//            selectedPath_ = selectedPath_.replace(StringList.BACK_SLASH, StreamTextFile.SEPARATEUR);
-//            if (!new File(selectedPath_).exists()) {
-//                ConfirmDialog.showMessage(this, StringList.simpleFormat(messages.getVal(ERROR_MESSAGE), selectedPath_), messages.getVal(ERROR_TITLE), Constants.getLanguage(), JOptionPane.ERROR_MESSAGE);
-//                selectedPath_ = null;
-//                setSelectedPath(selectedPath_);
-//                return;
-//            }
-//            setSelectedPath(selectedPath_);
-//            closeWindow();
-//            return;
         }
         if (!StreamFolderFile.isAbsolute(extFileName_)) {
             selectedPath_ = StringList.concat(getCurrentFolder(), extFileName_);

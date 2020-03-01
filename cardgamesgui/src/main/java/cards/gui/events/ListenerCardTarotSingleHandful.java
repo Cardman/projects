@@ -53,7 +53,6 @@ public class ListenerCardTarotSingleHandful extends AbstractListenerCardTarot {
             }
 
         }else{
-            //JOptionPane.showMessageDialog(container.getOwner(),container.getMessages().getVal(MainWindow.CANT_PLAY)+container.getRaisonCourante(),container.getMessages().getVal(MainWindow.TOO_GAME),JOptionPane.ERROR_MESSAGE);
             String finalMessage_ = StringList.concat(container.getMessages().getVal(MainWindow.CANT_PLAY),container.getRaisonCourante());
             String title_ = container.getMessages().getVal(MainWindow.TOO_GAME);
             ConfirmDialog.showMessage(container.getOwner(),finalMessage_,title_,lg_,JOptionPane.ERROR_MESSAGE);

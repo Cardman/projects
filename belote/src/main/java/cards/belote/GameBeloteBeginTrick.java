@@ -179,7 +179,8 @@ public final class GameBeloteBeginTrick {
         return faireCouper(bid, couleursNonVides_,repartition_,repartitionCartesJouees_);
     }
 
-    static boolean playedLeading(BidBeloteSuit _bid, byte _taker, Suit _couleurAtout, EnumMap<Suit, HandBelote> _repartitionCartesJouees, EnumMap<Suit, CustList<HandBelote>> _cartesCertaines, Order _or) {
+    static boolean playedLeading(BidBeloteSuit _bid, byte _taker, Suit _couleurAtout, EnumMap<Suit, HandBelote> _repartitionCartesJouees,
+                                 EnumMap<Suit, CustList<HandBelote>> _cartesCertaines, Order _or) {
         boolean cartesMaitressesJouees_ = true;
         CardBelote carteCertaine_ = GameBeloteCommon.hand(_cartesCertaines, _couleurAtout, _taker).premiereCarte();
         for (CardBelote c : HandBelote.couleurComplete(_couleurAtout, _or)) {

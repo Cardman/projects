@@ -816,7 +816,8 @@ final class FightSuccess {
         return successChangedStatisticProtect(_fight,_cible,_statistique,_variation,ignoreCapaciteCible_,protectionsIgnorees_,_import);
     }
 
-    static boolean successChangedStatisticProtect(Fight _fight,TeamPosition _combattant,Statistic _statistique,byte _variation,boolean _ignoreCapacite,StringList _protectionsIgnorees,DataBase _import){
+    static boolean successChangedStatisticProtect(Fight _fight,TeamPosition _combattant,Statistic _statistique,byte _variation,
+                                                  boolean _ignoreCapacite,StringList _protectionsIgnorees,DataBase _import){
         Team equipe_=_fight.getTeams().getVal(_combattant.getTeam());
         boolean immuByType_ = false;
         StringList immuneTypes_ = new StringList();

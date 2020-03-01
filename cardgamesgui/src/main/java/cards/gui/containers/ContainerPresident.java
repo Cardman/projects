@@ -91,7 +91,10 @@ public class ContainerPresident extends ContainerGame {
     /**Permet de charger une main de distribution
     a partir d'un fichier*/
     protected static HandPresident chargerPilePresident(int _nbStacks) {
-        return DocumentReaderPresidentUtil.getHandPresident(StreamTextFile.contentsOfFile(StringList.concat(LaunchingCards.getTempFolderSl(),FileConst.DECK_FOLDER,StreamTextFile.SEPARATEUR,GameEnum.PRESIDENT.name(),Long.toString(_nbStacks),FileConst.DECK_EXT)));
+        return DocumentReaderPresidentUtil.getHandPresident(StreamTextFile.contentsOfFile(
+                StringList.concat(LaunchingCards.getTempFolderSl(),FileConst.DECK_FOLDER,
+                        StreamTextFile.SEPARATEUR,GameEnum.PRESIDENT.name(),
+                        Long.toString(_nbStacks),FileConst.DECK_EXT)));
     }
 
     public void discard(byte _index) {

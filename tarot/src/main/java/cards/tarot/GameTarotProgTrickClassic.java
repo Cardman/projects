@@ -552,7 +552,9 @@ public final class GameTarotProgTrickClassic {
         }
         return CardTarot.WHITE;
     }
-    static CardTarot tryLeadTrick(EnumMap<Suit, HandTarot> _cartesMaitresses, Suit _couleurDemandee, HandTarot _repartitionCouleDem, CustList<HandTarot> _suites, CustList<HandTarot> _cartesRelMaitres) {
+    static CardTarot tryLeadTrick(EnumMap<Suit, HandTarot> _cartesMaitresses, Suit _couleurDemandee,
+                                  HandTarot _repartitionCouleDem,
+                                  CustList<HandTarot> _suites, CustList<HandTarot> _cartesRelMaitres) {
         if (!_cartesMaitresses.getVal(_couleurDemandee)
                 .estVide()) {
             return _repartitionCouleDem.premiereCarte();
@@ -1656,9 +1658,12 @@ public final class GameTarotProgTrickClassic {
         return discardCardPartner(_suitesTouteCouleur, _repartitionCartesJouees, _main, _cartesMaitresses, _couleursStrictementMaitresses, carteMaitresse_);
     }
 
-    static CardTarot discardOptimPartner(EnumMap<Suit, CustList<HandTarot>> _suitesTouteCouleur, EnumMap<Suit, HandTarot> _repartitionCartesJouees, HandTarot _main, EnumMap<Suit, HandTarot> _cartesMaitresses) {
+    static CardTarot discardOptimPartner(EnumMap<Suit, CustList<HandTarot>> _suitesTouteCouleur,
+                                         EnumMap<Suit, HandTarot> _repartitionCartesJouees,
+                                         HandTarot _main, EnumMap<Suit, HandTarot> _cartesMaitresses) {
         EnumList<Suit> couleursNonVides_ = GameTarotCommon.couleursNonAtoutNonVides(_main, Suit.couleursOrdinaires());
-        EnumList<Suit> couleurs_ = GameTarotCommonPlaying.couleursAvecCarteNonMaitresse(_main, HandTarot.reunion(_repartitionCartesJouees), Suit.couleursOrdinaires());
+        EnumList<Suit> couleurs_ = GameTarotCommonPlaying.couleursAvecCarteNonMaitresse(_main,
+                HandTarot.reunion(_repartitionCartesJouees), Suit.couleursOrdinaires());
         if (!couleurs_.isEmpty()) {
             return jeuPetiteDefausseMaitre(_suitesTouteCouleur,
                     _cartesMaitresses, _main, couleurs_);
@@ -1674,7 +1679,10 @@ public final class GameTarotProgTrickClassic {
                 _main, _repartitionCartesJouees);
     }
 
-    static CardTarot discardCardPartner(EnumMap<Suit, CustList<HandTarot>> _suitesTouteCouleur, EnumMap<Suit, HandTarot> _repartitionCartesJouees, HandTarot _main, EnumMap<Suit, HandTarot> _cartesMaitresses, EnumList<Suit> _couleursStrictementMaitresses, boolean _carteMaitresse) {
+    static CardTarot discardCardPartner(EnumMap<Suit, CustList<HandTarot>> _suitesTouteCouleur,
+                                        EnumMap<Suit, HandTarot> _repartitionCartesJouees, HandTarot _main,
+                                        EnumMap<Suit, HandTarot> _cartesMaitresses, EnumList<Suit> _couleursStrictementMaitresses,
+                                        boolean _carteMaitresse) {
         EnumMap<Suit,HandTarot> repartition_=_main.couleurs();
         EnumList<Suit> couleursNonVides_ = GameTarotCommon.couleursNonAtoutNonVides(_main, Suit.couleursOrdinaires());
         if (_carteMaitresse) {

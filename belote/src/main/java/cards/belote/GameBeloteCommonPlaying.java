@@ -319,7 +319,9 @@ public final class GameBeloteCommonPlaying {
         return couleurs_;
     }
 
-    private static void addNormalSuit(BidBeloteSuit _bid, EnumMap<Suit, CustList<HandBelote>> _suites, EnumMap<Suit, HandBelote> _cartesJouees, EnumMap<Suit, CustList<HandBelote>> _cartesPossibles, byte _numero, EnumList<Suit> _couleurs, Suit _couleur) {
+    private static void addNormalSuit(BidBeloteSuit _bid, EnumMap<Suit, CustList<HandBelote>> _suites,
+                                      EnumMap<Suit, HandBelote> _cartesJouees, EnumMap<Suit, CustList<HandBelote>> _cartesPossibles,
+                                      byte _numero, EnumList<Suit> _couleurs, Suit _couleur) {
         if(completelyPlayedSuit(_cartesJouees, _couleur)) {
             _couleurs.add(_couleur);
         } else if(!suite(_suites, _couleur).isEmpty()) {
@@ -329,7 +331,9 @@ public final class GameBeloteCommonPlaying {
         }
     }
 
-    private static void addSuit(EnumMap<Suit, CustList<HandBelote>> _suites, EnumMap<Suit, CustList<HandBelote>> _cartesPossibles, byte _numero, EnumList<Suit> _couleurs, Suit _couleur, int _maitres) {
+    private static void addSuit(EnumMap<Suit, CustList<HandBelote>> _suites,
+                                EnumMap<Suit, CustList<HandBelote>> _cartesPossibles, byte _numero,
+                                EnumList<Suit> _couleurs, Suit _couleur, int _maitres) {
         int max_ = getNbMaxPossPlayerCards(_cartesPossibles,
                 _numero, _couleur);
         if(_maitres >=max_|| _maitres >CustList.SIZE_EMPTY&&suite(_suites, _couleur).size()==CustList.ONE_ELEMENT) {

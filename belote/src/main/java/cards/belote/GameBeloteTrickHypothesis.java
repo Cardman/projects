@@ -46,7 +46,9 @@ public final class GameBeloteTrickHypothesis {
                     }
                     return getPossibleOverTrump(_info,joueursNonConfianceNonJoue_,joueursConfianceNonJoue_,PossibleTrickWinner.FOE_TEAM,PossibleTrickWinner.TEAM);
                 }
-            /*Fin !cartesCertaines.get(couleurDemandee).get(numero).estVide()||cartesCertaines.get(1).get(numero).estVide()||cartesCertaines.get(1).get(numero).premiereCarte().getValeur()<carteForte.getValeur()
+            /*Fin !cartesCertaines.get(couleurDemandee).get(numero).estVide()
+            ||cartesCertaines.get(1).get(numero).estVide()
+            ||cartesCertaines.get(1).get(numero).premiereCarte().getValeur()<carteForte.getValeur()
             (fin test de possibilite pour le joueur numero de prendre le pli)*/
                 /*Le joueur numero peut prendre la main en surcoupant le ramasseur virtuel*/
                 return getPossibleTrickWinnerOverTrump(_info);
@@ -180,7 +182,9 @@ public final class GameBeloteTrickHypothesis {
             return getPossibleTrickWinnerTrumpDemand(_info,PossibleTrickWinner.FOE_TEAM,joueursNonConfianceNonJoue_,PossibleTrickWinner.TEAM,joueursConfianceNonJoue_);
             /*Fin joueurDeConfiance.contains(ramasseurVirtuel)*/
         }
-        /*Fin !cartesCertaines.get(couleurDemandee).get(numero).estVide()||cartesCertaines.get(1).get(numero).estVide()||cartesCertaines.get(1).get(numero).premiereCarte().getValeur()<carteForte.getValeur()
+        /*Fin !cartesCertaines.get(couleurDemandee).get(numero).estVide()
+        ||cartesCertaines.get(1).get(numero).estVide()
+        ||cartesCertaines.get(1).get(numero).premiereCarte().getValeur()<carteForte.getValeur()
             (fin test de possibilite pour le joueur numero de prendre le pli)*/
         /*Le joueur numero peut prendre la main en utilisant un atout sur demande d'atout*/
         CardBelote cardPl_ = cartesCertaines_.getVal(couleurDemandee_).get(next_)
@@ -191,11 +195,13 @@ public final class GameBeloteTrickHypothesis {
                 couleurDemandee_,cardPl_)) {
             return PossibleTrickWinner.UNKNOWN;
         }
-        /*On cherche les joueurs de confiance battant de maniere certaine les joueurs de non confiance n'ayant pas joue ou possedant des cartes que les joueurs ayant joue n'ont pas ainsi que les joueurs de non confiance n'ayant pas joue*/
+        /*On cherche les joueurs de confiance battant de maniere certaine les joueurs de non
+        confiance n'ayant pas joue ou possedant des cartes que les joueurs ayant joue n'ont pas ainsi que les joueurs de non confiance n'ayant pas joue*/
         if(existeJouBatAdvNumDemat(_info,joueursNonConfianceNonJoue_,joueursConfianceNonJoue_,next_, couleurDemandee_)) {
             return PossibleTrickWinner.TEAM;
         }
-        /*On cherche les joueurs de non confiance battant de maniere certaine les joueurs de confiance n'ayant pas joue ou possedant des cartes que les joueurs ayant joue n'ont pas ainsi que les joueurs de non confiance n'ayant pas joue*/
+        /*On cherche les joueurs de non confiance battant de maniere certaine
+        les joueurs de confiance n'ayant pas joue ou possedant des cartes que les joueurs ayant joue n'ont pas ainsi que les joueurs de non confiance n'ayant pas joue*/
         if(existeJouBatAdvNumDemat(_info,joueursConfianceNonJoue_,joueursNonConfianceNonJoue_, next_, couleurDemandee_)) {
             return PossibleTrickWinner.FOE_TEAM;
         }
@@ -430,7 +436,11 @@ public final class GameBeloteTrickHypothesis {
         Suit couleurAtout_=_info.getCouleurAtout();
         boolean ramasseurDeter_=false;
         for(byte joueur_:_equipeDom) {
-            /*On cherche les joueurs de confiance battant de maniere certaine les joueurs de non confiance n'ayant pas joue ou possedant des cartes que les joueurs ayant joue n'ont pas ainsi que les joueurs de non confiance n'ayant pas joue*/
+            /*On cherche les joueurs de confiance battant
+            de maniere certaine les joueurs de non confiance
+            n'ayant pas joue ou possedant des cartes que les joueurs
+            ayant joue n'ont pas ainsi que les joueurs de non
+            confiance n'ayant pas joue*/
             if(vaCouper(_couleurDemandee,joueur_,cartesPossibles_,cartesCertaines_,couleurAtout_)) {
                 byte maxForce_ = GameBeloteCommon.hand(cartesCertaines_, couleurAtout_, joueur_).premiereCarte().strength(_couleurDemandee, contrat_);
                 boolean joueurBatAdversaire_ = beatByTrumpNormalSuitStrength(_equipeABattre, _couleurDemandee, contrat_, cartesPossibles_, cartesCertaines_, maxForce_);

@@ -257,7 +257,9 @@ public final class SimulatingBeloteImpl implements SimulatingBelote {
             String lg_ = container.getOwner().getLanguageKey();
             StringList pseudos_=pseudosSimuleeBelote();
             String mess_ = container.getMessages().getVal(MainWindow.DEMO_ACTION_TWO);
-            String event_ = StringList.concat(StringList.simpleStringsFormat(mess_, pseudos_.get(_joueur), Games.toString(_annonces.getDeclare(),lg_), Games.toString(_annonces.getHand(),lg_)),ContainerGame.RETURN_LINE);
+            String event_ = StringList.concat(StringList.simpleStringsFormat(mess_, pseudos_.get(_joueur),
+                    Games.toString(_annonces.getDeclare(),lg_), Games.toString(_annonces.getHand(),lg_)),
+                    ContainerGame.RETURN_LINE);
             ThreadInvoker.invokeNow(new AddTextEvents(container, event_));
         }
     }

@@ -241,7 +241,11 @@ public final class CheckNumericStringsFight {
         }
     }
 
-    private static void processWhenSend(DataBase _data, Difficulty _diff, Fight _fight, TeamPosition _userFighter, TeamPosition _foeFighter, StringMap<String> _varsDiff, StringMap<String> _varsSame, StringMap<String> _boolVarsNotSending, StringMap<String> _boolVarsDiffNotSending, EffectWhileSending _e) {
+    private static void processWhenSend(DataBase _data, Difficulty _diff,
+                                        Fight _fight, TeamPosition _userFighter,
+                                        TeamPosition _foeFighter, StringMap<String> _varsDiff, StringMap<String> _varsSame,
+                                        StringMap<String> _boolVarsNotSending, StringMap<String> _boolVarsDiffNotSending,
+                                        EffectWhileSending _e) {
         if (_e instanceof EffectWhileSendingWithStatistic) {
             EffectWhileSendingWithStatistic eff_ = (EffectWhileSendingWithStatistic) _e;
             StringList fails_ = new StringList();
@@ -530,7 +534,8 @@ public final class CheckNumericStringsFight {
         }
     }
 
-    private static void checkFailsWhenFighter(DataBase _data, TeamPosition _userFighter, StringMap<String> _varsSame, StringMap<String> _boolVarsNotSending, StringList _fails, EqList<TeamPosition> _listFighters) {
+    private static void checkFailsWhenFighter(DataBase _data, TeamPosition _userFighter, StringMap<String> _varsSame, StringMap<String> _boolVarsNotSending,
+                                              StringList _fails, EqList<TeamPosition> _listFighters) {
         boolean containsFighter_ = _listFighters
                 .containsObj(_userFighter);
         if (containsFighter_) {

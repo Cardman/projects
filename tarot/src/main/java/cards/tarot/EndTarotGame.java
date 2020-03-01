@@ -1546,7 +1546,11 @@ public final class EndTarotGame {
         return parite_;
     }
 
-    static Shorts calculerScoresJoueurs(Shorts _coefficients, Shorts _primeSupplementaire, int _sumLoc, GameTarotTeamsRelation _relations, CustList<EnumList<Handfuls>> _declaresHandfuls, EqList<EnumList<Miseres>> _declaresMiseres, BooleanList _smallBound) {
+    static Shorts calculerScoresJoueurs(Shorts _coefficients, Shorts _primeSupplementaire,
+                                        int _sumLoc, GameTarotTeamsRelation _relations,
+                                        CustList<EnumList<Handfuls>> _declaresHandfuls,
+                                        EqList<EnumList<Miseres>> _declaresMiseres,
+                                        BooleanList _smallBound) {
         byte nombreJoueurs_ = _relations.getNombreDeJoueurs();
         Shorts scores_ = new Shorts();
         for (byte joueur_ = CustList.FIRST_INDEX; joueur_ < nombreJoueurs_; joueur_++) {

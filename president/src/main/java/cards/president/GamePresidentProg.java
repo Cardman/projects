@@ -32,7 +32,9 @@ final class GamePresidentProg {
         return progressTrick(possibleRep_, playable, fullHand, progressingTrick, reversed, rules);
     }
 
-    static HandPresident progressTrick(TreeMap<CardPresident, Byte> _possibleRep, HandPresident _playable, HandPresident _fullHand, TrickPresident _progressingTrick, boolean _reversed, RulesPresident _rules) {
+    static HandPresident progressTrick(TreeMap<CardPresident, Byte> _possibleRep, HandPresident _playable,
+                                       HandPresident _fullHand, TrickPresident _progressingTrick,
+                                       boolean _reversed, RulesPresident _rules) {
         if (_playable.total() == _fullHand.total()) {
             HandPresident all_ = tryPlayWhenAllPossible(_playable, _progressingTrick, _reversed, _rules, _possibleRep);
             if (!all_.estVide()) {
@@ -98,7 +100,9 @@ final class GamePresidentProg {
         }
         return new HandPresident();
     }
-    private static HandPresident tryPlayDomHand(HandPresident _fullHand, HandPresident _playable, TrickPresident _progressingTrick, boolean _reversed, RulesPresident _rules, TreeMap<CardPresident, Byte> _rep) {
+    private static HandPresident tryPlayDomHand(HandPresident _fullHand, HandPresident _playable,
+                                                TrickPresident _progressingTrick, boolean _reversed, RulesPresident _rules,
+                                                TreeMap<CardPresident, Byte> _rep) {
         ByteTreeMap<HandPresident> m_ = _playable.getCardsByStrength(_reversed);
         if (!GamePresidentCommon.dominantHand(_reversed, _rules, _fullHand, _rep).estVide()) {
             int nb_ = _progressingTrick.getNombreDeCartesParJoueur();

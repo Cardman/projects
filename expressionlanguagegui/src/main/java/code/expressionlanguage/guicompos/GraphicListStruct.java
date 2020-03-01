@@ -35,7 +35,9 @@ public class GraphicListStruct extends InputStruct {
     private boolean enabledList = true;
 
     public GraphicListStruct(GuiContextEl _ctx,String _className,boolean _simple) {
-        this(_ctx,_className,_simple,new ArrayStruct(new Struct[0],PrimitiveTypeUtil.getPrettyArrayType(_ctx.getStandards().getAliasPrimInteger())), new ArrayStruct(new Struct[0],PrimitiveTypeUtil.getPrettyArrayType(_ctx.getStandards().getAliasObject())));
+        this(_ctx,_className,_simple,
+                new ArrayStruct(new Struct[0],PrimitiveTypeUtil.getPrettyArrayType(_ctx.getStandards().getAliasPrimInteger())),
+                new ArrayStruct(new Struct[0],PrimitiveTypeUtil.getPrettyArrayType(_ctx.getStandards().getAliasObject())));
     }
 
     public GraphicListStruct(GuiContextEl _ctx,String _className,boolean _simple, Struct _selectedIndexes, Struct _objects) {

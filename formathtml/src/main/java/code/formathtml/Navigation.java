@@ -200,12 +200,16 @@ public final class Navigation {
         String keyWordNew_ = session.getKeyWords().getKeyWordNew();
         for (EntryCust<String, BeanInfo> e: session.getBeansInfos().entryList()) {
             BeanInfo info_ = e.getValue();
-            CustList<RendDynOperationNode> exps_ = RenderExpUtil.getAnalyzedOperations(StringList.concat(keyWordNew_, " ", info_.getClassName(), "()"), 0, session, Calculation.staticCalculation(MethodAccessKind.STATIC));
+            CustList<RendDynOperationNode> exps_ = RenderExpUtil.getAnalyzedOperations(
+                    StringList.concat(keyWordNew_, " ", info_.getClassName(), "()"),
+                    0, session, Calculation.staticCalculation(MethodAccessKind.STATIC));
             info_.setExps(exps_);
         }
         for (EntryCust<String,ValidatorInfo> e: session.getLateValidators().entryList()) {
             ValidatorInfo v_ = e.getValue();
-            CustList<RendDynOperationNode> exps_ = RenderExpUtil.getAnalyzedOperations(StringList.concat(keyWordNew_, " ", v_.getClassName(), "()"), 0, session, Calculation.staticCalculation(MethodAccessKind.STATIC));
+            CustList<RendDynOperationNode> exps_ = RenderExpUtil.getAnalyzedOperations(
+                    StringList.concat(keyWordNew_, " ", v_.getClassName(), "()"),
+                    0, session, Calculation.staticCalculation(MethodAccessKind.STATIC));
             v_.setExps(exps_);
         }
     }

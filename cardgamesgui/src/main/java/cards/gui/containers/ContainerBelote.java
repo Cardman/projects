@@ -129,7 +129,9 @@ public class ContainerBelote extends ContainerGame {
     /**Permet de charger une main de distribution
     a partir d'un fichier*/
     protected static HandBelote chargerPileBelote() {
-        return DocumentReaderBeloteUtil.getHandBelote(StreamTextFile.contentsOfFile(StringList.concat(LaunchingCards.getTempFolderSl(),FileConst.DECK_FOLDER,StreamTextFile.SEPARATEUR,GameEnum.BELOTE.name(),FileConst.DECK_EXT)));
+        return DocumentReaderBeloteUtil.getHandBelote(StreamTextFile.contentsOfFile(
+                  StringList.concat(LaunchingCards.getTempFolderSl(),FileConst.DECK_FOLDER,
+                          StreamTextFile.SEPARATEUR,GameEnum.BELOTE.name(),FileConst.DECK_EXT)));
     }
     public String pseudo() {
         return getPseudosJoueurs().getPseudo();

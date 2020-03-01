@@ -406,36 +406,55 @@ public final class BeanCustLgNames extends BeanLgNames {
         String forms_ = getAliasForms();
         String boolean_ = getAliasPrimBoolean();
         String length_ = getAliasLength();
-        file_.append(" ").append(private_).append(" ").append(string_).append(" ").append(language_).append(endLine_);
-        file_.append(" ").append(private_).append(" ").append(string_).append(" ").append(scope_).append(endLine_);
-        file_.append(" ").append(private_).append(" ").append(object_).append(" ").append(dataBase_).append(endLine_);
-        file_.append(" ").append(private_).append(" ").append(getAliasStringMapObject()).append(" ").append(forms_).append(endLine_);
+        file_.append(" ").append(private_).append(" ").append(string_).append(" ")
+                .append(language_).append(endLine_);
+        file_.append(" ").append(private_).append(" ").append(string_).append(" ")
+                .append(scope_).append(endLine_);
+        file_.append(" ").append(private_).append(" ").append(object_).append(" ")
+                .append(dataBase_).append(endLine_);
+        file_.append(" ").append(private_).append(" ").append(getAliasStringMapObject()).append(" ")
+                .append(forms_).append(endLine_);
         String void_ = getAliasVoid();
-        file_.append(" ").append(public_).append(" ").append(void_).append(" ").append(getAliasBeforeDisplaying()).append("(){");
+        file_.append(" ").append(public_).append(" ").append(void_).append(" ")
+                .append(getAliasBeforeDisplaying()).append("(){");
         file_.append(" ").append("}");
-        file_.append(" ").append(public_).append(" ").append(string_).append(" ").append(getAliasGetLanguage()).append("(){");
+        file_.append(" ").append(public_).append(" ").append(string_).append(" ")
+                .append(getAliasGetLanguage()).append("(){");
         file_.append("  ").append(return_).append(" ").append(language_).append(endLine_);
         file_.append(" ").append("}");
-        file_.append(" ").append(public_).append(" ").append(void_).append(" ").append(getAliasSetLanguage()).append("(").append(string_).append(" ").append(language_).append(")").append("{");
-        file_.append("  ").append(this_).append(".").append(language_).append("=").append(language_).append(suffixParam_).append(endLine_);
+        file_.append(" ").append(public_).append(" ").append(void_).append(" ")
+                .append(getAliasSetLanguage()).append("(").append(string_).append(" ").append(language_).append(")").append("{");
+        file_.append("  ").append(this_).append(".").append(language_).append("=")
+                .append(language_).append(suffixParam_).append(endLine_);
         file_.append(" ").append("}");
-        file_.append(" ").append(public_).append(" ").append(string_).append(" ").append(getAliasGetScope()).append("(){");
+        file_.append(" ").append(public_).append(" ").append(string_).append(" ")
+                .append(getAliasGetScope()).append("(){");
         file_.append("  ").append(return_).append(" ").append(scope_).append(endLine_);
         file_.append(" ").append("}");
-        file_.append(" ").append(public_).append(" ").append(void_).append(" ").append(getAliasSetScope()).append("(").append(string_).append(" ").append(scope_).append(")").append("{");
-        file_.append("  ").append(this_).append(".").append(scope_).append("=").append(scope_).append(suffixParam_).append(endLine_);
+        file_.append(" ").append(public_).append(" ").append(void_).append(" ")
+                .append(getAliasSetScope()).append("(").append(string_).append(" ").append(scope_).append(")").append("{");
+        file_.append("  ").append(this_).append(".").append(scope_).append("=")
+                .append(scope_).append(suffixParam_).append(endLine_);
         file_.append(" ").append("}");
-        file_.append(" ").append(public_).append(" ").append(object_).append(" ").append(getAliasGetDataBase()).append("(){");
+        file_.append(" ").append(public_).append(" ").append(object_).append(" ")
+                .append(getAliasGetDataBase()).append("(){");
         file_.append("  ").append(return_).append(" ").append(dataBase_).append(endLine_);
         file_.append(" ").append("}");
-        file_.append(" ").append(public_).append(" ").append(void_).append(" ").append(getAliasSetDataBase()).append("(").append(object_).append(" ").append(dataBase_).append(")").append("{");
-        file_.append("  ").append(this_).append(".").append(dataBase_).append("=").append(dataBase_).append(suffixParam_).append(endLine_);
+        file_.append(" ").append(public_).append(" ").append(void_).append(" ")
+                .append(getAliasSetDataBase()).append("(").append(object_).append(" ")
+                .append(dataBase_).append(")").append("{");
+        file_.append("  ").append(this_).append(".").append(dataBase_).append("=")
+                .append(dataBase_).append(suffixParam_).append(endLine_);
         file_.append(" ").append("}");
-        file_.append(" ").append(public_).append(" ").append(getAliasStringMapObject()).append(" ").append(getAliasGetForms()).append("(){");
+        file_.append(" ").append(public_).append(" ").append(getAliasStringMapObject())
+                .append(" ").append(getAliasGetForms()).append("(){");
         file_.append("  ").append(return_).append(" ").append(forms_).append(endLine_);
         file_.append(" ").append("}");
-        file_.append(" ").append(public_).append(" ").append(void_).append(" ").append(getAliasSetForms()).append("(").append(getAliasStringMapObject()).append(" ").append(forms_).append(")").append("{");
-        file_.append("  ").append(this_).append(".").append(forms_).append("=").append(forms_).append(suffixParam_).append(endLine_);
+        file_.append(" ").append(public_).append(" ").append(void_).append(" ")
+                .append(getAliasSetForms()).append("(").append(getAliasStringMapObject())
+                .append(" ").append(forms_).append(")").append("{");
+        file_.append("  ").append(this_).append(".").append(forms_).append("=")
+                .append(forms_).append(suffixParam_).append(endLine_);
         file_.append(" ").append("}");
         file_.append("}");
         files_.put(getAliasBean(), file_.toString());
@@ -453,9 +472,12 @@ public final class BeanCustLgNames extends BeanLgNames {
         String removeKey_ = getAliasMapRemoveKey();
         String getKey_ = getAliasMapGetKey();
         String setKey_ = getAliasMapSetKey();
-        file_.append(public_).append(" ").append(class_).append(" ").append(getAliasStringMapObject()).append("{");
-        file_.append(private_).append(" ").append(string_).append("[] ").append(keys_).append("=").append(new_).append(" ").append(string_).append("[0]").append(endLine_);
-        file_.append(private_).append(" ").append(object_).append("[] ").append(values_).append("=").append(new_).append(" ").append(object_).append("[0]").append(endLine_);
+        file_.append(public_).append(" ").append(class_).append(" ").append(getAliasStringMapObject())
+                .append("{");
+        file_.append(private_).append(" ").append(string_).append("[] ").append(keys_)
+                .append("=").append(new_).append(" ").append(string_).append("[0]").append(endLine_);
+        file_.append(private_).append(" ").append(object_).append("[] ").append(values_)
+                .append("=").append(new_).append(" ").append(object_).append("[0]").append(endLine_);
         file_.append(public_).append(" ").append(string_).append("[] ").append(keys_).append("(){");
         file_.append(return_).append(" ").append(keys_).append(endLine_);
         file_.append("}");
@@ -463,7 +485,8 @@ public final class BeanCustLgNames extends BeanLgNames {
         file_.append(return_).append(" ").append(keys_).append("[0]").append(endLine_);
         file_.append("}");
         file_.append(public_).append(" ").append(string_).append(" ").append(aliasMapLastKey).append("(){");
-        file_.append(return_).append(" ").append(keys_).append("[").append(keys_).append(".").append(length_).append("-1]").append(endLine_);
+        file_.append(return_).append(" ").append(keys_).append("[").append(keys_).append(".")
+                .append(length_).append("-1]").append(endLine_);
         file_.append("}");
         file_.append(public_).append(" ").append(object_).append("[] ").append(values_).append("(){");
         file_.append(return_).append(" ").append(values_).append(endLine_);
@@ -472,98 +495,192 @@ public final class BeanCustLgNames extends BeanLgNames {
         file_.append(return_).append(" ").append(values_).append("[0]").append(endLine_);
         file_.append("}");
         file_.append(public_).append(" ").append(object_).append(" ").append(aliasMapLastValue).append("(){");
-        file_.append(return_).append(" ").append(values_).append("[").append(values_).append(".").append(length_).append("-1]").append(endLine_);
+        file_.append(return_).append(" ").append(values_).append("[").append(values_)
+                .append(".").append(length_).append("-1]").append(endLine_);
         file_.append("}");
-        file_.append(public_).append(" ").append(void_).append(" ").append(setKey_).append("(").append(int_).append(" ").append(tr("i",_context)).append(",").append(string_).append(" ").append(tr("k",_context)).append("){");
-        file_.append(this_).append(".").append(keys_).append("[").append(trParam("i",_context)).append("]=").append(trParam("k",_context)).append(endLine_);
+        file_.append(public_).append(" ").append(void_).append(" ").append(setKey_).append("(")
+                .append(int_).append(" ").append(tr("i",_context)).append(",").append(string_)
+                .append(" ").append(tr("k",_context)).append("){");
+        file_.append(this_).append(".").append(keys_).append("[").append(trParam("i",_context))
+                .append("]=").append(trParam("k",_context)).append(endLine_);
         file_.append("}");
-        file_.append(public_).append(" ").append(string_).append(" ").append(getKey_).append("(").append(int_).append(" ").append(tr("i",_context)).append("){");
-        file_.append(return_).append(" ").append(this_).append(".").append(keys_).append("[").append(trParam("i",_context)).append("]").append(endLine_);
+        file_.append(public_).append(" ").append(string_).append(" ").append(getKey_)
+                .append("(").append(int_).append(" ").append(tr("i",_context)).append("){");
+        file_.append(return_).append(" ").append(this_).append(".").append(keys_).append("[")
+                .append(trParam("i",_context)).append("]").append(endLine_);
         file_.append("}");
-        file_.append(public_).append(" ").append(void_).append(" ").append(setValue_).append("(").append(int_).append(" ").append(tr("i",_context)).append(",").append(object_).append(" ").append(tr("v",_context)).append("){");
-        file_.append(this_).append(".").append(values_).append("[").append(trParam("i",_context)).append("]=").append(trParam("v",_context)).append(endLine_);
+        file_.append(public_).append(" ").append(void_).append(" ").append(setValue_)
+                .append("(").append(int_).append(" ").append(tr("i",_context))
+                .append(",").append(object_).append(" ").append(tr("v",_context)).append("){");
+        file_.append(this_).append(".").append(values_).append("[").append(trParam("i",_context))
+                .append("]=").append(trParam("v",_context)).append(endLine_);
         file_.append("}");
-        file_.append(public_).append(" ").append(object_).append(" ").append(getValue_).append("(").append(int_).append(" ").append(tr("i",_context)).append("){");
-        file_.append(return_).append(" ").append(this_).append(".").append(values_).append("[").append(trParam("i",_context)).append("]").append(endLine_);
+        file_.append(public_).append(" ").append(object_).append(" ").append(getValue_).append("(")
+                .append(int_).append(" ").append(tr("i",_context)).append("){");
+        file_.append(return_).append(" ").append(this_).append(".").append(values_)
+                .append("[").append(trParam("i",_context)).append("]").append(endLine_);
         file_.append("}");
         file_.append(public_).append(" ").append(void_).append(" ").append(aliasMapClear).append("(){");
-        file_.append(keys_).append("=").append(new_).append(" ").append(string_).append("[0]").append(endLine_);
-        file_.append(values_).append("=").append(new_).append(" ").append(object_).append("[0]").append(endLine_);
+        file_.append(keys_).append("=").append(new_).append(" ").append(string_)
+                .append("[0]").append(endLine_);
+        file_.append(values_).append("=").append(new_).append(" ").append(object_)
+                .append("[0]").append(endLine_);
         file_.append("}");
         file_.append(public_).append(" ").append(boolean_).append(" ").append(aliasMapIsEmpty).append("(){");
-        file_.append(return_).append(" ").append(keys_).append(".").append(length_).append("==0").append(endLine_);
+        file_.append(return_).append(" ").append(keys_).append(".").append(length_)
+                .append("==0").append(endLine_);
         file_.append("}");
         file_.append(public_).append(" ").append(int_).append(" ").append(aliasMapSize).append("(){");
         file_.append(return_).append(" ").append(keys_).append(".").append(length_).append(endLine_);
         file_.append("}");
-        file_.append(public_).append(" ").append(void_).append(" ").append(put_).append("(").append(string_).append(" ").append(tr("k",_context)).append(",").append(object_).append(" ").append(tr("v",_context)).append("){");
-        file_.append(int_).append(" ").append(tr("index",_context)).append("=").append(indexOfEntry_).append("(").append(trParam("k",_context)).append(")").append(endLine_);
+        file_.append(public_).append(" ").append(void_).append(" ")
+                .append(put_).append("(").append(string_).append(" ")
+                .append(tr("k",_context)).append(",").append(object_)
+                .append(" ").append(tr("v",_context)).append("){");
+        file_.append(int_).append(" ").append(tr("index",_context)).append("=")
+                .append(indexOfEntry_).append("(").append(trParam("k",_context)).append(")")
+                .append(endLine_);
         file_.append(if_).append("(").append(trLoc("index",_context)).append("==-1){");
-        file_.append(addEntry_).append("(").append(trParam("k",_context)).append(", ").append(trParam("v",_context)).append(")").append(endLine_);
+        file_.append(addEntry_).append("(").append(trParam("k",_context)).append(", ")
+                .append(trParam("v",_context)).append(")").append(endLine_);
         file_.append(return_).append(endLine_);
         file_.append("}");
-        file_.append(setValue_).append("(").append(trLoc("index",_context)).append(", ").append(trParam("v",_context)).append(")").append(endLine_);
+        file_.append(setValue_).append("(").append(trLoc("index",_context)).append(", ")
+                .append(trParam("v",_context)).append(")").append(endLine_);
         file_.append("}");
-        file_.append(public_).append(" ").append(boolean_).append(" ").append(aliasMapContains).append("(").append(string_).append(" ").append(tr("k",_context)).append("){");
-        file_.append(return_).append(" ").append(indexOfEntry_).append("(").append(trParam("k",_context)).append(") != -1").append(endLine_);
+        file_.append(public_).append(" ").append(boolean_).append(" ").append(aliasMapContains)
+                .append("(").append(string_).append(" ").append(tr("k",_context)).append("){");
+        file_.append(return_).append(" ").append(indexOfEntry_).append("(")
+                .append(trParam("k",_context)).append(") != -1").append(endLine_);
         file_.append("}");
-        file_.append(public_).append(" ").append(object_).append(" ").append(getVal_).append("(").append(string_).append(" ").append(tr("k",_context)).append("){");
-        file_.append(int_).append(" ").append(tr("index",_context)).append("=").append(indexOfEntry_).append("(").append(trParam("k",_context)).append(")").append(endLine_);
+        file_.append(public_).append(" ").append(object_).append(" ").append(getVal_).append("(")
+                .append(string_).append(" ").append(tr("k",_context)).append("){");
+        file_.append(int_).append(" ").append(tr("index",_context)).append("=").append(indexOfEntry_)
+                .append("(").append(trParam("k",_context)).append(")").append(endLine_);
         file_.append(if_).append("(").append(trLoc("index",_context)).append("==-1){");
         file_.append(return_).append(" ").append(null_).append(endLine_);
         file_.append("}");
-        file_.append(return_).append(" ").append(getValue_).append("(").append(trLoc("index",_context)).append(")").append(endLine_);
+        file_.append(return_).append(" ").append(getValue_).append("(").append(trLoc("index",_context))
+                .append(")").append(endLine_);
         file_.append("}");
 
-        file_.append(public_).append(" ").append(void_).append(" ").append(addEntry_).append("(").append(string_).append(" ").append(tr("k",_context)).append(",").append(object_).append(" ").append(tr("v",_context)).append("){");
-        file_.append(string_).append("[] ").append(keys_).append("=").append(new_).append(" ").append(string_).append("[").append(this_).append(".").append(keys_).append(".").append(length_).append("+1]").append(endLine_);
-        file_.append(for_).append("(").append(int_).append(" ").append(tr("i",_context)).append("=0").append(endLine_).append(trLoop("i",_context)).append("<").append(this_).append(".").append(keys_).append(".").append(length_).append(endLine_).append(trLoop("i",_context)).append("++){");
-        file_.append(trLoc(keys_,_context)).append("[").append(trLoop("i",_context)).append("]=").append(this_).append(".").append(keys_).append("[").append(trLoop("i",_context)).append("]").append(endLine_);
+        file_.append(public_).append(" ").append(void_).append(" ")
+                .append(addEntry_).append("(").append(string_).append(" ")
+                .append(tr("k",_context)).append(",").append(object_)
+                .append(" ").append(tr("v",_context)).append("){");
+        file_.append(string_).append("[] ").append(keys_).append("=").append(new_)
+                .append(" ").append(string_).append("[").append(this_)
+                .append(".").append(keys_).append(".").append(length_)
+                .append("+1]").append(endLine_);
+        file_.append(for_).append("(").append(int_).append(" ").append(tr("i",_context))
+                .append("=0").append(endLine_).append(trLoop("i",_context)).append("<")
+                .append(this_).append(".")
+                .append(keys_).append(".").append(length_).append(endLine_)
+                .append(trLoop("i",_context)).append("++){");
+        file_.append(trLoc(keys_,_context)).append("[").append(trLoop("i",_context))
+                .append("]=").append(this_).append(".").append(keys_).append("[")
+                .append(trLoop("i",_context)).append("]").append(endLine_);
         file_.append("}");
-        file_.append(trLoc(keys_,_context)).append("[").append(this_).append(".").append(keys_).append(".").append(length_).append("]=").append(trParam("k",_context)).append(endLine_);
+        file_.append(trLoc(keys_,_context)).append("[").append(this_).append(".").append(keys_)
+                .append(".").append(length_).append("]=").append(trParam("k",_context)).append(endLine_);
         file_.append(this_).append(".").append(keys_).append("=").append(trLoc(keys_,_context)).append(endLine_);
-        file_.append(object_).append("[] ").append(values_).append("=").append(new_).append(" ").append(object_).append("[").append(this_).append(".").append(values_).append(".").append(length_).append("+1]").append(endLine_);
-        file_.append(for_).append("(").append(int_).append(" ").append(tr("i",_context)).append("=0").append(endLine_).append(trLoop("i",_context)).append("<").append(this_).append(".").append(values_).append(".").append(length_).append(endLine_).append(trLoop("i",_context)).append("++){");
-        file_.append(trLoc(values_,_context)).append("[").append(trLoop("i",_context)).append("]=").append(this_).append(".").append(values_).append("[").append(trLoop("i",_context)).append("]").append(endLine_);
+        file_.append(object_).append("[] ").append(values_).append("=").append(new_).append(" ")
+                .append(object_).append("[").append(this_).append(".").append(values_).append(".")
+                .append(length_).append("+1]").append(endLine_);
+        file_.append(for_).append("(").append(int_).append(" ").append(tr("i",_context))
+                .append("=0").append(endLine_).append(trLoop("i",_context)).append("<")
+                .append(this_).append(".").append(values_).append(".").append(length_).append(endLine_)
+                .append(trLoop("i",_context)).append("++){");
+        file_.append(trLoc(values_,_context)).append("[").append(trLoop("i",_context))
+                .append("]=").append(this_).append(".").append(values_).append("[")
+                .append(trLoop("i",_context)).append("]").append(endLine_);
         file_.append("}");
-        file_.append(trLoc(values_,_context)).append("[").append(this_).append(".").append(values_).append(".").append(length_).append("]=").append(trParam("v",_context)).append(endLine_);
-        file_.append(this_).append(".").append(values_).append("=").append(trLoc(values_,_context)).append(endLine_);
+        file_.append(trLoc(values_,_context)).append("[").append(this_).append(".").append(values_)
+                .append(".").append(length_).append("]=").append(trParam("v",_context)).append(endLine_);
+        file_.append(this_).append(".").append(values_).append("=").append(trLoc(values_,_context))
+                .append(endLine_);
         file_.append("}");
 
-        file_.append(public_).append(" ").append(int_).append(" ").append(indexOfEntry_).append("(").append(string_).append(" ").append(tr("k",_context)).append("){");
-        file_.append(for_).append("(").append(int_).append(" ").append(tr("i",_context)).append("=0").append(endLine_).append(trLoop("i",_context)).append("<").append(this_).append(".").append(keys_).append(".").append(length_).append(endLine_).append(trLoop("i",_context)).append("++){");
+        file_.append(public_).append(" ").append(int_).append(" ").append(indexOfEntry_)
+                .append("(").append(string_).append(" ").append(tr("k",_context)).append("){");
+        file_.append(for_).append("(").append(int_)
+                .append(" ").append(tr("i",_context)).append("=0")
+                .append(endLine_).append(trLoop("i",_context)).append("<").append(this_)
+                .append(".").append(keys_).append(".").append(length_).append(endLine_)
+                .append(trLoop("i",_context)).append("++){");
         file_.append(if_).append("(").append(this_).append(".").append(keys_).append("[").append(trLoop("i",_context)).append("]==").append(trParam("k",_context)).append("){");
         file_.append(return_).append(" ").append(trLoop("i",_context)).append(endLine_);
         file_.append("}");
         file_.append("}");
         file_.append(return_).append(" -1").append(endLine_);
         file_.append("}");
-        file_.append(public_).append(" ").append(void_).append(" ").append(putAll_).append("(").append(getAliasStringMapObject()).append(" ").append(tr("m",_context)).append("){");
-        file_.append(int_).append(" ").append(tr("len",_context)).append("=").append("(").append(trParam("m",_context)).append(").").append(keys_).append(".").append(length_).append(endLine_);
-        file_.append(for_).append("(").append(int_).append(" ").append(tr("i",_context)).append("=0").append(endLine_).append(trLoop("i",_context)).append("<").append(trLoc("len",_context)).append(endLine_).append(trLoop("i",_context)).append("++){");
-        file_.append(" ").append(put_).append("(").append("(").append(trParam("m",_context)).append(").").append(keys_).append("[").append(trLoop("i",_context)).append("], ").append("(").append(trParam("m",_context)).append(").").append(values_).append("[").append(trLoop("i",_context)).append("])").append(endLine_);
+        file_.append(public_).append(" ").append(void_).append(" ").append(putAll_).append("(")
+                .append(getAliasStringMapObject()).append(" ").append(tr("m",_context)).append("){");
+        file_.append(int_).append(" ").append(tr("len",_context)).append("=").append("(")
+                .append(trParam("m",_context)).append(").").append(keys_).append(".")
+                .append(length_).append(endLine_);
+        file_.append(for_).append("(").append(int_).append(" ").append(tr("i",_context))
+                .append("=0").append(endLine_).append(trLoop("i",_context)).append("<")
+                .append(trLoc("len",_context)).append(endLine_).append(trLoop("i",_context)).append("++){");
+        file_.append(" ").append(put_).append("(").append("(")
+                .append(trParam("m",_context)).append(").")
+                .append(keys_).append("[").append(trLoop("i",_context))
+                .append("], ").append("(").append(trParam("m",_context))
+                .append(").").append(values_).append("[").append(trLoop("i",_context))
+                .append("])").append(endLine_);
         file_.append("}");
         file_.append("}");
-        file_.append(public_).append(" ").append(void_).append(" ").append(removeKey_).append("(").append(string_).append(" ").append(tr("k",_context)).append("){");
-        file_.append(int_).append(" ").append(tr("index",_context)).append("=").append(indexOfEntry_).append("(").append(trParam("k",_context)).append(")").append(endLine_);
+        file_.append(public_).append(" ").append(void_).append(" ").append(removeKey_)
+                .append("(").append(string_).append(" ").append(tr("k",_context)).append("){");
+        file_.append(int_).append(" ").append(tr("index",_context))
+                .append("=").append(indexOfEntry_).append("(").append(trParam("k",_context))
+                .append(")").append(endLine_);
         file_.append(if_).append("(").append(trLoc("index",_context)).append("==-1){");
         file_.append(return_).append(endLine_);
         file_.append("}");
-        file_.append(string_).append("[] ").append(keys_).append("=").append(new_).append(" ").append(string_).append("[").append(this_).append(".").append(keys_).append(".").append(length_).append("-1]").append(endLine_);
-        file_.append(for_).append("(").append(int_).append(" ").append(tr("i",_context)).append("=0").append(endLine_).append(trLoop("i",_context)).append("<").append(trLoc("index",_context)).append(endLine_).append(trLoop("i",_context)).append("++){");
-        file_.append(keys_).append("[").append(trLoop("i",_context)).append("]=").append(this_).append(".").append(keys_).append("[").append(trLoop("i",_context)).append("]").append(endLine_);
+        file_.append(string_).append("[] ").append(keys_).append("=").append(new_)
+                .append(" ").append(string_).append("[").append(this_).append(".").append(keys_)
+                .append(".").append(length_).append("-1]").append(endLine_);
+        file_.append(for_).append("(").append(int_).append(" ").append(tr("i",_context)).append("=0")
+                .append(endLine_).append(trLoop("i",_context))
+                .append("<").append(trLoc("index",_context))
+                .append(endLine_).append(trLoop("i",_context))
+                .append("++){");
+        file_.append(keys_).append("[").append(trLoop("i",_context)).append("]=")
+                .append(this_).append(".").append(keys_).append("[").append(trLoop("i",_context))
+                .append("]").append(endLine_);
         file_.append("}");
-        file_.append(for_).append("(").append(int_).append(" ").append(tr("i",_context)).append("=").append(trLoc("index",_context)).append("+1").append(endLine_).append(trLoop("i",_context)).append("<").append(this_).append(".").append(keys_).append(".").append(length_).append(endLine_).append(trLoop("i",_context)).append("++){");
-        file_.append(keys_).append("[").append(trLoop("i",_context)).append("-1]=").append(this_).append(".").append(keys_).append("[").append(trLoop("i",_context)).append("]").append(endLine_);
+        file_.append(for_).append("(").append(int_).append(" ").append(tr("i",_context))
+                .append("=").append(trLoc("index",_context)).append("+1").append(endLine_)
+                .append(trLoop("i",_context)).append("<").append(this_).append(".")
+                .append(keys_).append(".").append(length_).append(endLine_)
+                .append(trLoop("i",_context)).append("++){");
+        file_.append(keys_).append("[").append(trLoop("i",_context)).append("-1]=").append(this_)
+                .append(".").append(keys_).append("[").append(trLoop("i",_context)).append("]")
+                .append(endLine_);
         file_.append("}");
         file_.append(this_).append(".").append(keys_).append("=").append(keys_).append(endLine_);
 
-        file_.append(object_).append("[] ").append(values_).append("=").append(new_).append(" ").append(object_).append("[").append(this_).append(".").append(values_).append(".").append(length_).append("-1]").append(endLine_);
-        file_.append(for_).append("(").append(int_).append(" ").append(tr("i",_context)).append("=0").append(endLine_).append(trLoop("i",_context)).append("<").append(trLoc("index",_context)).append(endLine_).append(trLoop("i",_context)).append("++){");
-        file_.append(values_).append("[").append(trLoop("i",_context)).append("]=").append(this_).append(".").append(values_).append("[").append(trLoop("i",_context)).append("]").append(endLine_);
+        file_.append(object_).append("[] ").append(values_).append("=").append(new_).append(" ")
+                .append(object_).append("[").append(this_).append(".")
+                .append(values_).append(".").append(length_).append("-1]")
+                .append(endLine_);
+        file_.append(for_).append("(").append(int_).append(" ").append(tr("i",_context)).append("=0")
+                .append(endLine_).append(trLoop("i",_context))
+                .append("<").append(trLoc("index",_context))
+                .append(endLine_).append(trLoop("i",_context))
+                .append("++){");
+        file_.append(values_).append("[").append(trLoop("i",_context)).append("]=")
+                .append(this_).append(".").append(values_).append("[").append(trLoop("i",_context))
+                .append("]").append(endLine_);
         file_.append("}");
-        file_.append(for_).append("(").append(int_).append(" ").append(tr("i",_context)).append("=").append(trLoc("index",_context)).append("+1").append(endLine_).append(trLoop("i",_context)).append("<").append(this_).append(".").append(values_).append(".").append(length_).append(endLine_).append(trLoop("i",_context)).append("++){");
-        file_.append(values_).append("[").append(trLoop("i",_context)).append("-1]=").append(this_).append(".").append(values_).append("[").append(trLoop("i",_context)).append("]").append(endLine_);
+        file_.append(for_).append("(").append(int_).append(" ").append(tr("i",_context))
+                .append("=").append(trLoc("index",_context)).append("+1").append(endLine_)
+                .append(trLoop("i",_context)).append("<").append(this_).append(".").append(values_)
+                .append(".").append(length_).append(endLine_).append(trLoop("i",_context)).append("++){");
+        file_.append(values_).append("[").append(trLoop("i",_context)).append("-1]=")
+                .append(this_).append(".").append(values_).append("[").append(trLoop("i",_context))
+                .append("]").append(endLine_);
         file_.append("}");
         file_.append(this_).append(".").append(values_).append("=").append(values_).append(endLine_);
         file_.append("}");
@@ -571,8 +688,10 @@ public final class BeanCustLgNames extends BeanLgNames {
         files_.put(getAliasStringMapObject(), file_.toString());
         getPredefinedInterfacesInitOrder().add(getAliasStringMapObject());
         file_ = new StringBuilder();
-        file_.append(public_).append(" ").append(interface_).append(" ").append(aliasValidator).append("{");
-        file_.append(public_).append(" ").append(getAliasMessage()).append(" ").append(aliasValidate).append("(");
+        file_.append(public_).append(" ").append(interface_).append(" ")
+                .append(aliasValidator).append("{");
+        file_.append(public_).append(" ").append(getAliasMessage()).append(" ")
+                .append(aliasValidate).append("(");
         file_.append(object_).append(" ").append(tr("newValue",_context)).append(",");
         file_.append(object_).append(" ").append(tr("oldValue",_context)).append(",");
         file_.append(object_).append(" ").append(tr("bean",_context)).append(",");

@@ -38,7 +38,9 @@ public final class VideoLoading {
                     int len_;
                     len_ = files_.length;
                     for (int i = CustList.FIRST_INDEX; i < len_; i++) {
-                        BufferedImage img_ = StreamImageFile.read(StringList.concat(path_, DataBase.SEPARATOR_FILES, folder_.getName(), DataBase.SEPARATOR_FILES, FILE, Long.toString(i), DataBase.IMG_FILES_RES_EXT));
+                        BufferedImage img_ = StreamImageFile.read(
+                                StringList.concat(path_, DataBase.SEPARATOR_FILES, folder_.getName(),
+                                DataBase.SEPARATOR_FILES, FILE, Long.toString(i), DataBase.IMG_FILES_RES_EXT));
                         if (img_ != null) {
                             imgs_.add(img_);
                         }
@@ -49,7 +51,9 @@ public final class VideoLoading {
                 CustList<BufferedImage> imgs_ = new CustList<BufferedImage>();
                 int i_ = CustList.FIRST_INDEX;
                 while (true) {
-                    int[][] txtFile_ = BaseSixtyFourUtil.getImageByString(ResourceFiles.ressourceFichier(StringList.concat(VIDEO_DEFAULT,Long.toString(i_),DataBase.IMG_FILES_RES_EXT_TXT)));
+                    int[][] txtFile_ = BaseSixtyFourUtil.getImageByString(
+                            ResourceFiles.ressourceFichier(StringList.concat(VIDEO_DEFAULT,Long.toString(i_),
+                                    DataBase.IMG_FILES_RES_EXT_TXT)));
                     if (txtFile_.length == 0) {
                         break;
                     }
