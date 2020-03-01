@@ -1312,9 +1312,6 @@ public abstract class OperationNode implements Operable {
         boolean allNotBoxUnbox_ = true;
         for (int i = CustList.FIRST_INDEX; i < nbDem_; i++) {
             String wc_ = params_.get(i);
-            if (vararg_ && i == last_) {
-                wc_ = PrimitiveTypeUtil.getPrettyArrayType(wc_);
-            }
             if (_argsClass[i].isVariable()) {
                 if (PrimitiveTypeUtil.isPrimitive(wc_,_context)) {
                     return false;
@@ -1327,6 +1324,9 @@ public abstract class OperationNode implements Operable {
             map_.getMapping().putAllMap(mapCtr_);
             if (wc_.isEmpty()) {
                 return false;
+            }
+            if (vararg_ && i == last_) {
+                wc_ = PrimitiveTypeUtil.getPrettyArrayType(wc_);
             }
             map_.setParam(wc_);
             if (!Templates.isCorrectOrNumbers(map_, _context)) {
@@ -1722,13 +1722,15 @@ public abstract class OperationNode implements Operable {
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
             String wcOne_ = idOne_.getParametersTypes().get(i);
             String wcTwo_ = idTwo_.getParametersTypes().get(i);
+            boolean wrapOne_ = false;
+            boolean wrapTwo_ = false;
             if (idOne_.isVararg() && i + 1 == len_) {
-                wcOne_ = PrimitiveTypeUtil.getPrettyArrayType(wcOne_);
+                wrapOne_ = true;
             }
             if (idTwo_.isVararg() && i + 1 == len_) {
-                wcTwo_ = PrimitiveTypeUtil.getPrettyArrayType(wcTwo_);
+                wrapTwo_ = true;
             }
-            if (swapCasePreferred(wcOne_, wcTwo_, map_, context_) == CustList.SWAP_SORT) {
+            if (swapCasePreferred(wcOne_,wrapOne_, wcTwo_, wrapTwo_,map_, context_) == CustList.SWAP_SORT) {
                 all_ = false;
                 break;
             }
@@ -1754,7 +1756,7 @@ public abstract class OperationNode implements Operable {
             for (int i = CustList.FIRST_INDEX; i < pr_; i++) {
                 String wcOne_ = _one.getGeneFormatted().getParametersTypes().get(i);
                 String wcTwo_ = _two.getGeneFormatted().getParametersTypes().get(i);
-                if (swapCasePreferred(wcOne_, wcTwo_, map_, context_) == CustList.SWAP_SORT) {
+                if (swapCasePreferred(wcOne_, false, wcTwo_, false, map_, context_) == CustList.SWAP_SORT) {
                     all_ = false;
                     break;
                 }
@@ -1762,7 +1764,7 @@ public abstract class OperationNode implements Operable {
             String wcTwo_ = _two.getGeneFormatted().getParametersTypes().last();
             for (int i = pr_; i < lenOne_; i++) {
                 String wcOne_ = _one.getGeneFormatted().getParametersTypes().get(i);
-                if (swapCasePreferred(wcOne_, wcTwo_, map_, context_) == CustList.SWAP_SORT) {
+                if (swapCasePreferred(wcOne_, false, wcTwo_, false, map_, context_) == CustList.SWAP_SORT) {
                     all_ = false;
                     break;
                 }
@@ -1772,7 +1774,7 @@ public abstract class OperationNode implements Operable {
             for (int i = CustList.FIRST_INDEX; i < pr_; i++) {
                 String wcOne_ = _one.getGeneFormatted().getParametersTypes().get(i);
                 String wcTwo_ = _two.getGeneFormatted().getParametersTypes().get(i);
-                if (swapCasePreferred(wcOne_, wcTwo_, map_, context_) == CustList.SWAP_SORT) {
+                if (swapCasePreferred(wcOne_, false, wcTwo_, false, map_, context_) == CustList.SWAP_SORT) {
                     all_ = false;
                     break;
                 }
@@ -1780,7 +1782,7 @@ public abstract class OperationNode implements Operable {
             String wcOne_ = _one.getGeneFormatted().getParametersTypes().last();
             for (int i = pr_; i < lenTwo_; i++) {
                 String wcTwo_ = _two.getGeneFormatted().getParametersTypes().get(i);
-                if (swapCasePreferred(wcOne_, wcTwo_, map_, context_) == CustList.SWAP_SORT) {
+                if (swapCasePreferred(wcOne_, false, wcTwo_, false, map_, context_) == CustList.SWAP_SORT) {
                     all_ = false;
                     break;
                 }
@@ -1788,7 +1790,7 @@ public abstract class OperationNode implements Operable {
         }
         return all_;
     }
-    private static int swapCasePreferred(String _paramFctOne, String _paramFctTwo, StringMap<StringList> _map, Analyzable _ana) {
+    private static int swapCasePreferred(String _paramFctOne, boolean _wrapOne,String _paramFctTwo, boolean _wrapTwo,StringMap<StringList> _map, Analyzable _ana) {
         ClassMatching one_;
         ClassMatching two_;
         if (_paramFctOne.isEmpty()) {
@@ -1801,8 +1803,16 @@ public abstract class OperationNode implements Operable {
         if (_paramFctTwo.isEmpty()) {
             return CustList.NO_SWAP_SORT;
         }
-        one_ = new ClassMatching(_paramFctOne);
-        two_ = new ClassMatching(_paramFctTwo);
+        String pOne_ = _paramFctOne;
+        String pTwo_ = _paramFctTwo;
+        if (_wrapOne) {
+            pOne_ = PrimitiveTypeUtil.getPrettyArrayType(pOne_);
+        }
+        if (_wrapTwo) {
+            pTwo_ = PrimitiveTypeUtil.getPrettyArrayType(pTwo_);
+        }
+        one_ = new ClassMatching(pOne_);
+        two_ = new ClassMatching(pTwo_);
         if (one_.matchClass(two_)) {
             return CustList.EQ_CMP;
         }
@@ -1877,12 +1887,12 @@ public abstract class OperationNode implements Operable {
         return CustList.EQ_CMP;
     }
     private static int checkPreferred(String _one, String _two, StringMap<StringList> _map, Analyzable _an, Parametrable _p1, Parametrable _p2) {
-        int res_ = swapCasePreferred(_one, _two, _map, _an);
+        int res_ = swapCasePreferred(_one, false, _two, false, _map, _an);
         if (res_ != CustList.EQ_CMP) {
             if (res_ == CustList.NO_SWAP_SORT) {
                 return res_;
             }
-            res_ = swapCasePreferred(_two, _one, _map, _an);
+            res_ = swapCasePreferred(_two, false, _one, false, _map, _an);
             if (res_ == CustList.NO_SWAP_SORT) {
                 return CustList.SWAP_SORT;
             }
