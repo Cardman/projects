@@ -602,7 +602,12 @@ public abstract class OperationNode implements Operable {
         }
         return classeNamesPar_;
     }
-    private static void fetchFields(Analyzable _cont, boolean _static, String _name, boolean _aff, StringMap<String> _clCurNames, StringMap<String> _clCurNamesBase, String _objectType, ObjectMap<ClassField, Integer> _imports, ObjectMap<ClassField, FieldResult> _ancestors, String _curClassBase, int _anc, boolean _keepInstance, StringList _classeNamesPar) {
+    private static void fetchFields(Analyzable _cont, boolean _static,
+                                    String _name, boolean _aff,
+                                    StringMap<String> _clCurNames, StringMap<String> _clCurNamesBase,
+                                    String _objectType, ObjectMap<ClassField, Integer> _imports,
+                                    ObjectMap<ClassField, FieldResult> _ancestors, String _curClassBase,
+                                    int _anc, boolean _keepInstance, StringList _classeNamesPar) {
         for (String s: _classeNamesPar) {
             String id_ = Templates.getIdFromAllTypes(s);
             if (StringList.quickEq(id_, _objectType)) {
@@ -879,7 +884,12 @@ public abstract class OperationNode implements Operable {
         return _fct.first();
     }
 
-    protected static ClassMethodIdReturn tryGetDeclaredCustMethod(Analyzable _conf, int _varargOnly, MethodAccessKind _staticContext, StringList _classes, String _name, boolean _superClass, boolean _accessFromSuper, boolean _import, ClassMethodId _uniqueId, ClassArgumentMatching[] _argsClass) {
+    protected static ClassMethodIdReturn tryGetDeclaredCustMethod(Analyzable _conf, int _varargOnly,
+                                                                  MethodAccessKind _staticContext,
+                                                                  StringList _classes, String _name,
+                                                                  boolean _superClass, boolean _accessFromSuper,
+                                                                  boolean _import, ClassMethodId _uniqueId,
+                                                                  ClassArgumentMatching[] _argsClass) {
         ObjectMap<ClassMethodId, MethodInfo> methods_;
         methods_ = getDeclaredCustMethodByType(_conf, _staticContext, _accessFromSuper, _superClass, _classes, _name, _import, _uniqueId);
         int varargOnly_ = _varargOnly;

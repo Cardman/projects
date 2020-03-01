@@ -17,7 +17,13 @@ public final class InitializationLgNames {
         basicStandards(lgName_);
         return build(CustList.INDEX_NOT_FOUND_ELT,lgName_, _opt);
     }
-
+    public static ContextEl buildStdEnums(Options _opt) {
+        LgNames lgName_ = new CustLgNames();
+        basicStandards(lgName_);
+        lgName_.setAliasEnumName("name");
+        lgName_.setAliasEnumOrdinal("ordinal");
+        return build(CustList.INDEX_NOT_FOUND_ELT,lgName_, _opt);
+    }
     public static ContextEl buildStdToString(Options _opt) {
         LgNames lgName_ = new CustLgNames();
         basicStandards(lgName_);

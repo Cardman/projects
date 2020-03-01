@@ -168,6 +168,13 @@ public abstract class ProcessMethodCommon {
         }
         return ct_;
     }
+    protected static ContextEl contextElEnum() {
+        Options opt_ = new Options();
+        opt_.setEndLineSemiColumn(false);
+        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        ContextEl ct_ = InitializationLgNames.buildStdEnums(opt_);
+        return ct_;
+    }
     protected static ContextEl contextElReadOnly() {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);

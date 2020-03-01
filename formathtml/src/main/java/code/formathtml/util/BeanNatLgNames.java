@@ -174,6 +174,9 @@ public abstract class BeanNatLgNames extends BeanLgNames {
         method_ = new StandardMethod(getAliasIsEmpty(), params_, getAliasPrimBoolean(), false, MethodModifier.ABSTRACT,stdi_);
         methods_.put(method_.getId(), method_);
         getStandards().put(getAliasCountable(), stdi_);
+        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        stdi_ = new StandardInterface(getCustEntries(), methods_, new StringList());
+        getStandards().put(getCustEntries(), stdi_);
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new StringMap<StandardField>();
         methods_ = new ObjectMap<MethodId, StandardMethod>();

@@ -450,7 +450,10 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 checkNull(_conf);
                 return;
             }
-            ClassMethodIdReturn id_ = OperationNode.getDeclaredCustMethod(_conf, vararg_, MethodAccessKind.INSTANCE, str_, name_, accessSuper_, accessFromSuper_, false,feed_, ClassArgumentMatching.toArgArray(_methodTypes));
+            ClassMethodIdReturn id_ = OperationNode.getDeclaredCustMethod(_conf, vararg_,
+                    MethodAccessKind.INSTANCE, str_, name_,
+                    accessSuper_, accessFromSuper_, false,feed_,
+                    ClassArgumentMatching.toArgArray(_methodTypes));
             if (!id_.isFoundMethod()) {
                 setResultClass(new ClassArgumentMatching(_stds.getAliasObject()));
                 return;

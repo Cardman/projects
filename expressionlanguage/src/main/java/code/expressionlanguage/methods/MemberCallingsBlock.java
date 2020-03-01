@@ -234,7 +234,9 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
         }
     }
 
-    private static void addParent(ContextEl _cont, Block _en, CustList<BracedBlock> _parents, CustList<BreakableBlock> _parentsBreakables, CustList<Loop> _parentsContinuable, CustList<Eval> _parentsReturnable, Block _n) {
+    private static void addParent(ContextEl _cont, Block _en, CustList<BracedBlock> _parents,
+                                  CustList<BreakableBlock> _parentsBreakables, CustList<Loop> _parentsContinuable,
+                                  CustList<Eval> _parentsReturnable, Block _n) {
         if (_en instanceof BracedBlock && _n != null) {
             _cont.getAnalyzing().initLocalVars();
             _cont.getAnalyzing().initVars();

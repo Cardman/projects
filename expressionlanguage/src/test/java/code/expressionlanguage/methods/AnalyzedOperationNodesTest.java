@@ -3611,6 +3611,30 @@ public final class AnalyzedOperationNodesTest {
         assertTrue(!id_.isStaticMethod());
     }
     @Test
+    public void processEl2451Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkgtwo.Apply {\n");
+        xml_.append(" $static {$new pkg.ExTwo().method():}\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExTwo:IntOne:IntTwo {\n");
+        xml_.append("}\n");
+        xml_.append("$public $interface pkg.IntOne {\n");
+        xml_.append("  $final $int method(){$return 0:}\n");
+        xml_.append("}\n");
+        xml_.append("$public $interface pkg.IntTwo {\n");
+        xml_.append("  $int method():\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        Options opt_ = new Options();
+        opt_.setEndLineSemiColumn(false);
+        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+
+        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+    }
+    @Test
     public void processEl1FailTest() {
         analyzeIndirectLocalVars("composite.getOverridenOne($null)", "composite", COMPOSITE, true);
     }

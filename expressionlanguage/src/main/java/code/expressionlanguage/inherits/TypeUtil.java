@@ -347,7 +347,8 @@ public final class TypeUtil {
         String baseClassFound_ = _type.getFullName();
         for (GeneType c: _conf.getClassBodies()) {
             String name_ = c.getFullName();
-            if (!PrimitiveTypeUtil.canBeUseAsArgument(baseClassFound_, name_, _conf)) {
+            String baseCond_ = Templates.getFullTypeByBases(c.getGenericString(), baseClassFound_, _conf);
+            if (baseCond_ == null) {
                 continue;
             }
             ClassMethodId f_ = tryGetUniqueId(baseClassFound_, c, _realId, _conf);
@@ -392,48 +393,85 @@ public final class TypeUtil {
                 if (!found_) {
                     continue;
                 }
-                for (ClassMethodId t: foundSuperClasses_) {
-                    String t_ = t.getClassName();
-                    String baseSuperType_ = Templates.getIdFromAllTypes(t_);
-                    GeneMethod method_ = _conf.getMethodBodiesById(baseSuperType_, t.getConstraints()).first();
-                    if (method_.isAbstractMethod()) {
-                        continue;
-                    }
-                    if (method_.isFinalMethod()) {
-                        finalMethods_.add(t);
-                    }
-                    methods_.add(t);
-                }
+                feedMehodsLists(_conf, finalMethods_, methods_, foundSuperClasses_);
             }
-            StringMap<MethodId> defs_ = new StringMap<MethodId>();
-            StringList list_ = new StringList();
-            for (ClassMethodId v: finalMethods_) {
-                defs_.put(v.getClassName(), v.getConstraints());
-                list_.add(v.getClassName());
+            ClassMethodId id_ = filterUniqId(_conf, finalMethods_, methods_);
+            if (id_ != null) {
+                eq_.put(name_, id_);
+                continue;
             }
-            list_ = PrimitiveTypeUtil.getSubclasses(list_, _conf);
-            if (list_.size() == 1) {
-                String class_ = list_.first();
-                String classBase_ = Templates.getIdFromAllTypes(class_);
-                eq_.put(name_, new ClassMethodId(classBase_, defs_.getVal(class_)));
-            } else {
-                defs_ = new StringMap<MethodId>();
-                list_ = new StringList();
-                for (ClassMethodId v: methods_) {
-                    defs_.put(v.getClassName(), v.getConstraints());
-                    list_.add(v.getClassName());
+            finalMethods_ = new EqList<ClassMethodId>();
+            methods_ = new EqList<ClassMethodId>();
+            MethodId l_ = _realId.quickFormat(baseCond_, _conf);
+            ObjectMap<MethodId, EqList<ClassMethodId>> ov_ = c.getAllOverridingMethods();
+            //r_ inherit the formatted method
+            EqList<ClassMethodId> foundSuperClasses_ = new EqList<ClassMethodId>();
+            boolean found_ = false;
+            //if the overridden types contain the type input, then retrieve the sub types of the input type
+            //(which are super types of r_)
+            for (ClassMethodId t: getList(ov_,l_)) {
+                String t_ = t.getClassName();
+                String baseSuperType_ = Templates.getIdFromAllTypes(t_);
+                if (StringList.quickEq(baseSuperType_, baseClassFound_)) {
+                    found_ = true;
                 }
-                list_ = PrimitiveTypeUtil.getSubclasses(list_, _conf);
-                if (list_.size() == 1) {
-                    String class_ = list_.first();
-                    String classBase_ = Templates.getIdFromAllTypes(class_);
-                    eq_.put(name_, new ClassMethodId(classBase_, defs_.getVal(class_)));
-                }
+                foundSuperClasses_.add(t);
+            }
+            if (!found_) {
+                continue;
+            }
+            feedMehodsLists(_conf, finalMethods_, methods_, foundSuperClasses_);
+            id_ = filterUniqId(_conf, finalMethods_, methods_);
+            if (id_ != null) {
+                eq_.put(name_, id_);
             }
         }
         return eq_;
     }
-    public static ClassMethodId tryGetUniqueId(String _subTypeName,GeneType _type,MethodId _realId, ContextEl _conf) {
+
+    private static void feedMehodsLists(ContextEl _conf, EqList<ClassMethodId> finalMethods_, EqList<ClassMethodId> methods_, EqList<ClassMethodId> foundSuperClasses_) {
+        for (ClassMethodId t: foundSuperClasses_) {
+            String t_ = t.getClassName();
+            String baseSuperType_ = Templates.getIdFromAllTypes(t_);
+            GeneMethod method_ = _conf.getMethodBodiesById(baseSuperType_, t.getConstraints()).first();
+            if (method_.isAbstractMethod()) {
+                continue;
+            }
+            if (method_.isFinalMethod()) {
+                finalMethods_.add(t);
+            }
+            methods_.add(t);
+        }
+    }
+    private static ClassMethodId filterUniqId(ContextEl _conf, EqList<ClassMethodId> finalMethods_, EqList<ClassMethodId> methods_) {
+        StringMap<MethodId> defs_ = new StringMap<MethodId>();
+        StringList list_ = new StringList();
+        for (ClassMethodId v: finalMethods_) {
+            defs_.put(v.getClassName(), v.getConstraints());
+            list_.add(v.getClassName());
+        }
+        list_ = PrimitiveTypeUtil.getSubclasses(list_, _conf);
+        if (list_.size() == 1) {
+            String class_ = list_.first();
+            String classBase_ = Templates.getIdFromAllTypes(class_);
+            return new ClassMethodId(classBase_, defs_.getVal(class_));
+        }
+        defs_ = new StringMap<MethodId>();
+        list_ = new StringList();
+        for (ClassMethodId v: methods_) {
+            defs_.put(v.getClassName(), v.getConstraints());
+            list_.add(v.getClassName());
+        }
+        list_ = PrimitiveTypeUtil.getSubclasses(list_, _conf);
+        if (list_.size() == 1) {
+            String class_ = list_.first();
+            String classBase_ = Templates.getIdFromAllTypes(class_);
+            return new ClassMethodId(classBase_, defs_.getVal(class_));
+        }
+        return null;
+    }
+
+    private static ClassMethodId tryGetUniqueId(String _subTypeName, GeneType _type, MethodId _realId, ContextEl _conf) {
         String name_ = _type.getFullName();
         if (_type instanceof EnumBlock || _type instanceof InnerElementBlock) {
             String en_ = _conf.getStandards().getAliasEnumType();

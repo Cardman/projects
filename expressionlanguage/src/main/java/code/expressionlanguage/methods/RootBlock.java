@@ -1317,7 +1317,6 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
         for (EntryCust<MethodId, EqList<ClassMethodId>> e: _methodIds.entryList()) {
             MethodId cst_ = e.getKey();
             EqList<ClassMethodId> fClasses_ = new EqList<ClassMethodId>();
-            EqList<ClassMethodId> aClasses_ = new EqList<ClassMethodId>();
             for (ClassMethodId s: e.getValue()) {
                 String name_ = s.getClassName();
                 String base_ = Templates.getIdFromAllTypes(name_);
@@ -1325,9 +1324,6 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                     continue;
                 }
                 GeneMethod sup_ = (GeneMethod) Classes.getMethodBodiesById(_context, name_, s.getConstraints()).first();
-                if (sup_.isAbstractMethod()) {
-                    aClasses_.add(s);
-                }
                 if (sup_.isFinalMethod()) {
                     fClasses_.add(s);
                 }
@@ -1335,20 +1331,6 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
             fClasses_.removeDuplicates();
             if (fClasses_.size() > 1) {
                 for (ClassMethodId c: fClasses_) {
-                    addClass(output_, cst_, c);
-                }
-                continue;
-            }
-            if (fClasses_.size() > 0 && aClasses_.size() > 0) {
-                String name_ = fClasses_.first().getClassName();
-                String base_ = Templates.getIdFromAllTypes(name_);
-                if (classes_.getClassBody(base_) instanceof ClassBlock) {
-                    continue;
-                }
-                for (ClassMethodId c: fClasses_) {
-                    addClass(output_, cst_, c);
-                }
-                for (ClassMethodId c: aClasses_) {
                     addClass(output_, cst_, c);
                 }
             }

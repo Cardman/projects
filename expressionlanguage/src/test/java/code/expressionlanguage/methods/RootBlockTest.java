@@ -1664,6 +1664,38 @@ public final class RootBlockTest {
         assertTrue(!classes_.isEmptyErrors());
     }
     @Test
+    public void test13Fail() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.ExInt<#F> {\n");
+        xml_.append("}\n");
+        xml_.append("$public $interface pkgtwo.ExIntTwo:pkg.ExInt<Number> {\n");
+        xml_.append(" $package $final Number instancemethod(Object i){\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $interface pkgtwo.ExIntThree:pkg.ExInt<Number> {\n");
+        xml_.append(" $package $abstract Number instancemethod(Object i){\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExImp:pkgtwo.ExIntTwo:pkgtwo.ExIntThree{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        Options opt_ = new Options();
+        opt_.setEndLineSemiColumn(false);
+        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        Classes classes_ = cont_.getClasses();
+        Classes.buildPredefinedBracesBodies(cont_);
+        Classes.tryBuildBracedClassesBodies(files_, cont_, false);
+        classes_.validateInheritingClasses(cont_, false);
+        classes_.validateIds(cont_,false);
+        classes_.validateOverridingInherit(cont_, false);
+        assertTrue(!classes_.isEmptyErrors());
+    }
+    @Test
     public void test14Fail() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
@@ -1714,8 +1746,8 @@ public final class RootBlockTest {
         xml_ = new StringBuilder();
         xml_.append("$public $interface pkg.ExInt<#F> {\n");
         xml_.append("}\n");
-        xml_.append("$public $interface pkg.ExIntTwo:pkg.ExInt<Number> {\n");
-        xml_.append(" $public $final Number instancemethod(Object i){\n");
+        xml_.append("$public $interface pkgtwo.ExIntTwo:pkg.ExInt<Number> {\n");
+        xml_.append(" $package $final Number instancemethod(Object i){\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         xml_.append("$public $interface pkg.ExIntThree:pkg.ExInt<Number> {\n");
@@ -1724,7 +1756,7 @@ public final class RootBlockTest {
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.ExImp:pkg.ExIntTwo:pkg.ExIntThree{\n");
+        xml_.append("$public $class pkg.ExImp:pkgtwo.ExIntTwo:pkg.ExIntThree{\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         Options opt_ = new Options();
@@ -1888,6 +1920,38 @@ public final class RootBlockTest {
         Classes classes_ = cont_.getClasses();
         classes_.validateIds(cont_,false);
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
+        classes_.validateOverridingInherit(cont_, false);
+        assertTrue(!classes_.isEmptyErrors());
+    }
+    @Test
+    public void test22Fail() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.ExInt<#F> {\n");
+        xml_.append("}\n");
+        xml_.append("$public $interface pkg.ExIntTwo:pkg.ExInt<Number> {\n");
+        xml_.append(" $package $final Number instancemethod(Object i){\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $interface pkgtwo.ExIntThree:pkg.ExInt<Number> {\n");
+        xml_.append(" $package $abstract Number instancemethod(Object i){\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExImp:pkg.ExIntTwo:pkgtwo.ExIntThree{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        Options opt_ = new Options();
+        opt_.setEndLineSemiColumn(false);
+        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        Classes classes_ = cont_.getClasses();
+        Classes.buildPredefinedBracesBodies(cont_);
+        Classes.tryBuildBracedClassesBodies(files_, cont_, false);
+        classes_.validateInheritingClasses(cont_, false);
+        classes_.validateIds(cont_,false);
         classes_.validateOverridingInherit(cont_, false);
         assertTrue(!classes_.isEmptyErrors());
     }

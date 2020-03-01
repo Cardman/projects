@@ -542,7 +542,9 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         return Argument.createVoid();
     }
 
-    static void checkParameters(ExecutableCode _conf, String _classNameFound, Identifiable _methodId, Argument _previous, CustList<Argument> _firstArgs, boolean _ctor, boolean _method, InstancingStep _kindCall, Argument _right) {
+    static void checkParameters(ExecutableCode _conf, String _classNameFound, Identifiable _methodId,
+                                Argument _previous, CustList<Argument> _firstArgs,
+                                boolean _ctor, boolean _method, InstancingStep _kindCall, Argument _right) {
         LgNames stds_ = _conf.getStandards();
         String cast_;
         cast_ = stds_.getAliasCastType();
@@ -929,7 +931,10 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         String type_ = _meta.getType();
         return setField(baseClass_, fieldName_, isStaticField_, isFinalField_, true, type_, _previous, _right, _conf, -1);
     }
-    public static Argument setField(String _className, String _fieldName, boolean _isStaticField, boolean _finalField, boolean _failIfFinal, String _returnType, Argument _previous, Argument _right,ExecutableCode _conf, int _possibleOffset) {
+    public static Argument setField(String _className, String _fieldName,
+                                    boolean _isStaticField, boolean _finalField, boolean _failIfFinal,
+                                    String _returnType, Argument _previous,
+                                    Argument _right,ExecutableCode _conf, int _possibleOffset) {
         LgNames stds_ = _conf.getStandards();
         String cast_;
         cast_ = stds_.getAliasCastType();
