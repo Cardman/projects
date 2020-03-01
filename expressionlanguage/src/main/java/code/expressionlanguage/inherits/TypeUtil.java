@@ -473,7 +473,7 @@ public final class TypeUtil {
 
     private static ClassMethodId tryGetUniqueId(String _subTypeName, GeneType _type, MethodId _realId, ContextEl _conf) {
         String name_ = _type.getFullName();
-        if (_type instanceof EnumBlock || _type instanceof InnerElementBlock) {
+        if (ContextEl.isEnumType(_type)) {
             String en_ = _conf.getStandards().getAliasEnumType();
             if (!_conf.getMethodBodiesById(en_, _realId).isEmpty()) {
                 return new ClassMethodId(en_, _realId);

@@ -732,30 +732,10 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                     OverridableBlock m_ = (OverridableBlock) method_;
                     if (m_.getKind() == MethodKind.STD_METHOD) {
                         MethodId id_ = m_.getId();
-                        if (this instanceof EnumBlock || this instanceof InnerElementBlock) {
-                            String aliasName_ = stds_.getAliasEnumName();
-                            String ordinal_ = stds_.getAliasEnumOrdinal();
+                        if (ContextEl.isEnumType(this)) {
                             String valueOf_ = stds_.getAliasEnumPredValueOf();
                             String values_ = stds_.getAliasEnumValues();
                             String string_ = stds_.getAliasString();
-                            if (id_.eq(new MethodId(MethodAccessKind.INSTANCE, aliasName_, new StringList()))) {
-                                int r_ = m_.getOffset().getOffsetTrim();
-                                DuplicateMethod duplicate_;
-                                duplicate_ = new DuplicateMethod();
-                                duplicate_.setIndexFile(r_);
-                                duplicate_.setFileName(getFile().getFileName());
-                                duplicate_.setId(id_.getSignature(_context));
-                                _context.getClasses().addError(duplicate_);
-                            }
-                            if (id_.eq(new MethodId(MethodAccessKind.INSTANCE, ordinal_, new StringList()))) {
-                                int r_ = m_.getOffset().getOffsetTrim();
-                                DuplicateMethod duplicate_;
-                                duplicate_ = new DuplicateMethod();
-                                duplicate_.setIndexFile(r_);
-                                duplicate_.setFileName(getFile().getFileName());
-                                duplicate_.setId(id_.getSignature(_context));
-                                _context.getClasses().addError(duplicate_);
-                            }
                             if (id_.eq(new MethodId(MethodAccessKind.STATIC, valueOf_, new StringList(string_)))) {
                                 int r_ = m_.getOffset().getOffsetTrim();
                                 DuplicateMethod duplicate_;

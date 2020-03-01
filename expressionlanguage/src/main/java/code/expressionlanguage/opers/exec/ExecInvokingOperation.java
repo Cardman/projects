@@ -528,15 +528,6 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                 return prepareCallDyn(fct_, _firstArgs, _conf);
             }
         }
-        String enum_ = context_.getStandards().getAliasEnumType();
-        if (StringList.quickEq(enum_, _classNameFound)) {
-            String name_ = context_.getStandards().getAliasEnumName();
-            EnumerableStruct en_ = (EnumerableStruct) _previous.getStruct();
-            if (StringList.quickEq(_methodId.getName(), name_)) {
-                return new Argument(new StringStruct(en_.getName()));
-            }
-            return new Argument(new IntStruct(en_.getOrdinal()));
-        }
         if (_methodId.getKind() == MethodAccessKind.STATIC_CALL) {
             context_.setCallingState(new CustomFoundCast(_classNameFound, _methodId, _firstArgs));
             return Argument.createVoid();

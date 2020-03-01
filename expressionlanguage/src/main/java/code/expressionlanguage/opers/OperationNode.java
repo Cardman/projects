@@ -1143,7 +1143,15 @@ public abstract class OperationNode implements Operable {
             ClassMethodId clId_ = new ClassMethodId(fullName_, id_);
             _methods.add(clId_, stMeth_);
         }
-        _methods.putAllMap(getPredefineStaticEnumMethods(_conf,genericString_,_anc));
+        for (EntryCust<ClassMethodId,MethodInfo> e: getPredefineStaticEnumMethods(_conf,genericString_,_anc).entryList()) {
+            ClassMethodId cId_ = e.getKey();
+            MethodId id_ = cId_.getConstraints();
+            if (isCandidateMethod(_uniqueId, fullName_, id_)) {
+                continue;
+            }
+            ClassMethodId clId_ = new ClassMethodId(fullName_, id_);
+            _methods.add(clId_, e.getValue());
+        }
     }
     private static void fetchToStringMethods(Analyzable _conf, String _cl, ObjectMap<ClassMethodId, MethodInfo> _methods) {
         StringList basesTypes_ = new StringList();
