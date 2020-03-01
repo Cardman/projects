@@ -12,6 +12,7 @@ import code.util.StringList;
 
 public final class StaticCallAccessOperation extends LeafOperation {
     private CustList<PartOffset> partOffsets;
+    private boolean implicit;
     public StaticCallAccessOperation(int _indexInEl, int _indexChild,
                                  MethodOperation _m, OperationsSequence _op) {
         super(_indexInEl, _indexChild, _m, _op);
@@ -31,6 +32,7 @@ public final class StaticCallAccessOperation extends LeafOperation {
             classStr_ = _conf.resolveCorrectType(str_.indexOf(PAR_LEFT)+1,realCl_);
             partOffsets = new CustList<PartOffset>(_conf.getContextEl().getCoverage().getCurrentParts());
         } else {
+            implicit = true;
             classStr_ = glClass_;
             partOffsets = new CustList<PartOffset>();
         }
@@ -68,6 +70,10 @@ public final class StaticCallAccessOperation extends LeafOperation {
         Argument a_ = new Argument();
         setSimpleArgument(a_);
         setStaticResultClass(new ClassArgumentMatching(classStr_));
+    }
+
+    public boolean isImplicit() {
+        return implicit;
     }
 
     public CustList<PartOffset> getPartOffsets() {

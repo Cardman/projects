@@ -155,7 +155,7 @@ public final class ElUtil {
         String fieldName_ = _calcul.getFieldName();
         setupStaticContext(_conf, hiddenVarTypes_, op_);
         setFieldName(op_, fieldName_);
-        CustList<OperationNode> all_ = getSortedDescNodesReadOnly(op_, hiddenVarTypes_, _conf);
+        CustList<OperationNode> all_ = getSortedDescNodesReadOnly(op_, _conf);
         return getExecutableNodes(_conf,all_);
     }
 
@@ -187,7 +187,7 @@ public final class ElUtil {
     }
 
 
-    private static CustList<OperationNode> getSortedDescNodesReadOnly(OperationNode _root, MethodAccessKind _staticBlock,ContextEl _context) {
+    private static CustList<OperationNode> getSortedDescNodesReadOnly(OperationNode _root, ContextEl _context) {
         CustList<OperationNode> list_ = new CustList<OperationNode>();
         OperationNode c_ = _root;
         while (true) {
@@ -195,7 +195,7 @@ public final class ElUtil {
                 break;
             }
             preAnalyze(_context, c_);
-            c_ = getAnalyzedNextReadOnly(c_, _root, list_, _staticBlock, _context);
+            c_ = getAnalyzedNextReadOnly(c_, _root, list_, _context);
         }
         return list_;
     }
@@ -267,7 +267,11 @@ public final class ElUtil {
                 PossibleIntermediateDotted possible_ = (PossibleIntermediateDotted) _next;
                 possible_.setIntermediateDotted();
                 possible_.setPreviousArgument(Argument.createVoid());
-                possible_.setPreviousResultClass(_current.getResultClass(), MethodAccessKind.STATIC_CALL);
+                MethodAccessKind access_ = MethodAccessKind.STATIC_CALL;
+                if (!(_next instanceof LambdaOperation) && ((StaticCallAccessOperation)_current).isImplicit() && _context.getStaticContext() == MethodAccessKind.STATIC) {
+                    access_ = MethodAccessKind.STATIC;
+                }
+                possible_.setPreviousResultClass(_current.getResultClass(), access_);
                 _current.setSiblingSet(possible_);
             } else {
                 PossibleIntermediateDotted possible_ = (PossibleIntermediateDotted) _next;
@@ -280,7 +284,7 @@ public final class ElUtil {
         }
     }
 
-    private static OperationNode getAnalyzedNextReadOnly(OperationNode _current, OperationNode _root, CustList<OperationNode> _sortedNodes, MethodAccessKind _staticBlock,ContextEl _context) {
+    private static OperationNode getAnalyzedNextReadOnly(OperationNode _current, OperationNode _root, CustList<OperationNode> _sortedNodes, ContextEl _context) {
 
         OperationNode next_ = createFirstChild(_current, _context, 0);
         if (next_ != null) {
