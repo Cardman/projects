@@ -49,30 +49,26 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
                 AssocationOperation ass_ = (AssocationOperation) mOp_;
                 String fieldName_ = ass_.getFieldName();
                 MethodOperation mOpAss_ = ass_.getParent();
-                if (mOpAss_ instanceof AnnotationInstanceOperation) {
-                    AnnotationInstanceOperation inst_;
-                    inst_ = (AnnotationInstanceOperation)mOpAss_;
-                    String className_ = inst_.getClassName();
-                    GeneType typeInfo_ = _conf.getClassBody(className_);
-                    if (!(typeInfo_ instanceof Block)) {
-                        UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
-                        un_.setIndexFile(_conf.getCurrentLocationIndex());
-                        un_.setFileName(_conf.getCurrentFileName());
-                        _conf.getClasses().addError(un_);
-                        className = _conf.getStandards().getAliasObject();
-                        return;
-                    }
-                    Block ann_ = (Block) typeInfo_;
-                    String type_ = EMPTY_STRING;
-                    CustList<AnnotationMethodBlock> list_ = Classes.getMethodAnnotationBodiesById(ann_, fieldName_);
-                    if (!list_.isEmpty()) {
-                        type_ = list_.first().getImportedReturnType();
-                    }
-                    if (!type_.isEmpty()) {
-                        className = type_;
-                    } else {
-                        className = _conf.getStandards().getAliasObject();
-                    }
+                AnnotationInstanceOperation inst_;
+                inst_ = (AnnotationInstanceOperation)mOpAss_;
+                String className_ = inst_.getClassName();
+                GeneType typeInfo_ = _conf.getClassBody(className_);
+                if (!(typeInfo_ instanceof Block)) {
+                    UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
+                    un_.setIndexFile(_conf.getCurrentLocationIndex());
+                    un_.setFileName(_conf.getCurrentFileName());
+                    _conf.getClasses().addError(un_);
+                    className = _conf.getStandards().getAliasObject();
+                    return;
+                }
+                Block ann_ = (Block) typeInfo_;
+                String type_ = EMPTY_STRING;
+                CustList<AnnotationMethodBlock> list_ = Classes.getMethodAnnotationBodiesById(ann_, fieldName_);
+                if (!list_.isEmpty()) {
+                    type_ = list_.first().getImportedReturnType();
+                }
+                if (!type_.isEmpty()) {
+                    className = type_;
                 } else {
                     className = _conf.getStandards().getAliasObject();
                 }

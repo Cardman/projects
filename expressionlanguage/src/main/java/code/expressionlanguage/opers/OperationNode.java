@@ -410,7 +410,7 @@ public abstract class OperationNode implements Operable {
             return new ShortTernaryOperation(_index, _indexChild, _m, _op);
         }
         if (_op.getPriority() == ElResolver.AFF_PRIO) {
-            if (_an.isAnnotAnalysis()) {
+            if (_an.isAnnotAnalysis() && _m instanceof AnnotationInstanceOperation) {
                 String value_ = _op.getValues().firstValue();
                 return new AssocationOperation(_index, _indexChild, _m, _op, value_);
             }
