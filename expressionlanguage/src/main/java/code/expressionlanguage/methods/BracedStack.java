@@ -1103,8 +1103,8 @@ public abstract class BracedStack extends BracedBlock {
         IdMap<Block, AssignedVariables> id_;
         id_ = _an.getContextEl().getAssignedVariables().getFinalVariables();
         for (AbruptBlock a: abr_) {
-            if (a instanceof ReturnMehod) {
-                if (((ReturnMehod)a).getOpRet() == null) {
+            if (a instanceof ReturnMethod) {
+                if (((ReturnMethod)a).getOpRet() == null) {
                     others_.add(id_.getVal(a).getFieldsRootBefore());
                 } else {
                     throws_.add(id_.getVal(a).getLastFieldsOrEmpty());
@@ -1117,8 +1117,8 @@ public abstract class BracedStack extends BracedBlock {
         }
         for (AbstractCatchEval c: _catchs) {
             for (AbruptBlock a: c.getAbruptTry(_an, _anEl)) {
-                if (a instanceof ReturnMehod) {
-                    if (((ReturnMehod)a).getOpRet() == null) {
+                if (a instanceof ReturnMethod) {
+                    if (((ReturnMethod)a).getOpRet() == null) {
                         others_.add(id_.getVal(a).getFieldsRootBefore());
                     } else {
                         throws_.add(id_.getVal(a).getLastFieldsOrEmpty());
@@ -1165,8 +1165,8 @@ public abstract class BracedStack extends BracedBlock {
             CustList<StringMap<AssignmentBefore>> others_ = new CustList<StringMap<AssignmentBefore>>();
             CustList<StringMap<SimpleAssignment>> catchs_ = new CustList<StringMap<SimpleAssignment>>();
             for (AbruptBlock a: abr_) {
-                if (a instanceof ReturnMehod) {
-                    if (((ReturnMehod)a).getOpRet() == null) {
+                if (a instanceof ReturnMethod) {
+                    if (((ReturnMethod)a).getOpRet() == null) {
                         CustList<StringMap<AssignmentBefore>> li_ = id_.getVal(a).getVariablesRootBefore();
                         others_.add(AssignmentsUtil.getOrEmptyBefore(li_,i));
                     } else {
@@ -1183,8 +1183,8 @@ public abstract class BracedStack extends BracedBlock {
             }
             for (AbstractCatchEval c: _catchs) {
                 for (AbruptBlock a: c.getAbruptTry(_an, _anEl)) {
-                    if (a instanceof ReturnMehod) {
-                        if (((ReturnMehod)a).getOpRet() == null) {
+                    if (a instanceof ReturnMethod) {
+                        if (((ReturnMethod)a).getOpRet() == null) {
                             CustList<StringMap<AssignmentBefore>> li_ = id_.getVal(a).getVariablesRootBefore();
                             others_.add(AssignmentsUtil.getOrEmptyBefore(li_,i));
                         } else {
@@ -1231,8 +1231,8 @@ public abstract class BracedStack extends BracedBlock {
             CustList<StringMap<AssignmentBefore>> others_ = new CustList<StringMap<AssignmentBefore>>();
             CustList<StringMap<SimpleAssignment>> catchs_ = new CustList<StringMap<SimpleAssignment>>();
             for (AbruptBlock a: abr_) {
-                if (a instanceof ReturnMehod) {
-                    if (((ReturnMehod)a).getOpRet() == null) {
+                if (a instanceof ReturnMethod) {
+                    if (((ReturnMethod)a).getOpRet() == null) {
                         CustList<StringMap<AssignmentBefore>> li_ = id_.getVal(a).getMutableLoopRootBefore();
                         others_.add(AssignmentsUtil.getOrEmptyBefore(li_,i));
                     } else {
@@ -1249,8 +1249,8 @@ public abstract class BracedStack extends BracedBlock {
             }
             for (AbstractCatchEval c: _catchs) {
                 for (AbruptBlock a: c.getAbruptTry(_an, _anEl)) {
-                    if (a instanceof ReturnMehod) {
-                        if (((ReturnMehod)a).getOpRet() == null) {
+                    if (a instanceof ReturnMethod) {
+                        if (((ReturnMethod)a).getOpRet() == null) {
                             CustList<StringMap<AssignmentBefore>> li_ = id_.getVal(a).getMutableLoopRootBefore();
                             others_.add(AssignmentsUtil.getOrEmptyBefore(li_,i));
                         } else {

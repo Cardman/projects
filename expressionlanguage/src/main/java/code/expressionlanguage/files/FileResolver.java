@@ -2064,7 +2064,7 @@ public final class FileResolver {
             if (!exp_.trim().isEmpty()) {
                 expressionOffest_ += StringList.getFirstPrintableCharIndex(exp_);
             }
-            br_ = new ReturnMehod(new OffsetStringInfo(expressionOffest_,exp_.trim()), new OffsetsBlock(_instructionRealLocation, _instructionLocation));
+            br_ = new ReturnMethod(new OffsetStringInfo(expressionOffest_,exp_.trim()), new OffsetsBlock(_instructionRealLocation, _instructionLocation));
             _currentParent.appendChild(br_);
         } else if (ContextEl.startsWithKeyWord(_trimmedInstruction,keyWordThrow_)) {
             String exp_ = _trimmedInstruction.substring(keyWordThrow_.length());

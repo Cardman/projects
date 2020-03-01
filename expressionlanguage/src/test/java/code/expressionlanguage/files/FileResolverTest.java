@@ -611,8 +611,8 @@ public final class FileResolverTest {
         assertEq("$badthrow",th_.getExpression());
         assertEq(209, th_.getExpressionOffset());
         instr_ = instr_.getNextSibling();
-        assertTrue(instr_ instanceof ReturnMehod);
-        ReturnMehod ret_ = (ReturnMehod) instr_;
+        assertTrue(instr_ instanceof ReturnMethod);
+        ReturnMethod ret_ = (ReturnMethod) instr_;
         assertEq("$unreachable",ret_.getExpression());
         assertEq(230, ret_.getExpressionOffset());
         assertNull(instr_.getNextSibling());
@@ -640,8 +640,8 @@ public final class FileResolverTest {
         assertEq("$badthrowbis",th_.getExpression());
         assertEq(294, th_.getExpressionOffset());
         instr_ = instr_.getNextSibling();
-        assertTrue(instr_ instanceof ReturnMehod);
-        ret_ = (ReturnMehod) instr_;
+        assertTrue(instr_ instanceof ReturnMethod);
+        ret_ = (ReturnMethod) instr_;
         assertEq("$unreachablebis",ret_.getExpression());
         assertEq(318, ret_.getExpressionOffset());
         assertNull(instr_.getNextSibling());
@@ -683,14 +683,14 @@ public final class FileResolverTest {
         assertEq(395, for_.getStepOffset());
         assertEq(398,for_.getLabelOffset());
         Block grChild_ = instr_.getFirstChild();
-        assertTrue(grChild_ instanceof ReturnMehod);
-        ret_ = (ReturnMehod) grChild_;
+        assertTrue(grChild_ instanceof ReturnMethod);
+        ret_ = (ReturnMethod) grChild_;
         assertEq("$unreachable",ret_.getExpression());
         assertEq(411, ret_.getExpressionOffset());
         assertNull(grChild_.getNextSibling());
         instr_ = instr_.getNextSibling();
-        assertTrue(instr_ instanceof ReturnMehod);
-        ret_ = (ReturnMehod) instr_;
+        assertTrue(instr_ instanceof ReturnMethod);
+        ret_ = (ReturnMethod) instr_;
         assertEq("$unreachablebis",ret_.getExpression());
         assertEq(439, ret_.getExpressionOffset());
         assertNull(instr_.getNextSibling());
@@ -881,8 +881,8 @@ public final class FileResolverTest {
         assertEq("$badthrows",th_.getExpression());
         assertEq(271, th_.getExpressionOffset());
         instr_ = instr_.getNextSibling();
-        assertTrue(instr_ instanceof ReturnMehod);
-        ReturnMehod ret_ = (ReturnMehod) instr_;
+        assertTrue(instr_ instanceof ReturnMethod);
+        ReturnMethod ret_ = (ReturnMethod) instr_;
         assertEq("$unreachable",ret_.getExpression());
         assertEq(293, ret_.getExpressionOffset());
         assertNull(instr_.getNextSibling());
@@ -918,8 +918,8 @@ public final class FileResolverTest {
         assertEq(372, th_.getExpressionOffset());
         assertEq("$badthrowsbis",th_.getExpression());
         instr_ = instr_.getNextSibling();
-        assertTrue(instr_ instanceof ReturnMehod);
-        ret_ = (ReturnMehod) instr_;
+        assertTrue(instr_ instanceof ReturnMethod);
+        ret_ = (ReturnMethod) instr_;
         assertEq(397, ret_.getExpressionOffset());
         assertEq("$unreachablebis",ret_.getExpression());
         assertNull(instr_.getNextSibling());
@@ -962,14 +962,14 @@ public final class FileResolverTest {
         assertEq(477, for_.getStepOffset());
         assertEq(480,for_.getLabelOffset());
         Block grChild_ = instr_.getFirstChild();
-        assertTrue(grChild_ instanceof ReturnMehod);
-        ret_ = (ReturnMehod) grChild_;
+        assertTrue(grChild_ instanceof ReturnMethod);
+        ret_ = (ReturnMethod) grChild_;
         assertEq("$unreachablebis",ret_.getExpression());
         assertEq(493, ret_.getExpressionOffset());
         assertNull(grChild_.getNextSibling());
         instr_ = instr_.getNextSibling();
-        assertTrue(instr_ instanceof ReturnMehod);
-        ret_ = (ReturnMehod) instr_;
+        assertTrue(instr_ instanceof ReturnMethod);
+        ret_ = (ReturnMethod) instr_;
         assertEq("$unreachable",ret_.getExpression());
         assertEq(524, ret_.getExpressionOffset());
         assertNull(instr_.getNextSibling());
@@ -1182,8 +1182,8 @@ public final class FileResolverTest {
         assertEq("$badthrows",th_.getExpression());
         assertEq(305, th_.getExpressionOffset());
         instr_ = instr_.getNextSibling();
-        assertTrue(instr_ instanceof ReturnMehod);
-        ReturnMehod ret_ = (ReturnMehod) instr_;
+        assertTrue(instr_ instanceof ReturnMethod);
+        ReturnMethod ret_ = (ReturnMethod) instr_;
         assertEq("$unreachable",ret_.getExpression());
         assertEq(327, ret_.getExpressionOffset());
         assertNull(instr_.getNextSibling());
@@ -1303,8 +1303,8 @@ public final class FileResolverTest {
         assertEq("$badthrows",th_.getExpression());
         assertEq(304, th_.getExpressionOffset());
         instr_ = instr_.getNextSibling();
-        assertTrue(instr_ instanceof ReturnMehod);
-        ReturnMehod ret_ = (ReturnMehod) instr_;
+        assertTrue(instr_ instanceof ReturnMethod);
+        ReturnMethod ret_ = (ReturnMethod) instr_;
         assertEq("$unreachable",ret_.getExpression());
         assertEq(326, ret_.getExpressionOffset());
         assertNull(instr_.getNextSibling());
@@ -1444,8 +1444,8 @@ public final class FileResolverTest {
         assertEq("$badthrows",th_.getExpression());
         assertEq(343, th_.getExpressionOffset());
         instr_ = instr_.getNextSibling();
-        assertTrue(instr_ instanceof ReturnMehod);
-        ReturnMehod ret_ = (ReturnMehod) instr_;
+        assertTrue(instr_ instanceof ReturnMethod);
+        ReturnMethod ret_ = (ReturnMethod) instr_;
         assertEq("$unreachable",ret_.getExpression());
         assertEq(365, ret_.getExpressionOffset());
         assertNull(instr_.getNextSibling());
@@ -1602,8 +1602,8 @@ public final class FileResolverTest {
         assertEq("$badthrows",th_.getExpression());
         assertEq(335, th_.getExpressionOffset());
         instr_ = instr_.getNextSibling();
-        assertTrue(instr_ instanceof ReturnMehod);
-        ReturnMehod ret_ = (ReturnMehod) instr_;
+        assertTrue(instr_ instanceof ReturnMethod);
+        ReturnMethod ret_ = (ReturnMethod) instr_;
         assertEq("$unreachable",ret_.getExpression());
         assertEq(357, ret_.getExpressionOffset());
         assertNull(instr_.getNextSibling());
@@ -1744,8 +1744,8 @@ public final class FileResolverTest {
         assertEq("$badthrows",th_.getExpression());
         assertEq(351, th_.getExpressionOffset());
         instr_ = instr_.getNextSibling();
-        assertTrue(instr_ instanceof ReturnMehod);
-        ReturnMehod ret_ = (ReturnMehod) instr_;
+        assertTrue(instr_ instanceof ReturnMethod);
+        ReturnMethod ret_ = (ReturnMethod) instr_;
         assertEq("$unreachable",ret_.getExpression());
         assertEq(373, ret_.getExpressionOffset());
         assertNull(instr_.getNextSibling());
@@ -1912,8 +1912,8 @@ public final class FileResolverTest {
         assertEq("$badthrows",th_.getExpression());
         assertEq(373, th_.getExpressionOffset());
         instr_ = instr_.getNextSibling();
-        assertTrue(instr_ instanceof ReturnMehod);
-        ReturnMehod ret_ = (ReturnMehod) instr_;
+        assertTrue(instr_ instanceof ReturnMethod);
+        ReturnMethod ret_ = (ReturnMethod) instr_;
         assertEq("$unreachable",ret_.getExpression());
         assertEq(395, ret_.getExpressionOffset());
         assertNull(instr_.getNextSibling());
@@ -2080,8 +2080,8 @@ public final class FileResolverTest {
         assertEq("$badthrows",th_.getExpression());
         assertEq(373, th_.getExpressionOffset());
         instr_ = instr_.getNextSibling();
-        assertTrue(instr_ instanceof ReturnMehod);
-        ReturnMehod ret_ = (ReturnMehod) instr_;
+        assertTrue(instr_ instanceof ReturnMethod);
+        ReturnMethod ret_ = (ReturnMethod) instr_;
         assertEq("$unreachable",ret_.getExpression());
         assertEq(395, ret_.getExpressionOffset());
         assertNull(instr_.getNextSibling());
@@ -2216,8 +2216,8 @@ public final class FileResolverTest {
         assertEq("$badthrows",th_.getExpression());
         assertEq(341, th_.getExpressionOffset());
         instr_ = instr_.getNextSibling();
-        assertTrue(instr_ instanceof ReturnMehod);
-        ReturnMehod ret_ = (ReturnMehod) instr_;
+        assertTrue(instr_ instanceof ReturnMethod);
+        ReturnMethod ret_ = (ReturnMethod) instr_;
         assertEq("$unreachable",ret_.getExpression());
         assertEq(363, ret_.getExpressionOffset());
         assertNull(instr_.getNextSibling());
@@ -2352,8 +2352,8 @@ public final class FileResolverTest {
         assertEq("$badthrows",th_.getExpression());
         assertEq(344, th_.getExpressionOffset());
         instr_ = instr_.getNextSibling();
-        assertTrue(instr_ instanceof ReturnMehod);
-        ReturnMehod ret_ = (ReturnMehod) instr_;
+        assertTrue(instr_ instanceof ReturnMethod);
+        ReturnMethod ret_ = (ReturnMethod) instr_;
         assertEq("$unreachable",ret_.getExpression());
         assertEq(366, ret_.getExpressionOffset());
         assertNull(instr_.getNextSibling());
@@ -2488,8 +2488,8 @@ public final class FileResolverTest {
         assertEq("$badthrows",th_.getExpression());
         assertEq(318, th_.getExpressionOffset());
         instr_ = instr_.getNextSibling();
-        assertTrue(instr_ instanceof ReturnMehod);
-        ReturnMehod ret_ = (ReturnMehod) instr_;
+        assertTrue(instr_ instanceof ReturnMethod);
+        ReturnMethod ret_ = (ReturnMethod) instr_;
         assertEq("$unreachable",ret_.getExpression());
         assertEq(340, ret_.getExpressionOffset());
         assertNull(instr_.getNextSibling());
@@ -2616,8 +2616,8 @@ public final class FileResolverTest {
         assertEq("$badthrows",th_.getExpression());
         assertEq(309, th_.getExpressionOffset());
         instr_ = instr_.getNextSibling();
-        assertTrue(instr_ instanceof ReturnMehod);
-        ReturnMehod ret_ = (ReturnMehod) instr_;
+        assertTrue(instr_ instanceof ReturnMethod);
+        ReturnMethod ret_ = (ReturnMethod) instr_;
         assertEq("$unreachable",ret_.getExpression());
         assertEq(331, ret_.getExpressionOffset());
         assertNull(instr_.getNextSibling());
@@ -3237,9 +3237,9 @@ public final class FileResolverTest {
         assertEq("i;.++", ((Line)instrIf_).getExpression());
         assertEq(92, ((Line)instrIf_).getExpressionOffset());
         instrIf_ = instrIf_.getNextSibling();
-        assertTrue(instrIf_ instanceof ReturnMehod);
-        assertEq("", ((ReturnMehod)instrIf_).getExpression());
-        assertEq(110, ((ReturnMehod)instrIf_).getExpressionOffset());
+        assertTrue(instrIf_ instanceof ReturnMethod);
+        assertEq("", ((ReturnMethod)instrIf_).getExpression());
+        assertEq(110, ((ReturnMethod)instrIf_).getExpressionOffset());
         assertNull(instrIf_.getFirstChild());
         case_ = case_.getNextSibling();
         assertTrue(case_ instanceof ElseCondition);
@@ -3535,8 +3535,8 @@ public final class FileResolverTest {
         assertEq("$badthrows",th_.getExpression());
         assertEq(350, th_.getExpressionOffset());
         instr_ = instr_.getNextSibling();
-        assertTrue(instr_ instanceof ReturnMehod);
-        ReturnMehod ret_ = (ReturnMehod) instr_;
+        assertTrue(instr_ instanceof ReturnMethod);
+        ReturnMethod ret_ = (ReturnMethod) instr_;
         assertEq("$unreachable",ret_.getExpression());
         assertEq(372, ret_.getExpressionOffset());
         assertNull(instr_.getNextSibling());
@@ -3678,8 +3678,8 @@ public final class FileResolverTest {
         assertEq("$badthrows",th_.getExpression());
         assertEq(358, th_.getExpressionOffset());
         instr_ = instr_.getNextSibling();
-        assertTrue(instr_ instanceof ReturnMehod);
-        ReturnMehod ret_ = (ReturnMehod) instr_;
+        assertTrue(instr_ instanceof ReturnMethod);
+        ReturnMethod ret_ = (ReturnMethod) instr_;
         assertEq("$unreachable",ret_.getExpression());
         assertEq(380, ret_.getExpressionOffset());
         assertNull(instr_.getNextSibling());
@@ -3796,9 +3796,9 @@ public final class FileResolverTest {
         assertEq("i;.++", ((Line)instrIf_).getExpression());
         assertEq(97, ((Line)instrIf_).getExpressionOffset());
         instrIf_ = instrIf_.getNextSibling();
-        assertTrue(instrIf_ instanceof ReturnMehod);
-        assertEq("", ((ReturnMehod)instrIf_).getExpression());
-        assertEq(115, ((ReturnMehod)instrIf_).getExpressionOffset());
+        assertTrue(instrIf_ instanceof ReturnMethod);
+        assertEq("", ((ReturnMethod)instrIf_).getExpression());
+        assertEq(115, ((ReturnMethod)instrIf_).getExpressionOffset());
         assertNull(instrIf_.getFirstChild());
         case_ = case_.getNextSibling();
         assertTrue(case_ instanceof ElseCondition);
@@ -4131,8 +4131,8 @@ public final class FileResolverTest {
         assertEq("$badthrow",th_.getExpression());
         assertEq(209, th_.getExpressionOffset());
         instr_ = instr_.getNextSibling();
-        assertTrue(instr_ instanceof ReturnMehod);
-        ReturnMehod ret_ = (ReturnMehod) instr_;
+        assertTrue(instr_ instanceof ReturnMethod);
+        ReturnMethod ret_ = (ReturnMethod) instr_;
         assertEq("$unreachable",ret_.getExpression());
         assertEq(230, ret_.getExpressionOffset());
         assertNull(instr_.getNextSibling());
@@ -4160,8 +4160,8 @@ public final class FileResolverTest {
         assertEq("$badthrowbis",th_.getExpression());
         assertEq(294, th_.getExpressionOffset());
         instr_ = instr_.getNextSibling();
-        assertTrue(instr_ instanceof ReturnMehod);
-        ret_ = (ReturnMehod) instr_;
+        assertTrue(instr_ instanceof ReturnMethod);
+        ret_ = (ReturnMethod) instr_;
         assertEq("$unreachablebis",ret_.getExpression());
         assertEq(318, ret_.getExpressionOffset());
         assertNull(instr_.getNextSibling());
@@ -4203,14 +4203,14 @@ public final class FileResolverTest {
         assertEq(395, for_.getStepOffset());
         assertEq(398,for_.getLabelOffset());
         Block grChild_ = instr_.getFirstChild();
-        assertTrue(grChild_ instanceof ReturnMehod);
-        ret_ = (ReturnMehod) grChild_;
+        assertTrue(grChild_ instanceof ReturnMethod);
+        ret_ = (ReturnMethod) grChild_;
         assertEq("$unreachable",ret_.getExpression());
         assertEq(416, ret_.getExpressionOffset());
         assertNull(grChild_.getNextSibling());
         instr_ = instr_.getNextSibling();
-        assertTrue(instr_ instanceof ReturnMehod);
-        ret_ = (ReturnMehod) instr_;
+        assertTrue(instr_ instanceof ReturnMethod);
+        ret_ = (ReturnMethod) instr_;
         assertEq("$unreachablebis",ret_.getExpression());
         assertEq(444, ret_.getExpressionOffset());
         assertNull(instr_.getNextSibling());
@@ -4451,9 +4451,9 @@ public final class FileResolverTest {
         assertEq("i;.++", ((Line)instrIf_).getExpression());
         assertEq(92, ((Line)instrIf_).getExpressionOffset());
         instrIf_ = instrIf_.getNextSibling();
-        assertTrue(instrIf_ instanceof ReturnMehod);
-        assertEq("", ((ReturnMehod)instrIf_).getExpression());
-        assertEq(110, ((ReturnMehod)instrIf_).getExpressionOffset());
+        assertTrue(instrIf_ instanceof ReturnMethod);
+        assertEq("", ((ReturnMethod)instrIf_).getExpression());
+        assertEq(110, ((ReturnMethod)instrIf_).getExpressionOffset());
         assertNull(instrIf_.getFirstChild());
         case_ = case_.getNextSibling();
         assertTrue(case_ instanceof ElseCondition);
@@ -4766,8 +4766,8 @@ public final class FileResolverTest {
         assertEq("$badthrows",th_.getExpression());
         assertEq(271, th_.getExpressionOffset());
         instr_ = instr_.getNextSibling();
-        assertTrue(instr_ instanceof ReturnMehod);
-        ReturnMehod ret_ = (ReturnMehod) instr_;
+        assertTrue(instr_ instanceof ReturnMethod);
+        ReturnMethod ret_ = (ReturnMethod) instr_;
         assertEq("$unreachable",ret_.getExpression());
         assertEq(293, ret_.getExpressionOffset());
         assertNull(instr_.getNextSibling());
@@ -4803,8 +4803,8 @@ public final class FileResolverTest {
         assertEq(372, th_.getExpressionOffset());
         assertEq("$badthrowsbis",th_.getExpression());
         instr_ = instr_.getNextSibling();
-        assertTrue(instr_ instanceof ReturnMehod);
-        ret_ = (ReturnMehod) instr_;
+        assertTrue(instr_ instanceof ReturnMethod);
+        ret_ = (ReturnMethod) instr_;
         assertEq(397, ret_.getExpressionOffset());
         assertEq("$unreachablebis",ret_.getExpression());
         assertNull(instr_.getNextSibling());
@@ -4847,14 +4847,14 @@ public final class FileResolverTest {
         assertEq(477, for_.getStepOffset());
         assertEq(480,for_.getLabelOffset());
         Block grChild_ = instr_.getFirstChild();
-        assertTrue(grChild_ instanceof ReturnMehod);
-        ret_ = (ReturnMehod) grChild_;
+        assertTrue(grChild_ instanceof ReturnMethod);
+        ret_ = (ReturnMethod) grChild_;
         assertEq("$unreachablebis",ret_.getExpression());
         assertEq(493, ret_.getExpressionOffset());
         assertNull(grChild_.getNextSibling());
         instr_ = instr_.getNextSibling();
-        assertTrue(instr_ instanceof ReturnMehod);
-        ret_ = (ReturnMehod) instr_;
+        assertTrue(instr_ instanceof ReturnMethod);
+        ret_ = (ReturnMethod) instr_;
         assertEq("$unreachable",ret_.getExpression());
         assertEq(524, ret_.getExpressionOffset());
         assertNull(instr_.getNextSibling());
@@ -5076,8 +5076,8 @@ public final class FileResolverTest {
         assertEq("$badthrows",th_.getExpression());
         assertEq(271, th_.getExpressionOffset());
         instr_ = instr_.getNextSibling();
-        assertTrue(instr_ instanceof ReturnMehod);
-        ReturnMehod ret_ = (ReturnMehod) instr_;
+        assertTrue(instr_ instanceof ReturnMethod);
+        ReturnMethod ret_ = (ReturnMethod) instr_;
         assertEq("$unreachable",ret_.getExpression());
         assertEq(293, ret_.getExpressionOffset());
         assertNull(instr_.getNextSibling());
@@ -5113,8 +5113,8 @@ public final class FileResolverTest {
         assertEq(372, th_.getExpressionOffset());
         assertEq("$badthrowsbis",th_.getExpression());
         instr_ = instr_.getNextSibling();
-        assertTrue(instr_ instanceof ReturnMehod);
-        ret_ = (ReturnMehod) instr_;
+        assertTrue(instr_ instanceof ReturnMethod);
+        ret_ = (ReturnMethod) instr_;
         assertEq(397, ret_.getExpressionOffset());
         assertEq("$unreachablebis",ret_.getExpression());
         assertNull(instr_.getNextSibling());
@@ -5157,14 +5157,14 @@ public final class FileResolverTest {
         assertEq(477, for_.getStepOffset());
         assertEq(480,for_.getLabelOffset());
         Block grChild_ = instr_.getFirstChild();
-        assertTrue(grChild_ instanceof ReturnMehod);
-        ret_ = (ReturnMehod) grChild_;
+        assertTrue(grChild_ instanceof ReturnMethod);
+        ret_ = (ReturnMethod) grChild_;
         assertEq("$unreachablebis",ret_.getExpression());
         assertEq(493, ret_.getExpressionOffset());
         assertNull(grChild_.getNextSibling());
         instr_ = instr_.getNextSibling();
-        assertTrue(instr_ instanceof ReturnMehod);
-        ret_ = (ReturnMehod) instr_;
+        assertTrue(instr_ instanceof ReturnMethod);
+        ret_ = (ReturnMethod) instr_;
         assertEq("$unreachable",ret_.getExpression());
         assertEq(524, ret_.getExpressionOffset());
         assertNull(instr_.getNextSibling());
@@ -5911,10 +5911,10 @@ public final class FileResolverTest {
         assertTrue(op_.hiddenInstance());
         assertTrue(op_.isStaticMethod());
         Block b_ = op_.getFirstChild();
-        assertTrue(b_ instanceof ReturnMehod);
+        assertTrue(b_ instanceof ReturnMethod);
         assertEq(37, b_.getOffset().getOffset());
         assertEq(39, b_.getOffset().getOffsetTrim());
-        ReturnMehod r_ = (ReturnMehod) b_;
+        ReturnMethod r_ = (ReturnMethod) b_;
         assertEq("plus(a;.;,b;.;)", r_.getExpression());
         assertEq(47, r_.getExpressionOffset());
         assertNull(op_.belong());
@@ -5954,10 +5954,10 @@ public final class FileResolverTest {
         assertEq(32, op_.getParametersNamesOffset().get(0));
         assertEq(42, op_.getParametersNamesOffset().get(1));
         Block b_ = op_.getFirstChild();
-        assertTrue(b_ instanceof ReturnMehod);
+        assertTrue(b_ instanceof ReturnMethod);
         assertEq(46, b_.getOffset().getOffset());
         assertEq(48, b_.getOffset().getOffsetTrim());
-        ReturnMehod r_ = (ReturnMehod) b_;
+        ReturnMethod r_ = (ReturnMethod) b_;
         assertEq("plus(a;.;,b;.;)", r_.getExpression());
         assertEq(56, r_.getExpressionOffset());
     }
@@ -5995,10 +5995,10 @@ public final class FileResolverTest {
         assertEq(32, op_.getParametersNamesOffset().get(0));
         assertEq(42, op_.getParametersNamesOffset().get(1));
         Block b_ = op_.getFirstChild();
-        assertTrue(b_ instanceof ReturnMehod);
+        assertTrue(b_ instanceof ReturnMethod);
         assertEq(46, b_.getOffset().getOffset());
         assertEq(48, b_.getOffset().getOffsetTrim());
-        ReturnMehod r_ = (ReturnMehod) b_;
+        ReturnMethod r_ = (ReturnMethod) b_;
         assertEq("plus(a;.;,b;.;)", r_.getExpression());
         assertEq(56, r_.getExpressionOffset());
     }
@@ -6704,8 +6704,8 @@ public final class FileResolverTest {
         assertEq("$badthrows",th_.getExpression());
         assertEq(345, th_.getExpressionOffset());
         instr_ = instr_.getNextSibling();
-        assertTrue(instr_ instanceof ReturnMehod);
-        ReturnMehod ret_ = (ReturnMehod) instr_;
+        assertTrue(instr_ instanceof ReturnMethod);
+        ReturnMethod ret_ = (ReturnMethod) instr_;
         assertEq("$unreachable",ret_.getExpression());
         assertEq(367, ret_.getExpressionOffset());
         assertNull(instr_.getNextSibling());
@@ -6839,8 +6839,8 @@ public final class FileResolverTest {
         assertEq("$badthrows",th_.getExpression());
         assertEq(341, th_.getExpressionOffset());
         instr_ = instr_.getNextSibling();
-        assertTrue(instr_ instanceof ReturnMehod);
-        ReturnMehod ret_ = (ReturnMehod) instr_;
+        assertTrue(instr_ instanceof ReturnMethod);
+        ReturnMethod ret_ = (ReturnMethod) instr_;
         assertEq("$unreachable",ret_.getExpression());
         assertEq(363, ret_.getExpressionOffset());
         assertNull(instr_.getNextSibling());
@@ -6917,8 +6917,8 @@ public final class FileResolverTest {
         assertEq("$badthrow",th_.getExpression());
         assertEq(209, th_.getExpressionOffset());
         instr_ = instr_.getNextSibling();
-        assertTrue(instr_ instanceof ReturnMehod);
-        ReturnMehod ret_ = (ReturnMehod) instr_;
+        assertTrue(instr_ instanceof ReturnMethod);
+        ReturnMethod ret_ = (ReturnMethod) instr_;
         assertEq("$unreachable",ret_.getExpression());
         assertEq(230, ret_.getExpressionOffset());
         assertNull(instr_.getNextSibling());
@@ -6946,8 +6946,8 @@ public final class FileResolverTest {
         assertEq("$badthrowbis",th_.getExpression());
         assertEq(294, th_.getExpressionOffset());
         instr_ = instr_.getNextSibling();
-        assertTrue(instr_ instanceof ReturnMehod);
-        ret_ = (ReturnMehod) instr_;
+        assertTrue(instr_ instanceof ReturnMethod);
+        ret_ = (ReturnMethod) instr_;
         assertEq("$unreachablebis",ret_.getExpression());
         assertEq(318, ret_.getExpressionOffset());
         assertNull(instr_.getNextSibling());
@@ -6983,14 +6983,14 @@ public final class FileResolverTest {
         assertEq(386, for_.getExpressionOffset());
         assertEq(400,for_.getLabelOffset());
         Block grChild_ = instr_.getFirstChild();
-        assertTrue(grChild_ instanceof ReturnMehod);
-        ret_ = (ReturnMehod) grChild_;
+        assertTrue(grChild_ instanceof ReturnMethod);
+        ret_ = (ReturnMethod) grChild_;
         assertEq("$unreachable",ret_.getExpression());
         assertEq(416, ret_.getExpressionOffset());
         assertNull(grChild_.getNextSibling());
         instr_ = instr_.getNextSibling();
-        assertTrue(instr_ instanceof ReturnMehod);
-        ret_ = (ReturnMehod) instr_;
+        assertTrue(instr_ instanceof ReturnMethod);
+        ret_ = (ReturnMethod) instr_;
         assertEq("$unreachablebis",ret_.getExpression());
         assertEq(444, ret_.getExpressionOffset());
         assertNull(instr_.getNextSibling());
@@ -7279,8 +7279,8 @@ public final class FileResolverTest {
         assertEq("$badthrow",th_.getExpression());
         assertEq(209, th_.getExpressionOffset());
         instr_ = instr_.getNextSibling();
-        assertTrue(instr_ instanceof ReturnMehod);
-        ReturnMehod ret_ = (ReturnMehod) instr_;
+        assertTrue(instr_ instanceof ReturnMethod);
+        ReturnMethod ret_ = (ReturnMethod) instr_;
         assertEq("$unreachable",ret_.getExpression());
         assertEq(230, ret_.getExpressionOffset());
         assertNull(instr_.getNextSibling());
@@ -7308,8 +7308,8 @@ public final class FileResolverTest {
         assertEq("$badthrowbis",th_.getExpression());
         assertEq(294, th_.getExpressionOffset());
         instr_ = instr_.getNextSibling();
-        assertTrue(instr_ instanceof ReturnMehod);
-        ret_ = (ReturnMehod) instr_;
+        assertTrue(instr_ instanceof ReturnMethod);
+        ret_ = (ReturnMethod) instr_;
         assertEq("$unreachablebis",ret_.getExpression());
         assertEq(318, ret_.getExpressionOffset());
         assertNull(instr_.getNextSibling());
@@ -7404,8 +7404,8 @@ public final class FileResolverTest {
         assertEq(0, method_.getParametersTypesOffset().size());
         assertEq(0, method_.getParametersNamesOffset().size());
         Block instr_ = method_.getFirstChild();
-        assertTrue(instr_ instanceof ReturnMehod);
-        ReturnMehod ret_ = (ReturnMehod) instr_;
+        assertTrue(instr_ instanceof ReturnMethod);
+        ReturnMethod ret_ = (ReturnMethod) instr_;
         assertEq("$unreachable",ret_.getExpression());
         assertEq(187, ret_.getExpressionOffset());
         assertNull(instr_.getNextSibling());
@@ -7458,8 +7458,8 @@ public final class FileResolverTest {
         assertEq(0, method_.getParametersTypesOffset().size());
         assertEq(0, method_.getParametersNamesOffset().size());
         Block instr_ = method_.getFirstChild();
-        assertTrue(instr_ instanceof ReturnMehod);
-        ReturnMehod ret_ = (ReturnMehod) instr_;
+        assertTrue(instr_ instanceof ReturnMethod);
+        ReturnMethod ret_ = (ReturnMethod) instr_;
         assertEq("$unreachable",ret_.getExpression());
         assertEq(179, ret_.getExpressionOffset());
         assertNull(instr_.getNextSibling());
@@ -7512,8 +7512,8 @@ public final class FileResolverTest {
         assertEq(0, method_.getParametersTypesOffset().size());
         assertEq(0, method_.getParametersNamesOffset().size());
         Block instr_ = method_.getFirstChild();
-        assertTrue(instr_ instanceof ReturnMehod);
-        ReturnMehod ret_ = (ReturnMehod) instr_;
+        assertTrue(instr_ instanceof ReturnMethod);
+        ReturnMethod ret_ = (ReturnMethod) instr_;
         assertEq("$unreachable",ret_.getExpression());
         assertEq(191, ret_.getExpressionOffset());
         assertNull(instr_.getNextSibling());
@@ -7589,8 +7589,8 @@ public final class FileResolverTest {
         assertEq("$badthrow",th_.getExpression());
         assertEq(209, th_.getExpressionOffset());
         instr_ = instr_.getNextSibling();
-        assertTrue(instr_ instanceof ReturnMehod);
-        ReturnMehod ret_ = (ReturnMehod) instr_;
+        assertTrue(instr_ instanceof ReturnMethod);
+        ReturnMethod ret_ = (ReturnMethod) instr_;
         assertEq("$unreachable",ret_.getExpression());
         assertEq(230, ret_.getExpressionOffset());
         assertNull(instr_.getNextSibling());
@@ -7618,8 +7618,8 @@ public final class FileResolverTest {
         assertEq("$badthrowbis",th_.getExpression());
         assertEq(294, th_.getExpressionOffset());
         instr_ = instr_.getNextSibling();
-        assertTrue(instr_ instanceof ReturnMehod);
-        ret_ = (ReturnMehod) instr_;
+        assertTrue(instr_ instanceof ReturnMethod);
+        ret_ = (ReturnMethod) instr_;
         assertEq("$unreachablebis",ret_.getExpression());
         assertEq(318, ret_.getExpressionOffset());
         assertNull(instr_.getNextSibling());
@@ -7655,14 +7655,14 @@ public final class FileResolverTest {
         assertEq(386, for_.getExpressionOffset());
         assertEq(400,for_.getLabelOffset());
         Block grChild_ = instr_.getFirstChild();
-        assertTrue(grChild_ instanceof ReturnMehod);
-        ret_ = (ReturnMehod) grChild_;
+        assertTrue(grChild_ instanceof ReturnMethod);
+        ret_ = (ReturnMethod) grChild_;
         assertEq("$unreachable",ret_.getExpression());
         assertEq(416, ret_.getExpressionOffset());
         assertNull(grChild_.getNextSibling());
         instr_ = instr_.getNextSibling();
-        assertTrue(instr_ instanceof ReturnMehod);
-        ret_ = (ReturnMehod) instr_;
+        assertTrue(instr_ instanceof ReturnMethod);
+        ret_ = (ReturnMethod) instr_;
         assertEq("$unreachablebis",ret_.getExpression());
         assertEq(444, ret_.getExpressionOffset());
         assertNull(instr_.getNextSibling());
@@ -7740,8 +7740,8 @@ public final class FileResolverTest {
         assertEq("$badthrow",th_.getExpression());
         assertEq(209, th_.getExpressionOffset());
         instr_ = instr_.getNextSibling();
-        assertTrue(instr_ instanceof ReturnMehod);
-        ReturnMehod ret_ = (ReturnMehod) instr_;
+        assertTrue(instr_ instanceof ReturnMethod);
+        ReturnMethod ret_ = (ReturnMethod) instr_;
         assertEq("$unreachable",ret_.getExpression());
         assertEq(230, ret_.getExpressionOffset());
         assertNull(instr_.getNextSibling());
@@ -7769,8 +7769,8 @@ public final class FileResolverTest {
         assertEq("$badthrowbis",th_.getExpression());
         assertEq(294, th_.getExpressionOffset());
         instr_ = instr_.getNextSibling();
-        assertTrue(instr_ instanceof ReturnMehod);
-        ret_ = (ReturnMehod) instr_;
+        assertTrue(instr_ instanceof ReturnMethod);
+        ret_ = (ReturnMethod) instr_;
         assertEq("$unreachablebis",ret_.getExpression());
         assertEq(318, ret_.getExpressionOffset());
         assertNull(instr_.getNextSibling());
@@ -7808,14 +7808,14 @@ public final class FileResolverTest {
         assertEq(392, for_.getStepOffset());
         assertEq(396,for_.getLabelOffset());
         Block grChild_ = instr_.getFirstChild();
-        assertTrue(grChild_ instanceof ReturnMehod);
-        ret_ = (ReturnMehod) grChild_;
+        assertTrue(grChild_ instanceof ReturnMethod);
+        ret_ = (ReturnMethod) grChild_;
         assertEq("$unreachable",ret_.getExpression());
         assertEq(412, ret_.getExpressionOffset());
         assertNull(grChild_.getNextSibling());
         instr_ = instr_.getNextSibling();
-        assertTrue(instr_ instanceof ReturnMehod);
-        ret_ = (ReturnMehod) instr_;
+        assertTrue(instr_ instanceof ReturnMethod);
+        ret_ = (ReturnMethod) instr_;
         assertEq("$unreachablebis",ret_.getExpression());
         assertEq(440, ret_.getExpressionOffset());
         assertNull(instr_.getNextSibling());
@@ -8119,8 +8119,8 @@ public final class FileResolverTest {
         line_ = (Line) line_.getNextSibling();
         assertEq("second()", line_.getExpression());
         assertNull(case_.getNextSibling());
-        assertTrue(switch_.getNextSibling() instanceof ReturnMehod);
-        ReturnMehod ret_ = (ReturnMehod) switch_.getNextSibling();
+        assertTrue(switch_.getNextSibling() instanceof ReturnMethod);
+        ReturnMethod ret_ = (ReturnMethod) switch_.getNextSibling();
         assertEq("", ret_.getExpression());
         assertNull(ret_.getNextSibling());
         assertNull(first_.getNextSibling());
@@ -8169,8 +8169,8 @@ public final class FileResolverTest {
         assertNull(case_.getFirstChild());
         assertEq("1", info_.getValue());
         assertNull(case_.getNextSibling());
-        assertTrue(switch_.getNextSibling() instanceof ReturnMehod);
-        ReturnMehod ret_ = (ReturnMehod) switch_.getNextSibling();
+        assertTrue(switch_.getNextSibling() instanceof ReturnMethod);
+        ReturnMethod ret_ = (ReturnMethod) switch_.getNextSibling();
         assertEq("", ret_.getExpression());
         assertNull(ret_.getNextSibling());
         assertNull(first_.getNextSibling());
@@ -8565,8 +8565,8 @@ public final class FileResolverTest {
         assertTrue(case_.getFirstChild() instanceof Line);
         Line line_ = (Line) case_.getFirstChild();
         assertEq("first()", line_.getExpression());
-        assertTrue(line_.getNextSibling() instanceof ReturnMehod);
-        ReturnMehod ret_ = (ReturnMehod)line_.getNextSibling();
+        assertTrue(line_.getNextSibling() instanceof ReturnMethod);
+        ReturnMethod ret_ = (ReturnMethod)line_.getNextSibling();
         assertEq("condition?one:two", ret_.getExpression());
         assertNull(ret_.getNextSibling());
         assertTrue(case_.getNextSibling() instanceof CaseCondition);
@@ -8651,8 +8651,8 @@ public final class FileResolverTest {
         assertTrue(case_.getFirstChild() instanceof Line);
         Line line_ = (Line) case_.getFirstChild();
         assertEq("first()", line_.getExpression());
-        assertTrue(line_.getNextSibling() instanceof ReturnMehod);
-        ReturnMehod ret_ = (ReturnMehod)line_.getNextSibling();
+        assertTrue(line_.getNextSibling() instanceof ReturnMethod);
+        ReturnMethod ret_ = (ReturnMethod)line_.getNextSibling();
         assertEq("condition?one:two", ret_.getExpression());
         assertNull(ret_.getNextSibling());
         assertTrue(case_.getNextSibling() instanceof CaseCondition);
@@ -9273,8 +9273,8 @@ public final class FileResolverTest {
         assertTrue(case_.getFirstChild() instanceof Line);
         Line line_ = (Line) case_.getFirstChild();
         assertEq("first()", line_.getExpression());
-        assertTrue(line_.getNextSibling() instanceof ReturnMehod);
-        ReturnMehod ret_ = (ReturnMehod)line_.getNextSibling();
+        assertTrue(line_.getNextSibling() instanceof ReturnMethod);
+        ReturnMethod ret_ = (ReturnMethod)line_.getNextSibling();
         assertEq("condition?one:two", ret_.getExpression());
         assertNull(ret_.getNextSibling());
         assertTrue(case_.getNextSibling() instanceof CaseCondition);
@@ -9320,8 +9320,8 @@ public final class FileResolverTest {
         assertTrue(case_.getFirstChild() instanceof Line);
         Line line_ = (Line) case_.getFirstChild();
         assertEq("first()", line_.getExpression());
-        assertTrue(line_.getNextSibling() instanceof ReturnMehod);
-        ReturnMehod ret_ = (ReturnMehod)line_.getNextSibling();
+        assertTrue(line_.getNextSibling() instanceof ReturnMethod);
+        ReturnMethod ret_ = (ReturnMethod)line_.getNextSibling();
         assertEq("condition?one:two", ret_.getExpression());
         assertNull(ret_.getNextSibling());
         assertTrue(case_.getNextSibling() instanceof CaseCondition);
@@ -9367,8 +9367,8 @@ public final class FileResolverTest {
         assertTrue(case_.getFirstChild() instanceof Line);
         Line line_ = (Line) case_.getFirstChild();
         assertEq("first()", line_.getExpression());
-        assertTrue(line_.getNextSibling() instanceof ReturnMehod);
-        ReturnMehod ret_ = (ReturnMehod)line_.getNextSibling();
+        assertTrue(line_.getNextSibling() instanceof ReturnMethod);
+        ReturnMethod ret_ = (ReturnMethod)line_.getNextSibling();
         assertEq("condition?one:two", ret_.getExpression());
         assertNull(ret_.getNextSibling());
         assertTrue(case_.getNextSibling() instanceof CaseCondition);
@@ -9414,8 +9414,8 @@ public final class FileResolverTest {
         assertTrue(case_.getFirstChild() instanceof Line);
         Line line_ = (Line) case_.getFirstChild();
         assertEq("first()", line_.getExpression());
-        assertTrue(line_.getNextSibling() instanceof ReturnMehod);
-        ReturnMehod ret_ = (ReturnMehod)line_.getNextSibling();
+        assertTrue(line_.getNextSibling() instanceof ReturnMethod);
+        ReturnMethod ret_ = (ReturnMethod)line_.getNextSibling();
         assertEq("condition?one:two", ret_.getExpression());
         assertNull(ret_.getNextSibling());
         assertTrue(case_.getNextSibling() instanceof CaseCondition);
@@ -9456,8 +9456,8 @@ public final class FileResolverTest {
         assertEq("byte", field_.getClassNameSecond());
         assertEq("v", field_.getVariableNameSecond());
         Block n_ = field_.getFirstChild();
-        assertTrue(n_ instanceof ReturnMehod);
-        ReturnMehod line_ = (ReturnMehod) n_;
+        assertTrue(n_ instanceof ReturnMethod);
+        ReturnMethod line_ = (ReturnMethod) n_;
         assertEq("", line_.getExpression());
         assertNull(line_.getNextSibling());
     }
@@ -9482,8 +9482,8 @@ public final class FileResolverTest {
         assertEq("a", op_.getParametersNames().get(0));
         assertEq("b", op_.getParametersNames().get(1));
         Block b_ = op_.getFirstChild();
-        assertTrue(b_ instanceof ReturnMehod);
-        ReturnMehod r_ = (ReturnMehod) b_;
+        assertTrue(b_ instanceof ReturnMethod);
+        ReturnMethod r_ = (ReturnMethod) b_;
         assertEq("plus(a;.;,b;.;)", r_.getExpression());
     }
     @Test
@@ -9507,8 +9507,8 @@ public final class FileResolverTest {
         assertEq("a", op_.getParametersNames().get(0));
         assertEq("b", op_.getParametersNames().get(1));
         Block b_ = op_.getFirstChild();
-        assertTrue(b_ instanceof ReturnMehod);
-        ReturnMehod r_ = (ReturnMehod) b_;
+        assertTrue(b_ instanceof ReturnMethod);
+        ReturnMethod r_ = (ReturnMethod) b_;
         assertEq("plus(a;.;,b;.;)", r_.getExpression());
     }
     @Test
@@ -9532,8 +9532,8 @@ public final class FileResolverTest {
         assertEq("a", op_.getParametersNames().get(0));
         assertEq("b", op_.getParametersNames().get(1));
         Block b_ = op_.getFirstChild();
-        assertTrue(b_ instanceof ReturnMehod);
-        ReturnMehod r_ = (ReturnMehod) b_;
+        assertTrue(b_ instanceof ReturnMethod);
+        ReturnMethod r_ = (ReturnMethod) b_;
         assertEq("plus(a;.;,b;.;)", r_.getExpression());
     }
     @Test
@@ -9557,8 +9557,8 @@ public final class FileResolverTest {
         assertEq("a", op_.getParametersNames().get(0));
         assertEq("b", op_.getParametersNames().get(1));
         Block b_ = op_.getFirstChild();
-        assertTrue(b_ instanceof ReturnMehod);
-        ReturnMehod r_ = (ReturnMehod) b_;
+        assertTrue(b_ instanceof ReturnMethod);
+        ReturnMethod r_ = (ReturnMethod) b_;
         assertEq("plus(a;.;,b;.;)", r_.getExpression());
     }
     @Test
@@ -9582,8 +9582,8 @@ public final class FileResolverTest {
         assertEq("a", op_.getParametersNames().get(0));
         assertEq("b", op_.getParametersNames().get(1));
         Block b_ = op_.getFirstChild();
-        assertTrue(b_ instanceof ReturnMehod);
-        ReturnMehod r_ = (ReturnMehod) b_;
+        assertTrue(b_ instanceof ReturnMethod);
+        ReturnMethod r_ = (ReturnMethod) b_;
         assertEq("plus(a;.;,b;.;)", r_.getExpression());
     }
     @Test
@@ -9607,8 +9607,8 @@ public final class FileResolverTest {
         assertEq("a", op_.getParametersNames().get(0));
         assertEq("b", op_.getParametersNames().get(1));
         Block b_ = op_.getFirstChild();
-        assertTrue(b_ instanceof ReturnMehod);
-        ReturnMehod r_ = (ReturnMehod) b_;
+        assertTrue(b_ instanceof ReturnMethod);
+        ReturnMethod r_ = (ReturnMethod) b_;
         assertEq("plus(a;.;,b;.;)", r_.getExpression());
     }
     @Test
@@ -9632,8 +9632,8 @@ public final class FileResolverTest {
         assertEq("a", op_.getParametersNames().get(0));
         assertEq("b", op_.getParametersNames().get(1));
         Block b_ = op_.getFirstChild();
-        assertTrue(b_ instanceof ReturnMehod);
-        ReturnMehod r_ = (ReturnMehod) b_;
+        assertTrue(b_ instanceof ReturnMethod);
+        ReturnMethod r_ = (ReturnMethod) b_;
         assertEq("plus(a;.;,b;.;)", r_.getExpression());
     }
     @Test
@@ -9657,8 +9657,8 @@ public final class FileResolverTest {
         assertEq("a", op_.getParametersNames().get(0));
         assertEq("b", op_.getParametersNames().get(1));
         Block b_ = op_.getFirstChild();
-        assertTrue(b_ instanceof ReturnMehod);
-        ReturnMehod r_ = (ReturnMehod) b_;
+        assertTrue(b_ instanceof ReturnMethod);
+        ReturnMethod r_ = (ReturnMethod) b_;
         assertEq("plus(a;.;,b;.;)", r_.getExpression());
     }
     @Test
@@ -9682,8 +9682,8 @@ public final class FileResolverTest {
         assertEq("a", op_.getParametersNames().get(0));
         assertEq("b", op_.getParametersNames().get(1));
         Block b_ = op_.getFirstChild();
-        assertTrue(b_ instanceof ReturnMehod);
-        ReturnMehod r_ = (ReturnMehod) b_;
+        assertTrue(b_ instanceof ReturnMethod);
+        ReturnMethod r_ = (ReturnMethod) b_;
         assertEq("plus(a;.;,b;.;)", r_.getExpression());
     }
     @Test
@@ -9707,8 +9707,8 @@ public final class FileResolverTest {
         assertEq("a", op_.getParametersNames().get(0));
         assertEq("b", op_.getParametersNames().get(1));
         Block b_ = op_.getFirstChild();
-        assertTrue(b_ instanceof ReturnMehod);
-        ReturnMehod r_ = (ReturnMehod) b_;
+        assertTrue(b_ instanceof ReturnMethod);
+        ReturnMethod r_ = (ReturnMethod) b_;
         assertEq("plus(a;.;,b;.;)", r_.getExpression());
     }
     @Test
@@ -9732,8 +9732,8 @@ public final class FileResolverTest {
         assertEq("a", op_.getParametersNames().get(0));
         assertEq("b", op_.getParametersNames().get(1));
         Block b_ = op_.getFirstChild();
-        assertTrue(b_ instanceof ReturnMehod);
-        ReturnMehod r_ = (ReturnMehod) b_;
+        assertTrue(b_ instanceof ReturnMethod);
+        ReturnMethod r_ = (ReturnMethod) b_;
         assertEq("plus(a;.;,b;.;)", r_.getExpression());
     }
     @Test
@@ -9757,8 +9757,8 @@ public final class FileResolverTest {
         assertEq("a", op_.getParametersNames().get(0));
         assertEq("b", op_.getParametersNames().get(1));
         Block b_ = op_.getFirstChild();
-        assertTrue(b_ instanceof ReturnMehod);
-        ReturnMehod r_ = (ReturnMehod) b_;
+        assertTrue(b_ instanceof ReturnMethod);
+        ReturnMethod r_ = (ReturnMethod) b_;
         assertEq("plus(a;.;,b;.;)", r_.getExpression());
     }
     @Test
@@ -10145,8 +10145,8 @@ public final class FileResolverTest {
         assertEq("$badthrow",th_.getExpression());
         assertEq(209, th_.getExpressionOffset());
         instr_ = instr_.getNextSibling();
-        assertTrue(instr_ instanceof ReturnMehod);
-        ReturnMehod ret_ = (ReturnMehod) instr_;
+        assertTrue(instr_ instanceof ReturnMethod);
+        ReturnMethod ret_ = (ReturnMethod) instr_;
         assertEq("$unreachable",ret_.getExpression());
         assertEq(230, ret_.getExpressionOffset());
         assertNull(instr_.getNextSibling());
@@ -10174,8 +10174,8 @@ public final class FileResolverTest {
         assertEq("$badthrowbis",th_.getExpression());
         assertEq(294, th_.getExpressionOffset());
         instr_ = instr_.getNextSibling();
-        assertTrue(instr_ instanceof ReturnMehod);
-        ret_ = (ReturnMehod) instr_;
+        assertTrue(instr_ instanceof ReturnMethod);
+        ret_ = (ReturnMethod) instr_;
         assertEq("$unreachablebis",ret_.getExpression());
         assertEq(318, ret_.getExpressionOffset());
         assertNull(instr_.getNextSibling());
@@ -10286,8 +10286,8 @@ public final class FileResolverTest {
         assertEq("$badthrow",th_.getExpression());
         assertEq(209, th_.getExpressionOffset());
         instr_ = instr_.getNextSibling();
-        assertTrue(instr_ instanceof ReturnMehod);
-        ReturnMehod ret_ = (ReturnMehod) instr_;
+        assertTrue(instr_ instanceof ReturnMethod);
+        ReturnMethod ret_ = (ReturnMethod) instr_;
         assertEq("$unreachable",ret_.getExpression());
         assertEq(230, ret_.getExpressionOffset());
         assertNull(instr_.getNextSibling());
@@ -10315,8 +10315,8 @@ public final class FileResolverTest {
         assertEq("$badthrowbis",th_.getExpression());
         assertEq(294, th_.getExpressionOffset());
         instr_ = instr_.getNextSibling();
-        assertTrue(instr_ instanceof ReturnMehod);
-        ret_ = (ReturnMehod) instr_;
+        assertTrue(instr_ instanceof ReturnMethod);
+        ret_ = (ReturnMethod) instr_;
         assertEq("$unreachablebis",ret_.getExpression());
         assertEq(318, ret_.getExpressionOffset());
         assertNull(instr_.getNextSibling());

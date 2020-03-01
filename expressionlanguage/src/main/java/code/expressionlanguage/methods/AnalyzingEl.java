@@ -16,16 +16,16 @@ public final class AnalyzingEl {
     private IdMap<BreakBlock, IdMap<BreakableBlock, IdList<BracedBlock>>> breakablesAncestors = new IdMap<BreakBlock, IdMap<BreakableBlock, IdList<BracedBlock>>>();
     private IdMap<ContinueBlock, Loop> continuables = new IdMap<ContinueBlock, Loop>();
     private IdMap<ContinueBlock, IdMap<Loop, IdList<BracedBlock>>> continuablesAncestors = new IdMap<ContinueBlock, IdMap<Loop, IdList<BracedBlock>>>();
-    private IdMap<ReturnMehod, Eval> returnables = new IdMap<ReturnMehod, Eval>();
-    private IdMap<ReturnMehod, MemberCallingsBlock> returnablesCallings = new IdMap<ReturnMehod, MemberCallingsBlock>();
-    private IdMap<ReturnMehod, IdMap<Eval, IdList<BracedBlock>>> returnablesAncestors = new IdMap<ReturnMehod, IdMap<Eval, IdList<BracedBlock>>>();
-    private IdMap<ReturnMehod, IdMap<MemberCallingsBlock, IdList<BracedBlock>>> returnablesAncestorsCallings = new IdMap<ReturnMehod, IdMap<MemberCallingsBlock, IdList<BracedBlock>>>();
+    private IdMap<ReturnMethod, Eval> returnables = new IdMap<ReturnMethod, Eval>();
+    private IdMap<ReturnMethod, MemberCallingsBlock> returnablesCallings = new IdMap<ReturnMethod, MemberCallingsBlock>();
+    private IdMap<ReturnMethod, IdMap<Eval, IdList<BracedBlock>>> returnablesAncestors = new IdMap<ReturnMethod, IdMap<Eval, IdList<BracedBlock>>>();
+    private IdMap<ReturnMethod, IdMap<MemberCallingsBlock, IdList<BracedBlock>>> returnablesAncestorsCallings = new IdMap<ReturnMethod, IdMap<MemberCallingsBlock, IdList<BracedBlock>>>();
     private CustList<BracedBlock> parents = new CustList<BracedBlock>();
     private StringList labels = new StringList();
     private CustList<BreakableBlock> parentsBreakables = new CustList<BreakableBlock>();
     private CustList<Loop> parentsContinuables = new CustList<Loop>();
     private CustList<Eval> parentsReturnables = new CustList<Eval>();
-    private IdMap<ReturnMehod, StringMap<SimpleAssignment>> assignments = new IdMap<ReturnMehod, StringMap<SimpleAssignment>>();
+    private IdMap<ReturnMethod, StringMap<SimpleAssignment>> assignments = new IdMap<ReturnMethod, StringMap<SimpleAssignment>>();
     private Mapping mapping;
     private MemberCallingsBlock root;
 
@@ -110,23 +110,23 @@ public final class AnalyzingEl {
         return parentsReturnables;
     }
 
-    public IdMap<ReturnMehod, Eval> getReturnables() {
+    public IdMap<ReturnMethod, Eval> getReturnables() {
         return returnables;
     }
 
-    public IdMap<ReturnMehod, MemberCallingsBlock> getReturnablesCallings() {
+    public IdMap<ReturnMethod, MemberCallingsBlock> getReturnablesCallings() {
         return returnablesCallings;
     }
 
-    public IdMap<ReturnMehod, IdMap<Eval, IdList<BracedBlock>>> getReturnablesAncestors() {
+    public IdMap<ReturnMethod, IdMap<Eval, IdList<BracedBlock>>> getReturnablesAncestors() {
         return returnablesAncestors;
     }
 
-    public IdMap<ReturnMehod, IdMap<MemberCallingsBlock, IdList<BracedBlock>>> getReturnablesAncestorsCallings() {
+    public IdMap<ReturnMethod, IdMap<MemberCallingsBlock, IdList<BracedBlock>>> getReturnablesAncestorsCallings() {
         return returnablesAncestorsCallings;
     }
 
-    public IdMap<ReturnMehod, StringMap<SimpleAssignment>> getAssignments() {
+    public IdMap<ReturnMethod, StringMap<SimpleAssignment>> getAssignments() {
         return assignments;
     }
 

@@ -164,7 +164,7 @@ public abstract class AbstractTernaryOperation extends MethodOperation {
         }
         String type_ = EMPTY_STRING;
         Block cur_ = _conf.getCurrentBlock();
-        if (m_ == null && cur_ instanceof ReturnMehod) {
+        if (m_ == null && cur_ instanceof ReturnMethod) {
             FunctionBlock f_ = _conf.getAnalyzing().getCurrentFct();
             if (f_ instanceof NamedFunctionBlock) {
                 NamedFunctionBlock n_ = (NamedFunctionBlock) f_;

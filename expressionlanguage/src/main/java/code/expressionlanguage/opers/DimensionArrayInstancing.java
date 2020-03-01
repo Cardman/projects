@@ -9,7 +9,7 @@ import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.FunctionBlock;
 import code.expressionlanguage.methods.NamedFunctionBlock;
-import code.expressionlanguage.methods.ReturnMehod;
+import code.expressionlanguage.methods.ReturnMethod;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.options.KeyWords;
 import code.util.CustList;
@@ -80,7 +80,7 @@ public final class DimensionArrayInstancing extends
         }
         String typeAff_ = EMPTY_STRING;
         Block cur_ = _an.getCurrentBlock();
-        if (m_ == null && cur_ instanceof ReturnMehod) {
+        if (m_ == null && cur_ instanceof ReturnMethod) {
             FunctionBlock f_ = _an.getAnalyzing().getCurrentFct();
             if (f_ instanceof NamedFunctionBlock) {
                 NamedFunctionBlock n_ = (NamedFunctionBlock) f_;

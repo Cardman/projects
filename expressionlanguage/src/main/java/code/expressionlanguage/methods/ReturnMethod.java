@@ -26,7 +26,7 @@ import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.Struct;
 import code.util.*;
 
-public final class ReturnMehod extends AbruptBlock implements CallingFinally, WithNotEmptyEl  {
+public final class ReturnMethod extends AbruptBlock implements CallingFinally, WithNotEmptyEl  {
 
     private final String expression;
 
@@ -34,7 +34,7 @@ public final class ReturnMehod extends AbruptBlock implements CallingFinally, Wi
 
     private CustList<ExecOperationNode> opRet;
 
-    public ReturnMehod(OffsetStringInfo _expression, OffsetsBlock _offset) {
+    public ReturnMethod(OffsetStringInfo _expression, OffsetsBlock _offset) {
         super(_offset);
         expression = _expression.getInfo();
         expressionOffset = _expression.getOffset();
@@ -161,16 +161,16 @@ public final class ReturnMehod extends AbruptBlock implements CallingFinally, Wi
             par_ = par_.getParent();
         }
         if (a_ instanceof Eval) {
-            IdMap<ReturnMehod, Eval> breakables_ = _anEl.getReturnables();
-            IdMap<ReturnMehod, IdMap<Eval, IdList<BracedBlock>>> breakablesAncestors_ = _anEl.getReturnablesAncestors();
+            IdMap<ReturnMethod, Eval> breakables_ = _anEl.getReturnables();
+            IdMap<ReturnMethod, IdMap<Eval, IdList<BracedBlock>>> breakablesAncestors_ = _anEl.getReturnablesAncestors();
             IdMap<Eval, IdList<BracedBlock>> id_;
             id_ = new IdMap<Eval, IdList<BracedBlock>>();
             id_.put((Eval) a_, pars_);
             breakablesAncestors_.put(this, id_);
             breakables_.put(this, (Eval) a_);
         } else {
-            IdMap<ReturnMehod, MemberCallingsBlock> breakables_ = _anEl.getReturnablesCallings();
-            IdMap<ReturnMehod, IdMap<MemberCallingsBlock, IdList<BracedBlock>>> breakablesAncestors_ = _anEl.getReturnablesAncestorsCallings();
+            IdMap<ReturnMethod, MemberCallingsBlock> breakables_ = _anEl.getReturnablesCallings();
+            IdMap<ReturnMethod, IdMap<MemberCallingsBlock, IdList<BracedBlock>>> breakablesAncestors_ = _anEl.getReturnablesAncestorsCallings();
             IdMap<MemberCallingsBlock, IdList<BracedBlock>> id_;
             id_ = new IdMap<MemberCallingsBlock, IdList<BracedBlock>>();
             id_.put((MemberCallingsBlock) a_, pars_);

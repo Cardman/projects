@@ -168,7 +168,7 @@ public final class ConstructorBlock extends NamedFunctionBlock implements GeneCo
         setAssignmentAfter(_an,_anEl);
         checkInterfaces(_an);
         IdMap<Block, AssignedVariables> id_ = _an.getContextEl().getAssignedVariables().getFinalVariables();
-        for (EntryCust<ReturnMehod, StringMap<SimpleAssignment>> r: _anEl.getAssignments().entryList()) {
+        for (EntryCust<ReturnMethod, StringMap<SimpleAssignment>> r: _anEl.getAssignments().entryList()) {
             for (EntryCust<String, SimpleAssignment> f: r.getValue().entryList()) {
                 checkAssignments(_an, f,false);
             }

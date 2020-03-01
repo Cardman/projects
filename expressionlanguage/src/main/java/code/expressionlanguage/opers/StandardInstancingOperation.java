@@ -158,7 +158,7 @@ public final class StandardInstancingOperation extends
         }
         String typeAff_ = EMPTY_STRING;
         AnalyzedBlock cur_ = _an.getCurrentAnaBlock();
-        if (m_ == null && cur_ instanceof ReturnMehod) {
+        if (m_ == null && cur_ instanceof ReturnMethod) {
             FunctionBlock f_ = _an.getAnalyzing().getCurrentFct();
             if (f_ instanceof NamedFunctionBlock) {
                 NamedFunctionBlock n_ = (NamedFunctionBlock) f_;

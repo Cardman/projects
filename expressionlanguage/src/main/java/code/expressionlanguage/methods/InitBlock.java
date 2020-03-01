@@ -56,7 +56,7 @@ public abstract class InitBlock extends MemberCallingsBlock implements AloneBloc
     public void setAssignmentAfterCall(Analyzable _an, AnalyzingEl _anEl) {
         setAssignmentAfter(_an,_anEl);
         IdMap<Block, AssignedVariables> id_ = _an.getContextEl().getAssignedVariables().getFinalVariables();
-        for (EntryCust<ReturnMehod, StringMap<SimpleAssignment>> r: _anEl.getAssignments().entryList()) {
+        for (EntryCust<ReturnMethod, StringMap<SimpleAssignment>> r: _anEl.getAssignments().entryList()) {
             for (EntryCust<String, SimpleAssignment> f: r.getValue().entryList()) {
                 checkAssignments(_an, f,false);
             }
