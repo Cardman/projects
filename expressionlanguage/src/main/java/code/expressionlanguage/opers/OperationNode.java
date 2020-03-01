@@ -261,7 +261,7 @@ public abstract class OperationNode implements Operable {
         }
         if (_op.getPriority() == ElResolver.FCT_OPER_PRIO && _an.isAnnotAnalysis()) {
             String op_ = _op.getOperators().firstValue();
-            if (StringList.quickEq(op_, String.valueOf(ARR_ANNOT))) {
+            if (StringList.quickEq(op_, String.valueOf(ARR_ANNOT))&&(_m == null||_m instanceof AnnotationInstanceOperation||_m instanceof AssocationOperation)) {
                 return new AnnotationInstanceOperation(_index, _indexChild, _m, _op);
             }
             String fctName_ = _op.getFctName().trim();

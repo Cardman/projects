@@ -40,10 +40,9 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
             array = true;
             MethodOperation mOp_ = getParent();
             Block curr_ = _conf.getCurrentBlock();
-            boolean found_ = false;
+            className = _conf.getStandards().getAliasObject();
             if (curr_ instanceof AnnotationMethodBlock && mOp_ == null) {
                 className = ((AnnotationMethodBlock)curr_).getImportedReturnType();
-                found_ = true;
             }
             if (mOp_ instanceof AssocationOperation) {
                 AssocationOperation ass_ = (AssocationOperation) mOp_;
@@ -113,12 +112,6 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
                         className = a_.getImportedReturnType();
                     }
                 }
-            } else if (!found_) {
-                UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
-                un_.setIndexFile(_conf.getCurrentLocationIndex());
-                un_.setFileName(_conf.getCurrentFileName());
-                _conf.getClasses().addError(un_);
-                className = _conf.getStandards().getAliasObject();
             }
         } else {
             int off_ = StringList.getFirstPrintableCharIndex(methodName);
