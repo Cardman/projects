@@ -2,6 +2,7 @@ package code.formathtml;
 
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.ConditionReturn;
 import code.expressionlanguage.errors.custom.UnexpectedTypeError;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
@@ -49,14 +50,17 @@ public abstract class RendCondition extends RendParentBlock implements RendWithE
         opCondition = RenderExpUtil.getReducedNodes(r_);
     }
 
-    final Boolean evaluateCondition(Configuration _context) {
+    final ConditionReturn evaluateCondition(Configuration _context) {
         ImportingPage last_ = _context.getLastPage();
         last_.setOffset(conditionOffset);
         last_.setProcessingAttribute(ATTRIBUTE_CONDITION);
         Argument arg_ = RenderExpUtil.calculateReuse(opCondition,_context);
         if (_context.getContext().hasException()) {
-            return null;
+            return ConditionReturn.CALL_EX;
         }
-        return ((BooleanStruct) arg_.getStruct()).getInstance();
+        if (((BooleanStruct) arg_.getStruct()).getInstance()) {
+            return ConditionReturn.YES;
+        }
+        return ConditionReturn.NO;
     }
 }

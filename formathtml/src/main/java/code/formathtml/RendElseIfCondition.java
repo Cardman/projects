@@ -1,5 +1,6 @@
 package code.formathtml;
 
+import code.expressionlanguage.ConditionReturn;
 import code.expressionlanguage.errors.custom.UnexpectedTagName;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
@@ -53,11 +54,11 @@ public final class RendElseIfCondition extends RendCondition implements RendBrea
         RendIfStack if_ = (RendIfStack) ip_.getRendLastStack();
         if_.setCurrentVisitedBlock(this);
         if (!if_.isEntered()) {
-            Boolean assert_ = evaluateCondition(_cont);
-            if (assert_ == null) {
+            ConditionReturn assert_ = evaluateCondition(_cont);
+            if (assert_ == ConditionReturn.CALL_EX) {
                 return;
             }
-            if (assert_) {
+            if (assert_ == ConditionReturn.YES) {
                 if_.setEntered(true);
                 rw_.setRead(getFirstChild());
                 return;

@@ -2,6 +2,7 @@ package code.formathtml;
 
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.ConditionReturn;
 import code.expressionlanguage.errors.custom.BadImplicitCast;
 import code.expressionlanguage.errors.custom.UnexpectedTypeError;
 import code.expressionlanguage.files.OffsetStringInfo;
@@ -228,14 +229,14 @@ public final class RendForMutableIterativeLoop extends RendParentBlock implement
                 return;
             }
         }
-        Boolean res_ = evaluateCondition(_cont);
-        if (res_ == null) {
+        ConditionReturn res_ = evaluateCondition(_cont);
+        if (res_ == ConditionReturn.CALL_EX) {
             return;
         }
         RendLoopBlockStack l_ = new RendLoopBlockStack();
         l_.setBlock(this);
         l_.setCurrentVisitedBlock(this);
-        l_.setFinished(!res_);
+        l_.setFinished(res_ == ConditionReturn.NO);
         ip_.addBlock(l_);
         c_ = (RendLoopBlockStack) ip_.getRendLastStack();
         if (c_.isFinished()) {
@@ -253,18 +254,21 @@ public final class RendForMutableIterativeLoop extends RendParentBlock implement
         }
     }
 
-    private Boolean evaluateCondition(Configuration _context) {
+    private ConditionReturn evaluateCondition(Configuration _context) {
         ImportingPage last_ = _context.getLastPage();
         if (opExp.isEmpty()) {
-            return true;
+            return ConditionReturn.YES;
         }
         last_.setOffset(expressionOffset);
         last_.setProcessingAttribute(ATTRIBUTE_CONDITION);
         Argument arg_ = RenderExpUtil.calculateReuse(opExp,_context);
         if (_context.getContext().hasException()) {
-            return null;
+            return ConditionReturn.CALL_EX;
         }
-        return ((BooleanStruct)arg_.getStruct()).getInstance();
+        if (((BooleanStruct)arg_.getStruct()).getInstance()) {
+            return ConditionReturn.YES;
+        }
+        return ConditionReturn.NO;
     }
     @Override
     public void exitStack(Configuration _conf) {
@@ -285,11 +289,11 @@ public final class RendForMutableIterativeLoop extends RendParentBlock implement
                 return;
             }
         }
-        Boolean keep_ = evaluateCondition(_conf);
-        if (keep_ == null) {
+        ConditionReturn keep_ = evaluateCondition(_conf);
+        if (keep_ == ConditionReturn.CALL_EX) {
             return;
         }
-        if (!keep_) {
+        if (keep_ == ConditionReturn.NO) {
             l_.setFinished(true);
         } else {
             rw_.setRead(forLoopLoc_.getFirstChild());

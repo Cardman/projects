@@ -1,5 +1,6 @@
 package code.formathtml;
 
+import code.expressionlanguage.ConditionReturn;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.formathtml.stacks.RendLoopBlockStack;
@@ -34,14 +35,14 @@ public final class RendWhileCondition extends RendCondition implements RendLoop 
             processBlockAndRemove(_cont);
             return;
         }
-        Boolean res_ = evaluateCondition(_cont);
-        if (res_ == null) {
+        ConditionReturn res_ = evaluateCondition(_cont);
+        if (res_ == ConditionReturn.CALL_EX) {
             return;
         }
         RendLoopBlockStack l_ = new RendLoopBlockStack();
         l_.setBlock(this);
         l_.setCurrentVisitedBlock(this);
-        l_.setFinished(!res_);
+        l_.setFinished(res_ == ConditionReturn.NO);
         ip_.addBlock(l_);
         c_ = (RendLoopBlockStack) ip_.getRendLastStack();
         if (c_.isFinished()) {
@@ -62,18 +63,18 @@ public final class RendWhileCondition extends RendCondition implements RendLoop 
         RendReadWrite rw_ = ip_.getRendReadWrite();
         RendLoopBlockStack l_ = (RendLoopBlockStack) ip_.getRendLastStack();
         RendBlock forLoopLoc_ = l_.getBlock();
-        Boolean keep_ = keepLoop(_conf);
-        if (keep_ == null) {
+        ConditionReturn keep_ = keepLoop(_conf);
+        if (keep_ == ConditionReturn.CALL_EX) {
             return;
         }
-        if (!keep_) {
+        if (keep_ == ConditionReturn.NO) {
             l_.setFinished(true);
         } else {
             rw_.setRead(forLoopLoc_.getFirstChild());
         }
     }
 
-    public Boolean keepLoop(Configuration _conf) {
+    public ConditionReturn keepLoop(Configuration _conf) {
         return evaluateCondition(_conf);
     }
 }

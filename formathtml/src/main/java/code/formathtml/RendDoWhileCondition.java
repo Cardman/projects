@@ -1,5 +1,6 @@
 package code.formathtml;
 
+import code.expressionlanguage.ConditionReturn;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.formathtml.stacks.RendLoopBlockStack;
@@ -15,11 +16,11 @@ public final class RendDoWhileCondition extends RendCondition {
         ImportingPage ip_ = _cont.getLastPage();
         RendReadWrite rw_ = ip_.getRendReadWrite();
         RendLoopBlockStack l_ = (RendLoopBlockStack) ip_.getRendLastStack();
-        Boolean keep_ = evaluateCondition(_cont);
-        if (keep_ == null) {
+        ConditionReturn keep_ = evaluateCondition(_cont);
+        if (keep_ == ConditionReturn.CALL_EX) {
             return;
         }
-        if (!keep_) {
+        if (keep_ == ConditionReturn.NO) {
             l_.setFinished(true);
         }
         RendBlock previousSibling_ = getPreviousSibling();

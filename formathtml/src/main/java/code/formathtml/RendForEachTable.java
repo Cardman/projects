@@ -2,6 +2,7 @@ package code.formathtml;
 
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.ConditionReturn;
 import code.expressionlanguage.errors.custom.BadImplicitCast;
 import code.expressionlanguage.errors.custom.BadVariableName;
 import code.expressionlanguage.errors.custom.DuplicateVariable;
@@ -398,11 +399,11 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
         ImportingPage ip_ = _conf.getLastPage();
         StringMap<LoopVariable> vars_ = ip_.getVars();
         RendLoopBlockStack l_ = (RendLoopBlockStack) ip_.getRendLastStack();
-        Boolean has_ = iteratorHasNext(_conf);
-        if (has_ == null) {
+        ConditionReturn has_ = iteratorHasNext(_conf);
+        if (has_ == ConditionReturn.CALL_EX) {
             return;
         }
-        boolean hasNext_ = has_;
+        boolean hasNext_ = has_ == ConditionReturn.YES;
         if (hasNext_) {
             incrementLoop(_conf, l_, vars_);
         } else {
@@ -441,14 +442,17 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
         lv_.setIndex(lv_.getIndex() + 1);
         call_.getRendReadWrite().setRead(getFirstChild());
     }
-    private Boolean iteratorHasNext(Configuration _conf) {
+    private ConditionReturn iteratorHasNext(Configuration _conf) {
         ImportingPage ip_ = _conf.getLastPage();
         RendLoopBlockStack l_ = (RendLoopBlockStack) ip_.getRendLastStack();
         Struct strIter_ = l_.getStructIterator();
         Argument arg_ = hasNextPair(strIter_,_conf);
         if (_conf.getContext().hasException()) {
-            return null;
+            return ConditionReturn.CALL_EX;
         }
-        return ((BooleanStruct) arg_.getStruct()).getInstance();
+        if (((BooleanStruct) arg_.getStruct()).getInstance()) {
+            return ConditionReturn.YES;
+        }
+        return ConditionReturn.NO;
     }
 }

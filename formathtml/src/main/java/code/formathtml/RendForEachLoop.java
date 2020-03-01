@@ -2,6 +2,7 @@ package code.formathtml;
 
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.ConditionReturn;
 import code.expressionlanguage.errors.custom.BadImplicitCast;
 import code.expressionlanguage.errors.custom.BadVariableName;
 import code.expressionlanguage.errors.custom.DuplicateVariable;
@@ -331,11 +332,11 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
         RendLoopBlockStack l_ = (RendLoopBlockStack) ip_.getRendLastStack();
         boolean hasNext_;
         if (l_.getStructIterator() != null) {
-            Boolean has_ = iteratorHasNext(_conf);
-            if (has_ == null) {
+            ConditionReturn has_ = iteratorHasNext(_conf);
+            if (has_ == ConditionReturn.CALL_EX) {
                 return;
             }
-            hasNext_ = has_;
+            hasNext_ = has_ == ConditionReturn.YES;
         } else {
             hasNext_ = l_.hasNext();
         }
@@ -347,15 +348,18 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
         }
     }
 
-    private Boolean iteratorHasNext(Configuration _conf) {
+    private ConditionReturn iteratorHasNext(Configuration _conf) {
         ImportingPage ip_ = _conf.getLastPage();
         RendLoopBlockStack l_ = (RendLoopBlockStack) ip_.getRendLastStack();
         Struct strIter_ = l_.getStructIterator();
         Argument arg_ = hasNext(strIter_,_conf);
         if (_conf.getContext().hasException()) {
-            return null;
+            return ConditionReturn.CALL_EX;
         }
-        return ((BooleanStruct) arg_.getStruct()).getInstance();
+        if (((BooleanStruct) arg_.getStruct()).getInstance()) {
+            return ConditionReturn.YES;
+        }
+        return ConditionReturn.NO;
     }
 
     public void incrementLoop(Configuration _conf, RendLoopBlockStack _l,

@@ -1,5 +1,6 @@
 package code.formathtml;
 
+import code.expressionlanguage.ConditionReturn;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.formathtml.stacks.RendIfStack;
@@ -33,8 +34,8 @@ public final class RendIfCondition extends RendCondition implements RendBreakabl
             processBlockAndRemove(_cont);
             return;
         }
-        Boolean assert_ = evaluateCondition(_cont);
-        if (assert_ == null) {
+        ConditionReturn assert_ = evaluateCondition(_cont);
+        if (assert_ == ConditionReturn.CALL_EX) {
             return;
         }
         RendIfStack if_ = new RendIfStack();
@@ -48,7 +49,7 @@ public final class RendIfCondition extends RendCondition implements RendBreakabl
         }
         if_.setBlock(this);
         if_.setCurrentVisitedBlock(this);
-        if (assert_) {
+        if (assert_ == ConditionReturn.YES) {
             ip_.addBlock(if_);
             if_.setEntered(true);
             rw_.setRead(getFirstChild());
