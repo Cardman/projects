@@ -85,12 +85,13 @@ public final class GuiProcess implements Runnable {
         if (cont_ == null) {
             return null;
         }
-        if (!cont_.getClasses().isEmptyErrors() || !cont_.getClasses().isEmptyStdError()) {
+        if (!cont_.getClasses().isEmptyErrors() || !cont_.getClasses().isEmptyStdError() || !cont_.getClasses().isEmptyMessageError()) {
             String time_ = Clock.getDateTimeText("_", "_", "_");
             String dtPart_ = time_+".txt";
             StreamTextFile.logToFile(folder_+"/_"+dtPart_, time_+":"+cont_.getClasses().displayErrors());
             StreamTextFile.logToFile(folder_+"/_"+dtPart_, time_+":"+cont_.getClasses().displayWarnings());
             StreamTextFile.logToFile(folder_+"/_"+dtPart_, time_+":"+cont_.getClasses().displayStdErrors());
+            StreamTextFile.logToFile(folder_+"/_"+dtPart_, time_+":"+cont_.getClasses().displayMessageErrors());
             return null;
         }
         if (!cont_.getClasses().isEmptyWarnings()) {

@@ -6,6 +6,7 @@ import code.bean.validator.ValidatorInfo;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.errors.KeyValueMemberName;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.util.ClassField;
@@ -706,7 +707,7 @@ public final class BeanCustLgNames extends BeanLgNames {
         return files_;
     }
     private static String tr(String _var, ContextEl _context) {
-        StringList allKeysWords_ = _context.getKeyWords().allKeyWords();
+        CustList<String> allKeysWords_ = _context.getKeyWords().allKeyWords().values();
         allKeysWords_.addAllElts(_context.getStandards().getPrimitiveTypes().getKeys());
         allKeysWords_.add(_context.getStandards().getAliasVoid());
         String candidate_ = _var;
@@ -718,7 +719,7 @@ public final class BeanCustLgNames extends BeanLgNames {
         return candidate_;
     }
     private static String trLoop(String _var, ContextEl _context) {
-        StringList allKeysWords_ = _context.getKeyWords().allKeyWords();
+        CustList<String> allKeysWords_ = _context.getKeyWords().allKeyWords().values();
         allKeysWords_.addAllElts(_context.getStandards().getPrimitiveTypes().getKeys());
         allKeysWords_.add(_context.getStandards().getAliasVoid());
         String candidate_ = _var;
@@ -737,7 +738,7 @@ public final class BeanCustLgNames extends BeanLgNames {
         return StringList.concat(candidate_,suffixLoop_);
     }
     private static String trParam(String _var, ContextEl _context) {
-        StringList allKeysWords_ = _context.getKeyWords().allKeyWords();
+        CustList<String> allKeysWords_ = _context.getKeyWords().allKeyWords().values();
         allKeysWords_.addAllElts(_context.getStandards().getPrimitiveTypes().getKeys());
         allKeysWords_.add(_context.getStandards().getAliasVoid());
         String candidate_ = _var;
@@ -756,7 +757,7 @@ public final class BeanCustLgNames extends BeanLgNames {
         return StringList.concat(candidate_,suffixParam_);
     }
     private static String trLoc(String _var, ContextEl _context) {
-        StringList allKeysWords_ = _context.getKeyWords().allKeyWords();
+        CustList<String> allKeysWords_ = _context.getKeyWords().allKeyWords().values();
         allKeysWords_.addAllElts(_context.getStandards().getPrimitiveTypes().getKeys());
         allKeysWords_.add(_context.getStandards().getAliasVoid());
         String candidate_ = _var;
@@ -1234,62 +1235,66 @@ public final class BeanCustLgNames extends BeanLgNames {
         return new ResultErrorStd();
     }
     @Override
-    public StringList allRefTypes() {
-        StringList types_ = super.allRefTypes();
-        types_.add(getAliasValidator());
-        types_.add(getAliasStringMapObject());
-        types_.add(getAliasBean());
+    public StringMap<String> allRefTypes() {
+        StringMap<String> types_ = super.allRefTypes();
+        types_.add("Validator",getAliasValidator());
+        types_.add("StringMapObject",getAliasStringMapObject());
+        types_.add("Bean",getAliasBean());
         return types_;
     }
 
     @Override
-    public StringMap<StringList> allTableTypeMethodNames() {
-        StringMap<StringList> methods_ = super.allTableTypeMethodNames();
-        methods_.put(getAliasValidator(),new StringList(getAliasValidate()));
-        methods_.put(getAliasStringMapObject(),new StringList(
-                getAliasMapGetVal(),
-                getAliasMapPut(),
-                getAliasMapPutAll(),
-                getAliasMapIndexOfEntry(),
-                getAliasMapAddEntry(),
-                getAliasMapContains(),
-                getAliasMapSize(),
-                getAliasMapIsEmpty(),
-                getAliasMapClear(),
-                getAliasMapRemoveKey(),
-                getAliasMapFirstValue(),
-                getAliasMapLastValue(),
-                getAliasMapGetValue(),
-                getAliasMapSetValue(),
-                getAliasMapFirstKey(),
-                getAliasMapLastKey(),
-                getAliasMapGetKey(),
-                getAliasMapSetKey()
+    public StringMap<CustList<KeyValueMemberName>> allTableTypeMethodNames() {
+        StringMap<CustList<KeyValueMemberName>> methods_ = super.allTableTypeMethodNames();
+        methods_.put(getAliasValidator(),new CustList<KeyValueMemberName>(
+                new KeyValueMemberName("Validate",getAliasValidate())));
+        methods_.put(getAliasStringMapObject(),new CustList<KeyValueMemberName>(
+                new KeyValueMemberName("MapGetVal",getAliasMapGetVal()),
+                new KeyValueMemberName("MapPut",getAliasMapPut()),
+                new KeyValueMemberName("MapPutAll",getAliasMapPutAll()),
+                new KeyValueMemberName("MapIndexOfEntry",getAliasMapIndexOfEntry()),
+                new KeyValueMemberName("MapAddEntry",getAliasMapAddEntry()),
+                new KeyValueMemberName("MapContains",getAliasMapContains()),
+                new KeyValueMemberName("MapSize",getAliasMapSize()),
+                new KeyValueMemberName("MapIsEmpty",getAliasMapIsEmpty()),
+                new KeyValueMemberName("MapClear",getAliasMapClear()),
+                new KeyValueMemberName("MapRemoveKey",getAliasMapRemoveKey()),
+                new KeyValueMemberName("MapFirstValue",getAliasMapFirstValue()),
+                new KeyValueMemberName("MapLastValue",getAliasMapLastValue()),
+                new KeyValueMemberName("MapGetValue",getAliasMapGetValue()),
+                new KeyValueMemberName("MapSetValue",getAliasMapSetValue()),
+                new KeyValueMemberName("MapFirstKey",getAliasMapFirstKey()),
+                new KeyValueMemberName("MapLastKey",getAliasMapLastKey()),
+                new KeyValueMemberName("MapGetKey",getAliasMapGetKey()),
+                new KeyValueMemberName("MapSetKey",getAliasMapSetKey())
         ));
-        methods_.put(getAliasBean(),new StringList(
-                getAliasBeforeDisplaying(),
-                getAliasGetDataBase(),
-                getAliasGetLanguage(),
-                getAliasGetScope(),
-                getAliasGetForms(),
-                getAliasSetDataBase(),
-                getAliasSetLanguage(),
-                getAliasSetScope(),
-                getAliasSetForms()
+        methods_.put(getAliasBean(),new CustList<KeyValueMemberName>(
+                new KeyValueMemberName("BeforeDisplaying",getAliasBeforeDisplaying()),
+                new KeyValueMemberName("GetDataBase",getAliasGetDataBase()),
+                new KeyValueMemberName("GetLanguage",getAliasGetLanguage()),
+                new KeyValueMemberName("GetScope",getAliasGetScope()),
+                new KeyValueMemberName("GetForms",getAliasGetForms()),
+                new KeyValueMemberName("SetDataBase",getAliasSetDataBase()),
+                new KeyValueMemberName("SetLanguage",getAliasSetLanguage()),
+                new KeyValueMemberName("SetScope",getAliasSetScope()),
+                new KeyValueMemberName("SetForms",getAliasSetForms())
         ));
         return methods_;
     }
 
     @Override
-    public StringMap<StringList> allTableTypeFieldNames() {
-        StringMap<StringList> fields_ = super.allTableTypeFieldNames();
+    public StringMap<CustList<KeyValueMemberName>> allTableTypeFieldNames() {
+        StringMap<CustList<KeyValueMemberName>> fields_ = super.allTableTypeFieldNames();
         fields_.put(getAliasMessage(),
-                new StringList(getAliasMapKeys(),getAliasMapValues()));
+                new CustList<KeyValueMemberName>(
+                        new KeyValueMemberName("MapKeys",getAliasMapKeys()),
+                        new KeyValueMemberName("MapValues",getAliasMapValues())));
         fields_.put(getAliasBean(),
-                new StringList(getAliasForms(),
-                        getAliasLanguage(),
-                        getAliasDataBaseField(),
-                        getAliasScope()));
+                new CustList<KeyValueMemberName>(
+                        new KeyValueMemberName("Forms",getAliasForms()),
+                        new KeyValueMemberName("Language",getAliasLanguage()),
+                        new KeyValueMemberName("DataBaseField",getAliasDataBaseField()),
+                        new KeyValueMemberName("Scope",getAliasScope())));
         return fields_;
     }
 

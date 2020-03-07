@@ -1,6 +1,7 @@
 package code.expressionlanguage.guicompos;
 
 import code.expressionlanguage.*;
+import code.expressionlanguage.errors.AnalysisMessages;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stds.LgNames;
@@ -28,8 +29,11 @@ public final class GuiContextEl extends RunnableContextEl {
     private GuiInitializer guiInit;
     private MainWindow window;
 
-    GuiContextEl(int _stackOverFlow, DefaultLockingClass _lock, GuiInitializer _init, Options _options, ExecutingOptions _exec, KeyWords _keyWords, LgNames _stds, int _tabWidth) {
-        super(_stackOverFlow, _lock, _init, _options, _exec, _keyWords, _stds, _tabWidth);
+    GuiContextEl(int _stackOverFlow, DefaultLockingClass _lock, GuiInitializer _init,
+                 Options _options, ExecutingOptions _exec,
+                 AnalysisMessages _mess,
+                 KeyWords _keyWords, LgNames _stds, int _tabWidth) {
+        super(_stackOverFlow, _lock, _init, _options, _exec, _mess,_keyWords, _stds, _tabWidth);
         guiInit = _init;
     }
 

@@ -4,6 +4,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.DefaultLockingClass;
 import code.expressionlanguage.EndCallValue;
 import code.expressionlanguage.Initializer;
+import code.expressionlanguage.errors.AnalysisMessages;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stds.LgNames;
@@ -24,8 +25,10 @@ public class RunnableContextEl extends ContextEl implements Locking {
     private String idDate;
 
     protected RunnableContextEl(int _stackOverFlow, DefaultLockingClass _lock,
-                      CustInitializer _init, Options _options, ExecutingOptions _exec, KeyWords _keyWords, LgNames _stds, int _tabWidth) {
-        super(_exec.isCovering(),_stackOverFlow, _lock, _options, _keyWords, _stds, _tabWidth);
+                      CustInitializer _init, Options _options, ExecutingOptions _exec,
+                                AnalysisMessages _mess,
+                                KeyWords _keyWords, LgNames _stds, int _tabWidth) {
+        super(_exec.isCovering(),_stackOverFlow, _lock, _options, _mess,_keyWords, _stds, _tabWidth);
         custInit = _init;
         executingOptions = _exec;
         interrupt = _exec.getInterrupt();
@@ -38,6 +41,7 @@ public class RunnableContextEl extends ContextEl implements Locking {
         setTabWidth(_context.getTabWidth());
         setStackOverFlow(_context.getStackOverFlow());
         setMemoryError(_context.getMemoryError());
+        setAnalysisMessages(_context.getAnalysisMessages());
         setKeyWords(_context.getKeyWords());
         setThrowing(_context.getThrowing());
         setCovering(_context.isCovering());

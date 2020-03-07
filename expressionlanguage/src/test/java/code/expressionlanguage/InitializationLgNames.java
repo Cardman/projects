@@ -1,6 +1,7 @@
 package code.expressionlanguage;
 
 import code.expressionlanguage.classes.CustLgNames;
+import code.expressionlanguage.errors.AnalysisMessages;
 import code.expressionlanguage.options.ContextFactory;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.KeyWordsMap;
@@ -42,17 +43,19 @@ public final class InitializationLgNames {
     public static ContextEl build(int _stack, LgNames _lgNames, Options _opt) {
         DefaultLockingClass lk_ = new DefaultLockingClass();
         DefaultInitializer di_ = new DefaultInitializer();
+        AnalysisMessages a_ = new AnalysisMessages();
         KeyWords kw_ = new KeyWords();
-        ContextEl out_ = ContextFactory.build(_stack,lk_, di_, _opt, kw_, _lgNames,4);
+        ContextEl out_ = ContextFactory.build(_stack,lk_, di_, _opt, a_, kw_, _lgNames,4);
         Assert.assertTrue(out_.getClasses().isEmptyStdError());
         return out_;
     }
     public static ContextEl buildToString(int _stack, LgNames _lgNames, Options _opt) {
         DefaultLockingClass lk_ = new DefaultLockingClass();
         DefaultInitializer di_ = new DefaultInitializer();
+        AnalysisMessages a_ = new AnalysisMessages();
         KeyWords kw_ = new KeyWords();
         kw_.setKeyWordToString("toSpecString");
-        ContextEl out_ = ContextFactory.build(_stack,lk_, di_, _opt, kw_, _lgNames,4);
+        ContextEl out_ = ContextFactory.build(_stack,lk_, di_, _opt, a_, kw_, _lgNames,4);
         Assert.assertTrue(out_.getClasses().isEmptyStdError());
         return out_;
     }
@@ -350,6 +353,7 @@ public final class InitializationLgNames {
 
     public static ContextEl buildDefKw(String _lang, DefaultLockingClass _lock, Initializer _init,
                                        Options _options, LgNames _undefinedLgNames, int _tabWidth) {
+        AnalysisMessages a_ = new AnalysisMessages();
         KeyWordsMap km_ = new KeyWordsMap();
         KeyWords kwl_ = km_.getKeyWords(_lang);
         if (StringList.quickEq(_lang, "en")) {
@@ -357,6 +361,6 @@ public final class InitializationLgNames {
         } else {
             km_.initFrStds(_undefinedLgNames);
         }
-        return ContextFactory.build(CustList.INDEX_NOT_FOUND_ELT,_lock, _init, _options, kwl_, _undefinedLgNames, _tabWidth);
+        return ContextFactory.build(CustList.INDEX_NOT_FOUND_ELT,_lock, _init, _options, a_,kwl_, _undefinedLgNames, _tabWidth);
     }
 }

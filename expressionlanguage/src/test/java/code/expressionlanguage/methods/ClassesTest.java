@@ -2,6 +2,7 @@ package code.expressionlanguage.methods;
 
 import code.expressionlanguage.*;
 import code.expressionlanguage.classes.CustLgNames;
+import code.expressionlanguage.errors.AnalysisMessages;
 import code.expressionlanguage.inherits.TypeUtil;
 import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.util.*;
@@ -72,15 +73,33 @@ public final class ClassesTest {
     public void failStd(){
         DefaultLockingClass lk_ = new DefaultLockingClass();
         DefaultInitializer di_ = new DefaultInitializer();
+        AnalysisMessages a_ = new AnalysisMessages();
         KeyWords kw_ = new KeyWords();
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
         lgName_.setAliasVoid("");
         Options opts_ = new Options();
-        ContextEl out_ = ContextFactory.build(-1,lk_, di_, opts_, kw_, lgName_,4);
-        ContextFactory.validateStds(out_,kw_,lgName_);
+        ContextEl out_ = ContextFactory.build(-1,lk_, di_, opts_, a_,kw_, lgName_,4);
+        ContextFactory.validateStds(out_,a_,kw_,lgName_);
         Classes.validateAll(new StringMap<String>(),out_);
         assertTrue(!out_.getClasses().isEmptyStdError());
+    }
+
+    @Test
+    public void failMessage(){
+        DefaultLockingClass lk_ = new DefaultLockingClass();
+        DefaultInitializer di_ = new DefaultInitializer();
+        AnalysisMessages a_ = new AnalysisMessages();
+        a_.setDefaultPkgNoMatch("");
+        KeyWords kw_ = new KeyWords();
+        LgNames lgName_ = new CustLgNames();
+        InitializationLgNames.basicStandards(lgName_);
+        lgName_.setAliasVoid("");
+        Options opts_ = new Options();
+        ContextEl out_ = ContextFactory.build(-1,lk_, di_, opts_, a_,kw_, lgName_,4);
+        ContextFactory.validateStds(out_,a_,kw_,lgName_);
+        Classes.validateAll(new StringMap<String>(),out_);
+        assertTrue(!out_.getClasses().isEmptyMessageError());
     }
     @Test
     public void resolve1Test() {

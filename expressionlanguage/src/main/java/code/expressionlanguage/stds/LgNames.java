@@ -1,6 +1,8 @@
 package code.expressionlanguage.stds;
 
 import code.expressionlanguage.*;
+import code.expressionlanguage.errors.AnalysisMessages;
+import code.expressionlanguage.errors.KeyValueMemberName;
 import code.expressionlanguage.errors.stds.ErrorCat;
 import code.expressionlanguage.errors.stds.StdWordError;
 import code.expressionlanguage.files.OffsetStringInfo;
@@ -193,38 +195,39 @@ public abstract class LgNames {
         }
         return arg_.toString();
     }
-    public StringList allPrimitives() {
-        StringList list_ = new StringList();
-        list_.add(primTypes.getAliasPrimBoolean());
-        list_.add(primTypes.getAliasPrimByte());
-        list_.add(primTypes.getAliasPrimShort());
-        list_.add(primTypes.getAliasPrimChar());
-        list_.add(primTypes.getAliasPrimInteger());
-        list_.add(primTypes.getAliasPrimLong());
-        list_.add(primTypes.getAliasPrimFloat());
-        list_.add(primTypes.getAliasPrimDouble());
-        list_.add(coreNames.getAliasVoid());
+    public StringMap<String> allPrimitives() {
+        StringMap<String> list_ = new StringMap<String>();
+        list_.addEntry("PrimBoolean",primTypes.getAliasPrimBoolean());
+        list_.addEntry("PrimByte",primTypes.getAliasPrimByte());
+        list_.addEntry("PrimShort",primTypes.getAliasPrimShort());
+        list_.addEntry("PrimChar",primTypes.getAliasPrimChar());
+        list_.addEntry("PrimInteger",primTypes.getAliasPrimInteger());
+        list_.addEntry("PrimLong",primTypes.getAliasPrimLong());
+        list_.addEntry("PrimFloat",primTypes.getAliasPrimFloat());
+        list_.addEntry("PrimDouble",primTypes.getAliasPrimDouble());
+        list_.addEntry("Void",coreNames.getAliasVoid());
         return list_;
     }
-    public void validatePrimitiveContents(ContextEl _cont, StringList _list) {
-        for (String k: _list) {
+    public void validatePrimitiveContents(ContextEl _cont, StringMap<String> _list) {
+        AnalysisMessages a_ = _cont.getAnalysisMessages();
+        for (String k: _list.values()) {
             if (k.isEmpty()) {
                 StdWordError err_ = new StdWordError();
-                err_.setMessage("empty word");
+                err_.setMessage(StringList.simpleStringsFormat(a_.getEmptyPrimitive(),k));
                 err_.setErrCat(ErrorCat.WRITE_PRIMITIVE_WORD);
                 _cont.getClasses().addStdError(err_);
                 continue;
             }
             if (_cont.getKeyWords().isKeyWord(k)) {
                 StdWordError err_ = new StdWordError();
-                err_.setMessage(StringList.concat("key word ", k));
+                err_.setMessage(StringList.simpleStringsFormat(a_.getPrimitiveKeyWord(),k));
                 err_.setErrCat(ErrorCat.WRITE_PRIMITIVE_WORD);
                 _cont.getClasses().addStdError(err_);
             }
             for (char c: k.toCharArray()) {
                 if (!StringList.isDollarWordChar(c)) {
                     StdWordError err_ = new StdWordError();
-                    err_.setMessage(StringList.concat("not word char ", Character.toString(c)));
+                    err_.setMessage(StringList.simpleStringsFormat(a_.getNotWordCharPrimitive(),k));
                     err_.setErrCat(ErrorCat.WRITE_PRIMITIVE_WORD);
                     _cont.getClasses().addStdError(err_);
                     break;
@@ -232,81 +235,86 @@ public abstract class LgNames {
             }
             if (ContextEl.isDigit(k.charAt(0))) {
                 StdWordError err_ = new StdWordError();
-                err_.setMessage(StringList.concat("digit ", Character.toString(k.charAt(0))));
+                err_.setMessage(StringList.simpleStringsFormat(a_.getDigitFirstPrimitive(),k));
                 err_.setErrCat(ErrorCat.WRITE_PRIMITIVE_WORD);
                 _cont.getClasses().addStdError(err_);
             }
         }
     }
-    public void validatePrimitiveDuplicates(ContextEl _cont, StringList _list) {
-        StringList keyWords_ = new StringList(_list);
+    public void validatePrimitiveDuplicates(ContextEl _cont, StringMap<String> _list) {
+        AnalysisMessages a_ = _cont.getAnalysisMessages();
+        StringList keyWords_ = new StringList(_list.values());
         int size_ = keyWords_.size();
         keyWords_.removeDuplicates();
         if (size_ != keyWords_.size()) {
-            StdWordError err_ = new StdWordError();
-            err_.setMessage(StringList.concat("duplicate key words ",_list.display()));
-            err_.setErrCat(ErrorCat.DUPLICATE_PRIMITIVE_WORD);
-            _cont.getClasses().addStdError(err_);
+            for (EntryCust<String,String> e: _list.entryList()) {
+                String v_ = e.getValue();
+                StdWordError err_ = new StdWordError();
+                err_.setMessage(StringList.simpleStringsFormat(a_.getDuplicatePrimtive(),v_,e.getKey()));
+                err_.setErrCat(ErrorCat.DUPLICATE_PRIMITIVE_WORD);
+                _cont.getClasses().addStdError(err_);
+            }
         }
     }
-    public StringList allRefTypes() {
-        StringList list_ = new StringList();
-        list_.add(getAliasAnnotated());
-        list_.add(getAliasAnnotationType());
-        list_.add(getAliasClassType());
-        list_.add(getAliasConstructor());
-        list_.add(getAliasFct());
-        list_.add(getAliasField());
-        list_.add(getAliasMethod());
-        list_.add(getAliasObjectsUtil());
-        list_.add(getAliasStringUtil());
-        list_.add(getAliasResources());
-        list_.add(getAliasClassNotFoundError());
-        list_.add(getAliasErrorInitClass());
-        list_.add(getAliasInvokeTarget());
-        list_.add(getAliasEnumType());
-        list_.add(getAliasIterable());
-        list_.add(getAliasIteratorType());
-        list_.add(getAliasEnumParam());
-        list_.add(getAliasEnums());
-        list_.add(getAliasIteratorTableType());
-        list_.add(getAliasIterableTable());
-        list_.add(getAliasPairType());
-        list_.add(getAliasMath());
-        list_.add(getAliasStackTraceElement());
-        list_.add(getAliasBadEncode());
-        list_.add(getAliasBadIndex());
-        list_.add(getAliasIllegalArg());
-        list_.add(getAliasDivisionZero());
-        list_.add(getAliasStore());
-        list_.add(getAliasCastType());
-        list_.add(getAliasBadSize());
-        list_.add(getAliasSof());
-        list_.add(getAliasReplacement());
-        list_.add(getAliasNullPe());
-        list_.add(getAliasNbFormat());
-        list_.add(getAliasBoolean());
-        list_.add(getAliasByte());
-        list_.add(getAliasCharSequence());
-        list_.add(getAliasCharacter());
-        list_.add(getAliasDouble());
-        list_.add(getAliasError());
-        list_.add(getAliasFloat());
-        list_.add(getAliasInteger());
-        list_.add(getAliasLong());
-        list_.add(getAliasNumber());
-        list_.add(getAliasObject());
-        list_.add(getAliasShort());
-        list_.add(getAliasString());
-        list_.add(getAliasStringBuilder());
+    public StringMap<String> allRefTypes() {
+        StringMap<String> list_ = new StringMap<String>();
+        list_.addEntry("Annotated",getAliasAnnotated());
+        list_.addEntry("AnnotationType",getAliasAnnotationType());
+        list_.addEntry("ClassType",getAliasClassType());
+        list_.addEntry("Constructor",getAliasConstructor());
+        list_.addEntry("Fct",getAliasFct());
+        list_.addEntry("Field",getAliasField());
+        list_.addEntry("Method",getAliasMethod());
+        list_.addEntry("ObjectsUtil",getAliasObjectsUtil());
+        list_.addEntry("StringUtil",getAliasStringUtil());
+        list_.addEntry("Resources",getAliasResources());
+        list_.addEntry("ClassNotFoundError",getAliasClassNotFoundError());
+        list_.addEntry("ErrorInitClass",getAliasErrorInitClass());
+        list_.addEntry("InvokeTarget",getAliasInvokeTarget());
+        list_.addEntry("EnumType",getAliasEnumType());
+        list_.addEntry("Iterable",getAliasIterable());
+        list_.addEntry("IteratorType",getAliasIteratorType());
+        list_.addEntry("EnumParam",getAliasEnumParam());
+        list_.addEntry("Enums",getAliasEnums());
+        list_.addEntry("IteratorTableType",getAliasIteratorTableType());
+        list_.addEntry("IterableTable",getAliasIterableTable());
+        list_.addEntry("PairType",getAliasPairType());
+        list_.addEntry("Math",getAliasMath());
+        list_.addEntry("StackTraceElement",getAliasStackTraceElement());
+        list_.addEntry("BadEncode",getAliasBadEncode());
+        list_.addEntry("BadIndex",getAliasBadIndex());
+        list_.addEntry("IllegalArg",getAliasIllegalArg());
+        list_.addEntry("DivisionZero",getAliasDivisionZero());
+        list_.addEntry("Store",getAliasStore());
+        list_.addEntry("CastType",getAliasCastType());
+        list_.addEntry("BadSize",getAliasBadSize());
+        list_.addEntry("Sof",getAliasSof());
+        list_.addEntry("Replacement",getAliasReplacement());
+        list_.addEntry("NullPe",getAliasNullPe());
+        list_.addEntry("NbFormat",getAliasNbFormat());
+        list_.addEntry("Boolean",getAliasBoolean());
+        list_.addEntry("Byte",getAliasByte());
+        list_.addEntry("CharSequence",getAliasCharSequence());
+        list_.addEntry("Character",getAliasCharacter());
+        list_.addEntry("Double",getAliasDouble());
+        list_.addEntry("Error",getAliasError());
+        list_.addEntry("Float",getAliasFloat());
+        list_.addEntry("Integer",getAliasInteger());
+        list_.addEntry("Long",getAliasLong());
+        list_.addEntry("Number",getAliasNumber());
+        list_.addEntry("Object",getAliasObject());
+        list_.addEntry("Short",getAliasShort());
+        list_.addEntry("String",getAliasString());
+        list_.addEntry("StringBuilder",getAliasStringBuilder());
         return list_;
     }
-    public void validateRefTypeContents(ContextEl _cont, StringList _list, StringList _prims) {
+    public void validateRefTypeContents(ContextEl _cont, StringMap<String> _list, StringMap<String> _prims) {
+        AnalysisMessages a_ = _cont.getAnalysisMessages();
         StringList allPkgs_ = new StringList();
-        for (String k: _list) {
+        for (String k: _list.values()) {
             if (k.isEmpty()) {
                 StdWordError err_ = new StdWordError();
-                err_.setMessage("empty word");
+                err_.setMessage(StringList.simpleStringsFormat(a_.getEmptyRefType(),k));
                 err_.setErrCat(ErrorCat.WRITE_TYPE_WORD);
                 _cont.getClasses().addStdError(err_);
                 continue;
@@ -314,27 +322,27 @@ public abstract class LgNames {
             for (String p : StringList.splitChars(k, '.')) {
                 if (p.isEmpty()) {
                     StdWordError err_ = new StdWordError();
-                    err_.setMessage("empty word");
+                    err_.setMessage(StringList.simpleStringsFormat(a_.getEmptyRefTypeIn(),k));
                     err_.setErrCat(ErrorCat.WRITE_TYPE_WORD);
                     _cont.getClasses().addStdError(err_);
                     continue;
                 }
-                if (StringList.contains(_prims, p)) {
+                if (StringList.contains(_prims.values(), p)) {
                     StdWordError err_ = new StdWordError();
-                    err_.setMessage(StringList.concat("primitive ", p));
+                    err_.setMessage(StringList.simpleStringsFormat(a_.getRefTypePrimitive(),k));
                     err_.setErrCat(ErrorCat.WRITE_TYPE_WORD);
                     _cont.getClasses().addStdError(err_);
                 }
                 if (_cont.getKeyWords().isKeyWord(p)) {
                     StdWordError err_ = new StdWordError();
-                    err_.setMessage(StringList.concat("key word ", p));
+                    err_.setMessage(StringList.simpleStringsFormat(a_.getRefTypeKeyWord(),k));
                     err_.setErrCat(ErrorCat.WRITE_TYPE_WORD);
                     _cont.getClasses().addStdError(err_);
                 }
                 for (char c: p.toCharArray()) {
                     if (!StringList.isDollarWordChar(c)) {
                         StdWordError err_ = new StdWordError();
-                        err_.setMessage(StringList.concat("not word char ", Character.toString(c)));
+                        err_.setMessage(StringList.simpleStringsFormat(a_.getNotWordCharRefType(),k));
                         err_.setErrCat(ErrorCat.WRITE_TYPE_WORD);
                         _cont.getClasses().addStdError(err_);
                         break;
@@ -342,7 +350,7 @@ public abstract class LgNames {
                 }
                 if (ContextEl.isDigit(p.charAt(0))) {
                     StdWordError err_ = new StdWordError();
-                    err_.setMessage(StringList.concat("digit ", Character.toString(k.charAt(0))));
+                    err_.setMessage(StringList.simpleStringsFormat(a_.getDigitFirstRefType(),k));
                     err_.setErrCat(ErrorCat.WRITE_TYPE_WORD);
                     _cont.getClasses().addStdError(err_);
                 }
@@ -350,7 +358,7 @@ public abstract class LgNames {
             String pkg_ = StandardType.getPackagePart(k);
             if (pkg_.isEmpty()) {
                 StdWordError err_ = new StdWordError();
-                err_.setMessage("empty package");
+                err_.setMessage(StringList.simpleStringsFormat(a_.getEmptyPkgRefType(),k));
                 err_.setErrCat(ErrorCat.WRITE_TYPE_WORD);
                 _cont.getClasses().addStdError(err_);
             }
@@ -365,655 +373,691 @@ public abstract class LgNames {
         if (!exNonEmpty_) {
             //ERROR
             StdWordError err_ = new StdWordError();
-            err_.setMessage("empty word");
+            err_.setMessage(StringList.simpleStringsFormat(a_.getDefaultPkgNoMatch()));
             err_.setErrCat(ErrorCat.WRITE_TYPE_WORD);
             _cont.getClasses().addStdError(err_);
         }
-        for (String k: _list) {
+        for (String k: _list.values()) {
             if (defaultPkg.contains(k)) {
                 StdWordError err_ = new StdWordError();
-                err_.setMessage("containing package");
+                err_.setMessage(StringList.simpleStringsFormat(a_.getDefaultPkgRefType()));
                 err_.setErrCat(ErrorCat.WRITE_TYPE_WORD);
                 _cont.getClasses().addStdError(err_);
             }
         }
     }
-    public void validateRefTypeDuplicates(ContextEl _cont, StringList _list) {
-        StringList keyWords_ = new StringList(_list);
+    public void validateRefTypeDuplicates(ContextEl _cont, StringMap<String> _list) {
+        AnalysisMessages a_ = _cont.getAnalysisMessages();
+        StringList keyWords_ = new StringList(_list.values());
         int size_ = keyWords_.size();
         keyWords_.removeDuplicates();
         if (size_ != keyWords_.size()) {
-            StdWordError err_ = new StdWordError();
-            err_.setMessage(StringList.concat("duplicate key words ",_list.display()));
-            err_.setErrCat(ErrorCat.DUPLICATE_TYPE_WORD);
-            _cont.getClasses().addStdError(err_);
+            for (EntryCust<String,String> e: _list.entryList()) {
+                String v_ = e.getValue();
+                StdWordError err_ = new StdWordError();
+                err_.setMessage(StringList.simpleStringsFormat(a_.getDuplicateRefType(),v_));
+                err_.setErrCat(ErrorCat.DUPLICATE_TYPE_WORD);
+                _cont.getClasses().addStdError(err_);
+            }
         }
     }
-    public CustList<StringList> allMergeTableTypeMethodNames() {
-        CustList<StringList> list_ = new CustList<StringList>();
-        list_.add(new StringList(
-                getAliasIterator(),
-                getAliasHasNext(),
-                getAliasNext(),
-                getAliasIteratorTable(),
-                getAliasHasNextPair(),
-                getAliasNextPair(),
-                getAliasGetFirst(),
-                getAliasGetSecond(),
-                getAliasEnumOrdinal(),
-                getAliasEnumName()
+    public CustList<CustList<KeyValueMemberName>> allMergeTableTypeMethodNames() {
+        CustList<CustList<KeyValueMemberName>> list_ = new CustList<CustList<KeyValueMemberName>>();
+        list_.add(new CustList<KeyValueMemberName>(
+                new KeyValueMemberName("Iterator",getAliasIterator()),
+                new KeyValueMemberName("HasNext",getAliasHasNext()),
+                new KeyValueMemberName("Next",getAliasNext()),
+                new KeyValueMemberName("IteratorTable",getAliasIteratorTable()),
+                new KeyValueMemberName("HasNextPair",getAliasHasNextPair()),
+                new KeyValueMemberName("NextPair",getAliasNextPair()),
+                new KeyValueMemberName("GetFirst",getAliasGetFirst()),
+                new KeyValueMemberName("GetSecond",getAliasGetSecond()),
+                new KeyValueMemberName("EnumOrdinal",getAliasEnumOrdinal()),
+                new KeyValueMemberName("EnumName",getAliasEnumName())
         ));
         return list_;
     }
-    public StringMap<StringList> allTableTypeMethodNames() {
-        StringMap<StringList> map_ = new StringMap<StringList>();
-        map_.put(getAliasError(), new StringList(
-                getAliasCurrentStack(),
-                getAliasToStringMethod(),
-                getAliasGetMessage(),
-                getAliasGetCause()));
-        map_.put(getAliasAnnotated(), new StringList(
-                getAliasGetFileName(),
-                getAliasGetAnnotations(),
-                getAliasGetAnnotationsParameters()));
-        map_.put(getAliasAnnotationType(), new StringList(getAliasGetString()));
-        map_.put(getAliasClassType(), new StringList(
-                getAliasGetAnnotations(),
-                getAliasGetAnnotationsParameters(),
-                getAliasDefaultInstance(),
-                getAliasEnumValueOf(),
-                getAliasForName(),
-                getAliasArrayGet(),
-                getAliasGetActualTypeArguments(),
-                getAliasGetAllClasses(),
-                getAliasGetBounds(),
-                getAliasGetClass(),
-                getAliasGetComponentType(),
-                getAliasGetDeclaredClasses(),
-                getAliasGetDeclaredConstructors(),
-                getAliasGetDeclaredFields(),
-                getAliasGetDeclaredMethods(),
-                getAliasGetDeclaredStaticMethods(),
-                getAliasGetEnclosingType(),
-                getAliasGetEnumConstants(),
-                getAliasGetGenericBounds(),
-                getAliasGetGenericInterfaces(),
-                getAliasGetGenericSuperClass(),
-                getAliasGetGenericVariableOwner(),
-                getAliasGetInterfaces(),
-                getAliasArrayGetLength(),
-                getAliasGetLowerBounds(),
-                getAliasGetFileName(),
-                getAliasGetName(),
-                getAliasGetOperators(),
-                getAliasGetPrettyName(),
-                getAliasGetSuperClass(),
-                getAliasGetTypeParameters(),
-                getAliasGetUpperBounds(),
-                getAliasGetVariableOwner(),
-                getAliasInit(),
-                getAliasIsAbstract(),
-                getAliasIsAnnotation(),
-                getAliasIsArray(),
-                getAliasIsAssignableFrom(),
-                getAliasIsClass(),
-                getAliasIsEnum(),
-                getAliasIsFinal(),
-                getAliasIsTypeVariable(),
-                getAliasIsVariable(),
-                getAliasIsInstance(),
-                getAliasIsInterface(),
-                getAliasIsPackage(),
-                getAliasIsPrimitive(),
-                getAliasIsPrivate(),
-                getAliasIsProtected(),
-                getAliasIsPublic(),
-                getAliasIsStatic(),
-                getAliasIsWildCard(),
-                getAliasMakeArray(),
-                getAliasMakeGeneric(),
-                getAliasMakeWildCard(),
-                getAliasArrayNewInstance(),
-                getAliasArraySet()));
-        map_.put(getAliasConstructor(), new StringList(
-                getAliasGetAnnotations(),
-                getAliasGetAnnotationsParameters(),
-                getAliasGetDeclaringClass(),
-                getAliasGetGenericReturnType(),
-                getAliasGetFileName(),
-                getAliasGetName(),
-                getAliasGetParameterNames(),
-                getAliasGetParameterTypes(),
-                getAliasGetReturnType(),
-                getAliasIsPackage(),
-                getAliasIsPrivate(),
-                getAliasIsProtected(),
-                getAliasIsPublic(),
-                getAliasIsVarargs(),
-                getAliasNewInstance()));
-        map_.put(getAliasFct(), new StringList(getAliasCall()));
-        map_.put(getAliasField(), new StringList(
-                getAliasGetAnnotations(),
-                getAliasGetAnnotationsParameters(),
-                getAliasArrayGet(),
-                getAliasGetDeclaringClass(),
-                getAliasGetGenericType(),
-                getAliasGetFileName(),
-                getAliasGetName(),
-                getAliasGetType(),
-                getAliasIsFinal(),
-                getAliasIsPackage(),
-                getAliasIsPrivate(),
-                getAliasIsProtected(),
-                getAliasIsPublic(),
-                getAliasIsStatic(),
-                getAliasSetField()));
-        map_.put(getAliasMethod(), new StringList(
-                getAliasGetAnnotations(),
-                getAliasGetAnnotationsParameters(),
-                getAliasGetDeclaringClass(),
-                getAliasGetDefaultValue(),
-                getAliasGetGenericReturnType(),
-                getAliasGetFileName(),
-                getAliasGetName(),
-                getAliasGetParameterNames(),
-                getAliasGetParameterTypes(),
-                getAliasGetReturnType(),
-                getAliasInvoke(),
-                getAliasInvokeDirect(),
-                getAliasIsAbstract(),
-                getAliasIsFinal(),
-                getAliasIsNormal(),
-                getAliasIsPackage(),
-                getAliasIsPrivate(),
-                getAliasIsProtected(),
-                getAliasIsPublic(),
-                getAliasIsStatic(),
-                getAliasIsStaticCall(),
-                getAliasIsInstanceMethod(),
-                getAliasIsVarargs()));
-        map_.put(getAliasObjectsUtil(), new StringList(
-                getAliasSameRef(),
-                getAliasGetParent(),
-                getAliasSetParent()));
-        map_.put(getAliasStringUtil(), new StringList(
-                getAliasValueOfMethod()));
-        map_.put(getAliasResources(), new StringList(
-                getAliasReadResourcesNames(),
-                getAliasReadResources()));
-        map_.put(getAliasEnumType(), new StringList(
-                getAliasEnumName(),
-                getAliasEnumOrdinal(),
-                getAliasEnumPredValueOf(),
-                getAliasEnumValues()));
-        map_.put(getAliasEnums(), new StringList(
-                getAliasName(),
-                getAliasOrdinal()));
-        map_.put(getAliasIterable(), new StringList(
-                getAliasIterator()));
-        map_.put(getAliasIteratorType(), new StringList(
-                getAliasHasNext(),
-                getAliasNext()));
-        map_.put(getAliasIterableTable(), new StringList(
-                getAliasIteratorTable()));
-        map_.put(getAliasIteratorTableType(), new StringList(
-                getAliasHasNextPair(),
-                getAliasNextPair()));
-        map_.put(getAliasPairType(), new StringList(
-                getAliasGetFirst(),
-                getAliasGetSecond()));
-        map_.put(getAliasStackTraceElement(), new StringList(
-                getAliasCurrentStack(),
-                getAliasCurrentFullStack(),
-                getAliasToStringMethod()));
-        map_.put(getAliasMath(), new StringList(
-                getAliasAbs(),
-                getAliasMod(),
-                getAliasQuot(),
-                getAliasBinMod(),
-                getAliasBinQuot(),
-                getAliasPlus(),
-                getAliasMinus(),
-                getAliasMult(),
-                getAliasNegBin(),
-                getAliasNeg(),
-                getAliasAnd(),
-                getAliasOr(),
-                getAliasXor(),
-                getAliasLe(),
-                getAliasGe(),
-                getAliasLt(),
-                getAliasGt(),
-                getAliasShiftLeft(),
-                getAliasShiftRight(),
-                getAliasBitShiftLeft(),
-                getAliasBitShiftRight(),
-                getAliasRotateLeft(),
-                getAliasRotateRight(),
-                getAliasRandom()));
-        map_.put(getAliasReplacement(), new StringList(
-                getAliasGetNewString(),
-                getAliasGetOldString()));
-        map_.put(getAliasBoolean(), new StringList(
-                getAliasBooleanValue(),
-                getAliasCompare(),
-                getAliasCompareTo(),
-                getAliasEquals(),
-                getAliasParseBoolean(),
-                getAliasToStringMethod(),
-                getAliasValueOfMethod()));
-        map_.put(getAliasByte(), new StringList(
-                getAliasByteValue(),
-                getAliasCompare(),
-                getAliasCompareTo(),
-                getAliasDoubleValue(),
-                getAliasEquals(),
-                getAliasFloatValue(),
-                getAliasIntValue(),
-                getAliasLongValue(),
-                getAliasParseByte(),
-                getAliasParseByteOrNull(),
-                getAliasShortValue(),
-                getAliasToStringMethod()));
-        map_.put(getAliasCharSequence(), new StringList(
-                getAliasCharAt(),
-                getAliasEquals(),
-                getAliasCompareTo(),
-                getAliasContains(),
-                getAliasEndsWith(),
-                getAliasFormat(),
-                getAliasGetBytes(),
-                getAliasIndexOf(),
-                getAliasIsEmpty(),
-                getAliasLastIndexOf(),
-                getAliasLength(),
-                getAliasRegionMatches(),
-                getAliasReplace(),
-                getAliasSplit(),
-                getAliasSplitChars(),
-                getAliasSplitStrings(),
-                getAliasStartsWith(),
-                getAliasSubSequence(),
-                getAliasSubstring(),
-                getAliasToCharArray(),
-                getAliasToStringMethod(),
-                getAliasTrim()));
-        map_.put(getAliasCharacter(), new StringList(
-                getAliasByteValue(),
-                getAliasDoubleValue(),
-                getAliasEquals(),
-                getAliasFloatValue(),
-                getAliasIntValue(),
-                getAliasLongValue(),
-                getAliasParseInt(),
-                getAliasParseIntOrNull(),
-                getAliasShortValue(),
-                getAliasCharAt(),
-                getAliasCharValue(),
-                getAliasCompare(),
-                getAliasCompareTo(),
-                getAliasDigit(),
-                getAliasForDigit(),
-                getAliasGetCharType(),
-                getAliasIsDigit(),
-                getAliasGetDirectionality(),
-                getAliasIsLetter(),
-                getAliasIsLetterOrDigit(),
-                getAliasIsLowerCase(),
-                getAliasIsSpace(),
-                getAliasIsUpperCase(),
-                getAliasIsWhitespace(),
-                getAliasIsWordChar(),
-                getAliasLength(),
-                getAliasSubSequence(),
-                getAliasToLowerCase(),
-                getAliasToStringMethod(),
-                getAliasToUpperCase()));
-        map_.put(getAliasDouble(), new StringList(
-                getAliasByteValue(),
-                getAliasCompare(),
-                getAliasCompareTo(),
-                getAliasDoubleValue(),
-                getAliasEquals(),
-                getAliasFloatValue(),
-                getAliasIntValue(),
-                getAliasIsInfinite(),
-                getAliasIsNan(),
-                getAliasLongValue(),
-                getAliasParseDouble(),
-                getAliasParseDoubleOrNull(),
-                getAliasShortValue(),
-                getAliasToStringMethod()));
-        map_.put(getAliasFloat(), new StringList(
-                getAliasByteValue(),
-                getAliasCompare(),
-                getAliasCompareTo(),
-                getAliasDoubleValue(),
-                getAliasEquals(),
-                getAliasFloatValue(),
-                getAliasIntValue(),
-                getAliasIsInfinite(),
-                getAliasIsNan(),
-                getAliasLongValue(),
-                getAliasParseFloat(),
-                getAliasParseFloatOrNull(),
-                getAliasShortValue(),
-                getAliasToStringMethod()));
-        map_.put(getAliasInteger(), new StringList(
-                getAliasByteValue(),
-                getAliasCompare(),
-                getAliasCompareTo(),
-                getAliasDoubleValue(),
-                getAliasEquals(),
-                getAliasFloatValue(),
-                getAliasIntValue(),
-                getAliasLongValue(),
-                getAliasParseInt(),
-                getAliasParseIntOrNull(),
-                getAliasShortValue(),
-                getAliasToStringMethod()));
-        map_.put(getAliasLong(), new StringList(
-                getAliasByteValue(),
-                getAliasCompare(),
-                getAliasCompareTo(),
-                getAliasDoubleValue(),
-                getAliasEquals(),
-                getAliasFloatValue(),
-                getAliasIntValue(),
-                getAliasLongValue(),
-                getAliasParseLong(),
-                getAliasParseLongOrNull(),
-                getAliasShortValue(),
-                getAliasToStringMethod()));
-        map_.put(getAliasNumber(), new StringList(
-                getAliasByteValue(),
-                getAliasCompare(),
-                getAliasCompareTo(),
-                getAliasDoubleValue(),
-                getAliasEquals(),
-                getAliasFloatValue(),
-                getAliasIntValue(),
-                getAliasLongValue(),
-                getAliasShortValue(),
-                getAliasToStringMethod()));
-        map_.put(getAliasShort(), new StringList(
-                getAliasByteValue(),
-                getAliasCompare(),
-                getAliasCompareTo(),
-                getAliasDoubleValue(),
-                getAliasEquals(),
-                getAliasFloatValue(),
-                getAliasIntValue(),
-                getAliasLongValue(),
-                getAliasParseShort(),
-                getAliasParseShortOrNull(),
-                getAliasShortValue(),
-                getAliasToStringMethod()));
-        map_.put(getAliasString(), new StringList(
-                getAliasEquals(),
-                getAliasCompareTo(),
-                getAliasCharAt(),
-                getAliasCompare(),
-                getAliasCompareToIgnoreCase(),
-                getAliasContains(),
-                getAliasEndsWith(),
-                getAliasEqualsIgnoreCase(),
-                getAliasFormat(),
-                getAliasGetBytes(),
-                getAliasIndexOf(),
-                getAliasIsEmpty(),
-                getAliasLastIndexOf(),
-                getAliasLength(),
-                getAliasRegionMatches(),
-                getAliasReplace(),
-                getAliasReplaceMultiple(),
-                getAliasSplit(),
-                getAliasSplitChars(),
-                getAliasSplitStrings(),
-                getAliasStartsWith(),
-                getAliasSubSequence(),
-                getAliasSubstring(),
-                getAliasToCharArray(),
-                getAliasToLowerCase(),
-                getAliasToUpperCase(),
-                getAliasToStringMethod(),
-                getAliasTrim(),
-                getAliasValueOfMethod()));
-        map_.put(getAliasStringBuilder(), new StringList(
-                getAliasEquals(),
-                getAliasCompareTo(),
-                getAliasCharAt(),
-                getAliasContains(),
-                getAliasEndsWith(),
-                getAliasFormat(),
-                getAliasGetBytes(),
-                getAliasIndexOf(),
-                getAliasIsEmpty(),
-                getAliasLastIndexOf(),
-                getAliasLength(),
-                getAliasRegionMatches(),
-                getAliasReplace(),
-                getAliasSplit(),
-                getAliasSplitChars(),
-                getAliasSplitStrings(),
-                getAliasStartsWith(),
-                getAliasSubSequence(),
-                getAliasSubstring(),
-                getAliasToCharArray(),
-                getAliasToStringMethod(),
-                getAliasTrim(),
-                getAliasAppend(),
-                getAliasCapacity(),
-                getAliasClear(),
-                getAliasDelete(),
-                getAliasDeleteCharAt(),
-                getAliasEnsureCapacity(),
-                getAliasInsert(),
-                getAliasReverse(),
-                getAliasSetCharAt(),
-                getAliasSetLength(),
-                getAliasSame(),
-                getAliasTrimToSize()));
+    public StringMap<CustList<KeyValueMemberName>> allTableTypeMethodNames() {
+        StringMap<CustList<KeyValueMemberName>> map_ = new StringMap<CustList<KeyValueMemberName>>();
+        map_.put(getAliasError(), new CustList<KeyValueMemberName>(
+                new KeyValueMemberName("CurrentStack",getAliasCurrentStack()),
+                new KeyValueMemberName("ToStringMethod",getAliasToStringMethod()),
+                new KeyValueMemberName("GetMessage",getAliasGetMessage()),
+                new KeyValueMemberName("GetCause",getAliasGetCause())));
+        map_.put(getAliasAnnotated(), new CustList<KeyValueMemberName>(
+                new KeyValueMemberName("GetFileName",getAliasGetFileName()),
+                new KeyValueMemberName("GetAnnotations",getAliasGetAnnotations()),
+                new KeyValueMemberName("GetAnnotationsParameters",getAliasGetAnnotationsParameters())));
+        map_.put(getAliasAnnotationType(), new CustList<KeyValueMemberName>(
+                new KeyValueMemberName("GetString",getAliasGetString())));
+        map_.put(getAliasClassType(), new CustList<KeyValueMemberName>(
+                new KeyValueMemberName("GetAnnotations",getAliasGetAnnotations()),
+                new KeyValueMemberName("GetAnnotationsParameters",getAliasGetAnnotationsParameters()),
+                new KeyValueMemberName("DefaultInstance",getAliasDefaultInstance()),
+                new KeyValueMemberName("EnumValueOf",getAliasEnumValueOf()),
+                new KeyValueMemberName("ForName",getAliasForName()),
+                new KeyValueMemberName("ArrayGet",getAliasArrayGet()),
+                new KeyValueMemberName("GetActualTypeArguments",getAliasGetActualTypeArguments()),
+                new KeyValueMemberName("GetAllClasses",getAliasGetAllClasses()),
+                new KeyValueMemberName("GetBounds",getAliasGetBounds()),
+                new KeyValueMemberName("GetClass",getAliasGetClass()),
+                new KeyValueMemberName("GetComponentType",getAliasGetComponentType()),
+                new KeyValueMemberName("GetDeclaredClasses",getAliasGetDeclaredClasses()),
+                new KeyValueMemberName("GetDeclaredConstructors",getAliasGetDeclaredConstructors()),
+                new KeyValueMemberName("GetDeclaredFields",getAliasGetDeclaredFields()),
+                new KeyValueMemberName("GetDeclaredMethods",getAliasGetDeclaredMethods()),
+                new KeyValueMemberName("GetDeclaredStaticMethods",getAliasGetDeclaredStaticMethods()),
+                new KeyValueMemberName("GetEnclosingType",getAliasGetEnclosingType()),
+                new KeyValueMemberName("GetEnumConstants",getAliasGetEnumConstants()),
+                new KeyValueMemberName("GetGenericBounds",getAliasGetGenericBounds()),
+                new KeyValueMemberName("GetGenericInterfaces",getAliasGetGenericInterfaces()),
+                new KeyValueMemberName("GetGenericSuperClass",getAliasGetGenericSuperClass()),
+                new KeyValueMemberName("GetGenericVariableOwner",getAliasGetGenericVariableOwner()),
+                new KeyValueMemberName("GetInterfaces",getAliasGetInterfaces()),
+                new KeyValueMemberName("ArrayGetLength",getAliasArrayGetLength()),
+                new KeyValueMemberName("GetLowerBounds",getAliasGetLowerBounds()),
+                new KeyValueMemberName("GetFileName",getAliasGetFileName()),
+                new KeyValueMemberName("GetName",getAliasGetName()),
+                new KeyValueMemberName("GetOperators",getAliasGetOperators()),
+                new KeyValueMemberName("GetPrettyName",getAliasGetPrettyName()),
+                new KeyValueMemberName("GetSuperClass",getAliasGetSuperClass()),
+                new KeyValueMemberName("GetTypeParameters",getAliasGetTypeParameters()),
+                new KeyValueMemberName("GetUpperBounds",getAliasGetUpperBounds()),
+                new KeyValueMemberName("GetVariableOwner",getAliasGetVariableOwner()),
+                new KeyValueMemberName("Init",getAliasInit()),
+                new KeyValueMemberName("IsAbstract",getAliasIsAbstract()),
+                new KeyValueMemberName("IsAnnotation",getAliasIsAnnotation()),
+                new KeyValueMemberName("IsArray",getAliasIsArray()),
+                new KeyValueMemberName("IsAssignableFrom",getAliasIsAssignableFrom()),
+                new KeyValueMemberName("IsClass",getAliasIsClass()),
+                new KeyValueMemberName("IsEnum",getAliasIsEnum()),
+                new KeyValueMemberName("IsFinal",getAliasIsFinal()),
+                new KeyValueMemberName("IsTypeVariable",getAliasIsTypeVariable()),
+                new KeyValueMemberName("IsVariable",getAliasIsVariable()),
+                new KeyValueMemberName("IsInstance",getAliasIsInstance()),
+                new KeyValueMemberName("IsInterface",getAliasIsInterface()),
+                new KeyValueMemberName("IsPackage",getAliasIsPackage()),
+                new KeyValueMemberName("IsPrimitive",getAliasIsPrimitive()),
+                new KeyValueMemberName("IsPrivate",getAliasIsPrivate()),
+                new KeyValueMemberName("IsProtected",getAliasIsProtected()),
+                new KeyValueMemberName("IsPublic",getAliasIsPublic()),
+                new KeyValueMemberName("IsStatic",getAliasIsStatic()),
+                new KeyValueMemberName("IsWildCard",getAliasIsWildCard()),
+                new KeyValueMemberName("MakeArray",getAliasMakeArray()),
+                new KeyValueMemberName("MakeGeneric",getAliasMakeGeneric()),
+                new KeyValueMemberName("MakeWildCard",getAliasMakeWildCard()),
+                new KeyValueMemberName("ArrayNewInstance",getAliasArrayNewInstance()),
+                new KeyValueMemberName("ArraySet",getAliasArraySet())));
+        map_.put(getAliasConstructor(), new CustList<KeyValueMemberName>(
+                new KeyValueMemberName("GetAnnotations",getAliasGetAnnotations()),
+                new KeyValueMemberName("GetAnnotationsParameters",getAliasGetAnnotationsParameters()),
+                new KeyValueMemberName("GetDeclaringClass",getAliasGetDeclaringClass()),
+                new KeyValueMemberName("GetGenericReturnType",getAliasGetGenericReturnType()),
+                new KeyValueMemberName("GetFileName",getAliasGetFileName()),
+                new KeyValueMemberName("GetName",getAliasGetName()),
+                new KeyValueMemberName("GetParameterNames",getAliasGetParameterNames()),
+                new KeyValueMemberName("GetParameterTypes",getAliasGetParameterTypes()),
+                new KeyValueMemberName("GetReturnType",getAliasGetReturnType()),
+                new KeyValueMemberName("IsPackage",getAliasIsPackage()),
+                new KeyValueMemberName("IsPrivate",getAliasIsPrivate()),
+                new KeyValueMemberName("IsProtected",getAliasIsProtected()),
+                new KeyValueMemberName("IsPublic",getAliasIsPublic()),
+                new KeyValueMemberName("IsVarargs",getAliasIsVarargs()),
+                new KeyValueMemberName("NewInstance",getAliasNewInstance())));
+        map_.put(getAliasFct(), new CustList<KeyValueMemberName>(
+                new KeyValueMemberName("Call",getAliasCall())));
+        map_.put(getAliasField(), new CustList<KeyValueMemberName>(
+                new KeyValueMemberName("GetAnnotations",getAliasGetAnnotations()),
+                new KeyValueMemberName("GetAnnotationsParameters",getAliasGetAnnotationsParameters()),
+                new KeyValueMemberName("ArrayGet",getAliasArrayGet()),
+                new KeyValueMemberName("GetDeclaringClass",getAliasGetDeclaringClass()),
+                new KeyValueMemberName("GetGenericType",getAliasGetGenericType()),
+                new KeyValueMemberName("GetFileName",getAliasGetFileName()),
+                new KeyValueMemberName("GetName",getAliasGetName()),
+                new KeyValueMemberName("GetType",getAliasGetType()),
+                new KeyValueMemberName("IsFinal",getAliasIsFinal()),
+                new KeyValueMemberName("IsPackage",getAliasIsPackage()),
+                new KeyValueMemberName("IsPrivate",getAliasIsPrivate()),
+                new KeyValueMemberName("IsProtected",getAliasIsProtected()),
+                new KeyValueMemberName("IsPublic",getAliasIsPublic()),
+                new KeyValueMemberName("IsStatic",getAliasIsStatic()),
+                new KeyValueMemberName("SetField",getAliasSetField())));
+        map_.put(getAliasMethod(), new CustList<KeyValueMemberName>(
+                new KeyValueMemberName("GetAnnotations",getAliasGetAnnotations()),
+                new KeyValueMemberName("GetAnnotationsParameters",getAliasGetAnnotationsParameters()),
+                new KeyValueMemberName("GetDeclaringClass",getAliasGetDeclaringClass()),
+                new KeyValueMemberName("GetDefaultValue",getAliasGetDefaultValue()),
+                new KeyValueMemberName("GetGenericReturnType",getAliasGetGenericReturnType()),
+                new KeyValueMemberName("GetFileName",getAliasGetFileName()),
+                new KeyValueMemberName("GetName",getAliasGetName()),
+                new KeyValueMemberName("GetParameterNames",getAliasGetParameterNames()),
+                new KeyValueMemberName("GetParameterTypes",getAliasGetParameterTypes()),
+                new KeyValueMemberName("GetReturnType",getAliasGetReturnType()),
+                new KeyValueMemberName("Invoke",getAliasInvoke()),
+                new KeyValueMemberName("InvokeDirect",getAliasInvokeDirect()),
+                new KeyValueMemberName("IsAbstract",getAliasIsAbstract()),
+                new KeyValueMemberName("IsFinal",getAliasIsFinal()),
+                new KeyValueMemberName("IsNormal",getAliasIsNormal()),
+                new KeyValueMemberName("IsPackage",getAliasIsPackage()),
+                new KeyValueMemberName("IsPrivate",getAliasIsPrivate()),
+                new KeyValueMemberName("IsProtected",getAliasIsProtected()),
+                new KeyValueMemberName("IsPublic",getAliasIsPublic()),
+                new KeyValueMemberName("IsStatic",getAliasIsStatic()),
+                new KeyValueMemberName("IsStaticCall",getAliasIsStaticCall()),
+                new KeyValueMemberName("IsInstanceMethod",getAliasIsInstanceMethod()),
+                new KeyValueMemberName("IsVarargs",getAliasIsVarargs())));
+        map_.put(getAliasObjectsUtil(), new CustList<KeyValueMemberName>(
+                new KeyValueMemberName("SameRef",getAliasSameRef()),
+                new KeyValueMemberName("GetParent",getAliasGetParent()),
+                new KeyValueMemberName("SetParent",getAliasSetParent())));
+        map_.put(getAliasStringUtil(), new CustList<KeyValueMemberName>(
+                new KeyValueMemberName("ValueOfMethod",getAliasValueOfMethod())));
+        map_.put(getAliasResources(), new CustList<KeyValueMemberName>(
+                new KeyValueMemberName("ReadResourcesNames",getAliasReadResourcesNames()),
+                new KeyValueMemberName("ReadResources",getAliasReadResources())));
+        map_.put(getAliasEnumType(), new CustList<KeyValueMemberName>(
+                new KeyValueMemberName("EnumName",getAliasEnumName()),
+                new KeyValueMemberName("EnumOrdinal",getAliasEnumOrdinal()),
+                new KeyValueMemberName("EnumPredValueOf",getAliasEnumPredValueOf()),
+                new KeyValueMemberName("EnumValues",getAliasEnumValues())));
+        map_.put(getAliasEnums(), new CustList<KeyValueMemberName>(
+                new KeyValueMemberName("Name",getAliasName()),
+                new KeyValueMemberName("Ordinal",getAliasOrdinal())));
+        map_.put(getAliasIterable(), new CustList<KeyValueMemberName>(
+                new KeyValueMemberName("Iterator",getAliasIterator())));
+        map_.put(getAliasIteratorType(), new CustList<KeyValueMemberName>(
+                new KeyValueMemberName("HasNext",getAliasHasNext()),
+                new KeyValueMemberName("Next",getAliasNext())));
+        map_.put(getAliasIterableTable(), new CustList<KeyValueMemberName>(
+                new KeyValueMemberName("IteratorTable",getAliasIteratorTable())));
+        map_.put(getAliasIteratorTableType(), new CustList<KeyValueMemberName>(
+                new KeyValueMemberName("HasNextPair",getAliasHasNextPair()),
+                new KeyValueMemberName("NextPair",getAliasNextPair())));
+        map_.put(getAliasPairType(), new CustList<KeyValueMemberName>(
+                new KeyValueMemberName("GetFirst",getAliasGetFirst()),
+                new KeyValueMemberName("GetSecond",getAliasGetSecond())));
+        map_.put(getAliasStackTraceElement(), new CustList<KeyValueMemberName>(
+                new KeyValueMemberName("CurrentStack",getAliasCurrentStack()),
+                new KeyValueMemberName("CurrentFullStack",getAliasCurrentFullStack()),
+                new KeyValueMemberName("ToStringMethod",getAliasToStringMethod())));
+        map_.put(getAliasMath(), new CustList<KeyValueMemberName>(
+                new KeyValueMemberName("Abs",getAliasAbs()),
+                new KeyValueMemberName("Mod",getAliasMod()),
+                new KeyValueMemberName("Quot",getAliasQuot()),
+                new KeyValueMemberName("BinMod",getAliasBinMod()),
+                new KeyValueMemberName("BinQuot",getAliasBinQuot()),
+                new KeyValueMemberName("Plus",getAliasPlus()),
+                new KeyValueMemberName("Minus",getAliasMinus()),
+                new KeyValueMemberName("Mult",getAliasMult()),
+                new KeyValueMemberName("NegBin",getAliasNegBin()),
+                new KeyValueMemberName("Neg",getAliasNeg()),
+                new KeyValueMemberName("And",getAliasAnd()),
+                new KeyValueMemberName("Or",getAliasOr()),
+                new KeyValueMemberName("Xor",getAliasXor()),
+                new KeyValueMemberName("Le",getAliasLe()),
+                new KeyValueMemberName("Ge",getAliasGe()),
+                new KeyValueMemberName("Lt",getAliasLt()),
+                new KeyValueMemberName("Gt",getAliasGt()),
+                new KeyValueMemberName("ShiftLeft",getAliasShiftLeft()),
+                new KeyValueMemberName("ShiftRight",getAliasShiftRight()),
+                new KeyValueMemberName("BitShiftLeft",getAliasBitShiftLeft()),
+                new KeyValueMemberName("BitShiftRight",getAliasBitShiftRight()),
+                new KeyValueMemberName("RotateLeft",getAliasRotateLeft()),
+                new KeyValueMemberName("RotateRight",getAliasRotateRight()),
+                new KeyValueMemberName("Random",getAliasRandom())));
+        map_.put(getAliasReplacement(), new CustList<KeyValueMemberName>(
+                new KeyValueMemberName("GetNewString",getAliasGetNewString()),
+                new KeyValueMemberName("GetOldString",getAliasGetOldString())));
+        map_.put(getAliasBoolean(), new CustList<KeyValueMemberName>(
+                new KeyValueMemberName("BooleanValue",getAliasBooleanValue()),
+                new KeyValueMemberName("Compare",getAliasCompare()),
+                new KeyValueMemberName("CompareTo",getAliasCompareTo()),
+                new KeyValueMemberName("Equals",getAliasEquals()),
+                new KeyValueMemberName("ParseBoolean",getAliasParseBoolean()),
+                new KeyValueMemberName("ToStringMethod",getAliasToStringMethod()),
+                new KeyValueMemberName("ValueOfMethod",getAliasValueOfMethod())));
+        map_.put(getAliasByte(), new CustList<KeyValueMemberName>(
+                new KeyValueMemberName("ByteValue",getAliasByteValue()),
+                new KeyValueMemberName("Compare",getAliasCompare()),
+                new KeyValueMemberName("CompareTo",getAliasCompareTo()),
+                new KeyValueMemberName("DoubleValue",getAliasDoubleValue()),
+                new KeyValueMemberName("Equals",getAliasEquals()),
+                new KeyValueMemberName("FloatValue",getAliasFloatValue()),
+                new KeyValueMemberName("IntValue",getAliasIntValue()),
+                new KeyValueMemberName("LongValue",getAliasLongValue()),
+                new KeyValueMemberName("ParseByte",getAliasParseByte()),
+                new KeyValueMemberName("ParseByteOrNull",getAliasParseByteOrNull()),
+                new KeyValueMemberName("ShortValue",getAliasShortValue()),
+                new KeyValueMemberName("ToStringMethod",getAliasToStringMethod())));
+        map_.put(getAliasCharSequence(), new CustList<KeyValueMemberName>(
+                new KeyValueMemberName("CharAt",getAliasCharAt()),
+                new KeyValueMemberName("Equals",getAliasEquals()),
+                new KeyValueMemberName("CompareTo",getAliasCompareTo()),
+                new KeyValueMemberName("Contains",getAliasContains()),
+                new KeyValueMemberName("EndsWith",getAliasEndsWith()),
+                new KeyValueMemberName("Format",getAliasFormat()),
+                new KeyValueMemberName("GetBytes",getAliasGetBytes()),
+                new KeyValueMemberName("IndexOf",getAliasIndexOf()),
+                new KeyValueMemberName("IsEmpty",getAliasIsEmpty()),
+                new KeyValueMemberName("LastIndexOf",getAliasLastIndexOf()),
+                new KeyValueMemberName("Length",getAliasLength()),
+                new KeyValueMemberName("RegionMatches",getAliasRegionMatches()),
+                new KeyValueMemberName("Replace",getAliasReplace()),
+                new KeyValueMemberName("Split",getAliasSplit()),
+                new KeyValueMemberName("SplitChars",getAliasSplitChars()),
+                new KeyValueMemberName("SplitStrings",getAliasSplitStrings()),
+                new KeyValueMemberName("StartsWith",getAliasStartsWith()),
+                new KeyValueMemberName("SubSequence",getAliasSubSequence()),
+                new KeyValueMemberName("Substring",getAliasSubstring()),
+                new KeyValueMemberName("ToCharArray",getAliasToCharArray()),
+                new KeyValueMemberName("ToStringMethod",getAliasToStringMethod()),
+                new KeyValueMemberName("Trim",getAliasTrim())));
+        map_.put(getAliasCharacter(), new CustList<KeyValueMemberName>(
+                new KeyValueMemberName("ByteValue",getAliasByteValue()),
+                new KeyValueMemberName("DoubleValue",getAliasDoubleValue()),
+                new KeyValueMemberName("Equals",getAliasEquals()),
+                new KeyValueMemberName("FloatValue",getAliasFloatValue()),
+                new KeyValueMemberName("IntValue",getAliasIntValue()),
+                new KeyValueMemberName("LongValue",getAliasLongValue()),
+                new KeyValueMemberName("ParseInt",getAliasParseInt()),
+                new KeyValueMemberName("ParseIntOrNull",getAliasParseIntOrNull()),
+                new KeyValueMemberName("ShortValue",getAliasShortValue()),
+                new KeyValueMemberName("CharAt",getAliasCharAt()),
+                new KeyValueMemberName("CharValue",getAliasCharValue()),
+                new KeyValueMemberName("Compare",getAliasCompare()),
+                new KeyValueMemberName("CompareTo",getAliasCompareTo()),
+                new KeyValueMemberName("Digit",getAliasDigit()),
+                new KeyValueMemberName("ForDigit",getAliasForDigit()),
+                new KeyValueMemberName("GetCharType",getAliasGetCharType()),
+                new KeyValueMemberName("IsDigit",getAliasIsDigit()),
+                new KeyValueMemberName("GetDirectionality",getAliasGetDirectionality()),
+                new KeyValueMemberName("IsLetter",getAliasIsLetter()),
+                new KeyValueMemberName("IsLetterOrDigit",getAliasIsLetterOrDigit()),
+                new KeyValueMemberName("IsLowerCase",getAliasIsLowerCase()),
+                new KeyValueMemberName("IsSpace",getAliasIsSpace()),
+                new KeyValueMemberName("IsUpperCase",getAliasIsUpperCase()),
+                new KeyValueMemberName("IsWhitespace",getAliasIsWhitespace()),
+                new KeyValueMemberName("IsWordChar",getAliasIsWordChar()),
+                new KeyValueMemberName("Length",getAliasLength()),
+                new KeyValueMemberName("SubSequence",getAliasSubSequence()),
+                new KeyValueMemberName("ToLowerCase",getAliasToLowerCase()),
+                new KeyValueMemberName("ToStringMethod",getAliasToStringMethod()),
+                new KeyValueMemberName("ToUpperCase",getAliasToUpperCase())));
+        map_.put(getAliasDouble(), new CustList<KeyValueMemberName>(
+                new KeyValueMemberName("ByteValue",getAliasByteValue()),
+                new KeyValueMemberName("Compare",getAliasCompare()),
+                new KeyValueMemberName("CompareTo",getAliasCompareTo()),
+                new KeyValueMemberName("DoubleValue",getAliasDoubleValue()),
+                new KeyValueMemberName("Equals",getAliasEquals()),
+                new KeyValueMemberName("FloatValue",getAliasFloatValue()),
+                new KeyValueMemberName("IntValue",getAliasIntValue()),
+                new KeyValueMemberName("IsInfinite",getAliasIsInfinite()),
+                new KeyValueMemberName("IsNan",getAliasIsNan()),
+                new KeyValueMemberName("LongValue",getAliasLongValue()),
+                new KeyValueMemberName("ParseDouble",getAliasParseDouble()),
+                new KeyValueMemberName("ParseDoubleOrNull",getAliasParseDoubleOrNull()),
+                new KeyValueMemberName("ShortValue",getAliasShortValue()),
+                new KeyValueMemberName("ToStringMethod",getAliasToStringMethod())));
+        map_.put(getAliasFloat(), new CustList<KeyValueMemberName>(
+                new KeyValueMemberName("ByteValue",getAliasByteValue()),
+                new KeyValueMemberName("Compare",getAliasCompare()),
+                new KeyValueMemberName("CompareTo",getAliasCompareTo()),
+                new KeyValueMemberName("DoubleValue",getAliasDoubleValue()),
+                new KeyValueMemberName("Equals",getAliasEquals()),
+                new KeyValueMemberName("FloatValue",getAliasFloatValue()),
+                new KeyValueMemberName("IntValue",getAliasIntValue()),
+                new KeyValueMemberName("IsInfinite",getAliasIsInfinite()),
+                new KeyValueMemberName("IsNan",getAliasIsNan()),
+                new KeyValueMemberName("LongValue",getAliasLongValue()),
+                new KeyValueMemberName("ParseFloat",getAliasParseFloat()),
+                new KeyValueMemberName("ParseFloatOrNull",getAliasParseFloatOrNull()),
+                new KeyValueMemberName("ShortValue",getAliasShortValue()),
+                new KeyValueMemberName("ToStringMethod",getAliasToStringMethod())));
+        map_.put(getAliasInteger(), new CustList<KeyValueMemberName>(
+                new KeyValueMemberName("ByteValue",getAliasByteValue()),
+                new KeyValueMemberName("Compare",getAliasCompare()),
+                new KeyValueMemberName("CompareTo",getAliasCompareTo()),
+                new KeyValueMemberName("DoubleValue",getAliasDoubleValue()),
+                new KeyValueMemberName("Equals",getAliasEquals()),
+                new KeyValueMemberName("FloatValue",getAliasFloatValue()),
+                new KeyValueMemberName("IntValue",getAliasIntValue()),
+                new KeyValueMemberName("LongValue",getAliasLongValue()),
+                new KeyValueMemberName("ParseInt",getAliasParseInt()),
+                new KeyValueMemberName("ParseIntOrNull",getAliasParseIntOrNull()),
+                new KeyValueMemberName("ShortValue",getAliasShortValue()),
+                new KeyValueMemberName("ToStringMethod",getAliasToStringMethod())));
+        map_.put(getAliasLong(), new CustList<KeyValueMemberName>(
+                new KeyValueMemberName("ByteValue",getAliasByteValue()),
+                new KeyValueMemberName("Compare",getAliasCompare()),
+                new KeyValueMemberName("CompareTo",getAliasCompareTo()),
+                new KeyValueMemberName("DoubleValue",getAliasDoubleValue()),
+                new KeyValueMemberName("Equals",getAliasEquals()),
+                new KeyValueMemberName("FloatValue",getAliasFloatValue()),
+                new KeyValueMemberName("IntValue",getAliasIntValue()),
+                new KeyValueMemberName("LongValue",getAliasLongValue()),
+                new KeyValueMemberName("ParseLong",getAliasParseLong()),
+                new KeyValueMemberName("ParseLongOrNull",getAliasParseLongOrNull()),
+                new KeyValueMemberName("ShortValue",getAliasShortValue()),
+                new KeyValueMemberName("ToStringMethod",getAliasToStringMethod())));
+        map_.put(getAliasNumber(), new CustList<KeyValueMemberName>(
+                new KeyValueMemberName("ByteValue",getAliasByteValue()),
+                new KeyValueMemberName("Compare",getAliasCompare()),
+                new KeyValueMemberName("CompareTo",getAliasCompareTo()),
+                new KeyValueMemberName("DoubleValue",getAliasDoubleValue()),
+                new KeyValueMemberName("Equals",getAliasEquals()),
+                new KeyValueMemberName("FloatValue",getAliasFloatValue()),
+                new KeyValueMemberName("IntValue",getAliasIntValue()),
+                new KeyValueMemberName("LongValue",getAliasLongValue()),
+                new KeyValueMemberName("ShortValue",getAliasShortValue()),
+                new KeyValueMemberName("ToStringMethod",getAliasToStringMethod())));
+        map_.put(getAliasShort(), new CustList<KeyValueMemberName>(
+                new KeyValueMemberName("ByteValue",getAliasByteValue()),
+                new KeyValueMemberName("Compare",getAliasCompare()),
+                new KeyValueMemberName("CompareTo",getAliasCompareTo()),
+                new KeyValueMemberName("DoubleValue",getAliasDoubleValue()),
+                new KeyValueMemberName("Equals",getAliasEquals()),
+                new KeyValueMemberName("FloatValue",getAliasFloatValue()),
+                new KeyValueMemberName("IntValue",getAliasIntValue()),
+                new KeyValueMemberName("LongValue",getAliasLongValue()),
+                new KeyValueMemberName("ParseShort",getAliasParseShort()),
+                new KeyValueMemberName("ParseShortOrNull",getAliasParseShortOrNull()),
+                new KeyValueMemberName("ShortValue",getAliasShortValue()),
+                new KeyValueMemberName("ToStringMethod",getAliasToStringMethod())));
+        map_.put(getAliasString(), new CustList<KeyValueMemberName>(
+                new KeyValueMemberName("Equals",getAliasEquals()),
+                new KeyValueMemberName("CompareTo",getAliasCompareTo()),
+                new KeyValueMemberName("CharAt",getAliasCharAt()),
+                new KeyValueMemberName("Compare",getAliasCompare()),
+                new KeyValueMemberName("CompareToIgnoreCase",getAliasCompareToIgnoreCase()),
+                new KeyValueMemberName("Contains",getAliasContains()),
+                new KeyValueMemberName("EndsWith",getAliasEndsWith()),
+                new KeyValueMemberName("EqualsIgnoreCase",getAliasEqualsIgnoreCase()),
+                new KeyValueMemberName("Format",getAliasFormat()),
+                new KeyValueMemberName("GetBytes",getAliasGetBytes()),
+                new KeyValueMemberName("IndexOf",getAliasIndexOf()),
+                new KeyValueMemberName("IsEmpty",getAliasIsEmpty()),
+                new KeyValueMemberName("LastIndexOf",getAliasLastIndexOf()),
+                new KeyValueMemberName("Length",getAliasLength()),
+                new KeyValueMemberName("RegionMatches",getAliasRegionMatches()),
+                new KeyValueMemberName("Replace",getAliasReplace()),
+                new KeyValueMemberName("ReplaceMultiple",getAliasReplaceMultiple()),
+                new KeyValueMemberName("Split",getAliasSplit()),
+                new KeyValueMemberName("SplitChars",getAliasSplitChars()),
+                new KeyValueMemberName("SplitStrings",getAliasSplitStrings()),
+                new KeyValueMemberName("StartsWith",getAliasStartsWith()),
+                new KeyValueMemberName("SubSequence",getAliasSubSequence()),
+                new KeyValueMemberName("Substring",getAliasSubstring()),
+                new KeyValueMemberName("ToCharArray",getAliasToCharArray()),
+                new KeyValueMemberName("ToLowerCase",getAliasToLowerCase()),
+                new KeyValueMemberName("ToUpperCase",getAliasToUpperCase()),
+                new KeyValueMemberName("ToStringMethod",getAliasToStringMethod()),
+                new KeyValueMemberName("Trim",getAliasTrim()),
+                new KeyValueMemberName("ValueOfMethod",getAliasValueOfMethod())));
+        map_.put(getAliasStringBuilder(), new CustList<KeyValueMemberName>(
+                new KeyValueMemberName("Equals",getAliasEquals()),
+                new KeyValueMemberName("CompareTo",getAliasCompareTo()),
+                new KeyValueMemberName("CharAt",getAliasCharAt()),
+                new KeyValueMemberName("Contains",getAliasContains()),
+                new KeyValueMemberName("EndsWith",getAliasEndsWith()),
+                new KeyValueMemberName("Format",getAliasFormat()),
+                new KeyValueMemberName("GetBytes",getAliasGetBytes()),
+                new KeyValueMemberName("IndexOf",getAliasIndexOf()),
+                new KeyValueMemberName("IsEmpty",getAliasIsEmpty()),
+                new KeyValueMemberName("LastIndexOf",getAliasLastIndexOf()),
+                new KeyValueMemberName("Length",getAliasLength()),
+                new KeyValueMemberName("RegionMatches",getAliasRegionMatches()),
+                new KeyValueMemberName("Replace",getAliasReplace()),
+                new KeyValueMemberName("Split",getAliasSplit()),
+                new KeyValueMemberName("SplitChars",getAliasSplitChars()),
+                new KeyValueMemberName("SplitStrings",getAliasSplitStrings()),
+                new KeyValueMemberName("StartsWith",getAliasStartsWith()),
+                new KeyValueMemberName("SubSequence",getAliasSubSequence()),
+                new KeyValueMemberName("Substring",getAliasSubstring()),
+                new KeyValueMemberName("ToCharArray",getAliasToCharArray()),
+                new KeyValueMemberName("ToStringMethod",getAliasToStringMethod()),
+                new KeyValueMemberName("Trim",getAliasTrim()),
+                new KeyValueMemberName("Append",getAliasAppend()),
+                new KeyValueMemberName("Capacity",getAliasCapacity()),
+                new KeyValueMemberName("Clear",getAliasClear()),
+                new KeyValueMemberName("Delete",getAliasDelete()),
+                new KeyValueMemberName("DeleteCharAt",getAliasDeleteCharAt()),
+                new KeyValueMemberName("EnsureCapacity",getAliasEnsureCapacity()),
+                new KeyValueMemberName("Insert",getAliasInsert()),
+                new KeyValueMemberName("Reverse",getAliasReverse()),
+                new KeyValueMemberName("SetCharAt",getAliasSetCharAt()),
+                new KeyValueMemberName("SetLength",getAliasSetLength()),
+                new KeyValueMemberName("Same",getAliasSame()),
+                new KeyValueMemberName("TrimToSize",getAliasTrimToSize())));
         return map_;
     }
-    public void validateMethodsContents(ContextEl _cont, StringMap<StringList> _methods, StringList _prims){
-        for (EntryCust<String, StringList> e: _methods.entryList()) {
-            for (String k: e.getValue()) {
-                if (k.isEmpty()) {
+    public void validateMethodsContents(ContextEl _cont, StringMap<CustList<KeyValueMemberName>> _methods, StringMap<String> _prims){
+        AnalysisMessages a_ = _cont.getAnalysisMessages();
+        for (EntryCust<String, CustList<KeyValueMemberName>> e: _methods.entryList()) {
+            for (KeyValueMemberName f: e.getValue()) {
+                String key_ = f.getKey();
+                String value_ = f.getValue();
+                if (value_.isEmpty()) {
                     StdWordError err_ = new StdWordError();
-                    err_.setMessage("empty word");
+                    err_.setMessage(StringList.simpleStringsFormat(a_.getEmptyMethod(),key_));
                     err_.setErrCat(ErrorCat.WRITE_METHOD_WORD);
                     _cont.getClasses().addStdError(err_);
                     continue;
                 }
-                if (_cont.getKeyWords().isKeyWordNotVar(k)) {
+                if (_cont.getKeyWords().isKeyWordNotVar(value_)) {
                     StdWordError err_ = new StdWordError();
-                    err_.setMessage(StringList.concat("key word ", k));
+                    err_.setMessage(StringList.simpleStringsFormat(a_.getMethodKeyWord(),key_));
                     err_.setErrCat(ErrorCat.WRITE_METHOD_WORD);
                     _cont.getClasses().addStdError(err_);
                 }
-                if (StringList.contains(_prims, k)) {
+                if (StringList.contains(_prims.values(), value_)) {
                     StdWordError err_ = new StdWordError();
-                    err_.setMessage(StringList.concat("primitive ", k));
+                    err_.setMessage(StringList.simpleStringsFormat(a_.getMethodPrimitive(),key_));
                     err_.setErrCat(ErrorCat.WRITE_METHOD_WORD);
                     _cont.getClasses().addStdError(err_);
                 }
-                for (char c: k.toCharArray()) {
+                for (char c: value_.toCharArray()) {
                     if (!StringList.isDollarWordChar(c)) {
                         StdWordError err_ = new StdWordError();
-                        err_.setMessage(StringList.concat("not word char ", Character.toString(c)));
+                        err_.setMessage(StringList.simpleStringsFormat(a_.getNotWordCharMethod(),key_));
                         err_.setErrCat(ErrorCat.WRITE_METHOD_WORD);
                         _cont.getClasses().addStdError(err_);
                         break;
                     }
                 }
-                if (ContextEl.isDigit(k.charAt(0))) {
+                if (ContextEl.isDigit(value_.charAt(0))) {
                     StdWordError err_ = new StdWordError();
-                    err_.setMessage(StringList.concat("digit ", Character.toString(k.charAt(0))));
+                    err_.setMessage(StringList.simpleStringsFormat(a_.getDigitFirstMethod(),key_));
                     err_.setErrCat(ErrorCat.WRITE_METHOD_WORD);
                     _cont.getClasses().addStdError(err_);
                 }
             }
         }
     }
-    public void validateMethodsDuplicates(ContextEl _cont, StringMap<StringList> _methods){
-        for (EntryCust<String, StringList> e: _methods.entryList()) {
-            StringList keyWords_ = new StringList(e.getValue());
+    public void validateMethodsDuplicates(ContextEl _cont, StringMap<CustList<KeyValueMemberName>> _methods){
+        AnalysisMessages a_ = _cont.getAnalysisMessages();
+        for (EntryCust<String, CustList<KeyValueMemberName>> e: _methods.entryList()) {
+            StringList keyWords_ = new StringList();
+            for (KeyValueMemberName f: e.getValue()) {
+                keyWords_.add(f.getValue());
+            }
             int size_ = keyWords_.size();
             keyWords_.removeDuplicates();
             if (size_ != keyWords_.size()) {
-                StdWordError err_ = new StdWordError();
-                err_.setMessage(StringList.concat(e.getKey()," duplicate methods ",e.getValue().display()));
-                err_.setErrCat(ErrorCat.DUPLICATE_METHOD_WORD);
-                _cont.getClasses().addStdError(err_);
+                for (KeyValueMemberName f: e.getValue()) {
+                    String v_ = f.getValue();
+                    StdWordError err_ = new StdWordError();
+                    err_.setMessage(StringList.simpleStringsFormat(a_.getDuplicateMethod(),v_));
+                    err_.setErrCat(ErrorCat.DUPLICATE_METHOD_WORD);
+                    _cont.getClasses().addStdError(err_);
+                }
             }
         }
     }
 
-    public void validateMergedDuplicates(ContextEl _cont, CustList<StringList> _methods){
-        for (StringList e: _methods) {
-            StringList keyWords_ = new StringList(e);
+    public void validateMergedDuplicates(ContextEl _cont, CustList<CustList<KeyValueMemberName>> _methods){
+        AnalysisMessages a_ = _cont.getAnalysisMessages();
+        for (CustList<KeyValueMemberName> e: _methods) {
+            StringList keyWords_ = new StringList();
+            for (KeyValueMemberName f: e) {
+                keyWords_.add(f.getValue());
+            }
             int size_ = keyWords_.size();
             keyWords_.removeDuplicates();
             if (size_ != keyWords_.size()) {
-                StdWordError err_ = new StdWordError();
-                err_.setMessage(StringList.concat("duplicate methods ",e.display()));
-                err_.setErrCat(ErrorCat.DUPLICATE_METHOD_WORD);
-                _cont.getClasses().addStdError(err_);
+                for (KeyValueMemberName f: e) {
+                    String v_ = f.getValue();
+                    StdWordError err_ = new StdWordError();
+                    err_.setMessage(StringList.simpleStringsFormat(a_.getDuplicateMergedMethod(),v_));
+                    err_.setErrCat(ErrorCat.DUPLICATE_METHOD_WORD);
+                    _cont.getClasses().addStdError(err_);
+                }
             }
         }
     }
-    public StringMap<StringList> allTableTypeFieldNames() {
-        StringMap<StringList> map_ = new StringMap<StringList>();
-        map_.put(nbAlias.getAliasDouble(), new StringList(
-                nbAlias.getAliasMinValueField(),
-                nbAlias.getAliasMaxValueField()));
-        map_.put(nbAlias.getAliasFloat(), new StringList(
-                nbAlias.getAliasMinValueField(),
-                nbAlias.getAliasMaxValueField()));
-        map_.put(nbAlias.getAliasLong(), new StringList(
-                nbAlias.getAliasMinValueField(),
-                nbAlias.getAliasMaxValueField()));
-        map_.put(nbAlias.getAliasInteger(), new StringList(
-                nbAlias.getAliasMinValueField(),
-                nbAlias.getAliasMaxValueField()));
-        map_.put(nbAlias.getAliasCharacter(), new StringList(
-                nbAlias.getAliasMinValueField(),
-                nbAlias.getAliasMaxValueField()));
-        map_.put(nbAlias.getAliasShort(), new StringList(
-                nbAlias.getAliasMinValueField(),
-                nbAlias.getAliasMaxValueField()));
-        map_.put(nbAlias.getAliasByte(), new StringList(
-                nbAlias.getAliasMinValueField(),
-                nbAlias.getAliasMaxValueField()));
+    public StringMap<CustList<KeyValueMemberName>> allTableTypeFieldNames() {
+        StringMap<CustList<KeyValueMemberName>> map_ = new StringMap<CustList<KeyValueMemberName>>();
+        map_.put(nbAlias.getAliasDouble(), new CustList<KeyValueMemberName>(
+                new KeyValueMemberName("MIN_VALUE",nbAlias.getAliasMinValueField()),
+                new KeyValueMemberName("MAX_VALUE",nbAlias.getAliasMaxValueField())));
+        map_.put(nbAlias.getAliasFloat(), new CustList<KeyValueMemberName>(
+                new KeyValueMemberName("MIN_VALUE",nbAlias.getAliasMinValueField()),
+                new KeyValueMemberName("MAX_VALUE",nbAlias.getAliasMaxValueField())));
+        map_.put(nbAlias.getAliasLong(), new CustList<KeyValueMemberName>(
+                new KeyValueMemberName("MIN_VALUE",nbAlias.getAliasMinValueField()),
+                new KeyValueMemberName("MAX_VALUE",nbAlias.getAliasMaxValueField())));
+        map_.put(nbAlias.getAliasInteger(), new CustList<KeyValueMemberName>(
+                new KeyValueMemberName("MIN_VALUE",nbAlias.getAliasMinValueField()),
+                new KeyValueMemberName("MAX_VALUE",nbAlias.getAliasMaxValueField())));
+        map_.put(nbAlias.getAliasCharacter(), new CustList<KeyValueMemberName>(
+                new KeyValueMemberName("MIN_VALUE",nbAlias.getAliasMinValueField()),
+                new KeyValueMemberName("MAX_VALUE",nbAlias.getAliasMaxValueField())));
+        map_.put(nbAlias.getAliasShort(), new CustList<KeyValueMemberName>(
+                new KeyValueMemberName("MIN_VALUE",nbAlias.getAliasMinValueField()),
+                new KeyValueMemberName("MAX_VALUE",nbAlias.getAliasMaxValueField())));
+        map_.put(nbAlias.getAliasByte(), new CustList<KeyValueMemberName>(
+                new KeyValueMemberName("MIN_VALUE",nbAlias.getAliasMinValueField()),
+                new KeyValueMemberName("MAX_VALUE",nbAlias.getAliasMaxValueField())));
         return map_;
     }
-    public StringMap<StringList> allTableTypeVarTypes() {
-        StringMap<StringList> map_ = new StringMap<StringList>();
-        map_.put(getAliasEnumParam(), new StringList(
-                getAliasEnumParamVar()));
-        map_.put(getAliasIterable(), new StringList(
-                getAliasIterableVar()));
-        map_.put(getAliasIteratorType(), new StringList(
-                getAliasIteratorTypeVar()));
-        map_.put(getAliasIterableTable(), new StringList(
-                getAliasIterableTableVarFirst(),
-                getAliasIterableTableVarSecond()));
-        map_.put(getAliasIteratorTableType(), new StringList(
-                getAliasIteratorTableTypeVarFirst(),
-                getAliasIteratorTableTypeVarSecond()));
-        map_.put(getAliasPairType(), new StringList(
-                getAliasPairTypeVarFirst(),
-                getAliasPairTypeVarSecond()));
+    public StringMap<CustList<KeyValueMemberName>> allTableTypeVarTypes() {
+        StringMap<CustList<KeyValueMemberName>> map_ = new StringMap<CustList<KeyValueMemberName>>();
+        map_.put(getAliasEnumParam(), new CustList<KeyValueMemberName>(
+                new KeyValueMemberName("EnumParamVar",getAliasEnumParamVar())));
+        map_.put(getAliasIterable(), new CustList<KeyValueMemberName>(
+                new KeyValueMemberName("IterableVar",getAliasIterableVar())));
+        map_.put(getAliasIteratorType(), new CustList<KeyValueMemberName>(
+                new KeyValueMemberName("IteratorTypeVar",getAliasIteratorTypeVar())));
+        map_.put(getAliasIterableTable(), new CustList<KeyValueMemberName>(
+                new KeyValueMemberName("IterableTableVarFirst",getAliasIterableTableVarFirst()),
+                new KeyValueMemberName("IterableTableVarSecond",getAliasIterableTableVarSecond())));
+        map_.put(getAliasIteratorTableType(), new CustList<KeyValueMemberName>(
+                new KeyValueMemberName("IteratorTableTypeVarFirst",getAliasIteratorTableTypeVarFirst()),
+                new KeyValueMemberName("IteratorTableTypeVarSecond",getAliasIteratorTableTypeVarSecond())));
+        map_.put(getAliasPairType(), new CustList<KeyValueMemberName>(
+                new KeyValueMemberName("PairTypeVarFirst",getAliasPairTypeVarFirst()),
+                new KeyValueMemberName("PairTypeVarSecond",getAliasPairTypeVarSecond())));
         return map_;
     }
-    public void validateFieldsContents(ContextEl _cont, StringMap<StringList> _methods, StringList _prims){
-        for (EntryCust<String, StringList> e: _methods.entryList()) {
-            for (String k: e.getValue()) {
-                if (k.isEmpty()) {
+    public void validateFieldsContents(ContextEl _cont, StringMap<CustList<KeyValueMemberName>> _methods, StringMap<String> _prims){
+        AnalysisMessages a_ = _cont.getAnalysisMessages();
+        for (EntryCust<String, CustList<KeyValueMemberName>> e: _methods.entryList()) {
+            for (KeyValueMemberName f: e.getValue()) {
+                String key_ = f.getKey();
+                String value_ = f.getValue();
+                if (value_.isEmpty()) {
                     StdWordError err_ = new StdWordError();
-                    err_.setMessage("empty word");
+                    err_.setMessage(StringList.simpleStringsFormat(a_.getEmptyField(),key_));
                     err_.setErrCat(ErrorCat.WRITE_FIELD_WORD);
                     _cont.getClasses().addStdError(err_);
                     continue;
                 }
-                if (_cont.getKeyWords().isKeyWord(k)) {
+                if (_cont.getKeyWords().isKeyWord(value_)) {
                     StdWordError err_ = new StdWordError();
-                    err_.setMessage(StringList.concat("key word ", k));
+                    err_.setMessage(StringList.simpleStringsFormat(a_.getFieldKeyWord(),value_,e.getKey(),key_));
                     err_.setErrCat(ErrorCat.WRITE_FIELD_WORD);
                     _cont.getClasses().addStdError(err_);
                 }
-                if (StringList.contains(_prims, k)) {
+                if (StringList.contains(_prims.values(), value_)) {
                     StdWordError err_ = new StdWordError();
-                    err_.setMessage(StringList.concat("primitive ", k));
+                    err_.setMessage(StringList.simpleStringsFormat(a_.getFieldPrimitive(),value_,e.getKey(),key_));
                     err_.setErrCat(ErrorCat.WRITE_FIELD_WORD);
                     _cont.getClasses().addStdError(err_);
                 }
-                for (char c: k.toCharArray()) {
+                for (char c: value_.toCharArray()) {
                     if (!StringList.isDollarWordChar(c)) {
                         StdWordError err_ = new StdWordError();
-                        err_.setMessage(StringList.concat("not word char ", Character.toString(c)));
+                        err_.setMessage(StringList.simpleStringsFormat(a_.getNotWordCharField(),value_,e.getKey(),key_));
                         err_.setErrCat(ErrorCat.WRITE_FIELD_WORD);
                         _cont.getClasses().addStdError(err_);
                         break;
                     }
                 }
-                if (ContextEl.isDigit(k.charAt(0))) {
+                if (ContextEl.isDigit(value_.charAt(0))) {
                     StdWordError err_ = new StdWordError();
-                    err_.setMessage(StringList.concat("digit ", Character.toString(k.charAt(0))));
+                    err_.setMessage(StringList.simpleStringsFormat(a_.getDigitFirstField(),value_,e.getKey(),key_));
                     err_.setErrCat(ErrorCat.WRITE_FIELD_WORD);
                     _cont.getClasses().addStdError(err_);
                 }
             }
         }
     }
-    public void validateFieldsDuplicates(ContextEl _cont, StringMap<StringList> _methods){
-        for (EntryCust<String, StringList> e: _methods.entryList()) {
-            StringList keyWords_ = new StringList(e.getValue());
+    public void validateFieldsDuplicates(ContextEl _cont, StringMap<CustList<KeyValueMemberName>> _methods){
+        AnalysisMessages a_ = _cont.getAnalysisMessages();
+        for (EntryCust<String, CustList<KeyValueMemberName>> e: _methods.entryList()) {
+            StringList keyWords_ = new StringList();
+            for (KeyValueMemberName f: e.getValue()) {
+                keyWords_.add(f.getValue());
+            }
             int size_ = keyWords_.size();
             keyWords_.removeDuplicates();
             if (size_ != keyWords_.size()) {
-                StdWordError err_ = new StdWordError();
-                err_.setMessage(StringList.concat("duplicate methods ",e.getValue().display()));
-                err_.setErrCat(ErrorCat.DUPLICATE_FIELD_WORD);
-                _cont.getClasses().addStdError(err_);
+                for (KeyValueMemberName f: e.getValue()) {
+                    String v_ = f.getValue();
+                    StdWordError err_ = new StdWordError();
+                    err_.setMessage(StringList.simpleStringsFormat(a_.getDuplicateField(),v_,e.getKey()));
+                    err_.setErrCat(ErrorCat.DUPLICATE_FIELD_WORD);
+                    _cont.getClasses().addStdError(err_);
+                }
             }
         }
     }
-    public void validateVarTypesContents(ContextEl _cont, StringMap<StringList> _methods, StringList _prims){
-        for (EntryCust<String, StringList> e: _methods.entryList()) {
-            for (String k: e.getValue()) {
-                if (k.isEmpty()) {
+    public void validateVarTypesContents(ContextEl _cont, StringMap<CustList<KeyValueMemberName>> _methods, StringMap<String> _prims){
+        AnalysisMessages a_ = _cont.getAnalysisMessages();
+        for (EntryCust<String, CustList<KeyValueMemberName>> e: _methods.entryList()) {
+            for (KeyValueMemberName f: e.getValue()) {
+                String key_ = f.getKey();
+                String value_ = f.getValue();
+                if (value_.isEmpty()) {
                     StdWordError err_ = new StdWordError();
-                    err_.setMessage("empty word");
+                    err_.setMessage(StringList.simpleStringsFormat(a_.getEmptyVarType(),key_));
                     err_.setErrCat(ErrorCat.WRITE_VAR_TYPE_WORD);
                     _cont.getClasses().addStdError(err_);
                     continue;
                 }
-                if (_cont.getKeyWords().isKeyWord(k)) {
+                if (_cont.getKeyWords().isKeyWord(value_)) {
                     StdWordError err_ = new StdWordError();
-                    err_.setMessage(StringList.concat("key word ", k));
+                    err_.setMessage(StringList.simpleStringsFormat(a_.getVarTypeKeyWord(),value_,e.getKey(),key_));
                     err_.setErrCat(ErrorCat.WRITE_VAR_TYPE_WORD);
                     _cont.getClasses().addStdError(err_);
                 }
-                if (StringList.contains(_prims, k)) {
+                if (StringList.contains(_prims.values(), value_)) {
                     StdWordError err_ = new StdWordError();
-                    err_.setMessage(StringList.concat("primitive ", k));
+                    err_.setMessage(StringList.simpleStringsFormat(a_.getVarTypePrimitive(),value_,e.getKey(),key_));
                     err_.setErrCat(ErrorCat.WRITE_VAR_TYPE_WORD);
                     _cont.getClasses().addStdError(err_);
                 }
-                for (char c: k.toCharArray()) {
+                for (char c: value_.toCharArray()) {
                     if (!StringList.isDollarWordChar(c)) {
                         StdWordError err_ = new StdWordError();
-                        err_.setMessage(StringList.concat("not word char ", Character.toString(c)));
+                        err_.setMessage(StringList.simpleStringsFormat(a_.getNotWordCharVarType(),value_,e.getKey(),key_));
                         err_.setErrCat(ErrorCat.WRITE_VAR_TYPE_WORD);
                         _cont.getClasses().addStdError(err_);
                         break;
                     }
                 }
-                if (ContextEl.isDigit(k.charAt(0))) {
+                if (ContextEl.isDigit(value_.charAt(0))) {
                     StdWordError err_ = new StdWordError();
-                    err_.setMessage(StringList.concat("digit ", Character.toString(k.charAt(0))));
+                    err_.setMessage(StringList.simpleStringsFormat(a_.getDigitFirstVarType(),value_,e.getKey(),key_));
                     err_.setErrCat(ErrorCat.WRITE_VAR_TYPE_WORD);
                     _cont.getClasses().addStdError(err_);
                 }
@@ -1021,16 +1065,23 @@ public abstract class LgNames {
         }
     }
 
-    public void validateVarTypesDuplicates(ContextEl _cont, StringMap<StringList> _methods){
-        for (EntryCust<String, StringList> e: _methods.entryList()) {
-            StringList keyWords_ = new StringList(e.getValue());
+    public void validateVarTypesDuplicates(ContextEl _cont, StringMap<CustList<KeyValueMemberName>> _methods){
+        AnalysisMessages a_ = _cont.getAnalysisMessages();
+        for (EntryCust<String, CustList<KeyValueMemberName>> e: _methods.entryList()) {
+            StringList keyWords_ = new StringList();
+            for (KeyValueMemberName f: e.getValue()) {
+                keyWords_.add(f.getValue());
+            }
             int size_ = keyWords_.size();
             keyWords_.removeDuplicates();
             if (size_ != keyWords_.size()) {
-                StdWordError err_ = new StdWordError();
-                err_.setMessage(StringList.concat("duplicate types ",e.getValue().display()));
-                err_.setErrCat(ErrorCat.DUPLICATE_VAR_TYPE_WORD);
-                _cont.getClasses().addStdError(err_);
+                for (KeyValueMemberName f: e.getValue()) {
+                    String v_ = f.getValue();
+                    StdWordError err_ = new StdWordError();
+                    err_.setMessage(StringList.simpleStringsFormat(a_.getDuplicateVarType(),v_,e.getKey()));
+                    err_.setErrCat(ErrorCat.DUPLICATE_VAR_TYPE_WORD);
+                    _cont.getClasses().addStdError(err_);
+                }
             }
         }
     }

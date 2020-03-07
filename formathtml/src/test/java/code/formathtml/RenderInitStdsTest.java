@@ -3,6 +3,7 @@ package code.formathtml;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.DefaultInitializer;
 import code.expressionlanguage.DefaultLockingClass;
+import code.expressionlanguage.errors.AnalysisMessages;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.options.ContextFactory;
 import code.expressionlanguage.options.KeyWords;
@@ -34,8 +35,9 @@ public final class RenderInitStdsTest {
         o_.setSuffixVar(VariableSuffix.NONE);
         BeanLgNames b_ = new BeanCustLgNames();
         basicStandards(b_);
+        AnalysisMessages a_ = new AnalysisMessages();
         KeyWords k_ = new KeyWords();
-        contextEl(o_,b_,k_);
+        contextEl(o_,b_,a_,k_);
     }
     @Test
     public void process2Test() {
@@ -43,8 +45,9 @@ public final class RenderInitStdsTest {
         o_.setSuffixVar(VariableSuffix.FIELDS);
         BeanLgNames b_ = new BeanCustLgNames();
         basicStandards(b_);
+        AnalysisMessages a_ = new AnalysisMessages();
         KeyWords k_ = new KeyWords();
-        contextEl(o_,b_,k_);
+        contextEl(o_,b_,a_,k_);
     }
     @Test
     public void process3Test() {
@@ -52,8 +55,9 @@ public final class RenderInitStdsTest {
         o_.setSuffixVar(VariableSuffix.MERGED);
         BeanLgNames b_ = new BeanCustLgNames();
         basicStandards(b_);
+        AnalysisMessages a_ = new AnalysisMessages();
         KeyWords k_ = new KeyWords();
-        contextEl(o_,b_,k_);
+        contextEl(o_,b_,a_,k_);
     }
     @Test
     public void process4Test() {
@@ -61,8 +65,9 @@ public final class RenderInitStdsTest {
         o_.setSuffixVar(VariableSuffix.FIELDS);
         BeanLgNames b_ = new BeanCustLgNames();
         basicStandards(b_);
+        AnalysisMessages a_ = new AnalysisMessages();
         KeyWords k_ = new KeyWords();
-        contextEl(o_,b_,k_);
+        contextEl(o_,b_,a_,k_);
     }
     @Test
     public void process5Test() {
@@ -70,11 +75,12 @@ public final class RenderInitStdsTest {
         o_.setSuffixVar(VariableSuffix.NONE);
         BeanLgNames b_ = new BeanCustLgNames();
         basicStandards(b_);
+        AnalysisMessages a_ = new AnalysisMessages();
         KeyWords k_ = new KeyWords();
         k_.setKeyWordIf("i");
         k_.setKeyWordElseif("m");
         k_.setKeyWordElse("index");
-        contextEl(o_,b_,k_);
+        contextEl(o_,b_,a_,k_);
     }
     @Test
     public void process6Test() {
@@ -96,15 +102,15 @@ public final class RenderInitStdsTest {
         s_ = StdStruct.newListByte(new Bytes(),"");
         assertSame(NullStruct.NULL_VALUE,s_.getParent());
     }
-    private Configuration contextEl(Options _opt, BeanLgNames _beanLgNames, KeyWords _kw) {
-        return contextEl(new StringMap<String>(),_opt,_beanLgNames,_kw);
+    private Configuration contextEl(Options _opt, BeanLgNames _beanLgNames, AnalysisMessages _mess, KeyWords _kw) {
+        return contextEl(new StringMap<String>(),_opt,_beanLgNames,_mess,_kw);
     }
-    private Configuration contextEl(StringMap<String> _files,Options _opt, BeanLgNames _beanLgNames, KeyWords _kw) {
+    private Configuration contextEl(StringMap<String> _files,Options _opt, BeanLgNames _beanLgNames, AnalysisMessages _mess, KeyWords _kw) {
         Configuration conf_ =  EquallableExUtil.newConfiguration();
         conf_.setPrefix("c");
         DefaultLockingClass lk_ = new DefaultLockingClass();
         DefaultInitializer di_ = new DefaultInitializer();
-        ContextEl cont_ = ContextFactory.build(-1,lk_, di_, _opt, _kw, _beanLgNames,4);
+        ContextEl cont_ = ContextFactory.build(-1,lk_, di_, _opt, _mess,_kw, _beanLgNames,4);
         Classes.validateAll(_files, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
         conf_.setContext(cont_);

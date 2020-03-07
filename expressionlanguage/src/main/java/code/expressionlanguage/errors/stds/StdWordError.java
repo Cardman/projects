@@ -10,7 +10,7 @@ public class StdWordError {
     private String message;
 
     public String display() {
-        return StringList.concat(errCat.name(),"-",message);
+        return message;
     }
 
     public void setErrCat(ErrorCat _errCat) {

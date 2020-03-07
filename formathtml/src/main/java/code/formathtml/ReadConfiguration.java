@@ -6,6 +6,7 @@ import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.DefaultInitializer;
 import code.expressionlanguage.DefaultLockingClass;
+import code.expressionlanguage.errors.AnalysisMessages;
 import code.expressionlanguage.options.ContextFactory;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
@@ -87,8 +88,9 @@ public final class ReadConfiguration {
         if (!found_ && stds_ instanceof BeanNatLgNames) {
             DefaultLockingClass lk_ = new DefaultLockingClass();
             DefaultInitializer di_ = new DefaultInitializer();
+            AnalysisMessages a_ = new AnalysisMessages();
             KeyWords kw_ = new KeyWords();
-            ContextEl context_ = ContextFactory.build(-1,lk_, di_, new Options(), kw_, stds_,4);
+            ContextEl context_ = ContextFactory.build(-1,lk_, di_, new Options(), a_,kw_, stds_,4);
             context_.getOptions().setEndLineSemiColumn(false);
             context_.getOptions().setSuffixVar(VariableSuffix.DISTINCT);
             context_.setStandards(stds_);
@@ -99,10 +101,11 @@ public final class ReadConfiguration {
     static ContextEl loadContext(Element _elt, LgNames _stds) {
         DefaultLockingClass lk_ = new DefaultLockingClass();
         DefaultInitializer di_ = new DefaultInitializer();
+        AnalysisMessages a_ = new AnalysisMessages();
         KeyWords kw_ = new KeyWords();
         Options opt_ = new Options();
         opt_.setReadOnly(true);
-        ContextEl context_ = ContextFactory.build(-1,lk_, di_, opt_, kw_, _stds,4);
+        ContextEl context_ = ContextFactory.build(-1,lk_, di_, opt_, a_, kw_, _stds,4);
         for (Element c: _elt.getChildElements()) {
             String fieldName_ = c.getAttribute("field");
             if (StringList.quickEq(fieldName_, "stackOverFlow")) {

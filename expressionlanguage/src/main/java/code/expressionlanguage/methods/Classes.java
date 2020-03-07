@@ -39,6 +39,7 @@ public final class Classes {
     private final ErrorList errorsDet;
     private final WarningList warningsDet;
     private final StdErrorList stdErrorDet;
+    private final StringList messagesErrorDet;
     private DefaultLockingClass locks;
     private String iteratorVarCust;
     private String hasNextVarCust;
@@ -68,6 +69,7 @@ public final class Classes {
         staticFields = new StringMap<StringMap<Struct>>();
         operators = new CustList<OperatorBlock>();
         stdErrorDet = new StdErrorList();
+        messagesErrorDet = new StringList();
     }
     public void putFileBlock(String _fileName, FileBlock _fileBlock) {
         filesBodies.put(_fileName, _fileBlock);
@@ -274,6 +276,16 @@ public final class Classes {
     public ErrorList getErrorsDet() {
         return errorsDet;
     }
+    public String displayMessageErrors() {
+        return messagesErrorDet.display();
+    }
+    public boolean isEmptyMessageError() {
+        return messagesErrorDet.isEmpty();
+    }
+    public void addMessageError(String _std) {
+        messagesErrorDet.add(_std);
+    }
+
     public String displayStdErrors() {
         return stdErrorDet.display();
     }
@@ -302,7 +314,7 @@ public final class Classes {
     /**Resources are possibly added before analyzing file types*/
     public static void validateAll(StringMap<String> _files, ContextEl _context) {
         Classes classes_ = _context.getClasses();
-        if (!classes_.isEmptyStdError()) {
+        if (!classes_.isEmptyStdError() || !classes_.isEmptyMessageError()) {
             //all standards errors are logged here
             return;
         }

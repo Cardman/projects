@@ -3,6 +3,7 @@ package code.expressionlanguage;
 import code.expressionlanguage.calls.*;
 import code.expressionlanguage.calls.util.*;
 import code.expressionlanguage.common.*;
+import code.expressionlanguage.errors.AnalysisMessages;
 import code.expressionlanguage.errors.custom.BadInheritedClass;
 import code.expressionlanguage.errors.custom.IllegalCallCtorByType;
 import code.expressionlanguage.errors.custom.UnexpectedTypeError;
@@ -54,6 +55,7 @@ public abstract class ContextEl implements ExecutableCode {
 
     private CustList<AbstractPageEl> importing = new CustList<AbstractPageEl>();
 
+    private AnalysisMessages analysisMessages;
     private KeyWords keyWords;
     private boolean initEnums;
     private boolean failInit;
@@ -62,7 +64,10 @@ public abstract class ContextEl implements ExecutableCode {
     private Coverage coverage;
     private ExecutableCode executingInstance;
 
-    public ContextEl(boolean _covering, int _stackOverFlow, DefaultLockingClass _lock,Options _options, KeyWords _keyWords, LgNames _stds, int _tabWitdth) {
+    public ContextEl(boolean _covering, int _stackOverFlow,
+                     DefaultLockingClass _lock,Options _options,
+                     AnalysisMessages _mess,
+                     KeyWords _keyWords, LgNames _stds, int _tabWitdth) {
         this();
         setExecutingInstance(this);
         setCovering(_covering);
@@ -70,6 +75,7 @@ public abstract class ContextEl implements ExecutableCode {
         setStackOverFlow(_stackOverFlow);
         setStandards(_stds);
         setTabWidth(_tabWitdth);
+        setAnalysisMessages(_mess);
         setKeyWords(_keyWords);
         setClasses(new Classes());
         setThrowing(new LocalThrowing());
@@ -2789,6 +2795,14 @@ public abstract class ContextEl implements ExecutableCode {
     @Override
     public int getCurrentLocationIndex() {
         return analyzing.getTraceIndex();
+    }
+
+    public AnalysisMessages getAnalysisMessages() {
+        return analysisMessages;
+    }
+
+    public void setAnalysisMessages(AnalysisMessages _analysisMessages) {
+        analysisMessages = _analysisMessages;
     }
 
     @Override

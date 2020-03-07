@@ -1,6 +1,7 @@
 package code.expressionlanguage.utilcompo;
 
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.errors.AnalysisMessages;
 import code.expressionlanguage.methods.FileBlock;
 import code.expressionlanguage.opers.util.MethodAccessKind;
 import code.expressionlanguage.opers.util.MethodId;
@@ -19,38 +20,46 @@ public final class CustContextFactory {
     public static RunnableContextEl buildDefKw(String _lang,
             Options _options, ExecutingOptions _exec,LgNamesUtils _undefinedLgNames, StringMap<String> _files, int _tabWidth) {
         KeyWords kwl_ = new KeyWords();
+        AnalysisMessages mess_ = new AnalysisMessages();
         if (StringList.quickEq(_lang, "en")) {
+            _undefinedLgNames.messages(mess_,_lang,_exec.getMessages());
             _undefinedLgNames.keyWord(kwl_,_lang,_exec.getKeyWords());
             _undefinedLgNames.otherAlias(_lang,_exec.getAliases());
         } else if (StringList.quickEq(_lang, "fr")) {
+            _undefinedLgNames.messages(mess_,_lang,_exec.getMessages());
             _undefinedLgNames.keyWord(kwl_,_lang,_exec.getKeyWords());
             _undefinedLgNames.otherAlias(_lang,_exec.getAliases());
         } else {
+            _undefinedLgNames.messages(mess_,_exec.getMessages(), new StringMap<String>());
             _undefinedLgNames.keyWord(kwl_,_exec.getKeyWords(), new StringMap<String>());
             _undefinedLgNames.allAlias(_exec.getAliases(), new StringMap<String>());
         }
-        return build(CustList.INDEX_NOT_FOUND_ELT, _options, _exec,kwl_, _undefinedLgNames, _files, _tabWidth);
+        return build(CustList.INDEX_NOT_FOUND_ELT, _options, _exec,mess_,kwl_, _undefinedLgNames, _files, _tabWidth);
     }
     public static void executeDefKw(String _lang,
                                Options _options, ExecutingOptions _exec,StringMap<String> _files, ProgressingTests _progressingTests,FileInfos _infos) {
+        AnalysisMessages mess_ = new AnalysisMessages();
         KeyWords kwl_ = new KeyWords();
         LgNamesUtils stds_ = new LgNamesUtils(_infos);
         if (StringList.quickEq(_lang, "en")) {
+            stds_.messages(mess_,_lang,_exec.getMessages());
             stds_.keyWord(kwl_,_lang,_exec.getKeyWords());
             stds_.otherAlias(_lang,_exec.getAliases());
         } else if (StringList.quickEq(_lang, "fr")) {
+            stds_.messages(mess_,_lang,_exec.getMessages());
             stds_.keyWord(kwl_,_lang,_exec.getKeyWords());
             stds_.otherAlias(_lang,_exec.getAliases());
         } else {
+            stds_.messages(mess_,_exec.getMessages(), new StringMap<String>());
             stds_.keyWord(kwl_,_exec.getKeyWords(), new StringMap<String>());
             stds_.allAlias(_exec.getAliases(), new StringMap<String>());
         }
-        execute(-1,_options,_exec,kwl_,stds_,_files,_progressingTests);
+        execute(-1,_options,_exec,mess_,kwl_,stds_,_files,_progressingTests);
     }
     public static void execute(int _stack,
-                               Options _options, ExecutingOptions _exec,KeyWords _definedKw, LgNamesUtils _definedLgNames, StringMap<String> _files, ProgressingTests _progressingTests) {
-        RunnableContextEl rCont_ = build(_stack, _options, _exec, _definedKw, _definedLgNames, _files, _exec.getTabWidth());
-        if (!rCont_.getClasses().isEmptyErrors() || !rCont_.getClasses().isEmptyStdError()) {
+                               Options _options, ExecutingOptions _exec,AnalysisMessages _mess, KeyWords _definedKw, LgNamesUtils _definedLgNames, StringMap<String> _files, ProgressingTests _progressingTests) {
+        RunnableContextEl rCont_ = build(_stack, _options, _exec, _mess,_definedKw, _definedLgNames, _files, _exec.getTabWidth());
+        if (!rCont_.getClasses().isEmptyErrors() || !rCont_.getClasses().isEmptyStdError() || !rCont_.getClasses().isEmptyMessageError()) {
             _progressingTests.showErrors(rCont_,_exec);
             return;
         }
@@ -73,12 +82,12 @@ public final class CustContextFactory {
         _progressingTests.setResults(rCont_,arg_);
     }
     public static RunnableContextEl build(int _stack,
-            Options _options, ExecutingOptions _exec,KeyWords _definedKw, LgNamesUtils _definedLgNames, StringMap<String> _files, int _tabWidth) {
+            Options _options, ExecutingOptions _exec,AnalysisMessages _mess, KeyWords _definedKw, LgNamesUtils _definedLgNames, StringMap<String> _files, int _tabWidth) {
         CustLockingClass cl_ = new CustLockingClass();
         CustInitializer ci_ = new CustInitializer();
-        RunnableContextEl r_ = new RunnableContextEl(_stack, cl_, ci_, _options, _exec, _definedKw, _definedLgNames,_tabWidth);
+        RunnableContextEl r_ = new RunnableContextEl(_stack, cl_, ci_, _options, _exec, _mess,_definedKw, _definedLgNames,_tabWidth);
         r_.setCovering(_exec.isCovering());
-        ContextFactory.validate(_definedKw,_definedLgNames,_files,r_,_exec.getSrcFolder());
+        ContextFactory.validate(_mess,_definedKw,_definedLgNames,_files,r_,_exec.getSrcFolder());
         return r_;
     }
 }

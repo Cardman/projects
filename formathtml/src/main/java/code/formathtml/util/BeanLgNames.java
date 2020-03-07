@@ -4,6 +4,7 @@ import code.bean.validator.Message;
 import code.bean.validator.Validator;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.errors.KeyValueMemberName;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.instr.NumberInfos;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
@@ -169,20 +170,20 @@ public abstract class BeanLgNames extends LgNames {
     }
 
     @Override
-    public StringList allRefTypes() {
-        StringList types_ = super.allRefTypes();
-        types_.add(getAliasMessage());
+    public StringMap<String> allRefTypes() {
+        StringMap<String> types_ = super.allRefTypes();
+        types_.addEntry("Message",getAliasMessage());
         return types_;
     }
 
     @Override
-    public StringMap<StringList> allTableTypeMethodNames() {
-        StringMap<StringList> methods_ = super.allTableTypeMethodNames();
+    public StringMap<CustList<KeyValueMemberName>> allTableTypeMethodNames() {
+        StringMap<CustList<KeyValueMemberName>> methods_ = super.allTableTypeMethodNames();
         methods_.put(getAliasMessage(),
-                new StringList(getAliasNewMessage(),
-                        getAliasMessageFormat(),
-                        getAliasMessageGetArgs(),
-                        getAliasMessageSetArgs()));
+                new CustList<KeyValueMemberName>(new KeyValueMemberName("NewMessage",getAliasNewMessage()),
+                        new KeyValueMemberName("MessageFormat",getAliasMessageFormat()),
+                        new KeyValueMemberName("MessageGetArgs",getAliasMessageGetArgs()),
+                        new KeyValueMemberName("MessageSetArgs",getAliasMessageSetArgs())));
         return methods_;
     }
 

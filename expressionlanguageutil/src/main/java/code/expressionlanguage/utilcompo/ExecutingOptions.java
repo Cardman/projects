@@ -17,6 +17,7 @@ public final class ExecutingOptions {
     private boolean invokeDirect;
     private boolean hasArg;
     private StringList args = new StringList();
+    private StringMap<String> messages = new StringMap<String>();
     private StringMap<String> keyWords = new StringMap<String>();
     private StringMap<String> aliases = new StringMap<String>();
 
@@ -102,6 +103,14 @@ public final class ExecutingOptions {
 
     public void setAliases(StringMap<String> _aliases) {
         aliases = _aliases;
+    }
+
+    public StringMap<String> getMessages() {
+        return messages;
+    }
+
+    public void setMessages(StringMap<String> messages) {
+        this.messages = messages;
     }
 
     public StringMap<String> getKeyWords() {

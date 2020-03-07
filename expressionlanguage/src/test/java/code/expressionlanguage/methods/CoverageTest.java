@@ -798,7 +798,7 @@ public final class CoverageTest extends ProcessMethodCommon {
         files_.put("src/pkg/Ex", xml_.toString());
         files_.put(CUST_ITER_PATH, getCustomIterator());
         files_.put(CUST_LIST_PATH, getCustomList());
-        validate(cont_.getKeyWords(),cont_.getStandards(),files_,cont_);
+        validate(cont_,files_);
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
@@ -834,7 +834,7 @@ public final class CoverageTest extends ProcessMethodCommon {
         files_.put("src/pkg/Ex", xml_.toString());
         files_.put(CUST_ITER_PATH, getCustomIterator());
         files_.put(CUST_LIST_PATH, getCustomList());
-        validate(cont_.getKeyWords(),cont_.getStandards(),files_,cont_);
+        validate(cont_,files_);
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
@@ -867,7 +867,7 @@ public final class CoverageTest extends ProcessMethodCommon {
         files_.put("src/pkg/Ex", xml_.toString());
         files_.put(CUST_ITER_PATH, getCustomIterator());
         files_.put(CUST_LIST_PATH, getCustomList());
-        validate(cont_.getKeyWords(),cont_.getStandards(),files_,cont_);
+        validate(cont_,files_);
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
@@ -903,7 +903,7 @@ public final class CoverageTest extends ProcessMethodCommon {
         files_.put("src/pkg/Ex", xml_.toString());
         files_.put(CUST_ITER_PATH, getCustomIterator());
         files_.put(CUST_LIST_PATH, getCustomList());
-        validate(cont_.getKeyWords(),cont_.getStandards(),files_,cont_);
+        validate(cont_,files_);
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
@@ -942,7 +942,7 @@ public final class CoverageTest extends ProcessMethodCommon {
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPair());
         ContextEl cont_ = contextElCoverage();
-        validate(cont_.getKeyWords(),cont_.getStandards(),files_,cont_);
+        validate(cont_,files_);
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
@@ -982,7 +982,7 @@ public final class CoverageTest extends ProcessMethodCommon {
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPair());
         ContextEl cont_ = contextElCoverage();
-        validate(cont_.getKeyWords(),cont_.getStandards(),files_,cont_);
+        validate(cont_,files_);
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
@@ -1019,7 +1019,7 @@ public final class CoverageTest extends ProcessMethodCommon {
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPair());
         ContextEl cont_ = contextElCoverage();
-        validate(cont_.getKeyWords(),cont_.getStandards(),files_,cont_);
+        validate(cont_,files_);
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
@@ -1059,7 +1059,7 @@ public final class CoverageTest extends ProcessMethodCommon {
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPair());
         ContextEl cont_ = contextElCoverage();
-        validate(cont_.getKeyWords(),cont_.getStandards(),files_,cont_);
+        validate(cont_,files_);
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
@@ -1071,6 +1071,9 @@ public final class CoverageTest extends ProcessMethodCommon {
         assertTrue(!value_.isPartialCovered());
         assertTrue(!value_.isCoverTrue());
         assertTrue(!value_.isCoverFalse());
+    }
+    private static void validate(ContextEl _c, StringMap<String> _f) {
+        validate(_c.getAnalysisMessages(),_c.getKeyWords(),_c.getStandards(),_f,_c);
     }
     @Test
     public void coverage48Test() {

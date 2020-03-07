@@ -75,6 +75,7 @@ public final class RunningTest implements Runnable {
     public static void setupOptionals(int _from, ExecutingOptions _exec, StringList _lines) {
         StringBuilder argParts_ = new StringBuilder();
         StringBuilder aliasesPart_ = new StringBuilder();
+        StringBuilder messagesPart_ = new StringBuilder();
         StringBuilder keyWordsPart_ = new StringBuilder();
         for (String l: _lines.mid(_from)) {
             if (l.startsWith("log=")) {
@@ -119,6 +120,9 @@ public final class RunningTest implements Runnable {
             if (l.startsWith("aliases=")) {
                 aliasesPart_.append(l.substring("aliases=".length()));
             }
+            if (l.startsWith("messages=")) {
+                messagesPart_.append(l.substring("messages=".length()));
+            }
             if (l.startsWith("keyWords=")) {
                 keyWordsPart_.append(l.substring("keyWords=".length()));
             }
@@ -140,6 +144,21 @@ public final class RunningTest implements Runnable {
                 al_.put(key_,value_);
             }
             _exec.setAliases(al_);
+        }
+        if (messagesPart_.length() > 0) {
+            StringList infos_ = StringList.splitChars(messagesPart_.toString(),',');
+            StringMap<String> kw_ = new StringMap<String>();
+            for (String l: infos_) {
+                int sep_ = l.indexOf('=');
+                if (sep_ < 0) {
+                    continue;
+                }
+                String key_ = l.substring(0, sep_).trim();
+                String value_ = StringList.removeAllSpaces(l.substring(sep_ +1));
+                value_ = LgNames.parseValue(value_);
+                kw_.put(key_,value_);
+            }
+            _exec.setMessages(kw_);
         }
         if (keyWordsPart_.length() > 0) {
             StringList infos_ = StringList.splitChars(keyWordsPart_.toString(),',');

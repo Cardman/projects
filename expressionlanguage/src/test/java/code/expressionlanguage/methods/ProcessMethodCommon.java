@@ -4,6 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.InitializationLgNames;
 import code.expressionlanguage.calls.util.CallingState;
+import code.expressionlanguage.errors.AnalysisMessages;
 import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.options.ContextFactory;
 import code.expressionlanguage.options.KeyWords;
@@ -28,8 +29,8 @@ public abstract class ProcessMethodCommon {
     protected static final String STRING = "java.lang.String";
     protected static final String BOOLEAN = "java.lang.Boolean";
 
-    protected static void validate(KeyWords _definedKw, LgNames _definedLgNames, StringMap<String> _files, ContextEl _contextEl) {
-        ContextFactory.validate(_definedKw,_definedLgNames,_files,_contextEl,"src");
+    protected static void validate(AnalysisMessages _mess, KeyWords _definedKw, LgNames _definedLgNames, StringMap<String> _files, ContextEl _contextEl) {
+        ContextFactory.validate(_mess, _definedKw,_definedLgNames,_files,_contextEl,"src");
     }
     protected static Argument calculateArgument(String _class, MethodId _method, CustList<Argument> _args, ContextEl _cont) {
         MethodId fct_ = new MethodId(_method.getKind(), _method.getName(),_method.getParametersTypes());
