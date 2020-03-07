@@ -68,7 +68,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         }
         generalProcess(_conf, args_);
         MethodOperation m_ = getParent();
-        if (m_ instanceof DotOperation) {
+        if (m_ instanceof DotOperation && isIntermediateDottedOperation()) {
             m_ = m_.getParent();
         }
         if (m_ instanceof IdOperation) {
