@@ -210,32 +210,34 @@ public abstract class LgNames {
     }
     public void validatePrimitiveContents(ContextEl _cont, StringMap<String> _list) {
         AnalysisMessages a_ = _cont.getAnalysisMessages();
-        for (String k: _list.values()) {
-            if (k.isEmpty()) {
+        for (EntryCust<String,String> e: _list.entryList()) {
+            String key_ = e.getKey();
+            String value_ = e.getValue();
+            if (value_.isEmpty()) {
                 StdWordError err_ = new StdWordError();
-                err_.setMessage(StringList.simpleStringsFormat(a_.getEmptyPrimitive(),k));
+                err_.setMessage(StringList.simpleStringsFormat(a_.getEmptyPrimitive(),key_));
                 err_.setErrCat(ErrorCat.WRITE_PRIMITIVE_WORD);
                 _cont.getClasses().addStdError(err_);
                 continue;
             }
-            if (_cont.getKeyWords().isKeyWord(k)) {
+            if (_cont.getKeyWords().isKeyWord(value_)) {
                 StdWordError err_ = new StdWordError();
-                err_.setMessage(StringList.simpleStringsFormat(a_.getPrimitiveKeyWord(),k));
+                err_.setMessage(StringList.simpleStringsFormat(a_.getPrimitiveKeyWord(),key_,value_));
                 err_.setErrCat(ErrorCat.WRITE_PRIMITIVE_WORD);
                 _cont.getClasses().addStdError(err_);
             }
-            for (char c: k.toCharArray()) {
+            for (char c: value_.toCharArray()) {
                 if (!StringList.isDollarWordChar(c)) {
                     StdWordError err_ = new StdWordError();
-                    err_.setMessage(StringList.simpleStringsFormat(a_.getNotWordCharPrimitive(),k));
+                    err_.setMessage(StringList.simpleStringsFormat(a_.getNotWordCharPrimitive(),key_,value_));
                     err_.setErrCat(ErrorCat.WRITE_PRIMITIVE_WORD);
                     _cont.getClasses().addStdError(err_);
                     break;
                 }
             }
-            if (ContextEl.isDigit(k.charAt(0))) {
+            if (ContextEl.isDigit(value_.charAt(0))) {
                 StdWordError err_ = new StdWordError();
-                err_.setMessage(StringList.simpleStringsFormat(a_.getDigitFirstPrimitive(),k));
+                err_.setMessage(StringList.simpleStringsFormat(a_.getDigitFirstPrimitive(),key_,value_));
                 err_.setErrCat(ErrorCat.WRITE_PRIMITIVE_WORD);
                 _cont.getClasses().addStdError(err_);
             }
@@ -311,38 +313,40 @@ public abstract class LgNames {
     public void validateRefTypeContents(ContextEl _cont, StringMap<String> _list, StringMap<String> _prims) {
         AnalysisMessages a_ = _cont.getAnalysisMessages();
         StringList allPkgs_ = new StringList();
-        for (String k: _list.values()) {
-            if (k.isEmpty()) {
+        for (EntryCust<String,String> e: _list.entryList()) {
+            String key_ = e.getKey();
+            String value_ = e.getValue();
+            if (value_.isEmpty()) {
                 StdWordError err_ = new StdWordError();
-                err_.setMessage(StringList.simpleStringsFormat(a_.getEmptyRefType(),k));
+                err_.setMessage(StringList.simpleStringsFormat(a_.getEmptyRefType(),key_));
                 err_.setErrCat(ErrorCat.WRITE_TYPE_WORD);
                 _cont.getClasses().addStdError(err_);
                 continue;
             }
-            for (String p : StringList.splitChars(k, '.')) {
+            for (String p : StringList.splitChars(value_, '.')) {
                 if (p.isEmpty()) {
                     StdWordError err_ = new StdWordError();
-                    err_.setMessage(StringList.simpleStringsFormat(a_.getEmptyRefTypeIn(),k));
+                    err_.setMessage(StringList.simpleStringsFormat(a_.getEmptyRefTypeIn(),key_,value_));
                     err_.setErrCat(ErrorCat.WRITE_TYPE_WORD);
                     _cont.getClasses().addStdError(err_);
                     continue;
                 }
                 if (StringList.contains(_prims.values(), p)) {
                     StdWordError err_ = new StdWordError();
-                    err_.setMessage(StringList.simpleStringsFormat(a_.getRefTypePrimitive(),k));
+                    err_.setMessage(StringList.simpleStringsFormat(a_.getRefTypePrimitive(),key_,value_));
                     err_.setErrCat(ErrorCat.WRITE_TYPE_WORD);
                     _cont.getClasses().addStdError(err_);
                 }
                 if (_cont.getKeyWords().isKeyWord(p)) {
                     StdWordError err_ = new StdWordError();
-                    err_.setMessage(StringList.simpleStringsFormat(a_.getRefTypeKeyWord(),k));
+                    err_.setMessage(StringList.simpleStringsFormat(a_.getRefTypeKeyWord(),key_,value_));
                     err_.setErrCat(ErrorCat.WRITE_TYPE_WORD);
                     _cont.getClasses().addStdError(err_);
                 }
                 for (char c: p.toCharArray()) {
                     if (!StringList.isDollarWordChar(c)) {
                         StdWordError err_ = new StdWordError();
-                        err_.setMessage(StringList.simpleStringsFormat(a_.getNotWordCharRefType(),k));
+                        err_.setMessage(StringList.simpleStringsFormat(a_.getNotWordCharRefType(),key_,value_));
                         err_.setErrCat(ErrorCat.WRITE_TYPE_WORD);
                         _cont.getClasses().addStdError(err_);
                         break;
@@ -350,15 +354,15 @@ public abstract class LgNames {
                 }
                 if (ContextEl.isDigit(p.charAt(0))) {
                     StdWordError err_ = new StdWordError();
-                    err_.setMessage(StringList.simpleStringsFormat(a_.getDigitFirstRefType(),k));
+                    err_.setMessage(StringList.simpleStringsFormat(a_.getDigitFirstRefType(),key_,value_));
                     err_.setErrCat(ErrorCat.WRITE_TYPE_WORD);
                     _cont.getClasses().addStdError(err_);
                 }
             }
-            String pkg_ = StandardType.getPackagePart(k);
+            String pkg_ = StandardType.getPackagePart(value_);
             if (pkg_.isEmpty()) {
                 StdWordError err_ = new StdWordError();
-                err_.setMessage(StringList.simpleStringsFormat(a_.getEmptyPkgRefType(),k));
+                err_.setMessage(StringList.simpleStringsFormat(a_.getEmptyPkgRefType(),key_,value_));
                 err_.setErrCat(ErrorCat.WRITE_TYPE_WORD);
                 _cont.getClasses().addStdError(err_);
             }
@@ -373,14 +377,14 @@ public abstract class LgNames {
         if (!exNonEmpty_) {
             //ERROR
             StdWordError err_ = new StdWordError();
-            err_.setMessage(StringList.simpleStringsFormat(a_.getDefaultPkgNoMatch()));
+            err_.setMessage(StringList.simpleStringsFormat(a_.getDefaultPkgNoMatch(),defaultPkg));
             err_.setErrCat(ErrorCat.WRITE_TYPE_WORD);
             _cont.getClasses().addStdError(err_);
         }
         for (String k: _list.values()) {
             if (defaultPkg.contains(k)) {
                 StdWordError err_ = new StdWordError();
-                err_.setMessage(StringList.simpleStringsFormat(a_.getDefaultPkgRefType()));
+                err_.setMessage(StringList.simpleStringsFormat(a_.getDefaultPkgRefType(),k,defaultPkg));
                 err_.setErrCat(ErrorCat.WRITE_TYPE_WORD);
                 _cont.getClasses().addStdError(err_);
             }
@@ -838,27 +842,27 @@ public abstract class LgNames {
                 String value_ = f.getValue();
                 if (value_.isEmpty()) {
                     StdWordError err_ = new StdWordError();
-                    err_.setMessage(StringList.simpleStringsFormat(a_.getEmptyMethod(),key_));
+                    err_.setMessage(StringList.simpleStringsFormat(a_.getEmptyMethod(),key_,e.getKey()));
                     err_.setErrCat(ErrorCat.WRITE_METHOD_WORD);
                     _cont.getClasses().addStdError(err_);
                     continue;
                 }
                 if (_cont.getKeyWords().isKeyWordNotVar(value_)) {
                     StdWordError err_ = new StdWordError();
-                    err_.setMessage(StringList.simpleStringsFormat(a_.getMethodKeyWord(),key_));
+                    err_.setMessage(StringList.simpleStringsFormat(a_.getMethodKeyWord(),value_,key_,e.getKey()));
                     err_.setErrCat(ErrorCat.WRITE_METHOD_WORD);
                     _cont.getClasses().addStdError(err_);
                 }
                 if (StringList.contains(_prims.values(), value_)) {
                     StdWordError err_ = new StdWordError();
-                    err_.setMessage(StringList.simpleStringsFormat(a_.getMethodPrimitive(),key_));
+                    err_.setMessage(StringList.simpleStringsFormat(a_.getMethodPrimitive(),value_,key_,e.getKey()));
                     err_.setErrCat(ErrorCat.WRITE_METHOD_WORD);
                     _cont.getClasses().addStdError(err_);
                 }
                 for (char c: value_.toCharArray()) {
                     if (!StringList.isDollarWordChar(c)) {
                         StdWordError err_ = new StdWordError();
-                        err_.setMessage(StringList.simpleStringsFormat(a_.getNotWordCharMethod(),key_));
+                        err_.setMessage(StringList.simpleStringsFormat(a_.getNotWordCharMethod(),value_,e.getKey(),Character.toString(c)));
                         err_.setErrCat(ErrorCat.WRITE_METHOD_WORD);
                         _cont.getClasses().addStdError(err_);
                         break;
@@ -866,7 +870,7 @@ public abstract class LgNames {
                 }
                 if (ContextEl.isDigit(value_.charAt(0))) {
                     StdWordError err_ = new StdWordError();
-                    err_.setMessage(StringList.simpleStringsFormat(a_.getDigitFirstMethod(),key_));
+                    err_.setMessage(StringList.simpleStringsFormat(a_.getDigitFirstMethod(),value_,e.getKey(),Character.toString(value_.charAt(0))));
                     err_.setErrCat(ErrorCat.WRITE_METHOD_WORD);
                     _cont.getClasses().addStdError(err_);
                 }
@@ -907,7 +911,7 @@ public abstract class LgNames {
                 for (KeyValueMemberName f: e) {
                     String v_ = f.getValue();
                     StdWordError err_ = new StdWordError();
-                    err_.setMessage(StringList.simpleStringsFormat(a_.getDuplicateMergedMethod(),v_));
+                    err_.setMessage(StringList.simpleStringsFormat(a_.getDuplicateMergedMethod(),v_,f.getKey()));
                     err_.setErrCat(ErrorCat.DUPLICATE_METHOD_WORD);
                     _cont.getClasses().addStdError(err_);
                 }
@@ -966,7 +970,7 @@ public abstract class LgNames {
                 String value_ = f.getValue();
                 if (value_.isEmpty()) {
                     StdWordError err_ = new StdWordError();
-                    err_.setMessage(StringList.simpleStringsFormat(a_.getEmptyField(),key_));
+                    err_.setMessage(StringList.simpleStringsFormat(a_.getEmptyField(),key_,e.getKey()));
                     err_.setErrCat(ErrorCat.WRITE_FIELD_WORD);
                     _cont.getClasses().addStdError(err_);
                     continue;
@@ -1029,7 +1033,7 @@ public abstract class LgNames {
                 String value_ = f.getValue();
                 if (value_.isEmpty()) {
                     StdWordError err_ = new StdWordError();
-                    err_.setMessage(StringList.simpleStringsFormat(a_.getEmptyVarType(),key_));
+                    err_.setMessage(StringList.simpleStringsFormat(a_.getEmptyVarType(),key_,e.getKey()));
                     err_.setErrCat(ErrorCat.WRITE_VAR_TYPE_WORD);
                     _cont.getClasses().addStdError(err_);
                     continue;

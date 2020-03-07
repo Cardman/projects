@@ -123,7 +123,7 @@ public final class KeyWords {
             }
             if (ContextEl.isDigit(keyWordValue_.charAt(0))) {
                 StdWordError err_ = new StdWordError();
-                err_.setMessage(StringList.simpleStringsFormat(a_.getDigitFirst(),Character.toString(keyWordValue_.charAt(0))));
+                err_.setMessage(StringList.simpleStringsFormat(a_.getDigitFirst(),keyWordValue_,Character.toString(keyWordValue_.charAt(0))));
                 err_.setErrCat(ErrorCat.WRITE_KEY_WORD);
                 _cont.getClasses().addStdError(err_);
             }
@@ -251,7 +251,7 @@ public final class KeyWords {
             }
             if (!Character.isLetter(keyWordValue_.charAt(0))) {
                 StdWordError err_ = new StdWordError();
-                err_.setMessage(StringList.simpleStringsFormat(a_.getDigitFirst(),Character.toString(keyWordValue_.charAt(0))));
+                err_.setMessage(StringList.simpleStringsFormat(a_.getDigitFirst(),keyWordValue_,Character.toString(keyWordValue_.charAt(0))));
                 err_.setErrCat(ErrorCat.WRITE_NB_WORD);
                 _cont.getClasses().addStdError(err_);
             }
@@ -347,26 +347,26 @@ public final class KeyWords {
         for (char c: keyWordNbBin.toCharArray()) {
             if (!StringList.isDollarWordChar(c)) {
                 StdWordError err_ = new StdWordError();
-                err_.setMessage(StringList.simpleStringsFormat(a_.getIllegalChar(),keyWordNbHex,Character.toString(c)));
+                err_.setMessage(StringList.simpleStringsFormat(a_.getIllegalChar(),keyWordNbBin,Character.toString(c)));
                 err_.setErrCat(ErrorCat.WRITE_NB_WORD);
                 _cont.getClasses().addStdError(err_);
             }
             if (c == '_') {
                 StdWordError err_ = new StdWordError();
-                err_.setMessage(StringList.simpleStringsFormat(a_.getIllegalChar(),keyWordNbHex,Character.toString(c)));
+                err_.setMessage(StringList.simpleStringsFormat(a_.getIllegalChar(),keyWordNbBin,Character.toString(c)));
                 err_.setErrCat(ErrorCat.WRITE_NB_WORD);
                 _cont.getClasses().addStdError(err_);
             }
             if (ContextEl.isDigit(c)) {
                 StdWordError err_ = new StdWordError();
-                err_.setMessage(StringList.simpleStringsFormat(a_.getIllegalChar(),keyWordNbHex,Character.toString(c)));
+                err_.setMessage(StringList.simpleStringsFormat(a_.getIllegalChar(),keyWordNbBin,Character.toString(c)));
                 err_.setErrCat(ErrorCat.WRITE_NB_WORD);
                 _cont.getClasses().addStdError(err_);
             }
         }
         if (!Character.isLetter(keyWordNbBin.charAt(0))) {
             StdWordError err_ = new StdWordError();
-            err_.setMessage(StringList.simpleStringsFormat(a_.getIllegalFirstChar(),keyWordNbHex,Character.toString(keyWordNbBin.charAt(0))));
+            err_.setMessage(StringList.simpleStringsFormat(a_.getIllegalFirstChar(),keyWordNbBin,Character.toString(keyWordNbBin.charAt(0))));
             err_.setErrCat(ErrorCat.WRITE_NB_WORD);
             _cont.getClasses().addStdError(err_);
         }
@@ -383,19 +383,19 @@ public final class KeyWords {
         for (char c: keyWordNbExpBin.toCharArray()) {
             if (c == '_') {
                 StdWordError err_ = new StdWordError();
-                err_.setMessage(StringList.simpleStringsFormat(a_.getIllegalChar(),keyWordNbHex,Character.toString(c)));
+                err_.setMessage(StringList.simpleStringsFormat(a_.getIllegalChar(),keyWordNbExpBin,Character.toString(c)));
                 err_.setErrCat(ErrorCat.WRITE_NB_WORD);
                 _cont.getClasses().addStdError(err_);
             }
             if (!StringList.isDollarWordChar(c)) {
                 StdWordError err_ = new StdWordError();
-                err_.setMessage(StringList.simpleStringsFormat(a_.getIllegalChar(),keyWordNbHex,Character.toString(c)));
+                err_.setMessage(StringList.simpleStringsFormat(a_.getIllegalChar(),keyWordNbExpBin,Character.toString(c)));
                 err_.setErrCat(ErrorCat.WRITE_NB_WORD);
                 _cont.getClasses().addStdError(err_);
             }
             if (ContextEl.isDigit(c)) {
                 StdWordError err_ = new StdWordError();
-                err_.setMessage(StringList.simpleStringsFormat(a_.getIllegalChar(),keyWordNbHex,Character.toString(c)));
+                err_.setMessage(StringList.simpleStringsFormat(a_.getIllegalChar(),keyWordNbExpBin,Character.toString(c)));
                 err_.setErrCat(ErrorCat.WRITE_NB_WORD);
                 _cont.getClasses().addStdError(err_);
             }
@@ -403,19 +403,19 @@ public final class KeyWords {
         char firstExpBin_ = keyWordNbExpBin.charAt(0);
         if (!Character.isLetter(firstExpBin_)) {
             StdWordError err_ = new StdWordError();
-            err_.setMessage(StringList.simpleStringsFormat(a_.getIllegalFirstChar(),keyWordNbHex,Character.toString(firstExpBin_)));
+            err_.setMessage(StringList.simpleStringsFormat(a_.getIllegalFirstChar(),keyWordNbExpBin,Character.toString(firstExpBin_)));
             err_.setErrCat(ErrorCat.WRITE_NB_WORD);
             _cont.getClasses().addStdError(err_);
         }
         if (firstExpBin_ >= 'A' && firstExpBin_ <= 'F') {
             StdWordError err_ = new StdWordError();
-            err_.setMessage(StringList.simpleStringsFormat(a_.getIllegalFirstChar(),keyWordNbHex,Character.toString(firstExpBin_)));
+            err_.setMessage(StringList.simpleStringsFormat(a_.getIllegalFirstChar(),keyWordNbExpBin,Character.toString(firstExpBin_)));
             err_.setErrCat(ErrorCat.WRITE_NB_WORD);
             _cont.getClasses().addStdError(err_);
         }
         if (firstExpBin_ >= 'a' && firstExpBin_ <= 'f') {
             StdWordError err_ = new StdWordError();
-            err_.setMessage(StringList.simpleStringsFormat(a_.getIllegalFirstChar(),keyWordNbHex,Character.toString(firstExpBin_)));
+            err_.setMessage(StringList.simpleStringsFormat(a_.getIllegalFirstChar(),keyWordNbExpBin,Character.toString(firstExpBin_)));
             err_.setErrCat(ErrorCat.WRITE_NB_WORD);
             _cont.getClasses().addStdError(err_);
         }

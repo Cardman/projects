@@ -30,7 +30,7 @@ public final class AnalysisMessages {
     private String refTypePrimitive = "the reference type {0}:{1} contains a duplicate string of a primitive.";
     private String digitFirstRefType = "{0} starts with {1} that is digit.";
     private String emptyPkgRefType = "{0}:{1} does not belong to a package.";
-    private String defaultPkgRefType = "{0}:{1} match the default package.";
+    private String defaultPkgRefType = "{0} match the default package {1}.";
     private String defaultPkgNoMatch = "the default package {0} has no reference type.";
 
     private String emptyMethod = "the method key {0} in reference type {1} has an empty method name.";
@@ -68,7 +68,7 @@ public final class AnalysisMessages {
             String key_ = e.getKey();
             String keyWordValue_ = e.getValue();
             if (keyWordValue_.isEmpty()) {
-                _cont.getClasses().addMessageError(StringList.concat("empty word",key_));
+                _cont.getClasses().addMessageError(StringList.concat("empty word ",key_));
             }
         }
     }
