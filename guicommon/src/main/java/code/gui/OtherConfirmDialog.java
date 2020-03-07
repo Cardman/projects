@@ -7,10 +7,10 @@ import java.awt.image.BufferedImage;
 
 public final class OtherConfirmDialog {
 
-    public static int OK_OPTION = JOptionPane.OK_OPTION;
-    public static int YES_OPTION = JOptionPane.YES_OPTION;
-    public static int NO_OPTION = JOptionPane.NO_OPTION;
-    public static int CANCEL_OPTION = JOptionPane.CANCEL_OPTION;
+    public static final int OK_OPTION = JOptionPane.OK_OPTION;
+    public static final int YES_OPTION = JOptionPane.YES_OPTION;
+    public static final int NO_OPTION = JOptionPane.NO_OPTION;
+    public static final int CANCEL_OPTION = JOptionPane.CANCEL_OPTION;
     private static final String EMPTY_STRING = "";
     private JDialog dialog = new JDialog();
 

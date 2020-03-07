@@ -15,61 +15,59 @@ import java.util.concurrent.atomic.AtomicBoolean;
 un petit carre de 10 pixels noir en haut vers la droite*/
 public final class AnimationUnitSoldier implements Runnable {
 
-    private static PanelBattle battleground;
+    private PanelBattle battleground;
 
-    private static MainWindow window;
+    private MainWindow window;
 
-    private static AtomicBoolean paused = new AtomicBoolean();
+    private AtomicBoolean paused;
 
-    private static boolean stop;
+    private AtomicBoolean stop;
 
-    public AnimationUnitSoldier(PanelBattle _conteneur) {
-        battleground = _conteneur;
-        stop = false;
-    }
-
-    public static void setWindow(MainWindow _window) {
+    public AnimationUnitSoldier(PanelBattle _conteneur,MainWindow _window) {
         window = _window;
+        battleground = _window.getBattleground();
+        stop = _window.getStopped();
+        paused = _window.getPaused();
     }
 
-    public static void selectOrDeselect(CustPoint _first, CustPoint _last) {
+    public void selectOrDeselect(CustPoint _first, CustPoint _last) {
         battleground.setRectangle(_first, _last);
         battleground.setPaintSelection(true);
         repaintBattleground();
     }
 
-    public static void selectOrDeselect(int _x, int _y) {
+    public void selectOrDeselect(int _x, int _y) {
         battleground.setRectangle(_x, _y);
         repaintBattleground();
     }
 
-    public static void addNewSoldier(int _x, int _y) {
+    public void addNewSoldier(int _x, int _y) {
         battleground.addNewSoldier(_x, _y);
     }
 
-    public static void setNewLocation(int _x, int _y) {
+    public void setNewLocation(int _x, int _y) {
         battleground.setNewLocation(_x, _y);
     }
 
-    public static void moveCamera(Point _pt) {
+    public void moveCamera(Point _pt) {
         battleground.moveCamera(_pt);
     }
 
-    public static void pause() {
+    public void pause() {
         if (!paused.get()) {
             window.setEnabledPause(false);
         }
         paused.set(!paused.get());
     }
 
-    public static void stopGame() {
-        stop = true;
+    public void stopGame() {
+        stop.set(true);
     }
 
     @Override
     public void run() {
         while (true) {
-            if (stop) {
+            if (stop.get()) {
                 break;
             }
             pause(100);
@@ -78,13 +76,13 @@ public final class AnimationUnitSoldier implements Runnable {
         }
     }
 
-    static void loop() {
+    void loop() {
         Facade f_ = battleground.getFacade();
         f_.loop();
         battleground.selectOrDeselectMany();
     }
 
-    static void moving() {
+    void moving() {
         Facade f_ = battleground.getFacade();
         CustComponent parent_ = battleground.getContainer().getParent();
         int w_ = parent_.getWidth();
@@ -100,7 +98,7 @@ public final class AnimationUnitSoldier implements Runnable {
         repaintBattleground();
     }
 
-    private static void repaintBattleground() {
+    private void repaintBattleground() {
         Facade f_ = battleground.getFacade();
         CustComponent parent_ = battleground.getContainer().getParent();
         int w_ = parent_.getWidth();
@@ -111,7 +109,7 @@ public final class AnimationUnitSoldier implements Runnable {
     }
 
     /**La methode pause est utilisee pour permettre de voir l'avancement a l'oeil nu*/
-    static void pause(long _tempsMillis) {
+    private void pause(long _tempsMillis) {
         ThreadUtil.sleep(_tempsMillis);
         window.setEnabledPause(true);
         while (paused.get()) {

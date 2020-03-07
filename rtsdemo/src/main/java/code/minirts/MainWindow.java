@@ -27,13 +27,11 @@ public final class MainWindow extends GroupFrame {
 
     public static final String FOLDER = "rts_imgs";
 
-    public static final Cursor DEFAULT_CURSOR1 = Cursor.getDefaultCursor();
-
-    public static Cursor _currentCursor_ = DEFAULT_CURSOR1;
-
-    public static Cursor _custCursor_ = _currentCursor_;
-
     private static final String SELECT = "select";
+
+    private Cursor DEFAULT_CURSOR1 = Cursor.getDefaultCursor();
+
+    private Cursor currentCursor = DEFAULT_CURSOR1;
 
     private PlainButton animate = new PlainButton("Animate");
 
@@ -44,8 +42,9 @@ public final class MainWindow extends GroupFrame {
     private Facade facade = new Facade();
 
     private PanelBattle battleground = new PanelBattle(facade);
-
-    private AnimationUnitSoldier thread = new AnimationUnitSoldier(battleground);
+    private AtomicBoolean stopped = new AtomicBoolean();
+    private AtomicBoolean paused = new AtomicBoolean();
+    private AnimationUnitSoldier thread = new AnimationUnitSoldier(battleground,this);
     private Thread threadLau = new Thread(thread);
 
     private CustCheckBox addSoldier = new CustCheckBox("Add soldier");
@@ -58,7 +57,6 @@ public final class MainWindow extends GroupFrame {
 
     public MainWindow(String _lg) {
         super(_lg);
-        AnimationUnitSoldier.setWindow(this);
         Panel contentPane_ = Panel.newBorder();
         Panel scene_ = Panel.newBorder();
         InteractClick i_ = new InteractClick(this);
@@ -113,7 +111,6 @@ public final class MainWindow extends GroupFrame {
         }
         Image b_ = tool_.createImage(new MemoryImageSource(wCurs_, hCurs_, pixels_, 0, wCurs_));
         Cursor c_ = tool_.createCustomCursor(b_, new Point(0, 0),SELECT);
-        _custCursor_ = c_;
         battlegroundWrapper_.setCursor(c_);
         scene_.add(buttons_, BorderLayout.SOUTH);
         contentPane_.add(scene_, BorderLayout.CENTER);
@@ -145,49 +142,49 @@ public final class MainWindow extends GroupFrame {
         if (!threadLau.isAlive()) {
             return;
         }
-        AnimationUnitSoldier.moveCamera(_pt);
+        thread.moveCamera(_pt);
     }
 
     public void pause() {
         if (!threadLau.isAlive()) {
             return;
         }
-        AnimationUnitSoldier.pause();
+        thread.pause();
     }
 
     public void stopGame() {
         if (!threadLau.isAlive()) {
             return;
         }
-        AnimationUnitSoldier.stopGame();
+        thread.stopGame();
     }
 
     public void addNewSoldier(int _x, int _y) {
         if (!threadLau.isAlive()) {
             return;
         }
-        AnimationUnitSoldier.addNewSoldier(_x, _y);
+        thread.addNewSoldier(_x, _y);
     }
 
     public void setNewLocation(int _x, int _y) {
         if (!threadLau.isAlive()) {
             return;
         }
-        AnimationUnitSoldier.setNewLocation(_x, _y);
+        thread.setNewLocation(_x, _y);
     }
 
     public void selectOrDeselect(int _x, int _y) {
         if (!threadLau.isAlive()) {
             return;
         }
-        AnimationUnitSoldier.selectOrDeselect(_x, _y);
+        thread.selectOrDeselect(_x, _y);
     }
 
     public void selectOrDeselectMulti() {
         if (!threadLau.isAlive()) {
             return;
         }
-        AnimationUnitSoldier.selectOrDeselect(first, last);
+        thread.selectOrDeselect(first, last);
     }
 
     public void animate() {
@@ -196,7 +193,7 @@ public final class MainWindow extends GroupFrame {
         if (threadLau.isAlive()) {
             return;
         }
-        thread = new AnimationUnitSoldier(battleground);
+        thread = new AnimationUnitSoldier(battleground,this);
         threadLau = new Thread(thread);
         threadLau.start();
     }
@@ -225,6 +222,22 @@ public final class MainWindow extends GroupFrame {
         last = new CustPoint(_x, _y);
     }
 
+    public PanelBattle getBattleground() {
+        return battleground;
+    }
+
+    public AtomicBoolean getStopped() {
+        return stopped;
+    }
+
+    public AtomicBoolean getPaused() {
+        return paused;
+    }
+
+    public Cursor getCurrentCursor() {
+        return currentCursor;
+    }
+
     @Override
     public void quit() {
         dispose();
@@ -242,8 +255,7 @@ public final class MainWindow extends GroupFrame {
 
     @Override
     public void changeLanguage(String _language) {
-        // TODO Auto-generated method stub
-        
+        //
     }
 
 }

@@ -1,9 +1,7 @@
 package cards.main;
-import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
-
-import javax.swing.SwingUtilities;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import cards.belote.HandBelote;
 import cards.belote.sml.DocumentWriterBeloteUtil;
@@ -30,7 +28,7 @@ public class LaunchingCards extends SoftApplicationCore {
 
     //private static final Image ICON = getImage(FileConst.RESOURCES_IMAGES, FileConst.SUITS_TXT, FileConst.SUITS_PNG);
 
-    private static int _nbInstances_;
+    private static final AtomicInteger COUNT = new AtomicInteger();
 
     @Override
     protected void launch(String _language, StringMap<Object> _args) {
@@ -56,15 +54,15 @@ public class LaunchingCards extends SoftApplicationCore {
     }
 
     public static void increment() {
-        _nbInstances_++;
+        COUNT.incrementAndGet();
     }
 
     public static void decrement() {
-        _nbInstances_--;
+        COUNT.decrementAndGet();
     }
 
     public static boolean alreadyLaunched() {
-        return _nbInstances_ > 0;
+        return COUNT.get() > 0;
     }
 
     public static BufferedImage getIcon() {

@@ -1,6 +1,5 @@
 package code.player.gui;
 import java.awt.Dimension;
-import java.io.IOException;
 
 import javax.sound.sampled.LineEvent;
 import javax.swing.JOptionPane;
@@ -72,7 +71,7 @@ public class MainWindow extends GroupFrame {
     private static final byte NB_LETTERS = 26;
     private static final byte NB_LETTERS_UPP_LOW = 52;
     private static final byte NB_DIGITS_LETTERS = 62;
-    private static StringMap<String> _messages_ = new StringMap<String>();
+    private StringMap<String> messages = new StringMap<String>();
 
     private Timer timer;
     private TextLabel songsLabel = new TextLabel("");
@@ -102,13 +101,13 @@ public class MainWindow extends GroupFrame {
     public MainWindow(String _lg) {
         super(_lg);
         initMessages(_lg);
-        setTitle(_messages_.getVal(TITLE_PLAYER));
+        setTitle(messages.getVal(TITLE_PLAYER));
         setIconImage(LaunchingPlayer.getIcon());
         Panel pane_ = Panel.newPageBox();
-        songsLabel.setText(_messages_.getVal(SONGS));
+        songsLabel.setText(messages.getVal(SONGS));
         pane_.add(songsLabel);
         pane_.add(songs);
-        random.setText(_messages_.getVal(RANDOM));
+        random.setText(messages.getVal(RANDOM));
         pane_.add(random);
         Panel actions_ = Panel.newLineBox();
 //        playPrevious.setTextAndSize(PREVIOUS);
@@ -159,8 +158,8 @@ public class MainWindow extends GroupFrame {
         }
     }
 
-    public static void initMessages(String _lg) {
-        _messages_ = ExtractFromFiles.getMessagesFromLocaleClass(RESOURCES_FOLDER,_lg, ACCESS);
+    public void initMessages(String _lg) {
+        messages = ExtractFromFiles.getMessagesFromLocaleClass(RESOURCES_FOLDER,_lg, ACCESS);
     }
 
     public void playOrPause(boolean _click) {
@@ -188,7 +187,7 @@ public class MainWindow extends GroupFrame {
                 }
             }
             if (!songsList.isValidIndex(noSong)) {
-                ConfirmDialog.showMessage(this,_messages_.getVal(CANNOT_READ_MESSAGE_WPL),_messages_.getVal(CANNOT_READ_TITLE),getLanguageKey(),JOptionPane.ERROR_MESSAGE);
+                ConfirmDialog.showMessage(this, messages.getVal(CANNOT_READ_MESSAGE_WPL), messages.getVal(CANNOT_READ_TITLE),getLanguageKey(),JOptionPane.ERROR_MESSAGE);
                 return;
             }
             if (songsList.get(noSong).endsWith(WAV) || songsList.get(noSong).endsWith(TXT)) {
@@ -216,7 +215,7 @@ public class MainWindow extends GroupFrame {
                     }
                 }
                 if (songsList.isEmpty()) {
-                    ConfirmDialog.showMessage(this,_messages_.getVal(CANNOT_READ_MESSAGE_WAV),_messages_.getVal(CANNOT_READ_TITLE),getLanguageKey(),JOptionPane.ERROR_MESSAGE);
+                    ConfirmDialog.showMessage(this, messages.getVal(CANNOT_READ_MESSAGE_WAV), messages.getVal(CANNOT_READ_TITLE),getLanguageKey(),JOptionPane.ERROR_MESSAGE);
                     return;
                 }
                 clipStream = c_;
@@ -225,7 +224,7 @@ public class MainWindow extends GroupFrame {
                 String txt_ = StreamTextFile.contentsOfFile(songsList.get(noSong));
                 Document doc_ = DocumentBuilder.parseSax(txt_);
                 if (doc_ == null) {
-                    ConfirmDialog.showMessage(this,_messages_.getVal(CANNOT_READ_MESSAGE_WPL),_messages_.getVal(CANNOT_READ_TITLE),getLanguageKey(),JOptionPane.ERROR_MESSAGE);
+                    ConfirmDialog.showMessage(this, messages.getVal(CANNOT_READ_MESSAGE_WPL), messages.getVal(CANNOT_READ_TITLE),getLanguageKey(),JOptionPane.ERROR_MESSAGE);
                     return;
                 }
                 ElementList e_ = doc_.getElementsByTagName(MEDIA);
@@ -243,7 +242,7 @@ public class MainWindow extends GroupFrame {
                 }
                 songsList.removeAllString(EMPTY);
                 if (songsList.isEmpty()) {
-                    ConfirmDialog.showMessage(this,_messages_.getVal(CANNOT_READ_MESSAGE_WPL),_messages_.getVal(CANNOT_READ_TITLE),getLanguageKey(),JOptionPane.ERROR_MESSAGE);
+                    ConfirmDialog.showMessage(this, messages.getVal(CANNOT_READ_MESSAGE_WPL), messages.getVal(CANNOT_READ_TITLE),getLanguageKey(),JOptionPane.ERROR_MESSAGE);
                     return;
                 }
                 ElementList elts_ = doc_.getDocumentElement().getChildElements();
@@ -299,7 +298,7 @@ public class MainWindow extends GroupFrame {
                 }
                 clipStream = c_;
                 if (songsList.isEmpty()) {
-                    ConfirmDialog.showMessage(this,_messages_.getVal(CANNOT_READ_MESSAGE_WPL),_messages_.getVal(CANNOT_READ_TITLE),getLanguageKey(),JOptionPane.ERROR_MESSAGE);
+                    ConfirmDialog.showMessage(this, messages.getVal(CANNOT_READ_MESSAGE_WPL), messages.getVal(CANNOT_READ_TITLE),getLanguageKey(),JOptionPane.ERROR_MESSAGE);
                     return;
                 }
             }
@@ -594,9 +593,9 @@ public class MainWindow extends GroupFrame {
     public void changeLanguage(String _language) {
         setLanguageKey(_language);
         initMessages(_language);
-        setTitle(_messages_.getVal(TITLE_PLAYER));
-        random.setText(_messages_.getVal(RANDOM));
-        songsLabel.setText(_messages_.getVal(SONGS));
+        setTitle(messages.getVal(TITLE_PLAYER));
+        random.setText(messages.getVal(RANDOM));
+        songsLabel.setText(messages.getVal(SONGS));
     }
 
     @Override

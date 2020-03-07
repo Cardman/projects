@@ -8,15 +8,15 @@ import code.stream.StreamTextFile;
 import code.util.StringList;
 import code.util.StringMap;
 
-import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class LaunchingAppUnitTests extends SoftApplicationCore {
 
     private static final String TEMP_FOLDER = "UG";
 
-    private static int _nbInstances_;
+    private static final AtomicInteger COUNT = new AtomicInteger();
 
     protected static void loadLaungage(String[] _args) {
         ThreadInvoker.invokeNow(new LoadLanguage(getTempFolder(), new LaunchingAppUnitTests(), _args, null));
@@ -38,15 +38,15 @@ public class LaunchingAppUnitTests extends SoftApplicationCore {
 
 
     public static void increment() {
-        _nbInstances_++;
+        COUNT.incrementAndGet();
     }
 
     public static void decrement() {
-        _nbInstances_--;
+        COUNT.decrementAndGet();
     }
 
     public static boolean alreadyLaunched() {
-        return _nbInstances_ > 0;
+        return COUNT.get() > 0;
     }
 
     public static String getMainWindowClass() {

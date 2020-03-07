@@ -40,7 +40,7 @@ public class ImageTask implements ActionListener {
             Point pt_ = p_.getLocation();
             BufferedImage or_;
             String img_;
-            if (MainWindow._currentCursor_.getType() == -1) {
+            if (window.getCurrentCursor().getType() == -1) {
                 img_ = ResourceFiles.ressourceFichier(MainWindow.NOTE_FILE);
             } else {
                 img_ = ResourceFiles.ressourceFichier(MainWindow.MOUSE_ARROW_FILE);

@@ -1,6 +1,7 @@
 package aiki.main;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import aiki.db.DataBase;
 import aiki.sml.Resources;
@@ -20,18 +21,18 @@ public class LaunchingPokemon extends SoftApplicationCore {
 
     private static final String TEMP_FOLDER = "pokemon";
 
-    private static int _nbInstances_;
+    private static final AtomicInteger COUNT = new AtomicInteger();
 
     public static void increment() {
-        _nbInstances_++;
+        COUNT.incrementAndGet();
     }
 
     public static void decrement() {
-        _nbInstances_--;
+        COUNT.decrementAndGet();
     }
 
     public static boolean alreadyLaunched() {
-        return _nbInstances_ > 0;
+        return COUNT.get() > 0;
     }
 
     protected static void loadLaungage(String[] _args) {

@@ -146,8 +146,6 @@ public final class SendReceiveServer extends BasicServer {
         }
         if (_readObject instanceof Quit) {
             Quit bye_ = (Quit)_readObject;
-            Net.quit(CustList.SECOND_INDEX);
-            Net.quit(CustList.FIRST_INDEX);
             Bye forcedBye_ = new Bye();
             forcedBye_.setForced(false);
             forcedBye_.setServer(false);

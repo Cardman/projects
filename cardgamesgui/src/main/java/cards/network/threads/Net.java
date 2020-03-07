@@ -1,5 +1,4 @@
 package cards.network.threads;
-import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
@@ -12,54 +11,42 @@ import cards.network.sml.DocumentWriterCardsMultiUtil;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.*;
-import code.util.*;
-import code.util.*;
 
 public final class Net {
 
-    static final String RESOURCE_ANNOTATION = "resource";
-
-
-    private static int _nbPlayers_;
-
     private static final String CARDS = "CARDS";
-
-    private static boolean _progressingGame_;
-
-    /**A useful facade for games*/
-
-    private static Games _games_ = new Games();
-
-
-    private static IntMap<Socket> _sockets_=new IntMap<Socket>();
-
-    private static IntTreeMap< Byte> _placesPlayers_ = new IntTreeMap< Byte>();
-
-    private static IntMap<Boolean> _readyPlayers_ = new IntMap<Boolean>();
-
-
-    private static IntMap<String> _nicknames_=new IntMap<String>();
-
-    private static IntMap<SendReceiveServer> _connectionsServer_=new IntMap<SendReceiveServer>();
-
-    private static IntMap<String> _playersLocales_ = new IntMap<String>();
-
-    private static CustList<Longs> _scores_ = new CustList<Longs>();
-
-//    private static final String NET_ZERO = "net0";
-//    private static final String WLAN_ZERO = "wlan0";
-//    private static final String NO_POSSIBILITY_TO_CONNECT = "no possibility to connect";
-
-//    // network: socket allowing a player to send and receive informations which is use for a game
-//    private static Socket _socket_;
-//    private static String _ipHost_;
-    private static ByteMap<Boolean> _activePlayers_;
-    private static ByteMap<Boolean> _received_;
-
-//    private static ConnectionToServer _connection_;
 
     /** A used port for connections*/
     private static final int PORT = 667;
+
+    private static final Net INSTANCE = new Net();
+
+    private int _nbPlayers_;
+
+    private boolean _progressingGame_;
+
+    /**A useful facade for games*/
+
+    private Games _games_ = new Games();
+
+
+    private IntMap<Socket> _sockets_=new IntMap<Socket>();
+
+    private IntTreeMap< Byte> _placesPlayers_ = new IntTreeMap< Byte>();
+
+    private IntMap<Boolean> _readyPlayers_ = new IntMap<Boolean>();
+
+
+    private IntMap<String> _nicknames_=new IntMap<String>();
+
+    private IntMap<SendReceiveServer> _connectionsServer_=new IntMap<SendReceiveServer>();
+
+    private IntMap<String> _playersLocales_ = new IntMap<String>();
+
+    private CustList<Longs> _scores_ = new CustList<Longs>();
+
+    private ByteMap<Boolean> _activePlayers_;
+    private ByteMap<Boolean> _received_;
 
     private Net() {
     }
@@ -83,23 +70,9 @@ public final class Net {
             PrintWriter out_ = new PrintWriter(output_, true);
             out_.println(_text);
         } catch (Exception _0) {
+            //
         }
     }
-//
-//    Method allowing the client to send text by its socket
-//    @param _text the text to be sent
-//    public static void sendText(String _text) {
-//        sendText(_socket_,_text);
-//    }
-
-//server and client
-//    public static void closeConnexion() throws IOException {
-//        if (_connection_ == null) {
-//            return;
-//        }
-//        checkSend();
-//        _connection_.fermer();
-//    }
     /**server
     only clicks can call directly this method
     @return true &hArr; the players are ready to begin a deal*/
@@ -129,51 +102,27 @@ public final class Net {
         return distinct_;
     }
 
-//client
-//    Method allowing the client to send a serializable object by its socket
-//    @param _serializable the serializable object to be sent
-//
-//    public static void sendObject(Object _serializable) {
-//        sendObject(_socket_,_serializable);
-//    }
-//
-//client
-//    public static void sendQuit(Object _serializable) throws Exception {
-//        checkSend();
-//        PrintWriter out_ = new PrintWriter(_socket_.getOutputStream(), true);
-//        out_.println(SerializeXmlObject.toXmlString(_serializable));
-//    }
     /**server and client*/
     public static void sendObject(Socket _socket, Object _serializable) {
         Net.sendText(_socket,DocumentWriterCardsMultiUtil.setObject(_serializable));
     }
-    //bk: synchronized
     /**server*/
     static void initAllPresent() {
-        _activePlayers_ = new ByteMap<Boolean>();
+        INSTANCE._activePlayers_ = new ByteMap<Boolean>();
         for (byte r: Net.getPlacesPlayers().values()) {
-//            _activePlayers_.synchronizedPut(r, true);
-            _activePlayers_.put(r, true);
+            INSTANCE._activePlayers_.put(r, true);
         }
     }
-    //bk: synchronized
     /**server*/
     static void initAllReceived() {
-        if (_received_ == null) {
-            _received_ = new ByteMap<Boolean>();
+        if (INSTANCE._received_ == null) {
+            INSTANCE._received_ = new ByteMap<Boolean>();
         }
         for (byte r: Net.getPlacesPlayers().values()) {
-//            if (_activePlayers_.synchronizedGet(r)) {
-////                _received_.synchronizedPut(r, false);
-//                _received_.put(r, false);
-//            } else {
-////                _received_.synchronizedPut(r, true);
-//                _received_.put(r, true);
-//            }
-            if (_activePlayers_.getVal(r)) {
-                _received_.put(r, false);
+            if (INSTANCE._activePlayers_.getVal(r)) {
+                INSTANCE._received_.put(r, false);
             } else {
-                _received_.put(r, true);
+                INSTANCE._received_.put(r, true);
             }
         }
     }
@@ -181,30 +130,27 @@ public final class Net {
     //bk: synchronized
     /**server*/
     static void quit(byte _p) {
-        if (_activePlayers_ == null) {
+        if (INSTANCE._activePlayers_ == null) {
             return;
         }
-//        _activePlayers_.synchronizedPut(_p, false);
-        _activePlayers_.put(_p, false);
-//        _received_.synchronizedPut(_p,true);
-        _received_.put(_p,true);
+        INSTANCE._activePlayers_.put(_p, false);
+        INSTANCE._received_.put(_p,true);
     }
     //bk: synchronized
     /**server*/
     static void setReceivedForPlayer(byte _p) {
-//        _received_.synchronizedPut(_p,true);
-        _received_.put(_p,true);
+        INSTANCE._received_.put(_p,true);
     }
 
     //bk: synchronized
     /**server*/
     static boolean allReceivedAmong(Bytes _players) {
         boolean allReceived_ = true;
-        for (byte p: Net._received_.getKeys()) {
+        for (byte p: INSTANCE._received_.getKeys()) {
             if (!_players.containsObj(p)) {
                 continue;
             }
-            if (Net._received_.getVal(p)) {
+            if (INSTANCE._received_.getVal(p)) {
                 continue;
             }
             allReceived_ = false;
@@ -215,7 +161,7 @@ public final class Net {
 
     static boolean allReceived() {
         boolean allReceived_ = true;
-        for (boolean r: Net._received_.values()) {
+        for (boolean r: INSTANCE._received_.values()) {
             if (r) {
                 continue;
             }
@@ -234,7 +180,7 @@ public final class Net {
     bk: synchronized, called from mouse events or server loop
     @return the connected players*/
     static Bytes activePlayers() {
-        if (_activePlayers_ == null) {
+        if (INSTANCE._activePlayers_ == null) {
             Bytes activePlayers_ = new Bytes();
             for (byte i: getPlacesPlayers().values()) {
                 activePlayers_.add(i);
@@ -243,9 +189,7 @@ public final class Net {
         }
         Bytes activePlayers_ = new Bytes();
         for (byte i: getPlacesPlayers().values()) {
-//            if (!_activePlayers_.synchronizedGet(i)) {
-//            }
-            if (!_activePlayers_.getVal(i)) {
+            if (!INSTANCE._activePlayers_.getVal(i)) {
                 continue;
             }
             activePlayers_.add(i);
@@ -257,9 +201,7 @@ public final class Net {
     @param _place the place of a bot or a player
     @return true &hArr; if the <i>_place</i> match with a currently connected player*/
     static boolean isHumanPlayer(byte _place) {
-//        return getPlacesPlayers().has(_place) && _activePlayers_.synchronizedGet(_place);
-//        return TreeMap.<Integer,Byte>hasNumber(getPlacesPlayers(), _place) && _activePlayers_.getVal(_place);
-        return !getPlacesPlayersByValue(_place).isEmpty() && _activePlayers_.getVal(_place);
+        return !getPlacesPlayersByValue(_place).isEmpty() && INSTANCE._activePlayers_.getVal(_place);
     }
     /**server
     @param _place the place of a player around the table
@@ -282,7 +224,6 @@ public final class Net {
         return null;
     }
 
-    //bk: synchronized
     /**server*/
     static boolean delegateServer(Quit _bye) {
         for (byte p: Net.activePlayers()) {
@@ -299,16 +240,9 @@ public final class Net {
         forcedBye_.setForced(false);
         forcedBye_.setServer(false);
         forcedBye_.setClosing(_bye.isClosing());
-        //for (int i: Net.getPlacesPlayers().getKeys(_bye.getPlace()))
-        for (int i: Net.getPlacesPlayersByValue(_bye.getPlace())) {
-//            Socket socket_ = Net.getSockets().getVal(i);
-//            Net.getSockets().removeKey(i);
-//            Net.getConnectionsServer().removeKey(i);
-//            Net.getReadyPlayers().removeKey(i);
-//            Net.getPlacesPlayers().removeKey(i);
-//            Net.sendObject(socket_,forcedBye_);
-            removePlayer(i, forcedBye_);
-            break;
+        Ints players_ = Net.getPlacesPlayersByValue(_bye.getPlace());
+        if (!players_.isEmpty()) {
+            removePlayer(players_.first(), forcedBye_);
         }
         Net.getNicknames().clear();
         Net.getGames().finirParties();
@@ -327,54 +261,54 @@ public final class Net {
 
     /**server*/
     public static IntMap<SendReceiveServer> getConnectionsServer() {
-        return _connectionsServer_;
+        return INSTANCE._connectionsServer_;
     }
 
     /**server*/
     public static Games getGames() {
-        return _games_;
+        return INSTANCE._games_;
     }
 
     /**server (delegating)*/
     public static void setGames(Games _games) {
-        _games_ = _games;
+        INSTANCE._games_ = _games;
     }
 
     /**server*/
     public static int getNbPlayers() {
-        return _nbPlayers_;
+        return INSTANCE._nbPlayers_;
     }
 
     /**server*/
     public static void setNbPlayers(int _nbPlayers) {
-        _nbPlayers_ = _nbPlayers;
+        INSTANCE._nbPlayers_ = _nbPlayers;
     }
 
     /**server*/
     public static IntMap<String> getNicknames() {
-        return _nicknames_;
+        return INSTANCE._nicknames_;
     }
 
     /**server*/
     public static IntMap<Socket> getSockets() {
-        return _sockets_;
+        return INSTANCE._sockets_;
     }
 
     /**server*/
     public static IntMap<Boolean> getReadyPlayers() {
-        return _readyPlayers_;
+        return INSTANCE._readyPlayers_;
     }
 
     /**server*/
     public static IntTreeMap< Byte> getPlacesPlayers() {
-        return _placesPlayers_;
+        return INSTANCE._placesPlayers_;
     }
     /**server*/
     public static Ints getPlacesPlayersByValue(byte _value) {
         Ints l_;
         l_ = new Ints();
-        for (EntryCust<Integer, Byte> e: _placesPlayers_.entryList()) {
-            if (e.getValue().byteValue() != _value) {
+        for (EntryCust<Integer, Byte> e: INSTANCE._placesPlayers_.entryList()) {
+            if (e.getValue() != _value) {
                 continue;
             }
             l_.add(e.getKey());
@@ -384,21 +318,21 @@ public final class Net {
 
     /**server and client (delegating)*/
     public static boolean isProgressingGame() {
-        return _progressingGame_;
+        return INSTANCE._progressingGame_;
     }
 
     /**server*/
     public static void setProgressingGame(boolean _progressingGame) {
-        _progressingGame_ = _progressingGame;
+        INSTANCE._progressingGame_ = _progressingGame;
     }
 
     /**server*/
     public static CustList<Longs> getScores() {
-        return _scores_;
+        return INSTANCE._scores_;
     }
 
     /**server*/
     public static IntMap<String> getPlayersLocales() {
-        return _playersLocales_;
+        return INSTANCE._playersLocales_;
     }
 }
