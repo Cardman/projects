@@ -5,12 +5,12 @@
 	</head>
 	<body>
 		<a c:command="web/html/index.html" href=""><c:message value="msg_solution,index"/></a>
-		<c:for className="aiki.beans.facade.solution.dto.StepDto" list="steps" var="p">
-			{p;;}<br/>
+		<c:for className="aiki.beans.facade.solution.dto.StepDto" list="steps" var="s">
+			{s;;}<br/>
 			<p>
-				<c:for key="pl" map="p;getPokemon()" value="pk" varClassName="ls">
+				<c:for key="i" map="s;getPokemon()" value="g" varClassName="ls">
 					<table>
-						<caption><b>{getPlace(p;;,pl;;)}</b></caption>
+						<caption><b>{getPlace(s;;,i;;)}</b></caption>
 						<thead>
 							<tr>
 								<th><c:message value="msg_solution,image"/></th>
@@ -19,7 +19,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							<c:for className="aiki.beans.facade.solution.dto.WildPokemonDto" list="pk;" var="l">
+							<c:for className="aiki.beans.facade.solution.dto.WildPokemonDto" list="g;" var="l">
 								<tr>
 									<td><c:img src="{l;image}"/></td>
 									<td>{l;name}</td>
@@ -29,10 +29,10 @@
 						</tbody>
 					</table>
 				</c:for>
-				<c:if condition="!p;getNames().isEmpty()">
+				<c:if condition="!s;getNames().isEmpty()">
 					<ul>
-						<c:for className="aiki.beans.facade.solution.dto.PlaceTrainerDto" list="p;getNames()" var="pl">
-							<li>{pl;trainer} - {pl;place}</li>
+						<c:for className="aiki.beans.facade.solution.dto.PlaceTrainerDto" list="s;getNames()" var="i">
+							<li>{i;trainer} - {i;place}</li>
 						</c:for>
 					</ul>
 				</c:if>
