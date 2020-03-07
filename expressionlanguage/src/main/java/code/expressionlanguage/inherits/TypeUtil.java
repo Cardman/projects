@@ -730,15 +730,7 @@ public final class TypeUtil {
         }
         return map_;
     }
-    public static ObjectMap<MethodId, ClassMethodId> getLocalSignatures(GeneType _type) {
-        ObjectMap<MethodId, ClassMethodId> map_;
-        map_ = new ObjectMap<MethodId, ClassMethodId>();
-        for (GeneMethod b: ContextEl.getMethodBlocks(_type)) {
-            MethodId m_ = b.getId();
-            map_.put(m_, new ClassMethodId(_type.getGenericString(), m_));
-        }
-        return map_;
-    }
+
     private static void addClass(ObjectMap<MethodId, EqList<ClassMethodId>> _map, MethodId _key, ClassMethodId _class) {
         if (_map.contains(_key)) {
             _map.getVal(_key).add(_class);

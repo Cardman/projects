@@ -50,10 +50,6 @@ public abstract class StandardNamedFunction implements GeneFunction {
     }
 
 
-    public String getReturnType() {
-        return returnType;
-    }
-
     @Override
     public AccessEnum getAccess() {
         return AccessEnum.PUBLIC;
