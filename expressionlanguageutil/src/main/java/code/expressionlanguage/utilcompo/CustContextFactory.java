@@ -57,21 +57,32 @@ public final class CustContextFactory {
         execute(-1,_options,_exec,mess_,kwl_,stds_,_files,_progressingTests);
     }
     public static void execute(int _stack,
-                               Options _options, ExecutingOptions _exec,AnalysisMessages _mess, KeyWords _definedKw, LgNamesUtils _definedLgNames, StringMap<String> _files, ProgressingTests _progressingTests) {
-        RunnableContextEl rCont_ = build(_stack, _options, _exec, _mess,_definedKw, _definedLgNames, _files, _exec.getTabWidth());
-        if (!rCont_.getClasses().isEmptyErrors() || !rCont_.getClasses().isEmptyStdError() || !rCont_.getClasses().isEmptyMessageError()) {
+                               Options _options, ExecutingOptions _exec,
+                               AnalysisMessages _mess,
+                               KeyWords _definedKw,
+                               LgNamesUtils _definedLgNames, StringMap<String> _files,
+                               ProgressingTests _progressingTests) {
+        RunnableContextEl rCont_ = build(_stack, _options, _exec, _mess,_definedKw,
+                _definedLgNames, _files, _exec.getTabWidth());
+        if (!rCont_.getClasses().isEmptyErrors()
+                || !rCont_.getClasses().isEmptyStdError()
+                || !rCont_.getClasses().isEmptyMessageError()) {
             _progressingTests.showErrors(rCont_,_exec);
             return;
         }
         String aliasExecuteTests_ = _definedLgNames.getAliasExecuteTests();
         String infoTest_ = _definedLgNames.getAliasInfoTest();
-        Struct infoStruct_ = rCont_.getInit().processInit(rCont_, NullStruct.NULL_VALUE, infoTest_, "", -1);
-        MethodId fct_ = new MethodId(MethodAccessKind.STATIC, aliasExecuteTests_,new StringList(infoTest_));
+        Struct infoStruct_ = rCont_.getInit().processInit(rCont_,
+                NullStruct.NULL_VALUE, infoTest_, "", -1);
+        MethodId fct_ = new MethodId(MethodAccessKind.STATIC,
+                aliasExecuteTests_,new StringList(infoTest_));
         Argument argGlLoc_ = new Argument();
         Argument argMethod_ = new Argument(infoStruct_);
         ShowUpdates showUpdates_ = rCont_.putInThread(infoStruct_,_progressingTests);
         new Thread(showUpdates_).start();
-        Argument arg_ = RunnableStruct.invoke(argGlLoc_, _definedLgNames.getAliasExecute(), fct_, new CustList<Argument>(argMethod_), rCont_, null);
+        Argument arg_ = RunnableStruct.invoke(argGlLoc_,
+                _definedLgNames.getAliasExecute(), fct_,
+                new CustList<Argument>(argMethod_), rCont_, null);
         showUpdates_.stop();
         if (rCont_.isCovering()) {
             String exp_ = _exec.getCoverFolder();
