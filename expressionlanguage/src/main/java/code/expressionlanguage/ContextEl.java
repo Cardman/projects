@@ -240,6 +240,9 @@ public abstract class ContextEl implements ExecutableCode {
             if (p_ instanceof ForwardPageEl) {
                 ((ForwardPageEl)p_).forwardTo(getLastPage(), this);
             }
+            if (callsOrException()) {
+                return EndCallValue.NEXT;
+            }
             return EndCallValue.FORWARD;
         }
         return EndCallValue.NEXT;

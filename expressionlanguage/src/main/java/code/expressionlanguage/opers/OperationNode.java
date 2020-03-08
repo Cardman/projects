@@ -1089,7 +1089,7 @@ public abstract class OperationNode implements Operable {
                 continue;
             }
             ClassMethodId cId_ = new ClassMethodId(_cl, id_);
-            MethodInfo stMeth_ = fetchedParamMethod(cId_,_conf,uniq_,_glClass,0,_cl);
+            MethodInfo stMeth_ = fetchedParamMethod(e,cId_,_conf,uniq_,_glClass,0,_cl);
             if (stMeth_ == null) {
                 continue;
             }
@@ -1135,7 +1135,7 @@ public abstract class OperationNode implements Operable {
                 }
             }
             ClassMethodId cId_ = new ClassMethodId(genericString_, id_);
-            MethodInfo stMeth_ = fetchedParamMethod(cId_,_conf, _uniqueId,_glClass,_anc, _cl);
+            MethodInfo stMeth_ = fetchedParamMethod(e,cId_,_conf, _uniqueId,_glClass,_anc, _cl);
             if (stMeth_ == null) {
                 continue;
             }
@@ -1175,7 +1175,9 @@ public abstract class OperationNode implements Operable {
         }
     }
 
-    private static MethodInfo fetchedParamMethod(ClassMethodId _s, Analyzable _conf, ClassMethodId _uniqueId, String _glClass, int _anc, String _f) {
+    private static MethodInfo fetchedParamMethod(GeneMethod _m,ClassMethodId _s,
+                                                 Analyzable _conf, ClassMethodId _uniqueId,
+                                                 String _glClass, int _anc, String _f) {
         String name_ = _s.getClassName();
         String base_ = Templates.getIdFromAllTypes(name_);
         MethodId id_ = _s.getConstraints();
@@ -1188,11 +1190,10 @@ public abstract class OperationNode implements Operable {
         } else {
             formattedClass_ = _f;
         }
-        GeneMethod sup_ = _conf.getMethodBodiesById(name_, id_).first();
-        if (!Classes.canAccess(_glClass, sup_, _conf)) {
+        if (!Classes.canAccess(_glClass, _m, _conf)) {
             return null;
         }
-        String ret_ = sup_.getImportedReturnType();
+        String ret_ = _m.getImportedReturnType();
         ret_ = Templates.wildCardFormatReturn(false, formattedClass_, ret_, _conf);
         ParametersGroup p_ = new ParametersGroup();
         for (String c: id_.getParametersTypes()) {
@@ -1200,9 +1201,9 @@ public abstract class OperationNode implements Operable {
         }
         MethodInfo mloc_ = new MethodInfo();
         mloc_.setClassName(formattedClass_);
-        mloc_.setStaticMethod(sup_.getId().getKind());
-        mloc_.setAbstractMethod(sup_.isAbstractMethod());
-        mloc_.setFinalMethod(sup_.isFinalMethod());
+        mloc_.setStaticMethod(_m.getId().getKind());
+        mloc_.setAbstractMethod(_m.isAbstractMethod());
+        mloc_.setFinalMethod(_m.isFinalMethod());
         mloc_.setConstraints(id_);
         mloc_.setParameters(p_);
         mloc_.setReturnType(ret_);
