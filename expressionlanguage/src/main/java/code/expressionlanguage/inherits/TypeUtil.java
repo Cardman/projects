@@ -618,6 +618,10 @@ public final class TypeUtil {
                 for (String t: sub_.getDirectGenericSuperTypes(_an)) {
                     if (!Templates.correctNbParameters(s,_an)) {
                         String format_ = Templates.getIdFromAllTypes(t);
+                        GeneType sup_ = _an.getClassBody(format_);
+                        if (!sup_.isStaticType()) {
+                            continue;
+                        }
                         addIfNotFound(visited_, new_, format_);
                         continue;
                     }
