@@ -9,7 +9,6 @@ import code.util.*;
 public final class FileBlock extends BracedBlock implements ImportingBlock {
 
     private Ints lineReturns = new Ints();
-    private Ints leftSpaces = new Ints();
     private Ints tabulations = new Ints();
 
     private Ints beginComments = new Ints();
@@ -33,34 +32,28 @@ public final class FileBlock extends BracedBlock implements ImportingBlock {
     public int getRowFile(int _sum) {
         int len_ = lineReturns.size();
         int i_ = 0;
+        int s_ = Math.max(0,_sum);
         while (i_ < len_) {
-            if (_sum < lineReturns.get(i_)) {
+            if (s_ <= lineReturns.get(i_)) {
                 break;
             }
-            i_ += 2;
+            i_++;
         }
-        return i_/2;
+        return i_;
     }
     public int getColFile(int _sum, int _row) {
-        int r_ = _row * 2;
         int j_ = 0;
-        if (r_ < lineReturns.size()) {
-            j_ = leftSpaces.get(_row - 1);
-            int begin_ = lineReturns.get(r_ - 1)+1;
-            for (int j = begin_; j <= _sum; j++) {
-                if (tabulations.containsObj(j)) {
-                    j_ += tabWidth;
-                    j_ -= j_ % tabWidth;
-                } else {
-                    j_++;
-                }
+        int s_ = Math.max(0,_sum);
+        int begin_ = lineReturns.get(_row - 1)+1;
+        for (int j = begin_; j < s_; j++) {
+            if (tabulations.containsObj(j)) {
+                j_ += tabWidth;
+                j_ -= j_ % tabWidth;
+            } else {
+                j_++;
             }
         }
-        return j_;
-    }
-
-    public int getTabWidth() {
-        return tabWidth;
+        return j_+1;
     }
 
     public boolean isPredefined() {
@@ -73,10 +66,6 @@ public final class FileBlock extends BracedBlock implements ImportingBlock {
 
     public Ints getEndComments() {
         return endComments;
-    }
-
-    public Ints getLeftSpaces() {
-        return leftSpaces;
     }
 
     public Ints getTabulations() {

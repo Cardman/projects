@@ -7489,7 +7489,7 @@ public final class ClassesTest {
         xml_.append("$operator+ $int\t");
         files_.put("pkg/ExTwentyTwo", xml_.toString());
         xml_ = new StringBuilder();
-        xml_.append("$operator+[] $int({");
+        xml_.append("$operator+[] $int(]{");
         files_.put("pkg/ExTwentyThree", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("/\\");
@@ -7605,6 +7605,9 @@ public final class ClassesTest {
         xml_ = new StringBuilder();
         xml_.append("$class");
         files_.put("pkg/ExThirtySixtyOne", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$operator+[] $int(,]{");
+        files_.put("pkg/ExThirtySixtyTwo", xml_.toString());
         ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().displayErrors(), !cont_.getClasses().isEmptyErrors());
