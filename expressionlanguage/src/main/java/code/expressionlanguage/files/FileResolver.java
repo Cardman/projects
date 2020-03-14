@@ -66,10 +66,14 @@ public final class FileResolver {
         fileBlock_.getLineReturns().add(-1);
         while (i_ < len_) {
             char ch_ = _file.charAt(i_);
-            if (ch_ == TAB) {
-                fileBlock_.getTabulations().add(i_);
-            } else if (ch_ == LINE_RETURN) {
-                fileBlock_.getLineReturns().add(i_);
+            if (ch_ < ' ') {
+                if (ch_ == TAB) {
+                    fileBlock_.getTabulations().add(i_);
+                } else if (ch_ == LINE_RETURN) {
+                    fileBlock_.getLineReturns().add(i_);
+                } else {
+                    fileBlock_.getBinChars().add(i_);
+                }
             }
             i_++;
         }

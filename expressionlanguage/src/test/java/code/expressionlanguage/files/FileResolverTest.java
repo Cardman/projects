@@ -9774,6 +9774,27 @@ public final class FileResolverTest {
         assertNull(instr_.getNextSibling());
     }
     @Test
+    public void parseFile169Test() {
+        StringBuilder file_ = new StringBuilder();
+        file_.append("pkg.Ex;\n");
+        file_.append("pkg.ExTwo;\n");
+        file_.append("/* multi line\n");
+        file_.append("comment*/\r\n");
+        file_.append("$public $class pkgtwo.ExClass {");
+        file_.append("}");
+        ContextEl context_ = simpleContext();
+        FileResolver.parseFile("my_file",file_.toString(), false, context_);
+        assertEq(1, countCustomTypes(context_));
+        assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());
+        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.ExClass");
+        assertTrue(r_ instanceof ClassBlock);
+        ClassBlock cl_ = (ClassBlock) r_;
+        assertEq(44,cl_.getAccessOffset());
+        assertEq(51,cl_.getCategoryOffset());
+        assertNull(cl_.getFirstChild());
+        assertEq(1, countFileTypes(context_));
+    }
+    @Test
     public void parseFile1FailTest() {
         StringBuilder file_ = new StringBuilder();
         file_.append("$public $class pkg.Outer {\n");

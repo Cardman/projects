@@ -8,6 +8,7 @@ import code.util.*;
 
 public final class FileBlock extends BracedBlock implements ImportingBlock {
 
+    private Ints binChars = new Ints();
     private Ints lineReturns = new Ints();
     private Ints tabulations = new Ints();
 
@@ -46,6 +47,9 @@ public final class FileBlock extends BracedBlock implements ImportingBlock {
         int s_ = Math.max(0,_sum);
         int begin_ = lineReturns.get(_row - 1)+1;
         for (int j = begin_; j < s_; j++) {
+            if (binChars.containsObj(j)) {
+                continue;
+            }
             if (tabulations.containsObj(j)) {
                 j_ += tabWidth;
                 j_ -= j_ % tabWidth;
@@ -71,6 +75,11 @@ public final class FileBlock extends BracedBlock implements ImportingBlock {
     public Ints getTabulations() {
         return tabulations;
     }
+
+    public Ints getBinChars() {
+        return binChars;
+    }
+
     public Ints getLineReturns() {
         return lineReturns;
     }
