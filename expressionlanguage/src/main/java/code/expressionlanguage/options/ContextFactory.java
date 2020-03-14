@@ -59,15 +59,7 @@ public final class ContextFactory {
         _definedKw.validateBinarySeparators(_context);
         StringMap<String> prims_ = _definedLgNames.allPrimitives();
         _definedLgNames.validatePrimitiveContents(_context, prims_);
-        StringMap<String> refTypes_ = _definedLgNames.allRefTypes();
-        _definedLgNames.validateRefTypeContents(_context, refTypes_, prims_);
-        StringMap<CustList<KeyValueMemberName>> methods_ = _definedLgNames.allTableTypeMethodNames();
-        _definedLgNames.validateMethodsContents(_context, methods_, prims_);
-        StringMap<CustList<KeyValueMemberName>> fields_ = _definedLgNames.allTableTypeFieldNames();
-        _definedLgNames.validateFieldsContents(_context, fields_, prims_);
-        StringMap<CustList<KeyValueMemberName>> varTypes_ = _definedLgNames.allTableTypeVarTypes();
-        _definedLgNames.validateVarTypesContents(_context, varTypes_, prims_);
-        //duplicates
+        _definedLgNames.validatePrimitiveDuplicates(_context, prims_);
         _definedKw.validateKeyWordDuplicates(_context, keyWords_);
         _definedKw.validateEscapingsDuplicates(_context, escapings_);
         StringMap<String> nbWordsDec_ = _definedKw.allNbWords(_definedKw.allNbWordsDec());
@@ -75,8 +67,19 @@ public final class ContextFactory {
         StringMap<String> nbWordsBin_ = _definedKw.allNbWords(_definedKw.allNbWordsBin());
         _definedKw.validateNbWordDuplicates(_context, nbWordsBin_);
         _definedKw.validateStartsPrefixesDuplicates(_context);
-        _definedLgNames.validatePrimitiveDuplicates(_context, prims_);
-        _definedLgNames.validateRefTypeDuplicates(_context, refTypes_);
+        StringMap<String> refTypes_ = _definedLgNames.allRefTypes();
+        _definedLgNames.validateRefTypeContents(_context, refTypes_, prims_);
+        boolean dup_ = _definedLgNames.validateRefTypeDuplicates(_context, refTypes_);
+        if (dup_) {
+            return;
+        }
+        StringMap<CustList<KeyValueMemberName>> methods_ = _definedLgNames.allTableTypeMethodNames();
+        _definedLgNames.validateMethodsContents(_context, methods_, prims_);
+        StringMap<CustList<KeyValueMemberName>> fields_ = _definedLgNames.allTableTypeFieldNames();
+        _definedLgNames.validateFieldsContents(_context, fields_, prims_);
+        StringMap<CustList<KeyValueMemberName>> varTypes_ = _definedLgNames.allTableTypeVarTypes();
+        _definedLgNames.validateVarTypesContents(_context, varTypes_, prims_);
+        //duplicates
         _definedLgNames.validateMethodsDuplicates(_context, methods_);
         _definedLgNames.validateFieldsDuplicates(_context, fields_);
         _definedLgNames.validateVarTypesDuplicates(_context, varTypes_);

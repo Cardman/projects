@@ -747,11 +747,12 @@ public abstract class LgNames {
             }
         }
     }
-    public void validateRefTypeDuplicates(ContextEl _cont, StringMap<String> _list) {
+    public boolean validateRefTypeDuplicates(ContextEl _cont, StringMap<String> _list) {
         AnalysisMessages a_ = _cont.getAnalysisMessages();
         StringList keyWords_ = new StringList(_list.values());
         int size_ = keyWords_.size();
         keyWords_.removeDuplicates();
+        boolean dup_ = false;
         if (size_ != keyWords_.size()) {
             for (EntryCust<String,String> e: _list.entryList()) {
                 String v_ = e.getValue();
@@ -759,8 +760,10 @@ public abstract class LgNames {
                 err_.setMessage(StringList.simpleStringsFormat(a_.getDuplicateRefType(),v_));
                 err_.setErrCat(ErrorCat.DUPLICATE_TYPE_WORD);
                 _cont.getClasses().addStdError(err_);
+                dup_ = true;
             }
         }
+        return dup_;
     }
     public CustList<CustList<KeyValueMemberName>> allMergeTableTypeMethodNames() {
         CustList<CustList<KeyValueMemberName>> list_ = new CustList<CustList<KeyValueMemberName>>();
@@ -780,18 +783,18 @@ public abstract class LgNames {
     }
     public StringMap<CustList<KeyValueMemberName>> allTableTypeMethodNames() {
         StringMap<CustList<KeyValueMemberName>> map_ = new StringMap<CustList<KeyValueMemberName>>();
-        map_.put(getAliasError(), new CustList<KeyValueMemberName>(
+        map_.addEntry(getAliasError(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(CURRENT_STACK,getAliasCurrentStack()),
                 new KeyValueMemberName(TO_STRING_METHOD,getAliasToStringMethod()),
                 new KeyValueMemberName(GET_MESSAGE,getAliasGetMessage()),
                 new KeyValueMemberName(GET_CAUSE,getAliasGetCause())));
-        map_.put(getAliasAnnotated(), new CustList<KeyValueMemberName>(
+        map_.addEntry(getAliasAnnotated(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(GET_FILE_NAME,getAliasGetFileName()),
                 new KeyValueMemberName(GET_ANNOTATIONS,getAliasGetAnnotations()),
                 new KeyValueMemberName(GET_ANNOTATIONS_PARAMETERS,getAliasGetAnnotationsParameters())));
-        map_.put(getAliasAnnotationType(), new CustList<KeyValueMemberName>(
+        map_.addEntry(getAliasAnnotationType(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(GET_STRING,getAliasGetString())));
-        map_.put(getAliasClassType(), new CustList<KeyValueMemberName>(
+        map_.addEntry(getAliasClassType(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(GET_ANNOTATIONS,getAliasGetAnnotations()),
                 new KeyValueMemberName(GET_ANNOTATIONS_PARAMETERS,getAliasGetAnnotationsParameters()),
                 new KeyValueMemberName(DEFAULT_INSTANCE,getAliasDefaultInstance()),
@@ -849,7 +852,7 @@ public abstract class LgNames {
                 new KeyValueMemberName(MAKE_WILD_CARD,getAliasMakeWildCard()),
                 new KeyValueMemberName(ARRAY_NEW_INSTANCE,getAliasArrayNewInstance()),
                 new KeyValueMemberName(ARRAY_SET,getAliasArraySet())));
-        map_.put(getAliasConstructor(), new CustList<KeyValueMemberName>(
+        map_.addEntry(getAliasConstructor(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(GET_ANNOTATIONS,getAliasGetAnnotations()),
                 new KeyValueMemberName(GET_ANNOTATIONS_PARAMETERS,getAliasGetAnnotationsParameters()),
                 new KeyValueMemberName(GET_DECLARING_CLASS,getAliasGetDeclaringClass()),
@@ -865,9 +868,9 @@ public abstract class LgNames {
                 new KeyValueMemberName(IS_PUBLIC,getAliasIsPublic()),
                 new KeyValueMemberName(IS_VARARGS,getAliasIsVarargs()),
                 new KeyValueMemberName(NEW_INSTANCE,getAliasNewInstance())));
-        map_.put(getAliasFct(), new CustList<KeyValueMemberName>(
+        map_.addEntry(getAliasFct(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(CALL,getAliasCall())));
-        map_.put(getAliasField(), new CustList<KeyValueMemberName>(
+        map_.addEntry(getAliasField(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(GET_ANNOTATIONS,getAliasGetAnnotations()),
                 new KeyValueMemberName(GET_ANNOTATIONS_PARAMETERS,getAliasGetAnnotationsParameters()),
                 new KeyValueMemberName(ARRAY_GET,getAliasArrayGet()),
@@ -883,7 +886,7 @@ public abstract class LgNames {
                 new KeyValueMemberName(IS_PUBLIC,getAliasIsPublic()),
                 new KeyValueMemberName(IS_STATIC,getAliasIsStatic()),
                 new KeyValueMemberName(SET_FIELD,getAliasSetField())));
-        map_.put(getAliasMethod(), new CustList<KeyValueMemberName>(
+        map_.addEntry(getAliasMethod(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(GET_ANNOTATIONS,getAliasGetAnnotations()),
                 new KeyValueMemberName(GET_ANNOTATIONS_PARAMETERS,getAliasGetAnnotationsParameters()),
                 new KeyValueMemberName(GET_DECLARING_CLASS,getAliasGetDeclaringClass()),
@@ -907,41 +910,41 @@ public abstract class LgNames {
                 new KeyValueMemberName(IS_STATIC_CALL,getAliasIsStaticCall()),
                 new KeyValueMemberName(IS_INSTANCE_METHOD,getAliasIsInstanceMethod()),
                 new KeyValueMemberName(IS_VARARGS,getAliasIsVarargs())));
-        map_.put(getAliasObjectsUtil(), new CustList<KeyValueMemberName>(
+        map_.addEntry(getAliasObjectsUtil(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(SAME_REF,getAliasSameRef()),
                 new KeyValueMemberName(GET_PARENT,getAliasGetParent()),
                 new KeyValueMemberName(SET_PARENT,getAliasSetParent())));
-        map_.put(getAliasStringUtil(), new CustList<KeyValueMemberName>(
+        map_.addEntry(getAliasStringUtil(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(VALUE_OF_METHOD,getAliasValueOfMethod())));
-        map_.put(getAliasResources(), new CustList<KeyValueMemberName>(
+        map_.addEntry(getAliasResources(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(READ_RESOURCES_NAMES,getAliasReadResourcesNames()),
                 new KeyValueMemberName(READ_RESOURCES,getAliasReadResources())));
-        map_.put(getAliasEnumType(), new CustList<KeyValueMemberName>(
+        map_.addEntry(getAliasEnumType(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(ENUM_NAME,getAliasEnumName()),
                 new KeyValueMemberName(ENUM_ORDINAL,getAliasEnumOrdinal()),
                 new KeyValueMemberName(ENUM_PRED_VALUE_OF,getAliasEnumPredValueOf()),
                 new KeyValueMemberName(ENUM_VALUES,getAliasEnumValues())));
-        map_.put(getAliasEnums(), new CustList<KeyValueMemberName>(
+        map_.addEntry(getAliasEnums(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(NAME,getAliasName()),
                 new KeyValueMemberName(ORDINAL,getAliasOrdinal())));
-        map_.put(getAliasIterable(), new CustList<KeyValueMemberName>(
+        map_.addEntry(getAliasIterable(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(ITERATOR,getAliasIterator())));
-        map_.put(getAliasIteratorType(), new CustList<KeyValueMemberName>(
+        map_.addEntry(getAliasIteratorType(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(HAS_NEXT,getAliasHasNext()),
                 new KeyValueMemberName(NEXT,getAliasNext())));
-        map_.put(getAliasIterableTable(), new CustList<KeyValueMemberName>(
+        map_.addEntry(getAliasIterableTable(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(ITERATOR_TABLE,getAliasIteratorTable())));
-        map_.put(getAliasIteratorTableType(), new CustList<KeyValueMemberName>(
+        map_.addEntry(getAliasIteratorTableType(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(HAS_NEXT_PAIR,getAliasHasNextPair()),
                 new KeyValueMemberName(NEXT_PAIR,getAliasNextPair())));
-        map_.put(getAliasPairType(), new CustList<KeyValueMemberName>(
+        map_.addEntry(getAliasPairType(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(GET_FIRST,getAliasGetFirst()),
                 new KeyValueMemberName(GET_SECOND,getAliasGetSecond())));
-        map_.put(getAliasStackTraceElement(), new CustList<KeyValueMemberName>(
+        map_.addEntry(getAliasStackTraceElement(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(CURRENT_STACK,getAliasCurrentStack()),
                 new KeyValueMemberName(CURRENT_FULL_STACK,getAliasCurrentFullStack()),
                 new KeyValueMemberName(TO_STRING_METHOD,getAliasToStringMethod())));
-        map_.put(getAliasMath(), new CustList<KeyValueMemberName>(
+        map_.addEntry(getAliasMath(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(ABS,getAliasAbs()),
                 new KeyValueMemberName(MOD,getAliasMod()),
                 new KeyValueMemberName(QUOT,getAliasQuot()),
@@ -966,10 +969,10 @@ public abstract class LgNames {
                 new KeyValueMemberName(ROTATE_LEFT,getAliasRotateLeft()),
                 new KeyValueMemberName(ROTATE_RIGHT,getAliasRotateRight()),
                 new KeyValueMemberName(RANDOM,getAliasRandom())));
-        map_.put(getAliasReplacement(), new CustList<KeyValueMemberName>(
+        map_.addEntry(getAliasReplacement(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(GET_NEW_STRING,getAliasGetNewString()),
                 new KeyValueMemberName(GET_OLD_STRING,getAliasGetOldString())));
-        map_.put(getAliasBoolean(), new CustList<KeyValueMemberName>(
+        map_.addEntry(getAliasBoolean(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(BOOLEAN_VALUE,getAliasBooleanValue()),
                 new KeyValueMemberName(COMPARE,getAliasCompare()),
                 new KeyValueMemberName(COMPARE_TO,getAliasCompareTo()),
@@ -977,7 +980,7 @@ public abstract class LgNames {
                 new KeyValueMemberName(PARSE_BOOLEAN,getAliasParseBoolean()),
                 new KeyValueMemberName(TO_STRING_METHOD,getAliasToStringMethod()),
                 new KeyValueMemberName(VALUE_OF_METHOD,getAliasValueOfMethod())));
-        map_.put(getAliasByte(), new CustList<KeyValueMemberName>(
+        map_.addEntry(getAliasByte(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(BYTE_VALUE,getAliasByteValue()),
                 new KeyValueMemberName(COMPARE,getAliasCompare()),
                 new KeyValueMemberName(COMPARE_TO,getAliasCompareTo()),
@@ -990,7 +993,7 @@ public abstract class LgNames {
                 new KeyValueMemberName(TO_STRING_METHOD,getAliasToStringMethod()),
                 new KeyValueMemberName(PARSE_BYTE,getAliasParseByte()),
                 new KeyValueMemberName(PARSE_BYTE_OR_NULL,getAliasParseByteOrNull())));
-        map_.put(getAliasCharSequence(), new CustList<KeyValueMemberName>(
+        map_.addEntry(getAliasCharSequence(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(CHAR_AT,getAliasCharAt()),
                 new KeyValueMemberName(EQUALS,getAliasEquals()),
                 new KeyValueMemberName(COMPARE_TO,getAliasCompareTo()),
@@ -1013,7 +1016,7 @@ public abstract class LgNames {
                 new KeyValueMemberName(TO_CHAR_ARRAY,getAliasToCharArray()),
                 new KeyValueMemberName(TO_STRING_METHOD,getAliasToStringMethod()),
                 new KeyValueMemberName(TRIM,getAliasTrim())));
-        map_.put(getAliasCharacter(), new CustList<KeyValueMemberName>(
+        map_.addEntry(getAliasCharacter(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(BYTE_VALUE,getAliasByteValue()),
                 new KeyValueMemberName(DOUBLE_VALUE,getAliasDoubleValue()),
                 new KeyValueMemberName(EQUALS,getAliasEquals()),
@@ -1044,7 +1047,7 @@ public abstract class LgNames {
                 new KeyValueMemberName(TO_LOWER_CASE,getAliasToLowerCase()),
                 new KeyValueMemberName(TO_STRING_METHOD,getAliasToStringMethod()),
                 new KeyValueMemberName(TO_UPPER_CASE,getAliasToUpperCase())));
-        map_.put(getAliasDouble(), new CustList<KeyValueMemberName>(
+        map_.addEntry(getAliasDouble(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(BYTE_VALUE,getAliasByteValue()),
                 new KeyValueMemberName(COMPARE,getAliasCompare()),
                 new KeyValueMemberName(COMPARE_TO,getAliasCompareTo()),
@@ -1059,7 +1062,7 @@ public abstract class LgNames {
                 new KeyValueMemberName(IS_NAN,getAliasIsNan()),
                 new KeyValueMemberName(PARSE_DOUBLE,getAliasParseDouble()),
                 new KeyValueMemberName(PARSE_DOUBLE_OR_NULL,getAliasParseDoubleOrNull())));
-        map_.put(getAliasFloat(), new CustList<KeyValueMemberName>(
+        map_.addEntry(getAliasFloat(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(BYTE_VALUE,getAliasByteValue()),
                 new KeyValueMemberName(COMPARE,getAliasCompare()),
                 new KeyValueMemberName(COMPARE_TO,getAliasCompareTo()),
@@ -1074,7 +1077,7 @@ public abstract class LgNames {
                 new KeyValueMemberName(IS_NAN,getAliasIsNan()),
                 new KeyValueMemberName(PARSE_FLOAT,getAliasParseFloat()),
                 new KeyValueMemberName(PARSE_FLOAT_OR_NULL,getAliasParseFloatOrNull())));
-        map_.put(getAliasInteger(), new CustList<KeyValueMemberName>(
+        map_.addEntry(getAliasInteger(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(BYTE_VALUE,getAliasByteValue()),
                 new KeyValueMemberName(COMPARE,getAliasCompare()),
                 new KeyValueMemberName(COMPARE_TO,getAliasCompareTo()),
@@ -1087,7 +1090,7 @@ public abstract class LgNames {
                 new KeyValueMemberName(TO_STRING_METHOD,getAliasToStringMethod()),
                 new KeyValueMemberName(PARSE_INT,getAliasParseInt()),
                 new KeyValueMemberName(PARSE_INT_OR_NULL,getAliasParseIntOrNull())));
-        map_.put(getAliasLong(), new CustList<KeyValueMemberName>(
+        map_.addEntry(getAliasLong(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(BYTE_VALUE,getAliasByteValue()),
                 new KeyValueMemberName(COMPARE,getAliasCompare()),
                 new KeyValueMemberName(COMPARE_TO,getAliasCompareTo()),
@@ -1100,7 +1103,7 @@ public abstract class LgNames {
                 new KeyValueMemberName(TO_STRING_METHOD,getAliasToStringMethod()),
                 new KeyValueMemberName(PARSE_LONG,getAliasParseLong()),
                 new KeyValueMemberName(PARSE_LONG_OR_NULL,getAliasParseLongOrNull())));
-        map_.put(getAliasNumber(), new CustList<KeyValueMemberName>(
+        map_.addEntry(getAliasNumber(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(BYTE_VALUE,getAliasByteValue()),
                 new KeyValueMemberName(COMPARE,getAliasCompare()),
                 new KeyValueMemberName(COMPARE_TO,getAliasCompareTo()),
@@ -1111,7 +1114,7 @@ public abstract class LgNames {
                 new KeyValueMemberName(LONG_VALUE,getAliasLongValue()),
                 new KeyValueMemberName(SHORT_VALUE,getAliasShortValue()),
                 new KeyValueMemberName(TO_STRING_METHOD,getAliasToStringMethod())));
-        map_.put(getAliasShort(), new CustList<KeyValueMemberName>(
+        map_.addEntry(getAliasShort(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(BYTE_VALUE,getAliasByteValue()),
                 new KeyValueMemberName(COMPARE,getAliasCompare()),
                 new KeyValueMemberName(COMPARE_TO,getAliasCompareTo()),
@@ -1124,7 +1127,7 @@ public abstract class LgNames {
                 new KeyValueMemberName(TO_STRING_METHOD,getAliasToStringMethod()),
                 new KeyValueMemberName(PARSE_SHORT,getAliasParseShort()),
                 new KeyValueMemberName(PARSE_SHORT_OR_NULL,getAliasParseShortOrNull())));
-        map_.put(getAliasString(), new CustList<KeyValueMemberName>(
+        map_.addEntry(getAliasString(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(EQUALS,getAliasEquals()),
                 new KeyValueMemberName(COMPARE_TO,getAliasCompareTo()),
                 new KeyValueMemberName(CHAR_AT,getAliasCharAt()),
@@ -1154,7 +1157,7 @@ public abstract class LgNames {
                 new KeyValueMemberName(TO_LOWER_CASE,getAliasToLowerCase()),
                 new KeyValueMemberName(TO_UPPER_CASE,getAliasToUpperCase()),
                 new KeyValueMemberName(VALUE_OF_METHOD,getAliasValueOfMethod())));
-        map_.put(getAliasStringBuilder(), new CustList<KeyValueMemberName>(
+        map_.addEntry(getAliasStringBuilder(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(EQUALS,getAliasEquals()),
                 new KeyValueMemberName(COMPARE_TO,getAliasCompareTo()),
                 new KeyValueMemberName(CHAR_AT,getAliasCharAt()),
@@ -1277,44 +1280,44 @@ public abstract class LgNames {
     }
     public StringMap<CustList<KeyValueMemberName>> allTableTypeFieldNames() {
         StringMap<CustList<KeyValueMemberName>> map_ = new StringMap<CustList<KeyValueMemberName>>();
-        map_.put(nbAlias.getAliasDouble(), new CustList<KeyValueMemberName>(
+        map_.addEntry(nbAlias.getAliasDouble(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(FIELD_MIN_VALUE,nbAlias.getAliasMinValueField()),
                 new KeyValueMemberName(FIELD_MAX_VALUE,nbAlias.getAliasMaxValueField())));
-        map_.put(nbAlias.getAliasFloat(), new CustList<KeyValueMemberName>(
+        map_.addEntry(nbAlias.getAliasFloat(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(FIELD_MIN_VALUE,nbAlias.getAliasMinValueField()),
                 new KeyValueMemberName(FIELD_MAX_VALUE,nbAlias.getAliasMaxValueField())));
-        map_.put(nbAlias.getAliasLong(), new CustList<KeyValueMemberName>(
+        map_.addEntry(nbAlias.getAliasLong(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(FIELD_MIN_VALUE,nbAlias.getAliasMinValueField()),
                 new KeyValueMemberName(FIELD_MAX_VALUE,nbAlias.getAliasMaxValueField())));
-        map_.put(nbAlias.getAliasInteger(), new CustList<KeyValueMemberName>(
+        map_.addEntry(nbAlias.getAliasInteger(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(FIELD_MIN_VALUE,nbAlias.getAliasMinValueField()),
                 new KeyValueMemberName(FIELD_MAX_VALUE,nbAlias.getAliasMaxValueField())));
-        map_.put(nbAlias.getAliasCharacter(), new CustList<KeyValueMemberName>(
+        map_.addEntry(nbAlias.getAliasCharacter(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(FIELD_MIN_VALUE,nbAlias.getAliasMinValueField()),
                 new KeyValueMemberName(FIELD_MAX_VALUE,nbAlias.getAliasMaxValueField())));
-        map_.put(nbAlias.getAliasShort(), new CustList<KeyValueMemberName>(
+        map_.addEntry(nbAlias.getAliasShort(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(FIELD_MIN_VALUE,nbAlias.getAliasMinValueField()),
                 new KeyValueMemberName(FIELD_MAX_VALUE,nbAlias.getAliasMaxValueField())));
-        map_.put(nbAlias.getAliasByte(), new CustList<KeyValueMemberName>(
+        map_.addEntry(nbAlias.getAliasByte(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(FIELD_MIN_VALUE,nbAlias.getAliasMinValueField()),
                 new KeyValueMemberName(FIELD_MAX_VALUE,nbAlias.getAliasMaxValueField())));
         return map_;
     }
     public StringMap<CustList<KeyValueMemberName>> allTableTypeVarTypes() {
         StringMap<CustList<KeyValueMemberName>> map_ = new StringMap<CustList<KeyValueMemberName>>();
-        map_.put(getAliasEnumParam(), new CustList<KeyValueMemberName>(
+        map_.addEntry(getAliasEnumParam(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(ENUM_PARAM_VAR,getAliasEnumParamVar())));
-        map_.put(getAliasIterable(), new CustList<KeyValueMemberName>(
+        map_.addEntry(getAliasIterable(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(ITERABLE_VAR,getAliasIterableVar())));
-        map_.put(getAliasIteratorType(), new CustList<KeyValueMemberName>(
+        map_.addEntry(getAliasIteratorType(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(ITERATOR_TYPE_VAR,getAliasIteratorTypeVar())));
-        map_.put(getAliasIterableTable(), new CustList<KeyValueMemberName>(
+        map_.addEntry(getAliasIterableTable(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(ITERABLE_TABLE_VAR_FIRST,getAliasIterableTableVarFirst()),
                 new KeyValueMemberName(ITERABLE_TABLE_VAR_SECOND,getAliasIterableTableVarSecond())));
-        map_.put(getAliasIteratorTableType(), new CustList<KeyValueMemberName>(
+        map_.addEntry(getAliasIteratorTableType(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(ITERATOR_TABLE_TYPE_VAR_FIRST,getAliasIteratorTableTypeVarFirst()),
                 new KeyValueMemberName(ITERATOR_TABLE_TYPE_VAR_SECOND,getAliasIteratorTableTypeVarSecond())));
-        map_.put(getAliasPairType(), new CustList<KeyValueMemberName>(
+        map_.addEntry(getAliasPairType(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(PAIR_TYPE_VAR_FIRST,getAliasPairTypeVarFirst()),
                 new KeyValueMemberName(PAIR_TYPE_VAR_SECOND,getAliasPairTypeVarSecond())));
         return map_;

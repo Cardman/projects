@@ -1955,17 +1955,17 @@ public class LgNamesUtils extends LgNames {
     @Override
     public StringMap<CustList<KeyValueMemberName>> allTableTypeVarTypes() {
         StringMap<CustList<KeyValueMemberName>> t_ = super.allTableTypeVarTypes();
-        t_.put(getAliasList(), new CustList<KeyValueMemberName>(
+        t_.addEntry(getAliasList(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(LIST_VAR,getAliasListVar())));
-        t_.put(getAliasCustIterator(), new CustList<KeyValueMemberName>(
+        t_.addEntry(getAliasCustIterator(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(CUST_ITERATOR_VAR,getAliasCustIteratorVar())));
-        t_.put(getAliasTable(), new CustList<KeyValueMemberName>(
+        t_.addEntry(getAliasTable(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(TABLE_VAR_FIRST,getAliasTableVarFirst()),
                 new KeyValueMemberName(TABLE_VAR_SECOND,getAliasTableVarSecond())));
-        t_.put(getAliasCustIterTable(), new CustList<KeyValueMemberName>(
+        t_.addEntry(getAliasCustIterTable(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(ITER_TA_VAR_FIRST,getAliasIterTaVarFirst()),
                 new KeyValueMemberName(ITER_TA_VAR_SECOND,getAliasIterTaVarSecond())));
-        t_.put(getAliasCustPair(), new CustList<KeyValueMemberName>(
+        t_.addEntry(getAliasCustPair(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(PAIR_VAR_FIRST,getAliasPairVarFirst()),
                 new KeyValueMemberName(PAIR_VAR_SECOND,getAliasPairVarSecond())));
         return t_;
@@ -1993,50 +1993,50 @@ public class LgNamesUtils extends LgNames {
     @Override
     public StringMap<CustList<KeyValueMemberName>> allTableTypeFieldNames() {
         StringMap<CustList<KeyValueMemberName>> f_ = super.allTableTypeFieldNames();
-        f_.put(getAliasDifference(), new CustList<KeyValueMemberName>(
+        f_.addEntry(getAliasDifference(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(DIFFERENCE_EXPECTED,getAliasDifferenceExpected()),
                 new KeyValueMemberName(DIFFERENCE_FOUND,getAliasDifferenceFound()),
                 new KeyValueMemberName(DIFFERENCE_FOUND_NOT_TRUE,getAliasDifferenceFoundNotTrue()),
                 new KeyValueMemberName(DIFFERENCE_FOUND_NULL,getAliasDifferenceFoundNull()),
                 new KeyValueMemberName(DIFFERENCE_STACK_DIFF,getAliasDifferenceStackDiff())
         ));
-        f_.put(getAliasInfoTest(), new CustList<KeyValueMemberName>(
+        f_.addEntry(getAliasInfoTest(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(INFO_TEST_COUNT,getAliasInfoTestCount()),
                 new KeyValueMemberName(INFO_TEST_CURRENT_METHOD,getAliasInfoTestCurrentMethod()),
                 new KeyValueMemberName(INFO_TEST_DONE,getAliasInfoTestDone()),
                 new KeyValueMemberName(INFO_TEST_CURRENT_PARAMS,getAliasInfoTestCurrentParams())
         ));
-        f_.put(getAliasResult(), new CustList<KeyValueMemberName>(
+        f_.addEntry(getAliasResult(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(RESULT_FAIL_MESSAGE,getAliasResultFailMessage()),
                 new KeyValueMemberName(RESULT_PARAMS,getAliasResultParams()),
                 new KeyValueMemberName(RESULT_SUCCESS,getAliasResultSuccess())
         ));
-        f_.put(getAliasExecutedTest(), new CustList<KeyValueMemberName>(
+        f_.addEntry(getAliasExecutedTest(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(EXECUTED_TEST_AFTER,getAliasExecutedTestAfter()),
                 new KeyValueMemberName(EXECUTED_TEST_BEFORE,getAliasExecutedTestBefore()),
                 new KeyValueMemberName(EXECUTED_TEST_ANNOTATIONS,getAliasExecutedTestAnnotations()),
                 new KeyValueMemberName(EXECUTED_TEST_METHOD,getAliasExecutedTestMethod()),
                 new KeyValueMemberName(EXECUTED_TEST_TEST,getAliasExecutedTestTest())
         ));
-        f_.put(getAliasCustIterator(), new CustList<KeyValueMemberName>(
+        f_.addEntry(getAliasCustIterator(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(LIST_ITR,getAliasListItr()),
                 new KeyValueMemberName(LENGTH_ITR_LI,getAliasLengthItrLi()),
                 new KeyValueMemberName(INDEX_ITR_LI,getAliasIndexItrLi())
         ));
-        f_.put(getAliasList(), new CustList<KeyValueMemberName>(
+        f_.addEntry(getAliasList(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(ARRAY_LI,getAliasArrayLi()),
                 new KeyValueMemberName(LENGTH_LI,getAliasLengthLi())
         ));
-        f_.put(getAliasCustIterTable(), new CustList<KeyValueMemberName>(
+        f_.addEntry(getAliasCustIterTable(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(LIST_ITER_TABLE,getAliasListIterTable()),
                 new KeyValueMemberName(LENGTH_ITR_TA,getAliasLengthItrTa()),
                 new KeyValueMemberName(INDEX_ITR_TA,getAliasIndexItrTa())
         ));
-        f_.put(getAliasCustPair(), new CustList<KeyValueMemberName>(
+        f_.addEntry(getAliasCustPair(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(FIRST,getAliasFirst()),
                 new KeyValueMemberName(SECOND,getAliasSecond())
         ));
-        f_.put(getAliasTable(), new CustList<KeyValueMemberName>(
+        f_.addEntry(getAliasTable(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(LIST_TA,getAliasListTa())
         ));
         return f_;
@@ -2045,7 +2045,7 @@ public class LgNamesUtils extends LgNames {
     @Override
     public StringMap<CustList<KeyValueMemberName>> allTableTypeMethodNames() {
         StringMap<CustList<KeyValueMemberName>> m_ = super.allTableTypeMethodNames();
-        m_.put(getAliasThread(), new CustList<KeyValueMemberName>(
+        m_.addEntry(getAliasThread(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(START,getAliasStart()),
                 new KeyValueMemberName(THREAD_CURRENT_TIME,getAliasThreadCurrentTime()),
                 new KeyValueMemberName(IS_ALIVE,getAliasIsAlive()),
@@ -2059,27 +2059,27 @@ public class LgNamesUtils extends LgNames {
                 new KeyValueMemberName(SLEEP,getAliasSleep()),
                 new KeyValueMemberName(PRINT,getAliasPrint()),
                 new KeyValueMemberName(THREAD_EXIT_HOOK,getAliasThreadExitHook())));
-        m_.put(getAliasThreadSet(), new CustList<KeyValueMemberName>(
+        m_.addEntry(getAliasThreadSet(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(THREAD_SET_ADD,getAliasThreadSetAdd()),
                 new KeyValueMemberName(THREAD_SET_ALL,getAliasThreadSetAll()),
                 new KeyValueMemberName(THREAD_SET_CONTAINS,getAliasThreadSetContains()),
                 new KeyValueMemberName(THREAD_SET_REMOVE,getAliasThreadSetRemove()),
                 new KeyValueMemberName(THREAD_SET_SNAPSHOT,getAliasThreadSetSnapshot())));
-        m_.put(getAliasReentrantLock(), new CustList<KeyValueMemberName>(
+        m_.addEntry(getAliasReentrantLock(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(LOCK,getAliasLock()),
                 new KeyValueMemberName(UNLOCK,getAliasUnlock()),
                 new KeyValueMemberName(IS_HELD_BY_CURRENT_THREAD,getAliasIsHeldByCurrentThread())));
-        m_.put(getAliasRunnable(), new CustList<KeyValueMemberName>(
+        m_.addEntry(getAliasRunnable(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(RUN,getAliasRun())));
-        m_.put(getAliasFormatType(), new CustList<KeyValueMemberName>(
+        m_.addEntry(getAliasFormatType(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(PRINT,getAliasPrint())));
-        m_.put(getAliasAtomicBoolean(), new CustList<KeyValueMemberName>(
+        m_.addEntry(getAliasAtomicBoolean(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(GET_ATOMIC,getAliasGetAtomic()),
                 new KeyValueMemberName(SET_ATOMIC,getAliasSetAtomic()),
                 new KeyValueMemberName(COMPARE_AND_SET_ATOMIC,getAliasCompareAndSetAtomic()),
                 new KeyValueMemberName(GET_AND_SET_ATOMIC,getAliasGetAndSetAtomic()),
                 new KeyValueMemberName(LAZY_SET_ATOMIC,getAliasLazySetAtomic())));
-        m_.put(getAliasAtomicInteger(), new CustList<KeyValueMemberName>(
+        m_.addEntry(getAliasAtomicInteger(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(GET_ATOMIC,getAliasGetAtomic()),
                 new KeyValueMemberName(SET_ATOMIC,getAliasSetAtomic()),
                 new KeyValueMemberName(COMPARE_AND_SET_ATOMIC,getAliasCompareAndSetAtomic()),
@@ -2091,7 +2091,7 @@ public class LgNamesUtils extends LgNames {
                 new KeyValueMemberName(GET_AND_INCREMENT_ATOMIC,getAliasGetAndIncrementAtomic()),
                 new KeyValueMemberName(DECREMENT_AND_GET_ATOMIC,getAliasDecrementAndGetAtomic()),
                 new KeyValueMemberName(GET_AND_DECREMENT_ATOMIC,getAliasGetAndDecrementAtomic())));
-        m_.put(getAliasAtomicLong(), new CustList<KeyValueMemberName>(
+        m_.addEntry(getAliasAtomicLong(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(GET_ATOMIC,getAliasGetAtomic()),
                 new KeyValueMemberName(SET_ATOMIC,getAliasSetAtomic()),
                 new KeyValueMemberName(COMPARE_AND_SET_ATOMIC,getAliasCompareAndSetAtomic()),
@@ -2103,7 +2103,7 @@ public class LgNamesUtils extends LgNames {
                 new KeyValueMemberName(GET_AND_INCREMENT_ATOMIC,getAliasGetAndIncrementAtomic()),
                 new KeyValueMemberName(DECREMENT_AND_GET_ATOMIC,getAliasDecrementAndGetAtomic()),
                 new KeyValueMemberName(GET_AND_DECREMENT_ATOMIC,getAliasGetAndDecrementAtomic())));
-        m_.put(getAliasFile(), new CustList<KeyValueMemberName>(
+        m_.addEntry(getAliasFile(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(READ,getAliasRead()),
                 new KeyValueMemberName(WRITE,getAliasWrite()),
                 new KeyValueMemberName(APPEND_TO_FILE,getAliasAppendToFile()),
@@ -2128,30 +2128,30 @@ public class LgNamesUtils extends LgNames {
                 new KeyValueMemberName(FILE_ZIPPED_BIN_ARRAY,getAliasFileZippedBinArray()),
                 new KeyValueMemberName(FILE_ZIPPED_TEXT,getAliasFileZippedText()),
                 new KeyValueMemberName(FILE_MAKE_DIRS,getAliasFileMakeDirs())));
-        m_.put(getAliasEntryBinary(), new CustList<KeyValueMemberName>(
+        m_.addEntry(getAliasEntryBinary(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(ENTRY_NAME,getAliasEntryName()),
                 new KeyValueMemberName(ENTRY_VALUE,getAliasEntryValue())));
-        m_.put(getAliasEntryText(), new CustList<KeyValueMemberName>(
+        m_.addEntry(getAliasEntryText(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(ENTRY_NAME,getAliasEntryName()),
                 new KeyValueMemberName(ENTRY_VALUE,getAliasEntryValue())));
-        m_.put(getAliasCustIterator(), new CustList<KeyValueMemberName>(
+        m_.addEntry(getAliasCustIterator(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(NEXT,getAliasNext()),
                 new KeyValueMemberName(HAS_NEXT,getAliasHasNext())));
-        m_.put(getAliasList(), new CustList<KeyValueMemberName>(
+        m_.addEntry(getAliasList(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(ADD_LI,getAliasAddLi()),
                 new KeyValueMemberName(SIZE_LI,getAliasSizeLi()),
                 new KeyValueMemberName(REMOVE_LI,getAliasRemoveLi()),
                 new KeyValueMemberName(ITERATOR,getAliasIterator()),
                 new KeyValueMemberName(LIST_CLEAR,getAliasListClear())));
-        m_.put(getAliasCustPair(), new CustList<KeyValueMemberName>(
+        m_.addEntry(getAliasCustPair(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(GET_FIRST,getAliasGetFirst()),
                 new KeyValueMemberName(SET_FIRST,getAliasSetFirst()),
                 new KeyValueMemberName(GET_SECOND,getAliasGetSecond()),
                 new KeyValueMemberName(SET_SECOND,getAliasSetSecond())));
-        m_.put(getAliasCustIterTable(), new CustList<KeyValueMemberName>(
+        m_.addEntry(getAliasCustIterTable(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(NEXT_PAIR,getAliasNextPair()),
                 new KeyValueMemberName(HAS_NEXT_PAIR,getAliasHasNextPair())));
-        m_.put(getAliasTable(), new CustList<KeyValueMemberName>(
+        m_.addEntry(getAliasTable(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(GET_FIRST_TA,getAliasGetFirstTa()),
                 new KeyValueMemberName(GET_SECOND_TA,getAliasGetSecondTa()),
                 new KeyValueMemberName(SET_FIRST_TA,getAliasSetFirstTa()),
@@ -2162,29 +2162,29 @@ public class LgNamesUtils extends LgNames {
                 new KeyValueMemberName(GET_TA,getAliasGetTa()),
                 new KeyValueMemberName(ITERATOR_TABLE,getAliasIteratorTable())
         ));
-        m_.put(getAliasExecute(), new CustList<KeyValueMemberName>(
+        m_.addEntry(getAliasExecute(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(EXECUTE_TESTS,getAliasExecuteTests()),
                 new KeyValueMemberName(EXECUTE_CONVERT,getAliasExecuteConvert()),
                 new KeyValueMemberName(EXECUTE_SETUP_ERROR,getAliasExecuteSetupError()),
                 new KeyValueMemberName(EXECUTE_SETUP_NO_EXCEPTION,getAliasExecuteSetupNoException()),
                 new KeyValueMemberName(EXECUTE_EXECUTE,getAliasExecuteExecute())
         ));
-        m_.put(getAliasParameters(), new CustList<KeyValueMemberName>(
+        m_.addEntry(getAliasParameters(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(PARAMETERS_LOCATION,getAliasParametersLocation()),
                 new KeyValueMemberName(PARAMETERS_METHOD,getAliasParametersMethod())
         ));
-        m_.put(getAliasTest(), new CustList<KeyValueMemberName>(
+        m_.addEntry(getAliasTest(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(TEST_EXCEPTION,getAliasTestException()),
                 new KeyValueMemberName(TEST_NULL_EXCEPTION,getAliasTestNullException())
         ));
-        m_.put(getAliasAssert(), new CustList<KeyValueMemberName>(
+        m_.addEntry(getAliasAssert(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(ASSERT_ASSERT,getAliasAssertAssert()),
                 new KeyValueMemberName(ASSERT_ASSERT_NOT_NULL,getAliasAssertAssertNotNull()),
                 new KeyValueMemberName(ASSERT_ASSERT_NULL,getAliasAssertAssertNull()),
                 new KeyValueMemberName(ASSERT_ASSERT_SAME,getAliasAssertAssertSame()),
                 new KeyValueMemberName(ASSERT_ASSERT_TRUE,getAliasAssertAssertTrue())
         ));
-        m_.put(getAliasDifference(), new CustList<KeyValueMemberName>(
+        m_.addEntry(getAliasDifference(), new CustList<KeyValueMemberName>(
         ));
         return m_;
     }

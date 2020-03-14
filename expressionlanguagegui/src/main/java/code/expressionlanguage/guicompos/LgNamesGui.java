@@ -8443,13 +8443,13 @@ public class LgNamesGui extends LgNamesUtils {
     @Override
     public StringMap<CustList<KeyValueMemberName>> allTableTypeFieldNames() {
         StringMap<CustList<KeyValueMemberName>> f_ = super.allTableTypeFieldNames();
-        f_.put(getAliasConfirm(),new CustList<KeyValueMemberName>(
+        f_.addEntry(getAliasConfirm(),new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(CONFIRM_FIELD_OK,getAliasConfirmFieldOk()),
                 new KeyValueMemberName(CONFIRM_FIELD_YES,getAliasConfirmFieldYes()),
                 new KeyValueMemberName(CONFIRM_FIELD_NO,getAliasConfirmFieldNo()),
                 new KeyValueMemberName(CONFIRM_FIELD_CANCEL,getAliasConfirmFieldCancel())
         ));
-        f_.put(getAliasPanelBorder(),new CustList<KeyValueMemberName>(
+        f_.addEntry(getAliasPanelBorder(),new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(PANEL_BORDER_AFTER_LAST,getAliasPanelBorderAfterLast()),
                 new KeyValueMemberName(PANEL_BORDER_AFTER_LINE_ENDS,getAliasPanelBorderAfterLineEnds()),
                 new KeyValueMemberName(PANEL_BORDER_BEFORE_FIRST,getAliasPanelBorderBeforeFirst()),
@@ -8469,19 +8469,19 @@ public class LgNamesGui extends LgNamesUtils {
         allWindowMethods(m_);
         allEventTypes(m_);
         allComponents(m_);
-        m_.put(getAliasDimension(), new CustList<KeyValueMemberName>(
+        m_.addEntry(getAliasDimension(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(DIMENSION_GET_HEIGHT,getAliasDimensionGetHeight()),
                 new KeyValueMemberName(DIMENSION_GET_WIDTH,getAliasDimensionGetWidth())));
-        m_.put(getAliasFont(), new CustList<KeyValueMemberName>(
+        m_.addEntry(getAliasFont(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(FONT_GET_NAME,getAliasFontGetName()),
                 new KeyValueMemberName(FONT_GET_SIZE,getAliasFontGetSize()),
                 new KeyValueMemberName(FONT_IS_BOLD,getAliasFontIsBold()),
                 new KeyValueMemberName(FONT_IS_ITALIC,getAliasFontIsItalic()),
                 new KeyValueMemberName(FONT_STRING_WIDTH,getAliasFontStringWidth())));
-        m_.put(getAliasButtonGroup(), new CustList<KeyValueMemberName>(
+        m_.addEntry(getAliasButtonGroup(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(BUTTON_GROUP_ADD,getAliasButtonGroupAdd()))
         );
-        m_.put(getAliasRender(), new CustList<KeyValueMemberName>(
+        m_.addEntry(getAliasRender(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(RENDER_GET_HEIGHT,getAliasRenderGetHeight()),
                 new KeyValueMemberName(RENDER_GET_PAINT,getAliasRenderGetPaint()),
                 new KeyValueMemberName(RENDER_GET_WIDTH,getAliasRenderGetWidth()),
@@ -8489,14 +8489,14 @@ public class LgNamesGui extends LgNamesUtils {
                 new KeyValueMemberName(RENDER_SET_PAINT,getAliasRenderSetPaint()),
                 new KeyValueMemberName(RENDER_SET_WIDTH,getAliasRenderSetWidth())
         ));
-        m_.put(getAliasColor(), new CustList<KeyValueMemberName>(
+        m_.addEntry(getAliasColor(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(COLOR_ALPHA,getAliasColorAlpha()),
                 new KeyValueMemberName(COLOR_BLUE,getAliasColorBlue()),
                 new KeyValueMemberName(COLOR_RED,getAliasColorRed()),
                 new KeyValueMemberName(COLOR_GREEN,getAliasColorGreen()),
                 new KeyValueMemberName(COLOR_IS_TRANSPARENT,getAliasColorIsTransparent()))
         );
-        m_.put(getAliasImage(), new CustList<KeyValueMemberName>(
+        m_.addEntry(getAliasImage(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(IMAGE_DRAW,getAliasImageDraw()),
                 new KeyValueMemberName(IMAGE_DRAW_LINE,getAliasImageDrawLine()),
                 new KeyValueMemberName(IMAGE_DRAW_OVAL,getAliasImageDrawOval()),
@@ -8516,28 +8516,28 @@ public class LgNamesGui extends LgNamesUtils {
                 new KeyValueMemberName(IMAGE_IS_WITH_ALPHA,getAliasImageIsWithAlpha()),
                 new KeyValueMemberName(IMAGE_DISPOSE,getAliasImageDispose()))
         );
-        m_.put(getAliasActionListener(), new CustList<KeyValueMemberName>(
+        m_.addEntry(getAliasActionListener(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(ACTION_PERFORMED,getAliasActionPerformed()))
         );
-        m_.put(getAliasChangeListener(), new CustList<KeyValueMemberName>(
+        m_.addEntry(getAliasChangeListener(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(STATE_CHANGED,getAliasStateChanged()))
         );
-        m_.put(getAliasWheelListener(), new CustList<KeyValueMemberName>(
+        m_.addEntry(getAliasWheelListener(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(WHEEL_MOVE,getAliasWheelMove()))
         );
-        m_.put(getAliasMouseListener(), new CustList<KeyValueMemberName>(
+        m_.addEntry(getAliasMouseListener(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(MOUSE_CLICKED,getAliasMouseClicked()),
                 new KeyValueMemberName(MOUSE_ENTERED,getAliasMouseEntered()),
                 new KeyValueMemberName(MOUSE_EXITED,getAliasMouseExited()),
                 new KeyValueMemberName(MOUSE_PRESSED,getAliasMousePressed()),
                 new KeyValueMemberName(MOUSE_RELEASED,getAliasMouseReleased()))
         );
-        m_.put(getAliasKeyListener(), new CustList<KeyValueMemberName>(
+        m_.addEntry(getAliasKeyListener(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(KEY_TYPED,getAliasKeyTyped()),
                 new KeyValueMemberName(KEY_RELEASED,getAliasKeyReleased()),
                 new KeyValueMemberName(KEY_PRESSED,getAliasKeyPressed()))
         );
-        m_.put(getAliasWindowListener(), new CustList<KeyValueMemberName>(
+        m_.addEntry(getAliasWindowListener(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(WINDOW_ACTIVATED,getAliasWindowActivated()),
                 new KeyValueMemberName(WINDOW_ICONIFIED,getAliasWindowIconified()),
                 new KeyValueMemberName(WINDOW_DEACTIVATED,getAliasWindowDeactivated()),
@@ -8546,13 +8546,13 @@ public class LgNamesGui extends LgNamesUtils {
                 new KeyValueMemberName(WINDOW_CLOSING,getAliasWindowClosing()),
                 new KeyValueMemberName(WINDOW_CLOSED,getAliasWindowClosed()))
         );
-        m_.put(getAliasListSelection(), new CustList<KeyValueMemberName>(
+        m_.addEntry(getAliasListSelection(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(VALUE_CHANGED,getAliasValueChanged()))
         );
-        m_.put(getAliasTreeListener(), new CustList<KeyValueMemberName>(
+        m_.addEntry(getAliasTreeListener(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(TREE_LISTENER_VALUE_CHANGED,getAliasTreeListenerValueChanged()))
         );
-        m_.put(getAliasTreeNode(), new CustList<KeyValueMemberName>(
+        m_.addEntry(getAliasTreeNode(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(TREE_NODE_ADD,getAliasTreeNodeAdd()),
                 new KeyValueMemberName(TREE_NODE_INSERT,getAliasTreeNodeInsert()),
                 new KeyValueMemberName(TREE_NODE_REMOVE,getAliasTreeNodeRemove()),
@@ -8569,21 +8569,21 @@ public class LgNamesGui extends LgNamesUtils {
                 new KeyValueMemberName(TREE_NODE_IS_ANCESTOR,getAliasTreeNodeIsAncestor()),
                 new KeyValueMemberName(TREE_NODE_IS_DESCENDANT,getAliasTreeNodeIsDescendant()))
         );
-        m_.put(getAliasTableListener(), new CustList<KeyValueMemberName>(
+        m_.addEntry(getAliasTableListener(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(TABLE_VALUE_TABLE_CHANGED,getAliasTableValueTableChanged()))
         );
-        m_.put(getAliasPaint(), new CustList<KeyValueMemberName>(
+        m_.addEntry(getAliasPaint(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(PAINT_METHOD,getAliasPaintMethod()),
                 new KeyValueMemberName(PAINT_ADD,getAliasPaintAdd()),
                 new KeyValueMemberName(PAINT_REFRESH,getAliasPaintRefresh()))
         );
-        m_.put(getAliasMenuBar(),new CustList<KeyValueMemberName>(
+        m_.addEntry(getAliasMenuBar(),new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(MENU_BAR_ADD,getAliasMenuBarAdd()),
                 new KeyValueMemberName(MENU_BAR_GET,getAliasMenuBarGet()),
                 new KeyValueMemberName(MENU_BAR_REMOVE,getAliasMenuBarRemove()),
                 new KeyValueMemberName(MENU_BAR_NB,getAliasMenuBarNb())
         ));
-        m_.put(getAliasAbsMenu(),new CustList<KeyValueMemberName>(
+        m_.addEntry(getAliasAbsMenu(),new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(ABS_MENU_GET_PARENT,getAliasAbsMenuGetParent()),
                 new KeyValueMemberName(ABS_MENU_GET_TEXT,getAliasAbsMenuGetText()),
                 new KeyValueMemberName(ABS_MENU_IS_ENABLED,getAliasAbsMenuIsEnabled()),
@@ -8591,7 +8591,7 @@ public class LgNamesGui extends LgNamesUtils {
                 new KeyValueMemberName(ABS_MENU_SET_ENABLED,getAliasAbsMenuSetEnabled()),
                 new KeyValueMemberName(ABS_MENU_SET_TEXT,getAliasAbsMenuSetText())
         ));
-        m_.put(getAliasMenu(),new CustList<KeyValueMemberName>(
+        m_.addEntry(getAliasMenu(),new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(ABS_MENU_GET_PARENT,getAliasAbsMenuGetParent()),
                 new KeyValueMemberName(ABS_MENU_GET_TEXT,getAliasAbsMenuGetText()),
                 new KeyValueMemberName(ABS_MENU_IS_ENABLED,getAliasAbsMenuIsEnabled()),
@@ -8604,7 +8604,7 @@ public class LgNamesGui extends LgNamesUtils {
                 new KeyValueMemberName(MENU_NB,getAliasMenuNb()),
                 new KeyValueMemberName(MENU_ADD_SEPARATOR,getAliasMenuAddSeparator())
         ));
-        m_.put(getAliasAbsMenuItem(),new CustList<KeyValueMemberName>(
+        m_.addEntry(getAliasAbsMenuItem(),new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(ABS_MENU_GET_PARENT,getAliasAbsMenuGetParent()),
                 new KeyValueMemberName(ABS_MENU_GET_TEXT,getAliasAbsMenuGetText()),
                 new KeyValueMemberName(ABS_MENU_IS_ENABLED,getAliasAbsMenuIsEnabled()),
@@ -8613,7 +8613,7 @@ public class LgNamesGui extends LgNamesUtils {
                 new KeyValueMemberName(ABS_MENU_SET_TEXT,getAliasAbsMenuSetText()),
                 new KeyValueMemberName(ABS_MENU_ITEM_ADD_ACTION,getAliasAbsMenuItemAddAction())
         ));
-        m_.put(getAliasMenuItemCheck(),new CustList<KeyValueMemberName>(
+        m_.addEntry(getAliasMenuItemCheck(),new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(ABS_MENU_GET_PARENT,getAliasAbsMenuGetParent()),
                 new KeyValueMemberName(ABS_MENU_GET_TEXT,getAliasAbsMenuGetText()),
                 new KeyValueMemberName(ABS_MENU_IS_ENABLED,getAliasAbsMenuIsEnabled()),
@@ -8629,7 +8629,7 @@ public class LgNamesGui extends LgNamesUtils {
 
     private void allComponents(StringMap<CustList<KeyValueMemberName>> _m) {
         CustList<KeyValueMemberName> names_ = getCompoMethodNames();
-        _m.put(getAliasPanel(),merge(new CustList<KeyValueMemberName>(
+        _m.addEntry(getAliasPanel(),merge(new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(COUNT,getAliasCount()),
                 new KeyValueMemberName(GET_INDEX_COMPO,getAliasGetIndexCompo()),
                 new KeyValueMemberName(ADD_COMPO,getAliasAddCompo()),
@@ -8640,7 +8640,7 @@ public class LgNamesGui extends LgNamesUtils {
                 new KeyValueMemberName(PANEL_GRID,getAliasPanelGrid()),
                 new KeyValueMemberName(PANEL_VALIDATE,getAliasPanelValidate()),
                 new KeyValueMemberName(REMOVE_ALL,getAliasRemoveAll())),names_));
-        _m.put(getAliasTabbedPane(),merge(new CustList<KeyValueMemberName>(
+        _m.addEntry(getAliasTabbedPane(),merge(new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(TABBED_PANE_NB,getAliasTabbedPaneNb()),
                 new KeyValueMemberName(TABBED_PANE_ADD,getAliasTabbedPaneAdd()),
                 new KeyValueMemberName(TABBED_PANE_REMOVE,getAliasTabbedPaneRemove()),
@@ -8651,7 +8651,7 @@ public class LgNamesGui extends LgNamesUtils {
                 new KeyValueMemberName(TABBED_PANE_SET,getAliasTabbedPaneSet()),
                 new KeyValueMemberName(TABBED_PANE_SET_TITLE,getAliasTabbedPaneSetTitle()),
                 new KeyValueMemberName(REMOVE_ALL,getAliasRemoveAll())),names_));
-        _m.put(getAliasPanelBorder(),merge(new CustList<KeyValueMemberName>(
+        _m.addEntry(getAliasPanelBorder(),merge(new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(COUNT,getAliasCount()),
                 new KeyValueMemberName(GET_INDEX_COMPO,getAliasGetIndexCompo()),
                 new KeyValueMemberName(ADD_COMPO,getAliasAddCompo()),
@@ -8662,24 +8662,24 @@ public class LgNamesGui extends LgNamesUtils {
                 new KeyValueMemberName(PANEL_GRID,getAliasPanelGrid()),
                 new KeyValueMemberName(PANEL_VALIDATE,getAliasPanelValidate()),
                 new KeyValueMemberName(REMOVE_ALL,getAliasRemoveAll())),names_));
-        _m.put(getAliasComponent(), names_);
-        _m.put(getAliasTextLabel(),merge(new CustList<KeyValueMemberName>(
+        _m.addEntry(getAliasComponent(), names_);
+        _m.addEntry(getAliasTextLabel(),merge(new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(SET_LABEL_TEXT,getAliasSetLabelText())),names_));
-        _m.put(getAliasImageLabel(),merge(new CustList<KeyValueMemberName>(
+        _m.addEntry(getAliasImageLabel(),merge(new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(SET_LABEL_IMAGE,getAliasSetLabelImage())),names_));
-        _m.put(getAliasButton(),merge(new CustList<KeyValueMemberName>(),names_));
-        _m.put(getAliasProgBar(),merge(new CustList<KeyValueMemberName>(
+        _m.addEntry(getAliasButton(),merge(new CustList<KeyValueMemberName>(),names_));
+        _m.addEntry(getAliasProgBar(),merge(new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(PROG_BAR_OR,getAliasProgBarOr()),
                 new KeyValueMemberName(PROG_BAR_VALUE,getAliasProgBarValue()),
                 new KeyValueMemberName(PROG_BAR_MIN,getAliasProgBarMin()),
                 new KeyValueMemberName(PROG_BAR_MAX,getAliasProgBarMax())),names_));
-        _m.put(getAliasScrollPane(),merge(new CustList<KeyValueMemberName>(
+        _m.addEntry(getAliasScrollPane(),merge(new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(SCROLL_PANE_HORIZONTAL_VALUE,getAliasScrollPaneHorizontalValue()),
                 new KeyValueMemberName(SCROLL_PANE_VERTICAL_VALUE,getAliasScrollPaneVerticalValue()),
                 new KeyValueMemberName(SCROLL_PANE_GET_VIEW,getAliasScrollPaneGetView()),
                 new KeyValueMemberName(SCROLL_PANE_SET_VIEW,getAliasScrollPaneSetView()),
                 new KeyValueMemberName(SCROLL_PANE_VALIDATE,getAliasScrollPaneValidate())),names_));
-        _m.put(getAliasSplitPane(),merge(new CustList<KeyValueMemberName>(
+        _m.addEntry(getAliasSplitPane(),merge(new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(SPLIT_PANE_GET_DIVIDER_LOCATION,getAliasSplitPaneGetDividerLocation()),
                 new KeyValueMemberName(SPLIT_PANE_SET_DIVIDER_LOCATION,getAliasSplitPaneSetDividerLocation()),
                 new KeyValueMemberName(SPLIT_PANE_GET_DIVIDER_SIZE,getAliasSplitPaneGetDividerSize()),
@@ -8693,17 +8693,17 @@ public class LgNamesGui extends LgNamesUtils {
                 new KeyValueMemberName(SPLIT_PANE_IS_ONE_TOUCH_EXPANDABLE,getAliasSplitPaneIsOneTouchExpandable()),
                 new KeyValueMemberName(SPLIT_PANE_SET_ONE_TOUCH_EXPANDABLE,getAliasSplitPaneSetOneTouchExpandable()),
                 new KeyValueMemberName(SPLIT_PANE_VALIDATE,getAliasSplitPaneValidate())),names_));
-        _m.put(getAliasInput(),merge(new CustList<KeyValueMemberName>(
+        _m.addEntry(getAliasInput(),merge(new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(INPUT_IS_ENABLED,getAliasInputIsEnabled()),
                 new KeyValueMemberName(INPUT_SET_ENABLED,getAliasInputSetEnabled())),names_));
-        _m.put(getAliasCheckBox(),merge(new CustList<KeyValueMemberName>(
+        _m.addEntry(getAliasCheckBox(),merge(new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(CHECK_BOX_ADD_ACTION,getAliasCheckBoxAddAction()),
                 new KeyValueMemberName(CHECK_BOX_GET_TEXT,getAliasCheckBoxGetText()),
                 new KeyValueMemberName(CHECK_BOX_SET_TEXT,getAliasCheckBoxSetText()),
                 new KeyValueMemberName(CHECK_BOX_IS_SELECTED,getAliasCheckBoxIsSelected()),
                 new KeyValueMemberName(CHECK_BOX_SET_SELECTED,getAliasCheckBoxSetSelected())),names_)
         );
-        _m.put(getAliasSpinner(),merge(new CustList<KeyValueMemberName>(
+        _m.addEntry(getAliasSpinner(),merge(new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(SPINNER_GET_MAX,getAliasSpinnerGetMax()),
                 new KeyValueMemberName(SPINNER_GET_MIN,getAliasSpinnerGetMin()),
                 new KeyValueMemberName(SPINNER_GET_STEP,getAliasSpinnerGetStep()),
@@ -8716,7 +8716,7 @@ public class LgNamesGui extends LgNamesUtils {
                 new KeyValueMemberName(SPINNER_SET_RANGE_VALUE,getAliasSpinnerSetRangeValue()),
                 new KeyValueMemberName(ADD_CHANGE,getAliasAddChange())),names_)
         );
-        _m.put(getAliasSlider(),merge(new CustList<KeyValueMemberName>(
+        _m.addEntry(getAliasSlider(),merge(new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(SLIDER_GET_MAX,getAliasSliderGetMax()),
                 new KeyValueMemberName(SLIDER_GET_MIN,getAliasSliderGetMin()),
                 new KeyValueMemberName(SLIDER_GET_ORIENTATION,getAliasSliderGetOrientation()),
@@ -8727,20 +8727,20 @@ public class LgNamesGui extends LgNamesUtils {
                 new KeyValueMemberName(SLIDER_SET_VALUE,getAliasSliderSetValue()),
                 new KeyValueMemberName(ADD_CHANGE,getAliasAddChange())),names_)
         );
-        _m.put(getAliasRadio(),merge(new CustList<KeyValueMemberName>(
+        _m.addEntry(getAliasRadio(),merge(new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(RADIO_GET_TEXT,getAliasRadioGetText()),
                 new KeyValueMemberName(RADIO_SET_TEXT,getAliasRadioSetText()),
                 new KeyValueMemberName(RADIO_IS_SELECTED,getAliasRadioIsSelected()),
                 new KeyValueMemberName(RADIO_SET_SELECTED,getAliasRadioSetSelected()),
                 new KeyValueMemberName(ADD_CHANGE,getAliasAddChange())),names_)
         );
-        _m.put(getAliasTextField(),merge(new CustList<KeyValueMemberName>(
+        _m.addEntry(getAliasTextField(),merge(new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(TEXT_FIELD_ADD_ACTION,getAliasTextFieldAddAction()),
                 new KeyValueMemberName(TEXT_FIELD_ADD_POPUP,getAliasTextFieldAddPopup()),
                 new KeyValueMemberName(TEXT_FIELD_GET_TEXT,getAliasTextFieldGetText()),
                 new KeyValueMemberName(TEXT_FIELD_SET_TEXT,getAliasTextFieldSetText())),names_)
         );
-        _m.put(getAliasTextArea(),merge(new CustList<KeyValueMemberName>(
+        _m.addEntry(getAliasTextArea(),merge(new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(TEXT_AREA_APPEND,getAliasTextAreaAppend()),
                 new KeyValueMemberName(TEXT_AREA_INSERT,getAliasTextAreaInsert()),
                 new KeyValueMemberName(TEXT_AREA_REPLACE_RANGE,getAliasTextAreaReplaceRange()),
@@ -8755,7 +8755,7 @@ public class LgNamesGui extends LgNamesUtils {
                 new KeyValueMemberName(TEXT_AREA_SELECT,getAliasTextAreaSelect()),
                 new KeyValueMemberName(TEXT_AREA_SELECT_ALL,getAliasTextAreaSelectAll())),names_)
         );
-        _m.put(getAliasCombo(),merge(new CustList<KeyValueMemberName>(
+        _m.addEntry(getAliasCombo(),merge(new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(COMBO_ADD_ITEM,getAliasComboAddItem()),
                 new KeyValueMemberName(COMBO_GET_ITEM_COUNT,getAliasComboGetItemCount()),
                 new KeyValueMemberName(COMBO_GET_LISTENER,getAliasComboGetListener()),
@@ -8767,7 +8767,7 @@ public class LgNamesGui extends LgNamesUtils {
                 new KeyValueMemberName(COMBO_SELECT_ITEM,getAliasComboSelectItem()),
                 new KeyValueMemberName(COMBO_SET_LISTENER,getAliasComboSetListener())),names_)
         );
-        _m.put(getAliasGrList(),merge(new CustList<KeyValueMemberName>(
+        _m.addEntry(getAliasGrList(),merge(new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(GR_LIST_ADD,getAliasGrListAdd()),
                 new KeyValueMemberName(GR_LIST_CLEAR,getAliasGrListClear()),
                 new KeyValueMemberName(GR_LIST_CLEAR_SELECTION,getAliasGrListClearSelection()),
@@ -8784,7 +8784,7 @@ public class LgNamesGui extends LgNamesUtils {
                 new KeyValueMemberName(GR_LIST_SET_VISIBLE_ROW_COUNT,getAliasGrListSetVisibleRowCount()),
                 new KeyValueMemberName(GR_LIST_UPDATE_GRAPHICS,getAliasGrListUpdateGraphics())),names_)
         );
-        _m.put(getAliasPopupMenu(),merge(new CustList<KeyValueMemberName>(
+        _m.addEntry(getAliasPopupMenu(),merge(new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(POPUP_MENU_ADD,getAliasPopupMenuAdd()),
                 new KeyValueMemberName(POPUP_MENU_ADD_MENU,getAliasPopupMenuAddMenu()),
                 new KeyValueMemberName(POPUP_MENU_GET_COMP,getAliasPopupMenuGetComp()),
@@ -8795,14 +8795,14 @@ public class LgNamesGui extends LgNamesUtils {
                 new KeyValueMemberName(POPUP_MENU_NB_MENU,getAliasPopupMenuNbMenu()),
                 new KeyValueMemberName(POPUP_MENU_SHOW,getAliasPopupMenuShow())),names_)
         );
-        _m.put(getAliasTree(),merge(new CustList<KeyValueMemberName>(
+        _m.addEntry(getAliasTree(),merge(new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(TREE_ADD_TREE_LISTENER,getAliasTreeAddTreeListener()),
                 new KeyValueMemberName(TREE_GET_SELECTED,getAliasTreeGetSelected()),
                 new KeyValueMemberName(TREE_IS_ROOT_VISIBLE,getAliasTreeIsRootVisible()),
                 new KeyValueMemberName(TREE_SET_ROOT_VISIBLE,getAliasTreeSetRootVisible()),
                 new KeyValueMemberName(TREE_RELOAD,getAliasTreeReload())),names_)
         );
-        _m.put(getAliasTableGui(),merge(new CustList<KeyValueMemberName>(
+        _m.addEntry(getAliasTableGui(),merge(new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(TABLE_ADD_HEADER,getAliasTableAddHeader()),
                 new KeyValueMemberName(TABLE_ADD_SELECT,getAliasTableAddSelect()),
                 new KeyValueMemberName(TABLE_APPLY_CHANGES,getAliasTableApplyChanges()),
@@ -8873,7 +8873,7 @@ public class LgNamesGui extends LgNamesUtils {
     }
 
     private void allEventTypes(StringMap<CustList<KeyValueMemberName>> _m) {
-        _m.put(getAliasMouseEvent(), new CustList<KeyValueMemberName>(
+        _m.addEntry(getAliasMouseEvent(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(MOUSE_EVENT_GET_FIRST,getAliasMouseEventGetFirst()),
                 new KeyValueMemberName(MOUSE_EVENT_GET_SECOND,getAliasMouseEventGetSecond()),
                 new KeyValueMemberName(MOUSE_EVENT_GET_CLICKS,getAliasMouseEventGetClicks()),
@@ -8883,7 +8883,7 @@ public class LgNamesGui extends LgNamesUtils {
                 new KeyValueMemberName(MOUSE_EVENT_IS_LEFT,getAliasMouseEventIsLeft()),
                 new KeyValueMemberName(MOUSE_EVENT_IS_RIGHT,getAliasMouseEventIsRight()),
                 new KeyValueMemberName(MOUSE_EVENT_IS_MIDDLE,getAliasMouseEventIsMiddle())));
-        _m.put(getAliasWheelEvent(), new CustList<KeyValueMemberName>(
+        _m.addEntry(getAliasWheelEvent(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(MOUSE_EVENT_GET_FIRST,getAliasMouseEventGetFirst()),
                 new KeyValueMemberName(MOUSE_EVENT_GET_SECOND,getAliasMouseEventGetSecond()),
                 new KeyValueMemberName(MOUSE_EVENT_GET_CLICKS,getAliasMouseEventGetClicks()),
@@ -8895,7 +8895,7 @@ public class LgNamesGui extends LgNamesUtils {
                 new KeyValueMemberName(MOUSE_EVENT_IS_MIDDLE,getAliasMouseEventIsMiddle()),
                 new KeyValueMemberName(WHEEL_ROTATED_CLICKS,getAliasWheelRotatedClicks()))
         );
-        _m.put(getAliasKeyEvent(), new CustList<KeyValueMemberName>(
+        _m.addEntry(getAliasKeyEvent(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(KEY_EVENT_CODE,getAliasKeyEventCode()),
                 new KeyValueMemberName(KEY_EVENT_CHAR,getAliasKeyEventChar()),
                 new KeyValueMemberName(KEY_EVENT_IS_ALT,getAliasKeyEventIsAlt()),
@@ -8904,13 +8904,13 @@ public class LgNamesGui extends LgNamesUtils {
     }
 
     private void allWindowMethods(StringMap<CustList<KeyValueMemberName>> _m) {
-        _m.put(getAliasConfirm(), new CustList<KeyValueMemberName>(
+        _m.addEntry(getAliasConfirm(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(CONFIRM_FIELD,getAliasConfirmField()),
                 new KeyValueMemberName(CONFIRM_FULL,getAliasConfirmFull()),
                 new KeyValueMemberName(CONFIRM_MESSAGE,getAliasConfirmMessage()),
                 new KeyValueMemberName(CONFIRM_OK,getAliasConfirmOk()),
                 new KeyValueMemberName(CONFIRM_YES_NO,getAliasConfirmYesNo())));
-        _m.put(getAliasFrame(), new CustList<KeyValueMemberName>(
+        _m.addEntry(getAliasFrame(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(PACK,getAliasPack()),
                 new KeyValueMemberName(ADD_WINDOW_LISTENER,getAliasAddWindowListener()),
                 new KeyValueMemberName(REMOVE_WINDOW_LISTENER,getAliasRemoveWindowListener()),
@@ -8924,13 +8924,13 @@ public class LgNamesGui extends LgNamesUtils {
                 new KeyValueMemberName(SET_MENU_BAR,getAliasSetMenuBar()),
                 new KeyValueMemberName(WINDOW,getAliasWindow()),
                 new KeyValueMemberName(ARGS,getAliasArgs())));
-        _m.put(getAliasWindowSet(), new CustList<KeyValueMemberName>(
+        _m.addEntry(getAliasWindowSet(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(WINDOW_SET_ADD,getAliasWindowSetAdd()),
                 new KeyValueMemberName(WINDOW_SET_ALL,getAliasWindowSetAll()),
                 new KeyValueMemberName(WINDOW_SET_CONTAINS,getAliasWindowSetContains()),
                 new KeyValueMemberName(WINDOW_SET_REMOVE,getAliasWindowSetRemove()),
                 new KeyValueMemberName(WINDOW_SET_SNAPSHOT,getAliasWindowSetSnapshot())));
-        _m.put(getAliasDialog(), new CustList<KeyValueMemberName>(
+        _m.addEntry(getAliasDialog(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(PACK,getAliasPack()),
                 new KeyValueMemberName(ADD_WINDOW_LISTENER,getAliasAddWindowListener()),
                 new KeyValueMemberName(REMOVE_WINDOW_LISTENER,getAliasRemoveWindowListener()),
@@ -8944,7 +8944,7 @@ public class LgNamesGui extends LgNamesUtils {
                 new KeyValueMemberName(SET_MENU_BAR,getAliasSetMenuBar()),
                 new KeyValueMemberName(DIALOG_IS_MODAL,getAliasDialogIsModal()),
                 new KeyValueMemberName(DIALOG_SET_MODAL,getAliasDialogSetModal())));
-        _m.put(getAliasWindowType(), new CustList<KeyValueMemberName>(
+        _m.addEntry(getAliasWindowType(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(PACK,getAliasPack()),
                 new KeyValueMemberName(ADD_WINDOW_LISTENER,getAliasAddWindowListener()),
                 new KeyValueMemberName(REMOVE_WINDOW_LISTENER,getAliasRemoveWindowListener()),

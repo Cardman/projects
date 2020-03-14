@@ -1237,18 +1237,18 @@ public final class BeanCustLgNames extends BeanLgNames {
     @Override
     public StringMap<String> allRefTypes() {
         StringMap<String> types_ = super.allRefTypes();
-        types_.add("Validator",getAliasValidator());
-        types_.add("StringMapObject",getAliasStringMapObject());
-        types_.add("Bean",getAliasBean());
+        types_.addEntry("Validator",getAliasValidator());
+        types_.addEntry("StringMapObject",getAliasStringMapObject());
+        types_.addEntry("Bean",getAliasBean());
         return types_;
     }
 
     @Override
     public StringMap<CustList<KeyValueMemberName>> allTableTypeMethodNames() {
         StringMap<CustList<KeyValueMemberName>> methods_ = super.allTableTypeMethodNames();
-        methods_.put(getAliasValidator(),new CustList<KeyValueMemberName>(
+        methods_.addEntry(getAliasValidator(),new CustList<KeyValueMemberName>(
                 new KeyValueMemberName("Validate",getAliasValidate())));
-        methods_.put(getAliasStringMapObject(),new CustList<KeyValueMemberName>(
+        methods_.addEntry(getAliasStringMapObject(),new CustList<KeyValueMemberName>(
                 new KeyValueMemberName("MapGetVal",getAliasMapGetVal()),
                 new KeyValueMemberName("MapPut",getAliasMapPut()),
                 new KeyValueMemberName("MapPutAll",getAliasMapPutAll()),
@@ -1268,7 +1268,7 @@ public final class BeanCustLgNames extends BeanLgNames {
                 new KeyValueMemberName("MapGetKey",getAliasMapGetKey()),
                 new KeyValueMemberName("MapSetKey",getAliasMapSetKey())
         ));
-        methods_.put(getAliasBean(),new CustList<KeyValueMemberName>(
+        methods_.addEntry(getAliasBean(),new CustList<KeyValueMemberName>(
                 new KeyValueMemberName("BeforeDisplaying",getAliasBeforeDisplaying()),
                 new KeyValueMemberName("GetDataBase",getAliasGetDataBase()),
                 new KeyValueMemberName("GetLanguage",getAliasGetLanguage()),
@@ -1285,11 +1285,11 @@ public final class BeanCustLgNames extends BeanLgNames {
     @Override
     public StringMap<CustList<KeyValueMemberName>> allTableTypeFieldNames() {
         StringMap<CustList<KeyValueMemberName>> fields_ = super.allTableTypeFieldNames();
-        fields_.put(getAliasMessage(),
+        fields_.addEntry(getAliasMessage(),
                 new CustList<KeyValueMemberName>(
                         new KeyValueMemberName("MapKeys",getAliasMapKeys()),
                         new KeyValueMemberName("MapValues",getAliasMapValues())));
-        fields_.put(getAliasBean(),
+        fields_.addEntry(getAliasBean(),
                 new CustList<KeyValueMemberName>(
                         new KeyValueMemberName("Forms",getAliasForms()),
                         new KeyValueMemberName("Language",getAliasLanguage()),

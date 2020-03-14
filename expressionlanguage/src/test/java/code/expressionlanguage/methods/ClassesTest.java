@@ -3,6 +3,7 @@ package code.expressionlanguage.methods;
 import code.expressionlanguage.*;
 import code.expressionlanguage.classes.CustLgNames;
 import code.expressionlanguage.errors.AnalysisMessages;
+import code.expressionlanguage.errors.KeyValueMemberName;
 import code.expressionlanguage.inherits.TypeUtil;
 import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.util.*;
@@ -80,7 +81,24 @@ public final class ClassesTest {
         lgName_.setAliasVoid("");
         Options opts_ = new Options();
         ContextEl out_ = ContextFactory.build(-1,lk_, di_, opts_, a_,kw_, lgName_,4);
-        ContextFactory.validateStds(out_,a_,kw_,lgName_);
+        Classes.validateAll(new StringMap<String>(),out_);
+        assertTrue(!out_.getClasses().isEmptyStdError());
+    }
+
+    @Test
+    public void failStd2(){
+        DefaultLockingClass lk_ = new DefaultLockingClass();
+        DefaultInitializer di_ = new DefaultInitializer();
+        AnalysisMessages a_ = new AnalysisMessages();
+        KeyWords kw_ = new KeyWords();
+        LgNames lgName_ = new CustLgNames();
+        InitializationLgNames.basicStandards(lgName_);
+        lgName_.setAliasPrimBoolean("$byte");
+        lgName_.setAliasMaxValueField("MIN_VALUE");
+        lgName_.setAliasLe("ge");
+        lgName_.setAliasBoolean("java.lang.Byte");
+        Options opts_ = new Options();
+        ContextEl out_ = ContextFactory.build(-1,lk_, di_, opts_, a_,kw_, lgName_,4);
         Classes.validateAll(new StringMap<String>(),out_);
         assertTrue(!out_.getClasses().isEmptyStdError());
     }
@@ -97,7 +115,6 @@ public final class ClassesTest {
         lgName_.setAliasVoid("");
         Options opts_ = new Options();
         ContextEl out_ = ContextFactory.build(-1,lk_, di_, opts_, a_,kw_, lgName_,4);
-        ContextFactory.validateStds(out_,a_,kw_,lgName_);
         Classes.validateAll(new StringMap<String>(),out_);
         assertTrue(!out_.getClasses().isEmptyMessageError());
     }

@@ -179,7 +179,7 @@ public abstract class BeanLgNames extends LgNames {
     @Override
     public StringMap<CustList<KeyValueMemberName>> allTableTypeMethodNames() {
         StringMap<CustList<KeyValueMemberName>> methods_ = super.allTableTypeMethodNames();
-        methods_.put(getAliasMessage(),
+        methods_.addEntry(getAliasMessage(),
                 new CustList<KeyValueMemberName>(new KeyValueMemberName("NewMessage",getAliasNewMessage()),
                         new KeyValueMemberName("MessageFormat",getAliasMessageFormat()),
                         new KeyValueMemberName("MessageGetArgs",getAliasMessageGetArgs()),
