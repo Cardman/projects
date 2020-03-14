@@ -4,10 +4,7 @@ import code.expressionlanguage.methods.AccessibleBlock;
 import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.MethodId;
-import code.util.CustList;
-import code.util.EqList;
-import code.util.ObjectMap;
-import code.util.StringList;
+import code.util.*;
 
 public interface GeneType extends AccessibleBlock {
 
@@ -20,9 +17,9 @@ public interface GeneType extends AccessibleBlock {
     boolean isAbstractType();
     boolean withoutInstance();
 
+    Ints getTypeVarCounts();
+    CustList<StringList> getBoundAll();
     CustList<TypeVar> getParamTypesMapValues();
-
-    CustList<TypeVar> getParamTypes();
 
 
     String getGenericString();

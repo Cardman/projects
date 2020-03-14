@@ -9,7 +9,6 @@ import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.methods.AccessedBlock;
 import code.expressionlanguage.methods.AccessingImportingBlock;
 import code.expressionlanguage.methods.RootBlock;
-import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.util.DimComp;
 import code.util.CustList;
 import code.util.*;
@@ -109,24 +108,7 @@ final class TemplatePartType extends BinaryType {
         if (!Templates.correctNbParameters(tempClFull_, _an)) {
             return;
         }
-        CustList<StringList> boundsAll_ = new CustList<StringList>();
-        for (TypeVar t: type_.getParamTypesMapValues()) {
-            boolean contained_ = false;
-            for (TypeVar u: type_.getParamTypes()) {
-                if (!StringList.quickEq(t.getName(),u.getName())) {
-                    continue;
-                }
-                contained_ = true;
-            }
-            if (!contained_) {
-                continue;
-            }
-            StringList localBound_ = new StringList();
-            for (String b: t.getConstraints()) {
-                localBound_.add(b);
-            }
-            boundsAll_.add(localBound_);
-        }
+        CustList<StringList> boundsAll_ = type_.getBoundAll();
         for (StringList t: boundsAll_) {
             f_ = f_.getNextSibling();
             String arg_ = f_.getAnalyzedType();

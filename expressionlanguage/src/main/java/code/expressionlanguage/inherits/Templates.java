@@ -1984,54 +1984,33 @@ public final class Templates {
     Sample 12: my.pkg.MyThirdClass..Inner&lt;Integer,Integer&gt; => false<br/>
     */
     public static boolean correctNbParameters(String _genericClass, Analyzable _context) {
-        StringBuilder id_ = new StringBuilder();
         //From analyze
         StringList inners_ = getAllInnerTypes(_genericClass);
+        String idCl_ = getIdFromAllTypes(_genericClass);
+        String compo_ = PrimitiveTypeUtil.getQuickComponentBaseType(idCl_).getComponent();
+        GeneType info_ = _context.getClassBody(compo_);
+        if (info_ == null) {
+            if (PrimitiveTypeUtil.isPrimitive(compo_,_context)) {
+                return true;
+            }
+            if (StringList.quickEq(compo_, _context.getStandards().getAliasVoid())) {
+                return true;
+            }
+            return compo_.startsWith("#");
+        }
         String fct_ = _context.getStandards().getAliasFct();
+        Ints rep_ = info_.getTypeVarCounts();
         int len_ = inners_.size();
-        for (int i = 0; i < len_; i++) {
-            String i_ = inners_.get(i);
-            StringList params_ = getAllTypes(i_);
-            String base_;
-            if (id_.length() > 0) {
-                base_ = StringList.concat(id_.toString(),"..",params_.first());
-                id_.delete(0, id_.length());
-            } else {
-                base_ = params_.first();
-            }
-            int nbParams_ = params_.size() - 1;
-            String baseArr_ = PrimitiveTypeUtil.getQuickComponentBaseType(base_).getComponent();
-            GeneType current_ = _context.getClassBody(baseArr_);
-            if (current_ == null) {
-                continue;
-            }
-            if (current_.isStaticType()) {
-                if (i + 1 < len_) {
-                    String idNext_ = getIdFromAllTypes(inners_.get(i+1));
-                    String baseArrNext_ = PrimitiveTypeUtil.getQuickComponentBaseType(idNext_).getComponent();
-                    String n_ = StringList.concat(baseArr_,"..",baseArrNext_);
-                    GeneType next_ = _context.getClassBody(n_);
-                    if (next_ == null) {
-                        return false;
-                    }
-                    if (next_.isStaticType()) {
-                        if (nbParams_ != 0) {
-                            return false;
-                        }
-                        id_.append(baseArr_);
-                        continue;
-                    }
+        if (!StringList.quickEq(compo_, fct_)) {
+            for (int i = 0; i < len_; i++) {
+                String i_ = inners_.get(i);
+                int req_ = rep_.get(i);
+                StringList params_ = getAllTypes(i_);
+                int nbParams_ = params_.size() - 1;
+                if (req_ != nbParams_) {
+                    return false;
                 }
             }
-            if (StringList.quickEq(baseArr_, fct_)) {
-                id_.append(baseArr_);
-                continue;
-            }
-            boolean ex_ = current_.getParamTypes().size() == nbParams_;
-            if (!ex_) {
-                return false;
-            }
-            id_.append(baseArr_);
         }
         return true;
     }

@@ -448,6 +448,28 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
     }
 
     @Override
+    public CustList<StringList> getBoundAll() {
+        CustList<StringList> boundsAll_ = new CustList<StringList>();
+        for (TypeVar t: getParamTypesMapValues()) {
+            boolean contained_ = false;
+            for (TypeVar u: getParamTypes()) {
+                if (!StringList.quickEq(t.getName(),u.getName())) {
+                    continue;
+                }
+                contained_ = true;
+            }
+            if (!contained_) {
+                continue;
+            }
+            StringList localBound_ = new StringList();
+            for (String b: t.getConstraints()) {
+                localBound_.add(b);
+            }
+            boundsAll_.add(localBound_);
+        }
+        return boundsAll_;
+    }
+
     public CustList<TypeVar> getParamTypes() {
         return paramTypes;
     }
@@ -458,6 +480,20 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
 
     public CustList<Ints> getParamTypesConstraintsOffset() {
         return paramTypesConstraintsOffset;
+    }
+
+    public Ints getTypeVarCounts() {
+        Ints generic_ = new Ints();
+        CustList<RootBlock> pars_ = getSelfAndParentTypes();
+        CustList<RootBlock> stPars_ = pars_.first().getAllParentTypesReverse();
+        int len_ = stPars_.size();
+        for (int i = 0; i < len_; i++) {
+            generic_.add(0);
+        }
+        for (RootBlock r: pars_) {
+            generic_.add(r.paramTypes.size());
+        }
+        return generic_;
     }
 
     public final String getWildCardString() {
@@ -562,11 +598,9 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
     @Override
     public String getFullName() {
         String packageName_ = getPackageName();
-        Block par_ = this;
         StringList names_ = new StringList(getName());
-        while (par_.getParent() instanceof RootBlock) {
-            par_ = par_.getParent();
-            names_.add(((RootBlock)par_).getName());
+        for (RootBlock r: getAllParentTypes()) {
+            names_.add(r.getName());
         }
         if (packageName_.isEmpty()) {
             return getName();

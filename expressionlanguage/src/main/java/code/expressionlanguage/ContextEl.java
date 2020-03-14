@@ -1531,10 +1531,8 @@ public abstract class ContextEl implements ExecutableCode {
         }
         StringMap<Integer> variables_ = new StringMap<Integer>();
         for (RootBlock r: _currentBlock.getSelfAndParentTypes()) {
-            int i_ = 0;
             for (TypeVar t: r.getParamTypes()) {
                 variables_.add(t.getName(),t.getOffset());
-                i_++;
             }
         }
         //No need to call Templates.isCorrect

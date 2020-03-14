@@ -72,6 +72,16 @@ public final class InnerElementBlock extends RootBlock implements InnerTypeOrEle
     }
 
     @Override
+    public Ints getTypeVarCounts() {
+        Ints generic_ = new Ints();
+        CustList<RootBlock> pars_ = getAllParentTypes();
+        int lenPar_ = pars_.size();
+        for (int i = 0; i < lenPar_; i++) {
+            generic_.add(0);
+        }
+        return generic_;
+    }
+    @Override
     public String getGenericString() {
         return getName();
     }

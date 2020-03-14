@@ -64,9 +64,15 @@ public abstract class StandardType implements GeneType {
     }
 
     @Override
-    public CustList<TypeVar> getParamTypes() {
-        return new CustList<TypeVar>();
+    public Ints getTypeVarCounts() {
+        return new Ints(0);
     }
+
+    @Override
+    public CustList<StringList> getBoundAll() {
+        return new CustList<StringList>();
+    }
+
     @Override
     public CustList<TypeVar> getParamTypesMapValues() {
         return new CustList<TypeVar>();
