@@ -28,7 +28,6 @@ public final class RendLambdaOperation extends RendLeafOperation implements Rend
     private boolean affField;
     private boolean directCast;
     private String returnFieldType;
-    private String classInst;
 
     public RendLambdaOperation(LambdaOperation _l) {
         super(_l);
@@ -45,7 +44,6 @@ public final class RendLambdaOperation extends RendLeafOperation implements Rend
         affField = _l.isAffField();
         returnFieldType = _l.getReturnFieldType();
         directCast = _l.isDirectCast();
-        classInst = _l.getClassInst();
     }
 
     @Override
@@ -57,13 +55,6 @@ public final class RendLambdaOperation extends RendLeafOperation implements Rend
 
     Argument getCommonArgument(Argument _previous, ExecutableCode _conf) {
         Argument arg_ = new Argument();
-        if (!classInst.isEmpty()) {
-            String clInst_ = _conf.getOperationPageEl().formatVarType(classInst, _conf);
-            FunctionalInstance struct_ = new FunctionalInstance(clInst_);
-            struct_.setFunctional(newLambda(_previous,_conf));
-            arg_.setStruct(struct_);
-            return arg_;
-        }
         arg_.setStruct(newLambda(_previous,_conf));
         return arg_;
     }

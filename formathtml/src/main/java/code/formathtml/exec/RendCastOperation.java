@@ -4,6 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.CastOperation;
+import code.expressionlanguage.opers.exec.ExecCastOperation;
 import code.formathtml.Configuration;
 import code.util.CustList;
 import code.util.IdMap;
@@ -30,6 +31,7 @@ public final class RendCastOperation extends RendAbstractUnaryOperation {
         setRelativeOffsetPossibleLastPage(getIndexInEl()+offset, _conf);
         Argument objArg_ = _arguments.first();
         String paramName_ = _conf.getOperationPageEl().formatVarType(className, _conf);
+        ExecCastOperation.wrapFct(paramName_,_arguments,_conf);
         Templates.checkObject(paramName_, objArg_, _conf);
         return objArg_;
     }

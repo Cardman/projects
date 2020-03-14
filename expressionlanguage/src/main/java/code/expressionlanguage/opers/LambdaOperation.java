@@ -40,7 +40,6 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
     private boolean affField;
     private String returnFieldType;
     private CustList<PartOffset> partOffsets = new CustList<PartOffset>();
-    private String classInst = EMPTY_STRING;
 
     public LambdaOperation(int _indexInEl, int _indexChild, MethodOperation _m,
             OperationsSequence _op) {
@@ -67,68 +66,6 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             return;
         }
         generalProcess(_conf, args_);
-        MethodOperation m_ = getParent();
-        if (m_ instanceof DotOperation && isIntermediateDottedOperation()) {
-            m_ = m_.getParent();
-        }
-        if (m_ instanceof IdOperation) {
-            m_ = m_.getParent();
-        }
-        if (m_ instanceof CastOperation) {
-            String dest_ = ((CastOperation) m_).getClassName();
-            if (ExplicitOperation.customCast(dest_)) {
-                String id_ = Templates.getIdFromAllTypes(dest_);
-                GeneType r_ = _conf.getClassBody(id_);
-                if (r_ instanceof InterfaceBlock && r_.isStaticType()) {
-                    //abstract type
-                    int instEltCount_ = 0;
-                    StringList superType_ = new StringList(id_);
-                    superType_.addAllElts(r_.getAllSuperTypes());
-                    for (String i: superType_) {
-                        for (Block b: Classes.getDirectChildren(_conf.getClasses().getClassBody(i))) {
-                            if ((b instanceof FieldBlock)) {
-                                if (((FieldBlock)b).isStaticField()) {
-                                    continue;
-                                }
-                                instEltCount_++;
-                            }
-                            if (b instanceof InstanceBlock) {
-                                instEltCount_++;
-                            }
-                            if (b instanceof ConstructorBlock) {
-                                instEltCount_++;
-                            }
-                        }
-                    }
-                    CustList<ClassMethodId> functional_ = ((RootBlock) r_).getFunctional();
-                    if (instEltCount_ == 0 && functional_.size() == 1) {
-                        ClassMethodId clRealId_ = functional_.first();
-                        MethodId realId_ = clRealId_.getConstraints();
-                        MethodId idMeth_ = realId_.quickFormat(dest_, _conf);
-                        String gene_ = clRealId_.getClassName();
-                        String geneFor_ = Templates.quickFormat(dest_,gene_,_conf);
-                        String ret_ = _conf.getMethodBodiesById(gene_, realId_).first().getImportedReturnType();
-                        ret_ = Templates.quickFormat(dest_,ret_,_conf);
-                        ClassMethodIdReturn parmMe_ = new ClassMethodIdReturn(true);
-                        parmMe_.setId(clRealId_);
-                        parmMe_.setRealId(idMeth_);
-                        parmMe_.setReturnType(ret_);
-                        parmMe_.setRealClass(gene_);
-                        String fctParam_ = formatReturn(_conf, false, parmMe_, false);
-                        fctParam_ = Templates.quickFormat(geneFor_,fctParam_,_conf);
-                        StringMap<StringList> vars_ = _conf.getCurrentConstraints();
-                        Mapping mapping_ = new Mapping();
-                        mapping_.setMapping(vars_);
-                        ClassArgumentMatching cl_ = getResultClass();
-                        mapping_.setArg(cl_);
-                        mapping_.setParam(fctParam_);
-                        if (Templates.isCorrectOrNumbers(mapping_, _conf)) {
-                            classInst = dest_;
-                        }
-                    }
-                }
-            }
-        }
     }
 
     private void generalProcess(Analyzable _conf, StringList _args) {
@@ -199,7 +136,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                         abstractMethod = idDef_.isAbstractMethod();
                         shiftArgument = false;
                         directCast = true;
-                        String fct_ = formatReturn(_conf, false, idDef_, false);
+                        String fct_ = formatReturn(foundClass, _conf, false, idDef_, false);
                         fct_ = Templates.quickFormat(type_,fct_,_conf);
                         setResultClass(new ClassArgumentMatching(fct_));
                         return;
@@ -238,7 +175,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 abstractMethod = idDef_.isAbstractMethod();
                 shiftArgument = false;
                 directCast = true;
-                String fct_ = formatReturn(_conf, false, idDef_, false);
+                String fct_ = formatReturn(foundClass, _conf, false, idDef_, false);
                 fct_ = Templates.quickFormat(type_,fct_,_conf);
                 setResultClass(new ClassArgumentMatching(fct_));
                 return;
@@ -264,7 +201,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 abstractMethod = idDef_.isAbstractMethod();
                 shiftArgument = false;
                 directCast = true;
-                String fct_ = formatReturn(_conf, false, idDef_, false);
+                String fct_ = formatReturn(foundClass, _conf, false, idDef_, false);
                 fct_ = Templates.quickFormat(type_,fct_,_conf);
                 setResultClass(new ClassArgumentMatching(fct_));
                 return;
@@ -277,7 +214,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             ancestor = id_.getAncestor();
             abstractMethod = id_.isAbstractMethod();
             shiftArgument = false;
-            String fct_ = formatReturn(_conf, false, id_, false);
+            String fct_ = formatReturn(foundClass, _conf, false, id_, false);
             fct_ = Templates.quickFormat(type_,fct_,_conf);
             setResultClass(new ClassArgumentMatching(fct_));
             return;
@@ -466,7 +403,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             ancestor = id_.getAncestor();
             abstractMethod = id_.isAbstractMethod();
             shiftArgument = !id_.isStaticMethod();
-            String fct_ = formatReturn(_conf, false, id_, shiftArgument);
+            String fct_ = formatReturn(foundClass, _conf, false, id_, shiftArgument);
             setResultClass(new ClassArgumentMatching(fct_));
             processAbstract(_conf, staticChoiceMethod_, id_);
             return;
@@ -533,7 +470,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             foundClass = id_.getId().getClassName();
             method = new ClassMethodId(foundClass_, idCt_);
             ancestor = id_.getAncestor();
-            String fct_ = formatReturn(_conf, false, id_, false);
+            String fct_ = formatReturn(foundClass, _conf, false, id_, false);
             setResultClass(new ClassArgumentMatching(fct_));
             return;
         }
@@ -735,7 +672,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         MethodId idCt_ = id_.getRealId();
         method = new ClassMethodId(foundClass_, idCt_);
         ancestor = id_.getAncestor();
-        String fct_ = formatReturn(_conf, false, id_, false);
+        String fct_ = formatReturn(foundClass, _conf, false, id_, false);
         setResultClass(new ClassArgumentMatching(fct_));
         processAbstract(_conf, staticChoiceMethod_, id_);
     }
@@ -1366,7 +1303,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             method = new ClassMethodId(foundClass_, idCt_);
             ancestor = id_.getAncestor();
             abstractMethod = id_.isAbstractMethod();
-            String fct_ = formatReturn(_conf, false, id_, false);
+            String fct_ = formatReturn(foundClass, _conf, false, id_, false);
             setResultClass(new ClassArgumentMatching(fct_));
             return;
         }
@@ -1392,7 +1329,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         method = new ClassMethodId(foundClass_, idCt_);
         ancestor = id_.getAncestor();
         shiftArgument = true;
-        String fct_ = formatReturn(_conf, true, id_, false);
+        String fct_ = formatReturn(foundClass, _conf, true, id_, false);
         setResultClass(new ClassArgumentMatching(fct_));
     }
 
@@ -1535,7 +1472,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         partOffsets.addAllElts(_an.getContextEl().getCoverage().getCurrentParts());
         return InvokingOperation.getBounds(type_, _an);
     }
-    private String formatReturn(Analyzable _an, boolean _op,ClassMethodIdReturn _id, boolean _demand) {
+    public static String formatReturn(String _foundClass, Analyzable _an, boolean _op, ClassMethodIdReturn _id, boolean _demand) {
         LgNames stds_ = _an.getStandards();
         String fctBase_ = stds_.getAliasFct();
         String returnType_ = _id.getReturnType();
@@ -1547,7 +1484,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             start_ = 1;
         }
         if (!id_.isStaticMethod() && _demand) {
-            paramsReturn_.add(foundClass);
+            paramsReturn_.add(_foundClass);
         }
         if (id_.isVararg()) {
             for (String p: params_.mid(start_, params_.size() - 1)) {
@@ -1678,7 +1615,4 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         return StringList.getFirstPrintableCharIndex(className);
     }
 
-    public String getClassInst() {
-        return classInst;
-    }
 }
