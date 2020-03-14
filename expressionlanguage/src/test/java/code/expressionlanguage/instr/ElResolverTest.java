@@ -4365,7 +4365,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         addImportingPage(conf_);
         String el_ = "\"\n\"";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
-        assertEq(1, d_.getBadOffset());
+        assertEq(-1, d_.getBadOffset());
     }
 
     @Test
@@ -4374,7 +4374,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         addImportingPage(conf_);
         String el_ = "'\t'";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
-        assertEq(1, d_.getBadOffset());
+        assertEq(-1, d_.getBadOffset());
     }
 
     @Test
@@ -4383,7 +4383,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         addImportingPage(conf_);
         String el_ = "\"\r\"";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
-        assertEq(1, d_.getBadOffset());
+        assertEq(-1, d_.getBadOffset());
     }
     @Test
     public void checkSyntax237FailTest() {

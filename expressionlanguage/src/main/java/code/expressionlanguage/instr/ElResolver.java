@@ -2367,18 +2367,6 @@ public final class ElResolver {
             infos_.setIndex(i_);
             return infos_;
         }
-        if (curChar_ == LINE_RETURN) {
-            infos_.setIndex(-i_);
-            return infos_;
-        }
-        if (curChar_ == TAB) {
-            infos_.setIndex(-i_);
-            return infos_;
-        }
-        if (curChar_ == LINE_FEED) {
-            infos_.setIndex(-i_);
-            return infos_;
-        }
         if (nbChars_ > 1 && _delimiter == DELIMITER_CHAR) {
             infos_.setIndex(-i_);
             return infos_;
