@@ -23,6 +23,363 @@ import code.maths.montecarlo.AbMonteCarlo;
 import code.util.*;
 
 public abstract class LgNames {
+    public static final String CONTINUE = "Continue";
+    public static final String INSTANCEOF = "Instanceof";
+    public static final String INTERFACE = "Interface";
+    public static final String ABSTRACT = "Abstract";
+    public static final String ELSEIF = "Elseif";
+    public static final String CAST = "Cast";
+    public static final String EXPLICIT = "Explicit";
+    public static final String FOR = "For";
+    public static final String VAR = "Var";
+    public static final String STATIC = "Static";
+    public static final String STATIC_CALL = "StaticCall";
+    public static final String NULL = "Null";
+    public static final String CLASS = "Class";
+    public static final String FALSE = "False";
+    public static final String FINAL = "Final";
+    public static final String BREAK = "Break";
+    public static final String IF = "If";
+    public static final String NEW = "New";
+    public static final String WHILE = "While";
+    public static final String RETURN = "Return";
+    public static final String TRUE = "True";
+    public static final String PUBLIC = "Public";
+    public static final String PRIVATE = "Private";
+    public static final String ANNOTATION = "Annotation";
+    public static final String TO_STRING = "ToString";
+    public static final String NB_SUF_BYTE_PRIM = "NbSufBytePrim";
+    public static final String NB_SUF_BYTE = "NbSufByte";
+    public static final String NB_SUF_SHORT_PRIM = "NbSufShortPrim";
+    public static final String NB_SUF_SHORT = "NbSufShort";
+    public static final String NB_SUF_CHARACTER_PRIM = "NbSufCharacterPrim";
+    public static final String NB_SUF_CHARACTER = "NbSufCharacter";
+    public static final String NB_SUF_INTEGER_PRIM = "NbSufIntegerPrim";
+    public static final String NB_SUF_INTEGER = "NbSufInteger";
+    public static final String NB_SUF_LONG_PRIM = "NbSufLongPrim";
+    public static final String NB_SUF_LONG = "NbSufLong";
+    public static final String NB_SUF_FLOAT_PRIM = "NbSufFloatPrim";
+    public static final String NB_SUF_FLOAT = "NbSufFloat";
+    public static final String NB_SUF_DOUBLE_PRIM = "NbSufDoublePrim";
+    public static final String NB_SUF_DOUBLE = "NbSufDouble";
+    public static final String ITER = "Iter";
+    public static final String VALUE = "Value";
+    public static final String ELSE = "Else";
+    public static final String CATCH = "Catch";
+    public static final String THROW = "Throw";
+    public static final String TRY = "Try";
+    public static final String THIS = "This";
+    public static final String SUPER = "Super";
+    public static final String CASE = "Case";
+    public static final String DO = "Do";
+    public static final String ENUM = "Enum";
+    public static final String SWITCH = "Switch";
+    public static final String INTERN = "Intern";
+    public static final String NORMAL = "Normal";
+    public static final String ESC_TAB = "EscTab";
+    public static final String NB_HEX = "NbHex";
+    public static final String NB_BIN = "NbBin";
+    public static final String THAT = "That";
+    public static final String BOOL = "Bool";
+    public static final String VALUES = "Values";
+    public static final String LAMBDA = "Lambda";
+    public static final String VARARG = "Vararg";
+    public static final String ID = "Id";
+    public static final String FOREACH = "Foreach";
+    public static final String NB_EXP_BIN = "NbExpBin";
+    public static final String CLASSCHOICE = "Classchoice";
+    public static final String FIRSTOPT = "Firstopt";
+    public static final String PACKAGE = "Package";
+    public static final String FINALLY = "Finally";
+    public static final String ESC_UNICODE = "EscUnicode";
+    public static final String THISACCESS = "Thisaccess";
+    public static final String VALUE_OF = "ValueOf";
+    public static final String DEFAULT_VALUE = "DefaultValue";
+    public static final String ESC_LINE = "EscLine";
+    public static final String OPERATOR = "Operator";
+    public static final String INTERFACES = "Interfaces";
+    public static final String SUPERACCESS = "Superaccess";
+    public static final String ESC_BOUND = "EscBound";
+    public static final String ESC_FORM = "EscForm";
+    public static final String ESC_FEED = "EscFeed";
+    public static final String NB_EXP_DEC = "NbExpDec";
+    public static final String PROTECTED = "Protected";
+    public static final String DEFAULT = "Default";
+
+    public static final String DEFAULT_PKG = "DefaultPkg";
+    public static final String FIELD_MAX_VALUE = "MAX_VALUE";
+    public static final String FIELD_MIN_VALUE = "MIN_VALUE";
+    public static final String BAD_ENCODE = "BadEncode";
+    public static final String DIVISION_ZERO = "DivisionZero";
+    public static final String CHAR_SEQUENCE = "CharSequence";
+    public static final String ITERATOR_TYPE = "IteratorType";
+    public static final String ENUM_PARAM = "EnumParam";
+    public static final String GET_MESSAGE = "GetMessage";
+    public static final String ITERATOR_TABLE_TYPE_VAR_FIRST = "IteratorTableTypeVarFirst";
+    public static final String ITERATOR_TABLE_TYPE_VAR_SECOND = "IteratorTableTypeVarSecond";
+    public static final String EQUALS = "Equals";
+    public static final String LONG = "Long";
+    public static final String SHORT = "Short";
+    public static final String PRIM_CHAR = "PrimChar";
+    public static final String NUMBER = "Number";
+    public static final String PARSE_INT = "ParseInt";
+    public static final String COMPARE = "Compare";
+    public static final String INT_VALUE = "IntValue";
+    public static final String BOOLEAN = "Boolean";
+    public static final String PRIM_LONG = "PrimLong";
+    public static final String BYTE = "Byte";
+    public static final String FLOAT = "Float";
+    public static final String DOUBLE = "Double";
+    public static final String INTEGER = "Integer";
+    public static final String DIGIT = "Digit";
+    public static final String IS_DIGIT = "IsDigit";
+    public static final String MATH = "Math";
+    public static final String BAD_SIZE = "BadSize";
+    public static final String NULL_PE = "NullPe";
+    public static final String OBJECT = "Object";
+    public static final String ITERATOR = "Iterator";
+    public static final String CAST_TYPE = "CastType";
+    public static final String STORE = "Store";
+    public static final String ENUM_TYPE = "EnumType";
+    public static final String PRIM_BYTE = "PrimByte";
+    public static final String ERROR = "Error";
+    public static final String VOID = "Void";
+    public static final String GET_CAUSE = "GetCause";
+    public static final String BAD_INDEX = "BadIndex";
+    public static final String ENUMS = "Enums";
+    public static final String ITERABLE = "Iterable";
+    public static final String NB_FORMAT = "NbFormat";
+    public static final String SOF = "Sof";
+    public static final String PARSE_FLOAT = "ParseFloat";
+    public static final String TO_STRING_METHOD = "ToStringMethod";
+    public static final String PARSE_LONG_OR_NULL = "ParseLongOrNull";
+    public static final String PARSE_SHORT_OR_NULL = "ParseShortOrNull";
+    public static final String PARSE_FLOAT_OR_NULL = "ParseFloatOrNull";
+    public static final String PARSE_DOUBLE_OR_NULL = "ParseDoubleOrNull";
+    public static final String BYTE_VALUE = "ByteValue";
+    public static final String CHAR_VALUE = "CharValue";
+    public static final String PRIM_BOOLEAN = "PrimBoolean";
+    public static final String PARSE_INT_OR_NULL = "ParseIntOrNull";
+    public static final String PRIM_SHORT = "PrimShort";
+    public static final String PARSE_BOOLEAN = "ParseBoolean";
+    public static final String PARSE_SHORT = "ParseShort";
+    public static final String PRIM_FLOAT = "PrimFloat";
+    public static final String COMPARE_TO = "CompareTo";
+    public static final String CHARACTER = "Character";
+    public static final String PARSE_LONG = "ParseLong";
+    public static final String VALUE_OF_METHOD = "ValueOfMethod";
+    public static final String PRIM_INTEGER = "PrimInteger";
+    public static final String PARSE_BYTE_OR_NULL = "ParseByteOrNull";
+    public static final String PRIM_DOUBLE = "PrimDouble";
+    public static final String BOOLEAN_VALUE = "BooleanValue";
+    public static final String SHORT_VALUE = "ShortValue";
+    public static final String PARSE_DOUBLE = "ParseDouble";
+    public static final String ILLEGAL_ARG = "IllegalArg";
+    public static final String PARSE_BYTE = "ParseByte";
+    public static final String IS_UPPER_CASE = "IsUpperCase";
+    public static final String IS_WORD_CHAR = "IsWordChar";
+    public static final String IS_WHITESPACE = "IsWhitespace";
+    public static final String IS_LETTER_OR_DIGIT = "IsLetterOrDigit";
+    public static final String FLOAT_VALUE = "FloatValue";
+    public static final String DOUBLE_VALUE = "DoubleValue";
+    public static final String LONG_VALUE = "LongValue";
+    public static final String IS_LOWER_CASE = "IsLowerCase";
+    public static final String INDEX_OF = "IndexOf";
+    public static final String STRING = "String";
+    public static final String IS_EMPTY = "IsEmpty";
+    public static final String TRIM = "Trim";
+    public static final String GET_BYTES = "GetBytes";
+    public static final String FOR_DIGIT = "ForDigit";
+    public static final String IS_SPACE = "IsSpace";
+    public static final String GET_TYPE = "GetType";
+    public static final String CONTAINS = "Contains";
+    public static final String REPLACE = "Replace";
+    public static final String FORMAT = "Format";
+    public static final String ENDS_WITH = "EndsWith";
+    public static final String CAPACITY = "Capacity";
+    public static final String SPLIT = "Split";
+    public static final String APPEND = "Append";
+    public static final String IS_LETTER = "IsLetter";
+    public static final String IS_NAN = "IsNan";
+    public static final String LENGTH = "Length";
+    public static final String CHAR_AT = "CharAt";
+    public static final String CLONE = "Clone";
+    public static final String NAME = "Name";
+    public static final String CALL = "Call";
+    public static final String SAME = "Same";
+    public static final String MOD = "Mod";
+    public static final String REVERSE = "Reverse";
+    public static final String INSERT = "Insert";
+    public static final String ABS = "Abs";
+    public static final String HAS_NEXT = "HasNext";
+    public static final String PAIR_TYPE = "PairType";
+    public static final String QUOT = "Quot";
+    public static final String NEXT = "Next";
+    public static final String ORDINAL = "Ordinal";
+    public static final String GET_FIRST = "GetFirst";
+    public static final String FCT = "Fct";
+    public static final String DELETE = "Delete";
+    public static final String CLEAR = "Clear";
+    public static final String NEXT_PAIR = "NextPair";
+    public static final String SUBSTRING = "Substring";
+    public static final String SET_CHAR_AT = "SetCharAt";
+    public static final String EQUALS_IGNORE_CASE = "EqualsIgnoreCase";
+    public static final String ITERATOR_TABLE_TYPE = "IteratorTableType";
+    public static final String DELETE_CHAR_AT = "DeleteCharAt";
+    public static final String STARTS_WITH = "StartsWith";
+    public static final String LAST_INDEX_OF = "LastIndexOf";
+    public static final String REGION_MATCHES = "RegionMatches";
+    public static final String ITERATOR_TABLE = "IteratorTable";
+    public static final String ITERABLE_TABLE = "IterableTable";
+    public static final String TO_LOWER_CASE = "ToLowerCase";
+    public static final String STRING_BUILDER = "StringBuilder";
+    public static final String TO_UPPER_CASE = "ToUpperCase";
+    public static final String ENSURE_CAPACITY = "EnsureCapacity";
+    public static final String SET_LENGTH = "SetLength";
+    public static final String TRIM_TO_SIZE = "TrimToSize";
+    public static final String HAS_NEXT_PAIR = "HasNextPair";
+    public static final String REPLACEMENT = "Replacement";
+    public static final String GET_OLD_STRING = "GetOldString";
+    public static final String GET_NEW_STRING = "GetNewString";
+    public static final String GET_SECOND = "GetSecond";
+    public static final String SUB_SEQUENCE = "SubSequence";
+    public static final String COMPARE_TO_IGNORE_CASE = "CompareToIgnoreCase";
+    public static final String TO_CHAR_ARRAY = "ToCharArray";
+    public static final String REPLACE_MULTIPLE = "ReplaceMultiple";
+    public static final String SPLIT_STRINGS = "SplitStrings";
+    public static final String SPLIT_CHARS = "SplitChars";
+    public static final String IS_INFINITE = "IsInfinite";
+    public static final String GET_DIRECTIONALITY = "GetDirectionality";
+    public static final String GET_CHAR_TYPE = "GetCharType";
+    public static final String ITERABLE_TABLE_VAR_SECOND = "IterableTableVarSecond";
+    public static final String GET_STRING = "GetString";
+    public static final String GET_ANNOTATIONS_PARAMETERS = "GetAnnotationsParameters";
+    public static final String READ_RESOURCES_NAMES = "ReadResourcesNames";
+    public static final String INVOKE_TARGET = "InvokeTarget";
+    public static final String GET_ANNOTATIONS = "GetAnnotations";
+    public static final String GET_VARIABLE_OWNER = "GetVariableOwner";
+    public static final String READ_RESOURCES = "ReadResources";
+    public static final String RESOURCES = "Resources";
+    public static final String CLASS_NOT_FOUND_ERROR = "ClassNotFoundError";
+    public static final String ENUM_VALUES = "EnumValues";
+    public static final String ENUM_PRED_VALUE_OF = "EnumPredValueOf";
+    public static final String ITERATOR_TYPE_VAR = "IteratorTypeVar";
+    public static final String CLASS_TYPE = "ClassType";
+    public static final String ITERABLE_TABLE_VAR_FIRST = "IterableTableVarFirst";
+    public static final String PAIR_TYPE_VAR_FIRST = "PairTypeVarFirst";
+    public static final String ERROR_INIT_CLASS = "ErrorInitClass";
+    public static final String ANNOTATION_TYPE = "AnnotationType";
+    public static final String GET_GENERIC_VARIABLE_OWNER = "GetGenericVariableOwner";
+    public static final String ENUM_PARAM_VAR = "EnumParamVar";
+    public static final String PAIR_TYPE_VAR_SECOND = "PairTypeVarSecond";
+    public static final String ANNOTATED = "Annotated";
+    public static final String ITERABLE_VAR = "IterableVar";
+    public static final String GET_DEFAULT_VALUE = "GetDefaultValue";
+    public static final String MAKE_GENERIC = "MakeGeneric";
+    public static final String GET_ALL_CLASSES = "GetAllClasses";
+    public static final String GET_OPERATORS = "GetOperators";
+    public static final String GET_DECLARED_METHODS = "GetDeclaredMethods";
+    public static final String GET_DECLARED_STATIC_METHODS = "GetDeclaredStaticMethods";
+    public static final String GET_DECLARED_CONSTRUCTORS = "GetDeclaredConstructors";
+    public static final String GET_DECLARED_FIELDS = "GetDeclaredFields";
+    public static final String FIELD = "Field";
+    public static final String IS_NORMAL = "IsNormal";
+    public static final String SAME_REF = "SameRef";
+    public static final String IS_PUBLIC = "IsPublic";
+    public static final String IS_ARRAY = "IsArray";
+    public static final String ARRAY_GET = "ArrayGet";
+    public static final String METHOD = "Method";
+    public static final String GET_FIELD = "GetField";
+    public static final String INVOKE = "Invoke";
+    public static final String IS_ENUM = "IsEnum";
+    public static final String INIT = "Init";
+    public static final String FOR_NAME = "ForName";
+    public static final String IS_STATIC = "IsStatic";
+    public static final String IS_STATIC_CALL = "IsStaticCall";
+    public static final String IS_INSTANCE_METHOD = "IsInstanceMethod";
+    public static final String GET_NAME = "GetName";
+    public static final String IS_CLASS = "IsClass";
+    public static final String SET_FIELD = "SetField";
+    public static final String GET_CLASS = "GetClass";
+    public static final String IS_FINAL = "IsFinal";
+    public static final String ARRAY_SET = "ArraySet";
+    public static final String XOR = "Xor";
+    public static final String MULT = "Mult";
+    public static final String RANDOM = "Random";
+    public static final String NEG_BIN = "NegBin";
+    public static final String MINUS = "Minus";
+    public static final String ENUM_NAME = "EnumName";
+    public static final String BIN_MOD = "BinMod";
+    public static final String LT = "Lt";
+    public static final String GT = "Gt";
+    public static final String LE = "Le";
+    public static final String GE = "Ge";
+    public static final String AND = "And";
+    public static final String OR = "Or";
+    public static final String PLUS = "Plus";
+    public static final String BIN_QUOT = "BinQuot";
+    public static final String NEG = "Neg";
+    public static final String ROTATE_LEFT = "RotateLeft";
+    public static final String ENUM_ORDINAL = "EnumOrdinal";
+    public static final String SHIFT_RIGHT = "ShiftRight";
+    public static final String CURRENT_FULL_STACK = "CurrentFullStack";
+    public static final String GET_BOUNDS = "GetBounds";
+    public static final String GET_DECLARING_CLASS = "GetDeclaringClass";
+    public static final String STACK_TRACE_ELEMENT = "StackTraceElement";
+    public static final String ENUM_VALUE_OF = "EnumValueOf";
+    public static final String ARRAY_NEW_INSTANCE = "ArrayNewInstance";
+    public static final String GET_ENUM_CONSTANTS = "GetEnumConstants";
+    public static final String ARRAY_GET_LENGTH = "ArrayGetLength";
+    public static final String ROTATE_RIGHT = "RotateRight";
+    public static final String GET_GENERIC_BOUNDS = "GetGenericBounds";
+    public static final String BIT_SHIFT_LEFT = "BitShiftLeft";
+    public static final String SHIFT_LEFT = "ShiftLeft";
+    public static final String DEFAULT_INSTANCE = "DefaultInstance";
+    public static final String CURRENT_STACK = "CurrentStack";
+    public static final String BIT_SHIFT_RIGHT = "BitShiftRight";
+    public static final String GET_PARAMETER_NAMES = "GetParameterNames";
+    public static final String GET_PRETTY_NAME = "GetPrettyName";
+    public static final String GET_UPPER_BOUNDS = "GetUpperBounds";
+    public static final String GET_PARAMETER_TYPES = "GetParameterTypes";
+    public static final String GET_GENERIC_RETURN_TYPE = "GetGenericReturnType";
+    public static final String INVOKE_DIRECT = "InvokeDirect";
+    public static final String STRING_UTIL = "StringUtil";
+    public static final String GET_LOWER_BOUNDS = "GetLowerBounds";
+    public static final String GET_TYPE_PARAMETERS = "GetTypeParameters";
+    public static final String CONSTRUCTOR = "Constructor";
+    public static final String SET_PARENT = "SetParent";
+    public static final String NEW_INSTANCE = "NewInstance";
+    public static final String GET_ENCLOSING_TYPE = "GetEnclosingType";
+    public static final String GET_INTERFACES = "GetInterfaces";
+    public static final String OBJECTS_UTIL = "ObjectsUtil";
+    public static final String GET_DECLARED_CLASSES = "GetDeclaredClasses";
+    public static final String GET_SUPER_CLASS = "GetSuperClass";
+    public static final String GET_PARENT = "GetParent";
+    public static final String GET_COMPONENT_TYPE = "GetComponentType";
+    public static final String GET_FILE_NAME = "GetFileName";
+    public static final String GET_GENERIC_SUPER_CLASS = "GetGenericSuperClass";
+    public static final String GET_GENERIC_INTERFACES = "GetGenericInterfaces";
+    public static final String IS_ABSTRACT = "IsAbstract";
+    public static final String MAKE_ARRAY = "MakeArray";
+    public static final String IS_INTERFACE = "IsInterface";
+    public static final String MAKE_WILD_CARD = "MakeWildCard";
+    public static final String IS_TYPE_VARIABLE = "IsTypeVariable";
+    public static final String IS_PRIVATE = "IsPrivate";
+    public static final String IS_VARARGS = "IsVarargs";
+    public static final String IS_INSTANCE = "IsInstance";
+    public static final String GET_RETURN_TYPE = "GetReturnType";
+    public static final String GET_ACTUAL_TYPE_ARGUMENTS = "GetActualTypeArguments";
+    public static final String IS_PROTECTED = "IsProtected";
+    public static final String IS_PRIMITIVE = "IsPrimitive";
+    public static final String IS_WILD_CARD = "IsWildCard";
+    public static final String IS_ANNOTATION = "IsAnnotation";
+    public static final String GET_GENERIC_TYPE = "GetGenericType";
+    public static final String IS_ASSIGNABLE_FROM = "IsAssignableFrom";
+    public static final String IS_VARIABLE = "IsVariable";
+    public static final String IS_PACKAGE = "IsPackage";
+    public static final String FALSE_STRING = "FalseString";
+    public static final String TRUE_STRING = "TrueString";
+    public static final String NULL_STRING = "NullString";
     protected static final String LOC_VAR = ".";
 
     protected static final String PARS = "()";
@@ -197,15 +554,15 @@ public abstract class LgNames {
     }
     public StringMap<String> allPrimitives() {
         StringMap<String> list_ = new StringMap<String>();
-        list_.addEntry("PrimBoolean",primTypes.getAliasPrimBoolean());
-        list_.addEntry("PrimByte",primTypes.getAliasPrimByte());
-        list_.addEntry("PrimShort",primTypes.getAliasPrimShort());
-        list_.addEntry("PrimChar",primTypes.getAliasPrimChar());
-        list_.addEntry("PrimInteger",primTypes.getAliasPrimInteger());
-        list_.addEntry("PrimLong",primTypes.getAliasPrimLong());
-        list_.addEntry("PrimFloat",primTypes.getAliasPrimFloat());
-        list_.addEntry("PrimDouble",primTypes.getAliasPrimDouble());
-        list_.addEntry("Void",coreNames.getAliasVoid());
+        list_.addEntry(PRIM_BOOLEAN,primTypes.getAliasPrimBoolean());
+        list_.addEntry(PRIM_BYTE,primTypes.getAliasPrimByte());
+        list_.addEntry(PRIM_SHORT,primTypes.getAliasPrimShort());
+        list_.addEntry(PRIM_CHAR,primTypes.getAliasPrimChar());
+        list_.addEntry(PRIM_INTEGER,primTypes.getAliasPrimInteger());
+        list_.addEntry(PRIM_LONG,primTypes.getAliasPrimLong());
+        list_.addEntry(PRIM_FLOAT,primTypes.getAliasPrimFloat());
+        list_.addEntry(PRIM_DOUBLE,primTypes.getAliasPrimDouble());
+        list_.addEntry(VOID,coreNames.getAliasVoid());
         return list_;
     }
     public void validatePrimitiveContents(ContextEl _cont, StringMap<String> _list) {
@@ -260,54 +617,54 @@ public abstract class LgNames {
     }
     public StringMap<String> allRefTypes() {
         StringMap<String> list_ = new StringMap<String>();
-        list_.addEntry("Annotated",getAliasAnnotated());
-        list_.addEntry("AnnotationType",getAliasAnnotationType());
-        list_.addEntry("ClassType",getAliasClassType());
-        list_.addEntry("Constructor",getAliasConstructor());
-        list_.addEntry("Fct",getAliasFct());
-        list_.addEntry("Field",getAliasField());
-        list_.addEntry("Method",getAliasMethod());
-        list_.addEntry("ObjectsUtil",getAliasObjectsUtil());
-        list_.addEntry("StringUtil",getAliasStringUtil());
-        list_.addEntry("Resources",getAliasResources());
-        list_.addEntry("ClassNotFoundError",getAliasClassNotFoundError());
-        list_.addEntry("ErrorInitClass",getAliasErrorInitClass());
-        list_.addEntry("InvokeTarget",getAliasInvokeTarget());
-        list_.addEntry("EnumType",getAliasEnumType());
-        list_.addEntry("Iterable",getAliasIterable());
-        list_.addEntry("IteratorType",getAliasIteratorType());
-        list_.addEntry("EnumParam",getAliasEnumParam());
-        list_.addEntry("Enums",getAliasEnums());
-        list_.addEntry("IteratorTableType",getAliasIteratorTableType());
-        list_.addEntry("IterableTable",getAliasIterableTable());
-        list_.addEntry("PairType",getAliasPairType());
-        list_.addEntry("Math",getAliasMath());
-        list_.addEntry("StackTraceElement",getAliasStackTraceElement());
-        list_.addEntry("BadEncode",getAliasBadEncode());
-        list_.addEntry("BadIndex",getAliasBadIndex());
-        list_.addEntry("IllegalArg",getAliasIllegalArg());
-        list_.addEntry("DivisionZero",getAliasDivisionZero());
-        list_.addEntry("Store",getAliasStore());
-        list_.addEntry("CastType",getAliasCastType());
-        list_.addEntry("BadSize",getAliasBadSize());
-        list_.addEntry("Sof",getAliasSof());
-        list_.addEntry("Replacement",getAliasReplacement());
-        list_.addEntry("NullPe",getAliasNullPe());
-        list_.addEntry("NbFormat",getAliasNbFormat());
-        list_.addEntry("Boolean",getAliasBoolean());
-        list_.addEntry("Byte",getAliasByte());
-        list_.addEntry("CharSequence",getAliasCharSequence());
-        list_.addEntry("Character",getAliasCharacter());
-        list_.addEntry("Double",getAliasDouble());
-        list_.addEntry("Error",getAliasError());
-        list_.addEntry("Float",getAliasFloat());
-        list_.addEntry("Integer",getAliasInteger());
-        list_.addEntry("Long",getAliasLong());
-        list_.addEntry("Number",getAliasNumber());
-        list_.addEntry("Object",getAliasObject());
-        list_.addEntry("Short",getAliasShort());
-        list_.addEntry("String",getAliasString());
-        list_.addEntry("StringBuilder",getAliasStringBuilder());
+        list_.addEntry(ANNOTATED,getAliasAnnotated());
+        list_.addEntry(ANNOTATION_TYPE,getAliasAnnotationType());
+        list_.addEntry(CLASS_TYPE,getAliasClassType());
+        list_.addEntry(CONSTRUCTOR,getAliasConstructor());
+        list_.addEntry(FCT,getAliasFct());
+        list_.addEntry(FIELD,getAliasField());
+        list_.addEntry(METHOD,getAliasMethod());
+        list_.addEntry(OBJECTS_UTIL,getAliasObjectsUtil());
+        list_.addEntry(STRING_UTIL,getAliasStringUtil());
+        list_.addEntry(RESOURCES,getAliasResources());
+        list_.addEntry(CLASS_NOT_FOUND_ERROR,getAliasClassNotFoundError());
+        list_.addEntry(ERROR_INIT_CLASS,getAliasErrorInitClass());
+        list_.addEntry(INVOKE_TARGET,getAliasInvokeTarget());
+        list_.addEntry(ENUM_TYPE,getAliasEnumType());
+        list_.addEntry(ITERABLE,getAliasIterable());
+        list_.addEntry(ITERATOR_TYPE,getAliasIteratorType());
+        list_.addEntry(ENUM_PARAM,getAliasEnumParam());
+        list_.addEntry(ENUMS,getAliasEnums());
+        list_.addEntry(ITERATOR_TABLE_TYPE,getAliasIteratorTableType());
+        list_.addEntry(ITERABLE_TABLE,getAliasIterableTable());
+        list_.addEntry(PAIR_TYPE,getAliasPairType());
+        list_.addEntry(MATH,getAliasMath());
+        list_.addEntry(STACK_TRACE_ELEMENT,getAliasStackTraceElement());
+        list_.addEntry(BAD_ENCODE,getAliasBadEncode());
+        list_.addEntry(BAD_INDEX,getAliasBadIndex());
+        list_.addEntry(ILLEGAL_ARG,getAliasIllegalArg());
+        list_.addEntry(DIVISION_ZERO,getAliasDivisionZero());
+        list_.addEntry(STORE,getAliasStore());
+        list_.addEntry(CAST_TYPE,getAliasCastType());
+        list_.addEntry(BAD_SIZE,getAliasBadSize());
+        list_.addEntry(SOF,getAliasSof());
+        list_.addEntry(REPLACEMENT,getAliasReplacement());
+        list_.addEntry(NULL_PE,getAliasNullPe());
+        list_.addEntry(NB_FORMAT,getAliasNbFormat());
+        list_.addEntry(BOOLEAN,getAliasBoolean());
+        list_.addEntry(BYTE,getAliasByte());
+        list_.addEntry(CHAR_SEQUENCE,getAliasCharSequence());
+        list_.addEntry(CHARACTER,getAliasCharacter());
+        list_.addEntry(DOUBLE,getAliasDouble());
+        list_.addEntry(ERROR,getAliasError());
+        list_.addEntry(FLOAT,getAliasFloat());
+        list_.addEntry(INTEGER,getAliasInteger());
+        list_.addEntry(LONG,getAliasLong());
+        list_.addEntry(NUMBER,getAliasNumber());
+        list_.addEntry(OBJECT,getAliasObject());
+        list_.addEntry(SHORT,getAliasShort());
+        list_.addEntry(STRING,getAliasString());
+        list_.addEntry(STRING_BUILDER,getAliasStringBuilder());
         return list_;
     }
     public void validateRefTypeContents(ContextEl _cont, StringMap<String> _list, StringMap<String> _prims) {
@@ -408,430 +765,430 @@ public abstract class LgNames {
     public CustList<CustList<KeyValueMemberName>> allMergeTableTypeMethodNames() {
         CustList<CustList<KeyValueMemberName>> list_ = new CustList<CustList<KeyValueMemberName>>();
         list_.add(new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("Iterator",getAliasIterator()),
-                new KeyValueMemberName("HasNext",getAliasHasNext()),
-                new KeyValueMemberName("Next",getAliasNext()),
-                new KeyValueMemberName("IteratorTable",getAliasIteratorTable()),
-                new KeyValueMemberName("HasNextPair",getAliasHasNextPair()),
-                new KeyValueMemberName("NextPair",getAliasNextPair()),
-                new KeyValueMemberName("GetFirst",getAliasGetFirst()),
-                new KeyValueMemberName("GetSecond",getAliasGetSecond()),
-                new KeyValueMemberName("EnumOrdinal",getAliasEnumOrdinal()),
-                new KeyValueMemberName("EnumName",getAliasEnumName())
+                new KeyValueMemberName(ITERATOR,getAliasIterator()),
+                new KeyValueMemberName(HAS_NEXT,getAliasHasNext()),
+                new KeyValueMemberName(NEXT,getAliasNext()),
+                new KeyValueMemberName(ITERATOR_TABLE,getAliasIteratorTable()),
+                new KeyValueMemberName(HAS_NEXT_PAIR,getAliasHasNextPair()),
+                new KeyValueMemberName(NEXT_PAIR,getAliasNextPair()),
+                new KeyValueMemberName(GET_FIRST,getAliasGetFirst()),
+                new KeyValueMemberName(GET_SECOND,getAliasGetSecond()),
+                new KeyValueMemberName(ENUM_ORDINAL,getAliasEnumOrdinal()),
+                new KeyValueMemberName(ENUM_NAME,getAliasEnumName())
         ));
         return list_;
     }
     public StringMap<CustList<KeyValueMemberName>> allTableTypeMethodNames() {
         StringMap<CustList<KeyValueMemberName>> map_ = new StringMap<CustList<KeyValueMemberName>>();
         map_.put(getAliasError(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("CurrentStack",getAliasCurrentStack()),
-                new KeyValueMemberName("ToStringMethod",getAliasToStringMethod()),
-                new KeyValueMemberName("GetMessage",getAliasGetMessage()),
-                new KeyValueMemberName("GetCause",getAliasGetCause())));
+                new KeyValueMemberName(CURRENT_STACK,getAliasCurrentStack()),
+                new KeyValueMemberName(TO_STRING_METHOD,getAliasToStringMethod()),
+                new KeyValueMemberName(GET_MESSAGE,getAliasGetMessage()),
+                new KeyValueMemberName(GET_CAUSE,getAliasGetCause())));
         map_.put(getAliasAnnotated(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("GetFileName",getAliasGetFileName()),
-                new KeyValueMemberName("GetAnnotations",getAliasGetAnnotations()),
-                new KeyValueMemberName("GetAnnotationsParameters",getAliasGetAnnotationsParameters())));
+                new KeyValueMemberName(GET_FILE_NAME,getAliasGetFileName()),
+                new KeyValueMemberName(GET_ANNOTATIONS,getAliasGetAnnotations()),
+                new KeyValueMemberName(GET_ANNOTATIONS_PARAMETERS,getAliasGetAnnotationsParameters())));
         map_.put(getAliasAnnotationType(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("GetString",getAliasGetString())));
+                new KeyValueMemberName(GET_STRING,getAliasGetString())));
         map_.put(getAliasClassType(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("GetAnnotations",getAliasGetAnnotations()),
-                new KeyValueMemberName("GetAnnotationsParameters",getAliasGetAnnotationsParameters()),
-                new KeyValueMemberName("DefaultInstance",getAliasDefaultInstance()),
-                new KeyValueMemberName("EnumValueOf",getAliasEnumValueOf()),
-                new KeyValueMemberName("ForName",getAliasForName()),
-                new KeyValueMemberName("ArrayGet",getAliasArrayGet()),
-                new KeyValueMemberName("GetActualTypeArguments",getAliasGetActualTypeArguments()),
-                new KeyValueMemberName("GetAllClasses",getAliasGetAllClasses()),
-                new KeyValueMemberName("GetBounds",getAliasGetBounds()),
-                new KeyValueMemberName("GetClass",getAliasGetClass()),
-                new KeyValueMemberName("GetComponentType",getAliasGetComponentType()),
-                new KeyValueMemberName("GetDeclaredClasses",getAliasGetDeclaredClasses()),
-                new KeyValueMemberName("GetDeclaredConstructors",getAliasGetDeclaredConstructors()),
-                new KeyValueMemberName("GetDeclaredFields",getAliasGetDeclaredFields()),
-                new KeyValueMemberName("GetDeclaredMethods",getAliasGetDeclaredMethods()),
-                new KeyValueMemberName("GetDeclaredStaticMethods",getAliasGetDeclaredStaticMethods()),
-                new KeyValueMemberName("GetEnclosingType",getAliasGetEnclosingType()),
-                new KeyValueMemberName("GetEnumConstants",getAliasGetEnumConstants()),
-                new KeyValueMemberName("GetGenericBounds",getAliasGetGenericBounds()),
-                new KeyValueMemberName("GetGenericInterfaces",getAliasGetGenericInterfaces()),
-                new KeyValueMemberName("GetGenericSuperClass",getAliasGetGenericSuperClass()),
-                new KeyValueMemberName("GetGenericVariableOwner",getAliasGetGenericVariableOwner()),
-                new KeyValueMemberName("GetInterfaces",getAliasGetInterfaces()),
-                new KeyValueMemberName("ArrayGetLength",getAliasArrayGetLength()),
-                new KeyValueMemberName("GetLowerBounds",getAliasGetLowerBounds()),
-                new KeyValueMemberName("GetFileName",getAliasGetFileName()),
-                new KeyValueMemberName("GetName",getAliasGetName()),
-                new KeyValueMemberName("GetOperators",getAliasGetOperators()),
-                new KeyValueMemberName("GetPrettyName",getAliasGetPrettyName()),
-                new KeyValueMemberName("GetSuperClass",getAliasGetSuperClass()),
-                new KeyValueMemberName("GetTypeParameters",getAliasGetTypeParameters()),
-                new KeyValueMemberName("GetUpperBounds",getAliasGetUpperBounds()),
-                new KeyValueMemberName("GetVariableOwner",getAliasGetVariableOwner()),
-                new KeyValueMemberName("Init",getAliasInit()),
-                new KeyValueMemberName("IsAbstract",getAliasIsAbstract()),
-                new KeyValueMemberName("IsAnnotation",getAliasIsAnnotation()),
-                new KeyValueMemberName("IsArray",getAliasIsArray()),
-                new KeyValueMemberName("IsAssignableFrom",getAliasIsAssignableFrom()),
-                new KeyValueMemberName("IsClass",getAliasIsClass()),
-                new KeyValueMemberName("IsEnum",getAliasIsEnum()),
-                new KeyValueMemberName("IsFinal",getAliasIsFinal()),
-                new KeyValueMemberName("IsTypeVariable",getAliasIsTypeVariable()),
-                new KeyValueMemberName("IsVariable",getAliasIsVariable()),
-                new KeyValueMemberName("IsInstance",getAliasIsInstance()),
-                new KeyValueMemberName("IsInterface",getAliasIsInterface()),
-                new KeyValueMemberName("IsPackage",getAliasIsPackage()),
-                new KeyValueMemberName("IsPrimitive",getAliasIsPrimitive()),
-                new KeyValueMemberName("IsPrivate",getAliasIsPrivate()),
-                new KeyValueMemberName("IsProtected",getAliasIsProtected()),
-                new KeyValueMemberName("IsPublic",getAliasIsPublic()),
-                new KeyValueMemberName("IsStatic",getAliasIsStatic()),
-                new KeyValueMemberName("IsWildCard",getAliasIsWildCard()),
-                new KeyValueMemberName("MakeArray",getAliasMakeArray()),
-                new KeyValueMemberName("MakeGeneric",getAliasMakeGeneric()),
-                new KeyValueMemberName("MakeWildCard",getAliasMakeWildCard()),
-                new KeyValueMemberName("ArrayNewInstance",getAliasArrayNewInstance()),
-                new KeyValueMemberName("ArraySet",getAliasArraySet())));
+                new KeyValueMemberName(GET_ANNOTATIONS,getAliasGetAnnotations()),
+                new KeyValueMemberName(GET_ANNOTATIONS_PARAMETERS,getAliasGetAnnotationsParameters()),
+                new KeyValueMemberName(DEFAULT_INSTANCE,getAliasDefaultInstance()),
+                new KeyValueMemberName(ENUM_VALUE_OF,getAliasEnumValueOf()),
+                new KeyValueMemberName(FOR_NAME,getAliasForName()),
+                new KeyValueMemberName(ARRAY_GET,getAliasArrayGet()),
+                new KeyValueMemberName(GET_ACTUAL_TYPE_ARGUMENTS,getAliasGetActualTypeArguments()),
+                new KeyValueMemberName(GET_ALL_CLASSES,getAliasGetAllClasses()),
+                new KeyValueMemberName(GET_BOUNDS,getAliasGetBounds()),
+                new KeyValueMemberName(GET_CLASS,getAliasGetClass()),
+                new KeyValueMemberName(GET_COMPONENT_TYPE,getAliasGetComponentType()),
+                new KeyValueMemberName(GET_DECLARED_CLASSES,getAliasGetDeclaredClasses()),
+                new KeyValueMemberName(GET_DECLARED_CONSTRUCTORS,getAliasGetDeclaredConstructors()),
+                new KeyValueMemberName(GET_DECLARED_FIELDS,getAliasGetDeclaredFields()),
+                new KeyValueMemberName(GET_DECLARED_METHODS,getAliasGetDeclaredMethods()),
+                new KeyValueMemberName(GET_DECLARED_STATIC_METHODS,getAliasGetDeclaredStaticMethods()),
+                new KeyValueMemberName(GET_ENCLOSING_TYPE,getAliasGetEnclosingType()),
+                new KeyValueMemberName(GET_ENUM_CONSTANTS,getAliasGetEnumConstants()),
+                new KeyValueMemberName(GET_GENERIC_BOUNDS,getAliasGetGenericBounds()),
+                new KeyValueMemberName(GET_GENERIC_INTERFACES,getAliasGetGenericInterfaces()),
+                new KeyValueMemberName(GET_GENERIC_SUPER_CLASS,getAliasGetGenericSuperClass()),
+                new KeyValueMemberName(GET_GENERIC_VARIABLE_OWNER,getAliasGetGenericVariableOwner()),
+                new KeyValueMemberName(GET_INTERFACES,getAliasGetInterfaces()),
+                new KeyValueMemberName(ARRAY_GET_LENGTH,getAliasArrayGetLength()),
+                new KeyValueMemberName(GET_LOWER_BOUNDS,getAliasGetLowerBounds()),
+                new KeyValueMemberName(GET_FILE_NAME,getAliasGetFileName()),
+                new KeyValueMemberName(GET_NAME,getAliasGetName()),
+                new KeyValueMemberName(GET_OPERATORS,getAliasGetOperators()),
+                new KeyValueMemberName(GET_PRETTY_NAME,getAliasGetPrettyName()),
+                new KeyValueMemberName(GET_SUPER_CLASS,getAliasGetSuperClass()),
+                new KeyValueMemberName(GET_TYPE_PARAMETERS,getAliasGetTypeParameters()),
+                new KeyValueMemberName(GET_UPPER_BOUNDS,getAliasGetUpperBounds()),
+                new KeyValueMemberName(GET_VARIABLE_OWNER,getAliasGetVariableOwner()),
+                new KeyValueMemberName(INIT,getAliasInit()),
+                new KeyValueMemberName(IS_ABSTRACT,getAliasIsAbstract()),
+                new KeyValueMemberName(IS_ANNOTATION,getAliasIsAnnotation()),
+                new KeyValueMemberName(IS_ARRAY,getAliasIsArray()),
+                new KeyValueMemberName(IS_ASSIGNABLE_FROM,getAliasIsAssignableFrom()),
+                new KeyValueMemberName(IS_CLASS,getAliasIsClass()),
+                new KeyValueMemberName(IS_ENUM,getAliasIsEnum()),
+                new KeyValueMemberName(IS_FINAL,getAliasIsFinal()),
+                new KeyValueMemberName(IS_TYPE_VARIABLE,getAliasIsTypeVariable()),
+                new KeyValueMemberName(IS_VARIABLE,getAliasIsVariable()),
+                new KeyValueMemberName(IS_INSTANCE,getAliasIsInstance()),
+                new KeyValueMemberName(IS_INTERFACE,getAliasIsInterface()),
+                new KeyValueMemberName(IS_PACKAGE,getAliasIsPackage()),
+                new KeyValueMemberName(IS_PRIMITIVE,getAliasIsPrimitive()),
+                new KeyValueMemberName(IS_PRIVATE,getAliasIsPrivate()),
+                new KeyValueMemberName(IS_PROTECTED,getAliasIsProtected()),
+                new KeyValueMemberName(IS_PUBLIC,getAliasIsPublic()),
+                new KeyValueMemberName(IS_STATIC,getAliasIsStatic()),
+                new KeyValueMemberName(IS_WILD_CARD,getAliasIsWildCard()),
+                new KeyValueMemberName(MAKE_ARRAY,getAliasMakeArray()),
+                new KeyValueMemberName(MAKE_GENERIC,getAliasMakeGeneric()),
+                new KeyValueMemberName(MAKE_WILD_CARD,getAliasMakeWildCard()),
+                new KeyValueMemberName(ARRAY_NEW_INSTANCE,getAliasArrayNewInstance()),
+                new KeyValueMemberName(ARRAY_SET,getAliasArraySet())));
         map_.put(getAliasConstructor(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("GetAnnotations",getAliasGetAnnotations()),
-                new KeyValueMemberName("GetAnnotationsParameters",getAliasGetAnnotationsParameters()),
-                new KeyValueMemberName("GetDeclaringClass",getAliasGetDeclaringClass()),
-                new KeyValueMemberName("GetGenericReturnType",getAliasGetGenericReturnType()),
-                new KeyValueMemberName("GetFileName",getAliasGetFileName()),
-                new KeyValueMemberName("GetName",getAliasGetName()),
-                new KeyValueMemberName("GetParameterNames",getAliasGetParameterNames()),
-                new KeyValueMemberName("GetParameterTypes",getAliasGetParameterTypes()),
-                new KeyValueMemberName("GetReturnType",getAliasGetReturnType()),
-                new KeyValueMemberName("IsPackage",getAliasIsPackage()),
-                new KeyValueMemberName("IsPrivate",getAliasIsPrivate()),
-                new KeyValueMemberName("IsProtected",getAliasIsProtected()),
-                new KeyValueMemberName("IsPublic",getAliasIsPublic()),
-                new KeyValueMemberName("IsVarargs",getAliasIsVarargs()),
-                new KeyValueMemberName("NewInstance",getAliasNewInstance())));
+                new KeyValueMemberName(GET_ANNOTATIONS,getAliasGetAnnotations()),
+                new KeyValueMemberName(GET_ANNOTATIONS_PARAMETERS,getAliasGetAnnotationsParameters()),
+                new KeyValueMemberName(GET_DECLARING_CLASS,getAliasGetDeclaringClass()),
+                new KeyValueMemberName(GET_GENERIC_RETURN_TYPE,getAliasGetGenericReturnType()),
+                new KeyValueMemberName(GET_FILE_NAME,getAliasGetFileName()),
+                new KeyValueMemberName(GET_NAME,getAliasGetName()),
+                new KeyValueMemberName(GET_PARAMETER_NAMES,getAliasGetParameterNames()),
+                new KeyValueMemberName(GET_PARAMETER_TYPES,getAliasGetParameterTypes()),
+                new KeyValueMemberName(GET_RETURN_TYPE,getAliasGetReturnType()),
+                new KeyValueMemberName(IS_PACKAGE,getAliasIsPackage()),
+                new KeyValueMemberName(IS_PRIVATE,getAliasIsPrivate()),
+                new KeyValueMemberName(IS_PROTECTED,getAliasIsProtected()),
+                new KeyValueMemberName(IS_PUBLIC,getAliasIsPublic()),
+                new KeyValueMemberName(IS_VARARGS,getAliasIsVarargs()),
+                new KeyValueMemberName(NEW_INSTANCE,getAliasNewInstance())));
         map_.put(getAliasFct(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("Call",getAliasCall())));
+                new KeyValueMemberName(CALL,getAliasCall())));
         map_.put(getAliasField(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("GetAnnotations",getAliasGetAnnotations()),
-                new KeyValueMemberName("GetAnnotationsParameters",getAliasGetAnnotationsParameters()),
-                new KeyValueMemberName("ArrayGet",getAliasArrayGet()),
-                new KeyValueMemberName("GetDeclaringClass",getAliasGetDeclaringClass()),
-                new KeyValueMemberName("GetGenericType",getAliasGetGenericType()),
-                new KeyValueMemberName("GetFileName",getAliasGetFileName()),
-                new KeyValueMemberName("GetName",getAliasGetName()),
-                new KeyValueMemberName("GetType",getAliasGetType()),
-                new KeyValueMemberName("IsFinal",getAliasIsFinal()),
-                new KeyValueMemberName("IsPackage",getAliasIsPackage()),
-                new KeyValueMemberName("IsPrivate",getAliasIsPrivate()),
-                new KeyValueMemberName("IsProtected",getAliasIsProtected()),
-                new KeyValueMemberName("IsPublic",getAliasIsPublic()),
-                new KeyValueMemberName("IsStatic",getAliasIsStatic()),
-                new KeyValueMemberName("SetField",getAliasSetField())));
+                new KeyValueMemberName(GET_ANNOTATIONS,getAliasGetAnnotations()),
+                new KeyValueMemberName(GET_ANNOTATIONS_PARAMETERS,getAliasGetAnnotationsParameters()),
+                new KeyValueMemberName(ARRAY_GET,getAliasArrayGet()),
+                new KeyValueMemberName(GET_DECLARING_CLASS,getAliasGetDeclaringClass()),
+                new KeyValueMemberName(GET_GENERIC_TYPE,getAliasGetGenericType()),
+                new KeyValueMemberName(GET_FILE_NAME,getAliasGetFileName()),
+                new KeyValueMemberName(GET_NAME,getAliasGetName()),
+                new KeyValueMemberName(GET_TYPE,getAliasGetType()),
+                new KeyValueMemberName(IS_FINAL,getAliasIsFinal()),
+                new KeyValueMemberName(IS_PACKAGE,getAliasIsPackage()),
+                new KeyValueMemberName(IS_PRIVATE,getAliasIsPrivate()),
+                new KeyValueMemberName(IS_PROTECTED,getAliasIsProtected()),
+                new KeyValueMemberName(IS_PUBLIC,getAliasIsPublic()),
+                new KeyValueMemberName(IS_STATIC,getAliasIsStatic()),
+                new KeyValueMemberName(SET_FIELD,getAliasSetField())));
         map_.put(getAliasMethod(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("GetAnnotations",getAliasGetAnnotations()),
-                new KeyValueMemberName("GetAnnotationsParameters",getAliasGetAnnotationsParameters()),
-                new KeyValueMemberName("GetDeclaringClass",getAliasGetDeclaringClass()),
-                new KeyValueMemberName("GetDefaultValue",getAliasGetDefaultValue()),
-                new KeyValueMemberName("GetGenericReturnType",getAliasGetGenericReturnType()),
-                new KeyValueMemberName("GetFileName",getAliasGetFileName()),
-                new KeyValueMemberName("GetName",getAliasGetName()),
-                new KeyValueMemberName("GetParameterNames",getAliasGetParameterNames()),
-                new KeyValueMemberName("GetParameterTypes",getAliasGetParameterTypes()),
-                new KeyValueMemberName("GetReturnType",getAliasGetReturnType()),
-                new KeyValueMemberName("Invoke",getAliasInvoke()),
-                new KeyValueMemberName("InvokeDirect",getAliasInvokeDirect()),
-                new KeyValueMemberName("IsAbstract",getAliasIsAbstract()),
-                new KeyValueMemberName("IsFinal",getAliasIsFinal()),
-                new KeyValueMemberName("IsNormal",getAliasIsNormal()),
-                new KeyValueMemberName("IsPackage",getAliasIsPackage()),
-                new KeyValueMemberName("IsPrivate",getAliasIsPrivate()),
-                new KeyValueMemberName("IsProtected",getAliasIsProtected()),
-                new KeyValueMemberName("IsPublic",getAliasIsPublic()),
-                new KeyValueMemberName("IsStatic",getAliasIsStatic()),
-                new KeyValueMemberName("IsStaticCall",getAliasIsStaticCall()),
-                new KeyValueMemberName("IsInstanceMethod",getAliasIsInstanceMethod()),
-                new KeyValueMemberName("IsVarargs",getAliasIsVarargs())));
+                new KeyValueMemberName(GET_ANNOTATIONS,getAliasGetAnnotations()),
+                new KeyValueMemberName(GET_ANNOTATIONS_PARAMETERS,getAliasGetAnnotationsParameters()),
+                new KeyValueMemberName(GET_DECLARING_CLASS,getAliasGetDeclaringClass()),
+                new KeyValueMemberName(GET_DEFAULT_VALUE,getAliasGetDefaultValue()),
+                new KeyValueMemberName(GET_GENERIC_RETURN_TYPE,getAliasGetGenericReturnType()),
+                new KeyValueMemberName(GET_FILE_NAME,getAliasGetFileName()),
+                new KeyValueMemberName(GET_NAME,getAliasGetName()),
+                new KeyValueMemberName(GET_PARAMETER_NAMES,getAliasGetParameterNames()),
+                new KeyValueMemberName(GET_PARAMETER_TYPES,getAliasGetParameterTypes()),
+                new KeyValueMemberName(GET_RETURN_TYPE,getAliasGetReturnType()),
+                new KeyValueMemberName(INVOKE,getAliasInvoke()),
+                new KeyValueMemberName(INVOKE_DIRECT,getAliasInvokeDirect()),
+                new KeyValueMemberName(IS_ABSTRACT,getAliasIsAbstract()),
+                new KeyValueMemberName(IS_FINAL,getAliasIsFinal()),
+                new KeyValueMemberName(IS_NORMAL,getAliasIsNormal()),
+                new KeyValueMemberName(IS_PACKAGE,getAliasIsPackage()),
+                new KeyValueMemberName(IS_PRIVATE,getAliasIsPrivate()),
+                new KeyValueMemberName(IS_PROTECTED,getAliasIsProtected()),
+                new KeyValueMemberName(IS_PUBLIC,getAliasIsPublic()),
+                new KeyValueMemberName(IS_STATIC,getAliasIsStatic()),
+                new KeyValueMemberName(IS_STATIC_CALL,getAliasIsStaticCall()),
+                new KeyValueMemberName(IS_INSTANCE_METHOD,getAliasIsInstanceMethod()),
+                new KeyValueMemberName(IS_VARARGS,getAliasIsVarargs())));
         map_.put(getAliasObjectsUtil(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("SameRef",getAliasSameRef()),
-                new KeyValueMemberName("GetParent",getAliasGetParent()),
-                new KeyValueMemberName("SetParent",getAliasSetParent())));
+                new KeyValueMemberName(SAME_REF,getAliasSameRef()),
+                new KeyValueMemberName(GET_PARENT,getAliasGetParent()),
+                new KeyValueMemberName(SET_PARENT,getAliasSetParent())));
         map_.put(getAliasStringUtil(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("ValueOfMethod",getAliasValueOfMethod())));
+                new KeyValueMemberName(VALUE_OF_METHOD,getAliasValueOfMethod())));
         map_.put(getAliasResources(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("ReadResourcesNames",getAliasReadResourcesNames()),
-                new KeyValueMemberName("ReadResources",getAliasReadResources())));
+                new KeyValueMemberName(READ_RESOURCES_NAMES,getAliasReadResourcesNames()),
+                new KeyValueMemberName(READ_RESOURCES,getAliasReadResources())));
         map_.put(getAliasEnumType(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("EnumName",getAliasEnumName()),
-                new KeyValueMemberName("EnumOrdinal",getAliasEnumOrdinal()),
-                new KeyValueMemberName("EnumPredValueOf",getAliasEnumPredValueOf()),
-                new KeyValueMemberName("EnumValues",getAliasEnumValues())));
+                new KeyValueMemberName(ENUM_NAME,getAliasEnumName()),
+                new KeyValueMemberName(ENUM_ORDINAL,getAliasEnumOrdinal()),
+                new KeyValueMemberName(ENUM_PRED_VALUE_OF,getAliasEnumPredValueOf()),
+                new KeyValueMemberName(ENUM_VALUES,getAliasEnumValues())));
         map_.put(getAliasEnums(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("Name",getAliasName()),
-                new KeyValueMemberName("Ordinal",getAliasOrdinal())));
+                new KeyValueMemberName(NAME,getAliasName()),
+                new KeyValueMemberName(ORDINAL,getAliasOrdinal())));
         map_.put(getAliasIterable(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("Iterator",getAliasIterator())));
+                new KeyValueMemberName(ITERATOR,getAliasIterator())));
         map_.put(getAliasIteratorType(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("HasNext",getAliasHasNext()),
-                new KeyValueMemberName("Next",getAliasNext())));
+                new KeyValueMemberName(HAS_NEXT,getAliasHasNext()),
+                new KeyValueMemberName(NEXT,getAliasNext())));
         map_.put(getAliasIterableTable(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("IteratorTable",getAliasIteratorTable())));
+                new KeyValueMemberName(ITERATOR_TABLE,getAliasIteratorTable())));
         map_.put(getAliasIteratorTableType(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("HasNextPair",getAliasHasNextPair()),
-                new KeyValueMemberName("NextPair",getAliasNextPair())));
+                new KeyValueMemberName(HAS_NEXT_PAIR,getAliasHasNextPair()),
+                new KeyValueMemberName(NEXT_PAIR,getAliasNextPair())));
         map_.put(getAliasPairType(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("GetFirst",getAliasGetFirst()),
-                new KeyValueMemberName("GetSecond",getAliasGetSecond())));
+                new KeyValueMemberName(GET_FIRST,getAliasGetFirst()),
+                new KeyValueMemberName(GET_SECOND,getAliasGetSecond())));
         map_.put(getAliasStackTraceElement(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("CurrentStack",getAliasCurrentStack()),
-                new KeyValueMemberName("CurrentFullStack",getAliasCurrentFullStack()),
-                new KeyValueMemberName("ToStringMethod",getAliasToStringMethod())));
+                new KeyValueMemberName(CURRENT_STACK,getAliasCurrentStack()),
+                new KeyValueMemberName(CURRENT_FULL_STACK,getAliasCurrentFullStack()),
+                new KeyValueMemberName(TO_STRING_METHOD,getAliasToStringMethod())));
         map_.put(getAliasMath(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("Abs",getAliasAbs()),
-                new KeyValueMemberName("Mod",getAliasMod()),
-                new KeyValueMemberName("Quot",getAliasQuot()),
-                new KeyValueMemberName("BinMod",getAliasBinMod()),
-                new KeyValueMemberName("BinQuot",getAliasBinQuot()),
-                new KeyValueMemberName("Plus",getAliasPlus()),
-                new KeyValueMemberName("Minus",getAliasMinus()),
-                new KeyValueMemberName("Mult",getAliasMult()),
-                new KeyValueMemberName("NegBin",getAliasNegBin()),
-                new KeyValueMemberName("Neg",getAliasNeg()),
-                new KeyValueMemberName("And",getAliasAnd()),
-                new KeyValueMemberName("Or",getAliasOr()),
-                new KeyValueMemberName("Xor",getAliasXor()),
-                new KeyValueMemberName("Le",getAliasLe()),
-                new KeyValueMemberName("Ge",getAliasGe()),
-                new KeyValueMemberName("Lt",getAliasLt()),
-                new KeyValueMemberName("Gt",getAliasGt()),
-                new KeyValueMemberName("ShiftLeft",getAliasShiftLeft()),
-                new KeyValueMemberName("ShiftRight",getAliasShiftRight()),
-                new KeyValueMemberName("BitShiftLeft",getAliasBitShiftLeft()),
-                new KeyValueMemberName("BitShiftRight",getAliasBitShiftRight()),
-                new KeyValueMemberName("RotateLeft",getAliasRotateLeft()),
-                new KeyValueMemberName("RotateRight",getAliasRotateRight()),
-                new KeyValueMemberName("Random",getAliasRandom())));
+                new KeyValueMemberName(ABS,getAliasAbs()),
+                new KeyValueMemberName(MOD,getAliasMod()),
+                new KeyValueMemberName(QUOT,getAliasQuot()),
+                new KeyValueMemberName(BIN_MOD,getAliasBinMod()),
+                new KeyValueMemberName(BIN_QUOT,getAliasBinQuot()),
+                new KeyValueMemberName(PLUS,getAliasPlus()),
+                new KeyValueMemberName(MINUS,getAliasMinus()),
+                new KeyValueMemberName(MULT,getAliasMult()),
+                new KeyValueMemberName(NEG_BIN,getAliasNegBin()),
+                new KeyValueMemberName(NEG,getAliasNeg()),
+                new KeyValueMemberName(AND,getAliasAnd()),
+                new KeyValueMemberName(OR,getAliasOr()),
+                new KeyValueMemberName(XOR,getAliasXor()),
+                new KeyValueMemberName(LE,getAliasLe()),
+                new KeyValueMemberName(GE,getAliasGe()),
+                new KeyValueMemberName(LT,getAliasLt()),
+                new KeyValueMemberName(GT,getAliasGt()),
+                new KeyValueMemberName(SHIFT_LEFT,getAliasShiftLeft()),
+                new KeyValueMemberName(SHIFT_RIGHT,getAliasShiftRight()),
+                new KeyValueMemberName(BIT_SHIFT_LEFT,getAliasBitShiftLeft()),
+                new KeyValueMemberName(BIT_SHIFT_RIGHT,getAliasBitShiftRight()),
+                new KeyValueMemberName(ROTATE_LEFT,getAliasRotateLeft()),
+                new KeyValueMemberName(ROTATE_RIGHT,getAliasRotateRight()),
+                new KeyValueMemberName(RANDOM,getAliasRandom())));
         map_.put(getAliasReplacement(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("GetNewString",getAliasGetNewString()),
-                new KeyValueMemberName("GetOldString",getAliasGetOldString())));
+                new KeyValueMemberName(GET_NEW_STRING,getAliasGetNewString()),
+                new KeyValueMemberName(GET_OLD_STRING,getAliasGetOldString())));
         map_.put(getAliasBoolean(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("BooleanValue",getAliasBooleanValue()),
-                new KeyValueMemberName("Compare",getAliasCompare()),
-                new KeyValueMemberName("CompareTo",getAliasCompareTo()),
-                new KeyValueMemberName("Equals",getAliasEquals()),
-                new KeyValueMemberName("ParseBoolean",getAliasParseBoolean()),
-                new KeyValueMemberName("ToStringMethod",getAliasToStringMethod()),
-                new KeyValueMemberName("ValueOfMethod",getAliasValueOfMethod())));
+                new KeyValueMemberName(BOOLEAN_VALUE,getAliasBooleanValue()),
+                new KeyValueMemberName(COMPARE,getAliasCompare()),
+                new KeyValueMemberName(COMPARE_TO,getAliasCompareTo()),
+                new KeyValueMemberName(EQUALS,getAliasEquals()),
+                new KeyValueMemberName(PARSE_BOOLEAN,getAliasParseBoolean()),
+                new KeyValueMemberName(TO_STRING_METHOD,getAliasToStringMethod()),
+                new KeyValueMemberName(VALUE_OF_METHOD,getAliasValueOfMethod())));
         map_.put(getAliasByte(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("ByteValue",getAliasByteValue()),
-                new KeyValueMemberName("Compare",getAliasCompare()),
-                new KeyValueMemberName("CompareTo",getAliasCompareTo()),
-                new KeyValueMemberName("DoubleValue",getAliasDoubleValue()),
-                new KeyValueMemberName("Equals",getAliasEquals()),
-                new KeyValueMemberName("FloatValue",getAliasFloatValue()),
-                new KeyValueMemberName("IntValue",getAliasIntValue()),
-                new KeyValueMemberName("LongValue",getAliasLongValue()),
-                new KeyValueMemberName("ParseByte",getAliasParseByte()),
-                new KeyValueMemberName("ParseByteOrNull",getAliasParseByteOrNull()),
-                new KeyValueMemberName("ShortValue",getAliasShortValue()),
-                new KeyValueMemberName("ToStringMethod",getAliasToStringMethod())));
+                new KeyValueMemberName(BYTE_VALUE,getAliasByteValue()),
+                new KeyValueMemberName(COMPARE,getAliasCompare()),
+                new KeyValueMemberName(COMPARE_TO,getAliasCompareTo()),
+                new KeyValueMemberName(DOUBLE_VALUE,getAliasDoubleValue()),
+                new KeyValueMemberName(EQUALS,getAliasEquals()),
+                new KeyValueMemberName(FLOAT_VALUE,getAliasFloatValue()),
+                new KeyValueMemberName(INT_VALUE,getAliasIntValue()),
+                new KeyValueMemberName(LONG_VALUE,getAliasLongValue()),
+                new KeyValueMemberName(SHORT_VALUE,getAliasShortValue()),
+                new KeyValueMemberName(TO_STRING_METHOD,getAliasToStringMethod()),
+                new KeyValueMemberName(PARSE_BYTE,getAliasParseByte()),
+                new KeyValueMemberName(PARSE_BYTE_OR_NULL,getAliasParseByteOrNull())));
         map_.put(getAliasCharSequence(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("CharAt",getAliasCharAt()),
-                new KeyValueMemberName("Equals",getAliasEquals()),
-                new KeyValueMemberName("CompareTo",getAliasCompareTo()),
-                new KeyValueMemberName("Contains",getAliasContains()),
-                new KeyValueMemberName("EndsWith",getAliasEndsWith()),
-                new KeyValueMemberName("Format",getAliasFormat()),
-                new KeyValueMemberName("GetBytes",getAliasGetBytes()),
-                new KeyValueMemberName("IndexOf",getAliasIndexOf()),
-                new KeyValueMemberName("IsEmpty",getAliasIsEmpty()),
-                new KeyValueMemberName("LastIndexOf",getAliasLastIndexOf()),
-                new KeyValueMemberName("Length",getAliasLength()),
-                new KeyValueMemberName("RegionMatches",getAliasRegionMatches()),
-                new KeyValueMemberName("Replace",getAliasReplace()),
-                new KeyValueMemberName("Split",getAliasSplit()),
-                new KeyValueMemberName("SplitChars",getAliasSplitChars()),
-                new KeyValueMemberName("SplitStrings",getAliasSplitStrings()),
-                new KeyValueMemberName("StartsWith",getAliasStartsWith()),
-                new KeyValueMemberName("SubSequence",getAliasSubSequence()),
-                new KeyValueMemberName("Substring",getAliasSubstring()),
-                new KeyValueMemberName("ToCharArray",getAliasToCharArray()),
-                new KeyValueMemberName("ToStringMethod",getAliasToStringMethod()),
-                new KeyValueMemberName("Trim",getAliasTrim())));
+                new KeyValueMemberName(CHAR_AT,getAliasCharAt()),
+                new KeyValueMemberName(EQUALS,getAliasEquals()),
+                new KeyValueMemberName(COMPARE_TO,getAliasCompareTo()),
+                new KeyValueMemberName(CONTAINS,getAliasContains()),
+                new KeyValueMemberName(ENDS_WITH,getAliasEndsWith()),
+                new KeyValueMemberName(FORMAT,getAliasFormat()),
+                new KeyValueMemberName(GET_BYTES,getAliasGetBytes()),
+                new KeyValueMemberName(INDEX_OF,getAliasIndexOf()),
+                new KeyValueMemberName(IS_EMPTY,getAliasIsEmpty()),
+                new KeyValueMemberName(LAST_INDEX_OF,getAliasLastIndexOf()),
+                new KeyValueMemberName(LENGTH,getAliasLength()),
+                new KeyValueMemberName(REGION_MATCHES,getAliasRegionMatches()),
+                new KeyValueMemberName(REPLACE,getAliasReplace()),
+                new KeyValueMemberName(SPLIT,getAliasSplit()),
+                new KeyValueMemberName(SPLIT_CHARS,getAliasSplitChars()),
+                new KeyValueMemberName(SPLIT_STRINGS,getAliasSplitStrings()),
+                new KeyValueMemberName(STARTS_WITH,getAliasStartsWith()),
+                new KeyValueMemberName(SUB_SEQUENCE,getAliasSubSequence()),
+                new KeyValueMemberName(SUBSTRING,getAliasSubstring()),
+                new KeyValueMemberName(TO_CHAR_ARRAY,getAliasToCharArray()),
+                new KeyValueMemberName(TO_STRING_METHOD,getAliasToStringMethod()),
+                new KeyValueMemberName(TRIM,getAliasTrim())));
         map_.put(getAliasCharacter(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("ByteValue",getAliasByteValue()),
-                new KeyValueMemberName("DoubleValue",getAliasDoubleValue()),
-                new KeyValueMemberName("Equals",getAliasEquals()),
-                new KeyValueMemberName("FloatValue",getAliasFloatValue()),
-                new KeyValueMemberName("IntValue",getAliasIntValue()),
-                new KeyValueMemberName("LongValue",getAliasLongValue()),
-                new KeyValueMemberName("ParseInt",getAliasParseInt()),
-                new KeyValueMemberName("ParseIntOrNull",getAliasParseIntOrNull()),
-                new KeyValueMemberName("ShortValue",getAliasShortValue()),
-                new KeyValueMemberName("CharAt",getAliasCharAt()),
-                new KeyValueMemberName("CharValue",getAliasCharValue()),
-                new KeyValueMemberName("Compare",getAliasCompare()),
-                new KeyValueMemberName("CompareTo",getAliasCompareTo()),
-                new KeyValueMemberName("Digit",getAliasDigit()),
-                new KeyValueMemberName("ForDigit",getAliasForDigit()),
-                new KeyValueMemberName("GetCharType",getAliasGetCharType()),
-                new KeyValueMemberName("IsDigit",getAliasIsDigit()),
-                new KeyValueMemberName("GetDirectionality",getAliasGetDirectionality()),
-                new KeyValueMemberName("IsLetter",getAliasIsLetter()),
-                new KeyValueMemberName("IsLetterOrDigit",getAliasIsLetterOrDigit()),
-                new KeyValueMemberName("IsLowerCase",getAliasIsLowerCase()),
-                new KeyValueMemberName("IsSpace",getAliasIsSpace()),
-                new KeyValueMemberName("IsUpperCase",getAliasIsUpperCase()),
-                new KeyValueMemberName("IsWhitespace",getAliasIsWhitespace()),
-                new KeyValueMemberName("IsWordChar",getAliasIsWordChar()),
-                new KeyValueMemberName("Length",getAliasLength()),
-                new KeyValueMemberName("SubSequence",getAliasSubSequence()),
-                new KeyValueMemberName("ToLowerCase",getAliasToLowerCase()),
-                new KeyValueMemberName("ToStringMethod",getAliasToStringMethod()),
-                new KeyValueMemberName("ToUpperCase",getAliasToUpperCase())));
+                new KeyValueMemberName(BYTE_VALUE,getAliasByteValue()),
+                new KeyValueMemberName(DOUBLE_VALUE,getAliasDoubleValue()),
+                new KeyValueMemberName(EQUALS,getAliasEquals()),
+                new KeyValueMemberName(FLOAT_VALUE,getAliasFloatValue()),
+                new KeyValueMemberName(INT_VALUE,getAliasIntValue()),
+                new KeyValueMemberName(LONG_VALUE,getAliasLongValue()),
+                new KeyValueMemberName(PARSE_INT,getAliasParseInt()),
+                new KeyValueMemberName(PARSE_INT_OR_NULL,getAliasParseIntOrNull()),
+                new KeyValueMemberName(SHORT_VALUE,getAliasShortValue()),
+                new KeyValueMemberName(CHAR_AT,getAliasCharAt()),
+                new KeyValueMemberName(CHAR_VALUE,getAliasCharValue()),
+                new KeyValueMemberName(COMPARE,getAliasCompare()),
+                new KeyValueMemberName(COMPARE_TO,getAliasCompareTo()),
+                new KeyValueMemberName(DIGIT,getAliasDigit()),
+                new KeyValueMemberName(FOR_DIGIT,getAliasForDigit()),
+                new KeyValueMemberName(GET_CHAR_TYPE,getAliasGetCharType()),
+                new KeyValueMemberName(IS_DIGIT,getAliasIsDigit()),
+                new KeyValueMemberName(GET_DIRECTIONALITY,getAliasGetDirectionality()),
+                new KeyValueMemberName(IS_LETTER,getAliasIsLetter()),
+                new KeyValueMemberName(IS_LETTER_OR_DIGIT,getAliasIsLetterOrDigit()),
+                new KeyValueMemberName(IS_LOWER_CASE,getAliasIsLowerCase()),
+                new KeyValueMemberName(IS_SPACE,getAliasIsSpace()),
+                new KeyValueMemberName(IS_UPPER_CASE,getAliasIsUpperCase()),
+                new KeyValueMemberName(IS_WHITESPACE,getAliasIsWhitespace()),
+                new KeyValueMemberName(IS_WORD_CHAR,getAliasIsWordChar()),
+                new KeyValueMemberName(LENGTH,getAliasLength()),
+                new KeyValueMemberName(SUB_SEQUENCE,getAliasSubSequence()),
+                new KeyValueMemberName(TO_LOWER_CASE,getAliasToLowerCase()),
+                new KeyValueMemberName(TO_STRING_METHOD,getAliasToStringMethod()),
+                new KeyValueMemberName(TO_UPPER_CASE,getAliasToUpperCase())));
         map_.put(getAliasDouble(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("ByteValue",getAliasByteValue()),
-                new KeyValueMemberName("Compare",getAliasCompare()),
-                new KeyValueMemberName("CompareTo",getAliasCompareTo()),
-                new KeyValueMemberName("DoubleValue",getAliasDoubleValue()),
-                new KeyValueMemberName("Equals",getAliasEquals()),
-                new KeyValueMemberName("FloatValue",getAliasFloatValue()),
-                new KeyValueMemberName("IntValue",getAliasIntValue()),
-                new KeyValueMemberName("IsInfinite",getAliasIsInfinite()),
-                new KeyValueMemberName("IsNan",getAliasIsNan()),
-                new KeyValueMemberName("LongValue",getAliasLongValue()),
-                new KeyValueMemberName("ParseDouble",getAliasParseDouble()),
-                new KeyValueMemberName("ParseDoubleOrNull",getAliasParseDoubleOrNull()),
-                new KeyValueMemberName("ShortValue",getAliasShortValue()),
-                new KeyValueMemberName("ToStringMethod",getAliasToStringMethod())));
+                new KeyValueMemberName(BYTE_VALUE,getAliasByteValue()),
+                new KeyValueMemberName(COMPARE,getAliasCompare()),
+                new KeyValueMemberName(COMPARE_TO,getAliasCompareTo()),
+                new KeyValueMemberName(DOUBLE_VALUE,getAliasDoubleValue()),
+                new KeyValueMemberName(EQUALS,getAliasEquals()),
+                new KeyValueMemberName(FLOAT_VALUE,getAliasFloatValue()),
+                new KeyValueMemberName(INT_VALUE,getAliasIntValue()),
+                new KeyValueMemberName(LONG_VALUE,getAliasLongValue()),
+                new KeyValueMemberName(SHORT_VALUE,getAliasShortValue()),
+                new KeyValueMemberName(TO_STRING_METHOD,getAliasToStringMethod()),
+                new KeyValueMemberName(IS_INFINITE,getAliasIsInfinite()),
+                new KeyValueMemberName(IS_NAN,getAliasIsNan()),
+                new KeyValueMemberName(PARSE_DOUBLE,getAliasParseDouble()),
+                new KeyValueMemberName(PARSE_DOUBLE_OR_NULL,getAliasParseDoubleOrNull())));
         map_.put(getAliasFloat(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("ByteValue",getAliasByteValue()),
-                new KeyValueMemberName("Compare",getAliasCompare()),
-                new KeyValueMemberName("CompareTo",getAliasCompareTo()),
-                new KeyValueMemberName("DoubleValue",getAliasDoubleValue()),
-                new KeyValueMemberName("Equals",getAliasEquals()),
-                new KeyValueMemberName("FloatValue",getAliasFloatValue()),
-                new KeyValueMemberName("IntValue",getAliasIntValue()),
-                new KeyValueMemberName("IsInfinite",getAliasIsInfinite()),
-                new KeyValueMemberName("IsNan",getAliasIsNan()),
-                new KeyValueMemberName("LongValue",getAliasLongValue()),
-                new KeyValueMemberName("ParseFloat",getAliasParseFloat()),
-                new KeyValueMemberName("ParseFloatOrNull",getAliasParseFloatOrNull()),
-                new KeyValueMemberName("ShortValue",getAliasShortValue()),
-                new KeyValueMemberName("ToStringMethod",getAliasToStringMethod())));
+                new KeyValueMemberName(BYTE_VALUE,getAliasByteValue()),
+                new KeyValueMemberName(COMPARE,getAliasCompare()),
+                new KeyValueMemberName(COMPARE_TO,getAliasCompareTo()),
+                new KeyValueMemberName(DOUBLE_VALUE,getAliasDoubleValue()),
+                new KeyValueMemberName(EQUALS,getAliasEquals()),
+                new KeyValueMemberName(FLOAT_VALUE,getAliasFloatValue()),
+                new KeyValueMemberName(INT_VALUE,getAliasIntValue()),
+                new KeyValueMemberName(LONG_VALUE,getAliasLongValue()),
+                new KeyValueMemberName(SHORT_VALUE,getAliasShortValue()),
+                new KeyValueMemberName(TO_STRING_METHOD,getAliasToStringMethod()),
+                new KeyValueMemberName(IS_INFINITE,getAliasIsInfinite()),
+                new KeyValueMemberName(IS_NAN,getAliasIsNan()),
+                new KeyValueMemberName(PARSE_FLOAT,getAliasParseFloat()),
+                new KeyValueMemberName(PARSE_FLOAT_OR_NULL,getAliasParseFloatOrNull())));
         map_.put(getAliasInteger(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("ByteValue",getAliasByteValue()),
-                new KeyValueMemberName("Compare",getAliasCompare()),
-                new KeyValueMemberName("CompareTo",getAliasCompareTo()),
-                new KeyValueMemberName("DoubleValue",getAliasDoubleValue()),
-                new KeyValueMemberName("Equals",getAliasEquals()),
-                new KeyValueMemberName("FloatValue",getAliasFloatValue()),
-                new KeyValueMemberName("IntValue",getAliasIntValue()),
-                new KeyValueMemberName("LongValue",getAliasLongValue()),
-                new KeyValueMemberName("ParseInt",getAliasParseInt()),
-                new KeyValueMemberName("ParseIntOrNull",getAliasParseIntOrNull()),
-                new KeyValueMemberName("ShortValue",getAliasShortValue()),
-                new KeyValueMemberName("ToStringMethod",getAliasToStringMethod())));
+                new KeyValueMemberName(BYTE_VALUE,getAliasByteValue()),
+                new KeyValueMemberName(COMPARE,getAliasCompare()),
+                new KeyValueMemberName(COMPARE_TO,getAliasCompareTo()),
+                new KeyValueMemberName(DOUBLE_VALUE,getAliasDoubleValue()),
+                new KeyValueMemberName(EQUALS,getAliasEquals()),
+                new KeyValueMemberName(FLOAT_VALUE,getAliasFloatValue()),
+                new KeyValueMemberName(INT_VALUE,getAliasIntValue()),
+                new KeyValueMemberName(LONG_VALUE,getAliasLongValue()),
+                new KeyValueMemberName(SHORT_VALUE,getAliasShortValue()),
+                new KeyValueMemberName(TO_STRING_METHOD,getAliasToStringMethod()),
+                new KeyValueMemberName(PARSE_INT,getAliasParseInt()),
+                new KeyValueMemberName(PARSE_INT_OR_NULL,getAliasParseIntOrNull())));
         map_.put(getAliasLong(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("ByteValue",getAliasByteValue()),
-                new KeyValueMemberName("Compare",getAliasCompare()),
-                new KeyValueMemberName("CompareTo",getAliasCompareTo()),
-                new KeyValueMemberName("DoubleValue",getAliasDoubleValue()),
-                new KeyValueMemberName("Equals",getAliasEquals()),
-                new KeyValueMemberName("FloatValue",getAliasFloatValue()),
-                new KeyValueMemberName("IntValue",getAliasIntValue()),
-                new KeyValueMemberName("LongValue",getAliasLongValue()),
-                new KeyValueMemberName("ParseLong",getAliasParseLong()),
-                new KeyValueMemberName("ParseLongOrNull",getAliasParseLongOrNull()),
-                new KeyValueMemberName("ShortValue",getAliasShortValue()),
-                new KeyValueMemberName("ToStringMethod",getAliasToStringMethod())));
+                new KeyValueMemberName(BYTE_VALUE,getAliasByteValue()),
+                new KeyValueMemberName(COMPARE,getAliasCompare()),
+                new KeyValueMemberName(COMPARE_TO,getAliasCompareTo()),
+                new KeyValueMemberName(DOUBLE_VALUE,getAliasDoubleValue()),
+                new KeyValueMemberName(EQUALS,getAliasEquals()),
+                new KeyValueMemberName(FLOAT_VALUE,getAliasFloatValue()),
+                new KeyValueMemberName(INT_VALUE,getAliasIntValue()),
+                new KeyValueMemberName(LONG_VALUE,getAliasLongValue()),
+                new KeyValueMemberName(SHORT_VALUE,getAliasShortValue()),
+                new KeyValueMemberName(TO_STRING_METHOD,getAliasToStringMethod()),
+                new KeyValueMemberName(PARSE_LONG,getAliasParseLong()),
+                new KeyValueMemberName(PARSE_LONG_OR_NULL,getAliasParseLongOrNull())));
         map_.put(getAliasNumber(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("ByteValue",getAliasByteValue()),
-                new KeyValueMemberName("Compare",getAliasCompare()),
-                new KeyValueMemberName("CompareTo",getAliasCompareTo()),
-                new KeyValueMemberName("DoubleValue",getAliasDoubleValue()),
-                new KeyValueMemberName("Equals",getAliasEquals()),
-                new KeyValueMemberName("FloatValue",getAliasFloatValue()),
-                new KeyValueMemberName("IntValue",getAliasIntValue()),
-                new KeyValueMemberName("LongValue",getAliasLongValue()),
-                new KeyValueMemberName("ShortValue",getAliasShortValue()),
-                new KeyValueMemberName("ToStringMethod",getAliasToStringMethod())));
+                new KeyValueMemberName(BYTE_VALUE,getAliasByteValue()),
+                new KeyValueMemberName(COMPARE,getAliasCompare()),
+                new KeyValueMemberName(COMPARE_TO,getAliasCompareTo()),
+                new KeyValueMemberName(DOUBLE_VALUE,getAliasDoubleValue()),
+                new KeyValueMemberName(EQUALS,getAliasEquals()),
+                new KeyValueMemberName(FLOAT_VALUE,getAliasFloatValue()),
+                new KeyValueMemberName(INT_VALUE,getAliasIntValue()),
+                new KeyValueMemberName(LONG_VALUE,getAliasLongValue()),
+                new KeyValueMemberName(SHORT_VALUE,getAliasShortValue()),
+                new KeyValueMemberName(TO_STRING_METHOD,getAliasToStringMethod())));
         map_.put(getAliasShort(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("ByteValue",getAliasByteValue()),
-                new KeyValueMemberName("Compare",getAliasCompare()),
-                new KeyValueMemberName("CompareTo",getAliasCompareTo()),
-                new KeyValueMemberName("DoubleValue",getAliasDoubleValue()),
-                new KeyValueMemberName("Equals",getAliasEquals()),
-                new KeyValueMemberName("FloatValue",getAliasFloatValue()),
-                new KeyValueMemberName("IntValue",getAliasIntValue()),
-                new KeyValueMemberName("LongValue",getAliasLongValue()),
-                new KeyValueMemberName("ParseShort",getAliasParseShort()),
-                new KeyValueMemberName("ParseShortOrNull",getAliasParseShortOrNull()),
-                new KeyValueMemberName("ShortValue",getAliasShortValue()),
-                new KeyValueMemberName("ToStringMethod",getAliasToStringMethod())));
+                new KeyValueMemberName(BYTE_VALUE,getAliasByteValue()),
+                new KeyValueMemberName(COMPARE,getAliasCompare()),
+                new KeyValueMemberName(COMPARE_TO,getAliasCompareTo()),
+                new KeyValueMemberName(DOUBLE_VALUE,getAliasDoubleValue()),
+                new KeyValueMemberName(EQUALS,getAliasEquals()),
+                new KeyValueMemberName(FLOAT_VALUE,getAliasFloatValue()),
+                new KeyValueMemberName(INT_VALUE,getAliasIntValue()),
+                new KeyValueMemberName(LONG_VALUE,getAliasLongValue()),
+                new KeyValueMemberName(SHORT_VALUE,getAliasShortValue()),
+                new KeyValueMemberName(TO_STRING_METHOD,getAliasToStringMethod()),
+                new KeyValueMemberName(PARSE_SHORT,getAliasParseShort()),
+                new KeyValueMemberName(PARSE_SHORT_OR_NULL,getAliasParseShortOrNull())));
         map_.put(getAliasString(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("Equals",getAliasEquals()),
-                new KeyValueMemberName("CompareTo",getAliasCompareTo()),
-                new KeyValueMemberName("CharAt",getAliasCharAt()),
-                new KeyValueMemberName("Compare",getAliasCompare()),
-                new KeyValueMemberName("CompareToIgnoreCase",getAliasCompareToIgnoreCase()),
-                new KeyValueMemberName("Contains",getAliasContains()),
-                new KeyValueMemberName("EndsWith",getAliasEndsWith()),
-                new KeyValueMemberName("EqualsIgnoreCase",getAliasEqualsIgnoreCase()),
-                new KeyValueMemberName("Format",getAliasFormat()),
-                new KeyValueMemberName("GetBytes",getAliasGetBytes()),
-                new KeyValueMemberName("IndexOf",getAliasIndexOf()),
-                new KeyValueMemberName("IsEmpty",getAliasIsEmpty()),
-                new KeyValueMemberName("LastIndexOf",getAliasLastIndexOf()),
-                new KeyValueMemberName("Length",getAliasLength()),
-                new KeyValueMemberName("RegionMatches",getAliasRegionMatches()),
-                new KeyValueMemberName("Replace",getAliasReplace()),
-                new KeyValueMemberName("ReplaceMultiple",getAliasReplaceMultiple()),
-                new KeyValueMemberName("Split",getAliasSplit()),
-                new KeyValueMemberName("SplitChars",getAliasSplitChars()),
-                new KeyValueMemberName("SplitStrings",getAliasSplitStrings()),
-                new KeyValueMemberName("StartsWith",getAliasStartsWith()),
-                new KeyValueMemberName("SubSequence",getAliasSubSequence()),
-                new KeyValueMemberName("Substring",getAliasSubstring()),
-                new KeyValueMemberName("ToCharArray",getAliasToCharArray()),
-                new KeyValueMemberName("ToLowerCase",getAliasToLowerCase()),
-                new KeyValueMemberName("ToUpperCase",getAliasToUpperCase()),
-                new KeyValueMemberName("ToStringMethod",getAliasToStringMethod()),
-                new KeyValueMemberName("Trim",getAliasTrim()),
-                new KeyValueMemberName("ValueOfMethod",getAliasValueOfMethod())));
+                new KeyValueMemberName(EQUALS,getAliasEquals()),
+                new KeyValueMemberName(COMPARE_TO,getAliasCompareTo()),
+                new KeyValueMemberName(CHAR_AT,getAliasCharAt()),
+                new KeyValueMemberName(CONTAINS,getAliasContains()),
+                new KeyValueMemberName(ENDS_WITH,getAliasEndsWith()),
+                new KeyValueMemberName(FORMAT,getAliasFormat()),
+                new KeyValueMemberName(GET_BYTES,getAliasGetBytes()),
+                new KeyValueMemberName(INDEX_OF,getAliasIndexOf()),
+                new KeyValueMemberName(IS_EMPTY,getAliasIsEmpty()),
+                new KeyValueMemberName(LAST_INDEX_OF,getAliasLastIndexOf()),
+                new KeyValueMemberName(LENGTH,getAliasLength()),
+                new KeyValueMemberName(REGION_MATCHES,getAliasRegionMatches()),
+                new KeyValueMemberName(REPLACE,getAliasReplace()),
+                new KeyValueMemberName(SPLIT,getAliasSplit()),
+                new KeyValueMemberName(SPLIT_CHARS,getAliasSplitChars()),
+                new KeyValueMemberName(SPLIT_STRINGS,getAliasSplitStrings()),
+                new KeyValueMemberName(STARTS_WITH,getAliasStartsWith()),
+                new KeyValueMemberName(SUB_SEQUENCE,getAliasSubSequence()),
+                new KeyValueMemberName(SUBSTRING,getAliasSubstring()),
+                new KeyValueMemberName(TO_CHAR_ARRAY,getAliasToCharArray()),
+                new KeyValueMemberName(TO_STRING_METHOD,getAliasToStringMethod()),
+                new KeyValueMemberName(TRIM,getAliasTrim()),
+                new KeyValueMemberName(COMPARE,getAliasCompare()),
+                new KeyValueMemberName(COMPARE_TO_IGNORE_CASE,getAliasCompareToIgnoreCase()),
+                new KeyValueMemberName(EQUALS_IGNORE_CASE,getAliasEqualsIgnoreCase()),
+                new KeyValueMemberName(REPLACE_MULTIPLE,getAliasReplaceMultiple()),
+                new KeyValueMemberName(TO_LOWER_CASE,getAliasToLowerCase()),
+                new KeyValueMemberName(TO_UPPER_CASE,getAliasToUpperCase()),
+                new KeyValueMemberName(VALUE_OF_METHOD,getAliasValueOfMethod())));
         map_.put(getAliasStringBuilder(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("Equals",getAliasEquals()),
-                new KeyValueMemberName("CompareTo",getAliasCompareTo()),
-                new KeyValueMemberName("CharAt",getAliasCharAt()),
-                new KeyValueMemberName("Contains",getAliasContains()),
-                new KeyValueMemberName("EndsWith",getAliasEndsWith()),
-                new KeyValueMemberName("Format",getAliasFormat()),
-                new KeyValueMemberName("GetBytes",getAliasGetBytes()),
-                new KeyValueMemberName("IndexOf",getAliasIndexOf()),
-                new KeyValueMemberName("IsEmpty",getAliasIsEmpty()),
-                new KeyValueMemberName("LastIndexOf",getAliasLastIndexOf()),
-                new KeyValueMemberName("Length",getAliasLength()),
-                new KeyValueMemberName("RegionMatches",getAliasRegionMatches()),
-                new KeyValueMemberName("Replace",getAliasReplace()),
-                new KeyValueMemberName("Split",getAliasSplit()),
-                new KeyValueMemberName("SplitChars",getAliasSplitChars()),
-                new KeyValueMemberName("SplitStrings",getAliasSplitStrings()),
-                new KeyValueMemberName("StartsWith",getAliasStartsWith()),
-                new KeyValueMemberName("SubSequence",getAliasSubSequence()),
-                new KeyValueMemberName("Substring",getAliasSubstring()),
-                new KeyValueMemberName("ToCharArray",getAliasToCharArray()),
-                new KeyValueMemberName("ToStringMethod",getAliasToStringMethod()),
-                new KeyValueMemberName("Trim",getAliasTrim()),
-                new KeyValueMemberName("Append",getAliasAppend()),
-                new KeyValueMemberName("Capacity",getAliasCapacity()),
-                new KeyValueMemberName("Clear",getAliasClear()),
-                new KeyValueMemberName("Delete",getAliasDelete()),
-                new KeyValueMemberName("DeleteCharAt",getAliasDeleteCharAt()),
-                new KeyValueMemberName("EnsureCapacity",getAliasEnsureCapacity()),
-                new KeyValueMemberName("Insert",getAliasInsert()),
-                new KeyValueMemberName("Reverse",getAliasReverse()),
-                new KeyValueMemberName("SetCharAt",getAliasSetCharAt()),
-                new KeyValueMemberName("SetLength",getAliasSetLength()),
-                new KeyValueMemberName("Same",getAliasSame()),
-                new KeyValueMemberName("TrimToSize",getAliasTrimToSize())));
+                new KeyValueMemberName(EQUALS,getAliasEquals()),
+                new KeyValueMemberName(COMPARE_TO,getAliasCompareTo()),
+                new KeyValueMemberName(CHAR_AT,getAliasCharAt()),
+                new KeyValueMemberName(CONTAINS,getAliasContains()),
+                new KeyValueMemberName(ENDS_WITH,getAliasEndsWith()),
+                new KeyValueMemberName(FORMAT,getAliasFormat()),
+                new KeyValueMemberName(GET_BYTES,getAliasGetBytes()),
+                new KeyValueMemberName(INDEX_OF,getAliasIndexOf()),
+                new KeyValueMemberName(IS_EMPTY,getAliasIsEmpty()),
+                new KeyValueMemberName(LAST_INDEX_OF,getAliasLastIndexOf()),
+                new KeyValueMemberName(LENGTH,getAliasLength()),
+                new KeyValueMemberName(REGION_MATCHES,getAliasRegionMatches()),
+                new KeyValueMemberName(REPLACE,getAliasReplace()),
+                new KeyValueMemberName(SPLIT,getAliasSplit()),
+                new KeyValueMemberName(SPLIT_CHARS,getAliasSplitChars()),
+                new KeyValueMemberName(SPLIT_STRINGS,getAliasSplitStrings()),
+                new KeyValueMemberName(STARTS_WITH,getAliasStartsWith()),
+                new KeyValueMemberName(SUB_SEQUENCE,getAliasSubSequence()),
+                new KeyValueMemberName(SUBSTRING,getAliasSubstring()),
+                new KeyValueMemberName(TO_CHAR_ARRAY,getAliasToCharArray()),
+                new KeyValueMemberName(TO_STRING_METHOD,getAliasToStringMethod()),
+                new KeyValueMemberName(TRIM,getAliasTrim()),
+                new KeyValueMemberName(APPEND,getAliasAppend()),
+                new KeyValueMemberName(CAPACITY,getAliasCapacity()),
+                new KeyValueMemberName(CLEAR,getAliasClear()),
+                new KeyValueMemberName(DELETE,getAliasDelete()),
+                new KeyValueMemberName(DELETE_CHAR_AT,getAliasDeleteCharAt()),
+                new KeyValueMemberName(ENSURE_CAPACITY,getAliasEnsureCapacity()),
+                new KeyValueMemberName(INSERT,getAliasInsert()),
+                new KeyValueMemberName(REVERSE,getAliasReverse()),
+                new KeyValueMemberName(SET_CHAR_AT,getAliasSetCharAt()),
+                new KeyValueMemberName(SET_LENGTH,getAliasSetLength()),
+                new KeyValueMemberName(SAME,getAliasSame()),
+                new KeyValueMemberName(TRIM_TO_SIZE,getAliasTrimToSize())));
         return map_;
     }
     public void validateMethodsContents(ContextEl _cont, StringMap<CustList<KeyValueMemberName>> _methods, StringMap<String> _prims){
@@ -921,45 +1278,45 @@ public abstract class LgNames {
     public StringMap<CustList<KeyValueMemberName>> allTableTypeFieldNames() {
         StringMap<CustList<KeyValueMemberName>> map_ = new StringMap<CustList<KeyValueMemberName>>();
         map_.put(nbAlias.getAliasDouble(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("MIN_VALUE",nbAlias.getAliasMinValueField()),
-                new KeyValueMemberName("MAX_VALUE",nbAlias.getAliasMaxValueField())));
+                new KeyValueMemberName(FIELD_MIN_VALUE,nbAlias.getAliasMinValueField()),
+                new KeyValueMemberName(FIELD_MAX_VALUE,nbAlias.getAliasMaxValueField())));
         map_.put(nbAlias.getAliasFloat(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("MIN_VALUE",nbAlias.getAliasMinValueField()),
-                new KeyValueMemberName("MAX_VALUE",nbAlias.getAliasMaxValueField())));
+                new KeyValueMemberName(FIELD_MIN_VALUE,nbAlias.getAliasMinValueField()),
+                new KeyValueMemberName(FIELD_MAX_VALUE,nbAlias.getAliasMaxValueField())));
         map_.put(nbAlias.getAliasLong(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("MIN_VALUE",nbAlias.getAliasMinValueField()),
-                new KeyValueMemberName("MAX_VALUE",nbAlias.getAliasMaxValueField())));
+                new KeyValueMemberName(FIELD_MIN_VALUE,nbAlias.getAliasMinValueField()),
+                new KeyValueMemberName(FIELD_MAX_VALUE,nbAlias.getAliasMaxValueField())));
         map_.put(nbAlias.getAliasInteger(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("MIN_VALUE",nbAlias.getAliasMinValueField()),
-                new KeyValueMemberName("MAX_VALUE",nbAlias.getAliasMaxValueField())));
+                new KeyValueMemberName(FIELD_MIN_VALUE,nbAlias.getAliasMinValueField()),
+                new KeyValueMemberName(FIELD_MAX_VALUE,nbAlias.getAliasMaxValueField())));
         map_.put(nbAlias.getAliasCharacter(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("MIN_VALUE",nbAlias.getAliasMinValueField()),
-                new KeyValueMemberName("MAX_VALUE",nbAlias.getAliasMaxValueField())));
+                new KeyValueMemberName(FIELD_MIN_VALUE,nbAlias.getAliasMinValueField()),
+                new KeyValueMemberName(FIELD_MAX_VALUE,nbAlias.getAliasMaxValueField())));
         map_.put(nbAlias.getAliasShort(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("MIN_VALUE",nbAlias.getAliasMinValueField()),
-                new KeyValueMemberName("MAX_VALUE",nbAlias.getAliasMaxValueField())));
+                new KeyValueMemberName(FIELD_MIN_VALUE,nbAlias.getAliasMinValueField()),
+                new KeyValueMemberName(FIELD_MAX_VALUE,nbAlias.getAliasMaxValueField())));
         map_.put(nbAlias.getAliasByte(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("MIN_VALUE",nbAlias.getAliasMinValueField()),
-                new KeyValueMemberName("MAX_VALUE",nbAlias.getAliasMaxValueField())));
+                new KeyValueMemberName(FIELD_MIN_VALUE,nbAlias.getAliasMinValueField()),
+                new KeyValueMemberName(FIELD_MAX_VALUE,nbAlias.getAliasMaxValueField())));
         return map_;
     }
     public StringMap<CustList<KeyValueMemberName>> allTableTypeVarTypes() {
         StringMap<CustList<KeyValueMemberName>> map_ = new StringMap<CustList<KeyValueMemberName>>();
         map_.put(getAliasEnumParam(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("EnumParamVar",getAliasEnumParamVar())));
+                new KeyValueMemberName(ENUM_PARAM_VAR,getAliasEnumParamVar())));
         map_.put(getAliasIterable(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("IterableVar",getAliasIterableVar())));
+                new KeyValueMemberName(ITERABLE_VAR,getAliasIterableVar())));
         map_.put(getAliasIteratorType(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("IteratorTypeVar",getAliasIteratorTypeVar())));
+                new KeyValueMemberName(ITERATOR_TYPE_VAR,getAliasIteratorTypeVar())));
         map_.put(getAliasIterableTable(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("IterableTableVarFirst",getAliasIterableTableVarFirst()),
-                new KeyValueMemberName("IterableTableVarSecond",getAliasIterableTableVarSecond())));
+                new KeyValueMemberName(ITERABLE_TABLE_VAR_FIRST,getAliasIterableTableVarFirst()),
+                new KeyValueMemberName(ITERABLE_TABLE_VAR_SECOND,getAliasIterableTableVarSecond())));
         map_.put(getAliasIteratorTableType(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("IteratorTableTypeVarFirst",getAliasIteratorTableTypeVarFirst()),
-                new KeyValueMemberName("IteratorTableTypeVarSecond",getAliasIteratorTableTypeVarSecond())));
+                new KeyValueMemberName(ITERATOR_TABLE_TYPE_VAR_FIRST,getAliasIteratorTableTypeVarFirst()),
+                new KeyValueMemberName(ITERATOR_TABLE_TYPE_VAR_SECOND,getAliasIteratorTableTypeVarSecond())));
         map_.put(getAliasPairType(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("PairTypeVarFirst",getAliasPairTypeVarFirst()),
-                new KeyValueMemberName("PairTypeVarSecond",getAliasPairTypeVarSecond())));
+                new KeyValueMemberName(PAIR_TYPE_VAR_FIRST,getAliasPairTypeVarFirst()),
+                new KeyValueMemberName(PAIR_TYPE_VAR_SECOND,getAliasPairTypeVarSecond())));
         return map_;
     }
     public void validateFieldsContents(ContextEl _cont, StringMap<CustList<KeyValueMemberName>> _methods, StringMap<String> _prims){

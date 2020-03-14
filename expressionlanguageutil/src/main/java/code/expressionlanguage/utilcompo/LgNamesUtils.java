@@ -36,6 +36,160 @@ import code.util.StringList;
 import code.util.StringMap;
 
 public class LgNamesUtils extends LgNames {
+    protected static final String RUN = "Run";
+    private static final String ILLEGAL_THREAD_STATE_EXCEPTION = "IllegalThreadStateException";
+    private static final String FILE_GET_LENGTH = "FileGetLength";
+    private static final String ATOMIC_INTEGER = "AtomicInteger";
+    private static final String CURRENT_THREAD = "CurrentThread";
+    private static final String FORMAT_TYPE = "FormatType";
+    private static final String ATOMIC_BOOLEAN = "AtomicBoolean";
+    private static final String SET_ATOMIC = "SetAtomic";
+    private static final String FILE_IS_DIRECTORY = "FileIsDirectory";
+    private static final String FILE_GET_PARENT_PATH = "FileGetParentPath";
+    private static final String ATOMIC_LONG = "AtomicLong";
+    private static final String FILE_ABSOLUTE_PATH = "FileAbsolutePath";
+    private static final String FILE_LAST_MODIF = "FileLastModif";
+    private static final String FILE_GET_NAME = "FileGetName";
+    private static final String GET_ATOMIC = "GetAtomic";
+    private static final String LAZY_SET_ATOMIC = "LazySetAtomic";
+    private static final String COMPARE_AND_SET_ATOMIC = "CompareAndSetAtomic";
+    private static final String GET_AND_ADD_ATOMIC = "GetAndAddAtomic";
+    private static final String ADD_AND_GET_ATOMIC = "AddAndGetAtomic";
+    private static final String GET_AND_INCREMENT_ATOMIC = "GetAndIncrementAtomic";
+    private static final String INCREMENT_AND_GET_ATOMIC = "IncrementAndGetAtomic";
+    private static final String GET_AND_DECREMENT_ATOMIC = "GetAndDecrementAtomic";
+    private static final String DECREMENT_AND_GET_ATOMIC = "DecrementAndGetAtomic";
+    private static final String GET_AND_SET_ATOMIC = "GetAndSetAtomic";
+    private static final String REENTRANT_LOCK = "ReentrantLock";
+    private static final String JOIN_OTHERS = "JoinOthers";
+    private static final String FILE_IS_FILE = "FileIsFile";
+    private static final String THREAD_EXIT_HOOK = "ThreadExitHook";
+    private static final String APPEND_TO_FILE = "AppendToFile";
+    private static final String THREAD_CURRENT_TIME = "ThreadCurrentTime";
+    private static final String SET_PRIORITY = "SetPriority";
+    private static final String FILE_LIST_FILES = "FileListFiles";
+    private static final String GET_PRIORITY = "GetPriority";
+    private static final String IS_HELD_BY_CURRENT_THREAD = "IsHeldByCurrentThread";
+    private static final String FILE_LIST_DIRECTORIES = "FileListDirectories";
+    private static final String LENGTH_ITR_TA = "LengthItrTa";
+    private static final String EXECUTED_TEST_ANNOTATIONS = "ExecutedTestAnnotations";
+    private static final String PAIR_VAR_FIRST = "PairVarFirst";
+    private static final String INDEX_ITR_LI = "IndexItrLi";
+    private static final String LIST_ITER_TABLE = "ListIterTable";
+    private static final String DIFFERENCE = "Difference";
+    private static final String TABLE_VAR_SECOND = "TableVarSecond";
+    private static final String ITER_TA_VAR_FIRST = "IterTaVarFirst";
+    private static final String EXECUTED_TEST_BEFORE = "ExecutedTestBefore";
+    private static final String CUST_ITERATOR_VAR = "CustIteratorVar";
+    private static final String GET_SECOND_TA = "GetSecondTa";
+    private static final String EXECUTED_TEST_TEST = "ExecutedTestTest";
+    private static final String EXECUTED_TEST_METHOD = "ExecutedTestMethod";
+    private static final String EXECUTED_TEST_AFTER = "ExecutedTestAfter";
+    private static final String CUST_ITERATOR = "CustIterator";
+    private static final String LIST_CLEAR = "ListClear";
+    private static final String GET_FIRST_TA = "GetFirstTa";
+    private static final String SET_SECOND_TA = "SetSecondTa";
+    private static final String FILE_MAKE_DIRS = "FileMakeDirs";
+    private static final String FILE_ZIPPED_BIN = "FileZippedBin";
+    private static final String FILE_ZIPPED_BIN_ARRAY = "FileZippedBinArray";
+    private static final String FILE_ZIPPED_TEXT = "FileZippedText";
+    private static final String FILE_ZIP_BIN = "FileZipBin";
+    private static final String FILE_ZIP_BIN_ARRAY = "FileZipBinArray";
+    private static final String FILE_ZIP_TEXT = "FileZipText";
+    private static final String ENTRY_BINARY = "EntryBinary";
+    private static final String ENTRY_TEXT = "EntryText";
+    private static final String ENTRY_NAME = "EntryName";
+    private static final String ENTRY_VALUE = "EntryValue";
+    private static final String FILE_IS_ABSOLUTE = "FileIsAbsolute";
+    private static final String FILE_READ_BIN = "FileReadBin";
+    private static final String FILE_WRITE_BIN = "FileWriteBin";
+    private static final String FILE_DELETE = "FileDelete";
+    private static final String FILE_RENAME = "FileRename";
+    private static final String CUST_ITER_TABLE = "CustIterTable";
+    private static final String TABLE_VAR_FIRST = "TableVarFirst";
+    private static final String SET_SECOND = "SetSecond";
+    private static final String INDEX_ITR_TA = "IndexItrTa";
+    private static final String ITER_TA_VAR_SECOND = "IterTaVarSecond";
+    private static final String LENGTH_ITR_LI = "LengthItrLi";
+    private static final String SET_FIRST_TA = "SetFirstTa";
+    private static final String EXECUTED_TEST = "ExecutedTest";
+    private static final String PARAMETERS = "Parameters";
+    private static final String TEST_EXCEPTION = "TestException";
+    private static final String TEST_NULL_EXCEPTION = "TestNullException";
+    private static final String PAIR_VAR_SECOND = "PairVarSecond";
+    private static final String EXECUTE_EXECUTE = "ExecuteExecute";
+    private static final String EXECUTE_SETUP_NO_EXCEPTION = "ExecuteSetupNoException";
+    private static final String ASSERT_ASSERT = "AssertAssert";
+    private static final String ASSERT_ASSERT_NULL = "AssertAssertNull";
+    private static final String ASSERT_ASSERT_NOT_NULL = "AssertAssertNotNull";
+    private static final String DIFFERENCE_FOUND_NULL = "DifferenceFoundNull";
+    private static final String RESULT_SUCCESS = "ResultSuccess";
+    private static final String INFO_TEST_CURRENT_CLASS = "InfoTestCurrentClass";
+    private static final String EXECUTE_CONVERT = "ExecuteConvert";
+    private static final String CONCURRENT_ERROR = "ConcurrentError";
+    private static final String RESULT_FAIL_MESSAGE = "ResultFailMessage";
+    private static final String ASSERT_ASSERT_TRUE = "AssertAssertTrue";
+    private static final String INFO_TEST_CURRENT_METHOD = "InfoTestCurrentMethod";
+    private static final String RESULT_PARAMS = "ResultParams";
+    private static final String PARAMETERS_METHOD = "ParametersMethod";
+    private static final String EXECUTE_SETUP_ERROR = "ExecuteSetupError";
+    private static final String ASSERT_ASSERT_SAME = "AssertAssertSame";
+    private static final String DIFFERENCE_FOUND = "DifferenceFound";
+    private static final String DIFFERENCE_FOUND_NOT_TRUE = "DifferenceFoundNotTrue";
+    private static final String PARAMETERS_LOCATION = "ParametersLocation";
+    private static final String INFO_TEST_COUNT = "InfoTestCount";
+    private static final String INFO_TEST_DONE = "InfoTestDone";
+    private static final String DIFFERENCE_STACK_DIFF = "DifferenceStackDiff";
+    private static final String EXECUTE_TESTS = "ExecuteTests";
+    private static final String DIFFERENCE_EXPECTED = "DifferenceExpected";
+    private static final String INFO_TEST_CURRENT_PARAMS = "InfoTestCurrentParams";
+    private static final String RUNNABLE = "Runnable";
+    private static final String THREAD = "Thread";
+    private static final String THREAD_SET = "ThreadSet";
+    private static final String THREAD_SET_ALL = "ThreadSetAll";
+    private static final String THREAD_SET_ADD = "ThreadSetAdd";
+    private static final String THREAD_SET_CONTAINS = "ThreadSetContains";
+    private static final String THREAD_SET_REMOVE = "ThreadSetRemove";
+    private static final String THREAD_SET_SNAPSHOT = "ThreadSetSnapshot";
+    private static final String START = "Start";
+    private static final String JOIN = "Join";
+    private static final String LENGTH_LI = "LengthLi";
+    private static final String CUST_PAIR = "CustPair";
+    private static final String LIST_TA = "ListTa";
+    private static final String GET_ID = "GetId";
+    private static final String IS_ALIVE = "IsAlive";
+    private static final String IS_ENDED = "IsEnded";
+    private static final String END = "End";
+    private static final String PRINT = "Print";
+    private static final String LIST_ITR = "ListItr";
+    private static final String REMOVE_LI = "RemoveLi";
+    private static final String ARRAY_LI = "ArrayLi";
+    private static final String FIRST = "First";
+    private static final String SLEEP = "Sleep";
+    private static final String FILE = "File";
+    private static final String READ = "Read";
+    private static final String LIST = "List";
+    private static final String UNLOCK = "Unlock";
+    private static final String SIZE_LI = "SizeLi";
+    private static final String LIST_VAR = "ListVar";
+    private static final String SECOND = "Second";
+    private static final String ADD_LI = "AddLi";
+    private static final String YIELD = "Yield";
+    private static final String SET_FIRST = "SetFirst";
+    private static final String LOCK = "Lock";
+    private static final String WRITE = "Write";
+    private static final String TABLE = "Table";
+    private static final String RESULT = "Result";
+    private static final String ADD_TA = "AddTa";
+    private static final String INFO_TEST = "InfoTest";
+    private static final String REMOVE_TA = "RemoveTa";
+    private static final String BEFORE = "Before";
+    private static final String GET_TA = "GetTa";
+    private static final String TEST = "Test";
+    private static final String EXECUTE = "Execute";
+    private static final String AFTER = "After";
+    private static final String SIZE_TA = "SizeTa";
+    private static final String ASSERT = "Assert";
 
     private String aliasRunnable;
     private String aliasThreadSet;
@@ -1802,18 +1956,18 @@ public class LgNamesUtils extends LgNames {
     public StringMap<CustList<KeyValueMemberName>> allTableTypeVarTypes() {
         StringMap<CustList<KeyValueMemberName>> t_ = super.allTableTypeVarTypes();
         t_.put(getAliasList(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("ListVar",getAliasListVar())));
+                new KeyValueMemberName(LIST_VAR,getAliasListVar())));
         t_.put(getAliasCustIterator(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("CustIteratorVar",getAliasCustIteratorVar())));
+                new KeyValueMemberName(CUST_ITERATOR_VAR,getAliasCustIteratorVar())));
         t_.put(getAliasTable(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("TableVarFirst",getAliasTableVarFirst()),
-                new KeyValueMemberName("TableVarSecond",getAliasTableVarSecond())));
+                new KeyValueMemberName(TABLE_VAR_FIRST,getAliasTableVarFirst()),
+                new KeyValueMemberName(TABLE_VAR_SECOND,getAliasTableVarSecond())));
         t_.put(getAliasCustIterTable(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("IterTaVarFirst",getAliasIterTaVarFirst()),
-                new KeyValueMemberName("IterTaVarSecond",getAliasIterTaVarSecond())));
+                new KeyValueMemberName(ITER_TA_VAR_FIRST,getAliasIterTaVarFirst()),
+                new KeyValueMemberName(ITER_TA_VAR_SECOND,getAliasIterTaVarSecond())));
         t_.put(getAliasCustPair(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("PairVarFirst",getAliasPairVarFirst()),
-                new KeyValueMemberName("PairVarSecond",getAliasPairVarSecond())));
+                new KeyValueMemberName(PAIR_VAR_FIRST,getAliasPairVarFirst()),
+                new KeyValueMemberName(PAIR_VAR_SECOND,getAliasPairVarSecond())));
         return t_;
     }
 
@@ -1821,17 +1975,17 @@ public class LgNamesUtils extends LgNames {
     public CustList<CustList<KeyValueMemberName>> allMergeTableTypeMethodNames() {
         CustList<CustList<KeyValueMemberName>> list_ = super.allMergeTableTypeMethodNames();
         list_.add(new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("Iterator",getAliasIterator()),
-                new KeyValueMemberName("HasNext",getAliasHasNext()),
-                new KeyValueMemberName("Next",getAliasNext()),
-                new KeyValueMemberName("IteratorTable",getAliasIteratorTable()),
-                new KeyValueMemberName("HasNextPair",getAliasHasNextPair()),
-                new KeyValueMemberName("NextPair",getAliasNextPair()),
-                new KeyValueMemberName("GetFirst",getAliasGetFirst()),
-                new KeyValueMemberName("GetSecond",getAliasGetSecond()),
-                new KeyValueMemberName("EnumOrdinal",getAliasEnumOrdinal()),
-                new KeyValueMemberName("EnumName",getAliasEnumName()),
-                new KeyValueMemberName("Run",getAliasRun())
+                new KeyValueMemberName(ITERATOR,getAliasIterator()),
+                new KeyValueMemberName(HAS_NEXT,getAliasHasNext()),
+                new KeyValueMemberName(NEXT,getAliasNext()),
+                new KeyValueMemberName(ITERATOR_TABLE,getAliasIteratorTable()),
+                new KeyValueMemberName(HAS_NEXT_PAIR,getAliasHasNextPair()),
+                new KeyValueMemberName(NEXT_PAIR,getAliasNextPair()),
+                new KeyValueMemberName(GET_FIRST,getAliasGetFirst()),
+                new KeyValueMemberName(GET_SECOND,getAliasGetSecond()),
+                new KeyValueMemberName(ENUM_ORDINAL,getAliasEnumOrdinal()),
+                new KeyValueMemberName(ENTRY_NAME,getAliasEnumName()),
+                new KeyValueMemberName(RUN,getAliasRun())
         ));
         return list_;
     }
@@ -1840,50 +1994,50 @@ public class LgNamesUtils extends LgNames {
     public StringMap<CustList<KeyValueMemberName>> allTableTypeFieldNames() {
         StringMap<CustList<KeyValueMemberName>> f_ = super.allTableTypeFieldNames();
         f_.put(getAliasDifference(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("DifferenceExpected",getAliasDifferenceExpected()),
-                new KeyValueMemberName("DifferenceFound",getAliasDifferenceFound()),
-                new KeyValueMemberName("DifferenceFoundNotTrue",getAliasDifferenceFoundNotTrue()),
-                new KeyValueMemberName("DifferenceFoundNull",getAliasDifferenceFoundNull()),
-                new KeyValueMemberName("DifferenceStackDiff",getAliasDifferenceStackDiff())
+                new KeyValueMemberName(DIFFERENCE_EXPECTED,getAliasDifferenceExpected()),
+                new KeyValueMemberName(DIFFERENCE_FOUND,getAliasDifferenceFound()),
+                new KeyValueMemberName(DIFFERENCE_FOUND_NOT_TRUE,getAliasDifferenceFoundNotTrue()),
+                new KeyValueMemberName(DIFFERENCE_FOUND_NULL,getAliasDifferenceFoundNull()),
+                new KeyValueMemberName(DIFFERENCE_STACK_DIFF,getAliasDifferenceStackDiff())
         ));
         f_.put(getAliasInfoTest(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("InfoTestCount",getAliasInfoTestCount()),
-                new KeyValueMemberName("InfoTestCurrentMethod",getAliasInfoTestCurrentMethod()),
-                new KeyValueMemberName("InfoTestDone",getAliasInfoTestDone()),
-                new KeyValueMemberName("InfoTestCurrentParams",getAliasInfoTestCurrentParams())
+                new KeyValueMemberName(INFO_TEST_COUNT,getAliasInfoTestCount()),
+                new KeyValueMemberName(INFO_TEST_CURRENT_METHOD,getAliasInfoTestCurrentMethod()),
+                new KeyValueMemberName(INFO_TEST_DONE,getAliasInfoTestDone()),
+                new KeyValueMemberName(INFO_TEST_CURRENT_PARAMS,getAliasInfoTestCurrentParams())
         ));
         f_.put(getAliasResult(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("ResultFailMessage",getAliasResultFailMessage()),
-                new KeyValueMemberName("ResultParams",getAliasResultParams()),
-                new KeyValueMemberName("ResultSuccess",getAliasResultSuccess())
+                new KeyValueMemberName(RESULT_FAIL_MESSAGE,getAliasResultFailMessage()),
+                new KeyValueMemberName(RESULT_PARAMS,getAliasResultParams()),
+                new KeyValueMemberName(RESULT_SUCCESS,getAliasResultSuccess())
         ));
         f_.put(getAliasExecutedTest(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("ExecutedTestAfter",getAliasExecutedTestAfter()),
-                new KeyValueMemberName("ExecutedTestBefore",getAliasExecutedTestBefore()),
-                new KeyValueMemberName("ExecutedTestAnnotations",getAliasExecutedTestAnnotations()),
-                new KeyValueMemberName("ExecutedTestMethod",getAliasExecutedTestMethod()),
-                new KeyValueMemberName("ExecutedTestTest",getAliasExecutedTestTest())
+                new KeyValueMemberName(EXECUTED_TEST_AFTER,getAliasExecutedTestAfter()),
+                new KeyValueMemberName(EXECUTED_TEST_BEFORE,getAliasExecutedTestBefore()),
+                new KeyValueMemberName(EXECUTED_TEST_ANNOTATIONS,getAliasExecutedTestAnnotations()),
+                new KeyValueMemberName(EXECUTED_TEST_METHOD,getAliasExecutedTestMethod()),
+                new KeyValueMemberName(EXECUTED_TEST_TEST,getAliasExecutedTestTest())
         ));
         f_.put(getAliasCustIterator(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("ListItr",getAliasListItr()),
-                new KeyValueMemberName("LengthItrLi",getAliasLengthItrLi()),
-                new KeyValueMemberName("IndexItrLi",getAliasIndexItrLi())
+                new KeyValueMemberName(LIST_ITR,getAliasListItr()),
+                new KeyValueMemberName(LENGTH_ITR_LI,getAliasLengthItrLi()),
+                new KeyValueMemberName(INDEX_ITR_LI,getAliasIndexItrLi())
         ));
         f_.put(getAliasList(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("ArrayLi",getAliasArrayLi()),
-                new KeyValueMemberName("LengthLi",getAliasLengthLi())
+                new KeyValueMemberName(ARRAY_LI,getAliasArrayLi()),
+                new KeyValueMemberName(LENGTH_LI,getAliasLengthLi())
         ));
         f_.put(getAliasCustIterTable(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("ListIterTable",getAliasListIterTable()),
-                new KeyValueMemberName("LengthItrTa",getAliasLengthItrTa()),
-                new KeyValueMemberName("IndexItrTa",getAliasIndexItrTa())
+                new KeyValueMemberName(LIST_ITER_TABLE,getAliasListIterTable()),
+                new KeyValueMemberName(LENGTH_ITR_TA,getAliasLengthItrTa()),
+                new KeyValueMemberName(INDEX_ITR_TA,getAliasIndexItrTa())
         ));
         f_.put(getAliasCustPair(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("First",getAliasFirst()),
-                new KeyValueMemberName("Second",getAliasSecond())
+                new KeyValueMemberName(FIRST,getAliasFirst()),
+                new KeyValueMemberName(SECOND,getAliasSecond())
         ));
         f_.put(getAliasTable(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("ListTa",getAliasListTa())
+                new KeyValueMemberName(LIST_TA,getAliasListTa())
         ));
         return f_;
     }
@@ -1892,143 +2046,143 @@ public class LgNamesUtils extends LgNames {
     public StringMap<CustList<KeyValueMemberName>> allTableTypeMethodNames() {
         StringMap<CustList<KeyValueMemberName>> m_ = super.allTableTypeMethodNames();
         m_.put(getAliasThread(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("Start",getAliasStart()),
-                new KeyValueMemberName("ThreadCurrentTime",getAliasThreadCurrentTime()),
-                new KeyValueMemberName("IsAlive",getAliasIsAlive()),
-                new KeyValueMemberName("CurrentThread",getAliasCurrentThread()),
-                new KeyValueMemberName("Join",getAliasJoin()),
-                new KeyValueMemberName("JoinOthers",getAliasJoinOthers()),
-                new KeyValueMemberName("GetId",getAliasGetId()),
-                new KeyValueMemberName("GetPriority",getAliasGetPriority()),
-                new KeyValueMemberName("SetPriority",getAliasSetPriority()),
-                new KeyValueMemberName("Yield",getAliasYield()),
-                new KeyValueMemberName("Sleep",getAliasSleep()),
-                new KeyValueMemberName("Print",getAliasPrint()),
-                new KeyValueMemberName("ThreadExitHook",getAliasThreadExitHook())));
+                new KeyValueMemberName(START,getAliasStart()),
+                new KeyValueMemberName(THREAD_CURRENT_TIME,getAliasThreadCurrentTime()),
+                new KeyValueMemberName(IS_ALIVE,getAliasIsAlive()),
+                new KeyValueMemberName(CURRENT_THREAD,getAliasCurrentThread()),
+                new KeyValueMemberName(JOIN,getAliasJoin()),
+                new KeyValueMemberName(JOIN_OTHERS,getAliasJoinOthers()),
+                new KeyValueMemberName(GET_ID,getAliasGetId()),
+                new KeyValueMemberName(GET_PRIORITY,getAliasGetPriority()),
+                new KeyValueMemberName(SET_PRIORITY,getAliasSetPriority()),
+                new KeyValueMemberName(YIELD,getAliasYield()),
+                new KeyValueMemberName(SLEEP,getAliasSleep()),
+                new KeyValueMemberName(PRINT,getAliasPrint()),
+                new KeyValueMemberName(THREAD_EXIT_HOOK,getAliasThreadExitHook())));
         m_.put(getAliasThreadSet(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("ThreadSetAdd",getAliasThreadSetAdd()),
-                new KeyValueMemberName("ThreadSetAll",getAliasThreadSetAll()),
-                new KeyValueMemberName("ThreadSetContains",getAliasThreadSetContains()),
-                new KeyValueMemberName("ThreadSetRemove",getAliasThreadSetRemove()),
-                new KeyValueMemberName("ThreadSetSnapshot",getAliasThreadSetSnapshot())));
+                new KeyValueMemberName(THREAD_SET_ADD,getAliasThreadSetAdd()),
+                new KeyValueMemberName(THREAD_SET_ALL,getAliasThreadSetAll()),
+                new KeyValueMemberName(THREAD_SET_CONTAINS,getAliasThreadSetContains()),
+                new KeyValueMemberName(THREAD_SET_REMOVE,getAliasThreadSetRemove()),
+                new KeyValueMemberName(THREAD_SET_SNAPSHOT,getAliasThreadSetSnapshot())));
         m_.put(getAliasReentrantLock(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("Lock",getAliasLock()),
-                new KeyValueMemberName("Unlock",getAliasUnlock()),
-                new KeyValueMemberName("IsHeldByCurrentThread",getAliasIsHeldByCurrentThread())));
+                new KeyValueMemberName(LOCK,getAliasLock()),
+                new KeyValueMemberName(UNLOCK,getAliasUnlock()),
+                new KeyValueMemberName(IS_HELD_BY_CURRENT_THREAD,getAliasIsHeldByCurrentThread())));
         m_.put(getAliasRunnable(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("Run",getAliasRun())));
+                new KeyValueMemberName(RUN,getAliasRun())));
         m_.put(getAliasFormatType(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("Print",getAliasPrint())));
+                new KeyValueMemberName(PRINT,getAliasPrint())));
         m_.put(getAliasAtomicBoolean(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("GetAtomic",getAliasGetAtomic()),
-                new KeyValueMemberName("SetAtomic",getAliasSetAtomic()),
-                new KeyValueMemberName("CompareAndSetAtomic",getAliasCompareAndSetAtomic()),
-                new KeyValueMemberName("GetAndSetAtomic",getAliasGetAndSetAtomic()),
-                new KeyValueMemberName("LazySetAtomic",getAliasLazySetAtomic())));
+                new KeyValueMemberName(GET_ATOMIC,getAliasGetAtomic()),
+                new KeyValueMemberName(SET_ATOMIC,getAliasSetAtomic()),
+                new KeyValueMemberName(COMPARE_AND_SET_ATOMIC,getAliasCompareAndSetAtomic()),
+                new KeyValueMemberName(GET_AND_SET_ATOMIC,getAliasGetAndSetAtomic()),
+                new KeyValueMemberName(LAZY_SET_ATOMIC,getAliasLazySetAtomic())));
         m_.put(getAliasAtomicInteger(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("GetAtomic",getAliasGetAtomic()),
-                new KeyValueMemberName("SetAtomic",getAliasSetAtomic()),
-                new KeyValueMemberName("CompareAndSetAtomic",getAliasCompareAndSetAtomic()),
-                new KeyValueMemberName("GetAndSetAtomic",getAliasGetAndSetAtomic()),
-                new KeyValueMemberName("LazySetAtomic",getAliasLazySetAtomic()),
-                new KeyValueMemberName("AddAndGetAtomic",getAliasAddAndGetAtomic()),
-                new KeyValueMemberName("GetAndAddAtomic",getAliasGetAndAddAtomic()),
-                new KeyValueMemberName("IncrementAndGetAtomic",getAliasIncrementAndGetAtomic()),
-                new KeyValueMemberName("GetAndIncrementAtomic",getAliasGetAndIncrementAtomic()),
-                new KeyValueMemberName("DecrementAndGetAtomic",getAliasDecrementAndGetAtomic()),
-                new KeyValueMemberName("GetAndDecrementAtomic",getAliasGetAndDecrementAtomic())));
+                new KeyValueMemberName(GET_ATOMIC,getAliasGetAtomic()),
+                new KeyValueMemberName(SET_ATOMIC,getAliasSetAtomic()),
+                new KeyValueMemberName(COMPARE_AND_SET_ATOMIC,getAliasCompareAndSetAtomic()),
+                new KeyValueMemberName(GET_AND_SET_ATOMIC,getAliasGetAndSetAtomic()),
+                new KeyValueMemberName(LAZY_SET_ATOMIC,getAliasLazySetAtomic()),
+                new KeyValueMemberName(ADD_AND_GET_ATOMIC,getAliasAddAndGetAtomic()),
+                new KeyValueMemberName(GET_AND_ADD_ATOMIC,getAliasGetAndAddAtomic()),
+                new KeyValueMemberName(INCREMENT_AND_GET_ATOMIC,getAliasIncrementAndGetAtomic()),
+                new KeyValueMemberName(GET_AND_INCREMENT_ATOMIC,getAliasGetAndIncrementAtomic()),
+                new KeyValueMemberName(DECREMENT_AND_GET_ATOMIC,getAliasDecrementAndGetAtomic()),
+                new KeyValueMemberName(GET_AND_DECREMENT_ATOMIC,getAliasGetAndDecrementAtomic())));
         m_.put(getAliasAtomicLong(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("GetAtomic",getAliasGetAtomic()),
-                new KeyValueMemberName("SetAtomic",getAliasSetAtomic()),
-                new KeyValueMemberName("CompareAndSetAtomic",getAliasCompareAndSetAtomic()),
-                new KeyValueMemberName("GetAndSetAtomic",getAliasGetAndSetAtomic()),
-                new KeyValueMemberName("LazySetAtomic",getAliasLazySetAtomic()),
-                new KeyValueMemberName("AddAndGetAtomic",getAliasAddAndGetAtomic()),
-                new KeyValueMemberName("GetAndAddAtomic",getAliasGetAndAddAtomic()),
-                new KeyValueMemberName("IncrementAndGetAtomic",getAliasIncrementAndGetAtomic()),
-                new KeyValueMemberName("GetAndIncrementAtomic",getAliasGetAndIncrementAtomic()),
-                new KeyValueMemberName("DecrementAndGetAtomic",getAliasDecrementAndGetAtomic()),
-                new KeyValueMemberName("GetAndDecrementAtomic",getAliasGetAndDecrementAtomic())));
+                new KeyValueMemberName(GET_ATOMIC,getAliasGetAtomic()),
+                new KeyValueMemberName(SET_ATOMIC,getAliasSetAtomic()),
+                new KeyValueMemberName(COMPARE_AND_SET_ATOMIC,getAliasCompareAndSetAtomic()),
+                new KeyValueMemberName(GET_AND_SET_ATOMIC,getAliasGetAndSetAtomic()),
+                new KeyValueMemberName(LAZY_SET_ATOMIC,getAliasLazySetAtomic()),
+                new KeyValueMemberName(ADD_AND_GET_ATOMIC,getAliasAddAndGetAtomic()),
+                new KeyValueMemberName(GET_AND_ADD_ATOMIC,getAliasGetAndAddAtomic()),
+                new KeyValueMemberName(INCREMENT_AND_GET_ATOMIC,getAliasIncrementAndGetAtomic()),
+                new KeyValueMemberName(GET_AND_INCREMENT_ATOMIC,getAliasGetAndIncrementAtomic()),
+                new KeyValueMemberName(DECREMENT_AND_GET_ATOMIC,getAliasDecrementAndGetAtomic()),
+                new KeyValueMemberName(GET_AND_DECREMENT_ATOMIC,getAliasGetAndDecrementAtomic())));
         m_.put(getAliasFile(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("Read",getAliasRead()),
-                new KeyValueMemberName("Write",getAliasWrite()),
-                new KeyValueMemberName("AppendToFile",getAliasAppendToFile()),
-                new KeyValueMemberName("FileAbsolutePath",getAliasFileAbsolutePath()),
-                new KeyValueMemberName("FileGetLength",getAliasFileGetLength()),
-                new KeyValueMemberName("FileGetName",getAliasFileGetName()),
-                new KeyValueMemberName("FileGetParentPath",getAliasFileGetParentPath()),
-                new KeyValueMemberName("FileIsDirectory",getAliasFileIsDirectory()),
-                new KeyValueMemberName("FileIsFile",getAliasFileIsFile()),
-                new KeyValueMemberName("FileIsAbsolute",getAliasFileIsAbsolute()),
-                new KeyValueMemberName("FileReadBin",getAliasFileReadBin()),
-                new KeyValueMemberName("FileWriteBin",getAliasFileWriteBin()),
-                new KeyValueMemberName("FileDelete",getAliasFileDelete()),
-                new KeyValueMemberName("FileRename",getAliasFileRename()),
-                new KeyValueMemberName("FileLastModif",getAliasFileLastModif()),
-                new KeyValueMemberName("FileListDirectories",getAliasFileListDirectories()),
-                new KeyValueMemberName("FileListFiles",getAliasFileListFiles()),
-                new KeyValueMemberName("FileZipBin",getAliasFileZipBin()),
-                new KeyValueMemberName("FileZipBinArray",getAliasFileZipBinArray()),
-                new KeyValueMemberName("FileZipText",getAliasFileZipText()),
-                new KeyValueMemberName("FileZippedBin",getAliasFileZippedBin()),
-                new KeyValueMemberName("FileZippedBinArray",getAliasFileZippedBinArray()),
-                new KeyValueMemberName("FileZippedText",getAliasFileZippedText()),
-                new KeyValueMemberName("FileMakeDirs",getAliasFileMakeDirs())));
+                new KeyValueMemberName(READ,getAliasRead()),
+                new KeyValueMemberName(WRITE,getAliasWrite()),
+                new KeyValueMemberName(APPEND_TO_FILE,getAliasAppendToFile()),
+                new KeyValueMemberName(FILE_ABSOLUTE_PATH,getAliasFileAbsolutePath()),
+                new KeyValueMemberName(FILE_GET_LENGTH,getAliasFileGetLength()),
+                new KeyValueMemberName(FILE_GET_NAME,getAliasFileGetName()),
+                new KeyValueMemberName(FILE_GET_PARENT_PATH,getAliasFileGetParentPath()),
+                new KeyValueMemberName(FILE_IS_DIRECTORY,getAliasFileIsDirectory()),
+                new KeyValueMemberName(FILE_IS_FILE,getAliasFileIsFile()),
+                new KeyValueMemberName(FILE_IS_ABSOLUTE,getAliasFileIsAbsolute()),
+                new KeyValueMemberName(FILE_READ_BIN,getAliasFileReadBin()),
+                new KeyValueMemberName(FILE_WRITE_BIN,getAliasFileWriteBin()),
+                new KeyValueMemberName(FILE_DELETE,getAliasFileDelete()),
+                new KeyValueMemberName(FILE_RENAME,getAliasFileRename()),
+                new KeyValueMemberName(FILE_LAST_MODIF,getAliasFileLastModif()),
+                new KeyValueMemberName(FILE_LIST_DIRECTORIES,getAliasFileListDirectories()),
+                new KeyValueMemberName(FILE_LIST_FILES,getAliasFileListFiles()),
+                new KeyValueMemberName(FILE_ZIP_BIN,getAliasFileZipBin()),
+                new KeyValueMemberName(FILE_ZIP_BIN_ARRAY,getAliasFileZipBinArray()),
+                new KeyValueMemberName(FILE_ZIP_TEXT,getAliasFileZipText()),
+                new KeyValueMemberName(FILE_ZIPPED_BIN,getAliasFileZippedBin()),
+                new KeyValueMemberName(FILE_ZIPPED_BIN_ARRAY,getAliasFileZippedBinArray()),
+                new KeyValueMemberName(FILE_ZIPPED_TEXT,getAliasFileZippedText()),
+                new KeyValueMemberName(FILE_MAKE_DIRS,getAliasFileMakeDirs())));
         m_.put(getAliasEntryBinary(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("EntryName",getAliasEntryName()),
-                new KeyValueMemberName("EntryValue",getAliasEntryValue())));
+                new KeyValueMemberName(ENTRY_NAME,getAliasEntryName()),
+                new KeyValueMemberName(ENTRY_VALUE,getAliasEntryValue())));
         m_.put(getAliasEntryText(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("EntryName",getAliasEntryName()),
-                new KeyValueMemberName("EntryValue",getAliasEntryValue())));
+                new KeyValueMemberName(ENTRY_NAME,getAliasEntryName()),
+                new KeyValueMemberName(ENTRY_VALUE,getAliasEntryValue())));
         m_.put(getAliasCustIterator(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("Next",getAliasNext()),
-                new KeyValueMemberName("HasNext",getAliasHasNext())));
+                new KeyValueMemberName(NEXT,getAliasNext()),
+                new KeyValueMemberName(HAS_NEXT,getAliasHasNext())));
         m_.put(getAliasList(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("AddLi",getAliasAddLi()),
-                new KeyValueMemberName("SizeLi",getAliasSizeLi()),
-                new KeyValueMemberName("RemoveLi",getAliasRemoveLi()),
-                new KeyValueMemberName("Iterator",getAliasIterator()),
-                new KeyValueMemberName("ListClear",getAliasListClear())));
+                new KeyValueMemberName(ADD_LI,getAliasAddLi()),
+                new KeyValueMemberName(SIZE_LI,getAliasSizeLi()),
+                new KeyValueMemberName(REMOVE_LI,getAliasRemoveLi()),
+                new KeyValueMemberName(ITERATOR,getAliasIterator()),
+                new KeyValueMemberName(LIST_CLEAR,getAliasListClear())));
         m_.put(getAliasCustPair(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("GetFirst",getAliasGetFirst()),
-                new KeyValueMemberName("SetFirst",getAliasSetFirst()),
-                new KeyValueMemberName("GetSecond",getAliasGetSecond()),
-                new KeyValueMemberName("SetSecond",getAliasSetSecond())));
+                new KeyValueMemberName(GET_FIRST,getAliasGetFirst()),
+                new KeyValueMemberName(SET_FIRST,getAliasSetFirst()),
+                new KeyValueMemberName(GET_SECOND,getAliasGetSecond()),
+                new KeyValueMemberName(SET_SECOND,getAliasSetSecond())));
         m_.put(getAliasCustIterTable(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("NextPair",getAliasNextPair()),
-                new KeyValueMemberName("HasNextPair",getAliasHasNextPair())));
+                new KeyValueMemberName(NEXT_PAIR,getAliasNextPair()),
+                new KeyValueMemberName(HAS_NEXT_PAIR,getAliasHasNextPair())));
         m_.put(getAliasTable(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("GetFirstTa",getAliasGetFirstTa()),
-                new KeyValueMemberName("GetSecondTa",getAliasGetSecondTa()),
-                new KeyValueMemberName("SetFirstTa",getAliasSetFirstTa()),
-                new KeyValueMemberName("SetSecondTa",getAliasSetSecondTa()),
-                new KeyValueMemberName("AddTa",getAliasAddTa()),
-                new KeyValueMemberName("RemoveTa",getAliasRemoveTa()),
-                new KeyValueMemberName("SizeTa",getAliasSizeTa()),
-                new KeyValueMemberName("GetTa",getAliasGetTa()),
-                new KeyValueMemberName("IteratorTable",getAliasIteratorTable())
+                new KeyValueMemberName(GET_FIRST_TA,getAliasGetFirstTa()),
+                new KeyValueMemberName(GET_SECOND_TA,getAliasGetSecondTa()),
+                new KeyValueMemberName(SET_FIRST_TA,getAliasSetFirstTa()),
+                new KeyValueMemberName(SET_SECOND_TA,getAliasSetSecondTa()),
+                new KeyValueMemberName(ADD_TA,getAliasAddTa()),
+                new KeyValueMemberName(REMOVE_TA,getAliasRemoveTa()),
+                new KeyValueMemberName(SIZE_TA,getAliasSizeTa()),
+                new KeyValueMemberName(GET_TA,getAliasGetTa()),
+                new KeyValueMemberName(ITERATOR_TABLE,getAliasIteratorTable())
         ));
         m_.put(getAliasExecute(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("ExecuteTests",getAliasExecuteTests()),
-                new KeyValueMemberName("ExecuteConvert",getAliasExecuteConvert()),
-                new KeyValueMemberName("ExecuteSetupError",getAliasExecuteSetupError()),
-                new KeyValueMemberName("ExecuteSetupNoException",getAliasExecuteSetupNoException()),
-                new KeyValueMemberName("ExecuteExecute",getAliasExecuteExecute())
+                new KeyValueMemberName(EXECUTE_TESTS,getAliasExecuteTests()),
+                new KeyValueMemberName(EXECUTE_CONVERT,getAliasExecuteConvert()),
+                new KeyValueMemberName(EXECUTE_SETUP_ERROR,getAliasExecuteSetupError()),
+                new KeyValueMemberName(EXECUTE_SETUP_NO_EXCEPTION,getAliasExecuteSetupNoException()),
+                new KeyValueMemberName(EXECUTE_EXECUTE,getAliasExecuteExecute())
         ));
         m_.put(getAliasParameters(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("ParametersLocation",getAliasParametersLocation()),
-                new KeyValueMemberName("ParametersMethod",getAliasParametersMethod())
+                new KeyValueMemberName(PARAMETERS_LOCATION,getAliasParametersLocation()),
+                new KeyValueMemberName(PARAMETERS_METHOD,getAliasParametersMethod())
         ));
         m_.put(getAliasTest(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("TestException",getAliasTestException()),
-                new KeyValueMemberName("TestNullException",getAliasTestNullException())
+                new KeyValueMemberName(TEST_EXCEPTION,getAliasTestException()),
+                new KeyValueMemberName(TEST_NULL_EXCEPTION,getAliasTestNullException())
         ));
         m_.put(getAliasAssert(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("AssertAssert",getAliasAssertAssert()),
-                new KeyValueMemberName("AssertAssertNotNull",getAliasAssertAssertNotNull()),
-                new KeyValueMemberName("AssertAssertNull",getAliasAssertAssertNull()),
-                new KeyValueMemberName("AssertAssertSame",getAliasAssertAssertSame()),
-                new KeyValueMemberName("AssertAssertTrue",getAliasAssertAssertTrue())
+                new KeyValueMemberName(ASSERT_ASSERT,getAliasAssertAssert()),
+                new KeyValueMemberName(ASSERT_ASSERT_NOT_NULL,getAliasAssertAssertNotNull()),
+                new KeyValueMemberName(ASSERT_ASSERT_NULL,getAliasAssertAssertNull()),
+                new KeyValueMemberName(ASSERT_ASSERT_SAME,getAliasAssertAssertSame()),
+                new KeyValueMemberName(ASSERT_ASSERT_TRUE,getAliasAssertAssertTrue())
         ));
         m_.put(getAliasDifference(), new CustList<KeyValueMemberName>(
         ));
@@ -2038,32 +2192,32 @@ public class LgNamesUtils extends LgNames {
     @Override
     public StringMap<String> allRefTypes() {
         StringMap<String> ref_ =  super.allRefTypes();
-        ref_.addEntry("Thread",getAliasThread());
-        ref_.addEntry("ThreadSet",getAliasThreadSet());
-        ref_.addEntry("ReentrantLock",getAliasReentrantLock());
-        ref_.addEntry("AtomicBoolean",getAliasAtomicBoolean());
-        ref_.addEntry("AtomicInteger",getAliasAtomicInteger());
-        ref_.addEntry("AtomicLong",getAliasAtomicLong());
-        ref_.addEntry("File",getAliasFile());
-        ref_.addEntry("IllegalThreadStateException",getAliasIllegalThreadStateException());
-        ref_.addEntry("CustIterator",getAliasCustIterator());
-        ref_.addEntry("List",getAliasList());
-        ref_.addEntry("Runnable",getAliasRunnable());
-        ref_.addEntry("FormatType",getAliasFormatType());
-        ref_.addEntry("CustPair",getAliasCustPair());
-        ref_.addEntry("CustIterTable",getAliasCustIterTable());
-        ref_.addEntry("Table",getAliasTable());
-        ref_.addEntry("Execute",getAliasExecute());
-        ref_.addEntry("InfoTest",getAliasInfoTest());
-        ref_.addEntry("ExecutedTest",getAliasExecutedTest());
-        ref_.addEntry("Result",getAliasResult());
-        ref_.addEntry("Before",getAliasBefore());
-        ref_.addEntry("After",getAliasAfter());
-        ref_.addEntry("Parameters",getAliasParameters());
-        ref_.addEntry("Test",getAliasTest());
-        ref_.addEntry("Assert",getAliasAssert());
-        ref_.addEntry("Difference",getAliasDifference());
-        ref_.addEntry("ConcurrentError",getAliasConcurrentError());
+        ref_.addEntry(THREAD,getAliasThread());
+        ref_.addEntry(THREAD_SET,getAliasThreadSet());
+        ref_.addEntry(REENTRANT_LOCK,getAliasReentrantLock());
+        ref_.addEntry(ATOMIC_BOOLEAN,getAliasAtomicBoolean());
+        ref_.addEntry(ATOMIC_INTEGER,getAliasAtomicInteger());
+        ref_.addEntry(ATOMIC_LONG,getAliasAtomicLong());
+        ref_.addEntry(FILE,getAliasFile());
+        ref_.addEntry(ILLEGAL_THREAD_STATE_EXCEPTION,getAliasIllegalThreadStateException());
+        ref_.addEntry(CUST_ITERATOR,getAliasCustIterator());
+        ref_.addEntry(LIST,getAliasList());
+        ref_.addEntry(RUNNABLE,getAliasRunnable());
+        ref_.addEntry(FORMAT_TYPE,getAliasFormatType());
+        ref_.addEntry(CUST_PAIR,getAliasCustPair());
+        ref_.addEntry(CUST_ITER_TABLE,getAliasCustIterTable());
+        ref_.addEntry(TABLE,getAliasTable());
+        ref_.addEntry(EXECUTE,getAliasExecute());
+        ref_.addEntry(INFO_TEST,getAliasInfoTest());
+        ref_.addEntry(EXECUTED_TEST,getAliasExecutedTest());
+        ref_.addEntry(RESULT,getAliasResult());
+        ref_.addEntry(BEFORE,getAliasBefore());
+        ref_.addEntry(AFTER,getAliasAfter());
+        ref_.addEntry(PARAMETERS,getAliasParameters());
+        ref_.addEntry(TEST,getAliasTest());
+        ref_.addEntry(ASSERT,getAliasAssert());
+        ref_.addEntry(DIFFERENCE,getAliasDifference());
+        ref_.addEntry(CONCURRENT_ERROR,getAliasConcurrentError());
         return ref_;
     }
 
@@ -3325,88 +3479,88 @@ public class LgNamesUtils extends LgNames {
         keyWord(_kw,util_,_cust);
     }
     public void keyWord(KeyWords _kw,StringMap<String> _util,StringMap<String> _cust) {
-        _kw.setKeyWordContinue(get(_util,_cust,"Continue"));
-        _kw.setKeyWordInstanceof(get(_util,_cust,"Instanceof"));
-        _kw.setKeyWordInterface(get(_util,_cust,"Interface"));
-        _kw.setKeyWordAbstract(get(_util,_cust,"Abstract"));
-        _kw.setKeyWordElseif(get(_util,_cust,"Elseif"));
-        _kw.setKeyWordCast(get(_util,_cust,"Cast"));
-        _kw.setKeyWordExplicit(get(_util,_cust,"Explicit"));
-        _kw.setKeyWordFor(get(_util,_cust,"For"));
-        _kw.setKeyWordVar(get(_util,_cust,"Var"));
-        _kw.setKeyWordStatic(get(_util,_cust,"Static"));
-        _kw.setKeyWordStaticCall(get(_util,_cust,"StaticCall"));
-        _kw.setKeyWordNull(get(_util,_cust,"Null"));
-        _kw.setKeyWordClass(get(_util,_cust,"Class"));
-        _kw.setKeyWordFalse(get(_util,_cust,"False"));
-        _kw.setKeyWordFinal(get(_util,_cust,"Final"));
-        _kw.setKeyWordBreak(get(_util,_cust,"Break"));
-        _kw.setKeyWordIf(get(_util,_cust,"If"));
-        _kw.setKeyWordNew(get(_util,_cust,"New"));
-        _kw.setKeyWordWhile(get(_util,_cust,"While"));
-        _kw.setKeyWordReturn(get(_util,_cust,"Return"));
-        _kw.setKeyWordTrue(get(_util,_cust,"True"));
-        _kw.setKeyWordPublic(get(_util,_cust,"Public"));
-        _kw.setKeyWordPrivate(get(_util,_cust,"Private"));
-        _kw.setKeyWordAnnotation(get(_util,_cust,"Annotation"));
-        _kw.setKeyWordToString(get(_util,_cust,"ToString"));
-        _kw.setKeyWordNbSufBytePrim(get(_util,_cust,"NbSufBytePrim"));
-        _kw.setKeyWordNbSufByte(get(_util,_cust,"NbSufByte"));
-        _kw.setKeyWordNbSufShortPrim(get(_util,_cust,"NbSufShortPrim"));
-        _kw.setKeyWordNbSufShort(get(_util,_cust,"NbSufShort"));
-        _kw.setKeyWordNbSufCharacterPrim(get(_util,_cust,"NbSufCharacterPrim"));
-        _kw.setKeyWordNbSufCharacter(get(_util,_cust,"NbSufCharacter"));
-        _kw.setKeyWordNbSufIntegerPrim(get(_util,_cust,"NbSufIntegerPrim"));
-        _kw.setKeyWordNbSufInteger(get(_util,_cust,"NbSufInteger"));
-        _kw.setKeyWordNbSufLongPrim(get(_util,_cust,"NbSufLongPrim"));
-        _kw.setKeyWordNbSufLong(get(_util,_cust,"NbSufLong"));
-        _kw.setKeyWordNbSufFloatPrim(get(_util,_cust,"NbSufFloatPrim"));
-        _kw.setKeyWordNbSufFloat(get(_util,_cust,"NbSufFloat"));
-        _kw.setKeyWordNbSufDoublePrim(get(_util,_cust,"NbSufDoublePrim"));
-        _kw.setKeyWordNbSufDouble(get(_util,_cust,"NbSufDouble"));
-        _kw.setKeyWordIter(get(_util,_cust,"Iter"));
-        _kw.setKeyWordValue(get(_util,_cust,"Value"));
-        _kw.setKeyWordElse(get(_util,_cust,"Else"));
-        _kw.setKeyWordCatch(get(_util,_cust,"Catch"));
-        _kw.setKeyWordThrow(get(_util,_cust,"Throw"));
-        _kw.setKeyWordTry(get(_util,_cust,"Try"));
-        _kw.setKeyWordThis(get(_util,_cust,"This"));
-        _kw.setKeyWordSuper(get(_util,_cust,"Super"));
-        _kw.setKeyWordCase(get(_util,_cust,"Case"));
-        _kw.setKeyWordDo(get(_util,_cust,"Do"));
-        _kw.setKeyWordEnum(get(_util,_cust,"Enum"));
-        _kw.setKeyWordSwitch(get(_util,_cust,"Switch"));
-        _kw.setKeyWordIntern(get(_util,_cust,"Intern"));
-        _kw.setKeyWordNormal(get(_util,_cust,"Normal"));
-        _kw.setKeyWordEscTab(get(_util,_cust,"EscTab"));
-        _kw.setKeyWordNbHex(get(_util,_cust,"NbHex"));
-        _kw.setKeyWordNbBin(get(_util,_cust,"NbBin"));
-        _kw.setKeyWordThat(get(_util,_cust,"That"));
-        _kw.setKeyWordBool(get(_util,_cust,"Bool"));
-        _kw.setKeyWordValues(get(_util,_cust,"Values"));
-        _kw.setKeyWordLambda(get(_util,_cust,"Lambda"));
-        _kw.setKeyWordVararg(get(_util,_cust,"Vararg"));
-        _kw.setKeyWordId(get(_util,_cust,"Id"));
-        _kw.setKeyWordForeach(get(_util,_cust,"Foreach"));
-        _kw.setKeyWordNbExpBin(get(_util,_cust,"NbExpBin"));
-        _kw.setKeyWordClasschoice(get(_util,_cust,"Classchoice"));
-        _kw.setKeyWordFirstopt(get(_util,_cust,"Firstopt"));
-        _kw.setKeyWordPackage(get(_util,_cust,"Package"));
-        _kw.setKeyWordFinally(get(_util,_cust,"Finally"));
-        _kw.setKeyWordEscUnicode(get(_util,_cust,"EscUnicode"));
-        _kw.setKeyWordThisaccess(get(_util,_cust,"Thisaccess"));
-        _kw.setKeyWordValueOf(get(_util,_cust,"ValueOf"));
-        _kw.setKeyWordDefaultValue(get(_util,_cust,"DefaultValue"));
-        _kw.setKeyWordEscLine(get(_util,_cust,"EscLine"));
-        _kw.setKeyWordOperator(get(_util,_cust,"Operator"));
-        _kw.setKeyWordInterfaces(get(_util,_cust,"Interfaces"));
-        _kw.setKeyWordSuperaccess(get(_util,_cust,"Superaccess"));
-        _kw.setKeyWordEscBound(get(_util,_cust,"EscBound"));
-        _kw.setKeyWordEscForm(get(_util,_cust,"EscForm"));
-        _kw.setKeyWordEscFeed(get(_util,_cust,"EscFeed"));
-        _kw.setKeyWordNbExpDec(get(_util,_cust,"NbExpDec"));
-        _kw.setKeyWordProtected(get(_util,_cust,"Protected"));
-        _kw.setKeyWordDefault(get(_util,_cust,"Default"));
+        _kw.setKeyWordContinue(get(_util,_cust, CONTINUE));
+        _kw.setKeyWordInstanceof(get(_util,_cust, INSTANCEOF));
+        _kw.setKeyWordInterface(get(_util,_cust, INTERFACE));
+        _kw.setKeyWordAbstract(get(_util,_cust, ABSTRACT));
+        _kw.setKeyWordElseif(get(_util,_cust, ELSEIF));
+        _kw.setKeyWordCast(get(_util,_cust, CAST));
+        _kw.setKeyWordExplicit(get(_util,_cust, EXPLICIT));
+        _kw.setKeyWordFor(get(_util,_cust, FOR));
+        _kw.setKeyWordVar(get(_util,_cust, VAR));
+        _kw.setKeyWordStatic(get(_util,_cust, STATIC));
+        _kw.setKeyWordStaticCall(get(_util,_cust, STATIC_CALL));
+        _kw.setKeyWordNull(get(_util,_cust, NULL));
+        _kw.setKeyWordClass(get(_util,_cust, CLASS));
+        _kw.setKeyWordFalse(get(_util,_cust, FALSE));
+        _kw.setKeyWordFinal(get(_util,_cust, FINAL));
+        _kw.setKeyWordBreak(get(_util,_cust, BREAK));
+        _kw.setKeyWordIf(get(_util,_cust, IF));
+        _kw.setKeyWordNew(get(_util,_cust, NEW));
+        _kw.setKeyWordWhile(get(_util,_cust, WHILE));
+        _kw.setKeyWordReturn(get(_util,_cust, RETURN));
+        _kw.setKeyWordTrue(get(_util,_cust, TRUE));
+        _kw.setKeyWordPublic(get(_util,_cust, PUBLIC));
+        _kw.setKeyWordPrivate(get(_util,_cust, PRIVATE));
+        _kw.setKeyWordAnnotation(get(_util,_cust, ANNOTATION));
+        _kw.setKeyWordToString(get(_util,_cust, TO_STRING));
+        _kw.setKeyWordNbSufBytePrim(get(_util,_cust, NB_SUF_BYTE_PRIM));
+        _kw.setKeyWordNbSufByte(get(_util,_cust, NB_SUF_BYTE));
+        _kw.setKeyWordNbSufShortPrim(get(_util,_cust, NB_SUF_SHORT_PRIM));
+        _kw.setKeyWordNbSufShort(get(_util,_cust, NB_SUF_SHORT));
+        _kw.setKeyWordNbSufCharacterPrim(get(_util,_cust, NB_SUF_CHARACTER_PRIM));
+        _kw.setKeyWordNbSufCharacter(get(_util,_cust, NB_SUF_CHARACTER));
+        _kw.setKeyWordNbSufIntegerPrim(get(_util,_cust, NB_SUF_INTEGER_PRIM));
+        _kw.setKeyWordNbSufInteger(get(_util,_cust, NB_SUF_INTEGER));
+        _kw.setKeyWordNbSufLongPrim(get(_util,_cust, NB_SUF_LONG_PRIM));
+        _kw.setKeyWordNbSufLong(get(_util,_cust, NB_SUF_LONG));
+        _kw.setKeyWordNbSufFloatPrim(get(_util,_cust, NB_SUF_FLOAT_PRIM));
+        _kw.setKeyWordNbSufFloat(get(_util,_cust, NB_SUF_FLOAT));
+        _kw.setKeyWordNbSufDoublePrim(get(_util,_cust, NB_SUF_DOUBLE_PRIM));
+        _kw.setKeyWordNbSufDouble(get(_util,_cust, NB_SUF_DOUBLE));
+        _kw.setKeyWordIter(get(_util,_cust, ITER));
+        _kw.setKeyWordValue(get(_util,_cust, VALUE));
+        _kw.setKeyWordElse(get(_util,_cust, ELSE));
+        _kw.setKeyWordCatch(get(_util,_cust, CATCH));
+        _kw.setKeyWordThrow(get(_util,_cust, THROW));
+        _kw.setKeyWordTry(get(_util,_cust, TRY));
+        _kw.setKeyWordThis(get(_util,_cust, THIS));
+        _kw.setKeyWordSuper(get(_util,_cust, SUPER));
+        _kw.setKeyWordCase(get(_util,_cust, CASE));
+        _kw.setKeyWordDo(get(_util,_cust, DO));
+        _kw.setKeyWordEnum(get(_util,_cust, ENUM));
+        _kw.setKeyWordSwitch(get(_util,_cust, SWITCH));
+        _kw.setKeyWordIntern(get(_util,_cust, INTERN));
+        _kw.setKeyWordNormal(get(_util,_cust, NORMAL));
+        _kw.setKeyWordEscTab(get(_util,_cust, ESC_TAB));
+        _kw.setKeyWordNbHex(get(_util,_cust, NB_HEX));
+        _kw.setKeyWordNbBin(get(_util,_cust, NB_BIN));
+        _kw.setKeyWordThat(get(_util,_cust, THAT));
+        _kw.setKeyWordBool(get(_util,_cust, BOOL));
+        _kw.setKeyWordValues(get(_util,_cust, VALUES));
+        _kw.setKeyWordLambda(get(_util,_cust, LAMBDA));
+        _kw.setKeyWordVararg(get(_util,_cust, VARARG));
+        _kw.setKeyWordId(get(_util,_cust, ID));
+        _kw.setKeyWordForeach(get(_util,_cust, FOREACH));
+        _kw.setKeyWordNbExpBin(get(_util,_cust, NB_EXP_BIN));
+        _kw.setKeyWordClasschoice(get(_util,_cust, CLASSCHOICE));
+        _kw.setKeyWordFirstopt(get(_util,_cust, FIRSTOPT));
+        _kw.setKeyWordPackage(get(_util,_cust, PACKAGE));
+        _kw.setKeyWordFinally(get(_util,_cust, FINALLY));
+        _kw.setKeyWordEscUnicode(get(_util,_cust, ESC_UNICODE));
+        _kw.setKeyWordThisaccess(get(_util,_cust, THISACCESS));
+        _kw.setKeyWordValueOf(get(_util,_cust, VALUE_OF));
+        _kw.setKeyWordDefaultValue(get(_util,_cust, DEFAULT_VALUE));
+        _kw.setKeyWordEscLine(get(_util,_cust, ESC_LINE));
+        _kw.setKeyWordOperator(get(_util,_cust, OPERATOR));
+        _kw.setKeyWordInterfaces(get(_util,_cust, INTERFACES));
+        _kw.setKeyWordSuperaccess(get(_util,_cust, SUPERACCESS));
+        _kw.setKeyWordEscBound(get(_util,_cust, ESC_BOUND));
+        _kw.setKeyWordEscForm(get(_util,_cust, ESC_FORM));
+        _kw.setKeyWordEscFeed(get(_util,_cust, ESC_FEED));
+        _kw.setKeyWordNbExpDec(get(_util,_cust, NB_EXP_DEC));
+        _kw.setKeyWordProtected(get(_util,_cust, PROTECTED));
+        _kw.setKeyWordDefault(get(_util,_cust, DEFAULT));
     }
     public void otherAlias(String _lang, StringMap<String>_cust) {
         String fileName_ = ResourcesMessagesUtil.getPropertiesPath("resources_lg/aliases",_lang,"types");
@@ -3418,434 +3572,434 @@ public class LgNamesUtils extends LgNames {
         otherAlias(_util,_cust);
     }
     private void otherAlias(StringMap<String> _util, StringMap<String> _cust) {
-        setDefaultPkg(get(_util,_cust,"DefaultPkg"));
-        setAliasMaxValueField(get(_util,_cust,"MAX_VALUE"));
-        setAliasMinValueField(get(_util,_cust,"MIN_VALUE"));
-        setAliasBadEncode(get(_util,_cust,"BadEncode"));
-        setAliasDivisionZero(get(_util,_cust,"DivisionZero"));
-        setAliasCharSequence(get(_util,_cust,"CharSequence"));
-        setAliasIteratorType(get(_util,_cust,"IteratorType"));
-        setAliasEnumParam(get(_util,_cust,"EnumParam"));
-        setAliasGetMessage(get(_util,_cust,"GetMessage"));
-        setAliasIteratorTableTypeVarFirst(get(_util,_cust,"IteratorTableTypeVarFirst"));
-        setAliasIteratorTableTypeVarSecond(get(_util,_cust,"IteratorTableTypeVarSecond"));
-        setAliasEquals(get(_util,_cust,"Equals"));
-        setAliasLong(get(_util,_cust,"Long"));
-        setAliasShort(get(_util,_cust,"Short"));
-        setAliasPrimChar(get(_util,_cust,"PrimChar"));
-        setAliasNumber(get(_util,_cust,"Number"));
-        setAliasParseInt(get(_util,_cust,"ParseInt"));
-        setAliasCompare(get(_util,_cust,"Compare"));
-        setAliasIntValue(get(_util,_cust,"IntValue"));
-        setAliasBoolean(get(_util,_cust,"Boolean"));
-        setAliasPrimLong(get(_util,_cust,"PrimLong"));
-        setAliasByte(get(_util,_cust,"Byte"));
-        setAliasFloat(get(_util,_cust,"Float"));
-        setAliasDouble(get(_util,_cust,"Double"));
-        setAliasInteger(get(_util,_cust,"Integer"));
-        setAliasDigit(get(_util,_cust,"Digit"));
-        setAliasIsDigit(get(_util,_cust,"IsDigit"));
-        setAliasMath(get(_util,_cust,"Math"));
-        setAliasBadSize(get(_util,_cust,"BadSize"));
-        setAliasNullPe(get(_util,_cust,"NullPe"));
-        setAliasObject(get(_util,_cust,"Object"));
-        setAliasIterator(get(_util,_cust,"Iterator"));
-        setAliasCastType(get(_util,_cust,"CastType"));
-        setAliasStore(get(_util,_cust,"Store"));
-        setAliasEnumType(get(_util,_cust,"EnumType"));
-        setAliasPrimByte(get(_util,_cust,"PrimByte"));
-        setAliasError(get(_util,_cust,"Error"));
-        setAliasVoid(get(_util,_cust,"Void"));
-        setAliasGetCause(get(_util,_cust,"GetCause"));
-        setAliasBadIndex(get(_util,_cust,"BadIndex"));
-        setAliasEnums(get(_util,_cust,"Enums"));
-        setAliasIterable(get(_util,_cust,"Iterable"));
-        setAliasNbFormat(get(_util,_cust,"NbFormat"));
-        setAliasSof(get(_util,_cust,"Sof"));
-        setAliasParseFloat(get(_util,_cust,"ParseFloat"));
-        setAliasToStringMethod(get(_util,_cust,"ToStringMethod"));
-        setAliasParseLongOrNull(get(_util,_cust,"ParseLongOrNull"));
-        setAliasParseShortOrNull(get(_util,_cust,"ParseShortOrNull"));
-        setAliasParseFloatOrNull(get(_util,_cust,"ParseFloatOrNull"));
-        setAliasParseDoubleOrNull(get(_util,_cust,"ParseDoubleOrNull"));
-        setAliasByteValue(get(_util,_cust,"ByteValue"));
-        setAliasCharValue(get(_util,_cust,"CharValue"));
-        setAliasPrimBoolean(get(_util,_cust,"PrimBoolean"));
-        setAliasParseIntOrNull(get(_util,_cust,"ParseIntOrNull"));
-        setAliasPrimShort(get(_util,_cust,"PrimShort"));
-        setAliasParseBoolean(get(_util,_cust,"ParseBoolean"));
-        setAliasParseShort(get(_util,_cust,"ParseShort"));
-        setAliasPrimFloat(get(_util,_cust,"PrimFloat"));
-        setAliasCompareTo(get(_util,_cust,"CompareTo"));
-        setAliasCharacter(get(_util,_cust,"Character"));
-        setAliasParseLong(get(_util,_cust,"ParseLong"));
-        setAliasValueOfMethod(get(_util,_cust,"ValueOfMethod"));
-        setAliasPrimInteger(get(_util,_cust,"PrimInteger"));
-        setAliasParseByteOrNull(get(_util,_cust,"ParseByteOrNull"));
-        setAliasPrimDouble(get(_util,_cust,"PrimDouble"));
-        setAliasBooleanValue(get(_util,_cust,"BooleanValue"));
-        setAliasShortValue(get(_util,_cust,"ShortValue"));
-        setAliasParseDouble(get(_util,_cust,"ParseDouble"));
-        setAliasIllegalArg(get(_util,_cust,"IllegalArg"));
-        setAliasParseByte(get(_util,_cust,"ParseByte"));
-        setAliasIsUpperCase(get(_util,_cust,"IsUpperCase"));
-        setAliasIsWordChar(get(_util,_cust,"IsWordChar"));
-        setAliasIsWhitespace(get(_util,_cust,"IsWhitespace"));
-        setAliasIsLetterOrDigit(get(_util,_cust,"IsLetterOrDigit"));
-        setAliasFloatValue(get(_util,_cust,"FloatValue"));
-        setAliasDoubleValue(get(_util,_cust,"DoubleValue"));
-        setAliasLongValue(get(_util,_cust,"LongValue"));
-        setAliasIsLowerCase(get(_util,_cust,"IsLowerCase"));
-        setAliasIndexOf(get(_util,_cust,"IndexOf"));
-        setAliasString(get(_util,_cust,"String"));
-        setAliasIsEmpty(get(_util,_cust,"IsEmpty"));
-        setAliasTrim(get(_util,_cust,"Trim"));
-        setAliasGetBytes(get(_util,_cust,"GetBytes"));
-        setAliasForDigit(get(_util,_cust,"ForDigit"));
-        setAliasIsSpace(get(_util,_cust,"IsSpace"));
-        setAliasGetType(get(_util,_cust,"GetType"));
-        setAliasContains(get(_util,_cust,"Contains"));
-        setAliasReplace(get(_util,_cust,"Replace"));
-        setAliasFormat(get(_util,_cust,"Format"));
-        setAliasEndsWith(get(_util,_cust,"EndsWith"));
-        setAliasCapacity(get(_util,_cust,"Capacity"));
-        setAliasSplit(get(_util,_cust,"Split"));
-        setAliasAppend(get(_util,_cust,"Append"));
-        setAliasIsLetter(get(_util,_cust,"IsLetter"));
-        setAliasIsNan(get(_util,_cust,"IsNan"));
-        setAliasLength(get(_util,_cust,"Length"));
-        setAliasCharAt(get(_util,_cust,"CharAt"));
-        setAliasClone(get(_util,_cust,"Clone"));
-        setAliasName(get(_util,_cust,"Name"));
-        setAliasCall(get(_util,_cust,"Call"));
-        setAliasSame(get(_util,_cust,"Same"));
-        setAliasMod(get(_util,_cust,"Mod"));
-        setAliasReverse(get(_util,_cust,"Reverse"));
-        setAliasInsert(get(_util,_cust,"Insert"));
-        setAliasAbs(get(_util,_cust,"Abs"));
-        setAliasHasNext(get(_util,_cust,"HasNext"));
-        setAliasPairType(get(_util,_cust,"PairType"));
-        setAliasQuot(get(_util,_cust,"Quot"));
-        setAliasNext(get(_util,_cust,"Next"));
-        setAliasOrdinal(get(_util,_cust,"Ordinal"));
-        setAliasGetFirst(get(_util,_cust,"GetFirst"));
-        setAliasFct(get(_util,_cust,"Fct"));
-        setAliasDelete(get(_util,_cust,"Delete"));
-        setAliasClear(get(_util,_cust,"Clear"));
-        setAliasNextPair(get(_util,_cust,"NextPair"));
-        setAliasSubstring(get(_util,_cust,"Substring"));
-        setAliasSetCharAt(get(_util,_cust,"SetCharAt"));
-        setAliasEqualsIgnoreCase(get(_util,_cust,"EqualsIgnoreCase"));
-        setAliasIteratorTableType(get(_util,_cust,"IteratorTableType"));
-        setAliasDeleteCharAt(get(_util,_cust,"DeleteCharAt"));
-        setAliasStartsWith(get(_util,_cust,"StartsWith"));
-        setAliasLastIndexOf(get(_util,_cust,"LastIndexOf"));
-        setAliasRegionMatches(get(_util,_cust,"RegionMatches"));
-        setAliasIteratorTable(get(_util,_cust,"IteratorTable"));
-        setAliasIterableTable(get(_util,_cust,"IterableTable"));
-        setAliasToLowerCase(get(_util,_cust,"ToLowerCase"));
-        setAliasStringBuilder(get(_util,_cust,"StringBuilder"));
-        setAliasToUpperCase(get(_util,_cust,"ToUpperCase"));
-        setAliasEnsureCapacity(get(_util,_cust,"EnsureCapacity"));
-        setAliasSetLength(get(_util,_cust,"SetLength"));
-        setAliasTrimToSize(get(_util,_cust,"TrimToSize"));
-        setAliasHasNextPair(get(_util,_cust,"HasNextPair"));
-        setAliasReplacement(get(_util,_cust,"Replacement"));
-        setAliasGetOldString(get(_util,_cust,"GetOldString"));
-        setAliasGetNewString(get(_util,_cust,"GetNewString"));
-        setAliasGetSecond(get(_util,_cust,"GetSecond"));
-        setAliasSubSequence(get(_util,_cust,"SubSequence"));
-        setAliasCompareToIgnoreCase(get(_util,_cust,"CompareToIgnoreCase"));
-        setAliasToCharArray(get(_util,_cust,"ToCharArray"));
-        setAliasReplaceMultiple(get(_util,_cust,"ReplaceMultiple"));
-        setAliasSplitStrings(get(_util,_cust,"SplitStrings"));
-        setAliasSplitChars(get(_util,_cust,"SplitChars"));
-        setAliasIsInfinite(get(_util,_cust,"IsInfinite"));
-        setAliasGetDirectionality(get(_util,_cust,"GetDirectionality"));
-        setAliasGetCharType(get(_util,_cust,"GetCharType"));
-        setAliasIterableTableVarSecond(get(_util,_cust,"IterableTableVarSecond"));
-        setAliasGetString(get(_util,_cust,"GetString"));
-        setAliasGetAnnotationsParameters(get(_util,_cust,"GetAnnotationsParameters"));
-        setAliasReadResourcesNames(get(_util,_cust,"ReadResourcesNames"));
-        setAliasInvokeTarget(get(_util,_cust,"InvokeTarget"));
-        setAliasGetAnnotations(get(_util,_cust,"GetAnnotations"));
-        setAliasGetVariableOwner(get(_util,_cust,"GetVariableOwner"));
-        setAliasReadResources(get(_util,_cust,"ReadResources"));
-        setAliasResources(get(_util,_cust,"Resources"));
-        setAliasClassNotFoundError(get(_util,_cust,"ClassNotFoundError"));
-        setAliasEnumValues(get(_util,_cust,"EnumValues"));
-        setAliasEnumPredValueOf(get(_util,_cust,"EnumPredValueOf"));
-        setAliasIteratorTypeVar(get(_util,_cust,"IteratorTypeVar"));
-        setAliasClassType(get(_util,_cust,"ClassType"));
-        setAliasIterableTableVarFirst(get(_util,_cust,"IterableTableVarFirst"));
-        setAliasPairTypeVarFirst(get(_util,_cust,"PairTypeVarFirst"));
-        setAliasErrorInitClass(get(_util,_cust,"ErrorInitClass"));
-        setAliasAnnotationType(get(_util,_cust,"AnnotationType"));
-        setAliasGetGenericVariableOwner(get(_util,_cust,"GetGenericVariableOwner"));
-        setAliasEnumParamVar(get(_util,_cust,"EnumParamVar"));
-        setAliasPairTypeVarSecond(get(_util,_cust,"PairTypeVarSecond"));
-        setAliasAnnotated(get(_util,_cust,"Annotated"));
-        setAliasIterableVar(get(_util,_cust,"IterableVar"));
-        setAliasGetDefaultValue(get(_util,_cust,"GetDefaultValue"));
-        setAliasMakeGeneric(get(_util,_cust,"MakeGeneric"));
-        setAliasGetAllClasses(get(_util,_cust,"GetAllClasses"));
-        setAliasGetOperators(get(_util,_cust,"GetOperators"));
-        setAliasGetDeclaredMethods(get(_util,_cust,"GetDeclaredMethods"));
-        setAliasGetDeclaredStaticMethods(get(_util,_cust,"GetDeclaredStaticMethods"));
-        setAliasGetDeclaredConstructors(get(_util,_cust,"GetDeclaredConstructors"));
-        setAliasGetDeclaredFields(get(_util,_cust,"GetDeclaredFields"));
-        setAliasField(get(_util,_cust,"Field"));
-        setAliasIsNormal(get(_util,_cust,"IsNormal"));
-        setAliasSameRef(get(_util,_cust,"SameRef"));
-        setAliasIsPublic(get(_util,_cust,"IsPublic"));
-        setAliasIsArray(get(_util,_cust,"IsArray"));
-        setAliasArrayGet(get(_util,_cust,"ArrayGet"));
-        setAliasMethod(get(_util,_cust,"Method"));
-        setAliasGetField(get(_util,_cust,"GetField"));
-        setAliasInvoke(get(_util,_cust,"Invoke"));
-        setAliasIsEnum(get(_util,_cust,"IsEnum"));
-        setAliasInit(get(_util,_cust,"Init"));
-        setAliasForName(get(_util,_cust,"ForName"));
-        setAliasIsStatic(get(_util,_cust,"IsStatic"));
-        setAliasIsStaticCall(get(_util,_cust,"IsStaticCall"));
-        setAliasIsInstanceMethod(get(_util,_cust,"IsInstanceMethod"));
-        setAliasGetName(get(_util,_cust,"GetName"));
-        setAliasIsClass(get(_util,_cust,"IsClass"));
-        setAliasSetField(get(_util,_cust,"SetField"));
-        setAliasGetClass(get(_util,_cust,"GetClass"));
-        setAliasIsFinal(get(_util,_cust,"IsFinal"));
-        setAliasArraySet(get(_util,_cust,"ArraySet"));
-        setAliasXor(get(_util,_cust,"Xor"));
-        setAliasMult(get(_util,_cust,"Mult"));
-        setAliasRandom(get(_util,_cust,"Random"));
-        setAliasNegBin(get(_util,_cust,"NegBin"));
-        setAliasMinus(get(_util,_cust,"Minus"));
-        setAliasEnumName(get(_util,_cust,"EnumName"));
-        setAliasBinMod(get(_util,_cust,"BinMod"));
-        setAliasLt(get(_util,_cust,"Lt"));
-        setAliasGt(get(_util,_cust,"Gt"));
-        setAliasLe(get(_util,_cust,"Le"));
-        setAliasGe(get(_util,_cust,"Ge"));
-        setAliasAnd(get(_util,_cust,"And"));
-        setAliasOr(get(_util,_cust,"Or"));
-        setAliasPlus(get(_util,_cust,"Plus"));
-        setAliasBinQuot(get(_util,_cust,"BinQuot"));
-        setAliasNeg(get(_util,_cust,"Neg"));
-        setAliasRotateLeft(get(_util,_cust,"RotateLeft"));
-        setAliasEnumOrdinal(get(_util,_cust,"EnumOrdinal"));
-        setAliasShiftRight(get(_util,_cust,"ShiftRight"));
-        setAliasCurrentFullStack(get(_util,_cust,"CurrentFullStack"));
-        setAliasGetBounds(get(_util,_cust,"GetBounds"));
-        setAliasGetDeclaringClass(get(_util,_cust,"GetDeclaringClass"));
-        setAliasStackTraceElement(get(_util,_cust,"StackTraceElement"));
-        setAliasEnumValueOf(get(_util,_cust,"EnumValueOf"));
-        setAliasArrayNewInstance(get(_util,_cust,"ArrayNewInstance"));
-        setAliasGetEnumConstants(get(_util,_cust,"GetEnumConstants"));
-        setAliasArrayGetLength(get(_util,_cust,"ArrayGetLength"));
-        setAliasRotateRight(get(_util,_cust,"RotateRight"));
-        setAliasGetGenericBounds(get(_util,_cust,"GetGenericBounds"));
-        setAliasBitShiftLeft(get(_util,_cust,"BitShiftLeft"));
-        setAliasShiftLeft(get(_util,_cust,"ShiftLeft"));
-        setAliasDefaultInstance(get(_util,_cust,"DefaultInstance"));
-        setAliasCurrentStack(get(_util,_cust,"CurrentStack"));
-        setAliasBitShiftRight(get(_util,_cust,"BitShiftRight"));
-        setAliasGetParameterNames(get(_util,_cust,"GetParameterNames"));
-        setAliasGetPrettyName(get(_util,_cust,"GetPrettyName"));
-        setAliasGetUpperBounds(get(_util,_cust,"GetUpperBounds"));
-        setAliasGetParameterTypes(get(_util,_cust,"GetParameterTypes"));
-        setAliasGetGenericReturnType(get(_util,_cust,"GetGenericReturnType"));
-        setAliasInvokeDirect(get(_util,_cust,"InvokeDirect"));
-        setAliasStringUtil(get(_util,_cust,"StringUtil"));
-        setAliasGetLowerBounds(get(_util,_cust,"GetLowerBounds"));
-        setAliasGetTypeParameters(get(_util,_cust,"GetTypeParameters"));
-        setAliasConstructor(get(_util,_cust,"Constructor"));
-        setAliasSetParent(get(_util,_cust,"SetParent"));
-        setAliasNewInstance(get(_util,_cust,"NewInstance"));
-        setAliasGetEnclosingType(get(_util,_cust,"GetEnclosingType"));
-        setAliasGetInterfaces(get(_util,_cust,"GetInterfaces"));
-        setAliasObjectsUtil(get(_util,_cust,"ObjectsUtil"));
-        setAliasGetDeclaredClasses(get(_util,_cust,"GetDeclaredClasses"));
-        setAliasGetSuperClass(get(_util,_cust,"GetSuperClass"));
-        setAliasGetParent(get(_util,_cust,"GetParent"));
-        setAliasGetComponentType(get(_util,_cust,"GetComponentType"));
-        setAliasGetFileName(get(_util,_cust,"GetFileName"));
-        setAliasGetGenericSuperClass(get(_util,_cust,"GetGenericSuperClass"));
-        setAliasGetGenericInterfaces(get(_util,_cust,"GetGenericInterfaces"));
-        setAliasIsAbstract(get(_util,_cust,"IsAbstract"));
-        setAliasMakeArray(get(_util,_cust,"MakeArray"));
-        setAliasIsInterface(get(_util,_cust,"IsInterface"));
-        setAliasMakeWildCard(get(_util,_cust,"MakeWildCard"));
-        setAliasIsTypeVariable(get(_util,_cust,"IsTypeVariable"));
-        setAliasIsPrivate(get(_util,_cust,"IsPrivate"));
-        setAliasIsVarargs(get(_util,_cust,"IsVarargs"));
-        setAliasIsInstance(get(_util,_cust,"IsInstance"));
-        setAliasGetReturnType(get(_util,_cust,"GetReturnType"));
-        setAliasGetActualTypeArguments(get(_util,_cust,"GetActualTypeArguments"));
-        setAliasIsProtected(get(_util,_cust,"IsProtected"));
-        setAliasIsPrimitive(get(_util,_cust,"IsPrimitive"));
-        setAliasIsWildCard(get(_util,_cust,"IsWildCard"));
-        setAliasIsAnnotation(get(_util,_cust,"IsAnnotation"));
-        setAliasGetGenericType(get(_util,_cust,"GetGenericType"));
-        setAliasIsAssignableFrom(get(_util,_cust,"IsAssignableFrom"));
-        setAliasIsVariable(get(_util,_cust,"IsVariable"));
-        setAliasIsPackage(get(_util,_cust,"IsPackage"));
-        setAliasIllegalThreadStateException(get(_util,_cust,"IllegalThreadStateException"));
-        setAliasFileGetLength(get(_util,_cust,"FileGetLength"));
-        setAliasAtomicInteger(get(_util,_cust,"AtomicInteger"));
-        setAliasCurrentThread(get(_util,_cust,"CurrentThread"));
-        setAliasFormatType(get(_util,_cust,"FormatType"));
-        setAliasAtomicBoolean(get(_util,_cust,"AtomicBoolean"));
-        setAliasSetAtomic(get(_util,_cust,"SetAtomic"));
-        setAliasFileIsDirectory(get(_util,_cust,"FileIsDirectory"));
-        setAliasFileGetParentPath(get(_util,_cust,"FileGetParentPath"));
-        setAliasAtomicLong(get(_util,_cust,"AtomicLong"));
-        setAliasFileAbsolutePath(get(_util,_cust,"FileAbsolutePath"));
-        setAliasFileLastModif(get(_util,_cust,"FileLastModif"));
-        setAliasFileGetName(get(_util,_cust,"FileGetName"));
-        setAliasGetAtomic(get(_util,_cust,"GetAtomic"));
-        setAliasLazySetAtomic(get(_util,_cust,"LazySetAtomic"));
-        setAliasCompareAndSetAtomic(get(_util,_cust,"CompareAndSetAtomic"));
-        setAliasGetAndAddAtomic(get(_util,_cust,"GetAndAddAtomic"));
-        setAliasAddAndGetAtomic(get(_util,_cust,"AddAndGetAtomic"));
-        setAliasGetAndIncrementAtomic(get(_util,_cust,"GetAndIncrementAtomic"));
-        setAliasIncrementAndGetAtomic(get(_util,_cust,"IncrementAndGetAtomic"));
-        setAliasGetAndDecrementAtomic(get(_util,_cust,"GetAndDecrementAtomic"));
-        setAliasDecrementAndGetAtomic(get(_util,_cust,"DecrementAndGetAtomic"));
-        setAliasGetAndSetAtomic(get(_util,_cust,"GetAndSetAtomic"));
-        setAliasReentrantLock(get(_util,_cust,"ReentrantLock"));
-        setAliasJoinOthers(get(_util,_cust,"JoinOthers"));
-        setAliasFileIsFile(get(_util,_cust,"FileIsFile"));
-        setAliasThreadExitHook(get(_util,_cust,"ThreadExitHook"));
-        setAliasAppendToFile(get(_util,_cust,"AppendToFile"));
-        setAliasThreadCurrentTime(get(_util,_cust,"ThreadCurrentTime"));
-        setAliasSetPriority(get(_util,_cust,"SetPriority"));
-        setAliasFileListFiles(get(_util,_cust,"FileListFiles"));
-        setAliasGetPriority(get(_util,_cust,"GetPriority"));
-        setAliasIsHeldByCurrentThread(get(_util,_cust,"IsHeldByCurrentThread"));
-        setAliasFileListDirectories(get(_util,_cust,"FileListDirectories"));
-        setAliasLengthItrTa(get(_util,_cust,"LengthItrTa"));
-        setAliasExecutedTestAnnotations(get(_util,_cust,"ExecutedTestAnnotations"));
-        setAliasPairVarFirst(get(_util,_cust,"PairVarFirst"));
-        setAliasIndexItrLi(get(_util,_cust,"IndexItrLi"));
-        setAliasListIterTable(get(_util,_cust,"ListIterTable"));
-        setAliasDifference(get(_util,_cust,"Difference"));
-        setAliasTableVarSecond(get(_util,_cust,"TableVarSecond"));
-        setAliasIterTaVarFirst(get(_util,_cust,"IterTaVarFirst"));
-        setAliasExecutedTestBefore(get(_util,_cust,"ExecutedTestBefore"));
-        setAliasCustIteratorVar(get(_util,_cust,"CustIteratorVar"));
-        setAliasGetSecondTa(get(_util,_cust,"GetSecondTa"));
-        setAliasExecutedTestTest(get(_util,_cust,"ExecutedTestTest"));
-        setAliasExecutedTestMethod(get(_util,_cust,"ExecutedTestMethod"));
-        setAliasExecutedTestAfter(get(_util,_cust,"ExecutedTestAfter"));
-        setAliasCustIterator(get(_util,_cust,"CustIterator"));
-        setAliasListClear(get(_util,_cust,"ListClear"));
-        setAliasGetFirstTa(get(_util,_cust,"GetFirstTa"));
-        setAliasSetSecondTa(get(_util,_cust,"SetSecondTa"));
-        setAliasFileMakeDirs(get(_util,_cust,"FileMakeDirs"));
-        setAliasFileZippedBin(get(_util,_cust,"FileZippedBin"));
-        setAliasFileZippedBinArray(get(_util,_cust,"FileZippedBinArray"));
-        setAliasFileZippedText(get(_util,_cust,"FileZippedText"));
-        setAliasFileZipBin(get(_util,_cust,"FileZipBin"));
-        setAliasFileZipBinArray(get(_util,_cust,"FileZipBinArray"));
-        setAliasFileZipText(get(_util,_cust,"FileZipText"));
-        setAliasEntryBinary(get(_util,_cust,"EntryBinary"));
-        setAliasEntryText(get(_util,_cust,"EntryText"));
-        setAliasEntryName(get(_util,_cust,"EntryName"));
-        setAliasEntryValue(get(_util,_cust,"EntryValue"));
-        setAliasFileIsAbsolute(get(_util,_cust,"FileIsAbsolute"));
-        setAliasFileReadBin(get(_util,_cust,"FileReadBin"));
-        setAliasFileWriteBin(get(_util,_cust,"FileWriteBin"));
-        setAliasFileDelete(get(_util,_cust,"FileDelete"));
-        setAliasFileRename(get(_util,_cust,"FileRename"));
-        setAliasCustIterTable(get(_util,_cust,"CustIterTable"));
-        setAliasTableVarFirst(get(_util,_cust,"TableVarFirst"));
-        setAliasSetSecond(get(_util,_cust,"SetSecond"));
-        setAliasIndexItrTa(get(_util,_cust,"IndexItrTa"));
-        setAliasIterTaVarSecond(get(_util,_cust,"IterTaVarSecond"));
-        setAliasLengthItrLi(get(_util,_cust,"LengthItrLi"));
-        setAliasSetFirstTa(get(_util,_cust,"SetFirstTa"));
-        setAliasExecutedTest(get(_util,_cust,"ExecutedTest"));
-        setAliasParameters(get(_util,_cust,"Parameters"));
-        setAliasTestException(get(_util,_cust,"TestException"));
-        setAliasTestNullException(get(_util,_cust,"TestNullException"));
-        setAliasPairVarSecond(get(_util,_cust,"PairVarSecond"));
-        setAliasExecuteExecute(get(_util,_cust,"ExecuteExecute"));
-        setAliasExecuteSetupNoException(get(_util,_cust,"ExecuteSetupNoException"));
-        setAliasAssertAssert(get(_util,_cust,"AssertAssert"));
-        setAliasAssertAssertNull(get(_util,_cust,"AssertAssertNull"));
-        setAliasAssertAssertNotNull(get(_util,_cust,"AssertAssertNotNull"));
-        setAliasDifferenceFoundNull(get(_util,_cust,"DifferenceFoundNull"));
-        setAliasResultSuccess(get(_util,_cust,"ResultSuccess"));
-        setAliasInfoTestCurrentClass(get(_util,_cust,"InfoTestCurrentClass"));
-        setAliasExecuteConvert(get(_util,_cust,"ExecuteConvert"));
-        setAliasConcurrentError(get(_util,_cust,"ConcurrentError"));
-        setAliasResultFailMessage(get(_util,_cust,"ResultFailMessage"));
-        setAliasAssertAssertTrue(get(_util,_cust,"AssertAssertTrue"));
-        setAliasInfoTestCurrentMethod(get(_util,_cust,"InfoTestCurrentMethod"));
-        setAliasResultParams(get(_util,_cust,"ResultParams"));
-        setAliasParametersMethod(get(_util,_cust,"ParametersMethod"));
-        setAliasExecuteSetupError(get(_util,_cust,"ExecuteSetupError"));
-        setAliasAssertAssertSame(get(_util,_cust,"AssertAssertSame"));
-        setAliasDifferenceFound(get(_util,_cust,"DifferenceFound"));
-        setAliasDifferenceFoundNotTrue(get(_util,_cust,"DifferenceFoundNotTrue"));
-        setAliasParametersLocation(get(_util,_cust,"ParametersLocation"));
-        setAliasInfoTestCount(get(_util,_cust,"InfoTestCount"));
-        setAliasInfoTestDone(get(_util,_cust,"InfoTestDone"));
-        setAliasDifferenceStackDiff(get(_util,_cust,"DifferenceStackDiff"));
-        setAliasExecuteTests(get(_util,_cust,"ExecuteTests"));
-        setAliasDifferenceExpected(get(_util,_cust,"DifferenceExpected"));
-        setAliasInfoTestCurrentParams(get(_util,_cust,"InfoTestCurrentParams"));
-        setAliasRunnable(get(_util,_cust,"Runnable"));
-        setAliasThread(get(_util,_cust,"Thread"));
-        setAliasThreadSet(get(_util,_cust,"ThreadSet"));
-        setAliasThreadSetAll(get(_util,_cust,"ThreadSetAll"));
-        setAliasThreadSetAdd(get(_util,_cust,"ThreadSetAdd"));
-        setAliasThreadSetContains(get(_util,_cust,"ThreadSetContains"));
-        setAliasThreadSetRemove(get(_util,_cust,"ThreadSetRemove"));
-        setAliasThreadSetSnapshot(get(_util,_cust,"ThreadSetSnapshot"));
-        setAliasStart(get(_util,_cust,"Start"));
-        setAliasJoin(get(_util,_cust,"Join"));
-        setAliasRun(get(_util,_cust,"Run"));
-        setAliasLengthLi(get(_util,_cust,"LengthLi"));
-        setAliasCustPair(get(_util,_cust,"CustPair"));
-        setAliasListTa(get(_util,_cust,"ListTa"));
-        setAliasGetId(get(_util,_cust,"GetId"));
-        setAliasIsAlive(get(_util,_cust,"IsAlive"));
-        setAliasIsEnded(get(_util,_cust,"IsEnded"));
-        setAliasEnd(get(_util,_cust,"End"));
-        setAliasPrint(get(_util,_cust,"Print"));
-        setAliasListItr(get(_util,_cust,"ListItr"));
-        setAliasRemoveLi(get(_util,_cust,"RemoveLi"));
-        setAliasArrayLi(get(_util,_cust,"ArrayLi"));
-        setAliasFirst(get(_util,_cust,"First"));
-        setAliasSleep(get(_util,_cust,"Sleep"));
-        setAliasFile(get(_util,_cust,"File"));
-        setAliasRead(get(_util,_cust,"Read"));
-        setAliasList(get(_util,_cust,"List"));
-        setAliasUnlock(get(_util,_cust,"Unlock"));
-        setAliasSizeLi(get(_util,_cust,"SizeLi"));
-        setAliasListVar(get(_util,_cust,"ListVar"));
-        setAliasSecond(get(_util,_cust,"Second"));
-        setAliasAddLi(get(_util,_cust,"AddLi"));
-        setAliasYield(get(_util,_cust,"Yield"));
-        setAliasSetFirst(get(_util,_cust,"SetFirst"));
-        setAliasLock(get(_util,_cust,"Lock"));
-        setAliasWrite(get(_util,_cust,"Write"));
-        setAliasTable(get(_util,_cust,"Table"));
-        setAliasResult(get(_util,_cust,"Result"));
-        setAliasAddTa(get(_util,_cust,"AddTa"));
-        setAliasInfoTest(get(_util,_cust,"InfoTest"));
-        setAliasRemoveTa(get(_util,_cust,"RemoveTa"));
-        setAliasBefore(get(_util,_cust,"Before"));
-        setAliasGetTa(get(_util,_cust,"GetTa"));
-        setAliasTest(get(_util,_cust,"Test"));
-        setAliasExecute(get(_util,_cust,"Execute"));
-        setAliasAfter(get(_util,_cust,"After"));
-        setAliasSizeTa(get(_util,_cust,"SizeTa"));
-        setAliasAssert(get(_util,_cust,"Assert"));
-        setFalseString(get(_util,_cust,"FalseString"));
-        setTrueString(get(_util,_cust,"TrueString"));
-        setNullString(get(_util,_cust,"NullString"));
+        setDefaultPkg(get(_util,_cust, DEFAULT_PKG));
+        setAliasMaxValueField(get(_util,_cust, FIELD_MAX_VALUE));
+        setAliasMinValueField(get(_util,_cust, FIELD_MIN_VALUE));
+        setAliasBadEncode(get(_util,_cust, BAD_ENCODE));
+        setAliasDivisionZero(get(_util,_cust, DIVISION_ZERO));
+        setAliasCharSequence(get(_util,_cust, CHAR_SEQUENCE));
+        setAliasIteratorType(get(_util,_cust, ITERATOR_TYPE));
+        setAliasEnumParam(get(_util,_cust, ENUM_PARAM));
+        setAliasGetMessage(get(_util,_cust, GET_MESSAGE));
+        setAliasIteratorTableTypeVarFirst(get(_util,_cust, ITERATOR_TABLE_TYPE_VAR_FIRST));
+        setAliasIteratorTableTypeVarSecond(get(_util,_cust, ITERATOR_TABLE_TYPE_VAR_SECOND));
+        setAliasEquals(get(_util,_cust, EQUALS));
+        setAliasLong(get(_util,_cust, LONG));
+        setAliasShort(get(_util,_cust, SHORT));
+        setAliasPrimChar(get(_util,_cust, PRIM_CHAR));
+        setAliasNumber(get(_util,_cust, NUMBER));
+        setAliasParseInt(get(_util,_cust, PARSE_INT));
+        setAliasCompare(get(_util,_cust, COMPARE));
+        setAliasIntValue(get(_util,_cust, INT_VALUE));
+        setAliasBoolean(get(_util,_cust, BOOLEAN));
+        setAliasPrimLong(get(_util,_cust, PRIM_LONG));
+        setAliasByte(get(_util,_cust, BYTE));
+        setAliasFloat(get(_util,_cust, FLOAT));
+        setAliasDouble(get(_util,_cust, DOUBLE));
+        setAliasInteger(get(_util,_cust, INTEGER));
+        setAliasDigit(get(_util,_cust, DIGIT));
+        setAliasIsDigit(get(_util,_cust, IS_DIGIT));
+        setAliasMath(get(_util,_cust, MATH));
+        setAliasBadSize(get(_util,_cust, BAD_SIZE));
+        setAliasNullPe(get(_util,_cust, NULL_PE));
+        setAliasObject(get(_util,_cust, OBJECT));
+        setAliasIterator(get(_util,_cust, ITERATOR));
+        setAliasCastType(get(_util,_cust, CAST_TYPE));
+        setAliasStore(get(_util,_cust, STORE));
+        setAliasEnumType(get(_util,_cust, ENUM_TYPE));
+        setAliasPrimByte(get(_util,_cust, PRIM_BYTE));
+        setAliasError(get(_util,_cust, ERROR));
+        setAliasVoid(get(_util,_cust, VOID));
+        setAliasGetCause(get(_util,_cust, GET_CAUSE));
+        setAliasBadIndex(get(_util,_cust, BAD_INDEX));
+        setAliasEnums(get(_util,_cust, ENUMS));
+        setAliasIterable(get(_util,_cust, ITERABLE));
+        setAliasNbFormat(get(_util,_cust, NB_FORMAT));
+        setAliasSof(get(_util,_cust, SOF));
+        setAliasParseFloat(get(_util,_cust, PARSE_FLOAT));
+        setAliasToStringMethod(get(_util,_cust, TO_STRING_METHOD));
+        setAliasParseLongOrNull(get(_util,_cust, PARSE_LONG_OR_NULL));
+        setAliasParseShortOrNull(get(_util,_cust, PARSE_SHORT_OR_NULL));
+        setAliasParseFloatOrNull(get(_util,_cust, PARSE_FLOAT_OR_NULL));
+        setAliasParseDoubleOrNull(get(_util,_cust, PARSE_DOUBLE_OR_NULL));
+        setAliasByteValue(get(_util,_cust, BYTE_VALUE));
+        setAliasCharValue(get(_util,_cust, CHAR_VALUE));
+        setAliasPrimBoolean(get(_util,_cust, PRIM_BOOLEAN));
+        setAliasParseIntOrNull(get(_util,_cust, PARSE_INT_OR_NULL));
+        setAliasPrimShort(get(_util,_cust, PRIM_SHORT));
+        setAliasParseBoolean(get(_util,_cust, PARSE_BOOLEAN));
+        setAliasParseShort(get(_util,_cust, PARSE_SHORT));
+        setAliasPrimFloat(get(_util,_cust, PRIM_FLOAT));
+        setAliasCompareTo(get(_util,_cust, COMPARE_TO));
+        setAliasCharacter(get(_util,_cust, CHARACTER));
+        setAliasParseLong(get(_util,_cust, PARSE_LONG));
+        setAliasValueOfMethod(get(_util,_cust, VALUE_OF_METHOD));
+        setAliasPrimInteger(get(_util,_cust, PRIM_INTEGER));
+        setAliasParseByteOrNull(get(_util,_cust, PARSE_BYTE_OR_NULL));
+        setAliasPrimDouble(get(_util,_cust, PRIM_DOUBLE));
+        setAliasBooleanValue(get(_util,_cust, BOOLEAN_VALUE));
+        setAliasShortValue(get(_util,_cust, SHORT_VALUE));
+        setAliasParseDouble(get(_util,_cust, PARSE_DOUBLE));
+        setAliasIllegalArg(get(_util,_cust, ILLEGAL_ARG));
+        setAliasParseByte(get(_util,_cust, PARSE_BYTE));
+        setAliasIsUpperCase(get(_util,_cust, IS_UPPER_CASE));
+        setAliasIsWordChar(get(_util,_cust, IS_WORD_CHAR));
+        setAliasIsWhitespace(get(_util,_cust, IS_WHITESPACE));
+        setAliasIsLetterOrDigit(get(_util,_cust, IS_LETTER_OR_DIGIT));
+        setAliasFloatValue(get(_util,_cust, FLOAT_VALUE));
+        setAliasDoubleValue(get(_util,_cust, DOUBLE_VALUE));
+        setAliasLongValue(get(_util,_cust, LONG_VALUE));
+        setAliasIsLowerCase(get(_util,_cust, IS_LOWER_CASE));
+        setAliasIndexOf(get(_util,_cust, INDEX_OF));
+        setAliasString(get(_util,_cust, STRING));
+        setAliasIsEmpty(get(_util,_cust, IS_EMPTY));
+        setAliasTrim(get(_util,_cust, TRIM));
+        setAliasGetBytes(get(_util,_cust, GET_BYTES));
+        setAliasForDigit(get(_util,_cust, FOR_DIGIT));
+        setAliasIsSpace(get(_util,_cust, IS_SPACE));
+        setAliasGetType(get(_util,_cust, GET_TYPE));
+        setAliasContains(get(_util,_cust, CONTAINS));
+        setAliasReplace(get(_util,_cust, REPLACE));
+        setAliasFormat(get(_util,_cust, FORMAT));
+        setAliasEndsWith(get(_util,_cust, ENDS_WITH));
+        setAliasCapacity(get(_util,_cust, CAPACITY));
+        setAliasSplit(get(_util,_cust, SPLIT));
+        setAliasAppend(get(_util,_cust, APPEND));
+        setAliasIsLetter(get(_util,_cust, IS_LETTER));
+        setAliasIsNan(get(_util,_cust, IS_NAN));
+        setAliasLength(get(_util,_cust, LENGTH));
+        setAliasCharAt(get(_util,_cust, CHAR_AT));
+        setAliasClone(get(_util,_cust, CLONE));
+        setAliasName(get(_util,_cust, NAME));
+        setAliasCall(get(_util,_cust, CALL));
+        setAliasSame(get(_util,_cust, SAME));
+        setAliasMod(get(_util,_cust, MOD));
+        setAliasReverse(get(_util,_cust, REVERSE));
+        setAliasInsert(get(_util,_cust, INSERT));
+        setAliasAbs(get(_util,_cust, ABS));
+        setAliasHasNext(get(_util,_cust, HAS_NEXT));
+        setAliasPairType(get(_util,_cust, PAIR_TYPE));
+        setAliasQuot(get(_util,_cust, QUOT));
+        setAliasNext(get(_util,_cust, NEXT));
+        setAliasOrdinal(get(_util,_cust, ORDINAL));
+        setAliasGetFirst(get(_util,_cust, GET_FIRST));
+        setAliasFct(get(_util,_cust, FCT));
+        setAliasDelete(get(_util,_cust, DELETE));
+        setAliasClear(get(_util,_cust, CLEAR));
+        setAliasNextPair(get(_util,_cust, NEXT_PAIR));
+        setAliasSubstring(get(_util,_cust, SUBSTRING));
+        setAliasSetCharAt(get(_util,_cust, SET_CHAR_AT));
+        setAliasEqualsIgnoreCase(get(_util,_cust, EQUALS_IGNORE_CASE));
+        setAliasIteratorTableType(get(_util,_cust, ITERATOR_TABLE_TYPE));
+        setAliasDeleteCharAt(get(_util,_cust, DELETE_CHAR_AT));
+        setAliasStartsWith(get(_util,_cust, STARTS_WITH));
+        setAliasLastIndexOf(get(_util,_cust, LAST_INDEX_OF));
+        setAliasRegionMatches(get(_util,_cust, REGION_MATCHES));
+        setAliasIteratorTable(get(_util,_cust, ITERATOR_TABLE));
+        setAliasIterableTable(get(_util,_cust, ITERABLE_TABLE));
+        setAliasToLowerCase(get(_util,_cust, TO_LOWER_CASE));
+        setAliasStringBuilder(get(_util,_cust, STRING_BUILDER));
+        setAliasToUpperCase(get(_util,_cust, TO_UPPER_CASE));
+        setAliasEnsureCapacity(get(_util,_cust, ENSURE_CAPACITY));
+        setAliasSetLength(get(_util,_cust, SET_LENGTH));
+        setAliasTrimToSize(get(_util,_cust, TRIM_TO_SIZE));
+        setAliasHasNextPair(get(_util,_cust, HAS_NEXT_PAIR));
+        setAliasReplacement(get(_util,_cust, REPLACEMENT));
+        setAliasGetOldString(get(_util,_cust, GET_OLD_STRING));
+        setAliasGetNewString(get(_util,_cust, GET_NEW_STRING));
+        setAliasGetSecond(get(_util,_cust, GET_SECOND));
+        setAliasSubSequence(get(_util,_cust, SUB_SEQUENCE));
+        setAliasCompareToIgnoreCase(get(_util,_cust, COMPARE_TO_IGNORE_CASE));
+        setAliasToCharArray(get(_util,_cust, TO_CHAR_ARRAY));
+        setAliasReplaceMultiple(get(_util,_cust, REPLACE_MULTIPLE));
+        setAliasSplitStrings(get(_util,_cust, SPLIT_STRINGS));
+        setAliasSplitChars(get(_util,_cust, SPLIT_CHARS));
+        setAliasIsInfinite(get(_util,_cust, IS_INFINITE));
+        setAliasGetDirectionality(get(_util,_cust, GET_DIRECTIONALITY));
+        setAliasGetCharType(get(_util,_cust, GET_CHAR_TYPE));
+        setAliasIterableTableVarSecond(get(_util,_cust, ITERABLE_TABLE_VAR_SECOND));
+        setAliasGetString(get(_util,_cust, GET_STRING));
+        setAliasGetAnnotationsParameters(get(_util,_cust, GET_ANNOTATIONS_PARAMETERS));
+        setAliasReadResourcesNames(get(_util,_cust, READ_RESOURCES_NAMES));
+        setAliasInvokeTarget(get(_util,_cust, INVOKE_TARGET));
+        setAliasGetAnnotations(get(_util,_cust, GET_ANNOTATIONS));
+        setAliasGetVariableOwner(get(_util,_cust, GET_VARIABLE_OWNER));
+        setAliasReadResources(get(_util,_cust, READ_RESOURCES));
+        setAliasResources(get(_util,_cust, RESOURCES));
+        setAliasClassNotFoundError(get(_util,_cust, CLASS_NOT_FOUND_ERROR));
+        setAliasEnumValues(get(_util,_cust, ENUM_VALUES));
+        setAliasEnumPredValueOf(get(_util,_cust, ENUM_PRED_VALUE_OF));
+        setAliasIteratorTypeVar(get(_util,_cust, ITERATOR_TYPE_VAR));
+        setAliasClassType(get(_util,_cust, CLASS_TYPE));
+        setAliasIterableTableVarFirst(get(_util,_cust, ITERABLE_TABLE_VAR_FIRST));
+        setAliasPairTypeVarFirst(get(_util,_cust, PAIR_TYPE_VAR_FIRST));
+        setAliasErrorInitClass(get(_util,_cust, ERROR_INIT_CLASS));
+        setAliasAnnotationType(get(_util,_cust, ANNOTATION_TYPE));
+        setAliasGetGenericVariableOwner(get(_util,_cust, GET_GENERIC_VARIABLE_OWNER));
+        setAliasEnumParamVar(get(_util,_cust, ENUM_PARAM_VAR));
+        setAliasPairTypeVarSecond(get(_util,_cust, PAIR_TYPE_VAR_SECOND));
+        setAliasAnnotated(get(_util,_cust, ANNOTATED));
+        setAliasIterableVar(get(_util,_cust, ITERABLE_VAR));
+        setAliasGetDefaultValue(get(_util,_cust, GET_DEFAULT_VALUE));
+        setAliasMakeGeneric(get(_util,_cust, MAKE_GENERIC));
+        setAliasGetAllClasses(get(_util,_cust, GET_ALL_CLASSES));
+        setAliasGetOperators(get(_util,_cust, GET_OPERATORS));
+        setAliasGetDeclaredMethods(get(_util,_cust, GET_DECLARED_METHODS));
+        setAliasGetDeclaredStaticMethods(get(_util,_cust, GET_DECLARED_STATIC_METHODS));
+        setAliasGetDeclaredConstructors(get(_util,_cust, GET_DECLARED_CONSTRUCTORS));
+        setAliasGetDeclaredFields(get(_util,_cust, GET_DECLARED_FIELDS));
+        setAliasField(get(_util,_cust, FIELD));
+        setAliasIsNormal(get(_util,_cust, IS_NORMAL));
+        setAliasSameRef(get(_util,_cust, SAME_REF));
+        setAliasIsPublic(get(_util,_cust, IS_PUBLIC));
+        setAliasIsArray(get(_util,_cust, IS_ARRAY));
+        setAliasArrayGet(get(_util,_cust, ARRAY_GET));
+        setAliasMethod(get(_util,_cust, METHOD));
+        setAliasGetField(get(_util,_cust, GET_FIELD));
+        setAliasInvoke(get(_util,_cust, INVOKE));
+        setAliasIsEnum(get(_util,_cust, IS_ENUM));
+        setAliasInit(get(_util,_cust, INIT));
+        setAliasForName(get(_util,_cust, FOR_NAME));
+        setAliasIsStatic(get(_util,_cust, IS_STATIC));
+        setAliasIsStaticCall(get(_util,_cust, IS_STATIC_CALL));
+        setAliasIsInstanceMethod(get(_util,_cust, IS_INSTANCE_METHOD));
+        setAliasGetName(get(_util,_cust, GET_NAME));
+        setAliasIsClass(get(_util,_cust, IS_CLASS));
+        setAliasSetField(get(_util,_cust, SET_FIELD));
+        setAliasGetClass(get(_util,_cust, GET_CLASS));
+        setAliasIsFinal(get(_util,_cust, IS_FINAL));
+        setAliasArraySet(get(_util,_cust, ARRAY_SET));
+        setAliasXor(get(_util,_cust, XOR));
+        setAliasMult(get(_util,_cust, MULT));
+        setAliasRandom(get(_util,_cust, RANDOM));
+        setAliasNegBin(get(_util,_cust, NEG_BIN));
+        setAliasMinus(get(_util,_cust, MINUS));
+        setAliasEnumName(get(_util,_cust, ENUM_NAME));
+        setAliasBinMod(get(_util,_cust, BIN_MOD));
+        setAliasLt(get(_util,_cust, LT));
+        setAliasGt(get(_util,_cust, GT));
+        setAliasLe(get(_util,_cust, LE));
+        setAliasGe(get(_util,_cust, GE));
+        setAliasAnd(get(_util,_cust, AND));
+        setAliasOr(get(_util,_cust, OR));
+        setAliasPlus(get(_util,_cust, PLUS));
+        setAliasBinQuot(get(_util,_cust, BIN_QUOT));
+        setAliasNeg(get(_util,_cust, NEG));
+        setAliasRotateLeft(get(_util,_cust, ROTATE_LEFT));
+        setAliasEnumOrdinal(get(_util,_cust, ENUM_ORDINAL));
+        setAliasShiftRight(get(_util,_cust, SHIFT_RIGHT));
+        setAliasCurrentFullStack(get(_util,_cust, CURRENT_FULL_STACK));
+        setAliasGetBounds(get(_util,_cust, GET_BOUNDS));
+        setAliasGetDeclaringClass(get(_util,_cust, GET_DECLARING_CLASS));
+        setAliasStackTraceElement(get(_util,_cust, STACK_TRACE_ELEMENT));
+        setAliasEnumValueOf(get(_util,_cust, ENUM_VALUE_OF));
+        setAliasArrayNewInstance(get(_util,_cust, ARRAY_NEW_INSTANCE));
+        setAliasGetEnumConstants(get(_util,_cust, GET_ENUM_CONSTANTS));
+        setAliasArrayGetLength(get(_util,_cust, ARRAY_GET_LENGTH));
+        setAliasRotateRight(get(_util,_cust, ROTATE_RIGHT));
+        setAliasGetGenericBounds(get(_util,_cust, GET_GENERIC_BOUNDS));
+        setAliasBitShiftLeft(get(_util,_cust, BIT_SHIFT_LEFT));
+        setAliasShiftLeft(get(_util,_cust, SHIFT_LEFT));
+        setAliasDefaultInstance(get(_util,_cust, DEFAULT_INSTANCE));
+        setAliasCurrentStack(get(_util,_cust, CURRENT_STACK));
+        setAliasBitShiftRight(get(_util,_cust, BIT_SHIFT_RIGHT));
+        setAliasGetParameterNames(get(_util,_cust, GET_PARAMETER_NAMES));
+        setAliasGetPrettyName(get(_util,_cust, GET_PRETTY_NAME));
+        setAliasGetUpperBounds(get(_util,_cust, GET_UPPER_BOUNDS));
+        setAliasGetParameterTypes(get(_util,_cust, GET_PARAMETER_TYPES));
+        setAliasGetGenericReturnType(get(_util,_cust, GET_GENERIC_RETURN_TYPE));
+        setAliasInvokeDirect(get(_util,_cust, INVOKE_DIRECT));
+        setAliasStringUtil(get(_util,_cust, STRING_UTIL));
+        setAliasGetLowerBounds(get(_util,_cust, GET_LOWER_BOUNDS));
+        setAliasGetTypeParameters(get(_util,_cust, GET_TYPE_PARAMETERS));
+        setAliasConstructor(get(_util,_cust, CONSTRUCTOR));
+        setAliasSetParent(get(_util,_cust, SET_PARENT));
+        setAliasNewInstance(get(_util,_cust, NEW_INSTANCE));
+        setAliasGetEnclosingType(get(_util,_cust, GET_ENCLOSING_TYPE));
+        setAliasGetInterfaces(get(_util,_cust, GET_INTERFACES));
+        setAliasObjectsUtil(get(_util,_cust, OBJECTS_UTIL));
+        setAliasGetDeclaredClasses(get(_util,_cust, GET_DECLARED_CLASSES));
+        setAliasGetSuperClass(get(_util,_cust, GET_SUPER_CLASS));
+        setAliasGetParent(get(_util,_cust, GET_PARENT));
+        setAliasGetComponentType(get(_util,_cust, GET_COMPONENT_TYPE));
+        setAliasGetFileName(get(_util,_cust, GET_FILE_NAME));
+        setAliasGetGenericSuperClass(get(_util,_cust, GET_GENERIC_SUPER_CLASS));
+        setAliasGetGenericInterfaces(get(_util,_cust, GET_GENERIC_INTERFACES));
+        setAliasIsAbstract(get(_util,_cust, IS_ABSTRACT));
+        setAliasMakeArray(get(_util,_cust, MAKE_ARRAY));
+        setAliasIsInterface(get(_util,_cust, IS_INTERFACE));
+        setAliasMakeWildCard(get(_util,_cust, MAKE_WILD_CARD));
+        setAliasIsTypeVariable(get(_util,_cust, IS_TYPE_VARIABLE));
+        setAliasIsPrivate(get(_util,_cust, IS_PRIVATE));
+        setAliasIsVarargs(get(_util,_cust, IS_VARARGS));
+        setAliasIsInstance(get(_util,_cust, IS_INSTANCE));
+        setAliasGetReturnType(get(_util,_cust, GET_RETURN_TYPE));
+        setAliasGetActualTypeArguments(get(_util,_cust, GET_ACTUAL_TYPE_ARGUMENTS));
+        setAliasIsProtected(get(_util,_cust, IS_PROTECTED));
+        setAliasIsPrimitive(get(_util,_cust, IS_PRIMITIVE));
+        setAliasIsWildCard(get(_util,_cust, IS_WILD_CARD));
+        setAliasIsAnnotation(get(_util,_cust, IS_ANNOTATION));
+        setAliasGetGenericType(get(_util,_cust, GET_GENERIC_TYPE));
+        setAliasIsAssignableFrom(get(_util,_cust, IS_ASSIGNABLE_FROM));
+        setAliasIsVariable(get(_util,_cust, IS_VARIABLE));
+        setAliasIsPackage(get(_util,_cust, IS_PACKAGE));
+        setAliasIllegalThreadStateException(get(_util,_cust, ILLEGAL_THREAD_STATE_EXCEPTION));
+        setAliasFileGetLength(get(_util,_cust, FILE_GET_LENGTH));
+        setAliasAtomicInteger(get(_util,_cust, ATOMIC_INTEGER));
+        setAliasCurrentThread(get(_util,_cust, CURRENT_THREAD));
+        setAliasFormatType(get(_util,_cust, FORMAT_TYPE));
+        setAliasAtomicBoolean(get(_util,_cust, ATOMIC_BOOLEAN));
+        setAliasSetAtomic(get(_util,_cust, SET_ATOMIC));
+        setAliasFileIsDirectory(get(_util,_cust, FILE_IS_DIRECTORY));
+        setAliasFileGetParentPath(get(_util,_cust, FILE_GET_PARENT_PATH));
+        setAliasAtomicLong(get(_util,_cust, ATOMIC_LONG));
+        setAliasFileAbsolutePath(get(_util,_cust, FILE_ABSOLUTE_PATH));
+        setAliasFileLastModif(get(_util,_cust, FILE_LAST_MODIF));
+        setAliasFileGetName(get(_util,_cust, FILE_GET_NAME));
+        setAliasGetAtomic(get(_util,_cust, GET_ATOMIC));
+        setAliasLazySetAtomic(get(_util,_cust, LAZY_SET_ATOMIC));
+        setAliasCompareAndSetAtomic(get(_util,_cust, COMPARE_AND_SET_ATOMIC));
+        setAliasGetAndAddAtomic(get(_util,_cust, GET_AND_ADD_ATOMIC));
+        setAliasAddAndGetAtomic(get(_util,_cust, ADD_AND_GET_ATOMIC));
+        setAliasGetAndIncrementAtomic(get(_util,_cust, GET_AND_INCREMENT_ATOMIC));
+        setAliasIncrementAndGetAtomic(get(_util,_cust, INCREMENT_AND_GET_ATOMIC));
+        setAliasGetAndDecrementAtomic(get(_util,_cust, GET_AND_DECREMENT_ATOMIC));
+        setAliasDecrementAndGetAtomic(get(_util,_cust, DECREMENT_AND_GET_ATOMIC));
+        setAliasGetAndSetAtomic(get(_util,_cust, GET_AND_SET_ATOMIC));
+        setAliasReentrantLock(get(_util,_cust, REENTRANT_LOCK));
+        setAliasJoinOthers(get(_util,_cust, JOIN_OTHERS));
+        setAliasFileIsFile(get(_util,_cust, FILE_IS_FILE));
+        setAliasThreadExitHook(get(_util,_cust, THREAD_EXIT_HOOK));
+        setAliasAppendToFile(get(_util,_cust, APPEND_TO_FILE));
+        setAliasThreadCurrentTime(get(_util,_cust, THREAD_CURRENT_TIME));
+        setAliasSetPriority(get(_util,_cust, SET_PRIORITY));
+        setAliasFileListFiles(get(_util,_cust, FILE_LIST_FILES));
+        setAliasGetPriority(get(_util,_cust, GET_PRIORITY));
+        setAliasIsHeldByCurrentThread(get(_util,_cust, IS_HELD_BY_CURRENT_THREAD));
+        setAliasFileListDirectories(get(_util,_cust, FILE_LIST_DIRECTORIES));
+        setAliasLengthItrTa(get(_util,_cust, LENGTH_ITR_TA));
+        setAliasExecutedTestAnnotations(get(_util,_cust, EXECUTED_TEST_ANNOTATIONS));
+        setAliasPairVarFirst(get(_util,_cust, PAIR_VAR_FIRST));
+        setAliasIndexItrLi(get(_util,_cust, INDEX_ITR_LI));
+        setAliasListIterTable(get(_util,_cust, LIST_ITER_TABLE));
+        setAliasDifference(get(_util,_cust, DIFFERENCE));
+        setAliasTableVarSecond(get(_util,_cust, TABLE_VAR_SECOND));
+        setAliasIterTaVarFirst(get(_util,_cust, ITER_TA_VAR_FIRST));
+        setAliasExecutedTestBefore(get(_util,_cust, EXECUTED_TEST_BEFORE));
+        setAliasCustIteratorVar(get(_util,_cust, CUST_ITERATOR_VAR));
+        setAliasGetSecondTa(get(_util,_cust, GET_SECOND_TA));
+        setAliasExecutedTestTest(get(_util,_cust, EXECUTED_TEST_TEST));
+        setAliasExecutedTestMethod(get(_util,_cust, EXECUTED_TEST_METHOD));
+        setAliasExecutedTestAfter(get(_util,_cust, EXECUTED_TEST_AFTER));
+        setAliasCustIterator(get(_util,_cust, CUST_ITERATOR));
+        setAliasListClear(get(_util,_cust, LIST_CLEAR));
+        setAliasGetFirstTa(get(_util,_cust, GET_FIRST_TA));
+        setAliasSetSecondTa(get(_util,_cust, SET_SECOND_TA));
+        setAliasFileMakeDirs(get(_util,_cust, FILE_MAKE_DIRS));
+        setAliasFileZippedBin(get(_util,_cust, FILE_ZIPPED_BIN));
+        setAliasFileZippedBinArray(get(_util,_cust, FILE_ZIPPED_BIN_ARRAY));
+        setAliasFileZippedText(get(_util,_cust, FILE_ZIPPED_TEXT));
+        setAliasFileZipBin(get(_util,_cust, FILE_ZIP_BIN));
+        setAliasFileZipBinArray(get(_util,_cust, FILE_ZIP_BIN_ARRAY));
+        setAliasFileZipText(get(_util,_cust, FILE_ZIP_TEXT));
+        setAliasEntryBinary(get(_util,_cust, ENTRY_BINARY));
+        setAliasEntryText(get(_util,_cust, ENTRY_TEXT));
+        setAliasEntryName(get(_util,_cust, ENTRY_NAME));
+        setAliasEntryValue(get(_util,_cust, ENTRY_VALUE));
+        setAliasFileIsAbsolute(get(_util,_cust, FILE_IS_ABSOLUTE));
+        setAliasFileReadBin(get(_util,_cust, FILE_READ_BIN));
+        setAliasFileWriteBin(get(_util,_cust, FILE_WRITE_BIN));
+        setAliasFileDelete(get(_util,_cust, FILE_DELETE));
+        setAliasFileRename(get(_util,_cust, FILE_RENAME));
+        setAliasCustIterTable(get(_util,_cust, CUST_ITER_TABLE));
+        setAliasTableVarFirst(get(_util,_cust, TABLE_VAR_FIRST));
+        setAliasSetSecond(get(_util,_cust, SET_SECOND));
+        setAliasIndexItrTa(get(_util,_cust, INDEX_ITR_TA));
+        setAliasIterTaVarSecond(get(_util,_cust, ITER_TA_VAR_SECOND));
+        setAliasLengthItrLi(get(_util,_cust, LENGTH_ITR_LI));
+        setAliasSetFirstTa(get(_util,_cust, SET_FIRST_TA));
+        setAliasExecutedTest(get(_util,_cust, EXECUTED_TEST));
+        setAliasParameters(get(_util,_cust, PARAMETERS));
+        setAliasTestException(get(_util,_cust, TEST_EXCEPTION));
+        setAliasTestNullException(get(_util,_cust, TEST_NULL_EXCEPTION));
+        setAliasPairVarSecond(get(_util,_cust, PAIR_VAR_SECOND));
+        setAliasExecuteExecute(get(_util,_cust, EXECUTE_EXECUTE));
+        setAliasExecuteSetupNoException(get(_util,_cust, EXECUTE_SETUP_NO_EXCEPTION));
+        setAliasAssertAssert(get(_util,_cust, ASSERT_ASSERT));
+        setAliasAssertAssertNull(get(_util,_cust, ASSERT_ASSERT_NULL));
+        setAliasAssertAssertNotNull(get(_util,_cust, ASSERT_ASSERT_NOT_NULL));
+        setAliasDifferenceFoundNull(get(_util,_cust, DIFFERENCE_FOUND_NULL));
+        setAliasResultSuccess(get(_util,_cust, RESULT_SUCCESS));
+        setAliasInfoTestCurrentClass(get(_util,_cust, INFO_TEST_CURRENT_CLASS));
+        setAliasExecuteConvert(get(_util,_cust, EXECUTE_CONVERT));
+        setAliasConcurrentError(get(_util,_cust, CONCURRENT_ERROR));
+        setAliasResultFailMessage(get(_util,_cust, RESULT_FAIL_MESSAGE));
+        setAliasAssertAssertTrue(get(_util,_cust, ASSERT_ASSERT_TRUE));
+        setAliasInfoTestCurrentMethod(get(_util,_cust, INFO_TEST_CURRENT_METHOD));
+        setAliasResultParams(get(_util,_cust, RESULT_PARAMS));
+        setAliasParametersMethod(get(_util,_cust, PARAMETERS_METHOD));
+        setAliasExecuteSetupError(get(_util,_cust, EXECUTE_SETUP_ERROR));
+        setAliasAssertAssertSame(get(_util,_cust, ASSERT_ASSERT_SAME));
+        setAliasDifferenceFound(get(_util,_cust, DIFFERENCE_FOUND));
+        setAliasDifferenceFoundNotTrue(get(_util,_cust, DIFFERENCE_FOUND_NOT_TRUE));
+        setAliasParametersLocation(get(_util,_cust, PARAMETERS_LOCATION));
+        setAliasInfoTestCount(get(_util,_cust, INFO_TEST_COUNT));
+        setAliasInfoTestDone(get(_util,_cust, INFO_TEST_DONE));
+        setAliasDifferenceStackDiff(get(_util,_cust, DIFFERENCE_STACK_DIFF));
+        setAliasExecuteTests(get(_util,_cust, EXECUTE_TESTS));
+        setAliasDifferenceExpected(get(_util,_cust, DIFFERENCE_EXPECTED));
+        setAliasInfoTestCurrentParams(get(_util,_cust, INFO_TEST_CURRENT_PARAMS));
+        setAliasRunnable(get(_util,_cust, RUNNABLE));
+        setAliasThread(get(_util,_cust, THREAD));
+        setAliasThreadSet(get(_util,_cust, THREAD_SET));
+        setAliasThreadSetAll(get(_util,_cust, THREAD_SET_ALL));
+        setAliasThreadSetAdd(get(_util,_cust, THREAD_SET_ADD));
+        setAliasThreadSetContains(get(_util,_cust, THREAD_SET_CONTAINS));
+        setAliasThreadSetRemove(get(_util,_cust, THREAD_SET_REMOVE));
+        setAliasThreadSetSnapshot(get(_util,_cust, THREAD_SET_SNAPSHOT));
+        setAliasStart(get(_util,_cust, START));
+        setAliasJoin(get(_util,_cust, JOIN));
+        setAliasRun(get(_util,_cust, RUN));
+        setAliasLengthLi(get(_util,_cust, LENGTH_LI));
+        setAliasCustPair(get(_util,_cust, CUST_PAIR));
+        setAliasListTa(get(_util,_cust, LIST_TA));
+        setAliasGetId(get(_util,_cust, GET_ID));
+        setAliasIsAlive(get(_util,_cust, IS_ALIVE));
+        setAliasIsEnded(get(_util,_cust, IS_ENDED));
+        setAliasEnd(get(_util,_cust, END));
+        setAliasPrint(get(_util,_cust, PRINT));
+        setAliasListItr(get(_util,_cust, LIST_ITR));
+        setAliasRemoveLi(get(_util,_cust, REMOVE_LI));
+        setAliasArrayLi(get(_util,_cust, ARRAY_LI));
+        setAliasFirst(get(_util,_cust, FIRST));
+        setAliasSleep(get(_util,_cust, SLEEP));
+        setAliasFile(get(_util,_cust, FILE));
+        setAliasRead(get(_util,_cust, READ));
+        setAliasList(get(_util,_cust, LIST));
+        setAliasUnlock(get(_util,_cust, UNLOCK));
+        setAliasSizeLi(get(_util,_cust, SIZE_LI));
+        setAliasListVar(get(_util,_cust, LIST_VAR));
+        setAliasSecond(get(_util,_cust, SECOND));
+        setAliasAddLi(get(_util,_cust, ADD_LI));
+        setAliasYield(get(_util,_cust, YIELD));
+        setAliasSetFirst(get(_util,_cust, SET_FIRST));
+        setAliasLock(get(_util,_cust, LOCK));
+        setAliasWrite(get(_util,_cust, WRITE));
+        setAliasTable(get(_util,_cust, TABLE));
+        setAliasResult(get(_util,_cust, RESULT));
+        setAliasAddTa(get(_util,_cust, ADD_TA));
+        setAliasInfoTest(get(_util,_cust, INFO_TEST));
+        setAliasRemoveTa(get(_util,_cust, REMOVE_TA));
+        setAliasBefore(get(_util,_cust, BEFORE));
+        setAliasGetTa(get(_util,_cust, GET_TA));
+        setAliasTest(get(_util,_cust, TEST));
+        setAliasExecute(get(_util,_cust, EXECUTE));
+        setAliasAfter(get(_util,_cust, AFTER));
+        setAliasSizeTa(get(_util,_cust, SIZE_TA));
+        setAliasAssert(get(_util,_cust, ASSERT));
+        setFalseString(get(_util,_cust, FALSE_STRING));
+        setTrueString(get(_util,_cust, TRUE_STRING));
+        setNullString(get(_util,_cust, NULL_STRING));
     }
     protected final String get(StringMap<String> _util, StringMap<String> _cust,String _key) {
         String val_ = _cust.getVal(_key);

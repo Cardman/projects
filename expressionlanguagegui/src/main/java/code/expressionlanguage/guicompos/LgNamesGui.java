@@ -27,6 +27,396 @@ import java.awt.event.WindowListener;
 
 public class LgNamesGui extends LgNamesUtils {
 
+    private static final String TREE_NODE = "TreeNode";
+    private static final String TREE = "Tree";
+    private static final String TABLE_GUI = "TableGui";
+    private static final String BUTTON = "Button";
+    private static final String CONFIRM = "Confirm";
+    private static final String FRAME = "Frame";
+    private static final String DIALOG = "Dialog";
+    private static final String PANEL = "Panel";
+    private static final String PROG_BAR = "ProgBar";
+    private static final String IMAGE_SET = "ImageSet";
+    private static final String ARGS = "Args";
+    private static final String KEY_EVENT = "KeyEvent";
+    private static final String RADIO = "Radio";
+    private static final String CHECK_BOX = "CheckBox";
+    private static final String SET_FONT = "SetFont";
+    private static final String SPINNER = "Spinner";
+    private static final String DISPOSE = "Dispose";
+    private static final String GR_LIST = "GrList";
+    private static final String GET_FONT = "GetFont";
+    private static final String IMAGE = "Image";
+    private static final String SLIDER = "Slider";
+    private static final String PAINT_ADD = "PaintAdd";
+    private static final String COUNT = "Count";
+    private static final String PACK = "Pack";
+    private static final String COLOR = "Color";
+    private static final String WINDOW = "Window";
+    private static final String WINDOW_SET = "WindowSet";
+    private static final String WINDOW_SET_ADD = "WindowSetAdd";
+    private static final String WINDOW_SET_ALL = "WindowSetAll";
+    private static final String WINDOW_SET_CONTAINS = "WindowSetContains";
+    private static final String WINDOW_SET_REMOVE = "WindowSetRemove";
+    private static final String WINDOW_SET_SNAPSHOT = "WindowSetSnapshot";
+    private static final String COMP_BACK = "CompBack";
+    private static final String PAINT = "Paint";
+    private static final String COMP_LOC = "CompLoc";
+    private static final String IMAGE_GET = "ImageGet";
+    private static final String RENDER = "Render";
+    private static final String COMBO = "Combo";
+    private static final String ADD_COMPO = "AddCompo";
+    private static final String INPUT = "Input";
+    private static final String FONT = "Font";
+    private static final String COMP_FORE = "CompFore";
+    private static final String KEY_TYPED = "KeyTyped";
+    private static final String COLOR_RED = "ColorRed";
+    private static final String TEXT_AREA = "TextArea";
+    private static final String FONT_GET_SIZE = "FontGetSize";
+    private static final String DIMENSION = "Dimension";
+    private static final String PROG_BAR_OR = "ProgBarOr";
+    private static final String FONT_IS_BOLD = "FontIsBold";
+    private static final String DIMENSION_GET_HEIGHT = "DimensionGetHeight";
+    private static final String PANEL_BORDER_NORTH = "PanelBorderNorth";
+    private static final String PANEL_BORDER_SOUTH = "PanelBorderSouth";
+    private static final String REMOVE_WINDOW_LISTENER = "RemoveWindowListener";
+    private static final String WINDOW_TYPE_RELATIVE = "WindowTypeRelative";
+    private static final String PANEL_BORDER_AFTER_LAST = "PanelBorderAfterLast";
+    private static final String FONT_GET_NAME = "FontGetName";
+    private static final String DIMENSION_GET_WIDTH = "DimensionGetWidth";
+    private static final String COMPONENT = "Component";
+    private static final String PANEL_BORDER_AFTER_LINE_ENDS = "PanelBorderAfterLineEnds";
+    private static final String COMPONENT_SET_AUTOSCROLLS = "ComponentSetAutoscrolls";
+    private static final String COMPONENT_IS_AUTOSCROLLS = "ComponentIsAutoscrolls";
+    private static final String COMPONENT_GET_WIDTH = "ComponentGetWidth";
+    private static final String COMPONENT_GET_HEIGHT = "ComponentGetHeight";
+    private static final String PANEL_BORDER_EAST = "PanelBorderEast";
+    private static final String PROG_BAR_MAX = "ProgBarMax";
+    private static final String GET_WINDOW_LISTENERS = "GetWindowListeners";
+    private static final String PANEL_BORDER_BEFORE_FIRST = "PanelBorderBeforeFirst";
+    private static final String TEXT_LABEL = "TextLabel";
+    private static final String PANEL_BORDER_WEST = "PanelBorderWest";
+    private static final String PROG_BAR_MIN = "ProgBarMin";
+    private static final String PROG_BAR_VALUE = "ProgBarValue";
+    private static final String PANEL_BORDER = "PanelBorder";
+    private static final String FONT_IS_ITALIC = "FontIsItalic";
+    private static final String IMAGE_LABEL = "ImageLabel";
+    private static final String PANEL_BORDER_CENTER = "PanelBorderCenter";
+    private static final String FONT_STRING_WIDTH = "FontStringWidth";
+    private static final String TABLE_SET_COLUMNS = "TableSetColumns";
+    private static final String TREE_IS_ROOT_VISIBLE = "TreeIsRootVisible";
+    private static final String TREE_NODE_REMOVE_FROM_PARENT = "TreeNodeRemoveFromParent";
+    private static final String TREE_NODE_SET_USER_OBJECT = "TreeNodeSetUserObject";
+    private static final String TREE_RELOAD = "TreeReload";
+    private static final String TREE_ADD_TREE_LISTENER = "TreeAddTreeListener";
+    private static final String TREE_NODE_NB = "TreeNodeNb";
+    private static final String TABLE_IS_MULTIPLE = "TableIsMultiple";
+    private static final String TABLE_LISTENER = "TableListener";
+    private static final String TABLE_GET_ROW_COUNT = "TableGetRowCount";
+    private static final String TREE_NODE_IS_ANCESTOR = "TreeNodeIsAncestor";
+    private static final String TREE_NODE_GET_NEXT_SIBLING = "TreeNodeGetNextSibling";
+    private static final String TREE_NODE_GET_LAST_CHILD = "TreeNodeGetLastChild";
+    private static final String TREE_SET_ROOT_VISIBLE = "TreeSetRootVisible";
+    private static final String TABLE_SET_MULTIPLE = "TableSetMultiple";
+    private static final String TREE_NODE_GET_PARENT_NODE = "TreeNodeGetParentNode";
+    private static final String TREE_NODE_REMOVE = "TreeNodeRemove";
+    private static final String TABLE_GET_SELECTED_ROW = "TableGetSelectedRow";
+    private static final String TREE_NODE_GET_FIRST_CHILD = "TreeNodeGetFirstChild";
+    private static final String TREE_NODE_GET_USER_OBJECT = "TreeNodeGetUserObject";
+    private static final String TABLE_GET_SELECTED_ROWS = "TableGetSelectedRows";
+    private static final String TABLE_VALUE_TABLE_CHANGED = "TableValueTableChanged";
+    private static final String TABLE_GET_COLUMN_COUNT = "TableGetColumnCount";
+    private static final String TABLE_GET_ROW_AT_POINT = "TableGetRowAtPoint";
+    private static final String TABLE_SET_ROW_COUNT = "TableSetRowCount";
+    private static final String TABLE_GET_COLUMN_NAME = "TableGetColumnName";
+    private static final String TABLE_GET_VALUE = "TableGetValue";
+    private static final String TREE_NODE_IS_DESCENDANT = "TreeNodeIsDescendant";
+    private static final String TABLE_SET_VALUE = "TableSetValue";
+    private static final String TREE_GET_SELECTED = "TreeGetSelected";
+    private static final String TABLE_GET_SELECTED_ROW_COUNT = "TableGetSelectedRowCount";
+    private static final String TABLE_GET_COLUMN_AT_POINT = "TableGetColumnAtPoint";
+    private static final String CONFIRM_OK = "ConfirmOk";
+    private static final String CONFIRM_YES_NO = "ConfirmYesNo";
+    private static final String TABLE_REMOVE_INTERVAL = "TableRemoveInterval";
+    private static final String CONFIRM_FIELD_OK = "ConfirmFieldOk";
+    private static final String DIALOG_SET_MODAL = "DialogSetModal";
+    private static final String TABLE_APPLY_CHANGES = "TableApplyChanges";
+    private static final String TABLE_IS_REORDER = "TableIsReorder";
+    private static final String CONFIRM_FIELD_YES = "ConfirmFieldYes";
+    private static final String TABLE_SET_REORDER = "TableSetReorder";
+    private static final String CONFIRM_FIELD = "ConfirmField";
+    private static final String CONFIRM_FIELD_NO = "ConfirmFieldNo";
+    private static final String TABLE_ADD_SELECT = "TableAddSelect";
+    private static final String CONFIRM_MESSAGE = "ConfirmMessage";
+    private static final String TABLE_ADD_HEADER = "TableAddHeader";
+    private static final String CONFIRM_FULL = "ConfirmFull";
+    private static final String DIALOG_IS_MODAL = "DialogIsModal";
+    private static final String WINDOW_TYPE = "WindowType";
+    private static final String TABLE_ADD_INTERVAL = "TableAddInterval";
+    private static final String TABLE_MOVE_COLUMN = "TableMoveColumn";
+    private static final String CONFIRM_FIELD_CANCEL = "ConfirmFieldCancel";
+    private static final String TEXT_AREA_SET_SELECTION_START = "TextAreaSetSelectionStart";
+    private static final String TREE_LISTENER = "TreeListener";
+    private static final String TREE_NODE_ADD = "TreeNodeAdd";
+    private static final String TREE_LISTENER_VALUE_CHANGED = "TreeListenerValueChanged";
+    private static final String TREE_NODE_INSERT = "TreeNodeInsert";
+    private static final String ACTION_EVENT = "ActionEvent";
+    private static final String CHANGE_LISTENER = "ChangeListener";
+    private static final String ACTION_LISTENER = "ActionListener";
+    private static final String ACTION_PERFORMED = "ActionPerformed";
+    private static final String ADD_CHANGE = "AddChange";
+    private static final String STATE_CHANGED = "StateChanged";
+    private static final String TREE_NODE_GET_PREVIOUS_SIBLING = "TreeNodeGetPreviousSibling";
+    private static final String COMPONENT_GET_PREFERRED_SIZE = "ComponentGetPreferredSize";
+    private static final String SPLIT_PANE_SET_DIVIDER_LOCATION = "SplitPaneSetDividerLocation";
+    private static final String SPLIT_PANE_IS_ONE_TOUCH_EXPANDABLE = "SplitPaneIsOneTouchExpandable";
+    private static final String SPLIT_PANE_SET_ONE_TOUCH_EXPANDABLE = "SplitPaneSetOneTouchExpandable";
+    private static final String SPLIT_PANE_IS_CONTINUOUS_LAYOUT = "SplitPaneIsContinuousLayout";
+    private static final String SCROLL_PANE_HORIZONTAL_VALUE = "ScrollPaneHorizontalValue";
+    private static final String TREE_NODE_REMOVE_ALL_CHILDREN = "TreeNodeRemoveAllChildren";
+    private static final String PANEL_BORDER_BEFORE_LINE_BEGINS = "PanelBorderBeforeLineBegins";
+    private static final String COMPONENT_SET_PREFERRED_SIZE = "ComponentSetPreferredSize";
+    private static final String SPLIT_PANE_GET_DIVIDER_LOCATION = "SplitPaneGetDividerLocation";
+    private static final String SPLIT_PANE_SET_CONTINUOUS_LAYOUT = "SplitPaneSetContinuousLayout";
+    private static final String MOUSE_EVENT_IS_CTRL = "MouseEventIsCtrl";
+    private static final String MOUSE_RELEASED = "MouseReleased";
+    private static final String MOUSE_EVENT_IS_SHIFT = "MouseEventIsShift";
+    private static final String SCROLL_PANE_GET_VIEW = "ScrollPaneGetView";
+    private static final String PAINT_REFRESH = "PaintRefresh";
+    private static final String MOUSE_EXITED = "MouseExited";
+    private static final String SPLIT_PANE = "SplitPane";
+    private static final String SPLIT_PANE_SET_RIGHT = "SplitPaneSetRight";
+    private static final String SET_VISIBLE = "SetVisible";
+    private static final String REMOVE_COMPO = "RemoveCompo";
+    private static final String MOUSE_CLICKED = "MouseClicked";
+    private static final String MOUSE_MOVED = "MouseMoved";
+    private static final String MOUSE_EVENT = "MouseEvent";
+    private static final String MOUSE_EVENT_GET_CLICKS = "MouseEventGetClicks";
+    private static final String MOUSE_EVENT_IS_ALT = "MouseEventIsAlt";
+    private static final String MOUSE_EVENT_GET_SECOND = "MouseEventGetSecond";
+    private static final String SCROLL_PANE = "ScrollPane";
+    private static final String SCROLL_PANE_VALIDATE = "ScrollPaneValidate";
+    private static final String SPLIT_PANE_SET_DIVIDER_SIZE = "SplitPaneSetDividerSize";
+    private static final String SPLIT_PANE_GET_LEFT = "SplitPaneGetLeft";
+    private static final String SPLIT_PANE_GET_DIVIDER_SIZE = "SplitPaneGetDividerSize";
+    private static final String SPLIT_PANE_VALIDATE = "SplitPaneValidate";
+    private static final String MOUSE_ENTERED = "MouseEntered";
+    private static final String SCROLL_PANE_SET_VIEW = "ScrollPaneSetView";
+    private static final String SPLIT_PANE_SET_LEFT = "SplitPaneSetLeft";
+    private static final String MOUSE_PRESSED = "MousePressed";
+    private static final String MOUSE_LISTENER = "MouseListener";
+    private static final String IS_VISIBLE = "IsVisible";
+    private static final String MOUSE_DRAGGED = "MouseDragged";
+    private static final String SCROLL_PANE_VERTICAL_VALUE = "ScrollPaneVerticalValue";
+    private static final String SPLIT_PANE_GET_RIGHT = "SplitPaneGetRight";
+    private static final String MOUSE_EVENT_GET_FIRST = "MouseEventGetFirst";
+    private static final String GET_INDEX_COMPO = "GetIndexCompo";
+    private static final String IMAGE_FILL_POLYGON = "ImageFillPolygon";
+    private static final String COMPONENT_IS_VISIBLE = "ComponentIsVisible";
+    private static final String IMAGE_DRAW_RECT = "ImageDrawRect";
+    private static final String COMPONENT_SET_VISIBLE = "ComponentSetVisible";
+    private static final String COMPONENT_SET_SIZE = "ComponentSetSize";
+    private static final String IMAGE_GET_COLOR = "ImageGetColor";
+    private static final String IMAGE_DRAW_OVAL = "ImageDrawOval";
+    private static final String COMPONENT_INVOKE_LATER = "ComponentInvokeLater";
+    private static final String IMAGE_GET_HEIGHT = "ImageGetHeight";
+    private static final String IMAGE_SET_FONT = "ImageSetFont";
+    private static final String IMAGE_DISPOSE = "ImageDispose";
+    private static final String IMAGE_GET_FONT = "ImageGetFont";
+    private static final String COLOR_IS_TRANSPARENT = "ColorIsTransparent";
+    private static final String IMAGE_DRAW_LINE = "ImageDrawLine";
+    private static final String IMAGE_FILL_RECT = "ImageFillRect";
+    private static final String COLOR_BLUE = "ColorBlue";
+    private static final String IMAGE_DRAW_POLYGON = "ImageDrawPolygon";
+    private static final String COMPONENT_REPAINT = "ComponentRepaint";
+    private static final String IMAGE_IS_WITH_ALPHA = "ImageIsWithAlpha";
+    private static final String IMAGE_GET_WIDTH = "ImageGetWidth";
+    private static final String COLOR_GREEN = "ColorGreen";
+    private static final String COMPONENT_SET_PAINT = "ComponentSetPaint";
+    private static final String REMOVE_ALL = "RemoveAll";
+    private static final String IMAGE_FILL_OVAL = "ImageFillOval";
+    private static final String COLOR_ALPHA = "ColorAlpha";
+    private static final String IMAGE_DRAW = "ImageDraw";
+    private static final String IMAGE_SET_COLOR = "ImageSetColor";
+    private static final String SET_CONTENT = "SetContent";
+    private static final String GET_NEXT_COMPO = "GetNextCompo";
+    private static final String COMPONENT_GET_PAINT = "ComponentGetPaint";
+    private static final String GET_PARENT_COMPO = "GetParentCompo";
+    private static final String SET_LABEL_TEXT = "SetLabelText";
+    private static final String SET_LABEL_IMAGE = "SetLabelImage";
+    private static final String TABBED_PANE_SET_TITLE = "TabbedPaneSetTitle";
+    private static final String TABBED_PANE_ADD = "TabbedPaneAdd";
+    private static final String TABBED_PANE_NB = "TabbedPaneNb";
+    private static final String PANEL_FLOW = "PanelFlow";
+    private static final String TABBED_PANE_REMOVE = "TabbedPaneRemove";
+    private static final String ADD_WINDOW_LISTENER = "AddWindowListener";
+    private static final String PAINT_METHOD = "PaintMethod";
+    private static final String PANEL_PAGE_BOX = "PanelPageBox";
+    private static final String PANEL_ABSOLUTE = "PanelAbsolute";
+    private static final String PANEL_GRID = "PanelGrid";
+    private static final String TABBED_PANE_GET = "TabbedPaneGet";
+    private static final String TABBED_PANE = "TabbedPane";
+    private static final String TABBED_PANE_GET_TITLE = "TabbedPaneGetTitle";
+    private static final String PANEL_VALIDATE = "PanelValidate";
+    private static final String TABBED_PANE_INDEX = "TabbedPaneIndex";
+    private static final String TABBED_PANE_SET = "TabbedPaneSet";
+    private static final String TABBED_PANE_SEL_INDEX = "TabbedPaneSelIndex";
+    private static final String ADD_LISTENER = "AddListener";
+    private static final String MENU_ITEM_CHECK = "MenuItemCheck";
+    private static final String MENU_ADD_SEPARATOR = "MenuAddSeparator";
+    private static final String ABS_MENU_ITEM = "AbsMenuItem";
+    private static final String MENU_ITEM_CHECK_IS_SELECTED = "MenuItemCheckIsSelected";
+    private static final String ABS_MENU_SET_ENABLED = "AbsMenuSetEnabled";
+    private static final String MENU_REMOVE = "MenuRemove";
+    private static final String ABS_MENU_ITEM_ADD_ACTION = "AbsMenuItemAddAction";
+    private static final String ABS_MENU_SET_TEXT = "AbsMenuSetText";
+    private static final String ABS_MENU_GET_TEXT = "AbsMenuGetText";
+    private static final String MENU_ITEM_CHECK_SET_SELECTED = "MenuItemCheckSetSelected";
+    private static final String ABS_MENU_SET_DEEP_ENABLED = "AbsMenuSetDeepEnabled";
+    private static final String COMP_TOOL_TIP = "CompToolTip";
+    private static final String WINDOW_CLOSED = "WindowClosed";
+    private static final String MOUSE_EVENT_IS_RIGHT = "MouseEventIsRight";
+    private static final String KEY_PRESSED = "KeyPressed";
+    private static final String MOUSE_EVENT_IS_LEFT = "MouseEventIsLeft";
+    private static final String WHEEL_LISTENER = "WheelListener";
+    private static final String COMP_BOR_LINE = "CompBorLine";
+    private static final String KEY_EVENT_CODE = "KeyEventCode";
+    private static final String REQUEST_FOCUS = "RequestFocus";
+    private static final String COMP_BOR_RAISE = "CompBorRaise";
+    private static final String WHEEL_EVENT = "WheelEvent";
+    private static final String KEY_EVENT_IS_SHIFT = "KeyEventIsShift";
+    private static final String COMP_GET_FIRST_POS = "CompGetFirstPos";
+    private static final String COMP_BOR_TITLE = "CompBorTitle";
+    private static final String ADD_KEY_LISTENER = "AddKeyListener";
+    private static final String KEY_EVENT_IS_ALT = "KeyEventIsAlt";
+    private static final String KEY_LISTENER = "KeyListener";
+    private static final String KEY_EVENT_CHAR = "KeyEventChar";
+    private static final String WINDOW_LISTENER = "WindowListener";
+    private static final String WHEEL_MOVE = "WheelMove";
+    private static final String COMP_GET_SECOND_POS = "CompGetSecondPos";
+    private static final String KEY_EVENT_IS_CTRL = "KeyEventIsCtrl";
+    private static final String MOUSE_EVENT_IS_MIDDLE = "MouseEventIsMiddle";
+    private static final String WHEEL_ROTATED_CLICKS = "WheelRotatedClicks";
+    private static final String COMP_BOR_LOWER = "CompBorLower";
+    private static final String WINDOW_OPENED = "WindowOpened";
+    private static final String COMP_FOCUSABLE = "CompFocusable";
+    private static final String COMP_OPAQUE = "CompOpaque";
+    private static final String WINDOW_ICONIFIED = "WindowIconified";
+    private static final String KEY_RELEASED = "KeyReleased";
+    private static final String ADD_WHEEL_LISTENER = "AddWheelListener";
+    private static final String WINDOW_CLOSING = "WindowClosing";
+    private static final String GR_LIST_SET = "GrListSet";
+    private static final String WINDOW_ACTIVATED = "WindowActivated";
+    private static final String WINDOW_DEACTIVATED = "WindowDeactivated";
+    private static final String RENDER_SET_HEIGHT = "RenderSetHeight";
+    private static final String LIST_SELECTION = "ListSelection";
+    private static final String RENDER_GET_WIDTH = "RenderGetWidth";
+    private static final String RENDER_GET_HEIGHT = "RenderGetHeight";
+    private static final String GR_LIST_GET_SELECTED_INDEXES = "GrListGetSelectedIndexes";
+    private static final String GR_LIST_GET_SELECTION = "GrListGetSelection";
+    private static final String RENDER_SET_WIDTH = "RenderSetWidth";
+    private static final String INPUT_IS_ENABLED = "InputIsEnabled";
+    private static final String GR_LIST_UPDATE_GRAPHICS = "GrListUpdateGraphics";
+    private static final String GR_LIST_GET_VISIBLE_ROW_COUNT = "GrListGetVisibleRowCount";
+    private static final String GR_LIST_CLEAR_SELECTION = "GrListClearSelection";
+    private static final String RENDER_GET_PAINT = "RenderGetPaint";
+    private static final String WINDOW_EVENT = "WindowEvent";
+    private static final String GR_LIST_CLEAR = "GrListClear";
+    private static final String GR_LIST_SET_RENDER = "GrListSetRender";
+    private static final String GR_LIST_SET_SELECTION = "GrListSetSelection";
+    private static final String GR_LIST_REMOVE = "GrListRemove";
+    private static final String INPUT_SET_ENABLED = "InputSetEnabled";
+    private static final String WINDOW_DEICONIFIED = "WindowDeiconified";
+    private static final String VALUE_CHANGED = "ValueChanged";
+    private static final String GR_LIST_GET_LIST_VIEW = "GrListGetListView";
+    private static final String RENDER_SET_PAINT = "RenderSetPaint";
+    private static final String GR_LIST_ADD = "GrListAdd";
+    private static final String GR_LIST_GET_RENDER = "GrListGetRender";
+    private static final String GR_LIST_SET_SELECTED_INDEXES = "GrListSetSelectedIndexes";
+    private static final String GR_LIST_SET_VISIBLE_ROW_COUNT = "GrListSetVisibleRowCount";
+    private static final String COMBO_GET_SELECTED_ITEM = "ComboGetSelectedItem";
+    private static final String COMBO_ADD_ITEM = "ComboAddItem";
+    private static final String POPUP_MENU_GET_COMP = "PopupMenuGetComp";
+    private static final String COMBO_GET_LISTENER = "ComboGetListener";
+    private static final String COMBO_GET_SELECTED_INDEX = "ComboGetSelectedIndex";
+    private static final String POPUP_MENU = "PopupMenu";
+    private static final String POPUP_MENU_ADD_MENU = "PopupMenuAddMenu";
+    private static final String POPUP_MENU_NB_MENU = "PopupMenuNbMenu";
+    private static final String TEXT_FIELD_ADD_POPUP = "TextFieldAddPopup";
+    private static final String POPUP_MENU_NB_COMP = "PopupMenuNbComp";
+    private static final String COMBO_REMOVE_ALL_ITEMS = "ComboRemoveAllItems";
+    private static final String POPUP_MENU_SHOW = "PopupMenuShow";
+    private static final String POPUP_MENU_GET_MENU = "PopupMenuGetMenu";
+    private static final String TEXT_FIELD_AUTO = "TextFieldAuto";
+    private static final String RADIO_GET_TEXT = "RadioGetText";
+    private static final String BUTTON_GROUP_ADD = "ButtonGroupAdd";
+    private static final String BUTTON_GROUP = "ButtonGroup";
+    private static final String POPUP_MENU_ADD = "PopupMenuAdd";
+    private static final String RADIO_IS_SELECTED = "RadioIsSelected";
+    private static final String COMBO_SET_LISTENER = "ComboSetListener";
+    private static final String TEXT_FIELD = "TextField";
+    private static final String COMBO_REMOVE_ITEM = "ComboRemoveItem";
+    private static final String RADIO_SET_SELECTED = "RadioSetSelected";
+    private static final String TEXT_FIELD_GET_TEXT = "TextFieldGetText";
+    private static final String POPUP_MENU_REMOVE_MENU = "PopupMenuRemoveMenu";
+    private static final String TEXT_FIELD_ADD_DOCUMENT = "TextFieldAddDocument";
+    private static final String COMBO_GET_SELECTED_INDEXES = "ComboGetSelectedIndexes";
+    private static final String TEXT_FIELD_ADD_ACTION = "TextFieldAddAction";
+    private static final String TEXT_AREA_GET_TEXT = "TextAreaGetText";
+    private static final String RADIO_SET_TEXT = "RadioSetText";
+    private static final String COMBO_SELECT_ITEM = "ComboSelectItem";
+    private static final String COMBO_GET_ITEM_COUNT = "ComboGetItemCount";
+    private static final String POPUP_MENU_REMOVE_COMP = "PopupMenuRemoveComp";
+    private static final String TEXT_FIELD_SET_TEXT = "TextFieldSetText";
+    private static final String CHECK_BOX_SET_SELECTED = "CheckBoxSetSelected";
+    private static final String CHECK_BOX_ADD_ACTION = "CheckBoxAddAction";
+    private static final String TEXT_AREA_SET_SELECTION_END = "TextAreaSetSelectionEnd";
+    private static final String SPINNER_GET_VALUE = "SpinnerGetValue";
+    private static final String SLIDER_GET_MAX = "SliderGetMax";
+    private static final String TEXT_AREA_SELECT = "TextAreaSelect";
+    private static final String TEXT_AREA_REPLACE_RANGE = "TextAreaReplaceRange";
+    private static final String SPINNER_SET_STEP = "SpinnerSetStep";
+    private static final String CHECK_BOX_IS_SELECTED = "CheckBoxIsSelected";
+    private static final String TEXT_AREA_REPLACE_SELECTION = "TextAreaReplaceSelection";
+    private static final String SPINNER_SET_VALUE = "SpinnerSetValue";
+    private static final String SLIDER_GET_VALUE = "SliderGetValue";
+    private static final String SLIDER_SET_VALUE = "SliderSetValue";
+    private static final String SLIDER_GET_MIN = "SliderGetMin";
+    private static final String SLIDER_SET_MIN = "SliderSetMin";
+    private static final String TEXT_AREA_SET_TAB_SIZE = "TextAreaSetTabSize";
+    private static final String SPINNER_GET_MIN = "SpinnerGetMin";
+    private static final String CHECK_BOX_SET_TEXT = "CheckBoxSetText";
+    private static final String CHECK_BOX_GET_TEXT = "CheckBoxGetText";
+    private static final String TEXT_AREA_INSERT = "TextAreaInsert";
+    private static final String TEXT_AREA_SELECT_ALL = "TextAreaSelectAll";
+    private static final String TEXT_AREA_APPEND = "TextAreaAppend";
+    private static final String SPINNER_GET_MAX = "SpinnerGetMax";
+    private static final String SPINNER_SET_MAX = "SpinnerSetMax";
+    private static final String TEXT_AREA_GET_TAB_SIZE = "TextAreaGetTabSize";
+    private static final String TEXT_AREA_SET_TEXT = "TextAreaSetText";
+    private static final String SPINNER_SET_MIN = "SpinnerSetMin";
+    private static final String SPINNER_GET_STEP = "SpinnerGetStep";
+    private static final String SPINNER_SET_RANGE_VALUE = "SpinnerSetRangeValue";
+    private static final String TEXT_AREA_GET_SELECTED_TEXT = "TextAreaGetSelectedText";
+    private static final String SLIDER_SET_MAX = "SliderSetMax";
+    private static final String SPINNER_SET_RANGE = "SpinnerSetRange";
+    private static final String MENU_BAR_GET = "MenuBarGet";
+    private static final String MENU_BAR_REMOVE = "MenuBarRemove";
+    private static final String ABS_MENU_GET_PARENT = "AbsMenuGetParent";
+    private static final String ABS_MENU_IS_ENABLED = "AbsMenuIsEnabled";
+    private static final String MENU_BAR_ADD = "MenuBarAdd";
+    private static final String GET_MENU_BAR = "GetMenuBar";
+    private static final String SLIDER_GET_ORIENTATION = "SliderGetOrientation";
+    private static final String MENU_BAR_NB = "MenuBarNb";
+    private static final String SET_MENU_BAR = "SetMenuBar";
+    private static final String SLIDER_SET_ORIENTATION = "SliderSetOrientation";
+    private static final String MENU_BAR = "MenuBar";
+    private static final String MENU_NB = "MenuNb";
+    private static final String MENU_ADD = "MenuAdd";
+    private static final String MENU = "Menu";
+    private static final String MENU_ITEM = "MenuItem";
+    private static final String ABS_MENU = "AbsMenu";
+    private static final String MENU_GET = "MenuGet";
     private String aliasActionListener;
     private String aliasActionPerformed;
     private String aliasActionEvent;
@@ -7616,436 +8006,436 @@ public class LgNamesGui extends LgNamesUtils {
         otherAliasGui(_util,_cust);
     }
     private void otherAliasGui(StringMap<String> _util, StringMap<String> _cust) {
-        setAliasTreeNode(get(_util,_cust,"TreeNode"));
-        setAliasTree(get(_util,_cust,"Tree"));
-        setAliasTableGui(get(_util,_cust,"TableGui"));
-        setAliasButton(get(_util,_cust,"Button"));
-        setAliasConfirm(get(_util,_cust,"Confirm"));
-        setAliasFrame(get(_util,_cust,"Frame"));
-        setAliasDialog(get(_util,_cust,"Dialog"));
-        setAliasPanel(get(_util,_cust,"Panel"));
-        setAliasProgBar(get(_util,_cust,"ProgBar"));
-        setAliasImageSet(get(_util,_cust,"ImageSet"));
-        setAliasArgs(get(_util,_cust,"Args"));
-        setAliasKeyEvent(get(_util,_cust,"KeyEvent"));
-        setAliasRadio(get(_util,_cust,"Radio"));
-        setAliasCheckBox(get(_util,_cust,"CheckBox"));
-        setAliasSetFont(get(_util,_cust,"SetFont"));
-        setAliasSpinner(get(_util,_cust,"Spinner"));
-        setAliasDispose(get(_util,_cust,"Dispose"));
-        setAliasGrList(get(_util,_cust,"GrList"));
-        setAliasGetFont(get(_util,_cust,"GetFont"));
-        setAliasImage(get(_util,_cust,"Image"));
-        setAliasSlider(get(_util,_cust,"Slider"));
-        setAliasPaintAdd(get(_util,_cust,"PaintAdd"));
-        setAliasCount(get(_util,_cust,"Count"));
-        setAliasPack(get(_util,_cust,"Pack"));
-        setAliasColor(get(_util,_cust,"Color"));
-        setAliasWindow(get(_util,_cust,"Window"));
-        setAliasWindowSet(get(_util,_cust,"WindowSet"));
-        setAliasWindowSetAdd(get(_util,_cust,"WindowSetAdd"));
-        setAliasWindowSetAll(get(_util,_cust,"WindowSetAll"));
-        setAliasWindowSetContains(get(_util,_cust,"WindowSetContains"));
-        setAliasWindowSetRemove(get(_util,_cust,"WindowSetRemove"));
-        setAliasWindowSetSnapshot(get(_util,_cust,"WindowSetSnapshot"));
-        setAliasCompBack(get(_util,_cust,"CompBack"));
-        setAliasPaint(get(_util,_cust,"Paint"));
-        setAliasCompLoc(get(_util,_cust,"CompLoc"));
-        setAliasImageGet(get(_util,_cust,"ImageGet"));
-        setAliasRender(get(_util,_cust,"Render"));
-        setAliasCombo(get(_util,_cust,"Combo"));
-        setAliasAddCompo(get(_util,_cust,"AddCompo"));
-        setAliasInput(get(_util,_cust,"Input"));
-        setAliasFont(get(_util,_cust,"Font"));
-        setAliasCompFore(get(_util,_cust,"CompFore"));
-        setAliasKeyTyped(get(_util,_cust,"KeyTyped"));
-        setAliasColorRed(get(_util,_cust,"ColorRed"));
-        setAliasTextArea(get(_util,_cust,"TextArea"));
-        setAliasFontGetSize(get(_util,_cust,"FontGetSize"));
-        setAliasDimension(get(_util,_cust,"Dimension"));
-        setAliasProgBarOr(get(_util,_cust,"ProgBarOr"));
-        setAliasFontIsBold(get(_util,_cust,"FontIsBold"));
-        setAliasDimensionGetHeight(get(_util,_cust,"DimensionGetHeight"));
-        setAliasPanelBorderNorth(get(_util,_cust,"PanelBorderNorth"));
-        setAliasPanelBorderSouth(get(_util,_cust,"PanelBorderSouth"));
-        setAliasRemoveWindowListener(get(_util,_cust,"RemoveWindowListener"));
-        setAliasWindowTypeRelative(get(_util,_cust,"WindowTypeRelative"));
-        setAliasPanelBorderAfterLast(get(_util,_cust,"PanelBorderAfterLast"));
-        setAliasFontGetName(get(_util,_cust,"FontGetName"));
-        setAliasDimensionGetWidth(get(_util,_cust,"DimensionGetWidth"));
-        setAliasComponent(get(_util,_cust,"Component"));
-        setAliasPanelBorderAfterLineEnds(get(_util,_cust,"PanelBorderAfterLineEnds"));
-        setAliasComponentSetAutoscrolls(get(_util,_cust,"ComponentSetAutoscrolls"));
-        setAliasComponentIsAutoscrolls(get(_util,_cust,"ComponentIsAutoscrolls"));
-        setAliasComponentGetWidth(get(_util,_cust,"ComponentGetWidth"));
-        setAliasComponentGetHeight(get(_util,_cust,"ComponentGetHeight"));
-        setAliasPanelBorderEast(get(_util,_cust,"PanelBorderEast"));
-        setAliasProgBarMax(get(_util,_cust,"ProgBarMax"));
-        setAliasGetWindowListeners(get(_util,_cust,"GetWindowListeners"));
-        setAliasPanelBorderBeforeFirst(get(_util,_cust,"PanelBorderBeforeFirst"));
-        setAliasTextLabel(get(_util,_cust,"TextLabel"));
-        setAliasPanelBorderWest(get(_util,_cust,"PanelBorderWest"));
-        setAliasProgBarMin(get(_util,_cust,"ProgBarMin"));
-        setAliasProgBarValue(get(_util,_cust,"ProgBarValue"));
-        setAliasPanelBorder(get(_util,_cust,"PanelBorder"));
-        setAliasFontIsItalic(get(_util,_cust,"FontIsItalic"));
-        setAliasImageLabel(get(_util,_cust,"ImageLabel"));
-        setAliasPanelBorderCenter(get(_util,_cust,"PanelBorderCenter"));
-        setAliasFontStringWidth(get(_util,_cust,"FontStringWidth"));
-        setAliasTableSetColumns(get(_util,_cust,"TableSetColumns"));
-        setAliasTreeIsRootVisible(get(_util,_cust,"TreeIsRootVisible"));
-        setAliasTreeNodeRemoveFromParent(get(_util,_cust,"TreeNodeRemoveFromParent"));
-        setAliasTreeNodeSetUserObject(get(_util,_cust,"TreeNodeSetUserObject"));
-        setAliasTreeReload(get(_util,_cust,"TreeReload"));
-        setAliasTreeAddTreeListener(get(_util,_cust,"TreeAddTreeListener"));
-        setAliasTreeNodeNb(get(_util,_cust,"TreeNodeNb"));
-        setAliasTableIsMultiple(get(_util,_cust,"TableIsMultiple"));
-        setAliasTableListener(get(_util,_cust,"TableListener"));
-        setAliasTableGetRowCount(get(_util,_cust,"TableGetRowCount"));
-        setAliasTreeNodeIsAncestor(get(_util,_cust,"TreeNodeIsAncestor"));
-        setAliasTreeNodeGetNextSibling(get(_util,_cust,"TreeNodeGetNextSibling"));
-        setAliasTreeNodeGetLastChild(get(_util,_cust,"TreeNodeGetLastChild"));
-        setAliasTreeSetRootVisible(get(_util,_cust,"TreeSetRootVisible"));
-        setAliasTableSetMultiple(get(_util,_cust,"TableSetMultiple"));
-        setAliasTreeNodeGetParentNode(get(_util,_cust,"TreeNodeGetParentNode"));
-        setAliasTreeNodeRemove(get(_util,_cust,"TreeNodeRemove"));
-        setAliasTableGetSelectedRow(get(_util,_cust,"TableGetSelectedRow"));
-        setAliasTreeNodeGetFirstChild(get(_util,_cust,"TreeNodeGetFirstChild"));
-        setAliasTreeNodeGetUserObject(get(_util,_cust,"TreeNodeGetUserObject"));
-        setAliasTableGetSelectedRows(get(_util,_cust,"TableGetSelectedRows"));
-        setAliasTableValueTableChanged(get(_util,_cust,"TableValueTableChanged"));
-        setAliasTableGetColumnCount(get(_util,_cust,"TableGetColumnCount"));
-        setAliasTableGetRowAtPoint(get(_util,_cust,"TableGetRowAtPoint"));
-        setAliasTableSetRowCount(get(_util,_cust,"TableSetRowCount"));
-        setAliasTableGetColumnName(get(_util,_cust,"TableGetColumnName"));
-        setAliasTableGetValue(get(_util,_cust,"TableGetValue"));
-        setAliasTreeNodeIsDescendant(get(_util,_cust,"TreeNodeIsDescendant"));
-        setAliasTableSetValue(get(_util,_cust,"TableSetValue"));
-        setAliasTreeGetSelected(get(_util,_cust,"TreeGetSelected"));
-        setAliasTableGetSelectedRowCount(get(_util,_cust,"TableGetSelectedRowCount"));
-        setAliasTableGetColumnAtPoint(get(_util,_cust,"TableGetColumnAtPoint"));
-        setAliasConfirmOk(get(_util,_cust,"ConfirmOk"));
-        setAliasConfirmYesNo(get(_util,_cust,"ConfirmYesNo"));
-        setAliasTableRemoveInterval(get(_util,_cust,"TableRemoveInterval"));
-        setAliasConfirmFieldOk(get(_util,_cust,"ConfirmFieldOk"));
-        setAliasDialogSetModal(get(_util,_cust,"DialogSetModal"));
-        setAliasTableApplyChanges(get(_util,_cust,"TableApplyChanges"));
-        setAliasTableIsReorder(get(_util,_cust,"TableIsReorder"));
-        setAliasConfirmFieldYes(get(_util,_cust,"ConfirmFieldYes"));
-        setAliasTableSetReorder(get(_util,_cust,"TableSetReorder"));
-        setAliasConfirmField(get(_util,_cust,"ConfirmField"));
-        setAliasConfirmFieldNo(get(_util,_cust,"ConfirmFieldNo"));
-        setAliasTableAddSelect(get(_util,_cust,"TableAddSelect"));
-        setAliasConfirmMessage(get(_util,_cust,"ConfirmMessage"));
-        setAliasTableAddHeader(get(_util,_cust,"TableAddHeader"));
-        setAliasConfirmFull(get(_util,_cust,"ConfirmFull"));
-        setAliasDialogIsModal(get(_util,_cust,"DialogIsModal"));
-        setAliasWindowType(get(_util,_cust,"WindowType"));
-        setAliasTableAddInterval(get(_util,_cust,"TableAddInterval"));
-        setAliasTableMoveColumn(get(_util,_cust,"TableMoveColumn"));
-        setAliasConfirmFieldCancel(get(_util,_cust,"ConfirmFieldCancel"));
-        setAliasTextAreaSetSelectionStart(get(_util,_cust,"TextAreaSetSelectionStart"));
-        setAliasTreeListener(get(_util,_cust,"TreeListener"));
-        setAliasTreeNodeAdd(get(_util,_cust,"TreeNodeAdd"));
-        setAliasTreeListenerValueChanged(get(_util,_cust,"TreeListenerValueChanged"));
-        setAliasTreeNodeInsert(get(_util,_cust,"TreeNodeInsert"));
-        setAliasActionEvent(get(_util,_cust,"ActionEvent"));
-        setAliasChangeListener(get(_util,_cust,"ChangeListener"));
-        setAliasActionListener(get(_util,_cust,"ActionListener"));
-        setAliasActionPerformed(get(_util,_cust,"ActionPerformed"));
-        setAliasAddChange(get(_util,_cust,"AddChange"));
-        setAliasStateChanged(get(_util,_cust,"StateChanged"));
-        setAliasTreeNodeGetPreviousSibling(get(_util,_cust,"TreeNodeGetPreviousSibling"));
-        setAliasComponentGetPreferredSize(get(_util,_cust,"ComponentGetPreferredSize"));
-        setAliasSplitPaneSetDividerLocation(get(_util,_cust,"SplitPaneSetDividerLocation"));
-        setAliasSplitPaneIsOneTouchExpandable(get(_util,_cust,"SplitPaneIsOneTouchExpandable"));
-        setAliasSplitPaneSetOneTouchExpandable(get(_util,_cust,"SplitPaneSetOneTouchExpandable"));
-        setAliasSplitPaneIsContinuousLayout(get(_util,_cust,"SplitPaneIsContinuousLayout"));
-        setAliasScrollPaneHorizontalValue(get(_util,_cust,"ScrollPaneHorizontalValue"));
-        setAliasTreeNodeRemoveAllChildren(get(_util,_cust,"TreeNodeRemoveAllChildren"));
-        setAliasPanelBorderBeforeLineBegins(get(_util,_cust,"PanelBorderBeforeLineBegins"));
-        setAliasComponentSetPreferredSize(get(_util,_cust,"ComponentSetPreferredSize"));
-        setAliasSplitPaneGetDividerLocation(get(_util,_cust,"SplitPaneGetDividerLocation"));
-        setAliasSplitPaneSetContinuousLayout(get(_util,_cust,"SplitPaneSetContinuousLayout"));
-        setAliasMouseEventIsCtrl(get(_util,_cust,"MouseEventIsCtrl"));
-        setAliasMouseReleased(get(_util,_cust,"MouseReleased"));
-        setAliasMouseEventIsShift(get(_util,_cust,"MouseEventIsShift"));
-        setAliasScrollPaneGetView(get(_util,_cust,"ScrollPaneGetView"));
-        setAliasPaintRefresh(get(_util,_cust,"PaintRefresh"));
-        setAliasMouseExited(get(_util,_cust,"MouseExited"));
-        setAliasSplitPane(get(_util,_cust,"SplitPane"));
-        setAliasSplitPaneSetRight(get(_util,_cust,"SplitPaneSetRight"));
-        setAliasSetVisible(get(_util,_cust,"SetVisible"));
-        setAliasRemoveCompo(get(_util,_cust,"RemoveCompo"));
-        setAliasMouseClicked(get(_util,_cust,"MouseClicked"));
-        setAliasMouseMoved(get(_util,_cust,"MouseMoved"));
-        setAliasMouseEvent(get(_util,_cust,"MouseEvent"));
-        setAliasMouseEventGetClicks(get(_util,_cust,"MouseEventGetClicks"));
-        setAliasMouseEventIsAlt(get(_util,_cust,"MouseEventIsAlt"));
-        setAliasMouseEventGetSecond(get(_util,_cust,"MouseEventGetSecond"));
-        setAliasScrollPane(get(_util,_cust,"ScrollPane"));
-        setAliasScrollPaneValidate(get(_util,_cust,"ScrollPaneValidate"));
-        setAliasSplitPaneSetDividerSize(get(_util,_cust,"SplitPaneSetDividerSize"));
-        setAliasSplitPaneGetLeft(get(_util,_cust,"SplitPaneGetLeft"));
-        setAliasSplitPaneGetDividerSize(get(_util,_cust,"SplitPaneGetDividerSize"));
-        setAliasSplitPaneValidate(get(_util,_cust,"SplitPaneValidate"));
-        setAliasMouseEntered(get(_util,_cust,"MouseEntered"));
-        setAliasScrollPaneSetView(get(_util,_cust,"ScrollPaneSetView"));
-        setAliasSplitPaneSetLeft(get(_util,_cust,"SplitPaneSetLeft"));
-        setAliasMousePressed(get(_util,_cust,"MousePressed"));
-        setAliasMouseListener(get(_util,_cust,"MouseListener"));
-        setAliasIsVisible(get(_util,_cust,"IsVisible"));
-        setAliasMouseDragged(get(_util,_cust,"MouseDragged"));
-        setAliasScrollPaneVerticalValue(get(_util,_cust,"ScrollPaneVerticalValue"));
-        setAliasSplitPaneGetRight(get(_util,_cust,"SplitPaneGetRight"));
-        setAliasMouseEventGetFirst(get(_util,_cust,"MouseEventGetFirst"));
-        setAliasGetIndexCompo(get(_util,_cust,"GetIndexCompo"));
-        setAliasImageFillPolygon(get(_util,_cust,"ImageFillPolygon"));
-        setAliasComponentIsVisible(get(_util,_cust,"ComponentIsVisible"));
-        setAliasImageDrawRect(get(_util,_cust,"ImageDrawRect"));
-        setAliasComponentSetVisible(get(_util,_cust,"ComponentSetVisible"));
-        setAliasComponentSetSize(get(_util,_cust,"ComponentSetSize"));
-        setAliasImageGetColor(get(_util,_cust,"ImageGetColor"));
-        setAliasImageDrawOval(get(_util,_cust,"ImageDrawOval"));
-        setAliasComponentInvokeLater(get(_util,_cust,"ComponentInvokeLater"));
-        setAliasImageGetHeight(get(_util,_cust,"ImageGetHeight"));
-        setAliasImageSetFont(get(_util,_cust,"ImageSetFont"));
-        setAliasImageDispose(get(_util,_cust,"ImageDispose"));
-        setAliasImageGetFont(get(_util,_cust,"ImageGetFont"));
-        setAliasColorIsTransparent(get(_util,_cust,"ColorIsTransparent"));
-        setAliasImageDrawLine(get(_util,_cust,"ImageDrawLine"));
-        setAliasImageFillRect(get(_util,_cust,"ImageFillRect"));
-        setAliasColorBlue(get(_util,_cust,"ColorBlue"));
-        setAliasImageDrawPolygon(get(_util,_cust,"ImageDrawPolygon"));
-        setAliasComponentRepaint(get(_util,_cust,"ComponentRepaint"));
-        setAliasImageIsWithAlpha(get(_util,_cust,"ImageIsWithAlpha"));
-        setAliasImageGetWidth(get(_util,_cust,"ImageGetWidth"));
-        setAliasColorGreen(get(_util,_cust,"ColorGreen"));
-        setAliasComponentSetPaint(get(_util,_cust,"ComponentSetPaint"));
-        setAliasRemoveAll(get(_util,_cust,"RemoveAll"));
-        setAliasImageFillOval(get(_util,_cust,"ImageFillOval"));
-        setAliasColorAlpha(get(_util,_cust,"ColorAlpha"));
-        setAliasImageDraw(get(_util,_cust,"ImageDraw"));
-        setAliasImageSetColor(get(_util,_cust,"ImageSetColor"));
-        setAliasSetContent(get(_util,_cust,"SetContent"));
-        setAliasGetNextCompo(get(_util,_cust,"GetNextCompo"));
-        setAliasComponentGetPaint(get(_util,_cust,"ComponentGetPaint"));
-        setAliasGetParentCompo(get(_util,_cust,"GetParentCompo"));
-        setAliasSetLabelText(get(_util,_cust,"SetLabelText"));
-        setAliasSetLabelImage(get(_util,_cust,"SetLabelImage"));
-        setAliasTabbedPaneSetTitle(get(_util,_cust,"TabbedPaneSetTitle"));
-        setAliasTabbedPaneAdd(get(_util,_cust,"TabbedPaneAdd"));
-        setAliasTabbedPaneNb(get(_util,_cust,"TabbedPaneNb"));
-        setAliasPanelFlow(get(_util,_cust,"PanelFlow"));
-        setAliasTabbedPaneRemove(get(_util,_cust,"TabbedPaneRemove"));
-        setAliasAddWindowListener(get(_util,_cust,"AddWindowListener"));
-        setAliasPaintMethod(get(_util,_cust,"PaintMethod"));
-        setAliasPanelPageBox(get(_util,_cust,"PanelPageBox"));
-        setAliasPanelAbsolute(get(_util,_cust,"PanelAbsolute"));
-        setAliasPanelGrid(get(_util,_cust,"PanelGrid"));
-        setAliasTabbedPaneGet(get(_util,_cust,"TabbedPaneGet"));
-        setAliasTabbedPane(get(_util,_cust,"TabbedPane"));
-        setAliasTabbedPaneGetTitle(get(_util,_cust,"TabbedPaneGetTitle"));
-        setAliasPanelValidate(get(_util,_cust,"PanelValidate"));
-        setAliasTabbedPaneIndex(get(_util,_cust,"TabbedPaneIndex"));
-        setAliasTabbedPaneSet(get(_util,_cust,"TabbedPaneSet"));
-        setAliasTabbedPaneSelIndex(get(_util,_cust,"TabbedPaneSelIndex"));
-        setAliasAddListener(get(_util,_cust,"AddListener"));
-        setAliasMenuItemCheck(get(_util,_cust,"MenuItemCheck"));
-        setAliasMenuAddSeparator(get(_util,_cust,"MenuAddSeparator"));
-        setAliasAbsMenuItem(get(_util,_cust,"AbsMenuItem"));
-        setAliasMenuItemCheckIsSelected(get(_util,_cust,"MenuItemCheckIsSelected"));
-        setAliasAbsMenuSetEnabled(get(_util,_cust,"AbsMenuSetEnabled"));
-        setAliasMenuRemove(get(_util,_cust,"MenuRemove"));
-        setAliasAbsMenuItemAddAction(get(_util,_cust,"AbsMenuItemAddAction"));
-        setAliasAbsMenuSetText(get(_util,_cust,"AbsMenuSetText"));
-        setAliasAbsMenuGetText(get(_util,_cust,"AbsMenuGetText"));
-        setAliasMenuItemCheckSetSelected(get(_util,_cust,"MenuItemCheckSetSelected"));
-        setAliasAbsMenuSetDeepEnabled(get(_util,_cust,"AbsMenuSetDeepEnabled"));
-        setAliasCompToolTip(get(_util,_cust,"CompToolTip"));
-        setAliasWindowClosed(get(_util,_cust,"WindowClosed"));
-        setAliasMouseEventIsRight(get(_util,_cust,"MouseEventIsRight"));
-        setAliasKeyPressed(get(_util,_cust,"KeyPressed"));
-        setAliasMouseEventIsLeft(get(_util,_cust,"MouseEventIsLeft"));
-        setAliasWheelListener(get(_util,_cust,"WheelListener"));
-        setAliasCompBorLine(get(_util,_cust,"CompBorLine"));
-        setAliasKeyEventCode(get(_util,_cust,"KeyEventCode"));
-        setAliasRequestFocus(get(_util,_cust,"RequestFocus"));
-        setAliasCompBorRaise(get(_util,_cust,"CompBorRaise"));
-        setAliasWheelEvent(get(_util,_cust,"WheelEvent"));
-        setAliasKeyEventIsShift(get(_util,_cust,"KeyEventIsShift"));
-        setAliasCompGetFirstPos(get(_util,_cust,"CompGetFirstPos"));
-        setAliasCompBorTitle(get(_util,_cust,"CompBorTitle"));
-        setAliasAddKeyListener(get(_util,_cust,"AddKeyListener"));
-        setAliasKeyEventIsAlt(get(_util,_cust,"KeyEventIsAlt"));
-        setAliasKeyListener(get(_util,_cust,"KeyListener"));
-        setAliasKeyEventChar(get(_util,_cust,"KeyEventChar"));
-        setAliasWindowListener(get(_util,_cust,"WindowListener"));
-        setAliasWheelMove(get(_util,_cust,"WheelMove"));
-        setAliasCompGetSecondPos(get(_util,_cust,"CompGetSecondPos"));
-        setAliasKeyEventIsCtrl(get(_util,_cust,"KeyEventIsCtrl"));
-        setAliasMouseEventIsMiddle(get(_util,_cust,"MouseEventIsMiddle"));
-        setAliasWheelRotatedClicks(get(_util,_cust,"WheelRotatedClicks"));
-        setAliasCompBorLower(get(_util,_cust,"CompBorLower"));
-        setAliasWindowOpened(get(_util,_cust,"WindowOpened"));
-        setAliasCompFocusable(get(_util,_cust,"CompFocusable"));
-        setAliasCompOpaque(get(_util,_cust,"CompOpaque"));
-        setAliasWindowIconified(get(_util,_cust,"WindowIconified"));
-        setAliasKeyReleased(get(_util,_cust,"KeyReleased"));
-        setAliasAddWheelListener(get(_util,_cust,"AddWheelListener"));
-        setAliasWindowClosing(get(_util,_cust,"WindowClosing"));
-        setAliasGrListSet(get(_util,_cust,"GrListSet"));
-        setAliasWindowActivated(get(_util,_cust,"WindowActivated"));
-        setAliasWindowDeactivated(get(_util,_cust,"WindowDeactivated"));
-        setAliasRenderSetHeight(get(_util,_cust,"RenderSetHeight"));
-        setAliasListSelection(get(_util,_cust,"ListSelection"));
-        setAliasRenderGetWidth(get(_util,_cust,"RenderGetWidth"));
-        setAliasRenderGetHeight(get(_util,_cust,"RenderGetHeight"));
-        setAliasGrListGetSelectedIndexes(get(_util,_cust,"GrListGetSelectedIndexes"));
-        setAliasGrListGetSelection(get(_util,_cust,"GrListGetSelection"));
-        setAliasRenderSetWidth(get(_util,_cust,"RenderSetWidth"));
-        setAliasInputIsEnabled(get(_util,_cust,"InputIsEnabled"));
-        setAliasGrListUpdateGraphics(get(_util,_cust,"GrListUpdateGraphics"));
-        setAliasGrListGetVisibleRowCount(get(_util,_cust,"GrListGetVisibleRowCount"));
-        setAliasGrListClearSelection(get(_util,_cust,"GrListClearSelection"));
-        setAliasRenderGetPaint(get(_util,_cust,"RenderGetPaint"));
-        setAliasWindowEvent(get(_util,_cust,"WindowEvent"));
-        setAliasGrListClear(get(_util,_cust,"GrListClear"));
-        setAliasGrListSetRender(get(_util,_cust,"GrListSetRender"));
-        setAliasGrListSetSelection(get(_util,_cust,"GrListSetSelection"));
-        setAliasGrListRemove(get(_util,_cust,"GrListRemove"));
-        setAliasInputSetEnabled(get(_util,_cust,"InputSetEnabled"));
-        setAliasWindowDeiconified(get(_util,_cust,"WindowDeiconified"));
-        setAliasValueChanged(get(_util,_cust,"ValueChanged"));
-        setAliasGrListGetListView(get(_util,_cust,"GrListGetListView"));
-        setAliasRenderSetPaint(get(_util,_cust,"RenderSetPaint"));
-        setAliasGrListAdd(get(_util,_cust,"GrListAdd"));
-        setAliasGrListGetRender(get(_util,_cust,"GrListGetRender"));
-        setAliasGrListSetSelectedIndexes(get(_util,_cust,"GrListSetSelectedIndexes"));
-        setAliasGrListSetVisibleRowCount(get(_util,_cust,"GrListSetVisibleRowCount"));
-        setAliasComboGetSelectedItem(get(_util,_cust,"ComboGetSelectedItem"));
-        setAliasComboAddItem(get(_util,_cust,"ComboAddItem"));
-        setAliasPopupMenuGetComp(get(_util,_cust,"PopupMenuGetComp"));
-        setAliasComboGetListener(get(_util,_cust,"ComboGetListener"));
-        setAliasComboGetSelectedIndex(get(_util,_cust,"ComboGetSelectedIndex"));
-        setAliasPopupMenu(get(_util,_cust,"PopupMenu"));
-        setAliasPopupMenuAddMenu(get(_util,_cust,"PopupMenuAddMenu"));
-        setAliasPopupMenuNbMenu(get(_util,_cust,"PopupMenuNbMenu"));
-        setAliasTextFieldAddPopup(get(_util,_cust,"TextFieldAddPopup"));
-        setAliasPopupMenuNbComp(get(_util,_cust,"PopupMenuNbComp"));
-        setAliasComboRemoveAllItems(get(_util,_cust,"ComboRemoveAllItems"));
-        setAliasPopupMenuShow(get(_util,_cust,"PopupMenuShow"));
-        setAliasPopupMenuGetMenu(get(_util,_cust,"PopupMenuGetMenu"));
-        setAliasTextFieldAuto(get(_util,_cust,"TextFieldAuto"));
-        setAliasRadioGetText(get(_util,_cust,"RadioGetText"));
-        setAliasButtonGroupAdd(get(_util,_cust,"ButtonGroupAdd"));
-        setAliasButtonGroup(get(_util,_cust,"ButtonGroup"));
-        setAliasPopupMenuAdd(get(_util,_cust,"PopupMenuAdd"));
-        setAliasRadioIsSelected(get(_util,_cust,"RadioIsSelected"));
-        setAliasComboSetListener(get(_util,_cust,"ComboSetListener"));
-        setAliasTextField(get(_util,_cust,"TextField"));
-        setAliasComboRemoveItem(get(_util,_cust,"ComboRemoveItem"));
-        setAliasRadioSetSelected(get(_util,_cust,"RadioSetSelected"));
-        setAliasTextFieldGetText(get(_util,_cust,"TextFieldGetText"));
-        setAliasPopupMenuRemoveMenu(get(_util,_cust,"PopupMenuRemoveMenu"));
-        setAliasTextFieldAddDocument(get(_util,_cust,"TextFieldAddDocument"));
-        setAliasComboGetSelectedIndexes(get(_util,_cust,"ComboGetSelectedIndexes"));
-        setAliasTextFieldAddAction(get(_util,_cust,"TextFieldAddAction"));
-        setAliasTextAreaGetText(get(_util,_cust,"TextAreaGetText"));
-        setAliasRadioSetText(get(_util,_cust,"RadioSetText"));
-        setAliasComboSelectItem(get(_util,_cust,"ComboSelectItem"));
-        setAliasComboGetItemCount(get(_util,_cust,"ComboGetItemCount"));
-        setAliasPopupMenuRemoveComp(get(_util,_cust,"PopupMenuRemoveComp"));
-        setAliasTextFieldSetText(get(_util,_cust,"TextFieldSetText"));
-        setAliasCheckBoxSetSelected(get(_util,_cust,"CheckBoxSetSelected"));
-        setAliasCheckBoxAddAction(get(_util,_cust,"CheckBoxAddAction"));
-        setAliasTextAreaSetSelectionEnd(get(_util,_cust,"TextAreaSetSelectionEnd"));
-        setAliasSpinnerGetValue(get(_util,_cust,"SpinnerGetValue"));
-        setAliasSliderGetMax(get(_util,_cust,"SliderGetMax"));
-        setAliasTextAreaSelect(get(_util,_cust,"TextAreaSelect"));
-        setAliasTextAreaReplaceRange(get(_util,_cust,"TextAreaReplaceRange"));
-        setAliasSpinnerSetStep(get(_util,_cust,"SpinnerSetStep"));
-        setAliasCheckBoxIsSelected(get(_util,_cust,"CheckBoxIsSelected"));
-        setAliasTextAreaReplaceSelection(get(_util,_cust,"TextAreaReplaceSelection"));
-        setAliasSpinnerSetValue(get(_util,_cust,"SpinnerSetValue"));
-        setAliasSliderGetValue(get(_util,_cust,"SliderGetValue"));
-        setAliasSliderSetValue(get(_util,_cust,"SliderSetValue"));
-        setAliasSliderGetMin(get(_util,_cust,"SliderGetMin"));
-        setAliasSliderSetMin(get(_util,_cust,"SliderSetMin"));
-        setAliasTextAreaSetTabSize(get(_util,_cust,"TextAreaSetTabSize"));
-        setAliasSpinnerGetMin(get(_util,_cust,"SpinnerGetMin"));
-        setAliasCheckBoxSetText(get(_util,_cust,"CheckBoxSetText"));
-        setAliasCheckBoxGetText(get(_util,_cust,"CheckBoxGetText"));
-        setAliasTextAreaInsert(get(_util,_cust,"TextAreaInsert"));
-        setAliasTextAreaSelectAll(get(_util,_cust,"TextAreaSelectAll"));
-        setAliasTextAreaAppend(get(_util,_cust,"TextAreaAppend"));
-        setAliasSpinnerGetMax(get(_util,_cust,"SpinnerGetMax"));
-        setAliasSpinnerSetMax(get(_util,_cust,"SpinnerSetMax"));
-        setAliasTextAreaGetTabSize(get(_util,_cust,"TextAreaGetTabSize"));
-        setAliasTextAreaSetText(get(_util,_cust,"TextAreaSetText"));
-        setAliasSpinnerSetMin(get(_util,_cust,"SpinnerSetMin"));
-        setAliasSpinnerGetStep(get(_util,_cust,"SpinnerGetStep"));
-        setAliasSpinnerSetRangeValue(get(_util,_cust,"SpinnerSetRangeValue"));
-        setAliasTextAreaGetSelectedText(get(_util,_cust,"TextAreaGetSelectedText"));
-        setAliasSliderSetMax(get(_util,_cust,"SliderSetMax"));
-        setAliasSpinnerSetRange(get(_util,_cust,"SpinnerSetRange"));
-        setAliasMenuBarGet(get(_util,_cust,"MenuBarGet"));
-        setAliasMenuBarRemove(get(_util,_cust,"MenuBarRemove"));
-        setAliasAbsMenuGetParent(get(_util,_cust,"AbsMenuGetParent"));
-        setAliasAbsMenuIsEnabled(get(_util,_cust,"AbsMenuIsEnabled"));
-        setAliasMenuBarAdd(get(_util,_cust,"MenuBarAdd"));
-        setAliasGetMenuBar(get(_util,_cust,"GetMenuBar"));
-        setAliasSliderGetOrientation(get(_util,_cust,"SliderGetOrientation"));
-        setAliasMenuBarNb(get(_util,_cust,"MenuBarNb"));
-        setAliasSetMenuBar(get(_util,_cust,"SetMenuBar"));
-        setAliasSliderSetOrientation(get(_util,_cust,"SliderSetOrientation"));
-        setAliasMenuBar(get(_util,_cust,"MenuBar"));
-        setAliasMenuNb(get(_util,_cust,"MenuNb"));
-        setAliasMenuAdd(get(_util,_cust,"MenuAdd"));
-        setAliasMenu(get(_util,_cust,"Menu"));
-        setAliasMenuItem(get(_util,_cust,"MenuItem"));
-        setAliasAbsMenu(get(_util,_cust,"AbsMenu"));
-        setAliasMenuGet(get(_util,_cust,"MenuGet"));
+        setAliasTreeNode(get(_util,_cust, TREE_NODE));
+        setAliasTree(get(_util,_cust, TREE));
+        setAliasTableGui(get(_util,_cust, TABLE_GUI));
+        setAliasButton(get(_util,_cust, BUTTON));
+        setAliasConfirm(get(_util,_cust, CONFIRM));
+        setAliasFrame(get(_util,_cust, FRAME));
+        setAliasDialog(get(_util,_cust, DIALOG));
+        setAliasPanel(get(_util,_cust, PANEL));
+        setAliasProgBar(get(_util,_cust, PROG_BAR));
+        setAliasImageSet(get(_util,_cust, IMAGE_SET));
+        setAliasArgs(get(_util,_cust, ARGS));
+        setAliasKeyEvent(get(_util,_cust, KEY_EVENT));
+        setAliasRadio(get(_util,_cust, RADIO));
+        setAliasCheckBox(get(_util,_cust, CHECK_BOX));
+        setAliasSetFont(get(_util,_cust, SET_FONT));
+        setAliasSpinner(get(_util,_cust, SPINNER));
+        setAliasDispose(get(_util,_cust, DISPOSE));
+        setAliasGrList(get(_util,_cust, GR_LIST));
+        setAliasGetFont(get(_util,_cust, GET_FONT));
+        setAliasImage(get(_util,_cust, IMAGE));
+        setAliasSlider(get(_util,_cust, SLIDER));
+        setAliasPaintAdd(get(_util,_cust, PAINT_ADD));
+        setAliasCount(get(_util,_cust, COUNT));
+        setAliasPack(get(_util,_cust, PACK));
+        setAliasColor(get(_util,_cust, COLOR));
+        setAliasWindow(get(_util,_cust, WINDOW));
+        setAliasWindowSet(get(_util,_cust, WINDOW_SET));
+        setAliasWindowSetAdd(get(_util,_cust, WINDOW_SET_ADD));
+        setAliasWindowSetAll(get(_util,_cust, WINDOW_SET_ALL));
+        setAliasWindowSetContains(get(_util,_cust, WINDOW_SET_CONTAINS));
+        setAliasWindowSetRemove(get(_util,_cust, WINDOW_SET_REMOVE));
+        setAliasWindowSetSnapshot(get(_util,_cust, WINDOW_SET_SNAPSHOT));
+        setAliasCompBack(get(_util,_cust, COMP_BACK));
+        setAliasPaint(get(_util,_cust, PAINT));
+        setAliasCompLoc(get(_util,_cust, COMP_LOC));
+        setAliasImageGet(get(_util,_cust, IMAGE_GET));
+        setAliasRender(get(_util,_cust, RENDER));
+        setAliasCombo(get(_util,_cust, COMBO));
+        setAliasAddCompo(get(_util,_cust, ADD_COMPO));
+        setAliasInput(get(_util,_cust, INPUT));
+        setAliasFont(get(_util,_cust, FONT));
+        setAliasCompFore(get(_util,_cust, COMP_FORE));
+        setAliasKeyTyped(get(_util,_cust, KEY_TYPED));
+        setAliasColorRed(get(_util,_cust, COLOR_RED));
+        setAliasTextArea(get(_util,_cust, TEXT_AREA));
+        setAliasFontGetSize(get(_util,_cust, FONT_GET_SIZE));
+        setAliasDimension(get(_util,_cust, DIMENSION));
+        setAliasProgBarOr(get(_util,_cust, PROG_BAR_OR));
+        setAliasFontIsBold(get(_util,_cust, FONT_IS_BOLD));
+        setAliasDimensionGetHeight(get(_util,_cust, DIMENSION_GET_HEIGHT));
+        setAliasPanelBorderNorth(get(_util,_cust, PANEL_BORDER_NORTH));
+        setAliasPanelBorderSouth(get(_util,_cust, PANEL_BORDER_SOUTH));
+        setAliasRemoveWindowListener(get(_util,_cust, REMOVE_WINDOW_LISTENER));
+        setAliasWindowTypeRelative(get(_util,_cust, WINDOW_TYPE_RELATIVE));
+        setAliasPanelBorderAfterLast(get(_util,_cust, PANEL_BORDER_AFTER_LAST));
+        setAliasFontGetName(get(_util,_cust, FONT_GET_NAME));
+        setAliasDimensionGetWidth(get(_util,_cust, DIMENSION_GET_WIDTH));
+        setAliasComponent(get(_util,_cust, COMPONENT));
+        setAliasPanelBorderAfterLineEnds(get(_util,_cust, PANEL_BORDER_AFTER_LINE_ENDS));
+        setAliasComponentSetAutoscrolls(get(_util,_cust, COMPONENT_SET_AUTOSCROLLS));
+        setAliasComponentIsAutoscrolls(get(_util,_cust, COMPONENT_IS_AUTOSCROLLS));
+        setAliasComponentGetWidth(get(_util,_cust, COMPONENT_GET_WIDTH));
+        setAliasComponentGetHeight(get(_util,_cust, COMPONENT_GET_HEIGHT));
+        setAliasPanelBorderEast(get(_util,_cust, PANEL_BORDER_EAST));
+        setAliasProgBarMax(get(_util,_cust, PROG_BAR_MAX));
+        setAliasGetWindowListeners(get(_util,_cust, GET_WINDOW_LISTENERS));
+        setAliasPanelBorderBeforeFirst(get(_util,_cust, PANEL_BORDER_BEFORE_FIRST));
+        setAliasTextLabel(get(_util,_cust, TEXT_LABEL));
+        setAliasPanelBorderWest(get(_util,_cust, PANEL_BORDER_WEST));
+        setAliasProgBarMin(get(_util,_cust, PROG_BAR_MIN));
+        setAliasProgBarValue(get(_util,_cust, PROG_BAR_VALUE));
+        setAliasPanelBorder(get(_util,_cust, PANEL_BORDER));
+        setAliasFontIsItalic(get(_util,_cust, FONT_IS_ITALIC));
+        setAliasImageLabel(get(_util,_cust, IMAGE_LABEL));
+        setAliasPanelBorderCenter(get(_util,_cust, PANEL_BORDER_CENTER));
+        setAliasFontStringWidth(get(_util,_cust, FONT_STRING_WIDTH));
+        setAliasTableSetColumns(get(_util,_cust, TABLE_SET_COLUMNS));
+        setAliasTreeIsRootVisible(get(_util,_cust, TREE_IS_ROOT_VISIBLE));
+        setAliasTreeNodeRemoveFromParent(get(_util,_cust, TREE_NODE_REMOVE_FROM_PARENT));
+        setAliasTreeNodeSetUserObject(get(_util,_cust, TREE_NODE_SET_USER_OBJECT));
+        setAliasTreeReload(get(_util,_cust, TREE_RELOAD));
+        setAliasTreeAddTreeListener(get(_util,_cust, TREE_ADD_TREE_LISTENER));
+        setAliasTreeNodeNb(get(_util,_cust, TREE_NODE_NB));
+        setAliasTableIsMultiple(get(_util,_cust, TABLE_IS_MULTIPLE));
+        setAliasTableListener(get(_util,_cust, TABLE_LISTENER));
+        setAliasTableGetRowCount(get(_util,_cust, TABLE_GET_ROW_COUNT));
+        setAliasTreeNodeIsAncestor(get(_util,_cust, TREE_NODE_IS_ANCESTOR));
+        setAliasTreeNodeGetNextSibling(get(_util,_cust, TREE_NODE_GET_NEXT_SIBLING));
+        setAliasTreeNodeGetLastChild(get(_util,_cust, TREE_NODE_GET_LAST_CHILD));
+        setAliasTreeSetRootVisible(get(_util,_cust, TREE_SET_ROOT_VISIBLE));
+        setAliasTableSetMultiple(get(_util,_cust, TABLE_SET_MULTIPLE));
+        setAliasTreeNodeGetParentNode(get(_util,_cust, TREE_NODE_GET_PARENT_NODE));
+        setAliasTreeNodeRemove(get(_util,_cust, TREE_NODE_REMOVE));
+        setAliasTableGetSelectedRow(get(_util,_cust, TABLE_GET_SELECTED_ROW));
+        setAliasTreeNodeGetFirstChild(get(_util,_cust, TREE_NODE_GET_FIRST_CHILD));
+        setAliasTreeNodeGetUserObject(get(_util,_cust, TREE_NODE_GET_USER_OBJECT));
+        setAliasTableGetSelectedRows(get(_util,_cust, TABLE_GET_SELECTED_ROWS));
+        setAliasTableValueTableChanged(get(_util,_cust, TABLE_VALUE_TABLE_CHANGED));
+        setAliasTableGetColumnCount(get(_util,_cust, TABLE_GET_COLUMN_COUNT));
+        setAliasTableGetRowAtPoint(get(_util,_cust, TABLE_GET_ROW_AT_POINT));
+        setAliasTableSetRowCount(get(_util,_cust, TABLE_SET_ROW_COUNT));
+        setAliasTableGetColumnName(get(_util,_cust, TABLE_GET_COLUMN_NAME));
+        setAliasTableGetValue(get(_util,_cust, TABLE_GET_VALUE));
+        setAliasTreeNodeIsDescendant(get(_util,_cust, TREE_NODE_IS_DESCENDANT));
+        setAliasTableSetValue(get(_util,_cust, TABLE_SET_VALUE));
+        setAliasTreeGetSelected(get(_util,_cust, TREE_GET_SELECTED));
+        setAliasTableGetSelectedRowCount(get(_util,_cust, TABLE_GET_SELECTED_ROW_COUNT));
+        setAliasTableGetColumnAtPoint(get(_util,_cust, TABLE_GET_COLUMN_AT_POINT));
+        setAliasConfirmOk(get(_util,_cust, CONFIRM_OK));
+        setAliasConfirmYesNo(get(_util,_cust, CONFIRM_YES_NO));
+        setAliasTableRemoveInterval(get(_util,_cust, TABLE_REMOVE_INTERVAL));
+        setAliasConfirmFieldOk(get(_util,_cust, CONFIRM_FIELD_OK));
+        setAliasDialogSetModal(get(_util,_cust, DIALOG_SET_MODAL));
+        setAliasTableApplyChanges(get(_util,_cust, TABLE_APPLY_CHANGES));
+        setAliasTableIsReorder(get(_util,_cust, TABLE_IS_REORDER));
+        setAliasConfirmFieldYes(get(_util,_cust, CONFIRM_FIELD_YES));
+        setAliasTableSetReorder(get(_util,_cust, TABLE_SET_REORDER));
+        setAliasConfirmField(get(_util,_cust, CONFIRM_FIELD));
+        setAliasConfirmFieldNo(get(_util,_cust, CONFIRM_FIELD_NO));
+        setAliasTableAddSelect(get(_util,_cust, TABLE_ADD_SELECT));
+        setAliasConfirmMessage(get(_util,_cust, CONFIRM_MESSAGE));
+        setAliasTableAddHeader(get(_util,_cust, TABLE_ADD_HEADER));
+        setAliasConfirmFull(get(_util,_cust, CONFIRM_FULL));
+        setAliasDialogIsModal(get(_util,_cust, DIALOG_IS_MODAL));
+        setAliasWindowType(get(_util,_cust, WINDOW_TYPE));
+        setAliasTableAddInterval(get(_util,_cust, TABLE_ADD_INTERVAL));
+        setAliasTableMoveColumn(get(_util,_cust, TABLE_MOVE_COLUMN));
+        setAliasConfirmFieldCancel(get(_util,_cust, CONFIRM_FIELD_CANCEL));
+        setAliasTextAreaSetSelectionStart(get(_util,_cust, TEXT_AREA_SET_SELECTION_START));
+        setAliasTreeListener(get(_util,_cust, TREE_LISTENER));
+        setAliasTreeNodeAdd(get(_util,_cust, TREE_NODE_ADD));
+        setAliasTreeListenerValueChanged(get(_util,_cust, TREE_LISTENER_VALUE_CHANGED));
+        setAliasTreeNodeInsert(get(_util,_cust, TREE_NODE_INSERT));
+        setAliasActionEvent(get(_util,_cust, ACTION_EVENT));
+        setAliasChangeListener(get(_util,_cust, CHANGE_LISTENER));
+        setAliasActionListener(get(_util,_cust, ACTION_LISTENER));
+        setAliasActionPerformed(get(_util,_cust, ACTION_PERFORMED));
+        setAliasAddChange(get(_util,_cust, ADD_CHANGE));
+        setAliasStateChanged(get(_util,_cust, STATE_CHANGED));
+        setAliasTreeNodeGetPreviousSibling(get(_util,_cust, TREE_NODE_GET_PREVIOUS_SIBLING));
+        setAliasComponentGetPreferredSize(get(_util,_cust, COMPONENT_GET_PREFERRED_SIZE));
+        setAliasSplitPaneSetDividerLocation(get(_util,_cust, SPLIT_PANE_SET_DIVIDER_LOCATION));
+        setAliasSplitPaneIsOneTouchExpandable(get(_util,_cust, SPLIT_PANE_IS_ONE_TOUCH_EXPANDABLE));
+        setAliasSplitPaneSetOneTouchExpandable(get(_util,_cust, SPLIT_PANE_SET_ONE_TOUCH_EXPANDABLE));
+        setAliasSplitPaneIsContinuousLayout(get(_util,_cust, SPLIT_PANE_IS_CONTINUOUS_LAYOUT));
+        setAliasScrollPaneHorizontalValue(get(_util,_cust, SCROLL_PANE_HORIZONTAL_VALUE));
+        setAliasTreeNodeRemoveAllChildren(get(_util,_cust, TREE_NODE_REMOVE_ALL_CHILDREN));
+        setAliasPanelBorderBeforeLineBegins(get(_util,_cust, PANEL_BORDER_BEFORE_LINE_BEGINS));
+        setAliasComponentSetPreferredSize(get(_util,_cust, COMPONENT_SET_PREFERRED_SIZE));
+        setAliasSplitPaneGetDividerLocation(get(_util,_cust, SPLIT_PANE_GET_DIVIDER_LOCATION));
+        setAliasSplitPaneSetContinuousLayout(get(_util,_cust, SPLIT_PANE_SET_CONTINUOUS_LAYOUT));
+        setAliasMouseEventIsCtrl(get(_util,_cust, MOUSE_EVENT_IS_CTRL));
+        setAliasMouseReleased(get(_util,_cust, MOUSE_RELEASED));
+        setAliasMouseEventIsShift(get(_util,_cust, MOUSE_EVENT_IS_SHIFT));
+        setAliasScrollPaneGetView(get(_util,_cust, SCROLL_PANE_GET_VIEW));
+        setAliasPaintRefresh(get(_util,_cust, PAINT_REFRESH));
+        setAliasMouseExited(get(_util,_cust, MOUSE_EXITED));
+        setAliasSplitPane(get(_util,_cust, SPLIT_PANE));
+        setAliasSplitPaneSetRight(get(_util,_cust, SPLIT_PANE_SET_RIGHT));
+        setAliasSetVisible(get(_util,_cust, SET_VISIBLE));
+        setAliasRemoveCompo(get(_util,_cust, REMOVE_COMPO));
+        setAliasMouseClicked(get(_util,_cust, MOUSE_CLICKED));
+        setAliasMouseMoved(get(_util,_cust, MOUSE_MOVED));
+        setAliasMouseEvent(get(_util,_cust, MOUSE_EVENT));
+        setAliasMouseEventGetClicks(get(_util,_cust, MOUSE_EVENT_GET_CLICKS));
+        setAliasMouseEventIsAlt(get(_util,_cust, MOUSE_EVENT_IS_ALT));
+        setAliasMouseEventGetSecond(get(_util,_cust, MOUSE_EVENT_GET_SECOND));
+        setAliasScrollPane(get(_util,_cust, SCROLL_PANE));
+        setAliasScrollPaneValidate(get(_util,_cust, SCROLL_PANE_VALIDATE));
+        setAliasSplitPaneSetDividerSize(get(_util,_cust, SPLIT_PANE_SET_DIVIDER_SIZE));
+        setAliasSplitPaneGetLeft(get(_util,_cust, SPLIT_PANE_GET_LEFT));
+        setAliasSplitPaneGetDividerSize(get(_util,_cust, SPLIT_PANE_GET_DIVIDER_SIZE));
+        setAliasSplitPaneValidate(get(_util,_cust, SPLIT_PANE_VALIDATE));
+        setAliasMouseEntered(get(_util,_cust, MOUSE_ENTERED));
+        setAliasScrollPaneSetView(get(_util,_cust, SCROLL_PANE_SET_VIEW));
+        setAliasSplitPaneSetLeft(get(_util,_cust, SPLIT_PANE_SET_LEFT));
+        setAliasMousePressed(get(_util,_cust, MOUSE_PRESSED));
+        setAliasMouseListener(get(_util,_cust, MOUSE_LISTENER));
+        setAliasIsVisible(get(_util,_cust, IS_VISIBLE));
+        setAliasMouseDragged(get(_util,_cust, MOUSE_DRAGGED));
+        setAliasScrollPaneVerticalValue(get(_util,_cust, SCROLL_PANE_VERTICAL_VALUE));
+        setAliasSplitPaneGetRight(get(_util,_cust, SPLIT_PANE_GET_RIGHT));
+        setAliasMouseEventGetFirst(get(_util,_cust, MOUSE_EVENT_GET_FIRST));
+        setAliasGetIndexCompo(get(_util,_cust, GET_INDEX_COMPO));
+        setAliasImageFillPolygon(get(_util,_cust, IMAGE_FILL_POLYGON));
+        setAliasComponentIsVisible(get(_util,_cust, COMPONENT_IS_VISIBLE));
+        setAliasImageDrawRect(get(_util,_cust, IMAGE_DRAW_RECT));
+        setAliasComponentSetVisible(get(_util,_cust, COMPONENT_SET_VISIBLE));
+        setAliasComponentSetSize(get(_util,_cust, COMPONENT_SET_SIZE));
+        setAliasImageGetColor(get(_util,_cust, IMAGE_GET_COLOR));
+        setAliasImageDrawOval(get(_util,_cust, IMAGE_DRAW_OVAL));
+        setAliasComponentInvokeLater(get(_util,_cust, COMPONENT_INVOKE_LATER));
+        setAliasImageGetHeight(get(_util,_cust, IMAGE_GET_HEIGHT));
+        setAliasImageSetFont(get(_util,_cust, IMAGE_SET_FONT));
+        setAliasImageDispose(get(_util,_cust, IMAGE_DISPOSE));
+        setAliasImageGetFont(get(_util,_cust, IMAGE_GET_FONT));
+        setAliasColorIsTransparent(get(_util,_cust, COLOR_IS_TRANSPARENT));
+        setAliasImageDrawLine(get(_util,_cust, IMAGE_DRAW_LINE));
+        setAliasImageFillRect(get(_util,_cust, IMAGE_FILL_RECT));
+        setAliasColorBlue(get(_util,_cust, COLOR_BLUE));
+        setAliasImageDrawPolygon(get(_util,_cust, IMAGE_DRAW_POLYGON));
+        setAliasComponentRepaint(get(_util,_cust, COMPONENT_REPAINT));
+        setAliasImageIsWithAlpha(get(_util,_cust, IMAGE_IS_WITH_ALPHA));
+        setAliasImageGetWidth(get(_util,_cust, IMAGE_GET_WIDTH));
+        setAliasColorGreen(get(_util,_cust, COLOR_GREEN));
+        setAliasComponentSetPaint(get(_util,_cust, COMPONENT_SET_PAINT));
+        setAliasRemoveAll(get(_util,_cust, REMOVE_ALL));
+        setAliasImageFillOval(get(_util,_cust, IMAGE_FILL_OVAL));
+        setAliasColorAlpha(get(_util,_cust, COLOR_ALPHA));
+        setAliasImageDraw(get(_util,_cust, IMAGE_DRAW));
+        setAliasImageSetColor(get(_util,_cust, IMAGE_SET_COLOR));
+        setAliasSetContent(get(_util,_cust, SET_CONTENT));
+        setAliasGetNextCompo(get(_util,_cust, GET_NEXT_COMPO));
+        setAliasComponentGetPaint(get(_util,_cust, COMPONENT_GET_PAINT));
+        setAliasGetParentCompo(get(_util,_cust, GET_PARENT_COMPO));
+        setAliasSetLabelText(get(_util,_cust, SET_LABEL_TEXT));
+        setAliasSetLabelImage(get(_util,_cust, SET_LABEL_IMAGE));
+        setAliasTabbedPaneSetTitle(get(_util,_cust, TABBED_PANE_SET_TITLE));
+        setAliasTabbedPaneAdd(get(_util,_cust, TABBED_PANE_ADD));
+        setAliasTabbedPaneNb(get(_util,_cust, TABBED_PANE_NB));
+        setAliasPanelFlow(get(_util,_cust, PANEL_FLOW));
+        setAliasTabbedPaneRemove(get(_util,_cust, TABBED_PANE_REMOVE));
+        setAliasAddWindowListener(get(_util,_cust, ADD_WINDOW_LISTENER));
+        setAliasPaintMethod(get(_util,_cust, PAINT_METHOD));
+        setAliasPanelPageBox(get(_util,_cust, PANEL_PAGE_BOX));
+        setAliasPanelAbsolute(get(_util,_cust, PANEL_ABSOLUTE));
+        setAliasPanelGrid(get(_util,_cust, PANEL_GRID));
+        setAliasTabbedPaneGet(get(_util,_cust, TABBED_PANE_GET));
+        setAliasTabbedPane(get(_util,_cust, TABBED_PANE));
+        setAliasTabbedPaneGetTitle(get(_util,_cust, TABBED_PANE_GET_TITLE));
+        setAliasPanelValidate(get(_util,_cust, PANEL_VALIDATE));
+        setAliasTabbedPaneIndex(get(_util,_cust, TABBED_PANE_INDEX));
+        setAliasTabbedPaneSet(get(_util,_cust, TABBED_PANE_SET));
+        setAliasTabbedPaneSelIndex(get(_util,_cust, TABBED_PANE_SEL_INDEX));
+        setAliasAddListener(get(_util,_cust, ADD_LISTENER));
+        setAliasMenuItemCheck(get(_util,_cust, MENU_ITEM_CHECK));
+        setAliasMenuAddSeparator(get(_util,_cust, MENU_ADD_SEPARATOR));
+        setAliasAbsMenuItem(get(_util,_cust, ABS_MENU_ITEM));
+        setAliasMenuItemCheckIsSelected(get(_util,_cust, MENU_ITEM_CHECK_IS_SELECTED));
+        setAliasAbsMenuSetEnabled(get(_util,_cust, ABS_MENU_SET_ENABLED));
+        setAliasMenuRemove(get(_util,_cust, MENU_REMOVE));
+        setAliasAbsMenuItemAddAction(get(_util,_cust, ABS_MENU_ITEM_ADD_ACTION));
+        setAliasAbsMenuSetText(get(_util,_cust, ABS_MENU_SET_TEXT));
+        setAliasAbsMenuGetText(get(_util,_cust, ABS_MENU_GET_TEXT));
+        setAliasMenuItemCheckSetSelected(get(_util,_cust, MENU_ITEM_CHECK_SET_SELECTED));
+        setAliasAbsMenuSetDeepEnabled(get(_util,_cust, ABS_MENU_SET_DEEP_ENABLED));
+        setAliasCompToolTip(get(_util,_cust, COMP_TOOL_TIP));
+        setAliasWindowClosed(get(_util,_cust, WINDOW_CLOSED));
+        setAliasMouseEventIsRight(get(_util,_cust, MOUSE_EVENT_IS_RIGHT));
+        setAliasKeyPressed(get(_util,_cust, KEY_PRESSED));
+        setAliasMouseEventIsLeft(get(_util,_cust, MOUSE_EVENT_IS_LEFT));
+        setAliasWheelListener(get(_util,_cust, WHEEL_LISTENER));
+        setAliasCompBorLine(get(_util,_cust, COMP_BOR_LINE));
+        setAliasKeyEventCode(get(_util,_cust, KEY_EVENT_CODE));
+        setAliasRequestFocus(get(_util,_cust, REQUEST_FOCUS));
+        setAliasCompBorRaise(get(_util,_cust, COMP_BOR_RAISE));
+        setAliasWheelEvent(get(_util,_cust, WHEEL_EVENT));
+        setAliasKeyEventIsShift(get(_util,_cust, KEY_EVENT_IS_SHIFT));
+        setAliasCompGetFirstPos(get(_util,_cust, COMP_GET_FIRST_POS));
+        setAliasCompBorTitle(get(_util,_cust, COMP_BOR_TITLE));
+        setAliasAddKeyListener(get(_util,_cust, ADD_KEY_LISTENER));
+        setAliasKeyEventIsAlt(get(_util,_cust, KEY_EVENT_IS_ALT));
+        setAliasKeyListener(get(_util,_cust, KEY_LISTENER));
+        setAliasKeyEventChar(get(_util,_cust, KEY_EVENT_CHAR));
+        setAliasWindowListener(get(_util,_cust, WINDOW_LISTENER));
+        setAliasWheelMove(get(_util,_cust, WHEEL_MOVE));
+        setAliasCompGetSecondPos(get(_util,_cust, COMP_GET_SECOND_POS));
+        setAliasKeyEventIsCtrl(get(_util,_cust, KEY_EVENT_IS_CTRL));
+        setAliasMouseEventIsMiddle(get(_util,_cust, MOUSE_EVENT_IS_MIDDLE));
+        setAliasWheelRotatedClicks(get(_util,_cust, WHEEL_ROTATED_CLICKS));
+        setAliasCompBorLower(get(_util,_cust, COMP_BOR_LOWER));
+        setAliasWindowOpened(get(_util,_cust, WINDOW_OPENED));
+        setAliasCompFocusable(get(_util,_cust, COMP_FOCUSABLE));
+        setAliasCompOpaque(get(_util,_cust, COMP_OPAQUE));
+        setAliasWindowIconified(get(_util,_cust, WINDOW_ICONIFIED));
+        setAliasKeyReleased(get(_util,_cust, KEY_RELEASED));
+        setAliasAddWheelListener(get(_util,_cust, ADD_WHEEL_LISTENER));
+        setAliasWindowClosing(get(_util,_cust, WINDOW_CLOSING));
+        setAliasGrListSet(get(_util,_cust, GR_LIST_SET));
+        setAliasWindowActivated(get(_util,_cust, WINDOW_ACTIVATED));
+        setAliasWindowDeactivated(get(_util,_cust, WINDOW_DEACTIVATED));
+        setAliasRenderSetHeight(get(_util,_cust, RENDER_SET_HEIGHT));
+        setAliasListSelection(get(_util,_cust, LIST_SELECTION));
+        setAliasRenderGetWidth(get(_util,_cust, RENDER_GET_WIDTH));
+        setAliasRenderGetHeight(get(_util,_cust, RENDER_GET_HEIGHT));
+        setAliasGrListGetSelectedIndexes(get(_util,_cust, GR_LIST_GET_SELECTED_INDEXES));
+        setAliasGrListGetSelection(get(_util,_cust, GR_LIST_GET_SELECTION));
+        setAliasRenderSetWidth(get(_util,_cust, RENDER_SET_WIDTH));
+        setAliasInputIsEnabled(get(_util,_cust, INPUT_IS_ENABLED));
+        setAliasGrListUpdateGraphics(get(_util,_cust, GR_LIST_UPDATE_GRAPHICS));
+        setAliasGrListGetVisibleRowCount(get(_util,_cust, GR_LIST_GET_VISIBLE_ROW_COUNT));
+        setAliasGrListClearSelection(get(_util,_cust, GR_LIST_CLEAR_SELECTION));
+        setAliasRenderGetPaint(get(_util,_cust, RENDER_GET_PAINT));
+        setAliasWindowEvent(get(_util,_cust, WINDOW_EVENT));
+        setAliasGrListClear(get(_util,_cust, GR_LIST_CLEAR));
+        setAliasGrListSetRender(get(_util,_cust, GR_LIST_SET_RENDER));
+        setAliasGrListSetSelection(get(_util,_cust, GR_LIST_SET_SELECTION));
+        setAliasGrListRemove(get(_util,_cust, GR_LIST_REMOVE));
+        setAliasInputSetEnabled(get(_util,_cust, INPUT_SET_ENABLED));
+        setAliasWindowDeiconified(get(_util,_cust, WINDOW_DEICONIFIED));
+        setAliasValueChanged(get(_util,_cust, VALUE_CHANGED));
+        setAliasGrListGetListView(get(_util,_cust, GR_LIST_GET_LIST_VIEW));
+        setAliasRenderSetPaint(get(_util,_cust, RENDER_SET_PAINT));
+        setAliasGrListAdd(get(_util,_cust, GR_LIST_ADD));
+        setAliasGrListGetRender(get(_util,_cust, GR_LIST_GET_RENDER));
+        setAliasGrListSetSelectedIndexes(get(_util,_cust, GR_LIST_SET_SELECTED_INDEXES));
+        setAliasGrListSetVisibleRowCount(get(_util,_cust, GR_LIST_SET_VISIBLE_ROW_COUNT));
+        setAliasComboGetSelectedItem(get(_util,_cust, COMBO_GET_SELECTED_ITEM));
+        setAliasComboAddItem(get(_util,_cust, COMBO_ADD_ITEM));
+        setAliasPopupMenuGetComp(get(_util,_cust, POPUP_MENU_GET_COMP));
+        setAliasComboGetListener(get(_util,_cust, COMBO_GET_LISTENER));
+        setAliasComboGetSelectedIndex(get(_util,_cust, COMBO_GET_SELECTED_INDEX));
+        setAliasPopupMenu(get(_util,_cust, POPUP_MENU));
+        setAliasPopupMenuAddMenu(get(_util,_cust, POPUP_MENU_ADD_MENU));
+        setAliasPopupMenuNbMenu(get(_util,_cust, POPUP_MENU_NB_MENU));
+        setAliasTextFieldAddPopup(get(_util,_cust, TEXT_FIELD_ADD_POPUP));
+        setAliasPopupMenuNbComp(get(_util,_cust, POPUP_MENU_NB_COMP));
+        setAliasComboRemoveAllItems(get(_util,_cust, COMBO_REMOVE_ALL_ITEMS));
+        setAliasPopupMenuShow(get(_util,_cust, POPUP_MENU_SHOW));
+        setAliasPopupMenuGetMenu(get(_util,_cust, POPUP_MENU_GET_MENU));
+        setAliasTextFieldAuto(get(_util,_cust, TEXT_FIELD_AUTO));
+        setAliasRadioGetText(get(_util,_cust, RADIO_GET_TEXT));
+        setAliasButtonGroupAdd(get(_util,_cust, BUTTON_GROUP_ADD));
+        setAliasButtonGroup(get(_util,_cust, BUTTON_GROUP));
+        setAliasPopupMenuAdd(get(_util,_cust, POPUP_MENU_ADD));
+        setAliasRadioIsSelected(get(_util,_cust, RADIO_IS_SELECTED));
+        setAliasComboSetListener(get(_util,_cust, COMBO_SET_LISTENER));
+        setAliasTextField(get(_util,_cust, TEXT_FIELD));
+        setAliasComboRemoveItem(get(_util,_cust, COMBO_REMOVE_ITEM));
+        setAliasRadioSetSelected(get(_util,_cust, RADIO_SET_SELECTED));
+        setAliasTextFieldGetText(get(_util,_cust, TEXT_FIELD_GET_TEXT));
+        setAliasPopupMenuRemoveMenu(get(_util,_cust, POPUP_MENU_REMOVE_MENU));
+        setAliasTextFieldAddDocument(get(_util,_cust, TEXT_FIELD_ADD_DOCUMENT));
+        setAliasComboGetSelectedIndexes(get(_util,_cust, COMBO_GET_SELECTED_INDEXES));
+        setAliasTextFieldAddAction(get(_util,_cust, TEXT_FIELD_ADD_ACTION));
+        setAliasTextAreaGetText(get(_util,_cust, TEXT_AREA_GET_TEXT));
+        setAliasRadioSetText(get(_util,_cust, RADIO_SET_TEXT));
+        setAliasComboSelectItem(get(_util,_cust, COMBO_SELECT_ITEM));
+        setAliasComboGetItemCount(get(_util,_cust, COMBO_GET_ITEM_COUNT));
+        setAliasPopupMenuRemoveComp(get(_util,_cust, POPUP_MENU_REMOVE_COMP));
+        setAliasTextFieldSetText(get(_util,_cust, TEXT_FIELD_SET_TEXT));
+        setAliasCheckBoxSetSelected(get(_util,_cust, CHECK_BOX_SET_SELECTED));
+        setAliasCheckBoxAddAction(get(_util,_cust, CHECK_BOX_ADD_ACTION));
+        setAliasTextAreaSetSelectionEnd(get(_util,_cust, TEXT_AREA_SET_SELECTION_END));
+        setAliasSpinnerGetValue(get(_util,_cust, SPINNER_GET_VALUE));
+        setAliasSliderGetMax(get(_util,_cust, SLIDER_GET_MAX));
+        setAliasTextAreaSelect(get(_util,_cust, TEXT_AREA_SELECT));
+        setAliasTextAreaReplaceRange(get(_util,_cust, TEXT_AREA_REPLACE_RANGE));
+        setAliasSpinnerSetStep(get(_util,_cust, SPINNER_SET_STEP));
+        setAliasCheckBoxIsSelected(get(_util,_cust, CHECK_BOX_IS_SELECTED));
+        setAliasTextAreaReplaceSelection(get(_util,_cust, TEXT_AREA_REPLACE_SELECTION));
+        setAliasSpinnerSetValue(get(_util,_cust, SPINNER_SET_VALUE));
+        setAliasSliderGetValue(get(_util,_cust, SLIDER_GET_VALUE));
+        setAliasSliderSetValue(get(_util,_cust, SLIDER_SET_VALUE));
+        setAliasSliderGetMin(get(_util,_cust, SLIDER_GET_MIN));
+        setAliasSliderSetMin(get(_util,_cust, SLIDER_SET_MIN));
+        setAliasTextAreaSetTabSize(get(_util,_cust, TEXT_AREA_SET_TAB_SIZE));
+        setAliasSpinnerGetMin(get(_util,_cust, SPINNER_GET_MIN));
+        setAliasCheckBoxSetText(get(_util,_cust, CHECK_BOX_SET_TEXT));
+        setAliasCheckBoxGetText(get(_util,_cust, CHECK_BOX_GET_TEXT));
+        setAliasTextAreaInsert(get(_util,_cust, TEXT_AREA_INSERT));
+        setAliasTextAreaSelectAll(get(_util,_cust, TEXT_AREA_SELECT_ALL));
+        setAliasTextAreaAppend(get(_util,_cust, TEXT_AREA_APPEND));
+        setAliasSpinnerGetMax(get(_util,_cust, SPINNER_GET_MAX));
+        setAliasSpinnerSetMax(get(_util,_cust, SPINNER_SET_MAX));
+        setAliasTextAreaGetTabSize(get(_util,_cust, TEXT_AREA_GET_TAB_SIZE));
+        setAliasTextAreaSetText(get(_util,_cust, TEXT_AREA_SET_TEXT));
+        setAliasSpinnerSetMin(get(_util,_cust, SPINNER_SET_MIN));
+        setAliasSpinnerGetStep(get(_util,_cust, SPINNER_GET_STEP));
+        setAliasSpinnerSetRangeValue(get(_util,_cust, SPINNER_SET_RANGE_VALUE));
+        setAliasTextAreaGetSelectedText(get(_util,_cust, TEXT_AREA_GET_SELECTED_TEXT));
+        setAliasSliderSetMax(get(_util,_cust, SLIDER_SET_MAX));
+        setAliasSpinnerSetRange(get(_util,_cust, SPINNER_SET_RANGE));
+        setAliasMenuBarGet(get(_util,_cust, MENU_BAR_GET));
+        setAliasMenuBarRemove(get(_util,_cust, MENU_BAR_REMOVE));
+        setAliasAbsMenuGetParent(get(_util,_cust, ABS_MENU_GET_PARENT));
+        setAliasAbsMenuIsEnabled(get(_util,_cust, ABS_MENU_IS_ENABLED));
+        setAliasMenuBarAdd(get(_util,_cust, MENU_BAR_ADD));
+        setAliasGetMenuBar(get(_util,_cust, GET_MENU_BAR));
+        setAliasSliderGetOrientation(get(_util,_cust, SLIDER_GET_ORIENTATION));
+        setAliasMenuBarNb(get(_util,_cust, MENU_BAR_NB));
+        setAliasSetMenuBar(get(_util,_cust, SET_MENU_BAR));
+        setAliasSliderSetOrientation(get(_util,_cust, SLIDER_SET_ORIENTATION));
+        setAliasMenuBar(get(_util,_cust, MENU_BAR));
+        setAliasMenuNb(get(_util,_cust, MENU_NB));
+        setAliasMenuAdd(get(_util,_cust, MENU_ADD));
+        setAliasMenu(get(_util,_cust, MENU));
+        setAliasMenuItem(get(_util,_cust, MENU_ITEM));
+        setAliasAbsMenu(get(_util,_cust, ABS_MENU));
+        setAliasMenuGet(get(_util,_cust, MENU_GET));
     }
 
     @Override
     public CustList<CustList<KeyValueMemberName>> allMergeTableTypeMethodNames() {
         CustList<CustList<KeyValueMemberName>> list_ = super.allMergeTableTypeMethodNames();
         list_.add(new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("Iterator",getAliasIterator()),
-                new KeyValueMemberName("HasNext",getAliasHasNext()),
-                new KeyValueMemberName("Next",getAliasNext()),
-                new KeyValueMemberName("IteratorTable",getAliasIteratorTable()),
-                new KeyValueMemberName("HasNextPair",getAliasHasNextPair()),
-                new KeyValueMemberName("NextPair",getAliasNextPair()),
-                new KeyValueMemberName("GetFirst",getAliasGetFirst()),
-                new KeyValueMemberName("GetSecond",getAliasGetSecond()),
-                new KeyValueMemberName("EnumOrdinal",getAliasEnumOrdinal()),
-                new KeyValueMemberName("EnumName",getAliasEnumName()),
-                new KeyValueMemberName("Run",getAliasRun()),
-                new KeyValueMemberName("ActionPerformed",getAliasActionPerformed()),
-                new KeyValueMemberName("StateChanged",getAliasStateChanged()),
-                new KeyValueMemberName("KeyTyped",getAliasKeyTyped()),
-                new KeyValueMemberName("KeyPressed",getAliasKeyPressed()),
-                new KeyValueMemberName("KeyReleased",getAliasKeyReleased()),
-                new KeyValueMemberName("ValueChanged",getAliasValueChanged()),
-                new KeyValueMemberName("TableValueTableChanged",getAliasTableValueTableChanged()),
-                new KeyValueMemberName("MouseClicked",getAliasMouseClicked()),
-                new KeyValueMemberName("MouseEntered",getAliasMouseEntered()),
-                new KeyValueMemberName("MouseExited",getAliasMouseExited()),
-                new KeyValueMemberName("MousePressed",getAliasMousePressed()),
-                new KeyValueMemberName("MouseReleased",getAliasMouseReleased()),
-                new KeyValueMemberName("MouseDragged",getAliasMouseDragged()),
-                new KeyValueMemberName("MouseMoved",getAliasMouseMoved()),
-                new KeyValueMemberName("TreeListenerValueChanged",getAliasTreeListenerValueChanged()),
-                new KeyValueMemberName("WheelMove",getAliasWheelMove()),
-                new KeyValueMemberName("WindowActivated",getAliasWindowActivated()),
-                new KeyValueMemberName("WindowClosed",getAliasWindowClosed()),
-                new KeyValueMemberName("WindowClosing",getAliasWindowClosing()),
-                new KeyValueMemberName("WindowDeactivated",getAliasWindowDeactivated()),
-                new KeyValueMemberName("WindowDeiconified",getAliasWindowDeiconified()),
-                new KeyValueMemberName("WindowIconified",getAliasWindowIconified()),
-                new KeyValueMemberName("WindowOpened",getAliasWindowOpened())
+                new KeyValueMemberName(ITERATOR,getAliasIterator()),
+                new KeyValueMemberName(HAS_NEXT,getAliasHasNext()),
+                new KeyValueMemberName(NEXT,getAliasNext()),
+                new KeyValueMemberName(ITERATOR_TABLE,getAliasIteratorTable()),
+                new KeyValueMemberName(HAS_NEXT_PAIR,getAliasHasNextPair()),
+                new KeyValueMemberName(NEXT_PAIR,getAliasNextPair()),
+                new KeyValueMemberName(GET_FIRST,getAliasGetFirst()),
+                new KeyValueMemberName(GET_SECOND,getAliasGetSecond()),
+                new KeyValueMemberName(ENUM_ORDINAL,getAliasEnumOrdinal()),
+                new KeyValueMemberName(ENUM_NAME,getAliasEnumName()),
+                new KeyValueMemberName(RUN,getAliasRun()),
+                new KeyValueMemberName(ACTION_PERFORMED,getAliasActionPerformed()),
+                new KeyValueMemberName(STATE_CHANGED,getAliasStateChanged()),
+                new KeyValueMemberName(KEY_TYPED,getAliasKeyTyped()),
+                new KeyValueMemberName(KEY_PRESSED,getAliasKeyPressed()),
+                new KeyValueMemberName(KEY_RELEASED,getAliasKeyReleased()),
+                new KeyValueMemberName(VALUE_CHANGED,getAliasValueChanged()),
+                new KeyValueMemberName(TABLE_VALUE_TABLE_CHANGED,getAliasTableValueTableChanged()),
+                new KeyValueMemberName(MOUSE_CLICKED,getAliasMouseClicked()),
+                new KeyValueMemberName(MOUSE_ENTERED,getAliasMouseEntered()),
+                new KeyValueMemberName(MOUSE_EXITED,getAliasMouseExited()),
+                new KeyValueMemberName(MOUSE_PRESSED,getAliasMousePressed()),
+                new KeyValueMemberName(MOUSE_RELEASED,getAliasMouseReleased()),
+                new KeyValueMemberName(MOUSE_DRAGGED,getAliasMouseDragged()),
+                new KeyValueMemberName(MOUSE_MOVED,getAliasMouseMoved()),
+                new KeyValueMemberName(TREE_LISTENER_VALUE_CHANGED,getAliasTreeListenerValueChanged()),
+                new KeyValueMemberName(WHEEL_MOVE,getAliasWheelMove()),
+                new KeyValueMemberName(WINDOW_ACTIVATED,getAliasWindowActivated()),
+                new KeyValueMemberName(WINDOW_CLOSED,getAliasWindowClosed()),
+                new KeyValueMemberName(WINDOW_CLOSING,getAliasWindowClosing()),
+                new KeyValueMemberName(WINDOW_DEACTIVATED,getAliasWindowDeactivated()),
+                new KeyValueMemberName(WINDOW_DEICONIFIED,getAliasWindowDeiconified()),
+                new KeyValueMemberName(WINDOW_ICONIFIED,getAliasWindowIconified()),
+                new KeyValueMemberName(WINDOW_OPENED,getAliasWindowOpened())
         ));
         return list_;
     }
@@ -8054,21 +8444,21 @@ public class LgNamesGui extends LgNamesUtils {
     public StringMap<CustList<KeyValueMemberName>> allTableTypeFieldNames() {
         StringMap<CustList<KeyValueMemberName>> f_ = super.allTableTypeFieldNames();
         f_.put(getAliasConfirm(),new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("ConfirmFieldOk",getAliasConfirmFieldOk()),
-                new KeyValueMemberName("ConfirmFieldYes",getAliasConfirmFieldYes()),
-                new KeyValueMemberName("ConfirmFieldNo",getAliasConfirmFieldNo()),
-                new KeyValueMemberName("ConfirmFieldCancel",getAliasConfirmFieldCancel())
+                new KeyValueMemberName(CONFIRM_FIELD_OK,getAliasConfirmFieldOk()),
+                new KeyValueMemberName(CONFIRM_FIELD_YES,getAliasConfirmFieldYes()),
+                new KeyValueMemberName(CONFIRM_FIELD_NO,getAliasConfirmFieldNo()),
+                new KeyValueMemberName(CONFIRM_FIELD_CANCEL,getAliasConfirmFieldCancel())
         ));
         f_.put(getAliasPanelBorder(),new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("PanelBorderAfterLast",getAliasPanelBorderAfterLast()),
-                new KeyValueMemberName("PanelBorderAfterLineEnds",getAliasPanelBorderAfterLineEnds()),
-                new KeyValueMemberName("PanelBorderBeforeFirst",getAliasPanelBorderBeforeFirst()),
-                new KeyValueMemberName("PanelBorderBeforeLineBegins",getAliasPanelBorderBeforeLineBegins()),
-                new KeyValueMemberName("PanelBorderEast",getAliasPanelBorderEast()),
-                new KeyValueMemberName("PanelBorderWest",getAliasPanelBorderWest()),
-                new KeyValueMemberName("PanelBorderNorth",getAliasPanelBorderNorth()),
-                new KeyValueMemberName("PanelBorderSouth",getAliasPanelBorderSouth()),
-                new KeyValueMemberName("PanelBorderCenter",getAliasPanelBorderCenter())
+                new KeyValueMemberName(PANEL_BORDER_AFTER_LAST,getAliasPanelBorderAfterLast()),
+                new KeyValueMemberName(PANEL_BORDER_AFTER_LINE_ENDS,getAliasPanelBorderAfterLineEnds()),
+                new KeyValueMemberName(PANEL_BORDER_BEFORE_FIRST,getAliasPanelBorderBeforeFirst()),
+                new KeyValueMemberName(PANEL_BORDER_BEFORE_LINE_BEGINS,getAliasPanelBorderBeforeLineBegins()),
+                new KeyValueMemberName(PANEL_BORDER_EAST,getAliasPanelBorderEast()),
+                new KeyValueMemberName(PANEL_BORDER_WEST,getAliasPanelBorderWest()),
+                new KeyValueMemberName(PANEL_BORDER_NORTH,getAliasPanelBorderNorth()),
+                new KeyValueMemberName(PANEL_BORDER_SOUTH,getAliasPanelBorderSouth()),
+                new KeyValueMemberName(PANEL_BORDER_CENTER,getAliasPanelBorderCenter())
         ));
         return f_;
     }
@@ -8080,159 +8470,159 @@ public class LgNamesGui extends LgNamesUtils {
         allEventTypes(m_);
         allComponents(m_);
         m_.put(getAliasDimension(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("DimensionGetHeight",getAliasDimensionGetHeight()),
-                new KeyValueMemberName("DimensionGetWidth",getAliasDimensionGetWidth())));
+                new KeyValueMemberName(DIMENSION_GET_HEIGHT,getAliasDimensionGetHeight()),
+                new KeyValueMemberName(DIMENSION_GET_WIDTH,getAliasDimensionGetWidth())));
         m_.put(getAliasFont(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("FontGetName",getAliasFontGetName()),
-                new KeyValueMemberName("FontGetSize",getAliasFontGetSize()),
-                new KeyValueMemberName("FontIsBold",getAliasFontIsBold()),
-                new KeyValueMemberName("FontIsItalic",getAliasFontIsItalic()),
-                new KeyValueMemberName("FontStringWidth",getAliasFontStringWidth())));
+                new KeyValueMemberName(FONT_GET_NAME,getAliasFontGetName()),
+                new KeyValueMemberName(FONT_GET_SIZE,getAliasFontGetSize()),
+                new KeyValueMemberName(FONT_IS_BOLD,getAliasFontIsBold()),
+                new KeyValueMemberName(FONT_IS_ITALIC,getAliasFontIsItalic()),
+                new KeyValueMemberName(FONT_STRING_WIDTH,getAliasFontStringWidth())));
         m_.put(getAliasButtonGroup(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("ButtonGroupAdd",getAliasButtonGroupAdd()))
+                new KeyValueMemberName(BUTTON_GROUP_ADD,getAliasButtonGroupAdd()))
         );
         m_.put(getAliasRender(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("RenderGetHeight",getAliasRenderGetHeight()),
-                new KeyValueMemberName("RenderGetPaint",getAliasRenderGetPaint()),
-                new KeyValueMemberName("RenderGetWidth",getAliasRenderGetWidth()),
-                new KeyValueMemberName("RenderSetHeight",getAliasRenderSetHeight()),
-                new KeyValueMemberName("RenderSetPaint",getAliasRenderSetPaint()),
-                new KeyValueMemberName("RenderSetWidth",getAliasRenderSetWidth())
+                new KeyValueMemberName(RENDER_GET_HEIGHT,getAliasRenderGetHeight()),
+                new KeyValueMemberName(RENDER_GET_PAINT,getAliasRenderGetPaint()),
+                new KeyValueMemberName(RENDER_GET_WIDTH,getAliasRenderGetWidth()),
+                new KeyValueMemberName(RENDER_SET_HEIGHT,getAliasRenderSetHeight()),
+                new KeyValueMemberName(RENDER_SET_PAINT,getAliasRenderSetPaint()),
+                new KeyValueMemberName(RENDER_SET_WIDTH,getAliasRenderSetWidth())
         ));
         m_.put(getAliasColor(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("ColorAlpha",getAliasColorAlpha()),
-                new KeyValueMemberName("ColorBlue",getAliasColorBlue()),
-                new KeyValueMemberName("ColorRed",getAliasColorRed()),
-                new KeyValueMemberName("ColorGreen",getAliasColorGreen()),
-                new KeyValueMemberName("ColorIsTransparent",getAliasColorIsTransparent()))
+                new KeyValueMemberName(COLOR_ALPHA,getAliasColorAlpha()),
+                new KeyValueMemberName(COLOR_BLUE,getAliasColorBlue()),
+                new KeyValueMemberName(COLOR_RED,getAliasColorRed()),
+                new KeyValueMemberName(COLOR_GREEN,getAliasColorGreen()),
+                new KeyValueMemberName(COLOR_IS_TRANSPARENT,getAliasColorIsTransparent()))
         );
         m_.put(getAliasImage(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("ImageDraw",getAliasImageDraw()),
-                new KeyValueMemberName("ImageDrawLine",getAliasImageDrawLine()),
-                new KeyValueMemberName("ImageDrawOval",getAliasImageDrawOval()),
-                new KeyValueMemberName("ImageDrawPolygon",getAliasImageDrawPolygon()),
-                new KeyValueMemberName("ImageDrawRect",getAliasImageDrawRect()),
-                new KeyValueMemberName("ImageFillOval",getAliasImageFillOval()),
-                new KeyValueMemberName("ImageFillPolygon",getAliasImageFillPolygon()),
-                new KeyValueMemberName("ImageFillRect",getAliasImageFillRect()),
-                new KeyValueMemberName("ImageGet",getAliasImageGet()),
-                new KeyValueMemberName("ImageSet",getAliasImageSet()),
-                new KeyValueMemberName("ImageGetColor",getAliasImageGetColor()),
-                new KeyValueMemberName("ImageSetColor",getAliasImageSetColor()),
-                new KeyValueMemberName("ImageGetFont",getAliasImageGetFont()),
-                new KeyValueMemberName("ImageSetFont",getAliasImageSetFont()),
-                new KeyValueMemberName("ImageGetHeight",getAliasImageGetHeight()),
-                new KeyValueMemberName("ImageGetWidth",getAliasImageGetWidth()),
-                new KeyValueMemberName("ImageIsWithAlpha",getAliasImageIsWithAlpha()),
-                new KeyValueMemberName("ImageDispose",getAliasImageDispose()))
+                new KeyValueMemberName(IMAGE_DRAW,getAliasImageDraw()),
+                new KeyValueMemberName(IMAGE_DRAW_LINE,getAliasImageDrawLine()),
+                new KeyValueMemberName(IMAGE_DRAW_OVAL,getAliasImageDrawOval()),
+                new KeyValueMemberName(IMAGE_DRAW_POLYGON,getAliasImageDrawPolygon()),
+                new KeyValueMemberName(IMAGE_DRAW_RECT,getAliasImageDrawRect()),
+                new KeyValueMemberName(IMAGE_FILL_OVAL,getAliasImageFillOval()),
+                new KeyValueMemberName(IMAGE_FILL_POLYGON,getAliasImageFillPolygon()),
+                new KeyValueMemberName(IMAGE_FILL_RECT,getAliasImageFillRect()),
+                new KeyValueMemberName(IMAGE_GET,getAliasImageGet()),
+                new KeyValueMemberName(IMAGE_SET,getAliasImageSet()),
+                new KeyValueMemberName(IMAGE_GET_COLOR,getAliasImageGetColor()),
+                new KeyValueMemberName(IMAGE_SET_COLOR,getAliasImageSetColor()),
+                new KeyValueMemberName(IMAGE_GET_FONT,getAliasImageGetFont()),
+                new KeyValueMemberName(IMAGE_SET_FONT,getAliasImageSetFont()),
+                new KeyValueMemberName(IMAGE_GET_HEIGHT,getAliasImageGetHeight()),
+                new KeyValueMemberName(IMAGE_GET_WIDTH,getAliasImageGetWidth()),
+                new KeyValueMemberName(IMAGE_IS_WITH_ALPHA,getAliasImageIsWithAlpha()),
+                new KeyValueMemberName(IMAGE_DISPOSE,getAliasImageDispose()))
         );
         m_.put(getAliasActionListener(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("ActionPerformed",getAliasActionPerformed()))
+                new KeyValueMemberName(ACTION_PERFORMED,getAliasActionPerformed()))
         );
         m_.put(getAliasChangeListener(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("StateChanged",getAliasStateChanged()))
+                new KeyValueMemberName(STATE_CHANGED,getAliasStateChanged()))
         );
         m_.put(getAliasWheelListener(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("WheelMove",getAliasWheelMove()))
+                new KeyValueMemberName(WHEEL_MOVE,getAliasWheelMove()))
         );
         m_.put(getAliasMouseListener(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("MouseClicked",getAliasMouseClicked()),
-                new KeyValueMemberName("MouseEntered",getAliasMouseEntered()),
-                new KeyValueMemberName("MouseExited",getAliasMouseExited()),
-                new KeyValueMemberName("MousePressed",getAliasMousePressed()),
-                new KeyValueMemberName("MouseReleased",getAliasMouseReleased()))
+                new KeyValueMemberName(MOUSE_CLICKED,getAliasMouseClicked()),
+                new KeyValueMemberName(MOUSE_ENTERED,getAliasMouseEntered()),
+                new KeyValueMemberName(MOUSE_EXITED,getAliasMouseExited()),
+                new KeyValueMemberName(MOUSE_PRESSED,getAliasMousePressed()),
+                new KeyValueMemberName(MOUSE_RELEASED,getAliasMouseReleased()))
         );
         m_.put(getAliasKeyListener(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("KeyTyped",getAliasKeyTyped()),
-                new KeyValueMemberName("KeyReleased",getAliasKeyReleased()),
-                new KeyValueMemberName("KeyPressed",getAliasKeyPressed()))
+                new KeyValueMemberName(KEY_TYPED,getAliasKeyTyped()),
+                new KeyValueMemberName(KEY_RELEASED,getAliasKeyReleased()),
+                new KeyValueMemberName(KEY_PRESSED,getAliasKeyPressed()))
         );
         m_.put(getAliasWindowListener(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("WindowActivated",getAliasWindowActivated()),
-                new KeyValueMemberName("WindowIconified",getAliasWindowIconified()),
-                new KeyValueMemberName("WindowDeactivated",getAliasWindowDeactivated()),
-                new KeyValueMemberName("WindowDeiconified",getAliasWindowDeiconified()),
-                new KeyValueMemberName("WindowOpened",getAliasWindowOpened()),
-                new KeyValueMemberName("WindowClosing",getAliasWindowClosing()),
-                new KeyValueMemberName("WindowClosed",getAliasWindowClosed()))
+                new KeyValueMemberName(WINDOW_ACTIVATED,getAliasWindowActivated()),
+                new KeyValueMemberName(WINDOW_ICONIFIED,getAliasWindowIconified()),
+                new KeyValueMemberName(WINDOW_DEACTIVATED,getAliasWindowDeactivated()),
+                new KeyValueMemberName(WINDOW_DEICONIFIED,getAliasWindowDeiconified()),
+                new KeyValueMemberName(WINDOW_OPENED,getAliasWindowOpened()),
+                new KeyValueMemberName(WINDOW_CLOSING,getAliasWindowClosing()),
+                new KeyValueMemberName(WINDOW_CLOSED,getAliasWindowClosed()))
         );
         m_.put(getAliasListSelection(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("ValueChanged",getAliasValueChanged()))
+                new KeyValueMemberName(VALUE_CHANGED,getAliasValueChanged()))
         );
         m_.put(getAliasTreeListener(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("TreeListenerValueChanged",getAliasTreeListenerValueChanged()))
+                new KeyValueMemberName(TREE_LISTENER_VALUE_CHANGED,getAliasTreeListenerValueChanged()))
         );
         m_.put(getAliasTreeNode(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("TreeNodeAdd",getAliasTreeNodeAdd()),
-                new KeyValueMemberName("TreeNodeInsert",getAliasTreeNodeInsert()),
-                new KeyValueMemberName("TreeNodeRemove",getAliasTreeNodeRemove()),
-                new KeyValueMemberName("TreeNodeRemoveFromParent",getAliasTreeNodeRemoveFromParent()),
-                new KeyValueMemberName("TreeNodeRemoveAllChildren",getAliasTreeNodeRemoveAllChildren()),
-                new KeyValueMemberName("TreeNodeSetUserObject",getAliasTreeNodeSetUserObject()),
-                new KeyValueMemberName("TreeNodeGetUserObject",getAliasTreeNodeGetUserObject()),
-                new KeyValueMemberName("TreeNodeNb",getAliasTreeNodeNb()),
-                new KeyValueMemberName("TreeNodeGetFirstChild",getAliasTreeNodeGetFirstChild()),
-                new KeyValueMemberName("TreeNodeGetLastChild",getAliasTreeNodeGetLastChild()),
-                new KeyValueMemberName("TreeNodeGetNextSibling",getAliasTreeNodeGetNextSibling()),
-                new KeyValueMemberName("TreeNodeGetPreviousSibling",getAliasTreeNodeGetPreviousSibling()),
-                new KeyValueMemberName("TreeNodeGetParentNode",getAliasTreeNodeGetParentNode()),
-                new KeyValueMemberName("TreeNodeIsAncestor",getAliasTreeNodeIsAncestor()),
-                new KeyValueMemberName("TreeNodeIsDescendant",getAliasTreeNodeIsDescendant()))
+                new KeyValueMemberName(TREE_NODE_ADD,getAliasTreeNodeAdd()),
+                new KeyValueMemberName(TREE_NODE_INSERT,getAliasTreeNodeInsert()),
+                new KeyValueMemberName(TREE_NODE_REMOVE,getAliasTreeNodeRemove()),
+                new KeyValueMemberName(TREE_NODE_REMOVE_FROM_PARENT,getAliasTreeNodeRemoveFromParent()),
+                new KeyValueMemberName(TREE_NODE_REMOVE_ALL_CHILDREN,getAliasTreeNodeRemoveAllChildren()),
+                new KeyValueMemberName(TREE_NODE_SET_USER_OBJECT,getAliasTreeNodeSetUserObject()),
+                new KeyValueMemberName(TREE_NODE_GET_USER_OBJECT,getAliasTreeNodeGetUserObject()),
+                new KeyValueMemberName(TREE_NODE_NB,getAliasTreeNodeNb()),
+                new KeyValueMemberName(TREE_NODE_GET_FIRST_CHILD,getAliasTreeNodeGetFirstChild()),
+                new KeyValueMemberName(TREE_NODE_GET_LAST_CHILD,getAliasTreeNodeGetLastChild()),
+                new KeyValueMemberName(TREE_NODE_GET_NEXT_SIBLING,getAliasTreeNodeGetNextSibling()),
+                new KeyValueMemberName(TREE_NODE_GET_PREVIOUS_SIBLING,getAliasTreeNodeGetPreviousSibling()),
+                new KeyValueMemberName(TREE_NODE_GET_PARENT_NODE,getAliasTreeNodeGetParentNode()),
+                new KeyValueMemberName(TREE_NODE_IS_ANCESTOR,getAliasTreeNodeIsAncestor()),
+                new KeyValueMemberName(TREE_NODE_IS_DESCENDANT,getAliasTreeNodeIsDescendant()))
         );
         m_.put(getAliasTableListener(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("TableValueTableChanged",getAliasTableValueTableChanged()))
+                new KeyValueMemberName(TABLE_VALUE_TABLE_CHANGED,getAliasTableValueTableChanged()))
         );
         m_.put(getAliasPaint(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("PaintMethod",getAliasPaintMethod()),
-                new KeyValueMemberName("PaintAdd",getAliasPaintAdd()),
-                new KeyValueMemberName("PaintRefresh",getAliasPaintRefresh()))
+                new KeyValueMemberName(PAINT_METHOD,getAliasPaintMethod()),
+                new KeyValueMemberName(PAINT_ADD,getAliasPaintAdd()),
+                new KeyValueMemberName(PAINT_REFRESH,getAliasPaintRefresh()))
         );
         m_.put(getAliasMenuBar(),new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("MenuBarAdd",getAliasMenuBarAdd()),
-                new KeyValueMemberName("MenuBarGet",getAliasMenuBarGet()),
-                new KeyValueMemberName("MenuBarRemove",getAliasMenuBarRemove()),
-                new KeyValueMemberName("MenuBarNb",getAliasMenuBarNb())
+                new KeyValueMemberName(MENU_BAR_ADD,getAliasMenuBarAdd()),
+                new KeyValueMemberName(MENU_BAR_GET,getAliasMenuBarGet()),
+                new KeyValueMemberName(MENU_BAR_REMOVE,getAliasMenuBarRemove()),
+                new KeyValueMemberName(MENU_BAR_NB,getAliasMenuBarNb())
         ));
         m_.put(getAliasAbsMenu(),new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("AbsMenuGetParent",getAliasAbsMenuGetParent()),
-                new KeyValueMemberName("AbsMenuGetText",getAliasAbsMenuGetText()),
-                new KeyValueMemberName("AbsMenuIsEnabled",getAliasAbsMenuIsEnabled()),
-                new KeyValueMemberName("AbsMenuSetDeepEnabled",getAliasAbsMenuSetDeepEnabled()),
-                new KeyValueMemberName("AbsMenuSetEnabled",getAliasAbsMenuSetEnabled()),
-                new KeyValueMemberName("AbsMenuSetText",getAliasAbsMenuSetText())
+                new KeyValueMemberName(ABS_MENU_GET_PARENT,getAliasAbsMenuGetParent()),
+                new KeyValueMemberName(ABS_MENU_GET_TEXT,getAliasAbsMenuGetText()),
+                new KeyValueMemberName(ABS_MENU_IS_ENABLED,getAliasAbsMenuIsEnabled()),
+                new KeyValueMemberName(ABS_MENU_SET_DEEP_ENABLED,getAliasAbsMenuSetDeepEnabled()),
+                new KeyValueMemberName(ABS_MENU_SET_ENABLED,getAliasAbsMenuSetEnabled()),
+                new KeyValueMemberName(ABS_MENU_SET_TEXT,getAliasAbsMenuSetText())
         ));
         m_.put(getAliasMenu(),new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("AbsMenuGetParent",getAliasAbsMenuGetParent()),
-                new KeyValueMemberName("AbsMenuGetText",getAliasAbsMenuGetText()),
-                new KeyValueMemberName("AbsMenuIsEnabled",getAliasAbsMenuIsEnabled()),
-                new KeyValueMemberName("AbsMenuSetDeepEnabled",getAliasAbsMenuSetDeepEnabled()),
-                new KeyValueMemberName("AbsMenuSetEnabled",getAliasAbsMenuSetEnabled()),
-                new KeyValueMemberName("AbsMenuSetText",getAliasAbsMenuSetText()),
-                new KeyValueMemberName("MenuAdd",getAliasMenuAdd()),
-                new KeyValueMemberName("MenuGet",getAliasMenuGet()),
-                new KeyValueMemberName("MenuRemove",getAliasMenuRemove()),
-                new KeyValueMemberName("MenuNb",getAliasMenuNb()),
-                new KeyValueMemberName("MenuAddSeparator",getAliasMenuAddSeparator())
+                new KeyValueMemberName(ABS_MENU_GET_PARENT,getAliasAbsMenuGetParent()),
+                new KeyValueMemberName(ABS_MENU_GET_TEXT,getAliasAbsMenuGetText()),
+                new KeyValueMemberName(ABS_MENU_IS_ENABLED,getAliasAbsMenuIsEnabled()),
+                new KeyValueMemberName(ABS_MENU_SET_DEEP_ENABLED,getAliasAbsMenuSetDeepEnabled()),
+                new KeyValueMemberName(ABS_MENU_SET_ENABLED,getAliasAbsMenuSetEnabled()),
+                new KeyValueMemberName(ABS_MENU_SET_TEXT,getAliasAbsMenuSetText()),
+                new KeyValueMemberName(MENU_ADD,getAliasMenuAdd()),
+                new KeyValueMemberName(MENU_GET,getAliasMenuGet()),
+                new KeyValueMemberName(MENU_REMOVE,getAliasMenuRemove()),
+                new KeyValueMemberName(MENU_NB,getAliasMenuNb()),
+                new KeyValueMemberName(MENU_ADD_SEPARATOR,getAliasMenuAddSeparator())
         ));
         m_.put(getAliasAbsMenuItem(),new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("AbsMenuGetParent",getAliasAbsMenuGetParent()),
-                new KeyValueMemberName("AbsMenuGetText",getAliasAbsMenuGetText()),
-                new KeyValueMemberName("AbsMenuIsEnabled",getAliasAbsMenuIsEnabled()),
-                new KeyValueMemberName("AbsMenuSetDeepEnabled",getAliasAbsMenuSetDeepEnabled()),
-                new KeyValueMemberName("AbsMenuSetEnabled",getAliasAbsMenuSetEnabled()),
-                new KeyValueMemberName("AbsMenuSetText",getAliasAbsMenuSetText()),
-                new KeyValueMemberName("AbsMenuItemAddAction",getAliasAbsMenuItemAddAction())
+                new KeyValueMemberName(ABS_MENU_GET_PARENT,getAliasAbsMenuGetParent()),
+                new KeyValueMemberName(ABS_MENU_GET_TEXT,getAliasAbsMenuGetText()),
+                new KeyValueMemberName(ABS_MENU_IS_ENABLED,getAliasAbsMenuIsEnabled()),
+                new KeyValueMemberName(ABS_MENU_SET_DEEP_ENABLED,getAliasAbsMenuSetDeepEnabled()),
+                new KeyValueMemberName(ABS_MENU_SET_ENABLED,getAliasAbsMenuSetEnabled()),
+                new KeyValueMemberName(ABS_MENU_SET_TEXT,getAliasAbsMenuSetText()),
+                new KeyValueMemberName(ABS_MENU_ITEM_ADD_ACTION,getAliasAbsMenuItemAddAction())
         ));
         m_.put(getAliasMenuItemCheck(),new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("AbsMenuGetParent",getAliasAbsMenuGetParent()),
-                new KeyValueMemberName("AbsMenuGetText",getAliasAbsMenuGetText()),
-                new KeyValueMemberName("AbsMenuIsEnabled",getAliasAbsMenuIsEnabled()),
-                new KeyValueMemberName("AbsMenuSetDeepEnabled",getAliasAbsMenuSetDeepEnabled()),
-                new KeyValueMemberName("AbsMenuSetEnabled",getAliasAbsMenuSetEnabled()),
-                new KeyValueMemberName("AbsMenuSetText",getAliasAbsMenuSetText()),
-                new KeyValueMemberName("AbsMenuItemAddAction",getAliasAbsMenuItemAddAction()),
-                new KeyValueMemberName("MenuItemCheckIsSelected",getAliasMenuItemCheckIsSelected()),
-                new KeyValueMemberName("MenuItemCheckSetSelected",getAliasMenuItemCheckSetSelected())
+                new KeyValueMemberName(ABS_MENU_GET_PARENT,getAliasAbsMenuGetParent()),
+                new KeyValueMemberName(ABS_MENU_GET_TEXT,getAliasAbsMenuGetText()),
+                new KeyValueMemberName(ABS_MENU_IS_ENABLED,getAliasAbsMenuIsEnabled()),
+                new KeyValueMemberName(ABS_MENU_SET_DEEP_ENABLED,getAliasAbsMenuSetDeepEnabled()),
+                new KeyValueMemberName(ABS_MENU_SET_ENABLED,getAliasAbsMenuSetEnabled()),
+                new KeyValueMemberName(ABS_MENU_SET_TEXT,getAliasAbsMenuSetText()),
+                new KeyValueMemberName(ABS_MENU_ITEM_ADD_ACTION,getAliasAbsMenuItemAddAction()),
+                new KeyValueMemberName(MENU_ITEM_CHECK_IS_SELECTED,getAliasMenuItemCheckIsSelected()),
+                new KeyValueMemberName(MENU_ITEM_CHECK_SET_SELECTED,getAliasMenuItemCheckSetSelected())
         ));
         return m_;
     }
@@ -8240,201 +8630,201 @@ public class LgNamesGui extends LgNamesUtils {
     private void allComponents(StringMap<CustList<KeyValueMemberName>> _m) {
         CustList<KeyValueMemberName> names_ = getCompoMethodNames();
         _m.put(getAliasPanel(),merge(new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("Count",getAliasCount()),
-                new KeyValueMemberName("GetIndexCompo",getAliasGetIndexCompo()),
-                new KeyValueMemberName("AddCompo",getAliasAddCompo()),
-                new KeyValueMemberName("RemoveCompo",getAliasRemoveCompo()),
-                new KeyValueMemberName("PanelAbsolute",getAliasPanelAbsolute()),
-                new KeyValueMemberName("PanelFlow",getAliasPanelFlow()),
-                new KeyValueMemberName("PanelPageBox",getAliasPanelPageBox()),
-                new KeyValueMemberName("PanelGrid",getAliasPanelGrid()),
-                new KeyValueMemberName("PanelValidate",getAliasPanelValidate()),
-                new KeyValueMemberName("RemoveAll",getAliasRemoveAll())),names_));
+                new KeyValueMemberName(COUNT,getAliasCount()),
+                new KeyValueMemberName(GET_INDEX_COMPO,getAliasGetIndexCompo()),
+                new KeyValueMemberName(ADD_COMPO,getAliasAddCompo()),
+                new KeyValueMemberName(REMOVE_COMPO,getAliasRemoveCompo()),
+                new KeyValueMemberName(PANEL_ABSOLUTE,getAliasPanelAbsolute()),
+                new KeyValueMemberName(PANEL_FLOW,getAliasPanelFlow()),
+                new KeyValueMemberName(PANEL_PAGE_BOX,getAliasPanelPageBox()),
+                new KeyValueMemberName(PANEL_GRID,getAliasPanelGrid()),
+                new KeyValueMemberName(PANEL_VALIDATE,getAliasPanelValidate()),
+                new KeyValueMemberName(REMOVE_ALL,getAliasRemoveAll())),names_));
         _m.put(getAliasTabbedPane(),merge(new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("TabbedPaneNb",getAliasTabbedPaneNb()),
-                new KeyValueMemberName("TabbedPaneAdd",getAliasTabbedPaneAdd()),
-                new KeyValueMemberName("TabbedPaneRemove",getAliasTabbedPaneRemove()),
-                new KeyValueMemberName("TabbedPaneSelIndex",getAliasTabbedPaneSelIndex()),
-                new KeyValueMemberName("TabbedPaneIndex",getAliasTabbedPaneIndex()),
-                new KeyValueMemberName("TabbedPaneGet",getAliasTabbedPaneGet()),
-                new KeyValueMemberName("TabbedPaneGetTitle",getAliasTabbedPaneGetTitle()),
-                new KeyValueMemberName("TabbedPaneSet",getAliasTabbedPaneSet()),
-                new KeyValueMemberName("TabbedPaneSetTitle",getAliasTabbedPaneSetTitle()),
-                new KeyValueMemberName("RemoveAll",getAliasRemoveAll())),names_));
+                new KeyValueMemberName(TABBED_PANE_NB,getAliasTabbedPaneNb()),
+                new KeyValueMemberName(TABBED_PANE_ADD,getAliasTabbedPaneAdd()),
+                new KeyValueMemberName(TABBED_PANE_REMOVE,getAliasTabbedPaneRemove()),
+                new KeyValueMemberName(TABBED_PANE_SEL_INDEX,getAliasTabbedPaneSelIndex()),
+                new KeyValueMemberName(TABBED_PANE_INDEX,getAliasTabbedPaneIndex()),
+                new KeyValueMemberName(TABBED_PANE_GET,getAliasTabbedPaneGet()),
+                new KeyValueMemberName(TABBED_PANE_GET_TITLE,getAliasTabbedPaneGetTitle()),
+                new KeyValueMemberName(TABBED_PANE_SET,getAliasTabbedPaneSet()),
+                new KeyValueMemberName(TABBED_PANE_SET_TITLE,getAliasTabbedPaneSetTitle()),
+                new KeyValueMemberName(REMOVE_ALL,getAliasRemoveAll())),names_));
         _m.put(getAliasPanelBorder(),merge(new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("Count",getAliasCount()),
-                new KeyValueMemberName("GetIndexCompo",getAliasGetIndexCompo()),
-                new KeyValueMemberName("AddCompo",getAliasAddCompo()),
-                new KeyValueMemberName("RemoveCompo",getAliasRemoveCompo()),
-                new KeyValueMemberName("PanelAbsolute",getAliasPanelAbsolute()),
-                new KeyValueMemberName("PanelFlow",getAliasPanelFlow()),
-                new KeyValueMemberName("PanelPageBox",getAliasPanelPageBox()),
-                new KeyValueMemberName("PanelGrid",getAliasPanelGrid()),
-                new KeyValueMemberName("PanelValidate",getAliasPanelValidate()),
-                new KeyValueMemberName("RemoveAll",getAliasRemoveAll())),names_));
+                new KeyValueMemberName(COUNT,getAliasCount()),
+                new KeyValueMemberName(GET_INDEX_COMPO,getAliasGetIndexCompo()),
+                new KeyValueMemberName(ADD_COMPO,getAliasAddCompo()),
+                new KeyValueMemberName(REMOVE_COMPO,getAliasRemoveCompo()),
+                new KeyValueMemberName(PANEL_ABSOLUTE,getAliasPanelAbsolute()),
+                new KeyValueMemberName(PANEL_FLOW,getAliasPanelFlow()),
+                new KeyValueMemberName(PANEL_PAGE_BOX,getAliasPanelPageBox()),
+                new KeyValueMemberName(PANEL_GRID,getAliasPanelGrid()),
+                new KeyValueMemberName(PANEL_VALIDATE,getAliasPanelValidate()),
+                new KeyValueMemberName(REMOVE_ALL,getAliasRemoveAll())),names_));
         _m.put(getAliasComponent(), names_);
         _m.put(getAliasTextLabel(),merge(new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("SetLabelText",getAliasSetLabelText())),names_));
+                new KeyValueMemberName(SET_LABEL_TEXT,getAliasSetLabelText())),names_));
         _m.put(getAliasImageLabel(),merge(new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("SetLabelImage",getAliasSetLabelImage())),names_));
+                new KeyValueMemberName(SET_LABEL_IMAGE,getAliasSetLabelImage())),names_));
         _m.put(getAliasButton(),merge(new CustList<KeyValueMemberName>(),names_));
         _m.put(getAliasProgBar(),merge(new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("ProgBarOr",getAliasProgBarOr()),
-                new KeyValueMemberName("ProgBarValue",getAliasProgBarValue()),
-                new KeyValueMemberName("ProgBarMin",getAliasProgBarMin()),
-                new KeyValueMemberName("ProgBarMax",getAliasProgBarMax())),names_));
+                new KeyValueMemberName(PROG_BAR_OR,getAliasProgBarOr()),
+                new KeyValueMemberName(PROG_BAR_VALUE,getAliasProgBarValue()),
+                new KeyValueMemberName(PROG_BAR_MIN,getAliasProgBarMin()),
+                new KeyValueMemberName(PROG_BAR_MAX,getAliasProgBarMax())),names_));
         _m.put(getAliasScrollPane(),merge(new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("ScrollPaneHorizontalValue",getAliasScrollPaneHorizontalValue()),
-                new KeyValueMemberName("ScrollPaneVerticalValue",getAliasScrollPaneVerticalValue()),
-                new KeyValueMemberName("ScrollPaneGetView",getAliasScrollPaneGetView()),
-                new KeyValueMemberName("ScrollPaneSetView",getAliasScrollPaneSetView()),
-                new KeyValueMemberName("ScrollPaneValidate",getAliasScrollPaneValidate())),names_));
+                new KeyValueMemberName(SCROLL_PANE_HORIZONTAL_VALUE,getAliasScrollPaneHorizontalValue()),
+                new KeyValueMemberName(SCROLL_PANE_VERTICAL_VALUE,getAliasScrollPaneVerticalValue()),
+                new KeyValueMemberName(SCROLL_PANE_GET_VIEW,getAliasScrollPaneGetView()),
+                new KeyValueMemberName(SCROLL_PANE_SET_VIEW,getAliasScrollPaneSetView()),
+                new KeyValueMemberName(SCROLL_PANE_VALIDATE,getAliasScrollPaneValidate())),names_));
         _m.put(getAliasSplitPane(),merge(new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("SplitPaneGetDividerLocation",getAliasSplitPaneGetDividerLocation()),
-                new KeyValueMemberName("SplitPaneSetDividerLocation",getAliasSplitPaneSetDividerLocation()),
-                new KeyValueMemberName("SplitPaneGetDividerSize",getAliasSplitPaneGetDividerSize()),
-                new KeyValueMemberName("SplitPaneSetDividerSize",getAliasSplitPaneSetDividerSize()),
-                new KeyValueMemberName("SplitPaneGetLeft",getAliasSplitPaneGetLeft()),
-                new KeyValueMemberName("SplitPaneSetLeft",getAliasSplitPaneSetLeft()),
-                new KeyValueMemberName("SplitPaneGetRight",getAliasSplitPaneGetRight()),
-                new KeyValueMemberName("SplitPaneSetRight",getAliasSplitPaneSetRight()),
-                new KeyValueMemberName("SplitPaneIsContinuousLayout",getAliasSplitPaneIsContinuousLayout()),
-                new KeyValueMemberName("SplitPaneSetContinuousLayout",getAliasSplitPaneSetContinuousLayout()),
-                new KeyValueMemberName("SplitPaneIsOneTouchExpandable",getAliasSplitPaneIsOneTouchExpandable()),
-                new KeyValueMemberName("SplitPaneSetOneTouchExpandable",getAliasSplitPaneSetOneTouchExpandable()),
-                new KeyValueMemberName("SplitPaneValidate",getAliasSplitPaneValidate())),names_));
+                new KeyValueMemberName(SPLIT_PANE_GET_DIVIDER_LOCATION,getAliasSplitPaneGetDividerLocation()),
+                new KeyValueMemberName(SPLIT_PANE_SET_DIVIDER_LOCATION,getAliasSplitPaneSetDividerLocation()),
+                new KeyValueMemberName(SPLIT_PANE_GET_DIVIDER_SIZE,getAliasSplitPaneGetDividerSize()),
+                new KeyValueMemberName(SPLIT_PANE_SET_DIVIDER_SIZE,getAliasSplitPaneSetDividerSize()),
+                new KeyValueMemberName(SPLIT_PANE_GET_LEFT,getAliasSplitPaneGetLeft()),
+                new KeyValueMemberName(SPLIT_PANE_SET_LEFT,getAliasSplitPaneSetLeft()),
+                new KeyValueMemberName(SPLIT_PANE_GET_RIGHT,getAliasSplitPaneGetRight()),
+                new KeyValueMemberName(SPLIT_PANE_SET_RIGHT,getAliasSplitPaneSetRight()),
+                new KeyValueMemberName(SPLIT_PANE_IS_CONTINUOUS_LAYOUT,getAliasSplitPaneIsContinuousLayout()),
+                new KeyValueMemberName(SPLIT_PANE_SET_CONTINUOUS_LAYOUT,getAliasSplitPaneSetContinuousLayout()),
+                new KeyValueMemberName(SPLIT_PANE_IS_ONE_TOUCH_EXPANDABLE,getAliasSplitPaneIsOneTouchExpandable()),
+                new KeyValueMemberName(SPLIT_PANE_SET_ONE_TOUCH_EXPANDABLE,getAliasSplitPaneSetOneTouchExpandable()),
+                new KeyValueMemberName(SPLIT_PANE_VALIDATE,getAliasSplitPaneValidate())),names_));
         _m.put(getAliasInput(),merge(new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("InputIsEnabled",getAliasInputIsEnabled()),
-                new KeyValueMemberName("InputSetEnabled",getAliasInputSetEnabled())),names_));
+                new KeyValueMemberName(INPUT_IS_ENABLED,getAliasInputIsEnabled()),
+                new KeyValueMemberName(INPUT_SET_ENABLED,getAliasInputSetEnabled())),names_));
         _m.put(getAliasCheckBox(),merge(new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("CheckBoxAddAction",getAliasCheckBoxAddAction()),
-                new KeyValueMemberName("CheckBoxGetText",getAliasCheckBoxGetText()),
-                new KeyValueMemberName("CheckBoxSetText",getAliasCheckBoxSetText()),
-                new KeyValueMemberName("CheckBoxIsSelected",getAliasCheckBoxIsSelected()),
-                new KeyValueMemberName("CheckBoxSetSelected",getAliasCheckBoxSetSelected())),names_)
+                new KeyValueMemberName(CHECK_BOX_ADD_ACTION,getAliasCheckBoxAddAction()),
+                new KeyValueMemberName(CHECK_BOX_GET_TEXT,getAliasCheckBoxGetText()),
+                new KeyValueMemberName(CHECK_BOX_SET_TEXT,getAliasCheckBoxSetText()),
+                new KeyValueMemberName(CHECK_BOX_IS_SELECTED,getAliasCheckBoxIsSelected()),
+                new KeyValueMemberName(CHECK_BOX_SET_SELECTED,getAliasCheckBoxSetSelected())),names_)
         );
         _m.put(getAliasSpinner(),merge(new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("SpinnerGetMax",getAliasSpinnerGetMax()),
-                new KeyValueMemberName("SpinnerGetMin",getAliasSpinnerGetMin()),
-                new KeyValueMemberName("SpinnerGetStep",getAliasSpinnerGetStep()),
-                new KeyValueMemberName("SpinnerGetValue",getAliasSpinnerGetValue()),
-                new KeyValueMemberName("SpinnerSetMax",getAliasSpinnerSetMax()),
-                new KeyValueMemberName("SpinnerSetMin",getAliasSpinnerSetMin()),
-                new KeyValueMemberName("SpinnerSetStep",getAliasSpinnerSetStep()),
-                new KeyValueMemberName("SpinnerSetValue",getAliasSpinnerSetValue()),
-                new KeyValueMemberName("SpinnerSetRange",getAliasSpinnerSetRange()),
-                new KeyValueMemberName("SpinnerSetRangeValue",getAliasSpinnerSetRangeValue()),
-                new KeyValueMemberName("AddChange",getAliasAddChange())),names_)
+                new KeyValueMemberName(SPINNER_GET_MAX,getAliasSpinnerGetMax()),
+                new KeyValueMemberName(SPINNER_GET_MIN,getAliasSpinnerGetMin()),
+                new KeyValueMemberName(SPINNER_GET_STEP,getAliasSpinnerGetStep()),
+                new KeyValueMemberName(SPINNER_GET_VALUE,getAliasSpinnerGetValue()),
+                new KeyValueMemberName(SPINNER_SET_MAX,getAliasSpinnerSetMax()),
+                new KeyValueMemberName(SPINNER_SET_MIN,getAliasSpinnerSetMin()),
+                new KeyValueMemberName(SPINNER_SET_STEP,getAliasSpinnerSetStep()),
+                new KeyValueMemberName(SPINNER_SET_VALUE,getAliasSpinnerSetValue()),
+                new KeyValueMemberName(SPINNER_SET_RANGE,getAliasSpinnerSetRange()),
+                new KeyValueMemberName(SPINNER_SET_RANGE_VALUE,getAliasSpinnerSetRangeValue()),
+                new KeyValueMemberName(ADD_CHANGE,getAliasAddChange())),names_)
         );
         _m.put(getAliasSlider(),merge(new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("SliderGetMax",getAliasSliderGetMax()),
-                new KeyValueMemberName("SliderGetMin",getAliasSliderGetMin()),
-                new KeyValueMemberName("SliderGetOrientation",getAliasSliderGetOrientation()),
-                new KeyValueMemberName("SliderGetValue",getAliasSliderGetValue()),
-                new KeyValueMemberName("SliderSetMax",getAliasSliderSetMax()),
-                new KeyValueMemberName("SliderSetMin",getAliasSliderSetMin()),
-                new KeyValueMemberName("SliderSetOrientation",getAliasSliderSetOrientation()),
-                new KeyValueMemberName("SliderSetValue",getAliasSliderSetValue()),
-                new KeyValueMemberName("AddChange",getAliasAddChange())),names_)
+                new KeyValueMemberName(SLIDER_GET_MAX,getAliasSliderGetMax()),
+                new KeyValueMemberName(SLIDER_GET_MIN,getAliasSliderGetMin()),
+                new KeyValueMemberName(SLIDER_GET_ORIENTATION,getAliasSliderGetOrientation()),
+                new KeyValueMemberName(SLIDER_GET_VALUE,getAliasSliderGetValue()),
+                new KeyValueMemberName(SLIDER_SET_MAX,getAliasSliderSetMax()),
+                new KeyValueMemberName(SLIDER_SET_MIN,getAliasSliderSetMin()),
+                new KeyValueMemberName(SLIDER_SET_ORIENTATION,getAliasSliderSetOrientation()),
+                new KeyValueMemberName(SLIDER_SET_VALUE,getAliasSliderSetValue()),
+                new KeyValueMemberName(ADD_CHANGE,getAliasAddChange())),names_)
         );
         _m.put(getAliasRadio(),merge(new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("RadioGetText",getAliasRadioGetText()),
-                new KeyValueMemberName("RadioSetText",getAliasRadioSetText()),
-                new KeyValueMemberName("RadioIsSelected",getAliasRadioIsSelected()),
-                new KeyValueMemberName("RadioSetSelected",getAliasRadioSetSelected()),
-                new KeyValueMemberName("AddChange",getAliasAddChange())),names_)
+                new KeyValueMemberName(RADIO_GET_TEXT,getAliasRadioGetText()),
+                new KeyValueMemberName(RADIO_SET_TEXT,getAliasRadioSetText()),
+                new KeyValueMemberName(RADIO_IS_SELECTED,getAliasRadioIsSelected()),
+                new KeyValueMemberName(RADIO_SET_SELECTED,getAliasRadioSetSelected()),
+                new KeyValueMemberName(ADD_CHANGE,getAliasAddChange())),names_)
         );
         _m.put(getAliasTextField(),merge(new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("TextFieldAddAction",getAliasTextFieldAddAction()),
-                new KeyValueMemberName("TextFieldAddPopup",getAliasTextFieldAddPopup()),
-                new KeyValueMemberName("TextFieldGetText",getAliasTextFieldGetText()),
-                new KeyValueMemberName("TextFieldSetText",getAliasTextFieldSetText())),names_)
+                new KeyValueMemberName(TEXT_FIELD_ADD_ACTION,getAliasTextFieldAddAction()),
+                new KeyValueMemberName(TEXT_FIELD_ADD_POPUP,getAliasTextFieldAddPopup()),
+                new KeyValueMemberName(TEXT_FIELD_GET_TEXT,getAliasTextFieldGetText()),
+                new KeyValueMemberName(TEXT_FIELD_SET_TEXT,getAliasTextFieldSetText())),names_)
         );
         _m.put(getAliasTextArea(),merge(new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("TextAreaAppend",getAliasTextAreaAppend()),
-                new KeyValueMemberName("TextAreaInsert",getAliasTextAreaInsert()),
-                new KeyValueMemberName("TextAreaReplaceRange",getAliasTextAreaReplaceRange()),
-                new KeyValueMemberName("TextAreaReplaceSelection",getAliasTextAreaReplaceSelection()),
-                new KeyValueMemberName("TextAreaGetSelectedText",getAliasTextAreaGetSelectedText()),
-                new KeyValueMemberName("TextAreaSetSelectionStart",getAliasTextAreaSetSelectionStart()),
-                new KeyValueMemberName("TextAreaSetSelectionEnd",getAliasTextAreaSetSelectionEnd()),
-                new KeyValueMemberName("TextAreaGetTabSize",getAliasTextAreaGetTabSize()),
-                new KeyValueMemberName("TextAreaSetTabSize",getAliasTextAreaSetTabSize()),
-                new KeyValueMemberName("TextAreaGetText",getAliasTextAreaGetText()),
-                new KeyValueMemberName("TextAreaSetText",getAliasTextAreaSetText()),
-                new KeyValueMemberName("TextAreaSelect",getAliasTextAreaSelect()),
-                new KeyValueMemberName("TextAreaSelectAll",getAliasTextAreaSelectAll())),names_)
+                new KeyValueMemberName(TEXT_AREA_APPEND,getAliasTextAreaAppend()),
+                new KeyValueMemberName(TEXT_AREA_INSERT,getAliasTextAreaInsert()),
+                new KeyValueMemberName(TEXT_AREA_REPLACE_RANGE,getAliasTextAreaReplaceRange()),
+                new KeyValueMemberName(TEXT_AREA_REPLACE_SELECTION,getAliasTextAreaReplaceSelection()),
+                new KeyValueMemberName(TEXT_AREA_GET_SELECTED_TEXT,getAliasTextAreaGetSelectedText()),
+                new KeyValueMemberName(TEXT_AREA_SET_SELECTION_START,getAliasTextAreaSetSelectionStart()),
+                new KeyValueMemberName(TEXT_AREA_SET_SELECTION_END,getAliasTextAreaSetSelectionEnd()),
+                new KeyValueMemberName(TEXT_AREA_GET_TAB_SIZE,getAliasTextAreaGetTabSize()),
+                new KeyValueMemberName(TEXT_AREA_SET_TAB_SIZE,getAliasTextAreaSetTabSize()),
+                new KeyValueMemberName(TEXT_AREA_GET_TEXT,getAliasTextAreaGetText()),
+                new KeyValueMemberName(TEXT_AREA_SET_TEXT,getAliasTextAreaSetText()),
+                new KeyValueMemberName(TEXT_AREA_SELECT,getAliasTextAreaSelect()),
+                new KeyValueMemberName(TEXT_AREA_SELECT_ALL,getAliasTextAreaSelectAll())),names_)
         );
         _m.put(getAliasCombo(),merge(new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("ComboAddItem",getAliasComboAddItem()),
-                new KeyValueMemberName("ComboGetItemCount",getAliasComboGetItemCount()),
-                new KeyValueMemberName("ComboGetListener",getAliasComboGetListener()),
-                new KeyValueMemberName("ComboGetSelectedIndex",getAliasComboGetSelectedIndex()),
-                new KeyValueMemberName("ComboGetSelectedIndexes",getAliasComboGetSelectedIndexes()),
-                new KeyValueMemberName("ComboGetSelectedItem",getAliasComboGetSelectedItem()),
-                new KeyValueMemberName("ComboRemoveAllItems",getAliasComboRemoveAllItems()),
-                new KeyValueMemberName("ComboRemoveItem",getAliasComboRemoveItem()),
-                new KeyValueMemberName("ComboSelectItem",getAliasComboSelectItem()),
-                new KeyValueMemberName("ComboSetListener",getAliasComboSetListener())),names_)
+                new KeyValueMemberName(COMBO_ADD_ITEM,getAliasComboAddItem()),
+                new KeyValueMemberName(COMBO_GET_ITEM_COUNT,getAliasComboGetItemCount()),
+                new KeyValueMemberName(COMBO_GET_LISTENER,getAliasComboGetListener()),
+                new KeyValueMemberName(COMBO_GET_SELECTED_INDEX,getAliasComboGetSelectedIndex()),
+                new KeyValueMemberName(COMBO_GET_SELECTED_INDEXES,getAliasComboGetSelectedIndexes()),
+                new KeyValueMemberName(COMBO_GET_SELECTED_ITEM,getAliasComboGetSelectedItem()),
+                new KeyValueMemberName(COMBO_REMOVE_ALL_ITEMS,getAliasComboRemoveAllItems()),
+                new KeyValueMemberName(COMBO_REMOVE_ITEM,getAliasComboRemoveItem()),
+                new KeyValueMemberName(COMBO_SELECT_ITEM,getAliasComboSelectItem()),
+                new KeyValueMemberName(COMBO_SET_LISTENER,getAliasComboSetListener())),names_)
         );
         _m.put(getAliasGrList(),merge(new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("GrListAdd",getAliasGrListAdd()),
-                new KeyValueMemberName("GrListClear",getAliasGrListClear()),
-                new KeyValueMemberName("GrListClearSelection",getAliasGrListClearSelection()),
-                new KeyValueMemberName("GrListGetListView",getAliasGrListGetListView()),
-                new KeyValueMemberName("GrListGetRender",getAliasGrListGetRender()),
-                new KeyValueMemberName("GrListGetSelectedIndexes",getAliasGrListGetSelectedIndexes()),
-                new KeyValueMemberName("GrListGetSelection",getAliasGrListGetSelection()),
-                new KeyValueMemberName("GrListGetVisibleRowCount",getAliasGrListGetVisibleRowCount()),
-                new KeyValueMemberName("GrListRemove",getAliasGrListRemove()),
-                new KeyValueMemberName("GrListSet",getAliasGrListSet()),
-                new KeyValueMemberName("GrListSetRender",getAliasGrListSetRender()),
-                new KeyValueMemberName("GrListSetSelectedIndexes",getAliasGrListSetSelectedIndexes()),
-                new KeyValueMemberName("GrListSetSelection",getAliasGrListSetSelection()),
-                new KeyValueMemberName("GrListSetVisibleRowCount",getAliasGrListSetVisibleRowCount()),
-                new KeyValueMemberName("GrListUpdateGraphics",getAliasGrListUpdateGraphics())),names_)
+                new KeyValueMemberName(GR_LIST_ADD,getAliasGrListAdd()),
+                new KeyValueMemberName(GR_LIST_CLEAR,getAliasGrListClear()),
+                new KeyValueMemberName(GR_LIST_CLEAR_SELECTION,getAliasGrListClearSelection()),
+                new KeyValueMemberName(GR_LIST_GET_LIST_VIEW,getAliasGrListGetListView()),
+                new KeyValueMemberName(GR_LIST_GET_RENDER,getAliasGrListGetRender()),
+                new KeyValueMemberName(GR_LIST_GET_SELECTED_INDEXES,getAliasGrListGetSelectedIndexes()),
+                new KeyValueMemberName(GR_LIST_GET_SELECTION,getAliasGrListGetSelection()),
+                new KeyValueMemberName(GR_LIST_GET_VISIBLE_ROW_COUNT,getAliasGrListGetVisibleRowCount()),
+                new KeyValueMemberName(GR_LIST_REMOVE,getAliasGrListRemove()),
+                new KeyValueMemberName(GR_LIST_SET,getAliasGrListSet()),
+                new KeyValueMemberName(GR_LIST_SET_RENDER,getAliasGrListSetRender()),
+                new KeyValueMemberName(GR_LIST_SET_SELECTED_INDEXES,getAliasGrListSetSelectedIndexes()),
+                new KeyValueMemberName(GR_LIST_SET_SELECTION,getAliasGrListSetSelection()),
+                new KeyValueMemberName(GR_LIST_SET_VISIBLE_ROW_COUNT,getAliasGrListSetVisibleRowCount()),
+                new KeyValueMemberName(GR_LIST_UPDATE_GRAPHICS,getAliasGrListUpdateGraphics())),names_)
         );
         _m.put(getAliasPopupMenu(),merge(new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("PopupMenuAdd",getAliasPopupMenuAdd()),
-                new KeyValueMemberName("PopupMenuAddMenu",getAliasPopupMenuAddMenu()),
-                new KeyValueMemberName("PopupMenuGetComp",getAliasPopupMenuGetComp()),
-                new KeyValueMemberName("PopupMenuRemoveComp",getAliasPopupMenuRemoveComp()),
-                new KeyValueMemberName("PopupMenuNbComp",getAliasPopupMenuNbComp()),
-                new KeyValueMemberName("PopupMenuGetMenu",getAliasPopupMenuGetMenu()),
-                new KeyValueMemberName("PopupMenuRemoveMenu",getAliasPopupMenuRemoveMenu()),
-                new KeyValueMemberName("PopupMenuNbMenu",getAliasPopupMenuNbMenu()),
-                new KeyValueMemberName("PopupMenuShow",getAliasPopupMenuShow())),names_)
+                new KeyValueMemberName(POPUP_MENU_ADD,getAliasPopupMenuAdd()),
+                new KeyValueMemberName(POPUP_MENU_ADD_MENU,getAliasPopupMenuAddMenu()),
+                new KeyValueMemberName(POPUP_MENU_GET_COMP,getAliasPopupMenuGetComp()),
+                new KeyValueMemberName(POPUP_MENU_REMOVE_COMP,getAliasPopupMenuRemoveComp()),
+                new KeyValueMemberName(POPUP_MENU_NB_COMP,getAliasPopupMenuNbComp()),
+                new KeyValueMemberName(POPUP_MENU_GET_MENU,getAliasPopupMenuGetMenu()),
+                new KeyValueMemberName(POPUP_MENU_REMOVE_MENU,getAliasPopupMenuRemoveMenu()),
+                new KeyValueMemberName(POPUP_MENU_NB_MENU,getAliasPopupMenuNbMenu()),
+                new KeyValueMemberName(POPUP_MENU_SHOW,getAliasPopupMenuShow())),names_)
         );
         _m.put(getAliasTree(),merge(new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("TreeAddTreeListener",getAliasTreeAddTreeListener()),
-                new KeyValueMemberName("TreeGetSelected",getAliasTreeGetSelected()),
-                new KeyValueMemberName("TreeIsRootVisible",getAliasTreeIsRootVisible()),
-                new KeyValueMemberName("TreeSetRootVisible",getAliasTreeSetRootVisible()),
-                new KeyValueMemberName("TreeReload",getAliasTreeReload())),names_)
+                new KeyValueMemberName(TREE_ADD_TREE_LISTENER,getAliasTreeAddTreeListener()),
+                new KeyValueMemberName(TREE_GET_SELECTED,getAliasTreeGetSelected()),
+                new KeyValueMemberName(TREE_IS_ROOT_VISIBLE,getAliasTreeIsRootVisible()),
+                new KeyValueMemberName(TREE_SET_ROOT_VISIBLE,getAliasTreeSetRootVisible()),
+                new KeyValueMemberName(TREE_RELOAD,getAliasTreeReload())),names_)
         );
         _m.put(getAliasTableGui(),merge(new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("TableAddHeader",getAliasTableAddHeader()),
-                new KeyValueMemberName("TableAddSelect",getAliasTableAddSelect()),
-                new KeyValueMemberName("TableApplyChanges",getAliasTableApplyChanges()),
-                new KeyValueMemberName("TableAddInterval",getAliasTableAddInterval()),
-                new KeyValueMemberName("TableRemoveInterval",getAliasTableRemoveInterval()),
-                new KeyValueMemberName("TableMoveColumn",getAliasTableMoveColumn()),
-                new KeyValueMemberName("TableGetColumnAtPoint",getAliasTableGetColumnAtPoint()),
-                new KeyValueMemberName("TableGetColumnCount",getAliasTableGetColumnCount()),
-                new KeyValueMemberName("TableGetColumnName",getAliasTableGetColumnName()),
-                new KeyValueMemberName("TableGetRowAtPoint",getAliasTableGetRowAtPoint()),
-                new KeyValueMemberName("TableGetRowCount",getAliasTableGetRowCount()),
-                new KeyValueMemberName("TableGetSelectedRow",getAliasTableGetSelectedRow()),
-                new KeyValueMemberName("TableGetSelectedRowCount",getAliasTableGetSelectedRowCount()),
-                new KeyValueMemberName("TableGetSelectedRows",getAliasTableGetSelectedRows()),
-                new KeyValueMemberName("TableGetValue",getAliasTableGetValue()),
-                new KeyValueMemberName("TableSetColumns",getAliasTableSetColumns()),
-                new KeyValueMemberName("TableSetMultiple",getAliasTableSetMultiple()),
-                new KeyValueMemberName("TableSetReorder",getAliasTableSetReorder()),
-                new KeyValueMemberName("TableSetRowCount",getAliasTableSetRowCount()),
-                new KeyValueMemberName("TableSetValue",getAliasTableSetValue()),
-                new KeyValueMemberName("TableIsMultiple",getAliasTableIsMultiple()),
-                new KeyValueMemberName("TableIsReorder",getAliasTableIsReorder())),names_)
+                new KeyValueMemberName(TABLE_ADD_HEADER,getAliasTableAddHeader()),
+                new KeyValueMemberName(TABLE_ADD_SELECT,getAliasTableAddSelect()),
+                new KeyValueMemberName(TABLE_APPLY_CHANGES,getAliasTableApplyChanges()),
+                new KeyValueMemberName(TABLE_ADD_INTERVAL,getAliasTableAddInterval()),
+                new KeyValueMemberName(TABLE_REMOVE_INTERVAL,getAliasTableRemoveInterval()),
+                new KeyValueMemberName(TABLE_MOVE_COLUMN,getAliasTableMoveColumn()),
+                new KeyValueMemberName(TABLE_GET_COLUMN_AT_POINT,getAliasTableGetColumnAtPoint()),
+                new KeyValueMemberName(TABLE_GET_COLUMN_COUNT,getAliasTableGetColumnCount()),
+                new KeyValueMemberName(TABLE_GET_COLUMN_NAME,getAliasTableGetColumnName()),
+                new KeyValueMemberName(TABLE_GET_ROW_AT_POINT,getAliasTableGetRowAtPoint()),
+                new KeyValueMemberName(TABLE_GET_ROW_COUNT,getAliasTableGetRowCount()),
+                new KeyValueMemberName(TABLE_GET_SELECTED_ROW,getAliasTableGetSelectedRow()),
+                new KeyValueMemberName(TABLE_GET_SELECTED_ROW_COUNT,getAliasTableGetSelectedRowCount()),
+                new KeyValueMemberName(TABLE_GET_SELECTED_ROWS,getAliasTableGetSelectedRows()),
+                new KeyValueMemberName(TABLE_GET_VALUE,getAliasTableGetValue()),
+                new KeyValueMemberName(TABLE_SET_COLUMNS,getAliasTableSetColumns()),
+                new KeyValueMemberName(TABLE_SET_MULTIPLE,getAliasTableSetMultiple()),
+                new KeyValueMemberName(TABLE_SET_REORDER,getAliasTableSetReorder()),
+                new KeyValueMemberName(TABLE_SET_ROW_COUNT,getAliasTableSetRowCount()),
+                new KeyValueMemberName(TABLE_SET_VALUE,getAliasTableSetValue()),
+                new KeyValueMemberName(TABLE_IS_MULTIPLE,getAliasTableIsMultiple()),
+                new KeyValueMemberName(TABLE_IS_REORDER,getAliasTableIsReorder())),names_)
         );
     }
 
@@ -8446,186 +8836,186 @@ public class LgNamesGui extends LgNamesUtils {
     }
     private CustList<KeyValueMemberName> getCompoMethodNames() {
         return new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("GetParentCompo",getAliasGetParentCompo()),
-                new KeyValueMemberName("GetNextCompo",getAliasGetNextCompo()),
-                new KeyValueMemberName("ComponentRepaint",getAliasComponentRepaint()),
-                new KeyValueMemberName("ComponentGetPaint",getAliasComponentGetPaint()),
-                new KeyValueMemberName("ComponentSetPaint",getAliasComponentSetPaint()),
-                new KeyValueMemberName("GetFont",getAliasGetFont()),
-                new KeyValueMemberName("SetFont",getAliasSetFont()),
-                new KeyValueMemberName("ComponentGetHeight",getAliasComponentGetHeight()),
-                new KeyValueMemberName("ComponentGetWidth",getAliasComponentGetWidth()),
-                new KeyValueMemberName("ComponentIsAutoscrolls",getAliasComponentIsAutoscrolls()),
-                new KeyValueMemberName("ComponentSetAutoscrolls",getAliasComponentSetAutoscrolls()),
-                new KeyValueMemberName("ComponentGetPreferredSize",getAliasComponentGetPreferredSize()),
-                new KeyValueMemberName("ComponentSetPreferredSize",getAliasComponentSetPreferredSize()),
-                new KeyValueMemberName("ComponentSetSize",getAliasComponentSetSize()),
-                new KeyValueMemberName("ComponentIsVisible",getAliasComponentIsVisible()),
-                new KeyValueMemberName("ComponentSetVisible",getAliasComponentSetVisible()),
-                new KeyValueMemberName("ComponentInvokeLater",getAliasComponentInvokeLater()),
-                new KeyValueMemberName("AddKeyListener",getAliasAddKeyListener()),
-                new KeyValueMemberName("AddWheelListener",getAliasAddWheelListener()),
-                new KeyValueMemberName("AddListener",getAliasAddListener()),
-                new KeyValueMemberName("RequestFocus",getAliasRequestFocus()),
-                new KeyValueMemberName("CompBack",getAliasCompBack()),
-                new KeyValueMemberName("CompFocusable",getAliasCompFocusable()),
-                new KeyValueMemberName("CompFore",getAliasCompFore()),
-                new KeyValueMemberName("CompGetFirstPos",getAliasCompGetFirstPos()),
-                new KeyValueMemberName("CompGetSecondPos",getAliasCompGetSecondPos()),
-                new KeyValueMemberName("CompOpaque",getAliasCompOpaque()),
-                new KeyValueMemberName("CompToolTip",getAliasCompToolTip()),
-                new KeyValueMemberName("CompLoc",getAliasCompLoc()),
-                new KeyValueMemberName("CompBorLine",getAliasCompBorLine()),
-                new KeyValueMemberName("CompBorLower",getAliasCompBorLower()),
-                new KeyValueMemberName("CompBorRaise",getAliasCompBorRaise()),
-                new KeyValueMemberName("CompBorTitle",getAliasCompBorTitle())
+                new KeyValueMemberName(GET_PARENT_COMPO,getAliasGetParentCompo()),
+                new KeyValueMemberName(GET_NEXT_COMPO,getAliasGetNextCompo()),
+                new KeyValueMemberName(COMPONENT_REPAINT,getAliasComponentRepaint()),
+                new KeyValueMemberName(COMPONENT_GET_PAINT,getAliasComponentGetPaint()),
+                new KeyValueMemberName(COMPONENT_SET_PAINT,getAliasComponentSetPaint()),
+                new KeyValueMemberName(GET_FONT,getAliasGetFont()),
+                new KeyValueMemberName(SET_FONT,getAliasSetFont()),
+                new KeyValueMemberName(COMPONENT_GET_HEIGHT,getAliasComponentGetHeight()),
+                new KeyValueMemberName(COMPONENT_GET_WIDTH,getAliasComponentGetWidth()),
+                new KeyValueMemberName(COMPONENT_IS_AUTOSCROLLS,getAliasComponentIsAutoscrolls()),
+                new KeyValueMemberName(COMPONENT_SET_AUTOSCROLLS,getAliasComponentSetAutoscrolls()),
+                new KeyValueMemberName(COMPONENT_GET_PREFERRED_SIZE,getAliasComponentGetPreferredSize()),
+                new KeyValueMemberName(COMPONENT_SET_PREFERRED_SIZE,getAliasComponentSetPreferredSize()),
+                new KeyValueMemberName(COMPONENT_SET_SIZE,getAliasComponentSetSize()),
+                new KeyValueMemberName(COMPONENT_IS_VISIBLE,getAliasComponentIsVisible()),
+                new KeyValueMemberName(COMPONENT_SET_VISIBLE,getAliasComponentSetVisible()),
+                new KeyValueMemberName(COMPONENT_INVOKE_LATER,getAliasComponentInvokeLater()),
+                new KeyValueMemberName(ADD_KEY_LISTENER,getAliasAddKeyListener()),
+                new KeyValueMemberName(ADD_WHEEL_LISTENER,getAliasAddWheelListener()),
+                new KeyValueMemberName(ADD_LISTENER,getAliasAddListener()),
+                new KeyValueMemberName(REQUEST_FOCUS,getAliasRequestFocus()),
+                new KeyValueMemberName(COMP_BACK,getAliasCompBack()),
+                new KeyValueMemberName(COMP_FOCUSABLE,getAliasCompFocusable()),
+                new KeyValueMemberName(COMP_FORE,getAliasCompFore()),
+                new KeyValueMemberName(COMP_GET_FIRST_POS,getAliasCompGetFirstPos()),
+                new KeyValueMemberName(COMP_GET_SECOND_POS,getAliasCompGetSecondPos()),
+                new KeyValueMemberName(COMP_OPAQUE,getAliasCompOpaque()),
+                new KeyValueMemberName(COMP_TOOL_TIP,getAliasCompToolTip()),
+                new KeyValueMemberName(COMP_LOC,getAliasCompLoc()),
+                new KeyValueMemberName(COMP_BOR_LINE,getAliasCompBorLine()),
+                new KeyValueMemberName(COMP_BOR_LOWER,getAliasCompBorLower()),
+                new KeyValueMemberName(COMP_BOR_RAISE,getAliasCompBorRaise()),
+                new KeyValueMemberName(COMP_BOR_TITLE,getAliasCompBorTitle())
         );
     }
 
     private void allEventTypes(StringMap<CustList<KeyValueMemberName>> _m) {
         _m.put(getAliasMouseEvent(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("MouseEventGetFirst",getAliasMouseEventGetFirst()),
-                new KeyValueMemberName("MouseEventGetSecond",getAliasMouseEventGetSecond()),
-                new KeyValueMemberName("MouseEventGetClicks",getAliasMouseEventGetClicks()),
-                new KeyValueMemberName("MouseEventIsAlt",getAliasMouseEventIsAlt()),
-                new KeyValueMemberName("MouseEventIsShift",getAliasMouseEventIsShift()),
-                new KeyValueMemberName("MouseEventIsCtrl",getAliasMouseEventIsCtrl()),
-                new KeyValueMemberName("MouseEventIsLeft",getAliasMouseEventIsLeft()),
-                new KeyValueMemberName("MouseEventIsRight",getAliasMouseEventIsRight()),
-                new KeyValueMemberName("MouseEventIsMiddle",getAliasMouseEventIsMiddle())));
+                new KeyValueMemberName(MOUSE_EVENT_GET_FIRST,getAliasMouseEventGetFirst()),
+                new KeyValueMemberName(MOUSE_EVENT_GET_SECOND,getAliasMouseEventGetSecond()),
+                new KeyValueMemberName(MOUSE_EVENT_GET_CLICKS,getAliasMouseEventGetClicks()),
+                new KeyValueMemberName(MOUSE_EVENT_IS_ALT,getAliasMouseEventIsAlt()),
+                new KeyValueMemberName(MOUSE_EVENT_IS_SHIFT,getAliasMouseEventIsShift()),
+                new KeyValueMemberName(MOUSE_EVENT_IS_CTRL,getAliasMouseEventIsCtrl()),
+                new KeyValueMemberName(MOUSE_EVENT_IS_LEFT,getAliasMouseEventIsLeft()),
+                new KeyValueMemberName(MOUSE_EVENT_IS_RIGHT,getAliasMouseEventIsRight()),
+                new KeyValueMemberName(MOUSE_EVENT_IS_MIDDLE,getAliasMouseEventIsMiddle())));
         _m.put(getAliasWheelEvent(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("MouseEventGetFirst",getAliasMouseEventGetFirst()),
-                new KeyValueMemberName("MouseEventGetSecond",getAliasMouseEventGetSecond()),
-                new KeyValueMemberName("MouseEventGetClicks",getAliasMouseEventGetClicks()),
-                new KeyValueMemberName("MouseEventIsAlt",getAliasMouseEventIsAlt()),
-                new KeyValueMemberName("MouseEventIsShift",getAliasMouseEventIsShift()),
-                new KeyValueMemberName("MouseEventIsCtrl",getAliasMouseEventIsCtrl()),
-                new KeyValueMemberName("MouseEventIsLeft",getAliasMouseEventIsLeft()),
-                new KeyValueMemberName("MouseEventIsRight",getAliasMouseEventIsRight()),
-                new KeyValueMemberName("MouseEventIsMiddle",getAliasMouseEventIsMiddle()),
-                new KeyValueMemberName("WheelRotatedClicks",getAliasWheelRotatedClicks()))
+                new KeyValueMemberName(MOUSE_EVENT_GET_FIRST,getAliasMouseEventGetFirst()),
+                new KeyValueMemberName(MOUSE_EVENT_GET_SECOND,getAliasMouseEventGetSecond()),
+                new KeyValueMemberName(MOUSE_EVENT_GET_CLICKS,getAliasMouseEventGetClicks()),
+                new KeyValueMemberName(MOUSE_EVENT_IS_ALT,getAliasMouseEventIsAlt()),
+                new KeyValueMemberName(MOUSE_EVENT_IS_SHIFT,getAliasMouseEventIsShift()),
+                new KeyValueMemberName(MOUSE_EVENT_IS_CTRL,getAliasMouseEventIsCtrl()),
+                new KeyValueMemberName(MOUSE_EVENT_IS_LEFT,getAliasMouseEventIsLeft()),
+                new KeyValueMemberName(MOUSE_EVENT_IS_RIGHT,getAliasMouseEventIsRight()),
+                new KeyValueMemberName(MOUSE_EVENT_IS_MIDDLE,getAliasMouseEventIsMiddle()),
+                new KeyValueMemberName(WHEEL_ROTATED_CLICKS,getAliasWheelRotatedClicks()))
         );
         _m.put(getAliasKeyEvent(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("KeyEventCode",getAliasKeyEventCode()),
-                new KeyValueMemberName("KeyEventChar",getAliasKeyEventChar()),
-                new KeyValueMemberName("KeyEventIsAlt",getAliasKeyEventIsAlt()),
-                new KeyValueMemberName("KeyEventIsShift",getAliasKeyEventIsShift()),
-                new KeyValueMemberName("KeyEventIsCtrl",getAliasKeyEventIsCtrl())));
+                new KeyValueMemberName(KEY_EVENT_CODE,getAliasKeyEventCode()),
+                new KeyValueMemberName(KEY_EVENT_CHAR,getAliasKeyEventChar()),
+                new KeyValueMemberName(KEY_EVENT_IS_ALT,getAliasKeyEventIsAlt()),
+                new KeyValueMemberName(KEY_EVENT_IS_SHIFT,getAliasKeyEventIsShift()),
+                new KeyValueMemberName(KEY_EVENT_IS_CTRL,getAliasKeyEventIsCtrl())));
     }
 
     private void allWindowMethods(StringMap<CustList<KeyValueMemberName>> _m) {
         _m.put(getAliasConfirm(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("ConfirmField",getAliasConfirmField()),
-                new KeyValueMemberName("ConfirmFull",getAliasConfirmFull()),
-                new KeyValueMemberName("ConfirmMessage",getAliasConfirmMessage()),
-                new KeyValueMemberName("ConfirmOk",getAliasConfirmOk()),
-                new KeyValueMemberName("ConfirmYesNo",getAliasConfirmYesNo())));
+                new KeyValueMemberName(CONFIRM_FIELD,getAliasConfirmField()),
+                new KeyValueMemberName(CONFIRM_FULL,getAliasConfirmFull()),
+                new KeyValueMemberName(CONFIRM_MESSAGE,getAliasConfirmMessage()),
+                new KeyValueMemberName(CONFIRM_OK,getAliasConfirmOk()),
+                new KeyValueMemberName(CONFIRM_YES_NO,getAliasConfirmYesNo())));
         _m.put(getAliasFrame(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("Pack",getAliasPack()),
-                new KeyValueMemberName("AddWindowListener",getAliasAddWindowListener()),
-                new KeyValueMemberName("RemoveWindowListener",getAliasRemoveWindowListener()),
-                new KeyValueMemberName("GetWindowListeners",getAliasGetWindowListeners()),
-                new KeyValueMemberName("Dispose",getAliasDispose()),
-                new KeyValueMemberName("WindowTypeRelative",getAliasWindowTypeRelative()),
-                new KeyValueMemberName("IsVisible",getAliasIsVisible()),
-                new KeyValueMemberName("SetVisible",getAliasSetVisible()),
-                new KeyValueMemberName("SetContent",getAliasSetContent()),
-                new KeyValueMemberName("GetMenuBar",getAliasGetMenuBar()),
-                new KeyValueMemberName("SetMenuBar",getAliasSetMenuBar()),
-                new KeyValueMemberName("Window",getAliasWindow()),
-                new KeyValueMemberName("Args",getAliasArgs())));
+                new KeyValueMemberName(PACK,getAliasPack()),
+                new KeyValueMemberName(ADD_WINDOW_LISTENER,getAliasAddWindowListener()),
+                new KeyValueMemberName(REMOVE_WINDOW_LISTENER,getAliasRemoveWindowListener()),
+                new KeyValueMemberName(GET_WINDOW_LISTENERS,getAliasGetWindowListeners()),
+                new KeyValueMemberName(DISPOSE,getAliasDispose()),
+                new KeyValueMemberName(WINDOW_TYPE_RELATIVE,getAliasWindowTypeRelative()),
+                new KeyValueMemberName(IS_VISIBLE,getAliasIsVisible()),
+                new KeyValueMemberName(SET_VISIBLE,getAliasSetVisible()),
+                new KeyValueMemberName(SET_CONTENT,getAliasSetContent()),
+                new KeyValueMemberName(GET_MENU_BAR,getAliasGetMenuBar()),
+                new KeyValueMemberName(SET_MENU_BAR,getAliasSetMenuBar()),
+                new KeyValueMemberName(WINDOW,getAliasWindow()),
+                new KeyValueMemberName(ARGS,getAliasArgs())));
         _m.put(getAliasWindowSet(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("WindowSetAdd",getAliasWindowSetAdd()),
-                new KeyValueMemberName("WindowSetAll",getAliasWindowSetAll()),
-                new KeyValueMemberName("WindowSetContains",getAliasWindowSetContains()),
-                new KeyValueMemberName("WindowSetRemove",getAliasWindowSetRemove()),
-                new KeyValueMemberName("WindowSetSnapshot",getAliasWindowSetSnapshot())));
+                new KeyValueMemberName(WINDOW_SET_ADD,getAliasWindowSetAdd()),
+                new KeyValueMemberName(WINDOW_SET_ALL,getAliasWindowSetAll()),
+                new KeyValueMemberName(WINDOW_SET_CONTAINS,getAliasWindowSetContains()),
+                new KeyValueMemberName(WINDOW_SET_REMOVE,getAliasWindowSetRemove()),
+                new KeyValueMemberName(WINDOW_SET_SNAPSHOT,getAliasWindowSetSnapshot())));
         _m.put(getAliasDialog(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("Pack",getAliasPack()),
-                new KeyValueMemberName("AddWindowListener",getAliasAddWindowListener()),
-                new KeyValueMemberName("RemoveWindowListener",getAliasRemoveWindowListener()),
-                new KeyValueMemberName("GetWindowListeners",getAliasGetWindowListeners()),
-                new KeyValueMemberName("Dispose",getAliasDispose()),
-                new KeyValueMemberName("WindowTypeRelative",getAliasWindowTypeRelative()),
-                new KeyValueMemberName("IsVisible",getAliasIsVisible()),
-                new KeyValueMemberName("SetVisible",getAliasSetVisible()),
-                new KeyValueMemberName("SetContent",getAliasSetContent()),
-                new KeyValueMemberName("GetMenuBar",getAliasGetMenuBar()),
-                new KeyValueMemberName("SetMenuBar",getAliasSetMenuBar()),
-                new KeyValueMemberName("DialogIsModal",getAliasDialogIsModal()),
-                new KeyValueMemberName("DialogSetModal",getAliasDialogSetModal())));
+                new KeyValueMemberName(PACK,getAliasPack()),
+                new KeyValueMemberName(ADD_WINDOW_LISTENER,getAliasAddWindowListener()),
+                new KeyValueMemberName(REMOVE_WINDOW_LISTENER,getAliasRemoveWindowListener()),
+                new KeyValueMemberName(GET_WINDOW_LISTENERS,getAliasGetWindowListeners()),
+                new KeyValueMemberName(DISPOSE,getAliasDispose()),
+                new KeyValueMemberName(WINDOW_TYPE_RELATIVE,getAliasWindowTypeRelative()),
+                new KeyValueMemberName(IS_VISIBLE,getAliasIsVisible()),
+                new KeyValueMemberName(SET_VISIBLE,getAliasSetVisible()),
+                new KeyValueMemberName(SET_CONTENT,getAliasSetContent()),
+                new KeyValueMemberName(GET_MENU_BAR,getAliasGetMenuBar()),
+                new KeyValueMemberName(SET_MENU_BAR,getAliasSetMenuBar()),
+                new KeyValueMemberName(DIALOG_IS_MODAL,getAliasDialogIsModal()),
+                new KeyValueMemberName(DIALOG_SET_MODAL,getAliasDialogSetModal())));
         _m.put(getAliasWindowType(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("Pack",getAliasPack()),
-                new KeyValueMemberName("AddWindowListener",getAliasAddWindowListener()),
-                new KeyValueMemberName("RemoveWindowListener",getAliasRemoveWindowListener()),
-                new KeyValueMemberName("GetWindowListeners",getAliasGetWindowListeners()),
-                new KeyValueMemberName("Dispose",getAliasDispose()),
-                new KeyValueMemberName("WindowTypeRelative",getAliasWindowTypeRelative()),
-                new KeyValueMemberName("IsVisible",getAliasIsVisible()),
-                new KeyValueMemberName("SetVisible",getAliasSetVisible()),
-                new KeyValueMemberName("SetContent",getAliasSetContent()),
-                new KeyValueMemberName("GetMenuBar",getAliasGetMenuBar()),
-                new KeyValueMemberName("SetMenuBar",getAliasSetMenuBar())));
+                new KeyValueMemberName(PACK,getAliasPack()),
+                new KeyValueMemberName(ADD_WINDOW_LISTENER,getAliasAddWindowListener()),
+                new KeyValueMemberName(REMOVE_WINDOW_LISTENER,getAliasRemoveWindowListener()),
+                new KeyValueMemberName(GET_WINDOW_LISTENERS,getAliasGetWindowListeners()),
+                new KeyValueMemberName(DISPOSE,getAliasDispose()),
+                new KeyValueMemberName(WINDOW_TYPE_RELATIVE,getAliasWindowTypeRelative()),
+                new KeyValueMemberName(IS_VISIBLE,getAliasIsVisible()),
+                new KeyValueMemberName(SET_VISIBLE,getAliasSetVisible()),
+                new KeyValueMemberName(SET_CONTENT,getAliasSetContent()),
+                new KeyValueMemberName(GET_MENU_BAR,getAliasGetMenuBar()),
+                new KeyValueMemberName(SET_MENU_BAR,getAliasSetMenuBar())));
     }
 
     @Override
     public StringMap<String> allRefTypes() {
         StringMap<String> ref_ =  super.allRefTypes();
-        ref_.addEntry("WindowSet",getAliasWindowSet());
-        ref_.addEntry("Frame",getAliasFrame());
-        ref_.addEntry("Confirm",getAliasConfirm());
-        ref_.addEntry("Dialog",getAliasDialog());
-        ref_.addEntry("WindowType",getAliasWindowType());
-        ref_.addEntry("Component",getAliasComponent());
-        ref_.addEntry("ActionEvent",getAliasActionEvent());
-        ref_.addEntry("MouseEvent",getAliasMouseEvent());
-        ref_.addEntry("TableListener",getAliasTableListener());
-        ref_.addEntry("TableGui",getAliasTableGui());
-        ref_.addEntry("TreeListener",getAliasTreeListener());
-        ref_.addEntry("Tree",getAliasTree());
-        ref_.addEntry("TreeNode",getAliasTreeNode());
-        ref_.addEntry("KeyEvent",getAliasKeyEvent());
-        ref_.addEntry("WindowEvent",getAliasWindowEvent());
-        ref_.addEntry("Panel",getAliasPanel());
-        ref_.addEntry("TabbedPane",getAliasTabbedPane());
-        ref_.addEntry("PanelBorder",getAliasPanelBorder());
-        ref_.addEntry("Button",getAliasButton());
-        ref_.addEntry("ProgBar",getAliasProgBar());
-        ref_.addEntry("CheckBox",getAliasCheckBox());
-        ref_.addEntry("Radio",getAliasRadio());
-        ref_.addEntry("TextLabel",getAliasTextLabel());
-        ref_.addEntry("Image",getAliasImage());
-        ref_.addEntry("ImageLabel",getAliasImageLabel());
-        ref_.addEntry("Color",getAliasColor());
-        ref_.addEntry("Input",getAliasInput());
-        ref_.addEntry("Font",getAliasFont());
-        ref_.addEntry("TextArea",getAliasTextArea());
-        ref_.addEntry("TextField",getAliasTextField());
-        ref_.addEntry("GrList",getAliasGrList());
-        ref_.addEntry("Combo",getAliasCombo());
-        ref_.addEntry("ButtonGroup",getAliasButtonGroup());
-        ref_.addEntry("Render",getAliasRender());
-        ref_.addEntry("PopupMenu",getAliasPopupMenu());
-        ref_.addEntry("Dimension",getAliasDimension());
-        ref_.addEntry("KeyListener",getAliasKeyListener());
-        ref_.addEntry("MouseListener",getAliasMouseListener());
-        ref_.addEntry("WheelListener",getAliasWheelListener());
-        ref_.addEntry("WheelEvent",getAliasWheelEvent());
-        ref_.addEntry("ActionListener",getAliasActionListener());
-        ref_.addEntry("ChangeListener",getAliasChangeListener());
-        ref_.addEntry("WindowListener",getAliasWindowListener());
-        ref_.addEntry("ScrollPane",getAliasScrollPane());
-        ref_.addEntry("SplitPane",getAliasSplitPane());
-        ref_.addEntry("ListSelection",getAliasListSelection());
-        ref_.addEntry("Paint",getAliasPaint());
-        ref_.addEntry("MenuBar",getAliasMenuBar());
-        ref_.addEntry("AbsMenu",getAliasAbsMenu());
-        ref_.addEntry("Menu",getAliasMenu());
-        ref_.addEntry("AbsMenuItem",getAliasAbsMenuItem());
-        ref_.addEntry("MenuItem",getAliasMenuItem());
-        ref_.addEntry("MenuItemCheck",getAliasMenuItemCheck());
-        ref_.addEntry("Spinner",getAliasSpinner());
-        ref_.addEntry("Slider",getAliasSlider());
+        ref_.addEntry(WINDOW_SET,getAliasWindowSet());
+        ref_.addEntry(FRAME,getAliasFrame());
+        ref_.addEntry(CONFIRM,getAliasConfirm());
+        ref_.addEntry(DIALOG,getAliasDialog());
+        ref_.addEntry(WINDOW_TYPE,getAliasWindowType());
+        ref_.addEntry(COMPONENT,getAliasComponent());
+        ref_.addEntry(ACTION_EVENT,getAliasActionEvent());
+        ref_.addEntry(MOUSE_EVENT,getAliasMouseEvent());
+        ref_.addEntry(TABLE_LISTENER,getAliasTableListener());
+        ref_.addEntry(TABLE_GUI,getAliasTableGui());
+        ref_.addEntry(TREE_LISTENER,getAliasTreeListener());
+        ref_.addEntry(TREE,getAliasTree());
+        ref_.addEntry(TREE_NODE,getAliasTreeNode());
+        ref_.addEntry(KEY_EVENT,getAliasKeyEvent());
+        ref_.addEntry(WINDOW_EVENT,getAliasWindowEvent());
+        ref_.addEntry(PANEL,getAliasPanel());
+        ref_.addEntry(TABBED_PANE,getAliasTabbedPane());
+        ref_.addEntry(PANEL_BORDER,getAliasPanelBorder());
+        ref_.addEntry(BUTTON,getAliasButton());
+        ref_.addEntry(PROG_BAR,getAliasProgBar());
+        ref_.addEntry(CHECK_BOX,getAliasCheckBox());
+        ref_.addEntry(RADIO,getAliasRadio());
+        ref_.addEntry(TEXT_LABEL,getAliasTextLabel());
+        ref_.addEntry(IMAGE,getAliasImage());
+        ref_.addEntry(IMAGE_LABEL,getAliasImageLabel());
+        ref_.addEntry(COLOR,getAliasColor());
+        ref_.addEntry(INPUT,getAliasInput());
+        ref_.addEntry(FONT,getAliasFont());
+        ref_.addEntry(TEXT_AREA,getAliasTextArea());
+        ref_.addEntry(TEXT_FIELD,getAliasTextField());
+        ref_.addEntry(GR_LIST,getAliasGrList());
+        ref_.addEntry(COMBO,getAliasCombo());
+        ref_.addEntry(BUTTON_GROUP,getAliasButtonGroup());
+        ref_.addEntry(RENDER,getAliasRender());
+        ref_.addEntry(POPUP_MENU,getAliasPopupMenu());
+        ref_.addEntry(DIMENSION,getAliasDimension());
+        ref_.addEntry(KEY_LISTENER,getAliasKeyListener());
+        ref_.addEntry(MOUSE_LISTENER,getAliasMouseListener());
+        ref_.addEntry(WHEEL_LISTENER,getAliasWheelListener());
+        ref_.addEntry(WHEEL_EVENT,getAliasWheelEvent());
+        ref_.addEntry(ACTION_LISTENER,getAliasActionListener());
+        ref_.addEntry(CHANGE_LISTENER,getAliasChangeListener());
+        ref_.addEntry(WINDOW_LISTENER,getAliasWindowListener());
+        ref_.addEntry(SCROLL_PANE,getAliasScrollPane());
+        ref_.addEntry(SPLIT_PANE,getAliasSplitPane());
+        ref_.addEntry(LIST_SELECTION,getAliasListSelection());
+        ref_.addEntry(PAINT,getAliasPaint());
+        ref_.addEntry(MENU_BAR,getAliasMenuBar());
+        ref_.addEntry(ABS_MENU,getAliasAbsMenu());
+        ref_.addEntry(MENU,getAliasMenu());
+        ref_.addEntry(ABS_MENU_ITEM,getAliasAbsMenuItem());
+        ref_.addEntry(MENU_ITEM,getAliasMenuItem());
+        ref_.addEntry(MENU_ITEM_CHECK,getAliasMenuItemCheck());
+        ref_.addEntry(SPINNER,getAliasSpinner());
+        ref_.addEntry(SLIDER,getAliasSlider());
         return ref_;
     }
 }
