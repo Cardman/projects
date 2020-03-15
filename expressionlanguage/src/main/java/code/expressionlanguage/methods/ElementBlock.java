@@ -287,9 +287,9 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
         GeneType type_ = _cont.getClassBody(cl_);
         String file_ = ((RootBlock) type_).getFile().getRenderFileName();
         String fileName_ = _cont.getCoverage().getCurrentFileName();
-        CustList<GeneConstructor> ctors_ = Classes.getConstructorBodiesById(_cont, cl_, c_);
+        CustList<ConstructorBlock> ctors_ = Classes.getConstructorBodiesById(_cont, cl_, c_);
         if (!ctors_.isEmpty()) {
-            ConstructorBlock ctor_ = (ConstructorBlock) ctors_.first();
+            ConstructorBlock ctor_ = ctors_.first();
             String rel_ = ElUtil.relativize(fileName_,file_+"#m"+ctor_.getNameOffset());
             String tag_ = "<a name=\"m"+fieldNameOffest+"\" title=\""+ cl_ +"."+ c_.getSignature(_cont)+"\" href=\""+rel_+"\">";
             _parts.add(new PartOffset(tag_,fieldNameOffest));

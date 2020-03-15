@@ -712,8 +712,7 @@ public abstract class OperationNode implements Operable {
                     continue;
                 }
             }
-            CustList<GeneConstructor> ctors_ = Classes.getConstructorBodiesById(_conf,clCurName_, ctor_);
-            if (!Classes.canAccess(glClass_, ctors_.first(), _conf)) {
+            if (!Classes.canAccess(glClass_, e, _conf)) {
                 continue;
             }
             ParametersGroup pg_ = new ParametersGroup();

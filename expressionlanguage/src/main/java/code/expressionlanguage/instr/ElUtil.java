@@ -868,10 +868,10 @@ public final class ElUtil {
                 GeneType type_ = _cont.getClassBody(cl_);
                 if (isFromCustFile(type_)) {
                     String file_ = ((RootBlock) type_).getFile().getRenderFileName();
-                    CustList<GeneConstructor> ctors_ = Classes.getConstructorBodiesById(_cont, cl_, c_);
+                    CustList<ConstructorBlock> ctors_ = Classes.getConstructorBodiesById(_cont, cl_, c_);
                     StandardInstancingOperation inst_ = (StandardInstancingOperation) val_;
                     if (!ctors_.isEmpty() && inst_.getFieldName().isEmpty()) {
-                        ConstructorBlock ctor_ = (ConstructorBlock) ctors_.first();
+                        ConstructorBlock ctor_ = ctors_.first();
                         String rel_ = relativize(currentFileName_, file_ + "#m" + ctor_.getNameOffset());
                         tag_ = "<a title=\""+ transform(cl_ +"."+ c_.getSignature(_cont))+"\" href=\""+rel_+"\">";
                         int offsetNew_ =StringList.getFirstPrintableCharIndex(inst_.getMethodName());
@@ -931,9 +931,9 @@ public final class ElUtil {
                     GeneType type_ = _cont.getClassBody(cl_);
                     if (isFromCustFile(type_)) {
                         String file_ = ((RootBlock) type_).getFile().getRenderFileName();
-                        CustList<GeneConstructor> ctors_ = Classes.getConstructorBodiesById(_cont, cl_, realId_);
+                        CustList<ConstructorBlock> ctors_ = Classes.getConstructorBodiesById(_cont, cl_, realId_);
                         if (!ctors_.isEmpty()) {
-                            ConstructorBlock ctor_ = (ConstructorBlock) ctors_.first();
+                            ConstructorBlock ctor_ = ctors_.first();
                             String rel_ = relativize(currentFileName_, file_ + "#m" + ctor_.getNameOffset());
                             tag_ = "<a title=\""+ transform(cl_ +"."+ realId_.getSignature(_cont))+"\" href=\""+rel_+"\">";
                             _parts.add(new PartOffset(tag_,off_+sum_ + val_.getIndexInEl()));
@@ -979,7 +979,7 @@ public final class ElUtil {
                 cl_ = Templates.getIdFromAllTypes(cl_);
                 RootBlock type_ = (RootBlock) _cont.getClassBody(cl_);
                 String file_ = type_.getFile().getRenderFileName();
-                ConstructorBlock ctor_ = (ConstructorBlock) Classes.getConstructorBodiesById(_cont, cl_, c_).first();
+                ConstructorBlock ctor_ = Classes.getConstructorBodiesById(_cont, cl_, c_).first();
                 String rel_ = relativize(currentFileName_, file_ + "#m" + ctor_.getNameOffset());
                 tag_ = "<a title=\""+ transform(cl_ +"."+ c_.getSignature(_cont))+"\" href=\""+rel_+"\">";
                 _parts.add(new PartOffset(tag_,sum_ + val_.getIndexInEl()));

@@ -1351,18 +1351,17 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                 _cont.addError(un_);
             }
         }
-        EqList<ConstructorId> l_ = new EqList<ConstructorId>();
+        CustList<ConstructorBlock> l_ = new CustList<ConstructorBlock>();
         for (ConstructorBlock c: ctors_) {
             if (c.getConstIdSameClass() != null) {
-                l_.add(c.getId());
+                l_.add(c);
             }
         }
         Graph<ConstructorEdge> graph_;
         graph_ = new Graph<ConstructorEdge>();
-        for (ConstructorId f: l_) {
-            ConstructorBlock b_ = (ConstructorBlock) Classes.getConstructorBodiesById(_cont, idType_, f).first();
-            ConstructorId co_ = b_.getConstIdSameClass();
-            ConstructorEdge f_ = new ConstructorEdge(f);
+        for (ConstructorBlock f: l_) {
+            ConstructorId co_ = f.getConstIdSameClass();
+            ConstructorEdge f_ = new ConstructorEdge(f.getId());
             ConstructorEdge t_ = new ConstructorEdge(co_);
             graph_.addSegment(f_, t_);
         }

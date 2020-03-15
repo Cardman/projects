@@ -383,13 +383,13 @@ public abstract class ContextEl implements ExecutableCode {
     private void setInstanciationInfos(AbstractPageEl _page,String _class, CallConstructor _call, CustList<Argument> _args) {
         ConstructorId id_ = _call.getId();
         FileBlock file_ = getFile(_class);
-        CustList<GeneConstructor> methods_ = Classes.getConstructorBodiesById(this, _class, id_);
+        CustList<ConstructorBlock> methods_ = Classes.getConstructorBodiesById(this, _class, id_);
         ConstructorBlock method_ = null;
         _page.setGlobalClass(_class);
         ReadWrite rw_ = new ReadWrite();
         if (!methods_.isEmpty()) {
             String idCl_ = Templates.getIdFromAllTypes(_class);
-            method_ = (ConstructorBlock) methods_.first();
+            method_ = methods_.first();
             coverage.passCalls(this,idCl_,method_);
             StringList params_ = method_.getParametersNames();
             int len_ = params_.size();
@@ -1473,7 +1473,7 @@ public abstract class ContextEl implements ExecutableCode {
         return resType_;
     }
 
-    public StringList getSortedTypes(boolean _predefined) {
+    public EqList<ClassInheritsDeps> getSortedTypes(boolean _predefined) {
         SortedGraph<ClassInheritsDeps> gr_;
         gr_ = new SortedGraph<ClassInheritsDeps>();
         EqList<ClassInheritsDeps> absDeps_ = new EqList<ClassInheritsDeps>();
@@ -1510,11 +1510,7 @@ public abstract class ContextEl implements ExecutableCode {
                 sort_.add(e);
             }
         }
-        StringList sortTypes_ = new StringList();
-        for (ClassInheritsDeps e: sort_) {
-            sortTypes_.add(e.getClassField());
-        }
-        return sortTypes_;
+        return sort_;
     }
     /**Used at building mapping constraints*/
     public String resolveTypeMapping(String _in, RootBlock _currentBlock,

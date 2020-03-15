@@ -514,10 +514,10 @@ public final class Classes {
         CustList<RootBlock> clBodies_ = classesBodies.values();
         validateInheritingClassesId(_context, _predefined);
         Classes classes_ = _context.getClasses();
-        StringList sorted_ =  _context.getSortedTypes(_predefined);
+        EqList<ClassInheritsDeps> sorted_ =  _context.getSortedTypes(_predefined);
         if (sorted_ != null) {
-            for (String s: sorted_) {
-                RootBlock c_ = getClassBody(s);
+            for (ClassInheritsDeps s: sorted_) {
+                RootBlock c_ = s.getRootBlock();
                 _context.getAnalyzing().setCurrentBlock(c_);
                 c_.buildDirectGenericSuperTypes(_context);
             }
@@ -2308,7 +2308,7 @@ public final class Classes {
         }
         return methods_;
     }
-    public static CustList<GeneConstructor> getConstructorBodiesById(Analyzable _context,String _genericClassName, ConstructorId _id) {
+    public static CustList<ConstructorBlock> getConstructorBodiesById(Analyzable _context,String _genericClassName, ConstructorId _id) {
         return getConstructorBodiesById(_context, _genericClassName, _id.getParametersTypes(), _id.isVararg());
     }
     public static CustList<GeneConstructor> getConstructorBodies(Analyzable _context,String _genericClassName) {
@@ -2338,43 +2338,11 @@ public final class Classes {
         }
         return methods_;
     }
-    private static CustList<GeneConstructor> getConstructorBodiesById(Analyzable _context,String _genericClassName, StringList _parametersTypes, boolean _vararg) {
-        CustList<GeneConstructor> methods_ = new CustList<GeneConstructor>();
+    private static CustList<ConstructorBlock> getConstructorBodiesById(Analyzable _context,String _genericClassName, StringList _parametersTypes, boolean _vararg) {
+        CustList<ConstructorBlock> methods_ = new CustList<ConstructorBlock>();
         String base_ = Templates.getIdFromAllTypes(_genericClassName);
         int nbParams_ = _parametersTypes.size();
         Classes classes_ = _context.getClasses();
-        for (EntryCust<String, StandardType> c: _context.getStandards().getStandards().entryList()) {
-            if (!StringList.quickEq(c.getKey(), base_)) {
-                continue;
-            }
-            for (StandardConstructor s: c.getValue().getConstructors()) {
-                StringList list_ = s.getId().getParametersTypes();
-                if (list_.size() != nbParams_) {
-                    continue;
-                }
-                if (nbParams_ > 0 && _vararg) {
-                    if (!s.isVarargs()) {
-                        continue;
-                    }
-                } else {
-                    if (s.isVarargs()) {
-                        continue;
-                    }
-                }
-                boolean all_ = true;
-                for (int i = CustList.FIRST_INDEX; i < nbParams_; i++) {
-                    String type_ = list_.get(i);
-                    if (!StringList.quickEq(type_, _parametersTypes.get(i))) {
-                        all_ = false;
-                        break;
-                    }
-                }
-                if (!all_) {
-                    continue;
-                }
-                methods_.add(s);
-            }
-        }
         for (EntryCust<String, RootBlock> c: classes_.classesBodies.entryList()) {
             if (!StringList.quickEq(c.getKey(), base_)) {
                 continue;
