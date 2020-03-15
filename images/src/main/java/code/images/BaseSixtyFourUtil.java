@@ -1,5 +1,7 @@
 package code.images;
 
+import code.util.StringList;
+
 public final class BaseSixtyFourUtil {
 
     private static final int FIRST_DIGIT = '0';
@@ -17,14 +19,19 @@ public final class BaseSixtyFourUtil {
     private BaseSixtyFourUtil(){
     }
     public static int[][] getImageByString(String _image) {
-        int len_ = _image.length();
+        int index_ = StringList.getFirstPrintableCharIndex(_image);
+        if (index_ < 0) {
+            return new int[0][0];
+        }
+        String img_ = _image.substring(index_);
+        int len_ = img_.length();
         if (len_ < 4) {
             return new int[0][0];
         }
         if (len_ % 4 != 0) {
             return new int[0][0];
         }
-        byte[] widthArray_ = parseFourChars(_image.substring(0, 4));
+        byte[] widthArray_ = parseFourChars(img_.substring(0, 4));
         int width_ = 0;
         for (byte b: widthArray_) {
             int real_ = b;
@@ -52,7 +59,7 @@ public final class BaseSixtyFourUtil {
         int w_ = 0;
         int max_ = len_ - 4;
         while (i_ <= max_) {
-            String part_ = _image.substring(i_, i_ + 4);
+            String part_ = img_.substring(i_, i_ + 4);
             byte[] pixel_ = parseFourChars(part_);
             int color_ = 0;
             for (byte b: pixel_) {

@@ -208,6 +208,13 @@ public final class BaseSixtyFourUtilTest {
         assertEq("/1z+", BaseSixtyFourUtil.printThreeBytes(bytes_));
     }
     @Test
+    public void getImageByString0Test() {
+        int[][] img_ = BaseSixtyFourUtil.getImageByString("\nAAABAAAA");
+        assertEq(1, img_.length);
+        assertEq(1, img_[0].length);
+        assertEq(0, img_[0][0]);
+    }
+    @Test
     public void getImageByString1Test() {
         int[][] img_ = BaseSixtyFourUtil.getImageByString("AAABAAAA");
         assertEq(1, img_.length);
@@ -449,6 +456,11 @@ public final class BaseSixtyFourUtilTest {
     @Test
     public void getImageByString15Test() {
         int[][] img_ = BaseSixtyFourUtil.getImageByString("AAA");
+        assertEq(0, img_.length);
+    }
+    @Test
+    public void getImageByString16Test() {
+        int[][] img_ = BaseSixtyFourUtil.getImageByString("\n");
         assertEq(0, img_.length);
     }
     @Test
