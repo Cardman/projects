@@ -37,7 +37,7 @@ public final class ProcessMethodInferenceTest extends ProcessMethodCommon {
         ContextEl cont_ = contextEl();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
@@ -66,7 +66,7 @@ public final class ProcessMethodInferenceTest extends ProcessMethodCommon {
         ContextEl cont_ = contextEl();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
@@ -98,7 +98,7 @@ public final class ProcessMethodInferenceTest extends ProcessMethodCommon {
         ContextEl cont_ = contextEl();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
@@ -133,7 +133,7 @@ public final class ProcessMethodInferenceTest extends ProcessMethodCommon {
         ContextEl cont_ = contextEl();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
@@ -169,7 +169,7 @@ public final class ProcessMethodInferenceTest extends ProcessMethodCommon {
         ContextEl cont_ = contextEl();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
@@ -205,7 +205,7 @@ public final class ProcessMethodInferenceTest extends ProcessMethodCommon {
         ContextEl cont_ = contextEl();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
@@ -246,7 +246,7 @@ public final class ProcessMethodInferenceTest extends ProcessMethodCommon {
         ContextEl cont_ = contextEl();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
@@ -286,7 +286,7 @@ public final class ProcessMethodInferenceTest extends ProcessMethodCommon {
         ContextEl cont_ = contextEl();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
@@ -326,7 +326,7 @@ public final class ProcessMethodInferenceTest extends ProcessMethodCommon {
         ContextEl cont_ = contextEl();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
@@ -366,7 +366,7 @@ public final class ProcessMethodInferenceTest extends ProcessMethodCommon {
         ContextEl cont_ = contextEl();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
@@ -406,7 +406,7 @@ public final class ProcessMethodInferenceTest extends ProcessMethodCommon {
         ContextEl cont_ = contextEl();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
@@ -446,7 +446,7 @@ public final class ProcessMethodInferenceTest extends ProcessMethodCommon {
         ContextEl cont_ = contextEl();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
@@ -487,7 +487,7 @@ public final class ProcessMethodInferenceTest extends ProcessMethodCommon {
         ContextEl cont_ = contextEl();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
@@ -513,7 +513,7 @@ public final class ProcessMethodInferenceTest extends ProcessMethodCommon {
         ContextEl cont_ = contextEl();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
@@ -540,7 +540,7 @@ public final class ProcessMethodInferenceTest extends ProcessMethodCommon {
         ContextEl cont_ = contextEl();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
@@ -567,7 +567,7 @@ public final class ProcessMethodInferenceTest extends ProcessMethodCommon {
         ContextEl cont_ = contextEl();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
@@ -596,7 +596,7 @@ public final class ProcessMethodInferenceTest extends ProcessMethodCommon {
         ContextEl cont_ = contextEl();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
@@ -624,7 +624,7 @@ public final class ProcessMethodInferenceTest extends ProcessMethodCommon {
         files_.put(CUST_LIST_PATH, getCustomList());
         ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -660,7 +660,7 @@ public final class ProcessMethodInferenceTest extends ProcessMethodCommon {
         ContextEl cont_ = contextEl();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
@@ -686,7 +686,7 @@ public final class ProcessMethodInferenceTest extends ProcessMethodCommon {
         ContextEl cont_ = contextEl();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
@@ -710,7 +710,7 @@ public final class ProcessMethodInferenceTest extends ProcessMethodCommon {
         ContextEl cont_ = contextEl();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
@@ -732,7 +732,7 @@ public final class ProcessMethodInferenceTest extends ProcessMethodCommon {
         ContextEl cont_ = contextEnElDefaultInternType();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("var");
         Argument ret_;
@@ -752,7 +752,7 @@ public final class ProcessMethodInferenceTest extends ProcessMethodCommon {
         ContextEl cont_ = contextEnElDefaultInternType();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("var");
         Argument ret_;
@@ -776,7 +776,7 @@ public final class ProcessMethodInferenceTest extends ProcessMethodCommon {
         ContextEl cont_ = contextEl();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
@@ -798,7 +798,7 @@ public final class ProcessMethodInferenceTest extends ProcessMethodCommon {
         ContextEl cont_ = contextEnElDefaultInternType();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("var");
         Argument ret_;
@@ -838,7 +838,7 @@ public final class ProcessMethodInferenceTest extends ProcessMethodCommon {
         ContextEl cont_ = contextEl();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(),!cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.getClasses().displayErrors(),!cont_.isEmptyErrors());
     }
     @Test
     public void calculateArgument2FailTest() {
@@ -874,7 +874,7 @@ public final class ProcessMethodInferenceTest extends ProcessMethodCommon {
         ContextEl cont_ = contextEl();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(),!cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.getClasses().displayErrors(),!cont_.isEmptyErrors());
     }
     @Test
     public void calculateArgument3FailTest() {
@@ -896,7 +896,7 @@ public final class ProcessMethodInferenceTest extends ProcessMethodCommon {
         ContextEl cont_ = contextEl();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(),!cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.getClasses().displayErrors(),!cont_.isEmptyErrors());
     }
     @Test
     public void calculateArgument4FailTest() {
@@ -917,7 +917,7 @@ public final class ProcessMethodInferenceTest extends ProcessMethodCommon {
         ContextEl cont_ = contextEl();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(),!cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.getClasses().displayErrors(),!cont_.isEmptyErrors());
     }
     @Test
     public void calculateArgument5FailTest() {
@@ -932,7 +932,7 @@ public final class ProcessMethodInferenceTest extends ProcessMethodCommon {
         ContextEl cont_ = contextEl();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(!cont_.getClasses().isEmptyErrors());
+        assertTrue(!cont_.isEmptyErrors());
     }
     @Test
     public void calculateArgument6FailTest() {
@@ -950,7 +950,7 @@ public final class ProcessMethodInferenceTest extends ProcessMethodCommon {
         ContextEl cont_ = contextEl();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(!cont_.getClasses().isEmptyErrors());
+        assertTrue(!cont_.isEmptyErrors());
     }
     private static String getCustomList() {
         StringBuilder xml_ = new StringBuilder();

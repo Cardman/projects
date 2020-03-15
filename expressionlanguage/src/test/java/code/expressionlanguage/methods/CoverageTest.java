@@ -35,7 +35,7 @@ public final class CoverageTest extends ProcessMethodCommon {
         ContextEl cont_ = contextElCoverage();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateArgument("pkg.Ex", id_, args_, cont_);
@@ -61,7 +61,7 @@ public final class CoverageTest extends ProcessMethodCommon {
         ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateArgument("pkg.Ex", id_, args_, cont_);
@@ -94,7 +94,7 @@ public final class CoverageTest extends ProcessMethodCommon {
         ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateArgument("pkg.Ex", id_, args_, cont_);
@@ -131,7 +131,7 @@ public final class CoverageTest extends ProcessMethodCommon {
         ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateArgument("pkg.Ex", id_, args_, cont_);
@@ -168,7 +168,7 @@ public final class CoverageTest extends ProcessMethodCommon {
         ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateArgument("pkg.Ex", id_, args_, cont_);
@@ -198,7 +198,7 @@ public final class CoverageTest extends ProcessMethodCommon {
         ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateArgument("pkg.Ex", id_, args_, cont_);
@@ -227,7 +227,7 @@ public final class CoverageTest extends ProcessMethodCommon {
         ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateArgument("pkg.Ex", id_, args_, cont_);
@@ -256,7 +256,7 @@ public final class CoverageTest extends ProcessMethodCommon {
         ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateArgument("pkg.Ex", id_, args_, cont_);
@@ -289,7 +289,7 @@ public final class CoverageTest extends ProcessMethodCommon {
         ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateArgument("pkg.Ex", id_, args_, cont_);
@@ -323,7 +323,7 @@ public final class CoverageTest extends ProcessMethodCommon {
         ContextEl cont_ = contextElCoverage();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         calculateArgument("pkg.Ex", id_, args_, cont_);
@@ -353,7 +353,7 @@ public final class CoverageTest extends ProcessMethodCommon {
         ContextEl cont_ = contextElCoverage();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         calculateArgument("pkg.Ex", id_, args_, cont_);
@@ -374,7 +374,7 @@ public final class CoverageTest extends ProcessMethodCommon {
         ContextEl cont_ = contextElCoverage();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateArgument("pkg.Ex", id_, args_, cont_);
@@ -402,7 +402,7 @@ public final class CoverageTest extends ProcessMethodCommon {
         ContextEl cont_ = contextElCoverage();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         calculateArgument("pkg.Ex", id_, args_, cont_);
@@ -434,7 +434,7 @@ public final class CoverageTest extends ProcessMethodCommon {
         ContextEl cont_ = contextElCoverage();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         calculateArgument("pkg.Ex", id_, args_, cont_);
@@ -467,7 +467,7 @@ public final class CoverageTest extends ProcessMethodCommon {
         ContextEl cont_ = contextElCoverage();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateArgument("pkg.Ex", id_, args_, cont_);
@@ -503,7 +503,7 @@ public final class CoverageTest extends ProcessMethodCommon {
         ContextEl cont_ = contextElCoverage();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateArgument("pkg.Ex", id_, args_, cont_);
@@ -539,7 +539,7 @@ public final class CoverageTest extends ProcessMethodCommon {
         ContextEl cont_ = contextElCoverage();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateArgument("pkg.Ex", id_, args_, cont_);
@@ -578,7 +578,7 @@ public final class CoverageTest extends ProcessMethodCommon {
         ContextEl cont_ = contextElCoverage();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateArgument("pkg.Ex", id_, args_, cont_);
@@ -617,7 +617,7 @@ public final class CoverageTest extends ProcessMethodCommon {
         ContextEl cont_ = contextElCoverage();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateArgument("pkg.Ex", id_, args_, cont_);
@@ -647,7 +647,7 @@ public final class CoverageTest extends ProcessMethodCommon {
         ContextEl cont_ = contextElCoverage();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateArgument("pkg.Ex", id_, args_, cont_);
@@ -670,7 +670,7 @@ public final class CoverageTest extends ProcessMethodCommon {
         ContextEl cont_ = contextElCoverage();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateArgument("pkg.Ex", id_, args_, cont_);
@@ -708,7 +708,7 @@ public final class CoverageTest extends ProcessMethodCommon {
         ContextEl cont_ = contextElCoverage();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument out_ = calculateArgument("pkg.Ex", id_, args_, cont_);
@@ -739,7 +739,7 @@ public final class CoverageTest extends ProcessMethodCommon {
         ContextEl cont_ = contextElCoverage();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         calculateArgument("pkg.Ex", id_, args_, cont_);
@@ -768,7 +768,7 @@ public final class CoverageTest extends ProcessMethodCommon {
         ContextEl cont_ = contextElCoverage();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         calculateArgument("pkg.Ex", id_, args_, cont_);
@@ -799,7 +799,7 @@ public final class CoverageTest extends ProcessMethodCommon {
         files_.put(CUST_ITER_PATH, getCustomIterator());
         files_.put(CUST_LIST_PATH, getCustomList());
         validate(cont_,files_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateArgument("pkg.Ex", id_, args_, cont_);
@@ -835,7 +835,7 @@ public final class CoverageTest extends ProcessMethodCommon {
         files_.put(CUST_ITER_PATH, getCustomIterator());
         files_.put(CUST_LIST_PATH, getCustomList());
         validate(cont_,files_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateArgument("pkg.Ex", id_, args_, cont_);
@@ -868,7 +868,7 @@ public final class CoverageTest extends ProcessMethodCommon {
         files_.put(CUST_ITER_PATH, getCustomIterator());
         files_.put(CUST_LIST_PATH, getCustomList());
         validate(cont_,files_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateArgument("pkg.Ex", id_, args_, cont_);
@@ -904,7 +904,7 @@ public final class CoverageTest extends ProcessMethodCommon {
         files_.put(CUST_ITER_PATH, getCustomIterator());
         files_.put(CUST_LIST_PATH, getCustomList());
         validate(cont_,files_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateArgument("pkg.Ex", id_, args_, cont_);
@@ -943,7 +943,7 @@ public final class CoverageTest extends ProcessMethodCommon {
         files_.put(CUST_PAIR_PATH, getCustomPair());
         ContextEl cont_ = contextElCoverage();
         validate(cont_,files_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateArgument("pkg.Ex", id_, args_, cont_);
@@ -983,7 +983,7 @@ public final class CoverageTest extends ProcessMethodCommon {
         files_.put(CUST_PAIR_PATH, getCustomPair());
         ContextEl cont_ = contextElCoverage();
         validate(cont_,files_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateArgument("pkg.Ex", id_, args_, cont_);
@@ -1020,7 +1020,7 @@ public final class CoverageTest extends ProcessMethodCommon {
         files_.put(CUST_PAIR_PATH, getCustomPair());
         ContextEl cont_ = contextElCoverage();
         validate(cont_,files_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateArgument("pkg.Ex", id_, args_, cont_);
@@ -1060,7 +1060,7 @@ public final class CoverageTest extends ProcessMethodCommon {
         files_.put(CUST_PAIR_PATH, getCustomPair());
         ContextEl cont_ = contextElCoverage();
         validate(cont_,files_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateArgument("pkg.Ex", id_, args_, cont_);
@@ -1093,7 +1093,7 @@ public final class CoverageTest extends ProcessMethodCommon {
         ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateArgument("pkg.Ex", id_, args_, cont_);
@@ -1124,7 +1124,7 @@ public final class CoverageTest extends ProcessMethodCommon {
         ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateArgument("pkg.Ex", id_, args_, cont_);
@@ -1154,7 +1154,7 @@ public final class CoverageTest extends ProcessMethodCommon {
         ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateArgument("pkg.Ex", id_, args_, cont_);
@@ -1187,7 +1187,7 @@ public final class CoverageTest extends ProcessMethodCommon {
         ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateArgument("pkg.Ex", id_, args_, cont_);

@@ -37,7 +37,7 @@ public final class FirstOptOperation extends AbstractUnaryOperation implements F
             varg_.setFileName(_conf.getCurrentFileName());
             varg_.setIndexFile(_conf.getCurrentLocationIndex());
             varg_.setMethodName(FIRST_OPT);
-            _conf.getClasses().addError(varg_);
+            _conf.addError(varg_);
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             return;
         }
@@ -46,7 +46,7 @@ public final class FirstOptOperation extends AbstractUnaryOperation implements F
             varg_.setFileName(_conf.getCurrentFileName());
             varg_.setIndexFile(_conf.getCurrentLocationIndex());
             varg_.setMethodName(FIRST_OPT);
-            _conf.getClasses().addError(varg_);
+            _conf.addError(varg_);
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             return;
         }

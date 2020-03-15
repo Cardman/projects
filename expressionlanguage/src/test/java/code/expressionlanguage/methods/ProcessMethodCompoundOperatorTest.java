@@ -40,7 +40,7 @@ public final class ProcessMethodCompoundOperatorTest extends ProcessMethodCommon
         ContextEl cont_ = contextEnElDefault();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
@@ -73,7 +73,7 @@ public final class ProcessMethodCompoundOperatorTest extends ProcessMethodCommon
         ContextEl cont_ = contextEnElDefault();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
@@ -109,7 +109,7 @@ public final class ProcessMethodCompoundOperatorTest extends ProcessMethodCommon
         ContextEl cont_ = contextEnElDefault();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
@@ -144,7 +144,7 @@ public final class ProcessMethodCompoundOperatorTest extends ProcessMethodCommon
         ContextEl cont_ = contextEnElDefault();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
@@ -178,7 +178,7 @@ public final class ProcessMethodCompoundOperatorTest extends ProcessMethodCommon
         ContextEl cont_ = contextEnElDefault();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
@@ -215,7 +215,7 @@ public final class ProcessMethodCompoundOperatorTest extends ProcessMethodCommon
         ContextEl cont_ = contextEnElDefault();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
@@ -250,7 +250,7 @@ public final class ProcessMethodCompoundOperatorTest extends ProcessMethodCommon
         ContextEl cont_ = contextEnElDefault();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
@@ -284,7 +284,7 @@ public final class ProcessMethodCompoundOperatorTest extends ProcessMethodCommon
         ContextEl cont_ = contextEnElDefault();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
@@ -321,7 +321,7 @@ public final class ProcessMethodCompoundOperatorTest extends ProcessMethodCommon
         ContextEl cont_ = contextEnElDefault();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
@@ -355,7 +355,7 @@ public final class ProcessMethodCompoundOperatorTest extends ProcessMethodCommon
         ContextEl cont_ = contextEnElDefault();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
@@ -391,7 +391,7 @@ public final class ProcessMethodCompoundOperatorTest extends ProcessMethodCommon
         ContextEl cont_ = contextEnElDefault();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
@@ -427,7 +427,7 @@ public final class ProcessMethodCompoundOperatorTest extends ProcessMethodCommon
         ContextEl cont_ = contextEnElDefault();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
@@ -458,7 +458,7 @@ public final class ProcessMethodCompoundOperatorTest extends ProcessMethodCommon
         ContextEl cont_ = contextEnElDefault();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
@@ -503,7 +503,7 @@ public final class ProcessMethodCompoundOperatorTest extends ProcessMethodCommon
         ContextEl cont_ = contextEnElDefault();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
@@ -545,7 +545,7 @@ public final class ProcessMethodCompoundOperatorTest extends ProcessMethodCommon
         ContextEl cont_ = contextEnElDefault();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
@@ -579,7 +579,7 @@ public final class ProcessMethodCompoundOperatorTest extends ProcessMethodCommon
         ContextEl cont_ = contextEnElDefault();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
@@ -613,7 +613,7 @@ public final class ProcessMethodCompoundOperatorTest extends ProcessMethodCommon
         ContextEl cont_ = contextEnElDefault();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
@@ -657,7 +657,7 @@ public final class ProcessMethodCompoundOperatorTest extends ProcessMethodCommon
         ContextEl cont_ = contextEnElDefault();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
@@ -699,7 +699,7 @@ public final class ProcessMethodCompoundOperatorTest extends ProcessMethodCommon
         ContextEl cont_ = contextEnElDefault();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
@@ -730,7 +730,7 @@ public final class ProcessMethodCompoundOperatorTest extends ProcessMethodCommon
         ContextEl cont_ = contextEnElDefault();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         calculateArgument("pkg.Apply", id_, args_, cont_);
@@ -762,7 +762,7 @@ public final class ProcessMethodCompoundOperatorTest extends ProcessMethodCommon
         ContextEl cont_ = contextEnElDefault();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
@@ -792,7 +792,7 @@ public final class ProcessMethodCompoundOperatorTest extends ProcessMethodCommon
         ContextEl cont_ = contextEnElDefault();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
@@ -824,7 +824,7 @@ public final class ProcessMethodCompoundOperatorTest extends ProcessMethodCommon
         ContextEl cont_ = contextEnElDefault();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         calculateArgument("pkg.Apply", id_, args_, cont_);
@@ -858,7 +858,7 @@ public final class ProcessMethodCompoundOperatorTest extends ProcessMethodCommon
         ContextEl cont_ = contextEnElDefault();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         calculateArgument("pkg.Apply", id_, args_, cont_);
@@ -895,7 +895,7 @@ public final class ProcessMethodCompoundOperatorTest extends ProcessMethodCommon
         ContextEl cont_ = contextEnElDefault();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(!cont_.getClasses().isEmptyErrors());
+        assertTrue(!cont_.isEmptyErrors());
     }
     @Test
     public void calculateArgument2FailTest() {
@@ -933,7 +933,7 @@ public final class ProcessMethodCompoundOperatorTest extends ProcessMethodCommon
         ContextEl cont_ = contextEnElDefault();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(!cont_.getClasses().isEmptyErrors());
+        assertTrue(!cont_.isEmptyErrors());
     }
     @Test
     public void calculateArgument3FailTest() {
@@ -973,7 +973,7 @@ public final class ProcessMethodCompoundOperatorTest extends ProcessMethodCommon
         ContextEl cont_ = contextEnElDefault();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(!cont_.getClasses().isEmptyErrors());
+        assertTrue(!cont_.isEmptyErrors());
     }
     @Test
     public void calculateArgument4FailTest() {
@@ -1000,6 +1000,6 @@ public final class ProcessMethodCompoundOperatorTest extends ProcessMethodCommon
         ContextEl cont_ = contextEnElDefault();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(!cont_.getClasses().isEmptyErrors());
+        assertTrue(!cont_.isEmptyErrors());
     }
 }

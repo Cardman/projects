@@ -41,14 +41,14 @@ public final class StaticCallAccessOperation extends LeafOperation {
             badAccess_.setId(classStr_);
             badAccess_.setIndexFile(_conf.getCurrentLocationIndex());
             badAccess_.setFileName(_conf.getCurrentFileName());
-            _conf.getClasses().addError(badAccess_);
+            _conf.addError(badAccess_);
         }
         if (classStr_.startsWith(Templates.ARR_BEG_STRING)) {
             BadAccessClass badAccess_ = new BadAccessClass();
             badAccess_.setId(classStr_);
             badAccess_.setIndexFile(_conf.getCurrentLocationIndex());
             badAccess_.setFileName(_conf.getCurrentFileName());
-            _conf.getClasses().addError(badAccess_);
+            _conf.addError(badAccess_);
         }
         boolean ok_ = true;
         for (String p: Templates.getAllTypes(classStr_).mid(1)) {
@@ -64,7 +64,7 @@ public final class StaticCallAccessOperation extends LeafOperation {
             badAccess_.setId(classStr_);
             badAccess_.setIndexFile(_conf.getCurrentLocationIndex());
             badAccess_.setFileName(_conf.getCurrentFileName());
-            _conf.getClasses().addError(badAccess_);
+            _conf.addError(badAccess_);
         }
         checkClassAccess(_conf, glClass_, classStr_);
         Argument a_ = new Argument();

@@ -31,7 +31,7 @@ public final class CallDynMethodOperation extends InvokingOperation {
             und_.setClassName("");
             und_.setFileName(_conf.getCurrentFileName());
             und_.setIndexFile(_conf.getCurrentLocationIndex());
-            _conf.getClasses().addError(und_);
+            _conf.addError(und_);
         }
         ClassArgumentMatching clCur_ = getPreviousResultClass();
         String fct_ = clCur_.getName();
@@ -69,7 +69,7 @@ public final class CallDynMethodOperation extends InvokingOperation {
             undefined_.setId(fct_);
             undefined_.setFileName(_conf.getCurrentFileName());
             undefined_.setIndexFile(_conf.getCurrentLocationIndex());
-            _conf.getClasses().addError(undefined_);
+            _conf.addError(undefined_);
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             return;
         }
@@ -89,7 +89,7 @@ public final class CallDynMethodOperation extends InvokingOperation {
                     cast_.setMapping(m_);
                     cast_.setFileName(_conf.getCurrentFileName());
                     cast_.setIndexFile(_conf.getCurrentLocationIndex());
-                    _conf.getClasses().addError(cast_);
+                    _conf.addError(cast_);
                 }
                 if (PrimitiveTypeUtil.isPrimitive(pa_, _conf)) {
                     a_.setUnwrapObject(pa_);

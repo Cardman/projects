@@ -48,7 +48,7 @@ public abstract class CommonRender {
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(_files, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         conf_.setContext(cont_);
         BeanLgNames standards_ = (BeanLgNames) cont_.getStandards();
         conf_.setStandards(standards_);
@@ -67,7 +67,7 @@ public abstract class CommonRender {
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         ContextEl cont_ = InitializationLgNames.buildStdThree(opt_);
         Classes.validateAll(_files, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         conf_.setContext(cont_);
         BeanLgNames standards_ = (BeanLgNames) cont_.getStandards();
         conf_.setStandards(standards_);
@@ -87,7 +87,7 @@ public abstract class CommonRender {
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdThree(opt_);
         Classes.validateAll(_files, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         conf_.setContext(cont_);
         BeanLgNames standards_ = (BeanLgNames) cont_.getStandards();
         conf_.setStandards(standards_);

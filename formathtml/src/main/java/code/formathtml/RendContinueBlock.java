@@ -46,7 +46,7 @@ public final class RendContinueBlock extends RendLeaf implements RendBuildableEl
             UnexpectedTagName un_ = new UnexpectedTagName();
             un_.setFileName(_cont.getCurrentFileName());
             un_.setIndexFile(getOffset().getOffsetTrim());
-            _cont.getClasses().addError(un_);
+            _cont.addError(un_);
         }
     }
 

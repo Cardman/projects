@@ -51,7 +51,7 @@ public final class RenderStdInputTest extends CommonRender {
         conf_.getContext().setAnalyzing(new AnalyzedPageEl());
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body><form action=\"\" c:command=\"page1.html\" name=\"myform\" n-f=\"0\"><input type=\"text\" name=\"bean_one.textField\" n-i=\"0\" value=\"txt\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
     }
@@ -91,7 +91,7 @@ public final class RenderStdInputTest extends CommonRender {
         conf_.getContext().setAnalyzing(new AnalyzedPageEl());
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body><form action=\"\" c:command=\"page1.html\" name=\"myform\" n-f=\"0\"><input type=\"text\" name=\"bean_one.textField\" n-i=\"0\" value=\"\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
     }
@@ -131,7 +131,7 @@ public final class RenderStdInputTest extends CommonRender {
         conf_.getContext().setAnalyzing(new AnalyzedPageEl());
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body><form action=\"\" c:command=\"page1.html\" name=\"myform\" n-f=\"0\"><input type=\"checkbox\" name=\"bean_one.textField\" n-i=\"0\" checked=\"checked\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
     }
@@ -171,7 +171,7 @@ public final class RenderStdInputTest extends CommonRender {
         conf_.getContext().setAnalyzing(new AnalyzedPageEl());
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body><form action=\"\" c:command=\"page1.html\" name=\"myform\" n-f=\"0\"><input type=\"checkbox\" name=\"bean_one.textField\" n-i=\"0\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
     }
@@ -211,7 +211,7 @@ public final class RenderStdInputTest extends CommonRender {
         conf_.getContext().setAnalyzing(new AnalyzedPageEl());
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body><form action=\"\" c:command=\"page1.html\" name=\"myform\" n-f=\"0\"><input id=\"myId0\" type=\"text\" name=\"bean_one.textField\" n-i=\"0\" value=\"txt\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
     }
@@ -251,7 +251,7 @@ public final class RenderStdInputTest extends CommonRender {
         conf_.getContext().setAnalyzing(new AnalyzedPageEl());
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body><form action=\"\" c:command=\"page1.html\" name=\"myform\" n-f=\"0\"><input c:groupId=\"myId{0}\\\" type=\"text\" name=\"bean_one.textField\" n-i=\"0\" value=\"txt\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
     }
@@ -291,7 +291,7 @@ public final class RenderStdInputTest extends CommonRender {
         conf_.getContext().setAnalyzing(new AnalyzedPageEl());
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_,conf_);
         assertNotNull(getException(conf_));
     }
@@ -334,7 +334,7 @@ public final class RenderStdInputTest extends CommonRender {
         conf_.getContext().setAnalyzing(new AnalyzedPageEl());
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body><form action=\"\" c:command=\"page1.html\" name=\"myform\" n-f=\"0\"><input type=\"text\" name=\"bean_one.textField\" n-i=\"0\" value=\"txt\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
     }
@@ -377,7 +377,7 @@ public final class RenderStdInputTest extends CommonRender {
         conf_.getContext().setAnalyzing(new AnalyzedPageEl());
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body><form action=\"\" c:command=\"page1.html\" name=\"myform\" n-f=\"0\"><input type=\"text\" name=\"bean_one.textField\" n-i=\"0\" value=\"txt\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
     }
@@ -420,7 +420,7 @@ public final class RenderStdInputTest extends CommonRender {
         conf_.getContext().setAnalyzing(new AnalyzedPageEl());
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_,conf_);
         assertNotNull(getException(conf_));
     }
@@ -460,7 +460,7 @@ public final class RenderStdInputTest extends CommonRender {
         conf_.getContext().setAnalyzing(new AnalyzedPageEl());
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body><form action=\"\" c:command=\"page1.html\" name=\"myform\" n-f=\"0\"><input type=\"number\" name=\"bean_one.numberField\" n-i=\"0\" value=\"10\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
     }
@@ -500,7 +500,7 @@ public final class RenderStdInputTest extends CommonRender {
         conf_.getContext().setAnalyzing(new AnalyzedPageEl());
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body><form action=\"\" c:command=\"page1.html\" name=\"myform\" n-f=\"0\"><input type=\"range\" name=\"bean_one.numberField\" n-i=\"0\" value=\"10\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
     }
@@ -540,7 +540,7 @@ public final class RenderStdInputTest extends CommonRender {
         conf_.getContext().setAnalyzing(new AnalyzedPageEl());
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body><input type=\"text\" name=\"textField\" value=\"txt\"/><input type=\"submit\" value=\"OK\"/></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
     }
@@ -580,7 +580,7 @@ public final class RenderStdInputTest extends CommonRender {
         conf_.getContext().setAnalyzing(new AnalyzedPageEl());
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(!conf_.getClasses().isEmptyErrors());
+        assertTrue(!conf_.isEmptyErrors());
     }
     @Test
     public void process2FailTest() {
@@ -618,7 +618,7 @@ public final class RenderStdInputTest extends CommonRender {
         conf_.getContext().setAnalyzing(new AnalyzedPageEl());
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(!conf_.getClasses().isEmptyErrors());
+        assertTrue(!conf_.isEmptyErrors());
     }
     @Test
     public void process3FailTest() {
@@ -656,7 +656,7 @@ public final class RenderStdInputTest extends CommonRender {
         conf_.getContext().setAnalyzing(new AnalyzedPageEl());
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(!conf_.getClasses().isEmptyErrors());
+        assertTrue(!conf_.isEmptyErrors());
     }
     @Test
     public void process4FailTest() {
@@ -694,7 +694,7 @@ public final class RenderStdInputTest extends CommonRender {
         conf_.getContext().setAnalyzing(new AnalyzedPageEl());
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(!conf_.getClasses().isEmptyErrors());
+        assertTrue(!conf_.isEmptyErrors());
     }
     @Test
     public void process5FailTest() {
@@ -735,6 +735,6 @@ public final class RenderStdInputTest extends CommonRender {
         conf_.getContext().setAnalyzing(new AnalyzedPageEl());
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(!conf_.getClasses().isEmptyErrors());
+        assertTrue(!conf_.isEmptyErrors());
     }
 }

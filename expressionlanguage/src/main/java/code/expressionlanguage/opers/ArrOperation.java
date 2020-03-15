@@ -95,7 +95,7 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
                     abs_.setSgn(clMeth_.getRealId().getSignature(_conf));
                     abs_.setIndexFile(_conf.getCurrentLocationIndex());
                     abs_.setFileName(_conf.getCurrentFileName());
-                    _conf.getClasses().addError(abs_);
+                    _conf.addError(abs_);
                     setResultClass(new ClassArgumentMatching(clMeth_.getReturnType()));
                     return;
                 }
@@ -126,7 +126,7 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
             badNb_.setFileName(_conf.getCurrentFileName());
             badNb_.setOperandsNumber(chidren_.size());
             badNb_.setIndexFile(_conf.getCurrentLocationIndex());
-            _conf.getClasses().addError(badNb_);
+            _conf.addError(badNb_);
             setResultClass(new ClassArgumentMatching(_conf.getStandards().getAliasObject()));
             return;
         }
@@ -150,7 +150,7 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
             un_.setFileName(_conf.getCurrentFileName());
             un_.setExpectedResult(_conf.getStandards().getAliasPrimInteger());
             un_.setOperands(indexClass_);
-            _conf.getClasses().addError(un_);
+            _conf.addError(un_);
             class_ = new ClassArgumentMatching(_conf.getStandards().getAliasObject());
             setResultClass(class_);
             return;
@@ -162,7 +162,7 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
             un_.setFileName(_conf.getCurrentFileName());
             un_.setExpectedResult(PrimitiveTypeUtil.getPrettyArrayType(_conf.getStandards().getAliasObject()));
             un_.setOperands(class_);
-            _conf.getClasses().addError(un_);
+            _conf.addError(un_);
             class_ = new ClassArgumentMatching(_conf.getStandards().getAliasObject());
             setResultClass(class_);
             return;

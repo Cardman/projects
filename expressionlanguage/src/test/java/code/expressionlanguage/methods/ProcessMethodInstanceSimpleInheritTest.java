@@ -47,7 +47,7 @@ public final class ProcessMethodInstanceSimpleInheritTest extends ProcessMethodC
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -102,7 +102,7 @@ public final class ProcessMethodInstanceSimpleInheritTest extends ProcessMethodC
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -155,7 +155,7 @@ public final class ProcessMethodInstanceSimpleInheritTest extends ProcessMethodC
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -196,7 +196,7 @@ public final class ProcessMethodInstanceSimpleInheritTest extends ProcessMethodC
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -229,7 +229,7 @@ public final class ProcessMethodInstanceSimpleInheritTest extends ProcessMethodC
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -263,7 +263,7 @@ public final class ProcessMethodInstanceSimpleInheritTest extends ProcessMethodC
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -299,7 +299,7 @@ public final class ProcessMethodInstanceSimpleInheritTest extends ProcessMethodC
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -338,7 +338,7 @@ public final class ProcessMethodInstanceSimpleInheritTest extends ProcessMethodC
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -386,7 +386,7 @@ public final class ProcessMethodInstanceSimpleInheritTest extends ProcessMethodC
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -441,6 +441,6 @@ public final class ProcessMethodInstanceSimpleInheritTest extends ProcessMethodC
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(!cont_.getClasses().isEmptyErrors());
+        assertTrue(!cont_.isEmptyErrors());
     }
 }

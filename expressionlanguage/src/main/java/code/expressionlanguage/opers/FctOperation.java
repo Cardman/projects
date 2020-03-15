@@ -109,7 +109,7 @@ public final class FctOperation extends InvokingOperation {
                 cast_.setMapping(map_);
                 cast_.setIndexFile(_conf.getCurrentLocationIndex());
                 cast_.setFileName(_conf.getCurrentFileName());
-                _conf.getClasses().addError(cast_);
+                _conf.addError(cast_);
                 setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
                 return;
             }
@@ -143,7 +143,7 @@ public final class FctOperation extends InvokingOperation {
                 undefined_.setId(new MethodId(MethodAccessKind.INSTANCE, trimMeth_, classesNames_).getSignature(_conf));
                 undefined_.setFileName(_conf.getCurrentFileName());
                 undefined_.setIndexFile(_conf.getCurrentLocationIndex());
-                _conf.getClasses().addError(undefined_);
+                _conf.addError(undefined_);
                 return;
             }
             String foundClass_ = PrimitiveTypeUtil.getPrettyArrayType(stds_.getAliasObject());
@@ -169,7 +169,7 @@ public final class FctOperation extends InvokingOperation {
                 abs_.setSgn(clMeth_.getRealId().getSignature(_conf));
                 abs_.setIndexFile(_conf.getCurrentLocationIndex());
                 abs_.setFileName(_conf.getCurrentFileName());
-                _conf.getClasses().addError(abs_);
+                _conf.addError(abs_);
                 setResultClass(new ClassArgumentMatching(clMeth_.getReturnType()));
                 return;
             }

@@ -37,7 +37,7 @@ public final class ArrayFieldOperation extends AbstractFieldOperation {
         und_.setClassName(StringList.join(cl_.getNames(), ""));
         und_.setFileName(_conf.getCurrentFileName());
         und_.setIndexFile(_conf.getCurrentLocationIndex());
-        _conf.getClasses().addError(und_);
+        _conf.addError(und_);
         setResultClass(new ClassArgumentMatching(stds_.getAliasPrimInteger()));
     }
 

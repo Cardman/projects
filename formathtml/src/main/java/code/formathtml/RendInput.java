@@ -64,7 +64,7 @@ public abstract class RendInput extends RendElement {
                     BadElError badEl_ = new BadElError();
                     badEl_.setFileName(_cont.getCurrentFileName());
                     badEl_.setIndexFile(_cont.getCurrentLocationIndex());
-                    _cont.getClasses().addError(badEl_);
+                    _cont.addError(badEl_);
                 }
             }
         }
@@ -90,7 +90,7 @@ public abstract class RendInput extends RendElement {
                 BadElError badEl_ = new BadElError();
                 badEl_.setFileName(_cont.getCurrentFileName());
                 badEl_.setIndexFile(_cont.getCurrentLocationIndex());
-                _cont.getClasses().addError(badEl_);
+                _cont.addError(badEl_);
             }
         }
     }

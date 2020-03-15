@@ -60,7 +60,7 @@ public final class RendCaseCondition extends RendParentBlock implements RendBuil
             UnexpectedTagName un_ = new UnexpectedTagName();
             un_.setFileName(_cont.getCurrentFileName());
             un_.setIndexFile(getOffset().getOffsetTrim());
-            _cont.getClasses().addError(un_);
+            _cont.addError(un_);
             opValue = RenderExpUtil.getAnalyzedOperations(value,0, _cont, Calculation.staticCalculation(stCtx_));
             return;
         }
@@ -102,7 +102,7 @@ public final class RendCaseCondition extends RendParentBlock implements RendBuil
                 un_.setFileName(_cont.getCurrentFileName());
                 un_.setIndexFile(valueOffset);
                 un_.setType(opValue.last().getResultClass());
-                _cont.getClasses().addError(un_);
+                _cont.addError(un_);
                 return;
             }
         }
@@ -114,7 +114,7 @@ public final class RendCaseCondition extends RendParentBlock implements RendBuil
             un_.setFileName(_cont.getCurrentFileName());
             un_.setIndexFile(valueOffset);
             un_.setType(resCase_);
-            _cont.getClasses().addError(un_);
+            _cont.addError(un_);
             return;
         }
         Argument arg_ = op_.getArgument();
@@ -123,7 +123,7 @@ public final class RendCaseCondition extends RendParentBlock implements RendBuil
             un_.setFileName(_cont.getCurrentFileName());
             un_.setIndexFile(valueOffset);
             un_.setType(resCase_);
-            _cont.getClasses().addError(un_);
+            _cont.addError(un_);
         } else {
             checkDuplicateCase(_cont, arg_);
         }
@@ -132,7 +132,7 @@ public final class RendCaseCondition extends RendParentBlock implements RendBuil
             un_.setFileName(_cont.getCurrentFileName());
             un_.setIndexFile(valueOffset);
             un_.setType(resCase_);
-            _cont.getClasses().addError(un_);
+            _cont.addError(un_);
         }
     }
 
@@ -149,7 +149,7 @@ public final class RendCaseCondition extends RendParentBlock implements RendBuil
                         UnexpectedTagName un_ = new UnexpectedTagName();
                         un_.setFileName(_cont.getCurrentFileName());
                         un_.setIndexFile(getValueOffset()+ getOffset().getOffsetTrim());
-                        _cont.getClasses().addError(un_);
+                        _cont.addError(un_);
                         break;
                     }
                 }
@@ -168,7 +168,7 @@ public final class RendCaseCondition extends RendParentBlock implements RendBuil
                     UnexpectedTagName un_ = new UnexpectedTagName();
                     un_.setFileName(_cont.getCurrentFileName());
                     un_.setIndexFile(getValueOffset()+ getOffset().getOffsetTrim());
-                    _cont.getClasses().addError(un_);
+                    _cont.addError(un_);
                     break;
                 }
 

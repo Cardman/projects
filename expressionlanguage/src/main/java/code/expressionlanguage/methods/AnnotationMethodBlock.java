@@ -103,7 +103,7 @@ public final class AnnotationMethodBlock extends NamedFunctionBlock implements
         cast_.setMapping(mapping_);
         cast_.setFileName(_stds.getCurrentFileName());
         cast_.setIndexFile(_stds.getCurrentLocationIndex());
-        _stds.getClasses().addError(cast_);
+        _stds.addError(cast_);
     }
 
     public String getDefaultValue() {
@@ -170,7 +170,7 @@ public final class AnnotationMethodBlock extends NamedFunctionBlock implements
             cast_.setMapping(mapping_);
             cast_.setFileName(getFile().getFileName());
             cast_.setIndexFile(defaultValueOffset);
-            _cont.getClasses().addError(cast_);
+            _cont.addError(cast_);
         }
         if (PrimitiveTypeUtil.isPrimitive(import_, _cont)) {
             opValue.last().getResultClass().setUnwrapObject(import_);

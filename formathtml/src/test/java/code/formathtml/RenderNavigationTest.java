@@ -5638,7 +5638,7 @@ public final class RenderNavigationTest extends CommonRender {
         nav_.setFiles(files_);
         nav_.getSession().getRenderFiles().add("page1.html");
         initSession(nav_);
-        assertTrue(!nav_.getSession().getClasses().isEmptyErrors());
+        assertTrue(!nav_.getSession().isEmptyErrors());
 
     }
     @Test
@@ -5680,7 +5680,7 @@ public final class RenderNavigationTest extends CommonRender {
         nav_.setFiles(files_);
         nav_.getSession().getRenderFiles().add("page1.html");
         initSession(nav_);
-        assertTrue(!nav_.getSession().getClasses().isEmptyErrors());
+        assertTrue(!nav_.getSession().isEmptyErrors());
 
     }
     @Test
@@ -5714,7 +5714,7 @@ public final class RenderNavigationTest extends CommonRender {
         i_.setClassName("pkg.BeanOne");
         nav_.getSession().getBeansInfos().addEntry("bean_one",i_);
         initSession(nav_);
-        assertTrue(!nav_.getSession().getClasses().isEmptyErrors());
+        assertTrue(!nav_.getSession().isEmptyErrors());
 
     }
     @Test
@@ -5743,7 +5743,7 @@ public final class RenderNavigationTest extends CommonRender {
         i_.setClassName("pkg.BeanOne");
         nav_.getSession().getBeansInfos().addEntry("bean_one",i_);
         initSession(nav_);
-        assertTrue(!nav_.getSession().getClasses().isEmptyErrors());
+        assertTrue(!nav_.getSession().isEmptyErrors());
 
     }
     private static String getCustomPair() {

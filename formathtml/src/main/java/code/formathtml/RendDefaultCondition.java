@@ -21,7 +21,7 @@ public final class RendDefaultCondition extends RendParentBlock implements RendB
             UnexpectedTagName un_ = new UnexpectedTagName();
             un_.setFileName(_cont.getCurrentFileName());
             un_.setIndexFile(getOffset().getOffsetTrim());
-            _cont.getClasses().addError(un_);
+            _cont.addError(un_);
         } else {
             RendBlock first_ = b_.getFirstChild();
             while (first_ != this) {
@@ -29,7 +29,7 @@ public final class RendDefaultCondition extends RendParentBlock implements RendB
                     UnexpectedTagName un_ = new UnexpectedTagName();
                     un_.setFileName(_cont.getCurrentFileName());
                     un_.setIndexFile(getOffset().getOffsetTrim());
-                    _cont.getClasses().addError(un_);
+                    _cont.addError(un_);
                     break;
                 }
                 first_ = first_.getNextSibling();

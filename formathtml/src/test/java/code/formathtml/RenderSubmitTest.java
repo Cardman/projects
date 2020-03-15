@@ -46,7 +46,7 @@ public final class RenderSubmitTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         
         conf_.setDocument(doc_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body><input value=\"desc &amp;lt;text&amp;gt;\" type=\"submit\"/></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
     }
@@ -91,7 +91,7 @@ public final class RenderSubmitTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         
         conf_.setDocument(doc_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body><input value=\"desc &amp;lt;TITLE2&amp;gt;\" type=\"submit\"/></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
     }
@@ -123,7 +123,7 @@ public final class RenderSubmitTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         
         conf_.setDocument(doc_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_,conf_);
         assertNotNull(getException(conf_));
     }
@@ -170,7 +170,7 @@ public final class RenderSubmitTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         
         conf_.setDocument(doc_);
-        assertTrue(!conf_.getClasses().isEmptyErrors());
+        assertTrue(!conf_.isEmptyErrors());
     }
 
     @Test
@@ -213,7 +213,7 @@ public final class RenderSubmitTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         
         conf_.setDocument(doc_);
-        assertTrue(!conf_.getClasses().isEmptyErrors());
+        assertTrue(!conf_.isEmptyErrors());
     }
 
     @Test
@@ -256,6 +256,6 @@ public final class RenderSubmitTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         
         conf_.setDocument(doc_);
-        assertTrue(!conf_.getClasses().isEmptyErrors());
+        assertTrue(!conf_.isEmptyErrors());
     }
 }

@@ -58,7 +58,7 @@ public final class RenderMessageTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         
         conf_.setDocument(doc_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>desc &lt;Text&gt;<a c:command=\"$bean_one.click\" href=\"\" n-a=\"0\">two</a>After</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
     }
@@ -105,7 +105,7 @@ public final class RenderMessageTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         
         conf_.setDocument(doc_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>desc &lt;Text&gt;<a c:command=\"$bean_one.click(2)\" href=\"\" n-a=\"0\">two</a>After</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
         assertEq(1,conf_.getHtmlPage().getAnchorsArgs().size());
@@ -154,7 +154,7 @@ public final class RenderMessageTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         
         conf_.setDocument(doc_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>desc &lt;Text&gt;<a c:command=\"link\" href=\"\" n-a=\"0\">two</a>After</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
     }
@@ -201,7 +201,7 @@ public final class RenderMessageTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         
         conf_.setDocument(doc_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>desc &lt;Text&gt;<br/>After</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
     }
@@ -248,7 +248,7 @@ public final class RenderMessageTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         
         conf_.setDocument(doc_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>desc &amp;lt;Text&amp;gt;&lt;br/&gt;After</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
     }
@@ -295,7 +295,7 @@ public final class RenderMessageTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         
         conf_.setDocument(doc_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>desc &lt;Text&gt;<a name=\"link\">two</a>After</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
     }
@@ -342,7 +342,7 @@ public final class RenderMessageTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         
         conf_.setDocument(doc_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>desc &lt;Text&gt;<a href=\"link\" n-a=\"0\">two</a>After</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
     }
@@ -389,7 +389,7 @@ public final class RenderMessageTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         
         conf_.setDocument(doc_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>desc <Text/><a href=\"link\" n-a=\"0\">two</a>After</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
     }
@@ -436,7 +436,7 @@ public final class RenderMessageTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         
         conf_.setDocument(doc_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>desc '{'Text'}'<a href=\"link\" n-a=\"0\">two</a>After</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
     }
@@ -483,7 +483,7 @@ public final class RenderMessageTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         
         conf_.setDocument(doc_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>desc '{'2'}'<a href=\"link\" n-a=\"0\">two</a>After</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
     }
@@ -529,7 +529,7 @@ public final class RenderMessageTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         
         conf_.setDocument(doc_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>desc &lt;Text&gt;<a c:command=\"$bean_one.click\" href=\"\" n-a=\"0\">two</a>After</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
     }
@@ -575,7 +575,7 @@ public final class RenderMessageTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         
         conf_.setDocument(doc_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_,conf_);
         assertNotNull(getException(conf_));
     }
@@ -633,7 +633,7 @@ public final class RenderMessageTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         
         conf_.setDocument(doc_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>desc 2<a href=\"link\" n-a=\"0\">two</a>After</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
     }
@@ -691,7 +691,7 @@ public final class RenderMessageTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         
         conf_.setDocument(doc_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_,conf_);
         assertNotNull(getException(conf_));
     }
@@ -737,7 +737,7 @@ public final class RenderMessageTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         
         conf_.setDocument(doc_);
-        assertTrue(!conf_.getClasses().isEmptyErrors());
+        assertTrue(!conf_.isEmptyErrors());
     }
     @Test
     public void process2FailTest() {
@@ -781,6 +781,6 @@ public final class RenderMessageTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         
         conf_.setDocument(doc_);
-        assertTrue(!conf_.getClasses().isEmptyErrors());
+        assertTrue(!conf_.isEmptyErrors());
     }
 }

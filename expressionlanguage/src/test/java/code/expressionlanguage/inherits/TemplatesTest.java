@@ -4736,10 +4736,10 @@ public final class TemplatesTest {
         Classes classes_ = cont_.getClasses();
         Classes.buildPredefinedBracesBodies(cont_);
         Classes.tryBuildBracedClassesBodies(_files, cont_, false);
-        assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
-        assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
+        assertTrue(classes_.displayErrors(), cont_.isEmptyErrors());
+        assertTrue(classes_.displayErrors(), cont_.isEmptyErrors());
         classes_.validateInheritingClasses(cont_, false);
-        assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
+        assertTrue(classes_.displayErrors(), cont_.isEmptyErrors());
         return cont_;
     }
     private static ContextEl contextEnElDefault() {
@@ -4754,10 +4754,10 @@ public final class TemplatesTest {
         Classes classes_ = cont_.getClasses();
         Classes.buildPredefinedBracesBodies(cont_);
         Classes.tryBuildBracedClassesBodies(_files, cont_, false);
-        assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
-        assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
+        assertTrue(classes_.displayErrors(), cont_.isEmptyErrors());
+        assertTrue(classes_.displayErrors(), cont_.isEmptyErrors());
         classes_.validateInheritingClasses(cont_, false);
-        assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
+        assertTrue(classes_.displayErrors(), cont_.isEmptyErrors());
         return cont_;
     }
     private static Struct getException(ContextEl _cont) {

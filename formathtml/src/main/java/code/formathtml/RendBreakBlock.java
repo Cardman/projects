@@ -47,7 +47,7 @@ public final class RendBreakBlock extends RendLeaf implements RendBuildableElMet
             UnexpectedTagName un_ = new UnexpectedTagName();
             un_.setFileName(_cont.getCurrentFileName());
             un_.setIndexFile(getOffset().getOffsetTrim());
-            _cont.getClasses().addError(un_);
+            _cont.addError(un_);
         }
     }
 

@@ -51,7 +51,7 @@ public final class RenderTextAreaTest extends CommonRender {
         conf_.getContext().setAnalyzing(new AnalyzedPageEl());
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body><form action=\"\" c:command=\"page1.html\" name=\"myform\" n-f=\"0\"><textarea n-i=\"0\" name=\"bean_one.textField\">txt</textarea><input type=\"submit\" value=\"OK\"/></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
     }
@@ -91,7 +91,7 @@ public final class RenderTextAreaTest extends CommonRender {
         conf_.getContext().setAnalyzing(new AnalyzedPageEl());
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body><form action=\"\" c:command=\"page1.html\" name=\"myform\" n-f=\"0\"><textarea n-i=\"0\" name=\"bean_one.textField\"></textarea><input type=\"submit\" value=\"OK\"/></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
     }
@@ -131,7 +131,7 @@ public final class RenderTextAreaTest extends CommonRender {
         conf_.getContext().setAnalyzing(new AnalyzedPageEl());
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body><form action=\"\" c:command=\"page1.html\" name=\"myform\" n-f=\"0\"><textarea n-i=\"0\" name=\"bean_one.textField\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
     }
@@ -171,7 +171,7 @@ public final class RenderTextAreaTest extends CommonRender {
         conf_.getContext().setAnalyzing(new AnalyzedPageEl());
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body><form action=\"\" c:command=\"page1.html\" name=\"myform\" n-f=\"0\"><textarea n-i=\"0\" name=\"bean_one.textField\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
     }
@@ -211,7 +211,7 @@ public final class RenderTextAreaTest extends CommonRender {
         conf_.getContext().setAnalyzing(new AnalyzedPageEl());
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body><form action=\"\" c:command=\"page1.html\" name=\"myform\" n-f=\"0\"><textarea/><input type=\"submit\" value=\"OK\"/></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
     }
@@ -254,7 +254,7 @@ public final class RenderTextAreaTest extends CommonRender {
         conf_.getContext().setAnalyzing(new AnalyzedPageEl());
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_,conf_);
         assertNotNull(getException(conf_));
     }
@@ -297,7 +297,7 @@ public final class RenderTextAreaTest extends CommonRender {
         conf_.getContext().setAnalyzing(new AnalyzedPageEl());
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body><form action=\"\" c:command=\"page1.html\" name=\"myform\" n-f=\"0\"><textarea n-i=\"0\" name=\"bean_one.textField\">txt</textarea><input type=\"submit\" value=\"OK\"/></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
     }
@@ -340,7 +340,7 @@ public final class RenderTextAreaTest extends CommonRender {
         conf_.getContext().setAnalyzing(new AnalyzedPageEl());
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_,conf_);
         assertNotNull(getException(conf_));
     }
@@ -380,7 +380,7 @@ public final class RenderTextAreaTest extends CommonRender {
         conf_.getContext().setAnalyzing(new AnalyzedPageEl());
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body><form action=\"\" c:command=\"page1.html\" name=\"myform\" n-f=\"0\"><textarea c:groupId=\"myId\" n-i=\"0\" name=\"bean_one.textField\">txt</textarea><input type=\"submit\" value=\"OK\"/></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
     }
@@ -420,7 +420,7 @@ public final class RenderTextAreaTest extends CommonRender {
         conf_.getContext().setAnalyzing(new AnalyzedPageEl());
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_,conf_);
         assertNotNull(getException(conf_));
     }
@@ -460,7 +460,7 @@ public final class RenderTextAreaTest extends CommonRender {
         conf_.getContext().setAnalyzing(new AnalyzedPageEl());
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body><form action=\"\" c:command=\"page1.html\" name=\"myform\" n-f=\"0\"><textarea n-i=\"0\" name=\"bean_one.textField\" rows=\"40\" cols=\"40\">txt</textarea><input type=\"submit\" value=\"OK\"/></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
     }
@@ -500,7 +500,7 @@ public final class RenderTextAreaTest extends CommonRender {
         conf_.getContext().setAnalyzing(new AnalyzedPageEl());
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_,conf_);
         assertNotNull(getException(conf_));
     }
@@ -551,7 +551,7 @@ public final class RenderTextAreaTest extends CommonRender {
         conf_.getContext().setAnalyzing(new AnalyzedPageEl());
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_,conf_);
         assertNotNull(getException(conf_));
     }
@@ -593,7 +593,7 @@ public final class RenderTextAreaTest extends CommonRender {
         conf_.getContext().setAnalyzing(new AnalyzedPageEl());
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(!conf_.getClasses().isEmptyErrors());
+        assertTrue(!conf_.isEmptyErrors());
     }
     @Test
     public void process2FailTest() {
@@ -633,7 +633,7 @@ public final class RenderTextAreaTest extends CommonRender {
         conf_.getContext().setAnalyzing(new AnalyzedPageEl());
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(!conf_.getClasses().isEmptyErrors());
+        assertTrue(!conf_.isEmptyErrors());
     }
     @Test
     public void process3FailTest() {
@@ -674,6 +674,6 @@ public final class RenderTextAreaTest extends CommonRender {
         conf_.getContext().setAnalyzing(new AnalyzedPageEl());
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(!conf_.getClasses().isEmptyErrors());
+        assertTrue(!conf_.isEmptyErrors());
     }
 }

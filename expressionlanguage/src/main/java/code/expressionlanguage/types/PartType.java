@@ -2,6 +2,7 @@ package code.expressionlanguage.types;
 
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.inherits.ClassInheritsDeps;
 import code.expressionlanguage.methods.AccessedBlock;
 import code.expressionlanguage.methods.AccessingImportingBlock;
 import code.expressionlanguage.methods.RootBlock;
@@ -20,7 +21,7 @@ abstract class PartType {
     private int index;
     private int indexInType;
     private String analyzedType = EMPTY_STRING;
-    private StringList typeNames = new StringList();
+    private EqList<ClassInheritsDeps> typeNames = new EqList<ClassInheritsDeps>();
     PartType(ParentPartType _parent, int _index, int _indexInType) {
         parent = _parent;
         index = _index;
@@ -115,7 +116,7 @@ abstract class PartType {
     abstract void analyzeDepends(Analyzable _an, int _index, CustList<IntTreeMap< String>>_dels, RootBlock _rooted,boolean _exact);
     abstract void analyzeAccessibleId(Analyzable _an, CustList<IntTreeMap< String>>_dels, AccessedBlock _rooted);
     abstract void analyzeTemplate(Analyzable _an, CustList<IntTreeMap<String>> _dels, StringMap<StringList> _inherit);
-    StringList getTypeNames() {
+    EqList<ClassInheritsDeps> getTypeNames() {
         return typeNames;
     }
 

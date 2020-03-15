@@ -106,14 +106,14 @@ public final class ResultInput {
                 BadElError badEl_ = new BadElError();
                 badEl_.setFileName(_cont.getCurrentFileName());
                 badEl_.setIndexFile(_cont.getCurrentLocationIndex());
-                _cont.getClasses().addError(badEl_);
+                _cont.addError(badEl_);
             } else {
                 FieldInfo infoField_ = ((RendSettableFieldOperation) settable_).getFieldMetaInfo();
                 if (infoField_.isStaticField()) {
                     BadElError badEl_ = new BadElError();
                     badEl_.setFileName(_cont.getCurrentFileName());
                     badEl_.setIndexFile(_cont.getCurrentLocationIndex());
-                    _cont.getClasses().addError(badEl_);
+                    _cont.addError(badEl_);
                 }
                 idField = infoField_.getClassField();
                 String cl_ = ((RendSettableFieldOperation) settable_).getResultClass().getSingleNameOrEmpty();

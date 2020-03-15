@@ -59,7 +59,7 @@ public final class UnaryBinOperation extends AbstractUnaryOperation implements S
             un_.setFileName(_conf.getCurrentFileName());
             un_.setExpectedResult(exp_);
             un_.setOperands(clMatch_);
-            _conf.getClasses().addError(un_);
+            _conf.addError(un_);
             ClassArgumentMatching arg_ = new ClassArgumentMatching(exp_);
             setResultClass(arg_);
             return;

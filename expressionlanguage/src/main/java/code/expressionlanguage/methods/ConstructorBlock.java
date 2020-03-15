@@ -149,7 +149,7 @@ public final class ConstructorBlock extends NamedFunctionBlock implements GeneCo
                 undef_.setClassName(((RootBlock) getParent()).getFullName());
                 undef_.setFileName(getFile().getFileName());
                 undef_.setIndexFile(0);
-                _an.getClasses().addError(undef_);
+                _an.addError(undef_);
             }
         } else {
             if (!ints_.isEmpty()) {
@@ -158,7 +158,7 @@ public final class ConstructorBlock extends NamedFunctionBlock implements GeneCo
                 undef_.setClassName(((RootBlock) getParent()).getFullName());
                 undef_.setFileName(getFile().getFileName());
                 undef_.setIndexFile(0);
-                _an.getClasses().addError(undef_);
+                _an.addError(undef_);
             }
         }
     }
@@ -204,7 +204,7 @@ public final class ConstructorBlock extends NamedFunctionBlock implements GeneCo
             UnassignedFinalField un_ = new UnassignedFinalField(key_);
             un_.setFileName(getFile().getFileName());
             un_.setIndexFile(getOffset().getOffsetTrim());
-            _an.getClasses().addError(un_);
+            _an.addError(un_);
         } else if (_add){
             _an.getAnalyzing().getInitFieldsCtors().add(name_);
         }

@@ -179,7 +179,7 @@ public abstract class BracedStack extends BracedBlock {
             UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
             un_.setFileName(_an.getCurrentFileName());
             un_.setIndexFile(_an.getContextEl().getOffset()+_curBlock.getOffset().getOffsetTrim());
-            _an.getClasses().addError(un_);
+            _an.addError(un_);
         }
     }
     protected static void processFinalMutableLoop(Block _curBlock, boolean _all, Analyzable _an,AssignedVariables _vars, String _field) {
@@ -199,7 +199,7 @@ public abstract class BracedStack extends BracedBlock {
             UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
             un_.setFileName(_an.getCurrentFileName());
             un_.setIndexFile(_an.getContextEl().getOffset()+_curBlock.getOffset().getOffsetTrim());
-            _an.getClasses().addError(un_);
+            _an.addError(un_);
         }
     }
     protected static void processFinalFields(Block _curBlock, boolean _all, Analyzable _an,AssignedVariables _vars, String _field) {
@@ -218,7 +218,7 @@ public abstract class BracedStack extends BracedBlock {
             UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
             un_.setFileName(_an.getCurrentFileName());
             un_.setIndexFile(_an.getContextEl().getOffset()+_curBlock.getOffset().getOffsetTrim());
-            _an.getClasses().addError(un_);
+            _an.addError(un_);
         }
     }
     protected StringMap<AssignmentBefore> buildAssListFieldBeforeIncrPart(Analyzable _an, AnalyzingEl _anEl) {

@@ -26,7 +26,7 @@ public final class SuperInvokingConstructor extends AbstractInvokingConstructor 
             BadConstructorCall call_ = new BadConstructorCall();
             call_.setFileName(_conf.getCurrentFileName());
             call_.setIndexFile(_conf.getCurrentLocationIndex());
-            _conf.getClasses().addError(call_);
+            _conf.addError(call_);
             return null;
         }
         UniqueRootedBlock unique_ =(UniqueRootedBlock) clBody_;

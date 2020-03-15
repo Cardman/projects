@@ -49,7 +49,7 @@ public final class SuperFromFieldOperation extends
             cast_.setMapping(map_);
             cast_.setIndexFile(_conf.getCurrentLocationIndex());
             cast_.setFileName(_conf.getCurrentFileName());
-            _conf.getClasses().addError(cast_);
+            _conf.addError(cast_);
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             return null;
         }

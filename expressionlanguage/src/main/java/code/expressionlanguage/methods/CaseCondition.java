@@ -62,7 +62,7 @@ public final class CaseCondition extends SwitchPartBlock {
             UnexpectedTagName un_ = new UnexpectedTagName();
             un_.setFileName(getFile().getFileName());
             un_.setIndexFile(getOffset().getOffsetTrim());
-            _cont.getClasses().addError(un_);
+            _cont.addError(un_);
             opValue = ElUtil.getAnalyzedOperations(value, _cont, Calculation.staticCalculation(stCtx_));
             return;
         }
@@ -117,7 +117,7 @@ public final class CaseCondition extends SwitchPartBlock {
             UnexpectedTagName un_ = new UnexpectedTagName();
             un_.setFileName(getFile().getFileName());
             un_.setIndexFile(getOffset().getOffsetTrim());
-            _cont.getClasses().addError(un_);
+            _cont.addError(un_);
             opValue = ElUtil.getAnalyzedOperationsReadOnly(value, _cont, Calculation.staticCalculation(stCtx_));
             return;
         }
@@ -184,7 +184,7 @@ public final class CaseCondition extends SwitchPartBlock {
         un_.setFileName(getFile().getFileName());
         un_.setIndexFile(valueOffset);
         un_.setType(opValue.last().getResultClass());
-        _cont.getClasses().addError(un_);
+        _cont.addError(un_);
     }
 
     private void processNumValues(ContextEl _cont, ClassArgumentMatching _resSwitch) {
@@ -195,7 +195,7 @@ public final class CaseCondition extends SwitchPartBlock {
             un_.setFileName(getFile().getFileName());
             un_.setIndexFile(valueOffset);
             un_.setType(resCase_);
-            _cont.getClasses().addError(un_);
+            _cont.addError(un_);
             return;
         }
         Argument arg_ = op_.getArgument();
@@ -204,7 +204,7 @@ public final class CaseCondition extends SwitchPartBlock {
             un_.setFileName(getFile().getFileName());
             un_.setIndexFile(valueOffset);
             un_.setType(resCase_);
-            _cont.getClasses().addError(un_);
+            _cont.addError(un_);
         } else {
             checkDuplicateCase(_cont, arg_);
         }
@@ -213,7 +213,7 @@ public final class CaseCondition extends SwitchPartBlock {
             un_.setFileName(getFile().getFileName());
             un_.setIndexFile(valueOffset);
             un_.setType(resCase_);
-            _cont.getClasses().addError(un_);
+            _cont.addError(un_);
         }
     }
 
@@ -234,7 +234,7 @@ public final class CaseCondition extends SwitchPartBlock {
                         UnexpectedTagName un_ = new UnexpectedTagName();
                         un_.setFileName(getFile().getFileName());
                         un_.setIndexFile(getValueOffset()+ getOffset().getOffsetTrim());
-                        _cont.getClasses().addError(un_);
+                        _cont.addError(un_);
                         break;
                     }
                 }
@@ -253,7 +253,7 @@ public final class CaseCondition extends SwitchPartBlock {
                     UnexpectedTagName un_ = new UnexpectedTagName();
                     un_.setFileName(getFile().getFileName());
                     un_.setIndexFile(getValueOffset()+ getOffset().getOffsetTrim());
-                    _cont.getClasses().addError(un_);
+                    _cont.addError(un_);
                     break;
                 }
                 

@@ -110,7 +110,7 @@ public final class RendForMutableIterativeLoop extends RendParentBlock implement
             cast_.setMapping(mapping_);
             cast_.setFileName(_cont.getCurrentFileName());
             cast_.setIndexFile(classIndexNameOffset);
-            _cont.getClasses().addError(cast_);
+            _cont.addError(cast_);
         }
         page_.setGlobalOffset(classNameOffset);
         page_.setOffset(0);
@@ -166,7 +166,7 @@ public final class RendForMutableIterativeLoop extends RendParentBlock implement
                 un_.setFileName(_cont.getCurrentFileName());
                 un_.setIndexFile(expressionOffset);
                 un_.setType(opExp.last().getResultClass());
-                _cont.getClasses().addError(un_);
+                _cont.addError(un_);
             }
             elCondition_.getResultClass().setUnwrapObject(stds_.getAliasPrimBoolean());
         }

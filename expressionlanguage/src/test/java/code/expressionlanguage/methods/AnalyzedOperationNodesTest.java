@@ -1673,7 +1673,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         RootBlock r_ = cont_.getClasses().getClassBody("pkg.ExTwo");
         Line f_ = (Line) r_.getFirstChild().getFirstChild();
         ExecFctOperation fct_ = getFct(f_.getExp());
@@ -1888,7 +1888,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         RootBlock r_ = cont_.getClasses().getClassBody("pkg.ExTwo");
         Line f_ = (Line) r_.getFirstChild().getFirstChild();
         ExecFctOperation fct_ = getFct(f_.getExp());
@@ -2037,7 +2037,7 @@ public final class AnalyzedOperationNodesTest {
         
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         RootBlock r_ = cont_.getClasses().getClassBody("pkgtwo.Apply");
         Line f_ = (Line) r_.getFirstChild().getFirstChild();
         ExecStandardInstancingOperation fct_ = getCtor(f_.getExp());
@@ -2070,7 +2070,7 @@ public final class AnalyzedOperationNodesTest {
         
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         RootBlock r_ = cont_.getClasses().getClassBody("pkgtwo.Apply");
         Line f_ = (Line) r_.getFirstChild().getFirstChild();
         ExecStandardInstancingOperation fct_ = getCtor(f_.getExp());
@@ -2103,7 +2103,7 @@ public final class AnalyzedOperationNodesTest {
         
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         RootBlock r_ = cont_.getClasses().getClassBody("pkgtwo.Apply");
         Line f_ = (Line) r_.getFirstChild().getFirstChild();
         ExecStandardInstancingOperation fct_ = getCtor(f_.getExp());
@@ -2136,7 +2136,7 @@ public final class AnalyzedOperationNodesTest {
         
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         RootBlock r_ = cont_.getClasses().getClassBody("pkgtwo.Apply");
         Line f_ = (Line) r_.getFirstChild().getFirstChild();
         ExecStandardInstancingOperation fct_ = getCtor(f_.getExp());
@@ -2169,7 +2169,7 @@ public final class AnalyzedOperationNodesTest {
         
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         RootBlock r_ = cont_.getClasses().getClassBody("pkgtwo.Apply");
         Line f_ = (Line) r_.getFirstChild().getFirstChild();
         ExecStandardInstancingOperation fct_ = getCtor(f_.getExp());
@@ -2200,7 +2200,7 @@ public final class AnalyzedOperationNodesTest {
         
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         RootBlock r_ = cont_.getClasses().getClassBody("pkgtwo.Apply");
         Line f_ = (Line) r_.getFirstChild().getFirstChild();
         ExecStandardInstancingOperation fct_ = getCtor(f_.getExp());
@@ -2233,7 +2233,7 @@ public final class AnalyzedOperationNodesTest {
         
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         RootBlock r_ = cont_.getClasses().getClassBody("pkgtwo.Apply");
         Line f_ = (Line) r_.getFirstChild().getFirstChild();
         ExecStandardInstancingOperation fct_ = getCtor(f_.getExp());
@@ -2264,7 +2264,7 @@ public final class AnalyzedOperationNodesTest {
         
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         RootBlock r_ = cont_.getClasses().getClassBody("pkgtwo.Apply");
         Line f_ = (Line) r_.getFirstChild().getFirstChild();
         ExecStandardInstancingOperation fct_ = getCtor(f_.getExp());
@@ -2295,7 +2295,7 @@ public final class AnalyzedOperationNodesTest {
         
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         RootBlock r_ = cont_.getClasses().getClassBody("pkgtwo.Apply");
         Line f_ = (Line) r_.getFirstChild().getFirstChild();
         ExecStandardInstancingOperation fct_ = getCtor(f_.getExp());
@@ -2326,7 +2326,7 @@ public final class AnalyzedOperationNodesTest {
         
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         RootBlock r_ = cont_.getClasses().getClassBody("pkgtwo.Apply");
         Line f_ = (Line) r_.getFirstChild().getFirstChild();
         ExecStandardInstancingOperation fct_ = getCtor(f_.getExp());
@@ -2357,7 +2357,7 @@ public final class AnalyzedOperationNodesTest {
         
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         RootBlock r_ = cont_.getClasses().getClassBody("pkgtwo.Apply");
         Line f_ = (Line) r_.getFirstChild().getFirstChild();
         ExecStandardInstancingOperation fct_ = getCtor(f_.getExp());
@@ -2388,7 +2388,7 @@ public final class AnalyzedOperationNodesTest {
         
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         RootBlock r_ = cont_.getClasses().getClassBody("pkgtwo.Apply");
         Line f_ = (Line) r_.getFirstChild().getFirstChild();
         ExecStandardInstancingOperation fct_ = getCtor(f_.getExp());
@@ -2419,7 +2419,7 @@ public final class AnalyzedOperationNodesTest {
         
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         RootBlock r_ = cont_.getClasses().getClassBody("pkgtwo.Apply");
         Line f_ = (Line) r_.getFirstChild().getFirstChild();
         ExecStandardInstancingOperation fct_ = getCtor(f_.getExp());
@@ -2450,7 +2450,7 @@ public final class AnalyzedOperationNodesTest {
         
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         RootBlock r_ = cont_.getClasses().getClassBody("pkgtwo.Apply");
         Line f_ = (Line) r_.getFirstChild().getFirstChild();
         ExecStandardInstancingOperation fct_ = getCtor(f_.getExp());
@@ -2482,7 +2482,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         RootBlock r_ = cont_.getClasses().getClassBody("pkgtwo.Apply");
         Line f_ = (Line) r_.getFirstChild().getFirstChild();
         ExecStandardInstancingOperation fct_ = getCtor(f_.getExp());
@@ -2514,7 +2514,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         RootBlock r_ = cont_.getClasses().getClassBody("pkgtwo.Apply");
         Line f_ = (Line) r_.getFirstChild().getFirstChild();
         ExecStandardInstancingOperation fct_ = getCtor(f_.getExp());
@@ -2546,7 +2546,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         RootBlock r_ = cont_.getClasses().getClassBody("pkgtwo.Apply");
         Line f_ = (Line) r_.getFirstChild().getFirstChild();
         ExecStandardInstancingOperation fct_ = getCtor(f_.getExp());
@@ -2578,7 +2578,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         RootBlock r_ = cont_.getClasses().getClassBody("pkgtwo.Apply");
         Line f_ = (Line) r_.getFirstChild().getFirstChild();
         ExecChoiceFctOperation fct_ = getChoiceFct(f_.getExp());
@@ -2611,7 +2611,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         RootBlock r_ = cont_.getClasses().getClassBody("pkgtwo.Apply");
         Line f_ = (Line) r_.getFirstChild().getFirstChild();
         ExecChoiceFctOperation fct_ = getChoiceFct(f_.getExp());
@@ -2644,7 +2644,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         RootBlock r_ = cont_.getClasses().getClassBody("pkgtwo.Apply");
         Line f_ = (Line) r_.getFirstChild().getFirstChild().getNextSibling().getNextSibling();
         ExecChoiceFctOperation fct_ = getChoiceFct(f_.getExp());
@@ -2677,7 +2677,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         RootBlock r_ = cont_.getClasses().getClassBody("pkgtwo.Apply");
         Line f_ = (Line) r_.getFirstChild().getFirstChild();
         ExecSuperFctOperation fct_ = getSuperFct(f_.getExp());
@@ -2710,7 +2710,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         RootBlock r_ = cont_.getClasses().getClassBody("pkgtwo.Apply");
         Line f_ = (Line) r_.getFirstChild().getFirstChild();
         ExecSuperFctOperation fct_ = getSuperFct(f_.getExp());
@@ -2743,7 +2743,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         RootBlock r_ = cont_.getClasses().getClassBody("pkgtwo.Apply");
         Line f_ = (Line) r_.getFirstChild().getFirstChild().getNextSibling().getNextSibling();
         ExecSuperFctOperation fct_ = getSuperFct(f_.getExp());
@@ -2782,7 +2782,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         RootBlock r_ = cont_.getClasses().getClassBody("pkg.Apply");
         Line f_ = (Line) r_.getFirstChild().getFirstChild();
         ExecChoiceFctOperation fct_ = getChoiceFct(f_.getExp());
@@ -2820,7 +2820,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         RootBlock r_ = cont_.getClasses().getClassBody("pkg.Apply");
         Line f_ = (Line) r_.getFirstChild().getFirstChild();
         ExecSuperFctOperation fct_ = getSuperFct(f_.getExp());
@@ -3004,7 +3004,7 @@ public final class AnalyzedOperationNodesTest {
         
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         RootBlock r_ = cont_.getClasses().getClassBody("pkg.Apply");
         Line f_ = (Line) r_.getFirstChild().getFirstChild();
         ExecStandardInstancingOperation fct_ = getCtor(f_.getExp());
@@ -3038,7 +3038,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         RootBlock r_ = cont_.getClasses().getClassBody("pkg.Apply");
         Line f_ = (Line) r_.getFirstChild().getFirstChild();
         ExecStandardInstancingOperation fct_ = getCtor(f_.getExp());
@@ -3074,7 +3074,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         RootBlock r_ = cont_.getClasses().getClassBody("pkgtwo.Apply");
         Line f_ = (Line) r_.getFirstChild().getFirstChild();
         ExecStandardInstancingOperation fct_ = getCtor(f_.getExp());
@@ -3110,7 +3110,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         RootBlock r_ = cont_.getClasses().getClassBody("pkgtwo.Apply");
         Line f_ = (Line) r_.getFirstChild().getFirstChild();
         ExecStandardInstancingOperation fct_ = getCtor(f_.getExp());
@@ -3146,7 +3146,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         OperatorBlock r_ = cont_.getClasses().getOperators().first();
         Line f_ = (Line) r_.getFirstChild();
         ExecStandardInstancingOperation fct_ = getCtor(f_.getExp());
@@ -3182,7 +3182,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         OperatorBlock r_ = cont_.getClasses().getOperators().first();
         Line f_ = (Line) r_.getFirstChild();
         ExecStandardInstancingOperation fct_ = getCtor(f_.getExp());
@@ -3210,7 +3210,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
     }
     @Test
     public void processEl2300Test() {
@@ -3226,7 +3226,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         RootBlock r_ = cont_.getClasses().getClassBody("pkg.ExTwo");
         Line f_ = (Line) r_.getFirstChild().getFirstChild().getNextSibling().getNextSibling();
         ExecFctOperation fct_ = getFct(f_.getExp());
@@ -3333,7 +3333,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         RootBlock r_ = cont_.getClasses().getClassBody("pkgtwo.Apply");
         Line f_ = (Line) r_.getFirstChild().getFirstChild();
         ExecSuperFctOperation fct_ = getSuperFct(f_.getExp());
@@ -3365,7 +3365,7 @@ public final class AnalyzedOperationNodesTest {
         
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         RootBlock r_ = cont_.getClasses().getClassBody("pkgtwo.Apply");
         Line f_ = (Line) r_.getFirstChild().getFirstChild();
         ExecSuperFctOperation fct_ = getSuperFct(f_.getExp());
@@ -3398,7 +3398,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         RootBlock r_ = cont_.getClasses().getClassBody("pkgtwo.Apply");
         Line f_ = (Line) r_.getFirstChild().getFirstChild();
         ExecSuperFctOperation fct_ = getSuperFct(f_.getExp());
@@ -3430,7 +3430,7 @@ public final class AnalyzedOperationNodesTest {
         
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         RootBlock r_ = cont_.getClasses().getClassBody("pkgtwo.Apply");
         Line f_ = (Line) r_.getFirstChild().getFirstChild();
         ExecSuperFctOperation fct_ = getSuperFct(f_.getExp());
@@ -3463,7 +3463,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
-        assertTrue(!cont_.getClasses().isEmptyErrors());
+        assertTrue(!cont_.isEmptyErrors());
     }
     @Test
     public void processEl242est() {
@@ -3482,7 +3482,7 @@ public final class AnalyzedOperationNodesTest {
         
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
-        assertTrue(!cont_.getClasses().isEmptyErrors());
+        assertTrue(!cont_.isEmptyErrors());
     }
     @Test
     public void processEl243Test() {
@@ -3503,7 +3503,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         RootBlock r_ = cont_.getClasses().getClassBody("pkgtwo.Apply");
         Line f_ = (Line) r_.getFirstChild().getFirstChild().getNextSibling().getNextSibling();
         ExecSuperFctOperation fct_ = getSuperFct(f_.getExp());
@@ -3532,7 +3532,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
     }
     @Test
     public void processEl2440Test() {
@@ -3548,7 +3548,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         RootBlock r_ = cont_.getClasses().getClassBody("pkg.ExTwo");
         Line f_ = (Line) r_.getFirstChild().getFirstChild().getNextSibling().getNextSibling();
         ExecFctOperation fct_ = getFct(f_.getExp());
@@ -3578,7 +3578,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
     }
     @Test
     public void processEl2450Test() {
@@ -3594,7 +3594,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         RootBlock r_ = cont_.getClasses().getClassBody("pkg.ExTwo");
         Line f_ = (Line) r_.getFirstChild().getFirstChild().getNextSibling().getNextSibling();
         ExecFctOperation fct_ = getFct(f_.getExp());
@@ -3632,7 +3632,7 @@ public final class AnalyzedOperationNodesTest {
 
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         RootBlock r_ = cont_.getClasses().getClassBody("pkgtwo.Apply");
         Line f_ = (Line) r_.getFirstChild().getFirstChild();
         ExecFctOperation fct_ = getFct(f_.getExp());
@@ -3663,7 +3663,7 @@ public final class AnalyzedOperationNodesTest {
 
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         RootBlock r_ = cont_.getClasses().getClassBody("pkg.Apply");
         Line f_ = (Line) r_.getFirstChild().getFirstChild();
         ExecFctOperation fct_ = getFct(f_.getExp());
@@ -4106,7 +4106,7 @@ public final class AnalyzedOperationNodesTest {
         
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
-        assertTrue(!cont_.getClasses().isEmptyErrors());
+        assertTrue(!cont_.isEmptyErrors());
     }
     @Test
     public void processEl126FailTest() {
@@ -4125,7 +4125,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
-        assertTrue(!cont_.getClasses().isEmptyErrors());
+        assertTrue(!cont_.isEmptyErrors());
     }
     @Test
     public void processEl127FailTest() {
@@ -4149,7 +4149,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
-        assertTrue(!cont_.getClasses().isEmptyErrors());
+        assertTrue(!cont_.isEmptyErrors());
     }
     @Test
     public void processEl1271FailTest() {
@@ -4173,7 +4173,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
-        assertTrue(!cont_.getClasses().isEmptyErrors());
+        assertTrue(!cont_.isEmptyErrors());
     }
     @Test
     public void processEl1272FailTest() {
@@ -4190,7 +4190,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
-        assertTrue(!cont_.getClasses().isEmptyErrors());
+        assertTrue(!cont_.isEmptyErrors());
     }
     @Test
     public void processEl1273FailTest() {
@@ -4207,7 +4207,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
-        assertTrue(!cont_.getClasses().isEmptyErrors());
+        assertTrue(!cont_.isEmptyErrors());
     }
     @Test
     public void processEl1274FailTest() {
@@ -4226,7 +4226,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
-        assertTrue(!cont_.getClasses().isEmptyErrors());
+        assertTrue(!cont_.isEmptyErrors());
     }
     @Test
     public void processEl1275FailTest() {
@@ -4246,7 +4246,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
-        assertTrue(!cont_.getClasses().isEmptyErrors());
+        assertTrue(!cont_.isEmptyErrors());
     }
     @Test
     public void processEl1276FailTest() {
@@ -4266,7 +4266,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
-        assertTrue(!cont_.getClasses().isEmptyErrors());
+        assertTrue(!cont_.isEmptyErrors());
     }
     @Test
     public void processEl1277FailTest() {
@@ -4286,7 +4286,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
-        assertTrue(!cont_.getClasses().isEmptyErrors());
+        assertTrue(!cont_.isEmptyErrors());
     }
     @Test
     public void processEl1278FailTest() {
@@ -4307,7 +4307,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
-        assertTrue(!cont_.getClasses().isEmptyErrors());
+        assertTrue(!cont_.isEmptyErrors());
     }
     @Test
     public void processEl1279FailTest() {
@@ -4329,7 +4329,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
-        assertTrue(!cont_.getClasses().isEmptyErrors());
+        assertTrue(!cont_.isEmptyErrors());
     }
     @Test
     public void processEl1280FailTest() {
@@ -4347,7 +4347,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne("en", opt_);
         Classes.validateAll(files_, cont_);
-        assertTrue(!cont_.getClasses().isEmptyErrors());
+        assertTrue(!cont_.isEmptyErrors());
     }
     @Test
     public void processEl128FailTest() {
@@ -4368,7 +4368,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(),!cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.getClasses().displayErrors(),!cont_.isEmptyErrors());
     }
     @Test
     public void processEl129FailTest() {
@@ -4389,7 +4389,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(),!cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.getClasses().displayErrors(),!cont_.isEmptyErrors());
     }
     @Test
     public void processEl140FailTest() {
@@ -4408,7 +4408,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(),!cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.getClasses().displayErrors(),!cont_.isEmptyErrors());
     }
     @Test
     public void processEl141FailTest() {
@@ -4427,7 +4427,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(),!cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.getClasses().displayErrors(),!cont_.isEmptyErrors());
     }
     @Test
     public void processEl142FailTest() {
@@ -4448,7 +4448,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(),!cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.getClasses().displayErrors(),!cont_.isEmptyErrors());
     }
     @Test
     public void processEl143FailTest() {
@@ -4469,7 +4469,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(),!cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.getClasses().displayErrors(),!cont_.isEmptyErrors());
     }
     @Test
     public void processEl144FailTest() {
@@ -4490,7 +4490,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(),!cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.getClasses().displayErrors(),!cont_.isEmptyErrors());
     }
     @Test
     public void processEl145FailTest() {
@@ -4511,7 +4511,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(),!cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.getClasses().displayErrors(),!cont_.isEmptyErrors());
     }
     @Test
     public void processEl146FailTest() {
@@ -4532,7 +4532,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(),!cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.getClasses().displayErrors(),!cont_.isEmptyErrors());
     }
     @Test
     public void processEl147FailTest() {
@@ -4553,7 +4553,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(),!cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.getClasses().displayErrors(),!cont_.isEmptyErrors());
     }
     @Test
     public void processEl148FailTest() {
@@ -4574,7 +4574,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(),!cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.getClasses().displayErrors(),!cont_.isEmptyErrors());
     }
     @Test
     public void processEl149FailTest() {
@@ -4595,7 +4595,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(),!cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.getClasses().displayErrors(),!cont_.isEmptyErrors());
     }
     @Test
     public void processEl150FailTest() {
@@ -4616,7 +4616,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(),!cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.getClasses().displayErrors(),!cont_.isEmptyErrors());
     }
     @Test
     public void processEl151FailTest() {
@@ -4637,7 +4637,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(),!cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.getClasses().displayErrors(),!cont_.isEmptyErrors());
     }
     @Test
     public void processEl152FailTest() {
@@ -4658,7 +4658,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(),!cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.getClasses().displayErrors(),!cont_.isEmptyErrors());
     }
     @Test
     public void processEl153FailTest() {
@@ -4679,7 +4679,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(),!cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.getClasses().displayErrors(),!cont_.isEmptyErrors());
     }
     @Test
     public void processEl154FailTest() {
@@ -4700,7 +4700,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(),!cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.getClasses().displayErrors(),!cont_.isEmptyErrors());
     }
     @Test
     public void processEl155FailTest() {
@@ -4721,7 +4721,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(),!cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.getClasses().displayErrors(),!cont_.isEmptyErrors());
     }
     @Test
     public void processEl156FailTest() {
@@ -4742,7 +4742,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(),!cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.getClasses().displayErrors(),!cont_.isEmptyErrors());
     }
     @Test
     public void processEl157FailTest() {
@@ -4763,7 +4763,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(),!cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.getClasses().displayErrors(),!cont_.isEmptyErrors());
     }
     @Test
     public void processEl158FailTest() {
@@ -4784,7 +4784,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(),!cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.getClasses().displayErrors(),!cont_.isEmptyErrors());
     }
     @Test
     public void processEl159FailTest() {
@@ -4805,7 +4805,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(),!cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.getClasses().displayErrors(),!cont_.isEmptyErrors());
     }
     @Test
     public void processEl160FailTest() {
@@ -4826,7 +4826,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(),!cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.getClasses().displayErrors(),!cont_.isEmptyErrors());
     }
     @Test
     public void processEl161FailTest() {
@@ -4847,7 +4847,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
-        assertTrue(!cont_.getClasses().isEmptyErrors());
+        assertTrue(!cont_.isEmptyErrors());
     }
     @Test
     public void processEl162FailTest() {
@@ -4867,7 +4867,7 @@ public final class AnalyzedOperationNodesTest {
         
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
-        assertTrue(!cont_.getClasses().isEmptyErrors());
+        assertTrue(!cont_.isEmptyErrors());
     }
     @Test
     public void processEl163FailTest() {
@@ -4887,7 +4887,7 @@ public final class AnalyzedOperationNodesTest {
         
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
-        assertTrue(!cont_.getClasses().isEmptyErrors());
+        assertTrue(!cont_.isEmptyErrors());
     }
     @Test
     public void processEl164FailTest() {
@@ -4907,7 +4907,7 @@ public final class AnalyzedOperationNodesTest {
         
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
-        assertTrue(!cont_.getClasses().isEmptyErrors());
+        assertTrue(!cont_.isEmptyErrors());
     }
     @Test
     public void processEl165FailTest() {
@@ -4927,7 +4927,7 @@ public final class AnalyzedOperationNodesTest {
         
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
-        assertTrue(!cont_.getClasses().isEmptyErrors());
+        assertTrue(!cont_.isEmptyErrors());
     }
     @Test
     public void processEl166FailTest() {
@@ -4948,7 +4948,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
-        assertTrue(!cont_.getClasses().isEmptyErrors());
+        assertTrue(!cont_.isEmptyErrors());
     }
     @Test
     public void processEl167FailTest() {
@@ -4969,7 +4969,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
-        assertTrue(!cont_.getClasses().isEmptyErrors());
+        assertTrue(!cont_.isEmptyErrors());
     }
     @Test
     public void processEl168FailTest() {
@@ -4990,7 +4990,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
-        assertTrue(!cont_.getClasses().isEmptyErrors());
+        assertTrue(!cont_.isEmptyErrors());
     }
     @Test
     public void processEl169FailTest() {
@@ -5011,7 +5011,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
-        assertTrue(!cont_.getClasses().isEmptyErrors());
+        assertTrue(!cont_.isEmptyErrors());
     }
     @Test
     public void processEl170FailTest() {
@@ -5032,7 +5032,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
-        assertTrue(!cont_.getClasses().isEmptyErrors());
+        assertTrue(!cont_.isEmptyErrors());
     }
     @Test
     public void processEl171FailTest() {
@@ -5053,7 +5053,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
-        assertTrue(!cont_.getClasses().isEmptyErrors());
+        assertTrue(!cont_.isEmptyErrors());
     }
     @Test
     public void processEl172FailTest() {
@@ -5074,7 +5074,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
-        assertTrue(!cont_.getClasses().isEmptyErrors());
+        assertTrue(!cont_.isEmptyErrors());
     }
     @Test
     public void processEl173FailTest() {
@@ -5095,7 +5095,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
-        assertTrue(!cont_.getClasses().isEmptyErrors());
+        assertTrue(!cont_.isEmptyErrors());
     }
     @Test
     public void processEl174FailTest() {
@@ -5119,7 +5119,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
-        assertTrue(!cont_.getClasses().isEmptyErrors());
+        assertTrue(!cont_.isEmptyErrors());
     }
     @Test
     public void processEl175FailTest() {
@@ -5139,7 +5139,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
-        assertTrue(!cont_.getClasses().isEmptyErrors());
+        assertTrue(!cont_.isEmptyErrors());
     }
     @Test
     public void processEl176FailTest() {
@@ -5162,7 +5162,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
-        assertTrue(!cont_.getClasses().isEmptyErrors());
+        assertTrue(!cont_.isEmptyErrors());
     }
     @Test
     public void processEl177FailTest() {
@@ -5185,7 +5185,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
-        assertTrue(!cont_.getClasses().isEmptyErrors());
+        assertTrue(!cont_.isEmptyErrors());
     }
     @Test
     public void processEl178FailTest() {
@@ -5208,7 +5208,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
-        assertTrue(!cont_.getClasses().isEmptyErrors());
+        assertTrue(!cont_.isEmptyErrors());
     }
     @Test
     public void processEl179FailTest() {
@@ -5232,7 +5232,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
-        assertTrue(!cont_.getClasses().isEmptyErrors());
+        assertTrue(!cont_.isEmptyErrors());
     }
     private static ExecFctOperation getFct(CustList<ExecOperationNode> _f) {
         for (ExecOperationNode o: _f) {
@@ -5288,9 +5288,9 @@ public final class AnalyzedOperationNodesTest {
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
         if (_mustFail) {
-            assertTrue(!cont_.getClasses().isEmptyErrors());
+            assertTrue(!cont_.isEmptyErrors());
         } else {
-            assertTrue(cont_.getClasses().isEmptyErrors());
+            assertTrue(cont_.isEmptyErrors());
         }
         RootBlock r_ = cont_.getClasses().getClassBody("code.formathtml.classes.Apply");
         FieldBlock f_ = (FieldBlock) r_.getFirstChild();
@@ -5703,9 +5703,9 @@ public final class AnalyzedOperationNodesTest {
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(_files, cont_);
         if (_mustFail) {
-            assertTrue(!cont_.getClasses().isEmptyErrors());
+            assertTrue(!cont_.isEmptyErrors());
         } else {
-            assertTrue(cont_.getClasses().isEmptyErrors());
+            assertTrue(cont_.isEmptyErrors());
         }
         return cont_;
     }

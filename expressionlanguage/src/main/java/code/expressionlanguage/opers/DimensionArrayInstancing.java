@@ -144,7 +144,7 @@ public final class DimensionArrayInstancing extends
                 un_.setFileName(_conf.getCurrentFileName());
                 un_.setExpectedResult(_conf.getStandards().getAliasPrimInteger());
                 un_.setOperands(cl_);
-                _conf.getClasses().addError(un_);
+                _conf.addError(un_);
             }
             o.getResultClass().setUnwrapObject(_conf.getStandards().getAliasPrimInteger());
             o.cancelArgument();

@@ -255,7 +255,7 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
             cast_.setMapping(mapping_);
             cast_.setFileName(getFile().getFileName());
             cast_.setIndexFile(stepOffset);
-            _cont.getClasses().addError(cast_);
+            _cont.addError(cast_);
         }
     }
 
@@ -272,7 +272,7 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
             cast_.setMapping(mapping_);
             cast_.setFileName(getFile().getFileName());
             cast_.setIndexFile(classIndexNameOffset);
-            _cont.getClasses().addError(cast_);
+            _cont.addError(cast_);
         }
         page_.setGlobalOffset(classNameOffset);
         page_.setOffset(0);
@@ -287,7 +287,7 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
             cast_.setMapping(mapping_);
             cast_.setFileName(getFile().getFileName());
             cast_.setIndexFile(classNameOffset);
-            _cont.getClasses().addError(cast_);
+            _cont.addError(cast_);
         }
         page_.setGlobalOffset(variableNameOffset);
         page_.setOffset(0);
@@ -296,21 +296,21 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
             d_.setId(variableName);
             d_.setFileName(getFile().getFileName());
             d_.setIndexFile(variableNameOffset);
-            _cont.getClasses().addError(d_);
+            _cont.addError(d_);
         }
         if (_cont.getAnalyzing().containsMutableLoopVar(variableName)) {
             DuplicateVariable d_ = new DuplicateVariable();
             d_.setId(variableName);
             d_.setFileName(getFile().getFileName());
             d_.setIndexFile(variableNameOffset);
-            _cont.getClasses().addError(d_);
+            _cont.addError(d_);
         }
         if (!_cont.isValidSingleToken(variableName)) {
             BadVariableName b_ = new BadVariableName();
             b_.setFileName(getFile().getFileName());
             b_.setIndexFile(variableNameOffset);
             b_.setVarName(variableName);
-            _cont.getClasses().addError(b_);
+            _cont.addError(b_);
         }
     }
     @Override

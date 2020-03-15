@@ -78,7 +78,7 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
                     BadElError badEl_ = new BadElError();
                     badEl_.setFileName(_cont.getCurrentFileName());
                     badEl_.setIndexFile(_cont.getCurrentLocationIndex());
-                    _cont.getClasses().addError(badEl_);
+                    _cont.addError(badEl_);
                 }
                 String string_ = _cont.getStandards().getAliasString();
                 StringList varNames_ = new StringList();
@@ -102,7 +102,7 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
                         BadElError badEl_ = new BadElError();
                         badEl_.setFileName(_cont.getCurrentFileName());
                         badEl_.setIndexFile(_cont.getCurrentLocationIndex());
-                        _cont.getClasses().addError(badEl_);
+                        _cont.addError(badEl_);
                     }
                     Mapping m_ = new Mapping();
                     m_.setArg(opsConverter.last().getResultClass());
@@ -111,7 +111,7 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
                         BadElError badEl_ = new BadElError();
                         badEl_.setFileName(_cont.getCurrentFileName());
                         badEl_.setIndexFile(_cont.getCurrentLocationIndex());
-                        _cont.getClasses().addError(badEl_);
+                        _cont.addError(badEl_);
                     }
                 }
             } else if (!opsRead.isEmpty()){
@@ -123,7 +123,7 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
                         BadElError badEl_ = new BadElError();
                         badEl_.setFileName(_cont.getCurrentFileName());
                         badEl_.setIndexFile(_cont.getCurrentLocationIndex());
-                        _cont.getClasses().addError(badEl_);
+                        _cont.addError(badEl_);
                     }
                     String string_ = _cont.getStandards().getAliasString();
                     StringList varNames_ = new StringList();
@@ -144,7 +144,7 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
                         BadElError badEl_ = new BadElError();
                         badEl_.setFileName(_cont.getCurrentFileName());
                         badEl_.setIndexFile(_cont.getCurrentLocationIndex());
-                        _cont.getClasses().addError(badEl_);
+                        _cont.addError(badEl_);
                     }
                 } else if (!converterValue_.trim().isEmpty()) {
                     String string_ = _cont.getStandards().getAliasString();
@@ -166,7 +166,7 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
                         BadElError badEl_ = new BadElError();
                         badEl_.setFileName(_cont.getCurrentFileName());
                         badEl_.setIndexFile(_cont.getCurrentLocationIndex());
-                        _cont.getClasses().addError(badEl_);
+                        _cont.addError(badEl_);
                     }
                 }
             }
@@ -193,7 +193,7 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
                 BadElError badEl_ = new BadElError();
                 badEl_.setFileName(_cont.getCurrentFileName());
                 badEl_.setIndexFile(_cont.getCurrentLocationIndex());
-                _cont.getClasses().addError(badEl_);
+                _cont.addError(badEl_);
             }
         }
         String converterFieldValue_ = elt.getAttribute(ATTRIBUTE_CONVERT_FIELD_VALUE);
@@ -218,7 +218,7 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
                 BadElError badEl_ = new BadElError();
                 badEl_.setFileName(_cont.getCurrentFileName());
                 badEl_.setIndexFile(_cont.getCurrentLocationIndex());
-                _cont.getClasses().addError(badEl_);
+                _cont.addError(badEl_);
             }
         }
         String default_ = elt.getAttribute(DEFAULT_ATTRIBUTE);
@@ -228,7 +228,7 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
                 BadElError badEl_ = new BadElError();
                 badEl_.setFileName(_cont.getCurrentFileName());
                 badEl_.setIndexFile(_cont.getCurrentLocationIndex());
-                _cont.getClasses().addError(badEl_);
+                _cont.addError(badEl_);
             }
             String concat_ = StringList.concat(mName_,"(\"",default_,"\")");
             opsDefault = RenderExpUtil.getAnalyzedOperations(concat_,0,_cont,Calculation.staticCalculation(st_));
@@ -240,7 +240,7 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
                     BadElError badEl_ = new BadElError();
                     badEl_.setFileName(_cont.getCurrentFileName());
                     badEl_.setIndexFile(_cont.getCurrentLocationIndex());
-                    _cont.getClasses().addError(badEl_);
+                    _cont.addError(badEl_);
                 }
             } else {
                 IterableAnalysisResult it_ = _cont.getStandards().getCustomType(opsDefault.last().getResultClass().getNames(), _cont.getContext());
@@ -249,7 +249,7 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
                     BadElError badEl_ = new BadElError();
                     badEl_.setFileName(_cont.getCurrentFileName());
                     badEl_.setIndexFile(_cont.getCurrentLocationIndex());
-                    _cont.getClasses().addError(badEl_);
+                    _cont.addError(badEl_);
                 }
             }
         }

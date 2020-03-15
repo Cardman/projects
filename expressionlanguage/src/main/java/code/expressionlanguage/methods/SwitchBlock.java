@@ -123,7 +123,7 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock, Wi
             un_.setFileName(getFile().getFileName());
             un_.setIndexFile(valueOffset);
             un_.setType(clArg_);
-            _cont.getClasses().addError(un_);
+            _cont.addError(un_);
         }
         String type_ = clArg_.getSingleNameOrEmpty();
         if (type_.isEmpty()) {
@@ -131,7 +131,7 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock, Wi
             un_.setFileName(getFile().getFileName());
             un_.setIndexFile(valueOffset);
             un_.setType(clArg_);
-            _cont.getClasses().addError(un_);
+            _cont.addError(un_);
         } else {
             String id_ = Templates.getIdFromAllTypes(type_);
             if (!PrimitiveTypeUtil.isPrimitiveOrWrapper(id_, _cont)) {
@@ -141,7 +141,7 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock, Wi
                         un_.setFileName(getFile().getFileName());
                         un_.setIndexFile(valueOffset);
                         un_.setType(clArg_);
-                        _cont.getClasses().addError(un_);
+                        _cont.addError(un_);
                     } else {
                         enumTest = true;
                     }
@@ -166,7 +166,7 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock, Wi
             UnexpectedTagName un_ = new UnexpectedTagName();
             un_.setFileName(getFile().getFileName());
             un_.setIndexFile(getOffset().getOffsetTrim());
-            _cont.getClasses().addError(un_);
+            _cont.addError(un_);
             first_ = first_.getNextSibling();
         }
         _cont.getCoverage().putBlockOperationsSwitchs(_cont,this,def_);

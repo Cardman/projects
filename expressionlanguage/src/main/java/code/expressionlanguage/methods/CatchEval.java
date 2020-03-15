@@ -71,7 +71,7 @@ public final class CatchEval extends AbstractCatchEval {
             d_.setId(variableName);
             d_.setFileName(getFile().getFileName());
             d_.setIndexFile(variableNameOffset);
-            _cont.getClasses().addError(d_);
+            _cont.addError(d_);
             return;
         }
         if (!_cont.isValidSingleToken(variableName)) {
@@ -79,7 +79,7 @@ public final class CatchEval extends AbstractCatchEval {
             b_.setFileName(getFile().getFileName());
             b_.setIndexFile(variableNameOffset);
             b_.setVarName(variableName);
-            _cont.getClasses().addError(b_);
+            _cont.addError(b_);
         }
         LocalVariable lv_ = new LocalVariable();
         lv_.setClassName(importedClassName);

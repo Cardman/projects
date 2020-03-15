@@ -54,7 +54,7 @@ public final class MutableLoopVariableOperation extends LeafOperation implements
                 d_.setId(str_);
                 d_.setFileName(_conf.getCurrentFileName());
                 d_.setIndexFile(page_.getTraceIndex());
-                _conf.getClasses().addError(d_);
+                _conf.addError(d_);
                 setResultClass(new ClassArgumentMatching(_conf.getCurrentVarSetting()));
                 return;
             }
@@ -63,7 +63,7 @@ public final class MutableLoopVariableOperation extends LeafOperation implements
                 b_.setFileName(_conf.getCurrentFileName());
                 b_.setIndexFile(page_.getTraceIndex());
                 b_.setVarName(str_);
-                _conf.getClasses().addError(b_);
+                _conf.addError(b_);
             }
             String c_ = _conf.getCurrentVarSetting();
             KeyWords keyWords_ = _conf.getKeyWords();
@@ -134,7 +134,7 @@ public final class MutableLoopVariableOperation extends LeafOperation implements
                         UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
                         un_.setFileName(_conf.getCurrentFileName());
                         un_.setIndexFile(_conf.getCurrentLocationIndex());
-                        _conf.getClasses().addError(un_);
+                        _conf.addError(un_);
                     }
                 }
             }

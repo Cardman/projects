@@ -47,7 +47,7 @@ public final class CmpOperation extends MethodOperation implements MiddleSymbolO
             badNb_.setFileName(_conf.getCurrentFileName());
             badNb_.setOperandsNumber(chidren_.size());
             badNb_.setIndexFile(_conf.getCurrentLocationIndex());
-            _conf.getClasses().addError(badNb_);
+            _conf.addError(badNb_);
             setResultClass(new ClassArgumentMatching(stds_.getAliasPrimBoolean()));
             return;
         }
@@ -92,7 +92,7 @@ public final class CmpOperation extends MethodOperation implements MiddleSymbolO
             un_.setFileName(_conf.getCurrentFileName());
             un_.setExpectedResult(stds_.getAliasString());
             un_.setOperands(first_,second_);
-            _conf.getClasses().addError(un_);
+            _conf.addError(un_);
             setResultClass(new ClassArgumentMatching(res_));
             return;
         }
@@ -118,7 +118,7 @@ public final class CmpOperation extends MethodOperation implements MiddleSymbolO
             un_.setFileName(_conf.getCurrentFileName());
             un_.setExpectedResult(stds_.getAliasPrimDouble());
             un_.setOperands(first_,second_);
-            _conf.getClasses().addError(un_);
+            _conf.addError(un_);
             setResultClass(new ClassArgumentMatching(res_));
             return;
         }
@@ -134,7 +134,7 @@ public final class CmpOperation extends MethodOperation implements MiddleSymbolO
         un_.setFileName(_conf.getCurrentFileName());
         un_.setExpectedResult(StringList.join(expectedTypes_, ";"));
         un_.setOperands(first_,second_);
-        _conf.getClasses().addError(un_);
+        _conf.addError(un_);
         setResultClass(new ClassArgumentMatching(res_));
     }
     @Override

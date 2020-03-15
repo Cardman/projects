@@ -1738,14 +1738,14 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);
         processEl("1&&0", context_);
-        assertTrue(!context_.getClasses().isEmptyErrors());
+        assertTrue(!context_.isEmptyErrors());
     }
     @Test
     public void processEl7FailTest() {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);
         processEl("$new $int[-1i]", context_);
-        assertTrue(context_.getClasses().isEmptyErrors());
+        assertTrue(context_.isEmptyErrors());
         assertNotNull(getException(context_));
     }
     @Test
@@ -1753,7 +1753,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);
         processEl("$new java.lang.Integer[-1i]", context_);
-        assertTrue(context_.getClasses().isEmptyErrors());
+        assertTrue(context_.isEmptyErrors());
         assertNotNull(getException(context_));
     }
     @Test
@@ -1761,7 +1761,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);
         processEl("$true<$false", context_);
-        assertTrue(!context_.getClasses().isEmptyErrors());
+        assertTrue(!context_.isEmptyErrors());
     }
 
     @Test
@@ -1770,7 +1770,7 @@ public final class RenderExpUtilTest extends CommonRender {
         addImportingPage(context_);
         String el_ = "$firstopt(6)*(7+8)";
         processEl(el_, context_);
-        assertTrue(!context_.getClasses().isEmptyErrors());
+        assertTrue(!context_.isEmptyErrors());
     }
     @Test
     public void processEl25FailTest() {
@@ -1778,7 +1778,7 @@ public final class RenderExpUtilTest extends CommonRender {
         addImportingPage(context_);
         String el_ = "\"\".format(\"6\",$vararg(6))";
         processEl(el_, context_);
-        assertTrue(!context_.getClasses().isEmptyErrors());
+        assertTrue(!context_.isEmptyErrors());
     }
     @Test
     public void processEl26FailTest() {
@@ -1786,7 +1786,7 @@ public final class RenderExpUtilTest extends CommonRender {
         addImportingPage(context_);
         String el_ = "\"\".format($vararg(6),\"6\")";
         processEl(el_, context_);
-        assertTrue(!context_.getClasses().isEmptyErrors());
+        assertTrue(!context_.isEmptyErrors());
     }
     @Test
     public void processEl27FailTest() {
@@ -1794,7 +1794,7 @@ public final class RenderExpUtilTest extends CommonRender {
         addImportingPage(context_);
         String el_ = "$vararg(java.lang.Object)*(7+8)";
         processEl(el_, context_);
-        assertTrue(!context_.getClasses().isEmptyErrors());
+        assertTrue(!context_.isEmptyErrors());
     }
     @Test
     public void processEl28FailTest() {
@@ -1802,7 +1802,7 @@ public final class RenderExpUtilTest extends CommonRender {
         addImportingPage(context_);
         String el_ = "\"\".format($vararg(6),\"6\")";
         processEl(el_, context_);
-        assertTrue(!context_.getClasses().isEmptyErrors());
+        assertTrue(!context_.isEmptyErrors());
     }
     @Test
     public void processEl29FailTest() {
@@ -1810,7 +1810,7 @@ public final class RenderExpUtilTest extends CommonRender {
         addImportingPage(context_);
         String el_ = "\"\".format($firstopt(6),\"6\")";
         processEl(el_, context_);
-        assertTrue(!context_.getClasses().isEmptyErrors());
+        assertTrue(!context_.isEmptyErrors());
     }
     @Test
     public void processEl30FailTest() {
@@ -1827,7 +1827,7 @@ public final class RenderExpUtilTest extends CommonRender {
         addImportingPage(conf_);
         String el_ = "1<2<3";
         processEl(el_, conf_);
-        assertTrue(!conf_.getClasses().isEmptyErrors());
+        assertTrue(!conf_.isEmptyErrors());
     }
 
     @Test
@@ -1836,7 +1836,7 @@ public final class RenderExpUtilTest extends CommonRender {
         addImportingPage(conf_);
         String el_ = "f(,)";
         processEl(el_, conf_);
-        assertTrue(!conf_.getClasses().isEmptyErrors());
+        assertTrue(!conf_.isEmptyErrors());
     }
     @Test
     public void processEl179Test() {
@@ -1860,7 +1860,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Argument argGl_ = context_.getOperationPageEl().getGlobalArgument();
         boolean static_ = setupStaticCtx(ctx_, argGl_);
         CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, static_, context_);
-        assertTrue(context_.getClasses().isEmptyErrors());
+        assertTrue(context_.isEmptyErrors());
         ctx_.setAnalyzing(null);
         calculate(all_, context_);
         assertEq(4, ((NumberStruct)lv_.getStruct()).intStruct());
@@ -1887,7 +1887,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Argument argGl_ = context_.getOperationPageEl().getGlobalArgument();
         boolean static_ = setupStaticCtx(ctx_, argGl_);
         CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, static_, context_);
-        assertTrue(context_.getClasses().isEmptyErrors());
+        assertTrue(context_.isEmptyErrors());
         ctx_.setAnalyzing(null);
         calculate(all_, context_);
         assertEq(false, ((BooleanStruct)lv_.getStruct()).getInstance());
@@ -1914,7 +1914,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Argument argGl_ = context_.getOperationPageEl().getGlobalArgument();
         boolean static_ = setupStaticCtx(ctx_, argGl_);
         CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, static_, context_);
-        assertTrue(context_.getClasses().isEmptyErrors());
+        assertTrue(context_.isEmptyErrors());
         ctx_.setAnalyzing(null);
         calculate(all_, context_);
         assertEq(true, ((BooleanStruct)lv_.getStruct()).getInstance());
@@ -1941,7 +1941,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Argument argGl_ = context_.getOperationPageEl().getGlobalArgument();
         boolean static_ = setupStaticCtx(ctx_, argGl_);
         CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, static_, context_);
-        assertTrue(context_.getClasses().isEmptyErrors());
+        assertTrue(context_.isEmptyErrors());
         ctx_.setAnalyzing(null);
         calculate(all_, context_);
         assertNotNull(getException(context_));
@@ -1969,7 +1969,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Argument argGl_ = context_.getOperationPageEl().getGlobalArgument();
         boolean static_ = setupStaticCtx(ctx_, argGl_);
         CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, static_, context_);
-        assertTrue(context_.getClasses().isEmptyErrors());
+        assertTrue(context_.isEmptyErrors());
         ctx_.setAnalyzing(null);
         calculate(all_, context_);
         assertNotNull(getException(context_));
@@ -1997,7 +1997,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Argument argGl_ = context_.getOperationPageEl().getGlobalArgument();
         boolean static_ = setupStaticCtx(ctx_, argGl_);
         CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, static_, context_);
-        assertTrue(context_.getClasses().isEmptyErrors());
+        assertTrue(context_.isEmptyErrors());
         ctx_.setAnalyzing(null);
         calculate(all_, context_);
         assertNotNull(getException(context_));
@@ -2025,7 +2025,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Argument argGl_ = context_.getOperationPageEl().getGlobalArgument();
         boolean static_ = setupStaticCtx(ctx_, argGl_);
         CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, static_, context_);
-        assertTrue(context_.getClasses().isEmptyErrors());
+        assertTrue(context_.isEmptyErrors());
         ctx_.setAnalyzing(null);
         calculate(all_, context_);
         assertNotNull(getException(context_));
@@ -2053,7 +2053,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Argument argGl_ = context_.getOperationPageEl().getGlobalArgument();
         boolean static_ = setupStaticCtx(ctx_, argGl_);
         CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, static_, context_);
-        assertTrue(context_.getClasses().isEmptyErrors());
+        assertTrue(context_.isEmptyErrors());
         ctx_.setAnalyzing(null);
         Argument arg_ = calculate(all_, context_);
         assertTrue(arg_.isFalse());
@@ -2080,7 +2080,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Argument argGl_ = context_.getOperationPageEl().getGlobalArgument();
         boolean static_ = setupStaticCtx(ctx_, argGl_);
         CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, static_, context_);
-        assertTrue(context_.getClasses().isEmptyErrors());
+        assertTrue(context_.isEmptyErrors());
         ctx_.setAnalyzing(null);
         Argument arg_ = calculate(all_, context_);
         assertEq(4, ((NumberStruct)lv_.getStruct()).intStruct());
@@ -2108,7 +2108,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Argument argGl_ = context_.getOperationPageEl().getGlobalArgument();
         boolean static_ = setupStaticCtx(ctx_, argGl_);
         CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, static_, context_);
-        assertTrue(context_.getClasses().isEmptyErrors());
+        assertTrue(context_.isEmptyErrors());
         ctx_.setAnalyzing(null);
         Argument arg_ = calculate(all_, context_);
         assertEq(4, ((NumberStruct)lv_.getStruct()).intStruct());
@@ -2138,7 +2138,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Argument argGl_ = context_.getOperationPageEl().getGlobalArgument();
         boolean static_ = setupStaticCtx(ctx_, argGl_);
         CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, static_, context_);
-        assertTrue(context_.getClasses().isEmptyErrors());
+        assertTrue(context_.isEmptyErrors());
         ctx_.setAnalyzing(null);
         Argument arg_ = calculate(all_, context_);
         assertEq(6, ((NumberStruct) in_[0]).intStruct());
@@ -2168,7 +2168,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Argument argGl_ = context_.getOperationPageEl().getGlobalArgument();
         boolean static_ = setupStaticCtx(ctx_, argGl_);
         CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, static_, context_);
-        assertTrue(context_.getClasses().isEmptyErrors());
+        assertTrue(context_.isEmptyErrors());
         ctx_.setAnalyzing(null);
         Argument arg_ = calculate(all_, context_);
         assertEq(6, ((NumberStruct) in_[0]).intStruct());
@@ -2196,7 +2196,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Argument argGl_ = context_.getOperationPageEl().getGlobalArgument();
         boolean static_ = setupStaticCtx(ctx_, argGl_);
         CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, static_, context_);
-        assertTrue(context_.getClasses().isEmptyErrors());
+        assertTrue(context_.isEmptyErrors());
         ctx_.setAnalyzing(null);
         Argument arg_ = calculate(all_, context_);
         assertEq(5, ((NumberStruct)lv_.getStruct()).intStruct());
@@ -2226,7 +2226,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Argument argGl_ = context_.getOperationPageEl().getGlobalArgument();
         boolean static_ = setupStaticCtx(ctx_, argGl_);
         CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, static_, context_);
-        assertTrue(context_.getClasses().isEmptyErrors());
+        assertTrue(context_.isEmptyErrors());
         ctx_.setAnalyzing(null);
         Argument arg_ = calculate(all_, context_);
         assertEq(8, ((NumberStruct) in_[0]).intStruct());
@@ -2258,7 +2258,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Argument argGl_ = context_.getOperationPageEl().getGlobalArgument();
         boolean static_ = setupStaticCtx(ctx_, argGl_);
         CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, static_, context_);
-        assertTrue(context_.getClasses().isEmptyErrors());
+        assertTrue(context_.isEmptyErrors());
         ctx_.setAnalyzing(null);
         Argument arg_ = calculate(all_, context_);
         assertEq(12, ((NumberStruct)lv2_.getStruct()).intStruct());
@@ -2291,7 +2291,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Argument argGl_ = context_.getOperationPageEl().getGlobalArgument();
         boolean static_ = setupStaticCtx(ctx_, argGl_);
         CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, static_, context_);
-        assertTrue(context_.getClasses().isEmptyErrors());
+        assertTrue(context_.isEmptyErrors());
         ctx_.setAnalyzing(null);
         Argument arg_ = calculate(all_, context_);
         assertEq(12, ((NumberStruct)lv2_.getStruct()).intStruct());
@@ -2324,7 +2324,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Argument argGl_ = context_.getOperationPageEl().getGlobalArgument();
         boolean static_ = setupStaticCtx(ctx_, argGl_);
         CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, static_, context_);
-        assertTrue(context_.getClasses().isEmptyErrors());
+        assertTrue(context_.isEmptyErrors());
         ctx_.setAnalyzing(null);
         Argument arg_ = calculate(all_, context_);
         assertEq(13, ((NumberStruct)lv2_.getStruct()).intStruct());
@@ -2357,7 +2357,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Argument argGl_ = context_.getOperationPageEl().getGlobalArgument();
         boolean static_ = setupStaticCtx(ctx_, argGl_);
         CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, static_, context_);
-        assertTrue(context_.getClasses().isEmptyErrors());
+        assertTrue(context_.isEmptyErrors());
         ctx_.setAnalyzing(null);
         Argument arg_ = calculate(all_, context_);
         assertEq(13, ((NumberStruct)lv2_.getStruct()).intStruct());
@@ -2380,7 +2380,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Argument argGl_ = context_.getOperationPageEl().getGlobalArgument();
         boolean static_ = setupStaticCtx(ctx_, argGl_);
         CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, static_, context_);
-        assertTrue(context_.getClasses().isEmptyErrors());
+        assertTrue(context_.isEmptyErrors());
         ctx_.setAnalyzing(null);
         Argument arg_ = calculate(all_, context_);
         assertEq(1, arg_.getNumber());
@@ -2404,14 +2404,14 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);
         processEl("$($byte)$null", context_);
-        assertTrue(!context_.getClasses().isEmptyErrors());
+        assertTrue(!context_.isEmptyErrors());
     }
     @Test
     public void processEl201Test() {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);
         Argument arg_ = processEl("$(java.lang.Byte)$null", context_);
-        assertTrue(context_.getClasses().isEmptyErrors());
+        assertTrue(context_.isEmptyErrors());
         assertNull(getException(context_));
         assertSame(NullStruct.NULL_VALUE, arg_.getStruct());
     }
@@ -2420,7 +2420,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);
         processEl("$(java.lang.Byte)\"not cast\"", context_);
-        assertTrue(context_.getClasses().isEmptyErrors());
+        assertTrue(context_.isEmptyErrors());
         Struct exc_ = getException(context_);
         assertNotNull(exc_);
         assertEq(context_.getStandards().getAliasCastType(),exc_.getClassName(context_.getContext()));
@@ -2444,7 +2444,7 @@ public final class RenderExpUtilTest extends CommonRender {
         context_.getLastPage().setLocalVars(localVars_);
         String el_ = "!v;.";
         processEl(el_, context_);
-        assertTrue(context_.getClasses().isEmptyErrors());
+        assertTrue(context_.isEmptyErrors());
         assertNotNull(getException(context_));
         ContextEl ctx_= context_.getContext();
         assertEq(ctx_.getStandards().getAliasNullPe(), getException(context_).getClassName(ctx_));
@@ -2460,7 +2460,7 @@ public final class RenderExpUtilTest extends CommonRender {
         context_.getLastPage().setLocalVars(localVars_);
         String el_ = "$($byte)v;.";
         processEl(el_, context_);
-        assertTrue(context_.getClasses().isEmptyErrors());
+        assertTrue(context_.isEmptyErrors());
         ContextEl ctx_= context_.getContext();
         assertEq(ctx_.getStandards().getAliasNullPe(), getException(context_).getClassName(ctx_));
     }
@@ -2485,10 +2485,10 @@ public final class RenderExpUtilTest extends CommonRender {
         Argument argGl_ = context_.getOperationPageEl().getGlobalArgument();
         boolean static_ = setupStaticCtx(ctx_, argGl_);
         CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, static_, context_);
-        assertTrue(context_.getClasses().isEmptyErrors());
+        assertTrue(context_.isEmptyErrors());
         ctx_.setAnalyzing(null);
         calculate(all_, context_);
-        assertTrue(context_.getClasses().isEmptyErrors());
+        assertTrue(context_.isEmptyErrors());
         assertEq(ctx_.getStandards().getAliasNullPe(), getException(context_).getClassName(ctx_));
     }
     @Test
@@ -2512,10 +2512,10 @@ public final class RenderExpUtilTest extends CommonRender {
         Argument argGl_ = context_.getOperationPageEl().getGlobalArgument();
         boolean static_ = setupStaticCtx(ctx_, argGl_);
         CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, static_, context_);
-        assertTrue(context_.getClasses().isEmptyErrors());
+        assertTrue(context_.isEmptyErrors());
         ctx_.setAnalyzing(null);
         calculate(all_, context_);
-        assertTrue(context_.getClasses().isEmptyErrors());
+        assertTrue(context_.isEmptyErrors());
         assertEq(ctx_.getStandards().getAliasNullPe(), getException(context_).getClassName(ctx_));
     }
     @Test
@@ -2542,10 +2542,10 @@ public final class RenderExpUtilTest extends CommonRender {
         Argument argGl_ = context_.getOperationPageEl().getGlobalArgument();
         boolean static_ = setupStaticCtx(ctx_, argGl_);
         CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, static_, context_);
-        assertTrue(context_.getClasses().isEmptyErrors());
+        assertTrue(context_.isEmptyErrors());
         ctx_.setAnalyzing(null);
         calculate(all_, context_);
-        assertTrue(context_.getClasses().isEmptyErrors());
+        assertTrue(context_.isEmptyErrors());
         assertEq(ctx_.getStandards().getAliasNullPe(), getException(context_).getClassName(ctx_));
     }
 
@@ -2573,10 +2573,10 @@ public final class RenderExpUtilTest extends CommonRender {
         Argument argGl_ = context_.getOperationPageEl().getGlobalArgument();
         boolean static_ = setupStaticCtx(ctx_, argGl_);
         CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, static_, context_);
-        assertTrue(context_.getClasses().isEmptyErrors());
+        assertTrue(context_.isEmptyErrors());
         ctx_.setAnalyzing(null);
         calculate(all_, context_);
-        assertTrue(context_.getClasses().isEmptyErrors());
+        assertTrue(context_.isEmptyErrors());
         assertEq(ctx_.getStandards().getAliasNullPe(), getException(context_).getClassName(ctx_));
     }
     @Test
@@ -2924,7 +2924,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);
         processEl("$class(java.lang.String).getDeclaredMethods(\"length\",$false,$false)[0i].invoke($null)", context_);
-        assertTrue(context_.getClasses().isEmptyErrors());
+        assertTrue(context_.isEmptyErrors());
         assertNotNull(getException(context_));
     }
     @Test
@@ -2932,7 +2932,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);
         processEl("$class(java.lang.String).getDeclaredMethods(\"length\",$false,$false)[0i].invoke(1i)", context_);
-        assertTrue(context_.getClasses().isEmptyErrors());
+        assertTrue(context_.isEmptyErrors());
         assertNotNull(getException(context_));
     }
     @Test
@@ -2940,7 +2940,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);
         processEl("$class($math).getDeclaredMethods(\"mod\",$true,$false,$class($int),$class($int))[0i].invoke($null,4i)", context_);
-        assertTrue(context_.getClasses().isEmptyErrors());
+        assertTrue(context_.isEmptyErrors());
         assertNotNull(getException(context_));
     }
     @Test
@@ -2980,7 +2980,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration cont_ = getConfiguration4(files_);
         addImportingPage(cont_);
         processEl("$static(pkg.ExTwo).exmeth()", cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         assertNotNull(getException(cont_));
     }
     @Test
@@ -2988,7 +2988,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);
         processEl("$class($math).getDeclaredMethods(\"mod\",$true,$false,$class($int),$class($int))[0i].invoke($null,4i,\"\")", context_);
-        assertTrue(context_.getClasses().isEmptyErrors());
+        assertTrue(context_.isEmptyErrors());
         assertNotNull(getException(context_));
     }
     @Test
@@ -2996,7 +2996,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);
         processEl("$class($math).getDeclaredMethods(\"mod\",$true,$false,$class($int),$class($int))[0i].invoke($null,4i,$null)", context_);
-        assertTrue(context_.getClasses().isEmptyErrors());
+        assertTrue(context_.isEmptyErrors());
         assertNotNull(getException(context_));
     }
     @Test
@@ -3041,7 +3041,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration cont_ = getConfiguration4(files_);
         addImportingPage(cont_);
         processEl("$static(pkg.ExTwo).exmeth()", cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         assertNotNull(getException(cont_));
     }
     @Test
@@ -3086,7 +3086,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration cont_ = getConfiguration4(files_);
         addImportingPage(cont_);
         processEl("$static(pkg.ExTwo).exmeth()", cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         assertNotNull(getException(cont_));
     }
     @Test
@@ -3566,7 +3566,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration cont_ = getConfiguration4(files_);
         addImportingPage(cont_);
         Argument arg_ = processEl("$static(pkg.ExTwo).exmeth()", cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         assertTrue(arg_.isNull());
         assertNull(getException(cont_));
         assertEq(10, ((NumberStruct)cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "inst"))).intStruct());
@@ -3614,7 +3614,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration cont_ = getConfiguration4(files_);
         addImportingPage(cont_);
         processEl("$static(pkg.ExTwo).exmeth()", cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         assertNotNull(getException(cont_));
     }
     @Test
@@ -3663,7 +3663,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration cont_ = getConfiguration4(files_);
         addImportingPage(cont_);
         processEl("$static(pkg.ExTwo).exmeth()", cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         assertNotNull(getException(cont_));
     }
     @Test
@@ -3712,7 +3712,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration cont_ = getConfiguration4(files_);
         addImportingPage(cont_);
         processEl("$static(pkg.ExTwo).exmeth()", cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         assertNotNull(getException(cont_));
     }
     @Test
@@ -3761,7 +3761,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration cont_ = getConfiguration4(files_);
         addImportingPage(cont_);
         processEl("$static(pkg.ExTwo).exmeth()", cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         assertNotNull(getException(cont_));
     }
     @Test
@@ -3810,7 +3810,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration cont_ = getConfiguration4(files_);
         addImportingPage(cont_);
         processEl("$static(pkg.ExTwo).exmeth()", cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         assertNotNull(getException(cont_));
     }
     @Test
@@ -4104,7 +4104,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration cont_ = getConfiguration4(files_);
         addImportingPage(cont_);
         processEl("$static(pkg.ExTwo).exmeth()", cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         assertNotNull(getException(cont_));
     }
     @Test
@@ -4157,7 +4157,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration cont_ = getConfiguration4(files_);
         addImportingPage(cont_);
         processEl("$static(pkg.ExTwo).exmeth()", cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         assertNotNull(getException(cont_));
     }
     @Test
@@ -4204,7 +4204,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration cont_ = getConfiguration4(files_);
         addImportingPage(cont_);
         processEl("$static(pkg.ExTwo).exmeth()", cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         assertNotNull(getException(cont_));
     }
     @Test
@@ -4402,7 +4402,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration cont_ = getConfiguration4(files_);
         addImportingPage(cont_);
         processEl("$static(pkg.ExTwo).exmeth()", cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         assertNotNull(getException(cont_));
     }
     @Test
@@ -4448,7 +4448,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration cont_ = getConfiguration4(files_);
         addImportingPage(cont_);
         processEl("$static(pkg.ExTwo).exmeth()", cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         assertNotNull(getException(cont_));
     }
     @Test
@@ -4494,7 +4494,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration cont_ = getConfiguration4(files_);
         addImportingPage(cont_);
         processEl("$static(pkg.ExTwo).exmeth()", cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         assertNotNull(getException(cont_));
     }
     @Test
@@ -4631,7 +4631,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration cont_ = getConfiguration4(files_);
         addImportingPage(cont_);
         processEl("$static(pkg.ExTwo).exmeth()", cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         assertNotNull(getException(cont_));
     }
     @Test
@@ -4678,7 +4678,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration cont_ = getConfiguration4(files_);
         addImportingPage(cont_);
         processEl("$static(pkg.ExTwo).exmeth()", cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         assertNotNull(getException(cont_));
     }
     @Test
@@ -4725,7 +4725,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration cont_ = getConfiguration4(files_);
         addImportingPage(cont_);
         Argument arg_ = processEl("$static(pkg.ExTwo).exmeth()", cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         assertTrue(arg_.isNull());
         assertNull(getException(cont_));
     }
@@ -4773,7 +4773,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration cont_ = getConfiguration4(files_);
         addImportingPage(cont_);
         processEl("$static(pkg.ExTwo).exmeth()", cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         assertNotNull(getException(cont_));
     }
     @Test
@@ -4820,7 +4820,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration cont_ = getConfiguration4(files_);
         addImportingPage(cont_);
         processEl("$static(pkg.ExTwo).exmeth()", cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         assertNotNull(getException(cont_));
     }
     @Test
@@ -4867,7 +4867,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration cont_ = getConfiguration4(files_);
         addImportingPage(cont_);
         processEl("$static(pkg.ExTwo).exmeth()", cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         assertNotNull(getException(cont_));
     }
     @Test
@@ -4914,7 +4914,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration cont_ = getConfiguration4(files_);
         addImportingPage(cont_);
         processEl("$static(pkg.ExTwo).exmeth()", cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         assertNotNull(getException(cont_));
     }
     @Test
@@ -5010,7 +5010,7 @@ public final class RenderExpUtilTest extends CommonRender {
         addImportingPage(cont_);
         Argument arg_ =processEl("$static(pkg.ExTwo).exmeth()", cont_);
         assertTrue(arg_.isNull());
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         assertNull(getException(cont_));
     }
     @Test
@@ -5105,7 +5105,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration cont_ = getConfiguration4(files_);
         addImportingPage(cont_);
         processEl("$static(pkg.ExTwo).exmeth()", cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         assertNotNull(getException(cont_));
     }
     @Test
@@ -5146,7 +5146,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration cont_ = getConfiguration4(files_);
         addImportingPage(cont_);
         processEl("$static(pkg.ExTwo).exmeth()", cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         Struct exc_ = getException(cont_);
         assertTrue(exc_ instanceof InvokeTargetErrorStruct);
         Struct cause_ = ((InvokeTargetErrorStruct)exc_).getCause();
@@ -5192,7 +5192,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration cont_ = getConfiguration4(files_);
         addImportingPage(cont_);
         processEl("$static(pkg.ExTwo).exmeth()", cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         Struct exc_ = getException(cont_);
         assertTrue(exc_ instanceof InvokeTargetErrorStruct);
         Struct cause_ = ((InvokeTargetErrorStruct)exc_).getCause();
@@ -5236,7 +5236,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration cont_ = getConfiguration4(files_);
         addImportingPage(cont_);
         processEl("$static(pkg.ExTwo).exmeth()", cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         Struct exc_ = getException(cont_);
         assertTrue(exc_ instanceof InvokeTargetErrorStruct);
         Struct cause_ = ((InvokeTargetErrorStruct)exc_).getCause();
@@ -5284,7 +5284,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration cont_ = getConfiguration4(files_);
         addImportingPage(cont_);
         processEl("$static(pkg.ExTwo).exmeth()", cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         Struct exc_ = getException(cont_);
         assertTrue(exc_ instanceof CausingErrorStruct);
         Struct cause_ = ((CausingErrorStruct)exc_).getCause();
@@ -5479,7 +5479,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration cont_ = getConfiguration4(files_);
         addImportingPage(cont_);
         processEl("$static(pkg.ExTwo).exmeth()", cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         Struct exc_ = getException(cont_);
         assertEq(cont_.getStandards().getAliasClassNotFoundError(), exc_.getClassName(cont_));
     }
@@ -5507,7 +5507,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration cont_ = getConfiguration4(files_);
         addImportingPage(cont_);
         processEl("$static(pkg.ExTwo).exmeth()", cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         Struct exc_ = getException(cont_);
         assertEq(cont_.getStandards().getAliasNullPe(), exc_.getClassName(cont_));
     }
@@ -5537,7 +5537,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Argument argGl_ = context_.getOperationPageEl().getGlobalArgument();
         boolean static_ = setupStaticCtx(ctx_, argGl_);
         CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, static_, context_);
-        assertTrue(context_.getClasses().isEmptyErrors());
+        assertTrue(context_.isEmptyErrors());
         ctx_.setAnalyzing(null);
         Argument arg_ = calculate(all_, context_);
         assertEq(4, ((NumberStruct)lv2_.getStruct()).intStruct());
@@ -5549,7 +5549,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);
         processEl("$class(java.lang.String[]).getDeclaredMethods(\"clone\",$false,$false)[0i].invoke(\"\")", context_);
-        assertTrue(context_.getClasses().isEmptyErrors());
+        assertTrue(context_.isEmptyErrors());
         assertNotNull(getException(context_));
     }
     @Test
@@ -5557,7 +5557,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);
         processEl("$class(java.lang.String[]).getDeclaredMethods(\"clone\",$false,$false)[0i].invoke($new java.lang.Number[]{})", context_);
-        assertTrue(context_.getClasses().isEmptyErrors());
+        assertTrue(context_.isEmptyErrors());
         assertNotNull(getException(context_));
     }
     @Test
@@ -5565,7 +5565,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);
         Argument arg_ = processEl("$class(java.lang.String[]).getDeclaredMethods(\"clone\",$false,$false)[0i].invoke($new java.lang.String[]{})", context_);
-        assertTrue(context_.getClasses().isEmptyErrors());
+        assertTrue(context_.isEmptyErrors());
         assertTrue(arg_.getStruct() instanceof ArrayStruct);
         assertEq("[java.lang.String",arg_.getStruct().getClassName(context_));
         assertEq(0,(((ArrayStruct)arg_.getStruct()).getInstance()).length);
@@ -5575,7 +5575,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);
         Argument arg_ = processEl("$class(java.lang.String[]).getDeclaredMethods(\"clone\",$false,$false)[0i].invoke($new java.lang.String[]{\"sample\"})", context_);
-        assertTrue(context_.getClasses().isEmptyErrors());
+        assertTrue(context_.isEmptyErrors());
         assertTrue(arg_.getStruct() instanceof ArrayStruct);
         assertEq("[java.lang.String",arg_.getStruct().getClassName(context_));
         assertEq(1,(((ArrayStruct)arg_.getStruct()).getInstance()).length);
@@ -5587,7 +5587,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);
         Argument arg_ = processEl("$class(java.lang.Object[]).getDeclaredMethods(\"clone\",$false,$false)[0i].invoke($new java.lang.String[]{\"sample\"})", context_);
-        assertTrue(context_.getClasses().isEmptyErrors());
+        assertTrue(context_.isEmptyErrors());
         assertTrue(arg_.getStruct() instanceof ArrayStruct);
         assertEq("[java.lang.String",arg_.getStruct().getClassName(context_));
         assertEq(1,(((ArrayStruct)arg_.getStruct()).getInstance()).length);
@@ -6436,7 +6436,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration conf_ = getConfiguration4(files_);
         addImportingPage(conf_);
         processEl("$new pkg.Ex(5).inst=10", conf_);
-        assertTrue(!conf_.getClasses().isEmptyErrors());
+        assertTrue(!conf_.isEmptyErrors());
     }
     @Test
     public void processEl385Test() {
@@ -8315,7 +8315,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration conf_ = getConfiguration4(files_);
         addImportingPage(conf_);
         processEl("$new pkg.ExTwo()", conf_);
-        assertTrue(!conf_.getClasses().isEmptyErrors());
+        assertTrue(!conf_.isEmptyErrors());
     }
     @Test
     public void processEl454Test() {
@@ -8347,7 +8347,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration conf_ = getConfiguration4(files_);
         addImportingPage(conf_);
         processEl("$new pkg.Ex<$int>().res($id(pkg.Ex,#S),15)", conf_);
-        assertTrue(!conf_.getClasses().isEmptyErrors());
+        assertTrue(!conf_.isEmptyErrors());
     }
     @Test
     public void processEl456Test() {
@@ -8363,7 +8363,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration conf_ = getConfiguration4(files_);
         addImportingPage(conf_);
         processEl("$new pkg.Ex<$int>().res($id(pkg.Ex,pkg.Ex<pkg.Ex>),15)", conf_);
-        assertTrue(!conf_.getClasses().isEmptyErrors());
+        assertTrue(!conf_.isEmptyErrors());
     }
     @Test
     public void processEl457Test() {
@@ -8379,7 +8379,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration conf_ = getConfiguration4(files_);
         addImportingPage(conf_);
         processEl("$new pkg.Ex<$int>().res($id(pkg.Ex,pkg.Ex<),15)", conf_);
-        assertTrue(!conf_.getClasses().isEmptyErrors());
+        assertTrue(!conf_.isEmptyErrors());
     }
     @Test
     public void processEl458Test() {
@@ -8395,7 +8395,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration conf_ = getConfiguration4(files_);
         addImportingPage(conf_);
         processEl("$new pkg.Ex<$int>().res($id(pkg.Ex,$void),15)", conf_);
-        assertTrue(!conf_.getClasses().isEmptyErrors());
+        assertTrue(!conf_.isEmptyErrors());
     }
     @Test
     public void processEl459Test() {
@@ -8411,7 +8411,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration conf_ = getConfiguration4(files_);
         addImportingPage(conf_);
         processEl("$new pkg.Ex<$int>().res($id(pkg.ExInex),15)", conf_);
-        assertTrue(!conf_.getClasses().isEmptyErrors());
+        assertTrue(!conf_.isEmptyErrors());
     }
     @Test
     public void processEl460Test() {
@@ -8447,7 +8447,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration conf_ = getConfiguration5(files_);
         addImportingPage(conf_);
         processEl("$new pkg.Outer..Ex<$int>().res($id($void,#T),15)", conf_);
-        assertTrue(!conf_.getClasses().isEmptyErrors());
+        assertTrue(!conf_.isEmptyErrors());
     }
     @Test
     public void processEl462Test() {
@@ -8465,7 +8465,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration conf_ = getConfiguration4(files_);
         addImportingPage(conf_);
         processEl("$new pkg.Outer..Ex<$int>().res($id(pkg.Outer..ExInex,#T),15)", conf_);
-        assertTrue(!conf_.getClasses().isEmptyErrors());
+        assertTrue(!conf_.isEmptyErrors());
     }
     @Test
     public void processEl463Test() {
@@ -8501,7 +8501,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration conf_ = getConfiguration4(files_);
         addImportingPage(conf_);
         processEl("$new $void<>[i]+$new pkg.Outer..Ex<pkg.Outer..Ex<$int>>()", conf_);
-        assertTrue(!conf_.getClasses().isEmptyErrors());
+        assertTrue(!conf_.isEmptyErrors());
     }
     @Test
     public void processEl465Test() {
@@ -8509,7 +8509,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration conf_ = getConfiguration4(files_);
         addImportingPage(conf_);
         Argument arg_ = processEl("explicit($int)5", conf_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         assertEq(5, arg_.getNumber());
 
     }
@@ -8529,7 +8529,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration conf_ = getConfiguration4(files_);
         addImportingPage(conf_);
         Argument arg_ = processEl("explicit(pkg.Ex)5", conf_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         Struct struct_ = arg_.getStruct();
         assertEq("pkg.Ex", struct_.getClassName(conf_));
         assertEq(5, ((IntStruct)getStruct(struct_,new ClassField("pkg.Ex","field"))).intStruct());
@@ -8541,7 +8541,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration conf_ = getConfiguration4(files_);
         addImportingPage(conf_);
         processEl("explicit($int)\"5\"", conf_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         assertNotNull(getException(conf_));
 
     }
@@ -9049,7 +9049,7 @@ public final class RenderExpUtilTest extends CommonRender {
         localVars_.put("v", lv_);
         context_.getLastPage().getParameters().putAllMap(localVars_);
         processEl("v;.;=12i", context_);
-        assertTrue(!context_.getClasses().isEmptyErrors());
+        assertTrue(!context_.isEmptyErrors());
     }
     @Test
     public void processAffect3FailTest() {
@@ -9064,7 +9064,7 @@ public final class RenderExpUtilTest extends CommonRender {
         localVars_.put("v", lv_);
         context_.getLastPage().setLocalVars(localVars_);
         processEl("v;.[0i]=\"12i\"", context_);
-        assertTrue(!context_.getClasses().isEmptyErrors());
+        assertTrue(!context_.isEmptyErrors());
     }
     @Test
     public void processAffect8FailTest() {
@@ -9080,7 +9080,7 @@ public final class RenderExpUtilTest extends CommonRender {
         localVars_.put("v2", lv_);
         context_.getLastPage().setLocalVars(localVars_);
         processEl("v;.=v2;.", context_);
-        assertTrue(context_.getClasses().isEmptyErrors());
+        assertTrue(context_.isEmptyErrors());
         assertNotNull(getException(context_));
     }
     @Test
@@ -9105,7 +9105,7 @@ public final class RenderExpUtilTest extends CommonRender {
         localVars_.put("v", lv_);
         cont_.getLastPage().setLocalVars(localVars_);
         processEl("$classchoice(pkg.Ex)inst=v;.", cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         assertNotNull(getException(cont_));
     }
     @Test
@@ -9127,7 +9127,7 @@ public final class RenderExpUtilTest extends CommonRender {
         localVars_.put("v2", lv_);
         context_.getLastPage().setLocalVars(localVars_);
         processEl("v;.[0i]=v2;.", context_);
-        assertTrue(context_.getClasses().isEmptyErrors());
+        assertTrue(context_.isEmptyErrors());
         assertNotNull(getException(context_));
     }
     @Test
@@ -9145,7 +9145,7 @@ public final class RenderExpUtilTest extends CommonRender {
         localVars_.put("v", lv_);
         context_.getLastPage().setLocalVars(localVars_);
         processEl("v;.[0i]/=0", context_);
-        assertTrue(context_.getClasses().isEmptyErrors());
+        assertTrue(context_.isEmptyErrors());
         assertNotNull(getException(context_));
     }
     @Test
@@ -9241,7 +9241,7 @@ public final class RenderExpUtilTest extends CommonRender {
         boolean static_ = setupStaticCtx(_conf,argGl_);
         CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, static_, _conf);
         CustList<RendDynOperationNode> out_ = RenderExpUtil.getExecutableNodes(all_);
-        if (!_conf.getClasses().isEmptyErrors()) {
+        if (!_conf.isEmptyErrors()) {
             BadElError badEl_ = new BadElError();
             badEl_.setFileName(_conf.getCurrentFileName());
             badEl_.setIndexFile(_conf.getCurrentLocationIndex());
@@ -9282,7 +9282,7 @@ public final class RenderExpUtilTest extends CommonRender {
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         ContextEl cont_ = InitializationLgNames.buildStdTwo(opt_);
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         conf_.setContext(cont_);
         BeanLgNames standards_ = (BeanLgNames) cont_.getStandards();
         conf_.setStandards(standards_);
@@ -9305,7 +9305,7 @@ public final class RenderExpUtilTest extends CommonRender {
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         ContextEl cont_ = InitializationLgNames.buildStdThree(opt_);
         Classes.validateAll(_files, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         conf_.setContext(cont_);
         BeanLgNames standards_ = (BeanLgNames) cont_.getStandards();
         conf_.setStandards(standards_);
@@ -9325,7 +9325,7 @@ public final class RenderExpUtilTest extends CommonRender {
         opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdThree(opt_);
         Classes.validateAll(_files, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         conf_.setContext(cont_);
         BeanLgNames standards_ = (BeanLgNames) cont_.getStandards();
         conf_.setStandards(standards_);

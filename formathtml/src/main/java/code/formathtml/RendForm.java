@@ -44,7 +44,7 @@ public final class RendForm extends RendElement {
                     BadElError badEl_ = new BadElError();
                     badEl_.setFileName(_cont.getCurrentFileName());
                     badEl_.setIndexFile(_cont.getCurrentLocationIndex());
-                    _cont.getClasses().addError(badEl_);
+                    _cont.addError(badEl_);
                 }
             }
             StringList argList_ = new StringList();

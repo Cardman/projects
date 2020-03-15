@@ -2,6 +2,7 @@ package code.expressionlanguage.types;
 
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ExecutableCode;
+import code.expressionlanguage.inherits.ClassInheritsDeps;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.methods.AccessedBlock;
 import code.expressionlanguage.methods.AccessingImportingBlock;
@@ -47,7 +48,7 @@ final class ArraryPartType extends ParentPartType {
         String ch_ = getFirstChild().getAnalyzedType();
         ch_ = StringList.concat(getBegin(),ch_);
         setAnalyzedType(ch_);
-        StringList ts_ = getFirstChild().getTypeNames();
+        EqList<ClassInheritsDeps> ts_ = getFirstChild().getTypeNames();
         getTypeNames().addAllElts(ts_);
     }
 

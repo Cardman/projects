@@ -58,7 +58,7 @@ public final class RenderImportTest extends CommonRender {
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
         rendDocumentBlockSec_.buildFctInstructions(context_);
-        assertTrue(context_.getClasses().isEmptyErrors());
+        assertTrue(context_.isEmptyErrors());
         assertEq("<html><body><ul><li>3</li><li>4</li></ul></body></html>", RendBlock.getRes(rendDocumentBlock_, context_));
         assertNull(getException(context_));
     }
@@ -85,7 +85,7 @@ public final class RenderImportTest extends CommonRender {
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
         rendSecDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body><td>Content</td></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
     }
@@ -112,7 +112,7 @@ public final class RenderImportTest extends CommonRender {
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
         rendSecDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body><td>Content</td>NextAfter</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
     }
@@ -139,7 +139,7 @@ public final class RenderImportTest extends CommonRender {
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
         rendSecDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body><td>Content</td>1After</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
     }
@@ -166,7 +166,7 @@ public final class RenderImportTest extends CommonRender {
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
         rendSecDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_,conf_);
         assertNotNull(getException(conf_));
     }
@@ -193,7 +193,7 @@ public final class RenderImportTest extends CommonRender {
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
         rendSecDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_,conf_);
         assertNotNull(getException(conf_));
     }
@@ -220,7 +220,7 @@ public final class RenderImportTest extends CommonRender {
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
         rendSecDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body><td>Content</td>NextAfter</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
     }
@@ -247,7 +247,7 @@ public final class RenderImportTest extends CommonRender {
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
         rendSecDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body><pre> </pre></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
     }
@@ -298,7 +298,7 @@ public final class RenderImportTest extends CommonRender {
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
         rendDocumentBlockSec_.buildFctInstructions(context_);
-        assertTrue(context_.getClasses().isEmptyErrors());
+        assertTrue(context_.isEmptyErrors());
         assertEq("<html><body><ul><li>3</li><li>4</li></ul></body></html>", RendBlock.getRes(rendDocumentBlock_, context_));
         assertNull(getException(context_));
     }
@@ -325,7 +325,7 @@ public final class RenderImportTest extends CommonRender {
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
         rendSecDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body><td>Content</td>1Exc</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
     }
@@ -386,7 +386,7 @@ public final class RenderImportTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(context_);
         rendDocumentBlockSec_.buildFctInstructions(context_);
         rendDocumentBlockThird_.buildFctInstructions(context_);
-        assertTrue(context_.getClasses().isEmptyErrors());
+        assertTrue(context_.isEmptyErrors());
         assertEq("<html><body>3</body></html>", RendBlock.getRes(rendDocumentBlock_, context_));
         assertNull(getException(context_));
     }
@@ -447,7 +447,7 @@ public final class RenderImportTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(context_);
         rendDocumentBlockSec_.buildFctInstructions(context_);
         rendDocumentBlockThird_.buildFctInstructions(context_);
-        assertTrue(context_.getClasses().isEmptyErrors());
+        assertTrue(context_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_, context_);
         assertNotNull(getException(context_));
     }
@@ -511,7 +511,7 @@ public final class RenderImportTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(context_);
         rendDocumentBlockSec_.buildFctInstructions(context_);
         rendDocumentBlockThird_.buildFctInstructions(context_);
-        assertTrue(context_.getClasses().isEmptyErrors());
+        assertTrue(context_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_, context_);
         assertNotNull(getException(context_));
     }
@@ -562,7 +562,7 @@ public final class RenderImportTest extends CommonRender {
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
         rendDocumentBlockSec_.buildFctInstructions(context_);
-        assertTrue(context_.getClasses().isEmptyErrors());
+        assertTrue(context_.isEmptyErrors());
         assertEq("<html><body><ul><li>3</li><li>4</li></ul></body></html>", RendBlock.getRes(rendDocumentBlock_, context_));
         assertNull(getException(context_));
     }
@@ -613,7 +613,7 @@ public final class RenderImportTest extends CommonRender {
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
         rendDocumentBlockSec_.buildFctInstructions(context_);
-        assertTrue(context_.getClasses().isEmptyErrors());
+        assertTrue(context_.isEmptyErrors());
         assertEq("<html><body/></html>", RendBlock.getRes(rendDocumentBlock_, context_));
         assertNull(getException(context_));
     }
@@ -664,7 +664,7 @@ public final class RenderImportTest extends CommonRender {
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
         rendDocumentBlockSec_.buildFctInstructions(context_);
-        assertTrue(context_.getClasses().isEmptyErrors());
+        assertTrue(context_.isEmptyErrors());
         assertEq("<html><body/></html>", RendBlock.getRes(rendDocumentBlock_, context_));
         assertNull(getException(context_));
     }
@@ -715,7 +715,7 @@ public final class RenderImportTest extends CommonRender {
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
         rendDocumentBlockSec_.buildFctInstructions(context_);
-        assertTrue(context_.getClasses().isEmptyErrors());
+        assertTrue(context_.isEmptyErrors());
         assertEq("<html><body/></html>", RendBlock.getRes(rendDocumentBlock_, context_));
         assertNull(getException(context_));
     }
@@ -766,7 +766,7 @@ public final class RenderImportTest extends CommonRender {
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
         rendDocumentBlockSec_.buildFctInstructions(context_);
-        assertTrue(context_.getClasses().isEmptyErrors());
+        assertTrue(context_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_, context_);
         assertNotNull(getException(context_));
     }
@@ -823,7 +823,7 @@ public final class RenderImportTest extends CommonRender {
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
         rendDocumentBlockSec_.buildFctInstructions(context_);
-        assertTrue(context_.getClasses().isEmptyErrors());
+        assertTrue(context_.isEmptyErrors());
         assertEq("<html><body><ul><li>3</li><li>4</li></ul></body></html>", RendBlock.getRes(rendDocumentBlock_, context_));
         assertNull(getException(context_));
     }
@@ -883,7 +883,7 @@ public final class RenderImportTest extends CommonRender {
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
         rendDocumentBlockSec_.buildFctInstructions(context_);
-        assertTrue(context_.getClasses().isEmptyErrors());
+        assertTrue(context_.isEmptyErrors());
         assertEq("<html><body><ul><li>3</li><li>4</li></ul></body></html>", RendBlock.getRes(rendDocumentBlock_, context_));
         assertNull(getException(context_));
     }
@@ -943,7 +943,7 @@ public final class RenderImportTest extends CommonRender {
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
         rendDocumentBlockSec_.buildFctInstructions(context_);
-        assertTrue(context_.getClasses().isEmptyErrors());
+        assertTrue(context_.isEmptyErrors());
         assertEq("<html><body><ul><li>5</li><li>6</li></ul></body></html>", RendBlock.getRes(rendDocumentBlock_, context_));
         assertNull(getException(context_));
     }
@@ -1004,7 +1004,7 @@ public final class RenderImportTest extends CommonRender {
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
         rendDocumentBlockSec_.buildFctInstructions(context_);
-        assertTrue(context_.getClasses().isEmptyErrors());
+        assertTrue(context_.isEmptyErrors());
         assertEq("<html><body><ul><li>5</li><li>6</li></ul></body></html>", RendBlock.getRes(rendDocumentBlock_, context_));
         assertNull(getException(context_));
     }
@@ -1070,7 +1070,7 @@ public final class RenderImportTest extends CommonRender {
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
         rendDocumentBlockSec_.buildFctInstructions(context_);
-        assertTrue(context_.getClasses().isEmptyErrors());
+        assertTrue(context_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_, context_);
         assertNotNull(getException(context_));
     }
@@ -1135,7 +1135,7 @@ public final class RenderImportTest extends CommonRender {
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
         rendDocumentBlockSec_.buildFctInstructions(context_);
-        assertTrue(context_.getClasses().isEmptyErrors());
+        assertTrue(context_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_, context_);
         assertNotNull(getException(context_));
     }
@@ -1204,7 +1204,7 @@ public final class RenderImportTest extends CommonRender {
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
         rendDocumentBlockSec_.buildFctInstructions(context_);
-        assertTrue(context_.getClasses().isEmptyErrors());
+        assertTrue(context_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_, context_);
         assertNotNull(getException(context_));
     }
@@ -1270,7 +1270,7 @@ public final class RenderImportTest extends CommonRender {
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
         rendDocumentBlockSec_.buildFctInstructions(context_);
-        assertTrue(context_.getClasses().isEmptyErrors());
+        assertTrue(context_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_, context_);
         assertNotNull(getException(context_));
     }
@@ -1316,7 +1316,7 @@ public final class RenderImportTest extends CommonRender {
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
         rendDocumentBlockSec_.buildFctInstructions(context_);
-        assertTrue(context_.getClasses().isEmptyErrors());
+        assertTrue(context_.isEmptyErrors());
         assertEq("<html><body><ul><li>5</li><li>6</li></ul></body></html>", RendBlock.getRes(rendDocumentBlock_, context_));
         assertNull(getException(context_));
     }
@@ -1386,7 +1386,7 @@ public final class RenderImportTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(context_);
         rendDocumentBlockSec_.buildFctInstructions(context_);
         rendDocumentBlockThird_.buildFctInstructions(context_);
-        assertTrue(context_.getClasses().isEmptyErrors());
+        assertTrue(context_.isEmptyErrors());
         context_.setCurrentUrl("page1.html");
         assertEq("<html>\n<body>\n\n\n\t\ncode.expressionlanguage.exceptions.DivideZeroException\n\npage1.html:4,17:56\npkg.BeanOne.\npage2.html:3,21:49\npkg.BeanTwo.\nmy_file:17,3:371\npkg.BeanThree.beforeDisplaying()\nmy_file:20,7:415\npkg.BeanThree.callee()\n\n</body>\n</html>",RendBlock.getRes(rendDocumentBlock_, context_));
         assertNull(getException(context_));
@@ -1448,7 +1448,7 @@ public final class RenderImportTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(context_);
         rendDocumentBlockSec_.buildFctInstructions(context_);
         rendDocumentBlockThird_.buildFctInstructions(context_);
-        assertTrue(!context_.getClasses().isEmptyErrors());
+        assertTrue(!context_.isEmptyErrors());
     }
     @Test
     public void process2FailTest() {
@@ -1507,7 +1507,7 @@ public final class RenderImportTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(context_);
         rendDocumentBlockSec_.buildFctInstructions(context_);
         rendDocumentBlockThird_.buildFctInstructions(context_);
-        assertTrue(!context_.getClasses().isEmptyErrors());
+        assertTrue(!context_.isEmptyErrors());
     }
     @Test
     public void process3FailTest() {
@@ -1566,7 +1566,7 @@ public final class RenderImportTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(context_);
         rendDocumentBlockSec_.buildFctInstructions(context_);
         rendDocumentBlockThird_.buildFctInstructions(context_);
-        assertTrue(!context_.getClasses().isEmptyErrors());
+        assertTrue(!context_.isEmptyErrors());
     }
     @Test
     public void process4FailTest() {
@@ -1625,7 +1625,7 @@ public final class RenderImportTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(context_);
         rendDocumentBlockSec_.buildFctInstructions(context_);
         rendDocumentBlockThird_.buildFctInstructions(context_);
-        assertTrue(!context_.getClasses().isEmptyErrors());
+        assertTrue(!context_.isEmptyErrors());
     }
     @Test
     public void process5FailTest() {
@@ -1671,7 +1671,7 @@ public final class RenderImportTest extends CommonRender {
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
         rendDocumentBlockSec_.buildFctInstructions(context_);
-        assertTrue(!context_.getClasses().isEmptyErrors());
+        assertTrue(!context_.isEmptyErrors());
     }
     @Test
     public void process6FailTest() {
@@ -1717,7 +1717,7 @@ public final class RenderImportTest extends CommonRender {
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
         rendDocumentBlockSec_.buildFctInstructions(context_);
-        assertTrue(!context_.getClasses().isEmptyErrors());
+        assertTrue(!context_.isEmptyErrors());
     }
     @Test
     public void process7FailTest() {
@@ -1766,6 +1766,6 @@ public final class RenderImportTest extends CommonRender {
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
         rendDocumentBlockSec_.buildFctInstructions(context_);
-        assertTrue(!context_.getClasses().isEmptyErrors());
+        assertTrue(!context_.isEmptyErrors());
     }
 }

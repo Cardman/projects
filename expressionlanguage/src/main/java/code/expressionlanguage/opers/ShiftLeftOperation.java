@@ -36,7 +36,7 @@ public final class ShiftLeftOperation extends NumericOperation {
         un_.setFileName(_cont.getCurrentFileName());
         un_.setExpectedResult(exp_);
         un_.setOperands(_a,_b);
-        _cont.getClasses().addError(un_);
+        _cont.addError(un_);
         ClassArgumentMatching arg_ = new ClassArgumentMatching(exp_);
         res_.setResult(arg_);
         return res_;

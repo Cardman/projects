@@ -153,7 +153,7 @@ public final class OverridableBlock extends NamedFunctionBlock implements GeneMe
                 miss_.setFileName(getFile().getFileName());
                 miss_.setId(getId().getSignature(_an));
                 miss_.setReturning(getImportedReturnType());
-                _an.getClasses().addError(miss_);
+                _an.addError(miss_);
             }
         }
     }

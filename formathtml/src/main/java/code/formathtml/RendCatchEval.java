@@ -47,7 +47,7 @@ public final class RendCatchEval extends RendAbstractCatchEval {
             d_.setId(variableName);
             d_.setFileName(_cont.getCurrentFileName());
             d_.setIndexFile(variableNameOffset);
-            _cont.getClasses().addError(d_);
+            _cont.addError(d_);
             return;
         }
         if (!_cont.isValidSingleToken(variableName)) {
@@ -55,7 +55,7 @@ public final class RendCatchEval extends RendAbstractCatchEval {
             b_.setFileName(_cont.getCurrentFileName());
             b_.setIndexFile(variableNameOffset);
             b_.setVarName(variableName);
-            _cont.getClasses().addError(b_);
+            _cont.addError(b_);
         }
         page_.setGlobalOffset(classNameOffset);
         importedClassName = _cont.resolveCorrectType(className);
@@ -69,13 +69,13 @@ public final class RendCatchEval extends RendAbstractCatchEval {
                     UnexpectedTagName un_ = new UnexpectedTagName();
                     un_.setFileName(_cont.getCurrentFileName());
                     un_.setIndexFile(getOffset().getOffsetTrim());
-                    _cont.getClasses().addError(un_);
+                    _cont.addError(un_);
                 } else if (!(pBlock_.getPreviousSibling() instanceof RendAbstractCatchEval)) {
                     if (!(pBlock_.getPreviousSibling() instanceof RendTryEval)) {
                         UnexpectedTagName un_ = new UnexpectedTagName();
                         un_.setFileName(_cont.getCurrentFileName());
                         un_.setIndexFile(getOffset().getOffsetTrim());
-                        _cont.getClasses().addError(un_);
+                        _cont.addError(un_);
                     }
                 }
             }

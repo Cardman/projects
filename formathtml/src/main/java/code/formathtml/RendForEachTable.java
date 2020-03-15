@@ -103,7 +103,7 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
             StaticAccessError static_ = new StaticAccessError();
             static_.setFileName(_cont.getCurrentFileName());
             static_.setIndexFile(_cont.getCurrentLocationIndex());
-            _cont.getClasses().addError(static_);
+            _cont.addError(static_);
         } else {
             StringList names_ = el_.getResultClass().getNames();
             StringList out_ = getCustomType(names_, _cont);
@@ -145,49 +145,49 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
             cast_.setMapping(mapping_);
             cast_.setFileName(_cont.getCurrentFileName());
             cast_.setIndexFile(classIndexNameOffset);
-            _cont.getClasses().addError(cast_);
+            _cont.addError(cast_);
         }
         if (_cont.getAnalyzing().containsVar(variableNameFirst)) {
             DuplicateVariable d_ = new DuplicateVariable();
             d_.setId(variableNameFirst);
             d_.setFileName(_cont.getCurrentFileName());
             d_.setIndexFile(variableNameOffsetFirst);
-            _cont.getClasses().addError(d_);
+            _cont.addError(d_);
         }
         if (_cont.getAnalyzing().containsMutableLoopVar(variableNameFirst)) {
             DuplicateVariable d_ = new DuplicateVariable();
             d_.setId(variableNameFirst);
             d_.setFileName(_cont.getCurrentFileName());
             d_.setIndexFile(variableNameOffsetFirst);
-            _cont.getClasses().addError(d_);
+            _cont.addError(d_);
         }
         if (!_cont.isValidSingleToken(variableNameFirst)) {
             BadVariableName b_ = new BadVariableName();
             b_.setFileName(_cont.getCurrentFileName());
             b_.setIndexFile(variableNameOffsetFirst);
             b_.setVarName(variableNameFirst);
-            _cont.getClasses().addError(b_);
+            _cont.addError(b_);
         }
         if (_cont.getAnalyzing().containsVar(variableNameSecond)) {
             DuplicateVariable d_ = new DuplicateVariable();
             d_.setId(variableNameSecond);
             d_.setFileName(_cont.getCurrentFileName());
             d_.setIndexFile(variableNameOffsetSecond);
-            _cont.getClasses().addError(d_);
+            _cont.addError(d_);
         }
         if (_cont.getAnalyzing().containsMutableLoopVar(variableNameSecond)) {
             DuplicateVariable d_ = new DuplicateVariable();
             d_.setId(variableNameSecond);
             d_.setFileName(_cont.getCurrentFileName());
             d_.setIndexFile(variableNameOffsetSecond);
-            _cont.getClasses().addError(d_);
+            _cont.addError(d_);
         }
         if (!_cont.isValidSingleToken(variableNameSecond)) {
             BadVariableName b_ = new BadVariableName();
             b_.setFileName(_cont.getCurrentFileName());
             b_.setIndexFile(variableNameOffsetSecond);
             b_.setVarName(variableNameSecond);
-            _cont.getClasses().addError(b_);
+            _cont.addError(b_);
         }
         KeyWords keyWords_ = _cont.getKeyWords();
         String keyWordVar_ = keyWords_.getKeyWordVar();
@@ -242,7 +242,7 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
                     cast_.setMapping(mapping_);
                     cast_.setFileName(_cont.getCurrentFileName());
                     cast_.setIndexFile(expressionOffset);
-                    _cont.getClasses().addError(cast_);
+                    _cont.addError(cast_);
                 }
             }
             mapping_ = new Mapping();
@@ -266,7 +266,7 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
                     cast_.setMapping(mapping_);
                     cast_.setFileName(_cont.getCurrentFileName());
                     cast_.setIndexFile(expressionOffset);
-                    _cont.getClasses().addError(cast_);
+                    _cont.addError(cast_);
                 }
             }
         } else {
@@ -277,7 +277,7 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
             cast_.setMapping(mapping_);
             cast_.setFileName(_cont.getCurrentFileName());
             cast_.setIndexFile(expressionOffset);
-            _cont.getClasses().addError(cast_);
+            _cont.addError(cast_);
         }
     }
 
@@ -287,7 +287,7 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
             d_.setId(variableNameSecond);
             d_.setFileName(_cont.getCurrentFileName());
             d_.setIndexFile(variableNameOffsetSecond);
-            _cont.getClasses().addError(d_);
+            _cont.addError(d_);
         }
         LoopVariable lv_ = new LoopVariable();
         if (!importedClassNameFirst.isEmpty()) {

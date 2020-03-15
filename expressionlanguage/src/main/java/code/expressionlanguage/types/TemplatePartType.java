@@ -3,6 +3,7 @@ package code.expressionlanguage.types;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.common.GeneType;
+import code.expressionlanguage.inherits.ClassInheritsDeps;
 import code.expressionlanguage.inherits.Mapping;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
@@ -61,7 +62,7 @@ final class TemplatePartType extends BinaryType {
             ch_.add(f_);
             f_ = f_.getNextSibling();
         }
-        StringList types_ = getTypeNames();
+        EqList<ClassInheritsDeps> types_ = getTypeNames();
         int len_ = ch_.size();
         for (int i = 0; i < len_; i++) {
             types_.addAllElts(ch_.get(i).getTypeNames());

@@ -64,9 +64,7 @@ public final class CustContextFactory {
                                ProgressingTests _progressingTests) {
         RunnableContextEl rCont_ = build(_stack, _options, _exec, _mess,_definedKw,
                 _definedLgNames, _files, _exec.getTabWidth());
-        if (!rCont_.getClasses().isEmptyErrors()
-                || !rCont_.getClasses().isEmptyStdError()
-                || !rCont_.getClasses().isEmptyMessageError()) {
+        if (!rCont_.isEmptyErrors()) {
             _progressingTests.showErrors(rCont_,_exec);
             return;
         }

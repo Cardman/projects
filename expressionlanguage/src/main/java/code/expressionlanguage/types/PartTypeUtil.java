@@ -3,6 +3,7 @@ package code.expressionlanguage.types;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.common.GeneType;
+import code.expressionlanguage.inherits.ClassInheritsDeps;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.instr.PartOffset;
@@ -16,12 +17,12 @@ import code.util.StringList;
 public final class PartTypeUtil {
 
     private PartTypeUtil() {}
-    public static StringList processAnalyzeDepends(String _input, int _index, Analyzable _an, RootBlock _rooted, boolean _exact) {
+    public static EqList<ClassInheritsDeps> processAnalyzeDepends(String _input, int _index, Analyzable _an, RootBlock _rooted, boolean _exact) {
         Options options_ = _an.getOptions();
         Ints indexes_ = ParserType.getIndexes(_input, _an);
         if (indexes_ == null) {
             _an.getCurrentBadIndexes().add(0);
-            return new StringList();
+            return new EqList<ClassInheritsDeps>();
         }
         AnalyzingType loc_ = ParserType.analyzeLocal(0, _input, indexes_, options_);
         CustList<IntTreeMap< String>> dels_;
@@ -30,7 +31,7 @@ public final class PartTypeUtil {
         PartType root_ = PartType.createPartType(_an,null, 0, 0, loc_, loc_.getValues(), rem_, options_);
         addValues(root_, dels_, loc_);
         PartType current_ = root_;
-        StringList allDeps_ = new StringList();
+        EqList<ClassInheritsDeps> allDeps_ = new EqList<ClassInheritsDeps>();
         while (true) {
             PartType child_ = createFirstChild(_an,current_, loc_, dels_, options_);
             if (child_ != null) {
@@ -41,7 +42,7 @@ public final class PartTypeUtil {
             boolean stop_ = false;
             while (true) {
                 current_.analyzeDepends(_an, _index, dels_, _rooted, _exact);
-                StringList deps_ = current_.getTypeNames();
+                EqList<ClassInheritsDeps> deps_ = current_.getTypeNames();
                 allDeps_.addAllElts(deps_);
                 PartType next_ = createNextSibling(_an,current_, loc_, dels_, options_);
                 ParentPartType par_ = current_.getParent();

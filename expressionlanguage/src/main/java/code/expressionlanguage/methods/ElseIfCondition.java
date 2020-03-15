@@ -106,7 +106,7 @@ public final class ElseIfCondition extends Condition implements BlockCondition {
                 UnexpectedTagName un_ = new UnexpectedTagName();
                 un_.setFileName(getFile().getFileName());
                 un_.setIndexFile(getOffset().getOffsetTrim());
-                _an.getClasses().addError(un_);
+                _an.addError(un_);
             }
         }
     }

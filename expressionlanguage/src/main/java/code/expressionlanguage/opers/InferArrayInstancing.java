@@ -86,7 +86,7 @@ public final class InferArrayInstancing extends AbstractArrayInstancingOperation
             un_.setFileName(_conf.getCurrentFileName());
             un_.setExpectedResult(PrimitiveTypeUtil.getPrettyArrayType(_conf.getStandards().getAliasObject()));
             un_.setOperands(new StringList(EMPTY_STRING));
-            _conf.getClasses().addError(un_);
+            _conf.addError(un_);
             LgNames stds_ = _conf.getStandards();
             setResultClass(new ClassArgumentMatching(PrimitiveTypeUtil.getPrettyArrayType(stds_.getAliasObject())));
             return;
@@ -99,7 +99,7 @@ public final class InferArrayInstancing extends AbstractArrayInstancingOperation
             un_.setFileName(_conf.getCurrentFileName());
             un_.setExpectedResult(PrimitiveTypeUtil.getPrettyArrayType(_conf.getStandards().getAliasObject()));
             un_.setOperands(new StringList(EMPTY_STRING));
-            _conf.getClasses().addError(un_);
+            _conf.addError(un_);
             LgNames stds_ = _conf.getStandards();
             setResultClass(new ClassArgumentMatching(PrimitiveTypeUtil.getPrettyArrayType(stds_.getAliasObject())));
             return;
@@ -111,7 +111,7 @@ public final class InferArrayInstancing extends AbstractArrayInstancingOperation
             un_.setFileName(_conf.getCurrentFileName());
             un_.setExpectedResult(PrimitiveTypeUtil.getPrettyArrayType(_conf.getStandards().getAliasObject()));
             un_.setOperands(new StringList(EMPTY_STRING));
-            _conf.getClasses().addError(un_);
+            _conf.addError(un_);
             LgNames stds_ = _conf.getStandards();
             setResultClass(new ClassArgumentMatching(PrimitiveTypeUtil.getPrettyArrayType(stds_.getAliasObject())));
             return;
@@ -131,7 +131,7 @@ public final class InferArrayInstancing extends AbstractArrayInstancingOperation
                 cast_.setMapping(mapping_);
                 cast_.setFileName(_conf.getCurrentFileName());
                 cast_.setIndexFile(_conf.getCurrentLocationIndex());
-                _conf.getClasses().addError(cast_);
+                _conf.addError(cast_);
             }
             if (PrimitiveTypeUtil.isPrimitive(classNameFinal_, _conf)) {
                 o.getResultClass().setUnwrapObject(classNameFinal_);

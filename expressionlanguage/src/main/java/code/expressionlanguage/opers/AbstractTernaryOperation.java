@@ -97,7 +97,7 @@ public abstract class AbstractTernaryOperation extends MethodOperation {
             badNb_.setOperandsNumber(chidren_.size());
             badNb_.setFileName(_conf.getCurrentFileName());
             badNb_.setIndexFile(_conf.getCurrentLocationIndex());
-            _conf.getClasses().addError(badNb_);
+            _conf.addError(badNb_);
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             return;
         }
@@ -111,7 +111,7 @@ public abstract class AbstractTernaryOperation extends MethodOperation {
             un_.setFileName(_conf.getCurrentFileName());
             un_.setExpectedResult(booleanType_);
             un_.setOperands(cl_);
-            _conf.getClasses().addError(un_);
+            _conf.addError(un_);
         }
         opOne_.getResultClass().setUnwrapObject(booleanPrimType_);
         opOne_.cancelArgument();
@@ -133,7 +133,7 @@ public abstract class AbstractTernaryOperation extends MethodOperation {
             un_.setFileName(_conf.getCurrentFileName());
             un_.setExpectedResult(booleanType_);
             un_.setOperands(cl_);
-            _conf.getClasses().addError(un_);
+            _conf.addError(un_);
         }
         if (StringList.contains(two_, void_)) {
             setRelativeOffsetPossibleAnalyzable(opThree_.getIndexInEl(), _conf);
@@ -143,7 +143,7 @@ public abstract class AbstractTernaryOperation extends MethodOperation {
             un_.setFileName(_conf.getCurrentFileName());
             un_.setExpectedResult(booleanType_);
             un_.setOperands(cl_);
-            _conf.getClasses().addError(un_);
+            _conf.addError(un_);
         }
         OperationNode current_ = this;
         MethodOperation m_ = getParent();
@@ -218,7 +218,7 @@ public abstract class AbstractTernaryOperation extends MethodOperation {
             DeadCodeTernary d_ = new DeadCodeTernary();
             d_.setIndexFile(_conf.getCurrentLocationIndex());
             d_.setFileName(_conf.getCurrentFileName());
-            _conf.getClasses().addWarning(d_);
+            _conf.addWarning(d_);
         }
     }
 

@@ -77,7 +77,7 @@ public final class SuperFctOperation extends InvokingOperation {
             cast_.setMapping(map_);
             cast_.setIndexFile(_conf.getCurrentLocationIndex());
             cast_.setFileName(_conf.getCurrentFileName());
-            _conf.getClasses().addError(cast_);
+            _conf.addError(cast_);
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             return;
         }
@@ -109,7 +109,7 @@ public final class SuperFctOperation extends InvokingOperation {
             abs_.setSgn(clMeth_.getRealId().getSignature(_conf));
             abs_.setIndexFile(_conf.getCurrentLocationIndex());
             abs_.setFileName(_conf.getCurrentFileName());
-            _conf.getClasses().addError(abs_);
+            _conf.addError(abs_);
             setResultClass(new ClassArgumentMatching(clMeth_.getReturnType()));
             return;
         }

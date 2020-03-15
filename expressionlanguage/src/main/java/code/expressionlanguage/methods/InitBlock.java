@@ -92,7 +92,7 @@ public abstract class InitBlock extends MemberCallingsBlock implements AloneBloc
             UnassignedFinalField un_ = new UnassignedFinalField(key_);
             un_.setFileName(getFile().getFileName());
             un_.setIndexFile(getOffset().getOffsetTrim());
-            _an.getClasses().addError(un_);
+            _an.addError(un_);
         }
         if (a_.isAssignedAfter() && _add) {
             _an.getAnalyzing().getInitFields().add(name_);

@@ -62,7 +62,7 @@ public final class RendSwitchBlock extends RendParentBlock implements RendBreaka
             un_.setFileName(_cont.getCurrentFileName());
             un_.setIndexFile(valueOffset);
             un_.setType(clArg_);
-            _cont.getClasses().addError(un_);
+            _cont.addError(un_);
         }
         String type_ = clArg_.getSingleNameOrEmpty();
         if (type_.isEmpty()) {
@@ -70,7 +70,7 @@ public final class RendSwitchBlock extends RendParentBlock implements RendBreaka
             un_.setFileName(_cont.getCurrentFileName());
             un_.setIndexFile(valueOffset);
             un_.setType(clArg_);
-            _cont.getClasses().addError(un_);
+            _cont.addError(un_);
         } else {
             String id_ = Templates.getIdFromAllTypes(type_);
             if (!PrimitiveTypeUtil.isPrimitiveOrWrapper(id_, _cont)) {
@@ -80,7 +80,7 @@ public final class RendSwitchBlock extends RendParentBlock implements RendBreaka
                         un_.setFileName(_cont.getCurrentFileName());
                         un_.setIndexFile(valueOffset);
                         un_.setType(clArg_);
-                        _cont.getClasses().addError(un_);
+                        _cont.addError(un_);
                     } else {
                         enumTest = true;
                     }
@@ -107,7 +107,7 @@ public final class RendSwitchBlock extends RendParentBlock implements RendBreaka
             UnexpectedTagName un_ = new UnexpectedTagName();
             un_.setFileName(_cont.getCurrentFileName());
             un_.setIndexFile(getOffset().getOffsetTrim());
-            _cont.getClasses().addError(un_);
+            _cont.addError(un_);
             first_ = first_.getNextSibling();
         }
     }

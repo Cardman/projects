@@ -151,7 +151,7 @@ public final class Navigation {
     }
 
     public void initializeRendSession() {
-        if (!session.getClasses().isEmptyErrors()) {
+        if (!session.isEmptyErrors()) {
             return;
         }
         BeanLgNames stds_ = session.getAdvStandards();
@@ -168,7 +168,7 @@ public final class Navigation {
             BadElError badEl_ = new BadElError();
             badEl_.setFileName(session.getCurrentFileName());
             badEl_.setIndexFile(session.getCurrentLocationIndex());
-            session.getClasses().addError(badEl_);
+            session.addError(badEl_);
             return;
         }
         htmlText = RendBlock.getRes(rendDocumentBlock_,session);

@@ -46,7 +46,7 @@ public final class ForwardOperation extends LeafOperation implements PossibleInt
                 static_.setClassName(arg_);
                 static_.setFileName(_conf.getCurrentFileName());
                 static_.setIndexFile(_conf.getCurrentLocationIndex());
-                _conf.getClasses().addError(static_);
+                _conf.addError(static_);
             }
             setResultClass(new ClassArgumentMatching(arg_));
         }
@@ -78,7 +78,7 @@ public final class ForwardOperation extends LeafOperation implements PossibleInt
                 cast_.setMapping(map_);
                 cast_.setIndexFile(_conf.getCurrentLocationIndex());
                 cast_.setFileName(_conf.getCurrentFileName());
-                _conf.getClasses().addError(cast_);
+                _conf.addError(cast_);
             }
             accessSuperTypes = false;
         } else if (ContextEl.startsWithKeyWord(trimMeth_, keyWordClasschoice_)) {
@@ -109,7 +109,7 @@ public final class ForwardOperation extends LeafOperation implements PossibleInt
                 cast_.setMapping(map_);
                 cast_.setIndexFile(_conf.getCurrentLocationIndex());
                 cast_.setFileName(_conf.getCurrentFileName());
-                _conf.getClasses().addError(cast_);
+                _conf.addError(cast_);
             }
             staticChoiceMethod = true;
         }

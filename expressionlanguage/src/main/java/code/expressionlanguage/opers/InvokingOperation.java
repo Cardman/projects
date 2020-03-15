@@ -77,7 +77,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
                     cast_.setMapping(mapping_);
                     cast_.setFileName(_conf.getCurrentFileName());
                     cast_.setIndexFile(_conf.getCurrentLocationIndex());
-                    _conf.getClasses().addError(cast_);
+                    _conf.addError(cast_);
                 }
                 if (PrimitiveTypeUtil.isPrimitive(name_, _conf)) {
                     o.getResultClass().setUnwrapObject(name_);
@@ -209,7 +209,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
             cast_.setMapping(mapping_);
             cast_.setFileName(_conf.getCurrentFileName());
             cast_.setIndexFile(_conf.getCurrentLocationIndex());
-            _conf.getClasses().addError(cast_);
+            _conf.addError(cast_);
             return true;
         }
         return false;
@@ -231,7 +231,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
                 cast_.setMapping(mapping_);
                 cast_.setFileName(_conf.getCurrentFileName());
                 cast_.setIndexFile(_conf.getCurrentLocationIndex());
-                _conf.getClasses().addError(cast_);
+                _conf.addError(cast_);
             }
         }
         return void_;

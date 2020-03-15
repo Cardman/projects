@@ -47,7 +47,7 @@ public final class EnumValueOfOperation extends AbstractUnaryOperation {
             un_.setFileName(_conf.getCurrentFileName());
             un_.setIndexFile(_conf.getCurrentLocationIndex());
             un_.setType(clName_);
-            _conf.getClasses().addError(un_);
+            _conf.addError(un_);
             String argClName_ = _conf.getStandards().getAliasObject();
             setResultClass(new ClassArgumentMatching(argClName_));
             return;
@@ -58,7 +58,7 @@ public final class EnumValueOfOperation extends AbstractUnaryOperation {
             badAccess_.setId(clName_);
             badAccess_.setIndexFile(_conf.getCurrentLocationIndex());
             badAccess_.setFileName(_conf.getCurrentFileName());
-            _conf.getClasses().addError(badAccess_);
+            _conf.addError(badAccess_);
         }
         ClassArgumentMatching argCl_ = firstArgs_.first();
         String stringType_ = _conf.getStandards().getAliasString();
@@ -67,7 +67,7 @@ public final class EnumValueOfOperation extends AbstractUnaryOperation {
             un_.setFileName(_conf.getCurrentFileName());
             un_.setIndexFile(_conf.getCurrentLocationIndex());
             un_.setType(argCl_);
-            _conf.getClasses().addError(un_);
+            _conf.addError(un_);
         }
         className = r_.getWildCardElement();
         setResultClass(new ClassArgumentMatching(className));

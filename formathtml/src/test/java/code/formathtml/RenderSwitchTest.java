@@ -29,7 +29,7 @@ public final class RenderSwitchTest extends CommonRender {
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body/></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
     }
@@ -49,7 +49,7 @@ public final class RenderSwitchTest extends CommonRender {
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body/></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
     }
@@ -69,7 +69,7 @@ public final class RenderSwitchTest extends CommonRender {
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body/></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
     }
@@ -89,7 +89,7 @@ public final class RenderSwitchTest extends CommonRender {
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>Text</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
     }
@@ -109,7 +109,7 @@ public final class RenderSwitchTest extends CommonRender {
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body/></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
     }
@@ -129,7 +129,7 @@ public final class RenderSwitchTest extends CommonRender {
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>Text</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
     }
@@ -149,7 +149,7 @@ public final class RenderSwitchTest extends CommonRender {
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>Text</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
     }
@@ -169,7 +169,7 @@ public final class RenderSwitchTest extends CommonRender {
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>Text</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
     }
@@ -189,7 +189,7 @@ public final class RenderSwitchTest extends CommonRender {
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body/></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
     }
@@ -209,7 +209,7 @@ public final class RenderSwitchTest extends CommonRender {
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>Text</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
     }
@@ -229,7 +229,7 @@ public final class RenderSwitchTest extends CommonRender {
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>Text</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
     }
@@ -249,7 +249,7 @@ public final class RenderSwitchTest extends CommonRender {
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body/></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
     }
@@ -269,7 +269,7 @@ public final class RenderSwitchTest extends CommonRender {
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>Text</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
     }
@@ -289,7 +289,7 @@ public final class RenderSwitchTest extends CommonRender {
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body/></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
     }
@@ -309,7 +309,7 @@ public final class RenderSwitchTest extends CommonRender {
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body/></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
     }
@@ -329,7 +329,7 @@ public final class RenderSwitchTest extends CommonRender {
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body/></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
     }
@@ -349,7 +349,7 @@ public final class RenderSwitchTest extends CommonRender {
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>Text</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
     }
@@ -369,7 +369,7 @@ public final class RenderSwitchTest extends CommonRender {
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body/></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
     }
@@ -389,7 +389,7 @@ public final class RenderSwitchTest extends CommonRender {
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>Text</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
     }
@@ -409,7 +409,7 @@ public final class RenderSwitchTest extends CommonRender {
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>Text</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
     }
@@ -429,7 +429,7 @@ public final class RenderSwitchTest extends CommonRender {
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>Text</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
     }
@@ -449,7 +449,7 @@ public final class RenderSwitchTest extends CommonRender {
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body/></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
     }
@@ -469,7 +469,7 @@ public final class RenderSwitchTest extends CommonRender {
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>Text</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
     }
@@ -489,7 +489,7 @@ public final class RenderSwitchTest extends CommonRender {
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>Text</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
     }
@@ -509,7 +509,7 @@ public final class RenderSwitchTest extends CommonRender {
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body/></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
     }
@@ -529,7 +529,7 @@ public final class RenderSwitchTest extends CommonRender {
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>Text</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
     }
@@ -549,7 +549,7 @@ public final class RenderSwitchTest extends CommonRender {
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>Text</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
     }
@@ -569,7 +569,7 @@ public final class RenderSwitchTest extends CommonRender {
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>Text</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
     }
@@ -589,7 +589,7 @@ public final class RenderSwitchTest extends CommonRender {
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>Text</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
     }
@@ -615,7 +615,7 @@ public final class RenderSwitchTest extends CommonRender {
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>Text</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
     }
@@ -641,7 +641,7 @@ public final class RenderSwitchTest extends CommonRender {
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>Text</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
     }
@@ -667,7 +667,7 @@ public final class RenderSwitchTest extends CommonRender {
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body/></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
     }
@@ -693,7 +693,7 @@ public final class RenderSwitchTest extends CommonRender {
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body/></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
     }
@@ -719,7 +719,7 @@ public final class RenderSwitchTest extends CommonRender {
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body/></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
     }
@@ -745,7 +745,7 @@ public final class RenderSwitchTest extends CommonRender {
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>Other</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
     }
@@ -771,7 +771,7 @@ public final class RenderSwitchTest extends CommonRender {
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body/></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
     }
@@ -791,7 +791,7 @@ public final class RenderSwitchTest extends CommonRender {
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>Text</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
     }
@@ -818,7 +818,7 @@ public final class RenderSwitchTest extends CommonRender {
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>Other</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
     }
@@ -838,7 +838,7 @@ public final class RenderSwitchTest extends CommonRender {
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_,conf_);
         assertNotNull(getException(conf_));
     }
@@ -858,7 +858,7 @@ public final class RenderSwitchTest extends CommonRender {
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>10</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
     }
@@ -878,7 +878,7 @@ public final class RenderSwitchTest extends CommonRender {
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>10</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
     }
@@ -898,7 +898,7 @@ public final class RenderSwitchTest extends CommonRender {
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body/></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
     }
@@ -918,7 +918,7 @@ public final class RenderSwitchTest extends CommonRender {
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>Text</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
     }
@@ -938,7 +938,7 @@ public final class RenderSwitchTest extends CommonRender {
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>Text</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
     }
@@ -965,7 +965,7 @@ public final class RenderSwitchTest extends CommonRender {
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(!conf_.getClasses().isEmptyErrors());
+        assertTrue(!conf_.isEmptyErrors());
     }
     @Test
     public void proces2FailTest() {
@@ -990,7 +990,7 @@ public final class RenderSwitchTest extends CommonRender {
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(!conf_.getClasses().isEmptyErrors());
+        assertTrue(!conf_.isEmptyErrors());
     }
     @Test
     public void process3FailTest() {
@@ -1008,7 +1008,7 @@ public final class RenderSwitchTest extends CommonRender {
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(!conf_.getClasses().isEmptyErrors());
+        assertTrue(!conf_.isEmptyErrors());
     }
     @Test
     public void process4FailTest() {
@@ -1026,7 +1026,7 @@ public final class RenderSwitchTest extends CommonRender {
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(!conf_.getClasses().isEmptyErrors());
+        assertTrue(!conf_.isEmptyErrors());
     }
     @Test
     public void process5FailTest() {
@@ -1050,7 +1050,7 @@ public final class RenderSwitchTest extends CommonRender {
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(!conf_.getClasses().isEmptyErrors());
+        assertTrue(!conf_.isEmptyErrors());
     }
     @Test
     public void process6FailTest() {
@@ -1074,7 +1074,7 @@ public final class RenderSwitchTest extends CommonRender {
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(!conf_.getClasses().isEmptyErrors());
+        assertTrue(!conf_.isEmptyErrors());
     }
     @Test
     public void process7FailTest() {
@@ -1101,7 +1101,7 @@ public final class RenderSwitchTest extends CommonRender {
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(!conf_.getClasses().isEmptyErrors());
+        assertTrue(!conf_.isEmptyErrors());
     }
     @Test
     public void process8FailTest() {
@@ -1127,7 +1127,7 @@ public final class RenderSwitchTest extends CommonRender {
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(!conf_.getClasses().isEmptyErrors());
+        assertTrue(!conf_.isEmptyErrors());
     }
     @Test
     public void process9FailTest() {
@@ -1153,7 +1153,7 @@ public final class RenderSwitchTest extends CommonRender {
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(!conf_.getClasses().isEmptyErrors());
+        assertTrue(!conf_.isEmptyErrors());
     }
     @Test
     public void process10FailTest() {
@@ -1180,7 +1180,7 @@ public final class RenderSwitchTest extends CommonRender {
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(!conf_.getClasses().isEmptyErrors());
+        assertTrue(!conf_.isEmptyErrors());
     }
     @Test
     public void process11FailTest() {
@@ -1207,7 +1207,7 @@ public final class RenderSwitchTest extends CommonRender {
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(!conf_.getClasses().isEmptyErrors());
+        assertTrue(!conf_.isEmptyErrors());
     }
     @Test
     public void process12FailTest() {
@@ -1234,7 +1234,7 @@ public final class RenderSwitchTest extends CommonRender {
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(!conf_.getClasses().isEmptyErrors());
+        assertTrue(!conf_.isEmptyErrors());
     }
     @Test
     public void process13FailTest() {
@@ -1252,7 +1252,7 @@ public final class RenderSwitchTest extends CommonRender {
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(!conf_.getClasses().isEmptyErrors());
+        assertTrue(!conf_.isEmptyErrors());
     }
     @Test
     public void process14FailTest() {
@@ -1275,7 +1275,7 @@ public final class RenderSwitchTest extends CommonRender {
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(!conf_.getClasses().isEmptyErrors());
+        assertTrue(!conf_.isEmptyErrors());
     }
     @Test
     public void process15FailTest() {
@@ -1300,6 +1300,6 @@ public final class RenderSwitchTest extends CommonRender {
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(!conf_.getClasses().isEmptyErrors());
+        assertTrue(!conf_.isEmptyErrors());
     }
 }

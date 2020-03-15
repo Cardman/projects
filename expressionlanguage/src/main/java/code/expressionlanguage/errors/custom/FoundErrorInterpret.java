@@ -1,4 +1,5 @@
 package code.expressionlanguage.errors.custom;
+import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.FileBlock;
 
@@ -16,17 +17,19 @@ public abstract class FoundErrorInterpret {
 
     private int indexFile;
 
+    private Analyzable analyzable;
+
+    public void setAnalyzable(Analyzable analyzable) {
+        this.analyzable = analyzable;
+    }
+
     public String display(Classes _classes) {
         StringBuilder str_ = new StringBuilder(SEP_INFO);
         str_.append(FILE).append(SEP_KEY_VAL).append(fileName).append(SEP_INFO);
-        FileBlock f_ = _classes.getFileBody(fileName);
-        if (f_ == null) {
-            str_.append(LINE_COL).append(SEP_KEY_VAL).append(SEP_INFO);
-        } else {
-            int row_ = f_.getRowFile(indexFile);
-            str_.append(LINE_COL).append(SEP_KEY_VAL).append(Integer.toString(row_));
-            str_.append(SEP_KEY_VAL).append(Integer.toString(f_.getColFile(indexFile,row_))).append(SEP_INFO);
-        }
+        int r_ = analyzable.getRowFile(fileName, indexFile);
+        int c_ = analyzable.getColFile(fileName, indexFile, r_);
+        str_.append(LINE_COL).append(SEP_KEY_VAL).append(Integer.toString(r_));
+        str_.append(SEP_KEY_VAL).append(Integer.toString(c_)).append(SEP_INFO);
         str_.append(LINE_COL).append(SEP_KEY_VAL).append(Integer.toString(indexFile)).append(SEP_INFO);
         return str_.toString();
     }

@@ -87,7 +87,7 @@ public final class DoWhileCondition extends Condition {
             EmptyTagName un_ = new EmptyTagName();
             un_.setFileName(getFile().getFileName());
             un_.setIndexFile(getOffset().getOffsetTrim());
-            _an.getClasses().addError(un_);
+            _an.addError(un_);
         }
     }
 

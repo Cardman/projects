@@ -125,8 +125,7 @@ public final class ThreadActions implements Runnable {
                     page.getNavigation().setFiles(fileNames);
                     page.getNavigation().setupRendClasses();
                     Configuration conf_ = page.getNavigation().getSession();
-                    Classes cls_ = conf_.getClasses();
-                    if (cls_.isEmptyErrors()) {
+                    if (conf_.isEmptyErrors()) {
                         LgNames stds_ = conf_.getStandards();
                         String arrStr_ = PrimitiveTypeUtil.getPrettyArrayType(stds_.getAliasString());
                         MethodId id_ = new MethodId(MethodAccessKind.STATIC, methodName, new StringList(arrStr_,arrStr_));

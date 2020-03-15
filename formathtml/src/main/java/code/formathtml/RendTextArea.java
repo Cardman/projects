@@ -58,7 +58,7 @@ public final class RendTextArea extends RendParentBlock implements RendWithEl, R
                     BadElError badEl_ = new BadElError();
                     badEl_.setFileName(_cont.getCurrentFileName());
                     badEl_.setIndexFile(_cont.getCurrentLocationIndex());
-                    _cont.getClasses().addError(badEl_);
+                    _cont.addError(badEl_);
                 }
                 String string_ = _cont.getStandards().getAliasString();
                 StringList varNames_ = new StringList();
@@ -79,7 +79,7 @@ public final class RendTextArea extends RendParentBlock implements RendWithEl, R
                     BadElError badEl_ = new BadElError();
                     badEl_.setFileName(_cont.getCurrentFileName());
                     badEl_.setIndexFile(_cont.getCurrentLocationIndex());
-                    _cont.getClasses().addError(badEl_);
+                    _cont.addError(badEl_);
                 }
             }
         }
@@ -105,7 +105,7 @@ public final class RendTextArea extends RendParentBlock implements RendWithEl, R
                 BadElError badEl_ = new BadElError();
                 badEl_.setFileName(_cont.getCurrentFileName());
                 badEl_.setIndexFile(_cont.getCurrentLocationIndex());
-                _cont.getClasses().addError(badEl_);
+                _cont.addError(badEl_);
             }
         }
         String id_ = elt.getAttribute(ATTRIBUTE_ID);

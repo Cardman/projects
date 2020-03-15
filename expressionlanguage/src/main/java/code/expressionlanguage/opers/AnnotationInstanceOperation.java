@@ -56,7 +56,7 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
                     UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
                     un_.setIndexFile(_conf.getCurrentLocationIndex());
                     un_.setFileName(_conf.getCurrentFileName());
-                    _conf.getClasses().addError(un_);
+                    _conf.addError(un_);
                     className = _conf.getStandards().getAliasObject();
                     return;
                 }
@@ -76,7 +76,7 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
                     UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
                     un_.setIndexFile(_conf.getCurrentLocationIndex());
                     un_.setFileName(_conf.getCurrentFileName());
-                    _conf.getClasses().addError(un_);
+                    _conf.addError(un_);
                     className = _conf.getStandards().getAliasObject();
                 } else {
                     AnnotationInstanceOperation inst_;
@@ -87,7 +87,7 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
                         UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
                         un_.setIndexFile(_conf.getCurrentLocationIndex());
                         un_.setFileName(_conf.getCurrentFileName());
-                        _conf.getClasses().addError(un_);
+                        _conf.addError(un_);
                         className = _conf.getStandards().getAliasObject();
                         return;
                     }
@@ -105,7 +105,7 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
                         UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
                         un_.setIndexFile(_conf.getCurrentLocationIndex());
                         un_.setFileName(_conf.getCurrentFileName());
-                        _conf.getClasses().addError(un_);
+                        _conf.addError(un_);
                         className = _conf.getStandards().getAliasObject();
                     } else {
                         AnnotationMethodBlock a_ =blsAnn_.first();
@@ -126,7 +126,7 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
                 call_.setType(realClassName_);
                 call_.setFileName(_conf.getCurrentFileName());
                 call_.setIndexFile(_conf.getCurrentLocationIndex());
-                _conf.getClasses().addError(call_);
+                _conf.addError(call_);
                 className = _conf.getStandards().getAliasObject();
                 setResultClass(new ClassArgumentMatching(realClassName_));
                 return;
@@ -166,7 +166,7 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
                     cast_.setMapping(mapping_);
                     cast_.setFileName(_conf.getCurrentFileName());
                     cast_.setIndexFile(_conf.getCurrentLocationIndex());
-                    _conf.getClasses().addError(cast_);
+                    _conf.addError(cast_);
                 }
                 if (PrimitiveTypeUtil.isPrimitive(eltType_, _conf)) {
                     o.getResultClass().setUnwrapObject(eltType_);
@@ -235,7 +235,7 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
                     cast_.setMapping(mapping_);
                     cast_.setFileName(_conf.getCurrentFileName());
                     cast_.setIndexFile(_conf.getCurrentLocationIndex());
-                    _conf.getClasses().addError(cast_);
+                    _conf.addError(cast_);
                 }
                 fieldNames.put(fieldsTypes_.getKey(0),EMPTY_STRING);
                 setResultClass(new ClassArgumentMatching(className));
@@ -245,7 +245,7 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
             cast_.setLocalOffset(_conf.getCurrentLocationIndex());
             cast_.setFileName(_conf.getCurrentFileName());
             cast_.setIndexFile(_conf.getCurrentLocationIndex());
-            _conf.getClasses().addError(cast_);
+            _conf.addError(cast_);
             setResultClass(new ClassArgumentMatching(className));
             return;
         }
@@ -257,7 +257,7 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
             cast_.setLocalOffset(_conf.getCurrentLocationIndex());
             cast_.setFileName(_conf.getCurrentFileName());
             cast_.setIndexFile(_conf.getCurrentLocationIndex());
-            _conf.getClasses().addError(cast_);
+            _conf.addError(cast_);
         }
         for (String f: suppliedFields_) {
             if (!fieldsOpt_.contains(f)) {
@@ -267,7 +267,7 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
                 cast_.setClassName(className);
                 cast_.setFileName(_conf.getCurrentFileName());
                 cast_.setIndexFile(_conf.getCurrentLocationIndex());
-                _conf.getClasses().addError(cast_);
+                _conf.addError(cast_);
             }
             fieldNames.put(f,EMPTY_STRING);
         }
@@ -281,7 +281,7 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
                 cast_.setLocalOffset(_conf.getCurrentLocationIndex());
                 cast_.setFileName(_conf.getCurrentFileName());
                 cast_.setIndexFile(_conf.getCurrentLocationIndex());
-                _conf.getClasses().addError(cast_);
+                _conf.addError(cast_);
             }
         }
         for (EntryCust<String, ClassArgumentMatching> e: suppliedFieldsType_.entryList()) {
@@ -310,7 +310,7 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
                     cast_.setMapping(mapping_);
                     cast_.setFileName(_conf.getCurrentFileName());
                     cast_.setIndexFile(_conf.getCurrentLocationIndex());
-                    _conf.getClasses().addError(cast_);
+                    _conf.addError(cast_);
                 }
             }
         }

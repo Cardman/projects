@@ -3643,9 +3643,9 @@ public final class PrimitiveTypeUtilTest {
         Classes classes_ = cont_.getClasses();
         Classes.buildPredefinedBracesBodies(cont_);
         Classes.tryBuildBracedClassesBodies(_files, cont_, false);
-        assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
+        assertTrue(classes_.displayErrors(), cont_.isEmptyErrors());
         classes_.validateInheritingClasses(cont_, false);
-        assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
+        assertTrue(classes_.displayErrors(), cont_.isEmptyErrors());
         return cont_;
     }
     private ContextEl unfullValidateCheckInterfaces(StringMap<String> _files) {
@@ -3656,15 +3656,15 @@ public final class PrimitiveTypeUtilTest {
         Classes classes_ = cont_.getClasses();
         Classes.buildPredefinedBracesBodies(cont_);
         Classes.tryBuildBracedClassesBodies(_files, cont_, false);
-        assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
+        assertTrue(classes_.displayErrors(), cont_.isEmptyErrors());
         classes_.validateInheritingClasses(cont_, false);
-        assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
+        assertTrue(classes_.displayErrors(), cont_.isEmptyErrors());
         classes_.validateIds(cont_, false);
-        assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
+        assertTrue(classes_.displayErrors(), cont_.isEmptyErrors());
         classes_.validateOverridingInherit(cont_, false);
-        assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
+        assertTrue(classes_.displayErrors(), cont_.isEmptyErrors());
         classes_.validateEl(cont_, false);
-        assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
+        assertTrue(classes_.displayErrors(), cont_.isEmptyErrors());
         return cont_;
     }
     private static Struct getException(ContextEl _cont) {

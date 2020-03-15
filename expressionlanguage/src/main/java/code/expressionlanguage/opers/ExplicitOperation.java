@@ -33,7 +33,7 @@ public final class ExplicitOperation extends AbstractUnaryOperation {
             badCall_.setOperandsNumber(0);
             badCall_.setFileName(_conf.getCurrentFileName());
             badCall_.setIndexFile(_conf.getCurrentLocationIndex());
-            _conf.getClasses().addError(badCall_);
+            _conf.addError(badCall_);
             setResultClass(new ClassArgumentMatching(_conf.getStandards().getAliasObject()));
             return;
         }

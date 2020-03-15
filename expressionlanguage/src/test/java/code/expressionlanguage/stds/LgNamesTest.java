@@ -1555,7 +1555,7 @@ public class LgNamesTest {
         all_.putAllMap(others_);
         ContextEl contextEl_ = getCtx(lk_, di_, kw_, lgName_, opts_);
         ContextFactory.validate(contextEl_.getAnalysisMessages(),kw_,lgName_,all_,contextEl_,"src");
-        assertTrue(contextEl_.getClasses().isEmptyErrors());
+        assertTrue(contextEl_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId fct_ = new MethodId(MethodAccessKind.STATIC, "exmeth",new StringList());
         Argument argGlLoc_ = new Argument();
@@ -1585,7 +1585,7 @@ public class LgNamesTest {
         all_.putAllMap(srcFiles_);
         all_.putAllMap(others_);
         ContextEl contextEl_ =ContextFactory.build(-1, lk_, di_, opts_, a_,kw_, lgName_, all_,4,"src");
-        assertTrue(contextEl_.getClasses().isEmptyErrors());
+        assertTrue(contextEl_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId fct_ = new MethodId(MethodAccessKind.STATIC, "exmeth",new StringList());
         Argument argGlLoc_ = new Argument();

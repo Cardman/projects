@@ -209,7 +209,7 @@ public final class FieldBlock extends Leaf implements InfoBlock {
             b_ = new BadParamName();
             b_.setFileName(getFile().getFileName());
             b_.setIndexFile(getOffset().getOffsetTrim());
-            _cont.getClasses().addError(b_);
+            _cont.addError(b_);
         }
         StringList idsField_ = new StringList(_fieldNames);
         for (PartOffsetAffect n: names_) {
@@ -221,7 +221,7 @@ public final class FieldBlock extends Leaf implements InfoBlock {
                 b_.setFileName(getFile().getFileName());
                 b_.setIndexFile(getOffset().getOffsetTrim());
                 b_.setName(trName_);
-                _cont.getClasses().addError(b_);
+                _cont.addError(b_);
             }
             for (String m: idsField_) {
                 if (StringList.quickEq(m, trName_)) {
@@ -231,7 +231,7 @@ public final class FieldBlock extends Leaf implements InfoBlock {
                     duplicate_.setIndexFile(r_);
                     duplicate_.setFileName(getFile().getFileName());
                     duplicate_.setId(p_.getPart());
-                    _cont.getClasses().addError(duplicate_);
+                    _cont.addError(duplicate_);
                 }
             }
             idsField_.add(trName_);

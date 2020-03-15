@@ -108,7 +108,7 @@ public final class RenderInitNavTest extends CommonRender {
         n_.setFiles(files_);
         n_.setupRendClasses();
         n_.initializeRendSession();
-        assertTrue(!n_.getSession().getClasses().isEmptyErrors());
+        assertTrue(!n_.getSession().isEmptyErrors());
     }
     @Test
     public void process3Test() {
@@ -154,7 +154,7 @@ public final class RenderInitNavTest extends CommonRender {
         n_.setFiles(files_);
         n_.setupRendClasses();
         n_.initializeRendSession();
-        assertTrue(!n_.getSession().getClasses().isEmptyErrors());
+        assertTrue(!n_.getSession().isEmptyErrors());
     }
     @Test
     public void process4Test() {
@@ -200,7 +200,7 @@ public final class RenderInitNavTest extends CommonRender {
         n_.setFiles(files_);
         n_.setupRendClasses();
         n_.initializeRendSession();
-        assertTrue(!n_.getSession().getClasses().isEmptyErrors());
+        assertTrue(!n_.getSession().isEmptyErrors());
     }
     @Test
     public void process5Test() {

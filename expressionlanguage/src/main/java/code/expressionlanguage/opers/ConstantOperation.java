@@ -69,7 +69,7 @@ public final class ConstantOperation extends LeafOperation {
                 badFormat_.setNumber(str_);
                 badFormat_.setFileName(_conf.getCurrentFileName());
                 badFormat_.setIndexFile(_conf.getCurrentLocationIndex());
-                _conf.getClasses().addError(badFormat_);
+                _conf.addError(badFormat_);
             }
             setSimpleArgument(a_);
             setResultClass(new ClassArgumentMatching(argClName_));
@@ -82,7 +82,7 @@ public final class ConstantOperation extends LeafOperation {
             badFormat_.setNumber(str_);
             badFormat_.setFileName(_conf.getCurrentFileName());
             badFormat_.setIndexFile(_conf.getCurrentLocationIndex());
-            _conf.getClasses().addError(badFormat_);
+            _conf.addError(badFormat_);
             argClassName_ = stds_.getAliasPrimDouble();
         }
         Argument arg_ = Argument.createVoid();

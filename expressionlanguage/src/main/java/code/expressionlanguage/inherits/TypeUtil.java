@@ -50,7 +50,7 @@ public final class TypeUtil {
                 enum_.setClassName(c.getFullName());
                 enum_.setFileName(d_);
                 enum_.setIndexFile(_context.getCurrentLocationIndex());
-                classes_.addError(enum_);
+                _context.addError(enum_);
             }
             for (int i = 0; i < len_; i++) {
                 int offset_ = c.getStaticInitInterfacesOffset().get(i);
@@ -66,7 +66,7 @@ public final class TypeUtil {
                     enum_.setClassName(base_);
                     enum_.setFileName(d_);
                     enum_.setIndexFile(_context.getCurrentLocationIndex());
-                    classes_.addError(enum_);
+                    _context.addError(enum_);
                 } else {
                     c.getStaticInitImportedInterfaces().add(base_);
                 }
@@ -102,7 +102,7 @@ public final class TypeUtil {
                         undef_.setFileName(d_);
                         int offset_ = c.getStaticInitInterfacesOffset().get(j);
                         undef_.setIndexFile(offset_);
-                        classes_.addError(undef_);
+                        _context.addError(undef_);
                     }
                 }
             }
@@ -164,7 +164,7 @@ public final class TypeUtil {
                 undef_.setClassName(c);
                 undef_.setFileName(un_.getFile().getFileName());
                 undef_.setIndexFile(0);
-                classes_.addError(undef_);
+                _context.addError(undef_);
             }
         }
     }
@@ -234,7 +234,7 @@ public final class TypeUtil {
             err_.setReturnType(sub_.getImportedReturnType());
             err_.setMethod(c.getConstraints().getSignature(_context));
             err_.setParentClass(c.getClassName());
-            classesRef_.addError(err_);
+            _context.addError(err_);
         }
         ObjectMap<MethodId, EqList<ClassMethodId>> allOv_ = getAllInstanceSignatures(_type, _context);
         StringMap<StringList> vars_ = new StringMap<StringList>();
@@ -297,7 +297,7 @@ public final class TypeUtil {
                         err_.setIndexFile(((OverridableBlock) sub_).getNameOffset());
                         err_.setClassName(subId_.getClassName());
                         err_.setId(sub_.getId().getSignature(_context));
-                        classesRef_.addError(err_);
+                        _context.addError(err_);
                         continue;
                     }
                     if (sup_.getAccess().isStrictMoreAccessibleThan(sub_.getAccess())) {
@@ -306,7 +306,7 @@ public final class TypeUtil {
                         err_.setFileName(fileName_);
                         err_.setIndexFile(((OverridableBlock) sub_).getAccessOffset());
                         err_.setId(sub_.getId().getSignature(_context));
-                        classesRef_.addError(err_);
+                        _context.addError(err_);
                         continue;
                     }
                     if (((OverridableBlock)sub_).getKind() != MethodKind.STD_METHOD) {
@@ -318,7 +318,7 @@ public final class TypeUtil {
                             err_.setReturnType(retDerive_);
                             err_.setMethod(sub_.getId().getSignature(_context));
                             err_.setParentClass(supId_.getClassName());
-                            classesRef_.addError(err_);
+                            _context.addError(err_);
                             continue;
                         }
                         addClass(_type.getAllOverridingMethods(), key_, subId_);
@@ -333,7 +333,7 @@ public final class TypeUtil {
                         err_.setReturnType(retDerive_);
                         err_.setMethod(sub_.getId().getSignature(_context));
                         err_.setParentClass(supId_.getClassName());
-                        classesRef_.addError(err_);
+                        _context.addError(err_);
                         continue;
                     }
                     addClass(_type.getAllOverridingMethods(), key_, subId_);
@@ -650,7 +650,7 @@ public final class TypeUtil {
         TypeOwnersDepends out_ = new TypeOwnersDepends();
         StringList ids_ = new StringList(_root);
         StringList owners_ = new StringList();
-        StringList depends_ = new StringList();
+        EqList<ClassInheritsDeps> depends_ = new EqList<ClassInheritsDeps>();
         StringList visited_ = new StringList();
         while (true) {
             StringList new_ = new StringList();
@@ -672,7 +672,7 @@ public final class TypeUtil {
                     continue;
                 }
                 if (!sub_.getImportedDirectBaseSuperTypes().isEmpty()) {
-                    depends_.add(s);
+                    depends_.add(new ClassInheritsDeps(s, sub_));
                 }
                 for (String t: sub_.getImportedDirectBaseSuperTypes().values()) {
                     addIfNotFound(visited_, new_, t);

@@ -96,7 +96,7 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
             String c_ = getImportedDirectBaseSuperType(i_);
             i_++;
             String base_ = Templates.getIdFromAllTypes(s_);
-            _classes.getClasses().addErrorIfNoMatch(s_,c_,this,index_);
+            _classes.addErrorIfNoMatch(s_,c_,this,index_);
             RootBlock r_ = _classes.getClasses().getClassBody(base_);
             if (!(r_ instanceof ClassBlock)) {
                 importedDirectSuperInterfaces.add(s_);

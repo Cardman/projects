@@ -34,13 +34,13 @@ public final class RendElseIfCondition extends RendCondition implements RendBrea
                     UnexpectedTagName un_ = new UnexpectedTagName();
                     un_.setFileName(_cont.getCurrentFileName());
                     un_.setIndexFile(getOffset().getOffsetTrim());
-                    _cont.getClasses().addError(un_);
+                    _cont.addError(un_);
                 } else if (!(pBlock_.getPreviousSibling() instanceof RendIfCondition)){
                     if (!(pBlock_.getPreviousSibling() instanceof RendElseIfCondition)){
                         UnexpectedTagName un_ = new UnexpectedTagName();
                         un_.setFileName(_cont.getCurrentFileName());
                         un_.setIndexFile(getOffset().getOffsetTrim());
-                        _cont.getClasses().addError(un_);
+                        _cont.addError(un_);
                     }
                 }
             }

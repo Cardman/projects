@@ -42,7 +42,7 @@ public final class RenderForEachLoopTest extends CommonRender {
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", doc_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
-        assertTrue(context_.getClasses().isEmptyErrors());
+        assertTrue(context_.isEmptyErrors());
         assertEq("<html><body>Not empty</body></html>", RendBlock.getRes(rendDocumentBlock_,context_));
         assertNull(getException(context_));
     }
@@ -68,7 +68,7 @@ public final class RenderForEachLoopTest extends CommonRender {
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", doc_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
-        assertTrue(context_.getClasses().isEmptyErrors());
+        assertTrue(context_.isEmptyErrors());
         assertEq("<html><body>Empty</body></html>", RendBlock.getRes(rendDocumentBlock_,context_));
         assertNull(getException(context_));
     }
@@ -96,7 +96,7 @@ public final class RenderForEachLoopTest extends CommonRender {
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", doc_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
-        assertTrue(context_.getClasses().isEmptyErrors());
+        assertTrue(context_.isEmptyErrors());
         assertEq("<html><body><ul><li>5</li><li>6</li></ul></body></html>", RendBlock.getRes(rendDocumentBlock_,context_));
         assertNull(getException(context_));
     }
@@ -124,7 +124,7 @@ public final class RenderForEachLoopTest extends CommonRender {
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", doc_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
-        assertTrue(context_.getClasses().isEmptyErrors());
+        assertTrue(context_.isEmptyErrors());
         assertEq("<html><body><ul><li>5</li><li>6</li></ul></body></html>", RendBlock.getRes(rendDocumentBlock_,context_));
         assertNull(getException(context_));
     }
@@ -152,7 +152,7 @@ public final class RenderForEachLoopTest extends CommonRender {
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", doc_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
-        assertTrue(context_.getClasses().isEmptyErrors());
+        assertTrue(context_.isEmptyErrors());
         assertEq("<html><body><ul><li>5</li><li>6</li></ul></body></html>", RendBlock.getRes(rendDocumentBlock_,context_));
         assertNull(getException(context_));
     }
@@ -180,7 +180,7 @@ public final class RenderForEachLoopTest extends CommonRender {
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", doc_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
-        assertTrue(context_.getClasses().isEmptyErrors());
+        assertTrue(context_.isEmptyErrors());
         assertEq("<html><body><ul><li>5</li><li>6</li></ul></body></html>", RendBlock.getRes(rendDocumentBlock_,context_));
         assertNull(getException(context_));
     }
@@ -208,7 +208,7 @@ public final class RenderForEachLoopTest extends CommonRender {
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", doc_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
-        assertTrue(context_.getClasses().isEmptyErrors());
+        assertTrue(context_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_, context_);
         assertNotNull(getException(context_));
     }
@@ -223,7 +223,7 @@ public final class RenderForEachLoopTest extends CommonRender {
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
-        assertTrue(context_.getClasses().isEmptyErrors());
+        assertTrue(context_.isEmptyErrors());
         assertEq("<html>0-Pair-1-Impair-2-Pair-3-Impair-</html>", RendBlock.getRes(rendDocumentBlock_,context_));
         assertNull(getException(context_));
     }
@@ -239,7 +239,7 @@ public final class RenderForEachLoopTest extends CommonRender {
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
-        assertTrue(context_.getClasses().isEmptyErrors());
+        assertTrue(context_.isEmptyErrors());
         assertEq("<html/>", RendBlock.getRes(rendDocumentBlock_,context_));
         assertNull(getException(context_));
     }
@@ -275,7 +275,7 @@ public final class RenderForEachLoopTest extends CommonRender {
         context_.getContext().setAnalyzing(new AnalyzedPageEl());
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
-        assertTrue(context_.getClasses().isEmptyErrors());
+        assertTrue(context_.isEmptyErrors());
         assertEq("<html><body><ul><li>1</li><li>2</li></ul></body></html>", RendBlock.getRes(rendDocumentBlock_, context_));
         assertNull(getException(context_));
     }
@@ -303,7 +303,7 @@ public final class RenderForEachLoopTest extends CommonRender {
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", doc_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
-        assertTrue(context_.getClasses().isEmptyErrors());
+        assertTrue(context_.isEmptyErrors());
         assertEq("<html><body><ul/></body></html>", RendBlock.getRes(rendDocumentBlock_, context_));
         assertNull(getException(context_));
     }
@@ -331,7 +331,7 @@ public final class RenderForEachLoopTest extends CommonRender {
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", doc_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
-        assertTrue(context_.getClasses().isEmptyErrors());
+        assertTrue(context_.isEmptyErrors());
         assertEq("<html><body><ul><li>0-1</li></ul></body></html>", RendBlock.getRes(rendDocumentBlock_, context_));
         assertNull(getException(context_));
     }
@@ -359,7 +359,7 @@ public final class RenderForEachLoopTest extends CommonRender {
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", doc_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
-        assertTrue(context_.getClasses().isEmptyErrors());
+        assertTrue(context_.isEmptyErrors());
         assertEq("<html><body><ul><li><ol><li>1</li></ol></li></ul></body></html>", RendBlock.getRes(rendDocumentBlock_, context_));
         assertNull(getException(context_));
     }
@@ -387,7 +387,7 @@ public final class RenderForEachLoopTest extends CommonRender {
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", doc_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
-        assertTrue(context_.getClasses().isEmptyErrors());
+        assertTrue(context_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_, context_);
         assertNotNull(getException(context_));
     }
@@ -402,7 +402,7 @@ public final class RenderForEachLoopTest extends CommonRender {
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
-        assertTrue(context_.getClasses().isEmptyErrors());
+        assertTrue(context_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_,context_);
         assertNotNull(getException(context_));
     }
@@ -417,7 +417,7 @@ public final class RenderForEachLoopTest extends CommonRender {
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
-        assertTrue(context_.getClasses().isEmptyErrors());
+        assertTrue(context_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_,context_);
         assertNotNull(getException(context_));
     }
@@ -432,7 +432,7 @@ public final class RenderForEachLoopTest extends CommonRender {
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
-        assertTrue(context_.getClasses().isEmptyErrors());
+        assertTrue(context_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_,context_);
         assertNotNull(getException(context_));
     }
@@ -447,7 +447,7 @@ public final class RenderForEachLoopTest extends CommonRender {
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
-        assertTrue(context_.getClasses().isEmptyErrors());
+        assertTrue(context_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_,context_);
         assertNotNull(getException(context_));
     }
@@ -462,7 +462,7 @@ public final class RenderForEachLoopTest extends CommonRender {
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
-        assertTrue(context_.getClasses().isEmptyErrors());
+        assertTrue(context_.isEmptyErrors());
         assertEq("<html>0-Pair-1-Impair-2-Pair-3-Impair-</html>", RendBlock.getRes(rendDocumentBlock_,context_));
         assertNull(getException(context_));
     }
@@ -477,7 +477,7 @@ public final class RenderForEachLoopTest extends CommonRender {
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
-        assertTrue(context_.getClasses().isEmptyErrors());
+        assertTrue(context_.isEmptyErrors());
         assertEq("<html>0-1-2-3-</html>", RendBlock.getRes(rendDocumentBlock_,context_));
         assertNull(getException(context_));
     }
@@ -492,7 +492,7 @@ public final class RenderForEachLoopTest extends CommonRender {
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
-        assertTrue(context_.getClasses().isEmptyErrors());
+        assertTrue(context_.isEmptyErrors());
         assertEq("<html>0-1-2-3-</html>", RendBlock.getRes(rendDocumentBlock_,context_));
         assertNull(getException(context_));
     }
@@ -527,7 +527,7 @@ public final class RenderForEachLoopTest extends CommonRender {
         context_.getContext().setAnalyzing(new AnalyzedPageEl());
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
-        assertTrue(context_.getClasses().isEmptyErrors());
+        assertTrue(context_.isEmptyErrors());
         assertEq("<html><body><ul><li>0</li><li>1</li><li>2</li><li>3</li></ul></body></html>", RendBlock.getRes(rendDocumentBlock_, context_));
         assertNull(getException(context_));
     }
@@ -562,7 +562,7 @@ public final class RenderForEachLoopTest extends CommonRender {
         context_.getContext().setAnalyzing(new AnalyzedPageEl());
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
-        assertTrue(context_.getClasses().isEmptyErrors());
+        assertTrue(context_.isEmptyErrors());
         assertEq("<html><body><ul><li>0</li><li>1</li><li>2</li><li>3</li></ul></body></html>", RendBlock.getRes(rendDocumentBlock_, context_));
         assertNull(getException(context_));
     }
@@ -590,7 +590,7 @@ public final class RenderForEachLoopTest extends CommonRender {
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", doc_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
-        assertTrue(context_.getClasses().isEmptyErrors());
+        assertTrue(context_.isEmptyErrors());
         assertEq("<html><body><ul><li>5</li><li>6</li></ul></body></html>", RendBlock.getRes(rendDocumentBlock_,context_));
         assertNull(getException(context_));
     }
@@ -605,7 +605,7 @@ public final class RenderForEachLoopTest extends CommonRender {
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
-        assertTrue(context_.getClasses().isEmptyErrors());
+        assertTrue(context_.isEmptyErrors());
         assertEq("<html>0-Pair-1-Impair-2-Pair-3-Impair-</html>", RendBlock.getRes(rendDocumentBlock_,context_));
         assertNull(getException(context_));
     }
@@ -633,7 +633,7 @@ public final class RenderForEachLoopTest extends CommonRender {
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", doc_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
-        assertTrue(!context_.getClasses().isEmptyErrors());
+        assertTrue(!context_.isEmptyErrors());
     }
     @Test
     public void process2FailTest() {
@@ -653,7 +653,7 @@ public final class RenderForEachLoopTest extends CommonRender {
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", doc_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
-        assertTrue(!context_.getClasses().isEmptyErrors());
+        assertTrue(!context_.isEmptyErrors());
     }
     @Test
     public void process3FailTest() {
@@ -666,7 +666,7 @@ public final class RenderForEachLoopTest extends CommonRender {
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
-        assertTrue(!context_.getClasses().isEmptyErrors());
+        assertTrue(!context_.isEmptyErrors());
     }
     @Test
     public void process4FailTest() {
@@ -687,7 +687,7 @@ public final class RenderForEachLoopTest extends CommonRender {
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
-        assertTrue(!context_.getClasses().isEmptyErrors());
+        assertTrue(!context_.isEmptyErrors());
     }
     @Test
     public void process5FailTest() {
@@ -708,7 +708,7 @@ public final class RenderForEachLoopTest extends CommonRender {
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
-        assertTrue(!context_.getClasses().isEmptyErrors());
+        assertTrue(!context_.isEmptyErrors());
     }
     @Test
     public void process6FailTest() {
@@ -728,7 +728,7 @@ public final class RenderForEachLoopTest extends CommonRender {
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", doc_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
-        assertTrue(!context_.getClasses().isEmptyErrors());
+        assertTrue(!context_.isEmptyErrors());
     }
     @Test
     public void process7FailTest() {
@@ -748,7 +748,7 @@ public final class RenderForEachLoopTest extends CommonRender {
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", doc_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
-        assertTrue(!context_.getClasses().isEmptyErrors());
+        assertTrue(!context_.isEmptyErrors());
     }
     @Test
     public void process8FailTest() {
@@ -768,7 +768,7 @@ public final class RenderForEachLoopTest extends CommonRender {
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", doc_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
-        assertTrue(!context_.getClasses().isEmptyErrors());
+        assertTrue(!context_.isEmptyErrors());
     }
     @Test
     public void process9FailTest() {
@@ -781,7 +781,7 @@ public final class RenderForEachLoopTest extends CommonRender {
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
-        assertTrue(!context_.getClasses().isEmptyErrors());
+        assertTrue(!context_.isEmptyErrors());
     }
     @Test
     public void process10FailTest() {
@@ -814,7 +814,7 @@ public final class RenderForEachLoopTest extends CommonRender {
         context_.getContext().setAnalyzing(new AnalyzedPageEl());
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
-        assertTrue(!context_.getClasses().isEmptyErrors());
+        assertTrue(!context_.isEmptyErrors());
     }
     @Test
     public void process0FailTest() {
@@ -840,7 +840,7 @@ public final class RenderForEachLoopTest extends CommonRender {
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", doc_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
-        assertTrue(!context_.getClasses().isEmptyErrors());
+        assertTrue(!context_.isEmptyErrors());
     }
     private static String getCustomList() {
         StringBuilder xml_ = new StringBuilder();

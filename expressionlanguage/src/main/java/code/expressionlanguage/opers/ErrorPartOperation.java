@@ -21,7 +21,7 @@ public final class ErrorPartOperation extends LeafOperation {
         EmptyPartError emptyPart_ = new EmptyPartError();
         emptyPart_.setFileName(_conf.getCurrentFileName());
         emptyPart_.setIndexFile(_conf.getCurrentLocationIndex());
-        _conf.getClasses().addError(emptyPart_);
+        _conf.addError(emptyPart_);
         argClName_ = _conf.getStandards().getAliasObject();
         setResultClass(new ClassArgumentMatching(argClName_));    
     }

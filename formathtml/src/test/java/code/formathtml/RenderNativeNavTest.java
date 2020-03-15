@@ -145,7 +145,7 @@ public final class RenderNativeNavTest extends CommonRender {
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
         rendDocumentBlockSec_.buildFctInstructions(conf_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body><a href=\"\" c:command=\"go\" n-a=\"0\">Test {0}2</a></body></html>", RendBlock.getRes(rendDocumentBlock_, conf_));
         assertNull(getException(conf_));
         assertEq(1, beanTwo_.getForms().size());
@@ -196,7 +196,7 @@ public final class RenderNativeNavTest extends CommonRender {
         conf_.getAnalyzingDoc().setFiles(files_);
         rendDocumentBlock_.buildFctInstructions(conf_);
         rendDocumentBlockSec_.buildFctInstructions(conf_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         String render_ = RendBlock.getRes(rendDocumentBlock_, conf_);
         assertEq("<html><body><a href=\"\" c:command=\"go\" n-a=\"0\">Test {0}2</a>Description <a c:command=\"$bean_two.go\" href=\"\" n-a=\"1\">two</a></body></html>", render_);
         assertEq(1, beanTwo_.getForms().size());

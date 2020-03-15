@@ -71,7 +71,7 @@ public abstract class Condition extends BracedStack implements WithNotEmptyEl, B
             un_.setFileName(getFile().getFileName());
             un_.setIndexFile(conditionOffset);
             un_.setType(opCondition.last().getResultClass());
-            _cont.getClasses().addError(un_);
+            _cont.addError(un_);
         }
         elCondition_.getResultClass().setUnwrapObject(stds_.getAliasPrimBoolean());
     }

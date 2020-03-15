@@ -1,13 +1,16 @@
 package code.expressionlanguage.methods;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.errors.custom.DeadCodeTernary;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.instr.PartOffset;
 import code.util.*;
 
 public final class FileBlock extends BracedBlock implements ImportingBlock {
-
+    private static final char LINE_RETURN = '\n';
+    private static final char CARR_RETURN = '\r';
+    private static final char TAB = '\t';
     private Ints binChars = new Ints();
     private Ints lineReturns = new Ints();
     private Ints tabulations = new Ints();
@@ -29,6 +32,36 @@ public final class FileBlock extends BracedBlock implements ImportingBlock {
         super(_offset);
         predefined = _predefined;
         tabWidth = _tabWidth;
+    }
+    public void processLinesTabs(ContextEl _context, String _file) {
+        int i_ = CustList.FIRST_INDEX;
+        int len_ = _file.length();
+        getLineReturns().add(-1);
+        boolean foundBinChar_ = false;
+        while (i_ < len_) {
+            char ch_ = _file.charAt(i_);
+            if (ch_ < ' ') {
+                if (ch_ == TAB) {
+                    getTabulations().add(i_);
+                } else if (ch_ == LINE_RETURN) {
+                    getLineReturns().add(i_);
+                } else if (ch_ == CARR_RETURN){
+                    if (i_ + 1 >= len_ || _file.charAt(i_ + 1) != LINE_RETURN) {
+                        getLineReturns().add(i_);
+                    }
+                } else {
+                    getBinChars().add(i_);
+                    foundBinChar_ = true;
+                }
+            }
+            i_++;
+        }
+        if (foundBinChar_) {
+            DeadCodeTernary d_ = new DeadCodeTernary();
+            d_.setIndexFile(0);
+            d_.setFileName(fileName);
+            _context.addWarning(d_);
+        }
     }
     public int getRowFile(int _sum) {
         int len_ = lineReturns.size();

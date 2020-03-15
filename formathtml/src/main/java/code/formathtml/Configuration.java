@@ -14,10 +14,7 @@ import code.expressionlanguage.calls.util.NotInitializedClass;
 import code.expressionlanguage.common.GeneField;
 import code.expressionlanguage.common.GeneMethod;
 import code.expressionlanguage.common.GeneType;
-import code.expressionlanguage.errors.custom.BadElError;
-import code.expressionlanguage.errors.custom.IllegalCallCtorByType;
-import code.expressionlanguage.errors.custom.UnexpectedTypeError;
-import code.expressionlanguage.errors.custom.UnknownClassName;
+import code.expressionlanguage.errors.custom.*;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.inherits.TypeUtil;
@@ -134,7 +131,8 @@ public final class Configuration implements ExecutableCode {
 
     private Struct mainBean;
     private String currentLanguage = "";
-
+    private final ErrorList errorsDet = new ErrorList();
+    private final WarningList warningsDet = new WarningList();
     @Override
     public boolean isMerged() {
         return context.isMerged();
@@ -221,7 +219,7 @@ public final class Configuration implements ExecutableCode {
         }
         //!classFiles_.isEmpty()
         Classes.validateAll(classFiles_, context);
-        if (!context.getClasses().getErrorsDet().isEmpty()) {
+        if (!context.isEmptyErrors()) {
             return;
         }
         standards.buildIterables(this);
@@ -240,7 +238,7 @@ public final class Configuration implements ExecutableCode {
                 BadElError badEl_ = new BadElError();
                 badEl_.setFileName(getCurrentFileName());
                 badEl_.setIndexFile(getCurrentLocationIndex());
-                getClasses().addError(badEl_);
+                addError(badEl_);
                 continue;
             }
             currentUrl = link_;
@@ -272,7 +270,7 @@ public final class Configuration implements ExecutableCode {
 
     public Struct newSimpleBean(String _language, Struct _dataBase, BeanInfo _bean) {
         addPage(new ImportingPage());
-        Struct strBean_ = RenderExpUtil.processEl(StringList.concat(INSTANCE,_bean.getClassName(),NO_PARAM), 0, this).getStruct();
+        Struct strBean_ = RenderExpUtil.processQuickEl(StringList.concat(INSTANCE,_bean.getClassName(),NO_PARAM), 0, this).getStruct();
         BeanStruct str_ = (BeanStruct) strBean_;
         Bean bean_ = str_.getBean();
         Object db_ = null;
@@ -513,6 +511,29 @@ public final class Configuration implements ExecutableCode {
     }
 
     @Override
+    public int getRowFile(String _fileName, int _sum) {
+        return 0;
+    }
+
+    @Override
+    public int getColFile(String _fileName, int _sum, int _row) {
+        return 0;
+    }
+
+    public void addWarning(FoundWarningInterpret _warning) {
+        _warning.setAnalyzable(this);
+        warningsDet.add(_warning);
+    }
+    @Override
+    public void addError(FoundErrorInterpret _error) {
+        _error.setAnalyzable(this);
+        errorsDet.add(_error);
+    }
+
+    public boolean isEmptyErrors() {
+        return getContext().getClasses().isEmptyErrors() && errorsDet.isEmpty();
+    }
+    @Override
     public Classes getClasses() {
         return getContext().getClasses();
     }
@@ -613,7 +634,7 @@ public final class Configuration implements ExecutableCode {
             call_.setType(_realClassName);
             call_.setFileName(getCurrentFileName());
             call_.setIndexFile(getCurrentLocationIndex());
-            getClasses().addError(call_);
+            addError(call_);
             _op.setResultClass(new ClassArgumentMatching(_realClassName));
             return -2;
         }
@@ -736,7 +757,7 @@ public final class Configuration implements ExecutableCode {
             un_.setFileName(analyzingDoc.getFileName());
             un_.setIndexFile(rc_);
             un_.setType(_in);
-            getClasses().addError(un_);
+            addError(un_);
             return "";
         }
         StringList inners_;
@@ -760,7 +781,7 @@ public final class Configuration implements ExecutableCode {
                 undef_.setClassName(base_);
                 undef_.setFileName(analyzingDoc.getFileName());
                 undef_.setIndexFile(rc_);
-                getClasses().addError(undef_);
+                addError(undef_);
                 return "";
             }
             res_ = id_;
@@ -775,7 +796,7 @@ public final class Configuration implements ExecutableCode {
                 undef_.setClassName(base_);
                 undef_.setFileName(analyzingDoc.getFileName());
                 undef_.setIndexFile(rc_);
-                getClasses().addError(undef_);
+                addError(undef_);
                 return "";
             }
             res_ = resId_;
@@ -812,7 +833,7 @@ public final class Configuration implements ExecutableCode {
             un_.setFileName(analyzingDoc.getFileName());
             un_.setIndexFile(rc_);
             un_.setType(_in);
-            getClasses().addError(un_);
+            addError(un_);
             return standards.getAliasObject();
         }
         AccessedBlock r_ = analyzingDoc.getCurrentDoc();
@@ -832,7 +853,7 @@ public final class Configuration implements ExecutableCode {
             un_.setClassName(_in);
             un_.setFileName(analyzingDoc.getFileName());
             un_.setIndexFile(rc_);
-            getClasses().addError(un_);
+            addError(un_);
             return standards.getAliasObject();
         }
         if (!Templates.isCorrectTemplateAll(resType_, vars_, this)) {
@@ -840,7 +861,7 @@ public final class Configuration implements ExecutableCode {
             un_.setClassName(_in);
             un_.setFileName(analyzingDoc.getFileName());
             un_.setIndexFile(rc_);
-            getClasses().addError(un_);
+            addError(un_);
             return standards.getAliasObject();
         }
         return resType_;

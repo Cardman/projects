@@ -166,7 +166,7 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
                 miss_.setFileName(getFile().getFileName());
                 miss_.setId(getPseudoSignature(_an));
                 miss_.setReturning(getImportedReturnType());
-                _an.getClasses().addError(miss_);
+                _an.addError(miss_);
             }
         }
     }

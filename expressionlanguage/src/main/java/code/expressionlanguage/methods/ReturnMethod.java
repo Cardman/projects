@@ -121,7 +121,7 @@ public final class ReturnMethod extends AbruptBlock implements CallingFinally, W
             cast_.setMapping(mapping_);
             cast_.setFileName(getFile().getFileName());
             cast_.setIndexFile(expressionOffset);
-            _cont.getClasses().addError(cast_);
+            _cont.addError(cast_);
             return;
         }
         if (!Templates.isCorrectOrNumbers(mapping_, _cont)) {
@@ -129,7 +129,7 @@ public final class ReturnMethod extends AbruptBlock implements CallingFinally, W
             cast_.setMapping(mapping_);
             cast_.setFileName(getFile().getFileName());
             cast_.setIndexFile(expressionOffset);
-            _cont.getClasses().addError(cast_);
+            _cont.addError(cast_);
         }
         if (PrimitiveTypeUtil.isPrimitive(_retType, _cont)) {
             opRet.last().getResultClass().setUnwrapObject(_retType);

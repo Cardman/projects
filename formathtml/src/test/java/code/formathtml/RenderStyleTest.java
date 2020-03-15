@@ -34,7 +34,7 @@ public final class RenderStyleTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         
         conf_.setDocument(doc_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         assertEq("<html><head><link href=\"main.css\" rel=\"stylesheet\"/><style>.classTest{color:blue;}</style></head><style>.classTest{color:blue;}CONTENT</style><body/></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
     }
@@ -59,7 +59,7 @@ public final class RenderStyleTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         
         conf_.setDocument(doc_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         assertEq("<html><head><link href=\"main.css\" rel=\"stylesheet\"/><style>.classTest{color:blue;}</style></head><style>{0}CONTENT</style><body/></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
     }
@@ -84,7 +84,7 @@ public final class RenderStyleTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         
         conf_.setDocument(doc_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         assertEq("<html><head><style>CONTENT.classTest{color:blue;}</style><link href=\"main.css\" rel=\"stylesheet\"/></head><body/></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
     }
@@ -109,7 +109,7 @@ public final class RenderStyleTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         
         conf_.setDocument(doc_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         assertEq("<html><head><style>.classTest{color:blue;}</style><link href=\"main.css\" rel=\"stylesheet\"/></head><body/></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
     }
@@ -134,7 +134,7 @@ public final class RenderStyleTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         
         conf_.setDocument(doc_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         assertEq("<html><head><link rel=\"stylesheet\"/></head><style>CONTENT</style><body/></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
     }
@@ -159,7 +159,7 @@ public final class RenderStyleTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         
         conf_.setDocument(doc_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         assertEq("<html><link href=\"main.css\" rel=\"stylesheet\"/><style>.classTest{color:blue;}CONTENT</style><body/></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
     }
@@ -184,7 +184,7 @@ public final class RenderStyleTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         
         conf_.setDocument(doc_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         assertEq("<html><head><link href=\"main.css\"/></head><style>CONTENT</style><body/></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
     }
@@ -209,7 +209,7 @@ public final class RenderStyleTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         
         conf_.setDocument(doc_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         assertEq("<html><head><link href=\"main.css\" rel=\"stylesheet\"/></head><style>CONTENT</style><body/></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
     }
@@ -234,7 +234,7 @@ public final class RenderStyleTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         
         conf_.setDocument(doc_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_,conf_);
         assertNotNull(getException(conf_));
     }

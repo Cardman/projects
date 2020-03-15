@@ -85,7 +85,7 @@ public abstract class SettableAbstractFieldOperation extends
                 und_.setId(fieldName_);
                 und_.setFileName(_conf.getCurrentFileName());
                 und_.setIndexFile(_conf.getCurrentLocationIndex());
-                _conf.getClasses().addError(und_);
+                _conf.addError(und_);
             }
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             return;
@@ -279,7 +279,7 @@ public abstract class SettableAbstractFieldOperation extends
                         UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
                         un_.setFileName(_conf.getCurrentFileName());
                         un_.setIndexFile(_conf.getCurrentLocationIndex());
-                        _conf.getClasses().addError(un_);
+                        _conf.addError(un_);
                     }
                 }
             }

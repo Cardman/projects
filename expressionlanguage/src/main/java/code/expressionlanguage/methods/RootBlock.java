@@ -8,10 +8,7 @@ import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.errors.custom.*;
 import code.expressionlanguage.files.OffsetAccessInfo;
 import code.expressionlanguage.files.OffsetsBlock;
-import code.expressionlanguage.inherits.Mapping;
-import code.expressionlanguage.inherits.PrimitiveTypeUtil;
-import code.expressionlanguage.inherits.Templates;
-import code.expressionlanguage.inherits.TypeUtil;
+import code.expressionlanguage.inherits.*;
 import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.methods.util.ConstructorEdge;
@@ -159,33 +156,31 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
     }
 
     public abstract StringList getImportedDirectSuperTypes();
-    public final StringList getDepends(Analyzable _an) {
+    public final EqList<ClassInheritsDeps> getDepends(Analyzable _an) {
         IntMap< String> rcs_;
         rcs_ = getRowColDirectSuperTypes();
         StringMap<Integer> varsList_ = new StringMap<Integer>();
         for (RootBlock r: getSelfAndParentTypes()) {
-            int i_ = 0;
             for (TypeVar t: r.paramTypes) {
                 varsList_.addEntry(t.getName(),t.getOffset());
-                i_ += 2;
             }
         }
         _an.getAvailableVariables().clear();
         _an.getAvailableVariables().putAllMap(varsList_);
         Ints bi_ = _an.getCurrentBadIndexes();
-        StringList all_ = new StringList();
+        EqList<ClassInheritsDeps> all_ = new EqList<ClassInheritsDeps>();
         int i_ = 0;
         for (String s: getDirectSuperTypes()) {
             int index_ = rcs_.getKey(i_);
             bi_.clear();
-            StringList list_ = PartTypeUtil.processAnalyzeDepends(s, i_,_an, this, true);
+            EqList<ClassInheritsDeps> list_ = PartTypeUtil.processAnalyzeDepends(s, i_,_an, this, true);
             i_++;
             for (int i : bi_) {
                 BadIndexInParser bip_ = new BadIndexInParser();
                 bip_.setIndex(index_+i);
                 bip_.setIndexFile(_an.getCurrentLocationIndex());
                 bip_.setFileName(_an.getCurrentFileName());
-                _an.getClasses().addError(bip_);
+                _an.addError(bip_);
             }
             all_.addAllElts(list_);
         }
@@ -326,7 +321,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                         err_.setFileName(getFile().getFileName());
                         err_.setIndexFile(((OverridableBlock)supCl_).getAccessOffset());
                         err_.setId(supInt_.getId().getSignature(_context));
-                        classesRef_.addError(err_);
+                        _context.addError(err_);
                     }
                     String retInt_ = supInt_.getImportedReturnType();
                     String retBase_ = supCl_.getImportedReturnType();
@@ -341,7 +336,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                             err_.setReturnType(retBase_);
                             err_.setMethod(supCl_.getId().getSignature(_context));
                             err_.setParentClass(nameCl_);
-                            classesRef_.addError(err_);
+                            _context.addError(err_);
                         }
                         continue;
                     }
@@ -353,7 +348,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                         err_.setReturnType(retBase_);
                         err_.setMethod(supCl_.getId().getSignature(_context));
                         err_.setParentClass(nameCl_);
-                        classesRef_.addError(err_);
+                        _context.addError(err_);
                     }
                 }
             }
@@ -633,7 +628,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                 unexp_.setFileName(getFile().getFileName());
                 unexp_.setFoundTag(EMPTY_STRING);
                 unexp_.setIndexFile(where_);
-                _context.getClasses().addError(unexp_);
+                _context.addError(unexp_);
             }
         }
         if (!isStaticType()) {
@@ -648,7 +643,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                         unexp_.setFileName(getFile().getFileName());
                         unexp_.setFoundTag(EMPTY_STRING);
                         unexp_.setIndexFile(where_);
-                        _context.getClasses().addError(unexp_);
+                        _context.addError(unexp_);
                     }
                 }
                 if (b instanceof StaticBlock) {
@@ -657,7 +652,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                     unexp_.setFileName(getFile().getFileName());
                     unexp_.setFoundTag(EMPTY_STRING);
                     unexp_.setIndexFile(where_);
-                    _context.getClasses().addError(unexp_);
+                    _context.addError(unexp_);
                 }
             }
         }
@@ -675,7 +670,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                             badMeth_.setFileName(getFile().getFileName());
                             badMeth_.setIndexFile(r_);
                             badMeth_.setName(name_);
-                            _context.getClasses().addError(badMeth_);
+                            _context.addError(badMeth_);
                         } else if (StringList.quickEq(name_, keyWords_.getKeyWordToString()) && !m_.hiddenInstance() && m_.getParametersTypes().isEmpty()) {
                             if (!StringList.quickEq(m_.getImportedReturnType(),stds_.getAliasString())) {
                                 int r_ = m_.getNameOffset();
@@ -683,14 +678,14 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                                 badMeth_.setFileName(getFile().getFileName());
                                 badMeth_.setIndexFile(r_);
                                 badMeth_.setName(name_);
-                                _context.getClasses().addError(badMeth_);
+                                _context.addError(badMeth_);
                             } else if (m_.getAccess() != AccessEnum.PUBLIC) {
                                 int r_ = m_.getNameOffset();
                                 BadMethodName badMeth_ = new BadMethodName();
                                 badMeth_.setFileName(getFile().getFileName());
                                 badMeth_.setIndexFile(r_);
                                 badMeth_.setName(name_);
-                                _context.getClasses().addError(badMeth_);
+                                _context.addError(badMeth_);
                             }
                         } else if (StringList.quickEq(name_, keyWords_.getKeyWordExplicit())) {
                             if (!StringList.quickEq(m_.getImportedReturnType(),getGenericString())) {
@@ -699,28 +694,28 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                                 badMeth_.setFileName(getFile().getFileName());
                                 badMeth_.setIndexFile(r_);
                                 badMeth_.setName(name_);
-                                _context.getClasses().addError(badMeth_);
+                                _context.addError(badMeth_);
                             } else if (m_.getParametersTypes().size() != 1) {
                                 int r_ = m_.getNameOffset();
                                 BadMethodName badMeth_ = new BadMethodName();
                                 badMeth_.setFileName(getFile().getFileName());
                                 badMeth_.setIndexFile(r_);
                                 badMeth_.setName(name_);
-                                _context.getClasses().addError(badMeth_);
+                                _context.addError(badMeth_);
                             } else if (!m_.isStaticMethod()) {
                                 int r_ = m_.getNameOffset();
                                 BadMethodName badMeth_ = new BadMethodName();
                                 badMeth_.setFileName(getFile().getFileName());
                                 badMeth_.setIndexFile(r_);
                                 badMeth_.setName(name_);
-                                _context.getClasses().addError(badMeth_);
+                                _context.addError(badMeth_);
                             } else if (m_.isVarargs()) {
                                 int r_ = m_.getNameOffset();
                                 BadMethodName badMeth_ = new BadMethodName();
                                 badMeth_.setFileName(getFile().getFileName());
                                 badMeth_.setIndexFile(r_);
                                 badMeth_.setName(name_);
-                                _context.getClasses().addError(badMeth_);
+                                _context.addError(badMeth_);
                             }
                         }
                     } else {
@@ -730,7 +725,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                             unexp_.setFileName(getFile().getFileName());
                             unexp_.setFoundTag(EMPTY_STRING);
                             unexp_.setIndexFile(where_);
-                            _context.getClasses().addError(unexp_);
+                            _context.addError(unexp_);
                         }
                         if (m_.getParametersTypes().isEmpty()) {
                             int where_ = b.getOffset().getOffsetTrim();
@@ -738,7 +733,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                             unexp_.setFileName(getFile().getFileName());
                             unexp_.setFoundTag(EMPTY_STRING);
                             unexp_.setIndexFile(where_);
-                            _context.getClasses().addError(unexp_);
+                            _context.addError(unexp_);
                         }
                         m_.buildImportedTypes(_context);
                         if (m_.getKind() == MethodKind.GET_INDEX) {
@@ -757,7 +752,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                         badMeth_.setFileName(getFile().getFileName());
                         badMeth_.setIndexFile(r_);
                         badMeth_.setName(name_);
-                        _context.getClasses().addError(badMeth_);
+                        _context.addError(badMeth_);
                     }
                 }
                 if (method_ instanceof OverridableBlock) {
@@ -775,7 +770,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                                 duplicate_.setIndexFile(r_);
                                 duplicate_.setFileName(getFile().getFileName());
                                 duplicate_.setId(id_.getSignature(_context));
-                                _context.getClasses().addError(duplicate_);
+                                _context.addError(duplicate_);
                             }
                             if (id_.eq(new MethodId(MethodAccessKind.STATIC, values_, new StringList()))) {
                                 int r_ = m_.getOffset().getOffsetTrim();
@@ -784,7 +779,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                                 duplicate_.setIndexFile(r_);
                                 duplicate_.setFileName(getFile().getFileName());
                                 duplicate_.setId(id_.getSignature(_context));
-                                _context.getClasses().addError(duplicate_);
+                                _context.addError(duplicate_);
                             }
                         }
                         for (MethodId m: idMethods_) {
@@ -795,7 +790,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                                 duplicate_.setIndexFile(r_);
                                 duplicate_.setFileName(getFile().getFileName());
                                 duplicate_.setId(id_.getSignature(_context));
-                                _context.getClasses().addError(duplicate_);
+                                _context.addError(duplicate_);
                             }
                         }
                         idMethods_.add(id_);
@@ -809,7 +804,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                                 duplicate_.setIndexFile(r_);
                                 duplicate_.setFileName(getFile().getFileName());
                                 duplicate_.setId(id_.getSignature(_context));
-                                _context.getClasses().addError(duplicate_);
+                                _context.addError(duplicate_);
                             }
                         }
                         idMethods_.add(id_);
@@ -825,7 +820,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                             duplicate_.setIndexFile(r_);
                             duplicate_.setFileName(getFile().getFileName());
                             duplicate_.setId(new MethodId(MethodAccessKind.INSTANCE, id_, new StringList()).getSignature(_context));
-                            _context.getClasses().addError(duplicate_);
+                            _context.addError(duplicate_);
                         }
                     }
                     idsAnnotMethods_.add(id_);
@@ -841,7 +836,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                             duplicate_.setIndexFile(r_);
                             duplicate_.setFileName(getFile().getFileName());
                             duplicate_.setId(idCt_.getSignature(_context));
-                            _context.getClasses().addError(duplicate_);
+                            _context.addError(duplicate_);
                         }
                     }
                     idConstructors_.add(idCt_);
@@ -855,7 +850,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                         b_.setFileName(getFile().getFileName());
                         b_.setIndexFile(method_.getOffset().getOffsetTrim());
                         b_.setParamName(v);
-                        _context.getClasses().addError(b_);
+                        _context.addError(b_);
                     }
                     if (method_ instanceof OverridableBlock) {
                         OverridableBlock i_ = (OverridableBlock) method_;
@@ -866,7 +861,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                                 b_.setFileName(getFile().getFileName());
                                 b_.setIndexFile(method_.getOffset().getOffsetTrim());
                                 b_.setParamName(v);
-                                _context.getClasses().addError(b_);
+                                _context.addError(b_);
                             }
                         }
                     }
@@ -876,7 +871,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                         b_.setFileName(getFile().getFileName());
                         b_.setIndexFile(method_.getOffset().getOffsetTrim());
                         b_.setParamName(v);
-                        _context.getClasses().addError(b_);
+                        _context.addError(b_);
                     } else {
                         seen_.add(v);
                     }
@@ -893,7 +888,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                         b_.setFileName(getFile().getFileName());
                         b_.setIndexFile(method_.getOffset().getOffsetTrim());
                         b_.setParamName(n);
-                        _context.getClasses().addError(b_);
+                        _context.addError(b_);
                     }
                     for (String m: idsField_) {
                         if (StringList.quickEq(m, trName_)) {
@@ -903,7 +898,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                             duplicate_.setIndexFile(r_);
                             duplicate_.setFileName(getFile().getFileName());
                             duplicate_.setId(n);
-                            _context.getClasses().addError(duplicate_);
+                            _context.addError(duplicate_);
                         }
                     }
                     idsField_.add(trName_);
@@ -927,7 +922,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                 unexp_.setFileName(getFile().getFileName());
                 unexp_.setFoundTag(EMPTY_STRING);
                 unexp_.setIndexFile(where_);
-                _context.getClasses().addError(unexp_);
+                _context.addError(unexp_);
             } else {
                 if (set_.getModifier() != i.getModifier()) {
                     int where_ = i.getOffset().getOffsetTrim();
@@ -935,7 +930,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                     unexp_.setFileName(getFile().getFileName());
                     unexp_.setFoundTag(EMPTY_STRING);
                     unexp_.setIndexFile(where_);
-                    _context.getClasses().addError(unexp_);
+                    _context.addError(unexp_);
                 }
                 if (set_.getAccess() != i.getAccess()) {
                     int where_ = i.getOffset().getOffsetTrim();
@@ -943,7 +938,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                     unexp_.setFileName(getFile().getFileName());
                     unexp_.setFoundTag(EMPTY_STRING);
                     unexp_.setIndexFile(where_);
-                    _context.getClasses().addError(unexp_);
+                    _context.addError(unexp_);
                 }
             }
         }
@@ -962,7 +957,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                 unexp_.setFileName(getFile().getFileName());
                 unexp_.setFoundTag(EMPTY_STRING);
                 unexp_.setIndexFile(where_);
-                _context.getClasses().addError(unexp_);
+                _context.addError(unexp_);
             }
         }
     }
@@ -1040,7 +1035,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                     err_.setReturnType(s.getReturnType());
                     err_.setMethod(s.getConstraints().getSignature(_context));
                     err_.setParentClass(s_);
-                    _context.getClasses().addError(err_);
+                    _context.addError(err_);
                 }
             }
             er_ = RootBlock.areModifierCompatible(ov_);
@@ -1053,7 +1048,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                     err_.setReturnType(s.getReturnType());
                     err_.setMethod(s.getConstraints().getSignature(_context));
                     err_.setParentClass(s_);
-                    _context.getClasses().addError(err_);
+                    _context.addError(err_);
                 }
             }
         }
@@ -1088,7 +1083,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                 err_.setReturnType(s.getReturnType());
                 err_.setMethod(s.getConstraints().getSignature(_context));
                 err_.setParentClass(s_);
-                _context.getClasses().addError(err_);
+                _context.addError(err_);
             }
         }
         er_ = RootBlock.areModifierCompatible(ov_);
@@ -1101,7 +1096,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                 err_.setReturnType(s.getReturnType());
                 err_.setMethod(s.getConstraints().getSignature(_context));
                 err_.setParentClass(s_);
-                _context.getClasses().addError(err_);
+                _context.addError(err_);
             }
         }
     }
@@ -1130,7 +1125,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                     err_.setIndexFile(mDer_.getNameOffset());
                     err_.setSgn(idFor_.getSignature(_context));
                     err_.setClassName(getFullName());
-                    classesRef_.addError(err_);
+                    _context.addError(err_);
                 }
             }
         }
@@ -1144,7 +1139,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                     err_.setIndexFile(((OverridableBlock) b).getNameOffset());
                     err_.setSgn(idFor_.getSignature(_context));
                     err_.setClassName(getFullName());
-                    classesRef_.addError(err_);
+                    _context.addError(err_);
                 }
             }
             StringList allSuperClass_ = getAllGenericSuperTypes();
@@ -1169,7 +1164,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                     err_.setClassName(m.getClassName());
                     err_.setIndexFile(idRowCol);
                     err_.setSgn(m.getConstraints().getSignature(_context));
-                    classesRef_.addError(err_);
+                    _context.addError(err_);
                 }
             }
         } else {
@@ -1341,7 +1336,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
             un_.setClassName(((UniqueRootedBlock)this).getImportedDirectGenericSuperClass());
             un_.setFileName(getFile().getFileName());
             un_.setIndexFile(getOffset().getOffsetTrim());
-            _cont.getClasses().addError(un_);
+            _cont.addError(un_);
         }
         String idType_ = getFullName();
         for (ConstructorBlock c: ctors_) {
@@ -1353,7 +1348,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                 un_.setClassName(((UniqueRootedBlock)this).getImportedDirectGenericSuperClass());
                 un_.setFileName(getFile().getFileName());
                 un_.setIndexFile(c.getOffset().getOffsetTrim());
-                _cont.getClasses().addError(un_);
+                _cont.addError(un_);
             }
         }
         EqList<ConstructorId> l_ = new EqList<ConstructorId>();
@@ -1381,7 +1376,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
             cyclic_.setClassName(c_);
             cyclic_.setFileName(getFile().getFileName());
             cyclic_.setIndexFile(getOffset().getOffsetTrim());
-            _cont.getClasses().addError(cyclic_);
+            _cont.addError(cyclic_);
         }
     }
 

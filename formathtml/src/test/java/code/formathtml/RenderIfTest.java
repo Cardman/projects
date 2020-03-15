@@ -29,7 +29,7 @@ public final class RenderIfTest extends CommonRender {
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body/></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
     }
@@ -49,7 +49,7 @@ public final class RenderIfTest extends CommonRender {
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>NOT EMPTY</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
     }
@@ -69,7 +69,7 @@ public final class RenderIfTest extends CommonRender {
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>EMPTY</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
     }
@@ -89,7 +89,7 @@ public final class RenderIfTest extends CommonRender {
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>ONE</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
     }
@@ -109,7 +109,7 @@ public final class RenderIfTest extends CommonRender {
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>NOT EMPTY</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
     }
@@ -129,7 +129,7 @@ public final class RenderIfTest extends CommonRender {
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body/></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
     }
@@ -149,7 +149,7 @@ public final class RenderIfTest extends CommonRender {
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>ONE</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
     }
@@ -169,7 +169,7 @@ public final class RenderIfTest extends CommonRender {
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>NOT EMPTY</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
 
@@ -190,7 +190,7 @@ public final class RenderIfTest extends CommonRender {
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_,conf_);
         assertNotNull(getException(conf_));
     }
@@ -210,7 +210,7 @@ public final class RenderIfTest extends CommonRender {
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_,conf_);
         assertNotNull(getException(conf_));
     }
@@ -230,7 +230,7 @@ public final class RenderIfTest extends CommonRender {
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>NOT EMPTY</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
 
@@ -251,7 +251,7 @@ public final class RenderIfTest extends CommonRender {
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>ONE</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
     }
@@ -271,7 +271,7 @@ public final class RenderIfTest extends CommonRender {
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>EMPTY</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
     }
@@ -291,7 +291,7 @@ public final class RenderIfTest extends CommonRender {
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body/></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
     }
@@ -311,7 +311,7 @@ public final class RenderIfTest extends CommonRender {
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>NOT EMPTY</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
     }
@@ -331,7 +331,7 @@ public final class RenderIfTest extends CommonRender {
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>EMPTY</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
     }
@@ -351,7 +351,7 @@ public final class RenderIfTest extends CommonRender {
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>EMPTY</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
     }
@@ -371,7 +371,7 @@ public final class RenderIfTest extends CommonRender {
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>NOT EMPTY</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
 
@@ -392,7 +392,7 @@ public final class RenderIfTest extends CommonRender {
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(!conf_.getClasses().isEmptyErrors());
+        assertTrue(!conf_.isEmptyErrors());
     }
     @Test
     public void process2FailTest() {
@@ -410,7 +410,7 @@ public final class RenderIfTest extends CommonRender {
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(!conf_.getClasses().isEmptyErrors());
+        assertTrue(!conf_.isEmptyErrors());
 
     }
     @Test
@@ -429,7 +429,7 @@ public final class RenderIfTest extends CommonRender {
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(!conf_.getClasses().isEmptyErrors());
+        assertTrue(!conf_.isEmptyErrors());
     }
     @Test
     public void process4FailTest() {
@@ -447,7 +447,7 @@ public final class RenderIfTest extends CommonRender {
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(!conf_.getClasses().isEmptyErrors());
+        assertTrue(!conf_.isEmptyErrors());
 
     }
     @Test
@@ -466,6 +466,6 @@ public final class RenderIfTest extends CommonRender {
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(!conf_.getClasses().isEmptyErrors());
+        assertTrue(!conf_.isEmptyErrors());
     }
 }

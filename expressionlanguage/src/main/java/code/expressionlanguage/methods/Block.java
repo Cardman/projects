@@ -116,14 +116,14 @@ public abstract class Block implements AnalyzedBlock {
                 bad_.setName(label_);
                 bad_.setFileName(getFile().getFileName());
                 bad_.setIndexFile(0);
-                _an.getClasses().addError(bad_);
+                _an.addError(bad_);
             } else if (!label_.isEmpty()){
                 if (StringList.contains(_anEl.getLabels(), label_)) {
                     DuplicateLabel dup_ = new DuplicateLabel();
                     dup_.setId(label_);
                     dup_.setFileName(getFile().getFileName());
                     dup_.setIndexFile(0);
-                    _an.getClasses().addError(dup_);
+                    _an.addError(dup_);
                 } else {
                     _anEl.getLabels().add(label_);
                 }
@@ -185,7 +185,7 @@ public abstract class Block implements AnalyzedBlock {
         UnexpectedTagName un_ = new UnexpectedTagName();
         un_.setFileName(_block.getFile().getFileName());
         un_.setIndexFile(_block.getOffset().getOffsetTrim());
-        _cont.getClasses().addError(un_);
+        _cont.addError(un_);
     }
 
     protected static void tryBuildExpressionLanguageReadOnly(Block _block, ContextEl _cont) {
@@ -196,7 +196,7 @@ public abstract class Block implements AnalyzedBlock {
         UnexpectedTagName un_ = new UnexpectedTagName();
         un_.setFileName(_block.getFile().getFileName());
         un_.setIndexFile(_block.getOffset().getOffsetTrim());
-        _cont.getClasses().addError(un_);
+        _cont.addError(un_);
     }
 
     public abstract void processReport(ContextEl _cont, CustList<PartOffset> _parts);

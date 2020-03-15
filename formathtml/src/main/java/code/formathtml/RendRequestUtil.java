@@ -6,7 +6,6 @@ import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.variables.LocalVariable;
 import code.formathtml.exec.RendDynOperationNode;
-import code.formathtml.util.BeanLgNames;
 import code.formathtml.util.NodeContainer;
 import code.util.CustList;
 import code.util.Numbers;
@@ -20,7 +19,7 @@ final class RendRequestUtil {
 
     static Struct invokeMethodWithNumbersBis(Configuration _conf, String _action) {
         Argument arg_ = RenderExpUtil.processEl(_action, 0, _conf);
-        if (!_conf.getClasses().getErrorsDet().isEmpty() || _conf.getContext().hasException()) {
+        if (!_conf.isEmptyErrors() || _conf.getContext().hasException()) {
             return NullStruct.NULL_VALUE;
         }
         return arg_.getStruct();

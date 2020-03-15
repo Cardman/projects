@@ -25,7 +25,7 @@ public final class RendField extends RendParentBlock {
             UnexpectedTagName un_ = new UnexpectedTagName();
             un_.setFileName(_cont.getCurrentFileName());
             un_.setIndexFile(getOffset().getOffsetTrim());
-            _cont.getClasses().addError(un_);
+            _cont.addError(un_);
         } else {
             RendClass cl_ = (RendClass) getParent();
             String intern_ = cl_.getFullName();

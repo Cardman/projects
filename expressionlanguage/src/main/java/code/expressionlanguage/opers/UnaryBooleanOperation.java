@@ -41,7 +41,7 @@ public final class UnaryBooleanOperation extends AbstractUnaryOperation {
             un_.setFileName(_conf.getCurrentFileName());
             un_.setExpectedResult(booleanType_);
             un_.setOperands(cl_);
-            _conf.getClasses().addError(un_);
+            _conf.addError(un_);
         }
         clMatch_.setUnwrapObject(booleanPrimType_);
         child_.cancelArgument();

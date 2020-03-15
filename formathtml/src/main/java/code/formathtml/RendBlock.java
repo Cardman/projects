@@ -587,7 +587,7 @@ public abstract class RendBlock implements AnalyzedBlock {
             BadElError badEl_ = new BadElError();
             badEl_.setFileName(_cont.getCurrentFileName());
             badEl_.setIndexFile(_cont.getCurrentLocationIndex());
-            _cont.getClasses().addError(badEl_);
+            _cont.addError(badEl_);
             return new StringMap<String>();
         }
         StringMap<String> pres_ = new StringMap<String>();
@@ -600,7 +600,7 @@ public abstract class RendBlock implements AnalyzedBlock {
                 BadElError badEl_ = new BadElError();
                 badEl_.setFileName(_cont.getCurrentFileName());
                 badEl_.setIndexFile(_cont.getCurrentLocationIndex());
-                _cont.getClasses().addError(badEl_);
+                _cont.addError(badEl_);
                 return new StringMap<String>();
             }
             StringMap<String> messages_ = RendExtractFromResources.getMessages(content_);
@@ -610,7 +610,7 @@ public abstract class RendBlock implements AnalyzedBlock {
                 BadElError badEl_ = new BadElError();
                 badEl_.setFileName(_cont.getCurrentFileName());
                 badEl_.setIndexFile(_cont.getCurrentLocationIndex());
-                _cont.getClasses().addError(badEl_);
+                _cont.addError(badEl_);
                 return new StringMap<String>();
             }
             pres_.addEntry(l,format_);

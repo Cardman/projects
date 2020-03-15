@@ -2,10 +2,7 @@ package code.expressionlanguage.types;
 
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.inherits.PrimitiveTypeUtil;
-import code.expressionlanguage.inherits.Templates;
-import code.expressionlanguage.inherits.TypeOwnersDepends;
-import code.expressionlanguage.inherits.TypeUtil;
+import code.expressionlanguage.inherits.*;
 import code.expressionlanguage.methods.*;
 import code.util.CustList;
 import code.util.*;
@@ -68,7 +65,7 @@ final class NamePartType extends LeafPartType {
             PartType last_ = previous_.last();
             String owner_ = last_.getAnalyzedType();
             String id_ = Templates.getIdFromAllTypes(owner_);
-            StringList deps_;
+            EqList<ClassInheritsDeps> deps_;
             TypeOwnersDepends res_ = TypeUtil.getOwnersDepends(lastInner_, fullName_, id_, type_, _an);
             StringList owners_ = res_.getTypeOwners();
             if (owners_.size() == 1) {
@@ -158,7 +155,7 @@ final class NamePartType extends LeafPartType {
         String type_ = getTypeName().trim();
         StringList allAncestors_ = new StringList();
         RootBlock p_ = _rooted.getParentType();
-        StringList deps_;
+        EqList<ClassInheritsDeps> deps_;
         while (p_ != null) {
             allAncestors_.add(p_.getFullName());
             p_ = p_.getParentType();

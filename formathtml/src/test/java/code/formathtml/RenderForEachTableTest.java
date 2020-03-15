@@ -48,7 +48,7 @@ public final class RenderForEachTableTest extends CommonRender {
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body><table><tr><td>ONE</td><td>1</td></tr><tr><td>TWO</td><td>2</td></tr></table></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
     }
@@ -75,7 +75,7 @@ public final class RenderForEachTableTest extends CommonRender {
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
-        assertTrue(context_.getClasses().isEmptyErrors());
+        assertTrue(context_.isEmptyErrors());
         assertEq("<html><body><table><tr><td>ONE</td><td>1</td></tr><tr><td>TWO</td><td>2</td></tr></table></body></html>", RendBlock.getRes(rendDocumentBlock_,context_));
         assertNull(getException(context_));
     }
@@ -101,7 +101,7 @@ public final class RenderForEachTableTest extends CommonRender {
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
-        assertTrue(context_.getClasses().isEmptyErrors());
+        assertTrue(context_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_, context_);
         assertNotNull(getException(context_));
     }
@@ -127,7 +127,7 @@ public final class RenderForEachTableTest extends CommonRender {
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
-        assertTrue(context_.getClasses().isEmptyErrors());
+        assertTrue(context_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_, context_);
         assertNotNull(getException(context_));
     }
@@ -160,7 +160,7 @@ public final class RenderForEachTableTest extends CommonRender {
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body><table><tr><td>ONE</td><td>1</td></tr><tr><td>TWO</td><td>2</td></tr></table></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
     }
@@ -193,7 +193,7 @@ public final class RenderForEachTableTest extends CommonRender {
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body><table><tr><td>ONE</td><td>1</td><td>ONE</td><td>1</td></tr><tr><td>ONE</td><td>1</td><td>TWO</td><td>2</td></tr><tr><td>TWO</td><td>2</td><td>ONE</td><td>1</td></tr><tr><td>TWO</td><td>2</td><td>TWO</td><td>2</td></tr></table></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
     }
@@ -219,7 +219,7 @@ public final class RenderForEachTableTest extends CommonRender {
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
-        assertTrue(context_.getClasses().isEmptyErrors());
+        assertTrue(context_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_, context_);
         assertNotNull(getException(context_));
     }
@@ -245,7 +245,7 @@ public final class RenderForEachTableTest extends CommonRender {
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
-        assertTrue(context_.getClasses().isEmptyErrors());
+        assertTrue(context_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_, context_);
         assertNotNull(getException(context_));
     }
@@ -271,7 +271,7 @@ public final class RenderForEachTableTest extends CommonRender {
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
-        assertTrue(context_.getClasses().isEmptyErrors());
+        assertTrue(context_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_, context_);
         assertNotNull(getException(context_));
     }
@@ -297,7 +297,7 @@ public final class RenderForEachTableTest extends CommonRender {
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
-        assertTrue(context_.getClasses().isEmptyErrors());
+        assertTrue(context_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_, context_);
         assertNotNull(getException(context_));
     }
@@ -323,7 +323,7 @@ public final class RenderForEachTableTest extends CommonRender {
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
-        assertTrue(context_.getClasses().isEmptyErrors());
+        assertTrue(context_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_, context_);
         assertNotNull(getException(context_));
     }
@@ -348,7 +348,7 @@ public final class RenderForEachTableTest extends CommonRender {
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
-        assertTrue(context_.getClasses().isEmptyErrors());
+        assertTrue(context_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_, context_);
         assertNotNull(getException(context_));
     }
@@ -372,7 +372,7 @@ public final class RenderForEachTableTest extends CommonRender {
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
-        assertTrue(context_.getClasses().isEmptyErrors());
+        assertTrue(context_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_, context_);
         assertNotNull(getException(context_));
     }
@@ -399,7 +399,7 @@ public final class RenderForEachTableTest extends CommonRender {
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
-        assertTrue(context_.getClasses().isEmptyErrors());
+        assertTrue(context_.isEmptyErrors());
         assertEq("<html><body><table><tr><td>ONE</td><td>1</td></tr><tr><td>TWO</td><td>2</td></tr></table></body></html>", RendBlock.getRes(rendDocumentBlock_,context_));
         assertNull(getException(context_));
     }
@@ -426,7 +426,7 @@ public final class RenderForEachTableTest extends CommonRender {
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
-        assertTrue(context_.getClasses().isEmptyErrors());
+        assertTrue(context_.isEmptyErrors());
         assertEq("<html><body><table><tr><td>ONE</td><td>1</td></tr><tr><td>TWO</td><td>2</td></tr></table></body></html>", RendBlock.getRes(rendDocumentBlock_,context_));
         assertNull(getException(context_));
     }
@@ -453,7 +453,7 @@ public final class RenderForEachTableTest extends CommonRender {
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
-        assertTrue(context_.getClasses().isEmptyErrors());
+        assertTrue(context_.isEmptyErrors());
         assertEq("<html><body><table><tr><td>ONE</td><td>1</td></tr><tr><td>TWO</td><td>2</td></tr></table></body></html>", RendBlock.getRes(rendDocumentBlock_,context_));
         assertNull(getException(context_));
     }
@@ -493,7 +493,7 @@ public final class RenderForEachTableTest extends CommonRender {
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body><table><tr><td>ONE</td><td>1</td></tr><tr><td>TWO</td><td>2</td></tr></table></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
     }
@@ -535,7 +535,7 @@ public final class RenderForEachTableTest extends CommonRender {
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body><table><tr><td>ONE</td><td>1</td><td>ONE</td><td>1</td></tr><tr><td>ONE</td><td>1</td><td>TWO</td><td>2</td></tr><tr><td>TWO</td><td>2</td><td>ONE</td><td>1</td></tr><tr><td>TWO</td><td>2</td><td>TWO</td><td>2</td></tr></table></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
     }
@@ -559,7 +559,7 @@ public final class RenderForEachTableTest extends CommonRender {
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
-        assertTrue(context_.getClasses().isEmptyErrors());
+        assertTrue(context_.isEmptyErrors());
         assertEq("<html><body><table/></body></html>", RendBlock.getRes(rendDocumentBlock_,context_));
         assertNull(getException(context_));
     }
@@ -586,7 +586,7 @@ public final class RenderForEachTableTest extends CommonRender {
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
-        assertTrue(!context_.getClasses().isEmptyErrors());
+        assertTrue(!context_.isEmptyErrors());
     }
     @Test
     public void process2FailTest() {
@@ -611,7 +611,7 @@ public final class RenderForEachTableTest extends CommonRender {
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
-        assertTrue(!context_.getClasses().isEmptyErrors());
+        assertTrue(!context_.isEmptyErrors());
     }
     @Test
     public void process3FailTest() {
@@ -636,7 +636,7 @@ public final class RenderForEachTableTest extends CommonRender {
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
-        assertTrue(!context_.getClasses().isEmptyErrors());
+        assertTrue(!context_.isEmptyErrors());
     }
     @Test
     public void process4FailTest() {
@@ -661,7 +661,7 @@ public final class RenderForEachTableTest extends CommonRender {
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
-        assertTrue(!context_.getClasses().isEmptyErrors());
+        assertTrue(!context_.isEmptyErrors());
     }
     @Test
     public void process5FailTest() {
@@ -686,7 +686,7 @@ public final class RenderForEachTableTest extends CommonRender {
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
-        assertTrue(!context_.getClasses().isEmptyErrors());
+        assertTrue(!context_.isEmptyErrors());
     }
     @Test
     public void process6FailTest() {
@@ -713,7 +713,7 @@ public final class RenderForEachTableTest extends CommonRender {
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
-        assertTrue(!context_.getClasses().isEmptyErrors());
+        assertTrue(!context_.isEmptyErrors());
     }
     @Test
     public void process7FailTest() {
@@ -740,7 +740,7 @@ public final class RenderForEachTableTest extends CommonRender {
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
-        assertTrue(!context_.getClasses().isEmptyErrors());
+        assertTrue(!context_.isEmptyErrors());
     }
     @Test
     public void process8FailTest() {
@@ -767,7 +767,7 @@ public final class RenderForEachTableTest extends CommonRender {
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
-        assertTrue(!context_.getClasses().isEmptyErrors());
+        assertTrue(!context_.isEmptyErrors());
     }
     @Test
     public void process9FailTest() {
@@ -792,7 +792,7 @@ public final class RenderForEachTableTest extends CommonRender {
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
-        assertTrue(!context_.getClasses().isEmptyErrors());
+        assertTrue(!context_.isEmptyErrors());
     }
     private static String getCustomPair() {
         StringBuilder xml_ = new StringBuilder();

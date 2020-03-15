@@ -51,7 +51,7 @@ public final class AffectationOperation extends MethodOperation implements Affec
             UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
             un_.setFileName(_conf.getCurrentFileName());
             un_.setIndexFile(_conf.getCurrentLocationIndex());
-            _conf.getClasses().addError(un_);
+            _conf.addError(un_);
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             return;
         }
@@ -98,7 +98,7 @@ public final class AffectationOperation extends MethodOperation implements Affec
                 UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
                 un_.setFileName(_conf.getCurrentFileName());
                 un_.setIndexFile(_conf.getCurrentLocationIndex());
-                _conf.getClasses().addError(un_);
+                _conf.addError(un_);
             }
         }
         setResultClass(elt_.getResultClass());
@@ -118,7 +118,7 @@ public final class AffectationOperation extends MethodOperation implements Affec
             cast_.setMapping(mapping_);
             cast_.setFileName(_conf.getCurrentFileName());
             cast_.setIndexFile(_conf.getCurrentLocationIndex());
-            _conf.getClasses().addError(cast_);
+            _conf.addError(cast_);
             return;
         }
         StringMap<StringList> vars_ = _conf.getCurrentConstraints();
@@ -162,7 +162,7 @@ public final class AffectationOperation extends MethodOperation implements Affec
             cast_.setMapping(mapping_);
             cast_.setFileName(_conf.getCurrentFileName());
             cast_.setIndexFile(_conf.getCurrentLocationIndex());
-            _conf.getClasses().addError(cast_);
+            _conf.addError(cast_);
         }
         if (PrimitiveTypeUtil.isPrimitive(clMatchLeft_, _conf)) {
             right_.getResultClass().setUnwrapObject(clMatchLeft_);
@@ -177,12 +177,12 @@ public final class AffectationOperation extends MethodOperation implements Affec
                 UnassignedInfered un_ = new UnassignedInfered(v);
                 un_.setFileName(_cont.getCurrentFileName());
                 un_.setIndexFile(_cont.getCurrentLocationIndex());
-                _cont.getClasses().addError(un_);
+                _cont.addError(un_);
             }
             UnassignedInfered un_ = new UnassignedInfered("");
             un_.setFileName(_cont.getCurrentFileName());
             un_.setIndexFile(_cont.getCurrentLocationIndex());
-            _cont.getClasses().addError(un_);
+            _cont.addError(un_);
         } else {
             for (String v: _cont.getVariablesNamesToInfer()) {
                 LocalVariable lv_ = _cont.getLocalVar(v);
@@ -198,12 +198,12 @@ public final class AffectationOperation extends MethodOperation implements Affec
                 UnassignedInfered un_ = new UnassignedInfered(v);
                 un_.setFileName(_cont.getCurrentFileName());
                 un_.setIndexFile(_cont.getCurrentLocationIndex());
-                _cont.getClasses().addError(un_);
+                _cont.addError(un_);
             }
             UnassignedInfered un_ = new UnassignedInfered("");
             un_.setFileName(_cont.getCurrentFileName());
             un_.setIndexFile(_cont.getCurrentLocationIndex());
-            _cont.getClasses().addError(un_);
+            _cont.addError(un_);
         } else {
             for (String v: _cont.getVariablesNamesLoopToInfer()) {
                 LoopVariable lv_ = _cont.getMutableLoopVar(v);
@@ -263,7 +263,7 @@ public final class AffectationOperation extends MethodOperation implements Affec
                             UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
                             un_.setFileName(_conf.getCurrentFileName());
                             un_.setIndexFile(_conf.getCurrentLocationIndex());
-                            _conf.getClasses().addError(un_);
+                            _conf.addError(un_);
                         }
                     }
                     sm_.put(e.getKey(),Assignment.assign(str_,e.getKey(),isBool_, e.getValue()));
@@ -290,7 +290,7 @@ public final class AffectationOperation extends MethodOperation implements Affec
                             UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
                             un_.setFileName(_conf.getCurrentFileName());
                             un_.setIndexFile(_conf.getCurrentLocationIndex());
-                            _conf.getClasses().addError(un_);
+                            _conf.addError(un_);
                         }
                     }
                     sm_.put(e.getKey(), Assignment.assign(str_,e.getKey(),isBool_, e.getValue()));
@@ -317,7 +317,7 @@ public final class AffectationOperation extends MethodOperation implements Affec
                     UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
                     un_.setFileName(_conf.getCurrentFileName());
                     un_.setIndexFile(_conf.getCurrentLocationIndex());
-                    _conf.getClasses().addError(un_);
+                    _conf.addError(un_);
                 }
             }
         }

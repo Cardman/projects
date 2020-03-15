@@ -33,7 +33,7 @@ public final class VarargOperation extends LeafOperation implements VarargOperab
             varg_.setFileName(_conf.getCurrentFileName());
             varg_.setIndexFile(_conf.getCurrentLocationIndex());
             varg_.setMethodName(VAR_ARG);
-            _conf.getClasses().addError(varg_);
+            _conf.addError(varg_);
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             setSimpleArgument(new Argument());
             return;
@@ -43,7 +43,7 @@ public final class VarargOperation extends LeafOperation implements VarargOperab
             varg_.setFileName(_conf.getCurrentFileName());
             varg_.setIndexFile(_conf.getCurrentLocationIndex());
             varg_.setMethodName(VAR_ARG);
-            _conf.getClasses().addError(varg_);
+            _conf.addError(varg_);
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             setSimpleArgument(new Argument());
             return;

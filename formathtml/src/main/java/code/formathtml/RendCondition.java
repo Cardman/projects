@@ -39,7 +39,7 @@ public abstract class RendCondition extends RendParentBlock implements RendWithE
             un_.setFileName(_cont.getCurrentFileName());
             un_.setIndexFile(conditionOffset);
             un_.setType(opCondition.last().getResultClass());
-            _cont.getClasses().addError(un_);
+            _cont.addError(un_);
         }
         elCondition_.getResultClass().setUnwrapObject(stds_.getAliasPrimBoolean());
     }

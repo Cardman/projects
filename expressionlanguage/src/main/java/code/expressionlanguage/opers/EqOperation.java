@@ -36,7 +36,7 @@ public final class EqOperation extends MethodOperation implements MiddleSymbolOp
             UnexpectedOperationAffect badEl_ = new UnexpectedOperationAffect();
             badEl_.setFileName(_conf.getCurrentFileName());
             badEl_.setIndexFile(_conf.getCurrentLocationIndex());
-            _conf.getClasses().addError(badEl_);
+            _conf.addError(badEl_);
         }
         String custOp_ = oper.trim();
         CustList<OperationNode> chidren_ = getChildrenNodes();

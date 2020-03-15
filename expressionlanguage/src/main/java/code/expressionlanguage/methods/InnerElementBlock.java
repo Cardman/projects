@@ -301,7 +301,7 @@ public final class InnerElementBlock extends RootBlock implements InnerTypeOrEle
             int index_ = rcs_.getKey(i_);
             String s_ = _classes.resolveTypeInherits(s, this,index_,i_);
             String c_ = getImportedDirectBaseSuperType(i_);
-            _classes.getClasses().addErrorIfNoMatch(s_,c_,this,index_);
+            _classes.addErrorIfNoMatch(s_,c_,this,index_);
             i_++;
             importedDirectSuperClass = s_;
         }

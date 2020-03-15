@@ -21,7 +21,7 @@ public final class RendClass extends RendParentBlock {
             UnexpectedTagName un_ = new UnexpectedTagName();
             un_.setFileName(_cont.getCurrentFileName());
             un_.setIndexFile(getOffset().getOffsetTrim());
-            _cont.getClasses().addError(un_);
+            _cont.addError(un_);
         } else {
             RendPackage par_ = (RendPackage) getParent();
             fullName = StringList.concat(par_.getName(),".",name);
@@ -31,7 +31,7 @@ public final class RendClass extends RendParentBlock {
                 un_.setFileName(_cont.getCurrentFileName());
                 un_.setIndexFile(getOffset().getOffsetTrim());
                 un_.setType(fullName);
-                _cont.getClasses().addError(un_);
+                _cont.addError(un_);
             }
         }
     }

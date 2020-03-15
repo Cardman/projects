@@ -48,14 +48,14 @@ public final class DoBlock extends BracedStack implements Loop {
             UnexpectedTagName un_ = new UnexpectedTagName();
             un_.setFileName(getFile().getFileName());
             un_.setIndexFile(getOffset().getOffsetTrim());
-            _an.getClasses().addError(un_);
+            _an.addError(un_);
             return;
         }
         if (!(nextSibling_ instanceof DoWhileCondition)) {
             UnexpectedTagName un_ = new UnexpectedTagName();
             un_.setFileName(nextSibling_.getFile().getFileName());
             un_.setIndexFile(nextSibling_.getOffset().getOffsetTrim());
-            _an.getClasses().addError(un_);
+            _an.addError(un_);
         }
     }
 

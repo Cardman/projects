@@ -112,7 +112,7 @@ public final class RenderInitStdsTest {
         DefaultInitializer di_ = new DefaultInitializer();
         ContextEl cont_ = ContextFactory.build(-1,lk_, di_, _opt, _mess,_kw, _beanLgNames,4);
         Classes.validateAll(_files, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         conf_.setContext(cont_);
         BeanLgNames standards_ = (BeanLgNames) cont_.getStandards();
         conf_.setStandards(standards_);

@@ -88,7 +88,7 @@ public final class ChoiceFctOperation extends InvokingOperation {
             abs_.setSgn(clMeth_.getRealId().getSignature(_conf));
             abs_.setIndexFile(_conf.getCurrentLocationIndex());
             abs_.setFileName(_conf.getCurrentFileName());
-            _conf.getClasses().addError(abs_);
+            _conf.addError(abs_);
             setResultClass(new ClassArgumentMatching(clMeth_.getReturnType()));
             return;
         }

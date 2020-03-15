@@ -71,7 +71,7 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation {
             und_.setClassName(StringList.join(clArg_.getNames(), ""));
             und_.setIndexFile(_conf.getCurrentLocationIndex());
             und_.setFileName(_conf.getCurrentFileName());
-            _conf.getClasses().addError(und_);
+            _conf.addError(und_);
             setResultClass(new ClassArgumentMatching(stds_.getAliasVoid()));
             checkPositionBasis(_conf);
             return;
@@ -100,7 +100,7 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation {
             call_.setFileName(curBlock_.getFile().getFileName());
             call_.setIndexFile(0);
             call_.setLocalOffset(getFullIndexInEl());
-            _conf.getClasses().addError(call_);
+            _conf.addError(call_);
         } else {
             if (!(curBlock_.getParent() instanceof ConstructorBlock)) {
                 //error
@@ -108,14 +108,14 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation {
                 call_.setFileName(curBlock_.getFile().getFileName());
                 call_.setIndexFile(0);
                 call_.setLocalOffset(getFullIndexInEl());
-                _conf.getClasses().addError(call_);
+                _conf.addError(call_);
             } else if (!(curBlock_ instanceof Line)) {
                 //error
                 BadConstructorCall call_ = new BadConstructorCall();
                 call_.setFileName(curBlock_.getFile().getFileName());
                 call_.setIndexFile(0);
                 call_.setLocalOffset(getFullIndexInEl());
-                _conf.getClasses().addError(call_);
+                _conf.addError(call_);
             } else {
                 checkPosition(_conf);
             }
@@ -128,7 +128,7 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation {
             call_.setFileName(curBlock_.getFile().getFileName());
             call_.setIndexFile(0);
             call_.setLocalOffset(getFullIndexInEl());
-            _conf.getClasses().addError(call_);
+            _conf.addError(call_);
         }
     }
 

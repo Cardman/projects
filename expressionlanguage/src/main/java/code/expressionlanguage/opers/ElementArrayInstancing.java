@@ -42,7 +42,7 @@ public final class ElementArrayInstancing extends AbstractArrayInstancingOperati
             un_.setFileName(_conf.getCurrentFileName());
             un_.setExpectedResult(PrimitiveTypeUtil.getPrettyArrayType(_conf.getStandards().getAliasObject()));
             un_.setOperands(new StringList(className_));
-            _conf.getClasses().addError(un_);
+            _conf.addError(un_);
             String obj_ = _conf.getStandards().getAliasObject();
             obj_ = PrimitiveTypeUtil.getPrettyArrayType(obj_);
             ClassArgumentMatching class_ = new ClassArgumentMatching(obj_);
@@ -64,7 +64,7 @@ public final class ElementArrayInstancing extends AbstractArrayInstancingOperati
                 cast_.setMapping(mapping_);
                 cast_.setFileName(_conf.getCurrentFileName());
                 cast_.setIndexFile(_conf.getCurrentLocationIndex());
-                _conf.getClasses().addError(cast_);
+                _conf.addError(cast_);
             }
             if (PrimitiveTypeUtil.isPrimitive(eltType_, _conf)) {
                 o.getResultClass().setUnwrapObject(eltType_);

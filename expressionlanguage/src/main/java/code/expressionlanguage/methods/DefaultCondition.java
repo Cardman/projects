@@ -36,7 +36,7 @@ public final class DefaultCondition extends SwitchPartBlock {
             UnexpectedTagName un_ = new UnexpectedTagName();
             un_.setFileName(getFile().getFileName());
             un_.setIndexFile(getOffset().getOffsetTrim());
-            _cont.getClasses().addError(un_);
+            _cont.addError(un_);
         } else {
             _cont.getCoverage().putBlockOperationsSwitchs(_cont,b_,this);
             Block first_ = b_.getFirstChild();
@@ -45,7 +45,7 @@ public final class DefaultCondition extends SwitchPartBlock {
                     UnexpectedTagName un_ = new UnexpectedTagName();
                     un_.setFileName(getFile().getFileName());
                     un_.setIndexFile(getOffset().getOffsetTrim());
-                    _cont.getClasses().addError(un_);
+                    _cont.addError(un_);
                     break;
                 }
                 first_ = first_.getNextSibling();

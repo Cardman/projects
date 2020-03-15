@@ -432,7 +432,7 @@ public abstract class OperationNode implements Operable {
                 badAccess_.setId(_classStr);
                 badAccess_.setIndexFile(_conf.getCurrentLocationIndex());
                 badAccess_.setFileName(_conf.getCurrentFileName());
-                _conf.getClasses().addError(badAccess_);
+                _conf.addError(badAccess_);
             }
         }
     }
@@ -469,7 +469,7 @@ public abstract class OperationNode implements Operable {
         access_.setId(_name);
         access_.setFileName(_cont.getCurrentFileName());
         access_.setIndexFile(_cont.getCurrentLocationIndex());
-        _cont.getClasses().addError(access_);
+        _cont.addError(access_);
         FieldResult res_ = new FieldResult();
         res_.setStatus(SearchingMemberStatus.ZERO);
         return res_;
@@ -685,7 +685,7 @@ public abstract class OperationNode implements Operable {
                 cast_.setMapping(mapping_);
                 cast_.setFileName(_conf.getCurrentFileName());
                 cast_.setIndexFile(_conf.getCurrentLocationIndex());
-                _conf.getClasses().addError(cast_);
+                _conf.addError(cast_);
             }
         }
         CustList<GeneConstructor> constructors_ = Classes.getConstructorBodies(_conf, clCurName_);
@@ -744,7 +744,7 @@ public abstract class OperationNode implements Operable {
             undefined_.setId(new ConstructorId(clCurName_, classesNames_, false).getSignature(_conf));
             undefined_.setFileName(_conf.getCurrentFileName());
             undefined_.setIndexFile(_conf.getCurrentLocationIndex());
-            _conf.getClasses().addError(undefined_);
+            _conf.addError(undefined_);
             ConstrustorIdVarArg out_;
             out_ = new ConstrustorIdVarArg();
             return out_;
@@ -765,7 +765,7 @@ public abstract class OperationNode implements Operable {
             StaticAccessError static_ = new StaticAccessError();
             static_.setFileName(_conf.getCurrentFileName());
             static_.setIndexFile(_conf.getCurrentLocationIndex());
-            _conf.getClasses().addError(static_);
+            _conf.addError(static_);
         }
     }
     static ClassMethodIdReturn getDeclaredCustMethod(Analyzable _conf, int _varargOnly,
@@ -785,7 +785,7 @@ public abstract class OperationNode implements Operable {
         undefined_.setId(new MethodId(_staticContext, _name, classesNames_).getSignature(_conf));
         undefined_.setFileName(_conf.getCurrentFileName());
         undefined_.setIndexFile(_conf.getCurrentLocationIndex());
-        _conf.getClasses().addError(undefined_);
+        _conf.addError(undefined_);
         return_.setId(new ClassMethodId(_classes.first(), new MethodId(_staticContext, _name, classesNames_)));
         return_.setRealId(new MethodId(_staticContext, _name, classesNames_));
         return_.setRealClass(_classes.first());

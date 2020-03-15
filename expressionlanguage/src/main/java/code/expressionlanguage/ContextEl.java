@@ -4,10 +4,7 @@ import code.expressionlanguage.calls.*;
 import code.expressionlanguage.calls.util.*;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.errors.AnalysisMessages;
-import code.expressionlanguage.errors.custom.BadInheritedClass;
-import code.expressionlanguage.errors.custom.IllegalCallCtorByType;
-import code.expressionlanguage.errors.custom.UnexpectedTypeError;
-import code.expressionlanguage.errors.custom.UnknownClassName;
+import code.expressionlanguage.errors.custom.*;
 import code.expressionlanguage.inherits.*;
 import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.instr.PartOffset;
@@ -695,6 +692,41 @@ public abstract class ContextEl implements ExecutableCode {
         tabWidth = _tabWidth;
     }
 
+    public void addErrorIfNoMatch(String _generic, String _base, Block _currentBlock, int _location) {
+        String id_ = Templates.getIdFromAllTypes(_generic);
+        if (!StringList.quickEq(id_,_base)) {
+            UnknownClassName un_ = new UnknownClassName();
+            un_.setClassName(_generic);
+            un_.setFileName(_currentBlock.getFile().getFileName());
+            un_.setIndexFile(_location);
+            addError(un_);
+        }
+    }
+
+    @Override
+    public int getRowFile(String _fileName, int _sum) {
+        return classes.getFileBody(_fileName).getRowFile(_sum);
+    }
+
+    @Override
+    public int getColFile(String _fileName, int _sum, int _row) {
+        return classes.getFileBody(_fileName).getColFile(_sum,_row);
+    }
+
+    public void addWarning(FoundWarningInterpret _warning) {
+        _warning.setAnalyzable(this);
+        classes.addWarning(_warning);
+    }
+
+    public boolean isEmptyErrors() {
+        return classes.isEmptyErrors() && classes.isEmptyStdError() && classes.isEmptyMessageError();
+    }
+
+    @Override
+    public void addError(FoundErrorInterpret _error) {
+        _error.setAnalyzable(this);
+        classes.addError(_error);
+    }
     @Override
     public Classes getClasses() {
         return classes;
@@ -946,7 +978,7 @@ public abstract class ContextEl implements ExecutableCode {
                 call_.setType(_realClassName);
                 call_.setFileName(getCurrentFileName());
                 call_.setIndexFile(getCurrentLocationIndex());
-                getClasses().addError(call_);
+                addError(call_);
                 _op.setResultClass(new ClassArgumentMatching(_realClassName));
                 return -2;
             }
@@ -1102,7 +1134,7 @@ public abstract class ContextEl implements ExecutableCode {
             un_.setFileName(bl_.getFile().getFileName());
             un_.setIndexFile(rc_);
             un_.setType(_in);
-            classes.addError(un_);
+            addError(un_);
             return EMPTY_TYPE;
         }
         AccessingImportingBlock r_ = analyzing.getImporting();
@@ -1130,7 +1162,7 @@ public abstract class ContextEl implements ExecutableCode {
                 undef_.setClassName(base_);
                 undef_.setFileName(bl_.getFile().getFileName());
                 undef_.setIndexFile(rc_);
-                classes.addError(undef_);
+                addError(undef_);
                 return EMPTY_TYPE;
             }
             appendParts(firstOff_+_loc,firstOff_+_loc + base_.length(),id_,partOffsets_);
@@ -1154,7 +1186,7 @@ public abstract class ContextEl implements ExecutableCode {
                 undef_.setClassName(base_);
                 undef_.setFileName(bl_.getFile().getFileName());
                 undef_.setIndexFile(rc_);
-                classes.addError(undef_);
+                addError(undef_);
                 return EMPTY_TYPE;
             }
             appendParts(offset_,offset_ + i.trim().length(),resId_,partOffsets_);
@@ -1203,7 +1235,7 @@ public abstract class ContextEl implements ExecutableCode {
             un_.setFileName(bl_.getFile().getFileName());
             un_.setIndexFile(rc_);
             un_.setType(_in);
-            classes.addError(un_);
+            addError(un_);
             return standards.getAliasObject();
         }
         AccessingImportingBlock r_ = analyzing.getImporting();
@@ -1228,7 +1260,7 @@ public abstract class ContextEl implements ExecutableCode {
             un_.setClassName(_in);
             un_.setFileName(bl_.getFile().getFileName());
             un_.setIndexFile(rc_);
-            classes.addError(un_);
+            addError(un_);
             return standards.getAliasObject();
         }
         if (!Templates.isCorrectTemplateAll(resType_, vars_, this)) {
@@ -1236,7 +1268,7 @@ public abstract class ContextEl implements ExecutableCode {
             un_.setClassName(_in);
             un_.setFileName(bl_.getFile().getFileName());
             un_.setIndexFile(rc_);
-            classes.addError(un_);
+            addError(un_);
             return standards.getAliasObject();
         }
         return resType_;
@@ -1253,7 +1285,7 @@ public abstract class ContextEl implements ExecutableCode {
         un_.setClassName(_in);
         un_.setFileName(bl_.getFile().getFileName());
         un_.setIndexFile(rc_);
-        classes.addError(un_);
+        addError(un_);
         return standards.getAliasObject();
     }
 
@@ -1269,7 +1301,7 @@ public abstract class ContextEl implements ExecutableCode {
             un_.setFileName(bl_.getFile().getFileName());
             un_.setIndexFile(rc_);
             un_.setType(_in);
-            classes.addError(un_);
+            addError(un_);
             return standards.getAliasObject();
         }
         AccessingImportingBlock r_ = analyzing.getImporting();
@@ -1294,7 +1326,7 @@ public abstract class ContextEl implements ExecutableCode {
             un_.setClassName(_in);
             un_.setFileName(bl_.getFile().getFileName());
             un_.setIndexFile(rc_);
-            classes.addError(un_);
+            addError(un_);
             return standards.getAliasObject();
         }
         if (!Templates.isCorrectTemplateAll(resType_, varsCt_, this, _exact)) {
@@ -1302,7 +1334,7 @@ public abstract class ContextEl implements ExecutableCode {
             un_.setClassName(_in);
             un_.setFileName(bl_.getFile().getFileName());
             un_.setIndexFile(rc_);
-            classes.addError(un_);
+            addError(un_);
             return standards.getAliasObject();
         }
         return resType_;
@@ -1448,13 +1480,13 @@ public abstract class ContextEl implements ExecutableCode {
         for (RootBlock b: classes.getClassBodies(_predefined)) {
             analyzing.setImporting(b);
             analyzing.setCurrentBlock(b);
-            StringList deps_ = b.getDepends(this);
+            EqList<ClassInheritsDeps> deps_ = b.getDepends(this);
             String c_ = b.getFullName();
             if (deps_.isEmpty()) {
-                absDeps_.add(new ClassInheritsDeps(c_));
+                absDeps_.add(new ClassInheritsDeps(c_, b));
             }
-            for (String d: deps_) {
-                gr_.addSegment(new ClassInheritsDeps(c_), new ClassInheritsDeps(d));
+            for (ClassInheritsDeps d: deps_) {
+                gr_.addSegment(new ClassInheritsDeps(c_, b), d);
             }
         }
         EqList<ClassInheritsDeps> cycle_ = gr_.elementsCycle();
@@ -1463,8 +1495,10 @@ public abstract class ContextEl implements ExecutableCode {
                 BadInheritedClass enum_;
                 enum_ = new BadInheritedClass();
                 enum_.setClassName(c.getClassField());
-                enum_.setFileName(c.getClassField());
-                classes.addError(enum_);
+                RootBlock c_ = c.getRootBlock();
+                enum_.setFileName(c_.getFile().getFileName());
+                enum_.setIndexFile(c_.getIdRowCol());
+                addError(enum_);
             }
             return null;
         }
@@ -1491,7 +1525,7 @@ public abstract class ContextEl implements ExecutableCode {
             un_.setFileName(_currentBlock.getFile().getFileName());
             un_.setIndexFile(_location);
             un_.setType(_in);
-            classes.addError(un_);
+            addError(un_);
             return standards.getAliasObject();
         }
         StringMap<Integer> variables_ = new StringMap<Integer>();
@@ -1512,7 +1546,7 @@ public abstract class ContextEl implements ExecutableCode {
             un_.setClassName(_in);
             un_.setFileName(_currentBlock.getFile().getFileName());
             un_.setIndexFile(_location);
-            classes.addError(un_);
+            addError(un_);
             return standards.getAliasObject();
         }
         return resType_;
@@ -1526,7 +1560,7 @@ public abstract class ContextEl implements ExecutableCode {
             un_.setFileName(_currentBlock.getFile().getFileName());
             un_.setIndexFile(_location);
             un_.setType(_in);
-            classes.addError(un_);
+            addError(un_);
             return standards.getAliasObject();
         }
         StringMap<Integer> variables_ = new StringMap<Integer>();
@@ -1545,7 +1579,7 @@ public abstract class ContextEl implements ExecutableCode {
             un_.setClassName(_in);
             un_.setFileName(_currentBlock.getFile().getFileName());
             un_.setIndexFile(_location);
-            classes.addError(un_);
+            addError(un_);
             return standards.getAliasObject();
         }
         for (String p:Templates.getAllTypes(resType_).mid(1)){
@@ -1554,14 +1588,14 @@ public abstract class ContextEl implements ExecutableCode {
                 call_.setType(resType_);
                 call_.setFileName(_currentBlock.getFile().getFileName());
                 call_.setIndexFile(_location);
-                classes.addError(call_);
+                addError(call_);
             }
             if (p.startsWith(Templates.SUP_TYPE)) {
                 IllegalCallCtorByType call_ = new IllegalCallCtorByType();
                 call_.setType(resType_);
                 call_.setFileName(_currentBlock.getFile().getFileName());
                 call_.setIndexFile(_location);
-                classes.addError(call_);
+                addError(call_);
             }
         }
         return resType_;

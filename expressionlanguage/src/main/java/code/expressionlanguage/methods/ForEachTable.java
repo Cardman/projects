@@ -153,7 +153,7 @@ public final class ForEachTable extends BracedStack implements Loop, WithNotEmpt
             StaticAccessError static_ = new StaticAccessError();
             static_.setFileName(_cont.getCurrentFileName());
             static_.setIndexFile(_cont.getCurrentLocationIndex());
-            _cont.getClasses().addError(static_);
+            _cont.addError(static_);
         } else {
             StringList names_ = el_.getResultClass().getNames();
             StringList out_ = getCustomType(names_, _cont);
@@ -195,49 +195,49 @@ public final class ForEachTable extends BracedStack implements Loop, WithNotEmpt
             cast_.setMapping(mapping_);
             cast_.setFileName(getFile().getFileName());
             cast_.setIndexFile(classIndexNameOffset);
-            _cont.getClasses().addError(cast_);
+            _cont.addError(cast_);
         }
         if (_cont.getAnalyzing().containsVar(variableNameFirst)) {
             DuplicateVariable d_ = new DuplicateVariable();
             d_.setId(variableNameFirst);
             d_.setFileName(getFile().getFileName());
             d_.setIndexFile(variableNameOffsetFirst);
-            _cont.getClasses().addError(d_);
+            _cont.addError(d_);
         }
         if (_cont.getAnalyzing().containsMutableLoopVar(variableNameFirst)) {
             DuplicateVariable d_ = new DuplicateVariable();
             d_.setId(variableNameFirst);
             d_.setFileName(getFile().getFileName());
             d_.setIndexFile(variableNameOffsetFirst);
-            _cont.getClasses().addError(d_);
+            _cont.addError(d_);
         }
         if (!_cont.isValidSingleToken(variableNameFirst)) {
             BadVariableName b_ = new BadVariableName();
             b_.setFileName(getFile().getFileName());
             b_.setIndexFile(variableNameOffsetFirst);
             b_.setVarName(variableNameFirst);
-            _cont.getClasses().addError(b_);
+            _cont.addError(b_);
         }
         if (_cont.getAnalyzing().containsVar(variableNameSecond)) {
             DuplicateVariable d_ = new DuplicateVariable();
             d_.setId(variableNameSecond);
             d_.setFileName(getFile().getFileName());
             d_.setIndexFile(variableNameOffsetSecond);
-            _cont.getClasses().addError(d_);
+            _cont.addError(d_);
         }
         if (_cont.getAnalyzing().containsMutableLoopVar(variableNameSecond)) {
             DuplicateVariable d_ = new DuplicateVariable();
             d_.setId(variableNameSecond);
             d_.setFileName(getFile().getFileName());
             d_.setIndexFile(variableNameOffsetSecond);
-            _cont.getClasses().addError(d_);
+            _cont.addError(d_);
         }
         if (!_cont.isValidSingleToken(variableNameSecond)) {
             BadVariableName b_ = new BadVariableName();
             b_.setFileName(getFile().getFileName());
             b_.setIndexFile(variableNameOffsetSecond);
             b_.setVarName(variableNameSecond);
-            _cont.getClasses().addError(b_);
+            _cont.addError(b_);
         }
         KeyWords keyWords_ = _cont.getKeyWords();
         String keyWordVar_ = keyWords_.getKeyWordVar();
@@ -291,7 +291,7 @@ public final class ForEachTable extends BracedStack implements Loop, WithNotEmpt
                     cast_.setMapping(mapping_);
                     cast_.setFileName(getFile().getFileName());
                     cast_.setIndexFile(expressionOffset);
-                    _cont.getClasses().addError(cast_);
+                    _cont.addError(cast_);
                 }
             }
             mapping_ = new Mapping();
@@ -315,7 +315,7 @@ public final class ForEachTable extends BracedStack implements Loop, WithNotEmpt
                     cast_.setMapping(mapping_);
                     cast_.setFileName(getFile().getFileName());
                     cast_.setIndexFile(expressionOffset);
-                    _cont.getClasses().addError(cast_);
+                    _cont.addError(cast_);
                 }
             }
         } else {
@@ -326,7 +326,7 @@ public final class ForEachTable extends BracedStack implements Loop, WithNotEmpt
             cast_.setMapping(mapping_);
             cast_.setFileName(getFile().getFileName());
             cast_.setIndexFile(expressionOffset);
-            _cont.getClasses().addError(cast_);
+            _cont.addError(cast_);
         }
     }
     public void putVariable(ContextEl _cont) {
@@ -340,7 +340,7 @@ public final class ForEachTable extends BracedStack implements Loop, WithNotEmpt
             d_.setId(variableNameSecond);
             d_.setFileName(getFile().getFileName());
             d_.setIndexFile(variableNameOffsetSecond);
-            _cont.getClasses().addError(d_);
+            _cont.addError(d_);
         }
         LoopVariable lv_ = new LoopVariable();
         if (!importedClassNameFirst.isEmpty()) {

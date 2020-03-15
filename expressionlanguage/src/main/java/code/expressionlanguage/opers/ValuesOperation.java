@@ -40,7 +40,7 @@ public final class ValuesOperation extends LeafOperation {
             un_.setFileName(_conf.getCurrentFileName());
             un_.setIndexFile(_conf.getCurrentLocationIndex());
             un_.setType(clName_);
-            _conf.getClasses().addError(un_);
+            _conf.addError(un_);
             String argClName_ = _conf.getStandards().getAliasObject();
             setResultClass(new ClassArgumentMatching(argClName_));
             return;
@@ -51,7 +51,7 @@ public final class ValuesOperation extends LeafOperation {
             badAccess_.setId(clName_);
             badAccess_.setIndexFile(_conf.getCurrentLocationIndex());
             badAccess_.setFileName(_conf.getCurrentFileName());
-            _conf.getClasses().addError(badAccess_);
+            _conf.addError(badAccess_);
         }
         className = r_.getWildCardElement();
         String ret_ = PrimitiveTypeUtil.getPrettyArrayType(className);

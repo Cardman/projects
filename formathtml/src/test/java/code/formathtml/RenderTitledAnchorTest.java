@@ -39,7 +39,7 @@ public final class RenderTitledAnchorTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         
         conf_.setDocument(doc_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body><a title=\"desc &amp;lt;TITLE&amp;gt;\">Content</a></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
     }
@@ -69,7 +69,7 @@ public final class RenderTitledAnchorTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         
         conf_.setDocument(doc_);
-        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertTrue(conf_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_,conf_);
         assertNotNull(getException(conf_));
     }
@@ -99,6 +99,6 @@ public final class RenderTitledAnchorTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         
         conf_.setDocument(doc_);
-        assertTrue(!conf_.getClasses().isEmptyErrors());
+        assertTrue(!conf_.isEmptyErrors());
     }
 }

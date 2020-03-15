@@ -9845,7 +9845,7 @@ public final class FileResolverTest {
         file_.append("}\n");
         ContextEl context_ = simpleContext();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
-        assertTrue(!context_.getClasses().isEmptyErrors());
+        assertTrue(!context_.isEmptyErrors());
     }
     @Test
     public void parseFile2FailTest() {
@@ -9856,7 +9856,7 @@ public final class FileResolverTest {
         file_.append("}\n");
         ContextEl context_ = simpleContext();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
-        assertTrue(!context_.getClasses().isEmptyErrors());
+        assertTrue(!context_.isEmptyErrors());
     }
     @Test
     public void parseFile3FailTest() {
@@ -9878,7 +9878,7 @@ public final class FileResolverTest {
         file_.append("}\n");
         ContextEl context_ = simpleContext();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
-        assertTrue(!context_.getClasses().isEmptyErrors());
+        assertTrue(!context_.isEmptyErrors());
     }
     @Test
     public void parseFile4FailTest() {
@@ -9887,7 +9887,7 @@ public final class FileResolverTest {
         file_.append("}\n");
         ContextEl context_ = simpleContext();
         FileResolver.parseFile("my_file",file_.toString(), true, context_);
-        assertTrue(!context_.getClasses().isEmptyErrors());
+        assertTrue(!context_.isEmptyErrors());
     }
     @Test
     public void parseFile5FailTest() {
@@ -9898,7 +9898,7 @@ public final class FileResolverTest {
         file_.append("}\n");
         ContextEl context_ = simpleContext();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
-        assertTrue(!context_.getClasses().isEmptyErrors());
+        assertTrue(!context_.isEmptyErrors());
     }
     @Test
     public void parseFile6FailTest() {
@@ -9907,7 +9907,7 @@ public final class FileResolverTest {
         file_.append("}\n");
         ContextEl context_ = simpleContext();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
-        assertTrue(!context_.getClasses().isEmptyErrors());
+        assertTrue(!context_.isEmptyErrors());
     }
     @Test
     public void parseFile7FailTest() {
@@ -9916,7 +9916,7 @@ public final class FileResolverTest {
         file_.append("}\n");
         ContextEl context_ = simpleContext();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
-        assertTrue(!context_.getClasses().isEmptyErrors());
+        assertTrue(!context_.isEmptyErrors());
     }
     @Test
     public void parseFile8FailTest() {
@@ -9925,7 +9925,7 @@ public final class FileResolverTest {
         file_.append("}\n");
         ContextEl context_ = simpleContext();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
-        assertTrue(!context_.getClasses().isEmptyErrors());
+        assertTrue(!context_.isEmptyErrors());
     }
     @Test
     public void parseFile9FailTest() {
@@ -9934,7 +9934,7 @@ public final class FileResolverTest {
         file_.append("}\n");
         ContextEl context_ = simpleContext();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
-        assertTrue(!context_.getClasses().isEmptyErrors());
+        assertTrue(!context_.isEmptyErrors());
     }
     @Test
     public void parseFile10FailTest() {
@@ -9943,7 +9943,7 @@ public final class FileResolverTest {
         file_.append("}\n");
         ContextEl context_ = simpleContextEnDefault();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
-        assertTrue(!context_.getClasses().isEmptyErrors());
+        assertTrue(!context_.isEmptyErrors());
     }
     @Test
     public void parseFile11FailTest() {
@@ -9954,7 +9954,7 @@ public final class FileResolverTest {
         file_.append("}\n");
         ContextEl context_ = simpleContext();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
-        assertTrue(!context_.getClasses().isEmptyErrors());
+        assertTrue(!context_.isEmptyErrors());
     }
     @Test
     public void parseFile12FailTest() {
@@ -9971,7 +9971,7 @@ public final class FileResolverTest {
         StringMap<String> s_ = new StringMap<String>();
         s_.put("my_file",file_.toString());
         Classes.tryBuildBracedClassesBodies(s_,context_,false);
-        assertTrue(!context_.getClasses().isEmptyErrors());
+        assertTrue(!context_.isEmptyErrors());
     }
     @Test
     public void parseFile13FailTest() {
@@ -9985,7 +9985,7 @@ public final class FileResolverTest {
         file_.append("}");
         ContextEl context_ = simpleContext();
         FileResolver.parseFile("my_file", file_.toString(), false, context_);
-        assertTrue(!context_.getClasses().isEmptyErrors());
+        assertTrue(!context_.isEmptyErrors());
     }
     @Test
     public void parseFile14FailTest() {
@@ -9996,7 +9996,7 @@ public final class FileResolverTest {
         file_.append("}");
         ContextEl context_ = simpleContext();
         FileResolver.parseFile("my_file", file_.toString(), false, context_);
-        assertTrue(!context_.getClasses().isEmptyErrors());
+        assertTrue(!context_.isEmptyErrors());
     }
     @Test
     public void parseFile15FailTest() {
@@ -10007,7 +10007,7 @@ public final class FileResolverTest {
         file_.append("}");
         ContextEl context_ = simpleContext();
         FileResolver.parseFile("my_file", file_.toString(), false, context_);
-        assertTrue(!context_.getClasses().isEmptyErrors());
+        assertTrue(!context_.isEmptyErrors());
     }
     @Test
     public void parseFile16FailTest() {
@@ -10015,7 +10015,7 @@ public final class FileResolverTest {
         file_.append("$annotation []");
         ContextEl context_ = simpleContext();
         FileResolver.parseFile("my_file", file_.toString(), false, context_);
-        assertTrue(!context_.getClasses().isEmptyErrors());
+        assertTrue(!context_.isEmptyErrors());
     }
     @Test
     public void parseFile17FailTest() {
@@ -10023,7 +10023,7 @@ public final class FileResolverTest {
         file_.append("$annotation [");
         ContextEl context_ = simpleContext();
         FileResolver.parseFile("my_file", file_.toString(), false, context_);
-        assertTrue(!context_.getClasses().isEmptyErrors());
+        assertTrue(!context_.isEmptyErrors());
     }
     @Test
     public void parseFile18FailTest() {
@@ -10031,7 +10031,7 @@ public final class FileResolverTest {
         file_.append("$annotation pkg.MyAnnot{$public $int v=r{}y}");
         ContextEl context_ = simpleContext();
         FileResolver.parseFile("my_file", file_.toString(), false, context_);
-        assertTrue(!context_.getClasses().isEmptyErrors());
+        assertTrue(!context_.isEmptyErrors());
     }
     @Test
     public void parseFile19FailTest() {
@@ -10044,7 +10044,7 @@ public final class FileResolverTest {
         file_.append("}\n");
         ContextEl context_ = simpleContext();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
-        assertTrue(!context_.getClasses().isEmptyErrors());
+        assertTrue(!context_.isEmptyErrors());
     }
     private static int countCustomTypes(ContextEl _cont) {
         int count_ = 0;

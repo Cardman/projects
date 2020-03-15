@@ -74,7 +74,7 @@ public final class ResultText {
                     BadElError badEl_ = new BadElError();
                     badEl_.setFileName(_conf.getCurrentFileName());
                     badEl_.setIndexFile(_conf.getCurrentLocationIndex());
-                    _conf.getClasses().addError(badEl_);
+                    _conf.addError(badEl_);
                     return;
                 }
 //                _conf.getLastPage().setOffset(i_);
@@ -89,7 +89,7 @@ public final class ResultText {
                 BadElError badEl_ = new BadElError();
                 badEl_.setFileName(_conf.getCurrentFileName());
                 badEl_.setIndexFile(_conf.getCurrentLocationIndex());
-                _conf.getClasses().addError(badEl_);
+                _conf.addError(badEl_);
                 return;
             }
             str_.append(cur_);
@@ -128,7 +128,7 @@ public final class ResultText {
                 BadElError badEl_ = new BadElError();
                 badEl_.setFileName(_conf.getCurrentFileName());
                 badEl_.setIndexFile(_conf.getCurrentLocationIndex());
-                _conf.getContext().getClasses().addError(badEl_);
+                _conf.getContext().addError(badEl_);
                 return;
             }
             if (cur_ == ESCAPED) {
@@ -145,7 +145,7 @@ public final class ResultText {
                     BadElError badEl_ = new BadElError();
                     badEl_.setFileName(_conf.getCurrentFileName());
                     badEl_.setIndexFile(_conf.getCurrentLocationIndex());
-                    _conf.getClasses().addError(badEl_);
+                    _conf.addError(badEl_);
                     return;
                 }
 //                _conf.getLastPage().setOffset(i_);
@@ -160,7 +160,7 @@ public final class ResultText {
                 BadElError badEl_ = new BadElError();
                 badEl_.setFileName(_conf.getCurrentFileName());
                 badEl_.setIndexFile(_conf.getCurrentLocationIndex());
-                _conf.getClasses().addError(badEl_);
+                _conf.addError(badEl_);
                 return;
             }
             str_.append(cur_);
@@ -187,7 +187,7 @@ public final class ResultText {
                     BadElError badEl_ = new BadElError();
                     badEl_.setFileName(_cont.getCurrentFileName());
                     badEl_.setIndexFile(_cont.getCurrentLocationIndex());
-                    _cont.getClasses().addError(badEl_);
+                    _cont.addError(badEl_);
                 }
             }
             StringList argList_ = new StringList();

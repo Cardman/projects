@@ -343,7 +343,7 @@ public final class ForMutableIterativeLoop extends BracedStack implements
             cast_.setMapping(mapping_);
             cast_.setFileName(getFile().getFileName());
             cast_.setIndexFile(classIndexNameOffset);
-            _cont.getClasses().addError(cast_);
+            _cont.addError(cast_);
         }
         page_.setGlobalOffset(classNameOffset);
         page_.setOffset(0);
@@ -372,7 +372,7 @@ public final class ForMutableIterativeLoop extends BracedStack implements
                 un_.setFileName(getFile().getFileName());
                 un_.setIndexFile(expressionOffset);
                 un_.setType(opExp.last().getResultClass());
-                _cont.getClasses().addError(un_);
+                _cont.addError(un_);
             }
             elCondition_.getResultClass().setUnwrapObject(stds_.getAliasPrimBoolean());
         }

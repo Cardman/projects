@@ -43,7 +43,7 @@ public final class RenderExpUtil {
             badEl_.setEl(_el);
             badEl_.setFileName(_conf.getCurrentFileName());
             badEl_.setIndexFile(_conf.getCurrentLocationIndex());
-            _conf.getClasses().addError(badEl_);
+            _conf.addError(badEl_);
             OperationsSequence tmpOp_ = new OperationsSequence();
             tmpOp_.setDelimiter(new Delimiters());
             ErrorPartOperation e_ = new ErrorPartOperation(0, 0, null, tmpOp_);
@@ -83,7 +83,7 @@ public final class RenderExpUtil {
             badEl_.setEl(_el);
             badEl_.setFileName(_conf.getCurrentFileName());
             badEl_.setIndexFile(_conf.getCurrentLocationIndex());
-            _conf.getClasses().addError(badEl_);
+            _conf.addError(badEl_);
             OperationsSequence tmpOp_ = new OperationsSequence();
             tmpOp_.setDelimiter(new Delimiters());
             ErrorPartOperation e_ = new ErrorPartOperation(0, 0, null, tmpOp_);
@@ -102,6 +102,28 @@ public final class RenderExpUtil {
     }
     public static Argument processEl(String _el, int _index, Configuration _conf) {
         ContextEl context_ = _conf.getContext();
+        CustList<RendDynOperationNode> out_ = getAnalyzed(_el,_index,_conf);
+        if (!_conf.isEmptyErrors()) {
+            BadElError badEl_ = new BadElError();
+            badEl_.setAnalyzable(_conf);
+            badEl_.setFileName(_conf.getCurrentFileName());
+            badEl_.setIndexFile(_conf.getCurrentLocationIndex());
+            _conf.setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getStandards().getAliasIllegalArg()));
+            context_.setAnalyzing(null);
+            return Argument.createVoid();
+        }
+        context_.setAnalyzing(null);
+        out_ = getReducedNodes(out_.last());
+        return calculateReuse(out_, _conf);
+    }
+    public static Argument processQuickEl(String _el, int _index, Configuration _conf) {
+        CustList<RendDynOperationNode> out_ = getAnalyzed(_el,_index,_conf);
+        ContextEl context_ = _conf.getContext();
+        context_.setAnalyzing(null);
+        out_ = getReducedNodes(out_.last());
+        return calculateReuse(out_, _conf);
+    }
+    private static CustList<RendDynOperationNode> getAnalyzed(String _el, int _index, Configuration _conf) {
         _conf.setupAnalyzing();
         Argument argGl_ = _conf.getOperationPageEl().getGlobalArgument();
         boolean static_ = argGl_.isNull();
@@ -114,27 +136,15 @@ public final class RenderExpUtil {
             badEl_.setEl(_el);
             badEl_.setFileName(_conf.getCurrentFileName());
             badEl_.setIndexFile(_conf.getCurrentLocationIndex());
-            _conf.getClasses().addError(badEl_);
+            _conf.addError(badEl_);
             _conf.setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getStandards().getAliasIllegalArg()));
-            context_.setAnalyzing(null);
-            return Argument.createVoid();
+            return new CustList<RendDynOperationNode>();
         }
         String el_ = _el.substring(_index);
         OperationsSequence opTwo_ = getOperationsSequence(_index, el_, _conf, d_);
         OperationNode op_ = createOperationNode(_index, CustList.FIRST_INDEX, null, opTwo_, _conf);
         CustList<OperationNode> all_ = getSortedDescNodes(op_, static_, _conf);
-        CustList<RendDynOperationNode> out_ = getExecutableNodes(all_);
-        if (!_conf.getClasses().isEmptyErrors()) {
-            BadElError badEl_ = new BadElError();
-            badEl_.setFileName(_conf.getCurrentFileName());
-            badEl_.setIndexFile(_conf.getCurrentLocationIndex());
-            _conf.setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getStandards().getAliasIllegalArg()));
-            context_.setAnalyzing(null);
-            return Argument.createVoid();
-        }
-        context_.setAnalyzing(null);
-        out_ = getReducedNodes(out_.last());
-        return calculateReuse(out_, _conf);
+        return getExecutableNodes(all_);
     }
     public static CustList<RendDynOperationNode> getExecutableNodes(CustList<OperationNode> _list) {
         CustList<RendDynOperationNode> out_ = new CustList<RendDynOperationNode>();
@@ -247,7 +257,7 @@ public final class RenderExpUtil {
                         badNb_.setFileName(_context.getCurrentFileName());
                         badNb_.setOperandsNumber(0);
                         badNb_.setIndexFile(_context.getCurrentLocationIndex());
-                        _context.getClasses().addError(badNb_);
+                        _context.addError(badNb_);
                     } else {
                         PossibleIntermediateDotted possible_ = (PossibleIntermediateDotted) next_;
                         MethodAccessKind static_ = MethodId.getKind(current_ instanceof StaticAccessOperation);
@@ -286,7 +296,7 @@ public final class RenderExpUtil {
                     badNb_.setFileName(_context.getCurrentFileName());
                     badNb_.setOperandsNumber(0);
                     badNb_.setIndexFile(_context.getCurrentLocationIndex());
-                    _context.getClasses().addError(badNb_);
+                    _context.addError(badNb_);
                     return;
                 }
             }
@@ -302,7 +312,7 @@ public final class RenderExpUtil {
                             badNb_.setFileName(_context.getCurrentFileName());
                             badNb_.setOperandsNumber(0);
                             badNb_.setIndexFile(_context.getCurrentLocationIndex());
-                            _context.getClasses().addError(badNb_);
+                            _context.addError(badNb_);
                         }
                     }
                 }
@@ -312,7 +322,7 @@ public final class RenderExpUtil {
             badNb_.setFileName(_context.getCurrentFileName());
             badNb_.setOperandsNumber(0);
             badNb_.setIndexFile(_context.getCurrentLocationIndex());
-            _context.getClasses().addError(badNb_);
+            _context.addError(badNb_);
         }
     }
 

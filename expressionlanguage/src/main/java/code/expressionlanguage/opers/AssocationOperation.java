@@ -43,7 +43,7 @@ public final class AssocationOperation extends AbstractUnaryOperation implements
             UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
             un_.setIndexFile(_conf.getCurrentLocationIndex());
             un_.setFileName(_conf.getCurrentFileName());
-            _conf.getClasses().addError(un_);
+            _conf.addError(un_);
         } else {
             String annotationClass_ = par_.getClassName();
             GeneType type_ = _conf.getClassBody(annotationClass_);
@@ -67,7 +67,7 @@ public final class AssocationOperation extends AbstractUnaryOperation implements
                     cast_.setClassName(annotationClass_);
                     cast_.setFileName(_conf.getCurrentFileName());
                     cast_.setIndexFile(_conf.getCurrentLocationIndex());
-                    _conf.getClasses().addError(cast_);
+                    _conf.addError(cast_);
                 }
             }
         }

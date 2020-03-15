@@ -61,7 +61,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             badCall_.setOperandsNumber(0);
             badCall_.setFileName(_conf.getCurrentFileName());
             badCall_.setIndexFile(_conf.getCurrentLocationIndex());
-            _conf.getClasses().addError(badCall_);
+            _conf.addError(badCall_);
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             return;
         }
@@ -156,7 +156,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 StaticAccessError static_ = new StaticAccessError();
                 static_.setFileName(_conf.getCurrentFileName());
                 static_.setIndexFile(_conf.getCurrentLocationIndex());
-                _conf.getClasses().addError(static_);
+                _conf.addError(static_);
                 setResultClass(new ClassArgumentMatching(_stds.getAliasObject()));
                 return;
             }
@@ -280,7 +280,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                         StaticAccessError static_ = new StaticAccessError();
                         static_.setFileName(_conf.getCurrentFileName());
                         static_.setIndexFile(_conf.getCurrentLocationIndex());
-                        _conf.getClasses().addError(static_);
+                        _conf.addError(static_);
                         setResultClass(new ClassArgumentMatching(_stds.getAliasObject()));
                         return;
                     }
@@ -336,7 +336,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                             un_.setFileName(_conf.getCurrentFileName());
                             un_.setExpectedResult(_conf.getStandards().getAliasPrimInteger());
                             un_.setOperands(p);
-                            _conf.getClasses().addError(un_);
+                            _conf.addError(un_);
                         }
                         comp_ = PrimitiveTypeUtil.getQuickComponentType(comp_);
                         if (comp_ == null) {
@@ -345,7 +345,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                             un_.setFileName(_conf.getCurrentFileName());
                             un_.setExpectedResult(_conf.getStandards().getAliasPrimInteger());
                             un_.setOperands(p);
-                            _conf.getClasses().addError(un_);
+                            _conf.addError(un_);
                             err_ = true;
                             break;
                         }
@@ -535,7 +535,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                     StaticAccessError static_ = new StaticAccessError();
                     static_.setFileName(_conf.getCurrentFileName());
                     static_.setIndexFile(_conf.getCurrentLocationIndex());
-                    _conf.getClasses().addError(static_);
+                    _conf.addError(static_);
                     setResultClass(new ClassArgumentMatching(_stds.getAliasObject()));
                     return;
                 }
@@ -595,7 +595,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                         un_.setFileName(_conf.getCurrentFileName());
                         un_.setExpectedResult(_conf.getStandards().getAliasPrimInteger());
                         un_.setOperands(p);
-                        _conf.getClasses().addError(un_);
+                        _conf.addError(un_);
                     }
                     comp_ = PrimitiveTypeUtil.getQuickComponentType(comp_);
                     if (comp_ == null) {
@@ -604,7 +604,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                         un_.setFileName(_conf.getCurrentFileName());
                         un_.setExpectedResult(_conf.getStandards().getAliasPrimInteger());
                         un_.setOperands(p);
-                        _conf.getClasses().addError(un_);
+                        _conf.addError(un_);
                         err_ = true;
                         break;
                     }
@@ -654,7 +654,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             cast_.setMapping(map_);
             cast_.setFileName(_conf.getCurrentFileName());
             cast_.setIndexFile(_conf.getCurrentLocationIndex());
-            _conf.getClasses().addError(cast_);
+            _conf.addError(cast_);
             setResultClass(new ClassArgumentMatching(_stds.getAliasObject()));
             return;
         }
@@ -700,7 +700,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             undefined_.setId(new MethodId(MethodAccessKind.INSTANCE, _name, classesNames_).getSignature(_conf));
             undefined_.setFileName(_conf.getCurrentFileName());
             undefined_.setIndexFile(_conf.getCurrentLocationIndex());
-            _conf.getClasses().addError(undefined_);
+            _conf.addError(undefined_);
             return true;
         }
         return false;
@@ -730,7 +730,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 abs_.setSgn(_id.getRealId().getSignature(_conf));
                 abs_.setIndexFile(_conf.getCurrentLocationIndex());
                 abs_.setFileName(_conf.getCurrentFileName());
-                _conf.getClasses().addError(abs_);
+                _conf.addError(abs_);
             }
         }
     }
@@ -773,7 +773,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                     StaticAccessError static_ = new StaticAccessError();
                     static_.setFileName(_conf.getCurrentFileName());
                     static_.setIndexFile(_conf.getCurrentLocationIndex());
-                    _conf.getClasses().addError(static_);
+                    _conf.addError(static_);
                     setResultClass(new ClassArgumentMatching(_stds.getAliasObject()));
                     return;
                 }
@@ -801,7 +801,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 call_.setType(clFrom_);
                 call_.setFileName(_conf.getCurrentFileName());
                 call_.setIndexFile(_conf.getCurrentLocationIndex());
-                _conf.getClasses().addError(call_);
+                _conf.addError(call_);
                 setResultClass(new ClassArgumentMatching(_stds.getAliasObject()));
                 return;
             }
@@ -811,14 +811,14 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                     call_.setType(clFrom_);
                     call_.setFileName(_conf.getCurrentFileName());
                     call_.setIndexFile(_conf.getCurrentLocationIndex());
-                    _conf.getClasses().addError(call_);
+                    _conf.addError(call_);
                 }
                 if (p.startsWith(Templates.SUP_TYPE)) {
                     IllegalCallCtorByType call_ = new IllegalCallCtorByType();
                     call_.setType(clFrom_);
                     call_.setFileName(_conf.getCurrentFileName());
                     call_.setIndexFile(_conf.getCurrentLocationIndex());
-                    _conf.getClasses().addError(call_);
+                    _conf.addError(call_);
                 }
             }
             ConstrustorIdVarArg ctorRes_;
@@ -865,7 +865,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             StaticAccessError static_ = new StaticAccessError();
             static_.setFileName(_conf.getCurrentFileName());
             static_.setIndexFile(_conf.getCurrentLocationIndex());
-            _conf.getClasses().addError(static_);
+            _conf.addError(static_);
             setResultClass(new ClassArgumentMatching(_stds.getAliasObject()));
             return;
         }
@@ -879,7 +879,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 call_.setType(o);
                 call_.setFileName(_conf.getCurrentFileName());
                 call_.setIndexFile(_conf.getCurrentLocationIndex());
-                _conf.getClasses().addError(call_);
+                _conf.addError(call_);
                 ok_ = false;
                 continue;
             }
@@ -889,7 +889,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                     call_.setType(o);
                     call_.setFileName(_conf.getCurrentFileName());
                     call_.setIndexFile(_conf.getCurrentLocationIndex());
-                    _conf.getClasses().addError(call_);
+                    _conf.addError(call_);
                     ok_ = false;
                 }
                 if (p.startsWith(Templates.SUP_TYPE)) {
@@ -897,7 +897,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                     call_.setType(o);
                     call_.setFileName(_conf.getCurrentFileName());
                     call_.setIndexFile(_conf.getCurrentLocationIndex());
-                    _conf.getClasses().addError(call_);
+                    _conf.addError(call_);
                     ok_ = false;
                 }
             }
@@ -917,7 +917,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             StaticAccessError static_ = new StaticAccessError();
             static_.setFileName(_conf.getCurrentFileName());
             static_.setIndexFile(_conf.getCurrentLocationIndex());
-            _conf.getClasses().addError(static_);
+            _conf.addError(static_);
             setResultClass(new ClassArgumentMatching(_stds.getAliasObject()));
             return;
         }
@@ -948,7 +948,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             un_.setClassName(cl_);
             un_.setFileName(_conf.getCurrentFileName());
             un_.setIndexFile(_conf.getCurrentLocationIndex());
-            _conf.getClasses().addError(un_);
+            _conf.addError(un_);
             cl_ = _conf.getStandards().getAliasObject();
         }
         processCtor(_conf, _stds, _methodTypes, vararg_, null, cl_);
@@ -963,14 +963,14 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 call_.setType(_cl);
                 call_.setFileName(_conf.getCurrentFileName());
                 call_.setIndexFile(_conf.getCurrentLocationIndex());
-                _conf.getClasses().addError(call_);
+                _conf.addError(call_);
             }
             if (p.startsWith(Templates.SUP_TYPE)) {
                 IllegalCallCtorByType call_ = new IllegalCallCtorByType();
                 call_.setType(_cl);
                 call_.setFileName(_conf.getCurrentFileName());
                 call_.setIndexFile(_conf.getCurrentLocationIndex());
-                _conf.getClasses().addError(call_);
+                _conf.addError(call_);
             }
         }
         String id_ = Templates.getIdFromAllTypes(_cl);
@@ -980,7 +980,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             call_.setType(_cl);
             call_.setFileName(_conf.getCurrentFileName());
             call_.setIndexFile(_conf.getCurrentLocationIndex());
-            _conf.getClasses().addError(call_);
+            _conf.addError(call_);
             setResultClass(new ClassArgumentMatching(_stds.getAliasObject()));
             return;
         }
@@ -1021,7 +1021,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             badCall_.setOperandsNumber(0);
             badCall_.setFileName(_conf.getCurrentFileName());
             badCall_.setIndexFile(_conf.getCurrentLocationIndex());
-            _conf.getClasses().addError(badCall_);
+            _conf.addError(badCall_);
             setResultClass(new ClassArgumentMatching(_stds.getAliasObject()));
             return;
         }
@@ -1062,7 +1062,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                     und_.setId(fieldName_);
                     und_.setFileName(_conf.getCurrentFileName());
                     und_.setIndexFile(_conf.getCurrentLocationIndex());
-                    _conf.getClasses().addError(und_);
+                    _conf.addError(und_);
                 }
                 setResultClass(new ClassArgumentMatching(_stds.getAliasObject()));
                 return;
@@ -1098,7 +1098,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                     cast_.setMapping(mapping_);
                     cast_.setFileName(_conf.getCurrentFileName());
                     cast_.setIndexFile(_conf.getCurrentLocationIndex());
-                    _conf.getClasses().addError(cast_);
+                    _conf.addError(cast_);
                 }
                 params_.add(arg_);
                 //setter
@@ -1122,7 +1122,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                     und_.setId(fieldName_);
                     und_.setFileName(_conf.getCurrentFileName());
                     und_.setIndexFile(_conf.getCurrentLocationIndex());
-                    _conf.getClasses().addError(und_);
+                    _conf.addError(und_);
                 }
                 setResultClass(new ClassArgumentMatching(_stds.getAliasObject()));
                 return;
@@ -1156,7 +1156,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                     cast_.setMapping(mapping_);
                     cast_.setFileName(_conf.getCurrentFileName());
                     cast_.setIndexFile(_conf.getCurrentLocationIndex());
-                    _conf.getClasses().addError(cast_);
+                    _conf.addError(cast_);
                 }
                 params_.add(arg_);
                 //setter
@@ -1209,7 +1209,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             cast_.setMapping(map_);
             cast_.setFileName(_conf.getCurrentFileName());
             cast_.setIndexFile(_conf.getCurrentLocationIndex());
-            _conf.getClasses().addError(cast_);
+            _conf.addError(cast_);
             setResultClass(new ClassArgumentMatching(_stds.getAliasObject()));
             return;
         }
@@ -1224,7 +1224,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 und_.setId(fieldName_);
                 und_.setFileName(_conf.getCurrentFileName());
                 und_.setIndexFile(_conf.getCurrentLocationIndex());
-                _conf.getClasses().addError(und_);
+                _conf.addError(und_);
             }
             setResultClass(new ClassArgumentMatching(_stds.getAliasObject()));
             return;
@@ -1257,7 +1257,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 cast_.setMapping(mapping_);
                 cast_.setFileName(_conf.getCurrentFileName());
                 cast_.setIndexFile(_conf.getCurrentLocationIndex());
-                _conf.getClasses().addError(cast_);
+                _conf.addError(cast_);
             }
             params_.add(arg_);
             //setter
@@ -1271,7 +1271,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
             un_.setFileName(_conf.getCurrentFileName());
             un_.setIndexFile(_conf.getCurrentLocationIndex());
-            _conf.getClasses().addError(un_);
+            _conf.addError(un_);
         }
     }
 
@@ -1349,7 +1349,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 un_.setFileName(_conf.getCurrentFileName());
                 un_.setExpectedResult(_conf.getStandards().getAliasPrimInteger());
                 un_.setOperands(clArg_);
-                _conf.getClasses().addError(un_);
+                _conf.addError(un_);
                 err_ = true;
             }
             _methodTypes.add(clArg_);
@@ -1359,7 +1359,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             badCall_.setOperandsNumber(0);
             badCall_.setFileName(_conf.getCurrentFileName());
             badCall_.setIndexFile(_conf.getCurrentLocationIndex());
-            _conf.getClasses().addError(badCall_);
+            _conf.addError(badCall_);
             setResultClass(new ClassArgumentMatching(_stds.getAliasObject()));
             return;
         }
@@ -1399,7 +1399,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                     varg_.setFileName(_conf.getCurrentFileName());
                     varg_.setIndexFile(_conf.getCurrentLocationIndex());
                     varg_.setMethodName(VAR_ARG);
-                    _conf.getClasses().addError(varg_);
+                    _conf.addError(varg_);
                     setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
                     return null;
                 }
@@ -1438,7 +1438,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                     varg_.setFileName(_conf.getCurrentFileName());
                     varg_.setIndexFile(_conf.getCurrentLocationIndex());
                     varg_.setMethodName(VAR_ARG);
-                    _conf.getClasses().addError(varg_);
+                    _conf.addError(varg_);
                     setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
                     return null;
                 }

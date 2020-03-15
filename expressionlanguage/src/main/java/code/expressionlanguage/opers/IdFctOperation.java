@@ -58,7 +58,7 @@ public final class IdFctOperation extends LeafOperation implements IdFctOperable
             varg_.setFileName(_conf.getCurrentFileName());
             varg_.setIndexFile(_conf.getCurrentLocationIndex());
             varg_.setMethodName(VAR_ARG);
-            _conf.getClasses().addError(varg_);
+            _conf.addError(varg_);
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             return;
         }
@@ -67,7 +67,7 @@ public final class IdFctOperation extends LeafOperation implements IdFctOperable
             varg_.setFileName(_conf.getCurrentFileName());
             varg_.setIndexFile(_conf.getCurrentLocationIndex());
             varg_.setMethodName(VAR_ARG);
-            _conf.getClasses().addError(varg_);
+            _conf.addError(varg_);
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             return;
         }
@@ -99,7 +99,7 @@ public final class IdFctOperation extends LeafOperation implements IdFctOperable
                     varg_.setFileName(_conf.getCurrentFileName());
                     varg_.setIndexFile(_conf.getCurrentLocationIndex());
                     varg_.setMethodName(VAR_ARG);
-                    _conf.getClasses().addError(varg_);
+                    _conf.addError(varg_);
                     setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
                     return null;
                 }

@@ -2,6 +2,8 @@ package code.expressionlanguage;
 
 import code.expressionlanguage.common.GeneMethod;
 import code.expressionlanguage.common.GeneType;
+import code.expressionlanguage.errors.custom.FoundErrorInterpret;
+import code.expressionlanguage.errors.custom.FoundWarningInterpret;
 import code.expressionlanguage.inherits.TypeOwnersDepends;
 import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.instr.ResultAfterInstKeyWord;
@@ -141,7 +143,10 @@ public interface Analyzable {
 
     void setOkNumOp(boolean _okNumOp);
     KeyWords getKeyWords();
-
+    void addWarning(FoundWarningInterpret _warning);
+    void addError(FoundErrorInterpret _error);
+    int getRowFile(String _fileName,int _sum);
+    int getColFile(String _fileName,int _sum, int _row);
     boolean isValidSingleToken(String _id);
     boolean isValidToken(String _id);
     void processInternKeyWord(String _exp, int _fr, ResultAfterInstKeyWord _out);

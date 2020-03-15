@@ -17,8 +17,6 @@ public final class FileResolver {
     private static final char FOR_BLOCKS = ':';
     private static final char END_IMPORTS = ';';
     private static final char LINE_RETURN = '\n';
-    private static final char CARR_RETURN = '\r';
-    private static final char TAB = '\t';
     private static final char BEGIN_COMMENT = '/';
     private static final char SECOND_COMMENT = '*';
     private static final char PKG = '.';
@@ -48,6 +46,8 @@ public final class FileResolver {
         int tabWidth_ = _context.getTabWidth();
         FileBlock fileBlock_ = new FileBlock(new OffsetsBlock(),_predefined,tabWidth_);
         fileBlock_.setFileName(_fileName);
+        Classes cls_ = _context.getClasses();
+        cls_.putFileBlock(_fileName, fileBlock_);
         StringList importedTypes_ = new StringList();
         StringBuilder str_ = new StringBuilder();
         int instLen_ = 0;
@@ -63,35 +63,9 @@ public final class FileResolver {
         String keyWordEnum_ = keyWords_.getKeyWordEnum();
         String keyWordFinal_ = keyWords_.getKeyWordFinal();
         String keyWordInterface_ = keyWords_.getKeyWordInterface();
+        fileBlock_.processLinesTabs(_context,_file);
         int i_ = CustList.FIRST_INDEX;
         int len_ = _file.length();
-        fileBlock_.getLineReturns().add(-1);
-        boolean foundBinChar_ = false;
-        while (i_ < len_) {
-            char ch_ = _file.charAt(i_);
-            if (ch_ < ' ') {
-                if (ch_ == TAB) {
-                    fileBlock_.getTabulations().add(i_);
-                } else if (ch_ == LINE_RETURN) {
-                    fileBlock_.getLineReturns().add(i_);
-                } else if (ch_ == CARR_RETURN){
-                    if (i_ + 1 >= len_ || _file.charAt(i_ + 1) != LINE_RETURN) {
-                        fileBlock_.getLineReturns().add(i_);
-                    }
-                } else {
-                    fileBlock_.getBinChars().add(i_);
-                    foundBinChar_ = true;
-                }
-            }
-            i_++;
-        }
-        if (foundBinChar_) {
-            DeadCodeTernary d_ = new DeadCodeTernary();
-            d_.setIndexFile(0);
-            d_.setFileName(_fileName);
-            _context.getClasses().addWarning(d_);
-        }
-        i_ = CustList.FIRST_INDEX;
         boolean commentedSingleLine_ = false;
         boolean commentedMultiLine_ = false;
         int indexImport_ = 0;
@@ -221,14 +195,12 @@ public final class FileResolver {
         fileBlock_.getImports().addAllElts(importedTypes_);
         fileBlock_.getImportsOffset().addAllElts(offsetsImports_);
         input_.setFile(fileBlock_);
-        Classes cls_ = _context.getClasses();
-        cls_.putFileBlock(_fileName, fileBlock_);
         if (!badIndexes_.isEmpty()) {
             for (int i: badIndexes_) {
                 BadIndexInParser b_ = new BadIndexInParser();
                 b_.setFileName(_fileName);
                 b_.setIndex(i);
-                cls_.addError(b_);
+                _context.addError(b_);
             }
             return;
         }
@@ -240,7 +212,7 @@ public final class FileResolver {
                     BadIndexInParser b_ = new BadIndexInParser();
                     b_.setFileName(_fileName);
                     b_.setIndex(i);
-                    cls_.addError(b_);
+                    _context.addError(b_);
                 }
                 return;
             }
@@ -259,9 +231,9 @@ public final class FileResolver {
                                 //ERROR
                                 DuplicateType d_ = new DuplicateType();
                                 d_.setId(cur_.getFullName());
-                                d_.setFileName(cur_.getFile().getFileName());
+                                d_.setFileName(_fileName);
                                 d_.setIndexFile(cur_.getIdRowCol());
-                                cls_.addError(d_);
+                                _context.addError(d_);
                             }
                             cls_.processBracedClass(cur_, _context);
                         }
@@ -388,7 +360,7 @@ public final class FileResolver {
                     BadIndexInParser b_ = new BadIndexInParser();
                     b_.setFileName(_fileName);
                     b_.setIndex(i);
-                    cls_.addError(b_);
+                    _context.addError(b_);
                 }
                 return;
             }

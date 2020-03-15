@@ -98,7 +98,7 @@ public final class ElUtil {
             badEl_.setEl(_el);
             badEl_.setFileName(_conf.getCurrentFileName());
             badEl_.setIndexFile(_conf.getCurrentLocationIndex());
-            _conf.getClasses().addError(badEl_);
+            _conf.addError(badEl_);
             OperationsSequence tmpOp_ = new OperationsSequence();
             tmpOp_.setDelimiter(new Delimiters());
             ErrorPartOperation e_ = new ErrorPartOperation(0, 0, null, tmpOp_);
@@ -141,7 +141,7 @@ public final class ElUtil {
             badEl_.setEl(_el);
             badEl_.setFileName(_conf.getCurrentFileName());
             badEl_.setIndexFile(_conf.getCurrentLocationIndex());
-            _conf.getClasses().addError(badEl_);
+            _conf.addError(badEl_);
             OperationsSequence tmpOp_ = new OperationsSequence();
             tmpOp_.setDelimiter(new Delimiters());
             ErrorPartOperation e_ = new ErrorPartOperation(0, 0, null, tmpOp_);
@@ -262,7 +262,7 @@ public final class ElUtil {
                 badNb_.setFileName(_context.getCurrentFileName());
                 badNb_.setOperandsNumber(0);
                 badNb_.setIndexFile(_context.getCurrentLocationIndex());
-                _context.getClasses().addError(badNb_);
+                _context.addError(badNb_);
             } else if (_current instanceof StaticCallAccessOperation){
                 PossibleIntermediateDotted possible_ = (PossibleIntermediateDotted) _next;
                 possible_.setIntermediateDotted();

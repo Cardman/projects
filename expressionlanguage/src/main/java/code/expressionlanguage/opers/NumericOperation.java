@@ -34,7 +34,7 @@ public abstract class NumericOperation extends MethodOperation implements Middle
             un_.setFileName(_cont.getCurrentFileName());
             un_.setExpectedResult(exp_);
             un_.setOperands(_a);
-            _cont.getClasses().addError(un_);
+            _cont.addError(un_);
             _cont.setOkNumOp(false);
             ok_ = false;
         }
@@ -45,7 +45,7 @@ public abstract class NumericOperation extends MethodOperation implements Middle
             un_.setFileName(_cont.getCurrentFileName());
             un_.setExpectedResult(exp_);
             un_.setOperands(_b);
-            _cont.getClasses().addError(un_);
+            _cont.addError(un_);
             _cont.setOkNumOp(false);
             ok_ = false;
         }
