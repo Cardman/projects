@@ -1,6 +1,7 @@
 package code.expressionlanguage.methods;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.errors.custom.BadIndexInParser;
 import code.expressionlanguage.errors.custom.DeadCodeTernary;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.instr.ElUtil;
@@ -57,10 +58,11 @@ public final class FileBlock extends BracedBlock implements ImportingBlock {
             i_++;
         }
         if (foundBinChar_) {
-            DeadCodeTernary d_ = new DeadCodeTernary();
+            BadIndexInParser d_ = new BadIndexInParser();
+            d_.setIndex(0);
             d_.setIndexFile(0);
             d_.setFileName(fileName);
-            _context.addWarning(d_);
+            _context.addError(d_);
         }
     }
     public int getRowFile(int _sum) {
