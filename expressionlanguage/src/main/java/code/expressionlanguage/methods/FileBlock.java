@@ -47,9 +47,6 @@ public final class FileBlock extends BracedBlock implements ImportingBlock {
         int s_ = Math.max(0,_sum);
         int begin_ = lineReturns.get(_row - 1)+1;
         for (int j = begin_; j < s_; j++) {
-            if (binChars.containsObj(j)) {
-                continue;
-            }
             if (tabulations.containsObj(j)) {
                 j_ += tabWidth;
                 j_ -= j_ % tabWidth;

@@ -2,6 +2,7 @@ package code.expressionlanguage.files;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.errors.custom.BadIndexInParser;
+import code.expressionlanguage.errors.custom.DeadCodeTernary;
 import code.expressionlanguage.errors.custom.DuplicateType;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.methods.*;
@@ -16,6 +17,7 @@ public final class FileResolver {
     private static final char FOR_BLOCKS = ':';
     private static final char END_IMPORTS = ';';
     private static final char LINE_RETURN = '\n';
+    private static final char CARR_RETURN = '\r';
     private static final char TAB = '\t';
     private static final char BEGIN_COMMENT = '/';
     private static final char SECOND_COMMENT = '*';
@@ -64,6 +66,7 @@ public final class FileResolver {
         int i_ = CustList.FIRST_INDEX;
         int len_ = _file.length();
         fileBlock_.getLineReturns().add(-1);
+        boolean foundBinChar_ = false;
         while (i_ < len_) {
             char ch_ = _file.charAt(i_);
             if (ch_ < ' ') {
@@ -71,11 +74,22 @@ public final class FileResolver {
                     fileBlock_.getTabulations().add(i_);
                 } else if (ch_ == LINE_RETURN) {
                     fileBlock_.getLineReturns().add(i_);
+                } else if (ch_ == CARR_RETURN){
+                    if (i_ + 1 >= len_ || _file.charAt(i_ + 1) != LINE_RETURN) {
+                        fileBlock_.getLineReturns().add(i_);
+                    }
                 } else {
                     fileBlock_.getBinChars().add(i_);
+                    foundBinChar_ = true;
                 }
             }
             i_++;
+        }
+        if (foundBinChar_) {
+            DeadCodeTernary d_ = new DeadCodeTernary();
+            d_.setIndexFile(0);
+            d_.setFileName(_fileName);
+            _context.getClasses().addWarning(d_);
         }
         i_ = CustList.FIRST_INDEX;
         boolean commentedSingleLine_ = false;
