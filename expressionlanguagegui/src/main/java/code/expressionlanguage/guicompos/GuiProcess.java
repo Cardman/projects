@@ -78,6 +78,7 @@ public final class GuiProcess implements Runnable {
             mainArgs_.add(0, _conf);
         }
         Options opt_ = new Options();
+        opt_.setInitializeStaticClassFirst(exec_.isInitializeStaticClassFirst());
         opt_.setReadOnly(true);
         opt_.setFailIfNotAllInit(true);
         LgNamesGui stds_ = new LgNamesGui(new FileInfos(new DefaultResourcesReader(),new DefaultLogger(), new DefaultFileSystem(), new DefaultReporter()));

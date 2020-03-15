@@ -67,6 +67,7 @@ public final class RunningTest implements Runnable {
             setupOptionals(2, exec_, linesFiles_);
         }
         Options opt_ = new Options();
+        opt_.setInitializeStaticClassFirst(exec_.isInitializeStaticClassFirst());
         opt_.setReadOnly(true);
         opt_.setFailIfNotAllInit(true);
         CustContextFactory.executeDefKw(lg_,opt_,exec_,zipFiles_,_progressingTests,_infos);
@@ -85,6 +86,9 @@ public final class RunningTest implements Runnable {
                     _exec.setLogFolder(output_.substring(0,lastSep_));
                     _exec.setMainThread(output_.substring(lastSep_+1));
                 }
+            }
+            if (l.startsWith("initializeStaticClassFirst=")) {
+                _exec.setInitializeStaticClassFirst(true);
             }
             if (l.startsWith("cover=")) {
                 _exec.setCovering(true);
