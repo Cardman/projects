@@ -790,4 +790,9 @@ public class ParserTest {
     public void parseNoText75Test() {
         assertNull(DocumentBuilder.parseNoTextDocument(""));
     }
+
+    @Test
+    public void parseNoText76Test() {
+        assertNotNull(DocumentBuilder.parseNoTextDocument("\n<tag>e</tag>"));
+    }
 }

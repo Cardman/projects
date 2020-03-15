@@ -22,4 +22,18 @@ public class ReaderTest {
         assertEq("example", elt_.getTagName());
         assertEq(0, elt_.getAttributes().size());
     }
+
+    @Test
+    public void parse2Test() {
+        String input_ = "\n<example/>";
+        DocumentBuilder b_ = DocumentBuilder.newDocumentBuilder();
+        DocumentResult res_ = b_.parse(input_);
+        assertNull(res_.getLocation());
+        Document doc_ = res_.getDocument();
+        assertNotNull(doc_);
+        Element elt_ = doc_.getDocumentElement();
+        assertNotNull(elt_);
+        assertEq("example", elt_.getTagName());
+        assertEq(0, elt_.getAttributes().size());
+    }
 }
