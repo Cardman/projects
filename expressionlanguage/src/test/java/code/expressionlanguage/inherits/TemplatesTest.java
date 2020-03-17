@@ -2040,8 +2040,8 @@ public final class TemplatesTest {
     public void isCorrect4Test() {
         ContextEl context_ = simpleContextEl();
         Mapping m_ = new Mapping();
-        m_.setArg("java.util.List<java.lang.Object>");
-        m_.setParam("java.util.List<java.lang.Object>");
+        m_.setArg("java.lang.$iterable<java.lang.Object>");
+        m_.setParam("java.lang.$iterable<java.lang.Object>");
         assertTrue(Templates.isCorrect(m_, context_));
     }
 
@@ -2049,8 +2049,8 @@ public final class TemplatesTest {
     public void isCorrect5Test() {
         ContextEl context_ = simpleContextEl();
         Mapping m_ = new Mapping();
-        m_.setArg("java.util.List<java.lang.String>");
-        m_.setParam("java.util.List<java.lang.Object>");
+        m_.setArg("java.lang.$iterable<java.lang.String>");
+        m_.setParam("java.lang.$iterable<java.lang.Object>");
         assertTrue(!Templates.isCorrect(m_, context_));
     }
 
@@ -2058,8 +2058,8 @@ public final class TemplatesTest {
     public void isCorrect6Test() {
         ContextEl context_ = simpleContextEl();
         Mapping m_ = new Mapping();
-        m_.setArg("java.util.List<java.lang.Object>");
-        m_.setParam("java.util.List<java.lang.String>");
+        m_.setArg("java.lang.$iterable<java.lang.Object>");
+        m_.setParam("java.lang.$iterable<java.lang.String>");
         assertTrue(!Templates.isCorrect(m_, context_));
     }
 
@@ -2070,7 +2070,7 @@ public final class TemplatesTest {
         m_.setArg("#E");
         m_.setParam("java.lang.Object");
         StringMap<StringList> t_ = new StringMap<StringList>();
-        t_.put("E", new StringList("java.lang.Enum<#E>"));
+        t_.put("E", new StringList("java.lang.$Enum<#E>"));
         m_.setMapping(t_);
         assertTrue(Templates.isCorrect(m_,context_));
     }
@@ -2252,8 +2252,8 @@ public final class TemplatesTest {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
-        m_.setArg("$Fct<$void>");
-        m_.setParam("$Fct<$void>");
+        m_.setArg("java.lang.$Fct<$void>");
+        m_.setParam("java.lang.$Fct<$void>");
         StringMap<StringList> t_ = new StringMap<StringList>();
         m_.setMapping(t_);
         assertTrue(Templates.isCorrect(m_,context_));
@@ -2320,7 +2320,7 @@ public final class TemplatesTest {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
-        m_.setArg("$Fct<pkg.Ex<java.lang.Number>,pkg.Ex<java.lang.Number>>");
+        m_.setArg("java.lang.$Fct<pkg.Ex<java.lang.Number>,pkg.Ex<java.lang.Number>>");
         m_.setParam("java.lang.Object");
         StringMap<StringList> t_ = new StringMap<StringList>();
         m_.setMapping(t_);
@@ -3592,8 +3592,8 @@ public final class TemplatesTest {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
-        m_.setArg("$Fct<?,?>");
-        m_.setParam("$Fct<?,?>");
+        m_.setArg("java.lang.$Fct<?,?>");
+        m_.setParam("java.lang.$Fct<?,?>");
         assertTrue(Templates.isCorrect(m_, cont_));
     }
     @Test
@@ -3601,8 +3601,8 @@ public final class TemplatesTest {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
-        m_.setArg("$Fct<?,java.lang.Number>");
-        m_.setParam("$Fct<?,?>");
+        m_.setArg("java.lang.$Fct<?,java.lang.Number>");
+        m_.setParam("java.lang.$Fct<?,?>");
         assertTrue(Templates.isCorrect(m_, cont_));
     }
     @Test
@@ -3610,8 +3610,8 @@ public final class TemplatesTest {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
-        m_.setArg("$Fct<java.lang.Number,?>");
-        m_.setParam("$Fct<?,?>");
+        m_.setArg("java.lang.$Fct<java.lang.Number,?>");
+        m_.setParam("java.lang.$Fct<?,?>");
         assertTrue(Templates.isCorrect(m_, cont_));
     }
     @Test
@@ -3672,8 +3672,8 @@ public final class TemplatesTest {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
-        m_.setArg("$Fct<$void>");
-        m_.setParam("$Fct");
+        m_.setArg("java.lang.$Fct<$void>");
+        m_.setParam("java.lang.$Fct");
         StringMap<StringList> t_ = new StringMap<StringList>();
         m_.setMapping(t_);
         assertTrue(Templates.isCorrect(m_,context_));
@@ -3684,8 +3684,8 @@ public final class TemplatesTest {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
-        m_.setArg("$Fct");
-        m_.setParam("$Fct<java.lang.Object>");
+        m_.setArg("java.lang.$Fct");
+        m_.setParam("java.lang.$Fct<java.lang.Object>");
         StringMap<StringList> t_ = new StringMap<StringList>();
         m_.setMapping(t_);
         assertTrue(!Templates.isCorrect(m_,context_));
@@ -3696,7 +3696,7 @@ public final class TemplatesTest {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
-        m_.setArg("$Fct");
+        m_.setArg("java.lang.$Fct");
         m_.setParam("java.lang.Object");
         StringMap<StringList> t_ = new StringMap<StringList>();
         m_.setMapping(t_);
@@ -3870,6 +3870,42 @@ public final class TemplatesTest {
         Mapping m_ = new Mapping();
         m_.setArg("[pkg.ExTwo<java.lang.Object>");
         m_.setParam("[java.lang.$Fct<pkg.Ex<java.lang.Number>,pkg.Ex<java.lang.Number>>");
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        m_.setMapping(t_);
+        assertTrue(!Templates.isCorrect(m_,context_));
+    }
+
+    @Test
+    public void isCorrect105Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        Mapping m_ = new Mapping();
+        m_.setArg("java.lang.$Fct<java.lang.Object>");
+        m_.setParam("java.lang.$Fct<$void>");
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        m_.setMapping(t_);
+        assertTrue(!Templates.isCorrect(m_,context_));
+    }
+
+    @Test
+    public void isCorrect106Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        Mapping m_ = new Mapping();
+        m_.setArg("java.lang.$Fct<java.lang.Object>");
+        m_.setParam("[java.lang.Object");
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        m_.setMapping(t_);
+        assertTrue(!Templates.isCorrect(m_,context_));
+    }
+
+    @Test
+    public void isCorrect107Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        Mapping m_ = new Mapping();
+        m_.setArg("[[java.lang.$Fct<java.lang.Object>");
+        m_.setParam("[java.lang.$Fct<java.lang.Object>");
         StringMap<StringList> t_ = new StringMap<StringList>();
         m_.setMapping(t_);
         assertTrue(!Templates.isCorrect(m_,context_));
@@ -4771,6 +4807,8 @@ public final class TemplatesTest {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
-        return InitializationLgNames.buildStdOne(opt_);
+        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        Classes.buildPredefinedBracesBodies(cont_);
+        return cont_;
     }
 }

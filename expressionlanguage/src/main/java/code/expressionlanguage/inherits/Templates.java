@@ -442,29 +442,23 @@ public final class Templates {
      Sample 4: "my.pkg.MyClass&lt;long,int&gt;" - "my.pkg.MySecondClass[]" => "my.pkg.MySecondClass&lt;long,int&gt;[]"<br/>
      */
     public static String getFullTypeByBases(String _subType, String _superType, Analyzable _context) {
-        String baseSubType_ = getIdFromAllTypes(_subType);
-        String baseSuperType_ = getIdFromAllTypes(_superType);
-        DimComp dc_ = PrimitiveTypeUtil.getQuickComponentBaseType(baseSubType_);
-        String compo_ = dc_.getComponent();
-        if (PrimitiveTypeUtil.isPrimitive(compo_,_context)) {
-            if (!PrimitiveTypeUtil.canBeUseAsArgument(baseSuperType_, baseSubType_, _context)) {
-                return null;
-            }
-            return _superType;
-        }
-        GeneType inf_ = _context.getClassBody(compo_);
-        String geneSubType_ = inf_.getGenericString();
-        String subType_ = PrimitiveTypeUtil.getPrettyArrayType(geneSubType_, dc_.getDim());
-        StringList curClasses_ = new StringList(subType_);
+//        String baseSubType_ = getIdFromAllTypes(_subType);
+//        String baseSuperType_ = getIdFromAllTypes(_superType);
         String generic_ = null;
-        if (StringList.quickEq(_subType, _superType)) {
-            generic_ = _subType;
-        } else if (StringList.quickEq(baseSubType_, baseSuperType_)) {
-            generic_ = _subType;
-        }
-        if (generic_ == null) {
-            generic_ = requestGenericSuperType(_subType, curClasses_, _superType, _context);
-        }
+//        if (StringList.quickEq(_subType, _superType)) {
+//            generic_ = _subType;
+//        } else if (StringList.quickEq(baseSubType_, baseSuperType_)) {
+//            generic_ = _subType;
+//        }
+//        if (generic_ == null) {
+//            String baseSub_ = PrimitiveTypeUtil.getQuickComponentBaseType(_subType).getComponent();
+//            String baseSup_ = PrimitiveTypeUtil.getQuickComponentBaseType(_superType).getComponent();
+//            generic_ = requestGenericSuperType(baseSub_, baseSup_, _context);
+//        }
+//        String baseSub_ = PrimitiveTypeUtil.getQuickComponentBaseType(_subType).getComponent();
+//        String baseSup_ = PrimitiveTypeUtil.getQuickComponentBaseType(_superType).getComponent();
+        generic_ = requestGenericSuperType(_subType, _superType, _context);
+//        generic_ = requestGenericSuperType(baseSub_, baseSup_, _context);
         return generic_;
     }
 
@@ -1574,7 +1568,6 @@ public final class Templates {
         StringList typesArg_ = getAllTypes(_arg);
         StringList typesParam_ = getAllTypes(_param);
         String baseArg_ = typesArg_.first();
-        String baseParam_ = typesParam_.first();
         DimComp dArg_ = PrimitiveTypeUtil.getQuickComponentBaseType(_arg);
         DimComp dParam_ = PrimitiveTypeUtil.getQuickComponentBaseType(_param);
         String baseArrayParam_ = dParam_.getComponent();
@@ -1596,80 +1589,46 @@ public final class Templates {
             }
             return null;
         }
-        StringList bounds_ = new StringList();
         String objType_ = _context.getStandards().getAliasObject();
-        if (baseArrayArg_.startsWith(PREFIX_VAR_TYPE)) {
-            for (String a: map_.getAllUpperBounds(baseArrayArg_, objType_)) {
-                bounds_.add(PrimitiveTypeUtil.getPrettyArrayType(a, dArg_.getDim()));
-            }
-        } else {
-            bounds_.add(baseArg_);
-        }
-        if (typesParam_.size() == 1) {
-            boolean inh_ = false;
-            for (String a: bounds_) {
-                String base_ = getIdFromAllTypes(a);
-                if (PrimitiveTypeUtil.canBeUseAsArgument(baseParam_, base_, _context)) {
-                    inh_ = true;
-                    break;
-                }
-            }
-            if (!inh_) {
-                return null;
-            }
-            return new MappingPairs();
-        }
-        if (PrimitiveTypeUtil.isPrimitive(baseArrayArg_, _context)) {
-            return null;
-        }
-        for (String a: bounds_) {
-            DimComp dLoc_ = PrimitiveTypeUtil.getQuickComponentBaseType(a);
-            int dim_ = dLoc_.getDim();
-            if (dim_ != dParam_.getDim()) {
-                return null;
-            }
-        }
         String fct_ = _context.getStandards().getAliasFct();
         String obj_ = _context.getStandards().getAliasObject();
         String idBaseArrayArg_ = getIdFromAllTypes(baseArrayArg_);
         String idBaseArrayParam_ = getIdFromAllTypes(baseArrayParam_);
-        if (StringList.quickEq(baseArg_, baseParam_)) {
-            int len_ = typesParam_.size();
-            if (typesArg_.size() != len_) {
-                return null;
-            }
-            if (StringList.quickEq(idBaseArrayArg_, fct_)) {
+        if (StringList.quickEq(idBaseArrayArg_, fct_)) {
+            if (StringList.quickEq(idBaseArrayParam_, fct_)) {
+                int dim_ = dArg_.getDim();
+                if (dim_ != dParam_.getDim()) {
+                    return null;
+                }
+                if (StringList.quickEq(baseArrayParam_, fct_)) {
+                    return new MappingPairs();
+                }
+                int len_ = typesParam_.size();
+                if (typesArg_.size() != len_) {
+                    return null;
+                }
                 return newMappingPairsFct(typesArg_, typesParam_, obj_);
             }
-            return newMappingPairs(_arg, typesParam_);
-        }
-        if (StringList.quickEq(idBaseArrayArg_, fct_)) {
-            return null;
+            return getMappingFctPairs(_context, baseArg_, dParam_, baseArrayParam_);
         }
         if (StringList.quickEq(idBaseArrayParam_, fct_)) {
             return null;
         }
         String generic_ = null;
         if (baseArrayArg_.startsWith(PREFIX_VAR_TYPE)) {
-            String cmp_ = PrimitiveTypeUtil.getQuickComponentBaseType(_param).getComponent();
             for (String c: map_.getAllUpperBounds(baseArrayArg_.substring(PREFIX_VAR_TYPE.length()), objType_)) {
-                if (StringList.quickEq(c, cmp_)) {
+                String arr_ = PrimitiveTypeUtil.getPrettyArrayType(c,dArg_.getDim());
+                if (StringList.quickEq(arr_, _param)) {
                     generic_ = c;
                     break;
                 }
-                String idArg_ = Templates.getIdFromAllTypes(c);
-                String geneSubType_ = _context.getClassBody(idArg_).getGenericString();
-                StringList curClasses_ = new StringList(geneSubType_);
-                generic_ = requestGenericSuperType(c, curClasses_, _param, _context);
+                generic_ = requestGenericSuperType(arr_, _param, _context);
                 if (generic_ != null) {
                     break;
                 }
             }
         } else {
-            String idArg_ = Templates.getIdFromAllTypes(baseArrayArg_);
-            String geneSubType_ = _context.getClassBody(idArg_).getGenericString();
-            StringList curClasses_ = new StringList(geneSubType_);
-            generic_ = requestGenericSuperType(baseArrayArg_, curClasses_, _param, _context);
+            generic_ = requestGenericSuperType(_arg, _param, _context);
         }
         if (generic_ == null) {
             return null;
@@ -1680,56 +1639,53 @@ public final class Templates {
         StringList typesArg_ = getAllTypes(_arg);
         StringList typesParam_ = getAllTypes(_param);
         String baseArg_ = typesArg_.first();
-        String baseParam_ = typesParam_.first();
         DimComp dArg_ = PrimitiveTypeUtil.getQuickComponentBaseType(_arg);
         DimComp dParam_ = PrimitiveTypeUtil.getQuickComponentBaseType(_param);
         String baseArrayArg_ = dArg_.getComponent();
         String baseArrayParam_ = dParam_.getComponent();
-        if (typesParam_.size() == 1) {
-            String base_ = getIdFromAllTypes(baseArg_);
-            if (PrimitiveTypeUtil.canBeUseAsArgument(baseParam_, base_, _context)) {
-                return new MappingPairs();
-            }
-            return null;
-        }
-        if (PrimitiveTypeUtil.isPrimitive(baseArrayArg_, _context)) {
-            return null;
-        }
-        DimComp dLoc_ = PrimitiveTypeUtil.getQuickComponentBaseType(baseArg_);
-        int dim_ = dLoc_.getDim();
-        if (dim_ != dParam_.getDim()) {
-            return null;
-        }
         String fct_ = _context.getStandards().getAliasFct();
         String obj_ = _context.getStandards().getAliasObject();
         String idBaseArrayArg_ = getIdFromAllTypes(baseArrayArg_);
         String idBaseArrayParam_ = getIdFromAllTypes(baseArrayParam_);
-        if (StringList.quickEq(baseArg_, baseParam_)) {
-            int len_ = typesParam_.size();
-            if (typesArg_.size() != len_) {
-                return null;
-            }
-            if (StringList.quickEq(idBaseArrayArg_, fct_)) {
+        if (StringList.quickEq(idBaseArrayArg_, fct_)) {
+            if (StringList.quickEq(idBaseArrayParam_, fct_)) {
+                int dim_ = dArg_.getDim();
+                if (dim_ != dParam_.getDim()) {
+                    return null;
+                }
+                if (StringList.quickEq(baseArrayParam_, fct_)) {
+                    return new MappingPairs();
+                }
+                int len_ = typesParam_.size();
+                if (typesArg_.size() != len_) {
+                    return null;
+                }
                 return newMappingPairsFct(typesArg_, typesParam_, obj_);
             }
-            return newMappingPairs(_arg, typesParam_);
-        }
-        if (StringList.quickEq(idBaseArrayArg_, fct_)) {
-            return null;
+            return getMappingFctPairs(_context, baseArg_, dParam_, baseArrayParam_);
         }
         if (StringList.quickEq(idBaseArrayParam_, fct_)) {
             return null;
         }
         String generic_;
-        String idArg_ = Templates.getIdFromAllTypes(baseArrayArg_);
-        String geneSubType_ = _context.getClassBody(idArg_).getGenericString();
-        StringList curClasses_ = new StringList(geneSubType_);
-        generic_ = requestGenericSuperType(baseArrayArg_, curClasses_, _param, _context);
+        generic_ = requestGenericSuperType(_arg, _param, _context);
         if (generic_ == null) {
             return null;
         }
         return newMappingPairs(generic_, typesParam_);
     }
+
+    private static MappingPairs getMappingFctPairs(Analyzable _context, String _baseArg, DimComp _dParam, String _baseArrayParam) {
+        if (StringList.quickEq(_baseArrayParam, _context.getStandards().getAliasObject())) {
+            DimComp dLoc_ = PrimitiveTypeUtil.getQuickComponentBaseType(_baseArg);
+            int dim_ = dLoc_.getDim();
+            if (dim_ >= _dParam.getDim()) {
+                return new MappingPairs();
+            }
+        }
+        return null;
+    }
+
     /**arg - param*/
     private static MappingPairs newMappingPairsFct(StringList _args, StringList _params, String _objectType) {
         CustList<Matching> pairsArgParam_ = new CustList<Matching>();
@@ -1782,6 +1738,9 @@ public final class Templates {
         StringList foundSuperClass_ = getAllTypes(_generic);
         CustList<Matching> pairsArgParam_ = new CustList<Matching>();
         len_ = foundSuperClass_.size();
+        if (_params.size() != len_) {
+            return null;
+        }
         for (int i = CustList.SECOND_INDEX; i < len_; i++) {
             Matching match_ = new Matching();
             String arg_ = foundSuperClass_.get(i);
@@ -1854,22 +1813,51 @@ public final class Templates {
      Let this code:<br/>
      <code><pre>public class my.pkg.MyClass&lt;A,B&gt;:MySecondClass&lt;A,B&gt;{}</pre>
      <pre>public class my.pkg.MySecondClass&lt;C,D&gt;{}</pre></code><br/>
-     Sample 1: "my.pkg.MyClass&lt;long,int&gt;" - ["my.pkg.MyClass&lt;#A,#B&gt;"] - "my.pkg.MySecondClass" => "my.pkg.MySecondClass&lt;long,int&gt;"<br/>
-     Sample 2: "my.pkg.MyClass" - ["my.pkg.MyClass&lt;#A,#B&gt;"] - "my.pkg.MySecondClass" => null<br/>
-     Sample 3: "my.pkg.MySecondClass&lt;long,int&gt;" - ["my.pkg.MySecondClass&lt;#A,#B&gt;"] - "my.pkg.MyClass" => null<br/>
-     Sample 4: "my.pkg.MyClass&lt;long,int&gt;" - ["my.pkg.MyClass&lt;#A,#B&gt;"] - "my.pkg.MySecondClass[]" => "my.pkg.MySecondClass&lt;long,int&gt;[]"<br/>
+     Sample 1: "my.pkg.MyClass&lt;long,int&gt;" - "my.pkg.MySecondClass" => "my.pkg.MySecondClass&lt;long,int&gt;"<br/>
+     Sample 2: "my.pkg.MyClass" - "my.pkg.MySecondClass" => null<br/>
+     Sample 3: "my.pkg.MySecondClass&lt;long,int&gt;" - "my.pkg.MyClass" => null<br/>
+     Sample 4: "my.pkg.MyClass&lt;long,int&gt;" - "my.pkg.MySecondClass[]" => "my.pkg.MySecondClass&lt;long,int&gt;[]"<br/>
     */
-    private static String requestGenericSuperType(String _baseArg, StringList _subTypes, String _erasedSuperType, Analyzable _context) {
+    private static String requestGenericSuperType(String _baseArg, String _erasedSuperType, Analyzable _context) {
         if (!correctNbParameters(_baseArg,_context)) {
             return null;
         }
-        String generic_ = null;
+        String idArg_ = Templates.getIdFromAllTypes(_baseArg);
         String idSuperType_ = getIdFromAllTypes(_erasedSuperType);
+        if (StringList.quickEq(idArg_,idSuperType_)) {
+            return _baseArg;
+        }
         DimComp dBaseParam_ = PrimitiveTypeUtil.getQuickComponentBaseType(idSuperType_);
         int dim_ = dBaseParam_.getDim();
         String classParam_ = dBaseParam_.getComponent();
-        StringList curClasses_ = new StringList(_subTypes);
-        StringList visitedClasses_ = new StringList(_subTypes);
+        DimComp dBaseArg_ = PrimitiveTypeUtil.getQuickComponentBaseType(idArg_);
+        String baseArr_ = dBaseArg_.getComponent();
+        if (StringList.quickEq(classParam_, _context.getStandards().getAliasObject())) {
+            if (dBaseArg_.getDim() < dim_) {
+                return null;
+            }
+            return _erasedSuperType;
+        }
+        if (dBaseArg_.getDim() != dim_) {
+            return null;
+        }
+        if (PrimitiveTypeUtil.isPrimitive(baseArr_,_context)) {
+            PrimitiveType pr_ = _context.getStandards().getPrimitiveTypes().getVal(baseArr_);
+            if (StringList.contains(pr_.getAllSuperType(_context), classParam_)) {
+                return _erasedSuperType;
+            }
+            return null;
+        }
+        if (StringList.quickEq(_baseArg, _context.getStandards().getAliasVoid())) {
+            return null;
+        }
+        if (StringList.quickEq(_erasedSuperType, _context.getStandards().getAliasVoid())) {
+            return null;
+        }
+        String geneSubType_ = _context.getClassBody(baseArr_).getGenericString();
+        String generic_ = null;
+        StringList curClasses_ = new StringList(geneSubType_);
+        StringList visitedClasses_ = new StringList(geneSubType_);
         while (true) {
             StringList nextClasses_ = new StringList();
             for (String c: curClasses_) {
@@ -1952,7 +1940,7 @@ public final class Templates {
             return ((InterfaceBlock)r_).getImportedDirectSuperInterfaces();
         }
         if (r_ instanceof AnnotationBlock) {
-            return new StringList();
+            return ((AnnotationBlock)r_).getImportedDirectSuperInterfaces();
         }
         if (r_ instanceof StandardClass) {
             return ((StandardClass)r_).getDirectInterfaces();

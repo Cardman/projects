@@ -79,6 +79,10 @@ public final class AnnotationBlock extends RootBlock {
         importedDirectSuperInterfaces.add(_classes.getStandards().getAliasAnnotationType());
     }
 
+    public StringList getImportedDirectSuperInterfaces() {
+        return importedDirectSuperInterfaces;
+    }
+
     @Override
     public void buildErrorDirectGenericSuperTypes(ContextEl _classes) {
     }

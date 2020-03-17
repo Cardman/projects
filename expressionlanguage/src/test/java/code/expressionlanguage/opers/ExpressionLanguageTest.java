@@ -5667,6 +5667,18 @@ public final class ExpressionLanguageTest {
         Argument arg_ = directCalculate("\"\"+$null");
         assertEq("", arg_.getString());
     }
+
+    @Test
+    public void processEl103051Test() {
+        Argument arg_ = directCalculate("$class($Fct<Object>[]).isAssignableFrom($class($Fct<Object>))");
+        assertTrue(arg_.isFalse());
+    }
+
+    @Test
+    public void processEl103052Test() {
+        Struct arg_ = directCalculateExc("$($Fct<String,$int>[])$lambda(String,length)");
+        assertNotNull(arg_);
+    }
     @Test
     public void processElCmp1est() {
         Argument arg_ = directCalculate("Number.compare(1L,2d)");
