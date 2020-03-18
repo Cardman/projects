@@ -4,7 +4,6 @@ import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.calls.AbstractPageEl;
-import code.expressionlanguage.common.GeneConstructor;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.errors.custom.BadElError;
 import code.expressionlanguage.errors.custom.BadOperandsNumber;
@@ -115,8 +114,8 @@ public final class ElUtil {
         OperationNode op_ = OperationNode.createOperationNode(CustList.FIRST_INDEX, CustList.FIRST_INDEX, null, opTwo_, _conf);
         String fieldName_ = _calcul.getFieldName();
         setupStaticContext(_conf, hiddenVarTypes_, op_);
-        setFieldName(op_, fieldName_);
-        CustList<OperationNode> all_ = getSortedDescNodes(op_, hiddenVarTypes_, _conf);
+        setSyntheticRoot(op_, fieldName_);
+        CustList<OperationNode> all_ = getSortedDescNodes(op_, _conf,fieldName_);
         return getExecutableNodes(_conf,all_);
     }
 
@@ -154,9 +153,15 @@ public final class ElUtil {
         OperationNode op_ = OperationNode.createOperationNode(CustList.FIRST_INDEX, CustList.FIRST_INDEX, null, opTwo_, _conf);
         String fieldName_ = _calcul.getFieldName();
         setupStaticContext(_conf, hiddenVarTypes_, op_);
-        setFieldName(op_, fieldName_);
-        CustList<OperationNode> all_ = getSortedDescNodesReadOnly(op_, _conf);
+        setSyntheticRoot(op_, fieldName_);
+        CustList<OperationNode> all_ = getSortedDescNodesReadOnly(op_, _conf,fieldName_);
         return getExecutableNodes(_conf,all_);
+    }
+
+    private static void setSyntheticRoot(OperationNode _op, String _fieldName) {
+        if (_op instanceof AffectationOperation && !_fieldName.isEmpty()) {
+            ((AffectationOperation) _op).setSynthetic(true);
+        }
     }
 
     private static void setFieldName(OperationNode _op, String _fieldName) {
@@ -166,7 +171,7 @@ public final class ElUtil {
     }
 
 
-    private static CustList<OperationNode> getSortedDescNodes(OperationNode _root, MethodAccessKind _staticBlock,ContextEl _context) {
+    private static CustList<OperationNode> getSortedDescNodes(OperationNode _root, ContextEl _context, String _fieldName) {
         CustList<OperationNode> list_ = new CustList<OperationNode>();
         Block currentBlock_ = _context.getCurrentBlock();
         if (currentBlock_ != null) {
@@ -181,13 +186,13 @@ public final class ElUtil {
                 break;
             }
             preAnalyze(_context, c_);
-            c_ = getAnalyzedNext(c_, _root, list_, _staticBlock, _context);
+            c_ = getAnalyzedNext(c_, _root, list_, _context,_fieldName);
         }
         return list_;
     }
 
 
-    private static CustList<OperationNode> getSortedDescNodesReadOnly(OperationNode _root, ContextEl _context) {
+    private static CustList<OperationNode> getSortedDescNodesReadOnly(OperationNode _root, ContextEl _context, String _fieldName) {
         CustList<OperationNode> list_ = new CustList<OperationNode>();
         OperationNode c_ = _root;
         while (true) {
@@ -195,7 +200,7 @@ public final class ElUtil {
                 break;
             }
             preAnalyze(_context, c_);
-            c_ = getAnalyzedNextReadOnly(c_, _root, list_, _context);
+            c_ = getAnalyzedNextReadOnly(c_, _root, list_, _context,_fieldName);
         }
         return list_;
     }
@@ -206,9 +211,9 @@ public final class ElUtil {
         }
     }
 
-    private static OperationNode getAnalyzedNext(OperationNode _current, OperationNode _root, CustList<OperationNode> _sortedNodes, MethodAccessKind _staticBlock,ContextEl _context) {
+    private static OperationNode getAnalyzedNext(OperationNode _current, OperationNode _root, CustList<OperationNode> _sortedNodes, ContextEl _context, String _fieldName) {
         
-        OperationNode next_ = createFirstChild(_current, _context, 0);
+        OperationNode next_ = createFirstChild(_current, _context, 0,_fieldName);
         if (next_ != null) {
             ((MethodOperation) _current).appendChild(next_);
             ((MethodOperation) _current).tryAnalyzeAssignmentBefore(_context, next_);
@@ -222,7 +227,7 @@ public final class ElUtil {
             tryCalculateNode(_context, current_);
             current_.tryAnalyzeAssignmentAfter(_context);
             _sortedNodes.add(current_);
-            next_ = processNext(_context, current_);
+            next_ = processNext(_context, current_,_fieldName);
             MethodOperation par_ = current_.getParent();
             if (next_ != null) {
                 processDot(_context, next_, current_, par_);
@@ -284,9 +289,9 @@ public final class ElUtil {
         }
     }
 
-    private static OperationNode getAnalyzedNextReadOnly(OperationNode _current, OperationNode _root, CustList<OperationNode> _sortedNodes, ContextEl _context) {
+    private static OperationNode getAnalyzedNextReadOnly(OperationNode _current, OperationNode _root, CustList<OperationNode> _sortedNodes, ContextEl _context, String _fieldName) {
 
-        OperationNode next_ = createFirstChild(_current, _context, 0);
+        OperationNode next_ = createFirstChild(_current, _context, 0,_fieldName);
         if (next_ != null) {
             ((MethodOperation) _current).appendChild(next_);
             return next_;
@@ -298,7 +303,7 @@ public final class ElUtil {
             current_.setOrder(_sortedNodes.size());
             tryCalculateNode(_context, current_);
             _sortedNodes.add(current_);
-            next_ = processNext(_context, current_);
+            next_ = processNext(_context, current_,_fieldName);
             MethodOperation par_ = current_.getParent();
             if (next_ != null) {
                 processDot(_context, next_, current_, par_);
@@ -329,17 +334,17 @@ public final class ElUtil {
         }
     }
 
-    private static OperationNode processNext(ContextEl _context, OperationNode _current) {
+    private static OperationNode processNext(ContextEl _context, OperationNode _current, String _fieldName) {
         OperationNode next_;
         if (_current instanceof StaticInitOperation) {
-            next_ = createFirstChild(_current.getParent(), _context, 1);
+            next_ = createFirstChild(_current.getParent(), _context, 1,_fieldName);
         } else {
-            next_ = createNextSibling(_current, _context);
+            next_ = createNextSibling(_current, _context,_fieldName);
         }
         return next_;
     }
 
-    private static OperationNode createFirstChild(OperationNode _block, ContextEl _context, int _index) {
+    private static OperationNode createFirstChild(OperationNode _block, ContextEl _context, int _index, String _fieldName) {
         if (!(_block instanceof MethodOperation)) {
             return null;
         }
@@ -372,10 +377,11 @@ public final class ElUtil {
         }
         OperationsSequence r_ = ElResolver.getOperationsSequence(offset_, value_, _context, d_);
         OperationNode op_ = OperationNode.createOperationNode(offset_, _index, block_, r_, _context);
+        setFieldName(_fieldName, block_, op_);
         return op_;
     }
 
-    private static OperationNode createNextSibling(OperationNode _block, ContextEl _context) {
+    private static OperationNode createNextSibling(OperationNode _block, ContextEl _context, String _fieldName) {
         MethodOperation p_ = _block.getParent();
         if (p_ == null) {
             return null;
@@ -396,8 +402,16 @@ public final class ElUtil {
         int offset_ = p_.getIndexInEl()+curKey_;
         OperationsSequence r_ = ElResolver.getOperationsSequence(offset_, value_, _context, d_);
         OperationNode op_ = OperationNode.createOperationNode(offset_, _block.getIndexChild() + 1, p_, r_, _context);
+        setFieldName(_fieldName, p_, op_);
         return op_;
     }
+
+    private static void setFieldName(String _fieldName, MethodOperation _p, OperationNode _c) {
+        if (_p instanceof AffectationOperation && _p.getParent() == null) {
+            setFieldName(_c,_fieldName);
+        }
+    }
+
     public static CustList<OperationNode> filterInvoking(CustList<OperationNode> _list) {
         CustList<OperationNode> out_ = new CustList<OperationNode>();
         for (OperationNode o: _list) {
@@ -634,6 +648,9 @@ public final class ElUtil {
                                            int _endBlock,
                                            CustList<PartOffset> _parts, int _tr, String _fieldName, boolean _annotation) {
         ExecOperationNode root_ = _nodes.last();
+        if (!_fieldName.isEmpty()) {
+            root_ = root_.getFirstChild().getNextSibling();
+        }
         ExecOperationNode curOp_ = root_;
         int sum_ = _tr + _offsetBlock - _fieldName.length();
         String currentFileName_ = _cont.getCoverage().getCurrentFileName();

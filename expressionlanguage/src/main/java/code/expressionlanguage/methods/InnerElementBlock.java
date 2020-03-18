@@ -16,6 +16,7 @@ import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.ExpressionLanguage;
+import code.expressionlanguage.opers.exec.ExecAffectationOperation;
 import code.expressionlanguage.opers.exec.ExecOperationNode;
 import code.expressionlanguage.opers.exec.ExecStandardInstancingOperation;
 import code.expressionlanguage.opers.util.*;
@@ -153,8 +154,8 @@ public final class InnerElementBlock extends RootBlock implements InnerTypeOrEle
         KeyWords keyWords_ = _cont.getKeyWords();
         String newKeyWord_ = keyWords_.getKeyWordNew();
         String idType_ = getFullName();
-        String fullInstance_ = StringList.concat(newKeyWord_," ",idType_, PAR_LEFT, value, PAR_RIGHT);
-        trOffset = valueOffest - fieldNameOffest - 2 - newKeyWord_.length() - idType_.length();
+        String fullInstance_ = StringList.concat(fieldName,"=",newKeyWord_," ",idType_, PAR_LEFT, value, PAR_RIGHT);
+        trOffset = valueOffest  -1 -fieldName.length()- fieldNameOffest - 2 - newKeyWord_.length() - idType_.length();
         page_.setTranslatedOffset(trOffset);
         int index_ = getIndex();
         _cont.setCurrentChildTypeIndex(index_);
@@ -172,8 +173,8 @@ public final class InnerElementBlock extends RootBlock implements InnerTypeOrEle
         KeyWords keyWords_ = _cont.getKeyWords();
         String newKeyWord_ = keyWords_.getKeyWordNew();
         String idType_ = getFullName();
-        String fullInstance_ = StringList.concat(newKeyWord_," ",idType_, PAR_LEFT, value, PAR_RIGHT);
-        trOffset = valueOffest - fieldNameOffest - 2 - newKeyWord_.length() - idType_.length();
+        String fullInstance_ = StringList.concat(fieldName,"=",newKeyWord_," ",idType_, PAR_LEFT, value, PAR_RIGHT);
+        trOffset = valueOffest  -1 -fieldName.length()- fieldNameOffest - 2 - newKeyWord_.length() - idType_.length();
         page_.setTranslatedOffset(trOffset);
         int index_ = getIndex();
         _cont.setCurrentChildTypeIndex(index_);
@@ -339,10 +340,11 @@ public final class InnerElementBlock extends RootBlock implements InnerTypeOrEle
     @Override
     public void processReport(ContextEl _cont, CustList<PartOffset> _parts) {
         processAnnotationReport(_cont,_parts);
-        ExecOperationNode root_ = opValue.last();
-        String cl_ = ((ExecStandardInstancingOperation)root_).getClassName();
+        ExecAffectationOperation root_ = (ExecAffectationOperation) opValue.last();
+        ExecStandardInstancingOperation inst_ = (ExecStandardInstancingOperation) root_.getFirstChild().getNextSibling();
+        String cl_ = inst_.getClassName();
         cl_ = Templates.getIdFromAllTypes(cl_);
-        ConstructorId c_ = ((ExecStandardInstancingOperation)root_).getConstId();
+        ConstructorId c_ = inst_.getConstId();
         GeneType type_ = _cont.getClassBody(cl_);
         String file_ = ((RootBlock) type_).getFile().getFileName();
         String fileName_ = _cont.getCoverage().getCurrentFileName();
@@ -372,17 +374,12 @@ public final class InnerElementBlock extends RootBlock implements InnerTypeOrEle
         if (ip_ instanceof StaticInitPageEl) {
             ip_.setGlobalOffset(fieldNameOffest);
             ip_.setOffset(0);
-            Struct struct_;
             ExpressionLanguage el_ = ip_.getCurrentEl(_cont, this, CustList.FIRST_INDEX, CustList.FIRST_INDEX);
-            Argument arg_ = ElUtil.tryToCalculate(_cont,el_, trOffset);
+            ElUtil.tryToCalculate(_cont,el_, trOffset);
             if (_cont.callsOrException()) {
                 return;
             }
-            struct_ = arg_.getStruct();
             ip_.clearCurrentEls();
-            RootBlock r_ = (RootBlock) getParent();
-            ClassField staticField_ = new ClassField(r_.getFullName(), fieldName);
-            _cont.getClasses().initializeStaticField(staticField_, struct_);
         }
         processBlock(_cont);
     }

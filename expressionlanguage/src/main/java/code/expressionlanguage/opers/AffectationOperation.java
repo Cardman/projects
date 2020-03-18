@@ -27,9 +27,15 @@ public final class AffectationOperation extends MethodOperation implements Affec
 
     private SettableElResult settable;
 
+    private boolean synthetic;
+
     public AffectationOperation(int _index, int _indexChild,
             MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
+    }
+
+    public void setSynthetic(boolean synthetic) {
+        this.synthetic = synthetic;
     }
 
     @Override
@@ -93,7 +99,7 @@ public final class AffectationOperation extends MethodOperation implements Affec
         if (settable instanceof SettableAbstractFieldOperation) {
             SettableAbstractFieldOperation cst_ = (SettableAbstractFieldOperation)settable;
             StringMap<Assignment> fieldsAfterLast_ = _conf.getAnalyzing().getDeclaredAssignments();
-            if (ElUtil.checkFinalFieldReadOnly(_conf, cst_, fieldsAfterLast_)) {
+            if (!synthetic&&ElUtil.checkFinalFieldReadOnly(_conf, cst_, fieldsAfterLast_)) {
                 cst_.setRelativeOffsetPossibleAnalyzable(cst_.getIndexInEl(), _conf);
                 UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
                 un_.setFileName(_conf.getCurrentFileName());
