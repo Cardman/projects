@@ -41,7 +41,7 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
             MethodOperation mOp_ = getParent();
             Block curr_ = _conf.getCurrentBlock();
             className = _conf.getStandards().getAliasObject();
-            if (curr_ instanceof AnnotationMethodBlock && mOp_ == null) {
+            if (mOp_ == null) {
                 className = ((AnnotationMethodBlock)curr_).getImportedReturnType();
             }
             if (mOp_ instanceof AssocationOperation) {
@@ -53,10 +53,6 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
                 String className_ = inst_.getClassName();
                 GeneType typeInfo_ = _conf.getClassBody(className_);
                 if (!(typeInfo_ instanceof Block)) {
-                    UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
-                    un_.setIndexFile(_conf.getCurrentLocationIndex());
-                    un_.setFileName(_conf.getCurrentFileName());
-                    _conf.addError(un_);
                     className = _conf.getStandards().getAliasObject();
                     return;
                 }
@@ -73,10 +69,6 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
                 }
             } else if (mOp_ instanceof AnnotationInstanceOperation) {
                 if (((AnnotationInstanceOperation)mOp_).isArray()) {
-                    UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
-                    un_.setIndexFile(_conf.getCurrentLocationIndex());
-                    un_.setFileName(_conf.getCurrentFileName());
-                    _conf.addError(un_);
                     className = _conf.getStandards().getAliasObject();
                 } else {
                     AnnotationInstanceOperation inst_;
@@ -84,10 +76,6 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
                     String className_ = inst_.getClassName();
                     GeneType type_ = _conf.getClassBody(className_);
                     if (!(type_ instanceof Block)) {
-                        UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
-                        un_.setIndexFile(_conf.getCurrentLocationIndex());
-                        un_.setFileName(_conf.getCurrentFileName());
-                        _conf.addError(un_);
                         className = _conf.getStandards().getAliasObject();
                         return;
                     }
@@ -102,10 +90,6 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
                         blsAnn_.add(a_);
                     }
                     if (blsAnn_.size() != 1) {
-                        UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
-                        un_.setIndexFile(_conf.getCurrentLocationIndex());
-                        un_.setFileName(_conf.getCurrentFileName());
-                        _conf.addError(un_);
                         className = _conf.getStandards().getAliasObject();
                     } else {
                         AnnotationMethodBlock a_ =blsAnn_.first();
@@ -116,17 +100,11 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
         } else {
             int off_ = StringList.getFirstPrintableCharIndex(methodName);
             setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
-            String className_ = methodName.trim().substring(AROBASE.length());
-            String realClassName_ = className_;
+            String realClassName_ = methodName.trim().substring(AROBASE.length());
             realClassName_ = _conf.resolveCorrectType(1,realClassName_);
             partOffsets.addAllElts(_conf.getContextEl().getCoverage().getCurrentParts());
             GeneType g_ = _conf.getClassBody(realClassName_);
             if (!(g_ instanceof AnnotationBlock)) {
-                IllegalCallCtorByType call_ = new IllegalCallCtorByType();
-                call_.setType(realClassName_);
-                call_.setFileName(_conf.getCurrentFileName());
-                call_.setIndexFile(_conf.getCurrentLocationIndex());
-                _conf.addError(call_);
                 className = _conf.getStandards().getAliasObject();
                 setResultClass(new ClassArgumentMatching(realClassName_));
                 return;
@@ -151,6 +129,10 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
             map_ = new StringMap<StringList>();
             String eltType_ = PrimitiveTypeUtil.getQuickComponentType(className);
             if (eltType_ == null) {
+                UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
+                un_.setIndexFile(_conf.getCurrentLocationIndex());
+                un_.setFileName(_conf.getCurrentFileName());
+                _conf.addError(un_);
                 setResultClass(new ClassArgumentMatching(className));
                 return;
             }
@@ -185,6 +167,11 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
         CustList<OperationNode> filter_ = ElUtil.filterInvoking(chidren_);
         String objCl_ = _conf.getStandards().getAliasObject();
         if (StringList.quickEq(className, objCl_)) {
+            IllegalCallCtorByType call_ = new IllegalCallCtorByType();
+            call_.setType(methodName.trim().substring(AROBASE.length()));
+            call_.setFileName(_conf.getCurrentFileName());
+            call_.setIndexFile(_conf.getCurrentLocationIndex());
+            _conf.addError(call_);
             setResultClass(new ClassArgumentMatching(className));
             return;
         }

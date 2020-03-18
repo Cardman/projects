@@ -46,16 +46,6 @@ public final class StandardField implements GeneField {
         return finalField;
     }
 
-    @Override
-    public AccessEnum getAccess() {
-        return AccessEnum.PUBLIC;
-    }
-
-    @Override
-    public GeneType belong() {
-        return owner;
-    }
-
     public String getImportedClassName() {
         return getClassName();
     }

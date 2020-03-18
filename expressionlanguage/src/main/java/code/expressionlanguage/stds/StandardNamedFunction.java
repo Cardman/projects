@@ -48,15 +48,4 @@ public abstract class StandardNamedFunction implements GeneFunction {
     public final boolean isVarargs() {
         return varargs;
     }
-
-
-    @Override
-    public AccessEnum getAccess() {
-        return AccessEnum.PUBLIC;
-    }
-
-    @Override
-    public GeneType belong() {
-        return owner;
-    }
 }

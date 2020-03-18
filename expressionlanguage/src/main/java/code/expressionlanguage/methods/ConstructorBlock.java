@@ -109,7 +109,7 @@ public final class ConstructorBlock extends NamedFunctionBlock implements GeneCo
     }
 
     @Override
-    public GeneType belong() {
+    public RootBlock belong() {
         return (RootBlock) getParent();
     }
 

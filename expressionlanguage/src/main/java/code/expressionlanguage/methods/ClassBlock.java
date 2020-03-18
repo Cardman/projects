@@ -67,7 +67,7 @@ public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
     }
 
     @Override
-    public GeneType belong() {
+    public RootBlock belong() {
         return this;
     }
 

@@ -4,7 +4,7 @@ import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.GeneField;
 
-public interface InfoBlock extends WithNotEmptyEl, GeneField, AnnotableBlock {
+public interface InfoBlock extends WithNotEmptyEl, GeneField, AnnotableBlock,AccessibleBlock {
     int getFieldNameOffset();
     void buildExpressionLanguageReadOnly(ContextEl _cont);
     void buildExpressionLanguage(ContextEl _cont);

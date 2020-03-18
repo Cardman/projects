@@ -128,7 +128,7 @@ public final class OverridableBlock extends NamedFunctionBlock implements GeneMe
     }
 
     @Override
-    public GeneType belong() {
+    public RootBlock belong() {
         return (RootBlock) getParent();
     }
 

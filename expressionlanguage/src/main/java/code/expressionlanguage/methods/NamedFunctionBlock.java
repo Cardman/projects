@@ -19,7 +19,7 @@ import code.util.IdMap;
 import code.util.Ints;
 import code.util.StringList;
 
-public abstract class NamedFunctionBlock extends MemberCallingsBlock implements Returnable {
+public abstract class NamedFunctionBlock extends MemberCallingsBlock implements AccessibleBlock,Returnable {
 
     private final String name;
 

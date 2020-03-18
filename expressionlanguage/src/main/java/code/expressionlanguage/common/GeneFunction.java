@@ -1,9 +1,6 @@
 package code.expressionlanguage.common;
 
-import code.expressionlanguage.methods.AccessibleBlock;
-import code.expressionlanguage.opers.util.Identifiable;
-
-public interface GeneFunction extends AccessibleBlock {
+public interface GeneFunction {
 
     String getImportedReturnType();
 

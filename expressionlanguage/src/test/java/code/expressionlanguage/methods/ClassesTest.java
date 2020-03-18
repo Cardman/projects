@@ -31,8 +31,6 @@ public final class ClassesTest {
         assertTrue(cont_.isEmptyErrors());
         assertTrue(cont_.getClasses().getErrorsDet().isEmpty());
         assertNotNull(cont_.getMemoryError());
-        ClassMetaInfo info_ = cont_.getClasses().getClassMetaInfo("", cont_);
-        assertEq("$void",info_.getName());
         Struct infoField_ = cont_.getClasses().getStaticField(new ClassField("java.lang.$iterable","other"),cont_);
         assertSame(NullStruct.NULL_VALUE,infoField_);
         MethodId id_ = new MethodId(MethodAccessKind.STATIC, "", new StringList());
@@ -41,11 +39,6 @@ public final class ClassesTest {
         assertNull(cont_.getFile(""));
         assertEq(0,ContextEl.getConstructorBlocks(null).size());
         assertEq(0,ContextEl.getFieldBlocks(null).size());
-        assertEq(0,cont_.getMethodBodiesById("java.lang.Number", id_).size());
-        assertTrue(InitClassState.SUCCESS.isFinished());
-        assertTrue(InitClassState.ERROR.isFinished());
-        assertTrue(!InitClassState.NOT_YET.isFinished());
-        assertTrue(!InitClassState.PROGRESSING.isFinished());
         assertEq(0, AssignmentsUtil.getOrEmptyBefore(new CustList<StringMap<AssignmentBefore>>(),0).size());
         assertEq(0, AssignmentsUtil.getOrEmpty(new CustList<StringMap<Assignment>>(),0).size());
         assertEq(0, AssignmentsUtil.getOrEmptyBool(new CustList<StringMap<BooleanAssignment>>(),0).size());
@@ -57,17 +50,12 @@ public final class ClassesTest {
         assertSame(VariableSuffix.NONE, VariableSuffix.getVariableSuffixByName(""));
         StandardClass s_ = new StandardClass("",new StringMap<StandardField>(),new CustList<StandardConstructor>(), new ObjectMap<MethodId, StandardMethod>(),"",MethodModifier.FINAL);
         assertTrue(s_.getFullName().isEmpty());
-        assertSame(s_.belong(), s_.getOuter());
         StandardInterface i_ = new StandardInterface("",new ObjectMap<MethodId, StandardMethod>(),new StringList("super"));
-        assertEq(1, i_.getDirectSuperClasses(cont_).size());
-        assertEq("super", i_.getDirectSuperClasses(cont_).first());
         assertTrue(i_.isAbstractType());
         assertTrue(!i_.isFinalType());
         assertTrue(!cont_.getStandards().getStandards().getVal("java.lang.String").getMethods().getVal(new MethodId(MethodAccessKind.INSTANCE,"replace",new StringList("java.lang.String","java.lang.String"))).isAbstractMethod());
         StandardMethod sMeth_ = new StandardMethod("abs",new StringList(),"java.lang.Object",false, MethodModifier.ABSTRACT,i_);
         assertTrue(sMeth_.isAbstractMethod());
-        assertSame(cont_.getStandards().getStandards().getVal("java.lang.Number"),cont_.getStandards().getStandards().getVal("java.lang.Number").getMethods().getVal(new MethodId(MethodAccessKind.INSTANCE,"byteValue",new StringList())).belong());
-        assertSame(cont_.getStandards().getStandards().getVal("java.lang.Integer"),cont_.getStandards().getStandards().getVal("java.lang.Integer").getFields().getVal("MAX_VALUE").belong());
     }
 
     @Test
@@ -149,7 +137,7 @@ public final class ClassesTest {
         xml_.append("$public $class pkg.ExTwo<#T> :Ex<#T>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClasses(files_);
-        StringList types_ = context_.getClassBody("pkg.ExTwo").getAllSuperClasses();
+        StringList types_ = context_.getClasses().getClassBody("pkg.ExTwo").getAllSuperClasses();
         assertEq(2, types_.size());
         assertEq("pkg.Ex", types_.first());
         assertEq(context_.getStandards().getAliasObject(), types_.last());
@@ -170,7 +158,7 @@ public final class ClassesTest {
         xml_.append("$public $class pkg.ExTwo<#T> :Ex<#T>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClasses(files_);
-        StringList types_ = context_.getClassBody("pkg.ExTwo").getAllSuperClasses();
+        StringList types_ = context_.getClasses().getClassBody("pkg.ExTwo").getAllSuperClasses();
         assertEq(2, types_.size());
         assertEq("pkgtwo.Ex", types_.first());
         assertEq(context_.getStandards().getAliasObject(), types_.last());
@@ -191,7 +179,7 @@ public final class ClassesTest {
         xml_.append("$public $class pkg.ExTwo<#T> :Ex<#T>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClasses(files_);
-        StringList types_ = context_.getClassBody("pkg.ExTwo").getAllSuperClasses();
+        StringList types_ = context_.getClasses().getClassBody("pkg.ExTwo").getAllSuperClasses();
         assertEq(2, types_.size());
         assertEq("pkgtwo.Ex", types_.first());
         assertEq(context_.getStandards().getAliasObject(), types_.last());
@@ -217,7 +205,7 @@ public final class ClassesTest {
         xml_.append("$public $class pkg.ExTwo<#T> :Ex<#T>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClasses(files_);
-        StringList types_ = context_.getClassBody("pkg.ExTwo").getAllSuperClasses();
+        StringList types_ = context_.getClasses().getClassBody("pkg.ExTwo").getAllSuperClasses();
         assertEq(2, types_.size());
         assertEq("pkgtwo.Ex", types_.first());
         assertEq(context_.getStandards().getAliasObject(), types_.last());
@@ -239,7 +227,7 @@ public final class ClassesTest {
         xml_.append("$public $class pkg.Ex<#T> {}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClasses(files_);
-        StringList types_ = context_.getClassBody("pkg.ExTwo").getAllSuperClasses();
+        StringList types_ = context_.getClasses().getClassBody("pkg.ExTwo").getAllSuperClasses();
         assertEq(2, types_.size());
         assertEq("pkgtwo.Ex", types_.first());
         assertEq(context_.getStandards().getAliasObject(), types_.last());
@@ -261,7 +249,7 @@ public final class ClassesTest {
         xml_.append("$public $class pkg.Ex<#T> {}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClasses(files_);
-        StringList types_ = context_.getClassBody("pkg.ExTwo").getAllSuperClasses();
+        StringList types_ = context_.getClasses().getClassBody("pkg.ExTwo").getAllSuperClasses();
         assertEq(2, types_.size());
         assertEq("pkg.Ex", types_.first());
         assertEq(context_.getStandards().getAliasObject(), types_.last());
@@ -284,7 +272,7 @@ public final class ClassesTest {
         xml_.append("$public $class pkgthree.ExFour<#T> {}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClasses(files_);
-        StringList types_ = context_.getClassBody("pkg.ExTwo").getAllSuperClasses();
+        StringList types_ = context_.getClasses().getClassBody("pkg.ExTwo").getAllSuperClasses();
         assertEq(2, types_.size());
         assertEq("pkgtwo.Ex", types_.first());
         assertEq(context_.getStandards().getAliasObject(), types_.last());
@@ -468,7 +456,7 @@ public final class ClassesTest {
         xml_.append("$public $class pkg.ExThree<#U>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClasses(files_);
-        StringList types_ = context_.getClassBody("pkg.ExTwo").getAllSuperClasses();
+        StringList types_ = context_.getClasses().getClassBody("pkg.ExTwo").getAllSuperClasses();
         assertEq(2, types_.size());
         assertEq("pkgtwo.Ex", types_.first());
         assertEq(context_.getStandards().getAliasObject(), types_.last());
@@ -489,7 +477,7 @@ public final class ClassesTest {
         xml_.append("$public $class pkg.ExThree<#U>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClasses(files_);
-        StringList types_ = context_.getClassBody("pkg.ExTwo").getAllSuperClasses();
+        StringList types_ = context_.getClasses().getClassBody("pkg.ExTwo").getAllSuperClasses();
         assertEq(2, types_.size());
         assertEq("pkgtwo.Ex", types_.first());
         assertEq(context_.getStandards().getAliasObject(), types_.last());
@@ -510,7 +498,7 @@ public final class ClassesTest {
         xml_.append("$public $class pkg.ExThree<#U>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClasses(files_);
-        StringList types_ = context_.getClassBody("pkg.ExTwo").getAllSuperClasses();
+        StringList types_ = context_.getClasses().getClassBody("pkg.ExTwo").getAllSuperClasses();
         assertEq(2, types_.size());
         assertEq("pkgtwo.Ex", types_.first());
         assertEq(context_.getStandards().getAliasObject(), types_.last());
@@ -531,7 +519,7 @@ public final class ClassesTest {
         xml_.append("$public $class pkg.ExThree<#U>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClasses(files_);
-        StringList types_ = context_.getClassBody("pkg.ExTwo").getAllSuperClasses();
+        StringList types_ = context_.getClasses().getClassBody("pkg.ExTwo").getAllSuperClasses();
         assertEq(2, types_.size());
         assertEq("pkgtwo.Ex", types_.first());
         assertEq(context_.getStandards().getAliasObject(), types_.last());
@@ -552,7 +540,7 @@ public final class ClassesTest {
         xml_.append("$public $class pkg.ExThree<#U>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClasses(files_);
-        StringList types_ = context_.getClassBody("pkg.ExTwo").getAllSuperClasses();
+        StringList types_ = context_.getClasses().getClassBody("pkg.ExTwo").getAllSuperClasses();
         assertEq(2, types_.size());
         assertEq("pkgtwo.Ex", types_.first());
         assertEq(context_.getStandards().getAliasObject(), types_.last());
@@ -578,7 +566,7 @@ public final class ClassesTest {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClasses(files_);
-        StringList types_ = context_.getClassBody("pkg.Outer..InnerTwo").getAllSuperClasses();
+        StringList types_ = context_.getClasses().getClassBody("pkg.Outer..InnerTwo").getAllSuperClasses();
         assertEq(2, types_.size());
         assertEq("pkg.OuterTwo..InnerThree", types_.first());
         assertEq(context_.getStandards().getAliasObject(), types_.last());
@@ -604,7 +592,7 @@ public final class ClassesTest {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClasses(files_);
-        StringList types_ = context_.getClassBody("pkg.Outer..InnerTwo").getAllSuperClasses();
+        StringList types_ = context_.getClasses().getClassBody("pkg.Outer..InnerTwo").getAllSuperClasses();
         assertEq(2, types_.size());
         assertEq("pkg.OuterTwo..InnerThree", types_.first());
         assertEq(context_.getStandards().getAliasObject(), types_.last());
@@ -630,7 +618,7 @@ public final class ClassesTest {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClasses(files_);
-        StringList types_ = context_.getClassBody("pkg.Outer..InnerTwo").getAllSuperClasses();
+        StringList types_ = context_.getClasses().getClassBody("pkg.Outer..InnerTwo").getAllSuperClasses();
         assertEq(2, types_.size());
         assertEq("pkgtwo.OuterTwo..InnerThree", types_.first());
         assertEq(context_.getStandards().getAliasObject(), types_.last());
@@ -656,7 +644,7 @@ public final class ClassesTest {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClasses(files_);
-        StringList types_ = context_.getClassBody("pkg.Outer..InnerTwo").getAllSuperClasses();
+        StringList types_ = context_.getClasses().getClassBody("pkg.Outer..InnerTwo").getAllSuperClasses();
         assertEq(2, types_.size());
         assertEq("pkgtwo.OuterTwo..InnerThree", types_.first());
         assertEq(context_.getStandards().getAliasObject(), types_.last());
@@ -682,7 +670,7 @@ public final class ClassesTest {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClasses(files_);
-        StringList types_ = context_.getClassBody("pkg.Outer..InnerTwo").getAllSuperClasses();
+        StringList types_ = context_.getClasses().getClassBody("pkg.Outer..InnerTwo").getAllSuperClasses();
         assertEq(2, types_.size());
         assertEq("pkgtwo.OuterTwo..InnerThree", types_.first());
         assertEq(context_.getStandards().getAliasObject(), types_.last());
@@ -708,7 +696,7 @@ public final class ClassesTest {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClasses(files_);
-        StringList types_ = context_.getClassBody("pkg.Outer..InnerTwo").getAllSuperClasses();
+        StringList types_ = context_.getClasses().getClassBody("pkg.Outer..InnerTwo").getAllSuperClasses();
         assertEq(2, types_.size());
         assertEq("pkgtwo.OuterTwo..InnerThree", types_.first());
         assertEq(context_.getStandards().getAliasObject(), types_.last());
@@ -734,7 +722,7 @@ public final class ClassesTest {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClasses(files_);
-        StringList types_ = context_.getClassBody("pkg.Outer..InnerTwo").getAllSuperClasses();
+        StringList types_ = context_.getClasses().getClassBody("pkg.Outer..InnerTwo").getAllSuperClasses();
         assertEq(2, types_.size());
         assertEq("pkgtwo.OuterTwo..InnerThree", types_.first());
         assertEq(context_.getStandards().getAliasObject(), types_.last());
@@ -760,7 +748,7 @@ public final class ClassesTest {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClasses(files_);
-        StringList types_ = context_.getClassBody("pkg.Outer..InnerTwo").getAllSuperClasses();
+        StringList types_ = context_.getClasses().getClassBody("pkg.Outer..InnerTwo").getAllSuperClasses();
         assertEq(2, types_.size());
         assertEq("pkgtwo.OuterTwo..InnerThree", types_.first());
         assertEq(context_.getStandards().getAliasObject(), types_.last());
@@ -786,7 +774,7 @@ public final class ClassesTest {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClasses(files_);
-        StringList types_ = context_.getClassBody("pkg.Outer..InnerTwo").getAllSuperClasses();
+        StringList types_ = context_.getClasses().getClassBody("pkg.Outer..InnerTwo").getAllSuperClasses();
         assertEq(2, types_.size());
         assertEq("pkgtwo.OuterTwo..InnerThree", types_.first());
         assertEq(context_.getStandards().getAliasObject(), types_.last());
@@ -812,7 +800,7 @@ public final class ClassesTest {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClasses(files_);
-        StringList types_ = context_.getClassBody("pkg.Outer..InnerTwo").getAllSuperClasses();
+        StringList types_ = context_.getClasses().getClassBody("pkg.Outer..InnerTwo").getAllSuperClasses();
         assertEq(2, types_.size());
         assertEq("pkgtwo.OuterTwo..InnerThree", types_.first());
         assertEq(context_.getStandards().getAliasObject(), types_.last());
@@ -838,7 +826,7 @@ public final class ClassesTest {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClassesSingle(files_);
-        StringList types_ = context_.getClassBody("pkg.Outer..InnerTwo").getAllSuperClasses();
+        StringList types_ = context_.getClasses().getClassBody("pkg.Outer..InnerTwo").getAllSuperClasses();
         assertEq(2, types_.size());
         assertEq("pkgtwo.OuterTwo..InnerThree", types_.first());
         assertEq(context_.getStandards().getAliasObject(), types_.last());
@@ -864,7 +852,7 @@ public final class ClassesTest {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClassesSingle(files_);
-        StringList types_ = context_.getClassBody("pkg.Outer..InnerTwo").getAllSuperClasses();
+        StringList types_ = context_.getClasses().getClassBody("pkg.Outer..InnerTwo").getAllSuperClasses();
         assertEq(2, types_.size());
         assertEq("pkgtwo.OuterTwo..InnerThree", types_.first());
         assertEq(context_.getStandards().getAliasObject(), types_.last());
@@ -890,7 +878,7 @@ public final class ClassesTest {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClasses(files_);
-        StringList types_ = context_.getClassBody("pkg.Outer..InnerTwo").getAllSuperClasses();
+        StringList types_ = context_.getClasses().getClassBody("pkg.Outer..InnerTwo").getAllSuperClasses();
         assertEq(2, types_.size());
         assertEq("pkgtwo.OuterTwo..InnerThree", types_.first());
         assertEq(context_.getStandards().getAliasObject(), types_.last());
@@ -916,7 +904,7 @@ public final class ClassesTest {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClassesSingle(files_);
-        StringList types_ = context_.getClassBody("pkg.Outer..InnerTwo").getAllSuperClasses();
+        StringList types_ = context_.getClasses().getClassBody("pkg.Outer..InnerTwo").getAllSuperClasses();
         assertEq(2, types_.size());
         assertEq("pkgtwo.OuterTwo..InnerThree", types_.first());
         assertEq(context_.getStandards().getAliasObject(), types_.last());
@@ -942,7 +930,7 @@ public final class ClassesTest {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClassesSingle(files_);
-        StringList types_ = context_.getClassBody("pkg.Outer..InnerTwo").getAllSuperClasses();
+        StringList types_ = context_.getClasses().getClassBody("pkg.Outer..InnerTwo").getAllSuperClasses();
         assertEq(2, types_.size());
         assertEq("pkgtwo.OuterTwo..InnerThree", types_.first());
         assertEq(context_.getStandards().getAliasObject(), types_.last());
@@ -970,7 +958,7 @@ public final class ClassesTest {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClasses(files_);
-        StringList types_ = context_.getClassBody("pkg.Outer..InnerTwo").getAllSuperClasses();
+        StringList types_ = context_.getClasses().getClassBody("pkg.Outer..InnerTwo").getAllSuperClasses();
         assertEq(2, types_.size());
         assertEq("pkgtwo.OuterTwo..InnerThree..InnerFive", types_.first());
         assertEq(context_.getStandards().getAliasObject(), types_.last());
@@ -998,7 +986,7 @@ public final class ClassesTest {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClassesSingle(files_);
-        StringList types_ = context_.getClassBody("pkg.Outer..InnerTwo").getAllSuperClasses();
+        StringList types_ = context_.getClasses().getClassBody("pkg.Outer..InnerTwo").getAllSuperClasses();
         assertEq(2, types_.size());
         assertEq("pkgtwo.OuterTwo..InnerThree..InnerFive", types_.first());
         assertEq(context_.getStandards().getAliasObject(), types_.last());
@@ -1026,7 +1014,7 @@ public final class ClassesTest {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClassesSingle(files_);
-        StringList types_ = context_.getClassBody("pkg.Outer..InnerTwo").getAllSuperClasses();
+        StringList types_ = context_.getClasses().getClassBody("pkg.Outer..InnerTwo").getAllSuperClasses();
         assertEq(2, types_.size());
         assertEq("pkgtwo.OuterTwo..InnerThree..InnerFive", types_.first());
         assertEq(context_.getStandards().getAliasObject(), types_.last());
@@ -1052,7 +1040,7 @@ public final class ClassesTest {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClassesSingle(files_);
-        StringList types_ = context_.getClassBody("pkg.Outer..InnerTwo").getAllSuperClasses();
+        StringList types_ = context_.getClasses().getClassBody("pkg.Outer..InnerTwo").getAllSuperClasses();
         assertEq(2, types_.size());
         assertEq("pkgtwo.OuterTwo..InnerThree", types_.first());
         assertEq(context_.getStandards().getAliasObject(), types_.last());
@@ -1080,7 +1068,7 @@ public final class ClassesTest {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClassesSingle(files_);
-        StringList types_ = context_.getClassBody("pkg.Outer..InnerTwo").getAllSuperClasses();
+        StringList types_ = context_.getClasses().getClassBody("pkg.Outer..InnerTwo").getAllSuperClasses();
         assertEq(2, types_.size());
         assertEq("pkgtwo.OuterTwo..InnerThree", types_.first());
         assertEq(context_.getStandards().getAliasObject(), types_.last());
@@ -1108,7 +1096,7 @@ public final class ClassesTest {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClassesSingle(files_);
-        StringList types_ = context_.getClassBody("pkg.Outer..InnerTwo").getAllSuperClasses();
+        StringList types_ = context_.getClasses().getClassBody("pkg.Outer..InnerTwo").getAllSuperClasses();
         assertEq(2, types_.size());
         assertEq("pkgtwo.OuterTwo..InnerThree", types_.first());
         assertEq(context_.getStandards().getAliasObject(), types_.last());
@@ -1134,7 +1122,7 @@ public final class ClassesTest {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClassesSingle(files_);
-        StringList types_ = context_.getClassBody("pkg.Outer..InnerTwo").getAllSuperClasses();
+        StringList types_ = context_.getClasses().getClassBody("pkg.Outer..InnerTwo").getAllSuperClasses();
         assertEq(2, types_.size());
         assertEq("pkgtwo.OuterTwo..InnerThree", types_.first());
         assertEq(context_.getStandards().getAliasObject(), types_.last());
@@ -1160,7 +1148,7 @@ public final class ClassesTest {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClassesSingle(files_);
-        StringList types_ = context_.getClassBody("pkg.Outer..InnerTwo").getAllSuperClasses();
+        StringList types_ = context_.getClasses().getClassBody("pkg.Outer..InnerTwo").getAllSuperClasses();
         assertEq(2, types_.size());
         assertEq("pkgtwo.OuterTwo..InnerThree", types_.first());
         assertEq(context_.getStandards().getAliasObject(), types_.last());
@@ -1186,7 +1174,7 @@ public final class ClassesTest {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClassesSingle(files_);
-        StringList types_ = context_.getClassBody("pkg.Outer..InnerTwo").getAllSuperClasses();
+        StringList types_ = context_.getClasses().getClassBody("pkg.Outer..InnerTwo").getAllSuperClasses();
         assertEq(2, types_.size());
         assertEq("pkgtwo.OuterTwo..InnerThree", types_.first());
         assertEq(context_.getStandards().getAliasObject(), types_.last());
@@ -1212,7 +1200,7 @@ public final class ClassesTest {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClassesSingle(files_);
-        StringList types_ = context_.getClassBody("pkg.Outer..InnerTwo").getAllSuperClasses();
+        StringList types_ = context_.getClasses().getClassBody("pkg.Outer..InnerTwo").getAllSuperClasses();
         assertEq(2, types_.size());
         assertEq("pkgtwo.OuterThree..InnerThree", types_.first());
         assertEq(context_.getStandards().getAliasObject(), types_.last());
@@ -1238,7 +1226,7 @@ public final class ClassesTest {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClassesSingle(files_);
-        StringList types_ = context_.getClassBody("pkg.Outer..InnerTwo").getAllSuperClasses();
+        StringList types_ = context_.getClasses().getClassBody("pkg.Outer..InnerTwo").getAllSuperClasses();
         assertEq(2, types_.size());
         assertEq("pkg.OuterThree..InnerThree", types_.first());
         assertEq(context_.getStandards().getAliasObject(), types_.last());
@@ -1264,7 +1252,7 @@ public final class ClassesTest {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClassesSingle(files_);
-        StringList types_ = context_.getClassBody("pkg.Outer..InnerTwo").getAllSuperClasses();
+        StringList types_ = context_.getClasses().getClassBody("pkg.Outer..InnerTwo").getAllSuperClasses();
         assertEq(2, types_.size());
         assertEq("pkg.OuterThree..InnerThree", types_.first());
         assertEq(context_.getStandards().getAliasObject(), types_.last());

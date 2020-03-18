@@ -7,12 +7,15 @@ import code.expressionlanguage.errors.AnalysisMessages;
 import code.expressionlanguage.errors.custom.*;
 import code.expressionlanguage.inherits.*;
 import code.expressionlanguage.instr.ElUtil;
+import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.instr.ResultAfterInstKeyWord;
 import code.expressionlanguage.methods.*;
 import code.expressionlanguage.methods.util.Coverage;
 import code.expressionlanguage.methods.util.LocalThrowing;
 import code.expressionlanguage.methods.util.TypeVar;
+import code.expressionlanguage.opers.AnnotationInstanceOperation;
+import code.expressionlanguage.opers.AssocationOperation;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.options.KeyWords;
@@ -517,83 +520,46 @@ public abstract class ContextEl implements ExecutableCode {
             String ret_ = f.getClassName();
             boolean staticElement_ = f.isStaticField();
             boolean finalElement_ = f.isFinalField();
-            AccessEnum acc_ = f.getAccess();
             for (String g: f.getFieldName()) {
-                FieldMetaInfo met_ = new FieldMetaInfo(k_, g, ret_, staticElement_, finalElement_, acc_);
+                FieldMetaInfo met_ = new FieldMetaInfo(k_, g, ret_, staticElement_, finalElement_, AccessEnum.PUBLIC);
                 infosFields_.put(g, met_);
             }
         }
         for (StandardMethod m: _type.getMethods().values()) {
             MethodId id_ = m.getId();
             String ret_ = m.getImportedReturnType();
-            AccessEnum acc_ = m.getAccess();
             String decl_ = m.getDeclaringType();
-            MethodMetaInfo met_ = new MethodMetaInfo(acc_,decl_, id_, m.getModifier(), ret_, id_, decl_);
+            MethodMetaInfo met_ = new MethodMetaInfo(AccessEnum.PUBLIC,decl_, id_, m.getModifier(), ret_, id_, decl_);
             infos_.put(id_, met_);
         }
         for (StandardConstructor d: _type.getConstructors()) {
             existCtor_ = true;
             ConstructorId id_ = d.getGenericId();
-            AccessEnum acc_ = d.getAccess();
             String decl_ = d.getDeclaringType();
             String ret_ = d.getImportedReturnType();
-            ConstructorMetaInfo met_ = new ConstructorMetaInfo(_name, acc_, id_, ret_, id_, decl_);
+            ConstructorMetaInfo met_ = new ConstructorMetaInfo(_name, AccessEnum.PUBLIC, id_, ret_, id_, decl_);
             infosConst_.put(id_, met_);
         }
         if (!existCtor_) {
             ConstructorId id_ = new ConstructorId(_name, new StringList(), false);
-            AccessEnum acc_ = _type.getAccess();
             ConstructorId fid_;
             String ret_ = getStandards().getAliasVoid();
             fid_ = id_;
-            ConstructorMetaInfo met_ = new ConstructorMetaInfo(_name, acc_, id_, ret_, fid_, _name);
+            ConstructorMetaInfo met_ = new ConstructorMetaInfo(_name, AccessEnum.PUBLIC, id_, ret_, fid_, _name);
             infosConst_.put(id_, met_);
         }
-        AccessEnum acc_ = _type.getAccess();
         boolean st_ = _type.isStaticType();
         if (_type instanceof StandardInterface) {
-            return new ClassMetaInfo(_name, ((StandardInterface)_type).getDirectInterfaces(), "",inners_,infosFields_,infos_, infosConst_, ClassCategory.INTERFACE,st_,acc_);
+            return new ClassMetaInfo(_name, ((StandardInterface)_type).getDirectInterfaces(), "",inners_,infosFields_,infos_, infosConst_, ClassCategory.INTERFACE,st_,AccessEnum.PUBLIC);
         }
         ClassCategory cat_ = ClassCategory.CLASS;
         boolean abs_ = _type.isAbstractType();
         boolean final_ = _type.isFinalType();
         String superClass_ = ((StandardClass) _type).getSuperClass();
         StringList superInterfaces_ = _type.getDirectInterfaces();
-        return new ClassMetaInfo(_name, superClass_, superInterfaces_, "",inners_,infosFields_,infos_, infosConst_, cat_, abs_, st_, final_,acc_);
+        return new ClassMetaInfo(_name, superClass_, superInterfaces_, "",inners_,infosFields_,infos_, infosConst_, cat_, abs_, st_, final_,AccessEnum.PUBLIC);
     }
 
-    public CustList<GeneType> getClassBodies() {
-        CustList<GeneType> types_ = new CustList<GeneType>();
-        for (StandardType t: standards.getStandards().values()) {
-            types_.add(t);
-        }
-        for (RootBlock t: classes.getClassBodies()) {
-            types_.add(t);
-        }
-        return types_;
-    }
-    @Override
-    public CustList<GeneMethod> getMethodBodiesById(String _genericClassName, MethodId _id) {
-        CustList<GeneMethod> methods_ = new CustList<GeneMethod>();
-        String base_ = Templates.getIdFromAllTypes(_genericClassName);
-        GeneType r_ = getClassBody(base_);
-        if (!classes.isCustomType(_genericClassName)) {
-            for (EntryCust<MethodId, StandardMethod> m: ((StandardType)r_).getMethods().entryList()) {
-                if (m.getKey().eq(_id)) {
-                    methods_.add(m.getValue());
-                    break;
-                }
-            }
-            return methods_;
-        }
-        for (GeneMethod m: Classes.getMethodBlocks((RootBlock) r_)) {
-            if (m.getId().eq(_id)) {
-                methods_.add(m);
-                break;
-            }
-        }
-        return methods_;
-    }
     public static CustList<GeneConstructor> getConstructorBlocks(GeneType _element) {
         CustList<GeneConstructor> methods_ = new CustList<GeneConstructor>();
         if (_element == null) {
@@ -2433,8 +2399,8 @@ public abstract class ContextEl implements ExecutableCode {
     }
 
     @Override
-    public ObjectMap<ClassMethodId,Integer> lookupImportStaticMethods(String _glClass,String _method, Block _rooted) {
-        ObjectMap<ClassMethodId,Integer> methods_ = new ObjectMap<ClassMethodId,Integer>();
+    public ObjectMap<ClassMethodId,ImportedMethod> lookupImportStaticMethods(String _glClass,String _method, Block _rooted) {
+        ObjectMap<ClassMethodId,ImportedMethod> methods_ = new ObjectMap<ClassMethodId,ImportedMethod>();
         AccessingImportingBlock type_ = analyzing.getImporting();
         CustList<StringList> imports_ = new CustList<StringList>();
         fetchImports(type_, imports_);
@@ -2493,7 +2459,7 @@ public abstract class ContextEl implements ExecutableCode {
         return methods_;
     }
 
-    private void fetchImportStaticMethods(String _glClass, String _method, ObjectMap<ClassMethodId, Integer> _methods, int _import, String _typeLoc, StringList _typesLoc) {
+    private void fetchImportStaticMethods(String _glClass, String _method, ObjectMap<ClassMethodId, ImportedMethod> _methods, int _import, String _typeLoc, StringList _typesLoc) {
         for (String s: _typesLoc) {
             GeneType super_ = getClassBody(s);
             for (GeneMethod e: ContextEl.getMethodBlocks(super_)) {
@@ -2503,14 +2469,16 @@ public abstract class ContextEl implements ExecutableCode {
                 if (!StringList.quickEq(_method.trim(), e.getId().getName())) {
                     continue;
                 }
-                if (!Classes.canAccess(_typeLoc, e, this)) {
-                    continue;
-                }
-                if (!Classes.canAccess(_glClass, e, this)) {
-                    continue;
+                if (e instanceof AccessibleBlock) {
+                    if (!Classes.canAccess(_typeLoc, (AccessibleBlock)e, this)) {
+                        continue;
+                    }
+                    if (!Classes.canAccess(_glClass, (AccessibleBlock)e, this)) {
+                        continue;
+                    }
                 }
                 ClassMethodId clMet_ = new ClassMethodId(s, e.getId());
-                _methods.add(clMet_, _import);
+                _methods.add(clMet_, new ImportedMethod(_import,e.getImportedReturnType()));
             }
         }
     }
@@ -2586,11 +2554,13 @@ public abstract class ContextEl implements ExecutableCode {
                 if (!StringList.contains(e.getFieldName(), _method.trim())) {
                     continue;
                 }
-                if (!Classes.canAccess(_typeLoc, e, this)) {
-                    continue;
-                }
-                if (!Classes.canAccess(_glClass, e, this)) {
-                    continue;
+                if (e instanceof AccessibleBlock) {
+                    if (!Classes.canAccess(_typeLoc, (AccessibleBlock)e, this)) {
+                        continue;
+                    }
+                    if (!Classes.canAccess(_glClass, (AccessibleBlock)e, this)) {
+                        continue;
+                    }
                 }
                 ClassField field_ = new ClassField(s, _method);
                 _methods.add(field_, _import);
@@ -2638,9 +2608,6 @@ public abstract class ContextEl implements ExecutableCode {
     }
     @Override
     public final ClassMetaInfo getExtendedClassMetaInfo(String _name) {
-        if (StringList.quickEq(_name.trim(), getStandards().getAliasVoid())) {
-            return new ClassMetaInfo(_name, this, ClassCategory.VOID,"");
-        }
         if (PrimitiveTypeUtil.isPrimitive(_name, this)) {
             return new ClassMetaInfo(_name, this, ClassCategory.PRIMITIVE,"");
         }
@@ -2763,6 +2730,22 @@ public abstract class ContextEl implements ExecutableCode {
     }
 
     @Override
+    public boolean isAnnotAnalysis(OperationNode _op, OperationsSequence _seq) {
+        boolean ok_ = false;
+        if (getCurrentBlock() instanceof AnnotationMethodBlock && _op == null) {
+            ok_ = true;
+        } else if (_op instanceof AssocationOperation){
+            ok_ = true;
+        } else if (_op instanceof AnnotationInstanceOperation){
+            ok_ = true;
+        }
+        if (!ok_) {
+            return false;
+        }
+        String op_ = _seq.getOperators().firstValue();
+        return StringList.quickEq(op_, String.valueOf('{'));
+    }
+
     public boolean isAnnotAnalysis() {
         return analyzing.isAnnotAnalysis();
     }
@@ -2914,7 +2897,7 @@ public abstract class ContextEl implements ExecutableCode {
     }
 
     @Override
-    public boolean isHiddenType(AccessingImportingBlock _rooted, String _type) {
+    public boolean isHiddenType(AccessingImportingBlock _rooted, RootBlock _type) {
         return _rooted.isTypeHidden(_type,this);
     }
 

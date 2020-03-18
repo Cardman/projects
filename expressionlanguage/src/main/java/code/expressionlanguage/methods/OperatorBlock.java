@@ -82,7 +82,7 @@ public final class OperatorBlock extends NamedFunctionBlock implements GeneMetho
     }
 
     @Override
-    public GeneType belong() {
+    public RootBlock belong() {
         return null;
     }
 
@@ -99,8 +99,8 @@ public final class OperatorBlock extends NamedFunctionBlock implements GeneMetho
         return importsOffset;
     }
     @Override
-    public boolean isTypeHidden(String _type, Analyzable _analyzable) {
-        return _analyzable.getClassBody(_type).getAccess() != AccessEnum.PUBLIC;
+    public boolean isTypeHidden(RootBlock _type, Analyzable _analyzable) {
+        return _type.getAccess() != AccessEnum.PUBLIC;
     }
 
     @Override

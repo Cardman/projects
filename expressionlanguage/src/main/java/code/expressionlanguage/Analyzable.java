@@ -5,6 +5,7 @@ import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.errors.custom.FoundWarningInterpret;
 import code.expressionlanguage.inherits.TypeOwnersDepends;
+import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.instr.ResultAfterInstKeyWord;
 import code.expressionlanguage.methods.*;
@@ -78,7 +79,7 @@ public interface Analyzable {
     ClassMetaInfo getExtendedClassMetaInfo(String _name);
 
     FieldInfo getFieldInfo(ClassField _classField);
-    CustList<GeneMethod> getMethodBodiesById(String _genericClassName, MethodId _id);
+
     int getCurrentChildTypeIndex(OperationNode _op, GeneType _type, String _fieldName, String _className);
 
     boolean isMerged();
@@ -103,7 +104,7 @@ public interface Analyzable {
     boolean hasLoopDeclarator();
     void setupLoopDeclaratorClass(String _className);
     boolean isGearConst();
-    boolean isHiddenType(AccessingImportingBlock _rooted, String _type);
+    boolean isHiddenType(AccessingImportingBlock _rooted, RootBlock _type);
 
 
     String resolveCorrectType(String _in);
@@ -120,7 +121,7 @@ public interface Analyzable {
     String checkExactType(int _loc,String _in);
     String resolveCorrectTypeWithoutErrors(int _loc,String _in, boolean _exact);
 
-    ObjectMap<ClassMethodId,Integer> lookupImportStaticMethods(String _glClass,String _method, Block _rooted);
+    ObjectMap<ClassMethodId,ImportedMethod> lookupImportStaticMethods(String _glClass,String _method, Block _rooted);
     ObjectMap<ClassField,Integer> lookupImportStaticFields(String _glClass,String _field, Block _rooted);
 
     String lookupImportMemberType(String _type, AccessingImportingBlock _rooted, boolean _inherits, boolean _line);
@@ -136,7 +137,8 @@ public interface Analyzable {
     ForLoopPart getForLoopPartState();
     void setForLoopPartState(ForLoopPart _state);
 
-    boolean isAnnotAnalysis();
+    boolean isAnnotAnalysis(OperationNode _op, OperationsSequence _seq);
+
 
 
     boolean isOkNumOp();

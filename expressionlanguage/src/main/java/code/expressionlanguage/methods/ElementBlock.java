@@ -257,7 +257,7 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
     }
 
     @Override
-    public GeneType belong() {
+    public RootBlock belong() {
         return (RootBlock) getParent();
     }
 

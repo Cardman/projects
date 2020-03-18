@@ -90,7 +90,7 @@ public final class ExecCastOperation extends ExecAbstractUnaryOperation {
                         MethodId idMeth_ = realId_.quickFormat(geneStr_, _conf);
                         String gene_ = clRealId_.getClassName();
                         String geneFor_ = Templates.quickFormat(_className,gene_,_conf);
-                        String ret_ = _conf.getMethodBodiesById(gene_, realId_).first().getImportedReturnType();
+                        String ret_ = Classes.getMethodBodiesById(_conf.getContextEl(),gene_, realId_).first().getImportedReturnType();
                         ret_ = Templates.quickFormat(geneStr_,ret_,_conf);
                         ClassMethodIdReturn parmMe_ = new ClassMethodIdReturn(true);
                         parmMe_.setId(new ClassMethodId(clRealId_.getClassName(),idMeth_));

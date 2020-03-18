@@ -6,7 +6,6 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.calls.AbstractPageEl;
 import code.expressionlanguage.calls.StaticInitPageEl;
-import code.expressionlanguage.common.GeneConstructor;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.files.OffsetAccessInfo;
 import code.expressionlanguage.files.OffsetStringInfo;
@@ -328,7 +327,7 @@ public final class InnerElementBlock extends RootBlock implements InnerTypeOrEle
         return allInterfaces;
     }
     @Override
-    public GeneType belong() {
+    public RootBlock belong() {
         return (RootBlock) getParent();
     }
 

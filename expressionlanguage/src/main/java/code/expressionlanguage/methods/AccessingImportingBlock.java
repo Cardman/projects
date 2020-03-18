@@ -6,6 +6,6 @@ import code.util.CustList;
 import code.util.StringList;
 
 public interface AccessingImportingBlock extends AccessedBlock {
-    boolean isTypeHidden(String _class, Analyzable _analyzable);
+    boolean isTypeHidden(RootBlock _class, Analyzable _analyzable);
 
 }

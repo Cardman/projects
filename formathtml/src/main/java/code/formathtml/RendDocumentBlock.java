@@ -8,6 +8,7 @@ import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.methods.AccessEnum;
 import code.expressionlanguage.methods.AccessingImportingBlock;
 import code.expressionlanguage.methods.FunctionBlock;
+import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.util.MethodAccessKind;
 import code.formathtml.util.BeanCustLgNames;
@@ -235,7 +236,7 @@ public final class RendDocumentBlock extends RendParentBlock implements Function
     }
 
     @Override
-    public boolean isTypeHidden(String _class, Analyzable _analyzable) {
-        return _analyzable.getClassBody(_class).getAccess() != AccessEnum.PUBLIC;
+    public boolean isTypeHidden(RootBlock _class, Analyzable _analyzable) {
+        return _class.getAccess() != AccessEnum.PUBLIC;
     }
 }

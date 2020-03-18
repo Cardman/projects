@@ -181,7 +181,10 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         String base_ = Templates.getIdFromAllTypes(argClassName_);
         MethodId id_ = _classMethodId.getConstraints();
         MethodId methodId_;
-        if (_conf.getMethodBodiesById(classNameFound_, id_).first().isFinalMethod()) {
+        if (!_conf.getClasses().isCustomType(classNameFound_)) {
+            classNameFound_ = _classMethodId.getClassName();
+            methodId_ = id_;
+        } else if (((GeneMethod)Classes.getMethodBodiesById(_conf,classNameFound_, id_).first()).isFinalMethod()) {
             classNameFound_ = _classMethodId.getClassName();
             methodId_ = id_;
         } else {

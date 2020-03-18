@@ -79,8 +79,10 @@ final class NamePartType extends LeafPartType {
             _an.getCurrentBadIndexes().add(getIndexInType());
             return;
         }
-        if (_an.getClasses().isCustomType(type_)) {
-            if (_rooted.isTypeHidden(type_, _an)) {
+        String id_ = Templates.getIdFromAllTypes(type_);
+        RootBlock root_ = _an.getClasses().getClassBody(id_);
+        if (root_ != null) {
+            if (_rooted.isTypeHidden(root_, _an)) {
                 _an.getCurrentBadIndexes().add(getIndexInType());
             }
             setAnalyzedType(type_);
@@ -124,7 +126,9 @@ final class NamePartType extends LeafPartType {
             _an.getCurrentBadIndexes().add(getIndexInType());
             out_ = _an.getStandards().getAliasObject();
         }
-        if (_rooted.isTypeHidden(out_, _an)) {
+        id_ = Templates.getIdFromAllTypes(out_);
+        root_ = _an.getClasses().getClassBody(id_);
+        if (root_ != null && _rooted.isTypeHidden(root_, _an)) {
             _an.getCurrentBadIndexes().add(getIndexInType());
             out_ = _an.getStandards().getAliasObject();
         }
@@ -267,8 +271,10 @@ final class NamePartType extends LeafPartType {
             }
             return;
         }
-        if (_an.getClasses().isCustomType(type_)) {
-            analyzeFullType(_an, _rooted, type_);
+        String id_ = Templates.getIdFromAllTypes(type_);
+        RootBlock root_ = _an.getClasses().getClassBody(id_);
+        if (root_ != null) {
+            analyzeFullType(_an, _rooted, root_, type_);
             return;
         }
         if (_an.getStandards().getStandards().contains(type_)) {
@@ -422,8 +428,10 @@ final class NamePartType extends LeafPartType {
             }
             return;
         }
-        if (_an.getClasses().isCustomType(type_)) {
-            analyzeFullType(_an, _rooted, type_);
+        String id_ = Templates.getIdFromAllTypes(type_);
+        RootBlock root_ = _an.getClasses().getClassBody(id_);
+        if (root_ != null) {
+            analyzeFullType(_an, _rooted, root_, type_);
             return;
         }
         if (_an.getStandards().getStandards().contains(type_)) {
@@ -475,8 +483,8 @@ final class NamePartType extends LeafPartType {
         setAnalyzedType(type_);
     }
 
-    private void analyzeFullType(Analyzable _an, AccessingImportingBlock _rooted, String _type) {
-        if (_an.isHiddenType(_rooted,_type)) {
+    private void analyzeFullType(Analyzable _an, AccessingImportingBlock _rooted, RootBlock _root, String _type) {
+        if (_an.isHiddenType(_rooted,_root)) {
             _an.getCurrentBadIndexes().add(getIndexInType());
             return;
         }
@@ -523,8 +531,10 @@ final class NamePartType extends LeafPartType {
             }
             return;
         }
-        if (_an.getClasses().isCustomType(type_)) {
-            analyzeFullType(_an, _rooted, type_);
+        String id_ = Templates.getIdFromAllTypes(type_);
+        RootBlock root_ = _an.getClasses().getClassBody(id_);
+        if (root_ != null) {
+            analyzeFullType(_an, _rooted,root_, type_);
             return;
         }
         if (_an.getStandards().getStandards().contains(type_)) {
@@ -569,7 +579,13 @@ final class NamePartType extends LeafPartType {
             _an.getCurrentBadIndexes().add(getIndexInType());
             return;
         }
-        analyzeFullType(_an, _rooted, out_);
+        String id_ = Templates.getIdFromAllTypes(out_);
+        RootBlock root_ = _an.getClasses().getClassBody(id_);
+        if (root_ != null) {
+            analyzeFullType(_an, _rooted, root_,out_);
+        } else {
+            setAnalyzedType(out_);
+        }
     }
 
     private void tryAnalyzeInnerParts(Analyzable _an, String _globalType,

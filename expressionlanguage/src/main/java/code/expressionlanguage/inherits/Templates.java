@@ -442,23 +442,76 @@ public final class Templates {
      Sample 4: "my.pkg.MyClass&lt;long,int&gt;" - "my.pkg.MySecondClass[]" => "my.pkg.MySecondClass&lt;long,int&gt;[]"<br/>
      */
     public static String getFullTypeByBases(String _subType, String _superType, Analyzable _context) {
-//        String baseSubType_ = getIdFromAllTypes(_subType);
-//        String baseSuperType_ = getIdFromAllTypes(_superType);
+        if (!correctNbParameters(_subType,_context)) {
+            return null;
+        }
+        String idArg_ = Templates.getIdFromAllTypes(_subType);
+        String idSuperType_ = getIdFromAllTypes(_superType);
+        if (StringList.quickEq(idArg_,idSuperType_)) {
+            return _subType;
+        }
+        DimComp dBaseParam_ = PrimitiveTypeUtil.getQuickComponentBaseType(idSuperType_);
+        int dim_ = dBaseParam_.getDim();
+        String classParam_ = dBaseParam_.getComponent();
+        DimComp dBaseArg_ = PrimitiveTypeUtil.getQuickComponentBaseType(idArg_);
+        String baseArr_ = dBaseArg_.getComponent();
+        if (StringList.quickEq(classParam_, _context.getStandards().getAliasObject())) {
+            if (dBaseArg_.getDim() < dim_) {
+                return null;
+            }
+            return _superType;
+        }
+        if (dBaseArg_.getDim() != dim_) {
+            return null;
+        }
+        if (PrimitiveTypeUtil.isPrimitive(baseArr_,_context)) {
+            PrimitiveType pr_ = _context.getStandards().getPrimitiveTypes().getVal(baseArr_);
+            if (StringList.contains(pr_.getAllSuperType(_context), classParam_)) {
+                return _superType;
+            }
+            return null;
+        }
+        if (StringList.quickEq(_subType, _context.getStandards().getAliasVoid())) {
+            return null;
+        }
+        if (StringList.quickEq(_superType, _context.getStandards().getAliasVoid())) {
+            return null;
+        }
+        String geneSubType_ = _context.getClassBody(baseArr_).getGenericString();
         String generic_ = null;
-//        if (StringList.quickEq(_subType, _superType)) {
-//            generic_ = _subType;
-//        } else if (StringList.quickEq(baseSubType_, baseSuperType_)) {
-//            generic_ = _subType;
-//        }
-//        if (generic_ == null) {
-//            String baseSub_ = PrimitiveTypeUtil.getQuickComponentBaseType(_subType).getComponent();
-//            String baseSup_ = PrimitiveTypeUtil.getQuickComponentBaseType(_superType).getComponent();
-//            generic_ = requestGenericSuperType(baseSub_, baseSup_, _context);
-//        }
-//        String baseSub_ = PrimitiveTypeUtil.getQuickComponentBaseType(_subType).getComponent();
-//        String baseSup_ = PrimitiveTypeUtil.getQuickComponentBaseType(_superType).getComponent();
-        generic_ = requestGenericSuperType(_subType, _superType, _context);
-//        generic_ = requestGenericSuperType(baseSub_, baseSup_, _context);
+        StringList curClasses_ = new StringList(geneSubType_);
+        StringList visitedClasses_ = new StringList(geneSubType_);
+        while (true) {
+            StringList nextClasses_ = new StringList();
+            for (String c: curClasses_) {
+                String baseClass_ = getIdFromAllTypes(c);
+                baseClass_ = PrimitiveTypeUtil.getQuickComponentBaseType(baseClass_).getComponent();
+                for (String s: getSuperInterfaceNames(baseClass_, _context)) {
+                    String id_ = getIdFromAllTypes(s);
+                    String geneSuperInterface_;
+                    geneSuperInterface_ = quickFormat(c, s, _context);
+                    if (StringList.quickEq(id_, classParam_)) {
+                        generic_ = PrimitiveTypeUtil.getPrettyArrayType(geneSuperInterface_, dim_);
+                        break;
+                    }
+                    addTypeIdNotYet(visitedClasses_, nextClasses_, geneSuperInterface_);
+                }
+                if (generic_ != null) {
+                    break;
+                }
+            }
+            if (generic_ != null) {
+                break;
+            }
+            if (nextClasses_.isEmpty()) {
+                break;
+            }
+            curClasses_ = nextClasses_;
+        }
+        if (generic_ == null) {
+            return null;
+        }
+        generic_ = format(_subType, generic_, _context);
         return generic_;
     }
 
@@ -1162,7 +1215,7 @@ public final class Templates {
             }
         }
         String name_ = _id.getName();
-        if (StringList.quickEq("[]=",name_)) {
+        if (_id instanceof MethodId && StringList.quickEq("[]=",name_)) {
             String id_ = getIdFromAllTypes(_classNameFound);
             for (GeneMethod g: ContextEl.getMethodBlocks(_conf.getClassBody(id_))) {
                 if (!StringList.quickEq("[]",g.getId().getName())) {
@@ -1618,17 +1671,13 @@ public final class Templates {
         if (baseArrayArg_.startsWith(PREFIX_VAR_TYPE)) {
             for (String c: map_.getAllUpperBounds(baseArrayArg_.substring(PREFIX_VAR_TYPE.length()), objType_)) {
                 String arr_ = PrimitiveTypeUtil.getPrettyArrayType(c,dArg_.getDim());
-                if (StringList.quickEq(arr_, _param)) {
-                    generic_ = c;
-                    break;
-                }
-                generic_ = requestGenericSuperType(arr_, _param, _context);
+                generic_ = getFullTypeByBases(arr_, _param, _context);
                 if (generic_ != null) {
                     break;
                 }
             }
         } else {
-            generic_ = requestGenericSuperType(_arg, _param, _context);
+            generic_ = getFullTypeByBases(_arg, _param, _context);
         }
         if (generic_ == null) {
             return null;
@@ -1668,7 +1717,7 @@ public final class Templates {
             return null;
         }
         String generic_;
-        generic_ = requestGenericSuperType(_arg, _param, _context);
+        generic_ = getFullTypeByBases(_arg, _param, _context);
         if (generic_ == null) {
             return null;
         }
@@ -1809,100 +1858,6 @@ public final class Templates {
         return m_;
     }
 
-    /**parameriterized type (possibly array) - generic sub types start - super type
-     Let this code:<br/>
-     <code><pre>public class my.pkg.MyClass&lt;A,B&gt;:MySecondClass&lt;A,B&gt;{}</pre>
-     <pre>public class my.pkg.MySecondClass&lt;C,D&gt;{}</pre></code><br/>
-     Sample 1: "my.pkg.MyClass&lt;long,int&gt;" - "my.pkg.MySecondClass" => "my.pkg.MySecondClass&lt;long,int&gt;"<br/>
-     Sample 2: "my.pkg.MyClass" - "my.pkg.MySecondClass" => null<br/>
-     Sample 3: "my.pkg.MySecondClass&lt;long,int&gt;" - "my.pkg.MyClass" => null<br/>
-     Sample 4: "my.pkg.MyClass&lt;long,int&gt;" - "my.pkg.MySecondClass[]" => "my.pkg.MySecondClass&lt;long,int&gt;[]"<br/>
-    */
-    private static String requestGenericSuperType(String _baseArg, String _erasedSuperType, Analyzable _context) {
-        if (!correctNbParameters(_baseArg,_context)) {
-            return null;
-        }
-        String idArg_ = Templates.getIdFromAllTypes(_baseArg);
-        String idSuperType_ = getIdFromAllTypes(_erasedSuperType);
-        if (StringList.quickEq(idArg_,idSuperType_)) {
-            return _baseArg;
-        }
-        DimComp dBaseParam_ = PrimitiveTypeUtil.getQuickComponentBaseType(idSuperType_);
-        int dim_ = dBaseParam_.getDim();
-        String classParam_ = dBaseParam_.getComponent();
-        DimComp dBaseArg_ = PrimitiveTypeUtil.getQuickComponentBaseType(idArg_);
-        String baseArr_ = dBaseArg_.getComponent();
-        if (StringList.quickEq(classParam_, _context.getStandards().getAliasObject())) {
-            if (dBaseArg_.getDim() < dim_) {
-                return null;
-            }
-            return _erasedSuperType;
-        }
-        if (dBaseArg_.getDim() != dim_) {
-            return null;
-        }
-        if (PrimitiveTypeUtil.isPrimitive(baseArr_,_context)) {
-            PrimitiveType pr_ = _context.getStandards().getPrimitiveTypes().getVal(baseArr_);
-            if (StringList.contains(pr_.getAllSuperType(_context), classParam_)) {
-                return _erasedSuperType;
-            }
-            return null;
-        }
-        if (StringList.quickEq(_baseArg, _context.getStandards().getAliasVoid())) {
-            return null;
-        }
-        if (StringList.quickEq(_erasedSuperType, _context.getStandards().getAliasVoid())) {
-            return null;
-        }
-        String geneSubType_ = _context.getClassBody(baseArr_).getGenericString();
-        String generic_ = null;
-        StringList curClasses_ = new StringList(geneSubType_);
-        StringList visitedClasses_ = new StringList(geneSubType_);
-        while (true) {
-            StringList nextClasses_ = new StringList();
-            for (String c: curClasses_) {
-                String baseClass_ = getIdFromAllTypes(c);
-                baseClass_ = PrimitiveTypeUtil.getQuickComponentBaseType(baseClass_).getComponent();
-                String superClass_ = getGenericSuperClassName(baseClass_, _context);
-                if (superClass_ != null) {
-                    String id_ = getIdFromAllTypes(superClass_);
-                    String geneSuperClass_ = superClass_;
-                    geneSuperClass_ = quickFormat(c, geneSuperClass_, _context);
-                    if (StringList.quickEq(id_, classParam_)) {
-                        generic_ = PrimitiveTypeUtil.getPrettyArrayType(geneSuperClass_, dim_);
-                        break;
-                    }
-                    addTypeIdNotYet(visitedClasses_, nextClasses_, geneSuperClass_);
-                }
-                for (String s: getSuperInterfaceNames(baseClass_, _context)) {
-                    String id_ = getIdFromAllTypes(s);
-                    String geneSuperInterface_;
-                    geneSuperInterface_ = quickFormat(c, s, _context);
-                    if (StringList.quickEq(id_, classParam_)) {
-                        generic_ = PrimitiveTypeUtil.getPrettyArrayType(geneSuperInterface_, dim_);
-                        break;
-                    }
-                    addTypeIdNotYet(visitedClasses_, nextClasses_, geneSuperInterface_);
-                }
-                if (generic_ != null) {
-                    break;
-                }
-            }
-            if (generic_ != null) {
-                break;
-            }
-            if (nextClasses_.isEmpty()) {
-                break;
-            }
-            curClasses_ = nextClasses_;
-        }
-        if (generic_ == null) {
-            return null;
-        }
-        generic_ = format(_baseArg, generic_, _context);
-        return generic_;
-    }
-
     private static void addTypeIdNotYet(StringList _visitedClasses, StringList _nextClasses, String _geneSuperInterface) {
         if (!StringList.contains(_visitedClasses, _geneSuperInterface)) {
             _nextClasses.add(_geneSuperInterface);
@@ -1910,42 +1865,12 @@ public final class Templates {
         }
     }
 
-    private static String getGenericSuperClassName(String _genericClassName, Analyzable _context) {
-        String baseClass_ = getIdFromAllTypes(_genericClassName);
-        Classes classes_ = _context.getClasses();
-        RootBlock r_ = classes_.getClassBody(baseClass_);
-        if (r_ instanceof UniqueRootedBlock) {
-            return ((UniqueRootedBlock)r_).getImportedDirectGenericSuperClass();
-        }
-        if (r_ != null) {
-            return null;
-        }
-        LgNames stds_ = _context.getStandards();
-        if (StringList.quickEq(baseClass_, stds_.getAliasObject())) {
-            return null;
-        }
-        StandardType type_ = _context.getStandards().getStandards().getVal(baseClass_);
-        if (type_ instanceof StandardClass) {
-            return ((StandardClass)type_).getSuperClass();
-        }
-        return null;
-    }
-
     private static StringList getSuperInterfaceNames(String _className, Analyzable _context) {
         GeneType r_ = _context.getClassBody(_className);
-        if (r_ instanceof UniqueRootedBlock) {
-            return ((UniqueRootedBlock)r_).getImportedDirectGenericSuperInterfaces();
+        if (r_ instanceof RootBlock) {
+            return ((RootBlock)r_).getImportedDirectSuperTypes();
         }
-        if (r_ instanceof InterfaceBlock) {
-            return ((InterfaceBlock)r_).getImportedDirectSuperInterfaces();
-        }
-        if (r_ instanceof AnnotationBlock) {
-            return ((AnnotationBlock)r_).getImportedDirectSuperInterfaces();
-        }
-        if (r_ instanceof StandardClass) {
-            return ((StandardClass)r_).getDirectInterfaces();
-        }
-        return ((StandardInterface)r_).getDirectSuperClasses();
+        return ((StandardType)r_).getDirectSuperTypes();
     }
 
     /**Checks nb parameters of the most wrapping type<br/>

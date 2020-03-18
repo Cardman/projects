@@ -4,11 +4,7 @@ import code.bean.Bean;
 import code.bean.BeanInfo;
 import code.bean.validator.Validator;
 import code.bean.validator.ValidatorInfo;
-import code.expressionlanguage.AnalyzedPageEl;
-import code.expressionlanguage.Argument;
-import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.ExecutableCode;
-import code.expressionlanguage.InitClassState;
+import code.expressionlanguage.*;
 import code.expressionlanguage.calls.PageEl;
 import code.expressionlanguage.calls.util.NotInitializedClass;
 import code.expressionlanguage.common.GeneField;
@@ -18,6 +14,7 @@ import code.expressionlanguage.errors.custom.*;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.inherits.TypeUtil;
+import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.instr.ResultAfterInstKeyWord;
 import code.expressionlanguage.methods.*;
@@ -613,12 +610,6 @@ public final class Configuration implements ExecutableCode {
         staticContext = _staticContext == MethodAccessKind.STATIC;
     }
 
-    @Override
-    public CustList<GeneMethod> getMethodBodiesById(String _genericClassName,
-            MethodId _id) {
-        return getContext().getMethodBodiesById(_genericClassName, _id);
-    }
-
     public int getNextIndex() {
         return nextIndex;
     }
@@ -942,9 +933,9 @@ public final class Configuration implements ExecutableCode {
     }
 
     @Override
-    public ObjectMap<ClassMethodId,Integer> lookupImportStaticMethods(
+    public ObjectMap<ClassMethodId,ImportedMethod> lookupImportStaticMethods(
             String _glClass, String _method, Block _rooted) {
-        ObjectMap<ClassMethodId,Integer> methods_ = new ObjectMap<ClassMethodId,Integer>();
+        ObjectMap<ClassMethodId,ImportedMethod> methods_ = new ObjectMap<ClassMethodId,ImportedMethod>();
         AccessingImportingBlock type_ = analyzingDoc.getCurrentDoc();
         CustList<StringList> imports_ = fetch(type_);
         String keyWordStatic_ = context.getKeyWords().getKeyWordStatic();
@@ -1000,7 +991,7 @@ public final class Configuration implements ExecutableCode {
         return methods_;
     }
 
-    private void fetchImportStaticMethods(String _glClass, String _method, ObjectMap<ClassMethodId, Integer> _methods, int _import, String _typeLoc, StringList _typesLoc) {
+    private void fetchImportStaticMethods(String _glClass, String _method, ObjectMap<ClassMethodId, ImportedMethod> _methods, int _import, String _typeLoc, StringList _typesLoc) {
         for (String s: _typesLoc) {
             GeneType super_ = getClassBody(s);
             for (GeneMethod e: ContextEl.getMethodBlocks(super_)) {
@@ -1010,14 +1001,16 @@ public final class Configuration implements ExecutableCode {
                 if (!StringList.quickEq(_method.trim(), e.getId().getName())) {
                     continue;
                 }
-                if (!Classes.canAccess(_typeLoc, e, this)) {
-                    continue;
-                }
-                if (!Classes.canAccess(_glClass, e, this)) {
-                    continue;
+                if (e instanceof AccessibleBlock) {
+                    if (!Classes.canAccess(_typeLoc, (AccessibleBlock)e, this)) {
+                        continue;
+                    }
+                    if (!Classes.canAccess(_glClass, (AccessibleBlock)e, this)) {
+                        continue;
+                    }
                 }
                 ClassMethodId clMet_ = new ClassMethodId(s, e.getId());
-                _methods.add(clMet_, _import);
+                _methods.add(clMet_, new ImportedMethod(_import,e.getImportedReturnType()));
             }
         }
     }
@@ -1090,11 +1083,13 @@ public final class Configuration implements ExecutableCode {
                 if (!StringList.contains(e.getFieldName(), _method.trim())) {
                     continue;
                 }
-                if (!Classes.canAccess(_typeLoc, e, this)) {
-                    continue;
-                }
-                if (!Classes.canAccess(_glClass, e, this)) {
-                    continue;
+                if (e instanceof AccessibleBlock) {
+                    if (!Classes.canAccess(_typeLoc, (AccessibleBlock)e, this)) {
+                        continue;
+                    }
+                    if (!Classes.canAccess(_glClass, (AccessibleBlock)e, this)) {
+                        continue;
+                    }
                 }
                 ClassField field_ = new ClassField(s, _method);
                 _methods.add(field_, _import);
@@ -1440,8 +1435,8 @@ public final class Configuration implements ExecutableCode {
     }
 
     @Override
-    public boolean isAnnotAnalysis() {
-        return context.isAnnotAnalysis();
+    public boolean isAnnotAnalysis(OperationNode _op, OperationsSequence _seq) {
+        return false;
     }
 
     @Override
@@ -1578,7 +1573,7 @@ public final class Configuration implements ExecutableCode {
     }
 
     @Override
-    public boolean isHiddenType(AccessingImportingBlock _rooted, String _type) {
+    public boolean isHiddenType(AccessingImportingBlock _rooted, RootBlock _type) {
         return _rooted != null && _rooted.isTypeHidden(_type,this);
     }
 

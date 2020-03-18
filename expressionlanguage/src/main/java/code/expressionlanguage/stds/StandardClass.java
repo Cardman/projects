@@ -12,11 +12,7 @@ import code.util.StringMap;
 
 public final class StandardClass extends StandardType implements GeneClass {
 
-    private final StringList allSuperClasses = new StringList();
-
     private final StringList allSuperTypes = new StringList();
-
-    private final StringList allInterfaces = new StringList();
 
     private final String superClass;
 
@@ -60,11 +56,6 @@ public final class StandardClass extends StandardType implements GeneClass {
     }
 
     @Override
-    public StringList getAllSuperClasses() {
-        return allSuperClasses;
-    }
-
-    @Override
     public StringList getAllGenericSuperTypes() {
         return allSuperTypes;
     }
@@ -72,22 +63,6 @@ public final class StandardClass extends StandardType implements GeneClass {
     @Override
     public StringList getAllSuperTypes() {
         return allSuperTypes;
-    }
-
-    @Override
-    public StringList getAllInterfaces() {
-        return allInterfaces;
-    }
-
-    public StringList getDirectInterfaces(Analyzable _classes) {
-        StringList interfaces_ = new StringList();
-        for (String s: getDirectSuperTypes()) {
-            String base_ = Templates.getIdFromAllTypes(s);
-            if (_classes.getClassBody(base_) instanceof StandardInterface) {
-                interfaces_.add(s);
-            }
-        }
-        return interfaces_;
     }
 
 }

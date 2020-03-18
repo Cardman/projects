@@ -46,11 +46,6 @@ public abstract class StandardType implements GeneType {
         return _fullName.substring(0, indexDot_);
     }
 
-    @Override
-    public GeneType getOuter() {
-        return this;
-    }
-
     public abstract StringList getDirectSuperTypes();
 
     public abstract StringList getDirectInterfaces();
@@ -96,11 +91,6 @@ public abstract class StandardType implements GeneType {
     }
 
     @Override
-    public final AccessEnum getAccess() {
-        return AccessEnum.PUBLIC;
-    }
-
-    @Override
     public final String getFullName() {
         String pkg_ = getPackageName();
         String name_ = getName();
@@ -113,11 +103,6 @@ public abstract class StandardType implements GeneType {
     @Override
     public final String getGenericString() {
         return getFullName();
-    }
-
-    @Override
-    public final GeneType belong() {
-        return this;
     }
 
     public CustList<StandardConstructor> getConstructors() {

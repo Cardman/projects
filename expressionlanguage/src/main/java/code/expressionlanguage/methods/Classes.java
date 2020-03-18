@@ -1433,7 +1433,7 @@ public final class Classes {
     }
     public static CustList<RootBlock> accessedClassMembers(boolean _inherits,boolean _protectedInc,String _className, String _glClass,RootBlock _clOwner, Analyzable _context) {
         String idRoot_ = Templates.getIdFromAllTypes(_className);
-        GeneType root_ = _context.getClassBody(idRoot_);
+        RootBlock root_ = _context.getClasses().getClassBody(idRoot_);
         String pkgRoot_ = root_.getPackageName();
         String pkgOwner_ = _clOwner.getPackageName();
         String ownerName_ = _clOwner.getFullName();
@@ -1500,22 +1500,16 @@ public final class Classes {
         return okGl_;
     }
 
-    public static boolean canAccessClass(String _className, String _accessedClass, Analyzable _context) {
-        String baseClass_ = Templates.getIdFromAllTypes(_accessedClass);
-        GeneType access_ = _context.getClassBody(baseClass_);
-        return canAccess(_className, access_, _context);
-    }
-
     public static boolean canAccess(String _className, AccessibleBlock _block, Analyzable _context) {
         if (_block.getAccess() == AccessEnum.PUBLIC) {
             return true;
         }
         String baseClass_ = Templates.getIdFromAllTypes(_className);
-        GeneType root_ = _context.getClassBody(baseClass_);
+        RootBlock root_ = _context.getClasses().getClassBody(baseClass_);
         if (root_ == null) {
             return false;
         }
-        GeneType belong_ = _block.belong();
+        RootBlock belong_ = _block.belong();
         if (_block.getAccess() == AccessEnum.PROTECTED) {
             if (PrimitiveTypeUtil.canBeUseAsArgument(belong_.getFullName(), baseClass_, _context)) {
                 return true;
@@ -1525,8 +1519,8 @@ public final class Classes {
         if (_block.getAccess() == AccessEnum.PACKAGE) {
             return StringList.quickEq(belong_.getPackageName(), root_.getPackageName());
         }
-        GeneType outBelong_ = belong_.getOuter();
-        GeneType outRoot_ = root_.getOuter();
+        RootBlock outBelong_ = belong_.getOuter();
+        RootBlock outRoot_ = root_.getOuter();
         return StringList.quickEq(outBelong_.getFullName(), outRoot_.getFullName());
     }
 
@@ -1970,6 +1964,7 @@ public final class Classes {
                 o.buildAnnotations(_context);
             }
         }
+        _context.setAnnotAnalysis(false);
         //init annotations here
         for (RootBlock c: getClassBodies(_predefined)) {
             c.validateConstructors(_context);
@@ -2015,14 +2010,14 @@ public final class Classes {
         if (_cl instanceof UniqueRootedBlock) {
             Classes classes_ = _context.getClasses();
             UniqueRootedBlock un_ = (UniqueRootedBlock) _cl;
-            StringList all_ = un_.getAllInterfaces();
+            StringList all_ = _cl.getAllInterfaces();
             StringList allCopy_ = new StringList(all_);
             StringList.removeAllElements(allCopy_, _context.getStandards().getPredefinedInterfacesInitOrder());
             String superClass_ = un_.getImportedDirectGenericSuperClass();
             String superClassId_ = Templates.getIdFromAllTypes(superClass_);
             RootBlock superType_ = classes_.getClassBody(superClassId_);
             if (superType_ instanceof UniqueRootedBlock) {
-                StringList.removeAllElements(allCopy_, ((UniqueRootedBlock)superType_).getAllInterfaces());
+                StringList.removeAllElements(allCopy_, superType_.getAllInterfaces());
             }
             for (String i: allCopy_) {
                 RootBlock int_ = classes_.getClassBody(i);

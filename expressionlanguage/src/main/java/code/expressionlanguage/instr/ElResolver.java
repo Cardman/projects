@@ -1619,7 +1619,7 @@ public final class ElResolver {
         String keyWordCast_ = keyWords_.getKeyWordCast();
         String keyWordExplicit_ = keyWords_.getKeyWordExplicit();
         char curChar_ = _string.charAt(i_);
-        if (_conf.isAnnotAnalysis() && curChar_ == ANNOT) {
+        if (_conf.getContextEl().isAnnotAnalysis() && curChar_ == ANNOT) {
             int j_ = i_ + 1;
             int last_ = i_;
             while (j_ < len_) {

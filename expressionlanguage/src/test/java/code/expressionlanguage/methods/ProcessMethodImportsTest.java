@@ -1211,6 +1211,26 @@ public final class ProcessMethodImportsTest extends ProcessMethodCommon {
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(9, ret_.getNumber());
     }
+    @Test
+    public void calculateArgument38Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$static java.lang.$math.plus;\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $return plus(2,4):\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_ = new Argument();
+        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq(6, ret_.getNumber());
+    }
     private static String getSecondCustomList() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.SecList<#V> :CustList<#V>{\n");

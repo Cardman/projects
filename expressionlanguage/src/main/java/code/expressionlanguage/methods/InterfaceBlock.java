@@ -58,7 +58,7 @@ public final class InterfaceBlock extends RootBlock implements GeneInterface {
     }
 
     @Override
-    public GeneType belong() {
+    public RootBlock belong() {
         return this;
     }
 

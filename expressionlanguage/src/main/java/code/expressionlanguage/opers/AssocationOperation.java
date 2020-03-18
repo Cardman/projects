@@ -40,15 +40,27 @@ public final class AssocationOperation extends AbstractUnaryOperation implements
         MethodOperation mOp_ = getParent();
         AnnotationInstanceOperation par_ = (AnnotationInstanceOperation) mOp_;
         if (par_.isArray()) {
+            return;
+        }
+        String annotationClass_ = par_.getClassName();
+        GeneType type_ = _conf.getClassBody(annotationClass_);
+        if (type_ instanceof Block) {
+            annotation = annotationClass_;
+        }
+    }
+    @Override
+    public void analyzeUnary(Analyzable _conf) {
+        MethodOperation mOp_ = getParent();
+        AnnotationInstanceOperation par_ = (AnnotationInstanceOperation) mOp_;
+        if (par_.isArray()) {
             UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
             un_.setIndexFile(_conf.getCurrentLocationIndex());
             un_.setFileName(_conf.getCurrentFileName());
             _conf.addError(un_);
-        } else {
+        }else {
             String annotationClass_ = par_.getClassName();
             GeneType type_ = _conf.getClassBody(annotationClass_);
             if (type_ instanceof Block) {
-                annotation = annotationClass_;
                 Block ann_ = (Block) type_;
                 boolean ok_ = false;
                 for (Block b: Classes.getDirectChildren(ann_)) {
@@ -71,9 +83,6 @@ public final class AssocationOperation extends AbstractUnaryOperation implements
                 }
             }
         }
-    }
-    @Override
-    public void analyzeUnary(Analyzable _conf) {
         setResultClass(getFirstChild().getResultClass());
     }
 

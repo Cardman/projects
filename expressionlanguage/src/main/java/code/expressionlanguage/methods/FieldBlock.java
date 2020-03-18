@@ -383,7 +383,7 @@ public final class FieldBlock extends Leaf implements InfoBlock {
     }
 
     @Override
-    public GeneType belong() {
+    public RootBlock belong() {
         return (RootBlock) getParent();
     }
 

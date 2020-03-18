@@ -1,16 +1,15 @@
 package code.expressionlanguage.common;
 
-import code.expressionlanguage.methods.AccessibleBlock;
 import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.MethodId;
 import code.util.*;
 
-public interface GeneType extends AccessibleBlock {
+public interface GeneType {
 
-    StringList getAllSuperClasses();
+
     StringList getAllSuperTypes();
-    GeneType getOuter();
+
 
     boolean isFinalType();
     boolean isStaticType();
@@ -31,5 +30,5 @@ public interface GeneType extends AccessibleBlock {
     String getFullName();
 
     StringList getAllGenericSuperTypes();
-    StringList getAllInterfaces();
+
 }

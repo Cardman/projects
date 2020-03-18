@@ -2463,6 +2463,44 @@ public final class RenderAliasTest extends CommonRender {
         assertNull(getException(conf_));
     }
     @Test
+    public void process83Test() {
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String html_ = "<html c:alias='$static java.lang.$math.plus;'><body>{plus(2,4)}</body></html>";
+        StringMap<String> files_ = new StringMap<String>();
+        Configuration conf_ = contextElThird(files_);
+        conf_.setMessagesFolder(folder_);
+        conf_.setProperties(new StringMap<String>());
+        conf_.getProperties().put("msg_example", relative_);
+        Document doc_ = DocumentBuilder.parseSax(html_);
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
+        conf_.getRenders().put("page1.html",rendDocumentBlock_);
+        conf_.getAnalyzing().setEnabledInternVars(false);
+        rendDocumentBlock_.buildFctInstructions(conf_);
+        assertTrue(conf_.isEmptyErrors());
+        assertEq("<html><body>6</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
+        assertNull(getException(conf_));
+    }
+    @Test
+    public void process84Test() {
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String html_ = "<html c:alias='$static java.lang.Byte.MAX_VALUE;'><body>{MAX_VALUE}</body></html>";
+        StringMap<String> files_ = new StringMap<String>();
+        Configuration conf_ = contextElThird(files_);
+        conf_.setMessagesFolder(folder_);
+        conf_.setProperties(new StringMap<String>());
+        conf_.getProperties().put("msg_example", relative_);
+        Document doc_ = DocumentBuilder.parseSax(html_);
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
+        conf_.getRenders().put("page1.html",rendDocumentBlock_);
+        conf_.getAnalyzing().setEnabledInternVars(false);
+        rendDocumentBlock_.buildFctInstructions(conf_);
+        assertTrue(conf_.isEmptyErrors());
+        assertEq("<html><body>127</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
+        assertNull(getException(conf_));
+    }
+    @Test
     public void process1FailTest() {
         String folder_ = "messages";
         String relative_ = "sample/file";

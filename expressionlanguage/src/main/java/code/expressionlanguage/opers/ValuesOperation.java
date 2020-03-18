@@ -46,7 +46,7 @@ public final class ValuesOperation extends LeafOperation {
             return;
         }
         String curClassBase_ = Templates.getIdFromAllTypes(glClass_);
-        if (!Classes.canAccessClass(curClassBase_, clName_, _conf)) {
+        if (!Classes.canAccess(curClassBase_, r_, _conf)) {
             BadAccessClass badAccess_ = new BadAccessClass();
             badAccess_.setId(clName_);
             badAccess_.setIndexFile(_conf.getCurrentLocationIndex());

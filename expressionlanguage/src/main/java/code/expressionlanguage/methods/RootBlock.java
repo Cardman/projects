@@ -23,7 +23,7 @@ import code.expressionlanguage.types.PartTypeUtil;
 import code.util.*;
 import code.util.graphs.Graph;
 
-public abstract class RootBlock extends BracedBlock implements GeneType, AccessingImportingBlock, AnnotableBlock {
+public abstract class RootBlock extends BracedBlock implements GeneType,AccessibleBlock, AccessingImportingBlock, AnnotableBlock {
 
     private final String name;
 
@@ -117,8 +117,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
 
     public abstract StringList getDirectGenericSuperTypes(Analyzable _classes);
 
-    @Override
-    public GeneType getOuter() {
+    public RootBlock getOuter() {
         RootBlock t = this;
         RootBlock o = this;
         while (t != null) {
@@ -310,17 +309,17 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
             for (ClassMethodId i: locGeneInt_) {
                 String name_ = i.getClassName();
                 MethodId id_ = i.getConstraints();
-                GeneMethod supInt_ = _context.getMethodBodiesById(name_, id_).first();
+                NamedFunctionBlock supInt_ = Classes.getMethodBodiesById(_context,name_, id_).first();
                 for (ClassMethodId c: locGeneCl_) {
                     String nameCl_ = c.getClassName();
                     MethodId idCl_ = c.getConstraints();
-                    GeneMethod supCl_ = _context.getMethodBodiesById(nameCl_, idCl_).first();
+                    NamedFunctionBlock supCl_ = Classes.getMethodBodiesById(_context,nameCl_, idCl_).first();
                     if (supInt_.getAccess().isStrictMoreAccessibleThan(supCl_.getAccess())) {
                         BadAccessMethod err_;
                         err_ = new BadAccessMethod();
                         err_.setFileName(getFile().getFileName());
-                        err_.setIndexFile(((OverridableBlock)supCl_).getAccessOffset());
-                        err_.setId(supInt_.getId().getSignature(_context));
+                        err_.setIndexFile(supCl_.getAccessOffset());
+                        err_.setId(((OverridableBlock)supInt_).getSignature(_context));
                         _context.addError(err_);
                     }
                     String retInt_ = supInt_.getImportedReturnType();
@@ -332,9 +331,9 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                             BadReturnTypeInherit err_;
                             err_ = new BadReturnTypeInherit();
                             err_.setFileName(getFile().getFileName());
-                            err_.setIndexFile(((OverridableBlock)supCl_).getReturnTypeOffset());
+                            err_.setIndexFile(supCl_.getReturnTypeOffset());
                             err_.setReturnType(retBase_);
-                            err_.setMethod(supCl_.getId().getSignature(_context));
+                            err_.setMethod(((OverridableBlock)supCl_).getSignature(_context));
                             err_.setParentClass(nameCl_);
                             _context.addError(err_);
                         }
@@ -344,9 +343,9 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                         BadReturnTypeInherit err_;
                         err_ = new BadReturnTypeInherit();
                         err_.setFileName(getFile().getFileName());
-                        err_.setIndexFile(((OverridableBlock)supCl_).getReturnTypeOffset());
+                        err_.setIndexFile(supCl_.getReturnTypeOffset());
                         err_.setReturnType(retBase_);
-                        err_.setMethod(supCl_.getId().getSignature(_context));
+                        err_.setMethod(((OverridableBlock)supCl_).getSignature(_context));
                         err_.setParentClass(nameCl_);
                         _context.addError(err_);
                     }
@@ -1338,7 +1337,6 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
             un_.setIndexFile(getOffset().getOffsetTrim());
             _cont.addError(un_);
         }
-        String idType_ = getFullName();
         for (ConstructorBlock c: ctors_) {
             c.setupInstancingStep(_cont);
         }
@@ -1440,9 +1438,11 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
     public CustList<PartOffset> getSuperTypesParts() {
         return superTypesParts;
     }
+    public abstract StringList getAllSuperClasses();
+    public abstract StringList getAllInterfaces();
     public abstract boolean mustImplement();
     @Override
-    public boolean isTypeHidden(String _class, Analyzable _analyzable) {
-        return !Classes.canAccessClass(getFullName(), _class, _analyzable);
+    public boolean isTypeHidden(RootBlock _class, Analyzable _analyzable) {
+        return !Classes.canAccess(getFullName(), _class, _analyzable);
     }
 }

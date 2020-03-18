@@ -6,6 +6,7 @@ import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.methods.AccessEnum;
+import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.util.ClassCategory;
 import code.expressionlanguage.opers.util.ConstructorId;
@@ -57,7 +58,7 @@ public final class ClassMetaInfo implements AnnotatedStruct, ExportableStringStr
                 superClass = EMPTY_STRING;
                 access = AccessEnum.PUBLIC;
             } else {
-                GeneType g_ = _context.getClassBody(comp_);
+                RootBlock g_ = _context.getClasses().getClassBody(comp_);
                 if (g_ == null) {
                     access = AccessEnum.PUBLIC;
                 } else {
@@ -170,7 +171,7 @@ public final class ClassMetaInfo implements AnnotatedStruct, ExportableStringStr
         list_ = new CustList<ClassMetaInfo>();
         String id_ = Templates.getIdFromAllTypes(variableOwner);
         CustList<TypeVar> vars_;
-        GeneType g_ = _cont.getClassBody(id_);
+        RootBlock g_ = _cont.getClasses().getClassBody(id_);
         if (g_ == null) {
             return list_;
         }
@@ -190,7 +191,7 @@ public final class ClassMetaInfo implements AnnotatedStruct, ExportableStringStr
         CustList<ClassMetaInfo> list_;
         list_ = new CustList<ClassMetaInfo>();
         String id_ = Templates.getIdFromAllTypes(name);
-        GeneType g_ = _cont.getClassBody(id_);
+        RootBlock g_ = _cont.getClasses().getClassBody(id_);
         if (g_ == null) {
             return list_;
         }

@@ -1,9 +1,8 @@
 package code.expressionlanguage.common;
 
-import code.expressionlanguage.methods.AccessibleBlock;
 import code.util.StringList;
 
-public interface GeneField extends AccessibleBlock {
+public interface GeneField {
 
     boolean isStaticField();
 

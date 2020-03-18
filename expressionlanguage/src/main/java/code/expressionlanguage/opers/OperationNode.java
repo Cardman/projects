@@ -3,6 +3,7 @@ package code.expressionlanguage.opers;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.ImportedMethod;
 import code.expressionlanguage.common.GeneConstructor;
 import code.expressionlanguage.common.GeneInterface;
 import code.expressionlanguage.common.GeneMethod;
@@ -259,9 +260,8 @@ public abstract class OperationNode implements Operable {
         if (_op.getPriority() == ElResolver.DECL_PRIO) {
             return new DeclaringOperation(_index, _indexChild, _m, _op);
         }
-        if (_op.getPriority() == ElResolver.FCT_OPER_PRIO && _an.isAnnotAnalysis()) {
-            String op_ = _op.getOperators().firstValue();
-            if (StringList.quickEq(op_, String.valueOf(ARR_ANNOT))&&(_m == null||_m instanceof AnnotationInstanceOperation||_m instanceof AssocationOperation)) {
+        if (_op.getPriority() == ElResolver.FCT_OPER_PRIO) {
+            if (_an.isAnnotAnalysis(_m,_op)) {
                 return new AnnotationInstanceOperation(_index, _indexChild, _m, _op);
             }
             String fctName_ = _op.getFctName().trim();
@@ -410,7 +410,7 @@ public abstract class OperationNode implements Operable {
             return new ShortTernaryOperation(_index, _indexChild, _m, _op);
         }
         if (_op.getPriority() == ElResolver.AFF_PRIO) {
-            if (_an.isAnnotAnalysis() && _m instanceof AnnotationInstanceOperation) {
+            if (_m instanceof AnnotationInstanceOperation) {
                 String value_ = _op.getValues().firstValue();
                 return new AssocationOperation(_index, _indexChild, _m, _op, value_);
             }
@@ -425,9 +425,10 @@ public abstract class OperationNode implements Operable {
 
     static void checkClassAccess(Analyzable _conf, String _glClass, String _classStr) {
         Classes classes_ = _conf.getClasses();
-        if (classes_.isCustomType(_classStr)) {
+        RootBlock r_ = classes_.getClassBody(_classStr);
+        if (r_ != null) {
             String curClassBase_ = Templates.getIdFromAllTypes(_glClass);
-            if (!Classes.canAccessClass(curClassBase_, _classStr, _conf)) {
+            if (!Classes.canAccess(curClassBase_, r_, _conf)) {
                 BadAccessClass badAccess_ = new BadAccessClass();
                 badAccess_.setId(_classStr);
                 badAccess_.setIndexFile(_conf.getCurrentLocationIndex());
@@ -712,8 +713,10 @@ public abstract class OperationNode implements Operable {
                     continue;
                 }
             }
-            if (!Classes.canAccess(glClass_, e, _conf)) {
-                continue;
+            if (e instanceof AccessibleBlock) {
+                if (!Classes.canAccess(glClass_, (AccessibleBlock)e, _conf)) {
+                    continue;
+                }
             }
             ParametersGroup pg_ = new ParametersGroup();
             for (String c: ctor_.getParametersTypes()) {
@@ -958,27 +961,25 @@ public abstract class OperationNode implements Operable {
         methods_ = new ObjectMap<ClassMethodId, MethodInfo>();
         fetchParamClassAncMethods(_conf,_fromClasses,_staticContext,_accessFromSuper,_superClass,_uniqueId,methods_);
         if (_import) {
-            for (EntryCust<ClassMethodId, Integer> e: _conf.lookupImportStaticMethods(glClass_, _name, _conf.getCurrentBlock()).entryList()) {
+            for (EntryCust<ClassMethodId, ImportedMethod> e: _conf.lookupImportStaticMethods(glClass_, _name, _conf.getCurrentBlock()).entryList()) {
                 ClassMethodId m = e.getKey();
                 String clName_ = m.getClassName();
                 MethodId id_ = m.getConstraints();
                 if (isCandidateMethod(_uniqueId, clName_, id_)) {
                     continue;
                 }
-                GeneMethod method_ = _conf.getMethodBodiesById(clName_, id_).first();
-                String returnType_ = method_.getImportedReturnType();
                 ParametersGroup p_ = new ParametersGroup();
                 for (String c: id_.getParametersTypes()) {
                     p_.add(new ClassMatching(c));
                 }
                 MethodInfo mloc_ = new MethodInfo();
-                mloc_.setImported(e.getValue());
+                mloc_.setImported(e.getValue().getImported());
                 mloc_.setClassName(clName_);
                 mloc_.setStatic(true);
                 mloc_.setConstraints(id_);
                 mloc_.setParameters(p_);
                 mloc_.format(_conf);
-                mloc_.setReturnType(returnType_);
+                mloc_.setReturnType(e.getValue().getReturnType());
                 methods_.add(m, mloc_);
             }
         }
@@ -1120,8 +1121,10 @@ public abstract class OperationNode implements Operable {
                 }
             }
             String subType_ = _superTypesBaseMap.getVal(fullName_);
-            if (!Classes.canAccess(subType_, e, _conf)) {
-                continue;
+            if (e instanceof AccessibleBlock) {
+                if (!Classes.canAccess(subType_, (AccessibleBlock)e, _conf)) {
+                    continue;
+                }
             }
             if (_accessFromSuper) {
                 if (StringList.contains(_superTypesBase, fullName_)) {
@@ -1189,8 +1192,10 @@ public abstract class OperationNode implements Operable {
         } else {
             formattedClass_ = _f;
         }
-        if (!Classes.canAccess(_glClass, _m, _conf)) {
-            return null;
+        if (_m instanceof AccessibleBlock) {
+            if (!Classes.canAccess(_glClass, (AccessibleBlock)_m, _conf)) {
+                return null;
+            }
         }
         String ret_ = _m.getImportedReturnType();
         ret_ = Templates.wildCardFormatReturn(false, formattedClass_, ret_, _conf);

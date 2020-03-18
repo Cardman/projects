@@ -64,7 +64,7 @@ public final class AnnotationBlock extends RootBlock {
     }
 
     @Override
-    public GeneType belong() {
+    public RootBlock belong() {
         return this;
     }
 
@@ -77,10 +77,6 @@ public final class AnnotationBlock extends RootBlock {
     public void buildDirectGenericSuperTypes(ContextEl _classes) {
         importedDirectSuperInterfaces.clear();
         importedDirectSuperInterfaces.add(_classes.getStandards().getAliasAnnotationType());
-    }
-
-    public StringList getImportedDirectSuperInterfaces() {
-        return importedDirectSuperInterfaces;
     }
 
     @Override

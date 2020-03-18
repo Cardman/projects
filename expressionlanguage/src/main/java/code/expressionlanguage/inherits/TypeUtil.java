@@ -10,8 +10,6 @@ import code.expressionlanguage.errors.custom.FinalMethod;
 import code.expressionlanguage.methods.*;
 import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.util.*;
-import code.expressionlanguage.stds.StandardClass;
-import code.expressionlanguage.stds.StandardInterface;
 import code.expressionlanguage.stds.StandardType;
 import code.util.*;
 
@@ -23,15 +21,6 @@ public final class TypeUtil {
     public static void buildInherits(ContextEl _context){
         for (EntryCust<String, StandardType> s: _context.getStandards().getStandards().entryList()) {
             buildInherits(s.getValue(), _context);
-        }
-        for (EntryCust<String, StandardType> s: _context.getStandards().getStandards().entryList()) {
-            StandardType s_ = s.getValue();
-            if (s_ instanceof StandardClass) {
-                s_.getAllSuperTypes().addAllElts(s_.getAllSuperClasses());
-                s_.getAllSuperTypes().addAllElts(s_.getAllInterfaces());
-            } else {
-                s_.getAllSuperTypes().addAllElts(s_.getAllSuperClasses());
-            }
         }
     }
 
@@ -108,7 +97,7 @@ public final class TypeUtil {
             }
         }
         for (String c: _types) {
-            GeneType bl_ = _context.getClassBody(c);
+            RootBlock bl_ = _context.getClasses().getClassBody(c);
             if (!(bl_ instanceof UniqueRootedBlock)) {
                 continue;
             }
@@ -118,7 +107,7 @@ public final class TypeUtil {
             for (String i: ints_) {
                 trimmedInt_.add(i);
             }
-            StringList all_ = un_.getAllInterfaces();
+            StringList all_ = bl_.getAllInterfaces();
             StringList allCopy_ = new StringList(all_);
             StringList.removeAllElements(allCopy_, _context.getStandards().getPredefinedInterfacesInitOrder());
             String clName_ = un_.getImportedDirectGenericSuperClass();
@@ -169,58 +158,26 @@ public final class TypeUtil {
         }
     }
     private static void buildInherits(StandardType _type, ContextEl _context) {
-        String aliasObject_ = _context.getStandards().getAliasObject();
-        if (_type instanceof StandardClass) {
-            StandardClass type_ = (StandardClass) _type;
-            String typeName_ = type_.getSuperClass();
-            while (true) {
-                if (typeName_.isEmpty()) {
-                    break;
-                }
-                _type.getAllSuperClasses().add(typeName_);
-                if (StringList.quickEq(typeName_, aliasObject_)) {
-                    break;
-                }
-                type_ = (StandardClass) _context.getClassBody(typeName_);
-                typeName_ = type_.getSuperClass();
-            }
-            type_ = (StandardClass) _type;
-            StringList allSuperInterfaces_ = new StringList(type_.getDirectInterfaces(_context));
-            for (String s: _type.getAllSuperClasses()) {
-                allSuperInterfaces_.addAllElts(((StandardClass)_context.getClassBody(s)).getDirectInterfaces(_context));
-            }
-            feedInts(_type,_context,allSuperInterfaces_);
-            type_.getAllInterfaces().addAllElts(allSuperInterfaces_);
-        } else {
-            StandardInterface type_ = (StandardInterface) _type;
-            StringList allSuperInterfaces_ = new StringList(type_.getDirectSuperClasses(_context));
-            feedInts(_type,_context,allSuperInterfaces_);
-            type_.getAllSuperClasses().addAllElts(allSuperInterfaces_);
-        }
+        feedSupers(_type,_context,_type.getAllSuperTypes());
     }
-    private static void feedInts(StandardType _type, ContextEl _context, StringList _ints) {
-        String aliasObject_ = _context.getStandards().getAliasObject();
-        StringList currentSuperInterfaces_ = new StringList(_type.getDirectInterfaces());
+    private static void feedSupers(StandardType _type, ContextEl _context, StringList _types) {
+        StringList currentSuperTypes_ = new StringList(_type.getDirectSuperTypes());
+        _types.addAllElts(currentSuperTypes_);
         while (true) {
-            StringList newSuperInterfaces_ = new StringList();
-            for (String c: currentSuperInterfaces_) {
-                GeneType st_ = _context.getClassBody(c);
-                if (!(st_ instanceof StandardInterface)) {
-                    continue;
-                }
-                StandardInterface superType_ = (StandardInterface) st_;
-                for (String s: superType_.getDirectSuperClasses(_context)) {
-                    newSuperInterfaces_.add(s);
-                    _ints.add(s);
+            StringList newSuperTypes_ = new StringList();
+            for (String c: currentSuperTypes_) {
+                StandardType st_ = _context.getStandards().getStandards().getVal(c);
+                for (String s: st_.getDirectSuperTypes()) {
+                    newSuperTypes_.add(s);
+                    _types.add(s);
                 }
             }
-            if (newSuperInterfaces_.isEmpty()) {
+            if (newSuperTypes_.isEmpty()) {
                 break;
             }
-            currentSuperInterfaces_ = newSuperInterfaces_;
+            currentSuperTypes_ = newSuperTypes_;
         }
-        StringList.removeAllObj(_ints, aliasObject_);
-        _ints.removeDuplicates();
+        _types.removeDuplicates();
     }
     public static void buildOverrides(RootBlock _type,ContextEl _context) {
         Classes classesRef_ = _context.getClasses();
@@ -229,8 +186,8 @@ public final class TypeUtil {
             BadReturnTypeInherit err_;
             err_ = new BadReturnTypeInherit();
             err_.setFileName(fileName_);
-            GeneMethod sub_ = _context.getMethodBodiesById(c.getClassName(), c.getConstraints()).first();
-            err_.setIndexFile(((NamedFunctionBlock) sub_).getReturnTypeOffset());
+            NamedFunctionBlock sub_ = Classes.getMethodBodiesById(_context,c.getClassName(),c.getConstraints()).first();
+            err_.setIndexFile(sub_.getReturnTypeOffset());
             err_.setReturnType(sub_.getImportedReturnType());
             err_.setMethod(c.getConstraints().getSignature(_context));
             err_.setParentClass(c.getClassName());
@@ -248,7 +205,7 @@ public final class TypeUtil {
             for (ClassMethodId c: allMethods_) {
                 String templClass_ = c.getClassName();
                 String typeName_ = Templates.getIdFromAllTypes(templClass_);
-                GeneType sub_ = classesRef_.getClassBody(typeName_);
+                RootBlock sub_ = classesRef_.getClassBody(typeName_);
                 StringList allSuperTypes_ = sub_.getAllSuperTypes();
                 for (ClassMethodId s: allMethods_) {
                     String super_ = s.getClassName();
@@ -268,8 +225,8 @@ public final class TypeUtil {
             for (OverridingRelation l: pairs_) {
                 ClassMethodId subId_ = l.getSubMethod();
                 ClassMethodId supId_ = l.getSupMethod();
-                GeneMethod sub_ = _context.getMethodBodiesById(subId_.getClassName(), subId_.getConstraints()).first();
-                GeneMethod sup_ = _context.getMethodBodiesById(supId_.getClassName(), supId_.getConstraints()).first();
+                NamedFunctionBlock sub_ = Classes.getMethodBodiesById(_context,subId_.getClassName(), subId_.getConstraints()).first();
+                NamedFunctionBlock sup_ = Classes.getMethodBodiesById(_context,supId_.getClassName(), supId_.getConstraints()).first();
                 if (subId_.eq(supId_)) {
                     if (Classes.canAccess(_type.getFullName(), sub_, _context)) {
                         relations_.add(l);
@@ -281,8 +238,8 @@ public final class TypeUtil {
             for (OverridingRelation l: relations_) {
                 ClassMethodId subId_ = l.getSubMethod();
                 ClassMethodId supId_ = l.getSupMethod();
-                GeneMethod sub_ = _context.getMethodBodiesById(subId_.getClassName(), subId_.getConstraints()).first();
-                GeneMethod sup_ = _context.getMethodBodiesById(supId_.getClassName(), supId_.getConstraints()).first();
+                NamedFunctionBlock sub_ = Classes.getMethodBodiesById(_context,subId_.getClassName(), subId_.getConstraints()).first();
+                NamedFunctionBlock sup_ = Classes.getMethodBodiesById(_context,supId_.getClassName(), supId_.getConstraints()).first();
                 if (subId_.eq(supId_)) {
                     addClass(_type.getAllOverridingMethods(), key_, subId_);
                 } else {
@@ -290,13 +247,13 @@ public final class TypeUtil {
                     String retDerive_ = sub_.getImportedReturnType();
                     String formattedRetDer_ = Templates.quickFormat(subId_.getClassName(), retDerive_, _context);
                     String formattedRetBase_ = Templates.quickFormat(supId_.getClassName(), retBase_, _context);
-                    if (sup_.isFinalMethod()) {
+                    if (((OverridableBlock)sup_).isFinalMethod()) {
                         FinalMethod err_;
                         err_ = new FinalMethod();
                         err_.setFileName(fileName_);
-                        err_.setIndexFile(((OverridableBlock) sub_).getNameOffset());
+                        err_.setIndexFile(sub_.getNameOffset());
                         err_.setClassName(subId_.getClassName());
-                        err_.setId(sub_.getId().getSignature(_context));
+                        err_.setId(((OverridableBlock)sub_).getSignature(_context));
                         _context.addError(err_);
                         continue;
                     }
@@ -304,8 +261,8 @@ public final class TypeUtil {
                         BadAccessMethod err_;
                         err_ = new BadAccessMethod();
                         err_.setFileName(fileName_);
-                        err_.setIndexFile(((OverridableBlock) sub_).getAccessOffset());
-                        err_.setId(sub_.getId().getSignature(_context));
+                        err_.setIndexFile(sub_.getAccessOffset());
+                        err_.setId(((OverridableBlock)sub_).getSignature(_context));
                         _context.addError(err_);
                         continue;
                     }
@@ -314,9 +271,9 @@ public final class TypeUtil {
                             BadReturnTypeInherit err_;
                             err_ = new BadReturnTypeInherit();
                             err_.setFileName(fileName_);
-                            err_.setIndexFile(((OverridableBlock) sub_).getReturnTypeOffset());
+                            err_.setIndexFile(sub_.getReturnTypeOffset());
                             err_.setReturnType(retDerive_);
-                            err_.setMethod(sub_.getId().getSignature(_context));
+                            err_.setMethod(((OverridableBlock)sub_).getSignature(_context));
                             err_.setParentClass(supId_.getClassName());
                             _context.addError(err_);
                             continue;
@@ -329,9 +286,9 @@ public final class TypeUtil {
                         BadReturnTypeInherit err_;
                         err_ = new BadReturnTypeInherit();
                         err_.setFileName(fileName_);
-                        err_.setIndexFile(((OverridableBlock) sub_).getReturnTypeOffset());
+                        err_.setIndexFile(sub_.getReturnTypeOffset());
                         err_.setReturnType(retDerive_);
-                        err_.setMethod(sub_.getId().getSignature(_context));
+                        err_.setMethod(((OverridableBlock)sub_).getSignature(_context));
                         err_.setParentClass(supId_.getClassName());
                         _context.addError(err_);
                         continue;
@@ -345,7 +302,7 @@ public final class TypeUtil {
     public static StringMap<ClassMethodId> getConcreteMethodsToCall(GeneType _type,MethodId _realId, ContextEl _conf) {
         StringMap<ClassMethodId> eq_ = new StringMap<ClassMethodId>();
         String baseClassFound_ = _type.getFullName();
-        for (GeneType c: _conf.getClassBodies()) {
+        for (RootBlock c: _conf.getClasses().getClassBodies()) {
             String name_ = c.getFullName();
             String baseCond_ = Templates.getFullTypeByBases(c.getGenericString(), baseClassFound_, _conf);
             if (baseCond_ == null) {
@@ -433,7 +390,7 @@ public final class TypeUtil {
         for (ClassMethodId t: foundSuperClasses_) {
             String t_ = t.getClassName();
             String baseSuperType_ = Templates.getIdFromAllTypes(t_);
-            GeneMethod method_ = _conf.getMethodBodiesById(baseSuperType_, t.getConstraints()).first();
+            GeneMethod method_ = (GeneMethod) Classes.getMethodBodiesById(_conf,baseSuperType_, t.getConstraints()).first();
             if (method_.isAbstractMethod()) {
                 continue;
             }
@@ -471,11 +428,11 @@ public final class TypeUtil {
         return null;
     }
 
-    private static ClassMethodId tryGetUniqueId(String _subTypeName, GeneType _type, MethodId _realId, ContextEl _conf) {
+    private static ClassMethodId tryGetUniqueId(String _subTypeName, RootBlock _type, MethodId _realId, ContextEl _conf) {
         String name_ = _type.getFullName();
         if (ContextEl.isEnumType(_type)) {
             String en_ = _conf.getStandards().getAliasEnumType();
-            if (!_conf.getMethodBodiesById(en_, _realId).isEmpty()) {
+            if (!Classes.getMethodBodiesById(_conf,en_, _realId).isEmpty()) {
                 return new ClassMethodId(en_, _realId);
             }
         }
@@ -483,7 +440,10 @@ public final class TypeUtil {
         StringList allBaseClasses_ = new StringList(name_);
         allBaseClasses_.addAllElts(_type.getAllSuperClasses());
         for (String s: allBaseClasses_) {
-            GeneType r_ = _conf.getClassBody(s);
+            RootBlock r_ = _conf.getClasses().getClassBody(s);
+            if (r_ == null) {
+                continue;
+            }
             String gene_ = r_.getGenericString();
             String v_ = Templates.getFullTypeByBases(gene_, _subTypeName, _conf);
             if (v_ == null) {
@@ -522,7 +482,7 @@ public final class TypeUtil {
             classNameFound_ = tree_.firstKey();
             realId_ = tree_.firstValue();
             classNameFound_ = Templates.getIdFromAllTypes(classNameFound_);
-            if (_conf.getMethodBodiesById(classNameFound_, realId_).first().isAbstractMethod()) {
+            if (((GeneMethod) Classes.getMethodBodiesById(_conf,classNameFound_, realId_).first()).isAbstractMethod()) {
                 continue;
             }
             return new ClassMethodId(classNameFound_, realId_);

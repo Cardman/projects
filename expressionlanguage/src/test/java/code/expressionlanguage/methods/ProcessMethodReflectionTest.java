@@ -6093,6 +6093,29 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ErrorStruct err_ = (ErrorStruct) getException(cont_);
         assertEq("code.expressionlanguage.exceptions.IllegalArgument",err_.getClassName(cont_));
     }
+
+    @Test
+    public void processEl496Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $public $static $boolean exmeth(){\n");
+        xml_.append("  $return $static($Class).getAllClasses().length > 0:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $enum pkg.Ex {\n");
+        xml_.append(" ONE{}\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        assertTrue(ret_.isTrue());
+    }
     @Test
     public void reflect1Test() {
         ContextEl cont_ = contextEl();
