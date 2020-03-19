@@ -5877,7 +5877,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
     }
 
     private static void addImportingPage(ContextEl _conf) {
-        _conf.setAnalyzing(new AnalyzedPageEl());
+        _conf.setAnalyzing();
     }
 
     private static void addBeanClassName(ContextEl _conf, String _bean) {

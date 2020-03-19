@@ -2,16 +2,18 @@ package code.formathtml;
 
 import code.bean.BeanInfo;
 import code.bean.validator.Validator;
-import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.DefaultInitializer;
 import code.expressionlanguage.DefaultLockingClass;
 import code.expressionlanguage.errors.AnalysisMessages;
+import code.expressionlanguage.errors.stds.StdWordError;
 import code.expressionlanguage.options.ContextFactory;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
-import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.variables.VariableSuffix;
+import code.formathtml.errors.RendAnalysisMessages;
+import code.formathtml.errors.RendKeyWords;
+import code.formathtml.util.BeanCustLgNames;
 import code.formathtml.util.BeanLgNames;
 import code.formathtml.util.BeanNatLgNames;
 import code.sml.Document;
@@ -23,7 +25,7 @@ public final class ReadConfiguration {
 
     private ReadConfiguration(){
     }
-    public static void load(Configuration _configuration, Document _document) {
+    public static void load(Configuration _configuration, String _lgCode,Document _document) {
         BeanLgNames stds_ = _configuration.getAdvStandards();
         boolean found_ = false;
         for (Element c: _document.getDocumentElement().getChildElements()) {
@@ -45,7 +47,7 @@ public final class ReadConfiguration {
                 continue;
             }
             if (stds_ instanceof BeanNatLgNames && StringList.quickEq(fieldName_, "validators")) {
-                _configuration.setValidators(loadValidator(c, stds_));
+                _configuration.setValidators(loadValidator(c, (BeanNatLgNames) stds_));
                 continue;
             }
             if (StringList.quickEq(fieldName_, "lateValidators")) {
@@ -72,9 +74,9 @@ public final class ReadConfiguration {
                 _configuration.setFilesConfName(c.getAttribute("value"));
                 continue;
             }
-            if (StringList.quickEq(fieldName_, "context")) {
+            if (stds_ instanceof BeanCustLgNames &&StringList.quickEq(fieldName_, "context")) {
                 found_ = true;
-                _configuration.setContext(loadContext(c, stds_));
+                _configuration.setContext(loadContext(c, _lgCode, (BeanCustLgNames) stds_,_configuration));
                 continue;
             }
             if (StringList.quickEq(fieldName_, "addedFiles")) {
@@ -95,16 +97,25 @@ public final class ReadConfiguration {
             context_.getOptions().setSuffixVar(VariableSuffix.DISTINCT);
             context_.setStandards(stds_);
             _configuration.setContext(context_);
-            context_.setAnalyzing(new AnalyzedPageEl());
+            context_.setAnalyzing();
         }
     }
-    static ContextEl loadContext(Element _elt, LgNames _stds) {
+    static ContextEl loadContext(Element _elt, String _lg,BeanCustLgNames _stds, Configuration _conf) {
         DefaultLockingClass lk_ = new DefaultLockingClass();
         DefaultInitializer di_ = new DefaultInitializer();
         AnalysisMessages a_ = new AnalysisMessages();
         KeyWords kw_ = new KeyWords();
         Options opt_ = new Options();
         opt_.setReadOnly(true);
+        for (Element c: _elt.getChildElements()) {
+            String fieldName_ = c.getAttribute("field");
+            if (StringList.quickEq(fieldName_, "options")) {
+                opt_ = loadOptions(c);
+            }
+        }
+        RendKeyWords rkw_ = _conf.getRendKeyWords();
+        RendAnalysisMessages rMess_ = _conf.getRendAnalysisMessages();
+        _stds.buildAliases(_elt,_lg, rkw_,kw_,rMess_,a_);
         ContextEl context_ = ContextFactory.build(-1,lk_, di_, opt_, a_, kw_, _stds,4);
         for (Element c: _elt.getChildElements()) {
             String fieldName_ = c.getAttribute("field");
@@ -114,12 +125,37 @@ public final class ReadConfiguration {
             }
             if (StringList.quickEq(fieldName_, "tabWidth")) {
                 context_.setTabWidth(Numbers.parseInt(c.getAttribute("value")));
-                continue;
             }
-            if (StringList.quickEq(fieldName_, "options")) {
-                context_.setOptions(loadOptions(c));
-                continue;
-            }
+        }
+        context_.setOptions(opt_);
+        _conf.setContext(context_);
+        AnalysisMessages.validateMessageContents(context_, rMess_.allMessages());
+        if (!context_.getClasses().isEmptyMessageError()) {
+            return null;
+        }
+        StringMap<String> allTags_ = rkw_.allTags();
+        rkw_.validateTagContents(_conf,allTags_);
+        rkw_.validateDuplicates(_conf,allTags_);
+        StringMap<String> allAttrs_ = rkw_.allAttrs();
+        rkw_.validateAttrContents(_conf,allAttrs_);
+        rkw_.validateDuplicates(_conf,allAttrs_);
+        StringMap<String> allValues_ = rkw_.allValues();
+        rkw_.validateValueContents(_conf,allValues_);
+        rkw_.validateDuplicates(_conf,allValues_);
+        StringMap<String> allStyleAttrs_ = rkw_.allStyleAttrs();
+        rkw_.validateAttrContents(_conf,allStyleAttrs_);
+        rkw_.validateDuplicates(_conf,allStyleAttrs_);
+        StringMap<String> allSyleValues_ = rkw_.allStyleValues();
+        rkw_.validateStyleValueContents(_conf,allSyleValues_);
+        rkw_.validateDuplicates(_conf,allSyleValues_);
+        StringMap<String> allStyleUnits_ = rkw_.allStyleUnits();
+        rkw_.validateStyleUnitContents(_conf,allStyleUnits_);
+        rkw_.validateDuplicates(_conf,allStyleUnits_);
+        for (StdWordError s: _conf.getStdErrorDet()) {
+            context_.getClasses().addStdError(s);
+        }
+        if (!context_.getClasses().isEmptyStdError()) {
+            return null;
         }
         return context_;
     }
@@ -171,7 +207,7 @@ public final class ReadConfiguration {
         }
         return bean_;
     }
-    static StringMap<Validator> loadValidator(Element _elt, BeanLgNames _stds) {
+    static StringMap<Validator> loadValidator(Element _elt, BeanNatLgNames _stds) {
         StringMap<Validator> validators_ = new StringMap<Validator>();
         int i_ = 0;
         String key_ = "";

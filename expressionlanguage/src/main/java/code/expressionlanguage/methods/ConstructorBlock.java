@@ -4,9 +4,7 @@ import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.GeneConstructor;
-import code.expressionlanguage.common.GeneType;
-import code.expressionlanguage.errors.custom.BadInheritedClass;
-import code.expressionlanguage.errors.custom.UnassignedFinalField;
+import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.files.OffsetAccessInfo;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
@@ -15,7 +13,7 @@ import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.opers.util.*;
 import code.util.*;
 
-public final class ConstructorBlock extends NamedFunctionBlock implements GeneConstructor,ReturnableWithSignature {
+public final class ConstructorBlock extends NamedFunctionBlock implements AccessibleBlock,GeneConstructor,ReturnableWithSignature {
 
     private ConstructorId constIdSameClass;
 
@@ -144,20 +142,39 @@ public final class ConstructorBlock extends NamedFunctionBlock implements GeneCo
         }
         if (!checkThis_) {
             if (!StringList.equalsSet(filteredCtor_, ints_)) {
-                BadInheritedClass undef_;
-                undef_ = new BadInheritedClass();
-                undef_.setClassName(((RootBlock) getParent()).getFullName());
-                undef_.setFileName(getFile().getFileName());
-                undef_.setIndexFile(0);
-                _an.addError(undef_);
+                for (String n:filteredCtor_) {
+                    if (!StringList.contains(ints_,n)) {
+                        FoundErrorInterpret undef_;
+                        undef_ = new FoundErrorInterpret();
+                        undef_.setFileName(getFile().getFileName());
+                        undef_.setIndexFile(0);
+                        //left par of ctor
+                        undef_.buildError(_an.getContextEl().getAnalysisMessages().getMustCallIntCtorNeed(),
+                                n);
+                        _an.addError(undef_);
+                    }
+                }
+                for (String n:ints_) {
+                    if (!StringList.contains(filteredCtor_,n)) {
+                        FoundErrorInterpret undef_;
+                        undef_ = new FoundErrorInterpret();
+                        undef_.setFileName(getFile().getFileName());
+                        undef_.setIndexFile(0);
+                        //constructor ref header len
+                        undef_.buildError(_an.getContextEl().getAnalysisMessages().getMustCallIntCtorNotNeed(),
+                                n);
+                        _an.addError(undef_);
+                    }
+                }
             }
         } else {
             if (!ints_.isEmpty()) {
-                BadInheritedClass undef_;
-                undef_ = new BadInheritedClass();
-                undef_.setClassName(((RootBlock) getParent()).getFullName());
+                FoundErrorInterpret undef_;
+                undef_ = new FoundErrorInterpret();
                 undef_.setFileName(getFile().getFileName());
                 undef_.setIndexFile(0);
+                //first constructor ref header len
+                undef_.buildError(_an.getContextEl().getAnalysisMessages().getMustNotCallIntCtorAfterThis());
                 _an.addError(undef_);
             }
         }
@@ -168,7 +185,7 @@ public final class ConstructorBlock extends NamedFunctionBlock implements GeneCo
         setAssignmentAfter(_an,_anEl);
         checkInterfaces(_an);
         IdMap<Block, AssignedVariables> id_ = _an.getContextEl().getAssignedVariables().getFinalVariables();
-        for (EntryCust<ReturnMethod, StringMap<SimpleAssignment>> r: _anEl.getAssignments().entryList()) {
+        for (EntryCust<ReturnMethod, StringMap<SimpleAssignment>> r: _an.getContextEl().getAssignedVariables().getAssignments().entryList()) {
             for (EntryCust<String, SimpleAssignment> f: r.getValue().entryList()) {
                 checkAssignments(_an, f,false);
             }
@@ -201,9 +218,11 @@ public final class ConstructorBlock extends NamedFunctionBlock implements GeneCo
         SimpleAssignment a_ = _pair.getValue();
         if (!a_.isAssignedAfter()) {
             //error
-            UnassignedFinalField un_ = new UnassignedFinalField(key_);
+            FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(getFile().getFileName());
             un_.setIndexFile(getOffset().getOffsetTrim());
+            un_.buildError(_an.getContextEl().getAnalysisMessages().getUnassignedFinalField(),
+                    name_,cl_);
             _an.addError(un_);
         } else if (_add){
             _an.getAnalyzing().getInitFieldsCtors().add(name_);

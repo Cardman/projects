@@ -3,8 +3,7 @@ package code.expressionlanguage.opers;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.errors.custom.BadImplicitCast;
-import code.expressionlanguage.errors.custom.StaticAccessThisError;
+import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.inherits.Mapping;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.OperationsSequence;
@@ -41,13 +40,6 @@ public final class ForwardOperation extends LeafOperation implements PossibleInt
             setResultClass(new ClassArgumentMatching(previousResultClass.getNames()));
         } else {
             String arg_ = _conf.getGlobalClass();
-            if (_conf.getStaticContext() != MethodAccessKind.INSTANCE) {
-                StaticAccessThisError static_ = new StaticAccessThisError();
-                static_.setClassName(arg_);
-                static_.setFileName(_conf.getCurrentFileName());
-                static_.setIndexFile(_conf.getCurrentLocationIndex());
-                _conf.addError(static_);
-            }
             setResultClass(new ClassArgumentMatching(arg_));
         }
         KeyWords keyWords_ = _conf.getKeyWords();
@@ -56,12 +48,16 @@ public final class ForwardOperation extends LeafOperation implements PossibleInt
         String keyWordThisaccess_ = keyWords_.getKeyWordThisaccess();
         String keyWordClasschoice_ = keyWords_.getKeyWordClasschoice();
         String trimMeth_ = originalStr_.trim();
+        String kw_;
         if (ContextEl.startsWithKeyWord(trimMeth_, keyWordSuper_)) {
+            kw_ = keyWordSuper_;
             staticChoiceMethod = true;
             accessFromSuper = true;
         } else if (ContextEl.startsWithKeyWord(trimMeth_, keyWordThat_)) {
+            kw_ = keyWordThat_;
             staticChoiceMethod = true;
         } else if (ContextEl.startsWithKeyWord(trimMeth_, keyWordThisaccess_)) {
+            kw_ = keyWordThisaccess_;
             String className_ = trimMeth_.substring(0, trimMeth_.lastIndexOf(PAR_RIGHT));
             int lenPref_ = trimMeth_.indexOf(PAR_LEFT) + 1;
             className_ = className_.substring(lenPref_);
@@ -74,14 +70,18 @@ public final class ForwardOperation extends LeafOperation implements PossibleInt
             StringMap<StringList> mapping_ = _conf.getCurrentConstraints();
             map_.setMapping(mapping_);
             if (!Templates.isCorrectOrNumbers(map_, _conf)) {
-                BadImplicitCast cast_ = new BadImplicitCast();
-                cast_.setMapping(map_);
+                FoundErrorInterpret cast_ = new FoundErrorInterpret();
                 cast_.setIndexFile(_conf.getCurrentLocationIndex());
                 cast_.setFileName(_conf.getCurrentFileName());
+                //type len
+                cast_.buildError(_conf.getContextEl().getAnalysisMessages().getBadImplicitCast(),
+                        StringList.join(getResultClass().getNames(),"&"),
+                        classType);
                 _conf.addError(cast_);
             }
             accessSuperTypes = false;
         } else if (ContextEl.startsWithKeyWord(trimMeth_, keyWordClasschoice_)) {
+            kw_ = keyWordClasschoice_;
             String className_ = trimMeth_.substring(0, trimMeth_.lastIndexOf(PAR_RIGHT));
             int lenPref_ = trimMeth_.indexOf(PAR_LEFT) + 1;
             className_ = className_.substring(lenPref_);
@@ -92,6 +92,7 @@ public final class ForwardOperation extends LeafOperation implements PossibleInt
             accessSuperTypes = false;
             staticChoiceMethod = true;
         } else {
+            kw_ = keyWords_.getKeyWordSuperaccess();
             String className_ = trimMeth_.substring(0, trimMeth_.lastIndexOf(PAR_RIGHT));
             int lenPref_ = trimMeth_.indexOf(PAR_LEFT) + 1;
             className_ = className_.substring(lenPref_);
@@ -105,13 +106,27 @@ public final class ForwardOperation extends LeafOperation implements PossibleInt
             StringMap<StringList> mapping_ = _conf.getCurrentConstraints();
             map_.setMapping(mapping_);
             if (!Templates.isCorrectOrNumbers(map_, _conf)) {
-                BadImplicitCast cast_ = new BadImplicitCast();
-                cast_.setMapping(map_);
+                FoundErrorInterpret cast_ = new FoundErrorInterpret();
                 cast_.setIndexFile(_conf.getCurrentLocationIndex());
                 cast_.setFileName(_conf.getCurrentFileName());
+                //type len
+                cast_.buildError(_conf.getContextEl().getAnalysisMessages().getBadImplicitCast(),
+                        StringList.join(getResultClass().getNames(),"&"),
+                        classType);
                 _conf.addError(cast_);
             }
             staticChoiceMethod = true;
+        }
+        if (!isIntermediateDottedOperation()) {
+            if (_conf.getStaticContext() != MethodAccessKind.INSTANCE) {
+                FoundErrorInterpret static_ = new FoundErrorInterpret();
+                static_.setFileName(_conf.getCurrentFileName());
+                static_.setIndexFile(_conf.getCurrentLocationIndex());
+                //kw_ len
+                static_.buildError(_conf.getContextEl().getAnalysisMessages().getStaticAccess(),
+                        kw_);
+                _conf.addError(static_);
+            }
         }
     }
 

@@ -49,11 +49,6 @@ public final class ResourceFiles {
         }
     }
 
-    /**
-     @param _br reader
-    @return
-    @throws IOException
-    */
     private static String readingFile(BufferedReader _br) {
         try {
             StringBuilder strBuilder_ = new StringBuilder();
@@ -85,8 +80,8 @@ public final class ResourceFiles {
             if (_inputStream != null) {
                 _inputStream.close();
             }
-        } catch (RuntimeException _0) {
         } catch (IOException _0) {
+            //
         }
     }
 }

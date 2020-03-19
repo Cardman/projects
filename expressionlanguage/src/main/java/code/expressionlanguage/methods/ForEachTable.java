@@ -2,10 +2,7 @@ package code.expressionlanguage.methods;
 
 import code.expressionlanguage.*;
 import code.expressionlanguage.calls.AbstractPageEl;
-import code.expressionlanguage.errors.custom.BadImplicitCast;
-import code.expressionlanguage.errors.custom.BadVariableName;
-import code.expressionlanguage.errors.custom.DuplicateVariable;
-import code.expressionlanguage.errors.custom.StaticAccessError;
+import code.expressionlanguage.errors.custom.*;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.inherits.Mapping;
@@ -150,9 +147,12 @@ public final class ForEachTable extends BracedStack implements Loop, WithNotEmpt
         ExecOperationNode el_ = opList.last();
         Argument arg_ = el_.getArgument();
         if (Argument.isNullValue(arg_)) {
-            StaticAccessError static_ = new StaticAccessError();
+            FoundErrorInterpret static_ = new FoundErrorInterpret();
             static_.setFileName(_cont.getCurrentFileName());
             static_.setIndexFile(_cont.getCurrentLocationIndex());
+            //separator char
+            static_.buildError(_cont.getAnalysisMessages().getNullValue(),
+                    _cont.getStandards().getAliasNullPe());
             _cont.addError(static_);
         } else {
             StringList names_ = el_.getResultClass().getNames();
@@ -169,14 +169,16 @@ public final class ForEachTable extends BracedStack implements Loop, WithNotEmpt
     private StringList getCustomType(StringList _names, ContextEl _context) {
         StringList out_ = new StringList();
         LgNames stds_ = _context.getStandards();
+        StringMap<StringList> vars_ = _context.getCurrentConstraints();
+        Mapping mapping_ = new Mapping();
+        mapping_.setMapping(vars_);
         for (String f: _names) {
             String iterable_ = stds_.getAliasIterableTable();
-            String type_ = Templates.getFullTypeByBases(f, iterable_, _context);
+            String type_ = Templates.getGeneric(f,iterable_,_context,mapping_);
             if (type_ != null) {
                 out_.add(type_);
             }
         }
-        out_.removeDuplicates();
         return out_;
     }
 
@@ -187,56 +189,70 @@ public final class ForEachTable extends BracedStack implements Loop, WithNotEmpt
     private MethodAccessKind processVarTypes(ContextEl _cont) {
         FunctionBlock f_ = _cont.getAnalyzing().getCurrentFct();
         importedClassIndexName = _cont.resolveCorrectType(classIndexName);
-        if (!PrimitiveTypeUtil.isPrimitiveOrWrapper(importedClassIndexName, _cont)) {
+        if (!PrimitiveTypeUtil.isPureNumberClass(new ClassArgumentMatching(importedClassIndexName), _cont)) {
             Mapping mapping_ = new Mapping();
             mapping_.setArg(importedClassIndexName);
             mapping_.setParam(_cont.getStandards().getAliasLong());
-            BadImplicitCast cast_ = new BadImplicitCast();
-            cast_.setMapping(mapping_);
+            FoundErrorInterpret cast_ = new FoundErrorInterpret();
             cast_.setFileName(getFile().getFileName());
             cast_.setIndexFile(classIndexNameOffset);
+            //classIndexName len
+            cast_.buildError(_cont.getAnalysisMessages().getNotPrimitiveWrapper(),
+                    importedClassIndexName);
             _cont.addError(cast_);
         }
         if (_cont.getAnalyzing().containsVar(variableNameFirst)) {
-            DuplicateVariable d_ = new DuplicateVariable();
-            d_.setId(variableNameFirst);
+            FoundErrorInterpret d_ = new FoundErrorInterpret();
             d_.setFileName(getFile().getFileName());
             d_.setIndexFile(variableNameOffsetFirst);
+            //first variable name
+            d_.buildError(_cont.getAnalysisMessages().getBadVariableName(),
+                    variableNameFirst);
             _cont.addError(d_);
         }
         if (_cont.getAnalyzing().containsMutableLoopVar(variableNameFirst)) {
-            DuplicateVariable d_ = new DuplicateVariable();
-            d_.setId(variableNameFirst);
+            FoundErrorInterpret d_ = new FoundErrorInterpret();
             d_.setFileName(getFile().getFileName());
             d_.setIndexFile(variableNameOffsetFirst);
+            //first variable name
+            d_.buildError(_cont.getAnalysisMessages().getBadVariableName(),
+                    variableNameFirst);
             _cont.addError(d_);
         }
         if (!_cont.isValidSingleToken(variableNameFirst)) {
-            BadVariableName b_ = new BadVariableName();
+            FoundErrorInterpret b_ = new FoundErrorInterpret();
             b_.setFileName(getFile().getFileName());
             b_.setIndexFile(variableNameOffsetFirst);
-            b_.setVarName(variableNameFirst);
+            //first variable name
+            b_.buildError(_cont.getAnalysisMessages().getBadVariableName(),
+                    variableNameFirst);
             _cont.addError(b_);
         }
         if (_cont.getAnalyzing().containsVar(variableNameSecond)) {
-            DuplicateVariable d_ = new DuplicateVariable();
-            d_.setId(variableNameSecond);
+            FoundErrorInterpret d_ = new FoundErrorInterpret();
             d_.setFileName(getFile().getFileName());
             d_.setIndexFile(variableNameOffsetSecond);
+            //second variable name
+            d_.buildError(_cont.getAnalysisMessages().getBadVariableName(),
+                    variableNameSecond);
             _cont.addError(d_);
         }
         if (_cont.getAnalyzing().containsMutableLoopVar(variableNameSecond)) {
-            DuplicateVariable d_ = new DuplicateVariable();
-            d_.setId(variableNameSecond);
+            FoundErrorInterpret d_ = new FoundErrorInterpret();
             d_.setFileName(getFile().getFileName());
             d_.setIndexFile(variableNameOffsetSecond);
+            //second variable name
+            d_.buildError(_cont.getAnalysisMessages().getBadVariableName(),
+                    variableNameSecond);
             _cont.addError(d_);
         }
         if (!_cont.isValidSingleToken(variableNameSecond)) {
-            BadVariableName b_ = new BadVariableName();
+            FoundErrorInterpret b_ = new FoundErrorInterpret();
             b_.setFileName(getFile().getFileName());
             b_.setIndexFile(variableNameOffsetSecond);
-            b_.setVarName(variableNameSecond);
+            //second variable name
+            b_.buildError(_cont.getAnalysisMessages().getBadVariableName(),
+                    variableNameSecond);
             _cont.addError(b_);
         }
         KeyWords keyWords_ = _cont.getKeyWords();
@@ -266,7 +282,7 @@ public final class ForEachTable extends BracedStack implements Loop, WithNotEmpt
     }
 
     public void checkIterableCandidates(StringList _types,ContextEl _cont) {
-        if (_types.size() == 1) {
+        if (_types.onlyOneElt()) {
             KeyWords keyWords_ = _cont.getKeyWords();
             String keyWordVar_ = keyWords_.getKeyWordVar();
             String type_ = _types.first();
@@ -287,10 +303,13 @@ public final class ForEachTable extends BracedStack implements Loop, WithNotEmpt
                 StringMap<StringList> vars_ = _cont.getCurrentConstraints();
                 mapping_.setMapping(vars_);
                 if (!Templates.isCorrectOrNumbers(mapping_, _cont)) {
-                    BadImplicitCast cast_ = new BadImplicitCast();
-                    cast_.setMapping(mapping_);
+                    FoundErrorInterpret cast_ = new FoundErrorInterpret();
                     cast_.setFileName(getFile().getFileName());
                     cast_.setIndexFile(expressionOffset);
+                    //separator char before expression
+                    cast_.buildError(_cont.getContextEl().getAnalysisMessages().getBadImplicitCast(),
+                            paramArg_,
+                            importedClassNameFirst);
                     _cont.addError(cast_);
                 }
             }
@@ -311,10 +330,13 @@ public final class ForEachTable extends BracedStack implements Loop, WithNotEmpt
                 StringMap<StringList> vars_ = _cont.getCurrentConstraints();
                 mapping_.setMapping(vars_);
                 if (!Templates.isCorrectOrNumbers(mapping_, _cont)) {
-                    BadImplicitCast cast_ = new BadImplicitCast();
-                    cast_.setMapping(mapping_);
+                    FoundErrorInterpret cast_ = new FoundErrorInterpret();
                     cast_.setFileName(getFile().getFileName());
                     cast_.setIndexFile(expressionOffset);
+                    //separator char before expression
+                    cast_.buildError(_cont.getContextEl().getAnalysisMessages().getBadImplicitCast(),
+                            paramArg_,
+                            importedClassNameSecond);
                     _cont.addError(cast_);
                 }
             }
@@ -322,10 +344,13 @@ public final class ForEachTable extends BracedStack implements Loop, WithNotEmpt
             Mapping mapping_ = new Mapping();
             mapping_.setArg(_cont.getStandards().getAliasObject());
             mapping_.setParam(_cont.getStandards().getAliasIterableTable());
-            BadImplicitCast cast_ = new BadImplicitCast();
-            cast_.setMapping(mapping_);
+            FoundErrorInterpret cast_ = new FoundErrorInterpret();
             cast_.setFileName(getFile().getFileName());
             cast_.setIndexFile(expressionOffset);
+            //separator char before expression
+            cast_.buildError(_cont.getContextEl().getAnalysisMessages().getBadImplicitCast(),
+                    _cont.getStandards().getAliasObject(),
+                    _cont.getStandards().getAliasIterableTable());
             _cont.addError(cast_);
         }
     }
@@ -336,10 +361,12 @@ public final class ForEachTable extends BracedStack implements Loop, WithNotEmpt
 
     private void processVariables(ContextEl _cont) {
         if (StringList.quickEq(variableNameFirst, variableNameSecond)) {
-            DuplicateVariable d_ = new DuplicateVariable();
-            d_.setId(variableNameSecond);
+            FoundErrorInterpret d_ = new FoundErrorInterpret();
             d_.setFileName(getFile().getFileName());
             d_.setIndexFile(variableNameOffsetSecond);
+            //second variable name len
+            d_.buildError(_cont.getAnalysisMessages().getBadVariableName(),
+                    variableNameFirst);
             _cont.addError(d_);
         }
         LoopVariable lv_ = new LoopVariable();

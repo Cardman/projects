@@ -1,7 +1,7 @@
 package code.expressionlanguage.opers;
 
 import code.expressionlanguage.Analyzable;
-import code.expressionlanguage.errors.custom.EmptyPartError;
+import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 
@@ -18,9 +18,12 @@ public final class ErrorPartOperation extends LeafOperation {
         int relativeOff_ = op_.getOffset();
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+relativeOff_, _conf);
         String argClName_;
-        EmptyPartError emptyPart_ = new EmptyPartError();
+        FoundErrorInterpret emptyPart_ = new FoundErrorInterpret();
         emptyPart_.setFileName(_conf.getCurrentFileName());
         emptyPart_.setIndexFile(_conf.getCurrentLocationIndex());
+        //if parent is null => all text
+        //if parent is not null => use parent header
+        emptyPart_.buildError(_conf.getContextEl().getAnalysisMessages().getEmptyExpressionPart());
         _conf.addError(emptyPart_);
         argClName_ = _conf.getStandards().getAliasObject();
         setResultClass(new ClassArgumentMatching(argClName_));    

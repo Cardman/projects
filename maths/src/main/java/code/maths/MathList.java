@@ -63,7 +63,7 @@ public final class MathList extends CustList<String> {
             while (next_ != INDEX_NOT_FOUND_ELT) {
                 removeAt(next_);
                 rem_ = true;
-                next_ = indexOfObj(e_, next_ + 1);
+                next_ = indexOfObj(e_, i_ + 1);
             }
             if (!rem_) {
                 i_++;
@@ -85,12 +85,6 @@ public final class MathList extends CustList<String> {
     }
 
     public boolean eq(MathList _g) {
-        StringList cone_ = new StringList(this);
-        StringList ctwo_ = new StringList(_g);
-        cone_.sort();
-        ctwo_.sort();
-        cone_.removeDuplicates();
-        ctwo_.removeDuplicates();
-        return cone_.eq(ctwo_);
+        return StringList.equalsSet(this,_g);
     }
 }

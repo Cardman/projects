@@ -13,17 +13,17 @@ import code.expressionlanguage.methods.AnnotationBlock;
 import code.expressionlanguage.methods.AnnotationMethodBlock;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
+import code.expressionlanguage.opers.util.AnnotationFieldInfo;
+import code.expressionlanguage.opers.util.AnnotationTypeInfo;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.util.*;
 
 public final class AnnotationInstanceOperation extends InvokingOperation implements PreAnalyzableOperation {
 
-    private boolean possibleInitClass;
-
     private String methodName;
 
     private String className;
-    private StringMap<String> fieldNames = new StringMap<String>();
+    private StringMap<AnnotationTypeInfo> fieldNames = new StringMap<AnnotationTypeInfo>();
     private boolean array;
 
     private CustList<PartOffset> partOffsets = new CustList<PartOffset>();
@@ -110,7 +110,6 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
                 return;
             }
             className = realClassName_;
-            possibleInitClass = !_conf.getOptions().isInitializeStaticClassFirst();
         }
     }
     public boolean isArray() {
@@ -129,9 +128,12 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
             map_ = new StringMap<StringList>();
             String eltType_ = PrimitiveTypeUtil.getQuickComponentType(className);
             if (eltType_ == null) {
-                UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
+                FoundErrorInterpret un_ = new FoundErrorInterpret();
                 un_.setIndexFile(_conf.getCurrentLocationIndex());
                 un_.setFileName(_conf.getCurrentFileName());
+                //first separator char
+                un_.buildError(_conf.getContextEl().getAnalysisMessages().getUnexpectedType(),
+                        className);
                 _conf.addError(un_);
                 setResultClass(new ClassArgumentMatching(className));
                 return;
@@ -144,10 +146,13 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
                 mapping_.setArg(argType_);
                 mapping_.setMapping(map_);
                 if (!Templates.isCorrectOrNumbers(mapping_, _conf)) {
-                    BadImplicitCast cast_ = new BadImplicitCast();
-                    cast_.setMapping(mapping_);
+                    FoundErrorInterpret cast_ = new FoundErrorInterpret();
                     cast_.setFileName(_conf.getCurrentFileName());
                     cast_.setIndexFile(_conf.getCurrentLocationIndex());
+                    //first separator char child
+                    cast_.buildError(_conf.getContextEl().getAnalysisMessages().getBadImplicitCast(),
+                            StringList.join(argType_.getNames(),"&"),
+                            eltType_);
                     _conf.addError(cast_);
                 }
                 if (PrimitiveTypeUtil.isPrimitive(eltType_, _conf)) {
@@ -162,30 +167,30 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
         analyzeCtor(_conf);
     }
 
-    void analyzeCtor(Analyzable _conf) {
+    private void analyzeCtor(Analyzable _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         CustList<OperationNode> filter_ = ElUtil.filterInvoking(chidren_);
         String objCl_ = _conf.getStandards().getAliasObject();
         if (StringList.quickEq(className, objCl_)) {
-            IllegalCallCtorByType call_ = new IllegalCallCtorByType();
-            call_.setType(methodName.trim().substring(AROBASE.length()));
+            FoundErrorInterpret call_ = new FoundErrorInterpret();
             call_.setFileName(_conf.getCurrentFileName());
             call_.setIndexFile(_conf.getCurrentLocationIndex());
+            //text header after @
+            call_.buildError(_conf.getContextEl().getAnalysisMessages().getIllegalCtorAnnotation(),
+                    methodName.trim().substring(AROBASE.length()).trim());
             _conf.addError(call_);
             setResultClass(new ClassArgumentMatching(className));
             return;
         }
 
         GeneType g_ = _conf.getClassBody(className);
-        StringMap<Boolean> fieldsOpt_ = new StringMap<Boolean>();
-        StringMap<String> fieldsTypes_ = new StringMap<String>();
+        StringMap<AnnotationFieldInfo> fields_ = new StringMap<AnnotationFieldInfo>();
         for (Block b: Classes.getDirectChildren((Block)g_)) {
             if (!(b instanceof AnnotationMethodBlock)) {
                 continue;
             }
             AnnotationMethodBlock a_ = (AnnotationMethodBlock) b;
-            fieldsOpt_.put(a_.getName(), !a_.getDefaultValue().isEmpty());
-            fieldsTypes_.put(a_.getName(), a_.getImportedReturnType());
+            fields_.put(a_.getName(), new AnnotationFieldInfo(a_.getImportedReturnType(),!a_.getDefaultValue().isEmpty()));
         }
         StringList suppliedFields_ = new StringList();
         StringMap<ClassArgumentMatching> suppliedFieldsType_ = new StringMap<ClassArgumentMatching>();
@@ -197,122 +202,148 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
             suppliedFields_.add(a_.getFieldName());
             suppliedFieldsType_.put(a_.getFieldName(), a_.getResultClass());
         }
-        if (filter_.size() == 1 && suppliedFields_.isEmpty()) {
-            if (fieldsTypes_.size() == 1) {
+        if (filter_.size() == 1 && suppliedFieldsType_.isEmpty()) {
+            if (fields_.size() == 1) {
                 //guess the unique field
                 ClassArgumentMatching arg_ = filter_.first().getResultClass();
-                String paramName_ = fieldsTypes_.getValue(0);
+                String paramName_ = fields_.getValue(0).getType();
                 ClassArgumentMatching param_ = new ClassArgumentMatching(paramName_);
-                if (!PrimitiveTypeUtil.canBeUseAsArgument(param_, arg_, _conf)) {
-                    //ERROR
+                Mapping mapping_ = new Mapping();
+                mapping_.setMapping(_conf.getCurrentConstraints());
+                mapping_.setArg(arg_);
+                mapping_.setParam(param_);
+                if (!Templates.isCorrectOrNumbers(mapping_,_conf)) {
                     if (param_.isArray()) {
                         ClassArgumentMatching c_ = PrimitiveTypeUtil.getQuickComponentType(param_);
-                        if (PrimitiveTypeUtil.canBeUseAsArgument(c_, arg_, _conf)) {
-                            fieldNames.put(fieldsTypes_.getKey(0), paramName_);
+                        mapping_.setParam(c_);
+                        if (Templates.isCorrectOrNumbers(mapping_,_conf)) {
+                            AnnotationTypeInfo i_ = new AnnotationTypeInfo();
+                            i_.setType(paramName_);
+                            i_.setWrap(true);
+                            fieldNames.put(fields_.getKey(0), i_);
                             setResultClass(new ClassArgumentMatching(className));
                             return;
                         }
                     }
-                    StringMap<StringList> vars_ = new StringMap<StringList>();
-                    Mapping mapping_ = new Mapping();
-                    mapping_.setMapping(vars_);
-                    mapping_.setArg(arg_);
-                    mapping_.setParam(param_);
-                    BadImplicitCast cast_ = new BadImplicitCast();
-                    cast_.setMapping(mapping_);
+                    FoundErrorInterpret cast_ = new FoundErrorInterpret();
                     cast_.setFileName(_conf.getCurrentFileName());
                     cast_.setIndexFile(_conf.getCurrentLocationIndex());
+                    //first parenthese
+                    cast_.buildError(_conf.getContextEl().getAnalysisMessages().getBadImplicitCast(),
+                            StringList.join(arg_.getNames(),"&"),
+                            StringList.join(param_.getNames(),"&"));
                     _conf.addError(cast_);
                 }
-                fieldNames.put(fieldsTypes_.getKey(0),EMPTY_STRING);
+                AnnotationTypeInfo i_ = new AnnotationTypeInfo();
+                i_.setType(paramName_);
+                fieldNames.put(fields_.getKey(0),i_);
                 setResultClass(new ClassArgumentMatching(className));
                 return;
             }
-            BadConstructorCall cast_ = new BadConstructorCall();
-            cast_.setLocalOffset(_conf.getCurrentLocationIndex());
+            FoundErrorInterpret cast_ = new FoundErrorInterpret();
             cast_.setFileName(_conf.getCurrentFileName());
             cast_.setIndexFile(_conf.getCurrentLocationIndex());
+            //last parenthese
+            cast_.buildError(_conf.getContextEl().getAnalysisMessages().getAnnotFieldNotUniq());
             _conf.addError(cast_);
             setResultClass(new ClassArgumentMatching(className));
             return;
         }
-        int nb_ = suppliedFields_.size();
-        suppliedFields_.removeDuplicates();
-        if (nb_ != suppliedFields_.size()) {
-            //ERROR
-            BadConstructorCall cast_ = new BadConstructorCall();
-            cast_.setLocalOffset(_conf.getCurrentLocationIndex());
-            cast_.setFileName(_conf.getCurrentFileName());
-            cast_.setIndexFile(_conf.getCurrentLocationIndex());
-            _conf.addError(cast_);
+        StringMap<Integer> counts_ = new StringMap<Integer>();
+        for (String s: suppliedFields_) {
+            counts_.put(s,0);
         }
-        for (String f: suppliedFields_) {
-            if (!fieldsOpt_.contains(f)) {
-                //ERROR
-                UndefinedFieldError cast_ = new UndefinedFieldError();
-                cast_.setId(f);
-                cast_.setClassName(className);
+        for (String s: suppliedFields_) {
+            counts_.put(s, counts_.getVal(s)+1);
+        }
+        for (EntryCust<String,Integer> e: counts_.entryList()) {
+            if (e.getValue() > 1) {
+                FoundErrorInterpret cast_ = new FoundErrorInterpret();
                 cast_.setFileName(_conf.getCurrentFileName());
                 cast_.setIndexFile(_conf.getCurrentLocationIndex());
+                //key len at operation
+                cast_.buildError(_conf.getContextEl().getAnalysisMessages().getDupSuppliedAnnotField(),
+                        e.getKey()
+                );
                 _conf.addError(cast_);
             }
-            fieldNames.put(f,EMPTY_STRING);
         }
-        for (EntryCust<String, Boolean> e: fieldsOpt_.entryList()) {
-            if (e.getValue()) {
-                continue;
-            }
-            if (!StringList.contains(suppliedFields_, e.getKey())) {
+        for (String f: suppliedFieldsType_.getKeys()) {
+            if (!fields_.contains(f)) {
                 //ERROR
-                BadConstructorCall cast_ = new BadConstructorCall();
-                cast_.setLocalOffset(_conf.getCurrentLocationIndex());
+                FoundErrorInterpret cast_ = new FoundErrorInterpret();
                 cast_.setFileName(_conf.getCurrentFileName());
                 cast_.setIndexFile(_conf.getCurrentLocationIndex());
+                //key len at operation
+                cast_.buildError(_conf.getContextEl().getAnalysisMessages().getUndefinedAccessibleField(),
+                        f,
+                        className);
+                _conf.addError(cast_);
+            }
+            AnnotationTypeInfo i_ = new AnnotationTypeInfo();
+            fieldNames.put(f,i_);
+        }
+        for (EntryCust<String, AnnotationFieldInfo> e: fields_.entryList()) {
+            if (e.getValue().isOptional()) {
+                continue;
+            }
+            if (!suppliedFieldsType_.contains(e.getKey())) {
+                //ERROR
+                FoundErrorInterpret cast_ = new FoundErrorInterpret();
+                cast_.setFileName(_conf.getCurrentFileName());
+                cast_.setIndexFile(_conf.getCurrentLocationIndex());
+                //last parenthese
+                cast_.buildError(_conf.getContextEl().getAnalysisMessages().getAnnotFieldMust(),
+                        e.getKey());
                 _conf.addError(cast_);
             }
         }
         for (EntryCust<String, ClassArgumentMatching> e: suppliedFieldsType_.entryList()) {
-            for (EntryCust<String, String> f: fieldsTypes_.entryList()) {
-                if (!StringList.quickEq(e.getKey(), f.getKey())) {
+            String suppliedKey_ = e.getKey();
+            for (EntryCust<String, AnnotationFieldInfo> f: fields_.entryList()) {
+                if (!StringList.quickEq(suppliedKey_, f.getKey())) {
                     continue;
                 }
-                String paramName_ = f.getValue();
+                String paramName_ = f.getValue().getType();
                 ClassArgumentMatching param_ = new ClassArgumentMatching(paramName_);
                 ClassArgumentMatching arg_ = e.getValue();
-                if (!PrimitiveTypeUtil.canBeUseAsArgument(param_, arg_, _conf)) {
+                Mapping mapping_ = new Mapping();
+                mapping_.setMapping(_conf.getCurrentConstraints());
+                mapping_.setArg(arg_);
+                mapping_.setParam(param_);
+                if (!Templates.isCorrectOrNumbers(mapping_,_conf)) {
                     if (param_.isArray()) {
                         ClassArgumentMatching c_ = PrimitiveTypeUtil.getQuickComponentType(param_);
-                        if (PrimitiveTypeUtil.canBeUseAsArgument(c_, arg_, _conf)) {
-                            fieldNames.put(e.getKey(), paramName_);
+                        mapping_.setParam(c_);
+                        if (Templates.isCorrectOrNumbers(mapping_,_conf)) {
+                            AnnotationTypeInfo i_ = fieldNames.getVal(suppliedKey_);
+                            i_.setType(paramName_);
+                            i_.setWrap(true);
                             continue;
                         }
                     }
                     //ERROR
-                    StringMap<StringList> vars_ = new StringMap<StringList>();
-                    Mapping mapping_ = new Mapping();
-                    mapping_.setMapping(vars_);
-                    mapping_.setArg(arg_);
-                    mapping_.setParam(param_);
-                    BadImplicitCast cast_ = new BadImplicitCast();
-                    cast_.setMapping(mapping_);
+                    FoundErrorInterpret cast_ = new FoundErrorInterpret();
                     cast_.setFileName(_conf.getCurrentFileName());
                     cast_.setIndexFile(_conf.getCurrentLocationIndex());
+                    //equal char
+                    cast_.buildError(_conf.getContextEl().getAnalysisMessages().getBadImplicitCast(),
+                            StringList.join(arg_.getNames(),"&"),
+                            StringList.join(param_.getNames(),"&"));
                     _conf.addError(cast_);
                 }
+                AnnotationTypeInfo i_ = fieldNames.getVal(suppliedKey_);
+                i_.setType(paramName_);
             }
         }
         setResultClass(new ClassArgumentMatching(className));
-    }
-
-    public boolean isPossibleInitClass() {
-        return possibleInitClass;
     }
 
     public String getMethodName() {
         return methodName;
     }
 
-    public StringMap<String> getFieldNames() {
+    public StringMap<AnnotationTypeInfo> getFieldNames() {
         return fieldNames;
     }
 

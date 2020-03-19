@@ -26,7 +26,7 @@ public final class PreparedRenderedPages implements Runnable {
         navigation.setLanguages(Constants.getAvailableLanguages());
         PokemonStandards stds_ = new PokemonStandards();
         String content_ = ResourceFiles.ressourceFichier(conf);
-        navigation.loadConfiguration(content_, stds_);
+        navigation.loadConfiguration(content_,"", stds_);
         StringMap<String> files_ = new StringMap<String>();
         Configuration session_ = navigation.getSession();
         for (String a: session_.getAddedFiles()) {
@@ -44,7 +44,7 @@ public final class PreparedRenderedPages implements Runnable {
         String rel_ = StringList.concat(relative,realFilePath_);
         files_.put(realFilePath_,ResourceFiles.ressourceFichier(rel_));
         navigation.setFiles(files_);
-        navigation.setupRendClasses();
+        navigation.setupRendClassesInit();
     }
 
     public Navigation getNavigation() {

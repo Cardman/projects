@@ -22,13 +22,16 @@ public final class ConnectionToServer implements Runnable, Locking {
         serverWindow.createClient(_ipHost, null, true, _port);
     }
     public boolean fermer(Socket _socket) {
+        if (serverSocket == null){
+            return false;
+        }
         try {
             serverSocket.close();
             if (_socket != null) {
                 _socket.close();
             }
             return true;
-        } catch (Exception _0) {
+        } catch (IOException _0) {
             return false;
         }
     }

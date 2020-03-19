@@ -2,8 +2,7 @@ package code.expressionlanguage.opers;
 
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.errors.custom.UndefinedFieldError;
-import code.expressionlanguage.errors.custom.UnexpectedOperationAffect;
+import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.instr.OperationsSequence;
@@ -78,15 +77,6 @@ public abstract class SettableAbstractFieldOperation extends
         r_ = getDeclaredCustField(_conf, isStaticAccess(), cl_, baseAccess_, superAccess_, fieldName_, import_, affect_);
         anc = r_.getAnc();
         if (r_.getStatus() == SearchingMemberStatus.ZERO) {
-            UndefinedFieldError und_ = new UndefinedFieldError();
-            for (String c: cl_.getNames()) {
-                String base_ = Templates.getIdFromAllTypes(c);
-                und_.setClassName(base_);
-                und_.setId(fieldName_);
-                und_.setFileName(_conf.getCurrentFileName());
-                und_.setIndexFile(_conf.getCurrentLocationIndex());
-                _conf.addError(und_);
-            }
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             return;
         }
@@ -148,32 +138,56 @@ public abstract class SettableAbstractFieldOperation extends
         return fieldMetaInfo.getClassField().eq(_id);
     }
     public final boolean isFromCurrentClass(Analyzable _an) {
-        if (fieldMetaInfo == null) {
+        if (notMatchCurrentType(_an)) {
             return false;
         }
-        ClassField clField_ = fieldMetaInfo.getClassField();
-        String gl_ = _an.getGlobalClass();
-        String id_ = Templates.getIdFromAllTypes(gl_);
         if (isFirstChild()) {
-            return StringList.quickEq(clField_.getClassName(), id_);
+            return true;
         }
         MethodOperation par_ = getParent();
         if (!(par_ instanceof DotOperation)) {
             return false;
         }
         if (par_.getFirstChild() instanceof ThisOperation) {
-            return StringList.quickEq(clField_.getClassName(), id_);
+            return true;
         }
         if (par_.getFirstChild() instanceof StaticAccessOperation) {
-            return StringList.quickEq(clField_.getClassName(), id_);
+            return true;
         }
         if (par_.getFirstChild() instanceof DotOperation) {
             OperationNode op_ = ((DotOperation)par_.getFirstChild()).getChildrenNodes().last();
-            if (op_ instanceof ThisOperation) {
-                return StringList.quickEq(clField_.getClassName(), id_);
-            }
+            return op_ instanceof ThisOperation;
         }
         return false;
+    }
+    public final boolean isFromCurrentClassReadOnly(Analyzable _an) {
+        if (notMatchCurrentType(_an)) {
+            return false;
+        }
+        if (isFirstChildInParent()) {
+            return true;
+        }
+        MethodOperation par_ = getParent();
+        if (par_.getFirstChild() instanceof ThisOperation) {
+            return true;
+        }
+        if (par_.getFirstChild() instanceof StaticAccessOperation) {
+            return true;
+        }
+        if (par_.getFirstChild() instanceof DotOperation) {
+            OperationNode op_ = ((DotOperation)par_.getFirstChild()).getChildrenNodes().last();
+            return op_ instanceof ThisOperation;
+        }
+        return false;
+    }
+    private boolean notMatchCurrentType(Analyzable _an) {
+        if (fieldMetaInfo == null) {
+            return true;
+        }
+        ClassField clField_ = fieldMetaInfo.getClassField();
+        String gl_ = _an.getGlobalClass();
+        String id_ = Templates.getIdFromAllTypes(gl_);
+        return !StringList.quickEq(clField_.getClassName(), id_);
     }
     public final FieldInfo getFieldMetaInfo() {
         return fieldMetaInfo;
@@ -236,7 +250,7 @@ public abstract class SettableAbstractFieldOperation extends
         boolean procField_ = isFromCurrentClass(_conf);
         ClassField cl_ = getFieldId();
         MethodOperation par_ = getParent();
-        if (par_ instanceof AffectationOperation && isFirstChild()) {
+        if (par_ instanceof AffectationOperation && isFirstChildInParent()) {
             procField_ = false;
         } else {
             if (par_ instanceof DotOperation) {
@@ -252,7 +266,7 @@ public abstract class SettableAbstractFieldOperation extends
                     }
                 }
                 if (cancelCheck_) {
-                    if (par_.getParent() instanceof AffectationOperation && par_.isFirstChild()) {
+                    if (par_.getParent() instanceof AffectationOperation && par_.isFirstChildInParent()) {
                         procField_ = false;
                     }
                 }
@@ -276,9 +290,11 @@ public abstract class SettableAbstractFieldOperation extends
                     if (meta_.isFinalField() && !ElUtil.isDeclaringField(this, _conf)) {
                         //error if final field
                         setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _conf);
-                        UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
+                        FoundErrorInterpret un_ = new FoundErrorInterpret();
                         un_.setFileName(_conf.getCurrentFileName());
                         un_.setIndexFile(_conf.getCurrentLocationIndex());
+                        un_.buildError(_conf.getContextEl().getAnalysisMessages().getFinalField(),
+                                cl_.getFieldName());
                         _conf.addError(un_);
                     }
                 }

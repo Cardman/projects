@@ -19,7 +19,7 @@ public final class RendAnchor extends RendElement {
     @Override
     protected void processAttributes(Configuration _cont, RendDocumentBlock _doc, Element _read, StringList _list) {
         opExp = new CustList<CustList<RendDynOperationNode>>();
-        ResultText res_ = ResultText.buildAnchor(_cont, _doc, _read, _list);
+        ResultText res_ = ResultText.buildAnchor(_cont,this, _doc, _read, _list);
         opExp = res_.getOpExp();
         texts = res_.getTexts();
     }

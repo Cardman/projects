@@ -1,14 +1,15 @@
 package aiki.beans.validators;
 import code.bean.validator.Message;
 import code.bean.validator.Validator;
+import code.expressionlanguage.stds.LongInfo;
 import code.expressionlanguage.stds.NumParsers;
 
 public class ShortValidator implements Validator {
 
     @Override
     public Message validate(Object _value) {
-        Short nb_ = parseShort((String)_value);
-        if (nb_ != null && nb_ >= 0) {
+        LongInfo nb_ = parseShort((String)_value);
+        if (nb_.isValid() && nb_.getValue() >= 0) {
             return null;
         }
         Message message_;
@@ -17,17 +18,11 @@ public class ShortValidator implements Validator {
         return message_;
     }
 
-    public static Short parseShort(String _string) {
-        Long int_ = NumParsers.parseLong(_string,10);
-        if (int_ == null) {
-            return null;
+    private static LongInfo parseShort(String _string) {
+        LongInfo int_ = NumParsers.parseLong(_string,10);
+        if (int_.outOfRange(Short.MIN_VALUE,Short.MAX_VALUE)) {
+            return new LongInfo();
         }
-        if (int_ < Short.MIN_VALUE) {
-            return null;
-        }
-        if (int_ > Short.MAX_VALUE) {
-            return null;
-        }
-        return int_.shortValue();
+        return int_;
     }
 }

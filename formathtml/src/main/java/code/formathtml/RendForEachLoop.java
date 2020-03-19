@@ -3,10 +3,7 @@ package code.formathtml;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ConditionReturn;
-import code.expressionlanguage.errors.custom.BadImplicitCast;
-import code.expressionlanguage.errors.custom.BadVariableName;
-import code.expressionlanguage.errors.custom.DuplicateVariable;
-import code.expressionlanguage.errors.custom.StaticAccessError;
+import code.expressionlanguage.errors.custom.*;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.inherits.Mapping;
@@ -94,80 +91,80 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
     }
     public void buildEl(Configuration _cont,RendDocumentBlock _doc) {
         importedClassIndexName = _cont.resolveCorrectType(classIndexName);
-        if (!PrimitiveTypeUtil.isPrimitiveOrWrapper(importedClassIndexName, _cont)) {
+        if (!PrimitiveTypeUtil.isPureNumberClass(new ClassArgumentMatching(importedClassIndexName), _cont)) {
             Mapping mapping_ = new Mapping();
             mapping_.setArg(importedClassIndexName);
             mapping_.setParam(_cont.getStandards().getAliasLong());
-            BadImplicitCast cast_ = new BadImplicitCast();
-            cast_.setMapping(mapping_);
+            FoundErrorInterpret cast_ = new FoundErrorInterpret();
             cast_.setFileName(_cont.getCurrentFileName());
             cast_.setIndexFile(classIndexNameOffset);
+            cast_.buildError(_cont.getContext().getAnalysisMessages().getNotPrimitiveWrapper(),
+                    importedClassIndexName);
             _cont.addError(cast_);
         }
         if (_cont.getAnalyzing().containsVar(variableName)) {
-            DuplicateVariable d_ = new DuplicateVariable();
-            d_.setId(variableName);
+            FoundErrorInterpret d_ = new FoundErrorInterpret();
             d_.setFileName(_cont.getCurrentFileName());
             d_.setIndexFile(variableNameOffset);
+            d_.buildError(_cont.getContext().getAnalysisMessages().getBadVariableName(),
+                    variableName);
             _cont.addError(d_);
         }
         if (_cont.getAnalyzing().containsMutableLoopVar(variableName)) {
-            DuplicateVariable d_ = new DuplicateVariable();
-            d_.setId(variableName);
+            FoundErrorInterpret d_ = new FoundErrorInterpret();
             d_.setFileName(_cont.getCurrentFileName());
             d_.setIndexFile(variableNameOffset);
+            d_.buildError(_cont.getContext().getAnalysisMessages().getBadVariableName(),
+                    variableName);
             _cont.addError(d_);
         }
         if (!_cont.isValidSingleToken(variableName)) {
-            BadVariableName b_ = new BadVariableName();
+            FoundErrorInterpret b_ = new FoundErrorInterpret();
             b_.setFileName(_cont.getCurrentFileName());
             b_.setIndexFile(variableNameOffset);
-            b_.setVarName(variableName);
+            b_.buildError(_cont.getContext().getAnalysisMessages().getBadVariableName(),
+                    variableName);
             _cont.addError(b_);
         }
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         page_.setGlobalOffset(classNameOffset);
         page_.setOffset(0);
-        KeyWords keyWords_ = _cont.getKeyWords();
-        String keyWordVar_ = keyWords_.getKeyWordVar();
-        if (!StringList.quickEq(className.trim(), keyWordVar_)) {
+        if (!toInfer(_cont)) {
             importedClassName = _cont.resolveCorrectType(className);
         } else {
-            importedClassName = "";
+            importedClassName = EMPTY_STRING;
         }
         page_.setGlobalOffset(expressionOffset);
         page_.setOffset(0);
-        _cont.getAnalyzingDoc().setAttribute(ATTRIBUTE_LIST);
-        MethodAccessKind static_ = _doc.getStaticContext();
-        opList = RenderExpUtil.getAnalyzedOperations(expression,0, _cont, Calculation.staticCalculation(static_));
+        _cont.getAnalyzingDoc().setAttribute(_cont.getRendKeyWords().getAttrList());
+        opList = RenderExpUtil.getAnalyzedOperations(expression,expressionOffset,0, _cont);
     }
     public void inferArrayClass(Configuration _cont) {
         RendDynOperationNode el_ = opList.last();
         ClassArgumentMatching compo_ = PrimitiveTypeUtil.getQuickComponentType(el_.getResultClass());
-        KeyWords keyWords_ = _cont.getKeyWords();
-        String keyWordVar_ = keyWords_.getKeyWordVar();
-        if (StringList.quickEq(className.trim(), keyWordVar_) && compo_.getNames().size() == 1) {
+        if (toInfer(_cont) && compo_.getNames().onlyOneElt()) {
             importedClassName = compo_.getName();
         } else {
-            Mapping mapping_ = new Mapping();
             if (importedClassName.isEmpty()) {
-                mapping_.setArg("");
-                mapping_.setParam("");
-                BadImplicitCast cast_ = new BadImplicitCast();
-                cast_.setMapping(mapping_);
+                FoundErrorInterpret cast_ = new FoundErrorInterpret();
                 cast_.setFileName(_cont.getCurrentFileName());
                 cast_.setIndexFile(expressionOffset);
+                cast_.buildError(_cont.getContext().getAnalysisMessages().getUnknownType(),
+                        className.trim());
                 _cont.addError(cast_);
             } else {
+                Mapping mapping_ = new Mapping();
                 mapping_.setArg(compo_);
                 mapping_.setParam(importedClassName);
                 StringMap<StringList> vars_ = _cont.getCurrentConstraints();
                 mapping_.setMapping(vars_);
                 if (!Templates.isCorrectOrNumbers(mapping_, _cont)) {
-                    BadImplicitCast cast_ = new BadImplicitCast();
-                    cast_.setMapping(mapping_);
+                    FoundErrorInterpret cast_ = new FoundErrorInterpret();
                     cast_.setFileName(_cont.getCurrentFileName());
                     cast_.setIndexFile(expressionOffset);
+                    cast_.buildError(_cont.getContextEl().getAnalysisMessages().getBadImplicitCast(),
+                            StringList.join(compo_.getNames(),AND_ERR),
+                            importedClassName);
                     _cont.addError(cast_);
                 }
             }
@@ -179,9 +176,11 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
         RendDynOperationNode el_ = opList.last();
         Argument arg_ = el_.getArgument();
         if (Argument.isNullValue(arg_)) {
-            StaticAccessError static_ = new StaticAccessError();
+            FoundErrorInterpret static_ = new FoundErrorInterpret();
             static_.setFileName(_cont.getCurrentFileName());
-            static_.setIndexFile(_cont.getCurrentLocationIndex());
+            static_.setIndexFile(expressionOffset);
+            static_.buildError(_cont.getContext().getAnalysisMessages().getNullValue(),
+                    _cont.getStandards().getAliasNullPe());
             _cont.addError(static_);
         } else if (el_.getResultClass().isArray()) {
             inferArrayClass(_cont);
@@ -197,7 +196,7 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
         return it_.getClassName();
     }
     public void checkIterableCandidates(StringList _types,Configuration _cont) {
-        if (_types.size() == 1) {
+        if (_types.onlyOneElt()) {
             String type_ = _types.first();
             Mapping mapping_ = new Mapping();
             String paramArg_ = Templates.getAllTypes(type_).last();
@@ -208,9 +207,7 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
             } else if (paramArg_.startsWith(Templates.SUP_TYPE)){
                 paramArg_ = _cont.getStandards().getAliasObject();
             }
-            KeyWords keyWords_ = _cont.getKeyWords();
-            String keyWordVar_ = keyWords_.getKeyWordVar();
-            if (StringList.quickEq(className.trim(), keyWordVar_)) {
+            if (toInfer(_cont)) {
                 importedClassName = paramArg_;
             } else {
                 mapping_.setArg(paramArg_);
@@ -219,10 +216,12 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
                 mapping_.setMapping(vars_);
                 BeanLgNames stds_ = _cont.getAdvStandards();
                 if (stds_ instanceof BeanCustLgNames && !Templates.isCorrectOrNumbers(mapping_, _cont)) {
-                    BadImplicitCast cast_ = new BadImplicitCast();
-                    cast_.setMapping(mapping_);
+                    FoundErrorInterpret cast_ = new FoundErrorInterpret();
                     cast_.setFileName(_cont.getCurrentFileName());
                     cast_.setIndexFile(expressionOffset);
+                    cast_.buildError(_cont.getContextEl().getAnalysisMessages().getBadImplicitCast(),
+                            paramArg_,
+                            importedClassName);
                     _cont.addError(cast_);
                 }
             }
@@ -230,12 +229,19 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
             Mapping mapping_ = new Mapping();
             mapping_.setArg(_cont.getStandards().getAliasObject());
             mapping_.setParam(_cont.getStandards().getAliasIterable());
-            BadImplicitCast cast_ = new BadImplicitCast();
-            cast_.setMapping(mapping_);
+            FoundErrorInterpret cast_ = new FoundErrorInterpret();
             cast_.setFileName(_cont.getCurrentFileName());
             cast_.setIndexFile(expressionOffset);
+            cast_.buildError(_cont.getContextEl().getAnalysisMessages().getBadImplicitCast(),
+                    _cont.getStandards().getAliasObject(),
+                    _cont.getStandards().getAliasIterable());
             _cont.addError(cast_);
         }
+    }
+    private boolean toInfer(Configuration _cont) {
+        KeyWords keyWords_ = _cont.getKeyWords();
+        String keyWordVar_ = keyWords_.getKeyWordVar();
+        return StringList.quickEq(className.trim(), keyWordVar_) || className.trim().isEmpty();
     }
     public void putVariable(Configuration _cont) {
         LoopVariable lv_ = new LoopVariable();
@@ -298,7 +304,7 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
     Struct processLoop(Configuration _conf) {
         ImportingPage ip_ = _conf.getLastPage();
         ip_.setOffset(expressionOffset);
-        ip_.setProcessingAttribute(ATTRIBUTE_LIST);
+        ip_.setProcessingAttribute(_conf.getRendKeyWords().getAttrList());
         Argument arg_ = RenderExpUtil.calculateReuse(opList,_conf);
         if (_conf.getContext().hasException()) {
             return NullStruct.NULL_VALUE;

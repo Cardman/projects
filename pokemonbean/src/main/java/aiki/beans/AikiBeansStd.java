@@ -12,6 +12,7 @@ import code.formathtml.structs.RealInstanceStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.util.BeanLgNames;
+import code.formathtml.util.BeanNatLgNames;
 import code.util.CustList;
 import code.util.ObjectMap;
 import code.util.StringList;
@@ -42,7 +43,7 @@ public final class AikiBeansStd {
         methods_ = new ObjectMap<MethodId, StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new StringMap<StandardField>();
-        type_ = new StandardClass(TYPE_COMMON_BEAN, fields_, constructors_, methods_, _std.getBean(), MethodModifier.NORMAL);
+        type_ = new StandardClass(TYPE_COMMON_BEAN, fields_, constructors_, methods_, BeanNatLgNames.TYPE_BEAN, MethodModifier.NORMAL);
         _std.getStandards().put(TYPE_COMMON_BEAN, type_);
     }
     private static void buildWelcomeBean(BeanLgNames _std) {

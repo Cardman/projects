@@ -9,18 +9,17 @@ public final class ThreadUtil {
         try {
             _thread.start();
             return true;
-        } catch (Exception _e) {
+        } catch (RuntimeException _e) {
             return false;
         }
     }
 
     public static boolean setPriority(Thread _thread, int _prio) {
-        try {
-            _thread.setPriority(_prio);
-            return true;
-        } catch (Exception _e) {
+        if (_prio > Thread.MAX_PRIORITY || _prio < Thread.MIN_PRIORITY) {
             return false;
         }
+        _thread.setPriority(_prio);
+        return true;
     }
     public static void join(Thread _thread) {
         while (_thread.isAlive()) {

@@ -4,6 +4,8 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.opers.util.*;
+import code.expressionlanguage.utilcompo.LgNamesUtils;
+import code.expressionlanguage.utilcompo.RunnableContextEl;
 import code.expressionlanguage.utilcompo.RunnableStruct;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.inherits.Templates;
@@ -108,8 +110,8 @@ public final class EventStruct implements WithParentStruct,EnumerableStruct,
         GuiContextEl r_ = newCtx();
         CustList<Argument> args_ = new CustList<Argument>();
         LgNames stds_ = r_.getStandards();
-        String run_ = r_.getCustInit().getRunTask(stds_);
-        String runnable_ = r_.getCustInit().getInterfaceTask(stds_);
+        String run_ = ((LgNamesUtils)stds_).getAliasRun();
+        String runnable_ = ((LgNamesUtils)stds_).getAliasRunnable();
         invoke(r_,runnable_,run_,new StringList(),args_);
     }
 
@@ -355,18 +357,8 @@ public final class EventStruct implements WithParentStruct,EnumerableStruct,
         String actList_ = ((LgNamesGui) original.getStandards()).getAliasTableListener();
         invoke(r_,actList_,actPerf_,new StringList(ind_,ind_),args_);
     }
-    private void invoke(GuiContextEl _r, String _typeName,String _methName, StringList _argTypes, CustList<Argument> _args) {
-        MethodId id_ = new MethodId(MethodAccessKind.INSTANCE, _methName, _argTypes);
-        GeneType type_ = _r.getClassBody(_typeName);
-        String base_ = Templates.getIdFromAllTypes(className);
-        ClassMethodId mId_ = TypeUtil.getConcreteMethodsToCall(type_, id_, _r).getVal(base_);
-        if (mId_ == null) {
-            _r.getCustInit().removeThreadFromList(_r);
-            return;
-        }
-        Argument arg_ = new Argument();
-        arg_.setStruct(this);
-        RunnableStruct.invoke(arg_, mId_.getClassName(), mId_.getConstraints(), _args, _r,null);
+    private void invoke(RunnableContextEl _r, String _typeName, String _methName, StringList _argTypes, CustList<Argument> _args) {
+        RunnableStruct.invoke(this,_r,_typeName,_methName,_argTypes,_args);
     }
     private GuiContextEl newCtx() {
         GuiContextEl r_ = new GuiContextEl(original);

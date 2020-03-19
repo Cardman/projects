@@ -96,8 +96,8 @@ final class FightAbilities {
             disableAllStatusByEnabledWeather(_fight, _cbt, DataBase.EMPTY_STRING, _import);
             types_.addAllElts(creatureCbt_.getAddedTypesByEnabledWeather(DataBase.EMPTY_STRING, _import));
         }
-        types_.removeDuplicates();
         if(!types_.isEmpty()){
+            types_.removeDuplicates();
             creatureCbt_.affecterTypes(types_);
             _fight.addChangedTypesMessage(_cbt, types_, _import);
         }

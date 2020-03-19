@@ -2,7 +2,7 @@ package code.expressionlanguage.methods;
 
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.errors.custom.UnassignedFinalField;
+import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.PartOffset;
@@ -56,7 +56,7 @@ public abstract class InitBlock extends MemberCallingsBlock implements AloneBloc
     public void setAssignmentAfterCall(Analyzable _an, AnalyzingEl _anEl) {
         setAssignmentAfter(_an,_anEl);
         IdMap<Block, AssignedVariables> id_ = _an.getContextEl().getAssignedVariables().getFinalVariables();
-        for (EntryCust<ReturnMethod, StringMap<SimpleAssignment>> r: _anEl.getAssignments().entryList()) {
+        for (EntryCust<ReturnMethod, StringMap<SimpleAssignment>> r: _an.getContextEl().getAssignedVariables().getAssignments().entryList()) {
             for (EntryCust<String, SimpleAssignment> f: r.getValue().entryList()) {
                 checkAssignments(_an, f,false);
             }
@@ -89,9 +89,11 @@ public abstract class InitBlock extends MemberCallingsBlock implements AloneBloc
         SimpleAssignment a_ = _pair.getValue();
         if (!a_.isAssignedAfter() && !a_.isUnassignedAfter()) {
             //error
-            UnassignedFinalField un_ = new UnassignedFinalField(key_);
+            FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(getFile().getFileName());
             un_.setIndexFile(getOffset().getOffsetTrim());
+            un_.buildError(_an.getContextEl().getAnalysisMessages().getUnassignedFinalField(),
+                    name_,cl_);
             _an.addError(un_);
         }
         if (a_.isAssignedAfter() && _add) {

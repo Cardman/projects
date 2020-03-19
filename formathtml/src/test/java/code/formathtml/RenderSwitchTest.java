@@ -2,8 +2,6 @@ package code.formathtml;
 
 
 
-import code.sml.Document;
-import code.sml.DocumentBuilder;
 import code.util.StringMap;
 import org.junit.Test;
 
@@ -24,15 +22,12 @@ public final class RenderSwitchTest extends CommonRender {
         conf_.getProperties().put("msg_example", relative_);
 
 
-        Document doc_ = DocumentBuilder.parseSax(html_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body/></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
     }
+
     @Test
     public void process2Test() {
         String folder_ = "messages";
@@ -44,11 +39,7 @@ public final class RenderSwitchTest extends CommonRender {
         conf_.getProperties().put("msg_example", relative_);
 
 
-        Document doc_ = DocumentBuilder.parseSax(html_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body/></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
@@ -64,11 +55,7 @@ public final class RenderSwitchTest extends CommonRender {
         conf_.getProperties().put("msg_example", relative_);
 
 
-        Document doc_ = DocumentBuilder.parseSax(html_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body/></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
@@ -84,11 +71,7 @@ public final class RenderSwitchTest extends CommonRender {
         conf_.getProperties().put("msg_example", relative_);
 
 
-        Document doc_ = DocumentBuilder.parseSax(html_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>Text</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
@@ -104,11 +87,7 @@ public final class RenderSwitchTest extends CommonRender {
         conf_.getProperties().put("msg_example", relative_);
 
 
-        Document doc_ = DocumentBuilder.parseSax(html_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body/></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
@@ -124,11 +103,7 @@ public final class RenderSwitchTest extends CommonRender {
         conf_.getProperties().put("msg_example", relative_);
 
 
-        Document doc_ = DocumentBuilder.parseSax(html_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>Text</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
@@ -144,11 +119,7 @@ public final class RenderSwitchTest extends CommonRender {
         conf_.getProperties().put("msg_example", relative_);
 
 
-        Document doc_ = DocumentBuilder.parseSax(html_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>Text</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
@@ -164,11 +135,7 @@ public final class RenderSwitchTest extends CommonRender {
         conf_.getProperties().put("msg_example", relative_);
 
 
-        Document doc_ = DocumentBuilder.parseSax(html_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>Text</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
@@ -184,11 +151,7 @@ public final class RenderSwitchTest extends CommonRender {
         conf_.getProperties().put("msg_example", relative_);
 
 
-        Document doc_ = DocumentBuilder.parseSax(html_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body/></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
@@ -204,11 +167,7 @@ public final class RenderSwitchTest extends CommonRender {
         conf_.getProperties().put("msg_example", relative_);
 
 
-        Document doc_ = DocumentBuilder.parseSax(html_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>Text</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
@@ -224,11 +183,7 @@ public final class RenderSwitchTest extends CommonRender {
         conf_.getProperties().put("msg_example", relative_);
 
 
-        Document doc_ = DocumentBuilder.parseSax(html_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>Text</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
@@ -244,11 +199,7 @@ public final class RenderSwitchTest extends CommonRender {
         conf_.getProperties().put("msg_example", relative_);
 
 
-        Document doc_ = DocumentBuilder.parseSax(html_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body/></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
@@ -264,11 +215,7 @@ public final class RenderSwitchTest extends CommonRender {
         conf_.getProperties().put("msg_example", relative_);
 
 
-        Document doc_ = DocumentBuilder.parseSax(html_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>Text</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
@@ -284,11 +231,7 @@ public final class RenderSwitchTest extends CommonRender {
         conf_.getProperties().put("msg_example", relative_);
 
 
-        Document doc_ = DocumentBuilder.parseSax(html_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body/></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
@@ -304,11 +247,7 @@ public final class RenderSwitchTest extends CommonRender {
         conf_.getProperties().put("msg_example", relative_);
 
 
-        Document doc_ = DocumentBuilder.parseSax(html_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body/></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
@@ -324,11 +263,7 @@ public final class RenderSwitchTest extends CommonRender {
         conf_.getProperties().put("msg_example", relative_);
 
 
-        Document doc_ = DocumentBuilder.parseSax(html_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body/></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
@@ -344,11 +279,7 @@ public final class RenderSwitchTest extends CommonRender {
         conf_.getProperties().put("msg_example", relative_);
 
 
-        Document doc_ = DocumentBuilder.parseSax(html_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>Text</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
@@ -364,11 +295,7 @@ public final class RenderSwitchTest extends CommonRender {
         conf_.getProperties().put("msg_example", relative_);
 
 
-        Document doc_ = DocumentBuilder.parseSax(html_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body/></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
@@ -384,11 +311,7 @@ public final class RenderSwitchTest extends CommonRender {
         conf_.getProperties().put("msg_example", relative_);
 
 
-        Document doc_ = DocumentBuilder.parseSax(html_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>Text</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
@@ -404,11 +327,7 @@ public final class RenderSwitchTest extends CommonRender {
         conf_.getProperties().put("msg_example", relative_);
 
 
-        Document doc_ = DocumentBuilder.parseSax(html_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>Text</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
@@ -424,11 +343,7 @@ public final class RenderSwitchTest extends CommonRender {
         conf_.getProperties().put("msg_example", relative_);
 
 
-        Document doc_ = DocumentBuilder.parseSax(html_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>Text</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
@@ -444,11 +359,7 @@ public final class RenderSwitchTest extends CommonRender {
         conf_.getProperties().put("msg_example", relative_);
 
 
-        Document doc_ = DocumentBuilder.parseSax(html_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body/></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
@@ -464,11 +375,7 @@ public final class RenderSwitchTest extends CommonRender {
         conf_.getProperties().put("msg_example", relative_);
 
 
-        Document doc_ = DocumentBuilder.parseSax(html_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>Text</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
@@ -484,11 +391,7 @@ public final class RenderSwitchTest extends CommonRender {
         conf_.getProperties().put("msg_example", relative_);
 
 
-        Document doc_ = DocumentBuilder.parseSax(html_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>Text</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
@@ -504,11 +407,7 @@ public final class RenderSwitchTest extends CommonRender {
         conf_.getProperties().put("msg_example", relative_);
 
 
-        Document doc_ = DocumentBuilder.parseSax(html_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body/></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
@@ -524,11 +423,7 @@ public final class RenderSwitchTest extends CommonRender {
         conf_.getProperties().put("msg_example", relative_);
 
 
-        Document doc_ = DocumentBuilder.parseSax(html_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>Text</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
@@ -544,11 +439,7 @@ public final class RenderSwitchTest extends CommonRender {
         conf_.getProperties().put("msg_example", relative_);
 
 
-        Document doc_ = DocumentBuilder.parseSax(html_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>Text</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
@@ -564,11 +455,7 @@ public final class RenderSwitchTest extends CommonRender {
         conf_.getProperties().put("msg_example", relative_);
 
 
-        Document doc_ = DocumentBuilder.parseSax(html_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>Text</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
@@ -584,11 +471,7 @@ public final class RenderSwitchTest extends CommonRender {
         conf_.getProperties().put("msg_example", relative_);
 
 
-        Document doc_ = DocumentBuilder.parseSax(html_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>Text</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
@@ -610,11 +493,7 @@ public final class RenderSwitchTest extends CommonRender {
         conf_.getProperties().put("msg_example", relative_);
 
 
-        Document doc_ = DocumentBuilder.parseSax(html_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>Text</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
@@ -636,11 +515,7 @@ public final class RenderSwitchTest extends CommonRender {
         conf_.getProperties().put("msg_example", relative_);
 
 
-        Document doc_ = DocumentBuilder.parseSax(html_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>Text</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
@@ -662,11 +537,7 @@ public final class RenderSwitchTest extends CommonRender {
         conf_.getProperties().put("msg_example", relative_);
 
 
-        Document doc_ = DocumentBuilder.parseSax(html_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body/></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
@@ -688,11 +559,7 @@ public final class RenderSwitchTest extends CommonRender {
         conf_.getProperties().put("msg_example", relative_);
 
 
-        Document doc_ = DocumentBuilder.parseSax(html_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body/></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
@@ -714,11 +581,7 @@ public final class RenderSwitchTest extends CommonRender {
         conf_.getProperties().put("msg_example", relative_);
 
 
-        Document doc_ = DocumentBuilder.parseSax(html_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body/></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
@@ -740,11 +603,7 @@ public final class RenderSwitchTest extends CommonRender {
         conf_.getProperties().put("msg_example", relative_);
 
 
-        Document doc_ = DocumentBuilder.parseSax(html_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>Other</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
@@ -766,11 +625,7 @@ public final class RenderSwitchTest extends CommonRender {
         conf_.getProperties().put("msg_example", relative_);
 
 
-        Document doc_ = DocumentBuilder.parseSax(html_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body/></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
@@ -786,11 +641,7 @@ public final class RenderSwitchTest extends CommonRender {
         conf_.getProperties().put("msg_example", relative_);
 
 
-        Document doc_ = DocumentBuilder.parseSax(html_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>Text</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
@@ -813,11 +664,7 @@ public final class RenderSwitchTest extends CommonRender {
         conf_.getProperties().put("msg_example", relative_);
 
 
-        Document doc_ = DocumentBuilder.parseSax(html_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>Other</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
@@ -833,11 +680,7 @@ public final class RenderSwitchTest extends CommonRender {
         conf_.getProperties().put("msg_example", relative_);
 
 
-        Document doc_ = DocumentBuilder.parseSax(html_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_,conf_);
         assertNotNull(getException(conf_));
@@ -853,11 +696,7 @@ public final class RenderSwitchTest extends CommonRender {
         conf_.getProperties().put("msg_example", relative_);
 
 
-        Document doc_ = DocumentBuilder.parseSax(html_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>10</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
@@ -873,11 +712,7 @@ public final class RenderSwitchTest extends CommonRender {
         conf_.getProperties().put("msg_example", relative_);
 
 
-        Document doc_ = DocumentBuilder.parseSax(html_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>10</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
@@ -893,11 +728,7 @@ public final class RenderSwitchTest extends CommonRender {
         conf_.getProperties().put("msg_example", relative_);
 
 
-        Document doc_ = DocumentBuilder.parseSax(html_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body/></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
@@ -913,11 +744,7 @@ public final class RenderSwitchTest extends CommonRender {
         conf_.getProperties().put("msg_example", relative_);
 
 
-        Document doc_ = DocumentBuilder.parseSax(html_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>Text</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
@@ -933,11 +760,7 @@ public final class RenderSwitchTest extends CommonRender {
         conf_.getProperties().put("msg_example", relative_);
 
 
-        Document doc_ = DocumentBuilder.parseSax(html_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>Text</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
@@ -960,11 +783,7 @@ public final class RenderSwitchTest extends CommonRender {
         conf_.getProperties().put("msg_example", relative_);
 
 
-        Document doc_ = DocumentBuilder.parseSax(html_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
         assertTrue(!conf_.isEmptyErrors());
     }
     @Test
@@ -985,11 +804,7 @@ public final class RenderSwitchTest extends CommonRender {
         conf_.getProperties().put("msg_example", relative_);
 
 
-        Document doc_ = DocumentBuilder.parseSax(html_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
         assertTrue(!conf_.isEmptyErrors());
     }
     @Test
@@ -1003,11 +818,7 @@ public final class RenderSwitchTest extends CommonRender {
         conf_.getProperties().put("msg_example", relative_);
 
 
-        Document doc_ = DocumentBuilder.parseSax(html_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
         assertTrue(!conf_.isEmptyErrors());
     }
     @Test
@@ -1021,11 +832,7 @@ public final class RenderSwitchTest extends CommonRender {
         conf_.getProperties().put("msg_example", relative_);
 
 
-        Document doc_ = DocumentBuilder.parseSax(html_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
         assertTrue(!conf_.isEmptyErrors());
     }
     @Test
@@ -1045,11 +852,7 @@ public final class RenderSwitchTest extends CommonRender {
         conf_.getProperties().put("msg_example", relative_);
 
 
-        Document doc_ = DocumentBuilder.parseSax(html_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
         assertTrue(!conf_.isEmptyErrors());
     }
     @Test
@@ -1069,11 +872,7 @@ public final class RenderSwitchTest extends CommonRender {
         conf_.getProperties().put("msg_example", relative_);
 
 
-        Document doc_ = DocumentBuilder.parseSax(html_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
         assertTrue(!conf_.isEmptyErrors());
     }
     @Test
@@ -1096,11 +895,7 @@ public final class RenderSwitchTest extends CommonRender {
         conf_.getProperties().put("msg_example", relative_);
 
 
-        Document doc_ = DocumentBuilder.parseSax(html_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
         assertTrue(!conf_.isEmptyErrors());
     }
     @Test
@@ -1122,11 +917,7 @@ public final class RenderSwitchTest extends CommonRender {
         conf_.getProperties().put("msg_example", relative_);
 
 
-        Document doc_ = DocumentBuilder.parseSax(html_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
         assertTrue(!conf_.isEmptyErrors());
     }
     @Test
@@ -1148,11 +939,7 @@ public final class RenderSwitchTest extends CommonRender {
         conf_.getProperties().put("msg_example", relative_);
 
 
-        Document doc_ = DocumentBuilder.parseSax(html_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
         assertTrue(!conf_.isEmptyErrors());
     }
     @Test
@@ -1175,11 +962,7 @@ public final class RenderSwitchTest extends CommonRender {
         conf_.getProperties().put("msg_example", relative_);
 
 
-        Document doc_ = DocumentBuilder.parseSax(html_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
         assertTrue(!conf_.isEmptyErrors());
     }
     @Test
@@ -1202,11 +985,7 @@ public final class RenderSwitchTest extends CommonRender {
         conf_.getProperties().put("msg_example", relative_);
 
 
-        Document doc_ = DocumentBuilder.parseSax(html_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
         assertTrue(!conf_.isEmptyErrors());
     }
     @Test
@@ -1229,11 +1008,7 @@ public final class RenderSwitchTest extends CommonRender {
         conf_.getProperties().put("msg_example", relative_);
 
 
-        Document doc_ = DocumentBuilder.parseSax(html_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
         assertTrue(!conf_.isEmptyErrors());
     }
     @Test
@@ -1247,11 +1022,7 @@ public final class RenderSwitchTest extends CommonRender {
         conf_.getProperties().put("msg_example", relative_);
 
 
-        Document doc_ = DocumentBuilder.parseSax(html_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
         assertTrue(!conf_.isEmptyErrors());
     }
     @Test
@@ -1270,11 +1041,7 @@ public final class RenderSwitchTest extends CommonRender {
         conf_.getProperties().put("msg_example", relative_);
 
 
-        Document doc_ = DocumentBuilder.parseSax(html_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
         assertTrue(!conf_.isEmptyErrors());
     }
     @Test
@@ -1295,11 +1062,35 @@ public final class RenderSwitchTest extends CommonRender {
         conf_.getProperties().put("msg_example", relative_);
 
 
-        Document doc_ = DocumentBuilder.parseSax(html_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
+        assertTrue(!conf_.isEmptyErrors());
+    }
+    @Test
+    public void process16FailTest() {
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String html_ = "<html><body><c:break/></body></html>";
+        Configuration conf_ = contextElThird();
+        conf_.setMessagesFolder(folder_);
+        conf_.setProperties(new StringMap<String>());
+        conf_.getProperties().put("msg_example", relative_);
+
+
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
+        assertTrue(!conf_.isEmptyErrors());
+    }
+    @Test
+    public void process17FailTest() {
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String html_ = "<html><body><c:continue/></body></html>";
+        Configuration conf_ = contextElThird();
+        conf_.setMessagesFolder(folder_);
+        conf_.setProperties(new StringMap<String>());
+        conf_.getProperties().put("msg_example", relative_);
+
+
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
         assertTrue(!conf_.isEmptyErrors());
     }
 }

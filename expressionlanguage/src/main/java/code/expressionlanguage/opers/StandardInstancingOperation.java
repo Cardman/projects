@@ -4,9 +4,7 @@ import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.GeneType;
-import code.expressionlanguage.errors.custom.IllegalCallCtorByType;
-import code.expressionlanguage.errors.custom.StaticAccessError;
-import code.expressionlanguage.errors.custom.UnknownClassName;
+import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.inherits.Mapping;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
@@ -76,7 +74,6 @@ public final class StandardInstancingOperation extends
                 return;
             }
             String idClass_ = Templates.getIdFromAllTypes(className_).trim();
-            String glClass_ = _an.getGlobalClass();
             for (String o: arg_.getNames()) {
                 boolean ok_ = true;
                 for (String p: Templates.getAllTypes(o).mid(1)) {
@@ -92,9 +89,8 @@ public final class StandardInstancingOperation extends
                 }
             }
             for (String o: arg_.getNames()) {
-                StringList owners_ = TypeUtil.getGenericOwners(false,true, glClass_, o, idClass_, _an);
-                owners_.removeDuplicates();
-                if (owners_.size() == 1) {
+                StringList owners_ = TypeUtil.getGenericOwners(o, idClass_, _an);
+                if (owners_.onlyOneElt()) {
                     ownersMap_.put(o, owners_.first());
                 }
             }
@@ -239,9 +235,12 @@ public final class StandardInstancingOperation extends
                 StringList parts_ = Templates.getAllInnerTypes(realClassName_);
                 String outer_ = StringList.join(parts_.mid(0, parts_.size() - 1),"..");
                 if (isStaticAccess() != MethodAccessKind.INSTANCE) {
-                    StaticAccessError static_ = new StaticAccessError();
+                    FoundErrorInterpret static_ = new FoundErrorInterpret();
                     static_.setFileName(_conf.getCurrentFileName());
                     static_.setIndexFile(_conf.getCurrentLocationIndex());
+                    //original type len
+                    static_.buildError(_conf.getContextEl().getAnalysisMessages().getIllegalCtorUnknown(),
+                            realClassName_);
                     _conf.addError(static_);
                 } else {
                     StringMap<StringList> vars_ = _conf.getCurrentConstraints();
@@ -250,9 +249,13 @@ public final class StandardInstancingOperation extends
                     m_.setParam(outer_);
                     m_.setMapping(vars_);
                     if (!Templates.isCorrectOrNumbers(m_, _conf)){
-                        StaticAccessError static_ = new StaticAccessError();
+                        FoundErrorInterpret static_ = new FoundErrorInterpret();
                         static_.setFileName(_conf.getCurrentFileName());
                         static_.setIndexFile(_conf.getCurrentLocationIndex());
+                        //original type len
+                        static_.buildError(_conf.getContextEl().getAnalysisMessages().getBadImplicitCast(),
+                                glClass_,
+                                outer_);
                         _conf.addError(static_);
                     }
                 }
@@ -267,9 +270,12 @@ public final class StandardInstancingOperation extends
         int offset_ = StringList.getFirstPrintableCharIndex(realClassName_);
         realClassName_ = realClassName_.trim();
         if (realClassName_.startsWith("..")) {
-            StaticAccessError static_ = new StaticAccessError();
+            FoundErrorInterpret static_ = new FoundErrorInterpret();
             static_.setFileName(_conf.getCurrentFileName());
             static_.setIndexFile(_conf.getCurrentLocationIndex());
+            //original type len
+            static_.buildError(_conf.getContextEl().getAnalysisMessages().getIllegalCtorUnknown(),
+                    realClassName_);
             _conf.addError(static_);
             LgNames stds_ = _conf.getStandards();
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
@@ -277,9 +283,12 @@ public final class StandardInstancingOperation extends
         }
         ClassArgumentMatching arg_ = getPreviousResultClass();
         if (arg_.isArray()) {
-            StaticAccessError static_ = new StaticAccessError();
+            FoundErrorInterpret static_ = new FoundErrorInterpret();
             static_.setFileName(_conf.getCurrentFileName());
             static_.setIndexFile(_conf.getCurrentLocationIndex());
+            //key word len
+            static_.buildError(_conf.getContextEl().getAnalysisMessages().getIllegalCtorUnknown(),
+                    realClassName_);
             _conf.addError(static_);
             LgNames stds_ = _conf.getStandards();
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
@@ -288,38 +297,52 @@ public final class StandardInstancingOperation extends
         StringMap<String> ownersMap_ = new StringMap<String>();
         String idClass_ = Templates.getIdFromAllTypes(realClassName_);
         offset_ += idClass_.length() + 1;
-        String glClass_ = _conf.getGlobalClass();
         for (String o: arg_.getNames()) {
             boolean ok_ = true;
             for (String p: Templates.getAllTypes(o).mid(1)) {
                 if (p.startsWith(Templates.SUB_TYPE)) {
+                    FoundErrorInterpret call_ = new FoundErrorInterpret();
+                    call_.setFileName(_conf.getCurrentFileName());
+                    call_.setIndexFile(_conf.getCurrentLocationIndex());
+                    //key word len
+                    call_.buildError(_conf.getContextEl().getAnalysisMessages().getIllegalCtorBound(),
+                            p,
+                            o);
+                    _conf.addError(call_);
                     ok_ = false;
                 }
                 if (p.startsWith(Templates.SUP_TYPE)) {
+                    FoundErrorInterpret call_ = new FoundErrorInterpret();
+                    call_.setFileName(_conf.getCurrentFileName());
+                    call_.setIndexFile(_conf.getCurrentLocationIndex());
+                    //key word len
+                    call_.buildError(_conf.getContextEl().getAnalysisMessages().getIllegalCtorBound(),
+                            p,
+                            o);
+                    _conf.addError(call_);
                     ok_ = false;
                 }
             }
             if (!ok_) {
-                StaticAccessError static_ = new StaticAccessError();
-                static_.setFileName(_conf.getCurrentFileName());
-                static_.setIndexFile(_conf.getCurrentLocationIndex());
-                _conf.addError(static_);
                 LgNames stds_ = _conf.getStandards();
                 setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
                 return;
             }
         }
         for (String o: arg_.getNames()) {
-            StringList owners_ = TypeUtil.getGenericOwners(false,true, glClass_, o, idClass_, _conf);
-            owners_.removeDuplicates();
-            if (owners_.size() == 1) {
+            StringList owners_ = TypeUtil.getGenericOwners(o, idClass_, _conf);
+            if (owners_.onlyOneElt()) {
                 ownersMap_.put(o, owners_.first());
             }
         }
         if (ownersMap_.size() != 1) {
-            StaticAccessError static_ = new StaticAccessError();
+            FoundErrorInterpret static_ = new FoundErrorInterpret();
             static_.setFileName(_conf.getCurrentFileName());
             static_.setIndexFile(_conf.getCurrentLocationIndex());
+            //idClass_ len
+            static_.buildError(_conf.getContextEl().getAnalysisMessages().getNotResolvedOwner(),
+                    idClass_
+            );
             _conf.addError(static_);
             LgNames stds_ = _conf.getStandards();
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
@@ -341,10 +364,12 @@ public final class StandardInstancingOperation extends
         StringMap<StringList> vars_ = _conf.getCurrentConstraints();
         if (!Templates.isCorrectTemplateAll(realClassName_, vars_, _conf)) {
             int rc_ = _conf.getCurrentLocationIndex();
-            UnknownClassName un_ = new UnknownClassName();
-            un_.setClassName(realClassName_);
+            FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(_conf.getCurrentFileName());
             un_.setIndexFile(rc_);
+            //original type len
+            un_.buildError(_conf.getContextEl().getAnalysisMessages().getBadParamerizedType(),
+                    realClassName_);
             _conf.addError(un_);
             realClassName_ = _conf.getStandards().getAliasObject();
         }
@@ -359,10 +384,12 @@ public final class StandardInstancingOperation extends
         String base_ = Templates.getIdFromAllTypes(_realClassName);
         GeneType g_ = _conf.getClassBody(base_);
         if (g_ == null) {
-            IllegalCallCtorByType call_ = new IllegalCallCtorByType();
-            call_.setType(_realClassName);
+            FoundErrorInterpret call_ = new FoundErrorInterpret();
             call_.setFileName(_conf.getCurrentFileName());
             call_.setIndexFile(_conf.getCurrentLocationIndex());
+            //type len
+            call_.buildError(_conf.getContextEl().getAnalysisMessages().getIllegalCtorUnknown(),
+                    _realClassName);
             _conf.addError(call_);
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             return;
@@ -377,25 +404,33 @@ public final class StandardInstancingOperation extends
         }
         for (String p:Templates.getAllTypes(_realClassName).mid(1)){
             if (p.startsWith(Templates.SUB_TYPE)) {
-                IllegalCallCtorByType call_ = new IllegalCallCtorByType();
-                call_.setType(_realClassName);
+                FoundErrorInterpret call_ = new FoundErrorInterpret();
                 call_.setFileName(_conf.getCurrentFileName());
                 call_.setIndexFile(_conf.getCurrentLocationIndex());
+                //part type len
+                call_.buildError(_conf.getContextEl().getAnalysisMessages().getIllegalCtorBound(),
+                        p,
+                        _realClassName);
                 _conf.addError(call_);
             }
             if (p.startsWith(Templates.SUP_TYPE)) {
-                IllegalCallCtorByType call_ = new IllegalCallCtorByType();
-                call_.setType(_realClassName);
+                FoundErrorInterpret call_ = new FoundErrorInterpret();
                 call_.setFileName(_conf.getCurrentFileName());
                 call_.setIndexFile(_conf.getCurrentLocationIndex());
+                //part type len
+                call_.buildError(_conf.getContextEl().getAnalysisMessages().getIllegalCtorBound(),
+                        p,
+                        _realClassName);
                 _conf.addError(call_);
             }
         }
-        if (g_.isAbstractType() && !ContextEl.isEnumType(g_)) {
-            IllegalCallCtorByType call_ = new IllegalCallCtorByType();
-            call_.setType(_realClassName);
+        if (ContextEl.isAbstractType(g_) && !ContextEl.isEnumType(g_)) {
+            FoundErrorInterpret call_ = new FoundErrorInterpret();
             call_.setFileName(_conf.getCurrentFileName());
             call_.setIndexFile(_conf.getCurrentLocationIndex());
+            //type len
+            call_.buildError(_conf.getContextEl().getAnalysisMessages().getIllegalCtorAbstract(),
+                    base_);
             _conf.addError(call_);
             setResultClass(new ClassArgumentMatching(_realClassName));
             return;
@@ -411,7 +446,7 @@ public final class StandardInstancingOperation extends
             StringList params_ = idMethod_.getConstraints().getParametersTypes();
             feed_ = new ConstructorId(idClass_, params_, vararg_);
         }
-        ConstrustorIdVarArg ctorRes_ = getDeclaredCustConstructor(_conf, varargOnly_, new ClassArgumentMatching(_realClassName), feed_, ClassArgumentMatching.toArgArray(_firstArgs));
+        ConstrustorIdVarArg ctorRes_ = getDeclaredCustConstructor(_conf, varargOnly_, new ClassArgumentMatching(_realClassName),g_, feed_, ClassArgumentMatching.toArgArray(_firstArgs));
         if (ctorRes_.getRealId() == null) {
             setResultClass(new ClassArgumentMatching(_realClassName));
             return;

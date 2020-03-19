@@ -107,7 +107,6 @@ public final class Team {
         }
         attaques_.clear();
         attaques_.addAllElts(_import.getVarParamsMove(NB_UTILI_ATT_EQ_TOUR));
-        attaques_.removeDuplicates();
         nbUsesMovesRound = new StringMap<Integer>();
         for(String e:attaques_){
             nbUsesMovesRound.put(e,0);
@@ -360,7 +359,6 @@ public final class Team {
         StringList attaques_ = new StringList();
         attaques_.addAllElts(_data.getVarParamsMove(EQUIPE_NB_UTILISATION));
         attaques_.addAllElts(_data.getVarParamsMove(EQUIPE_ADV_NB_UTILISATION));
-        attaques_.removeDuplicates();
         if (!StringList.equalsSet(attaques_, nbUsesMoves.getKeys())) {
             return false;
         }
@@ -371,7 +369,6 @@ public final class Team {
         }
         attaques_.clear();
         attaques_.addAllElts(_data.getVarParamsMove(NB_UTILI_ATT_EQ_TOUR));
-        attaques_.removeDuplicates();
         if (!StringList.equalsSet(attaques_, nbUsesMovesRound.getKeys())) {
             return false;
         }

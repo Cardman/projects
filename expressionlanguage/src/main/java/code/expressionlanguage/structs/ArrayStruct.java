@@ -13,6 +13,17 @@ public final class ArrayStruct implements Struct {
         className = _className;
     }
 
+    public ArrayStruct swallowCopy() {
+        int len_ = instance.length;
+        Struct[] inst_ = new Struct[len_];
+        for (int i = 0; i < len_; i++) {
+            set(i,inst_,instance);
+        }
+        return new ArrayStruct(inst_,className);
+    }
+    private static void set(int _i, Struct[] _dest, Struct[] _orig) {
+        _dest[_i] = _orig[_i];
+    }
     @Override
     public Struct getParent() {
         return NullStruct.NULL_VALUE;

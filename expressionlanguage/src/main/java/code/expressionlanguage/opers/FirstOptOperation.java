@@ -2,7 +2,7 @@ package code.expressionlanguage.opers;
 
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.errors.custom.VarargError;
+import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.opers.exec.Operable;
 import code.expressionlanguage.opers.exec.ParentOperable;
@@ -33,19 +33,23 @@ public final class FirstOptOperation extends AbstractUnaryOperation implements F
         LgNames stds_ = _conf.getStandards();
         MethodOperation m_ = getParent();
         if (m_ == null ||!m_.isCallMethodCtor()) {
-            VarargError varg_ = new VarargError();
+            FoundErrorInterpret varg_ = new FoundErrorInterpret();
             varg_.setFileName(_conf.getCurrentFileName());
             varg_.setIndexFile(_conf.getCurrentLocationIndex());
-            varg_.setMethodName(FIRST_OPT);
+            //key word len
+            varg_.buildError(_conf.getContextEl().getAnalysisMessages().getUnexpectedLeaf(),
+                    _conf.getContextEl().getKeyWords().getKeyWordFirstopt());
             _conf.addError(varg_);
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             return;
         }
-        if (isFirstChild()) {
-            VarargError varg_ = new VarargError();
+        if (isFirstChildInParent()) {
+            FoundErrorInterpret varg_ = new FoundErrorInterpret();
             varg_.setFileName(_conf.getCurrentFileName());
             varg_.setIndexFile(_conf.getCurrentLocationIndex());
-            varg_.setMethodName(FIRST_OPT);
+            //key word len
+            varg_.buildError(_conf.getContextEl().getAnalysisMessages().getUnexpectedLeaf(),
+                    _conf.getContextEl().getKeyWords().getKeyWordFirstopt());
             _conf.addError(varg_);
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             return;

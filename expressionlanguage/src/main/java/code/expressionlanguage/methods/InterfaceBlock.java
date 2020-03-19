@@ -3,22 +3,19 @@ package code.expressionlanguage.methods;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.GeneInterface;
-import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.files.OffsetAccessInfo;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.inherits.Templates;
 import code.util.*;
 import code.util.StringList;
 
-public final class InterfaceBlock extends RootBlock implements GeneInterface {
+public final class InterfaceBlock extends RootBlock implements GeneInterface,AccessibleBlock {
 
     private final StringList allSuperClasses = new StringList();
 
     private final StringList allSuperTypes = new StringList();
     private StringList importedDirectSuperInterfaces = new StringList();
     private final boolean staticType;
-
-    private final StringList allInterfaces = new StringList();
 
     public InterfaceBlock(int _idRowCol, int _categoryOffset, String _name, String _packageName, OffsetAccessInfo _access,
                           String _templateDef, IntMap< String> _directSuperTypes, boolean _staticType, OffsetsBlock _offset) {
@@ -45,11 +42,6 @@ public final class InterfaceBlock extends RootBlock implements GeneInterface {
     @Override
     public StringList getAllSuperClasses() {
         return allSuperClasses;
-    }
-
-    @Override
-    public StringList getAllInterfaces() {
-        return allInterfaces;
     }
 
     @Override
@@ -85,7 +77,7 @@ public final class InterfaceBlock extends RootBlock implements GeneInterface {
         importedDirectSuperInterfaces.clear();
         for (String s: getDirectSuperTypes()) {
             int index_ = rcs_.getKey(i_);
-            String s_ = _classes.resolveTypeInherits(s, this,index_, i_);
+            String s_ = _classes.resolveTypeInherits(s, this,index_);
             String c_ = getImportedDirectBaseSuperType(i_);
             _classes.addErrorIfNoMatch(s_,c_,this,index_);
             i_++;

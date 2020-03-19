@@ -12,10 +12,10 @@ public final class RendStdElement extends RendElement {
 
     @Override
     protected void processAttributes(Configuration _cont, RendDocumentBlock _doc, Element _read, StringList _list) {
-        if (StringList.quickEq(_read.getTagName(),StringList.concat(_cont.getPrefix(),TAG_PARAM))) {
+        if (StringList.quickEq(_read.getTagName(),StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getKeyWordParam()))) {
             _list.clear();
         }
-        _list.removeAllString(StringList.concat(_cont.getPrefix(),BEAN_ATTRIBUTE));
+        _list.removeAllString(StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrBean()));
     }
 
     @Override

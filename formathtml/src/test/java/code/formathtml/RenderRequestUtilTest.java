@@ -3,17 +3,13 @@ package code.formathtml;
 import code.bean.Bean;
 
 import code.bean.validator.Validator;
-import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.opers.util.ClassField;
-import code.expressionlanguage.structs.FieldableStruct;
 import code.expressionlanguage.structs.IntStruct;
 import code.expressionlanguage.structs.NumberStruct;
 import code.expressionlanguage.structs.Struct;
 
 import code.formathtml.util.NodeContainer;
-import code.sml.Document;
-import code.sml.DocumentBuilder;
 import code.util.StringMap;
 import org.junit.Test;
 
@@ -47,30 +43,17 @@ public final class RenderRequestUtilTest extends CommonRender {
         filesSec_.put("my_file",file_.toString());
         Configuration conf_ = contextElThird(filesSec_);
         conf_.setBeans(new StringMap<Bean>());
-        addImportingPage(conf_);
-        Struct bean_ = RenderExpUtil.processEl("$new pkg.BeanOne()", 0, conf_).getStruct();
-        addBeanInfo(conf_,"bean_one",bean_);
-        conf_.clearPages();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-
-
-        Document doc_ = DocumentBuilder.parseSax(html_);
         conf_.getAnalyzingDoc().setFiles(files_);
-        setLocale(locale_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getContext().setAnalyzing(new AnalyzedPageEl());
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
-        
-        conf_.setDocument(doc_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         RendBlock.getRes(rendDocumentBlock_,conf_);
         addImportingPage(conf_);
-        conf_.getLastPage().setGlobalArgumentStruct(bean_,conf_);
+        Struct build_ = conf_.getBuiltBeans().getVal("bean_one");
+        conf_.getLastPage().setGlobalArgumentStruct(build_,conf_);
         conf_.getContext().setGlobalClass(conf_.getLastPage().getGlobalClass());
-        Struct value_ = RendRequestUtil.redirect(conf_, new Argument(bean_), 0);
+        Struct value_ = RendRequestUtil.redirect(conf_, new Argument(build_), 0);
         assertEq(2,((NumberStruct)value_).intStruct());
     }
     @Test
@@ -97,31 +80,19 @@ public final class RenderRequestUtilTest extends CommonRender {
         filesSec_.put("my_file",file_.toString());
         Configuration conf_ = contextElThird(filesSec_);
         conf_.setBeans(new StringMap<Bean>());
-        addImportingPage(conf_);
-        Struct bean_ = RenderExpUtil.processEl("$new pkg.BeanOne()", 0, conf_).getStruct();
-        addBeanInfo(conf_,"bean_one",bean_);
-        conf_.clearPages();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-
-
-        Document doc_ = DocumentBuilder.parseSax(html_);
         conf_.getAnalyzingDoc().setFiles(files_);
-        setLocale(locale_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getContext().setAnalyzing(new AnalyzedPageEl());
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
-        
-        conf_.setDocument(doc_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         RendBlock.getRes(rendDocumentBlock_,conf_);
         addImportingPage(conf_);
-        conf_.getLastPage().setGlobalArgumentStruct(bean_,conf_);
-        Struct value_ = RendRequestUtil.redirect(conf_, new Argument(bean_), 0);
+        Struct build_ = conf_.getBuiltBeans().getVal("bean_one");
+        conf_.getLastPage().setGlobalArgumentStruct(build_,conf_);
+        Struct value_ = RendRequestUtil.redirect(conf_, new Argument(build_), 0);
         assertEq(2,((NumberStruct)value_).intStruct());
     }
+
     @Test
     public void redirect3Test() {
         String locale_ = "en";
@@ -147,30 +118,17 @@ public final class RenderRequestUtilTest extends CommonRender {
         filesSec_.put("my_file",file_.toString());
         Configuration conf_ = contextElThird(filesSec_);
         conf_.setBeans(new StringMap<Bean>());
-        addImportingPage(conf_);
-        Struct bean_ = RenderExpUtil.processEl("$new pkg.BeanOne()", 0, conf_).getStruct();
-        addBeanInfo(conf_,"bean_one",bean_);
-        conf_.clearPages();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-
-
-        Document doc_ = DocumentBuilder.parseSax(html_);
         conf_.getAnalyzingDoc().setFiles(files_);
-        setLocale(locale_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getContext().setAnalyzing(new AnalyzedPageEl());
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
-        
-        conf_.setDocument(doc_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         RendBlock.getRes(rendDocumentBlock_,conf_);
         addImportingPage(conf_);
-        conf_.getLastPage().setGlobalArgumentStruct(bean_,conf_);
+        Struct build_ = conf_.getBuiltBeans().getVal("bean_one");
+        conf_.getLastPage().setGlobalArgumentStruct(build_,conf_);
         conf_.getContext().setGlobalClass(conf_.getLastPage().getGlobalClass());
-        Struct value_ = RendRequestUtil.redirect(conf_, new Argument(bean_), 0);
+        Struct value_ = RendRequestUtil.redirect(conf_, new Argument(build_), 0);
         assertEq(10,((NumberStruct)value_).intStruct());
     }
     @Test
@@ -197,29 +155,16 @@ public final class RenderRequestUtilTest extends CommonRender {
         filesSec_.put("my_file",file_.toString());
         Configuration conf_ = contextElThird(filesSec_);
         conf_.setBeans(new StringMap<Bean>());
-        addImportingPage(conf_);
-        Struct bean_ = RenderExpUtil.processEl("$new pkg.BeanOne()", 0, conf_).getStruct();
-        addBeanInfo(conf_,"bean_one",bean_);
-        conf_.clearPages();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-
-
-        Document doc_ = DocumentBuilder.parseSax(html_);
         conf_.getAnalyzingDoc().setFiles(files_);
-        setLocale(locale_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getContext().setAnalyzing(new AnalyzedPageEl());
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
-        
-        conf_.setDocument(doc_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         RendBlock.getRes(rendDocumentBlock_,conf_);
         addImportingPage(conf_);
-        conf_.getLastPage().setGlobalArgumentStruct(bean_,conf_);
-        Struct value_ = RendRequestUtil.redirect(conf_, new Argument(bean_), 0);
+        Struct build_ = conf_.getBuiltBeans().getVal("bean_one");
+        conf_.getLastPage().setGlobalArgumentStruct(build_,conf_);
+        Struct value_ = RendRequestUtil.redirect(conf_, new Argument(build_), 0);
         assertEq(4,((NumberStruct)value_).intStruct());
     }
 
@@ -251,30 +196,17 @@ public final class RenderRequestUtilTest extends CommonRender {
         filesSec_.put("my_file",file_.toString());
         Configuration conf_ = contextElThird(filesSec_);
         conf_.setBeans(new StringMap<Bean>());
-        addImportingPage(conf_);
-        Struct bean_ = RenderExpUtil.processEl("$new pkg.BeanOne()", 0, conf_).getStruct();
-        addBeanInfo(conf_,"bean_one",bean_);
-        conf_.clearPages();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-
-
-        Document doc_ = DocumentBuilder.parseSax(html_);
         conf_.getAnalyzingDoc().setFiles(files_);
-        setLocale(locale_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getContext().setAnalyzing(new AnalyzedPageEl());
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
-        
-        conf_.setDocument(doc_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         RendBlock.getRes(rendDocumentBlock_,conf_);
         addImportingPage(conf_);
-        conf_.getLastPage().setGlobalArgumentStruct(bean_,conf_);
+        Struct build_ = conf_.getBuiltBeans().getVal("bean_one");
+        conf_.getLastPage().setGlobalArgumentStruct(build_,conf_);
         conf_.getContext().setGlobalClass(conf_.getLastPage().getGlobalClass());
-        Struct value_ = RendRequestUtil.redirect(conf_, new Argument(bean_), 1);
+        Struct value_ = RendRequestUtil.redirect(conf_, new Argument(build_), 1);
         assertEq(4,((NumberStruct)value_).intStruct());
     }
     @Test
@@ -304,29 +236,16 @@ public final class RenderRequestUtilTest extends CommonRender {
         filesSec_.put("my_file",file_.toString());
         Configuration conf_ = contextElThird(filesSec_);
         conf_.setBeans(new StringMap<Bean>());
-        addImportingPage(conf_);
-        Struct bean_ = RenderExpUtil.processEl("$new pkg.BeanOne()", 0, conf_).getStruct();
-        addBeanInfo(conf_,"bean_one",bean_);
-        conf_.clearPages();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-
-
-        Document doc_ = DocumentBuilder.parseSax(html_);
         conf_.getAnalyzingDoc().setFiles(files_);
-        setLocale(locale_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getContext().setAnalyzing(new AnalyzedPageEl());
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
-        
-        conf_.setDocument(doc_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         RendBlock.getRes(rendDocumentBlock_,conf_);
         addImportingPage(conf_);
-        conf_.getLastPage().setGlobalArgumentStruct(bean_,conf_);
-        Struct value_ = RendRequestUtil.redirect(conf_, new Argument(bean_), 1);
+        Struct build_ = conf_.getBuiltBeans().getVal("bean_one");
+        conf_.getLastPage().setGlobalArgumentStruct(build_,conf_);
+        Struct value_ = RendRequestUtil.redirect(conf_, new Argument(build_), 1);
         assertEq(4,((NumberStruct)value_).intStruct());
     }
     @Test
@@ -357,30 +276,17 @@ public final class RenderRequestUtilTest extends CommonRender {
         filesSec_.put("my_file",file_.toString());
         Configuration conf_ = contextElThird(filesSec_);
         conf_.setBeans(new StringMap<Bean>());
-        addImportingPage(conf_);
-        Struct bean_ = RenderExpUtil.processEl("$new pkg.BeanOne()", 0, conf_).getStruct();
-        addBeanInfo(conf_,"bean_one",bean_);
-        conf_.clearPages();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-
-
-        Document doc_ = DocumentBuilder.parseSax(html_);
         conf_.getAnalyzingDoc().setFiles(files_);
-        setLocale(locale_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getContext().setAnalyzing(new AnalyzedPageEl());
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
-        
-        conf_.setDocument(doc_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         RendBlock.getRes(rendDocumentBlock_,conf_);
         addImportingPage(conf_);
-        conf_.getLastPage().setGlobalArgumentStruct(bean_,conf_);
+        Struct build_ = conf_.getBuiltBeans().getVal("bean_one");
+        conf_.getLastPage().setGlobalArgumentStruct(build_,conf_);
         conf_.getContext().setGlobalClass(conf_.getLastPage().getGlobalClass());
-        Struct value_ = RendRequestUtil.redirect(conf_, new Argument(bean_), 1);
+        Struct value_ = RendRequestUtil.redirect(conf_, new Argument(build_), 1);
         assertEq(20,((NumberStruct)value_).intStruct());
     }
     @Test
@@ -410,29 +316,16 @@ public final class RenderRequestUtilTest extends CommonRender {
         filesSec_.put("my_file",file_.toString());
         Configuration conf_ = contextElThird(filesSec_);
         conf_.setBeans(new StringMap<Bean>());
-        addImportingPage(conf_);
-        Struct bean_ = RenderExpUtil.processEl("$new pkg.BeanOne()", 0, conf_).getStruct();
-        addBeanInfo(conf_,"bean_one",bean_);
-        conf_.clearPages();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-
-
-        Document doc_ = DocumentBuilder.parseSax(html_);
         conf_.getAnalyzingDoc().setFiles(files_);
-        setLocale(locale_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getContext().setAnalyzing(new AnalyzedPageEl());
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
-        
-        conf_.setDocument(doc_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         RendBlock.getRes(rendDocumentBlock_,conf_);
         addImportingPage(conf_);
-        conf_.getLastPage().setGlobalArgumentStruct(bean_,conf_);
-        Struct value_ = RendRequestUtil.redirect(conf_, new Argument(bean_), 1);
+        Struct build_ = conf_.getBuiltBeans().getVal("bean_one");
+        conf_.getLastPage().setGlobalArgumentStruct(build_,conf_);
+        Struct value_ = RendRequestUtil.redirect(conf_, new Argument(build_), 1);
         assertEq(8,((NumberStruct)value_).intStruct());
     }
 
@@ -461,29 +354,16 @@ public final class RenderRequestUtilTest extends CommonRender {
         filesSec_.put("my_file",file_.toString());
         Configuration conf_ = contextElThird(filesSec_);
         conf_.setBeans(new StringMap<Bean>());
-        addImportingPage(conf_);
-        Struct bean_ = RenderExpUtil.processEl("$new pkg.BeanOne()", 0, conf_).getStruct();
-        addBeanInfo(conf_,"bean_one",bean_);
-        conf_.clearPages();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-
-
-        Document doc_ = DocumentBuilder.parseSax(html_);
         conf_.getAnalyzingDoc().setFiles(files_);
-        setLocale(locale_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getContext().setAnalyzing(new AnalyzedPageEl());
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
-        
-        conf_.setDocument(doc_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         RendBlock.getRes(rendDocumentBlock_,conf_);
         addImportingPage(conf_);
-        conf_.getLastPage().setGlobalArgumentStruct(bean_,conf_);
-        RendRequestUtil.redirect(conf_, new Argument(bean_), 0);
+        Struct build_ = conf_.getBuiltBeans().getVal("bean_one");
+        conf_.getLastPage().setGlobalArgumentStruct(build_,conf_);
+        RendRequestUtil.redirect(conf_, new Argument(build_), 0);
         assertNotNull(getException(conf_));
     }
     @Test
@@ -510,29 +390,16 @@ public final class RenderRequestUtilTest extends CommonRender {
         filesSec_.put("my_file",file_.toString());
         Configuration conf_ = contextElThird(filesSec_);
         conf_.setBeans(new StringMap<Bean>());
-        addImportingPage(conf_);
-        Struct bean_ = RenderExpUtil.processEl("$new pkg.BeanOne()", 0, conf_).getStruct();
-        addBeanInfo(conf_,"bean_one",bean_);
-        conf_.clearPages();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-
-
-        Document doc_ = DocumentBuilder.parseSax(html_);
         conf_.getAnalyzingDoc().setFiles(files_);
-        setLocale(locale_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getContext().setAnalyzing(new AnalyzedPageEl());
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
-        
-        conf_.setDocument(doc_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         RendBlock.getRes(rendDocumentBlock_,conf_);
         addImportingPage(conf_);
-        conf_.getLastPage().setGlobalArgumentStruct(bean_,conf_);
-        RendRequestUtil.redirect(conf_, new Argument(bean_), 0);
+        Struct build_ = conf_.getBuiltBeans().getVal("bean_one");
+        conf_.getLastPage().setGlobalArgumentStruct(build_,conf_);
+        RendRequestUtil.redirect(conf_, new Argument(build_), 0);
         assertNotNull(getException(conf_));
     }
     @Test
@@ -559,28 +426,15 @@ public final class RenderRequestUtilTest extends CommonRender {
         filesSec_.put("my_file",file_.toString());
         Configuration conf_ = contextElThird(filesSec_);
         conf_.setBeans(new StringMap<Bean>());
-        addImportingPage(conf_);
-        Struct bean_ = RenderExpUtil.processEl("$new pkg.BeanOne()", 0, conf_).getStruct();
-        addBeanInfo(conf_,"bean_one",bean_);
-        conf_.clearPages();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-
-
-        Document doc_ = DocumentBuilder.parseSax(html_);
         conf_.getAnalyzingDoc().setFiles(files_);
-        setLocale(locale_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getContext().setAnalyzing(new AnalyzedPageEl());
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
-        
-        conf_.setDocument(doc_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         RendBlock.getRes(rendDocumentBlock_,conf_);
         addImportingPage(conf_);
-        conf_.getLastPage().setGlobalArgumentStruct(bean_,conf_);
+        Struct build_ = conf_.getBuiltBeans().getVal("bean_one");
+        conf_.getLastPage().setGlobalArgumentStruct(build_,conf_);
         RendRequestUtil.invokeMethodWithNumbersBis(conf_, "");
         assertNotNull(getException(conf_));
     }
@@ -611,34 +465,24 @@ public final class RenderRequestUtilTest extends CommonRender {
         filesSec_.put("my_file",file_.toString());
         Configuration conf_ = contextElThird(filesSec_);
         conf_.setBeans(new StringMap<Bean>());
-        addImportingPage(conf_);
-        Struct bean_ = RenderExpUtil.processEl("$new pkg.BeanOne()", 0, conf_).getStruct();
-        addBeanInfo(conf_,"bean_one",bean_);
-        conf_.clearPages();
         conf_.setMessagesFolder(folder_);
         conf_.setFirstUrl("page1.html");
         conf_.setValidators(new StringMap<Validator>());
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-
-
-        conf_.setNavigation(new StringMap<StringMap<String>>());
-        Document doc_ = DocumentBuilder.parseSax(html_);
         conf_.getAnalyzingDoc().setFiles(files_);
-        setLocale(locale_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getContext().setAnalyzing(new AnalyzedPageEl());
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        conf_.setNavigation(new StringMap<StringMap<String>>());
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         RendBlock.getRes(rendDocumentBlock_,conf_);
         addImportingPage(conf_);
         NodeContainer nCont_ = conf_.getContainersMap().firstValue().getValue(0);
         NodeContainer nContBis_ = conf_.getContainersMap().firstValue().getValue(1);
         RendRequestUtil.setRendObject(conf_,nCont_,new IntStruct(2));
-        assertEq(2, ((NumberStruct)getStruct(bean_,nCont_.getIdField())).intStruct());
-        assertEq(6, ((NumberStruct)getStruct(bean_,nContBis_.getIdField())).intStruct());
+        Struct build_ = conf_.getBuiltBeans().getVal("bean_one");
+        assertEq(2, ((NumberStruct)getStruct(build_,nCont_.getIdField())).intStruct());
+        assertEq(6, ((NumberStruct)getStruct(build_,nContBis_.getIdField())).intStruct());
     }
+
     @Test
     public void setRendObject2Test() {
         String locale_ = "en";
@@ -666,30 +510,17 @@ public final class RenderRequestUtilTest extends CommonRender {
         filesSec_.put("my_file",file_.toString());
         Configuration conf_ = contextElThird(filesSec_);
         conf_.setBeans(new StringMap<Bean>());
-        addImportingPage(conf_);
-        Struct bean_ = RenderExpUtil.processEl("$new pkg.BeanOne()", 0, conf_).getStruct();
-        addBeanInfo(conf_,"bean_one",bean_);
-        conf_.clearPages();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-
-
-        Document doc_ = DocumentBuilder.parseSax(html_);
         conf_.getAnalyzingDoc().setFiles(files_);
-        setLocale(locale_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getContext().setAnalyzing(new AnalyzedPageEl());
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
-        
-        conf_.setDocument(doc_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         RendBlock.getRes(rendDocumentBlock_, conf_);
         addImportingPage(conf_);
         NodeContainer nCont_ = conf_.getContainersMap().firstValue().getValue(0);
         RendRequestUtil.setRendObject(conf_, nCont_,new IntStruct(2));
-        Struct dto_ = getStruct(bean_,new ClassField("pkg.BeanOne", "first"));
+        Struct build_ = conf_.getBuiltBeans().getVal("bean_one");
+        Struct dto_ = getStruct(build_,new ClassField("pkg.BeanOne", "first"));
         assertEq(2, ((NumberStruct)getStruct(dto_,nCont_.getIdField())).intStruct());
     }
 }

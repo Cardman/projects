@@ -56,7 +56,8 @@ public final class ExecSettableFieldOperation extends
         if (_conf.getContextEl().callsOrException()) {
             return Argument.createVoid();
         }
-        return ExecInvokingOperation.getField(className_, fieldName_, staticField_, previous_, _conf, off_);
+        String fieldType_ = fieldMetaInfo.getRealType();
+        return ExecInvokingOperation.getField(className_, fieldName_, staticField_,fieldType_, previous_, _conf, off_);
     }
     
     public ClassField getFieldId() {

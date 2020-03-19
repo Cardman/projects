@@ -132,7 +132,6 @@ public class ContainerGame implements Containable {
 
     public void ajouterTexteDansZone(String _texte) {
         getEvents().append(_texte);
-        getEvents().scrollToEnd();
     }
 
     public void revalidate() {

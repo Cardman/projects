@@ -2,6 +2,7 @@ package code.expressionlanguage.methods;
 
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.common.GeneCustMethod;
 import code.expressionlanguage.common.GeneMethod;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.files.OffsetAccessInfo;
@@ -16,7 +17,7 @@ import code.util.CustList;
 import code.util.Ints;
 import code.util.StringList;
 
-public final class OperatorBlock extends NamedFunctionBlock implements GeneMethod, AccessingImportingBlock,ReturnableWithSignature {
+public final class OperatorBlock extends NamedFunctionBlock implements GeneCustMethod, AccessingImportingBlock,ReturnableWithSignature {
 
     private StringList imports = new StringList();
 
@@ -79,11 +80,6 @@ public final class OperatorBlock extends NamedFunctionBlock implements GeneMetho
     @Override
     public MethodAccessKind getStaticContext() {
         return MethodAccessKind.STATIC;
-    }
-
-    @Override
-    public RootBlock belong() {
-        return null;
     }
 
     @Override

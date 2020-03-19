@@ -9,7 +9,8 @@ public final class SortedGraph<T extends SortedEdge<T>> {
     private Graph<T> graph = new Graph<T>();
 
     public EqList<T> process() {
-        EqList<T> elts_ = graph.getElementsListCopy();
+        EqList<T> elts_ = graph.getElements();
+        EqList<T> result_ = new EqList<T>();
         int order_ = 0;
         while (true) {
             EqList<T> next_ = new EqList<T>();
@@ -20,8 +21,7 @@ public final class SortedGraph<T extends SortedEdge<T>> {
                 EqList<T> list_ = graph.getChildren(e);
                 boolean allNb_ = true;
                 for (T s: list_) {
-                    int s_ = getElementByEq(s);
-                    if (s_ == CustList.INDEX_NOT_FOUND_ELT) {
+                    if (s.getOrder() == CustList.INDEX_NOT_FOUND_ELT) {
                         allNb_ = false;
                         break;
                     }
@@ -36,11 +36,11 @@ public final class SortedGraph<T extends SortedEdge<T>> {
             }
             for (T o: next_) {
                 o.setOrder(order_);
+                result_.add(o);
                 order_++;
             }
         }
-        elts_.sortElts(new EdgeComparator<T>());
-        return elts_;
+        return result_;
     }
 
     public EqList<T> getTreeFrom(T _elt) {
@@ -99,15 +99,6 @@ public final class SortedGraph<T extends SortedEdge<T>> {
         return graph.isDirectTrees();
     }
 
-
-    public int getElementByEq(T _eq) {
-        for (T e: graph.getElements()) {
-            if (e.eq(_eq)) {
-                return e.getOrder();
-            }
-        }
-        return -1;
-    }
 
     public Graph<T> getReverse() {
         return graph.getReverse();

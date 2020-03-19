@@ -27,8 +27,8 @@ public final class RendThrowing extends RendLeaf implements RendBuildableElMetho
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         page_.setOffset(0);
         page_.setGlobalOffset(expressionOffset);
-        _cont.getAnalyzingDoc().setAttribute(ATTRIBUTE_VALUE);
-        opThrow = RenderExpUtil.getAnalyzedOperations(expression,0, _cont, Calculation.staticCalculation(_doc.getStaticContext()));
+        _cont.getAnalyzingDoc().setAttribute(_cont.getRendKeyWords().getAttrValue());
+        opThrow = RenderExpUtil.getAnalyzedOperations(expression,expressionOffset,0, _cont);
 
     }
     @Override
@@ -41,7 +41,7 @@ public final class RendThrowing extends RendLeaf implements RendBuildableElMetho
     public void processEl(Configuration _cont) {
         ImportingPage ip_ = _cont.getLastPage();
         ip_.setOffset(expressionOffset);
-        ip_.setProcessingAttribute(ATTRIBUTE_VALUE);
+        ip_.setProcessingAttribute(_cont.getRendKeyWords().getAttrValue());
         Argument argument_ = RenderExpUtil.calculateReuse(opThrow, _cont);
         if (_cont.getContext().hasException()) {
             return;

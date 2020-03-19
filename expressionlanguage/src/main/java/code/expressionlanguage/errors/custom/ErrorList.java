@@ -1,7 +1,7 @@
 package code.expressionlanguage.errors.custom;
 
-import code.expressionlanguage.methods.Classes;
 import code.util.CustList;
+import code.util.StringList;
 
 public class ErrorList extends CustList<FoundErrorInterpret> {
 
@@ -10,17 +10,15 @@ public class ErrorList extends CustList<FoundErrorInterpret> {
     public ErrorList() {
     }
 
-    public String display(Classes _classes) {
+    public String display() {
         if (isEmpty()) {
             return EMPTY_STRING;
         }
-        StringBuilder return_ = new StringBuilder(first().display(_classes));
-        int size_ = size();
-        for (int i=SECOND_INDEX;i<size_;i++) {
-            return_.append(SEP_INFO);
-            return_.append(get(i).display(_classes));
+        StringList str_ = new StringList();
+        for (FoundErrorInterpret e: this) {
+            str_.add(e.display());
         }
-        return return_.toString();
+        return StringList.join(str_,SEP_INFO);
     }
 
 }

@@ -22,6 +22,7 @@ import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.util.BeanLgNames;
 import code.formathtml.structs.StdStruct;
+import code.formathtml.util.BeanNatLgNames;
 import code.util.CustList;
 import code.util.ObjectMap;
 import code.util.StringList;
@@ -115,10 +116,10 @@ public final class AikiBeansPokemonStd {
         fields_.put(WHOLE_WORD,new StandardField(WHOLE_WORD,_std.getAliasPrimBoolean(),false,false,type_));
         fields_.put(TYPED_MIN_NB_POSS_EVOS,new StandardField(TYPED_MIN_NB_POSS_EVOS,_std.getAliasString(),false,false,type_));
         fields_.put(TYPED_MAX_NB_POSS_EVOS,new StandardField(TYPED_MAX_NB_POSS_EVOS,_std.getAliasString(),false,false,type_));
-        fields_.put(BOOLEANS,new StandardField(BOOLEANS,_std.getCustMap(),false,false,type_));
+        fields_.put(BOOLEANS,new StandardField(BOOLEANS, BeanNatLgNames.TYPE_MAP,false,false,type_));
         fields_.put(IS_EVO,new StandardField(IS_EVO,((PokemonStandards)_std).getSelectedBoolean(),false,false,type_));
         fields_.put(IS_LEG,new StandardField(IS_LEG,((PokemonStandards)_std).getSelectedBoolean(),false,false,type_));
-        fields_.put(POKEDEX,new StandardField(POKEDEX,_std.getCustList(),false,false,type_));
+        fields_.put(POKEDEX,new StandardField(POKEDEX, BeanNatLgNames.TYPE_LIST,false,false,type_));
         params_ = new StringList();
         method_ = new StandardMethod(SEARCH,params_,_std.getAliasString(), false, MethodModifier.NORMAL,type_);
         methods_.put(method_.getId(), method_);
@@ -146,25 +147,25 @@ public final class AikiBeansPokemonStd {
         fields_.put(FRONT_IMAGE,new StandardField(FRONT_IMAGE,_std.getAliasString(),false,false,type_));
         fields_.put(WEIGHT,new StandardField(WEIGHT,PokemonStandards.TYPE_RATE,false,false,type_));
         fields_.put(HEIGHT,new StandardField(HEIGHT,PokemonStandards.TYPE_RATE,false,false,type_));
-        fields_.put(POSSIBLE_GENDERS,new StandardField(POSSIBLE_GENDERS,_std.getCustList(),false,false,type_));
-        fields_.put(TYPES,new StandardField(TYPES,_std.getCustList(),false,false,type_));
-        fields_.put(ABILITIES,new StandardField(ABILITIES,_std.getCustList(),false,false,type_));
+        fields_.put(POSSIBLE_GENDERS,new StandardField(POSSIBLE_GENDERS, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(TYPES,new StandardField(TYPES, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(ABILITIES,new StandardField(ABILITIES, BeanNatLgNames.TYPE_LIST,false,false,type_));
         fields_.put(CATCHING_RATE,new StandardField(CATCHING_RATE,_std.getAliasPrimShort(),false,false,type_));
-        fields_.put(EVOLUTIONS,new StandardField(EVOLUTIONS,_std.getCustList(),false,false,type_));
+        fields_.put(EVOLUTIONS,new StandardField(EVOLUTIONS, BeanNatLgNames.TYPE_LIST,false,false,type_));
         fields_.put(NAME,new StandardField(NAME,_std.getAliasString(),false,false,type_));
         fields_.put(EVO_BASE,new StandardField(EVO_BASE,_std.getAliasString(),false,false,type_));
         fields_.put(EXP_EVO,new StandardField(EXP_EVO,_std.getAliasString(),false,false,type_));
-        fields_.put(MAP_VARS,new StandardField(MAP_VARS,_std.getCustMap(),false,false,type_));
+        fields_.put(MAP_VARS,new StandardField(MAP_VARS, BeanNatLgNames.TYPE_MAP,false,false,type_));
         fields_.put(EXP_RATE,new StandardField(EXP_RATE,_std.getAliasPrimLong(),false,false,type_));
-        fields_.put(STATISTICS,new StandardField(STATISTICS,_std.getCustList(),false,false,type_));
-        fields_.put(LEV_MOVES,new StandardField(LEV_MOVES,_std.getCustList(),false,false,type_));
-        fields_.put(TECHNICAL_MOVES,new StandardField(TECHNICAL_MOVES,_std.getCustMap(),false,false,type_));
-        fields_.put(HIDDEN_MOVES,new StandardField(HIDDEN_MOVES,_std.getCustMap(),false,false,type_));
-        fields_.put(MOVE_TUTORS,new StandardField(MOVE_TUTORS,_std.getCustList(),false,false,type_));
-        fields_.put(EGG_GROUPS_PK,new StandardField(EGG_GROUPS_PK,_std.getCustList(),false,false,type_));
+        fields_.put(STATISTICS,new StandardField(STATISTICS, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(LEV_MOVES,new StandardField(LEV_MOVES, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(TECHNICAL_MOVES,new StandardField(TECHNICAL_MOVES, BeanNatLgNames.TYPE_MAP,false,false,type_));
+        fields_.put(HIDDEN_MOVES,new StandardField(HIDDEN_MOVES, BeanNatLgNames.TYPE_MAP,false,false,type_));
+        fields_.put(MOVE_TUTORS,new StandardField(MOVE_TUTORS, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(EGG_GROUPS_PK,new StandardField(EGG_GROUPS_PK, BeanNatLgNames.TYPE_LIST,false,false,type_));
         fields_.put(HATCHING_STEPS,new StandardField(HATCHING_STEPS,PokemonStandards.TYPE_LG_INT,false,false,type_));
-        fields_.put(PLACES,new StandardField(PLACES,_std.getCustList(),false,false,type_));
-        fields_.put(IMAGES,new StandardField(IMAGES,_std.getCustMap(),false,false,type_));
+        fields_.put(PLACES,new StandardField(PLACES, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(IMAGES,new StandardField(IMAGES, BeanNatLgNames.TYPE_MAP,false,false,type_));
         params_ = new StringList();
         method_ = new StandardMethod(CLICK_POKEDEX,params_,_std.getAliasString(), false, MethodModifier.NORMAL,type_);
         methods_.put(method_.getId(), method_);
@@ -223,7 +224,7 @@ public final class AikiBeansPokemonStd {
         method_ = new StandardMethod(IS_MULTI_LAYER,params_,_std.getAliasPrimBoolean(), false, MethodModifier.NORMAL,type_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(_std.getAliasLong());
-        method_ = new StandardMethod(LAYERS,params_,_std.getCustList(), false, MethodModifier.NORMAL,type_);
+        method_ = new StandardMethod(LAYERS,params_, BeanNatLgNames.TYPE_LIST, false, MethodModifier.NORMAL,type_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(_std.getAliasLong(),_std.getAliasLong());
         method_ = new StandardMethod(IS_APPEARING,params_,_std.getAliasPrimBoolean(), false, MethodModifier.NORMAL,type_);
@@ -271,7 +272,7 @@ public final class AikiBeansPokemonStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,BOOLEANS)) {
-            res_.setResult(new StdStruct(instance_.getBooleans(),std_.getCustMap()));
+            res_.setResult(new StdStruct(instance_.getBooleans(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
         if (StringList.quickEq(fieldName_,IS_EVO)) {
@@ -283,7 +284,7 @@ public final class AikiBeansPokemonStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,POKEDEX)) {
-            res_.setResult(new StdStruct(instance_.getPokedex(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getPokedex(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         return res_;
@@ -314,15 +315,15 @@ public final class AikiBeansPokemonStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,POSSIBLE_GENDERS)) {
-            res_.setResult(new StdStruct(instance_.getPossibleGenders(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getPossibleGenders(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,TYPES)) {
-            res_.setResult(new StdStruct(instance_.getTypes(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getTypes(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,ABILITIES)) {
-            res_.setResult(new StdStruct(instance_.getAbilities(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getAbilities(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,CATCHING_RATE)) {
@@ -330,7 +331,7 @@ public final class AikiBeansPokemonStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,EVOLUTIONS)) {
-            res_.setResult(new StdStruct(instance_.getEvolutions(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getEvolutions(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,NAME)) {
@@ -346,7 +347,7 @@ public final class AikiBeansPokemonStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,MAP_VARS)) {
-            res_.setResult(new StdStruct(instance_.getMapVars(),std_.getCustMap()));
+            res_.setResult(new StdStruct(instance_.getMapVars(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
         if (StringList.quickEq(fieldName_,EXP_RATE)) {
@@ -354,27 +355,27 @@ public final class AikiBeansPokemonStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,STATISTICS)) {
-            res_.setResult(new StdStruct(instance_.getStatistics(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getStatistics(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,LEV_MOVES)) {
-            res_.setResult(new StdStruct(instance_.getLevMoves(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getLevMoves(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,TECHNICAL_MOVES)) {
-            res_.setResult(new StdStruct(instance_.getTechnicalMoves(),std_.getCustMap()));
+            res_.setResult(new StdStruct(instance_.getTechnicalMoves(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
         if (StringList.quickEq(fieldName_,HIDDEN_MOVES)) {
-            res_.setResult(new StdStruct(instance_.getHiddenMoves(),std_.getCustMap()));
+            res_.setResult(new StdStruct(instance_.getHiddenMoves(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
         if (StringList.quickEq(fieldName_,MOVE_TUTORS)) {
-            res_.setResult(new StdStruct(instance_.getMoveTutors(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getMoveTutors(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,EGG_GROUPS_PK)) {
-            res_.setResult(new StdStruct(instance_.getEggGroupsPk(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getEggGroupsPk(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,HATCHING_STEPS)) {
@@ -382,11 +383,11 @@ public final class AikiBeansPokemonStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,PLACES)) {
-            res_.setResult(new StdStruct(instance_.getPlaces(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getPlaces(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,IMAGES)) {
-            res_.setResult(new StdStruct(instance_.getImages(),std_.getCustMap()));
+            res_.setResult(new StdStruct(instance_.getImages(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
         return res_;
@@ -532,7 +533,7 @@ public final class AikiBeansPokemonStd {
             return res_;
         }
         if (StringList.quickEq(methodName_,LAYERS)) {
-            res_.setResult(new StdStruct(instance_.layers((Long)_args[0]),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.layers((Long)_args[0]), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(methodName_,IS_APPEARING)) {

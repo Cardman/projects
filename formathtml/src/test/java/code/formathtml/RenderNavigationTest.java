@@ -5,6 +5,7 @@ import code.bean.BeanInfo;
 import code.bean.validator.Validator;
 import code.bean.validator.ValidatorInfo;
 import code.expressionlanguage.AnalyzedPageEl;
+import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.structs.*;
 
@@ -5892,9 +5893,10 @@ public final class RenderNavigationTest extends CommonRender {
     }
     private static void initSession(Navigation _nav) {
         _nav.setLanguages(new StringList(_nav.getLanguage()));
-        _nav.getSession().getContext().setAnalyzing(new AnalyzedPageEl());
+        _nav.getSession().getContext().setAnalyzing();
         _nav.initInstancesPattern();
         _nav.setupRenders();
+        tryInitStaticlyTypes(_nav.getSession());
         _nav.initializeRendSession();
     }
 

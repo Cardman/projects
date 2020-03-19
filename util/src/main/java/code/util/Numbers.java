@@ -275,22 +275,31 @@ public abstract class Numbers<T> extends CustList<T> {
 
     public void removeDuplicates() {
         int i_ = FIRST_INDEX;
-        while (true) {
-            if(i_ >= size()) {
-                break;
-            }
+        while (i_ < size()) {
             long e_ = getLong(i_);
             boolean rem_ = false;
             int next_ = indexOfObj(e_, i_ + 1);
             while (next_ != INDEX_NOT_FOUND_ELT) {
                 removeAt(next_);
                 rem_ = true;
-                next_ = indexOfObj(e_, next_ + 1);
+                next_ = indexOfObj(e_, i_ + 1);
             }
             if (!rem_) {
                 i_++;
             }
         }
+    }
+    public boolean hasDuplicates() {
+        int i_ = FIRST_INDEX;
+        while (i_ < size()) {
+            long e_ = getLong(i_);
+            int next_ = indexOfObj(e_, i_ + 1);
+            if (next_ > INDEX_NOT_FOUND_ELT) {
+                return true;
+            }
+            i_++;
+        }
+        return false;
     }
     public int indexOfObj(long _element) {
         return indexOfObj(_element, FIRST_INDEX);

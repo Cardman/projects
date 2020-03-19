@@ -1,6 +1,7 @@
 package code.expressionlanguage.inherits;
 
 import code.expressionlanguage.*;
+import code.expressionlanguage.common.GeneCustMethod;
 import code.expressionlanguage.common.GeneMethod;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.methods.*;
@@ -421,11 +422,10 @@ public final class Templates {
             String argLoc_ = i.getArg();
             String paramLoc_ = i.getParam();
             multi_.getVal(argLoc_).add(paramLoc_);
-            multi_.getVal(argLoc_).removeDuplicates();
         }
         StringMap<String> vars_ = new StringMap<String>();
         for (EntryCust<String,StringList> e: multi_.entryList()) {
-            if (e.getValue().size() != 1) {
+            if (!e.getValue().onlyOneElt()) {
                 return null;
             }
             vars_.put(e.getKey().substring(1), e.getValue().first());
@@ -522,8 +522,8 @@ public final class Templates {
         return PartTypeUtil.processAnalyzeConstraints(_className,_inherit,_context,_exact);
     }
 
-    public static String wildCardFormatReturn(boolean _staticMember, String _first, String _second, Analyzable _classes) {
-        if (_staticMember) {
+    public static String wildCardFormatReturn(String _first, String _second, Analyzable _classes) {
+        if (!_second.contains(PREFIX_VAR_TYPE)) {
             return _second;
         }
         DimComp dc_ = PrimitiveTypeUtil.getQuickComponentBaseType(_second);
@@ -568,8 +568,8 @@ public final class Templates {
         }
         return getWildCardFormattedTypeReturn(_second, varTypes_);
     }
-    public static String wildCardFormatParam(boolean _staticMember, String _first, String _second, Analyzable _classes) {
-        if (_staticMember) {
+    public static String wildCardFormatParam(String _first, String _second, Analyzable _classes) {
+        if (!_second.contains(PREFIX_VAR_TYPE)) {
             return _second;
         }
         DimComp dc_ = PrimitiveTypeUtil.getQuickComponentBaseType(_second);
@@ -732,12 +732,11 @@ public final class Templates {
         if (root_ == null) {
             return varTypes_;
         }
-        CustList<TypeVar> typeVar_ = root_.getParamTypesMapValues();
         int i_ = CustList.FIRST_INDEX;
-        for (TypeVar t: typeVar_) {
+        for (String t: root_.getParamTypesValues()) {
             i_++;
             String arg_ = types_.get(i_);
-            varTypes_.put(t.getName(), arg_);
+            varTypes_.put(t, arg_);
         }
         return varTypes_;
     }
@@ -846,9 +845,6 @@ public final class Templates {
         return true;
     }
     static String getWildCardFormattedTypeReturn(String _type, StringMap<String> _varTypes) {
-        if (_varTypes.isEmpty()) {
-            return _type;
-        }
         StringBuilder str_ = new StringBuilder();
         int len_ = _type.length();
         int diese_ = 0;
@@ -929,9 +925,6 @@ public final class Templates {
         return str_.toString();
     }
     static String getWildCardFormattedTypeParam(String _objType, String _type, StringMap<String> _varTypes) {
-        if (_varTypes.isEmpty()) {
-            return _type;
-        }
         StringBuilder str_ = new StringBuilder();
         int len_ = _type.length();
         int diese_ = 0;
@@ -1214,21 +1207,23 @@ public final class Templates {
                 }
             }
         }
-        String name_ = _id.getName();
-        if (_id instanceof MethodId && StringList.quickEq("[]=",name_)) {
-            String id_ = getIdFromAllTypes(_classNameFound);
-            for (GeneMethod g: ContextEl.getMethodBlocks(_conf.getClassBody(id_))) {
-                if (!StringList.quickEq("[]",g.getId().getName())) {
-                    continue;
-                }
-                if(!g.getId().eqPartial((MethodId) _id)) {
-                    continue;
-                }
-                String type_ = g.getImportedReturnType();
-                type_ = Templates.quickFormat(_classNameFound, type_, _conf);
-                Struct ex_ = Templates.checkObjectEx(type_, _right, _conf);
-                if (ex_ != null) {
-                    return ex_;
+        if (_id instanceof MethodId) {
+            String name_ = _id.getName();
+            if (StringList.quickEq("[]=", name_)) {
+                String id_ = getIdFromAllTypes(_classNameFound);
+                for (GeneCustMethod g: Classes.getMethodBlocks(_conf.getClasses().getClassBody(id_))) {
+                    if (!StringList.quickEq("[]",g.getId().getName())) {
+                        continue;
+                    }
+                    if(!g.getId().eqPartial((MethodId) _id)) {
+                        continue;
+                    }
+                    String type_ = g.getImportedReturnType();
+                    type_ = Templates.quickFormat(_classNameFound, type_, _conf);
+                    Struct ex_ = Templates.checkObjectEx(type_, _right, _conf);
+                    if (ex_ != null) {
+                        return ex_;
+                    }
                 }
             }
         }
@@ -1459,8 +1454,9 @@ public final class Templates {
                 bounds_.add(a_.getName());
             } else if (!a_.isArray()){
                 String aliasObj_ = stds_.getAliasObject();
+                StringMap<StringList> map_ = _m.getMapping();
                 for (String n: a_.getNames()) {
-                    for (String u: _m.getAllUpperBounds(n, aliasObj_)) {
+                    for (String u: Mapping.getAllUpperBounds(map_,n, aliasObj_)) {
                         bounds_.add(u);
                     }
                 }
@@ -1642,7 +1638,6 @@ public final class Templates {
             }
             return null;
         }
-        String objType_ = _context.getStandards().getAliasObject();
         String fct_ = _context.getStandards().getAliasFct();
         String obj_ = _context.getStandards().getAliasObject();
         String idBaseArrayArg_ = getIdFromAllTypes(baseArrayArg_);
@@ -1667,9 +1662,21 @@ public final class Templates {
         if (StringList.quickEq(idBaseArrayParam_, fct_)) {
             return null;
         }
+        String generic_ = getGeneric(_arg, _param, _context, map_);
+        if (generic_ == null) {
+            return null;
+        }
+        return newMappingPairs(generic_, typesParam_);
+    }
+
+    public static String getGeneric(String _arg, String _param, Analyzable _context, Mapping map_) {
+        String objType_ = _context.getStandards().getAliasObject();
+        DimComp dArg_ = PrimitiveTypeUtil.getQuickComponentBaseType(_arg);
+        String baseArrayArg_ = dArg_.getComponent();
         String generic_ = null;
         if (baseArrayArg_.startsWith(PREFIX_VAR_TYPE)) {
-            for (String c: map_.getAllUpperBounds(baseArrayArg_.substring(PREFIX_VAR_TYPE.length()), objType_)) {
+            StringMap<StringList> mapping_ = map_.getMapping();
+            for (String c: Mapping.getAllUpperBounds(mapping_,baseArrayArg_.substring(PREFIX_VAR_TYPE.length()), objType_)) {
                 String arr_ = PrimitiveTypeUtil.getPrettyArrayType(c,dArg_.getDim());
                 generic_ = getFullTypeByBases(arr_, _param, _context);
                 if (generic_ != null) {
@@ -1679,11 +1686,9 @@ public final class Templates {
         } else {
             generic_ = getFullTypeByBases(_arg, _param, _context);
         }
-        if (generic_ == null) {
-            return null;
-        }
-        return newMappingPairs(generic_, typesParam_);
+        return generic_;
     }
+
     private static MappingPairs getExecutingCorrect(String _arg, String _param, Analyzable _context) {
         StringList typesArg_ = getAllTypes(_arg);
         StringList typesParam_ = getAllTypes(_param);
@@ -1906,10 +1911,7 @@ public final class Templates {
             if (PrimitiveTypeUtil.isPrimitive(compo_,_context)) {
                 return true;
             }
-            if (StringList.quickEq(compo_, _context.getStandards().getAliasVoid())) {
-                return true;
-            }
-            return compo_.startsWith("#");
+            return StringList.quickEq(compo_, _context.getStandards().getAliasVoid());
         }
         String fct_ = _context.getStandards().getAliasFct();
         Ints rep_ = info_.getTypeVarCounts();

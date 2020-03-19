@@ -3,18 +3,14 @@ import code.bean.Bean;
 import code.bean.BeanInfo;
 import code.bean.validator.Message;
 import code.bean.validator.ValidatorInfo;
-import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.errors.custom.BadElError;
-import code.expressionlanguage.opers.Calculation;
-import code.expressionlanguage.opers.util.MethodAccessKind;
+import code.expressionlanguage.errors.custom.FoundErrorInterpret;
+import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.stds.ResultErrorStd;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.exec.RendDynOperationNode;
-import code.formathtml.util.BeanLgNames;
-import code.formathtml.util.NodeContainer;
-import code.formathtml.util.NodeInformations;
+import code.formathtml.util.*;
 import code.formathtml.structs.StdStruct;
 import code.sml.*;
 import code.util.CustList;
@@ -25,54 +21,15 @@ import code.util.StringMap;
 
 public final class Navigation {
 
-    private static final String NUMBER_INPUT = "n-i";
-
-    private static final String NUMBER_FORM = "n-f";
-
     private static final char BEGIN_ARGS = '(';
     private static final char SEP_ARGS = ',';
     private static final char END_ARGS = ')';
 
     private static final String REF_TAG = "#";
 
-    private static final String TAG_HEAD = "head";
-
-    private static final String TAG_TITLE = "title";
-
     private static final String PAGE = "page";
 
     private static final String SESSION = "session";
-
-    private static final String SELECTED = "selected";
-
-    private static final String TAG_OPTION = "option";
-
-    private static final String CHECKED = "checked";
-
-    private static final String ATTRIBUTE_VALUE = "value";
-
-    private static final String ATTRIBUTE_FOR = "for";
-
-
-    private static final String TAG_SPAN = "span";
-
-    private static final String ON = "on";
-
-    private static final String TAG_SELECT = "select";
-
-    private static final String CHECKBOX = "checkbox";
-
-    private static final String TEXT = "text";
-
-    private static final String RADIO = "radio";
-
-    private static final String ATTRIBUTE_TYPE = "type";
-
-    private static final String TAG_INPUT = "input";
-
-    private static final String TEXT_AREA = "textarea";
-
-    private static final String ATTRIBUTE_COMMAND = "command";
 
     private static final String DOT = ".";
 
@@ -102,7 +59,7 @@ public final class Navigation {
 
     private boolean error;
 
-    public void loadConfiguration(String _cont, BeanLgNames _lgNames) {
+    public void loadConfiguration(String _cont, String _lgCode,BeanLgNames _lgNames) {
         error = false;
         DocumentResult res_ = DocumentBuilder.parseSaxHtmlRowCol(_cont);
         Document doc_ = res_.getDocument();
@@ -113,7 +70,7 @@ public final class Navigation {
         session = new Configuration();
         session.setDataBaseClassName(_lgNames.getAliasObject());
         session.setStandards(_lgNames);
-        ReadConfiguration.load(session,doc_);
+        ReadConfiguration.load(session,_lgCode,doc_);
         if (session.getContext() == null) {
             error = true;
             return;
@@ -165,9 +122,11 @@ public final class Navigation {
         String currentBeanName_;
         RendDocumentBlock rendDocumentBlock_ = session.getRenders().getVal(realFilePath_);
         if (rendDocumentBlock_ == null) {
-            BadElError badEl_ = new BadElError();
+            FoundErrorInterpret badEl_ = new FoundErrorInterpret();
             badEl_.setFileName(session.getCurrentFileName());
             badEl_.setIndexFile(session.getCurrentLocationIndex());
+            badEl_.buildError(session.getRendAnalysisMessages().getInexistantFile(),
+                    realFilePath_);
             session.addError(badEl_);
             return;
         }
@@ -182,6 +141,16 @@ public final class Navigation {
         setupText(htmlText);
     }
 
+    public void setupRendClassesInit() {
+        setupRendClasses();
+        if (!session.isEmptyErrors()) {
+            return;
+        }
+        if (!(session.getStandards() instanceof BeanCustLgNames)) {
+            return;
+        }
+        Classes.tryInitStaticlyTypes(session.getContext());
+    }
     public void setupRendClasses() {
         session.setupRendClasses(files);
         initInstancesPattern();
@@ -201,15 +170,15 @@ public final class Navigation {
         for (EntryCust<String, BeanInfo> e: session.getBeansInfos().entryList()) {
             BeanInfo info_ = e.getValue();
             CustList<RendDynOperationNode> exps_ = RenderExpUtil.getAnalyzedOperations(
-                    StringList.concat(keyWordNew_, " ", info_.getClassName(), "()"),
-                    0, session, Calculation.staticCalculation(MethodAccessKind.STATIC));
+                    StringList.concat(keyWordNew_, " ", info_.getClassName(), RendBlock.LEFT_PAR,RendBlock.RIGHT_PAR),
+                    0, session);
             info_.setExps(exps_);
         }
         for (EntryCust<String,ValidatorInfo> e: session.getLateValidators().entryList()) {
             ValidatorInfo v_ = e.getValue();
             CustList<RendDynOperationNode> exps_ = RenderExpUtil.getAnalyzedOperations(
-                    StringList.concat(keyWordNew_, " ", v_.getClassName(), "()"),
-                    0, session, Calculation.staticCalculation(MethodAccessKind.STATIC));
+                    StringList.concat(keyWordNew_, " ", v_.getClassName(),RendBlock.LEFT_PAR,RendBlock.RIGHT_PAR),
+                    0, session);
             v_.setExps(exps_);
         }
     }
@@ -256,7 +225,7 @@ public final class Navigation {
             Struct bean_ = getBeanOrNull(beanName_);
             ip_.setOffset(indexPoint_+1);
             ip_.setGlobalArgumentStruct(bean_, session);
-            session.getContext().setAnalyzing(new AnalyzedPageEl());
+            session.getContext().setAnalyzing();
             session.getContext().setGlobalClass(ip_.getGlobalClass());
             Struct return_;
             if (htmlPage_.isForm()) {
@@ -265,7 +234,7 @@ public final class Navigation {
                             session, action_);
                 } else {
                     return_ = RendRequestUtil.invokeMethodWithNumbersBis(
-                            session, StringList.concat(action_,"()"));
+                            session, StringList.concat(action_,RendBlock.LEFT_PAR,RendBlock.RIGHT_PAR));
                 }
             } else {
                 return_=RendRequestUtil.redirect(session,new Argument(bean_),(int)htmlPage_.getUrl());
@@ -386,7 +355,7 @@ public final class Navigation {
         Document doc_ = session.getDocument();
         String actionCommand_;
         //retrieving form that is submitted
-        Element formElement_ = DocumentBuilder.getFirstElementByAttribute(doc_, NUMBER_FORM, String.valueOf(lg_));
+        Element formElement_ = DocumentBuilder.getFirstElementByAttribute(doc_, session.getRendKeyWords().getAttrNf(), String.valueOf(lg_));
         if (formElement_ == null) {
             session.getContext().setException(NullStruct.NULL_VALUE);
             return;
@@ -394,7 +363,7 @@ public final class Navigation {
         htmlPage_.setForm(true);
 
         //As soon as the form is retrieved, then process on it and exit from the loop
-        actionCommand_ = formElement_.getAttribute(StringList.concat(ip_.getPrefix(),ATTRIBUTE_COMMAND));
+        actionCommand_ = formElement_.getAttribute(StringList.concat(ip_.getPrefix(),session.getRendKeyWords().getAttrCommand()));
 
         StringMap<String> errors_;
         errors_ = new StringMap<String>();
@@ -415,11 +384,11 @@ public final class Navigation {
             }
         }
         //begin deleting previous errors
-        ElementList spansForm_ = formElement_.getElementsByTagName(TAG_SPAN);
+        ElementList spansForm_ = formElement_.getElementsByTagName(session.getRendKeyWords().getKeyWordSpan());
         int lengthSpansForom_ = spansForm_.getLength();
         for (int j = CustList.FIRST_INDEX; j < lengthSpansForom_; j++) {
             Element elt_ = spansForm_.item(j);
-            if (!elt_.hasAttribute(StringList.concat(ip_.getPrefix(),ATTRIBUTE_FOR))) {
+            if (!elt_.hasAttribute(StringList.concat(ip_.getPrefix(),session.getRendKeyWords().getAttrFor()))) {
                 continue;
             }
             NodeList children_ = elt_.getChildNodes();
@@ -478,11 +447,11 @@ public final class Navigation {
         LongTreeMap< NodeContainer> containers_ = containersMap_.getVal(_id);
         for (String i : _errors.getKeys()) {
             int count_ = 0;
-            ElementList spans_ = _formElement.getElementsByTagName(TAG_SPAN);
+            ElementList spans_ = _formElement.getElementsByTagName(session.getRendKeyWords().getKeyWordSpan());
             int lengthSpans_ = spans_.getLength();
             for (int j = CustList.FIRST_INDEX; j < lengthSpans_; j++) {
                 Element elt_ = spans_.item(j);
-                if (!StringList.quickEq(elt_.getAttribute(StringList.concat(session.getPrefix(),ATTRIBUTE_FOR)),i)) {
+                if (!StringList.quickEq(elt_.getAttribute(StringList.concat(session.getPrefix(),session.getRendKeyWords().getAttrFor())),i)) {
                     count_++;
                     continue;
                 }
@@ -501,63 +470,63 @@ public final class Navigation {
                 count_++;
             }
         }
-        ElementList inputs_ = _formElement.getElementsByTagName(TAG_INPUT);
+        ElementList inputs_ = _formElement.getElementsByTagName(session.getRendKeyWords().getKeyWordInput());
         int lengthInputs_ = inputs_.getLength();
         for (int i = CustList.FIRST_INDEX; i < lengthInputs_; i++) {
             Element elt_ = inputs_.item(i);
-            String idInput_ = elt_.getAttribute(NUMBER_INPUT);
+            String idInput_ = elt_.getAttribute(session.getRendKeyWords().getAttrNi());
             if (idInput_.isEmpty()) {
                 continue;
             }
             NodeContainer nCont_ = containers_.getVal(Numbers.parseLongZero(idInput_));
-            if (StringList.quickEq(elt_.getAttribute(ATTRIBUTE_TYPE),TEXT)) {
-                elt_.setAttribute(ATTRIBUTE_VALUE, nCont_.getNodeInformation().getValue().first());
+            if (StringList.quickEq(elt_.getAttribute(session.getRendKeyWords().getAttrType()),session.getRendKeyWords().getValueText())) {
+                elt_.setAttribute(session.getRendKeyWords().getAttrValue(), nCont_.getNodeInformation().getValue().first());
                 continue;
             }
-            if (StringList.quickEq(elt_.getAttribute(ATTRIBUTE_TYPE),CHECKBOX)) {
-                if (StringList.quickEq(nCont_.getNodeInformation().getValue().first(),ON)) {
-                    elt_.setAttribute(CHECKED, CHECKED);
+            if (StringList.quickEq(elt_.getAttribute(session.getRendKeyWords().getAttrType()),session.getRendKeyWords().getValueCheckbox())) {
+                if (StringList.quickEq(nCont_.getNodeInformation().getValue().first(),BeanLgNames.ON)) {
+                    elt_.setAttribute(session.getRendKeyWords().getAttrChecked(), session.getRendKeyWords().getAttrChecked());
                 } else {
-                    elt_.removeAttribute(CHECKED);
+                    elt_.removeAttribute(session.getRendKeyWords().getAttrChecked());
                 }
                 continue;
             }
-            if (StringList.quickEq(elt_.getAttribute(ATTRIBUTE_TYPE),RADIO)) {
-                String value_ = elt_.getAttribute(ATTRIBUTE_VALUE);
+            if (StringList.quickEq(elt_.getAttribute(session.getRendKeyWords().getAttrType()),session.getRendKeyWords().getValueRadio())) {
+                String value_ = elt_.getAttribute(session.getRendKeyWords().getAttrValue());
                 if (StringList.quickEq(nCont_.getNodeInformation().getValue().first(), value_)) {
-                    elt_.setAttribute(CHECKED, CHECKED);
+                    elt_.setAttribute(session.getRendKeyWords().getAttrChecked(), session.getRendKeyWords().getAttrChecked());
                 } else {
-                    elt_.removeAttribute(CHECKED);
+                    elt_.removeAttribute(session.getRendKeyWords().getAttrChecked());
                 }
                 continue;
             }
-            elt_.setAttribute(ATTRIBUTE_VALUE, nCont_.getNodeInformation().getValue().first());
+            elt_.setAttribute(session.getRendKeyWords().getAttrValue(), nCont_.getNodeInformation().getValue().first());
         }
-        inputs_ = _formElement.getElementsByTagName(TAG_SELECT);
+        inputs_ = _formElement.getElementsByTagName(session.getRendKeyWords().getKeyWordSelect());
         lengthInputs_ = inputs_.getLength();
         for (int i = CustList.FIRST_INDEX; i < lengthInputs_; i++) {
             Element elt_ = inputs_.item(i);
-            String idInput_ = elt_.getAttribute(NUMBER_INPUT);
+            String idInput_ = elt_.getAttribute(session.getRendKeyWords().getAttrNi());
             if (idInput_.isEmpty()) {
                 continue;
             }
             NodeContainer nCont_ = containers_.getVal(Numbers.parseLongZero(idInput_));
-            ElementList options_ = elt_.getElementsByTagName(TAG_OPTION);
+            ElementList options_ = elt_.getElementsByTagName(session.getRendKeyWords().getKeyWordOption());
             int optionsLen_ = options_.getLength();
             for (int j = CustList.FIRST_INDEX; j < optionsLen_; j++) {
                 Element option_ = options_.item(j);
-                if (StringList.contains(nCont_.getNodeInformation().getValue(), option_.getAttribute(ATTRIBUTE_VALUE))) {
-                    option_.setAttribute(SELECTED, SELECTED);
+                if (StringList.contains(nCont_.getNodeInformation().getValue(), option_.getAttribute(session.getRendKeyWords().getAttrValue()))) {
+                    option_.setAttribute(session.getRendKeyWords().getAttrSelected(), session.getRendKeyWords().getAttrSelected());
                 } else {
-                    option_.removeAttribute(SELECTED);
+                    option_.removeAttribute(session.getRendKeyWords().getAttrSelected());
                 }
             }
         }
-        inputs_ = _formElement.getElementsByTagName(TEXT_AREA);
+        inputs_ = _formElement.getElementsByTagName(session.getRendKeyWords().getKeyWordTextarea());
         lengthInputs_ = inputs_.getLength();
         for (int i = CustList.FIRST_INDEX; i < lengthInputs_; i++) {
             Element elt_ = inputs_.item(i);
-            String idInput_ = elt_.getAttribute(NUMBER_INPUT);
+            String idInput_ = elt_.getAttribute(session.getRendKeyWords().getAttrNi());
             if (idInput_.isEmpty()) {
                 continue;
             }
@@ -598,11 +567,11 @@ public final class Navigation {
         Document doc_ = session.getDocument();
         ElementList nodes_;
         title = EMPTY_STRING;
-        nodes_ = doc_.getElementsByTagName(TAG_HEAD);
+        nodes_ = doc_.getElementsByTagName(session.getRendKeyWords().getKeyWordHead());
         int size_ = nodes_.getLength();
         for (int i = CustList.FIRST_INDEX; i < size_; i++) {
             Element node_ = nodes_.item(i);
-            ElementList subNodes_ = node_.getElementsByTagName(TAG_TITLE);
+            ElementList subNodes_ = node_.getElementsByTagName(session.getRendKeyWords().getAttrTitle());
             int subListSize_ = subNodes_.getLength();
             for (int j = CustList.FIRST_INDEX; j < subListSize_; j++) {
                 Element subNode_ = subNodes_.item(j);

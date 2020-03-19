@@ -1,7 +1,7 @@
 package code.formathtml;
 
 import code.expressionlanguage.AnalyzedPageEl;
-import code.expressionlanguage.errors.custom.UnexpectedTagName;
+import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.structs.Struct;
@@ -43,9 +43,33 @@ public final class RendContinueBlock extends RendLeaf implements RendBuildableEl
             AnalyzedPageEl page_ = _cont.getAnalyzing();
             page_.setGlobalOffset(getOffset().getOffsetTrim());
             page_.setOffset(0);
-            UnexpectedTagName un_ = new UnexpectedTagName();
+            FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(_cont.getCurrentFileName());
             un_.setIndexFile(getOffset().getOffsetTrim());
+            if (label.isEmpty()) {
+                un_.buildError(_cont.getContext().getAnalysisMessages().getUnexpectedAbrupt(),
+                        _cont.getKeyWords().getKeyWordContinue(),
+                        StringList.join(
+                                new StringList(
+                                        _cont.getKeyWords().getKeyWordFor(),
+                                        _cont.getKeyWords().getKeyWordForeach(),
+                                        _cont.getKeyWords().getKeyWordDo(),
+                                        _cont.getKeyWords().getKeyWordWhile()
+                                ),
+                                OR_ERR));
+            } else {
+                un_.buildError(_cont.getContext().getAnalysisMessages().getUnexpectedAbruptLab(),
+                        _cont.getKeyWords().getKeyWordContinue(),
+                        label,
+                        StringList.join(
+                                new StringList(
+                                        _cont.getKeyWords().getKeyWordFor(),
+                                        _cont.getKeyWords().getKeyWordForeach(),
+                                        _cont.getKeyWords().getKeyWordDo(),
+                                        _cont.getKeyWords().getKeyWordWhile()
+                                ),
+                                OR_ERR));
+            }
             _cont.addError(un_);
         }
     }

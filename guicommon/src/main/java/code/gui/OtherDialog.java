@@ -20,6 +20,11 @@ public final class OtherDialog implements ChangeableTitle,WithListener {
         dialog.setTitle(_title);
     }
 
+    @Override
+    public Point getLocationOnScreen() {
+        return dialog.getLocationOnScreen();
+    }
+
     protected Window getComponent() {
         return dialog;
     }

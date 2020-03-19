@@ -2,16 +2,10 @@ package code.expressionlanguage.calls;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.common.GeneConstructor;
-import code.expressionlanguage.common.GeneField;
-import code.expressionlanguage.common.GeneMethod;
-import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.ElUtil;
-import code.expressionlanguage.methods.AnnotableBlock;
-import code.expressionlanguage.methods.NamedFunctionBlock;
-import code.expressionlanguage.methods.OperatorBlock;
+import code.expressionlanguage.methods.*;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.exec.ExecOperationNode;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
@@ -39,28 +33,20 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
                     ConstructorId cid_ = ((ConstructorMetaInfo)structBlock_).getRealId();
                     String cl_ = cid_.getName();
                     String idClass_ = Templates.getIdFromAllTypes(cl_);
-                    GeneType type_ = _context.getClassBody(idClass_);
-                    for (GeneConstructor c: ContextEl.getConstructorBlocks(type_)) {
-                        if (c.getId().eq(cid_)) {
-                            if (c instanceof NamedFunctionBlock) {
-                                annotationsParams=((NamedFunctionBlock)c).getAnnotationsOpsParams();
-                            } else {
-                                annotationsParams = new CustList<CustList<CustList<ExecOperationNode>>>();
-                            }
+                    RootBlock type_ = _context.getClasses().getClassBody(idClass_);
+                    if (type_ != null) {
+                        for (ConstructorBlock c: Classes.getConstructorBodiesById(_context,idClass_,cid_)) {
+                            annotationsParams= c.getAnnotationsOpsParams();
                         }
                     }
                 } else if (structBlock_ instanceof MethodMetaInfo){
                     MethodId mid_ =  ((MethodMetaInfo)structBlock_).getRealId();
                     String cl_ = ((MethodMetaInfo)structBlock_).getFormClassName();
                     String idClass_ = Templates.getIdFromAllTypes(cl_);
-                    GeneType type_ = _context.getClassBody(idClass_);
-                    for (GeneMethod m: ContextEl.getMethodBlocks(type_)) {
-                        if (m.getId().eq(mid_)) {
-                            if (m instanceof NamedFunctionBlock) {
-                                annotationsParams=((NamedFunctionBlock)m).getAnnotationsOpsParams();
-                            } else {
-                                annotationsParams = new CustList<CustList<CustList<ExecOperationNode>>>();
-                            }
+                    RootBlock type_ = _context.getClasses().getClassBody(idClass_);
+                    if (type_ != null) {
+                        for (NamedFunctionBlock m: Classes.getMethodBodiesById(_context,idClass_,mid_)) {
+                            annotationsParams= m.getAnnotationsOpsParams();
                         }
                     }
                     for (OperatorBlock m: _context.getClasses().getOperators()) {
@@ -74,38 +60,28 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
             } else if (structBlock_ instanceof ClassMetaInfo) {
                 String cl_ = ((ClassMetaInfo)structBlock_).getName();
                 String id_ = Templates.getIdFromAllTypes(cl_);
-                GeneType type_ = _context.getClassBody(id_);
-                if (type_ instanceof AnnotableBlock) {
-                    annotations=((AnnotableBlock)type_).getAnnotationsOps();
-                } else {
-                    annotations = new CustList<CustList<ExecOperationNode>>();
+                RootBlock type_ = _context.getClasses().getClassBody(id_);
+                if (type_ != null) {
+                    annotations= type_.getAnnotationsOps();
                 }
             } else if (structBlock_ instanceof ConstructorMetaInfo){
                 ConstructorId cid_ = ((ConstructorMetaInfo)structBlock_).getRealId();
                 String cl_ = cid_.getName();
                 String idClass_ = Templates.getIdFromAllTypes(cl_);
-                GeneType type_ = _context.getClassBody(idClass_);
-                for (GeneConstructor c: ContextEl.getConstructorBlocks(type_)) {
-                    if (c.getId().eq(cid_)) {
-                        if (c instanceof AnnotableBlock) {
-                            annotations=((AnnotableBlock)c).getAnnotationsOps();
-                        } else {
-                            annotations = new CustList<CustList<ExecOperationNode>>();
-                        }
+                RootBlock type_ = _context.getClasses().getClassBody(idClass_);
+                if (type_ != null) {
+                    for (ConstructorBlock c: Classes.getConstructorBodiesById(_context,idClass_,cid_)) {
+                        annotations= c.getAnnotationsOps();
                     }
                 }
             } else if (structBlock_ instanceof MethodMetaInfo){
                 MethodId mid_ =  ((MethodMetaInfo)structBlock_).getRealId();
                 String cl_ = ((MethodMetaInfo)structBlock_).getFormClassName();
                 String idClass_ = Templates.getIdFromAllTypes(cl_);
-                GeneType type_ = _context.getClassBody(idClass_);
-                for (GeneMethod m: ContextEl.getMethodBlocks(type_)) {
-                    if (m.getId().eq(mid_)) {
-                        if (m instanceof AnnotableBlock) {
-                            annotations=((AnnotableBlock)m).getAnnotationsOps();
-                        } else {
-                            annotations = new CustList<CustList<ExecOperationNode>>();
-                        }
+                RootBlock type_ = _context.getClasses().getClassBody(idClass_);
+                if (type_ != null) {
+                    for (NamedFunctionBlock m: Classes.getMethodBodiesById(_context,idClass_,mid_)) {
+                        annotations= m.getAnnotationsOps();
                     }
                 }
                 for (OperatorBlock m: _context.getClasses().getOperators()) {
@@ -118,15 +94,13 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
                 String fieldId_ = ((FieldMetaInfo)structBlock_).getName();
                 String cl_ = ((FieldMetaInfo)structBlock_).getDeclaringClass();
                 String idClass_ = Templates.getIdFromAllTypes(cl_);
-                GeneType type_ = _context.getClassBody(idClass_);
-                for (GeneField f: ContextEl.getFieldBlocks(type_)) {
-                    if (!StringList.contains(f.getFieldName(), fieldId_)) {
-                        continue;
-                    }
-                    if (f instanceof AnnotableBlock) {
-                        annotations=((AnnotableBlock)f).getAnnotationsOps();
-                    } else {
-                        annotations = new CustList<CustList<ExecOperationNode>>();
+                RootBlock type_ = _context.getClasses().getClassBody(idClass_);
+                if (type_ != null) {
+                    for (InfoBlock f: ContextEl.getFieldBlocks(type_)) {
+                        if (!StringList.contains(f.getFieldName(), fieldId_)) {
+                            continue;
+                        }
+                        annotations= f.getAnnotationsOps();
                     }
                 }
             }
@@ -139,14 +113,13 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
                 }
             }
             if (!cl_.isEmpty()) {
-                ClassArgumentMatching param_ = new ClassArgumentMatching(cl_);
                 if (onParameters) {
                     CustList<CustList<CustList<ExecOperationNode>>> filters_ = new CustList<CustList<CustList<ExecOperationNode>>>();
                     for (CustList<CustList<ExecOperationNode>> a: annotationsParams) {
                         CustList<CustList<ExecOperationNode>> filter_ = new CustList<CustList<ExecOperationNode>>();
                         for (CustList<ExecOperationNode> b: a) {
                             ClassArgumentMatching arg_ = b.last().getResultClass();
-                            if (PrimitiveTypeUtil.canBeUseAsArgument(param_, arg_, _context)) {
+                            if (arg_.matchClass(cl_)) {
                                 filter_.add(b);
                             }
                         }
@@ -157,7 +130,7 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
                     CustList<CustList<ExecOperationNode>> filter_ = new CustList<CustList<ExecOperationNode>>();
                     for (CustList<ExecOperationNode> a: annotations) {
                         ClassArgumentMatching arg_ = a.last().getResultClass();
-                        if (PrimitiveTypeUtil.canBeUseAsArgument(param_, arg_, _context)) {
+                        if (arg_.matchClass(cl_)) {
                             filter_.add(a);
                         }
                     }

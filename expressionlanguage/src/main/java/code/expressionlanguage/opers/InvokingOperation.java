@@ -3,7 +3,7 @@ package code.expressionlanguage.opers;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.common.GeneType;
-import code.expressionlanguage.errors.custom.BadImplicitCast;
+import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.inherits.Mapping;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
@@ -73,10 +73,13 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
                 mapping_.setArg(argType_);
                 mapping_.setMapping(map_);
                 if (!Templates.isCorrectOrNumbers(mapping_, _conf)) {
-                    BadImplicitCast cast_ = new BadImplicitCast();
-                    cast_.setMapping(mapping_);
+                    FoundErrorInterpret cast_ = new FoundErrorInterpret();
                     cast_.setFileName(_conf.getCurrentFileName());
                     cast_.setIndexFile(_conf.getCurrentLocationIndex());
+                    //key word len or header name len or left bracket
+                    cast_.buildError(_conf.getContextEl().getAnalysisMessages().getBadImplicitCast(),
+                            StringList.join(argType_.getNames(),"&"),
+                            StringList.join(name_.getNames(),"&"));
                     _conf.addError(cast_);
                 }
                 if (PrimitiveTypeUtil.isPrimitive(name_, _conf)) {
@@ -205,10 +208,12 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
             Mapping mapping_ = new Mapping();
             mapping_.setArg(_cl);
             mapping_.setParam(stds_.getAliasObject());
-            BadImplicitCast cast_ = new BadImplicitCast();
-            cast_.setMapping(mapping_);
+            FoundErrorInterpret cast_ = new FoundErrorInterpret();
             cast_.setFileName(_conf.getCurrentFileName());
             cast_.setIndexFile(_conf.getCurrentLocationIndex());
+            //key word len or header name len or left bracket
+            cast_.buildError(_conf.getContextEl().getAnalysisMessages().getVoidType(),
+                    stds_.getAliasVoid());
             _conf.addError(cast_);
             return true;
         }
@@ -227,10 +232,12 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
                 Mapping mapping_ = new Mapping();
                 mapping_.setArg(stds_.getAliasVoid());
                 mapping_.setParam(stds_.getAliasObject());
-                BadImplicitCast cast_ = new BadImplicitCast();
-                cast_.setMapping(mapping_);
+                FoundErrorInterpret cast_ = new FoundErrorInterpret();
                 cast_.setFileName(_conf.getCurrentFileName());
                 cast_.setIndexFile(_conf.getCurrentLocationIndex());
+                //key word len or header name len or left bracket
+                cast_.buildError(_conf.getContextEl().getAnalysisMessages().getVoidType(),
+                        stds_.getAliasVoid());
                 _conf.addError(cast_);
             }
         }

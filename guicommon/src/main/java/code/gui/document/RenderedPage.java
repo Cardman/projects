@@ -1,6 +1,5 @@
 package code.gui.document;
 
-import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -100,7 +99,7 @@ public final class RenderedPage implements ProcessingSession {
         start();
         standards = _stds;
         String content_ = ResourceFiles.ressourceFichier(_conf);
-        navigation.loadConfiguration(content_, _stds);
+        navigation.loadConfiguration(content_,"", _stds);
         if (navigation.isError()) {
             setupText();
             return;
@@ -124,12 +123,12 @@ public final class RenderedPage implements ProcessingSession {
         animateProcess();
     }
 
-    public void initializeOnlyConf(String _conf, BeanCustLgNames _stds, StringMap<String> _files, String _clName, String _methodName) {
+    public void initializeOnlyConf(String _conf, String _lgCode,BeanCustLgNames _stds, StringMap<String> _files, String _clName, String _methodName) {
         if (processing.get()) {
             return;
         }
         standards = _stds;
-        ThreadActions actions_ = new ThreadActions(this, _stds, "", _conf, _files, false, false, true);
+        ThreadActions actions_ = new ThreadActions(this, _stds, _lgCode,"", _conf, _files, false, false, true);
         actions_.setClassDbName(_clName);
         actions_.setMethodName(_methodName);
         threadAction = CustComponent.newThread(actions_);
@@ -146,7 +145,7 @@ public final class RenderedPage implements ProcessingSession {
         start();
         standards = _lgNames;
         String content_ = ResourceFiles.ressourceFichier(_conf);
-        navigation.loadConfiguration(content_, _lgNames);
+        navigation.loadConfiguration(content_,"", _lgNames);
         if (navigation.isError()) {
             setupText();
             finish(false);
@@ -185,7 +184,7 @@ public final class RenderedPage implements ProcessingSession {
         start();
         standards = _lgNames;
         String content_ = ResourceFiles.ressourceFichier(_conf);
-        navigation.loadConfiguration(content_, _lgNames);
+        navigation.loadConfiguration(content_,"", _lgNames);
         if (navigation.isError()) {
             setupText();
             return;
@@ -214,7 +213,7 @@ public final class RenderedPage implements ProcessingSession {
         String rel_ = StringList.concat(resourcesFolder,realFilePath_);
         files_.put(realFilePath_,ResourceFiles.ressourceFichier(rel_));
         navigation.setFiles(files_);
-        navigation.setupRendClasses();
+        navigation.setupRendClassesInit();
     }
     public void start() {
         processing.set(true);
@@ -236,7 +235,7 @@ public final class RenderedPage implements ProcessingSession {
             return;
         }
         Document doc_ = navigation.getDocument();
-        MetaDocument metadoc_ = MetaDocument.newInstance(doc_);
+        MetaDocument metadoc_ = MetaDocument.newInstance(doc_,navigation.getSession().getRendKeyWords());
         CustComponent.invokeLater(new WindowPage(metadoc_, scroll, this));
     }
     void directScroll(MetaDocument _meta) {

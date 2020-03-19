@@ -8,14 +8,12 @@ import code.expressionlanguage.structs.Struct;
 import code.formathtml.exec.RendDynOperationNode;
 import code.formathtml.stacks.RendIfStack;
 import code.formathtml.stacks.RendReadWrite;
-import code.formathtml.stacks.RendRemovableVars;
 import code.sml.Element;
 import code.sml.Node;
 import code.util.CustList;
 import code.util.StringList;
 
 public final class RendImport extends RendParentBlock implements RendWithEl, RendReducableOperations,RendBuildableElMethod {
-    private static final String KEEPFIELD_ATTRIBUTE = "keepfields";
     private Element elt;
 
     private CustList<CustList<RendDynOperationNode>> opExp;
@@ -35,8 +33,9 @@ public final class RendImport extends RendParentBlock implements RendWithEl, Ren
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         page_.setGlobalOffset(pageOffset);
         page_.setOffset(0);
-        String pageName_ = elt.getAttribute(PAGE_ATTRIBUTE);
-        res_.build(pageName_,_cont,_doc);
+        String pageName_ = elt.getAttribute(_cont.getRendKeyWords().getAttrPage());
+        int rowsGrId_ = getAttributeDelimiter(_cont.getRendKeyWords().getAttrPage());
+        res_.build(pageName_,_cont,rowsGrId_,_doc);
         opExp = res_.getOpExp();
         texts = res_.getTexts();
     }
@@ -55,7 +54,7 @@ public final class RendImport extends RendParentBlock implements RendWithEl, Ren
             processBlockAndRemove(_cont);
             return;
         }
-        ip_.setProcessingAttribute(PAGE_ATTRIBUTE);
+        ip_.setProcessingAttribute(_cont.getRendKeyWords().getAttrPage());
         ip_.setOffset(pageOffset);
         ip_.setOpOffset(0);
         String lg_ = _cont.getCurrentLanguage();
@@ -83,7 +82,7 @@ public final class RendImport extends RendParentBlock implements RendWithEl, Ren
         RendReadWrite rwLoc_ = new RendReadWrite();
         rwLoc_.setConf(_cont);
         Struct newBean_ = _cont.getBuiltBeans().getVal(beanName_);
-        boolean keepField_ = elt.hasAttribute(KEEPFIELD_ATTRIBUTE);
+        boolean keepField_ = elt.hasAttribute(_cont.getRendKeyWords().getAttrKeepFields());
         Struct mainBean_ = _cont.getMainBean();
         _cont.getAdvStandards().setBeanForms(_cont, mainBean_, this, keepField_,
                 beanName_);
@@ -105,7 +104,7 @@ public final class RendImport extends RendParentBlock implements RendWithEl, Ren
                         if (f instanceof RendField) {
                             ip_.setOffset(((RendField) f).getPrepareOffset());
                             ip_.setOpOffset(0);
-                            ip_.setProcessingAttribute(ATTRIBUTE_PREPARE_BEAN);
+                            ip_.setProcessingAttribute(_cont.getRendKeyWords().getAttrPrepare());
                             CustList<RendDynOperationNode> exps_ = ((RendField) f).getExps();
                             ip_.setInternGlobal(newBean_);
                             RenderExpUtil.calculateReuse(exps_,_cont);
@@ -120,7 +119,7 @@ public final class RendImport extends RendParentBlock implements RendWithEl, Ren
         }
         ip_.setOffset(pageOffset);
         ip_.setOpOffset(0);
-        ip_.setProcessingAttribute(PAGE_ATTRIBUTE);
+        ip_.setProcessingAttribute(_cont.getRendKeyWords().getAttrPage());
         beforeDisplaying(newBean_,_cont);
         if (_cont.getContext().hasException()) {
             return;

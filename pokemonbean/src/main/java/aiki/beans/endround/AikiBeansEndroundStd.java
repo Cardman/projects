@@ -20,6 +20,7 @@ import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.util.BeanLgNames;
 import code.formathtml.structs.StdStruct;
+import code.formathtml.util.BeanNatLgNames;
 import code.util.CustList;
 import code.util.ObjectMap;
 import code.util.StringList;
@@ -117,10 +118,10 @@ public final class AikiBeansEndroundStd {
         fields_.put(ABILITY,new StandardField(ABILITY,_std.getAliasString(),false,false,type_));
         fields_.put(ITEM,new StandardField(ITEM,_std.getAliasString(),false,false,type_));
         fields_.put(STATUS,new StandardField(STATUS,_std.getAliasString(),false,false,type_));
-        fields_.put(MOVES,new StandardField(MOVES,_std.getCustList(),false,false,type_));
+        fields_.put(MOVES,new StandardField(MOVES, BeanNatLgNames.TYPE_LIST,false,false,type_));
         fields_.put(END_ROUND_RANK,new StandardField(END_ROUND_RANK,_std.getAliasPrimInteger(),false,false,type_));
-        fields_.put(REASONS_END_ROUND,new StandardField(REASONS_END_ROUND,_std.getCustList(),false,false,type_));
-        fields_.put(MAP_VARS_FAIL_END_ROUND,new StandardField(MAP_VARS_FAIL_END_ROUND,_std.getCustMap(),false,false,type_));
+        fields_.put(REASONS_END_ROUND,new StandardField(REASONS_END_ROUND, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(MAP_VARS_FAIL_END_ROUND,new StandardField(MAP_VARS_FAIL_END_ROUND, BeanNatLgNames.TYPE_MAP,false,false,type_));
         fields_.put(END_ROUND_HTML,new StandardField(END_ROUND_HTML,_std.getAliasString(),false,false,type_));
         params_ = new StringList(_std.getAliasLong());
         method_ = new StandardMethod(CLICK_MOVE,params_,_std.getAliasString(), false, MethodModifier.NORMAL,type_);
@@ -167,7 +168,7 @@ public final class AikiBeansEndroundStd {
         fields_.put(HEALING_END_ROUND_GROUND,new StandardField(HEALING_END_ROUND_GROUND,PokemonStandards.TYPE_RATE,false,false,type_));
         fields_.put(HEALING_END_ROUND,new StandardField(HEALING_END_ROUND,PokemonStandards.TYPE_RATE,false,false,type_));
         fields_.put(PUTTING_KO,new StandardField(PUTTING_KO,_std.getAliasPrimBoolean(),false,false,type_));
-        fields_.put(IMMUNE_TYPES,new StandardField(IMMUNE_TYPES,_std.getCustList(),false,false,type_));
+        fields_.put(IMMUNE_TYPES,new StandardField(IMMUNE_TYPES, BeanNatLgNames.TYPE_LIST,false,false,type_));
         _std.getStandards().put(TYPE_EFFECT_END_ROUND_GLOBAL_BEAN, type_);
     }
     private static void buildEffectEndRoundIndividualBean(BeanLgNames _std) {
@@ -185,8 +186,8 @@ public final class AikiBeansEndroundStd {
         fields_.put(RECOIL_DAMAGE,new StandardField(RECOIL_DAMAGE,PokemonStandards.TYPE_RATE,false,false,type_));
         fields_.put(HEAL_HP,new StandardField(HEAL_HP,PokemonStandards.TYPE_RATE,false,false,type_));
         fields_.put(USER_STATUS_END_ROUND,new StandardField(USER_STATUS_END_ROUND,_std.getAliasString(),false,false,type_));
-        fields_.put(MULT_DAMAGE_STATUS,new StandardField(MULT_DAMAGE_STATUS,_std.getCustMap(),false,false,type_));
-        fields_.put(HEAL_HP_BY_OWNER_TYPES,new StandardField(HEAL_HP_BY_OWNER_TYPES,_std.getCustMap(),false,false,type_));
+        fields_.put(MULT_DAMAGE_STATUS,new StandardField(MULT_DAMAGE_STATUS, BeanNatLgNames.TYPE_MAP,false,false,type_));
+        fields_.put(HEAL_HP_BY_OWNER_TYPES,new StandardField(HEAL_HP_BY_OWNER_TYPES, BeanNatLgNames.TYPE_MAP,false,false,type_));
         params_ = new StringList(_std.getAliasLong());
         method_ = new StandardMethod(CLICK_USER_STATUS,params_,_std.getAliasString(), false, MethodModifier.NORMAL,type_);
         methods_.put(method_.getId(), method_);
@@ -218,7 +219,7 @@ public final class AikiBeansEndroundStd {
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new StringMap<StandardField>();
         type_ = new StandardClass(TYPE_EFFECT_END_ROUND_MULTI_RELATION_BEAN, fields_, constructors_, methods_, AikiBeansEndroundStd.TYPE_EFFECT_END_ROUND_BEAN, MethodModifier.NORMAL);
-        fields_.put(DAMAGE_BY_STATUS,new StandardField(DAMAGE_BY_STATUS,_std.getCustMap(),false,false,type_));
+        fields_.put(DAMAGE_BY_STATUS,new StandardField(DAMAGE_BY_STATUS, BeanNatLgNames.TYPE_MAP,false,false,type_));
         params_ = new StringList(_std.getAliasLong(),_std.getAliasLong());
         method_ = new StandardMethod(CLICK_DAMAGE_STATUS,params_,_std.getAliasString(), false, MethodModifier.NORMAL,type_);
         methods_.put(method_.getId(), method_);
@@ -251,7 +252,7 @@ public final class AikiBeansEndroundStd {
         fields_ = new StringMap<StandardField>();
         type_ = new StandardClass(TYPE_EFFECT_END_ROUND_POSITION_TARGET_BEAN, fields_, constructors_, methods_, AikiBeansEndroundStd.TYPE_EFFECT_END_ROUND_BEAN, MethodModifier.NORMAL);
         params_ = new StringList();
-        method_ = new StandardMethod(GET_MOVES_SAME_CATEGORY,params_,_std.getCustList(), false, MethodModifier.NORMAL,type_);
+        method_ = new StandardMethod(GET_MOVES_SAME_CATEGORY,params_, BeanNatLgNames.TYPE_LIST, false, MethodModifier.NORMAL,type_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(_std.getAliasLong());
         method_ = new StandardMethod(CLICK_TARGET_RELATION_MOVE,params_,_std.getAliasString(), false, MethodModifier.NORMAL,type_);
@@ -270,8 +271,8 @@ public final class AikiBeansEndroundStd {
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new StringMap<StandardField>();
         type_ = new StandardClass(TYPE_EFFECT_END_ROUND_SINGLE_RELATION_BEAN, fields_, constructors_, methods_, AikiBeansEndroundStd.TYPE_EFFECT_END_ROUND_BEAN, MethodModifier.NORMAL);
-        fields_.put(RATE_DAMAGE_FUNCTION_OF_NB_ROUNDS,new StandardField(RATE_DAMAGE_FUNCTION_OF_NB_ROUNDS,_std.getCustMap(),false,false,type_));
-        fields_.put(LAW_FOR_ENABLING_EFFECT,new StandardField(LAW_FOR_ENABLING_EFFECT,_std.getCustMap(),false,false,type_));
+        fields_.put(RATE_DAMAGE_FUNCTION_OF_NB_ROUNDS,new StandardField(RATE_DAMAGE_FUNCTION_OF_NB_ROUNDS, BeanNatLgNames.TYPE_MAP,false,false,type_));
+        fields_.put(LAW_FOR_ENABLING_EFFECT,new StandardField(LAW_FOR_ENABLING_EFFECT, BeanNatLgNames.TYPE_MAP,false,false,type_));
         _std.getStandards().put(TYPE_EFFECT_END_ROUND_SINGLE_RELATION_BEAN, type_);
     }
     private static void buildEffectEndRoundSingleStatusBean(BeanLgNames _std) {
@@ -335,7 +336,7 @@ public final class AikiBeansEndroundStd {
         fields_ = new StringMap<StandardField>();
         type_ = new StandardClass(TYPE_END_ROUND_BEAN, fields_, constructors_, methods_, AikiBeansStd.TYPE_COMMON_BEAN, MethodModifier.NORMAL);
         params_ = new StringList();
-        method_ = new StandardMethod(GET_EVTS,params_,_std.getCustList(), false, MethodModifier.NORMAL,type_);
+        method_ = new StandardMethod(GET_EVTS,params_, BeanNatLgNames.TYPE_LIST, false, MethodModifier.NORMAL,type_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(_std.getAliasLong());
         method_ = new StandardMethod(GET_PAGE,params_,_std.getAliasString(), false, MethodModifier.NORMAL,type_);
@@ -368,7 +369,7 @@ public final class AikiBeansEndroundStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,MOVES)) {
-            res_.setResult(new StdStruct(instance_.getMoves(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getMoves(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,END_ROUND_RANK)) {
@@ -376,11 +377,11 @@ public final class AikiBeansEndroundStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,REASONS_END_ROUND)) {
-            res_.setResult(new StdStruct(instance_.getReasonsEndRound(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getReasonsEndRound(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,MAP_VARS_FAIL_END_ROUND)) {
-            res_.setResult(new StdStruct(instance_.getMapVarsFailEndRound(),std_.getCustMap()));
+            res_.setResult(new StdStruct(instance_.getMapVarsFailEndRound(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
         if (StringList.quickEq(fieldName_,END_ROUND_HTML)) {
@@ -421,7 +422,7 @@ public final class AikiBeansEndroundStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,IMMUNE_TYPES)) {
-            res_.setResult(new StdStruct(instance_.getImmuneTypes(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getImmuneTypes(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         return AikiBeansEndroundStd.getResultEffectEndRoundBean(_cont, _classField, _instance);
@@ -448,11 +449,11 @@ public final class AikiBeansEndroundStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,MULT_DAMAGE_STATUS)) {
-            res_.setResult(new StdStruct(instance_.getMultDamageStatus(),std_.getCustMap()));
+            res_.setResult(new StdStruct(instance_.getMultDamageStatus(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
         if (StringList.quickEq(fieldName_,HEAL_HP_BY_OWNER_TYPES)) {
-            res_.setResult(new StdStruct(instance_.getHealHpByOwnerTypes(),std_.getCustMap()));
+            res_.setResult(new StdStruct(instance_.getHealHpByOwnerTypes(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
         return AikiBeansEndroundStd.getResultEffectEndRoundBean(_cont, _classField, _instance);
@@ -463,7 +464,7 @@ public final class AikiBeansEndroundStd {
         EffectEndRoundMultiRelationBean instance_ = (EffectEndRoundMultiRelationBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringList.quickEq(fieldName_,DAMAGE_BY_STATUS)) {
-            res_.setResult(new StdStruct(instance_.getDamageByStatus(),std_.getCustMap()));
+            res_.setResult(new StdStruct(instance_.getDamageByStatus(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
         return AikiBeansEndroundStd.getResultEffectEndRoundBean(_cont, _classField, _instance);
@@ -484,11 +485,11 @@ public final class AikiBeansEndroundStd {
         EffectEndRoundSingleRelationBean instance_ = (EffectEndRoundSingleRelationBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringList.quickEq(fieldName_,RATE_DAMAGE_FUNCTION_OF_NB_ROUNDS)) {
-            res_.setResult(new StdStruct(instance_.getRateDamageFunctionOfNbRounds(),std_.getCustMap()));
+            res_.setResult(new StdStruct(instance_.getRateDamageFunctionOfNbRounds(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
         if (StringList.quickEq(fieldName_,LAW_FOR_ENABLING_EFFECT)) {
-            res_.setResult(new StdStruct(instance_.getLawForEnablingEffect(),std_.getCustMap()));
+            res_.setResult(new StdStruct(instance_.getLawForEnablingEffect(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
         return AikiBeansEndroundStd.getResultEffectEndRoundBean(_cont, _classField, _instance);
@@ -622,7 +623,7 @@ public final class AikiBeansEndroundStd {
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringList.quickEq(methodName_,GET_MOVES_SAME_CATEGORY)) {
-            res_.setResult(new StdStruct(instance_.getMovesSameCategory(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getMovesSameCategory(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(methodName_,CLICK_TARGET_RELATION_MOVE)) {
@@ -641,7 +642,7 @@ public final class AikiBeansEndroundStd {
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringList.quickEq(methodName_,GET_EVTS)) {
-            res_.setResult(new StdStruct(instance_.getEvts(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getEvts(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(methodName_,GET_PAGE)) {

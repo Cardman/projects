@@ -1,99 +1,28 @@
 package code.formathtml;
 
-import code.expressionlanguage.errors.custom.BadElError;
-import code.expressionlanguage.opers.Calculation;
+import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.FieldInfo;
-import code.expressionlanguage.opers.util.MethodAccessKind;
 import code.expressionlanguage.variables.LocalVariable;
 import code.formathtml.exec.*;
-import code.formathtml.util.BeanCustLgNames;
 import code.sml.Element;
 import code.util.CustList;
 import code.util.StringList;
 
 public final class ResultInput {
-    static final String TAG_PARAM = "param";
-    static final String ATTRIBUTE_VALUE_SUBMIT = "message";
-    static final String ATTRIBUTE_VALUE = "value";
-    static final String ATTRIBUTE_QUOTED = "quoted";
-    static final String ATTRIBUTE_ESCAPED = "escaped";
-    static final String ATTRIBUTE_ESCAPED_EAMP = "escapedamp";
-    static final String ATTRIBUTE_CLASS_NAME = "className";
-    static final String ATTRIBUTE_INDEX_CLASS_NAME = "indexClassName";
-    static final String ATTRIBUTE_FROM = "from";
-    static final String ATTRIBUTE_INIT = "init";
-    static final String ATTRIBUTE_STEP = "step";
-    static final String ATTRIBUTE_LABEL = "label";
-    static final String ATTRIBUTE_NAME = "name";
-    static final String ATTRIBUTE_PREPARE_BEAN = "prepare";
-    static final String ATTRIBUTE_FORM = "form";
-    static final String ATTRIBUTE_LIST = "list";
-    static final String ATTRIBUTE_MAP = "map";
-    static final String ATTRIBUTE_ID = "id";
-    static final String ATTRIBUTE_GROUP_ID = "groupId";
-    static final String ATTRIBUTE_MULTIPLE = "multiple";
-    static final String ATTRIBUTE_KEY = "key";
-    static final String ATTRIBUTE_VAR = "var";
-    static final String ATTRIBUTE_HREF = "href";
-    static final String ATTRIBUTE_COMMAND = "command";
-    static final String ATTRIBUTE_ACTION = "action";
-    static final String ATTRIBUTE_TO = "to";
-    static final String ATTRIBUTE_EQ = "eq";
-    static final String TAG_OPTION = "option";
-    static final String SELECTED = "selected";
-    static final String VAR_METHOD = "varMethod";
-    static final String BEAN_ATTRIBUTE = "bean";
-    static final String ATTRIBUTE_VALUE_CHANGE_EVENT = "valueChangeEvent";
-    static final String CHECKED = "checked";
-    static final String ATTRIBUTE_CONDITION = "condition";
-    static final String KEY_CLASS_NAME_ATTRIBUTE = "keyClassName";
-    static final String VAR_CLASS_NAME_ATTRIBUTE = "varClassName";
-    static final String ATTRIBUTE_TYPE = "type";
-    static final String CALL_METHOD = "$";
-    static final String COMMA = ",";
-    static final String SUBMIT_TYPE = "submit";
-    static final String BODY_TAG = "body";
-    static final String INPUT_TAG = "input";
+
     static final String EMPTY_STRING = "";
-    static final char RIGHT_EL = '}';
-    static final char LEFT_EL = '{';
-    static final char QUOTE = 39;
-    static final String TMP_BLOCK_TAG = "tmp";
-    static final String LT_END_TAG = "</";
-    static final char GT_TAG = '>';
-    static final char LT_BEGIN_TAG = '<';
-    static final String TAG_A = "a";
-    static final String NUMBER_FORM = "n-f";
-    static final String NUMBER_ANCHOR = "n-a";
-    static final String NUMBER_INPUT = "n-i";
-    static final String DOT = ".";
-    static final String TMP_LOC = "tmpLoc";
 
-    static final String CHECKBOX = "checkbox";
-
-    static final String TEXT = "text";
-
-    static final String RANGE = "range";
-
-    static final String RADIO = "radio";
-
-    static final String NUMBER = "number";
-    static final String TEXT_AREA = "textarea";
-    static final String SELECT_TAG = "select";
-    static final String ATTRIBUTE_VALIDATOR = "validator";
-    private static final String ATTRIBUTE_VAR_VALUE = "varValue";
     private CustList<RendDynOperationNode> opsRead = new CustList<RendDynOperationNode>();
     private CustList<RendDynOperationNode> opsValue = new CustList<RendDynOperationNode>();
     private CustList<RendDynOperationNode> opsWrite = new CustList<RendDynOperationNode>();
-    private String varName = "";
+    private String varName = EMPTY_STRING;
     private ClassField idField;
-    public void build(Configuration _cont, RendDocumentBlock _doc, Element _read,String _varValue) {
-        String name_ = _read.getAttribute(ATTRIBUTE_NAME);
-        MethodAccessKind st_ = _doc.getStaticContext();
+    public void build(Configuration _cont, RendBlock _bl, RendDocumentBlock _doc, Element _read,String _varValue) {
+        String name_ = _read.getAttribute(_cont.getRendKeyWords().getAttrName());
         if (!name_.isEmpty()) {
-            opsRead = RenderExpUtil.getAnalyzedOperations(name_, 0, _cont, Calculation.staticCalculation(st_));
+            opsRead = RenderExpUtil.getAnalyzedOperations(name_,_bl.getAttributeDelimiter(_cont.getRendKeyWords().getAttrName()), 0, _cont);
             RendDynOperationNode last_ = opsRead.last();
             RendDynOperationNode res_;
             if (last_ instanceof RendIdOperation) {
@@ -103,16 +32,27 @@ public final class ResultInput {
             }
             RendSettableElResult settable_ = RendAffectationOperation.castDottedTo(res_);
             if (!(settable_ instanceof RendSettableFieldOperation)) {
-                BadElError badEl_ = new BadElError();
+                FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                 badEl_.setFileName(_cont.getCurrentFileName());
-                badEl_.setIndexFile(_cont.getCurrentLocationIndex());
+                badEl_.setIndexFile(_bl.getAttributeDelimiter(_cont.getRendKeyWords().getAttrName()));
+                badEl_.buildError(_cont.getRendAnalysisMessages().getBadInputName());
                 _cont.addError(badEl_);
             } else {
                 FieldInfo infoField_ = ((RendSettableFieldOperation) settable_).getFieldMetaInfo();
                 if (infoField_.isStaticField()) {
-                    BadElError badEl_ = new BadElError();
+                    FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                     badEl_.setFileName(_cont.getCurrentFileName());
-                    badEl_.setIndexFile(_cont.getCurrentLocationIndex());
+                    badEl_.setIndexFile(_bl.getAttributeDelimiter(_cont.getRendKeyWords().getAttrName()));
+                    badEl_.buildError(_cont.getRendAnalysisMessages().getStaticInputName(),
+                            infoField_.getClassField().getFieldName());
+                    _cont.addError(badEl_);
+                }
+                if (infoField_.isFinalField()) {
+                    FoundErrorInterpret badEl_ = new FoundErrorInterpret();
+                    badEl_.setFileName(_cont.getCurrentFileName());
+                    badEl_.setIndexFile(_bl.getAttributeDelimiter(_cont.getRendKeyWords().getAttrName()));
+                    badEl_.buildError(_cont.getContext().getAnalysisMessages().getFinalField(),
+                            infoField_.getClassField().getFieldName());
                     _cont.addError(badEl_);
                 }
                 idField = infoField_.getClassField();
@@ -128,7 +68,7 @@ public final class ResultInput {
                 varNames_.add(varPrevLoc_);
                 String varLoc_ = RendBlock.lookForVar(_cont, varNames_);
                 varNames_.add(varLoc_);
-                varName = StringList.concat(varPrevLoc_,",",varLoc_);
+                varName = StringList.concat(varPrevLoc_,RendBlock.COMMA,varLoc_);
                 LocalVariable lv_ = new LocalVariable();
                 String clPrev_ = pr_.getSingleNameOrEmpty();
                 lv_.setClassName(clPrev_);
@@ -136,10 +76,26 @@ public final class ResultInput {
                 lv_ = new LocalVariable();
                 lv_.setClassName(cl_);
                 _cont.getLocalVarsAna().last().addEntry(varLoc_,lv_);
-                String accessClass_ = StringList.concat(_cont.getKeyWords().getKeyWordClasschoice(),"(",idField.getClassName(),")");
-                String assessField_ = StringList.concat("(",BeanCustLgNames.sufficLocal(_cont.getContext(),varPrevLoc_),").",accessClass_,idField.getFieldName());
-                String preRend_ = StringList.concat(assessField_,"=",BeanCustLgNames.sufficLocal(_cont.getContext(),varLoc_));
-                opsWrite = RenderExpUtil.getAnalyzedOperations(preRend_,0,_cont,Calculation.staticCalculation(st_));
+
+                RendAffectationOperation rendAff_ = new RendAffectationOperation(0,pr_,4);
+                ClassArgumentMatching clResField_ = new ClassArgumentMatching(cl_);
+                RendDotOperation rendDot_ = new RendDotOperation(0, clResField_,2);
+                RendVariableOperation rendPrevVar_ = new RendVariableOperation(0, varPrevLoc_,pr_,0);
+                RendSettableFieldOperation rendField_ = new RendSettableFieldOperation((RendSettableFieldOperation) settable_, 1, clResField_, 1, true);
+                rendPrevVar_.setSiblingSet(rendField_);
+                rendDot_.appendChild(rendPrevVar_);
+                rendDot_.appendChild(rendField_);
+                rendAff_.appendChild(rendDot_);
+                RendVariableOperation rendVar_ = new RendVariableOperation(0, varLoc_, clResField_,3);
+                rendAff_.appendChild(rendVar_);
+                rendAff_.setup();
+
+                opsWrite.add(rendPrevVar_);
+                opsWrite.add(rendField_);
+                opsWrite.add(rendDot_);
+                opsWrite.add(rendVar_);
+                opsWrite.add(rendAff_);
+
                 for (String v:varNames_) {
                     _cont.getLocalVarsAna().last().removeKey(v);
                 }
@@ -147,7 +103,7 @@ public final class ResultInput {
         }
         if (_read.hasAttribute(_varValue)) {
             String value_ = _read.getAttribute(_varValue);
-            opsValue = RenderExpUtil.getAnalyzedOperations(value_, 0, _cont, Calculation.staticCalculation(st_));
+            opsValue = RenderExpUtil.getAnalyzedOperations(value_,_bl.getAttributeDelimiter(_varValue), 0, _cont);
         }
     }
 

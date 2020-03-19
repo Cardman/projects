@@ -5,7 +5,6 @@ import java.awt.event.MouseEvent;
 import java.io.File;
 
 import javax.swing.*;
-import javax.swing.event.TreeSelectionEvent;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeNode;
 
@@ -35,6 +34,7 @@ public abstract class FileDialog extends Dialog {
     private Panel contentPane = Panel.newBorder();
     private Panel buttons = Panel.newLineBox();
     private TextField fileName = new TextField(NB_COLS);
+    private AutoCompleteDocument auto;
     private TreeGui folderSystem;
     private FileTable fileModel;
     private TableGui fileTable;
@@ -115,7 +115,8 @@ public abstract class FileDialog extends Dialog {
         fileTable.setMultiSelect(false);
         fileTable.addListSelectionListener(new ClickRowEvent(this));
         Panel openSaveFile_ = Panel.newPageBox();
-        fileName = AutoCompleteDocument.createAutoCompleteTextField(new StringList(),NB_COLS);
+        fileName = new TextField(NB_COLS);
+        auto = new AutoCompleteDocument(fileName,new StringList(), this);
         if (addTypingFileName) {
             Panel fieldFile_ = Panel.newLineBox();
             fieldFile_.add(new TextLabel(messages.getVal(NAME)));
@@ -167,7 +168,7 @@ public abstract class FileDialog extends Dialog {
         for (File f: _filesList) {
             list_.add(f.getName());
         }
-        AutoCompleteDocument.setDictionary(fileName, list_);
+        auto.setDictionary(list_);
         fileModel.setupFiles(_filesList, currentFolder, extension);
     }
 

@@ -4,7 +4,7 @@ import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.calls.AbstractPageEl;
 import code.expressionlanguage.calls.util.ReadWrite;
-import code.expressionlanguage.errors.custom.UnexpectedTagName;
+import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.instr.ElUtil;
@@ -70,9 +70,43 @@ public final class BreakBlock extends AbruptBlock implements CallingFinally {
             AnalyzedPageEl page_ = _cont.getAnalyzing();
             page_.setGlobalOffset(getOffset().getOffsetTrim());
             page_.setOffset(0);
-            UnexpectedTagName un_ = new UnexpectedTagName();
+            FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(getFile().getFileName());
             un_.setIndexFile(getOffset().getOffsetTrim());
+            if (label.isEmpty()) {
+                //key word len
+                un_.buildError(_cont.getAnalysisMessages().getUnexpectedAbrupt(),
+                        _cont.getKeyWords().getKeyWordBreak(),
+                        StringList.join(
+                                new StringList(
+                                        _cont.getKeyWords().getKeyWordSwitch(),
+                                        _cont.getKeyWords().getKeyWordFor(),
+                                        _cont.getKeyWords().getKeyWordForeach(),
+                                        _cont.getKeyWords().getKeyWordDo(),
+                                        _cont.getKeyWords().getKeyWordWhile()
+                                ),
+                                "|"));
+            } else {
+                //key word len
+                un_.buildError(_cont.getAnalysisMessages().getUnexpectedAbruptLab(),
+                        _cont.getKeyWords().getKeyWordBreak(),
+                        label,
+                        StringList.join(
+                                new StringList(
+                                        _cont.getKeyWords().getKeyWordSwitch(),
+                                        _cont.getKeyWords().getKeyWordTry(),
+                                        _cont.getKeyWords().getKeyWordCatch(),
+                                        _cont.getKeyWords().getKeyWordFinally(),
+                                        _cont.getKeyWords().getKeyWordIf(),
+                                        _cont.getKeyWords().getKeyWordElseif(),
+                                        _cont.getKeyWords().getKeyWordElse(),
+                                        _cont.getKeyWords().getKeyWordFor(),
+                                        _cont.getKeyWords().getKeyWordForeach(),
+                                        _cont.getKeyWords().getKeyWordDo(),
+                                        _cont.getKeyWords().getKeyWordWhile()
+                                ),
+                                "|"));
+            }
             _cont.addError(un_);
         }
     }

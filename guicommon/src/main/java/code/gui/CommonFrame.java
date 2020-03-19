@@ -179,4 +179,7 @@ public abstract class CommonFrame extends AbsFrame implements ChangeableTitle {
         frame.printAll(g_);
         return b_;
     }
+    public Point getLocationOnScreen() {
+        return frame.getLocationOnScreen();
+    }
 }

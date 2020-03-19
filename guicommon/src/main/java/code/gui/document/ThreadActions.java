@@ -36,6 +36,7 @@ public final class ThreadActions implements Runnable {
     private RenderedPage page;
 
     private String anchor;
+    private String lgCode = "";
 
     private String fileName;
     private StringMap<String> fileNames;
@@ -72,10 +73,11 @@ public final class ThreadActions implements Runnable {
         usedFirstUrl = _usedFirstUrl;
     }
 
-    public ThreadActions(RenderedPage _page, BeanLgNames _lgNames, String _anchor, String _fileName, StringMap<String> _fileNames, boolean _form, boolean _refresh, boolean _usedFirstUrl) {
+    public ThreadActions(RenderedPage _page, BeanLgNames _lgNames, String _lgCode,String _anchor, String _fileName, StringMap<String> _fileNames, boolean _form, boolean _refresh, boolean _usedFirstUrl) {
         page = _page;
         page.start();
         stds = _lgNames;
+        lgCode = _lgCode;
         anchor = _anchor;
         form = _form;
         refresh = _refresh;
@@ -115,7 +117,7 @@ public final class ThreadActions implements Runnable {
                 afterAction();
                 return;
             }
-            page.getNavigation().loadConfiguration(content_, stds);
+            page.getNavigation().loadConfiguration(content_,lgCode, stds);
             if (!page.getNavigation().isError()) {
                 HtmlPage htmlPage_ = page.getNavigation().getHtmlPage();
                 htmlPage_.setUrl(-1);
@@ -123,7 +125,7 @@ public final class ThreadActions implements Runnable {
                     page.updateFiles();
                 } else {
                     page.getNavigation().setFiles(fileNames);
-                    page.getNavigation().setupRendClasses();
+                    page.getNavigation().setupRendClassesInit();
                     Configuration conf_ = page.getNavigation().getSession();
                     if (conf_.isEmptyErrors()) {
                         LgNames stds_ = conf_.getStandards();
@@ -205,7 +207,7 @@ public final class ThreadActions implements Runnable {
             finish();
             return;
         }
-        MetaDocument metadoc_ = MetaDocument.newInstance(doc_);
+        MetaDocument metadoc_ = MetaDocument.newInstance(doc_,page.getNavigation().getSession().getRendKeyWords());
         CustComponent.invokeLater(new WindowPage(metadoc_, page.getScroll(), page));
     }
 

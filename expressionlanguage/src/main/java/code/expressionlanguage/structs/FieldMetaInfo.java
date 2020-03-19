@@ -1,5 +1,6 @@
 package code.expressionlanguage.structs;
 
+import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.methods.AccessEnum;
 import code.util.StringList;
@@ -92,4 +93,8 @@ public final class FieldMetaInfo implements AnnotatedStruct {
         return StringList.quickEq(name, f_.name);
     }
 
+    @Override
+    public StringStruct getDisplayedString(Analyzable _an) {
+        return new StringStruct(StringList.concat(declaringClass,".",name));
+    }
 }

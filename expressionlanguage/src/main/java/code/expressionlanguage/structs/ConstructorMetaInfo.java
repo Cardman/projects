@@ -1,5 +1,6 @@
 package code.expressionlanguage.structs;
 
+import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.methods.AccessEnum;
 import code.expressionlanguage.opers.util.ConstructorId;
@@ -96,4 +97,8 @@ public final class ConstructorMetaInfo implements AnnotatedStruct {
         return realId.eq(info_.realId);
     }
 
+    @Override
+    public StringStruct getDisplayedString(Analyzable _an) {
+        return new StringStruct(StringList.concat(className,";",realId.getSignature(_an)));
+    }
 }

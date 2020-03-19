@@ -10,6 +10,7 @@ import code.util.CustList;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
@@ -78,7 +79,7 @@ public final class ZipBinStructUtil {
             }
             zis_.close();
             return filesMap_;
-        } catch (Throwable _0) {
+        } catch (IOException _0) {
             return null;
         }
     }
@@ -128,7 +129,7 @@ public final class ZipBinStructUtil {
             zos_.close();
             //baos_
             return baos_.toByteArray();
-        } catch (Throwable _0) {
+        } catch (IOException _0) {
             return null;
         }
     }

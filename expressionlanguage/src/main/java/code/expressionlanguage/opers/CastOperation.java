@@ -14,6 +14,7 @@ import code.util.CustList;
 
 public final class CastOperation extends AbstractUnaryOperation implements PreAnalyzableOperation {
 
+    private String originalClassName;
     private String className;
     private int offset;
     private int beginType;
@@ -23,6 +24,7 @@ public final class CastOperation extends AbstractUnaryOperation implements PreAn
         super(_index, _indexChild, _m, _op);
         offset = getOperations().getOperators().firstKey();
         className = getOperations().getOperators().firstValue();
+        originalClassName = className;
     }
 
     @Override
@@ -49,7 +51,7 @@ public final class CastOperation extends AbstractUnaryOperation implements PreAn
     @Override
     public void analyzeUnary(Analyzable _conf) {
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+offset, _conf);
-        className = _conf.checkExactType(beginType, className);
+        className = _conf.checkExactType(beginType, className,originalClassName);
         setResultClass(new ClassArgumentMatching(className));
         if (PrimitiveTypeUtil.isPrimitive(className, _conf)) {
             getFirstChild().getResultClass().setUnwrapObject(className);

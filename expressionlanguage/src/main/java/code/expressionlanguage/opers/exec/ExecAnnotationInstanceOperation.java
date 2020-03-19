@@ -7,23 +7,21 @@ import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.AnnotationInstanceOperation;
+import code.expressionlanguage.opers.util.AnnotationTypeInfo;
 import code.expressionlanguage.structs.Struct;
 import code.util.*;
 
 public final class ExecAnnotationInstanceOperation extends ExecInvokingOperation {
 
-    private boolean possibleInitClass;
-
     private String methodName;
 
     private String className;
-    private StringMap<String> fieldNames;
+    private StringMap<AnnotationTypeInfo> fieldNames;
     private boolean array;
 
     protected ExecAnnotationInstanceOperation(
             AnnotationInstanceOperation _ann) {
         super(_ann);
-        possibleInitClass = _ann.isPossibleInitClass();
         methodName = _ann.getMethodName();
         fieldNames = _ann.getFieldNames();
         className = _ann.getClassName();
@@ -55,11 +53,9 @@ public final class ExecAnnotationInstanceOperation extends ExecInvokingOperation
             a_.setStruct(str_);
             return a_;
         }
-        if (possibleInitClass) {
-            String base_ = Templates.getIdFromAllTypes(className);
-            if (ExecInvokingOperation.hasToExit(_conf, base_)) {
-                return Argument.createVoid();
-            }
+        String base_ = Templates.getIdFromAllTypes(className);
+        if (ExecInvokingOperation.hasToExit(_conf, base_)) {
+            return Argument.createVoid();
         }
         return instancePrepareAnnotation(_conf, className, fieldNames, _arguments);
     }

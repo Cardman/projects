@@ -1,10 +1,7 @@
 package code.gui;
 
 import java.awt.*;
-import java.awt.event.KeyListener;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
-import java.awt.event.MouseWheelListener;
+import java.awt.event.*;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
@@ -162,5 +159,20 @@ public abstract class CustComponent {
 
     public String getToolTipText() {
         return getComponent().getToolTipText();
+    }
+
+    public void removeFocusListener(FocusListener _auto) {
+        getComponent().removeFocusListener(_auto);
+    }
+    public void addFocusListener(FocusListener _auto) {
+        getComponent().addFocusListener(_auto);
+    }
+
+    public Point getLocationOnScreen() {
+        return getComponent().getLocationOnScreen();
+    }
+
+    public void addComponentListener(ComponentListener _compo) {
+        getComponent().addComponentListener(_compo);
     }
 }

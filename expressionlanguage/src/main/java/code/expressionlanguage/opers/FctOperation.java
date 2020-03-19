@@ -3,9 +3,7 @@ package code.expressionlanguage.opers;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.errors.custom.AbstractMethod;
-import code.expressionlanguage.errors.custom.BadImplicitCast;
-import code.expressionlanguage.errors.custom.UndefinedMethodError;
+import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.inherits.Mapping;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
@@ -105,10 +103,13 @@ public final class FctOperation extends InvokingOperation {
             StringMap<StringList> mapping_ = _conf.getCurrentConstraints();
             map_.setMapping(mapping_);
             if (!Templates.isCorrectOrNumbers(map_, _conf)) {
-                BadImplicitCast cast_ = new BadImplicitCast();
-                cast_.setMapping(map_);
+                FoundErrorInterpret cast_ = new FoundErrorInterpret();
                 cast_.setIndexFile(_conf.getCurrentLocationIndex());
                 cast_.setFileName(_conf.getCurrentFileName());
+                //type len
+                cast_.buildError(_conf.getContextEl().getAnalysisMessages().getBadImplicitCast(),
+                        StringList.join(clCur_.getNames(),"&"),
+                        className_);
                 _conf.addError(cast_);
                 setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
                 return;
@@ -137,12 +138,13 @@ public final class FctOperation extends InvokingOperation {
         StringList arrayBounds_ = getArrayBounds(bounds_);
         if (!arrayBounds_.isEmpty()) {
             if (!StringList.quickEq(trimMeth_, stds_.getAliasClone())) {
-                StringList classesNames_ = new StringList();
-                UndefinedMethodError undefined_ = new UndefinedMethodError();
-                undefined_.setClassName(bounds_);
-                undefined_.setId(new MethodId(MethodAccessKind.INSTANCE, trimMeth_, classesNames_).getSignature(_conf));
+                FoundErrorInterpret undefined_ = new FoundErrorInterpret();
                 undefined_.setFileName(_conf.getCurrentFileName());
                 undefined_.setIndexFile(_conf.getCurrentLocationIndex());
+                //trimMeth_ len
+                undefined_.buildError(_conf.getContextEl().getAnalysisMessages().getArrayCloneOnly(),
+                        stds_.getAliasClone(),
+                        StringList.join(arrayBounds_,"&"));
                 _conf.addError(undefined_);
                 return;
             }
@@ -164,11 +166,14 @@ public final class FctOperation extends InvokingOperation {
         if (staticChoiceMethod_) {
             if (clMeth_.isAbstractMethod()) {
                 setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
-                AbstractMethod abs_ = new AbstractMethod();
-                abs_.setClassName(clMeth_.getRealClass());
-                abs_.setSgn(clMeth_.getRealId().getSignature(_conf));
+                FoundErrorInterpret abs_ = new FoundErrorInterpret();
                 abs_.setIndexFile(_conf.getCurrentLocationIndex());
                 abs_.setFileName(_conf.getCurrentFileName());
+                //method name len
+                abs_.buildError(
+                        _conf.getContextEl().getAnalysisMessages().getAbstractMethodRef(),
+                        clMeth_.getRealClass(),
+                        clMeth_.getRealId().getSignature(_conf));
                 _conf.addError(abs_);
                 setResultClass(new ClassArgumentMatching(clMeth_.getReturnType()));
                 return;

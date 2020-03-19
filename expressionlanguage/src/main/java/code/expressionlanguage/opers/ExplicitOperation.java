@@ -2,7 +2,7 @@ package code.expressionlanguage.opers;
 
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.errors.custom.BadOperandsNumber;
+import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.OperationsSequence;
@@ -29,10 +29,14 @@ public final class ExplicitOperation extends AbstractUnaryOperation {
         String extract_ = className.substring(className.indexOf(PAR_LEFT)+1, className.lastIndexOf(PAR_RIGHT));
         StringList types_ = Templates.getAllSepCommaTypes(extract_);
         if (types_.size() > 2) {
-            BadOperandsNumber badCall_ = new BadOperandsNumber();
-            badCall_.setOperandsNumber(0);
+            FoundErrorInterpret badCall_ = new FoundErrorInterpret();
             badCall_.setFileName(_conf.getCurrentFileName());
             badCall_.setIndexFile(_conf.getCurrentLocationIndex());
+            //key word len
+            badCall_.buildError(_conf.getContextEl().getAnalysisMessages().getSplitComaLow(),
+                    Integer.toString(2),
+                    Integer.toString(types_.size())
+            );
             _conf.addError(badCall_);
             setResultClass(new ClassArgumentMatching(_conf.getStandards().getAliasObject()));
             return;

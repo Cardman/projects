@@ -7,6 +7,8 @@ import code.expressionlanguage.structs.Struct;
 import code.gui.CustComponent;
 import code.gui.PlainButton;
 
+import java.awt.event.ActionListener;
+
 public final class PlainButtonStruct extends InputStruct {
     private PlainButton plainButton;
     public PlainButtonStruct(String _className) {
@@ -44,8 +46,8 @@ public final class PlainButtonStruct extends InputStruct {
         plainButton.setEnabled(((BooleanStruct)b).getInstance());
     }
     public void addActionListener(Struct _list) {
-        if (_list instanceof EventStruct) {
-            plainButton.addActionListener((EventStruct)_list);
+        if (_list instanceof ActionListener) {
+            plainButton.addActionListener((ActionListener)_list);
         }
     }
     @Override

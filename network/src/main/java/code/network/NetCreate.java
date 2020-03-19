@@ -87,19 +87,28 @@ public final class NetCreate {
 
     private static CustList<NetworkInterface> getNetworkInterfaces() {
         CustList<NetworkInterface> l_ = new CustList<NetworkInterface>();
-        try {
-            for (NetworkInterface n: Collections.list(NetworkInterface.getNetworkInterfaces())) {
-                if (!StringList.quickEq(n.getName().trim(),NET_ZERO)) {
-                    if (!StringList.quickEq(n.getName().trim(),WLAN_ZERO)) {
-                        continue;
-                    }
-                }
-                if (n.isVirtual()) {
+        for (NetworkInterface n: getNetworkInterfacesList()) {
+            if (!StringList.quickEq(n.getName().trim(),NET_ZERO)) {
+                if (!StringList.quickEq(n.getName().trim(),WLAN_ZERO)) {
                     continue;
                 }
+            }
+            if (n.isVirtual()) {
+                continue;
+            }
+            l_.add(n);
+        }
+        return l_;
+    }
+
+    private static CustList<NetworkInterface> getNetworkInterfacesList() {
+        CustList<NetworkInterface> l_ = new CustList<NetworkInterface>();
+        try {
+            for (NetworkInterface n: Collections.list(NetworkInterface.getNetworkInterfaces())) {
                 l_.add(n);
             }
         } catch (SocketException _0) {
+            //
         }
         return l_;
     }
@@ -111,13 +120,18 @@ public final class NetCreate {
             serverSocket_.bind(new InetSocketAddress(_ip,_port));
             return serverSocket_;
         } catch (IOException _0) {
-            if (serverSocket_ != null) {
-                try {
-                    serverSocket_.close();
-                } catch (IOException _1) {
-                }
-            }
+            close(serverSocket_);
             return null;
+        }
+    }
+
+    private static void close(ServerSocket _serverSocket) {
+        if (_serverSocket != null) {
+            try {
+                _serverSocket.close();
+            } catch (IOException _1) {
+                //
+            }
         }
     }
 
@@ -133,7 +147,6 @@ public final class NetCreate {
                 }
             } catch (UnknownHostException _0) {
                 return null;
-            } catch (Throwable _0) {
             }
             return addresses_;
         }

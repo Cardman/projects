@@ -44,19 +44,16 @@ public final class ExecCatOperation extends ExecNumericOperation {
     public static Argument localSumDiff(Argument _a, Argument _b,
             ExecutableCode _cont) {
         StringBuilder str_ = new StringBuilder();
-        Struct a_ = _a.getStruct();
-        if (!(a_ instanceof DisplayableStruct)) {
-            str_.append(((StringStruct) _cont.getStandards().getStringOfObject(_cont.getContextEl(),a_)).getInstance());
-        } else {
-            str_.append(((DisplayableStruct) a_).getDisplayedString(_cont).getInstance());
-        }
-        Struct b_ = _b.getStruct();
-        if (!(b_ instanceof DisplayableStruct)) {
-            str_.append(((StringStruct) _cont.getStandards().getStringOfObject(_cont.getContextEl(),b_)).getInstance());
-        } else {
-            str_.append(((DisplayableStruct) b_).getDisplayedString(_cont).getInstance());
-        }
+        str_.append(getString(_a,_cont));
+        str_.append(getString(_b,_cont));
         return new Argument(new StringStruct(str_.toString()));
+    }
+    public static String getString(Argument _value,ExecutableCode _cont) {
+        Struct a_ = _value.getStruct();
+        if (!(a_ instanceof DisplayableStruct)) {
+            return ((StringStruct) _cont.getStandards().getStringOfObject(_cont.getContextEl(),a_)).getInstance();
+        }
+        return ((DisplayableStruct) a_).getDisplayedString(_cont).getInstance();
     }
 
 }

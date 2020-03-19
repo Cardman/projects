@@ -5,7 +5,6 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.inherits.TypeUtil;
 import code.expressionlanguage.methods.FieldBlock;
-import code.expressionlanguage.opers.AbstractInvokingConstructor;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.options.KeyWords;
@@ -2232,8 +2231,8 @@ public final class ElResolver {
                 if (fieldLoc_) {
                     break;
                 }
-                StringList res_ = TypeUtil.getInners(true, glClass_, start_, p_, false, _conf);
-                if (res_.size() == 1) {
+                StringList res_ = TypeUtil.getInners(start_, p_, _conf);
+                if (res_.onlyOneElt()) {
                     start_ = res_.first();
                     _conf.appendParts(nextOff_+locOff_,nextOff_+locOff_+p_.length(),start_,partOffsets_);
                     nextOff_ += fullPart_.length() + 1;

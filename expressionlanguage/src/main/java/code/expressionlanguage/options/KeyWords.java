@@ -9,6 +9,88 @@ import code.util.StringList;
 import code.util.StringMap;
 
 public final class KeyWords {
+    public static final String CONTINUE = "Continue";
+    public static final String INSTANCEOF = "Instanceof";
+    public static final String INTERFACE = "Interface";
+    public static final String ABSTRACT = "Abstract";
+    public static final String ELSEIF = "Elseif";
+    public static final String CAST = "Cast";
+    public static final String EXPLICIT = "Explicit";
+    public static final String FOR = "For";
+    public static final String VAR = "Var";
+    public static final String STATIC = "Static";
+    public static final String STATIC_CALL = "StaticCall";
+    public static final String NULL = "Null";
+    public static final String CLASS = "Class";
+    public static final String FALSE = "False";
+    public static final String FINAL = "Final";
+    public static final String BREAK = "Break";
+    public static final String IF = "If";
+    public static final String NEW = "New";
+    public static final String WHILE = "While";
+    public static final String RETURN = "Return";
+    public static final String TRUE = "True";
+    public static final String PUBLIC = "Public";
+    public static final String PRIVATE = "Private";
+    public static final String ANNOTATION = "Annotation";
+    public static final String TO_STRING = "ToString";
+    public static final String NB_SUF_BYTE_PRIM = "NbSufBytePrim";
+    public static final String NB_SUF_BYTE = "NbSufByte";
+    public static final String NB_SUF_SHORT_PRIM = "NbSufShortPrim";
+    public static final String NB_SUF_SHORT = "NbSufShort";
+    public static final String NB_SUF_CHARACTER_PRIM = "NbSufCharacterPrim";
+    public static final String NB_SUF_CHARACTER = "NbSufCharacter";
+    public static final String NB_SUF_INTEGER_PRIM = "NbSufIntegerPrim";
+    public static final String NB_SUF_INTEGER = "NbSufInteger";
+    public static final String NB_SUF_LONG_PRIM = "NbSufLongPrim";
+    public static final String NB_SUF_LONG = "NbSufLong";
+    public static final String NB_SUF_FLOAT_PRIM = "NbSufFloatPrim";
+    public static final String NB_SUF_FLOAT = "NbSufFloat";
+    public static final String NB_SUF_DOUBLE_PRIM = "NbSufDoublePrim";
+    public static final String NB_SUF_DOUBLE = "NbSufDouble";
+    public static final String ITER = "Iter";
+    public static final String VALUE = "Value";
+    public static final String ELSE = "Else";
+    public static final String CATCH = "Catch";
+    public static final String THROW = "Throw";
+    public static final String TRY = "Try";
+    public static final String THIS = "This";
+    public static final String SUPER = "Super";
+    public static final String CASE = "Case";
+    public static final String DO = "Do";
+    public static final String ENUM = "Enum";
+    public static final String SWITCH = "Switch";
+    public static final String INTERN = "Intern";
+    public static final String NORMAL = "Normal";
+    public static final String ESC_TAB = "EscTab";
+    public static final String NB_HEX = "NbHex";
+    public static final String NB_BIN = "NbBin";
+    public static final String THAT = "That";
+    public static final String BOOL = "Bool";
+    public static final String VALUES = "Values";
+    public static final String LAMBDA = "Lambda";
+    public static final String VARARG = "Vararg";
+    public static final String ID = "Id";
+    public static final String FOREACH = "Foreach";
+    public static final String NB_EXP_BIN = "NbExpBin";
+    public static final String CLASSCHOICE = "Classchoice";
+    public static final String FIRSTOPT = "Firstopt";
+    public static final String PACKAGE = "Package";
+    public static final String FINALLY = "Finally";
+    public static final String ESC_UNICODE = "EscUnicode";
+    public static final String THISACCESS = "Thisaccess";
+    public static final String VALUE_OF = "ValueOf";
+    public static final String DEFAULT_VALUE = "DefaultValue";
+    public static final String ESC_LINE = "EscLine";
+    public static final String OPERATOR = "Operator";
+    public static final String INTERFACES = "Interfaces";
+    public static final String SUPERACCESS = "Superaccess";
+    public static final String ESC_BOUND = "EscBound";
+    public static final String ESC_FORM = "EscForm";
+    public static final String ESC_FEED = "EscFeed";
+    public static final String NB_EXP_DEC = "NbExpDec";
+    public static final String PROTECTED = "Protected";
+    public static final String DEFAULT = "Default";
     private String keyWordValue = "$value";
     private String keyWordVar = "$var";
     private String keyWordInterfaces = "$interfaces";
@@ -132,9 +214,7 @@ public final class KeyWords {
     public void validateKeyWordDuplicates(ContextEl _cont, StringMap<String> _list) {
         AnalysisMessages a_ = _cont.getAnalysisMessages();
         StringList keyWords_ = new StringList(_list.values());
-        int size_ = keyWords_.size();
-        keyWords_.removeDuplicates();
-        if (size_ != keyWords_.size()) {
+        if (keyWords_.hasDuplicates()) {
             for (EntryCust<String,String> e: _list.entryList()) {
                 String v_ = e.getValue();
                 StdWordError err_ = new StdWordError();
@@ -169,9 +249,7 @@ public final class KeyWords {
     public void validateEscapingsDuplicates(ContextEl _cont, StringMap<String> _list) {
         AnalysisMessages a_ = _cont.getAnalysisMessages();
         StringList keyWords_ = new StringList(_list.values());
-        int size_ = keyWords_.size();
-        keyWords_.removeDuplicates();
-        if (size_ != keyWords_.size()) {
+        if (keyWords_.hasDuplicates()) {
             for (EntryCust<String,String> e: _list.entryList()) {
                 String v_ = e.getValue();
                 StdWordError err_ = new StdWordError();
@@ -180,14 +258,15 @@ public final class KeyWords {
                 _cont.getClasses().addStdError(err_);
             }
         }
-        size_ = keyWords_.size();
+        int size_ = keyWords_.size();
         for (int i = 0; i < size_; i++) {
            String first_ = keyWords_.get(i);
            for (int j = 0; j < size_; j++) {
-               if (i == j) {
-                  continue;
-               }
                String second_ = keyWords_.get(j);
+               if (StringList.quickEq(first_,second_)) {
+                   //already error or i == j
+                   continue;
+               }
                if (first_.startsWith(second_)) {
                   StdWordError err_ = new StdWordError();
                    err_.setMessage(StringList.simpleStringsFormat(a_.getDuplicateStarting(),first_,second_));
@@ -260,9 +339,7 @@ public final class KeyWords {
     public void validateNbWordDuplicates(ContextEl _cont, StringMap<String> _list) {
         AnalysisMessages a_ = _cont.getAnalysisMessages();
         StringList keyWords_ = new StringList(_list.values());
-        int size_ = keyWords_.size();
-        keyWords_.removeDuplicates();
-        if (size_ != keyWords_.size()) {
+        if (keyWords_.hasDuplicates()) {
             for (EntryCust<String,String> e: _list.entryList()) {
                 String v_ = e.getValue();
                 StdWordError err_ = new StdWordError();
@@ -422,92 +499,92 @@ public final class KeyWords {
     }
     public StringMap<String> allKeyWords() {
         StringMap<String> keyWords_ = new StringMap<String>();
-        keyWords_.addEntry("Value",keyWordValue);
-        keyWords_.addEntry("Explicit",keyWordExplicit);
-        keyWords_.addEntry("Var",keyWordVar);
-        keyWords_.addEntry("Interfaces",keyWordInterfaces);
-        keyWords_.addEntry("Public",keyWordPublic);
-        keyWords_.addEntry("Package",keyWordPackage);
-        keyWords_.addEntry("Protected",keyWordProtected);
-        keyWords_.addEntry("Private",keyWordPrivate);
-        keyWords_.addEntry("Interface",keyWordInterface);
-        keyWords_.addEntry("Annotation",keyWordAnnotation);
-        keyWords_.addEntry("Class",keyWordClass);
-        keyWords_.addEntry("Enum",keyWordEnum);
-        keyWords_.addEntry("Static",keyWordStatic);
-        keyWords_.addEntry("StaticCall",keyWordStaticCall);
-        keyWords_.addEntry("Abstract",keyWordAbstract);
-        keyWords_.addEntry("Final",keyWordFinal);
-        keyWords_.addEntry("Normal",keyWordNormal);
-        keyWords_.addEntry("Iter",keyWordIter);
-        keyWords_.addEntry("For",keyWordFor);
-        keyWords_.addEntry("Foreach",keyWordForeach);
-        keyWords_.addEntry("While",keyWordWhile);
-        keyWords_.addEntry("Do",keyWordDo);
-        keyWords_.addEntry("If",keyWordIf);
-        keyWords_.addEntry("Else",keyWordElse);
-        keyWords_.addEntry("Elseif",keyWordElseif);
-        keyWords_.addEntry("Try",keyWordTry);
-        keyWords_.addEntry("Finally",keyWordFinally);
-        keyWords_.addEntry("Catch",keyWordCatch);
-        keyWords_.addEntry("Switch",keyWordSwitch);
-        keyWords_.addEntry("Case",keyWordCase);
-        keyWords_.addEntry("Default",keyWordDefault);
-        keyWords_.addEntry("DefaultValue",keyWordDefaultValue);
-        keyWords_.addEntry("Return",keyWordReturn);
-        keyWords_.addEntry("Throw",keyWordThrow);
-        keyWords_.addEntry("Break",keyWordBreak);
-        keyWords_.addEntry("Continue",keyWordContinue);
-        keyWords_.addEntry("Operator",keyWordOperator);
-        keyWords_.addEntry("ToString",keyWordToString);
-        keyWords_.addEntry("Cast",keyWordCast);
-        keyWords_.addEntry("Classchoice",keyWordClasschoice);
-        keyWords_.addEntry("Intern",keyWordIntern);
-        keyWords_.addEntry("New",keyWordNew);
-        keyWords_.addEntry("Super",keyWordSuper);
-        keyWords_.addEntry("Superaccess",keyWordSuperaccess);
-        keyWords_.addEntry("Thisaccess",keyWordThisaccess);
-        keyWords_.addEntry("Vararg",keyWordVararg);
-        keyWords_.addEntry("Firstopt",keyWordFirstopt);
-        keyWords_.addEntry("Bool",keyWordBool);
-        keyWords_.addEntry("Instanceof",keyWordInstanceof);
-        keyWords_.addEntry("ValueOf",keyWordValueOf);
-        keyWords_.addEntry("Values",keyWordValues);
-        keyWords_.addEntry("This",keyWordThis);
-        keyWords_.addEntry("That",keyWordThat);
-        keyWords_.addEntry("Lambda",keyWordLambda);
-        keyWords_.addEntry("Id",keyWordId);
-        keyWords_.addEntry("Null",keyWordNull);
-        keyWords_.addEntry("True",keyWordTrue);
-        keyWords_.addEntry("False",keyWordFalse);
+        keyWords_.addEntry(VALUE,keyWordValue);
+        keyWords_.addEntry(EXPLICIT,keyWordExplicit);
+        keyWords_.addEntry(VAR,keyWordVar);
+        keyWords_.addEntry(INTERFACES,keyWordInterfaces);
+        keyWords_.addEntry(PUBLIC,keyWordPublic);
+        keyWords_.addEntry(PACKAGE,keyWordPackage);
+        keyWords_.addEntry(PROTECTED,keyWordProtected);
+        keyWords_.addEntry(PRIVATE,keyWordPrivate);
+        keyWords_.addEntry(INTERFACE,keyWordInterface);
+        keyWords_.addEntry(ANNOTATION,keyWordAnnotation);
+        keyWords_.addEntry(CLASS,keyWordClass);
+        keyWords_.addEntry(ENUM,keyWordEnum);
+        keyWords_.addEntry(STATIC,keyWordStatic);
+        keyWords_.addEntry(STATIC_CALL,keyWordStaticCall);
+        keyWords_.addEntry(ABSTRACT,keyWordAbstract);
+        keyWords_.addEntry(FINAL,keyWordFinal);
+        keyWords_.addEntry(NORMAL,keyWordNormal);
+        keyWords_.addEntry(ITER,keyWordIter);
+        keyWords_.addEntry(FOR,keyWordFor);
+        keyWords_.addEntry(FOREACH,keyWordForeach);
+        keyWords_.addEntry(WHILE,keyWordWhile);
+        keyWords_.addEntry(DO,keyWordDo);
+        keyWords_.addEntry(IF,keyWordIf);
+        keyWords_.addEntry(ELSE,keyWordElse);
+        keyWords_.addEntry(ELSEIF,keyWordElseif);
+        keyWords_.addEntry(TRY,keyWordTry);
+        keyWords_.addEntry(FINALLY,keyWordFinally);
+        keyWords_.addEntry(CATCH,keyWordCatch);
+        keyWords_.addEntry(SWITCH,keyWordSwitch);
+        keyWords_.addEntry(CASE,keyWordCase);
+        keyWords_.addEntry(DEFAULT,keyWordDefault);
+        keyWords_.addEntry(DEFAULT_VALUE,keyWordDefaultValue);
+        keyWords_.addEntry(RETURN,keyWordReturn);
+        keyWords_.addEntry(THROW,keyWordThrow);
+        keyWords_.addEntry(BREAK,keyWordBreak);
+        keyWords_.addEntry(CONTINUE,keyWordContinue);
+        keyWords_.addEntry(OPERATOR,keyWordOperator);
+        keyWords_.addEntry(TO_STRING,keyWordToString);
+        keyWords_.addEntry(CAST,keyWordCast);
+        keyWords_.addEntry(CLASSCHOICE,keyWordClasschoice);
+        keyWords_.addEntry(INTERN,keyWordIntern);
+        keyWords_.addEntry(NEW,keyWordNew);
+        keyWords_.addEntry(SUPER,keyWordSuper);
+        keyWords_.addEntry(SUPERACCESS,keyWordSuperaccess);
+        keyWords_.addEntry(THISACCESS,keyWordThisaccess);
+        keyWords_.addEntry(VARARG,keyWordVararg);
+        keyWords_.addEntry(FIRSTOPT,keyWordFirstopt);
+        keyWords_.addEntry(BOOL,keyWordBool);
+        keyWords_.addEntry(INSTANCEOF,keyWordInstanceof);
+        keyWords_.addEntry(VALUE_OF,keyWordValueOf);
+        keyWords_.addEntry(VALUES,keyWordValues);
+        keyWords_.addEntry(THIS,keyWordThis);
+        keyWords_.addEntry(THAT,keyWordThat);
+        keyWords_.addEntry(LAMBDA,keyWordLambda);
+        keyWords_.addEntry(ID,keyWordId);
+        keyWords_.addEntry(NULL,keyWordNull);
+        keyWords_.addEntry(TRUE,keyWordTrue);
+        keyWords_.addEntry(FALSE,keyWordFalse);
         return keyWords_;
     }
     public StringMap<String> allEscapings() {
         StringMap<String> keyWords_ = new StringMap<String>();
-        keyWords_.addEntry("EscUnicode",keyWordEscUnicode);
-        keyWords_.addEntry("EscForm",keyWordEscForm);
-        keyWords_.addEntry("EscLine",keyWordEscLine);
-        keyWords_.addEntry("EscFeed",keyWordEscFeed);
-        keyWords_.addEntry("EscTab",keyWordEscTab);
-        keyWords_.addEntry("EscBound",keyWordEscBound);
+        keyWords_.addEntry(ESC_UNICODE,keyWordEscUnicode);
+        keyWords_.addEntry(ESC_FORM,keyWordEscForm);
+        keyWords_.addEntry(ESC_LINE,keyWordEscLine);
+        keyWords_.addEntry(ESC_FEED,keyWordEscFeed);
+        keyWords_.addEntry(ESC_TAB,keyWordEscTab);
+        keyWords_.addEntry(ESC_BOUND,keyWordEscBound);
         return keyWords_;
     }
     public StringMap<String> allNbWordsBasic() {
         StringMap<String> keyWords_ = new StringMap<String>();
-        keyWords_.addEntry("NbExpDec",keyWordNbExpDec);
-        keyWords_.addEntry("NbExpBin",keyWordNbExpBin);
-        keyWords_.addEntry("NbHex",keyWordNbHex);
+        keyWords_.addEntry(NB_EXP_DEC,keyWordNbExpDec);
+        keyWords_.addEntry(NB_EXP_BIN,keyWordNbExpBin);
+        keyWords_.addEntry(NB_HEX,keyWordNbHex);
         return keyWords_;
     }
     public StringMap<String> allNbWordsDec() {
         StringMap<String> keyWords_ = new StringMap<String>();
-        keyWords_.addEntry("NbHex",keyWordNbExpDec);
+        keyWords_.addEntry(NB_EXP_DEC,keyWordNbExpDec);
         return keyWords_;
     }
     public StringMap<String> allNbWordsBin() {
         StringMap<String> keyWords_ = new StringMap<String>();
-        keyWords_.addEntry("NbExpBin",keyWordNbExpBin);
-        keyWords_.addEntry("NbHex",keyWordNbHex);
+        keyWords_.addEntry(NB_EXP_BIN,keyWordNbExpBin);
+        keyWords_.addEntry(NB_HEX,keyWordNbHex);
         return keyWords_;
     }
     public StringMap<String> allNbWords(StringMap<String> _othersWords) {
@@ -515,20 +592,20 @@ public final class KeyWords {
         for (EntryCust<String,String> o: _othersWords.entryList()) {
             keyWords_.addEntry(o.getKey(),o.getValue());
         }
-        keyWords_.addEntry("NbSufDoublePrim",keyWordNbSufDoublePrim);
-        keyWords_.addEntry("NbSufDouble",keyWordNbSufDouble);
-        keyWords_.addEntry("NbSufFloatPrim",keyWordNbSufFloatPrim);
-        keyWords_.addEntry("NbSufFloat",keyWordNbSufFloat);
-        keyWords_.addEntry("NbSufLongPrim",keyWordNbSufLongPrim);
-        keyWords_.addEntry("NbSufLong",keyWordNbSufLong);
-        keyWords_.addEntry("NbSufIntegerPrim",keyWordNbSufIntegerPrim);
-        keyWords_.addEntry("NbSufInteger",keyWordNbSufInteger);
-        keyWords_.addEntry("NbSufCharacterPrim",keyWordNbSufCharacterPrim);
-        keyWords_.addEntry("NbSufCharacter",keyWordNbSufCharacter);
-        keyWords_.addEntry("NbSufShortPrim",keyWordNbSufShortPrim);
-        keyWords_.addEntry("NbSufShort",keyWordNbSufShort);
-        keyWords_.addEntry("NbSufBytePrim",keyWordNbSufBytePrim);
-        keyWords_.addEntry("NbSufByte",keyWordNbSufByte);
+        keyWords_.addEntry(NB_SUF_DOUBLE_PRIM,keyWordNbSufDoublePrim);
+        keyWords_.addEntry(NB_SUF_DOUBLE,keyWordNbSufDouble);
+        keyWords_.addEntry(NB_SUF_FLOAT_PRIM,keyWordNbSufFloatPrim);
+        keyWords_.addEntry(NB_SUF_FLOAT,keyWordNbSufFloat);
+        keyWords_.addEntry(NB_SUF_LONG_PRIM,keyWordNbSufLongPrim);
+        keyWords_.addEntry(NB_SUF_LONG,keyWordNbSufLong);
+        keyWords_.addEntry(NB_SUF_INTEGER_PRIM,keyWordNbSufIntegerPrim);
+        keyWords_.addEntry(NB_SUF_INTEGER,keyWordNbSufInteger);
+        keyWords_.addEntry(NB_SUF_CHARACTER_PRIM,keyWordNbSufCharacterPrim);
+        keyWords_.addEntry(NB_SUF_CHARACTER,keyWordNbSufCharacter);
+        keyWords_.addEntry(NB_SUF_SHORT_PRIM,keyWordNbSufShortPrim);
+        keyWords_.addEntry(NB_SUF_SHORT,keyWordNbSufShort);
+        keyWords_.addEntry(NB_SUF_BYTE_PRIM,keyWordNbSufBytePrim);
+        keyWords_.addEntry(NB_SUF_BYTE,keyWordNbSufByte);
         return keyWords_;
     }
     public boolean isKeyWordNotVar(String _word) {

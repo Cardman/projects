@@ -2,13 +2,11 @@ package code.expressionlanguage.methods;
 
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.common.GeneMethod;
-import code.expressionlanguage.common.GeneType;
-import code.expressionlanguage.errors.custom.MissingReturnMethod;
+import code.expressionlanguage.common.GeneCustMethod;
+import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.files.OffsetAccessInfo;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
-import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.opers.util.MethodAccessKind;
 import code.expressionlanguage.opers.util.MethodId;
@@ -19,7 +17,7 @@ import code.util.CustList;
 import code.util.Ints;
 import code.util.StringList;
 
-public final class OverridableBlock extends NamedFunctionBlock implements GeneMethod,ReturnableWithSignature {
+public final class OverridableBlock extends NamedFunctionBlock implements AccessibleBlock,GeneCustMethod,ReturnableWithSignature {
 
     private int modifierOffset;
 
@@ -148,11 +146,14 @@ public final class OverridableBlock extends NamedFunctionBlock implements GeneMe
         if (!StringList.quickEq(getImportedReturnType(), stds_.getAliasVoid())) {
             if (!isAbstractMethod() && _anEl.canCompleteNormally(this)) {
                 //error
-                MissingReturnMethod miss_ = new MissingReturnMethod();
+                FoundErrorInterpret miss_ = new FoundErrorInterpret();
                 miss_.setIndexFile(getOffset().getOffsetTrim());
                 miss_.setFileName(getFile().getFileName());
-                miss_.setId(getId().getSignature(_an));
-                miss_.setReturning(getImportedReturnType());
+                //return type len
+                miss_.buildError(_an.getContextEl().getAnalysisMessages().getMissingAbrupt(),
+                        _an.getContextEl().getKeyWords().getKeyWordThrow(),
+                        _an.getContextEl().getKeyWords().getKeyWordReturn(),
+                        getPseudoSignature(_an));
                 _an.addError(miss_);
             }
         }

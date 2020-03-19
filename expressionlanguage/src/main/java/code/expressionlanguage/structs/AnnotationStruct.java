@@ -1,5 +1,6 @@
 package code.expressionlanguage.structs;
 
+import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.annotation.ExportAnnotationUtil;
@@ -7,7 +8,7 @@ import code.util.EntryCust;
 import code.util.ObjectMap;
 import code.util.StringList;
 
-public final class AnnotationStruct implements FieldableStruct {
+public final class AnnotationStruct implements FieldableStruct,DisplayableStruct {
 
     private final String className;
 
@@ -38,10 +39,6 @@ public final class AnnotationStruct implements FieldableStruct {
         return fields.getEntryByKey(_classField);
     }
 
-    public void setStruct(ClassField _classField, Struct _value) {
-        fields.set(_classField,_value);
-    }
-
     @Override
     public String getClassName(ExecutableCode _contextEl) {
         return className;
@@ -55,5 +52,10 @@ public final class AnnotationStruct implements FieldableStruct {
 
     public String getClassName() {
         return className;
+    }
+
+    @Override
+    public StringStruct getDisplayedString(Analyzable _an) {
+        return new StringStruct(ExportAnnotationUtil.exportAnnotation(this));
     }
 }

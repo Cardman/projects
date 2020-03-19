@@ -2,10 +2,7 @@ package code.expressionlanguage.opers;
 
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.AnalyzedPageEl;
-import code.expressionlanguage.errors.custom.BadVariableName;
-import code.expressionlanguage.errors.custom.DuplicateVariable;
-import code.expressionlanguage.errors.custom.UndefinedVariableError;
-import code.expressionlanguage.errors.custom.UnexpectedOperationAffect;
+import code.expressionlanguage.errors.custom.*;
 import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.methods.Block;
@@ -58,19 +55,23 @@ public final class VariableOperation extends LeafOperation implements
         if (ElUtil.isDeclaringVariable(this, _conf)) {
             AnalyzedPageEl page_ = _conf.getAnalyzing();
             if (_conf.containsLocalVar(str_)) {
-                DuplicateVariable d_ = new DuplicateVariable();
-                d_.setId(str_);
+                FoundErrorInterpret d_ = new FoundErrorInterpret();
                 d_.setFileName(_conf.getCurrentFileName());
                 d_.setIndexFile(page_.getTraceIndex());
+                //variable name len
+                d_.buildError(_conf.getContextEl().getAnalysisMessages().getBadVariableName(),
+                        str_);
                 _conf.addError(d_);
                 setResultClass(new ClassArgumentMatching(_conf.getCurrentVarSetting()));
                 return;
             }
             if (!_conf.isValidSingleToken(str_)) {
-                BadVariableName b_ = new BadVariableName();
+                FoundErrorInterpret b_ = new FoundErrorInterpret();
                 b_.setFileName(_conf.getCurrentFileName());
                 b_.setIndexFile(page_.getTraceIndex());
-                b_.setVarName(str_);
+                //variable name len
+                b_.buildError(_conf.getContextEl().getAnalysisMessages().getBadVariableName(),
+                        str_);
                 _conf.addError(b_);
             }
             String c_ = _conf.getCurrentVarSetting();
@@ -100,10 +101,12 @@ public final class VariableOperation extends LeafOperation implements
             setResultClass(new ClassArgumentMatching(c_));
             return;
         }
-        UndefinedVariableError und_ = new UndefinedVariableError();
-        und_.setId(variableName);
+        FoundErrorInterpret und_ = new FoundErrorInterpret();
         und_.setFileName(_conf.getCurrentFileName());
         und_.setIndexFile(_conf.getCurrentLocationIndex());
+        //variable name len
+        und_.buildError(_conf.getContextEl().getAnalysisMessages().getUndefinedVariable(),
+                variableName);
         _conf.addError(und_);
         setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
     }
@@ -150,9 +153,11 @@ public final class VariableOperation extends LeafOperation implements
                     if (!e.getValue().isAssignedBefore()) {
                         //errors
                         setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _conf);
-                        UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
+                        FoundErrorInterpret un_ = new FoundErrorInterpret();
                         un_.setFileName(_conf.getCurrentFileName());
                         un_.setIndexFile(_conf.getCurrentLocationIndex());
+                        un_.buildError(_conf.getContextEl().getAnalysisMessages().getFinalField(),
+                                varName_);
                         _conf.addError(un_);
                     }
                 }

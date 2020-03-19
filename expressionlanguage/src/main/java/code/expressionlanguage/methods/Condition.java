@@ -4,7 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ConditionReturn;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.calls.AbstractPageEl;
-import code.expressionlanguage.errors.custom.UnexpectedTypeError;
+import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.instr.ElUtil;
@@ -17,6 +17,7 @@ import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.util.CustList;
+import code.util.StringList;
 
 public abstract class Condition extends BracedStack implements WithNotEmptyEl, BuildableElMethod {
 
@@ -67,10 +68,12 @@ public abstract class Condition extends BracedStack implements WithNotEmptyEl, B
         ExecOperationNode elCondition_ = opCondition.last();
         LgNames stds_ = _cont.getStandards();
         if (!elCondition_.getResultClass().isBoolType(_cont)) {
-            UnexpectedTypeError un_ = new UnexpectedTypeError();
+            FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(getFile().getFileName());
             un_.setIndexFile(conditionOffset);
-            un_.setType(opCondition.last().getResultClass());
+            //key word len
+            un_.buildError(_cont.getAnalysisMessages().getUnexpectedType(),
+                    StringList.join(elCondition_.getResultClass().getNames(),"&"));
             _cont.addError(un_);
         }
         elCondition_.getResultClass().setUnwrapObject(stds_.getAliasPrimBoolean());

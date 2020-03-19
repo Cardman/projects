@@ -1,194 +1,184 @@
 package code.gui;
-import javax.swing.event.DocumentListener;
-import javax.swing.event.UndoableEditListener;
-import javax.swing.text.AttributeSet;
-import javax.swing.text.BadLocationException;
-import javax.swing.text.Document;
-import javax.swing.text.Element;
-import javax.swing.text.PlainDocument;
-import javax.swing.text.Position;
-import javax.swing.text.Segment;
 
 import code.util.StringList;
 
-public final class AutoCompleteDocument implements Document {
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
-    //the content is instance of javax.swing.text.GapContent
-    private static final int WIDTH_FIELD = 20;
-
-    private final StringList dictionary = new StringList();
-
-    private final TextField textField;
+public final class AutoCompleteDocument implements FocusListener, DocumentListener, KeyListener {
 
     private boolean wholeString = true;
 
-    private PlainDocument doc = new PlainDocument();
+    private final StringList dictionary = new StringList();
 
-    public AutoCompleteDocument(TextField _field, StringList _aDictionary) {
+    private final StringList results = new StringList();
+
+    private final PopupMenu popup;
+
+    private final GraphicStringList list;
+
+    private final TextField textField;
+    private final ChangeableTitle changeableTitle;
+
+    public AutoCompleteDocument(TextField _field, StringList _aDictionary, ChangeableTitle _changeableTitle) {
         textField = _field;
+        changeableTitle = _changeableTitle;
         dictionary.addAllElts(_aDictionary);
-    }
-
-    @Override
-    public void addDocumentListener(DocumentListener _listener) {
-        doc.addDocumentListener(_listener);
-    }
-
-    @Override
-    public void removeDocumentListener(DocumentListener _listener) {
-        doc.removeDocumentListener(_listener);
-    }
-
-    @Override
-    public void addUndoableEditListener(UndoableEditListener _listener) {
-        doc.addUndoableEditListener(_listener);
-    }
-
-    @Override
-    public void removeUndoableEditListener(UndoableEditListener _listener) {
-        doc.removeUndoableEditListener(_listener);
-    }
-
-    @Override
-    public Object getProperty(Object _key) {
-        return doc.getProperty(_key);
-    }
-
-    @Override
-    public void putProperty(Object _key, Object _value) {
-        doc.putProperty(_key, _value);
-    }
-
-    @Override
-    public Position createPosition(int _offs) {
-        try {
-            return doc.createPosition(_offs);
-        } catch (BadLocationException _0) {
-            return null;
-        }
-    }
-
-    @Override
-    public Position getStartPosition() {
-        return doc.getStartPosition();
-    }
-
-    @Override
-    public Position getEndPosition() {
-        return doc.getEndPosition();
-    }
-
-    @Override
-    public Element getDefaultRootElement() {
-        return doc.getDefaultRootElement();
-    }
-
-    @Override
-    public void render(Runnable _r) {
-        doc.render(_r);
-    }
-
-    @Override
-    public int getLength() {
-        return doc.getLength();
-    }
-
-    @Override
-    public void remove(int _offs, int _len) {
-        try {
-            doc.remove(_offs, _len);
-        } catch (BadLocationException _0) {
-        }
-    }
-
-    @Override
-    public String getText(int _offset, int _length) {
-        try {
-            return doc.getText(_offset, _length);
-        } catch (BadLocationException _0) {
-            return null;
-        }
-    }
-
-    @Override
-    public void getText(int _offset, int _length, Segment _txt) {
-        try {
-            doc.getText(_offset, _length, _txt);
-        } catch (BadLocationException _0) {
-        }
-    }
-
-    @Override
-    public Element[] getRootElements() {
-        return doc.getRootElements();
-    }
-
-    public void addDictionaryEntry(String _item) {
-        dictionary.add(_item);
-    }
-
-    @Override
-    public void insertString(int _offs, String _str, AttributeSet _a) {
-        try {
-            doc.insertString(_offs, _str, _a);
-            if (!wholeString) {
-                return;
-            }
-            String word_ = autoComplete(getText(0, getLength()));
-            if (word_ != null) {
-                doc.insertString(_offs + _str.length(), word_, _a);
-                textField.setCaretPosition(_offs + _str.length());
-                textField.moveCaretPosition(getLength());
-                // _textField.setCaretPosition(getLength());
-                // _textField.moveCaretPosition(offs + str.length());
-            }
-        } catch (BadLocationException _0) {
-        }
-    }
-
-    public String autoComplete(String _text) {
-        for (String w_: dictionary) {
-            if (w_.startsWith(_text)) {
-                return w_.substring(_text.length());
-            }
-        }
-        return null;
+        popup = new PopupMenu();
+        list = new GraphicStringList(results);
+        popup.add(new ScrollPane(list));
+        textField.addFocusListener(this);
+        textField.getDocument().addDocumentListener(this);
+        textField.addKeyListener(this);
     }
 
     /**
-    @param dictionary
-    @return
-    */
-    public static TextField createAutoCompleteTextField(StringList _dictionary) {
-        TextField field_ = new TextField(WIDTH_FIELD);
+     * Displays autocomplete popup at the correct location.
+     */
+    void showAutocompletePopup(){
+        if (skip()) {
+            return;
+        }
+        if (results.isEmpty()) {
+            return;
+        }
+        CustComponent par_ = textField;
+        int x_ = changeableTitle.getLocationOnScreen().x;
+        int y_ = changeableTitle.getLocationOnScreen().y+30;
+        while (par_ != null) {
+            x_ += par_.getXcoords();
+            y_ += par_.getYcoords();
+            par_ = par_.getParent();
+        }
+        popup.show(x_, y_ + textField.getHeight());
+    }
 
-        AutoCompleteDocument doc_ = new AutoCompleteDocument(field_, _dictionary);
-        field_.setDocument(doc_);
-        return field_;
+    @Override
+    public void focusGained(FocusEvent _e) {
+        if (skip()) {
+            return;
+        }
+        CustComponent.invokeLater(new FocusGained(this));
     }
 
     /**
-    @param dictionary
-    @return
-    */
-    public static TextField createAutoCompleteTextField(StringList _dictionary, int _cols) {
-        TextField field_ = new TextField(_cols);
-
-        AutoCompleteDocument doc_ = new AutoCompleteDocument(field_, _dictionary);
-        field_.setDocument(doc_);
-        return field_;
+     * Closes autocomplete popup.
+     */
+    void hideAutocompletePopup(){
+        popup.setVisible(false);
     }
 
-    public static void setMode(TextField _field,boolean _wholeString) {
-        AutoCompleteDocument doc_;
-        doc_ = (AutoCompleteDocument) _field.getDocument();
-        doc_.wholeString = _wholeString;
+    @Override
+    public void focusLost(FocusEvent _e) {
+        if (skip()) {
+            return;
+        }
+        CustComponent.invokeLater(new FocusLost(this));
     }
 
-    public static void setDictionary(TextField _field,StringList _dictionary) {
-        AutoCompleteDocument doc_;
-        doc_ = (AutoCompleteDocument) _field.getDocument();
-        doc_.dictionary.clear();
-        doc_.dictionary.addAllElts(_dictionary);
+    @Override
+    public void keyPressed(KeyEvent e) {
+        if (skip()) {
+            return;
+        }
+        int keyCode_ = e.getKeyCode();
+        if (keyCode_ == KeyEvent.VK_UP) {
+            int index = list.getSelectedIndex();
+            if (index != -1 && index > 0) {
+                list.clearAllRange();
+                list.setSelectedIndice(index - 1);
+            }
+        } else if (keyCode_ == KeyEvent.VK_DOWN) {
+            int index = list.getSelectedIndex();
+            if (index != -1 && results.size() > index + 1) {
+                list.clearAllRange();
+                list.setSelectedIndice(index + 1);
+            }
+        } else if (keyCode_ == KeyEvent.VK_ENTER) {
+            String text = list.getSelectedValue();
+            textField.setText(text);
+            textField.setCaretPosition(text.length());
+        } else if (keyCode_ == KeyEvent.VK_ESCAPE) {
+            hideAutocompletePopup();
+        }
+    }
+    @Override
+    public void insertUpdate(DocumentEvent e){
+        documentChangedEvent();
+    }
+
+    @Override
+    public void removeUpdate(DocumentEvent e){
+        documentChangedEvent();
+    }
+
+    @Override
+    public void changedUpdate(DocumentEvent e) {
+        documentChangedEvent();
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e ){
+        // Do nothing
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e ){
+        // Do nothing
+    }
+    private void documentChangedEvent() {
+        if (skip()) {
+            return;
+        }
+        CustComponent.invokeLater(new DocumentChanged(this));
+    }
+    void documentChanged() {
+        // Updating results list
+        StringList r_ = new StringList();
+        String text_ = textField.getText();
+        String tr_ = text_.trim();
+        if (!tr_.isEmpty()) {
+            for (String s : dictionary) {
+                if (StringList.quickEq(s, tr_)) {
+                    continue;
+                }
+                if (s.startsWith(tr_)) {
+                    r_.add(s);
+                }
+            }
+        }
+
+        // Updating list view
+        list.clear();
+        for (String s: r_){
+            list.add(s);
+        }
+        if (results.isEmpty()) {
+            hideAutocompletePopup();
+            return;
+        }
+        list.setVisibleRowCount(Math.min(r_.size(),10));
+
+        // Selecting first result
+        list.setSelectedIndice(0);
+
+        showAutocompletePopup();
+    }
+
+    public void setDictionary(StringList _dictionary) {
+        dictionary.clear();
+        dictionary.addAllElts(_dictionary);
+    }
+
+    private boolean skip() {
+        return !wholeString;
+    }
+
+    public void setMode(boolean _wholeString) {
+        wholeString = _wholeString;
     }
 }

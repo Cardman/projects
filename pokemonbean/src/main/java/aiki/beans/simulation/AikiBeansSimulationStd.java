@@ -27,6 +27,7 @@ import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.util.BeanLgNames;
 import code.formathtml.structs.StdStruct;
+import code.formathtml.util.BeanNatLgNames;
 import code.maths.Rate;
 import code.util.CustList;
 import code.util.ObjectMap;
@@ -291,19 +292,19 @@ public final class AikiBeansSimulationStd {
         fields_ = new StringMap<StandardField>();
         type_ = new StandardClass(TYPE_ADD_POKEMON_BEAN, fields_, constructors_, methods_, AikiBeansStd.TYPE_COMMON_BEAN, MethodModifier.NORMAL);
         fields_.put(NAME_PK,new StandardField(NAME_PK,_std.getAliasString(),false,false,type_));
-        fields_.put(ABILITIES,new StandardField(ABILITIES,_std.getCustMap(),false,false,type_));
+        fields_.put(ABILITIES,new StandardField(ABILITIES, BeanNatLgNames.TYPE_MAP,false,false,type_));
         fields_.put(ABILITY,new StandardField(ABILITY,_std.getAliasString(),false,false,type_));
-        fields_.put(GENDERS,new StandardField(GENDERS,_std.getCustMap(),false,false,type_));
+        fields_.put(GENDERS,new StandardField(GENDERS, BeanNatLgNames.TYPE_MAP,false,false,type_));
         fields_.put(GENDER,new StandardField(GENDER,PokemonStandards.TYPE_GENDER,false,false,type_));
         fields_.put(LEVEL,new StandardField(LEVEL,_std.getAliasPrimShort(),false,false,type_));
         fields_.put(TYPED_NAME,new StandardField(TYPED_NAME,_std.getAliasString(),false,false,type_));
         fields_.put(TYPED_TYPE,new StandardField(TYPED_TYPE,_std.getAliasString(),false,false,type_));
         fields_.put(WHOLE_WORD,new StandardField(WHOLE_WORD,_std.getAliasPrimBoolean(),false,false,type_));
-        fields_.put(BOOLEANS,new StandardField(BOOLEANS,_std.getCustMap(),false,false,type_));
+        fields_.put(BOOLEANS,new StandardField(BOOLEANS, BeanNatLgNames.TYPE_MAP,false,false,type_));
         fields_.put(HAS_EVO,new StandardField(HAS_EVO,((PokemonStandards)_std).getSelectedBoolean(),false,false,type_));
         fields_.put(IS_EVO,new StandardField(IS_EVO,((PokemonStandards)_std).getSelectedBoolean(),false,false,type_));
         fields_.put(IS_LEG,new StandardField(IS_LEG,((PokemonStandards)_std).getSelectedBoolean(),false,false,type_));
-        fields_.put(POKEDEX,new StandardField(POKEDEX,_std.getCustList(),false,false,type_));
+        fields_.put(POKEDEX,new StandardField(POKEDEX, BeanNatLgNames.TYPE_LIST,false,false,type_));
         params_ = new StringList();
         method_ = new StandardMethod(CANCEL,params_,_std.getAliasString(), false, MethodModifier.NORMAL,type_);
         methods_.put(method_.getId(), method_);
@@ -334,14 +335,14 @@ public final class AikiBeansSimulationStd {
         type_ = new StandardClass(TYPE_EDIT_POKEMON_BEAN, fields_, constructors_, methods_, AikiBeansStd.TYPE_COMMON_BEAN, MethodModifier.NORMAL);
         fields_.put(LEVEL,new StandardField(LEVEL,_std.getAliasPrimShort(),false,false,type_));
         fields_.put(NAME_PK,new StandardField(NAME_PK,_std.getAliasString(),false,false,type_));
-        fields_.put(MOVES,new StandardField(MOVES,_std.getCustList(),false,false,type_));
+        fields_.put(MOVES,new StandardField(MOVES, BeanNatLgNames.TYPE_LIST,false,false,type_));
         fields_.put(EXPERIENCE,new StandardField(EXPERIENCE,PokemonStandards.TYPE_RATE,false,false,type_));
-        fields_.put(BALLS,new StandardField(BALLS,_std.getCustMap(),false,false,type_));
+        fields_.put(BALLS,new StandardField(BALLS, BeanNatLgNames.TYPE_MAP,false,false,type_));
         fields_.put(BALL,new StandardField(BALL,_std.getAliasString(),false,false,type_));
         fields_.put(HAPPINESS,new StandardField(HAPPINESS,_std.getAliasPrimShort(),false,false,type_));
         fields_.put(REMAINING_HP,new StandardField(REMAINING_HP,PokemonStandards.TYPE_RATE,false,false,type_));
         fields_.put(HEAL,new StandardField(HEAL,_std.getAliasPrimBoolean(),false,false,type_));
-        fields_.put(EV,new StandardField(EV,_std.getCustMap(),false,false,type_));
+        fields_.put(EV,new StandardField(EV, BeanNatLgNames.TYPE_MAP,false,false,type_));
         params_ = new StringList();
         method_ = new StandardMethod(CANCEL,params_,_std.getAliasString(), false, MethodModifier.NORMAL,type_);
         methods_.put(method_.getId(), method_);
@@ -380,13 +381,13 @@ public final class AikiBeansSimulationStd {
         fields_ = new StringMap<StandardField>();
         type_ = new StandardClass(TYPE_EDIT_POKEMON_MOVES_BEAN, fields_, constructors_, methods_, AikiBeansStd.TYPE_COMMON_BEAN, MethodModifier.NORMAL);
         fields_.put(TYPED_NAME,new StandardField(TYPED_NAME,_std.getAliasString(),false,false,type_));
-        fields_.put(CATEGORIES,new StandardField(CATEGORIES,_std.getCustMap(),false,false,type_));
+        fields_.put(CATEGORIES,new StandardField(CATEGORIES, BeanNatLgNames.TYPE_MAP,false,false,type_));
         fields_.put(CATEGORY,new StandardField(CATEGORY,_std.getAliasString(),false,false,type_));
         fields_.put(TYPED_TYPE,new StandardField(TYPED_TYPE,_std.getAliasString(),false,false,type_));
         fields_.put(WHOLE_WORD,new StandardField(WHOLE_WORD,_std.getAliasPrimBoolean(),false,false,type_));
         fields_.put(PLAYER,new StandardField(PLAYER,_std.getAliasPrimBoolean(),false,false,type_));
         fields_.put(AVAILABLE_MOVES_ONLY,new StandardField(AVAILABLE_MOVES_ONLY,_std.getAliasPrimBoolean(),false,false,type_));
-        fields_.put(MOVES,new StandardField(MOVES,_std.getCustList(),false,false,type_));
+        fields_.put(MOVES,new StandardField(MOVES, BeanNatLgNames.TYPE_LIST,false,false,type_));
         params_ = new StringList();
         method_ = new StandardMethod(CANCEL,params_,_std.getAliasString(), false, MethodModifier.NORMAL,type_);
         methods_.put(method_.getId(), method_);
@@ -409,8 +410,8 @@ public final class AikiBeansSimulationStd {
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new StringMap<StandardField>();
         type_ = new StandardClass(TYPE_EDIT_TRAINER_POKEMON_BEAN, fields_, constructors_, methods_, AikiBeansStd.TYPE_COMMON_BEAN, MethodModifier.NORMAL);
-        fields_.put(MOVES,new StandardField(MOVES,_std.getCustList(),false,false,type_));
-        fields_.put(GENDERS,new StandardField(GENDERS,_std.getCustMap(),false,false,type_));
+        fields_.put(MOVES,new StandardField(MOVES, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(GENDERS,new StandardField(GENDERS, BeanNatLgNames.TYPE_MAP,false,false,type_));
         fields_.put(GENDER,new StandardField(GENDER,PokemonStandards.TYPE_GENDER,false,false,type_));
         fields_.put(LEVEL,new StandardField(LEVEL,_std.getAliasPrimShort(),false,false,type_));
         fields_.put(ADD,new StandardField(ADD,_std.getAliasPrimBoolean(),false,false,type_));
@@ -459,7 +460,7 @@ public final class AikiBeansSimulationStd {
         fields_ = new StringMap<StandardField>();
         type_ = new StandardClass(TYPE_SELECT_ABILITY_BEAN, fields_, constructors_, methods_, AikiBeansStd.TYPE_COMMON_BEAN, MethodModifier.NORMAL);
         fields_.put(TYPED_ABILITY,new StandardField(TYPED_ABILITY,_std.getAliasString(),false,false,type_));
-        fields_.put(SORTED_ABILITIES,new StandardField(SORTED_ABILITIES,_std.getCustList(),false,false,type_));
+        fields_.put(SORTED_ABILITIES,new StandardField(SORTED_ABILITIES, BeanNatLgNames.TYPE_LIST,false,false,type_));
         params_ = new StringList();
         method_ = new StandardMethod(CANCEL,params_,_std.getAliasString(), false, MethodModifier.NORMAL,type_);
         methods_.put(method_.getId(), method_);
@@ -488,7 +489,7 @@ public final class AikiBeansSimulationStd {
         fields_.put(TYPED_NAME,new StandardField(TYPED_NAME,_std.getAliasString(),false,false,type_));
         fields_.put(TYPED_PRICE,new StandardField(TYPED_PRICE,_std.getAliasString(),false,false,type_));
         fields_.put(TYPED_CLASS,new StandardField(TYPED_CLASS,_std.getAliasString(),false,false,type_));
-        fields_.put(ITEMS,new StandardField(ITEMS,_std.getCustList(),false,false,type_));
+        fields_.put(ITEMS,new StandardField(ITEMS, BeanNatLgNames.TYPE_LIST,false,false,type_));
         params_ = new StringList();
         method_ = new StandardMethod(CANCEL,params_,_std.getAliasString(), false, MethodModifier.NORMAL,type_);
         methods_.put(method_.getId(), method_);
@@ -520,11 +521,11 @@ public final class AikiBeansSimulationStd {
         fields_.put(TYPED_NAME,new StandardField(TYPED_NAME,_std.getAliasString(),false,false,type_));
         fields_.put(TYPED_TYPE,new StandardField(TYPED_TYPE,_std.getAliasString(),false,false,type_));
         fields_.put(WHOLE_WORD,new StandardField(WHOLE_WORD,_std.getAliasPrimBoolean(),false,false,type_));
-        fields_.put(BOOLEANS,new StandardField(BOOLEANS,_std.getCustMap(),false,false,type_));
+        fields_.put(BOOLEANS,new StandardField(BOOLEANS, BeanNatLgNames.TYPE_MAP,false,false,type_));
         fields_.put(HAS_EVO,new StandardField(HAS_EVO,((PokemonStandards)_std).getSelectedBoolean(),false,false,type_));
         fields_.put(IS_EVO,new StandardField(IS_EVO,((PokemonStandards)_std).getSelectedBoolean(),false,false,type_));
         fields_.put(IS_LEG,new StandardField(IS_LEG,((PokemonStandards)_std).getSelectedBoolean(),false,false,type_));
-        fields_.put(POKEDEX,new StandardField(POKEDEX,_std.getCustList(),false,false,type_));
+        fields_.put(POKEDEX,new StandardField(POKEDEX, BeanNatLgNames.TYPE_LIST,false,false,type_));
         params_ = new StringList();
         method_ = new StandardMethod(CANCEL,params_,_std.getAliasString(), false, MethodModifier.NORMAL,type_);
         methods_.put(method_.getId(), method_);
@@ -550,7 +551,7 @@ public final class AikiBeansSimulationStd {
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new StringMap<StandardField>();
         type_ = new StandardClass(TYPE_SIMULATION_BEAN, fields_, constructors_, methods_, AikiBeansStd.TYPE_COMMON_BEAN, MethodModifier.NORMAL);
-        fields_.put(WIN_POINTS_FIGHT,new StandardField(WIN_POINTS_FIGHT,_std.getCustMap(),false,false,type_));
+        fields_.put(WIN_POINTS_FIGHT,new StandardField(WIN_POINTS_FIGHT, BeanNatLgNames.TYPE_MAP,false,false,type_));
         fields_.put(DIFF_WINNING_EXP_PTS_FIGHT,new StandardField(DIFF_WINNING_EXP_PTS_FIGHT,PokemonStandards.TYPE_DIFFICULTY_WIN_POINTS_FIGHT,false,false,type_));
         fields_.put(ALLOW_CATCHING_KO,new StandardField(ALLOW_CATCHING_KO,_std.getAliasPrimBoolean(),false,false,type_));
         fields_.put(ALLOWED_SWITCH_PLACES_END_ROUND,new StandardField(ALLOWED_SWITCH_PLACES_END_ROUND,_std.getAliasPrimBoolean(),false,false,type_));
@@ -566,49 +567,49 @@ public final class AikiBeansSimulationStd {
         fields_.put(RANDOM_WILD_FIGHT,new StandardField(RANDOM_WILD_FIGHT,_std.getAliasPrimBoolean(),false,false,type_));
         fields_.put(STILL_POSSIBLE_FLEE,new StandardField(STILL_POSSIBLE_FLEE,_std.getAliasPrimBoolean(),false,false,type_));
         fields_.put(SKIP_LEARNING_MOVES_WHILE_NOT_GROWING_LEVEL,new StandardField(SKIP_LEARNING_MOVES_WHILE_NOT_GROWING_LEVEL,_std.getAliasPrimBoolean(),false,false,type_));
-        fields_.put(DAMAGE_RATES,new StandardField(DAMAGE_RATES,_std.getCustMap(),false,false,type_));
+        fields_.put(DAMAGE_RATES,new StandardField(DAMAGE_RATES, BeanNatLgNames.TYPE_MAP,false,false,type_));
         fields_.put(DAMAGE_RATE_PLAYER,new StandardField(DAMAGE_RATE_PLAYER,PokemonStandards.TYPE_DIFFICULTY_MODEL_LAW,false,false,type_));
-        fields_.put(DAMAGE_RATE_PLAYER_TABLE,new StandardField(DAMAGE_RATE_PLAYER_TABLE,_std.getCustMap(),false,false,type_));
+        fields_.put(DAMAGE_RATE_PLAYER_TABLE,new StandardField(DAMAGE_RATE_PLAYER_TABLE, BeanNatLgNames.TYPE_MAP,false,false,type_));
         fields_.put(DAMAGE_RATE_LAW_FOE,new StandardField(DAMAGE_RATE_LAW_FOE,PokemonStandards.TYPE_DIFFICULTY_MODEL_LAW,false,false,type_));
-        fields_.put(DAMAGE_RATE_FOE_TABLE,new StandardField(DAMAGE_RATE_FOE_TABLE,_std.getCustMap(),false,false,type_));
+        fields_.put(DAMAGE_RATE_FOE_TABLE,new StandardField(DAMAGE_RATE_FOE_TABLE, BeanNatLgNames.TYPE_MAP,false,false,type_));
         fields_.put(FREE_TEAMS,new StandardField(FREE_TEAMS,_std.getAliasPrimBoolean(),false,false,type_));
         fields_.put(MULTIPLICITY,new StandardField(MULTIPLICITY,_std.getAliasPrimInteger(),false,false,type_));
-        fields_.put(ENVIRONMENTS,new StandardField(ENVIRONMENTS,_std.getCustMap(),false,false,type_));
+        fields_.put(ENVIRONMENTS,new StandardField(ENVIRONMENTS, BeanNatLgNames.TYPE_MAP,false,false,type_));
         fields_.put(ENVIRONMENT,new StandardField(ENVIRONMENT,PokemonStandards.TYPE_ENVIRONMENT_TYPE,false,false,type_));
-        fields_.put(FOE_TEAM,new StandardField(FOE_TEAM,_std.getCustList(),false,false,type_));
+        fields_.put(FOE_TEAM,new StandardField(FOE_TEAM, BeanNatLgNames.TYPE_LIST,false,false,type_));
         fields_.put(SELECTED_FOE_PK,new StandardField(SELECTED_FOE_PK,_std.getAliasPrimInteger(),false,false,type_));
         fields_.put(SELECTED_FOE_ACTION,new StandardField(SELECTED_FOE_ACTION,AikiBeansFacadeSimulationEnumsStd.TYPE_TEAM_CRUD,false,false,type_));
-        fields_.put(ALLY_TEAM,new StandardField(ALLY_TEAM,_std.getCustList(),false,false,type_));
+        fields_.put(ALLY_TEAM,new StandardField(ALLY_TEAM, BeanNatLgNames.TYPE_LIST,false,false,type_));
         fields_.put(SELECTED_ALLY_PK,new StandardField(SELECTED_ALLY_PK,_std.getAliasPrimInteger(),false,false,type_));
         fields_.put(SELECTED_ALLY_ACTION,new StandardField(SELECTED_ALLY_ACTION,AikiBeansFacadeSimulationEnumsStd.TYPE_TEAM_CRUD,false,false,type_));
-        fields_.put(PLACES,new StandardField(PLACES,_std.getCustList(),false,false,type_));
+        fields_.put(PLACES,new StandardField(PLACES, BeanNatLgNames.TYPE_LIST,false,false,type_));
         fields_.put(OK,new StandardField(OK,_std.getAliasPrimBoolean(),false,false,type_));
-        fields_.put(TEAM,new StandardField(TEAM,_std.getCustList(),false,false,type_));
+        fields_.put(TEAM,new StandardField(TEAM, BeanNatLgNames.TYPE_LIST,false,false,type_));
         fields_.put(SELECTED_PK,new StandardField(SELECTED_PK,_std.getAliasPrimInteger(),false,false,type_));
         fields_.put(SELECTED_ACTION,new StandardField(SELECTED_ACTION,AikiBeansFacadeSimulationEnumsStd.TYPE_TEAM_CRUD,false,false,type_));
-        fields_.put(AVAILABLE_EVOS,new StandardField(AVAILABLE_EVOS,_std.getCustMap(),false,false,type_));
+        fields_.put(AVAILABLE_EVOS,new StandardField(AVAILABLE_EVOS, BeanNatLgNames.TYPE_MAP,false,false,type_));
         fields_.put(CHOSEN_EVO,new StandardField(CHOSEN_EVO,_std.getAliasString(),false,false,type_));
         fields_.put(LEVEL_EVO,new StandardField(LEVEL_EVO,_std.getAliasPrimShort(),false,false,type_));
-        fields_.put(ROUND,new StandardField(ROUND,_std.getCustMap(),false,false,type_));
+        fields_.put(ROUND,new StandardField(ROUND, BeanNatLgNames.TYPE_MAP,false,false,type_));
         fields_.put(SELECTED_ROUND,new StandardField(SELECTED_ROUND,_std.getAliasPrimInteger(),false,false,type_));
-        fields_.put(PLACES_FIGHT,new StandardField(PLACES_FIGHT,_std.getCustMap(),false,false,type_));
+        fields_.put(PLACES_FIGHT,new StandardField(PLACES_FIGHT, BeanNatLgNames.TYPE_MAP,false,false,type_));
         fields_.put(PLACE_FIGHT,new StandardField(PLACE_FIGHT,_std.getAliasPrimInteger(),false,false,type_));
         fields_.put(DISPLAY_IF_ERROR,new StandardField(DISPLAY_IF_ERROR,_std.getAliasPrimBoolean(),false,false,type_));
-        fields_.put(ABILITIES,new StandardField(ABILITIES,_std.getCustMap(),false,false,type_));
+        fields_.put(ABILITIES,new StandardField(ABILITIES, BeanNatLgNames.TYPE_MAP,false,false,type_));
         fields_.put(CURRENT_ABILITY,new StandardField(CURRENT_ABILITY,_std.getAliasString(),false,false,type_));
-        fields_.put(KEPT_MOVES,new StandardField(KEPT_MOVES,_std.getCustList(),false,false,type_));
-        fields_.put(MOVES_SET,new StandardField(MOVES_SET,_std.getCustList(),false,false,type_));
+        fields_.put(KEPT_MOVES,new StandardField(KEPT_MOVES, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(MOVES_SET,new StandardField(MOVES_SET, BeanNatLgNames.TYPE_LIST,false,false,type_));
         fields_.put(SELECTED_MOVE,new StandardField(SELECTED_MOVE,_std.getAliasPrimInteger(),false,false,type_));
         fields_.put(ALLY_CHOICE,new StandardField(ALLY_CHOICE,_std.getAliasPrimBoolean(),false,false,type_));
-        fields_.put(TARGET_FIGHT,new StandardField(TARGET_FIGHT,_std.getCustMap(),false,false,type_));
+        fields_.put(TARGET_FIGHT,new StandardField(TARGET_FIGHT, BeanNatLgNames.TYPE_MAP,false,false,type_));
         fields_.put(TARGET,new StandardField(TARGET,_std.getAliasPrimInteger(),false,false,type_));
-        fields_.put(COMMENTS,new StandardField(COMMENTS,_std.getCustList(),false,false,type_));
-        fields_.put(TEAM_AFTER_FIGHT,new StandardField(TEAM_AFTER_FIGHT,_std.getCustList(),false,false,type_));
-        fields_.put(EVOLUTIONS_AFTER_FIGHT,new StandardField(EVOLUTIONS_AFTER_FIGHT,_std.getCustMap(),false,false,type_));
+        fields_.put(COMMENTS,new StandardField(COMMENTS, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(TEAM_AFTER_FIGHT,new StandardField(TEAM_AFTER_FIGHT, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(EVOLUTIONS_AFTER_FIGHT,new StandardField(EVOLUTIONS_AFTER_FIGHT, BeanNatLgNames.TYPE_MAP,false,false,type_));
         fields_.put(EVOLUTION_AFTER_FIGHT,new StandardField(EVOLUTION_AFTER_FIGHT,_std.getAliasString(),false,false,type_));
-        fields_.put(ABILITIES_AFTER_FIGHT,new StandardField(ABILITIES_AFTER_FIGHT,_std.getCustMap(),false,false,type_));
+        fields_.put(ABILITIES_AFTER_FIGHT,new StandardField(ABILITIES_AFTER_FIGHT, BeanNatLgNames.TYPE_MAP,false,false,type_));
         fields_.put(ABILITY_AFTER_FIGHT,new StandardField(ABILITY_AFTER_FIGHT,_std.getAliasString(),false,false,type_));
-        fields_.put(KEPT_MOVES_AFTER_FIGHT,new StandardField(KEPT_MOVES_AFTER_FIGHT,_std.getCustList(),false,false,type_));
+        fields_.put(KEPT_MOVES_AFTER_FIGHT,new StandardField(KEPT_MOVES_AFTER_FIGHT, BeanNatLgNames.TYPE_LIST,false,false,type_));
         params_ = new StringList();
         method_ = new StandardMethod(GET_REAL_STEP_NUMBER,params_,_std.getAliasPrimInteger(), false, MethodModifier.NORMAL,type_);
         methods_.put(method_.getId(), method_);
@@ -649,7 +650,7 @@ public final class AikiBeansSimulationStd {
         method_ = new StandardMethod(GET_ITEM_FOE,params_,_std.getAliasString(), false, MethodModifier.NORMAL,type_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(_std.getAliasLong());
-        method_ = new StandardMethod(GET_MOVES_FOE,params_,_std.getCustList(), false, MethodModifier.NORMAL,type_);
+        method_ = new StandardMethod(GET_MOVES_FOE,params_, BeanNatLgNames.TYPE_LIST, false, MethodModifier.NORMAL,type_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
         method_ = new StandardMethod(SELECT_ALLY_PK,params_,_std.getAliasString(), false, MethodModifier.NORMAL,type_);
@@ -673,13 +674,13 @@ public final class AikiBeansSimulationStd {
         method_ = new StandardMethod(GET_ITEM_ALLY,params_,_std.getAliasString(), false, MethodModifier.NORMAL,type_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(_std.getAliasLong());
-        method_ = new StandardMethod(GET_MOVES_ALLY,params_,_std.getCustList(), false, MethodModifier.NORMAL,type_);
+        method_ = new StandardMethod(GET_MOVES_ALLY,params_, BeanNatLgNames.TYPE_LIST, false, MethodModifier.NORMAL,type_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(_std.getAliasLong());
         method_ = new StandardMethod(IS_MULTI_LAYER,params_,_std.getAliasPrimBoolean(), false, MethodModifier.NORMAL,type_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(_std.getAliasLong());
-        method_ = new StandardMethod(LAYERS,params_,_std.getCustList(), false, MethodModifier.NORMAL,type_);
+        method_ = new StandardMethod(LAYERS,params_, BeanNatLgNames.TYPE_LIST, false, MethodModifier.NORMAL,type_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(_std.getAliasLong(),_std.getAliasLong());
         method_ = new StandardMethod(CLICK_LEVEL,params_,_std.getAliasString(), false, MethodModifier.NORMAL,type_);
@@ -724,7 +725,7 @@ public final class AikiBeansSimulationStd {
         method_ = new StandardMethod(GET_ITEM,params_,_std.getAliasString(), false, MethodModifier.NORMAL,type_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(_std.getAliasLong());
-        method_ = new StandardMethod(GET_MOVES,params_,_std.getCustList(), false, MethodModifier.NORMAL,type_);
+        method_ = new StandardMethod(GET_MOVES,params_, BeanNatLgNames.TYPE_LIST, false, MethodModifier.NORMAL,type_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
         method_ = new StandardMethod(CANCEL_TEAM,params_,_std.getAliasVoid(), false, MethodModifier.NORMAL,type_);
@@ -811,13 +812,13 @@ public final class AikiBeansSimulationStd {
         method_ = new StandardMethod(IS_ISSUE,params_,_std.getAliasPrimBoolean(), false, MethodModifier.NORMAL,type_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
-        method_ = new StandardMethod(GET_KO_PLAYERS,params_,_std.getCustList(), false, MethodModifier.NORMAL,type_);
+        method_ = new StandardMethod(GET_KO_PLAYERS,params_, BeanNatLgNames.TYPE_LIST, false, MethodModifier.NORMAL,type_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
-        method_ = new StandardMethod(GET_NOT_KO_FRONT_FOES,params_,_std.getCustList(), false, MethodModifier.NORMAL,type_);
+        method_ = new StandardMethod(GET_NOT_KO_FRONT_FOES,params_, BeanNatLgNames.TYPE_LIST, false, MethodModifier.NORMAL,type_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
-        method_ = new StandardMethod(GET_KO_FOES,params_,_std.getCustList(), false, MethodModifier.NORMAL,type_);
+        method_ = new StandardMethod(GET_KO_FOES,params_, BeanNatLgNames.TYPE_LIST, false, MethodModifier.NORMAL,type_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
         method_ = new StandardMethod(IS_RULES_ISSUE,params_,_std.getAliasPrimBoolean(), false, MethodModifier.NORMAL,type_);
@@ -865,7 +866,7 @@ public final class AikiBeansSimulationStd {
         method_ = new StandardMethod(GET_ITEM_AFTER_FIGHT,params_,_std.getAliasString(), false, MethodModifier.NORMAL,type_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(_std.getAliasLong());
-        method_ = new StandardMethod(GET_MOVES_AFTER_FIGHT,params_,_std.getCustList(), false, MethodModifier.NORMAL,type_);
+        method_ = new StandardMethod(GET_MOVES_AFTER_FIGHT,params_, BeanNatLgNames.TYPE_LIST, false, MethodModifier.NORMAL,type_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(_std.getAliasLong());
         method_ = new StandardMethod(GET_REMAINING_LIFE_RATE,params_,PokemonStandards.TYPE_LG_INT, false, MethodModifier.NORMAL,type_);
@@ -930,7 +931,7 @@ public final class AikiBeansSimulationStd {
         fields_.put(GYM,new StandardField(GYM,_std.getAliasPrimBoolean(),false,false,type_));
         fields_.put(POKEMON_CENTER,new StandardField(POKEMON_CENTER,_std.getAliasPrimBoolean(),false,false,type_));
         fields_.put(NO_FIGHT,new StandardField(NO_FIGHT,_std.getAliasPrimInteger(),false,false,type_));
-        fields_.put(TILES,new StandardField(TILES,_std.getCustMap(),false,false,type_));
+        fields_.put(TILES,new StandardField(TILES, BeanNatLgNames.TYPE_MAP,false,false,type_));
         params_ = new StringList();
         method_ = new StandardMethod(CANCEL,params_,_std.getAliasString(), false, MethodModifier.NORMAL,type_);
         methods_.put(method_.getId(), method_);
@@ -955,7 +956,7 @@ public final class AikiBeansSimulationStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,ABILITIES)) {
-            res_.setResult(new StdStruct(instance_.getAbilities(),std_.getCustMap()));
+            res_.setResult(new StdStruct(instance_.getAbilities(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
         if (StringList.quickEq(fieldName_,ABILITY)) {
@@ -963,7 +964,7 @@ public final class AikiBeansSimulationStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,GENDERS)) {
-            res_.setResult(new StdStruct(instance_.getGenders(),std_.getCustMap()));
+            res_.setResult(new StdStruct(instance_.getGenders(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
         if (StringList.quickEq(fieldName_,GENDER)) {
@@ -987,7 +988,7 @@ public final class AikiBeansSimulationStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,BOOLEANS)) {
-            res_.setResult(new StdStruct(instance_.getBooleans(),std_.getCustMap()));
+            res_.setResult(new StdStruct(instance_.getBooleans(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
         if (StringList.quickEq(fieldName_,HAS_EVO)) {
@@ -1003,7 +1004,7 @@ public final class AikiBeansSimulationStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,POKEDEX)) {
-            res_.setResult(new StdStruct(instance_.getPokedex(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getPokedex(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         return res_;
@@ -1022,7 +1023,7 @@ public final class AikiBeansSimulationStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,MOVES)) {
-            res_.setResult(new StdStruct(instance_.getMoves(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getMoves(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,EXPERIENCE)) {
@@ -1030,7 +1031,7 @@ public final class AikiBeansSimulationStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,BALLS)) {
-            res_.setResult(new StdStruct(instance_.getBalls(),std_.getCustMap()));
+            res_.setResult(new StdStruct(instance_.getBalls(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
         if (StringList.quickEq(fieldName_,BALL)) {
@@ -1050,7 +1051,7 @@ public final class AikiBeansSimulationStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,EV)) {
-            res_.setResult(new StdStruct(instance_.getEv(),std_.getCustMap()));
+            res_.setResult(new StdStruct(instance_.getEv(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
         return res_;
@@ -1065,7 +1066,7 @@ public final class AikiBeansSimulationStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,CATEGORIES)) {
-            res_.setResult(new StdStruct(instance_.getCategories(),std_.getCustMap()));
+            res_.setResult(new StdStruct(instance_.getCategories(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
         if (StringList.quickEq(fieldName_,CATEGORY)) {
@@ -1089,7 +1090,7 @@ public final class AikiBeansSimulationStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,MOVES)) {
-            res_.setResult(new StdStruct(instance_.getMoves(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getMoves(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         return res_;
@@ -1100,11 +1101,11 @@ public final class AikiBeansSimulationStd {
         EditTrainerPokemonBean instance_ = (EditTrainerPokemonBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringList.quickEq(fieldName_,MOVES)) {
-            res_.setResult(new StdStruct(instance_.getMoves(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getMoves(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,GENDERS)) {
-            res_.setResult(new StdStruct(instance_.getGenders(),std_.getCustMap()));
+            res_.setResult(new StdStruct(instance_.getGenders(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
         if (StringList.quickEq(fieldName_,GENDER)) {
@@ -1135,7 +1136,7 @@ public final class AikiBeansSimulationStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,SORTED_ABILITIES)) {
-            res_.setResult(new StdStruct(instance_.getSortedAbilities(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getSortedAbilities(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         return res_;
@@ -1158,7 +1159,7 @@ public final class AikiBeansSimulationStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,ITEMS)) {
-            res_.setResult(new StdStruct(instance_.getItems(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getItems(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         return res_;
@@ -1181,7 +1182,7 @@ public final class AikiBeansSimulationStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,BOOLEANS)) {
-            res_.setResult(new StdStruct(instance_.getBooleans(),std_.getCustMap()));
+            res_.setResult(new StdStruct(instance_.getBooleans(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
         if (StringList.quickEq(fieldName_,HAS_EVO)) {
@@ -1197,7 +1198,7 @@ public final class AikiBeansSimulationStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,POKEDEX)) {
-            res_.setResult(new StdStruct(instance_.getPokedex(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getPokedex(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         return res_;
@@ -1208,7 +1209,7 @@ public final class AikiBeansSimulationStd {
         SimulationBean instance_ = (SimulationBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringList.quickEq(fieldName_,WIN_POINTS_FIGHT)) {
-            res_.setResult(new StdStruct(instance_.getWinPointsFight(),std_.getCustMap()));
+            res_.setResult(new StdStruct(instance_.getWinPointsFight(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
         if (StringList.quickEq(fieldName_,DIFF_WINNING_EXP_PTS_FIGHT)) {
@@ -1272,7 +1273,7 @@ public final class AikiBeansSimulationStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,DAMAGE_RATES)) {
-            res_.setResult(new StdStruct(instance_.getDamageRates(),std_.getCustMap()));
+            res_.setResult(new StdStruct(instance_.getDamageRates(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
         if (StringList.quickEq(fieldName_,DAMAGE_RATE_PLAYER)) {
@@ -1280,7 +1281,7 @@ public final class AikiBeansSimulationStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,DAMAGE_RATE_PLAYER_TABLE)) {
-            res_.setResult(new StdStruct(instance_.getDamageRatePlayerTable(),std_.getCustMap()));
+            res_.setResult(new StdStruct(instance_.getDamageRatePlayerTable(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
         if (StringList.quickEq(fieldName_,DAMAGE_RATE_LAW_FOE)) {
@@ -1288,7 +1289,7 @@ public final class AikiBeansSimulationStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,DAMAGE_RATE_FOE_TABLE)) {
-            res_.setResult(new StdStruct(instance_.getDamageRateFoeTable(),std_.getCustMap()));
+            res_.setResult(new StdStruct(instance_.getDamageRateFoeTable(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
         if (StringList.quickEq(fieldName_,FREE_TEAMS)) {
@@ -1300,7 +1301,7 @@ public final class AikiBeansSimulationStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,ENVIRONMENTS)) {
-            res_.setResult(new StdStruct(instance_.getEnvironments(),std_.getCustMap()));
+            res_.setResult(new StdStruct(instance_.getEnvironments(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
         if (StringList.quickEq(fieldName_,ENVIRONMENT)) {
@@ -1308,7 +1309,7 @@ public final class AikiBeansSimulationStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,FOE_TEAM)) {
-            res_.setResult(new StdStruct(instance_.getFoeTeam(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getFoeTeam(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,SELECTED_FOE_PK)) {
@@ -1320,7 +1321,7 @@ public final class AikiBeansSimulationStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,ALLY_TEAM)) {
-            res_.setResult(new StdStruct(instance_.getAllyTeam(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getAllyTeam(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,SELECTED_ALLY_PK)) {
@@ -1332,7 +1333,7 @@ public final class AikiBeansSimulationStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,PLACES)) {
-            res_.setResult(new StdStruct(instance_.getPlaces(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getPlaces(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,OK)) {
@@ -1340,7 +1341,7 @@ public final class AikiBeansSimulationStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,TEAM)) {
-            res_.setResult(new StdStruct(instance_.getTeam(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getTeam(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,SELECTED_PK)) {
@@ -1352,7 +1353,7 @@ public final class AikiBeansSimulationStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,AVAILABLE_EVOS)) {
-            res_.setResult(new StdStruct(instance_.getAvailableEvos(),std_.getCustMap()));
+            res_.setResult(new StdStruct(instance_.getAvailableEvos(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
         if (StringList.quickEq(fieldName_,CHOSEN_EVO)) {
@@ -1364,7 +1365,7 @@ public final class AikiBeansSimulationStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,ROUND)) {
-            res_.setResult(new StdStruct(instance_.getRound(),std_.getCustMap()));
+            res_.setResult(new StdStruct(instance_.getRound(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
         if (StringList.quickEq(fieldName_,SELECTED_ROUND)) {
@@ -1372,7 +1373,7 @@ public final class AikiBeansSimulationStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,PLACES_FIGHT)) {
-            res_.setResult(new StdStruct(instance_.getPlacesFight(),std_.getCustMap()));
+            res_.setResult(new StdStruct(instance_.getPlacesFight(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
         if (StringList.quickEq(fieldName_,PLACE_FIGHT)) {
@@ -1384,7 +1385,7 @@ public final class AikiBeansSimulationStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,ABILITIES)) {
-            res_.setResult(new StdStruct(instance_.getAbilities(),std_.getCustMap()));
+            res_.setResult(new StdStruct(instance_.getAbilities(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
         if (StringList.quickEq(fieldName_,CURRENT_ABILITY)) {
@@ -1392,11 +1393,11 @@ public final class AikiBeansSimulationStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,KEPT_MOVES)) {
-            res_.setResult(new StdStruct(instance_.getKeptMoves(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getKeptMoves(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,MOVES_SET)) {
-            res_.setResult(new StdStruct(instance_.getMovesSet(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getMovesSet(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,SELECTED_MOVE)) {
@@ -1408,7 +1409,7 @@ public final class AikiBeansSimulationStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,TARGET_FIGHT)) {
-            res_.setResult(new StdStruct(instance_.getTargetFight(),std_.getCustMap()));
+            res_.setResult(new StdStruct(instance_.getTargetFight(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
         if (StringList.quickEq(fieldName_,TARGET)) {
@@ -1416,15 +1417,15 @@ public final class AikiBeansSimulationStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,COMMENTS)) {
-            res_.setResult(new StdStruct(instance_.getComments(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getComments(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,TEAM_AFTER_FIGHT)) {
-            res_.setResult(new StdStruct(instance_.getTeamAfterFight(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getTeamAfterFight(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,EVOLUTIONS_AFTER_FIGHT)) {
-            res_.setResult(new StdStruct(instance_.getEvolutionsAfterFight(),std_.getCustMap()));
+            res_.setResult(new StdStruct(instance_.getEvolutionsAfterFight(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
         if (StringList.quickEq(fieldName_,EVOLUTION_AFTER_FIGHT)) {
@@ -1432,7 +1433,7 @@ public final class AikiBeansSimulationStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,ABILITIES_AFTER_FIGHT)) {
-            res_.setResult(new StdStruct(instance_.getAbilitiesAfterFight(),std_.getCustMap()));
+            res_.setResult(new StdStruct(instance_.getAbilitiesAfterFight(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
         if (StringList.quickEq(fieldName_,ABILITY_AFTER_FIGHT)) {
@@ -1440,7 +1441,7 @@ public final class AikiBeansSimulationStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,KEPT_MOVES_AFTER_FIGHT)) {
-            res_.setResult(new StdStruct(instance_.getKeptMovesAfterFight(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getKeptMovesAfterFight(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         return res_;
@@ -1483,7 +1484,7 @@ public final class AikiBeansSimulationStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,TILES)) {
-            res_.setResult(new StdStruct(instance_.getTiles(),std_.getCustMap()));
+            res_.setResult(new StdStruct(instance_.getTiles(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
         return res_;
@@ -2138,7 +2139,7 @@ public final class AikiBeansSimulationStd {
             return res_;
         }
         if (StringList.quickEq(methodName_,GET_MOVES_FOE)) {
-            res_.setResult(new StdStruct(instance_.getMovesFoe((Long)_args[0]),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getMovesFoe((Long)_args[0]), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(methodName_,SELECT_ALLY_PK)) {
@@ -2170,7 +2171,7 @@ public final class AikiBeansSimulationStd {
             return res_;
         }
         if (StringList.quickEq(methodName_,GET_MOVES_ALLY)) {
-            res_.setResult(new StdStruct(instance_.getMovesAlly((Long)_args[0]),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getMovesAlly((Long)_args[0]), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(methodName_,IS_MULTI_LAYER)) {
@@ -2178,7 +2179,7 @@ public final class AikiBeansSimulationStd {
             return res_;
         }
         if (StringList.quickEq(methodName_,LAYERS)) {
-            res_.setResult(new StdStruct(instance_.layers((Long)_args[0]),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.layers((Long)_args[0]), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(methodName_,CLICK_LEVEL)) {
@@ -2241,7 +2242,7 @@ public final class AikiBeansSimulationStd {
             return res_;
         }
         if (StringList.quickEq(methodName_,GET_MOVES)) {
-            res_.setResult(new StdStruct(instance_.getMoves((Long)_args[0]),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getMoves((Long)_args[0]), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(methodName_,CANCEL_TEAM)) {
@@ -2375,15 +2376,15 @@ public final class AikiBeansSimulationStd {
             return res_;
         }
         if (StringList.quickEq(methodName_,GET_KO_PLAYERS)) {
-            res_.setResult(new StdStruct(instance_.getKoPlayers(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getKoPlayers(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(methodName_,GET_NOT_KO_FRONT_FOES)) {
-            res_.setResult(new StdStruct(instance_.getNotKoFrontFoes(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getNotKoFrontFoes(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(methodName_,GET_KO_FOES)) {
-            res_.setResult(new StdStruct(instance_.getKoFoes(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getKoFoes(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(methodName_,IS_RULES_ISSUE)) {
@@ -2447,7 +2448,7 @@ public final class AikiBeansSimulationStd {
             return res_;
         }
         if (StringList.quickEq(methodName_,GET_MOVES_AFTER_FIGHT)) {
-            res_.setResult(new StdStruct(instance_.getMovesAfterFight((Long)_args[0]),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getMovesAfterFight((Long)_args[0]), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(methodName_,GET_REMAINING_LIFE_RATE)) {

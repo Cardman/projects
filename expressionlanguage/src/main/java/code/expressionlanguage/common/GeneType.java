@@ -11,21 +11,18 @@ public interface GeneType {
     StringList getAllSuperTypes();
 
 
-    boolean isFinalType();
     boolean isStaticType();
-    boolean isAbstractType();
     boolean withoutInstance();
 
     Ints getTypeVarCounts();
     CustList<StringList> getBoundAll();
     CustList<TypeVar> getParamTypesMapValues();
+    StringList getParamTypesValues();
 
 
     String getGenericString();
 
     String getPackageName();
-
-    ObjectMap<MethodId, EqList<ClassMethodId>> getAllOverridingMethods();
 
     String getFullName();
 

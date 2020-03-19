@@ -77,7 +77,10 @@ public final class ReplacementStruct implements Struct {
             return false;
         }
         ReplacementStruct other_ = (ReplacementStruct) _other;
-        return getInstance() == other_.getInstance();
+        if (!StringList.quickEq(instance.getOldString(),other_.instance.getOldString())) {
+            return false;
+        }
+        return StringList.quickEq(instance.getNewString(),other_.instance.getNewString());
     }
 
 }

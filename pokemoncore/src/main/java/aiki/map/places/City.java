@@ -80,9 +80,7 @@ public final class City extends Place implements InitializedPlace {
                 _data.setError(true);
             }
         }
-        int len_ = ids_.size();
-        ids_.removeDuplicates();
-        if (len_ != ids_.size()) {
+        if (ids_.hasDuplicates()) {
             _data.setError(true);
         }
         for (Point p : linksWithCaves.getKeys()) {

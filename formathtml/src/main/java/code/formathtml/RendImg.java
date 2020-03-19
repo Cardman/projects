@@ -20,11 +20,12 @@ public final class RendImg extends RendElement {
     @Override
     protected void processAttributes(Configuration _cont, RendDocumentBlock _doc, Element _read, StringList _list) {
         ResultText res_ = new ResultText();
-        String pageName_ = _read.getAttribute(ATTRIBUTE_SRC);
-        res_.build(pageName_,_cont,_doc);
+        String pageName_ = _read.getAttribute(_cont.getRendKeyWords().getAttrSrc());
+        int rowsGrId_ = getAttributeDelimiter(_cont.getRendKeyWords().getAttrSrc());
+        res_.build(pageName_,_cont,rowsGrId_,_doc);
         opExp = res_.getOpExp();
         texts = res_.getTexts();
-        _list.removeAllString(ATTRIBUTE_SRC);
+        _list.removeAllString(_cont.getRendKeyWords().getAttrSrc());
     }
 
     @Override
@@ -39,6 +40,6 @@ public final class RendImg extends RendElement {
         if (file_ == null) {
             return;
         }
-        ((Element)_nextWrite).setAttribute(ATTRIBUTE_SRC,file_);
+        ((Element)_nextWrite).setAttribute(_cont.getRendKeyWords().getAttrSrc(),file_);
     }
 }

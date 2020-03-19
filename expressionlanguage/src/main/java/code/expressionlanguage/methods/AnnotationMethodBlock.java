@@ -6,9 +6,10 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.calls.AbstractPageEl;
 import code.expressionlanguage.calls.FieldInitPageEl;
+import code.expressionlanguage.common.GeneCustMethod;
 import code.expressionlanguage.common.GeneMethod;
 import code.expressionlanguage.common.GeneType;
-import code.expressionlanguage.errors.custom.BadImplicitCast;
+import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.files.OffsetAccessInfo;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
@@ -31,7 +32,7 @@ import code.util.StringList;
 import code.util.StringMap;
 
 public final class AnnotationMethodBlock extends NamedFunctionBlock implements
-        GeneMethod, WithNotEmptyEl {
+        GeneCustMethod, WithNotEmptyEl {
 
     private String defaultValue;
     private int defaultValueOffset;
@@ -47,11 +48,6 @@ public final class AnnotationMethodBlock extends NamedFunctionBlock implements
                 _offset);
         defaultValue = _defaultValue.getInfo();
         defaultValueOffset = _defaultValue.getOffset();
-    }
-
-    @Override
-    public RootBlock belong() {
-        return (RootBlock) getParent();
     }
 
     @Override
@@ -96,13 +92,12 @@ public final class AnnotationMethodBlock extends NamedFunctionBlock implements
         if (StringList.quickEq(type_, class_)) {
             return;
         }
-        Mapping mapping_ = new Mapping();
-        mapping_.setArg(itype_);
-        mapping_.setParam(stds_.getAliasObject());
-        BadImplicitCast cast_ = new BadImplicitCast();
-        cast_.setMapping(mapping_);
+        FoundErrorInterpret cast_ = new FoundErrorInterpret();
         cast_.setFileName(_stds.getCurrentFileName());
         cast_.setIndexFile(_stds.getCurrentLocationIndex());
+        //return type len
+        cast_.buildError(_stds.getContextEl().getAnalysisMessages().getUnexpectedType(),
+                itype_);
         _stds.addError(cast_);
     }
 
@@ -166,10 +161,13 @@ public final class AnnotationMethodBlock extends NamedFunctionBlock implements
         mapping_.setArg(arg_);
         mapping_.setParam(import_);
         if (!Templates.isCorrectOrNumbers(mapping_, _cont)) {
-            BadImplicitCast cast_ = new BadImplicitCast();
-            cast_.setMapping(mapping_);
+            FoundErrorInterpret cast_ = new FoundErrorInterpret();
             cast_.setFileName(getFile().getFileName());
             cast_.setIndexFile(defaultValueOffset);
+            //parentheses
+            cast_.buildError(_cont.getContextEl().getAnalysisMessages().getBadImplicitCast(),
+                    StringList.join(arg_.getNames(),"&"),
+                    import_);
             _cont.addError(cast_);
         }
         if (PrimitiveTypeUtil.isPrimitive(import_, _cont)) {
@@ -208,17 +206,19 @@ public final class AnnotationMethodBlock extends NamedFunctionBlock implements
     }
 
     private void setValue(ContextEl _cont, Argument _arg) {
+        String name_ = getName();
+        RootBlock r_ = (RootBlock) getParent();
+        String idCl_ = r_.getFullName();
+        String ret_ = getImportedReturnType();
+        setValue(idCl_,name_,ret_,_cont,_arg);
+    }
+    public static void setValue(String _cl, String _name, String _returnType,ContextEl _cont, Argument _arg) {
         if (_cont.callsOrException()) {
             return;
         }
         AbstractPageEl ip_ = _cont.getLastPage();
-        ip_.clearCurrentEls();
-        String name_ = getName();
-        RootBlock r_ = (RootBlock) getParent();
-        String idCl_ = r_.getFullName();
         Argument gl_ = ip_.getGlobalArgument();
-        String ret_ = getImportedReturnType();
-        ExecInvokingOperation.setField(idCl_, name_, false, false, false, ret_, gl_, _arg, _cont, -1);
+        ExecInvokingOperation.setInstanceField(_cl, _name, _returnType, gl_, _arg, _cont);
     }
     @Override
     public ExpressionLanguage getEl(ContextEl _context,

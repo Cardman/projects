@@ -2,7 +2,7 @@ package code.expressionlanguage.opers;
 
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.errors.custom.UndefinedFieldError;
+import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.stds.LgNames;
@@ -33,10 +33,13 @@ public final class ArrayFieldOperation extends AbstractFieldOperation {
             setResultClass(new ClassArgumentMatching(stds_.getAliasPrimInteger()));
             return;
         }
-        UndefinedFieldError und_ = new UndefinedFieldError();
-        und_.setClassName(StringList.join(cl_.getNames(), ""));
+        FoundErrorInterpret und_ = new FoundErrorInterpret();
         und_.setFileName(_conf.getCurrentFileName());
         und_.setIndexFile(_conf.getCurrentLocationIndex());
+        //str_ len
+        und_.buildError(_conf.getContextEl().getAnalysisMessages().getUndefinedAccessibleField(),
+                str_,
+                StringList.join(cl_.getNames(), "&"));
         _conf.addError(und_);
         setResultClass(new ClassArgumentMatching(stds_.getAliasPrimInteger()));
     }

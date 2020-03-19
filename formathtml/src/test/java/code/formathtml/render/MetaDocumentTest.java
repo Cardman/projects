@@ -3,6 +3,7 @@ package code.formathtml.render;
 import static code.formathtml.EquallableExUtil.assertEq;
 import static org.junit.Assert.*;
 
+import code.formathtml.errors.RendKeyWords;
 import code.util.CustList;
 import org.junit.Test;
 
@@ -20,8 +21,7 @@ public final class MetaDocumentTest {
         doc_.append("Hello<br/>");
         doc_.append("World</body>\n");
         doc_.append("</html>");
-        DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(doc_.toString());
-        MetaDocument out_ = MetaDocument.newInstance(res_.getDocument());
+        MetaDocument out_ = getMetaDocument(doc_);
         MetaBlock root_ = out_.getRoot();
         assertEq(2, root_.getChildren().size());
         MetaComponent ch_ = root_.getFirstChild();
@@ -53,8 +53,7 @@ public final class MetaDocumentTest {
         doc_.append("Hello World");
         doc_.append("</body>\n");
         doc_.append("</html>");
-        DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(doc_.toString());
-        MetaDocument out_ = MetaDocument.newInstance(res_.getDocument());
+        MetaDocument out_ = getMetaDocument(doc_);
         MetaBlock root_ = out_.getRoot();
         assertEq(1, root_.getChildren().size());
         MetaComponent ch_ = root_.getFirstChild();
@@ -78,8 +77,7 @@ public final class MetaDocumentTest {
         doc_.append("World\n");
         doc_.append("</body>\n");
         doc_.append("</html>");
-        DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(doc_.toString());
-        MetaDocument out_ = MetaDocument.newInstance(res_.getDocument());
+        MetaDocument out_ = getMetaDocument(doc_);
         MetaBlock root_ = out_.getRoot();
         assertEq(2, root_.getChildren().size());
         MetaComponent ch_ = root_.getFirstChild();
@@ -115,8 +113,7 @@ public final class MetaDocumentTest {
         doc_.append("World\n");
         doc_.append("</body>\n");
         doc_.append("</html>");
-        DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(doc_.toString());
-        MetaDocument out_ = MetaDocument.newInstance(res_.getDocument());
+        MetaDocument out_ = getMetaDocument(doc_);
         MetaBlock root_ = out_.getRoot();
         assertEq(3, root_.getChildren().size());
         MetaComponent ch_ = root_.getFirstChild();
@@ -155,8 +152,7 @@ public final class MetaDocumentTest {
         doc_.append("</ol>\n");
         doc_.append("</body>\n");
         doc_.append("</html>");
-        DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(doc_.toString());
-        MetaDocument out_ = MetaDocument.newInstance(res_.getDocument());
+        MetaDocument out_ = getMetaDocument(doc_);
         MetaBlock root_ = out_.getRoot();
         assertEq(3, root_.getChildren().size());
         MetaComponent ch_ = root_.getFirstChild();
@@ -223,8 +219,7 @@ public final class MetaDocumentTest {
         doc_.append("</ol>\n");
         doc_.append("</body>\n");
         doc_.append("</html>");
-        DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(doc_.toString());
-        MetaDocument out_ = MetaDocument.newInstance(res_.getDocument());
+        MetaDocument out_ = getMetaDocument(doc_);
         MetaBlock root_ = out_.getRoot();
         assertEq(3, root_.getChildren().size());
         MetaComponent ch_ = root_.getFirstChild();
@@ -287,8 +282,7 @@ public final class MetaDocumentTest {
         doc_.append("</ol>\n");
         doc_.append("</body>\n");
         doc_.append("</html>");
-        DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(doc_.toString());
-        MetaDocument out_ = MetaDocument.newInstance(res_.getDocument());
+        MetaDocument out_ = getMetaDocument(doc_);
         MetaBlock root_ = out_.getRoot();
         assertEq(3, root_.getChildren().size());
         MetaComponent ch_ = root_.getFirstChild();
@@ -357,8 +351,7 @@ public final class MetaDocumentTest {
         doc_.append("</ol>\n");
         doc_.append("</body>\n");
         doc_.append("</html>");
-        DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(doc_.toString());
-        MetaDocument out_ = MetaDocument.newInstance(res_.getDocument());
+        MetaDocument out_ = getMetaDocument(doc_);
         MetaBlock root_ = out_.getRoot();
         assertEq(3, root_.getChildren().size());
         MetaComponent ch_ = root_.getFirstChild();
@@ -466,8 +459,7 @@ public final class MetaDocumentTest {
         doc_.append("</ol>\n");
         doc_.append("</body>\n");
         doc_.append("</html>");
-        DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(doc_.toString());
-        MetaDocument out_ = MetaDocument.newInstance(res_.getDocument());
+        MetaDocument out_ = getMetaDocument(doc_);
         MetaBlock root_ = out_.getRoot();
         assertEq(3, root_.getChildren().size());
         MetaComponent ch_ = root_.getFirstChild();
@@ -548,8 +540,7 @@ public final class MetaDocumentTest {
         doc_.append("</ol>\n");
         doc_.append("</body>\n");
         doc_.append("</html>");
-        DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(doc_.toString());
-        MetaDocument out_ = MetaDocument.newInstance(res_.getDocument());
+        MetaDocument out_ = getMetaDocument(doc_);
         MetaBlock root_ = out_.getRoot();
         assertEq(3, root_.getChildren().size());
         MetaComponent ch_ = root_.getFirstChild();
@@ -664,8 +655,7 @@ public final class MetaDocumentTest {
         doc_.append("</table>\n");
         doc_.append("</body>\n");
         doc_.append("</html>");
-        DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(doc_.toString());
-        MetaDocument out_ = MetaDocument.newInstance(res_.getDocument());
+        MetaDocument out_ = getMetaDocument(doc_);
         MetaBlock root_ = out_.getRoot();
         assertEq(3, root_.getChildren().size());
         MetaComponent ch_ = root_.getFirstChild();
@@ -746,8 +736,7 @@ public final class MetaDocumentTest {
         doc_.append("</table>\n");
         doc_.append("</body>\n");
         doc_.append("</html>");
-        DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(doc_.toString());
-        MetaDocument out_ = MetaDocument.newInstance(res_.getDocument());
+        MetaDocument out_ = getMetaDocument(doc_);
         MetaBlock root_ = out_.getRoot();
         assertEq(3, root_.getChildren().size());
         MetaComponent ch_ = root_.getFirstChild();
@@ -840,8 +829,7 @@ public final class MetaDocumentTest {
         doc_.append("</form>\n");
         doc_.append("</body>\n");
         doc_.append("</html>");
-        DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(doc_.toString());
-        MetaDocument out_ = MetaDocument.newInstance(res_.getDocument());
+        MetaDocument out_ = getMetaDocument(doc_);
         MetaBlock root_ = out_.getRoot();
         assertEq(3, root_.getChildren().size());
         MetaComponent ch_ = root_.getChildren().get(0);
@@ -883,8 +871,7 @@ public final class MetaDocumentTest {
         doc_.append("</form>\n");
         doc_.append("</body>\n");
         doc_.append("</html>");
-        DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(doc_.toString());
-        MetaDocument out_ = MetaDocument.newInstance(res_.getDocument());
+        MetaDocument out_ = getMetaDocument(doc_);
         MetaBlock root_ = out_.getRoot();
         assertEq(3, root_.getChildren().size());
         MetaComponent ch_ = root_.getChildren().get(0);
@@ -924,8 +911,7 @@ public final class MetaDocumentTest {
         doc_.append("</form>\n");
         doc_.append("</body>\n");
         doc_.append("</html>");
-        DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(doc_.toString());
-        MetaDocument out_ = MetaDocument.newInstance(res_.getDocument());
+        MetaDocument out_ = getMetaDocument(doc_);
         MetaBlock root_ = out_.getRoot();
         assertEq(3, root_.getChildren().size());
         MetaComponent ch_ = root_.getChildren().get(0);
@@ -966,8 +952,7 @@ public final class MetaDocumentTest {
         doc_.append("</form>\n");
         doc_.append("</body>\n");
         doc_.append("</html>");
-        DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(doc_.toString());
-        MetaDocument out_ = MetaDocument.newInstance(res_.getDocument());
+        MetaDocument out_ = getMetaDocument(doc_);
         MetaBlock root_ = out_.getRoot();
         assertEq(3, root_.getChildren().size());
         MetaComponent ch_ = root_.getChildren().get(0);
@@ -1018,8 +1003,7 @@ public final class MetaDocumentTest {
         doc_.append("</form>\n");
         doc_.append("</body>\n");
         doc_.append("</html>");
-        DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(doc_.toString());
-        MetaDocument out_ = MetaDocument.newInstance(res_.getDocument());
+        MetaDocument out_ = getMetaDocument(doc_);
         MetaBlock root_ = out_.getRoot();
         assertEq(5, root_.getChildren().size());
         MetaComponent ch_ = root_.getChildren().get(0);
@@ -1082,8 +1066,7 @@ public final class MetaDocumentTest {
         doc_.append("</span>\n");
         doc_.append("</body>\n");
         doc_.append("</html>");
-        DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(doc_.toString());
-        MetaDocument out_ = MetaDocument.newInstance(res_.getDocument());
+        MetaDocument out_ = getMetaDocument(doc_);
         MetaBlock root_ = out_.getRoot();
         assertEq(1, root_.getChildren().size());
         MetaComponent ch_ = root_.getFirstChild();
@@ -1107,8 +1090,7 @@ public final class MetaDocumentTest {
         doc_.append("</div>");
         doc_.append("</body>");
         doc_.append("</html>");
-        DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(doc_.toString());
-        MetaDocument out_ = MetaDocument.newInstance(res_.getDocument());
+        MetaDocument out_ = getMetaDocument(doc_);
         MetaBlock root_ = out_.getRoot();
         assertEq(3, root_.getChildren().size());
         MetaComponent ch_ = root_.getChildren().get(0);
@@ -1140,8 +1122,7 @@ public final class MetaDocumentTest {
         doc_.append("</span>\n");
         doc_.append("</body>\n");
         doc_.append("</html>");
-        DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(doc_.toString());
-        MetaDocument out_ = MetaDocument.newInstance(res_.getDocument());
+        MetaDocument out_ = getMetaDocument(doc_);
         MetaBlock root_ = out_.getRoot();
         assertEq(1, root_.getChildren().size());
         MetaComponent ch_ = root_.getFirstChild();
@@ -1165,8 +1146,7 @@ public final class MetaDocumentTest {
         doc_.append("</span>\n");
         doc_.append("</body>\n");
         doc_.append("</html>");
-        DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(doc_.toString());
-        MetaDocument out_ = MetaDocument.newInstance(res_.getDocument());
+        MetaDocument out_ = getMetaDocument(doc_);
         MetaBlock root_ = out_.getRoot();
         assertEq(1, root_.getChildren().size());
         MetaComponent ch_ = root_.getFirstChild();
@@ -1197,8 +1177,7 @@ public final class MetaDocumentTest {
         doc_.append("</ul>\n");
         doc_.append("</body>\n");
         doc_.append("</html>");
-        DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(doc_.toString());
-        MetaDocument out_ = MetaDocument.newInstance(res_.getDocument());
+        MetaDocument out_ = getMetaDocument(doc_);
         MetaBlock root_ = out_.getRoot();
         assertEq(3, root_.getChildren().size());
         MetaComponent ch_ = root_.getFirstChild();
@@ -1260,8 +1239,7 @@ public final class MetaDocumentTest {
         doc_.append("</p>");
         doc_.append("</body>");
         doc_.append("</html>");
-        DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(doc_.toString());
-        MetaDocument out_ = MetaDocument.newInstance(res_.getDocument());
+        MetaDocument out_ = getMetaDocument(doc_);
         MetaBlock root_ = out_.getRoot();
         assertEq(3, root_.getChildren().size());
         MetaComponent ch_ = root_.getChildren().get(0);
@@ -1303,8 +1281,7 @@ public final class MetaDocumentTest {
         doc_.append("</ol>\n");
         doc_.append("</body>\n");
         doc_.append("</html>");
-        DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(doc_.toString());
-        MetaDocument out_ = MetaDocument.newInstance(res_.getDocument());
+        MetaDocument out_ = getMetaDocument(doc_);
         MetaBlock root_ = out_.getRoot();
         assertEq(3, root_.getChildren().size());
         MetaComponent ch_ = root_.getFirstChild();
@@ -1367,8 +1344,7 @@ public final class MetaDocumentTest {
         doc_.append("</ol>\n");
         doc_.append("</body>\n");
         doc_.append("</html>");
-        DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(doc_.toString());
-        MetaDocument out_ = MetaDocument.newInstance(res_.getDocument());
+        MetaDocument out_ = getMetaDocument(doc_);
         MetaBlock root_ = out_.getRoot();
         assertEq(3, root_.getChildren().size());
         MetaComponent ch_ = root_.getFirstChild();
@@ -1431,8 +1407,7 @@ public final class MetaDocumentTest {
         doc_.append("</ol>\n");
         doc_.append("</body>\n");
         doc_.append("</html>");
-        DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(doc_.toString());
-        MetaDocument out_ = MetaDocument.newInstance(res_.getDocument());
+        MetaDocument out_ = getMetaDocument(doc_);
         MetaBlock root_ = out_.getRoot();
         assertEq(3, root_.getChildren().size());
         MetaComponent ch_ = root_.getFirstChild();
@@ -1495,8 +1470,7 @@ public final class MetaDocumentTest {
         doc_.append("</ol>\n");
         doc_.append("</body>\n");
         doc_.append("</html>");
-        DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(doc_.toString());
-        MetaDocument out_ = MetaDocument.newInstance(res_.getDocument());
+        MetaDocument out_ = getMetaDocument(doc_);
         MetaBlock root_ = out_.getRoot();
         assertEq(3, root_.getChildren().size());
         MetaComponent ch_ = root_.getFirstChild();
@@ -1559,8 +1533,7 @@ public final class MetaDocumentTest {
         doc_.append("</ol>\n");
         doc_.append("</body>\n");
         doc_.append("</html>");
-        DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(doc_.toString());
-        MetaDocument out_ = MetaDocument.newInstance(res_.getDocument());
+        MetaDocument out_ = getMetaDocument(doc_);
         MetaBlock root_ = out_.getRoot();
         assertEq(3, root_.getChildren().size());
         MetaComponent ch_ = root_.getFirstChild();
@@ -1623,8 +1596,7 @@ public final class MetaDocumentTest {
         doc_.append("</ol>\n");
         doc_.append("</body>\n");
         doc_.append("</html>");
-        DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(doc_.toString());
-        MetaDocument out_ = MetaDocument.newInstance(res_.getDocument());
+        MetaDocument out_ = getMetaDocument(doc_);
         MetaBlock root_ = out_.getRoot();
         assertEq(3, root_.getChildren().size());
         MetaComponent ch_ = root_.getFirstChild();
@@ -1703,8 +1675,7 @@ public final class MetaDocumentTest {
         doc_.append("</ol>\n");
         doc_.append("</body>\n");
         doc_.append("</html>");
-        DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(doc_.toString());
-        MetaDocument out_ = MetaDocument.newInstance(res_.getDocument());
+        MetaDocument out_ = getMetaDocument(doc_);
         MetaBlock root_ = out_.getRoot();
         assertEq(3, root_.getChildren().size());
         MetaComponent ch_ = root_.getFirstChild();
@@ -1767,8 +1738,7 @@ public final class MetaDocumentTest {
         doc_.append("</ol>\n");
         doc_.append("</body>\n");
         doc_.append("</html>");
-        DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(doc_.toString());
-        MetaDocument out_ = MetaDocument.newInstance(res_.getDocument());
+        MetaDocument out_ = getMetaDocument(doc_);
         MetaBlock root_ = out_.getRoot();
         assertEq(3, root_.getChildren().size());
         MetaComponent ch_ = root_.getFirstChild();
@@ -1831,8 +1801,7 @@ public final class MetaDocumentTest {
         doc_.append("</ol>\n");
         doc_.append("</body>\n");
         doc_.append("</html>");
-        DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(doc_.toString());
-        MetaDocument out_ = MetaDocument.newInstance(res_.getDocument());
+        MetaDocument out_ = getMetaDocument(doc_);
         MetaBlock root_ = out_.getRoot();
         assertEq(3, root_.getChildren().size());
         MetaComponent ch_ = root_.getFirstChild();
@@ -1896,8 +1865,7 @@ public final class MetaDocumentTest {
         doc_.append("</ol>\n");
         doc_.append("</body>\n");
         doc_.append("</html>");
-        DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(doc_.toString());
-        MetaDocument out_ = MetaDocument.newInstance(res_.getDocument());
+        MetaDocument out_ = getMetaDocument(doc_);
         MetaBlock root_ = out_.getRoot();
         assertEq(3, root_.getChildren().size());
         MetaComponent ch_ = root_.getFirstChild();
@@ -1977,8 +1945,7 @@ public final class MetaDocumentTest {
         doc_.append("</ol>\n");
         doc_.append("</body>\n");
         doc_.append("</html>");
-        DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(doc_.toString());
-        MetaDocument out_ = MetaDocument.newInstance(res_.getDocument());
+        MetaDocument out_ = getMetaDocument(doc_);
         MetaBlock root_ = out_.getRoot();
         assertEq(3, root_.getChildren().size());
         MetaComponent ch_ = root_.getFirstChild();
@@ -2058,8 +2025,7 @@ public final class MetaDocumentTest {
         doc_.append("</ol>\n");
         doc_.append("</body>\n");
         doc_.append("</html>");
-        DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(doc_.toString());
-        MetaDocument out_ = MetaDocument.newInstance(res_.getDocument());
+        MetaDocument out_ = getMetaDocument(doc_);
         MetaBlock root_ = out_.getRoot();
         assertEq(3, root_.getChildren().size());
         MetaComponent ch_ = root_.getFirstChild();
@@ -2139,8 +2105,7 @@ public final class MetaDocumentTest {
         doc_.append("</ol>\n");
         doc_.append("</body>\n");
         doc_.append("</html>");
-        DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(doc_.toString());
-        MetaDocument out_ = MetaDocument.newInstance(res_.getDocument());
+        MetaDocument out_ = getMetaDocument(doc_);
         MetaBlock root_ = out_.getRoot();
         assertEq(3, root_.getChildren().size());
         MetaComponent ch_ = root_.getFirstChild();
@@ -2220,8 +2185,7 @@ public final class MetaDocumentTest {
         doc_.append("</ul>\n");
         doc_.append("</body>\n");
         doc_.append("</html>");
-        DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(doc_.toString());
-        MetaDocument out_ = MetaDocument.newInstance(res_.getDocument());
+        MetaDocument out_ = getMetaDocument(doc_);
         MetaBlock root_ = out_.getRoot();
         assertEq(3, root_.getChildren().size());
         MetaComponent ch_ = root_.getFirstChild();
@@ -2300,8 +2264,7 @@ public final class MetaDocumentTest {
         doc_.append("</ol>\n");
         doc_.append("</body>\n");
         doc_.append("</html>");
-        DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(doc_.toString());
-        MetaDocument out_ = MetaDocument.newInstance(res_.getDocument());
+        MetaDocument out_ = getMetaDocument(doc_);
         MetaBlock root_ = out_.getRoot();
         assertEq(3, root_.getChildren().size());
         MetaComponent ch_ = root_.getFirstChild();
@@ -2367,8 +2330,7 @@ public final class MetaDocumentTest {
         doc_.append("</form>\n");
         doc_.append("</body>\n");
         doc_.append("</html>");
-        DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(doc_.toString());
-        MetaDocument out_ = MetaDocument.newInstance(res_.getDocument());
+        MetaDocument out_ = getMetaDocument(doc_);
         MetaBlock root_ = out_.getRoot();
         assertEq(3, root_.getChildren().size());
         MetaComponent ch_ = root_.getChildren().get(0);
@@ -2410,8 +2372,7 @@ public final class MetaDocumentTest {
         doc_.append("</form>\n");
         doc_.append("</body>\n");
         doc_.append("</html>");
-        DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(doc_.toString());
-        MetaDocument out_ = MetaDocument.newInstance(res_.getDocument());
+        MetaDocument out_ = getMetaDocument(doc_);
         MetaBlock root_ = out_.getRoot();
         assertEq(3, root_.getChildren().size());
         MetaComponent ch_ = root_.getChildren().get(0);
@@ -2453,8 +2414,7 @@ public final class MetaDocumentTest {
         doc_.append("</div>");
         doc_.append("</body>");
         doc_.append("</html>");
-        DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(doc_.toString());
-        MetaDocument out_ = MetaDocument.newInstance(res_.getDocument());
+        MetaDocument out_ = getMetaDocument(doc_);
         MetaBlock root_ = out_.getRoot();
         assertEq(3, root_.getChildren().size());
         MetaComponent ch_ = root_.getChildren().get(0);
@@ -2503,8 +2463,7 @@ public final class MetaDocumentTest {
         doc_.append("</div>");
         doc_.append("</body>");
         doc_.append("</html>");
-        DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(doc_.toString());
-        MetaDocument out_ = MetaDocument.newInstance(res_.getDocument());
+        MetaDocument out_ = getMetaDocument(doc_);
         MetaBlock root_ = out_.getRoot();
         assertEq(3, root_.getChildren().size());
         MetaComponent ch_ = root_.getChildren().get(0);
@@ -2554,8 +2513,7 @@ public final class MetaDocumentTest {
         doc_.append("</table>\n");
         doc_.append("</body>\n");
         doc_.append("</html>");
-        DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(doc_.toString());
-        MetaDocument out_ = MetaDocument.newInstance(res_.getDocument());
+        MetaDocument out_ = getMetaDocument(doc_);
         MetaBlock root_ = out_.getRoot();
         assertEq(3, root_.getChildren().size());
         MetaComponent ch_ = root_.getFirstChild();
@@ -2635,8 +2593,7 @@ public final class MetaDocumentTest {
         doc_.append("</map>");
         doc_.append("</body>");
         doc_.append("</html>");
-        DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(doc_.toString());
-        MetaDocument out_ = MetaDocument.newInstance(res_.getDocument());
+        MetaDocument out_ = getMetaDocument(doc_);
         MetaBlock root_ = out_.getRoot();
         assertEq(3, root_.getChildren().size());
         MetaComponent ch_ = root_.getChildren().get(0);
@@ -2688,8 +2645,7 @@ public final class MetaDocumentTest {
         doc_.append("</ol>\n");
         doc_.append("</body>\n");
         doc_.append("</html>");
-        DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(doc_.toString());
-        MetaDocument out_ = MetaDocument.newInstance(res_.getDocument());
+        MetaDocument out_ = getMetaDocument(doc_);
         MetaBlock root_ = out_.getRoot();
         assertEq(3, root_.getChildren().size());
         MetaComponent ch_ = root_.getFirstChild();
@@ -2795,8 +2751,7 @@ public final class MetaDocumentTest {
         doc_.append("</table>\n");
         doc_.append("</body>\n");
         doc_.append("</html>");
-        DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(doc_.toString());
-        MetaDocument out_ = MetaDocument.newInstance(res_.getDocument());
+        MetaDocument out_ = getMetaDocument(doc_);
         MetaBlock root_ = out_.getRoot();
         assertEq(3, root_.getChildren().size());
         MetaComponent ch_ = root_.getFirstChild();
@@ -2878,8 +2833,7 @@ public final class MetaDocumentTest {
         doc_.append("</form>\n");
         doc_.append("</body>\n");
         doc_.append("</html>");
-        DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(doc_.toString());
-        MetaDocument out_ = MetaDocument.newInstance(res_.getDocument());
+        MetaDocument out_ = getMetaDocument(doc_);
         MetaBlock root_ = out_.getRoot();
         assertEq(3, root_.getChildren().size());
         MetaComponent ch_ = root_.getChildren().get(0);
@@ -2914,8 +2868,7 @@ public final class MetaDocumentTest {
         doc_.append("</form>\n");
         doc_.append("</body>\n");
         doc_.append("</html>");
-        DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(doc_.toString());
-        MetaDocument out_ = MetaDocument.newInstance(res_.getDocument());
+        MetaDocument out_ = getMetaDocument(doc_);
         MetaBlock root_ = out_.getRoot();
         assertEq(3, root_.getChildren().size());
         MetaComponent ch_ = root_.getChildren().get(0);
@@ -2949,8 +2902,7 @@ public final class MetaDocumentTest {
         doc_.append("</form>\n");
         doc_.append("</body>\n");
         doc_.append("</html>");
-        DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(doc_.toString());
-        MetaDocument out_ = MetaDocument.newInstance(res_.getDocument());
+        MetaDocument out_ = getMetaDocument(doc_);
         MetaBlock root_ = out_.getRoot();
         assertEq(3, root_.getChildren().size());
         MetaComponent ch_ = root_.getChildren().get(0);
@@ -2983,8 +2935,7 @@ public final class MetaDocumentTest {
         doc_.append("</form>\n");
         doc_.append("</body>\n");
         doc_.append("</html>");
-        DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(doc_.toString());
-        MetaDocument out_ = MetaDocument.newInstance(res_.getDocument());
+        MetaDocument out_ = getMetaDocument(doc_);
         MetaBlock root_ = out_.getRoot();
         assertEq(3, root_.getChildren().size());
         MetaComponent ch_ = root_.getChildren().get(0);
@@ -3017,8 +2968,7 @@ public final class MetaDocumentTest {
         doc_.append("</form>\n");
         doc_.append("</body>\n");
         doc_.append("</html>");
-        DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(doc_.toString());
-        MetaDocument out_ = MetaDocument.newInstance(res_.getDocument());
+        MetaDocument out_ = getMetaDocument(doc_);
         MetaBlock root_ = out_.getRoot();
         assertEq(3, root_.getChildren().size());
         MetaComponent ch_ = root_.getChildren().get(0);
@@ -3051,8 +3001,7 @@ public final class MetaDocumentTest {
         doc_.append("</form>\n");
         doc_.append("</body>\n");
         doc_.append("</html>");
-        DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(doc_.toString());
-        MetaDocument out_ = MetaDocument.newInstance(res_.getDocument());
+        MetaDocument out_ = getMetaDocument(doc_);
         MetaBlock root_ = out_.getRoot();
         assertEq(3, root_.getChildren().size());
         MetaComponent ch_ = root_.getChildren().get(0);
@@ -3085,8 +3034,7 @@ public final class MetaDocumentTest {
         doc_.append("</form>\n");
         doc_.append("</body>\n");
         doc_.append("</html>");
-        DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(doc_.toString());
-        MetaDocument out_ = MetaDocument.newInstance(res_.getDocument());
+        MetaDocument out_ = getMetaDocument(doc_);
         MetaBlock root_ = out_.getRoot();
         assertEq(3, root_.getChildren().size());
         MetaComponent ch_ = root_.getChildren().get(0);
@@ -3122,8 +3070,7 @@ public final class MetaDocumentTest {
         doc_.append("</form>\n");
         doc_.append("</body>\n");
         doc_.append("</html>");
-        DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(doc_.toString());
-        MetaDocument out_ = MetaDocument.newInstance(res_.getDocument());
+        MetaDocument out_ = getMetaDocument(doc_);
         MetaBlock root_ = out_.getRoot();
         assertEq(3, root_.getChildren().size());
         MetaComponent ch_ = root_.getChildren().get(0);
@@ -3159,8 +3106,7 @@ public final class MetaDocumentTest {
         doc_.append("<img src='AAACABABbaba'/>\n");
         doc_.append("</body>\n");
         doc_.append("</html>");
-        DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(doc_.toString());
-        MetaDocument out_ = MetaDocument.newInstance(res_.getDocument());
+        MetaDocument out_ = getMetaDocument(doc_);
         MetaBlock root_ = out_.getRoot();
         assertEq(1, root_.getChildren().size());
         MetaComponent ch_ = root_.getChildren().get(0);
@@ -3186,8 +3132,7 @@ public final class MetaDocumentTest {
         doc_.append("</span>\n");
         doc_.append("</body>\n");
         doc_.append("</html>");
-        DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(doc_.toString());
-        MetaDocument out_ = MetaDocument.newInstance(res_.getDocument());
+        MetaDocument out_ = getMetaDocument(doc_);
         MetaBlock root_ = out_.getRoot();
         assertEq(1, root_.getChildren().size());
         MetaComponent ch_ = root_.getChildren().get(0);
@@ -3215,8 +3160,7 @@ public final class MetaDocumentTest {
         doc_.append("</span>\n");
         doc_.append("</body>\n");
         doc_.append("</html>");
-        DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(doc_.toString());
-        MetaDocument out_ = MetaDocument.newInstance(res_.getDocument());
+        MetaDocument out_ = getMetaDocument(doc_);
         MetaBlock root_ = out_.getRoot();
         assertEq(1, root_.getChildren().size());
         MetaComponent ch_ = root_.getChildren().get(0);
@@ -3240,8 +3184,7 @@ public final class MetaDocumentTest {
         doc_.append("<img src='AAACABABbaba;AAABABABbaba' delay='10'/>\n");
         doc_.append("</body>\n");
         doc_.append("</html>");
-        DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(doc_.toString());
-        MetaDocument out_ = MetaDocument.newInstance(res_.getDocument());
+        MetaDocument out_ = getMetaDocument(doc_);
         MetaBlock root_ = out_.getRoot();
         assertEq(1, root_.getChildren().size());
         MetaComponent ch_ = root_.getChildren().get(0);
@@ -3276,8 +3219,7 @@ public final class MetaDocumentTest {
         doc_.append("</a>\n");
         doc_.append("</body>\n");
         doc_.append("</html>");
-        DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(doc_.toString());
-        MetaDocument out_ = MetaDocument.newInstance(res_.getDocument());
+        MetaDocument out_ = getMetaDocument(doc_);
         MetaBlock root_ = out_.getRoot();
         assertEq(1, root_.getChildren().size());
         MetaComponent ch_ = root_.getChildren().get(0);
@@ -3300,8 +3242,7 @@ public final class MetaDocumentTest {
         doc_.append("</a>\n");
         doc_.append("</body>\n");
         doc_.append("</html>");
-        DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(doc_.toString());
-        MetaDocument out_ = MetaDocument.newInstance(res_.getDocument());
+        MetaDocument out_ = getMetaDocument(doc_);
         MetaBlock root_ = out_.getRoot();
         assertEq(1, root_.getChildren().size());
         MetaComponent ch_ = root_.getChildren().get(0);
@@ -3324,8 +3265,7 @@ public final class MetaDocumentTest {
         doc_.append("</a>\n");
         doc_.append("</body>\n");
         doc_.append("</html>");
-        DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(doc_.toString());
-        MetaDocument out_ = MetaDocument.newInstance(res_.getDocument());
+        MetaDocument out_ = getMetaDocument(doc_);
         MetaBlock root_ = out_.getRoot();
         assertEq(1, root_.getChildren().size());
         MetaComponent ch_ = root_.getChildren().get(0);
@@ -3349,8 +3289,7 @@ public final class MetaDocumentTest {
         doc_.append("</a>\n");
         doc_.append("</body>\n");
         doc_.append("</html>");
-        DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(doc_.toString());
-        MetaDocument out_ = MetaDocument.newInstance(res_.getDocument());
+        MetaDocument out_ = getMetaDocument(doc_);
         MetaBlock root_ = out_.getRoot();
         assertEq(1, root_.getChildren().size());
         MetaComponent ch_ = root_.getChildren().get(0);
@@ -3378,8 +3317,7 @@ public final class MetaDocumentTest {
         doc_.append("</a>\n");
         doc_.append("</body>\n");
         doc_.append("</html>");
-        DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(doc_.toString());
-        MetaDocument out_ = MetaDocument.newInstance(res_.getDocument());
+        MetaDocument out_ = getMetaDocument(doc_);
         MetaBlock root_ = out_.getRoot();
         assertEq(1, root_.getChildren().size());
         MetaComponent ch_ = root_.getChildren().get(0);
@@ -3405,8 +3343,7 @@ public final class MetaDocumentTest {
         doc_.append("</pre>\n");
         doc_.append("</body>\n");
         doc_.append("</html>");
-        DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(doc_.toString());
-        MetaDocument out_ = MetaDocument.newInstance(res_.getDocument());
+        MetaDocument out_ = getMetaDocument(doc_);
         MetaBlock root_ = out_.getRoot();
         assertEq(3, root_.getChildren().size());
         MetaComponent ch_ = root_.getChildren().get(0);
@@ -3444,8 +3381,7 @@ public final class MetaDocumentTest {
         doc_.append("</pre>\n");
         doc_.append("</body>\n");
         doc_.append("</html>");
-        DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(doc_.toString());
-        MetaDocument out_ = MetaDocument.newInstance(res_.getDocument());
+        MetaDocument out_ = getMetaDocument(doc_);
         MetaBlock root_ = out_.getRoot();
         assertEq(2, root_.getChildren().size());
         MetaComponent ch_ = root_.getChildren().get(0);
@@ -3477,8 +3413,7 @@ public final class MetaDocumentTest {
         doc_.append("</pre>\n");
         doc_.append("</body>\n");
         doc_.append("</html>");
-        DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(doc_.toString());
-        MetaDocument out_ = MetaDocument.newInstance(res_.getDocument());
+        MetaDocument out_ = getMetaDocument(doc_);
         MetaBlock root_ = out_.getRoot();
         assertEq(5, root_.getChildren().size());
         MetaComponent ch_ = root_.getChildren().get(0);
@@ -3548,8 +3483,7 @@ public final class MetaDocumentTest {
         doc_.append("</pre>\n");
         doc_.append("</body>\n");
         doc_.append("</html>");
-        DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(doc_.toString());
-        MetaDocument out_ = MetaDocument.newInstance(res_.getDocument());
+        MetaDocument out_ = getMetaDocument(doc_);
         MetaBlock root_ = out_.getRoot();
         assertEq(4, root_.getChildren().size());
         MetaComponent ch_ = root_.getChildren().get(0);
@@ -3605,8 +3539,7 @@ public final class MetaDocumentTest {
         doc_.append("</i></b>\n");
         doc_.append("</body>\n");
         doc_.append("</html>");
-        DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(doc_.toString());
-        MetaDocument out_ = MetaDocument.newInstance(res_.getDocument());
+        MetaDocument out_ = getMetaDocument(doc_);
         MetaBlock root_ = out_.getRoot();
         assertEq(1, root_.getChildren().size());
         MetaComponent ch_ = root_.getChildren().get(0);
@@ -3631,8 +3564,7 @@ public final class MetaDocumentTest {
         doc_.append("</h1>\n");
         doc_.append("</body>\n");
         doc_.append("</html>");
-        DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(doc_.toString());
-        MetaDocument out_ = MetaDocument.newInstance(res_.getDocument());
+        MetaDocument out_ = getMetaDocument(doc_);
         MetaBlock root_ = out_.getRoot();
         assertEq(1, root_.getChildren().size());
         MetaComponent ch_ = root_.getChildren().get(0);
@@ -3656,8 +3588,7 @@ public final class MetaDocumentTest {
         doc_.append("</h2>\n");
         doc_.append("</body>\n");
         doc_.append("</html>");
-        DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(doc_.toString());
-        MetaDocument out_ = MetaDocument.newInstance(res_.getDocument());
+        MetaDocument out_ = getMetaDocument(doc_);
         MetaBlock root_ = out_.getRoot();
         assertEq(1, root_.getChildren().size());
         MetaComponent ch_ = root_.getChildren().get(0);
@@ -3681,8 +3612,7 @@ public final class MetaDocumentTest {
         doc_.append("</h3>\n");
         doc_.append("</body>\n");
         doc_.append("</html>");
-        DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(doc_.toString());
-        MetaDocument out_ = MetaDocument.newInstance(res_.getDocument());
+        MetaDocument out_ = getMetaDocument(doc_);
         MetaBlock root_ = out_.getRoot();
         assertEq(1, root_.getChildren().size());
         MetaComponent ch_ = root_.getChildren().get(0);
@@ -3706,8 +3636,7 @@ public final class MetaDocumentTest {
         doc_.append("</h4>\n");
         doc_.append("</body>\n");
         doc_.append("</html>");
-        DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(doc_.toString());
-        MetaDocument out_ = MetaDocument.newInstance(res_.getDocument());
+        MetaDocument out_ = getMetaDocument(doc_);
         MetaBlock root_ = out_.getRoot();
         assertEq(1, root_.getChildren().size());
         MetaComponent ch_ = root_.getChildren().get(0);
@@ -3731,8 +3660,7 @@ public final class MetaDocumentTest {
         doc_.append("</h5>\n");
         doc_.append("</body>\n");
         doc_.append("</html>");
-        DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(doc_.toString());
-        MetaDocument out_ = MetaDocument.newInstance(res_.getDocument());
+        MetaDocument out_ = getMetaDocument(doc_);
         MetaBlock root_ = out_.getRoot();
         assertEq(1, root_.getChildren().size());
         MetaComponent ch_ = root_.getChildren().get(0);
@@ -3756,8 +3684,7 @@ public final class MetaDocumentTest {
         doc_.append("</h6>\n");
         doc_.append("</body>\n");
         doc_.append("</html>");
-        DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(doc_.toString());
-        MetaDocument out_ = MetaDocument.newInstance(res_.getDocument());
+        MetaDocument out_ = getMetaDocument(doc_);
         MetaBlock root_ = out_.getRoot();
         assertEq(1, root_.getChildren().size());
         MetaComponent ch_ = root_.getChildren().get(0);
@@ -3786,8 +3713,7 @@ public final class MetaDocumentTest {
         doc_.append("</h1>\n");
         doc_.append("</body>\n");
         doc_.append("</html>");
-        DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(doc_.toString());
-        MetaDocument out_ = MetaDocument.newInstance(res_.getDocument());
+        MetaDocument out_ = getMetaDocument(doc_);
         MetaBlock root_ = out_.getRoot();
         assertEq(1, root_.getChildren().size());
         MetaComponent ch_ = root_.getChildren().get(0);
@@ -3822,8 +3748,7 @@ public final class MetaDocumentTest {
         doc_.append("</h2>\n");
         doc_.append("</body>\n");
         doc_.append("</html>");
-        DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(doc_.toString());
-        MetaDocument out_ = MetaDocument.newInstance(res_.getDocument());
+        MetaDocument out_ = getMetaDocument(doc_);
         MetaBlock root_ = out_.getRoot();
         assertEq(1, root_.getChildren().size());
         MetaComponent ch_ = root_.getChildren().get(0);
@@ -3870,8 +3795,7 @@ public final class MetaDocumentTest {
         doc_.append("</h2>\n");
         doc_.append("</body>\n");
         doc_.append("</html>");
-        DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(doc_.toString());
-        MetaDocument out_ = MetaDocument.newInstance(res_.getDocument());
+        MetaDocument out_ = getMetaDocument(doc_);
         MetaBlock root_ = out_.getRoot();
         assertEq(1, root_.getChildren().size());
         MetaComponent ch_ = root_.getChildren().get(0);
@@ -3918,8 +3842,7 @@ public final class MetaDocumentTest {
         doc_.append("</h2>\n");
         doc_.append("</body>\n");
         doc_.append("</html>");
-        DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(doc_.toString());
-        MetaDocument out_ = MetaDocument.newInstance(res_.getDocument());
+        MetaDocument out_ = getMetaDocument(doc_);
         MetaBlock root_ = out_.getRoot();
         assertEq(1, root_.getChildren().size());
         MetaComponent ch_ = root_.getChildren().get(0);
@@ -3968,8 +3891,7 @@ public final class MetaDocumentTest {
         doc_.append("</h2>\n");
         doc_.append("</body>\n");
         doc_.append("</html>");
-        DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(doc_.toString());
-        MetaDocument out_ = MetaDocument.newInstance(res_.getDocument());
+        MetaDocument out_ = getMetaDocument(doc_);
         MetaBlock root_ = out_.getRoot();
         assertEq(1, root_.getChildren().size());
         MetaComponent ch_ = root_.getChildren().get(0);
@@ -4010,8 +3932,7 @@ public final class MetaDocumentTest {
         doc_.append("</h1>\n");
         doc_.append("</body>\n");
         doc_.append("</html>");
-        DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(doc_.toString());
-        MetaDocument out_ = MetaDocument.newInstance(res_.getDocument());
+        MetaDocument out_ = getMetaDocument(doc_);
         MetaBlock root_ = out_.getRoot();
         assertEq(1, root_.getChildren().size());
         MetaComponent ch_ = root_.getChildren().get(0);
@@ -4040,8 +3961,7 @@ public final class MetaDocumentTest {
         doc_.append("</h1>\n");
         doc_.append("</body>\n");
         doc_.append("</html>");
-        DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(doc_.toString());
-        MetaDocument out_ = MetaDocument.newInstance(res_.getDocument());
+        MetaDocument out_ = getMetaDocument(doc_);
         MetaBlock root_ = out_.getRoot();
         assertEq(1, root_.getChildren().size());
         MetaComponent ch_ = root_.getChildren().get(0);
@@ -4070,8 +3990,7 @@ public final class MetaDocumentTest {
         doc_.append("</h1>\n");
         doc_.append("</body>\n");
         doc_.append("</html>");
-        DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(doc_.toString());
-        MetaDocument out_ = MetaDocument.newInstance(res_.getDocument());
+        MetaDocument out_ = getMetaDocument(doc_);
         MetaBlock root_ = out_.getRoot();
         assertEq(1, root_.getChildren().size());
         MetaComponent ch_ = root_.getChildren().get(0);
@@ -4100,8 +4019,7 @@ public final class MetaDocumentTest {
         doc_.append("</h1>\n");
         doc_.append("</body>\n");
         doc_.append("</html>");
-        DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(doc_.toString());
-        MetaDocument out_ = MetaDocument.newInstance(res_.getDocument());
+        MetaDocument out_ = getMetaDocument(doc_);
         MetaBlock root_ = out_.getRoot();
         assertEq(1, root_.getChildren().size());
         MetaComponent ch_ = root_.getChildren().get(0);
@@ -4130,8 +4048,7 @@ public final class MetaDocumentTest {
         doc_.append("</h1>\n");
         doc_.append("</body>\n");
         doc_.append("</html>");
-        DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(doc_.toString());
-        MetaDocument out_ = MetaDocument.newInstance(res_.getDocument());
+        MetaDocument out_ = getMetaDocument(doc_);
         MetaBlock root_ = out_.getRoot();
         assertEq(1, root_.getChildren().size());
         MetaComponent ch_ = root_.getChildren().get(0);
@@ -4160,8 +4077,7 @@ public final class MetaDocumentTest {
         doc_.append("</h1>\n");
         doc_.append("</body>\n");
         doc_.append("</html>");
-        DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(doc_.toString());
-        MetaDocument out_ = MetaDocument.newInstance(res_.getDocument());
+        MetaDocument out_ = getMetaDocument(doc_);
         MetaBlock root_ = out_.getRoot();
         assertEq(1, root_.getChildren().size());
         MetaComponent ch_ = root_.getChildren().get(0);
@@ -4190,8 +4106,7 @@ public final class MetaDocumentTest {
         doc_.append("</h1>\n");
         doc_.append("</body>\n");
         doc_.append("</html>");
-        DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(doc_.toString());
-        MetaDocument out_ = MetaDocument.newInstance(res_.getDocument());
+        MetaDocument out_ = getMetaDocument(doc_);
         MetaBlock root_ = out_.getRoot();
         assertEq(1, root_.getChildren().size());
         MetaComponent ch_ = root_.getChildren().get(0);
@@ -4220,8 +4135,7 @@ public final class MetaDocumentTest {
         doc_.append("</h1>\n");
         doc_.append("</body>\n");
         doc_.append("</html>");
-        DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(doc_.toString());
-        MetaDocument out_ = MetaDocument.newInstance(res_.getDocument());
+        MetaDocument out_ = getMetaDocument(doc_);
         MetaBlock root_ = out_.getRoot();
         assertEq(1, root_.getChildren().size());
         MetaComponent ch_ = root_.getChildren().get(0);
@@ -4250,8 +4164,7 @@ public final class MetaDocumentTest {
         doc_.append("</h1>\n");
         doc_.append("</body>\n");
         doc_.append("</html>");
-        DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(doc_.toString());
-        MetaDocument out_ = MetaDocument.newInstance(res_.getDocument());
+        MetaDocument out_ = getMetaDocument(doc_);
         MetaBlock root_ = out_.getRoot();
         assertEq(1, root_.getChildren().size());
         MetaComponent ch_ = root_.getChildren().get(0);
@@ -4280,8 +4193,7 @@ public final class MetaDocumentTest {
         doc_.append("</h1>\n");
         doc_.append("</body>\n");
         doc_.append("</html>");
-        DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(doc_.toString());
-        MetaDocument out_ = MetaDocument.newInstance(res_.getDocument());
+        MetaDocument out_ = getMetaDocument(doc_);
         MetaBlock root_ = out_.getRoot();
         assertEq(1, root_.getChildren().size());
         MetaComponent ch_ = root_.getChildren().get(0);
@@ -4295,6 +4207,12 @@ public final class MetaDocumentTest {
         assertEq(6,imgMeta_.getStyle().getDelta());
         assertEq(0,imgMeta_.getStyle().getFgColor());
     }
+
+    private static MetaDocument getMetaDocument(StringBuilder _doc) {
+        DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(_doc.toString());
+        return MetaDocument.newInstance(res_.getDocument(), new RendKeyWords());
+    }
+
     @Test
     public void newInstance89Test() {
         StringBuilder doc_ = new StringBuilder();
@@ -4342,8 +4260,7 @@ public final class MetaDocumentTest {
         doc_.append("</span>\n");
         doc_.append("</body>\n");
         doc_.append("</html>");
-        DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(doc_.toString());
-        MetaDocument out_ = MetaDocument.newInstance(res_.getDocument());
+        MetaDocument out_ = getMetaDocument(doc_);
         MetaBlock root_ = out_.getRoot();
         assertEq(1, root_.getChildren().size());
         MetaComponent ch_ = root_.getChildren().get(0);
@@ -4411,8 +4328,7 @@ public final class MetaDocumentTest {
         doc_.append("</h1>\n");
         doc_.append("</body>\n");
         doc_.append("</html>");
-        DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(doc_.toString());
-        MetaDocument out_ = MetaDocument.newInstance(res_.getDocument());
+        MetaDocument out_ = getMetaDocument(doc_);
         MetaBlock root_ = out_.getRoot();
         assertEq(1, root_.getChildren().size());
         MetaComponent ch_ = root_.getChildren().get(0);
@@ -4442,8 +4358,7 @@ public final class MetaDocumentTest {
         doc_.append("</table>\n");
         doc_.append("</body>\n");
         doc_.append("</html>");
-        DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(doc_.toString());
-        MetaDocument out_ = MetaDocument.newInstance(res_.getDocument());
+        MetaDocument out_ = getMetaDocument(doc_);
         MetaBlock root_ = out_.getRoot();
         assertEq(3, root_.getChildren().size());
         MetaComponent ch_ = root_.getFirstChild();
@@ -4530,8 +4445,7 @@ public final class MetaDocumentTest {
         doc_.append("</h1>\n");
         doc_.append("</body>\n");
         doc_.append("</html>");
-        DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(doc_.toString());
-        MetaDocument out_ = MetaDocument.newInstance(res_.getDocument());
+        MetaDocument out_ = getMetaDocument(doc_);
         MetaBlock root_ = out_.getRoot();
         assertEq(1, root_.getChildren().size());
         MetaComponent ch_ = root_.getChildren().get(0);
@@ -4560,8 +4474,7 @@ public final class MetaDocumentTest {
         doc_.append("</h1>\n");
         doc_.append("</body>\n");
         doc_.append("</html>");
-        DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(doc_.toString());
-        MetaDocument out_ = MetaDocument.newInstance(res_.getDocument());
+        MetaDocument out_ = getMetaDocument(doc_);
         MetaBlock root_ = out_.getRoot();
         assertEq(1, root_.getChildren().size());
         MetaComponent ch_ = root_.getChildren().get(0);
@@ -4590,8 +4503,7 @@ public final class MetaDocumentTest {
         doc_.append("</h1>\n");
         doc_.append("</body>\n");
         doc_.append("</html>");
-        DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(doc_.toString());
-        MetaDocument out_ = MetaDocument.newInstance(res_.getDocument());
+        MetaDocument out_ = getMetaDocument(doc_);
         MetaBlock root_ = out_.getRoot();
         assertEq(1, root_.getChildren().size());
         MetaComponent ch_ = root_.getChildren().get(0);
@@ -4620,8 +4532,7 @@ public final class MetaDocumentTest {
         doc_.append("</h1>\n");
         doc_.append("</body>\n");
         doc_.append("</html>");
-        DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(doc_.toString());
-        MetaDocument out_ = MetaDocument.newInstance(res_.getDocument());
+        MetaDocument out_ = getMetaDocument(doc_);
         MetaBlock root_ = out_.getRoot();
         assertEq(1, root_.getChildren().size());
         MetaComponent ch_ = root_.getChildren().get(0);
@@ -4648,8 +4559,7 @@ public final class MetaDocumentTest {
         doc_.append("</h1>\n");
         doc_.append("</body>\n");
         doc_.append("</html>");
-        DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(doc_.toString());
-        MetaDocument out_ = MetaDocument.newInstance(res_.getDocument());
+        MetaDocument out_ = getMetaDocument(doc_);
         MetaBlock root_ = out_.getRoot();
         assertEq(1, root_.getChildren().size());
         MetaComponent ch_ = root_.getChildren().get(0);
@@ -4679,8 +4589,7 @@ public final class MetaDocumentTest {
         doc_.append("<input type='radio' name='myradio' n-i='0' value='1' checked='checked'/>\n");
         doc_.append("</body>\n");
         doc_.append("</html>");
-        DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(doc_.toString());
-        MetaDocument out_ = MetaDocument.newInstance(res_.getDocument());
+        MetaDocument out_ = getMetaDocument(doc_);
         MetaBlock root_ = out_.getRoot();
         assertEq(1, root_.getChildren().size());
         MetaComponent ch_ = root_.getChildren().get(0);
@@ -4711,8 +4620,7 @@ public final class MetaDocumentTest {
         doc_.append("</h1>\n");
         doc_.append("</body>\n");
         doc_.append("</html>");
-        DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(doc_.toString());
-        MetaDocument out_ = MetaDocument.newInstance(res_.getDocument());
+        MetaDocument out_ = getMetaDocument(doc_);
         MetaBlock root_ = out_.getRoot();
         assertEq(1, root_.getChildren().size());
         MetaComponent ch_ = root_.getChildren().get(0);

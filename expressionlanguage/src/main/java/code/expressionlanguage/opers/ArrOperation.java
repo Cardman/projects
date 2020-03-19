@@ -1,9 +1,7 @@
 package code.expressionlanguage.opers;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.errors.custom.AbstractMethod;
-import code.expressionlanguage.errors.custom.BadOperandsNumber;
-import code.expressionlanguage.errors.custom.UnexpectedTypeOperationError;
+import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.OperationsSequence;
@@ -12,7 +10,6 @@ import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.NumberStruct;
 import code.util.CustList;
-import code.util.*;
 import code.util.StringList;
 
 public final class ArrOperation extends InvokingOperation implements SettableElResult {
@@ -90,11 +87,14 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
             if (staticChoiceMethod_) {
                 if (clMeth_.isAbstractMethod()) {
                     setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _conf);
-                    AbstractMethod abs_ = new AbstractMethod();
-                    abs_.setClassName(clMeth_.getRealClass());
-                    abs_.setSgn(clMeth_.getRealId().getSignature(_conf));
+                    FoundErrorInterpret abs_ = new FoundErrorInterpret();
                     abs_.setIndexFile(_conf.getCurrentLocationIndex());
                     abs_.setFileName(_conf.getCurrentFileName());
+                    //method name len
+                    abs_.buildError(
+                            _conf.getContextEl().getAnalysisMessages().getAbstractMethodRef(),
+                            clMeth_.getRealClass(),
+                            clMeth_.getRealId().getSignature(_conf));
                     _conf.addError(abs_);
                     setResultClass(new ClassArgumentMatching(clMeth_.getReturnType()));
                     return;
@@ -122,10 +122,15 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
         }
         if (chidren_.size() != 1) {
             setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _conf);
-            BadOperandsNumber badNb_ = new BadOperandsNumber();
+            FoundErrorInterpret badNb_ = new FoundErrorInterpret();
             badNb_.setFileName(_conf.getCurrentFileName());
-            badNb_.setOperandsNumber(chidren_.size());
             badNb_.setIndexFile(_conf.getCurrentLocationIndex());
+            //second separator char
+            badNb_.buildError(_conf.getContextEl().getAnalysisMessages().getOperatorNbDiff(),
+                    Integer.toString(1),
+                    Integer.toString(chidren_.size()),
+                    "[]"
+            );
             _conf.addError(badNb_);
             setResultClass(new ClassArgumentMatching(_conf.getStandards().getAliasObject()));
             return;
@@ -145,11 +150,12 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
             }
         }
         if (!convertNumber_ && !indexClass_.isNumericInt(_conf)) {
-            UnexpectedTypeOperationError un_ = new UnexpectedTypeOperationError();
+            FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setIndexFile(_conf.getCurrentLocationIndex());
             un_.setFileName(_conf.getCurrentFileName());
-            un_.setExpectedResult(_conf.getStandards().getAliasPrimInteger());
-            un_.setOperands(indexClass_);
+            //first separator char
+            un_.buildError(_conf.getContextEl().getAnalysisMessages().getUnexpectedType(),
+                    StringList.join(indexClass_.getNames(),"&"));
             _conf.addError(un_);
             class_ = new ClassArgumentMatching(_conf.getStandards().getAliasObject());
             setResultClass(class_);
@@ -157,11 +163,12 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
         }
         setRelativeOffsetPossibleAnalyzable(chidren_.first().getIndexInEl(), _conf);
         if (!class_.isArray()) {
-            UnexpectedTypeOperationError un_ = new UnexpectedTypeOperationError();
+            FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setIndexFile(_conf.getCurrentLocationIndex());
             un_.setFileName(_conf.getCurrentFileName());
-            un_.setExpectedResult(PrimitiveTypeUtil.getPrettyArrayType(_conf.getStandards().getAliasObject()));
-            un_.setOperands(class_);
+            //first separator char
+            un_.buildError(_conf.getContextEl().getAnalysisMessages().getUnexpectedType(),
+                    StringList.join(class_.getNames(),"&"));
             _conf.addError(un_);
             class_ = new ClassArgumentMatching(_conf.getStandards().getAliasObject());
             setResultClass(class_);

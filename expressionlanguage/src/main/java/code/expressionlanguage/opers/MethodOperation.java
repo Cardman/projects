@@ -28,10 +28,6 @@ public abstract class MethodOperation extends OperationNode implements Reductibl
     }
 
     public final void tryAnalyzeAssignmentBefore(Analyzable _conf, OperationNode _firstChild) {
-        Block currentBlock_ = _conf.getCurrentBlock();
-        if (currentBlock_  == null) {
-            return;
-        }
         analyzeAssignmentBefore(_conf, _firstChild);
     }
     public void analyzeAssignmentBefore(Analyzable _conf, OperationNode _firstChild) {
@@ -48,10 +44,6 @@ public abstract class MethodOperation extends OperationNode implements Reductibl
         vars_.getMutableLoopBefore().put(_firstChild, mutable_);
     }
     public final void tryAnalyzeAssignmentBeforeNextSibling(Analyzable _conf, OperationNode _nextSibling, OperationNode _previous) {
-        Block currentBlock_ = _conf.getCurrentBlock();
-        if (currentBlock_  == null) {
-            return;
-        }
         analyzeAssignmentBeforeNextSibling(_conf, _nextSibling, _previous);
     }
     public abstract void analyzeAssignmentBeforeNextSibling(Analyzable _conf, OperationNode _nextSibling, OperationNode _previous);

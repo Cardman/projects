@@ -21,28 +21,30 @@ public final class RendSubmit extends RendElement {
 
     @Override
     protected void processAttributes(Configuration _cont, RendDocumentBlock _doc, Element _read, StringList _list) {
-        _list.removeAllString(ATTRIBUTE_VALUE_SUBMIT);
-        String value_ = _read.getAttribute(ATTRIBUTE_VALUE_SUBMIT);
-        preformatted = getPre(_cont,value_);
+        _list.removeAllString(_cont.getRendKeyWords().getAttrMessage());
+        String value_ = _read.getAttribute(_cont.getRendKeyWords().getAttrMessage());
+        int offMessage_ = getAttributeDelimiter(_cont.getRendKeyWords().getAttrMessage());
+        preformatted = getPre(_cont,value_,offMessage_);
         if (preformatted.isEmpty()) {
-            removeUseLess(_read, _list);
+            removeUseLess(_cont,_read, _list);
             return;
         }
         opExp = new StringMap<ResultText>();
         for (EntryCust<String,String> e: preformatted.entryList()) {
-            e.setValue(DocumentBuilder.transformSpecialChars(e.getValue(), _read.hasAttribute(ATTRIBUTE_ESCAPED_EAMP)));
+            e.setValue(DocumentBuilder.transformSpecialChars(e.getValue(), _read.hasAttribute(_cont.getRendKeyWords().getAttrEscapedAmp())));
         }
         int i_ = CustList.FIRST_INDEX;
-        while (_read.hasAttribute(StringList.concat(TAG_PARAM,Long.toString(i_)))) {
-            _list.removeAllString(StringList.concat(TAG_PARAM,Long.toString(i_)));
-            String attribute_ = _read.getAttribute(StringList.concat(TAG_PARAM,Long.toString(i_)));
+        while (_read.hasAttribute(StringList.concat(_cont.getRendKeyWords().getAttrParam(),Long.toString(i_)))) {
+            _list.removeAllString(StringList.concat(_cont.getRendKeyWords().getAttrParam(),Long.toString(i_)));
+            String attribute_ = _read.getAttribute(StringList.concat(_cont.getRendKeyWords().getAttrParam(),Long.toString(i_)));
+            int rowsGrId_ = getAttributeDelimiter(StringList.concat(_cont.getRendKeyWords().getAttrParam(),Long.toString(i_)));
             ResultText r_ = new ResultText();
-            r_.build(attribute_,_cont,_doc);
-            opExp.addEntry(StringList.concat(TAG_PARAM,Long.toString(i_)),r_);
+            r_.build(attribute_,_cont,rowsGrId_,_doc);
+            opExp.addEntry(StringList.concat(_cont.getRendKeyWords().getAttrParam(),Long.toString(i_)),r_);
             i_++;
         }
-        _list.removeAllString(ATTRIBUTE_VALUE);
-        _list.removeAllString(ATTRIBUTE_TYPE);
+        _list.removeAllString(_cont.getRendKeyWords().getAttrValue());
+        _list.removeAllString(_cont.getRendKeyWords().getAttrType());
     }
 
     @Override
@@ -64,8 +66,8 @@ public final class RendSubmit extends RendElement {
 //        ip_.setProcessingAttribute(ATTRIBUTE_VALUE_SUBMIT);
 //        ip_.setOffset(var_.length()+1);
 //        ip_.setLookForAttrValue(true);
-        curWr_.removeAttribute(ATTRIBUTE_VALUE_SUBMIT);
-        curWr_.removeAttribute(ATTRIBUTE_ESCAPED_EAMP);
+        curWr_.removeAttribute(_cont.getRendKeyWords().getAttrMessage());
+        curWr_.removeAttribute(_cont.getRendKeyWords().getAttrEscapedAmp());
         StringList objects_ = new StringList();
         for (EntryCust<String,ResultText> e:opExp.entryList()) {
             ResultText r_ = e.getValue();
@@ -75,8 +77,8 @@ public final class RendSubmit extends RendElement {
             }
             curWr_.removeAttribute(e.getKey());
         }
-        curWr_.setAttribute(ATTRIBUTE_VALUE, StringList.simpleStringsFormat(preformatted.getVal(_cont.getCurrentLanguage()), objects_));
-        curWr_.setAttribute(ATTRIBUTE_TYPE, SUBMIT_TYPE);
-        ownerDocument_.renameNode(curWr_, INPUT_TAG);
+        curWr_.setAttribute(_cont.getRendKeyWords().getAttrValue(), StringList.simpleStringsFormat(preformatted.getVal(_cont.getCurrentLanguage()), objects_));
+        curWr_.setAttribute(_cont.getRendKeyWords().getAttrType(), _cont.getRendKeyWords().getValueSubmit());
+        ownerDocument_.renameNode(curWr_, _cont.getRendKeyWords().getKeyWordInput());
     }
 }

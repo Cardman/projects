@@ -293,7 +293,6 @@ final class FightSuccess {
                 cancelledAbilities_.addAllElts(effetGlobal_.getCancelProtectingAbilities());
             }
         }
-        cancelledAbilities_.removeDuplicates();
         if (StringList.contains(cancelledAbilities_, creatureCbtCible_.getCurrentAbility())) {
             return false;
         }
@@ -838,7 +837,6 @@ final class FightSuccess {
                 }
             }
         }
-        immuneTypes_.removeDuplicates();
         Fighter creatureCbt_=_fight.getFighter(_combattant);
         for (String t: immuneTypes_) {
             if (StringList.contains(creatureCbt_.getTypes(), t)) {
@@ -1177,7 +1175,6 @@ final class FightSuccess {
                 }
             }
         }
-        immuneTypes_.removeDuplicates();
         Fighter creatureCbt_=_fight.getFighter(_combattant);
         for (String t: immuneTypes_) {
             if (StringList.contains(creatureCbt_.getTypes(), t)) {

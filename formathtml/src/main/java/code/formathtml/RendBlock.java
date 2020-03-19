@@ -2,15 +2,17 @@ package code.formathtml;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.EndCallValue;
-import code.expressionlanguage.errors.custom.BadElError;
+import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.files.OffsetBooleanInfo;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
+import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.methods.AnalyzedBlock;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.structs.*;
 import code.expressionlanguage.variables.LocalVariable;
+import code.formathtml.errors.RendKeyWords;
 import code.formathtml.exec.*;
 import code.formathtml.stacks.RendParentElement;
 import code.formathtml.stacks.RendReadWrite;
@@ -20,66 +22,9 @@ import code.util.*;
 
 public abstract class RendBlock implements AnalyzedBlock {
     static final String SPACE = " ";
-    static final String TAG_PARAM = "param";
-    static final String ATTRIBUTE_VALUE_SUBMIT = "message";
-    static final String ATTRIBUTE_VALUE = "value";
-    static final String ATTRIBUTE_QUOTED = "quoted";
-    static final String ATTRIBUTE_ESCAPED = "escaped";
-    static final String ATTRIBUTE_ESCAPED_EAMP = "escapedamp";
-    static final String ATTRIBUTE_CLASS_NAME = "className";
-    static final String ATTRIBUTE_CONVERT = "convert";
-    static final String ATTRIBUTE_CONVERT_VALUE = "convertValue";
-    static final String ATTRIBUTE_CONVERT_FIELD = "convertField";
-    static final String ATTRIBUTE_CONVERT_FIELD_VALUE = "convertFieldValue";
-    static final String ATTRIBUTE_INDEX_CLASS_NAME = "indexClassName";
-    static final String ATTRIBUTE_FROM = "from";
-    static final String ATTRIBUTE_INIT = "init";
-    static final String ATTRIBUTE_STEP = "step";
-    static final String ATTRIBUTE_LABEL = "label";
-    static final String ATTRIBUTE_NAME = "name";
-    static final String DEFAULT_ATTRIBUTE = "default";
-    static final String ATTRIBUTE_PREPARE_BEAN = "prepare";
-    static final String ATTRIBUTE_FORM = "form";
-    static final String ATTRIBUTE_LIST = "list";
-    static final String ATTRIBUTE_MAP = "map";
-    static final String ATTRIBUTE_ID = "id";
-    static final String SPAN_TAG = "span";
-    static final String ATTRIBUTE_FOR = "for";
-    static final String ATTRIBUTE_VALUE_MESSAGE = "valueMessage";
-    static final String ATTRIBUTE_GROUP_ID = "groupId";
-    static final String ATTRIBUTE_ROWS = "rows";
-    static final String ATTRIBUTE_COLS = "cols";
-    static final String ATTRIBUTE_MULTIPLE = "multiple";
-    static final String ATTRIBUTE_SRC = "src";
-    static final String ATTRIBUTE_KEY = "key";
-    static final String ATTRIBUTE_VAR = "var";
-    static final String ATTRIBUTE_HREF = "href";
-    static final String ATTRIBUTE_REL = "rel";
-    static final String STYLESHEET = "stylesheet";
-    static final String TAG_HEAD = "head";
-    static final String TAG_STYLE = "style";
-    static final String TAG_LINK = "link";
     static final String RETURN_LINE = "\n";
-    static final String ATTRIBUTE_COMMAND = "command";
-    static final String ATTRIBUTE_ACTION = "action";
-    static final String ATTRIBUTE_TO = "to";
-    static final String ATTRIBUTE_EQ = "eq";
-    static final String TAG_OPTION = "option";
-    static final String SELECTED = "selected";
-    static final String BEAN_ATTRIBUTE = "bean";
-    static final String ALIAS_ATTRIBUTE = "alias";
-    static final String ATTRIBUTE_VALUE_CHANGE_EVENT = "valueChangeEvent";
-    static final String CHECKED = "checked";
-    static final String ATTRIBUTE_CONDITION = "condition";
-    static final String KEY_CLASS_NAME_ATTRIBUTE = "keyClassName";
-    static final String VAR_CLASS_NAME_ATTRIBUTE = "varClassName";
-    static final String ATTRIBUTE_TYPE = "type";
-    static final String ATTRIBUTE_TITLE = "title";
     static final String CALL_METHOD = "$";
     static final String COMMA = ",";
-    static final String SUBMIT_TYPE = "submit";
-    static final String BODY_TAG = "body";
-    static final String INPUT_TAG = "input";
     static final String EMPTY_STRING = "";
     static final char RIGHT_EL = '}';
     static final char LEFT_EL = '{';
@@ -88,52 +33,17 @@ public abstract class RendBlock implements AnalyzedBlock {
     static final String LT_END_TAG = "</";
     static final char GT_TAG = '>';
     static final char LT_BEGIN_TAG = '<';
-    static final String TAG_A = "a";
-    static final String NUMBER_FORM = "n-f";
-    static final String NUMBER_ANCHOR = "n-a";
-    static final String NUMBER_INPUT = "n-i";
+
     static final String DOT = ".";
     static final String TMP_LOC = "tmpLoc";
 
-    static final String CHECKBOX = "checkbox";
+    static final String AND_ERR = "&";
+    static final String OR_ERR = "|";
+    static final String LEFT_PAR = "(";
+    static final String RIGHT_PAR = ")";
+    static final String ZERO = "0";
+    static final String STR = "\"";
 
-    static final String TEXT = "text";
-
-    static final String RANGE = "range";
-
-    static final String RADIO = "radio";
-
-    static final String NUMBER = "number";
-    static final String TEXT_AREA = "textarea";
-    static final String SELECT_TAG = "select";
-    static final String ATTRIBUTE_VALIDATOR = "validator";
-    static final String ATTRIBUTE_VAR_VALUE = "varValue";
-    static final String TAG_IMG = "img";
-    static final String PAGE_ATTRIBUTE = "page";
-    private static final String FOR_BLOCK_TAG = "for";
-    private static final String WHILE_BLOCK_TAG = "while";
-    private static final String ELSE_BLOCK_TAG = "else";
-    private static final String MESSAGE_BLOCK_TAG = "message";
-    private static final String IMPORT_BLOCK_TAG = "import";
-    private static final String PACKAGE_BLOCK_TAG = "package";
-    private static final String CLASS_BLOCK_TAG = "class";
-    private static final String FIELD_BLOCK_TAG = "field";
-    private static final String SUBMIT_BLOCK_TAG = "submit";
-    private static final String FORM_BLOCK_TAG = "form";
-    private static final String SET_BLOCK_TAG = "set";
-    private static final String CONTINUE_TAG = "continue";
-    private static final String BREAK_TAG = "break";
-    private static final String RETURN_TAG = "return";
-    private static final String TRY_TAG = "try";
-    private static final String CATCH_TAG = "catch";
-    private static final String THROW_TAG = "throw";
-    private static final String TAG_FINALLY = "finally";
-    private static final String TAG_SWITCH = "switch";
-    private static final String TAG_CASE = "case";
-    private static final String TAG_DEFAULT = "default";
-    private static final String TAG_DO = "do";
-    private static final String IF_BLOCK_TAG = "if";
-    private static final String ELSE_IF_BLOCK_TAG = "elseif";
     private static final char END_ESCAPED = ';';
     private static final char ENCODED = '&';
     private static final char EQUALS = '=';
@@ -148,6 +58,7 @@ public abstract class RendBlock implements AnalyzedBlock {
     private OffsetsBlock offset;
 
     private StringMap<IntTreeMap<Integer>> escapedChars;
+    private StringMap<AttributePart> attributeDelimiters = new StringMap<AttributePart>();
 
     RendBlock(OffsetsBlock _offset) {
         offset = _offset;
@@ -219,9 +130,9 @@ public abstract class RendBlock implements AnalyzedBlock {
         _conf.getHtmlPage().setAnchorsVars(_conf.getAnchorsVars());
         _conf.getHtmlPage().setAnchorsNames(_conf.getAnchorsNames());
         _conf.getHtmlPage().setConstAnchors(_conf.getConstAnchors());
-        _conf.setBeanName(doc_.getDocumentElement().getAttribute(StringList.concat(_conf.getPrefix(), BEAN_ATTRIBUTE)));
-        doc_.getDocumentElement().removeAttribute(StringList.concat(_conf.getPrefix(), BEAN_ATTRIBUTE));
-        doc_.getDocumentElement().removeAttribute(StringList.concat(_conf.getPrefix(), ALIAS_ATTRIBUTE));
+        _conf.setBeanName(doc_.getDocumentElement().getAttribute(StringList.concat(_conf.getPrefix(), _conf.getRendKeyWords().getAttrBean())));
+        doc_.getDocumentElement().removeAttribute(StringList.concat(_conf.getPrefix(), _conf.getRendKeyWords().getAttrBean()));
+        doc_.getDocumentElement().removeAttribute(StringList.concat(_conf.getPrefix(), _conf.getRendKeyWords().getAttrAlias()));
         _conf.setDocument(doc_);
         _conf.clearPages();
         return doc_.export();
@@ -389,6 +300,7 @@ public abstract class RendBlock implements AnalyzedBlock {
             int beginHeader_ = _begin + tagName_.length();
             StringMap<AttributePart> attr_;
             attr_ = getAttributes(_docText, beginHeader_, endHeader_);
+            bl_.attributeDelimiters = attr_;
             StringMap<IntTreeMap<Integer>> infos_ = new StringMap<IntTreeMap<Integer>>();
             for (EntryCust<String, AttributePart> e: attr_.entryList()) {
                 infos_.put(e.getKey(), getIndexesSpecChars(_docText, true, e.getValue(), _begin));
@@ -411,182 +323,203 @@ public abstract class RendBlock implements AnalyzedBlock {
         int beginHeader_ = _begin + tagName_.length();
         StringMap<AttributePart> attr_;
         attr_ = getAttributes(_docText, beginHeader_, endHeader_);
-        if (StringList.quickEq(tagName_,StringList.concat(_prefix,FOR_BLOCK_TAG))) {
-            if (elt_.hasAttribute(ATTRIBUTE_LIST)) {
+        RendKeyWords rendKeyWords_ = _conf.getRendKeyWords();
+        if (StringList.quickEq(tagName_,StringList.concat(_prefix,rendKeyWords_.getKeyWordFor()))) {
+            if (elt_.hasAttribute(rendKeyWords_.getAttrList())) {
                 return new RendForEachLoop(_conf,
-                        newOffsetStringInfo(elt_,ATTRIBUTE_CLASS_NAME, attr_),
-                        newOffsetStringInfo(elt_,ATTRIBUTE_VAR, attr_),
-                        newOffsetStringInfo(elt_,ATTRIBUTE_LIST, attr_),
-                        newOffsetStringInfo(elt_,ATTRIBUTE_INDEX_CLASS_NAME, attr_),
-                        newOffsetStringInfo(elt_,ATTRIBUTE_LABEL, attr_),
+                        newOffsetStringInfo(elt_,rendKeyWords_.getAttrClassName(), attr_),
+                        newOffsetStringInfo(elt_,rendKeyWords_.getAttrVar(), attr_),
+                        newOffsetStringInfo(elt_,rendKeyWords_.getAttrList(), attr_),
+                        newOffsetStringInfo(elt_,rendKeyWords_.getAttrIndexClassName(), attr_),
+                        newOffsetStringInfo(elt_,rendKeyWords_.getAttrLabel(), attr_),
                         new OffsetsBlock(_begin,_begin)
                 );
             }
-            if (elt_.hasAttribute(ATTRIBUTE_MAP)) {
+            if (elt_.hasAttribute(rendKeyWords_.getAttrMap())) {
                 return new RendForEachTable(_conf,
-                        newOffsetStringInfo(elt_,KEY_CLASS_NAME_ATTRIBUTE, attr_),
-                        newOffsetStringInfo(elt_,ATTRIBUTE_KEY, attr_),
-                        newOffsetStringInfo(elt_,VAR_CLASS_NAME_ATTRIBUTE, attr_),
-                        newOffsetStringInfo(elt_,ATTRIBUTE_VALUE, attr_),
-                        newOffsetStringInfo(elt_,ATTRIBUTE_MAP, attr_),
-                        newOffsetStringInfo(elt_,ATTRIBUTE_INDEX_CLASS_NAME, attr_),
-                        newOffsetStringInfo(elt_,ATTRIBUTE_LABEL, attr_),
+                        newOffsetStringInfo(elt_,rendKeyWords_.getAttrKeyClassName(), attr_),
+                        newOffsetStringInfo(elt_,rendKeyWords_.getAttrKey(), attr_),
+                        newOffsetStringInfo(elt_,rendKeyWords_.getAttrVarClassName(), attr_),
+                        newOffsetStringInfo(elt_,rendKeyWords_.getAttrValue(), attr_),
+                        newOffsetStringInfo(elt_,rendKeyWords_.getAttrMap(), attr_),
+                        newOffsetStringInfo(elt_,rendKeyWords_.getAttrIndexClassName(), attr_),
+                        newOffsetStringInfo(elt_,rendKeyWords_.getAttrLabel(), attr_),
                         new OffsetsBlock(_begin,_begin)
                 );
             }
-            if (elt_.hasAttribute(ATTRIBUTE_VAR)) {
+            if (elt_.hasAttribute(rendKeyWords_.getAttrVar())) {
                 return new RendForIterativeLoop(_conf,
-                        newOffsetStringInfo(elt_,ATTRIBUTE_CLASS_NAME, attr_),
-                        newOffsetStringInfo(elt_,ATTRIBUTE_VAR, attr_),
-                        newOffsetStringInfo(elt_,ATTRIBUTE_FROM, attr_),
-                        newOffsetStringInfo(elt_,ATTRIBUTE_TO, attr_),
-                        newOffsetBooleanInfo(elt_,ATTRIBUTE_EQ),
-                        newOffsetStringInfo(elt_,ATTRIBUTE_STEP, attr_),
-                        newOffsetStringInfo(elt_,ATTRIBUTE_INDEX_CLASS_NAME, attr_),
-                        newOffsetStringInfo(elt_,ATTRIBUTE_LABEL, attr_),
+                        newOffsetStringInfo(elt_,rendKeyWords_.getAttrClassName(), attr_),
+                        newOffsetStringInfo(elt_,rendKeyWords_.getAttrVar(), attr_),
+                        newOffsetStringInfo(elt_,rendKeyWords_.getAttrFrom(), attr_),
+                        newOffsetStringInfo(elt_,rendKeyWords_.getAttrTo(), attr_),
+                        newOffsetBooleanInfo(elt_,rendKeyWords_.getAttrEq()),
+                        newOffsetStringInfo(elt_,rendKeyWords_.getAttrStep(), attr_),
+                        newOffsetStringInfo(elt_,rendKeyWords_.getAttrIndexClassName(), attr_),
+                        newOffsetStringInfo(elt_,rendKeyWords_.getAttrLabel(), attr_),
                         new OffsetsBlock(_begin,_begin)
                         );
             }
             return new RendForMutableIterativeLoop(_conf,
-                    newOffsetStringInfo(elt_,ATTRIBUTE_CLASS_NAME, attr_),
-                    newOffsetStringInfo(elt_,ATTRIBUTE_INIT, attr_),
-                    newOffsetStringInfo(elt_,ATTRIBUTE_CONDITION, attr_),
-                    newOffsetStringInfo(elt_,ATTRIBUTE_STEP, attr_),
-                    newOffsetStringInfo(elt_,ATTRIBUTE_INDEX_CLASS_NAME, attr_)
-                    ,newOffsetStringInfo(elt_,ATTRIBUTE_LABEL, attr_),
+                    newOffsetStringInfo(elt_,rendKeyWords_.getAttrClassName(), attr_),
+                    newOffsetStringInfo(elt_,rendKeyWords_.getAttrInit(), attr_),
+                    newOffsetStringInfo(elt_,rendKeyWords_.getAttrCondition(), attr_),
+                    newOffsetStringInfo(elt_,rendKeyWords_.getAttrStep(), attr_),
+                    newOffsetStringInfo(elt_,rendKeyWords_.getAttrIndexClassName(), attr_)
+                    ,newOffsetStringInfo(elt_,rendKeyWords_.getAttrLabel(), attr_),
                     new OffsetsBlock(_begin,_begin));
         }
-        if (StringList.quickEq(tagName_,StringList.concat(_prefix,WHILE_BLOCK_TAG))) {
+        if (StringList.quickEq(tagName_,StringList.concat(_prefix,rendKeyWords_.getKeyWordWhile()))) {
             MutableNode previousSibling_ = elt_.getPreviousSibling();
             if (previousSibling_ instanceof Text && previousSibling_.getTextContent().trim().isEmpty()) {
                 previousSibling_ = previousSibling_.getPreviousSibling();
             }
-            if (previousSibling_ instanceof Element && StringList.quickEq(((Element) previousSibling_).getTagName(),StringList.concat(_prefix,TAG_DO))) {
-                return new RendDoWhileCondition(newOffsetStringInfo(elt_,ATTRIBUTE_CONDITION, attr_),new OffsetsBlock(_begin,_begin));
+            if (previousSibling_ instanceof Element
+                    && StringList.quickEq(((Element) previousSibling_).getTagName(),StringList.concat(_prefix,rendKeyWords_.getKeyWordDo()))) {
+                return new RendDoWhileCondition(newOffsetStringInfo(elt_,rendKeyWords_.getAttrCondition(), attr_),
+                        new OffsetsBlock(_begin,_begin));
             }
-            return new RendWhileCondition(newOffsetStringInfo(elt_,ATTRIBUTE_CONDITION, attr_),newOffsetStringInfo(elt_,ATTRIBUTE_LABEL, attr_),new OffsetsBlock(_begin,_begin));
+            return new RendWhileCondition(newOffsetStringInfo(elt_,rendKeyWords_.getAttrCondition(), attr_),
+                    newOffsetStringInfo(elt_,rendKeyWords_.getAttrLabel(), attr_),new OffsetsBlock(_begin,_begin));
         }
-        if (StringList.quickEq(tagName_,StringList.concat(_prefix,TAG_DO))) {
-            return new RendDoBlock(newOffsetStringInfo(elt_,ATTRIBUTE_LABEL, attr_),new OffsetsBlock(_begin,_begin));
+        if (StringList.quickEq(tagName_,StringList.concat(_prefix,rendKeyWords_.getKeyWordDo()))) {
+            return new RendDoBlock(newOffsetStringInfo(elt_,rendKeyWords_.getAttrLabel(), attr_),
+                    new OffsetsBlock(_begin,_begin));
         }
-        if (StringList.quickEq(tagName_,StringList.concat(_prefix,RETURN_TAG))) {
+        if (StringList.quickEq(tagName_,StringList.concat(_prefix,rendKeyWords_.getKeyWordReturn()))) {
             return new RendReturnMehod(new OffsetsBlock(_begin,_begin));
         }
-        if (StringList.quickEq(tagName_,StringList.concat(_prefix,BREAK_TAG))) {
-            return new RendBreakBlock(newOffsetStringInfo(elt_,ATTRIBUTE_LABEL, attr_),new OffsetsBlock(_begin,_begin));
+        if (StringList.quickEq(tagName_,StringList.concat(_prefix,rendKeyWords_.getKeyWordBreak()))) {
+            return new RendBreakBlock(newOffsetStringInfo(elt_,rendKeyWords_.getAttrLabel(), attr_),
+                    new OffsetsBlock(_begin,_begin));
         }
-        if (StringList.quickEq(tagName_,StringList.concat(_prefix,CONTINUE_TAG))) {
-            return new RendContinueBlock(newOffsetStringInfo(elt_,ATTRIBUTE_LABEL, attr_),new OffsetsBlock(_begin,_begin));
+        if (StringList.quickEq(tagName_,StringList.concat(_prefix,rendKeyWords_.getKeyWordContinue()))) {
+            return new RendContinueBlock(newOffsetStringInfo(elt_,rendKeyWords_.getAttrLabel(), attr_),
+                    new OffsetsBlock(_begin,_begin));
         }
-        if (StringList.quickEq(tagName_,StringList.concat(_prefix,THROW_TAG))) {
-            return new RendThrowing(newOffsetStringInfo(elt_,ATTRIBUTE_VALUE, attr_),new OffsetsBlock(_begin,_begin));
+        if (StringList.quickEq(tagName_,StringList.concat(_prefix,rendKeyWords_.getKeyWordThrow()))) {
+            return new RendThrowing(newOffsetStringInfo(elt_,rendKeyWords_.getAttrValue(), attr_),
+                    new OffsetsBlock(_begin,_begin));
         }
-        if (StringList.quickEq(tagName_,StringList.concat(_prefix,SET_BLOCK_TAG))) {
-            if (elt_.hasAttribute(ATTRIBUTE_CLASS_NAME)) {
-                _curParent.appendChild(new RendDeclareVariable(newOffsetStringInfo(elt_,ATTRIBUTE_CLASS_NAME, attr_),new OffsetsBlock(_begin,_begin)));
+        if (StringList.quickEq(tagName_,StringList.concat(_prefix,rendKeyWords_.getKeyWordSet()))) {
+            if (elt_.hasAttribute(rendKeyWords_.getAttrClassName())) {
+                _curParent.appendChild(new RendDeclareVariable(newOffsetStringInfo(elt_,rendKeyWords_.getAttrClassName(), attr_),
+                        new OffsetsBlock(_begin,_begin)));
             }
-            return new RendLine(newOffsetStringInfo(elt_,ATTRIBUTE_VALUE, attr_),new OffsetsBlock(_begin,_begin));
+            return new RendLine(newOffsetStringInfo(elt_,rendKeyWords_.getAttrValue(), attr_),
+                    new OffsetsBlock(_begin,_begin));
         }
-        if (StringList.quickEq(tagName_,StringList.concat(_prefix,IF_BLOCK_TAG))) {
-            return new RendIfCondition(newOffsetStringInfo(elt_,ATTRIBUTE_CONDITION, attr_),newOffsetStringInfo(elt_,ATTRIBUTE_LABEL, attr_),new OffsetsBlock(_begin,_begin));
+        if (StringList.quickEq(tagName_,StringList.concat(_prefix,rendKeyWords_.getKeyWordIf()))) {
+            return new RendIfCondition(newOffsetStringInfo(elt_,rendKeyWords_.getAttrCondition(), attr_),
+                    newOffsetStringInfo(elt_,rendKeyWords_.getAttrLabel(), attr_),new OffsetsBlock(_begin,_begin));
         }
-        if (StringList.quickEq(tagName_,StringList.concat(_prefix,ELSE_IF_BLOCK_TAG))) {
-            return new RendElseIfCondition(newOffsetStringInfo(elt_,ATTRIBUTE_CONDITION, attr_),new OffsetsBlock(_begin,_begin));
+        if (StringList.quickEq(tagName_,StringList.concat(_prefix,rendKeyWords_.getKeyWordElseif()))) {
+            return new RendElseIfCondition(newOffsetStringInfo(elt_,rendKeyWords_.getAttrCondition(), attr_),
+                    new OffsetsBlock(_begin,_begin));
         }
-        if (StringList.quickEq(tagName_,StringList.concat(_prefix,ELSE_BLOCK_TAG))) {
+        if (StringList.quickEq(tagName_,StringList.concat(_prefix,rendKeyWords_.getKeyWordElse()))) {
             return new RendElseCondition(new OffsetsBlock(_begin,_begin));
         }
-        if (StringList.quickEq(tagName_,StringList.concat(_prefix,TRY_TAG))) {
-            return new RendTryEval(newOffsetStringInfo(elt_,ATTRIBUTE_LABEL, attr_),new OffsetsBlock(_begin,_begin));
+        if (StringList.quickEq(tagName_,StringList.concat(_prefix,rendKeyWords_.getKeyWordTry()))) {
+            return new RendTryEval(newOffsetStringInfo(elt_,rendKeyWords_.getAttrLabel(), attr_),
+                    new OffsetsBlock(_begin,_begin));
         }
-        if (StringList.quickEq(tagName_,StringList.concat(_prefix,CATCH_TAG))) {
-            if (elt_.hasAttribute(ATTRIBUTE_CLASS_NAME)) {
-                return new RendCatchEval(newOffsetStringInfo(elt_,ATTRIBUTE_CLASS_NAME, attr_),newOffsetStringInfo(elt_,ATTRIBUTE_VAR, attr_),new OffsetsBlock(_begin,_begin));
+        if (StringList.quickEq(tagName_,StringList.concat(_prefix,rendKeyWords_.getKeyWordCatch()))) {
+            if (elt_.hasAttribute(rendKeyWords_.getAttrClassName())) {
+                return new RendCatchEval(newOffsetStringInfo(elt_,rendKeyWords_.getAttrClassName(), attr_),
+                        newOffsetStringInfo(elt_,rendKeyWords_.getAttrVar(), attr_),
+                        new OffsetsBlock(_begin,_begin));
             }
             return new RendNullCatchEval(new OffsetsBlock(_begin,_begin));
         }
-        if (StringList.quickEq(tagName_,StringList.concat(_prefix,TAG_FINALLY))) {
+        if (StringList.quickEq(tagName_,StringList.concat(_prefix,rendKeyWords_.getKeyWordFinally()))) {
             return new RendFinallyEval(new OffsetsBlock(_begin,_begin));
         }
-        if (StringList.quickEq(tagName_,StringList.concat(_prefix,TAG_SWITCH))) {
-            return new RendSwitchBlock(newOffsetStringInfo(elt_,ATTRIBUTE_VALUE, attr_),newOffsetStringInfo(elt_,ATTRIBUTE_LABEL, attr_),new OffsetsBlock(_begin,_begin));
+        if (StringList.quickEq(tagName_,StringList.concat(_prefix,rendKeyWords_.getKeyWordSwitch()))) {
+            return new RendSwitchBlock(newOffsetStringInfo(elt_,rendKeyWords_.getAttrValue(), attr_),
+                    newOffsetStringInfo(elt_,rendKeyWords_.getAttrLabel(), attr_),
+                    new OffsetsBlock(_begin,_begin));
         }
-        if (StringList.quickEq(tagName_,StringList.concat(_prefix,TAG_CASE))) {
-            return new RendCaseCondition(newOffsetStringInfo(elt_,ATTRIBUTE_VALUE, attr_),new OffsetsBlock(_begin,_begin));
+        if (StringList.quickEq(tagName_,StringList.concat(_prefix,rendKeyWords_.getKeyWordCase()))) {
+            return new RendCaseCondition(newOffsetStringInfo(elt_,rendKeyWords_.getAttrValue(), attr_),
+                    new OffsetsBlock(_begin,_begin));
         }
-        if (StringList.quickEq(tagName_,StringList.concat(_prefix,TAG_DEFAULT))) {
+        if (StringList.quickEq(tagName_,StringList.concat(_prefix,rendKeyWords_.getKeyWordDefault()))) {
             return new RendDefaultCondition(new OffsetsBlock(_begin,_begin));
         }
-        if (StringList.quickEq(tagName_,StringList.concat(_prefix,IMPORT_BLOCK_TAG))) {
-            return new RendImport(elt_,newOffsetStringInfo(elt_,PAGE_ATTRIBUTE, attr_),new OffsetsBlock(_begin,_begin));
+        if (StringList.quickEq(tagName_,StringList.concat(_prefix,rendKeyWords_.getKeyWordImport()))) {
+            return new RendImport(elt_,newOffsetStringInfo(elt_,rendKeyWords_.getAttrPage(), attr_),new OffsetsBlock(_begin,_begin));
         }
-        if (StringList.quickEq(tagName_,StringList.concat(_prefix,SUBMIT_BLOCK_TAG))) {
+        if (StringList.quickEq(tagName_,StringList.concat(_prefix,rendKeyWords_.getKeyWordSubmit()))) {
             return new RendSubmit(elt_,new OffsetsBlock(_begin,_begin));
         }
-        if (StringList.quickEq(tagName_,TAG_A)) {
+        if (StringList.quickEq(tagName_,rendKeyWords_.getKeyWordAnchor())) {
             return new RendAnchor(elt_,new OffsetsBlock(_begin,_begin));
         }
-        if (StringList.quickEq(tagName_,TAG_IMG)) {
+        if (StringList.quickEq(tagName_,rendKeyWords_.getKeyWordImg())) {
             return new RendImg(elt_,new OffsetsBlock(_begin,_begin));
         }
-        if (StringList.quickEq(tagName_,TAG_LINK)) {
+        if (StringList.quickEq(tagName_,rendKeyWords_.getKeyWordLink())) {
             return new RendLink(elt_,new OffsetsBlock(_begin,_begin));
         }
-        if (StringList.quickEq(tagName_,TAG_STYLE)) {
+        if (StringList.quickEq(tagName_,rendKeyWords_.getKeyWordStyle())) {
             return new RendStyle(elt_,new OffsetsBlock(_begin,_begin));
         }
-        if (StringList.quickEq(tagName_,StringList.concat(_prefix,TAG_IMG))) {
+        if (StringList.quickEq(tagName_,StringList.concat(_prefix,rendKeyWords_.getKeyWordImg()))) {
             return new RendEscImg(elt_,new OffsetsBlock(_begin,_begin));
         }
-        if (StringList.quickEq(tagName_,StringList.concat(_prefix,PACKAGE_BLOCK_TAG))) {
-            return new RendPackage(newOffsetStringInfo(elt_,ATTRIBUTE_NAME, attr_),new OffsetsBlock(_begin,_begin));
+        if (StringList.quickEq(tagName_,StringList.concat(_prefix,rendKeyWords_.getKeyWordPackage()))) {
+            return new RendPackage(newOffsetStringInfo(elt_,rendKeyWords_.getAttrName(), attr_),
+                    new OffsetsBlock(_begin,_begin));
         }
-        if (StringList.quickEq(tagName_,FORM_BLOCK_TAG)) {
+        if (StringList.quickEq(tagName_,rendKeyWords_.getKeyWordForm())) {
             return new RendForm(elt_,new OffsetsBlock(_begin,_begin));
         }
-        if (StringList.quickEq(tagName_,StringList.concat(_prefix,FORM_BLOCK_TAG))) {
-            return new RendImportForm(newOffsetStringInfo(elt_,ATTRIBUTE_FORM, attr_),new OffsetsBlock(_begin,_begin));
+        if (StringList.quickEq(tagName_,StringList.concat(_prefix,rendKeyWords_.getKeyWordForm()))) {
+            return new RendImportForm(newOffsetStringInfo(elt_,rendKeyWords_.getAttrForm(), attr_),new OffsetsBlock(_begin,_begin));
         }
-        if (StringList.quickEq(tagName_,StringList.concat(_prefix,CLASS_BLOCK_TAG))) {
-            return new RendClass(newOffsetStringInfo(elt_,ATTRIBUTE_NAME, attr_),new OffsetsBlock(_begin,_begin));
+        if (StringList.quickEq(tagName_,StringList.concat(_prefix,rendKeyWords_.getKeyWordClass()))) {
+            return new RendClass(newOffsetStringInfo(elt_,rendKeyWords_.getAttrName(), attr_),new OffsetsBlock(_begin,_begin));
         }
-        if (StringList.quickEq(tagName_,StringList.concat(_prefix,FIELD_BLOCK_TAG))) {
-            return new RendField(newOffsetStringInfo(elt_,ATTRIBUTE_PREPARE_BEAN, attr_),new OffsetsBlock(_begin,_begin));
+        if (StringList.quickEq(tagName_,StringList.concat(_prefix,rendKeyWords_.getKeyWordField()))) {
+            return new RendField(newOffsetStringInfo(elt_,rendKeyWords_.getAttrPrepare(), attr_),new OffsetsBlock(_begin,_begin));
         }
-        if (StringList.quickEq(tagName_,StringList.concat(_prefix,MESSAGE_BLOCK_TAG))) {
+        if (StringList.quickEq(tagName_,StringList.concat(_prefix,rendKeyWords_.getKeyWordMessage()))) {
             return new RendMessage(elt_,new OffsetsBlock(_begin,_begin));
         }
-        if (StringList.quickEq(tagName_,StringList.concat(_prefix,SELECT_TAG))) {
+        if (StringList.quickEq(tagName_,StringList.concat(_prefix,rendKeyWords_.getKeyWordSelect()))) {
             return new RendSelect(elt_,new OffsetsBlock(_begin,_begin));
         }
-        if (StringList.quickEq(tagName_,INPUT_TAG)) {
-            if (StringList.quickEq(elt_.getAttribute(ATTRIBUTE_TYPE),RADIO)) {
+        if (StringList.quickEq(tagName_,rendKeyWords_.getKeyWordInput())) {
+            if (StringList.quickEq(elt_.getAttribute(rendKeyWords_.getAttrType()),rendKeyWords_.getValueRadio())) {
                 return new RendRadio(elt_,new OffsetsBlock(_begin,_begin));
             }
             return new RendStdInput(elt_,new OffsetsBlock(_begin,_begin));
         }
-        if (StringList.quickEq(tagName_,TEXT_AREA)) {
+        if (StringList.quickEq(tagName_,rendKeyWords_.getKeyWordTextarea())) {
             return new RendTextArea(elt_,new OffsetsBlock(_begin,_begin));
         }
-        if (StringList.quickEq(tagName_,SPAN_TAG)) {
-            if (!elt_.getAttribute(StringList.concat(_conf.getPrefix(),ATTRIBUTE_FOR)).isEmpty()) {
+        if (StringList.quickEq(tagName_,rendKeyWords_.getKeyWordSpan())) {
+            if (!elt_.getAttribute(StringList.concat(_conf.getPrefix(),rendKeyWords_.getAttrFor())).isEmpty()) {
                 return new RendSpan(elt_,new OffsetsBlock(_begin,_begin));
             }
         }
-        if (StringList.quickEq(tagName_,StringList.concat(_prefix,TAG_A))) {
+        if (StringList.quickEq(tagName_,StringList.concat(_prefix,rendKeyWords_.getKeyWordAnchor()))) {
             return new RendTitledAnchor(elt_,new OffsetsBlock(_begin,_begin));
         }
         return new RendStdElement(elt_,new OffsetsBlock(_begin,_begin));
     }
 
-    static StringMap<String> getPre(Configuration _cont, String _value) {
+    static StringMap<String> getPre(Configuration _cont, String _value, int _offset) {
         StringList elts_ = StringList.splitStrings(_value, COMMA);
         String var_ = elts_.first();
         String fileName_ = getProperty(_cont, var_);
         if (fileName_ == null) {
-            BadElError badEl_ = new BadElError();
+            FoundErrorInterpret badEl_ = new FoundErrorInterpret();
             badEl_.setFileName(_cont.getCurrentFileName());
-            badEl_.setIndexFile(_cont.getCurrentLocationIndex());
+            badEl_.setIndexFile(_offset);
+            badEl_.buildError(_cont.getRendAnalysisMessages().getInexistantKey(),
+                    var_);
             _cont.addError(badEl_);
             return new StringMap<String>();
         }
@@ -596,10 +529,18 @@ public abstract class RendBlock implements AnalyzedBlock {
             StringMap<String> files_ = a_.getFiles();
             String content_ = RendExtractFromResources.tryGetContent(_cont, l, fileName_, files_);
             int index_ = RendExtractFromResources.indexCorrectMessages(content_);
+            String cont_ = content_;
+            if (cont_ == null) {
+                cont_ = EMPTY_STRING;
+            }
             if (index_ >= 0) {
-                BadElError badEl_ = new BadElError();
+                FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                 badEl_.setFileName(_cont.getCurrentFileName());
-                badEl_.setIndexFile(_cont.getCurrentLocationIndex());
+                badEl_.setIndexFile(_offset);
+                badEl_.buildError(_cont.getContext().getAnalysisMessages().getBadExpression(),
+                        ElUtil.possibleChar(index_,cont_),
+                        Integer.toString(index_),
+                        content_);
                 _cont.addError(badEl_);
                 return new StringMap<String>();
             }
@@ -607,9 +548,11 @@ public abstract class RendBlock implements AnalyzedBlock {
             String key_ = elts_.last();
             String format_ = RendExtractFromResources.getQuickFormat(messages_, key_);
             if (format_ == null) {
-                BadElError badEl_ = new BadElError();
+                FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                 badEl_.setFileName(_cont.getCurrentFileName());
-                badEl_.setIndexFile(_cont.getCurrentLocationIndex());
+                badEl_.setIndexFile(_offset);
+                badEl_.buildError(_cont.getRendAnalysisMessages().getInexistantKey(),
+                        key_);
                 _cont.addError(badEl_);
                 return new StringMap<String>();
             }
@@ -619,14 +562,14 @@ public abstract class RendBlock implements AnalyzedBlock {
     }
 
     protected static void processLink(Configuration _cont, Element _nextWrite, Element _read, StringList _varNames, CustList<CustList<RendDynOperationNode>> _opExp, StringList _texts) {
-        String href_ = _read.getAttribute(StringList.concat(_cont.getPrefix(),ATTRIBUTE_COMMAND));
+        String href_ = _read.getAttribute(StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrCommand()));
         _cont.getCallsExps().add(new CustList<RendDynOperationNode>());
         _cont.getConstAnchors().add(true);
         _cont.getAnchorsArgs().add(new StringList());
         _cont.getAnchorsVars().add(_varNames);
         if (!href_.startsWith(CALL_METHOD)) {
-            if (_nextWrite.hasAttribute(StringList.concat(_cont.getPrefix(),ATTRIBUTE_COMMAND))) {
-                _nextWrite.setAttribute(ATTRIBUTE_HREF, EMPTY_STRING);
+            if (_nextWrite.hasAttribute(StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrCommand()))) {
+                _nextWrite.setAttribute(_cont.getRendKeyWords().getAttrHref(), EMPTY_STRING);
             }
             _cont.getAnchorsNames().add(EMPTY_STRING);
             incrAncNb(_cont, _nextWrite);
@@ -640,17 +583,17 @@ public abstract class RendBlock implements AnalyzedBlock {
         }
         _cont.getAnchorsNames().add(render_);
         String beanName_ = _cont.getLastPage().getBeanName();
-        _nextWrite.setAttribute(StringList.concat(_cont.getPrefix(),ATTRIBUTE_COMMAND), StringList.concat(CALL_METHOD,beanName_,DOT,render_));
-        _nextWrite.setAttribute(ATTRIBUTE_HREF, EMPTY_STRING);
+        _nextWrite.setAttribute(StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrCommand()), StringList.concat(CALL_METHOD,beanName_,DOT,render_));
+        _nextWrite.setAttribute(_cont.getRendKeyWords().getAttrHref(), EMPTY_STRING);
         incrAncNb(_cont, _nextWrite);
     }
 
     protected static void incrAncNb(Configuration _cont, Element _nextEltWrite) {
-        if (StringList.quickEq(_nextEltWrite.getTagName(), TAG_A)
-                && (_nextEltWrite.hasAttribute(StringList.concat(_cont.getPrefix(),ATTRIBUTE_COMMAND))
-                || !_nextEltWrite.getAttribute(ATTRIBUTE_HREF).isEmpty() )) {
+        if (StringList.quickEq(_nextEltWrite.getTagName(), _cont.getRendKeyWords().getKeyWordAnchor())
+                && (_nextEltWrite.hasAttribute(StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrCommand()))
+                || !_nextEltWrite.getAttribute(_cont.getRendKeyWords().getAttrHref()).isEmpty() )) {
             long currentAnchor_ = _cont.getIndexes().getAnchor();
-            _nextEltWrite.setAttribute(NUMBER_ANCHOR, String.valueOf(currentAnchor_));
+            _nextEltWrite.setAttribute(_cont.getRendKeyWords().getAttrNa(), String.valueOf(currentAnchor_));
             currentAnchor_++;
             _cont.getIndexes().setAnchor(currentAnchor_);
         }
@@ -666,10 +609,10 @@ public abstract class RendBlock implements AnalyzedBlock {
         return new OffsetStringInfo(begin_,_elt.getAttribute(_key));
     }
 
-    static void removeUseLess(Element _read, StringList _list) {
+    static void removeUseLess(Configuration _cont,Element _read, StringList _list) {
         int i_ = CustList.FIRST_INDEX;
-        while (_read.hasAttribute(StringList.concat(TAG_PARAM,Long.toString(i_)))) {
-            _list.removeAllString(StringList.concat(TAG_PARAM,Long.toString(i_)));
+        while (_read.hasAttribute(StringList.concat(_cont.getRendKeyWords().getAttrParam(),Long.toString(i_)))) {
+            _list.removeAllString(StringList.concat(_cont.getRendKeyWords().getAttrParam(),Long.toString(i_)));
             i_++;
         }
     }
@@ -684,14 +627,14 @@ public abstract class RendBlock implements AnalyzedBlock {
             text_.appendData(_fileContent);
         }
     }
-    static String getCssHref(Element _link) {
-        if (!StringList.quickEq(_link.getAttribute(ATTRIBUTE_REL),STYLESHEET)) {
+    static String getCssHref(Configuration _cont,Element _link) {
+        if (!StringList.quickEq(_link.getAttribute(_cont.getRendKeyWords().getAttrRel()),_cont.getRendKeyWords().getValueStyle())) {
             return null;
         }
-        if (!_link.hasAttribute(ATTRIBUTE_HREF)){
+        if (!_link.hasAttribute(_cont.getRendKeyWords().getAttrHref())){
             return null;
         }
-        return _link.getAttribute(ATTRIBUTE_HREF);
+        return _link.getAttribute(_cont.getRendKeyWords().getAttrHref());
     }
     public abstract void buildExpressionLanguage(Configuration _cont, RendDocumentBlock _doc);
     private static OffsetBooleanInfo newOffsetBooleanInfo(Element _elt, String _key) {
@@ -770,7 +713,7 @@ public abstract class RendBlock implements AnalyzedBlock {
     }
 
     protected static Argument fetchName(Configuration _cont, Element _read, Element _write, FieldUpdates _f) {
-        String name_ = _read.getAttribute(ATTRIBUTE_NAME);
+        String name_ = _read.getAttribute(_cont.getRendKeyWords().getAttrName());
         if (name_.isEmpty()) {
             return Argument.createVoid();
         }
@@ -830,12 +773,12 @@ public abstract class RendBlock implements AnalyzedBlock {
             nodeCont_.setArrayConverter(_f.isArrayConverter());
             nodeCont_.setBean(_cont.getLastPage().getGlobalArgument().getStruct());
             NodeInformations nodeInfos_ = nodeCont_.getNodeInformation();
-            String id_ = _write.getAttribute(ATTRIBUTE_ID);
+            String id_ = _write.getAttribute(_cont.getRendKeyWords().getAttrId());
             if (id_.isEmpty()) {
-                id_ = _write.getAttribute(StringList.concat(_cont.getPrefix(),ATTRIBUTE_GROUP_ID));
+                id_ = _write.getAttribute(StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrGroupId()));
             }
             String class_ = _cont.getAdvStandards().getInputClass(_write,_cont);
-            nodeInfos_.setValidator(_write.getAttribute(StringList.concat(_cont.getPrefix(),ATTRIBUTE_VALIDATOR)));
+            nodeInfos_.setValidator(_write.getAttribute(StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrValidator())));
             nodeInfos_.setId(id_);
             nodeInfos_.setInputClass(class_);
             stack_.last().put(currentInput_, nodeCont_);
@@ -845,9 +788,9 @@ public abstract class RendBlock implements AnalyzedBlock {
         } else {
             _cont.getIndexes().setNb(found_);
         }
-        _write.setAttribute(NUMBER_INPUT, String.valueOf(_cont.getIndexes().getNb()));
+        _write.setAttribute(_cont.getRendKeyWords().getAttrNi(), String.valueOf(_cont.getIndexes().getNb()));
 //        attributesNames_.removeAllString(NUMBER_INPUT);
-        _write.setAttribute(ATTRIBUTE_NAME, StringList.concat(_cont.getLastPage().getBeanName(),DOT,name_));
+        _write.setAttribute(_cont.getRendKeyWords().getAttrName(), StringList.concat(_cont.getLastPage().getBeanName(),DOT,name_));
         return arg_;
     }
     static CustList<RendDynOperationNode> reduceList(CustList<RendDynOperationNode> _list) {
@@ -864,23 +807,23 @@ public abstract class RendBlock implements AnalyzedBlock {
         if (_cont.getContext().hasException()) {
             return;
         }
-        String name_ = _read.getAttribute(ATTRIBUTE_NAME);
+        String name_ = _read.getAttribute(_cont.getRendKeyWords().getAttrName());
         if (name_.isEmpty()) {
             return;
         }
         if (_ops.isEmpty()) {
             return;
         }
-        if (StringList.quickEq(_read.getTagName(),INPUT_TAG)) {
+        if (StringList.quickEq(_read.getTagName(),_cont.getRendKeyWords().getKeyWordInput())) {
             Argument o_ = RenderExpUtil.calculateReuse(_ops,_cont);
             if (_cont.getContext().hasException()) {
                 return;
             }
-            if (StringList.quickEq(_read.getAttribute(ATTRIBUTE_TYPE),CHECKBOX)) {
+            if (StringList.quickEq(_read.getAttribute(_cont.getRendKeyWords().getAttrType()),_cont.getRendKeyWords().getValueCheckbox())) {
                 if (Argument.isTrueValue(o_)) {
-                    _write.setAttribute(CHECKED, CHECKED);
+                    _write.setAttribute(_cont.getRendKeyWords().getAttrChecked(), _cont.getRendKeyWords().getAttrChecked());
                 } else {
-                    _write.removeAttribute(CHECKED);
+                    _write.removeAttribute(_cont.getRendKeyWords().getAttrChecked());
                 }
             } else {
                 o_ = convertField(_cont,o_,_varNameConv,_opsConv);
@@ -891,10 +834,10 @@ public abstract class RendBlock implements AnalyzedBlock {
                 if (_cont.getContext().hasException()) {
                     return;
                 }
-                _write.setAttribute(ATTRIBUTE_VALUE, value_);
+                _write.setAttribute(_cont.getRendKeyWords().getAttrValue(), value_);
             }
         }
-        if (StringList.quickEq(_read.getTagName(),TEXT_AREA)) {
+        if (StringList.quickEq(_read.getTagName(),_cont.getRendKeyWords().getKeyWordTextarea())) {
             Argument o_ = RenderExpUtil.calculateReuse(_ops,_cont);
             if (_cont.getContext().hasException()) {
                 return;
@@ -911,7 +854,7 @@ public abstract class RendBlock implements AnalyzedBlock {
             Text text_ = doc_.createTextNode(value_);
             _write.appendChild(text_);
         }
-        _write.removeAttribute(StringList.concat(_cont.getPrefix(),ATTRIBUTE_VAR_VALUE));
+        _write.removeAttribute(StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrVarValue()));
     }
     private static Argument convertField(Configuration _cont, Argument _o,String _varNameConv, CustList<RendDynOperationNode> _opsConv) {
         Argument o_ = _o;
@@ -1046,5 +989,16 @@ public abstract class RendBlock implements AnalyzedBlock {
 
     public StringMap<IntTreeMap<Integer>> getEscapedChars() {
         return escapedChars;
+    }
+
+    public int getAttributeDelimiter(String _type) {
+        AttributePart del_ = getAttributeDelimiters().getVal(_type);
+        if (del_ == null) {
+            return getOffset().getOffsetTrim();
+        }
+        return del_.getBegin();
+    }
+    public StringMap<AttributePart> getAttributeDelimiters() {
+        return attributeDelimiters;
     }
 }

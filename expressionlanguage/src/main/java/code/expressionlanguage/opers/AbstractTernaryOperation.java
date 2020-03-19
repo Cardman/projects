@@ -2,9 +2,8 @@ package code.expressionlanguage.opers;
 
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.errors.custom.BadOperandsNumber;
 import code.expressionlanguage.errors.custom.DeadCodeTernary;
-import code.expressionlanguage.errors.custom.UnexpectedTypeOperationError;
+import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.ResultTernary;
 import code.expressionlanguage.instr.OperationsSequence;
@@ -90,13 +89,17 @@ public abstract class AbstractTernaryOperation extends MethodOperation {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+offsetLocal, _conf);
         LgNames stds_ = _conf.getStandards();
-        String booleanType_ = stds_.getAliasBoolean();
         String booleanPrimType_ = stds_.getAliasPrimBoolean();
         if (chidren_.size() != BOOLEAN_ARGS) {
-            BadOperandsNumber badNb_ = new BadOperandsNumber();
-            badNb_.setOperandsNumber(chidren_.size());
+            FoundErrorInterpret badNb_ = new FoundErrorInterpret();
             badNb_.setFileName(_conf.getCurrentFileName());
             badNb_.setIndexFile(_conf.getCurrentLocationIndex());
+            //=> move to BadTernaryOperation (underline key word)
+            badNb_.buildError(_conf.getContextEl().getAnalysisMessages().getOperatorNbDiff(),
+                    Integer.toString(BOOLEAN_ARGS),
+                    Integer.toString(chidren_.size()),
+                    _conf.getContextEl().getKeyWords().getKeyWordBool()
+            );
             _conf.addError(badNb_);
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             return;
@@ -105,12 +108,12 @@ public abstract class AbstractTernaryOperation extends MethodOperation {
         ClassArgumentMatching clMatch_ = opOne_.getResultClass();
         if (!clMatch_.isBoolType(_conf)) {
             setRelativeOffsetPossibleAnalyzable(opOne_.getIndexInEl()+1, _conf);
-            ClassArgumentMatching cl_ = chidren_.first().getResultClass();
-            UnexpectedTypeOperationError un_ = new UnexpectedTypeOperationError();
+            FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setIndexFile(_conf.getCurrentLocationIndex());
             un_.setFileName(_conf.getCurrentFileName());
-            un_.setExpectedResult(booleanType_);
-            un_.setOperands(cl_);
+            //after first arg separator len
+            un_.buildError(_conf.getContextEl().getAnalysisMessages().getUnexpectedType(),
+                    StringList.join(clMatch_.getNames(),"&"));
             _conf.addError(un_);
         }
         opOne_.getResultClass().setUnwrapObject(booleanPrimType_);
@@ -127,22 +130,22 @@ public abstract class AbstractTernaryOperation extends MethodOperation {
         String void_ = stds_.getAliasVoid();
         if (StringList.contains(one_, void_)) {
             setRelativeOffsetPossibleAnalyzable(opTwo_.getIndexInEl(), _conf);
-            ClassArgumentMatching cl_ = opTwo_.getResultClass();
-            UnexpectedTypeOperationError un_ = new UnexpectedTypeOperationError();
+            FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setIndexFile(_conf.getCurrentLocationIndex());
             un_.setFileName(_conf.getCurrentFileName());
-            un_.setExpectedResult(booleanType_);
-            un_.setOperands(cl_);
+            //after first arg separator len
+            un_.buildError(_conf.getContextEl().getAnalysisMessages().getVoidType(),
+                    void_);
             _conf.addError(un_);
         }
         if (StringList.contains(two_, void_)) {
             setRelativeOffsetPossibleAnalyzable(opThree_.getIndexInEl(), _conf);
-            ClassArgumentMatching cl_ = opThree_.getResultClass();
-            UnexpectedTypeOperationError un_ = new UnexpectedTypeOperationError();
+            FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setIndexFile(_conf.getCurrentLocationIndex());
             un_.setFileName(_conf.getCurrentFileName());
-            un_.setExpectedResult(booleanType_);
-            un_.setOperands(cl_);
+            //after second arg separator len
+            un_.buildError(_conf.getContextEl().getAnalysisMessages().getVoidType(),
+                    void_);
             _conf.addError(un_);
         }
         OperationNode current_ = this;

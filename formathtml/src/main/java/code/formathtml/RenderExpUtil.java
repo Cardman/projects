@@ -2,13 +2,9 @@ package code.formathtml;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.errors.custom.BadElError;
-import code.expressionlanguage.errors.custom.BadOperandsNumber;
+import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
-import code.expressionlanguage.instr.ConstType;
-import code.expressionlanguage.instr.Delimiters;
-import code.expressionlanguage.instr.ElResolver;
-import code.expressionlanguage.instr.OperationsSequence;
+import code.expressionlanguage.instr.*;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.*;
 import code.expressionlanguage.opers.exec.ReductibleOperable;
@@ -35,14 +31,17 @@ public final class RenderExpUtil {
     private RenderExpUtil() {
     }
 
-    public static CustList<RendDynOperationNode> getAnalyzedOperations(String _el, Configuration _conf, int _minIndex, char _begin, char _end, Calculation _calcul) {
+    public static CustList<RendDynOperationNode> getAnalyzedOperations(String _el, Configuration _conf, int _glInd,int _minIndex, char _begin, char _end) {
         Delimiters d_ = ElResolver.checkSyntaxDelimiters(_el, _conf, _minIndex, _begin, _end);
-        if (d_.getBadOffset() >= 0) {
-            BadElError badEl_ = new BadElError();
-            badEl_.setOffsetInEl(d_.getBadOffset());
-            badEl_.setEl(_el);
+        int badOffset_ = d_.getBadOffset();
+        if (badOffset_ >= 0) {
+            FoundErrorInterpret badEl_ = new FoundErrorInterpret();
             badEl_.setFileName(_conf.getCurrentFileName());
-            badEl_.setIndexFile(_conf.getCurrentLocationIndex());
+            badEl_.setIndexFile(_glInd+badOffset_);
+            badEl_.buildError(_conf.getContext().getAnalysisMessages().getBadExpression(),
+                    ElUtil.possibleChar(badOffset_,_el),
+                    Integer.toString(badOffset_),
+                    _el);
             _conf.addError(badEl_);
             OperationsSequence tmpOp_ = new OperationsSequence();
             tmpOp_.setDelimiter(new Delimiters());
@@ -67,22 +66,26 @@ public final class RenderExpUtil {
         }
         _conf.setNextIndex(end_+2);
         String el_ = str_.toString();
-        boolean static_ = _conf.isStaticContext();
         OperationsSequence opTwo_ = getOperationsSequence(_minIndex, el_, _conf, d_);
         OperationNode op_ = createOperationNode(_minIndex, CustList.FIRST_INDEX, null, opTwo_, _conf);
-        CustList<OperationNode> all_ = getSortedDescNodes(op_, static_, _conf);
-        CustList<RendDynOperationNode> out_ = getExecutableNodes(all_);
-        return out_;
+        CustList<OperationNode> all_ = getSortedDescNodes(op_, _conf);
+        return getExecutableNodes(all_);
     }
 
-    public static CustList<RendDynOperationNode> getAnalyzedOperations(String _el, int _index, Configuration _conf, Calculation _calcul) {
+    public static CustList<RendDynOperationNode> getAnalyzedOperations(String _el, int _index, Configuration _conf) {
+        return getAnalyzedOperations(_el,1,_index,_conf);
+    }
+    public static CustList<RendDynOperationNode> getAnalyzedOperations(String _el, int _gl,int _index, Configuration _conf) {
         Delimiters d_ = ElResolver.checkSyntax(_el, _conf, _index);
-        if (d_.getBadOffset() >= 0) {
-            BadElError badEl_ = new BadElError();
-            badEl_.setOffsetInEl(d_.getBadOffset());
-            badEl_.setEl(_el);
+        int badOffset_ = d_.getBadOffset();
+        if (badOffset_ >= 0) {
+            FoundErrorInterpret badEl_ = new FoundErrorInterpret();
             badEl_.setFileName(_conf.getCurrentFileName());
-            badEl_.setIndexFile(_conf.getCurrentLocationIndex());
+            badEl_.setIndexFile(_gl+badOffset_);
+            badEl_.buildError(_conf.getContext().getAnalysisMessages().getBadExpression(),
+                    ElUtil.possibleChar(badOffset_,_el),
+                    Integer.toString(badOffset_),
+                    _el);
             _conf.addError(badEl_);
             OperationsSequence tmpOp_ = new OperationsSequence();
             tmpOp_.setDelimiter(new Delimiters());
@@ -93,33 +96,36 @@ public final class RenderExpUtil {
             return new CustList<RendDynOperationNode>((RendDynOperationNode)RendDynOperationNode.createExecOperationNode(e_));
         }
         String el_ = _el.substring(_index);
-        boolean static_ = _conf.isStaticContext();
         OperationsSequence opTwo_ = getOperationsSequence(_index, el_, _conf, d_);
         OperationNode op_ = createOperationNode(_index, CustList.FIRST_INDEX, null, opTwo_, _conf);
-        CustList<OperationNode> all_ = getSortedDescNodes(op_, static_, _conf);
-        CustList<RendDynOperationNode> out_ = getExecutableNodes(all_);
-        return out_;
+        CustList<OperationNode> all_ = getSortedDescNodes(op_, _conf);
+        return getExecutableNodes(all_);
     }
+
     public static Argument processEl(String _el, int _index, Configuration _conf) {
         ContextEl context_ = _conf.getContext();
         CustList<RendDynOperationNode> out_ = getAnalyzed(_el,_index,_conf);
         if (!_conf.isEmptyErrors()) {
-            BadElError badEl_ = new BadElError();
-            badEl_.setAnalyzable(_conf);
+            FoundErrorInterpret badEl_ = new FoundErrorInterpret();
             badEl_.setFileName(_conf.getCurrentFileName());
             badEl_.setIndexFile(_conf.getCurrentLocationIndex());
-            _conf.setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getStandards().getAliasIllegalArg()));
-            context_.setAnalyzing(null);
+            badEl_.setLocationFile(_conf.getLocationFile(badEl_.getFileName(),badEl_.getIndexFile()));
+            badEl_.buildError(_conf.getContext().getAnalysisMessages().getBadExpression(),
+                    ElUtil.possibleChar(_index,_el),
+                    Integer.toString(_index),
+                    _el);
+            _conf.setException(new ErrorStruct(_conf, badEl_.display(), _conf.getStandards().getAliasIllegalArg()));
+            context_.setNullAnalyzing();
             return Argument.createVoid();
         }
-        context_.setAnalyzing(null);
+        context_.setNullAnalyzing();
         out_ = getReducedNodes(out_.last());
         return calculateReuse(out_, _conf);
     }
     public static Argument processQuickEl(String _el, int _index, Configuration _conf) {
         CustList<RendDynOperationNode> out_ = getAnalyzed(_el,_index,_conf);
         ContextEl context_ = _conf.getContext();
-        context_.setAnalyzing(null);
+        context_.setNullAnalyzing();
         out_ = getReducedNodes(out_.last());
         return calculateReuse(out_, _conf);
     }
@@ -129,21 +135,24 @@ public final class RenderExpUtil {
         boolean static_ = argGl_.isNull();
         _conf.setAccessStaticContext(MethodId.getKind(static_));
         Delimiters d_ = ElResolver.checkSyntax(_el, _conf, _index);
-        if (d_.getBadOffset() >= 0) {
-            _conf.getLastPage().setOffset(d_.getBadOffset());
-            BadElError badEl_ = new BadElError();
-            badEl_.setOffsetInEl(d_.getBadOffset());
-            badEl_.setEl(_el);
+        int badOffset_ = d_.getBadOffset();
+        if (badOffset_ >= 0) {
+            _conf.getLastPage().setOffset(badOffset_);
+            FoundErrorInterpret badEl_ = new FoundErrorInterpret();
             badEl_.setFileName(_conf.getCurrentFileName());
             badEl_.setIndexFile(_conf.getCurrentLocationIndex());
+            badEl_.buildError(_conf.getContext().getAnalysisMessages().getBadExpression(),
+                    ElUtil.possibleChar(badOffset_,_el),
+                    Integer.toString(badOffset_),
+                    _el);
             _conf.addError(badEl_);
-            _conf.setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getStandards().getAliasIllegalArg()));
+            _conf.setException(new ErrorStruct(_conf, badEl_.display(), _conf.getStandards().getAliasIllegalArg()));
             return new CustList<RendDynOperationNode>();
         }
         String el_ = _el.substring(_index);
         OperationsSequence opTwo_ = getOperationsSequence(_index, el_, _conf, d_);
         OperationNode op_ = createOperationNode(_index, CustList.FIRST_INDEX, null, opTwo_, _conf);
-        CustList<OperationNode> all_ = getSortedDescNodes(op_, static_, _conf);
+        CustList<OperationNode> all_ = getSortedDescNodes(op_, _conf);
         return getExecutableNodes(all_);
     }
     public static CustList<RendDynOperationNode> getExecutableNodes(CustList<OperationNode> _list) {
@@ -151,27 +160,24 @@ public final class RenderExpUtil {
         OperationNode root_ = _list.last();
         OperationNode current_ = root_;
         RendDynOperationNode exp_ = RendDynOperationNode.createExecOperationNode(current_);
-        while (true) {
-            if (current_ == null) {
-                break;
-            }
+        while (current_ != null) {
             OperationNode op_ = current_.getFirstChild();
-            if (op_ != null) {
+            if (exp_ instanceof RendMethodOperation&&op_ != null) {
                 RendDynOperationNode loc_ = RendDynOperationNode.createExecOperationNode(op_);
-                ((RendMethodOperation)exp_).appendChild(loc_);
+                ((RendMethodOperation) exp_).appendChild(loc_);
                 exp_ = loc_;
                 current_ = op_;
                 continue;
             }
             while (true) {
                 if (exp_ instanceof RendAffectationOperation) {
-                    ((RendAffectationOperation)exp_).setup();
+                    ((RendAffectationOperation) exp_).setup();
                 }
                 if (exp_ instanceof RendSemiAffectationOperation) {
-                    ((RendSemiAffectationOperation)exp_).setup();
+                    ((RendSemiAffectationOperation) exp_).setup();
                 }
                 if (exp_ instanceof RendCompoundAffectationOperation) {
-                    ((RendCompoundAffectationOperation)exp_).setup();
+                    ((RendCompoundAffectationOperation) exp_).setup();
                 }
                 out_.add(exp_);
                 op_ = current_.getNextSibling();
@@ -194,13 +200,13 @@ public final class RenderExpUtil {
                 RendMethodOperation par_ = exp_.getParent();
                 if (op_ == root_) {
                     if (par_ instanceof RendAffectationOperation) {
-                        ((RendAffectationOperation)par_).setup();
+                        ((RendAffectationOperation) par_).setup();
                     }
                     if (par_ instanceof RendSemiAffectationOperation) {
-                        ((RendSemiAffectationOperation)par_).setup();
+                        ((RendSemiAffectationOperation) par_).setup();
                     }
                     if (par_ instanceof RendCompoundAffectationOperation) {
-                        ((RendCompoundAffectationOperation)par_).setup();
+                        ((RendCompoundAffectationOperation) par_).setup();
                     }
                     out_.add(par_);
                     current_ = null;
@@ -212,22 +218,19 @@ public final class RenderExpUtil {
         }
         return out_;
     }
-    public static CustList<OperationNode> getSortedDescNodes(OperationNode _root, boolean _staticBlock,Configuration _context) {
+    public static CustList<OperationNode> getSortedDescNodes(OperationNode _root, Configuration _context) {
         CustList<OperationNode> list_ = new CustList<OperationNode>();
         OperationNode c_ = _root;
-        while (true) {
-            if (c_ == null) {
-                break;
-            }
+        while (c_ != null) {
             if (c_ instanceof PreAnalyzableOperation) {
-                ((PreAnalyzableOperation)c_).preAnalyze(_context);
+                ((PreAnalyzableOperation) c_).preAnalyze(_context);
             }
-            c_ = getAnalyzedNext(c_, _root, list_, _staticBlock, _context);
+            c_ = getAnalyzedNext(c_, _root, list_, _context);
         }
         return list_;
     }
 
-    private static OperationNode getAnalyzedNext(OperationNode _current, OperationNode _root, CustList<OperationNode> _sortedNodes, boolean _staticBlock,Configuration _context) {
+    private static OperationNode getAnalyzedNext(OperationNode _current, OperationNode _root, CustList<OperationNode> _sortedNodes, Configuration _context) {
         
         OperationNode next_ = createFirstChild(_current, _context, 0);
         if (next_ != null) {
@@ -251,14 +254,7 @@ public final class RenderExpUtil {
             MethodOperation par_ = current_.getParent();
             if (next_ != null) {
                 if (par_ instanceof DotOperation) {
-                    if (!(next_ instanceof PossibleIntermediateDotted)) {
-                        next_.setRelativeOffsetPossibleAnalyzable(next_.getIndexInEl(), _context);
-                        BadOperandsNumber badNb_ = new BadOperandsNumber();
-                        badNb_.setFileName(_context.getCurrentFileName());
-                        badNb_.setOperandsNumber(0);
-                        badNb_.setIndexFile(_context.getCurrentLocationIndex());
-                        _context.addError(badNb_);
-                    } else {
+                    if (next_ instanceof PossibleIntermediateDotted) {
                         PossibleIntermediateDotted possible_ = (PossibleIntermediateDotted) next_;
                         MethodAccessKind static_ = MethodId.getKind(current_ instanceof StaticAccessOperation);
                         possible_.setIntermediateDotted();
@@ -292,10 +288,10 @@ public final class RenderExpUtil {
         if (!(_current instanceof AbstractInvokingConstructor)) {
             if (_current instanceof ThisOperation) {
                 if (((ThisOperation)_current).isIntermediateDottedOperation()) {
-                    BadOperandsNumber badNb_ = new BadOperandsNumber();
+                    FoundErrorInterpret badNb_ = new FoundErrorInterpret();
                     badNb_.setFileName(_context.getCurrentFileName());
-                    badNb_.setOperandsNumber(0);
                     badNb_.setIndexFile(_context.getCurrentLocationIndex());
+                    badNb_.buildError(_context.getRendAnalysisMessages().getUnexpectedExp());
                     _context.addError(badNb_);
                     return;
                 }
@@ -308,20 +304,25 @@ public final class RenderExpUtil {
                     FieldInfo info_ = field_.getFieldMetaInfo();
                     if (info_ != null) {
                         if (info_.isFinalField()) {
-                            BadOperandsNumber badNb_ = new BadOperandsNumber();
+                            FoundErrorInterpret badNb_ = new FoundErrorInterpret();
                             badNb_.setFileName(_context.getCurrentFileName());
-                            badNb_.setOperandsNumber(0);
                             badNb_.setIndexFile(_context.getCurrentLocationIndex());
+                            StringBuilder id_ = new StringBuilder();
+                            id_.append(info_.getClassField().getClassName());
+                            id_.append(";");
+                            id_.append(info_.getClassField().getFieldName());
+                            badNb_.buildError(_context.getContext().getAnalysisMessages().getFinalField(),
+                                    id_.toString());
                             _context.addError(badNb_);
                         }
                     }
                 }
             }
         } else {
-            BadOperandsNumber badNb_ = new BadOperandsNumber();
+            FoundErrorInterpret badNb_ = new FoundErrorInterpret();
             badNb_.setFileName(_context.getCurrentFileName());
-            badNb_.setOperandsNumber(0);
             badNb_.setIndexFile(_context.getCurrentLocationIndex());
+            badNb_.buildError(_context.getRendAnalysisMessages().getUnexpectedExp());
             _context.addError(badNb_);
         }
     }
@@ -358,8 +359,7 @@ public final class RenderExpUtil {
             }
         }
         OperationsSequence r_ = getOperationsSequence(offset_, value_, _context, d_);
-        OperationNode op_ = createOperationNode(offset_, _index, block_, r_, _context);
-        return op_;
+        return createOperationNode(offset_, _index, block_, r_, _context);
     }
 
     private static OperationNode createNextSibling(OperationNode _block, Configuration _context) {
@@ -382,8 +382,7 @@ public final class RenderExpUtil {
         int curKey_ = children_.getKey(_block.getIndexChild() + delta_);
         int offset_ = p_.getIndexInEl()+curKey_;
         OperationsSequence r_ = getOperationsSequence(offset_, value_, _context, d_);
-        OperationNode op_ = createOperationNode(offset_, _block.getIndexChild() + 1, p_, r_, _context);
-        return op_;
+        return createOperationNode(offset_, _block.getIndexChild() + 1, p_, r_, _context);
     }
     static OperationsSequence getOperationsSequence(int _offset, String _string,
                                                     Configuration _conf, Delimiters _d) {

@@ -2,14 +2,12 @@ package code.formathtml;
 
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.AnalyzedPageEl;
-import code.expressionlanguage.errors.custom.BadLabelName;
-import code.expressionlanguage.errors.custom.DuplicateLabel;
+import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.methods.AccessEnum;
 import code.expressionlanguage.methods.AccessingImportingBlock;
 import code.expressionlanguage.methods.FunctionBlock;
 import code.expressionlanguage.methods.RootBlock;
-import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.util.MethodAccessKind;
 import code.formathtml.util.BeanCustLgNames;
 import code.sml.Element;
@@ -33,8 +31,8 @@ public final class RendDocumentBlock extends RendParentBlock implements Function
     }
 
     public void buildFctInstructions(Configuration _cont) {
-        beanName = elt.getAttribute(StringList.concat(_cont.getPrefix(),BEAN_ATTRIBUTE));
-        imports = StringList.splitChar(elt.getAttribute(StringList.concat(_cont.getPrefix(),ALIAS_ATTRIBUTE)),';');
+        beanName = elt.getAttribute(StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrBean()));
+        imports = StringList.splitChar(elt.getAttribute(StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrAlias())),';');
         setupStaticInfo();
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         page_.setGlobalOffset(getOffset().getOffsetTrim());
@@ -42,7 +40,9 @@ public final class RendDocumentBlock extends RendParentBlock implements Function
         _cont.setAccessStaticContext(MethodAccessKind.STATIC);
         if (_cont.getBeansInfos().contains(beanName)) {
             _cont.setAccessStaticContext(MethodAccessKind.INSTANCE);
-            page_.setGlobalClass(_cont.getBeansInfos().getVal(beanName).getClassName());
+            String clName_ = _cont.getBeansInfos().getVal(beanName).getClassName();
+            page_.setGlobalClass(clName_);
+            _cont.getContext().setGlobalClass(clName_);
         }
         RendBlock root_ = this;
         RendBlock en_ = this;
@@ -56,7 +56,7 @@ public final class RendDocumentBlock extends RendParentBlock implements Function
         while (true) {
             _cont.getAnalyzingDoc().setCurrentBlock(en_);
             if (en_ instanceof RendStdElement) {
-                if (StringList.quickEq(((RendStdElement)en_).getRead().getTagName(),BODY_TAG)) {
+                if (StringList.quickEq(((RendStdElement)en_).getRead().getTagName(),_cont.getRendKeyWords().getKeyWordBody())) {
                     bodies.add(en_);
                 }
             }
@@ -178,17 +178,17 @@ public final class RendDocumentBlock extends RendParentBlock implements Function
                 break;
             }
             if (!wc_) {
-                BadLabelName bad_ = new BadLabelName();
-                bad_.setName(label_);
+                FoundErrorInterpret bad_ = new FoundErrorInterpret();
                 bad_.setFileName(_conf.getCurrentFileName());
-                bad_.setIndexFile(_conf.getCurrentLocationIndex());
+                bad_.setIndexFile(_block.getOffset().getOffsetTrim());
+                bad_.buildError(_conf.getContext().getAnalysisMessages().getBadLabel());
                 _conf.addError(bad_);
             } else if (!label_.isEmpty()){
                 if (StringList.contains(_labels, label_)) {
-                    DuplicateLabel dup_ = new DuplicateLabel();
-                    dup_.setId(label_);
+                    FoundErrorInterpret dup_ = new FoundErrorInterpret();
                     dup_.setFileName(_conf.getCurrentFileName());
-                    dup_.setIndexFile(_conf.getCurrentLocationIndex());
+                    dup_.setIndexFile(_block.getOffset().getOffsetTrim());
+                    dup_.buildError(_conf.getContext().getAnalysisMessages().getDuplicatedLabel());
                     _conf.addError(dup_);
                 } else {
                     _labels.add(label_);

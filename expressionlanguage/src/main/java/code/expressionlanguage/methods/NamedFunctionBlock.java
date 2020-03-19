@@ -3,7 +3,7 @@ package code.expressionlanguage.methods;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.errors.custom.MissingReturnMethod;
+import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.files.OffsetAccessInfo;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
@@ -19,7 +19,10 @@ import code.util.IdMap;
 import code.util.Ints;
 import code.util.StringList;
 
-public abstract class NamedFunctionBlock extends MemberCallingsBlock implements AccessibleBlock,Returnable {
+public abstract class NamedFunctionBlock extends MemberCallingsBlock implements Returnable,AnnotableBlock {
+    private StringList annotations = new StringList();
+    private CustList<CustList<ExecOperationNode>> annotationsOps = new CustList<CustList<ExecOperationNode>>();
+    private Ints annotationsIndexes = new Ints();
 
     private final String name;
 
@@ -98,7 +101,7 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
 
     @Override
     public void buildAnnotations(ContextEl _context) {
-        super.buildAnnotations(_context);
+        buildAnnotationsBasic(_context);
         annotationsOpsParams = new CustList<CustList<CustList<ExecOperationNode>>>();
         int j_ = 0;
         for (Ints l: annotationsIndexesParams) {
@@ -130,7 +133,7 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
 
     @Override
     public void reduce(ContextEl _context) {
-        super.reduce(_context);
+        reduceBasic(_context);
         CustList<CustList<CustList<ExecOperationNode>>> annotationsOpsParams_;
         annotationsOpsParams_ = new CustList<CustList<CustList<ExecOperationNode>>>();
         for (CustList<CustList<ExecOperationNode>> l: annotationsOpsParams) {
@@ -161,11 +164,14 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
         if (!StringList.quickEq(getImportedReturnType(), stds_.getAliasVoid())) {
             if (_anEl.canCompleteNormally(this)) {
                 //error
-                MissingReturnMethod miss_ = new MissingReturnMethod();
+                FoundErrorInterpret miss_ = new FoundErrorInterpret();
                 miss_.setIndexFile(getOffset().getOffsetTrim());
                 miss_.setFileName(getFile().getFileName());
-                miss_.setId(getPseudoSignature(_an));
-                miss_.setReturning(getImportedReturnType());
+                //return type len
+                miss_.buildError(_an.getContextEl().getAnalysisMessages().getMissingAbrupt(),
+                        _an.getContextEl().getKeyWords().getKeyWordThrow(),
+                        _an.getContextEl().getKeyWords().getKeyWordReturn(),
+                        getPseudoSignature(_an));
                 _an.addError(miss_);
             }
         }
@@ -248,7 +254,6 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
         return varargs;
     }
 
-    @Override
     public final AccessEnum getAccess() {
         return access;
     }
@@ -269,6 +274,49 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
         return importedReturnType;
     }
 
+    public void buildAnnotationsBasic(ContextEl _context) {
+        annotationsOps = new CustList<CustList<ExecOperationNode>>();
+        int len_ = annotationsIndexes.size();
+        AnalyzedPageEl page_ = _context.getAnalyzing();
+        for (int i = 0; i < len_; i++) {
+            int begin_ = annotationsIndexes.get(i);
+            page_.setGlobalOffset(begin_);
+            page_.setOffset(0);
+            Calculation c_ = Calculation.staticCalculation(MethodAccessKind.STATIC);
+            annotationsOps.add(ElUtil.getAnalyzedOperationsReadOnly(annotations.get(i), _context, c_));
+        }
+    }
+
+    protected void buildAnnotationsReport(ContextEl _cont, CustList<PartOffset> _parts) {
+        int len_ = annotationsIndexes.size();
+        for (int i = 0; i < len_; i++) {
+            int begin_ = annotationsIndexes.get(i);
+            int end_ = begin_ + annotations.get(i).length();
+            ElUtil.buildCoverageReport(_cont,begin_,this,annotationsOps.get(i),end_,_parts,0,"",true);
+        }
+    }
+
+    public void reduceBasic(ContextEl _context) {
+        CustList<CustList<ExecOperationNode>> annotationsOps_;
+        annotationsOps_ = new CustList<CustList<ExecOperationNode>>();
+        for (CustList<ExecOperationNode> a: annotationsOps) {
+            ExecOperationNode r_ = a.last();
+            annotationsOps_.add(ElUtil.getReducedNodes(r_));
+        }
+        annotationsOps = annotationsOps_;
+    }
+    @Override
+    public StringList getAnnotations() {
+        return annotations;
+    }
+    @Override
+    public CustList<CustList<ExecOperationNode>> getAnnotationsOps() {
+        return annotationsOps;
+    }
+    @Override
+    public Ints getAnnotationsIndexes() {
+        return annotationsIndexes;
+    }
     public void setImportedReturnType(String _importedReturnType) {
         importedReturnType = _importedReturnType;
     }

@@ -81,7 +81,6 @@ import aiki.beans.facade.solution.dto.PlaceTrainerDto;
 import aiki.beans.facade.solution.dto.StepDto;
 import aiki.beans.facade.solution.dto.WildPokemonDto;
 import aiki.beans.fight.AikiBeansFightStd;
-import aiki.beans.fight.CommonFightBean;
 import aiki.beans.fight.FightBean;
 import aiki.beans.fight.FightCalculationBean;
 import aiki.beans.fight.FighterBean;
@@ -354,8 +353,6 @@ public final class PokemonStandards extends BeanNatLgNames {
     private static final String ALIAS_LS = "ls";
     private static final String ALIAS_LSE = "lse";
     public PokemonStandards() {
-        setCustList(ALIAS_LS);
-        setCustMap(ALIAS_LSE);
         DefaultInitialization.basicStandards(this);
     }
     @Override
@@ -444,7 +441,7 @@ public final class PokemonStandards extends BeanNatLgNames {
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new StringMap<StandardField>();
         type_ = new StandardClass(TYPE_ACTIVITY_OF_MOVE, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
-        type_.getDirectInterfaces().add(_std.getAliasDisplayable());
+        type_.getDirectInterfaces().add(TYPE_DISPLAYABLE);
         params_ = new StringList();
         method_ = new StandardMethod(IS_ENABLED,params_,_std.getAliasPrimBoolean(), false, MethodModifier.NORMAL,type_);
         methods_.put(method_.getId(), method_);
@@ -467,7 +464,7 @@ public final class PokemonStandards extends BeanNatLgNames {
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new StringMap<StandardField>();
         type_ = new StandardClass(TYPE_MOVE_TARGET, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
-        type_.getDirectInterfaces().add(_std.getAliasDisplayable());
+        type_.getDirectInterfaces().add(TYPE_DISPLAYABLE);
         params_ = new StringList();
         method_ = new StandardMethod(GET_MOVE,params_,_std.getAliasString(), false, MethodModifier.NORMAL,type_);
         methods_.put(method_.getId(), method_);
@@ -487,7 +484,7 @@ public final class PokemonStandards extends BeanNatLgNames {
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new StringMap<StandardField>();
         type_ = new StandardClass(TYPE_TARGET_COORDS, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
-        type_.getDirectInterfaces().add(_std.getAliasDisplayable());
+        type_.getDirectInterfaces().add(TYPE_DISPLAYABLE);
         params_ = new StringList();
         method_ = new StandardMethod(GET_POSITION,params_,_std.getAliasPrimShort(), false, MethodModifier.NORMAL,type_);
         methods_.put(method_.getId(), method_);
@@ -504,7 +501,7 @@ public final class PokemonStandards extends BeanNatLgNames {
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new StringMap<StandardField>();
         type_ = new StandardClass(TYPE_USES_OF_MOVE, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
-        type_.getDirectInterfaces().add(_std.getAliasDisplayable());
+        type_.getDirectInterfaces().add(TYPE_DISPLAYABLE);
         params_ = new StringList();
         method_ = new StandardMethod(GET_CURRENT,params_,_std.getAliasPrimShort(), false, MethodModifier.NORMAL,type_);
         methods_.put(method_.getId(), method_);
@@ -524,7 +521,7 @@ public final class PokemonStandards extends BeanNatLgNames {
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new StringMap<StandardField>();
         type_ = new StandardClass(TYPE_COPIED_MOVE, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
-        type_.getDirectInterfaces().add(_std.getAliasDisplayable());
+        type_.getDirectInterfaces().add(TYPE_DISPLAYABLE);
         params_ = new StringList();
         method_ = new StandardMethod(GET_MOVE,params_,_std.getAliasString(), false, MethodModifier.NORMAL,type_);
         methods_.put(method_.getId(), method_);
@@ -544,7 +541,7 @@ public final class PokemonStandards extends BeanNatLgNames {
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new StringMap<StandardField>();
         type_ = new StandardClass(TYPE_MOVE_TEAM_POSITION, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
-        type_.getDirectInterfaces().add(_std.getAliasDisplayable());
+        type_.getDirectInterfaces().add(TYPE_DISPLAYABLE);
         params_ = new StringList();
         method_ = new StandardMethod(GET_MOVE,params_,_std.getAliasString(), false, MethodModifier.NORMAL,type_);
         methods_.put(method_.getId(), method_);
@@ -561,7 +558,7 @@ public final class PokemonStandards extends BeanNatLgNames {
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new StringMap<StandardField>();
         type_ = new StandardClass(TYPE_AFFECTED_MOVE, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
-        type_.getDirectInterfaces().add(_std.getAliasDisplayable());
+        type_.getDirectInterfaces().add(TYPE_DISPLAYABLE);
         params_ = new StringList();
         method_ = new StandardMethod(GET_MOVE,params_,_std.getAliasString(), false, MethodModifier.NORMAL,type_);
         methods_.put(method_.getId(), method_);
@@ -581,7 +578,7 @@ public final class PokemonStandards extends BeanNatLgNames {
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new StringMap<StandardField>();
         type_ = new StandardClass(TYPE_STACKS_OF_USES, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
-        type_.getDirectInterfaces().add(_std.getAliasDisplayable());
+        type_.getDirectInterfaces().add(TYPE_DISPLAYABLE);
         params_ = new StringList();
         method_ = new StandardMethod(GET_NB_ROUNDS,params_,_std.getAliasPrimByte(), false, MethodModifier.NORMAL,type_);
         methods_.put(method_.getId(), method_);
@@ -604,7 +601,7 @@ public final class PokemonStandards extends BeanNatLgNames {
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new StringMap<StandardField>();
         type_ = new StandardClass(TYPE_ANTICIPATION, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
-        type_.getDirectInterfaces().add(_std.getAliasDisplayable());
+        type_.getDirectInterfaces().add(TYPE_DISPLAYABLE);
         params_ = new StringList();
         method_ = new StandardMethod(GET_TARGET_POSITION,params_,PokemonStandards.TYPE_TARGET_COORDS, false, MethodModifier.NORMAL,type_);
         methods_.put(method_.getId(), method_);
@@ -630,7 +627,7 @@ public final class PokemonStandards extends BeanNatLgNames {
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new StringMap<StandardField>();
         type_ = new StandardClass(TYPE_RATE, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
-        type_.getDirectInterfaces().add(_std.getAliasDisplayable());
+        type_.getDirectInterfaces().add(TYPE_DISPLAYABLE);
         params_ = new StringList();
         method_ = new StandardMethod(IS_ZERO,params_,_std.getAliasPrimBoolean(), false, MethodModifier.NORMAL,type_);
         methods_.put(method_.getId(), method_);
@@ -653,7 +650,7 @@ public final class PokemonStandards extends BeanNatLgNames {
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new StringMap<StandardField>();
         type_ = new StandardClass(TYPE_TYPE_DAMAGE_BOOST, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
-        type_.getDirectInterfaces().add(_std.getAliasDisplayable());
+        type_.getDirectInterfaces().add(TYPE_DISPLAYABLE);
         params_ = new StringList();
         method_ = new StandardMethod(GET_BOOST,params_,PokemonStandards.TYPE_RATE, false, MethodModifier.NORMAL,type_);
         methods_.put(method_.getId(), method_);
@@ -670,7 +667,7 @@ public final class PokemonStandards extends BeanNatLgNames {
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new StringMap<StandardField>();
         type_ = new StandardClass(TYPE_EFFICIENCY_RATE, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
-        type_.getDirectInterfaces().add(_std.getAliasDisplayable());
+        type_.getDirectInterfaces().add(TYPE_DISPLAYABLE);
         params_ = new StringList();
         method_ = new StandardMethod(GET_EFF,params_,PokemonStandards.TYPE_RATE, false, MethodModifier.NORMAL,type_);
         methods_.put(method_.getId(), method_);
@@ -690,7 +687,7 @@ public final class PokemonStandards extends BeanNatLgNames {
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new StringMap<StandardField>();
         type_ = new StandardClass(TYPE_BOOST_HP_RATE, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
-        type_.getDirectInterfaces().add(_std.getAliasDisplayable());
+        type_.getDirectInterfaces().add(TYPE_DISPLAYABLE);
         params_ = new StringList();
         method_ = new StandardMethod(GET_HP_RATE,params_,PokemonStandards.TYPE_RATE, false, MethodModifier.NORMAL,type_);
         methods_.put(method_.getId(), method_);
@@ -717,7 +714,7 @@ public final class PokemonStandards extends BeanNatLgNames {
         method_ = new StandardMethod(GET_ITEM,params_,_std.getAliasString(), false, MethodModifier.NORMAL,type_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
-        method_ = new StandardMethod(GET_MOVES,params_,_std.getCustList(), false, MethodModifier.NORMAL,type_);
+        method_ = new StandardMethod(GET_MOVES,params_, TYPE_LIST, false, MethodModifier.NORMAL,type_);
         methods_.put(method_.getId(), method_);
         _std.getStandards().put(TYPE_PK_TRAINER, type_);
     }
@@ -752,10 +749,10 @@ public final class PokemonStandards extends BeanNatLgNames {
         method_ = new StandardMethod(GET_AVG_NB_STEPS,params_,_std.getAliasPrimShort(), false, MethodModifier.NORMAL,type_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
-        method_ = new StandardMethod(GET_WILD_POKEMON,params_,_std.getCustList(), false, MethodModifier.NORMAL,type_);
+        method_ = new StandardMethod(GET_WILD_POKEMON,params_, TYPE_LIST, false, MethodModifier.NORMAL,type_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
-        method_ = new StandardMethod(GET_WILD_POKEMON_FISHING,params_,_std.getCustList(), false, MethodModifier.NORMAL,type_);
+        method_ = new StandardMethod(GET_WILD_POKEMON_FISHING,params_, TYPE_LIST, false, MethodModifier.NORMAL,type_);
         methods_.put(method_.getId(), method_);
         _std.getStandards().put(TYPE_AREA_APPARITION, type_);
     }
@@ -805,7 +802,7 @@ public final class PokemonStandards extends BeanNatLgNames {
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new StringMap<StandardField>();
         type_ = new StandardClass(TYPE_TYPES_DUO, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
-        type_.getDirectInterfaces().add(_std.getAliasDisplayable());
+        type_.getDirectInterfaces().add(TYPE_DISPLAYABLE);
         params_ = new StringList();
         method_ = new StandardMethod(GET_DAMAGE_TYPE,params_,_std.getAliasString(), false, MethodModifier.NORMAL,type_);
         methods_.put(method_.getId(), method_);
@@ -825,7 +822,7 @@ public final class PokemonStandards extends BeanNatLgNames {
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new StringMap<StandardField>();
         type_ = new StandardClass(TYPE_CATEGORY_MULT, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
-        type_.getDirectInterfaces().add(_std.getAliasDisplayable());
+        type_.getDirectInterfaces().add(TYPE_DISPLAYABLE);
         params_ = new StringList();
         method_ = new StandardMethod(GET_CATEGORY,params_,_std.getAliasString(), false, MethodModifier.NORMAL,type_);
         methods_.put(method_.getId(), method_);
@@ -845,7 +842,7 @@ public final class PokemonStandards extends BeanNatLgNames {
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new StringMap<StandardField>();
         type_ = new StandardClass(TYPE_LEVEL_MOVE, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
-        type_.getDirectInterfaces().add(_std.getAliasDisplayable());
+        type_.getDirectInterfaces().add(TYPE_DISPLAYABLE);
         params_ = new StringList();
         method_ = new StandardMethod(GET_LEVEL,params_,_std.getAliasPrimShort(), false, MethodModifier.NORMAL,type_);
         methods_.put(method_.getId(), method_);
@@ -923,7 +920,7 @@ public final class PokemonStandards extends BeanNatLgNames {
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new StringMap<StandardField>();
         type_ = new StandardClass(TYPE_LG_INT, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
-        type_.getDirectInterfaces().add(_std.getAliasDisplayable());
+        type_.getDirectInterfaces().add(TYPE_DISPLAYABLE);
         _std.getStandards().put(TYPE_LG_INT, type_);
     }
     private static void buildEffectWhileSending(BeanLgNames _std) {
@@ -1055,7 +1052,7 @@ public final class PokemonStandards extends BeanNatLgNames {
         methods_ = new ObjectMap<MethodId, StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new StringMap<StandardField>();
-        type_ = new StandardClass(TYPE_RATE_VALIDATOR, fields_, constructors_, methods_, _std.getValidator(), MethodModifier.NORMAL);
+        type_ = new StandardClass(TYPE_RATE_VALIDATOR, fields_, constructors_, methods_, TYPE_VALIDATOR, MethodModifier.NORMAL);
         _std.getStandards().put(TYPE_RATE_VALIDATOR, type_);
     }
     private static void buildPositiveRateValidator(BeanLgNames _std) {
@@ -1066,7 +1063,7 @@ public final class PokemonStandards extends BeanNatLgNames {
         methods_ = new ObjectMap<MethodId, StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new StringMap<StandardField>();
-        type_ = new StandardClass(TYPE_POSITIVE_RATE_VALIDATOR, fields_, constructors_, methods_, _std.getValidator(), MethodModifier.NORMAL);
+        type_ = new StandardClass(TYPE_POSITIVE_RATE_VALIDATOR, fields_, constructors_, methods_, TYPE_VALIDATOR, MethodModifier.NORMAL);
         _std.getStandards().put(TYPE_POSITIVE_RATE_VALIDATOR, type_);
     }
     private static void buildShortValidator(BeanLgNames _std) {
@@ -1077,7 +1074,7 @@ public final class PokemonStandards extends BeanNatLgNames {
         methods_ = new ObjectMap<MethodId, StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new StringMap<StandardField>();
-        type_ = new StandardClass(TYPE_SHORT_VALIDATOR, fields_, constructors_, methods_, _std.getValidator(), MethodModifier.NORMAL);
+        type_ = new StandardClass(TYPE_SHORT_VALIDATOR, fields_, constructors_, methods_, TYPE_VALIDATOR, MethodModifier.NORMAL);
         _std.getStandards().put(TYPE_SHORT_VALIDATOR, type_);
     }
     private static void buildUnselectedRadio(BeanLgNames _std) {
@@ -1088,7 +1085,7 @@ public final class PokemonStandards extends BeanNatLgNames {
         methods_ = new ObjectMap<MethodId, StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new StringMap<StandardField>();
-        type_ = new StandardClass(TYPE_UNSELECTED_RADIO, fields_, constructors_, methods_, _std.getValidator(), MethodModifier.NORMAL);
+        type_ = new StandardClass(TYPE_UNSELECTED_RADIO, fields_, constructors_, methods_, TYPE_VALIDATOR, MethodModifier.NORMAL);
         _std.getStandards().put(TYPE_UNSELECTED_RADIO, type_);
     }
 
@@ -1106,20 +1103,16 @@ public final class PokemonStandards extends BeanNatLgNames {
     public Validator buildValidator(Element _element) {
         String clName_ = _element.getTagName();
         if (StringList.quickEq(clName_, TYPE_FULL_RATE_VALIDATOR)){
-            RateValidator v_ = new RateValidator();
-            return v_;
+            return new RateValidator();
         }
         if (StringList.quickEq(clName_, TYPE_FULL_POSITIVE_RATE_VALIDATOR)){
-            PositiveRateValidator v_ = new PositiveRateValidator();
-            return v_;
+            return new PositiveRateValidator();
         }
         if (StringList.quickEq(clName_, TYPE_FULL_SHORT_VALIDATOR)){
-            ShortValidator v_ = new ShortValidator();
-            return v_;
+            return new ShortValidator();
         }
         if (StringList.quickEq(clName_, TYPE_FULL_UNSELECTED_RADIO)){
-            UnselectedRadio v_ = new UnselectedRadio();
-            return v_;
+            return new UnselectedRadio();
         }
         return null;
     }
@@ -2624,8 +2617,7 @@ public final class PokemonStandards extends BeanNatLgNames {
         return res_;
     }
 
-    @Override
-    public String getOtherBeanStructClassName(Object _struct, ContextEl _context) {
+    private String getOtherBeanStructClassName(Object _struct) {
         if (_struct instanceof SelectedBoolean) {
             return getSelectedBoolean();
         }
@@ -2900,16 +2892,16 @@ public final class PokemonStandards extends BeanNatLgNames {
             return ((Bean)_struct).getClassName();
         }
         if (_struct instanceof SimpleList) {
-            return getCustList();
+            return TYPE_LIST;
         }
         if (_struct instanceof SimpleEntries) {
-            return getCustMap();
+            return TYPE_MAP;
         }
         if (_struct instanceof SimpleEntry) {
-            return getCustEntry();
+            return TYPE_ENTRY;
         }
         if (_struct instanceof SimpleItr) {
-            return getAliasSimpleIteratorType();
+            return TYPE_ITERATOR;
         }
         return getAliasObject();
     }
@@ -2950,7 +2942,7 @@ public final class PokemonStandards extends BeanNatLgNames {
             return new StringBuilderStruct((StringBuilder) _element);
         }
         String aliasObject_ = getAliasObject();
-        String className_ = getStdBeanStructClassName(_element, _ex.getContextEl());
+        String className_ = getOtherBeanStructClassName(_element);
         if (StringList.quickEq(className_, getAliasObject())) {
             return StdStruct.newInstance(_element, aliasObject_);
         }
@@ -3244,7 +3236,7 @@ public final class PokemonStandards extends BeanNatLgNames {
             return res_;
         }
         if (StringList.quickEq(methodName_,GET_MOVES)) {
-            res_.setResult(new StdStruct(instance_.getMoves(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getMoves(), TYPE_LIST));
             return res_;
         }
         return PokemonStandards.invokeMethodPokemon(_cont, _instance, _method, _args);
@@ -3269,11 +3261,11 @@ public final class PokemonStandards extends BeanNatLgNames {
             return res_;
         }
         if (StringList.quickEq(methodName_,GET_WILD_POKEMON)) {
-            res_.setResult(new StdStruct(instance_.getWildPokemon(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getWildPokemon(), TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(methodName_,GET_WILD_POKEMON_FISHING)) {
-            res_.setResult(new StdStruct(instance_.getWildPokemonFishing(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getWildPokemonFishing(), TYPE_LIST));
             return res_;
         }
         return res_;

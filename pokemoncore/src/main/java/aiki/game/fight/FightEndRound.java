@@ -1435,7 +1435,6 @@ final class FightEndRound {
             }
             pkNames_.add(f.getName());
         }
-        pkNames_.removeDuplicates();
         for(Fighter f:equipeUt_.getMembers().values()){
             if (!f.isBelongingToPlayer()) {
                 continue;

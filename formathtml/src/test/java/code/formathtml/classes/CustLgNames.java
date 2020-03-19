@@ -413,10 +413,6 @@ public final class CustLgNames extends BeanNatLgNames {
         return null;
     }
 
-    @Override
-    public String getOtherBeanStructClassName(Object _struct, ContextEl _context) {
-        return null;
-    }
 
     @Override
     public ResultErrorStd getOtherResultBean(ContextEl _cont,
@@ -557,11 +553,7 @@ public final class CustLgNames extends BeanNatLgNames {
             return new StringBuilderStruct((StringBuilder) _element);
         }
         String aliasObject_ = getAliasObject();
-        String className_ = getStdBeanStructClassName(_element, _ex.getContextEl());
-        if (StringList.quickEq(className_, getAliasObject())) {
-            return StdStruct.newInstance(_element, aliasObject_);
-        }
-        return StdStruct.newInstance(_element, className_);
+        return StdStruct.newInstance(_element, aliasObject_);
     }
 
     public ResultErrorStd getOtherStructToBeValidated(StringList _values, String _className, ContextEl _context) {

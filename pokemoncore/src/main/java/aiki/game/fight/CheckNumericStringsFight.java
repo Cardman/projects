@@ -727,7 +727,6 @@ public final class CheckNumericStringsFight {
         if (_sending) {
             StringList immuTypesIndiv_ = _import
                     .getVarParamsMove(Fight.IMMU_TYPE_ATT_COMBATTANT_ENTRANT);
-            immuTypesIndiv_.removeDuplicates();
             for (String e : immuTypesIndiv_) {
                 variables_
                         .put(StringList.concat(DataBase.VAR_PREFIX,

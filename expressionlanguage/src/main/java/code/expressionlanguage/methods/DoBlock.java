@@ -3,7 +3,7 @@ import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.calls.AbstractPageEl;
 import code.expressionlanguage.calls.util.ReadWrite;
-import code.expressionlanguage.errors.custom.UnexpectedTagName;
+import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.instr.PartOffset;
@@ -11,6 +11,7 @@ import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.stacks.LoopBlockStack;
 import code.util.CustList;
 import code.util.IdMap;
+import code.util.StringList;
 
 public final class DoBlock extends BracedStack implements Loop {
 
@@ -45,16 +46,32 @@ public final class DoBlock extends BracedStack implements Loop {
     public void checkTree(Analyzable _an, AnalyzingEl _anEl) {
         Block nextSibling_ = getNextSibling();
         if (nextSibling_ == null) {
-            UnexpectedTagName un_ = new UnexpectedTagName();
+            FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(getFile().getFileName());
             un_.setIndexFile(getOffset().getOffsetTrim());
+            //key word len
+            un_.buildError(_an.getContextEl().getAnalysisMessages().getUnexpectedDoTry(),
+                    _an.getContextEl().getKeyWords().getKeyWordDo(),
+                    StringList.join(
+                            new StringList(
+                                    _an.getContextEl().getKeyWords().getKeyWordWhile()
+                            ),
+                            "|"));
             _an.addError(un_);
             return;
         }
         if (!(nextSibling_ instanceof DoWhileCondition)) {
-            UnexpectedTagName un_ = new UnexpectedTagName();
+            FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(nextSibling_.getFile().getFileName());
             un_.setIndexFile(nextSibling_.getOffset().getOffsetTrim());
+            //key word len
+            un_.buildError(_an.getContextEl().getAnalysisMessages().getUnexpectedDoTry(),
+                    _an.getContextEl().getKeyWords().getKeyWordDo(),
+                    StringList.join(
+                            new StringList(
+                                    _an.getContextEl().getKeyWords().getKeyWordWhile()
+                            ),
+                            "|"));
             _an.addError(un_);
         }
     }

@@ -74,7 +74,6 @@ public final class RulesBelote {
             min_ += DIVISIONS;
         }
         list_.add(sum_);
-        list_.removeDuplicates();
         return list_;
     }
 

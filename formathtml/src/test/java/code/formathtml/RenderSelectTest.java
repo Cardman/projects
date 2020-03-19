@@ -2,11 +2,6 @@ package code.formathtml;
 
 import code.bean.Bean;
 
-import code.expressionlanguage.AnalyzedPageEl;
-import code.expressionlanguage.structs.Struct;
-
-import code.sml.Document;
-import code.sml.DocumentBuilder;
 import code.util.StringMap;
 import org.junit.Test;
 
@@ -59,27 +54,16 @@ public final class RenderSelectTest extends CommonRender {
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
         Configuration conf_ = contextElThird(filesSec_);
         conf_.setBeans(new StringMap<Bean>());
-        addImportingPage(conf_);
-        Struct bean_ = RenderExpUtil.processEl("$new pkg.BeanOne()", 0, conf_).getStruct();
-        addBeanInfo(conf_,"bean_one",bean_);
-        conf_.clearPages();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-
-
-        Document doc_ = DocumentBuilder.parseSax(html_);
         conf_.getAnalyzingDoc().setFiles(files_);
-        setLocale(locale_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getContext().setAnalyzing(new AnalyzedPageEl());
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body><form c:command=\"page1.html\" action=\"\" n-f=\"0\"><select name=\"\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
     }
+
     @Test
     public void process1Test() {
         String locale_ = "en";
@@ -118,23 +102,11 @@ public final class RenderSelectTest extends CommonRender {
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
         Configuration conf_ = contextElThird(filesSec_);
         conf_.setBeans(new StringMap<Bean>());
-        addImportingPage(conf_);
-        Struct bean_ = RenderExpUtil.processEl("$new pkg.BeanOne()", 0, conf_).getStruct();
-        addBeanInfo(conf_,"bean_one",bean_);
-        conf_.clearPages();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-
-
-        Document doc_ = DocumentBuilder.parseSax(html_);
         conf_.getAnalyzingDoc().setFiles(files_);
-        setLocale(locale_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getContext().setAnalyzing(new AnalyzedPageEl());
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body><form c:command=\"page1.html\" action=\"\" n-f=\"0\"><select name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
@@ -177,23 +149,11 @@ public final class RenderSelectTest extends CommonRender {
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
         Configuration conf_ = contextElThird(filesSec_);
         conf_.setBeans(new StringMap<Bean>());
-        addImportingPage(conf_);
-        Struct bean_ = RenderExpUtil.processEl("$new pkg.BeanOne()", 0, conf_).getStruct();
-        addBeanInfo(conf_,"bean_one",bean_);
-        conf_.clearPages();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-
-
-        Document doc_ = DocumentBuilder.parseSax(html_);
         conf_.getAnalyzingDoc().setFiles(files_);
-        setLocale(locale_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getContext().setAnalyzing(new AnalyzedPageEl());
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body><form c:command=\"page1.html\" action=\"\" n-f=\"0\"><select id=\"5\" name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
@@ -236,23 +196,11 @@ public final class RenderSelectTest extends CommonRender {
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
         Configuration conf_ = contextElThird(filesSec_);
         conf_.setBeans(new StringMap<Bean>());
-        addImportingPage(conf_);
-        Struct bean_ = RenderExpUtil.processEl("$new pkg.BeanOne()", 0, conf_).getStruct();
-        addBeanInfo(conf_,"bean_one",bean_);
-        conf_.clearPages();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-
-
-        Document doc_ = DocumentBuilder.parseSax(html_);
         conf_.getAnalyzingDoc().setFiles(files_);
-        setLocale(locale_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getContext().setAnalyzing(new AnalyzedPageEl());
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body><form c:command=\"page1.html\" action=\"\" n-f=\"0\"><select c:groupId=\"5\" name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
@@ -298,23 +246,11 @@ public final class RenderSelectTest extends CommonRender {
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
         Configuration conf_ = contextElThird(filesSec_);
         conf_.setBeans(new StringMap<Bean>());
-        addImportingPage(conf_);
-        Struct bean_ = RenderExpUtil.processEl("$new pkg.BeanOne()", 0, conf_).getStruct();
-        addBeanInfo(conf_,"bean_one",bean_);
-        conf_.clearPages();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-
-
-        Document doc_ = DocumentBuilder.parseSax(html_);
         conf_.getAnalyzingDoc().setFiles(files_);
-        setLocale(locale_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getContext().setAnalyzing(new AnalyzedPageEl());
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body><form c:command=\"page1.html\" action=\"\" n-f=\"0\"><select name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
@@ -360,23 +296,11 @@ public final class RenderSelectTest extends CommonRender {
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
         Configuration conf_ = contextElThird(filesSec_);
         conf_.setBeans(new StringMap<Bean>());
-        addImportingPage(conf_);
-        Struct bean_ = RenderExpUtil.processEl("$new pkg.BeanOne()", 0, conf_).getStruct();
-        addBeanInfo(conf_,"bean_one",bean_);
-        conf_.clearPages();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-
-
-        Document doc_ = DocumentBuilder.parseSax(html_);
         conf_.getAnalyzingDoc().setFiles(files_);
-        setLocale(locale_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getContext().setAnalyzing(new AnalyzedPageEl());
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body><form c:command=\"page1.html\" action=\"\" n-f=\"0\"><select name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
@@ -428,23 +352,11 @@ public final class RenderSelectTest extends CommonRender {
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
         Configuration conf_ = contextElThird(filesSec_);
         conf_.setBeans(new StringMap<Bean>());
-        addImportingPage(conf_);
-        Struct bean_ = RenderExpUtil.processEl("$new pkg.BeanOne()", 0, conf_).getStruct();
-        addBeanInfo(conf_,"bean_one",bean_);
-        conf_.clearPages();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-
-
-        Document doc_ = DocumentBuilder.parseSax(html_);
         conf_.getAnalyzingDoc().setFiles(files_);
-        setLocale(locale_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getContext().setAnalyzing(new AnalyzedPageEl());
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body><form c:command=\"page1.html\" action=\"\" n-f=\"0\"><select multiple=\"multiple\" name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
@@ -499,23 +411,11 @@ public final class RenderSelectTest extends CommonRender {
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
         Configuration conf_ = contextElThird(filesSec_);
         conf_.setBeans(new StringMap<Bean>());
-        addImportingPage(conf_);
-        Struct bean_ = RenderExpUtil.processEl("$new pkg.BeanOne()", 0, conf_).getStruct();
-        addBeanInfo(conf_,"bean_one",bean_);
-        conf_.clearPages();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-
-
-        Document doc_ = DocumentBuilder.parseSax(html_);
         conf_.getAnalyzingDoc().setFiles(files_);
-        setLocale(locale_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getContext().setAnalyzing(new AnalyzedPageEl());
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body><form c:command=\"page1.html\" action=\"\" n-f=\"0\"><select multiple=\"multiple\" name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
@@ -570,23 +470,11 @@ public final class RenderSelectTest extends CommonRender {
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
         Configuration conf_ = contextElThird(filesSec_);
         conf_.setBeans(new StringMap<Bean>());
-        addImportingPage(conf_);
-        Struct bean_ = RenderExpUtil.processEl("$new pkg.BeanOne()", 0, conf_).getStruct();
-        addBeanInfo(conf_,"bean_one",bean_);
-        conf_.clearPages();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-
-
-        Document doc_ = DocumentBuilder.parseSax(html_);
         conf_.getAnalyzingDoc().setFiles(files_);
-        setLocale(locale_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getContext().setAnalyzing(new AnalyzedPageEl());
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body><form c:command=\"page1.html\" action=\"\" n-f=\"0\"><select multiple=\"multiple\" name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
@@ -638,23 +526,11 @@ public final class RenderSelectTest extends CommonRender {
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
         Configuration conf_ = contextElThird(filesSec_);
         conf_.setBeans(new StringMap<Bean>());
-        addImportingPage(conf_);
-        Struct bean_ = RenderExpUtil.processEl("$new pkg.BeanOne()", 0, conf_).getStruct();
-        addBeanInfo(conf_,"bean_one",bean_);
-        conf_.clearPages();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-
-
-        Document doc_ = DocumentBuilder.parseSax(html_);
         conf_.getAnalyzingDoc().setFiles(files_);
-        setLocale(locale_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getContext().setAnalyzing(new AnalyzedPageEl());
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body><form c:command=\"page1.html\" action=\"\" n-f=\"0\"><select multiple=\"multiple\" name=\"bean_one.choice\" n-i=\"0\" rows=\"4\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
@@ -706,23 +582,11 @@ public final class RenderSelectTest extends CommonRender {
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
         Configuration conf_ = contextElThird(filesSec_);
         conf_.setBeans(new StringMap<Bean>());
-        addImportingPage(conf_);
-        Struct bean_ = RenderExpUtil.processEl("$new pkg.BeanOne()", 0, conf_).getStruct();
-        addBeanInfo(conf_,"bean_one",bean_);
-        conf_.clearPages();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-
-
-        Document doc_ = DocumentBuilder.parseSax(html_);
         conf_.getAnalyzingDoc().setFiles(files_);
-        setLocale(locale_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getContext().setAnalyzing(new AnalyzedPageEl());
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_,conf_);
         assertNotNull(getException(conf_));
@@ -768,23 +632,11 @@ public final class RenderSelectTest extends CommonRender {
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
         Configuration conf_ = contextElThird(filesSec_);
         conf_.setBeans(new StringMap<Bean>());
-        addImportingPage(conf_);
-        Struct bean_ = RenderExpUtil.processEl("$new pkg.BeanOne()", 0, conf_).getStruct();
-        addBeanInfo(conf_,"bean_one",bean_);
-        conf_.clearPages();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-
-
-        Document doc_ = DocumentBuilder.parseSax(html_);
         conf_.getAnalyzingDoc().setFiles(files_);
-        setLocale(locale_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getContext().setAnalyzing(new AnalyzedPageEl());
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body><form c:command=\"page1.html\" action=\"\" n-f=\"0\"><select name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
@@ -843,23 +695,11 @@ public final class RenderSelectTest extends CommonRender {
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
         Configuration conf_ = contextElThird(filesSec_);
         conf_.setBeans(new StringMap<Bean>());
-        addImportingPage(conf_);
-        Struct bean_ = RenderExpUtil.processEl("$new pkg.BeanOne()", 0, conf_).getStruct();
-        addBeanInfo(conf_,"bean_one",bean_);
-        conf_.clearPages();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-
-
-        Document doc_ = DocumentBuilder.parseSax(html_);
         conf_.getAnalyzingDoc().setFiles(files_);
-        setLocale(locale_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getContext().setAnalyzing(new AnalyzedPageEl());
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body><form c:command=\"page1.html\" action=\"\" n-f=\"0\"><select multiple=\"multiple\" name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
@@ -911,23 +751,11 @@ public final class RenderSelectTest extends CommonRender {
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
         Configuration conf_ = contextElThird(filesSec_);
         conf_.setBeans(new StringMap<Bean>());
-        addImportingPage(conf_);
-        Struct bean_ = RenderExpUtil.processEl("$new pkg.BeanOne()", 0, conf_).getStruct();
-        addBeanInfo(conf_,"bean_one",bean_);
-        conf_.clearPages();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-
-
-        Document doc_ = DocumentBuilder.parseSax(html_);
         conf_.getAnalyzingDoc().setFiles(files_);
-        setLocale(locale_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getContext().setAnalyzing(new AnalyzedPageEl());
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_,conf_);
         assertNotNull(getException(conf_));
@@ -979,23 +807,11 @@ public final class RenderSelectTest extends CommonRender {
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
         Configuration conf_ = contextElThird(filesSec_);
         conf_.setBeans(new StringMap<Bean>());
-        addImportingPage(conf_);
-        Struct bean_ = RenderExpUtil.processEl("$new pkg.BeanOne()", 0, conf_).getStruct();
-        addBeanInfo(conf_,"bean_one",bean_);
-        conf_.clearPages();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-
-
-        Document doc_ = DocumentBuilder.parseSax(html_);
         conf_.getAnalyzingDoc().setFiles(files_);
-        setLocale(locale_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getContext().setAnalyzing(new AnalyzedPageEl());
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_,conf_);
         assertNotNull(getException(conf_));
@@ -1044,23 +860,11 @@ public final class RenderSelectTest extends CommonRender {
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
         Configuration conf_ = contextElThird(filesSec_);
         conf_.setBeans(new StringMap<Bean>());
-        addImportingPage(conf_);
-        Struct bean_ = RenderExpUtil.processEl("$new pkg.BeanOne()", 0, conf_).getStruct();
-        addBeanInfo(conf_,"bean_one",bean_);
-        conf_.clearPages();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-
-
-        Document doc_ = DocumentBuilder.parseSax(html_);
         conf_.getAnalyzingDoc().setFiles(files_);
-        setLocale(locale_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getContext().setAnalyzing(new AnalyzedPageEl());
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_,conf_);
         assertNotNull(getException(conf_));
@@ -1109,23 +913,11 @@ public final class RenderSelectTest extends CommonRender {
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
         Configuration conf_ = contextElThird(filesSec_);
         conf_.setBeans(new StringMap<Bean>());
-        addImportingPage(conf_);
-        Struct bean_ = RenderExpUtil.processEl("$new pkg.BeanOne()", 0, conf_).getStruct();
-        addBeanInfo(conf_,"bean_one",bean_);
-        conf_.clearPages();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-
-
-        Document doc_ = DocumentBuilder.parseSax(html_);
         conf_.getAnalyzingDoc().setFiles(files_);
-        setLocale(locale_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getContext().setAnalyzing(new AnalyzedPageEl());
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_,conf_);
         assertNotNull(getException(conf_));
@@ -1177,23 +969,11 @@ public final class RenderSelectTest extends CommonRender {
         filesSec_.put(CUST_PAIR_PATH, getCustomPairFailSecond());
         Configuration conf_ = contextElThird(filesSec_);
         conf_.setBeans(new StringMap<Bean>());
-        addImportingPage(conf_);
-        Struct bean_ = RenderExpUtil.processEl("$new pkg.BeanOne()", 0, conf_).getStruct();
-        addBeanInfo(conf_,"bean_one",bean_);
-        conf_.clearPages();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-
-
-        Document doc_ = DocumentBuilder.parseSax(html_);
         conf_.getAnalyzingDoc().setFiles(files_);
-        setLocale(locale_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getContext().setAnalyzing(new AnalyzedPageEl());
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_,conf_);
         assertNotNull(getException(conf_));
@@ -1246,23 +1026,11 @@ public final class RenderSelectTest extends CommonRender {
         filesSec_.put(CUST_PAIR_PATH, getCustomPairFailFirst());
         Configuration conf_ = contextElThird(filesSec_);
         conf_.setBeans(new StringMap<Bean>());
-        addImportingPage(conf_);
-        Struct bean_ = RenderExpUtil.processEl("$new pkg.BeanOne()", 0, conf_).getStruct();
-        addBeanInfo(conf_,"bean_one",bean_);
-        conf_.clearPages();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-
-
-        Document doc_ = DocumentBuilder.parseSax(html_);
         conf_.getAnalyzingDoc().setFiles(files_);
-        setLocale(locale_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getContext().setAnalyzing(new AnalyzedPageEl());
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_,conf_);
         assertNotNull(getException(conf_));
@@ -1314,23 +1082,11 @@ public final class RenderSelectTest extends CommonRender {
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
         Configuration conf_ = contextElThird(filesSec_);
         conf_.setBeans(new StringMap<Bean>());
-        addImportingPage(conf_);
-        Struct bean_ = RenderExpUtil.processEl("$new pkg.BeanOne()", 0, conf_).getStruct();
-        addBeanInfo(conf_,"bean_one",bean_);
-        conf_.clearPages();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-
-
-        Document doc_ = DocumentBuilder.parseSax(html_);
         conf_.getAnalyzingDoc().setFiles(files_);
-        setLocale(locale_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getContext().setAnalyzing(new AnalyzedPageEl());
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_,conf_);
         assertNotNull(getException(conf_));
@@ -1382,23 +1138,11 @@ public final class RenderSelectTest extends CommonRender {
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
         Configuration conf_ = contextElThird(filesSec_);
         conf_.setBeans(new StringMap<Bean>());
-        addImportingPage(conf_);
-        Struct bean_ = RenderExpUtil.processEl("$new pkg.BeanOne()", 0, conf_).getStruct();
-        addBeanInfo(conf_,"bean_one",bean_);
-        conf_.clearPages();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-
-
-        Document doc_ = DocumentBuilder.parseSax(html_);
         conf_.getAnalyzingDoc().setFiles(files_);
-        setLocale(locale_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getContext().setAnalyzing(new AnalyzedPageEl());
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_,conf_);
         assertNotNull(getException(conf_));
@@ -1450,23 +1194,11 @@ public final class RenderSelectTest extends CommonRender {
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
         Configuration conf_ = contextElThird(filesSec_);
         conf_.setBeans(new StringMap<Bean>());
-        addImportingPage(conf_);
-        Struct bean_ = RenderExpUtil.processEl("$new pkg.BeanOne()", 0, conf_).getStruct();
-        addBeanInfo(conf_,"bean_one",bean_);
-        conf_.clearPages();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-
-
-        Document doc_ = DocumentBuilder.parseSax(html_);
         conf_.getAnalyzingDoc().setFiles(files_);
-        setLocale(locale_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getContext().setAnalyzing(new AnalyzedPageEl());
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_,conf_);
         assertNotNull(getException(conf_));
@@ -1513,23 +1245,11 @@ public final class RenderSelectTest extends CommonRender {
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
         Configuration conf_ = contextElThird(filesSec_);
         conf_.setBeans(new StringMap<Bean>());
-        addImportingPage(conf_);
-        Struct bean_ = RenderExpUtil.processEl("$new pkg.BeanOne()", 0, conf_).getStruct();
-        addBeanInfo(conf_,"bean_one",bean_);
-        conf_.clearPages();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-
-
-        Document doc_ = DocumentBuilder.parseSax(html_);
         conf_.getAnalyzingDoc().setFiles(files_);
-        setLocale(locale_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getContext().setAnalyzing(new AnalyzedPageEl());
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body><form c:command=\"page1.html\" action=\"\" n-f=\"0\"><select name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
@@ -1582,23 +1302,11 @@ public final class RenderSelectTest extends CommonRender {
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
         Configuration conf_ = contextElThird(filesSec_);
         conf_.setBeans(new StringMap<Bean>());
-        addImportingPage(conf_);
-        Struct bean_ = RenderExpUtil.processEl("$new pkg.BeanOne()", 0, conf_).getStruct();
-        addBeanInfo(conf_,"bean_one",bean_);
-        conf_.clearPages();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-
-
-        Document doc_ = DocumentBuilder.parseSax(html_);
         conf_.getAnalyzingDoc().setFiles(files_);
-        setLocale(locale_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getContext().setAnalyzing(new AnalyzedPageEl());
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body><form c:command=\"page1.html\" action=\"\" n-f=\"0\"><select multiple=\"multiple\" name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
@@ -1645,23 +1353,11 @@ public final class RenderSelectTest extends CommonRender {
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
         Configuration conf_ = contextElThird(filesSec_);
         conf_.setBeans(new StringMap<Bean>());
-        addImportingPage(conf_);
-        Struct bean_ = RenderExpUtil.processEl("$new pkg.BeanOne()", 0, conf_).getStruct();
-        addBeanInfo(conf_,"bean_one",bean_);
-        conf_.clearPages();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-
-
-        Document doc_ = DocumentBuilder.parseSax(html_);
         conf_.getAnalyzingDoc().setFiles(files_);
-        setLocale(locale_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getContext().setAnalyzing(new AnalyzedPageEl());
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_,conf_);
         assertNotNull(getException(conf_));
@@ -1711,23 +1407,11 @@ public final class RenderSelectTest extends CommonRender {
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
         Configuration conf_ = contextElThird(filesSec_);
         conf_.setBeans(new StringMap<Bean>());
-        addImportingPage(conf_);
-        Struct bean_ = RenderExpUtil.processEl("$new pkg.BeanOne()", 0, conf_).getStruct();
-        addBeanInfo(conf_,"bean_one",bean_);
-        conf_.clearPages();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-
-
-        Document doc_ = DocumentBuilder.parseSax(html_);
         conf_.getAnalyzingDoc().setFiles(files_);
-        setLocale(locale_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getContext().setAnalyzing(new AnalyzedPageEl());
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_,conf_);
         assertNotNull(getException(conf_));
@@ -1771,23 +1455,11 @@ public final class RenderSelectTest extends CommonRender {
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
         Configuration conf_ = contextElThird(filesSec_);
         conf_.setBeans(new StringMap<Bean>());
-        addImportingPage(conf_);
-        Struct bean_ = RenderExpUtil.processEl("$new pkg.BeanOne()", 0, conf_).getStruct();
-        addBeanInfo(conf_,"bean_one",bean_);
-        conf_.clearPages();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-
-
-        Document doc_ = DocumentBuilder.parseSax(html_);
         conf_.getAnalyzingDoc().setFiles(files_);
-        setLocale(locale_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getContext().setAnalyzing(new AnalyzedPageEl());
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_,conf_);
         assertNotNull(getException(conf_));
@@ -1830,23 +1502,11 @@ public final class RenderSelectTest extends CommonRender {
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
         Configuration conf_ = contextElThird(filesSec_);
         conf_.setBeans(new StringMap<Bean>());
-        addImportingPage(conf_);
-        Struct bean_ = RenderExpUtil.processEl("$new pkg.BeanOne()", 0, conf_).getStruct();
-        addBeanInfo(conf_,"bean_one",bean_);
-        conf_.clearPages();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-
-
-        Document doc_ = DocumentBuilder.parseSax(html_);
         conf_.getAnalyzingDoc().setFiles(files_);
-        setLocale(locale_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getContext().setAnalyzing(new AnalyzedPageEl());
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_,conf_);
         assertNotNull(getException(conf_));
@@ -1892,23 +1552,11 @@ public final class RenderSelectTest extends CommonRender {
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
         Configuration conf_ = contextElThird(filesSec_);
         conf_.setBeans(new StringMap<Bean>());
-        addImportingPage(conf_);
-        Struct bean_ = RenderExpUtil.processEl("$new pkg.BeanOne()", 0, conf_).getStruct();
-        addBeanInfo(conf_,"bean_one",bean_);
-        conf_.clearPages();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-
-
-        Document doc_ = DocumentBuilder.parseSax(html_);
         conf_.getAnalyzingDoc().setFiles(files_);
-        setLocale(locale_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getContext().setAnalyzing(new AnalyzedPageEl());
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_,conf_);
         assertNotNull(getException(conf_));
@@ -1954,23 +1602,11 @@ public final class RenderSelectTest extends CommonRender {
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
         Configuration conf_ = contextElThird(filesSec_);
         conf_.setBeans(new StringMap<Bean>());
-        addImportingPage(conf_);
-        Struct bean_ = RenderExpUtil.processEl("$new pkg.BeanOne()", 0, conf_).getStruct();
-        addBeanInfo(conf_,"bean_one",bean_);
-        conf_.clearPages();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-
-
-        Document doc_ = DocumentBuilder.parseSax(html_);
         conf_.getAnalyzingDoc().setFiles(files_);
-        setLocale(locale_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getContext().setAnalyzing(new AnalyzedPageEl());
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_,conf_);
         assertNotNull(getException(conf_));
@@ -2004,23 +1640,11 @@ public final class RenderSelectTest extends CommonRender {
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
         Configuration conf_ = contextElThird(filesSec_);
         conf_.setBeans(new StringMap<Bean>());
-        addImportingPage(conf_);
-        Struct bean_ = RenderExpUtil.processEl("$new pkg.BeanOne()", 0, conf_).getStruct();
-        addBeanInfo(conf_,"bean_one",bean_);
-        conf_.clearPages();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-
-
-        Document doc_ = DocumentBuilder.parseSax(html_);
         conf_.getAnalyzingDoc().setFiles(files_);
-        setLocale(locale_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getContext().setAnalyzing(new AnalyzedPageEl());
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body><form c:command=\"page1.html\" action=\"\" n-f=\"0\"><select name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\" selected=\"selected\">1</option></select><select name=\"bean_one.choice2\" n-i=\"1\"><option value=\"ONE\" selected=\"selected\">1</option></select></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
@@ -2054,23 +1678,11 @@ public final class RenderSelectTest extends CommonRender {
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
         Configuration conf_ = contextElThird(filesSec_);
         conf_.setBeans(new StringMap<Bean>());
-        addImportingPage(conf_);
-        Struct bean_ = RenderExpUtil.processEl("$new pkg.BeanOne()", 0, conf_).getStruct();
-        addBeanInfo(conf_,"bean_one",bean_);
-        conf_.clearPages();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-
-
-        Document doc_ = DocumentBuilder.parseSax(html_);
         conf_.getAnalyzingDoc().setFiles(files_);
-        setLocale(locale_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getContext().setAnalyzing(new AnalyzedPageEl());
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body><form c:command=\"page1.html\" action=\"\" n-f=\"0\"><select name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\" selected=\"selected\">1</option></select></form><form c:command=\"page1.html\" action=\"\" n-f=\"1\"><select name=\"bean_one.choice2\" n-i=\"0\"><option value=\"ONE\" selected=\"selected\">1</option></select></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
@@ -2113,23 +1725,11 @@ public final class RenderSelectTest extends CommonRender {
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
         Configuration conf_ = contextElThird(filesSec_);
         conf_.setBeans(new StringMap<Bean>());
-        addImportingPage(conf_);
-        Struct bean_ = RenderExpUtil.processEl("$new pkg.BeanOne()", 0, conf_).getStruct();
-        addBeanInfo(conf_,"bean_one",bean_);
-        conf_.clearPages();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-
-
-        Document doc_ = DocumentBuilder.parseSax(html_);
         conf_.getAnalyzingDoc().setFiles(files_);
-        setLocale(locale_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getContext().setAnalyzing(new AnalyzedPageEl());
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body><select name=\"choice\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
@@ -2171,23 +1771,11 @@ public final class RenderSelectTest extends CommonRender {
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
         Configuration conf_ = contextElThird(filesSec_);
         conf_.setBeans(new StringMap<Bean>());
-        addImportingPage(conf_);
-        Struct bean_ = RenderExpUtil.processEl("$new pkg.BeanOne()", 0, conf_).getStruct();
-        addBeanInfo(conf_,"bean_one",bean_);
-        conf_.clearPages();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-
-
-        Document doc_ = DocumentBuilder.parseSax(html_);
         conf_.getAnalyzingDoc().setFiles(files_);
-        setLocale(locale_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getContext().setAnalyzing(new AnalyzedPageEl());
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(!conf_.isEmptyErrors());
     }
     @Test
@@ -2231,23 +1819,11 @@ public final class RenderSelectTest extends CommonRender {
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
         Configuration conf_ = contextElThird(filesSec_);
         conf_.setBeans(new StringMap<Bean>());
-        addImportingPage(conf_);
-        Struct bean_ = RenderExpUtil.processEl("$new pkg.BeanOne()", 0, conf_).getStruct();
-        addBeanInfo(conf_,"bean_one",bean_);
-        conf_.clearPages();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-
-
-        Document doc_ = DocumentBuilder.parseSax(html_);
         conf_.getAnalyzingDoc().setFiles(files_);
-        setLocale(locale_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getContext().setAnalyzing(new AnalyzedPageEl());
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(!conf_.isEmptyErrors());
     }
     @Test
@@ -2291,23 +1867,11 @@ public final class RenderSelectTest extends CommonRender {
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
         Configuration conf_ = contextElThird(filesSec_);
         conf_.setBeans(new StringMap<Bean>());
-        addImportingPage(conf_);
-        Struct bean_ = RenderExpUtil.processEl("$new pkg.BeanOne()", 0, conf_).getStruct();
-        addBeanInfo(conf_,"bean_one",bean_);
-        conf_.clearPages();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-
-
-        Document doc_ = DocumentBuilder.parseSax(html_);
         conf_.getAnalyzingDoc().setFiles(files_);
-        setLocale(locale_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getContext().setAnalyzing(new AnalyzedPageEl());
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(!conf_.isEmptyErrors());
     }
     @Test
@@ -2351,23 +1915,11 @@ public final class RenderSelectTest extends CommonRender {
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
         Configuration conf_ = contextElThird(filesSec_);
         conf_.setBeans(new StringMap<Bean>());
-        addImportingPage(conf_);
-        Struct bean_ = RenderExpUtil.processEl("$new pkg.BeanOne()", 0, conf_).getStruct();
-        addBeanInfo(conf_,"bean_one",bean_);
-        conf_.clearPages();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-
-
-        Document doc_ = DocumentBuilder.parseSax(html_);
         conf_.getAnalyzingDoc().setFiles(files_);
-        setLocale(locale_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getContext().setAnalyzing(new AnalyzedPageEl());
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(!conf_.isEmptyErrors());
     }
     @Test
@@ -2411,23 +1963,11 @@ public final class RenderSelectTest extends CommonRender {
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
         Configuration conf_ = contextElThird(filesSec_);
         conf_.setBeans(new StringMap<Bean>());
-        addImportingPage(conf_);
-        Struct bean_ = RenderExpUtil.processEl("$new pkg.BeanOne()", 0, conf_).getStruct();
-        addBeanInfo(conf_,"bean_one",bean_);
-        conf_.clearPages();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-
-
-        Document doc_ = DocumentBuilder.parseSax(html_);
         conf_.getAnalyzingDoc().setFiles(files_);
-        setLocale(locale_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getContext().setAnalyzing(new AnalyzedPageEl());
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(!conf_.isEmptyErrors());
     }
     @Test
@@ -2474,24 +2014,13 @@ public final class RenderSelectTest extends CommonRender {
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
         Configuration conf_ = contextElThird(filesSec_);
         conf_.setBeans(new StringMap<Bean>());
-        addImportingPage(conf_);
-        Struct bean_ = RenderExpUtil.processEl("$new pkg.BeanOne()", 0, conf_).getStruct();
-        addBeanInfo(conf_,"bean_one",bean_);
-        conf_.clearPages();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-
-
-        Document doc_ = DocumentBuilder.parseSax(html_);
-        setLocale(locale_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getContext().setAnalyzing(new AnalyzedPageEl());
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        buildRendWithOneBean(html_, conf_);
         assertTrue(!conf_.isEmptyErrors());
     }
+
     @Test
     public void process7FailTest() {
         String locale_ = "en";
@@ -2536,22 +2065,10 @@ public final class RenderSelectTest extends CommonRender {
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
         Configuration conf_ = contextElThird(filesSec_);
         conf_.setBeans(new StringMap<Bean>());
-        addImportingPage(conf_);
-        Struct bean_ = RenderExpUtil.processEl("$new pkg.BeanOne()", 0, conf_).getStruct();
-        addBeanInfo(conf_,"bean_one",bean_);
-        conf_.clearPages();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-
-
-        Document doc_ = DocumentBuilder.parseSax(html_);
-        setLocale(locale_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getContext().setAnalyzing(new AnalyzedPageEl());
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        buildRendWithOneBean(html_, conf_);
         assertTrue(!conf_.isEmptyErrors());
     }
     @Test
@@ -2598,22 +2115,10 @@ public final class RenderSelectTest extends CommonRender {
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
         Configuration conf_ = contextElThird(filesSec_);
         conf_.setBeans(new StringMap<Bean>());
-        addImportingPage(conf_);
-        Struct bean_ = RenderExpUtil.processEl("$new pkg.BeanOne()", 0, conf_).getStruct();
-        addBeanInfo(conf_,"bean_one",bean_);
-        conf_.clearPages();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-
-
-        Document doc_ = DocumentBuilder.parseSax(html_);
-        setLocale(locale_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getContext().setAnalyzing(new AnalyzedPageEl());
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        buildRendWithOneBean(html_, conf_);
         assertTrue(!conf_.isEmptyErrors());
     }
     @Test
@@ -2657,23 +2162,11 @@ public final class RenderSelectTest extends CommonRender {
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
         Configuration conf_ = contextElThird(filesSec_);
         conf_.setBeans(new StringMap<Bean>());
-        addImportingPage(conf_);
-        Struct bean_ = RenderExpUtil.processEl("$new pkg.BeanOne()", 0, conf_).getStruct();
-        addBeanInfo(conf_,"bean_one",bean_);
-        conf_.clearPages();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-
-
-        Document doc_ = DocumentBuilder.parseSax(html_);
         conf_.getAnalyzingDoc().setFiles(files_);
-        setLocale(locale_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getContext().setAnalyzing(new AnalyzedPageEl());
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(!conf_.isEmptyErrors());
     }
     @Test
@@ -2717,23 +2210,11 @@ public final class RenderSelectTest extends CommonRender {
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
         Configuration conf_ = contextElThird(filesSec_);
         conf_.setBeans(new StringMap<Bean>());
-        addImportingPage(conf_);
-        Struct bean_ = RenderExpUtil.processEl("$new pkg.BeanOne()", 0, conf_).getStruct();
-        addBeanInfo(conf_,"bean_one",bean_);
-        conf_.clearPages();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-
-
-        Document doc_ = DocumentBuilder.parseSax(html_);
         conf_.getAnalyzingDoc().setFiles(files_);
-        setLocale(locale_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getContext().setAnalyzing(new AnalyzedPageEl());
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(!conf_.isEmptyErrors());
     }
     private static String getCustomPair() {

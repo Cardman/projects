@@ -5,7 +5,7 @@ import code.expressionlanguage.ConditionReturn;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.calls.AbstractPageEl;
 import code.expressionlanguage.calls.util.ReadWrite;
-import code.expressionlanguage.errors.custom.UnexpectedTagName;
+import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.instr.PartOffset;
@@ -17,6 +17,7 @@ import code.expressionlanguage.opers.util.SimpleAssignment;
 import code.expressionlanguage.stacks.IfBlockStack;
 import code.util.CustList;
 import code.util.IdMap;
+import code.util.StringList;
 import code.util.StringMap;
 
 public final class ElseIfCondition extends Condition implements BlockCondition {
@@ -103,9 +104,18 @@ public final class ElseIfCondition extends Condition implements BlockCondition {
         Block pBlock_ = getPreviousSibling();
         if (!(pBlock_ instanceof IfCondition)) {
             if (!(pBlock_ instanceof ElseIfCondition)) {
-                UnexpectedTagName un_ = new UnexpectedTagName();
+                FoundErrorInterpret un_ = new FoundErrorInterpret();
                 un_.setFileName(getFile().getFileName());
                 un_.setIndexFile(getOffset().getOffsetTrim());
+                un_.buildError(_an.getContextEl().getAnalysisMessages().getUnexpectedCatchElseFinally(),
+                        _an.getContextEl().getKeyWords().getKeyWordElseif(),
+                        StringList.join(
+                                new StringList(
+                                        _an.getContextEl().getKeyWords().getKeyWordIf(),
+                                        _an.getContextEl().getKeyWords().getKeyWordElseif()
+                                ),
+                                "|"));
+                //key word len
                 _an.addError(un_);
             }
         }

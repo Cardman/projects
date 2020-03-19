@@ -32,9 +32,7 @@ public final class GeneralHelpLgNames extends BeanNatLgNames {
                                              ClassMethodId _method, Object... _args) {
         return new ResultErrorStd();
     }
-    public String getOtherBeanStructClassName(Object _struct, ContextEl _context) {
-        return getAliasObject();
-    }
+
     public ResultErrorStd getOtherName(ContextEl _cont, Struct _instance) {
         return new ResultErrorStd();
     }
@@ -43,5 +41,10 @@ public final class GeneralHelpLgNames extends BeanNatLgNames {
     }
     public ResultErrorStd setOtherResult(ContextEl _cont, ClassField _classField, Struct _instance, Object _value) {
         return new ResultErrorStd();
+    }
+
+    @Override
+    public void buildOther() {
+        //impl
     }
 }

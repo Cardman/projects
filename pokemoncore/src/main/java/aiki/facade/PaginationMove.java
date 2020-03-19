@@ -165,9 +165,7 @@ public final class PaginationMove extends
         if (cmpTargetChoice.getPriority() != NO_PRIORITY) {
             priorities_.add(cmpTargetChoice.getPriority());
         }
-        int size_ = priorities_.size();
-        priorities_.removeDuplicates();
-        return size_ == priorities_.size();
+        return !priorities_.hasDuplicates();
     }
 
     @Override

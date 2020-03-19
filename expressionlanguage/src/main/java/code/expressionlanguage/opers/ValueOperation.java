@@ -19,7 +19,7 @@ public final class ValueOperation extends LeafOperation {
 
     @Override
     public void analyze(Analyzable _conf) {
-        MemberCallingsBlock fct_ = _conf.getAnalyzing().getCurrentFct();
+        FunctionBlock fct_ = _conf.getAnalyzing().getCurrentFct();
         OverridableBlock indexer_ = (OverridableBlock) fct_;
         String gl_ = _conf.getGlobalClass();
         gl_ = Templates.getIdFromAllTypes(gl_);

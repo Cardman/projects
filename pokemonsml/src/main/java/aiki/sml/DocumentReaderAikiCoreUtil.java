@@ -1077,8 +1077,7 @@ public final class DocumentReaderAikiCoreUtil {
             String strFolder_ = str_.toString();
             foldersBase_.add(strFolder_);
         }
-        foldersBase_.removeDuplicates();
-        if (foldersBase_.size() == 1) {
+        if (foldersBase_.onlyOneElt()) {
             common_ = StringList.concat(foldersBase_.first(), SEPARATOR_FILES);
             StringList.removePrefixInStrings(listRelativePaths_,common_);
         }
@@ -1086,9 +1085,7 @@ public final class DocumentReaderAikiCoreUtil {
         for (String s : listRelativePaths_) {
             listCopy_.add(DataBase.toUpperCase(s));
         }
-        int sizeListCopy_ = listCopy_.size();
-        listCopy_.removeDuplicates();
-        if (!Numbers.eq(listCopy_.size(), sizeListCopy_)) {
+        if (listCopy_.hasDuplicates()) {
             _d.setError(true);
             return;
         }

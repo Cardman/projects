@@ -1,9 +1,8 @@
 package code.network;
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.Socket;
-
-import javax.swing.SwingUtilities;
 
 import code.gui.CustComponent;
 import code.gui.ThreadInvoker;
@@ -21,7 +20,9 @@ public final class BasicClient extends SendReceive {
     @Override
     public void run() {
 
-        BufferedReader in_ = null;
+        BufferedReader in_;
+        Exiting ex_ = null;
+        boolean noLine_ = false;
         try {
             in_ = new BufferedReader(new InputStreamReader(getSocket().getInputStream()));
             String input_;
@@ -32,6 +33,7 @@ public final class BasicClient extends SendReceive {
                 //tourne toujours
                 input_ = in_.readLine();
                 if (input_ == null) {
+                    noLine_ = true;
                     break;
                 }
                 //on peut traiter les "timeout"
@@ -40,14 +42,17 @@ public final class BasicClient extends SendReceive {
                     continue;
                 }
                 if (readObject_ instanceof Exiting) {
-                    Exiting bye_ = (Exiting) readObject_;
-                    CustComponent.invokeLater(new Quitting(bye_, window, getSocket()));
+                    ex_ = (Exiting) readObject_;
                     break;
                 }
                 ThreadInvoker.invokeNow(new LoopClient(window, readObject_, getSocket()));
             }
-        } catch (Throwable _0) {
-            CustComponent.invokeLater(new Quitting(window, getSocket()));
+        } catch (IOException e){
+            //
+        } finally {
+            if (!noLine_) {
+                CustComponent.invokeLater(new Quitting(ex_, window, getSocket()));
+            }
         }
     }
 }

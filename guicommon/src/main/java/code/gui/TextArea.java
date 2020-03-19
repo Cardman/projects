@@ -103,10 +103,6 @@ public final class TextArea extends CustComponent {
         return textArea.getCaretListeners();
     }
 
-    public int getDocumentLength() {
-        return textArea.getDocument().getLength();
-    }
-
     public Document getDocument() {
         return textArea.getDocument();
     }
@@ -153,14 +149,6 @@ public final class TextArea extends CustComponent {
 
     public void replaceSelection(String content) {
         textArea.replaceSelection(content);
-    }
-
-    private Rectangle modelToView(int pos) {
-        try {
-            return textArea.modelToView(pos);
-        } catch (Exception e) {
-            return new Rectangle();
-        }
     }
 
     public void cut() {
@@ -311,12 +299,6 @@ public final class TextArea extends CustComponent {
         textArea.setEnabled(enabled);
     }
 
-    public void scrollToEnd() {
-        int endPosition_ = getDocumentLength();
-        Rectangle bottom_ =modelToView(endPosition_);
-        textArea.scrollRectToVisible(bottom_);
-    }
-
     public int getX() {
         return textArea.getX();
     }
@@ -332,22 +314,6 @@ public final class TextArea extends CustComponent {
 
     public int getCaretPosition() {
         return textArea.getCaretPosition();
-    }
-
-    public int getLineOfOffset(int caretpos) {
-        try {
-            return textArea.getLineOfOffset(caretpos);
-        } catch (Exception e) {
-            return -1;
-        }
-    }
-
-    public int getLineStartOffset(int linenum) {
-        try {
-            return textArea.getLineStartOffset(linenum);
-        } catch (Exception e) {
-            return -1;
-        }
     }
 
     public boolean isEnabled() {

@@ -6,10 +6,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.calls.AbstractPageEl;
 import code.expressionlanguage.calls.FieldInitPageEl;
 import code.expressionlanguage.calls.StaticInitPageEl;
-import code.expressionlanguage.common.GeneType;
-import code.expressionlanguage.errors.custom.BadFieldName;
-import code.expressionlanguage.errors.custom.BadParamName;
-import code.expressionlanguage.errors.custom.DuplicateField;
+import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.files.OffsetAccessInfo;
 import code.expressionlanguage.files.OffsetBooleanInfo;
 import code.expressionlanguage.files.OffsetStringInfo;
@@ -19,14 +16,11 @@ import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.instr.PartOffsetAffect;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.ExpressionLanguage;
-import code.expressionlanguage.opers.exec.ExecDeclaringOperation;
-import code.expressionlanguage.opers.exec.ExecMethodOperation;
 import code.expressionlanguage.opers.exec.ExecOperationNode;
-import code.expressionlanguage.opers.exec.ExecSettableFieldOperation;
 import code.expressionlanguage.opers.util.*;
 import code.util.*;
 
-public final class FieldBlock extends Leaf implements InfoBlock {
+public final class FieldBlock extends Leaf implements InfoBlock,AccessibleBlock {
 
     private final StringList fieldName = new StringList();
 
@@ -205,10 +199,12 @@ public final class FieldBlock extends Leaf implements InfoBlock {
         page_.setOffset(0);
         CustList<PartOffsetAffect> names_ = ElUtil.getFieldNames(valueOffset,value, _cont, Calculation.staticCalculation(staticField));
         if (names_.isEmpty()) {
-            BadParamName b_;
-            b_ = new BadParamName();
+            FoundErrorInterpret b_;
+            b_ = new FoundErrorInterpret();
             b_.setFileName(getFile().getFileName());
             b_.setIndexFile(getOffset().getOffsetTrim());
+            //value len
+            b_.buildError(_cont.getAnalysisMessages().getNotRetrievedFields());
             _cont.addError(b_);
         }
         StringList idsField_ = new StringList(_fieldNames);
@@ -216,21 +212,25 @@ public final class FieldBlock extends Leaf implements InfoBlock {
             PartOffset p_ = n.getPartOffset();
             String trName_ = p_.getPart();
             if (!_cont.isValidToken(trName_)) {
-                BadFieldName b_;
-                b_ = new BadFieldName();
+                FoundErrorInterpret b_;
+                b_ = new FoundErrorInterpret();
                 b_.setFileName(getFile().getFileName());
                 b_.setIndexFile(getOffset().getOffsetTrim());
-                b_.setName(trName_);
+                //trName_ len
+                b_.buildError(_cont.getAnalysisMessages().getBadFieldName(),
+                        trName_);
                 _cont.addError(b_);
             }
             for (String m: idsField_) {
                 if (StringList.quickEq(m, trName_)) {
                     int r_ = getOffset().getOffsetTrim();
-                    DuplicateField duplicate_;
-                    duplicate_ = new DuplicateField();
+                    FoundErrorInterpret duplicate_;
+                    duplicate_ = new FoundErrorInterpret();
                     duplicate_.setIndexFile(r_);
                     duplicate_.setFileName(getFile().getFileName());
-                    duplicate_.setId(p_.getPart());
+                    //trName_ len
+                    duplicate_.buildError(_cont.getAnalysisMessages().getDuplicateField(),
+                            trName_);
                     _cont.addError(duplicate_);
                 }
             }
@@ -319,46 +319,6 @@ public final class FieldBlock extends Leaf implements InfoBlock {
         return annotationsIndexes;
     }
 
-    public EqList<ClassField> getStaticConstantDependencies(Analyzable _an, String _name) {
-        ExecOperationNode last_ = opValue.last();
-        if (!(last_ instanceof ExecDeclaringOperation)) {
-            EqList<ClassField> eq_;
-            eq_ = getDeps(_an, opValue.mid(1));
-            return eq_;
-        }
-        EqList<ClassField> eq_;
-        ExecMethodOperation m_ = (ExecMethodOperation)last_;
-        int index_ = StringList.indexOf(fieldName,_name);
-        CustList<ExecOperationNode> ch_ = m_.getChildrenNodes();
-        int from_;
-        int to_ = ch_.get(index_).getOrder();
-        if (index_ == 0) {
-            from_ = 0;
-        } else {
-            from_ = ch_.get(index_-1).getOrder() + 1;
-        }
-        eq_ = getDeps(_an, opValue.sub(from_, to_));
-        return eq_;
-    }
-
-    private static EqList<ClassField> getDeps(Analyzable _an, CustList<ExecOperationNode> _op) {
-        EqList<ClassField> eq_ = new EqList<ClassField>();
-        for (ExecOperationNode o: _op) {
-            ClassField key_ = getDep(_an, o);
-            if (key_ == null) {
-                continue;
-            }
-            eq_.add(key_);
-        }
-        return eq_;
-    }
-    private static ClassField getDep(Analyzable _an, ExecOperationNode _op) {
-        if (!(_op instanceof ExecSettableFieldOperation)) {
-            return null;
-        }
-        ExecSettableFieldOperation cst_ = (ExecSettableFieldOperation) _op;
-        return cst_.getFieldId();
-    }
     @Override
     public void processEl(ContextEl _cont) {
         AbstractPageEl ip_ = _cont.getLastPage();

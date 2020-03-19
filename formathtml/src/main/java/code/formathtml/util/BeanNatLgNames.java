@@ -3,7 +3,6 @@ package code.formathtml.util;
 import code.bean.BeanInfo;
 import code.bean.validator.Message;
 import code.bean.validator.Validator;
-import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ExecutableCode;
@@ -18,10 +17,20 @@ import code.util.*;
 import code.util.ints.*;
 
 public abstract class BeanNatLgNames extends BeanLgNames {
+    public static final String TYPE_LIST = "ls";
+    public static final String TYPE_MAP = "lse";
+    public static final String TYPE_DISPLAYABLE = "code.util.ints.Displayable";
+    public static final String TYPE_VALIDATOR = "code.bean.validator.Validator";
+    public static final String TYPE_BEAN = "code.bean.Bean";
 
+    protected static final String TYPE_ENTRY = "$custentry";
+    protected static final String TYPE_ITERATOR = "code.util.SimpleItr";
+    protected static final String TYPE_COUNTABLE = "code.util.ints.Countable";
+    private static final String TYPE_ENTRIES = "$custentries";
     private StringMapObject storedForms;
+    private StringMap<String> iterables = new StringMap<String>();
 
-    static Object[] adaptedArgs(StringList _params, BeanNatLgNames _stds, Struct... _args) {
+    private static Object[] adaptedArgs(StringList _params, Struct... _args) {
         int len_ = _params.size();
         Object[] args_ = new Object[len_];
         for (int i = 0; i < len_; i++) {
@@ -35,7 +44,7 @@ public abstract class BeanNatLgNames extends BeanLgNames {
         return args_;
     }
 
-    static Object adaptedArg(BeanNatLgNames _stds, Struct _args) {
+    private static Object adaptedArg(Struct _args) {
         if (_args == NullStruct.NULL_VALUE) {
             return null;
         }
@@ -74,7 +83,7 @@ public abstract class BeanNatLgNames extends BeanLgNames {
     }
     @Override
     public String getInputClass(Element _write, Configuration _conf) {
-        String class_ = _write.getAttribute(StringList.concat(_conf.getPrefix(),ATTRIBUTE_CLASS_NAME));
+        String class_ = _write.getAttribute(StringList.concat(_conf.getPrefix(),_conf.getRendKeyWords().getAttrClassName()));
         if (!class_.isEmpty()) {
             return class_;
         }
@@ -121,14 +130,14 @@ public abstract class BeanNatLgNames extends BeanLgNames {
         StringList v_ = _cont.getValue();
         NodeInformations nInfos_ = _cont.getNodeInformation();
         String className_ = nInfos_.getInputClass();
-        ResultErrorStd resError_ = getStructToBeValidated(v_, className_, _conf.getContext());
+        ResultErrorStd resError_ = getStructToBeValidated(v_, className_, _conf);
         if (resError_.getError() != null) {
             String err_ = resError_.getError();
             _conf.getContext().setException(new ErrorStruct(_conf,err_));
             return null;
         }
         Struct obj_ = resError_.getResult();
-        Object ad_ = adaptedArg(this, obj_);
+        Object ad_ = adaptedArg(obj_);
         return validator_.validate(ad_);
     }
 
@@ -141,7 +150,7 @@ public abstract class BeanNatLgNames extends BeanLgNames {
 
     public abstract ResultErrorStd setOtherResult(ContextEl _cont, ClassField _classField, Struct _instance, Object _value);
 
-    public void buildBeans() {
+    protected void buildBeans() {
         StringMap<StandardField> fields_;
         fields_ = new StringMap<StandardField>();
         StandardClass std_;
@@ -151,68 +160,61 @@ public abstract class BeanNatLgNames extends BeanLgNames {
         StringList params_;
         StandardMethod method_;
         constructors_ = new CustList<StandardConstructor>();
-        std_ = new StandardClass(getBean(), fields_, constructors_, methods_, getAliasObject(), MethodModifier.NORMAL);
-        getStandards().put(getBean(), std_);
+        std_ = new StandardClass(TYPE_BEAN, fields_, constructors_, methods_, getAliasObject(), MethodModifier.NORMAL);
+        getStandards().put(TYPE_BEAN, std_);
         fields_ = new StringMap<StandardField>();
         methods_ = new ObjectMap<MethodId, StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         StandardClass cl_;
-        cl_ = new StandardClass(getCustList(), fields_, constructors_, methods_, getAliasObject(), MethodModifier.NORMAL);
-        cl_.getDirectInterfaces().add(getAliasCountable());
-        getIterables().put(getCustList(),getAliasObject());
-        getStandards().put(getCustList(), cl_);
+        cl_ = new StandardClass(TYPE_LIST, fields_, constructors_, methods_, getAliasObject(), MethodModifier.NORMAL);
+        cl_.getDirectInterfaces().add(TYPE_COUNTABLE);
+        getIterables().put(TYPE_LIST,getAliasObject());
+        getStandards().put(TYPE_LIST, cl_);
         methods_ = new ObjectMap<MethodId, StandardMethod>();
-        cl_ = new StandardClass(getCustMap(), fields_, constructors_, methods_, getAliasObject(), MethodModifier.NORMAL);
-        cl_.getDirectInterfaces().add(getAliasCountable());
-        cl_.getDirectInterfaces().add(getCustEntries());
-        getIterables().put(getCustMap(),getAliasObject());
-        getStandards().put(getCustMap(), cl_);
+        cl_ = new StandardClass(TYPE_MAP, fields_, constructors_, methods_, getAliasObject(), MethodModifier.NORMAL);
+        cl_.getDirectInterfaces().add(TYPE_COUNTABLE);
+        cl_.getDirectInterfaces().add(TYPE_ENTRIES);
+        getIterables().put(TYPE_MAP,getAliasObject());
+        getStandards().put(TYPE_MAP, cl_);
         params_ = new StringList();
         methods_ = new ObjectMap<MethodId, StandardMethod>();
-        StandardInterface stdi_ = new StandardInterface(getAliasCountable(), methods_, params_);
+        StandardInterface stdi_ = new StandardInterface(TYPE_COUNTABLE, methods_, params_);
         params_ = new StringList();
         method_ = new StandardMethod(getAliasIsEmpty(), params_, getAliasPrimBoolean(), false, MethodModifier.ABSTRACT,stdi_);
         methods_.put(method_.getId(), method_);
-        getStandards().put(getAliasCountable(), stdi_);
+        getStandards().put(TYPE_COUNTABLE, stdi_);
         methods_ = new ObjectMap<MethodId, StandardMethod>();
-        stdi_ = new StandardInterface(getCustEntries(), methods_, new StringList());
-        getStandards().put(getCustEntries(), stdi_);
+        stdi_ = new StandardInterface(TYPE_ENTRIES, methods_, new StringList());
+        getStandards().put(TYPE_ENTRIES, stdi_);
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new StringMap<StandardField>();
         methods_ = new ObjectMap<MethodId, StandardMethod>();
-        StandardClass stdcl_ = new StandardClass(getAliasSimpleIteratorType(), fields_, constructors_, methods_, getAliasObject(), MethodModifier.FINAL);
-        std_ = stdcl_;
-        getStandards().put(getAliasSimpleIteratorType(), std_);
+        std_ = new StandardClass(TYPE_ITERATOR, fields_, constructors_, methods_, getAliasObject(), MethodModifier.FINAL);
+        getStandards().put(TYPE_ITERATOR, std_);
         methods_ = new ObjectMap<MethodId, StandardMethod>();
-        stdi_ = new StandardInterface(getAliasDisplayable(), methods_, new StringList());
-        getStandards().put(getAliasDisplayable(), stdi_);
-        cl_ = new StandardClass(getValidator(), fields_, constructors_, methods_, getAliasObject(), MethodModifier.ABSTRACT);
-        getStandards().put(getValidator(), cl_);
+        stdi_ = new StandardInterface(TYPE_DISPLAYABLE, methods_, new StringList());
+        getStandards().put(TYPE_DISPLAYABLE, stdi_);
+        cl_ = new StandardClass(TYPE_VALIDATOR, fields_, constructors_, methods_, getAliasObject(), MethodModifier.ABSTRACT);
+        getStandards().put(TYPE_VALIDATOR, cl_);
     }
 
-    public void buildIterables(Configuration _context) {
-        ContextEl context_ = _context.getContext();
-        context_.setAnalyzing(new AnalyzedPageEl());
-    }
     @Override
     public IterableAnalysisResult getCustomType(StringList _names, ContextEl _context) {
         StringList out_ = new StringList();
         for (String f: _names) {
-            String type_ = getIterableFullTypeByStds(f, _context);
+            String type_ = getIterableFullTypeByStds(f);
             if (type_ != null) {
                 out_.add(type_);
             }
         }
-        out_.removeDuplicates();
         return new IterableAnalysisResult(out_);
     }
-    private static String getIterableFullTypeByStds(String _subType, ContextEl _context) {
-        BeanLgNames lgNames_ = (BeanLgNames) _context.getStandards();
-        String it_ = lgNames_.getIterables().getVal(_subType);
+    private String getIterableFullTypeByStds(String _subType) {
+        String it_ = getIterables().getVal(_subType);
         if (it_ == null) {
             return null;
         }
-        return StringList.concat(lgNames_.getAliasIterable(),"<",it_,">");
+        return StringList.concat(getAliasIterable(),"<",it_,">");
     }
 
 
@@ -258,8 +260,7 @@ public abstract class BeanNatLgNames extends BeanLgNames {
         Object instance_ = ((RealInstanceStruct) _arg).getInstance();
         SimpleIterable db_ = ((SimpleEntries)instance_).entries();
         SimpleItr it_ = db_.simpleIterator();
-        String itStr_ = getCustEntry();
-        return new Argument(StdStruct.newInstance(it_, StringList.concat(getAliasSimpleIteratorType(),Templates.TEMPLATE_BEGIN,itStr_,Templates.TEMPLATE_END)));
+        return new Argument(StdStruct.newInstance(it_, StringList.concat(TYPE_ITERATOR,Templates.TEMPLATE_BEGIN, TYPE_ENTRY,Templates.TEMPLATE_END)));
     }
 
     @Override
@@ -273,7 +274,7 @@ public abstract class BeanNatLgNames extends BeanLgNames {
     public Argument nextPair(Struct _arg, Configuration _conf) {
         Object instance_ = ((RealInstanceStruct) _arg).getInstance();
         Object resObj_ = ((SimpleItr)instance_).next();
-        return new Argument(StdStruct.newInstance(resObj_,getCustEntry()));
+        return new Argument(StdStruct.newInstance(resObj_, TYPE_ENTRY));
     }
 
     @Override
@@ -295,7 +296,7 @@ public abstract class BeanNatLgNames extends BeanLgNames {
         Object instance_ = ((RealInstanceStruct) _arg).getInstance();
         String typeInst_ = getStructClassName(_arg, _cont.getContext());
         String it_ = getIterables().getVal(typeInst_);
-        return new Argument(StdStruct.newInstance(((SimpleIterable) instance_).simpleIterator(), StringList.concat(getAliasSimpleIteratorType(),Templates.TEMPLATE_BEGIN,it_,Templates.TEMPLATE_END)));
+        return new Argument(StdStruct.newInstance(((SimpleIterable) instance_).simpleIterator(), StringList.concat(TYPE_ITERATOR,Templates.TEMPLATE_BEGIN,it_,Templates.TEMPLATE_END)));
     }
 
     @Override
@@ -333,7 +334,7 @@ public abstract class BeanNatLgNames extends BeanLgNames {
 
     public static ResultErrorStd setField(ContextEl _cont, ClassField _classField, Struct _instance, Struct _value) {
         BeanNatLgNames lgNames_ = (BeanNatLgNames) _cont.getStandards();
-        Object value_ = adaptedArg(lgNames_, _value);
+        Object value_ = adaptedArg(_value);
         return lgNames_.setOtherResult(_cont, _classField, _instance, value_);
     }
 
@@ -341,7 +342,7 @@ public abstract class BeanNatLgNames extends BeanLgNames {
     public ResultErrorStd getOtherResult(ContextEl _cont,
                                          ConstructorId _method, Struct... _args) {
         StringList list_ = _method.getParametersTypes();
-        Object[] argsObj_ = adaptedArgs(list_, this, _args);
+        Object[] argsObj_ = adaptedArgs(list_, _args);
         return getOtherResultBean(_cont, _method, argsObj_);
     }
 
@@ -353,7 +354,7 @@ public abstract class BeanNatLgNames extends BeanLgNames {
                                          ClassMethodId _method, Struct... _args) {
         ResultErrorStd res_ = new ResultErrorStd();
         StringList list_ = _method.getConstraints().getParametersTypes();
-        Object[] argsObj_ = adaptedArgs(list_, this, _args);
+        Object[] argsObj_ = adaptedArgs(list_, _args);
         Object instance_ = ((RealInstanceStruct)_instance).getInstance();
         if (instance_ instanceof Countable) {
             res_.setResult(new BooleanStruct(((Countable) instance_).isEmpty()));
@@ -363,10 +364,11 @@ public abstract class BeanNatLgNames extends BeanLgNames {
     }
     public abstract ResultErrorStd getOtherResultBean(ContextEl _cont, Struct _instance,
                                              ClassMethodId _method, Object... _args);
-    public String getStdBeanStructClassName(Object _struct, ContextEl _context) {
-        String cl_ = getOtherBeanStructClassName(_struct, _context);
-        return cl_;
-    }
-    public abstract String getOtherBeanStructClassName(Object _struct, ContextEl _context);
 
+    protected StringMap<String> getIterables() {
+        return iterables;
+    }
+    public Validator buildValidator(Element _element) {
+        return null;
+    }
 }

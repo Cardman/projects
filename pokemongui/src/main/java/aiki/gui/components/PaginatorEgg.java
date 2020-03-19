@@ -30,6 +30,7 @@ public final class PaginatorEgg extends Paginator {
     //private static final String EGG = "egg";
 
     private TextField name;
+    private AutoCompleteDocument nameAuto;
 
     private EnumList<SearchingMode> order = new EnumList<SearchingMode>();
 
@@ -80,14 +81,15 @@ public final class PaginatorEgg extends Paginator {
             String pkTr_ = getFacade().translatePokemon(p);
             pk_.add(pkTr_);
         }
-        name = AutoCompleteDocument.createAutoCompleteTextField(pk_, 16);
+        name = new TextField(16);
+        nameAuto = new AutoCompleteDocument(name,pk_, getWindow());
 //        name.getDocument().addDocumentListener(new DocumentAdaptater() {
 //
 //            public void updateText() {
 //                getFacade().setContentOfNameEgg(convertStringField(name.getText()));
 //            }
 //        });
-        modeName.setListener(new ChangedModeEvent(modeName, name));
+        modeName.setListener(new ChangedModeEvent(modeName, nameAuto));
 //        modeName.addItemListener(new ItemListener(){
 //            public void itemStateChanged(ItemEvent _e) {
 //                SearchingMode s_ = modeName.getCurrent();

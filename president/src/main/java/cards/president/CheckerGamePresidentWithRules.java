@@ -83,9 +83,7 @@ public final class CheckerGamePresidentWithRules {
                 return;
             }
             Bytes copyRanks_ = new Bytes(ranks_);
-            int len_ = copyRanks_.size();
-            copyRanks_.removeDuplicates();
-            if (len_ != copyRanks_.size()) {
+            if (copyRanks_.hasDuplicates()) {
                 _loadedGame.setError(MESSAGE_ERROR);
                 return;
             }

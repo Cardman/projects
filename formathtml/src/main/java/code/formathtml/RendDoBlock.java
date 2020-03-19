@@ -1,10 +1,11 @@
 package code.formathtml;
 
-import code.expressionlanguage.errors.custom.UnexpectedTagName;
+import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.formathtml.stacks.RendLoopBlockStack;
 import code.formathtml.stacks.RendReadWrite;
+import code.util.StringList;
 
 public final class RendDoBlock extends RendParentBlock implements RendLoop {
 
@@ -71,25 +72,37 @@ public final class RendDoBlock extends RendParentBlock implements RendLoop {
     public void buildExpressionLanguage(Configuration _cont,RendDocumentBlock _doc) {
         RendBlock pBlock_ = getNextSibling();
         if (pBlock_ == null) {
-            UnexpectedTagName un_ = new UnexpectedTagName();
+            FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(_cont.getCurrentFileName());
             un_.setIndexFile(getOffset().getOffsetTrim());
+            un_.buildError(_cont.getContext().getAnalysisMessages().getUnexpectedDoTry(),
+                    _cont.getContext().getKeyWords().getKeyWordDo(),
+                    _cont.getContext().getKeyWords().getKeyWordWhile());
             _cont.addError(un_);
         } else if (!(pBlock_ instanceof RendDoWhileCondition)) {
             if (!(pBlock_ instanceof RendPossibleEmpty)) {
-                UnexpectedTagName un_ = new UnexpectedTagName();
+                FoundErrorInterpret un_ = new FoundErrorInterpret();
                 un_.setFileName(_cont.getCurrentFileName());
                 un_.setIndexFile(pBlock_.getOffset().getOffsetTrim());
+                un_.buildError(_cont.getContext().getAnalysisMessages().getUnexpectedDoTry(),
+                        _cont.getContext().getKeyWords().getKeyWordDo(),
+                        _cont.getContext().getKeyWords().getKeyWordWhile());
                 _cont.addError(un_);
             } else if (pBlock_.getNextSibling() == null){
-                UnexpectedTagName un_ = new UnexpectedTagName();
+                FoundErrorInterpret un_ = new FoundErrorInterpret();
                 un_.setFileName(_cont.getCurrentFileName());
                 un_.setIndexFile(pBlock_.getOffset().getOffsetTrim());
+                un_.buildError(_cont.getContext().getAnalysisMessages().getUnexpectedDoTry(),
+                        _cont.getContext().getKeyWords().getKeyWordDo(),
+                        _cont.getContext().getKeyWords().getKeyWordWhile());
                 _cont.addError(un_);
             } else if (!(pBlock_.getNextSibling() instanceof RendDoWhileCondition)){
-                UnexpectedTagName un_ = new UnexpectedTagName();
+                FoundErrorInterpret un_ = new FoundErrorInterpret();
                 un_.setFileName(_cont.getCurrentFileName());
                 un_.setIndexFile(pBlock_.getNextSibling().getOffset().getOffsetTrim());
+                un_.buildError(_cont.getContext().getAnalysisMessages().getUnexpectedDoTry(),
+                        _cont.getContext().getKeyWords().getKeyWordDo(),
+                        _cont.getContext().getKeyWords().getKeyWordWhile());
                 _cont.addError(un_);
             }
         }

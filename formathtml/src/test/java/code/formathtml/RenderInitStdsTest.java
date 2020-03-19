@@ -33,7 +33,7 @@ public final class RenderInitStdsTest {
     public void process1Test() {
         Options o_ = new Options();
         o_.setSuffixVar(VariableSuffix.NONE);
-        BeanLgNames b_ = new BeanCustLgNames();
+        BeanLgNames b_ = new BeanCustLgNamesImpl();
         basicStandards(b_);
         AnalysisMessages a_ = new AnalysisMessages();
         KeyWords k_ = new KeyWords();
@@ -43,7 +43,7 @@ public final class RenderInitStdsTest {
     public void process2Test() {
         Options o_ = new Options();
         o_.setSuffixVar(VariableSuffix.FIELDS);
-        BeanLgNames b_ = new BeanCustLgNames();
+        BeanLgNames b_ = new BeanCustLgNamesImpl();
         basicStandards(b_);
         AnalysisMessages a_ = new AnalysisMessages();
         KeyWords k_ = new KeyWords();
@@ -53,7 +53,7 @@ public final class RenderInitStdsTest {
     public void process3Test() {
         Options o_ = new Options();
         o_.setSuffixVar(VariableSuffix.MERGED);
-        BeanLgNames b_ = new BeanCustLgNames();
+        BeanLgNames b_ = new BeanCustLgNamesImpl();
         basicStandards(b_);
         AnalysisMessages a_ = new AnalysisMessages();
         KeyWords k_ = new KeyWords();
@@ -63,7 +63,7 @@ public final class RenderInitStdsTest {
     public void process4Test() {
         Options o_ = new Options();
         o_.setSuffixVar(VariableSuffix.FIELDS);
-        BeanLgNames b_ = new BeanCustLgNames();
+        BeanLgNames b_ = new BeanCustLgNamesImpl();
         basicStandards(b_);
         AnalysisMessages a_ = new AnalysisMessages();
         KeyWords k_ = new KeyWords();
@@ -73,7 +73,7 @@ public final class RenderInitStdsTest {
     public void process5Test() {
         Options o_ = new Options();
         o_.setSuffixVar(VariableSuffix.NONE);
-        BeanLgNames b_ = new BeanCustLgNames();
+        BeanLgNames b_ = new BeanCustLgNamesImpl();
         basicStandards(b_);
         AnalysisMessages a_ = new AnalysisMessages();
         KeyWords k_ = new KeyWords();
@@ -84,7 +84,7 @@ public final class RenderInitStdsTest {
     }
     @Test
     public void process6Test() {
-        new BeanCustLgNames().getOtherStructToBeValidated(null,null,null);
+        new BeanCustLgNamesImpl().getOtherStructToBeValidated(null,null,null);
         RendDocumentBlock doc_ = new RendDocumentBlock(null,null,null,null);
         doc_.buildExpressionLanguage(null,null);
         BeanOne b_ = new BeanOne();
@@ -111,13 +111,13 @@ public final class RenderInitStdsTest {
         DefaultLockingClass lk_ = new DefaultLockingClass();
         DefaultInitializer di_ = new DefaultInitializer();
         ContextEl cont_ = ContextFactory.build(-1,lk_, di_, _opt, _mess,_kw, _beanLgNames,4);
-        Classes.validateAll(_files, cont_);
+        Classes.validateWithoutInit(_files, cont_);
         assertTrue(cont_.isEmptyErrors());
         conf_.setContext(cont_);
         BeanLgNames standards_ = (BeanLgNames) cont_.getStandards();
         conf_.setStandards(standards_);
         cont_.setExecutingInstance(conf_);
-        standards_.buildIterables(conf_);
+        ((BeanCustLgNames)standards_).buildIterables(conf_);
         return conf_;
     }
 
@@ -126,7 +126,6 @@ public final class RenderInitStdsTest {
         _lgNames.setAliasObject("java.lang.Object");
         _lgNames.setAliasVoid("$void");
         _lgNames.setAliasCharSequence("java.lang.CharSequence");
-        _lgNames.setAliasDisplayable("code.util.ints.Displayable");
         _lgNames.setAliasCompareTo("compareTo");
         _lgNames.setAliasCompare("compare");
         _lgNames.setAliasEquals("equals");
@@ -248,8 +247,6 @@ public final class RenderInitStdsTest {
         _lgNames.setAliasSetLength("setLength");
         _lgNames.setAliasSame("same");
         _lgNames.setAliasTrimToSize("trimToSize");
-        _lgNames.setAliasGet("get");
-        _lgNames.setAliasSize("size");
         _lgNames.setAliasErrorInitClass("java.lang.$defErrorClass");
         _lgNames.setAliasClone("clone");
         _lgNames.setAliasReadResources("readContent");

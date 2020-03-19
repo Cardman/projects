@@ -1,5 +1,5 @@
 package code.expressionlanguage.structs;
 
-public interface AnnotatedStruct extends Struct {
+public interface AnnotatedStruct extends DisplayableStruct {
     String getFileName();
 }

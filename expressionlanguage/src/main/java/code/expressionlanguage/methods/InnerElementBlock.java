@@ -2,7 +2,6 @@ package code.expressionlanguage.methods;
 
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.AnalyzedPageEl;
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.calls.AbstractPageEl;
 import code.expressionlanguage.calls.StaticInitPageEl;
@@ -21,7 +20,6 @@ import code.expressionlanguage.opers.exec.ExecOperationNode;
 import code.expressionlanguage.opers.exec.ExecStandardInstancingOperation;
 import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.options.KeyWords;
-import code.expressionlanguage.structs.Struct;
 import code.util.*;
 
 public final class InnerElementBlock extends RootBlock implements InnerTypeOrElement, UniqueRootedBlock {
@@ -47,8 +45,6 @@ public final class InnerElementBlock extends RootBlock implements InnerTypeOrEle
     private final StringList allSuperClasses = new StringList();
 
     private final StringList allSuperTypes = new StringList();
-
-    private final StringList allInterfaces = new StringList();
 
     private String importedDirectSuperClass = "";
     private StringList importedDirectSuperInterfaces = new StringList();
@@ -105,6 +101,11 @@ public final class InnerElementBlock extends RootBlock implements InnerTypeOrEle
     @Override
     public CustList<TypeVar> getParamTypesMapValues() {
         return new CustList<TypeVar>();
+    }
+
+    @Override
+    public StringList getParamTypesValues() {
+        return new StringList();
     }
 
     @Override
@@ -299,7 +300,7 @@ public final class InnerElementBlock extends RootBlock implements InnerTypeOrEle
         importedDirectSuperInterfaces.clear();
         for (String s: getDirectSuperTypes()) {
             int index_ = rcs_.getKey(i_);
-            String s_ = _classes.resolveTypeInherits(s, this,index_,i_);
+            String s_ = _classes.resolveTypeInherits(s, this,index_);
             String c_ = getImportedDirectBaseSuperType(i_);
             _classes.addErrorIfNoMatch(s_,c_,this,index_);
             i_++;
@@ -321,15 +322,6 @@ public final class InnerElementBlock extends RootBlock implements InnerTypeOrEle
     @Override
     public StringList getImportedDirectGenericSuperInterfaces() {
         return importedDirectSuperInterfaces;
-    }
-
-    @Override
-    public StringList getAllInterfaces() {
-        return allInterfaces;
-    }
-    @Override
-    public RootBlock belong() {
-        return (RootBlock) getParent();
     }
 
     @Override

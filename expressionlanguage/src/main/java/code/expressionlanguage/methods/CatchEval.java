@@ -3,8 +3,7 @@ import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.calls.AbstractPageEl;
-import code.expressionlanguage.errors.custom.BadVariableName;
-import code.expressionlanguage.errors.custom.DuplicateVariable;
+import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.instr.PartOffset;
@@ -67,18 +66,22 @@ public final class CatchEval extends AbstractCatchEval {
         page_.setGlobalOffset(variableNameOffset);
         page_.setOffset(0);
         if (_cont.getAnalyzing().containsCatchVar(variableName)) {
-            DuplicateVariable d_ = new DuplicateVariable();
-            d_.setId(variableName);
+            FoundErrorInterpret d_ = new FoundErrorInterpret();
             d_.setFileName(getFile().getFileName());
             d_.setIndexFile(variableNameOffset);
+            //variable name
+            d_.buildError(_cont.getAnalysisMessages().getBadVariableName(),
+                    variableName);
             _cont.addError(d_);
             return;
         }
         if (!_cont.isValidSingleToken(variableName)) {
-            BadVariableName b_ = new BadVariableName();
+            FoundErrorInterpret b_ = new FoundErrorInterpret();
             b_.setFileName(getFile().getFileName());
             b_.setIndexFile(variableNameOffset);
-            b_.setVarName(variableName);
+            //variable name
+            b_.buildError(_cont.getAnalysisMessages().getBadVariableName(),
+                    variableName);
             _cont.addError(b_);
         }
         LocalVariable lv_ = new LocalVariable();

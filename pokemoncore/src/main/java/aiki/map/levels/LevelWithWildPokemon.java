@@ -127,9 +127,7 @@ public abstract class LevelWithWildPokemon extends Level {
             }
             keys_.add(e.getKey());
         }
-        int size_ = keys_.size();
-        keys_.removeDuplicates();
-        if (size_ != keys_.size()) {
+        if (keys_.hasDuplicates()) {
             _data.setError(true);
         }
     }

@@ -1,8 +1,7 @@
 package code.expressionlanguage.opers;
 
 import code.expressionlanguage.Analyzable;
-import code.expressionlanguage.errors.custom.BadConstructorCall;
-import code.expressionlanguage.errors.custom.BadInheritedClass;
+import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.OperationsSequence;
@@ -31,17 +30,21 @@ public final class InterfaceInvokingConstructor extends AbstractInvokingConstruc
         cl_ = cl_.substring(cl_.indexOf(PAR_LEFT)+1, cl_.lastIndexOf(PAR_RIGHT));
         cl_ = _conf.resolveAccessibleIdType(cl_.indexOf(PAR_LEFT)+1,cl_);
         if (!(_conf.getClasses().getClassBody(cl_) instanceof InterfaceBlock)) {
-            BadConstructorCall call_ = new BadConstructorCall();
+            FoundErrorInterpret call_ = new FoundErrorInterpret();
             call_.setFileName(_conf.getCurrentFileName());
             call_.setIndexFile(_conf.getCurrentLocationIndex());
+            //type len
+            call_.buildError(_conf.getContextEl().getAnalysisMessages().getCallCtorIntFromSuperInt());
             _conf.addError(call_);
             return null;
         }
         String superClass_ = Templates.getFullTypeByBases(clCurName_, cl_, _conf);
         if (superClass_ == null) {
-            BadConstructorCall call_ = new BadConstructorCall();
+            FoundErrorInterpret call_ = new FoundErrorInterpret();
             call_.setFileName(_conf.getCurrentFileName());
             call_.setIndexFile(_conf.getCurrentLocationIndex());
+            //type len
+            call_.buildError(_conf.getContextEl().getAnalysisMessages().getCallCtorIntFromSuperInt());
             _conf.addError(call_);
             return null;
         }
@@ -54,10 +57,11 @@ public final class InterfaceInvokingConstructor extends AbstractInvokingConstruc
         Line curLine_ = (Line)curBlock_;
         BracedBlock br_ = curBlock_.getParent();
         if (br_.getParent() instanceof InterfaceBlock) {
-            BadConstructorCall call_ = new BadConstructorCall();
+            FoundErrorInterpret call_ = new FoundErrorInterpret();
             call_.setFileName(curLine_.getFile().getFileName());
-            call_.setIndexFile(curLine_.getExpressionOffset());
-            call_.setLocalOffset(getFullIndexInEl()+ curLine_.getExpressionOffset());
+            call_.setIndexFile(getFullIndexInEl()+ curLine_.getExpressionOffset());
+            //key word len
+            call_.buildError(_conf.getContextEl().getAnalysisMessages().getCallCtorIntNotFromInt());
             _conf.addError(call_);
         }
         Block f_ = br_.getFirstChild();
@@ -80,19 +84,21 @@ public final class InterfaceInvokingConstructor extends AbstractInvokingConstruc
                 if (n_ == curBlock_) {
                     if (!(f_ instanceof Line)) {
                         //error
-                        BadConstructorCall call_ = new BadConstructorCall();
+                        FoundErrorInterpret call_ = new FoundErrorInterpret();
                         call_.setFileName(curLine_.getFile().getFileName());
-                        call_.setIndexFile(curLine_.getExpressionOffset());
-                        call_.setLocalOffset(getFullIndexInEl()+ curLine_.getExpressionOffset());
+                        call_.setIndexFile(getFullIndexInEl()+ curLine_.getExpressionOffset());
+                        //key word len
+                        call_.buildError(_conf.getContextEl().getAnalysisMessages().getCallCtorIntAfterSuperThis());
                         _conf.addError(call_);
                     } else {
                         ExecOperationNode root_ = ((Line)f_).getExp().last();
                         if (!(root_ instanceof ExecAbstractInvokingConstructor)) {
                             //error
-                            BadConstructorCall call_ = new BadConstructorCall();
+                            FoundErrorInterpret call_ = new FoundErrorInterpret();
                             call_.setFileName(curLine_.getFile().getFileName());
-                            call_.setIndexFile(curLine_.getExpressionOffset());
-                            call_.setLocalOffset(getFullIndexInEl()+ curLine_.getExpressionOffset());
+                            call_.setIndexFile(getFullIndexInEl()+ curLine_.getExpressionOffset());
+                            //key word len
+                            call_.buildError(_conf.getContextEl().getAnalysisMessages().getCallCtorIntAfterSuperThis());
                             _conf.addError(call_);
                         }
                     }
@@ -127,11 +133,15 @@ public final class InterfaceInvokingConstructor extends AbstractInvokingConstruc
         if (!_previousInts.isEmpty()) {
             String sup_ = _previousInts.last();
             if (PrimitiveTypeUtil.canBeUseAsArgument(_cl, sup_, _conf)) {
-                BadInheritedClass undef_;
-                undef_ = new BadInheritedClass();
-                undef_.setClassName(_cl);
+                FoundErrorInterpret undef_;
+                undef_ = new FoundErrorInterpret();
                 undef_.setFileName(_n.getFile().getFileName());
                 undef_.setIndexFile(0);
+                //current type len
+                undef_.buildError(_conf.getContextEl().getAnalysisMessages().getCallCtorIntInherits(),
+                        sup_,
+                        _cl
+                );
                 _conf.addError(undef_);
             }
         }

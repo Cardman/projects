@@ -1,7 +1,8 @@
 package code.formathtml;
 
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.errors.custom.BadElError;
+import code.expressionlanguage.errors.custom.FoundErrorInterpret;
+import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.util.MethodAccessKind;
@@ -34,17 +35,17 @@ public final class RendMessage extends RendParentBlock implements RendWithEl, Re
     @Override
     public void buildExpressionLanguage(Configuration _cont, RendDocumentBlock _doc) {
         opExp = new CustList<CustList<RendDynOperationNode>>();
-        String value_ = elt.getAttribute(ATTRIBUTE_VALUE);
-        preformatted = getPre(_cont,value_);
+        String value_ = elt.getAttribute(_cont.getRendKeyWords().getAttrValue());
+        int offMessage_ = getAttributeDelimiter(_cont.getRendKeyWords().getAttrValue());
+        preformatted = getPre(_cont,value_,offMessage_);
         if (preformatted.isEmpty()) {
             return;
         }
-        MethodAccessKind st_ = _doc.getStaticContext();
         for (Element n: elt.getChildElements()) {
-            String attribute_ = n.getAttribute(ATTRIBUTE_VALUE);
-            if (n.hasAttribute(ATTRIBUTE_QUOTED)) {
+            String attribute_ = n.getAttribute(_cont.getRendKeyWords().getAttrValue());
+            if (n.hasAttribute(_cont.getRendKeyWords().getAttrQuoted())) {
                 quoted.add(true);
-                if (n.hasAttribute(ATTRIBUTE_ESCAPED)) {
+                if (n.hasAttribute(_cont.getRendKeyWords().getAttrEscaped())) {
                     args.add(escapeParam(attribute_));
                     escaped.add(true);
                 } else {
@@ -56,15 +57,15 @@ public final class RendMessage extends RendParentBlock implements RendWithEl, Re
             }
             args.add(EMPTY_STRING);
             quoted.add(false);
-            if (n.hasAttribute(ATTRIBUTE_ESCAPED)) {
+            if (n.hasAttribute(_cont.getRendKeyWords().getAttrEscaped())) {
                 escaped.add(true);
             } else {
                 escaped.add(false);
             }
-            opExp.add(RenderExpUtil.getAnalyzedOperations(attribute_,0,_cont,Calculation.staticCalculation(st_)));
+            opExp.add(RenderExpUtil.getAnalyzedOperations(attribute_,offMessage_,0,_cont));
         }
         //if (!element_.getAttribute(ATTRIBUTE_ESCAPED).isEmpty()) {
-        if (elt.getAttribute(ATTRIBUTE_ESCAPED).isEmpty()) {
+        if (elt.getAttribute(_cont.getRendKeyWords().getAttrEscaped()).isEmpty()) {
             String lt_ = String.valueOf(LT_BEGIN_TAG);
             String gt_ = String.valueOf(GT_TAG);
             int l_ = opExp.size();
@@ -79,7 +80,7 @@ public final class RendMessage extends RendParentBlock implements RendWithEl, Re
                 LocalVariable lv_ = new LocalVariable();
                 lv_.setClassName(_cont.getStandards().getAliasPrimInteger());
                 _cont.getLocalVarsAna().last().addEntry(v,lv_);
-                formArg_.add(StringList.concat("(", BeanCustLgNames.sufficLocal(_cont.getContext(),v),")"));
+                formArg_.add(StringList.concat(RendBlock.LEFT_PAR, BeanCustLgNames.sufficLocal(_cont.getContext(),v),RendBlock.RIGHT_PAR));
             }
             for (EntryCust<String,String> e: preformatted.entryList()) {
                 String preRend_;
@@ -89,13 +90,13 @@ public final class RendMessage extends RendParentBlock implements RendWithEl, Re
                 Document docLoc2_ = res2_.getDocument();
                 CustList<CustList<RendDynOperationNode>> callExpsLoc_ = new CustList<CustList<RendDynOperationNode>>();
                 if (docLoc2_ != null) {
-                    for (Element a: docLoc2_.getElementsByTagName(TAG_A)){
-                        String href_ = a.getAttribute(StringList.concat(_cont.getPrefix(),ATTRIBUTE_COMMAND));
+                    for (Element a: docLoc2_.getElementsByTagName(_cont.getRendKeyWords().getKeyWordAnchor())){
+                        String href_ = a.getAttribute(StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrCommand()));
                         if (href_.startsWith(CALL_METHOD)) {
                             if (href_.indexOf('(') == CustList.INDEX_NOT_FOUND_ELT) {
-                                href_ = StringList.concat(href_,"()");
+                                href_ = StringList.concat(href_,RendBlock.LEFT_PAR,RendBlock.RIGHT_PAR);
                             }
-                            CustList<RendDynOperationNode> expsCall_ = RenderExpUtil.getAnalyzedOperations(href_, 1, _cont, Calculation.staticCalculation(st_));
+                            CustList<RendDynOperationNode> expsCall_ = RenderExpUtil.getAnalyzedOperations(href_,offMessage_, 1, _cont);
                             callExpsLoc_.add(expsCall_);
                         } else {
                             callExpsLoc_.add(new CustList<RendDynOperationNode>());
@@ -105,9 +106,11 @@ public final class RendMessage extends RendParentBlock implements RendWithEl, Re
                 DocumentResult res_ = DocumentBuilder.parseSaxNotNullRowCol(concat_);
                 Document docLoc_ = res_.getDocument();
                 if (docLoc_ == null) {
-                    BadElError badEl_ = new BadElError();
+                    FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                     badEl_.setFileName(_cont.getCurrentFileName());
-                    badEl_.setIndexFile(_cont.getCurrentLocationIndex());
+                    badEl_.setIndexFile(offMessage_);
+                    badEl_.buildError(_cont.getRendAnalysisMessages().getBadDocument(),
+                            res_.getLocation().display());
                     _cont.addError(badEl_);
                 }
                 callsExps.addEntry(e.getKey(),callExpsLoc_);
@@ -192,7 +195,7 @@ public final class RendMessage extends RendParentBlock implements RendWithEl, Re
                 MutableNode nextWrite_ = rw_.getWrite().getLastChild();
                 Element nextEltWrite_ = (Element) nextWrite_;
                 processImportedNode(_cont,ip_, nextEltWrite_);
-                if (StringList.quickEq(nextEltWrite_.getTagName(), TAG_A)){
+                if (StringList.quickEq(nextEltWrite_.getTagName(), _cont.getRendKeyWords().getKeyWordAnchor())){
                     _cont.getAnchorsArgs().add(anchorArg_);
                     _cont.getAnchorsVars().add(varNames);
                     _cont.getConstAnchors().add(false);
@@ -237,13 +240,13 @@ public final class RendMessage extends RendParentBlock implements RendWithEl, Re
     private void processImportedNode(Configuration _conf,
                                             ImportingPage _ip, Element _tag) {
         String beanName_ = _ip.getBeanName();
-        if (StringList.quickEq(_tag.getTagName(),TAG_A)) {
-            String href_ = _tag.getAttribute(StringList.concat(_conf.getPrefix(),ATTRIBUTE_COMMAND));
+        if (StringList.quickEq(_tag.getTagName(),_conf.getRendKeyWords().getKeyWordAnchor())) {
+            String href_ = _tag.getAttribute(StringList.concat(_conf.getPrefix(),_conf.getRendKeyWords().getAttrCommand()));
             if (href_.startsWith(CALL_METHOD)) {
-                _tag.setAttribute(StringList.concat(_conf.getPrefix(),ATTRIBUTE_COMMAND), StringList.concat(CALL_METHOD,beanName_,DOT,href_.substring(1)));
+                _tag.setAttribute(StringList.concat(_conf.getPrefix(),_conf.getRendKeyWords().getAttrCommand()), StringList.concat(CALL_METHOD,beanName_,DOT,href_.substring(1)));
             }
-            if (_tag.hasAttribute(StringList.concat(_conf.getPrefix(),ATTRIBUTE_COMMAND))) {
-                _tag.setAttribute(ATTRIBUTE_HREF, EMPTY_STRING);
+            if (_tag.hasAttribute(StringList.concat(_conf.getPrefix(),_conf.getRendKeyWords().getAttrCommand()))) {
+                _tag.setAttribute(_conf.getRendKeyWords().getAttrHref(), EMPTY_STRING);
             }
         }
     }

@@ -1300,12 +1300,37 @@ public final class StringList extends CustList<String> implements Equallable<Str
             while (next_ != INDEX_NOT_FOUND_ELT) {
                 removeAt(next_);
                 rem_ = true;
-                next_ = indexOf(this, e_, next_ + 1);
+                next_ = indexOf(this, e_, i_ + 1);
             }
             if (!rem_) {
                 i_++;
             }
         }
+    }
+    public boolean hasDuplicates() {
+        int i_ = FIRST_INDEX;
+        while (i_ < size()) {
+            String e_ = get(i_);
+            int next_ = indexOf(this, e_, i_ + 1);
+            if (next_ > INDEX_NOT_FOUND_ELT) {
+                return true;
+            }
+            i_++;
+        }
+        return false;
+    }
+    public boolean onlyOneElt() {
+        if (isEmpty()) {
+            return false;
+        }
+        String e_ = first();
+        int s_ = size();
+        for (int i = SECOND_INDEX; i < s_; i++) {
+            if (!StringList.quickEq(get(i),e_)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public static void retainAllElements(CustList<String> _strings, CustList<String> _c) {

@@ -15,6 +15,7 @@ import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.util.BeanLgNames;
 import code.formathtml.structs.StdStruct;
+import code.formathtml.util.BeanNatLgNames;
 import code.util.CustList;
 import code.util.ObjectMap;
 import code.util.StringList;
@@ -40,7 +41,7 @@ public final class AikiBeansSolutionStd {
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new StringMap<StandardField>();
         type_ = new StandardClass(TYPE_SOLUTION_BEAN, fields_, constructors_, methods_, AikiBeansStd.TYPE_COMMON_BEAN, MethodModifier.NORMAL);
-        fields_.put(STEPS,new StandardField(STEPS,_std.getCustList(),false,false,type_));
+        fields_.put(STEPS,new StandardField(STEPS, BeanNatLgNames.TYPE_LIST,false,false,type_));
         params_ = new StringList(_std.getAliasLong(),_std.getAliasLong());
         method_ = new StandardMethod(GET_PLACE,params_,_std.getAliasString(), false, MethodModifier.NORMAL,type_);
         methods_.put(method_.getId(), method_);
@@ -52,7 +53,7 @@ public final class AikiBeansSolutionStd {
         SolutionBean instance_ = (SolutionBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringList.quickEq(fieldName_,STEPS)) {
-            res_.setResult(new StdStruct(instance_.getSteps(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getSteps(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         return res_;

@@ -3466,6 +3466,26 @@ public final class AnalyzedOperationNodesTest {
         assertTrue(!cont_.isEmptyErrors());
     }
     @Test
+    public void processEl240Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class [pkg.Ex;] pkgtwo.Apply:pkg.ExTwo {\n");
+        xml_.append(" {$superaccess(Ex)m($id(Ex,$static)):}\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append("  $public $static $void m(){}\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        Options opt_ = new Options();
+        opt_.setEndLineSemiColumn(false);
+        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+
+        opt_.setSingleInnerParts(true);
+        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.isEmptyErrors());
+    }
+    @Test
     public void processEl242est() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class [pkg.*;] pkgtwo.Apply:ExTwo<Strin> {\n");
@@ -5230,6 +5250,60 @@ public final class AnalyzedOperationNodesTest {
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         
         opt_.setSingleInnerParts(true);
+        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+    }
+    @Test
+    public void resolve183FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class [pkgtwo.Out..OuterTwo;pkgtwo.OutTwo..OuterTwo;] pkg.Outer {\n");
+        xml_.append("  $public $static ..OuterTwo field:\n");
+        xml_.append("  $public $static ..OuterTwo field:\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $final $class pkgtwo.Out {\n");
+        xml_.append("$public $static $final $class OuterTwo {\n");
+        xml_.append("}\n");
+        xml_.append("}\n");
+        xml_.append("$public $final $class pkgtwo.OutTwo {\n");
+        xml_.append("$public $static $final $class OuterTwo {\n");
+        xml_.append("}\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        Options opt_ = new Options();
+        opt_.setEndLineSemiColumn(false);
+        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.isEmptyErrors());
+    }
+    @Test
+    public void resolve184FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class [pkgtwo.Out..*;pkgtwo.OutTwo..*;] pkg.Outer {\n");
+        xml_.append("  $public $static ..OuterTwo field:\n");
+        xml_.append("  $public $static ..OuterTwo field:\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $final $class pkgtwo.Out {\n");
+        xml_.append("$public $static $final $class OuterTwo {\n");
+        xml_.append("}\n");
+        xml_.append("}\n");
+        xml_.append("$public $final $class pkgtwo.OutTwo {\n");
+        xml_.append("$public $static $final $class OuterTwo {\n");
+        xml_.append("}\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        Options opt_ = new Options();
+        opt_.setEndLineSemiColumn(false);
+        opt_.setSuffixVar(VariableSuffix.DISTINCT);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
         assertTrue(!cont_.isEmptyErrors());

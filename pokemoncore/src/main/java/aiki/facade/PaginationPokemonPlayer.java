@@ -133,7 +133,6 @@ public final class PaginationPokemonPlayer
         for (String m : _pk.getMoves().getKeys()) {
             list_.add(translatedMoves.getVal(m));
         }
-        list_.removeDuplicates();
         if (!getCriteria().matchMoves(list_)) {
             return false;
         }
@@ -169,9 +168,7 @@ public final class PaginationPokemonPlayer
         if (cmpPossEvos.getPriority() != NO_PRIORITY) {
             priorities_.add(cmpPossEvos.getPriority());
         }
-        int size_ = priorities_.size();
-        priorities_.removeDuplicates();
-        return size_ == priorities_.size();
+        return !priorities_.hasDuplicates();
     }
 
     @Override

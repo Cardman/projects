@@ -991,7 +991,7 @@ public final class PrimitiveTypeUtilTest {
         ContextEl context_ = simpleContextEl();
         StringList classes_ = new StringList(context_.getStandards().getAliasVoid(), context_.getStandards().getAliasVoid());
         StringList sub_ = PrimitiveTypeUtil.getSubclasses(classes_, context_);
-        assertEq(1, sub_.size());
+        assertTrue(sub_.onlyOneElt());
         assertEq(context_.getStandards().getAliasVoid(), sub_.get(0));
     }
 

@@ -1,9 +1,11 @@
 package code.expressionlanguage.opers;
 
 import code.expressionlanguage.Analyzable;
+import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.instr.PartOffset;
+import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.LgNames;
@@ -13,7 +15,6 @@ public final class InstanceOfOperation extends AbstractUnaryOperation {
 
     private String className;
     private int offset;
-    private boolean correctTemplate = true;
     private CustList<PartOffset> partOffsets = new CustList<PartOffset>();
     public InstanceOfOperation(int _index, int _indexChild, MethodOperation _m,
             OperationsSequence _op) {
@@ -31,11 +32,14 @@ public final class InstanceOfOperation extends AbstractUnaryOperation {
         int begin_ = keyWordInstanceof_.length() + className.indexOf(keyWordInstanceof_);
         String sub_ = className.substring(begin_);
         int off_ = StringList.getFirstPrintableCharIndex(sub_);
-        sub_ = _conf.resolveCorrectType(begin_+off_,sub_, sub_.contains(Templates.TEMPLATE_BEGIN));
+        String compo_ = PrimitiveTypeUtil.getQuickComponentBaseType(sub_).getComponent();
+        boolean exact_ = compo_.contains(Templates.TEMPLATE_BEGIN);
+        sub_ = _conf.resolveCorrectType(begin_+off_,sub_, exact_);
         partOffsets.addAllElts(_conf.getContextEl().getCoverage().getCurrentParts());
-        if (!sub_.contains(Templates.TEMPLATE_BEGIN)) {
-            if (!sub_.startsWith(Templates.PREFIX_VAR_TYPE)) {
-                correctTemplate = Templates.correctNbParameters(sub_, _conf);
+        if (!exact_) {
+            RootBlock r_ = _conf.getClasses().getClassBody(Templates.getIdFromAllTypes(sub_));
+            if (r_ != null) {
+                sub_ = r_.getWildCardString();
             }
         }
         className = sub_;
@@ -48,10 +52,6 @@ public final class InstanceOfOperation extends AbstractUnaryOperation {
 
     public int getOffset() {
         return offset;
-    }
-
-    public boolean isCorrectTemplate() {
-        return correctTemplate;
     }
 
     public CustList<PartOffset> getPartOffsets() {

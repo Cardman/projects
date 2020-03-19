@@ -40,7 +40,14 @@ public final class RendSettableFieldOperation extends
         anc = _s.getAnc();
         previous = _s.getPreviousResultClass();
     }
-
+    public RendSettableFieldOperation(RendSettableFieldOperation _s,int _indexChild, ClassArgumentMatching _res, int _order, boolean _int) {
+        super(_s.getPreviousArgument(),_indexChild,_res,_order,_int);
+        variable = _s.variable;
+        fieldMetaInfo = _s.getFieldMetaInfo();
+        catString = _s.catString;
+        anc = _s.anc;
+        previous = _s.previous;
+    }
     @Override
     public boolean resultCanBeSet() {
         return variable;
@@ -71,7 +78,8 @@ public final class RendSettableFieldOperation extends
         if (_conf.getContextEl().hasException()) {
             return Argument.createVoid();
         }
-        return ExecInvokingOperation.getField(className_, fieldName_, staticField_, previous_, _conf, off_);
+        String fieldType_ = fieldMetaInfo.getRealType();
+        return ExecInvokingOperation.getField(className_, fieldName_, staticField_,fieldType_, previous_, _conf, off_);
     }
 
     @Override

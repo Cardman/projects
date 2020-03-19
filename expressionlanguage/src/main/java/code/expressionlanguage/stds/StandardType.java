@@ -1,9 +1,7 @@
 package code.expressionlanguage.stds;
 
 import code.expressionlanguage.common.GeneType;
-import code.expressionlanguage.methods.AccessEnum;
 import code.expressionlanguage.methods.util.TypeVar;
-import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.MethodId;
 import code.util.*;
 
@@ -18,8 +16,6 @@ public abstract class StandardType implements GeneType {
     private final StringMap<StandardField> fields;
     private final ObjectMap<MethodId, StandardMethod> methods;
 
-    private final ObjectMap<MethodId, EqList<ClassMethodId>> allOverridingMethods;
-
     protected StandardType(String _name,
             StringMap<StandardField> _fields,
             CustList<StandardConstructor> _constructors,
@@ -29,13 +25,9 @@ public abstract class StandardType implements GeneType {
         fields = _fields;
         constructors = _constructors;
         methods = _methods;
-        allOverridingMethods = new ObjectMap<MethodId, EqList<ClassMethodId>>();
     }
     public static String getNamePart(String _fullName) {
         int indexDot_ = _fullName.lastIndexOf('.');
-        if (indexDot_ < 0) {
-            return _fullName;
-        }
         return _fullName.substring(indexDot_+1);
     }
     public static String getPackagePart(String _fullName) {
@@ -73,12 +65,11 @@ public abstract class StandardType implements GeneType {
         return new CustList<TypeVar>();
     }
 
+    public StringList getParamTypesValues() {
+        return new StringList();
+    }
     public StringMap<StandardField> getFields() {
         return fields;
-    }
-    @Override
-    public final ObjectMap<MethodId, EqList<ClassMethodId>> getAllOverridingMethods() {
-        return allOverridingMethods;
     }
 
     public final String getName() {
@@ -94,9 +85,6 @@ public abstract class StandardType implements GeneType {
     public final String getFullName() {
         String pkg_ = getPackageName();
         String name_ = getName();
-        if (pkg_.isEmpty()) {
-            return name_;
-        }
         return StringList.concat(pkg_,".",name_);
     }
 

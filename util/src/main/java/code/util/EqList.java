@@ -21,22 +21,31 @@ public final class EqList<T extends Equallable<T>> extends AbEqList<T> {
 
     public void removeDuplicates()  {
         int i_ = FIRST_INDEX;
-        while (true) {
-            if(i_ >= size()) {
-                break;
-            }
+        while (i_ < size()) {
             T e_ = get(i_);
             boolean rem_ = false;
             int next_ = indexOfObj(e_, i_ + 1);
             while (next_ != INDEX_NOT_FOUND_ELT) {
                 removeAt(next_);
                 rem_ = true;
-                next_ = indexOfObj(e_, next_ + 1);
+                next_ = indexOfObj(e_, i_ + 1);
             }
             if (!rem_) {
                 i_++;
             }
         }
+    }
+    public boolean hasDuplicates() {
+        int i_ = FIRST_INDEX;
+        while (i_ < size()) {
+            T e_ = get(i_);
+            int next_ = indexOfObj(e_, i_ + 1);
+            if (next_ != INDEX_NOT_FOUND_ELT) {
+                return true;
+            }
+            i_++;
+        }
+        return false;
     }
     @Override
     public int indexOfObj(T _element, int _from) {

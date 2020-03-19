@@ -1,5 +1,6 @@
 package code.expressionlanguage.structs;
 
+import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.common.GeneType;
@@ -312,6 +313,18 @@ public final class ClassMetaInfo implements AnnotatedStruct, ExportableStringStr
 
     @Override
     public StringStruct exportValue() {
-        return new StringStruct(getName());
+        return getDisplayedString();
+    }
+
+    @Override
+    public StringStruct getDisplayedString(Analyzable _an) {
+        return getDisplayedString();
+    }
+
+    private StringStruct getDisplayedString() {
+        if (variableOwner.isEmpty()) {
+            return new StringStruct(getName());
+        }
+        return new StringStruct(StringList.concat(variableOwner,";",getName()));
     }
 }

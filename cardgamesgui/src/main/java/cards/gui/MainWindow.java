@@ -659,7 +659,7 @@ public final class MainWindow extends NetGroupFrame {
             bye_.setClosing(true);
             bye_.setServer(((ContainerMulti)containerGame).hasCreatedServer());
             bye_.setPlace(((ContainerMulti)containerGame).getIndexInGame());
-            if (!sendCheckedObject(bye_)) {
+            if (!sendObject(bye_)) {
                 menuPrincipal();
                 dispose();
             }
@@ -1021,12 +1021,12 @@ public final class MainWindow extends NetGroupFrame {
     public void quitNetwork(Exiting _exit, Socket _socket) {
         menuPrincipal();
         closeConnexion(_socket);
-        if (_exit.isClosing()) {
+        if (_exit != null && _exit.isClosing()) {
             dispose();
             return;
         }
         pack();
-        if (_exit.isForced() && !_exit.isBusy()) {
+        if (_exit != null && _exit.isForced() && !_exit.isBusy()) {
             ConfirmDialog.showMessage(this, getTooManyString(), getTooManyString(), getLanguageKey(), JOptionPane.ERROR_MESSAGE);
             //JOptionPane.showMessageDialog(window, window.getTooManyString(), window.getTooManyString(), JOptionPane.INFORMATION_MESSAGE);
         }

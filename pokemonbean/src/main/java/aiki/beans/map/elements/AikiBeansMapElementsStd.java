@@ -17,6 +17,7 @@ import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.util.BeanLgNames;
 import code.formathtml.structs.StdStruct;
+import code.formathtml.util.BeanNatLgNames;
 import code.util.CustList;
 import code.util.ObjectMap;
 import code.util.StringList;
@@ -92,7 +93,7 @@ public final class AikiBeansMapElementsStd {
         method_ = new StandardMethod(GET_ITEM,params_,_std.getAliasString(), false, MethodModifier.NORMAL,type_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(_std.getAliasLong());
-        method_ = new StandardMethod(GET_MOVES_AT_LEVEL,params_,_std.getCustList(), false, MethodModifier.NORMAL,type_);
+        method_ = new StandardMethod(GET_MOVES_AT_LEVEL,params_, BeanNatLgNames.TYPE_LIST, false, MethodModifier.NORMAL,type_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(_std.getAliasLong(),_std.getAliasLong());
         method_ = new StandardMethod(CLICK_MOVE,params_,_std.getAliasString(), false, MethodModifier.NORMAL,type_);
@@ -122,7 +123,7 @@ public final class AikiBeansMapElementsStd {
         method_ = new StandardMethod(GET_ITEM_FISHING,params_,_std.getAliasString(), false, MethodModifier.NORMAL,type_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(_std.getAliasLong());
-        method_ = new StandardMethod(GET_MOVES_AT_LEVEL_FISHING,params_,_std.getCustList(), false, MethodModifier.NORMAL,type_);
+        method_ = new StandardMethod(GET_MOVES_AT_LEVEL_FISHING,params_, BeanNatLgNames.TYPE_LIST, false, MethodModifier.NORMAL,type_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(_std.getAliasLong(),_std.getAliasLong());
         method_ = new StandardMethod(CLICK_MOVE_FISHING,params_,_std.getAliasString(), false, MethodModifier.NORMAL,type_);
@@ -172,7 +173,7 @@ public final class AikiBeansMapElementsStd {
         method_ = new StandardMethod(GET_ITEM,params_,_std.getAliasString(), false, MethodModifier.NORMAL,type_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
-        method_ = new StandardMethod(GET_MOVES_AT_LEVEL,params_,_std.getCustList(), false, MethodModifier.NORMAL,type_);
+        method_ = new StandardMethod(GET_MOVES_AT_LEVEL,params_, BeanNatLgNames.TYPE_LIST, false, MethodModifier.NORMAL,type_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(_std.getAliasLong());
         method_ = new StandardMethod(CLICK_MOVE,params_,_std.getAliasString(), false, MethodModifier.NORMAL,type_);
@@ -240,7 +241,7 @@ public final class AikiBeansMapElementsStd {
             return res_;
         }
         if (StringList.quickEq(methodName_,GET_MOVES_AT_LEVEL)) {
-            res_.setResult(new StdStruct(instance_.getMovesAtLevel((Long)_args[0]),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getMovesAtLevel((Long)_args[0]), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(methodName_,CLICK_MOVE)) {
@@ -280,7 +281,7 @@ public final class AikiBeansMapElementsStd {
             return res_;
         }
         if (StringList.quickEq(methodName_,GET_MOVES_AT_LEVEL_FISHING)) {
-            res_.setResult(new StdStruct(instance_.getMovesAtLevelFishing((Long)_args[0]),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getMovesAtLevelFishing((Long)_args[0]), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(methodName_,CLICK_MOVE_FISHING)) {
@@ -335,7 +336,7 @@ public final class AikiBeansMapElementsStd {
             return res_;
         }
         if (StringList.quickEq(methodName_,GET_MOVES_AT_LEVEL)) {
-            res_.setResult(new StdStruct(instance_.getMovesAtLevel(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getMovesAtLevel(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(methodName_,CLICK_MOVE)) {

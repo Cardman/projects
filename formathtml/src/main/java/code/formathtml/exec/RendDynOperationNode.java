@@ -63,6 +63,11 @@ public abstract class RendDynOperationNode {
         order = _oper.getOrder();
     }
 
+    RendDynOperationNode(int _indexChild, ClassArgumentMatching _res, int _order) {
+        indexChild = _indexChild;
+        resultClass = _res;
+        order = _order;
+    }
     public void setParent(RendMethodOperation _parent) {
         parent = _parent;
     }

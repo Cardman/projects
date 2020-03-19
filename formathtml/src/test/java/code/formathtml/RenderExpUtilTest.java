@@ -6,10 +6,11 @@ import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
 import code.expressionlanguage.*;
-import code.expressionlanguage.errors.custom.BadElError;
+import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.*;
+import code.formathtml.util.BeanCustLgNames;
 import code.sml.Document;
 import code.sml.DocumentBuilder;
 import org.junit.Test;
@@ -24,9 +25,6 @@ import code.expressionlanguage.options.Options;
 import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.LoopVariable;
 import code.expressionlanguage.variables.VariableSuffix;
-import code.formathtml.classes.BeanOne;
-import code.formathtml.classes.Composite;
-import code.formathtml.classes.CustLgNames;
 import code.formathtml.exec.RendDynOperationNode;
 import code.formathtml.util.BeanLgNames;
 import code.formathtml.structs.StdStruct;
@@ -38,8 +36,6 @@ public final class RenderExpUtilTest extends CommonRender {
     private static final String ARR_ARR_INT = "[[$int";
     private static final String ARR_INTEGER = "[java.lang.Integer";
     private static final String ARR_ARR_INTEGER = "[[java.lang.Integer";
-    private static final String COMPOSITE = "code.expressionlanguage.classes.Composite";
-    private static final String ALIAS_BEAN_ONE = "code.expressionlanguage.classes.BeanOne";
     @Test
     public void processEl1Test() {
         Configuration context_ = getConfiguration4();
@@ -95,15 +91,6 @@ public final class RenderExpUtilTest extends CommonRender {
         addImportingPage(context_);
         Argument arg_ = processEl("$static($math).abs(8l)", context_);
         assertEq(8L, arg_.getNumber());
-    }
-    @Test
-    public void processEl9Test() {
-        Configuration context_ = contextEl();
-        addImportingPage(context_);
-        BeanOne b_ = new BeanOne();
-        addBean(context_, b_, ALIAS_BEAN_ONE);
-        Argument arg_ = processEl("composite.integer", context_);
-        assertEq(0, arg_.getNumber());
     }
     @Test
     public void processEl10Test() {
@@ -1859,9 +1846,9 @@ public final class RenderExpUtilTest extends CommonRender {
         assertNotNull(op_);
         Argument argGl_ = context_.getOperationPageEl().getGlobalArgument();
         boolean static_ = setupStaticCtx(ctx_, argGl_);
-        CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, static_, context_);
+        CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, context_);
         assertTrue(context_.isEmptyErrors());
-        ctx_.setAnalyzing(null);
+        ctx_.setNullAnalyzing();
         calculate(all_, context_);
         assertEq(4, ((NumberStruct)lv_.getStruct()).intStruct());
     }
@@ -1886,9 +1873,9 @@ public final class RenderExpUtilTest extends CommonRender {
         assertNotNull(op_);
         Argument argGl_ = context_.getOperationPageEl().getGlobalArgument();
         boolean static_ = setupStaticCtx(ctx_, argGl_);
-        CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, static_, context_);
+        CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, context_);
         assertTrue(context_.isEmptyErrors());
-        ctx_.setAnalyzing(null);
+        ctx_.setNullAnalyzing();
         calculate(all_, context_);
         assertEq(false, ((BooleanStruct)lv_.getStruct()).getInstance());
     }
@@ -1913,9 +1900,9 @@ public final class RenderExpUtilTest extends CommonRender {
         assertNotNull(op_);
         Argument argGl_ = context_.getOperationPageEl().getGlobalArgument();
         boolean static_ = setupStaticCtx(ctx_, argGl_);
-        CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, static_, context_);
+        CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, context_);
         assertTrue(context_.isEmptyErrors());
-        ctx_.setAnalyzing(null);
+        ctx_.setNullAnalyzing();
         calculate(all_, context_);
         assertEq(true, ((BooleanStruct)lv_.getStruct()).getInstance());
     }
@@ -1940,9 +1927,9 @@ public final class RenderExpUtilTest extends CommonRender {
         assertNotNull(op_);
         Argument argGl_ = context_.getOperationPageEl().getGlobalArgument();
         boolean static_ = setupStaticCtx(ctx_, argGl_);
-        CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, static_, context_);
+        CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, context_);
         assertTrue(context_.isEmptyErrors());
-        ctx_.setAnalyzing(null);
+        ctx_.setNullAnalyzing();
         calculate(all_, context_);
         assertNotNull(getException(context_));
         assertEq(ctx_.getStandards().getAliasDivisionZero(), getException(context_).getClassName(ctx_));
@@ -1968,9 +1955,9 @@ public final class RenderExpUtilTest extends CommonRender {
         assertNotNull(op_);
         Argument argGl_ = context_.getOperationPageEl().getGlobalArgument();
         boolean static_ = setupStaticCtx(ctx_, argGl_);
-        CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, static_, context_);
+        CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, context_);
         assertTrue(context_.isEmptyErrors());
-        ctx_.setAnalyzing(null);
+        ctx_.setNullAnalyzing();
         calculate(all_, context_);
         assertNotNull(getException(context_));
         assertEq(ctx_.getStandards().getAliasDivisionZero(), getException(context_).getClassName(ctx_));
@@ -1996,9 +1983,9 @@ public final class RenderExpUtilTest extends CommonRender {
         assertNotNull(op_);
         Argument argGl_ = context_.getOperationPageEl().getGlobalArgument();
         boolean static_ = setupStaticCtx(ctx_, argGl_);
-        CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, static_, context_);
+        CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, context_);
         assertTrue(context_.isEmptyErrors());
-        ctx_.setAnalyzing(null);
+        ctx_.setNullAnalyzing();
         calculate(all_, context_);
         assertNotNull(getException(context_));
         assertEq(ctx_.getStandards().getAliasNullPe(), getException(context_).getClassName(ctx_));
@@ -2024,9 +2011,9 @@ public final class RenderExpUtilTest extends CommonRender {
         assertNotNull(op_);
         Argument argGl_ = context_.getOperationPageEl().getGlobalArgument();
         boolean static_ = setupStaticCtx(ctx_, argGl_);
-        CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, static_, context_);
+        CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, context_);
         assertTrue(context_.isEmptyErrors());
-        ctx_.setAnalyzing(null);
+        ctx_.setNullAnalyzing();
         calculate(all_, context_);
         assertNotNull(getException(context_));
         assertEq(ctx_.getStandards().getAliasNullPe(), getException(context_).getClassName(ctx_));
@@ -2052,9 +2039,9 @@ public final class RenderExpUtilTest extends CommonRender {
         assertNotNull(op_);
         Argument argGl_ = context_.getOperationPageEl().getGlobalArgument();
         boolean static_ = setupStaticCtx(ctx_, argGl_);
-        CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, static_, context_);
+        CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, context_);
         assertTrue(context_.isEmptyErrors());
-        ctx_.setAnalyzing(null);
+        ctx_.setNullAnalyzing();
         Argument arg_ = calculate(all_, context_);
         assertTrue(arg_.isFalse());
     }
@@ -2079,9 +2066,9 @@ public final class RenderExpUtilTest extends CommonRender {
         assertNotNull(op_);
         Argument argGl_ = context_.getOperationPageEl().getGlobalArgument();
         boolean static_ = setupStaticCtx(ctx_, argGl_);
-        CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, static_, context_);
+        CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, context_);
         assertTrue(context_.isEmptyErrors());
-        ctx_.setAnalyzing(null);
+        ctx_.setNullAnalyzing();
         Argument arg_ = calculate(all_, context_);
         assertEq(4, ((NumberStruct)lv_.getStruct()).intStruct());
         assertEq(3, arg_.getNumber());
@@ -2107,9 +2094,9 @@ public final class RenderExpUtilTest extends CommonRender {
         assertNotNull(op_);
         Argument argGl_ = context_.getOperationPageEl().getGlobalArgument();
         boolean static_ = setupStaticCtx(ctx_, argGl_);
-        CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, static_, context_);
+        CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, context_);
         assertTrue(context_.isEmptyErrors());
-        ctx_.setAnalyzing(null);
+        ctx_.setNullAnalyzing();
         Argument arg_ = calculate(all_, context_);
         assertEq(4, ((NumberStruct)lv_.getStruct()).intStruct());
         assertEq(4, arg_.getNumber());
@@ -2137,9 +2124,9 @@ public final class RenderExpUtilTest extends CommonRender {
         assertNotNull(op_);
         Argument argGl_ = context_.getOperationPageEl().getGlobalArgument();
         boolean static_ = setupStaticCtx(ctx_, argGl_);
-        CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, static_, context_);
+        CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, context_);
         assertTrue(context_.isEmptyErrors());
-        ctx_.setAnalyzing(null);
+        ctx_.setNullAnalyzing();
         Argument arg_ = calculate(all_, context_);
         assertEq(6, ((NumberStruct) in_[0]).intStruct());
         assertEq(5, arg_.getNumber());
@@ -2167,9 +2154,9 @@ public final class RenderExpUtilTest extends CommonRender {
         assertNotNull(op_);
         Argument argGl_ = context_.getOperationPageEl().getGlobalArgument();
         boolean static_ = setupStaticCtx(ctx_, argGl_);
-        CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, static_, context_);
+        CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, context_);
         assertTrue(context_.isEmptyErrors());
-        ctx_.setAnalyzing(null);
+        ctx_.setNullAnalyzing();
         Argument arg_ = calculate(all_, context_);
         assertEq(6, ((NumberStruct) in_[0]).intStruct());
         assertEq(6, arg_.getNumber());
@@ -2195,9 +2182,9 @@ public final class RenderExpUtilTest extends CommonRender {
         assertNotNull(op_);
         Argument argGl_ = context_.getOperationPageEl().getGlobalArgument();
         boolean static_ = setupStaticCtx(ctx_, argGl_);
-        CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, static_, context_);
+        CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, context_);
         assertTrue(context_.isEmptyErrors());
-        ctx_.setAnalyzing(null);
+        ctx_.setNullAnalyzing();
         Argument arg_ = calculate(all_, context_);
         assertEq(5, ((NumberStruct)lv_.getStruct()).intStruct());
         assertEq(5, arg_.getNumber());
@@ -2225,9 +2212,9 @@ public final class RenderExpUtilTest extends CommonRender {
         assertNotNull(op_);
         Argument argGl_ = context_.getOperationPageEl().getGlobalArgument();
         boolean static_ = setupStaticCtx(ctx_, argGl_);
-        CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, static_, context_);
+        CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, context_);
         assertTrue(context_.isEmptyErrors());
-        ctx_.setAnalyzing(null);
+        ctx_.setNullAnalyzing();
         Argument arg_ = calculate(all_, context_);
         assertEq(8, ((NumberStruct) in_[0]).intStruct());
         assertEq(8, arg_.getNumber());
@@ -2257,9 +2244,9 @@ public final class RenderExpUtilTest extends CommonRender {
         assertNotNull(op_);
         Argument argGl_ = context_.getOperationPageEl().getGlobalArgument();
         boolean static_ = setupStaticCtx(ctx_, argGl_);
-        CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, static_, context_);
+        CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, context_);
         assertTrue(context_.isEmptyErrors());
-        ctx_.setAnalyzing(null);
+        ctx_.setNullAnalyzing();
         Argument arg_ = calculate(all_, context_);
         assertEq(12, ((NumberStruct)lv2_.getStruct()).intStruct());
         assertEq(4, ((NumberStruct)lv_.getStruct()).intStruct());
@@ -2290,9 +2277,9 @@ public final class RenderExpUtilTest extends CommonRender {
         assertNotNull(op_);
         Argument argGl_ = context_.getOperationPageEl().getGlobalArgument();
         boolean static_ = setupStaticCtx(ctx_, argGl_);
-        CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, static_, context_);
+        CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, context_);
         assertTrue(context_.isEmptyErrors());
-        ctx_.setAnalyzing(null);
+        ctx_.setNullAnalyzing();
         Argument arg_ = calculate(all_, context_);
         assertEq(12, ((NumberStruct)lv2_.getStruct()).intStruct());
         assertEq(2, ((NumberStruct)lv_.getStruct()).intStruct());
@@ -2323,9 +2310,9 @@ public final class RenderExpUtilTest extends CommonRender {
         assertNotNull(op_);
         Argument argGl_ = context_.getOperationPageEl().getGlobalArgument();
         boolean static_ = setupStaticCtx(ctx_, argGl_);
-        CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, static_, context_);
+        CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, context_);
         assertTrue(context_.isEmptyErrors());
-        ctx_.setAnalyzing(null);
+        ctx_.setNullAnalyzing();
         Argument arg_ = calculate(all_, context_);
         assertEq(13, ((NumberStruct)lv2_.getStruct()).intStruct());
         assertEq(13, ((NumberStruct)lv_.getStruct()).intStruct());
@@ -2356,9 +2343,9 @@ public final class RenderExpUtilTest extends CommonRender {
         assertNotNull(op_);
         Argument argGl_ = context_.getOperationPageEl().getGlobalArgument();
         boolean static_ = setupStaticCtx(ctx_, argGl_);
-        CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, static_, context_);
+        CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, context_);
         assertTrue(context_.isEmptyErrors());
-        ctx_.setAnalyzing(null);
+        ctx_.setNullAnalyzing();
         Argument arg_ = calculate(all_, context_);
         assertEq(13, ((NumberStruct)lv2_.getStruct()).intStruct());
         assertEq(13, ((NumberStruct)lv_.getStruct()).intStruct());
@@ -2369,7 +2356,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);
         ContextEl ctx_ = context_.getContext();
-        ctx_.setAnalyzing(new AnalyzedPageEl());
+        ctx_.setAnalyzing();
         String elr_ = "+1b";
         Delimiters d_ = ElResolver.checkSyntax(elr_, ctx_, 0);
         assertTrue(d_.getBadOffset() < 0);
@@ -2379,9 +2366,9 @@ public final class RenderExpUtilTest extends CommonRender {
         assertNotNull(op_);
         Argument argGl_ = context_.getOperationPageEl().getGlobalArgument();
         boolean static_ = setupStaticCtx(ctx_, argGl_);
-        CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, static_, context_);
+        CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, context_);
         assertTrue(context_.isEmptyErrors());
-        ctx_.setAnalyzing(null);
+        ctx_.setNullAnalyzing();
         Argument arg_ = calculate(all_, context_);
         assertEq(1, arg_.getNumber());
     }
@@ -2484,9 +2471,9 @@ public final class RenderExpUtilTest extends CommonRender {
         assertNotNull(op_);
         Argument argGl_ = context_.getOperationPageEl().getGlobalArgument();
         boolean static_ = setupStaticCtx(ctx_, argGl_);
-        CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, static_, context_);
+        CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, context_);
         assertTrue(context_.isEmptyErrors());
-        ctx_.setAnalyzing(null);
+        ctx_.setNullAnalyzing();
         calculate(all_, context_);
         assertTrue(context_.isEmptyErrors());
         assertEq(ctx_.getStandards().getAliasNullPe(), getException(context_).getClassName(ctx_));
@@ -2511,9 +2498,9 @@ public final class RenderExpUtilTest extends CommonRender {
         assertNotNull(op_);
         Argument argGl_ = context_.getOperationPageEl().getGlobalArgument();
         boolean static_ = setupStaticCtx(ctx_, argGl_);
-        CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, static_, context_);
+        CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, context_);
         assertTrue(context_.isEmptyErrors());
-        ctx_.setAnalyzing(null);
+        ctx_.setNullAnalyzing();
         calculate(all_, context_);
         assertTrue(context_.isEmptyErrors());
         assertEq(ctx_.getStandards().getAliasNullPe(), getException(context_).getClassName(ctx_));
@@ -2541,9 +2528,9 @@ public final class RenderExpUtilTest extends CommonRender {
         assertNotNull(op_);
         Argument argGl_ = context_.getOperationPageEl().getGlobalArgument();
         boolean static_ = setupStaticCtx(ctx_, argGl_);
-        CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, static_, context_);
+        CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, context_);
         assertTrue(context_.isEmptyErrors());
-        ctx_.setAnalyzing(null);
+        ctx_.setNullAnalyzing();
         calculate(all_, context_);
         assertTrue(context_.isEmptyErrors());
         assertEq(ctx_.getStandards().getAliasNullPe(), getException(context_).getClassName(ctx_));
@@ -2572,9 +2559,9 @@ public final class RenderExpUtilTest extends CommonRender {
         assertNotNull(op_);
         Argument argGl_ = context_.getOperationPageEl().getGlobalArgument();
         boolean static_ = setupStaticCtx(ctx_, argGl_);
-        CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, static_, context_);
+        CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, context_);
         assertTrue(context_.isEmptyErrors());
-        ctx_.setAnalyzing(null);
+        ctx_.setNullAnalyzing();
         calculate(all_, context_);
         assertTrue(context_.isEmptyErrors());
         assertEq(ctx_.getStandards().getAliasNullPe(), getException(context_).getClassName(ctx_));
@@ -5536,9 +5523,9 @@ public final class RenderExpUtilTest extends CommonRender {
         assertNotNull(op_);
         Argument argGl_ = context_.getOperationPageEl().getGlobalArgument();
         boolean static_ = setupStaticCtx(ctx_, argGl_);
-        CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, static_, context_);
+        CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, context_);
         assertTrue(context_.isEmptyErrors());
-        ctx_.setAnalyzing(null);
+        ctx_.setNullAnalyzing();
         Argument arg_ = calculate(all_, context_);
         assertEq(4, ((NumberStruct)lv2_.getStruct()).intStruct());
         assertEq(4, ((NumberStruct)lv_.getStruct()).intStruct());
@@ -8621,23 +8608,7 @@ public final class RenderExpUtilTest extends CommonRender {
         assertEq(context_.getStandards().getAliasPrimInteger(), lv_.getClassName());
         assertEq(1, ((NumberStruct)lv_.getStruct()).intStruct());
     }
-    @Test
-    public void processAffect2Test() {
-        Configuration context_ = contextEl();
-        CustLgNames custLgNames_ = (CustLgNames) context_.getContext().getStandards();
-        addImportingPage(context_);
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        Composite c_ = new Composite();
-        lv_.setStruct(new StdStruct(c_, custLgNames_.getAliasComposite()));
-        lv_.setClassName("code.expressionlanguage.classes.Composite");
-        localVars_.put("v", lv_);
-        context_.getLastPage().setLocalVars(localVars_);
-        assertEq(0, c_.getInteger());
-        processEl("v;.integer=12i", context_);
-        assertEq(COMPOSITE, lv_.getClassName());
-        assertEq(12, c_.getInteger());
-    }
+
     @Test
     public void processAffect3Test() {
         Configuration context_ = getConfiguration4();
@@ -9215,11 +9186,11 @@ public final class RenderExpUtilTest extends CommonRender {
         Delimiters d_ = ElResolver.checkSyntaxDelimiters(_el, _conf, _minIndex, _begin, _end);
         if (d_.getBadOffset() >= 0) {
             _conf.setOffset(d_.getBadOffset());
-            BadElError badEl_ = new BadElError();
+            FoundErrorInterpret badEl_ = new FoundErrorInterpret();
             badEl_.setFileName(_conf.getCurrentFileName());
-            badEl_.setIndexFile(_conf.getCurrentLocationIndex());
-            _conf.setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getStandards().getAliasIllegalArg()));
-            context_.setAnalyzing(null);
+            badEl_.setIndexFile(1);
+            _conf.setException(new ErrorStruct(_conf, badEl_.display(), _conf.getStandards().getAliasIllegalArg()));
+            context_.setNullAnalyzing();
             return Argument.createVoid();
         }
         int beg_ = d_.getIndexBegin();
@@ -9238,18 +9209,17 @@ public final class RenderExpUtilTest extends CommonRender {
         OperationsSequence opTwo_ = RenderExpUtil.getOperationsSequence(_minIndex, el_, _conf, d_);
         OperationNode op_ = RenderExpUtil.createOperationNode(_minIndex, CustList.FIRST_INDEX, null, opTwo_, _conf);
         Argument argGl_ = _conf.getOperationPageEl().getGlobalArgument();
-        boolean static_ = setupStaticCtx(_conf,argGl_);
-        CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, static_, _conf);
+        CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, _conf);
         CustList<RendDynOperationNode> out_ = RenderExpUtil.getExecutableNodes(all_);
         if (!_conf.isEmptyErrors()) {
-            BadElError badEl_ = new BadElError();
+            FoundErrorInterpret badEl_ = new FoundErrorInterpret();
             badEl_.setFileName(_conf.getCurrentFileName());
-            badEl_.setIndexFile(_conf.getCurrentLocationIndex());
-            _conf.setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getStandards().getAliasIllegalArg()));
-            context_.setAnalyzing(null);
+            badEl_.setIndexFile(1);
+            _conf.setException(new ErrorStruct(_conf, badEl_.display(), _conf.getStandards().getAliasIllegalArg()));
+            context_.setNullAnalyzing();
             return Argument.createVoid();
         }
-        context_.setAnalyzing(null);
+        context_.setNullAnalyzing();
         out_ = RenderExpUtil.getReducedNodes(out_.last());
         return RenderExpUtil.calculateReuse(out_, _conf);
     }
@@ -9264,31 +9234,6 @@ public final class RenderExpUtilTest extends CommonRender {
         CustList<RendDynOperationNode> out_ = RenderExpUtil.getExecutableNodes(_ops);
         out_ = RenderExpUtil.getReducedNodes(out_.last());
         return RenderExpUtil.calculateReuse(out_, _an);
-    }
-    private static void addBean(Configuration _conf, Object _bean, String _beanClass) {
-        _conf.getLastPage().setGlobalArgumentStruct(StdStruct.newInstance(_bean, _beanClass),_conf);
-        _conf.setGlobalClass(_beanClass);
-        _conf.getContext().setGlobalClass(_beanClass);
-    }
-
-    private Configuration contextEl() {
-        Configuration conf_ =  EquallableExUtil.newConfiguration();
-        StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex {}\n");
-        StringMap<String> files_ = new StringMap<String>();
-        files_.put("pkg/Ex", xml_.toString());
-        Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
-        ContextEl cont_ = InitializationLgNames.buildStdTwo(opt_);
-        Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
-        conf_.setContext(cont_);
-        BeanLgNames standards_ = (BeanLgNames) cont_.getStandards();
-        conf_.setStandards(standards_);
-        standards_.buildIterables(conf_);
-        cont_.setExecutingInstance(conf_);
-        return conf_;
     }
 
     private static Configuration getConfiguration4() {
@@ -9309,7 +9254,7 @@ public final class RenderExpUtilTest extends CommonRender {
         conf_.setContext(cont_);
         BeanLgNames standards_ = (BeanLgNames) cont_.getStandards();
         conf_.setStandards(standards_);
-        standards_.buildIterables(conf_);
+        ((BeanCustLgNames)standards_).buildIterables(conf_);
         cont_.setExecutingInstance(conf_);
         return conf_;
     }
@@ -9329,7 +9274,7 @@ public final class RenderExpUtilTest extends CommonRender {
         conf_.setContext(cont_);
         BeanLgNames standards_ = (BeanLgNames) cont_.getStandards();
         conf_.setStandards(standards_);
-        standards_.buildIterables(conf_);
+        ((BeanCustLgNames)standards_).buildIterables(conf_);
         cont_.setExecutingInstance(conf_);
         return conf_;
     }

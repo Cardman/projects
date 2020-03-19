@@ -4,7 +4,6 @@ import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.methods.AccessedBlock;
 import code.expressionlanguage.methods.AccessingImportingBlock;
-import code.expressionlanguage.methods.RootBlock;
 import code.util.CustList;
 import code.util.*;
 
@@ -16,21 +15,10 @@ final class EmptyWildCardPart extends LeafPartType {
     }
 
     @Override
-    void analyzeDepends(Analyzable _an,
-            int _index, CustList<IntTreeMap< String>> _dels, RootBlock _rooted,
-            boolean _exact) {
-        if (!(getParent() instanceof TemplatePartType)) {
-            _an.getCurrentBadIndexes().add(getIndexInType());
-            return;
-        }
-        setAnalyzedType(Templates.SUB_TYPE);
-    }
-
-    @Override
     void analyze(Analyzable _an,
             CustList<IntTreeMap< String>> _dels, String _globalType,
-            AccessingImportingBlock _rooted) {
-        analyzeLine(_an,_dels,_globalType,_rooted);
+                 AccessingImportingBlock _local,AccessingImportingBlock _rooted) {
+        analyzeLine(_an,_dels,_globalType,_local,_rooted);
     }
 
     @Override
@@ -41,19 +29,7 @@ final class EmptyWildCardPart extends LeafPartType {
     @Override
     void analyzeLine(Analyzable _an,
             CustList<IntTreeMap< String>> _dels, String _globalType,
-            AccessingImportingBlock _rooted) {
-        if (!(getParent() instanceof TemplatePartType)) {
-            _an.getCurrentBadIndexes().add(getIndexInType());
-            return;
-        }
-        setAnalyzedType(Templates.SUB_TYPE);
-    }
-
-    @Override
-    void analyzeInherits(Analyzable _an, int _index,
-            CustList<IntTreeMap< String>> _dels, String _globalType,
-            RootBlock _rooted,
-            boolean _protected) {
+                     AccessingImportingBlock _local,AccessingImportingBlock _rooted) {
         if (!(getParent() instanceof TemplatePartType)) {
             _an.getCurrentBadIndexes().add(getIndexInType());
             return;
@@ -64,7 +40,7 @@ final class EmptyWildCardPart extends LeafPartType {
     @Override
     void analyzeAccessibleId(Analyzable _an,
             CustList<IntTreeMap< String>> _dels,
-                             AccessedBlock _rooted) {
+                             AccessingImportingBlock _rooted) {
         if (!(getParent() instanceof TemplatePartType)) {
             _an.getCurrentBadIndexes().add(getIndexInType());
             return;

@@ -5869,7 +5869,7 @@ public final class ExpressionLanguageTest {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", file());
         ContextEl cont_ = contextEl(files_);
-        cont_.setAnalyzing(new AnalyzedPageEl());
+        cont_.setAnalyzing();
         LocalVariable lv_ = new LocalVariable();
         Struct fresh_ = cont_.getInit().processInit(cont_, NullStruct.NULL_VALUE, _className, "", -1);
         lv_.setStruct(fresh_);
@@ -5878,7 +5878,7 @@ public final class ExpressionLanguageTest {
         cont_.getAnalyzing().putLocalVar(_var, lv_);
         cont_.getAnalyzing().setGlobalClass(_className);
         Calculation calc_ = Calculation.staticCalculation(MethodAccessKind.STATIC);
-        CustList<ExecOperationNode> list_ = ElUtil.getAnalyzedOperations(_el, cont_, calc_);
+        CustList<ExecOperationNode> list_ = ElUtil.getAnalyzedOperationsReadOnly(_el, cont_, calc_);
         addImportingPage(cont_);
         lv_ = new LocalVariable();
         lv_.setStruct(fresh_);
@@ -5895,7 +5895,7 @@ public final class ExpressionLanguageTest {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", file());
         ContextEl cont_ = contextEl(files_);
-        cont_.setAnalyzing(new AnalyzedPageEl());
+        cont_.setAnalyzing();
         LoopVariable lv_ = new LoopVariable();
         Struct fresh_ = cont_.getInit().processInit(cont_, NullStruct.NULL_VALUE, _className, "", -1);
         lv_.setStruct(fresh_);
@@ -5904,7 +5904,7 @@ public final class ExpressionLanguageTest {
         cont_.getAnalyzing().putVar(_var, lv_);
         cont_.getAnalyzing().setGlobalClass(_className);
         Calculation calc_ = Calculation.staticCalculation(MethodAccessKind.STATIC);
-        CustList<ExecOperationNode> list_ = ElUtil.getAnalyzedOperations(_el, cont_, calc_);
+        CustList<ExecOperationNode> list_ = ElUtil.getAnalyzedOperationsReadOnly(_el, cont_, calc_);
         addImportingPage(cont_);
         lv_ = new LoopVariable();
         lv_.setStruct(fresh_);
@@ -5922,7 +5922,7 @@ public final class ExpressionLanguageTest {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", file());
         ContextEl cont_ = contextEl(files_);
-        cont_.setAnalyzing(new AnalyzedPageEl());
+        cont_.setAnalyzing();
         LocalVariable lv_ = new LocalVariable();
         Struct fresh_ = cont_.getInit().processInit(cont_, NullStruct.NULL_VALUE, _className, "", -1);
         lv_.setStruct(fresh_);
@@ -5932,7 +5932,7 @@ public final class ExpressionLanguageTest {
         cont_.getAnalyzing().setGlobalClass(_className);
         String form_ = StringList.concat(var_, ";.", _el);
         Calculation calc_ = Calculation.staticCalculation(MethodAccessKind.STATIC);
-        CustList<ExecOperationNode> list_ = ElUtil.getAnalyzedOperations(form_, cont_, calc_);
+        CustList<ExecOperationNode> list_ = ElUtil.getAnalyzedOperationsReadOnly(form_, cont_, calc_);
         addImportingPage(cont_);
         lv_ = new LocalVariable();
         lv_.setStruct(fresh_);

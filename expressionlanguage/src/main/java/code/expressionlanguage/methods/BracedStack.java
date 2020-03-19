@@ -2,7 +2,7 @@ package code.expressionlanguage.methods;
 
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.errors.custom.UnexpectedOperationAffect;
+import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.ConstType;
@@ -176,9 +176,11 @@ public abstract class BracedStack extends BracedBlock {
                 continue;
             }
             cst_.setRelativeOffsetPossibleAnalyzable(cst_.getIndexInEl(), _an);
-            UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
+            FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(_an.getCurrentFileName());
             un_.setIndexFile(_an.getContextEl().getOffset()+_curBlock.getOffset().getOffsetTrim());
+            un_.buildError(_an.getContextEl().getAnalysisMessages().getFinalField(),
+                    str_);
             _an.addError(un_);
         }
     }
@@ -196,9 +198,11 @@ public abstract class BracedStack extends BracedBlock {
                 continue;
             }
             cst_.setRelativeOffsetPossibleAnalyzable(cst_.getIndexInEl(), _an);
-            UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
+            FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(_an.getCurrentFileName());
             un_.setIndexFile(_an.getContextEl().getOffset()+_curBlock.getOffset().getOffsetTrim());
+            un_.buildError(_an.getContextEl().getAnalysisMessages().getFinalField(),
+                    str_);
             _an.addError(un_);
         }
     }
@@ -215,9 +219,11 @@ public abstract class BracedStack extends BracedBlock {
                 continue;
             }
             cst_.setRelativeOffsetPossibleAnalyzable(cst_.getIndexInEl(), _an);
-            UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
+            FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(_an.getCurrentFileName());
             un_.setIndexFile(_an.getContextEl().getOffset()+_curBlock.getOffset().getOffsetTrim());
+            un_.buildError(_an.getContextEl().getAnalysisMessages().getFinalField(),
+                    _field);
             _an.addError(un_);
         }
     }

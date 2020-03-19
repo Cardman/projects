@@ -44,11 +44,8 @@ public final class EffectStatus extends Effect {
         }
         if (!deletedStatus.isEmpty()) {
             StringList copy_ = new StringList(deletedStatus);
-            copy_.removeDuplicates();
-            int size_ = copy_.size();
             copy_.addAllElts(lawStatus.events());
-            copy_.removeDuplicates();
-            if (size_ + lawStatus.events().size() != copy_.size()) {
+            if (copy_.hasDuplicates()) {
                 _data.setError(true);
             }
             if (statusFromUser) {

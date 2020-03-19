@@ -382,7 +382,6 @@ public final class DataMap {
             _d.setError(true);
         }
 
-        evoObjects_.removeDuplicates();
         for (String o : _d.getItems().getKeys()) {
             Item o_ = _d.getItems().getVal(o);
             if (o_ instanceof EvolvingStone) {
@@ -408,7 +407,6 @@ public final class DataMap {
             if (moves_.isEmpty()) {
                 continue;
             }
-            moves_.removeDuplicates();
             StringList movesRetr_ = new StringList();
             for (String m : pk_.getMoveTutors()) {
                 movesRetr_.add(m);
@@ -427,7 +425,6 @@ public final class DataMap {
         for (String m : movesTmHm_) {
             availableTypesTm_.addAllElts(_d.getMove(m).getTypes());
         }
-        availableTypesTm_.removeDuplicates();
         for (String p : _d.getPokedex().getKeys()) {
             PokemonData pk_ = _d.getPokemon(p);
             StringList types_ = new StringList();
@@ -440,7 +437,6 @@ public final class DataMap {
             if (types_.isEmpty()) {
                 continue;
             }
-            types_.removeDuplicates();
             StringList typesRetr_ = new StringList();
             for (String m : pk_.getMoveTutors()) {
                 typesRetr_.addAllElts(_d.getMove(m).getTypes());
@@ -492,7 +488,6 @@ public final class DataMap {
             }
             baseEvos_.add(fPk_.getBaseEvo());
         }
-        baseEvos_.removeDuplicates();
         if (!directCatchPk_.containsAllAsKeys(baseEvos_)) {
             _d.setError(true);
         }
@@ -554,7 +549,6 @@ public final class DataMap {
                 wildPk_.add(pk_.getName());
             }
         }
-        wildPk_.removeDuplicates();
         if (!wildPk_.containsAllObj(legPk_)) {
             _d.setError(true);
         }
@@ -731,8 +725,6 @@ public final class DataMap {
             } else {
                 _directCatchPk.getVal(p.getName()).add(
                         p.getGender());
-                _directCatchPk.getVal(p.getName())
-                        .removeDuplicates();
             }
         }
     }

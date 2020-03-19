@@ -1,7 +1,7 @@
 package code.expressionlanguage.opers;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.errors.custom.UnexpectedTypeOperationError;
+import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.opers.exec.Operable;
 import code.expressionlanguage.opers.exec.ParentOperable;
@@ -11,6 +11,7 @@ import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.IntTreeMap;
+import code.util.StringList;
 
 
 public abstract class QuickOperation extends MethodOperation {
@@ -63,19 +64,18 @@ public abstract class QuickOperation extends MethodOperation {
         chidren_.last().getResultClass().setUnwrapObject(booleanPrimType_);
         chidren_.first().cancelArgument();
         chidren_.last().cancelArgument();
-        String booleanType_ = stds_.getAliasBoolean();
         okNum = true;
         for (OperationNode o: chidren_) {
             ClassArgumentMatching clMatch_;
             clMatch_ = o.getResultClass();
             setRelativeOffsetPossibleAnalyzable(o.getIndexInEl(), _conf);
             if (!clMatch_.isBoolType(_conf)) {
-                ClassArgumentMatching cl_ = o.getResultClass();
-                UnexpectedTypeOperationError un_ = new UnexpectedTypeOperationError();
+                FoundErrorInterpret un_ = new FoundErrorInterpret();
                 un_.setIndexFile(_conf.getCurrentLocationIndex());
                 un_.setFileName(_conf.getCurrentFileName());
-                un_.setExpectedResult(booleanType_);
-                un_.setOperands(cl_);
+                //first operator char or second operator char
+                un_.buildError(_conf.getContextEl().getAnalysisMessages().getUnexpectedType(),
+                        StringList.join(clMatch_.getNames(),"&"));
                 _conf.addError(un_);
                 _conf.setOkNumOp(false);
                 okNum = false;

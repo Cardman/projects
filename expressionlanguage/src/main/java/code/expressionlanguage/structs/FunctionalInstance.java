@@ -5,7 +5,7 @@ import code.expressionlanguage.opers.util.ClassField;
 import code.util.EntryCust;
 import code.util.ObjectMap;
 
-public final class FunctionalInstance implements Struct {
+public final class FunctionalInstance implements AbstractFunctionalInstance {
 
     private final String className;
 
@@ -30,10 +30,12 @@ public final class FunctionalInstance implements Struct {
         return className;
     }
 
+    @Override
     public Struct getFunctional() {
         return functional;
     }
 
+    @Override
     public void setFunctional(Struct _functional) {
         functional = _functional;
     }

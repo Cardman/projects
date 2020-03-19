@@ -51,11 +51,13 @@ public final class PaginatorHealingItem extends Paginator {
 
     private static final String NUMBER = "number";
 
-    private TextField name = new TextField(16);
+    private TextField name;
+    private AutoCompleteDocument nameAuto;
 
     private TextField description = new TextField(16);
 
-    private TextField status = new TextField(16);
+    private TextField status;
+    private AutoCompleteDocument statusAuto;
 
     private CustCheckBox relativeHpCheck;
 
@@ -228,7 +230,8 @@ public final class PaginatorHealingItem extends Paginator {
             String abTr_ = getFacade().translateItem(i);
             it_.add(abTr_);
         }
-        name = AutoCompleteDocument.createAutoCompleteTextField(it_, 16);
+        name = new TextField(16);
+        nameAuto = new AutoCompleteDocument(name,it_, getWindow());
 //        name.getDocument().addDocumentListener(new DocumentAdaptater() {
 //
 //            public void updateText() {
@@ -246,14 +249,15 @@ public final class PaginatorHealingItem extends Paginator {
             String stTr_ = getFacade().translateStatus(s);
             st_.add(stTr_);
         }
-        status = AutoCompleteDocument.createAutoCompleteTextField(st_, 16);
+        status = new TextField(16);
+        statusAuto = new AutoCompleteDocument(status,st_, getWindow());
 //        status.getDocument().addDocumentListener(new DocumentAdaptater() {
 //
 //            public void updateText() {
 //                getFacade().setContentOfStatusHealingItem(convertStringField(status.getText()));
 //            }
 //        });
-        modeName.setListener(new ChangedModeEvent(modeName, name));
+        modeName.setListener(new ChangedModeEvent(modeName, nameAuto));
 //        modeName.addItemListener(new ItemListener(){
 //            public void itemStateChanged(ItemEvent _e) {
 //                SearchingMode s_ = modeName.getCurrent();
@@ -261,7 +265,7 @@ public final class PaginatorHealingItem extends Paginator {
 //                AutoCompleteDocument.setMode(name, s_);
 //            }
 //        });
-        modeStatus.setListener(new ChangedModeEvent(modeStatus, status));
+        modeStatus.setListener(new ChangedModeEvent(modeStatus, statusAuto));
 //        modeStatus.addItemListener(new ItemListener(){
 //            public void itemStateChanged(ItemEvent _e) {
 //                SearchingMode s_ = modeStatus.getCurrent();

@@ -1,11 +1,6 @@
 package code.formathtml;
 
 
-import code.expressionlanguage.AnalyzedPageEl;
-import code.expressionlanguage.structs.Struct;
-
-import code.sml.Document;
-import code.sml.DocumentBuilder;
 import code.util.StringMap;
 import org.junit.Test;
 
@@ -26,15 +21,12 @@ public final class RenderWhileTest extends CommonRender {
         conf_.getProperties().put("msg_example", relative_);
 
 
-        Document doc_ = DocumentBuilder.parseSax(html_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>0<br/>1<br/>2<br/></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
     }
+
     @Test
     public void process2Test() {
         String folder_ = "messages";
@@ -46,11 +38,7 @@ public final class RenderWhileTest extends CommonRender {
         conf_.getProperties().put("msg_example", relative_);
 
 
-        Document doc_ = DocumentBuilder.parseSax(html_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body/></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
@@ -66,11 +54,7 @@ public final class RenderWhileTest extends CommonRender {
         conf_.getProperties().put("msg_example", relative_);
 
 
-        Document doc_ = DocumentBuilder.parseSax(html_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>0-0<br/>0-1<br/><br/>1-0<br/>1-1<br/><br/></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
@@ -86,11 +70,7 @@ public final class RenderWhileTest extends CommonRender {
         conf_.getProperties().put("msg_example", relative_);
 
 
-        Document doc_ = DocumentBuilder.parseSax(html_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_,conf_);
         assertNotNull(getException(conf_));
@@ -106,11 +86,7 @@ public final class RenderWhileTest extends CommonRender {
         conf_.getProperties().put("msg_example", relative_);
 
 
-        Document doc_ = DocumentBuilder.parseSax(html_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_,conf_);
         assertNotNull(getException(conf_));
@@ -128,24 +104,14 @@ public final class RenderWhileTest extends CommonRender {
         filesSec_.put("my_file",file_.toString());
         Configuration conf_ = contextElThird(filesSec_);
         conf_.setMessagesFolder(folder_);
-        addImportingPage(conf_);
-        Struct bean_ = RenderExpUtil.processEl("$new pkg.BeanOne()", 0, conf_).getStruct();
-        addBeanInfo(conf_,"bean_one",bean_);
-        conf_.clearPages();
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-
-
-        Document doc_ = DocumentBuilder.parseSax(html_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getContext().setAnalyzing(new AnalyzedPageEl());
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>0<br/>1<br/>2<br/></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
     }
+
     @Test
     public void process8Test() {
         String folder_ = "messages";
@@ -159,20 +125,9 @@ public final class RenderWhileTest extends CommonRender {
         filesSec_.put("my_file",file_.toString());
         Configuration conf_ = contextElThird(filesSec_);
         conf_.setMessagesFolder(folder_);
-        addImportingPage(conf_);
-        Struct bean_ = RenderExpUtil.processEl("$new pkg.BeanOne()", 0, conf_).getStruct();
-        addBeanInfo(conf_,"bean_one",bean_);
-        conf_.clearPages();
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-
-
-        Document doc_ = DocumentBuilder.parseSax(html_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getContext().setAnalyzing(new AnalyzedPageEl());
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>Loop:0<br/>1<br/>2<br/></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));

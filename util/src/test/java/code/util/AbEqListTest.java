@@ -189,6 +189,22 @@ public class AbEqListTest {
         assertEq(3, e_.get(2).getInfo());
     }
     @Test
+    public void hasDuplicatesEq1Test() {
+        EqList<MyEquallable> e_ = new EqList<MyEquallable>(new MyEquallable[0]);
+        e_.add(new MyEquallable(1));
+        e_.add(new MyEquallable(2));
+        e_.add(new MyEquallable(3));
+        e_.add(new MyEquallable(1));
+        assertTrue(e_.hasDuplicates());
+    }
+    @Test
+    public void hasDuplicatesEq2Test() {
+        EqList<MyEquallable> e_ = new EqList<MyEquallable>(new MyEquallable[0]);
+        e_.add(new MyEquallable(1));
+        e_.add(new MyEquallable(2));
+        assertTrue(!e_.hasDuplicates());
+    }
+    @Test
     public void eqEq1Test() {
         EqList<MyEquallable> e_ = new EqList<MyEquallable>(new CollCapacity(3));
         e_.add(new MyEquallable(1));

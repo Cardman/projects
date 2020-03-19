@@ -646,9 +646,7 @@ public final class Fighter {
             }
         }
         StringList moves_ = attaquesUtilisables();
-        int sizeMoves_ = moves_.size();
-        moves_.removeDuplicates();
-        if (sizeMoves_ != moves_.size()) {
+        if (moves_.hasDuplicates()) {
             return false;
         }
         for (String m: alreadyInvokedMovesRound) {
@@ -1044,7 +1042,6 @@ public final class Fighter {
         StringList attaques_ = new StringList();
         attaques_.addAllElts(_data.getVarParamsMove(CIBLE_NB_UTILISATION));
         attaques_.addAllElts(_data.getVarParamsMove(LANCEUR_NB_UTILISATION));
-        attaques_.removeDuplicates();
         if (!StringList.equalsSet(attaques_, nbUsesMoves.getKeys())) {
             return false;
         }

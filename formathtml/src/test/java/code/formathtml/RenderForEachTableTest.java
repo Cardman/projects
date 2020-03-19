@@ -2,9 +2,6 @@ package code.formathtml;
 
 import code.bean.Bean;
 import code.formathtml.classes.BeanOne;
-import code.formathtml.structs.BeanStruct;
-import code.sml.Document;
-import code.sml.DocumentBuilder;
 import code.util.StringMap;
 import org.junit.Test;
 
@@ -22,38 +19,6 @@ public final class RenderForEachTableTest extends CommonRender {
 
     @Test
     public void process1Test() {
-        String locale_ = "en";
-        String folder_ = "messages";
-        String relative_ = "sample/file";
-        String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html c:bean=\"bean_one\"><body><table><c:for key=\"k\" keyClassName=\"java.lang.String\" value=\"v\" varClassName=\"$int\" map=\"tree\"><tr><td>{k;}</td><td>{v;}</td></tr></c:for></table></body></html>";
-        StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
-        BeanOne bean_ = new BeanOne();
-        bean_.getComposite().getStrings().add("FIRST");
-        bean_.getComposite().getStrings().add("SECOND");
-        bean_.getComposite().setInteger(5);
-        bean_.getTree().put("ONE", 1);
-        bean_.getTree().put("TWO", 2);
-        Configuration conf_ = contextElSec();
-        conf_.setBeans(new StringMap<Bean>());
-        conf_.getBeans().put("bean_one", bean_);
-        addBeanInfo(conf_,"bean_one",new BeanStruct(bean_));
-        conf_.setMessagesFolder(folder_);
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
-        Document doc_ = DocumentBuilder.parseSax(html_);
-        conf_.setDocument(doc_);
-
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body><table><tr><td>ONE</td><td>1</td></tr><tr><td>TWO</td><td>2</td></tr></table></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
-    }
-    @Test
-    public void process2Test() {
         StringMap<String> files_ = new StringMap<String>();
         files_.put(CUST_ITER_PATH, getCustomIterator());
         files_.put(CUST_LIST_PATH, getCustomList());
@@ -71,16 +36,13 @@ public final class RenderForEachTableTest extends CommonRender {
         xml_.append("</c:for>");
         xml_.append("</table></body></html>");
         String html_ = xml_.toString();
-        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
-        context_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(context_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, context_);
         assertTrue(context_.isEmptyErrors());
         assertEq("<html><body><table><tr><td>ONE</td><td>1</td></tr><tr><td>TWO</td><td>2</td></tr></table></body></html>", RendBlock.getRes(rendDocumentBlock_,context_));
         assertNull(getException(context_));
     }
     @Test
-    public void process3Test() {
+    public void process2Test() {
         StringMap<String> files_ = new StringMap<String>();
         files_.put(CUST_ITER_PATH, getCustomIterator());
         files_.put(CUST_LIST_PATH, getCustomList());
@@ -97,16 +59,13 @@ public final class RenderForEachTableTest extends CommonRender {
         xml_.append("</c:for>");
         xml_.append("</table></body></html>");
         String html_ = xml_.toString();
-        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
-        context_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(context_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, context_);
         assertTrue(context_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_, context_);
         assertNotNull(getException(context_));
     }
     @Test
-    public void process4Test() {
+    public void process3Test() {
         StringMap<String> files_ = new StringMap<String>();
         files_.put(CUST_ITER_PATH, getCustomIterator());
         files_.put(CUST_LIST_PATH, getCustomList());
@@ -123,82 +82,15 @@ public final class RenderForEachTableTest extends CommonRender {
         xml_.append("</c:for>");
         xml_.append("</table></body></html>");
         String html_ = xml_.toString();
-        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
-        context_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(context_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, context_);
         assertTrue(context_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_, context_);
         assertNotNull(getException(context_));
     }
 
-    @Test
-    public void process5Test() {
-        String locale_ = "en";
-        String folder_ = "messages";
-        String relative_ = "sample/file";
-        String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html c:bean=\"bean_one\"><body><table><c:for key=\"k\" value=\"v\" map=\"tree\"><tr><td>{k;}</td><td>{v;}</td></tr></c:for></table></body></html>";
-        StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
-        BeanOne bean_ = new BeanOne();
-        bean_.getComposite().getStrings().add("FIRST");
-        bean_.getComposite().getStrings().add("SECOND");
-        bean_.getComposite().setInteger(5);
-        bean_.getTree().put("ONE", 1);
-        bean_.getTree().put("TWO", 2);
-        Configuration conf_ = contextElSec();
-        conf_.setBeans(new StringMap<Bean>());
-        conf_.getBeans().put("bean_one", bean_);
-        addBeanInfo(conf_,"bean_one",new BeanStruct(bean_));
-        conf_.setMessagesFolder(folder_);
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
-        Document doc_ = DocumentBuilder.parseSax(html_);
-        conf_.setDocument(doc_);
-
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body><table><tr><td>ONE</td><td>1</td></tr><tr><td>TWO</td><td>2</td></tr></table></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
-    }
 
     @Test
-    public void process6Test() {
-        String locale_ = "en";
-        String folder_ = "messages";
-        String relative_ = "sample/file";
-        String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html c:bean=\"bean_one\"><body><table><c:for key=\"k\" value=\"v\" map=\"tree\"><c:for key=\"l\" value=\"w\" map=\"tree\"><tr><td>{k;}</td><td>{v;}</td><td>{l;}</td><td>{w;}</td></tr></c:for></c:for></table></body></html>";
-        StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
-        BeanOne bean_ = new BeanOne();
-        bean_.getComposite().getStrings().add("FIRST");
-        bean_.getComposite().getStrings().add("SECOND");
-        bean_.getComposite().setInteger(5);
-        bean_.getTree().put("ONE", 1);
-        bean_.getTree().put("TWO", 2);
-        Configuration conf_ = contextElSec();
-        conf_.setBeans(new StringMap<Bean>());
-        conf_.getBeans().put("bean_one", bean_);
-        addBeanInfo(conf_,"bean_one",new BeanStruct(bean_));
-        conf_.setMessagesFolder(folder_);
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
-        Document doc_ = DocumentBuilder.parseSax(html_);
-        conf_.setDocument(doc_);
-
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body><table><tr><td>ONE</td><td>1</td><td>ONE</td><td>1</td></tr><tr><td>ONE</td><td>1</td><td>TWO</td><td>2</td></tr><tr><td>TWO</td><td>2</td><td>ONE</td><td>1</td></tr><tr><td>TWO</td><td>2</td><td>TWO</td><td>2</td></tr></table></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
-    }
-    @Test
-    public void process7Test() {
+    public void process4Test() {
         StringMap<String> files_ = new StringMap<String>();
         files_.put(CUST_ITER_PATH, getCustomIterator());
         files_.put(CUST_LIST_PATH, getCustomList());
@@ -215,16 +107,13 @@ public final class RenderForEachTableTest extends CommonRender {
         xml_.append("</c:for>");
         xml_.append("</table></body></html>");
         String html_ = xml_.toString();
-        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
-        context_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(context_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, context_);
         assertTrue(context_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_, context_);
         assertNotNull(getException(context_));
     }
     @Test
-    public void process8Test() {
+    public void process5Test() {
         StringMap<String> files_ = new StringMap<String>();
         files_.put(CUST_ITER_PATH, getCustomIterator());
         files_.put(CUST_LIST_PATH, getCustomList());
@@ -241,16 +130,13 @@ public final class RenderForEachTableTest extends CommonRender {
         xml_.append("</c:for>");
         xml_.append("</table></body></html>");
         String html_ = xml_.toString();
-        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
-        context_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(context_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, context_);
         assertTrue(context_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_, context_);
         assertNotNull(getException(context_));
     }
     @Test
-    public void process9Test() {
+    public void process6Test() {
         StringMap<String> files_ = new StringMap<String>();
         files_.put(CUST_ITER_PATH, getCustomIterator());
         files_.put(CUST_LIST_PATH, getCustomList());
@@ -267,16 +153,14 @@ public final class RenderForEachTableTest extends CommonRender {
         xml_.append("</c:for>");
         xml_.append("</table></body></html>");
         String html_ = xml_.toString();
-        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
-        context_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(context_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, context_);
         assertTrue(context_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_, context_);
         assertNotNull(getException(context_));
     }
+
     @Test
-    public void process10Test() {
+    public void process7Test() {
         StringMap<String> files_ = new StringMap<String>();
         files_.put(CUST_ITER_PATH, getCustomIterator());
         files_.put(CUST_LIST_PATH, getCustomList());
@@ -293,16 +177,13 @@ public final class RenderForEachTableTest extends CommonRender {
         xml_.append("</c:for>");
         xml_.append("</table></body></html>");
         String html_ = xml_.toString();
-        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
-        context_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(context_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, context_);
         assertTrue(context_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_, context_);
         assertNotNull(getException(context_));
     }
     @Test
-    public void process11Test() {
+    public void process8Test() {
         StringMap<String> files_ = new StringMap<String>();
         files_.put(CUST_ITER_PATH, getCustomIterator());
         files_.put(CUST_LIST_PATH, getCustomList());
@@ -319,16 +200,13 @@ public final class RenderForEachTableTest extends CommonRender {
         xml_.append("</c:for>");
         xml_.append("</table></body></html>");
         String html_ = xml_.toString();
-        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
-        context_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(context_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, context_);
         assertTrue(context_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_, context_);
         assertNotNull(getException(context_));
     }
     @Test
-    public void process12Test() {
+    public void process9Test() {
         StringMap<String> files_ = new StringMap<String>();
         files_.put(CUST_ITER_PATH, getCustomIterator());
         files_.put(CUST_LIST_PATH, getCustomList());
@@ -344,16 +222,13 @@ public final class RenderForEachTableTest extends CommonRender {
         xml_.append("</c:for>");
         xml_.append("</table></body></html>");
         String html_ = xml_.toString();
-        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
-        context_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(context_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, context_);
         assertTrue(context_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_, context_);
         assertNotNull(getException(context_));
     }
     @Test
-    public void process13Test() {
+    public void process10Test() {
         StringMap<String> files_ = new StringMap<String>();
         files_.put(CUST_ITER_PATH, getCustomIterator());
         files_.put(CUST_LIST_PATH, getCustomList());
@@ -368,16 +243,13 @@ public final class RenderForEachTableTest extends CommonRender {
         xml_.append("</c:for>");
         xml_.append("</table></body></html>");
         String html_ = xml_.toString();
-        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
-        context_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(context_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, context_);
         assertTrue(context_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_, context_);
         assertNotNull(getException(context_));
     }
     @Test
-    public void process14Test() {
+    public void process11Test() {
         StringMap<String> files_ = new StringMap<String>();
         files_.put(CUST_ITER_PATH, getCustomIterator());
         files_.put(CUST_LIST_PATH, getCustomList());
@@ -395,16 +267,13 @@ public final class RenderForEachTableTest extends CommonRender {
         xml_.append("</c:for>");
         xml_.append("</table></body></html>");
         String html_ = xml_.toString();
-        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
-        context_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(context_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, context_);
         assertTrue(context_.isEmptyErrors());
         assertEq("<html><body><table><tr><td>ONE</td><td>1</td></tr><tr><td>TWO</td><td>2</td></tr></table></body></html>", RendBlock.getRes(rendDocumentBlock_,context_));
         assertNull(getException(context_));
     }
     @Test
-    public void process15Test() {
+    public void process12Test() {
         StringMap<String> files_ = new StringMap<String>();
         files_.put(CUST_ITER_PATH, getCustomIterator());
         files_.put(CUST_LIST_PATH, getCustomList());
@@ -422,16 +291,13 @@ public final class RenderForEachTableTest extends CommonRender {
         xml_.append("</c:for>");
         xml_.append("</table></body></html>");
         String html_ = xml_.toString();
-        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
-        context_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(context_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, context_);
         assertTrue(context_.isEmptyErrors());
         assertEq("<html><body><table><tr><td>ONE</td><td>1</td></tr><tr><td>TWO</td><td>2</td></tr></table></body></html>", RendBlock.getRes(rendDocumentBlock_,context_));
         assertNull(getException(context_));
     }
     @Test
-    public void process16Test() {
+    public void process13Test() {
         StringMap<String> files_ = new StringMap<String>();
         files_.put(CUST_ITER_PATH, getCustomIterator());
         files_.put(CUST_LIST_PATH, getCustomList());
@@ -449,17 +315,14 @@ public final class RenderForEachTableTest extends CommonRender {
         xml_.append("</c:for>");
         xml_.append("</table></body></html>");
         String html_ = xml_.toString();
-        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
-        context_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(context_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, context_);
         assertTrue(context_.isEmptyErrors());
         assertEq("<html><body><table><tr><td>ONE</td><td>1</td></tr><tr><td>TWO</td><td>2</td></tr></table></body></html>", RendBlock.getRes(rendDocumentBlock_,context_));
         assertNull(getException(context_));
     }
 
     @Test
-    public void process17Test() {
+    public void process14Test() {
         String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
@@ -487,19 +350,14 @@ public final class RenderForEachTableTest extends CommonRender {
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         String html_ = xml_.toString();
-        Document doc_ = DocumentBuilder.parseSax(html_);
-        conf_.setDocument(doc_);
-
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body><table><tr><td>ONE</td><td>1</td></tr><tr><td>TWO</td><td>2</td></tr></table></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
     }
 
     @Test
-    public void process18Test() {
+    public void process15Test() {
         String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
@@ -529,18 +387,13 @@ public final class RenderForEachTableTest extends CommonRender {
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         String html_ = xml_.toString();
-        Document doc_ = DocumentBuilder.parseSax(html_);
-        conf_.setDocument(doc_);
-
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body><table><tr><td>ONE</td><td>1</td><td>ONE</td><td>1</td></tr><tr><td>ONE</td><td>1</td><td>TWO</td><td>2</td></tr><tr><td>TWO</td><td>2</td><td>ONE</td><td>1</td></tr><tr><td>TWO</td><td>2</td><td>TWO</td><td>2</td></tr></table></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
     }
     @Test
-    public void process19Test() {
+    public void process16Test() {
         StringMap<String> files_ = new StringMap<String>();
         files_.put(CUST_ITER_PATH, getCustomIterator());
         files_.put(CUST_LIST_PATH, getCustomList());
@@ -555,10 +408,7 @@ public final class RenderForEachTableTest extends CommonRender {
         xml_.append("</c:for>");
         xml_.append("</table></body></html>");
         String html_ = xml_.toString();
-        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
-        context_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(context_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, context_);
         assertTrue(context_.isEmptyErrors());
         assertEq("<html><body><table/></body></html>", RendBlock.getRes(rendDocumentBlock_,context_));
         assertNull(getException(context_));
@@ -582,10 +432,7 @@ public final class RenderForEachTableTest extends CommonRender {
         xml_.append("</c:for>");
         xml_.append("</table></body></html>");
         String html_ = xml_.toString();
-        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
-        context_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(context_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, context_);
         assertTrue(!context_.isEmptyErrors());
     }
     @Test
@@ -607,10 +454,7 @@ public final class RenderForEachTableTest extends CommonRender {
         xml_.append("</c:for>");
         xml_.append("</table></body></html>");
         String html_ = xml_.toString();
-        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
-        context_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(context_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, context_);
         assertTrue(!context_.isEmptyErrors());
     }
     @Test
@@ -632,10 +476,7 @@ public final class RenderForEachTableTest extends CommonRender {
         xml_.append("</c:for>");
         xml_.append("</table></body></html>");
         String html_ = xml_.toString();
-        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
-        context_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(context_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, context_);
         assertTrue(!context_.isEmptyErrors());
     }
     @Test
@@ -657,10 +498,7 @@ public final class RenderForEachTableTest extends CommonRender {
         xml_.append("</c:for>");
         xml_.append("</table></body></html>");
         String html_ = xml_.toString();
-        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
-        context_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(context_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, context_);
         assertTrue(!context_.isEmptyErrors());
     }
     @Test
@@ -682,10 +520,7 @@ public final class RenderForEachTableTest extends CommonRender {
         xml_.append("</c:for>");
         xml_.append("</table></body></html>");
         String html_ = xml_.toString();
-        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
-        context_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(context_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, context_);
         assertTrue(!context_.isEmptyErrors());
     }
     @Test
@@ -709,10 +544,7 @@ public final class RenderForEachTableTest extends CommonRender {
         xml_.append("</c:for>");
         xml_.append("</table></body></html>");
         String html_ = xml_.toString();
-        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
-        context_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(context_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, context_);
         assertTrue(!context_.isEmptyErrors());
     }
     @Test
@@ -736,10 +568,7 @@ public final class RenderForEachTableTest extends CommonRender {
         xml_.append("</c:for>");
         xml_.append("</table></body></html>");
         String html_ = xml_.toString();
-        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
-        context_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(context_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, context_);
         assertTrue(!context_.isEmptyErrors());
     }
     @Test
@@ -763,10 +592,7 @@ public final class RenderForEachTableTest extends CommonRender {
         xml_.append("</c:for>");
         xml_.append("</table></body></html>");
         String html_ = xml_.toString();
-        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
-        context_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(context_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, context_);
         assertTrue(!context_.isEmptyErrors());
     }
     @Test
@@ -788,10 +614,7 @@ public final class RenderForEachTableTest extends CommonRender {
         xml_.append("</c:for>");
         xml_.append("</table></body></html>");
         String html_ = xml_.toString();
-        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
-        context_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(context_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, context_);
         assertTrue(!context_.isEmptyErrors());
     }
     private static String getCustomPair() {

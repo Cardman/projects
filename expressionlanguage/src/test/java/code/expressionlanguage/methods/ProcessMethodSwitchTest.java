@@ -1117,33 +1117,7 @@ public final class ProcessMethodSwitchTest extends ProcessMethodCommon {
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(20, ret_.getNumber());
     }
-    @Test
-    public void calculateArgumentFailTest() {
-        StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex {\n");
-        xml_.append(" $public $static $int exmeth(){\n");
-        xml_.append("  $final $long t:\n");
-        xml_.append("  $long i:\n");
-        xml_.append("  i;.=9:\n");
-        xml_.append("  $switch(i;.)label{\n");
-        xml_.append("   $default{\n");
-        xml_.append("    t;.=12:\n");
-        xml_.append("   }\n");
-        xml_.append("   $case(10):\n");
-        xml_.append("   $case(8){\n");
-        xml_.append("    t;.=16:\n");
-        xml_.append("    $break label:\n");
-        xml_.append("   }\n");
-        xml_.append("  }\n");
-        xml_.append("  $return 1i+$($int)t;.:\n");
-        xml_.append(" }\n");
-        xml_.append("}\n");
-        StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl();
-        files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(!cont_.isEmptyErrors());
-    }
+
     @Test
     public void calculateArgument2FailTest() {
         StringBuilder xml_ = new StringBuilder();

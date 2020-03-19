@@ -51,13 +51,6 @@ public class CustInitializer extends DefaultInitializer {
         }
     }
 
-    public String getInterfaceTask(LgNames _stds) {
-        return ((LgNamesUtils)_stds).getAliasRunnable();
-    }
-
-    public String getRunTask(LgNames _stds) {
-        return ((LgNamesUtils)_stds).getAliasRun();
-    }
     String getCurrentTreadIdDate(RunnableContextEl _ctx) {
     	return _ctx.getIdDate();
 	}

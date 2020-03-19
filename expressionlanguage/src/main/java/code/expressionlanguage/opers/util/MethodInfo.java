@@ -60,7 +60,6 @@ public final class MethodInfo implements Parametrable {
         className = _className;
     }
 
-    @Override
     public boolean isStatic() {
         return staticMethod == MethodAccessKind.STATIC;
     }
@@ -106,21 +105,25 @@ public final class MethodInfo implements Parametrable {
         varArgWrap = _v;
     }
 
-    public void format(Analyzable _an) {
+    public void format(boolean _keepParams,Analyzable _an) {
         StringList params_ = new StringList();
         for (String p: constraints.getParametersTypes()) {
-            params_.add(Templates.wildCardFormatParam(isStatic(),className,p,_an));
+            params_.add(Templates.wildCardFormatParam(className,p,_an));
         }
-        formatted = new MethodId(staticMethod, constraints.getName(), params_, isVararg());
+        formatted = new MethodId(MethodId.getKind(_keepParams), constraints.getName(), params_, isVararg());
     }
 
     @Override
     public Identifiable getGeneFormatted() {
-        return getFormatted();
+        return getFoundFormatted();
     }
 
-    public MethodId getFormatted() {
-        return formatted;
+    public MethodId getFoundFormatted() {
+        StringList params_ = new StringList();
+        for (String p: formatted.getParametersTypes()) {
+            params_.add(p);
+        }
+        return new MethodId(constraints.getKind(),formatted.getName(),formatted.getParametersTypes(),formatted.isVararg());
     }
 
     public boolean same(Identifiable _id) {

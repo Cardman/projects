@@ -31,7 +31,7 @@ public final class RendText extends RendLeaf implements RendWithEl, RendReducabl
     public void buildExpressionLanguage(Configuration _conf,RendDocumentBlock _doc) {
         _conf.getAnalyzing().setOffset(expressionOffset);
         ResultText res_ = new ResultText();
-        res_.build(expression,_conf,_doc);
+        res_.build(expression,_conf,expressionOffset,_doc);
         opExp = res_.getOpExp();
         texts = res_.getTexts();
     }

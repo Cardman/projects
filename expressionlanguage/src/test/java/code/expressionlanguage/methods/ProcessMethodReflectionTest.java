@@ -5387,6 +5387,30 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertEq("?pkg.Ex..ExTwo",((StringStruct)err_.getMessage()).getInstance());
     }
     @Test
+    public void processEl14700Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $public $static String exmeth(){\n");
+        xml_.append("  $return $static($Class).forName(\"pkg.Ex..ExTwo..ExThree\",$true).getName():\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $class ExTwo {\n");
+        xml_.append("  $public $class ExThree {\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument res_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        assertEq("pkg.Ex..ExTwo..ExThree",res_.getString());
+    }
+    @Test
     public void processEl1471Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Apply {\n");

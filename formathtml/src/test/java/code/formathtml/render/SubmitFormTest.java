@@ -11,6 +11,7 @@ import code.expressionlanguage.options.Options;
 import code.expressionlanguage.structs.*;
 import code.expressionlanguage.variables.VariableSuffix;
 import code.formathtml.*;
+import code.formathtml.util.BeanCustLgNames;
 import code.formathtml.util.BeanLgNames;
 import code.util.StringList;
 import code.util.StringMap;
@@ -68,25 +69,7 @@ public final class SubmitFormTest extends CommonRender {
         filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         filesSec_.put(CUST_TABLE_PATH, getCustomTable());
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
-        Configuration conf_ = contextElThird(filesSec_);
-        StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
-        files_.put("page1.html", html_);
-        conf_.setMessagesFolder(folder_);
-        conf_.setFirstUrl("page1.html");
-        conf_.setValidators(new StringMap<Validator>());
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
-        Navigation nav_ = newNavigation(conf_);
-        nav_.setLanguage(locale_);
-        nav_.setSession(conf_);
-        nav_.setFiles(files_);
-        nav_.getSession().getRenderFiles().add("page1.html");
-        BeanInfo i_ = new BeanInfo();
-        i_.setScope("session");
-        i_.setClassName("pkg.BeanOne");
-        nav_.getSession().getBeansInfos().addEntry("bean_one",i_);
-        initSession(nav_);
+        Navigation nav_ = initWithoutValidator(locale_, folder_, relative_, content_, html_, filesSec_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><select name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select></form></body></html>", nav_.getHtmlText());
@@ -95,7 +78,7 @@ public final class SubmitFormTest extends CommonRender {
 
         Struct choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choice"));
         assertEq("TWO", ((StringStruct) choice_).getInstance());
-        MetaDocument meta_ = MetaDocument.newInstance(nav_.getDocument());
+        MetaDocument meta_ = getMetaDocument(nav_);
         IntForm intForm_ = meta_.getForms().get(0);
         MetaComboBox combo_ = (MetaComboBox) intForm_.getFirstChildCompo().getFirstChildCompo();
         combo_.getSelectedIndexes().clear();
@@ -107,6 +90,10 @@ public final class SubmitFormTest extends CommonRender {
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><select name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\" selected=\"selected\">1</option><option value=\"TWO\">2</option></select></form></body></html>", nav_.getHtmlText());
         choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choice"));
         assertEq("ONE", ((StringStruct) choice_).getInstance());
+    }
+
+    private static MetaDocument getMetaDocument(Navigation _nav) {
+        return MetaDocument.newInstance(_nav.getDocument(),_nav.getSession().getRendKeyWords());
     }
 
     @Test
@@ -159,25 +146,7 @@ public final class SubmitFormTest extends CommonRender {
         filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         filesSec_.put(CUST_TABLE_PATH, getCustomTable());
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
-        Configuration conf_ = contextElThird(filesSec_);
-        StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
-        files_.put("page1.html", html_);
-        conf_.setMessagesFolder(folder_);
-        conf_.setFirstUrl("page1.html");
-        conf_.setValidators(new StringMap<Validator>());
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
-        Navigation nav_ = newNavigation(conf_);
-        nav_.setLanguage(locale_);
-        nav_.setSession(conf_);
-        nav_.setFiles(files_);
-        nav_.getSession().getRenderFiles().add("page1.html");
-        BeanInfo i_ = new BeanInfo();
-        i_.setScope("session");
-        i_.setClassName("pkg.BeanOne");
-        nav_.getSession().getBeansInfos().addEntry("bean_one",i_);
-        initSession(nav_);
+        Navigation nav_ = initWithoutValidator(locale_, folder_, relative_, content_, html_, filesSec_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><select multiple=\"multiple\" name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select></form></body></html>", nav_.getHtmlText());
@@ -190,7 +159,7 @@ public final class SubmitFormTest extends CommonRender {
         assertEq(1, ((ArrayStruct)array_).getInstance().length);
         assertEq("TWO", ((StringStruct) ((ArrayStruct)array_).getInstance()[0]).getInstance());
 
-        MetaDocument meta_ = MetaDocument.newInstance(nav_.getDocument());
+        MetaDocument meta_ = getMetaDocument(nav_);
         IntForm intForm_ = meta_.getForms().get(0);
         MetaComboList combo_ = (MetaComboList) intForm_.getFirstChildCompo().getFirstChildCompo();
         combo_.getSelected().clear();
@@ -250,25 +219,7 @@ public final class SubmitFormTest extends CommonRender {
         filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         filesSec_.put(CUST_TABLE_PATH, getCustomTable());
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
-        Configuration conf_ = contextElThird(filesSec_);
-        StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
-        files_.put("page1.html", html_);
-        conf_.setMessagesFolder(folder_);
-        conf_.setFirstUrl("page1.html");
-        conf_.setValidators(new StringMap<Validator>());
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
-        Navigation nav_ = newNavigation(conf_);
-        nav_.setLanguage(locale_);
-        nav_.setSession(conf_);
-        nav_.setFiles(files_);
-        nav_.getSession().getRenderFiles().add("page1.html");
-        BeanInfo i_ = new BeanInfo();
-        i_.setScope("session");
-        i_.setClassName("pkg.BeanOne");
-        nav_.getSession().getBeansInfos().addEntry("bean_one",i_);
-        initSession(nav_);
+        Navigation nav_ = initWithoutValidator(locale_, folder_, relative_, content_, html_, filesSec_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><select name=\"bean_one.choice\" n-i=\"0\"/></form></body></html>", nav_.getHtmlText());
@@ -277,7 +228,7 @@ public final class SubmitFormTest extends CommonRender {
 
         Struct choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choice"));
         assertEq("", ((StringStruct) choice_).getInstance());
-        MetaDocument meta_ = MetaDocument.newInstance(nav_.getDocument());
+        MetaDocument meta_ = getMetaDocument(nav_);
         IntForm intForm_ = meta_.getForms().get(0);
         SubmitForm.submit(intForm_,nav_);
         nav_.processRendFormRequest();
@@ -295,9 +246,6 @@ public final class SubmitFormTest extends CommonRender {
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
         String html_ = "<html c:bean=\"bean_one\"><body><form c:command=\"$validate\"><c:for var=\"n\" list=\"numbers\"><input type=\"radio\" name=\"index\" c:varValue=\"n;\"/></c:for><c:for var=\"n\" list=\"numbersTwo\"><input type=\"radio\" name=\"indexTwo\" c:varValue=\"n;\"/></c:for><input type=\"submit\" value=\"OK\"/></form></body></html>";
-        StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
-        files_.put("page1.html", html_);
         StringMap<String> filesSec_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
         file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
@@ -325,22 +273,7 @@ public final class SubmitFormTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        Configuration conf_ = contextElThird(filesSec_);
-        conf_.setMessagesFolder(folder_);
-        conf_.setFirstUrl("page1.html");
-        conf_.setValidators(new StringMap<Validator>());
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
-        Navigation nav_ = newNavigation(conf_);
-        nav_.setLanguage(locale_);
-        nav_.setSession(conf_);
-        nav_.setFiles(files_);
-        nav_.getSession().getRenderFiles().add("page1.html");
-        BeanInfo i_ = new BeanInfo();
-        i_.setScope("session");
-        i_.setClassName("pkg.BeanOne");
-        nav_.getSession().getBeansInfos().addEntry("bean_one",i_);
-        initSession(nav_);
+        Navigation nav_ = initWithoutValidator(locale_, folder_, relative_, content_, html_, filesSec_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4\" checked=\"checked\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"2\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"4\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"6\" checked=\"checked\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
@@ -353,7 +286,7 @@ public final class SubmitFormTest extends CommonRender {
         assertEq(6, ((NumberStruct) choice_).intStruct());
 
 
-        MetaDocument meta_ = MetaDocument.newInstance(nav_.getDocument());
+        MetaDocument meta_ = getMetaDocument(nav_);
         IntForm intForm_ = meta_.getForms().get(0);
         MetaRadioButton combo_ = (MetaRadioButton) intForm_.getFirstChildCompo().getFirstChildCompo().getNextSibling();
         combo_.setChecked(false);
@@ -425,32 +358,14 @@ public final class SubmitFormTest extends CommonRender {
         filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         filesSec_.put(CUST_TABLE_PATH, getCustomTable());
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
-        Configuration conf_ = contextElThird(filesSec_);
-        StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
-        files_.put("page1.html", html_);
-        conf_.setMessagesFolder(folder_);
-        conf_.setFirstUrl("page1.html");
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
-        Navigation nav_ = newNavigation(conf_);
-        nav_.setLanguage(locale_);
-        nav_.setSession(conf_);
-        nav_.setFiles(files_);
-        nav_.getSession().getRenderFiles().add("page1.html");
-        BeanInfo i_ = new BeanInfo();
-        i_.setScope("session");
-        i_.setClassName("pkg.BeanOne");
-        nav_.getSession().getBeansInfos().addEntry("bean_one",i_);
-        addVal(nav_,"valRef","pkg.MyVal");
-        initSession(nav_);
+        Navigation nav_ = initWithValidator(locale_, folder_, relative_, content_, html_, filesSec_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"checkbox\" name=\"bean_one.choiceBool\" n-i=\"0\"/></form></body></html>", nav_.getHtmlText());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
 
-        MetaDocument meta_ = MetaDocument.newInstance(nav_.getDocument());
+        MetaDocument meta_ = getMetaDocument(nav_);
         IntForm intForm_ = meta_.getForms().get(0);
         MetaCheckedBox combo_ = (MetaCheckedBox) intForm_.getFirstChildCompo().getFirstChildCompo();
         combo_.setChecked(true);
@@ -513,32 +428,14 @@ public final class SubmitFormTest extends CommonRender {
         filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         filesSec_.put(CUST_TABLE_PATH, getCustomTable());
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
-        Configuration conf_ = contextElThird(filesSec_);
-        StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
-        files_.put("page1.html", html_);
-        conf_.setMessagesFolder(folder_);
-        conf_.setFirstUrl("page1.html");
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
-        Navigation nav_ = newNavigation(conf_);
-        nav_.setLanguage(locale_);
-        nav_.setSession(conf_);
-        nav_.setFiles(files_);
-        nav_.getSession().getRenderFiles().add("page1.html");
-        BeanInfo i_ = new BeanInfo();
-        i_.setScope("session");
-        i_.setClassName("pkg.BeanOne");
-        nav_.getSession().getBeansInfos().addEntry("bean_one",i_);
-        addVal(nav_,"valRef","pkg.MyVal");
-        initSession(nav_);
+        Navigation nav_ = initWithValidator(locale_, folder_, relative_, content_, html_, filesSec_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"checkbox\" name=\"bean_one.choiceBool\" n-i=\"0\" checked=\"checked\"/></form></body></html>", nav_.getHtmlText());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
 
-        MetaDocument meta_ = MetaDocument.newInstance(nav_.getDocument());
+        MetaDocument meta_ = getMetaDocument(nav_);
         IntForm intForm_ = meta_.getForms().get(0);
         MetaCheckedBox combo_ = (MetaCheckedBox) intForm_.getFirstChildCompo().getFirstChildCompo();
         combo_.setChecked(false);
@@ -601,25 +498,7 @@ public final class SubmitFormTest extends CommonRender {
         filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         filesSec_.put(CUST_TABLE_PATH, getCustomTable());
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
-        Configuration conf_ = contextElThird(filesSec_);
-        StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
-        files_.put("page1.html", html_);
-        conf_.setMessagesFolder(folder_);
-        conf_.setFirstUrl("page1.html");
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
-        Navigation nav_ = newNavigation(conf_);
-        nav_.setLanguage(locale_);
-        nav_.setSession(conf_);
-        nav_.setFiles(files_);
-        nav_.getSession().getRenderFiles().add("page1.html");
-        BeanInfo i_ = new BeanInfo();
-        i_.setScope("session");
-        i_.setClassName("pkg.BeanOne");
-        nav_.getSession().getBeansInfos().addEntry("bean_one",i_);
-        addVal(nav_,"valRef","pkg.MyVal");
-        initSession(nav_);
+        Navigation nav_ = initWithValidator(locale_, folder_, relative_, content_, html_, filesSec_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"text\" name=\"bean_one.choice\" n-i=\"0\" value=\"TWO\"/></form></body></html>", nav_.getHtmlText());
@@ -630,7 +509,7 @@ public final class SubmitFormTest extends CommonRender {
         assertEq("TWO", ((StringStruct) choice_).getInstance());
 
 
-        MetaDocument meta_ = MetaDocument.newInstance(nav_.getDocument());
+        MetaDocument meta_ = getMetaDocument(nav_);
         IntForm intForm_ = meta_.getForms().get(0);
         MetaTextField combo_ = (MetaTextField) intForm_.getFirstChildCompo().getFirstChildCompo();
         combo_.setValue("THREE");
@@ -673,25 +552,7 @@ public final class SubmitFormTest extends CommonRender {
         filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         filesSec_.put(CUST_TABLE_PATH, getCustomTable());
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
-        Configuration conf_ = contextElThird(filesSec_);
-        StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
-        files_.put("page1.html", html_);
-        conf_.setMessagesFolder(folder_);
-        conf_.setFirstUrl("page1.html");
-        conf_.setValidators(new StringMap<Validator>());
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
-        Navigation nav_ = newNavigation(conf_);
-        nav_.setLanguage(locale_);
-        nav_.setSession(conf_);
-        nav_.setFiles(files_);
-        nav_.getSession().getRenderFiles().add("page1.html");
-        BeanInfo i_ = new BeanInfo();
-        i_.setScope("session");
-        i_.setClassName("pkg.BeanOne");
-        nav_.getSession().getBeansInfos().addEntry("bean_one",i_);
-        initSession(nav_);
+        Navigation nav_ = initWithoutValidator(locale_, folder_, relative_, content_, html_, filesSec_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><textarea n-i=\"0\" name=\"bean_one.choice\">2</textarea></form></body></html>", nav_.getHtmlText());
@@ -702,7 +563,7 @@ public final class SubmitFormTest extends CommonRender {
         assertEq(2, ((NumberStruct) choice_).intStruct());
 
 
-        MetaDocument meta_ = MetaDocument.newInstance(nav_.getDocument());
+        MetaDocument meta_ = getMetaDocument(nav_);
         IntForm intForm_ = meta_.getForms().get(0);
         MetaTextArea combo_ = (MetaTextArea) intForm_.getFirstChildCompo().getFirstChildCompo();
         combo_.setValue("1");
@@ -766,25 +627,7 @@ public final class SubmitFormTest extends CommonRender {
         filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         filesSec_.put(CUST_TABLE_PATH, getCustomTable());
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
-        Configuration conf_ = contextElThird(filesSec_);
-        StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
-        files_.put("page1.html", html_);
-        conf_.setMessagesFolder(folder_);
-        conf_.setFirstUrl("page1.html");
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
-        Navigation nav_ = newNavigation(conf_);
-        nav_.setLanguage(locale_);
-        nav_.setSession(conf_);
-        nav_.setFiles(files_);
-        nav_.getSession().getRenderFiles().add("page1.html");
-        BeanInfo i_ = new BeanInfo();
-        i_.setScope("session");
-        i_.setClassName("pkg.BeanOne");
-        nav_.getSession().getBeansInfos().addEntry("bean_one",i_);
-        addVal(nav_,"valRef","pkg.MyVal");
-        initSession(nav_);
+        Navigation nav_ = initWithValidator(locale_, folder_, relative_, content_, html_, filesSec_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"number\" id=\"myId\" name=\"bean_one.choice\" n-i=\"0\" value=\"2\"/><input type=\"range\" id=\"myId2\" name=\"bean_one.choiceSec\" n-i=\"1\" value=\"4\"/><span c:for=\"myId\" c:valueMessage=\"msg_example,one\"/><span c:for=\"myId2\" c:valueMessage=\"msg_example,two\"/></form></body></html>", nav_.getHtmlText());
@@ -797,7 +640,7 @@ public final class SubmitFormTest extends CommonRender {
         assertEq(4, ((NumberStruct) choice_).intStruct());
 
 
-        MetaDocument meta_ = MetaDocument.newInstance(nav_.getDocument());
+        MetaDocument meta_ = getMetaDocument(nav_);
         IntForm intForm_ = meta_.getForms().get(0);
         MetaSpinner number_ = (MetaSpinner) intForm_.getFirstChildCompo().getFirstChildCompo();
         number_.setValue("6");
@@ -865,25 +708,7 @@ public final class SubmitFormTest extends CommonRender {
         filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         filesSec_.put(CUST_TABLE_PATH, getCustomTable());
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
-        Configuration conf_ = contextElThird(filesSec_);
-        StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
-        files_.put("page1.html", html_);
-        conf_.setMessagesFolder(folder_);
-        conf_.setFirstUrl("page1.html");
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
-        Navigation nav_ = newNavigation(conf_);
-        nav_.setLanguage(locale_);
-        nav_.setSession(conf_);
-        nav_.setFiles(files_);
-        nav_.getSession().getRenderFiles().add("page1.html");
-        BeanInfo i_ = new BeanInfo();
-        i_.setScope("session");
-        i_.setClassName("pkg.BeanOne");
-        nav_.getSession().getBeansInfos().addEntry("bean_one",i_);
-        addVal(nav_,"valRef","pkg.MyVal");
-        initSession(nav_);
+        Navigation nav_ = initWithValidator(locale_, folder_, relative_, content_, html_, filesSec_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"1\"><input type=\"number\" id=\"myId\" name=\"bean_one.choice\" n-i=\"0\" value=\"2\"/><input type=\"submit\" value=\"Validate\"/></form><input type=\"range\" id=\"myId2\" name=\"bean_one.choiceSec\" n-i=\"0\" value=\"4\"/><input type=\"submit\" value=\"Validate\"/></form></body></html>", nav_.getHtmlText());
@@ -896,7 +721,7 @@ public final class SubmitFormTest extends CommonRender {
         assertEq(4, ((NumberStruct) choice_).intStruct());
 
 
-        MetaDocument meta_ = MetaDocument.newInstance(nav_.getDocument());
+        MetaDocument meta_ = getMetaDocument(nav_);
         IntForm intForm_ = meta_.getForms().get(1);
         MetaSpinner number_ = (MetaSpinner) intForm_.getFirstChildCompo().getFirstChildCompo();
         number_.setValue("6");
@@ -962,25 +787,7 @@ public final class SubmitFormTest extends CommonRender {
         filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         filesSec_.put(CUST_TABLE_PATH, getCustomTable());
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
-        Configuration conf_ = contextElThird(filesSec_);
-        StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
-        files_.put("page1.html", html_);
-        conf_.setMessagesFolder(folder_);
-        conf_.setFirstUrl("page1.html");
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
-        Navigation nav_ = newNavigation(conf_);
-        nav_.setLanguage(locale_);
-        nav_.setSession(conf_);
-        nav_.setFiles(files_);
-        nav_.getSession().getRenderFiles().add("page1.html");
-        BeanInfo i_ = new BeanInfo();
-        i_.setScope("session");
-        i_.setClassName("pkg.BeanOne");
-        nav_.getSession().getBeansInfos().addEntry("bean_one",i_);
-        addVal(nav_,"valRef","pkg.MyVal");
-        initSession(nav_);
+        Navigation nav_ = initWithValidator(locale_, folder_, relative_, content_, html_, filesSec_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"1\"><input type=\"number\" id=\"myId\" name=\"bean_one.choice\" n-i=\"0\" value=\"2\"/><input type=\"submit\" value=\"Validate\"/></form><input type=\"range\" id=\"myId2\" name=\"bean_one.choiceSec\" n-i=\"0\" value=\"4\"/><input type=\"submit\" value=\"Validate\"/></form></body></html>", nav_.getHtmlText());
@@ -993,7 +800,7 @@ public final class SubmitFormTest extends CommonRender {
         assertEq(4, ((NumberStruct) choice_).intStruct());
 
 
-        MetaDocument meta_ = MetaDocument.newInstance(nav_.getDocument());
+        MetaDocument meta_ = getMetaDocument(nav_);
         IntForm intForm_ = meta_.getForms().get(0);
         MetaSlider number_ = (MetaSlider) intForm_.getFirstChildCompo().getNextSibling().getNextSibling().getFirstChildCompo();
         number_.setValue("8");
@@ -1009,16 +816,6 @@ public final class SubmitFormTest extends CommonRender {
         assertEq(8, ((NumberStruct) choice_).intStruct());
     }
 
-    static Navigation newNavigation(Configuration _conf) {
-        Navigation nav_ = new Navigation();
-        nav_.setSession(_conf);
-        ContextEl context_ = _conf.getContext();
-        BeanLgNames standards_ = (BeanLgNames) context_.getStandards();
-        nav_.getSession().setStandards(standards_);
-        context_.setExecutingInstance(nav_.getSession());
-        return nav_;
-    }
-
     Configuration contextElThird(StringMap<String> _files) {
         Configuration conf_ =  EquallableExUtil.newConfiguration();
         conf_.setPrefix("c:");
@@ -1026,13 +823,13 @@ public final class SubmitFormTest extends CommonRender {
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         ContextEl cont_ = InitializationLgNames.buildStdThree(opt_);
-        Classes.validateAll(_files, cont_);
+        Classes.validateWithoutInit(_files, cont_);
         assertTrue(cont_.isEmptyErrors());
         conf_.setContext(cont_);
         BeanLgNames standards_ = (BeanLgNames) cont_.getStandards();
         conf_.setStandards(standards_);
         cont_.setExecutingInstance(conf_);
-        standards_.buildIterables(conf_);
+        ((BeanCustLgNames)standards_).buildIterables(conf_);
         return conf_;
     }
 
@@ -1180,11 +977,49 @@ public final class SubmitFormTest extends CommonRender {
         v_.setClassName(_class);
         _nav.getSession().getLateValidators().addEntry(_valId,v_);
     }
+
+    private Navigation initWithoutValidator(String locale_, String folder_, String relative_, String content_, String html_, StringMap<String> filesSec_) {
+        Navigation nav_ = initCommon(locale_, folder_, relative_, content_, html_, filesSec_);
+        initSession(nav_);
+        return nav_;
+    }
+    private Navigation initWithValidator(String locale_, String folder_, String relative_, String content_, String html_, StringMap<String> filesSec_) {
+        Navigation nav_ = initCommon(locale_, folder_, relative_, content_, html_, filesSec_);
+        addVal(nav_,"valRef","pkg.MyVal");
+        initSession(nav_);
+        return nav_;
+    }
+
+    private Navigation initCommon(String locale_, String folder_, String relative_, String content_, String html_, StringMap<String> filesSec_) {
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(EquallableExUtil.formatFile(folder_, locale_, relative_), content_);
+        files_.put("page1.html", html_);
+        Configuration conf_ = contextElThird(filesSec_);
+        conf_.setMessagesFolder(folder_);
+        conf_.setFirstUrl("page1.html");
+        conf_.setValidators(new StringMap<Validator>());
+        conf_.setProperties(new StringMap<String>());
+        conf_.getProperties().put("msg_example", relative_);
+        Navigation nav_ = newNavigation(conf_);
+        nav_.setLanguage(locale_);
+        nav_.setSession(conf_);
+        nav_.setFiles(files_);
+        nav_.getSession().getRenderFiles().add("page1.html");
+        BeanInfo i_ = new BeanInfo();
+        i_.setScope("session");
+        i_.setClassName("pkg.BeanOne");
+        nav_.getSession().getBeansInfos().addEntry("bean_one",i_);
+        return nav_;
+    }
+
     private static void initSession(Navigation _nav) {
         _nav.setLanguages(new StringList(_nav.getLanguage()));
-        _nav.getSession().getContext().setAnalyzing(new AnalyzedPageEl());
+        _nav.getSession().getContext().setAnalyzing();
         _nav.initInstancesPattern();
         _nav.setupRenders();
+        tryInitStaticlyTypes(_nav.getSession());
         _nav.initializeRendSession();
     }
+
+
 }

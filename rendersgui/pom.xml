@@ -15,6 +15,12 @@
 
 	<build>
 		<finalName>rendersgui</finalName>
+		<resources>
+			<resource>
+				<directory>resources_renders</directory>
+				<targetPath>resources_renders</targetPath>
+			</resource>
+		</resources>
 	</build>
 	<dependencies>
 		<dependency>

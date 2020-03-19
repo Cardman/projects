@@ -1,9 +1,6 @@
 package code.formathtml;
 
 import code.bean.Bean;
-import code.expressionlanguage.AnalyzedPageEl;
-import code.sml.Document;
-import code.sml.DocumentBuilder;
 import code.util.StringMap;
 import org.junit.Test;
 
@@ -29,16 +26,8 @@ public final class RenderTitledAnchorTest extends CommonRender {
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         
-        Document doc_ = DocumentBuilder.parseSax(html_);
         conf_.getAnalyzingDoc().setFiles(files_);
-        setLocale(locale_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getContext().setAnalyzing(new AnalyzedPageEl());
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
-        
-        conf_.setDocument(doc_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body><a title=\"desc &amp;lt;TITLE&amp;gt;\">Content</a></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
@@ -59,16 +48,8 @@ public final class RenderTitledAnchorTest extends CommonRender {
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         
-        Document doc_ = DocumentBuilder.parseSax(html_);
         conf_.getAnalyzingDoc().setFiles(files_);
-        setLocale(locale_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getContext().setAnalyzing(new AnalyzedPageEl());
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
-        
-        conf_.setDocument(doc_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_,conf_);
         assertNotNull(getException(conf_));
@@ -89,16 +70,8 @@ public final class RenderTitledAnchorTest extends CommonRender {
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         
-        Document doc_ = DocumentBuilder.parseSax(html_);
         conf_.getAnalyzingDoc().setFiles(files_);
-        setLocale(locale_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getContext().setAnalyzing(new AnalyzedPageEl());
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
-        
-        conf_.setDocument(doc_);
+        buildRendWithoutBean(html_, conf_);
         assertTrue(!conf_.isEmptyErrors());
     }
 }

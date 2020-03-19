@@ -4498,4 +4498,23 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         Classes.validateAll(files_, cont_);
         assertTrue(!cont_.isEmptyErrors());
     }
+    @Test
+    public void calculateArgument25FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("pkgtwo.OuterTwo;\n");
+        xml_.append("$public $annotation pkg.MyAnnotation {\n");
+        xml_.append(" String m():\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Outer {\n");
+        xml_.append(" @MyAnnotation(m=$(String)$new..Inner())\n");
+        xml_.append(" $public $class Inner {\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.isEmptyErrors());
+    }
 }

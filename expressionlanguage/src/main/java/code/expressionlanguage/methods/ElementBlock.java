@@ -81,11 +81,6 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
     }
 
     @Override
-    public AccessEnum getAccess() {
-        return AccessEnum.PUBLIC;
-    }
-
-    @Override
     public boolean isFinalField() {
         return true;
     }
@@ -250,11 +245,6 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
             ip_.clearCurrentEls();
         }
         processBlock(_cont);
-    }
-
-    @Override
-    public RootBlock belong() {
-        return (RootBlock) getParent();
     }
 
     @Override

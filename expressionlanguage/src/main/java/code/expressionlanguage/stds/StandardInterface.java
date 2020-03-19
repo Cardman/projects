@@ -39,14 +39,4 @@ public final class StandardInterface extends StandardType implements GeneInterfa
         return allSuperTypes;
     }
 
-    @Override
-    public boolean isFinalType() {
-        return false;
-    }
-
-    @Override
-    public boolean isAbstractType() {
-        return true;
-    }
-
 }

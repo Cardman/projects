@@ -3,7 +3,6 @@ package code.gui;
 import javax.swing.JComponent;
 import javax.swing.JTextField;
 import javax.swing.text.Document;
-import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.event.ActionListener;
 

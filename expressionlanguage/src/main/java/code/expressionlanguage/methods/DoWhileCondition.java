@@ -6,7 +6,7 @@ import code.expressionlanguage.ConditionReturn;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.calls.AbstractPageEl;
 import code.expressionlanguage.calls.util.ReadWrite;
-import code.expressionlanguage.errors.custom.EmptyTagName;
+import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.instr.PartOffset;
@@ -84,9 +84,13 @@ public final class DoWhileCondition extends Condition {
     @Override
     public void checkTree(Analyzable _an, AnalyzingEl _anEl) {
         if (getFirstChild() != null) {
-            EmptyTagName un_ = new EmptyTagName();
+            FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(getFile().getFileName());
             un_.setIndexFile(getOffset().getOffsetTrim());
+            //key word len
+            un_.buildError(_an.getContextEl().getAnalysisMessages().getDoWhileNotEmpty(),
+                    _an.getContextEl().getKeyWords().getKeyWordWhile(),
+                    _an.getContextEl().getKeyWords().getKeyWordDo());
             _an.addError(un_);
         }
     }

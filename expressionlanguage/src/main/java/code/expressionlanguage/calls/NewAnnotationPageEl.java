@@ -2,7 +2,9 @@ package code.expressionlanguage.calls;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.opers.util.ClassField;
+import code.expressionlanguage.inherits.Templates;
+import code.expressionlanguage.methods.AnnotationMethodBlock;
+import code.expressionlanguage.opers.util.AnnotationTypeInfo;
 import code.expressionlanguage.structs.AnnotationStruct;
 import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.Struct;
@@ -11,7 +13,7 @@ import code.util.StringMap;
 
 public final class NewAnnotationPageEl extends AbstractCallingInstancingPageEl {
 
-    private StringMap<String> names;
+    private StringMap<AnnotationTypeInfo> names;
     private CustList<Argument> args;
     @Override
     public void tryProcessEl(ContextEl _context) {
@@ -22,24 +24,30 @@ public final class NewAnnotationPageEl extends AbstractCallingInstancingPageEl {
         for (int i = 0; i <len_; i++) {
             String name_ = names.getKey(i);
             Argument value_ = args.get(i);
-            String s_ = names.getValue(i);
-            if (!s_.isEmpty()) {
-                ArrayStruct a_ = new ArrayStruct(new Struct[1], s_);
-                a_.getInstance()[0] = value_.getStruct();
-                str_.setStruct(new ClassField(className_, name_), a_);
+            AnnotationTypeInfo i_ = names.getValue(i);
+            String t_ = i_.getType();
+            if (i_.isWrap()) {
+                ArrayStruct a_ = new ArrayStruct(new Struct[1], t_);
+                Templates.setCheckedElements(new CustList<Argument>(value_),a_,_context);
+                AnnotationMethodBlock.setValue(className_,name_,t_,_context,new Argument(a_));
+                if (_context.callsOrException()) {
+                    return;
+                }
                 continue;
             }
-            str_.setStruct(new ClassField(className_, name_), value_.getStruct());
+            AnnotationMethodBlock.setValue(className_,name_,t_,_context,value_);
+            if (_context.callsOrException()) {
+                return;
+            }
         }
         setNullReadWrite();
     }
 
-    public void setNames(StringMap<String> _names) {
+    public void setNames(StringMap<AnnotationTypeInfo> _names) {
         names = _names;
     }
 
     public void setArgs(CustList<Argument> _args) {
         args = _args;
     }
-    
 }

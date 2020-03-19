@@ -1,13 +1,11 @@
 package code.expressionlanguage.errors.custom;
-import code.expressionlanguage.Analyzable;
-import code.expressionlanguage.methods.Classes;
-import code.expressionlanguage.methods.FileBlock;
+import code.util.StringList;
 
-public abstract class FoundErrorInterpret {
+public final class FoundErrorInterpret {
 
-    protected static final String SEP_INFO = "\n";
+    private static final String SEP_INFO = "\n";
 
-    protected static final String SEP_KEY_VAL = ":";
+    private static final String SEP_KEY_VAL = ":";
 
     private static final String FILE = "file";
 
@@ -17,25 +15,37 @@ public abstract class FoundErrorInterpret {
 
     private int indexFile;
 
-    private Analyzable analyzable;
+    private String fullLocationFile = "";
 
-    public void setAnalyzable(Analyzable analyzable) {
-        this.analyzable = analyzable;
+    private String builtError = "";
+
+    public void buildError(String _message, String... _args) {
+        builtError = StringList.simpleStringsFormat(_message,_args);
     }
 
-    public String display(Classes _classes) {
+    public String display() {
+        StringBuilder str_ = new StringBuilder(fullLocationFile);
+        str_.append(builtError);
+        return str_.toString();
+    }
+
+    public void setLocationFile(String locationFile) {
         StringBuilder str_ = new StringBuilder(SEP_INFO);
         str_.append(FILE).append(SEP_KEY_VAL).append(fileName).append(SEP_INFO);
-        int r_ = analyzable.getRowFile(fileName, indexFile);
-        int c_ = analyzable.getColFile(fileName, indexFile, r_);
-        str_.append(LINE_COL).append(SEP_KEY_VAL).append(Integer.toString(r_));
-        str_.append(SEP_KEY_VAL).append(Integer.toString(c_)).append(SEP_INFO);
-        str_.append(LINE_COL).append(SEP_KEY_VAL).append(Integer.toString(indexFile)).append(SEP_INFO);
-        return str_.toString();
+        str_.append(LINE_COL).append(SEP_KEY_VAL).append(locationFile).append(SEP_INFO);
+        fullLocationFile = str_.toString();
+    }
+
+    public String getFileName() {
+        return fileName;
     }
 
     public void setFileName(String _fileName) {
         fileName = _fileName;
+    }
+
+    public int getIndexFile() {
+        return indexFile;
     }
 
     public void setIndexFile(int _indexFile) {

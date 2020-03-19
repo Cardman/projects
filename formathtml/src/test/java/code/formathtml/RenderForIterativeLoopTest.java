@@ -29,11 +29,7 @@ public final class RenderForIterativeLoopTest extends CommonRender {
         conf_.getProperties().put("msg_example", relative_);
 
 
-        Document doc_ = DocumentBuilder.parseSax(html_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = build(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>0 - 0<br/>1 - 1<br/>2 - 2<br/></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
@@ -54,11 +50,7 @@ public final class RenderForIterativeLoopTest extends CommonRender {
         conf_.getProperties().put("msg_example", relative_);
 
 
-        Document doc_ = DocumentBuilder.parseSax(html_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = build(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>0 - 0<br/>2 - 1<br/></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
@@ -79,11 +71,7 @@ public final class RenderForIterativeLoopTest extends CommonRender {
         conf_.getProperties().put("msg_example", relative_);
 
 
-        Document doc_ = DocumentBuilder.parseSax(html_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = build(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>0 - 0<br/>1 - 1<br/>2 - 2<br/></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
@@ -104,11 +92,7 @@ public final class RenderForIterativeLoopTest extends CommonRender {
         conf_.getProperties().put("msg_example", relative_);
 
 
-        Document doc_ = DocumentBuilder.parseSax(html_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = build(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>0 - 0<br/>2 - 1<br/></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
@@ -129,11 +113,7 @@ public final class RenderForIterativeLoopTest extends CommonRender {
         conf_.getProperties().put("msg_example", relative_);
 
 
-        Document doc_ = DocumentBuilder.parseSax(html_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = build(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>2 - 0<br/>1 - 1<br/>0 - 2<br/></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
@@ -154,15 +134,16 @@ public final class RenderForIterativeLoopTest extends CommonRender {
         conf_.getProperties().put("msg_example", relative_);
 
 
-        Document doc_ = DocumentBuilder.parseSax(html_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = build(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>2 - 0<br/>0 - 1<br/></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
     }
+
+    protected static RendDocumentBlock build(String html_, Configuration conf_) {
+        return buildRendWithoutBean(html_,conf_);
+    }
+
     @Test
     public void process7Test() {
         String locale_ = "en";
@@ -179,11 +160,7 @@ public final class RenderForIterativeLoopTest extends CommonRender {
         conf_.getProperties().put("msg_example", relative_);
 
 
-        Document doc_ = DocumentBuilder.parseSax(html_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = build(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>2 - 0<br/>1 - 1<br/>0 - 2<br/></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
@@ -204,11 +181,7 @@ public final class RenderForIterativeLoopTest extends CommonRender {
         conf_.getProperties().put("msg_example", relative_);
 
 
-        Document doc_ = DocumentBuilder.parseSax(html_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = build(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>2 - 0<br/>0 - 1<br/></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
@@ -229,11 +202,7 @@ public final class RenderForIterativeLoopTest extends CommonRender {
         conf_.getProperties().put("msg_example", relative_);
 
 
-        Document doc_ = DocumentBuilder.parseSax(html_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = build(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>0 - 0<br/>1 - 1<br/></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
@@ -254,11 +223,7 @@ public final class RenderForIterativeLoopTest extends CommonRender {
         conf_.getProperties().put("msg_example", relative_);
 
 
-        Document doc_ = DocumentBuilder.parseSax(html_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = build(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>0 - 0<br/></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
@@ -279,11 +244,7 @@ public final class RenderForIterativeLoopTest extends CommonRender {
         conf_.getProperties().put("msg_example", relative_);
 
 
-        Document doc_ = DocumentBuilder.parseSax(html_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = build(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>0 - 0<br/>1 - 1<br/></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
@@ -304,11 +265,7 @@ public final class RenderForIterativeLoopTest extends CommonRender {
         conf_.getProperties().put("msg_example", relative_);
 
 
-        Document doc_ = DocumentBuilder.parseSax(html_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = build(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>0 - 0<br/></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
@@ -329,11 +286,7 @@ public final class RenderForIterativeLoopTest extends CommonRender {
         conf_.getProperties().put("msg_example", relative_);
 
 
-        Document doc_ = DocumentBuilder.parseSax(html_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = build(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>2 - 0<br/>1 - 1<br/></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
@@ -354,11 +307,7 @@ public final class RenderForIterativeLoopTest extends CommonRender {
         conf_.getProperties().put("msg_example", relative_);
 
 
-        Document doc_ = DocumentBuilder.parseSax(html_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = build(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>2 - 0<br/></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
@@ -379,11 +328,7 @@ public final class RenderForIterativeLoopTest extends CommonRender {
         conf_.getProperties().put("msg_example", relative_);
 
 
-        Document doc_ = DocumentBuilder.parseSax(html_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = build(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>2 - 0<br/>1 - 1<br/></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
@@ -404,11 +349,7 @@ public final class RenderForIterativeLoopTest extends CommonRender {
         conf_.getProperties().put("msg_example", relative_);
 
 
-        Document doc_ = DocumentBuilder.parseSax(html_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = build(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>2 - 0<br/></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
@@ -429,11 +370,7 @@ public final class RenderForIterativeLoopTest extends CommonRender {
         conf_.getProperties().put("msg_example", relative_);
 
 
-        Document doc_ = DocumentBuilder.parseSax(html_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = build(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body/></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
@@ -454,11 +391,7 @@ public final class RenderForIterativeLoopTest extends CommonRender {
         conf_.getProperties().put("msg_example", relative_);
 
 
-        Document doc_ = DocumentBuilder.parseSax(html_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = build(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>0 - 0 - 0 - 0 -<br/>1 - 1 -<br/>+<br/>1 - 1 - 0 - 0 -<br/>1 - 1 -<br/>+<br/></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
@@ -479,11 +412,7 @@ public final class RenderForIterativeLoopTest extends CommonRender {
         conf_.getProperties().put("msg_example", relative_);
 
 
-        Document doc_ = DocumentBuilder.parseSax(html_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = build(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_,conf_);
         assertNotNull(getException(conf_));
@@ -504,11 +433,7 @@ public final class RenderForIterativeLoopTest extends CommonRender {
         conf_.getProperties().put("msg_example", relative_);
 
 
-        Document doc_ = DocumentBuilder.parseSax(html_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = build(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_,conf_);
         assertNotNull(getException(conf_));
@@ -529,11 +454,7 @@ public final class RenderForIterativeLoopTest extends CommonRender {
         conf_.getProperties().put("msg_example", relative_);
 
 
-        Document doc_ = DocumentBuilder.parseSax(html_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = build(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_,conf_);
         assertNotNull(getException(conf_));
@@ -554,11 +475,7 @@ public final class RenderForIterativeLoopTest extends CommonRender {
         conf_.getProperties().put("msg_example", relative_);
 
 
-        Document doc_ = DocumentBuilder.parseSax(html_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = build(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_,conf_);
         assertNotNull(getException(conf_));
@@ -579,11 +496,7 @@ public final class RenderForIterativeLoopTest extends CommonRender {
         conf_.getProperties().put("msg_example", relative_);
 
 
-        Document doc_ = DocumentBuilder.parseSax(html_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = build(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_,conf_);
         assertNotNull(getException(conf_));
@@ -604,11 +517,7 @@ public final class RenderForIterativeLoopTest extends CommonRender {
         conf_.getProperties().put("msg_example", relative_);
 
 
-        Document doc_ = DocumentBuilder.parseSax(html_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = build(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_,conf_);
         assertNotNull(getException(conf_));
@@ -629,11 +538,7 @@ public final class RenderForIterativeLoopTest extends CommonRender {
         conf_.getProperties().put("msg_example", relative_);
 
 
-        Document doc_ = DocumentBuilder.parseSax(html_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = build(html_, conf_);
         assertTrue(!conf_.isEmptyErrors());
     }
     @Test
@@ -652,11 +557,7 @@ public final class RenderForIterativeLoopTest extends CommonRender {
         conf_.getProperties().put("msg_example", relative_);
 
 
-        Document doc_ = DocumentBuilder.parseSax(html_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = build(html_, conf_);
         assertTrue(!conf_.isEmptyErrors());
     }
     @Test
@@ -675,11 +576,7 @@ public final class RenderForIterativeLoopTest extends CommonRender {
         conf_.getProperties().put("msg_example", relative_);
 
 
-        Document doc_ = DocumentBuilder.parseSax(html_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = build(html_, conf_);
         assertTrue(!conf_.isEmptyErrors());
     }
     @Test
@@ -698,11 +595,7 @@ public final class RenderForIterativeLoopTest extends CommonRender {
         conf_.getProperties().put("msg_example", relative_);
 
 
-        Document doc_ = DocumentBuilder.parseSax(html_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = build(html_, conf_);
         assertTrue(!conf_.isEmptyErrors());
     }
     @Test
@@ -721,11 +614,7 @@ public final class RenderForIterativeLoopTest extends CommonRender {
         conf_.getProperties().put("msg_example", relative_);
 
 
-        Document doc_ = DocumentBuilder.parseSax(html_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = build(html_, conf_);
         assertTrue(!conf_.isEmptyErrors());
     }
 }

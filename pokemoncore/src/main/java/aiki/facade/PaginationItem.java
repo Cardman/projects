@@ -131,9 +131,7 @@ public final class PaginationItem extends
         if (cmpDescription.getPriority() != NO_PRIORITY) {
             priorities_.add(cmpDescription.getPriority());
         }
-        int size_ = priorities_.size();
-        priorities_.removeDuplicates();
-        return size_ == priorities_.size();
+        return !priorities_.hasDuplicates();
     }
 
     @Override

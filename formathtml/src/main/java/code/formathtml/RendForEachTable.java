@@ -3,10 +3,7 @@ package code.formathtml;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ConditionReturn;
-import code.expressionlanguage.errors.custom.BadImplicitCast;
-import code.expressionlanguage.errors.custom.BadVariableName;
-import code.expressionlanguage.errors.custom.DuplicateVariable;
-import code.expressionlanguage.errors.custom.StaticAccessError;
+import code.expressionlanguage.errors.custom.*;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.inherits.Mapping;
@@ -14,6 +11,7 @@ import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.methods.ImportForEachTable;
 import code.expressionlanguage.opers.Calculation;
+import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.MethodAccessKind;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.structs.BooleanStruct;
@@ -100,9 +98,11 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
         RendDynOperationNode el_ = opList.last();
         Argument arg_ = el_.getArgument();
         if (Argument.isNullValue(arg_)) {
-            StaticAccessError static_ = new StaticAccessError();
+            FoundErrorInterpret static_ = new FoundErrorInterpret();
             static_.setFileName(_cont.getCurrentFileName());
-            static_.setIndexFile(_cont.getCurrentLocationIndex());
+            static_.setIndexFile(expressionOffset);
+            static_.buildError(_cont.getContext().getAnalysisMessages().getNullValue(),
+                    _cont.getStandards().getAliasNullPe());
             _cont.addError(static_);
         } else {
             StringList names_ = el_.getResultClass().getNames();
@@ -124,102 +124,106 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
         if (!(stds_ instanceof BeanCustLgNames)) {
             return _names;
         }
+        StringMap<StringList> vars_ = _context.getCurrentConstraints();
+        Mapping mapping_ = new Mapping();
+        mapping_.setMapping(vars_);
         for (String f : _names) {
             String iterable_ = stds_.getAliasIterableTable();
-            String type_ = Templates.getFullTypeByBases(f, iterable_, _context);
+            String type_ = Templates.getGeneric(f,iterable_,_context,mapping_);
             if (type_ != null) {
                 out_.add(type_);
             }
         }
-        out_.removeDuplicates();
         return out_;
     }
 
     public void buildEl(Configuration _cont,RendDocumentBlock _doc) {
         importedClassIndexName = _cont.resolveCorrectType(classIndexName);
-        if (!PrimitiveTypeUtil.isPrimitiveOrWrapper(importedClassIndexName, _cont)) {
+        if (!PrimitiveTypeUtil.isPureNumberClass(new ClassArgumentMatching(importedClassIndexName), _cont)) {
             Mapping mapping_ = new Mapping();
             mapping_.setArg(importedClassIndexName);
             mapping_.setParam(_cont.getStandards().getAliasLong());
-            BadImplicitCast cast_ = new BadImplicitCast();
-            cast_.setMapping(mapping_);
+            FoundErrorInterpret cast_ = new FoundErrorInterpret();
             cast_.setFileName(_cont.getCurrentFileName());
             cast_.setIndexFile(classIndexNameOffset);
+            cast_.buildError(_cont.getContext().getAnalysisMessages().getNotPrimitiveWrapper(),
+                    importedClassIndexName);
             _cont.addError(cast_);
         }
         if (_cont.getAnalyzing().containsVar(variableNameFirst)) {
-            DuplicateVariable d_ = new DuplicateVariable();
-            d_.setId(variableNameFirst);
+            FoundErrorInterpret d_ = new FoundErrorInterpret();
             d_.setFileName(_cont.getCurrentFileName());
             d_.setIndexFile(variableNameOffsetFirst);
+            d_.buildError(_cont.getContext().getAnalysisMessages().getBadVariableName(),
+                    variableNameFirst);
             _cont.addError(d_);
         }
         if (_cont.getAnalyzing().containsMutableLoopVar(variableNameFirst)) {
-            DuplicateVariable d_ = new DuplicateVariable();
-            d_.setId(variableNameFirst);
+            FoundErrorInterpret d_ = new FoundErrorInterpret();
             d_.setFileName(_cont.getCurrentFileName());
             d_.setIndexFile(variableNameOffsetFirst);
+            d_.buildError(_cont.getContext().getAnalysisMessages().getBadVariableName(),
+                    variableNameFirst);
             _cont.addError(d_);
         }
         if (!_cont.isValidSingleToken(variableNameFirst)) {
-            BadVariableName b_ = new BadVariableName();
+            FoundErrorInterpret b_ = new FoundErrorInterpret();
             b_.setFileName(_cont.getCurrentFileName());
             b_.setIndexFile(variableNameOffsetFirst);
-            b_.setVarName(variableNameFirst);
+            b_.buildError(_cont.getContext().getAnalysisMessages().getBadVariableName(),
+                    variableNameFirst);
             _cont.addError(b_);
         }
         if (_cont.getAnalyzing().containsVar(variableNameSecond)) {
-            DuplicateVariable d_ = new DuplicateVariable();
-            d_.setId(variableNameSecond);
+            FoundErrorInterpret d_ = new FoundErrorInterpret();
             d_.setFileName(_cont.getCurrentFileName());
             d_.setIndexFile(variableNameOffsetSecond);
+            d_.buildError(_cont.getContext().getAnalysisMessages().getBadVariableName(),
+                    variableNameSecond);
             _cont.addError(d_);
         }
         if (_cont.getAnalyzing().containsMutableLoopVar(variableNameSecond)) {
-            DuplicateVariable d_ = new DuplicateVariable();
-            d_.setId(variableNameSecond);
+            FoundErrorInterpret d_ = new FoundErrorInterpret();
             d_.setFileName(_cont.getCurrentFileName());
             d_.setIndexFile(variableNameOffsetSecond);
+            d_.buildError(_cont.getContext().getAnalysisMessages().getBadVariableName(),
+                    variableNameSecond);
             _cont.addError(d_);
         }
         if (!_cont.isValidSingleToken(variableNameSecond)) {
-            BadVariableName b_ = new BadVariableName();
+            FoundErrorInterpret b_ = new FoundErrorInterpret();
             b_.setFileName(_cont.getCurrentFileName());
             b_.setIndexFile(variableNameOffsetSecond);
-            b_.setVarName(variableNameSecond);
+            b_.buildError(_cont.getContext().getAnalysisMessages().getBadVariableName(),
+                    variableNameSecond);
             _cont.addError(b_);
         }
-        KeyWords keyWords_ = _cont.getKeyWords();
-        String keyWordVar_ = keyWords_.getKeyWordVar();
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         page_.setGlobalOffset(classNameOffsetFirst);
         page_.setOffset(0);
-        if (!StringList.quickEq(classNameFirst.trim(), keyWordVar_)) {
+        if (!toInferFirst(_cont)) {
             importedClassNameFirst = _cont.resolveCorrectType(classNameFirst);
         } else {
-            importedClassNameFirst = "";
+            importedClassNameFirst = EMPTY_STRING;
         }
         page_.setGlobalOffset(classNameOffsetSecond);
         page_.setOffset(0);
-        if (!StringList.quickEq(classNameSecond.trim(), keyWordVar_)) {
+        if (!toInferSecond(_cont)) {
             importedClassNameSecond = _cont.resolveCorrectType(classNameSecond);
         } else {
-            importedClassNameSecond = "";
+            importedClassNameSecond = EMPTY_STRING;
         }
         page_.setGlobalOffset(expressionOffset);
         page_.setOffset(0);
-        _cont.getAnalyzingDoc().setAttribute(ATTRIBUTE_MAP);
-        MethodAccessKind static_ = _doc.getStaticContext();
-        opList = RenderExpUtil.getAnalyzedOperations(expression, 0, _cont, Calculation.staticCalculation(static_));
+        _cont.getAnalyzingDoc().setAttribute(_cont.getRendKeyWords().getAttrMap());
+        opList = RenderExpUtil.getAnalyzedOperations(expression,expressionOffset, 0, _cont);
     }
 
     public void checkIterableCandidates(StringList _types, Configuration _cont) {
-        if (_types.size() == 1) {
+        if (_types.onlyOneElt()) {
             if (!(_cont.getStandards() instanceof BeanCustLgNames)) {
                 return;
             }
-            KeyWords keyWords_ = _cont.getKeyWords();
-            String keyWordVar_ = keyWords_.getKeyWordVar();
             String type_ = _types.first();
             Mapping mapping_ = new Mapping();
             String paramArg_ = Templates.getAllTypes(type_).get(1);
@@ -230,7 +234,7 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
             } else if (paramArg_.startsWith(Templates.SUP_TYPE)) {
                 paramArg_ = _cont.getStandards().getAliasObject();
             }
-            if (StringList.quickEq(classNameFirst.trim(), keyWordVar_)) {
+            if (toInferFirst(_cont)) {
                 importedClassNameFirst = paramArg_;
             } else {
                 mapping_.setArg(paramArg_);
@@ -238,10 +242,12 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
                 StringMap<StringList> vars_ = _cont.getCurrentConstraints();
                 mapping_.setMapping(vars_);
                 if (!Templates.isCorrectOrNumbers(mapping_, _cont)) {
-                    BadImplicitCast cast_ = new BadImplicitCast();
-                    cast_.setMapping(mapping_);
+                    FoundErrorInterpret cast_ = new FoundErrorInterpret();
                     cast_.setFileName(_cont.getCurrentFileName());
                     cast_.setIndexFile(expressionOffset);
+                    cast_.buildError(_cont.getContextEl().getAnalysisMessages().getBadImplicitCast(),
+                            paramArg_,
+                            importedClassNameFirst);
                     _cont.addError(cast_);
                 }
             }
@@ -254,7 +260,7 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
             } else if (paramArg_.startsWith(Templates.SUP_TYPE)) {
                 paramArg_ = _cont.getStandards().getAliasObject();
             }
-            if (StringList.quickEq(classNameSecond.trim(), keyWordVar_)) {
+            if (toInferSecond(_cont)) {
                 importedClassNameSecond = paramArg_;
             } else {
                 mapping_.setArg(paramArg_);
@@ -262,10 +268,12 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
                 StringMap<StringList> vars_ = _cont.getCurrentConstraints();
                 mapping_.setMapping(vars_);
                 if (!Templates.isCorrectOrNumbers(mapping_, _cont)) {
-                    BadImplicitCast cast_ = new BadImplicitCast();
-                    cast_.setMapping(mapping_);
+                    FoundErrorInterpret cast_ = new FoundErrorInterpret();
                     cast_.setFileName(_cont.getCurrentFileName());
                     cast_.setIndexFile(expressionOffset);
+                    cast_.buildError(_cont.getContextEl().getAnalysisMessages().getBadImplicitCast(),
+                            paramArg_,
+                            importedClassNameSecond);
                     _cont.addError(cast_);
                 }
             }
@@ -273,20 +281,23 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
             Mapping mapping_ = new Mapping();
             mapping_.setArg(_cont.getStandards().getAliasObject());
             mapping_.setParam(_cont.getStandards().getAliasIterableTable());
-            BadImplicitCast cast_ = new BadImplicitCast();
-            cast_.setMapping(mapping_);
+            FoundErrorInterpret cast_ = new FoundErrorInterpret();
             cast_.setFileName(_cont.getCurrentFileName());
             cast_.setIndexFile(expressionOffset);
+            cast_.buildError(_cont.getContextEl().getAnalysisMessages().getBadImplicitCast(),
+                    _cont.getStandards().getAliasObject(),
+                    _cont.getStandards().getAliasIterableTable());
             _cont.addError(cast_);
         }
     }
 
     public void putVariable(Configuration _cont) {
         if (StringList.quickEq(variableNameFirst, variableNameSecond)) {
-            DuplicateVariable d_ = new DuplicateVariable();
-            d_.setId(variableNameSecond);
+            FoundErrorInterpret d_ = new FoundErrorInterpret();
             d_.setFileName(_cont.getCurrentFileName());
             d_.setIndexFile(variableNameOffsetSecond);
+            d_.buildError(_cont.getContext().getAnalysisMessages().getBadVariableName(),
+                    variableNameFirst);
             _cont.addError(d_);
         }
         LoopVariable lv_ = new LoopVariable();
@@ -307,6 +318,23 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
         _cont.getAnalyzing().putVar(variableNameSecond, lv_);
     }
 
+    private boolean toInferFirst(Configuration _cont) {
+        if (!(_cont.getAdvStandards() instanceof BeanCustLgNames)) {
+            return false;
+        }
+        KeyWords keyWords_ = _cont.getKeyWords();
+        String keyWordVar_ = keyWords_.getKeyWordVar();
+        return StringList.quickEq(classNameFirst.trim(), keyWordVar_) || classNameFirst.trim().isEmpty();
+    }
+
+    private boolean toInferSecond(Configuration _cont) {
+        if (!(_cont.getAdvStandards() instanceof BeanCustLgNames)) {
+            return false;
+        }
+        KeyWords keyWords_ = _cont.getKeyWords();
+        String keyWordVar_ = keyWords_.getKeyWordVar();
+        return StringList.quickEq(classNameSecond.trim(), keyWordVar_) || classNameSecond.trim().isEmpty();
+    }
     public String getLabel() {
         return label;
     }
@@ -367,7 +395,7 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
     Struct processLoop(Configuration _conf) {
         ImportingPage ip_ = _conf.getLastPage();
         ip_.setOffset(expressionOffset);
-        ip_.setProcessingAttribute(ATTRIBUTE_MAP);
+        ip_.setProcessingAttribute(_conf.getRendKeyWords().getAttrMap());
         Argument arg_ = RenderExpUtil.calculateReuse(opList,_conf);
         if (_conf.getContext().hasException()) {
             return NullStruct.NULL_VALUE;

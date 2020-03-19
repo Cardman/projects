@@ -1,9 +1,10 @@
 package code.formathtml;
 
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.errors.custom.BadElError;
+import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.inherits.Mapping;
 import code.expressionlanguage.inherits.Templates;
+import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.util.MethodAccessKind;
 import code.formathtml.exec.RendDynOperationNode;
@@ -14,8 +15,7 @@ import code.util.Ints;
 import code.util.StringList;
 
 public final class ResultText {
-    private static final String ATTRIBUTE_HREF = "href";
-    private static final String ATTRIBUTE_COMMAND = "command";
+
     private static final String CALL_METHOD = "$";
     private static final char ESCAPED = '\\';
     private static final char RIGHT_EL = '}';
@@ -26,9 +26,8 @@ public final class ResultText {
     private StringList texts = new StringList();
     private Ints expOffsets = new Ints();
     private Ints expEnds = new Ints();
-    public void build(String _expression,Configuration _conf, RendDocumentBlock _doc) {
+    public void build(String _expression,Configuration _conf, int _off, RendDocumentBlock _doc) {
         opExp = new CustList<CustList<RendDynOperationNode>>();
-        MethodAccessKind st_ = _doc.getStaticContext();
         StringBuilder str_ = new StringBuilder();
         int length_ = _expression.length();
         boolean escaped_ = false;
@@ -71,14 +70,18 @@ public final class ResultText {
                 expOffsets.add(i_);
                 i_++;
                 if (i_ >= length_ || _expression.charAt(i_) == RIGHT_EL) {
-                    BadElError badEl_ = new BadElError();
+                    FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                     badEl_.setFileName(_conf.getCurrentFileName());
-                    badEl_.setIndexFile(_conf.getCurrentLocationIndex());
+                    badEl_.setIndexFile(_off);
+                    badEl_.buildError(_conf.getContext().getAnalysisMessages().getBadExpression(),
+                            Character.toString(RIGHT_EL),
+                            Integer.toString(i_),
+                            _expression);
                     _conf.addError(badEl_);
                     return;
                 }
 //                _conf.getLastPage().setOffset(i_);
-                CustList<RendDynOperationNode> opsLoc_ = RenderExpUtil.getAnalyzedOperations(_expression, _conf, i_, LEFT_EL, RIGHT_EL, Calculation.staticCalculation(st_));
+                CustList<RendDynOperationNode> opsLoc_ = RenderExpUtil.getAnalyzedOperations(_expression, _conf,_off, i_, LEFT_EL, RIGHT_EL);
                 opExp.add(opsLoc_);
                 i_ = _conf.getNextIndex();
                 expEnds.add(i_);
@@ -86,9 +89,13 @@ public final class ResultText {
             }
             if (cur_ == RIGHT_EL){
 //                _conf.getLastPage().setOffset(i_);
-                BadElError badEl_ = new BadElError();
+                FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                 badEl_.setFileName(_conf.getCurrentFileName());
-                badEl_.setIndexFile(_conf.getCurrentLocationIndex());
+                badEl_.setIndexFile(_off);
+                badEl_.buildError(_conf.getContext().getAnalysisMessages().getBadExpression(),
+                        Character.toString(RIGHT_EL),
+                        Integer.toString(i_),
+                        _expression);
                 _conf.addError(badEl_);
                 return;
             }
@@ -97,9 +104,8 @@ public final class ResultText {
         }
         texts.add(str_.toString());
     }
-    public void buildId(String _expression,Configuration _conf, RendDocumentBlock _doc) {
+    public void buildId(String _expression,Configuration _conf, int _begin,RendDocumentBlock _doc) {
         opExp = new CustList<CustList<RendDynOperationNode>>();
-        MethodAccessKind st_ = _doc.getStaticContext();
         StringBuilder str_ = new StringBuilder();
         int length_ = _expression.length();
         boolean escaped_ = false;
@@ -125,10 +131,14 @@ public final class ResultText {
                     i_++;
                     continue;
                 }
-                BadElError badEl_ = new BadElError();
+                FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                 badEl_.setFileName(_conf.getCurrentFileName());
-                badEl_.setIndexFile(_conf.getCurrentLocationIndex());
-                _conf.getContext().addError(badEl_);
+                badEl_.setIndexFile(_begin);
+                badEl_.buildError(_conf.getContext().getAnalysisMessages().getBadExpression(),
+                        Character.toString(cur_),
+                        Integer.toString(i_),
+                        _expression);
+                _conf.addError(badEl_);
                 return;
             }
             if (cur_ == ESCAPED) {
@@ -142,14 +152,18 @@ public final class ResultText {
                 expOffsets.add(i_);
                 i_++;
                 if (i_ >= length_ || _expression.charAt(i_) == RIGHT_EL) {
-                    BadElError badEl_ = new BadElError();
+                    FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                     badEl_.setFileName(_conf.getCurrentFileName());
-                    badEl_.setIndexFile(_conf.getCurrentLocationIndex());
+                    badEl_.setIndexFile(_begin);
+                    badEl_.buildError(_conf.getContext().getAnalysisMessages().getBadExpression(),
+                            ElUtil.possibleChar(i_,_expression),
+                            Integer.toString(i_),
+                            _expression);
                     _conf.addError(badEl_);
                     return;
                 }
 //                _conf.getLastPage().setOffset(i_);
-                CustList<RendDynOperationNode> opsLoc_ = RenderExpUtil.getAnalyzedOperations(_expression, _conf, i_, LEFT_EL, RIGHT_EL, Calculation.staticCalculation(st_));
+                CustList<RendDynOperationNode> opsLoc_ = RenderExpUtil.getAnalyzedOperations(_expression, _conf, _begin,i_, LEFT_EL, RIGHT_EL);
                 opExp.add(opsLoc_);
                 i_ = _conf.getNextIndex();
                 expEnds.add(i_);
@@ -157,9 +171,13 @@ public final class ResultText {
             }
             if (cur_ == RIGHT_EL){
 //                _conf.getLastPage().setOffset(i_);
-                BadElError badEl_ = new BadElError();
+                FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                 badEl_.setFileName(_conf.getCurrentFileName());
-                badEl_.setIndexFile(_conf.getCurrentLocationIndex());
+                badEl_.setIndexFile(_begin);
+                badEl_.buildError(_conf.getContext().getAnalysisMessages().getBadExpression(),
+                        ElUtil.possibleChar(i_,_expression),
+                        Integer.toString(i_),
+                        _expression);
                 _conf.addError(badEl_);
                 return;
             }
@@ -168,25 +186,29 @@ public final class ResultText {
         }
         texts.add(str_.toString());
     }
-    public static ResultText buildAnchor(Configuration _cont, RendDocumentBlock _doc, Element _read, StringList _list) {
-        _list.removeAllString(ATTRIBUTE_HREF);
-        _list.removeAllString(StringList.concat(_cont.getPrefix(),ATTRIBUTE_COMMAND));
-        String href_ = _read.getAttribute(StringList.concat(_cont.getPrefix(),ATTRIBUTE_COMMAND));
+    public static ResultText buildAnchor(Configuration _cont, RendBlock _r, RendDocumentBlock _doc, Element _read, StringList _list) {
+        _list.removeAllString(_cont.getRendKeyWords().getAttrHref());
+        _list.removeAllString(StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrCommand()));
+        String href_ = _read.getAttribute(StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrCommand()));
         ResultText r_ = new ResultText();
         r_.opExp = new CustList<CustList<RendDynOperationNode>>();
         r_.texts = new StringList();
         if (href_.startsWith(CALL_METHOD)) {
             String lk_ = href_.substring(1);
-            r_.build(lk_,_cont,_doc);
+            int colsGrId_ = _r.getAttributeDelimiter(StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrCommand()));
+            r_.build(lk_,_cont,colsGrId_,_doc);
             CustList<CustList<RendDynOperationNode>> opExp_ = r_.getOpExp();
             for (CustList<RendDynOperationNode> e: opExp_) {
                 Mapping m_ = new Mapping();
                 m_.setArg(e.last().getResultClass());
                 m_.setParam(_cont.getStandards().getAliasNumber());
                 if (!Templates.isCorrectOrNumbers(m_,_cont)) {
-                    BadElError badEl_ = new BadElError();
+                    FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                     badEl_.setFileName(_cont.getCurrentFileName());
-                    badEl_.setIndexFile(_cont.getCurrentLocationIndex());
+                    badEl_.setIndexFile(colsGrId_);
+                    badEl_.buildError(_cont.getContext().getAnalysisMessages().getBadImplicitCast(),
+                            StringList.join(e.last().getResultClass().getNames(),RendBlock.AND_ERR),
+                            _cont.getStandards().getAliasNumber());
                     _cont.addError(badEl_);
                 }
             }
@@ -197,16 +219,15 @@ public final class ResultText {
                     argList_.add(_cont.getKeyWords().getKeyWordNull());
                 } else {
                     String cast_ = _cont.getKeyWords().getKeyWordCast();
-                    cast_ = StringList.concat(cast_,"(",cl_,")");
-                    argList_.add(StringList.concat(cast_,"0"));
+                    cast_ = StringList.concat(cast_,RendBlock.LEFT_PAR,cl_,RendBlock.RIGHT_PAR);
+                    argList_.add(StringList.concat(cast_,RendBlock.ZERO));
                 }
             }
             String pref_ = r_.quickRender(lk_, argList_);
             if (pref_.indexOf('(') < 0) {
-                pref_ = StringList.concat(pref_,"()");
+                pref_ = StringList.concat(pref_,RendBlock.LEFT_PAR,RendBlock.RIGHT_PAR);
             }
-            MethodAccessKind st_ = _doc.getStaticContext();
-            RenderExpUtil.getAnalyzedOperations(pref_,0,_cont,Calculation.staticCalculation(st_));
+            RenderExpUtil.getAnalyzedOperations(pref_,colsGrId_,0,_cont);
         }
         return r_;
     }

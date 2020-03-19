@@ -2,19 +2,17 @@ package code.expressionlanguage.methods;
 
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.files.OffsetAccessInfo;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.util.*;
 import code.util.StringList;
 
-public final class AnnotationBlock extends RootBlock {
+public final class AnnotationBlock extends RootBlock implements AccessibleBlock {
 
     private final StringList allSuperClasses = new StringList();
 
     private final StringList allSuperTypes = new StringList();
 
-    private final StringList allInterfaces = new StringList();
     private StringList importedDirectSuperInterfaces = new StringList();
     public AnnotationBlock(int _idRowCol, int _categoryOffset, String _name,
                            String _packageName, OffsetAccessInfo _access, String _templateDef,
@@ -41,11 +39,6 @@ public final class AnnotationBlock extends RootBlock {
     @Override
     public StringList getAllSuperTypes() {
         return allSuperTypes;
-    }
-
-    @Override
-    public StringList getAllInterfaces() {
-        return allInterfaces;
     }
 
     @Override

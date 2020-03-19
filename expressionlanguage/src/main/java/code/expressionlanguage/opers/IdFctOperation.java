@@ -3,7 +3,7 @@ package code.expressionlanguage.opers;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.errors.custom.VarargError;
+import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.instr.PartOffset;
@@ -54,19 +54,23 @@ public final class IdFctOperation extends LeafOperation implements IdFctOperable
         static_ = idUpdate_.getKind();
         MethodId argsRes_ = resolveArguments(i_, _conf, cl_, EMPTY_STRING, static_, args_);
         if (m_ == null ||!m_.isCallMethodCtor()) {
-            VarargError varg_ = new VarargError();
+            FoundErrorInterpret varg_ = new FoundErrorInterpret();
             varg_.setFileName(_conf.getCurrentFileName());
             varg_.setIndexFile(_conf.getCurrentLocationIndex());
-            varg_.setMethodName(VAR_ARG);
+            //key word len
+            varg_.buildError(_conf.getContextEl().getAnalysisMessages().getUnexpectedLeaf(),
+                    _conf.getContextEl().getKeyWords().getKeyWordId());
             _conf.addError(varg_);
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             return;
         }
-        if (!isFirstChild()) {
-            VarargError varg_ = new VarargError();
+        if (!isFirstChildInParent()) {
+            FoundErrorInterpret varg_ = new FoundErrorInterpret();
             varg_.setFileName(_conf.getCurrentFileName());
             varg_.setIndexFile(_conf.getCurrentLocationIndex());
-            varg_.setMethodName(VAR_ARG);
+            //key word len
+            varg_.buildError(_conf.getContextEl().getAnalysisMessages().getUnexpectedLeaf(),
+                    _conf.getContextEl().getKeyWords().getKeyWordId());
             _conf.addError(varg_);
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             return;
@@ -95,10 +99,11 @@ public final class IdFctOperation extends LeafOperation implements IdFctOperable
             if (arg_.endsWith(VARARG_SUFFIX)) {
                 if (i + 1 != len_) {
                     //last type => error
-                    VarargError varg_ = new VarargError();
+                    FoundErrorInterpret varg_ = new FoundErrorInterpret();
                     varg_.setFileName(_conf.getCurrentFileName());
                     varg_.setIndexFile(_conf.getCurrentLocationIndex());
-                    varg_.setMethodName(VAR_ARG);
+                    //three dots
+                    varg_.buildError(_conf.getContextEl().getAnalysisMessages().getUnexpectedVararg());
                     _conf.addError(varg_);
                     setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
                     return null;

@@ -2,10 +2,7 @@ package code.expressionlanguage.methods;
 
 import code.expressionlanguage.*;
 import code.expressionlanguage.calls.AbstractPageEl;
-import code.expressionlanguage.errors.custom.BadImplicitCast;
-import code.expressionlanguage.errors.custom.BadVariableName;
-import code.expressionlanguage.errors.custom.DuplicateVariable;
-import code.expressionlanguage.errors.custom.StaticAccessError;
+import code.expressionlanguage.errors.custom.*;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.inherits.Mapping;
@@ -156,35 +153,43 @@ public final class ForEachLoop extends BracedStack implements ForLoop,ImportForE
     private MethodAccessKind processVarTypes(ContextEl _cont) {
         FunctionBlock f_ = _cont.getAnalyzing().getCurrentFct();
         importedClassIndexName = _cont.resolveCorrectType(classIndexName);
-        if (!PrimitiveTypeUtil.isPrimitiveOrWrapper(importedClassIndexName, _cont)) {
+        if (!PrimitiveTypeUtil.isPureNumberClass(new ClassArgumentMatching(importedClassIndexName), _cont)) {
             Mapping mapping_ = new Mapping();
             mapping_.setArg(importedClassIndexName);
             mapping_.setParam(_cont.getStandards().getAliasLong());
-            BadImplicitCast cast_ = new BadImplicitCast();
-            cast_.setMapping(mapping_);
+            FoundErrorInterpret cast_ = new FoundErrorInterpret();
             cast_.setFileName(getFile().getFileName());
             cast_.setIndexFile(classIndexNameOffset);
+            //classIndexName len
+            cast_.buildError(_cont.getAnalysisMessages().getNotPrimitiveWrapper(),
+                    importedClassIndexName);
             _cont.addError(cast_);
         }
         if (_cont.getAnalyzing().containsVar(variableName)) {
-            DuplicateVariable d_ = new DuplicateVariable();
-            d_.setId(variableName);
+            FoundErrorInterpret d_ = new FoundErrorInterpret();
             d_.setFileName(getFile().getFileName());
             d_.setIndexFile(variableNameOffset);
+            //variable name len
+            d_.buildError(_cont.getAnalysisMessages().getBadVariableName(),
+                    variableName);
             _cont.addError(d_);
         }
         if (_cont.getAnalyzing().containsMutableLoopVar(variableName)) {
-            DuplicateVariable d_ = new DuplicateVariable();
-            d_.setId(variableName);
+            FoundErrorInterpret d_ = new FoundErrorInterpret();
             d_.setFileName(getFile().getFileName());
             d_.setIndexFile(variableNameOffset);
+            //variable name len
+            d_.buildError(_cont.getAnalysisMessages().getBadVariableName(),
+                    variableName);
             _cont.addError(d_);
         }
         if (!_cont.isValidSingleToken(variableName)) {
-            BadVariableName b_ = new BadVariableName();
+            FoundErrorInterpret b_ = new FoundErrorInterpret();
             b_.setFileName(getFile().getFileName());
             b_.setIndexFile(variableNameOffset);
-            b_.setVarName(variableName);
+            //variable name len
+            b_.buildError(_cont.getAnalysisMessages().getBadVariableName(),
+                    variableName);
             _cont.addError(b_);
         }
         AnalyzedPageEl page_ = _cont.getAnalyzing();
@@ -210,17 +215,19 @@ public final class ForEachLoop extends BracedStack implements ForLoop,ImportForE
         ClassArgumentMatching compo_ = PrimitiveTypeUtil.getQuickComponentType(el_.getResultClass());
         KeyWords keyWords_ = _cont.getKeyWords();
         String keyWordVar_ = keyWords_.getKeyWordVar();
-        if (StringList.quickEq(className.trim(), keyWordVar_) && compo_.getNames().size() == 1) {
+        if (StringList.quickEq(className.trim(), keyWordVar_) && compo_.getNames().onlyOneElt()) {
             importedClassName = compo_.getName();
         } else {
             Mapping mapping_ = new Mapping();
             if (importedClassName.isEmpty()) {
                 mapping_.setArg("");
                 mapping_.setParam("");
-                BadImplicitCast cast_ = new BadImplicitCast();
-                cast_.setMapping(mapping_);
+                FoundErrorInterpret cast_ = new FoundErrorInterpret();
                 cast_.setFileName(getFile().getFileName());
                 cast_.setIndexFile(expressionOffset);
+                //separator char
+                cast_.buildError(_cont.getAnalysisMessages().getUnknownType(),
+                        className.trim());
                 _cont.addError(cast_);
             } else {
                 mapping_.setArg(compo_);
@@ -228,10 +235,13 @@ public final class ForEachLoop extends BracedStack implements ForLoop,ImportForE
                 StringMap<StringList> vars_ = _cont.getCurrentConstraints();
                 mapping_.setMapping(vars_);
                 if (!Templates.isCorrectOrNumbers(mapping_, _cont)) {
-                    BadImplicitCast cast_ = new BadImplicitCast();
-                    cast_.setMapping(mapping_);
+                    FoundErrorInterpret cast_ = new FoundErrorInterpret();
                     cast_.setFileName(getFile().getFileName());
                     cast_.setIndexFile(expressionOffset);
+                    //separator char
+                    cast_.buildError(_cont.getContextEl().getAnalysisMessages().getBadImplicitCast(),
+                            StringList.join(compo_.getNames(),"&"),
+                            importedClassName);
                     _cont.addError(cast_);
                 }
             }
@@ -257,9 +267,12 @@ public final class ForEachLoop extends BracedStack implements ForLoop,ImportForE
         ExecOperationNode el_ = opList.last();
         Argument arg_ = el_.getArgument();
         if (Argument.isNullValue(arg_)) {
-            StaticAccessError static_ = new StaticAccessError();
+            FoundErrorInterpret static_ = new FoundErrorInterpret();
             static_.setFileName(_cont.getCurrentFileName());
             static_.setIndexFile(_cont.getCurrentLocationIndex());
+            //separator char
+            static_.buildError(_cont.getAnalysisMessages().getNullValue(),
+                    _cont.getStandards().getAliasNullPe());
             _cont.addError(static_);
         } else if (el_.getResultClass().isArray()) {
             inferArrayClass(_cont);
@@ -276,7 +289,7 @@ public final class ForEachLoop extends BracedStack implements ForLoop,ImportForE
     }
 
     public void checkIterableCandidates(StringList _types,ContextEl _cont) {
-        if (_types.size() == 1) {
+        if (_types.onlyOneElt()) {
             String type_ = _types.first();
             Mapping mapping_ = new Mapping();
             String paramArg_ = Templates.getAllTypes(type_).last();
@@ -297,21 +310,24 @@ public final class ForEachLoop extends BracedStack implements ForLoop,ImportForE
                 StringMap<StringList> vars_ = _cont.getCurrentConstraints();
                 mapping_.setMapping(vars_);
                 if (!Templates.isCorrectOrNumbers(mapping_, _cont)) {
-                    BadImplicitCast cast_ = new BadImplicitCast();
-                    cast_.setMapping(mapping_);
+                    FoundErrorInterpret cast_ = new FoundErrorInterpret();
                     cast_.setFileName(getFile().getFileName());
                     cast_.setIndexFile(expressionOffset);
+                    //separator char
+                    cast_.buildError(_cont.getContextEl().getAnalysisMessages().getBadImplicitCast(),
+                            paramArg_,
+                            importedClassName);
                     _cont.addError(cast_);
                 }
             }
         } else {
-            Mapping mapping_ = new Mapping();
-            mapping_.setArg(_cont.getStandards().getAliasObject());
-            mapping_.setParam(_cont.getStandards().getAliasIterable());
-            BadImplicitCast cast_ = new BadImplicitCast();
-            cast_.setMapping(mapping_);
+            FoundErrorInterpret cast_ = new FoundErrorInterpret();
             cast_.setFileName(getFile().getFileName());
             cast_.setIndexFile(expressionOffset);
+            //separator char
+            cast_.buildError(_cont.getContextEl().getAnalysisMessages().getBadImplicitCast(),
+                    _cont.getStandards().getAliasObject(),
+                    _cont.getStandards().getAliasIterable());
             _cont.addError(cast_);
         }
     }

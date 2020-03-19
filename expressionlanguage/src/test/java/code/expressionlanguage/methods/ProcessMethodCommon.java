@@ -5,6 +5,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.InitializationLgNames;
 import code.expressionlanguage.calls.util.CallingState;
 import code.expressionlanguage.errors.AnalysisMessages;
+import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.options.ContextFactory;
 import code.expressionlanguage.options.KeyWords;
@@ -59,7 +60,8 @@ public abstract class ProcessMethodCommon {
             constraints_.add(n_);
         }
         ConstructorId id_ = new ConstructorId(_id.getName(),constraints_, false);
-        return ProcessMethod.instanceArgument(_class, _global, id_, _args, _cont);
+        RootBlock type_ = _cont.getClasses().getClassBody(Templates.getIdFromAllTypes(_class));
+        return ProcessMethod.instanceArgument(_class,type_, _global, id_, _args, _cont);
     }
 
     protected static ConstructorId getConstructorId(String _name, String..._classNames) {

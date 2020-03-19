@@ -30,23 +30,8 @@ public final class StandardMethod extends StandardNamedFunction implements GeneM
     }
 
     @Override
-    public boolean hiddenInstance() {
-        return isStaticMethod();
-    }
-
-    @Override
     public boolean isStaticMethod() {
         return modifier == MethodModifier.STATIC;
-    }
-
-    @Override
-    public boolean isFinalMethod() {
-        return modifier == MethodModifier.FINAL;
-    }
-
-    @Override
-    public boolean isAbstractMethod() {
-        return modifier == MethodModifier.ABSTRACT;
     }
 
     public String getDeclaringType() {

@@ -18,6 +18,7 @@ import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.util.BeanLgNames;
 import code.formathtml.structs.StdStruct;
+import code.formathtml.util.BeanNatLgNames;
 import code.util.CustList;
 import code.util.ObjectMap;
 import code.util.StringList;
@@ -64,7 +65,7 @@ public final class AikiBeansFacadeFightStd {
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new StringMap<StandardField>();
         type_ = new StandardClass(TYPE_KEY_HYPOTHESIS, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
-        type_.getDirectInterfaces().add(_std.getAliasDisplayable());
+        type_.getDirectInterfaces().add(BeanNatLgNames.TYPE_DISPLAYABLE);
         params_ = new StringList();
         method_ = new StandardMethod(GET_PLAYER_POKEMON,params_,_std.getAliasString(), false, MethodModifier.NORMAL,type_);
         methods_.put(method_.getId(), method_);

@@ -1,7 +1,7 @@
 package code.formathtml;
 
 import code.expressionlanguage.AnalyzedPageEl;
-import code.expressionlanguage.errors.custom.UnexpectedTagName;
+import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.opers.Calculation;
@@ -22,20 +22,22 @@ public final class RendField extends RendParentBlock {
     @Override
     public void buildExpressionLanguage(Configuration _cont, RendDocumentBlock _doc) {
         if (!(getParent() instanceof RendClass)) {
-            UnexpectedTagName un_ = new UnexpectedTagName();
+            FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(_cont.getCurrentFileName());
             un_.setIndexFile(getOffset().getOffsetTrim());
+            un_.buildError(_cont.getRendAnalysisMessages().getUnexpectedChildTag(),
+                    _cont.getRendKeyWords().getKeyWordField(),
+                    _cont.getRendKeyWords().getKeyWordClass());
             _cont.addError(un_);
         } else {
             RendClass cl_ = (RendClass) getParent();
             String intern_ = cl_.getFullName();
             _cont.getAnalyzingDoc().setInternGlobalClass(intern_);
-            MethodAccessKind st_ = _doc.getStaticContext();
             AnalyzedPageEl page_ = _cont.getAnalyzing();
             page_.setGlobalOffset(prepareOffset);
             page_.setOffset(0);
-            _cont.getAnalyzingDoc().setAttribute(ATTRIBUTE_PREPARE_BEAN);
-            exps = RenderExpUtil.getAnalyzedOperations(prepare,0,_cont, Calculation.staticCalculation(st_));
+            _cont.getAnalyzingDoc().setAttribute(_cont.getRendKeyWords().getAttrPrepare());
+            exps = RenderExpUtil.getAnalyzedOperations(prepare,prepareOffset,0,_cont);
             _cont.getAnalyzingDoc().setInternGlobalClass(EMPTY_STRING);
         }
     }

@@ -1,15 +1,11 @@
 package code.formathtml;
 
 import code.expressionlanguage.AnalyzedPageEl;
-import code.expressionlanguage.errors.custom.BadVariableName;
-import code.expressionlanguage.errors.custom.DuplicateVariable;
-import code.expressionlanguage.errors.custom.UnexpectedTagName;
+import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.variables.LocalVariable;
-import code.formathtml.stacks.RendReadWrite;
-import code.formathtml.stacks.RendTryBlockStack;
-import code.util.StringMap;
+import code.util.StringList;
 
 public final class RendCatchEval extends RendAbstractCatchEval {
 
@@ -43,18 +39,20 @@ public final class RendCatchEval extends RendAbstractCatchEval {
         page_.setGlobalOffset(variableNameOffset);
         page_.setOffset(0);
         if (_cont.getAnalyzing().containsCatchVar(variableName)) {
-            DuplicateVariable d_ = new DuplicateVariable();
-            d_.setId(variableName);
+            FoundErrorInterpret d_ = new FoundErrorInterpret();
             d_.setFileName(_cont.getCurrentFileName());
             d_.setIndexFile(variableNameOffset);
+            d_.buildError(_cont.getContext().getAnalysisMessages().getBadVariableName(),
+                    variableName);
             _cont.addError(d_);
             return;
         }
         if (!_cont.isValidSingleToken(variableName)) {
-            BadVariableName b_ = new BadVariableName();
+            FoundErrorInterpret b_ = new FoundErrorInterpret();
             b_.setFileName(_cont.getCurrentFileName());
             b_.setIndexFile(variableNameOffset);
-            b_.setVarName(variableName);
+            b_.buildError(_cont.getContext().getAnalysisMessages().getBadVariableName(),
+                    variableName);
             _cont.addError(b_);
         }
         page_.setGlobalOffset(classNameOffset);
@@ -66,15 +64,31 @@ public final class RendCatchEval extends RendAbstractCatchEval {
         if (!(pBlock_ instanceof RendAbstractCatchEval)) {
             if (!(pBlock_ instanceof RendTryEval)) {
                 if (!(pBlock_ instanceof RendPossibleEmpty)) {
-                    UnexpectedTagName un_ = new UnexpectedTagName();
+                    FoundErrorInterpret un_ = new FoundErrorInterpret();
                     un_.setFileName(_cont.getCurrentFileName());
                     un_.setIndexFile(getOffset().getOffsetTrim());
+                    un_.buildError(_cont.getContext().getAnalysisMessages().getUnexpectedCatchElseFinally(),
+                            _cont.getContext().getKeyWords().getKeyWordCatch(),
+                            StringList.join(
+                                    new StringList(
+                                            _cont.getContext().getKeyWords().getKeyWordCatch(),
+                                            _cont.getContext().getKeyWords().getKeyWordTry()
+                                    ),
+                                    OR_ERR));
                     _cont.addError(un_);
                 } else if (!(pBlock_.getPreviousSibling() instanceof RendAbstractCatchEval)) {
                     if (!(pBlock_.getPreviousSibling() instanceof RendTryEval)) {
-                        UnexpectedTagName un_ = new UnexpectedTagName();
+                        FoundErrorInterpret un_ = new FoundErrorInterpret();
                         un_.setFileName(_cont.getCurrentFileName());
                         un_.setIndexFile(getOffset().getOffsetTrim());
+                        un_.buildError(_cont.getContext().getAnalysisMessages().getUnexpectedCatchElseFinally(),
+                                _cont.getContext().getKeyWords().getKeyWordCatch(),
+                                StringList.join(
+                                        new StringList(
+                                                _cont.getContext().getKeyWords().getKeyWordCatch(),
+                                                _cont.getContext().getKeyWords().getKeyWordTry()
+                                        ),
+                                        OR_ERR));
                         _cont.addError(un_);
                     }
                 }

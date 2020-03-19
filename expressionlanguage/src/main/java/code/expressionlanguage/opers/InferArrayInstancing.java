@@ -1,8 +1,7 @@
 package code.expressionlanguage.opers;
 
 import code.expressionlanguage.Analyzable;
-import code.expressionlanguage.errors.custom.BadImplicitCast;
-import code.expressionlanguage.errors.custom.UnexpectedTypeOperationError;
+import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.inherits.Mapping;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
@@ -81,11 +80,12 @@ public final class InferArrayInstancing extends AbstractArrayInstancingOperation
         KeyWords keyWords_ = _conf.getKeyWords();
         String keyWordVar_ = keyWords_.getKeyWordVar();
         if (type_.isEmpty() || StringList.quickEq(type_, keyWordVar_)) {
-            UnexpectedTypeOperationError un_ = new UnexpectedTypeOperationError();
+            FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setIndexFile(_conf.getCurrentLocationIndex());
             un_.setFileName(_conf.getCurrentFileName());
-            un_.setExpectedResult(PrimitiveTypeUtil.getPrettyArrayType(_conf.getStandards().getAliasObject()));
-            un_.setOperands(new StringList(EMPTY_STRING));
+            //first separator char
+            un_.buildError(_conf.getContextEl().getAnalysisMessages().getUnexpectedType(),
+                    type_);
             _conf.addError(un_);
             LgNames stds_ = _conf.getStandards();
             setResultClass(new ClassArgumentMatching(PrimitiveTypeUtil.getPrettyArrayType(stds_.getAliasObject())));
@@ -94,11 +94,12 @@ public final class InferArrayInstancing extends AbstractArrayInstancingOperation
         String n_ = type_;
         String cp_ = PrimitiveTypeUtil.getQuickComponentType(n_, nbParentsInfer_);
         if (cp_ == null) {
-            UnexpectedTypeOperationError un_ = new UnexpectedTypeOperationError();
+            FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setIndexFile(_conf.getCurrentLocationIndex());
             un_.setFileName(_conf.getCurrentFileName());
-            un_.setExpectedResult(PrimitiveTypeUtil.getPrettyArrayType(_conf.getStandards().getAliasObject()));
-            un_.setOperands(new StringList(EMPTY_STRING));
+            //first separator char
+            un_.buildError(_conf.getContextEl().getAnalysisMessages().getUnexpectedType(),
+                    n_);
             _conf.addError(un_);
             LgNames stds_ = _conf.getStandards();
             setResultClass(new ClassArgumentMatching(PrimitiveTypeUtil.getPrettyArrayType(stds_.getAliasObject())));
@@ -106,11 +107,12 @@ public final class InferArrayInstancing extends AbstractArrayInstancingOperation
         }
         String classNameFinal_ = PrimitiveTypeUtil.getQuickComponentType(cp_);
         if (classNameFinal_ == null) {
-            UnexpectedTypeOperationError un_ = new UnexpectedTypeOperationError();
+            FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setIndexFile(_conf.getCurrentLocationIndex());
             un_.setFileName(_conf.getCurrentFileName());
-            un_.setExpectedResult(PrimitiveTypeUtil.getPrettyArrayType(_conf.getStandards().getAliasObject()));
-            un_.setOperands(new StringList(EMPTY_STRING));
+            //first separator char
+            un_.buildError(_conf.getContextEl().getAnalysisMessages().getUnexpectedType(),
+                    cp_);
             _conf.addError(un_);
             LgNames stds_ = _conf.getStandards();
             setResultClass(new ClassArgumentMatching(PrimitiveTypeUtil.getPrettyArrayType(stds_.getAliasObject())));
@@ -127,10 +129,13 @@ public final class InferArrayInstancing extends AbstractArrayInstancingOperation
             mapping_.setArg(argType_);
             mapping_.setMapping(map_);
             if (!Templates.isCorrectOrNumbers(mapping_, _conf)) {
-                BadImplicitCast cast_ = new BadImplicitCast();
-                cast_.setMapping(mapping_);
+                FoundErrorInterpret cast_ = new FoundErrorInterpret();
                 cast_.setFileName(_conf.getCurrentFileName());
                 cast_.setIndexFile(_conf.getCurrentLocationIndex());
+                //first separator char child
+                cast_.buildError(_conf.getContextEl().getAnalysisMessages().getBadImplicitCast(),
+                        StringList.join(argType_.getNames(),"&"),
+                        classNameFinal_);
                 _conf.addError(cast_);
             }
             if (PrimitiveTypeUtil.isPrimitive(classNameFinal_, _conf)) {

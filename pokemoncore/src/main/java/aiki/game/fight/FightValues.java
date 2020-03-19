@@ -119,7 +119,6 @@ final class FightValues {
         variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.CLIMATS), StringList.join(FightMoves.climatsActifs(_fight,_import), _import.getSepartorSetChar()));
         //variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.CLIMAT_DOMINANT),climatDominant(_import));
         StringList attaquesPp_ = _import.getVarParamsMove(Fight.FIGHTER_PP);
-        attaquesPp_.removeDuplicates();
         for(String c:attaquesPp_){
             if(!StringList.contains(creatureCbtLanceur_.attaquesUtilisables(), c)){
                 variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.FIGHTER_PP,DataBase.SEP_BETWEEN_KEYS,c),Fight.ZERO);
@@ -249,7 +248,6 @@ final class FightValues {
         types_.sort();
         variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.CIBLE_TYPES), StringList.join(types_, _import.getSepartorSetChar()));
         StringList attaquesPp_ = _import.getVarParamsMove(Fight.CIBLE_PP);
-        attaquesPp_.removeDuplicates();
         for(String c:attaquesPp_){
             if(!StringList.contains(creatureCbtCible_.attaquesUtilisables(), c)){
                 variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.CIBLE_PP,DataBase.SEP_BETWEEN_KEYS,c),Fight.ZERO);
@@ -382,7 +380,6 @@ final class FightValues {
         variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.CLIMATS), StringList.join(weathers_, _import.getSepartorSetChar()));
         //variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.CLIMAT_DOMINANT),climatDominant(_import));
         attaquesPp_ = _import.getVarParamsMove(Fight.LANCEUR_PP);
-        attaquesPp_.removeDuplicates();
         for(String c:attaquesPp_){
             if(!StringList.contains(creatureCbtLanceur_.attaquesUtilisables(), c)){
                 variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.LANCEUR_PP,DataBase.SEP_BETWEEN_KEYS,c),Fight.ZERO);
@@ -438,7 +435,6 @@ final class FightValues {
         Effect effet_ = _import.getMove(_move).getEffet(_noEffet);
         StringMap<String> variables_ = new StringMap<String>();
         StringList immuTypesIndiv_ = _import.getVarParamsMove(Fight.IMMU_TYPE_ATT_COMBATTANT_ENTRANT);
-        immuTypesIndiv_.removeDuplicates();
         if(effet_ instanceof EffectTeamWhileSendFoe){
             for(String e:immuTypesIndiv_){
                 if(FightSuccess.isProtectedAgainstMoveType(_fight,_lanceur,_cible,e,_import)){
@@ -620,7 +616,6 @@ final class FightValues {
             variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.PAS_UTILIS_ATTAQUE_CIBLE),_import.getFalseString());
         }
         StringList immuTypesIndiv_ = _import.getVarParamsMove(Fight.IMMU_TYPE_ATT_CIBLE);
-        immuTypesIndiv_.removeDuplicates();
         for(String e:immuTypesIndiv_){
             if(FightSuccess.isProtectedAgainstMoveType(_fight,_lanceur,_cible,e,_import)){
                 //protected against
@@ -645,7 +640,6 @@ final class FightValues {
             variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.AUCUN_BOOST_POSSIBLE),_import.getFalseString());
         }
         effetsIndiv_ = _import.getVarParamsMove(Fight.LANCEUR_EFFET);
-        effetsIndiv_.removeDuplicates();
         for(String c:effetsIndiv_){
             if (creatureCbtLanceur_.getEnabledMoves().contains(c)) {
                 if(creatureCbtLanceur_.getEnabledMoves().getVal(c).isEnabled()){

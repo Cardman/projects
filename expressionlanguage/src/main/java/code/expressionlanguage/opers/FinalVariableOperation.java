@@ -1,7 +1,7 @@
 package code.expressionlanguage.opers;
 
 import code.expressionlanguage.Analyzable;
-import code.expressionlanguage.errors.custom.UndefinedVariableError;
+import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.instr.ConstType;
 import code.expressionlanguage.instr.OperationsSequence;
@@ -48,10 +48,12 @@ public final class FinalVariableOperation extends LeafOperation {
                 setResultClass(new ClassArgumentMatching(paramType_));
                 return;
             }
-            UndefinedVariableError und_ = new UndefinedVariableError();
-            und_.setId(variableName);
+            FoundErrorInterpret und_ = new FoundErrorInterpret();
             und_.setFileName(_conf.getCurrentFileName());
             und_.setIndexFile(_conf.getCurrentLocationIndex());
+            //variable name len
+            und_.buildError(_conf.getContextEl().getAnalysisMessages().getUndefinedVariable(),
+                    variableName);
             _conf.addError(und_);
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             return;
@@ -63,10 +65,12 @@ public final class FinalVariableOperation extends LeafOperation {
                 setResultClass(new ClassArgumentMatching(locVar_.getClassName()));
                 return;
             }
-            UndefinedVariableError und_ = new UndefinedVariableError();
-            und_.setId(variableName);
+            FoundErrorInterpret und_ = new FoundErrorInterpret();
             und_.setFileName(_conf.getCurrentFileName());
             und_.setIndexFile(_conf.getCurrentLocationIndex());
+            //variable name len
+            und_.buildError(_conf.getContextEl().getAnalysisMessages().getUndefinedVariable(),
+                    variableName);
             _conf.addError(und_);
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             return;
@@ -78,10 +82,12 @@ public final class FinalVariableOperation extends LeafOperation {
                 setResultClass(new ClassArgumentMatching(locVar_.getIndexClassName()));
                 return;
             }
-            UndefinedVariableError und_ = new UndefinedVariableError();
-            und_.setId(variableName);
+            FoundErrorInterpret und_ = new FoundErrorInterpret();
             und_.setFileName(_conf.getCurrentFileName());
             und_.setIndexFile(_conf.getCurrentLocationIndex());
+            //variable name len
+            und_.buildError(_conf.getContextEl().getAnalysisMessages().getUndefinedVariable(),
+                    variableName);
             _conf.addError(und_);
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             return;
@@ -92,10 +98,12 @@ public final class FinalVariableOperation extends LeafOperation {
             setResultClass(new ClassArgumentMatching(locVar_.getClassName()));
             return;
         }
-        UndefinedVariableError und_ = new UndefinedVariableError();
-        und_.setId(variableName);
+        FoundErrorInterpret und_ = new FoundErrorInterpret();
         und_.setFileName(_conf.getCurrentFileName());
         und_.setIndexFile(_conf.getCurrentLocationIndex());
+        //variable name len
+        und_.buildError(_conf.getContextEl().getAnalysisMessages().getUndefinedVariable(),
+                variableName);
         _conf.addError(und_);
         setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
     }

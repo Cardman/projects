@@ -81,10 +81,6 @@ public abstract class ExecOperationNode implements Operable {
             StaticInitOperation c_ = (StaticInitOperation) _anaNode;
             return new ExecStaticInitOperation(c_);
         }
-        if (_anaNode instanceof ErrorPartOperation) {
-            ErrorPartOperation c_ = (ErrorPartOperation) _anaNode;
-            return new ExecErrorPartOperation(c_);
-        }
         if (_anaNode instanceof ConstantOperation) {
             ConstantOperation c_ = (ConstantOperation) _anaNode;
             return new ExecConstantOperation(c_);
@@ -360,8 +356,11 @@ public abstract class ExecOperationNode implements Operable {
             CompoundAffectationOperation c_ = (CompoundAffectationOperation) _anaNode;
             return new ExecCompoundAffectationOperation(c_);
         }
-        AffectationOperation a_ = (AffectationOperation) _anaNode;
-        return new ExecAffectationOperation(a_);
+        if (_anaNode instanceof AffectationOperation) {
+            AffectationOperation a_ = (AffectationOperation) _anaNode;
+            return new ExecAffectationOperation(a_);
+        }
+        return new ExecErrorParentOperation(_anaNode);
     }
 
     public abstract ExecOperationNode getFirstChild();
@@ -555,7 +554,6 @@ public abstract class ExecOperationNode implements Operable {
             ClassMethodId methodId_ = null;
             if (resDyn_.isFoundMethod()) {
                 String foundClass_ = resDyn_.getRealClass();
-                foundClass_ = Templates.getIdFromAllTypes(foundClass_);
                 MethodId id_ = resDyn_.getRealId();
                 methodId_ = new ClassMethodId(foundClass_, id_);
             }

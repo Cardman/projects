@@ -16,6 +16,6 @@ public final class RendEscImg extends RendElement {
 
     @Override
     protected void processExecAttr(Configuration _cont, MutableNode _nextWrite, Element _read) {
-        _nextWrite.getOwnerDocument().renameNode(_nextWrite,TAG_IMG);
+        _nextWrite.getOwnerDocument().renameNode(_nextWrite,_cont.getRendKeyWords().getKeyWordImg());
     }
 }

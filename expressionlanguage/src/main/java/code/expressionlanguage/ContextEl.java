@@ -27,7 +27,6 @@ import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.LoopVariable;
 import code.expressionlanguage.variables.VariableSuffix;
 import code.util.*;
-import code.util.graphs.SortedGraph;
 
 public abstract class ContextEl implements ExecutableCode {
 
@@ -202,7 +201,7 @@ public abstract class ContextEl implements ExecutableCode {
         }
         if (callingState instanceof CustomFoundAnnotation) {
             CustomFoundAnnotation c_ = (CustomFoundAnnotation) callingState;
-            return createAnnotation(c_.getClassName(), c_.getId(), c_.getArguments());
+            return createAnnotation(c_.getClassName(),c_.getType(), c_.getId(), c_.getArguments());
         }
         if (callingState instanceof CustomFoundMethod) {
             return createCallingMethod((CustomFoundMethod)callingState);
@@ -334,11 +333,11 @@ public abstract class ContextEl implements ExecutableCode {
         CustList<Argument> args_ = _e.getArguments();
         InstancingStep in_ = _e.getInstanceStep();
         if (in_ == InstancingStep.NEWING) {
-            return createInstancing(cl_, _e.getCall(), args_);
+            return createInstancing(cl_, _e.getType(),_e.getCall(), args_);
         }
-        return createForwardingInstancing(cl_, _e.getCall(), args_);
+        return createForwardingInstancing(cl_, _e.getType(),_e.getCall(), args_);
     }
-    public CallConstructorPageEl createInstancing(String _class, CallConstructor _call, CustList<Argument> _args) {
+    public CallConstructorPageEl createInstancing(String _class, RootBlock _type,CallConstructor _call, CustList<Argument> _args) {
         setCallingState(null);
         CallConstructorPageEl page_;
         Argument global_ = _call.getArgument();
@@ -352,15 +351,15 @@ public abstract class ContextEl implements ExecutableCode {
         int ordinal_ = _call.getChildIndex();
         argGl_.setStruct(getInit().processInit(this, str_, _class, fieldName_, ordinal_));
         page_.setGlobalArgument(argGl_);
-        setInstanciationInfos(page_,_class,_call,_args);
+        setInstanciationInfos(page_,_class,_type,_call,_args);
         return page_;
     }
-    private NewAnnotationPageEl createAnnotation(String _class,
-                                                 StringMap<String> _id,
+    private NewAnnotationPageEl createAnnotation(String _class,RootBlock _type,
+                                                 StringMap<AnnotationTypeInfo> _id,
                                                  CustList<Argument> _args) {
         setCallingState(null);
         NewAnnotationPageEl page_;
-        FileBlock file_ = getFile(_class);
+        FileBlock file_ = _type.getFile();
         Argument argGl_ = new Argument();
         page_ = new NewAnnotationPageEl();
         page_.setArgs(_args);
@@ -373,19 +372,19 @@ public abstract class ContextEl implements ExecutableCode {
         page_.setFile(file_);
         return page_;
     }
-    private AbstractPageEl createForwardingInstancing(String _class, CallConstructor _call, CustList<Argument> _args) {
+    private AbstractPageEl createForwardingInstancing(String _class, RootBlock _type,CallConstructor _call, CustList<Argument> _args) {
         setCallingState(null);
         AbstractPageEl page_ = new CallConstructorPageEl();
         Argument global_ = _call.getArgument();
         Argument argGl_ = new Argument();
         argGl_.setStruct(global_.getStruct());
         page_.setGlobalArgument(argGl_);
-        setInstanciationInfos(page_,_class,_call,_args);
+        setInstanciationInfos(page_,_class,_type,_call,_args);
         return page_;
     }
-    private void setInstanciationInfos(AbstractPageEl _page,String _class, CallConstructor _call, CustList<Argument> _args) {
+    private void setInstanciationInfos(AbstractPageEl _page,String _class, RootBlock _type,CallConstructor _call, CustList<Argument> _args) {
         ConstructorId id_ = _call.getId();
-        FileBlock file_ = getFile(_class);
+        FileBlock file_ = _type.getFile();
         CustList<ConstructorBlock> methods_ = Classes.getConstructorBodiesById(this, _class, id_);
         ConstructorBlock method_ = null;
         _page.setGlobalClass(_class);
@@ -431,7 +430,7 @@ public abstract class ContextEl implements ExecutableCode {
     }
     private BlockPageEl createBlockPageEl(String _class, Argument _current, InitBlock _block) {
         setCallingState(null);
-        FileBlock file_ = getFile(_class);
+        FileBlock file_ = _block.getFile();
         BlockPageEl page_ = new BlockPageEl();
         page_.setGlobalClass(_class);
         page_.setGlobalArgument(_current);
@@ -480,17 +479,7 @@ public abstract class ContextEl implements ExecutableCode {
         pageLoc_.setReadWrite(rwLoc_);
         return pageLoc_;
     }
-    public FileBlock getFile(String _class) {
-        String idCl_= Templates.getIdFromAllTypes(_class);
-        FileBlock file_ = null;
-        for (RootBlock c: classes.getClassBodies()) {
-            if (StringList.quickEq(c.getFullName(), idCl_)) {
-                file_ = c.getFile();
-                break;
-            }
-        }
-        return file_;
-    }
+
     public abstract void initError();
 
     public final ClassMetaInfo getClassMetaInfo(String _name) {
@@ -553,31 +542,13 @@ public abstract class ContextEl implements ExecutableCode {
             return new ClassMetaInfo(_name, ((StandardInterface)_type).getDirectInterfaces(), "",inners_,infosFields_,infos_, infosConst_, ClassCategory.INTERFACE,st_,AccessEnum.PUBLIC);
         }
         ClassCategory cat_ = ClassCategory.CLASS;
-        boolean abs_ = _type.isAbstractType();
-        boolean final_ = _type.isFinalType();
+        boolean abs_ = ((StandardClass) _type).isAbstractStdType();
+        boolean final_ = ((StandardClass) _type).isFinalStdType();
         String superClass_ = ((StandardClass) _type).getSuperClass();
         StringList superInterfaces_ = _type.getDirectInterfaces();
         return new ClassMetaInfo(_name, superClass_, superInterfaces_, "",inners_,infosFields_,infos_, infosConst_, cat_, abs_, st_, final_,AccessEnum.PUBLIC);
     }
 
-    public static CustList<GeneConstructor> getConstructorBlocks(GeneType _element) {
-        CustList<GeneConstructor> methods_ = new CustList<GeneConstructor>();
-        if (_element == null) {
-            return methods_;
-        }
-        if (_element instanceof RootBlock) {
-            for (Block b: Classes.getDirectChildren((RootBlock)_element)) {
-                if (b instanceof ConstructorBlock) {
-                    methods_.add((ConstructorBlock) b);
-                }
-            }
-        } else {
-            for (StandardConstructor m: ((StandardType)_element).getConstructors()) {
-                methods_.add(m);
-            }
-        }
-        return methods_;
-    }
     public static CustList<AnnotationMethodBlock> getAnnotationMethods(GeneType _element) {
         CustList<AnnotationMethodBlock> methods_ = new CustList<AnnotationMethodBlock>();
         for (Block b: Classes.getDirectChildren((RootBlock)_element)) {
@@ -593,13 +564,8 @@ public abstract class ContextEl implements ExecutableCode {
             return methods_;
         }
         if (_element instanceof RootBlock) {
-            for (Block b: Classes.getDirectChildren((RootBlock)_element)) {
-                if (b instanceof OverridableBlock) {
-                    methods_.add((GeneMethod) b);
-                }
-                if (b instanceof AnnotationMethodBlock) {
-                    methods_.add((GeneMethod) b);
-                }
+            for (GeneCustMethod m:Classes.getMethodBlocks((RootBlock) _element)) {
+                methods_.add(m);
             }
         } else {
             for (StandardMethod m: ((StandardType)_element).getMethods().values()) {
@@ -608,20 +574,12 @@ public abstract class ContextEl implements ExecutableCode {
         }
         return methods_;
     }
-    public static CustList<GeneField> getFieldBlocks(GeneType _element) {
-        CustList<GeneField> methods_ = new CustList<GeneField>();
-        if (_element == null) {
-            return methods_;
-        }
-        if (_element instanceof RootBlock) {
-            for (Block b: Classes.getDirectChildren((RootBlock)_element)) {
-                if (b instanceof InfoBlock) {
-                    methods_.add((InfoBlock) b);
-                }
-            }
-        } else {
-            for (StandardField m: ((StandardType)_element).getFields().values()) {
-                methods_.add(m);
+
+    public static CustList<InfoBlock> getFieldBlocks(RootBlock _element){
+        CustList<InfoBlock> methods_ = new CustList<InfoBlock>();
+        for (Block b: Classes.getDirectChildren(_element)) {
+            if (b instanceof InfoBlock) {
+                methods_.add((InfoBlock) b);
             }
         }
         return methods_;
@@ -661,26 +619,25 @@ public abstract class ContextEl implements ExecutableCode {
     public void addErrorIfNoMatch(String _generic, String _base, Block _currentBlock, int _location) {
         String id_ = Templates.getIdFromAllTypes(_generic);
         if (!StringList.quickEq(id_,_base)) {
-            UnknownClassName un_ = new UnknownClassName();
-            un_.setClassName(_generic);
+            FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(_currentBlock.getFile().getFileName());
             un_.setIndexFile(_location);
+            //one full direct super type
+            un_.buildError(getAnalysisMessages().getUnknownType(),
+                    _generic);
             addError(un_);
         }
     }
 
-    @Override
-    public int getRowFile(String _fileName, int _sum) {
-        return classes.getFileBody(_fileName).getRowFile(_sum);
-    }
-
-    @Override
-    public int getColFile(String _fileName, int _sum, int _row) {
-        return classes.getFileBody(_fileName).getColFile(_sum,_row);
+    private String getLocationFile(String _fileName, int _sum) {
+        FileBlock file_ = classes.getFileBody(_fileName);
+        int r_ = file_.getRowFile(_sum);
+        int c_ = file_.getColFile(_sum,r_);
+        return StringList.concat( Integer.toString(r_),",",Integer.toString(c_),",",Integer.toString(_sum));
     }
 
     public void addWarning(FoundWarningInterpret _warning) {
-        _warning.setAnalyzable(this);
+        _warning.setLocationFile(getLocationFile(_warning.getFileName(),_warning.getIndexFile()));
         classes.addWarning(_warning);
     }
 
@@ -690,7 +647,7 @@ public abstract class ContextEl implements ExecutableCode {
 
     @Override
     public void addError(FoundErrorInterpret _error) {
-        _error.setAnalyzable(this);
+        _error.setLocationFile(getLocationFile(_error.getFileName(),_error.getIndexFile()));
         classes.addError(_error);
     }
     @Override
@@ -792,6 +749,9 @@ public abstract class ContextEl implements ExecutableCode {
     }
 
     public boolean isStaticAccess() {
+        if (isAnnotAnalysis()) {
+            return true;
+        }
         Block bl_ = getCurrentBlock();
         if (bl_ instanceof InfoBlock) {
             return ((InfoBlock)bl_).isStaticField();
@@ -800,12 +760,15 @@ public abstract class ContextEl implements ExecutableCode {
             return ((RootBlock)bl_).isStaticType();
         }
         FunctionBlock fct_ = analyzing.getCurrentFct();
-        boolean st_ = fct_.getStaticContext() == MethodAccessKind.STATIC;
-        return st_;
+        return fct_.getStaticContext() == MethodAccessKind.STATIC;
     }
 
-    public void setAnalyzing(AnalyzedPageEl _analyzing) {
-        analyzing = _analyzing;
+    public void setAnalyzing() {
+        analyzing = new AnalyzedPageEl();
+    }
+
+    public void setNullAnalyzing() {
+        analyzing = null;
     }
 
     public String getNextTempVar() {
@@ -940,10 +903,11 @@ public abstract class ContextEl implements ExecutableCode {
     public int getCurrentChildTypeIndex(OperationNode _op, GeneType _type, String _fieldName, String _realClassName) {
         if (isEnumType(_type)) {
             if (_fieldName.isEmpty()) {
-                IllegalCallCtorByType call_ = new IllegalCallCtorByType();
-                call_.setType(_realClassName);
+                FoundErrorInterpret call_ = new FoundErrorInterpret();
                 call_.setFileName(getCurrentFileName());
                 call_.setIndexFile(getCurrentLocationIndex());
+                //type len
+                call_.buildError(getAnalysisMessages().getIllegalCtorEnum());
                 addError(call_);
                 _op.setResultClass(new ClassArgumentMatching(_realClassName));
                 return -2;
@@ -953,6 +917,15 @@ public abstract class ContextEl implements ExecutableCode {
         return -1;
     }
 
+    public static boolean isAbstractType(GeneType _type) {
+        if (_type instanceof StandardInterface) {
+            return true;
+        }
+        if (_type instanceof RootBlock) {
+            return ((RootBlock)_type).isAbstractType();
+        }
+        return ((StandardClass)_type).isAbstractStdType();
+    }
     public static boolean isEnumType(GeneType _type) {
         return _type instanceof EnumBlock || _type instanceof InnerElementBlock;
     }
@@ -1096,20 +1069,17 @@ public abstract class ContextEl implements ExecutableCode {
         int rc_ = getCurrentLocationIndex();
         String void_ = standards.getAliasVoid();
         if (StringList.quickEq(_in.trim(), void_)) {
-            UnexpectedTypeError un_ = new UnexpectedTypeError();
+            FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(bl_.getFile().getFileName());
             un_.setIndexFile(rc_);
-            un_.setType(_in);
+            //_in len
+            un_.buildError(getAnalysisMessages().getVoidType(),
+                    void_);
             addError(un_);
             return EMPTY_TYPE;
         }
         AccessingImportingBlock r_ = analyzing.getImporting();
-        StringList inners_;
-        if (options.isSingleInnerParts()) {
-            inners_ = Templates.getAllInnerTypesSingleDotted(_in, this);
-        } else {
-            inners_ = Templates.getAllInnerTypes(_in);
-        }
+        StringList inners_ = getParts(_in);
         String firstFull_ = inners_.first();
         int firstOff_ = StringList.getFirstPrintableCharIndex(firstFull_);
         String base_ = firstFull_.trim();
@@ -1121,13 +1091,15 @@ public abstract class ContextEl implements ExecutableCode {
         partOffsets_.clear();
         RootBlock b_ = classes.getClassBody(res_);
         if (b_ == null) {
-            String id_ = lookupImportType(base_, r_);
+            String id_ = lookupImportType(base_,r_,true);
             if (id_.isEmpty()) {
-                UnknownClassName undef_;
-                undef_ = new UnknownClassName();
-                undef_.setClassName(base_);
+                FoundErrorInterpret undef_;
+                undef_ = new FoundErrorInterpret();
                 undef_.setFileName(bl_.getFile().getFileName());
                 undef_.setIndexFile(rc_);
+                //_in len
+                undef_.buildError(getAnalysisMessages().getUnknownType(),
+                        _in);
                 addError(undef_);
                 return EMPTY_TYPE;
             }
@@ -1147,11 +1119,13 @@ public abstract class ContextEl implements ExecutableCode {
             RootBlock inner_ = classes.getClassBody(resId_);
             if (inner_ == null) {
                 //ERROR
-                UnknownClassName undef_;
-                undef_ = new UnknownClassName();
-                undef_.setClassName(base_);
+                FoundErrorInterpret undef_;
+                undef_ = new FoundErrorInterpret();
                 undef_.setFileName(bl_.getFile().getFileName());
                 undef_.setIndexFile(rc_);
+                //_in len
+                undef_.buildError(getAnalysisMessages().getUnknownType(),
+                        _in);
                 addError(undef_);
                 return EMPTY_TYPE;
             }
@@ -1177,7 +1151,7 @@ public abstract class ContextEl implements ExecutableCode {
         String curr_ = ((Block)r_).getFile().getRenderFileName();
         CustList<PartOffset> offs_ = coverage.getCurrentParts();
         offs_.clear();
-        return PartTypeUtil.processAnalyzeLine(_in,gl_,this,r_,curr_,rc_, offs_);
+        return PartTypeUtil.processAnalyzeLine(_in,gl_,this,r_,r_,curr_,rc_, offs_);
     }
 
     @Override
@@ -1197,10 +1171,12 @@ public abstract class ContextEl implements ExecutableCode {
         int rc_ = getCurrentLocationIndex()+_loc;
         String void_ = standards.getAliasVoid();
         if (StringList.quickEq(_in.trim(), void_)) {
-            UnexpectedTypeError un_ = new UnexpectedTypeError();
+            FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(bl_.getFile().getFileName());
             un_.setIndexFile(rc_);
-            un_.setType(_in);
+            //_in len
+            un_.buildError(getAnalysisMessages().getVoidType(),
+                    void_);
             addError(un_);
             return standards.getAliasObject();
         }
@@ -1216,24 +1192,28 @@ public abstract class ContextEl implements ExecutableCode {
         getAvailableVariables().clear();
         for (TypeVar t: from_.getParamTypesMapValues()) {
             getAvailableVariables().addEntry(t.getName(),t.getOffset());
-            vars_.put(t.getName(), t.getConstraints());
+            vars_.addEntry(t.getName(), t.getConstraints());
         }
         CustList<PartOffset> partOffsets_ = coverage.getCurrentParts();
         partOffsets_.clear();
         String resType_ = PartTypeUtil.processAnalyzeAccessibleId(_in, this, r_,curr_,ref_,rc_,partOffsets_);
         if (resType_.trim().isEmpty()) {
-            UnknownClassName un_ = new UnknownClassName();
-            un_.setClassName(_in);
+            FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(bl_.getFile().getFileName());
             un_.setIndexFile(rc_);
+            //_in len
+            un_.buildError(getAnalysisMessages().getUnknownType(),
+                    _in);
             addError(un_);
             return standards.getAliasObject();
         }
         if (!Templates.isCorrectTemplateAll(resType_, vars_, this)) {
-            UnknownClassName un_ = new UnknownClassName();
-            un_.setClassName(_in);
+            FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(bl_.getFile().getFileName());
             un_.setIndexFile(rc_);
+            //_in len
+            un_.buildError(getAnalysisMessages().getBadParamerizedType(),
+                    _in);
             addError(un_);
             return standards.getAliasObject();
         }
@@ -1241,16 +1221,18 @@ public abstract class ContextEl implements ExecutableCode {
     }
 
     @Override
-    public String checkExactType(int _loc, String _in) {
+    public String checkExactType(int _loc, String _in, String _orig) {
         if (!_in.isEmpty()) {
             return _in;
         }
         Block bl_ = getCurrentBlock();
         int rc_ = getCurrentLocationIndex() + _loc;
-        UnknownClassName un_ = new UnknownClassName();
-        un_.setClassName(_in);
+        FoundErrorInterpret un_ = new FoundErrorInterpret();
         un_.setFileName(bl_.getFile().getFileName());
         un_.setIndexFile(rc_);
+        //original type len
+        un_.buildError(getAnalysisMessages().getUnknownType(),
+                _orig);
         addError(un_);
         return standards.getAliasObject();
     }
@@ -1263,10 +1245,12 @@ public abstract class ContextEl implements ExecutableCode {
         String void_ = standards.getAliasVoid();
         String tr_ = _in.trim();
         if (StringList.quickEq(tr_, void_)) {
-            UnexpectedTypeError un_ = new UnexpectedTypeError();
+            FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(bl_.getFile().getFileName());
             un_.setIndexFile(rc_);
-            un_.setType(_in);
+            //_in len
+            un_.buildError(getAnalysisMessages().getVoidType(),
+                    void_);
             addError(un_);
             return standards.getAliasObject();
         }
@@ -1283,23 +1267,27 @@ public abstract class ContextEl implements ExecutableCode {
         String gl_ = getGlobalClass();
         String resType_;
         if (_exact) {
-            resType_ = PartTypeUtil.processAnalyze(tr_, gl_, this, r_,curr_,rc_,partOffsets_);
+            resType_ = PartTypeUtil.processAnalyze(tr_, gl_, this, r_,r_,curr_,rc_,partOffsets_);
         } else {
-            resType_ = PartTypeUtil.processAnalyzeLine(tr_, gl_, this, r_,curr_,rc_,partOffsets_);
+            resType_ = PartTypeUtil.processAnalyzeLine(tr_, gl_, this,r_,r_,curr_,rc_,partOffsets_);
         }
         if (resType_.trim().isEmpty()) {
-            UnknownClassName un_ = new UnknownClassName();
-            un_.setClassName(_in);
+            FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(bl_.getFile().getFileName());
             un_.setIndexFile(rc_);
+            //_in len
+            un_.buildError(getAnalysisMessages().getUnknownType(),
+                    _in);
             addError(un_);
             return standards.getAliasObject();
         }
         if (!Templates.isCorrectTemplateAll(resType_, varsCt_, this, _exact)) {
-            UnknownClassName un_ = new UnknownClassName();
-            un_.setClassName(_in);
+            FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(bl_.getFile().getFileName());
             un_.setIndexFile(rc_);
+            //_in len
+            un_.buildError(getAnalysisMessages().getBadParamerizedType(),
+                    _in);
             addError(un_);
             return standards.getAliasObject();
         }
@@ -1314,7 +1302,10 @@ public abstract class ContextEl implements ExecutableCode {
         return vars_;
     }
 
-    public StringMap<TypeVar> getCurrentConstraintsFull() {
+    private StringMap<TypeVar> getCurrentConstraintsFull() {
+        if (isAnnotAnalysis()) {
+            return new StringMap<TypeVar>();
+        }
         Block bl_ = getCurrentBlock();
         AccessingImportingBlock r_ = analyzing.getImporting();
         StringMap<TypeVar> vars_ = new StringMap<TypeVar>();
@@ -1350,7 +1341,7 @@ public abstract class ContextEl implements ExecutableCode {
         return analyzing.getStaticContext();
     }
 
-    public boolean isExplicitFct(FunctionBlock _fct) {
+    private boolean isExplicitFct(FunctionBlock _fct) {
         return _fct instanceof OverridableBlock && StringList.quickEq(((OverridableBlock) _fct).getName(),keyWords.getKeyWordExplicit());
     }
 
@@ -1424,9 +1415,9 @@ public abstract class ContextEl implements ExecutableCode {
         int rc_ = getCurrentLocationIndex() + _loc;
         String resType_;
         if (_exact) {
-            resType_ = PartTypeUtil.processAnalyze(_in, gl_, this, r_,curr_,rc_,partOffsets_);
+            resType_ = PartTypeUtil.processAnalyze(_in, gl_, this, r_,r_,curr_,rc_,partOffsets_);
         } else {
-            resType_ = PartTypeUtil.processAnalyzeLine(_in, gl_, this, r_,curr_,rc_,partOffsets_);
+            resType_ = PartTypeUtil.processAnalyzeLine(_in, gl_, this, r_,r_,curr_,rc_,partOffsets_);
         }
         if (resType_.trim().isEmpty()) {
             partOffsets_.clear();
@@ -1439,61 +1430,24 @@ public abstract class ContextEl implements ExecutableCode {
         return resType_;
     }
 
-    public EqList<ClassInheritsDeps> getSortedTypes(boolean _predefined) {
-        SortedGraph<ClassInheritsDeps> gr_;
-        gr_ = new SortedGraph<ClassInheritsDeps>();
-        EqList<ClassInheritsDeps> absDeps_ = new EqList<ClassInheritsDeps>();
-        for (RootBlock b: classes.getClassBodies(_predefined)) {
-            analyzing.setImporting(b);
-            analyzing.setCurrentBlock(b);
-            EqList<ClassInheritsDeps> deps_ = b.getDepends(this);
-            String c_ = b.getFullName();
-            if (deps_.isEmpty()) {
-                absDeps_.add(new ClassInheritsDeps(c_, b));
-            }
-            for (ClassInheritsDeps d: deps_) {
-                gr_.addSegment(new ClassInheritsDeps(c_, b), d);
-            }
-        }
-        EqList<ClassInheritsDeps> cycle_ = gr_.elementsCycle();
-        if (!cycle_.isEmpty()) {
-            for (ClassInheritsDeps c: cycle_) {
-                BadInheritedClass enum_;
-                enum_ = new BadInheritedClass();
-                enum_.setClassName(c.getClassField());
-                RootBlock c_ = c.getRootBlock();
-                enum_.setFileName(c_.getFile().getFileName());
-                enum_.setIndexFile(c_.getIdRowCol());
-                addError(enum_);
-            }
-            return null;
-        }
-        EqList<ClassInheritsDeps> sort_;
-        sort_ = new EqList<ClassInheritsDeps>();
-        sort_.addAllElts(absDeps_);
-        for (ClassInheritsDeps e: gr_.process()) {
-            if (!sort_.containsObj(e)) {
-                sort_.add(e);
-            }
-        }
-        return sort_;
-    }
     /**Used at building mapping constraints*/
     public String resolveTypeMapping(String _in, RootBlock _currentBlock,
             int _location) {
         String void_ = standards.getAliasVoid();
         if (StringList.quickEq(_in.trim(), void_)) {
-            UnexpectedTypeError un_ = new UnexpectedTypeError();
+            FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(_currentBlock.getFile().getFileName());
             un_.setIndexFile(_location);
-            un_.setType(_in);
+            //_in len
+            un_.buildError(getAnalysisMessages().getVoidType(),
+                    void_);
             addError(un_);
             return standards.getAliasObject();
         }
         StringMap<Integer> variables_ = new StringMap<Integer>();
         for (RootBlock r: _currentBlock.getSelfAndParentTypes()) {
             for (TypeVar t: r.getParamTypes()) {
-                variables_.add(t.getName(),t.getOffset());
+                variables_.addEntry(t.getName(),t.getOffset());
             }
         }
         //No need to call Templates.isCorrect
@@ -1502,12 +1456,14 @@ public abstract class ContextEl implements ExecutableCode {
         String gl_ = _currentBlock.getGenericString();
         CustList<PartOffset> partOffsets_ = coverage.getCurrentParts();
         String curr_ = _currentBlock.getFile().getRenderFileName();
-        String resType_ = PartTypeUtil.processAnalyze(_in, gl_, this, _currentBlock,curr_,_location,partOffsets_);
+        String resType_ = PartTypeUtil.processAnalyze(_in, gl_, this, _currentBlock,_currentBlock,curr_,_location,partOffsets_);
         if (resType_.trim().isEmpty()) {
-            UnknownClassName un_ = new UnknownClassName();
-            un_.setClassName(_in);
+            FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(_currentBlock.getFile().getFileName());
             un_.setIndexFile(_location);
+            //_in len
+            un_.buildError(getAnalysisMessages().getUnknownType(),
+                    _in);
             addError(un_);
             return standards.getAliasObject();
         }
@@ -1515,48 +1471,49 @@ public abstract class ContextEl implements ExecutableCode {
     }
     /**Used at building mapping constraints*/
     public String resolveTypeInherits(String _in, RootBlock _currentBlock,
-            int _location, int _index) {
-        String void_ = standards.getAliasVoid();
-        if (StringList.quickEq(_in.trim(), void_)) {
-            UnexpectedTypeError un_ = new UnexpectedTypeError();
-            un_.setFileName(_currentBlock.getFile().getFileName());
-            un_.setIndexFile(_location);
-            un_.setType(_in);
-            addError(un_);
-            return standards.getAliasObject();
-        }
+                                      int _location) {
         StringMap<Integer> variables_ = new StringMap<Integer>();
         for (RootBlock r: _currentBlock.getSelfAndParentTypes()) {
             for (TypeVar t: r.getParamTypes()) {
-                variables_.add(t.getName(),t.getOffset());
+                variables_.addEntry(t.getName(),t.getOffset());
             }
         }
         //No need to call Templates.isCorrect
         getAvailableVariables().clear();
         getAvailableVariables().putAllMap(variables_);
         String gl_ = _currentBlock.getGenericString();
-        String resType_ = PartTypeUtil.processAnalyzeInherits(_in, _location,_index, gl_, this, _currentBlock, false);
+        CustList<PartOffset> partOffsets_ = _currentBlock.getSuperTypesParts();
+        String curr_ = _currentBlock.getFile().getRenderFileName();
+        String resType_ = PartTypeUtil.processAnalyze(_in,gl_,this,_currentBlock,_currentBlock, curr_,_location,partOffsets_);
         if (resType_.trim().isEmpty()) {
-            UnknownClassName un_ = new UnknownClassName();
-            un_.setClassName(_in);
+            FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(_currentBlock.getFile().getFileName());
             un_.setIndexFile(_location);
+            //_in len
+            un_.buildError(getAnalysisMessages().getUnknownType(),
+                    _in);
             addError(un_);
             return standards.getAliasObject();
         }
         for (String p:Templates.getAllTypes(resType_).mid(1)){
             if (p.startsWith(Templates.SUB_TYPE)) {
-                IllegalCallCtorByType call_ = new IllegalCallCtorByType();
-                call_.setType(resType_);
+                FoundErrorInterpret call_ = new FoundErrorInterpret();
                 call_.setFileName(_currentBlock.getFile().getFileName());
                 call_.setIndexFile(_location);
+                //_in len
+                call_.buildError(getAnalysisMessages().getIllegalGenericSuperTypeBound(),
+                        p,
+                        resType_);
                 addError(call_);
             }
             if (p.startsWith(Templates.SUP_TYPE)) {
-                IllegalCallCtorByType call_ = new IllegalCallCtorByType();
-                call_.setType(resType_);
+                FoundErrorInterpret call_ = new FoundErrorInterpret();
                 call_.setFileName(_currentBlock.getFile().getFileName());
                 call_.setIndexFile(_location);
+                //_in len
+                call_.buildError(getAnalysisMessages().getIllegalGenericSuperTypeBound(),
+                        p,
+                        resType_);
                 addError(call_);
             }
         }
@@ -1564,271 +1521,173 @@ public abstract class ContextEl implements ExecutableCode {
     }
 
     @Override
-    public String lookupImportMemberType(String _type, AccessingImportingBlock _rooted, boolean _inherits, boolean _line) {
+    public String lookupImportMemberType(String _type, AccessingImportingBlock _rooted, boolean _inherits, StringList _readTypes) {
         String prefixedType_;
         if (options.isSingleInnerParts()) {
-            prefixedType_ = getRealSinglePrefixedMemberType(_type, _rooted, _inherits,_line);
+            prefixedType_ = getRealSinglePrefixedMemberType(_type, _rooted,_inherits,_readTypes);
         } else {
-            prefixedType_ = getRealPrefixedMemberType(_type, _rooted, _inherits,_line);
+            prefixedType_ = getRealPrefixedMemberType(_type, _rooted);
         }
         return prefixedType_;
     }
-    private String exist(String _type, AccessingImportingBlock _rooted, boolean _inherits, boolean _line) {
-        String trQual_ = _type;
-        String typeFound_ = trQual_;
+
+    @Override
+    public String lookupImportType(String _type, AccessingImportingBlock _rooted, boolean _line) {
+        String prefixedType_;
+        if (options.isSingleInnerParts()) {
+            prefixedType_ = getRealSinglePrefixedMemberType(_type, _rooted,false,new StringList());
+        } else {
+            prefixedType_ = lookupSingleImportTypeDoubleDot(_type, _rooted);
+        }
+        return prefixedType_;
+    }
+
+    private String exist(String _type) {
+        String typeFound_ = _type;
         String keyWordStatic_ = keyWords.getKeyWordStatic();
-        boolean stQualifier_ = startsWithKeyWord(trQual_, keyWordStatic_);
+        boolean stQualifier_ = startsWithKeyWord(_type, keyWordStatic_);
         if (stQualifier_) {
             typeFound_ = typeFound_.substring(keyWordStatic_.length()).trim();
         }
         StringList inners_;
         inners_ = Templates.getAllInnerTypes(typeFound_);
         String res_ = inners_.first();
-        String fullName_;
-        if (_rooted instanceof RootBlock) {
-            fullName_ = ((RootBlock)_rooted).getFullName();
-        } else {
-            fullName_ = "";
-        }
-        int index_ = 1;
-        int max_ = inners_.size() - 1;
-        boolean incProt_ = !_inherits;
         for (String i: inners_.mid(1)) {
             String i_ = i.trim();
-            StringList builtInners_ = TypeUtil.getOwners(_inherits, incProt_ || index_ == inners_.size() - 1, fullName_,res_, i_, stQualifier_ || index_ < max_, this);
-            if (builtInners_.size() == 1) {
+            StringList builtInners_ = TypeUtil.getOwners(res_, i_, stQualifier_, this);
+            if (builtInners_.onlyOneElt()) {
                 res_ = StringList.concat(builtInners_.first(),"..",i_);
-                index_++;
                 continue;
             }
             return EMPTY_TYPE;
         }
-        GeneType cl_ = getClassBody(res_);
-        if (cl_ != null) {
-            if (!cl_.isStaticType() && !_line) {
-                return EMPTY_TYPE;
-            }
-            return res_;
-        }
-        return EMPTY_TYPE;
+        return res_;
     }
 
-    public TypeOwnersDepends lookupImportMemberTypeDeps(String _type,
-                                                        RootBlock _rooted) {
-        TypeOwnersDepends prefixedType_;
-        if (options.isSingleInnerParts()) {
-            prefixedType_ = getRealSinglePrefixedMemberType(_type, _rooted);
-        } else {
-            prefixedType_ = getRealPrefixedMemberType(_type, _rooted);
-        }
-        return prefixedType_;
-    }
-    private TypeOwnersDepends exist(String _type,
-                                    RootBlock _rooted) {
-        TypeOwnersDepends out_ = new TypeOwnersDepends();
-        String trQual_ = _type.trim();
-        String typeFound_ = trQual_;
-        String keyWordStatic_ = keyWords.getKeyWordStatic();
-        boolean stQualifier_ = startsWithKeyWord(trQual_, keyWordStatic_);
-        if (stQualifier_) {
-            typeFound_ = typeFound_.substring(keyWordStatic_.length()).trim();
-        }
-        StringList inners_ = Templates.getAllInnerTypes(typeFound_);
-        String res_ = inners_.first();
-        if (getClassBody(res_) == null) {
-            return null;
-        }
-        String fullName_ = _rooted.getFullName();
-        int index_ = 1;
-        int max_ = inners_.size() - 1;
-        for (String i: inners_.mid(1)) {
-            String i_ = i.trim();
-            TypeOwnersDepends ownersDeps_ = TypeUtil.getOwnersDepends(index_ == max_, fullName_, res_, i_, this);
-            out_.getDepends().addAllElts(ownersDeps_.getDepends());
-            StringList owners_ = ownersDeps_.getTypeOwners();
-            if (owners_.size() == 1) {
-                res_ = StringList.concat(owners_.first(),"..",i_);
-                index_++;
-                continue;
-            }
-            return null;
-        }
-        out_.getTypeOwners().add(res_);
-        return out_;
-    }
-    public String resolveBaseInherits(String _idSup, RootBlock _root, int _index, StringList _readyTypes, boolean _static) {
+    public String resolveBaseInherits(String _idSup, RootBlock _root, StringList _readyTypes) {
         String id_ = Templates.getIdFromAllTypes(_idSup);
         boolean single_ = options.isSingleInnerParts();
-        StringList inners_;
-        if (single_) {
-            inners_ = Templates.getAllInnerTypesSingleDotted(id_, this);
-        } else {
-            inners_ = Templates.getAllInnerTypes(id_);
-        }
+        StringList inners_ = getParts(id_);
         String base_ = inners_.first().trim();
         if (base_.isEmpty()) {
             if (inners_.size() == 1) {
                 return null;
             }
-            return localSolve(inners_, 1, _root, _index, _readyTypes, _static);
+            return localSolve(inners_, 1, _root, _readyTypes);
         }
         String joined_ = removeDottedSpaces(StringList.join(inners_, ".."));
-        boolean outer_ = inners_.size() == 1;
         RootBlock b_ = classes.getClassBody(joined_);
         if (b_ != null) {
-            if (!access(_root, b_, outer_)) {
-                return null;
-            }
-            if (!StringList.contains(_readyTypes, joined_) && _static) {
+            if (!StringList.contains(_readyTypes, joined_)) {
                 return EMPTY_TYPE;
             }
             return joined_;
         }
         if (single_) {
-            return localSolve(inners_, 0, _root, _index, _readyTypes, _static);
+            return localSolve(inners_, 0, _root, _readyTypes);
         }
-        String res_ = removeDottedSpaces(lookupImportType(base_, _root));
+        String res_ = removeDottedSpaces(lookupImportType(base_, _root,true));
         b_ = classes.getClassBody(res_);
         if (b_ == null) {
             return null;
         }
-        if (!access(_root, b_, outer_)) {
-            return null;
-        }
-        return getOtherParts(inners_,res_,0,_root, _readyTypes, _static);
-    }
-
-    private static boolean access(RootBlock _from, RootBlock _found, boolean _outer) {
-        if (_found.getAccess().ordinal() > AccessEnum.PROTECTED.ordinal()) {
-            if (_found.getAccess() == AccessEnum.PACKAGE) {
-                return StringList.quickEq(_found.getPackageName(), _from.getPackageName());
-            } else {
-                return false;
-            }
-        } else if (_found.getAccess() == AccessEnum.PROTECTED){
-            if (!_outer) {
-                return StringList.quickEq(_found.getPackageName(), _from.getPackageName());
-            }
-        }
-        return true;
+        return getOtherPartsDirect(inners_,res_,0, _readyTypes);
     }
 
     private String localSolve(StringList _inners, int _first, RootBlock _root,
-            int _index, StringList _readyTypes, boolean _static) {
-        String fullName_ = _root.getFullName();
+                              StringList _readyTypes) {
         String baseInn_ = _inners.get(_first).trim();
         RootBlock gType_ = classes.getClassBody(baseInn_);
         String res_;
         if (gType_ == null) {
             String name_ = EMPTY_TYPE;
+            boolean innerName_ = false;
             CustList<RootBlock> allAncestors_ = new CustList<RootBlock>();
             RootBlock p_ = _root.getParentType();
             while (p_ != null) {
                 allAncestors_.add(p_);
                 p_ = p_.getParentType();
             }
-            if (_static) {
-                for (RootBlock a: allAncestors_) {
-                    String id_ = a.getFullName();
-                    if (!StringList.contains(_readyTypes, id_)) {
-                        return EMPTY_TYPE;
-                    }
-                }
-            }
-            int indexAncestor_ = 0;
             for (RootBlock a: allAncestors_) {
                 String id_ = a.getFullName();
-                StringList builtInners_ = TypeUtil.getBuiltInners(_inners.size() == _first + 1,fullName_, id_, baseInn_, _static, this);
-                if (builtInners_.size() == 1) {
-                    _root.getAncestorsIndexes().set(_index, indexAncestor_);
-                    name_ = builtInners_.first();
-                    break;
+                String inner_ = getInner(_readyTypes, id_, baseInn_);
+                if (inner_ == null) {
+                    continue;
                 }
-                indexAncestor_++;
+                innerName_ = true;
+                name_ = inner_;
+                break;
             }
-            if (name_.isEmpty()) {
+            if (innerName_) {
+                if (name_.isEmpty()) {
+                    return name_;
+                }
+                res_ = name_;
+            } else {
                 String member_ = lookupImportMemberTypes(baseInn_, _root, _readyTypes);
                 if (member_ == null) {
                     return null;
                 }
                 res_ = member_;
-            } else {
-                res_ = name_;
             }
         } else {
             res_ = gType_.getFullName();
         }
-        return getOtherParts(_inners,res_,_first,_root, _readyTypes, _static);
-    }
-
-    public String lookupImportMemberType(String _type, RootBlock _rooted) {
-        String prefixedType_;
-        if (options.isSingleInnerParts()) {
-            prefixedType_ = getRealSinglePrefixedMemberType(_type,_rooted,true,false);
-        } else {
-            prefixedType_ = getRealPrefixedMemberType(_type, _rooted, true,false);
-        }
-        return prefixedType_;
+        return getOtherPartsDirect(_inners,res_,_first, _readyTypes);
     }
 
     private String lookupImportMemberTypes(String _type, RootBlock _root,
             StringList _readyTypes) {
-        boolean single_ = options.isSingleInnerParts();
-        String prefix_;
-        if (single_) {
-            prefix_ = getSinglePrefixedMemberType(_type, _root);
-        } else {
-            prefix_ = getPrefixedMemberType(_type, _root);
+        String f_ = lookupImportMemberType(_type, _root, true,_readyTypes);
+        if (f_.isEmpty()) {
+            return f_;
         }
-        String trQual_ = removeDottedSpaces(prefix_);
-        String typeFound_ = trQual_;
-        String keyWordStatic_ = keyWords.getKeyWordStatic();
-        boolean stQual_ = startsWithKeyWord(trQual_, keyWordStatic_);
-        if (stQual_) {
-            typeFound_ = typeFound_.substring(keyWordStatic_.length()).trim();
-        }
-        StringList inners_ = Templates.getAllInnerTypes(typeFound_);
+        StringList inners_ = Templates.getAllInnerTypes(f_);
         String res_ = inners_.first().trim();
         if (classes.getClassBody(res_) == null) {
             return null;
         }
-        return getOtherParts(inners_,res_,0,_root, _readyTypes, null);
+        return getOtherParts(inners_,res_,0, _readyTypes);
     }
 
     private String getOtherParts(StringList _inners, String _res, int _first,
-                                 RootBlock _root, StringList _readyTypes, Boolean _static) {
+                                 StringList _readyTypes) {
         String out_ = _res;
-        String fullName_ = _root.getFullName();
-        int index_ = _first + 1;
-        int max_ = _inners.size() - 1;
         for (String i : _inners.mid(1 + _first)) {
-            boolean staticLoc_ = index_ < max_;
             String name_ = i.trim();
-            if (_static != null) {
-                staticLoc_ = _static;
+            String inner_ = getInner(_readyTypes, out_, name_);
+            if (inner_ == null || StringList.quickEq(inner_,EMPTY_TYPE)) {
+                return inner_;
             }
-            if (!StringList.contains(_readyTypes, out_) && staticLoc_) {
-                return EMPTY_TYPE;
-            }
-            StringList built_ = TypeUtil.getBuiltInners(index_ + 1 == _inners.size(), fullName_, out_, name_, staticLoc_, this);
-            if (built_.size() == 1) {
-                out_ = built_.first();
-                index_++;
-                continue;
-            }
-            return null;
-        }
-        if (!StringList.contains(_readyTypes, out_)) {
-            if (_static != null) {
-                if (_static) {
-                    return EMPTY_TYPE;
-                }
-            }
+            out_ = inner_;
         }
         return out_;
     }
 
-    private String getPrefixedMemberType(String _type, RootBlock _rooted) {
+    private String getInner(StringList _readyTypes, String _owner, String _name) {
+        if (!StringList.contains(_readyTypes, _owner)) {
+            return EMPTY_TYPE;
+        }
+        StringList built_ = TypeUtil.getInners(_owner, _name, this);
+        if (built_.onlyOneElt()) {
+            return built_.first();
+        }
+        return null;
+    }
+
+    private String getOtherPartsDirect(StringList _inners, String _res, int _first,
+                                       StringList _readyTypes) {
+        String value_ = getOtherParts(_inners, _res, _first, _readyTypes);
+        if (value_ == null) {
+            return null;
+        }
+        if (!StringList.contains(_readyTypes, value_)) {
+            return EMPTY_TYPE;
+        }
+        return value_;
+    }
+
+    private String getRealPrefixedMemberType(String _type, AccessingImportingBlock _rooted) {
         String look_ = _type.trim();
         StringList types_ = new StringList();
         CustList<StringList> imports_ = new CustList<StringList>();
@@ -1845,78 +1704,18 @@ public abstract class ContextEl implements ExecutableCode {
                     continue;
                 }
                 String typeLoc_ = removeDottedSpaces(StringList.concat(begin_, look_));
-                String type_ = getRealType(typeLoc_, keyWords);
-                if (getClassBody(type_) == null) {
-                    continue;
-                }
-                types_.add(typeLoc_);
-            }
-            if (types_.size() == 1) {
-                return types_.first();
-            }
-            types_.clear();
-        }
-        for (StringList s: imports_) {
-            for (String i: s) {
-                String tr_ = i.trim();
-                if (!tr_.contains("..")) {
-                    continue;
-                }
-                String end_ = removeDottedSpaces(tr_.substring(tr_.lastIndexOf("..")+2));
-                if (!StringList.quickEq(end_, "*")) {
-                    continue;
-                }
-                String begin_ = removeDottedSpaces(tr_.substring(0, tr_.lastIndexOf("..")));
-                String typeLoc_ = StringList.concat(begin_,"..",look_);
-                String type_ = getRealType(typeLoc_, keyWords);
-                if (getClassBody(type_) == null) {
-                    continue;
-                }
-                types_.add(typeLoc_);
-            }
-            if (types_.size() == 1) {
-                return types_.first();
-            }
-            types_.clear();
-        }
-        return EMPTY_TYPE;
-    }
-
-    private static String getRealType(String _typeLoc, KeyWords _keyWords) {
-        String type_ = _typeLoc;
-        if (startsWithKeyWord(type_, _keyWords.getKeyWordStatic())) {
-            type_ = type_.substring(_keyWords.getKeyWordStatic().length()).trim();
-        }
-        return type_;
-    }
-
-    private String getRealPrefixedMemberType(String _type, AccessingImportingBlock _rooted, boolean _inherits, boolean _line) {
-        String look_ = _type.trim();
-        StringList types_ = new StringList();
-        CustList<StringList> imports_ = new CustList<StringList>();
-        fetchImports(_rooted, imports_);
-        for (StringList s: imports_) {
-            for (String i: s) {
-                String tr_ = i.trim();
-                if (!tr_.contains("..")) {
-                    continue;
-                }
-                String begin_ = removeDottedSpaces(tr_.substring(0, tr_.lastIndexOf("..")+2));
-                String end_ = removeDottedSpaces(tr_.substring(tr_.lastIndexOf("..")+2));
-                if (!StringList.quickEq(end_, look_)) {
-                    continue;
-                }
-                String typeLoc_ = removeDottedSpaces(StringList.concat(begin_, look_));
-                String ft_ = exist(typeLoc_, _rooted, _inherits,_line);
+                String ft_ = exist(typeLoc_);
                 if (ft_.isEmpty()) {
                     continue;
                 }
                 types_.add(ft_);
             }
-            if (types_.size() == 1) {
-                return types_.first();
-            }
-            types_.clear();
+        }
+        if (types_.onlyOneElt()) {
+            return types_.first();
+        }
+        if (!types_.isEmpty()) {
+            return EMPTY_TYPE;
         }
         for (StringList s: imports_) {
             for (String i: s) {
@@ -1930,236 +1729,31 @@ public abstract class ContextEl implements ExecutableCode {
                 }
                 String begin_ = removeDottedSpaces(tr_.substring(0, tr_.lastIndexOf("..")+2));
                 String typeLoc_ = StringList.concat(begin_,look_);
-                String ft_ = exist(typeLoc_, _rooted, _inherits,_line);
+                String ft_ = exist(typeLoc_);
                 if (ft_.isEmpty()) {
                     continue;
                 }
                 types_.add(ft_);
             }
-            if (types_.size() == 1) {
-                return types_.first();
-            }
-            types_.clear();
         }
-        return EMPTY_TYPE;
-    }
-    private String getSinglePrefixedMemberType(String _type, RootBlock _rooted) {
-        String look_ = _type.trim();
-        StringList types_ = new StringList();
-        CustList<StringList> imports_ = new CustList<StringList>();
-        String keyWordStatic_ = keyWords.getKeyWordStatic();
-        fetchImports(_rooted, imports_);
-        for (StringList s: imports_) {
-            for (String i: s) {
-                String tr_ = i.trim();
-                if (!tr_.contains(".")) {
-                    continue;
-                }
-                String begin_ = removeDottedSpaces(tr_.substring(0, tr_.lastIndexOf('.')+1));
-                String end_ = removeDottedSpaces(tr_.substring(tr_.lastIndexOf('.')+1));
-                if (!StringList.quickEq(end_, look_)) {
-                    continue;
-                }
-                String beginImp_ = begin_;
-                String pre_ = EMPTY_PREFIX;
-                if (startsWithKeyWord(begin_, keyWordStatic_)) {
-                    beginImp_ = beginImp_.substring(keyWordStatic_.length()).trim();
-                    pre_ = keyWordStatic_;
-                }
-                String typeInner_ = StringList.concat(beginImp_, look_);
-                String foundCandidate_ = StringList.join(Templates.getAllInnerTypesSingleDotted(typeInner_, this), "..");
-                addIfExist(types_, pre_, foundCandidate_);
-            }
-            if (types_.size() == 1) {
-                return types_.first();
-            }
-            types_.clear();
+        if (types_.onlyOneElt()) {
+            return types_.first();
         }
-        String type_ = removeDottedSpaces(StringList.concat(_rooted.getPackageName(),".",_type));
-        if (classes.isCustomType(type_)) {
-            return type_;
-        }
-        for (StringList s: imports_) {
-            for (String i: s) {
-                String tr_ = i.trim();
-                if (!tr_.contains(".")) {
-                    continue;
-                }
-                String end_ = removeDottedSpaces(tr_.substring(tr_.lastIndexOf('.')+1));
-                if (!StringList.quickEq(end_, "*")) {
-                    continue;
-                }
-                String begin_ = removeDottedSpaces(tr_.substring(0, tr_.lastIndexOf('.')+1));
-                String beginImp_ = begin_;
-                String pre_ = EMPTY_PREFIX;
-                if (startsWithKeyWord(begin_, keyWordStatic_)) {
-                    beginImp_ = beginImp_.substring(keyWordStatic_.length()).trim();
-                    pre_ = keyWordStatic_;
-                }
-                String typeInner_ = StringList.concat(beginImp_, look_);
-                String foundCandidate_ = StringList.join(Templates.getAllInnerTypesSingleDotted(typeInner_, this), "..");
-                addIfExist(types_, pre_, foundCandidate_);
-            }
-            if (types_.size() == 1) {
-                return types_.first();
-            }
-            types_.clear();
-        }
-        return EMPTY_TYPE;
-    }
-
-    private void addIfExist(StringList _types, String _pre, String _foundCandidate) {
-        if (getClassBody(_foundCandidate) != null) {
-            String typeLoc_ = removeDottedSpaces(StringList.concat(_pre, " ", _foundCandidate));
-            _types.add(typeLoc_);
-        }
-    }
-
-    private TypeOwnersDepends getRealSinglePrefixedMemberType(String _type, RootBlock _rooted) {
-        String look_ = _type.trim();
-        CustList<TypeOwnersDepends> types_ = new CustList<TypeOwnersDepends>();
-        CustList<StringList> imports_ = new CustList<StringList>();
-        String keyWordStatic_ = keyWords.getKeyWordStatic();
-        imports_.add(_rooted.getImports());
-        for (RootBlock r: _rooted.getAllParentTypes()) {
-            imports_.add(r.getImports());
-        }
-        imports_.add(_rooted.getFile().getImports());
-        for (StringList s: imports_) {
-            for (String i: s) {
-                if (!i.contains(".")) {
-                    continue;
-                }
-                String begin_ = removeDottedSpaces(i.substring(0, i.lastIndexOf('.')+1));
-                String end_ = removeDottedSpaces(i.substring(i.lastIndexOf('.')+1));
-                if (!StringList.quickEq(end_, look_)) {
-                    continue;
-                }
-                String beginImp_ = begin_;
-                String pre_ = EMPTY_PREFIX;
-                if (startsWithKeyWord(begin_, keyWordStatic_)) {
-                    beginImp_ = beginImp_.substring(keyWordStatic_.length()).trim();
-                    pre_ = keyWordStatic_;
-                }
-                String typeInner_ = StringList.concat(beginImp_, look_);
-                String foundCandidate_ = StringList.join(Templates.getAllInnerTypesSingleDotted(typeInner_, this), "..");
-                String typeLoc_ = removeDottedSpaces(StringList.concat(pre_," ", foundCandidate_));
-                TypeOwnersDepends deps_ = exist(typeLoc_, _rooted);
-                if (deps_ == null) {
-                    continue;
-                }
-                types_.add(deps_);
-            }
-            if (types_.size() == 1) {
-                return types_.first();
-            }
-            types_.clear();
-        }
-        String type_ = removeDottedSpaces(StringList.concat(_rooted.getPackageName(),".",_type));
-        if (classes.isCustomType(type_)) {
-            TypeOwnersDepends out_ = new TypeOwnersDepends();
-            out_.getTypeOwners().add(type_);
-            return out_;
-        }
-        for (StringList s: imports_) {
-            for (String i: s) {
-                if (!i.contains(".")) {
-                    continue;
-                }
-                String end_ = removeDottedSpaces(i.substring(i.lastIndexOf('.')+1));
-                if (!StringList.quickEq(end_, "*")) {
-                    continue;
-                }
-                String begin_ = removeDottedSpaces(i.substring(0, i.lastIndexOf('.')+1));
-                String beginImp_ = begin_;
-                String pre_ = EMPTY_PREFIX;
-                if (startsWithKeyWord(begin_, keyWordStatic_)) {
-                    beginImp_ = beginImp_.substring(keyWordStatic_.length()).trim();
-                    pre_ = keyWordStatic_;
-                }
-                String typeInner_ = StringList.concat(beginImp_, look_);
-                String foundCandidate_ = StringList.join(Templates.getAllInnerTypesSingleDotted(typeInner_, this), "..");
-                String typeLoc_ = removeDottedSpaces(StringList.concat(pre_," ", foundCandidate_));
-                TypeOwnersDepends deps_ = exist(typeLoc_, _rooted);
-                if (deps_ == null) {
-                    continue;
-                }
-                types_.add(deps_);
-            }
-            if (types_.size() == 1) {
-                return types_.first();
-            }
-            types_.clear();
+        if (!types_.isEmpty()) {
+            return EMPTY_TYPE;
         }
         String defPkg_ = standards.getDefaultPkg();
-        type_ = removeDottedSpaces(StringList.concat(defPkg_,".",_type));
+        String type_ = removeDottedSpaces(StringList.concat(defPkg_,".",_type));
         if (getClassBody(type_) != null) {
-            TypeOwnersDepends out_ = new TypeOwnersDepends();
-            out_.getTypeOwners().add(type_);
-            return out_;
+            return type_;
         }
-        return new TypeOwnersDepends();
+        return EMPTY_TYPE;
     }
-    private TypeOwnersDepends getRealPrefixedMemberType(String _type, RootBlock _rooted) {
-        String look_ = _type.trim();
-        CustList<TypeOwnersDepends> types_ = new CustList<TypeOwnersDepends>();
-        CustList<StringList> imports_ = new CustList<StringList>();
-        imports_.add(_rooted.getImports());
-        for (RootBlock r: _rooted.getAllParentTypes()) {
-            imports_.add(r.getImports());
-        }
-        imports_.add(_rooted.getFile().getImports());
-        for (StringList s: imports_) {
-            for (String i: s) {
-                if (!i.contains("..")) {
-                    continue;
-                }
-                String begin_ = removeDottedSpaces(i.substring(0, i.lastIndexOf("..")+2));
-                String end_ = removeDottedSpaces(i.substring(i.lastIndexOf("..")+2));
-                if (!StringList.quickEq(end_, look_)) {
-                    continue;
-                }
-                String typeLoc_ = removeDottedSpaces(StringList.concat(begin_, look_));
-                TypeOwnersDepends deps_ = exist(typeLoc_, _rooted);
-                if (deps_ == null) {
-                    continue;
-                }
-                types_.add(deps_);
-            }
-            if (types_.size() == 1) {
-                return types_.first();
-            }
-            types_.clear();
-        }
-        for (StringList s: imports_) {
-            for (String i: s) {
-                if (!i.contains("..")) {
-                    continue;
-                }
-                String end_ = removeDottedSpaces(i.substring(i.lastIndexOf("..")+2));
-                if (!StringList.quickEq(end_, "*")) {
-                    continue;
-                }
-                String begin_ = removeDottedSpaces(i.substring(0, i.lastIndexOf("..")));
-                String typeLoc_ = StringList.concat(begin_,"..",look_);
-                TypeOwnersDepends deps_ = exist(typeLoc_, _rooted);
-                if (deps_ == null) {
-                    continue;
-                }
-                types_.add(deps_);
-            }
-            if (types_.size() == 1) {
-                return types_.first();
-            }
-            types_.clear();
-        }
-        return new TypeOwnersDepends();
-    }
-    private String getRealSinglePrefixedMemberType(String _type, AccessingImportingBlock _rooted, boolean _inherits, boolean _line) {
+
+    private String getRealSinglePrefixedMemberType(String _type, AccessingImportingBlock _rooted, boolean _inherits, StringList _readTypes) {
         String look_ = _type.trim();
         StringList types_ = new StringList();
         CustList<StringList> imports_ = new CustList<StringList>();
-        String keyWordStatic_ = keyWords.getKeyWordStatic();
         fetchImports(_rooted, imports_);
         for (StringList s: imports_) {
             for (String i: s) {
@@ -2167,30 +1761,20 @@ public abstract class ContextEl implements ExecutableCode {
                 if (!tr_.contains(".")) {
                     continue;
                 }
-                String begin_ = removeDottedSpaces(tr_.substring(0, tr_.lastIndexOf('.')+1));
                 String end_ = removeDottedSpaces(tr_.substring(tr_.lastIndexOf('.')+1));
                 if (!StringList.quickEq(end_, look_)) {
                     continue;
                 }
-                String beginImp_ = begin_;
-                String pre_ = EMPTY_PREFIX;
-                if (startsWithKeyWord(begin_, keyWordStatic_)) {
-                    beginImp_ = beginImp_.substring(keyWordStatic_.length()).trim();
-                    pre_ = keyWordStatic_;
+                if (stopLookup(types_,tr_,look_,_inherits,_readTypes)) {
+                    return EMPTY_TYPE;
                 }
-                String typeInner_ = StringList.concat(beginImp_, look_);
-                String foundCandidate_ = StringList.join(Templates.getAllInnerTypesSingleDotted(typeInner_, this), "..");
-                String typeLoc_ = removeDottedSpaces(StringList.concat(pre_," ", foundCandidate_));
-                String ft_ = exist(typeLoc_, _rooted, _inherits,_line);
-                if (ft_.isEmpty()) {
-                    continue;
-                }
-                types_.add(ft_);
             }
-            if (types_.size() == 1) {
-                return types_.first();
-            }
-            types_.clear();
+        }
+        if (types_.onlyOneElt()) {
+            return types_.first();
+        }
+        if (!types_.isEmpty()) {
+            return EMPTY_TYPE;
         }
         if (_rooted instanceof RootBlock) {
             RootBlock r_ = (RootBlock) _rooted;
@@ -2209,26 +1793,16 @@ public abstract class ContextEl implements ExecutableCode {
                 if (!StringList.quickEq(end_, "*")) {
                     continue;
                 }
-                String begin_ = removeDottedSpaces(tr_.substring(0, tr_.lastIndexOf('.')+1));
-                String beginImp_ = begin_;
-                String pre_ = EMPTY_PREFIX;
-                if (startsWithKeyWord(begin_, keyWordStatic_)) {
-                    beginImp_ = beginImp_.substring(keyWordStatic_.length()).trim();
-                    pre_ = keyWordStatic_;
+                if (stopLookup(types_,tr_,look_,_inherits,_readTypes)) {
+                    return EMPTY_TYPE;
                 }
-                String typeInner_ = StringList.concat(beginImp_, look_);
-                String foundCandidate_ = StringList.join(Templates.getAllInnerTypesSingleDotted(typeInner_, this), "..");
-                String typeLoc_ = removeDottedSpaces(StringList.concat(pre_," ", foundCandidate_));
-                String ft_ = exist(typeLoc_, _rooted, _inherits,_line);
-                if (ft_.isEmpty()) {
-                    continue;
-                }
-                types_.add(ft_);
             }
-            if (types_.size() == 1) {
-                return types_.first();
-            }
-            types_.clear();
+        }
+        if (types_.onlyOneElt()) {
+            return types_.first();
+        }
+        if (!types_.isEmpty()) {
+            return EMPTY_TYPE;
         }
         String defPkg_ = standards.getDefaultPkg();
         String type_ = removeDottedSpaces(StringList.concat(defPkg_,".",_type));
@@ -2237,8 +1811,46 @@ public abstract class ContextEl implements ExecutableCode {
         }
         return EMPTY_TYPE;
     }
-    @Override
-    public String lookupImportType(String _type, AccessedBlock _rooted) {
+
+    private boolean stopLookup(StringList _types, String _import, String _look, boolean _inherits, StringList _readTypes) {
+        String begin_ = removeDottedSpaces(_import.substring(0, _import.lastIndexOf('.')+1));
+        String beginImp_ = begin_;
+        String keyWordStatic_ = keyWords.getKeyWordStatic();
+        boolean stQualifier_ = false;
+        if (startsWithKeyWord(begin_, keyWordStatic_)) {
+            beginImp_ = beginImp_.substring(keyWordStatic_.length()).trim();
+            stQualifier_ = true;
+        }
+        String typeInner_ = StringList.concat(beginImp_, _look);
+        String foundCandidate_ = StringList.join(Templates.getAllInnerTypesSingleDotted(typeInner_, this), "..");
+        StringList allInnerTypes_ = Templates.getAllInnerTypes(foundCandidate_);
+        String owner_ = allInnerTypes_.first();
+        GeneType cl_ = getClassBody(owner_);
+        String res_ = owner_;
+        boolean addImport_ = true;
+        if (cl_ != null) {
+            for (String i: allInnerTypes_.mid(1)) {
+                String i_ = i.trim();
+                if (_inherits && !StringList.contains(_readTypes,res_)) {
+                    return true;
+                }
+                StringList builtInners_ = TypeUtil.getOwners(res_, i_, stQualifier_, this);
+                if (builtInners_.onlyOneElt()) {
+                    res_ = StringList.concat(builtInners_.first(),"..",i_);
+                    continue;
+                }
+                addImport_ = false;
+                break;
+            }
+        } else {
+            addImport_ = false;
+        }
+        if (addImport_) {
+            _types.add(res_);
+        }
+        return false;
+    }
+    public String lookupSingleImportTypeDoubleDot(String _type, AccessedBlock _rooted) {
         String look_ = _type.trim();
         StringList types_ = new StringList();
         CustList<StringList> imports_ = new CustList<StringList>();
@@ -2264,10 +1876,12 @@ public abstract class ContextEl implements ExecutableCode {
                 }
                 types_.add(typeLoc_);
             }
-            if (types_.size() == 1) {
-                return types_.first();
-            }
-            types_.clear();
+        }
+        if (types_.onlyOneElt()) {
+            return types_.first();
+        }
+        if (!types_.isEmpty()) {
+            return EMPTY_TYPE;
         }
         if (_rooted instanceof RootBlock) {
             RootBlock r_ = (RootBlock) _rooted;
@@ -2296,86 +1910,12 @@ public abstract class ContextEl implements ExecutableCode {
                 }
                 types_.add(typeLoc_);
             }
-            if (types_.size() == 1) {
-                return types_.first();
-            }
-            types_.clear();
         }
-        String defPkg_ = standards.getDefaultPkg();
-        String type_ = removeDottedSpaces(StringList.concat(defPkg_,".",_type));
-        if (getClassBody(type_) != null) {
-            return type_;
+        if (types_.onlyOneElt()) {
+            return types_.first();
         }
-        return EMPTY_TYPE;
-    }
-    @Override
-    public String lookupSingleImportType(String _type,
-                                         AccessedBlock _rooted) {
-        String look_ = _type.trim();
-        StringList types_ = new StringList();
-        CustList<StringList> imports_ = new CustList<StringList>();
-        fetchImports(_rooted, imports_);
-        String keyWordStatic_ = keyWords.getKeyWordStatic();
-        for (StringList s: imports_) {
-            for (String i: s) {
-                String tr_ = i.trim();
-                if (!tr_.contains(".")) {
-                    continue;
-                }
-                String typeImp_ = tr_;
-                if (startsWithKeyWord(tr_, keyWordStatic_)) {
-                    typeImp_ = tr_.substring(keyWordStatic_.length()).trim();
-                }
-                String begin_ = removeDottedSpaces(typeImp_.substring(0, typeImp_.lastIndexOf('.')+1));
-                String end_ = removeDottedSpaces(typeImp_.substring(typeImp_.lastIndexOf('.')+1));
-                if (!StringList.quickEq(end_, look_)) {
-                    continue;
-                }
-                String typeLoc_ = removeDottedSpaces(StringList.concat(begin_, look_));
-                String foundCandidate_ = StringList.join(Templates.getAllInnerTypesSingleDotted(typeLoc_, this), "..");
-                if (getClassBody(foundCandidate_) == null) {
-                    continue;
-                }
-                types_.add(foundCandidate_);
-            }
-            if (types_.size() == 1) {
-                return types_.first();
-            }
-            types_.clear();
-        }
-        if (_rooted instanceof RootBlock) {
-            RootBlock r_ = (RootBlock) _rooted;
-            String type_ = removeDottedSpaces(StringList.concat(r_.getPackageName(),".",_type));
-            if (classes.isCustomType(type_)) {
-                return type_;
-            }
-        }
-        for (StringList s: imports_) {
-            for (String i: s) {
-                String tr_ = i.trim();
-                if (!tr_.contains(".")) {
-                    continue;
-                }
-                String typeImp_ = tr_;
-                if (startsWithKeyWord(tr_, keyWordStatic_)) {
-                    typeImp_ = tr_.substring(keyWordStatic_.length()).trim();
-                }
-                String end_ = removeDottedSpaces(typeImp_.substring(typeImp_.lastIndexOf('.')+1));
-                if (!StringList.quickEq(end_, "*")) {
-                    continue;
-                }
-                String begin_ = removeDottedSpaces(typeImp_.substring(0, typeImp_.lastIndexOf('.')+1));
-                String typeLoc_ = StringList.concat(begin_,look_);
-                String foundCandidate_ = StringList.join(Templates.getAllInnerTypesSingleDotted(typeLoc_, this), "..");
-                if (getClassBody(foundCandidate_) == null) {
-                    continue;
-                }
-                types_.add(foundCandidate_);
-            }
-            if (types_.size() == 1) {
-                return types_.first();
-            }
-            types_.clear();
+        if (!types_.isEmpty()) {
+            return EMPTY_TYPE;
         }
         String defPkg_ = standards.getDefaultPkg();
         String type_ = removeDottedSpaces(StringList.concat(defPkg_,".",_type));
@@ -2417,7 +1957,8 @@ public abstract class ContextEl implements ExecutableCode {
                 }
                 String st_ = tr_.substring(keyWordStatic_.length()).trim();
                 String typeLoc_ = removeDottedSpaces(st_.substring(0,st_.lastIndexOf('.')));
-                GeneType root_ = getClassBody(typeLoc_);
+                String foundCandidate_ = resolveCandidate(typeLoc_);
+                GeneType root_ = getClassBody(foundCandidate_);
                 if (root_ == null) {
                     continue;
                 }
@@ -2425,9 +1966,9 @@ public abstract class ContextEl implements ExecutableCode {
                 if (!StringList.quickEq(end_, _method.trim())) {
                     continue;
                 }
-                StringList typesLoc_ = new StringList(typeLoc_);
+                StringList typesLoc_ = new StringList(foundCandidate_);
                 typesLoc_.addAllElts(root_.getAllSuperTypes());
-                fetchImportStaticMethods(_glClass, _method, methods_, import_, typeLoc_, typesLoc_);
+                fetchImportStaticMethods(_glClass, _method, methods_, import_, foundCandidate_, typesLoc_);
             }
             import_++;
         }
@@ -2446,13 +1987,14 @@ public abstract class ContextEl implements ExecutableCode {
                     continue;
                 }
                 String typeLoc_ = removeDottedSpaces(st_.substring(0,st_.lastIndexOf('.')));
-                GeneType root_ = getClassBody(typeLoc_);
+                String foundCandidate_ = resolveCandidate(typeLoc_);
+                GeneType root_ = getClassBody(foundCandidate_);
                 if (root_ == null) {
                     continue;
                 }
-                StringList typesLoc_ = new StringList(typeLoc_);
+                StringList typesLoc_ = new StringList(foundCandidate_);
                 typesLoc_.addAllElts(root_.getAllSuperTypes());
-                fetchImportStaticMethods(_glClass, _method, methods_, import_, typeLoc_, typesLoc_);
+                fetchImportStaticMethods(_glClass, _method, methods_, import_, foundCandidate_, typesLoc_);
             }
             import_++;
         }
@@ -2484,8 +2026,8 @@ public abstract class ContextEl implements ExecutableCode {
     }
 
     @Override
-    public ObjectMap<ClassField,Integer> lookupImportStaticFields(String _glClass,String _method, Block _rooted) {
-        ObjectMap<ClassField,Integer> methods_ = new ObjectMap<ClassField,Integer>();
+    public ObjectMap<ClassField,ImportedField> lookupImportStaticFields(String _glClass,String _method, Block _rooted) {
+        ObjectMap<ClassField,ImportedField> methods_ = new ObjectMap<ClassField,ImportedField>();
         int import_ = 1;
         AccessingImportingBlock type_ = analyzing.getImporting();
         CustList<StringList> imports_ = new CustList<StringList>();
@@ -2502,7 +2044,8 @@ public abstract class ContextEl implements ExecutableCode {
                 }
                 String st_ = tr_.substring(keyWordStatic_.length()).trim();
                 String typeLoc_ = removeDottedSpaces(st_.substring(0,st_.lastIndexOf('.')));
-                GeneType root_ = getClassBody(typeLoc_);
+                String foundCandidate_ = resolveCandidate(typeLoc_);
+                GeneType root_ = getClassBody(foundCandidate_);
                 if (root_ == null) {
                     continue;
                 }
@@ -2510,9 +2053,9 @@ public abstract class ContextEl implements ExecutableCode {
                 if (!StringList.quickEq(end_, _method.trim())) {
                     continue;
                 }
-                StringList typesLoc_ = new StringList(typeLoc_);
+                StringList typesLoc_ = new StringList(foundCandidate_);
                 typesLoc_.addAllElts(root_.getAllSuperTypes());
-                fetchImportStaticFields(_glClass, _method, methods_, import_, typeLoc_, typesLoc_);
+                fetchImportStaticFields(_glClass, _method, methods_, import_, foundCandidate_, typesLoc_);
             }
             import_++;
         }
@@ -2531,43 +2074,89 @@ public abstract class ContextEl implements ExecutableCode {
                     continue;
                 }
                 String typeLoc_ = removeDottedSpaces(st_.substring(0,st_.lastIndexOf('.')));
-                GeneType root_ = getClassBody(typeLoc_);
+                String foundCandidate_ = resolveCandidate(typeLoc_);
+                GeneType root_ = getClassBody(foundCandidate_);
                 if (root_ == null) {
                     continue;
                 }
-                StringList typesLoc_ = new StringList(typeLoc_);
+                StringList typesLoc_ = new StringList(foundCandidate_);
                 typesLoc_.addAllElts(root_.getAllSuperTypes());
-                fetchImportStaticFields(_glClass, _method, methods_, import_, typeLoc_, typesLoc_);
+                fetchImportStaticFields(_glClass, _method, methods_, import_, foundCandidate_, typesLoc_);
             }
             import_++;
         }
         return methods_;
     }
 
-    private void fetchImportStaticFields(String _glClass, String _method, ObjectMap<ClassField, Integer> _methods, int _import, String _typeLoc, StringList _typesLoc) {
+    public String resolveCandidate(String _c) {
+        StringList allInnerTypes_ = getParts(_c);
+        String owner_ = allInnerTypes_.first();
+        GeneType cl_ = getClassBody(owner_);
+        String res_ = owner_;
+        if (cl_ != null) {
+            for (String i: allInnerTypes_.mid(1)) {
+                String i_ = i.trim();
+                StringList builtInners_ = TypeUtil.getOwners(res_, i_, false, this);
+                if (builtInners_.onlyOneElt()) {
+                    res_ = StringList.concat(builtInners_.first(),"..",i_);
+                    continue;
+                }
+                break;
+            }
+        }
+        return res_;
+    }
+
+    public StringList getParts(String _c) {
+        StringList allInnerTypes_;
+        if (options.isSingleInnerParts()) {
+            allInnerTypes_ = Templates.getAllInnerTypesSingleDotted(_c, this);
+        } else {
+            allInnerTypes_ = Templates.getAllInnerTypes(_c);
+        }
+        return allInnerTypes_;
+    }
+
+    private void fetchImportStaticFields(String _glClass, String _method, ObjectMap<ClassField, ImportedField> _methods, int _import, String _typeLoc, StringList _typesLoc) {
+        fetchImportStaticFields(this,_glClass,_method,_methods,_import,_typeLoc,_typesLoc);
+    }
+
+    public static void fetchImportStaticFields(Analyzable _analyzable,String _glClass, String _method, ObjectMap<ClassField, ImportedField> _methods, int _import, String _typeLoc, StringList _typesLoc) {
         for (String s: _typesLoc) {
-            GeneType super_ = getClassBody(s);
-            for (GeneField e: ContextEl.getFieldBlocks(super_)) {
-                if (!e.isStaticField()) {
-                    continue;
-                }
-                if (!StringList.contains(e.getFieldName(), _method.trim())) {
-                    continue;
-                }
-                if (e instanceof AccessibleBlock) {
-                    if (!Classes.canAccess(_typeLoc, (AccessibleBlock)e, this)) {
+            GeneType super_ = _analyzable.getClassBody(s);
+            if (super_ instanceof StandardType) {
+                for (StandardField m: ((StandardType)super_).getFields().values()) {
+                    if (notMatch(_method, m)) {
                         continue;
                     }
-                    if (!Classes.canAccess(_glClass, (AccessibleBlock)e, this)) {
+                    ClassField field_ = new ClassField(s, _method);
+                    _methods.add(field_, new ImportedField(_import,m));
+                }
+            } else {
+                for (InfoBlock e: ContextEl.getFieldBlocks((RootBlock) super_)) {
+                    if (notMatch(_method, e)) {
                         continue;
                     }
+                    if (e instanceof AccessibleBlock) {
+                        if (!Classes.canAccess(_typeLoc, (AccessibleBlock)e, _analyzable)) {
+                            continue;
+                        }
+                        if (!Classes.canAccess(_glClass, (AccessibleBlock)e, _analyzable)) {
+                            continue;
+                        }
+                    }
+                    ClassField field_ = new ClassField(s, _method);
+                    _methods.add(field_, new ImportedField(_import,e));
                 }
-                ClassField field_ = new ClassField(s, _method);
-                _methods.add(field_, _import);
             }
         }
     }
-
+    private static boolean notMatch(String _method, GeneField _field) {
+        if (!_field.isStaticField()) {
+            return true;
+        }
+        return !StringList.contains(_field.getFieldName(), _method.trim());
+    }
     public static boolean isDigit(char _char) {
         return _char >= '0' && _char <= '9';
     }
@@ -2633,7 +2222,7 @@ public abstract class ContextEl implements ExecutableCode {
                 String type_ = i_.getImportedClassName();
                 boolean final_ = i_.isFinalField();
                 boolean static_ = i_.isStaticField();
-                return FieldInfo.newFieldMetaInfo(search_, g_.getFullName(), type_, static_, final_);
+                return FieldInfo.newFieldMetaInfo(search_, g_.getFullName(), type_, static_, final_,i_);
             }
         } else if (g_ instanceof StandardType) {
             for (EntryCust<String, StandardField> f: ((StandardType)g_).getFields().entryList()) {
@@ -2644,7 +2233,7 @@ public abstract class ContextEl implements ExecutableCode {
                 String type_ = f_.getImportedClassName();
                 boolean final_ = f_.isFinalField();
                 boolean static_ = f_.isStaticField();
-                return FieldInfo.newFieldMetaInfo(search_, g_.getFullName(), type_, static_, final_);
+                return FieldInfo.newFieldMetaInfo(search_, g_.getFullName(), type_, static_, final_, f_);
             }
         }
         return null;
@@ -2866,6 +2455,11 @@ public abstract class ContextEl implements ExecutableCode {
         return isValidToken(_id, pred_);
     }
 
+    @Override
+    public boolean isHidden(AccessingImportingBlock _global, RootBlock _type) {
+        return _global.isTypeHidden(_type,this);
+    }
+
     public boolean isValidToken(String _id, boolean _pred) {
         if (_pred) {
             if (!StringList.isDollarWord(_id)) {
@@ -2885,20 +2479,12 @@ public abstract class ContextEl implements ExecutableCode {
         if (StringList.quickEq(_id, standards.getAliasVoid())) {
             return false;
         }
-        if (options.getSuffixVar() == VariableSuffix.NONE) {
-            return !isDigit(_id.charAt(0));
-        }
-        return true;
+        return !isDigit(_id.charAt(0));
     }
 
     @Override
     public void processInternKeyWord(String _exp, int _fr, ResultAfterInstKeyWord _out) {
         //because of looping on characters
-    }
-
-    @Override
-    public boolean isHiddenType(AccessingImportingBlock _rooted, RootBlock _type) {
-        return _rooted.isTypeHidden(_type,this);
     }
 
     @Override

@@ -2,7 +2,7 @@ package code.expressionlanguage.opers;
 
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.errors.custom.BadAccessClass;
+import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.instr.PartOffset;
@@ -37,17 +37,21 @@ public final class StaticCallAccessOperation extends LeafOperation {
             partOffsets = new CustList<PartOffset>();
         }
         if (classStr_.startsWith(Templates.PREFIX_VAR_TYPE)) {
-            BadAccessClass badAccess_ = new BadAccessClass();
-            badAccess_.setId(classStr_);
+            FoundErrorInterpret badAccess_ = new FoundErrorInterpret();
             badAccess_.setIndexFile(_conf.getCurrentLocationIndex());
             badAccess_.setFileName(_conf.getCurrentFileName());
+            //type len
+            badAccess_.buildError(_conf.getContextEl().getAnalysisMessages().getUnexpectedType(),
+                    classStr_);
             _conf.addError(badAccess_);
         }
         if (classStr_.startsWith(Templates.ARR_BEG_STRING)) {
-            BadAccessClass badAccess_ = new BadAccessClass();
-            badAccess_.setId(classStr_);
+            FoundErrorInterpret badAccess_ = new FoundErrorInterpret();
             badAccess_.setIndexFile(_conf.getCurrentLocationIndex());
             badAccess_.setFileName(_conf.getCurrentFileName());
+            //type len
+            badAccess_.buildError(_conf.getContextEl().getAnalysisMessages().getUnexpectedType(),
+                    classStr_);
             _conf.addError(badAccess_);
         }
         boolean ok_ = true;
@@ -60,10 +64,12 @@ public final class StaticCallAccessOperation extends LeafOperation {
             }
         }
         if (!ok_) {
-            BadAccessClass badAccess_ = new BadAccessClass();
-            badAccess_.setId(classStr_);
+            FoundErrorInterpret badAccess_ = new FoundErrorInterpret();
             badAccess_.setIndexFile(_conf.getCurrentLocationIndex());
             badAccess_.setFileName(_conf.getCurrentFileName());
+            //type len
+            badAccess_.buildError(_conf.getContextEl().getAnalysisMessages().getUnexpectedType(),
+                    classStr_);
             _conf.addError(badAccess_);
         }
         checkClassAccess(_conf, glClass_, classStr_);

@@ -1222,12 +1222,12 @@ public final class MainWindow extends NetGroupFrame {
         exitFromTrading();
         resetIndexInGame();
         closeConnexion(_socket);
-        if (_exit.isClosing()) {
+        if (_exit != null && _exit.isClosing()) {
             dispose();
             return;
         }
         pack();
-        if (_exit.isForced() && !_exit.isBusy()) {
+        if (_exit != null && _exit.isForced() && !_exit.isBusy()) {
             if (_exit.isTooManyPlayers()) {
                 ConfirmDialog.showMessage(this, getTooManyString(), getTooManyString(), getLanguageKey(), JOptionPane.ERROR_MESSAGE);
                 //JOptionPane.showMessageDialog(window, MainWindow.getTooManyString(), MainWindow.getTooManyString(), JOptionPane.INFORMATION_MESSAGE);

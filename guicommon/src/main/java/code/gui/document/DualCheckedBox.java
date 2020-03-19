@@ -2,6 +2,7 @@ package code.gui.document;
 
 import code.formathtml.render.IntCheckBox;
 import code.formathtml.render.MetaCheckedBox;
+import code.formathtml.util.BeanLgNames;
 import code.gui.CustCheckBox;
 import code.gui.CustComponent;
 
@@ -24,9 +25,9 @@ public final class DualCheckedBox extends DualInput implements IntCheckBox {
     @Override
     public String getValue() {
         if (check.isSelected()) {
-            return "on";
+            return BeanLgNames.ON;
         }
-        return "off";
+        return BeanLgNames.OFF;
     }
 
 }

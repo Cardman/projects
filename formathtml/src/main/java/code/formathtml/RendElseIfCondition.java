@@ -1,11 +1,12 @@
 package code.formathtml;
 
 import code.expressionlanguage.ConditionReturn;
-import code.expressionlanguage.errors.custom.UnexpectedTagName;
+import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.formathtml.stacks.RendIfStack;
 import code.formathtml.stacks.RendReadWrite;
+import code.util.StringList;
 
 public final class RendElseIfCondition extends RendCondition implements RendBreakableBlock {
     RendElseIfCondition(OffsetStringInfo _condition, OffsetsBlock _offset) {
@@ -31,15 +32,31 @@ public final class RendElseIfCondition extends RendCondition implements RendBrea
         if (!(pBlock_ instanceof RendIfCondition)) {
             if (!(pBlock_ instanceof RendElseIfCondition)) {
                 if (!(pBlock_ instanceof RendPossibleEmpty)) {
-                    UnexpectedTagName un_ = new UnexpectedTagName();
+                    FoundErrorInterpret un_ = new FoundErrorInterpret();
                     un_.setFileName(_cont.getCurrentFileName());
                     un_.setIndexFile(getOffset().getOffsetTrim());
+                    un_.buildError(_cont.getContext().getAnalysisMessages().getUnexpectedCatchElseFinally(),
+                            _cont.getContext().getKeyWords().getKeyWordElseif(),
+                            StringList.join(
+                                    new StringList(
+                                            _cont.getContext().getKeyWords().getKeyWordIf(),
+                                            _cont.getContext().getKeyWords().getKeyWordElseif()
+                                    ),
+                                    OR_ERR));
                     _cont.addError(un_);
                 } else if (!(pBlock_.getPreviousSibling() instanceof RendIfCondition)){
                     if (!(pBlock_.getPreviousSibling() instanceof RendElseIfCondition)){
-                        UnexpectedTagName un_ = new UnexpectedTagName();
+                        FoundErrorInterpret un_ = new FoundErrorInterpret();
                         un_.setFileName(_cont.getCurrentFileName());
                         un_.setIndexFile(getOffset().getOffsetTrim());
+                        un_.buildError(_cont.getContext().getAnalysisMessages().getUnexpectedCatchElseFinally(),
+                                _cont.getContext().getKeyWords().getKeyWordElseif(),
+                                StringList.join(
+                                        new StringList(
+                                                _cont.getContext().getKeyWords().getKeyWordIf(),
+                                                _cont.getContext().getKeyWords().getKeyWordElseif()
+                                        ),
+                                        OR_ERR));
                         _cont.addError(un_);
                     }
                 }

@@ -21,6 +21,7 @@ import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.util.BeanLgNames;
 import code.formathtml.structs.StdStruct;
+import code.formathtml.util.BeanNatLgNames;
 import code.util.CustList;
 import code.util.ObjectMap;
 import code.util.StringList;
@@ -672,161 +673,161 @@ public final class AikiBeansHelpStd {
         fields_ = new StringMap<StandardField>();
         type_ = new StandardClass(TYPE_FIGHT_HELP_BEAN, fields_, constructors_, methods_, AikiBeansStd.TYPE_COMMON_BEAN, MethodModifier.NORMAL);
         fields_.put(DEFAULT_BOOST_VALUE,new StandardField(DEFAULT_BOOST_VALUE,_std.getAliasPrimInteger(),false,false,type_));
-        fields_.put(PRIVATING_MOVES,new StandardField(PRIVATING_MOVES,_std.getCustList(),false,false,type_));
-        fields_.put(MOVES_HEALING_SUBSTITUTE,new StandardField(MOVES_HEALING_SUBSTITUTE,_std.getCustList(),false,false,type_));
-        fields_.put(ABILITIES_SENT_BEGIN_WEATHER,new StandardField(ABILITIES_SENT_BEGIN_WEATHER,_std.getCustList(),false,false,type_));
-        fields_.put(ITEMS_SENT_BEGIN_WEATHER,new StandardField(ITEMS_SENT_BEGIN_WEATHER,_std.getCustList(),false,false,type_));
-        fields_.put(ITEMS_SENT_BEGIN_OTHER,new StandardField(ITEMS_SENT_BEGIN_OTHER,_std.getCustList(),false,false,type_));
-        fields_.put(CHANGING_TYPES_ABILITIES,new StandardField(CHANGING_TYPES_ABILITIES,_std.getCustList(),false,false,type_));
-        fields_.put(COPY_ABILITIES,new StandardField(COPY_ABILITIES,_std.getCustList(),false,false,type_));
-        fields_.put(ABILITIES_SENT_STATIS,new StandardField(ABILITIES_SENT_STATIS,_std.getCustList(),false,false,type_));
-        fields_.put(SUBSTITUTING_MOVES,new StandardField(SUBSTITUTING_MOVES,_std.getCustList(),false,false,type_));
-        fields_.put(ABILITIES_PRIO,new StandardField(ABILITIES_PRIO,_std.getCustList(),false,false,type_));
-        fields_.put(SLOW_ABILITIES,new StandardField(SLOW_ABILITIES,_std.getCustList(),false,false,type_));
-        fields_.put(SLOW_ITEMS,new StandardField(SLOW_ITEMS,_std.getCustList(),false,false,type_));
-        fields_.put(REVERSE_SPEED_MOVES,new StandardField(REVERSE_SPEED_MOVES,_std.getCustList(),false,false,type_));
-        fields_.put(BERRY_SPEED,new StandardField(BERRY_SPEED,_std.getCustList(),false,false,type_));
-        fields_.put(ITEM_SPEED,new StandardField(ITEM_SPEED,_std.getCustList(),false,false,type_));
-        fields_.put(ABILITIES_SWITCH,new StandardField(ABILITIES_SWITCH,_std.getCustList(),false,false,type_));
-        fields_.put(DELETED_STATUS_SWITCH,new StandardField(DELETED_STATUS_SWITCH,_std.getCustList(),false,false,type_));
-        fields_.put(ENTRY_HAZARD,new StandardField(ENTRY_HAZARD,_std.getCustList(),false,false,type_));
-        fields_.put(BEGIN_ROUND_STATUS,new StandardField(BEGIN_ROUND_STATUS,_std.getCustList(),false,false,type_));
-        fields_.put(DELETE_STATUS_MOVE,new StandardField(DELETE_STATUS_MOVE,_std.getCustList(),false,false,type_));
-        fields_.put(IMMU_STATUS_ABILITY,new StandardField(IMMU_STATUS_ABILITY,_std.getCustList(),false,false,type_));
-        fields_.put(AUTO_DAMAGE,new StandardField(AUTO_DAMAGE,_std.getCustList(),false,false,type_));
-        fields_.put(MAP_AUTO_DAMAGE,new StandardField(MAP_AUTO_DAMAGE,_std.getCustMap(),false,false,type_));
-        fields_.put(PREPA_ROUND_MOVES,new StandardField(PREPA_ROUND_MOVES,_std.getCustList(),false,false,type_));
-        fields_.put(SPEED_PREPARING_ITEMS,new StandardField(SPEED_PREPARING_ITEMS,_std.getCustList(),false,false,type_));
-        fields_.put(DISAPPEARING_ROUND_MOVES,new StandardField(DISAPPEARING_ROUND_MOVES,_std.getCustList(),false,false,type_));
-        fields_.put(RECHARGE_MOVES,new StandardField(RECHARGE_MOVES,_std.getCustList(),false,false,type_));
-        fields_.put(IMMU_RECHARGING,new StandardField(IMMU_RECHARGING,_std.getCustList(),false,false,type_));
-        fields_.put(MOVES_INVOKING,new StandardField(MOVES_INVOKING,_std.getCustList(),false,false,type_));
-        fields_.put(COPY_MOVE_TYPES_AB,new StandardField(COPY_MOVE_TYPES_AB,_std.getCustList(),false,false,type_));
-        fields_.put(MOVES_THIEVING,new StandardField(MOVES_THIEVING,_std.getCustList(),false,false,type_));
-        fields_.put(MOVES_SEC_EFF_ITEMS,new StandardField(MOVES_SEC_EFF_ITEMS,_std.getCustList(),false,false,type_));
-        fields_.put(MOVES_ATTRACTING,new StandardField(MOVES_ATTRACTING,_std.getCustList(),false,false,type_));
-        fields_.put(BEGIN_ROUND_STATUS_FOE,new StandardField(BEGIN_ROUND_STATUS_FOE,_std.getCustList(),false,false,type_));
-        fields_.put(PRESSURE_ABILITIES,new StandardField(PRESSURE_ABILITIES,_std.getCustList(),false,false,type_));
-        fields_.put(PROTECT_ABILITIES,new StandardField(PROTECT_ABILITIES,_std.getCustList(),false,false,type_));
-        fields_.put(PROTECT_ITEMS,new StandardField(PROTECT_ITEMS,_std.getCustList(),false,false,type_));
-        fields_.put(PROTECT_MOVES,new StandardField(PROTECT_MOVES,_std.getCustList(),false,false,type_));
-        fields_.put(EFF_MOVES,new StandardField(EFF_MOVES,_std.getCustList(),false,false,type_));
-        fields_.put(MOVES_MIRROR,new StandardField(MOVES_MIRROR,_std.getCustList(),false,false,type_));
-        fields_.put(ABILITIES_PART_STATIS,new StandardField(ABILITIES_PART_STATIS,_std.getCustList(),false,false,type_));
-        fields_.put(MOVES_TEAM,new StandardField(MOVES_TEAM,_std.getCustList(),false,false,type_));
-        fields_.put(ABILITIES_FIGHTER_STATIS_VAR,new StandardField(ABILITIES_FIGHTER_STATIS_VAR,_std.getCustList(),false,false,type_));
-        fields_.put(ABILITIES_RATE_STATIS,new StandardField(ABILITIES_RATE_STATIS,_std.getCustList(),false,false,type_));
-        fields_.put(COMBO_EVT_STAT,new StandardField(COMBO_EVT_STAT,_std.getCustList(),false,false,type_));
-        fields_.put(ABILITIES_FIGHTER_STATIS,new StandardField(ABILITIES_FIGHTER_STATIS,_std.getCustList(),false,false,type_));
-        fields_.put(ITEMS_FIGHTER_STATIS,new StandardField(ITEMS_FIGHTER_STATIS,_std.getCustList(),false,false,type_));
-        fields_.put(SUCCESSFUL_STATUS,new StandardField(SUCCESSFUL_STATUS,_std.getCustList(),false,false,type_));
-        fields_.put(GLOBAL_MOVES_STATUS,new StandardField(GLOBAL_MOVES_STATUS,_std.getCustList(),false,false,type_));
-        fields_.put(ABILITIES_PART_STATUS,new StandardField(ABILITIES_PART_STATUS,_std.getCustList(),false,false,type_));
-        fields_.put(ABILITIES_FIGHTER_STATUS,new StandardField(ABILITIES_FIGHTER_STATUS,_std.getCustList(),false,false,type_));
-        fields_.put(ITEMS_FIGHTER_STATUS,new StandardField(ITEMS_FIGHTER_STATUS,_std.getCustList(),false,false,type_));
-        fields_.put(LAWS_RATES,new StandardField(LAWS_RATES,_std.getCustMap(),false,false,type_));
-        fields_.put(MOVES_PROT_AGAINST_KO,new StandardField(MOVES_PROT_AGAINST_KO,_std.getCustList(),false,false,type_));
+        fields_.put(PRIVATING_MOVES,new StandardField(PRIVATING_MOVES, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(MOVES_HEALING_SUBSTITUTE,new StandardField(MOVES_HEALING_SUBSTITUTE, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(ABILITIES_SENT_BEGIN_WEATHER,new StandardField(ABILITIES_SENT_BEGIN_WEATHER, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(ITEMS_SENT_BEGIN_WEATHER,new StandardField(ITEMS_SENT_BEGIN_WEATHER, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(ITEMS_SENT_BEGIN_OTHER,new StandardField(ITEMS_SENT_BEGIN_OTHER, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(CHANGING_TYPES_ABILITIES,new StandardField(CHANGING_TYPES_ABILITIES, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(COPY_ABILITIES,new StandardField(COPY_ABILITIES, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(ABILITIES_SENT_STATIS,new StandardField(ABILITIES_SENT_STATIS, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(SUBSTITUTING_MOVES,new StandardField(SUBSTITUTING_MOVES, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(ABILITIES_PRIO,new StandardField(ABILITIES_PRIO, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(SLOW_ABILITIES,new StandardField(SLOW_ABILITIES, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(SLOW_ITEMS,new StandardField(SLOW_ITEMS, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(REVERSE_SPEED_MOVES,new StandardField(REVERSE_SPEED_MOVES, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(BERRY_SPEED,new StandardField(BERRY_SPEED, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(ITEM_SPEED,new StandardField(ITEM_SPEED, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(ABILITIES_SWITCH,new StandardField(ABILITIES_SWITCH, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(DELETED_STATUS_SWITCH,new StandardField(DELETED_STATUS_SWITCH, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(ENTRY_HAZARD,new StandardField(ENTRY_HAZARD, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(BEGIN_ROUND_STATUS,new StandardField(BEGIN_ROUND_STATUS, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(DELETE_STATUS_MOVE,new StandardField(DELETE_STATUS_MOVE, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(IMMU_STATUS_ABILITY,new StandardField(IMMU_STATUS_ABILITY, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(AUTO_DAMAGE,new StandardField(AUTO_DAMAGE, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(MAP_AUTO_DAMAGE,new StandardField(MAP_AUTO_DAMAGE, BeanNatLgNames.TYPE_MAP,false,false,type_));
+        fields_.put(PREPA_ROUND_MOVES,new StandardField(PREPA_ROUND_MOVES, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(SPEED_PREPARING_ITEMS,new StandardField(SPEED_PREPARING_ITEMS, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(DISAPPEARING_ROUND_MOVES,new StandardField(DISAPPEARING_ROUND_MOVES, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(RECHARGE_MOVES,new StandardField(RECHARGE_MOVES, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(IMMU_RECHARGING,new StandardField(IMMU_RECHARGING, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(MOVES_INVOKING,new StandardField(MOVES_INVOKING, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(COPY_MOVE_TYPES_AB,new StandardField(COPY_MOVE_TYPES_AB, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(MOVES_THIEVING,new StandardField(MOVES_THIEVING, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(MOVES_SEC_EFF_ITEMS,new StandardField(MOVES_SEC_EFF_ITEMS, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(MOVES_ATTRACTING,new StandardField(MOVES_ATTRACTING, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(BEGIN_ROUND_STATUS_FOE,new StandardField(BEGIN_ROUND_STATUS_FOE, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(PRESSURE_ABILITIES,new StandardField(PRESSURE_ABILITIES, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(PROTECT_ABILITIES,new StandardField(PROTECT_ABILITIES, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(PROTECT_ITEMS,new StandardField(PROTECT_ITEMS, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(PROTECT_MOVES,new StandardField(PROTECT_MOVES, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(EFF_MOVES,new StandardField(EFF_MOVES, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(MOVES_MIRROR,new StandardField(MOVES_MIRROR, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(ABILITIES_PART_STATIS,new StandardField(ABILITIES_PART_STATIS, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(MOVES_TEAM,new StandardField(MOVES_TEAM, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(ABILITIES_FIGHTER_STATIS_VAR,new StandardField(ABILITIES_FIGHTER_STATIS_VAR, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(ABILITIES_RATE_STATIS,new StandardField(ABILITIES_RATE_STATIS, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(COMBO_EVT_STAT,new StandardField(COMBO_EVT_STAT, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(ABILITIES_FIGHTER_STATIS,new StandardField(ABILITIES_FIGHTER_STATIS, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(ITEMS_FIGHTER_STATIS,new StandardField(ITEMS_FIGHTER_STATIS, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(SUCCESSFUL_STATUS,new StandardField(SUCCESSFUL_STATUS, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(GLOBAL_MOVES_STATUS,new StandardField(GLOBAL_MOVES_STATUS, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(ABILITIES_PART_STATUS,new StandardField(ABILITIES_PART_STATUS, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(ABILITIES_FIGHTER_STATUS,new StandardField(ABILITIES_FIGHTER_STATUS, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(ITEMS_FIGHTER_STATUS,new StandardField(ITEMS_FIGHTER_STATUS, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(LAWS_RATES,new StandardField(LAWS_RATES, BeanNatLgNames.TYPE_MAP,false,false,type_));
+        fields_.put(MOVES_PROT_AGAINST_KO,new StandardField(MOVES_PROT_AGAINST_KO, BeanNatLgNames.TYPE_LIST,false,false,type_));
         fields_.put(MIN_HP_NOT_KO,new StandardField(MIN_HP_NOT_KO,PokemonStandards.TYPE_RATE,false,false,type_));
-        fields_.put(ITEMS_PROT_AGAINST_KO,new StandardField(ITEMS_PROT_AGAINST_KO,_std.getCustList(),false,false,type_));
-        fields_.put(MOVES_CANNOT_KO,new StandardField(MOVES_CANNOT_KO,_std.getCustList(),false,false,type_));
-        fields_.put(ITEMS_ABS,new StandardField(ITEMS_ABS,_std.getCustList(),false,false,type_));
-        fields_.put(ABILITIES_REV_ABS,new StandardField(ABILITIES_REV_ABS,_std.getCustList(),false,false,type_));
-        fields_.put(ABILITIES_DAMAGE_STATIS,new StandardField(ABILITIES_DAMAGE_STATIS,_std.getCustList(),false,false,type_));
-        fields_.put(ABILITIES_CHANGING_TYPES_DAMAGE,new StandardField(ABILITIES_CHANGING_TYPES_DAMAGE,_std.getCustList(),false,false,type_));
-        fields_.put(ABILITIES_TAKING_ITEM,new StandardField(ABILITIES_TAKING_ITEM,_std.getCustList(),false,false,type_));
-        fields_.put(ABILITIES_STATIS_VAR_USER,new StandardField(ABILITIES_STATIS_VAR_USER,_std.getCustList(),false,false,type_));
-        fields_.put(ABILITIES_STATUS,new StandardField(ABILITIES_STATUS,_std.getCustList(),false,false,type_));
-        fields_.put(ABILITIES_COPY_AB,new StandardField(ABILITIES_COPY_AB,_std.getCustList(),false,false,type_));
-        fields_.put(RECOIL_ITEMS,new StandardField(RECOIL_ITEMS,_std.getCustList(),false,false,type_));
-        fields_.put(RECOIL_ABILITIES,new StandardField(RECOIL_ABILITIES,_std.getCustList(),false,false,type_));
-        fields_.put(ABILITIES_KO_TARGET,new StandardField(ABILITIES_KO_TARGET,_std.getCustList(),false,false,type_));
-        fields_.put(MOVES_KO_TARGET,new StandardField(MOVES_KO_TARGET,_std.getCustList(),false,false,type_));
-        fields_.put(BERRY_USER,new StandardField(BERRY_USER,_std.getCustList(),false,false,type_));
-        fields_.put(BERRY_TARGET,new StandardField(BERRY_TARGET,_std.getCustList(),false,false,type_));
-        fields_.put(ABILITIES_END_ROUND,new StandardField(ABILITIES_END_ROUND,_std.getCustList(),false,false,type_));
-        fields_.put(BERRY_END_ROUND,new StandardField(BERRY_END_ROUND,_std.getCustList(),false,false,type_));
-        fields_.put(MOVES_CHANGING_ATT_ORDER,new StandardField(MOVES_CHANGING_ATT_ORDER,_std.getCustList(),false,false,type_));
-        fields_.put(RATES,new StandardField(RATES,_std.getCustMap(),false,false,type_));
-        fields_.put(VAR_RATES,new StandardField(VAR_RATES,_std.getCustMap(),false,false,type_));
+        fields_.put(ITEMS_PROT_AGAINST_KO,new StandardField(ITEMS_PROT_AGAINST_KO, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(MOVES_CANNOT_KO,new StandardField(MOVES_CANNOT_KO, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(ITEMS_ABS,new StandardField(ITEMS_ABS, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(ABILITIES_REV_ABS,new StandardField(ABILITIES_REV_ABS, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(ABILITIES_DAMAGE_STATIS,new StandardField(ABILITIES_DAMAGE_STATIS, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(ABILITIES_CHANGING_TYPES_DAMAGE,new StandardField(ABILITIES_CHANGING_TYPES_DAMAGE, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(ABILITIES_TAKING_ITEM,new StandardField(ABILITIES_TAKING_ITEM, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(ABILITIES_STATIS_VAR_USER,new StandardField(ABILITIES_STATIS_VAR_USER, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(ABILITIES_STATUS,new StandardField(ABILITIES_STATUS, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(ABILITIES_COPY_AB,new StandardField(ABILITIES_COPY_AB, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(RECOIL_ITEMS,new StandardField(RECOIL_ITEMS, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(RECOIL_ABILITIES,new StandardField(RECOIL_ABILITIES, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(ABILITIES_KO_TARGET,new StandardField(ABILITIES_KO_TARGET, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(MOVES_KO_TARGET,new StandardField(MOVES_KO_TARGET, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(BERRY_USER,new StandardField(BERRY_USER, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(BERRY_TARGET,new StandardField(BERRY_TARGET, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(ABILITIES_END_ROUND,new StandardField(ABILITIES_END_ROUND, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(BERRY_END_ROUND,new StandardField(BERRY_END_ROUND, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(MOVES_CHANGING_ATT_ORDER,new StandardField(MOVES_CHANGING_ATT_ORDER, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(RATES,new StandardField(RATES, BeanNatLgNames.TYPE_MAP,false,false,type_));
+        fields_.put(VAR_RATES,new StandardField(VAR_RATES, BeanNatLgNames.TYPE_MAP,false,false,type_));
         fields_.put(WON_HAPPINESS_POINTS_LEVEL,new StandardField(WON_HAPPINESS_POINTS_LEVEL,PokemonStandards.TYPE_RATE,false,false,type_));
         fields_.put(HAPPINESS_POINTS,new StandardField(HAPPINESS_POINTS,_std.getAliasPrimInteger(),false,false,type_));
         fields_.put(DAMGE_FORMULA,new StandardField(DAMGE_FORMULA,_std.getAliasString(),false,false,type_));
-        fields_.put(MAP_VAR,new StandardField(MAP_VAR,_std.getCustMap(),false,false,type_));
+        fields_.put(MAP_VAR,new StandardField(MAP_VAR, BeanNatLgNames.TYPE_MAP,false,false,type_));
         fields_.put(STRONG_MOVE,new StandardField(STRONG_MOVE,PokemonStandards.TYPE_RATE,false,false,type_));
-        fields_.put(DAMAGING_MOVES,new StandardField(DAMAGING_MOVES,_std.getCustList(),false,false,type_));
-        fields_.put(ITEMS_USER_POWER,new StandardField(ITEMS_USER_POWER,_std.getCustList(),false,false,type_));
-        fields_.put(MOVES_USER_POWER,new StandardField(MOVES_USER_POWER,_std.getCustList(),false,false,type_));
-        fields_.put(MOVES_TARGET_POWER,new StandardField(MOVES_TARGET_POWER,_std.getCustList(),false,false,type_));
-        fields_.put(ABILITIES_USER_POWER,new StandardField(ABILITIES_USER_POWER,_std.getCustList(),false,false,type_));
-        fields_.put(MOVES_USER_ALLY_DAMAGE,new StandardField(MOVES_USER_ALLY_DAMAGE,_std.getCustList(),false,false,type_));
-        fields_.put(ABILITIES_TARGET_DAMAGE,new StandardField(ABILITIES_TARGET_DAMAGE,_std.getCustList(),false,false,type_));
-        fields_.put(MOVES_TARGET_TEAM_DAMAGE,new StandardField(MOVES_TARGET_TEAM_DAMAGE,_std.getCustList(),false,false,type_));
-        fields_.put(ABILITIES_USER_IGN_TARGET_TEAM,new StandardField(ABILITIES_USER_IGN_TARGET_TEAM,_std.getCustList(),false,false,type_));
-        fields_.put(ABILITIES_GLOBAL,new StandardField(ABILITIES_GLOBAL,_std.getCustList(),false,false,type_));
-        fields_.put(MOVES_GLOBAL,new StandardField(MOVES_GLOBAL,_std.getCustList(),false,false,type_));
-        fields_.put(ITEMS_USER_DAMAGE,new StandardField(ITEMS_USER_DAMAGE,_std.getCustList(),false,false,type_));
-        fields_.put(ABILITIES_USER_DAMAGE,new StandardField(ABILITIES_USER_DAMAGE,_std.getCustList(),false,false,type_));
-        fields_.put(MOVES_INVOK_DAMAGE,new StandardField(MOVES_INVOK_DAMAGE,_std.getCustList(),false,false,type_));
-        fields_.put(ITEMS_TARGET_DAMAGE,new StandardField(ITEMS_TARGET_DAMAGE,_std.getCustList(),false,false,type_));
-        fields_.put(MOVES_GLOBAL_PREPA_DAMAGE,new StandardField(MOVES_GLOBAL_PREPA_DAMAGE,_std.getCustList(),false,false,type_));
-        fields_.put(STATUS_DAMAGE,new StandardField(STATUS_DAMAGE,_std.getCustList(),false,false,type_));
-        fields_.put(ABILITIES_USER_TARGET_DAMAGE,new StandardField(ABILITIES_USER_TARGET_DAMAGE,_std.getCustList(),false,false,type_));
-        fields_.put(ABILITIES_USER_STAB_DAMAGE,new StandardField(ABILITIES_USER_STAB_DAMAGE,_std.getCustList(),false,false,type_));
-        fields_.put(MOVES_TYPES_DEF_ITEM,new StandardField(MOVES_TYPES_DEF_ITEM,_std.getCustList(),false,false,type_));
-        fields_.put(ITEMS_TYPES_DEF,new StandardField(ITEMS_TYPES_DEF,_std.getCustList(),false,false,type_));
-        fields_.put(MOVES_TYPES_DEF_WEATHER,new StandardField(MOVES_TYPES_DEF_WEATHER,_std.getCustList(),false,false,type_));
-        fields_.put(ABILITIES_TYPE_DEF_MOVES,new StandardField(ABILITIES_TYPE_DEF_MOVES,_std.getCustList(),false,false,type_));
-        fields_.put(MOVES_TYPE_DEF_MOVES,new StandardField(MOVES_TYPE_DEF_MOVES,_std.getCustList(),false,false,type_));
-        fields_.put(MOVES_CHANGE_TYPE_MOVES,new StandardField(MOVES_CHANGE_TYPE_MOVES,_std.getCustList(),false,false,type_));
-        fields_.put(MOVES_GLOBAL_BREAK_IMMU,new StandardField(MOVES_GLOBAL_BREAK_IMMU,_std.getCustList(),false,false,type_));
-        fields_.put(MOVES_UNPROTECTING_TYPES,new StandardField(MOVES_UNPROTECTING_TYPES,_std.getCustList(),false,false,type_));
-        fields_.put(ABILITIES_BREAK_IMMU,new StandardField(ABILITIES_BREAK_IMMU,_std.getCustList(),false,false,type_));
-        fields_.put(ITEMS_CANCEL_IMMU,new StandardField(ITEMS_CANCEL_IMMU,_std.getCustList(),false,false,type_));
-        fields_.put(TYPES,new StandardField(TYPES,_std.getCustList(),false,false,type_));
-        fields_.put(EFFICIENCY,new StandardField(EFFICIENCY,_std.getCustMap(),false,false,type_));
-        fields_.put(MOVES_IGN_LOW_ATT,new StandardField(MOVES_IGN_LOW_ATT,_std.getCustList(),false,false,type_));
-        fields_.put(MOVES_IGN_INC_DEF,new StandardField(MOVES_IGN_INC_DEF,_std.getCustList(),false,false,type_));
-        fields_.put(ABILITIES_BOOSTING_STAT,new StandardField(ABILITIES_BOOSTING_STAT,_std.getCustList(),false,false,type_));
-        fields_.put(ITEMS_BOOSTING_STAT,new StandardField(ITEMS_BOOSTING_STAT,_std.getCustList(),false,false,type_));
-        fields_.put(ITEMS_MULT_STAT,new StandardField(ITEMS_MULT_STAT,_std.getCustList(),false,false,type_));
-        fields_.put(ABILITIES_MULT_STAT,new StandardField(ABILITIES_MULT_STAT,_std.getCustList(),false,false,type_));
-        fields_.put(MOVES_GLOBAL_MULT_STAT,new StandardField(MOVES_GLOBAL_MULT_STAT,_std.getCustList(),false,false,type_));
-        fields_.put(MOVES_TEAM_MULT_STAT,new StandardField(MOVES_TEAM_MULT_STAT,_std.getCustList(),false,false,type_));
-        fields_.put(ABILITIES_ALLY_MULT_STAT,new StandardField(ABILITIES_ALLY_MULT_STAT,_std.getCustList(),false,false,type_));
-        fields_.put(MOVES_FOE_TEAM_MULT_STAT,new StandardField(MOVES_FOE_TEAM_MULT_STAT,_std.getCustList(),false,false,type_));
-        fields_.put(STATUS_MULT_STAT,new StandardField(STATUS_MULT_STAT,_std.getCustList(),false,false,type_));
-        fields_.put(ABILITIES_IMMU_MULT_STAT,new StandardField(ABILITIES_IMMU_MULT_STAT,_std.getCustList(),false,false,type_));
-        fields_.put(COMBO_MULT_STAT,new StandardField(COMBO_MULT_STAT,_std.getCustList(),false,false,type_));
-        fields_.put(ABILITIES_BREAK_PROTECT_MOVES,new StandardField(ABILITIES_BREAK_PROTECT_MOVES,_std.getCustList(),false,false,type_));
-        fields_.put(MOVES_IGN_ACC,new StandardField(MOVES_IGN_ACC,_std.getCustList(),false,false,type_));
-        fields_.put(MOVES_IGN_EVA,new StandardField(MOVES_IGN_EVA,_std.getCustList(),false,false,type_));
-        fields_.put(MOVES_GLOBAL_ACC,new StandardField(MOVES_GLOBAL_ACC,_std.getCustList(),false,false,type_));
-        fields_.put(ABILITIES_IMMU_CH,new StandardField(ABILITIES_IMMU_CH,_std.getCustList(),false,false,type_));
-        fields_.put(MOVES_BOOST_CH,new StandardField(MOVES_BOOST_CH,_std.getCustList(),false,false,type_));
-        fields_.put(ABILITES_MULT_EVT_CH,new StandardField(ABILITES_MULT_EVT_CH,_std.getCustList(),false,false,type_));
-        fields_.put(ABILITES_MULT_RATE_CH,new StandardField(ABILITES_MULT_RATE_CH,_std.getCustList(),false,false,type_));
+        fields_.put(DAMAGING_MOVES,new StandardField(DAMAGING_MOVES, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(ITEMS_USER_POWER,new StandardField(ITEMS_USER_POWER, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(MOVES_USER_POWER,new StandardField(MOVES_USER_POWER, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(MOVES_TARGET_POWER,new StandardField(MOVES_TARGET_POWER, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(ABILITIES_USER_POWER,new StandardField(ABILITIES_USER_POWER, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(MOVES_USER_ALLY_DAMAGE,new StandardField(MOVES_USER_ALLY_DAMAGE, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(ABILITIES_TARGET_DAMAGE,new StandardField(ABILITIES_TARGET_DAMAGE, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(MOVES_TARGET_TEAM_DAMAGE,new StandardField(MOVES_TARGET_TEAM_DAMAGE, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(ABILITIES_USER_IGN_TARGET_TEAM,new StandardField(ABILITIES_USER_IGN_TARGET_TEAM, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(ABILITIES_GLOBAL,new StandardField(ABILITIES_GLOBAL, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(MOVES_GLOBAL,new StandardField(MOVES_GLOBAL, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(ITEMS_USER_DAMAGE,new StandardField(ITEMS_USER_DAMAGE, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(ABILITIES_USER_DAMAGE,new StandardField(ABILITIES_USER_DAMAGE, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(MOVES_INVOK_DAMAGE,new StandardField(MOVES_INVOK_DAMAGE, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(ITEMS_TARGET_DAMAGE,new StandardField(ITEMS_TARGET_DAMAGE, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(MOVES_GLOBAL_PREPA_DAMAGE,new StandardField(MOVES_GLOBAL_PREPA_DAMAGE, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(STATUS_DAMAGE,new StandardField(STATUS_DAMAGE, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(ABILITIES_USER_TARGET_DAMAGE,new StandardField(ABILITIES_USER_TARGET_DAMAGE, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(ABILITIES_USER_STAB_DAMAGE,new StandardField(ABILITIES_USER_STAB_DAMAGE, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(MOVES_TYPES_DEF_ITEM,new StandardField(MOVES_TYPES_DEF_ITEM, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(ITEMS_TYPES_DEF,new StandardField(ITEMS_TYPES_DEF, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(MOVES_TYPES_DEF_WEATHER,new StandardField(MOVES_TYPES_DEF_WEATHER, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(ABILITIES_TYPE_DEF_MOVES,new StandardField(ABILITIES_TYPE_DEF_MOVES, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(MOVES_TYPE_DEF_MOVES,new StandardField(MOVES_TYPE_DEF_MOVES, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(MOVES_CHANGE_TYPE_MOVES,new StandardField(MOVES_CHANGE_TYPE_MOVES, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(MOVES_GLOBAL_BREAK_IMMU,new StandardField(MOVES_GLOBAL_BREAK_IMMU, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(MOVES_UNPROTECTING_TYPES,new StandardField(MOVES_UNPROTECTING_TYPES, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(ABILITIES_BREAK_IMMU,new StandardField(ABILITIES_BREAK_IMMU, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(ITEMS_CANCEL_IMMU,new StandardField(ITEMS_CANCEL_IMMU, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(TYPES,new StandardField(TYPES, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(EFFICIENCY,new StandardField(EFFICIENCY, BeanNatLgNames.TYPE_MAP,false,false,type_));
+        fields_.put(MOVES_IGN_LOW_ATT,new StandardField(MOVES_IGN_LOW_ATT, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(MOVES_IGN_INC_DEF,new StandardField(MOVES_IGN_INC_DEF, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(ABILITIES_BOOSTING_STAT,new StandardField(ABILITIES_BOOSTING_STAT, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(ITEMS_BOOSTING_STAT,new StandardField(ITEMS_BOOSTING_STAT, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(ITEMS_MULT_STAT,new StandardField(ITEMS_MULT_STAT, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(ABILITIES_MULT_STAT,new StandardField(ABILITIES_MULT_STAT, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(MOVES_GLOBAL_MULT_STAT,new StandardField(MOVES_GLOBAL_MULT_STAT, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(MOVES_TEAM_MULT_STAT,new StandardField(MOVES_TEAM_MULT_STAT, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(ABILITIES_ALLY_MULT_STAT,new StandardField(ABILITIES_ALLY_MULT_STAT, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(MOVES_FOE_TEAM_MULT_STAT,new StandardField(MOVES_FOE_TEAM_MULT_STAT, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(STATUS_MULT_STAT,new StandardField(STATUS_MULT_STAT, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(ABILITIES_IMMU_MULT_STAT,new StandardField(ABILITIES_IMMU_MULT_STAT, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(COMBO_MULT_STAT,new StandardField(COMBO_MULT_STAT, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(ABILITIES_BREAK_PROTECT_MOVES,new StandardField(ABILITIES_BREAK_PROTECT_MOVES, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(MOVES_IGN_ACC,new StandardField(MOVES_IGN_ACC, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(MOVES_IGN_EVA,new StandardField(MOVES_IGN_EVA, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(MOVES_GLOBAL_ACC,new StandardField(MOVES_GLOBAL_ACC, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(ABILITIES_IMMU_CH,new StandardField(ABILITIES_IMMU_CH, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(MOVES_BOOST_CH,new StandardField(MOVES_BOOST_CH, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(ABILITES_MULT_EVT_CH,new StandardField(ABILITES_MULT_EVT_CH, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(ABILITES_MULT_RATE_CH,new StandardField(ABILITES_MULT_RATE_CH, BeanNatLgNames.TYPE_LIST,false,false,type_));
         fields_.put(RATE_FORMULA,new StandardField(RATE_FORMULA,_std.getAliasString(),false,false,type_));
-        fields_.put(BOOSTS,new StandardField(BOOSTS,_std.getCustMap(),false,false,type_));
+        fields_.put(BOOSTS,new StandardField(BOOSTS, BeanNatLgNames.TYPE_MAP,false,false,type_));
         fields_.put(RATE_FORMULA_CH,new StandardField(RATE_FORMULA_CH,_std.getAliasString(),false,false,type_));
-        fields_.put(BOOSTS_CH,new StandardField(BOOSTS_CH,_std.getCustMap(),false,false,type_));
-        fields_.put(MOVES_PROTECTING_TYPES,new StandardField(MOVES_PROTECTING_TYPES,_std.getCustList(),false,false,type_));
-        fields_.put(MOVES_GLOBAL_BREAK_IMMU_AB,new StandardField(MOVES_GLOBAL_BREAK_IMMU_AB,_std.getCustList(),false,false,type_));
-        fields_.put(ABILITIES_BREAKABLE,new StandardField(ABILITIES_BREAKABLE,_std.getCustList(),false,false,type_));
-        fields_.put(ABILITIES_IMMU_TYPES,new StandardField(ABILITIES_IMMU_TYPES,_std.getCustList(),false,false,type_));
-        fields_.put(ITEMS_IMMU_TYPES,new StandardField(ITEMS_IMMU_TYPES,_std.getCustList(),false,false,type_));
-        fields_.put(ABILITIES_IMMU_ALLIES,new StandardField(ABILITIES_IMMU_ALLIES,_std.getCustList(),false,false,type_));
-        fields_.put(ABILITIES_IMMU_ALLIES_DAM,new StandardField(ABILITIES_IMMU_ALLIES_DAM,_std.getCustList(),false,false,type_));
-        fields_.put(ABILITIES_IMMU,new StandardField(ABILITIES_IMMU,_std.getCustList(),false,false,type_));
-        fields_.put(ITEMS_IMMU,new StandardField(ITEMS_IMMU,_std.getCustList(),false,false,type_));
-        fields_.put(ABILITIES_IMMU_SEC_EFF_OTHER,new StandardField(ABILITIES_IMMU_SEC_EFF_OTHER,_std.getCustList(),false,false,type_));
-        fields_.put(ABILITIES_IMMU_SEC_EFF_OWNER,new StandardField(ABILITIES_IMMU_SEC_EFF_OWNER,_std.getCustList(),false,false,type_));
-        fields_.put(ABILITIES_ACHIEVE_TARGET,new StandardField(ABILITIES_ACHIEVE_TARGET,_std.getCustList(),false,false,type_));
-        fields_.put(MOVES_PROTECTING,new StandardField(MOVES_PROTECTING,_std.getCustList(),false,false,type_));
+        fields_.put(BOOSTS_CH,new StandardField(BOOSTS_CH, BeanNatLgNames.TYPE_MAP,false,false,type_));
+        fields_.put(MOVES_PROTECTING_TYPES,new StandardField(MOVES_PROTECTING_TYPES, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(MOVES_GLOBAL_BREAK_IMMU_AB,new StandardField(MOVES_GLOBAL_BREAK_IMMU_AB, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(ABILITIES_BREAKABLE,new StandardField(ABILITIES_BREAKABLE, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(ABILITIES_IMMU_TYPES,new StandardField(ABILITIES_IMMU_TYPES, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(ITEMS_IMMU_TYPES,new StandardField(ITEMS_IMMU_TYPES, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(ABILITIES_IMMU_ALLIES,new StandardField(ABILITIES_IMMU_ALLIES, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(ABILITIES_IMMU_ALLIES_DAM,new StandardField(ABILITIES_IMMU_ALLIES_DAM, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(ABILITIES_IMMU,new StandardField(ABILITIES_IMMU, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(ITEMS_IMMU,new StandardField(ITEMS_IMMU, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(ABILITIES_IMMU_SEC_EFF_OTHER,new StandardField(ABILITIES_IMMU_SEC_EFF_OTHER, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(ABILITIES_IMMU_SEC_EFF_OWNER,new StandardField(ABILITIES_IMMU_SEC_EFF_OWNER, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(ABILITIES_ACHIEVE_TARGET,new StandardField(ABILITIES_ACHIEVE_TARGET, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(MOVES_PROTECTING,new StandardField(MOVES_PROTECTING, BeanNatLgNames.TYPE_LIST,false,false,type_));
         fields_.put(CATCHING_FORMULA,new StandardField(CATCHING_FORMULA,_std.getAliasString(),false,false,type_));
-        fields_.put(VAR_CATCHING_FORMULA,new StandardField(VAR_CATCHING_FORMULA,_std.getCustMap(),false,false,type_));
+        fields_.put(VAR_CATCHING_FORMULA,new StandardField(VAR_CATCHING_FORMULA, BeanNatLgNames.TYPE_MAP,false,false,type_));
         fields_.put(FLEEING_FORMULA,new StandardField(FLEEING_FORMULA,_std.getAliasString(),false,false,type_));
-        fields_.put(VAR_FLEEING_FORMULA,new StandardField(VAR_FLEEING_FORMULA,_std.getCustMap(),false,false,type_));
-        fields_.put(STATISTIC_ANIM,new StandardField(STATISTIC_ANIM,_std.getCustList(),false,false,type_));
+        fields_.put(VAR_FLEEING_FORMULA,new StandardField(VAR_FLEEING_FORMULA, BeanNatLgNames.TYPE_MAP,false,false,type_));
+        fields_.put(STATISTIC_ANIM,new StandardField(STATISTIC_ANIM, BeanNatLgNames.TYPE_LIST,false,false,type_));
         params_ = new StringList(_std.getAliasLong());
         method_ = new StandardMethod(CLICK_PRIVATING_MOVES,params_,_std.getAliasString(), false, MethodModifier.NORMAL,type_);
         methods_.put(method_.getId(), method_);
@@ -2009,7 +2010,7 @@ public final class AikiBeansHelpStd {
         fields_.put(MAX_IV,new StandardField(MAX_IV,_std.getAliasPrimInteger(),false,false,type_));
         fields_.put(HAPPINESS_MAX,new StandardField(HAPPINESS_MAX,_std.getAliasPrimInteger(),false,false,type_));
         fields_.put(BEGIN,new StandardField(BEGIN,_std.getAliasString(),false,false,type_));
-        fields_.put(MINI_MAP,new StandardField(MINI_MAP,_std.getCustMap(),false,false,type_));
+        fields_.put(MINI_MAP,new StandardField(MINI_MAP, BeanNatLgNames.TYPE_MAP,false,false,type_));
         fields_.put(UNLOCKED_CITY,new StandardField(UNLOCKED_CITY,_std.getAliasString(),false,false,type_));
         fields_.put(NB_MAX_TEAM,new StandardField(NB_MAX_TEAM,_std.getAliasPrimByte(),false,false,type_));
         fields_.put(MIN_LEVEL,new StandardField(MIN_LEVEL,_std.getAliasPrimInteger(),false,false,type_));
@@ -2018,11 +2019,11 @@ public final class AikiBeansHelpStd {
         fields_.put(NB_NEC_STEPS_INCR_HAPPINESS,new StandardField(NB_NEC_STEPS_INCR_HAPPINESS,_std.getAliasPrimInteger(),false,false,type_));
         fields_.put(NB_MAX_STEPS_SAME_EVO_BASE,new StandardField(NB_MAX_STEPS_SAME_EVO_BASE,_std.getAliasPrimShort(),false,false,type_));
         fields_.put(NB_MAX_STEPS,new StandardField(NB_MAX_STEPS,_std.getAliasPrimShort(),false,false,type_));
-        fields_.put(POKEMON_DEFAULT_EGG_GROUP,new StandardField(POKEMON_DEFAULT_EGG_GROUP,_std.getCustList(),false,false,type_));
+        fields_.put(POKEMON_DEFAULT_EGG_GROUP,new StandardField(POKEMON_DEFAULT_EGG_GROUP, BeanNatLgNames.TYPE_LIST,false,false,type_));
         fields_.put(DEFAULT_MONEY,new StandardField(DEFAULT_MONEY,PokemonStandards.TYPE_RATE,false,false,type_));
-        fields_.put(TM,new StandardField(TM,_std.getCustList(),false,false,type_));
-        fields_.put(HM,new StandardField(HM,_std.getCustList(),false,false,type_));
-        fields_.put(TYPES,new StandardField(TYPES,_std.getCustList(),false,false,type_));
+        fields_.put(TM,new StandardField(TM, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(HM,new StandardField(HM, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(TYPES,new StandardField(TYPES, BeanNatLgNames.TYPE_LIST,false,false,type_));
         params_ = new StringList();
         method_ = new StandardMethod(GET_MAP_WIDTH,params_,_std.getAliasPrimInteger(), false, MethodModifier.NORMAL,type_);
         methods_.put(method_.getId(), method_);
@@ -2066,7 +2067,7 @@ public final class AikiBeansHelpStd {
         method_ = new StandardMethod(GET_ITEM,params_,_std.getAliasString(), false, MethodModifier.NORMAL,type_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
-        method_ = new StandardMethod(GET_MOVES_AT_LEVEL,params_,_std.getCustList(), false, MethodModifier.NORMAL,type_);
+        method_ = new StandardMethod(GET_MOVES_AT_LEVEL,params_, BeanNatLgNames.TYPE_LIST, false, MethodModifier.NORMAL,type_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(_std.getAliasLong());
         method_ = new StandardMethod(CLICK_MOVE,params_,_std.getAliasString(), false, MethodModifier.NORMAL,type_);
@@ -2117,93 +2118,93 @@ public final class AikiBeansHelpStd {
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new StringMap<StandardField>();
         type_ = new StandardClass(TYPE_LANGS_BEAN, fields_, constructors_, methods_, AikiBeansStd.TYPE_COMMON_BEAN, MethodModifier.NORMAL);
-        fields_.put(LANGUAGES,new StandardField(LANGUAGES,_std.getCustList(),false,false,type_));
+        fields_.put(LANGUAGES,new StandardField(LANGUAGES, BeanNatLgNames.TYPE_LIST,false,false,type_));
         params_ = new StringList(_std.getAliasLong());
         method_ = new StandardMethod(GET_TR_LANG,params_,_std.getAliasString(), false, MethodModifier.NORMAL,type_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
-        method_ = new StandardMethod(GET_KEYS_GENDERS,params_,_std.getCustList(), false, MethodModifier.NORMAL,type_);
+        method_ = new StandardMethod(GET_KEYS_GENDERS,params_, BeanNatLgNames.TYPE_LIST, false, MethodModifier.NORMAL,type_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(_std.getAliasLong());
-        method_ = new StandardMethod(GET_ROW_GENDER,params_,_std.getCustList(), false, MethodModifier.NORMAL,type_);
+        method_ = new StandardMethod(GET_ROW_GENDER,params_, BeanNatLgNames.TYPE_LIST, false, MethodModifier.NORMAL,type_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
-        method_ = new StandardMethod(GET_KEYS_BOOLEANS,params_,_std.getCustList(), false, MethodModifier.NORMAL,type_);
+        method_ = new StandardMethod(GET_KEYS_BOOLEANS,params_, BeanNatLgNames.TYPE_LIST, false, MethodModifier.NORMAL,type_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(_std.getAliasLong());
-        method_ = new StandardMethod(GET_ROW_BOOLEAN,params_,_std.getCustList(), false, MethodModifier.NORMAL,type_);
+        method_ = new StandardMethod(GET_ROW_BOOLEAN,params_, BeanNatLgNames.TYPE_LIST, false, MethodModifier.NORMAL,type_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
-        method_ = new StandardMethod(GET_KEYS_ENVIRONMENTS,params_,_std.getCustList(), false, MethodModifier.NORMAL,type_);
+        method_ = new StandardMethod(GET_KEYS_ENVIRONMENTS,params_, BeanNatLgNames.TYPE_LIST, false, MethodModifier.NORMAL,type_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(_std.getAliasLong());
-        method_ = new StandardMethod(GET_ROW_ENVIRONMENT,params_,_std.getCustList(), false, MethodModifier.NORMAL,type_);
+        method_ = new StandardMethod(GET_ROW_ENVIRONMENT,params_, BeanNatLgNames.TYPE_LIST, false, MethodModifier.NORMAL,type_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
-        method_ = new StandardMethod(GET_KEYS_STATISTICS,params_,_std.getCustList(), false, MethodModifier.NORMAL,type_);
+        method_ = new StandardMethod(GET_KEYS_STATISTICS,params_, BeanNatLgNames.TYPE_LIST, false, MethodModifier.NORMAL,type_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(_std.getAliasLong());
-        method_ = new StandardMethod(GET_ROW_STATISTIC,params_,_std.getCustList(), false, MethodModifier.NORMAL,type_);
+        method_ = new StandardMethod(GET_ROW_STATISTIC,params_, BeanNatLgNames.TYPE_LIST, false, MethodModifier.NORMAL,type_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
-        method_ = new StandardMethod(GET_KEYS_TARGETS,params_,_std.getCustList(), false, MethodModifier.NORMAL,type_);
+        method_ = new StandardMethod(GET_KEYS_TARGETS,params_, BeanNatLgNames.TYPE_LIST, false, MethodModifier.NORMAL,type_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(_std.getAliasLong());
-        method_ = new StandardMethod(GET_ROW_TARGET,params_,_std.getCustList(), false, MethodModifier.NORMAL,type_);
+        method_ = new StandardMethod(GET_ROW_TARGET,params_, BeanNatLgNames.TYPE_LIST, false, MethodModifier.NORMAL,type_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
-        method_ = new StandardMethod(GET_KEYS_CATEGORIES,params_,_std.getCustList(), false, MethodModifier.NORMAL,type_);
+        method_ = new StandardMethod(GET_KEYS_CATEGORIES,params_, BeanNatLgNames.TYPE_LIST, false, MethodModifier.NORMAL,type_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(_std.getAliasLong());
-        method_ = new StandardMethod(GET_ROW_CATEGORY,params_,_std.getCustList(), false, MethodModifier.NORMAL,type_);
+        method_ = new StandardMethod(GET_ROW_CATEGORY,params_, BeanNatLgNames.TYPE_LIST, false, MethodModifier.NORMAL,type_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
-        method_ = new StandardMethod(GET_KEYS_TYPES,params_,_std.getCustList(), false, MethodModifier.NORMAL,type_);
+        method_ = new StandardMethod(GET_KEYS_TYPES,params_, BeanNatLgNames.TYPE_LIST, false, MethodModifier.NORMAL,type_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(_std.getAliasLong());
-        method_ = new StandardMethod(GET_ROW_TYPE,params_,_std.getCustList(), false, MethodModifier.NORMAL,type_);
+        method_ = new StandardMethod(GET_ROW_TYPE,params_, BeanNatLgNames.TYPE_LIST, false, MethodModifier.NORMAL,type_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
-        method_ = new StandardMethod(GET_KEYS_POKEMON,params_,_std.getCustList(), false, MethodModifier.NORMAL,type_);
+        method_ = new StandardMethod(GET_KEYS_POKEMON,params_, BeanNatLgNames.TYPE_LIST, false, MethodModifier.NORMAL,type_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(_std.getAliasLong());
-        method_ = new StandardMethod(GET_ROW_POKEMON,params_,_std.getCustList(), false, MethodModifier.NORMAL,type_);
+        method_ = new StandardMethod(GET_ROW_POKEMON,params_, BeanNatLgNames.TYPE_LIST, false, MethodModifier.NORMAL,type_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
-        method_ = new StandardMethod(GET_KEYS_MOVES,params_,_std.getCustList(), false, MethodModifier.NORMAL,type_);
+        method_ = new StandardMethod(GET_KEYS_MOVES,params_, BeanNatLgNames.TYPE_LIST, false, MethodModifier.NORMAL,type_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(_std.getAliasLong());
-        method_ = new StandardMethod(GET_ROW_MOVE,params_,_std.getCustList(), false, MethodModifier.NORMAL,type_);
+        method_ = new StandardMethod(GET_ROW_MOVE,params_, BeanNatLgNames.TYPE_LIST, false, MethodModifier.NORMAL,type_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
-        method_ = new StandardMethod(GET_KEYS_ITEMS,params_,_std.getCustList(), false, MethodModifier.NORMAL,type_);
+        method_ = new StandardMethod(GET_KEYS_ITEMS,params_, BeanNatLgNames.TYPE_LIST, false, MethodModifier.NORMAL,type_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(_std.getAliasLong());
-        method_ = new StandardMethod(GET_ROW_ITEM,params_,_std.getCustList(), false, MethodModifier.NORMAL,type_);
+        method_ = new StandardMethod(GET_ROW_ITEM,params_, BeanNatLgNames.TYPE_LIST, false, MethodModifier.NORMAL,type_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
-        method_ = new StandardMethod(GET_KEYS_ABILITIES,params_,_std.getCustList(), false, MethodModifier.NORMAL,type_);
+        method_ = new StandardMethod(GET_KEYS_ABILITIES,params_, BeanNatLgNames.TYPE_LIST, false, MethodModifier.NORMAL,type_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(_std.getAliasLong());
-        method_ = new StandardMethod(GET_ROW_ABILITY,params_,_std.getCustList(), false, MethodModifier.NORMAL,type_);
+        method_ = new StandardMethod(GET_ROW_ABILITY,params_, BeanNatLgNames.TYPE_LIST, false, MethodModifier.NORMAL,type_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
-        method_ = new StandardMethod(GET_KEYS_STATUS,params_,_std.getCustList(), false, MethodModifier.NORMAL,type_);
+        method_ = new StandardMethod(GET_KEYS_STATUS,params_, BeanNatLgNames.TYPE_LIST, false, MethodModifier.NORMAL,type_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(_std.getAliasLong());
-        method_ = new StandardMethod(GET_ROW_STATUS,params_,_std.getCustList(), false, MethodModifier.NORMAL,type_);
+        method_ = new StandardMethod(GET_ROW_STATUS,params_, BeanNatLgNames.TYPE_LIST, false, MethodModifier.NORMAL,type_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
-        method_ = new StandardMethod(GET_KEYS_MATH,params_,_std.getCustList(), false, MethodModifier.NORMAL,type_);
+        method_ = new StandardMethod(GET_KEYS_MATH,params_, BeanNatLgNames.TYPE_LIST, false, MethodModifier.NORMAL,type_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(_std.getAliasLong());
-        method_ = new StandardMethod(GET_ROW_MATH,params_,_std.getCustList(), false, MethodModifier.NORMAL,type_);
+        method_ = new StandardMethod(GET_ROW_MATH,params_, BeanNatLgNames.TYPE_LIST, false, MethodModifier.NORMAL,type_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
-        method_ = new StandardMethod(GET_KEYS_DESC,params_,_std.getCustList(), false, MethodModifier.NORMAL,type_);
+        method_ = new StandardMethod(GET_KEYS_DESC,params_, BeanNatLgNames.TYPE_LIST, false, MethodModifier.NORMAL,type_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(_std.getAliasLong());
-        method_ = new StandardMethod(GET_ROW_DESC,params_,_std.getCustList(), false, MethodModifier.NORMAL,type_);
+        method_ = new StandardMethod(GET_ROW_DESC,params_, BeanNatLgNames.TYPE_LIST, false, MethodModifier.NORMAL,type_);
         methods_.put(method_.getId(), method_);
         _std.getStandards().put(TYPE_LANGS_BEAN, type_);
     }
@@ -2239,219 +2240,219 @@ public final class AikiBeansHelpStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,PRIVATING_MOVES)) {
-            res_.setResult(new StdStruct(instance_.getPrivatingMoves(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getPrivatingMoves(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,MOVES_HEALING_SUBSTITUTE)) {
-            res_.setResult(new StdStruct(instance_.getMovesHealingSubstitute(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getMovesHealingSubstitute(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,ABILITIES_SENT_BEGIN_WEATHER)) {
-            res_.setResult(new StdStruct(instance_.getAbilitiesSentBeginWeather(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getAbilitiesSentBeginWeather(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,ITEMS_SENT_BEGIN_WEATHER)) {
-            res_.setResult(new StdStruct(instance_.getItemsSentBeginWeather(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getItemsSentBeginWeather(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,ITEMS_SENT_BEGIN_OTHER)) {
-            res_.setResult(new StdStruct(instance_.getItemsSentBeginOther(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getItemsSentBeginOther(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,CHANGING_TYPES_ABILITIES)) {
-            res_.setResult(new StdStruct(instance_.getChangingTypesAbilities(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getChangingTypesAbilities(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,COPY_ABILITIES)) {
-            res_.setResult(new StdStruct(instance_.getCopyAbilities(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getCopyAbilities(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,ABILITIES_SENT_STATIS)) {
-            res_.setResult(new StdStruct(instance_.getAbilitiesSentStatis(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getAbilitiesSentStatis(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,SUBSTITUTING_MOVES)) {
-            res_.setResult(new StdStruct(instance_.getSubstitutingMoves(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getSubstitutingMoves(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,ABILITIES_PRIO)) {
-            res_.setResult(new StdStruct(instance_.getAbilitiesPrio(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getAbilitiesPrio(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,SLOW_ABILITIES)) {
-            res_.setResult(new StdStruct(instance_.getSlowAbilities(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getSlowAbilities(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,SLOW_ITEMS)) {
-            res_.setResult(new StdStruct(instance_.getSlowItems(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getSlowItems(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,REVERSE_SPEED_MOVES)) {
-            res_.setResult(new StdStruct(instance_.getReverseSpeedMoves(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getReverseSpeedMoves(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,BERRY_SPEED)) {
-            res_.setResult(new StdStruct(instance_.getBerrySpeed(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getBerrySpeed(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,ITEM_SPEED)) {
-            res_.setResult(new StdStruct(instance_.getItemSpeed(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getItemSpeed(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,ABILITIES_SWITCH)) {
-            res_.setResult(new StdStruct(instance_.getAbilitiesSwitch(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getAbilitiesSwitch(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,DELETED_STATUS_SWITCH)) {
-            res_.setResult(new StdStruct(instance_.getDeletedStatusSwitch(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getDeletedStatusSwitch(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,ENTRY_HAZARD)) {
-            res_.setResult(new StdStruct(instance_.getEntryHazard(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getEntryHazard(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,BEGIN_ROUND_STATUS)) {
-            res_.setResult(new StdStruct(instance_.getBeginRoundStatus(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getBeginRoundStatus(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,DELETE_STATUS_MOVE)) {
-            res_.setResult(new StdStruct(instance_.getDeleteStatusMove(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getDeleteStatusMove(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,IMMU_STATUS_ABILITY)) {
-            res_.setResult(new StdStruct(instance_.getImmuStatusAbility(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getImmuStatusAbility(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,AUTO_DAMAGE)) {
-            res_.setResult(new StdStruct(instance_.getAutoDamage(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getAutoDamage(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,MAP_AUTO_DAMAGE)) {
-            res_.setResult(new StdStruct(instance_.getMapAutoDamage(),std_.getCustMap()));
+            res_.setResult(new StdStruct(instance_.getMapAutoDamage(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
         if (StringList.quickEq(fieldName_,PREPA_ROUND_MOVES)) {
-            res_.setResult(new StdStruct(instance_.getPrepaRoundMoves(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getPrepaRoundMoves(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,SPEED_PREPARING_ITEMS)) {
-            res_.setResult(new StdStruct(instance_.getSpeedPreparingItems(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getSpeedPreparingItems(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,DISAPPEARING_ROUND_MOVES)) {
-            res_.setResult(new StdStruct(instance_.getDisappearingRoundMoves(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getDisappearingRoundMoves(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,RECHARGE_MOVES)) {
-            res_.setResult(new StdStruct(instance_.getRechargeMoves(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getRechargeMoves(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,IMMU_RECHARGING)) {
-            res_.setResult(new StdStruct(instance_.getImmuRecharging(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getImmuRecharging(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,MOVES_INVOKING)) {
-            res_.setResult(new StdStruct(instance_.getMovesInvoking(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getMovesInvoking(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,COPY_MOVE_TYPES_AB)) {
-            res_.setResult(new StdStruct(instance_.getCopyMoveTypesAb(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getCopyMoveTypesAb(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,MOVES_THIEVING)) {
-            res_.setResult(new StdStruct(instance_.getMovesThieving(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getMovesThieving(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,MOVES_SEC_EFF_ITEMS)) {
-            res_.setResult(new StdStruct(instance_.getMovesSecEffItems(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getMovesSecEffItems(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,MOVES_ATTRACTING)) {
-            res_.setResult(new StdStruct(instance_.getMovesAttracting(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getMovesAttracting(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,BEGIN_ROUND_STATUS_FOE)) {
-            res_.setResult(new StdStruct(instance_.getBeginRoundStatusFoe(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getBeginRoundStatusFoe(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,PRESSURE_ABILITIES)) {
-            res_.setResult(new StdStruct(instance_.getPressureAbilities(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getPressureAbilities(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,PROTECT_ABILITIES)) {
-            res_.setResult(new StdStruct(instance_.getProtectAbilities(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getProtectAbilities(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,PROTECT_ITEMS)) {
-            res_.setResult(new StdStruct(instance_.getProtectItems(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getProtectItems(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,PROTECT_MOVES)) {
-            res_.setResult(new StdStruct(instance_.getProtectMoves(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getProtectMoves(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,EFF_MOVES)) {
-            res_.setResult(new StdStruct(instance_.getEffMoves(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getEffMoves(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,MOVES_MIRROR)) {
-            res_.setResult(new StdStruct(instance_.getMovesMirror(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getMovesMirror(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,ABILITIES_PART_STATIS)) {
-            res_.setResult(new StdStruct(instance_.getAbilitiesPartStatis(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getAbilitiesPartStatis(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,MOVES_TEAM)) {
-            res_.setResult(new StdStruct(instance_.getMovesTeam(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getMovesTeam(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,ABILITIES_FIGHTER_STATIS_VAR)) {
-            res_.setResult(new StdStruct(instance_.getAbilitiesFighterStatisVar(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getAbilitiesFighterStatisVar(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,ABILITIES_RATE_STATIS)) {
-            res_.setResult(new StdStruct(instance_.getAbilitiesRateStatis(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getAbilitiesRateStatis(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,COMBO_EVT_STAT)) {
-            res_.setResult(new StdStruct(instance_.getComboEvtStat(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getComboEvtStat(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,ABILITIES_FIGHTER_STATIS)) {
-            res_.setResult(new StdStruct(instance_.getAbilitiesFighterStatis(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getAbilitiesFighterStatis(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,ITEMS_FIGHTER_STATIS)) {
-            res_.setResult(new StdStruct(instance_.getItemsFighterStatis(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getItemsFighterStatis(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,SUCCESSFUL_STATUS)) {
-            res_.setResult(new StdStruct(instance_.getSuccessfulStatus(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getSuccessfulStatus(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,GLOBAL_MOVES_STATUS)) {
-            res_.setResult(new StdStruct(instance_.getGlobalMovesStatus(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getGlobalMovesStatus(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,ABILITIES_PART_STATUS)) {
-            res_.setResult(new StdStruct(instance_.getAbilitiesPartStatus(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getAbilitiesPartStatus(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,ABILITIES_FIGHTER_STATUS)) {
-            res_.setResult(new StdStruct(instance_.getAbilitiesFighterStatus(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getAbilitiesFighterStatus(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,ITEMS_FIGHTER_STATUS)) {
-            res_.setResult(new StdStruct(instance_.getItemsFighterStatus(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getItemsFighterStatus(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,LAWS_RATES)) {
-            res_.setResult(new StdStruct(instance_.getLawsRates(),std_.getCustMap()));
+            res_.setResult(new StdStruct(instance_.getLawsRates(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
         if (StringList.quickEq(fieldName_,MOVES_PROT_AGAINST_KO)) {
-            res_.setResult(new StdStruct(instance_.getMovesProtAgainstKo(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getMovesProtAgainstKo(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,MIN_HP_NOT_KO)) {
@@ -2459,87 +2460,87 @@ public final class AikiBeansHelpStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,ITEMS_PROT_AGAINST_KO)) {
-            res_.setResult(new StdStruct(instance_.getItemsProtAgainstKo(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getItemsProtAgainstKo(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,MOVES_CANNOT_KO)) {
-            res_.setResult(new StdStruct(instance_.getMovesCannotKo(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getMovesCannotKo(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,ITEMS_ABS)) {
-            res_.setResult(new StdStruct(instance_.getItemsAbs(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getItemsAbs(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,ABILITIES_REV_ABS)) {
-            res_.setResult(new StdStruct(instance_.getAbilitiesRevAbs(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getAbilitiesRevAbs(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,ABILITIES_DAMAGE_STATIS)) {
-            res_.setResult(new StdStruct(instance_.getAbilitiesDamageStatis(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getAbilitiesDamageStatis(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,ABILITIES_CHANGING_TYPES_DAMAGE)) {
-            res_.setResult(new StdStruct(instance_.getAbilitiesChangingTypesDamage(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getAbilitiesChangingTypesDamage(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,ABILITIES_TAKING_ITEM)) {
-            res_.setResult(new StdStruct(instance_.getAbilitiesTakingItem(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getAbilitiesTakingItem(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,ABILITIES_STATIS_VAR_USER)) {
-            res_.setResult(new StdStruct(instance_.getAbilitiesStatisVarUser(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getAbilitiesStatisVarUser(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,ABILITIES_STATUS)) {
-            res_.setResult(new StdStruct(instance_.getAbilitiesStatus(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getAbilitiesStatus(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,ABILITIES_COPY_AB)) {
-            res_.setResult(new StdStruct(instance_.getAbilitiesCopyAb(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getAbilitiesCopyAb(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,RECOIL_ITEMS)) {
-            res_.setResult(new StdStruct(instance_.getRecoilItems(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getRecoilItems(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,RECOIL_ABILITIES)) {
-            res_.setResult(new StdStruct(instance_.getRecoilAbilities(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getRecoilAbilities(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,ABILITIES_KO_TARGET)) {
-            res_.setResult(new StdStruct(instance_.getAbilitiesKoTarget(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getAbilitiesKoTarget(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,MOVES_KO_TARGET)) {
-            res_.setResult(new StdStruct(instance_.getMovesKoTarget(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getMovesKoTarget(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,BERRY_USER)) {
-            res_.setResult(new StdStruct(instance_.getBerryUser(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getBerryUser(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,BERRY_TARGET)) {
-            res_.setResult(new StdStruct(instance_.getBerryTarget(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getBerryTarget(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,ABILITIES_END_ROUND)) {
-            res_.setResult(new StdStruct(instance_.getAbilitiesEndRound(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getAbilitiesEndRound(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,BERRY_END_ROUND)) {
-            res_.setResult(new StdStruct(instance_.getBerryEndRound(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getBerryEndRound(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,MOVES_CHANGING_ATT_ORDER)) {
-            res_.setResult(new StdStruct(instance_.getMovesChangingAttOrder(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getMovesChangingAttOrder(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,RATES)) {
-            res_.setResult(new StdStruct(instance_.getRates(),std_.getCustMap()));
+            res_.setResult(new StdStruct(instance_.getRates(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
         if (StringList.quickEq(fieldName_,VAR_RATES)) {
-            res_.setResult(new StdStruct(instance_.getVarRates(),std_.getCustMap()));
+            res_.setResult(new StdStruct(instance_.getVarRates(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
         if (StringList.quickEq(fieldName_,WON_HAPPINESS_POINTS_LEVEL)) {
@@ -2555,7 +2556,7 @@ public final class AikiBeansHelpStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,MAP_VAR)) {
-            res_.setResult(new StdStruct(instance_.getMapVar(),std_.getCustMap()));
+            res_.setResult(new StdStruct(instance_.getMapVar(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
         if (StringList.quickEq(fieldName_,STRONG_MOVE)) {
@@ -2563,211 +2564,211 @@ public final class AikiBeansHelpStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,DAMAGING_MOVES)) {
-            res_.setResult(new StdStruct(instance_.getDamagingMoves(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getDamagingMoves(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,ITEMS_USER_POWER)) {
-            res_.setResult(new StdStruct(instance_.getItemsUserPower(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getItemsUserPower(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,MOVES_USER_POWER)) {
-            res_.setResult(new StdStruct(instance_.getMovesUserPower(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getMovesUserPower(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,MOVES_TARGET_POWER)) {
-            res_.setResult(new StdStruct(instance_.getMovesTargetPower(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getMovesTargetPower(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,ABILITIES_USER_POWER)) {
-            res_.setResult(new StdStruct(instance_.getAbilitiesUserPower(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getAbilitiesUserPower(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,MOVES_USER_ALLY_DAMAGE)) {
-            res_.setResult(new StdStruct(instance_.getMovesUserAllyDamage(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getMovesUserAllyDamage(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,ABILITIES_TARGET_DAMAGE)) {
-            res_.setResult(new StdStruct(instance_.getAbilitiesTargetDamage(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getAbilitiesTargetDamage(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,MOVES_TARGET_TEAM_DAMAGE)) {
-            res_.setResult(new StdStruct(instance_.getMovesTargetTeamDamage(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getMovesTargetTeamDamage(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,ABILITIES_USER_IGN_TARGET_TEAM)) {
-            res_.setResult(new StdStruct(instance_.getAbilitiesUserIgnTargetTeam(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getAbilitiesUserIgnTargetTeam(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,ABILITIES_GLOBAL)) {
-            res_.setResult(new StdStruct(instance_.getAbilitiesGlobal(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getAbilitiesGlobal(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,MOVES_GLOBAL)) {
-            res_.setResult(new StdStruct(instance_.getMovesGlobal(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getMovesGlobal(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,ITEMS_USER_DAMAGE)) {
-            res_.setResult(new StdStruct(instance_.getItemsUserDamage(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getItemsUserDamage(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,ABILITIES_USER_DAMAGE)) {
-            res_.setResult(new StdStruct(instance_.getAbilitiesUserDamage(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getAbilitiesUserDamage(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,MOVES_INVOK_DAMAGE)) {
-            res_.setResult(new StdStruct(instance_.getMovesInvokDamage(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getMovesInvokDamage(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,ITEMS_TARGET_DAMAGE)) {
-            res_.setResult(new StdStruct(instance_.getItemsTargetDamage(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getItemsTargetDamage(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,MOVES_GLOBAL_PREPA_DAMAGE)) {
-            res_.setResult(new StdStruct(instance_.getMovesGlobalPrepaDamage(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getMovesGlobalPrepaDamage(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,STATUS_DAMAGE)) {
-            res_.setResult(new StdStruct(instance_.getStatusDamage(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getStatusDamage(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,ABILITIES_USER_TARGET_DAMAGE)) {
-            res_.setResult(new StdStruct(instance_.getAbilitiesUserTargetDamage(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getAbilitiesUserTargetDamage(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,ABILITIES_USER_STAB_DAMAGE)) {
-            res_.setResult(new StdStruct(instance_.getAbilitiesUserStabDamage(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getAbilitiesUserStabDamage(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,MOVES_TYPES_DEF_ITEM)) {
-            res_.setResult(new StdStruct(instance_.getMovesTypesDefItem(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getMovesTypesDefItem(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,ITEMS_TYPES_DEF)) {
-            res_.setResult(new StdStruct(instance_.getItemsTypesDef(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getItemsTypesDef(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,MOVES_TYPES_DEF_WEATHER)) {
-            res_.setResult(new StdStruct(instance_.getMovesTypesDefWeather(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getMovesTypesDefWeather(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,ABILITIES_TYPE_DEF_MOVES)) {
-            res_.setResult(new StdStruct(instance_.getAbilitiesTypeDefMoves(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getAbilitiesTypeDefMoves(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,MOVES_TYPE_DEF_MOVES)) {
-            res_.setResult(new StdStruct(instance_.getMovesTypeDefMoves(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getMovesTypeDefMoves(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,MOVES_CHANGE_TYPE_MOVES)) {
-            res_.setResult(new StdStruct(instance_.getMovesChangeTypeMoves(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getMovesChangeTypeMoves(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,MOVES_GLOBAL_BREAK_IMMU)) {
-            res_.setResult(new StdStruct(instance_.getMovesGlobalBreakImmu(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getMovesGlobalBreakImmu(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,MOVES_UNPROTECTING_TYPES)) {
-            res_.setResult(new StdStruct(instance_.getMovesUnprotectingTypes(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getMovesUnprotectingTypes(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,ABILITIES_BREAK_IMMU)) {
-            res_.setResult(new StdStruct(instance_.getAbilitiesBreakImmu(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getAbilitiesBreakImmu(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,ITEMS_CANCEL_IMMU)) {
-            res_.setResult(new StdStruct(instance_.getItemsCancelImmu(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getItemsCancelImmu(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,TYPES)) {
-            res_.setResult(new StdStruct(instance_.getTypes(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getTypes(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,EFFICIENCY)) {
-            res_.setResult(new StdStruct(instance_.getEfficiency(),std_.getCustMap()));
+            res_.setResult(new StdStruct(instance_.getEfficiency(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
         if (StringList.quickEq(fieldName_,MOVES_IGN_LOW_ATT)) {
-            res_.setResult(new StdStruct(instance_.getMovesIgnLowAtt(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getMovesIgnLowAtt(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,MOVES_IGN_INC_DEF)) {
-            res_.setResult(new StdStruct(instance_.getMovesIgnIncDef(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getMovesIgnIncDef(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,ABILITIES_BOOSTING_STAT)) {
-            res_.setResult(new StdStruct(instance_.getAbilitiesBoostingStat(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getAbilitiesBoostingStat(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,ITEMS_BOOSTING_STAT)) {
-            res_.setResult(new StdStruct(instance_.getItemsBoostingStat(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getItemsBoostingStat(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,ITEMS_MULT_STAT)) {
-            res_.setResult(new StdStruct(instance_.getItemsMultStat(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getItemsMultStat(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,ABILITIES_MULT_STAT)) {
-            res_.setResult(new StdStruct(instance_.getAbilitiesMultStat(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getAbilitiesMultStat(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,MOVES_GLOBAL_MULT_STAT)) {
-            res_.setResult(new StdStruct(instance_.getMovesGlobalMultStat(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getMovesGlobalMultStat(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,MOVES_TEAM_MULT_STAT)) {
-            res_.setResult(new StdStruct(instance_.getMovesTeamMultStat(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getMovesTeamMultStat(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,ABILITIES_ALLY_MULT_STAT)) {
-            res_.setResult(new StdStruct(instance_.getAbilitiesAllyMultStat(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getAbilitiesAllyMultStat(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,MOVES_FOE_TEAM_MULT_STAT)) {
-            res_.setResult(new StdStruct(instance_.getMovesFoeTeamMultStat(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getMovesFoeTeamMultStat(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,STATUS_MULT_STAT)) {
-            res_.setResult(new StdStruct(instance_.getStatusMultStat(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getStatusMultStat(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,ABILITIES_IMMU_MULT_STAT)) {
-            res_.setResult(new StdStruct(instance_.getAbilitiesImmuMultStat(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getAbilitiesImmuMultStat(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,COMBO_MULT_STAT)) {
-            res_.setResult(new StdStruct(instance_.getComboMultStat(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getComboMultStat(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,ABILITIES_BREAK_PROTECT_MOVES)) {
-            res_.setResult(new StdStruct(instance_.getAbilitiesBreakProtectMoves(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getAbilitiesBreakProtectMoves(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,MOVES_IGN_ACC)) {
-            res_.setResult(new StdStruct(instance_.getMovesIgnAcc(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getMovesIgnAcc(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,MOVES_IGN_EVA)) {
-            res_.setResult(new StdStruct(instance_.getMovesIgnEva(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getMovesIgnEva(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,MOVES_GLOBAL_ACC)) {
-            res_.setResult(new StdStruct(instance_.getMovesGlobalAcc(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getMovesGlobalAcc(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,ABILITIES_IMMU_CH)) {
-            res_.setResult(new StdStruct(instance_.getAbilitiesImmuCh(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getAbilitiesImmuCh(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,MOVES_BOOST_CH)) {
-            res_.setResult(new StdStruct(instance_.getMovesBoostCh(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getMovesBoostCh(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,ABILITES_MULT_EVT_CH)) {
-            res_.setResult(new StdStruct(instance_.getAbilitesMultEvtCh(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getAbilitesMultEvtCh(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,ABILITES_MULT_RATE_CH)) {
-            res_.setResult(new StdStruct(instance_.getAbilitesMultRateCh(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getAbilitesMultRateCh(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,RATE_FORMULA)) {
@@ -2775,7 +2776,7 @@ public final class AikiBeansHelpStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,BOOSTS)) {
-            res_.setResult(new StdStruct(instance_.getBoosts(),std_.getCustMap()));
+            res_.setResult(new StdStruct(instance_.getBoosts(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
         if (StringList.quickEq(fieldName_,RATE_FORMULA_CH)) {
@@ -2783,59 +2784,59 @@ public final class AikiBeansHelpStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,BOOSTS_CH)) {
-            res_.setResult(new StdStruct(instance_.getBoostsCh(),std_.getCustMap()));
+            res_.setResult(new StdStruct(instance_.getBoostsCh(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
         if (StringList.quickEq(fieldName_,MOVES_PROTECTING_TYPES)) {
-            res_.setResult(new StdStruct(instance_.getMovesProtectingTypes(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getMovesProtectingTypes(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,MOVES_GLOBAL_BREAK_IMMU_AB)) {
-            res_.setResult(new StdStruct(instance_.getMovesGlobalBreakImmuAb(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getMovesGlobalBreakImmuAb(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,ABILITIES_BREAKABLE)) {
-            res_.setResult(new StdStruct(instance_.getAbilitiesBreakable(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getAbilitiesBreakable(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,ABILITIES_IMMU_TYPES)) {
-            res_.setResult(new StdStruct(instance_.getAbilitiesImmuTypes(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getAbilitiesImmuTypes(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,ITEMS_IMMU_TYPES)) {
-            res_.setResult(new StdStruct(instance_.getItemsImmuTypes(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getItemsImmuTypes(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,ABILITIES_IMMU_ALLIES)) {
-            res_.setResult(new StdStruct(instance_.getAbilitiesImmuAllies(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getAbilitiesImmuAllies(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,ABILITIES_IMMU_ALLIES_DAM)) {
-            res_.setResult(new StdStruct(instance_.getAbilitiesImmuAlliesDam(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getAbilitiesImmuAlliesDam(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,ABILITIES_IMMU)) {
-            res_.setResult(new StdStruct(instance_.getAbilitiesImmu(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getAbilitiesImmu(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,ITEMS_IMMU)) {
-            res_.setResult(new StdStruct(instance_.getItemsImmu(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getItemsImmu(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,ABILITIES_IMMU_SEC_EFF_OTHER)) {
-            res_.setResult(new StdStruct(instance_.getAbilitiesImmuSecEffOther(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getAbilitiesImmuSecEffOther(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,ABILITIES_IMMU_SEC_EFF_OWNER)) {
-            res_.setResult(new StdStruct(instance_.getAbilitiesImmuSecEffOwner(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getAbilitiesImmuSecEffOwner(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,ABILITIES_ACHIEVE_TARGET)) {
-            res_.setResult(new StdStruct(instance_.getAbilitiesAchieveTarget(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getAbilitiesAchieveTarget(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,MOVES_PROTECTING)) {
-            res_.setResult(new StdStruct(instance_.getMovesProtecting(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getMovesProtecting(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,CATCHING_FORMULA)) {
@@ -2843,7 +2844,7 @@ public final class AikiBeansHelpStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,VAR_CATCHING_FORMULA)) {
-            res_.setResult(new StdStruct(instance_.getVarCatchingFormula(),std_.getCustMap()));
+            res_.setResult(new StdStruct(instance_.getVarCatchingFormula(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
         if (StringList.quickEq(fieldName_,FLEEING_FORMULA)) {
@@ -2851,11 +2852,11 @@ public final class AikiBeansHelpStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,VAR_FLEEING_FORMULA)) {
-            res_.setResult(new StdStruct(instance_.getVarFleeingFormula(),std_.getCustMap()));
+            res_.setResult(new StdStruct(instance_.getVarFleeingFormula(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
         if (StringList.quickEq(fieldName_,STATISTIC_ANIM)) {
-            res_.setResult(new StdStruct(instance_.getStatisticAnim(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getStatisticAnim(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         return res_;
@@ -2886,7 +2887,7 @@ public final class AikiBeansHelpStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,MINI_MAP)) {
-            res_.setResult(new StdStruct(instance_.getMiniMap(),std_.getCustMap()));
+            res_.setResult(new StdStruct(instance_.getMiniMap(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
         if (StringList.quickEq(fieldName_,UNLOCKED_CITY)) {
@@ -2922,7 +2923,7 @@ public final class AikiBeansHelpStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,POKEMON_DEFAULT_EGG_GROUP)) {
-            res_.setResult(new StdStruct(instance_.getPokemonDefaultEggGroup(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getPokemonDefaultEggGroup(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,DEFAULT_MONEY)) {
@@ -2930,15 +2931,15 @@ public final class AikiBeansHelpStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,TM)) {
-            res_.setResult(new StdStruct(instance_.getTm(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getTm(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,HM)) {
-            res_.setResult(new StdStruct(instance_.getHm(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getHm(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,TYPES)) {
-            res_.setResult(new StdStruct(instance_.getTypes(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getTypes(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         return res_;
@@ -2949,7 +2950,7 @@ public final class AikiBeansHelpStd {
         LangsBean instance_ = (LangsBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringList.quickEq(fieldName_,LANGUAGES)) {
-            res_.setResult(new StdStruct(instance_.getLanguages(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getLanguages(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         return res_;
@@ -4574,7 +4575,7 @@ public final class AikiBeansHelpStd {
             return res_;
         }
         if (StringList.quickEq(methodName_,GET_MOVES_AT_LEVEL)) {
-            res_.setResult(new StdStruct(instance_.getMovesAtLevel(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getMovesAtLevel(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(methodName_,CLICK_MOVE)) {
@@ -4637,115 +4638,115 @@ public final class AikiBeansHelpStd {
             return res_;
         }
         if (StringList.quickEq(methodName_,GET_KEYS_GENDERS)) {
-            res_.setResult(new StdStruct(instance_.getKeysGenders(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getKeysGenders(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(methodName_,GET_ROW_GENDER)) {
-            res_.setResult(new StdStruct(instance_.getRowGender((Long)_args[0]),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getRowGender((Long)_args[0]), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(methodName_,GET_KEYS_BOOLEANS)) {
-            res_.setResult(new StdStruct(instance_.getKeysBooleans(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getKeysBooleans(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(methodName_,GET_ROW_BOOLEAN)) {
-            res_.setResult(new StdStruct(instance_.getRowBoolean((Long)_args[0]),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getRowBoolean((Long)_args[0]), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(methodName_,GET_KEYS_ENVIRONMENTS)) {
-            res_.setResult(new StdStruct(instance_.getKeysEnvironments(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getKeysEnvironments(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(methodName_,GET_ROW_ENVIRONMENT)) {
-            res_.setResult(new StdStruct(instance_.getRowEnvironment((Long)_args[0]),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getRowEnvironment((Long)_args[0]), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(methodName_,GET_KEYS_STATISTICS)) {
-            res_.setResult(new StdStruct(instance_.getKeysStatistics(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getKeysStatistics(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(methodName_,GET_ROW_STATISTIC)) {
-            res_.setResult(new StdStruct(instance_.getRowStatistic((Long)_args[0]),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getRowStatistic((Long)_args[0]), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(methodName_,GET_KEYS_TARGETS)) {
-            res_.setResult(new StdStruct(instance_.getKeysTargets(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getKeysTargets(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(methodName_,GET_ROW_TARGET)) {
-            res_.setResult(new StdStruct(instance_.getRowTarget((Long)_args[0]),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getRowTarget((Long)_args[0]), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(methodName_,GET_KEYS_CATEGORIES)) {
-            res_.setResult(new StdStruct(instance_.getKeysCategories(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getKeysCategories(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(methodName_,GET_ROW_CATEGORY)) {
-            res_.setResult(new StdStruct(instance_.getRowCategory((Long)_args[0]),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getRowCategory((Long)_args[0]), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(methodName_,GET_KEYS_TYPES)) {
-            res_.setResult(new StdStruct(instance_.getKeysTypes(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getKeysTypes(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(methodName_,GET_ROW_TYPE)) {
-            res_.setResult(new StdStruct(instance_.getRowType((Long)_args[0]),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getRowType((Long)_args[0]), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(methodName_,GET_KEYS_POKEMON)) {
-            res_.setResult(new StdStruct(instance_.getKeysPokemon(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getKeysPokemon(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(methodName_,GET_ROW_POKEMON)) {
-            res_.setResult(new StdStruct(instance_.getRowPokemon((Long)_args[0]),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getRowPokemon((Long)_args[0]), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(methodName_,GET_KEYS_MOVES)) {
-            res_.setResult(new StdStruct(instance_.getKeysMoves(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getKeysMoves(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(methodName_,GET_ROW_MOVE)) {
-            res_.setResult(new StdStruct(instance_.getRowMove((Long)_args[0]),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getRowMove((Long)_args[0]), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(methodName_,GET_KEYS_ITEMS)) {
-            res_.setResult(new StdStruct(instance_.getKeysItems(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getKeysItems(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(methodName_,GET_ROW_ITEM)) {
-            res_.setResult(new StdStruct(instance_.getRowItem((Long)_args[0]),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getRowItem((Long)_args[0]), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(methodName_,GET_KEYS_ABILITIES)) {
-            res_.setResult(new StdStruct(instance_.getKeysAbilities(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getKeysAbilities(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(methodName_,GET_ROW_ABILITY)) {
-            res_.setResult(new StdStruct(instance_.getRowAbility((Long)_args[0]),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getRowAbility((Long)_args[0]), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(methodName_,GET_KEYS_STATUS)) {
-            res_.setResult(new StdStruct(instance_.getKeysStatus(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getKeysStatus(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(methodName_,GET_ROW_STATUS)) {
-            res_.setResult(new StdStruct(instance_.getRowStatus((Long)_args[0]),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getRowStatus((Long)_args[0]), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(methodName_,GET_KEYS_MATH)) {
-            res_.setResult(new StdStruct(instance_.getKeysMath(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getKeysMath(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(methodName_,GET_ROW_MATH)) {
-            res_.setResult(new StdStruct(instance_.getRowMath((Long)_args[0]),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getRowMath((Long)_args[0]), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(methodName_,GET_KEYS_DESC)) {
-            res_.setResult(new StdStruct(instance_.getKeysDesc(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getKeysDesc(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(methodName_,GET_ROW_DESC)) {
-            res_.setResult(new StdStruct(instance_.getRowDesc((Long)_args[0]),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getRowDesc((Long)_args[0]), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         return res_;

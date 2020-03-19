@@ -7,6 +7,7 @@ import code.expressionlanguage.calls.util.NotInitializedClass;
 import code.expressionlanguage.methods.ProcessMethod;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.AbstractFieldOperation;
+import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.formathtml.Configuration;
 import code.util.IdMap;
 
@@ -23,6 +24,11 @@ public abstract class RendAbstractFieldOperation extends RendLeafOperation imple
         intermediate = _a.isIntermediateDottedOperation();
         previousArgument = _a.getPreviousArgument();
         off = _a.getOff();
+    }
+    RendAbstractFieldOperation(Argument _a,int _indexChild, ClassArgumentMatching _res, int _order, boolean _int) {
+        super(_indexChild,_res,_order);
+        previousArgument = _a;
+        intermediate = _int;
     }
 
     public int getOff() {

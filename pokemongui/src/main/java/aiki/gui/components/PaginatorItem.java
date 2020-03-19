@@ -29,6 +29,7 @@ public final class PaginatorItem extends Paginator {
     private static final String NUMBER = "number";
 
     private TextField name;
+    private AutoCompleteDocument nameAuto;
 
     private TextField description = new TextField(16);
 
@@ -111,7 +112,8 @@ public final class PaginatorItem extends Paginator {
             String abTr_ = getFacade().translateItem(i);
             it_.add(abTr_);
         }
-        name = AutoCompleteDocument.createAutoCompleteTextField(it_, 16);
+        name = new TextField(16);
+        nameAuto = new AutoCompleteDocument(name,it_, getWindow());
 //        name.getDocument().addDocumentListener(new DocumentAdaptater() {
 //
 //            public void updateText() {
@@ -124,7 +126,7 @@ public final class PaginatorItem extends Paginator {
 //                getFacade().setContentOfDescriptionItem(convertStringField(description.getText()));
 //            }
 //        });
-        modeName.setListener(new ChangedModeEvent(modeName, name));
+        modeName.setListener(new ChangedModeEvent(modeName, nameAuto));
 //        modeName.addItemListener(new ItemListener(){
 //            public void itemStateChanged(ItemEvent _e) {
 //                SearchingMode s_ = modeName.getCurrent();

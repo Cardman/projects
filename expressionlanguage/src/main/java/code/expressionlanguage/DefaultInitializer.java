@@ -61,9 +61,6 @@ public class DefaultInitializer implements Initializer {
         fields_ = new ObjectMap<ClassField,Struct>();
         for (String c: allClasses_) {
             RootBlock clMetaLoc_ = classes_.getClassBody(c);
-            if (clMetaLoc_ == null) {
-                continue;
-            }
             for (Block b: Classes.getDirectChildren(clMetaLoc_)) {
                 if (!(b instanceof AnnotationMethodBlock)) {
                     continue;

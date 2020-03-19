@@ -1,9 +1,7 @@
 package code.formathtml.exec;
 
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.calls.PageEl;
-import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.InstanceOfOperation;
@@ -16,12 +14,10 @@ public final class RendInstanceOfOperation extends RendAbstractUnaryOperation {
 
     private String className;
     private int offset;
-    private boolean correctTemplate;
     public RendInstanceOfOperation(InstanceOfOperation _i) {
         super(_i);
         className = _i.getClassName();
         offset = _i.getOffset();
-        correctTemplate = _i.isCorrectTemplate();
     }
 
     @Override
@@ -43,13 +39,6 @@ public final class RendInstanceOfOperation extends RendAbstractUnaryOperation {
         String className_ = stds_.getStructClassName(objArg_.getStruct(), _conf.getContextEl());
         PageEl page_ = _conf.getOperationPageEl();
         String str_ = page_.formatVarType(className, _conf);
-        if (!correctTemplate) {
-            className_ = Templates.getIdFromAllTypes(className_);
-            boolean res_ = PrimitiveTypeUtil.canBeUseAsArgument(str_, className_, _conf);
-            Argument arg_ = new Argument();
-            arg_.setObject(res_);
-            return arg_;
-        }
         boolean res_ = Templates.isCorrectExecute(className_, str_, _conf);
         Argument arg_ = new Argument();
         arg_.setObject(res_);

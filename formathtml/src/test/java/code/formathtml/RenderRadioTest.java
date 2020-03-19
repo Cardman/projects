@@ -3,11 +3,7 @@ package code.formathtml;
 import code.bean.Bean;
 
 import code.bean.validator.Validator;
-import code.expressionlanguage.AnalyzedPageEl;
-import code.expressionlanguage.structs.Struct;
 
-import code.sml.Document;
-import code.sml.DocumentBuilder;
 import code.util.StringMap;
 import org.junit.Test;
 
@@ -44,30 +40,18 @@ public final class RenderRadioTest extends CommonRender {
         filesSec_.put("my_file",file_.toString());
         Configuration conf_ = contextElThird(filesSec_);
         conf_.setBeans(new StringMap<Bean>());
-        addImportingPage(conf_);
-        Struct bean_ = RenderExpUtil.processEl("$new pkg.BeanOne()", 0, conf_).getStruct();
-        addBeanInfo(conf_,"bean_one",bean_);
-        conf_.clearPages();
         conf_.setMessagesFolder(folder_);
         conf_.setFirstUrl("page1.html");
         conf_.setValidators(new StringMap<Validator>());
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-
-
-        conf_.setNavigation(new StringMap<StringMap<String>>());
-        Document doc_ = DocumentBuilder.parseSax(html_);
         conf_.getAnalyzingDoc().setFiles(files_);
-        setLocale(locale_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getContext().setAnalyzing(new AnalyzedPageEl());
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>HEAD<form action=\"\" c:command=\"page1.html\" name=\"myform\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4\" checked=\"checked\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"2\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"4\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"6\" checked=\"checked\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
     }
+
     @Test
     public void process2Test() {
         String locale_ = "en";
@@ -95,30 +79,17 @@ public final class RenderRadioTest extends CommonRender {
         filesSec_.put("my_file",file_.toString());
         Configuration conf_ = contextElThird(filesSec_);
         conf_.setBeans(new StringMap<Bean>());
-        addImportingPage(conf_);
-        Struct bean_ = RenderExpUtil.processEl("$new pkg.BeanOne()", 0, conf_).getStruct();
-        addBeanInfo(conf_,"bean_one",bean_);
-        conf_.clearPages();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-
-
-        Document doc_ = DocumentBuilder.parseSax(html_);
         conf_.getAnalyzingDoc().setFiles(files_);
-        setLocale(locale_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getContext().setAnalyzing(new AnalyzedPageEl());
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
-        
-        conf_.setDocument(doc_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         String res_ = RendBlock.getRes(rendDocumentBlock_, conf_);
         assertEq("<html><body><form action=\"\" c:command=\"page1.html\" name=\"myform\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.first.value\" n-i=\"0\" value=\"2\"/><input type=\"radio\" name=\"bean_one.first.value\" n-i=\"0\" value=\"4\" checked=\"checked\"/></form></body></html>",res_);
         assertNull(getException(conf_));
     }
+
     @Test
     public void process3Test() {
         String locale_ = "en";
@@ -148,25 +119,11 @@ public final class RenderRadioTest extends CommonRender {
         filesSec_.put("my_file",file_.toString());
         Configuration conf_ = contextElThird(filesSec_);
         conf_.setBeans(new StringMap<Bean>());
-        addImportingPage(conf_);
-        Struct bean_ = RenderExpUtil.processEl("$new pkg.BeanOne()", 0, conf_).getStruct();
-        addBeanInfo(conf_,"bean_one",bean_);
-        conf_.clearPages();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-
-
-        Document doc_ = DocumentBuilder.parseSax(html_);
         conf_.getAnalyzingDoc().setFiles(files_);
-        setLocale(locale_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getContext().setAnalyzing(new AnalyzedPageEl());
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
-        
-        conf_.setDocument(doc_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         String res_ = RendBlock.getRes(rendDocumentBlock_, conf_);
         assertEq("<html><body><form action=\"\" c:command=\"page1.html\" name=\"myform\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.first.value\" n-i=\"0\" value=\"2\"/><input type=\"radio\" name=\"bean_one.first.value\" n-i=\"0\" value=\"4\" checked=\"checked\"/><input type=\"radio\" name=\"bean_one.second.value\" n-i=\"1\" value=\"6\" checked=\"checked\"/><input type=\"radio\" name=\"bean_one.second.value\" n-i=\"1\" value=\"8\"/></form></body></html>",res_);
@@ -201,25 +158,11 @@ public final class RenderRadioTest extends CommonRender {
         filesSec_.put("my_file",file_.toString());
         Configuration conf_ = contextElThird(filesSec_);
         conf_.setBeans(new StringMap<Bean>());
-        addImportingPage(conf_);
-        Struct bean_ = RenderExpUtil.processEl("$new pkg.BeanOne()", 0, conf_).getStruct();
-        addBeanInfo(conf_,"bean_one",bean_);
-        conf_.clearPages();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-
-
-        Document doc_ = DocumentBuilder.parseSax(html_);
         conf_.getAnalyzingDoc().setFiles(files_);
-        setLocale(locale_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getContext().setAnalyzing(new AnalyzedPageEl());
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
-        
-        conf_.setDocument(doc_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         String res_ = RendBlock.getRes(rendDocumentBlock_, conf_);
         assertEq("<html><body><form action=\"\" c:command=\"page1.html\" name=\"myform\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.first.value\" n-i=\"0\" value=\"2\"/><input type=\"radio\" name=\"bean_one.first.value\" n-i=\"0\" value=\"4\"/></form></body></html>",res_);
@@ -254,25 +197,11 @@ public final class RenderRadioTest extends CommonRender {
         filesSec_.put("my_file",file_.toString());
         Configuration conf_ = contextElThird(filesSec_);
         conf_.setBeans(new StringMap<Bean>());
-        addImportingPage(conf_);
-        Struct bean_ = RenderExpUtil.processEl("$new pkg.BeanOne()", 0, conf_).getStruct();
-        addBeanInfo(conf_,"bean_one",bean_);
-        conf_.clearPages();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-
-
-        Document doc_ = DocumentBuilder.parseSax(html_);
         conf_.getAnalyzingDoc().setFiles(files_);
-        setLocale(locale_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getContext().setAnalyzing(new AnalyzedPageEl());
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
-        
-        conf_.setDocument(doc_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         String res_ = RendBlock.getRes(rendDocumentBlock_, conf_);
         assertEq("<html><body><form action=\"\" c:command=\"page1.html\" name=\"myform\" n-f=\"0\"><input type=\"radio\"/></form></body></html>",res_);
@@ -305,26 +234,13 @@ public final class RenderRadioTest extends CommonRender {
         filesSec_.put("my_file",file_.toString());
         Configuration conf_ = contextElThird(filesSec_);
         conf_.setBeans(new StringMap<Bean>());
-        addImportingPage(conf_);
-        Struct bean_ = RenderExpUtil.processEl("$new pkg.BeanOne()", 0, conf_).getStruct();
-        addBeanInfo(conf_,"bean_one",bean_);
-        conf_.clearPages();
         conf_.setMessagesFolder(folder_);
         conf_.setFirstUrl("page1.html");
         conf_.setValidators(new StringMap<Validator>());
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-
-
-        conf_.setNavigation(new StringMap<StringMap<String>>());
-        Document doc_ = DocumentBuilder.parseSax(html_);
         conf_.getAnalyzingDoc().setFiles(files_);
-        setLocale(locale_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getContext().setAnalyzing(new AnalyzedPageEl());
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>HEAD<form action=\"\" c:command=\"page1.html\" name=\"myform\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.(index)\" n-i=\"0\" value=\"2\"/><input type=\"radio\" name=\"bean_one.(index)\" n-i=\"0\" value=\"4\" checked=\"checked\"/><input type=\"radio\" name=\"bean_one.(index)\" n-i=\"0\" value=\"6\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"2\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"4\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"6\" checked=\"checked\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
@@ -355,25 +271,11 @@ public final class RenderRadioTest extends CommonRender {
         filesSec_.put("my_file",file_.toString());
         Configuration conf_ = contextElThird(filesSec_);
         conf_.setBeans(new StringMap<Bean>());
-        addImportingPage(conf_);
-        Struct bean_ = RenderExpUtil.processEl("$new pkg.BeanOne()", 0, conf_).getStruct();
-        addBeanInfo(conf_,"bean_one",bean_);
-        conf_.clearPages();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-
-
-        Document doc_ = DocumentBuilder.parseSax(html_);
         conf_.getAnalyzingDoc().setFiles(files_);
-        setLocale(locale_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getContext().setAnalyzing(new AnalyzedPageEl());
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
-        
-        conf_.setDocument(doc_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_, conf_);
         assertNotNull(getException(conf_));
@@ -405,25 +307,11 @@ public final class RenderRadioTest extends CommonRender {
         filesSec_.put("my_file",file_.toString());
         Configuration conf_ = contextElThird(filesSec_);
         conf_.setBeans(new StringMap<Bean>());
-        addImportingPage(conf_);
-        Struct bean_ = RenderExpUtil.processEl("$new pkg.BeanOne()", 0, conf_).getStruct();
-        addBeanInfo(conf_,"bean_one",bean_);
-        conf_.clearPages();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-
-
-        Document doc_ = DocumentBuilder.parseSax(html_);
         conf_.getAnalyzingDoc().setFiles(files_);
-        setLocale(locale_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getContext().setAnalyzing(new AnalyzedPageEl());
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
-        
-        conf_.setDocument(doc_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_, conf_);
         assertNotNull(getException(conf_));
@@ -458,26 +346,13 @@ public final class RenderRadioTest extends CommonRender {
         filesSec_.put("my_file",file_.toString());
         Configuration conf_ = contextElThird(filesSec_);
         conf_.setBeans(new StringMap<Bean>());
-        addImportingPage(conf_);
-        Struct bean_ = RenderExpUtil.processEl("$new pkg.BeanOne()", 0, conf_).getStruct();
-        addBeanInfo(conf_,"bean_one",bean_);
-        conf_.clearPages();
         conf_.setMessagesFolder(folder_);
         conf_.setFirstUrl("page1.html");
         conf_.setValidators(new StringMap<Validator>());
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-
-
-        conf_.setNavigation(new StringMap<StringMap<String>>());
-        Document doc_ = DocumentBuilder.parseSax(html_);
         conf_.getAnalyzingDoc().setFiles(files_);
-        setLocale(locale_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getContext().setAnalyzing(new AnalyzedPageEl());
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>HEAD<form action=\"\" c:command=\"page1.html\" name=\"myform\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4\" checked=\"checked\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"2\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"4\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"6\" checked=\"checked\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
@@ -512,26 +387,13 @@ public final class RenderRadioTest extends CommonRender {
         filesSec_.put("my_file",file_.toString());
         Configuration conf_ = contextElThird(filesSec_);
         conf_.setBeans(new StringMap<Bean>());
-        addImportingPage(conf_);
-        Struct bean_ = RenderExpUtil.processEl("$new pkg.BeanOne()", 0, conf_).getStruct();
-        addBeanInfo(conf_,"bean_one",bean_);
-        conf_.clearPages();
         conf_.setMessagesFolder(folder_);
         conf_.setFirstUrl("page1.html");
         conf_.setValidators(new StringMap<Validator>());
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-
-
-        conf_.setNavigation(new StringMap<StringMap<String>>());
-        Document doc_ = DocumentBuilder.parseSax(html_);
         conf_.getAnalyzingDoc().setFiles(files_);
-        setLocale(locale_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getContext().setAnalyzing(new AnalyzedPageEl());
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_,conf_);
         assertNotNull(getException(conf_));
@@ -570,26 +432,13 @@ public final class RenderRadioTest extends CommonRender {
         filesSec_.put("my_file",file_.toString());
         Configuration conf_ = contextElThird(filesSec_);
         conf_.setBeans(new StringMap<Bean>());
-        addImportingPage(conf_);
-        Struct bean_ = RenderExpUtil.processEl("$new pkg.BeanOne()", 0, conf_).getStruct();
-        addBeanInfo(conf_,"bean_one",bean_);
-        conf_.clearPages();
         conf_.setMessagesFolder(folder_);
         conf_.setFirstUrl("page1.html");
         conf_.setValidators(new StringMap<Validator>());
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-
-
-        conf_.setNavigation(new StringMap<StringMap<String>>());
-        Document doc_ = DocumentBuilder.parseSax(html_);
         conf_.getAnalyzingDoc().setFiles(files_);
-        setLocale(locale_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getContext().setAnalyzing(new AnalyzedPageEl());
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>HEAD<form action=\"\" c:command=\"page1.html\" name=\"myform\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4\" checked=\"checked\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
@@ -628,26 +477,13 @@ public final class RenderRadioTest extends CommonRender {
         filesSec_.put("my_file",file_.toString());
         Configuration conf_ = contextElThird(filesSec_);
         conf_.setBeans(new StringMap<Bean>());
-        addImportingPage(conf_);
-        Struct bean_ = RenderExpUtil.processEl("$new pkg.BeanOne()", 0, conf_).getStruct();
-        addBeanInfo(conf_,"bean_one",bean_);
-        conf_.clearPages();
         conf_.setMessagesFolder(folder_);
         conf_.setFirstUrl("page1.html");
         conf_.setValidators(new StringMap<Validator>());
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-
-
-        conf_.setNavigation(new StringMap<StringMap<String>>());
-        Document doc_ = DocumentBuilder.parseSax(html_);
         conf_.getAnalyzingDoc().setFiles(files_);
-        setLocale(locale_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getContext().setAnalyzing(new AnalyzedPageEl());
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_,conf_);
         assertNotNull(getException(conf_));
@@ -686,26 +522,13 @@ public final class RenderRadioTest extends CommonRender {
         filesSec_.put("my_file",file_.toString());
         Configuration conf_ = contextElThird(filesSec_);
         conf_.setBeans(new StringMap<Bean>());
-        addImportingPage(conf_);
-        Struct bean_ = RenderExpUtil.processEl("$new pkg.BeanOne()", 0, conf_).getStruct();
-        addBeanInfo(conf_,"bean_one",bean_);
-        conf_.clearPages();
         conf_.setMessagesFolder(folder_);
         conf_.setFirstUrl("page1.html");
         conf_.setValidators(new StringMap<Validator>());
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-
-
-        conf_.setNavigation(new StringMap<StringMap<String>>());
-        Document doc_ = DocumentBuilder.parseSax(html_);
         conf_.getAnalyzingDoc().setFiles(files_);
-        setLocale(locale_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getContext().setAnalyzing(new AnalyzedPageEl());
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>HEAD<form action=\"\" c:command=\"page1.html\" name=\"myform\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4\" checked=\"checked\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
@@ -744,26 +567,13 @@ public final class RenderRadioTest extends CommonRender {
         filesSec_.put("my_file",file_.toString());
         Configuration conf_ = contextElThird(filesSec_);
         conf_.setBeans(new StringMap<Bean>());
-        addImportingPage(conf_);
-        Struct bean_ = RenderExpUtil.processEl("$new pkg.BeanOne()", 0, conf_).getStruct();
-        addBeanInfo(conf_,"bean_one",bean_);
-        conf_.clearPages();
         conf_.setMessagesFolder(folder_);
         conf_.setFirstUrl("page1.html");
         conf_.setValidators(new StringMap<Validator>());
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-
-
-        conf_.setNavigation(new StringMap<StringMap<String>>());
-        Document doc_ = DocumentBuilder.parseSax(html_);
         conf_.getAnalyzingDoc().setFiles(files_);
-        setLocale(locale_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getContext().setAnalyzing(new AnalyzedPageEl());
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_,conf_);
         assertNotNull(getException(conf_));
@@ -795,26 +605,13 @@ public final class RenderRadioTest extends CommonRender {
         filesSec_.put("my_file",file_.toString());
         Configuration conf_ = contextElThird(filesSec_);
         conf_.setBeans(new StringMap<Bean>());
-        addImportingPage(conf_);
-        Struct bean_ = RenderExpUtil.processEl("$new pkg.BeanOne()", 0, conf_).getStruct();
-        addBeanInfo(conf_,"bean_one",bean_);
-        conf_.clearPages();
         conf_.setMessagesFolder(folder_);
         conf_.setFirstUrl("page1.html");
         conf_.setValidators(new StringMap<Validator>());
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-
-
-        conf_.setNavigation(new StringMap<StringMap<String>>());
-        Document doc_ = DocumentBuilder.parseSax(html_);
         conf_.getAnalyzingDoc().setFiles(files_);
-        setLocale(locale_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getContext().setAnalyzing(new AnalyzedPageEl());
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(!conf_.isEmptyErrors());
     }
     @Test
@@ -860,24 +657,15 @@ public final class RenderRadioTest extends CommonRender {
         Configuration conf_ = contextElThird(filesSec_);
         conf_.setMessagesFolder(folder_);
         conf_.setFirstUrl("page1.html");
-        addImportingPage(conf_);
-        Struct bean_ = RenderExpUtil.processEl("$new pkg.BeanOne()", 0, conf_).getStruct();
-        addBeanInfo(conf_,"bean_one",bean_);
-        conf_.clearPages();
         conf_.setValidators(new StringMap<Validator>());
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
-        Document doc_ = DocumentBuilder.parseSax(html_);
         conf_.getAnalyzingDoc().setFiles(files_);
-        setLocale(locale_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getContext().setAnalyzing(new AnalyzedPageEl());
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        buildRendWithOneBean(html_, conf_);
         assertTrue(!conf_.isEmptyErrors());
     }
+
     @Test
     public void process3FailTest() {
         String locale_ = "en";
@@ -908,26 +696,13 @@ public final class RenderRadioTest extends CommonRender {
         filesSec_.put("my_file",file_.toString());
         Configuration conf_ = contextElThird(filesSec_);
         conf_.setBeans(new StringMap<Bean>());
-        addImportingPage(conf_);
-        Struct bean_ = RenderExpUtil.processEl("$new pkg.BeanOne()", 0, conf_).getStruct();
-        addBeanInfo(conf_,"bean_one",bean_);
-        conf_.clearPages();
         conf_.setMessagesFolder(folder_);
         conf_.setFirstUrl("page1.html");
         conf_.setValidators(new StringMap<Validator>());
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-
-
-        conf_.setNavigation(new StringMap<StringMap<String>>());
-        Document doc_ = DocumentBuilder.parseSax(html_);
         conf_.getAnalyzingDoc().setFiles(files_);
-        setLocale(locale_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getContext().setAnalyzing(new AnalyzedPageEl());
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(!conf_.isEmptyErrors());
     }
 }

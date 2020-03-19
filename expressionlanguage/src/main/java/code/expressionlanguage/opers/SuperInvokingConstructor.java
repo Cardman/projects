@@ -1,7 +1,7 @@
 package code.expressionlanguage.opers;
 
 import code.expressionlanguage.Analyzable;
-import code.expressionlanguage.errors.custom.BadConstructorCall;
+import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.methods.Classes;
@@ -23,9 +23,11 @@ public final class SuperInvokingConstructor extends AbstractInvokingConstructor 
         String base_ = Templates.getIdFromAllTypes(clCurName_);
         RootBlock clBody_ = classes_.getClassBody(base_);
         if (!(clBody_ instanceof UniqueRootedBlock)) {
-            BadConstructorCall call_ = new BadConstructorCall();
+            FoundErrorInterpret call_ = new FoundErrorInterpret();
             call_.setFileName(_conf.getCurrentFileName());
             call_.setIndexFile(_conf.getCurrentLocationIndex());
+            //key word len
+            call_.buildError(_conf.getContextEl().getAnalysisMessages().getCallCtorSuperClassEnumSingleton());
             _conf.addError(call_);
             return null;
         }

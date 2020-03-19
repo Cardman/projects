@@ -21,23 +21,8 @@ public final class InitializationLgNames {
     private InitializationLgNames(){
     }
 
-    public static ContextEl buildStdOne(Options _opt) {
-        BeanLgNames lgNames_ = new CustBeanLgNames();
-        basicStandards(lgNames_);
-        ContextEl context_ = build(CustList.INDEX_NOT_FOUND_ELT,lgNames_, _opt);
-        Assert.assertTrue(context_.getClasses().isEmptyStdError());
-        return context_;
-    }
-    public static ContextEl buildStdTwo(Options _opt) {
-        BeanLgNames lgNames_ = new CustLgNames();
-        basicStandards(lgNames_);
-        lgNames_.setAliasMath("java.lang.$math");
-        ContextEl context_ = build(CustList.INDEX_NOT_FOUND_ELT,lgNames_, _opt);
-        Assert.assertTrue(context_.getClasses().isEmptyStdError());
-        return context_;
-    }
     public static ContextEl buildStdThree(Options _opt) {
-        BeanCustLgNames lgNames_ = new BeanCustLgNames();
+        BeanCustLgNames lgNames_ = new BeanCustLgNamesImpl();
         basicCustStandards(lgNames_);
         basicStandards(lgNames_);
         lgNames_.setAliasMath("java.lang.$math");
@@ -77,10 +62,8 @@ public final class InitializationLgNames {
         _lgNames.setAliasMapClear("clear");
         _lgNames.setAliasValidator("code.bean.Validator");
         _lgNames.setAliasValidate("validate");
-    }
-    private static void basicStandards(BeanLgNames _lgNames) {
-        _lgNames.setAliasStringMapObject("code.util.StringMapObject");
         _lgNames.setAliasBean("code.bean.Bean");
+        _lgNames.setAliasStringMapObject("code.util.StringMapObject");
         _lgNames.setAliasForms("forms");
         _lgNames.setAliasGetForms("getForms");
         _lgNames.setAliasSetForms("setForms");
@@ -99,11 +82,12 @@ public final class InitializationLgNames {
         _lgNames.setAliasMessageFormat("format");
         _lgNames.setAliasMessageGetArgs("getArgs");
         _lgNames.setAliasMessageSetArgs("setArgs");
+    }
+    public static void basicStandards(BeanLgNames _lgNames) {
         _lgNames.setDefaultPkg("java.lang");
         _lgNames.setAliasObject("java.lang.Object");
         _lgNames.setAliasVoid("$void");
         _lgNames.setAliasCharSequence("java.lang.CharSequence");
-        _lgNames.setAliasDisplayable("code.util.ints.Displayable");
         _lgNames.setAliasCompareTo("compareTo");
         _lgNames.setAliasCompare("compare");
         _lgNames.setAliasEquals("equals");
@@ -232,8 +216,6 @@ public final class InitializationLgNames {
         _lgNames.setAliasSetLength("setLength");
         _lgNames.setAliasSame("same");
         _lgNames.setAliasTrimToSize("trimToSize");
-        _lgNames.setAliasGet("get");
-        _lgNames.setAliasSize("size");
         _lgNames.setAliasErrorInitClass("java.lang.$defErrorClass");
         _lgNames.setAliasClone("clone");
         _lgNames.setAliasReadResources("readContent");

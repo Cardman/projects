@@ -10,5 +10,4 @@ public interface UniqueRootedBlock extends GeneClass {
     StringList getImportedDirectGenericSuperInterfaces();
     StringList getStaticInitImportedInterfaces();
     FileBlock getFile();
-    StringList getAllInterfaces();
 }

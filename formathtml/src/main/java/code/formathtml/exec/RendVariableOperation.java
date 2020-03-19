@@ -31,7 +31,10 @@ public final class RendVariableOperation extends RendLeafOperation implements
         variableName  = _v.getVariableName();
         off = _v.getOff();
     }
-
+    public RendVariableOperation(int _indexChild, String _varName, ClassArgumentMatching _res, int _order) {
+        super(_indexChild,_res,_order);
+        variableName  = _varName;
+    }
     @Override
     public boolean resultCanBeSet() {
         return variable;

@@ -2,19 +2,16 @@ package code.formathtml;
 
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.errors.custom.UnexpectedTagName;
-import code.expressionlanguage.errors.custom.UnexpectedTypeError;
+import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.methods.EnumBlock;
-import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.structs.EnumerableStruct;
 import code.formathtml.exec.RendDynOperationNode;
 import code.formathtml.stacks.RendReadWrite;
-import code.formathtml.stacks.RendRemovableVars;
 import code.formathtml.stacks.RendSwitchBlockStack;
 import code.util.CustList;
 import code.util.StringList;
@@ -53,33 +50,36 @@ public final class RendSwitchBlock extends RendParentBlock implements RendBreaka
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         page_.setGlobalOffset(valueOffset);
         page_.setOffset(0);
-        _cont.getAnalyzingDoc().setAttribute(ATTRIBUTE_VALUE);
-        opValue = RenderExpUtil.getAnalyzedOperations(value,0, _cont, Calculation.staticCalculation(_doc.getStaticContext()));
+        _cont.getAnalyzingDoc().setAttribute(_cont.getRendKeyWords().getAttrValue());
+        opValue = RenderExpUtil.getAnalyzedOperations(value,valueOffset,0, _cont);
         RendDynOperationNode op_ = opValue.last();
         ClassArgumentMatching clArg_ = op_.getResultClass();
         if (clArg_.matchVoid(_cont)) {
-            UnexpectedTypeError un_ = new UnexpectedTypeError();
+            FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(_cont.getCurrentFileName());
             un_.setIndexFile(valueOffset);
-            un_.setType(clArg_);
+            un_.buildError(_cont.getContextEl().getAnalysisMessages().getVoidType(),
+                    _cont.getStandards().getAliasVoid());
             _cont.addError(un_);
         }
         String type_ = clArg_.getSingleNameOrEmpty();
         if (type_.isEmpty()) {
-            UnexpectedTypeError un_ = new UnexpectedTypeError();
+            FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(_cont.getCurrentFileName());
             un_.setIndexFile(valueOffset);
-            un_.setType(clArg_);
+            un_.buildError(_cont.getContext().getAnalysisMessages().getUnknownType(),
+                    type_);
             _cont.addError(un_);
         } else {
             String id_ = Templates.getIdFromAllTypes(type_);
             if (!PrimitiveTypeUtil.isPrimitiveOrWrapper(id_, _cont)) {
                 if (!StringList.quickEq(id_, _cont.getStandards().getAliasString())) {
                     if (!(_cont.getClassBody(id_) instanceof EnumBlock)) {
-                        UnexpectedTypeError un_ = new UnexpectedTypeError();
+                        FoundErrorInterpret un_ = new FoundErrorInterpret();
                         un_.setFileName(_cont.getCurrentFileName());
                         un_.setIndexFile(valueOffset);
-                        un_.setType(clArg_);
+                        un_.buildError(_cont.getContext().getAnalysisMessages().getUnexpectedType(),
+                                id_);
                         _cont.addError(un_);
                     } else {
                         enumTest = true;
@@ -104,9 +104,17 @@ public final class RendSwitchBlock extends RendParentBlock implements RendBreaka
             }
             page_.setGlobalOffset(getOffset().getOffsetTrim());
             page_.setOffset(0);
-            UnexpectedTagName un_ = new UnexpectedTagName();
+            FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(_cont.getCurrentFileName());
             un_.setIndexFile(getOffset().getOffsetTrim());
+            un_.buildError(_cont.getContext().getAnalysisMessages().getUnexpectedSwitch(),
+                    _cont.getKeyWords().getKeyWordSwitch(),
+                    StringList.join(
+                            new StringList(
+                                    _cont.getKeyWords().getKeyWordCase(),
+                                    _cont.getKeyWords().getKeyWordDefault()
+                            ),
+                            OR_ERR));
             _cont.addError(un_);
             first_ = first_.getNextSibling();
         }
@@ -127,7 +135,7 @@ public final class RendSwitchBlock extends RendParentBlock implements RendBreaka
             return;
         }
         ip_.setOffset(valueOffset);
-        ip_.setProcessingAttribute(ATTRIBUTE_VALUE);
+        ip_.setProcessingAttribute(_cont.getRendKeyWords().getAttrValue());
         Argument arg_ =  RenderExpUtil.calculateReuse(opValue,_cont);
         if (_cont.getContext().hasException()) {
             return;

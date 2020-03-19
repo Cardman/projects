@@ -1,7 +1,5 @@
 package code.gui;
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.Window;
+import java.awt.*;
 import java.awt.event.WindowListener;
 import java.awt.image.BufferedImage;
 
@@ -133,5 +131,9 @@ public abstract class Dialog implements ChangeableTitle {
     @Override
     public void setOwner(Ownable _owner) {
         owner = _owner;
+    }
+
+    public Point getLocationOnScreen() {
+        return dialog.getLocationOnScreen();
     }
 }

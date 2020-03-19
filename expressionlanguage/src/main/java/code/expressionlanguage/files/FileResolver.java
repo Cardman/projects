@@ -1,9 +1,7 @@
 package code.expressionlanguage.files;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.errors.custom.BadIndexInParser;
-import code.expressionlanguage.errors.custom.DeadCodeTernary;
-import code.expressionlanguage.errors.custom.DuplicateType;
+import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.methods.*;
 import code.expressionlanguage.options.KeyWords;
@@ -63,7 +61,9 @@ public final class FileResolver {
         String keyWordEnum_ = keyWords_.getKeyWordEnum();
         String keyWordFinal_ = keyWords_.getKeyWordFinal();
         String keyWordInterface_ = keyWords_.getKeyWordInterface();
-        fileBlock_.processLinesTabs(_context,_file);
+        if (fileBlock_.processLinesTabsWithError(_context,_file)) {
+            return;
+        }
         int i_ = CustList.FIRST_INDEX;
         int len_ = _file.length();
         boolean commentedSingleLine_ = false;
@@ -197,21 +197,27 @@ public final class FileResolver {
         input_.setFile(fileBlock_);
         if (!badIndexes_.isEmpty()) {
             for (int i: badIndexes_) {
-                BadIndexInParser b_ = new BadIndexInParser();
+                FoundErrorInterpret b_ = new FoundErrorInterpret();
                 b_.setFileName(_fileName);
-                b_.setIndex(i);
+                b_.setIndexFile(i);
+                //if empty file => add underlined space
+                //else underline last char
+                b_.buildError(_context.getAnalysisMessages().getBadIndexInParser());
                 _context.addError(b_);
             }
             return;
         }
+        //the file is not trimmed empty
         while (true) {
             ResultCreation res_ = createType(_context, _file, input_);
             badIndexes_ = input_.getBadIndexes();
             if (!res_.isOk()) {
                 for (int i: badIndexes_) {
-                    BadIndexInParser b_ = new BadIndexInParser();
+                    FoundErrorInterpret b_ = new FoundErrorInterpret();
                     b_.setFileName(_fileName);
-                    b_.setIndex(i);
+                    b_.setIndexFile(i);
+                    //underline index char
+                    b_.buildError(_context.getAnalysisMessages().getBadIndexInParser());
                     _context.addError(b_);
                 }
                 return;
@@ -229,10 +235,12 @@ public final class FileResolver {
                             String s_ = cur_.getName();
                             if (StringList.contains(simpleNames_, s_)) {
                                 //ERROR
-                                DuplicateType d_ = new DuplicateType();
-                                d_.setId(cur_.getFullName());
+                                FoundErrorInterpret d_ = new FoundErrorInterpret();
                                 d_.setFileName(_fileName);
                                 d_.setIndexFile(cur_.getIdRowCol());
+                                //s_ len
+                                d_.buildError(_context.getAnalysisMessages().getDuplicatedInnerType(),
+                                        s_);
                                 _context.addError(d_);
                             }
                             cls_.processBracedClass(cur_, _context);
@@ -259,7 +267,9 @@ public final class FileResolver {
                                 break;
                             }
                             c_ = p_;
-                            simpleNames_.removeLast();
+                            if (c_ instanceof RootBlock) {
+                                simpleNames_.removeLast();
+                            }
                         }
                         if (end_) {
                             break;
@@ -357,9 +367,11 @@ public final class FileResolver {
             }
             if (!hasNext_) {
                 for (int i: badIndexes_) {
-                    BadIndexInParser b_ = new BadIndexInParser();
+                    FoundErrorInterpret b_ = new FoundErrorInterpret();
                     b_.setFileName(_fileName);
-                    b_.setIndex(i);
+                    b_.setIndexFile(i);
+                    //underline index char
+                    b_.buildError(_context.getAnalysisMessages().getBadIndexInParser());
                     _context.addError(b_);
                 }
                 return;

@@ -12,15 +12,13 @@ import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.CastOperation;
 import code.expressionlanguage.opers.ExplicitOperation;
 import code.expressionlanguage.opers.LambdaOperation;
-import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ClassMethodIdReturn;
 import code.expressionlanguage.opers.util.MethodId;
-import code.expressionlanguage.structs.FunctionalInstance;
+import code.expressionlanguage.structs.AbstractFunctionalInstance;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringList;
-import code.util.StringMap;
 
 public final class ExecCastOperation extends ExecAbstractUnaryOperation {
 
@@ -100,7 +98,7 @@ public final class ExecCastOperation extends ExecAbstractUnaryOperation {
                         String fctParam_ = LambdaOperation.formatReturn(EMPTY_STRING,_conf,false, parmMe_, false);
                         fctParam_ = Templates.quickFormat(geneFor_,fctParam_,_conf);
                         if (Templates.isCorrectExecute(argCl_,fctParam_,_conf)) {
-                            FunctionalInstance struct_ = new FunctionalInstance(_className);
+                            AbstractFunctionalInstance struct_ = _conf.getStandards().newFunctionalInstance(_className,_conf.getContextEl());
                             struct_.setFunctional(objArg_.getStruct());
                             objArg_.setStruct(struct_);
                         }

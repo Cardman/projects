@@ -9,7 +9,6 @@ import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.opers.util.MethodAccessKind;
 import code.expressionlanguage.opers.util.MethodId;
-import code.expressionlanguage.opers.util.MethodModifier;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.structs.*;
 import code.expressionlanguage.variables.VariableSuffix;
@@ -777,7 +776,7 @@ public final class TemplatesTest {
         ContextEl context_ = simpleContextEl();
         String first_ = context_.getStandards().getAliasString();
         String second_ = context_.getStandards().getAliasInteger();
-        assertEq(second_,Templates.wildCardFormatReturn(false, first_, second_, context_));
+        assertEq(second_,Templates.wildCardFormatReturn(first_, second_, context_));
     }
 
 
@@ -790,7 +789,7 @@ public final class TemplatesTest {
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<?>";
         String second_ = "pkg.Ex<#T>";
-        assertEq("pkg.Ex<?>",Templates.wildCardFormatReturn(false, first_, second_, context_));
+        assertEq("pkg.Ex<?>",Templates.wildCardFormatReturn(first_, second_, context_));
     }
 
     @Test
@@ -802,7 +801,7 @@ public final class TemplatesTest {
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<?>";
         String second_ = "pkg.Ex<?#T>";
-        assertEq("pkg.Ex<?>",Templates.wildCardFormatReturn(false, first_, second_, context_));
+        assertEq("pkg.Ex<?>",Templates.wildCardFormatReturn(first_, second_, context_));
     }
 
     @Test
@@ -814,7 +813,7 @@ public final class TemplatesTest {
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<?>";
         String second_ = "pkg.Ex<!#T>";
-        assertEq("pkg.Ex<?>",Templates.wildCardFormatReturn(false, first_, second_, context_));
+        assertEq("pkg.Ex<?>",Templates.wildCardFormatReturn(first_, second_, context_));
     }
 
 
@@ -827,7 +826,7 @@ public final class TemplatesTest {
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<?>";
         String second_ = "pkg.Ex<?[#T>";
-        assertEq("pkg.Ex<?>",Templates.wildCardFormatReturn(false, first_, second_, context_));
+        assertEq("pkg.Ex<?>",Templates.wildCardFormatReturn(first_, second_, context_));
     }
 
     @Test
@@ -839,7 +838,7 @@ public final class TemplatesTest {
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<?>";
         String second_ = "pkg.Ex<![#T>";
-        assertEq("pkg.Ex<?>",Templates.wildCardFormatReturn(false, first_, second_, context_));
+        assertEq("pkg.Ex<?>",Templates.wildCardFormatReturn(first_, second_, context_));
     }
 
     @Test
@@ -851,7 +850,7 @@ public final class TemplatesTest {
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<?>";
         String second_ = "pkg.Ex<!#T>";
-        assertEq("pkg.Ex<java.lang.Object>",Templates.wildCardFormatParam(false, first_, second_, context_));
+        assertEq("pkg.Ex<java.lang.Object>",Templates.wildCardFormatParam(first_, second_, context_));
     }
 
     @Test
@@ -863,7 +862,7 @@ public final class TemplatesTest {
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<?>";
         String second_ = "pkg.Ex<![#T>";
-        assertEq("pkg.Ex<java.lang.Object>",Templates.wildCardFormatParam(false, first_, second_, context_));
+        assertEq("pkg.Ex<java.lang.Object>",Templates.wildCardFormatParam(first_, second_, context_));
     }
 
 
@@ -876,7 +875,7 @@ public final class TemplatesTest {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<#E>";
         String second_ = "#T";
-        assertEq("#E",Templates.wildCardFormatReturn(false, first_, second_, cont_));
+        assertEq("#E",Templates.wildCardFormatReturn(first_, second_, cont_));
     }
 
     @Test
@@ -888,7 +887,7 @@ public final class TemplatesTest {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<java.lang.String>";
         String second_ = "#T";
-        assertEq("java.lang.String",Templates.wildCardFormatReturn(false, first_, second_, cont_));
+        assertEq("java.lang.String",Templates.wildCardFormatReturn(first_, second_, cont_));
     }
 
     @Test
@@ -900,7 +899,7 @@ public final class TemplatesTest {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<java.lang.String,java.lang.Object>";
         String second_ = "#U";
-        assertEq("java.lang.Object",Templates.wildCardFormatReturn(false, first_, second_, cont_));
+        assertEq("java.lang.Object",Templates.wildCardFormatReturn(first_, second_, cont_));
     }
 
     @Test
@@ -912,7 +911,7 @@ public final class TemplatesTest {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<java.lang.String,java.lang.Object>";
         String second_ = "#T";
-        assertEq("java.lang.String",Templates.wildCardFormatReturn(false, first_, second_, cont_));
+        assertEq("java.lang.String",Templates.wildCardFormatReturn(first_, second_, cont_));
     }
 
     @Test
@@ -924,7 +923,7 @@ public final class TemplatesTest {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<java.lang.String,java.lang.Object>";
         String second_ = "#T";
-        assertEq("java.lang.String",Templates.wildCardFormatReturn(false, first_, second_, cont_));
+        assertEq("java.lang.String",Templates.wildCardFormatReturn(first_, second_, cont_));
     }
 
     @Test
@@ -936,7 +935,7 @@ public final class TemplatesTest {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<java.lang.String,java.lang.Object>";
         String second_ = "[#T";
-        assertEq("[java.lang.String",Templates.wildCardFormatReturn(false, first_, second_, cont_));
+        assertEq("[java.lang.String",Templates.wildCardFormatReturn(first_, second_, cont_));
     }
 
     @Test
@@ -948,7 +947,7 @@ public final class TemplatesTest {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<java.lang.String,java.lang.Object>";
         String second_ = "code.util.CustList<#V>";
-        assertEq("code.util.CustList<#V>",Templates.wildCardFormatReturn(false, first_, second_, cont_));
+        assertEq("code.util.CustList<#V>",Templates.wildCardFormatReturn(first_, second_, cont_));
     }
 
     @Test
@@ -960,7 +959,7 @@ public final class TemplatesTest {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<java.lang.Number,java.lang.Number>";
         String second_ = "code.util.CustList<#T>";
-        assertEq("code.util.CustList<java.lang.Number>",Templates.wildCardFormatReturn(false, first_, second_, cont_));
+        assertEq("code.util.CustList<java.lang.Number>",Templates.wildCardFormatReturn(first_, second_, cont_));
     }
     @Test
     public void wildCardFormat17Test() {
@@ -974,7 +973,7 @@ public final class TemplatesTest {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.ExTwo<java.lang.Number,java.lang.Number>";
         String second_ = "pkg.Ex<#T,#T>";
-        assertEq("pkg.Ex<java.lang.Number,java.lang.Number>",Templates.wildCardFormatReturn(false, first_, second_, cont_));
+        assertEq("pkg.Ex<java.lang.Number,java.lang.Number>",Templates.wildCardFormatReturn(first_, second_, cont_));
     }
 
     @Test
@@ -986,7 +985,7 @@ public final class TemplatesTest {
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<?java.lang.Number>";
         String second_ = "pkg.Ex<#T>";
-        assertEq("pkg.Ex<?java.lang.Number>",Templates.wildCardFormatReturn(false, first_, second_, context_));
+        assertEq("pkg.Ex<?java.lang.Number>",Templates.wildCardFormatReturn(first_, second_, context_));
     }
 
     @Test
@@ -998,7 +997,7 @@ public final class TemplatesTest {
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<?java.lang.Number>";
         String second_ = "pkg.Ex<?#T>";
-        assertEq("pkg.Ex<?java.lang.Number>",Templates.wildCardFormatReturn(false, first_, second_, context_));
+        assertEq("pkg.Ex<?java.lang.Number>",Templates.wildCardFormatReturn(first_, second_, context_));
     }
 
     @Test
@@ -1010,7 +1009,7 @@ public final class TemplatesTest {
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<?java.lang.Number>";
         String second_ = "pkg.Ex<!#T>";
-        assertEq("pkg.Ex<?>",Templates.wildCardFormatReturn(false, first_, second_, context_));
+        assertEq("pkg.Ex<?>",Templates.wildCardFormatReturn(first_, second_, context_));
     }
 
     @Test
@@ -1022,7 +1021,7 @@ public final class TemplatesTest {
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<?java.lang.Number>";
         String second_ = "pkg.Ex<?[#T>";
-        assertEq("pkg.Ex<?[java.lang.Number>",Templates.wildCardFormatReturn(false, first_, second_, context_));
+        assertEq("pkg.Ex<?[java.lang.Number>",Templates.wildCardFormatReturn(first_, second_, context_));
     }
 
     @Test
@@ -1034,7 +1033,7 @@ public final class TemplatesTest {
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<?java.lang.Number>";
         String second_ = "pkg.Ex<![#T>";
-        assertEq("pkg.Ex<?>",Templates.wildCardFormatReturn(false, first_, second_, context_));
+        assertEq("pkg.Ex<?>",Templates.wildCardFormatReturn(first_, second_, context_));
     }
 
     @Test
@@ -1046,7 +1045,7 @@ public final class TemplatesTest {
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<?java.lang.Number>";
         String second_ = "pkg.Ex<!#T>";
-        assertEq("pkg.Ex<!java.lang.Number>",Templates.wildCardFormatParam(false, first_, second_, context_));
+        assertEq("pkg.Ex<!java.lang.Number>",Templates.wildCardFormatParam(first_, second_, context_));
     }
 
     @Test
@@ -1058,7 +1057,7 @@ public final class TemplatesTest {
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<?java.lang.Number>";
         String second_ = "pkg.Ex<![#T>";
-        assertEq("pkg.Ex<![java.lang.Number>",Templates.wildCardFormatParam(false, first_, second_, context_));
+        assertEq("pkg.Ex<![java.lang.Number>",Templates.wildCardFormatParam(first_, second_, context_));
     }
 
     @Test
@@ -1070,7 +1069,7 @@ public final class TemplatesTest {
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<!java.lang.Number>";
         String second_ = "pkg.Ex<#T>";
-        assertEq("pkg.Ex<!java.lang.Number>",Templates.wildCardFormatReturn(false, first_, second_, context_));
+        assertEq("pkg.Ex<!java.lang.Number>",Templates.wildCardFormatReturn(first_, second_, context_));
     }
 
     @Test
@@ -1082,7 +1081,7 @@ public final class TemplatesTest {
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<!java.lang.Number>";
         String second_ = "pkg.Ex<?#T>";
-        assertEq("pkg.Ex<?>",Templates.wildCardFormatReturn(false, first_, second_, context_));
+        assertEq("pkg.Ex<?>",Templates.wildCardFormatReturn(first_, second_, context_));
     }
 
     @Test
@@ -1094,7 +1093,7 @@ public final class TemplatesTest {
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<!java.lang.Number>";
         String second_ = "pkg.Ex<!#T>";
-        assertEq("pkg.Ex<!java.lang.Number>",Templates.wildCardFormatReturn(false, first_, second_, context_));
+        assertEq("pkg.Ex<!java.lang.Number>",Templates.wildCardFormatReturn(first_, second_, context_));
     }
 
     @Test
@@ -1106,7 +1105,7 @@ public final class TemplatesTest {
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<!java.lang.Number>";
         String second_ = "pkg.Ex<?[#T>";
-        assertEq("pkg.Ex<?>",Templates.wildCardFormatReturn(false, first_, second_, context_));
+        assertEq("pkg.Ex<?>",Templates.wildCardFormatReturn(first_, second_, context_));
     }
 
     @Test
@@ -1118,7 +1117,7 @@ public final class TemplatesTest {
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<!java.lang.Number>";
         String second_ = "pkg.Ex<![#T>";
-        assertEq("pkg.Ex<![java.lang.Number>",Templates.wildCardFormatReturn(false, first_, second_, context_));
+        assertEq("pkg.Ex<![java.lang.Number>",Templates.wildCardFormatReturn(first_, second_, context_));
     }
 
     @Test
@@ -1130,7 +1129,7 @@ public final class TemplatesTest {
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<!java.lang.Number>";
         String second_ = "pkg.Ex<!#T>";
-        assertEq("pkg.Ex<java.lang.Object>",Templates.wildCardFormatParam(false, first_, second_, context_));
+        assertEq("pkg.Ex<java.lang.Object>",Templates.wildCardFormatParam(first_, second_, context_));
     }
 
     @Test
@@ -1142,7 +1141,7 @@ public final class TemplatesTest {
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<!java.lang.Number>";
         String second_ = "pkg.Ex<?#T>";
-        assertEq("pkg.Ex<?java.lang.Number>",Templates.wildCardFormatParam(false, first_, second_, context_));
+        assertEq("pkg.Ex<?java.lang.Number>",Templates.wildCardFormatParam(first_, second_, context_));
     }
 
     @Test
@@ -1154,7 +1153,7 @@ public final class TemplatesTest {
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<!java.lang.Number>";
         String second_ = "pkg.Ex<![#T>";
-        assertEq("pkg.Ex<java.lang.Object>",Templates.wildCardFormatParam(false, first_, second_, context_));
+        assertEq("pkg.Ex<java.lang.Object>",Templates.wildCardFormatParam(first_, second_, context_));
     }
 
     @Test
@@ -1166,7 +1165,7 @@ public final class TemplatesTest {
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<!java.lang.Number>";
         String second_ = "pkg.Ex<?[#T>";
-        assertEq("pkg.Ex<?[java.lang.Number>",Templates.wildCardFormatParam(false, first_, second_, context_));
+        assertEq("pkg.Ex<?[java.lang.Number>",Templates.wildCardFormatParam(first_, second_, context_));
     }
 
     @Test
@@ -1178,7 +1177,7 @@ public final class TemplatesTest {
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<?>";
         String second_ = "pkg.Ex<#T>";
-        assertEq("",Templates.wildCardFormatParam(false, first_, second_, context_));
+        assertEq("",Templates.wildCardFormatParam(first_, second_, context_));
     }
 
     @Test
@@ -1190,7 +1189,7 @@ public final class TemplatesTest {
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<?java.lang.Number>";
         String second_ = "pkg.Ex<#T>";
-        assertEq("",Templates.wildCardFormatParam(false, first_, second_, context_));
+        assertEq("",Templates.wildCardFormatParam(first_, second_, context_));
     }
 
     @Test
@@ -1202,7 +1201,7 @@ public final class TemplatesTest {
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<!java.lang.Number>";
         String second_ = "pkg.Ex<#T>";
-        assertEq("",Templates.wildCardFormatParam(false, first_, second_, context_));
+        assertEq("",Templates.wildCardFormatParam(first_, second_, context_));
     }
 
     @Test
@@ -1214,7 +1213,7 @@ public final class TemplatesTest {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<?>";
         String second_ = "#T";
-        assertEq("java.lang.Object",Templates.wildCardFormatReturn(false, first_, second_, cont_));
+        assertEq("java.lang.Object",Templates.wildCardFormatReturn(first_, second_, cont_));
     }
 
     @Test
@@ -1226,7 +1225,7 @@ public final class TemplatesTest {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<?>";
         String second_ = "[#T";
-        assertEq("[java.lang.Object",Templates.wildCardFormatReturn(false, first_, second_, cont_));
+        assertEq("[java.lang.Object",Templates.wildCardFormatReturn(first_, second_, cont_));
     }
 
     @Test
@@ -1238,7 +1237,7 @@ public final class TemplatesTest {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<?java.lang.Number>";
         String second_ = "#T";
-        assertEq("java.lang.Number",Templates.wildCardFormatReturn(false, first_, second_, cont_));
+        assertEq("java.lang.Number",Templates.wildCardFormatReturn(first_, second_, cont_));
     }
 
     @Test
@@ -1250,7 +1249,7 @@ public final class TemplatesTest {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<?java.lang.Number>";
         String second_ = "[#T";
-        assertEq("[java.lang.Number",Templates.wildCardFormatReturn(false, first_, second_, cont_));
+        assertEq("[java.lang.Number",Templates.wildCardFormatReturn(first_, second_, cont_));
     }
 
     @Test
@@ -1262,7 +1261,7 @@ public final class TemplatesTest {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<!java.lang.Number>";
         String second_ = "#T";
-        assertEq("java.lang.Object",Templates.wildCardFormatReturn(false, first_, second_, cont_));
+        assertEq("java.lang.Object",Templates.wildCardFormatReturn(first_, second_, cont_));
     }
 
     @Test
@@ -1274,7 +1273,7 @@ public final class TemplatesTest {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<!java.lang.Number>";
         String second_ = "[#T";
-        assertEq("[java.lang.Object",Templates.wildCardFormatReturn(false, first_, second_, cont_));
+        assertEq("[java.lang.Object",Templates.wildCardFormatReturn(first_, second_, cont_));
     }
 
     @Test
@@ -1286,7 +1285,7 @@ public final class TemplatesTest {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<?>";
         String second_ = "#T";
-        assertEq("",Templates.wildCardFormatParam(false, first_, second_, cont_));
+        assertEq("",Templates.wildCardFormatParam(first_, second_, cont_));
     }
 
     @Test
@@ -1298,7 +1297,7 @@ public final class TemplatesTest {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<?>";
         String second_ = "[#T";
-        assertEq("",Templates.wildCardFormatParam(false, first_, second_, cont_));
+        assertEq("",Templates.wildCardFormatParam(first_, second_, cont_));
     }
 
     @Test
@@ -1310,7 +1309,7 @@ public final class TemplatesTest {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<?java.lang.Number>";
         String second_ = "#T";
-        assertEq("",Templates.wildCardFormatParam(false, first_, second_, cont_));
+        assertEq("",Templates.wildCardFormatParam(first_, second_, cont_));
     }
 
     @Test
@@ -1322,7 +1321,7 @@ public final class TemplatesTest {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<?java.lang.Number>";
         String second_ = "[#T";
-        assertEq("",Templates.wildCardFormatParam(false, first_, second_, cont_));
+        assertEq("",Templates.wildCardFormatParam(first_, second_, cont_));
     }
 
     @Test
@@ -1334,7 +1333,7 @@ public final class TemplatesTest {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<!java.lang.Number>";
         String second_ = "#T";
-        assertEq("java.lang.Number",Templates.wildCardFormatParam(false, first_, second_, cont_));
+        assertEq("java.lang.Number",Templates.wildCardFormatParam(first_, second_, cont_));
     }
 
     @Test
@@ -1346,7 +1345,7 @@ public final class TemplatesTest {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<!java.lang.Number>";
         String second_ = "[#T";
-        assertEq("[java.lang.Number",Templates.wildCardFormatParam(false, first_, second_, cont_));
+        assertEq("[java.lang.Number",Templates.wildCardFormatParam(first_, second_, cont_));
     }
 
     @Test
@@ -1358,7 +1357,7 @@ public final class TemplatesTest {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<!java.lang.Number>";
         String second_ = "#V";
-        assertEq("",Templates.wildCardFormatParam(false, first_, second_, cont_));
+        assertEq("",Templates.wildCardFormatParam(first_, second_, cont_));
     }
     @Test
     public void wildCardFormat50Test() {
@@ -1369,7 +1368,7 @@ public final class TemplatesTest {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<java.lang.Number>";
         String second_ = "#T";
-        assertEq("java.lang.Number",Templates.wildCardFormatParam(false, first_, second_, cont_));
+        assertEq("java.lang.Number",Templates.wildCardFormatParam(first_, second_, cont_));
     }
 
     @Test
@@ -1381,7 +1380,7 @@ public final class TemplatesTest {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<!java.lang.Number>";
         String second_ = "#V";
-        assertEq("java.lang.Object",Templates.wildCardFormatReturn(false, first_, second_, cont_));
+        assertEq("java.lang.Object",Templates.wildCardFormatReturn(first_, second_, cont_));
     }
 
     @Test
@@ -1393,7 +1392,7 @@ public final class TemplatesTest {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<java.lang.String,java.lang.Object>";
         String second_ = "code.util.CustList<#V>";
-        assertEq("code.util.CustList<#V>",Templates.wildCardFormatParam(false, first_, second_, cont_));
+        assertEq("code.util.CustList<#V>",Templates.wildCardFormatParam(first_, second_, cont_));
     }
 
     @Test
@@ -1405,7 +1404,7 @@ public final class TemplatesTest {
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<?#E>";
         String second_ = "[#T";
-        assertEq("[#E",Templates.wildCardFormatReturn(false, first_, second_, context_));
+        assertEq("[#E",Templates.wildCardFormatReturn(first_, second_, context_));
     }
 
     @Test
@@ -1417,7 +1416,7 @@ public final class TemplatesTest {
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex";
         String second_ = "pkg.Ex<[#T>";
-        assertEq("java.lang.Object",Templates.wildCardFormatReturn(false, first_, second_, context_));
+        assertEq("java.lang.Object",Templates.wildCardFormatReturn(first_, second_, context_));
     }
 
     @Test
@@ -1429,7 +1428,7 @@ public final class TemplatesTest {
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex";
         String second_ = "pkg.Ex<[#T>";
-        assertEq("",Templates.wildCardFormatParam(false, first_, second_, context_));
+        assertEq("",Templates.wildCardFormatParam(first_, second_, context_));
     }
     @Test
     public void reflectFormat1Test() {
@@ -2000,6 +1999,12 @@ public final class TemplatesTest {
         assertEq("java.lang.ExClass..Inner",Templates.getInferForm("java.lang.ExClass..Inner<>"));
     }
     @Test
+    public void correctNbParameters0Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        assertTrue(!Templates.correctNbParameters("pkg",cont_));
+    }
+    @Test
     public void correctNbParameters1Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex<#W> {$public $static $class Inner<#X> {}}\n");
@@ -2240,8 +2245,8 @@ public final class TemplatesTest {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
-        m_.setArg("$Fct<java.lang.Object>");
-        m_.setParam("$Fct<$void>");
+        m_.setArg("java.lang.$Fct<java.lang.Object>");
+        m_.setParam("java.lang.$Fct<$void>");
         StringMap<StringList> t_ = new StringMap<StringList>();
         m_.setMapping(t_);
         assertTrue(!Templates.isCorrect(m_,context_));
@@ -2271,8 +2276,8 @@ public final class TemplatesTest {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
-        m_.setArg("$Fct<pkg.Ex<java.lang.Number>,pkg.Ex<java.lang.Number>>");
-        m_.setParam("$Fct<pkg.ExTwo<java.lang.Number>>");
+        m_.setArg("java.lang.$Fct<pkg.Ex<java.lang.Number>,pkg.Ex<java.lang.Number>>");
+        m_.setParam("java.lang.$Fct<pkg.ExTwo<java.lang.Number>>");
         StringMap<StringList> t_ = new StringMap<StringList>();
         m_.setMapping(t_);
         assertTrue(!Templates.isCorrect(m_,context_));
@@ -3619,8 +3624,8 @@ public final class TemplatesTest {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
-        m_.setArg("$Fct<?,?>");
-        m_.setParam("$Fct<?,java.lang.Number>");
+        m_.setArg("java.lang.$Fct<?,?>");
+        m_.setParam("java.lang.$Fct<?,java.lang.Number>");
         assertTrue(!Templates.isCorrect(m_, cont_));
     }
     @Test
@@ -3628,8 +3633,8 @@ public final class TemplatesTest {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
-        m_.setArg("$Fct<?,?>");
-        m_.setParam("$Fct<java.lang.Number,?>");
+        m_.setArg("java.lang.$Fct<?,?>");
+        m_.setParam("java.lang.$Fct<java.lang.Number,?>");
         assertTrue(!Templates.isCorrect(m_, cont_));
     }
     @Test

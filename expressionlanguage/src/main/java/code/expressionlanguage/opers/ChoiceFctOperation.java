@@ -2,7 +2,7 @@ package code.expressionlanguage.opers;
 
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.errors.custom.AbstractMethod;
+import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.opers.util.*;
@@ -83,11 +83,14 @@ public final class ChoiceFctOperation extends InvokingOperation {
         }
         if (clMeth_.isAbstractMethod()) {
             setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
-            AbstractMethod abs_ = new AbstractMethod();
-            abs_.setClassName(clMeth_.getRealClass());
-            abs_.setSgn(clMeth_.getRealId().getSignature(_conf));
+            FoundErrorInterpret abs_ = new FoundErrorInterpret();
             abs_.setIndexFile(_conf.getCurrentLocationIndex());
             abs_.setFileName(_conf.getCurrentFileName());
+            //method name len
+            abs_.buildError(
+                    _conf.getContextEl().getAnalysisMessages().getAbstractMethodRef(),
+                    clMeth_.getRealClass(),
+                    clMeth_.getRealId().getSignature(_conf));
             _conf.addError(abs_);
             setResultClass(new ClassArgumentMatching(clMeth_.getReturnType()));
             return;

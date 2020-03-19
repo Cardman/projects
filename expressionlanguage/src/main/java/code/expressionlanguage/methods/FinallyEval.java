@@ -2,7 +2,7 @@ package code.expressionlanguage.methods;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.calls.AbstractPageEl;
-import code.expressionlanguage.errors.custom.UnexpectedTagName;
+import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.methods.util.LocalThrowing;
@@ -54,9 +54,18 @@ public final class FinallyEval extends BracedStack implements Eval {
         Block pBlock_ = getPreviousSibling();
         if (!(pBlock_ instanceof AbstractCatchEval)) {
             if (!(pBlock_ instanceof TryEval)) {
-                UnexpectedTagName un_ = new UnexpectedTagName();
+                FoundErrorInterpret un_ = new FoundErrorInterpret();
                 un_.setFileName(getFile().getFileName());
                 un_.setIndexFile(getOffset().getOffsetTrim());
+                un_.buildError(_an.getContextEl().getAnalysisMessages().getUnexpectedCatchElseFinally(),
+                        _an.getContextEl().getKeyWords().getKeyWordFinally(),
+                        StringList.join(
+                                new StringList(
+                                        _an.getContextEl().getKeyWords().getKeyWordCatch(),
+                                        _an.getContextEl().getKeyWords().getKeyWordTry()
+                                ),
+                                "|"));
+                //key word len
                 _an.addError(un_);
             }
         }

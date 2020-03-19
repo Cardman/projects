@@ -28,19 +28,21 @@ public abstract class RendElement extends RendParentBlock implements RendWithEl,
         for (int i = 0; i < nbAttrs_; i++) {
             attributesNames_.add(mapAttr_.item(i).getName());
         }
-        attributesNames_.removeAllString(ATTRIBUTE_ID);
-        String id_ = read.getAttribute(ATTRIBUTE_ID);
+        attributesNames_.removeAllString(_cont.getRendKeyWords().getAttrId());
+        String id_ = read.getAttribute(_cont.getRendKeyWords().getAttrId());
         if (!id_.isEmpty()) {
             ResultText r_ = new ResultText();
-            r_.buildId(id_,_cont,_doc);
-            attributesText.put(ATTRIBUTE_ID,r_);
+            int off_ = getAttributeDelimiter(_cont.getRendKeyWords().getAttrId());
+            r_.buildId(id_,_cont,off_,_doc);
+            attributesText.put(_cont.getRendKeyWords().getAttrId(),r_);
         }
-        String prefGr_ = StringList.concat(prefixWrite_, ATTRIBUTE_GROUP_ID);
+        String prefGr_ = StringList.concat(prefixWrite_, _cont.getRendKeyWords().getAttrGroupId());
         attributesNames_.removeAllString(prefGr_);
         String groupId_ = read.getAttribute(prefGr_);
         if (!groupId_.isEmpty()) {
             ResultText r_ = new ResultText();
-            r_.buildId(groupId_,_cont,_doc);
+            int off_ = getAttributeDelimiter(prefGr_);
+            r_.buildId(groupId_,_cont,off_,_doc);
             attributesText.put(prefGr_,r_);
         }
         processAttributes(_cont,_doc,read,attributesNames_);
@@ -50,7 +52,8 @@ public abstract class RendElement extends RendParentBlock implements RendWithEl,
                 continue;
             }
             ResultText r_ = new ResultText();
-            r_.build(attr_,_cont,_doc);
+            int rowsGrId_ = getAttributeDelimiter(a);
+            r_.build(attr_,_cont,rowsGrId_,_doc);
             attributes.addEntry(a,r_);
         }
     }

@@ -3,12 +3,10 @@ package code.expressionlanguage.methods;
 import code.expressionlanguage.*;
 import code.expressionlanguage.calls.AbstractPageEl;
 import code.expressionlanguage.calls.util.ReadWrite;
-import code.expressionlanguage.errors.custom.BadImplicitCast;
-import code.expressionlanguage.errors.custom.UnexpectedTypeError;
+import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.files.OffsetBooleanInfo;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
-import code.expressionlanguage.inherits.Mapping;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.instr.PartOffset;
@@ -335,14 +333,13 @@ public final class ForMutableIterativeLoop extends BracedStack implements
         page_.setGlobalOffset(classIndexNameOffset);
         page_.setOffset(0);
         importedClassIndexName = _cont.resolveCorrectType(classIndexName);
-        if (!PrimitiveTypeUtil.isPrimitiveOrWrapper(importedClassIndexName, _cont)) {
-            Mapping mapping_ = new Mapping();
-            mapping_.setArg(importedClassIndexName);
-            mapping_.setParam(_cont.getStandards().getAliasLong());
-            BadImplicitCast cast_ = new BadImplicitCast();
-            cast_.setMapping(mapping_);
+        if (!PrimitiveTypeUtil.isPureNumberClass(new ClassArgumentMatching(importedClassIndexName), _cont)) {
+            FoundErrorInterpret cast_ = new FoundErrorInterpret();
             cast_.setFileName(getFile().getFileName());
             cast_.setIndexFile(classIndexNameOffset);
+            //classIndexName len
+            cast_.buildError(_cont.getAnalysisMessages().getNotPrimitiveWrapper(),
+                    importedClassIndexName);
             _cont.addError(cast_);
         }
         page_.setGlobalOffset(classNameOffset);
@@ -368,10 +365,12 @@ public final class ForMutableIterativeLoop extends BracedStack implements
             ExecOperationNode elCondition_ = opExp.last();
             LgNames stds_ = _cont.getStandards();
             if (!elCondition_.getResultClass().isBoolType(_cont)) {
-                UnexpectedTypeError un_ = new UnexpectedTypeError();
+                FoundErrorInterpret un_ = new FoundErrorInterpret();
                 un_.setFileName(getFile().getFileName());
                 un_.setIndexFile(expressionOffset);
-                un_.setType(opExp.last().getResultClass());
+                //second ; char
+                un_.buildError(_cont.getAnalysisMessages().getUnexpectedType(),
+                        StringList.join(elCondition_.getResultClass().getNames(),"&"));
                 _cont.addError(un_);
             }
             elCondition_.getResultClass().setUnwrapObject(stds_.getAliasPrimBoolean());

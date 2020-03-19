@@ -17,6 +17,7 @@ import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.util.BeanLgNames;
 import code.formathtml.structs.StdStruct;
+import code.formathtml.util.BeanNatLgNames;
 import code.util.CustList;
 import code.util.ObjectMap;
 import code.util.StringList;
@@ -75,12 +76,12 @@ public final class AikiBeansMapStd {
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new StringMap<StandardField>();
         type_ = new StandardClass(TYPE_MAP_BEAN, fields_, constructors_, methods_, AikiBeansStd.TYPE_COMMON_BEAN, MethodModifier.NORMAL);
-        fields_.put(PLACES,new StandardField(PLACES,_std.getCustList(),false,false,type_));
+        fields_.put(PLACES,new StandardField(PLACES, BeanNatLgNames.TYPE_LIST,false,false,type_));
         params_ = new StringList(_std.getAliasLong());
         method_ = new StandardMethod(IS_MULTI_LAYER,params_,_std.getAliasPrimBoolean(), false, MethodModifier.NORMAL,type_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(_std.getAliasLong());
-        method_ = new StandardMethod(LAYERS,params_,_std.getCustList(), false, MethodModifier.NORMAL,type_);
+        method_ = new StandardMethod(LAYERS,params_, BeanNatLgNames.TYPE_LIST, false, MethodModifier.NORMAL,type_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(_std.getAliasLong(),_std.getAliasLong());
         method_ = new StandardMethod(CLICK_LEVEL,params_,_std.getAliasString(), false, MethodModifier.NORMAL,type_);
@@ -105,11 +106,11 @@ public final class AikiBeansMapStd {
         fields_.put(ROAD,new StandardField(ROAD,_std.getAliasPrimBoolean(),false,false,type_));
         fields_.put(GYM,new StandardField(GYM,_std.getAliasPrimBoolean(),false,false,type_));
         fields_.put(POKEMON_CENTER,new StandardField(POKEMON_CENTER,_std.getAliasPrimBoolean(),false,false,type_));
-        fields_.put(TILES,new StandardField(TILES,_std.getCustMap(),false,false,type_));
+        fields_.put(TILES,new StandardField(TILES, BeanNatLgNames.TYPE_MAP,false,false,type_));
         fields_.put(PROPONE_TILE,new StandardField(PROPONE_TILE,_std.getAliasPrimBoolean(),false,false,type_));
         fields_.put(PROPONE_LINK,new StandardField(PROPONE_LINK,_std.getAliasPrimBoolean(),false,false,type_));
         fields_.put(SEE_AREA,new StandardField(SEE_AREA,_std.getAliasPrimBoolean(),false,false,type_));
-        fields_.put(DIRS,new StandardField(DIRS,_std.getCustMap(),false,false,type_));
+        fields_.put(DIRS,new StandardField(DIRS, BeanNatLgNames.TYPE_MAP,false,false,type_));
         params_ = new StringList();
         method_ = new StandardMethod(GET_MAP_WIDTH,params_,_std.getAliasPrimInteger(), false, MethodModifier.NORMAL,type_);
         methods_.put(method_.getId(), method_);
@@ -172,7 +173,7 @@ public final class AikiBeansMapStd {
         MapBean instance_ = (MapBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringList.quickEq(fieldName_,PLACES)) {
-            res_.setResult(new StdStruct(instance_.getPlaces(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getPlaces(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         return res_;
@@ -211,7 +212,7 @@ public final class AikiBeansMapStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,TILES)) {
-            res_.setResult(new StdStruct(instance_.getTiles(),std_.getCustMap()));
+            res_.setResult(new StdStruct(instance_.getTiles(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
         if (StringList.quickEq(fieldName_,PROPONE_TILE)) {
@@ -227,7 +228,7 @@ public final class AikiBeansMapStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,DIRS)) {
-            res_.setResult(new StdStruct(instance_.getDirs(),std_.getCustMap()));
+            res_.setResult(new StdStruct(instance_.getDirs(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
         return res_;
@@ -242,7 +243,7 @@ public final class AikiBeansMapStd {
             return res_;
         }
         if (StringList.quickEq(methodName_,LAYERS)) {
-            res_.setResult(new StdStruct(instance_.layers((Long)_args[0]),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.layers((Long)_args[0]), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(methodName_,CLICK_LEVEL)) {

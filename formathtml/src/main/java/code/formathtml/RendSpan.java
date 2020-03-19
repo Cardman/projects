@@ -16,17 +16,19 @@ public final class RendSpan extends RendElement {
 
     @Override
     protected void processAttributes(Configuration _cont, RendDocumentBlock _doc, Element _read, StringList _list) {
-        _list.removeAllString(StringList.concat(_cont.getPrefix(),ATTRIBUTE_FOR));
-        _list.removeAllString(StringList.concat(_cont.getPrefix(),ATTRIBUTE_VALUE_MESSAGE));
-        String id_ = _read.getAttribute(StringList.concat(_cont.getPrefix(),ATTRIBUTE_FOR));
+        _list.removeAllString(StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrFor()));
+        _list.removeAllString(StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrValueMessage()));
+        String id_ = _read.getAttribute(StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrFor()));
+        int off_ = getAttributeDelimiter(StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrFor()));
         result = new ResultText();
-        result.buildId(id_,_cont,_doc);
+        result.buildId(id_,_cont,off_,_doc);
         for (String l: _cont.getAnalyzingDoc().getLanguages()) {
-            formatted.addEntry(l,"");
+            formatted.addEntry(l,EMPTY_STRING);
         }
-        String valueMessage_ = _read.getAttribute(StringList.concat(_cont.getPrefix(),ATTRIBUTE_VALUE_MESSAGE));
+        String valueMessage_ = _read.getAttribute(StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrValueMessage()));
         if (!valueMessage_.isEmpty()) {
-            formatted = getPre(_cont, valueMessage_);
+            int offMessage_ = getAttributeDelimiter(StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrValueMessage()));
+            formatted = getPre(_cont, valueMessage_,offMessage_);
         }
     }
 
@@ -34,10 +36,10 @@ public final class RendSpan extends RendElement {
     protected void processExecAttr(Configuration _cont, MutableNode _nextWrite, Element _read) {
         String txt_ = ResultText.render(result.getOpExp(), result.getTexts(), _cont);
         if (_cont.getContext().hasException()) {
-            ((Element)_nextWrite).removeAttribute(StringList.concat(_cont.getPrefix(),ATTRIBUTE_FOR));
+            ((Element)_nextWrite).removeAttribute(StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrFor()));
             return;
         }
-        ((Element)_nextWrite).setAttribute(StringList.concat(_cont.getPrefix(),ATTRIBUTE_FOR),txt_);
+        ((Element)_nextWrite).setAttribute(StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrFor()),txt_);
         CustList<StringList> stack_ = _cont.getFormatIdMapStack();
         if (stack_.isEmpty()) {
             return;

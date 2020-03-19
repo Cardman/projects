@@ -693,9 +693,7 @@ public final class FightFacade {
             }
             distinct_.add(t.getGroundPlaceSubst());
         }
-        int size_ = distinct_.size();
-        distinct_.removeDuplicates();
-        if (!Numbers.eq(size_, distinct_.size())) {
+        if (distinct_.hasDuplicates()) {
             return false;
         }
         if (!_onlyDistinctFoeCheckSubst) {
@@ -719,12 +717,7 @@ public final class FightFacade {
             }
             distinct_.add(t.getGroundPlace());
         }
-        int size_ = distinct_.size();
-        distinct_.removeDuplicates();
-        if (!Numbers.eq(size_, distinct_.size())) {
-            return false;
-        }
-        return true;
+        return !distinct_.hasDuplicates();
     }
     static boolean validSwitchTeam(Fight _fight, byte _team) {
         Bytes replace_ = new Bytes();
@@ -734,12 +727,7 @@ public final class FightFacade {
                 replace_.add(membre_.getSubstistute());
             }
         }
-        int nb_ = replace_.size();
-        replace_.removeDuplicates();
-        if (nb_ != replace_.size()) {
-            return false;
-        }
-        return true;
+        return !replace_.hasDuplicates();
     }
     static boolean validSubstitutingTeam(Fight _fight, EqList<TeamPosition> _pseusoTeam) {
         Bytes replace_ = new Bytes();
@@ -773,11 +761,10 @@ public final class FightFacade {
                 }
             }
         }
-        int nb_ = replaceNoPlayer_.size();
-        replaceNoPlayer_.removeDuplicates();
-        if (nb_ != replaceNoPlayer_.size()) {
+        if (replaceNoPlayer_.hasDuplicates()) {
             return false;
         }
+        int nb_ = replaceNoPlayer_.size();
         if (nb_ > _fight.getMult()) {
             return false;
         }
@@ -1083,7 +1070,6 @@ public final class FightFacade {
         }
         StringList allMoves_ = fighter_.attaquesUtilisables();
         allMoves_.addAllElts(attaquesAutorisees_);
-        allMoves_.removeDuplicates();
         NatStringTreeMap<ChosenMoveInfos> map_;
         map_ = new NatStringTreeMap<ChosenMoveInfos>();
         for (String m: allMoves_) {
@@ -1147,17 +1133,18 @@ public final class FightFacade {
 //                CustList<Byte> list_ = equipe_.fightersAtCurrentPlace(index_);
                 Bytes list_ = equipe_.fightersAtCurrentPlaceIndex(index_, true);
                 Fighter creature_=equipe_.refPartMembres(list_.first());
-                creature_.setFirstChosenMoveTarget(_move, TargetCoords.toFoeTarget(possibleFoeChoices_.first().shortValue()));
+                int possibleFoeChoice_ = possibleFoeChoices_.first();
+                creature_.setFirstChosenMoveTarget(_move, TargetCoords.toFoeTarget((short) possibleFoeChoice_));
             } else {
                 Team equipe_=_fight.getUserTeam();
 //                CustList<Byte> list_ = equipe_.fightersAtCurrentPlace(index_);
                 Bytes list_ = equipe_.fightersAtCurrentPlaceIndex(index_, true);
                 Fighter creature_=equipe_.refPartMembres(list_.first());
-                creature_.setFirstChosenMoveTarget(_move, TargetCoords.toUserTarget(possiblePlayerChoices_.first().shortValue()));
+                int possiblePlayerChoice_ = possiblePlayerChoices_.first();
+                creature_.setFirstChosenMoveTarget(_move, TargetCoords.toUserTarget((short) possiblePlayerChoice_));
             }
             foeTargets_.clear();
             playerTargets_.clear();
-            return;
         }
     }
 

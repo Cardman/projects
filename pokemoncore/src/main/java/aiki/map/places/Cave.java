@@ -152,9 +152,7 @@ public final class Cave extends Campaign {
             }
             ids_.add(e.getKey());
         }
-        int len_ = ids_.size();
-        ids_.removeDuplicates();
-        if (len_ != ids_.size()) {
+        if (ids_.hasDuplicates()) {
             valid_ = false;
         }
         return valid_;

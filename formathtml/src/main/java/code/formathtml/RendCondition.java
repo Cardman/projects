@@ -3,14 +3,14 @@ package code.formathtml;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ConditionReturn;
-import code.expressionlanguage.errors.custom.UnexpectedTypeError;
+import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
-import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.formathtml.exec.RendDynOperationNode;
 import code.util.CustList;
+import code.util.StringList;
 
 public abstract class RendCondition extends RendParentBlock implements RendWithEl, RendReducableOperations, RendBuildableElMethod {
 
@@ -30,15 +30,16 @@ public abstract class RendCondition extends RendParentBlock implements RendWithE
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         page_.setGlobalOffset(conditionOffset);
         page_.setOffset(0);
-        _cont.getAnalyzingDoc().setAttribute(ATTRIBUTE_CONDITION);
-        opCondition = RenderExpUtil.getAnalyzedOperations(condition,0, _cont, Calculation.staticCalculation(_doc.getStaticContext()));
+        _cont.getAnalyzingDoc().setAttribute(_cont.getRendKeyWords().getAttrCondition());
+        opCondition = RenderExpUtil.getAnalyzedOperations(condition,conditionOffset,0, _cont);
         RendDynOperationNode elCondition_ = opCondition.last();
         LgNames stds_ = _cont.getStandards();
         if (!elCondition_.getResultClass().isBoolType(_cont)) {
-            UnexpectedTypeError un_ = new UnexpectedTypeError();
+            FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(_cont.getCurrentFileName());
             un_.setIndexFile(conditionOffset);
-            un_.setType(opCondition.last().getResultClass());
+            un_.buildError(_cont.getContext().getAnalysisMessages().getUnexpectedType(),
+                    StringList.join(elCondition_.getResultClass().getNames(),AND_ERR));
             _cont.addError(un_);
         }
         elCondition_.getResultClass().setUnwrapObject(stds_.getAliasPrimBoolean());
@@ -53,7 +54,7 @@ public abstract class RendCondition extends RendParentBlock implements RendWithE
     final ConditionReturn evaluateCondition(Configuration _context) {
         ImportingPage last_ = _context.getLastPage();
         last_.setOffset(conditionOffset);
-        last_.setProcessingAttribute(ATTRIBUTE_CONDITION);
+        last_.setProcessingAttribute(_context.getRendKeyWords().getAttrCondition());
         Argument arg_ = RenderExpUtil.calculateReuse(opCondition,_context);
         if (_context.getContext().hasException()) {
             return ConditionReturn.CALL_EX;

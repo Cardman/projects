@@ -29,7 +29,7 @@ final class RendRequestUtil {
         if (_conf.getHtmlPage().getConstAnchors().get(_url)) {
             String action_ = _conf.getHtmlPage().getAnchorsNames().get(_url);
             if (action_.indexOf('(') == CustList.INDEX_NOT_FOUND_ELT) {
-                action_ = StringList.concat(action_,"()");
+                action_ = StringList.concat(action_,RendBlock.LEFT_PAR,RendBlock.RIGHT_PAR);
             }
             return invokeMethodWithNumbersBis(_conf,action_);
         }

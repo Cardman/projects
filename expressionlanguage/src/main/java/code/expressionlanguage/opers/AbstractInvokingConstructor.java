@@ -1,12 +1,13 @@
 package code.expressionlanguage.opers;
 
 import code.expressionlanguage.Analyzable;
-import code.expressionlanguage.errors.custom.BadConstructorCall;
-import code.expressionlanguage.errors.custom.UndefinedConstructorError;
+import code.expressionlanguage.errors.custom.FoundErrorInterpret;
+import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.ConstructorBlock;
 import code.expressionlanguage.methods.Line;
+import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ConstructorId;
@@ -58,20 +59,11 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation {
             StringList params_ = idMethod_.getConstraints().getParametersTypes();
             feed_ = new ConstructorId(idClass_, params_, vararg_);
         }
+        String clCurName_ = clArg_.getName();
+        RootBlock type_ = _conf.getClasses().getClassBody(Templates.getIdFromAllTypes(clCurName_));
         ConstrustorIdVarArg ctorRes_;
-        ctorRes_ = getDeclaredCustConstructor(_conf, varargOnly_, clArg_, feed_, ClassArgumentMatching.toArgArray(firstArgs_));
+        ctorRes_ = getDeclaredCustConstructor(_conf, varargOnly_, clArg_,type_, feed_, ClassArgumentMatching.toArgArray(firstArgs_));
         if (ctorRes_.getRealId() == null) {
-            StringList cl_ = new StringList();
-            for (ClassArgumentMatching c: firstArgs_) {
-                cl_.add(StringList.join(c.getNames(), ""));
-            }
-            ConstructorId constId_ = new ConstructorId(StringList.join(clArg_.getNames(), ""), cl_, false);
-            UndefinedConstructorError und_ = new UndefinedConstructorError();
-            und_.setId(constId_.getSignature(_conf));
-            und_.setClassName(StringList.join(clArg_.getNames(), ""));
-            und_.setIndexFile(_conf.getCurrentLocationIndex());
-            und_.setFileName(_conf.getCurrentFileName());
-            _conf.addError(und_);
             setResultClass(new ClassArgumentMatching(stds_.getAliasVoid()));
             checkPositionBasis(_conf);
             return;
@@ -96,25 +88,28 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation {
         Block curBlock_ = _conf.getCurrentBlock();
         if (getParent() != null) {
             //error
-            BadConstructorCall call_ = new BadConstructorCall();
+            FoundErrorInterpret call_ = new FoundErrorInterpret();
             call_.setFileName(curBlock_.getFile().getFileName());
-            call_.setIndexFile(0);
-            call_.setLocalOffset(getFullIndexInEl());
+            call_.setIndexFile(getFullIndexInEl());
+            //key word len
+            call_.buildError(_conf.getContextEl().getAnalysisMessages().getCallCtorEnd());
             _conf.addError(call_);
         } else {
             if (!(curBlock_.getParent() instanceof ConstructorBlock)) {
                 //error
-                BadConstructorCall call_ = new BadConstructorCall();
+                FoundErrorInterpret call_ = new FoundErrorInterpret();
                 call_.setFileName(curBlock_.getFile().getFileName());
-                call_.setIndexFile(0);
-                call_.setLocalOffset(getFullIndexInEl());
+                call_.setIndexFile(getFullIndexInEl());
+                //key word len
+                call_.buildError(_conf.getContextEl().getAnalysisMessages().getCallCtor());
                 _conf.addError(call_);
             } else if (!(curBlock_ instanceof Line)) {
                 //error
-                BadConstructorCall call_ = new BadConstructorCall();
+                FoundErrorInterpret call_ = new FoundErrorInterpret();
                 call_.setFileName(curBlock_.getFile().getFileName());
-                call_.setIndexFile(0);
-                call_.setLocalOffset(getFullIndexInEl());
+                call_.setIndexFile(getFullIndexInEl());
+                //key word len
+                call_.buildError(_conf.getContextEl().getAnalysisMessages().getCallCtorBeforeBlock());
                 _conf.addError(call_);
             } else {
                 checkPosition(_conf);
@@ -124,10 +119,11 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation {
     void checkPosition(Analyzable _conf) {
         Block curBlock_ = _conf.getCurrentBlock();
         if (curBlock_.getParent().getFirstChild() != curBlock_) {
-            BadConstructorCall call_ = new BadConstructorCall();
+            FoundErrorInterpret call_ = new FoundErrorInterpret();
             call_.setFileName(curBlock_.getFile().getFileName());
-            call_.setIndexFile(0);
-            call_.setLocalOffset(getFullIndexInEl());
+            call_.setIndexFile(getFullIndexInEl());
+            //key word len
+            call_.buildError(_conf.getContextEl().getAnalysisMessages().getCallCtorFirstLine());
             _conf.addError(call_);
         }
     }

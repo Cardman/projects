@@ -95,6 +95,54 @@ public class NumbersTest {
         assertEq(3, nbs_.get(1));
     }
     @Test
+    public void hasDuplicates1(){
+        Ints nbs_ = new Ints();
+        nbs_.add(1);
+        nbs_.add(3);
+        assertTrue(!nbs_.hasDuplicates());
+    }
+    @Test
+    public void hasDuplicates2(){
+        Ints nbs_ = new Ints();
+        nbs_.add(1);
+        nbs_.add(1);
+        assertTrue(nbs_.hasDuplicates());
+    }
+    @Test
+    public void hasDuplicates3(){
+        Ints nbs_ = new Ints();
+        nbs_.add(1);
+        nbs_.add(3);
+        nbs_.add(1);
+        assertTrue(nbs_.hasDuplicates());
+    }
+    @Test
+    public void hasDuplicates4(){
+        Ints nbs_ = new Ints();
+        nbs_.add(1);
+        nbs_.add(3);
+        nbs_.add(1);
+        nbs_.add(3);
+        assertTrue(nbs_.hasDuplicates());
+    }
+    @Test
+    public void hasDuplicates5(){
+        Ints nbs_ = new Ints();
+        nbs_.add(1);
+        nbs_.add(1);
+        nbs_.add(3);
+        assertTrue(nbs_.hasDuplicates());
+    }
+    @Test
+    public void hasDuplicates6(){
+        Ints nbs_ = new Ints();
+        nbs_.add(1);
+        nbs_.add(1);
+        nbs_.add(3);
+        nbs_.add(3);
+        assertTrue(nbs_.hasDuplicates());
+    }
+    @Test
     public void min1(){
         Ints nbs_ = new Ints();
         nbs_.add(1);

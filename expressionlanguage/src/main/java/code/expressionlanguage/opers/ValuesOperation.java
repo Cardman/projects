@@ -1,8 +1,7 @@
 package code.expressionlanguage.opers;
 
 import code.expressionlanguage.Analyzable;
-import code.expressionlanguage.errors.custom.BadAccessClass;
-import code.expressionlanguage.errors.custom.UnexpectedTypeError;
+import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.OperationsSequence;
@@ -36,10 +35,12 @@ public final class ValuesOperation extends LeafOperation {
         clName_ = _conf.resolveAccessibleIdType(0,className);
         RootBlock r_ = classes_.getClassBody(clName_);
         if (!(r_ instanceof EnumBlock)) {
-            UnexpectedTypeError un_ = new UnexpectedTypeError();
+            FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(_conf.getCurrentFileName());
             un_.setIndexFile(_conf.getCurrentLocationIndex());
-            un_.setType(clName_);
+            //className len
+            un_.buildError(_conf.getContextEl().getAnalysisMessages().getUnexpectedType(),
+                    clName_);
             _conf.addError(un_);
             String argClName_ = _conf.getStandards().getAliasObject();
             setResultClass(new ClassArgumentMatching(argClName_));
@@ -47,10 +48,13 @@ public final class ValuesOperation extends LeafOperation {
         }
         String curClassBase_ = Templates.getIdFromAllTypes(glClass_);
         if (!Classes.canAccess(curClassBase_, r_, _conf)) {
-            BadAccessClass badAccess_ = new BadAccessClass();
-            badAccess_.setId(clName_);
+            FoundErrorInterpret badAccess_ = new FoundErrorInterpret();
             badAccess_.setIndexFile(_conf.getCurrentLocationIndex());
             badAccess_.setFileName(_conf.getCurrentFileName());
+            //className len
+            badAccess_.buildError(_conf.getContextEl().getAnalysisMessages().getInaccessibleType(),
+                    clName_,
+                    curClassBase_);
             _conf.addError(badAccess_);
         }
         className = r_.getWildCardElement();

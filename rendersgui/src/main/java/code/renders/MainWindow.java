@@ -13,6 +13,7 @@ import code.gui.TextArea;
 import code.gui.TextField;
 import code.gui.document.RenderedPage;
 import code.gui.events.QuittingEvent;
+import code.renders.utilcompo.LgNamesRenderUtils;
 import code.stream.StreamFolderFile;
 import code.stream.StreamTextFile;
 import code.stream.StreamZipFile;
@@ -29,6 +30,7 @@ import java.io.File;
 public final class MainWindow extends GroupFrame {
     private Menu menu;
     private MenuItem open;
+    private TextField lgCode;
     private RenderedPage session;
     protected MainWindow(String _lg) {
         super(_lg);
@@ -41,6 +43,8 @@ public final class MainWindow extends GroupFrame {
         getJMenuBar().add(menu);
         setTitle("Local sites");
         Panel pane_ = Panel.newPageBox();
+        lgCode = new TextField(20);
+        pane_.add(lgCode);
         session = new RenderedPage(new ScrollPane());
         session.setLanguage(_lg);
         session.setFrame(this);
@@ -115,13 +119,13 @@ public final class MainWindow extends GroupFrame {
                 }
             }
         }
-        BeanCustLgNames lgNames_ = new BeanCustLgNames();
+        BeanCustLgNames lgNames_ = new LgNamesRenderUtils();
         DefaultInitialization.basicStandards(lgNames_);
         basicCustStandards(lgNames_);
         session.initNav();
         session.setLanguage(getLanguageKey());
         session.setFiles(zipFiles_);
-        session.initializeOnlyConf(confRel_,lgNames_,zipFiles_,clName_,mName_);
+        session.initializeOnlyConf(confRel_,lgCode.getText(),lgNames_,zipFiles_,clName_,mName_);
     }
 
     private static void basicCustStandards(BeanCustLgNames _lgNames) {
@@ -147,6 +151,26 @@ public final class MainWindow extends GroupFrame {
         _lgNames.setAliasMapClear("clear");
         _lgNames.setAliasValidator("code.bean.Validator");
         _lgNames.setAliasValidate("validate");
+        _lgNames.setAliasBean("code.bean.Bean");
+        _lgNames.setAliasStringMapObject("code.util.StringMapObject");
+        _lgNames.setAliasForms("forms");
+        _lgNames.setAliasGetForms("getForms");
+        _lgNames.setAliasSetForms("setForms");
+        _lgNames.setAliasLanguage("language");
+        _lgNames.setAliasGetLanguage("getLanguage");
+        _lgNames.setAliasSetLanguage("setLanguage");
+        _lgNames.setAliasScope("scope");
+        _lgNames.setAliasGetScope("getScope");
+        _lgNames.setAliasSetScope("setScope");
+        _lgNames.setAliasDataBaseField("dataBase");
+        _lgNames.setAliasGetDataBase("getDataBase");
+        _lgNames.setAliasSetDataBase("setDataBase");
+        _lgNames.setAliasBeforeDisplaying("beforeDisplaying");
+        _lgNames.setAliasMessage("code.bean.Message");
+        _lgNames.setAliasNewMessage("newStandardMessage");
+        _lgNames.setAliasMessageFormat("format");
+        _lgNames.setAliasMessageGetArgs("getArgs");
+        _lgNames.setAliasMessageSetArgs("setArgs");
     }
     @Override
     public void quit() {

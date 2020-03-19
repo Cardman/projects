@@ -1,7 +1,7 @@
 package code.expressionlanguage.opers;
 
 import code.expressionlanguage.Analyzable;
-import code.expressionlanguage.errors.custom.BadImplicitCast;
+import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.inherits.Mapping;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.OperationsSequence;
@@ -45,10 +45,13 @@ public final class SuperFromFieldOperation extends
         StringMap<StringList> mapping_ = _conf.getCurrentConstraints();
         map_.setMapping(mapping_);
         if (!Templates.isCorrectOrNumbers(map_, _conf)) {
-            BadImplicitCast cast_ = new BadImplicitCast();
-            cast_.setMapping(map_);
+            FoundErrorInterpret cast_ = new FoundErrorInterpret();
             cast_.setIndexFile(_conf.getCurrentLocationIndex());
             cast_.setFileName(_conf.getCurrentFileName());
+            //type len
+            cast_.buildError(_conf.getContextEl().getAnalysisMessages().getBadImplicitCast(),
+                    StringList.join(clCur_.getNames(),"&"),
+                    className_);
             _conf.addError(cast_);
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             return null;

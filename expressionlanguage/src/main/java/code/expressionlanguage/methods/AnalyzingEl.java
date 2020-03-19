@@ -3,7 +3,6 @@ package code.expressionlanguage.methods;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.inherits.Mapping;
 import code.expressionlanguage.inherits.Templates;
-import code.expressionlanguage.opers.util.SimpleAssignment;
 import code.util.*;
 
 public final class AnalyzingEl {
@@ -25,7 +24,6 @@ public final class AnalyzingEl {
     private CustList<BreakableBlock> parentsBreakables = new CustList<BreakableBlock>();
     private CustList<Loop> parentsContinuables = new CustList<Loop>();
     private CustList<Eval> parentsReturnables = new CustList<Eval>();
-    private IdMap<ReturnMethod, StringMap<SimpleAssignment>> assignments = new IdMap<ReturnMethod, StringMap<SimpleAssignment>>();
     private Mapping mapping;
     private MemberCallingsBlock root;
 
@@ -124,10 +122,6 @@ public final class AnalyzingEl {
 
     public IdMap<ReturnMethod, IdMap<MemberCallingsBlock, IdList<BracedBlock>>> getReturnablesAncestorsCallings() {
         return returnablesAncestorsCallings;
-    }
-
-    public IdMap<ReturnMethod, StringMap<SimpleAssignment>> getAssignments() {
-        return assignments;
     }
 
     public MemberCallingsBlock getRoot() {

@@ -7,6 +7,7 @@ import code.expressionlanguage.errors.stds.ErrorCat;
 import code.expressionlanguage.errors.stds.StdWordError;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
+import code.expressionlanguage.inherits.Mapping;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.inherits.TypeUtil;
@@ -23,88 +24,6 @@ import code.maths.montecarlo.AbMonteCarlo;
 import code.util.*;
 
 public abstract class LgNames {
-    public static final String CONTINUE = "Continue";
-    public static final String INSTANCEOF = "Instanceof";
-    public static final String INTERFACE = "Interface";
-    public static final String ABSTRACT = "Abstract";
-    public static final String ELSEIF = "Elseif";
-    public static final String CAST = "Cast";
-    public static final String EXPLICIT = "Explicit";
-    public static final String FOR = "For";
-    public static final String VAR = "Var";
-    public static final String STATIC = "Static";
-    public static final String STATIC_CALL = "StaticCall";
-    public static final String NULL = "Null";
-    public static final String CLASS = "Class";
-    public static final String FALSE = "False";
-    public static final String FINAL = "Final";
-    public static final String BREAK = "Break";
-    public static final String IF = "If";
-    public static final String NEW = "New";
-    public static final String WHILE = "While";
-    public static final String RETURN = "Return";
-    public static final String TRUE = "True";
-    public static final String PUBLIC = "Public";
-    public static final String PRIVATE = "Private";
-    public static final String ANNOTATION = "Annotation";
-    public static final String TO_STRING = "ToString";
-    public static final String NB_SUF_BYTE_PRIM = "NbSufBytePrim";
-    public static final String NB_SUF_BYTE = "NbSufByte";
-    public static final String NB_SUF_SHORT_PRIM = "NbSufShortPrim";
-    public static final String NB_SUF_SHORT = "NbSufShort";
-    public static final String NB_SUF_CHARACTER_PRIM = "NbSufCharacterPrim";
-    public static final String NB_SUF_CHARACTER = "NbSufCharacter";
-    public static final String NB_SUF_INTEGER_PRIM = "NbSufIntegerPrim";
-    public static final String NB_SUF_INTEGER = "NbSufInteger";
-    public static final String NB_SUF_LONG_PRIM = "NbSufLongPrim";
-    public static final String NB_SUF_LONG = "NbSufLong";
-    public static final String NB_SUF_FLOAT_PRIM = "NbSufFloatPrim";
-    public static final String NB_SUF_FLOAT = "NbSufFloat";
-    public static final String NB_SUF_DOUBLE_PRIM = "NbSufDoublePrim";
-    public static final String NB_SUF_DOUBLE = "NbSufDouble";
-    public static final String ITER = "Iter";
-    public static final String VALUE = "Value";
-    public static final String ELSE = "Else";
-    public static final String CATCH = "Catch";
-    public static final String THROW = "Throw";
-    public static final String TRY = "Try";
-    public static final String THIS = "This";
-    public static final String SUPER = "Super";
-    public static final String CASE = "Case";
-    public static final String DO = "Do";
-    public static final String ENUM = "Enum";
-    public static final String SWITCH = "Switch";
-    public static final String INTERN = "Intern";
-    public static final String NORMAL = "Normal";
-    public static final String ESC_TAB = "EscTab";
-    public static final String NB_HEX = "NbHex";
-    public static final String NB_BIN = "NbBin";
-    public static final String THAT = "That";
-    public static final String BOOL = "Bool";
-    public static final String VALUES = "Values";
-    public static final String LAMBDA = "Lambda";
-    public static final String VARARG = "Vararg";
-    public static final String ID = "Id";
-    public static final String FOREACH = "Foreach";
-    public static final String NB_EXP_BIN = "NbExpBin";
-    public static final String CLASSCHOICE = "Classchoice";
-    public static final String FIRSTOPT = "Firstopt";
-    public static final String PACKAGE = "Package";
-    public static final String FINALLY = "Finally";
-    public static final String ESC_UNICODE = "EscUnicode";
-    public static final String THISACCESS = "Thisaccess";
-    public static final String VALUE_OF = "ValueOf";
-    public static final String DEFAULT_VALUE = "DefaultValue";
-    public static final String ESC_LINE = "EscLine";
-    public static final String OPERATOR = "Operator";
-    public static final String INTERFACES = "Interfaces";
-    public static final String SUPERACCESS = "Superaccess";
-    public static final String ESC_BOUND = "EscBound";
-    public static final String ESC_FORM = "EscForm";
-    public static final String ESC_FEED = "EscFeed";
-    public static final String NB_EXP_DEC = "NbExpDec";
-    public static final String PROTECTED = "Protected";
-    public static final String DEFAULT = "Default";
 
     public static final String DEFAULT_PKG = "DefaultPkg";
     public static final String FIELD_MAX_VALUE = "MAX_VALUE";
@@ -448,24 +367,30 @@ public abstract class LgNames {
                 if (cur_ == 'c') {
                     if (i_ + 2 < len_) {
                         String sub_ = _line.substring(i_ + 1,i_ + 3);
-                        Long char_ = NumParsers.parseLong(sub_, 16);
-                        if (char_ != null && char_ >= 0 && char_ < ' ') {
-                            char ch_ = (char) char_.intValue();
-                            arg_.append(ch_);
-                            i_ += 3;
-                            continue;
+                        LongInfo char_ = NumParsers.parseLong(sub_, 16);
+                        if (char_.isValid()) {
+                            long value_ = char_.getValue();
+                            if (value_ >= 0 && value_ < ' ') {
+                                char ch_ = (char) value_;
+                                arg_.append(ch_);
+                                i_ += 3;
+                                continue;
+                            }
                         }
                     }
                 }
                 if (cur_ == 'u') {
                     if (i_ + 4 < len_) {
                         String sub_ = _line.substring(i_ + 1,i_ + 5);
-                        Long char_ = NumParsers.parseLong(sub_, 16);
-                        if (char_ != null && char_ >= 0) {
-                            char ch_ = (char) char_.intValue();
-                            arg_.append(ch_);
-                            i_ += 5;
-                            continue;
+                        LongInfo char_ = NumParsers.parseLong(sub_, 16);
+                        if (char_.isValid()) {
+                            long value_ = char_.getValue();
+                            if (value_ >= 0) {
+                                char ch_ = (char) value_;
+                                arg_.append(ch_);
+                                i_ += 5;
+                                continue;
+                            }
                         }
                     }
                 }
@@ -517,24 +442,30 @@ public abstract class LgNames {
                 if (cur_ == 'c') {
                     if (i_ + 2 < len_) {
                         String sub_ = _line.substring(i_ + 1,i_ + 3);
-                        Long char_ = NumParsers.parseLong(sub_, 16);
-                        if (char_ != null && char_ >= 0 && char_ < ' ') {
-                            char ch_ = (char) char_.intValue();
-                            arg_.append(ch_);
-                            i_ += 3;
-                            continue;
+                        LongInfo char_ = NumParsers.parseLong(sub_, 16);
+                        if (char_.isValid()) {
+                            long value_ = char_.getValue();
+                            if (value_ >= 0 && value_ < ' ') {
+                                char ch_ = (char) value_;
+                                arg_.append(ch_);
+                                i_ += 3;
+                                continue;
+                            }
                         }
                     }
                 }
                 if (cur_ == 'u') {
                     if (i_ + 4 < len_) {
                         String sub_ = _line.substring(i_ + 1,i_ + 5);
-                        Long char_ = NumParsers.parseLong(sub_, 16);
-                        if (char_ != null && char_ >= 0) {
-                            char ch_ = (char) char_.intValue();
-                            arg_.append(ch_);
-                            i_ += 5;
-                            continue;
+                        LongInfo char_ = NumParsers.parseLong(sub_, 16);
+                        if (char_.isValid()) {
+                            long value_ = char_.getValue();
+                            if (value_ >= 0) {
+                                char ch_ = (char) value_;
+                                arg_.append(ch_);
+                                i_ += 5;
+                                continue;
+                            }
                         }
                     }
                 }
@@ -603,9 +534,7 @@ public abstract class LgNames {
     public void validatePrimitiveDuplicates(ContextEl _cont, StringMap<String> _list) {
         AnalysisMessages a_ = _cont.getAnalysisMessages();
         StringList keyWords_ = new StringList(_list.values());
-        int size_ = keyWords_.size();
-        keyWords_.removeDuplicates();
-        if (size_ != keyWords_.size()) {
+        if (keyWords_.hasDuplicates()) {
             for (EntryCust<String,String> e: _list.entryList()) {
                 String v_ = e.getValue();
                 StdWordError err_ = new StdWordError();
@@ -750,10 +679,8 @@ public abstract class LgNames {
     public boolean validateRefTypeDuplicates(ContextEl _cont, StringMap<String> _list) {
         AnalysisMessages a_ = _cont.getAnalysisMessages();
         StringList keyWords_ = new StringList(_list.values());
-        int size_ = keyWords_.size();
-        keyWords_.removeDuplicates();
         boolean dup_ = false;
-        if (size_ != keyWords_.size()) {
+        if (keyWords_.hasDuplicates()) {
             for (EntryCust<String,String> e: _list.entryList()) {
                 String v_ = e.getValue();
                 StdWordError err_ = new StdWordError();
@@ -1244,9 +1171,7 @@ public abstract class LgNames {
             for (KeyValueMemberName f: e.getValue()) {
                 keyWords_.add(f.getValue());
             }
-            int size_ = keyWords_.size();
-            keyWords_.removeDuplicates();
-            if (size_ != keyWords_.size()) {
+            if (keyWords_.hasDuplicates()) {
                 for (KeyValueMemberName f: e.getValue()) {
                     String v_ = f.getValue();
                     StdWordError err_ = new StdWordError();
@@ -1265,9 +1190,7 @@ public abstract class LgNames {
             for (KeyValueMemberName f: e) {
                 keyWords_.add(f.getValue());
             }
-            int size_ = keyWords_.size();
-            keyWords_.removeDuplicates();
-            if (size_ != keyWords_.size()) {
+            if (keyWords_.hasDuplicates()) {
                 for (KeyValueMemberName f: e) {
                     String v_ = f.getValue();
                     StdWordError err_ = new StdWordError();
@@ -1372,9 +1295,7 @@ public abstract class LgNames {
             for (KeyValueMemberName f: e.getValue()) {
                 keyWords_.add(f.getValue());
             }
-            int size_ = keyWords_.size();
-            keyWords_.removeDuplicates();
-            if (size_ != keyWords_.size()) {
+            if (keyWords_.hasDuplicates()) {
                 for (KeyValueMemberName f: e.getValue()) {
                     String v_ = f.getValue();
                     StdWordError err_ = new StdWordError();
@@ -1436,9 +1357,7 @@ public abstract class LgNames {
             for (KeyValueMemberName f: e.getValue()) {
                 keyWords_.add(f.getValue());
             }
-            int size_ = keyWords_.size();
-            keyWords_.removeDuplicates();
-            if (size_ != keyWords_.size()) {
+            if (keyWords_.hasDuplicates()) {
                 for (KeyValueMemberName f: e.getValue()) {
                     String v_ = f.getValue();
                     StdWordError err_ = new StdWordError();
@@ -1462,12 +1381,8 @@ public abstract class LgNames {
         }
         pkgs_.removeDuplicates();
         _cont.getClasses().getPackagesFound().addAllElts(pkgs_);
-        _cont.setAnalyzing(new AnalyzedPageEl());
+        _cont.setAnalyzing();
         TypeUtil.buildInherits(_cont);
-        for (StandardType t: standards.values()) {
-            ObjectMap<MethodId, EqList<ClassMethodId>> allOv_ = TypeUtil.getAllInstanceSignatures(t, _cont);
-            t.getAllOverridingMethods().putAllMap(allOv_);
-        }
     }
 
     public abstract void buildOther();
@@ -1901,14 +1816,16 @@ public abstract class LgNames {
     }
     public IterableAnalysisResult getCustomType(StringList _names, ContextEl _context) {
         StringList out_ = new StringList();
+        StringMap<StringList> vars_ = _context.getCurrentConstraints();
+        Mapping mapping_ = new Mapping();
+        mapping_.setMapping(vars_);
         for (String f: _names) {
             String iterable_ = getAliasIterable();
-            String type_ = Templates.getFullTypeByBases(f, iterable_, _context);
+            String type_ = Templates.getGeneric(f,iterable_,_context,mapping_);
             if (type_ != null) {
                 out_.add(type_);
             }
         }
-        out_.removeDuplicates();
         return new IterableAnalysisResult(out_);
     }
 
@@ -1954,6 +1871,9 @@ public abstract class LgNames {
         return files_;
     }
 
+    public AbstractFunctionalInstance newFunctionalInstance(String _className, ContextEl _contextEl) {
+        return new FunctionalInstance(_className);
+    }
     public String getStructClassName(Struct _struct, ContextEl _context) {
         return _struct.getClassName(_context);
     }

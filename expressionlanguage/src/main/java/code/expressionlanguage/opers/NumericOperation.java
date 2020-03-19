@@ -2,7 +2,7 @@ package code.expressionlanguage.opers;
 
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.errors.custom.UnexpectedTypeOperationError;
+import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.OperationsSequence;
@@ -29,22 +29,24 @@ public abstract class NumericOperation extends MethodOperation implements Middle
         String exp_ = _cont.getStandards().getAliasNumber();
         boolean ok_ = true;
         if (oa_ == 0) {
-            UnexpectedTypeOperationError un_ = new UnexpectedTypeOperationError();
+            FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setIndexFile(_cont.getCurrentLocationIndex());
             un_.setFileName(_cont.getCurrentFileName());
-            un_.setExpectedResult(exp_);
-            un_.setOperands(_a);
+            //operator
+            un_.buildError(_cont.getContextEl().getAnalysisMessages().getUnexpectedType(),
+                    StringList.join(_a.getNames(),"&"));
             _cont.addError(un_);
             _cont.setOkNumOp(false);
             ok_ = false;
         }
         int ob_ = PrimitiveTypeUtil.getOrderClass(_b, _cont);
         if (ob_ == 0) {
-            UnexpectedTypeOperationError un_ = new UnexpectedTypeOperationError();
+            FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setIndexFile(_cont.getCurrentLocationIndex());
             un_.setFileName(_cont.getCurrentFileName());
-            un_.setExpectedResult(exp_);
-            un_.setOperands(_b);
+            //operator
+            un_.buildError(_cont.getContextEl().getAnalysisMessages().getUnexpectedType(),
+                    StringList.join(_a.getNames(),"&"));
             _cont.addError(un_);
             _cont.setOkNumOp(false);
             ok_ = false;

@@ -33,8 +33,8 @@ public final class RendLine extends RendLeaf implements RendWithEl, RendReducabl
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         page_.setGlobalOffset(expressionOffset);
         page_.setOffset(0);
-        _cont.getAnalyzingDoc().setAttribute(ATTRIBUTE_VALUE);
-        opExp = RenderExpUtil.getAnalyzedOperations(expression,0,_cont, Calculation.staticCalculation(st_));
+        _cont.getAnalyzingDoc().setAttribute(_cont.getRendKeyWords().getAttrValue());
+        opExp = RenderExpUtil.getAnalyzedOperations(expression,expressionOffset,0,_cont);
         if (_cont.isMerged()) {
             StringList vars_ = _cont.getVariablesNames();
             RendDeclareVariable declaring_ = (RendDeclareVariable) getPreviousSibling();
@@ -58,7 +58,7 @@ public final class RendLine extends RendLeaf implements RendWithEl, RendReducabl
     public void processEl(Configuration _cont) {
         ImportingPage ip_ = _cont.getLastPage();
         ip_.setOffset(expressionOffset);
-        ip_.setProcessingAttribute(ATTRIBUTE_VALUE);
+        ip_.setProcessingAttribute(_cont.getRendKeyWords().getAttrValue());
         RenderExpUtil.calculateReuse(opExp, _cont);
         if (_cont.getContext().hasException()) {
             return;

@@ -77,6 +77,7 @@ public final class FileOpenDialog extends FileDialog implements SingleFileSelect
         searchingPanel.removeAll();
         Panel panel_ = Panel.newLineBox();
         panel_.add(label_);
+        typedString = new TextField(NB_COLS);
         panel_.add(typedString);
         panel_.add(search_);
         searchingPanel.add(panel_);

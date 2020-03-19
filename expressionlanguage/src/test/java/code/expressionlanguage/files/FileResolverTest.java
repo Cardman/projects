@@ -270,7 +270,6 @@ public final class FileResolverTest {
         assertEq("m",m_.getName());
         assertEq("$void",m_.getReturnType());
         assertSame(eTwo_, getCustomTypes(context_, 2));
-        assertSame(r_, eTwo_.belong());
     }
     @Test
     public void parseFile2Test() {
@@ -620,7 +619,6 @@ public final class FileResolverTest {
         InfoBlock field_ = (InfoBlock) child_;
         assertTrue(field_.isStaticField());
         assertTrue(field_.isFinalField());
-        assertSame(AccessEnum.PUBLIC, field_.getAccess());
         assertEq("ONE", ((ElementBlock)field_).getUniqueFieldName());
         assertEq("pkgtwo.Toto", field_.getClassName());
         assertEq("", ((ElementBlock)field_).getValue());
@@ -631,7 +629,6 @@ public final class FileResolverTest {
         field_ = (InfoBlock) child_;
         assertTrue(field_.isStaticField());
         assertTrue(field_.isFinalField());
-        assertSame(AccessEnum.PUBLIC, field_.getAccess());
         assertEq("THERE", ((ElementBlock)field_).getUniqueFieldName());
         assertEq("pkgtwo.Toto", field_.getClassName());
         assertEq("1i,\n3i", ((ElementBlock)field_).getValue());
@@ -642,7 +639,6 @@ public final class FileResolverTest {
         field_ = (InfoBlock) child_;
         assertTrue(field_.isStaticField());
         assertTrue(field_.isFinalField());
-        assertSame(AccessEnum.PUBLIC, field_.getAccess());
         assertEq("HERE", ((ElementBlock)field_).getUniqueFieldName());
         assertEq("pkgtwo.Toto", field_.getClassName());
         assertEq("", ((ElementBlock)field_).getValue());
@@ -735,7 +731,6 @@ public final class FileResolverTest {
         assertNull(instr_.getNextSibling());
         child_ = method_.getNextSibling();
         assertTrue(child_ instanceof OverridableBlock);
-        assertTrue(child_ instanceof OverridableBlock);
         method_ = (OverridableBlock) child_;
         assertTrue(!method_.isStaticMethod());
         assertTrue(!method_.isFinalMethod());
@@ -784,7 +779,6 @@ public final class FileResolverTest {
         assertEq(524, ret_.getExpressionOffset());
         assertNull(instr_.getNextSibling());
         assertNull(method_.getNextSibling());
-        assertSame(r_, field_.belong());
     }
 
     @Test
@@ -4250,7 +4244,6 @@ public final class FileResolverTest {
         InfoBlock field_ = (InfoBlock) child_;
         assertTrue(field_.isStaticField());
         assertTrue(field_.isFinalField());
-        assertSame(AccessEnum.PUBLIC, field_.getAccess());
         assertEq("ONE", ((ElementBlock)field_).getUniqueFieldName());
         assertEq("pkgtwo.Toto", field_.getClassName());
         assertEq("", ((ElementBlock)field_).getValue());
@@ -4261,7 +4254,6 @@ public final class FileResolverTest {
         field_ = (InfoBlock) child_;
         assertTrue(field_.isStaticField());
         assertTrue(field_.isFinalField());
-        assertSame(AccessEnum.PUBLIC, field_.getAccess());
         assertEq("THERE", ((ElementBlock)field_).getUniqueFieldName());
         assertEq("pkgtwo.Toto", field_.getClassName());
         assertEq("1i,\n3i", ((ElementBlock)field_).getValue());
@@ -4272,7 +4264,6 @@ public final class FileResolverTest {
         field_ = (InfoBlock) child_;
         assertTrue(field_.isStaticField());
         assertTrue(field_.isFinalField());
-        assertSame(AccessEnum.PUBLIC, field_.getAccess());
         assertEq("HERE", ((ElementBlock)field_).getUniqueFieldName());
         assertEq("pkgtwo.Toto", field_.getClassName());
         assertEq("", ((ElementBlock)field_).getValue());
@@ -4364,7 +4355,6 @@ public final class FileResolverTest {
         assertEq("$unreachablebis",ret_.getExpression());
         assertNull(instr_.getNextSibling());
         child_ = method_.getNextSibling();
-        assertTrue(child_ instanceof OverridableBlock);
         assertTrue(child_ instanceof OverridableBlock);
         method_ = (OverridableBlock) child_;
         assertTrue(!method_.isStaticMethod());
@@ -4468,7 +4458,6 @@ public final class FileResolverTest {
         InfoBlock field_ = (InfoBlock) child_;
         assertTrue(field_.isStaticField());
         assertTrue(field_.isFinalField());
-        assertSame(AccessEnum.PUBLIC, field_.getAccess());
         assertEq("ONE", ((ElementBlock)field_).getUniqueFieldName());
         assertEq("pkgtwo.Toto", field_.getClassName());
         assertEq("", ((ElementBlock)field_).getValue());
@@ -4479,7 +4468,6 @@ public final class FileResolverTest {
         field_ = (InfoBlock) child_;
         assertTrue(field_.isStaticField());
         assertTrue(field_.isFinalField());
-        assertSame(AccessEnum.PUBLIC, field_.getAccess());
         assertEq("THERE", ((ElementBlock)field_).getUniqueFieldName());
         assertEq("pkgtwo.Toto", field_.getClassName());
         assertEq("1i,\n3i", ((ElementBlock)field_).getValue());
@@ -4490,7 +4478,6 @@ public final class FileResolverTest {
         field_ = (InfoBlock) child_;
         assertTrue(field_.isStaticField());
         assertTrue(field_.isFinalField());
-        assertSame(AccessEnum.PUBLIC, field_.getAccess());
         assertEq("HERE", ((ElementBlock)field_).getUniqueFieldName());
         assertEq("pkgtwo.Toto", field_.getClassName());
         assertEq("", ((ElementBlock)field_).getValue());
@@ -4582,7 +4569,6 @@ public final class FileResolverTest {
         assertEq("$unreachablebis",ret_.getExpression());
         assertNull(instr_.getNextSibling());
         child_ = method_.getNextSibling();
-        assertTrue(child_ instanceof OverridableBlock);
         assertTrue(child_ instanceof OverridableBlock);
         method_ = (OverridableBlock) child_;
         assertTrue(!method_.isStaticMethod());
@@ -4717,7 +4703,6 @@ public final class FileResolverTest {
         InfoBlock field_ = (InfoBlock) child_;
         assertTrue(field_.isStaticField());
         assertTrue(field_.isFinalField());
-        assertSame(AccessEnum.PUBLIC, field_.getAccess());
         assertEq("ONE", ((ElementBlock)field_).getUniqueFieldName());
         assertEq("<ExTwo>", ((ElementBlock)field_).getTempClass());
         assertEq("pkgtwo.Toto", field_.getClassName());
@@ -4730,7 +4715,6 @@ public final class FileResolverTest {
         field_ = (InfoBlock) child_;
         assertTrue(field_.isStaticField());
         assertTrue(field_.isFinalField());
-        assertSame(AccessEnum.PUBLIC, field_.getAccess());
         assertEq("THERE", ((ElementBlock)field_).getUniqueFieldName());
         assertEq("<ExThree>", ((ElementBlock)field_).getTempClass());
         assertEq("pkgtwo.Toto", field_.getClassName());
@@ -4743,7 +4727,6 @@ public final class FileResolverTest {
         field_ = (InfoBlock) child_;
         assertTrue(field_.isStaticField());
         assertTrue(field_.isFinalField());
-        assertSame(AccessEnum.PUBLIC, field_.getAccess());
         assertEq("HERE", ((ElementBlock)field_).getUniqueFieldName());
         assertEq("pkgtwo.Toto", field_.getClassName());
         assertEq("", ((ElementBlock)field_).getValue());
@@ -4809,7 +4792,6 @@ public final class FileResolverTest {
         InfoBlock field_ = (InfoBlock) child_;
         assertTrue(field_.isStaticField());
         assertTrue(field_.isFinalField());
-        assertSame(AccessEnum.PUBLIC, field_.getAccess());
         assertEq("ONE", ((ElementBlock)field_).getUniqueFieldName());
         assertEq("pkgtwo.Toto", field_.getClassName());
         assertEq("", ((ElementBlock)field_).getValue());
@@ -4820,7 +4802,6 @@ public final class FileResolverTest {
         field_ = (InfoBlock) child_;
         assertTrue(field_.isStaticField());
         assertTrue(field_.isFinalField());
-        assertSame(AccessEnum.PUBLIC, field_.getAccess());
         assertEq("THERE", ((ElementBlock)field_).getUniqueFieldName());
         assertEq("pkgtwo.Toto", field_.getClassName());
         assertEq("1i,\n3i", ((ElementBlock)field_).getValue());
@@ -4837,7 +4818,6 @@ public final class FileResolverTest {
         field_ = (InfoBlock) child_;
         assertTrue(field_.isStaticField());
         assertTrue(field_.isFinalField());
-        assertSame(AccessEnum.PUBLIC, field_.getAccess());
         assertEq("HERE", ((ElementBlock)field_).getUniqueFieldName());
         assertEq("pkgtwo.Toto", field_.getClassName());
         assertEq("", ((ElementBlock)field_).getValue());
@@ -5040,7 +5020,6 @@ public final class FileResolverTest {
         assertEq(0, method_.getAnnotationsParams().size());
         assertEq(0, method_.getAnnotationsIndexesParams().size());
         assertEq(1, countFileTypes(context_));
-        assertSame(cl_, method_.belong());
     }
     @Test
     public void parseFile60Test() {
@@ -5250,7 +5229,6 @@ public final class FileResolverTest {
         ReturnMethod r_ = (ReturnMethod) b_;
         assertEq("plus(a;.;,b;.;)", r_.getExpression());
         assertEq(47, r_.getExpressionOffset());
-        assertNull(op_.belong());
         assertTrue(!op_.isAbstractMethod());
         assertTrue(!op_.isFinalMethod());
     }
@@ -8099,7 +8077,6 @@ public final class FileResolverTest {
         InfoBlock field_ = (InfoBlock) child_;
         assertTrue(field_.isStaticField());
         assertTrue(field_.isFinalField());
-        assertSame(AccessEnum.PUBLIC, field_.getAccess());
         assertEq("ONE", ((ElementBlock)field_).getUniqueFieldName());
         assertEq("pkgtwo.Toto", field_.getClassName());
         assertEq(102, field_.getFieldNameOffset());
@@ -9805,15 +9782,8 @@ public final class FileResolverTest {
         file_.append("}\b");
         ContextEl context_ = simpleContext();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
-        assertEq(1, countCustomTypes(context_));
-        assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.ExClass");
-        assertTrue(r_ instanceof ClassBlock);
-        ClassBlock cl_ = (ClassBlock) r_;
-        assertEq(44,cl_.getAccessOffset());
-        assertEq(51,cl_.getCategoryOffset());
-        assertNull(cl_.getFirstChild());
-        assertEq(1, countFileTypes(context_));
+        assertEq(0, countCustomTypes(context_));
+        assertTrue(!context_.isEmptyErrors());
     }
     @Test
     public void parseFile171Test() {
@@ -10095,7 +10065,7 @@ public final class FileResolverTest {
         Options opt_ = new Options();
         ContextEl cont_ = InitializationLgNames.buildStdOne("en", opt_);
         LgNames stds_ = cont_.getStandards();
-        cont_.setAnalyzing(new AnalyzedPageEl());
+        cont_.setAnalyzing();
         for (EntryCust<String, String> e: stds_.buildFiles(cont_).entryList()) {
             String name_ = e.getKey();
             String content_ = e.getValue();
@@ -10108,7 +10078,7 @@ public final class FileResolverTest {
         Options opt_ = new Options();
         ContextEl cont_ = InitializationLgNames.buildStdOne("fr", opt_);
         LgNames stds_ = cont_.getStandards();
-        cont_.setAnalyzing(new AnalyzedPageEl());
+        cont_.setAnalyzing();
         for (EntryCust<String, String> e: stds_.buildFiles(cont_).entryList()) {
             String name_ = e.getKey();
             String content_ = e.getValue();
@@ -10122,7 +10092,7 @@ public final class FileResolverTest {
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         LgNames stds_ = cont_.getStandards();
-        cont_.setAnalyzing(new AnalyzedPageEl());
+        cont_.setAnalyzing();
         for (EntryCust<String, String> e: stds_.buildFiles(cont_).entryList()) {
             String name_ = e.getKey();
             String content_ = e.getValue();
@@ -10136,7 +10106,7 @@ public final class FileResolverTest {
         opt_.setSuffixVar(_suf);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         LgNames stds_ = cont_.getStandards();
-        cont_.setAnalyzing(new AnalyzedPageEl());
+        cont_.setAnalyzing();
         for (EntryCust<String, String> e: stds_.buildFiles(cont_).entryList()) {
             String name_ = e.getKey();
             String content_ = e.getValue();

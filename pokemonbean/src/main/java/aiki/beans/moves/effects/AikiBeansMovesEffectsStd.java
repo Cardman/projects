@@ -22,6 +22,7 @@ import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.util.BeanLgNames;
 import code.formathtml.structs.StdStruct;
+import code.formathtml.util.BeanNatLgNames;
 import code.util.CustList;
 import code.util.ObjectMap;
 import code.util.StringList;
@@ -390,7 +391,7 @@ public final class AikiBeansMovesEffectsStd {
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new StringMap<StandardField>();
         type_ = new StandardClass(TYPE_EFFECT_BATON_PASS_BEAN, fields_, constructors_, methods_, AikiBeansMovesEffectsStd.TYPE_EFFECT_BEAN, MethodModifier.NORMAL);
-        fields_.put(MOVES,new StandardField(MOVES,_std.getCustList(),false,false,type_));
+        fields_.put(MOVES,new StandardField(MOVES, BeanNatLgNames.TYPE_LIST,false,false,type_));
         params_ = new StringList(_std.getAliasLong());
         method_ = new StandardMethod(CLICK_MOVE,params_,_std.getAliasString(), false, MethodModifier.NORMAL,type_);
         methods_.put(method_.getId(), method_);
@@ -412,8 +413,8 @@ public final class AikiBeansMovesEffectsStd {
         type_ = new StandardClass(TYPE_EFFECT_BEAN, fields_, constructors_, methods_, AikiBeansStd.TYPE_COMMON_BEAN, MethodModifier.NORMAL);
         fields_.put(INDEX,new StandardField(INDEX,_std.getAliasPrimInteger(),false,false,type_));
         fields_.put(MOVE,new StandardField(MOVE,_std.getAliasString(),false,false,type_));
-        fields_.put(REASONS,new StandardField(REASONS,_std.getCustList(),false,false,type_));
-        fields_.put(MAP_VARS_FAIL,new StandardField(MAP_VARS_FAIL,_std.getCustMap(),false,false,type_));
+        fields_.put(REASONS,new StandardField(REASONS, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(MAP_VARS_FAIL,new StandardField(MAP_VARS_FAIL, BeanNatLgNames.TYPE_MAP,false,false,type_));
         fields_.put(NEED_SUCCESS_FIRST_EFFECT,new StandardField(NEED_SUCCESS_FIRST_EFFECT,_std.getAliasPrimBoolean(),false,false,type_));
         fields_.put(EFFECT_BEAN,new StandardField(EFFECT_BEAN,_std.getAliasString(),false,false,type_));
         params_ = new StringList();
@@ -466,9 +467,9 @@ public final class AikiBeansMovesEffectsStd {
         fields_ = new StringMap<StandardField>();
         type_ = new StandardClass(TYPE_EFFECT_CLONE_BEAN, fields_, constructors_, methods_, AikiBeansMovesEffectsStd.TYPE_EFFECT_BEAN, MethodModifier.NORMAL);
         fields_.put(HP_RATE_CLONE,new StandardField(HP_RATE_CLONE,PokemonStandards.TYPE_RATE,false,false,type_));
-        fields_.put(MOVES_END_ROUND,new StandardField(MOVES_END_ROUND,_std.getCustList(),false,false,type_));
-        fields_.put(MOVES_BATON_PASS,new StandardField(MOVES_BATON_PASS,_std.getCustList(),false,false,type_));
-        fields_.put(MOVES_SENDING,new StandardField(MOVES_SENDING,_std.getCustList(),false,false,type_));
+        fields_.put(MOVES_END_ROUND,new StandardField(MOVES_END_ROUND, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(MOVES_BATON_PASS,new StandardField(MOVES_BATON_PASS, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(MOVES_SENDING,new StandardField(MOVES_SENDING, BeanNatLgNames.TYPE_LIST,false,false,type_));
         params_ = new StringList(_std.getAliasLong());
         method_ = new StandardMethod(CLICK_MOVE_END_ROUND,params_,_std.getAliasString(), false, MethodModifier.NORMAL,type_);
         methods_.put(method_.getId(), method_);
@@ -500,8 +501,8 @@ public final class AikiBeansMovesEffectsStd {
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new StringMap<StandardField>();
         type_ = new StandardClass(TYPE_EFFECT_COMMON_STATISTICS_BEAN, fields_, constructors_, methods_, AikiBeansMovesEffectsStd.TYPE_EFFECT_BEAN, MethodModifier.NORMAL);
-        fields_.put(COMMON_VALUE,new StandardField(COMMON_VALUE,_std.getCustMap(),false,false,type_));
-        fields_.put(MAP_VARS_COMMON_STATISTICS,new StandardField(MAP_VARS_COMMON_STATISTICS,_std.getCustMap(),false,false,type_));
+        fields_.put(COMMON_VALUE,new StandardField(COMMON_VALUE, BeanNatLgNames.TYPE_MAP,false,false,type_));
+        fields_.put(MAP_VARS_COMMON_STATISTICS,new StandardField(MAP_VARS_COMMON_STATISTICS, BeanNatLgNames.TYPE_MAP,false,false,type_));
         params_ = new StringList(_std.getAliasLong());
         method_ = new StandardMethod(GET_TR_STATISTIC,params_,_std.getAliasString(), false, MethodModifier.NORMAL,type_);
         methods_.put(method_.getId(), method_);
@@ -533,8 +534,8 @@ public final class AikiBeansMovesEffectsStd {
         fields_.put(DISPLAY_NAME,new StandardField(DISPLAY_NAME,_std.getAliasString(),false,false,type_));
         fields_.put(COPYING_MOVE_FOR_USER,new StandardField(COPYING_MOVE_FOR_USER,_std.getAliasPrimShort(),false,false,type_));
         fields_.put(COPYING_MOVE_FOR_USER_DEF,new StandardField(COPYING_MOVE_FOR_USER_DEF,_std.getAliasPrimBoolean(),false,false,type_));
-        fields_.put(MOVES_TRANSFORMING,new StandardField(MOVES_TRANSFORMING,_std.getCustList(),false,false,type_));
-        fields_.put(MOVES_NOT_TO_BE_COPIED,new StandardField(MOVES_NOT_TO_BE_COPIED,_std.getCustList(),false,false,type_));
+        fields_.put(MOVES_TRANSFORMING,new StandardField(MOVES_TRANSFORMING, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(MOVES_NOT_TO_BE_COPIED,new StandardField(MOVES_NOT_TO_BE_COPIED, BeanNatLgNames.TYPE_LIST,false,false,type_));
         params_ = new StringList();
         method_ = new StandardMethod(CLICK_DEFAULT_MOVE,params_,_std.getAliasString(), false, MethodModifier.NORMAL,type_);
         methods_.put(method_.getId(), method_);
@@ -569,11 +570,11 @@ public final class AikiBeansMovesEffectsStd {
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new StringMap<StandardField>();
         type_ = new StandardClass(TYPE_EFFECT_COUNTER_ATTACK_BEAN, fields_, constructors_, methods_, AikiBeansMovesEffectsStd.TYPE_EFFECT_BEAN, MethodModifier.NORMAL);
-        fields_.put(SUFFERING_DAMAGE_TYPES,new StandardField(SUFFERING_DAMAGE_TYPES,_std.getCustMap(),false,false,type_));
-        fields_.put(DROPPED_STAT_DIRECT_MOVE,new StandardField(DROPPED_STAT_DIRECT_MOVE,_std.getCustMap(),false,false,type_));
+        fields_.put(SUFFERING_DAMAGE_TYPES,new StandardField(SUFFERING_DAMAGE_TYPES, BeanNatLgNames.TYPE_MAP,false,false,type_));
+        fields_.put(DROPPED_STAT_DIRECT_MOVE,new StandardField(DROPPED_STAT_DIRECT_MOVE, BeanNatLgNames.TYPE_MAP,false,false,type_));
         fields_.put(SUFFERING_DAMAGE_DIRECT_MOVE,new StandardField(SUFFERING_DAMAGE_DIRECT_MOVE,PokemonStandards.TYPE_RATE,false,false,type_));
-        fields_.put(REASONS_PROTECT,new StandardField(REASONS_PROTECT,_std.getCustList(),false,false,type_));
-        fields_.put(REASONS_COUNTER,new StandardField(REASONS_COUNTER,_std.getCustList(),false,false,type_));
+        fields_.put(REASONS_PROTECT,new StandardField(REASONS_PROTECT, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(REASONS_COUNTER,new StandardField(REASONS_COUNTER, BeanNatLgNames.TYPE_LIST,false,false,type_));
         params_ = new StringList(_std.getAliasLong());
         method_ = new StandardMethod(GET_TR_SUFFERING_DAMAGE_TYPES,params_,_std.getAliasString(), false, MethodModifier.NORMAL,type_);
         methods_.put(method_.getId(), method_);
@@ -581,7 +582,7 @@ public final class AikiBeansMovesEffectsStd {
         method_ = new StandardMethod(GET_TR_DROPPED_STAT_DIRECT_MOVE,params_,_std.getAliasString(), false, MethodModifier.NORMAL,type_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
-        method_ = new StandardMethod(GET_MAP_VARS_FAIL_COUNTER,params_,_std.getCustMap(), false, MethodModifier.NORMAL,type_);
+        method_ = new StandardMethod(GET_MAP_VARS_FAIL_COUNTER,params_, BeanNatLgNames.TYPE_MAP, false, MethodModifier.NORMAL,type_);
         methods_.put(method_.getId(), method_);
         _std.getStandards().put(TYPE_EFFECT_COUNTER_ATTACK_BEAN, type_);
     }
@@ -596,23 +597,23 @@ public final class AikiBeansMovesEffectsStd {
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new StringMap<StandardField>();
         type_ = new StandardClass(TYPE_EFFECT_DAMAGE_BEAN, fields_, constructors_, methods_, AikiBeansMovesEffectsStd.TYPE_EFFECT_BEAN, MethodModifier.NORMAL);
-        fields_.put(HITS_LAW,new StandardField(HITS_LAW,_std.getCustMap(),false,false,type_));
+        fields_.put(HITS_LAW,new StandardField(HITS_LAW, BeanNatLgNames.TYPE_MAP,false,false,type_));
         fields_.put(NB_HITS,new StandardField(NB_HITS,_std.getAliasPrimLong(),false,false,type_));
         fields_.put(CONST_DAMAGE,new StandardField(CONST_DAMAGE,_std.getAliasPrimBoolean(),false,false,type_));
         fields_.put(POWER,new StandardField(POWER,_std.getAliasString(),false,false,type_));
-        fields_.put(DAMAGE_LAW,new StandardField(DAMAGE_LAW,_std.getCustMap(),false,false,type_));
-        fields_.put(MAP_VARS_DAMAGE,new StandardField(MAP_VARS_DAMAGE,_std.getCustMap(),false,false,type_));
-        fields_.put(MULT_DAMAGE_AGAINST,new StandardField(MULT_DAMAGE_AGAINST,_std.getCustMap(),false,false,type_));
+        fields_.put(DAMAGE_LAW,new StandardField(DAMAGE_LAW, BeanNatLgNames.TYPE_MAP,false,false,type_));
+        fields_.put(MAP_VARS_DAMAGE,new StandardField(MAP_VARS_DAMAGE, BeanNatLgNames.TYPE_MAP,false,false,type_));
+        fields_.put(MULT_DAMAGE_AGAINST,new StandardField(MULT_DAMAGE_AGAINST, BeanNatLgNames.TYPE_MAP,false,false,type_));
         fields_.put(CH_RATE,new StandardField(CH_RATE,_std.getAliasPrimByte(),false,false,type_));
-        fields_.put(CH_LAW,new StandardField(CH_LAW,_std.getCustMap(),false,false,type_));
+        fields_.put(CH_LAW,new StandardField(CH_LAW, BeanNatLgNames.TYPE_MAP,false,false,type_));
         fields_.put(USER_ATTACK,new StandardField(USER_ATTACK,_std.getAliasPrimBoolean(),false,false,type_));
         fields_.put(STATIS_ATT,new StandardField(STATIS_ATT,_std.getAliasString(),false,false,type_));
         fields_.put(TARGET_DEFENSE,new StandardField(TARGET_DEFENSE,_std.getAliasPrimBoolean(),false,false,type_));
         fields_.put(STATIS_DEF,new StandardField(STATIS_DEF,_std.getAliasString(),false,false,type_));
-        fields_.put(IGN_VAR_STAT_TARGET_POS,new StandardField(IGN_VAR_STAT_TARGET_POS,_std.getCustList(),false,false,type_));
-        fields_.put(IGN_VAR_STAT_USER_NEG,new StandardField(IGN_VAR_STAT_USER_NEG,_std.getCustList(),false,false,type_));
+        fields_.put(IGN_VAR_STAT_TARGET_POS,new StandardField(IGN_VAR_STAT_TARGET_POS, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(IGN_VAR_STAT_USER_NEG,new StandardField(IGN_VAR_STAT_USER_NEG, BeanNatLgNames.TYPE_LIST,false,false,type_));
         fields_.put(RAND_MAX,new StandardField(RAND_MAX,_std.getAliasPrimBoolean(),false,false,type_));
-        fields_.put(BOOST_STATIS_ONCE_KO_FOE,new StandardField(BOOST_STATIS_ONCE_KO_FOE,_std.getCustMap(),false,false,type_));
+        fields_.put(BOOST_STATIS_ONCE_KO_FOE,new StandardField(BOOST_STATIS_ONCE_KO_FOE, BeanNatLgNames.TYPE_MAP,false,false,type_));
         fields_.put(SUMMING_USER_TEAM_OK_FIGHTER,new StandardField(SUMMING_USER_TEAM_OK_FIGHTER,_std.getAliasPrimBoolean(),false,false,type_));
         params_ = new StringList();
         method_ = new StandardMethod(HAS_LAW_FOR_DAMAGE,params_,_std.getAliasPrimBoolean(), false, MethodModifier.NORMAL,type_);
@@ -663,8 +664,8 @@ public final class AikiBeansMovesEffectsStd {
         fields_ = new StringMap<StandardField>();
         type_ = new StandardClass(TYPE_EFFECT_END_ROUND_MOVE_BEAN, fields_, constructors_, methods_, AikiBeansMovesEffectsStd.TYPE_EFFECT_BEAN, MethodModifier.NORMAL);
         fields_.put(END_ROUND_RANK,new StandardField(END_ROUND_RANK,_std.getAliasPrimInteger(),false,false,type_));
-        fields_.put(REASONS_END_ROUND,new StandardField(REASONS_END_ROUND,_std.getCustList(),false,false,type_));
-        fields_.put(MAP_VARS_FAIL_END_ROUND,new StandardField(MAP_VARS_FAIL_END_ROUND,_std.getCustMap(),false,false,type_));
+        fields_.put(REASONS_END_ROUND,new StandardField(REASONS_END_ROUND, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(MAP_VARS_FAIL_END_ROUND,new StandardField(MAP_VARS_FAIL_END_ROUND, BeanNatLgNames.TYPE_MAP,false,false,type_));
         _std.getStandards().put(TYPE_EFFECT_END_ROUND_MOVE_BEAN, type_);
     }
     private static void buildEffectFullHpRateBean(BeanLgNames _std) {
@@ -678,7 +679,7 @@ public final class AikiBeansMovesEffectsStd {
         type_ = new StandardClass(TYPE_EFFECT_FULL_HP_RATE_BEAN, fields_, constructors_, methods_, AikiBeansMovesEffectsStd.TYPE_EFFECT_BEAN, MethodModifier.NORMAL);
         fields_.put(LEFT_USER_HP,new StandardField(LEFT_USER_HP,PokemonStandards.TYPE_RATE,false,false,type_));
         fields_.put(RESTORED_HP,new StandardField(RESTORED_HP,_std.getAliasString(),false,false,type_));
-        fields_.put(MAP_VARS_RESTORED,new StandardField(MAP_VARS_RESTORED,_std.getCustMap(),false,false,type_));
+        fields_.put(MAP_VARS_RESTORED,new StandardField(MAP_VARS_RESTORED, BeanNatLgNames.TYPE_MAP,false,false,type_));
         fields_.put(CLOSEST_FOE_DAMAGE_RATE_HP,new StandardField(CLOSEST_FOE_DAMAGE_RATE_HP,PokemonStandards.TYPE_RATE,false,false,type_));
         _std.getStandards().put(TYPE_EFFECT_FULL_HP_RATE_BEAN, type_);
     }
@@ -703,23 +704,23 @@ public final class AikiBeansMovesEffectsStd {
         fields_.put(HEALING_END_ROUND_GROUND,new StandardField(HEALING_END_ROUND_GROUND,PokemonStandards.TYPE_RATE,false,false,type_));
         fields_.put(HEALING_END_ROUND,new StandardField(HEALING_END_ROUND,PokemonStandards.TYPE_RATE,false,false,type_));
         fields_.put(MULT_EFFECT_LOVING_ALLY,new StandardField(MULT_EFFECT_LOVING_ALLY,PokemonStandards.TYPE_RATE,false,false,type_));
-        fields_.put(PREVENT_STATUS,new StandardField(PREVENT_STATUS,_std.getCustList(),false,false,type_));
-        fields_.put(IMMUNE_TYPES,new StandardField(IMMUNE_TYPES,_std.getCustList(),false,false,type_));
-        fields_.put(EFFICIENCY_MOVES,new StandardField(EFFICIENCY_MOVES,_std.getCustMap(),false,false,type_));
-        fields_.put(DISABLE_IMMU_AGAINST_TYPES,new StandardField(DISABLE_IMMU_AGAINST_TYPES,_std.getCustList(),false,false,type_));
-        fields_.put(CANCEL_PROTECTING_ABILITIES,new StandardField(CANCEL_PROTECTING_ABILITIES,_std.getCustList(),false,false,type_));
-        fields_.put(UNUSABLE_MOVES,new StandardField(UNUSABLE_MOVES,_std.getCustList(),false,false,type_));
-        fields_.put(CANCEL_EFFECTS,new StandardField(CANCEL_EFFECTS,_std.getCustList(),false,false,type_));
-        fields_.put(MULT_POWER_MOVES,new StandardField(MULT_POWER_MOVES,_std.getCustMap(),false,false,type_));
-        fields_.put(MULT_DAMAGE_TYPES_MOVES,new StandardField(MULT_DAMAGE_TYPES_MOVES,_std.getCustMap(),false,false,type_));
-        fields_.put(CANCEL_CHGT_STAT,new StandardField(CANCEL_CHGT_STAT,_std.getCustList(),false,false,type_));
+        fields_.put(PREVENT_STATUS,new StandardField(PREVENT_STATUS, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(IMMUNE_TYPES,new StandardField(IMMUNE_TYPES, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(EFFICIENCY_MOVES,new StandardField(EFFICIENCY_MOVES, BeanNatLgNames.TYPE_MAP,false,false,type_));
+        fields_.put(DISABLE_IMMU_AGAINST_TYPES,new StandardField(DISABLE_IMMU_AGAINST_TYPES, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(CANCEL_PROTECTING_ABILITIES,new StandardField(CANCEL_PROTECTING_ABILITIES, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(UNUSABLE_MOVES,new StandardField(UNUSABLE_MOVES, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(CANCEL_EFFECTS,new StandardField(CANCEL_EFFECTS, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(MULT_POWER_MOVES,new StandardField(MULT_POWER_MOVES, BeanNatLgNames.TYPE_MAP,false,false,type_));
+        fields_.put(MULT_DAMAGE_TYPES_MOVES,new StandardField(MULT_DAMAGE_TYPES_MOVES, BeanNatLgNames.TYPE_MAP,false,false,type_));
+        fields_.put(CANCEL_CHGT_STAT,new StandardField(CANCEL_CHGT_STAT, BeanNatLgNames.TYPE_LIST,false,false,type_));
         fields_.put(INVOKED_MOVE_TERRAIN,new StandardField(INVOKED_MOVE_TERRAIN,_std.getAliasString(),false,false,type_));
-        fields_.put(INVOKING_MOVES,new StandardField(INVOKING_MOVES,_std.getCustList(),false,false,type_));
-        fields_.put(CHANGED_TYPES_TERRAIN,new StandardField(CHANGED_TYPES_TERRAIN,_std.getCustList(),false,false,type_));
-        fields_.put(INVOKING_MOVES_CHANGING_TYPES,new StandardField(INVOKING_MOVES_CHANGING_TYPES,_std.getCustList(),false,false,type_));
-        fields_.put(MULT_STAT_IF_CONTAINS_TYPE,new StandardField(MULT_STAT_IF_CONTAINS_TYPE,_std.getCustMap(),false,false,type_));
-        fields_.put(MULT_DAMAGE_PREPA_ROUND,new StandardField(MULT_DAMAGE_PREPA_ROUND,_std.getCustMap(),false,false,type_));
-        fields_.put(MOVES_USED_BY_TARGETED_FIGHTERS,new StandardField(MOVES_USED_BY_TARGETED_FIGHTERS,_std.getCustList(),false,false,type_));
+        fields_.put(INVOKING_MOVES,new StandardField(INVOKING_MOVES, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(CHANGED_TYPES_TERRAIN,new StandardField(CHANGED_TYPES_TERRAIN, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(INVOKING_MOVES_CHANGING_TYPES,new StandardField(INVOKING_MOVES_CHANGING_TYPES, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(MULT_STAT_IF_CONTAINS_TYPE,new StandardField(MULT_STAT_IF_CONTAINS_TYPE, BeanNatLgNames.TYPE_MAP,false,false,type_));
+        fields_.put(MULT_DAMAGE_PREPA_ROUND,new StandardField(MULT_DAMAGE_PREPA_ROUND, BeanNatLgNames.TYPE_MAP,false,false,type_));
+        fields_.put(MOVES_USED_BY_TARGETED_FIGHTERS,new StandardField(MOVES_USED_BY_TARGETED_FIGHTERS, BeanNatLgNames.TYPE_LIST,false,false,type_));
         params_ = new StringList(_std.getAliasLong());
         method_ = new StandardMethod(CLICK_PREVENTED_STATUS,params_,_std.getAliasString(), false, MethodModifier.NORMAL,type_);
         methods_.put(method_.getId(), method_);
@@ -800,10 +801,10 @@ public final class AikiBeansMovesEffectsStd {
         fields_.put(INVOKING_TARGET_SUCCESFUL_MOVE,new StandardField(INVOKING_TARGET_SUCCESFUL_MOVE,_std.getAliasPrimBoolean(),false,false,type_));
         fields_.put(INVOKING_SUFFERED_MOVE,new StandardField(INVOKING_SUFFERED_MOVE,_std.getAliasPrimBoolean(),false,false,type_));
         fields_.put(RATE_INVOKATION_MOVE,new StandardField(RATE_INVOKATION_MOVE,PokemonStandards.TYPE_RATE,false,false,type_));
-        fields_.put(MOVE_FCT_ENV,new StandardField(MOVE_FCT_ENV,_std.getCustMap(),false,false,type_));
-        fields_.put(GLOBAL_MOVES,new StandardField(GLOBAL_MOVES,_std.getCustList(),false,false,type_));
-        fields_.put(INVOKING_MOVE_BY_USER_TYPES,new StandardField(INVOKING_MOVE_BY_USER_TYPES,_std.getCustMap(),false,false,type_));
-        fields_.put(MOVES_NOT_TO_BE_INVOKED,new StandardField(MOVES_NOT_TO_BE_INVOKED,_std.getCustList(),false,false,type_));
+        fields_.put(MOVE_FCT_ENV,new StandardField(MOVE_FCT_ENV, BeanNatLgNames.TYPE_MAP,false,false,type_));
+        fields_.put(GLOBAL_MOVES,new StandardField(GLOBAL_MOVES, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(INVOKING_MOVE_BY_USER_TYPES,new StandardField(INVOKING_MOVE_BY_USER_TYPES, BeanNatLgNames.TYPE_MAP,false,false,type_));
+        fields_.put(MOVES_NOT_TO_BE_INVOKED,new StandardField(MOVES_NOT_TO_BE_INVOKED, BeanNatLgNames.TYPE_LIST,false,false,type_));
         params_ = new StringList(_std.getAliasLong());
         method_ = new StandardMethod(GET_TR_ENV,params_,_std.getAliasString(), false, MethodModifier.NORMAL,type_);
         methods_.put(method_.getId(), method_);
@@ -850,7 +851,7 @@ public final class AikiBeansMovesEffectsStd {
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new StringMap<StandardField>();
         type_ = new StandardClass(TYPE_EFFECT_MULT_SUFFERED_MOVE_POWER_BEAN, fields_, constructors_, methods_, AikiBeansMovesEffectsStd.TYPE_EFFECT_BEAN, MethodModifier.NORMAL);
-        fields_.put(MULT_MOVE_POWER_FCT_TYPE,new StandardField(MULT_MOVE_POWER_FCT_TYPE,_std.getCustMap(),false,false,type_));
+        fields_.put(MULT_MOVE_POWER_FCT_TYPE,new StandardField(MULT_MOVE_POWER_FCT_TYPE, BeanNatLgNames.TYPE_MAP,false,false,type_));
         params_ = new StringList(_std.getAliasLong());
         method_ = new StandardMethod(GET_TR_TYPE,params_,_std.getAliasString(), false, MethodModifier.NORMAL,type_);
         methods_.put(method_.getId(), method_);
@@ -867,7 +868,7 @@ public final class AikiBeansMovesEffectsStd {
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new StringMap<StandardField>();
         type_ = new StandardClass(TYPE_EFFECT_MULT_USED_MOVE_POWER_BEAN, fields_, constructors_, methods_, AikiBeansMovesEffectsStd.TYPE_EFFECT_BEAN, MethodModifier.NORMAL);
-        fields_.put(MULT_MOVE_POWER_FCT_TYPE,new StandardField(MULT_MOVE_POWER_FCT_TYPE,_std.getCustMap(),false,false,type_));
+        fields_.put(MULT_MOVE_POWER_FCT_TYPE,new StandardField(MULT_MOVE_POWER_FCT_TYPE, BeanNatLgNames.TYPE_MAP,false,false,type_));
         params_ = new StringList(_std.getAliasLong());
         method_ = new StandardMethod(GET_TR_TYPE,params_,_std.getAliasString(), false, MethodModifier.NORMAL,type_);
         methods_.put(method_.getId(), method_);
@@ -896,7 +897,7 @@ public final class AikiBeansMovesEffectsStd {
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new StringMap<StandardField>();
         type_ = new StandardClass(TYPE_EFFECT_PROTECT_FROM_TYPES_BEAN, fields_, constructors_, methods_, AikiBeansMovesEffectsStd.TYPE_EFFECT_BEAN, MethodModifier.NORMAL);
-        fields_.put(IMMU_AGAINST_TYPES,new StandardField(IMMU_AGAINST_TYPES,_std.getCustList(),false,false,type_));
+        fields_.put(IMMU_AGAINST_TYPES,new StandardField(IMMU_AGAINST_TYPES, BeanNatLgNames.TYPE_LIST,false,false,type_));
         params_ = new StringList(_std.getAliasLong());
         method_ = new StandardMethod(GET_TR_TYPE,params_,_std.getAliasString(), false, MethodModifier.NORMAL,type_);
         methods_.put(method_.getId(), method_);
@@ -977,13 +978,13 @@ public final class AikiBeansMovesEffectsStd {
         type_ = new StandardClass(TYPE_EFFECT_STATISTIC_BEAN, fields_, constructors_, methods_, AikiBeansMovesEffectsStd.TYPE_EFFECT_BEAN, MethodModifier.NORMAL);
         fields_.put(EVT_RATE,new StandardField(EVT_RATE,PokemonStandards.TYPE_RATE,false,false,type_));
         fields_.put(EVT_RATE_PER_CENT,new StandardField(EVT_RATE_PER_CENT,_std.getAliasString(),false,false,type_));
-        fields_.put(STATIS_VAR_RANK,new StandardField(STATIS_VAR_RANK,_std.getCustMap(),false,false,type_));
-        fields_.put(MAP_VARS_STATISTICS,new StandardField(MAP_VARS_STATISTICS,_std.getCustMap(),false,false,type_));
-        fields_.put(SWAP_BOOST_STATIS,new StandardField(SWAP_BOOST_STATIS,_std.getCustList(),false,false,type_));
-        fields_.put(CANCEL_LOW_STAT,new StandardField(CANCEL_LOW_STAT,_std.getCustList(),false,false,type_));
+        fields_.put(STATIS_VAR_RANK,new StandardField(STATIS_VAR_RANK, BeanNatLgNames.TYPE_MAP,false,false,type_));
+        fields_.put(MAP_VARS_STATISTICS,new StandardField(MAP_VARS_STATISTICS, BeanNatLgNames.TYPE_MAP,false,false,type_));
+        fields_.put(SWAP_BOOST_STATIS,new StandardField(SWAP_BOOST_STATIS, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(CANCEL_LOW_STAT,new StandardField(CANCEL_LOW_STAT, BeanNatLgNames.TYPE_LIST,false,false,type_));
         fields_.put(DEFAULT_BOOST,new StandardField(DEFAULT_BOOST,_std.getAliasPrimInteger(),false,false,type_));
-        fields_.put(CANCEL_CHGT_STAT,new StandardField(CANCEL_CHGT_STAT,_std.getCustList(),false,false,type_));
-        fields_.put(COPY_BOOST,new StandardField(COPY_BOOST,_std.getCustList(),false,false,type_));
+        fields_.put(CANCEL_CHGT_STAT,new StandardField(CANCEL_CHGT_STAT, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(COPY_BOOST,new StandardField(COPY_BOOST, BeanNatLgNames.TYPE_LIST,false,false,type_));
         params_ = new StringList();
         method_ = new StandardMethod(RANDOM_STATIS,params_,_std.getAliasPrimBoolean(), false, MethodModifier.NORMAL,type_);
         methods_.put(method_.getId(), method_);
@@ -1015,9 +1016,9 @@ public final class AikiBeansMovesEffectsStd {
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new StringMap<StandardField>();
         type_ = new StandardClass(TYPE_EFFECT_STATUS_BEAN, fields_, constructors_, methods_, AikiBeansMovesEffectsStd.TYPE_EFFECT_BEAN, MethodModifier.NORMAL);
-        fields_.put(LAW_STATUS,new StandardField(LAW_STATUS,_std.getCustMap(),false,false,type_));
-        fields_.put(MAP_VARS_STATUS,new StandardField(MAP_VARS_STATUS,_std.getCustMap(),false,false,type_));
-        fields_.put(DELETED_STATUS,new StandardField(DELETED_STATUS,_std.getCustList(),false,false,type_));
+        fields_.put(LAW_STATUS,new StandardField(LAW_STATUS, BeanNatLgNames.TYPE_MAP,false,false,type_));
+        fields_.put(MAP_VARS_STATUS,new StandardField(MAP_VARS_STATUS, BeanNatLgNames.TYPE_MAP,false,false,type_));
+        fields_.put(DELETED_STATUS,new StandardField(DELETED_STATUS, BeanNatLgNames.TYPE_LIST,false,false,type_));
         fields_.put(KO_USER_HEAL_SUBST,new StandardField(KO_USER_HEAL_SUBST,_std.getAliasPrimBoolean(),false,false,type_));
         fields_.put(STATUS_FROM_USER,new StandardField(STATUS_FROM_USER,_std.getAliasPrimBoolean(),false,false,type_));
         params_ = new StringList(_std.getAliasLong());
@@ -1119,8 +1120,8 @@ public final class AikiBeansMovesEffectsStd {
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new StringMap<StandardField>();
         type_ = new StandardClass(TYPE_EFFECT_SWITCH_MOVE_TYPES_BEAN, fields_, constructors_, methods_, AikiBeansMovesEffectsStd.TYPE_EFFECT_BEAN, MethodModifier.NORMAL);
-        fields_.put(REPLACING_TYPES,new StandardField(REPLACING_TYPES,_std.getCustList(),false,false,type_));
-        fields_.put(CHANGE_TYPES,new StandardField(CHANGE_TYPES,_std.getCustMap(),false,false,type_));
+        fields_.put(REPLACING_TYPES,new StandardField(REPLACING_TYPES, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(CHANGE_TYPES,new StandardField(CHANGE_TYPES, BeanNatLgNames.TYPE_MAP,false,false,type_));
         params_ = new StringList(_std.getAliasLong());
         method_ = new StandardMethod(GET_TR_REPLACING_TYPES,params_,_std.getAliasString(), false, MethodModifier.NORMAL,type_);
         methods_.put(method_.getId(), method_);
@@ -1162,10 +1163,10 @@ public final class AikiBeansMovesEffectsStd {
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new StringMap<StandardField>();
         type_ = new StandardClass(TYPE_EFFECT_SWITCH_TYPES_BEAN, fields_, constructors_, methods_, AikiBeansMovesEffectsStd.TYPE_EFFECT_BEAN, MethodModifier.NORMAL);
-        fields_.put(CHGT_TYPE_BY_ENV,new StandardField(CHGT_TYPE_BY_ENV,_std.getCustMap(),false,false,type_));
-        fields_.put(GLOBAL_MOVES,new StandardField(GLOBAL_MOVES,_std.getCustList(),false,false,type_));
-        fields_.put(ADDED_TYPES,new StandardField(ADDED_TYPES,_std.getCustList(),false,false,type_));
-        fields_.put(CONST_TYPES,new StandardField(CONST_TYPES,_std.getCustList(),false,false,type_));
+        fields_.put(CHGT_TYPE_BY_ENV,new StandardField(CHGT_TYPE_BY_ENV, BeanNatLgNames.TYPE_MAP,false,false,type_));
+        fields_.put(GLOBAL_MOVES,new StandardField(GLOBAL_MOVES, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(ADDED_TYPES,new StandardField(ADDED_TYPES, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(CONST_TYPES,new StandardField(CONST_TYPES, BeanNatLgNames.TYPE_LIST,false,false,type_));
         params_ = new StringList();
         method_ = new StandardMethod(IS_RES_TYPES,params_,_std.getAliasPrimBoolean(), false, MethodModifier.NORMAL,type_);
         methods_.put(method_.getId(), method_);
@@ -1217,18 +1218,18 @@ public final class AikiBeansMovesEffectsStd {
         type_ = new StandardClass(TYPE_EFFECT_TEAM_BEAN, fields_, constructors_, methods_, AikiBeansMovesEffectsStd.TYPE_EFFECT_BEAN, MethodModifier.NORMAL);
         fields_.put(FORBIDDING_HEALING,new StandardField(FORBIDDING_HEALING,_std.getAliasPrimBoolean(),false,false,type_));
         fields_.put(PROTECT_AGAINST_CH,new StandardField(PROTECT_AGAINST_CH,_std.getAliasPrimBoolean(),false,false,type_));
-        fields_.put(FORBIDDEN_BOOST,new StandardField(FORBIDDEN_BOOST,_std.getCustList(),false,false,type_));
-        fields_.put(CANCEL_CHGT_STAT_FOE_TEAM,new StandardField(CANCEL_CHGT_STAT_FOE_TEAM,_std.getCustList(),false,false,type_));
+        fields_.put(FORBIDDEN_BOOST,new StandardField(FORBIDDEN_BOOST, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(CANCEL_CHGT_STAT_FOE_TEAM,new StandardField(CANCEL_CHGT_STAT_FOE_TEAM, BeanNatLgNames.TYPE_LIST,false,false,type_));
         fields_.put(DEFAULT_BOOST,new StandardField(DEFAULT_BOOST,_std.getAliasPrimInteger(),false,false,type_));
-        fields_.put(CANCEL_CHGT_STAT_TEAM,new StandardField(CANCEL_CHGT_STAT_TEAM,_std.getCustList(),false,false,type_));
-        fields_.put(PROTECT_AGAINST_LOW_STAT,new StandardField(PROTECT_AGAINST_LOW_STAT,_std.getCustList(),false,false,type_));
-        fields_.put(PROTECT_AGAINST_STATUS,new StandardField(PROTECT_AGAINST_STATUS,_std.getCustList(),false,false,type_));
-        fields_.put(MULT_STATISTIC,new StandardField(MULT_STATISTIC,_std.getCustMap(),false,false,type_));
-        fields_.put(MULT_STATISTIC_FOE,new StandardField(MULT_STATISTIC_FOE,_std.getCustMap(),false,false,type_));
-        fields_.put(MULT_DAMAGE,new StandardField(MULT_DAMAGE,_std.getCustMap(),false,false,type_));
-        fields_.put(UNUSABLE_MOVES,new StandardField(UNUSABLE_MOVES,_std.getCustList(),false,false,type_));
-        fields_.put(DISABLE_FOE_TEAM_EFFECTS,new StandardField(DISABLE_FOE_TEAM_EFFECTS,_std.getCustList(),false,false,type_));
-        fields_.put(DISABLE_FOE_TEAM_STATUS,new StandardField(DISABLE_FOE_TEAM_STATUS,_std.getCustList(),false,false,type_));
+        fields_.put(CANCEL_CHGT_STAT_TEAM,new StandardField(CANCEL_CHGT_STAT_TEAM, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(PROTECT_AGAINST_LOW_STAT,new StandardField(PROTECT_AGAINST_LOW_STAT, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(PROTECT_AGAINST_STATUS,new StandardField(PROTECT_AGAINST_STATUS, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(MULT_STATISTIC,new StandardField(MULT_STATISTIC, BeanNatLgNames.TYPE_MAP,false,false,type_));
+        fields_.put(MULT_STATISTIC_FOE,new StandardField(MULT_STATISTIC_FOE, BeanNatLgNames.TYPE_MAP,false,false,type_));
+        fields_.put(MULT_DAMAGE,new StandardField(MULT_DAMAGE, BeanNatLgNames.TYPE_MAP,false,false,type_));
+        fields_.put(UNUSABLE_MOVES,new StandardField(UNUSABLE_MOVES, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(DISABLE_FOE_TEAM_EFFECTS,new StandardField(DISABLE_FOE_TEAM_EFFECTS, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(DISABLE_FOE_TEAM_STATUS,new StandardField(DISABLE_FOE_TEAM_STATUS, BeanNatLgNames.TYPE_LIST,false,false,type_));
         params_ = new StringList(_std.getAliasLong(),_std.getAliasLong());
         method_ = new StandardMethod(CLICK_STATUS,params_,_std.getAliasString(), false, MethodModifier.NORMAL,type_);
         methods_.put(method_.getId(), method_);
@@ -1267,12 +1268,12 @@ public final class AikiBeansMovesEffectsStd {
         fields_ = new StringMap<StandardField>();
         type_ = new StandardClass(TYPE_EFFECT_TEAM_WHILE_SEND_FOE_BEAN, fields_, constructors_, methods_, AikiBeansMovesEffectsStd.TYPE_EFFECT_BEAN, MethodModifier.NORMAL);
         fields_.put(DAMAGE_RATE_AGAINST_FOE,new StandardField(DAMAGE_RATE_AGAINST_FOE,_std.getAliasString(),false,false,type_));
-        fields_.put(MAP_VARS_DAMAGE_SENT_FOE,new StandardField(MAP_VARS_DAMAGE_SENT_FOE,_std.getCustMap(),false,false,type_));
-        fields_.put(STATISTICS,new StandardField(STATISTICS,_std.getCustMap(),false,false,type_));
-        fields_.put(STATUS_BY_NB_USES,new StandardField(STATUS_BY_NB_USES,_std.getCustMap(),false,false,type_));
-        fields_.put(REASONS_SENDING,new StandardField(REASONS_SENDING,_std.getCustList(),false,false,type_));
-        fields_.put(MAP_VARS_FAIL_SENDING,new StandardField(MAP_VARS_FAIL_SENDING,_std.getCustMap(),false,false,type_));
-        fields_.put(DELETED_BY_FOE_TYPES,new StandardField(DELETED_BY_FOE_TYPES,_std.getCustList(),false,false,type_));
+        fields_.put(MAP_VARS_DAMAGE_SENT_FOE,new StandardField(MAP_VARS_DAMAGE_SENT_FOE, BeanNatLgNames.TYPE_MAP,false,false,type_));
+        fields_.put(STATISTICS,new StandardField(STATISTICS, BeanNatLgNames.TYPE_MAP,false,false,type_));
+        fields_.put(STATUS_BY_NB_USES,new StandardField(STATUS_BY_NB_USES, BeanNatLgNames.TYPE_MAP,false,false,type_));
+        fields_.put(REASONS_SENDING,new StandardField(REASONS_SENDING, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(MAP_VARS_FAIL_SENDING,new StandardField(MAP_VARS_FAIL_SENDING, BeanNatLgNames.TYPE_MAP,false,false,type_));
+        fields_.put(DELETED_BY_FOE_TYPES,new StandardField(DELETED_BY_FOE_TYPES, BeanNatLgNames.TYPE_LIST,false,false,type_));
         params_ = new StringList(_std.getAliasLong());
         method_ = new StandardMethod(GET_TRANSLATED_STATISTIC,params_,_std.getAliasString(), false, MethodModifier.NORMAL,type_);
         methods_.put(method_.getId(), method_);
@@ -1298,10 +1299,10 @@ public final class AikiBeansMovesEffectsStd {
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new StringMap<StandardField>();
         type_ = new StandardClass(TYPE_EFFECT_UNPROTECT_FROM_TYPES_BEAN, fields_, constructors_, methods_, AikiBeansMovesEffectsStd.TYPE_EFFECT_BEAN, MethodModifier.NORMAL);
-        fields_.put(TYPES,new StandardField(TYPES,_std.getCustList(),false,false,type_));
-        fields_.put(DISABLE_IMMU_AGAINST_TYPES,new StandardField(DISABLE_IMMU_AGAINST_TYPES,_std.getCustList(),false,false,type_));
-        fields_.put(DISABLE_IMMU_FROM_MOVES,new StandardField(DISABLE_IMMU_FROM_MOVES,_std.getCustList(),false,false,type_));
-        fields_.put(ATTACK_TARGET_WITH_TYPES,new StandardField(ATTACK_TARGET_WITH_TYPES,_std.getCustList(),false,false,type_));
+        fields_.put(TYPES,new StandardField(TYPES, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(DISABLE_IMMU_AGAINST_TYPES,new StandardField(DISABLE_IMMU_AGAINST_TYPES, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(DISABLE_IMMU_FROM_MOVES,new StandardField(DISABLE_IMMU_FROM_MOVES, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.put(ATTACK_TARGET_WITH_TYPES,new StandardField(ATTACK_TARGET_WITH_TYPES, BeanNatLgNames.TYPE_LIST,false,false,type_));
         params_ = new StringList(_std.getAliasLong());
         method_ = new StandardMethod(GET_TR_DAMAGE_TYPE,params_,_std.getAliasString(), false, MethodModifier.NORMAL,type_);
         methods_.put(method_.getId(), method_);
@@ -1362,7 +1363,7 @@ public final class AikiBeansMovesEffectsStd {
         EffectBatonPassBean instance_ = (EffectBatonPassBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringList.quickEq(fieldName_,MOVES)) {
-            res_.setResult(new StdStruct(instance_.getMoves(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getMoves(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         return AikiBeansMovesEffectsStd.getResultEffectBean(_cont, _classField, _instance);
@@ -1381,11 +1382,11 @@ public final class AikiBeansMovesEffectsStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,REASONS)) {
-            res_.setResult(new StdStruct(instance_.getReasons(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getReasons(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,MAP_VARS_FAIL)) {
-            res_.setResult(new StdStruct(instance_.getMapVarsFail(),std_.getCustMap()));
+            res_.setResult(new StdStruct(instance_.getMapVarsFail(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
         if (StringList.quickEq(fieldName_,NEED_SUCCESS_FIRST_EFFECT)) {
@@ -1408,15 +1409,15 @@ public final class AikiBeansMovesEffectsStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,MOVES_END_ROUND)) {
-            res_.setResult(new StdStruct(instance_.getMovesEndRound(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getMovesEndRound(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,MOVES_BATON_PASS)) {
-            res_.setResult(new StdStruct(instance_.getMovesBatonPass(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getMovesBatonPass(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,MOVES_SENDING)) {
-            res_.setResult(new StdStruct(instance_.getMovesSending(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getMovesSending(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         return AikiBeansMovesEffectsStd.getResultEffectBean(_cont, _classField, _instance);
@@ -1427,11 +1428,11 @@ public final class AikiBeansMovesEffectsStd {
         EffectCommonStatisticsBean instance_ = (EffectCommonStatisticsBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringList.quickEq(fieldName_,COMMON_VALUE)) {
-            res_.setResult(new StdStruct(instance_.getCommonValue(),std_.getCustMap()));
+            res_.setResult(new StdStruct(instance_.getCommonValue(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
         if (StringList.quickEq(fieldName_,MAP_VARS_COMMON_STATISTICS)) {
-            res_.setResult(new StdStruct(instance_.getMapVarsCommonStatistics(),std_.getCustMap()));
+            res_.setResult(new StdStruct(instance_.getMapVarsCommonStatistics(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
         return AikiBeansMovesEffectsStd.getResultEffectBean(_cont, _classField, _instance);
@@ -1464,11 +1465,11 @@ public final class AikiBeansMovesEffectsStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,MOVES_TRANSFORMING)) {
-            res_.setResult(new StdStruct(instance_.getMovesTransforming(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getMovesTransforming(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,MOVES_NOT_TO_BE_COPIED)) {
-            res_.setResult(new StdStruct(instance_.getMovesNotToBeCopied(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getMovesNotToBeCopied(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         return AikiBeansMovesEffectsStd.getResultEffectBean(_cont, _classField, _instance);
@@ -1479,11 +1480,11 @@ public final class AikiBeansMovesEffectsStd {
         EffectCounterAttackBean instance_ = (EffectCounterAttackBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringList.quickEq(fieldName_,SUFFERING_DAMAGE_TYPES)) {
-            res_.setResult(new StdStruct(instance_.getSufferingDamageTypes(),std_.getCustMap()));
+            res_.setResult(new StdStruct(instance_.getSufferingDamageTypes(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
         if (StringList.quickEq(fieldName_,DROPPED_STAT_DIRECT_MOVE)) {
-            res_.setResult(new StdStruct(instance_.getDroppedStatDirectMove(),std_.getCustMap()));
+            res_.setResult(new StdStruct(instance_.getDroppedStatDirectMove(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
         if (StringList.quickEq(fieldName_,SUFFERING_DAMAGE_DIRECT_MOVE)) {
@@ -1491,11 +1492,11 @@ public final class AikiBeansMovesEffectsStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,REASONS_PROTECT)) {
-            res_.setResult(new StdStruct(instance_.getReasonsProtect(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getReasonsProtect(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,REASONS_COUNTER)) {
-            res_.setResult(new StdStruct(instance_.getReasonsCounter(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getReasonsCounter(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         return AikiBeansMovesEffectsStd.getResultEffectBean(_cont, _classField, _instance);
@@ -1506,7 +1507,7 @@ public final class AikiBeansMovesEffectsStd {
         EffectDamageBean instance_ = (EffectDamageBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringList.quickEq(fieldName_,HITS_LAW)) {
-            res_.setResult(new StdStruct(instance_.getHitsLaw(),std_.getCustMap()));
+            res_.setResult(new StdStruct(instance_.getHitsLaw(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
         if (StringList.quickEq(fieldName_,NB_HITS)) {
@@ -1522,15 +1523,15 @@ public final class AikiBeansMovesEffectsStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,DAMAGE_LAW)) {
-            res_.setResult(new StdStruct(instance_.getDamageLaw(),std_.getCustMap()));
+            res_.setResult(new StdStruct(instance_.getDamageLaw(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
         if (StringList.quickEq(fieldName_,MAP_VARS_DAMAGE)) {
-            res_.setResult(new StdStruct(instance_.getMapVarsDamage(),std_.getCustMap()));
+            res_.setResult(new StdStruct(instance_.getMapVarsDamage(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
         if (StringList.quickEq(fieldName_,MULT_DAMAGE_AGAINST)) {
-            res_.setResult(new StdStruct(instance_.getMultDamageAgainst(),std_.getCustMap()));
+            res_.setResult(new StdStruct(instance_.getMultDamageAgainst(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
         if (StringList.quickEq(fieldName_,CH_RATE)) {
@@ -1538,7 +1539,7 @@ public final class AikiBeansMovesEffectsStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,CH_LAW)) {
-            res_.setResult(new StdStruct(instance_.getChLaw(),std_.getCustMap()));
+            res_.setResult(new StdStruct(instance_.getChLaw(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
         if (StringList.quickEq(fieldName_,USER_ATTACK)) {
@@ -1558,11 +1559,11 @@ public final class AikiBeansMovesEffectsStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,IGN_VAR_STAT_TARGET_POS)) {
-            res_.setResult(new StdStruct(instance_.getIgnVarStatTargetPos(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getIgnVarStatTargetPos(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,IGN_VAR_STAT_USER_NEG)) {
-            res_.setResult(new StdStruct(instance_.getIgnVarStatUserNeg(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getIgnVarStatUserNeg(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,RAND_MAX)) {
@@ -1570,7 +1571,7 @@ public final class AikiBeansMovesEffectsStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,BOOST_STATIS_ONCE_KO_FOE)) {
-            res_.setResult(new StdStruct(instance_.getBoostStatisOnceKoFoe(),std_.getCustMap()));
+            res_.setResult(new StdStruct(instance_.getBoostStatisOnceKoFoe(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
         if (StringList.quickEq(fieldName_,SUMMING_USER_TEAM_OK_FIGHTER)) {
@@ -1603,11 +1604,11 @@ public final class AikiBeansMovesEffectsStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,REASONS_END_ROUND)) {
-            res_.setResult(new StdStruct(instance_.getReasonsEndRound(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getReasonsEndRound(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,MAP_VARS_FAIL_END_ROUND)) {
-            res_.setResult(new StdStruct(instance_.getMapVarsFailEndRound(),std_.getCustMap()));
+            res_.setResult(new StdStruct(instance_.getMapVarsFailEndRound(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
         return AikiBeansMovesEffectsStd.getResultEffectBean(_cont, _classField, _instance);
@@ -1626,7 +1627,7 @@ public final class AikiBeansMovesEffectsStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,MAP_VARS_RESTORED)) {
-            res_.setResult(new StdStruct(instance_.getMapVarsRestored(),std_.getCustMap()));
+            res_.setResult(new StdStruct(instance_.getMapVarsRestored(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
         if (StringList.quickEq(fieldName_,CLOSEST_FOE_DAMAGE_RATE_HP)) {
@@ -1681,43 +1682,43 @@ public final class AikiBeansMovesEffectsStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,PREVENT_STATUS)) {
-            res_.setResult(new StdStruct(instance_.getPreventStatus(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getPreventStatus(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,IMMUNE_TYPES)) {
-            res_.setResult(new StdStruct(instance_.getImmuneTypes(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getImmuneTypes(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,EFFICIENCY_MOVES)) {
-            res_.setResult(new StdStruct(instance_.getEfficiencyMoves(),std_.getCustMap()));
+            res_.setResult(new StdStruct(instance_.getEfficiencyMoves(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
         if (StringList.quickEq(fieldName_,DISABLE_IMMU_AGAINST_TYPES)) {
-            res_.setResult(new StdStruct(instance_.getDisableImmuAgainstTypes(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getDisableImmuAgainstTypes(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,CANCEL_PROTECTING_ABILITIES)) {
-            res_.setResult(new StdStruct(instance_.getCancelProtectingAbilities(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getCancelProtectingAbilities(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,UNUSABLE_MOVES)) {
-            res_.setResult(new StdStruct(instance_.getUnusableMoves(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getUnusableMoves(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,CANCEL_EFFECTS)) {
-            res_.setResult(new StdStruct(instance_.getCancelEffects(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getCancelEffects(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,MULT_POWER_MOVES)) {
-            res_.setResult(new StdStruct(instance_.getMultPowerMoves(),std_.getCustMap()));
+            res_.setResult(new StdStruct(instance_.getMultPowerMoves(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
         if (StringList.quickEq(fieldName_,MULT_DAMAGE_TYPES_MOVES)) {
-            res_.setResult(new StdStruct(instance_.getMultDamageTypesMoves(),std_.getCustMap()));
+            res_.setResult(new StdStruct(instance_.getMultDamageTypesMoves(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
         if (StringList.quickEq(fieldName_,CANCEL_CHGT_STAT)) {
-            res_.setResult(new StdStruct(instance_.getCancelChgtStat(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getCancelChgtStat(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,INVOKED_MOVE_TERRAIN)) {
@@ -1725,27 +1726,27 @@ public final class AikiBeansMovesEffectsStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,INVOKING_MOVES)) {
-            res_.setResult(new StdStruct(instance_.getInvokingMoves(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getInvokingMoves(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,CHANGED_TYPES_TERRAIN)) {
-            res_.setResult(new StdStruct(instance_.getChangedTypesTerrain(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getChangedTypesTerrain(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,INVOKING_MOVES_CHANGING_TYPES)) {
-            res_.setResult(new StdStruct(instance_.getInvokingMovesChangingTypes(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getInvokingMovesChangingTypes(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,MULT_STAT_IF_CONTAINS_TYPE)) {
-            res_.setResult(new StdStruct(instance_.getMultStatIfContainsType(),std_.getCustMap()));
+            res_.setResult(new StdStruct(instance_.getMultStatIfContainsType(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
         if (StringList.quickEq(fieldName_,MULT_DAMAGE_PREPA_ROUND)) {
-            res_.setResult(new StdStruct(instance_.getMultDamagePrepaRound(),std_.getCustMap()));
+            res_.setResult(new StdStruct(instance_.getMultDamagePrepaRound(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
         if (StringList.quickEq(fieldName_,MOVES_USED_BY_TARGETED_FIGHTERS)) {
-            res_.setResult(new StdStruct(instance_.getMovesUsedByTargetedFighters(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getMovesUsedByTargetedFighters(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         return AikiBeansMovesEffectsStd.getResultEffectBean(_cont, _classField, _instance);
@@ -1784,19 +1785,19 @@ public final class AikiBeansMovesEffectsStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,MOVE_FCT_ENV)) {
-            res_.setResult(new StdStruct(instance_.getMoveFctEnv(),std_.getCustMap()));
+            res_.setResult(new StdStruct(instance_.getMoveFctEnv(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
         if (StringList.quickEq(fieldName_,GLOBAL_MOVES)) {
-            res_.setResult(new StdStruct(instance_.getGlobalMoves(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getGlobalMoves(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,INVOKING_MOVE_BY_USER_TYPES)) {
-            res_.setResult(new StdStruct(instance_.getInvokingMoveByUserTypes(),std_.getCustMap()));
+            res_.setResult(new StdStruct(instance_.getInvokingMoveByUserTypes(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
         if (StringList.quickEq(fieldName_,MOVES_NOT_TO_BE_INVOKED)) {
-            res_.setResult(new StdStruct(instance_.getMovesNotToBeInvoked(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getMovesNotToBeInvoked(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         return AikiBeansMovesEffectsStd.getResultEffectBean(_cont, _classField, _instance);
@@ -1807,7 +1808,7 @@ public final class AikiBeansMovesEffectsStd {
         EffectMultSufferedMovePowerBean instance_ = (EffectMultSufferedMovePowerBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringList.quickEq(fieldName_,MULT_MOVE_POWER_FCT_TYPE)) {
-            res_.setResult(new StdStruct(instance_.getMultMovePowerFctType(),std_.getCustMap()));
+            res_.setResult(new StdStruct(instance_.getMultMovePowerFctType(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
         return AikiBeansMovesEffectsStd.getResultEffectBean(_cont, _classField, _instance);
@@ -1818,7 +1819,7 @@ public final class AikiBeansMovesEffectsStd {
         EffectMultUsedMovePowerBean instance_ = (EffectMultUsedMovePowerBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringList.quickEq(fieldName_,MULT_MOVE_POWER_FCT_TYPE)) {
-            res_.setResult(new StdStruct(instance_.getMultMovePowerFctType(),std_.getCustMap()));
+            res_.setResult(new StdStruct(instance_.getMultMovePowerFctType(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
         return AikiBeansMovesEffectsStd.getResultEffectBean(_cont, _classField, _instance);
@@ -1839,7 +1840,7 @@ public final class AikiBeansMovesEffectsStd {
         EffectProtectFromTypesBean instance_ = (EffectProtectFromTypesBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringList.quickEq(fieldName_,IMMU_AGAINST_TYPES)) {
-            res_.setResult(new StdStruct(instance_.getImmuAgainstTypes(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getImmuAgainstTypes(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         return AikiBeansMovesEffectsStd.getResultEffectBean(_cont, _classField, _instance);
@@ -1912,19 +1913,19 @@ public final class AikiBeansMovesEffectsStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,STATIS_VAR_RANK)) {
-            res_.setResult(new StdStruct(instance_.getStatisVarRank(),std_.getCustMap()));
+            res_.setResult(new StdStruct(instance_.getStatisVarRank(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
         if (StringList.quickEq(fieldName_,MAP_VARS_STATISTICS)) {
-            res_.setResult(new StdStruct(instance_.getMapVarsStatistics(),std_.getCustMap()));
+            res_.setResult(new StdStruct(instance_.getMapVarsStatistics(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
         if (StringList.quickEq(fieldName_,SWAP_BOOST_STATIS)) {
-            res_.setResult(new StdStruct(instance_.getSwapBoostStatis(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getSwapBoostStatis(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,CANCEL_LOW_STAT)) {
-            res_.setResult(new StdStruct(instance_.getCancelLowStat(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getCancelLowStat(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,DEFAULT_BOOST)) {
@@ -1932,11 +1933,11 @@ public final class AikiBeansMovesEffectsStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,CANCEL_CHGT_STAT)) {
-            res_.setResult(new StdStruct(instance_.getCancelChgtStat(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getCancelChgtStat(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,COPY_BOOST)) {
-            res_.setResult(new StdStruct(instance_.getCopyBoost(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getCopyBoost(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         return AikiBeansMovesEffectsStd.getResultEffectBean(_cont, _classField, _instance);
@@ -1947,15 +1948,15 @@ public final class AikiBeansMovesEffectsStd {
         EffectStatusBean instance_ = (EffectStatusBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringList.quickEq(fieldName_,LAW_STATUS)) {
-            res_.setResult(new StdStruct(instance_.getLawStatus(),std_.getCustMap()));
+            res_.setResult(new StdStruct(instance_.getLawStatus(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
         if (StringList.quickEq(fieldName_,MAP_VARS_STATUS)) {
-            res_.setResult(new StdStruct(instance_.getMapVarsStatus(),std_.getCustMap()));
+            res_.setResult(new StdStruct(instance_.getMapVarsStatus(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
         if (StringList.quickEq(fieldName_,DELETED_STATUS)) {
-            res_.setResult(new StdStruct(instance_.getDeletedStatus(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getDeletedStatus(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,KO_USER_HEAL_SUBST)) {
@@ -1974,11 +1975,11 @@ public final class AikiBeansMovesEffectsStd {
         EffectSwitchMoveTypesBean instance_ = (EffectSwitchMoveTypesBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringList.quickEq(fieldName_,REPLACING_TYPES)) {
-            res_.setResult(new StdStruct(instance_.getReplacingTypes(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getReplacingTypes(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,CHANGE_TYPES)) {
-            res_.setResult(new StdStruct(instance_.getChangeTypes(),std_.getCustMap()));
+            res_.setResult(new StdStruct(instance_.getChangeTypes(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
         return AikiBeansMovesEffectsStd.getResultEffectBean(_cont, _classField, _instance);
@@ -1989,19 +1990,19 @@ public final class AikiBeansMovesEffectsStd {
         EffectSwitchTypesBean instance_ = (EffectSwitchTypesBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringList.quickEq(fieldName_,CHGT_TYPE_BY_ENV)) {
-            res_.setResult(new StdStruct(instance_.getChgtTypeByEnv(),std_.getCustMap()));
+            res_.setResult(new StdStruct(instance_.getChgtTypeByEnv(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
         if (StringList.quickEq(fieldName_,GLOBAL_MOVES)) {
-            res_.setResult(new StdStruct(instance_.getGlobalMoves(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getGlobalMoves(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,ADDED_TYPES)) {
-            res_.setResult(new StdStruct(instance_.getAddedTypes(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getAddedTypes(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,CONST_TYPES)) {
-            res_.setResult(new StdStruct(instance_.getConstTypes(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getConstTypes(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         return AikiBeansMovesEffectsStd.getResultEffectBean(_cont, _classField, _instance);
@@ -2020,11 +2021,11 @@ public final class AikiBeansMovesEffectsStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,FORBIDDEN_BOOST)) {
-            res_.setResult(new StdStruct(instance_.getForbiddenBoost(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getForbiddenBoost(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,CANCEL_CHGT_STAT_FOE_TEAM)) {
-            res_.setResult(new StdStruct(instance_.getCancelChgtStatFoeTeam(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getCancelChgtStatFoeTeam(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,DEFAULT_BOOST)) {
@@ -2032,39 +2033,39 @@ public final class AikiBeansMovesEffectsStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,CANCEL_CHGT_STAT_TEAM)) {
-            res_.setResult(new StdStruct(instance_.getCancelChgtStatTeam(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getCancelChgtStatTeam(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,PROTECT_AGAINST_LOW_STAT)) {
-            res_.setResult(new StdStruct(instance_.getProtectAgainstLowStat(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getProtectAgainstLowStat(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,PROTECT_AGAINST_STATUS)) {
-            res_.setResult(new StdStruct(instance_.getProtectAgainstStatus(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getProtectAgainstStatus(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,MULT_STATISTIC)) {
-            res_.setResult(new StdStruct(instance_.getMultStatistic(),std_.getCustMap()));
+            res_.setResult(new StdStruct(instance_.getMultStatistic(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
         if (StringList.quickEq(fieldName_,MULT_STATISTIC_FOE)) {
-            res_.setResult(new StdStruct(instance_.getMultStatisticFoe(),std_.getCustMap()));
+            res_.setResult(new StdStruct(instance_.getMultStatisticFoe(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
         if (StringList.quickEq(fieldName_,MULT_DAMAGE)) {
-            res_.setResult(new StdStruct(instance_.getMultDamage(),std_.getCustMap()));
+            res_.setResult(new StdStruct(instance_.getMultDamage(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
         if (StringList.quickEq(fieldName_,UNUSABLE_MOVES)) {
-            res_.setResult(new StdStruct(instance_.getUnusableMoves(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getUnusableMoves(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,DISABLE_FOE_TEAM_EFFECTS)) {
-            res_.setResult(new StdStruct(instance_.getDisableFoeTeamEffects(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getDisableFoeTeamEffects(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,DISABLE_FOE_TEAM_STATUS)) {
-            res_.setResult(new StdStruct(instance_.getDisableFoeTeamStatus(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getDisableFoeTeamStatus(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         return AikiBeansMovesEffectsStd.getResultEffectBean(_cont, _classField, _instance);
@@ -2079,27 +2080,27 @@ public final class AikiBeansMovesEffectsStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,MAP_VARS_DAMAGE_SENT_FOE)) {
-            res_.setResult(new StdStruct(instance_.getMapVarsDamageSentFoe(),std_.getCustMap()));
+            res_.setResult(new StdStruct(instance_.getMapVarsDamageSentFoe(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
         if (StringList.quickEq(fieldName_,STATISTICS)) {
-            res_.setResult(new StdStruct(instance_.getStatistics(),std_.getCustMap()));
+            res_.setResult(new StdStruct(instance_.getStatistics(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
         if (StringList.quickEq(fieldName_,STATUS_BY_NB_USES)) {
-            res_.setResult(new StdStruct(instance_.getStatusByNbUses(),std_.getCustMap()));
+            res_.setResult(new StdStruct(instance_.getStatusByNbUses(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
         if (StringList.quickEq(fieldName_,REASONS_SENDING)) {
-            res_.setResult(new StdStruct(instance_.getReasonsSending(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getReasonsSending(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,MAP_VARS_FAIL_SENDING)) {
-            res_.setResult(new StdStruct(instance_.getMapVarsFailSending(),std_.getCustMap()));
+            res_.setResult(new StdStruct(instance_.getMapVarsFailSending(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
         if (StringList.quickEq(fieldName_,DELETED_BY_FOE_TYPES)) {
-            res_.setResult(new StdStruct(instance_.getDeletedByFoeTypes(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getDeletedByFoeTypes(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         return AikiBeansMovesEffectsStd.getResultEffectBean(_cont, _classField, _instance);
@@ -2110,19 +2111,19 @@ public final class AikiBeansMovesEffectsStd {
         EffectUnprotectFromTypesBean instance_ = (EffectUnprotectFromTypesBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringList.quickEq(fieldName_,TYPES)) {
-            res_.setResult(new StdStruct(instance_.getTypes(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getTypes(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,DISABLE_IMMU_AGAINST_TYPES)) {
-            res_.setResult(new StdStruct(instance_.getDisableImmuAgainstTypes(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getDisableImmuAgainstTypes(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,DISABLE_IMMU_FROM_MOVES)) {
-            res_.setResult(new StdStruct(instance_.getDisableImmuFromMoves(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getDisableImmuFromMoves(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,ATTACK_TARGET_WITH_TYPES)) {
-            res_.setResult(new StdStruct(instance_.getAttackTargetWithTypes(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getAttackTargetWithTypes(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         return AikiBeansMovesEffectsStd.getResultEffectBean(_cont, _classField, _instance);
@@ -2319,7 +2320,7 @@ public final class AikiBeansMovesEffectsStd {
             return res_;
         }
         if (StringList.quickEq(methodName_,GET_MAP_VARS_FAIL_COUNTER)) {
-            res_.setResult(new StdStruct(instance_.getMapVarsFailCounter(),std_.getCustMap()));
+            res_.setResult(new StdStruct(instance_.getMapVarsFailCounter(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
         return AikiBeansMovesEffectsStd.invokeMethodEffectBean(_cont, _instance, _method, _args);

@@ -1,7 +1,7 @@
 package code.expressionlanguage.opers;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.errors.custom.UnexpectedOperationAffect;
+import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
@@ -33,9 +33,12 @@ public final class EqOperation extends MethodOperation implements MiddleSymbolOp
     @Override
     public void analyze(Analyzable _conf) {
         if (StringList.quickEq(oper.trim(), NEG_BOOL)) {
-            UnexpectedOperationAffect badEl_ = new UnexpectedOperationAffect();
+            FoundErrorInterpret badEl_ = new FoundErrorInterpret();
             badEl_.setFileName(_conf.getCurrentFileName());
             badEl_.setIndexFile(_conf.getCurrentLocationIndex());
+            //oper len
+            badEl_.buildError(_conf.getContextEl().getAnalysisMessages().getBadOperatorRef(),
+                    oper.trim());
             _conf.addError(badEl_);
         }
         String custOp_ = oper.trim();

@@ -24,11 +24,11 @@ public abstract class CustComponentStruct implements Struct {
         className = _className;
     }
     public static void invokeLater(RunnableContextEl _run, Struct _r) {
-        if (_r instanceof EventStruct) {
+        if (_r instanceof Runnable) {
             if (_run.getExecutingOptions().isInvokeDirect()) {
-                new Thread((EventStruct) _r).start();
+                new Thread((Runnable) _r).start();
             } else {
-                SwingUtilities.invokeLater((EventStruct) _r);
+                SwingUtilities.invokeLater((Runnable) _r);
             }
 
         }

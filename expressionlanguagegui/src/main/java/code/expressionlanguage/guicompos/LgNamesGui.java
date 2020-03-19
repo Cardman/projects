@@ -891,10 +891,10 @@ public class LgNamesGui extends LgNamesUtils {
         params_ = new StringList(aliasWindowType,getAliasString(),getAliasString(),getAliasString());
         method_ = new StandardMethod(aliasConfirmMessage, params_, getAliasVoid(), false, MethodModifier.STATIC, stdcl_);
         methods_.put(method_.getId(), method_);
-        fields_.add(aliasConfirmFieldOk,new StandardField(aliasConfirmFieldOk,getAliasPrimInteger(),true,true,stdcl_));
-        fields_.add(aliasConfirmFieldYes,new StandardField(aliasConfirmFieldYes,getAliasPrimInteger(),true,true,stdcl_));
-        fields_.add(aliasConfirmFieldNo,new StandardField(aliasConfirmFieldNo,getAliasPrimInteger(),true,true,stdcl_));
-        fields_.add(aliasConfirmFieldCancel,new StandardField(aliasConfirmFieldCancel,getAliasPrimInteger(),true,true,stdcl_));
+        fields_.addEntry(aliasConfirmFieldOk,new StandardField(aliasConfirmFieldOk,getAliasPrimInteger(),true,true,stdcl_));
+        fields_.addEntry(aliasConfirmFieldYes,new StandardField(aliasConfirmFieldYes,getAliasPrimInteger(),true,true,stdcl_));
+        fields_.addEntry(aliasConfirmFieldNo,new StandardField(aliasConfirmFieldNo,getAliasPrimInteger(),true,true,stdcl_));
+        fields_.addEntry(aliasConfirmFieldCancel,new StandardField(aliasConfirmFieldCancel,getAliasPrimInteger(),true,true,stdcl_));
         std_ = stdcl_;
         getStandards().put(aliasConfirm, std_);
 
@@ -1317,15 +1317,15 @@ public class LgNamesGui extends LgNamesUtils {
         params_ = new StringList();
         ctor_ = new StandardConstructor(params_,false,stdcl_);
         constructors_.add(ctor_);
-        fields_.add(aliasPanelBorderNorth,new StandardField(aliasPanelBorderNorth,getAliasString(),true,true,stdcl_));
-        fields_.add(aliasPanelBorderSouth,new StandardField(aliasPanelBorderSouth,getAliasString(),true,true,stdcl_));
-        fields_.add(aliasPanelBorderWest,new StandardField(aliasPanelBorderWest,getAliasString(),true,true,stdcl_));
-        fields_.add(aliasPanelBorderEast,new StandardField(aliasPanelBorderEast,getAliasString(),true,true,stdcl_));
-        fields_.add(aliasPanelBorderCenter,new StandardField(aliasPanelBorderCenter,getAliasString(),true,true,stdcl_));
-        fields_.add(aliasPanelBorderBeforeFirst,new StandardField(aliasPanelBorderBeforeFirst,getAliasString(),true,true,stdcl_));
-        fields_.add(aliasPanelBorderBeforeLineBegins,new StandardField(aliasPanelBorderBeforeLineBegins,getAliasString(),true,true,stdcl_));
-        fields_.add(aliasPanelBorderAfterLineEnds,new StandardField(aliasPanelBorderAfterLineEnds,getAliasString(),true,true,stdcl_));
-        fields_.add(aliasPanelBorderAfterLast,new StandardField(aliasPanelBorderAfterLast,getAliasString(),true,true,stdcl_));
+        fields_.addEntry(aliasPanelBorderNorth,new StandardField(aliasPanelBorderNorth,getAliasString(),true,true,stdcl_));
+        fields_.addEntry(aliasPanelBorderSouth,new StandardField(aliasPanelBorderSouth,getAliasString(),true,true,stdcl_));
+        fields_.addEntry(aliasPanelBorderWest,new StandardField(aliasPanelBorderWest,getAliasString(),true,true,stdcl_));
+        fields_.addEntry(aliasPanelBorderEast,new StandardField(aliasPanelBorderEast,getAliasString(),true,true,stdcl_));
+        fields_.addEntry(aliasPanelBorderCenter,new StandardField(aliasPanelBorderCenter,getAliasString(),true,true,stdcl_));
+        fields_.addEntry(aliasPanelBorderBeforeFirst,new StandardField(aliasPanelBorderBeforeFirst,getAliasString(),true,true,stdcl_));
+        fields_.addEntry(aliasPanelBorderBeforeLineBegins,new StandardField(aliasPanelBorderBeforeLineBegins,getAliasString(),true,true,stdcl_));
+        fields_.addEntry(aliasPanelBorderAfterLineEnds,new StandardField(aliasPanelBorderAfterLineEnds,getAliasString(),true,true,stdcl_));
+        fields_.addEntry(aliasPanelBorderAfterLast,new StandardField(aliasPanelBorderAfterLast,getAliasString(),true,true,stdcl_));
         std_ = stdcl_;
         getStandards().put(aliasPanelBorder, std_);
 
@@ -4873,6 +4873,11 @@ public class LgNamesGui extends LgNamesUtils {
         //Paint
         //paint
         return stds_;
+    }
+
+    @Override
+    public AbstractFunctionalInstance newFunctionalInstance(String _className, ContextEl _contextEl) {
+        return new EventFunctionalInstance(_className, _contextEl);
     }
 
     public String getAliasActionListener() {

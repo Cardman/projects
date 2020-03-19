@@ -1,7 +1,7 @@
 package code.formathtml;
 
 import code.expressionlanguage.AnalyzedPageEl;
-import code.expressionlanguage.errors.custom.UnexpectedTagName;
+import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.formathtml.stacks.RendReadWrite;
 import code.formathtml.stacks.RendSwitchBlockStack;
@@ -18,17 +18,24 @@ public final class RendDefaultCondition extends RendParentBlock implements RendB
             AnalyzedPageEl page_ = _cont.getAnalyzing();
             page_.setGlobalOffset(getOffset().getOffsetTrim());
             page_.setOffset(0);
-            UnexpectedTagName un_ = new UnexpectedTagName();
+            FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(_cont.getCurrentFileName());
             un_.setIndexFile(getOffset().getOffsetTrim());
+            un_.buildError(_cont.getContext().getAnalysisMessages().getUnexpectedCaseDef(),
+                    _cont.getKeyWords().getKeyWordDefault(),
+                    EMPTY_STRING,
+                    _cont.getKeyWords().getKeyWordSwitch());
             _cont.addError(un_);
         } else {
             RendBlock first_ = b_.getFirstChild();
             while (first_ != this) {
                 if (first_ instanceof RendDefaultCondition) {
-                    UnexpectedTagName un_ = new UnexpectedTagName();
+                    FoundErrorInterpret un_ = new FoundErrorInterpret();
                     un_.setFileName(_cont.getCurrentFileName());
                     un_.setIndexFile(getOffset().getOffsetTrim());
+                    un_.buildError(_cont.getContext().getAnalysisMessages().getUnexpectedDefDup(),
+                            _cont.getKeyWords().getKeyWordDefault(),
+                            _cont.getKeyWords().getKeyWordSwitch());
                     _cont.addError(un_);
                     break;
                 }

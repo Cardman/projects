@@ -2,12 +2,13 @@ package code.expressionlanguage.opers;
 
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.errors.custom.UnexpectedTypeOperationError;
+import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ResultOperand;
 import code.expressionlanguage.structs.NumberStruct;
+import code.util.StringList;
 
 public final class BitShiftRightOperation extends NumericOperation {
 
@@ -31,11 +32,16 @@ public final class BitShiftRightOperation extends NumericOperation {
         }
         _cont.setOkNumOp(false);
         String exp_ = _cont.getStandards().getAliasNumber();
-        UnexpectedTypeOperationError un_ = new UnexpectedTypeOperationError();
+        FoundErrorInterpret un_ = new FoundErrorInterpret();
         un_.setIndexFile(_cont.getCurrentLocationIndex());
         un_.setFileName(_cont.getCurrentFileName());
-        un_.setExpectedResult(exp_);
-        un_.setOperands(_a,_b);
+        //oper
+        un_.buildError(_cont.getContextEl().getAnalysisMessages().getUnexpectedOperandTypes(),
+                StringList.join(new StringList(
+                        StringList.join(_a.getNames(),"&"),
+                        StringList.join(_b.getNames(),"&")
+                ),";"),
+                getOp());
         _cont.addError(un_);
         ClassArgumentMatching arg_ = new ClassArgumentMatching(exp_);
         res_.setResult(arg_);

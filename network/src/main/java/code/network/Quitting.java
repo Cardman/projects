@@ -44,7 +44,7 @@ public final class Quitting implements Runnable {
     @Override
     public void run() {
         String lg_ = window.getLanguageKey();
-        if (bye.isBusy()) {
+        if (bye != null && bye.isBusy()) {
             String title_ = messages.getVal(USED_PORT_TITLE);
             String message_ = messages.getVal(USED_PORT);
             message_ = StringList.simpleNumberFormat(message_, window.getPort());

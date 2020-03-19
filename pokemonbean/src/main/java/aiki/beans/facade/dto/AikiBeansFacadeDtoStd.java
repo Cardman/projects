@@ -17,6 +17,7 @@ import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.util.BeanLgNames;
 import code.formathtml.structs.StdStruct;
+import code.formathtml.util.BeanNatLgNames;
 import code.util.CustList;
 import code.util.ObjectMap;
 import code.util.StringList;
@@ -108,7 +109,7 @@ public final class AikiBeansFacadeDtoStd {
         method_ = new StandardMethod(IS_DIRECT,params_,_std.getAliasPrimBoolean(), false, MethodModifier.NORMAL,type_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
-        method_ = new StandardMethod(GET_TYPES,params_,_std.getCustList(), false, MethodModifier.NORMAL,type_);
+        method_ = new StandardMethod(GET_TYPES,params_, BeanNatLgNames.TYPE_LIST, false, MethodModifier.NORMAL,type_);
         methods_.put(method_.getId(), method_);
         _std.getStandards().put(TYPE_MOVE_LINE, type_);
     }
@@ -122,7 +123,7 @@ public final class AikiBeansFacadeDtoStd {
         fields_ = new StringMap<StandardField>();
         type_ = new StandardClass(TYPE_POKEMON_LINE, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
         fields_.put(DISPLAY_NAME,new StandardField(DISPLAY_NAME,_std.getAliasString(),false,false,type_));
-        fields_.put(TYPES,new StandardField(TYPES,_std.getCustList(),false,false,type_));
+        fields_.put(TYPES,new StandardField(TYPES, BeanNatLgNames.TYPE_LIST,false,false,type_));
         fields_.put(EVOLUTIONS,new StandardField(EVOLUTIONS,_std.getAliasPrimInteger(),false,false,type_));
         _std.getStandards().put(TYPE_POKEMON_LINE, type_);
     }
@@ -187,7 +188,7 @@ public final class AikiBeansFacadeDtoStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,TYPES)) {
-            res_.setResult(new StdStruct(instance_.getTypes(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getTypes(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,EVOLUTIONS)) {
@@ -210,7 +211,7 @@ public final class AikiBeansFacadeDtoStd {
             return res_;
         }
         if (StringList.quickEq(methodName_,GET_TYPES)) {
-            res_.setResult(new StdStruct(instance_.getTypes(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getTypes(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         return res_;

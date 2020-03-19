@@ -3,28 +3,73 @@ package code.formathtml.util;
 import code.bean.BeanInfo;
 import code.bean.validator.Message;
 import code.bean.validator.ValidatorInfo;
-import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.errors.AnalysisMessages;
+import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.errors.KeyValueMemberName;
 import code.expressionlanguage.inherits.Templates;
-import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.util.ClassField;
-import code.expressionlanguage.opers.util.MethodAccessKind;
+import code.expressionlanguage.opers.util.ClassMethodId;
+import code.expressionlanguage.opers.util.MethodId;
+import code.expressionlanguage.opers.util.MethodModifier;
 import code.expressionlanguage.options.KeyWords;
-import code.expressionlanguage.stds.ResultErrorStd;
+import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
 import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.VariableSuffix;
 import code.formathtml.*;
+import code.formathtml.errors.RendAnalysisMessages;
+import code.formathtml.errors.RendKeyWords;
 import code.formathtml.exec.RendDynOperationNode;
+import code.formathtml.structs.RealInstanceStruct;
 import code.formathtml.structs.StdStruct;
-import code.util.CustList;
-import code.util.EntryCust;
-import code.util.StringList;
-import code.util.StringMap;
+import code.sml.Element;
+import code.util.*;
 
-public final class BeanCustLgNames extends BeanLgNames {
+public abstract class BeanCustLgNames extends BeanLgNames {
+    protected static final String BEAN = "Bean";
+    protected static final String MAP_KEYS = "MapKeys";
+    protected static final String MAP_VALUES = "MapValues";
+    protected static final String MAP_INDEX_OF_ENTRY = "MapIndexOfEntry";
+    protected static final String MAP_ADD_ENTRY = "MapAddEntry";
+    protected static final String MAP_GET_VALUE = "MapGetValue";
+    protected static final String MAP_FIRST_VALUE = "MapFirstValue";
+    protected static final String MAP_LAST_VALUE = "MapLastValue";
+    protected static final String MAP_SET_VALUE = "MapSetValue";
+    protected static final String MAP_PUT = "MapPut";
+    protected static final String MAP_CONTAINS = "MapContains";
+    protected static final String MAP_PUT_ALL = "MapPutAll";
+    protected static final String MAP_GET_VAL = "MapGetVal";
+    protected static final String MAP_REMOVE_KEY = "MapRemoveKey";
+    protected static final String MAP_GET_KEY = "MapGetKey";
+    protected static final String MAP_FIRST_KEY = "MapFirstKey";
+    protected static final String MAP_LAST_KEY = "MapLastKey";
+    protected static final String MAP_SET_KEY = "MapSetKey";
+    protected static final String MAP_SIZE = "MapSize";
+    protected static final String MAP_IS_EMPTY = "MapIsEmpty";
+    protected static final String MAP_CLEAR = "MapClear";
+    protected static final String VALIDATOR = "Validator";
+    protected static final String VALIDATE = "Validate";
+    protected static final String DATA_BASE_FIELD = "DataBaseField";
+    protected static final String FORMS = "Forms";
+    protected static final String SET_FORMS = "SetForms";
+    protected static final String GET_FORMS = "GetForms";
+    protected static final String LANGUAGE = "Language";
+    protected static final String SET_LANGUAGE = "SetLanguage";
+    protected static final String GET_LANGUAGE = "GetLanguage";
+    protected static final String SCOPE = "Scope";
+    protected static final String SET_SCOPE = "SetScope";
+    protected static final String GET_SCOPE = "GetScope";
+    protected static final String SET_DATA_BASE = "SetDataBase";
+    protected static final String GET_DATA_BASE = "GetDataBase";
+    protected static final String BEFORE_DISPLAYING = "BeforeDisplaying";
+    protected static final String STRING_MAP_OBJECT = "StringMapObject";
+    protected static final String MESSAGE = "Message";
+    protected static final String NEW_MESSAGE = "NewMessage";
+    protected static final String MESSAGE_FORMAT = "MessageFormat";
+    protected static final String MESSAGE_GET_ARGS = "MessageGetArgs";
+    protected static final String MESSAGE_SET_ARGS = "MessageSetArgs";
 
     private String iteratorVar;
     private String hasNextVar;
@@ -78,6 +123,7 @@ public final class BeanCustLgNames extends BeanLgNames {
     private CustList<RendDynOperationNode> expsSetLanguage;
     private CustList<RendDynOperationNode> expsValidate;
     private CustList<RendDynOperationNode> opsMap;
+    private String aliasBean = "code.bean.Bean";
     private String aliasMapKeys = "keys";
     private String aliasMapValues = "values";
     private String aliasMapIndexOfEntry = "indexOfEntry";
@@ -111,10 +157,62 @@ public final class BeanCustLgNames extends BeanLgNames {
 
     private Struct storedForms = NullStruct.NULL_VALUE;
 
+
+    private String aliasDataBaseField= "dataBase";
+
+    private String aliasForms= "forms";
+    private String aliasSetForms= "setForms";
+    private String aliasGetForms= "getForms";
+    private String aliasLanguage= "language";
+    private String aliasSetLanguage= "setLanguage";
+    private String aliasGetLanguage= "getLanguage";
+    private String aliasScope= "scope";
+    private String aliasSetScope= "setScope";
+    private String aliasGetScope= "getScope";
+    private String aliasSetDataBase= "setDataBase";
+    private String aliasGetDataBase= "getDataBase";
+    private String aliasBeforeDisplaying= "beforeDisplaying";
+    private String aliasStringMapObject="code.util.StringMapObject";
+    private String aliasMessage="code.bean.Message";
+    private String aliasNewMessage="newStandardMessage";
+    private String aliasMessageFormat="format";
+    private String aliasMessageGetArgs="getArgs";
+    private String aliasMessageSetArgs="setArgs";
+
+    @Override
+    public void buildOther() {
+        StringMap<StandardField> fields_;
+        StringList params_;
+        StandardMethod method_;
+        StandardType std_;
+        CustList<StandardConstructor> constructors_;
+        ObjectMap<MethodId, StandardMethod> methods_;
+        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        constructors_ = new CustList<StandardConstructor>();
+        fields_ = new StringMap<StandardField>();
+        std_ = new StandardClass(aliasMessage, fields_, constructors_, methods_, getAliasObject(), MethodModifier.ABSTRACT);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasNewMessage, params_, aliasMessage, false, MethodModifier.STATIC, std_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasString());
+        method_ = new StandardMethod(aliasNewMessage, params_, aliasMessage, false, MethodModifier.STATIC, std_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasMessageFormat, params_, getAliasString(), false, MethodModifier.NORMAL, std_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasMessageGetArgs, params_, PrimitiveTypeUtil.getPrettyArrayType(getAliasString()), false, MethodModifier.NORMAL, std_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasString());
+        method_ = new StandardMethod(aliasMessageSetArgs, params_, getAliasVoid(), true, MethodModifier.NORMAL, std_);
+        methods_.put(method_.getId(), method_);
+        getStandards().put(aliasMessage, std_);
+    }
+
     public void buildIterables(Configuration _context) {
         ContextEl context_ = _context.getContext();
         _context.getImporting().add(new ImportingPage());
-        context_.setAnalyzing(new AnalyzedPageEl());
+        context_.setAnalyzing();
         context_.getAnalyzing().setEnabledInternVars(true);
         String locName_ = context_.getNextTempVar();
         String exp_;
@@ -124,7 +222,7 @@ public final class BeanCustLgNames extends BeanLgNames {
         iteratorVar = locName_;
         String simpleIterator_ = getAliasIterator();
         exp_ = StringList.concat(locName_, LOC_VAR, StringList.concat(simpleIterator_,PARS));
-        expsIterator = RenderExpUtil.getAnalyzedOperations(exp_,0, _context, Calculation.staticCalculation(MethodAccessKind.STATIC));
+        expsIterator = RenderExpUtil.getAnalyzedOperations(exp_,0, _context);
         locName_ = context_.getNextTempVar();
         locVar_ = new LocalVariable();
         locVar_.setClassName(StringList.concat(getAliasIteratorType(),"<?>"));
@@ -132,7 +230,7 @@ public final class BeanCustLgNames extends BeanLgNames {
         hasNextVar = locName_;
         String hasNext_ = getAliasHasNext();
         exp_ = StringList.concat(locName_, LOC_VAR, StringList.concat(hasNext_,PARS));
-        expsHasNext = RenderExpUtil.getAnalyzedOperations(exp_, 0,_context, Calculation.staticCalculation(MethodAccessKind.STATIC));
+        expsHasNext = RenderExpUtil.getAnalyzedOperations(exp_, 0,_context);
         locName_ = context_.getNextTempVar();
         locVar_ = new LocalVariable();
         locVar_.setClassName(StringList.concat(getAliasIteratorType(),"<?>"));
@@ -140,7 +238,7 @@ public final class BeanCustLgNames extends BeanLgNames {
         nextVar = locName_;
         String next_ = getAliasNext();
         exp_ = StringList.concat(locName_, LOC_VAR, StringList.concat(next_,PARS));
-        expsNext = RenderExpUtil.getAnalyzedOperations(exp_, 0,_context, Calculation.staticCalculation(MethodAccessKind.STATIC));
+        expsNext = RenderExpUtil.getAnalyzedOperations(exp_, 0,_context);
 
         String nextPair_ = getAliasNextPair();
         String hasNextPair_ = getAliasHasNextPair();
@@ -150,21 +248,21 @@ public final class BeanCustLgNames extends BeanLgNames {
         iteratorTableVarCust= locName_;
         String iteratorTable_ = getAliasIteratorTable();
         exp_ = StringList.concat(locName_, LOC_VAR, StringList.concat(iteratorTable_,PARS));
-        expsIteratorTableCust= RenderExpUtil.getAnalyzedOperations(exp_, 0,_context, Calculation.staticCalculation(MethodAccessKind.STATIC));
+        expsIteratorTableCust= RenderExpUtil.getAnalyzedOperations(exp_, 0,_context);
         locName_ = context_.getNextTempVar();
         locVar_ = new LocalVariable();
         locVar_.setClassName(StringList.concat(getAliasIteratorTableType(),"<?,?>"));
         _context.getInternVars().put(locName_, locVar_);
         hasNextPairVarCust= locName_;
         exp_ = StringList.concat(locName_, LOC_VAR, StringList.concat(hasNextPair_,PARS));
-        expsHasNextPairCust= RenderExpUtil.getAnalyzedOperations(exp_, 0,_context, Calculation.staticCalculation(MethodAccessKind.STATIC));
+        expsHasNextPairCust= RenderExpUtil.getAnalyzedOperations(exp_, 0,_context);
         locName_ = context_.getNextTempVar();
         locVar_ = new LocalVariable();
         locVar_.setClassName(StringList.concat(getAliasIteratorTableType(),"<?,?>"));
         _context.getInternVars().put(locName_, locVar_);
         nextPairVarCust= locName_;
         exp_ = StringList.concat(locName_, LOC_VAR, StringList.concat(nextPair_,PARS));
-        expsNextPairCust= RenderExpUtil.getAnalyzedOperations(exp_, 0,_context, Calculation.staticCalculation(MethodAccessKind.STATIC));
+        expsNextPairCust= RenderExpUtil.getAnalyzedOperations(exp_, 0,_context);
         locName_ = context_.getNextTempVar();
         locVar_ = new LocalVariable();
         locVar_.setClassName(StringList.concat(getAliasPairType(),"<?,?>"));
@@ -172,7 +270,7 @@ public final class BeanCustLgNames extends BeanLgNames {
         firstVarCust= locName_;
         String first_ = getAliasGetFirst();
         exp_ = StringList.concat(locName_, LOC_VAR, StringList.concat(first_,PARS));
-        expsFirstCust= RenderExpUtil.getAnalyzedOperations(exp_, 0,_context, Calculation.staticCalculation(MethodAccessKind.STATIC));
+        expsFirstCust= RenderExpUtil.getAnalyzedOperations(exp_, 0,_context);
         locName_ = context_.getNextTempVar();
         locVar_ = new LocalVariable();
         locVar_.setClassName(StringList.concat(getAliasPairType(),"<?,?>"));
@@ -180,7 +278,7 @@ public final class BeanCustLgNames extends BeanLgNames {
         secondVarCust= locName_;
         String second_ = getAliasGetSecond();
         exp_ = StringList.concat(locName_, LOC_VAR, StringList.concat(second_,PARS));
-        expsSecondCust= RenderExpUtil.getAnalyzedOperations(exp_, 0,_context, Calculation.staticCalculation(MethodAccessKind.STATIC));
+        expsSecondCust= RenderExpUtil.getAnalyzedOperations(exp_, 0,_context);
 
         locName_ = context_.getNextTempVar();
         locVar_ = new LocalVariable();
@@ -189,7 +287,7 @@ public final class BeanCustLgNames extends BeanLgNames {
         beforeDisplayingVar = locName_;
         String beforeDisplaying_ = getAliasBeforeDisplaying();
         exp_ = StringList.concat(locName_, LOC_VAR, StringList.concat(beforeDisplaying_,PARS));
-        expsBeforeDisplaying= RenderExpUtil.getAnalyzedOperations(exp_, 0,_context, Calculation.staticCalculation(MethodAccessKind.STATIC));
+        expsBeforeDisplaying= RenderExpUtil.getAnalyzedOperations(exp_, 0,_context);
 
         locName_ = context_.getNextTempVar();
         locVar_ = new LocalVariable();
@@ -208,7 +306,7 @@ public final class BeanCustLgNames extends BeanLgNames {
         putVarCustValue = locName_;
         String put_ = getAliasMapPut();
         exp_ = StringList.concat(putVarCust, LOC_VAR, StringList.concat(put_,"(",putVarCustKey,",",putVarCustValue,")"));
-        expsPut= RenderExpUtil.getAnalyzedOperations(exp_, 0,_context, Calculation.staticCalculation(MethodAccessKind.STATIC));
+        expsPut= RenderExpUtil.getAnalyzedOperations(exp_, 0,_context);
 
         locName_ = context_.getNextTempVar();
         locVar_ = new LocalVariable();
@@ -222,7 +320,7 @@ public final class BeanCustLgNames extends BeanLgNames {
         putAllVarCustArg = locName_;
         String putAll_ = getAliasMapPutAll();
         exp_ = StringList.concat(putAllVarCust, LOC_VAR, StringList.concat(putAll_,"(",putAllVarCustArg,")"));
-        expsPutAll= RenderExpUtil.getAnalyzedOperations(exp_, 0,_context, Calculation.staticCalculation(MethodAccessKind.STATIC));
+        expsPutAll= RenderExpUtil.getAnalyzedOperations(exp_, 0,_context);
 
         locName_ = context_.getNextTempVar();
         locVar_ = new LocalVariable();
@@ -236,7 +334,7 @@ public final class BeanCustLgNames extends BeanLgNames {
         getValVarArg = locName_;
         String getVal_ = getAliasMapGetVal();
         exp_ = StringList.concat(getValVar, LOC_VAR, StringList.concat(getVal_,"(",getValVarArg,")"));
-        expsGetVal= RenderExpUtil.getAnalyzedOperations(exp_, 0,_context, Calculation.staticCalculation(MethodAccessKind.STATIC));
+        expsGetVal= RenderExpUtil.getAnalyzedOperations(exp_, 0,_context);
 
         locName_ = context_.getNextTempVar();
         locVar_ = new LocalVariable();
@@ -250,7 +348,7 @@ public final class BeanCustLgNames extends BeanLgNames {
         setFormsVarArg = locName_;
         String setForms_ = getAliasSetForms();
         exp_ = StringList.concat(setFormsVar, LOC_VAR, StringList.concat(setForms_,"(",setFormsVarArg,")"));
-        expsSetForms= RenderExpUtil.getAnalyzedOperations(exp_, 0,_context, Calculation.staticCalculation(MethodAccessKind.STATIC));
+        expsSetForms= RenderExpUtil.getAnalyzedOperations(exp_, 0,_context);
 
         locName_ = context_.getNextTempVar();
         locVar_ = new LocalVariable();
@@ -259,7 +357,7 @@ public final class BeanCustLgNames extends BeanLgNames {
         getFormsVar = locName_;
         String getForms_ = getAliasGetForms();
         exp_ = StringList.concat(getFormsVar, LOC_VAR, StringList.concat(getForms_,PARS));
-        expsGetForms= RenderExpUtil.getAnalyzedOperations(exp_, 0,_context, Calculation.staticCalculation(MethodAccessKind.STATIC));
+        expsGetForms= RenderExpUtil.getAnalyzedOperations(exp_, 0,_context);
 
         locName_ = context_.getNextTempVar();
         locVar_ = new LocalVariable();
@@ -273,7 +371,7 @@ public final class BeanCustLgNames extends BeanLgNames {
         setDataBaseVarArg = locName_;
         String setDataBase_ = getAliasSetDataBase();
         exp_ = StringList.concat(setDataBaseVar, LOC_VAR, StringList.concat(setDataBase_,"(",setDataBaseVarArg,")"));
-        expsSetDataBase= RenderExpUtil.getAnalyzedOperations(exp_, 0,_context, Calculation.staticCalculation(MethodAccessKind.STATIC));
+        expsSetDataBase= RenderExpUtil.getAnalyzedOperations(exp_, 0,_context);
 
         locName_ = context_.getNextTempVar();
         locVar_ = new LocalVariable();
@@ -282,7 +380,7 @@ public final class BeanCustLgNames extends BeanLgNames {
         getDataBaseVar = locName_;
         String getDataBase_ = getAliasGetDataBase();
         exp_ = StringList.concat(getDataBaseVar, LOC_VAR, StringList.concat(getDataBase_,PARS));
-        expsGetDataBase= RenderExpUtil.getAnalyzedOperations(exp_, 0,_context, Calculation.staticCalculation(MethodAccessKind.STATIC));
+        expsGetDataBase= RenderExpUtil.getAnalyzedOperations(exp_, 0,_context);
 
         locName_ = context_.getNextTempVar();
         locVar_ = new LocalVariable();
@@ -296,7 +394,7 @@ public final class BeanCustLgNames extends BeanLgNames {
         setScopeVarArg = locName_;
         String setScope_ = getAliasSetScope();
         exp_ = StringList.concat(setScopeVar, LOC_VAR, StringList.concat(setScope_,"(",setScopeVarArg,")"));
-        expsSetScope= RenderExpUtil.getAnalyzedOperations(exp_, 0,_context, Calculation.staticCalculation(MethodAccessKind.STATIC));
+        expsSetScope= RenderExpUtil.getAnalyzedOperations(exp_, 0,_context);
 
         locName_ = context_.getNextTempVar();
         locVar_ = new LocalVariable();
@@ -305,7 +403,7 @@ public final class BeanCustLgNames extends BeanLgNames {
         getScopeVar = locName_;
         String getScope_ = getAliasGetScope();
         exp_ = StringList.concat(getScopeVar, LOC_VAR, StringList.concat(getScope_,PARS));
-        expsGetScope= RenderExpUtil.getAnalyzedOperations(exp_, 0,_context, Calculation.staticCalculation(MethodAccessKind.STATIC));
+        expsGetScope= RenderExpUtil.getAnalyzedOperations(exp_, 0,_context);
 
         locName_ = context_.getNextTempVar();
         locVar_ = new LocalVariable();
@@ -319,7 +417,7 @@ public final class BeanCustLgNames extends BeanLgNames {
         setLanguageVarArg = locName_;
         String setLanguage_ = getAliasSetLanguage();
         exp_ = StringList.concat(setLanguageVar, LOC_VAR, StringList.concat(setLanguage_,"(",setLanguageVarArg,")"));
-        expsSetLanguage= RenderExpUtil.getAnalyzedOperations(exp_, 0,_context, Calculation.staticCalculation(MethodAccessKind.STATIC));
+        expsSetLanguage= RenderExpUtil.getAnalyzedOperations(exp_, 0,_context);
 
         StringList vars_ = new StringList();
         locName_ = context_.getNextTempVar();
@@ -366,10 +464,10 @@ public final class BeanCustLgNames extends BeanLgNames {
 
         String validate_ = aliasValidate;
         exp_ = StringList.concat(validateVar, LOC_VAR, StringList.concat(validate_,"(",StringList.join(vars_,','),")"));
-        expsValidate= RenderExpUtil.getAnalyzedOperations(exp_, 0,_context, Calculation.staticCalculation(MethodAccessKind.STATIC));
+        expsValidate= RenderExpUtil.getAnalyzedOperations(exp_, 0,_context);
         String aliasStringMapObject_ = getAliasStringMapObject();
         String keyWordNew_ = _context.getKeyWords().getKeyWordNew();
-        opsMap = RenderExpUtil.getAnalyzedOperations(StringList.concat(keyWordNew_, " ", aliasStringMapObject_, "()"), 0, _context, Calculation.staticCalculation(MethodAccessKind.INSTANCE));
+        opsMap = RenderExpUtil.getAnalyzedOperations(StringList.concat(keyWordNew_, " ", aliasStringMapObject_, "()"), 0, _context);
 
         _context.clearPages();
     }
@@ -832,6 +930,61 @@ public final class BeanCustLgNames extends BeanLgNames {
             index_++;
         }
     }
+
+    @Override
+    public ResultErrorStd getOtherResult(ContextEl _cont, Struct _instance,
+                                         ClassMethodId _method, Struct... _args) {
+        ResultErrorStd res_ = new ResultErrorStd();
+        StringList list_ = _method.getConstraints().getParametersTypes();
+        String type_ = _method.getClassName();
+        if (StringList.quickEq(type_, getAliasEnums())) {
+            return super.getOtherResult(_cont,_instance,_method,_args);
+        }
+        String name_ = _method.getConstraints().getName();
+        if (StringList.quickEq(name_, aliasNewMessage)) {
+            if (list_.isEmpty()) {
+                res_.setResult(StdStruct.newInstance(Message.newStandardMessage(),aliasMessage));
+            } else {
+                String value_ = ((StringStruct) _args[0]).getInstance();
+                res_.setResult(StdStruct.newInstance(Message.newStandardMessage(value_),aliasMessage));
+            }
+            return res_;
+        }
+        Message instance_ = (Message) ((RealInstanceStruct)_instance).getInstance();
+        if (StringList.quickEq(name_, aliasMessageFormat)) {
+            res_.setResult(wrapStd(instance_.getMessage()));
+            return res_;
+        }
+        if (StringList.quickEq(name_, aliasMessageGetArgs)) {
+            StringList resArgs_ = instance_.getArgs();
+            String arrStr_ = PrimitiveTypeUtil.getPrettyArrayType(getAliasString());
+            int len_ = resArgs_.size();
+            ArrayStruct arr_ = new ArrayStruct(new Struct[len_],arrStr_);
+            for (int i = 0; i < len_; i++){
+                arr_.getInstance()[i] = wrapStd(resArgs_.get(i));
+            }
+            res_.setResult(arr_);
+            return res_;
+        }
+        Struct[] argsInst_ = ((ArrayStruct) _args[0]).getInstance();
+        int len_ = argsInst_.length;
+        String[] resArgs_ = new String[len_];
+        for (int i = 0; i < len_; i++){
+            Struct argInst_ = argsInst_[i];
+            if (argInst_ instanceof StringStruct) {
+                resArgs_[i] = ((StringStruct)argInst_).getInstance();
+            }
+        }
+        instance_.setArgs(resArgs_);
+        res_.setResult(NullStruct.NULL_VALUE);
+        return res_;
+    }
+    private static Struct wrapStd(String _element) {
+        if (_element == null) {
+            return NullStruct.NULL_VALUE;
+        }
+        return new StringStruct(_element);
+    }
     @Override
     public void forwardDataBase(Struct _bean, Struct _to, Configuration _conf) {
         LocalVariable locVar_ = LocalVariable.newLocalVariable(_bean,_conf);
@@ -1237,47 +1390,53 @@ public final class BeanCustLgNames extends BeanLgNames {
     @Override
     public StringMap<String> allRefTypes() {
         StringMap<String> types_ = super.allRefTypes();
-        types_.addEntry("Validator",getAliasValidator());
-        types_.addEntry("StringMapObject",getAliasStringMapObject());
-        types_.addEntry("Bean",getAliasBean());
+        types_.addEntry(MESSAGE,getAliasMessage());
+        types_.addEntry(VALIDATOR,getAliasValidator());
+        types_.addEntry(STRING_MAP_OBJECT,getAliasStringMapObject());
+        types_.addEntry(BEAN,getAliasBean());
         return types_;
     }
 
     @Override
     public StringMap<CustList<KeyValueMemberName>> allTableTypeMethodNames() {
         StringMap<CustList<KeyValueMemberName>> methods_ = super.allTableTypeMethodNames();
+        methods_.addEntry(getAliasMessage(),
+                new CustList<KeyValueMemberName>(new KeyValueMemberName(NEW_MESSAGE,getAliasNewMessage()),
+                        new KeyValueMemberName(MESSAGE_FORMAT,getAliasMessageFormat()),
+                        new KeyValueMemberName(MESSAGE_GET_ARGS,getAliasMessageGetArgs()),
+                        new KeyValueMemberName(MESSAGE_SET_ARGS,getAliasMessageSetArgs())));
         methods_.addEntry(getAliasValidator(),new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("Validate",getAliasValidate())));
+                new KeyValueMemberName(VALIDATE,getAliasValidate())));
         methods_.addEntry(getAliasStringMapObject(),new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("MapGetVal",getAliasMapGetVal()),
-                new KeyValueMemberName("MapPut",getAliasMapPut()),
-                new KeyValueMemberName("MapPutAll",getAliasMapPutAll()),
-                new KeyValueMemberName("MapIndexOfEntry",getAliasMapIndexOfEntry()),
-                new KeyValueMemberName("MapAddEntry",getAliasMapAddEntry()),
-                new KeyValueMemberName("MapContains",getAliasMapContains()),
-                new KeyValueMemberName("MapSize",getAliasMapSize()),
-                new KeyValueMemberName("MapIsEmpty",getAliasMapIsEmpty()),
-                new KeyValueMemberName("MapClear",getAliasMapClear()),
-                new KeyValueMemberName("MapRemoveKey",getAliasMapRemoveKey()),
-                new KeyValueMemberName("MapFirstValue",getAliasMapFirstValue()),
-                new KeyValueMemberName("MapLastValue",getAliasMapLastValue()),
-                new KeyValueMemberName("MapGetValue",getAliasMapGetValue()),
-                new KeyValueMemberName("MapSetValue",getAliasMapSetValue()),
-                new KeyValueMemberName("MapFirstKey",getAliasMapFirstKey()),
-                new KeyValueMemberName("MapLastKey",getAliasMapLastKey()),
-                new KeyValueMemberName("MapGetKey",getAliasMapGetKey()),
-                new KeyValueMemberName("MapSetKey",getAliasMapSetKey())
+                new KeyValueMemberName(MAP_GET_VAL,getAliasMapGetVal()),
+                new KeyValueMemberName(MAP_PUT,getAliasMapPut()),
+                new KeyValueMemberName(MAP_PUT_ALL,getAliasMapPutAll()),
+                new KeyValueMemberName(MAP_INDEX_OF_ENTRY,getAliasMapIndexOfEntry()),
+                new KeyValueMemberName(MAP_ADD_ENTRY,getAliasMapAddEntry()),
+                new KeyValueMemberName(MAP_CONTAINS,getAliasMapContains()),
+                new KeyValueMemberName(MAP_SIZE,getAliasMapSize()),
+                new KeyValueMemberName(MAP_IS_EMPTY,getAliasMapIsEmpty()),
+                new KeyValueMemberName(MAP_CLEAR,getAliasMapClear()),
+                new KeyValueMemberName(MAP_REMOVE_KEY,getAliasMapRemoveKey()),
+                new KeyValueMemberName(MAP_FIRST_VALUE,getAliasMapFirstValue()),
+                new KeyValueMemberName(MAP_LAST_VALUE,getAliasMapLastValue()),
+                new KeyValueMemberName(MAP_GET_VALUE,getAliasMapGetValue()),
+                new KeyValueMemberName(MAP_SET_VALUE,getAliasMapSetValue()),
+                new KeyValueMemberName(MAP_FIRST_KEY,getAliasMapFirstKey()),
+                new KeyValueMemberName(MAP_LAST_KEY,getAliasMapLastKey()),
+                new KeyValueMemberName(MAP_GET_KEY,getAliasMapGetKey()),
+                new KeyValueMemberName(MAP_SET_KEY,getAliasMapSetKey())
         ));
         methods_.addEntry(getAliasBean(),new CustList<KeyValueMemberName>(
-                new KeyValueMemberName("BeforeDisplaying",getAliasBeforeDisplaying()),
-                new KeyValueMemberName("GetDataBase",getAliasGetDataBase()),
-                new KeyValueMemberName("GetLanguage",getAliasGetLanguage()),
-                new KeyValueMemberName("GetScope",getAliasGetScope()),
-                new KeyValueMemberName("GetForms",getAliasGetForms()),
-                new KeyValueMemberName("SetDataBase",getAliasSetDataBase()),
-                new KeyValueMemberName("SetLanguage",getAliasSetLanguage()),
-                new KeyValueMemberName("SetScope",getAliasSetScope()),
-                new KeyValueMemberName("SetForms",getAliasSetForms())
+                new KeyValueMemberName(BEFORE_DISPLAYING,getAliasBeforeDisplaying()),
+                new KeyValueMemberName(GET_DATA_BASE,getAliasGetDataBase()),
+                new KeyValueMemberName(GET_LANGUAGE,getAliasGetLanguage()),
+                new KeyValueMemberName(GET_SCOPE,getAliasGetScope()),
+                new KeyValueMemberName(GET_FORMS,getAliasGetForms()),
+                new KeyValueMemberName(SET_DATA_BASE,getAliasSetDataBase()),
+                new KeyValueMemberName(SET_LANGUAGE,getAliasSetLanguage()),
+                new KeyValueMemberName(SET_SCOPE,getAliasSetScope()),
+                new KeyValueMemberName(SET_FORMS,getAliasSetForms())
         ));
         return methods_;
     }
@@ -1287,14 +1446,14 @@ public final class BeanCustLgNames extends BeanLgNames {
         StringMap<CustList<KeyValueMemberName>> fields_ = super.allTableTypeFieldNames();
         fields_.addEntry(getAliasMessage(),
                 new CustList<KeyValueMemberName>(
-                        new KeyValueMemberName("MapKeys",getAliasMapKeys()),
-                        new KeyValueMemberName("MapValues",getAliasMapValues())));
+                        new KeyValueMemberName(MAP_KEYS,getAliasMapKeys()),
+                        new KeyValueMemberName(MAP_VALUES,getAliasMapValues())));
         fields_.addEntry(getAliasBean(),
                 new CustList<KeyValueMemberName>(
-                        new KeyValueMemberName("Forms",getAliasForms()),
-                        new KeyValueMemberName("Language",getAliasLanguage()),
-                        new KeyValueMemberName("DataBaseField",getAliasDataBaseField()),
-                        new KeyValueMemberName("Scope",getAliasScope())));
+                        new KeyValueMemberName(FORMS,getAliasForms()),
+                        new KeyValueMemberName(LANGUAGE,getAliasLanguage()),
+                        new KeyValueMemberName(DATA_BASE_FIELD,getAliasDataBaseField()),
+                        new KeyValueMemberName(SCOPE,getAliasScope())));
         return fields_;
     }
 
@@ -1473,4 +1632,164 @@ public final class BeanCustLgNames extends BeanLgNames {
     public void setAliasValidate(String _aliasValidate) {
         aliasValidate = _aliasValidate;
     }
+
+    public String getAliasBean() {
+        return aliasBean;
+    }
+
+    public void setAliasBean(String _aliasBean) {
+        aliasBean = _aliasBean;
+    }
+
+    public String getAliasBeforeDisplaying() {
+        return aliasBeforeDisplaying;
+    }
+
+    public void setAliasBeforeDisplaying(String _aliasBeforeDisplaying) {
+        aliasBeforeDisplaying = _aliasBeforeDisplaying;
+    }
+
+    public String getAliasDataBaseField() {
+        return aliasDataBaseField;
+    }
+
+    public void setAliasDataBaseField(String _aliasDataBaseField) {
+        aliasDataBaseField = _aliasDataBaseField;
+    }
+
+    public String getAliasGetDataBase() {
+        return aliasGetDataBase;
+    }
+
+    public void setAliasGetDataBase(String _aliasGetDataBase) {
+        aliasGetDataBase = _aliasGetDataBase;
+    }
+
+    public String getAliasSetDataBase() {
+        return aliasSetDataBase;
+    }
+
+    public void setAliasSetDataBase(String _aliasSetDataBase) {
+        aliasSetDataBase = _aliasSetDataBase;
+    }
+
+    public String getAliasForms() {
+        return aliasForms;
+    }
+
+    public void setAliasForms(String _aliasForms) {
+        aliasForms = _aliasForms;
+    }
+
+    public String getAliasGetForms() {
+        return aliasGetForms;
+    }
+
+    public void setAliasGetForms(String _aliasGetForms) {
+        aliasGetForms = _aliasGetForms;
+    }
+
+    public String getAliasSetForms() {
+        return aliasSetForms;
+    }
+
+    public void setAliasSetForms(String _aliasSetForms) {
+        aliasSetForms = _aliasSetForms;
+    }
+
+    public String getAliasLanguage() {
+        return aliasLanguage;
+    }
+
+    public void setAliasLanguage(String _aliasLanguage) {
+        aliasLanguage = _aliasLanguage;
+    }
+    public String getAliasGetLanguage() {
+        return aliasGetLanguage;
+    }
+
+    public void setAliasGetLanguage(String _aliasGetLanguage) {
+        aliasGetLanguage = _aliasGetLanguage;
+    }
+
+    public String getAliasSetLanguage() {
+        return aliasSetLanguage;
+    }
+
+    public void setAliasSetLanguage(String _aliasSetLanguage) {
+        aliasSetLanguage = _aliasSetLanguage;
+    }
+
+    public String getAliasScope() {
+        return aliasScope;
+    }
+
+    public void setAliasScope(String _aliasScope) {
+        aliasScope = _aliasScope;
+    }
+
+    public String getAliasGetScope() {
+        return aliasGetScope;
+    }
+
+    public void setAliasGetScope(String _aliasGetScope) {
+        aliasGetScope = _aliasGetScope;
+    }
+
+    public String getAliasSetScope() {
+        return aliasSetScope;
+    }
+
+    public void setAliasSetScope(String _aliasSetScope) {
+        aliasSetScope = _aliasSetScope;
+    }
+    public String getAliasStringMapObject() {
+        return aliasStringMapObject;
+    }
+
+    public void setAliasStringMapObject(String _aliasStringMapObject) {
+        aliasStringMapObject = _aliasStringMapObject;
+    }
+
+    public String getAliasMessage() {
+        return aliasMessage;
+    }
+
+    public void setAliasMessage(String _aliasMessage) {
+        aliasMessage = _aliasMessage;
+    }
+
+    public String getAliasNewMessage() {
+        return aliasNewMessage;
+    }
+
+    public void setAliasNewMessage(String _aliasNewMessage) {
+        aliasNewMessage = _aliasNewMessage;
+    }
+
+    public String getAliasMessageFormat() {
+        return aliasMessageFormat;
+    }
+
+    public void setAliasMessageFormat(String _aliasMessageFormat) {
+        aliasMessageFormat = _aliasMessageFormat;
+    }
+
+    public String getAliasMessageGetArgs() {
+        return aliasMessageGetArgs;
+    }
+
+    public void setAliasMessageGetArgs(String _aliasMessageGetArgs) {
+        aliasMessageGetArgs = _aliasMessageGetArgs;
+    }
+
+    public String getAliasMessageSetArgs() {
+        return aliasMessageSetArgs;
+    }
+
+    public void setAliasMessageSetArgs(String _aliasMessageSetArgs) {
+        aliasMessageSetArgs = _aliasMessageSetArgs;
+    }
+
+    public abstract void buildAliases(Element _elt, String _lg, RendKeyWords _rkw, KeyWords _kw, RendAnalysisMessages _rMess, AnalysisMessages _mess);
 }

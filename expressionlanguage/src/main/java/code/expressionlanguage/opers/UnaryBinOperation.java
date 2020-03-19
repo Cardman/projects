@@ -1,7 +1,7 @@
 package code.expressionlanguage.opers;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.errors.custom.UnexpectedTypeOperationError;
+import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.OperationsSequence;
@@ -54,11 +54,13 @@ public final class UnaryBinOperation extends AbstractUnaryOperation implements S
         if (order_ == 0) {
             _conf.setOkNumOp(false);
             String exp_ = _conf.getStandards().getAliasNumber();
-            UnexpectedTypeOperationError un_ = new UnexpectedTypeOperationError();
+            FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setIndexFile(_conf.getCurrentLocationIndex());
             un_.setFileName(_conf.getCurrentFileName());
-            un_.setExpectedResult(exp_);
-            un_.setOperands(clMatch_);
+            //oper
+            un_.buildError(_conf.getContextEl().getAnalysisMessages().getUnexpectedOperandTypes(),
+                    StringList.join(clMatch_.getNames(),"&"),
+                    oper_);
             _conf.addError(un_);
             ClassArgumentMatching arg_ = new ClassArgumentMatching(exp_);
             setResultClass(arg_);

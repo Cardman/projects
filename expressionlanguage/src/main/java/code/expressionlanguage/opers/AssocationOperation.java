@@ -3,8 +3,7 @@ package code.expressionlanguage.opers;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.common.GeneType;
-import code.expressionlanguage.errors.custom.UndefinedFieldError;
-import code.expressionlanguage.errors.custom.UnexpectedOperationAffect;
+import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.methods.AnnotationMethodBlock;
 import code.expressionlanguage.methods.Block;
@@ -39,9 +38,6 @@ public final class AssocationOperation extends AbstractUnaryOperation implements
     public void preAnalyze(Analyzable _conf) {
         MethodOperation mOp_ = getParent();
         AnnotationInstanceOperation par_ = (AnnotationInstanceOperation) mOp_;
-        if (par_.isArray()) {
-            return;
-        }
         String annotationClass_ = par_.getClassName();
         GeneType type_ = _conf.getClassBody(annotationClass_);
         if (type_ instanceof Block) {
@@ -52,35 +48,30 @@ public final class AssocationOperation extends AbstractUnaryOperation implements
     public void analyzeUnary(Analyzable _conf) {
         MethodOperation mOp_ = getParent();
         AnnotationInstanceOperation par_ = (AnnotationInstanceOperation) mOp_;
-        if (par_.isArray()) {
-            UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
-            un_.setIndexFile(_conf.getCurrentLocationIndex());
-            un_.setFileName(_conf.getCurrentFileName());
-            _conf.addError(un_);
-        }else {
-            String annotationClass_ = par_.getClassName();
-            GeneType type_ = _conf.getClassBody(annotationClass_);
-            if (type_ instanceof Block) {
-                Block ann_ = (Block) type_;
-                boolean ok_ = false;
-                for (Block b: Classes.getDirectChildren(ann_)) {
-                    if (!(b instanceof AnnotationMethodBlock)) {
-                        continue;
-                    }
-                    AnnotationMethodBlock a_ = (AnnotationMethodBlock) b;
-                    if (StringList.quickEq(a_.getName(), fieldName)) {
-                        ok_ = true;
-                        break;
-                    }
+        String annotationClass_ = par_.getClassName();
+        GeneType type_ = _conf.getClassBody(annotationClass_);
+        if (type_ instanceof Block) {
+            Block ann_ = (Block) type_;
+            boolean ok_ = false;
+            for (Block b: Classes.getDirectChildren(ann_)) {
+                if (!(b instanceof AnnotationMethodBlock)) {
+                    continue;
                 }
-                if (!ok_) {
-                    UndefinedFieldError cast_ = new UndefinedFieldError();
-                    cast_.setId(fieldName);
-                    cast_.setClassName(annotationClass_);
-                    cast_.setFileName(_conf.getCurrentFileName());
-                    cast_.setIndexFile(_conf.getCurrentLocationIndex());
-                    _conf.addError(cast_);
+                AnnotationMethodBlock a_ = (AnnotationMethodBlock) b;
+                if (StringList.quickEq(a_.getName(), fieldName)) {
+                    ok_ = true;
+                    break;
                 }
+            }
+            if (!ok_) {
+                FoundErrorInterpret cast_ = new FoundErrorInterpret();
+                cast_.setFileName(_conf.getCurrentFileName());
+                cast_.setIndexFile(_conf.getCurrentLocationIndex());
+                //fieldName len
+                cast_.buildError(_conf.getContextEl().getAnalysisMessages().getUndefinedAccessibleField(),
+                        fieldName,
+                        annotationClass_);
+                _conf.addError(cast_);
             }
         }
         setResultClass(getFirstChild().getResultClass());

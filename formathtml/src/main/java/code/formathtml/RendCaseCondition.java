@@ -3,10 +3,8 @@ package code.formathtml;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.common.GeneField;
 import code.expressionlanguage.common.GeneType;
-import code.expressionlanguage.errors.custom.UnexpectedTagName;
-import code.expressionlanguage.errors.custom.UnexpectedTypeError;
+import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
@@ -15,9 +13,11 @@ import code.expressionlanguage.instr.Delimiters;
 import code.expressionlanguage.instr.ElResolver;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.methods.EnumBlock;
+import code.expressionlanguage.methods.InfoBlock;
 import code.expressionlanguage.methods.InnerTypeOrElement;
-import code.expressionlanguage.opers.Calculation;
+import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.opers.OperationNode;
+import code.expressionlanguage.opers.exec.ExecCatOperation;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.MethodAccessKind;
 import code.formathtml.exec.RendDynOperationNode;
@@ -51,17 +51,20 @@ public final class RendCaseCondition extends RendParentBlock implements RendBuil
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         page_.setGlobalOffset(valueOffset);
         page_.setOffset(0);
-        _cont.getAnalyzingDoc().setAttribute(ATTRIBUTE_VALUE);
+        _cont.getAnalyzingDoc().setAttribute(_cont.getRendKeyWords().getAttrValue());
         RendParentBlock par_ = getParent();
-        MethodAccessKind stCtx_ = _doc.getStaticContext();
         if (!(par_ instanceof RendSwitchBlock)) {
             page_.setGlobalOffset(getOffset().getOffsetTrim());
             page_.setOffset(0);
-            UnexpectedTagName un_ = new UnexpectedTagName();
+            FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(_cont.getCurrentFileName());
             un_.setIndexFile(getOffset().getOffsetTrim());
+            un_.buildError(_cont.getContext().getAnalysisMessages().getUnexpectedCaseDef(),
+                    _cont.getKeyWords().getKeyWordCase(),
+                    value,
+                    _cont.getKeyWords().getKeyWordSwitch());
             _cont.addError(un_);
-            opValue = RenderExpUtil.getAnalyzedOperations(value,0, _cont, Calculation.staticCalculation(stCtx_));
+            opValue = RenderExpUtil.getAnalyzedOperations(value,valueOffset,0, _cont);
             return;
         }
         RendSwitchBlock sw_ = (RendSwitchBlock) par_;
@@ -71,7 +74,7 @@ public final class RendCaseCondition extends RendParentBlock implements RendBuil
             String id_ = Templates.getIdFromAllTypes(type_);
             GeneType g_ = _cont.getClassBody(id_);
             if (g_ instanceof EnumBlock) {
-                for (GeneField f: ContextEl.getFieldBlocks(g_)) {
+                for (InfoBlock f: ContextEl.getFieldBlocks((RootBlock) g_)) {
                     if (!(f instanceof InnerTypeOrElement)) {
                         continue;
                     }
@@ -92,47 +95,55 @@ public final class RendCaseCondition extends RendParentBlock implements RendBuil
                     checkDuplicateEnumCase(_cont);
                     return;
                 }
-                opValue = RenderExpUtil.getAnalyzedOperations(value, 0,_cont, Calculation.staticCalculation(stCtx_));
+                opValue = RenderExpUtil.getAnalyzedOperations(value, valueOffset,0,_cont);
                 Argument a_ = opValue.last().getArgument();
                 if (Argument.isNullValue(a_)) {
                     checkDuplicateCase(_cont, a_);
                     return;
                 }
-                UnexpectedTypeError un_ = new UnexpectedTypeError();
+                FoundErrorInterpret un_ = new FoundErrorInterpret();
                 un_.setFileName(_cont.getCurrentFileName());
                 un_.setIndexFile(valueOffset);
-                un_.setType(opValue.last().getResultClass());
+                un_.buildError(_cont.getContext().getAnalysisMessages().getUnexpectedCaseVar(),
+                        _cont.getKeyWords().getKeyWordCase(),
+                        value);
                 _cont.addError(un_);
                 return;
             }
         }
-        opValue = RenderExpUtil.getAnalyzedOperations(value,0, _cont, Calculation.staticCalculation(stCtx_));
+        opValue = RenderExpUtil.getAnalyzedOperations(value,valueOffset,0, _cont);
         RendDynOperationNode op_ = opValue.last();
         ClassArgumentMatching resCase_ = op_.getResultClass();
         if (resCase_.matchVoid(_cont)) {
-            UnexpectedTypeError un_ = new UnexpectedTypeError();
+            FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(_cont.getCurrentFileName());
             un_.setIndexFile(valueOffset);
-            un_.setType(resCase_);
+            un_.buildError(_cont.getContextEl().getAnalysisMessages().getVoidType(),
+                    _cont.getStandards().getAliasVoid());
             _cont.addError(un_);
             return;
         }
         Argument arg_ = op_.getArgument();
         if (arg_ == null) {
-            UnexpectedTypeError un_ = new UnexpectedTypeError();
+            FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(_cont.getCurrentFileName());
             un_.setIndexFile(valueOffset);
-            un_.setType(resCase_);
+            un_.buildError(_cont.getContext().getAnalysisMessages().getUnexpectedCaseVar(),
+                    _cont.getKeyWords().getKeyWordCase(),
+                    value);
             _cont.addError(un_);
         } else {
             checkDuplicateCase(_cont, arg_);
-        }
-        if (!PrimitiveTypeUtil.canBeUseAsArgument(resSwitch_, resCase_, _cont)) {
-            UnexpectedTypeError un_ = new UnexpectedTypeError();
-            un_.setFileName(_cont.getCurrentFileName());
-            un_.setIndexFile(valueOffset);
-            un_.setType(resCase_);
-            _cont.addError(un_);
+            if (!PrimitiveTypeUtil.canBeUseAsArgument(resSwitch_, resCase_, _cont)) {
+                FoundErrorInterpret un_ = new FoundErrorInterpret();
+                un_.setFileName(_cont.getCurrentFileName());
+                un_.setIndexFile(valueOffset);
+                un_.buildError(_cont.getContext().getAnalysisMessages().getUnexpectedCaseValue(),
+                        _cont.getKeyWords().getKeyWordCase(),
+                        ExecCatOperation.getString(arg_,_cont),
+                        StringList.join(resSwitch_.getNames(),AND_ERR));
+                _cont.addError(un_);
+            }
         }
     }
 
@@ -146,9 +157,13 @@ public final class RendCaseCondition extends RendParentBlock implements RendBuil
                 Argument a_ = curOp_.getArgument();
                 if (a_ != null) {
                     if (_arg.getStruct().sameReference(a_.getStruct())) {
-                        UnexpectedTagName un_ = new UnexpectedTagName();
+                        FoundErrorInterpret un_ = new FoundErrorInterpret();
                         un_.setFileName(_cont.getCurrentFileName());
                         un_.setIndexFile(getValueOffset()+ getOffset().getOffsetTrim());
+                        un_.buildError(_cont.getContext().getAnalysisMessages().getUnexpectedCaseDup(),
+                                _cont.getKeyWords().getKeyWordCase(),
+                                ExecCatOperation.getString(_arg,_cont),
+                                _cont.getKeyWords().getKeyWordSwitch());
                         _cont.addError(un_);
                         break;
                     }
@@ -165,9 +180,13 @@ public final class RendCaseCondition extends RendParentBlock implements RendBuil
                 RendCaseCondition c_ = (RendCaseCondition) first_;
                 String v_ = c_.value.trim();
                 if (StringList.quickEq(v_, value.trim())) {
-                    UnexpectedTagName un_ = new UnexpectedTagName();
+                    FoundErrorInterpret un_ = new FoundErrorInterpret();
                     un_.setFileName(_cont.getCurrentFileName());
                     un_.setIndexFile(getValueOffset()+ getOffset().getOffsetTrim());
+                    un_.buildError(_cont.getContext().getAnalysisMessages().getUnexpectedCaseDup(),
+                            _cont.getKeyWords().getKeyWordCase(),
+                            value.trim(),
+                            _cont.getKeyWords().getKeyWordSwitch());
                     _cont.addError(un_);
                     break;
                 }

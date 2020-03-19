@@ -1,23 +1,10 @@
 package code.expressionlanguage;
 
-import code.expressionlanguage.methods.AccessingImportingBlock;
-import code.expressionlanguage.methods.AnalyzingEl;
-import code.expressionlanguage.methods.AssignedVariablesBlock;
-import code.expressionlanguage.methods.Block;
-import code.expressionlanguage.methods.Classes;
-import code.expressionlanguage.methods.ForLoopPart;
-import code.expressionlanguage.methods.MemberCallingsBlock;
-import code.expressionlanguage.opers.util.Assignment;
+import code.expressionlanguage.methods.*;
 import code.expressionlanguage.opers.util.MethodAccessKind;
-import code.expressionlanguage.opers.util.MethodId;
-import code.expressionlanguage.opers.util.SimpleAssignment;
 import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.LoopVariable;
-import code.util.CustList;
-import code.util.Ints;
 import code.util.*;
-import code.util.StringList;
-import code.util.StringMap;
 
 public final class AnalyzedPageEl {
 
@@ -42,8 +29,9 @@ public final class AnalyzedPageEl {
 
     private boolean enabledInternVars;
 
-    private MemberCallingsBlock currentFct;
+    private FunctionBlock currentFct;
     private AccessingImportingBlock importing;
+    private final StringList listTypesNames = new StringList();
 
     private int offset;
 
@@ -215,6 +203,15 @@ public final class AnalyzedPageEl {
         catchVars.clear();
     }
 
+    public void clearAllLocalVarsReadOnly() {
+        localVars.clear();
+        localVarsInfers.clear();
+        mutableVars.clear();
+        mutableLocalVarsInfers.clear();
+        vars.clear();
+        catchVars.clear();
+    }
+
     public boolean containsMutableLoopVar(String _key) {
         for (StringMap<LoopVariable> m: mutableVars) {
             if (m.contains(_key)) {
@@ -296,13 +293,10 @@ public final class AnalyzedPageEl {
         return null;
     }
 
-    public StringMap<Assignment> getDeclaredAssignments() {
-        StringMap<Assignment> o_ = new StringMap<Assignment>();
+    public StringMap<Boolean> getDeclaredAssignments() {
+        StringMap<Boolean> o_ = new StringMap<Boolean>();
         for (String f: allDeclaredFields) {
-            SimpleAssignment ass_ = new SimpleAssignment();
-            ass_.setAssignedAfter(StringList.contains(assignedDeclaredFields,f));
-            ass_.setUnassignedAfter(!StringList.contains(assignedDeclaredFields,f));
-            o_.addEntry(f, ass_);
+            o_.addEntry(f, !StringList.contains(assignedDeclaredFields,f));
         }
         return o_;
     }
@@ -330,11 +324,11 @@ public final class AnalyzedPageEl {
         staticContext = _staticContext;
     }
 
-    public MemberCallingsBlock getCurrentFct() {
+    public FunctionBlock getCurrentFct() {
         return currentFct;
     }
 
-    public void setCurrentFct(MemberCallingsBlock _currentFct) {
+    public void setCurrentFct(FunctionBlock _currentFct) {
         currentFct = _currentFct;
     }
 
@@ -503,5 +497,9 @@ public final class AnalyzedPageEl {
 
     public StringList getAllDeclaredFields() {
         return allDeclaredFields;
+    }
+
+    public StringList getListTypesNames() {
+        return listTypesNames;
     }
 }

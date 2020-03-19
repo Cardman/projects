@@ -373,31 +373,48 @@ public final class ProcessMethodInstanceCoreTest extends ProcessMethodCommon {
         assertEq(5, ((NumberStruct)field_).intStruct());
     }
     @Test
-    public void instanceArgument1FailTest() {
+    public void instanceArgument12Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
-        xml_.append(" $public $int other:\n");
-        xml_.append(" $public $final $int inst:\n");
-        xml_.append(" {\n");
+        xml_.append(" $public $static $final $int inst:\n");
+        xml_.append(" $static {\n");
         xml_.append("  $int loc=0:\n");
         xml_.append("  $int i=0:\n");
         xml_.append("  $while($true){\n");
-        xml_.append("   $int v=0:\n");
-        xml_.append("   other=1:\n");
         xml_.append("   $if(i;.>=5){\n");
-        xml_.append("    inst = loc;.:\n");
-        xml_.append("    $continue:\n");
+        xml_.append("    Ex.inst = loc;.:\n");
+        xml_.append("    $break:\n");
         xml_.append("   }\n");
         xml_.append("   loc;. += i;.:\n");
         xml_.append("   i;.++:\n");
-        xml_.append("   $break:\n");
         xml_.append("  }\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElReadOnly();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        ConstructorId id_ = getConstructorId("pkg.Ex");
+
+        instanceArgument("pkg.Ex", null, id_, args_, cont_);
+        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        Struct field_;
+        field_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "inst"));
+        assertEq(INTEGER, field_.getClassName(cont_));
+        assertEq(10, ((NumberStruct)field_).intStruct());
+    }
+
+
+    @Test
+    public void instanceArgument2FailTest() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {{$new CharSequence():$new Exception():}}\n");
+        StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(),!cont_.isEmptyErrors());
+        assertTrue(!cont_.isEmptyErrors());
     }
 }

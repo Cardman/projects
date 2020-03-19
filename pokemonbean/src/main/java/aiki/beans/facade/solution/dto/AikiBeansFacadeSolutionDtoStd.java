@@ -14,6 +14,7 @@ import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.util.BeanLgNames;
 import code.formathtml.structs.StdStruct;
+import code.formathtml.util.BeanNatLgNames;
 import code.util.CustList;
 import code.util.ObjectMap;
 import code.util.StringList;
@@ -62,10 +63,10 @@ public final class AikiBeansFacadeSolutionDtoStd {
         fields_ = new StringMap<StandardField>();
         type_ = new StandardClass(TYPE_STEP_DTO, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
         params_ = new StringList();
-        method_ = new StandardMethod(GET_POKEMON,params_,_std.getCustMap(), false, MethodModifier.NORMAL,type_);
+        method_ = new StandardMethod(GET_POKEMON,params_, BeanNatLgNames.TYPE_MAP, false, MethodModifier.NORMAL,type_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
-        method_ = new StandardMethod(GET_NAMES,params_,_std.getCustList(), false, MethodModifier.NORMAL,type_);
+        method_ = new StandardMethod(GET_NAMES,params_, BeanNatLgNames.TYPE_LIST, false, MethodModifier.NORMAL,type_);
         methods_.put(method_.getId(), method_);
         _std.getStandards().put(TYPE_STEP_DTO, type_);
     }
@@ -121,11 +122,11 @@ public final class AikiBeansFacadeSolutionDtoStd {
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringList.quickEq(methodName_,GET_POKEMON)) {
-            res_.setResult(new StdStruct(instance_.getPokemon(),std_.getCustMap()));
+            res_.setResult(new StdStruct(instance_.getPokemon(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
         if (StringList.quickEq(methodName_,GET_NAMES)) {
-            res_.setResult(new StdStruct(instance_.getNames(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getNames(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         return res_;

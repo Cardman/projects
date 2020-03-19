@@ -1,8 +1,7 @@
 package code.expressionlanguage.methods;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.errors.custom.BadIndexInParser;
-import code.expressionlanguage.errors.custom.DeadCodeTernary;
+import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.instr.PartOffset;
@@ -34,11 +33,12 @@ public final class FileBlock extends BracedBlock implements ImportingBlock {
         predefined = _predefined;
         tabWidth = _tabWidth;
     }
-    public void processLinesTabs(ContextEl _context, String _file) {
+    public boolean processLinesTabsWithError(ContextEl _context, String _file) {
         int i_ = CustList.FIRST_INDEX;
         int len_ = _file.length();
         getLineReturns().add(-1);
         boolean foundBinChar_ = false;
+        Ints badChars_ = new Ints();
         while (i_ < len_) {
             char ch_ = _file.charAt(i_);
             if (ch_ < ' ') {
@@ -51,6 +51,7 @@ public final class FileBlock extends BracedBlock implements ImportingBlock {
                         getLineReturns().add(i_);
                     }
                 } else {
+                    badChars_.add((int)ch_);
                     getBinChars().add(i_);
                     foundBinChar_ = true;
                 }
@@ -58,12 +59,21 @@ public final class FileBlock extends BracedBlock implements ImportingBlock {
             i_++;
         }
         if (foundBinChar_) {
-            BadIndexInParser d_ = new BadIndexInParser();
-            d_.setIndex(0);
+            badChars_.sort();
+            badChars_.removeDuplicates();
+            FoundErrorInterpret d_ = new FoundErrorInterpret();
             d_.setIndexFile(0);
             d_.setFileName(fileName);
+            StringList badCharsStr_ = new StringList();
+            for (int i: badChars_) {
+                badCharsStr_.add(Integer.toString(i));
+            }
+            //first bad character
+            d_.buildError(_context.getAnalysisMessages().getIllegalCharacter(),
+                    StringList.join(badCharsStr_,","));
             _context.addError(d_);
         }
+        return foundBinChar_;
     }
     public int getRowFile(int _sum) {
         int len_ = lineReturns.size();

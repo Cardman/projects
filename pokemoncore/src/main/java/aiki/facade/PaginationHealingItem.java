@@ -301,9 +301,7 @@ public final class PaginationHealingItem extends
         if (cmpNumber.getPriority() != NO_PRIORITY) {
             priorities_.add(cmpNumber.getPriority());
         }
-        int size_ = priorities_.size();
-        priorities_.removeDuplicates();
-        return size_ == priorities_.size();
+        return !priorities_.hasDuplicates();
     }
 
     @Override

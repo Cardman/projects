@@ -1,5 +1,6 @@
 package code.player.gui;
 import java.awt.Dimension;
+import java.io.IOException;
 
 import javax.sound.sampled.LineEvent;
 import javax.swing.JOptionPane;
@@ -496,9 +497,13 @@ public class MainWindow extends GroupFrame {
     }
 
     void tryClose() {
+        if (clipStream == null) {
+            return;
+        }
         try {
             clipStream.getStream().close();
-        } catch (Exception _0) {
+        } catch (IOException _0) {
+            //
         }
     }
 

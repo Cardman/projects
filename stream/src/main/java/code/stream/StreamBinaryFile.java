@@ -14,6 +14,9 @@ public final class StreamBinaryFile {
     }
 
     public static byte[] loadFile(String _file) {
+        if (_file == null) {
+            return null;
+        }
         try {
             File file_ = new File(_file);
             FileInputStream fis_ = new FileInputStream(file_);
@@ -34,14 +37,15 @@ public final class StreamBinaryFile {
             buff_.close();
             fis_.close();
             return bytes_;
-        } catch (RuntimeException _0) {
-            return null;
         } catch (IOException _0) {
             return null;
         }
     }
 
     public static boolean writeFile(String _file, byte[] _content) {
+        if (_file == null) {
+            return false;
+        }
         try {
             FileOutputStream fos_ = new FileOutputStream(new File(_file));
             BufferedOutputStream buff_ = new BufferedOutputStream(fos_);
@@ -49,7 +53,7 @@ public final class StreamBinaryFile {
             buff_.close();
             fos_.close();
             return true;
-        } catch (Exception _0) {
+        } catch (IOException _0) {
             return false;
         }
     }

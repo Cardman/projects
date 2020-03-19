@@ -118,7 +118,7 @@ public class LgNamesTest {
     private static SingleContextEl getCtx(DefaultLockingClass lk_, DefaultInitializer di_, KeyWords kw_, LgNames lgName_, Options opts_) {
         AnalysisMessages mess_ = new AnalysisMessages();
         SingleContextEl ctx_ = new SingleContextEl(-1, lk_, di_, opts_, mess_, kw_, lgName_, 4);
-        mess_.validateMessageContents(ctx_,mess_.allMessages());
+        AnalysisMessages.validateMessageContents(ctx_,mess_.allMessages());
         assertTrue(ctx_.getClasses().isEmptyMessageError());
         return ctx_;
     }

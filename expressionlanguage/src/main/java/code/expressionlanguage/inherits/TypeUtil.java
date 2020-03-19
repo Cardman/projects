@@ -3,10 +3,7 @@ package code.expressionlanguage.inherits;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.*;
-import code.expressionlanguage.errors.custom.BadAccessMethod;
-import code.expressionlanguage.errors.custom.BadInheritedClass;
-import code.expressionlanguage.errors.custom.BadReturnTypeInherit;
-import code.expressionlanguage.errors.custom.FinalMethod;
+import code.expressionlanguage.errors.custom.*;
 import code.expressionlanguage.methods.*;
 import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.util.*;
@@ -34,11 +31,13 @@ public final class TypeUtil {
             StringList ints_ = c.getStaticInitInterfaces();
             int len_ = ints_.size();
             if (len_ > 0 && c instanceof GeneInterface) {
-                BadInheritedClass enum_;
-                enum_ = new BadInheritedClass();
-                enum_.setClassName(c.getFullName());
+                FoundErrorInterpret enum_;
+                enum_ = new FoundErrorInterpret();
                 enum_.setFileName(d_);
                 enum_.setIndexFile(_context.getCurrentLocationIndex());
+                //original id len
+                enum_.buildError(_context.getAnalysisMessages().getCallIntNoNeed(),
+                        c.getFullName());
                 _context.addError(enum_);
             }
             for (int i = 0; i < len_; i++) {
@@ -50,11 +49,13 @@ public final class TypeUtil {
                 base_ = _context.resolveAccessibleIdType(0,base_);
                 RootBlock r_ = classes_.getClassBody(base_);
                 if (!(r_ instanceof InterfaceBlock)) {
-                    BadInheritedClass enum_;
-                    enum_ = new BadInheritedClass();
-                    enum_.setClassName(base_);
+                    FoundErrorInterpret enum_;
+                    enum_ = new FoundErrorInterpret();
                     enum_.setFileName(d_);
                     enum_.setIndexFile(_context.getCurrentLocationIndex());
+                    //interface len
+                    enum_.buildError(_context.getAnalysisMessages().getCallIntOnly(),
+                            base_);
                     _context.addError(enum_);
                 } else {
                     c.getStaticInitImportedInterfaces().add(base_);
@@ -85,12 +86,15 @@ public final class TypeUtil {
                         continue;
                     }
                     if (PrimitiveTypeUtil.canBeUseAsArgument(sub_, sup_, _context)) {
-                        BadInheritedClass undef_;
-                        undef_ = new BadInheritedClass();
-                        undef_.setClassName(sub_);
+                        FoundErrorInterpret undef_;
+                        undef_ = new FoundErrorInterpret();
                         undef_.setFileName(d_);
                         int offset_ = c.getStaticInitInterfacesOffset().get(j);
                         undef_.setIndexFile(offset_);
+                        //interface j len
+                        undef_.buildError(_context.getAnalysisMessages().getCallIntInherits(),
+                                sup_,
+                                sub_);
                         _context.addError(undef_);
                     }
                 }
@@ -107,18 +111,21 @@ public final class TypeUtil {
             for (String i: ints_) {
                 trimmedInt_.add(i);
             }
-            StringList all_ = bl_.getAllInterfaces();
+            StringList all_ = bl_.getAllSuperTypes();
             StringList allCopy_ = new StringList(all_);
             StringList.removeAllElements(allCopy_, _context.getStandards().getPredefinedInterfacesInitOrder());
             String clName_ = un_.getImportedDirectGenericSuperClass();
             String id_ = Templates.getIdFromAllTypes(clName_);
             RootBlock superType_ = classes_.getClassBody(id_);
             if (superType_ instanceof UniqueRootedBlock) {
-                StringList.removeAllElements(allCopy_, superType_.getAllInterfaces());
+                StringList.removeAllElements(allCopy_, superType_.getAllSuperTypes());
             }
             StringList filteredStatic_ = new StringList();
             for (String i: allCopy_) {
                 RootBlock int_ = classes_.getClassBody(i);
+                if (!(int_ instanceof InterfaceBlock)) {
+                    continue;
+                }
                 for (Block b: Classes.getDirectChildren(int_)) {
                     if (b instanceof NamedFunctionBlock) {
                         continue;
@@ -148,12 +155,30 @@ public final class TypeUtil {
                 }
             }
             if (!StringList.equalsSet(filteredStatic_, trimmedInt_)) {
-                BadInheritedClass undef_;
-                undef_ = new BadInheritedClass();
-                undef_.setClassName(c);
-                undef_.setFileName(un_.getFile().getFileName());
-                undef_.setIndexFile(0);
-                _context.addError(undef_);
+                for (String s: filteredStatic_) {
+                    if (!StringList.contains(trimmedInt_,s)) {
+                        FoundErrorInterpret undef_;
+                        undef_ = new FoundErrorInterpret();
+                        undef_.setFileName(un_.getFile().getFileName());
+                        undef_.setIndexFile(0);
+                        //last parenthese
+                        undef_.buildError(_context.getAnalysisMessages().getCallIntNeedType(),
+                                s);
+                        _context.addError(undef_);
+                    }
+                }
+                for (String s: trimmedInt_) {
+                    if (!StringList.contains(filteredStatic_,s)) {
+                        FoundErrorInterpret undef_;
+                        undef_ = new FoundErrorInterpret();
+                        undef_.setFileName(un_.getFile().getFileName());
+                        undef_.setIndexFile(0);
+                        //type len
+                        undef_.buildError(_context.getAnalysisMessages().getCallIntNoNeedType(),
+                                s);
+                        _context.addError(undef_);
+                    }
+                }
             }
         }
     }
@@ -183,14 +208,15 @@ public final class TypeUtil {
         Classes classesRef_ = _context.getClasses();
         String fileName_ = _type.getFile().getFileName();
         for (ClassMethodId c: getAllDuplicates(_type, _context)) {
-            BadReturnTypeInherit err_;
-            err_ = new BadReturnTypeInherit();
+            FoundErrorInterpret err_;
+            err_ = new FoundErrorInterpret();
             err_.setFileName(fileName_);
             NamedFunctionBlock sub_ = Classes.getMethodBodiesById(_context,c.getClassName(),c.getConstraints()).first();
             err_.setIndexFile(sub_.getReturnTypeOffset());
-            err_.setReturnType(sub_.getImportedReturnType());
-            err_.setMethod(c.getConstraints().getSignature(_context));
-            err_.setParentClass(c.getClassName());
+            //type id len
+            err_.buildError(_context.getAnalysisMessages().getDuplicatedOverriding(),
+                    _type.getFullName(),
+                    StringList.concat(c.getClassName(),".",c.getConstraints().getSignature(_context)));
             _context.addError(err_);
         }
         ObjectMap<MethodId, EqList<ClassMethodId>> allOv_ = getAllInstanceSignatures(_type, _context);
@@ -248,33 +274,45 @@ public final class TypeUtil {
                     String formattedRetDer_ = Templates.quickFormat(subId_.getClassName(), retDerive_, _context);
                     String formattedRetBase_ = Templates.quickFormat(supId_.getClassName(), retBase_, _context);
                     if (((OverridableBlock)sup_).isFinalMethod()) {
-                        FinalMethod err_;
-                        err_ = new FinalMethod();
+                        FoundErrorInterpret err_;
+                        err_ = new FoundErrorInterpret();
                         err_.setFileName(fileName_);
                         err_.setIndexFile(sub_.getNameOffset());
-                        err_.setClassName(subId_.getClassName());
-                        err_.setId(((OverridableBlock)sub_).getSignature(_context));
+                        //sub method name len
+                        err_.buildError(_context.getAnalysisMessages().getDuplicatedFinal(),
+                                supId_.getConstraints().getSignature(_context),
+                                supId_.getClassName());
                         _context.addError(err_);
                         continue;
                     }
                     if (sup_.getAccess().isStrictMoreAccessibleThan(sub_.getAccess())) {
-                        BadAccessMethod err_;
-                        err_ = new BadAccessMethod();
+                        FoundErrorInterpret err_;
+                        err_ = new FoundErrorInterpret();
                         err_.setFileName(fileName_);
                         err_.setIndexFile(sub_.getAccessOffset());
-                        err_.setId(((OverridableBlock)sub_).getSignature(_context));
+                        //key word access or method name
+                        err_.buildError(_context.getContextEl().getAnalysisMessages().getMethodsAccesses(),
+                                supId_.getClassName(),
+                                supId_.getConstraints().getSignature(_context),
+                                subId_.getClassName(),
+                                subId_.getConstraints().getSignature(_context));
                         _context.addError(err_);
                         continue;
                     }
                     if (((OverridableBlock)sub_).getKind() != MethodKind.STD_METHOD) {
                         if (!StringList.quickEq(formattedRetBase_, formattedRetDer_)) {
-                            BadReturnTypeInherit err_;
-                            err_ = new BadReturnTypeInherit();
+                            FoundErrorInterpret err_;
+                            err_ = new FoundErrorInterpret();
                             err_.setFileName(fileName_);
                             err_.setIndexFile(sub_.getReturnTypeOffset());
-                            err_.setReturnType(retDerive_);
-                            err_.setMethod(((OverridableBlock)sub_).getSignature(_context));
-                            err_.setParentClass(supId_.getClassName());
+                            //sub return type len
+                            err_.buildError(_context.getAnalysisMessages().getBadReturnTypeIndexer(),
+                                    formattedRetBase_,
+                                    supId_.getConstraints().getSignature(_context),
+                                    supId_.getClassName(),
+                                    formattedRetDer_,
+                                    subId_.getConstraints().getSignature(_context),
+                                    subId_.getClassName());
                             _context.addError(err_);
                             continue;
                         }
@@ -283,13 +321,18 @@ public final class TypeUtil {
                         continue;
                     }
                     if (!Templates.isReturnCorrect(formattedRetBase_, formattedRetDer_, vars_, _context)) {
-                        BadReturnTypeInherit err_;
-                        err_ = new BadReturnTypeInherit();
+                        FoundErrorInterpret err_;
+                        err_ = new FoundErrorInterpret();
                         err_.setFileName(fileName_);
                         err_.setIndexFile(sub_.getReturnTypeOffset());
-                        err_.setReturnType(retDerive_);
-                        err_.setMethod(((OverridableBlock)sub_).getSignature(_context));
-                        err_.setParentClass(supId_.getClassName());
+                        //sub return type len
+                        err_.buildError(_context.getAnalysisMessages().getBadReturnTypeInherit(),
+                                formattedRetDer_,
+                                subId_.getConstraints().getSignature(_context),
+                                subId_.getClassName(),
+                                formattedRetBase_,
+                                supId_.getConstraints().getSignature(_context),
+                                supId_.getClassName());
                         _context.addError(err_);
                         continue;
                     }
@@ -317,9 +360,9 @@ public final class TypeUtil {
             EqList<ClassMethodId> methods_ = new EqList<ClassMethodId>();
             StringList all_ = new StringList();
             all_.add(name_);
-            all_.addAllElts(c.getAllInterfaces());
+            all_.addAllElts(c.getAllSuperTypes());
             for (String s: all_) {
-                GeneType r_ = _conf.getClassBody(s);
+                RootBlock r_ = _conf.getClasses().getClassBody(s);
                 if (!(r_ instanceof GeneInterface)) {
                     continue;
                 }
@@ -390,7 +433,7 @@ public final class TypeUtil {
         for (ClassMethodId t: foundSuperClasses_) {
             String t_ = t.getClassName();
             String baseSuperType_ = Templates.getIdFromAllTypes(t_);
-            GeneMethod method_ = (GeneMethod) Classes.getMethodBodiesById(_conf,baseSuperType_, t.getConstraints()).first();
+            GeneCustMethod method_ = (GeneCustMethod) Classes.getMethodBodiesById(_conf,baseSuperType_, t.getConstraints()).first();
             if (method_.isAbstractMethod()) {
                 continue;
             }
@@ -408,7 +451,7 @@ public final class TypeUtil {
             list_.add(v.getClassName());
         }
         list_ = PrimitiveTypeUtil.getSubclasses(list_, _conf);
-        if (list_.size() == 1) {
+        if (list_.onlyOneElt()) {
             String class_ = list_.first();
             String classBase_ = Templates.getIdFromAllTypes(class_);
             return new ClassMethodId(classBase_, defs_.getVal(class_));
@@ -420,7 +463,7 @@ public final class TypeUtil {
             list_.add(v.getClassName());
         }
         list_ = PrimitiveTypeUtil.getSubclasses(list_, _conf);
-        if (list_.size() == 1) {
+        if (list_.onlyOneElt()) {
             String class_ = list_.first();
             String classBase_ = Templates.getIdFromAllTypes(class_);
             return new ClassMethodId(classBase_, defs_.getVal(class_));
@@ -441,9 +484,6 @@ public final class TypeUtil {
         allBaseClasses_.addAllElts(_type.getAllSuperClasses());
         for (String s: allBaseClasses_) {
             RootBlock r_ = _conf.getClasses().getClassBody(s);
-            if (r_ == null) {
-                continue;
-            }
             String gene_ = r_.getGenericString();
             String v_ = Templates.getFullTypeByBases(gene_, _subTypeName, _conf);
             if (v_ == null) {
@@ -482,7 +522,7 @@ public final class TypeUtil {
             classNameFound_ = tree_.firstKey();
             realId_ = tree_.firstValue();
             classNameFound_ = Templates.getIdFromAllTypes(classNameFound_);
-            if (((GeneMethod) Classes.getMethodBodiesById(_conf,classNameFound_, realId_).first()).isAbstractMethod()) {
+            if (((GeneCustMethod) Classes.getMethodBodiesById(_conf,classNameFound_, realId_).first()).isAbstractMethod()) {
                 continue;
             }
             return new ClassMethodId(classNameFound_, realId_);
@@ -497,21 +537,17 @@ public final class TypeUtil {
         return out_;
     }
 
-    public static StringList getBuiltInners(boolean _protectedInc,String _gl, String _root, String _innerName, boolean _static,Analyzable _an) {
+    public static StringList getInners(String _root, String _innerName, Analyzable _an) {
         StringList inners_ = new StringList();
-        for (String o: getOwners(true,_protectedInc, _gl, _root, _innerName, _static, _an)) {
+        for (String o: getOwners(_root, _innerName, _an)) {
             inners_.add(StringList.concat(o,"..",_innerName));
         }
         return inners_;
     }
-    public static StringList getInners(boolean _protectedInc,String _gl, String _root, String _innerName, boolean _static,Analyzable _an) {
-        StringList inners_ = new StringList();
-        for (String o: getOwners(false,_protectedInc, _gl, _root, _innerName, _static, _an)) {
-            inners_.add(StringList.concat(o,"..",_innerName));
-        }
-        return inners_;
+    public static StringList getOwners(String _root, String _innerName, Analyzable _an) {
+         return getOwners(_root,_innerName,false,_an);
     }
-    public static StringList getOwners(boolean _inherits,boolean _protectedInc,String _gl, String _root, String _innerName, boolean _staticOnly,Analyzable _an) {
+    public static StringList getOwners(String _root, String _innerName, boolean _staticOnly, Analyzable _an) {
         StringList ids_ = new StringList(_root);
         StringList owners_ = new StringList();
         StringList visited_ = new StringList();
@@ -523,22 +559,7 @@ public final class TypeUtil {
                     continue;
                 }
                 RootBlock sub_ = (RootBlock)g_;
-                boolean add_ = false;
-                for (RootBlock b: Classes.accessedClassMembers(_inherits, _protectedInc, _root,_gl,sub_, _an)) {
-                    if (_staticOnly) {
-                        if (!b.isStaticType()) {
-                            continue;
-                        }
-                    }
-                    String name_ = b.getName();
-                    if (StringList.quickEq(name_, _innerName)) {
-                        owners_.add(s);
-                        add_ = true;
-                    }
-                }
-                if (add_) {
-                    continue;
-                }
+                added(_innerName, _staticOnly, owners_, s, sub_);
                 for (String t: sub_.getImportedDirectBaseSuperTypes().values()) {
                     addIfNotFound(visited_, new_, t);
                 }
@@ -548,10 +569,9 @@ public final class TypeUtil {
             }
             ids_ = new_;
         }
-        owners_.removeDuplicates();
-        return owners_;
+        return PrimitiveTypeUtil.getSubclasses(owners_,_an);
     }
-    public static StringList getGenericOwners(boolean _inherits, boolean _protectedInc, String _gl, String _root, String _innerName, Analyzable _an) {
+    public static StringList getGenericOwners(String _root, String _innerName, Analyzable _an) {
         StringList ids_ = new StringList(_root);
         StringList owners_ = new StringList();
         StringList visited_ = new StringList();
@@ -564,17 +584,7 @@ public final class TypeUtil {
                     continue;
                 }
                 RootBlock sub_ = (RootBlock)g_;
-                boolean add_ = false;
-                for (RootBlock b: Classes.accessedClassMembers(_inherits, _protectedInc, _root,_gl,sub_, _an)) {
-                    String name_ = b.getName();
-                    if (StringList.quickEq(name_, _innerName)) {
-                        owners_.add(s);
-                        add_ = true;
-                    }
-                }
-                if (add_) {
-                    continue;
-                }
+                added(_innerName, false, owners_, s, sub_);
                 for (String t: sub_.getDirectGenericSuperTypes(_an)) {
                     if (!Templates.correctNbParameters(s,_an)) {
                         String format_ = Templates.getIdFromAllTypes(t);
@@ -594,8 +604,7 @@ public final class TypeUtil {
             }
             ids_ = new_;
         }
-        owners_.removeDuplicates();
-        return owners_;
+        return PrimitiveTypeUtil.getSubclasses(owners_,_an);
     }
 
     private static void addIfNotFound(StringList _visited, StringList _new, String _format) {
@@ -606,57 +615,29 @@ public final class TypeUtil {
         _new.add(_format);
     }
 
-    public static TypeOwnersDepends getOwnersDepends(boolean _protectedInc,String _gl, String _root, String _innerName, Analyzable _an) {
-        TypeOwnersDepends out_ = new TypeOwnersDepends();
-        StringList ids_ = new StringList(_root);
-        StringList owners_ = new StringList();
-        EqList<ClassInheritsDeps> depends_ = new EqList<ClassInheritsDeps>();
-        StringList visited_ = new StringList();
-        while (true) {
-            StringList new_ = new StringList();
-            for (String s: ids_) {
-                GeneType g_ = _an.getClassBody(s);
-                if (!(g_ instanceof RootBlock)) {
+    private static void added(String _innerName, boolean _staticOnly, StringList owners_, String s, RootBlock sub_) {
+        for (RootBlock b: Classes.accessedClassMembers(sub_)) {
+            if (_staticOnly) {
+                if (!b.isStaticType()) {
                     continue;
                 }
-                RootBlock sub_ = (RootBlock)g_;
-                boolean add_ = false;
-                for (RootBlock b: Classes.accessedClassMembers(true, _protectedInc, _root,_gl,sub_, _an)) {
-                    String name_ = b.getName();
-                    if (StringList.quickEq(name_, _innerName)) {
-                        owners_.add(s);
-                        add_ = true;
-                    }
-                }
-                if (add_) {
-                    continue;
-                }
-                if (!sub_.getImportedDirectBaseSuperTypes().isEmpty()) {
-                    depends_.add(new ClassInheritsDeps(s, sub_));
-                }
-                for (String t: sub_.getImportedDirectBaseSuperTypes().values()) {
-                    addIfNotFound(visited_, new_, t);
-                }
             }
-            if (new_.isEmpty()) {
-                break;
+            String name_ = b.getName();
+            if (StringList.quickEq(name_, _innerName)) {
+                owners_.add(s);
             }
-            ids_ = new_;
         }
-        owners_.removeDuplicates();
-        out_.getTypeOwners().addAllElts(owners_);
-        out_.getDepends().addAllElts(depends_);
-        return out_;
     }
-    private static EqList<ClassMethodId> getAllDuplicates(GeneType _type, ContextEl _classes) {
+
+    private static EqList<ClassMethodId> getAllDuplicates(RootBlock _type, ContextEl _classes) {
         EqList<ClassMethodId> list_;
         list_ = new EqList<ClassMethodId>();
         for (String s: _type.getAllGenericSuperTypes()) {
             EqList<MethodId> all_;
             all_ = new EqList<MethodId>();
             String base_ = Templates.getIdFromAllTypes(s);
-            GeneType b_ = _classes.getClassBody(base_);
-            for (GeneMethod b: ContextEl.getMethodBlocks(b_)) {
+            RootBlock b_ = _classes.getClasses().getClassBody(base_);
+            for (GeneCustMethod b: Classes.getMethodBlocks(b_)) {
                 if (b.hiddenInstance()) {
                     continue;
                 }
@@ -668,13 +649,12 @@ public final class TypeUtil {
                 all_.add(id_);
             }
         }
-        list_.removeDuplicates();
         return list_;
     }
-    public static ObjectMap<MethodId, EqList<ClassMethodId>> getAllInstanceSignatures(GeneType _type, ContextEl _classes) {
+    public static ObjectMap<MethodId, EqList<ClassMethodId>> getAllInstanceSignatures(RootBlock _type, ContextEl _classes) {
         ObjectMap<MethodId, EqList<ClassMethodId>> map_;
         map_ = new ObjectMap<MethodId, EqList<ClassMethodId>>();
-        for (GeneMethod b: ContextEl.getMethodBlocks(_type)) {
+        for (GeneCustMethod b: Classes.getMethodBlocks(_type)) {
             if (b.hiddenInstance()) {
                 continue;
             }
@@ -683,8 +663,8 @@ public final class TypeUtil {
         }
         for (String s: _type.getAllGenericSuperTypes()) {
             String base_ = Templates.getIdFromAllTypes(s);
-            GeneType b_ = _classes.getClassBody(base_);
-            for (GeneMethod b: ContextEl.getMethodBlocks(b_)) {
+            RootBlock b_ = _classes.getClasses().getClassBody(base_);
+            for (GeneCustMethod b: Classes.getMethodBlocks(b_)) {
                 if (b.hiddenInstance()) {
                     continue;
                 }

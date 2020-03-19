@@ -54,32 +54,29 @@ public final class PresidentStandards extends BeanNatLgNames {
     public void buildOther() {
         buildBeans();
         StringMap<StandardField> fields_;
-        fields_ = new StringMap<StandardField>();
         StandardClass std_;
         ObjectMap<MethodId, StandardMethod> methods_;
         CustList<StandardConstructor> constructors_;
-        methods_ = new ObjectMap<MethodId, StandardMethod>();
         StandardMethod method_;
         StringList params_;
         methods_ = new ObjectMap<MethodId, StandardMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new StringMap<StandardField>();
         constructors_ = new CustList<StandardConstructor>();
-        std_ = new StandardClass(TYPE_PRESIDENT_BEAN, fields_, constructors_, methods_, getBean(), MethodModifier.FINAL);
-        fields_.put(NICKNAMES, new StandardField(NICKNAMES, getCustList(), false, false, std_));
-        fields_.put(LINES_DEAL, new StandardField(LINES_DEAL, getCustList(), false, false, std_));
+        std_ = new StandardClass(TYPE_PRESIDENT_BEAN, fields_, constructors_, methods_, TYPE_BEAN, MethodModifier.FINAL);
+        fields_.put(NICKNAMES, new StandardField(NICKNAMES, TYPE_LIST, false, false, std_));
+        fields_.put(LINES_DEAL, new StandardField(LINES_DEAL, TYPE_LIST, false, false, std_));
         getStandards().put(TYPE_PRESIDENT_BEAN, std_);
         fields_ = new StringMap<StandardField>();
         methods_ = new ObjectMap<MethodId, StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         std_ = new StandardClass(TYPE_LINE_DEAL, fields_, constructors_, methods_, getAliasObject(), MethodModifier.FINAL);
         fields_.put(NUMBER, new StandardField(NUMBER, getAliasPrimInteger(), false, false, std_));
-        fields_.put(SCORES, new StandardField(SCORES, getCustList(), false, false, std_));
+        fields_.put(SCORES, new StandardField(SCORES, TYPE_LIST, false, false, std_));
         getStandards().put(TYPE_LINE_DEAL, std_);
         fields_ = new StringMap<StandardField>();
         methods_ = new ObjectMap<MethodId, StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
-        std_ = new StandardClass(TYPE_RULES_PRESIDENT_BEAN, fields_, constructors_, methods_, getBean(), MethodModifier.FINAL);
+        std_ = new StandardClass(TYPE_RULES_PRESIDENT_BEAN, fields_, constructors_, methods_, TYPE_BEAN, MethodModifier.FINAL);
         fields_.put(CARTES_BATTUES, new StandardField(CARTES_BATTUES, getAliasString(), false, false, std_));
         fields_.put(EQUALTY, new StandardField(EQUALTY, getAliasString(), false, false, std_));
         fields_.put(POSSIBLE_REVERSING, new StandardField(POSSIBLE_REVERSING, getAliasPrimBoolean(), false, false, std_));
@@ -130,17 +127,17 @@ public final class PresidentStandards extends BeanNatLgNames {
         String fieldName_ = _classField.getFieldName();
         if (((RealInstanceStruct)_instance).getInstance() instanceof PresidentBean) {
             if (StringList.quickEq(fieldName_, NICKNAMES)) {
-                res_.setResult(new StdStruct(((PresidentBean)((RealInstanceStruct)_instance).getInstance()).getNicknames(), getCustList()));
+                res_.setResult(new StdStruct(((PresidentBean)((RealInstanceStruct)_instance).getInstance()).getNicknames(), TYPE_LIST));
                 return res_;
             }
             if (StringList.quickEq(fieldName_, LINES_DEAL)) {
-                res_.setResult(new StdStruct(((PresidentBean)((RealInstanceStruct)_instance).getInstance()).getLinesDeal(), getCustList()));
+                res_.setResult(new StdStruct(((PresidentBean)((RealInstanceStruct)_instance).getInstance()).getLinesDeal(), TYPE_LIST));
                 return res_;
             }
         }
         if (((RealInstanceStruct)_instance).getInstance() instanceof LineDeal) {
             if (StringList.quickEq(fieldName_, SCORES)) {
-                res_.setResult(StdStruct.newListLong(((LineDeal)((RealInstanceStruct)_instance).getInstance()).getScores(), getCustList()));
+                res_.setResult(StdStruct.newListLong(((LineDeal)((RealInstanceStruct)_instance).getInstance()).getScores(), TYPE_LIST));
                 return res_;
             }
             if (StringList.quickEq(fieldName_, NUMBER)) {
@@ -209,8 +206,8 @@ public final class PresidentStandards extends BeanNatLgNames {
         }
         return res_;
     }
-    @Override
-    public String getOtherBeanStructClassName(Object _struct, ContextEl _context) {
+
+    private String getOtherBeanStructClassName(Object _struct) {
         if (_struct instanceof LineDeal) {
             return TYPE_LINE_DEAL;
         }
@@ -218,16 +215,16 @@ public final class PresidentStandards extends BeanNatLgNames {
             return ((Bean)_struct).getClassName();
         }
         if (_struct instanceof SimpleList) {
-            return getCustList();
+            return TYPE_LIST;
         }
         if (_struct instanceof SimpleEntries) {
-            return getCustMap();
+            return TYPE_MAP;
         }
         if (_struct instanceof SimpleEntry) {
-            return getCustEntry();
+            return TYPE_ENTRY;
         }
         if (_struct instanceof SimpleItr) {
-            return getAliasSimpleIteratorType();
+            return TYPE_ITERATOR;
         }
         return getAliasObject();
     }
@@ -268,7 +265,7 @@ public final class PresidentStandards extends BeanNatLgNames {
             return new StringBuilderStruct((StringBuilder) _element);
         }
         String aliasObject_ = getAliasObject();
-        String className_ = getStdBeanStructClassName(_element, _ex.getContextEl());
+        String className_ = getOtherBeanStructClassName(_element);
         if (StringList.quickEq(className_, getAliasObject())) {
             return StdStruct.newInstance(_element, aliasObject_);
         }

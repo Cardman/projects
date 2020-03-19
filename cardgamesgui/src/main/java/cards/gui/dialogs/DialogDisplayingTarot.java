@@ -91,7 +91,7 @@ public final class DialogDisplayingTarot extends DialogCards implements DialogDi
             if (couleur_ == Suit.UNDEFINED) {
                 continue;
             }
-            trSuit_.add(couleur_, Games.toString(couleur_,lg_));
+            trSuit_.addEntry(couleur_, Games.toString(couleur_,lg_));
         }
         listeChoix.refresh(ls_, trSuit_);
 //        for(Suit couleur_:Suit.values()) {

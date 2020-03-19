@@ -48,11 +48,6 @@ public final class ConstructorInfo implements Parametrable {
     }
 
     @Override
-    public boolean isStatic() {
-        return false;
-    }
-
-    @Override
     public boolean isVararg() {
         return constraints.isVararg();
     }
@@ -79,7 +74,7 @@ public final class ConstructorInfo implements Parametrable {
     public void format(Analyzable _an) {
         StringList params_ = new StringList();
         for (String p: constraints.getParametersTypes()) {
-            params_.add(Templates.wildCardFormatParam(isStatic(),className,p,_an));
+            params_.add(Templates.wildCardFormatParam(className,p,_an));
         }
         formatted = new ConstructorId(className, params_, isVararg());
     }

@@ -9,11 +9,6 @@ import static org.junit.Assert.assertTrue;
 
 public final class SortedGraphTest {
     @Test
-    public void getByEq1Test(){
-        SortedGraph<SortedNumberedNode> g_ = new SortedGraph<SortedNumberedNode>();
-        assertEq(-1,g_.getElementByEq(new SortedNumberedNode(0)));
-    }
-    @Test
     public void process1Test() {
         SortedGraph<SortedNumberedNode> g_ = new SortedGraph<SortedNumberedNode>();
         SortedNumberedNode one_ = new SortedNumberedNode(1);

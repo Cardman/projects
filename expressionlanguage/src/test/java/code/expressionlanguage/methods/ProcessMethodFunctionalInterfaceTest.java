@@ -2,12 +2,10 @@ package code.expressionlanguage.methods;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.opers.util.MethodAccessKind;
 import code.expressionlanguage.opers.util.MethodId;
-import code.expressionlanguage.structs.FunctionalInstance;
+import code.expressionlanguage.structs.AbstractFunctionalInstance;
 import code.expressionlanguage.structs.NullStruct;
 import code.util.CustList;
-import code.util.StringList;
 import code.util.StringMap;
 import org.junit.Test;
 
@@ -36,7 +34,7 @@ public final class ProcessMethodFunctionalInterfaceTest extends ProcessMethodCom
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
-        assertTrue(ret_.getStruct() instanceof FunctionalInstance);
+        assertTrue(ret_.getStruct() instanceof AbstractFunctionalInstance);
     }
 
     @Test

@@ -3,6 +3,7 @@ package code.expressionlanguage.inherits;
 import code.expressionlanguage.methods.util.ClassEdge;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.util.EntryCust;
+import code.util.EqList;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.graphs.Graph;
@@ -13,24 +14,27 @@ public class Mapping {
     private ClassArgumentMatching param;
     private StringMap<StringList> mapping = new StringMap<StringList>();
 
-    public boolean isCyclic(String _objectClassName) {
+    public boolean isCyclic() {
         Graph<ClassEdge> graph_ = new Graph<ClassEdge>();
+        EqList<ClassEdge> keys_ = new EqList<ClassEdge>();
+        for (String k: mapping.getKeys()) {
+            keys_.add(new ClassEdge(k));
+        }
+        int index_ = 0;
         for (EntryCust<String, StringList> e: mapping.entryList()) {
+            ClassEdge from_ = keys_.get(index_);
+            //unresolved constraints => singleton default type
             for (String s: e.getValue()) {
-                if (StringList.quickEq(s, _objectClassName)) {
-                    graph_.addSegment(new ClassEdge(e.getKey()), new ClassEdge(s));
-                    continue;
-                }
                 if (!s.startsWith(Templates.PREFIX_VAR_TYPE)) {
                     continue;
                 }
-                graph_.addSegment(new ClassEdge(e.getKey()), new ClassEdge(s.substring(1)));
+                String sub_ = s.substring(1);
+                int i_ = keys_.indexOfObj(new ClassEdge(sub_));
+                graph_.addSegment(from_, keys_.get(i_));
             }
+            index_++;
         }
         return graph_.hasCycle();
-    }
-    public StringList getAllUpperBounds(String _className, String _objectClassName) {
-        return getAllUpperBounds(mapping, _className, _objectClassName);
     }
 
     public static StringList getAllUpperBounds(StringMap<StringList> _mapping, String _className, String _objectClassName) {

@@ -4146,6 +4146,35 @@ public final class ProcessMethodInstanceInterfaceTest extends
         assertTrue(((BooleanStruct)field_).getInstance());
     }
     @Test
+    public void calculateArgument841Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExCont {\n");
+        xml_.append(" $public Object one=$new code.util.Replacement(\"\",\"\"):\n");
+        xml_.append(" $public Object two=$new code.util.Replacement(\"\",\" \"):\n");
+        xml_.append(" $public $boolean inst=one != two:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExCont", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        ConstructorId id_ = getConstructorId("pkg.ExCont");
+
+        Argument ret_;
+        ret_ = instanceArgument("pkg.ExCont", null, id_, args_, cont_);
+        Struct str_ = ret_.getStruct();
+        assertEq("pkg.ExCont", str_.getClassName(cont_));
+        Struct field_;
+        field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.ExCont", "inst"));
+        assertEq(BOOLEAN, field_.getClassName(cont_));
+        assertTrue(((BooleanStruct)field_).getInstance());
+    }
+    @Test
     public void calculateArgument85Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");

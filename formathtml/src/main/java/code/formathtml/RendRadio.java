@@ -1,7 +1,7 @@
 package code.formathtml;
 
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.errors.custom.BadElError;
+import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.inherits.Mapping;
 import code.expressionlanguage.inherits.Templates;
@@ -19,7 +19,7 @@ import code.util.StringList;
 
 public final class RendRadio extends RendInput {
     private CustList<RendDynOperationNode> opsConverterFieldValue = new CustList<RendDynOperationNode>();
-    private String varNameConverterFieldValue = "";
+    private String varNameConverterFieldValue = EMPTY_STRING;
     RendRadio(Element _elt, OffsetsBlock _offset) {
         super(_elt, _offset);
     }
@@ -27,19 +27,18 @@ public final class RendRadio extends RendInput {
     @Override
     protected void processAttributes(Configuration _cont, RendDocumentBlock _doc, Element _read, StringList _list) {
         processAnaInput(_cont,_doc,_read);
-        _list.removeAllString(CHECKED);
-        _list.removeAllString(ATTRIBUTE_VALUE);
-        _list.removeAllString(ATTRIBUTE_NAME);
-        _list.removeAllString(StringList.concat(_cont.getPrefix(),ATTRIBUTE_CLASS_NAME));
-        _list.removeAllString(NUMBER_INPUT);
-        _list.removeAllString(StringList.concat(_cont.getPrefix(),ATTRIBUTE_CONVERT_VALUE));
-        _list.removeAllString(StringList.concat(_cont.getPrefix(),ATTRIBUTE_CONVERT_FIELD_VALUE));
-        _list.removeAllString(StringList.concat(_cont.getPrefix(),ATTRIBUTE_CONVERT_FIELD));
-        _list.removeAllString(StringList.concat(_cont.getPrefix(),ATTRIBUTE_VAR_VALUE));
-        _list.removeAllString(StringList.concat(_cont.getPrefix(),ATTRIBUTE_VALIDATOR));
-        _list.removeAllString(ATTRIBUTE_TYPE);
-        MethodAccessKind st_ = _doc.getStaticContext();
-        String converterFieldValue_ = _read.getAttribute(StringList.concat(_cont.getPrefix(),ATTRIBUTE_CONVERT_FIELD_VALUE));
+        _list.removeAllString(_cont.getRendKeyWords().getAttrChecked());
+        _list.removeAllString(_cont.getRendKeyWords().getAttrValue());
+        _list.removeAllString(_cont.getRendKeyWords().getAttrName());
+        _list.removeAllString(StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrClassName()));
+        _list.removeAllString(_cont.getRendKeyWords().getAttrNi());
+        _list.removeAllString(StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrConvertValue()));
+        _list.removeAllString(StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrConvertFieldValue()));
+        _list.removeAllString(StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrConvertField()));
+        _list.removeAllString(StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrVarValue()));
+        _list.removeAllString(StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrValidator()));
+        _list.removeAllString(_cont.getRendKeyWords().getAttrType());
+        String converterFieldValue_ = _read.getAttribute(StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrConvertFieldValue()));
         if (!converterFieldValue_.trim().isEmpty()) {
             String object_ = _cont.getStandards().getAliasObject();
             StringList varNames_ = new StringList();
@@ -49,8 +48,9 @@ public final class RendRadio extends RendInput {
             LocalVariable lv_ = new LocalVariable();
             lv_.setClassName(object_);
             _cont.getLocalVarsAna().last().addEntry(varLoc_,lv_);
-            String preRend_ = StringList.concat(converterFieldValue_,"(",BeanCustLgNames.sufficLocal(_cont.getContext(),varLoc_),")");
-            opsConverterFieldValue = RenderExpUtil.getAnalyzedOperations(preRend_,0,_cont,Calculation.staticCalculation(st_));
+            String preRend_ = StringList.concat(converterFieldValue_,RendBlock.LEFT_PAR,BeanCustLgNames.sufficLocal(_cont.getContext(),varLoc_),RendBlock.RIGHT_PAR);
+            int attr_ = getAttributeDelimiter(StringList.concat(_cont.getPrefix(), _cont.getRendKeyWords().getAttrConvertFieldValue()));
+            opsConverterFieldValue = RenderExpUtil.getAnalyzedOperations(preRend_,attr_,0,_cont);
             for (String v:varNames_) {
                 _cont.getLocalVarsAna().last().removeKey(v);
             }
@@ -58,9 +58,12 @@ public final class RendRadio extends RendInput {
             m_.setArg(opsConverterFieldValue.last().getResultClass());
             m_.setParam(_cont.getStandards().getAliasCharSequence());
             if (!Templates.isCorrectOrNumbers(m_,_cont)) {
-                BadElError badEl_ = new BadElError();
+                FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                 badEl_.setFileName(_cont.getCurrentFileName());
-                badEl_.setIndexFile(_cont.getCurrentLocationIndex());
+                badEl_.setIndexFile(attr_);
+                badEl_.buildError(_cont.getContext().getAnalysisMessages().getBadImplicitCast(),
+                        StringList.join(opsConverterFieldValue.last().getResultClass().getNames(),AND_ERR),
+                        _cont.getStandards().getAliasCharSequence());
                 _cont.addError(badEl_);
             }
         }
@@ -73,7 +76,7 @@ public final class RendRadio extends RendInput {
         if (_cont.getContext().hasException()) {
             return;
         }
-        String name_ = _read.getAttribute(ATTRIBUTE_NAME);
+        String name_ = _read.getAttribute(_cont.getRendKeyWords().getAttrName());
         if (name_.isEmpty()) {
             return;
         }
@@ -89,16 +92,16 @@ public final class RendRadio extends RendInput {
             res_ = argConv_.getStruct();
         }
         if (res_ == NullStruct.NULL_VALUE) {
-            elt_.removeAttribute(CHECKED);
+            elt_.removeAttribute(_cont.getRendKeyWords().getAttrChecked());
         } else {
             String strObj_ = getStringKey(_cont, res_);
             if (_cont.getContext().hasException()) {
                 return;
             }
-            if (StringList.quickEq(elt_.getAttribute(ATTRIBUTE_VALUE),strObj_)) {
-                elt_.setAttribute(CHECKED, CHECKED);
+            if (StringList.quickEq(elt_.getAttribute(_cont.getRendKeyWords().getAttrValue()),strObj_)) {
+                elt_.setAttribute(_cont.getRendKeyWords().getAttrChecked(), _cont.getRendKeyWords().getAttrChecked());
             } else {
-                elt_.removeAttribute(CHECKED);
+                elt_.removeAttribute(_cont.getRendKeyWords().getAttrChecked());
             }
         }
     }

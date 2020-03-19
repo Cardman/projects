@@ -557,7 +557,6 @@ public final class GameBeloteCommonPlaying {
                 couleursCoupees_.add(couleur_);
             }
         }
-        couleursCoupees_.removeDuplicates();
         EnumList<Suit> couleurs_ = new EnumList<Suit>();
         for (Suit couleur_ : _couleurs) {
             if(couleursCoupees_.containsObj(couleur_)) {

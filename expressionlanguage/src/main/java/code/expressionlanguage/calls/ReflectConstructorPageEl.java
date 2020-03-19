@@ -24,7 +24,7 @@ public final class ReflectConstructorPageEl extends AbstractReflectPageEl {
         String id_ = Templates.getIdFromAllTypes(className_);
         GeneType type_ = _context.getClassBody(id_);
         boolean static_ = type_.isStaticType();
-        if (type_.isAbstractType()) {
+        if (ContextEl.isAbstractType(type_)) {
             LgNames stds_ = _context.getStandards();
             String null_;
             null_ = stds_.getAliasIllegalArg();

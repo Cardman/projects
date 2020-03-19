@@ -91,7 +91,7 @@ public final class DialogDisplayingBelote extends DialogCards implements DialogD
         Listable<Suit> ls_ = Suit.couleursOrdinaires();
         String lg_ = _window.getLanguageKey();
         for (Suit couleur_:ls_) {
-            trSuit_.add(couleur_, Games.toString(couleur_,lg_));
+            trSuit_.addEntry(couleur_, Games.toString(couleur_,lg_));
         }
         listeChoix.refresh(ls_, trSuit_);
 //        for (Suit couleur_:Suit.couleursOrdinaires()) {

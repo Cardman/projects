@@ -39,8 +39,10 @@ public final class PaginatorMove extends Paginator {
     //private static final String MOVE = "move";
 
     private TextField name;
+    private AutoCompleteDocument nameAuto;
 
-    private TextField types = new TextField(16);
+    private TextField types;
+    private AutoCompleteDocument typesAuto;
 
     private TextField minPriority = new TextField(16);
 
@@ -158,16 +160,18 @@ public final class PaginatorMove extends Paginator {
             String mv_ = getFacade().translateMove(p);
             mvs_.add(mv_);
         }
-        name = AutoCompleteDocument.createAutoCompleteTextField(mvs_, 16);
-        modeName.setListener(new ChangedModeEvent(modeName, name));
+        name = new TextField(16);
+        nameAuto = new AutoCompleteDocument(name,mvs_, getWindow());
+        modeName.setListener(new ChangedModeEvent(modeName, nameAuto));
 
         StringList ts_ = new StringList();
         for (String p: getFacade().getData().getTypes()) {
             String mv_ = getFacade().translateType(p);
             ts_.add(mv_);
         }
-        types = AutoCompleteDocument.createAutoCompleteTextField(ts_, 16);
-        modeTypes.setListener(new ChangedModeEvent(modeTypes, types));
+        types = new TextField(16);
+        typesAuto = new AutoCompleteDocument(types,ts_, getWindow());
+        modeTypes.setListener(new ChangedModeEvent(modeTypes, typesAuto));
 //        name.getDocument().addDocumentListener(new DocumentAdaptater() {
 //
 //            public void updateText() {

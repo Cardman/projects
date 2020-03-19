@@ -3,7 +3,7 @@ package code.expressionlanguage.methods;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.errors.custom.DeadCodeMethod;
+import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.inherits.Mapping;
 import code.expressionlanguage.instr.ElUtil;
@@ -16,10 +16,7 @@ import code.util.Ints;
 import code.util.StringList;
 import code.util.StringMap;
 
-public abstract class MemberCallingsBlock extends BracedBlock implements FunctionBlock, AnnotableBlock {
-    private StringList annotations = new StringList();
-    private CustList<CustList<ExecOperationNode>> annotationsOps = new CustList<CustList<ExecOperationNode>>();
-    private Ints annotationsIndexes = new Ints();
+public abstract class MemberCallingsBlock extends BracedBlock implements FunctionBlock {
 
     MemberCallingsBlock(OffsetsBlock _offset) {
         super(_offset);
@@ -36,6 +33,7 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
         AnalyzingEl anEl_ = new AnalyzingEl(mapping_);
         _cont.getAnalyzing().setAnalysisAss(anEl_);
         _cont.getAnalyzing().setCurrentFct(this);
+        _cont.getAssignedVariables().getAssignments().clear();
         anEl_.setRoot(this);
         Block en_ = this;
         CustList<BracedBlock> parents_ = anEl_.getParents();
@@ -65,17 +63,22 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
             processUnreachable(_cont, anEl_, en_);
             Block n_ = en_.getFirstChild();
             addParent(_cont, en_, parents_, parentsBreakables_, parentsContinuable_, parentsReturnable_, n_);
+            boolean visit_ = true;
             if (en_ != anEl_.getRoot()) {
-                tryBuildExpressionLanguage(en_, _cont);
+                visit_ = tryBuildExpressionLanguage(en_, _cont);
             }
-            if (n_ != null) {
+            if (visit_ && n_ != null) {
                 en_ = n_;
                 continue;
             }
-            en_.abrupt(_cont, anEl_);
-            abrupGroup(anEl_, en_);
+            if (visit_) {
+                en_.abrupt(_cont, anEl_);
+                abrupGroup(anEl_, en_);
+            }
             en_.checkTree(_cont, anEl_);
-            en_.setAssignmentAfter(_cont, anEl_);
+            if (visit_) {
+                en_.setAssignmentAfter(_cont, anEl_);
+            }
             removeLabel(en_, labels_);
             while (true) {
                 n_ = en_.getNextSibling();
@@ -186,15 +189,18 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
             processUnreachable(_cont, anEl_, en_);
             Block n_ = en_.getFirstChild();
             addParent(_cont, en_, parents_, parentsBreakables_, parentsContinuable_, parentsReturnable_, n_);
+            boolean visit_ = true;
             if (en_ != anEl_.getRoot()) {
-                tryBuildExpressionLanguageReadOnly(en_, _cont);
+                visit_ = tryBuildExpressionLanguageReadOnly(en_, _cont);
             }
-            if (n_ != null) {
+            if (visit_ && n_ != null) {
                 en_ = n_;
                 continue;
             }
-            en_.abrupt(_cont, anEl_);
-            abrupGroup(anEl_, en_);
+            if (visit_) {
+                en_.abrupt(_cont, anEl_);
+                abrupGroup(anEl_, en_);
+            }
             en_.checkTree(_cont, anEl_);
             removeLabel(en_, labels_);
             while (true) {
@@ -252,10 +258,12 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
     private void processUnreachable(ContextEl _cont, AnalyzingEl _anEl, Block _en) {
         if (!_anEl.isReachable(_en)) {
             //error
-            DeadCodeMethod deadCode_ = new DeadCodeMethod();
+            FoundErrorInterpret deadCode_ = new FoundErrorInterpret();
             deadCode_.setFileName(getFile().getFileName());
             deadCode_.setIndexFile(_en.getOffset().getOffsetTrim());
-            deadCode_.setId(getPseudoSignature(_cont));
+            //all header expression
+            deadCode_.buildError(_cont.getAnalysisMessages().getDeadCode(),
+                    getPseudoSignature(_cont));
             _cont.addError(deadCode_);
         }
     }
@@ -315,48 +323,5 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
     public abstract void setAssignmentBeforeCall(Analyzable _an, AnalyzingEl _anEl);
     public abstract void setAssignmentAfterCall(Analyzable _an, AnalyzingEl _anEl);
     public abstract void setAssignmentAfterCallReadOnly(Analyzable _an, AnalyzingEl _anEl);
-    @Override
-    public void buildAnnotations(ContextEl _context) {
-        annotationsOps = new CustList<CustList<ExecOperationNode>>();
-        int len_ = annotationsIndexes.size();
-        AnalyzedPageEl page_ = _context.getAnalyzing();
-        for (int i = 0; i < len_; i++) {
-            int begin_ = annotationsIndexes.get(i);
-            page_.setGlobalOffset(begin_);
-            page_.setOffset(0);
-            Calculation c_ = Calculation.staticCalculation(MethodAccessKind.STATIC);
-            annotationsOps.add(ElUtil.getAnalyzedOperationsReadOnly(annotations.get(i), _context, c_));
-        }
-    }
 
-    protected void buildAnnotationsReport(ContextEl _cont, CustList<PartOffset> _parts) {
-        int len_ = annotationsIndexes.size();
-        for (int i = 0; i < len_; i++) {
-            int begin_ = annotationsIndexes.get(i);
-            int end_ = begin_ + annotations.get(i).length();
-            ElUtil.buildCoverageReport(_cont,begin_,this,annotationsOps.get(i),end_,_parts,0,"",true);
-        }
-    }
-    @Override
-    public void reduce(ContextEl _context) {
-        CustList<CustList<ExecOperationNode>> annotationsOps_;
-        annotationsOps_ = new CustList<CustList<ExecOperationNode>>();
-        for (CustList<ExecOperationNode> a: annotationsOps) {
-            ExecOperationNode r_ = a.last();
-            annotationsOps_.add(ElUtil.getReducedNodes(r_));
-        }
-        annotationsOps = annotationsOps_;
-    }
-    @Override
-    public StringList getAnnotations() {
-        return annotations;
-    }
-    @Override
-    public CustList<CustList<ExecOperationNode>> getAnnotationsOps() {
-        return annotationsOps;
-    }
-    @Override
-    public Ints getAnnotationsIndexes() {
-        return annotationsIndexes;
-    }
 }

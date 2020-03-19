@@ -19,12 +19,12 @@ public final class RendStyle extends RendElement {
     protected void processExecAttr(Configuration _cont, MutableNode _nextWrite, Element _read) {
         Element curWr_ = (Element) _nextWrite;
         Document ownerDocument_ = curWr_.getOwnerDocument();
-        ElementList links_ = ownerDocument_.getElementsByTagName(TAG_LINK);
+        ElementList links_ = ownerDocument_.getElementsByTagName(_cont.getRendKeyWords().getKeyWordLink());
         int len_ = links_.getLength();
         StringList refs_ = new StringList();
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
             Element link_ = links_.item(i);
-            String href_ = getCssHref(link_);
+            String href_ = getCssHref(_cont,link_);
             if (href_ != null) {
                 refs_.add(href_);
             }

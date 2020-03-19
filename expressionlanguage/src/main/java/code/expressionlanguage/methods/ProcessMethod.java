@@ -25,16 +25,15 @@ public final class ProcessMethod {
         _cont.getInit().loopCalling(_cont);
     }
     public static void initializeClassPre(String _class, ContextEl _cont) {
-        _cont.getClasses().preInitializeStaticFields(_class, _cont);
         _cont.addPage(_cont.createInstancingClass(_class));
         _cont.getInit().loopCalling(_cont);
     }
-    public static Argument instanceArgument(String _class, Argument _global, ConstructorId _id, CustList<Argument> _args, ContextEl _cont) {
+    public static Argument instanceArgument(String _class, RootBlock _root, Argument _global, ConstructorId _id, CustList<Argument> _args, ContextEl _cont) {
         CallConstructor call_ = new CallConstructor();
         call_.setArgument(_global);
         call_.setId(_id);
         call_.setFieldName(EMPTY_STRING);
-        AbstractCallingInstancingPageEl page_ = _cont.createInstancing(_class, call_, _args);
+        AbstractCallingInstancingPageEl page_ = _cont.createInstancing(_class, _root,call_, _args);
         _cont.addPage(page_);
         _cont.getInit().loopCalling(_cont);
         return page_.getGlobalArgument();

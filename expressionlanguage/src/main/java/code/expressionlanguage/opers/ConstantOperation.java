@@ -1,7 +1,7 @@
 package code.expressionlanguage.opers;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.errors.custom.BadFormatNumber;
+import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.instr.ConstType;
 import code.expressionlanguage.instr.Delimiters;
 import code.expressionlanguage.instr.OperationsSequence;
@@ -65,10 +65,11 @@ public final class ConstantOperation extends LeafOperation {
             if (!originalStr_.isEmpty()) {
                 a_.setObject(originalStr_.charAt(0));
             } else {
-                BadFormatNumber badFormat_ = new BadFormatNumber();
-                badFormat_.setNumber(str_);
+                FoundErrorInterpret badFormat_ = new FoundErrorInterpret();
                 badFormat_.setFileName(_conf.getCurrentFileName());
                 badFormat_.setIndexFile(_conf.getCurrentLocationIndex());
+                //constant len
+                badFormat_.buildError(_conf.getContextEl().getAnalysisMessages().getBadCharFormat());
                 _conf.addError(badFormat_);
             }
             setSimpleArgument(a_);
@@ -78,10 +79,12 @@ public final class ConstantOperation extends LeafOperation {
         ParsedArgument parsed_ = ParsedArgument.parse(op_.getNbInfos(), _conf);
         String argClassName_ = parsed_.getType();
         if (argClassName_.isEmpty()) {
-            BadFormatNumber badFormat_ = new BadFormatNumber();
-            badFormat_.setNumber(str_);
+            FoundErrorInterpret badFormat_ = new FoundErrorInterpret();
             badFormat_.setFileName(_conf.getCurrentFileName());
             badFormat_.setIndexFile(_conf.getCurrentLocationIndex());
+            //constant len
+            badFormat_.buildError(_conf.getContextEl().getAnalysisMessages().getBadNbFormat(),
+                    str_);
             _conf.addError(badFormat_);
             argClassName_ = stds_.getAliasPrimDouble();
         }

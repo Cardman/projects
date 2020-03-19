@@ -3,6 +3,7 @@ package code.formathtml.exec;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.AffectationOperation;
+import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.formathtml.Configuration;
 import code.util.IdMap;
 
@@ -12,6 +13,9 @@ public final class RendAffectationOperation extends RendMethodOperation implemen
 
     public RendAffectationOperation(AffectationOperation _a) {
         super(_a);
+    }
+    public RendAffectationOperation(int _indexChild, ClassArgumentMatching _res, int _order) {
+        super(_indexChild,_res,_order);
     }
 
     public void setup() {

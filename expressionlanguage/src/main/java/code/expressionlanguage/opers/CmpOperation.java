@@ -2,8 +2,7 @@ package code.expressionlanguage.opers;
 
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.errors.custom.BadOperandsNumber;
-import code.expressionlanguage.errors.custom.UnexpectedTypeOperationError;
+import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.OperationsSequence;
@@ -43,10 +42,15 @@ public final class CmpOperation extends MethodOperation implements MiddleSymbolO
             okNum = false;
             _conf.setOkNumOp(false);
             setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _conf);
-            BadOperandsNumber badNb_ = new BadOperandsNumber();
+            FoundErrorInterpret badNb_ = new FoundErrorInterpret();
             badNb_.setFileName(_conf.getCurrentFileName());
-            badNb_.setOperandsNumber(chidren_.size());
             badNb_.setIndexFile(_conf.getCurrentLocationIndex());
+            //first oper
+            badNb_.buildError(_conf.getContextEl().getAnalysisMessages().getOperatorNbDiff(),
+                    Integer.toString(2),
+                    Integer.toString(chidren_.size()),
+                    op
+            );
             _conf.addError(badNb_);
             setResultClass(new ClassArgumentMatching(stds_.getAliasPrimBoolean()));
             return;
@@ -87,11 +91,16 @@ public final class CmpOperation extends MethodOperation implements MiddleSymbolO
             _conf.setOkNumOp(false);
             setRelativeOffsetPossibleAnalyzable(getIndexInEl()+getOperations().getOperators().getKey(0), _conf);
             String res_ = stds_.getAliasPrimBoolean();
-            UnexpectedTypeOperationError un_ = new UnexpectedTypeOperationError();
+            FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setIndexFile(_conf.getCurrentLocationIndex());
             un_.setFileName(_conf.getCurrentFileName());
-            un_.setExpectedResult(stds_.getAliasString());
-            un_.setOperands(first_,second_);
+            //oper
+            un_.buildError(_conf.getContextEl().getAnalysisMessages().getUnexpectedOperandTypes(),
+                    StringList.join(new StringList(
+                            StringList.join(first_.getNames(),"&"),
+                            StringList.join(second_.getNames(),"&")
+                    ),";"),
+                    getOp());
             _conf.addError(un_);
             setResultClass(new ClassArgumentMatching(res_));
             return;
@@ -113,11 +122,16 @@ public final class CmpOperation extends MethodOperation implements MiddleSymbolO
             _conf.setOkNumOp(false);
             setRelativeOffsetPossibleAnalyzable(getIndexInEl()+getOperations().getOperators().getKey(0), _conf);
             String res_ = stds_.getAliasPrimBoolean();
-            UnexpectedTypeOperationError un_ = new UnexpectedTypeOperationError();
+            FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setIndexFile(_conf.getCurrentLocationIndex());
             un_.setFileName(_conf.getCurrentFileName());
-            un_.setExpectedResult(stds_.getAliasPrimDouble());
-            un_.setOperands(first_,second_);
+            //oper
+            un_.buildError(_conf.getContextEl().getAnalysisMessages().getUnexpectedOperandTypes(),
+                    StringList.join(new StringList(
+                            StringList.join(first_.getNames(),"&"),
+                            StringList.join(second_.getNames(),"&")
+                    ),";"),
+                    getOp());
             _conf.addError(un_);
             setResultClass(new ClassArgumentMatching(res_));
             return;
@@ -129,11 +143,16 @@ public final class CmpOperation extends MethodOperation implements MiddleSymbolO
         expectedTypes_.add(stds_.getAliasPrimDouble());
         expectedTypes_.add(stds_.getAliasString());
         String res_ = _conf.getStandards().getAliasPrimBoolean();
-        UnexpectedTypeOperationError un_ = new UnexpectedTypeOperationError();
+        FoundErrorInterpret un_ = new FoundErrorInterpret();
         un_.setIndexFile(_conf.getCurrentLocationIndex());
         un_.setFileName(_conf.getCurrentFileName());
-        un_.setExpectedResult(StringList.join(expectedTypes_, ";"));
-        un_.setOperands(first_,second_);
+        //oper
+        un_.buildError(_conf.getContextEl().getAnalysisMessages().getUnexpectedOperandTypes(),
+                StringList.join(new StringList(
+                        StringList.join(first_.getNames(),"&"),
+                        StringList.join(second_.getNames(),"&")
+                ),";"),
+                getOp());
         _conf.addError(un_);
         setResultClass(new ClassArgumentMatching(res_));
     }

@@ -2,20 +2,17 @@ package code.expressionlanguage.methods;
 
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.files.OffsetAccessInfo;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.inherits.Templates;
 import code.util.*;
 import code.util.StringList;
 
-public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
+public final class EnumBlock extends RootBlock implements UniqueRootedBlock,AccessibleBlock {
 
     private final StringList allSuperClasses = new StringList();
 
     private final StringList allSuperTypes = new StringList();
-
-    private final StringList allInterfaces = new StringList();
 
     private String importedDirectSuperClass = "";
     private StringList importedDirectSuperInterfaces = new StringList();
@@ -42,11 +39,6 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
         }
         interfaces_.addAllElts(importedDirectSuperInterfaces);
         return interfaces_;
-    }
-
-    @Override
-    public StringList getAllInterfaces() {
-        return allInterfaces;
     }
 
     @Override
@@ -92,7 +84,7 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
         importedDirectSuperInterfaces.clear();
         for (String s: getDirectSuperTypes()) {
             int index_ = rcs_.getKey(i_);
-            String s_ = _classes.resolveTypeInherits(s, this,index_,i_);
+            String s_ = _classes.resolveTypeInherits(s, this,index_);
             String c_ = getImportedDirectBaseSuperType(i_);
             i_++;
             String base_ = Templates.getIdFromAllTypes(s_);

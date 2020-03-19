@@ -1,8 +1,6 @@
 package code.expressionlanguage.stds;
 
-import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.common.GeneClass;
-import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.MethodModifier;
 import code.util.CustList;
@@ -36,12 +34,12 @@ public final class StandardClass extends StandardType implements GeneClass {
     public StringList getDirectInterfaces() {
         return directInterfaces;
     }
-    @Override
-    public boolean isFinalType() {
+
+    public boolean isFinalStdType() {
         return finalType;
     }
-    @Override
-    public boolean isAbstractType() {
+
+    public boolean isAbstractStdType() {
         return abstractType;
     }
 

@@ -46,7 +46,7 @@ public final class ContextFactory {
     }
     public static void validateStds(ContextEl _context, AnalysisMessages _mess, KeyWords _definedKw, LgNames _definedLgNames) {
         _context.setStandards(_definedLgNames);
-        _mess.validateMessageContents(_context,_mess.allMessages());
+        AnalysisMessages.validateMessageContents(_context,_mess.allMessages());
         if (!_context.getClasses().isEmptyMessageError()) {
             return;
         }

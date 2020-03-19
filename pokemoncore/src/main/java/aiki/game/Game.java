@@ -306,7 +306,6 @@ public final class Game {
         for (EqList<Coords> l: map_.getAccessCondition().values()) {
             accessCond_.addAllElts(l);
         }
-        accessCond_.removeDuplicates();
 //        for (Coords c: visitedPlaces.getKeys(true))
         for (Coords c: getVisited()) {
             Condition cond_ = new Condition();

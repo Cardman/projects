@@ -6,8 +6,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.calls.AbstractPageEl;
 import code.expressionlanguage.calls.util.ReadWrite;
-import code.expressionlanguage.errors.custom.UnexpectedTagName;
-import code.expressionlanguage.errors.custom.UnexpectedTypeError;
+import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
@@ -119,28 +118,34 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock, Wi
         ExecOperationNode op_ = opValue.last();
         ClassArgumentMatching clArg_ = op_.getResultClass();
         if (clArg_.matchVoid(_cont)) {
-            UnexpectedTypeError un_ = new UnexpectedTypeError();
+            FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(getFile().getFileName());
             un_.setIndexFile(valueOffset);
-            un_.setType(clArg_);
+            //one char => change to first left par
+            un_.buildError(_cont.getAnalysisMessages().getVoidType(),
+                    _cont.getStandards().getAliasVoid());
             _cont.addError(un_);
         }
         String type_ = clArg_.getSingleNameOrEmpty();
         if (type_.isEmpty()) {
-            UnexpectedTypeError un_ = new UnexpectedTypeError();
+            FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(getFile().getFileName());
             un_.setIndexFile(valueOffset);
-            un_.setType(clArg_);
+            //one char => change to first left par
+            un_.buildError(_cont.getAnalysisMessages().getUnknownType(),
+                    type_);
             _cont.addError(un_);
         } else {
             String id_ = Templates.getIdFromAllTypes(type_);
             if (!PrimitiveTypeUtil.isPrimitiveOrWrapper(id_, _cont)) {
                 if (!StringList.quickEq(id_, _cont.getStandards().getAliasString())) {
                     if (!(_cont.getClassBody(id_) instanceof EnumBlock)) {
-                        UnexpectedTypeError un_ = new UnexpectedTypeError();
+                        FoundErrorInterpret un_ = new FoundErrorInterpret();
                         un_.setFileName(getFile().getFileName());
                         un_.setIndexFile(valueOffset);
-                        un_.setType(clArg_);
+                        //one char => change to first left par
+                        un_.buildError(_cont.getAnalysisMessages().getUnexpectedType(),
+                                id_);
                         _cont.addError(un_);
                     } else {
                         enumTest = true;
@@ -163,9 +168,18 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock, Wi
             }
             page_.setGlobalOffset(getOffset().getOffsetTrim());
             page_.setOffset(0);
-            UnexpectedTagName un_ = new UnexpectedTagName();
+            FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(getFile().getFileName());
             un_.setIndexFile(getOffset().getOffsetTrim());
+            //key word len
+            un_.buildError(_cont.getAnalysisMessages().getUnexpectedSwitch(),
+                    _cont.getKeyWords().getKeyWordSwitch(),
+                    StringList.join(
+                            new StringList(
+                                    _cont.getKeyWords().getKeyWordCase(),
+                                    _cont.getKeyWords().getKeyWordDefault()
+                            ),
+                            "|"));
             _cont.addError(un_);
             first_ = first_.getNextSibling();
         }

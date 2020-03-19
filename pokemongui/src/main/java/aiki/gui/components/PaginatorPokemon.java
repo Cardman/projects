@@ -36,14 +36,18 @@ public final class PaginatorPokemon extends Paginator {
     private static final String EVOLUTIONS = "evolutions";
 
     private TextField name;
+    private AutoCompleteDocument nameAuto;
 
     private TextField ability;
+    private AutoCompleteDocument abilityAuto;
 
     private TextField item;
+    private AutoCompleteDocument itemAuto;
 
     private ComboBoxSelectedBool withItem;
 
     private TextField moves;
+    private AutoCompleteDocument movesAuto;
 
     private EnumList<SearchingMode> order = new EnumList<SearchingMode>();
 
@@ -156,14 +160,15 @@ public final class PaginatorPokemon extends Paginator {
             String pkTr_ = getFacade().translatePokemon(p);
             pk_.add(pkTr_);
         }
-        name = AutoCompleteDocument.createAutoCompleteTextField(pk_, 16);
+        name = new TextField(16);
+        nameAuto = new AutoCompleteDocument(name,pk_, getWindow());
 //        name.getDocument().addDocumentListener(new DocumentAdaptater() {
 //
 //            public void updateText() {
 //                getFacade().setContentOfNameFirstBox(convertStringField(name.getText()));
 //            }
 //        });
-        modeName.setListener(new ChangedModeEvent(modeName, name));
+        modeName.setListener(new ChangedModeEvent(modeName, nameAuto));
 //        modeName.addItemListener(new ItemListener(){
 //            public void itemStateChanged(ItemEvent _e) {
 //                SearchingMode s_ = modeName.getCurrent();
@@ -176,14 +181,15 @@ public final class PaginatorPokemon extends Paginator {
             String abTr_ = getFacade().translateAbility(a);
             ab_.add(abTr_);
         }
-        ability = AutoCompleteDocument.createAutoCompleteTextField(ab_, 16);
+        ability = new TextField(16);
+        abilityAuto = new AutoCompleteDocument(ability,ab_, getWindow());
 //        ability.getDocument().addDocumentListener(new DocumentAdaptater() {
 //
 //            public void updateText() {
 //                getFacade().setContentOfAbilityFirstBox(convertStringField(ability.getText()));
 //            }
 //        });
-        modeAbility.setListener(new ChangedModeEvent(modeAbility, ability));
+        modeAbility.setListener(new ChangedModeEvent(modeAbility, abilityAuto));
 //        modeAbility.addItemListener(new ItemListener(){
 //            public void itemStateChanged(ItemEvent _e) {
 //                SearchingMode s_ = modeAbility.getCurrent();
@@ -196,14 +202,15 @@ public final class PaginatorPokemon extends Paginator {
             String abTr_ = getFacade().translateItem(i);
             it_.add(abTr_);
         }
-        item = AutoCompleteDocument.createAutoCompleteTextField(it_, 16);
+        item = new TextField(16);
+        itemAuto = new AutoCompleteDocument(item,it_, getWindow());
 //        item.getDocument().addDocumentListener(new DocumentAdaptater() {
 //
 //            public void updateText() {
 //                getFacade().setContentOfItemFirstBox(convertStringField(item.getText()));
 //            }
 //        });
-        modeItem.setListener(new ChangedModeEvent(modeItem, item));
+        modeItem.setListener(new ChangedModeEvent(modeItem, itemAuto));
 //        modeItem.addItemListener(new ItemListener(){
 //            public void itemStateChanged(ItemEvent _e) {
 //                SearchingMode s_ = modeItem.getCurrent();
@@ -221,14 +228,15 @@ public final class PaginatorPokemon extends Paginator {
             String mvTr_ = getFacade().translateMove(m);
             mv_.add(mvTr_);
         }
-        moves = AutoCompleteDocument.createAutoCompleteTextField(mv_, 16);
+        moves = new TextField(16);
+        movesAuto = new AutoCompleteDocument(moves,mv_, getWindow());
 //        moves.getDocument().addDocumentListener(new DocumentAdaptater() {
 //
 //            public void updateText() {
 //                getFacade().setContentOfMoveFirstBox(convertStringField(moves.getText()));
 //            }
 //        });
-        modeMoves.setListener(new ChangedModeEvent(modeMoves, moves));
+        modeMoves.setListener(new ChangedModeEvent(modeMoves, movesAuto));
 //        modeMoves.addItemListener(new ItemListener(){
 //            public void itemStateChanged(ItemEvent _e) {
 //                SearchingMode s_ = modeMoves.getCurrent();

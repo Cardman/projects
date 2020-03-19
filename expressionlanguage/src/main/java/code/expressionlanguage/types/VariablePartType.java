@@ -5,7 +5,6 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.methods.AccessedBlock;
 import code.expressionlanguage.methods.AccessingImportingBlock;
-import code.expressionlanguage.methods.RootBlock;
 import code.util.CustList;
 import code.util.*;
 import code.util.StringList;
@@ -17,62 +16,8 @@ final class VariablePartType extends LeafPartType {
     }
 
     @Override
-    void analyzeDepends(Analyzable _an,
-            int _index, CustList<IntTreeMap< String>> _dels,
-            RootBlock _rooted, boolean _exact) {
-        String type_ = getTypeName();
-        if (getParent() instanceof InnerPartType) {
-            _an.getCurrentBadIndexes().add(getIndexInType());
-            return;
-        }
-        if (getParent() instanceof TemplatePartType && getIndex() == 0) {
-            _an.getCurrentBadIndexes().add(getIndexInType());
-            return;
-        }
-        String t_ = StringList.removeAllSpaces(type_);
-        String trim_ = type_.trim();
-        if (trim_.startsWith(Templates.PREFIX_VAR_TYPE)) {
-            type_ = trim_.substring(Templates.PREFIX_VAR_TYPE.length()).trim();
-        } else {
-            t_ = StringList.concat(Templates.PREFIX_VAR_TYPE,t_);
-        }
-        type_ = ContextEl.removeDottedSpaces(type_);
-        if (!_an.getAvailableVariables().contains(type_)) {
-            _an.getCurrentBadIndexes().add(getIndexInType());
-        }
-        setAnalyzedType(t_);
-    }
-    @Override
-    void analyzeInherits(Analyzable _an, int _index,
-            CustList<IntTreeMap< String>> _dels, String _globalType,
-            RootBlock _rooted,
-            boolean _protected) {
-        if (getParent() instanceof InnerPartType) {
-            _an.getCurrentBadIndexes().add(getIndexInType());
-            return;
-        }
-        if (getParent() instanceof TemplatePartType && getIndex() == 0) {
-            _an.getCurrentBadIndexes().add(getIndexInType());
-            return;
-        }
-        String type_ = getTypeName();
-        String t_ = StringList.removeAllSpaces(type_);
-        String trim_ = type_.trim();
-        if (trim_.startsWith(Templates.PREFIX_VAR_TYPE)) {
-            type_ = trim_.substring(Templates.PREFIX_VAR_TYPE.length()).trim();
-        } else {
-            t_ = StringList.concat(Templates.PREFIX_VAR_TYPE,t_);
-        }
-        type_ = ContextEl.removeDottedSpaces(type_);
-        if (!_an.getAvailableVariables().contains(type_)) {
-            _an.getCurrentBadIndexes().add(getIndexInType());
-            return;
-        }
-        setAnalyzedType(t_);
-    }
-    @Override
-    void analyze(Analyzable _an, CustList<IntTreeMap< String>> _dels, String _globalType, AccessingImportingBlock _rooted) {
-        analyzeLine(_an,_dels,_globalType,_rooted);
+    void analyze(Analyzable _an, CustList<IntTreeMap< String>> _dels, String _globalType, AccessingImportingBlock _local,AccessingImportingBlock _rooted) {
+        analyzeLine(_an,_dels,_globalType,_local,_rooted);
     }
 
     @Override
@@ -82,7 +27,7 @@ final class VariablePartType extends LeafPartType {
     }
 
     @Override
-    void analyzeLine(Analyzable _an, CustList<IntTreeMap< String>> _dels, String _globalType, AccessingImportingBlock _rooted) {
+    void analyzeLine(Analyzable _an, CustList<IntTreeMap< String>> _dels, String _globalType, AccessingImportingBlock _local,AccessingImportingBlock _rooted) {
         if (getParent() instanceof InnerPartType) {
             _an.getCurrentBadIndexes().add(getIndexInType());
             return;
@@ -109,7 +54,7 @@ final class VariablePartType extends LeafPartType {
     @Override
     void analyzeAccessibleId(Analyzable _an,
             CustList<IntTreeMap< String>> _dels,
-                             AccessedBlock _rooted) {
+                             AccessingImportingBlock _rooted) {
         if (getParent() instanceof InnerPartType) {
             return;
         }

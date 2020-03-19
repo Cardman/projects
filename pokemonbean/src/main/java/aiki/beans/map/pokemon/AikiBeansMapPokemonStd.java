@@ -20,6 +20,7 @@ import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.util.BeanLgNames;
 import code.formathtml.structs.StdStruct;
+import code.formathtml.util.BeanNatLgNames;
 import code.util.CustList;
 import code.util.ObjectMap;
 import code.util.StringList;
@@ -60,7 +61,7 @@ public final class AikiBeansMapPokemonStd {
         fields_.put(TRAINER,new StandardField(TRAINER,PokemonStandards.TYPE_TRAINER,false,false,type_));
         fields_.put(REWARD,new StandardField(REWARD,_std.getAliasPrimShort(),false,false,type_));
         fields_.put(MULTIPLICITY,new StandardField(MULTIPLICITY,_std.getAliasPrimShort(),false,false,type_));
-        fields_.put(TEAM,new StandardField(TEAM,_std.getCustList(),false,false,type_));
+        fields_.put(TEAM,new StandardField(TEAM, BeanNatLgNames.TYPE_LIST,false,false,type_));
         fields_.put(NO_FIGHT,new StandardField(NO_FIGHT,_std.getAliasPrimInteger(),false,false,type_));
         params_ = new StringList(_std.getAliasLong());
         method_ = new StandardMethod(GET_IMAGE,params_,_std.getAliasString(), false, MethodModifier.NORMAL,type_);
@@ -105,7 +106,7 @@ public final class AikiBeansMapPokemonStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,TEAM)) {
-            res_.setResult(new StdStruct(instance_.getTeam(),std_.getCustList()));
+            res_.setResult(new StdStruct(instance_.getTeam(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,NO_FIGHT)) {

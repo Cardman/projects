@@ -5,8 +5,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.calls.AbstractPageEl;
 import code.expressionlanguage.common.GeneType;
-import code.expressionlanguage.errors.custom.BadElError;
-import code.expressionlanguage.errors.custom.BadOperandsNumber;
+import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.methods.*;
@@ -91,12 +90,16 @@ public final class ElUtil {
         MethodAccessKind hiddenVarTypes_ = _calcul.getStaticBlock();
         _conf.setAccessStaticContext(hiddenVarTypes_);
         Delimiters d_ = ElResolver.checkSyntax(_el, _conf, CustList.FIRST_INDEX);
-        if (d_.getBadOffset() >= 0) {
-            BadElError badEl_ = new BadElError();
-            badEl_.setOffsetInEl(d_.getBadOffset());
-            badEl_.setEl(_el);
+        int badOffset_ = d_.getBadOffset();
+        if (badOffset_ >= 0) {
+            FoundErrorInterpret badEl_ = new FoundErrorInterpret();
             badEl_.setFileName(_conf.getCurrentFileName());
             badEl_.setIndexFile(_conf.getCurrentLocationIndex());
+            //badOffset char
+            badEl_.buildError(_conf.getAnalysisMessages().getBadExpression(),
+                    possibleChar(badOffset_,_el),
+                    Integer.toString(badOffset_),
+                    _el);
             _conf.addError(badEl_);
             OperationsSequence tmpOp_ = new OperationsSequence();
             tmpOp_.setDelimiter(new Delimiters());
@@ -119,6 +122,12 @@ public final class ElUtil {
         return getExecutableNodes(_conf,all_);
     }
 
+    public static String possibleChar(int _index, String _str) {
+        if (_index >= _str.length()) {
+            return " ";
+        }
+        return Character.toString(_str.charAt(_index));
+    }
     private static void setupStaticContext(ContextEl _conf, MethodAccessKind _hiddenVarTypes, OperationNode _op) {
         MethodAccessKind ctorAcc_;
         if (_op instanceof AbstractInvokingConstructor) {
@@ -134,12 +143,16 @@ public final class ElUtil {
         MethodAccessKind hiddenVarTypes_ = _calcul.getStaticBlock();
         _conf.setAccessStaticContext(hiddenVarTypes_);
         Delimiters d_ = ElResolver.checkSyntax(_el, _conf, CustList.FIRST_INDEX);
-        if (d_.getBadOffset() >= 0) {
-            BadElError badEl_ = new BadElError();
-            badEl_.setOffsetInEl(d_.getBadOffset());
-            badEl_.setEl(_el);
+        int badOffset_ = d_.getBadOffset();
+        if (badOffset_ >= 0) {
+            FoundErrorInterpret badEl_ = new FoundErrorInterpret();
             badEl_.setFileName(_conf.getCurrentFileName());
             badEl_.setIndexFile(_conf.getCurrentLocationIndex());
+            //badOffset char
+            badEl_.buildError(_conf.getAnalysisMessages().getBadExpression(),
+                    possibleChar(badOffset_,_el),
+                    Integer.toString(badOffset_),
+                    _el);
             _conf.addError(badEl_);
             OperationsSequence tmpOp_ = new OperationsSequence();
             tmpOp_.setDelimiter(new Delimiters());
@@ -174,15 +187,11 @@ public final class ElUtil {
     private static CustList<OperationNode> getSortedDescNodes(OperationNode _root, ContextEl _context, String _fieldName) {
         CustList<OperationNode> list_ = new CustList<OperationNode>();
         Block currentBlock_ = _context.getCurrentBlock();
-        if (currentBlock_ != null) {
-            currentBlock_.defaultAssignmentBefore(_context, _root);
-        }
+        currentBlock_.defaultAssignmentBefore(_context, _root);
         OperationNode c_ = _root;
         while (true) {
             if (c_ == null) {
-                if (currentBlock_ != null) {
-                    currentBlock_.defaultAssignmentAfter(_context, _root);
-                }
+                currentBlock_.defaultAssignmentAfter(_context, _root);
                 break;
             }
             preAnalyze(_context, c_);
@@ -262,13 +271,9 @@ public final class ElUtil {
     private static void processDot(ContextEl _context, OperationNode _next, OperationNode _current, MethodOperation _par) {
         if (_par instanceof DotOperation) {
             if (!(_next instanceof PossibleIntermediateDotted)) {
-                _next.setRelativeOffsetPossibleAnalyzable(_next.getIndexInEl(), _context);
-                BadOperandsNumber badNb_ = new BadOperandsNumber();
-                badNb_.setFileName(_context.getCurrentFileName());
-                badNb_.setOperandsNumber(0);
-                badNb_.setIndexFile(_context.getCurrentLocationIndex());
-                _context.addError(badNb_);
-            } else if (_current instanceof StaticCallAccessOperation){
+                return;
+            }
+            if (_current instanceof StaticCallAccessOperation){
                 PossibleIntermediateDotted possible_ = (PossibleIntermediateDotted) _next;
                 possible_.setIntermediateDotted();
                 possible_.setPreviousArgument(Argument.createVoid());
@@ -535,20 +540,24 @@ public final class ElUtil {
         if (stepForLoop(_conf)) {
             return true;
         }
-        return checkFinal(_conf, _cst, _ass, fromCurClass_, cl_, fieldName_);
+        StringMap<Boolean> ass_ = new StringMap<Boolean>();
+        for (EntryCust<String,Assignment> e: _ass.entryList()) {
+            ass_.addEntry(e.getKey(),e.getValue().isUnassignedAfter());
+        }
+        return checkFinalReadOnly(_conf, _cst, ass_, fromCurClass_, cl_, fieldName_);
     }
 
-    public static boolean checkFinalFieldReadOnly(Analyzable _conf, SettableAbstractFieldOperation _cst, StringMap<Assignment> _ass) {
-        boolean fromCurClass_ = _cst.isFromCurrentClass(_conf);
+    public static boolean checkFinalFieldReadOnly(Analyzable _conf, SettableAbstractFieldOperation _cst, StringMap<Boolean> _ass) {
+        boolean fromCurClass_ = _cst.isFromCurrentClassReadOnly(_conf);
         ClassField cl_ = _cst.getFieldIdReadOnly();
         FieldInfo meta_ = _conf.getFieldInfo(cl_);
         if (meta_ == null) {
             return false;
         }
         String fieldName_ = cl_.getFieldName();
-        return meta_.isFinalField() && checkFinal(_conf, _cst, _ass, fromCurClass_, cl_, fieldName_);
+        return meta_.isFinalField() && checkFinalReadOnly(_conf, _cst, _ass, fromCurClass_, cl_, fieldName_);
     }
-    private static boolean checkFinal(Analyzable _conf, SettableAbstractFieldOperation _cst, StringMap<Assignment> _ass, boolean _fromCurClass, ClassField _cl, String _fieldName) {
+    private static boolean checkFinalReadOnly(Analyzable _conf, SettableAbstractFieldOperation _cst, StringMap<Boolean> _ass, boolean _fromCurClass, ClassField _cl, String _fieldName) {
         boolean checkFinal_;
         if (_conf.getContextEl().isAssignedFields()) {
             checkFinal_ = true;
@@ -563,11 +572,11 @@ public final class ElUtil {
                     checkFinal_ = false;
                 } else {
                     checkFinal_ = false;
-                    for (EntryCust<String, Assignment> e: _ass.entryList()) {
+                    for (EntryCust<String, Boolean> e: _ass.entryList()) {
                         if (!StringList.quickEq(e.getKey(), _fieldName)) {
                             continue;
                         }
-                        if (e.getValue().isUnassignedAfter()) {
+                        if (e.getValue()) {
                             continue;
                         }
                         checkFinal_ = true;
@@ -581,11 +590,11 @@ public final class ElUtil {
                 checkFinal_ = false;
             } else {
                 checkFinal_ = false;
-                for (EntryCust<String, Assignment> e: _ass.entryList()) {
+                for (EntryCust<String, Boolean> e: _ass.entryList()) {
                     if (!StringList.quickEq(e.getKey(), _fieldName)) {
                         continue;
                     }
-                    if (e.getValue().isUnassignedAfter()) {
+                    if (e.getValue()) {
                         continue;
                     }
                     checkFinal_ = true;
@@ -915,7 +924,7 @@ public final class ElUtil {
                     className_ = Templates.getIdFromAllTypes(className_);
                     MethodId id_ = classMethodId_.getConstraints();
                     if (!StringList.isDollarWord(id_.getName()) && !id_.getName().startsWith("[]")) {
-                        OperatorBlock operator_ = Classes.getOperatorsBodiesById(_cont, id_).first();
+                        NamedFunctionBlock operator_ = Classes.getOperatorsBodiesById(_cont, id_).first();
                         String file_ = operator_.getFile().getRenderFileName();
                         String rel_ = relativize(currentFileName_, file_ + "#m" + operator_.getNameOffset());
                         tag_ = "<a title=\""+ transform(id_.getSignature(_cont))+"\" href=\""+rel_+"\">";
@@ -1007,7 +1016,7 @@ public final class ElUtil {
                 ExecCustNumericOperation par_ = (ExecCustNumericOperation) curOp_;
                 ClassMethodId classMethodId_ = par_.getClassMethodId();
                 MethodId id_ = classMethodId_.getConstraints();
-                OperatorBlock operator_ = Classes.getOperatorsBodiesById(_cont, id_).first();
+                NamedFunctionBlock operator_ = Classes.getOperatorsBodiesById(_cont, id_).first();
                 String file_ = operator_.getFile().getRenderFileName();
                 String rel_ = relativize(currentFileName_, file_ + "#m" + operator_.getNameOffset());
                 tag_ = "<a title=\""+ transform(id_.getSignature(_cont))+"\" href=\""+rel_+"\">";
@@ -1058,7 +1067,7 @@ public final class ElUtil {
                     ClassMethodId classMethodId_ = par_.getClassMethodId();
                     if (classMethodId_ != null) {
                         MethodId id_ = classMethodId_.getConstraints();
-                        OperatorBlock operator_ = Classes.getOperatorsBodiesById(_cont, id_).first();
+                        NamedFunctionBlock operator_ = Classes.getOperatorsBodiesById(_cont, id_).first();
                         String file_ = operator_.getFile().getRenderFileName();
                         String rel_ = relativize(currentFileName_, file_ + "#m" + operator_.getNameOffset());
                         tag_ = "<a title=\""+ transform(id_.getSignature(_cont))+"\" href=\""+rel_+"\">";
@@ -1148,7 +1157,7 @@ public final class ElUtil {
                         ExecCustNumericOperation par_ = (ExecCustNumericOperation) parentOp_;
                         ClassMethodId classMethodId_ = par_.getClassMethodId();
                         MethodId id_ = classMethodId_.getConstraints();
-                        OperatorBlock operator_ = Classes.getOperatorsBodiesById(_cont, id_).first();
+                        NamedFunctionBlock operator_ = Classes.getOperatorsBodiesById(_cont, id_).first();
                         String file_ = operator_.getFile().getRenderFileName();
                         String rel_ = relativize(currentFileName_, file_ + "#m" + operator_.getNameOffset());
                         tag_ = "<a title=\""+ transform(id_.getSignature(_cont))+"\" href=\""+rel_+"\">";
@@ -1162,7 +1171,7 @@ public final class ElUtil {
                         int opDelta_ = par_.getOper().length() - 1;
                         if (classMethodId_ != null) {
                             MethodId id_ = classMethodId_.getConstraints();
-                            OperatorBlock operator_ = Classes.getOperatorsBodiesById(_cont, id_).first();
+                            NamedFunctionBlock operator_ = Classes.getOperatorsBodiesById(_cont, id_).first();
                             String file_ = operator_.getFile().getRenderFileName();
                             String rel_ = relativize(currentFileName_, file_ + "#m" + operator_.getNameOffset());
                             tag_ = "<a title=\""+ transform(id_.getSignature(_cont))+"\" href=\""+rel_+"\">";
@@ -1305,7 +1314,7 @@ public final class ElUtil {
                         ClassMethodId classMethodId_ = par_.getClassMethodId();
                         if (classMethodId_ != null) {
                             MethodId id_ = classMethodId_.getConstraints();
-                            OperatorBlock operator_ = Classes.getOperatorsBodiesById(_cont, id_).first();
+                            NamedFunctionBlock operator_ = Classes.getOperatorsBodiesById(_cont, id_).first();
                             String file_ = operator_.getFile().getRenderFileName();
                             String rel_ = relativize(currentFileName_, file_ + "#m" + operator_.getNameOffset());
                             tag_ = "<a title=\""+ transform(id_.getSignature(_cont))+"\" href=\""+rel_+"\">";
@@ -1578,7 +1587,7 @@ public final class ElUtil {
         _an.getContextEl().getCoverage().putBlockOperation(_an,bl_,current_,exp_);
         while (current_ != null) {
             OperationNode op_ = current_.getFirstChild();
-            if (op_ != null) {
+            if (exp_ instanceof ExecMethodOperation && op_ != null) {
                 ExecOperationNode loc_ = (ExecOperationNode) ExecOperationNode.createExecOperationNode(op_);
                 _an.getContextEl().getCoverage().putBlockOperation(_an,bl_,op_,loc_);
                 ((ExecMethodOperation)exp_).appendChild(loc_);

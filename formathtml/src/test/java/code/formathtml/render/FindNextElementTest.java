@@ -4,6 +4,7 @@ import static code.formathtml.EquallableExUtil.assertEq;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
+import code.formathtml.errors.RendKeyWords;
 import code.util.CustList;
 import org.junit.Test;
 
@@ -23,8 +24,7 @@ public final class FindNextElementTest {
         doc_.append("Hello World");
         doc_.append("</body>\n");
         doc_.append("</html>");
-        DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(doc_.toString());
-        MetaDocument out_ = MetaDocument.newInstance(res_.getDocument());
+        MetaDocument out_ = getMetaDocument(doc_);
         FindNextElement f_ = new FindNextElement(out_);
         f_.next("o");
         IdMap<MetaSearchableLabel, CustList<SegmentPart>> segs_ = f_.getSegments();
@@ -35,6 +35,11 @@ public final class FindNextElementTest {
         assertNotNull(f_.getLabel());
     }
 
+    private static MetaDocument getMetaDocument(StringBuilder _doc) {
+        DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(_doc.toString());
+        return MetaDocument.newInstance(res_.getDocument(), new RendKeyWords());
+    }
+
     @Test
     public void next2Test() {
         StringBuilder doc_ = new StringBuilder();
@@ -43,8 +48,7 @@ public final class FindNextElementTest {
         doc_.append("Hello World");
         doc_.append("</body>\n");
         doc_.append("</html>");
-        DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(doc_.toString());
-        MetaDocument out_ = MetaDocument.newInstance(res_.getDocument());
+        MetaDocument out_ = getMetaDocument(doc_);
         FindNextElement f_ = new FindNextElement(out_);
         f_.next("o");
         f_.next("o");
@@ -65,8 +69,7 @@ public final class FindNextElementTest {
         doc_.append("Hello World");
         doc_.append("</body>\n");
         doc_.append("</html>");
-        DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(doc_.toString());
-        MetaDocument out_ = MetaDocument.newInstance(res_.getDocument());
+        MetaDocument out_ = getMetaDocument(doc_);
         FindNextElement f_ = new FindNextElement(out_);
         f_.next("a");
         IdMap<MetaSearchableLabel, CustList<SegmentPart>> segs_ = f_.getSegments();
@@ -81,8 +84,7 @@ public final class FindNextElementTest {
         doc_.append("Hello<a>World</a>");
         doc_.append("</body>\n");
         doc_.append("</html>");
-        DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(doc_.toString());
-        MetaDocument out_ = MetaDocument.newInstance(res_.getDocument());
+        MetaDocument out_ = getMetaDocument(doc_);
         FindNextElement f_ = new FindNextElement(out_);
         f_.next("o");
         f_.next("o");
@@ -104,8 +106,7 @@ public final class FindNextElementTest {
         doc_.append("Hello<br/>World");
         doc_.append("</body>\n");
         doc_.append("</html>");
-        DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(doc_.toString());
-        MetaDocument out_ = MetaDocument.newInstance(res_.getDocument());
+        MetaDocument out_ = getMetaDocument(doc_);
         FindNextElement f_ = new FindNextElement(out_);
         f_.next("o");
         f_.next("o");
@@ -124,8 +125,7 @@ public final class FindNextElementTest {
         doc_.append("Hello<a>World</a>");
         doc_.append("</body>\n");
         doc_.append("</html>");
-        DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(doc_.toString());
-        MetaDocument out_ = MetaDocument.newInstance(res_.getDocument());
+        MetaDocument out_ = getMetaDocument(doc_);
         FindNextElement f_ = new FindNextElement(out_);
         f_.next("o");
         f_.next("o");
@@ -142,8 +142,7 @@ public final class FindNextElementTest {
         doc_.append("Hello<a>World</a>");
         doc_.append("</body>\n");
         doc_.append("</html>");
-        DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(doc_.toString());
-        MetaDocument out_ = MetaDocument.newInstance(res_.getDocument());
+        MetaDocument out_ = getMetaDocument(doc_);
         FindNextElement f_ = new FindNextElement(out_);
         f_.next("loWorld");
         IdMap<MetaSearchableLabel, CustList<SegmentPart>> segs_ = f_.getSegments();
@@ -164,8 +163,7 @@ public final class FindNextElementTest {
         doc_.append("Hello<a>World</a>Everybody");
         doc_.append("</body>\n");
         doc_.append("</html>");
-        DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(doc_.toString());
-        MetaDocument out_ = MetaDocument.newInstance(res_.getDocument());
+        MetaDocument out_ = getMetaDocument(doc_);
         FindNextElement f_ = new FindNextElement(out_);
         f_.next("loWorldEvery");
         IdMap<MetaSearchableLabel, CustList<SegmentPart>> segs_ = f_.getSegments();
@@ -188,8 +186,7 @@ public final class FindNextElementTest {
         doc_.append("<body>\n");
         doc_.append("</body>\n");
         doc_.append("</html>");
-        DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(doc_.toString());
-        MetaDocument out_ = MetaDocument.newInstance(res_.getDocument());
+        MetaDocument out_ = getMetaDocument(doc_);
         FindNextElement f_ = new FindNextElement(out_);
         f_.next("loWorldEvery");
         IdMap<MetaSearchableLabel, CustList<SegmentPart>> segs_ = f_.getSegments();
@@ -205,8 +202,7 @@ public final class FindNextElementTest {
         doc_.append("</pre>\n");
         doc_.append("</body>\n");
         doc_.append("</html>");
-        DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(doc_.toString());
-        MetaDocument out_ = MetaDocument.newInstance(res_.getDocument());
+        MetaDocument out_ = getMetaDocument(doc_);
         FindNextElement f_ = new FindNextElement(out_);
         f_.next("");
         IdMap<MetaSearchableLabel, CustList<SegmentPart>> segs_ = f_.getSegments();
@@ -221,8 +217,7 @@ public final class FindNextElementTest {
         doc_.append("Hello World<hr/>Everybody");
         doc_.append("</body>\n");
         doc_.append("</html>");
-        DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(doc_.toString());
-        MetaDocument out_ = MetaDocument.newInstance(res_.getDocument());
+        MetaDocument out_ = getMetaDocument(doc_);
         FindNextElement f_ = new FindNextElement(out_);
         f_.next("loWorldEvery");
         IdMap<MetaSearchableLabel, CustList<SegmentPart>> segs_ = f_.getSegments();

@@ -7,6 +7,7 @@ import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.inherits.TypeUtil;
 import code.expressionlanguage.methods.ProcessMethod;
+import code.expressionlanguage.methods.ReflectingType;
 import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.EnumerableStruct;
@@ -89,18 +90,30 @@ public final class RunnableStruct implements WithParentStruct, EnumerableStruct,
         RunnableContextEl r_ = new RunnableContextEl(original);
         setupThread(r_);
         LgNames stds_ = r_.getStandards();
-        String run_ = r_.getCustInit().getRunTask(stds_);
-        String runnable_ = r_.getCustInit().getInterfaceTask(stds_);
-        MethodId id_ = new MethodId(MethodAccessKind.INSTANCE, run_, new StringList());
-        GeneType type_ = r_.getClassBody(runnable_);
-        String base_ = Templates.getIdFromAllTypes(className);
-        ClassMethodId mId_ = TypeUtil.getConcreteMethodsToCall(type_, id_, r_).getVal(base_);
+        String run_ = ((LgNamesUtils)stds_).getAliasRun();
+        String runnable_ = ((LgNamesUtils)stds_).getAliasRunnable();
+        invoke(this,r_,runnable_,run_,new StringList(),new CustList<Argument>());
+    }
+    public static void invoke(Struct _instance,RunnableContextEl _r, String _typeName, String _methName, StringList _argTypes, CustList<Argument> _args) {
+        MethodId id_ = new MethodId(MethodAccessKind.INSTANCE, _methName, _argTypes);
+        GeneType type_ = _r.getClassBody(_typeName);
+        String base_ = Templates.getIdFromAllTypes(_instance.getClassName(_r));
+        ClassMethodId mId_ = TypeUtil.getConcreteMethodsToCall(type_, id_, _r).getVal(base_);
+        if (mId_ == null) {
+            _r.getCustInit().removeThreadFromList(_r);
+            return;
+        }
         Argument arg_ = new Argument();
-        arg_.setStruct(this);
-        invoke(arg_, mId_.getClassName(), mId_.getConstraints(), new CustList<Argument>(), r_,null);
+        arg_.setStruct(_instance);
+        RunnableStruct.invoke(arg_, mId_.getClassName(), mId_.getConstraints(), _args, _r,null);
     }
     public static Argument invoke(Argument _global, String _class, MethodId _method, CustList<Argument> _args, RunnableContextEl _cont, Argument _right) {
         Argument arg_ = ProcessMethod.calculateArgument(_global, _class, _method, _args, _cont, _right);
+        _cont.getCustInit().prExc(_cont);
+        return arg_;
+    }
+    public static Argument reflect(Argument _global, CustList<Argument> _args, RunnableContextEl _cont, ReflectingType _reflect, boolean _lambda) {
+        Argument arg_ = ProcessMethod.reflectArgument(_global, _args,_cont,_reflect, _lambda);
         _cont.getCustInit().prExc(_cont);
         return arg_;
     }

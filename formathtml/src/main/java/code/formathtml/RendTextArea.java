@@ -1,6 +1,6 @@
 package code.formathtml;
 
-import code.expressionlanguage.errors.custom.BadElError;
+import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.inherits.Mapping;
 import code.expressionlanguage.inherits.Templates;
@@ -28,8 +28,8 @@ public final class RendTextArea extends RendParentBlock implements RendWithEl, R
     private StringMap<ResultText> attributesText = new StringMap<ResultText>();
     private StringMap<ResultText> attributes = new StringMap<ResultText>();
 
-    private String varNameConverter = "";
-    private String varNameConverterField = "";
+    private String varNameConverter = EMPTY_STRING;
+    private String varNameConverterField = EMPTY_STRING;
     private String varName = EMPTY_STRING;
     private ClassField idField;
     private Element elt;
@@ -41,23 +41,24 @@ public final class RendTextArea extends RendParentBlock implements RendWithEl, R
     @Override
     public void buildExpressionLanguage(Configuration _cont, RendDocumentBlock _doc) {
         ResultInput r_ = new ResultInput();
-        r_.build(_cont, _doc,elt,StringList.concat(_cont.getPrefix(),ATTRIBUTE_VAR_VALUE));
+        r_.build(_cont, this,_doc,elt,StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrVarValue()));
         opsRead = r_.getOpsRead();
         opsValue = r_.getOpsValue();
         opsWrite = r_.getOpsWrite();
         varName = r_.getVarName();
         idField = r_.getIdField();
-        MethodAccessKind st_ = _doc.getStaticContext();
-        String converterValue_ = elt.getAttribute(StringList.concat(_cont.getPrefix(),ATTRIBUTE_CONVERT_VALUE));
+        String converterValue_ = elt.getAttribute(StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrConvertValue()));
         if (!opsRead.isEmpty()){
             Mapping m_ = new Mapping();
             m_.setArg(opsRead.last().getResultClass());
             m_.setParam(_cont.getStandards().getAliasCharSequence());
             if (!Templates.isCorrectOrNumbers(m_,_cont)) {
                 if (converterValue_.trim().isEmpty()) {
-                    BadElError badEl_ = new BadElError();
+                    FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                     badEl_.setFileName(_cont.getCurrentFileName());
-                    badEl_.setIndexFile(_cont.getCurrentLocationIndex());
+                    badEl_.setIndexFile(getOffset().getOffsetTrim());
+                    badEl_.buildError(_cont.getRendAnalysisMessages().getEmptyAttr(),
+                            StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrConvertValue()));
                     _cont.addError(badEl_);
                 }
                 String string_ = _cont.getStandards().getAliasString();
@@ -68,22 +69,26 @@ public final class RendTextArea extends RendParentBlock implements RendWithEl, R
                 LocalVariable lv_ = new LocalVariable();
                 lv_.setClassName(string_);
                 _cont.getLocalVarsAna().last().addEntry(varLoc_,lv_);
-                String preRend_ = StringList.concat(converterValue_,"(",BeanCustLgNames.sufficLocal(_cont.getContext(),varLoc_),")");
-                opsConverter = RenderExpUtil.getAnalyzedOperations(preRend_,0,_cont,Calculation.staticCalculation(st_));
+                String preRend_ = StringList.concat(converterValue_,RendBlock.LEFT_PAR,BeanCustLgNames.sufficLocal(_cont.getContext(),varLoc_),RendBlock.RIGHT_PAR);
+                int attr_ = getAttributeDelimiter(StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrConvertValue()));
+                opsConverter = RenderExpUtil.getAnalyzedOperations(preRend_,attr_,0,_cont);
                 for (String v:varNames_) {
                     _cont.getLocalVarsAna().last().removeKey(v);
                 }
                 m_.setArg(opsConverter.last().getResultClass());
                 m_.setParam(opsRead.last().getResultClass());
                 if (!Templates.isCorrectOrNumbers(m_,_cont)) {
-                    BadElError badEl_ = new BadElError();
+                    FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                     badEl_.setFileName(_cont.getCurrentFileName());
-                    badEl_.setIndexFile(_cont.getCurrentLocationIndex());
+                    badEl_.setIndexFile(attr_);
+                    badEl_.buildError(_cont.getContext().getAnalysisMessages().getBadImplicitCast(),
+                            StringList.join(opsConverter.last().getResultClass().getNames(),AND_ERR),
+                            StringList.join(opsRead.last().getResultClass().getNames(),AND_ERR));
                     _cont.addError(badEl_);
                 }
             }
         }
-        String converterField_ = elt.getAttribute(StringList.concat(_cont.getPrefix(),ATTRIBUTE_CONVERT_FIELD));
+        String converterField_ = elt.getAttribute(StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrConvertField()));
         if (!converterField_.trim().isEmpty()) {
             String object_ = _cont.getStandards().getAliasObject();
             StringList varNames_ = new StringList();
@@ -93,8 +98,9 @@ public final class RendTextArea extends RendParentBlock implements RendWithEl, R
             LocalVariable lv_ = new LocalVariable();
             lv_.setClassName(object_);
             _cont.getLocalVarsAna().last().addEntry(varLoc_,lv_);
-            String preRend_ = StringList.concat(converterField_,"(",BeanCustLgNames.sufficLocal(_cont.getContext(),varLoc_),")");
-            opsConverterField = RenderExpUtil.getAnalyzedOperations(preRend_,0,_cont,Calculation.staticCalculation(st_));
+            String preRend_ = StringList.concat(converterField_,RendBlock.LEFT_PAR,BeanCustLgNames.sufficLocal(_cont.getContext(),varLoc_),RendBlock.RIGHT_PAR);
+            int attr_ = getAttributeDelimiter(StringList.concat(_cont.getPrefix(), _cont.getRendKeyWords().getAttrConvertField()));
+            opsConverterField = RenderExpUtil.getAnalyzedOperations(preRend_,attr_,0,_cont);
             for (String v:varNames_) {
                 _cont.getLocalVarsAna().last().removeKey(v);
             }
@@ -102,37 +108,44 @@ public final class RendTextArea extends RendParentBlock implements RendWithEl, R
             m_.setArg(opsConverterField.last().getResultClass());
             m_.setParam(_cont.getStandards().getAliasCharSequence());
             if (!Templates.isCorrectOrNumbers(m_,_cont)) {
-                BadElError badEl_ = new BadElError();
+                FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                 badEl_.setFileName(_cont.getCurrentFileName());
-                badEl_.setIndexFile(_cont.getCurrentLocationIndex());
+                badEl_.setIndexFile(attr_);
+                badEl_.buildError(_cont.getContext().getAnalysisMessages().getBadImplicitCast(),
+                        StringList.join(opsConverterField.last().getResultClass().getNames(),AND_ERR),
+                        _cont.getStandards().getAliasCharSequence());
                 _cont.addError(badEl_);
             }
         }
-        String id_ = elt.getAttribute(ATTRIBUTE_ID);
+        String id_ = elt.getAttribute(_cont.getRendKeyWords().getAttrId());
         if (!id_.isEmpty()) {
             ResultText rId_ = new ResultText();
-            rId_.buildId(id_,_cont,_doc);
-            attributesText.put(ATTRIBUTE_ID,rId_);
+            int off_ = getAttributeDelimiter(_cont.getRendKeyWords().getAttrId());
+            rId_.buildId(id_,_cont,off_,_doc);
+            attributesText.put(_cont.getRendKeyWords().getAttrId(),rId_);
         }
         String prefixWrite_ = _cont.getPrefix();
-        String prefGr_ = StringList.concat(prefixWrite_, ATTRIBUTE_GROUP_ID);
+        String prefGr_ = StringList.concat(prefixWrite_, _cont.getRendKeyWords().getAttrGroupId());
         String groupId_ = elt.getAttribute(prefGr_);
+        int offGrId_ = getAttributeDelimiter(prefGr_);
         if (!groupId_.isEmpty()) {
             ResultText rId_ = new ResultText();
-            rId_.buildId(groupId_,_cont,_doc);
+            rId_.buildId(groupId_,_cont,offGrId_,_doc);
             attributesText.put(prefGr_,rId_);
         }
-        String rows_ = elt.getAttribute(ATTRIBUTE_ROWS);
+        String rows_ = elt.getAttribute(_cont.getRendKeyWords().getAttrRows());
+        int rowsGrId_ = getAttributeDelimiter(_cont.getRendKeyWords().getAttrRows());
         if (!rows_.isEmpty()) {
             ResultText rId_ = new ResultText();
-            rId_.build(rows_,_cont,_doc);
-            attributes.addEntry(ATTRIBUTE_ROWS,rId_);
+            rId_.build(rows_,_cont,rowsGrId_,_doc);
+            attributes.addEntry(_cont.getRendKeyWords().getAttrRows(),rId_);
         }
-        String cols_ = elt.getAttribute(ATTRIBUTE_COLS);
+        String cols_ = elt.getAttribute(_cont.getRendKeyWords().getAttrCols());
+        int colsGrId_ = getAttributeDelimiter(_cont.getRendKeyWords().getAttrCols());
         if (!cols_.isEmpty()) {
             ResultText rId_ = new ResultText();
-            rId_.build(cols_,_cont,_doc);
-            attributes.addEntry(ATTRIBUTE_COLS,rId_);
+            rId_.build(cols_,_cont,colsGrId_,_doc);
+            attributes.addEntry(_cont.getRendKeyWords().getAttrCols(),rId_);
         }
     }
 
@@ -153,7 +166,7 @@ public final class RendTextArea extends RendParentBlock implements RendWithEl, R
         RendReadWrite rw_ = _cont.getLastPage().getRendReadWrite();
         Element write_ = (Element) rw_.getWrite();
         Document doc_ = write_.getOwnerDocument();
-        Element docElementSelect_ = doc_.createElement(TEXT_AREA);
+        Element docElementSelect_ = doc_.createElement(_cont.getRendKeyWords().getKeyWordTextarea());
         write_.appendChild(docElementSelect_);
         FieldUpdates f_ = new FieldUpdates();
         f_.setIdField(idField);
@@ -170,8 +183,9 @@ public final class RendTextArea extends RendParentBlock implements RendWithEl, R
             }
             docElementSelect_.setAttribute(e.getKey(),txt_);
         }
-        if (elt.hasAttribute(StringList.concat(_cont.getPrefix(),ATTRIBUTE_VALIDATOR))) {
-            docElementSelect_.setAttribute(StringList.concat(_cont.getPrefix(),ATTRIBUTE_VALIDATOR),elt.getAttribute(StringList.concat(_cont.getPrefix(),ATTRIBUTE_VALIDATOR)));
+        if (elt.hasAttribute(StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrValidator()))) {
+            docElementSelect_.setAttribute(StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrValidator()),
+                    elt.getAttribute(StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrValidator())));
         }
         fetchName(_cont, elt, docElementSelect_, f_);
         fetchValue(_cont,elt,docElementSelect_,opsValue,varNameConverterField,opsConverterField);

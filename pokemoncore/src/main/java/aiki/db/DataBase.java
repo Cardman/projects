@@ -834,9 +834,7 @@ public class DataBase {
             }
             nonIncrementNbRound_.add(e.getNumberIncrement());
         }
-        int nb_ = nonIncrementNbRound_.size();
-        nonIncrementNbRound_.removeDuplicates();
-        if (nb_ != nonIncrementNbRound_.size()) {
+        if (nonIncrementNbRound_.hasDuplicates()) {
             setError(true);
         }
         for (short e : incrementNbRound_) {
@@ -1568,8 +1566,7 @@ public class DataBase {
                         }
                     }
                 }
-                tr_.removeDuplicates();
-                if (tr_.size() > DataBase.ONE_POSSIBLE_CHOICE) {
+                if (!tr_.onlyOneElt()) {
                     setError(true);
                 }
             }
@@ -1584,7 +1581,6 @@ public class DataBase {
         for (Item i : items.values()) {
             classesItems_.add(i.getItemType());
         }
-        classesItems_.removeDuplicates();
         for (StringMap<String> v : translatedClassesDescriptions.values()) {
             if (!v.containsAllAsKeys(classesItems_)) {
                 setError(true);
@@ -1608,9 +1604,7 @@ public class DataBase {
                 setError(true);
             }
         }
-        int nbCustKeys_ = allCustKeys_.size();
-        allCustKeys_.removeDuplicates();
-        if (nbCustKeys_ != allCustKeys_.size()) {
+        if (allCustKeys_.hasDuplicates()) {
             setError(true);
         }
         for (String n : allStandardKeys_) {
@@ -1703,9 +1697,7 @@ public class DataBase {
 
     private static boolean hasDuplicates(Listable<String> _list) {
         StringList l_ = new StringList(_list);
-        int size_ = l_.size();
-        l_.removeDuplicates();
-        return l_.size() != size_;
+        return l_.hasDuplicates();
     }
 
     public void initTypesByTable() {
@@ -1726,7 +1718,6 @@ public class DataBase {
             }
             pkTypes_.add(t.getPokemonType());
         }
-        pkTypes_.removeDuplicates();
         if (!StringList.equalsSet(moveTypes_, pkTypes_)) {
             setError(true);
         }

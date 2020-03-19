@@ -142,8 +142,6 @@ public final class CustBeanLgNames extends BeanNatLgNames {
     private static final String ALIAS_LS = "ls";
     private static final String ALIAS_LSE = "lse";
     public CustBeanLgNames() {
-        setCustList(ALIAS_LS);
-        setCustMap(ALIAS_LSE);
         StringMap<StandardField> fields_;
         ObjectMap<MethodId, StandardMethod> methods_;
         CustList<StandardConstructor> constructors_;
@@ -151,8 +149,8 @@ public final class CustBeanLgNames extends BeanNatLgNames {
         fields_ = new StringMap<StandardField>();
         methods_ = new ObjectMap<MethodId, StandardMethod>();
         StandardClass cl_;
-        cl_ = new StandardClass(TYPE_INTS, fields_, constructors_, methods_, getCustList(), MethodModifier.FINAL);
-        cl_.getDirectInterfaces().add(getAliasCountable());
+        cl_ = new StandardClass(TYPE_INTS, fields_, constructors_, methods_, TYPE_LIST, MethodModifier.FINAL);
+        cl_.getDirectInterfaces().add(TYPE_COUNTABLE);
         getStandards().put(TYPE_INTS, cl_);
         getIterables().put(TYPE_INTS,getAliasInteger());
         DefaultInitialization.basicStandards(this);
@@ -169,9 +167,9 @@ public final class CustBeanLgNames extends BeanNatLgNames {
         StandardMethod method_;
         StringList params_;
         StandardClass cl_;
-        cl_ = new StandardClass(TYPE_STRING_LIST, fields_, constructors_, methods_, getCustList(), MethodModifier.FINAL);
-        cl_.getDirectInterfaces().add(getAliasCountable());
-        cl_.getDirectInterfaces().add(getAliasDisplayable());
+        cl_ = new StandardClass(TYPE_STRING_LIST, fields_, constructors_, methods_, TYPE_LIST, MethodModifier.FINAL);
+        cl_.getDirectInterfaces().add(TYPE_COUNTABLE);
+        cl_.getDirectInterfaces().add(TYPE_DISPLAYABLE);
         params_ = new StringList();
         method_ = new StandardMethod(GET_REVERSE,params_,TYPE_STRING_LIST, false, MethodModifier.NORMAL,cl_);
         methods_.put(method_.getId(), method_);
@@ -204,22 +202,22 @@ public final class CustBeanLgNames extends BeanNatLgNames {
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new StringMap<StandardField>();
         methods_ = new ObjectMap<MethodId, StandardMethod>();
-        cl_ = new StandardClass(TYPE_MY_VALIDATOR, fields_, constructors_, methods_, getValidator(), MethodModifier.FINAL);
+        cl_ = new StandardClass(TYPE_MY_VALIDATOR, fields_, constructors_, methods_, TYPE_VALIDATOR, MethodModifier.FINAL);
         getStandards().put(TYPE_MY_VALIDATOR, cl_);
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new StringMap<StandardField>();
         methods_ = new ObjectMap<MethodId, StandardMethod>();
-        cl_ = new StandardClass(TYPE_MY_VALIDATOR_ENUM, fields_, constructors_, methods_, getValidator(), MethodModifier.FINAL);
+        cl_ = new StandardClass(TYPE_MY_VALIDATOR_ENUM, fields_, constructors_, methods_, TYPE_VALIDATOR, MethodModifier.FINAL);
         getStandards().put(TYPE_MY_VALIDATOR_ENUM, cl_);
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new StringMap<StandardField>();
         methods_ = new ObjectMap<MethodId, StandardMethod>();
-        cl_ = new StandardClass(TYPE_MY_VALIDATOR_ENUMS, fields_, constructors_, methods_, getValidator(), MethodModifier.FINAL);
+        cl_ = new StandardClass(TYPE_MY_VALIDATOR_ENUMS, fields_, constructors_, methods_, TYPE_VALIDATOR, MethodModifier.FINAL);
         getStandards().put(TYPE_MY_VALIDATOR_ENUMS, cl_);
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new StringMap<StandardField>();
         methods_ = new ObjectMap<MethodId, StandardMethod>();
-        cl_ = new StandardClass(TYPE_UNSELECTED_RADIO, fields_, constructors_, methods_, getValidator(), MethodModifier.FINAL);
+        cl_ = new StandardClass(TYPE_UNSELECTED_RADIO, fields_, constructors_, methods_, TYPE_VALIDATOR, MethodModifier.FINAL);
         getStandards().put(TYPE_UNSELECTED_RADIO, cl_);
     }
     private void buildBeanOne() {
@@ -232,21 +230,21 @@ public final class CustBeanLgNames extends BeanNatLgNames {
         StandardMethod method_;
         StringList params_;
         StandardClass cl_;
-        cl_ = new StandardClass(TYPE_BEAN_ONE, fields_, constructors_, methods_, getBean(), MethodModifier.FINAL);
+        cl_ = new StandardClass(TYPE_BEAN_ONE, fields_, constructors_, methods_, TYPE_BEAN, MethodModifier.FINAL);
         fields_.put(CHOSEN_NUMBER,new StandardField(CHOSEN_NUMBER,TYPE_ENUM_NUMBER,false,false,cl_));
         fields_.put(CHOSEN_NUMBERS,new StandardField(CHOSEN_NUMBERS,TYPE_ENUM_NUMBERS,false,false,cl_));
         fields_.put(COMBOBOX,new StandardField(COMBOBOX,TYPE_ENUM_NUMBERS,false,false,cl_));
         fields_.put(COMMON_CLASS,new StandardField(COMMON_CLASS,getAliasString(),false,false,cl_));
         fields_.put(COMPOSITE,new StandardField(COMPOSITE,TYPE_COMPOSITE,false,false,cl_));
-        fields_.put(MAP,new StandardField(MAP,getCustMap(),false,false,cl_));
+        fields_.put(MAP,new StandardField(MAP, TYPE_MAP,false,false,cl_));
         fields_.put(MESSAGE,new StandardField(MESSAGE,getAliasString(),false,false,cl_));
-        fields_.put(NUMBERS,new StandardField(NUMBERS,getCustMap(),false,false,cl_));
+        fields_.put(NUMBERS,new StandardField(NUMBERS, TYPE_MAP,false,false,cl_));
         fields_.put(SELECTED_STRING,new StandardField(SELECTED_STRING,getAliasString(),false,false,cl_));
-        fields_.put(TRANSLATIONS,new StandardField(TRANSLATIONS,getCustMap(),false,false,cl_));
-        fields_.put(TREE,new StandardField(TREE,getCustMap(),false,false,cl_));
+        fields_.put(TRANSLATIONS,new StandardField(TRANSLATIONS, TYPE_MAP,false,false,cl_));
+        fields_.put(TREE,new StandardField(TREE, TYPE_MAP,false,false,cl_));
         fields_.put(STRINGS,new StandardField(STRINGS,TYPE_STRING_LIST,false,false,cl_));
         params_ = new StringList(getAliasInteger());
-        method_ = new StandardMethod(GET_LIST,params_,getCustList(), false, MethodModifier.NORMAL,cl_);
+        method_ = new StandardMethod(GET_LIST,params_, TYPE_LIST, false, MethodModifier.NORMAL,cl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(getAliasLong());
         method_ = new StandardMethod(GET_DOUBLE,params_,getAliasPrimInteger(), false, MethodModifier.NORMAL,cl_);
@@ -273,7 +271,7 @@ public final class CustBeanLgNames extends BeanNatLgNames {
         method_ = new StandardMethod(GET_DEFAULT_CHOICE,params_,TYPE_ENUM_NUMBER, false, MethodModifier.NORMAL,cl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
-        method_ = new StandardMethod(GET_COMPOSITES,params_,getCustList(), false, MethodModifier.NORMAL,cl_);
+        method_ = new StandardMethod(GET_COMPOSITES,params_, TYPE_LIST, false, MethodModifier.NORMAL,cl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(getAliasPrimLong());
         method_ = new StandardMethod(GET_SPAN_CLASS,params_,getAliasString(), false, MethodModifier.NORMAL,cl_);
@@ -302,7 +300,7 @@ public final class CustBeanLgNames extends BeanNatLgNames {
         StandardMethod method_;
         StringList params_;
         StandardClass cl_;
-        cl_ = new StandardClass(TYPE_BEAN_TWO, fields_, constructors_, methods_, getBean(), MethodModifier.FINAL);
+        cl_ = new StandardClass(TYPE_BEAN_TWO, fields_, constructors_, methods_, TYPE_BEAN, MethodModifier.FINAL);
         fields_.put(CHECKED,new StandardField(CHECKED,getAliasPrimBoolean(),false,false,cl_));
         fields_.put(CHOOSE,new StandardField(CHOOSE,getAliasString(),false,false,cl_));
         fields_.put(CHOSEN_NUMBER,new StandardField(CHOSEN_NUMBER,TYPE_ENUM_NUMBER,false,false,cl_));
@@ -314,7 +312,7 @@ public final class CustBeanLgNames extends BeanNatLgNames {
         fields_.put(TYPED_SHORT,new StandardField(TYPED_SHORT,getAliasPrimShort(),false,false,cl_));
         fields_.put(TYPED_STRING,new StandardField(TYPED_STRING,getAliasString(),false,false,cl_));
         params_ = new StringList();
-        method_ = new StandardMethod(GET_CHOSEN_NUMBERS,params_,getCustList(), false, MethodModifier.NORMAL,cl_);
+        method_ = new StandardMethod(GET_CHOSEN_NUMBERS,params_, TYPE_LIST, false, MethodModifier.NORMAL,cl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
         method_ = new StandardMethod(GO,params_,getAliasString(), false, MethodModifier.NORMAL,cl_);
@@ -344,11 +342,11 @@ public final class CustBeanLgNames extends BeanNatLgNames {
         fields_ = new StringMap<StandardField>();
         methods_ = new ObjectMap<MethodId, StandardMethod>();
         StandardClass cl_;
-        cl_ = new StandardClass(TYPE_BEAN_THREE, fields_, constructors_, methods_, getBean(), MethodModifier.FINAL);
+        cl_ = new StandardClass(TYPE_BEAN_THREE, fields_, constructors_, methods_, TYPE_BEAN, MethodModifier.FINAL);
         fields_.put(INDEX,new StandardField(INDEX,getAliasPrimInteger(),false,false,cl_));
         fields_.put(INDEX_TWO,new StandardField(INDEX_TWO,getAliasPrimInteger(),false,false,cl_));
-        fields_.put(NUMBERS,new StandardField(NUMBERS,getCustList(),false,false,cl_));
-        fields_.put(NUMBERS_TWO,new StandardField(NUMBERS_TWO,getCustList(),false,false,cl_));
+        fields_.put(NUMBERS,new StandardField(NUMBERS, TYPE_LIST,false,false,cl_));
+        fields_.put(NUMBERS_TWO,new StandardField(NUMBERS_TWO, TYPE_LIST,false,false,cl_));
         getStandards().put(TYPE_BEAN_THREE, cl_);
     }
     private void buildBeanFour() {
@@ -361,7 +359,7 @@ public final class CustBeanLgNames extends BeanNatLgNames {
         StandardMethod method_;
         StringList params_;
         StandardClass cl_;
-        cl_ = new StandardClass(TYPE_BEAN_FOUR, fields_, constructors_, methods_, getBean(), MethodModifier.FINAL);
+        cl_ = new StandardClass(TYPE_BEAN_FOUR, fields_, constructors_, methods_, TYPE_BEAN, MethodModifier.FINAL);
         params_ = new StringList(getAliasInteger());
         method_ = new StandardMethod(SET_INVISIBLE_FIELD,params_,getAliasVoid(), false, MethodModifier.NORMAL,cl_);
         methods_.put(method_.getId(), method_);
@@ -383,18 +381,18 @@ public final class CustBeanLgNames extends BeanNatLgNames {
         StandardMethod method_;
         StringList params_;
         StandardClass cl_;
-        cl_ = new StandardClass(TYPE_BEAN_FIVE, fields_, constructors_, methods_, getBean(), MethodModifier.FINAL);
+        cl_ = new StandardClass(TYPE_BEAN_FIVE, fields_, constructors_, methods_, TYPE_BEAN, MethodModifier.FINAL);
         fields_.put(CHOSEN_NUMBERS,new StandardField(CHOSEN_NUMBERS,TYPE_ENUM_NUMBERS,false,false,cl_));
-        fields_.put(CHOSEN_NUMBERS_NULL,new StandardField(CHOSEN_NUMBERS_NULL,getCustList(),false,false,cl_));
+        fields_.put(CHOSEN_NUMBERS_NULL,new StandardField(CHOSEN_NUMBERS_NULL, TYPE_LIST,false,false,cl_));
         fields_.put(COMBOBOX,new StandardField(COMBOBOX,TYPE_ENUM_NUMBERS,false,false,cl_));
         fields_.put(SELECTED_STRINGS,new StandardField(SELECTED_STRINGS,TYPE_STRING_LIST,false,false,cl_));
-        fields_.put(TRANSLATIONS,new StandardField(TRANSLATIONS,getCustMap(),false,false,cl_));
-        fields_.put(TREE,new StandardField(TREE,getCustMap(),false,false,cl_));
+        fields_.put(TRANSLATIONS,new StandardField(TRANSLATIONS, TYPE_MAP,false,false,cl_));
+        fields_.put(TREE,new StandardField(TREE, TYPE_MAP,false,false,cl_));
         params_ = new StringList();
         method_ = new StandardMethod(GO,params_,getAliasString(), false, MethodModifier.NORMAL,cl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
-        method_ = new StandardMethod(GET_DEFAULT_CHOICES,params_,getCustList(), false, MethodModifier.NORMAL,cl_);
+        method_ = new StandardMethod(GET_DEFAULT_CHOICES,params_, TYPE_LIST, false, MethodModifier.NORMAL,cl_);
         methods_.put(method_.getId(), method_);
         getStandards().put(TYPE_BEAN_FIVE, cl_);
     }
@@ -406,7 +404,7 @@ public final class CustBeanLgNames extends BeanNatLgNames {
         fields_ = new StringMap<StandardField>();
         methods_ = new ObjectMap<MethodId, StandardMethod>();
         StandardClass cl_;
-        cl_ = new StandardClass(TYPE_BEAN_SIX, fields_, constructors_, methods_, getBean(), MethodModifier.FINAL);
+        cl_ = new StandardClass(TYPE_BEAN_SIX, fields_, constructors_, methods_, TYPE_BEAN, MethodModifier.FINAL);
         fields_.put(MY_ENUM_ONE,new StandardField(MY_ENUM_ONE,TYPE_ENUM_NUMBER,false,false,cl_));
         fields_.put(MY_ENUM_THREE,new StandardField(MY_ENUM_THREE,TYPE_ENUM_NUMBER,false,false,cl_));
         fields_.put(MY_ENUM_TWO,new StandardField(MY_ENUM_TWO,TYPE_ENUM_NUMBER,false,false,cl_));
@@ -422,7 +420,7 @@ public final class CustBeanLgNames extends BeanNatLgNames {
         StandardMethod method_;
         StringList params_;
         StandardClass cl_;
-        cl_ = new StandardClass(TYPE_BEAN_SEVEN, fields_, constructors_, methods_, getBean(), MethodModifier.FINAL);
+        cl_ = new StandardClass(TYPE_BEAN_SEVEN, fields_, constructors_, methods_, TYPE_BEAN, MethodModifier.FINAL);
         fields_.put(ARRAY_INT,new StandardField(ARRAY_INT,TYPE_INTS,false,true,cl_));
         fields_.put(COMPOSITE,new StandardField(COMPOSITE,TYPE_COMPOSITE,false,false,cl_));
         params_ = new StringList();
@@ -461,7 +459,7 @@ public final class CustBeanLgNames extends BeanNatLgNames {
         StandardMethod method_;
         StringList params_;
         StandardClass cl_;
-        cl_ = new StandardClass(TYPE_BEAN_EIGHT, fields_, constructors_, methods_, getBean(), MethodModifier.FINAL);
+        cl_ = new StandardClass(TYPE_BEAN_EIGHT, fields_, constructors_, methods_, TYPE_BEAN, MethodModifier.FINAL);
         params_ = new StringList();
         method_ = new StandardMethod(GET_DATA_BASE,params_,TYPE_SIMPLE_DATA_BASE, false, MethodModifier.NORMAL,cl_);
         methods_.put(method_.getId(), method_);
@@ -478,13 +476,13 @@ public final class CustBeanLgNames extends BeanNatLgNames {
         method_ = new StandardMethod(GET_COMBO_NUMBERS,params_,TYPE_ENUM_NUMBERS, false, MethodModifier.NORMAL,cl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
-        method_ = new StandardMethod(GET_COMBOBOX,params_,getCustList(), false, MethodModifier.NORMAL,cl_);
+        method_ = new StandardMethod(GET_COMBOBOX,params_, TYPE_LIST, false, MethodModifier.NORMAL,cl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
-        method_ = new StandardMethod(GET_COMPOSITES,params_,getCustList(), false, MethodModifier.NORMAL,cl_);
+        method_ = new StandardMethod(GET_COMPOSITES,params_, TYPE_LIST, false, MethodModifier.NORMAL,cl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
-        method_ = new StandardMethod(GET_COMBOBOX_MAP,params_,getCustMap(), false, MethodModifier.NORMAL,cl_);
+        method_ = new StandardMethod(GET_COMBOBOX_MAP,params_, TYPE_MAP, false, MethodModifier.NORMAL,cl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
         method_ = new StandardMethod(GET_TYPED_STRING,params_,getAliasString(), false, MethodModifier.NORMAL,cl_);
@@ -535,7 +533,7 @@ public final class CustBeanLgNames extends BeanNatLgNames {
         cl_ = new StandardClass(TYPE_COMPOSITE, fields_, constructors_, methods_, getAliasObject(), MethodModifier.FINAL);
         fields_.put(DISPLAYED,new StandardField(DISPLAYED,getAliasPrimBoolean(),false,false,cl_));
         fields_.put(INTEGER,new StandardField(INTEGER,getAliasPrimInteger(),false,false,cl_));
-        fields_.put(MAP,new StandardField(MAP,getCustMap(),false,false,cl_));
+        fields_.put(MAP,new StandardField(MAP, TYPE_MAP,false,false,cl_));
         fields_.put(MY_CHAR,new StandardField(MY_CHAR,getAliasPrimChar(),false,false,cl_));
         fields_.put(STRING,new StandardField(STRING,getAliasString(),false,false,cl_));
         fields_.put(STRINGS,new StandardField(STRINGS,TYPE_STRING_LIST,false,false,cl_));
@@ -560,7 +558,7 @@ public final class CustBeanLgNames extends BeanNatLgNames {
         params_ = new StringList(getAliasString());
         method_ = new StandardMethod(SET_STRING,params_,getAliasVoid(), false, MethodModifier.NORMAL,cl_);
         methods_.put(method_.getId(), method_);
-        params_ = new StringList(getValueChangedEvent());
+        params_ = new StringList("code.formathtml.util.ValueChangeEvent");
         method_ = new StandardMethod(UPDATE_VALUE,params_,getAliasVoid(), false, MethodModifier.NORMAL,cl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(getAliasString());
@@ -569,7 +567,7 @@ public final class CustBeanLgNames extends BeanNatLgNames {
         params_ = new StringList();
         ctor_ = new StandardConstructor(params_,false,cl_);
         constructors_.add(ctor_);
-        cl_.getDirectInterfaces().add(getAliasDisplayable());
+        cl_.getDirectInterfaces().add(TYPE_DISPLAYABLE);
         getStandards().put(TYPE_COMPOSITE, cl_);
     }
     private void buildBeanUtil() {
@@ -598,7 +596,7 @@ public final class CustBeanLgNames extends BeanNatLgNames {
         methods_ = new ObjectMap<MethodId, StandardMethod>();
         StandardClass cl_;
         cl_ = new StandardClass(TYPE_ENUM_NUMBER, fields_, constructors_, methods_, getAliasObject(), MethodModifier.FINAL);
-        cl_.getDirectInterfaces().add(getAliasDisplayable());
+        cl_.getDirectInterfaces().add(TYPE_DISPLAYABLE);
         getStandards().put(TYPE_ENUM_NUMBER, cl_);
     }
     private void buildEnumNumbers() {
@@ -609,8 +607,8 @@ public final class CustBeanLgNames extends BeanNatLgNames {
         fields_ = new StringMap<StandardField>();
         methods_ = new ObjectMap<MethodId, StandardMethod>();
         StandardClass cl_;
-        cl_ = new StandardClass(TYPE_ENUM_NUMBERS, fields_, constructors_, methods_, getCustList(), MethodModifier.FINAL);
-        cl_.getDirectInterfaces().add(getAliasDisplayable());
+        cl_ = new StandardClass(TYPE_ENUM_NUMBERS, fields_, constructors_, methods_, TYPE_LIST, MethodModifier.FINAL);
+        cl_.getDirectInterfaces().add(TYPE_DISPLAYABLE);
         getStandards().put(TYPE_ENUM_NUMBERS, cl_);
         getIterables().put(TYPE_ENUM_NUMBERS,TYPE_ENUM_NUMBER);
     }
@@ -625,7 +623,7 @@ public final class CustBeanLgNames extends BeanNatLgNames {
         StringList params_;
         StandardConstructor ctor_;
         StandardClass cl_;
-        cl_ = new StandardClass(TYPE_GENE_OBJS, fields_, constructors_, methods_, getCustList(), MethodModifier.FINAL);
+        cl_ = new StandardClass(TYPE_GENE_OBJS, fields_, constructors_, methods_, TYPE_LIST, MethodModifier.FINAL);
         params_ = new StringList(getAliasObject());
         method_ = new StandardMethod(ADD,params_,getAliasVoid(), false, MethodModifier.NORMAL,cl_);
         methods_.put(method_.getId(), method_);
@@ -635,7 +633,7 @@ public final class CustBeanLgNames extends BeanNatLgNames {
         params_ = new StringList();
         ctor_ = new StandardConstructor(params_,false,cl_);
         constructors_.add(ctor_);
-        params_ = new StringList(getCustList());
+        params_ = new StringList(TYPE_LIST);
         ctor_ = new StandardConstructor(params_,false,cl_);
         constructors_.add(ctor_);
         params_ = new StringList(getAliasObject());
@@ -654,7 +652,7 @@ public final class CustBeanLgNames extends BeanNatLgNames {
         StringList params_;
         StandardConstructor ctor_;
         StandardClass cl_;
-        cl_ = new StandardClass(TYPE_GENE_OBJECTS, fields_, constructors_, methods_, getCustList(), MethodModifier.FINAL);
+        cl_ = new StandardClass(TYPE_GENE_OBJECTS, fields_, constructors_, methods_, TYPE_LIST, MethodModifier.FINAL);
         params_ = new StringList(getAliasObject());
         method_ = new StandardMethod(ADD,params_,getAliasVoid(), false, MethodModifier.NORMAL,cl_);
         methods_.put(method_.getId(), method_);
@@ -680,7 +678,7 @@ public final class CustBeanLgNames extends BeanNatLgNames {
         StringList params_;
         StandardConstructor ctor_;
         StandardClass cl_;
-        cl_ = new StandardClass(TYPE_PICKABLE_LIST, fields_, constructors_, methods_, getCustList(), MethodModifier.FINAL);
+        cl_ = new StandardClass(TYPE_PICKABLE_LIST, fields_, constructors_, methods_, TYPE_LIST, MethodModifier.FINAL);
         params_ = new StringList(getAliasPrimInteger());
         method_ = new StandardMethod(REMOVE_AND_EXIST_AFTER,params_,getAliasPrimBoolean(), false, MethodModifier.NORMAL,cl_);
         methods_.put(method_.getId(), method_);
@@ -716,10 +714,10 @@ public final class CustBeanLgNames extends BeanNatLgNames {
         method_ = new StandardMethod(GET_COMBO_NUMBERS,params_,TYPE_ENUM_NUMBERS, false, MethodModifier.NORMAL,cl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
-        method_ = new StandardMethod(GET_COMBOBOX,params_,getCustList(), false, MethodModifier.NORMAL,cl_);
+        method_ = new StandardMethod(GET_COMBOBOX,params_, TYPE_LIST, false, MethodModifier.NORMAL,cl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
-        method_ = new StandardMethod(GET_COMBOBOX_MAP,params_,getCustMap(), false, MethodModifier.NORMAL,cl_);
+        method_ = new StandardMethod(GET_COMBOBOX_MAP,params_, TYPE_MAP, false, MethodModifier.NORMAL,cl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
         method_ = new StandardMethod(GET_TYPED_STRING,params_,getAliasString(), false, MethodModifier.NORMAL,cl_);
@@ -762,7 +760,7 @@ public final class CustBeanLgNames extends BeanNatLgNames {
         methods_ = new ObjectMap<MethodId, StandardMethod>();
         StandardClass cl_;
         cl_ = new StandardClass(TYPE_RATE, fields_, constructors_, methods_, getAliasObject(), MethodModifier.FINAL);
-        cl_.getDirectInterfaces().add(getAliasDisplayable());
+        cl_.getDirectInterfaces().add(TYPE_DISPLAYABLE);
         getStandards().put(TYPE_RATE, cl_);
     }
     private void buildRateEq() {
@@ -786,7 +784,7 @@ public final class CustBeanLgNames extends BeanNatLgNames {
         params_ = new StringList(TYPE_RATE_EQ);
         ctor_ = new StandardConstructor(params_,false,cl_);
         constructors_.add(ctor_);
-        cl_.getDirectInterfaces().add(getAliasDisplayable());
+        cl_.getDirectInterfaces().add(TYPE_DISPLAYABLE);
         getStandards().put(TYPE_RATE_EQ, cl_);
     }
     private void buildNatTreeMapStringInteger() {
@@ -797,7 +795,7 @@ public final class CustBeanLgNames extends BeanNatLgNames {
         fields_ = new StringMap<StandardField>();
         methods_ = new ObjectMap<MethodId, StandardMethod>();
         StandardClass cl_;
-        cl_ = new StandardClass(TYPE_NAT_TREE_MAP_STRING_INTEGER, fields_, constructors_, methods_, getCustMap(), MethodModifier.FINAL);
+        cl_ = new StandardClass(TYPE_NAT_TREE_MAP_STRING_INTEGER, fields_, constructors_, methods_, TYPE_MAP, MethodModifier.FINAL);
         getStandards().put(TYPE_NAT_TREE_MAP_STRING_INTEGER, cl_);
     }
     private void buildSimpleDataBase() {
@@ -1853,8 +1851,7 @@ public final class CustBeanLgNames extends BeanNatLgNames {
         return res_;
     }
 
-    @Override
-    public String getOtherBeanStructClassName(Object _struct, ContextEl _context) {
+    private String getOtherBeanStructClassName(Object _struct) {
         if (_struct instanceof int[]) {
             return PrimitiveTypeUtil.getPrettyArrayType(getAliasPrimInteger());
         }
@@ -1975,7 +1972,7 @@ public final class CustBeanLgNames extends BeanNatLgNames {
             return new StringBuilderStruct((StringBuilder) _element);
         }
         String aliasObject_ = getAliasObject();
-        String className_ = getStdBeanStructClassName(_element, _ex.getContextEl());
+        String className_ = getOtherBeanStructClassName(_element);
         if (StringList.quickEq(className_, getAliasObject())) {
             return StdStruct.newInstance(_element, aliasObject_);
         }

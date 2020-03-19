@@ -123,16 +123,14 @@ public final class TarotStandards extends BeanNatLgNames {
     public void buildOther() {
         buildBeans();
         StringMap<StandardField> fields_;
-        fields_ = new StringMap<StandardField>();
         StandardClass std_;
         ObjectMap<MethodId, StandardMethod> methods_;
         CustList<StandardConstructor> constructors_;
         methods_ = new ObjectMap<MethodId, StandardMethod>();
         StandardMethod method_;
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new StringMap<StandardField>();
         constructors_ = new CustList<StandardConstructor>();
-        std_ = new StandardClass(TYPE_TAROT_BEAN, fields_, constructors_, methods_, getBean(), MethodModifier.ABSTRACT);
+        std_ = new StandardClass(TYPE_TAROT_BEAN, fields_, constructors_, methods_, TYPE_BEAN, MethodModifier.ABSTRACT);
         StringList params_;
         params_ = new StringList();
         method_ = new StandardMethod(PLAY_CLASSIC_GAME, params_, getAliasPrimBoolean(), false, MethodModifier.NORMAL,std_);
@@ -141,35 +139,35 @@ public final class TarotStandards extends BeanNatLgNames {
         method_ = new StandardMethod(PLAY_VARIANT_MODE_GAME, params_, getAliasPrimBoolean(), false, MethodModifier.NORMAL,std_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
-        method_ = new StandardMethod(GET_NICKNAMES, params_, getCustList(), false, MethodModifier.NORMAL,std_);
+        method_ = new StandardMethod(GET_NICKNAMES, params_, TYPE_LIST, false, MethodModifier.NORMAL,std_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
-        method_ = new StandardMethod(GET_SCORES, params_, getCustList(), false, MethodModifier.NORMAL,std_);
+        method_ = new StandardMethod(GET_SCORES, params_, TYPE_LIST, false, MethodModifier.NORMAL,std_);
         methods_.put(method_.getId(), method_);
         getStandards().put(TYPE_TAROT_BEAN, std_);
         fields_ = new StringMap<StandardField>();
         constructors_ = new CustList<StandardConstructor>();
         methods_ = new ObjectMap<MethodId, StandardMethod>();
         std_ = new StandardClass(TYPE_RATE, fields_, constructors_, methods_, getAliasObject(), MethodModifier.NORMAL);
-        std_.getDirectInterfaces().add(getAliasDisplayable());
+        std_.getDirectInterfaces().add(TYPE_DISPLAYABLE);
         getStandards().put(TYPE_RATE, std_);
         fields_ = new StringMap<StandardField>();
         constructors_ = new CustList<StandardConstructor>();
         methods_ = new ObjectMap<MethodId, StandardMethod>();
         std_ = new StandardClass(TYPE_BID_TAROT, fields_, constructors_, methods_, getAliasObject(), MethodModifier.NORMAL);
-        std_.getDirectInterfaces().add(getAliasDisplayable());
+        std_.getDirectInterfaces().add(TYPE_DISPLAYABLE);
         getStandards().put(TYPE_BID_TAROT, std_);
         fields_ = new StringMap<StandardField>();
         constructors_ = new CustList<StandardConstructor>();
         methods_ = new ObjectMap<MethodId, StandardMethod>();
         std_ = new StandardClass(TYPE_HANDFULS, fields_, constructors_, methods_, getAliasObject(), MethodModifier.NORMAL);
-        std_.getDirectInterfaces().add(getAliasDisplayable());
+        std_.getDirectInterfaces().add(TYPE_DISPLAYABLE);
         getStandards().put(TYPE_HANDFULS, std_);
         fields_ = new StringMap<StandardField>();
         constructors_ = new CustList<StandardConstructor>();
         methods_ = new ObjectMap<MethodId, StandardMethod>();
         std_ = new StandardClass(TYPE_MISERES, fields_, constructors_, methods_, getAliasObject(), MethodModifier.NORMAL);
-        std_.getDirectInterfaces().add(getAliasDisplayable());
+        std_.getDirectInterfaces().add(TYPE_DISPLAYABLE);
         getStandards().put(TYPE_MISERES, std_);
         fields_ = new StringMap<StandardField>();
         constructors_ = new CustList<StandardConstructor>();
@@ -185,11 +183,11 @@ public final class TarotStandards extends BeanNatLgNames {
         fields_.put(DIFFERENCE_SCORE_TAKER, new StandardField(DIFFERENCE_SCORE_TAKER, getAliasPrimShort(), false, false, std_));
         fields_.put(PLAYER_SMALL, new StandardField(PLAYER_SMALL, getAliasString(), false, false, std_));
         fields_.put(SMALL, new StandardField(SMALL, getAliasString(), false, false, std_));
-        fields_.put(LINES_DECLARING, new StandardField(LINES_DECLARING, getCustList(), false, false, std_));
-        fields_.put(PLAYERS_SCORES, new StandardField(PLAYERS_SCORES, getCustList(), false, false, std_));
-        fields_.put(ORDERED_PLAYERS, new StandardField(ORDERED_PLAYERS, getCustList(), false, false, std_));
-        fields_.put(POINTS_PLAYERS, new StandardField(POINTS_PLAYERS, getCustList(), false, false, std_));
-        fields_.put(BONUSES, new StandardField(BONUSES, getCustList(), false, false, std_));
+        fields_.put(LINES_DECLARING, new StandardField(LINES_DECLARING, TYPE_LIST, false, false, std_));
+        fields_.put(PLAYERS_SCORES, new StandardField(PLAYERS_SCORES, TYPE_LIST, false, false, std_));
+        fields_.put(ORDERED_PLAYERS, new StandardField(ORDERED_PLAYERS, TYPE_LIST, false, false, std_));
+        fields_.put(POINTS_PLAYERS, new StandardField(POINTS_PLAYERS, TYPE_LIST, false, false, std_));
+        fields_.put(BONUSES, new StandardField(BONUSES, TYPE_LIST, false, false, std_));
         getStandards().put(TYPE_DETAILS_RESULTS_TAROT_BEAN, std_);
         fields_ = new StringMap<StandardField>();
         constructors_ = new CustList<StandardConstructor>();
@@ -197,8 +195,8 @@ public final class TarotStandards extends BeanNatLgNames {
         std_ = new StandardClass(TYPE_SUM_DECLARING_PLAYER, fields_, constructors_, methods_, getAliasObject(), MethodModifier.NORMAL);
         fields_.put(NICKNAME, new StandardField(NICKNAME, getAliasString(), false, false, std_));
         fields_.put(STATUS, new StandardField(STATUS, getAliasString(), false, false, std_));
-        fields_.put(HANDFULS, new StandardField(HANDFULS, getCustMap(), false, false, std_));
-        fields_.put(MISERES, new StandardField(MISERES, getCustMap(), false, false, std_));
+        fields_.put(HANDFULS, new StandardField(HANDFULS, TYPE_MAP, false, false, std_));
+        fields_.put(MISERES, new StandardField(MISERES, TYPE_MAP, false, false, std_));
         fields_.put(SUM, new StandardField(SUM, getAliasPrimInteger(), false, false, std_));
         getStandards().put(TYPE_SUM_DECLARING_PLAYER, std_);
         fields_ = new StringMap<StandardField>();
@@ -297,17 +295,17 @@ public final class TarotStandards extends BeanNatLgNames {
         fields_.put(FINAL_USER_POSITION, new StandardField(FINAL_USER_POSITION, getAliasPrimShort(), false, false, std_));
         fields_.put(TAKER, new StandardField(TAKER, getAliasString(), false, false, std_));
         fields_.put(ALONE_TRUMP_ACE_PLAYER, new StandardField(ALONE_TRUMP_ACE_PLAYER, getAliasString(), false, false, std_));
-        fields_.put(CALLED_PLAYERS, new StandardField(CALLED_PLAYERS, getCustList(), false, false, std_));
-        fields_.put(NICKNAMES, new StandardField(NICKNAMES, getCustList(), false, false, std_));
-        fields_.put(CALLED_CARDS_LIST, new StandardField(CALLED_CARDS_LIST, getCustList(), false, false, std_));
-        fields_.put(LINES_DEAL, new StandardField(LINES_DEAL, getCustList(), false, false, std_));
+        fields_.put(CALLED_PLAYERS, new StandardField(CALLED_PLAYERS, TYPE_LIST, false, false, std_));
+        fields_.put(NICKNAMES, new StandardField(NICKNAMES, TYPE_LIST, false, false, std_));
+        fields_.put(CALLED_CARDS_LIST, new StandardField(CALLED_CARDS_LIST, TYPE_LIST, false, false, std_));
+        fields_.put(LINES_DEAL, new StandardField(LINES_DEAL, TYPE_LIST, false, false, std_));
         getStandards().put(TYPE_RESULTS_TAROT_BEAN, std_);
         fields_ = new StringMap<StandardField>();
         constructors_ = new CustList<StandardConstructor>();
         methods_ = new ObjectMap<MethodId, StandardMethod>();
         std_ = new StandardClass(TYPE_LINE_DEAL, fields_, constructors_, methods_, getAliasObject(), MethodModifier.NORMAL);
         fields_.put(NUMBER, new StandardField(NUMBER, getAliasPrimInteger(), false, false, std_));
-        fields_.put(SCORES, new StandardField(SCORES, getCustList(), false, false, std_));
+        fields_.put(SCORES, new StandardField(SCORES, TYPE_LIST, false, false, std_));
         getStandards().put(TYPE_LINE_DEAL, std_);
         fields_ = new StringMap<StandardField>();
         constructors_ = new CustList<StandardConstructor>();
@@ -317,9 +315,9 @@ public final class TarotStandards extends BeanNatLgNames {
         fields_.put(REPARTITION, new StandardField(REPARTITION, getAliasString(), false, false, std_));
         fields_.put(MODE, new StandardField(MODE, getAliasString(), false, false, std_));
         fields_.put(FIN_PARTIE_TAROT, new StandardField(FIN_PARTIE_TAROT, getAliasString(), false, false, std_));
-        fields_.put(MISERES, new StandardField(MISERES, getCustList(), false, false, std_));
-        fields_.put(CONTRATS, new StandardField(CONTRATS, getCustList(), false, false, std_));
-        fields_.put(POIGNEES_AUTORISEES, new StandardField(POIGNEES_AUTORISEES, getCustMap(), false, false, std_));
+        fields_.put(MISERES, new StandardField(MISERES, TYPE_LIST, false, false, std_));
+        fields_.put(CONTRATS, new StandardField(CONTRATS, TYPE_LIST, false, false, std_));
+        fields_.put(POIGNEES_AUTORISEES, new StandardField(POIGNEES_AUTORISEES, TYPE_MAP, false, false, std_));
         fields_.put(DISCARD_AFTER_CALL, new StandardField(DISCARD_AFTER_CALL, getAliasPrimBoolean(), false, false, std_));
         getStandards().put(TYPE_RULES_TAROT_BEAN, std_);
         fields_ = new StringMap<StandardField>();
@@ -371,7 +369,7 @@ public final class TarotStandards extends BeanNatLgNames {
 //                return res_;
 //            }
             if (StringList.quickEq(fieldName_, NICKNAMES)) {
-                res_.setResult(new StdStruct(((TarotBean)((RealInstanceStruct)_instance).getInstance()).getNicknames(), getCustList()));
+                res_.setResult(new StdStruct(((TarotBean)((RealInstanceStruct)_instance).getInstance()).getNicknames(), TYPE_LIST));
                 return res_;
             }
 //            if (StringList.quickEq(_method.getConstraints().getName(), GET_SCORES)) {
@@ -422,23 +420,23 @@ public final class TarotStandards extends BeanNatLgNames {
                 return res_;
             }
             if (StringList.quickEq(fieldName_, LINES_DECLARING)) {
-                res_.setResult(new StdStruct(instance_.getLinesDeclaring(), getCustList()));
+                res_.setResult(new StdStruct(instance_.getLinesDeclaring(), TYPE_LIST));
                 return res_;
             }
             if (StringList.quickEq(fieldName_, PLAYERS_SCORES)) {
-                res_.setResult(new StdStruct(instance_.getPlayersScores(), getCustList()));
+                res_.setResult(new StdStruct(instance_.getPlayersScores(), TYPE_LIST));
                 return res_;
             }
             if (StringList.quickEq(fieldName_, ORDERED_PLAYERS)) {
-                res_.setResult(new StdStruct(instance_.getOrderedPlayers(), getCustList()));
+                res_.setResult(new StdStruct(instance_.getOrderedPlayers(), TYPE_LIST));
                 return res_;
             }
             if (StringList.quickEq(fieldName_, POINTS_PLAYERS)) {
-                res_.setResult(new StdStruct(instance_.getPointsPlayers(), getCustList()));
+                res_.setResult(new StdStruct(instance_.getPointsPlayers(), TYPE_LIST));
                 return res_;
             }
             if (StringList.quickEq(fieldName_, BONUSES)) {
-                res_.setResult(new StdStruct(instance_.getBonuses(), getCustList()));
+                res_.setResult(new StdStruct(instance_.getBonuses(), TYPE_LIST));
                 return res_;
             }
         }
@@ -457,11 +455,11 @@ public final class TarotStandards extends BeanNatLgNames {
                 return res_;
             }
             if (StringList.quickEq(fieldName_, HANDFULS)) {
-                res_.setResult(new StdStruct(instance_.getHandfuls(),getCustMap()));
+                res_.setResult(new StdStruct(instance_.getHandfuls(), TYPE_MAP));
                 return res_;
             }
             if (StringList.quickEq(fieldName_, MISERES)) {
-                res_.setResult(new StdStruct(instance_.getMiseres(),getCustMap()));
+                res_.setResult(new StdStruct(instance_.getMiseres(), TYPE_MAP));
                 return res_;
             }
         }
@@ -604,15 +602,15 @@ public final class TarotStandards extends BeanNatLgNames {
                 return res_;
             }
             if (StringList.quickEq(fieldName_, CALLED_PLAYERS)) {
-                res_.setResult(new StdStruct(instance_.getCalledPlayers(), getCustList()));
+                res_.setResult(new StdStruct(instance_.getCalledPlayers(), TYPE_LIST));
                 return res_;
             }
             if (StringList.quickEq(fieldName_, CALLED_CARDS_LIST)) {
-                res_.setResult(new StdStruct(instance_.getCalledCardsList(), getCustList()));
+                res_.setResult(new StdStruct(instance_.getCalledCardsList(), TYPE_LIST));
                 return res_;
             }
             if (StringList.quickEq(fieldName_, LINES_DEAL)) {
-                res_.setResult(new StdStruct(instance_.getLinesDeal(), getCustList()));
+                res_.setResult(new StdStruct(instance_.getLinesDeal(), TYPE_LIST));
                 return res_;
             }
         }
@@ -623,7 +621,7 @@ public final class TarotStandards extends BeanNatLgNames {
                 return res_;
             }
             if (StringList.quickEq(fieldName_, SCORES)) {
-                res_.setResult(StdStruct.newListLong(instance_.getScores(), getCustList()));
+                res_.setResult(StdStruct.newListLong(instance_.getScores(), TYPE_LIST));
                 return res_;
             }
         }
@@ -650,15 +648,15 @@ public final class TarotStandards extends BeanNatLgNames {
                 return res_;
             }
             if (StringList.quickEq(fieldName_, CONTRATS)) {
-                res_.setResult(new StdStruct(instance_.getContrats(), getCustList()));
+                res_.setResult(new StdStruct(instance_.getContrats(), TYPE_LIST));
                 return res_;
             }
             if (StringList.quickEq(fieldName_, POIGNEES_AUTORISEES)) {
-                res_.setResult(new StdStruct(instance_.getPoigneesAutorisees(), getCustMap()));
+                res_.setResult(new StdStruct(instance_.getPoigneesAutorisees(), TYPE_MAP));
                 return res_;
             }
             if (StringList.quickEq(fieldName_, MISERES)) {
-                res_.setResult(new StdStruct(instance_.getMiseres(), getCustList()));
+                res_.setResult(new StdStruct(instance_.getMiseres(), TYPE_LIST));
                 return res_;
             }
         }
@@ -678,11 +676,11 @@ public final class TarotStandards extends BeanNatLgNames {
                 return res_;
             }
             if (StringList.quickEq(_method.getConstraints().getName(), GET_NICKNAMES)) {
-                res_.setResult(new StdStruct(((TarotBean)((RealInstanceStruct)_instance).getInstance()).getNicknames(), getCustList()));
+                res_.setResult(new StdStruct(((TarotBean)((RealInstanceStruct)_instance).getInstance()).getNicknames(), TYPE_LIST));
                 return res_;
             }
             if (StringList.quickEq(_method.getConstraints().getName(), GET_SCORES)) {
-                res_.setResult(new StdStruct(((TarotBean)((RealInstanceStruct)_instance).getInstance()).getScores(), getCustList()));
+                res_.setResult(new StdStruct(((TarotBean)((RealInstanceStruct)_instance).getInstance()).getScores(), TYPE_LIST));
                 return res_;
             }
         }
@@ -747,8 +745,8 @@ public final class TarotStandards extends BeanNatLgNames {
         }
         return res_;
     }
-    @Override
-    public String getOtherBeanStructClassName(Object _struct, ContextEl _context) {
+
+    private String getOtherBeanStructClassName(Object _struct) {
         if (_struct instanceof Rate) {
             return TYPE_RATE;
         }
@@ -783,16 +781,16 @@ public final class TarotStandards extends BeanNatLgNames {
             return ((Bean)_struct).getClassName();
         }
         if (_struct instanceof SimpleList) {
-            return getCustList();
+            return TYPE_LIST;
         }
         if (_struct instanceof SimpleEntries) {
-            return getCustMap();
+            return TYPE_MAP;
         }
         if (_struct instanceof SimpleEntry) {
-            return getCustEntry();
+            return TYPE_ENTRY;
         }
         if (_struct instanceof SimpleItr) {
-            return getAliasSimpleIteratorType();
+            return TYPE_ITERATOR;
         }
         return getAliasObject();
     }
@@ -833,7 +831,7 @@ public final class TarotStandards extends BeanNatLgNames {
             return new StringBuilderStruct((StringBuilder) _element);
         }
         String aliasObject_ = getAliasObject();
-        String className_ = getStdBeanStructClassName(_element, _ex.getContextEl());
+        String className_ = getOtherBeanStructClassName(_element);
         if (StringList.quickEq(className_, getAliasObject())) {
             return StdStruct.newInstance(_element, aliasObject_);
         }

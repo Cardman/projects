@@ -3,13 +3,11 @@ package code.expressionlanguage.types;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.common.GeneType;
-import code.expressionlanguage.inherits.ClassInheritsDeps;
 import code.expressionlanguage.inherits.Mapping;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.methods.AccessedBlock;
 import code.expressionlanguage.methods.AccessingImportingBlock;
-import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.opers.util.DimComp;
 import code.util.CustList;
 import code.util.*;
@@ -53,50 +51,8 @@ final class TemplatePartType extends BinaryType {
     }
 
     @Override
-    void analyzeDepends(Analyzable _an,
-            int _index, CustList<IntTreeMap< String>> _dels,
-            RootBlock _rooted, boolean _exact) {
-        CustList<PartType> ch_ = new CustList<PartType>();
-        PartType f_ = getFirstChild();
-        while (f_ != null) {
-            ch_.add(f_);
-            f_ = f_.getNextSibling();
-        }
-        EqList<ClassInheritsDeps> types_ = getTypeNames();
-        int len_ = ch_.size();
-        for (int i = 0; i < len_; i++) {
-            types_.addAllElts(ch_.get(i).getTypeNames());
-        }
-        String t_ = getBegin();
-        len_ = ch_.size() - 1;
-        for (int i = 0; i < len_; i++) {
-            t_ = StringList.concat(t_, ch_.get(i).getAnalyzedType(),getSeparator(i));
-        }
-        t_ = StringList.concat(t_, ch_.last().getAnalyzedType(),getEnd());
-        setAnalyzedType(t_);
-    }
-    @Override
-    void analyzeInherits(Analyzable _an, int _index,
-            CustList<IntTreeMap< String>> _dels, String _globalType,
-            RootBlock _rooted,
-            boolean _protected) {
-        CustList<PartType> ch_ = new CustList<PartType>();
-        PartType f_ = getFirstChild();
-        while (f_ != null) {
-            ch_.add(f_);
-            f_ = f_.getNextSibling();
-        }
-        String t_ = getBegin();
-        int len_ = ch_.size() - 1;
-        for (int i = 0; i < len_; i++) {
-            t_ = StringList.concat(t_, ch_.get(i).getAnalyzedType(),getSeparator(i));
-        }
-        t_ = StringList.concat(t_, ch_.last().getAnalyzedType(),getEnd());
-        setAnalyzedType(t_);
-    }
-    @Override
-    void analyze(Analyzable _an, CustList<IntTreeMap< String>>_dels, String _globalType, AccessingImportingBlock _rooted) {
-        analyzeLine(_an,_dels,_globalType,_rooted);
+    void analyze(Analyzable _an, CustList<IntTreeMap< String>>_dels, String _globalType, AccessingImportingBlock _local,AccessingImportingBlock _rooted) {
+        analyzeLine(_an,_dels,_globalType,_local,_rooted);
     }
 
     @Override
@@ -132,7 +88,8 @@ final class TemplatePartType extends BinaryType {
                 bounds_.add(comp_);
             }
             for (String v: bounds_) {
-                if (!Templates.correctNbParameters(v,_an)) {
+                String compo_ = PrimitiveTypeUtil.getQuickComponentBaseType(v).getComponent();
+                if (!compo_.startsWith("#")&&!Templates.correctNbParameters(v,_an)) {
                     return;
                 }
             }
@@ -175,7 +132,7 @@ final class TemplatePartType extends BinaryType {
         return StringList.concat(t_, ch_.last().getAnalyzedType(),getEnd());
     }
     @Override
-    void analyzeLine(Analyzable _an, CustList<IntTreeMap< String>>_dels, String _globalType, AccessingImportingBlock _rooted) {
+    void analyzeLine(Analyzable _an, CustList<IntTreeMap< String>>_dels, String _globalType, AccessingImportingBlock _local,AccessingImportingBlock _rooted) {
         CustList<PartType> ch_ = new CustList<PartType>();
         PartType f_ = getFirstChild();
         while (f_ != null) {
@@ -193,7 +150,7 @@ final class TemplatePartType extends BinaryType {
     @Override
     void analyzeAccessibleId(Analyzable _an,
             CustList<IntTreeMap< String>> _dels,
-                             AccessedBlock _rooted) {
+                             AccessingImportingBlock _rooted) {
         CustList<PartType> ch_ = new CustList<PartType>();
         PartType f_ = getFirstChild();
         while (f_ != null) {

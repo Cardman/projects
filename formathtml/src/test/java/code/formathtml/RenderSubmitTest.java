@@ -2,12 +2,6 @@ package code.formathtml;
 
 import code.bean.Bean;
 
-import code.expressionlanguage.AnalyzedPageEl;
-import code.expressionlanguage.structs.Struct;
-import code.formathtml.classes.BeanTwo;
-
-import code.sml.Document;
-import code.sml.DocumentBuilder;
 import code.util.StringList;
 import code.util.StringMap;
 import org.junit.Test;
@@ -36,16 +30,8 @@ public final class RenderSubmitTest extends CommonRender {
         conf_.getProperties().put("msg_example", relative_);
 
 
-        Document doc_ = DocumentBuilder.parseSax(html_);
         conf_.getAnalyzingDoc().setFiles(files_);
-        setLocale(locale_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getContext().setAnalyzing(new AnalyzedPageEl());
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
-        
-        conf_.setDocument(doc_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body><input value=\"desc &amp;lt;text&amp;gt;\" type=\"submit\"/></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
@@ -57,13 +43,13 @@ public final class RenderSubmitTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_two\"><body><c:submit message=\"msg_example,three\" param0=\"{typedString}\"/></body></html>";
+        String html_ = "<html c:bean=\"bean_one\"><body><c:submit message=\"msg_example,three\" param0=\"{typedString}\"/></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         StringMap<String> filesSec_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
-        file_.append("$public $class pkg.BeanTwo:code.bean.Bean{");
+        file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
         file_.append(" $public String typedString:");
         file_.append(" $public $void beforeDisplaying(){");
         file_.append("  typedString=\"TITLE2\":");
@@ -72,25 +58,11 @@ public final class RenderSubmitTest extends CommonRender {
         filesSec_.put("my_file",file_.toString());
         Configuration conf_ = contextElThird(filesSec_);
         conf_.setBeans(new StringMap<Bean>());
-        addImportingPage(conf_);
-        Struct bean_ = RenderExpUtil.processEl("$new pkg.BeanTwo()", 0, conf_).getStruct();
-        addBeanInfo(conf_,"bean_two",bean_);
-        conf_.clearPages();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-
-
-        Document doc_ = DocumentBuilder.parseSax(html_);
         conf_.getAnalyzingDoc().setFiles(files_);
-        setLocale(locale_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getContext().setAnalyzing(new AnalyzedPageEl());
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
-        
-        conf_.setDocument(doc_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body><input value=\"desc &amp;lt;TITLE2&amp;gt;\" type=\"submit\"/></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
@@ -113,16 +85,8 @@ public final class RenderSubmitTest extends CommonRender {
         conf_.getProperties().put("msg_example", relative_);
 
 
-        Document doc_ = DocumentBuilder.parseSax(html_);
         conf_.getAnalyzingDoc().setFiles(files_);
-        setLocale(locale_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getContext().setAnalyzing(new AnalyzedPageEl());
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
-        
-        conf_.setDocument(doc_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_,conf_);
         assertNotNull(getException(conf_));
@@ -134,15 +98,13 @@ public final class RenderSubmitTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_two\"><body><c:submit message=\"msg_example,five\" param0=\"{typedString}\"/></body></html>";
+        String html_ = "<html c:bean=\"bean_one\"><body><c:submit message=\"msg_example,five\" param0=\"{typedString}\"/></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
-        BeanTwo beanTwo_ = new BeanTwo();
-        beanTwo_.setTypedString("TITLE");
         StringMap<String> filesSec_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
-        file_.append("$public $class pkg.BeanTwo:code.bean.Bean{");
+        file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
         file_.append(" $public String typedString:");
         file_.append(" $public $void beforeDisplaying(){");
         file_.append("  typedString=\"TITLE2\":");
@@ -151,25 +113,11 @@ public final class RenderSubmitTest extends CommonRender {
         filesSec_.put("my_file",file_.toString());
         Configuration conf_ = contextElThird(filesSec_);
         conf_.setBeans(new StringMap<Bean>());
-        addImportingPage(conf_);
-        Struct bean_ = RenderExpUtil.processEl("$new pkg.BeanTwo()", 0, conf_).getStruct();
-        addBeanInfo(conf_,"bean_two",bean_);
-        conf_.clearPages();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-
-
-        Document doc_ = DocumentBuilder.parseSax(html_);
         conf_.getAnalyzingDoc().setFiles(files_);
-        setLocale(locale_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getContext().setAnalyzing(new AnalyzedPageEl());
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
-        
-        conf_.setDocument(doc_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(!conf_.isEmptyErrors());
     }
 
@@ -179,13 +127,13 @@ public final class RenderSubmitTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_two\"><body><c:submit message=\"msg_example_bis,three\" param0=\"text\"/></body></html>";
+        String html_ = "<html c:bean=\"bean_one\"><body><c:submit message=\"msg_example_bis,three\" param0=\"text\"/></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         StringMap<String> filesSec_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
-        file_.append("$public $class pkg.BeanTwo:code.bean.Bean{");
+        file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
         file_.append(" $public String typedString:");
         file_.append(" $public $void beforeDisplaying(){");
         file_.append("  typedString=\"TITLE2\":");
@@ -194,25 +142,11 @@ public final class RenderSubmitTest extends CommonRender {
         filesSec_.put("my_file",file_.toString());
         Configuration conf_ = contextElThird(filesSec_);
         conf_.setBeans(new StringMap<Bean>());
-        addImportingPage(conf_);
-        Struct bean_ = RenderExpUtil.processEl("$new pkg.BeanTwo()", 0, conf_).getStruct();
-        addBeanInfo(conf_,"bean_two",bean_);
-        conf_.clearPages();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-
-
-        Document doc_ = DocumentBuilder.parseSax(html_);
         conf_.getAnalyzingDoc().setFiles(files_);
-        setLocale(locale_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getContext().setAnalyzing(new AnalyzedPageEl());
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
-        
-        conf_.setDocument(doc_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(!conf_.isEmptyErrors());
     }
 
@@ -222,13 +156,13 @@ public final class RenderSubmitTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_two\"><body><c:submit message=\"msg_example,three\" param0=\"text\"/></body></html>";
+        String html_ = "<html c:bean=\"bean_one\"><body><c:submit message=\"msg_example,three\" param0=\"text\"/></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         StringMap<String> filesSec_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
-        file_.append("$public $class pkg.BeanTwo:code.bean.Bean{");
+        file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
         file_.append(" $public String typedString:");
         file_.append(" $public $void beforeDisplaying(){");
         file_.append("  typedString=\"TITLE2\":");
@@ -237,25 +171,11 @@ public final class RenderSubmitTest extends CommonRender {
         filesSec_.put("my_file",file_.toString());
         Configuration conf_ = contextElThird(filesSec_);
         conf_.setBeans(new StringMap<Bean>());
-        addImportingPage(conf_);
-        Struct bean_ = RenderExpUtil.processEl("$new pkg.BeanTwo()", 0, conf_).getStruct();
-        addBeanInfo(conf_,"bean_two",bean_);
-        conf_.clearPages();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", StringList.concat(relative_,"2"));
-
-
-        Document doc_ = DocumentBuilder.parseSax(html_);
+        conf_.getProperties().put("msg_example", StringList.concat(relative_, "2"));
         conf_.getAnalyzingDoc().setFiles(files_);
-        setLocale(locale_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getContext().setAnalyzing(new AnalyzedPageEl());
-        conf_.getAnalyzing().setEnabledInternVars(false);
-        rendDocumentBlock_.buildFctInstructions(conf_);
-        
-        conf_.setDocument(doc_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(!conf_.isEmptyErrors());
     }
 }

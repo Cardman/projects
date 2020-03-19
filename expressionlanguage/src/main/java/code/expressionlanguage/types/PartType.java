@@ -2,10 +2,8 @@ package code.expressionlanguage.types;
 
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.inherits.ClassInheritsDeps;
 import code.expressionlanguage.methods.AccessedBlock;
 import code.expressionlanguage.methods.AccessingImportingBlock;
-import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.options.Options;
 import code.util.CustList;
 import code.util.*;
@@ -21,7 +19,7 @@ abstract class PartType {
     private int index;
     private int indexInType;
     private String analyzedType = EMPTY_STRING;
-    private EqList<ClassInheritsDeps> typeNames = new EqList<ClassInheritsDeps>();
+
     PartType(ParentPartType _parent, int _index, int _indexInType) {
         parent = _parent;
         index = _index;
@@ -110,15 +108,11 @@ abstract class PartType {
         }
         return new WildCardPartType(_parent, _index, _indexInType, _analyze.getOperators().firstValue());
     }
-    abstract void analyze(Analyzable _an, CustList<IntTreeMap< String>> _dels, String _globalType, AccessingImportingBlock _rooted);
-    abstract void analyzeLine(Analyzable _an, CustList<IntTreeMap< String>> _dels, String _globalType, AccessingImportingBlock _rooted);
-    abstract void analyzeInherits(Analyzable _an, int _index, CustList<IntTreeMap< String>> _dels, String _globalType, RootBlock _rooted, boolean _protected);
-    abstract void analyzeDepends(Analyzable _an, int _index, CustList<IntTreeMap< String>>_dels, RootBlock _rooted,boolean _exact);
-    abstract void analyzeAccessibleId(Analyzable _an, CustList<IntTreeMap< String>>_dels, AccessedBlock _rooted);
+    abstract void analyze(Analyzable _an, CustList<IntTreeMap< String>> _dels, String _globalType, AccessingImportingBlock _local,AccessingImportingBlock _rooted);
+    abstract void analyzeLine(Analyzable _an, CustList<IntTreeMap< String>> _dels, String _globalType, AccessingImportingBlock _local,AccessingImportingBlock _rooted);
+
+    abstract void analyzeAccessibleId(Analyzable _an, CustList<IntTreeMap< String>>_dels, AccessingImportingBlock _rooted);
     abstract void analyzeTemplate(Analyzable _an, CustList<IntTreeMap<String>> _dels, StringMap<StringList> _inherit);
-    EqList<ClassInheritsDeps> getTypeNames() {
-        return typeNames;
-    }
 
     int getIndex() {
         return index;

@@ -2,11 +2,9 @@ package code.expressionlanguage.types;
 
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ExecutableCode;
-import code.expressionlanguage.inherits.ClassInheritsDeps;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.methods.AccessedBlock;
 import code.expressionlanguage.methods.AccessingImportingBlock;
-import code.expressionlanguage.methods.RootBlock;
 import code.util.CustList;
 import code.util.*;
 import code.util.StringList;
@@ -52,42 +50,8 @@ final class WildCardPartType extends ParentPartType {
     }
 
     @Override
-    void analyzeDepends(Analyzable _an,
-            int _index, CustList<IntTreeMap< String>> _dels,
-            RootBlock _rooted, boolean _exact) {
-        if (!processOkInherits(_an)) {
-            return;
-        }
-        EqList<ClassInheritsDeps> ts_ = getFirstChild().getTypeNames();
-        getTypeNames().addAllElts(ts_);
-    }
-    @Override
-    void analyzeInherits(Analyzable _an, int _index,
-            CustList<IntTreeMap< String>> _dels, String _globalType,
-            RootBlock _rooted,
-            boolean _protected) {
-        processOkInherits(_an);
-    }
-    private boolean processOkInherits(Analyzable _an) {
-        if (!(getParent() instanceof TemplatePartType)) {
-            _an.getCurrentBadIndexes().add(getIndexInType());
-            return false;
-        }
-        PartType prev_ = getParent().getFirstChild();
-        String base_ = prev_.getAnalyzedType();
-        base_ = Templates.getIdFromAllTypes(base_);
-        if (StringList.quickEq(base_.trim(), _an.getStandards().getAliasFct())) {
-            _an.getCurrentBadIndexes().add(getIndexInType());
-            return false;
-        }
-        String ch_ = getFirstChild().getAnalyzedType();
-        ch_ = StringList.concat(getBegin(),ch_);
-        setAnalyzedType(ch_);
-        return true;
-    }
-    @Override
-    void analyze(Analyzable _an, CustList<IntTreeMap< String>> _dels, String _globalType, AccessingImportingBlock _rooted) {
-        analyzeLine(_an,_dels,_globalType,_rooted);
+    void analyze(Analyzable _an, CustList<IntTreeMap< String>> _dels, String _globalType, AccessingImportingBlock _local,AccessingImportingBlock _rooted) {
+        analyzeLine(_an,_dels,_globalType,_local,_rooted);
     }
 
     @Override
@@ -98,7 +62,7 @@ final class WildCardPartType extends ParentPartType {
     }
 
     @Override
-    void analyzeLine(Analyzable _an, CustList<IntTreeMap< String>> _dels, String _globalType, AccessingImportingBlock _rooted) {
+    void analyzeLine(Analyzable _an, CustList<IntTreeMap< String>> _dels, String _globalType, AccessingImportingBlock _local,AccessingImportingBlock _rooted) {
         String ch_ = getFirstChild().getAnalyzedType();
         if (!(getParent() instanceof TemplatePartType)) {
             _an.getCurrentBadIndexes().add(getIndexInType());
@@ -118,7 +82,7 @@ final class WildCardPartType extends ParentPartType {
     @Override
     void analyzeAccessibleId(Analyzable _an,
             CustList<IntTreeMap< String>> _dels,
-                             AccessedBlock _rooted) {
+                             AccessingImportingBlock _rooted) {
         String ch_ = getFirstChild().getAnalyzedType();
         if (!(getParent() instanceof TemplatePartType)) {
             return;

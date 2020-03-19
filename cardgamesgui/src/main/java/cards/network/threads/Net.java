@@ -1,4 +1,5 @@
 package cards.network.threads;
+import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
@@ -65,11 +66,14 @@ public final class Net {
     @param _text the text to be sent
     */
     static void sendText(Socket _socket, String _text) {
+        if (_socket == null) {
+            return;
+        }
         try {
             OutputStream output_ = _socket.getOutputStream();
             PrintWriter out_ = new PrintWriter(output_, true);
             out_.println(_text);
-        } catch (Exception _0) {
+        } catch (IOException _0) {
             //
         }
     }

@@ -76,17 +76,14 @@ public final class EnumList<T> extends AbEqList<T> implements Equallable<EnumLis
 
     public void removeDuplicates()  {
         int i_ = FIRST_INDEX;
-        while (true) {
-            if(i_ >= size()) {
-                break;
-            }
+        while (i_ < size()) {
             T e_ = get(i_);
             boolean rem_ = false;
             int next_ = indexOfObj(e_, i_ + 1);
             while (next_ != INDEX_NOT_FOUND_ELT) {
                 removeAt(next_);
                 rem_ = true;
-                next_ = indexOfObj(e_, next_ + 1);
+                next_ = indexOfObj(e_, i_ + 1);
             }
             if (!rem_) {
                 i_++;

@@ -1,7 +1,7 @@
 package code.expressionlanguage.opers;
 
 import code.expressionlanguage.Analyzable;
-import code.expressionlanguage.errors.custom.UnexpectedOperationAffect;
+import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.opers.exec.Operable;
 import code.expressionlanguage.opers.exec.ParentOperable;
@@ -21,9 +21,12 @@ public abstract class AbstractUnaryOperation extends MethodOperation {
         CustList<OperationNode> children_ = getChildrenNodes();
         if (children_.size() != 1) {
             LgNames stds_ = _conf.getStandards();
-            UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
+            FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(_conf.getCurrentFileName());
             un_.setIndexFile(_conf.getCurrentLocationIndex());
+            un_.buildError(_conf.getContextEl().getAnalysisMessages().getSplitDiff(),
+                    Integer.toString(1),
+                    Integer.toString(children_.size()));
             _conf.addError(un_);
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             return;

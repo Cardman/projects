@@ -3,11 +3,10 @@ import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.calls.AbstractPageEl;
 import code.expressionlanguage.calls.util.ReadWrite;
-import code.expressionlanguage.errors.custom.UnexpectedTagName;
+import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.methods.util.AbstractCoverageResult;
-import code.expressionlanguage.stacks.SwitchBlockStack;
 import code.util.CustList;
 
 public final class DefaultCondition extends SwitchPartBlock {
@@ -33,18 +32,27 @@ public final class DefaultCondition extends SwitchPartBlock {
             AnalyzedPageEl page_ = _cont.getAnalyzing();
             page_.setGlobalOffset(getOffset().getOffsetTrim());
             page_.setOffset(0);
-            UnexpectedTagName un_ = new UnexpectedTagName();
+            FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(getFile().getFileName());
             un_.setIndexFile(getOffset().getOffsetTrim());
+            //key word len
+            un_.buildError(_cont.getAnalysisMessages().getUnexpectedCaseDef(),
+                    _cont.getKeyWords().getKeyWordDefault(),
+                    "",
+                    _cont.getKeyWords().getKeyWordSwitch());
             _cont.addError(un_);
         } else {
             _cont.getCoverage().putBlockOperationsSwitchs(_cont,b_,this);
             Block first_ = b_.getFirstChild();
             while (first_ != this) {
                 if (first_ instanceof DefaultCondition) {
-                    UnexpectedTagName un_ = new UnexpectedTagName();
+                    FoundErrorInterpret un_ = new FoundErrorInterpret();
                     un_.setFileName(getFile().getFileName());
                     un_.setIndexFile(getOffset().getOffsetTrim());
+                    //key word len
+                    un_.buildError(_cont.getAnalysisMessages().getUnexpectedDefDup(),
+                            _cont.getKeyWords().getKeyWordDefault(),
+                            _cont.getKeyWords().getKeyWordSwitch());
                     _cont.addError(un_);
                     break;
                 }

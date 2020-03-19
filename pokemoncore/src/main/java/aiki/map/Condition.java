@@ -22,17 +22,14 @@ public final class Condition extends CustList<Coords> {
 
     public void removeDuplicates()  {
         int i_ = FIRST_INDEX;
-        while (true) {
-            if(i_ >= size()) {
-                break;
-            }
+        while (i_ < size()) {
             Coords e_ = get(i_);
             boolean rem_ = false;
             int next_ = indexOfObj(e_, i_ + 1);
             while (next_ != INDEX_NOT_FOUND_ELT) {
                 removeAt(next_);
                 rem_ = true;
-                next_ = indexOfObj(e_, next_ + 1);
+                next_ = indexOfObj(e_, i_ + 1);
             }
             if (!rem_) {
                 i_++;
@@ -40,7 +37,7 @@ public final class Condition extends CustList<Coords> {
         }
     }
 
-    public int indexOfObj(Coords _element, int _from) {
+    private int indexOfObj(Coords _element, int _from) {
         int s_ = size();
         for (int i = _from; i < s_; i++) {
             Coords e_ = get(i);

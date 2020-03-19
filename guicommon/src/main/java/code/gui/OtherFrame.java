@@ -20,6 +20,10 @@ public final class OtherFrame extends AbsFrame implements ChangeableTitle,WithLi
     }
 
     @Override
+    public Point getLocationOnScreen() {
+        return frame.getLocationOnScreen();
+    }
+    @Override
     public String getTitle() {
         return frame.getTitle();
     }

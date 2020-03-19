@@ -390,7 +390,6 @@ public final class PrimitiveTypeUtil {
             }
             types_.add(i);
         }
-        types_.removeDuplicates();
         return types_;
     }
 

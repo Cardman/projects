@@ -1,19 +1,24 @@
 package code.expressionlanguage.calls.util;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.methods.RootBlock;
+import code.expressionlanguage.opers.util.AnnotationTypeInfo;
 import code.util.CustList;
 import code.util.StringMap;
 
 public final class CustomFoundAnnotation implements CallingState {
 
     private final String className;
+    private final RootBlock type;
 
-    private final StringMap<String> id;
+    private final StringMap<AnnotationTypeInfo> id;
 
     private final CustList<Argument> arguments;
 
-    public CustomFoundAnnotation(String _className,
-            StringMap<String> _id, CustList<Argument> _arguments) {
+    public CustomFoundAnnotation(String _className,RootBlock _type,
+                                 StringMap<AnnotationTypeInfo> _id,
+                                 CustList<Argument> _arguments) {
         className = _className;
+        type = _type;
         id = _id;
         arguments = _arguments;
     }
@@ -22,7 +27,11 @@ public final class CustomFoundAnnotation implements CallingState {
         return className;
     }
 
-    public StringMap<String> getId() {
+    public RootBlock getType() {
+        return type;
+    }
+
+    public StringMap<AnnotationTypeInfo> getId() {
         return id;
     }
 

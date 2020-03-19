@@ -2,7 +2,7 @@ package code.expressionlanguage.opers;
 
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.errors.custom.UnexpectedTypeOperationError;
+import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.opers.exec.Operable;
@@ -33,14 +33,14 @@ public final class UnaryBooleanOperation extends AbstractUnaryOperation {
         ClassArgumentMatching clMatch_;
         clMatch_ = child_.getResultClass();
         setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _conf);
-        String booleanType_ = stds_.getAliasBoolean();
         if (!clMatch_.isBoolType(_conf)) {
             ClassArgumentMatching cl_ = child_.getResultClass();
-            UnexpectedTypeOperationError un_ = new UnexpectedTypeOperationError();
+            FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setIndexFile(_conf.getCurrentLocationIndex());
             un_.setFileName(_conf.getCurrentFileName());
-            un_.setExpectedResult(booleanType_);
-            un_.setOperands(cl_);
+            //operator
+            un_.buildError(_conf.getContextEl().getAnalysisMessages().getUnexpectedType(),
+                    StringList.join(clMatch_.getNames(),"&"));
             _conf.addError(un_);
         }
         clMatch_.setUnwrapObject(booleanPrimType_);

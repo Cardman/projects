@@ -1,7 +1,7 @@
 package code.expressionlanguage.opers;
 
 import code.expressionlanguage.Analyzable;
-import code.expressionlanguage.errors.custom.UnexpectedTypeOperationError;
+import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.OperationsSequence;
@@ -138,12 +138,12 @@ public final class DimensionArrayInstancing extends
         for (OperationNode o: chidren_) {
             setRelativeOffsetPossibleAnalyzable(o.getIndexInEl()+off_, _conf);
             if (!o.getResultClass().isNumericInt(_conf)) {
-                ClassArgumentMatching cl_ = o.getResultClass();
-                UnexpectedTypeOperationError un_ = new UnexpectedTypeOperationError();
+                FoundErrorInterpret un_ = new FoundErrorInterpret();
                 un_.setIndexFile(_conf.getCurrentLocationIndex());
                 un_.setFileName(_conf.getCurrentFileName());
-                un_.setExpectedResult(_conf.getStandards().getAliasPrimInteger());
-                un_.setOperands(cl_);
+                //first part child bracket
+                un_.buildError(_conf.getContextEl().getAnalysisMessages().getUnexpectedType(),
+                        StringList.join(o.getResultClass().getNames(),"&"));
                 _conf.addError(un_);
             }
             o.getResultClass().setUnwrapObject(_conf.getStandards().getAliasPrimInteger());

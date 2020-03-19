@@ -95,9 +95,7 @@ public final class PaginationEgg extends
         if (cmpName.getPriority() != NO_PRIORITY) {
             priorities_.add(cmpName.getPriority());
         }
-        int size_ = priorities_.size();
-        priorities_.removeDuplicates();
-        return size_ == priorities_.size();
+        return !priorities_.hasDuplicates();
     }
 
     @Override

@@ -4,9 +4,7 @@ import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.calls.AbstractPageEl;
 import code.expressionlanguage.calls.util.ReadWrite;
-import code.expressionlanguage.errors.custom.BadLabelName;
-import code.expressionlanguage.errors.custom.DuplicateLabel;
-import code.expressionlanguage.errors.custom.UnexpectedTagName;
+import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.opers.CurrentInvokingConstructor;
@@ -100,7 +98,7 @@ public abstract class Block implements AnalyzedBlock {
         }
     }
 
-    public void checkLabelReference(Analyzable _an, AnalyzingEl _anEl) {
+    public void checkLabelReference(ContextEl _an, AnalyzingEl _anEl) {
         if (this instanceof BreakableBlock) {
             String label_ = ((BreakableBlock)this).getRealLabel();
             boolean wc_ = true;
@@ -112,17 +110,19 @@ public abstract class Block implements AnalyzedBlock {
                 break;
             }
             if (!wc_) {
-                BadLabelName bad_ = new BadLabelName();
-                bad_.setName(label_);
+                FoundErrorInterpret bad_ = new FoundErrorInterpret();
                 bad_.setFileName(getFile().getFileName());
                 bad_.setIndexFile(0);
+                //label_ len
+                bad_.buildError(_an.getAnalysisMessages().getBadLabel());
                 _an.addError(bad_);
             } else if (!label_.isEmpty()){
                 if (StringList.contains(_anEl.getLabels(), label_)) {
-                    DuplicateLabel dup_ = new DuplicateLabel();
-                    dup_.setId(label_);
+                    FoundErrorInterpret dup_ = new FoundErrorInterpret();
                     dup_.setFileName(getFile().getFileName());
                     dup_.setIndexFile(0);
+                    //label_ len
+                    dup_.buildError(_an.getAnalysisMessages().getDuplicatedLabel());
                     _an.addError(dup_);
                 } else {
                     _anEl.getLabels().add(label_);
@@ -177,26 +177,32 @@ public abstract class Block implements AnalyzedBlock {
         return variables_;
     }
 
-    protected static void tryBuildExpressionLanguage(Block _block, ContextEl _cont) {
+    protected static boolean tryBuildExpressionLanguage(Block _block, ContextEl _cont) {
         if (_block instanceof BuildableElMethod) {
             ((BuildableElMethod)_block).buildExpressionLanguage(_cont);
-            return;
+            return true;
         }
-        UnexpectedTagName un_ = new UnexpectedTagName();
+        FoundErrorInterpret un_ = new FoundErrorInterpret();
         un_.setFileName(_block.getFile().getFileName());
         un_.setIndexFile(_block.getOffset().getOffsetTrim());
+        //defined len first key words
+        un_.buildError(_cont.getAnalysisMessages().getUnexpectedBlockExp());
         _cont.addError(un_);
+        return false;
     }
 
-    protected static void tryBuildExpressionLanguageReadOnly(Block _block, ContextEl _cont) {
+    protected static boolean tryBuildExpressionLanguageReadOnly(Block _block, ContextEl _cont) {
         if (_block instanceof BuildableElMethod) {
             ((BuildableElMethod)_block).buildExpressionLanguageReadOnly(_cont);
-            return;
+            return true;
         }
-        UnexpectedTagName un_ = new UnexpectedTagName();
+        FoundErrorInterpret un_ = new FoundErrorInterpret();
         un_.setFileName(_block.getFile().getFileName());
         un_.setIndexFile(_block.getOffset().getOffsetTrim());
+        //defined len first key words
+        un_.buildError(_cont.getAnalysisMessages().getUnexpectedBlockExp());
         _cont.addError(un_);
+        return false;
     }
 
     public abstract void processReport(ContextEl _cont, CustList<PartOffset> _parts);

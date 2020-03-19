@@ -1,8 +1,7 @@
 package code.formathtml;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.errors.custom.UnexpectedTagName;
-import code.expressionlanguage.errors.custom.UnexpectedTypeError;
+import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.util.StringList;
@@ -18,19 +17,23 @@ public final class RendClass extends RendParentBlock {
     @Override
     public void buildExpressionLanguage(Configuration _cont, RendDocumentBlock _doc) {
         if (!(getParent() instanceof RendPackage)) {
-            UnexpectedTagName un_ = new UnexpectedTagName();
+            FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(_cont.getCurrentFileName());
             un_.setIndexFile(getOffset().getOffsetTrim());
+            un_.buildError(_cont.getRendAnalysisMessages().getUnexpectedChildTag(),
+                    _cont.getRendKeyWords().getKeyWordClass(),
+                    _cont.getRendKeyWords().getKeyWordPackage());
             _cont.addError(un_);
         } else {
             RendPackage par_ = (RendPackage) getParent();
-            fullName = StringList.concat(par_.getName(),".",name);
+            fullName = StringList.concat(par_.getName(),DOT,name);
             fullName = ContextEl.removeDottedSpaces(fullName);
             if (_cont.getClassBody(fullName) == null) {
-                UnexpectedTypeError un_ = new UnexpectedTypeError();
+                FoundErrorInterpret un_ = new FoundErrorInterpret();
                 un_.setFileName(_cont.getCurrentFileName());
                 un_.setIndexFile(getOffset().getOffsetTrim());
-                un_.setType(fullName);
+                un_.buildError(_cont.getContext().getAnalysisMessages().getUnknownType(),
+                        fullName);
                 _cont.addError(un_);
             }
         }

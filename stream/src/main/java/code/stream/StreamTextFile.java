@@ -143,7 +143,8 @@ public final class StreamTextFile {
             if (_inputStream != null) {
                 _inputStream.close();
             }
-        } catch (Exception _0) {
+        } catch (IOException _0) {
+            //
         }
     }
     public static Element contenuDocumentXmlExterne(String _nomFichier) {
@@ -174,6 +175,9 @@ public final class StreamTextFile {
     }
 
     public static boolean saveTextFile(String _nomFichier, String _text) {
+        if (_nomFichier == null) {
+            return false;
+        }
         try {
             FileWriter fw_ = new FileWriter(new File(_nomFichier));
             BufferedWriter bw_ = new BufferedWriter(fw_);
@@ -181,11 +185,14 @@ public final class StreamTextFile {
             bw_.close();
             fw_.close();
             return true;
-        } catch (Exception _0) {
+        } catch (IOException _0) {
             return false;
         }
     }
     public static boolean logToFile(String _nomFichier, String _text) {
+        if (_nomFichier == null) {
+            return false;
+        }
         try {
             FileWriter fw_ = new FileWriter(_nomFichier, true);
             BufferedWriter bw_ = new BufferedWriter(fw_);
@@ -195,7 +202,7 @@ public final class StreamTextFile {
             bw_.close();
             fw_.close();
             return true;
-        } catch (Exception _0) {
+        } catch (IOException _0) {
             return false;
         }
     }

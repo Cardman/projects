@@ -2501,6 +2501,113 @@ public class StringListTest {
         assertEq("a",l_.get(0));
     }
     @Test
+    public void removeDuplicates5Test() {
+        StringList l_ =new StringList();
+        l_.add("a");
+        l_.add("b");
+        l_.add("a");
+        l_.removeDuplicates();
+        assertEq(2,l_.size());
+        assertEq("a",l_.get(0));
+        assertEq("b",l_.get(1));
+    }
+    @Test
+    public void removeDuplicates6Test() {
+        StringList l_ =new StringList();
+        l_.add("a");
+        l_.add("b");
+        l_.add("a");
+        l_.add("b");
+        l_.removeDuplicates();
+        assertEq(2,l_.size());
+        assertEq("a",l_.get(0));
+        assertEq("b",l_.get(1));
+    }
+    @Test
+    public void hasDuplicates1Test() {
+        StringList l_ =new StringList();
+        assertTrue(!l_.hasDuplicates());
+    }
+    @Test
+    public void hasDuplicates2Test() {
+        StringList l_ =new StringList();
+        l_.add("a");
+        assertTrue(!l_.hasDuplicates());
+    }
+    @Test
+    public void hasDuplicates3Test() {
+        StringList l_ =new StringList();
+        l_.add("a");
+        l_.add("b");
+        assertTrue(!l_.hasDuplicates());
+    }
+    @Test
+    public void hasDuplicates4Test() {
+        StringList l_ =new StringList();
+        l_.add("a");
+        l_.add("a");
+        assertTrue(l_.hasDuplicates());
+    }
+    @Test
+    public void hasDuplicates5Test() {
+        StringList l_ =new StringList();
+        l_.add("a");
+        l_.add("b");
+        l_.add("a");
+        assertTrue(l_.hasDuplicates());
+    }
+    @Test
+    public void hasDuplicates6Test() {
+        StringList l_ =new StringList();
+        l_.add("a");
+        l_.add("b");
+        l_.add("a");
+        l_.add("b");
+        assertTrue(l_.hasDuplicates());
+    }
+    @Test
+    public void onlyOneElt1Test() {
+        StringList l_ =new StringList();
+        assertTrue(!l_.onlyOneElt());
+    }
+    @Test
+    public void onlyOneElt2Test() {
+        StringList l_ =new StringList();
+        l_.add("a");
+        assertTrue(l_.onlyOneElt());
+    }
+    @Test
+    public void onlyOneElt3Test() {
+        StringList l_ =new StringList();
+        l_.add("a");
+        l_.add("b");
+        assertTrue(!l_.onlyOneElt());
+    }
+    @Test
+    public void onlyOneElt4Test() {
+        StringList l_ =new StringList();
+        l_.add("a");
+        l_.add("a");
+        assertTrue(l_.onlyOneElt());
+    }
+    @Test
+    public void onlyOneElt5Test() {
+        StringList l_ =new StringList();
+        l_.add("a");
+        l_.add("b");
+        l_.add("a");
+        assertTrue(!l_.onlyOneElt());
+    }
+    @Test
+    public void onlyOneElt6Test() {
+        StringList l_ =new StringList();
+        l_.add("a");
+        l_.add("b");
+        l_.add("a");
+        l_.add("b");
+        assertTrue(!l_.onlyOneElt());
+    }
+    @Test
     public void getFirstPrintableCharIndex1Test() {
         assertEq(-1,StringList.getFirstPrintableCharIndex(""));
     }

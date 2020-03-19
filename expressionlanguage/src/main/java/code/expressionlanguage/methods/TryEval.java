@@ -3,7 +3,7 @@ import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.calls.AbstractPageEl;
 import code.expressionlanguage.calls.util.ReadWrite;
-import code.expressionlanguage.errors.custom.UnexpectedTagName;
+import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.instr.PartOffset;
@@ -11,6 +11,7 @@ import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.stacks.TryBlockStack;
 import code.util.CustList;
 import code.util.IdMap;
+import code.util.StringList;
 
 public final class TryEval extends BracedStack implements Eval {
 
@@ -68,9 +69,18 @@ public final class TryEval extends BracedStack implements Eval {
         Block nBlock_ = getNextSibling();
         if (!(nBlock_ instanceof AbstractCatchEval)) {
             if (!(nBlock_ instanceof FinallyEval)) {
-                UnexpectedTagName un_ = new UnexpectedTagName();
+                FoundErrorInterpret un_ = new FoundErrorInterpret();
                 un_.setFileName(getFile().getFileName());
                 un_.setIndexFile(getOffset().getOffsetTrim());
+                //key word len
+                un_.buildError(_an.getContextEl().getAnalysisMessages().getUnexpectedDoTry(),
+                        _an.getContextEl().getKeyWords().getKeyWordTry(),
+                        StringList.join(
+                                new StringList(
+                                        _an.getContextEl().getKeyWords().getKeyWordCatch(),
+                                        _an.getContextEl().getKeyWords().getKeyWordFinally()
+                                ),
+                                "|"));
                 _an.addError(un_);
             }
         }

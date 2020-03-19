@@ -31,13 +31,13 @@ public final class NumParsers {
             exp_.deleteCharAt(exp_.indexOf("_"));
         }
         boolean positive_ = _nb.isPositive();
-        Long expNb_;
+        LongInfo expNb_;
         if (exp_.length() == 0) {
-            expNb_ = 0L;
+            expNb_ = new LongInfo(0);
         } else {
             expNb_ = parseLongTen(exp_.toString());
         }
-        if (expNb_ == null) {
+        if (!expNb_.isValid()) {
             if (positive_) {
                 if (exp_.charAt(0) == '-') {
                     return 0.0;
@@ -49,7 +49,7 @@ public final class NumParsers {
             }
             return Double.NEGATIVE_INFINITY;
         }
-        long expNbLong_ = expNb_;
+        long expNbLong_ = expNb_.getValue();
         if (_nb.getBase() == 16) {
             StringBuilder merged_ = new StringBuilder(int_.length()+dec_.length());
             merged_.append(int_);
@@ -249,13 +249,13 @@ public final class NumParsers {
     }
 
     private static double processBigNumbers(StringBuilder _nb, boolean _positive) {
-        Long long_ = parseQuickLongTen(_nb.substring(0, (int) MAX_DIGITS_DOUBLE + 1));
+        long long_ = parseQuickLongTen(_nb.substring(0, (int) MAX_DIGITS_DOUBLE + 1));
         double power_ = 1;
         int logDec_ = _nb.length() - (int) MAX_DIGITS_DOUBLE - 1;
         for (int i = 0; i < logDec_; i++) {
             power_ *= 10d;
         }
-        double out_ = long_.doubleValue() * power_;
+        double out_ = long_ * power_;
         if (_positive) {
             return out_;
         }
@@ -317,19 +317,22 @@ public final class NumParsers {
     }
 
     public static long toLong(boolean[] _bits) {
+        return toLong(_bits,_bits[0],1,64);
+    }
+
+    public static long toLong(boolean[] _bits, boolean _reverse, int _from, int _to) {
         long s_ = 0;
-        for (int i = 1; i < 64; i++) {
+        for (int i = _from; i < _to; i++) {
             s_ *= 2;
             if (_bits[i]) {
                 s_++;
             }
         }
-        if (_bits[0]) {
+        if (_reverse) {
             return s_ - Long.MAX_VALUE - 1;
         }
         return s_;
     }
-
     public static int toInt(boolean[] _bits) {
         int s_ = 0;
         for (int i = 1; i < 32; i++) {
@@ -556,7 +559,7 @@ public final class NumParsers {
     }
 
     //this long parser is very naive
-    public static Long parseLongTen(String _string) {
+    public static LongInfo parseLongTen(String _string) {
         long result_ = 0;
         boolean negative_ = false;
         int i_ = 0;
@@ -587,18 +590,18 @@ public final class NumParsers {
             i_++;
             digit_ = ch_ - '0';
             if (result_ < multmin_) {
-                return null;
+                return new LongInfo();
             }
             result_ *= DEFAULT_RADIX;
             if (result_ < limit_ + digit_) {
-                return null;
+                return new LongInfo();
             }
             result_ -= digit_;
         }
         if (negative_) {
-            return result_;
+            return new LongInfo(result_);
         }
-        return -result_;
+        return new LongInfo(-result_);
     }
 
     public static long parseQuickLongTen(String _string) {
@@ -620,12 +623,12 @@ public final class NumParsers {
         return -result_;
     }
 
-    public static Long parseLong(String _string, int _radix) {
+    public static LongInfo parseLong(String _string, int _radix) {
         if (_radix < Character.MIN_RADIX) {
-            return null;
+            return new LongInfo();
         }
         if (_radix > Character.MAX_RADIX) {
-            return null;
+            return new LongInfo();
         }
 
         long result_ = 0;
@@ -656,7 +659,7 @@ public final class NumParsers {
             if (i_ < max_) {
                 int ch_ = _string.charAt(i_);
                 if (!parsableChar(ch_)) {
-                    return null;
+                    return new LongInfo();
                 }
                 if (ch_ >= 'A' && ch_ <= 'Z') {
                     ch_ = ch_ - 'A' + 'a';
@@ -664,7 +667,7 @@ public final class NumParsers {
                 i_++;
                 int dig_ = Math.min(ch_ - '0', 10) + Math.max(ch_ - 'a', 0);
                 if (dig_ >= _radix) {
-                    return null;
+                    return new LongInfo();
                 }
                 digit_ = dig_;
                 result_ = -digit_;
@@ -673,7 +676,7 @@ public final class NumParsers {
                 // Accumulating negatively avoids surprises near MAX_VALUE
                 int ch_ = _string.charAt(i_);
                 if (!parsableChar(ch_)) {
-                    return null;
+                    return new LongInfo();
                 }
                 if (ch_ >= 'A' && ch_ <= 'Z') {
                     ch_ = ch_ - 'A' + 'a';
@@ -681,28 +684,28 @@ public final class NumParsers {
                 i_++;
                 int dig_ = Math.min(ch_ - '0', 10) + Math.max(ch_ - 'a', 0);
                 if (dig_ >= _radix) {
-                    return null;
+                    return new LongInfo();
                 }
                 digit_ = dig_;
                 if (result_ < multmin_) {
-                    return null;
+                    return new LongInfo();
                 }
                 result_ *= _radix;
                 if (result_ < limit_ + digit_) {
-                    return null;
+                    return new LongInfo();
                 }
                 result_ -= digit_;
             }
         } else {
-            return null;
+            return new LongInfo();
         }
         if (negative_) {
             if (i_ > 1) {
-                return result_;
+                return new LongInfo(result_);
             }
-            return null;
+            return new LongInfo();
         }
-        return -result_;
+        return new LongInfo(-result_);
     }
 
     private static boolean parsableChar(int _ch) {

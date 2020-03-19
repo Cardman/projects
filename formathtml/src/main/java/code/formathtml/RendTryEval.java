@@ -1,10 +1,11 @@
 package code.formathtml;
 
-import code.expressionlanguage.errors.custom.UnexpectedTagName;
+import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.formathtml.stacks.RendReadWrite;
 import code.formathtml.stacks.RendTryBlockStack;
+import code.util.StringList;
 
 public final class RendTryEval extends RendParentBlock implements RendEval {
 
@@ -31,15 +32,31 @@ public final class RendTryEval extends RendParentBlock implements RendEval {
         if (!(nBlock_ instanceof RendAbstractCatchEval)) {
             if (!(nBlock_ instanceof RendFinallyEval)) {
                 if (!(nBlock_ instanceof RendPossibleEmpty)) {
-                    UnexpectedTagName un_ = new UnexpectedTagName();
+                    FoundErrorInterpret un_ = new FoundErrorInterpret();
                     un_.setFileName(_cont.getCurrentFileName());
                     un_.setIndexFile(getOffset().getOffsetTrim());
+                    un_.buildError(_cont.getContext().getAnalysisMessages().getUnexpectedDoTry(),
+                            _cont.getContext().getKeyWords().getKeyWordTry(),
+                            StringList.join(
+                                    new StringList(
+                                            _cont.getContext().getKeyWords().getKeyWordCatch(),
+                                            _cont.getContext().getKeyWords().getKeyWordFinally()
+                                    ),
+                                    OR_ERR));
                     _cont.addError(un_);
                 } else if (!(nBlock_.getNextSibling() instanceof RendAbstractCatchEval)){
                     if (!(nBlock_.getNextSibling() instanceof RendFinallyEval)) {
-                        UnexpectedTagName un_ = new UnexpectedTagName();
+                        FoundErrorInterpret un_ = new FoundErrorInterpret();
                         un_.setFileName(_cont.getCurrentFileName());
                         un_.setIndexFile(getOffset().getOffsetTrim());
+                        un_.buildError(_cont.getContext().getAnalysisMessages().getUnexpectedDoTry(),
+                                _cont.getContext().getKeyWords().getKeyWordTry(),
+                                StringList.join(
+                                        new StringList(
+                                                _cont.getContext().getKeyWords().getKeyWordCatch(),
+                                                _cont.getContext().getKeyWords().getKeyWordFinally()
+                                        ),
+                                        OR_ERR));
                         _cont.addError(un_);
                     }
                 }

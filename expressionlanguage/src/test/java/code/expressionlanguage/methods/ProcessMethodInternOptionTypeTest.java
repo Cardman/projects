@@ -2988,6 +2988,57 @@ public final class ProcessMethodInternOptionTypeTest extends ProcessMethodCommon
         assertEq(0, ret_.getNumber());
     }
     @Test
+    public void calculateArgument57Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("public class pkgtwo.OuterThree<#A> {\n");
+        xml_.append(" public class InnerFive<#E> {\n");
+        xml_.append("  public static final String CST = \"CS\";\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExThree", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("static pkgtwo.OuterThree.InnerFive.CST;\n");
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static String method(){\n");
+        xml_.append("  return CST;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExFour", xml_.toString());
+        ContextEl cont_ = contextEnElDefaultInternType();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("method");
+        Argument ret_ = new Argument();
+        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq("CS", ret_.getString());
+    }
+    @Test
+    public void calculateArgumentFail_Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("public class pkgtwo.OuterThree<#A> {\n");
+        xml_.append(" public class InnerFive<#E> {\n");
+        xml_.append("  public static final String CST = \"CS\";\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExThree", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("static pkgtwo.OuterThree.InnerSix.CST;\n");
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static String method(){\n");
+        xml_.append("  return CST;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExFour", xml_.toString());
+        ContextEl cont_ = contextEnElDefaultInternType();
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.isEmptyErrors());
+    }
+    @Test
     public void calculateArgumentFailTest() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
@@ -3028,12 +3079,12 @@ public final class ProcessMethodInternOptionTypeTest extends ProcessMethodCommon
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = contextEnElDefaultInternType();
         Classes.validateAll(files_, cont_);
-        assertTrue(!cont_.isEmptyErrors());
-//        CustList<Argument> args_ = new CustList<Argument>();
-//        MethodId id_ = getMethodId("method");
-//        Argument ret_ = new Argument();
-//        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
-//        assertEq("pkgtwo.OuterFour..InnerFive..InnerSix", ret_.getString());
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("method");
+        Argument ret_ = new Argument();
+        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        assertEq("pkgtwo.OuterFour..InnerFive..InnerSix", ret_.getString());
     }
     @Test
     public void calculateArgument1FailTest() {
@@ -3795,6 +3846,25 @@ public final class ProcessMethodInternOptionTypeTest extends ProcessMethodCommon
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
+        ContextEl cont_ = contextEnElDefaultInternType();
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.isEmptyErrors());
+    }
+    @Test
+    public void calculateArgument25FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("pkgtwo.OuterTwo;\n");
+        xml_.append("public annotation pkg.MyAnnotation {\n");
+        xml_.append(" String m();\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.Outer {\n");
+        xml_.append(" @MyAnnotation(m=$(String)new Inner())\n");
+        xml_.append(" public class Inner {\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = contextEnElDefaultInternType();
         Classes.validateAll(files_, cont_);
         assertTrue(!cont_.isEmptyErrors());
