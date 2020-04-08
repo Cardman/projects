@@ -68,7 +68,7 @@ public abstract class CommonRender {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
-        opt_.setSingleInnerParts(true);
+        
         ContextEl cont_ = InitializationLgNames.buildStdThree(opt_);
         Classes.validateWithoutInit(_files, cont_);
         assertTrue(cont_.isEmptyErrors());
@@ -86,7 +86,7 @@ public abstract class CommonRender {
         Configuration conf_ =  EquallableExUtil.newConfiguration();
         conf_.setPrefix("c:");
         Options opt_ = new Options();
-        opt_.setSingleInnerParts(true);
+        
         ContextEl cont_ = InitializationLgNames.buildStdThree(opt_);
         Classes.validateWithoutInit(_files, cont_);
         assertTrue(cont_.isEmptyErrors());

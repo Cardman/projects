@@ -11,11 +11,8 @@ import code.util.StringList;
 
 final class InnerPartType extends BinaryType {
 
-    private boolean removedBefore;
-
-    InnerPartType(ParentPartType _parent, int _index, int _indexInType, boolean _removedBefore) {
+    InnerPartType(ParentPartType _parent, int _index, int _indexInType) {
         super(_parent, _index, _indexInType);
-        removedBefore = _removedBefore;
     }
 
     @Override
@@ -86,8 +83,5 @@ final class InnerPartType extends BinaryType {
         }
         String t_ = ch_.last().getAnalyzedType();
         setAnalyzedType(t_);
-    }
-    boolean isRemovedBefore() {
-        return removedBefore;
     }
 }

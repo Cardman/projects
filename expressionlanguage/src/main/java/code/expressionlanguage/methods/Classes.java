@@ -87,6 +87,7 @@ public final class Classes {
 	}
     public void processBracedClass(RootBlock _root, ContextEl _context) {
         String fullName_ = _root.getFullName();
+        String fullNameOrig_ = _root.getFullName(".");
         if (classesBodies.contains(fullName_)) {
             FoundErrorInterpret d_ = new FoundErrorInterpret();
             d_.setFileName(_root.getFile().getFileName());
@@ -231,7 +232,7 @@ public final class Classes {
             tempOff_ += p.length() + 1;
         }
         if (_root instanceof EnumBlock) {
-            StringBuilder generic_ = new StringBuilder(fullName_);
+            StringBuilder generic_ = new StringBuilder(fullNameOrig_);
             if (!_root.getParamTypes().isEmpty()) {
                 StringList vars_ = new StringList();
                 for (TypeVar t:_root.getParamTypes()) {
@@ -253,7 +254,7 @@ public final class Classes {
         if (_root instanceof InnerElementBlock) {
             InnerElementBlock i_ = (InnerElementBlock) _root;
             EnumBlock par_ = (EnumBlock) _root.getParent();
-            String type_ = StringList.concat(par_.getFullName(),i_.getTempClass());
+            String type_ = StringList.concat(par_.getFullName("."),i_.getTempClass());
             _root.getDirectSuperTypes().add(type_);
             _root.getExplicitDirectSuperTypes().put(-1, false);
             _root.getRowColDirectSuperTypes().put(-1, type_);

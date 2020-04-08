@@ -146,7 +146,7 @@ public abstract class ProcessMethodCommon {
     }
     protected static ContextEl contextElCoverageEnDefaultSingle() {
         Options opt_ = new Options();
-        opt_.setSingleInnerParts(true);
+        
         ContextEl ct_ = InitializationLgNames.buildStdOne("en",opt_);
         ct_.setCovering(true);
         return ct_;
@@ -163,6 +163,19 @@ public abstract class ProcessMethodCommon {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        ContextEl ct_;
+        if (_m.length == 0) {
+            ct_ = InitializationLgNames.buildStdOne(opt_);
+        } else {
+            ct_ = InitializationLgNames.buildStdOne(_m[0], opt_);
+        }
+        return ct_;
+    }
+    protected static ContextEl contextElSingle(int... _m) {
+        Options opt_ = new Options();
+        opt_.setEndLineSemiColumn(false);
+        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        
         ContextEl ct_;
         if (_m.length == 0) {
             ct_ = InitializationLgNames.buildStdOne(opt_);
@@ -203,7 +216,7 @@ public abstract class ProcessMethodCommon {
     protected static ContextEl contextElReadOnlyDefaultSingle() {
         Options opt_ = new Options();
         opt_.setReadOnly(true);
-        opt_.setSingleInnerParts(true);
+        
         ContextEl ct_ = InitializationLgNames.buildStdOne("en", opt_);
         return ct_;
     }
@@ -229,7 +242,7 @@ public abstract class ProcessMethodCommon {
     }
     protected static ContextEl contextEnElDefaultInternType() {
         Options opt_ = new Options();
-        opt_.setSingleInnerParts(true);
+        
         return InitializationLgNames.buildStdOne("en", opt_);
     }
 

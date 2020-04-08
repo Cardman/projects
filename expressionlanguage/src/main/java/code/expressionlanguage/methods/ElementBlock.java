@@ -94,7 +94,7 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
     public String getClassName() {
         Block b_ = getParent();
         RootBlock r_ = (RootBlock) b_;
-        return r_.getFullName();
+        return r_.getFullName(".");
     }
 
     @Override

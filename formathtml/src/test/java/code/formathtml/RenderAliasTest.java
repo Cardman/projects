@@ -1390,7 +1390,7 @@ public final class RenderAliasTest extends CommonRender {
     public void process57Test() {
         String folder_ = "messages";
         String relative_ = "sample/file";
-        String html_ = "<html c:alias='pkg.Outer..Ex;'><body>{$new Ex&lt;$int&gt;().res($id(Ex,#T),15)}</body></html>";
+        String html_ = "<html c:alias='pkg.Outer.Ex;'><body>{$new Ex&lt;$int&gt;().res($id(Ex,#T),15)}</body></html>";
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Outer {\n");
         xml_.append("$public $static $class Ex<#T> {\n");
@@ -1415,7 +1415,7 @@ public final class RenderAliasTest extends CommonRender {
     public void process58Test() {
         String folder_ = "messages";
         String relative_ = "sample/file";
-        String html_ = "<html c:alias='pkg.Outer..*;'><body>{$new Ex&lt;$int&gt;().res($id(Ex,#T),15)}</body></html>";
+        String html_ = "<html c:alias='pkg.Outer.*;'><body>{$new Ex&lt;$int&gt;().res($id(Ex,#T),15)}</body></html>";
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Outer {\n");
         xml_.append("$public $static $class Ex<#T> {\n");
@@ -1602,7 +1602,7 @@ public final class RenderAliasTest extends CommonRender {
     public void process65Test() {
         String folder_ = "messages";
         String relative_ = "sample/file";
-        String html_ = "<html c:alias='pkg.Outer..Ex;'><body>{$new ..Ex(14).res($id(pkg.Outer..Ex,..Ex),$new ..Ex(15))}</body></html>";
+        String html_ = "<html c:alias='pkg.Outer.Ex;'><body>{$new Ex(14).res($id(pkg.Outer.Ex,Ex),$new Ex(15))}</body></html>";
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Outer {\n");
         xml_.append("$public $static $class Ex {\n");
@@ -1610,7 +1610,7 @@ public final class RenderAliasTest extends CommonRender {
         xml_.append(" $public Ex($int p){\n");
         xml_.append("  ance = p;.;:\n");
         xml_.append(" }\n");
-        xml_.append(" $public $int res(..Ex v){\n");
+        xml_.append(" $public $int res(Ex v){\n");
         xml_.append("  $return ance+v;.;ance:\n");
         xml_.append(" }\n");
         xml_.append("}\n");
@@ -1630,7 +1630,7 @@ public final class RenderAliasTest extends CommonRender {
     public void process66Test() {
         String folder_ = "messages";
         String relative_ = "sample/file";
-        String html_ = "<html c:alias='pkg.Outer..*;'><body>{$new ..Ex(14).res($id(pkg.Outer..Ex,..Ex),$new ..Ex(15))}</body></html>";
+        String html_ = "<html c:alias='pkg.Outer.*;'><body>{$new Ex(14).res($id(pkg.Outer.Ex,Ex),$new Ex(15))}</body></html>";
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Outer {\n");
         xml_.append("$public $static $class Ex {\n");
@@ -1638,7 +1638,7 @@ public final class RenderAliasTest extends CommonRender {
         xml_.append(" $public Ex($int p){\n");
         xml_.append("  ance = p;.;:\n");
         xml_.append(" }\n");
-        xml_.append(" $public $int res(..Ex v){\n");
+        xml_.append(" $public $int res(Ex v){\n");
         xml_.append("  $return ance+v;.;ance:\n");
         xml_.append(" }\n");
         xml_.append("}\n");
@@ -1658,7 +1658,7 @@ public final class RenderAliasTest extends CommonRender {
     public void process67Test() {
         String folder_ = "messages";
         String relative_ = "sample/file";
-        String html_ = "<html c:alias='pkg.Outer..Inner;'><body>{$new ..Inner..Ex(14).res($id(pkg.Outer..Inner..Ex,..Inner..Ex),$new ..Inner..Ex(15))}</body></html>";
+        String html_ = "<html c:alias='pkg.Outer.Inner;'><body>{$new Inner.Ex(14).res($id(pkg.Outer.Inner.Ex,Inner.Ex),$new Inner.Ex(15))}</body></html>";
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Outer {\n");
         xml_.append("$public $static $class Inner {\n");
@@ -1667,7 +1667,7 @@ public final class RenderAliasTest extends CommonRender {
         xml_.append(" $public Ex($int p){\n");
         xml_.append("  ance = p;.;:\n");
         xml_.append(" }\n");
-        xml_.append(" $public $int res(..Ex v){\n");
+        xml_.append(" $public $int res(Ex v){\n");
         xml_.append("  $return ance+v;.;ance:\n");
         xml_.append(" }\n");
         xml_.append("}\n");
@@ -1688,7 +1688,7 @@ public final class RenderAliasTest extends CommonRender {
     public void process68Test() {
         String folder_ = "messages";
         String relative_ = "sample/file";
-        String html_ = "<html c:alias='pkg.Outer..*;'><body>{$new ..Inner..Ex(14).res($id(pkg.Outer..Inner..Ex,..Inner..Ex),$new ..Inner..Ex(15))}</body></html>";
+        String html_ = "<html c:alias='pkg.Outer.*;'><body>{$new Inner.Ex(14).res($id(pkg.Outer.Inner.Ex,Inner.Ex),$new Inner.Ex(15))}</body></html>";
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Outer {\n");
         xml_.append("$public $static $class Inner {\n");
@@ -1697,7 +1697,7 @@ public final class RenderAliasTest extends CommonRender {
         xml_.append(" $public Ex($int p){\n");
         xml_.append("  ance = p;.;:\n");
         xml_.append(" }\n");
-        xml_.append(" $public $int res(..Ex v){\n");
+        xml_.append(" $public $int res(Ex v){\n");
         xml_.append("  $return ance+v;.;ance:\n");
         xml_.append(" }\n");
         xml_.append("}\n");
@@ -1898,7 +1898,7 @@ public final class RenderAliasTest extends CommonRender {
     public void process75Test() {
         String folder_ = "messages";
         String relative_ = "sample/file";
-        String html_ = "<html c:alias='pkg.Outer..Inner..Ex;'><body>{$new ..Ex(14).res($id(pkg.Outer..Inner..Ex,..Ex),$new ..Ex(15))}</body></html>";
+        String html_ = "<html c:alias='pkg.Outer.Inner.Ex;'><body>{$new Ex(14).res($id(pkg.Outer.Inner.Ex,Ex),$new Ex(15))}</body></html>";
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Outer {\n");
         xml_.append("$public $static $class Inner {\n");
@@ -1907,7 +1907,7 @@ public final class RenderAliasTest extends CommonRender {
         xml_.append(" $public Ex($int p){\n");
         xml_.append("  ance = p;.;:\n");
         xml_.append(" }\n");
-        xml_.append(" $public $int res(..Ex v){\n");
+        xml_.append(" $public $int res(Ex v){\n");
         xml_.append("  $return ance+v;.;ance:\n");
         xml_.append(" }\n");
         xml_.append("}\n");
@@ -1928,7 +1928,7 @@ public final class RenderAliasTest extends CommonRender {
     public void process76Test() {
         String folder_ = "messages";
         String relative_ = "sample/file";
-        String html_ = "<html c:alias='pkg.Outer..Inner..*;'><body>{$new ..Ex(14).res($id(pkg.Outer..Inner..Ex,..Ex),$new ..Ex(15))}</body></html>";
+        String html_ = "<html c:alias='pkg.Outer.Inner.*;'><body>{$new Ex(14).res($id(pkg.Outer.Inner.Ex,Ex),$new Ex(15))}</body></html>";
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Outer {\n");
         xml_.append("$public $static $class Inner {\n");
@@ -1937,7 +1937,7 @@ public final class RenderAliasTest extends CommonRender {
         xml_.append(" $public Ex($int p){\n");
         xml_.append("  ance = p;.;:\n");
         xml_.append(" }\n");
-        xml_.append(" $public $int res(..Ex v){\n");
+        xml_.append(" $public $int res(Ex v){\n");
         xml_.append("  $return ance+v;.;ance:\n");
         xml_.append(" }\n");
         xml_.append("}\n");
@@ -1958,7 +1958,7 @@ public final class RenderAliasTest extends CommonRender {
     public void process77Test() {
         String folder_ = "messages";
         String relative_ = "sample/file";
-        String html_ = "<html c:alias='$static pkg.Outer..Inner..Ex;'><body>{$new ..Ex(14).res($id(pkg.Outer..Inner..Ex,pkg.Outer..Inner..Ex),$new ..Ex(15))}</body></html>";
+        String html_ = "<html c:alias='$static pkg.Outer.Inner.Ex;'><body>{$new Ex(14).res($id(pkg.Outer.Inner.Ex,pkg.Outer.Inner.Ex),$new Ex(15))}</body></html>";
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Outer {\n");
         xml_.append("$public $static $class Inner {\n");
@@ -1967,7 +1967,7 @@ public final class RenderAliasTest extends CommonRender {
         xml_.append(" $public Ex($int p){\n");
         xml_.append("  ance = p;.;:\n");
         xml_.append(" }\n");
-        xml_.append(" $public $int res(..Ex v){\n");
+        xml_.append(" $public $int res(Ex v){\n");
         xml_.append("  $return ance+v;.;ance:\n");
         xml_.append(" }\n");
         xml_.append("}\n");
@@ -1988,7 +1988,7 @@ public final class RenderAliasTest extends CommonRender {
     public void process78Test() {
         String folder_ = "messages";
         String relative_ = "sample/file";
-        String html_ = "<html c:alias='$static pkg.Outer..Inner..*;'><body>{$new ..Ex(14).res($id(pkg.Outer..Inner..Ex,pkg.Outer..Inner..Ex),$new ..Ex(15))}</body></html>";
+        String html_ = "<html c:alias='$static pkg.Outer.Inner.*;'><body>{$new Ex(14).res($id(pkg.Outer.Inner.Ex,pkg.Outer.Inner.Ex),$new Ex(15))}</body></html>";
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Outer {\n");
         xml_.append("$public $static $class Inner {\n");
@@ -1997,7 +1997,7 @@ public final class RenderAliasTest extends CommonRender {
         xml_.append(" $public Ex($int p){\n");
         xml_.append("  ance = p;.;:\n");
         xml_.append(" }\n");
-        xml_.append(" $public $int res(..Ex v){\n");
+        xml_.append(" $public $int res(Ex v){\n");
         xml_.append("  $return ance+v;.;ance:\n");
         xml_.append(" }\n");
         xml_.append("}\n");
@@ -2018,7 +2018,7 @@ public final class RenderAliasTest extends CommonRender {
     public void process79Test() {
         String folder_ = "messages";
         String relative_ = "sample/file";
-        String html_ = "<html c:alias='$static pkg.Outer..Inner..Ex;$static pkg.Outer..Inner..ExTwo;'><body>{$new ..Ex(14).res($id(pkg.Outer..Inner..Ex,pkg.Outer..Inner..Ex),$new ..Ex(15))}</body></html>";
+        String html_ = "<html c:alias='$static pkg.Outer.Inner.Ex;$static pkg.Outer.Inner.ExTwo;'><body>{$new Ex(14).res($id(pkg.Outer.Inner.Ex,pkg.Outer.Inner.Ex),$new Ex(15))}</body></html>";
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Outer {\n");
         xml_.append("$public $static $class Inner {\n");
@@ -2027,7 +2027,7 @@ public final class RenderAliasTest extends CommonRender {
         xml_.append(" $public Ex($int p){\n");
         xml_.append("  ance = p;.;:\n");
         xml_.append(" }\n");
-        xml_.append(" $public $int res(..Ex v){\n");
+        xml_.append(" $public $int res(Ex v){\n");
         xml_.append("  $return ance+v;.;ance:\n");
         xml_.append(" }\n");
         xml_.append("}\n");
@@ -2048,7 +2048,7 @@ public final class RenderAliasTest extends CommonRender {
     public void process80Test() {
         String folder_ = "messages";
         String relative_ = "sample/file";
-        String html_ = "<html c:alias='$static pkg.Outer..Inner..*;$static pkg.Outer..InnerTwo..*;'><body>{$new ..Ex(14).res($id(pkg.Outer..Inner..Ex,pkg.Outer..Inner..Ex),$new ..Ex(15))}</body></html>";
+        String html_ = "<html c:alias='$static pkg.Outer.Inner.*;$static pkg.Outer.InnerTwo.*;'><body>{$new Ex(14).res($id(pkg.Outer.Inner.Ex,pkg.Outer.Inner.Ex),$new Ex(15))}</body></html>";
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Outer {\n");
         xml_.append("$public $static $class Inner {\n");
@@ -2057,7 +2057,7 @@ public final class RenderAliasTest extends CommonRender {
         xml_.append(" $public Ex($int p){\n");
         xml_.append("  ance = p;.;:\n");
         xml_.append(" }\n");
-        xml_.append(" $public $int res(..Ex v){\n");
+        xml_.append(" $public $int res(Ex v){\n");
         xml_.append("  $return ance+v;.;ance:\n");
         xml_.append(" }\n");
         xml_.append("}\n");
@@ -2078,7 +2078,7 @@ public final class RenderAliasTest extends CommonRender {
     public void process81Test() {
         String folder_ = "messages";
         String relative_ = "sample/file";
-        String html_ = "<html c:alias='$static pkg.Outer..Inner..Ex;$static pkg.Outer..InnerTwo..Ex;'><body>{$new ..Ex(14).res($id(pkg.Outer..Inner..Ex,pkg.Outer..Inner..Ex),$new ..Ex(15))}</body></html>";
+        String html_ = "<html c:alias='$static pkg.Outer.Inner.Ex;$static pkg.Outer.InnerTwo.Ex;'><body>{$new Ex(14).res($id(pkg.Outer.Inner.Ex,pkg.Outer.Inner.Ex),$new Ex(15))}</body></html>";
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Outer {\n");
         xml_.append("$public $static $class Inner {\n");
@@ -2087,7 +2087,7 @@ public final class RenderAliasTest extends CommonRender {
         xml_.append(" $public Ex($int p){\n");
         xml_.append("  ance = p;.;:\n");
         xml_.append(" }\n");
-        xml_.append(" $public $int res(..Ex v){\n");
+        xml_.append(" $public $int res(Ex v){\n");
         xml_.append("  $return ance+v;.;ance:\n");
         xml_.append(" }\n");
         xml_.append("}\n");
@@ -2108,7 +2108,7 @@ public final class RenderAliasTest extends CommonRender {
     public void process82Test() {
         String folder_ = "messages";
         String relative_ = "sample/file";
-        String html_ = "<html c:alias='$static pkg.Outer..Inner..*;$static pkg.Outer..InnerTwo..Ex;'><body>{$new ..Ex(14).res($id(pkg.Outer..Inner..Ex,pkg.Outer..Inner..Ex),$new ..Ex(15))}</body></html>";
+        String html_ = "<html c:alias='$static pkg.Outer.Inner.*;$static pkg.Outer.InnerTwo.Ex;'><body>{$new Ex(14).res($id(pkg.Outer.Inner.Ex,pkg.Outer.Inner.Ex),$new Ex(15))}</body></html>";
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Outer {\n");
         xml_.append("$public $static $class Inner {\n");
@@ -2117,7 +2117,7 @@ public final class RenderAliasTest extends CommonRender {
         xml_.append(" $public Ex($int p){\n");
         xml_.append("  ance = p;.;:\n");
         xml_.append(" }\n");
-        xml_.append(" $public $int res(..Ex v){\n");
+        xml_.append(" $public $int res(Ex v){\n");
         xml_.append("  $return ance+v;.;ance:\n");
         xml_.append(" }\n");
         xml_.append("}\n");
@@ -2190,7 +2190,7 @@ public final class RenderAliasTest extends CommonRender {
     public void process2FailTest() {
         String folder_ = "messages";
         String relative_ = "sample/file";
-        String html_ = "<html c:alias='$static pkg.Outer..InnerTwo..Ex;'><body>{($void)$null+$new ..Ex(14).res($id(pkg.Outer..Inner..Ex,pkg.Outer..Inner..Ex),$new ..Ex(15))}</body></html>";
+        String html_ = "<html c:alias='$static pkg.Outer.InnerTwo.Ex;'><body>{($void)$null+$new Ex(14).res($id(pkg.Outer.Inner.Ex,pkg.Outer.Inner.Ex),$new Ex(15))}</body></html>";
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Outer {\n");
         xml_.append("$public $static $class Inner {\n");
@@ -2199,7 +2199,7 @@ public final class RenderAliasTest extends CommonRender {
         xml_.append(" $public Ex($int p){\n");
         xml_.append("  ance = p;.;:\n");
         xml_.append(" }\n");
-        xml_.append(" $public $int res(..Ex v){\n");
+        xml_.append(" $public $int res(Ex v){\n");
         xml_.append("  $return ance+v;.;ance:\n");
         xml_.append(" }\n");
         xml_.append("}\n");
@@ -2218,7 +2218,7 @@ public final class RenderAliasTest extends CommonRender {
     public void process3FailTest() {
         String folder_ = "messages";
         String relative_ = "sample/file";
-        String html_ = "<html c:alias='$static pkg.Outer..InnerTwo..Ex;'><body>{($void)$null+$new ..Ex(14).res($id(pkg.Outer..Inner..Ex,pkg.Outer..Inner..Ex),$new ..Ex(15))}</body></html>";
+        String html_ = "<html c:alias='$static pkg.Outer.InnerTwo.Ex;'><body>{($void)$null+$new Ex(14).res($id(pkg.Outer.Inner.Ex,pkg.Outer.Inner.Ex),$new Ex(15))}</body></html>";
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Outer {\n");
         xml_.append("$public $static $class Inner {\n");
@@ -2227,7 +2227,7 @@ public final class RenderAliasTest extends CommonRender {
         xml_.append(" $public Ex($int p){\n");
         xml_.append("  ance = p;.;:\n");
         xml_.append(" }\n");
-        xml_.append(" $public $int res(..Ex v){\n");
+        xml_.append(" $public $int res(Ex v){\n");
         xml_.append("  $return ance+v;.;ance:\n");
         xml_.append(" }\n");
         xml_.append("}\n");

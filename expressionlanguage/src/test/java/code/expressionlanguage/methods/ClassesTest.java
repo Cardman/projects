@@ -336,7 +336,7 @@ public final class ClassesTest {
         xml_.append("$public $class pkg.Outer {\n");
         xml_.append(" $public $class Inner {\n");
         xml_.append(" }\n");
-        xml_.append(" $public $class InnerTwo:pkg.Outer..Inner {\n");
+        xml_.append(" $public $class InnerTwo:pkg.Outer.Inner {\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
@@ -350,7 +350,7 @@ public final class ClassesTest {
         xml_.append("$public $class pkg.Outer {\n");
         xml_.append(" $public $class Inner {\n");
         xml_.append(" }\n");
-        xml_.append(" $public $class InnerTwo:Outer..Inner {\n");
+        xml_.append(" $public $class InnerTwo:Outer.Inner {\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
@@ -364,7 +364,7 @@ public final class ClassesTest {
         xml_.append("$public $class pkg.Outer {\n");
         xml_.append(" $public $class Inner {\n");
         xml_.append(" }\n");
-        xml_.append(" $public $class InnerTwo:..Inner {\n");
+        xml_.append(" $public $class InnerTwo:Inner {\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
@@ -379,7 +379,7 @@ public final class ClassesTest {
         xml_.append("$public $class pkg.Outer: OuterTwo {\n");
         xml_.append(" $public $class Inner {\n");
         xml_.append(" }\n");
-        xml_.append(" $public $class InnerTwo:OuterTwo..InnerThree {\n");
+        xml_.append(" $public $class InnerTwo:OuterTwo.InnerThree {\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
@@ -387,7 +387,7 @@ public final class ClassesTest {
         xml_.append("$public $class pkgtwo.OuterTwo {\n");
         xml_.append(" $public $class InnerThree {\n");
         xml_.append(" }\n");
-        xml_.append(" $public $class InnerFour:..InnerThree {\n");
+        xml_.append(" $public $class InnerFour:InnerThree {\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
@@ -402,7 +402,7 @@ public final class ClassesTest {
         xml_.append("$public $class pkg.Outer: OuterTwo {\n");
         xml_.append(" $public $class Inner {\n");
         xml_.append(" }\n");
-        xml_.append(" $public $class InnerTwo:OuterTwo..InnerThree {\n");
+        xml_.append(" $public $class InnerTwo:OuterTwo.InnerThree {\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
@@ -410,7 +410,7 @@ public final class ClassesTest {
         xml_.append("$public $class pkgtwo.OuterTwo {\n");
         xml_.append(" $public $class InnerThree {\n");
         xml_.append(" }\n");
-        xml_.append(" $public $class InnerFour:..InnerThree {\n");
+        xml_.append(" $public $class InnerFour:InnerThree {\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
@@ -525,7 +525,7 @@ public final class ClassesTest {
         xml_.append("$public $class pkg.Outer: OuterTwo {\n");
         xml_.append(" $public $class Inner {\n");
         xml_.append(" }\n");
-        xml_.append(" $public $class InnerTwo:OuterTwo..InnerThree {\n");
+        xml_.append(" $public $class InnerTwo:OuterTwo.InnerThree {\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
@@ -533,7 +533,7 @@ public final class ClassesTest {
         xml_.append("$public $class pkg.OuterTwo {\n");
         xml_.append(" $protected $class InnerThree {\n");
         xml_.append(" }\n");
-        xml_.append(" $public $class InnerFour:..InnerThree {\n");
+        xml_.append(" $public $class InnerFour:InnerThree {\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
@@ -550,7 +550,7 @@ public final class ClassesTest {
         xml_.append("$public $class pkg.Outer: OuterTwo {\n");
         xml_.append(" $public $static $class Inner {\n");
         xml_.append(" }\n");
-        xml_.append(" $public $static $class InnerTwo:OuterTwo..InnerThree {\n");
+        xml_.append(" $public $static $class InnerTwo:OuterTwo.InnerThree {\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
@@ -558,7 +558,7 @@ public final class ClassesTest {
         xml_.append("$public $class pkg.OuterTwo {\n");
         xml_.append(" $protected $static $class InnerThree {\n");
         xml_.append(" }\n");
-        xml_.append(" $public $static $class InnerFour:..InnerThree {\n");
+        xml_.append(" $public $static $class InnerFour:InnerThree {\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
@@ -575,7 +575,7 @@ public final class ClassesTest {
         xml_.append("$public $class [pkgtwo.OuterTwo;] pkg.Outer: OuterTwo {\n");
         xml_.append(" $public $static $class Inner {\n");
         xml_.append(" }\n");
-        xml_.append(" $public $static $class InnerTwo:OuterTwo..InnerThree {\n");
+        xml_.append(" $public $static $class InnerTwo:OuterTwo.InnerThree {\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
@@ -583,7 +583,7 @@ public final class ClassesTest {
         xml_.append("$public $class pkgtwo.OuterTwo {\n");
         xml_.append(" $protected $static $class InnerThree {\n");
         xml_.append(" }\n");
-        xml_.append(" $public $static $class InnerFour:..InnerThree {\n");
+        xml_.append(" $public $static $class InnerFour:InnerThree {\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
@@ -600,7 +600,7 @@ public final class ClassesTest {
         xml_.append("$public $class [pkgtwo.OuterTwo;] pkg.Outer: OuterTwo {\n");
         xml_.append(" $public $class Inner {\n");
         xml_.append(" }\n");
-        xml_.append(" $public $class InnerTwo:OuterTwo..InnerThree {\n");
+        xml_.append(" $public $class InnerTwo:OuterTwo.InnerThree {\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
@@ -608,7 +608,7 @@ public final class ClassesTest {
         xml_.append("$public $class pkgtwo.OuterTwo {\n");
         xml_.append(" $protected $class InnerThree {\n");
         xml_.append(" }\n");
-        xml_.append(" $public $class InnerFour:..InnerThree {\n");
+        xml_.append(" $public $class InnerFour:InnerThree {\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
@@ -625,7 +625,7 @@ public final class ClassesTest {
         xml_.append("$public $class [pkgtwo.OuterTwo;] pkg.Outer: OuterTwo {\n");
         xml_.append(" $public $static $class Inner {\n");
         xml_.append(" }\n");
-        xml_.append(" $public $static $class InnerTwo:OuterTwo..InnerThree<java.lang.Number> {\n");
+        xml_.append(" $public $static $class InnerTwo:OuterTwo.InnerThree<java.lang.Number> {\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
@@ -633,7 +633,7 @@ public final class ClassesTest {
         xml_.append("$public $class pkgtwo.OuterTwo {\n");
         xml_.append(" $protected $static $class InnerThree<#T> {\n");
         xml_.append(" }\n");
-        xml_.append(" $public $static $class InnerFour:..InnerThree<java.lang.Number> {\n");
+        xml_.append(" $public $static $class InnerFour:InnerThree<java.lang.Number> {\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
@@ -650,7 +650,7 @@ public final class ClassesTest {
         xml_.append("$public $class [pkgtwo.OuterTwo;] pkg.Outer: OuterTwo {\n");
         xml_.append(" $public $class Inner {\n");
         xml_.append(" }\n");
-        xml_.append(" $public $class InnerTwo:OuterTwo..InnerThree<java.lang.Number> {\n");
+        xml_.append(" $public $class InnerTwo:OuterTwo.InnerThree<java.lang.Number> {\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
@@ -658,7 +658,7 @@ public final class ClassesTest {
         xml_.append("$public $class pkgtwo.OuterTwo {\n");
         xml_.append(" $protected $class InnerThree<#T> {\n");
         xml_.append(" }\n");
-        xml_.append(" $public $class InnerFour:..InnerThree<java.lang.Number> {\n");
+        xml_.append(" $public $class InnerFour:InnerThree<java.lang.Number> {\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
@@ -672,10 +672,10 @@ public final class ClassesTest {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("$public $class [pkgtwo.OuterTwo..InnerThree;pkgtwo.OuterTwo;] pkg.Outer: OuterTwo {\n");
+        xml_.append("$public $class [pkgtwo.OuterTwo.InnerThree;pkgtwo.OuterTwo;] pkg.Outer: OuterTwo {\n");
         xml_.append(" $public $static $class Inner {\n");
         xml_.append(" }\n");
-        xml_.append(" $public $static $class InnerTwo:..InnerThree<java.lang.Number> {\n");
+        xml_.append(" $public $static $class InnerTwo:InnerThree<java.lang.Number> {\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
@@ -683,7 +683,7 @@ public final class ClassesTest {
         xml_.append("$public $class pkgtwo.OuterTwo {\n");
         xml_.append(" $protected $static $class InnerThree<#T> {\n");
         xml_.append(" }\n");
-        xml_.append(" $public $static $class InnerFour:..InnerThree<java.lang.Number> {\n");
+        xml_.append(" $public $static $class InnerFour:InnerThree<java.lang.Number> {\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
@@ -697,10 +697,10 @@ public final class ClassesTest {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("$public $class [pkgtwo.OuterTwo..InnerThree;pkgtwo.OuterTwo;] pkg.Outer: OuterTwo {\n");
+        xml_.append("$public $class [pkgtwo.OuterTwo.InnerThree;pkgtwo.OuterTwo;] pkg.Outer: OuterTwo {\n");
         xml_.append(" $public $class Inner {\n");
         xml_.append(" }\n");
-        xml_.append(" $public $class InnerTwo:..InnerThree<java.lang.Number> {\n");
+        xml_.append(" $public $class InnerTwo:InnerThree<java.lang.Number> {\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
@@ -708,7 +708,7 @@ public final class ClassesTest {
         xml_.append("$public $class pkgtwo.OuterTwo {\n");
         xml_.append(" $protected $class InnerThree<#T> {\n");
         xml_.append(" }\n");
-        xml_.append(" $public $class InnerFour:..InnerThree<java.lang.Number> {\n");
+        xml_.append(" $public $class InnerFour:InnerThree<java.lang.Number> {\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
@@ -722,10 +722,10 @@ public final class ClassesTest {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("$public $class [pkgtwo.OuterTwo..InnerThree;pkgtwo.OuterTwo;] pkg.Outer {\n");
+        xml_.append("$public $class [pkgtwo.OuterTwo.InnerThree;pkgtwo.OuterTwo;] pkg.Outer {\n");
         xml_.append(" $public $static $class Inner {\n");
         xml_.append(" }\n");
-        xml_.append(" $public $static $class InnerTwo:..InnerThree<java.lang.Number> {\n");
+        xml_.append(" $public $static $class InnerTwo:InnerThree<java.lang.Number> {\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
@@ -733,7 +733,7 @@ public final class ClassesTest {
         xml_.append("$public $class pkgtwo.OuterTwo {\n");
         xml_.append(" $protected $static $class InnerThree<#T> {\n");
         xml_.append(" }\n");
-        xml_.append(" $public $static $class InnerFour:..InnerThree<java.lang.Number> {\n");
+        xml_.append(" $public $static $class InnerFour:InnerThree<java.lang.Number> {\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
@@ -747,10 +747,10 @@ public final class ClassesTest {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("$public $class [pkgtwo.OuterTwo..*;pkgtwo.OuterTwo;] pkg.Outer {\n");
+        xml_.append("$public $class [pkgtwo.OuterTwo.*;pkgtwo.OuterTwo;] pkg.Outer {\n");
         xml_.append(" $public $static $class Inner {\n");
         xml_.append(" }\n");
-        xml_.append(" $public $static $class InnerTwo:..InnerThree<java.lang.Number> {\n");
+        xml_.append(" $public $static $class InnerTwo:InnerThree<java.lang.Number> {\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
@@ -758,7 +758,7 @@ public final class ClassesTest {
         xml_.append("$public $class pkgtwo.OuterTwo {\n");
         xml_.append(" $protected $static $class InnerThree<#T> {\n");
         xml_.append(" }\n");
-        xml_.append(" $public $static $class InnerFour:..InnerThree<java.lang.Number> {\n");
+        xml_.append(" $public $static $class InnerFour:InnerThree<java.lang.Number> {\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
@@ -882,10 +882,10 @@ public final class ClassesTest {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("$public $class [$static pkgtwo.OuterTwo..*;pkgtwo.OuterTwo;] pkg.Outer {\n");
+        xml_.append("$public $class [$static pkgtwo.OuterTwo.*;pkgtwo.OuterTwo;] pkg.Outer {\n");
         xml_.append(" $public $static $class Inner {\n");
         xml_.append(" }\n");
-        xml_.append(" $public $static $class InnerTwo:..InnerThree<java.lang.Number> {\n");
+        xml_.append(" $public $static $class InnerTwo:InnerThree<java.lang.Number> {\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
@@ -893,7 +893,7 @@ public final class ClassesTest {
         xml_.append("$public $class pkgtwo.OuterTwo {\n");
         xml_.append(" $protected $static $class InnerThree<#T> {\n");
         xml_.append(" }\n");
-        xml_.append(" $public $static $class InnerFour:..InnerThree<java.lang.Number> {\n");
+        xml_.append(" $public $static $class InnerFour:InnerThree<java.lang.Number> {\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
@@ -957,10 +957,10 @@ public final class ClassesTest {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("$public $class [pkgtwo.OuterTwo..InnerThree..*;pkgtwo.OuterTwo;] pkg.Outer {\n");
+        xml_.append("$public $class [pkgtwo.OuterTwo.InnerThree.*;pkgtwo.OuterTwo;] pkg.Outer {\n");
         xml_.append(" $public $static $class Inner {\n");
         xml_.append(" }\n");
-        xml_.append(" $public $static $class InnerTwo:..InnerFive {\n");
+        xml_.append(" $public $static $class InnerTwo:InnerFive {\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
@@ -970,7 +970,7 @@ public final class ClassesTest {
         xml_.append("  $public $static $class InnerFive {\n");
         xml_.append("  }\n");
         xml_.append(" }\n");
-        xml_.append(" $public $static $class InnerFour:..InnerThree<java.lang.Number> {\n");
+        xml_.append(" $public $static $class InnerFour:InnerThree<java.lang.Number> {\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
@@ -1352,10 +1352,10 @@ public final class ClassesTest {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("$public $class [pkgtwo.OuterTw..InnerThree..InnerFiv;pkgtwo.OuterTwo;] pkg.Outer {\n");
+        xml_.append("$public $class [pkgtwo.OuterTw.InnerThree.InnerFiv;pkgtwo.OuterTwo;] pkg.Outer {\n");
         xml_.append(" $public $static $class Inner {\n");
         xml_.append(" }\n");
-        xml_.append(" $public $static $class InnerTwo:..InnerFiv {\n");
+        xml_.append(" $public $static $class InnerTwo:InnerFiv {\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
@@ -1365,7 +1365,7 @@ public final class ClassesTest {
         xml_.append("  $public $static $class InnerFive {\n");
         xml_.append("  }\n");
         xml_.append(" }\n");
-        xml_.append(" $public $static $class InnerFour:..InnerThree<java.lang.Number> {\n");
+        xml_.append(" $public $static $class InnerFour:InnerThree<java.lang.Number> {\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
@@ -1398,10 +1398,10 @@ public final class ClassesTest {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("$public $class [pkgtwo.OuterTw..InnerThree..*;pkgtwo.OuterTwo;] pkg.Outer {\n");
+        xml_.append("$public $class [pkgtwo.OuterTw.InnerThree.*;pkgtwo.OuterTwo;] pkg.Outer {\n");
         xml_.append(" $public $static $class Inner {\n");
         xml_.append(" }\n");
-        xml_.append(" $public $static $class InnerTwo:..InnerFiv {\n");
+        xml_.append(" $public $static $class InnerTwo:InnerFiv {\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
@@ -1411,7 +1411,7 @@ public final class ClassesTest {
         xml_.append("  $public $static $class InnerFive {\n");
         xml_.append("  }\n");
         xml_.append(" }\n");
-        xml_.append(" $public $static $class InnerFour:..InnerThree<java.lang.Number> {\n");
+        xml_.append(" $public $static $class InnerFour:InnerThree<java.lang.Number> {\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
@@ -1422,10 +1422,10 @@ public final class ClassesTest {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("$public $class [pkgtwo.OuterTwo..*;pkgtwo.OuterTwo;] pkg.Outer {\n");
+        xml_.append("$public $class [pkgtwo.OuterTwo.*;pkgtwo.OuterTwo;] pkg.Outer {\n");
         xml_.append(" $public $static $class Inner {\n");
         xml_.append(" }\n");
-        xml_.append(" $public $static $class InnerTwo:..InnerThree<..Number> {\n");
+        xml_.append(" $public $static $class InnerTwo:InnerThree<Number> {\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
@@ -1467,10 +1467,10 @@ public final class ClassesTest {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("$public $class [pkgtwo.OuterTw..InnerThree..*;pkgtwo.OuterTwo;] pkg.Outer {\n");
+        xml_.append("$public $class [pkgtwo.OuterTw.InnerThree.*;pkgtwo.OuterTwo;] pkg.Outer {\n");
         xml_.append(" $public $static $class Inner {\n");
         xml_.append(" }\n");
-        xml_.append(" $public $static $class InnerTwo:..InnerFiv {\n");
+        xml_.append(" $public $static $class InnerTwo:InnerFiv {\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
@@ -1480,7 +1480,7 @@ public final class ClassesTest {
         xml_.append("  $public $static $class InnerFive {\n");
         xml_.append("  }\n");
         xml_.append(" }\n");
-        xml_.append(" $public $static $class InnerFour:..InnerThree<java.lang.Number> {\n");
+        xml_.append(" $public $static $class InnerFour:InnerThree<java.lang.Number> {\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
@@ -1491,10 +1491,10 @@ public final class ClassesTest {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("$public $class [pkgtwo.OuterTwo..InnerThree..*;pkgtwo.OuterTwo;] pkg.Outer {\n");
+        xml_.append("$public $class [pkgtwo.OuterTwo.InnerThree.*;pkgtwo.OuterTwo;] pkg.Outer {\n");
         xml_.append(" $public $static $class Inner {\n");
         xml_.append(" }\n");
-        xml_.append(" $public $static $class InnerTwo:..InnerFiv {\n");
+        xml_.append(" $public $static $class InnerTwo:InnerFiv {\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
@@ -1504,7 +1504,7 @@ public final class ClassesTest {
         xml_.append("  $public $static $class InnerFive {\n");
         xml_.append("  }\n");
         xml_.append(" }\n");
-        xml_.append(" $public $static $class InnerFour:..InnerThree<java.lang.Number> {\n");
+        xml_.append(" $public $static $class InnerFour:InnerThree<java.lang.Number> {\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
@@ -1679,7 +1679,7 @@ public final class ClassesTest {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Outer:pkg.Outer..Inner {\n");
+        xml_.append("$public $class pkg.Outer:pkg.Outer.Inner {\n");
         xml_.append(" $public $class Inner {\n");
         xml_.append(" }\n");
         xml_.append("}\n");
@@ -1746,7 +1746,7 @@ public final class ClassesTest {
         xml_.append("$public $class pkg.Outer: OuterTwo {\n");
         xml_.append(" $public $class Inner {\n");
         xml_.append(" }\n");
-        xml_.append(" $public $class InnerTwo:OuterTwo..InnerThree..InnerFive {\n");
+        xml_.append(" $public $class InnerTwo:OuterTwo.InnerThree.InnerFive {\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
@@ -1756,7 +1756,7 @@ public final class ClassesTest {
         xml_.append("  $protected $class InnerFive {\n");
         xml_.append("  }\n");
         xml_.append(" }\n");
-        xml_.append(" $public $class InnerFour:..InnerThree {\n");
+        xml_.append(" $public $class InnerFour:InnerThree {\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
@@ -1771,7 +1771,7 @@ public final class ClassesTest {
         xml_.append("$public $class pkg.Outer: OuterTwo {\n");
         xml_.append(" $public $class Inner {\n");
         xml_.append(" }\n");
-        xml_.append(" $public $class InnerTwo:OuterTwo..InnerThree {\n");
+        xml_.append(" $public $class InnerTwo:OuterTwo.InnerThree {\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
@@ -1779,7 +1779,7 @@ public final class ClassesTest {
         xml_.append("$protected $class pkgtwo.OuterTwo {\n");
         xml_.append(" $public $class InnerThree {\n");
         xml_.append(" }\n");
-        xml_.append(" $public $class InnerFour:..InnerThree {\n");
+        xml_.append(" $public $class InnerFour:InnerThree {\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
@@ -1794,7 +1794,7 @@ public final class ClassesTest {
         xml_.append("$public $class pkg.Outer: OuterTwo {\n");
         xml_.append(" $public $class Inner {\n");
         xml_.append(" }\n");
-        xml_.append(" $public $class InnerTwo:pkgtwo.OuterTwo..InnerThree {\n");
+        xml_.append(" $public $class InnerTwo:pkgtwo.OuterTwo.InnerThree {\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
@@ -1802,7 +1802,7 @@ public final class ClassesTest {
         xml_.append("$public $class pkgtwo.OuterTwo {\n");
         xml_.append(" $protected $class InnerThree {\n");
         xml_.append(" }\n");
-        xml_.append(" $public $class InnerFour:..InnerThree {\n");
+        xml_.append(" $public $class InnerFour:InnerThree {\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
@@ -1817,7 +1817,7 @@ public final class ClassesTest {
         xml_.append("$public $class pkg.Outer: OuterTwo {\n");
         xml_.append(" $public $class Inner {\n");
         xml_.append(" }\n");
-        xml_.append(" $public $class InnerTwo:pkgtwo.OuterTwo..InnerThree {\n");
+        xml_.append(" $public $class InnerTwo:pkgtwo.OuterTwo.InnerThree {\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
@@ -1825,7 +1825,7 @@ public final class ClassesTest {
         xml_.append("$protected $class pkgtwo.OuterTwo {\n");
         xml_.append(" $public $class InnerThree {\n");
         xml_.append(" }\n");
-        xml_.append(" $public $class InnerFour:..InnerThree {\n");
+        xml_.append(" $public $class InnerFour:InnerThree {\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
@@ -1840,7 +1840,7 @@ public final class ClassesTest {
         xml_.append("$public $class pkg.Outer: OuterTwo {\n");
         xml_.append(" $public $static $class Inner {\n");
         xml_.append(" }\n");
-        xml_.append(" $public $static $class InnerTwo:OuterTwo..InnerThree..InnerFive {\n");
+        xml_.append(" $public $static $class InnerTwo:OuterTwo.InnerThree.InnerFive {\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
@@ -1850,7 +1850,7 @@ public final class ClassesTest {
         xml_.append("  $protected $static $class InnerFive {\n");
         xml_.append("  }\n");
         xml_.append(" }\n");
-        xml_.append(" $public $static $class InnerFour:..InnerThree {\n");
+        xml_.append(" $public $static $class InnerFour:InnerThree {\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
@@ -1865,7 +1865,7 @@ public final class ClassesTest {
         xml_.append("$public $class pkg.Outer: OuterTwo {\n");
         xml_.append(" $public $static $class Inner {\n");
         xml_.append(" }\n");
-        xml_.append(" $public $static $class InnerTwo:OuterTwo..InnerThree {\n");
+        xml_.append(" $public $static $class InnerTwo:OuterTwo.InnerThree {\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
@@ -1873,7 +1873,7 @@ public final class ClassesTest {
         xml_.append("$protected $class pkgtwo.OuterTwo {\n");
         xml_.append(" $public $class InnerThree {\n");
         xml_.append(" }\n");
-        xml_.append(" $public $class InnerFour:..InnerThree {\n");
+        xml_.append(" $public $class InnerFour:InnerThree {\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
@@ -1888,7 +1888,7 @@ public final class ClassesTest {
         xml_.append("$public $class pkg.Outer: OuterTwo {\n");
         xml_.append(" $public $static $class Inner {\n");
         xml_.append(" }\n");
-        xml_.append(" $public $static $class InnerTwo:pkgtwo.OuterTwo..InnerThree..InnerFive {\n");
+        xml_.append(" $public $static $class InnerTwo:pkgtwo.OuterTwo.InnerThree.InnerFive {\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
@@ -1898,7 +1898,7 @@ public final class ClassesTest {
         xml_.append("  $protected $static $class InnerFive {\n");
         xml_.append("  }\n");
         xml_.append(" }\n");
-        xml_.append(" $public $static $class InnerFour:..InnerThree {\n");
+        xml_.append(" $public $static $class InnerFour:InnerThree {\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
@@ -1913,7 +1913,7 @@ public final class ClassesTest {
         xml_.append("$public $class pkg.Outer: OuterTwo {\n");
         xml_.append(" $public $static $class Inner {\n");
         xml_.append(" }\n");
-        xml_.append(" $public $static $class InnerTwo:pkgtwo.OuterTwo..InnerThree {\n");
+        xml_.append(" $public $static $class InnerTwo:pkgtwo.OuterTwo.InnerThree {\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
@@ -1921,7 +1921,7 @@ public final class ClassesTest {
         xml_.append("$protected $class pkgtwo.OuterTwo {\n");
         xml_.append(" $public $static $class InnerThree {\n");
         xml_.append(" }\n");
-        xml_.append(" $public $static $class InnerFour:..InnerThree {\n");
+        xml_.append(" $public $static $class InnerFour:InnerThree {\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
@@ -1936,7 +1936,7 @@ public final class ClassesTest {
         xml_.append("$public $class pkg.Outer: OuterTwo {\n");
         xml_.append(" $public $class Inner {\n");
         xml_.append(" }\n");
-        xml_.append(" $public $class InnerTwo:#OuterTwo..InnerThree..InnerFive {\n");
+        xml_.append(" $public $class InnerTwo:#OuterTwo.InnerThree.InnerFive {\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
@@ -1946,7 +1946,7 @@ public final class ClassesTest {
         xml_.append("  $protected $class InnerFive {\n");
         xml_.append("  }\n");
         xml_.append(" }\n");
-        xml_.append(" $public $class InnerFour:..InnerThree {\n");
+        xml_.append(" $public $class InnerFour:InnerThree {\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
@@ -1961,7 +1961,7 @@ public final class ClassesTest {
         xml_.append("$public $class pkg.Outer: OuterTwo {\n");
         xml_.append(" $public $class Inner {\n");
         xml_.append(" }\n");
-        xml_.append(" $public $class InnerTwo:?OuterTwo..InnerThree..InnerFive {\n");
+        xml_.append(" $public $class InnerTwo:?OuterTwo.InnerThree.InnerFive {\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
@@ -1971,7 +1971,7 @@ public final class ClassesTest {
         xml_.append("  $protected $class InnerFive {\n");
         xml_.append("  }\n");
         xml_.append(" }\n");
-        xml_.append(" $public $class InnerFour:..InnerThree {\n");
+        xml_.append(" $public $class InnerFour:InnerThree {\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
@@ -1996,7 +1996,7 @@ public final class ClassesTest {
         xml_.append("  $protected $class InnerFive {\n");
         xml_.append("  }\n");
         xml_.append(" }\n");
-        xml_.append(" $public $class InnerFour:..InnerThree {\n");
+        xml_.append(" $public $class InnerFour:InnerThree {\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
@@ -2021,7 +2021,7 @@ public final class ClassesTest {
         xml_.append("  $protected $class InnerFive {\n");
         xml_.append("  }\n");
         xml_.append(" }\n");
-        xml_.append(" $public $class InnerFour:..InnerThree {\n");
+        xml_.append(" $public $class InnerFour:InnerThree {\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
@@ -2046,7 +2046,7 @@ public final class ClassesTest {
         xml_.append("  $protected $class InnerFive {\n");
         xml_.append("  }\n");
         xml_.append(" }\n");
-        xml_.append(" $public $class InnerFour:..InnerThree {\n");
+        xml_.append(" $public $class InnerFour:InnerThree {\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
@@ -2071,7 +2071,7 @@ public final class ClassesTest {
         xml_.append("  $protected $class InnerFive {\n");
         xml_.append("  }\n");
         xml_.append(" }\n");
-        xml_.append(" $public $class InnerFour:..InnerThree {\n");
+        xml_.append(" $public $class InnerFour:InnerThree {\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
@@ -2086,7 +2086,7 @@ public final class ClassesTest {
         xml_.append("$public $class pkg.Outer: OuterTwo {\n");
         xml_.append(" $public $class Inner {\n");
         xml_.append(" }\n");
-        xml_.append(" $public $class InnerTwo:$iterable<$Fct<?OuterTwo..InnerThree..InnerFive>> {\n");
+        xml_.append(" $public $class InnerTwo:$iterable<$Fct<?OuterTwo.InnerThree.InnerFive>> {\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
@@ -2096,7 +2096,7 @@ public final class ClassesTest {
         xml_.append("  $protected $class InnerFive {\n");
         xml_.append("  }\n");
         xml_.append(" }\n");
-        xml_.append(" $public $class InnerFour:..InnerThree {\n");
+        xml_.append(" $public $class InnerFour:InnerThree {\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
@@ -2107,10 +2107,10 @@ public final class ClassesTest {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("$public $class [pkgtwo.OuterTwo..Inexist;pkgtwo.OuterTwo;] pkg.Outer {\n");
+        xml_.append("$public $class [pkgtwo.OuterTwo.Inexist;pkgtwo.OuterTwo;] pkg.Outer {\n");
         xml_.append(" $public $static $class Inner {\n");
         xml_.append(" }\n");
-        xml_.append(" $public $static $class InnerTwo:..Number {\n");
+        xml_.append(" $public $static $class InnerTwo:Number {\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
@@ -8285,7 +8285,7 @@ public final class ClassesTest {
     private ContextEl unfullValidateInheritingClassesSingle(StringMap<String> _files) {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
-        opt_.setSingleInnerParts(true);
+        
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes classes_ = cont_.getClasses();
@@ -8314,7 +8314,7 @@ public final class ClassesTest {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
-        opt_.setSingleInnerParts(true);
+        
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes classes_ = cont_.getClasses();
         Classes.buildPredefinedBracesBodies(cont_);
@@ -8362,7 +8362,7 @@ public final class ClassesTest {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
-        opt_.setSingleInnerParts(true);
+        
         ContextEl ct_;
         if (_m.length == 0) {
             ct_ = InitializationLgNames.buildStdOne(opt_);
@@ -8375,7 +8375,7 @@ public final class ClassesTest {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.NONE);
-        opt_.setSingleInnerParts(true);
+        
         ContextEl ct_;
         if (_m.length == 0) {
             ct_ = InitializationLgNames.buildStdOne(opt_);
@@ -8386,7 +8386,7 @@ public final class ClassesTest {
     }
     protected static ContextEl contextEnElSingleDotDefault() {
         Options opt_ = new Options();
-        opt_.setSingleInnerParts(true);
+        
         ContextEl ct_ = InitializationLgNames.buildStdOne("en",opt_);
         return ct_;
     }

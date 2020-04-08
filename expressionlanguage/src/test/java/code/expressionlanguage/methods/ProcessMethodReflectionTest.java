@@ -3318,8 +3318,8 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExTwo {\n");
         xml_.append(" $public $static $int inst:\n");
         xml_.append(" $public $static $int exmeth(){\n");
-        xml_.append("  $Method m = $class(pkg.Outer..Ex).getDeclaredMethods(\"exmeth\",$false,$true,$class($int))[0i]:\n");
-        xml_.append("  $Constructor c = $class(pkg.Outer..Ex).getDeclaredConstructors($false,$class($int),$class($int))[0i]:\n");
+        xml_.append("  $Method m = $class(pkg.Outer.Ex).getDeclaredMethods(\"exmeth\",$false,$true,$class($int))[0i]:\n");
+        xml_.append("  $Constructor c = $class(pkg.Outer.Ex).getDeclaredConstructors($false,$class($int),$class($int))[0i]:\n");
         xml_.append("  $return $($int) m;.invoke(c;.newInstance($new pkg.Outer(),1i),$new java.lang.Object[]{$new java.lang.Integer[]{4i,6i}}):\n");
         xml_.append(" }\n");
         xml_.append("}\n");
@@ -3371,8 +3371,8 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExTwo {\n");
         xml_.append(" $public $static $int inst:\n");
         xml_.append(" $public $static $int exmeth(){\n");
-        xml_.append("  $Method m = $class(pkg.Outer..Ex).getDeclaredMethods(\"exmeth\",$false,$true,$class($int))[0i]:\n");
-        xml_.append("  $Constructor c = $class(pkg.Outer..Ex).getDeclaredConstructors($false,$class($int),$class($int))[0i]:\n");
+        xml_.append("  $Method m = $class(pkg.Outer.Ex).getDeclaredMethods(\"exmeth\",$false,$true,$class($int))[0i]:\n");
+        xml_.append("  $Constructor c = $class(pkg.Outer.Ex).getDeclaredConstructors($false,$class($int),$class($int))[0i]:\n");
         xml_.append("  $return $($int) m;.invoke(c;.newInstance(\"\",5i,1i),$new java.lang.Object[]{$new java.lang.Integer[]{4i,6i}}):\n");
         xml_.append(" }\n");
         xml_.append("}\n");
@@ -3424,8 +3424,8 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExTwo {\n");
         xml_.append(" $public $static $int inst:\n");
         xml_.append(" $public $static $int exmeth(){\n");
-        xml_.append("  $Method m = $class(pkg.Outer..Ex).getDeclaredMethods(\"exmeth\",$false,$true,$class($int))[0i]:\n");
-        xml_.append("  $Constructor c = $class(pkg.Outer..Ex).getDeclaredConstructors($false,$class($int),$class($int))[0i]:\n");
+        xml_.append("  $Method m = $class(pkg.Outer.Ex).getDeclaredMethods(\"exmeth\",$false,$true,$class($int))[0i]:\n");
+        xml_.append("  $Constructor c = $class(pkg.Outer.Ex).getDeclaredConstructors($false,$class($int),$class($int))[0i]:\n");
         xml_.append("  $return $($int) m;.invoke(c;.newInstance($null,5i,1i),$new java.lang.Object[]{$new java.lang.Integer[]{4i,6i}}):\n");
         xml_.append(" }\n");
         xml_.append("}\n");
@@ -3477,8 +3477,8 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExTwo {\n");
         xml_.append(" $public $static $int inst:\n");
         xml_.append(" $public $static $int exmeth(){\n");
-        xml_.append("  $Method m = $class(pkg.Outer..Ex).getDeclaredMethods(\"exmeth\",$false,$true,$class($int))[0i]:\n");
-        xml_.append("  $Constructor c = $class(pkg.Outer..Ex).getDeclaredConstructors($false,$class($int),$class($int))[0i]:\n");
+        xml_.append("  $Method m = $class(pkg.Outer.Ex).getDeclaredMethods(\"exmeth\",$false,$true,$class($int))[0i]:\n");
+        xml_.append("  $Constructor c = $class(pkg.Outer.Ex).getDeclaredConstructors($false,$class($int),$class($int))[0i]:\n");
         xml_.append("  $return $($int) m;.invoke(c;.newInstance($new pkg.Outer(),7i,9i),$new java.lang.Object[]{$new $int[]{4i,6i}}):\n");
         xml_.append(" }\n");
         xml_.append("}\n");
@@ -3531,8 +3531,8 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExTwo {\n");
         xml_.append(" $public $static $int inst:\n");
         xml_.append(" $public $static $int exmeth(){\n");
-        xml_.append("  $Method m = $class(pkg.Outer..Ex).getDeclaredMethods(\"exmeth\",$false,$true,$class($int))[0i]:\n");
-        xml_.append("  $Constructor c = $class(pkg.Outer..Ex).getDeclaredConstructors($false,$class($int),$class($int))[0i]:\n");
+        xml_.append("  $Method m = $class(pkg.Outer.Ex).getDeclaredMethods(\"exmeth\",$false,$true,$class($int))[0i]:\n");
+        xml_.append("  $Constructor c = $class(pkg.Outer.Ex).getDeclaredConstructors($false,$class($int),$class($int))[0i]:\n");
         xml_.append("  $return $($int) m;.invoke(c;.newInstance(7i,9i),$new java.lang.Object[]{$new $int[]{4i,6i}}):\n");
         xml_.append(" }\n");
         xml_.append("}\n");
@@ -4472,7 +4472,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
         xml_.append(" $public $static Object exmeth(){\n");
-        xml_.append("  $return $class(..ExThree).getDeclaredFields()[0].getGenericType().defaultInstance():\n");
+        xml_.append("  $return $class(ExThree).getDeclaredFields()[0].getGenericType().defaultInstance():\n");
         xml_.append(" }\n");
         xml_.append(" $static $class ExThree<T>{\n");
         xml_.append("  T inst:\n");
@@ -4518,7 +4518,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
         xml_.append(" $public $static Object exmeth(){\n");
-        xml_.append("  $return $class(..ExThree).defaultInstance():\n");
+        xml_.append("  $return $class(ExThree).defaultInstance():\n");
         xml_.append(" }\n");
         xml_.append(" $static $class ExThree<T>{\n");
         xml_.append("  T inst:\n");
@@ -4586,7 +4586,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExTwo {\n");
         xml_.append(" $public $static $int value = 1:\n");
         xml_.append(" $public $static String exmeth(){\n");
-        xml_.append("  $return $class(..ExThree).getEnumConstants()[0].$name():\n");
+        xml_.append("  $return $class(ExThree).getEnumConstants()[0].$name():\n");
         xml_.append(" }\n");
         xml_.append(" $static $enum ExThree{\n");
         xml_.append("  ONE,TWO:\n");
@@ -4613,7 +4613,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExTwo {\n");
         xml_.append(" $public $static $int value = 1:\n");
         xml_.append(" $public $static String exmeth(){\n");
-        xml_.append("  $return $class(..ExThree).getEnumConstants()[1].$name():\n");
+        xml_.append("  $return $class(ExThree).getEnumConstants()[1].$name():\n");
         xml_.append(" }\n");
         xml_.append(" $static $enum ExThree{\n");
         xml_.append("  ONE,TWO:\n");
@@ -4640,7 +4640,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExTwo {\n");
         xml_.append(" $public $static $int value = 1:\n");
         xml_.append(" $public $static $int exmeth(){\n");
-        xml_.append("  $return $class(..ExThree).enumValueOf(\"TWO\").$ordinal():\n");
+        xml_.append("  $return $class(ExThree).enumValueOf(\"TWO\").$ordinal():\n");
         xml_.append(" }\n");
         xml_.append(" $static $enum ExThree{\n");
         xml_.append("  ONE,TWO:\n");

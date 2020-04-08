@@ -756,8 +756,8 @@ public final class ProcessMethodFunctionalInterfaceTest extends ProcessMethodCom
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Apply {\n");
-        xml_.append(" $public $static pkg.Outer..Interface test(){\n");
-        xml_.append("  $return (pkg.Outer..Interface) $static().$lambda($math,plus,$int,$int):\n");
+        xml_.append(" $public $static pkg.Outer.Interface test(){\n");
+        xml_.append("  $return (pkg.Outer.Interface) $static().$lambda($math,plus,$int,$int):\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.Outer {\n");

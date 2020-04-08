@@ -1697,24 +1697,6 @@ public final class ElResolverTest extends ProcessMethodCommon{
     }
 
     @Test
-    public void getOperationsSequence89Test() {
-        ContextEl conf_ = contextEl();
-        addImportingPage(conf_);
-        String el_ = "a .b";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
-        OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
-        IntTreeMap<String> opers_ = seq_.getOperators();
-        assertEq(1, opers_.size());
-        assertEq(".", opers_.getVal(2));
-        IntTreeMap<String> values_ = seq_.getValues();
-        assertEq(2, values_.size());
-        assertEq("a ", values_.getVal(0));
-        assertEq("b", values_.getVal(3));
-    
-        assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
-    }
-
-    @Test
     public void getOperationsSequence90Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
@@ -3626,12 +3608,12 @@ public final class ElResolverTest extends ProcessMethodCommon{
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $int inst = ..Ex.exmeth(0i):\n");
+        xml_.append(" $public $static $int inst = Ex.exmeth(0i):\n");
         xml_.append(" $public $static $class Ex{\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl conf_ = contextEl();
+        ContextEl conf_ = contextElSingle();
         Classes classes_ = conf_.getClasses();
         Classes.buildPredefinedBracesBodies(conf_);
         Classes.tryBuildBracedClassesBodies(files_, conf_, false);
@@ -3654,7 +3636,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         IntTreeMap<String> values_ = seq_.getValues();
         assertEq(2, values_.size());
         assertEq("inst ", values_.getVal(0));
-        assertEq(" ..Ex.exmeth(0i)", values_.getVal(6));
+        assertEq(" Ex.exmeth(0i)", values_.getVal(6));
         assertEq(ElResolver.AFF_PRIO, seq_.getPriority());
         assertEq("", seq_.getExtractType());
         assertEq(1, d_.getDelKeyWordStaticExtract().size());

@@ -17,72 +17,71 @@ public final class ParserType {
     static final int TMP_PRIO = 4;
     private ParserType(){}
     public static Ints getIndexes(String _input, Analyzable _an) {
-        Options opt_ = _an.getOptions();
-        if (opt_.isSingleInnerParts()) {
-            int count_ = 0;
-            int len_ = _input.length();
-            int i_ = 0;
-            Ints indexes_ = new Ints();
-            boolean addDot_ = false;
-            StringBuilder id_ = new StringBuilder();
-            while (i_ < len_) {
-                char curChar_ = _input.charAt(i_);
-                if (curChar_ == Templates.LT) {
-                    addDot_ = false;
-                    id_.delete(0, id_.length());
-                    indexes_.add(i_);
-                    count_++;
-                    i_++;
-                    continue;
+        int count_ = 0;
+        int len_ = _input.length();
+        int i_ = 0;
+        Ints indexes_ = new Ints();
+        boolean addDot_ = false;
+        StringBuilder id_ = new StringBuilder();
+        while (i_ < len_) {
+            char curChar_ = _input.charAt(i_);
+            if (curChar_ == Templates.LT) {
+                addDot_ = false;
+                id_.delete(0, id_.length());
+                indexes_.add(i_);
+                count_++;
+                i_++;
+                continue;
+            }
+            if (curChar_ == Templates.GT) {
+                if (count_ == 0) {
+                    return null;
                 }
-                if (curChar_ == Templates.GT) {
-                    if (count_ == 0) {
-                        return null;
+                addDot_ = true;
+                id_.delete(0, id_.length());
+                indexes_.add(i_);
+                count_--;
+                i_++;
+                continue;
+            }
+            if (curChar_ == Templates.COMMA) {
+                if (count_ == 0) {
+                    return null;
+                }
+                addDot_ = false;
+                id_.delete(0, id_.length());
+                indexes_.add(i_);
+                i_++;
+                continue;
+            }
+            if (curChar_ == Templates.SEP_CLASS_CHAR) {
+                boolean existPkg_ = false;
+                for (String p: _an.getClasses().getPackagesFound()) {
+                    if (StringList.quickEq(p, ContextEl.removeDottedSpaces(id_.toString()))) {
+                        existPkg_ = true;
+                        break;
                     }
+                }
+                if (!existPkg_) {
                     addDot_ = true;
-                    id_.delete(0, id_.length());
-                    indexes_.add(i_);
-                    count_--;
-                    i_++;
-                    continue;
                 }
-                if (curChar_ == Templates.COMMA) {
-                    if (count_ == 0) {
-                        return null;
-                    }
-                    addDot_ = false;
-                    id_.delete(0, id_.length());
+                if (addDot_) {
                     indexes_.add(i_);
-                    i_++;
-                    continue;
-                }
-                if (curChar_ == Templates.SEP_CLASS_CHAR) {
-                    boolean existPkg_ = false;
-                    for (String p: _an.getClasses().getPackagesFound()) {
-                        if (StringList.quickEq(p, ContextEl.removeDottedSpaces(id_.toString()))) {
-                            existPkg_ = true;
-                            break;
-                        }
-                    }
-                    if (!existPkg_) {
-                        addDot_ = true;
-                    }
-                    if (addDot_) {
-                        indexes_.add(i_);
-                    } else {
-                        id_.append(curChar_);
-                    }
+                    id_.delete(0,id_.length());
                 } else {
                     id_.append(curChar_);
                 }
-                i_++;
+            } else {
+                if (curChar_ != '?' && curChar_ != '!') {
+                    id_.append(curChar_);
+                }
             }
-            if (count_ > 0) {
-                return null;
-            }
-            return indexes_;
+            i_++;
         }
-        return getDoubleDotIndexes(_input);
+        if (count_ > 0) {
+            return null;
+        }
+        return indexes_;
     }
 
     public static Ints getIndexesExec(String _input) {
@@ -169,18 +168,10 @@ public final class ParserType {
             a_.setupValue(_string);
             return a_;
         }
-        if (_options.isSingleInnerParts()) {
-            if (isTypeLeafPart(_string.trim())) {
-                a_.setKind(KindPartType.TYPE_NAME);
-                a_.setupValue(_string);
-                return a_;
-            }
-        } else {
-            if (isTypeLeaf(_string)) {
-                a_.setKind(KindPartType.TYPE_NAME);
-                a_.setupValue(_string);
-                return a_;
-            }
+        if (isTypeLeafPart(_string.trim())) {
+            a_.setKind(KindPartType.TYPE_NAME);
+            a_.setupValue(_string);
+            return a_;
         }
         if (StringList.quickEq(_string.trim(), Templates.SUB_TYPE)) {
             a_.setKind(KindPartType.EMPTY_WILD_CARD);
@@ -236,15 +227,11 @@ public final class ParserType {
                     operators_.clear();
                     prio_ = INT_PRIO;
                 }
-                if (_options.isSingleInnerParts()) {
-                    operators_.put(i_,".");
-                } else {
-                    operators_.put(i_,Templates.INNER_TYPE);
-                }
+                operators_.put(i_,".");
             }
             i_++;
         }
-        if (_options.isSingleInnerParts() && operators_.isEmpty()) {
+        if (operators_.isEmpty()) {
             if (isTypeLeaf(_string)) {
                 a_.setKind(KindPartType.TYPE_NAME);
                 a_.setupValue(_string);

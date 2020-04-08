@@ -2055,16 +2055,17 @@ public final class AnalyzedOperationNodesTest {
     public void processEl195Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkgtwo.Apply {\n");
-        xml_.append(" $static {$new pkg.ExTwo($id(pkg.ExTwo,pkg.ExTwo..Inner),$null):}\n");
+        xml_.append(" $static {$new pkg.ExTwo($id(pkg.ExTwo,pkg.ExTwo.Inner),$null):}\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.ExTwo {\n");
         xml_.append(" $public $class Inner {\n");
         xml_.append(" }\n");
-        xml_.append("  $public ExTwo(pkg.ExTwo..Inner v){}\n");
+        xml_.append("  $public ExTwo(pkg.ExTwo.Inner v){}\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = new Options();
+        
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         
@@ -2088,16 +2089,17 @@ public final class AnalyzedOperationNodesTest {
     public void processEl196Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkgtwo.Apply {\n");
-        xml_.append(" $static {$new pkg.ExTwo($id(pkg.ExTwo,pkg.ExTwo..Inner<String>),$null):}\n");
+        xml_.append(" $static {$new pkg.ExTwo($id(pkg.ExTwo,pkg.ExTwo.Inner<String>),$null):}\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.ExTwo {\n");
         xml_.append(" $public $class Inner<T> {\n");
         xml_.append(" }\n");
-        xml_.append("  $public ExTwo(pkg.ExTwo..Inner<String> v){}\n");
+        xml_.append("  $public ExTwo(pkg.ExTwo.Inner<String> v){}\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = new Options();
+        
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         
@@ -2121,17 +2123,18 @@ public final class AnalyzedOperationNodesTest {
     public void processEl197Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkgtwo.Apply {\n");
-        xml_.append(" $static {$new pkg.ExTwo($id(pkg.ExTwo,pkg.ExTwo..Inner),$null):}\n");
+        xml_.append(" $static {$new pkg.ExTwo($id(pkg.ExTwo,pkg.ExTwo.Inner),$null):}\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.ExTwo {\n");
         xml_.append(" $public $static $class Inner {\n");
         xml_.append(" }\n");
-        xml_.append("  $public ExTwo(pkg.ExTwo..Inner v){}\n");
+        xml_.append("  $public ExTwo(pkg.ExTwo.Inner v){}\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
+        
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
@@ -2154,17 +2157,18 @@ public final class AnalyzedOperationNodesTest {
     public void processEl198Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkgtwo.Apply {\n");
-        xml_.append(" $static {$new pkg.ExTwo($id(pkg.ExTwo,pkg.ExTwo..Inner<String>),$null):}\n");
+        xml_.append(" $static {$new pkg.ExTwo($id(pkg.ExTwo,pkg.ExTwo.Inner<String>),$null):}\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.ExTwo {\n");
         xml_.append(" $public $static $class Inner<T> {\n");
         xml_.append(" }\n");
-        xml_.append("  $public ExTwo(pkg.ExTwo..Inner<String> v){}\n");
+        xml_.append("  $public ExTwo(pkg.ExTwo.Inner<String> v){}\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
+        
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
@@ -2218,17 +2222,18 @@ public final class AnalyzedOperationNodesTest {
     public void processEl200Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkgtwo.Apply {\n");
-        xml_.append(" $static {$new pkg.ExTwo<String>($id(pkg.ExTwo,pkg.ExTwo..Inner),$null):}\n");
+        xml_.append(" $static {$new pkg.ExTwo<String>($id(pkg.ExTwo,pkg.ExTwo.Inner),$null):}\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.ExTwo<T> {\n");
         xml_.append(" $public $static $class Inner {\n");
         xml_.append(" }\n");
-        xml_.append("  $public ExTwo(pkg.ExTwo..Inner v){}\n");
+        xml_.append("  $public ExTwo(pkg.ExTwo.Inner v){}\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
+        
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
@@ -2479,7 +2484,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         
-        opt_.setSingleInnerParts(true);
+        
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.isEmptyErrors());
@@ -2511,7 +2516,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         
-        opt_.setSingleInnerParts(true);
+        
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.isEmptyErrors());
@@ -2543,7 +2548,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         
-        opt_.setSingleInnerParts(true);
+        
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.isEmptyErrors());
@@ -2575,7 +2580,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         
-        opt_.setSingleInnerParts(true);
+        
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.isEmptyErrors());
@@ -2608,7 +2613,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         
-        opt_.setSingleInnerParts(true);
+        
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.isEmptyErrors());
@@ -2641,7 +2646,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         
-        opt_.setSingleInnerParts(true);
+        
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.isEmptyErrors());
@@ -2674,7 +2679,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         
-        opt_.setSingleInnerParts(true);
+        
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.isEmptyErrors());
@@ -2707,7 +2712,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         
-        opt_.setSingleInnerParts(true);
+        
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.isEmptyErrors());
@@ -2740,7 +2745,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         
-        opt_.setSingleInnerParts(true);
+        
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.isEmptyErrors());
@@ -2779,7 +2784,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         
-        opt_.setSingleInnerParts(true);
+        
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.isEmptyErrors());
@@ -2817,7 +2822,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         
-        opt_.setSingleInnerParts(true);
+        
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.isEmptyErrors());
@@ -3035,7 +3040,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         
-        opt_.setSingleInnerParts(true);
+        
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.isEmptyErrors());
@@ -3071,7 +3076,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         
-        opt_.setSingleInnerParts(true);
+        
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.isEmptyErrors());
@@ -3107,7 +3112,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         
-        opt_.setSingleInnerParts(true);
+        
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.isEmptyErrors());
@@ -3143,7 +3148,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         
-        opt_.setSingleInnerParts(true);
+        
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.isEmptyErrors());
@@ -3179,7 +3184,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         
-        opt_.setSingleInnerParts(true);
+        
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.isEmptyErrors());
@@ -3330,7 +3335,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         
-        opt_.setSingleInnerParts(true);
+        
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.isEmptyErrors());
@@ -3395,7 +3400,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         
-        opt_.setSingleInnerParts(true);
+        
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.isEmptyErrors());
@@ -3460,7 +3465,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         
-        opt_.setSingleInnerParts(true);
+        
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
         assertTrue(!cont_.isEmptyErrors());
@@ -3480,7 +3485,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
 
-        opt_.setSingleInnerParts(true);
+        
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
         assertTrue(!cont_.isEmptyErrors());
@@ -3520,7 +3525,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         
-        opt_.setSingleInnerParts(true);
+        
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.isEmptyErrors());
@@ -4166,7 +4171,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         
-        opt_.setSingleInnerParts(true);
+        
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
         assertTrue(!cont_.isEmptyErrors());
@@ -4190,7 +4195,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         
-        opt_.setSingleInnerParts(true);
+        
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
         assertTrue(!cont_.isEmptyErrors());
@@ -4207,7 +4212,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         
-        opt_.setSingleInnerParts(true);
+        
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
         assertTrue(!cont_.isEmptyErrors());
@@ -4224,7 +4229,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         
-        opt_.setSingleInnerParts(true);
+        
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
         assertTrue(!cont_.isEmptyErrors());
@@ -4243,7 +4248,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.NONE);
         
-        opt_.setSingleInnerParts(true);
+        
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
         assertTrue(!cont_.isEmptyErrors());
@@ -4263,7 +4268,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.NONE);
         
-        opt_.setSingleInnerParts(true);
+        
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
         assertTrue(!cont_.isEmptyErrors());
@@ -4283,7 +4288,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.NONE);
         
-        opt_.setSingleInnerParts(true);
+        
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
         assertTrue(!cont_.isEmptyErrors());
@@ -4303,7 +4308,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.NONE);
         
-        opt_.setSingleInnerParts(true);
+        
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
         assertTrue(!cont_.isEmptyErrors());
@@ -4324,7 +4329,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.NONE);
         
-        opt_.setSingleInnerParts(true);
+        
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
         assertTrue(!cont_.isEmptyErrors());
@@ -4346,7 +4351,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.NONE);
         
-        opt_.setSingleInnerParts(true);
+        
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
         assertTrue(!cont_.isEmptyErrors());
@@ -4364,7 +4369,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.NONE);
         
-        opt_.setSingleInnerParts(true);
+        
         ContextEl cont_ = InitializationLgNames.buildStdOne("en", opt_);
         Classes.validateAll(files_, cont_);
         assertTrue(!cont_.isEmptyErrors());
@@ -4385,7 +4390,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         
-        opt_.setSingleInnerParts(true);
+        
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().displayErrors(),!cont_.isEmptyErrors());
@@ -4406,7 +4411,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         
-        opt_.setSingleInnerParts(true);
+        
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().displayErrors(),!cont_.isEmptyErrors());
@@ -4425,7 +4430,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         
-        opt_.setSingleInnerParts(true);
+        
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().displayErrors(),!cont_.isEmptyErrors());
@@ -4444,7 +4449,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         
-        opt_.setSingleInnerParts(true);
+        
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().displayErrors(),!cont_.isEmptyErrors());
@@ -4465,7 +4470,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         
-        opt_.setSingleInnerParts(true);
+        
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().displayErrors(),!cont_.isEmptyErrors());
@@ -4486,7 +4491,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         
-        opt_.setSingleInnerParts(true);
+        
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().displayErrors(),!cont_.isEmptyErrors());
@@ -4507,7 +4512,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         
-        opt_.setSingleInnerParts(true);
+        
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().displayErrors(),!cont_.isEmptyErrors());
@@ -4528,7 +4533,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         
-        opt_.setSingleInnerParts(true);
+        
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().displayErrors(),!cont_.isEmptyErrors());
@@ -4549,7 +4554,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         
-        opt_.setSingleInnerParts(true);
+        
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().displayErrors(),!cont_.isEmptyErrors());
@@ -4570,7 +4575,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         
-        opt_.setSingleInnerParts(true);
+        
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().displayErrors(),!cont_.isEmptyErrors());
@@ -4591,7 +4596,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         
-        opt_.setSingleInnerParts(true);
+        
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().displayErrors(),!cont_.isEmptyErrors());
@@ -4612,7 +4617,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         
-        opt_.setSingleInnerParts(true);
+        
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().displayErrors(),!cont_.isEmptyErrors());
@@ -4633,7 +4638,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         
-        opt_.setSingleInnerParts(true);
+        
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().displayErrors(),!cont_.isEmptyErrors());
@@ -4654,7 +4659,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         
-        opt_.setSingleInnerParts(true);
+        
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().displayErrors(),!cont_.isEmptyErrors());
@@ -4675,7 +4680,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         
-        opt_.setSingleInnerParts(true);
+        
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().displayErrors(),!cont_.isEmptyErrors());
@@ -4696,7 +4701,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         
-        opt_.setSingleInnerParts(true);
+        
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().displayErrors(),!cont_.isEmptyErrors());
@@ -4717,7 +4722,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         
-        opt_.setSingleInnerParts(true);
+        
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().displayErrors(),!cont_.isEmptyErrors());
@@ -4738,7 +4743,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         
-        opt_.setSingleInnerParts(true);
+        
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().displayErrors(),!cont_.isEmptyErrors());
@@ -4759,7 +4764,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         
-        opt_.setSingleInnerParts(true);
+        
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().displayErrors(),!cont_.isEmptyErrors());
@@ -4780,7 +4785,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         
-        opt_.setSingleInnerParts(true);
+        
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().displayErrors(),!cont_.isEmptyErrors());
@@ -4801,7 +4806,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         
-        opt_.setSingleInnerParts(true);
+        
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().displayErrors(),!cont_.isEmptyErrors());
@@ -4822,7 +4827,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         
-        opt_.setSingleInnerParts(true);
+        
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().displayErrors(),!cont_.isEmptyErrors());
@@ -4843,7 +4848,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         
-        opt_.setSingleInnerParts(true);
+        
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().displayErrors(),!cont_.isEmptyErrors());
@@ -4864,7 +4869,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         
-        opt_.setSingleInnerParts(true);
+        
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
         assertTrue(!cont_.isEmptyErrors());
@@ -4965,7 +4970,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         
-        opt_.setSingleInnerParts(true);
+        
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
         assertTrue(!cont_.isEmptyErrors());
@@ -4986,7 +4991,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         
-        opt_.setSingleInnerParts(true);
+        
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
         assertTrue(!cont_.isEmptyErrors());
@@ -5007,7 +5012,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         
-        opt_.setSingleInnerParts(true);
+        
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
         assertTrue(!cont_.isEmptyErrors());
@@ -5028,7 +5033,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         
-        opt_.setSingleInnerParts(true);
+        
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
         assertTrue(!cont_.isEmptyErrors());
@@ -5049,7 +5054,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         
-        opt_.setSingleInnerParts(true);
+        
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
         assertTrue(!cont_.isEmptyErrors());
@@ -5070,7 +5075,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         
-        opt_.setSingleInnerParts(true);
+        
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
         assertTrue(!cont_.isEmptyErrors());
@@ -5091,7 +5096,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         
-        opt_.setSingleInnerParts(true);
+        
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
         assertTrue(!cont_.isEmptyErrors());
@@ -5112,7 +5117,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         
-        opt_.setSingleInnerParts(true);
+        
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
         assertTrue(!cont_.isEmptyErrors());
@@ -5136,7 +5141,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         
-        opt_.setSingleInnerParts(true);
+        
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
         assertTrue(!cont_.isEmptyErrors());
@@ -5156,7 +5161,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         
-        opt_.setSingleInnerParts(true);
+        
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
         assertTrue(!cont_.isEmptyErrors());
@@ -5179,7 +5184,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         
-        opt_.setSingleInnerParts(true);
+        
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
         assertTrue(!cont_.isEmptyErrors());
@@ -5202,7 +5207,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         
-        opt_.setSingleInnerParts(true);
+        
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
         assertTrue(!cont_.isEmptyErrors());
@@ -5225,7 +5230,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         
-        opt_.setSingleInnerParts(true);
+        
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
         assertTrue(!cont_.isEmptyErrors());
@@ -5249,7 +5254,7 @@ public final class AnalyzedOperationNodesTest {
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         
-        opt_.setSingleInnerParts(true);
+        
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.isEmptyErrors());

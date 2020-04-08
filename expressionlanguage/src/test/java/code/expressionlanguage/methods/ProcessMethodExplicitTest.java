@@ -615,13 +615,13 @@ public final class ProcessMethodExplicitTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("public class pkg.Apply {\n");
-        xml_.append(" public static Apply..ExClass method(){\n");
-        xml_.append("  return explicit(Apply..ExClass)5;\n");
+        xml_.append(" public static Apply.ExClass method(){\n");
+        xml_.append("  return explicit(Apply.ExClass)5;\n");
         xml_.append(" }\n");
         xml_.append(" public class ExClass {\n");
         xml_.append("  public int field;\n");
-        xml_.append("  public static Apply..ExClass explicit(int i){\n");
-        xml_.append("   Apply..ExClass out = new Apply().new ExClass();\n");
+        xml_.append("  public static Apply.ExClass explicit(int i){\n");
+        xml_.append("   Apply.ExClass out = new Apply().new ExClass();\n");
         xml_.append("   out.field = i;\n");
         xml_.append("   return out;\n");
         xml_.append("  }\n");

@@ -111,7 +111,6 @@ public interface Analyzable {
     String resolveCorrectType(int _loc,String _in, boolean _exact);
     StringMap<StringList> getCurrentConstraints();
 
-    void appendMultiParts(int _begin, String _full, String _in, CustList<PartOffset> _parts);
     void appendParts(int _begin, int _end, String _in, CustList<PartOffset> _parts);
     void appendTitleParts(int _begin, int _end, String _in, CustList<PartOffset> _parts);
     String checkExactType(int _loc,String _in, String _orig);

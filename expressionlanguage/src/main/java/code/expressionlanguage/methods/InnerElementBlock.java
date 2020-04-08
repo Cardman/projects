@@ -68,6 +68,11 @@ public final class InnerElementBlock extends RootBlock implements InnerTypeOrEle
     }
 
     @Override
+    public String getFullName(String _sep) {
+        return getName();
+    }
+
+    @Override
     public Ints getTypeVarCounts() {
         Ints generic_ = new Ints();
         CustList<RootBlock> pars_ = getAllParentTypes();
@@ -260,7 +265,7 @@ public final class InnerElementBlock extends RootBlock implements InnerTypeOrEle
     public String getClassName() {
         Block b_ = getParent();
         RootBlock r_ = (RootBlock) b_;
-        return r_.getFullName();
+        return r_.getFullName(".");
     }
 
     @Override

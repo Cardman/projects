@@ -10,7 +10,6 @@ public final class Options {
     private VariableSuffix suffixVar = VariableSuffix.NONE;
     private boolean varTypeFirst = true;
     private boolean endLineSemiColumn = true;
-    private boolean singleInnerParts;
     private boolean readOnly;
     private boolean failIfNotAllInit;
 
@@ -57,13 +56,6 @@ public final class Options {
 
     public void setEndLineSemiColumn(boolean _endLineSemiColumn) {
         endLineSemiColumn = _endLineSemiColumn;
-    }
-
-    public boolean isSingleInnerParts() {
-        return singleInnerParts;
-    }
-    public void setSingleInnerParts(boolean _singleInnerParts) {
-        singleInnerParts = _singleInnerParts;
     }
 
     public boolean isReadOnly() {

@@ -8415,7 +8415,7 @@ public final class RenderExpUtilTest extends CommonRender {
         files_.put("pkg/Ex", xml_.toString());
         Configuration conf_ = getConfiguration4(files_);
         addImportingPage(conf_);
-        Argument argument_ = processEl("$new pkg.Outer..Ex<$int>().res($id(pkg.Outer..Ex,#T),15)", conf_);
+        Argument argument_ = processEl("$new pkg.Outer.Ex<$int>().res($id(pkg.Outer.Ex,#T),15)", conf_);
         assertEq(29,argument_.getNumber());
     }
     @Test
@@ -8433,7 +8433,7 @@ public final class RenderExpUtilTest extends CommonRender {
         files_.put("pkg/Ex", xml_.toString());
         Configuration conf_ = getConfiguration5(files_);
         addImportingPage(conf_);
-        processEl("$new pkg.Outer..Ex<$int>().res($id($void,#T),15)", conf_);
+        processEl("$new pkg.Outer.Ex<$int>().res($id($void,#T),15)", conf_);
         assertTrue(!conf_.isEmptyErrors());
     }
     @Test
@@ -8451,7 +8451,7 @@ public final class RenderExpUtilTest extends CommonRender {
         files_.put("pkg/Ex", xml_.toString());
         Configuration conf_ = getConfiguration4(files_);
         addImportingPage(conf_);
-        processEl("$new pkg.Outer..Ex<$int>().res($id(pkg.Outer..ExInex,#T),15)", conf_);
+        processEl("$new pkg.Outer.Ex<$int>().res($id(pkg.Outer.ExInex,#T),15)", conf_);
         assertTrue(!conf_.isEmptyErrors());
     }
     @Test
@@ -8487,7 +8487,7 @@ public final class RenderExpUtilTest extends CommonRender {
         files_.put("pkg/Ex", xml_.toString());
         Configuration conf_ = getConfiguration4(files_);
         addImportingPage(conf_);
-        processEl("$new $void<>[i]+$new pkg.Outer..Ex<pkg.Outer..Ex<$int>>()", conf_);
+        processEl("$new $void<>[i]+$new pkg.Outer.Ex<pkg.Outer.Ex<$int>>()", conf_);
         assertTrue(!conf_.isEmptyErrors());
     }
     @Test
@@ -9267,7 +9267,6 @@ public final class RenderExpUtilTest extends CommonRender {
         opt_.setInitializeStaticClassFirst(_init);
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
-        opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdThree(opt_);
         Classes.validateAll(_files, cont_);
         assertTrue(cont_.isEmptyErrors());

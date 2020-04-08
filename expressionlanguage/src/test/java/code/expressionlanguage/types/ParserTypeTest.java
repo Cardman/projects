@@ -582,7 +582,7 @@ public class ParserTypeTest {
     }
     private static ContextEl contextEnElDefault() {
         Options opt_ = new Options();
-        opt_.setSingleInnerParts(true);
+        
         return InitializationLgNames.buildStdOne("en", opt_);
     }
 }

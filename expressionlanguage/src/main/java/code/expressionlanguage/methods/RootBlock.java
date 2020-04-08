@@ -590,6 +590,9 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
 
     @Override
     public String getFullName() {
+        return getFullName("..");
+    }
+    public String getFullName(String _sep) {
         String packageName_ = getPackageName();
         StringList names_ = new StringList(getName());
         for (RootBlock r: getAllParentTypes()) {
@@ -598,9 +601,8 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
         if (packageName_.isEmpty()) {
             return getName();
         }
-        return StringList.concat(packageName_,DOT, StringList.join(names_.getReverse(), ".."));
+        return StringList.concat(packageName_,DOT, StringList.join(names_.getReverse(), _sep));
     }
-
     public final void validateIds(ContextEl _context) {
         EqList<MethodId> idMethods_ = new EqList<MethodId>();
         CustList<OverridableBlock> indexersGet_ = new CustList<OverridableBlock>();

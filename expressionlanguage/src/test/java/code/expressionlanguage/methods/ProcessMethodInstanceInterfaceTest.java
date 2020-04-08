@@ -2154,10 +2154,10 @@ public final class ProcessMethodInstanceInterfaceTest extends
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExCont {\n");
-        xml_.append(" $public java.lang.String inst=$static($enums).name($valueOf(pkg.Outer..Ex,\"TWO\")):\n");
+        xml_.append(" $public java.lang.String inst=$static($enums).name($valueOf(pkg.Outer.Ex,\"TWO\")):\n");
         xml_.append("}\n");
         files_.put("pkg/ExCont", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = contextElSingle();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();

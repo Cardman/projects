@@ -2189,7 +2189,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExTwo {\n");
         xml_.append(" $public $static $int inst:\n");
         xml_.append(" $public $static String exmeth(){\n");
-        xml_.append("  $return $class(ExThree..ExEnum).getEnclosingType().getName():\n");
+        xml_.append("  $return $class(ExThree.ExEnum).getEnclosingType().getName():\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.ExThree{\n");
@@ -2295,7 +2295,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExTwo {\n");
         xml_.append(" $public $static $int inst:\n");
         xml_.append(" $public $static String exmeth(){\n");
-        xml_.append("  $return $class(ExThree..ExEnum).getPrettyName():\n");
+        xml_.append("  $return $class(ExThree.ExEnum).getPrettyName():\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.ExThree{\n");
@@ -2319,7 +2319,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExTwo {\n");
         xml_.append(" $public $static $int inst:\n");
         xml_.append(" $public $static String exmeth(){\n");
-        xml_.append("  $return $class(ExThree..ExEnum[]).getPrettyName():\n");
+        xml_.append("  $return $class(ExThree.ExEnum[]).getPrettyName():\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.ExThree{\n");
@@ -2775,7 +2775,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
         xml_.append(" $public $static $boolean exmeth(){\n");
-        xml_.append("  $return $class(..ExThree).isPrivate():\n");
+        xml_.append("  $return $class(ExThree).isPrivate():\n");
         xml_.append(" }\n");
         xml_.append(" $public $static $class ExThree{\n");
         xml_.append(" }\n");
@@ -2796,7 +2796,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
         xml_.append(" $public $static $boolean exmeth(){\n");
-        xml_.append("  $return $class(..ExThree).isPrivate():\n");
+        xml_.append("  $return $class(ExThree).isPrivate():\n");
         xml_.append(" }\n");
         xml_.append(" $private $static $class ExThree{\n");
         xml_.append(" }\n");
@@ -3007,7 +3007,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
         xml_.append(" $public $static $boolean exmeth(){\n");
-        xml_.append("  $return $class(..ExThree).isStatic():\n");
+        xml_.append("  $return $class(ExThree).isStatic():\n");
         xml_.append(" }\n");
         xml_.append(" $static $class ExThree{\n");
         xml_.append(" }\n");
@@ -3028,7 +3028,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
         xml_.append(" $public $static $boolean exmeth(){\n");
-        xml_.append("  $return $class(..ExThree).isStatic():\n");
+        xml_.append("  $return $class(ExThree).isStatic():\n");
         xml_.append(" }\n");
         xml_.append(" $class ExThree{\n");
         xml_.append(" }\n");
@@ -3049,7 +3049,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
         xml_.append(" $public $static $boolean exmeth(){\n");
-        xml_.append("  $return $class(..ExThree).isClass():\n");
+        xml_.append("  $return $class(ExThree).isClass():\n");
         xml_.append(" }\n");
         xml_.append(" $static $class ExThree{\n");
         xml_.append(" }\n");
@@ -3070,7 +3070,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
         xml_.append(" $public $static $boolean exmeth(){\n");
-        xml_.append("  $return $class(..ExThree).isClass():\n");
+        xml_.append("  $return $class(ExThree).isClass():\n");
         xml_.append(" }\n");
         xml_.append(" $static $interface ExThree{\n");
         xml_.append(" }\n");
@@ -3091,7 +3091,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
         xml_.append(" $public $static $boolean exmeth(){\n");
-        xml_.append("  $return $class(..ExThree).isEnum():\n");
+        xml_.append("  $return $class(ExThree).isEnum():\n");
         xml_.append(" }\n");
         xml_.append(" $static $class ExThree{\n");
         xml_.append(" }\n");
@@ -3112,7 +3112,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
         xml_.append(" $public $static $boolean exmeth(){\n");
-        xml_.append("  $return $class(..ExThree).isEnum():\n");
+        xml_.append("  $return $class(ExThree).isEnum():\n");
         xml_.append(" }\n");
         xml_.append(" $static $enum ExThree{\n");
         xml_.append(" }\n");
@@ -3133,7 +3133,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
         xml_.append(" $public $static $boolean exmeth(){\n");
-        xml_.append("  $return $class(..ExThree).isInterface():\n");
+        xml_.append("  $return $class(ExThree).isInterface():\n");
         xml_.append(" }\n");
         xml_.append(" $static $class ExThree{\n");
         xml_.append(" }\n");
@@ -3154,7 +3154,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
         xml_.append(" $public $static $boolean exmeth(){\n");
-        xml_.append("  $return $class(..ExThree).isInterface():\n");
+        xml_.append("  $return $class(ExThree).isInterface():\n");
         xml_.append(" }\n");
         xml_.append(" $static $interface ExThree{\n");
         xml_.append(" }\n");
@@ -3176,10 +3176,10 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
         xml_.append(" $public $static $boolean exmeth(){\n");
-        xml_.append("  $return $class(..ExThree).getDeclaredFields()[0].getGenericType().isTypeVariable():\n");
+        xml_.append("  $return $class(ExThree).getDeclaredFields()[0].getGenericType().isTypeVariable():\n");
         xml_.append(" }\n");
         xml_.append(" $static $class ExThree<T>{\n");
-        xml_.append("  ..ExThree<T> inst:\n");
+        xml_.append("  ExThree<T> inst:\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
@@ -3198,7 +3198,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
         xml_.append(" $public $static $boolean exmeth(){\n");
-        xml_.append("  $return $class(..ExThree).getDeclaredFields()[0].getGenericType().isTypeVariable():\n");
+        xml_.append("  $return $class(ExThree).getDeclaredFields()[0].getGenericType().isTypeVariable():\n");
         xml_.append(" }\n");
         xml_.append(" $static $class ExThree<T>{\n");
         xml_.append("  T inst:\n");
@@ -3220,10 +3220,10 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
         xml_.append(" $public $static $boolean exmeth(){\n");
-        xml_.append("  $return $class(..ExThree).getDeclaredFields()[0].getGenericType().isVariable():\n");
+        xml_.append("  $return $class(ExThree).getDeclaredFields()[0].getGenericType().isVariable():\n");
         xml_.append(" }\n");
         xml_.append(" $static $class ExThree<T>{\n");
-        xml_.append("  ..ExThree<T> inst:\n");
+        xml_.append("  ExThree<T> inst:\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
@@ -3242,7 +3242,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
         xml_.append(" $public $static $boolean exmeth(){\n");
-        xml_.append("  $return $class(..ExThree<Number>).isVariable():\n");
+        xml_.append("  $return $class(ExThree<Number>).isVariable():\n");
         xml_.append(" }\n");
         xml_.append(" $static $class ExThree<T>{\n");
         xml_.append(" }\n");
@@ -3263,7 +3263,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
         xml_.append(" $public $static $boolean exmeth(){\n");
-        xml_.append("  $return $class(..ExThree).isAnnotation():\n");
+        xml_.append("  $return $class(ExThree).isAnnotation():\n");
         xml_.append(" }\n");
         xml_.append(" $static $class ExThree{\n");
         xml_.append(" }\n");
@@ -3284,7 +3284,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
         xml_.append(" $public $static $boolean exmeth(){\n");
-        xml_.append("  $return $class(..ExThree).isAnnotation():\n");
+        xml_.append("  $return $class(ExThree).isAnnotation():\n");
         xml_.append(" }\n");
         xml_.append(" $static $annotation ExThree{\n");
         xml_.append(" }\n");

@@ -903,17 +903,6 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             return;
         }
         String cl_ = _fromType.trim();
-        if (cl_.startsWith("..")) {
-            FoundErrorInterpret static_ = new FoundErrorInterpret();
-            static_.setFileName(_conf.getCurrentFileName());
-            static_.setIndexFile(_conf.getCurrentLocationIndex());
-            //key word len
-            static_.buildError(_conf.getContextEl().getAnalysisMessages().getIllegalCtorUnknown(),
-                    cl_);
-            _conf.addError(static_);
-            setResultClass(new ClassArgumentMatching(_stds.getAliasObject()));
-            return;
-        }
         String idClass_ = Templates.getIdFromAllTypes(cl_);
         StringMap<String> ownersMap_ = new StringMap<String>();
         boolean ok_ = true;

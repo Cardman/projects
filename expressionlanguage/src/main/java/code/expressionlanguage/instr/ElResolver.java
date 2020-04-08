@@ -1525,56 +1525,19 @@ public final class ElResolver {
                 } else if (!look_.isEmpty()) {
                     _d.getVariables().add(info_);
                 } else {
-                    //if the field exist then look for an imported type (without templates) then a complete type
-                    if (prev_.endsWith(StringList.concat(dot_,dot_))) {
-                        int j_ = beginWord_;
-                        StringList parts_ = new StringList();
-                        StringBuilder part_ = new StringBuilder();
+                    if (!_out.isDeclared(word_) && !prev_.endsWith(dot_)) {
+                        int j_ = i_;
                         while (j_ < len_) {
-                            char locChar_ = _string.charAt(j_);
-                            if (StringList.isDollarWordChar(locChar_)) {
-                                part_.append(locChar_);
-                                j_++;
-                                continue;
+                            if (!Character.isWhitespace(_string.charAt(j_))) {
+                                break;
                             }
-                            if (Character.isWhitespace(locChar_)) {
-                                part_.append(locChar_);
-                                j_++;
-                                continue;
-                            }
-                            if (locChar_ == DOT_VAR) {
-                                parts_.add(part_.toString());
-                                part_.delete(0, part_.length());
-                                if (j_ + 1 < len_ && _string.charAt(j_ + 1) == DOT_VAR) {
-                                    j_++;
-                                    j_++;
-                                    continue;
-                                }
-                            }
-                            break;
+                            j_++;
                         }
-                        StringBuilder allparts_ = new StringBuilder(StringList.concat(dot_,dot_));
-                        int partLen_ = parts_.size();
-                        for (int i = 0; i < partLen_; i++) {
-                            allparts_.append(parts_.get(i));
-                            if (i + 1 < partLen_) {
-                                allparts_.append(DOT_VAR);
-                                allparts_.append(DOT_VAR);
-                            }
-                        }
-                        String id_ = allparts_.toString();
-                        String typeRes_ = _an.resolveCorrectTypeWithoutErrors(lastDoubleDot_,id_, false);
-                        if (!typeRes_.isEmpty()) {
-                            _d.getDelKeyWordStatic().add(lastDoubleDot_);
-                            _d.getDelKeyWordStatic().add(j_);
-                            _d.getStaticParts().add(new CustList<PartOffset>(_an.getContextEl().getCoverage().getCurrentParts()));
-                            _d.getDelKeyWordStaticExtract().add(typeRes_);
-                            i_ = j_;
+                        if (j_ < len_ && _string.charAt(j_) == DOT_VAR) {
+                            i_ = processFieldsStaticAccess(_an, ctorCall_, _string, beginWord_, word_, i_, _d);
                         } else {
                             _d.getVariables().add(info_);
                         }
-                    } else if (!_out.isDeclared(word_) && !prev_.endsWith(dot_) && i_ < len_ &&_string.charAt(i_) == DOT_VAR) {
-                        i_ = processFieldsStaticAccess(_an, ctorCall_, _string, beginWord_, word_, i_, _d);
                     } else {
                         _d.getVariables().add(info_);
                     }
@@ -1650,14 +1613,6 @@ public final class ElResolver {
             return;
         }
         if (curChar_ == DOT_VAR) {
-            if (i_ + 1 < len_ && _string.charAt(i_ + 1) == DOT_VAR) {
-                lastDoubleDot_ = i_;
-                i_++;
-                i_++;
-                doubleDotted_.setLastDoubleDot(lastDoubleDot_);
-                doubleDotted_.setNextIndex(i_);
-                return;
-            }
             if (isNumber(i_ + 1, len_, _string, opt_)) {
                 NumberInfosOutput res_ = processNb(keyWords_, i_ + 1, len_, _string, true, opt_);
                 int nextIndex_ = res_.getNextIndex();
@@ -2181,160 +2136,79 @@ public final class ElResolver {
             begins_.add(fChar_);
             ends_.add(lChar_);
         }
-        Options opt_ = _conf.getOptions();
-        if (opt_.isSingleInnerParts()) {
-            CustList<PartOffset> partOffsets_ = new CustList<PartOffset>();
-            int ik_ = 0;
-            int lenk_ = partsFields_.size();
-            StringBuilder idType_ = new StringBuilder();
-            StringBuilder idTypeFull_ = new StringBuilder();
-            int nb_ = 0;
-            boolean found_ = false;
-            StringList allPkg_ = _conf.getClasses().getPackagesFound();
-            while (ik_ < lenk_) {
-                String p_ = partsFields_.get(ik_);
-                idType_.append(p_.trim());
-                idTypeFull_.append(p_);
-                if (!StringList.contains(allPkg_, idType_.toString())) {
-                    break;
-                }
-                found_ = true;
-                if (ik_ + 1 < lenk_) {
-                    idType_.append('.');
-                    idTypeFull_.append('.');
-                }
-                nb_++;
-                ik_++;
-            }
-            int nextOff_ = i_;
-            String start_;
-            if (found_) {
-                start_ = idType_.toString();
-                _conf.appendParts(i_,i_+idTypeFull_.length(),start_,partOffsets_);
-                ik_++;
-                nextOff_ += idTypeFull_.length() + 1;
-            } else {
-                start_ = _conf.resolveCorrectTypeWithoutErrors(i_,partsFields_.first(), false);
-                partOffsets_.addAllElts(_conf.getContextEl().getCoverage().getCurrentParts());
-                ik_ = 1;
-                nb_ = 0;
-                nextOff_ += partsFields_.first().length() + 1;
-            }
-            while (ik_ < lenk_) {
-                String fullPart_ = partsFields_.get(ik_);
-                int locOff_ = StringList.getFirstPrintableCharIndex(fullPart_);
-                String p_ = fullPart_.trim();
-                if (StringList.quickEq(p_, keyWordThis_)) {
-                    break;
-                }
-                boolean fieldLoc_ = isField(_conf, start_,_ctor, p_);
-                if (fieldLoc_) {
-                    break;
-                }
-                StringList res_ = TypeUtil.getInners(start_, p_, _conf);
-                if (res_.onlyOneElt()) {
-                    start_ = res_.first();
-                    _conf.appendParts(nextOff_+locOff_,nextOff_+locOff_+p_.length(),start_,partOffsets_);
-                    nextOff_ += fullPart_.length() + 1;
-                    nb_++;
-                    ik_++;
-                    continue;
-                }
+        CustList<PartOffset> partOffsets_ = new CustList<PartOffset>();
+        int ik_ = 0;
+        int lenk_ = partsFields_.size();
+        StringBuilder idType_ = new StringBuilder();
+        StringBuilder idTypeFull_ = new StringBuilder();
+        int nb_ = 0;
+        boolean found_ = false;
+        StringList allPkg_ = _conf.getClasses().getPackagesFound();
+        while (ik_ < lenk_) {
+            String p_ = partsFields_.get(ik_);
+            idType_.append(p_.trim());
+            idTypeFull_.append(p_);
+            if (!StringList.contains(allPkg_, idType_.toString())) {
                 break;
             }
-            int n_;
-            if (indexes_.isValidIndex(nb_)) {
-                n_ = indexes_.get(nb_);
-            } else {
-                n_ = k_;
+            found_ = true;
+            if (ik_ + 1 < lenk_) {
+                idType_.append('.');
+                idTypeFull_.append('.');
             }
-            if (_conf.getClassBody(start_) == null || _string.substring(n_).trim().indexOf('.') != 0) {
-                return n_;
+            nb_++;
+            ik_++;
+        }
+        int nextOff_ = i_;
+        String start_;
+        if (found_) {
+            start_ = idType_.toString();
+            _conf.appendParts(i_,i_+idTypeFull_.length(),start_,partOffsets_);
+            ik_++;
+            nextOff_ += idTypeFull_.length() + 1;
+        } else {
+            start_ = _conf.resolveCorrectTypeWithoutErrors(i_,partsFields_.first(), false);
+            partOffsets_.addAllElts(_conf.getContextEl().getCoverage().getCurrentParts());
+            ik_ = 1;
+            nb_ = 0;
+            nextOff_ += partsFields_.first().length() + 1;
+        }
+        while (ik_ < lenk_) {
+            String fullPart_ = partsFields_.get(ik_);
+            int locOff_ = StringList.getFirstPrintableCharIndex(fullPart_);
+            String p_ = fullPart_.trim();
+            if (StringList.quickEq(p_, keyWordThis_)) {
+                break;
             }
-            _d.getDelKeyWordStatic().add(i_);
-            _d.getDelKeyWordStatic().add(n_);
-            _d.getDelKeyWordStaticExtract().add(start_);
-            _d.getStaticParts().add(partOffsets_);
+            boolean fieldLoc_ = isField(_conf, start_,_ctor, p_);
+            if (fieldLoc_) {
+                break;
+            }
+            StringList res_ = TypeUtil.getInners(start_, p_, _conf);
+            if (res_.onlyOneElt()) {
+                start_ = res_.first();
+                _conf.appendParts(nextOff_+locOff_,nextOff_+locOff_+p_.length(),start_,partOffsets_);
+                nextOff_ += fullPart_.length() + 1;
+                nb_++;
+                ik_++;
+                continue;
+            }
+            break;
+        }
+        int n_;
+        if (indexes_.isValidIndex(nb_)) {
+            n_ = indexes_.get(nb_);
+        } else {
+            n_ = k_;
+        }
+        if (_conf.getClassBody(start_) == null || _string.substring(n_).trim().indexOf('.') != 0) {
             return n_;
         }
-        StringBuilder allparts_ = new StringBuilder();
-        int partLen_ = partsFields_.size();
-        for (int i = 0; i < partLen_; i++) {
-            allparts_.append(partsFields_.get(i));
-            if (i + 1 < partLen_) {
-                allparts_.append(DOT_VAR);
-                if (doubleDotted_.get(i)) {
-                    allparts_.append(DOT_VAR);
-                }
-            }
-        }
-        String id_ = allparts_.toString();
-        String dot_ = String.valueOf(DOT_VAR);
-        StringList candidates_ = new StringList();
-        if (!id_.contains(StringList.concat(dot_, dot_))) {
-            int idLen_ = id_.length();
-            for (int i = 0; i < idLen_; i++) {
-                char sep_ = id_.charAt(i);
-                if (sep_ == DOT_VAR) {
-                    candidates_.add(id_.substring(0, i));
-                }
-            }
-            boolean found_ = false;
-            int index_ = 0;
-            for (String c: candidates_) {
-                String tr_ = ContextEl.removeDottedSpaces(c);
-                if (_conf.getClassBody(tr_) != null) {
-                    int n_ = indexes_.get(index_);
-                    _d.getDelKeyWordStatic().add(i_);
-                    _d.getDelKeyWordStatic().add(n_);
-                    _d.getDelKeyWordStaticExtract().add(tr_);
-                    CustList<PartOffset> partOffsets_ = new CustList<PartOffset>();
-                    _conf.appendParts(i_,n_,tr_,partOffsets_);
-                    _d.getStaticParts().add(partOffsets_);
-                    i_ = n_;
-                    found_ = true;
-                    break;
-                }
-                index_++;
-            }
-            if (found_) {
-                return i_;
-            }
-        }
-        String tr_ = ContextEl.removeDottedSpaces(id_);
-        if (_string.substring(k_).trim().indexOf('.') == 0) {
-            if (_conf.getClassBody(tr_) != null) {
-                _d.getDelKeyWordStatic().add(i_);
-                _d.getDelKeyWordStatic().add(k_);
-                _d.getDelKeyWordStaticExtract().add(tr_);
-                CustList<PartOffset> partOffsets_ = new CustList<PartOffset>();
-                _conf.appendMultiParts(i_,id_,tr_,partOffsets_);
-                _d.getStaticParts().add(partOffsets_);
-                return k_;
-            }
-            String typeRes_ = _conf.resolveCorrectTypeWithoutErrors(i_,id_, false);
-            if (!typeRes_.isEmpty()) {
-                _d.getDelKeyWordStatic().add(i_);
-                _d.getDelKeyWordStatic().add(k_);
-                _d.getDelKeyWordStaticExtract().add(typeRes_);
-                _d.getStaticParts().add(new CustList<PartOffset>(_conf.getContextEl().getCoverage().getCurrentParts()));
-                return k_;
-            }
-        }
-        int index_ = 0;
-        for (String c: candidates_) {
-            tr_ = _conf.resolveCorrectTypeWithoutErrors(i_,c,false);
-            if (!tr_.isEmpty()) {
-                int n_ = indexes_.get(index_);
-                _d.getDelKeyWordStatic().add(i_);
-                _d.getDelKeyWordStatic().add(n_);
-                _d.getDelKeyWordStaticExtract().add(tr_);
-                _d.getStaticParts().add(new CustList<PartOffset>(_conf.getContextEl().getCoverage().getCurrentParts()));
-                return n_;
-            }
-            index_++;
-        }
-        return j_;
+        _d.getDelKeyWordStatic().add(i_);
+        _d.getDelKeyWordStatic().add(n_);
+        _d.getDelKeyWordStaticExtract().add(start_);
+        _d.getStaticParts().add(partOffsets_);
+        return n_;
     }
     private static IndexUnicodeEscape processStrings(KeyWords _key, String _string, int _max, IndexUnicodeEscape _infos, char _delimiter) {
         int i_ = _infos.getIndex();
@@ -3717,21 +3591,11 @@ public final class ElResolver {
         if (j_ >= indexParRight_) {
             cast_ = false;
         }
-        boolean strType_ = false;
         if (cast_) {
             char locCar_ = _string.charAt(j_);
             if (!StringList.isDollarWordChar(locCar_)) {
                 if (locCar_ == Templates.PREFIX_VAR_TYPE_CHAR) {
                     type_ = true;
-                } else if (locCar_ == DOT_VAR) {
-                    if (_string.charAt(j_ + 1) == DOT_VAR) {
-                        doubleDot_ = true;
-                        type_ = true;
-                        strType_ = true;
-                        j_++;
-                    } else {
-                        cast_ = false;
-                    }
                 } else {
                     cast_ = false;
                 }
@@ -3761,7 +3625,7 @@ public final class ElResolver {
         Ints ends_ = new Ints();
         int fChar_ = -1;
         int lChar_ = -1;
-        if (cast_ && !strType_) {
+        if (cast_) {
             while (j_ < indexParRight_) {
                 char locCar_ = _string.charAt(j_);
                 if (locCar_ == Templates.GT) {
@@ -3864,16 +3728,6 @@ public final class ElResolver {
                     part_.delete(0, part_.length());
                     fChar_ = -1;
                     lChar_ = -1;
-                    if (_string.charAt(j_ + 1) == DOT_VAR) {
-                        doubleDot_ = true;
-                        type_ = true;
-                        j_++;
-                    } else if (doubleDot_) {
-                        if (count_ == 0) {
-                            cast_ = false;
-                            break;
-                        }
-                    }
                     j_++;
                     continue;
                 }

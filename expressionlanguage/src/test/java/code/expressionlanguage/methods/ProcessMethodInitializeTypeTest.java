@@ -1415,7 +1415,7 @@ public final class ProcessMethodInitializeTypeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final ExTwo..Inner inst = $new ExTwo().$new Inner():\n");
+        xml_.append(" $public $static $final ExTwo.Inner inst = $new ExTwo().$new Inner():\n");
         xml_.append(" $public $static $void exec(){}\n");
         xml_.append(" $public $class Inner {\n");
         xml_.append(" }\n");
@@ -1430,7 +1430,7 @@ public final class ProcessMethodInitializeTypeTest extends ProcessMethodCommon {
     public void calculate74Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
-        xml_.append(" $public $static $final ExTwo..Inner inst = $new ExTwo().$new Inner():\n");
+        xml_.append(" $public $static $final ExTwo.Inner inst = $new ExTwo().$new Inner():\n");
         xml_.append(" $static{\n");
         xml_.append("  $ObjectsUtil.setParent(inst,$new ExTwo()):\n");
         xml_.append(" }\n");
@@ -1440,7 +1440,7 @@ public final class ProcessMethodInitializeTypeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final ExTwo..Inner inst = $new ExTwo().$new Inner():\n");
+        xml_.append(" $public $static $final ExTwo.Inner inst = $new ExTwo().$new Inner():\n");
         xml_.append(" $public $static $void exec(){}\n");
         xml_.append(" $public $class Inner {\n");
         xml_.append(" }\n");
@@ -1455,7 +1455,7 @@ public final class ProcessMethodInitializeTypeTest extends ProcessMethodCommon {
     public void calculate75Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
-        xml_.append(" $public $static $final ExTwo..Inner inst = $new ExTwo().$new Inner():\n");
+        xml_.append(" $public $static $final ExTwo.Inner inst = $new ExTwo().$new Inner():\n");
         xml_.append(" $static{\n");
         xml_.append("  $ObjectsUtil.setParent(\"\",$new ExTwo()):\n");
         xml_.append(" }\n");
@@ -1465,7 +1465,7 @@ public final class ProcessMethodInitializeTypeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final ExTwo..Inner inst = $new ExTwo().$new Inner():\n");
+        xml_.append(" $public $static $final ExTwo.Inner inst = $new ExTwo().$new Inner():\n");
         xml_.append(" $public $static $void exec(){}\n");
         xml_.append(" $public $class Inner {\n");
         xml_.append(" }\n");

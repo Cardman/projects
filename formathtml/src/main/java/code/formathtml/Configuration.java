@@ -891,11 +891,6 @@ public final class Configuration implements ExecutableCode {
     }
 
     @Override
-    public void appendMultiParts(int _begin, String _full, String _in, CustList<PartOffset> _parts) {
-        //implement
-    }
-
-    @Override
     public void appendParts(int _begin, int _end, String _in, CustList<PartOffset> _parts) {
         //implement
     }
@@ -1136,71 +1131,10 @@ public final class Configuration implements ExecutableCode {
     @Override
     public String lookupImportType(String _type, AccessingImportingBlock _rooted, boolean _line) {
         String prefixedType_;
-        if (getOptions().isSingleInnerParts()) {
-            prefixedType_ = getRealSinglePrefixedMemberType(_type, _rooted);
-        } else {
-            prefixedType_ = lookupSingleImportTypeDoubleDot(_type, _rooted);
-        }
+        prefixedType_ = getRealSinglePrefixedMemberType(_type, _rooted);
         return prefixedType_;
     }
 
-    public String lookupSingleImportTypeDoubleDot(String _type, AccessedBlock _rooted) {
-        String look_ = _type.trim();
-        StringList types_ = new StringList();
-        CustList<StringList> imports_ = fetch(_rooted);
-        String keyWordStatic_ = context.getKeyWords().getKeyWordStatic();
-        for (StringList s: imports_) {
-            for (String i: s) {
-                if (!i.contains(".")) {
-                    continue;
-                }
-                if (ContextEl.startsWithKeyWord(i, keyWordStatic_)) {
-                    continue;
-                }
-                String begin_ = ContextEl.removeDottedSpaces(i.substring(0, i.lastIndexOf('.')+1));
-                String end_ = ContextEl.removeDottedSpaces(i.substring(i.lastIndexOf('.')+1));
-                if (!StringList.quickEq(end_, look_)) {
-                    continue;
-                }
-                String typeLoc_ = ContextEl.removeDottedSpaces(StringList.concat(begin_, look_));
-                if (getClassBody(typeLoc_) == null) {
-                    continue;
-                }
-                types_.add(typeLoc_);
-            }
-            if (types_.onlyOneElt()) {
-                return types_.first();
-            }
-            types_.clear();
-        }
-        for (StringList s: imports_) {
-            for (String i: s) {
-                if (!i.contains(".")) {
-                    continue;
-                }
-                if (ContextEl.startsWithKeyWord(i, keyWordStatic_)) {
-                    continue;
-                }
-                String end_ = ContextEl.removeDottedSpaces(i.substring(i.lastIndexOf('.')+1));
-                if (!StringList.quickEq(end_, "*")) {
-                    continue;
-                }
-                String begin_ = ContextEl.removeDottedSpaces(i.substring(0, i.lastIndexOf('.')));
-                String typeLoc_ = StringList.concat(begin_,".",look_);
-                if (getClassBody(typeLoc_) == null) {
-                    continue;
-                }
-                types_.add(typeLoc_);
-            }
-            if (types_.onlyOneElt()) {
-                return types_.first();
-            }
-            types_.clear();
-        }
-        String defPkg_ = standards.getDefaultPkg();
-        String type_ = ContextEl.removeDottedSpaces(StringList.concat(defPkg_,".",_type));
-        return getTypeOrEmpty(type_);
-    }
     private static CustList<StringList> fetch(AccessedBlock _rooted) {
         CustList<StringList> imports_ = new CustList<StringList>();
         if (_rooted != null) {
@@ -1219,63 +1153,8 @@ public final class Configuration implements ExecutableCode {
     @Override
     public String lookupImportMemberType(String _type, AccessingImportingBlock _rooted, boolean _inherits, StringList _readTypes) {
         String prefixedType_;
-        if (getOptions().isSingleInnerParts()) {
-            prefixedType_ = getRealSinglePrefixedMemberType(_type, _rooted);
-        } else {
-            prefixedType_ = getRealPrefixedMemberType(_type, _rooted);
-        }
+        prefixedType_ = getRealSinglePrefixedMemberType(_type, _rooted);
         return prefixedType_;
-    }
-
-    private String getRealPrefixedMemberType(String _type, AccessingImportingBlock _rooted) {
-        String look_ = _type.trim();
-        StringList types_ = new StringList();
-        CustList<StringList> imports_ = fetch(_rooted);
-        for (StringList s: imports_) {
-            for (String i: s) {
-                if (!i.contains("..")) {
-                    continue;
-                }
-                String begin_ = ContextEl.removeDottedSpaces(i.substring(0, i.lastIndexOf("..")+2));
-                String end_ = ContextEl.removeDottedSpaces(i.substring(i.lastIndexOf("..")+2));
-                if (!StringList.quickEq(end_, look_)) {
-                    continue;
-                }
-                String typeLoc_ = ContextEl.removeDottedSpaces(StringList.concat(begin_, look_));
-                String ft_ = exist(typeLoc_);
-                if (ft_.isEmpty()) {
-                    continue;
-                }
-                types_.add(ft_);
-            }
-            if (types_.onlyOneElt()) {
-                return types_.first();
-            }
-            types_.clear();
-        }
-        for (StringList s: imports_) {
-            for (String i: s) {
-                if (!i.contains("..")) {
-                    continue;
-                }
-                String end_ = ContextEl.removeDottedSpaces(i.substring(i.lastIndexOf("..")+2));
-                if (!StringList.quickEq(end_, "*")) {
-                    continue;
-                }
-                String begin_ = ContextEl.removeDottedSpaces(i.substring(0, i.lastIndexOf("..")+2));
-                String typeLoc_ = StringList.concat(begin_,look_);
-                String ft_ = exist(typeLoc_);
-                if (ft_.isEmpty()) {
-                    continue;
-                }
-                types_.add(ft_);
-            }
-            if (types_.onlyOneElt()) {
-                return types_.first();
-            }
-            types_.clear();
-        }
-        return "";
     }
 
     private String getRealSinglePrefixedMemberType(String _type, AccessingImportingBlock _rooted) {

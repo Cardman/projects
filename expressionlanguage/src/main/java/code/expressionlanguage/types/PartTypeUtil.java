@@ -37,8 +37,7 @@ public final class PartTypeUtil {
         AnalyzingType loc_ = ParserType.analyzeLocal(0, _input, indexes_, options_);
         CustList<IntTreeMap< String>> dels_;
         dels_ = new CustList<IntTreeMap< String>>();
-        boolean rem_ = loc_.isRemovedEmptyFirstChild();
-        PartType root_ = PartType.createPartType(_an,null, 0, 0, loc_, loc_.getValues(), rem_, options_);
+        PartType root_ = PartType.createPartType(_an,null, 0, 0, loc_, loc_.getValues(), options_);
         CustList<LeafPartType> l_ = new CustList<LeafPartType>();
         addIfLeaf(root_,l_);
         addValues(root_, dels_, loc_);
@@ -95,8 +94,7 @@ public final class PartTypeUtil {
         AnalyzingType loc_ = ParserType.analyzeQuickLocal(0, _className, indexes_);
         CustList<IntTreeMap< String>> dels_;
         dels_ = new CustList<IntTreeMap< String>>();
-        boolean rem_ = loc_.isRemovedEmptyFirstChild();
-        PartType root_ = PartType.createQuickPartType(null, 0, 0, loc_, loc_.getValues(), rem_);
+        PartType root_ = PartType.createQuickPartType(null, 0, 0, loc_, loc_.getValues());
         addValues(root_, dels_, loc_);
         PartType current_ = root_;
         while (true) {
@@ -150,8 +148,7 @@ public final class PartTypeUtil {
         AnalyzingType loc_ = ParserType.analyzeLocal(0, _input, indexes_, options_);
         CustList<IntTreeMap< String>> dels_;
         dels_ = new CustList<IntTreeMap< String>>();
-        boolean rem_ = loc_.isRemovedEmptyFirstChild();
-        PartType root_ = PartType.createPartType(_an,null, 0, 0, loc_, loc_.getValues(), rem_, options_);
+        PartType root_ = PartType.createPartType(_an,null, 0, 0, loc_, loc_.getValues(), options_);
         CustList<LeafPartType> l_ = new CustList<LeafPartType>();
         addIfLeaf(root_,l_);
         addValues(root_, dels_, loc_);
@@ -209,8 +206,7 @@ public final class PartTypeUtil {
         AnalyzingType loc_ = ParserType.analyzeLocal(0, _input, indexes_, options_);
         CustList<IntTreeMap< String>> dels_;
         dels_ = new CustList<IntTreeMap< String>>();
-        boolean rem_ = loc_.isRemovedEmptyFirstChild();
-        PartType root_ = PartType.createPartType(_an, null, 0, 0, loc_, loc_.getValues(), rem_, options_);
+        PartType root_ = PartType.createPartType(_an, null, 0, 0, loc_, loc_.getValues(), options_);
         CustList<LeafPartType> l_ = new CustList<LeafPartType>();
         addIfLeaf(root_,l_);
         addValues(root_, dels_, loc_);
@@ -295,8 +291,7 @@ public final class PartTypeUtil {
         AnalyzingType loc_ = ParserType.analyzeLocalExec(0, _input, indexes_);
         CustList<IntTreeMap< String>> dels_;
         dels_ = new CustList<IntTreeMap< String>>();
-        boolean rem_ = loc_.isRemovedEmptyFirstChild();
-        PartType root_ = PartType.createPartTypeExec(null, 0, 0, loc_, loc_.getValues(), rem_);
+        PartType root_ = PartType.createPartTypeExec(null, 0, 0, loc_, loc_.getValues());
         addValues(root_, dels_, loc_);
         PartType current_ = root_;
         while (true) {
@@ -349,8 +344,7 @@ public final class PartTypeUtil {
         AnalyzingType loc_ = ParserType.analyzeLocalExec(0, _input, indexes_);
         CustList<IntTreeMap< String>> dels_;
         dels_ = new CustList<IntTreeMap< String>>();
-        boolean rem_ = loc_.isRemovedEmptyFirstChild();
-        PartType root_ = PartType.createPartTypeExec(null, 0, 0, loc_, loc_.getValues(), rem_);
+        PartType root_ = PartType.createPartTypeExec(null, 0, 0, loc_, loc_.getValues());
         addValues(root_, dels_, loc_);
         PartType current_ = root_;
         while (true) {
@@ -424,8 +418,7 @@ public final class PartTypeUtil {
         IntTreeMap< String> last_ = _dels.last();
         String v_ = last_.firstValue();
         AnalyzingType an_ = ParserType.analyzeLocal(off_, v_, _analyze.getIndexes(), _options);
-        boolean rem_ = an_.isRemovedEmptyFirstChild();
-        PartType p_ = PartType.createPartType(_an, par_, 0, off_, an_, last_, rem_, _options);
+        PartType p_ = PartType.createPartType(_an, par_, 0, off_, an_, last_, _options);
         addValues(p_, _dels, an_);
         return p_;
     }
@@ -447,8 +440,7 @@ public final class PartTypeUtil {
         IntTreeMap< String> last_ = _dels.last();
         String v_ = last_.firstValue();
         AnalyzingType an_ = ParserType.analyzeLocalExec(off_, v_, _analyze.getIndexes());
-        boolean rem_ = an_.isRemovedEmptyFirstChild();
-        PartType p_ = PartType.createPartTypeExec(par_, 0, off_, an_, last_, rem_);
+        PartType p_ = PartType.createPartTypeExec(par_, 0, off_, an_, last_);
         addValues(p_, _dels, an_);
         return p_;
     }
@@ -470,8 +462,7 @@ public final class PartTypeUtil {
         IntTreeMap< String> last_ = _dels.last();
         String v_ = last_.firstValue();
         AnalyzingType an_ = ParserType.analyzeQuickLocal(off_, v_, _analyze.getIndexes());
-        boolean rem_ = an_.isRemovedEmptyFirstChild();
-        PartType p_ = PartType.createQuickPartType(par_, 0, off_, an_, last_, rem_);
+        PartType p_ = PartType.createQuickPartType(par_, 0, off_, an_, last_);
         addValues(p_, _dels, an_);
         return p_;
     }
@@ -499,8 +490,7 @@ public final class PartTypeUtil {
         }
         String v_ = last_.getValue(indexNext_);
         AnalyzingType an_ = ParserType.analyzeLocal(off_, v_, _analyze.getIndexes(), _options);
-        boolean rem_ = an_.isRemovedEmptyFirstChild();
-        PartType p_ = PartType.createPartType(_an,b_,indexNext_, off_, an_, last_, rem_, _options);
+        PartType p_ = PartType.createPartType(_an,b_,indexNext_, off_, an_, last_, _options);
         p_.setPreviousSibling(_parent);
         addValues(p_, _dels, an_);
         return p_;
@@ -529,8 +519,7 @@ public final class PartTypeUtil {
         }
         String v_ = last_.getValue(indexNext_);
         AnalyzingType an_ = ParserType.analyzeQuickLocal(off_, v_, _analyze.getIndexes());
-        boolean rem_ = an_.isRemovedEmptyFirstChild();
-        PartType p_ = PartType.createQuickPartType(b_,indexNext_, off_, an_, last_, rem_);
+        PartType p_ = PartType.createQuickPartType(b_,indexNext_, off_, an_, last_);
         p_.setPreviousSibling(_parent);
         addValues(p_, _dels, an_);
         return p_;
@@ -559,8 +548,7 @@ public final class PartTypeUtil {
         }
         String v_ = last_.getValue(indexNext_);
         AnalyzingType an_ = ParserType.analyzeLocalExec(off_, v_, _analyze.getIndexes());
-        boolean rem_ = an_.isRemovedEmptyFirstChild();
-        PartType p_ = PartType.createPartTypeExec(b_,indexNext_, off_, an_, last_, rem_);
+        PartType p_ = PartType.createPartTypeExec(b_,indexNext_, off_, an_, last_);
         p_.setPreviousSibling(_parent);
         addValues(p_, _dels, an_);
         return p_;

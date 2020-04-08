@@ -341,6 +341,64 @@ public final class ProcessMethodInstanceLinearInheritTest extends
     }
 
     @Test
+    public void instanceArgument20_Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
+        xml_.append(" $public $int inst=2i:\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public pkg.ExThree third=$new pkg.ExThree(17i):\n");
+        xml_.append(" $public $int sec=third .ance:\n");
+        xml_.append(" {\n");
+        xml_.append("  sec;;;+=8i:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public (){\n");
+        xml_.append("  sec;;;+=16i:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExThree {\n");
+        xml_.append(" $public $int ance:\n");
+        xml_.append(" $public ($int i){\n");
+        xml_.append("  $if(i;.;<0){\n");
+        xml_.append("   ance;;;=i;.;:\n");
+        xml_.append("   $return:\n");
+        xml_.append("  }\n");
+        xml_.append("  ance;;;=i;.;:\n");
+        xml_.append("  ance;;;+=i;.;:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExThree", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        ConstructorId id_ = getConstructorId("pkg.Ex");
+
+        Argument ret_;
+        ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
+        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        Struct str_ = ret_.getStruct();
+        assertEq("pkg.Ex", str_.getClassName(cont_));
+        Struct field_;
+        field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.Ex", "inst"));
+        assertEq(INTEGER, field_.getClassName(cont_));
+        assertEq(2, ((NumberStruct)field_).intStruct());
+        field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.ExTwo", "sec"));
+        assertEq(INTEGER, field_.getClassName(cont_));
+        assertEq(58, ((NumberStruct)field_).intStruct());
+        field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.ExTwo", "third"));
+        assertEq("pkg.ExThree", field_.getClassName(cont_));
+        Struct intern_ = ((FieldableStruct)field_).getFields().getVal(new ClassField("pkg.ExThree", "ance"));
+        assertEq(INTEGER, intern_.getClassName(cont_));
+        assertEq(34, ((NumberStruct)intern_).intStruct());
+    }
+
+    @Test
     public void instanceArgument21Test() {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();

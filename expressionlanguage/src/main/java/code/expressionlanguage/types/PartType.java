@@ -2,7 +2,6 @@ package code.expressionlanguage.types;
 
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.methods.AccessedBlock;
 import code.expressionlanguage.methods.AccessingImportingBlock;
 import code.expressionlanguage.options.Options;
 import code.util.CustList;
@@ -25,7 +24,7 @@ abstract class PartType {
         index = _index;
         indexInType = _indexInType;
     }
-    static PartType createPartType(Analyzable _an, ParentPartType _parent, int _index, int _indexInType, AnalyzingType _analyze, IntTreeMap< String> _dels, boolean _removedFirst, Options _options) {
+    static PartType createPartType(Analyzable _an, ParentPartType _parent, int _index, int _indexInType, AnalyzingType _analyze, IntTreeMap<String> _dels, Options _options) {
         if (_analyze.isError()) {
             return new EmptyPartType(_parent, _index, _indexInType, _dels.getValue(_index));
         }
@@ -55,14 +54,14 @@ abstract class PartType {
             return new TemplatePartType(_parent, _index, _indexInType);
         }
         if (_analyze.getPrio() == ParserType.INT_PRIO) {
-            return new InnerPartType(_parent, _index, _indexInType, _removedFirst);
+            return new InnerPartType(_parent, _index, _indexInType);
         }
         if (_analyze.getPrio() == ParserType.ARR_PRIO) {
             return new ArraryPartType(_parent, _index, _indexInType);
         }
         return new WildCardPartType(_parent, _index, _indexInType, _analyze.getOperators().firstValue());
     }
-    static PartType createQuickPartType(ParentPartType _parent, int _index, int _indexInType, AnalyzingType _analyze, IntTreeMap<String> _dels, boolean _removedFirst) {
+    static PartType createQuickPartType(ParentPartType _parent, int _index, int _indexInType, AnalyzingType _analyze, IntTreeMap<String> _dels) {
         if (_analyze.getOperators().isEmpty()) {
             if (_analyze.getKind() == KindPartType.TYPE_NAME) {
                 String type_ = _dels.getValue(_index);
@@ -77,14 +76,14 @@ abstract class PartType {
             return new TemplatePartType(_parent, _index, _indexInType);
         }
         if (_analyze.getPrio() == ParserType.INT_PRIO) {
-            return new InnerPartType(_parent, _index, _indexInType, _removedFirst);
+            return new InnerPartType(_parent, _index, _indexInType);
         }
         if (_analyze.getPrio() == ParserType.ARR_PRIO) {
             return new ArraryPartType(_parent, _index, _indexInType);
         }
         return new WildCardPartType(_parent, _index, _indexInType, _analyze.getOperators().firstValue());
     }
-    static PartType createPartTypeExec(ParentPartType _parent, int _index, int _indexInType, AnalyzingType _analyze, IntTreeMap< String> _dels, boolean _removedFirst) {
+    static PartType createPartTypeExec(ParentPartType _parent, int _index, int _indexInType, AnalyzingType _analyze, IntTreeMap<String> _dels) {
         if (_analyze.isError()) {
             return new EmptyPartType(_parent, _index, _indexInType, _dels.getValue(_index));
         }
@@ -101,7 +100,7 @@ abstract class PartType {
             return new TemplatePartType(_parent, _index, _indexInType);
         }
         if (_analyze.getPrio() == ParserType.INT_PRIO) {
-            return new InnerPartType(_parent, _index, _indexInType, _removedFirst);
+            return new InnerPartType(_parent, _index, _indexInType);
         }
         if (_analyze.getPrio() == ParserType.ARR_PRIO) {
             return new ArraryPartType(_parent, _index, _indexInType);

@@ -28,13 +28,6 @@ final class NamePartType extends LeafPartType {
         }
         if (i_ != null) {
             PartType part_ = parCur_.getPreviousSibling();
-            if (part_ == null) {
-                if (i_.isRemovedBefore()) {
-                    tryAnalyzeInnerParts(_an, _globalType, _local,_rooted
-                    );
-                    return;
-                }
-            }
             while (part_ != null) {
                 previous_.add(part_);
                 part_ = part_.getPreviousSibling();
@@ -84,17 +77,11 @@ final class NamePartType extends LeafPartType {
             setAnalyzedType(type_);
             return;
         }
-        if (getParent() instanceof TemplatePartType) {
-            if (processFctVoid(_an, _dels)) {
-                return;
-            }
-        }
-        if (_an.getOptions().isSingleInnerParts()) {
-            tryAnalyzeInnerParts(_an, _globalType, _local,_rooted
-            );
+        if (processFctVoid(_an, _dels)) {
             return;
         }
-        lookupSimpleType(_an, _local,_rooted, type_,false);
+        tryAnalyzeInnerParts(_an, _globalType, _local,_rooted
+        );
     }
 
     @Override
@@ -144,12 +131,6 @@ final class NamePartType extends LeafPartType {
         }
         if (i_ != null) {
             PartType part_ = parCur_.getPreviousSibling();
-            if (part_ == null) {
-                if (i_.isRemovedBefore()) {
-                    tryAnalyzeInnerPartsLine(_an, _local,_rooted);
-                    return;
-                }
-            }
             while (part_ != null) {
                 previous_.add(part_);
                 part_ = part_.getPreviousSibling();
@@ -185,21 +166,18 @@ final class NamePartType extends LeafPartType {
             setAnalyzedType(type_);
             return;
         }
-        if (getParent() instanceof TemplatePartType) {
-            if (processFctVoid(_an, _dels)) {
-                return;
-            }
-        }
-        //_an.lookupImportMemberType(type_, _rooted, false);
-        if (_an.getOptions().isSingleInnerParts()) {
-            tryAnalyzeInnerPartsLine(_an, _local,_rooted);
+        if (processFctVoid(_an, _dels)) {
             return;
         }
-        lookupSimpleType(_an, _local,_rooted, type_,true);
+        tryAnalyzeInnerPartsLine(_an, _local,_rooted);
     }
 
     private boolean processFctVoid(Analyzable _an, CustList<IntTreeMap< String>> _dels) {
-        PartType prev_ = getParent().getFirstChild();
+        ParentPartType par_ = getParent();
+        if (!(par_ instanceof TemplatePartType)) {
+            return false;
+        }
+        PartType prev_ = par_.getFirstChild();
         if (StringList.quickEq(getTypeName().trim(), _an.getStandards().getAliasVoid())) {
             String base_ = prev_.getAnalyzedType();
             base_ = Templates.getIdFromAllTypes(base_);
@@ -211,21 +189,6 @@ final class NamePartType extends LeafPartType {
             return true;
         }
         return false;
-    }
-
-    private void lookupSimpleType(Analyzable _an, AccessingImportingBlock _local, AccessingImportingBlock _rooted, String _type, boolean _line) {
-        String out_ = _an.lookupImportType(_type, _rooted, _line);
-        if (out_.isEmpty()) {
-            _an.getCurrentBadIndexes().add(getIndexInType());
-            return;
-        }
-        String id_ = Templates.getIdFromAllTypes(out_);
-        RootBlock root_ = _an.getClasses().getClassBody(id_);
-        if (root_ != null) {
-            analyzeFullType(_an, _local, out_);
-        } else {
-            setAnalyzedType(out_);
-        }
     }
 
     private void tryAnalyzeInnerParts(Analyzable _an, String _globalType,
