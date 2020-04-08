@@ -1408,6 +1408,12 @@ public final class Configuration implements ExecutableCode {
     }
 
     @Override
+    public String getIndexClassName() {
+        RendBlock currentBlock_ = analyzingDoc.getCurrentBlock();
+        return ((RendForMutableIterativeLoop)currentBlock_).getImportedClassIndexName();
+    }
+
+    @Override
     public void setForLoopPartState(ForLoopPart _state) {
         context.setForLoopPartState(_state);
     }

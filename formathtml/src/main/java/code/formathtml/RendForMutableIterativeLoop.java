@@ -172,7 +172,11 @@ public final class RendForMutableIterativeLoop extends RendParentBlock implement
         }
     }
 
-    public void buildIncrementPart(Configuration _an,RendDocumentBlock _doc) {
+    public String getImportedClassIndexName() {
+        return importedClassIndexName;
+    }
+
+    public void buildIncrementPart(Configuration _an, RendDocumentBlock _doc) {
         _an.setMerged(false);
         AnalyzedPageEl page_ = _an.getAnalyzing();
         page_.setGlobalOffset(stepOffset);
@@ -220,6 +224,7 @@ public final class RendForMutableIterativeLoop extends RendParentBlock implement
         Struct struct_ = PrimitiveTypeUtil.defaultValue(importedClassName, _cont);
         for (String v: variableNames) {
             LoopVariable lv_ = LoopVariable.newLoopVariable(struct_,importedClassName);
+            lv_.setIndexClassName(importedClassIndexName);
             ip_.getVars().put(v, lv_);
         }
         if (!opInit.isEmpty()) {
@@ -287,6 +292,10 @@ public final class RendForMutableIterativeLoop extends RendParentBlock implement
             if (_conf.getContext().hasException()) {
                 return;
             }
+        }
+        for (String v: variableNames) {
+            LoopVariable lv_ = ip_.getVars().getVal(v);
+            lv_.setIndex(lv_.getIndex()+1);
         }
         ConditionReturn keep_ = evaluateCondition(_conf);
         if (keep_ == ConditionReturn.CALL_EX) {

@@ -82,6 +82,11 @@ public final class FinalVariableOperation extends LeafOperation {
                 setResultClass(new ClassArgumentMatching(locVar_.getIndexClassName()));
                 return;
             }
+            locVar_ = _conf.getMutableLoopVar(variableName);
+            if (locVar_ != null) {
+                setResultClass(new ClassArgumentMatching(locVar_.getIndexClassName()));
+                return;
+            }
             FoundErrorInterpret und_ = new FoundErrorInterpret();
             und_.setFileName(_conf.getCurrentFileName());
             und_.setIndexFile(_conf.getCurrentLocationIndex());

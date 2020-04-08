@@ -147,4 +147,6 @@ public interface Analyzable {
     boolean isValidToken(String _id);
     void processInternKeyWord(String _exp, int _fr, ResultAfterInstKeyWord _out);
     boolean isHidden(AccessingImportingBlock _global, RootBlock _type);
+
+    String getIndexClassName();
 }

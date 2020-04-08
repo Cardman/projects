@@ -75,11 +75,13 @@ public final class MutableLoopVariableOperation extends LeafOperation implements
                 _conf.getVariablesNamesLoopToInfer().add(str_);
             }
             LoopVariable lv_ = new LoopVariable();
+            String indexClassName_ = _conf.getIndexClassName();
             if (StringList.quickEq(c_, keyWordVar_)) {
                 lv_.setClassName(_conf.getStandards().getAliasObject());
             } else {
                 lv_.setClassName(c_);
             }
+            lv_.setIndexClassName(indexClassName_);
             lv_.setFinalVariable(_conf.isFinalVariable());
             _conf.putMutableLoopVar(str_, lv_);
             _conf.getVariablesNames().add(str_);

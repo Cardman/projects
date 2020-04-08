@@ -377,6 +377,10 @@ public final class ForMutableIterativeLoop extends BracedStack implements
         }
     }
 
+    public String getImportedClassIndexName() {
+        return importedClassIndexName;
+    }
+
     public StringList getVariableNames() {
         return variableNames;
     }
@@ -715,6 +719,7 @@ public final class ForMutableIterativeLoop extends BracedStack implements
             Struct struct_ = PrimitiveTypeUtil.defaultValue(formatted_, _cont);
             for (String v: variableNames) {
                 LoopVariable lv_ = LoopVariable.newLoopVariable(struct_,formatted_);
+                lv_.setIndexClassName(importedClassIndexName);
                 ip_.getVars().put(v, lv_);
             }
         }
@@ -790,6 +795,12 @@ public final class ForMutableIterativeLoop extends BracedStack implements
                 return;
             }
             index_++;
+        }
+        if (ip_.sizeEl() < 2) {
+            for (String v : variableNames) {
+                LoopVariable lv_ = ip_.getVars().getVal(v);
+                lv_.setIndex(lv_.getIndex() + 1);
+            }
         }
         ConditionReturn keep_ = evaluateCondition(_conf, index_);
         if (keep_ == ConditionReturn.CALL_EX) {

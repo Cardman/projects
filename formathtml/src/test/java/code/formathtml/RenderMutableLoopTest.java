@@ -318,6 +318,16 @@ public final class RenderMutableLoopTest extends CommonRender {
         assertEq("<html>0-0--Pair-1-2--Impair-2-4--Pair-3-6--Impair-</html>", RendBlock.getRes(rendDocumentBlock_,context_));
         assertNull(getException(context_));
     }
+
+    @Test
+    public void process30Test() {
+        Configuration context_ = contextElFive();
+        String html_ = "<html><c:for className=\"$var\" init=\"i=4\" condition=\"i&gt;0\" step=\"i--\">{([i])}-</c:for></html>";
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, context_);
+        assertTrue(context_.isEmptyErrors());
+        assertEq("<html>0-1-2-3-</html>", RendBlock.getRes(rendDocumentBlock_,context_));
+        assertNull(getException(context_));
+    }
     @Test
     public void process1FailTest() {
         Configuration context_ = contextElThird();

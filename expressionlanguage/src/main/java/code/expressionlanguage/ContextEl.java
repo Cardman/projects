@@ -2313,6 +2313,11 @@ public abstract class ContextEl implements ExecutableCode {
     }
 
     @Override
+    public String getIndexClassName() {
+        return ((ForMutableIterativeLoop)getCurrentBlock()).getImportedClassIndexName();
+    }
+
+    @Override
     public void setForLoopPartState(ForLoopPart _state) {
         analyzing.setForLoopPartState(_state);
     }
