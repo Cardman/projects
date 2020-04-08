@@ -32,7 +32,6 @@ public abstract class ContextEl implements ExecutableCode {
 
     private static final int DEFAULT_TAB_WIDTH = 4;
     private static final String EMPTY_TYPE = "";
-    private static final String EMPTY_PREFIX = "";
 
     private int tabWidth = DEFAULT_TAB_WIDTH;
 
@@ -56,7 +55,7 @@ public abstract class ContextEl implements ExecutableCode {
 
     private AnalysisMessages analysisMessages;
     private KeyWords keyWords;
-    private boolean initEnums;
+    private InitPhase initEnums = InitPhase.READ_ONLY_OTHERS;
     private boolean failInit;
     private IdList<Struct> sensibleFields = new IdList<Struct>();
     private boolean covering;
@@ -84,20 +83,20 @@ public abstract class ContextEl implements ExecutableCode {
     protected ContextEl() {
     }
     public boolean isSensibleField(String _clName) {
-        if (!initEnums) {
+        if (!isInitEnums()) {
             return false;
         }
         String curr_ = getCurInitType();
         return !StringList.quickEq(curr_, _clName);
     }
     public boolean isContainedSensibleFields(Struct _array) {
-        if (!initEnums) {
+        if (!isInitEnums()) {
             return false;
         }
         return sensibleFields.containsObj(_array);
     }
     public void addSensibleField(String _fc, Struct _container) {
-        if (!initEnums) {
+        if (!isInitEnums()) {
             return;
         }
         if (!isPossibleSensible(_container)) {
@@ -109,7 +108,7 @@ public abstract class ContextEl implements ExecutableCode {
         }
     }
     public void addSensibleField(Struct _container, Struct _owned) {
-        if (!initEnums) {
+        if (!isInitEnums()) {
             return;
         }
         if (!isPossibleSensible(_owned)) {
@@ -120,7 +119,7 @@ public abstract class ContextEl implements ExecutableCode {
         }
     }
     public void addSensibleElementsFromClonedArray(Struct _array, ArrayStruct _cloned) {
-        if (!initEnums) {
+        if (!isInitEnums()) {
             return;
         }
         if (!sensibleFields.containsObj(_array)) {
@@ -155,15 +154,19 @@ public abstract class ContextEl implements ExecutableCode {
         return true;
     }
     public void failInitEnums() {
-        if (!initEnums) {
+        if (!isInitEnums()) {
             return;
         }
         failInit = true;
     }
     public boolean isInitEnums() {
-        return initEnums;
+        return initEnums == InitPhase.READ_ONLY_OTHERS;
     }
-    public void setInitEnums(boolean _initEnums) {
+    public boolean isWideInitEnums() {
+        return initEnums != InitPhase.NOTHING;
+    }
+
+    public void setInitEnums(InitPhase _initEnums) {
         initEnums = _initEnums;
     }
 
@@ -293,7 +296,7 @@ public abstract class ContextEl implements ExecutableCode {
         }
         String ret_ = methodLoc_.getImportedReturnType();
         MethodPageEl pageLoc_ = new MethodPageEl(this,ret_,_gl,_class,_right);
-        setMethodInfos(pageLoc_,methodLoc_,_class,_args);
+        setMethodInfos(pageLoc_,methodLoc_, _args);
         return pageLoc_;
     }
 
@@ -311,10 +314,10 @@ public abstract class ContextEl implements ExecutableCode {
         coverage.passCalls(this,idCl_,methodLoc_);
         String ret_ = methodLoc_.getImportedReturnType();
         CastPageEl pageLoc_ = new CastPageEl(this,ret_,Argument.createVoid(),_class);
-        setMethodInfos(pageLoc_,methodLoc_,_class,_args);
+        setMethodInfos(pageLoc_,methodLoc_, _args);
         return pageLoc_;
     }
-    private void setMethodInfos(AbstractMethodPageEl _page, NamedFunctionBlock _block, String _class, CustList<Argument> _args) {
+    private void setMethodInfos(AbstractMethodPageEl _page, NamedFunctionBlock _block, CustList<Argument> _args) {
         StringList paramsLoc_ = _block.getParametersNames();
         int lenLoc_ = paramsLoc_.size();
         for (int i = CustList.FIRST_INDEX; i < lenLoc_; i++) {
@@ -482,7 +485,7 @@ public abstract class ContextEl implements ExecutableCode {
 
     public abstract void initError();
 
-    public final ClassMetaInfo getClassMetaInfo(String _name) {
+    private ClassMetaInfo getClassMetaInfo(String _name) {
         String base_ = Templates.getIdFromAllTypes(_name);
         LgNames stds_ = getStandards();
         for (EntryCust<String, StandardType> c: stds_.getStandards().entryList()) {
@@ -682,7 +685,7 @@ public abstract class ContextEl implements ExecutableCode {
         return !importing.isEmpty();
     }
 
-    public AbstractPageEl getCall(int _index) {
+    private AbstractPageEl getCall(int _index) {
         return importing.get(_index);
     }
     public int nbPages() {
@@ -1850,7 +1853,7 @@ public abstract class ContextEl implements ExecutableCode {
         }
         return false;
     }
-    public String lookupSingleImportTypeDoubleDot(String _type, AccessedBlock _rooted) {
+    private String lookupSingleImportTypeDoubleDot(String _type, AccessedBlock _rooted) {
         String look_ = _type.trim();
         StringList types_ = new StringList();
         CustList<StringList> imports_ = new CustList<StringList>();

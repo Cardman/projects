@@ -38,7 +38,7 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
         CustList<OperationNode> chidren_ = getChildrenNodes();
         CustList<ClassArgumentMatching> firstArgs_ = listClasses(chidren_, _conf);
         int varargOnly_ = lookOnlyForVarArg();
-        ClassMethodId idMethod_ = lookOnlyForId();
+        ClassMethodIdAncestor idMethod_ = lookOnlyForId();
         if (hasVoidArguments(chidren_, firstArgs_, 0, _conf)) {
             setResultClass(new ClassArgumentMatching(_conf.getStandards().getAliasObject()));
             return;
@@ -52,14 +52,15 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
             accessSuperTypes_ = fwd_.isAccessSuperTypes();
             accessFromSuper_ = fwd_.isAccessFromSuper();
         }
-        ClassMethodId feed_ = null;
+        ClassMethodIdAncestor feed_ = null;
         String trimMeth_ = "[]";
         if (idMethod_ != null) {
-            String idClass_ = idMethod_.getClassName();
-            MethodId mid_ = idMethod_.getConstraints();
+            ClassMethodId id_ = idMethod_.getClassMethodId();
+            String idClass_ = id_.getClassName();
+            MethodId mid_ = id_.getConstraints();
             boolean vararg_ = mid_.isVararg();
             StringList params_ = mid_.getParametersTypes();
-            feed_ = new ClassMethodId(idClass_, new MethodId(MethodAccessKind.INSTANCE, trimMeth_, params_, vararg_));
+            feed_ = new ClassMethodIdAncestor(new ClassMethodId(idClass_, new MethodId(MethodAccessKind.INSTANCE, trimMeth_, params_, vararg_)),idMethod_.getAncestor());
         }
         ClassArgumentMatching class_ = getPreviousResultClass();
         String classType_ = "";

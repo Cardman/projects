@@ -263,10 +263,10 @@ public final class StringStruct extends CharSequenceStruct {
         if (StringList.quickEq(name_, lgNames_.getAliasEqualsIgnoreCase())) {
             Struct two_ = _args[0];
             if (!(two_ instanceof StringStruct)) {
-                _res.setResult(new BooleanStruct(false));
+                _res.setResult(BooleanStruct.of(false));
             } else {
                 StringStruct t_ = (StringStruct) two_;
-                _res.setResult(new BooleanStruct(one_.equalsIgnoreCase(t_.getInstance())));
+                _res.setResult(BooleanStruct.of(one_.equalsIgnoreCase(t_.getInstance())));
             }
             return;
         }
@@ -299,7 +299,7 @@ public final class StringStruct extends CharSequenceStruct {
         int comLen_ = _len.intStruct();
         int to_ = _toffset.intStruct();
         int po_ = _ooffset.intStruct();
-        _res.setResult(new BooleanStruct(instance.regionMatches(case_,to_, other_.instance, po_, comLen_)));
+        _res.setResult(BooleanStruct.of(instance.regionMatches(case_,to_, other_.instance, po_, comLen_)));
     }
 
     private void replace(CharStruct _oldChar, CharStruct _newChar, ResultErrorStd _res) {

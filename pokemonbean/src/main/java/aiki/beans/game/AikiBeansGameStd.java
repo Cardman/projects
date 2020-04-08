@@ -257,11 +257,11 @@ public final class AikiBeansGameStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,ALLOW_CATCHING_KO)) {
-            res_.setResult(new BooleanStruct(instance_.getAllowCatchingKo()));
+            res_.setResult(BooleanStruct.of(instance_.getAllowCatchingKo()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,ALLOWED_SWITCH_PLACES_END_ROUND)) {
-            res_.setResult(new BooleanStruct(instance_.getAllowedSwitchPlacesEndRound()));
+            res_.setResult(BooleanStruct.of(instance_.getAllowedSwitchPlacesEndRound()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,WIN_TRAINER_EXP)) {
@@ -273,7 +273,7 @@ public final class AikiBeansGameStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,END_FIGHT_IF_ONE_TEAM_KO)) {
-            res_.setResult(new BooleanStruct(instance_.getEndFightIfOneTeamKo()));
+            res_.setResult(BooleanStruct.of(instance_.getEndFightIfOneTeamKo()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,IV_PLAYER)) {
@@ -293,23 +293,23 @@ public final class AikiBeansGameStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,RESTORED_MOVES_END_FIGHT)) {
-            res_.setResult(new BooleanStruct(instance_.getRestoredMovesEndFight()));
+            res_.setResult(BooleanStruct.of(instance_.getRestoredMovesEndFight()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,ENABLED_CLOSING)) {
-            res_.setResult(new BooleanStruct(instance_.getEnabledClosing()));
+            res_.setResult(BooleanStruct.of(instance_.getEnabledClosing()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,RANDOM_WILD_FIGHT)) {
-            res_.setResult(new BooleanStruct(instance_.getRandomWildFight()));
+            res_.setResult(BooleanStruct.of(instance_.getRandomWildFight()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,STILL_POSSIBLE_FLEE)) {
-            res_.setResult(new BooleanStruct(instance_.getStillPossibleFlee()));
+            res_.setResult(BooleanStruct.of(instance_.getStillPossibleFlee()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,SKIP_LEARNING_MOVES_WHILE_NOT_GROWING_LEVEL)) {
-            res_.setResult(new BooleanStruct(instance_.getSkipLearningMovesWhileNotGrowingLevel()));
+            res_.setResult(BooleanStruct.of(instance_.getSkipLearningMovesWhileNotGrowingLevel()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,DAMAGE_RATES)) {
@@ -340,7 +340,7 @@ public final class AikiBeansGameStd {
         GameProgressionBean instance_ = (GameProgressionBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringList.quickEq(fieldName_,FINISHED_GAME)) {
-            res_.setResult(new BooleanStruct(instance_.getFinishedGame()));
+            res_.setResult(BooleanStruct.of(instance_.getFinishedGame()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,HERO_IMAGE)) {

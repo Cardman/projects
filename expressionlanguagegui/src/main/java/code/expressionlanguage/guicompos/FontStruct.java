@@ -51,11 +51,11 @@ public final class FontStruct implements Struct {
     }
 
     public BooleanStruct isItalic() {
-        return new BooleanStruct(font.isItalic());
+        return BooleanStruct.of(font.isItalic());
     }
 
     public BooleanStruct isBold() {
-        return new BooleanStruct(font.isBold());
+        return BooleanStruct.of(font.isBold());
     }
     @Override
     public String getClassName(ExecutableCode _contextEl) {

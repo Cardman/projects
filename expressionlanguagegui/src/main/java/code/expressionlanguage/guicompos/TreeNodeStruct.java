@@ -49,10 +49,10 @@ public final class TreeNodeStruct implements Struct {
         treeNode.insert(treeNode_.treeNode,index_);
     }
     BooleanStruct isAncestorMethod(Struct _node) {
-        return new BooleanStruct(isAncestor(_node));
+        return BooleanStruct.of(isAncestor(_node));
     }
     BooleanStruct isDescendantMethod(Struct _node) {
-        return new BooleanStruct(isDescendant(_node));
+        return BooleanStruct.of(isDescendant(_node));
     }
     private boolean isAncestor(Struct _node) {
         Struct cur_ = this;

@@ -361,11 +361,11 @@ public final class TarotStandards extends BeanNatLgNames {
         String fieldName_ = _classField.getFieldName();
         if (((RealInstanceStruct)_instance).getInstance() instanceof TarotBean) {
 //            if (StringList.quickEq(_method.getConstraints().getName(), PLAY_CLASSIC_GAME)) {
-//                res_.setResult(new BooleanStruct(((TarotBean)((RealInstanceStruct)_instance).getInstance()).playClassicGame()));
+//                res_.setResult(BooleanStruct.of(((TarotBean)((RealInstanceStruct)_instance).getInstance()).playClassicGame()));
 //                return res_;
 //            }
 //            if (StringList.quickEq(_method.getConstraints().getName(), PLAY_VARIANT_MODE_GAME)) {
-//                res_.setResult(new BooleanStruct(((TarotBean)((RealInstanceStruct)_instance).getInstance()).playVariantModeGame()));
+//                res_.setResult(BooleanStruct.of(((TarotBean)((RealInstanceStruct)_instance).getInstance()).playVariantModeGame()));
 //                return res_;
 //            }
             if (StringList.quickEq(fieldName_, NICKNAMES)) {
@@ -644,7 +644,7 @@ public final class TarotStandards extends BeanNatLgNames {
                 return res_;
             }
             if (StringList.quickEq(fieldName_, DISCARD_AFTER_CALL)) {
-                res_.setResult(new BooleanStruct(instance_.isDiscardAfterCall()));
+                res_.setResult(BooleanStruct.of(instance_.isDiscardAfterCall()));
                 return res_;
             }
             if (StringList.quickEq(fieldName_, CONTRATS)) {
@@ -668,11 +668,11 @@ public final class TarotStandards extends BeanNatLgNames {
         ResultErrorStd res_ = new ResultErrorStd();
         if (((RealInstanceStruct)_instance).getInstance() instanceof TarotBean) {
             if (StringList.quickEq(_method.getConstraints().getName(), PLAY_CLASSIC_GAME)) {
-                res_.setResult(new BooleanStruct(((TarotBean)((RealInstanceStruct)_instance).getInstance()).playClassicGame()));
+                res_.setResult(BooleanStruct.of(((TarotBean)((RealInstanceStruct)_instance).getInstance()).playClassicGame()));
                 return res_;
             }
             if (StringList.quickEq(_method.getConstraints().getName(), PLAY_VARIANT_MODE_GAME)) {
-                res_.setResult(new BooleanStruct(((TarotBean)((RealInstanceStruct)_instance).getInstance()).playVariantModeGame()));
+                res_.setResult(BooleanStruct.of(((TarotBean)((RealInstanceStruct)_instance).getInstance()).playVariantModeGame()));
                 return res_;
             }
             if (StringList.quickEq(_method.getConstraints().getName(), GET_NICKNAMES)) {
@@ -687,51 +687,51 @@ public final class TarotStandards extends BeanNatLgNames {
         if (((RealInstanceStruct)_instance).getInstance() instanceof ResultsTarotBean) {
             ResultsTarotBean instance_ = (ResultsTarotBean) ((RealInstanceStruct)_instance).getInstance();
             if (StringList.quickEq(_method.getConstraints().getName(), WIN)) {
-                res_.setResult(new BooleanStruct(instance_.win()));
+                res_.setResult(BooleanStruct.of(instance_.win()));
                 return res_;
             }
             if (StringList.quickEq(_method.getConstraints().getName(), EQUALITY)) {
-                res_.setResult(new BooleanStruct(instance_.equality()));
+                res_.setResult(BooleanStruct.of(instance_.equality()));
                 return res_;
             }
             if (StringList.quickEq(_method.getConstraints().getName(), LOOSE)) {
-                res_.setResult(new BooleanStruct(instance_.loose()));
+                res_.setResult(BooleanStruct.of(instance_.loose()));
                 return res_;
             }
             if (StringList.quickEq(_method.getConstraints().getName(), SUCCESSFUL_BID)) {
-                res_.setResult(new BooleanStruct(instance_.successfulBid()));
+                res_.setResult(BooleanStruct.of(instance_.successfulBid()));
                 return res_;
             }
             if (StringList.quickEq(_method.getConstraints().getName(), MID_BID)) {
-                res_.setResult(new BooleanStruct(instance_.midBid()));
+                res_.setResult(BooleanStruct.of(instance_.midBid()));
                 return res_;
             }
             if (StringList.quickEq(_method.getConstraints().getName(), FAILED_BID)) {
-                res_.setResult(new BooleanStruct(instance_.failedBid()));
+                res_.setResult(BooleanStruct.of(instance_.failedBid()));
                 return res_;
             }
             if (StringList.quickEq(_method.getConstraints().getName(), SUCCESSFUL_DECLARED_SLAM_ATTACK)) {
-                res_.setResult(new BooleanStruct(instance_.successfulDeclaredSlamAttack()));
+                res_.setResult(BooleanStruct.of(instance_.successfulDeclaredSlamAttack()));
                 return res_;
             }
             if (StringList.quickEq(_method.getConstraints().getName(), SUCCESSFUL_NO_DECLARED_SLAM_ATTACK)) {
-                res_.setResult(new BooleanStruct(instance_.successfulNoDeclaredSlamAttack()));
+                res_.setResult(BooleanStruct.of(instance_.successfulNoDeclaredSlamAttack()));
                 return res_;
             }
             if (StringList.quickEq(_method.getConstraints().getName(), FAILED_SLAM_ATTACK)) {
-                res_.setResult(new BooleanStruct(instance_.failedSlamAttack()));
+                res_.setResult(BooleanStruct.of(instance_.failedSlamAttack()));
                 return res_;
             }
             if (StringList.quickEq(_method.getConstraints().getName(), NO_SLAM_ATTACK)) {
-                res_.setResult(new BooleanStruct(instance_.noSlamAttack()));
+                res_.setResult(BooleanStruct.of(instance_.noSlamAttack()));
                 return res_;
             }
             if (StringList.quickEq(_method.getConstraints().getName(), SLAM_DEFENSE)) {
-                res_.setResult(new BooleanStruct(instance_.slamDefense()));
+                res_.setResult(BooleanStruct.of(instance_.slamDefense()));
                 return res_;
             }
             if (StringList.quickEq(_method.getConstraints().getName(), NO_SLAM_DEFENSE)) {
-                res_.setResult(new BooleanStruct(instance_.noSlamDefense()));
+                res_.setResult(BooleanStruct.of(instance_.noSlamDefense()));
                 return res_;
             }
             if (StringList.quickEq(_method.getConstraints().getName(), ABSOLUTE_DIFF)) {
@@ -822,7 +822,7 @@ public final class TarotStandards extends BeanNatLgNames {
             return new DoubleStruct((Double) _element);
         }
         if (_element instanceof Boolean) {
-            return new BooleanStruct((Boolean) _element);
+            return BooleanStruct.of((Boolean) _element);
         }
         if (_element instanceof String) {
             return new StringStruct((String) _element);

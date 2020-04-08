@@ -1065,30 +1065,29 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
         LgNames stds_ = _context.getStandards();
         String objectClassName_ = stds_.getAliasObject();
         for (TypeVar t: getParamTypesMapValues()) {
-            ObjectMap<MethodId, CustList<MethodInfo>> signatures_;
-            signatures_ = new ObjectMap<MethodId, CustList<MethodInfo>>();
+            ObjectMap<MethodIdAncestor, CustList<MethodInfo>> signatures_;
+            signatures_ = new ObjectMap<MethodIdAncestor, CustList<MethodInfo>>();
             StringList upper_ = Mapping.getAllUpperBounds(vars_, t.getName(),objectClassName_);
-            ObjectMap<ClassMethodId, MethodInfo> methods_;
-            methods_ = new ObjectMap<ClassMethodId, MethodInfo>();
+            CustList<MethodInfo> methods_;
+            methods_ = new CustList<MethodInfo>();
             OperationNode.fetchParamClassAncMethods(_context,upper_,methods_);
-            for (EntryCust<ClassMethodId, MethodInfo> e: methods_.entryList()) {
-                MethodInfo info_ = e.getValue();
-                if (info_.getConstraints().getKind() != MethodAccessKind.INSTANCE) {
+            for (MethodInfo e: methods_) {
+                if (e.getConstraints().getKind() != MethodAccessKind.INSTANCE) {
                     continue;
                 }
-                addClass(signatures_, info_.getFoundFormatted(), info_);
+                addClass(signatures_, new MethodIdAncestor(e.getFoundFormatted(),e.getAncestor()), e);
             }
             String fullName_ = "";
             lookForErrors(_context, vars_, signatures_, fullName_,t.getName());
         }
     }
 
-    private void lookForErrors(ContextEl _context, StringMap<StringList> _vars, ObjectMap<MethodId, CustList<MethodInfo>> _signatures, String _fullName, String _virtualType) {
-        ObjectMap<MethodId, CustList<MethodInfo>> sub_;
+    private void lookForErrors(ContextEl _context, StringMap<StringList> _vars, ObjectMap<MethodIdAncestor, CustList<MethodInfo>> _signatures, String _fullName, String _virtualType) {
+        ObjectMap<MethodIdAncestor, CustList<MethodInfo>> sub_;
         sub_ = RootBlock.getAllOverridingMethods(_signatures, _context);
-        ObjectMap<MethodId, CustList<MethodInfo>> er_;
+        ObjectMap<MethodIdAncestor, CustList<MethodInfo>> er_;
         er_ = RootBlock.areCompatibleIndexer(_fullName, sub_);
-        for (EntryCust<MethodId, CustList<MethodInfo>> e: er_.entryList()) {
+        for (EntryCust<MethodIdAncestor, CustList<MethodInfo>> e: er_.entryList()) {
             StringList retClasses_ = new StringList();
             StringList types_ = new StringList();
             for (MethodInfo m: e.getValue()) {
@@ -1102,13 +1101,13 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
             err_.setIndexFile(idRowCol);
             //original id len
             err_.buildError(_context.getAnalysisMessages().getReturnTypes(),
-                    e.getKey().getSignature(_context),
+                    e.getKey().getClassMethodId().getSignature(_context),
                     StringList.join(types_,"&"),
                     StringList.join(retClasses_,"&"));
             _context.addError(err_);
         }
         er_ = RootBlock.areCompatibleFinalReturn(_fullName, _vars, sub_, _context);
-        for (EntryCust<MethodId, CustList<MethodInfo>> e: er_.entryList()) {
+        for (EntryCust<MethodIdAncestor, CustList<MethodInfo>> e: er_.entryList()) {
             CustList<MethodInfo> fClasses_ = new CustList<MethodInfo>();
             for (MethodInfo s: e.getValue()) {
                 if (s.isFinalMethod()) {
@@ -1136,7 +1135,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
             }
         }
         er_ = RootBlock.areCompatibleMerged(_fullName, _vars, sub_, _context);
-        for (EntryCust<MethodId, CustList<MethodInfo>> e: er_.entryList()) {
+        for (EntryCust<MethodIdAncestor, CustList<MethodInfo>> e: er_.entryList()) {
             StringList retClasses_ = new StringList();
             StringList types_ = new StringList();
             for (MethodInfo m: e.getValue()) {
@@ -1150,20 +1149,20 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
             err_.setIndexFile(idRowCol);
             //original id len
             err_.buildError(_context.getAnalysisMessages().getTwoReturnTypes(),
-                    e.getKey().getSignature(_context),
+                    e.getKey().getClassMethodId().getSignature(_context),
                     StringList.join(types_,"&"),
                     StringList.join(retClasses_,"&"));
             _context.addError(err_);
         }
         er_ = RootBlock.areModifierCompatible(sub_);
-        for (EntryCust<MethodId, CustList<MethodInfo>> e: er_.entryList()) {
+        for (EntryCust<MethodIdAncestor, CustList<MethodInfo>> e: er_.entryList()) {
             FoundErrorInterpret err_ = new FoundErrorInterpret();
             err_.setFileName(getFile().getFileName());
             err_.setIndexFile(idRowCol);
             //original id len
             err_.buildError(_context.getAnalysisMessages().getTwoFinal(),
                     _virtualType,
-                    e.getKey().getSignature(_context));
+                    e.getKey().getClassMethodId().getSignature(_context));
             _context.addError(err_);
         }
     }
@@ -1173,17 +1172,16 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
         for (TypeVar t: getParamTypesMapValues()) {
             vars_.put(t.getName(), t.getConstraints());
         }
-        ObjectMap<MethodId, CustList<MethodInfo>> ov_;
-        ov_ = new ObjectMap<MethodId, CustList<MethodInfo>>();
-        ObjectMap<ClassMethodId, MethodInfo> methods_;
-        methods_ = new ObjectMap<ClassMethodId, MethodInfo>();
+        ObjectMap<MethodIdAncestor, CustList<MethodInfo>> ov_;
+        ov_ = new ObjectMap<MethodIdAncestor, CustList<MethodInfo>>();
+        CustList<MethodInfo> methods_;
+        methods_ = new CustList<MethodInfo>();
         OperationNode.fetchParamClassAncMethods(_context,new StringList(getGenericString()),methods_);
-        for (EntryCust<ClassMethodId, MethodInfo> e: methods_.entryList()) {
-            MethodInfo info_ = e.getValue();
-            if (info_.getConstraints().getKind() != MethodAccessKind.INSTANCE) {
+        for (MethodInfo e: methods_) {
+            if (e.getConstraints().getKind() != MethodAccessKind.INSTANCE) {
                 continue;
             }
-            addClass(ov_, info_.getFoundFormatted(), info_);
+            addClass(ov_, new MethodIdAncestor(e.getFoundFormatted(),e.getAncestor()), e);
         }
         String fullName_ = getFullName();
         lookForErrors(_context, vars_, ov_, fullName_,fullName_);
@@ -1288,12 +1286,12 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
         }
     }
 
-    public static ObjectMap<MethodId, CustList<MethodInfo>> getAllOverridingMethods(
-            ObjectMap<MethodId, CustList<MethodInfo>> _methodIds,
+    public static ObjectMap<MethodIdAncestor, CustList<MethodInfo>> getAllOverridingMethods(
+            ObjectMap<MethodIdAncestor, CustList<MethodInfo>> _methodIds,
             ContextEl _conf) {
-        ObjectMap<MethodId, CustList<MethodInfo>> map_;
-        map_ = new ObjectMap<MethodId, CustList<MethodInfo>>();
-        for (EntryCust<MethodId, CustList<MethodInfo>> e: _methodIds.entryList()) {
+        ObjectMap<MethodIdAncestor, CustList<MethodInfo>> map_;
+        map_ = new ObjectMap<MethodIdAncestor, CustList<MethodInfo>>();
+        for (EntryCust<MethodIdAncestor, CustList<MethodInfo>> e: _methodIds.entryList()) {
             StringMap<MethodInfo> defs_ = new StringMap<MethodInfo>();
             CustList<MethodInfo> value_ = e.getValue();
             StringList list_ = new StringList(new CollCapacity(value_.size()));
@@ -1312,19 +1310,19 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
         return map_;
     }
 
-    private static ObjectMap<MethodId, CustList<MethodInfo>> areCompatibleIndexer(
+    private static ObjectMap<MethodIdAncestor, CustList<MethodInfo>> areCompatibleIndexer(
             String _fullName,
-            ObjectMap<MethodId, CustList<MethodInfo>> _methodIds) {
-        ObjectMap<MethodId, CustList<MethodInfo>> output_;
-        output_ = new ObjectMap<MethodId, CustList<MethodInfo>>();
-        for (EntryCust<MethodId, CustList<MethodInfo>> e: _methodIds.entryList()) {
-            MethodId cst_ = e.getKey();
+            ObjectMap<MethodIdAncestor, CustList<MethodInfo>> _methodIds) {
+        ObjectMap<MethodIdAncestor, CustList<MethodInfo>> output_;
+        output_ = new ObjectMap<MethodIdAncestor, CustList<MethodInfo>>();
+        for (EntryCust<MethodIdAncestor, CustList<MethodInfo>> e: _methodIds.entryList()) {
+            MethodIdAncestor cst_ = e.getKey();
             CustList<MethodInfo> classes_ = e.getValue();
             boolean skip_ = skip(_fullName, classes_);
             if (skip_) {
                 continue;
             }
-            if (!StringList.isDollarWord(cst_.getName())) {
+            if (!StringList.isDollarWord(cst_.getClassMethodId().getName())) {
                 StringList retClasses_ = new StringList();
                 for (MethodInfo s: e.getValue()) {
                     retClasses_.add(s.getReturnType());
@@ -1340,14 +1338,14 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
         return output_;
     }
 
-    private static ObjectMap<MethodId, CustList<MethodInfo>> areCompatibleFinalReturn(
+    private static ObjectMap<MethodIdAncestor, CustList<MethodInfo>> areCompatibleFinalReturn(
             String _fullName,
             StringMap<StringList> _vars,
-            ObjectMap<MethodId, CustList<MethodInfo>> _methodIds, ContextEl _context) {
-        ObjectMap<MethodId, CustList<MethodInfo>> output_;
-        output_ = new ObjectMap<MethodId, CustList<MethodInfo>>();
-        for (EntryCust<MethodId, CustList<MethodInfo>> e: _methodIds.entryList()) {
-            MethodId cst_ = e.getKey();
+            ObjectMap<MethodIdAncestor, CustList<MethodInfo>> _methodIds, ContextEl _context) {
+        ObjectMap<MethodIdAncestor, CustList<MethodInfo>> output_;
+        output_ = new ObjectMap<MethodIdAncestor, CustList<MethodInfo>>();
+        for (EntryCust<MethodIdAncestor, CustList<MethodInfo>> e: _methodIds.entryList()) {
+            MethodIdAncestor cst_ = e.getKey();
             CustList<MethodInfo> classes_ = e.getValue();
             boolean skip_ = skip(_fullName, classes_);
             if (skip_) {
@@ -1359,7 +1357,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                     fClasses_.add(s);
                 }
             }
-            if (!StringList.isDollarWord(cst_.getName())) {
+            if (!StringList.isDollarWord(cst_.getClassMethodId().getName())) {
                 continue;
             }
             if (fClasses_.size() == 1) {
@@ -1381,14 +1379,14 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
         return output_;
     }
 
-    private static ObjectMap<MethodId, CustList<MethodInfo>> areCompatibleMerged(
+    private static ObjectMap<MethodIdAncestor, CustList<MethodInfo>> areCompatibleMerged(
             String _fullName,
             StringMap<StringList> _vars,
-            ObjectMap<MethodId, CustList<MethodInfo>> _methodIds, ContextEl _context) {
-        ObjectMap<MethodId, CustList<MethodInfo>> output_;
-        output_ = new ObjectMap<MethodId, CustList<MethodInfo>>();
-        for (EntryCust<MethodId, CustList<MethodInfo>> e: _methodIds.entryList()) {
-            MethodId cst_ = e.getKey();
+            ObjectMap<MethodIdAncestor, CustList<MethodInfo>> _methodIds, ContextEl _context) {
+        ObjectMap<MethodIdAncestor, CustList<MethodInfo>> output_;
+        output_ = new ObjectMap<MethodIdAncestor, CustList<MethodInfo>>();
+        for (EntryCust<MethodIdAncestor, CustList<MethodInfo>> e: _methodIds.entryList()) {
+            MethodIdAncestor cst_ = e.getKey();
             CustList<MethodInfo> classes_ = e.getValue();
             boolean skip_ = skip(_fullName, classes_);
             if (skip_) {
@@ -1402,7 +1400,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                 }
                 retClasses_.add(s.getReturnType());
             }
-            if (!StringList.isDollarWord(cst_.getName())) {
+            if (!StringList.isDollarWord(cst_.getClassMethodId().getName())) {
                 continue;
             }
             if (fClasses_.size() == 1) {
@@ -1448,12 +1446,12 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
         return skip_;
     }
 
-    private static ObjectMap<MethodId, CustList<MethodInfo>> areModifierCompatible(
-            ObjectMap<MethodId, CustList<MethodInfo>> _methodIds) {
-        ObjectMap<MethodId, CustList<MethodInfo>> output_;
-        output_ = new ObjectMap<MethodId, CustList<MethodInfo>>();
-        for (EntryCust<MethodId, CustList<MethodInfo>> e: _methodIds.entryList()) {
-            MethodId cst_ = e.getKey();
+    private static ObjectMap<MethodIdAncestor, CustList<MethodInfo>> areModifierCompatible(
+            ObjectMap<MethodIdAncestor, CustList<MethodInfo>> _methodIds) {
+        ObjectMap<MethodIdAncestor, CustList<MethodInfo>> output_;
+        output_ = new ObjectMap<MethodIdAncestor, CustList<MethodInfo>>();
+        for (EntryCust<MethodIdAncestor, CustList<MethodInfo>> e: _methodIds.entryList()) {
+            MethodIdAncestor cst_ = e.getKey();
             CustList<MethodInfo> fClasses_ = new CustList<MethodInfo>();
             for (MethodInfo s: e.getValue()) {
                 if (s.isFinalMethod()) {
@@ -1469,7 +1467,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
         return output_;
     }
 
-    private static void addClass(ObjectMap<MethodId, CustList<MethodInfo>> _map, MethodId _key, MethodInfo _class) {
+    private static void addClass(ObjectMap<MethodIdAncestor, CustList<MethodInfo>> _map, MethodIdAncestor _key, MethodInfo _class) {
         if (_map.contains(_key)) {
             _map.getVal(_key).add(_class);
         } else {

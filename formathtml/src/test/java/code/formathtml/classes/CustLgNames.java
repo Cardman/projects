@@ -259,7 +259,7 @@ public final class CustLgNames extends BeanNatLgNames {
             }
             if (StringList.quickEq(_method.getConstraints().getName(), aliasRemoveAndExistAfter)) {
                 Integer arg_ = ((NumberStruct) _args[0]).intStruct();
-                res_.setResult(new BooleanStruct(((PickableList)instance_).removeAndExistAfter(arg_)));
+                res_.setResult(BooleanStruct.of(((PickableList)instance_).removeAndExistAfter(arg_)));
                 return res_;
             }
         }
@@ -544,7 +544,7 @@ public final class CustLgNames extends BeanNatLgNames {
             return new DoubleStruct((Double) _element);
         }
         if (_element instanceof Boolean) {
-            return new BooleanStruct((Boolean) _element);
+            return BooleanStruct.of((Boolean) _element);
         }
         if (_element instanceof String) {
             return new StringStruct((String) _element);

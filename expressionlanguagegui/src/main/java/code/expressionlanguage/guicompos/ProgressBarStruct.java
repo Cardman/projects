@@ -14,7 +14,7 @@ public final class ProgressBarStruct extends CustComponentStruct {
     }
 
     public BooleanStruct isHorizontal() {
-        return new BooleanStruct(progressBar.isHorizontal());
+        return BooleanStruct.of(progressBar.isHorizontal());
     }
 
     public IntStruct getValue() {

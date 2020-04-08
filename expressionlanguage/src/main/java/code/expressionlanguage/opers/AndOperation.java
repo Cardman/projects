@@ -19,7 +19,7 @@ public final class AndOperation extends QuickOperation {
 
     @Override
     public BooleanStruct absorbingStruct() {
-        return new BooleanStruct(false);
+        return BooleanStruct.of(false);
     }
 
     @Override

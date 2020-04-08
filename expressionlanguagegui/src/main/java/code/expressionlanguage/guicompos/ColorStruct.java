@@ -69,6 +69,6 @@ public final class ColorStruct implements Struct {
     }
 
     public BooleanStruct isTransparent() {
-        return new BooleanStruct(color.getRGB() / THREE_BYTES == 0);
+        return BooleanStruct.of(color.getRGB() / THREE_BYTES == 0);
     }
 }

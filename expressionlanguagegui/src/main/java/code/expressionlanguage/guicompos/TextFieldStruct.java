@@ -29,7 +29,7 @@ public final class TextFieldStruct extends InputStruct {
     }
     @Override
     public Struct isEnabled() {
-        return new BooleanStruct(textField.isEnabled());
+        return BooleanStruct.of(textField.isEnabled());
     }
 
     @Override

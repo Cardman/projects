@@ -10,7 +10,7 @@ public final class ExecAndOperation extends ExecQuickOperation {
 
     @Override
     public BooleanStruct absorbingStruct() {
-        return new BooleanStruct(false);
+        return BooleanStruct.of(false);
     }
 
 }

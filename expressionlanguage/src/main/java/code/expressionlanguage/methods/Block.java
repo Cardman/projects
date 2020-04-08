@@ -182,18 +182,19 @@ public abstract class Block implements AnalyzedBlock {
             ((BuildableElMethod)_block).buildExpressionLanguage(_cont);
             return true;
         }
-        FoundErrorInterpret un_ = new FoundErrorInterpret();
-        un_.setFileName(_block.getFile().getFileName());
-        un_.setIndexFile(_block.getOffset().getOffsetTrim());
-        //defined len first key words
-        un_.buildError(_cont.getAnalysisMessages().getUnexpectedBlockExp());
-        _cont.addError(un_);
-        return false;
+        return processOther(_block, _cont);
     }
 
     protected static boolean tryBuildExpressionLanguageReadOnly(Block _block, ContextEl _cont) {
         if (_block instanceof BuildableElMethod) {
             ((BuildableElMethod)_block).buildExpressionLanguageReadOnly(_cont);
+            return true;
+        }
+        return processOther(_block, _cont);
+    }
+
+    private static boolean processOther(Block _block, ContextEl _cont) {
+        if (_block instanceof UnclassedBracedBlock) {
             return true;
         }
         FoundErrorInterpret un_ = new FoundErrorInterpret();

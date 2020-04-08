@@ -3136,19 +3136,19 @@ public final class AikiBeansHelpStd {
             return res_;
         }
         if (StringList.quickEq(methodName_,HAS_LAW_FOR_ATTACK_ANY)) {
-            res_.setResult(new BooleanStruct(instance_.hasLawForAttackAny()));
+            res_.setResult(BooleanStruct.of(instance_.hasLawForAttackAny()));
             return res_;
         }
         if (StringList.quickEq(methodName_,HAS_LAW_FOR_ATTACK)) {
-            res_.setResult(new BooleanStruct(instance_.hasLawForAttack((Long)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.hasLawForAttack((Long)_args[0])));
             return res_;
         }
         if (StringList.quickEq(methodName_,HAS_LAW_FOR_HEAL_ANY)) {
-            res_.setResult(new BooleanStruct(instance_.hasLawForHealAny()));
+            res_.setResult(BooleanStruct.of(instance_.hasLawForHealAny()));
             return res_;
         }
         if (StringList.quickEq(methodName_,HAS_LAW_FOR_HEAL)) {
-            res_.setResult(new BooleanStruct(instance_.hasLawForHeal((Long)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.hasLawForHeal((Long)_args[0])));
             return res_;
         }
         if (StringList.quickEq(methodName_,CLICK_AUTO_DAMAGE)) {
@@ -3180,7 +3180,7 @@ public final class AikiBeansHelpStd {
             return res_;
         }
         if (StringList.quickEq(methodName_,IS_DISAPPEARING_USER)) {
-            res_.setResult(new BooleanStruct(instance_.isDisappearingUser((Long)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.isDisappearingUser((Long)_args[0])));
             return res_;
         }
         if (StringList.quickEq(methodName_,GET_TR_RECHARGE_MOVES)) {
@@ -3300,11 +3300,11 @@ public final class AikiBeansHelpStd {
             return res_;
         }
         if (StringList.quickEq(methodName_,IMMU_STATIS_TEAM_MOVE_ANY)) {
-            res_.setResult(new BooleanStruct(instance_.immuStatisTeamMoveAny()));
+            res_.setResult(BooleanStruct.of(instance_.immuStatisTeamMoveAny()));
             return res_;
         }
         if (StringList.quickEq(methodName_,IMMU_STATIS_TEAM_MOVE)) {
-            res_.setResult(new BooleanStruct(instance_.immuStatisTeamMove((Long)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.immuStatisTeamMove((Long)_args[0])));
             return res_;
         }
         if (StringList.quickEq(methodName_,CLICK_MOVES_TEAM)) {
@@ -3380,11 +3380,11 @@ public final class AikiBeansHelpStd {
             return res_;
         }
         if (StringList.quickEq(methodName_,IMMU_STATUS_TEAM_MOVE_ANY)) {
-            res_.setResult(new BooleanStruct(instance_.immuStatusTeamMoveAny()));
+            res_.setResult(BooleanStruct.of(instance_.immuStatusTeamMoveAny()));
             return res_;
         }
         if (StringList.quickEq(methodName_,IMMU_STATUS_TEAM_MOVE)) {
-            res_.setResult(new BooleanStruct(instance_.immuStatusTeamMove((Long)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.immuStatusTeamMove((Long)_args[0])));
             return res_;
         }
         if (StringList.quickEq(methodName_,CLICK_ABILITIES_FIGHTER_STATUS)) {
@@ -3560,11 +3560,11 @@ public final class AikiBeansHelpStd {
             return res_;
         }
         if (StringList.quickEq(methodName_,ATTACK_FIRST)) {
-            res_.setResult(new BooleanStruct(instance_.attackFirst()));
+            res_.setResult(BooleanStruct.of(instance_.attackFirst()));
             return res_;
         }
         if (StringList.quickEq(methodName_,ATTACK_LAST)) {
-            res_.setResult(new BooleanStruct(instance_.attackLast((Long)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.attackLast((Long)_args[0])));
             return res_;
         }
         if (StringList.quickEq(methodName_,CLICK_MOVES_CHANGING_ATT_ORDER)) {
@@ -3576,7 +3576,7 @@ public final class AikiBeansHelpStd {
             return res_;
         }
         if (StringList.quickEq(methodName_,ATTACK_LAST_ANY)) {
-            res_.setResult(new BooleanStruct(instance_.attackLastAny()));
+            res_.setResult(BooleanStruct.of(instance_.attackLastAny()));
             return res_;
         }
         if (StringList.quickEq(methodName_,GET_TR_DIFFICULTY)) {
@@ -3584,11 +3584,11 @@ public final class AikiBeansHelpStd {
             return res_;
         }
         if (StringList.quickEq(methodName_,WITH_CONST_DAMAGE_ANY)) {
-            res_.setResult(new BooleanStruct(instance_.withConstDamageAny()));
+            res_.setResult(BooleanStruct.of(instance_.withConstDamageAny()));
             return res_;
         }
         if (StringList.quickEq(methodName_,WITH_CONST_DAMAGE)) {
-            res_.setResult(new BooleanStruct(instance_.withConstDamage((Long)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.withConstDamage((Long)_args[0])));
             return res_;
         }
         if (StringList.quickEq(methodName_,CLICK_DAMAGING_MOVES)) {
@@ -3600,19 +3600,19 @@ public final class AikiBeansHelpStd {
             return res_;
         }
         if (StringList.quickEq(methodName_,WITH_RAND_DAMAGE_ANY)) {
-            res_.setResult(new BooleanStruct(instance_.withRandDamageAny()));
+            res_.setResult(BooleanStruct.of(instance_.withRandDamageAny()));
             return res_;
         }
         if (StringList.quickEq(methodName_,WITH_RAND_DAMAGE)) {
-            res_.setResult(new BooleanStruct(instance_.withRandDamage((Long)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.withRandDamage((Long)_args[0])));
             return res_;
         }
         if (StringList.quickEq(methodName_,WITH_MULT_DAMAGE_ANY)) {
-            res_.setResult(new BooleanStruct(instance_.withMultDamageAny()));
+            res_.setResult(BooleanStruct.of(instance_.withMultDamageAny()));
             return res_;
         }
         if (StringList.quickEq(methodName_,WITH_MULT_DAMAGE)) {
-            res_.setResult(new BooleanStruct(instance_.withMultDamage((Long)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.withMultDamage((Long)_args[0])));
             return res_;
         }
         if (StringList.quickEq(methodName_,CLICK_ITEMS_USER_POWER)) {
@@ -3848,7 +3848,7 @@ public final class AikiBeansHelpStd {
             return res_;
         }
         if (StringList.quickEq(methodName_,NEXT_ROW_AFTER)) {
-            res_.setResult(new BooleanStruct(instance_.nextRowAfter((Long)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.nextRowAfter((Long)_args[0])));
             return res_;
         }
         if (StringList.quickEq(methodName_,GET_EFFICIENCY)) {
@@ -3872,11 +3872,11 @@ public final class AikiBeansHelpStd {
             return res_;
         }
         if (StringList.quickEq(methodName_,ABILITY_BOOST_NORMAL_ANY)) {
-            res_.setResult(new BooleanStruct(instance_.abilityBoostNormalAny()));
+            res_.setResult(BooleanStruct.of(instance_.abilityBoostNormalAny()));
             return res_;
         }
         if (StringList.quickEq(methodName_,ABILITY_BOOST_NORMAL)) {
-            res_.setResult(new BooleanStruct(instance_.abilityBoostNormal((Long)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.abilityBoostNormal((Long)_args[0])));
             return res_;
         }
         if (StringList.quickEq(methodName_,CLICK_ABILITIES_BOOSTING_STAT)) {
@@ -3888,11 +3888,11 @@ public final class AikiBeansHelpStd {
             return res_;
         }
         if (StringList.quickEq(methodName_,ITEM_BOOST_NORMAL_ANY)) {
-            res_.setResult(new BooleanStruct(instance_.itemBoostNormalAny()));
+            res_.setResult(BooleanStruct.of(instance_.itemBoostNormalAny()));
             return res_;
         }
         if (StringList.quickEq(methodName_,ITEM_BOOST_NORMAL)) {
-            res_.setResult(new BooleanStruct(instance_.itemBoostNormal((Long)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.itemBoostNormal((Long)_args[0])));
             return res_;
         }
         if (StringList.quickEq(methodName_,CLICK_ITEMS_BOOSTING_STAT)) {
@@ -3904,11 +3904,11 @@ public final class AikiBeansHelpStd {
             return res_;
         }
         if (StringList.quickEq(methodName_,ITEM_MULT_NORMAL_ANY)) {
-            res_.setResult(new BooleanStruct(instance_.itemMultNormalAny()));
+            res_.setResult(BooleanStruct.of(instance_.itemMultNormalAny()));
             return res_;
         }
         if (StringList.quickEq(methodName_,ITEM_MULT_NORMAL)) {
-            res_.setResult(new BooleanStruct(instance_.itemMultNormal((Long)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.itemMultNormal((Long)_args[0])));
             return res_;
         }
         if (StringList.quickEq(methodName_,CLICK_ITEMS_MULT_STAT)) {
@@ -3920,11 +3920,11 @@ public final class AikiBeansHelpStd {
             return res_;
         }
         if (StringList.quickEq(methodName_,ABILITY_MULT_NORMAL_ANY)) {
-            res_.setResult(new BooleanStruct(instance_.abilityMultNormalAny()));
+            res_.setResult(BooleanStruct.of(instance_.abilityMultNormalAny()));
             return res_;
         }
         if (StringList.quickEq(methodName_,ABILITY_MULT_NORMAL)) {
-            res_.setResult(new BooleanStruct(instance_.abilityMultNormal((Long)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.abilityMultNormal((Long)_args[0])));
             return res_;
         }
         if (StringList.quickEq(methodName_,CLICK_ABILITIES_MULT_STAT)) {
@@ -3936,11 +3936,11 @@ public final class AikiBeansHelpStd {
             return res_;
         }
         if (StringList.quickEq(methodName_,MOVE_GLOBAL_MULT_NORMAL_ANY)) {
-            res_.setResult(new BooleanStruct(instance_.moveGlobalMultNormalAny()));
+            res_.setResult(BooleanStruct.of(instance_.moveGlobalMultNormalAny()));
             return res_;
         }
         if (StringList.quickEq(methodName_,MOVE_GLOBAL_MULT_NORMAL)) {
-            res_.setResult(new BooleanStruct(instance_.moveGlobalMultNormal((Long)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.moveGlobalMultNormal((Long)_args[0])));
             return res_;
         }
         if (StringList.quickEq(methodName_,CLICK_MOVES_GLOBAL_MULT_STAT)) {
@@ -3952,11 +3952,11 @@ public final class AikiBeansHelpStd {
             return res_;
         }
         if (StringList.quickEq(methodName_,MOVE_TEAM_MULT_NORMAL_ANY)) {
-            res_.setResult(new BooleanStruct(instance_.moveTeamMultNormalAny()));
+            res_.setResult(BooleanStruct.of(instance_.moveTeamMultNormalAny()));
             return res_;
         }
         if (StringList.quickEq(methodName_,MOVE_TEAM_MULT_NORMAL)) {
-            res_.setResult(new BooleanStruct(instance_.moveTeamMultNormal((Long)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.moveTeamMultNormal((Long)_args[0])));
             return res_;
         }
         if (StringList.quickEq(methodName_,CLICK_MOVES_TEAM_MULT_STAT)) {
@@ -3968,11 +3968,11 @@ public final class AikiBeansHelpStd {
             return res_;
         }
         if (StringList.quickEq(methodName_,ABILITY_ALLY_MULT_NORMAL_ANY)) {
-            res_.setResult(new BooleanStruct(instance_.abilityAllyMultNormalAny()));
+            res_.setResult(BooleanStruct.of(instance_.abilityAllyMultNormalAny()));
             return res_;
         }
         if (StringList.quickEq(methodName_,ABILITY_ALLY_MULT_NORMAL)) {
-            res_.setResult(new BooleanStruct(instance_.abilityAllyMultNormal((Long)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.abilityAllyMultNormal((Long)_args[0])));
             return res_;
         }
         if (StringList.quickEq(methodName_,CLICK_ABILITIES_ALLY_MULT_STAT)) {
@@ -3984,11 +3984,11 @@ public final class AikiBeansHelpStd {
             return res_;
         }
         if (StringList.quickEq(methodName_,MOVE_FOE_TEAM_MULT_NORMAL_ANY)) {
-            res_.setResult(new BooleanStruct(instance_.moveFoeTeamMultNormalAny()));
+            res_.setResult(BooleanStruct.of(instance_.moveFoeTeamMultNormalAny()));
             return res_;
         }
         if (StringList.quickEq(methodName_,MOVE_FOE_TEAM_MULT_NORMAL)) {
-            res_.setResult(new BooleanStruct(instance_.moveFoeTeamMultNormal((Long)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.moveFoeTeamMultNormal((Long)_args[0])));
             return res_;
         }
         if (StringList.quickEq(methodName_,CLICK_MOVES_FOE_TEAM_MULT_STAT)) {
@@ -4000,11 +4000,11 @@ public final class AikiBeansHelpStd {
             return res_;
         }
         if (StringList.quickEq(methodName_,STATUS_MULT_NORMAL_ANY)) {
-            res_.setResult(new BooleanStruct(instance_.statusMultNormalAny()));
+            res_.setResult(BooleanStruct.of(instance_.statusMultNormalAny()));
             return res_;
         }
         if (StringList.quickEq(methodName_,STATUS_MULT_NORMAL)) {
-            res_.setResult(new BooleanStruct(instance_.statusMultNormal((Long)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.statusMultNormal((Long)_args[0])));
             return res_;
         }
         if (StringList.quickEq(methodName_,CLICK_STATUS_MULT_STAT)) {
@@ -4016,11 +4016,11 @@ public final class AikiBeansHelpStd {
             return res_;
         }
         if (StringList.quickEq(methodName_,ABILITY_IMMU_MULT_NORMAL_ANY)) {
-            res_.setResult(new BooleanStruct(instance_.abilityImmuMultNormalAny()));
+            res_.setResult(BooleanStruct.of(instance_.abilityImmuMultNormalAny()));
             return res_;
         }
         if (StringList.quickEq(methodName_,ABILITY_IMMU_MULT_NORMAL)) {
-            res_.setResult(new BooleanStruct(instance_.abilityImmuMultNormal((Long)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.abilityImmuMultNormal((Long)_args[0])));
             return res_;
         }
         if (StringList.quickEq(methodName_,CLICK_ABILITIES_IMMU_MULT_STAT)) {
@@ -4032,11 +4032,11 @@ public final class AikiBeansHelpStd {
             return res_;
         }
         if (StringList.quickEq(methodName_,COMBO_MULT_NORMAL_ANY)) {
-            res_.setResult(new BooleanStruct(instance_.comboMultNormalAny()));
+            res_.setResult(BooleanStruct.of(instance_.comboMultNormalAny()));
             return res_;
         }
         if (StringList.quickEq(methodName_,COMBO_MULT_NORMAL)) {
-            res_.setResult(new BooleanStruct(instance_.comboMultNormal((Long)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.comboMultNormal((Long)_args[0])));
             return res_;
         }
         if (StringList.quickEq(methodName_,CLICK_COMBO_MULT_STAT)) {
@@ -4080,183 +4080,183 @@ public final class AikiBeansHelpStd {
             return res_;
         }
         if (StringList.quickEq(methodName_,ABILITY_BOOST_ACCURACY_ANY)) {
-            res_.setResult(new BooleanStruct(instance_.abilityBoostAccuracyAny()));
+            res_.setResult(BooleanStruct.of(instance_.abilityBoostAccuracyAny()));
             return res_;
         }
         if (StringList.quickEq(methodName_,ABILITY_BOOST_ACCURACY)) {
-            res_.setResult(new BooleanStruct(instance_.abilityBoostAccuracy((Long)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.abilityBoostAccuracy((Long)_args[0])));
             return res_;
         }
         if (StringList.quickEq(methodName_,ITEM_BOOST_ACCURACY_ANY)) {
-            res_.setResult(new BooleanStruct(instance_.itemBoostAccuracyAny()));
+            res_.setResult(BooleanStruct.of(instance_.itemBoostAccuracyAny()));
             return res_;
         }
         if (StringList.quickEq(methodName_,ITEM_BOOST_ACCURACY)) {
-            res_.setResult(new BooleanStruct(instance_.itemBoostAccuracy((Long)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.itemBoostAccuracy((Long)_args[0])));
             return res_;
         }
         if (StringList.quickEq(methodName_,ITEM_MULT_ACCURACY_ANY)) {
-            res_.setResult(new BooleanStruct(instance_.itemMultAccuracyAny()));
+            res_.setResult(BooleanStruct.of(instance_.itemMultAccuracyAny()));
             return res_;
         }
         if (StringList.quickEq(methodName_,ITEM_MULT_ACCURACY)) {
-            res_.setResult(new BooleanStruct(instance_.itemMultAccuracy((Long)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.itemMultAccuracy((Long)_args[0])));
             return res_;
         }
         if (StringList.quickEq(methodName_,ABILITY_MULT_ACCURACY_ANY)) {
-            res_.setResult(new BooleanStruct(instance_.abilityMultAccuracyAny()));
+            res_.setResult(BooleanStruct.of(instance_.abilityMultAccuracyAny()));
             return res_;
         }
         if (StringList.quickEq(methodName_,ABILITY_MULT_ACCURACY)) {
-            res_.setResult(new BooleanStruct(instance_.abilityMultAccuracy((Long)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.abilityMultAccuracy((Long)_args[0])));
             return res_;
         }
         if (StringList.quickEq(methodName_,MOVE_GLOBAL_MULT_ACCURACY_ANY)) {
-            res_.setResult(new BooleanStruct(instance_.moveGlobalMultAccuracyAny()));
+            res_.setResult(BooleanStruct.of(instance_.moveGlobalMultAccuracyAny()));
             return res_;
         }
         if (StringList.quickEq(methodName_,MOVE_GLOBAL_MULT_ACCURACY)) {
-            res_.setResult(new BooleanStruct(instance_.moveGlobalMultAccuracy((Long)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.moveGlobalMultAccuracy((Long)_args[0])));
             return res_;
         }
         if (StringList.quickEq(methodName_,MOVE_TEAM_MULT_ACCURACY_ANY)) {
-            res_.setResult(new BooleanStruct(instance_.moveTeamMultAccuracyAny()));
+            res_.setResult(BooleanStruct.of(instance_.moveTeamMultAccuracyAny()));
             return res_;
         }
         if (StringList.quickEq(methodName_,MOVE_TEAM_MULT_ACCURACY)) {
-            res_.setResult(new BooleanStruct(instance_.moveTeamMultAccuracy((Long)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.moveTeamMultAccuracy((Long)_args[0])));
             return res_;
         }
         if (StringList.quickEq(methodName_,ABILITY_ALLY_MULT_ACCURACY_ANY)) {
-            res_.setResult(new BooleanStruct(instance_.abilityAllyMultAccuracyAny()));
+            res_.setResult(BooleanStruct.of(instance_.abilityAllyMultAccuracyAny()));
             return res_;
         }
         if (StringList.quickEq(methodName_,ABILITY_ALLY_MULT_ACCURACY)) {
-            res_.setResult(new BooleanStruct(instance_.abilityAllyMultAccuracy((Long)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.abilityAllyMultAccuracy((Long)_args[0])));
             return res_;
         }
         if (StringList.quickEq(methodName_,MOVE_FOE_TEAM_MULT_ACCURACY_ANY)) {
-            res_.setResult(new BooleanStruct(instance_.moveFoeTeamMultAccuracyAny()));
+            res_.setResult(BooleanStruct.of(instance_.moveFoeTeamMultAccuracyAny()));
             return res_;
         }
         if (StringList.quickEq(methodName_,MOVE_FOE_TEAM_MULT_ACCURACY)) {
-            res_.setResult(new BooleanStruct(instance_.moveFoeTeamMultAccuracy((Long)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.moveFoeTeamMultAccuracy((Long)_args[0])));
             return res_;
         }
         if (StringList.quickEq(methodName_,STATUS_MULT_ACCURACY_ANY)) {
-            res_.setResult(new BooleanStruct(instance_.statusMultAccuracyAny()));
+            res_.setResult(BooleanStruct.of(instance_.statusMultAccuracyAny()));
             return res_;
         }
         if (StringList.quickEq(methodName_,STATUS_MULT_ACCURACY)) {
-            res_.setResult(new BooleanStruct(instance_.statusMultAccuracy((Long)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.statusMultAccuracy((Long)_args[0])));
             return res_;
         }
         if (StringList.quickEq(methodName_,ABILITY_IMMU_MULT_ACCURACY_ANY)) {
-            res_.setResult(new BooleanStruct(instance_.abilityImmuMultAccuracyAny()));
+            res_.setResult(BooleanStruct.of(instance_.abilityImmuMultAccuracyAny()));
             return res_;
         }
         if (StringList.quickEq(methodName_,ABILITY_IMMU_MULT_ACCURACY)) {
-            res_.setResult(new BooleanStruct(instance_.abilityImmuMultAccuracy((Long)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.abilityImmuMultAccuracy((Long)_args[0])));
             return res_;
         }
         if (StringList.quickEq(methodName_,COMBO_MULT_ACCURACY_ANY)) {
-            res_.setResult(new BooleanStruct(instance_.comboMultAccuracyAny()));
+            res_.setResult(BooleanStruct.of(instance_.comboMultAccuracyAny()));
             return res_;
         }
         if (StringList.quickEq(methodName_,COMBO_MULT_ACCURACY)) {
-            res_.setResult(new BooleanStruct(instance_.comboMultAccuracy((Long)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.comboMultAccuracy((Long)_args[0])));
             return res_;
         }
         if (StringList.quickEq(methodName_,ABILITY_BOOST_EVASINESS_ANY)) {
-            res_.setResult(new BooleanStruct(instance_.abilityBoostEvasinessAny()));
+            res_.setResult(BooleanStruct.of(instance_.abilityBoostEvasinessAny()));
             return res_;
         }
         if (StringList.quickEq(methodName_,ABILITY_BOOST_EVASINESS)) {
-            res_.setResult(new BooleanStruct(instance_.abilityBoostEvasiness((Long)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.abilityBoostEvasiness((Long)_args[0])));
             return res_;
         }
         if (StringList.quickEq(methodName_,ITEM_BOOST_EVASINESS_ANY)) {
-            res_.setResult(new BooleanStruct(instance_.itemBoostEvasinessAny()));
+            res_.setResult(BooleanStruct.of(instance_.itemBoostEvasinessAny()));
             return res_;
         }
         if (StringList.quickEq(methodName_,ITEM_BOOST_EVASINESS)) {
-            res_.setResult(new BooleanStruct(instance_.itemBoostEvasiness((Long)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.itemBoostEvasiness((Long)_args[0])));
             return res_;
         }
         if (StringList.quickEq(methodName_,ITEM_MULT_EVASINESS_ANY)) {
-            res_.setResult(new BooleanStruct(instance_.itemMultEvasinessAny()));
+            res_.setResult(BooleanStruct.of(instance_.itemMultEvasinessAny()));
             return res_;
         }
         if (StringList.quickEq(methodName_,ABILITY_MULT_EVASINESS_ANY)) {
-            res_.setResult(new BooleanStruct(instance_.abilityMultEvasinessAny()));
+            res_.setResult(BooleanStruct.of(instance_.abilityMultEvasinessAny()));
             return res_;
         }
         if (StringList.quickEq(methodName_,ABILITY_MULT_EVASINESS)) {
-            res_.setResult(new BooleanStruct(instance_.abilityMultEvasiness((Long)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.abilityMultEvasiness((Long)_args[0])));
             return res_;
         }
         if (StringList.quickEq(methodName_,MOVE_GLOBAL_MULT_EVASINESS_ANY)) {
-            res_.setResult(new BooleanStruct(instance_.moveGlobalMultEvasinessAny()));
+            res_.setResult(BooleanStruct.of(instance_.moveGlobalMultEvasinessAny()));
             return res_;
         }
         if (StringList.quickEq(methodName_,MOVE_GLOBAL_MULT_EVASINESS)) {
-            res_.setResult(new BooleanStruct(instance_.moveGlobalMultEvasiness((Long)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.moveGlobalMultEvasiness((Long)_args[0])));
             return res_;
         }
         if (StringList.quickEq(methodName_,MOVE_TEAM_MULT_EVASINESS_ANY)) {
-            res_.setResult(new BooleanStruct(instance_.moveTeamMultEvasinessAny()));
+            res_.setResult(BooleanStruct.of(instance_.moveTeamMultEvasinessAny()));
             return res_;
         }
         if (StringList.quickEq(methodName_,MOVE_TEAM_MULT_EVASINESS)) {
-            res_.setResult(new BooleanStruct(instance_.moveTeamMultEvasiness((Long)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.moveTeamMultEvasiness((Long)_args[0])));
             return res_;
         }
         if (StringList.quickEq(methodName_,ABILITY_ALLY_MULT_EVASINESS_ANY)) {
-            res_.setResult(new BooleanStruct(instance_.abilityAllyMultEvasinessAny()));
+            res_.setResult(BooleanStruct.of(instance_.abilityAllyMultEvasinessAny()));
             return res_;
         }
         if (StringList.quickEq(methodName_,ABILITY_ALLY_MULT_EVASINESS)) {
-            res_.setResult(new BooleanStruct(instance_.abilityAllyMultEvasiness((Long)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.abilityAllyMultEvasiness((Long)_args[0])));
             return res_;
         }
         if (StringList.quickEq(methodName_,MOVE_FOE_TEAM_MULT_EVASINESS_ANY)) {
-            res_.setResult(new BooleanStruct(instance_.moveFoeTeamMultEvasinessAny()));
+            res_.setResult(BooleanStruct.of(instance_.moveFoeTeamMultEvasinessAny()));
             return res_;
         }
         if (StringList.quickEq(methodName_,MOVE_FOE_TEAM_MULT_EVASINESS)) {
-            res_.setResult(new BooleanStruct(instance_.moveFoeTeamMultEvasiness((Long)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.moveFoeTeamMultEvasiness((Long)_args[0])));
             return res_;
         }
         if (StringList.quickEq(methodName_,STATUS_MULT_EVASINESS_ANY)) {
-            res_.setResult(new BooleanStruct(instance_.statusMultEvasinessAny()));
+            res_.setResult(BooleanStruct.of(instance_.statusMultEvasinessAny()));
             return res_;
         }
         if (StringList.quickEq(methodName_,STATUS_MULT_EVASINESS)) {
-            res_.setResult(new BooleanStruct(instance_.statusMultEvasiness((Long)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.statusMultEvasiness((Long)_args[0])));
             return res_;
         }
         if (StringList.quickEq(methodName_,ABILITY_IMMU_MULT_EVASINESS_ANY)) {
-            res_.setResult(new BooleanStruct(instance_.abilityImmuMultEvasinessAny()));
+            res_.setResult(BooleanStruct.of(instance_.abilityImmuMultEvasinessAny()));
             return res_;
         }
         if (StringList.quickEq(methodName_,ABILITY_IMMU_MULT_EVASINESS)) {
-            res_.setResult(new BooleanStruct(instance_.abilityImmuMultEvasiness((Long)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.abilityImmuMultEvasiness((Long)_args[0])));
             return res_;
         }
         if (StringList.quickEq(methodName_,COMBO_MULT_EVASINESS_ANY)) {
-            res_.setResult(new BooleanStruct(instance_.comboMultEvasinessAny()));
+            res_.setResult(BooleanStruct.of(instance_.comboMultEvasinessAny()));
             return res_;
         }
         if (StringList.quickEq(methodName_,COMBO_MULT_EVASINESS)) {
-            res_.setResult(new BooleanStruct(instance_.comboMultEvasiness((Long)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.comboMultEvasiness((Long)_args[0])));
             return res_;
         }
         if (StringList.quickEq(methodName_,IMMU_CH_TEAM_MOVE_ANY)) {
-            res_.setResult(new BooleanStruct(instance_.immuChTeamMoveAny()));
+            res_.setResult(BooleanStruct.of(instance_.immuChTeamMoveAny()));
             return res_;
         }
         if (StringList.quickEq(methodName_,IMMU_CH_TEAM_MOVE)) {
-            res_.setResult(new BooleanStruct(instance_.immuChTeamMove((Long)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.immuChTeamMove((Long)_args[0])));
             return res_;
         }
         if (StringList.quickEq(methodName_,CLICK_ABILITIES_IMMU_CH)) {
@@ -4268,19 +4268,19 @@ public final class AikiBeansHelpStd {
             return res_;
         }
         if (StringList.quickEq(methodName_,ABILITY_BOOST_CH_ANY)) {
-            res_.setResult(new BooleanStruct(instance_.abilityBoostChAny()));
+            res_.setResult(BooleanStruct.of(instance_.abilityBoostChAny()));
             return res_;
         }
         if (StringList.quickEq(methodName_,ABILITY_BOOST_CH)) {
-            res_.setResult(new BooleanStruct(instance_.abilityBoostCh((Long)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.abilityBoostCh((Long)_args[0])));
             return res_;
         }
         if (StringList.quickEq(methodName_,ITEM_BOOST_CH_ANY)) {
-            res_.setResult(new BooleanStruct(instance_.itemBoostChAny()));
+            res_.setResult(BooleanStruct.of(instance_.itemBoostChAny()));
             return res_;
         }
         if (StringList.quickEq(methodName_,ITEM_BOOST_CH)) {
-            res_.setResult(new BooleanStruct(instance_.itemBoostCh((Long)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.itemBoostCh((Long)_args[0])));
             return res_;
         }
         if (StringList.quickEq(methodName_,CLICK_MOVES_BOOST_CH)) {
@@ -4308,91 +4308,91 @@ public final class AikiBeansHelpStd {
             return res_;
         }
         if (StringList.quickEq(methodName_,ABILITY_BOOST_SPEED_ANY)) {
-            res_.setResult(new BooleanStruct(instance_.abilityBoostSpeedAny()));
+            res_.setResult(BooleanStruct.of(instance_.abilityBoostSpeedAny()));
             return res_;
         }
         if (StringList.quickEq(methodName_,ABILITY_BOOST_SPEED)) {
-            res_.setResult(new BooleanStruct(instance_.abilityBoostSpeed((Long)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.abilityBoostSpeed((Long)_args[0])));
             return res_;
         }
         if (StringList.quickEq(methodName_,ITEM_BOOST_SPEED_ANY)) {
-            res_.setResult(new BooleanStruct(instance_.itemBoostSpeedAny()));
+            res_.setResult(BooleanStruct.of(instance_.itemBoostSpeedAny()));
             return res_;
         }
         if (StringList.quickEq(methodName_,ITEM_BOOST_SPEED)) {
-            res_.setResult(new BooleanStruct(instance_.itemBoostSpeed((Long)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.itemBoostSpeed((Long)_args[0])));
             return res_;
         }
         if (StringList.quickEq(methodName_,ITEM_MULT_SPEED_ANY)) {
-            res_.setResult(new BooleanStruct(instance_.itemMultSpeedAny()));
+            res_.setResult(BooleanStruct.of(instance_.itemMultSpeedAny()));
             return res_;
         }
         if (StringList.quickEq(methodName_,ITEM_MULT_SPEED)) {
-            res_.setResult(new BooleanStruct(instance_.itemMultSpeed((Long)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.itemMultSpeed((Long)_args[0])));
             return res_;
         }
         if (StringList.quickEq(methodName_,ABILITY_MULT_SPEED_ANY)) {
-            res_.setResult(new BooleanStruct(instance_.abilityMultSpeedAny()));
+            res_.setResult(BooleanStruct.of(instance_.abilityMultSpeedAny()));
             return res_;
         }
         if (StringList.quickEq(methodName_,ABILITY_MULT_SPEED)) {
-            res_.setResult(new BooleanStruct(instance_.abilityMultSpeed((Long)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.abilityMultSpeed((Long)_args[0])));
             return res_;
         }
         if (StringList.quickEq(methodName_,MOVE_GLOBAL_MULT_SPEED_ANY)) {
-            res_.setResult(new BooleanStruct(instance_.moveGlobalMultSpeedAny()));
+            res_.setResult(BooleanStruct.of(instance_.moveGlobalMultSpeedAny()));
             return res_;
         }
         if (StringList.quickEq(methodName_,MOVE_GLOBAL_MULT_SPEED)) {
-            res_.setResult(new BooleanStruct(instance_.moveGlobalMultSpeed((Long)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.moveGlobalMultSpeed((Long)_args[0])));
             return res_;
         }
         if (StringList.quickEq(methodName_,MOVE_TEAM_MULT_SPEED_ANY)) {
-            res_.setResult(new BooleanStruct(instance_.moveTeamMultSpeedAny()));
+            res_.setResult(BooleanStruct.of(instance_.moveTeamMultSpeedAny()));
             return res_;
         }
         if (StringList.quickEq(methodName_,MOVE_TEAM_MULT_SPEED)) {
-            res_.setResult(new BooleanStruct(instance_.moveTeamMultSpeed((Long)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.moveTeamMultSpeed((Long)_args[0])));
             return res_;
         }
         if (StringList.quickEq(methodName_,ABILITY_ALLY_MULT_SPEED_ANY)) {
-            res_.setResult(new BooleanStruct(instance_.abilityAllyMultSpeedAny()));
+            res_.setResult(BooleanStruct.of(instance_.abilityAllyMultSpeedAny()));
             return res_;
         }
         if (StringList.quickEq(methodName_,ABILITY_ALLY_MULT_SPEED)) {
-            res_.setResult(new BooleanStruct(instance_.abilityAllyMultSpeed((Long)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.abilityAllyMultSpeed((Long)_args[0])));
             return res_;
         }
         if (StringList.quickEq(methodName_,MOVE_FOE_TEAM_MULT_SPEED_ANY)) {
-            res_.setResult(new BooleanStruct(instance_.moveFoeTeamMultSpeedAny()));
+            res_.setResult(BooleanStruct.of(instance_.moveFoeTeamMultSpeedAny()));
             return res_;
         }
         if (StringList.quickEq(methodName_,MOVE_FOE_TEAM_MULT_SPEED)) {
-            res_.setResult(new BooleanStruct(instance_.moveFoeTeamMultSpeed((Long)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.moveFoeTeamMultSpeed((Long)_args[0])));
             return res_;
         }
         if (StringList.quickEq(methodName_,STATUS_MULT_SPEED_ANY)) {
-            res_.setResult(new BooleanStruct(instance_.statusMultSpeedAny()));
+            res_.setResult(BooleanStruct.of(instance_.statusMultSpeedAny()));
             return res_;
         }
         if (StringList.quickEq(methodName_,STATUS_MULT_SPEED)) {
-            res_.setResult(new BooleanStruct(instance_.statusMultSpeed((Long)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.statusMultSpeed((Long)_args[0])));
             return res_;
         }
         if (StringList.quickEq(methodName_,ABILITY_IMMU_MULT_SPEED_ANY)) {
-            res_.setResult(new BooleanStruct(instance_.abilityImmuMultSpeedAny()));
+            res_.setResult(BooleanStruct.of(instance_.abilityImmuMultSpeedAny()));
             return res_;
         }
         if (StringList.quickEq(methodName_,ABILITY_IMMU_MULT_SPEED)) {
-            res_.setResult(new BooleanStruct(instance_.abilityImmuMultSpeed((Long)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.abilityImmuMultSpeed((Long)_args[0])));
             return res_;
         }
         if (StringList.quickEq(methodName_,COMBO_MULT_SPEED_ANY)) {
-            res_.setResult(new BooleanStruct(instance_.comboMultSpeedAny()));
+            res_.setResult(BooleanStruct.of(instance_.comboMultSpeedAny()));
             return res_;
         }
         if (StringList.quickEq(methodName_,COMBO_MULT_SPEED)) {
-            res_.setResult(new BooleanStruct(instance_.comboMultSpeed((Long)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.comboMultSpeed((Long)_args[0])));
             return res_;
         }
         if (StringList.quickEq(methodName_,CLICK_MOVES_PROTECTING_TYPES)) {
@@ -4523,7 +4523,7 @@ public final class AikiBeansHelpStd {
             return res_;
         }
         if (StringList.quickEq(methodName_,IS_FIRST_ROW)) {
-            res_.setResult(new BooleanStruct(instance_.isFirstRow((Long)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.isFirstRow((Long)_args[0])));
             return res_;
         }
         if (StringList.quickEq(methodName_,GET_PLACE_NAME)) {
@@ -4563,7 +4563,7 @@ public final class AikiBeansHelpStd {
             return res_;
         }
         if (StringList.quickEq(methodName_,FIRST_POKEMON_HAS_ITEM)) {
-            res_.setResult(new BooleanStruct(instance_.firstPokemonHasItem()));
+            res_.setResult(BooleanStruct.of(instance_.firstPokemonHasItem()));
             return res_;
         }
         if (StringList.quickEq(methodName_,CLICK_ITEM)) {

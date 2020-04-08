@@ -438,7 +438,7 @@ public abstract class RendDynOperationNode {
                 return par_.getOrder();
             }
             if (index_ == 0) {
-                BooleanStruct bs_ = new BooleanStruct(false);
+                BooleanStruct bs_ = BooleanStruct.of(false);
                 if (bs_.sameReference(_value)) {
                     return _operation.getNextSibling().getOrder() + 1;
                 }

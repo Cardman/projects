@@ -1147,6 +1147,38 @@ public final class ProcessReadonlyTest extends ProcessMethodCommon {
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(2, ((NumberStruct)field_).intStruct());
     }
+
+    @Test
+    public void calculate33Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public final int inst;\n");
+        xml_.append(" public int ance = 10;\n");
+        xml_.append(" Ex(){{\n");
+        xml_.append("    inst = 5;\n");
+        xml_.append("    ance = 2;\n");
+        xml_.append(" }}\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElReadOnlyDefaultSingle();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        ConstructorId id_ = getConstructorId("pkg.Ex");
+        Argument ret_;
+        ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
+        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        Struct str_ = ret_.getStruct();
+        assertEq("pkg.Ex", str_.getClassName(cont_));
+        Struct field_;
+        field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.Ex", "inst"));
+        assertEq("$core.Integer", field_.getClassName(cont_));
+        assertEq(5, ((NumberStruct)field_).intStruct());
+        field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.Ex", "ance"));
+        assertEq("$core.Integer", field_.getClassName(cont_));
+        assertEq(2, ((NumberStruct)field_).intStruct());
+    }
     @Test
     public void fail1Test() {
         StringMap<String> files_ = new StringMap<String>();

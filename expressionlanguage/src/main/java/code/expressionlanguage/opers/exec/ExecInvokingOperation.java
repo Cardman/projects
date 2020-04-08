@@ -350,7 +350,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                     }
                     String aliasBoolean_ = stds_.getAliasBoolean();
                     if (StringList.quickEq(aliasBoolean_, id_)) {
-                        return new Argument(new BooleanStruct(false));
+                        return new Argument(BooleanStruct.of(false));
                     }
                     String aliasString_ = stds_.getAliasString();
                     if (StringList.quickEq(aliasString_, id_)) {

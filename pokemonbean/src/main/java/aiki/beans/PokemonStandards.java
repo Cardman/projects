@@ -2933,7 +2933,7 @@ public final class PokemonStandards extends BeanNatLgNames {
             return new DoubleStruct((Double) _element);
         }
         if (_element instanceof Boolean) {
-            return new BooleanStruct((Boolean) _element);
+            return BooleanStruct.of((Boolean) _element);
         }
         if (_element instanceof String) {
             return new StringStruct((String) _element);
@@ -3037,11 +3037,11 @@ public final class PokemonStandards extends BeanNatLgNames {
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringList.quickEq(methodName_,IS_ENABLED)) {
-            res_.setResult(new BooleanStruct(instance_.isEnabled()));
+            res_.setResult(BooleanStruct.of(instance_.isEnabled()));
             return res_;
         }
         if (StringList.quickEq(methodName_,IS_INCREMENT_COUNT)) {
-            res_.setResult(new BooleanStruct(instance_.isIncrementCount()));
+            res_.setResult(BooleanStruct.of(instance_.isIncrementCount()));
             return res_;
         }
         if (StringList.quickEq(methodName_,GET_NB_TURN)) {
@@ -3135,11 +3135,11 @@ public final class PokemonStandards extends BeanNatLgNames {
             return res_;
         }
         if (StringList.quickEq(methodName_,IS_FIRST_STACKED)) {
-            res_.setResult(new BooleanStruct(instance_.isFirstStacked()));
+            res_.setResult(BooleanStruct.of(instance_.isFirstStacked()));
             return res_;
         }
         if (StringList.quickEq(methodName_,IS_LAST_STACKED)) {
-            res_.setResult(new BooleanStruct(instance_.isLastStacked()));
+            res_.setResult(BooleanStruct.of(instance_.isLastStacked()));
             return res_;
         }
         return res_;
@@ -3157,7 +3157,7 @@ public final class PokemonStandards extends BeanNatLgNames {
             return res_;
         }
         if (StringList.quickEq(methodName_,IS_INCREMENTING)) {
-            res_.setResult(new BooleanStruct(instance_.isIncrementing()));
+            res_.setResult(BooleanStruct.of(instance_.isIncrementing()));
             return res_;
         }
         if (StringList.quickEq(methodName_,GET_NB_ROUNDS)) {
@@ -3171,11 +3171,11 @@ public final class PokemonStandards extends BeanNatLgNames {
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringList.quickEq(methodName_,IS_ZERO)) {
-            res_.setResult(new BooleanStruct(instance_.isZero()));
+            res_.setResult(BooleanStruct.of(instance_.isZero()));
             return res_;
         }
         if (StringList.quickEq(methodName_,IS_ZERO_OR_GT)) {
-            res_.setResult(new BooleanStruct(instance_.isZeroOrGt()));
+            res_.setResult(BooleanStruct.of(instance_.isZeroOrGt()));
             return res_;
         }
         if (StringList.quickEq(methodName_,ABS_NB)) {
@@ -3359,7 +3359,7 @@ public final class PokemonStandards extends BeanNatLgNames {
             return res_;
         }
         if (StringList.quickEq(methodName_,GET_WEDDING_ALLY)) {
-            res_.setResult(new BooleanStruct(instance_.getWeddingAlly()));
+            res_.setResult(BooleanStruct.of(instance_.getWeddingAlly()));
             return res_;
         }
         if (StringList.quickEq(methodName_,GET_MULT_DAMAGE_AGAINST_FOE)) {

@@ -373,6 +373,101 @@ public final class RenderInitNavTest extends CommonRender {
         assertEq("<html><body><a c:command=\"page2.html\" href=\"\" n-a=\"0\"/></body></html>",n_.getHtmlText());
     }
     @Test
+    public void process7Test() {
+        String locale_ = "en";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
+        String html_ = "<html><body><a c:command=\"page2.html\"/></body></html>";
+        String htmlTwo_ = "<html><body>Next</body></html>";
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder file_ = new StringBuilder();
+        file_.append("$public $class [code.bean.Message;] pkg.MyVal:code.bean.Validator{");
+        file_.append(" $public Message validate(Object n,Object o,Object b,Object f,String c,String fd){");
+        file_.append("  $return $null;");
+        file_.append(" }");
+        file_.append("}");
+        file_.append("$public $class pkg.BeanTwo:code.bean.Bean{");
+        file_.append(" $public $static $int v = BeanThree.v++;");
+        file_.append("}");
+        file_.append("$public $class pkg.BeanThree:code.bean.Bean{");
+        file_.append(" $public $static $int v = BeanTwo.v++;");
+        file_.append("}");
+        file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
+        file_.append(" $public String click($int p){");
+        file_.append("  $return $bool(p:.:>2,\"val1\",\"val2\");");
+        file_.append(" }");
+        file_.append("}");
+        files_.put("my_file",file_.toString());
+        file_ = new StringBuilder();
+        file_.append("my_file");
+        files_.put("conf",file_.toString());
+        Options opt_ = new Options();
+        opt_.setEndLineSemiColumn(false);
+        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        BeanLgNames lgNames_ = new BeanCustLgNamesImpl();
+        basicStandards(lgNames_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put("page1.html", html_);
+        files_.put("page2.html", htmlTwo_);
+        String xmlConf_ = "<cfg>\n" +
+                "\t<java.lang.String field='firstUrl' value='page1.html'/>\n" +
+                "\t<java.lang.String field='prefix' value='c'/>\n" +
+                "\t<sm field='navigation'>\n" +
+                "\t\t<java.lang.String key='' value='bean_one.method'/>\n" +
+                "\t\t<sm>\n" +
+                "\t\t\t<java.lang.String key='' value='res'/>\n" +
+                "\t\t\t<java.lang.String value='page2.html'/>\n" +
+                "\t\t</sm>\n" +
+                "\t</sm>\n" +
+                "\t<n field=\"context\">\n" +
+                "\t\t<java.lang.Integer field='stackOverFlow' value='-1'/>\n" +
+                "\t\t<o field='options'>\n" +
+                "\t\t\t<v field='suffixVar' value='DISTINCT'/>\n" +
+                "\t\t\t<b field='initializeStaticClassFirst' value='true'/>\n" +
+                "\t\t\t<i field='classes' value='pkg.BeanTwo'/>\n" +
+                "\t\t\t<i field='classes' value='pkg.BeanThree'/>\n" +
+                "\t\t</o>\n" +
+                "\t\t<i field='inex'/>\n" +
+                "\t</n>\n" +
+                "\t<java.lang.Integer field='tabWidth' value='4'/>\n" +
+                "\t<java.lang.String field='messagesFolder' value='messages'/>\n" +
+                "\t<java.lang.String field='filesConfName' value='conf'/>\n" +
+                "\t<sm field='beans'>\n" +
+                "\t\t<java.lang.String key='' value='bean_one'/>\n" +
+                "\t\t<b>\n" +
+                "\t\t\t<java.lang.String field='scope' value='session'/>\n" +
+                "\t\t\t<java.lang.String field='className' value='pkg.BeanOne'/>\n" +
+                "\t\t\t<i field='inex'/>\n" +
+                "\t\t</b>\n" +
+                "\t</sm>\n" +
+                "\t<sm field='properties'>\n" +
+                "\t\t<java.lang.String key='' value='msg_cust'/>\n" +
+                "\t\t<java.lang.String value='sample/file'/>\n" +
+                "\t</sm>\n" +
+                "\t<sl field='addedFiles'>\n" +
+                "\t\t<str value='page1.html'/>\n" +
+                "\t\t<str value='page2.html'/>\n" +
+                "\t</sl>\n" +
+                "\t<sl field='renderFiles'>\n" +
+                "\t\t<str value='page1.html'/>\n" +
+                "\t\t<str value='page2.html'/>\n" +
+                "\t</sl>\n" +
+                "\t<sm field='lateValidators'>\n" +
+                "\t\t<str key='' value='my_val'/>\n" +
+                "\t\t<str value='pkg.MyVal'/>\n" +
+                "\t</sm>\n" +
+                "\t<i field='inex'/>\n" +
+                "</cfg>\n" +
+                "\n";
+        Navigation n_ = new Navigation();
+        n_.loadConfiguration(xmlConf_,"",lgNames_);
+        n_.setFiles(files_);
+        n_.setupRendClassesInit();
+        n_.initializeRendSession();
+        assertEq("<html><body><a c:command=\"page2.html\" href=\"\" n-a=\"0\"/></body></html>",n_.getHtmlText());
+    }
+    @Test
     public void process1FailTest() {
         String locale_ = "en";
         String folder_ = "messages";

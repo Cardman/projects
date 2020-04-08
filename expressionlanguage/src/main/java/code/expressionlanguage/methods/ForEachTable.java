@@ -700,10 +700,10 @@ public final class ForEachTable extends BracedStack implements Loop, WithNotEmpt
         boolean hasNext_ = has_ == ConditionReturn.YES;
 
         if (hasNext_) {
-            _conf.getCoverage().passLoop(_conf, new Argument(new BooleanStruct(true)));
+            _conf.getCoverage().passLoop(_conf, new Argument(BooleanStruct.of(true)));
             incrementLoop(_conf, l_, vars_);
         } else {
-            _conf.getCoverage().passLoop(_conf, new Argument(new BooleanStruct(false)));
+            _conf.getCoverage().passLoop(_conf, new Argument(BooleanStruct.of(false)));
             _conf.getLastPage().clearCurrentEls();
             l_.setFinished(true);
             l_.setEvaluatingKeepLoop(false);

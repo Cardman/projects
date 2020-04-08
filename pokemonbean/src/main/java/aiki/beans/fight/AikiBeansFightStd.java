@@ -460,7 +460,7 @@ public final class AikiBeansFightStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,CHANGED)) {
-            res_.setResult(new BooleanStruct(instance_.getChanged()));
+            res_.setResult(BooleanStruct.of(instance_.getChanged()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,CURRENT_NAME)) {
@@ -476,7 +476,7 @@ public final class AikiBeansFightStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,BELONGING_TO_PLAYER)) {
-            res_.setResult(new BooleanStruct(instance_.getBelongingToPlayer()));
+            res_.setResult(BooleanStruct.of(instance_.getBelongingToPlayer()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,GROUND_PLACE_SUBST)) {
@@ -556,7 +556,7 @@ public final class AikiBeansFightStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,ACTED)) {
-            res_.setResult(new BooleanStruct(instance_.getActed()));
+            res_.setResult(BooleanStruct.of(instance_.getActed()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,LAST_USED_ITEM)) {
@@ -572,7 +572,7 @@ public final class AikiBeansFightStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,USING_ITEM)) {
-            res_.setResult(new BooleanStruct(instance_.getUsingItem()));
+            res_.setResult(BooleanStruct.of(instance_.getUsingItem()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,TYPES)) {
@@ -628,7 +628,7 @@ public final class AikiBeansFightStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,SUCCESSFUL_MOVE)) {
-            res_.setResult(new BooleanStruct(instance_.getSuccessfulMove()));
+            res_.setResult(BooleanStruct.of(instance_.getSuccessfulMove()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,LAST_SUCCESSFUL_MOVE)) {
@@ -660,11 +660,11 @@ public final class AikiBeansFightStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,DISAPPEARED)) {
-            res_.setResult(new BooleanStruct(instance_.getDisappeared()));
+            res_.setResult(BooleanStruct.of(instance_.getDisappeared()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,NEEDING_TO_RECHARGE)) {
-            res_.setResult(new BooleanStruct(instance_.getNeedingToRecharge()));
+            res_.setResult(BooleanStruct.of(instance_.getNeedingToRecharge()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,STATUS)) {
@@ -699,7 +699,7 @@ public final class AikiBeansFightStd {
         TeamBean instance_ = (TeamBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringList.quickEq(fieldName_,FOE_TEAM)) {
-            res_.setResult(new BooleanStruct(instance_.getFoeTeam()));
+            res_.setResult(BooleanStruct.of(instance_.getFoeTeam()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,ENABLED_MOVES)) {
@@ -745,7 +745,7 @@ public final class AikiBeansFightStd {
             return res_;
         }
         if (StringList.quickEq(methodName_,IS_STILL_ENABLED)) {
-            res_.setResult(new BooleanStruct(instance_.isStillEnabled((Long)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.isStillEnabled((Long)_args[0])));
             return res_;
         }
         return res_;
@@ -763,11 +763,11 @@ public final class AikiBeansFightStd {
             return res_;
         }
         if (StringList.quickEq(methodName_,IS_FOE_TARGET_CHOICE_TEAM)) {
-            res_.setResult(new BooleanStruct(instance_.isFoeTargetChoiceTeam((Long)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.isFoeTargetChoiceTeam((Long)_args[0])));
             return res_;
         }
         if (StringList.quickEq(methodName_,IS_BACK_TARGET_CHOICE_TEAM)) {
-            res_.setResult(new BooleanStruct(instance_.isBackTargetChoiceTeam((Long)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.isBackTargetChoiceTeam((Long)_args[0])));
             return res_;
         }
         if (StringList.quickEq(methodName_,GET_TARGET_NAME_ALLY_CHOICE_CONDITION)) {
@@ -775,11 +775,11 @@ public final class AikiBeansFightStd {
             return res_;
         }
         if (StringList.quickEq(methodName_,IS_FOE_TARGET_TEAM)) {
-            res_.setResult(new BooleanStruct(instance_.isFoeTargetTeam((Long)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.isFoeTargetTeam((Long)_args[0])));
             return res_;
         }
         if (StringList.quickEq(methodName_,IS_BACK_TARGET_TEAM)) {
-            res_.setResult(new BooleanStruct(instance_.isBackTargetTeam((Long)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.isBackTargetTeam((Long)_args[0])));
             return res_;
         }
         if (StringList.quickEq(methodName_,GET_TARGET_NAME_ALLY_CHOICE)) {
@@ -791,11 +791,11 @@ public final class AikiBeansFightStd {
             return res_;
         }
         if (StringList.quickEq(methodName_,IS_CHOSEN_TARGET)) {
-            res_.setResult(new BooleanStruct(instance_.isChosenTarget((Long)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.isChosenTarget((Long)_args[0])));
             return res_;
         }
         if (StringList.quickEq(methodName_,IS_FOE_TARGET_CH_TEAM)) {
-            res_.setResult(new BooleanStruct(instance_.isFoeTargetChTeam((Long)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.isFoeTargetChTeam((Long)_args[0])));
             return res_;
         }
         if (StringList.quickEq(methodName_,GET_TARGET_NAME_FOE_CHOICE)) {
@@ -809,15 +809,15 @@ public final class AikiBeansFightStd {
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringList.quickEq(methodName_,IS_BACK_SUBST)) {
-            res_.setResult(new BooleanStruct(instance_.isBackSubst()));
+            res_.setResult(BooleanStruct.of(instance_.isBackSubst()));
             return res_;
         }
         if (StringList.quickEq(methodName_,IS_BACK)) {
-            res_.setResult(new BooleanStruct(instance_.isBack()));
+            res_.setResult(BooleanStruct.of(instance_.isBack()));
             return res_;
         }
         if (StringList.quickEq(methodName_,IS_FOE_STATUS_RELAT_TEAM)) {
-            res_.setResult(new BooleanStruct(instance_.isFoeStatusRelatTeam((Long)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.isFoeStatusRelatTeam((Long)_args[0])));
             return res_;
         }
         if (StringList.quickEq(methodName_,GET_STATUS_RELAT_TEAM)) {
@@ -825,11 +825,11 @@ public final class AikiBeansFightStd {
             return res_;
         }
         if (StringList.quickEq(methodName_,IS_ENABLED)) {
-            res_.setResult(new BooleanStruct(instance_.isEnabled((Long)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.isEnabled((Long)_args[0])));
             return res_;
         }
         if (StringList.quickEq(methodName_,IS_FOE_PRIVATE_MOVES_TEAM)) {
-            res_.setResult(new BooleanStruct(instance_.isFoePrivateMovesTeam((Long)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.isFoePrivateMovesTeam((Long)_args[0])));
             return res_;
         }
         if (StringList.quickEq(methodName_,GET_INCR_PRIVATE_MOVES_TEAM)) {
@@ -837,7 +837,7 @@ public final class AikiBeansFightStd {
             return res_;
         }
         if (StringList.quickEq(methodName_,IS_FOE_TRAPPING_MOVES_TEAM)) {
-            res_.setResult(new BooleanStruct(instance_.isFoeTrappingMovesTeam((Long)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.isFoeTrappingMovesTeam((Long)_args[0])));
             return res_;
         }
         if (StringList.quickEq(methodName_,GET_INCR_TRAPPING_MOVES_TEAM)) {
@@ -845,7 +845,7 @@ public final class AikiBeansFightStd {
             return res_;
         }
         if (StringList.quickEq(methodName_,IS_FOE_TRACKING_MOVES_TEAM)) {
-            res_.setResult(new BooleanStruct(instance_.isFoeTrackingMovesTeam((Long)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.isFoeTrackingMovesTeam((Long)_args[0])));
             return res_;
         }
         if (StringList.quickEq(methodName_,GET_INCR_TRACKING_MOVES_TEAM)) {
@@ -853,7 +853,7 @@ public final class AikiBeansFightStd {
             return res_;
         }
         if (StringList.quickEq(methodName_,IS_FOE_INCR_USER_ACCURACY_TEAM)) {
-            res_.setResult(new BooleanStruct(instance_.isFoeIncrUserAccuracyTeam((Long)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.isFoeIncrUserAccuracyTeam((Long)_args[0])));
             return res_;
         }
         if (StringList.quickEq(methodName_,GET_INCR_USER_ACCURACY_TEAM)) {
@@ -884,11 +884,11 @@ public final class AikiBeansFightStd {
             return res_;
         }
         if (StringList.quickEq(methodName_,IS_FOE_MOVES_ANTICIPATION_TEAM)) {
-            res_.setResult(new BooleanStruct(instance_.isFoeMovesAnticipationTeam((Long)_args[0],(Long)_args[1])));
+            res_.setResult(BooleanStruct.of(instance_.isFoeMovesAnticipationTeam((Long)_args[0],(Long)_args[1])));
             return res_;
         }
         if (StringList.quickEq(methodName_,IS_BACK_MOVES_ANTICIPATION_TEAM)) {
-            res_.setResult(new BooleanStruct(instance_.isBackMovesAnticipationTeam((Long)_args[0],(Long)_args[1])));
+            res_.setResult(BooleanStruct.of(instance_.isBackMovesAnticipationTeam((Long)_args[0],(Long)_args[1])));
             return res_;
         }
         if (StringList.quickEq(methodName_,GET_PLAYER_FIGTHER_AGAINST_FOE)) {

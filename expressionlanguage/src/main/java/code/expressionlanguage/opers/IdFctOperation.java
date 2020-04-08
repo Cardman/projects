@@ -17,7 +17,7 @@ public final class IdFctOperation extends LeafOperation implements IdFctOperable
     private String className;
     private int offset;
 
-    private ClassMethodId method;
+    private ClassMethodIdAncestor method;
 
     private CustList<PartOffset> partOffsets;
 
@@ -78,7 +78,7 @@ public final class IdFctOperation extends LeafOperation implements IdFctOperable
         if (argsRes_ == null) {
             return;
         }
-        method = new ClassMethodId(cl_, argsRes_);
+        method = new ClassMethodIdAncestor(new ClassMethodId(cl_, argsRes_),idUpdate_.getAncestor());
         setSimpleArgument(new Argument());
         setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
     }
@@ -121,7 +121,7 @@ public final class IdFctOperation extends LeafOperation implements IdFctOperable
         return new MethodId(_static, _name, out_, vararg_ != -1);
     }
 
-    public ClassMethodId getMethod() {
+    public ClassMethodIdAncestor getMethod() {
         return method;
     }
 

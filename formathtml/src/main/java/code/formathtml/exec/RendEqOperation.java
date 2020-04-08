@@ -34,7 +34,7 @@ public final class RendEqOperation extends RendMethodOperation implements RendCa
         if (complement_) {
             b_ = !b_;
         }
-        Argument arg_ = new Argument(new BooleanStruct(b_));
+        Argument arg_ = new Argument(BooleanStruct.of(b_));
         setSimpleArgument(arg_, _conf,_nodes);
     }
 }

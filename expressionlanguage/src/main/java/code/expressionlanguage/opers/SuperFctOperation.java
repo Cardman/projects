@@ -42,7 +42,7 @@ public final class SuperFctOperation extends InvokingOperation {
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
         String trimMeth_;
         int varargOnly_ = lookOnlyForVarArg();
-        ClassMethodId idMethod_ = lookOnlyForId();
+        ClassMethodIdAncestor idMethod_ = lookOnlyForId();
         LgNames stds_ = _conf.getStandards();
         boolean import_ = false;
         ClassArgumentMatching clCur_;
@@ -89,14 +89,15 @@ public final class SuperFctOperation extends InvokingOperation {
         String mName_ = methodName.substring(delta);
         delta += StringList.getFirstPrintableCharIndex(mName_);
         trimMeth_ = mName_.trim();
-        ClassMethodId feed_ = null;
+        ClassMethodIdAncestor feed_ = null;
         if (idMethod_ != null) {
-            String idClass_ = idMethod_.getClassName();
-            MethodId mid_ = idMethod_.getConstraints();
+            ClassMethodId id_ = idMethod_.getClassMethodId();
+            String idClass_ = id_.getClassName();
+            MethodId mid_ = id_.getConstraints();
             boolean vararg_ = mid_.isVararg();
             StringList params_ = mid_.getParametersTypes();
             MethodAccessKind static_ = MethodId.getKind(isStaticAccess(), mid_.getKind());
-            feed_ = new ClassMethodId(idClass_, new MethodId(static_, trimMeth_, params_, vararg_));
+            feed_ = new ClassMethodIdAncestor(new ClassMethodId(idClass_, new MethodId(static_, trimMeth_, params_, vararg_)),idMethod_.getAncestor());
         }
         ClassMethodIdReturn clMeth_ = getDeclaredCustMethod(_conf, varargOnly_, isStaticAccess(), bounds_, trimMeth_, true, false, import_, feed_, ClassArgumentMatching.toArgArray(firstArgs_));
         anc = clMeth_.getAncestor();

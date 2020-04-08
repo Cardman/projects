@@ -15,7 +15,7 @@ public final class MenuItemCheckStruct extends AbsMenuItemStruct {
         menuItem = new CheckBoxMenuItem(getValue(_str));
     }
     public Struct isSelected() {
-        return new BooleanStruct(menuItem.isSelected());
+        return BooleanStruct.of(menuItem.isSelected());
     }
     public void setSelected(Struct _struct) {
         menuItem.setSelected(((BooleanStruct)_struct).getInstance());

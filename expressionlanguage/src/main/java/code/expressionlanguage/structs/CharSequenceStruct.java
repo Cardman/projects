@@ -36,10 +36,10 @@ public abstract class CharSequenceStruct implements DisplayableStruct, Exportabl
             return;
         }
         if (!(_args[0] instanceof CharSequenceStruct)) {
-            _res.setResult(new BooleanStruct(_args[1] == NullStruct.NULL_VALUE));
+            _res.setResult(BooleanStruct.of(_args[1] == NullStruct.NULL_VALUE));
             return;
         }
-        _res.setResult(new BooleanStruct(sameEq((CharSequenceStruct)_args[0],_args[1])));
+        _res.setResult(BooleanStruct.of(sameEq((CharSequenceStruct)_args[0],_args[1])));
     }
     private void calculateLocCharSeq(Analyzable _cont, ResultErrorStd _res, ClassMethodId _method, Struct... _args) {
         String name_ = _method.getConstraints().getName();
@@ -172,7 +172,7 @@ public abstract class CharSequenceStruct implements DisplayableStruct, Exportabl
     }
 
     private void isEmpty(ResultErrorStd _res) {
-        _res.setResult(new BooleanStruct(length() == 0));
+        _res.setResult(BooleanStruct.of(length() == 0));
     }
 
     private void charAt(Struct _index, LgNames _stds, ResultErrorStd _res) {
@@ -225,7 +225,7 @@ public abstract class CharSequenceStruct implements DisplayableStruct, Exportabl
         int comLen_ = _len.intStruct();
         int to_ = _toffset.intStruct();
         int po_ = _ooffset.intStruct();
-        _res.setResult(new BooleanStruct(toStringInstance().regionMatches(to_, other_.toStringInstance(), po_, comLen_)));
+        _res.setResult(BooleanStruct.of(toStringInstance().regionMatches(to_, other_.toStringInstance(), po_, comLen_)));
     }
 
     private void startsWith(Struct _prefix, LgNames _stds, ResultErrorStd _res) {
@@ -239,7 +239,7 @@ public abstract class CharSequenceStruct implements DisplayableStruct, Exportabl
             return;
         }
         CharSequenceStruct suffix_ = (CharSequenceStruct) _suffix;
-        _res.setResult(new BooleanStruct(toStringInstance().endsWith(suffix_.toStringInstance())));
+        _res.setResult(BooleanStruct.of(toStringInstance().endsWith(suffix_.toStringInstance())));
     }
     private void startsWith(Struct _prefix, NumberStruct _toffset, LgNames _stds, ResultErrorStd _res) {
         String nullPe_ = _stds.getAliasNullPe();
@@ -249,7 +249,7 @@ public abstract class CharSequenceStruct implements DisplayableStruct, Exportabl
         }
         CharSequenceStruct pref_ = (CharSequenceStruct) _prefix;
         int to_ = _toffset.intStruct();
-        _res.setResult(new BooleanStruct(toStringInstance().startsWith(pref_.toStringInstance(), to_)));
+        _res.setResult(BooleanStruct.of(toStringInstance().startsWith(pref_.toStringInstance(), to_)));
     }
 
     private void indexOf(Struct _ch, ResultErrorStd _res) {
@@ -272,7 +272,7 @@ public abstract class CharSequenceStruct implements DisplayableStruct, Exportabl
             return;
         }
         CharSequenceStruct arg_ = (CharSequenceStruct) _str;
-        _res.setResult(new BooleanStruct(toStringInstance().contains(arg_.toStringInstance())));
+        _res.setResult(BooleanStruct.of(toStringInstance().contains(arg_.toStringInstance())));
     }
 
     private void indexOfString(Struct _str, LgNames _stds, ResultErrorStd _res) {

@@ -1390,7 +1390,7 @@ public final class AikiBeansMovesEffectsStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,NEED_SUCCESS_FIRST_EFFECT)) {
-            res_.setResult(new BooleanStruct(instance_.getNeedSuccessFirstEffect()));
+            res_.setResult(BooleanStruct.of(instance_.getNeedSuccessFirstEffect()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,EFFECT_BEAN)) {
@@ -1461,7 +1461,7 @@ public final class AikiBeansMovesEffectsStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,COPYING_MOVE_FOR_USER_DEF)) {
-            res_.setResult(new BooleanStruct(instance_.getCopyingMoveForUserDef()));
+            res_.setResult(BooleanStruct.of(instance_.getCopyingMoveForUserDef()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,MOVES_TRANSFORMING)) {
@@ -1515,7 +1515,7 @@ public final class AikiBeansMovesEffectsStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,CONST_DAMAGE)) {
-            res_.setResult(new BooleanStruct(instance_.getConstDamage()));
+            res_.setResult(BooleanStruct.of(instance_.getConstDamage()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,POWER)) {
@@ -1543,7 +1543,7 @@ public final class AikiBeansMovesEffectsStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,USER_ATTACK)) {
-            res_.setResult(new BooleanStruct(instance_.getUserAttack()));
+            res_.setResult(BooleanStruct.of(instance_.getUserAttack()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,STATIS_ATT)) {
@@ -1551,7 +1551,7 @@ public final class AikiBeansMovesEffectsStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,TARGET_DEFENSE)) {
-            res_.setResult(new BooleanStruct(instance_.getTargetDefense()));
+            res_.setResult(BooleanStruct.of(instance_.getTargetDefense()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,STATIS_DEF)) {
@@ -1567,7 +1567,7 @@ public final class AikiBeansMovesEffectsStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,RAND_MAX)) {
-            res_.setResult(new BooleanStruct(instance_.getRandMax()));
+            res_.setResult(BooleanStruct.of(instance_.getRandMax()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,BOOST_STATIS_ONCE_KO_FOE)) {
@@ -1575,7 +1575,7 @@ public final class AikiBeansMovesEffectsStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,SUMMING_USER_TEAM_OK_FIGHTER)) {
-            res_.setResult(new BooleanStruct(instance_.getSummingUserTeamOkFighter()));
+            res_.setResult(BooleanStruct.of(instance_.getSummingUserTeamOkFighter()));
             return res_;
         }
         return AikiBeansMovesEffectsStd.getResultEffectBean(_cont, _classField, _instance);
@@ -1585,7 +1585,7 @@ public final class AikiBeansMovesEffectsStd {
         EffectDamageRateBean instance_ = (EffectDamageRateBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringList.quickEq(fieldName_,WIN_HP)) {
-            res_.setResult(new BooleanStruct(instance_.getWinHp()));
+            res_.setResult(BooleanStruct.of(instance_.getWinHp()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,RATE_DAMAGE)) {
@@ -1642,23 +1642,23 @@ public final class AikiBeansMovesEffectsStd {
         EffectGlobalBean instance_ = (EffectGlobalBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringList.quickEq(fieldName_,WEATHER)) {
-            res_.setResult(new BooleanStruct(instance_.getWeather()));
+            res_.setResult(BooleanStruct.of(instance_.getWeather()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,CANCELED_IF_USED)) {
-            res_.setResult(new BooleanStruct(instance_.getCanceledIfUsed()));
+            res_.setResult(BooleanStruct.of(instance_.getCanceledIfUsed()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,REVERSE_ORDER_OF_SORT_BY_SPEED)) {
-            res_.setResult(new BooleanStruct(instance_.getReverseOrderOfSortBySpeed()));
+            res_.setResult(BooleanStruct.of(instance_.getReverseOrderOfSortBySpeed()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,UNUSABLE_ITEM)) {
-            res_.setResult(new BooleanStruct(instance_.getUnusableItem()));
+            res_.setResult(BooleanStruct.of(instance_.getUnusableItem()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,PUTTING_KO)) {
-            res_.setResult(new BooleanStruct(instance_.getPuttingKo()));
+            res_.setResult(BooleanStruct.of(instance_.getPuttingKo()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,MULT_ACCURACY)) {
@@ -1757,27 +1757,27 @@ public final class AikiBeansMovesEffectsStd {
         EffectInvokeBean instance_ = (EffectInvokeBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringList.quickEq(fieldName_,INVOKING_MOVE_BUT_USER)) {
-            res_.setResult(new BooleanStruct(instance_.getInvokingMoveButUser()));
+            res_.setResult(BooleanStruct.of(instance_.getInvokingMoveButUser()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,INVOKING_TARGET_CHOSEN_MOVE)) {
-            res_.setResult(new BooleanStruct(instance_.getInvokingTargetChosenMove()));
+            res_.setResult(BooleanStruct.of(instance_.getInvokingTargetChosenMove()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,INVOKING_USER_MOVE_WHILE_SLEEP)) {
-            res_.setResult(new BooleanStruct(instance_.getInvokingUserMoveWhileSleep()));
+            res_.setResult(BooleanStruct.of(instance_.getInvokingUserMoveWhileSleep()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,INVOKING_ALLY_MOVE)) {
-            res_.setResult(new BooleanStruct(instance_.getInvokingAllyMove()));
+            res_.setResult(BooleanStruct.of(instance_.getInvokingAllyMove()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,INVOKING_TARGET_SUCCESFUL_MOVE)) {
-            res_.setResult(new BooleanStruct(instance_.getInvokingTargetSuccesfulMove()));
+            res_.setResult(BooleanStruct.of(instance_.getInvokingTargetSuccesfulMove()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,INVOKING_SUFFERED_MOVE)) {
-            res_.setResult(new BooleanStruct(instance_.getInvokingSufferedMove()));
+            res_.setResult(BooleanStruct.of(instance_.getInvokingSufferedMove()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,RATE_INVOKATION_MOVE)) {
@@ -1829,7 +1829,7 @@ public final class AikiBeansMovesEffectsStd {
         EffectOrderBean instance_ = (EffectOrderBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringList.quickEq(fieldName_,TARGET_ATTACKS_LAST)) {
-            res_.setResult(new BooleanStruct(instance_.getTargetAttacksLast()));
+            res_.setResult(BooleanStruct.of(instance_.getTargetAttacksLast()));
             return res_;
         }
         return AikiBeansMovesEffectsStd.getResultEffectBean(_cont, _classField, _instance);
@@ -1850,7 +1850,7 @@ public final class AikiBeansMovesEffectsStd {
         EffectProtectionBean instance_ = (EffectProtectionBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringList.quickEq(fieldName_,PROT_SINGLE)) {
-            res_.setResult(new BooleanStruct(instance_.getProtSingle()));
+            res_.setResult(BooleanStruct.of(instance_.getProtSingle()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,PROT_SINGLE_AGAINST_KO)) {
@@ -1858,19 +1858,19 @@ public final class AikiBeansMovesEffectsStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,PROT_TEAM_AGAINST_MULT_TARGETS)) {
-            res_.setResult(new BooleanStruct(instance_.getProtTeamAgainstMultTargets()));
+            res_.setResult(BooleanStruct.of(instance_.getProtTeamAgainstMultTargets()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,PROT_TEAM_AGAINST_PRIO)) {
-            res_.setResult(new BooleanStruct(instance_.getProtTeamAgainstPrio()));
+            res_.setResult(BooleanStruct.of(instance_.getProtTeamAgainstPrio()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,PROT_TEAM_AGAINST_STATUS_MOVES)) {
-            res_.setResult(new BooleanStruct(instance_.getProtTeamAgainstStatusMoves()));
+            res_.setResult(BooleanStruct.of(instance_.getProtTeamAgainstStatusMoves()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,PROT_TEAM_AGAINST_DAMAGE_MOVES)) {
-            res_.setResult(new BooleanStruct(instance_.getProtTeamAgainstDamageMoves()));
+            res_.setResult(BooleanStruct.of(instance_.getProtTeamAgainstDamageMoves()));
             return res_;
         }
         return AikiBeansMovesEffectsStd.getResultEffectBean(_cont, _classField, _instance);
@@ -1880,7 +1880,7 @@ public final class AikiBeansMovesEffectsStd {
         EffectRemainedHpRateBean instance_ = (EffectRemainedHpRateBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringList.quickEq(fieldName_,WIN_HP)) {
-            res_.setResult(new BooleanStruct(instance_.getWinHp()));
+            res_.setResult(BooleanStruct.of(instance_.getWinHp()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,RATE_HP)) {
@@ -1894,7 +1894,7 @@ public final class AikiBeansMovesEffectsStd {
         EffectRestrictionBean instance_ = (EffectRestrictionBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringList.quickEq(fieldName_,FORBID_TARGET_USING_ITEM)) {
-            res_.setResult(new BooleanStruct(instance_.getForbidTargetUsingItem()));
+            res_.setResult(BooleanStruct.of(instance_.getForbidTargetUsingItem()));
             return res_;
         }
         return AikiBeansMovesEffectsStd.getResultEffectBean(_cont, _classField, _instance);
@@ -1960,11 +1960,11 @@ public final class AikiBeansMovesEffectsStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,KO_USER_HEAL_SUBST)) {
-            res_.setResult(new BooleanStruct(instance_.getKoUserHealSubst()));
+            res_.setResult(BooleanStruct.of(instance_.getKoUserHealSubst()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,STATUS_FROM_USER)) {
-            res_.setResult(new BooleanStruct(instance_.getStatusFromUser()));
+            res_.setResult(BooleanStruct.of(instance_.getStatusFromUser()));
             return res_;
         }
         return AikiBeansMovesEffectsStd.getResultEffectBean(_cont, _classField, _instance);
@@ -2013,11 +2013,11 @@ public final class AikiBeansMovesEffectsStd {
         EffectTeamBean instance_ = (EffectTeamBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringList.quickEq(fieldName_,FORBIDDING_HEALING)) {
-            res_.setResult(new BooleanStruct(instance_.getForbiddingHealing()));
+            res_.setResult(BooleanStruct.of(instance_.getForbiddingHealing()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,PROTECT_AGAINST_CH)) {
-            res_.setResult(new BooleanStruct(instance_.getProtectAgainstCh()));
+            res_.setResult(BooleanStruct.of(instance_.getProtectAgainstCh()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,FORBIDDEN_BOOST)) {
@@ -2183,51 +2183,51 @@ public final class AikiBeansMovesEffectsStd {
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringList.quickEq(methodName_,IS_ADJ_ADV)) {
-            res_.setResult(new BooleanStruct(instance_.isAdjAdv()));
+            res_.setResult(BooleanStruct.of(instance_.isAdjAdv()));
             return res_;
         }
         if (StringList.quickEq(methodName_,IS_ADJ_MULT)) {
-            res_.setResult(new BooleanStruct(instance_.isAdjMult()));
+            res_.setResult(BooleanStruct.of(instance_.isAdjMult()));
             return res_;
         }
         if (StringList.quickEq(methodName_,IS_ADJ_UNIQ)) {
-            res_.setResult(new BooleanStruct(instance_.isAdjUniq()));
+            res_.setResult(BooleanStruct.of(instance_.isAdjUniq()));
             return res_;
         }
         if (StringList.quickEq(methodName_,IS_ALLIE)) {
-            res_.setResult(new BooleanStruct(instance_.isAllie()));
+            res_.setResult(BooleanStruct.of(instance_.isAllie()));
             return res_;
         }
         if (StringList.quickEq(methodName_,IS_ALLIES)) {
-            res_.setResult(new BooleanStruct(instance_.isAllies()));
+            res_.setResult(BooleanStruct.of(instance_.isAllies()));
             return res_;
         }
         if (StringList.quickEq(methodName_,IS_ANY_FOE)) {
-            res_.setResult(new BooleanStruct(instance_.isAnyFoe()));
+            res_.setResult(BooleanStruct.of(instance_.isAnyFoe()));
             return res_;
         }
         if (StringList.quickEq(methodName_,IS_AUTRE_UNIQ)) {
-            res_.setResult(new BooleanStruct(instance_.isAutreUniq()));
+            res_.setResult(BooleanStruct.of(instance_.isAutreUniq()));
             return res_;
         }
         if (StringList.quickEq(methodName_,IS_GLOBALE)) {
-            res_.setResult(new BooleanStruct(instance_.isGlobale()));
+            res_.setResult(BooleanStruct.of(instance_.isGlobale()));
             return res_;
         }
         if (StringList.quickEq(methodName_,IS_LANCEUR)) {
-            res_.setResult(new BooleanStruct(instance_.isLanceur()));
+            res_.setResult(BooleanStruct.of(instance_.isLanceur()));
             return res_;
         }
         if (StringList.quickEq(methodName_,IS_PSEUDO_GLOBALE)) {
-            res_.setResult(new BooleanStruct(instance_.isPseudoGlobale()));
+            res_.setResult(BooleanStruct.of(instance_.isPseudoGlobale()));
             return res_;
         }
         if (StringList.quickEq(methodName_,IS_TOUS_ADV)) {
-            res_.setResult(new BooleanStruct(instance_.isTousAdv()));
+            res_.setResult(BooleanStruct.of(instance_.isTousAdv()));
             return res_;
         }
         if (StringList.quickEq(methodName_,IS_UNIQUE_IMPORTE)) {
-            res_.setResult(new BooleanStruct(instance_.isUniqueImporte()));
+            res_.setResult(BooleanStruct.of(instance_.isUniqueImporte()));
             return res_;
         }
         return res_;
@@ -2285,7 +2285,7 @@ public final class AikiBeansMovesEffectsStd {
             return res_;
         }
         if (StringList.quickEq(methodName_,COPY_MOVE_FOR_USER)) {
-            res_.setResult(new BooleanStruct(instance_.copyMoveForUser()));
+            res_.setResult(BooleanStruct.of(instance_.copyMoveForUser()));
             return res_;
         }
         if (StringList.quickEq(methodName_,CLICK_MOVE_TRANS)) {
@@ -2330,23 +2330,23 @@ public final class AikiBeansMovesEffectsStd {
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringList.quickEq(methodName_,HAS_LAW_FOR_DAMAGE)) {
-            res_.setResult(new BooleanStruct(instance_.hasLawForDamage()));
+            res_.setResult(BooleanStruct.of(instance_.hasLawForDamage()));
             return res_;
         }
         if (StringList.quickEq(methodName_,HAS_DETERMINATED_LAW_FOR_DAMAGE)) {
-            res_.setResult(new BooleanStruct(instance_.hasDeterminatedLawForDamage()));
+            res_.setResult(BooleanStruct.of(instance_.hasDeterminatedLawForDamage()));
             return res_;
         }
         if (StringList.quickEq(methodName_,COUNTER_DAMAGE_CAT)) {
-            res_.setResult(new BooleanStruct(instance_.counterDamageCat()));
+            res_.setResult(BooleanStruct.of(instance_.counterDamageCat()));
             return res_;
         }
         if (StringList.quickEq(methodName_,CONST_POWER)) {
-            res_.setResult(new BooleanStruct(instance_.constPower()));
+            res_.setResult(BooleanStruct.of(instance_.constPower()));
             return res_;
         }
         if (StringList.quickEq(methodName_,HAS_CONST_POWER)) {
-            res_.setResult(new BooleanStruct(instance_.hasConstPower()));
+            res_.setResult(BooleanStruct.of(instance_.hasConstPower()));
             return res_;
         }
         if (StringList.quickEq(methodName_,GET_TRANSLATED_STATIS_TARGET)) {
@@ -2474,7 +2474,7 @@ public final class AikiBeansMovesEffectsStd {
             return res_;
         }
         if (StringList.quickEq(methodName_,IS_TYPE)) {
-            res_.setResult(new BooleanStruct(instance_.isType((Long)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.isType((Long)_args[0])));
             return res_;
         }
         if (StringList.quickEq(methodName_,GET_TR_USER_TYPES)) {
@@ -2534,27 +2534,27 @@ public final class AikiBeansMovesEffectsStd {
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringList.quickEq(methodName_,FORBID)) {
-            res_.setResult(new BooleanStruct(instance_.forbid()));
+            res_.setResult(BooleanStruct.of(instance_.forbid()));
             return res_;
         }
         if (StringList.quickEq(methodName_,FORBID_STATUS_MOVE)) {
-            res_.setResult(new BooleanStruct(instance_.forbidStatusMove()));
+            res_.setResult(BooleanStruct.of(instance_.forbidStatusMove()));
             return res_;
         }
         if (StringList.quickEq(methodName_,FORBID_LAST_MOVE)) {
-            res_.setResult(new BooleanStruct(instance_.forbidLastMove()));
+            res_.setResult(BooleanStruct.of(instance_.forbidLastMove()));
             return res_;
         }
         if (StringList.quickEq(methodName_,FORBID_USER_MOVES)) {
-            res_.setResult(new BooleanStruct(instance_.forbidUserMoves()));
+            res_.setResult(BooleanStruct.of(instance_.forbidUserMoves()));
             return res_;
         }
         if (StringList.quickEq(methodName_,FORBID_USE_MOVE)) {
-            res_.setResult(new BooleanStruct(instance_.forbidUseMove()));
+            res_.setResult(BooleanStruct.of(instance_.forbidUseMove()));
             return res_;
         }
         if (StringList.quickEq(methodName_,FORCE_USE_MOVE)) {
-            res_.setResult(new BooleanStruct(instance_.forceUseMove()));
+            res_.setResult(BooleanStruct.of(instance_.forceUseMove()));
             return res_;
         }
         return AikiBeansMovesEffectsStd.invokeMethodEffectBean(_cont, _instance, _method, _args);
@@ -2564,15 +2564,15 @@ public final class AikiBeansMovesEffectsStd {
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringList.quickEq(methodName_,RANDOM_STATIS)) {
-            res_.setResult(new BooleanStruct(instance_.randomStatis()));
+            res_.setResult(BooleanStruct.of(instance_.randomStatis()));
             return res_;
         }
         if (StringList.quickEq(methodName_,IS_ALWAYS_ENABLED)) {
-            res_.setResult(new BooleanStruct(instance_.isAlwaysEnabled()));
+            res_.setResult(BooleanStruct.of(instance_.isAlwaysEnabled()));
             return res_;
         }
         if (StringList.quickEq(methodName_,NOT_EMPTY_VAR_BOOST)) {
-            res_.setResult(new BooleanStruct(instance_.notEmptyVarBoost()));
+            res_.setResult(BooleanStruct.of(instance_.notEmptyVarBoost()));
             return res_;
         }
         if (StringList.quickEq(methodName_,GET_FAIL)) {
@@ -2594,7 +2594,7 @@ public final class AikiBeansMovesEffectsStd {
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringList.quickEq(methodName_,IS_STATUS)) {
-            res_.setResult(new BooleanStruct(instance_.isStatus((Long)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.isStatus((Long)_args[0])));
             return res_;
         }
         if (StringList.quickEq(methodName_,CLICK_LINK)) {
@@ -2624,19 +2624,19 @@ public final class AikiBeansMovesEffectsStd {
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringList.quickEq(methodName_,GIVE_TO_TARGET)) {
-            res_.setResult(new BooleanStruct(instance_.giveToTarget()));
+            res_.setResult(BooleanStruct.of(instance_.giveToTarget()));
             return res_;
         }
         if (StringList.quickEq(methodName_,GIVE_TO_USER)) {
-            res_.setResult(new BooleanStruct(instance_.giveToUser()));
+            res_.setResult(BooleanStruct.of(instance_.giveToUser()));
             return res_;
         }
         if (StringList.quickEq(methodName_,GIVE_CONST)) {
-            res_.setResult(new BooleanStruct(instance_.giveConst()));
+            res_.setResult(BooleanStruct.of(instance_.giveConst()));
             return res_;
         }
         if (StringList.quickEq(methodName_,IS_DEF_ABILITY)) {
-            res_.setResult(new BooleanStruct(instance_.isDefAbility()));
+            res_.setResult(BooleanStruct.of(instance_.isDefAbility()));
             return res_;
         }
         if (StringList.quickEq(methodName_,CLICK_ABILITY)) {
@@ -2648,7 +2648,7 @@ public final class AikiBeansMovesEffectsStd {
             return res_;
         }
         if (StringList.quickEq(methodName_,SWITCH_ABILITIES)) {
-            res_.setResult(new BooleanStruct(instance_.switchAbilities()));
+            res_.setResult(BooleanStruct.of(instance_.switchAbilities()));
             return res_;
         }
         return AikiBeansMovesEffectsStd.invokeMethodEffectBean(_cont, _instance, _method, _args);
@@ -2658,31 +2658,31 @@ public final class AikiBeansMovesEffectsStd {
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringList.quickEq(methodName_,DELETE_TARGET_BERRY)) {
-            res_.setResult(new BooleanStruct(instance_.deleteTargetBerry()));
+            res_.setResult(BooleanStruct.of(instance_.deleteTargetBerry()));
             return res_;
         }
         if (StringList.quickEq(methodName_,TAKE_ITEM)) {
-            res_.setResult(new BooleanStruct(instance_.takeItem()));
+            res_.setResult(BooleanStruct.of(instance_.takeItem()));
             return res_;
         }
         if (StringList.quickEq(methodName_,REMOVE_TARGET_ITEM)) {
-            res_.setResult(new BooleanStruct(instance_.removeTargetItem()));
+            res_.setResult(BooleanStruct.of(instance_.removeTargetItem()));
             return res_;
         }
         if (StringList.quickEq(methodName_,SWITCH_ITEMS)) {
-            res_.setResult(new BooleanStruct(instance_.switchItems()));
+            res_.setResult(BooleanStruct.of(instance_.switchItems()));
             return res_;
         }
         if (StringList.quickEq(methodName_,RESUSE_LAST_ITEM)) {
-            res_.setResult(new BooleanStruct(instance_.resuseLastItem()));
+            res_.setResult(BooleanStruct.of(instance_.resuseLastItem()));
             return res_;
         }
         if (StringList.quickEq(methodName_,GIVE_TARGET_ITEM)) {
-            res_.setResult(new BooleanStruct(instance_.giveTargetItem()));
+            res_.setResult(BooleanStruct.of(instance_.giveTargetItem()));
             return res_;
         }
         if (StringList.quickEq(methodName_,USE_ITEM_AS_POSSIBLE)) {
-            res_.setResult(new BooleanStruct(instance_.useItemAsPossible()));
+            res_.setResult(BooleanStruct.of(instance_.useItemAsPossible()));
             return res_;
         }
         return AikiBeansMovesEffectsStd.invokeMethodEffectBean(_cont, _instance, _method, _args);
@@ -2706,15 +2706,15 @@ public final class AikiBeansMovesEffectsStd {
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringList.quickEq(methodName_,THIEVE_BONUS)) {
-            res_.setResult(new BooleanStruct(instance_.thieveBonus()));
+            res_.setResult(BooleanStruct.of(instance_.thieveBonus()));
             return res_;
         }
         if (StringList.quickEq(methodName_,MIRROR_AGAINST_USER)) {
-            res_.setResult(new BooleanStruct(instance_.mirrorAgainstUser()));
+            res_.setResult(BooleanStruct.of(instance_.mirrorAgainstUser()));
             return res_;
         }
         if (StringList.quickEq(methodName_,ATTRACT_DAMAGE_MOVES)) {
-            res_.setResult(new BooleanStruct(instance_.attractDamageMoves()));
+            res_.setResult(BooleanStruct.of(instance_.attractDamageMoves()));
             return res_;
         }
         return AikiBeansMovesEffectsStd.invokeMethodEffectBean(_cont, _instance, _method, _args);
@@ -2724,15 +2724,15 @@ public final class AikiBeansMovesEffectsStd {
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringList.quickEq(methodName_,IS_RES_TYPES)) {
-            res_.setResult(new BooleanStruct(instance_.isResTypes()));
+            res_.setResult(BooleanStruct.of(instance_.isResTypes()));
             return res_;
         }
         if (StringList.quickEq(methodName_,IS_USER_TYPES)) {
-            res_.setResult(new BooleanStruct(instance_.isUserTypes()));
+            res_.setResult(BooleanStruct.of(instance_.isUserTypes()));
             return res_;
         }
         if (StringList.quickEq(methodName_,IS_CONST_TYPES)) {
-            res_.setResult(new BooleanStruct(instance_.isConstTypes()));
+            res_.setResult(BooleanStruct.of(instance_.isConstTypes()));
             return res_;
         }
         if (StringList.quickEq(methodName_,GET_TR_ENV)) {
@@ -2752,19 +2752,19 @@ public final class AikiBeansMovesEffectsStd {
             return res_;
         }
         if (StringList.quickEq(methodName_,GIVE_TO_TARGET)) {
-            res_.setResult(new BooleanStruct(instance_.giveToTarget()));
+            res_.setResult(BooleanStruct.of(instance_.giveToTarget()));
             return res_;
         }
         if (StringList.quickEq(methodName_,GIVE_TO_USER)) {
-            res_.setResult(new BooleanStruct(instance_.giveToUser()));
+            res_.setResult(BooleanStruct.of(instance_.giveToUser()));
             return res_;
         }
         if (StringList.quickEq(methodName_,SWITCH_TYPES)) {
-            res_.setResult(new BooleanStruct(instance_.switchTypes()));
+            res_.setResult(BooleanStruct.of(instance_.switchTypes()));
             return res_;
         }
         if (StringList.quickEq(methodName_,GIVE_CONST)) {
-            res_.setResult(new BooleanStruct(instance_.giveConst()));
+            res_.setResult(BooleanStruct.of(instance_.giveConst()));
             return res_;
         }
         if (StringList.quickEq(methodName_,GET_TR_CONST_TYPE)) {

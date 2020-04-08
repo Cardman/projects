@@ -685,11 +685,11 @@ public final class AikiBeansItemsStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,LAW_FOR_ATTACK_FIRST)) {
-            res_.setResult(new BooleanStruct(instance_.getLawForAttackFirst()));
+            res_.setResult(BooleanStruct.of(instance_.getLawForAttackFirst()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,WITHOUT_FAIL)) {
-            res_.setResult(new BooleanStruct(instance_.getWithoutFail()));
+            res_.setResult(BooleanStruct.of(instance_.getWithoutFail()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,HEAL_PP)) {
@@ -813,7 +813,7 @@ public final class AikiBeansItemsStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,HEALING_TEAM)) {
-            res_.setResult(new BooleanStruct(instance_.getHealingTeam()));
+            res_.setResult(BooleanStruct.of(instance_.getHealingTeam()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,HAPPINESS)) {
@@ -827,11 +827,11 @@ public final class AikiBeansItemsStd {
         HealingPpBean instance_ = (HealingPpBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringList.quickEq(fieldName_,HEALING_ALL_MOVES_PP)) {
-            res_.setResult(new BooleanStruct(instance_.getHealingAllMovesPp()));
+            res_.setResult(BooleanStruct.of(instance_.getHealingAllMovesPp()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,HEALING_MOVE_FULLPP)) {
-            res_.setResult(new BooleanStruct(instance_.getHealingMoveFullpp()));
+            res_.setResult(BooleanStruct.of(instance_.getHealingMoveFullpp()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,HEALED_MOVE_PP)) {
@@ -858,7 +858,7 @@ public final class AikiBeansItemsStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,HEALING_KO)) {
-            res_.setResult(new BooleanStruct(instance_.getHealingKo()));
+            res_.setResult(BooleanStruct.of(instance_.getHealingKo()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,STATUS)) {
@@ -903,7 +903,7 @@ public final class AikiBeansItemsStd {
         ItemForBattleBean instance_ = (ItemForBattleBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringList.quickEq(fieldName_,END_ROUND)) {
-            res_.setResult(new BooleanStruct(instance_.getEndRound()));
+            res_.setResult(BooleanStruct.of(instance_.getEndRound()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,END_ROUND_RANK)) {
@@ -919,7 +919,7 @@ public final class AikiBeansItemsStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,SENDING)) {
-            res_.setResult(new BooleanStruct(instance_.getSending()));
+            res_.setResult(BooleanStruct.of(instance_.getSending()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,EFFECT_SEND_BEAN)) {
@@ -927,31 +927,31 @@ public final class AikiBeansItemsStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,CANCEL_IMMU_TYPE)) {
-            res_.setResult(new BooleanStruct(instance_.getCancelImmuType()));
+            res_.setResult(BooleanStruct.of(instance_.getCancelImmuType()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,AGAINST_EVO)) {
-            res_.setResult(new BooleanStruct(instance_.getAgainstEvo()));
+            res_.setResult(BooleanStruct.of(instance_.getAgainstEvo()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,ATTACK_LAST)) {
-            res_.setResult(new BooleanStruct(instance_.getAttackLast()));
+            res_.setResult(BooleanStruct.of(instance_.getAttackLast()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,BOOST_EXP)) {
-            res_.setResult(new BooleanStruct(instance_.getBoostExp()));
+            res_.setResult(BooleanStruct.of(instance_.getBoostExp()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,REPELLING_WILD_PK)) {
-            res_.setResult(new BooleanStruct(instance_.getRepellingWildPk()));
+            res_.setResult(BooleanStruct.of(instance_.getRepellingWildPk()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,IMMU_LOW_STATIS)) {
-            res_.setResult(new BooleanStruct(instance_.getImmuLowStatis()));
+            res_.setResult(BooleanStruct.of(instance_.getImmuLowStatis()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,ATTACKS_SOON)) {
-            res_.setResult(new BooleanStruct(instance_.getAttacksSoon()));
+            res_.setResult(BooleanStruct.of(instance_.getAttacksSoon()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,PROTECT_AGAINST_KO)) {
@@ -1146,7 +1146,7 @@ public final class AikiBeansItemsStd {
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringList.quickEq(methodName_,IS_HEALING_PP)) {
-            res_.setResult(new BooleanStruct(instance_.isHealingPp()));
+            res_.setResult(BooleanStruct.of(instance_.isHealingPp()));
             return res_;
         }
         if (StringList.quickEq(methodName_,GET_TR_MULT_FOES_DAMAGE)) {
@@ -1180,7 +1180,7 @@ public final class AikiBeansItemsStd {
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringList.quickEq(methodName_,IS_BALL)) {
-            res_.setResult(new BooleanStruct(instance_.isBall((Long)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.isBall((Long)_args[0])));
             return res_;
         }
         if (StringList.quickEq(methodName_,CLICK_HAPPINESS)) {
@@ -1244,7 +1244,7 @@ public final class AikiBeansItemsStd {
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringList.quickEq(methodName_,IS_BALL)) {
-            res_.setResult(new BooleanStruct(instance_.isBall((Long)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.isBall((Long)_args[0])));
             return res_;
         }
         if (StringList.quickEq(methodName_,CLICK_HAPPINESS)) {
@@ -1262,11 +1262,11 @@ public final class AikiBeansItemsStd {
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringList.quickEq(methodName_,LIMITED_PP_MOVE)) {
-            res_.setResult(new BooleanStruct(instance_.limitedPpMove()));
+            res_.setResult(BooleanStruct.of(instance_.limitedPpMove()));
             return res_;
         }
         if (StringList.quickEq(methodName_,LIMITED_PP_MOVES)) {
-            res_.setResult(new BooleanStruct(instance_.limitedPpMoves()));
+            res_.setResult(BooleanStruct.of(instance_.limitedPpMoves()));
             return res_;
         }
         return AikiBeansItemsStd.invokeMethodHealingItemBean(_cont, _instance, _method, _args);
@@ -1424,7 +1424,7 @@ public final class AikiBeansItemsStd {
             return res_;
         }
         if (StringList.quickEq(methodName_,DETERMINATED)) {
-            res_.setResult(new BooleanStruct(instance_.determinated()));
+            res_.setResult(BooleanStruct.of(instance_.determinated()));
             return res_;
         }
         return AikiBeansItemsStd.invokeMethodItemBean(_cont, _instance, _method, _args);

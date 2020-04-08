@@ -124,13 +124,13 @@ public abstract class NumberStruct implements DisplayableStruct, ExportableStrin
             if (StringList.quickEq(list_.first(), stringType_)) {
                 String one_ = ((CharSequenceStruct) _args[0]).toStringInstance();
                 if (StringList.quickEq(one_, lgNames_.getTrueString())) {
-                    _res.setResult(new BooleanStruct(true));
+                    _res.setResult(BooleanStruct.of(true));
                 } else {
-                    _res.setResult(new BooleanStruct(false));
+                    _res.setResult(BooleanStruct.of(false));
                 }
             } else {
                 boolean one_ = ((BooleanStruct) _args[0]).getInstance();
-                _res.setResult(new BooleanStruct(one_));
+                _res.setResult(BooleanStruct.of(one_));
             }
         } else if (StringList.quickEq(type_, charType_)) {
             _res.setResult(_args[0]);
@@ -196,7 +196,7 @@ public abstract class NumberStruct implements DisplayableStruct, ExportableStrin
         if (StringList.quickEq(type_, booleanType_)) {
             if (StringList.quickEq(name_, lgNames_.getAliasBooleanValue())) {
                 BooleanStruct instance_ = (BooleanStruct) _struct;
-                _res.setResult(new BooleanStruct(instance_.getInstance()));
+                _res.setResult(BooleanStruct.of(instance_.getInstance()));
             } else if (StringList.quickEq(name_, lgNames_.getAliasCompare())) {
                 _res.setResult(new IntStruct(ComparatorBoolean.cmp(((BooleanStruct) _args[0]).getInstance(),((BooleanStruct) _args[1]).getInstance())));
             } else if (StringList.quickEq(name_, lgNames_.getAliasCompareTo())) {
@@ -204,12 +204,12 @@ public abstract class NumberStruct implements DisplayableStruct, ExportableStrin
                 _res.setResult(new IntStruct(ComparatorBoolean.cmp(instance_.getInstance(),((BooleanStruct) _args[0]).getInstance())));
             } else if (StringList.quickEq(name_, lgNames_.getAliasEquals())) {
                 BooleanStruct instance_ = (BooleanStruct) _struct;
-                _res.setResult(new BooleanStruct(instance_.sameReference(_args[0])));
+                _res.setResult(BooleanStruct.of(instance_.sameReference(_args[0])));
             } else if (StringList.quickEq(name_, lgNames_.getAliasParseBoolean())) {
                 if (StringList.quickEq(((DisplayableStruct) _args[0]).getDisplayedString(_cont).getInstance(),lgNames_.getTrueString())) {
-                    _res.setResult(new BooleanStruct(true));
+                    _res.setResult(BooleanStruct.of(true));
                 } else {
-                    _res.setResult(new BooleanStruct(false));
+                    _res.setResult(BooleanStruct.of(false));
                 }
             } else if (StringList.quickEq(name_, lgNames_.getAliasToStringMethod())) {
                 if (!list_.isEmpty()) {
@@ -223,9 +223,9 @@ public abstract class NumberStruct implements DisplayableStruct, ExportableStrin
                     _res.setResult(_args[0]);
                 } else {
                     if (StringList.quickEq(((DisplayableStruct) _args[0]).getDisplayedString(_cont).getInstance(),lgNames_.getTrueString())) {
-                        _res.setResult(new BooleanStruct(true));
+                        _res.setResult(BooleanStruct.of(true));
                     } else {
-                        _res.setResult(new BooleanStruct(false));
+                        _res.setResult(BooleanStruct.of(false));
                     }
                 }
             }
@@ -261,42 +261,42 @@ public abstract class NumberStruct implements DisplayableStruct, ExportableStrin
                 }
                 if (StringList.quickEq(name_, lgNames_.getAliasIsDigit())) {
                     char one_ = ((CharStruct) _args[0]).getChar();
-                    _res.setResult(new BooleanStruct(ContextEl.isDigit(one_)));
+                    _res.setResult(BooleanStruct.of(ContextEl.isDigit(one_)));
                     return;
                 }
                 if (StringList.quickEq(name_, lgNames_.getAliasIsLetter())) {
                     char one_ = ((CharStruct) _args[0]).getChar();
-                    _res.setResult(new BooleanStruct(Character.isLetter(one_)));
+                    _res.setResult(BooleanStruct.of(Character.isLetter(one_)));
                     return;
                 }
                 if (StringList.quickEq(name_, lgNames_.getAliasIsLetterOrDigit())) {
                     char one_ = ((CharStruct) _args[0]).getChar();
-                    _res.setResult(new BooleanStruct(Character.isLetterOrDigit(one_)));
+                    _res.setResult(BooleanStruct.of(Character.isLetterOrDigit(one_)));
                     return;
                 }
                 if (StringList.quickEq(name_, lgNames_.getAliasIsLowerCase())) {
                     char one_ = ((CharStruct) _args[0]).getChar();
-                    _res.setResult(new BooleanStruct(Character.isLowerCase(one_)));
+                    _res.setResult(BooleanStruct.of(Character.isLowerCase(one_)));
                     return;
                 }
                 if (StringList.quickEq(name_, lgNames_.getAliasIsUpperCase())) {
                     char one_ = ((CharStruct) _args[0]).getChar();
-                    _res.setResult(new BooleanStruct(Character.isUpperCase(one_)));
+                    _res.setResult(BooleanStruct.of(Character.isUpperCase(one_)));
                     return;
                 }
                 if (StringList.quickEq(name_, lgNames_.getAliasIsSpace())) {
                     char one_ = ((CharStruct) _args[0]).getChar();
-                    _res.setResult(new BooleanStruct(Character.isWhitespace(one_)));
+                    _res.setResult(BooleanStruct.of(Character.isWhitespace(one_)));
                     return;
                 }
                 if (StringList.quickEq(name_, lgNames_.getAliasIsWhitespace())) {
                     char one_ = ((CharStruct) _args[0]).getChar();
-                    _res.setResult(new BooleanStruct(Character.isWhitespace(one_)));
+                    _res.setResult(BooleanStruct.of(Character.isWhitespace(one_)));
                     return;
                 }
                 if (StringList.quickEq(name_, lgNames_.getAliasIsWordChar())) {
                     char one_ = ((CharStruct) _args[0]).getChar();
-                    _res.setResult(new BooleanStruct(StringList.isWordChar(one_)));
+                    _res.setResult(BooleanStruct.of(StringList.isWordChar(one_)));
                     return;
                 }
                 if (StringList.quickEq(name_, lgNames_.getAliasToLowerCase())) {
@@ -375,11 +375,11 @@ public abstract class NumberStruct implements DisplayableStruct, ExportableStrin
                     if (StringList.quickEq(name_, lgNames_.getAliasIsNan())) {
                         Float one_;
                         one_ = ((NumberStruct) _args[0]).getFloat();
-                        _res.setResult(new BooleanStruct(Double.isNaN(one_)));
+                        _res.setResult(BooleanStruct.of(Double.isNaN(one_)));
                     } else if (StringList.quickEq(name_, lgNames_.getAliasIsInfinite())) {
                         Float one_;
                         one_ = ((NumberStruct) _args[0]).getFloat();
-                        _res.setResult(new BooleanStruct(Double.isInfinite(one_)));
+                        _res.setResult(BooleanStruct.of(Double.isInfinite(one_)));
                     } else if (StringList.quickEq(name_, lgNames_.getAliasToStringMethod())) {
                         Float one_ = ((NumberStruct) _args[0]).getFloat();
                         _res.setResult(new StringStruct(Float.toString(one_)));
@@ -396,7 +396,7 @@ public abstract class NumberStruct implements DisplayableStruct, ExportableStrin
                         } else {
                             one_ = ((NumberStruct) _args[0]).getDouble();
                         }
-                        _res.setResult(new BooleanStruct(Double.isNaN(one_)));
+                        _res.setResult(BooleanStruct.of(Double.isNaN(one_)));
                     } else if (StringList.quickEq(name_, lgNames_.getAliasIsInfinite())) {
                         Double one_;
                         if (list_.isEmpty()) {
@@ -405,7 +405,7 @@ public abstract class NumberStruct implements DisplayableStruct, ExportableStrin
                         } else {
                             one_ = ((NumberStruct) _args[0]).getDouble();
                         }
-                        _res.setResult(new BooleanStruct(Double.isInfinite(one_)));
+                        _res.setResult(BooleanStruct.of(Double.isInfinite(one_)));
                     } else if (StringList.quickEq(name_, lgNames_.getAliasToStringMethod())) {
                         Double one_ = ((NumberStruct) _args[0]).getDouble();
                         _res.setResult(new StringStruct(Double.toString(one_)));
@@ -436,7 +436,7 @@ public abstract class NumberStruct implements DisplayableStruct, ExportableStrin
                 }
                 _res.setResult(new IntStruct(compareGene(instance_, (NumberStruct) _args[0])));
             } else if (StringList.quickEq(name_, lgNames_.getAliasEquals())) {
-                _res.setResult(new BooleanStruct(_struct.sameReference(_args[0])));
+                _res.setResult(BooleanStruct.of(_struct.sameReference(_args[0])));
             } else if (StringList.quickEq(name_, lgNames_.getAliasByteValue())) {
                 NumberStruct instance_ = (NumberStruct) _struct;
                 _res.setResult(new ByteStruct(instance_.byteStruct()));
@@ -644,27 +644,27 @@ public abstract class NumberStruct implements DisplayableStruct, ExportableStrin
 
     public static BooleanStruct quickCalculateLowerNb(Struct _a, Struct _b) {
         if (_a instanceof DoubleStruct || _a instanceof FloatStruct || _b instanceof DoubleStruct || _b instanceof FloatStruct) {
-            return new BooleanStruct(((NumberStruct)_a).doubleStruct() < ((NumberStruct)_b).doubleStruct());
+            return BooleanStruct.of(((NumberStruct)_a).doubleStruct() < ((NumberStruct)_b).doubleStruct());
         }
-        return new BooleanStruct(((NumberStruct)_a).longStruct() < ((NumberStruct)_b).longStruct());
+        return BooleanStruct.of(((NumberStruct)_a).longStruct() < ((NumberStruct)_b).longStruct());
     }
 
     public static BooleanStruct quickCalculateGreaterNb(Struct _a, Struct _b) {
         if (_a instanceof DoubleStruct || _a instanceof FloatStruct || _b instanceof DoubleStruct || _b instanceof FloatStruct) {
-            return new BooleanStruct(((NumberStruct)_a).doubleStruct() > ((NumberStruct)_b).doubleStruct());
+            return BooleanStruct.of(((NumberStruct)_a).doubleStruct() > ((NumberStruct)_b).doubleStruct());
         }
-        return new BooleanStruct(((NumberStruct)_a).longStruct() > ((NumberStruct)_b).longStruct());
+        return BooleanStruct.of(((NumberStruct)_a).longStruct() > ((NumberStruct)_b).longStruct());
     }
     public static BooleanStruct quickCalculateLowerStr(Struct _a, Struct _b) {
         String first_ = ((CharSequenceStruct)_a).toStringInstance();
         String second_ = ((CharSequenceStruct)_b).toStringInstance();
-        return new BooleanStruct(first_.compareTo(second_) < 0);
+        return BooleanStruct.of(first_.compareTo(second_) < 0);
     }
 
     public static BooleanStruct quickCalculateGreaterStr(Struct _a, Struct _b) {
         String first_ = ((CharSequenceStruct)_a).toStringInstance();
         String second_ = ((CharSequenceStruct)_b).toStringInstance();
-        return new BooleanStruct(first_.compareTo(second_) > 0);
+        return BooleanStruct.of(first_.compareTo(second_) > 0);
     }
     public static NumberStruct idNumber(NumberStruct _a, Analyzable _an,ClassArgumentMatching _order) {
         LgNames stds_ = _an.getStandards();
@@ -849,7 +849,7 @@ public abstract class NumberStruct implements DisplayableStruct, ExportableStrin
         if (_order.matchClass(bool_)) {
             boolean left_ = ((BooleanStruct) _a).getInstance();
             boolean right_ = ((BooleanStruct) _b).getInstance();
-            return new BooleanStruct(left_ && right_);
+            return BooleanStruct.of(left_ && right_);
         }
         if (_order.matchClass(int_)) {
             int left_ = ((NumberStruct)_a).getInt();
@@ -884,7 +884,7 @@ public abstract class NumberStruct implements DisplayableStruct, ExportableStrin
         if (_order.matchClass(bool_)) {
             boolean left_ = ((BooleanStruct) _a).getInstance();
             boolean right_ = ((BooleanStruct) _b).getInstance();
-            return new BooleanStruct(left_ || right_);
+            return BooleanStruct.of(left_ || right_);
         }
         if (_order.matchClass(int_)) {
             int left_ = ((NumberStruct)_a).getInt();
@@ -919,7 +919,7 @@ public abstract class NumberStruct implements DisplayableStruct, ExportableStrin
         if (_order.matchClass(bool_)) {
             boolean left_ = ((BooleanStruct) _a).getInstance();
             boolean right_ = ((BooleanStruct) _b).getInstance();
-            return new BooleanStruct(left_ != right_);
+            return BooleanStruct.of(left_ != right_);
         }
         if (_order.matchClass(int_)) {
             int left_ = ((NumberStruct)_a).getInt();

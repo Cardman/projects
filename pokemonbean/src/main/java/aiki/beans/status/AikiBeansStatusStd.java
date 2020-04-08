@@ -160,7 +160,7 @@ public final class AikiBeansStatusStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,END_ROUND)) {
-            res_.setResult(new BooleanStruct(instance_.getEndRound()));
+            res_.setResult(BooleanStruct.of(instance_.getEndRound()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,END_ROUND_RANK)) {
@@ -176,11 +176,11 @@ public final class AikiBeansStatusStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,SINGLE_STATUS)) {
-            res_.setResult(new BooleanStruct(instance_.getSingleStatus()));
+            res_.setResult(BooleanStruct.of(instance_.getSingleStatus()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,INCREMENTING_DAMAGE_BY_ROUNDS)) {
-            res_.setResult(new BooleanStruct(instance_.getIncrementingDamageByRounds()));
+            res_.setResult(BooleanStruct.of(instance_.getIncrementingDamageByRounds()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,CATCHING_RATE)) {
@@ -188,7 +188,7 @@ public final class AikiBeansStatusStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,DISABLED_EFF_IF_SWITCH)) {
-            res_.setResult(new BooleanStruct(instance_.getDisabledEffIfSwitch()));
+            res_.setResult(BooleanStruct.of(instance_.getDisabledEffIfSwitch()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,INCREMENT_END_ROUND)) {
@@ -196,7 +196,7 @@ public final class AikiBeansStatusStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,INCREMENTING_END_ROUND)) {
-            res_.setResult(new BooleanStruct(instance_.getIncrementingEndRound()));
+            res_.setResult(BooleanStruct.of(instance_.getIncrementingEndRound()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,MULT_STAT)) {
@@ -216,7 +216,7 @@ public final class AikiBeansStatusStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,NOT_ATTACK)) {
-            res_.setResult(new BooleanStruct(instance_.getNotAttack()));
+            res_.setResult(BooleanStruct.of(instance_.getNotAttack()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,RATE_FOR_USING_A_MOVE_IF_FOE)) {
@@ -224,7 +224,7 @@ public final class AikiBeansStatusStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,NOT_ATTACK_FOE)) {
-            res_.setResult(new BooleanStruct(instance_.getNotAttackFoe()));
+            res_.setResult(BooleanStruct.of(instance_.getNotAttackFoe()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,RATE_FOR_FULL_HEAL_IF_MOVE)) {
@@ -288,11 +288,11 @@ public final class AikiBeansStatusStd {
             return res_;
         }
         if (StringList.quickEq(methodName_,INCREMENT_END_ROUND_INT)) {
-            res_.setResult(new BooleanStruct(instance_.incrementEndRoundInt()));
+            res_.setResult(BooleanStruct.of(instance_.incrementEndRoundInt()));
             return res_;
         }
         if (StringList.quickEq(methodName_,IS_SINGLE)) {
-            res_.setResult(new BooleanStruct(instance_.isSingle()));
+            res_.setResult(BooleanStruct.of(instance_.isSingle()));
             return res_;
         }
         if (StringList.quickEq(methodName_,GET_TR_MULT_STAT)) {

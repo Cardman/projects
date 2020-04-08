@@ -380,7 +380,7 @@ public final class StandardInstancingOperation extends
         CustList<OperationNode> filter_ = ElUtil.filterInvoking(chidren_);
         LgNames stds_ = _conf.getStandards();
         int varargOnly_ = lookOnlyForVarArg();
-        ClassMethodId idMethod_ = lookOnlyForId();
+        ClassMethodIdAncestor idMethod_ = lookOnlyForId();
         String base_ = Templates.getIdFromAllTypes(_realClassName);
         GeneType g_ = _conf.getClassBody(base_);
         if (g_ == null) {
@@ -441,9 +441,10 @@ public final class StandardInstancingOperation extends
         }
         ConstructorId feed_ = null;
         if (idMethod_ != null) {
-            String idClass_ = idMethod_.getClassName();
-            boolean vararg_ = idMethod_.getConstraints().isVararg();
-            StringList params_ = idMethod_.getConstraints().getParametersTypes();
+            ClassMethodId id_ = idMethod_.getClassMethodId();
+            String idClass_ = id_.getClassName();
+            boolean vararg_ = id_.getConstraints().isVararg();
+            StringList params_ = id_.getConstraints().getParametersTypes();
             feed_ = new ConstructorId(idClass_, params_, vararg_);
         }
         ConstrustorIdVarArg ctorRes_ = getDeclaredCustConstructor(_conf, varargOnly_, new ClassArgumentMatching(_realClassName),g_, feed_, ClassArgumentMatching.toArgArray(_firstArgs));

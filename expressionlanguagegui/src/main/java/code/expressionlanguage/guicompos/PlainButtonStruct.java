@@ -39,7 +39,7 @@ public final class PlainButtonStruct extends InputStruct {
 
     @Override
     public Struct isEnabled() {
-        return new BooleanStruct(plainButton.isEnabled());
+        return BooleanStruct.of(plainButton.isEnabled());
     }
     @Override
     public void setEnabled(Struct b) {

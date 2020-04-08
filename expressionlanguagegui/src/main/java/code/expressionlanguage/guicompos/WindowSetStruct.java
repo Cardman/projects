@@ -60,9 +60,9 @@ public final class WindowSetStruct implements Struct {
     }
     public Struct contains(Struct _key) {
         if (!(_key instanceof WindowStruct)) {
-            return new BooleanStruct(false);
+            return BooleanStruct.of(false);
         }
-        return new BooleanStruct(elementSet.containsKey(_key));
+        return BooleanStruct.of(elementSet.containsKey(_key));
     }
     @Override
     public String getClassName(ExecutableCode _contextEl) {

@@ -66,7 +66,7 @@ public final class ImageStruct implements Struct {
     }
 
     public BooleanStruct isWithAlpha() {
-        return new BooleanStruct(withAlpha);
+        return BooleanStruct.of(withAlpha);
     }
 
     public Struct getColor() {

@@ -1,9 +1,6 @@
 package code.expressionlanguage.utilcompo;
 
-import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.DefaultLockingClass;
-import code.expressionlanguage.EndCallValue;
-import code.expressionlanguage.Initializer;
+import code.expressionlanguage.*;
 import code.expressionlanguage.errors.AnalysisMessages;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
@@ -35,6 +32,7 @@ public class RunnableContextEl extends ContextEl implements Locking {
         setThread();
     }
     protected RunnableContextEl(ContextEl _context) {
+        setInitEnums(InitPhase.NOTHING);
         setClasses(_context.getClasses());
         setOptions(_context.getOptions());
         setStandards(_context.getStandards());

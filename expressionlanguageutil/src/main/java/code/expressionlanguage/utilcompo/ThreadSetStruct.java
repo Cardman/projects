@@ -49,9 +49,9 @@ public final class ThreadSetStruct implements Struct {
     }
     public Struct contains(Struct _key) {
         if (!(_key instanceof ThreadStruct)) {
-            return new BooleanStruct(false);
+            return BooleanStruct.of(false);
         }
-        return new BooleanStruct(elementSet.containsKey(((ThreadStruct) _key).getThread()));
+        return BooleanStruct.of(elementSet.containsKey(((ThreadStruct) _key).getThread()));
     }
     @Override
     public String getClassName(ExecutableCode _contextEl) {

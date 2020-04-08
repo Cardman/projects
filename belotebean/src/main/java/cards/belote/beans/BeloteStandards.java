@@ -334,7 +334,7 @@ public final class BeloteStandards extends BeanNatLgNames {
                 return res_;
             }
             if (StringList.quickEq(fieldName_, DEAL_ALL)) {
-                res_.setResult(new BooleanStruct(instance_.isDealAll()));
+                res_.setResult(BooleanStruct.of(instance_.isDealAll()));
                 return res_;
             }
             if (StringList.quickEq(fieldName_, ENCHERES_AUTORISEES)) {
@@ -342,7 +342,7 @@ public final class BeloteStandards extends BeanNatLgNames {
                 return res_;
             }
             if (StringList.quickEq(fieldName_, SOUS_COUPE_ADV)) {
-                res_.setResult(new BooleanStruct(instance_.isSousCoupeAdv()));
+                res_.setResult(BooleanStruct.of(instance_.isSousCoupeAdv()));
                 return res_;
             }
             if (StringList.quickEq(fieldName_, ANNONCES_AUTORISEES)) {
@@ -358,7 +358,7 @@ public final class BeloteStandards extends BeanNatLgNames {
                 return res_;
             }
             if (StringList.quickEq(fieldName_, COMPTE_POINTS_CLASSIQUE)) {
-                res_.setResult(new BooleanStruct(instance_.isComptePointsClassique()));
+                res_.setResult(BooleanStruct.of(instance_.isComptePointsClassique()));
                 return res_;
             }
         }
@@ -426,7 +426,7 @@ public final class BeloteStandards extends BeanNatLgNames {
             return new DoubleStruct((Double) _element);
         }
         if (_element instanceof Boolean) {
-            return new BooleanStruct((Boolean) _element);
+            return BooleanStruct.of((Boolean) _element);
         }
         if (_element instanceof String) {
             return new StringStruct((String) _element);
@@ -448,7 +448,7 @@ public final class BeloteStandards extends BeanNatLgNames {
         ResultErrorStd res_ = new ResultErrorStd();
         if (((RealInstanceStruct)_instance).getInstance() instanceof BeloteBean) {
             if (StringList.quickEq(_method.getConstraints().getName(), PLAY_GAME)) {
-                res_.setResult(new BooleanStruct(((BeloteBean)((RealInstanceStruct)_instance).getInstance()).playGame()));
+                res_.setResult(BooleanStruct.of(((BeloteBean)((RealInstanceStruct)_instance).getInstance()).playGame()));
                 return res_;
             }
             if (StringList.quickEq(_method.getConstraints().getName(), GET_NICKNAMES)) {
@@ -463,31 +463,31 @@ public final class BeloteStandards extends BeanNatLgNames {
         if (((RealInstanceStruct)_instance).getInstance() instanceof ResultsBeloteBean) {
             ResultsBeloteBean instance_ = (ResultsBeloteBean) ((RealInstanceStruct)_instance).getInstance();
             if (StringList.quickEq(_method.getConstraints().getName(), WIN)) {
-                res_.setResult(new BooleanStruct(instance_.win()));
+                res_.setResult(BooleanStruct.of(instance_.win()));
                 return res_;
             }
             if (StringList.quickEq(_method.getConstraints().getName(), EQUALITY)) {
-                res_.setResult(new BooleanStruct(instance_.equality()));
+                res_.setResult(BooleanStruct.of(instance_.equality()));
                 return res_;
             }
             if (StringList.quickEq(_method.getConstraints().getName(), LOOSE)) {
-                res_.setResult(new BooleanStruct(instance_.loose()));
+                res_.setResult(BooleanStruct.of(instance_.loose()));
                 return res_;
             }
             if (StringList.quickEq(_method.getConstraints().getName(), SUCCESSFUL_BID)) {
-                res_.setResult(new BooleanStruct(instance_.successfulBid()));
+                res_.setResult(BooleanStruct.of(instance_.successfulBid()));
                 return res_;
             }
             if (StringList.quickEq(_method.getConstraints().getName(), MID_BID)) {
-                res_.setResult(new BooleanStruct(instance_.midBid()));
+                res_.setResult(BooleanStruct.of(instance_.midBid()));
                 return res_;
             }
             if (StringList.quickEq(_method.getConstraints().getName(), FAILED_BID)) {
-                res_.setResult(new BooleanStruct(instance_.failedBid()));
+                res_.setResult(BooleanStruct.of(instance_.failedBid()));
                 return res_;
             }
             if (StringList.quickEq(_method.getConstraints().getName(), SLAM)) {
-                res_.setResult(new BooleanStruct(instance_.slam()));
+                res_.setResult(BooleanStruct.of(instance_.slam()));
                 return res_;
             }
             if (StringList.quickEq(_method.getConstraints().getName(), ABSOLUTE_DIFF)) {

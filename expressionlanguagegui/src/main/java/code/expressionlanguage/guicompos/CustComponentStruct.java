@@ -107,13 +107,13 @@ public abstract class CustComponentStruct implements Struct {
     }
 
     public BooleanStruct isFocusable() {
-        return new BooleanStruct(getVisibleComponent().isFocusable());
+        return BooleanStruct.of(getVisibleComponent().isFocusable());
     }
     public void setFocusable(Struct _focusable) {
         getVisibleComponent().setFocusable(((BooleanStruct)_focusable).getInstance());
     }
     public BooleanStruct isOpaque() {
-        return new BooleanStruct(getVisibleComponent().isOpaque());
+        return BooleanStruct.of(getVisibleComponent().isOpaque());
     }
 
     public void setOpaque(Struct _b) {
@@ -199,7 +199,7 @@ public abstract class CustComponentStruct implements Struct {
         return getComponent().getHeight();
     }
     public Struct isVisible() {
-        return new BooleanStruct(getComponent().isVisible());
+        return BooleanStruct.of(getComponent().isVisible());
     }
     public void setVisible(Struct _b) {
         getComponent().setVisible(((BooleanStruct)_b).getInstance());
@@ -239,7 +239,7 @@ public abstract class CustComponentStruct implements Struct {
     }
 
     public BooleanStruct isAutoscrolls(){
-        return new BooleanStruct(getComponent().isAutoscrolls());
+        return BooleanStruct.of(getComponent().isAutoscrolls());
     }
     public void setAutoscrolls(Struct _autoscrolls) {
         getComponent().setAutoscrolls(((BooleanStruct)_autoscrolls).getInstance());

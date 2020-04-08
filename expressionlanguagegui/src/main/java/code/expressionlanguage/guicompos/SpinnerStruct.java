@@ -19,7 +19,7 @@ public final class SpinnerStruct extends InputStruct {
 
     @Override
     public Struct isEnabled() {
-        return new BooleanStruct(spinner.isEnabled());
+        return BooleanStruct.of(spinner.isEnabled());
     }
 
     @Override

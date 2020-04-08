@@ -497,10 +497,10 @@ public final class LgNamesRenderUtils extends BeanCustLgNames {
             if (StringList.quickEq(name_,aliasGetAtomic)) {
                 AtomicBoolean re_ = (AtomicBoolean) ((StdStruct) _instance).getInstance();
                 boolean held_ = re_.get();
-                res_.setResult(new BooleanStruct(held_));
+                res_.setResult(BooleanStruct.of(held_));
                 return res_;
             }
-            if (_cont.isInitEnums() && _cont.isContainedSensibleFields(_instance)) {
+            if (_cont.isContainedSensibleFields(_instance)) {
                 _cont.failInitEnums();
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
@@ -513,12 +513,12 @@ public final class LgNamesRenderUtils extends BeanCustLgNames {
             }
             if (StringList.quickEq(name_,aliasCompareAndSetAtomic)) {
                 AtomicBoolean re_ = (AtomicBoolean) ((StdStruct) _instance).getInstance();
-                res_.setResult(new BooleanStruct(re_.compareAndSet(((BooleanStruct)_args[0]).getInstance(),((BooleanStruct)_args[1]).getInstance())));
+                res_.setResult(BooleanStruct.of(re_.compareAndSet(((BooleanStruct)_args[0]).getInstance(),((BooleanStruct)_args[1]).getInstance())));
                 return res_;
             }
             if (StringList.quickEq(name_,aliasGetAndSetAtomic)) {
                 AtomicBoolean re_ = (AtomicBoolean) ((StdStruct) _instance).getInstance();
-                res_.setResult(new BooleanStruct(re_.getAndSet(((BooleanStruct)_args[0]).getInstance())));
+                res_.setResult(BooleanStruct.of(re_.getAndSet(((BooleanStruct)_args[0]).getInstance())));
                 return res_;
             }
             AtomicBoolean re_ = (AtomicBoolean) ((StdStruct) _instance).getInstance();
@@ -534,7 +534,7 @@ public final class LgNamesRenderUtils extends BeanCustLgNames {
                 res_.setResult(new IntStruct(held_));
                 return res_;
             }
-            if (_cont.isInitEnums() && _cont.isContainedSensibleFields(_instance)) {
+            if (_cont.isContainedSensibleFields(_instance)) {
                 _cont.failInitEnums();
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
@@ -547,7 +547,7 @@ public final class LgNamesRenderUtils extends BeanCustLgNames {
             }
             if (StringList.quickEq(name_,aliasCompareAndSetAtomic)) {
                 AtomicInteger re_ = (AtomicInteger) ((StdStruct) _instance).getInstance();
-                res_.setResult(new BooleanStruct(re_.compareAndSet(((NumberStruct)_args[0]).intStruct(),((NumberStruct)_args[1]).intStruct())));
+                res_.setResult(BooleanStruct.of(re_.compareAndSet(((NumberStruct)_args[0]).intStruct(),((NumberStruct)_args[1]).intStruct())));
                 return res_;
             }
             if (StringList.quickEq(name_,aliasGetAndSetAtomic)) {
@@ -598,7 +598,7 @@ public final class LgNamesRenderUtils extends BeanCustLgNames {
                 res_.setResult(new LongStruct(held_));
                 return res_;
             }
-            if (_cont.isInitEnums() && _cont.isContainedSensibleFields(_instance)) {
+            if (_cont.isContainedSensibleFields(_instance)) {
                 _cont.failInitEnums();
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
@@ -611,7 +611,7 @@ public final class LgNamesRenderUtils extends BeanCustLgNames {
             }
             if (StringList.quickEq(name_,aliasCompareAndSetAtomic)) {
                 AtomicLong re_ = (AtomicLong) ((StdStruct) _instance).getInstance();
-                res_.setResult(new BooleanStruct(re_.compareAndSet(((NumberStruct)_args[0]).longStruct(),((NumberStruct)_args[1]).longStruct())));
+                res_.setResult(BooleanStruct.of(re_.compareAndSet(((NumberStruct)_args[0]).longStruct(),((NumberStruct)_args[1]).longStruct())));
                 return res_;
             }
             if (StringList.quickEq(name_,aliasGetAndSetAtomic)) {

@@ -175,7 +175,7 @@ public final class AikiBeansFacadeFightStd {
             return res_;
         }
         if (StringList.quickEq(methodName_,IS_BELONGS_TO_USER)) {
-            res_.setResult(new BooleanStruct(instance_.isBelongsToUser()));
+            res_.setResult(BooleanStruct.of(instance_.isBelongsToUser()));
             return res_;
         }
         if (StringList.quickEq(methodName_,GET_NUMBER_TARGET)) {
@@ -211,7 +211,7 @@ public final class AikiBeansFacadeFightStd {
             return res_;
         }
         if (StringList.quickEq(methodName_,IS_BASE)) {
-            res_.setResult(new BooleanStruct(instance_.isBase()));
+            res_.setResult(BooleanStruct.of(instance_.isBase()));
             return res_;
         }
         if (StringList.quickEq(methodName_,GET_STATIS_BASE)) {
@@ -227,7 +227,7 @@ public final class AikiBeansFacadeFightStd {
             return res_;
         }
         if (StringList.quickEq(methodName_,IS_BOOST)) {
-            res_.setResult(new BooleanStruct(instance_.isBoost()));
+            res_.setResult(BooleanStruct.of(instance_.isBoost()));
             return res_;
         }
         if (StringList.quickEq(methodName_,GET_STATIS_BOOST)) {

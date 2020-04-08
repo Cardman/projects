@@ -37,7 +37,7 @@ public final class ExecEqOperation extends ExecMethodOperation implements Atomic
         if (complement_) {
             b_ = !b_;
         }
-        Argument arg_ = new Argument(new BooleanStruct(b_));
+        Argument arg_ = new Argument(BooleanStruct.of(b_));
         setSimpleArgument(arg_, _conf, _nodes);
     }
 
@@ -55,7 +55,7 @@ public final class ExecEqOperation extends ExecMethodOperation implements Atomic
         if (complement_) {
             b_ = !b_;
         }
-        Argument arg_ = new Argument(new BooleanStruct(b_));
+        Argument arg_ = new Argument(BooleanStruct.of(b_));
         setSimpleArgumentAna(arg_, _conf);
     }
 

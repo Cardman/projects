@@ -5,10 +5,19 @@ import code.expressionlanguage.ExecutableCode;
 
 public final class BooleanStruct implements DisplayableStruct, ExportableStringStruct {
 
+    private static final BooleanStruct FALSE = new BooleanStruct(false);
+    private static final BooleanStruct TRUE = new BooleanStruct(true);
     private final boolean value;
 
-    public BooleanStruct(boolean _value) {
+    private BooleanStruct(boolean _value) {
         value = _value;
+    }
+
+    public static BooleanStruct of(boolean _value) {
+        if (_value) {
+            return TRUE;
+        }
+        return FALSE;
     }
 
     @Override
@@ -42,11 +51,7 @@ public final class BooleanStruct implements DisplayableStruct, ExportableStringS
 
     @Override
     public boolean sameReference(Struct _other) {
-        if (!(_other instanceof BooleanStruct)) {
-            return false;
-        }
-        BooleanStruct other_ = (BooleanStruct) _other;
-        return getInstance() == other_.getInstance();
+        return this == _other;
     }
 
 }

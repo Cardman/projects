@@ -427,7 +427,7 @@ public final class AikiBeansMovesStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,HAS_DEFAULT_TYPES)) {
-            res_.setResult(new BooleanStruct(instance_.getHasDefaultTypes()));
+            res_.setResult(BooleanStruct.of(instance_.getHasDefaultTypes()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,TYPES)) {
@@ -463,11 +463,11 @@ public final class AikiBeansMovesStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,IGN_VAR_ACCUR_USER_NEG)) {
-            res_.setResult(new BooleanStruct(instance_.getIgnVarAccurUserNeg()));
+            res_.setResult(BooleanStruct.of(instance_.getIgnVarAccurUserNeg()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,IGN_VAR_EVAS_TARGET_POS)) {
-            res_.setResult(new BooleanStruct(instance_.getIgnVarEvasTargetPos()));
+            res_.setResult(BooleanStruct.of(instance_.getIgnVarEvasTargetPos()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,NB_PREPA_ROUND)) {
@@ -475,7 +475,7 @@ public final class AikiBeansMovesStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,DISAPPEAR_BEFORE_USE)) {
-            res_.setResult(new BooleanStruct(instance_.getDisappearBeforeUse()));
+            res_.setResult(BooleanStruct.of(instance_.getDisappearBeforeUse()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,DELETED_STATUS)) {
@@ -499,7 +499,7 @@ public final class AikiBeansMovesStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,CANNOT_KO)) {
-            res_.setResult(new BooleanStruct(instance_.getCannotKo()));
+            res_.setResult(BooleanStruct.of(instance_.getCannotKo()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,AFFECTED_BY_MOVES)) {
@@ -515,7 +515,7 @@ public final class AikiBeansMovesStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,SEC_EFFECT_IF_NO_DAMAGE)) {
-            res_.setResult(new BooleanStruct(instance_.getSecEffectIfNoDamage()));
+            res_.setResult(BooleanStruct.of(instance_.getSecEffectIfNoDamage()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,NAME)) {
@@ -523,11 +523,11 @@ public final class AikiBeansMovesStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,RECHARGE_ROUND)) {
-            res_.setResult(new BooleanStruct(instance_.getRechargeRound()));
+            res_.setResult(BooleanStruct.of(instance_.getRechargeRound()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,CONST_USER_CHOICE)) {
-            res_.setResult(new BooleanStruct(instance_.getConstUserChoice()));
+            res_.setResult(BooleanStruct.of(instance_.getConstUserChoice()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,RANK_INCREMENT_NB_ROUND)) {
@@ -621,7 +621,7 @@ public final class AikiBeansMovesStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,WHOLE_WORD)) {
-            res_.setResult(new BooleanStruct(instance_.getWholeWord()));
+            res_.setResult(BooleanStruct.of(instance_.getWholeWord()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,MIN_ACCURACY)) {
@@ -730,11 +730,11 @@ public final class AikiBeansMovesStd {
             return res_;
         }
         if (StringList.quickEq(methodName_,TYPES_DEPEND_ONLY_ON_ITEM)) {
-            res_.setResult(new BooleanStruct(instance_.typesDependOnlyOnItem()));
+            res_.setResult(BooleanStruct.of(instance_.typesDependOnlyOnItem()));
             return res_;
         }
         if (StringList.quickEq(methodName_,IS_ITEM)) {
-            res_.setResult(new BooleanStruct(instance_.isItem((Long)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.isItem((Long)_args[0])));
             return res_;
         }
         if (StringList.quickEq(methodName_,CLICK_TYPES_BY_OWNED_ITEMS)) {
@@ -746,11 +746,11 @@ public final class AikiBeansMovesStd {
             return res_;
         }
         if (StringList.quickEq(methodName_,TYPES_DEPEND_ONLY_ON_WEATHER)) {
-            res_.setResult(new BooleanStruct(instance_.typesDependOnlyOnWeather()));
+            res_.setResult(BooleanStruct.of(instance_.typesDependOnlyOnWeather()));
             return res_;
         }
         if (StringList.quickEq(methodName_,IS_WEATHER)) {
-            res_.setResult(new BooleanStruct(instance_.isWeather((Long)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.isWeather((Long)_args[0])));
             return res_;
         }
         if (StringList.quickEq(methodName_,CLICK_TYPES_BY_WEATHERS)) {
@@ -762,75 +762,75 @@ public final class AikiBeansMovesStd {
             return res_;
         }
         if (StringList.quickEq(methodName_,TYPES_DEPEND_ON_WEATHER_AND_ITEM)) {
-            res_.setResult(new BooleanStruct(instance_.typesDependOnWeatherAndItem()));
+            res_.setResult(BooleanStruct.of(instance_.typesDependOnWeatherAndItem()));
             return res_;
         }
         if (StringList.quickEq(methodName_,IS_DAMAGING_MOVE)) {
-            res_.setResult(new BooleanStruct(instance_.isDamagingMove()));
+            res_.setResult(BooleanStruct.of(instance_.isDamagingMove()));
             return res_;
         }
         if (StringList.quickEq(methodName_,IS_DAMAGING_DIRECT_MOVE)) {
-            res_.setResult(new BooleanStruct(instance_.isDamagingDirectMove()));
+            res_.setResult(BooleanStruct.of(instance_.isDamagingDirectMove()));
             return res_;
         }
         if (StringList.quickEq(methodName_,IS_ZERO_PRIORITY)) {
-            res_.setResult(new BooleanStruct(instance_.isZeroPriority()));
+            res_.setResult(BooleanStruct.of(instance_.isZeroPriority()));
             return res_;
         }
         if (StringList.quickEq(methodName_,IS_ADJ_ADV)) {
-            res_.setResult(new BooleanStruct(instance_.isAdjAdv()));
+            res_.setResult(BooleanStruct.of(instance_.isAdjAdv()));
             return res_;
         }
         if (StringList.quickEq(methodName_,IS_ADJ_MULT)) {
-            res_.setResult(new BooleanStruct(instance_.isAdjMult()));
+            res_.setResult(BooleanStruct.of(instance_.isAdjMult()));
             return res_;
         }
         if (StringList.quickEq(methodName_,IS_ADJ_UNIQ)) {
-            res_.setResult(new BooleanStruct(instance_.isAdjUniq()));
+            res_.setResult(BooleanStruct.of(instance_.isAdjUniq()));
             return res_;
         }
         if (StringList.quickEq(methodName_,IS_ALLIE)) {
-            res_.setResult(new BooleanStruct(instance_.isAllie()));
+            res_.setResult(BooleanStruct.of(instance_.isAllie()));
             return res_;
         }
         if (StringList.quickEq(methodName_,IS_ALLIES)) {
-            res_.setResult(new BooleanStruct(instance_.isAllies()));
+            res_.setResult(BooleanStruct.of(instance_.isAllies()));
             return res_;
         }
         if (StringList.quickEq(methodName_,IS_ANY_FOE)) {
-            res_.setResult(new BooleanStruct(instance_.isAnyFoe()));
+            res_.setResult(BooleanStruct.of(instance_.isAnyFoe()));
             return res_;
         }
         if (StringList.quickEq(methodName_,IS_AUTRE_UNIQ)) {
-            res_.setResult(new BooleanStruct(instance_.isAutreUniq()));
+            res_.setResult(BooleanStruct.of(instance_.isAutreUniq()));
             return res_;
         }
         if (StringList.quickEq(methodName_,IS_GLOBALE)) {
-            res_.setResult(new BooleanStruct(instance_.isGlobale()));
+            res_.setResult(BooleanStruct.of(instance_.isGlobale()));
             return res_;
         }
         if (StringList.quickEq(methodName_,IS_LANCEUR)) {
-            res_.setResult(new BooleanStruct(instance_.isLanceur()));
+            res_.setResult(BooleanStruct.of(instance_.isLanceur()));
             return res_;
         }
         if (StringList.quickEq(methodName_,IS_PSEUDO_GLOBALE)) {
-            res_.setResult(new BooleanStruct(instance_.isPseudoGlobale()));
+            res_.setResult(BooleanStruct.of(instance_.isPseudoGlobale()));
             return res_;
         }
         if (StringList.quickEq(methodName_,IS_TOUS_ADV)) {
-            res_.setResult(new BooleanStruct(instance_.isTousAdv()));
+            res_.setResult(BooleanStruct.of(instance_.isTousAdv()));
             return res_;
         }
         if (StringList.quickEq(methodName_,IS_UNIQUE_IMPORTE)) {
-            res_.setResult(new BooleanStruct(instance_.isUniqueImporte()));
+            res_.setResult(BooleanStruct.of(instance_.isUniqueImporte()));
             return res_;
         }
         if (StringList.quickEq(methodName_,IS_CONST_ACCURACY)) {
-            res_.setResult(new BooleanStruct(instance_.isConstAccuracy()));
+            res_.setResult(BooleanStruct.of(instance_.isConstAccuracy()));
             return res_;
         }
         if (StringList.quickEq(methodName_,IS_ZERO_PREPA_ROUND)) {
-            res_.setResult(new BooleanStruct(instance_.isZeroPrepaRound()));
+            res_.setResult(BooleanStruct.of(instance_.isZeroPrepaRound()));
             return res_;
         }
         if (StringList.quickEq(methodName_,CLICK_DELETED_STATUS)) {
@@ -878,19 +878,19 @@ public final class AikiBeansMovesStd {
             return res_;
         }
         if (StringList.quickEq(methodName_,IS_BEFORE_PRIMARY_EFFECT)) {
-            res_.setResult(new BooleanStruct(instance_.isBeforePrimaryEffect((Integer)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.isBeforePrimaryEffect((Integer)_args[0])));
             return res_;
         }
         if (StringList.quickEq(methodName_,IS_END_ROUND_EFFECT)) {
-            res_.setResult(new BooleanStruct(instance_.isEndRoundEffect((Integer)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.isEndRoundEffect((Integer)_args[0])));
             return res_;
         }
         if (StringList.quickEq(methodName_,IS_PRIMARY_EFFECT)) {
-            res_.setResult(new BooleanStruct(instance_.isPrimaryEffect((Integer)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.isPrimaryEffect((Integer)_args[0])));
             return res_;
         }
         if (StringList.quickEq(methodName_,IS_AFTER_PRIMARY_EFFECT)) {
-            res_.setResult(new BooleanStruct(instance_.isAfterPrimaryEffect((Integer)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.isAfterPrimaryEffect((Integer)_args[0])));
             return res_;
         }
         if (StringList.quickEq(methodName_,GET_PAGE)) {
@@ -906,15 +906,15 @@ public final class AikiBeansMovesStd {
             return res_;
         }
         if (StringList.quickEq(methodName_,SWITCH_AFTER_USING_MOVE)) {
-            res_.setResult(new BooleanStruct(instance_.switchAfterUsingMove()));
+            res_.setResult(BooleanStruct.of(instance_.switchAfterUsingMove()));
             return res_;
         }
         if (StringList.quickEq(methodName_,IS_REPEATED_ROUND)) {
-            res_.setResult(new BooleanStruct(instance_.isRepeatedRound()));
+            res_.setResult(BooleanStruct.of(instance_.isRepeatedRound()));
             return res_;
         }
         if (StringList.quickEq(methodName_,CAN_BE_LEARNT)) {
-            res_.setResult(new BooleanStruct(instance_.canBeLearnt()));
+            res_.setResult(BooleanStruct.of(instance_.canBeLearnt()));
             return res_;
         }
         if (StringList.quickEq(methodName_,CLICK_POKEMON)) {

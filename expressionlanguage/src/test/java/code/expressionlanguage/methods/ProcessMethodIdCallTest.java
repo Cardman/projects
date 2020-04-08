@@ -52,6 +52,43 @@ public final class ProcessMethodIdCallTest extends ProcessMethodCommon {
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(1, ((NumberStruct)field_).intStruct());
     }
+
+    @Test
+    public void calculate1_Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public pkg.ExTwo<java.lang.Number,java.lang.Number> inst=$new pkg.ExTwo<java.lang.Number,java.lang.Number>():\n");
+        xml_.append(" $public $int ance=inst;;;get($id(pkg.ExTwo,0,#T),8I):\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo<#T:java.lang.Number,#U:java.lang.Number> {\n");
+        xml_.append(" $public $normal $int get(#T i){\n");
+        xml_.append("  $return 1i:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $normal $int get(#U i){\n");
+        xml_.append("  $return 2i:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        ConstructorId id_ = getConstructorId("pkg.Ex");
+
+        Argument ret_;
+        ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
+        Struct str_ = ret_.getStruct();
+        assertEq("pkg.Ex", str_.getClassName(cont_));
+        Struct field_;
+        field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.Ex", "inst"));
+        assertEq("pkg.ExTwo<java.lang.Number,java.lang.Number>", field_.getClassName(cont_));
+        field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.Ex", "ance"));
+        assertEq(INTEGER, field_.getClassName(cont_));
+        assertEq(1, ((NumberStruct)field_).intStruct());
+    }
     @Test
     public void calculate2Test() {
         StringMap<String> files_ = new StringMap<String>();

@@ -262,7 +262,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             }
             int vararg_ = -1;
             MethodId argsRes_;
-            ClassMethodId feed_ = null;
+            ClassMethodIdAncestor feed_ = null;
             if (matchIdKeyWord(_args, _len, i_, keyWordId_)) {
                 MethodAccessId idUpdate_ = new MethodAccessId(i_);
                 String keyWordStatic_ = _conf.getKeyWords().getKeyWordStatic();
@@ -282,7 +282,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 }
                 boolean varargFct_ = argsRes_.isVararg();
                 StringList params_ = argsRes_.getParametersTypes();
-                feed_ = new ClassMethodId(cl_, new MethodId(staticFlag_, name_, params_, varargFct_));
+                feed_ = new ClassMethodIdAncestor(new ClassMethodId(cl_, new MethodId(staticFlag_, name_, params_, varargFct_)),idUpdate_.getAncestor());
                 for (String s: argsRes_.getParametersTypes()) {
                     String format_ = Templates.wildCardFormatParam(type_, s, _conf);
                     if (format_.isEmpty()) {
@@ -430,7 +430,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             str_ = resolveCorrectTypes(_conf, stAccCall_, _fromType,_args);
             int vararg_ = -1;
             MethodId argsRes_;
-            ClassMethodId feed_ = null;
+            ClassMethodIdAncestor feed_ = null;
             KeyWords keyWords_ = _conf.getKeyWords();
             String keyWordId_ = keyWords_.getKeyWordId();
             MethodAccessKind kind_;
@@ -453,13 +453,16 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                     setResultClass(new ClassArgumentMatching(_stds.getAliasObject()));
                     return;
                 }
-                argsRes_ = resolveArguments(4, _conf, cl_, kind_, _args);
+                MethodAccessId acc_ = new MethodAccessId(4);
+                acc_.setupAncestor(_args,4);
+                int ind_ = acc_.getIndex();
+                argsRes_ = resolveArguments(ind_, _conf, cl_, kind_, _args);
                 if (argsRes_ == null) {
                     return;
                 }
                 boolean varargFct_ = argsRes_.isVararg();
                 StringList params_ = argsRes_.getParametersTypes();
-                feed_ = new ClassMethodId(cl_, new MethodId(kind_, name_, params_, varargFct_));
+                feed_ = new ClassMethodIdAncestor(new ClassMethodId(cl_, new MethodId(kind_, name_, params_, varargFct_)),acc_.getAncestor());
             } else {
                 argsRes_ = resolveArguments(2, _conf, _args);
                 if (argsRes_ == null) {
@@ -523,7 +526,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             polymorph = true;
         }
         MethodId argsRes_;
-        ClassMethodId feed_ = null;
+        ClassMethodIdAncestor feed_ = null;
         if (matchIdKeyWord(_args, _len, i_, keyWordId_)) {
             MethodAccessId idUpdate_ = new MethodAccessId(i_);
             String keyWordStatic_ = _conf.getKeyWords().getKeyWordStatic();
@@ -543,7 +546,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             }
             boolean varargFct_ = argsRes_.isVararg();
             StringList params_ = argsRes_.getParametersTypes();
-            feed_ = new ClassMethodId(cl_, new MethodId(stCtx_, name_, params_, varargFct_));
+            feed_ = new ClassMethodIdAncestor(new ClassMethodId(cl_, new MethodId(stCtx_, name_, params_, varargFct_)),idUpdate_.getAncestor());
             for (String s: argsRes_.getParametersTypes()) {
                 String format_ = Templates.wildCardFormatParam(type_, s, _conf);
                 if (format_.isEmpty()) {

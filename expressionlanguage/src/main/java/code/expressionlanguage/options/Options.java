@@ -1,9 +1,11 @@
 package code.expressionlanguage.options;
 
 import code.expressionlanguage.variables.VariableSuffix;
+import code.util.StringList;
 
 public final class Options {
 
+    private StringList typesInit = new StringList();
     private boolean initializeStaticClassFirst = true;
     private VariableSuffix suffixVar = VariableSuffix.NONE;
     private boolean varTypeFirst = true;
@@ -24,6 +26,11 @@ public final class Options {
         }
         return ':';
     }
+
+    public StringList getTypesInit() {
+        return typesInit;
+    }
+
     public boolean isInitializeStaticClassFirst() {
         return initializeStaticClassFirst;
     }

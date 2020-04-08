@@ -600,12 +600,12 @@ public final class ForEachLoop extends BracedStack implements ForLoop,ImportForE
         LoopBlockStack l_ = (LoopBlockStack) ip_.getLastStack();
         if (_finished) {
             ip_.clearCurrentEls();
-            _cont.getCoverage().passLoop(_cont, new Argument(new BooleanStruct(false)));
+            _cont.getCoverage().passLoop(_cont, new Argument(BooleanStruct.of(false)));
             l_.setEvaluatingKeepLoop(false);
             l_.setFinished(true);
             return;
         }
-        _cont.getCoverage().passLoop(_cont, new Argument(new BooleanStruct(true)));
+        _cont.getCoverage().passLoop(_cont, new Argument(BooleanStruct.of(true)));
         StringMap<LoopVariable> vars_ = ip_.getVars();
         incrementLoop(_cont, l_, vars_);
     }

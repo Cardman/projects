@@ -100,7 +100,7 @@ public final class Argument {
         object = new CharStruct(_object);
     }
     public void setObject(boolean _object) {
-        object = new BooleanStruct(_object);
+        object = BooleanStruct.of(_object);
     }
     public void setObject(String _object) {
         object = new StringStruct(_object);

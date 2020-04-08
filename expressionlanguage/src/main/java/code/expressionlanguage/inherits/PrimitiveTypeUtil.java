@@ -833,7 +833,7 @@ public final class PrimitiveTypeUtil {
     private static Struct defaultValue(String _class, LgNames _stds) {
         if (isPrimitive(_class, _stds)) {
             if (StringList.quickEq(_class, _stds.getAliasPrimBoolean())) {
-                return new BooleanStruct(false);
+                return BooleanStruct.of(false);
             }
             return convert(_class, _stds);
         }

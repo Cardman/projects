@@ -75,7 +75,7 @@ public final class SliderStruct extends InputStruct {
     }
     @Override
     public Struct isEnabled() {
-        return new BooleanStruct(slider.isEnabled());
+        return BooleanStruct.of(slider.isEnabled());
     }
 
     @Override

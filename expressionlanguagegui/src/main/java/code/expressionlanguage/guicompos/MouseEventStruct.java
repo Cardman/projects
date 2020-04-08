@@ -81,27 +81,27 @@ public class MouseEventStruct implements Struct {
     }
 
     public BooleanStruct isAlt() {
-        return new BooleanStruct(alt);
+        return BooleanStruct.of(alt);
     }
 
     public BooleanStruct isCtrl() {
-        return new BooleanStruct(ctrl);
+        return BooleanStruct.of(ctrl);
     }
 
     public BooleanStruct isLeft() {
-        return new BooleanStruct(left);
+        return BooleanStruct.of(left);
     }
 
     public BooleanStruct isMiddle() {
-        return new BooleanStruct(middle);
+        return BooleanStruct.of(middle);
     }
 
     public BooleanStruct isRight() {
-        return new BooleanStruct(right);
+        return BooleanStruct.of(right);
     }
 
     public BooleanStruct isShift() {
-        return new BooleanStruct(shift);
+        return BooleanStruct.of(shift);
     }
 
     public IntStruct getClicks() {

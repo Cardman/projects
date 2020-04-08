@@ -33,7 +33,7 @@ public final class TextAreaStruct extends InputStruct {
 
     @Override
     public Struct isEnabled() {
-        return new BooleanStruct(textArea.isEnabled());
+        return BooleanStruct.of(textArea.isEnabled());
     }
 
     @Override

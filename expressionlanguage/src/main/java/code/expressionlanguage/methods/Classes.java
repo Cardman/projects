@@ -377,7 +377,7 @@ public final class Classes {
             }
         }
         CustList<String> all_ = cl_.classesBodies.getKeys();
-        _context.setInitEnums(true);
+        _context.setInitEnums(InitPhase.READ_ONLY_OTHERS);
         while (true) {
             StringList new_ = new StringList();
             for (String c: all_) {
@@ -396,7 +396,17 @@ public final class Classes {
             }
         }
         _context.resetInitEnums();
-        _context.setInitEnums(false);
+        _context.setInitEnums(InitPhase.LIST);
+        dl_.initAlwaysSuccess();
+        for (String t: _context.getOptions().getTypesInit()) {
+            String res_ = _context.resolveCandidate(t);
+            if (_context.getClasses().getClassBody(res_) == null) {
+                continue;
+            }
+            _context.resetInitEnums();
+            ProcessMethod.initializeClass(res_,_context);
+        }
+        _context.resetInitEnums();
         StringList notInit_ = dl_.initAlwaysSuccess();
         if (_context.getOptions().isFailIfNotAllInit()) {
             for (String s: notInit_) {
@@ -410,6 +420,7 @@ public final class Classes {
                 _context.addError(n_);
             }
         }
+        _context.setInitEnums(InitPhase.NOTHING);
     }
     private static StringMap<StringMap<Struct>> buildFieldValues(StringMap<StringMap<Struct>> _infos) {
         StringMap<StringMap<Struct>> bkSt_ = new StringMap<StringMap<Struct>>();

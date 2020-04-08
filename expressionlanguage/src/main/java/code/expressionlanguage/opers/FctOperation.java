@@ -70,7 +70,7 @@ public final class FctOperation extends InvokingOperation {
         String trimMeth_ = methodName.trim();
         CustList<ClassArgumentMatching> firstArgs_ = listClasses(chidren_, _conf);
         int varargOnly_ = lookOnlyForVarArg();
-        ClassMethodId idMethod_ = lookOnlyForId();
+        ClassMethodIdAncestor idMethod_ = lookOnlyForId();
         if (hasVoidArguments(chidren_, firstArgs_, off_, _conf)) {
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             return;
@@ -118,14 +118,15 @@ public final class FctOperation extends InvokingOperation {
             l_ = getBounds(className_, _conf);
             accessSuperTypes_ = false;
         }
-        ClassMethodId feed_ = null;
+        ClassMethodIdAncestor feed_ = null;
         if (idMethod_ != null) {
-            String idClass_ = idMethod_.getClassName();
-            MethodId mid_ = idMethod_.getConstraints();
+            ClassMethodId id_ = idMethod_.getClassMethodId();
+            String idClass_ = id_.getClassName();
+            MethodId mid_ = id_.getConstraints();
             boolean vararg_ = mid_.isVararg();
             StringList params_ = mid_.getParametersTypes();
             MethodAccessKind static_ = MethodId.getKind(isStaticAccess(), mid_.getKind());
-            feed_ = new ClassMethodId(idClass_, new MethodId(static_, trimMeth_, params_, vararg_));
+            feed_ = new ClassMethodIdAncestor(new ClassMethodId(idClass_, new MethodId(static_, trimMeth_, params_, vararg_)),idMethod_.getAncestor());
         }
         StringList bounds_ = new StringList();
         for (String c: l_) {

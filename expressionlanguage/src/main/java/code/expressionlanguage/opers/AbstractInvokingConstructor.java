@@ -8,10 +8,7 @@ import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.ConstructorBlock;
 import code.expressionlanguage.methods.Line;
 import code.expressionlanguage.methods.RootBlock;
-import code.expressionlanguage.opers.util.ClassArgumentMatching;
-import code.expressionlanguage.opers.util.ClassMethodId;
-import code.expressionlanguage.opers.util.ConstructorId;
-import code.expressionlanguage.opers.util.ConstrustorIdVarArg;
+import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
 import code.util.*;
@@ -43,7 +40,7 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation {
         int off_ = StringList.getFirstPrintableCharIndex(methodName);
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
         int varargOnly_ = lookOnlyForVarArg();
-        ClassMethodId idMethod_ = lookOnlyForId();
+        ClassMethodIdAncestor idMethod_ = lookOnlyForId();
         LgNames stds_ = _conf.getStandards();
         CustList<ClassArgumentMatching> firstArgs_ = listClasses(chidren_, _conf);
         ClassArgumentMatching clArg_ = getFrom(_conf);
@@ -54,9 +51,10 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation {
         }
         ConstructorId feed_ = null;
         if (idMethod_ != null) {
-            String idClass_ = idMethod_.getClassName();
-            boolean vararg_ = idMethod_.getConstraints().isVararg();
-            StringList params_ = idMethod_.getConstraints().getParametersTypes();
+            ClassMethodId id_ = idMethod_.getClassMethodId();
+            String idClass_ = id_.getClassName();
+            boolean vararg_ = id_.getConstraints().isVararg();
+            StringList params_ = id_.getConstraints().getParametersTypes();
             feed_ = new ConstructorId(idClass_, params_, vararg_);
         }
         String clCurName_ = clArg_.getName();

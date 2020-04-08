@@ -43,7 +43,7 @@ public final class CheckBoxStruct extends InputStruct {
     }
 
     public Struct isSelected() {
-        return new BooleanStruct(checkBox.isSelected());
+        return BooleanStruct.of(checkBox.isSelected());
     }
 
     public void setSelected(Struct b) {
@@ -52,7 +52,7 @@ public final class CheckBoxStruct extends InputStruct {
 
     @Override
     public Struct isEnabled() {
-        return new BooleanStruct(checkBox.isEnabled());
+        return BooleanStruct.of(checkBox.isEnabled());
     }
 
     @Override

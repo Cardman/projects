@@ -885,7 +885,7 @@ public final class CustBeanLgNames extends BeanNatLgNames {
         if (StringList.quickEq(className_,TYPE_BEAN_TWO)) {
             BeanTwo i_ = (BeanTwo)instance_;
             if (StringList.quickEq(fieldName_,CHECKED)) {
-                res_.setResult(new BooleanStruct(i_.isChecked()));
+                res_.setResult(BooleanStruct.of(i_.isChecked()));
                 return res_;
             }
             if (StringList.quickEq(fieldName_,CHOOSE)) {
@@ -916,7 +916,7 @@ public final class CustBeanLgNames extends BeanNatLgNames {
                 if (i_.getNullableCheckbox() == null) {
                     res_.setResult(NullStruct.NULL_VALUE);
                 } else {
-                    res_.setResult(new BooleanStruct(i_.getNullableCheckbox()));
+                    res_.setResult(BooleanStruct.of(i_.getNullableCheckbox()));
                 }
                 return res_;
             }
@@ -1056,7 +1056,7 @@ public final class CustBeanLgNames extends BeanNatLgNames {
         if (StringList.quickEq(className_,TYPE_COMPOSITE)) {
             Composite i_ = (Composite)instance_;
             if (StringList.quickEq(fieldName_,DISPLAYED)) {
-                res_.setResult(new BooleanStruct(i_.isDisplayed()));
+                res_.setResult(BooleanStruct.of(i_.isDisplayed()));
                 return res_;
             }
             if (StringList.quickEq(fieldName_,INTEGER)) {
@@ -1345,7 +1345,7 @@ public final class CustBeanLgNames extends BeanNatLgNames {
                 return res_;
             }
             if (StringList.quickEq(methodName_,HAS_MORE_THAN_ONE)) {
-                res_.setResult(new BooleanStruct(i_.hasMoreThanOne()));
+                res_.setResult(BooleanStruct.of(i_.hasMoreThanOne()));
                 return res_;
             }
             if (StringList.quickEq(methodName_,GET_COMPOSITE)) {
@@ -1495,7 +1495,7 @@ public final class CustBeanLgNames extends BeanNatLgNames {
                 return res_;
             }
             if (StringList.quickEq(methodName_,IS_CHECK_BOX)) {
-                res_.setResult(new BooleanStruct(i_.isCheckBox()));
+                res_.setResult(BooleanStruct.of(i_.isCheckBox()));
                 return res_;
             }
             if (StringList.quickEq(methodName_,GET_COMBO_NUMBER)) {
@@ -1615,7 +1615,7 @@ public final class CustBeanLgNames extends BeanNatLgNames {
         if (StringList.quickEq(className_,TYPE_ENCAPS_FIELDS)) {
             EncapsFields i_ = (EncapsFields)instance_;
             if (StringList.quickEq(methodName_,IS_CHECK_BOX)) {
-                res_.setResult(new BooleanStruct(i_.isCheckBox()));
+                res_.setResult(BooleanStruct.of(i_.isCheckBox()));
                 return res_;
             }
             if (StringList.quickEq(methodName_,GET_COMBO_NUMBER)) {
@@ -1710,7 +1710,7 @@ public final class CustBeanLgNames extends BeanNatLgNames {
         if (StringList.quickEq(className_,TYPE_PICKABLE_LIST)) {
             PickableList i_ = (PickableList)instance_;
             if (StringList.quickEq(methodName_,REMOVE_AND_EXIST_AFTER)) {
-                res_.setResult(new BooleanStruct(i_.removeAndExistAfter((Integer)_args[0])));
+                res_.setResult(BooleanStruct.of(i_.removeAndExistAfter((Integer)_args[0])));
                 return res_;
             }
             if (StringList.quickEq(methodName_,GET_LIST)) {
@@ -1721,7 +1721,7 @@ public final class CustBeanLgNames extends BeanNatLgNames {
         if (StringList.quickEq(className_,TYPE_RATE_EQ)) {
             RateEq i_ = (RateEq)instance_;
             if (StringList.quickEq(methodName_,EQ)) {
-                res_.setResult(new BooleanStruct(i_.eq((RateEq) _args[0])));
+                res_.setResult(BooleanStruct.of(i_.eq((RateEq) _args[0])));
                 return res_;
             }
         }
@@ -1963,7 +1963,7 @@ public final class CustBeanLgNames extends BeanNatLgNames {
             return new DoubleStruct((Double) _element);
         }
         if (_element instanceof Boolean) {
-            return new BooleanStruct((Boolean) _element);
+            return BooleanStruct.of((Boolean) _element);
         }
         if (_element instanceof String) {
             return new StringStruct((String) _element);

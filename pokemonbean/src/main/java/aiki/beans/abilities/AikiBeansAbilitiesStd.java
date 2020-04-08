@@ -653,7 +653,7 @@ public final class AikiBeansAbilitiesStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,END_ROUND)) {
-            res_.setResult(new BooleanStruct(instance_.getEndRound()));
+            res_.setResult(BooleanStruct.of(instance_.getEndRound()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,END_ROUND_RANK)) {
@@ -669,7 +669,7 @@ public final class AikiBeansAbilitiesStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,SENDING)) {
-            res_.setResult(new BooleanStruct(instance_.getSending()));
+            res_.setResult(BooleanStruct.of(instance_.getSending()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,EFFECT_SEND_BEAN)) {
@@ -677,11 +677,11 @@ public final class AikiBeansAbilitiesStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,ACHIEVED_DISAPPEARED_PK)) {
-            res_.setResult(new BooleanStruct(instance_.getAchievedDisappearedPk()));
+            res_.setResult(BooleanStruct.of(instance_.getAchievedDisappearedPk()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,BREAK_PROTECTION)) {
-            res_.setResult(new BooleanStruct(instance_.getBreakProtection()));
+            res_.setResult(BooleanStruct.of(instance_.getBreakProtection()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,BREAK_PROTECTION_MOVES)) {
@@ -689,15 +689,15 @@ public final class AikiBeansAbilitiesStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,CANCEL_SEC_EFFECT_OTHER)) {
-            res_.setResult(new BooleanStruct(instance_.getCancelSecEffectOther()));
+            res_.setResult(BooleanStruct.of(instance_.getCancelSecEffectOther()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,CANCEL_SEC_EFFECT_OWNER)) {
-            res_.setResult(new BooleanStruct(instance_.getCancelSecEffectOwner()));
+            res_.setResult(BooleanStruct.of(instance_.getCancelSecEffectOwner()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,CHGT_TYPE_BY_DAMAGE)) {
-            res_.setResult(new BooleanStruct(instance_.getChgtTypeByDamage()));
+            res_.setResult(BooleanStruct.of(instance_.getChgtTypeByDamage()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,CHGT_TYPE_BY_WEATHER)) {
@@ -705,43 +705,43 @@ public final class AikiBeansAbilitiesStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,COPY_MOVES_TYPES)) {
-            res_.setResult(new BooleanStruct(instance_.getCopyMovesTypes()));
+            res_.setResult(BooleanStruct.of(instance_.getCopyMovesTypes()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,FORBID_USE_BERRY_AGAINST_FOES)) {
-            res_.setResult(new BooleanStruct(instance_.getForbidUseBerryAgainstFoes()));
+            res_.setResult(BooleanStruct.of(instance_.getForbidUseBerryAgainstFoes()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,GIVE_ITEM_TO_ALLY_HAVING_USED)) {
-            res_.setResult(new BooleanStruct(instance_.getGiveItemToAllyHavingUsed()));
+            res_.setResult(BooleanStruct.of(instance_.getGiveItemToAllyHavingUsed()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,HEALED_STATUS_BY_SWITCH)) {
-            res_.setResult(new BooleanStruct(instance_.getHealedStatusBySwitch()));
+            res_.setResult(BooleanStruct.of(instance_.getHealedStatusBySwitch()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,IGN_FOE_STATIS_BOOST)) {
-            res_.setResult(new BooleanStruct(instance_.getIgnFoeStatisBoost()));
+            res_.setResult(BooleanStruct.of(instance_.getIgnFoeStatisBoost()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,IMMU_CH)) {
-            res_.setResult(new BooleanStruct(instance_.getImmuCh()));
+            res_.setResult(BooleanStruct.of(instance_.getImmuCh()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,IMMU_DAMAGE_ALLY_MOVES)) {
-            res_.setResult(new BooleanStruct(instance_.getImmuDamageAllyMoves()));
+            res_.setResult(BooleanStruct.of(instance_.getImmuDamageAllyMoves()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,IMMU_DAMAGE_RECOIL)) {
-            res_.setResult(new BooleanStruct(instance_.getImmuDamageRecoil()));
+            res_.setResult(BooleanStruct.of(instance_.getImmuDamageRecoil()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,IMMU_DAMAGE_TRAPPING_MOVES)) {
-            res_.setResult(new BooleanStruct(instance_.getImmuDamageTrappingMoves()));
+            res_.setResult(BooleanStruct.of(instance_.getImmuDamageTrappingMoves()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,IMMU_RECHARGE_ROUND)) {
-            res_.setResult(new BooleanStruct(instance_.getImmuRechargeRound()));
+            res_.setResult(BooleanStruct.of(instance_.getImmuRechargeRound()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,IMMU_RECHARGE_ROUND_MOVES)) {
@@ -749,27 +749,27 @@ public final class AikiBeansAbilitiesStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,IMMU_SUFFERED_DAMAGE_LOW_EFF)) {
-            res_.setResult(new BooleanStruct(instance_.getImmuSufferedDamageLowEff()));
+            res_.setResult(BooleanStruct.of(instance_.getImmuSufferedDamageLowEff()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,INFLICTING_DAMAGE_INSTEAD_OF_SUFFERING)) {
-            res_.setResult(new BooleanStruct(instance_.getInflictingDamageInsteadOfSuffering()));
+            res_.setResult(BooleanStruct.of(instance_.getInflictingDamageInsteadOfSuffering()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,MUMY)) {
-            res_.setResult(new BooleanStruct(instance_.getMumy()));
+            res_.setResult(BooleanStruct.of(instance_.getMumy()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,NB_HITS)) {
-            res_.setResult(new BooleanStruct(instance_.getNbHits()));
+            res_.setResult(BooleanStruct.of(instance_.getNbHits()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,PLATE)) {
-            res_.setResult(new BooleanStruct(instance_.getPlate()));
+            res_.setResult(BooleanStruct.of(instance_.getPlate()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,REVERSE_EFFECTS_POWER_MOVES_TYPES_GLOBAL)) {
-            res_.setResult(new BooleanStruct(instance_.getReverseEffectsPowerMovesTypesGlobal()));
+            res_.setResult(BooleanStruct.of(instance_.getReverseEffectsPowerMovesTypesGlobal()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,REVERSE_EFFECTS_POWER_MOVES_TYPES_GLOBAL_ABILITIES)) {
@@ -777,11 +777,11 @@ public final class AikiBeansAbilitiesStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,SLOWING)) {
-            res_.setResult(new BooleanStruct(instance_.getSlowing()));
+            res_.setResult(BooleanStruct.of(instance_.getSlowing()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,TAKE_ITEM_BY_DAMAGING_MOVE)) {
-            res_.setResult(new BooleanStruct(instance_.getTakeItemByDamagingMove()));
+            res_.setResult(BooleanStruct.of(instance_.getTakeItemByDamagingMove()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,HEAL_HP_WHILE_USING_BERRY)) {
@@ -1068,7 +1068,7 @@ public final class AikiBeansAbilitiesStd {
             return res_;
         }
         if (StringList.quickEq(methodName_,IS_CHGT_TYPE_BY_WEATHER)) {
-            res_.setResult(new BooleanStruct(instance_.isChgtTypeByWeather((Long)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.isChgtTypeByWeather((Long)_args[0])));
             return res_;
         }
         if (StringList.quickEq(methodName_,CLICK_CHGT_TYPE_BY_WEATHER_KEY)) {
@@ -1100,11 +1100,11 @@ public final class AikiBeansAbilitiesStd {
             return res_;
         }
         if (StringList.quickEq(methodName_,DECREASE_NEC_STEPS_HATCH_INT)) {
-            res_.setResult(new BooleanStruct(instance_.decreaseNecStepsHatchInt()));
+            res_.setResult(BooleanStruct.of(instance_.decreaseNecStepsHatchInt()));
             return res_;
         }
         if (StringList.quickEq(methodName_,NB_USED_PP_INT)) {
-            res_.setResult(new BooleanStruct(instance_.nbUsedPpInt()));
+            res_.setResult(BooleanStruct.of(instance_.nbUsedPpInt()));
             return res_;
         }
         if (StringList.quickEq(methodName_,CLICK_IMMU_MOVE)) {
@@ -1172,7 +1172,7 @@ public final class AikiBeansAbilitiesStd {
             return res_;
         }
         if (StringList.quickEq(methodName_,IS_HEAL_HP_BY_WEATHER)) {
-            res_.setResult(new BooleanStruct(instance_.isHealHpByWeather((Long)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.isHealHpByWeather((Long)_args[0])));
             return res_;
         }
         if (StringList.quickEq(methodName_,CLICK_HEAL_HP_BY_WEATHER_KEY)) {
@@ -1184,7 +1184,7 @@ public final class AikiBeansAbilitiesStd {
             return res_;
         }
         if (StringList.quickEq(methodName_,IS_HEAL_HP_BY_TYPE_IF_WEATHER)) {
-            res_.setResult(new BooleanStruct(instance_.isHealHpByTypeIfWeather((Long)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.isHealHpByTypeIfWeather((Long)_args[0])));
             return res_;
         }
         if (StringList.quickEq(methodName_,CLICK_HEAL_HP_BY_TYPE_IF_WEATHER_KEY)) {
@@ -1228,7 +1228,7 @@ public final class AikiBeansAbilitiesStd {
             return res_;
         }
         if (StringList.quickEq(methodName_,IS_STATUS)) {
-            res_.setResult(new BooleanStruct(instance_.isStatus((Long)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.isStatus((Long)_args[0])));
             return res_;
         }
         if (StringList.quickEq(methodName_,CLICK_SINGLE_STATUS)) {
@@ -1240,7 +1240,7 @@ public final class AikiBeansAbilitiesStd {
             return res_;
         }
         if (StringList.quickEq(methodName_,IS_MOVE_BY_WEATHER)) {
-            res_.setResult(new BooleanStruct(instance_.isMoveByWeather((Long)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.isMoveByWeather((Long)_args[0])));
             return res_;
         }
         if (StringList.quickEq(methodName_,CLICK_IMMU_MOVE_BY_WEATHER)) {
@@ -1256,7 +1256,7 @@ public final class AikiBeansAbilitiesStd {
             return res_;
         }
         if (StringList.quickEq(methodName_,IS_MOVE_BY_STATUS)) {
-            res_.setResult(new BooleanStruct(instance_.isMoveByStatus((Long)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.isMoveByStatus((Long)_args[0])));
             return res_;
         }
         if (StringList.quickEq(methodName_,CLICK_IMMU_STATUS_WEATHER)) {

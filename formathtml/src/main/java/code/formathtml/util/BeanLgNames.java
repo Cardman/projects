@@ -146,7 +146,7 @@ public abstract class BeanLgNames extends LgNames {
             }
             ClassArgumentMatching cl_ = new ClassArgumentMatching(_className);
             if (PrimitiveTypeUtil.toPrimitive(cl_,this).matchClass(getAliasPrimBoolean())) {
-                res_.setResult(new BooleanStruct(StringList.quickEq(_values.first(),ON)));
+                res_.setResult(BooleanStruct.of(StringList.quickEq(_values.first(),ON)));
                 return res_;
             }
             if (PrimitiveTypeUtil.toPrimitive(cl_,this).matchClass(getAliasPrimChar())) {

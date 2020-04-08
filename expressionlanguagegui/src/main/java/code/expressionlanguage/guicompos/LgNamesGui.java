@@ -2387,8 +2387,8 @@ public class LgNamesGui extends LgNamesUtils {
             WindowSetStruct set_ = new WindowSetStruct(true);
             return new Argument(set_);
         }
-        if (_cont.getContextEl().isInitEnums()) {
-            _cont.getContextEl().failInitEnums();
+        if (_cont.getContextEl().isWideInitEnums()) {
+            processFailInit(_cont.getContextEl());
             return new Argument();
         }
         if (StringList.quickEq(_id,aliasFrame)) {
@@ -2438,8 +2438,8 @@ public class LgNamesGui extends LgNamesUtils {
         String name_ = _method.getName();
         ResultErrorStd r_ = new ResultErrorStd();
         if (StringList.quickEq(name_,aliasActionEvent)) {
-            if (_cont.isInitEnums()) {
-                _cont.failInitEnums();
+            if (_cont.isWideInitEnums()) {
+                processFailInit(_cont.getContextEl());
                 r_.setResult(NullStruct.NULL_VALUE);
                 return r_;
             }
@@ -2452,8 +2452,8 @@ public class LgNamesGui extends LgNamesUtils {
             return r_;
         }
         if (StringList.quickEq(name_,aliasWindowEvent)) {
-            if (_cont.isInitEnums()) {
-                _cont.failInitEnums();
+            if (_cont.isWideInitEnums()) {
+                processFailInit(_cont.getContextEl());
                 r_.setResult(NullStruct.NULL_VALUE);
                 return r_;
             }
@@ -2461,8 +2461,8 @@ public class LgNamesGui extends LgNamesUtils {
             return r_;
         }
         if (StringList.quickEq(name_,aliasMouseEvent)) {
-            if (_cont.isInitEnums()) {
-                _cont.failInitEnums();
+            if (_cont.isWideInitEnums()) {
+                processFailInit(_cont.getContextEl());
                 r_.setResult(NullStruct.NULL_VALUE);
                 return r_;
             }
@@ -2480,8 +2480,8 @@ public class LgNamesGui extends LgNamesUtils {
             return r_;
         }
         if (StringList.quickEq(name_,aliasWheelEvent)) {
-            if (_cont.isInitEnums()) {
-                _cont.failInitEnums();
+            if (_cont.isWideInitEnums()) {
+                processFailInit(_cont.getContextEl());
                 r_.setResult(NullStruct.NULL_VALUE);
                 return r_;
             }
@@ -2500,8 +2500,8 @@ public class LgNamesGui extends LgNamesUtils {
             return r_;
         }
         if (StringList.quickEq(name_,aliasKeyEvent)) {
-            if (_cont.isInitEnums()) {
-                _cont.failInitEnums();
+            if (_cont.isWideInitEnums()) {
+                processFailInit(_cont.getContextEl());
                 r_.setResult(NullStruct.NULL_VALUE);
                 return r_;
             }
@@ -2515,8 +2515,8 @@ public class LgNamesGui extends LgNamesUtils {
             return r_;
         }
         if (StringList.quickEq(name_,aliasFrame)) {
-            if (_cont.isInitEnums()) {
-                _cont.failInitEnums();
+            if (_cont.isWideInitEnums()) {
+                processFailInit(_cont.getContextEl());
                 r_.setResult(NullStruct.NULL_VALUE);
                 return r_;
             }
@@ -2526,8 +2526,8 @@ public class LgNamesGui extends LgNamesUtils {
             return r_;
         }
         if (StringList.quickEq(name_,aliasDialog)) {
-            if (_cont.isInitEnums()) {
-                _cont.failInitEnums();
+            if (_cont.isWideInitEnums()) {
+                processFailInit(_cont.getContextEl());
                 r_.setResult(NullStruct.NULL_VALUE);
                 return r_;
             }
@@ -2537,8 +2537,8 @@ public class LgNamesGui extends LgNamesUtils {
             return r_;
         }
         if (StringList.quickEq(name_,aliasPanel)) {
-            if (_cont.isInitEnums()) {
-                _cont.failInitEnums();
+            if (_cont.isWideInitEnums()) {
+                processFailInit(_cont.getContextEl());
                 r_.setResult(NullStruct.NULL_VALUE);
                 return r_;
             }
@@ -2546,8 +2546,8 @@ public class LgNamesGui extends LgNamesUtils {
             return r_;
         }
         if (StringList.quickEq(name_,aliasPanelBorder)) {
-            if (_cont.isInitEnums()) {
-                _cont.failInitEnums();
+            if (_cont.isWideInitEnums()) {
+                processFailInit(_cont.getContextEl());
                 r_.setResult(NullStruct.NULL_VALUE);
                 return r_;
             }
@@ -2555,8 +2555,8 @@ public class LgNamesGui extends LgNamesUtils {
             return r_;
         }
         if (StringList.quickEq(name_,aliasTabbedPane)) {
-            if (_cont.isInitEnums()) {
-                _cont.failInitEnums();
+            if (_cont.isWideInitEnums()) {
+                processFailInit(_cont.getContextEl());
                 r_.setResult(NullStruct.NULL_VALUE);
                 return r_;
             }
@@ -2564,8 +2564,8 @@ public class LgNamesGui extends LgNamesUtils {
             return r_;
         }
         if (StringList.quickEq(name_,aliasScrollPane)) {
-            if (_cont.isInitEnums()) {
-                _cont.failInitEnums();
+            if (_cont.isWideInitEnums()) {
+                processFailInit(_cont.getContextEl());
                 r_.setResult(NullStruct.NULL_VALUE);
                 return r_;
             }
@@ -2577,8 +2577,8 @@ public class LgNamesGui extends LgNamesUtils {
             return r_;
         }
         if (StringList.quickEq(name_,aliasSplitPane)) {
-            if (_cont.isInitEnums()) {
-                _cont.failInitEnums();
+            if (_cont.isWideInitEnums()) {
+                processFailInit(_cont.getContextEl());
                 r_.setResult(NullStruct.NULL_VALUE);
                 return r_;
             }
@@ -2608,8 +2608,8 @@ public class LgNamesGui extends LgNamesUtils {
             return r_;
         }
         if (StringList.quickEq(name_, aliasProgBar)) {
-            if (_cont.isInitEnums()) {
-                _cont.failInitEnums();
+            if (_cont.isWideInitEnums()) {
+                processFailInit(_cont.getContextEl());
                 r_.setResult(NullStruct.NULL_VALUE);
                 return r_;
             }
@@ -2617,8 +2617,8 @@ public class LgNamesGui extends LgNamesUtils {
             return r_;
         }
         if (StringList.quickEq(name_,aliasButton)) {
-            if (_cont.isInitEnums()) {
-                _cont.failInitEnums();
+            if (_cont.isWideInitEnums()) {
+                processFailInit(_cont.getContextEl());
                 r_.setResult(NullStruct.NULL_VALUE);
                 return r_;
             }
@@ -2630,8 +2630,8 @@ public class LgNamesGui extends LgNamesUtils {
             return r_;
         }
         if (StringList.quickEq(name_,aliasTextLabel)) {
-            if (_cont.isInitEnums()) {
-                _cont.failInitEnums();
+            if (_cont.isWideInitEnums()) {
+                processFailInit(_cont.getContextEl());
                 r_.setResult(NullStruct.NULL_VALUE);
                 return r_;
             }
@@ -2643,8 +2643,8 @@ public class LgNamesGui extends LgNamesUtils {
             return r_;
         }
         if (StringList.quickEq(name_,aliasImageLabel)) {
-            if (_cont.isInitEnums()) {
-                _cont.failInitEnums();
+            if (_cont.isWideInitEnums()) {
+                processFailInit(_cont.getContextEl());
                 r_.setResult(NullStruct.NULL_VALUE);
                 return r_;
             }
@@ -2700,8 +2700,8 @@ public class LgNamesGui extends LgNamesUtils {
             return r_;
         }
         if (StringList.quickEq(name_,aliasTreeNode)) {
-            if (_cont.isInitEnums()) {
-                _cont.failInitEnums();
+            if (_cont.isWideInitEnums()) {
+                processFailInit(_cont.getContextEl());
                 r_.setResult(NullStruct.NULL_VALUE);
                 return r_;
             }
@@ -2713,8 +2713,8 @@ public class LgNamesGui extends LgNamesUtils {
             return r_;
         }
         if (StringList.quickEq(name_,aliasTree)) {
-            if (_cont.isInitEnums()) {
-                _cont.failInitEnums();
+            if (_cont.isWideInitEnums()) {
+                processFailInit(_cont.getContextEl());
                 r_.setResult(NullStruct.NULL_VALUE);
                 return r_;
             }
@@ -2726,8 +2726,8 @@ public class LgNamesGui extends LgNamesUtils {
             return r_;
         }
         if (StringList.quickEq(name_,aliasTableGui)) {
-            if (_cont.isInitEnums()) {
-                _cont.failInitEnums();
+            if (_cont.isWideInitEnums()) {
+                processFailInit(_cont.getContextEl());
                 r_.setResult(NullStruct.NULL_VALUE);
                 return r_;
             }
@@ -2735,8 +2735,8 @@ public class LgNamesGui extends LgNamesUtils {
             return r_;
         }
         if (StringList.quickEq(name_,aliasRender)) {
-            if (_cont.isInitEnums()) {
-                _cont.failInitEnums();
+            if (_cont.isWideInitEnums()) {
+                processFailInit(_cont.getContextEl());
                 r_.setResult(NullStruct.NULL_VALUE);
                 return r_;
             }
@@ -2744,8 +2744,8 @@ public class LgNamesGui extends LgNamesUtils {
             return r_;
         }
         if (StringList.quickEq(name_,aliasGrList)) {
-            if (_cont.isInitEnums()) {
-                _cont.failInitEnums();
+            if (_cont.isWideInitEnums()) {
+                processFailInit(_cont.getContextEl());
                 r_.setResult(NullStruct.NULL_VALUE);
                 return r_;
             }
@@ -2753,8 +2753,8 @@ public class LgNamesGui extends LgNamesUtils {
             return r_;
         }
         if (StringList.quickEq(name_, aliasCombo)) {
-            if (_cont.isInitEnums()) {
-                _cont.failInitEnums();
+            if (_cont.isWideInitEnums()) {
+                processFailInit(_cont.getContextEl());
                 r_.setResult(NullStruct.NULL_VALUE);
                 return r_;
             }
@@ -2770,8 +2770,8 @@ public class LgNamesGui extends LgNamesUtils {
             return r_;
         }
         if (StringList.quickEq(name_, aliasButtonGroup)) {
-            if (_cont.isInitEnums()) {
-                _cont.failInitEnums();
+            if (_cont.isWideInitEnums()) {
+                processFailInit(_cont.getContextEl());
                 r_.setResult(NullStruct.NULL_VALUE);
                 return r_;
             }
@@ -2779,8 +2779,8 @@ public class LgNamesGui extends LgNamesUtils {
             return r_;
         }
         if (StringList.quickEq(name_, aliasRadio)) {
-            if (_cont.isInitEnums()) {
-                _cont.failInitEnums();
+            if (_cont.isWideInitEnums()) {
+                processFailInit(_cont.getContextEl());
                 r_.setResult(NullStruct.NULL_VALUE);
                 return r_;
             }
@@ -2796,8 +2796,8 @@ public class LgNamesGui extends LgNamesUtils {
             return r_;
         }
         if (StringList.quickEq(name_, aliasCheckBox)) {
-            if (_cont.isInitEnums()) {
-                _cont.failInitEnums();
+            if (_cont.isWideInitEnums()) {
+                processFailInit(_cont.getContextEl());
                 r_.setResult(NullStruct.NULL_VALUE);
                 return r_;
             }
@@ -2813,8 +2813,8 @@ public class LgNamesGui extends LgNamesUtils {
             return r_;
         }
         if (StringList.quickEq(name_, aliasPopupMenu)) {
-            if (_cont.isInitEnums()) {
-                _cont.failInitEnums();
+            if (_cont.isWideInitEnums()) {
+                processFailInit(_cont.getContextEl());
                 r_.setResult(NullStruct.NULL_VALUE);
                 return r_;
             }
@@ -2822,8 +2822,8 @@ public class LgNamesGui extends LgNamesUtils {
             return r_;
         }
         if (StringList.quickEq(name_, aliasTextField)) {
-            if (_cont.isInitEnums()) {
-                _cont.failInitEnums();
+            if (_cont.isWideInitEnums()) {
+                processFailInit(_cont.getContextEl());
                 r_.setResult(NullStruct.NULL_VALUE);
                 return r_;
             }
@@ -2843,8 +2843,8 @@ public class LgNamesGui extends LgNamesUtils {
             return r_;
         }
         if (StringList.quickEq(name_, aliasTextArea)) {
-            if (_cont.isInitEnums()) {
-                _cont.failInitEnums();
+            if (_cont.isWideInitEnums()) {
+                processFailInit(_cont.getContextEl());
                 r_.setResult(NullStruct.NULL_VALUE);
                 return r_;
             }
@@ -2864,8 +2864,8 @@ public class LgNamesGui extends LgNamesUtils {
             return r_;
         }
         if (StringList.quickEq(name_, aliasSpinner)) {
-            if (_cont.isInitEnums()) {
-                _cont.failInitEnums();
+            if (_cont.isWideInitEnums()) {
+                processFailInit(_cont.getContextEl());
                 r_.setResult(NullStruct.NULL_VALUE);
                 return r_;
             }
@@ -2873,8 +2873,8 @@ public class LgNamesGui extends LgNamesUtils {
             return r_;
         }
         if (StringList.quickEq(name_, aliasSlider)) {
-            if (_cont.isInitEnums()) {
-                _cont.failInitEnums();
+            if (_cont.isWideInitEnums()) {
+                processFailInit(_cont.getContextEl());
                 r_.setResult(NullStruct.NULL_VALUE);
                 return r_;
             }
@@ -2898,8 +2898,8 @@ public class LgNamesGui extends LgNamesUtils {
             return r_;
         }
         if (StringList.quickEq(name_, aliasMenuBar)) {
-            if (_cont.isInitEnums()) {
-                _cont.failInitEnums();
+            if (_cont.isWideInitEnums()) {
+                processFailInit(_cont.getContextEl());
                 r_.setResult(NullStruct.NULL_VALUE);
                 return r_;
             }
@@ -2907,8 +2907,8 @@ public class LgNamesGui extends LgNamesUtils {
             return r_;
         }
         if (StringList.quickEq(name_, aliasMenu)) {
-            if (_cont.isInitEnums()) {
-                _cont.failInitEnums();
+            if (_cont.isWideInitEnums()) {
+                processFailInit(_cont.getContextEl());
                 r_.setResult(NullStruct.NULL_VALUE);
                 return r_;
             }
@@ -2920,8 +2920,8 @@ public class LgNamesGui extends LgNamesUtils {
             return r_;
         }
         if (StringList.quickEq(name_, aliasMenuItem)) {
-            if (_cont.isInitEnums()) {
-                _cont.failInitEnums();
+            if (_cont.isWideInitEnums()) {
+                processFailInit(_cont.getContextEl());
                 r_.setResult(NullStruct.NULL_VALUE);
                 return r_;
             }
@@ -2933,8 +2933,8 @@ public class LgNamesGui extends LgNamesUtils {
             return r_;
         }
         if (StringList.quickEq(name_, aliasMenuItemCheck)) {
-            if (_cont.isInitEnums()) {
-                _cont.failInitEnums();
+            if (_cont.isWideInitEnums()) {
+                processFailInit(_cont.getContextEl());
                 r_.setResult(NullStruct.NULL_VALUE);
                 return r_;
             }
@@ -2994,7 +2994,7 @@ public class LgNamesGui extends LgNamesUtils {
                 return res_;
             }
             if (StringList.quickEq(name_, aliasIsVisible)) {
-                res_.setResult(new BooleanStruct(inst_.isVisible()));
+                res_.setResult(BooleanStruct.of(inst_.isVisible()));
                 return res_;
             }
             if (StringList.quickEq(name_, aliasSetVisible)) {
@@ -3020,7 +3020,7 @@ public class LgNamesGui extends LgNamesUtils {
         }
         if (StringList.quickEq(type_, aliasWindowSet)) {
             if (StringList.quickEq(name_,aliasWindowSetAdd)) {
-                if (_cont.isInitEnums() && _cont.isContainedSensibleFields(_instance)) {
+                if (_cont.isContainedSensibleFields(_instance)) {
                     _cont.failInitEnums();
                     res_.setResult(NullStruct.NULL_VALUE);
                     return res_;
@@ -3035,8 +3035,8 @@ public class LgNamesGui extends LgNamesUtils {
                 return res_;
             }
             if (StringList.quickEq(name_,aliasWindowSetAll)) {
-                if (_cont.isInitEnums()) {
-                    _cont.failInitEnums();
+                if (_cont.isWideInitEnums()) {
+                    processFailInit(_cont.getContextEl());
                     res_.setResult(NullStruct.NULL_VALUE);
                     return res_;
                 }
@@ -3044,7 +3044,7 @@ public class LgNamesGui extends LgNamesUtils {
                 return res_;
             }
             if (StringList.quickEq(name_,aliasWindowSetRemove)) {
-                if (_cont.isInitEnums() && _cont.isContainedSensibleFields(_instance)) {
+                if (_cont.isContainedSensibleFields(_instance)) {
                     _cont.failInitEnums();
                     res_.setResult(NullStruct.NULL_VALUE);
                     return res_;
@@ -3055,7 +3055,7 @@ public class LgNamesGui extends LgNamesUtils {
                 return res_;
             }
             if (StringList.quickEq(name_,aliasWindowSetContains)) {
-                if (_cont.isInitEnums() && _cont.isContainedSensibleFields(_instance)) {
+                if (_cont.isContainedSensibleFields(_instance)) {
                     _cont.failInitEnums();
                     res_.setResult(NullStruct.NULL_VALUE);
                     return res_;
@@ -3069,8 +3069,8 @@ public class LgNamesGui extends LgNamesUtils {
             return res_;
         }
         if (StringList.quickEq(type_, aliasConfirm)) {
-            if (_cont.isInitEnums()) {
-                _cont.failInitEnums();
+            if (_cont.isWideInitEnums()) {
+                processFailInit(_cont.getContextEl());
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
@@ -3116,8 +3116,8 @@ public class LgNamesGui extends LgNamesUtils {
             return res_;
         }
         if (StringList.quickEq(type_, aliasFrame)) {
-            if (_cont.isInitEnums()) {
-                _cont.failInitEnums();
+            if (_cont.isWideInitEnums()) {
+                processFailInit(_cont.getContextEl());
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
@@ -3143,7 +3143,7 @@ public class LgNamesGui extends LgNamesUtils {
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            res_.setResult(new BooleanStruct(inst_.isModal()));
+            res_.setResult(BooleanStruct.of(inst_.isModal()));
             return res_;
         }
         if (StringList.quickEq(type_, aliasDimension)) {
@@ -3156,8 +3156,8 @@ public class LgNamesGui extends LgNamesUtils {
             return res_;
         }
         if (StringList.quickEq(type_, aliasComponent)) {
-            if (_cont.isInitEnums()) {
-                _cont.failInitEnums();
+            if (_cont.isWideInitEnums()) {
+                processFailInit(_cont.getContextEl());
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
@@ -3341,8 +3341,8 @@ public class LgNamesGui extends LgNamesUtils {
             return res_;
         }
         if (StringList.quickEq(type_, aliasPanel)) {
-            if (_cont.isInitEnums()) {
-                _cont.failInitEnums();
+            if (_cont.isWideInitEnums()) {
+                processFailInit(_cont.getContextEl());
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
@@ -3403,8 +3403,8 @@ public class LgNamesGui extends LgNamesUtils {
             return res_;
         }
         if (StringList.quickEq(type_, aliasPanelBorder)) {
-            if (_cont.isInitEnums()) {
-                _cont.failInitEnums();
+            if (_cont.isWideInitEnums()) {
+                processFailInit(_cont.getContextEl());
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
@@ -3581,8 +3581,8 @@ public class LgNamesGui extends LgNamesUtils {
             return res_;
         }
         if (StringList.quickEq(type_, aliasTextLabel)) {
-            if (_cont.isInitEnums()) {
-                _cont.failInitEnums();
+            if (_cont.isWideInitEnums()) {
+                processFailInit(_cont.getContextEl());
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
@@ -3592,8 +3592,8 @@ public class LgNamesGui extends LgNamesUtils {
             return res_;
         }
         if (StringList.quickEq(type_, aliasImageLabel)) {
-            if (_cont.isInitEnums()) {
-                _cont.failInitEnums();
+            if (_cont.isWideInitEnums()) {
+                processFailInit(_cont.getContextEl());
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
@@ -3713,8 +3713,8 @@ public class LgNamesGui extends LgNamesUtils {
             return res_;
         }
         if (StringList.quickEq(type_, aliasButton)) {
-            if (_cont.isInitEnums()) {
-                _cont.failInitEnums();
+            if (_cont.isWideInitEnums()) {
+                processFailInit(_cont.getContextEl());
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
@@ -3791,7 +3791,7 @@ public class LgNamesGui extends LgNamesUtils {
                 return res_;
             }
             if (StringList.quickEq(name_, aliasImageSet)) {
-                if (_cont.isInitEnums() && _cont.isContainedSensibleFields(_instance)) {
+                if (_cont.isContainedSensibleFields(_instance)) {
                     _cont.failInitEnums();
                     res_.setResult(NullStruct.NULL_VALUE);
                     return res_;
@@ -3813,7 +3813,7 @@ public class LgNamesGui extends LgNamesUtils {
                 return res_;
             }
             if (StringList.quickEq(name_, aliasImageSetColor)) {
-                if (_cont.isInitEnums() && _cont.isContainedSensibleFields(_instance)) {
+                if (_cont.isContainedSensibleFields(_instance)) {
                     _cont.failInitEnums();
                     res_.setResult(NullStruct.NULL_VALUE);
                     return res_;
@@ -3827,7 +3827,7 @@ public class LgNamesGui extends LgNamesUtils {
                 return res_;
             }
             if (StringList.quickEq(name_, aliasImageSetFont)) {
-                if (_cont.isInitEnums() && _cont.isContainedSensibleFields(_instance)) {
+                if (_cont.isContainedSensibleFields(_instance)) {
                     _cont.failInitEnums();
                     res_.setResult(NullStruct.NULL_VALUE);
                     return res_;
@@ -3836,7 +3836,7 @@ public class LgNamesGui extends LgNamesUtils {
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (_cont.isInitEnums() && _cont.isContainedSensibleFields(_instance)) {
+            if (_cont.isContainedSensibleFields(_instance)) {
                 _cont.failInitEnums();
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;

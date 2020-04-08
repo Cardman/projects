@@ -1431,6 +1431,49 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         assertTrue(ret_.isTrue());
     }
     @Test
+    public void calculateArgument1055_Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $boolean exmeth(){\n");
+        xml_.append("  $return ExTwo.myfb:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElTypes(VariableSuffix.NONE, "pkg.ExTwo","pkg.ExThree","pkg.ExFour","Biz");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $final $boolean myfb:\n");
+        xml_.append(" $static{\n");
+        xml_.append("  $final $int myf:\n");
+        xml_.append("  $if ($math.random() < 0.5){\n");
+        xml_.append("   myf = ExThree.myf:\n");
+        xml_.append("  } $else {\n");
+        xml_.append("   myf = ExFour.myf:\n");
+        xml_.append("  }\n");
+        xml_.append("  myfb = myf > 1 && myf < 4:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExThree {\n");
+        xml_.append(" $public $static $final $int myf=2i:\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExFour {\n");
+        xml_.append(" $public $static $final $int myf=3i:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isSuccessfulInitialized("pkg.Ex"));
+        assertTrue(cont_.getClasses().isSuccessfulInitialized("pkg.ExTwo"));
+        assertTrue(cont_.getClasses().isSuccessfulInitialized("pkg.ExThree"));
+        assertTrue(cont_.getClasses().isSuccessfulInitialized("pkg.ExFour"));
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertTrue(ret_.isTrue());
+    }
+    @Test
     public void calculateArgument1056Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");

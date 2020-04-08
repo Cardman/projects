@@ -1489,7 +1489,7 @@ public abstract class LgNames {
         }
         if (StringList.quickEq(type_, lgNames_.getAliasObjectsUtil())) {
             if (StringList.quickEq(name_, lgNames_.getAliasSameRef())) {
-                result_.setResult(new BooleanStruct(args_[0].sameReference(args_[1])));
+                result_.setResult(BooleanStruct.of(args_[0].sameReference(args_[1])));
                 return result_;
             }
             if (StringList.quickEq(name_, lgNames_.getAliasGetParent())) {

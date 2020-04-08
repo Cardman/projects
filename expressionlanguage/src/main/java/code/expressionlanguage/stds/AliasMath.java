@@ -376,7 +376,7 @@ public final class AliasMath {
             }
         } else if (StringList.quickEq(name_, am_.aliasNeg)) {
             boolean left_ = ((BooleanStruct)_args[0].getStruct()).getInstance();
-            result_.setResult(new BooleanStruct(!left_));
+            result_.setResult(BooleanStruct.of(!left_));
         } else if (StringList.quickEq(name_, am_.aliasAnd)) {
             ClassArgumentMatching clArg_ = new ClassArgumentMatching(paramList_.first());
             result_.setResult(NumberStruct.calculateAnd(args_[0], args_[1], _cont, clArg_));
@@ -392,13 +392,13 @@ public final class AliasMath {
             result_.setResult(NumberStruct.quickCalculateGreaterNb(args_[0], args_[1]));
         } else if (StringList.quickEq(name_, am_.aliasLe)) {
             if (args_[0].sameReference(args_[1])) {
-                result_.setResult(new BooleanStruct(true));
+                result_.setResult(BooleanStruct.of(true));
             } else {
                 result_.setResult(NumberStruct.quickCalculateLowerNb(args_[0], args_[1]));
             }
         } else if (StringList.quickEq(name_, am_.aliasGe)) {
             if (args_[0].sameReference(args_[1])) {
-                result_.setResult(new BooleanStruct(true));
+                result_.setResult(BooleanStruct.of(true));
             } else {
                 result_.setResult(NumberStruct.quickCalculateGreaterNb(args_[0], args_[1]));
             }

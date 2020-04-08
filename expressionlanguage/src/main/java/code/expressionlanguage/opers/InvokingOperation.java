@@ -10,10 +10,7 @@ import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.exec.Operable;
-import code.expressionlanguage.opers.util.ClassArgumentMatching;
-import code.expressionlanguage.opers.util.ClassMethodId;
-import code.expressionlanguage.opers.util.Identifiable;
-import code.expressionlanguage.opers.util.MethodAccessKind;
+import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.Struct;
@@ -329,7 +326,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         }
         return firstOpt_;
     }
-    final ClassMethodId lookOnlyForId() {
+    final ClassMethodIdAncestor lookOnlyForId() {
         OperationNode first_ = getFirstChild();
         if (first_ == null) {
             return null;

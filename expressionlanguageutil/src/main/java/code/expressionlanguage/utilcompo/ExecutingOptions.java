@@ -18,6 +18,7 @@ public final class ExecutingOptions {
     private boolean invokeDirect;
     private boolean hasArg;
     private StringList args = new StringList();
+    private StringList typesInit = new StringList();
     private StringMap<String> messages = new StringMap<String>();
     private StringMap<String> keyWords = new StringMap<String>();
     private StringMap<String> aliases = new StringMap<String>();
@@ -104,6 +105,14 @@ public final class ExecutingOptions {
 
     public void setArgs(StringList _args) {
         args = _args;
+    }
+
+    public StringList getTypesInit() {
+        return typesInit;
+    }
+
+    public void setTypesInit(StringList _typesInit) {
+        typesInit = _typesInit;
     }
 
     public StringMap<String> getAliases() {

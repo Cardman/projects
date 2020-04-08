@@ -10,7 +10,7 @@ public final class RendAndOperation extends RendQuickOperation {
 
     @Override
     public BooleanStruct absorbingStruct() {
-        return new BooleanStruct(false);
+        return BooleanStruct.of(false);
     }
 
 }

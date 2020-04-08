@@ -255,6 +255,15 @@ public abstract class ProcessMethodCommon {
         }
         return ct_;
     }
+    protected static ContextEl contextElTypes(VariableSuffix _suf,String... _types) {
+        Options opt_ = new Options();
+        opt_.setEndLineSemiColumn(false);
+        opt_.setSuffixVar(_suf);
+        for (String t: _types) {
+            opt_.getTypesInit().add(t);
+        }
+        return InitializationLgNames.buildStdOne(opt_);
+    }
     protected static Struct getStruct(Struct _struct, ClassField _cl) {
         return ((FieldableStruct) _struct).getEntryStruct(_cl).getValue();
     }

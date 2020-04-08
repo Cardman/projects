@@ -418,7 +418,7 @@ public final class AikiBeansEndroundStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,PUTTING_KO)) {
-            res_.setResult(new BooleanStruct(instance_.getPuttingKo()));
+            res_.setResult(BooleanStruct.of(instance_.getPuttingKo()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,IMMUNE_TYPES)) {
@@ -594,7 +594,7 @@ public final class AikiBeansEndroundStd {
             return res_;
         }
         if (StringList.quickEq(methodName_,IS_TYPE)) {
-            res_.setResult(new BooleanStruct(instance_.isType((Long)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.isType((Long)_args[0])));
             return res_;
         }
         if (StringList.quickEq(methodName_,GET_TR_TYPE)) {

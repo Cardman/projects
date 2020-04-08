@@ -172,6 +172,9 @@ public final class ReadConfiguration {
                 options_.setSuffixVar(VariableSuffix.getVariableSuffixByName(c.getAttribute("value")));
                 continue;
             }
+            if (StringList.quickEq(fieldName_, "classes")) {
+                options_.getTypesInit().add(c.getAttribute("value"));
+            }
         }
         return options_;
     }

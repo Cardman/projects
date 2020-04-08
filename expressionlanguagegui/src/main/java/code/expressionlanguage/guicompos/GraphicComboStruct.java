@@ -44,7 +44,7 @@ public final class GraphicComboStruct extends InputStruct {
 
     @Override
     public Struct isEnabled() {
-        return new BooleanStruct(graphicCombo.isEnabled());
+        return BooleanStruct.of(graphicCombo.isEnabled());
     }
 
     @Override

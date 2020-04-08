@@ -757,7 +757,6 @@ public final class FileResolver {
         String keyWordCase_ = keyWords_.getKeyWordCase();
         String keyWordDefault_ = keyWords_.getKeyWordDefault();
         String keyWordReturn_ = keyWords_.getKeyWordReturn();
-        IdMap<SwitchPartBlock, Boolean> bracedSwitchPart_ = new IdMap<SwitchPartBlock, Boolean>();
         StringBuilder instruction_ = new StringBuilder();
         int instLen_ = 0;
         int instructionLocation_ = -1;
@@ -1076,7 +1075,7 @@ public final class FileResolver {
             }
             if (endInstruction_) {
                 after_ = processInstruction(_context, _input, currentChar_, currentParent_,
-                        bracedSwitchPart_, _braces, instructionLocation_,
+                        _braces, instructionLocation_,
                         instruction_, _file, declType_, i_, _nextIndex, enableByEndLine_);
                 instLen_ = 0;
                 if (after_ == null) {
@@ -1140,7 +1139,7 @@ public final class FileResolver {
         return _out;
     }
     private static AfterBuiltInstruction processInstruction(ContextEl _context, InputTypeCreation _input, char _currentChar,
-                                                            BracedBlock _currentParent, IdMap<SwitchPartBlock, Boolean> _bracedSwitchPart, Ints _braces,
+                                                            BracedBlock _currentParent, Ints _braces,
                                                             int _instructionLocation, StringBuilder _instruction, String _file, boolean _declType, int _i, int _nextIndex, boolean _enabledEnum) {
         AfterBuiltInstruction after_ = new AfterBuiltInstruction();
         Ints badIndexes_ = _input.getBadIndexes();
@@ -1354,7 +1353,7 @@ public final class FileResolver {
                 enableByEndLine_ = false;
             }
         } else if (_currentChar != END_BLOCK) {
-            Block bl_ = processInstructionBlock(_context, badIndexes_, _file, _bracedSwitchPart, instructionLocation_, instructionRealLocation_, i_, currentParent_, trimmedInstruction_);
+            Block bl_ = processInstructionBlock(_context, badIndexes_, _file, instructionLocation_, instructionRealLocation_, i_, currentParent_, trimmedInstruction_);
             if (bl_ == null) {
                 if (_declType || currentParent_ instanceof RootBlock) {
                     //fields, constructors or methods
@@ -1427,37 +1426,28 @@ public final class FileResolver {
             } else {
                 br_ = bl_;
             }
-            boolean switchPart_ = false;
             boolean emptySwitchPart_ = false;
             if (options_.getSuffixVar() == VariableSuffix.NONE) {
                 if (currentParent_ instanceof SwitchBlock) {
                     if (_currentChar == suffix_) {
-                        String next_ = _file.substring(i_ + 1).trim();
-                        if (next_.indexOf(BEGIN_BLOCK, 0) == 0) {
-                            switchPart_ = true;
-                        } else {
-                            int c_ = afterComments(_file, i_ + 1);
-                            if (c_ < 0) {
-                                badIndexes_.add(_file.length());
-                                return null;
-                            }
-                            next_ = _file.substring(c_);
-                            if (ContextEl.startsWithKeyWord(next_, keyWordCase_)) {
-                                emptySwitchPart_ = true;
-                            }
-                            if (ContextEl.startsWithKeyWord(next_, keyWordDefault_)) {
-                                emptySwitchPart_ = true;
-                            }
+                        String next_;
+                        int c_ = afterComments(_file, i_ + 1);
+                        if (c_ < 0) {
+                            badIndexes_.add(_file.length());
+                            return null;
+                        }
+                        next_ = _file.substring(c_);
+                        if (ContextEl.startsWithKeyWord(next_, keyWordCase_)) {
+                            emptySwitchPart_ = true;
+                        }
+                        if (ContextEl.startsWithKeyWord(next_, keyWordDefault_)) {
+                            emptySwitchPart_ = true;
                         }
                     }
                 }
             }
             if (!emptySwitchPart_ && br_ instanceof BracedBlock) {
-                if (switchPart_) {
-                    i_ = skipWhitespace(i_ + 1, _file);
-                    _braces.add(i_);
-                    currentParent_ = (BracedBlock) br_;
-                } else if (_currentChar != endLine_) {
+                if (_currentChar != endLine_) {
                     currentParent_ = (BracedBlock) br_;
                 }
             }
@@ -1465,9 +1455,7 @@ public final class FileResolver {
             //currentChar_ == END_BLOCK
             if (options_.getSuffixVar() == VariableSuffix.NONE) {
                 if (currentParent_ instanceof SwitchPartBlock) {
-                    if (!_bracedSwitchPart.getVal((SwitchPartBlock) currentParent_)) {
-                        currentParent_ = currentParent_.getParent();
-                    }
+                    currentParent_ = currentParent_.getParent();
                 }
             }
             if (!trimmedInstruction_.isEmpty()) {
@@ -2050,8 +2038,8 @@ public final class FileResolver {
         }
         return br_;
     }
-    private static Block processInstructionBlock(ContextEl _context, Ints _badIndexes,String _file,
-                                                 IdMap<SwitchPartBlock, Boolean> _bracedSwitchPart, int _instructionLocation,
+    private static Block processInstructionBlock(ContextEl _context, Ints _badIndexes, String _file,
+                                                 int _instructionLocation,
                                                  int _instructionRealLocation, int _i, BracedBlock _currentParent, String _trimmedInstruction) {
         char endLine_ = _context.getOptions().getEndLine();
         char suffix_ = _context.getOptions().getSuffix();
@@ -2132,18 +2120,14 @@ public final class FileResolver {
             } else {
                 valueOffest_ += StringList.getFirstPrintableCharIndex(exp_);
             }
-            CaseCondition caseCond_ = new CaseCondition(
+            br_ = new CaseCondition(
                     new OffsetStringInfo(valueOffest_, exp_.trim()),
                     new OffsetsBlock(_instructionRealLocation, _instructionLocation));
             //if next after i starts with brace or not
-            _bracedSwitchPart.put(caseCond_, _file.substring(_i +1).trim().startsWith(String.valueOf(BEGIN_BLOCK))||_file.charAt(_i) == BEGIN_BLOCK);
-            br_ = caseCond_;
             _currentParent.appendChild(br_);
         } else if (ContextEl.startsWithKeyWord(_trimmedInstruction,keyWordDefault_)) {
-            DefaultCondition defCond_ = new DefaultCondition(
+            br_ = new DefaultCondition(
                     new OffsetsBlock(_instructionRealLocation, _instructionLocation));
-            _bracedSwitchPart.put(defCond_, _file.substring(_i +1).trim().startsWith(String.valueOf(BEGIN_BLOCK))||_file.charAt(_i) == BEGIN_BLOCK);
-            br_ = defCond_;
             _currentParent.appendChild(br_);
         } else if (ContextEl.startsWithKeyWord(_trimmedInstruction,keyWordWhile_)) {
             Block child_ = _currentParent.getFirstChild();
@@ -2679,7 +2663,11 @@ public final class FileResolver {
             br_ = new StaticBlock(new OffsetsBlock(_instructionRealLocation, _instructionLocation));
             _currentParent.appendChild(br_);
         } else if (_trimmedInstruction.isEmpty()) {
-            br_ = new InstanceBlock(new OffsetsBlock(_instructionRealLocation, _instructionLocation));
+            if (_currentParent instanceof RootBlock) {
+                br_ = new InstanceBlock(new OffsetsBlock(_instructionRealLocation, _instructionLocation));
+            } else {
+                br_ = new UnclassedBracedBlock(new OffsetsBlock(_instructionRealLocation, _instructionLocation));
+            }
             _currentParent.appendChild(br_);
         }
         //Not an error

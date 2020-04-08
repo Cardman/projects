@@ -219,7 +219,7 @@ public final class CmpOperation extends MethodOperation implements MiddleSymbolO
         if (complement_) {
             b_ = !b_;
         }
-        return new Argument(new BooleanStruct(b_));
+        return new Argument(BooleanStruct.of(b_));
     }
     public static Argument calculateCommonStr(Argument _one, Argument _two, String _op) {
         boolean complement_ = false;
@@ -241,7 +241,7 @@ public final class CmpOperation extends MethodOperation implements MiddleSymbolO
         if (complement_) {
             b_ = !b_;
         }
-        return new Argument(new BooleanStruct(b_));
+        return new Argument(BooleanStruct.of(b_));
     }
 
     @Override

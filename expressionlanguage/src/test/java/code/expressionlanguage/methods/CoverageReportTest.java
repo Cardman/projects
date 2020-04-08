@@ -8947,6 +8947,30 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "</pre></body></html>", filesExp_.firstValue());
     }
     @Test
+    public void coverage228Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  {$return 1i:}\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElCoverage();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validate(cont_,files_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateArgument("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = FileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex </a>{\n" +
+                " $public $static $int <a name=\"m46\">exmeth</a>(){\n" +
+                "  {$return <span class=\"f\">1i</span>:}\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
     public void coverageComment1Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");

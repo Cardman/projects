@@ -203,11 +203,11 @@ public final class AikiBeansFacadeDtoStd {
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringList.quickEq(methodName_,IS_DAMAGE_MOVE)) {
-            res_.setResult(new BooleanStruct(instance_.isDamageMove()));
+            res_.setResult(BooleanStruct.of(instance_.isDamageMove()));
             return res_;
         }
         if (StringList.quickEq(methodName_,IS_DIRECT)) {
-            res_.setResult(new BooleanStruct(instance_.isDirect()));
+            res_.setResult(BooleanStruct.of(instance_.isDirect()));
             return res_;
         }
         if (StringList.quickEq(methodName_,GET_TYPES)) {

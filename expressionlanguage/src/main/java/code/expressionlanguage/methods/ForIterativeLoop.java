@@ -553,11 +553,11 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
         }
         c_ = (LoopBlockStack) ip_.getLastStack();
         if (c_.isFinished()) {
-            _cont.getCoverage().passLoop(_cont, new Argument(new BooleanStruct(false)));
+            _cont.getCoverage().passLoop(_cont, new Argument(BooleanStruct.of(false)));
             processBlockAndRemove(_cont);
             return;
         }
-        _cont.getCoverage().passLoop(_cont, new Argument(new BooleanStruct(true)));
+        _cont.getCoverage().passLoop(_cont, new Argument(BooleanStruct.of(true)));
         ip_.getReadWrite().setBlock(getFirstChild());
     }
     @Override
@@ -715,11 +715,11 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
         LoopBlockStack l_ = (LoopBlockStack) ip_.getLastStack();
         if (l_.hasNext()) {
             incrementLoop(_conf, l_, vars_);
-            _conf.getCoverage().passLoop(_conf, new Argument(new BooleanStruct(true)));
+            _conf.getCoverage().passLoop(_conf, new Argument(BooleanStruct.of(true)));
             return;
         }
         l_.setFinished(true);
-        _conf.getCoverage().passLoop(_conf, new Argument(new BooleanStruct(false)));
+        _conf.getCoverage().passLoop(_conf, new Argument(BooleanStruct.of(false)));
     }
 
     private void incrementLoop(ContextEl _conf, LoopBlockStack _l,

@@ -42,6 +42,6 @@ public final class OrOperation extends QuickOperation {
     }
     @Override
     public BooleanStruct absorbingStruct() {
-        return new BooleanStruct(true);
+        return BooleanStruct.of(true);
     }
 }

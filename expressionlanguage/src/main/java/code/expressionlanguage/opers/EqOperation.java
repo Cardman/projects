@@ -92,7 +92,7 @@ public final class EqOperation extends MethodOperation implements MiddleSymbolOp
         if (complement_) {
             b_ = !b_;
         }
-        Argument arg_ = new Argument(new BooleanStruct(b_));
+        Argument arg_ = new Argument(BooleanStruct.of(b_));
         setSimpleArgumentAna(arg_, _conf);
     }
     @Override

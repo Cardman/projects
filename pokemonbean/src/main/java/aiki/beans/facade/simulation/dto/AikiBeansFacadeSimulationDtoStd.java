@@ -144,7 +144,7 @@ public final class AikiBeansFacadeSimulationDtoStd {
         SelectLineMove instance_ = (SelectLineMove) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringList.quickEq(fieldName_,SELECTED)) {
-            res_.setResult(new BooleanStruct(instance_.getSelected()));
+            res_.setResult(BooleanStruct.of(instance_.getSelected()));
             return res_;
         }
         return AikiBeansFacadeDtoStd.getResultMoveLine(_cont, _classField, _instance);

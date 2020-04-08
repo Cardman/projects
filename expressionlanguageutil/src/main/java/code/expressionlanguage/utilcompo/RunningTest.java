@@ -67,6 +67,7 @@ public final class RunningTest implements Runnable {
             setupOptionals(2, exec_, linesFiles_);
         }
         Options opt_ = new Options();
+        opt_.getTypesInit().addAllElts(exec_.getTypesInit());
         opt_.setInitializeStaticClassFirst(exec_.isInitializeStaticClassFirst());
         opt_.setReadOnly(true);
         opt_.setFailIfNotAllInit(true);
@@ -78,6 +79,7 @@ public final class RunningTest implements Runnable {
         StringBuilder aliasesPart_ = new StringBuilder();
         StringBuilder messagesPart_ = new StringBuilder();
         StringBuilder keyWordsPart_ = new StringBuilder();
+        StringBuilder classesPart_ = new StringBuilder();
         for (String l: _lines.mid(_from)) {
             if (l.startsWith("log=")) {
                 String output_ = l.substring("log=".length());
@@ -121,6 +123,9 @@ public final class RunningTest implements Runnable {
                 _exec.setHasArg(true);
                 argParts_.append(l.substring("args=".length()));
             }
+            if (l.startsWith("classes=")) {
+                classesPart_.append(l.substring("classes=".length()));
+            }
             if (l.startsWith("aliases=")) {
                 aliasesPart_.append(l.substring("aliases=".length()));
             }
@@ -133,6 +138,9 @@ public final class RunningTest implements Runnable {
         }
         if (_exec.isHasArg()) {
             _exec.setArgs(LgNames.parseLineArg(argParts_.toString()));
+        }
+        if (classesPart_.length() > 0) {
+            _exec.setTypesInit(LgNames.parseLineArg(classesPart_.toString()));
         }
         if (aliasesPart_.length() > 0) {
             StringList infos_ = StringList.splitChars(aliasesPart_.toString(),',');

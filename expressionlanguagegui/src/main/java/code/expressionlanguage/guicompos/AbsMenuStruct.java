@@ -21,7 +21,7 @@ public abstract class AbsMenuStruct implements Struct {
     }
 
     public Struct isEnabled() {
-        return new BooleanStruct(getMenu().isEnabled());
+        return BooleanStruct.of(getMenu().isEnabled());
     }
 
     public void setEnabled(Struct _str) {

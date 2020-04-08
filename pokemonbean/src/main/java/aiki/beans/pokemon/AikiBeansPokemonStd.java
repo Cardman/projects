@@ -260,7 +260,7 @@ public final class AikiBeansPokemonStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,WHOLE_WORD)) {
-            res_.setResult(new BooleanStruct(instance_.getWholeWord()));
+            res_.setResult(BooleanStruct.of(instance_.getWholeWord()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,TYPED_MIN_NB_POSS_EVOS)) {
@@ -521,15 +521,15 @@ public final class AikiBeansPokemonStd {
             return res_;
         }
         if (StringList.quickEq(methodName_,IS_APPEARING_ANY_WHERE)) {
-            res_.setResult(new BooleanStruct(instance_.isAppearingAnyWhere()));
+            res_.setResult(BooleanStruct.of(instance_.isAppearingAnyWhere()));
             return res_;
         }
         if (StringList.quickEq(methodName_,IS_APPEARING_PLACE)) {
-            res_.setResult(new BooleanStruct(instance_.isAppearingPlace((Long)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.isAppearingPlace((Long)_args[0])));
             return res_;
         }
         if (StringList.quickEq(methodName_,IS_MULTI_LAYER)) {
-            res_.setResult(new BooleanStruct(instance_.isMultiLayer((Long)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.isMultiLayer((Long)_args[0])));
             return res_;
         }
         if (StringList.quickEq(methodName_,LAYERS)) {
@@ -537,7 +537,7 @@ public final class AikiBeansPokemonStd {
             return res_;
         }
         if (StringList.quickEq(methodName_,IS_APPEARING)) {
-            res_.setResult(new BooleanStruct(instance_.isAppearing((Long)_args[0],(Long)_args[1])));
+            res_.setResult(BooleanStruct.of(instance_.isAppearing((Long)_args[0],(Long)_args[1])));
             return res_;
         }
         if (StringList.quickEq(methodName_,CLICK_LEVEL)) {
@@ -549,7 +549,7 @@ public final class AikiBeansPokemonStd {
             return res_;
         }
         if (StringList.quickEq(methodName_,IS_FIRST_ROW)) {
-            res_.setResult(new BooleanStruct(instance_.isFirstRow((Long)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.isFirstRow((Long)_args[0])));
             return res_;
         }
         if (StringList.quickEq(methodName_,GET_PLACE_NAME)) {

@@ -224,7 +224,7 @@ public final class AikiBeansEffectsStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,END_ROUND)) {
-            res_.setResult(new BooleanStruct(instance_.getEndRound()));
+            res_.setResult(BooleanStruct.of(instance_.getEndRound()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,END_ROUND_RANK)) {
@@ -263,7 +263,7 @@ public final class AikiBeansEffectsStd {
         EffectWhileSendingBean instance_ = (EffectWhileSendingBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringList.quickEq(fieldName_,DISABLE_WEATHER)) {
-            res_.setResult(new BooleanStruct(instance_.getDisableWeather()));
+            res_.setResult(BooleanStruct.of(instance_.getDisableWeather()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,ENABLED_WEATHER)) {
@@ -271,11 +271,11 @@ public final class AikiBeansEffectsStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,COPYING_ABILITY)) {
-            res_.setResult(new BooleanStruct(instance_.getCopyingAbility()));
+            res_.setResult(BooleanStruct.of(instance_.getCopyingAbility()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,PLATE)) {
-            res_.setResult(new BooleanStruct(instance_.getPlate()));
+            res_.setResult(BooleanStruct.of(instance_.getPlate()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,MULT_WEIGHT)) {
@@ -283,7 +283,7 @@ public final class AikiBeansEffectsStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,STATISTIC)) {
-            res_.setResult(new BooleanStruct(instance_.getStatistic()));
+            res_.setResult(BooleanStruct.of(instance_.getStatistic()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,REASONS)) {
@@ -397,15 +397,15 @@ public final class AikiBeansEffectsStd {
             return res_;
         }
         if (StringList.quickEq(methodName_,RANDOM_STATIS)) {
-            res_.setResult(new BooleanStruct(instance_.randomStatis()));
+            res_.setResult(BooleanStruct.of(instance_.randomStatis()));
             return res_;
         }
         if (StringList.quickEq(methodName_,IS_ALWAYS_ENABLED)) {
-            res_.setResult(new BooleanStruct(instance_.isAlwaysEnabled()));
+            res_.setResult(BooleanStruct.of(instance_.isAlwaysEnabled()));
             return res_;
         }
         if (StringList.quickEq(methodName_,NOT_EMPTY_VAR_BOOST)) {
-            res_.setResult(new BooleanStruct(instance_.notEmptyVarBoost()));
+            res_.setResult(BooleanStruct.of(instance_.notEmptyVarBoost()));
             return res_;
         }
         if (StringList.quickEq(methodName_,GET_FAIL)) {

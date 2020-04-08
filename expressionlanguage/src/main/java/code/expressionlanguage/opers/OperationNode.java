@@ -752,7 +752,7 @@ public abstract class OperationNode implements Operable {
     }
     static ClassMethodIdReturn getDeclaredCustMethod(Analyzable _conf, int _varargOnly,
     MethodAccessKind _staticContext, StringList _classes, String _name,
-    boolean _superClass, boolean _accessFromSuper, boolean _import, ClassMethodId _uniqueId, ClassArgumentMatching... _argsClass) {
+    boolean _superClass, boolean _accessFromSuper, boolean _import, ClassMethodIdAncestor _uniqueId, ClassArgumentMatching... _argsClass) {
         ClassMethodIdReturn res_ = tryGetDeclaredCustMethod(_conf, _varargOnly, _staticContext, _classes, _name, _superClass, _accessFromSuper, _import, _uniqueId, _argsClass);
         if (res_.isFoundMethod()) {
             return res_;
@@ -777,8 +777,8 @@ public abstract class OperationNode implements Operable {
     }
 
     public static ClassMethodIdReturn tryGetDeclaredToString(Analyzable _conf, String _class) {
-        ObjectMap<ClassMethodId, MethodInfo> methods_;
-        methods_ = new ObjectMap<ClassMethodId, MethodInfo>();
+        CustList<MethodInfo> methods_;
+        methods_ = new CustList<MethodInfo>();
         String baseCurName_ = Templates.getIdFromAllTypes(_class);
         RootBlock root_ = _conf.getClasses().getClassBody(baseCurName_);
         if (root_ != null) {
@@ -788,8 +788,8 @@ public abstract class OperationNode implements Operable {
     }
 
     private static ClassMethodIdReturn getCustResultExec(Analyzable _conf,
-                                                         ObjectMap<ClassMethodId, MethodInfo> _methods) {
-        MethodInfo found_ = getFoundMethodExec(_methods.values(), _conf);
+                                                         CustList<MethodInfo> _methods) {
+        MethodInfo found_ = getFoundMethodExec(_methods, _conf);
         if (found_ == null) {
             return new ClassMethodIdReturn(false);
         }
@@ -860,9 +860,9 @@ public abstract class OperationNode implements Operable {
                                                                   MethodAccessKind _staticContext,
                                                                   StringList _classes, String _name,
                                                                   boolean _superClass, boolean _accessFromSuper,
-                                                                  boolean _import, ClassMethodId _uniqueId,
+                                                                  boolean _import, ClassMethodIdAncestor _uniqueId,
                                                                   ClassArgumentMatching[] _argsClass) {
-        ObjectMap<ClassMethodId, MethodInfo> methods_;
+        CustList<MethodInfo> methods_;
         methods_ = getDeclaredCustMethodByType(_conf, _staticContext, _accessFromSuper, _superClass, _classes, _name, _import, _uniqueId);
         int varargOnly_ = _varargOnly;
         boolean uniq_ = false;
@@ -875,19 +875,19 @@ public abstract class OperationNode implements Operable {
         return getCustResult(_conf,uniq_, varargOnly_, methods_, _name, _argsClass);
     }
     protected static ClassMethodIdReturn tryGetDeclaredCast(Analyzable _conf, String _classes, String _name, ClassMethodId _uniqueId, ClassArgumentMatching[] _argsClass) {
-        ObjectMap<ClassMethodId, MethodInfo> methods_;
+        CustList<MethodInfo> methods_;
         methods_ = getDeclaredCustCast(_conf, _classes, _uniqueId);
         return getCustResult(_conf,false, -1, methods_, _name, _argsClass);
     }
 
     static ClassMethodIdReturn getOperator(Analyzable _cont, String _op, ClassArgumentMatching... _argsClass) {
-        ObjectMap<ClassMethodId, MethodInfo> ops_ = getOperators(_cont);
+        CustList<MethodInfo> ops_ = getOperators(_cont);
         return getCustResult(_cont,false, -1, ops_, _op, _argsClass);
     }
-    static ObjectMap<ClassMethodId, MethodInfo> getOperators(Analyzable _cont){
+    static CustList<MethodInfo> getOperators(Analyzable _cont){
         String objType_ = _cont.getStandards().getAliasObject();
-        ObjectMap<ClassMethodId, MethodInfo> methods_;
-        methods_ = new ObjectMap<ClassMethodId, MethodInfo>();
+        CustList<MethodInfo> methods_;
+        methods_ = new CustList<MethodInfo>();
         for (OperatorBlock o: _cont.getClasses().getOperators()) {
             String ret_ = o.getImportedReturnType();
             MethodId id_ = o.getId();
@@ -903,16 +903,16 @@ public abstract class OperationNode implements Operable {
             mloc_.setReturnType(ret_);
             mloc_.format(true,_cont);
             ClassMethodId clId_ = new ClassMethodId(objType_, id_);
-            methods_.put(clId_, mloc_);
+            methods_.add(mloc_);
         }
         return methods_;
     }
-    private static ObjectMap<ClassMethodId, MethodInfo>
+    private static CustList<MethodInfo>
     getDeclaredCustCast(Analyzable _conf,
                         String _fromClass, ClassMethodId _uniqueId) {
         String glClass_ = _conf.getGlobalClass();
-        ObjectMap<ClassMethodId, MethodInfo> methods_;
-        methods_ = new ObjectMap<ClassMethodId, MethodInfo>();
+        CustList<MethodInfo> methods_;
+        methods_ = new CustList<MethodInfo>();
         String id_ = Templates.getIdFromAllTypes(_fromClass);
         GeneType root_ = _conf.getClassBody(id_);
         StringMap<String> superTypesBaseAncBis_ = new StringMap<String>();
@@ -921,19 +921,19 @@ public abstract class OperationNode implements Operable {
         return methods_;
     }
 
-    private static ObjectMap<ClassMethodId, MethodInfo>
+    private static CustList<MethodInfo>
     getDeclaredCustMethodByType(Analyzable _conf, MethodAccessKind _staticContext, boolean _accessFromSuper,
-                                boolean _superClass, StringList _fromClasses, String _name, boolean _import, ClassMethodId _uniqueId) {
+                                boolean _superClass, StringList _fromClasses, String _name, boolean _import, ClassMethodIdAncestor _uniqueId) {
         String glClass_ = _conf.getGlobalClass();
-        ObjectMap<ClassMethodId, MethodInfo> methods_;
-        methods_ = new ObjectMap<ClassMethodId, MethodInfo>();
+        CustList<MethodInfo> methods_;
+        methods_ = new CustList<MethodInfo>();
         fetchParamClassAncMethods(_conf,_fromClasses,_staticContext,_accessFromSuper,_superClass,_uniqueId,methods_);
         if (_import) {
             for (EntryCust<ClassMethodId, ImportedMethod> e: _conf.lookupImportStaticMethods(glClass_, _name, _conf.getCurrentBlock()).entryList()) {
                 ClassMethodId m = e.getKey();
                 String clName_ = m.getClassName();
                 MethodId id_ = m.getConstraints();
-                if (isCandidateMethod(_uniqueId, clName_, id_)) {
+                if (isCandidateMethod(_uniqueId,0, clName_, id_)) {
                     continue;
                 }
                 ParametersGroup p_ = new ParametersGroup();
@@ -948,18 +948,21 @@ public abstract class OperationNode implements Operable {
                 mloc_.setParameters(p_);
                 mloc_.format(true,_conf);
                 mloc_.setReturnType(e.getValue().getReturnType());
-                methods_.add(m, mloc_);
+                methods_.add(mloc_);
             }
         }
         return methods_;
     }
 
-    private static boolean isCandidateMethod(ClassMethodId _uniqueId, String _clName, MethodId _id) {
+    private static boolean isCandidateMethod(ClassMethodIdAncestor _uniqueId, int _ancestor,String _clName, MethodId _id) {
         if (_uniqueId != null) {
-            if (!StringList.quickEq(_uniqueId.getClassName(), _clName)) {
+            if (_uniqueId.getAncestor() != _ancestor) {
                 return true;
             }
-            if (!_uniqueId.getConstraints().eq(_id)) {
+            if (!StringList.quickEq(_uniqueId.getClassMethodId().getClassName(), _clName)) {
+                return true;
+            }
+            if (!_uniqueId.getClassMethodId().getConstraints().eq(_id)) {
                 return true;
             }
         }
@@ -967,11 +970,11 @@ public abstract class OperationNode implements Operable {
     }
 
 
-    public static void fetchParamClassAncMethods(Analyzable _conf, StringList _fromClasses, ObjectMap<ClassMethodId, MethodInfo> _methods) {
+    public static void fetchParamClassAncMethods(Analyzable _conf, StringList _fromClasses, CustList<MethodInfo> _methods) {
         fetchParamClassAncMethods(_conf,_fromClasses,MethodAccessKind.INSTANCE,false,true,null,_methods);
     }
     private static void fetchParamClassAncMethods(Analyzable _conf, StringList _fromClasses, MethodAccessKind _staticContext, boolean _accessFromSuper,
-                                                  boolean _superClass, ClassMethodId _uniqueId, ObjectMap<ClassMethodId, MethodInfo> _methods) {
+                                                  boolean _superClass, ClassMethodIdAncestor _uniqueId, CustList<MethodInfo> _methods) {
         CustList<CustList<TypeInfo>> typeInfosGroups_ = typeLists(_conf,_fromClasses,_staticContext);
         String glClass_ = _conf.getGlobalClass();
         for (CustList<TypeInfo> g: typeInfosGroups_) {
@@ -1092,28 +1095,26 @@ public abstract class OperationNode implements Operable {
         return t_;
     }
 
-    private static void fetchCastMethods(Analyzable _conf, ClassMethodId _uniqueId, String _glClass, ObjectMap<ClassMethodId, MethodInfo> _methods, String _cl, GeneType _root, StringMap<String> _superTypesBaseMap) {
-        ClassMethodId uniq_ = null;
+    private static void fetchCastMethods(Analyzable _conf, ClassMethodId _uniqueId, String _glClass,CustList<MethodInfo> _methods, String _cl, GeneType _root, StringMap<String> _superTypesBaseMap) {
+        ClassMethodIdAncestor uniq_ = null;
         if (_uniqueId != null) {
-            uniq_ = new ClassMethodId(Templates.getIdFromAllTypes(_uniqueId.getClassName()),_uniqueId.getConstraints());
+            uniq_ = new ClassMethodIdAncestor(new ClassMethodId(Templates.getIdFromAllTypes(_uniqueId.getClassName()),_uniqueId.getConstraints()),0);
         }
         for (GeneMethod e: ContextEl.getMethodBlocks(_root)) {
-            MethodId id_ = e.getId();
             if (!e.isStaticMethod()) {
                 continue;
             }
-            ClassMethodId cId_ = new ClassMethodId(_cl, id_);
-            MethodInfo stMeth_ = fetchedParamMethod(e,cId_,false,_conf,uniq_,_glClass,0,_cl,_superTypesBaseMap);
+            MethodInfo stMeth_ = fetchedParamMethod(e,_cl,false,_conf,uniq_,_glClass,0,_cl,_superTypesBaseMap);
             if (stMeth_ == null) {
                 continue;
             }
             stMeth_.setReturnType(e.getImportedReturnType());
-            _methods.add(cId_, stMeth_);
+            _methods.add(stMeth_);
         }
     }
 
     private static void fetchParamClassMethods(Analyzable _conf, boolean _accessFromSuper, boolean _superClass, int _anc, MethodAccessKind _kind,
-                                               ClassMethodId _uniqueId, String _glClass, ObjectMap<ClassMethodId, MethodInfo> _methods,
+                                               ClassMethodIdAncestor _uniqueId, String _glClass, CustList<MethodInfo> _methods,
                                                String _cl, GeneType _root, StringList _superTypesBase, StringMap<String> _superTypesBaseMap) {
         String fullName_ = _root.getFullName();
         String genericString_ = _root.getGenericString();
@@ -1142,25 +1143,22 @@ public abstract class OperationNode implements Operable {
                     continue;
                 }
             }
-            ClassMethodId cId_ = new ClassMethodId(genericString_, id_);
-            MethodInfo stMeth_ = fetchedParamMethod(e,cId_,k_ == MethodAccessKind.STATIC,_conf, _uniqueId,_glClass,_anc, _cl,_superTypesBaseMap);
+            MethodInfo stMeth_ = fetchedParamMethod(e,genericString_,k_ == MethodAccessKind.STATIC,_conf, _uniqueId,_glClass,_anc, _cl,_superTypesBaseMap);
             if (stMeth_ == null) {
                 continue;
             }
-            ClassMethodId clId_ = new ClassMethodId(fullName_, id_);
-            _methods.add(clId_, stMeth_);
+            _methods.add(stMeth_);
         }
         for (EntryCust<ClassMethodId,MethodInfo> e: getPredefineStaticEnumMethods(_conf,genericString_,_anc).entryList()) {
             ClassMethodId cId_ = e.getKey();
             MethodId id_ = cId_.getConstraints();
-            if (isCandidateMethod(_uniqueId, fullName_, id_)) {
+            if (isCandidateMethod(_uniqueId,_anc, fullName_, id_)) {
                 continue;
             }
-            ClassMethodId clId_ = new ClassMethodId(fullName_, id_);
-            _methods.add(clId_, e.getValue());
+            _methods.add(e.getValue());
         }
     }
-    private static void fetchToStringMethods(Analyzable _conf, RootBlock _root,String _cl, ObjectMap<ClassMethodId, MethodInfo> _methods) {
+    private static void fetchToStringMethods(Analyzable _conf, RootBlock _root,String _cl, CustList<MethodInfo> _methods) {
         StringList geneSuperTypes_ = new StringList();
         geneSuperTypes_.add(_cl);
         geneSuperTypes_.addAllElts(_root.getAllSuperTypes());
@@ -1169,7 +1167,6 @@ public abstract class OperationNode implements Operable {
             if (root_ == null) {
                 continue;
             }
-            String fullName_ = root_.getFullName();
             for (GeneMethod e: ContextEl.getMethodBlocks(root_)) {
                 MethodId id_ = e.getId();
                 if (id_.isStaticMethod()) {
@@ -1181,24 +1178,22 @@ public abstract class OperationNode implements Operable {
                 if (!id_.getParametersTypes().isEmpty()) {
                     continue;
                 }
-                ClassMethodId clId_ = new ClassMethodId(fullName_, id_);
-                _methods.add(clId_, buildMethodInfo(e,false,_conf,0,id_,t));
+                _methods.add(buildMethodInfo(e,false,_conf,0, t));
             }
         }
     }
 
-    private static MethodInfo fetchedParamMethod(GeneMethod _m,ClassMethodId _s,boolean _keepParams,
-                                                 Analyzable _conf, ClassMethodId _uniqueId,
+    private static MethodInfo fetchedParamMethod(GeneMethod _m,String _s,boolean _keepParams,
+                                                 Analyzable _conf, ClassMethodIdAncestor _uniqueId,
                                                  String _glClass, int _anc, String _f, StringMap<String> _superTypesBaseMap) {
-        String name_ = _s.getClassName();
-        String base_ = Templates.getIdFromAllTypes(name_);
-        MethodId id_ = _s.getConstraints();
-        if (isCandidateMethod(_uniqueId, base_, id_)) {
+        String base_ = Templates.getIdFromAllTypes(_s);
+        MethodId id_ = _m.getId();
+        if (isCandidateMethod(_uniqueId,_anc, base_, id_)) {
             return null;
         }
         String formattedClass_;
         if (!id_.canAccessParamTypes() || StringList.quickEq(base_, _conf.getStandards().getAliasFct())) {
-            formattedClass_ = name_;
+            formattedClass_ = _s;
         } else {
             formattedClass_ = _f;
         }
@@ -1211,24 +1206,25 @@ public abstract class OperationNode implements Operable {
                 return null;
             }
         }
-        return buildMethodInfo(_m, _keepParams, _conf, _anc, id_, formattedClass_);
+        return buildMethodInfo(_m, _keepParams, _conf, _anc, formattedClass_);
     }
 
-    private static MethodInfo buildMethodInfo(GeneMethod _m, boolean _keepParams, Analyzable _conf, int _anc, MethodId _id, String _formattedClass) {
+    private static MethodInfo buildMethodInfo(GeneMethod _m, boolean _keepParams, Analyzable _conf, int _anc, String _formattedClass) {
         String ret_ = _m.getImportedReturnType();
         ret_ = Templates.wildCardFormatReturn(_formattedClass, ret_, _conf);
         ParametersGroup p_ = new ParametersGroup();
-        for (String c: _id.getParametersTypes()) {
+        MethodId id_ = _m.getId();
+        for (String c: id_.getParametersTypes()) {
             p_.add(new ClassMatching(c));
         }
         MethodInfo mloc_ = new MethodInfo();
         mloc_.setClassName(_formattedClass);
-        mloc_.setStaticMethod(_m.getId().getKind());
+        mloc_.setStaticMethod(id_.getKind());
         if (_m instanceof GeneCustMethod) {
             mloc_.setAbstractMethod(((GeneCustMethod)_m).isAbstractMethod());
             mloc_.setFinalMethod(((GeneCustMethod)_m).isFinalMethod());
         }
-        mloc_.setConstraints(_id);
+        mloc_.setConstraints(id_);
         mloc_.setParameters(p_);
         mloc_.setReturnType(ret_);
         mloc_.setAncestor(_anc);
@@ -1280,12 +1276,11 @@ public abstract class OperationNode implements Operable {
         return methods_;
     }
     private static ClassMethodIdReturn getCustResult(Analyzable _conf, boolean _unique,int _varargOnly,
-                                                     ObjectMap<ClassMethodId, MethodInfo> _methods,
+                                                     CustList<MethodInfo> _methods,
             String _name, ClassArgumentMatching... _argsClass) {
         CustList<MethodInfo> signatures_ = new CustList<MethodInfo>();
-        for (EntryCust<ClassMethodId, MethodInfo> e: _methods.entryList()) {
-            ClassMethodId key_ = e.getKey();
-            MethodId id_ = key_.getConstraints();
+        for (MethodInfo e: _methods) {
+            MethodId id_ = e.getConstraints();
             boolean varArg_ = id_.isVararg();
             if (_varargOnly > -1) {
                 if (!varArg_) {
@@ -1295,11 +1290,10 @@ public abstract class OperationNode implements Operable {
             if (!StringList.quickEq(id_.getName(), _name)) {
                 continue;
             }
-            MethodInfo mi_ = e.getValue();
-            if (!isPossibleMethod(_conf, _unique, _varargOnly, mi_, _argsClass)) {
+            if (!isPossibleMethod(_conf, _unique, _varargOnly, e, _argsClass)) {
                 continue;
             }
-            signatures_.add(mi_);
+            signatures_.add(e);
         }
         StringMap<StringList> map_;
         map_ = _conf.getCurrentConstraints();

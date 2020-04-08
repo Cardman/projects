@@ -56,7 +56,7 @@ public class GraphicListStruct extends InputStruct {
         simple = _simple;
         LgNamesGui stds_ = (LgNamesGui) _ctx.getStandards();
         panel = PanelStruct.newPageBox(stds_.getAliasPanel());
-        panel.setAutoscrolls(new BooleanStruct(true));
+        panel.setAutoscrolls(BooleanStruct.of(true));
         scroll = ScrollPaneStruct.newScroll(panel,stds_.getAliasScrollPane());
     }
     public void add(ContextEl _ctx, int _index, Struct _img, Struct _elt) {
@@ -288,7 +288,7 @@ public class GraphicListStruct extends InputStruct {
 
     @Override
     public Struct isEnabled() {
-        return new BooleanStruct(enabledList);
+        return BooleanStruct.of(enabledList);
     }
 
     @Override

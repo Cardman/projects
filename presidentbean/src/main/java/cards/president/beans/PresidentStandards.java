@@ -172,23 +172,23 @@ public final class PresidentStandards extends BeanNatLgNames {
                 return res_;
             }
             if (StringList.quickEq(fieldName_, POSSIBLE_REVERSING)) {
-                res_.setResult(new BooleanStruct(rules_.isPossibleReversing()));
+                res_.setResult(BooleanStruct.of(rules_.isPossibleReversing()));
                 return res_;
             }
             if (StringList.quickEq(fieldName_, HAS_TO_PLAY)) {
-                res_.setResult(new BooleanStruct(rules_.isHasToPlay()));
+                res_.setResult(BooleanStruct.of(rules_.isHasToPlay()));
                 return res_;
             }
             if (StringList.quickEq(fieldName_, LOOSING_IF_FINISH_BY_BEST_CARDS)) {
-                res_.setResult(new BooleanStruct(rules_.isLoosingIfFinishByBestCards()));
+                res_.setResult(BooleanStruct.of(rules_.isLoosingIfFinishByBestCards()));
                 return res_;
             }
             if (StringList.quickEq(fieldName_, SWITCH_CARDS)) {
-                res_.setResult(new BooleanStruct(rules_.isSwitchCards()));
+                res_.setResult(BooleanStruct.of(rules_.isSwitchCards()));
                 return res_;
             }
             if (StringList.quickEq(fieldName_, LOOSER_STARTS_FIRST)) {
-                res_.setResult(new BooleanStruct(rules_.isLooserStartsFirst()));
+                res_.setResult(BooleanStruct.of(rules_.isLooserStartsFirst()));
                 return res_;
             }
         }
@@ -200,7 +200,7 @@ public final class PresidentStandards extends BeanNatLgNames {
         ResultErrorStd res_ = new ResultErrorStd();
         if (((RealInstanceStruct)_instance).getInstance() instanceof RulesPresidentBean) {
             if (StringList.quickEq(_method.getConstraints().getName(), SAME_AMOUNT)) {
-                res_.setResult(new BooleanStruct(((RulesPresidentBean)((RealInstanceStruct)_instance).getInstance()).sameAmount()));
+                res_.setResult(BooleanStruct.of(((RulesPresidentBean)((RealInstanceStruct)_instance).getInstance()).sameAmount()));
                 return res_;
             }
         }
@@ -256,7 +256,7 @@ public final class PresidentStandards extends BeanNatLgNames {
             return new DoubleStruct((Double) _element);
         }
         if (_element instanceof Boolean) {
-            return new BooleanStruct((Boolean) _element);
+            return BooleanStruct.of((Boolean) _element);
         }
         if (_element instanceof String) {
             return new StringStruct((String) _element);

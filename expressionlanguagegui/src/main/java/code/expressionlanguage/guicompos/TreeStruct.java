@@ -17,7 +17,7 @@ public final class TreeStruct extends CustComponentStruct {
     }
 
     public BooleanStruct isRootVisible() {
-        return new BooleanStruct(tree.isRootVisible());
+        return BooleanStruct.of(tree.isRootVisible());
     }
 
     public void setRootVisible(Struct rootVisible) {

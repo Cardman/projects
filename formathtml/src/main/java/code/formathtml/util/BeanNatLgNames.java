@@ -267,7 +267,7 @@ public abstract class BeanNatLgNames extends BeanLgNames {
     public Argument hasNextPair(Struct _arg, Configuration _conf) {
         Object instance_ = ((RealInstanceStruct) _arg).getInstance();
         SimpleItr it_ = (SimpleItr) instance_;
-        return new Argument(new BooleanStruct(it_.hasNext()));
+        return new Argument(BooleanStruct.of(it_.hasNext()));
     }
 
     @Override
@@ -310,7 +310,7 @@ public abstract class BeanNatLgNames extends BeanLgNames {
     public Argument hasNext(Struct _arg, Configuration _cont) {
         Object instance_ = ((RealInstanceStruct) _arg).getInstance();
         SimpleItr it_ = (SimpleItr) instance_;
-        return new Argument(new BooleanStruct(it_.hasNext()));
+        return new Argument(BooleanStruct.of(it_.hasNext()));
     }
 
     protected abstract Struct wrapStd(Object _element, ExecutableCode _ex);
@@ -357,7 +357,7 @@ public abstract class BeanNatLgNames extends BeanLgNames {
         Object[] argsObj_ = adaptedArgs(list_, _args);
         Object instance_ = ((RealInstanceStruct)_instance).getInstance();
         if (instance_ instanceof Countable) {
-            res_.setResult(new BooleanStruct(((Countable) instance_).isEmpty()));
+            res_.setResult(BooleanStruct.of(((Countable) instance_).isEmpty()));
             return res_;
         }
         return getOtherResultBean(_cont, _instance, _method, argsObj_);
