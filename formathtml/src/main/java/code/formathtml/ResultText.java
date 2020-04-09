@@ -5,8 +5,6 @@ import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.inherits.Mapping;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.ElUtil;
-import code.expressionlanguage.opers.Calculation;
-import code.expressionlanguage.opers.util.MethodAccessKind;
 import code.formathtml.exec.RendDynOperationNode;
 import code.formathtml.util.BeanLgNames;
 import code.sml.Element;
@@ -81,7 +79,7 @@ public final class ResultText {
                     return;
                 }
 //                _conf.getLastPage().setOffset(i_);
-                CustList<RendDynOperationNode> opsLoc_ = RenderExpUtil.getAnalyzedOperations(_expression, _conf,_off, i_, LEFT_EL, RIGHT_EL);
+                CustList<RendDynOperationNode> opsLoc_ = RenderExpUtil.getAnalyzedOperations(_expression, _conf,_off, i_);
                 opExp.add(opsLoc_);
                 i_ = _conf.getNextIndex();
                 expEnds.add(i_);
@@ -163,7 +161,7 @@ public final class ResultText {
                     return;
                 }
 //                _conf.getLastPage().setOffset(i_);
-                CustList<RendDynOperationNode> opsLoc_ = RenderExpUtil.getAnalyzedOperations(_expression, _conf, _begin,i_, LEFT_EL, RIGHT_EL);
+                CustList<RendDynOperationNode> opsLoc_ = RenderExpUtil.getAnalyzedOperations(_expression, _conf, _begin,i_);
                 opExp.add(opsLoc_);
                 i_ = _conf.getNextIndex();
                 expEnds.add(i_);

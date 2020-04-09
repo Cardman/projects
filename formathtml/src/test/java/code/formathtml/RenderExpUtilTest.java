@@ -27,7 +27,6 @@ import code.expressionlanguage.variables.LoopVariable;
 import code.expressionlanguage.variables.VariableSuffix;
 import code.formathtml.exec.RendDynOperationNode;
 import code.formathtml.util.BeanLgNames;
-import code.formathtml.structs.StdStruct;
 import code.util.CustList;
 import code.util.StringMap;
 
@@ -5609,9 +5608,9 @@ public final class RenderExpUtilTest extends CommonRender {
     public void processEl317Test() {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);
-        Argument arg_ = processEl(" {(1+2)*3+\" hello\"+\" world {every body ;)\\\\\\\"\"+$new $int[]\\{0i,1i\\}.length} ", context_, 2);
+        Argument arg_ = processEl(" {(1+2)*3+\" hello\"+\" world {every body ;)\\\\\\\"\"+$new $int[]{0i,1i}.length} ", context_, 2);
         assertEq("9 hello world {every body ;)\\\"2",arg_.getString());
-        assertEq(75, context_.getNextIndex());
+        assertEq(73, context_.getNextIndex());
     }
     @Test
     public void processEl318Test() {
@@ -9177,13 +9176,10 @@ public final class RenderExpUtilTest extends CommonRender {
         }
         return RenderExpUtil.processEl(_el, 0, _cont);
     }
-    private static Argument processEl(String _el, Configuration _conf, int _minIndex){
-        return processEl(_el,_conf,_minIndex, '{','}');
-    }
-    public static Argument processEl(String _el, Configuration _conf, int _minIndex, char _begin, char _end) {
+    public static Argument processEl(String _el, Configuration _conf, int _minIndex) {
         ContextEl context_ = _conf.getContext();
         _conf.setupAnalyzing();
-        Delimiters d_ = ElResolver.checkSyntaxDelimiters(_el, _conf, _minIndex, _begin, _end);
+        Delimiters d_ = ElResolver.checkSyntaxDelimiters(_el, _conf, _minIndex);
         if (d_.getBadOffset() >= 0) {
             _conf.setOffset(d_.getBadOffset());
             FoundErrorInterpret badEl_ = new FoundErrorInterpret();
@@ -9195,20 +9191,10 @@ public final class RenderExpUtilTest extends CommonRender {
         }
         int beg_ = d_.getIndexBegin();
         int end_ = d_.getIndexEnd();
-        int cap_ = end_+1 - beg_;
-        StringBuilder str_ = new StringBuilder(cap_);
-        for (int i = beg_; i <= end_; i++) {
-            if (d_.getEscapings().contains(i)) {
-                str_.append(' ');
-            } else {
-                str_.append(_el.charAt(i));
-            }
-        }
         _conf.setNextIndex(end_+2);
-        String el_ = str_.toString();
+        String el_ = _el.substring(beg_,end_+1);
         OperationsSequence opTwo_ = RenderExpUtil.getOperationsSequence(_minIndex, el_, _conf, d_);
         OperationNode op_ = RenderExpUtil.createOperationNode(_minIndex, CustList.FIRST_INDEX, null, opTwo_, _conf);
-        Argument argGl_ = _conf.getOperationPageEl().getGlobalArgument();
         CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, _conf);
         CustList<RendDynOperationNode> out_ = RenderExpUtil.getExecutableNodes(all_);
         if (!_conf.isEmptyErrors()) {

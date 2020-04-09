@@ -13,7 +13,7 @@ public final class RenderTextTest extends CommonRender {
     public void process0Test() {
         String folder_ = "messages";
         String relative_ = "sample/file";
-        String html_ = "<html><body>{$new $int[]\\{0,1\\}}</body></html>";
+        String html_ = "<html><body>{$new $int[]{0,1}}</body></html>";
         Configuration conf_ = contextElThird();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
@@ -27,7 +27,7 @@ public final class RenderTextTest extends CommonRender {
     public void process1Test() {
         String folder_ = "messages";
         String relative_ = "sample/file";
-        String html_ = "<html><body>{$new $int[]\\{0,1\\}.length}</body></html>";
+        String html_ = "<html><body>{$new $int[]{0,1}.length}</body></html>";
         Configuration conf_ = contextElThird();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
@@ -98,7 +98,7 @@ public final class RenderTextTest extends CommonRender {
     public void process6Test() {
         String folder_ = "messages";
         String relative_ = "sample/file";
-        String html_ = "<html><body>{$new $int[]\\{0,1\\}.length}</body></html>";
+        String html_ = "<html><body>{$new $int[]{0,1}.length}</body></html>";
         Configuration conf_ = contextElThird(new StringMap<String>());
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());

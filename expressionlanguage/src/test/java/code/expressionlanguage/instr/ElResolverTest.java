@@ -1,6 +1,5 @@
 package code.expressionlanguage.instr;
 
-import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.InitializationLgNames;
 import code.expressionlanguage.methods.*;
@@ -4958,17 +4957,6 @@ public final class ElResolverTest extends ProcessMethodCommon{
         assertEq(9, d_.getBadOffset());
     }
     @Test
-    public void checkSyntaxDelimiters10Test() {
-        ContextEl conf_ = contextEl();
-        addImportingPage(conf_);
-        String el_ = " {$new $int[]\\{1i,3i\\}}";
-        Delimiters d_ = ElResolver.checkSyntaxDelimiters(el_, conf_, 2, '{', '}');
-        Ints esc_ = d_.getEscapings();
-        assertEq(2, esc_.size());
-        assertEq(13, esc_.first());
-        assertEq(20, esc_.last());
-    }
-    @Test
     public void checkSyntax1Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
@@ -4983,7 +4971,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "{6*('\\u9fcb'+8)}";
-        Delimiters d_ = ElResolver.checkSyntaxDelimiters(el_, conf_, 1, '{', '}');
+        Delimiters d_ = ElResolver.checkSyntaxDelimiters(el_, conf_, 1);
         assertEq(2, d_.getDelStringsChars().size());
         assertEq(4, d_.getDelStringsChars().first());
         assertEq(11, d_.getDelStringsChars().last());
@@ -4996,7 +4984,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "{6*('\\u9fcb'+8)}";
-        Delimiters d_ = ElResolver.checkSyntaxDelimiters(el_, conf_, 1, '{', '}');
+        Delimiters d_ = ElResolver.checkSyntaxDelimiters(el_, conf_, 1);
         assertEq(2, d_.getDelStringsChars().size());
         assertEq(4, d_.getDelStringsChars().first());
         assertEq(11, d_.getDelStringsChars().last());
@@ -5009,7 +4997,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "{6*('`'+8)}";
-        Delimiters d_ = ElResolver.checkSyntaxDelimiters(el_, conf_, 1, '{', '}');
+        Delimiters d_ = ElResolver.checkSyntaxDelimiters(el_, conf_, 1);
         assertEq(2, d_.getDelStringsChars().size());
         assertEq(4, d_.getDelStringsChars().first());
         assertEq(6, d_.getDelStringsChars().last());
@@ -5022,7 +5010,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "{6*('}'+8)}";
-        Delimiters d_ = ElResolver.checkSyntaxDelimiters(el_, conf_, 1, '{', '}');
+        Delimiters d_ = ElResolver.checkSyntaxDelimiters(el_, conf_, 1);
         assertEq(2, d_.getDelStringsChars().size());
         assertEq(4, d_.getDelStringsChars().first());
         assertEq(6, d_.getDelStringsChars().last());
@@ -5035,7 +5023,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = " {6*('\\u9fcb'+8)}";
-        Delimiters d_ = ElResolver.checkSyntaxDelimiters(el_, conf_, 2, '{', '}');
+        Delimiters d_ = ElResolver.checkSyntaxDelimiters(el_, conf_, 2);
         assertEq(2, d_.getDelStringsChars().size());
         assertEq(5, d_.getDelStringsChars().first());
         assertEq(12, d_.getDelStringsChars().last());
@@ -5048,7 +5036,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = " {6*(\"//\"+8)}";
-        Delimiters d_ = ElResolver.checkSyntaxDelimiters(el_, conf_, 2, '{', '}');
+        Delimiters d_ = ElResolver.checkSyntaxDelimiters(el_, conf_, 2);
         assertEq(2, d_.getDelStringsChars().size());
         assertEq(5, d_.getDelStringsChars().first());
         assertEq(8, d_.getDelStringsChars().last());
@@ -5060,42 +5048,42 @@ public final class ElResolverTest extends ProcessMethodCommon{
     public void checkSyntaxDelimiters7Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
-        String el_ = " {$new $int[]\\{1i,3i\\}}";
-        Delimiters d_ = ElResolver.checkSyntaxDelimiters(el_, conf_, 2, '{', '}');
+        String el_ = " {$new $int[]{1i,3i}}";
+        Delimiters d_ = ElResolver.checkSyntaxDelimiters(el_, conf_, 2);
         assertEq(3, d_.getAllowedOperatorsIndexes().size());
-        assertEq(14, d_.getAllowedOperatorsIndexes().first());
-        assertEq(17, d_.getAllowedOperatorsIndexes().get(1));
-        assertEq(21, d_.getAllowedOperatorsIndexes().last());
+        assertEq(13, d_.getAllowedOperatorsIndexes().first());
+        assertEq(16, d_.getAllowedOperatorsIndexes().get(1));
+        assertEq(19, d_.getAllowedOperatorsIndexes().last());
         assertEq(2, d_.getIndexBegin());
-        assertEq(21, d_.getIndexEnd());
+        assertEq(19, d_.getIndexEnd());
     }
     @Test
     public void checkSyntaxDelimiters1FailTest() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "{6*('\\u9fcb'+8)";
-        assertEq(15, ElResolver.checkSyntaxDelimiters(el_, conf_, 1, '{', '}').getBadOffset());
+        assertEq(15, ElResolver.checkSyntaxDelimiters(el_, conf_, 1).getBadOffset());
     }
     @Test
     public void checkSyntaxDelimiters4FailTest() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "{6*('\\u9fcb'+8\\";
-        assertEq(14, ElResolver.checkSyntaxDelimiters(el_, conf_, 1, '{', '}').getBadOffset());
+        assertEq(15, ElResolver.checkSyntaxDelimiters(el_, conf_, 1).getBadOffset());
     }
     @Test
     public void checkSyntaxDelimiters5FailTest() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "{6*('\\u9fcb'+8\\ ";
-        assertEq(14, ElResolver.checkSyntaxDelimiters(el_, conf_, 1, '{', '}').getBadOffset());
+        assertEq(16, ElResolver.checkSyntaxDelimiters(el_, conf_, 1).getBadOffset());
     }
     @Test
     public void checkSyntaxDelimiters8Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "{6*(`string`+8)}";
-        Delimiters d_ = ElResolver.checkSyntaxDelimiters(el_, conf_, 1, '{', '}');
+        Delimiters d_ = ElResolver.checkSyntaxDelimiters(el_, conf_, 1);
         assertEq(2, d_.getDelStringsChars().size());
         assertEq(4, d_.getDelStringsChars().first());
         assertEq(11, d_.getDelStringsChars().last());
@@ -5107,7 +5095,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "{6*(`string``after`+8)}";
-        Delimiters d_ = ElResolver.checkSyntaxDelimiters(el_, conf_, 1, '{', '}');
+        Delimiters d_ = ElResolver.checkSyntaxDelimiters(el_, conf_, 1);
         assertEq(2, d_.getDelStringsChars().size());
         assertEq(4, d_.getDelStringsChars().first());
         assertEq(18, d_.getDelStringsChars().last());
@@ -5119,7 +5107,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "{6*('\\u9fcb'+8){";
-        assertEq(15, ElResolver.checkSyntaxDelimiters(el_, conf_, 1, '{', '}').getBadOffset());
+        assertEq(16, ElResolver.checkSyntaxDelimiters(el_, conf_, 1).getBadOffset());
     }
 
     @Test
@@ -5127,7 +5115,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "{6*('\\u9gcb'+8)}";
-        assertEq(8, ElResolver.checkSyntaxDelimiters(el_, conf_, 1, '{', '}').getBadOffset());
+        assertEq(8, ElResolver.checkSyntaxDelimiters(el_, conf_, 1).getBadOffset());
     }
 
     @Test
@@ -5392,14 +5380,6 @@ public final class ElResolverTest extends ProcessMethodCommon{
         addImportingPage(conf_);
         String el_ = "integer[?java";
         assertEq(13, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
-    }
-
-    @Test
-    public void checkSyntax37FailTest() {
-        ContextEl conf_ = contextEl();
-        addImportingPage(conf_);
-        String el_ = "integer\\n";
-        assertEq(7, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
     }
 
     @Test

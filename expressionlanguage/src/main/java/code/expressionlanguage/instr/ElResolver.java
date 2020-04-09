@@ -103,10 +103,8 @@ public final class ElResolver {
     private ElResolver() {
     }
 
-    public static Delimiters checkSyntaxDelimiters(String _string, Analyzable _conf, int _minIndex, char _begin, char _end) {
+    public static Delimiters checkSyntaxDelimiters(String _string, Analyzable _conf, int _minIndex) {
         Delimiters d_ = new Delimiters();
-        d_.setBegin(_begin);
-        d_.setEnd(_end);
         d_.setPartOfString(true);
         return commonCheck(_string, _conf, _minIndex, true, d_);
     }
@@ -1558,16 +1556,12 @@ public final class ElResolver {
     }
     private static void processOperators(int _beginIndex, int _minIndex, String _string,Delimiters _din, boolean _delimiters, boolean _ctorCall,
             Delimiters _dout, ResultAfterOperators _out,Analyzable _conf) {
-        char begin_ = _din.getBegin();
-        char end_ = _din.getEnd();
-        boolean partOfString_ = _out.isPartOfString();
         IntTreeMap<Character> parsBrackets_;
         parsBrackets_ = _out.getParsBrackets();
 
         int len_ = _string.length();
         ResultAfterDoubleDotted doubleDotted_ = _out.getDoubleDotted();
         int i_ = doubleDotted_.getNextIndex();
-        boolean beginOrEnd_ = _out.isBeginOrEnd();
         Options opt_ = _conf.getOptions();
         KeyWords keyWords_ = _conf.getKeyWords();
         int nbChars_;
@@ -1627,34 +1621,11 @@ public final class ElResolver {
             }
             if (i_ + 1 < len_ && Character.isWhitespace(_string.charAt(i_ + 1))) {
                 String nextPart_ = _string.substring(i_ + 1).trim();
-                int lenLoc_ = nextPart_.length();
                 if (isNumber(0, nextPart_)) {
                     _dout.setBadOffset(-i_-1);
                     return;
                 }
             }
-        }
-        if (curChar_ == ESCAPE_META_CHAR) {
-            if (_delimiters && i_ + 1 < len_) {
-                if (_string.charAt(i_+1) == begin_) {
-                    _dout.getEscapings().add(i_);
-                    int j_ = i_ + 1;
-                    _out.setBeginOrEnd(true);
-                    i_ = j_;
-                    doubleDotted_.setNextIndex(i_);
-                    return;
-                }
-                if (_string.charAt(i_+1) == end_) {
-                    _dout.getEscapings().add(i_);
-                    int j_ = i_ + 1;
-                    _out.setBeginOrEnd(true);
-                    i_ = j_;
-                    doubleDotted_.setNextIndex(i_);
-                    return;
-                }
-            }
-            _dout.setBadOffset(i_);
-            return;
         }
         if (curChar_ == DELIMITER_CHAR) {
             nbChars_ = 0;
@@ -1678,24 +1649,6 @@ public final class ElResolver {
             i_++;
             doubleDotted_.setNextIndex(i_);
             return;
-        }
-        if (isLogicAndOr(end_, partOfString_, curChar_)) {
-            if (!beginOrEnd_) {
-                _out.setPartOfString(false);
-                _dout.setIndexBegin(_minIndex);
-                _dout.setIndexEnd(i_-1);
-                doubleDotted_.setNextIndex(len_);
-                return;
-            }
-            beginOrEnd_ = false;
-            _out.setBeginOrEnd(false);
-        }
-        if (isLogicAndOr(begin_, partOfString_, curChar_)) {
-            if (!beginOrEnd_) {
-                _dout.setBadOffset(i_);
-                return;
-            }
-            _out.setBeginOrEnd(false);
         }
         if (curChar_ == PAR_LEFT) {
             int j_ = indexAfterPossibleCast(_conf,doubleDotted_, _ctorCall, _string, i_, len_, _dout);
@@ -1725,6 +1678,13 @@ public final class ElResolver {
         }
         if (curChar_ == ANN_ARR_RIGHT) {
             if (parsBrackets_.isEmpty()) {
+                if (_delimiters) {
+                    _out.setPartOfString(false);
+                    _dout.setIndexBegin(_minIndex);
+                    _dout.setIndexEnd(i_-1);
+                    doubleDotted_.setNextIndex(len_);
+                    return;
+                }
                 _dout.setBadOffset(i_);
                 return;
             }

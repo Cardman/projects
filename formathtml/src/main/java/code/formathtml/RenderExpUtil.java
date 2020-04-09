@@ -31,8 +31,8 @@ public final class RenderExpUtil {
     private RenderExpUtil() {
     }
 
-    public static CustList<RendDynOperationNode> getAnalyzedOperations(String _el, Configuration _conf, int _glInd,int _minIndex, char _begin, char _end) {
-        Delimiters d_ = ElResolver.checkSyntaxDelimiters(_el, _conf, _minIndex, _begin, _end);
+    public static CustList<RendDynOperationNode> getAnalyzedOperations(String _el, Configuration _conf, int _glInd, int _minIndex) {
+        Delimiters d_ = ElResolver.checkSyntaxDelimiters(_el, _conf, _minIndex);
         int badOffset_ = d_.getBadOffset();
         if (badOffset_ >= 0) {
             FoundErrorInterpret badEl_ = new FoundErrorInterpret();
@@ -55,17 +55,8 @@ public final class RenderExpUtil {
         }
         int beg_ = d_.getIndexBegin();
         int end_ = d_.getIndexEnd();
-        int cap_ = end_+1 - beg_;
-        StringBuilder str_ = new StringBuilder(cap_);
-        for (int i = beg_; i <= end_; i++) {
-            if (d_.getEscapings().contains(i)) {
-                str_.append(' ');
-            } else {
-                str_.append(_el.charAt(i));
-            }
-        }
         _conf.setNextIndex(end_+2);
-        String el_ = str_.toString();
+        String el_ = _el.substring(beg_,end_+1);
         OperationsSequence opTwo_ = getOperationsSequence(_minIndex, el_, _conf, d_);
         OperationNode op_ = createOperationNode(_minIndex, CustList.FIRST_INDEX, null, opTwo_, _conf);
         CustList<OperationNode> all_ = getSortedDescNodes(op_, _conf);

@@ -8,8 +8,6 @@ public final class Delimiters {
     private int badOffset=-1;
     private int indexBegin;
     private int indexEnd;
-    private char begin;
-    private char end;
     private boolean partOfString;
     private Ints allowedOperatorsIndexes = new Ints();
     private Ints delStringsChars = new Ints();
@@ -38,7 +36,6 @@ public final class Delimiters {
     private CustList<NumberInfos> nbInfos = new CustList<NumberInfos>();
     private CustList<VariableInfo> variables = new CustList<VariableInfo>();
     private Ints dimsAddonIndexes = new Ints();
-    private Ints escapings = new Ints();
     private Ints delAccessIndexers = new Ints();
 
     public int getBadOffset() {
@@ -153,18 +150,7 @@ public final class Delimiters {
     public void setIndexEnd(int _indexEnd) {
         indexEnd = _indexEnd;
     }
-    public char getBegin() {
-        return begin;
-    }
-    public void setBegin(char _begin) {
-        begin = _begin;
-    }
-    public char getEnd() {
-        return end;
-    }
-    public void setEnd(char _end) {
-        end = _end;
-    }
+
     public boolean isPartOfString() {
         return partOfString;
     }
@@ -187,10 +173,6 @@ public final class Delimiters {
 
     public Ints getDimsAddonIndexes() {
         return dimsAddonIndexes;
-    }
-
-    public Ints getEscapings() {
-        return escapings;
     }
 
     public Ints getDelAccessIndexers() {

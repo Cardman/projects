@@ -1267,7 +1267,7 @@ public final class NativeTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String htmlTwo_ = "<html c:bean=\"bean_two\"><body>{$new $int[]\\{\\}}{$this}</body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\"><body>{$new $int[]{}}{$this}</body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", htmlTwo_);
