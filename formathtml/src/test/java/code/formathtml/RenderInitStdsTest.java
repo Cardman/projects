@@ -42,6 +42,7 @@ public final class RenderInitStdsTest {
     @Test
     public void process2Test() {
         Options o_ = new Options();
+        o_.setEndLineSemiColumn(false);
         o_.setSuffixVar(VariableSuffix.FIELDS);
         BeanLgNames b_ = new BeanCustLgNamesImpl();
         basicStandards(b_);
@@ -52,6 +53,7 @@ public final class RenderInitStdsTest {
     @Test
     public void process3Test() {
         Options o_ = new Options();
+        o_.setEndLineSemiColumn(false);
         o_.setSuffixVar(VariableSuffix.MERGED);
         BeanLgNames b_ = new BeanCustLgNamesImpl();
         basicStandards(b_);
@@ -62,6 +64,7 @@ public final class RenderInitStdsTest {
     @Test
     public void process4Test() {
         Options o_ = new Options();
+        o_.setEndLineSemiColumn(false);
         o_.setSuffixVar(VariableSuffix.FIELDS);
         BeanLgNames b_ = new BeanCustLgNamesImpl();
         basicStandards(b_);

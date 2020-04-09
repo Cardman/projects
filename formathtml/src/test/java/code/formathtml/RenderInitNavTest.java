@@ -301,16 +301,13 @@ public final class RenderInitNavTest extends CommonRender {
         file_.append("}");
         file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
         file_.append(" $public String click($int p){");
-        file_.append("  $return $bool(p:.:>2,\"val1\",\"val2\");");
+        file_.append("  $return $bool(p>2,\"val1\",\"val2\");");
         file_.append(" }");
         file_.append("}");
         files_.put("my_file",file_.toString());
         file_ = new StringBuilder();
         file_.append("my_file");
         files_.put("conf",file_.toString());
-        Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
         BeanLgNames lgNames_ = new BeanCustLgNamesImpl();
         basicStandards(lgNames_);
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
@@ -329,7 +326,7 @@ public final class RenderInitNavTest extends CommonRender {
                 "\t<n field=\"context\">\n" +
                 "\t\t<java.lang.Integer field='stackOverFlow' value='-1'/>\n" +
                 "\t\t<o field='options'>\n" +
-                "\t\t\t<v field='suffixVar' value='DISTINCT'/>\n" +
+                "\t\t\t<v field='suffixVar' value='NONE'/>\n" +
                 "\t\t\t<b field='initializeStaticClassFirst' value='true'/>\n" +
                 "\t\t\t<i field='inex'/>\n" +
                 "\t\t</o>\n" +
@@ -395,16 +392,13 @@ public final class RenderInitNavTest extends CommonRender {
         file_.append("}");
         file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
         file_.append(" $public String click($int p){");
-        file_.append("  $return $bool(p:.:>2,\"val1\",\"val2\");");
+        file_.append("  $return $bool(p>2,\"val1\",\"val2\");");
         file_.append(" }");
         file_.append("}");
         files_.put("my_file",file_.toString());
         file_ = new StringBuilder();
         file_.append("my_file");
         files_.put("conf",file_.toString());
-        Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
         BeanLgNames lgNames_ = new BeanCustLgNamesImpl();
         basicStandards(lgNames_);
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
@@ -423,7 +417,7 @@ public final class RenderInitNavTest extends CommonRender {
                 "\t<n field=\"context\">\n" +
                 "\t\t<java.lang.Integer field='stackOverFlow' value='-1'/>\n" +
                 "\t\t<o field='options'>\n" +
-                "\t\t\t<v field='suffixVar' value='DISTINCT'/>\n" +
+                "\t\t\t<v field='suffixVar' value='NONE'/>\n" +
                 "\t\t\t<b field='initializeStaticClassFirst' value='true'/>\n" +
                 "\t\t\t<i field='classes' value='pkg.BeanTwo'/>\n" +
                 "\t\t\t<i field='classes' value='pkg.BeanThree'/>\n" +
@@ -597,16 +591,13 @@ public final class RenderInitNavTest extends CommonRender {
         file_.append("}");
         file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
         file_.append(" $public String click($int p){");
-        file_.append("  $return $bool(p:.:>2,\"val1\",\"val2\");");
+        file_.append("  $return $bool(p>2,\"val1\",\"val2\");");
         file_.append(" }");
         file_.append("}");
         files_.put("my_file",file_.toString());
         file_ = new StringBuilder();
         file_.append("my_file");
         files_.put("conf",file_.toString());
-        Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
         BeanLgNames lgNames_ = new BeanCustLgNamesFailImpl();
         basicStandards(lgNames_);
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
@@ -625,7 +616,7 @@ public final class RenderInitNavTest extends CommonRender {
                 "\t<n field=\"context\">\n" +
                 "\t\t<java.lang.Integer field='stackOverFlow' value='-1'/>\n" +
                 "\t\t<o field='options'>\n" +
-                "\t\t\t<v field='suffixVar' value='DISTINCT'/>\n" +
+                "\t\t\t<v field='suffixVar' value='NONE'/>\n" +
                 "\t\t\t<b field='initializeStaticClassFirst' value='true'/>\n" +
                 "\t\t\t<i field='inex'/>\n" +
                 "\t\t</o>\n" +
@@ -682,16 +673,13 @@ public final class RenderInitNavTest extends CommonRender {
         file_.append("}");
         file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
         file_.append(" $public String click($int p){");
-        file_.append("  $return $bool(p:.:>2,\"val1\",\"val2\");");
+        file_.append("  $return $bool(p>2,\"val1\",\"val2\");");
         file_.append(" }");
         file_.append("}");
         files_.put("my_file",file_.toString());
         file_ = new StringBuilder();
         file_.append("my_file");
         files_.put("conf",file_.toString());
-        Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
         BeanLgNames lgNames_ = new BeanCustLgNamesFailMessImpl();
         basicStandards(lgNames_);
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
@@ -710,7 +698,7 @@ public final class RenderInitNavTest extends CommonRender {
                 "\t<n field=\"context\">\n" +
                 "\t\t<java.lang.Integer field='stackOverFlow' value='-1'/>\n" +
                 "\t\t<o field='options'>\n" +
-                "\t\t\t<v field='suffixVar' value='DISTINCT'/>\n" +
+                "\t\t\t<v field='suffixVar' value='NONE'/>\n" +
                 "\t\t\t<b field='initializeStaticClassFirst' value='true'/>\n" +
                 "\t\t\t<i field='inex'/>\n" +
                 "\t\t</o>\n" +

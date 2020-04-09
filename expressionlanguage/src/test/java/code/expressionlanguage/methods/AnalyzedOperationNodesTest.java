@@ -1669,7 +1669,7 @@ public final class AnalyzedOperationNodesTest {
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
-        
+
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
@@ -1884,7 +1884,7 @@ public final class AnalyzedOperationNodesTest {
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
-        
+
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
@@ -2065,7 +2065,7 @@ public final class AnalyzedOperationNodesTest {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = new Options();
-        
+
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         
@@ -2099,7 +2099,7 @@ public final class AnalyzedOperationNodesTest {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = new Options();
-        
+
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         
@@ -2134,7 +2134,7 @@ public final class AnalyzedOperationNodesTest {
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
-        
+
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
@@ -2168,7 +2168,7 @@ public final class AnalyzedOperationNodesTest {
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
-        
+
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
@@ -2233,7 +2233,7 @@ public final class AnalyzedOperationNodesTest {
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
-        
+
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
@@ -3211,7 +3211,7 @@ public final class AnalyzedOperationNodesTest {
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
-        
+
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
@@ -3227,7 +3227,7 @@ public final class AnalyzedOperationNodesTest {
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
-        
+
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
@@ -3553,7 +3553,7 @@ public final class AnalyzedOperationNodesTest {
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
-        
+
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
@@ -3569,7 +3569,7 @@ public final class AnalyzedOperationNodesTest {
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
-        
+
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
@@ -3599,7 +3599,7 @@ public final class AnalyzedOperationNodesTest {
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
-        
+
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
@@ -3615,7 +3615,7 @@ public final class AnalyzedOperationNodesTest {
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
-        
+
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
@@ -4239,14 +4239,12 @@ public final class AnalyzedOperationNodesTest {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
         xml_.append(" $public ExTwo($int p){\n");
-        xml_.append("  $int p:\n");
+        xml_.append("  $int p;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.NONE);
         
         
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
@@ -4258,15 +4256,13 @@ public final class AnalyzedOperationNodesTest {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
         xml_.append(" $public ExTwo(){\n");
-        xml_.append("  $int p:\n");
-        xml_.append("  $for($int p::){}\n");
+        xml_.append("  $int p;\n");
+        xml_.append("  $for($int p;;){}\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.NONE);
         
         
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
@@ -4278,15 +4274,13 @@ public final class AnalyzedOperationNodesTest {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
         xml_.append(" $public ExTwo(){\n");
-        xml_.append("  $int i = 0:\n");
-        xml_.append("  $for($int p:i != 0:){$int p:}\n");
+        xml_.append("  $int i = 0;\n");
+        xml_.append("  $for($int p;i != 0;){$int p;}\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.NONE);
         
         
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
@@ -4298,15 +4292,13 @@ public final class AnalyzedOperationNodesTest {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
         xml_.append(" $public ExTwo(){\n");
-        xml_.append("  $int i = 0:\n");
-        xml_.append("  $iter($int p=0:0:1){$int p:}\n");
+        xml_.append("  $int i = 0;\n");
+        xml_.append("  $iter($int p=0;0;1){$int p;}\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.NONE);
         
         
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
@@ -4319,15 +4311,13 @@ public final class AnalyzedOperationNodesTest {
         xml_.append("$public $class pkg.ExTwo {\n");
         xml_.append(" $public ExTwo(){\n");
         xml_.append("  $try{\n");
-        xml_.append("  $int i = 0:}\n");
-        xml_.append("  $catch(Object p){Object p:}\n");
+        xml_.append("  $int i = 0;}\n");
+        xml_.append("  $catch(Object p){Object p;}\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.NONE);
         
         
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
@@ -4339,17 +4329,15 @@ public final class AnalyzedOperationNodesTest {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
         xml_.append(" $public ExTwo(){\n");
-        xml_.append("  $int i = 0:\n");
+        xml_.append("  $int i = 0;\n");
         xml_.append("  $if($true){\n");
-        xml_.append("  $int i = 0:}\n");
+        xml_.append("  $int i = 0;}\n");
         xml_.append("  \n");
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.NONE);
         
         
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
@@ -4366,8 +4354,6 @@ public final class AnalyzedOperationNodesTest {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.NONE);
         
         
         ContextEl cont_ = InitializationLgNames.buildStdOne("en", opt_);
@@ -5362,7 +5348,7 @@ public final class AnalyzedOperationNodesTest {
         files_.put("pkg/Ex", _file);
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
-        
+
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);

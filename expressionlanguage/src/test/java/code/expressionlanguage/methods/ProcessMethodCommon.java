@@ -207,6 +207,12 @@ public abstract class ProcessMethodCommon {
         ContextEl ct_ = InitializationLgNames.buildStdOne(opt_);
         return ct_;
     }
+    protected static ContextEl contextElReadOnlyDef() {
+        Options opt_ = new Options();
+        opt_.setReadOnly(true);
+        ContextEl ct_ = InitializationLgNames.buildStdOne(opt_);
+        return ct_;
+    }
     protected static ContextEl contextElReadOnlyDefault() {
         Options opt_ = new Options();
         opt_.setReadOnly(true);
@@ -270,8 +276,6 @@ public abstract class ProcessMethodCommon {
     }
     protected static ContextEl contextElTypes(VariableSuffix _suf,String... _types) {
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(_suf);
         for (String t: _types) {
             opt_.getTypesInit().add(t);
         }
