@@ -435,7 +435,7 @@ public final class ProcessMethodDeclarationTest extends ProcessMethodCommon {
         xml_.append("}\n");
         xml_.append("public class pkg.Ex {\n");
         xml_.append(" public static int exmeth(){\n");
-        xml_.append("  final long t=ExFour..Inner.FIELD,u=t+2;\n");
+        xml_.append("  final long t=ExFour.Inner.FIELD,u=t+2;\n");
         xml_.append("  return 1+(int)t+(int)u;\n");
         xml_.append(" }\n");
         xml_.append("}\n");

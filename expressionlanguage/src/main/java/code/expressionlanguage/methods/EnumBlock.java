@@ -75,7 +75,11 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock,Acce
         }
         return false;
     }
-
+    public String getOriginalName() {
+        String packageName_ = getPackageName();
+        StringList names_ = getNames();
+        return joinParts(".", packageName_, names_);
+    }
     @Override
     public void buildDirectGenericSuperTypes(ContextEl _classes) {
         IntMap< String> rcs_;

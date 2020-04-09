@@ -87,7 +87,6 @@ public final class Classes {
 	}
     public void processBracedClass(RootBlock _root, ContextEl _context) {
         String fullName_ = _root.getFullName();
-        String fullNameOrig_ = _root.getFullName(".");
         if (classesBodies.contains(fullName_)) {
             FoundErrorInterpret d_ = new FoundErrorInterpret();
             d_.setFileName(_root.getFile().getFileName());
@@ -232,6 +231,7 @@ public final class Classes {
             tempOff_ += p.length() + 1;
         }
         if (_root instanceof EnumBlock) {
+            String fullNameOrig_ = ((EnumBlock)_root).getOriginalName();
             StringBuilder generic_ = new StringBuilder(fullNameOrig_);
             if (!_root.getParamTypes().isEmpty()) {
                 StringList vars_ = new StringList();
@@ -254,7 +254,7 @@ public final class Classes {
         if (_root instanceof InnerElementBlock) {
             InnerElementBlock i_ = (InnerElementBlock) _root;
             EnumBlock par_ = (EnumBlock) _root.getParent();
-            String type_ = StringList.concat(par_.getFullName("."),i_.getTempClass());
+            String type_ = StringList.concat(par_.getOriginalName(),i_.getTempClass());
             _root.getDirectSuperTypes().add(type_);
             _root.getExplicitDirectSuperTypes().put(-1, false);
             _root.getRowColDirectSuperTypes().put(-1, type_);
@@ -400,7 +400,7 @@ public final class Classes {
         _context.setInitEnums(InitPhase.LIST);
         dl_.initAlwaysSuccess();
         for (String t: _context.getOptions().getTypesInit()) {
-            String res_ = _context.resolveCandidate(t);
+            String res_ = _context.resolveCandidate(ContextEl.removeDottedSpaces(t));
             if (_context.getClasses().getClassBody(res_) == null) {
                 continue;
             }

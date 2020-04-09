@@ -509,7 +509,7 @@ public abstract class ContextEl implements ExecutableCode {
         StringList inners_ = new StringList();
         boolean existCtor_ = false;
         for (StandardField f: _type.getFields().values()) {
-            String ret_ = f.getClassName();
+            String ret_ = f.getImportedClassName();
             boolean staticElement_ = f.isStaticField();
             boolean finalElement_ = f.isFinalField();
             for (String g: f.getFieldName()) {
@@ -1516,12 +1516,12 @@ public abstract class ContextEl implements ExecutableCode {
             }
             return joined_;
         }
-        return localSolve(inners_, 0, _root, _readyTypes);
+        return localSolve(inners_, _root, _readyTypes);
     }
 
-    private String localSolve(StringList _inners, int _first, RootBlock _root,
+    private String localSolve(StringList _inners, RootBlock _root,
                               StringList _readyTypes) {
-        String baseInn_ = _inners.get(_first).trim();
+        String baseInn_ = _inners.first().trim();
         RootBlock gType_ = classes.getClassBody(baseInn_);
         String res_;
         if (gType_ == null) {
@@ -1558,7 +1558,7 @@ public abstract class ContextEl implements ExecutableCode {
         } else {
             res_ = gType_.getFullName();
         }
-        return getOtherPartsDirect(_inners,res_,_first, _readyTypes);
+        return getOtherPartsDirect(_inners,res_, _readyTypes);
     }
 
     private String lookupImportMemberTypes(String _type, RootBlock _root,
@@ -1572,13 +1572,13 @@ public abstract class ContextEl implements ExecutableCode {
         if (classes.getClassBody(res_) == null) {
             return null;
         }
-        return getOtherParts(inners_,res_,0, _readyTypes);
+        return getOtherParts(inners_,res_, _readyTypes);
     }
 
-    private String getOtherParts(StringList _inners, String _res, int _first,
+    private String getOtherParts(StringList _inners, String _res,
                                  StringList _readyTypes) {
         String out_ = _res;
-        for (String i : _inners.mid(1 + _first)) {
+        for (String i : _inners.mid(1)) {
             String name_ = i.trim();
             String inner_ = getInner(_readyTypes, out_, name_);
             if (inner_ == null || StringList.quickEq(inner_,EMPTY_TYPE)) {
@@ -1600,9 +1600,9 @@ public abstract class ContextEl implements ExecutableCode {
         return null;
     }
 
-    private String getOtherPartsDirect(StringList _inners, String _res, int _first,
+    private String getOtherPartsDirect(StringList _inners, String _res,
                                        StringList _readyTypes) {
-        String value_ = getOtherParts(_inners, _res, _first, _readyTypes);
+        String value_ = getOtherParts(_inners, _res, _readyTypes);
         if (value_ == null) {
             return null;
         }
@@ -1675,16 +1675,15 @@ public abstract class ContextEl implements ExecutableCode {
     }
 
     private boolean stopLookup(StringList _types, String _import, String _look, boolean _inherits, StringList _readTypes) {
-        String begin_ = removeDottedSpaces(_import.substring(0, _import.lastIndexOf('.')+1));
-        String beginImp_ = begin_;
+        String beginImp_ = removeDottedSpaces(_import.substring(0, _import.lastIndexOf('.')+1));
         String keyWordStatic_ = keyWords.getKeyWordStatic();
         boolean stQualifier_ = false;
-        if (startsWithKeyWord(begin_, keyWordStatic_)) {
+        if (startsWithKeyWord(beginImp_, keyWordStatic_)) {
             beginImp_ = beginImp_.substring(keyWordStatic_.length()).trim();
             stQualifier_ = true;
         }
         String typeInner_ = StringList.concat(beginImp_, _look);
-        String foundCandidate_ = StringList.join(Templates.getAllInnerTypesSingleDotted(typeInner_, this), "..");
+        String foundCandidate_ = StringList.join(Templates.getAllInnerTypes(typeInner_, this), "..");
         StringList allInnerTypes_ = Templates.getAllInnerTypes(foundCandidate_);
         String owner_ = allInnerTypes_.first();
         GeneType cl_ = getClassBody(owner_);
@@ -1897,7 +1896,7 @@ public abstract class ContextEl implements ExecutableCode {
 
     public StringList getParts(String _c) {
         StringList allInnerTypes_;
-        allInnerTypes_ = Templates.getAllInnerTypesSingleDotted(_c, this);
+        allInnerTypes_ = Templates.getAllInnerTypes(_c, this);
         return allInnerTypes_;
     }
 

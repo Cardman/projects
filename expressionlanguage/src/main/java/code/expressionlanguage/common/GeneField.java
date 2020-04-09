@@ -8,7 +8,5 @@ public interface GeneField {
 
     boolean isFinalField();
 
-    String getClassName();
-
     StringList getFieldName();
 }

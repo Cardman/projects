@@ -2628,7 +2628,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
     public void getOperationsSequence143Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
-        String el_ = "1bs(4,3)";
+        String el_ = "lbs(4,3)";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
@@ -2639,7 +2639,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         assertEq(")", opers_.getVal(7));
         IntTreeMap<String> values_ = seq_.getValues();
         assertEq(3, values_.size());
-        assertEq("1bs", values_.getVal(0));
+        assertEq("lbs", values_.getVal(0));
         assertEq("4", values_.getVal(4));
         assertEq("3", values_.getVal(6));
         assertTrue(seq_.isCall());
@@ -3714,7 +3714,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $int inst = ExTwo..Ex.exmeth(0i):\n");
+        xml_.append(" $public $static $int inst = ExTwo.Ex.exmeth(0i):\n");
         xml_.append(" $public $static $class Ex{\n");
         xml_.append(" }\n");
         xml_.append("}\n");
@@ -3742,7 +3742,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         IntTreeMap<String> values_ = seq_.getValues();
         assertEq(2, values_.size());
         assertEq("inst ", values_.getVal(0));
-        assertEq(" ExTwo..Ex.exmeth(0i)", values_.getVal(6));
+        assertEq(" ExTwo.Ex.exmeth(0i)", values_.getVal(6));
         assertEq(ElResolver.AFF_PRIO, seq_.getPriority());
         assertEq("", seq_.getExtractType());
         assertEq(1, d_.getDelKeyWordStaticExtract().size());

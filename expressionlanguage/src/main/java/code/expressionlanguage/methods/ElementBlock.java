@@ -48,11 +48,13 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
     private CustList<CustList<ExecOperationNode>> annotationsOps = new CustList<CustList<ExecOperationNode>>();
     private Ints annotationsIndexes = new Ints();
     private CustList<PartOffset> partOffsets = new CustList<PartOffset>();
+    private String className;
 
-    public ElementBlock(OffsetStringInfo _fieldName,
+    public ElementBlock(EnumBlock _m, OffsetStringInfo _fieldName,
                         OffsetStringInfo _type,
                         OffsetStringInfo _value, OffsetsBlock _offset) {
         super(_offset);
+        className = _m.getOriginalName();
         fieldNameOffest = _fieldName.getOffset();
         valueOffest = _value.getOffset();
         fieldName = _fieldName.getInfo();
@@ -91,13 +93,6 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
     }
 
     @Override
-    public String getClassName() {
-        Block b_ = getParent();
-        RootBlock r_ = (RootBlock) b_;
-        return r_.getFullName(".");
-    }
-
-    @Override
     public StringList getFieldName() {
         return new StringList(fieldName);
     }
@@ -116,10 +111,9 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
         page_.setGlobalOffset(tempClassOffset);
         page_.setOffset(0);
         page_.setCurrentBlock(this);
-        String className_ = getClassName();
-        int len_ = -className_.length();
-        className_ = StringList.concat(className_, tempClass);
-        importedClassName = _cont.resolveCorrectType(len_,className_);
+        int len_ = -className.length();
+        String fullClassName_ = StringList.concat(className, tempClass);
+        importedClassName = _cont.resolveCorrectType(len_,fullClassName_);
         partOffsets.addAllElts(_cont.getCoverage().getCurrentParts().mid(2));
     }
     @Override

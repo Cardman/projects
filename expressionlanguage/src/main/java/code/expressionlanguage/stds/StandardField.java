@@ -32,11 +32,6 @@ public final class StandardField implements GeneField {
     }
 
     @Override
-    public String getClassName() {
-        return className;
-    }
-
-    @Override
     public boolean isStaticField() {
         return staticField;
     }
@@ -47,6 +42,6 @@ public final class StandardField implements GeneField {
     }
 
     public String getImportedClassName() {
-        return getClassName();
+        return className;
     }
 }

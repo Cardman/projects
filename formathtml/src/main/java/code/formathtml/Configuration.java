@@ -1179,7 +1179,7 @@ public final class Configuration implements ExecutableCode {
                     pre_ = keyWordStatic_;
                 }
                 String typeInner_ = StringList.concat(beginImp_, look_);
-                String foundCandidate_ = StringList.join(Templates.getAllInnerTypesSingleDotted(typeInner_, this), "..");
+                String foundCandidate_ = StringList.join(Templates.getAllInnerTypes(typeInner_, this), "..");
                 String typeLoc_ = ContextEl.removeDottedSpaces(StringList.concat(pre_," ", foundCandidate_));
                 String ft_ = exist(typeLoc_);
                 if (ft_.isEmpty()) {
@@ -1209,7 +1209,7 @@ public final class Configuration implements ExecutableCode {
                     pre_ = keyWordStatic_;
                 }
                 String typeInner_ = StringList.concat(beginImp_, look_);
-                String foundCandidate_ = StringList.join(Templates.getAllInnerTypesSingleDotted(typeInner_, this), "..");
+                String foundCandidate_ = StringList.join(Templates.getAllInnerTypes(typeInner_, this), "..");
                 String typeLoc_ = ContextEl.removeDottedSpaces(StringList.concat(pre_," ", foundCandidate_));
                 String ft_ = exist(typeLoc_);
                 if (ft_.isEmpty()) {

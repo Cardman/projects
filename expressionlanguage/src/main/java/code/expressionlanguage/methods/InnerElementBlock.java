@@ -49,11 +49,13 @@ public final class InnerElementBlock extends RootBlock implements InnerTypeOrEle
     private String importedDirectSuperClass = "";
     private StringList importedDirectSuperInterfaces = new StringList();
     private CustList<PartOffset> partOffsets = new CustList<PartOffset>();
+    private String className;
 
     public InnerElementBlock(EnumBlock _m, OffsetStringInfo _fieldName,
                              OffsetStringInfo _type,
                              OffsetStringInfo _value, OffsetsBlock _offset) {
         super(0, 0, StringList.concat(_m.getFullName(),"-",_fieldName.getInfo()), _m.getPackageName(), new OffsetAccessInfo(0,AccessEnum.PUBLIC), "", new IntMap< String>(), _offset);
+        className = _m.getOriginalName();
         fieldNameOffest = _fieldName.getOffset();
         valueOffest = _value.getOffset();
         fieldName = _fieldName.getInfo();
@@ -64,11 +66,6 @@ public final class InnerElementBlock extends RootBlock implements InnerTypeOrEle
 
     @Override
     public String getFullName() {
-        return getName();
-    }
-
-    @Override
-    public String getFullName(String _sep) {
         return getName();
     }
 
@@ -215,10 +212,9 @@ public final class InnerElementBlock extends RootBlock implements InnerTypeOrEle
         page_.setGlobalOffset(tempClassOffset);
         page_.setOffset(0);
         page_.setCurrentBlock(this);
-        String className_ = getClassName();
-        int len_ = -className_.length();
-        className_ = StringList.concat(className_, tempClass);
-        importedClassName = _cont.resolveCorrectType(len_,className_);
+        int len_ = -className.length();
+        String fullClassName_ =  StringList.concat(className, tempClass);
+        importedClassName = _cont.resolveCorrectType(len_,fullClassName_);
         partOffsets.addAllElts(_cont.getCoverage().getCurrentParts().mid(2));
     }
 
@@ -261,12 +257,6 @@ public final class InnerElementBlock extends RootBlock implements InnerTypeOrEle
         return true;
     }
 
-    @Override
-    public String getClassName() {
-        Block b_ = getParent();
-        RootBlock r_ = (RootBlock) b_;
-        return r_.getFullName(".");
-    }
 
     @Override
     public StringList getFieldName() {

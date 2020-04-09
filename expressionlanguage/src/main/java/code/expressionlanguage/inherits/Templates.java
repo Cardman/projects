@@ -111,7 +111,7 @@ public final class Templates {
      Sample 4: "my.pkg.MyThirdClass.Inner.SecInner" => ["my.pkg.MySecondClass","Inner","SecInner"]<br/>
      Sample 5: "List&lt;my.pkg.MyThirdClass.Inner.SecInner&gt;" => ["List&lt;my.pkg.MyThirdClass.Inner.SecInner&gt;"]<br/>
      */
-    public static StringList getAllInnerTypesSingleDotted(String _type, Analyzable _an) {
+    static StringList getAllInnerTypesSingleDotted(String _type, Analyzable _an) {
         StringList types_ = new StringList();
         int len_ = _type.length();
         boolean inner_ = false;
@@ -161,6 +161,57 @@ public final class Templates {
                     types_.add(builtId_.toString());
                     builtId_.delete(0, builtId_.length());
                 }
+            } else {
+                builtId_.append(cur_);
+            }
+            i_++;
+        }
+        types_.add(builtId_.toString());
+        return types_;
+    }
+    /** Splits by single dot the input string into parts regarding packages<br/>
+     Let this code:<br/>
+     <code><pre>public class my.pkg.MyClass{}</pre>
+     <pre>public class my.pkg.MySecondClass{</pre>
+     <pre>     public class Inner{}</pre>
+     <pre>}</pre></code><br/>
+     <pre>public class my.pkg.MyThirdClass{</pre>
+     <pre>     public class Inner{</pre>
+     <pre>         public class SecInner{}</pre>
+     <pre>     }</pre></code>
+     <pre>}</pre></code><br/>
+     Sample 1: "int" => ["int"]<br/>
+     Sample 2: "my.pkg.MyClass" => ["my.pkg.MyClass"]<br/>
+     Sample 3: "my.pkg.MySecondClass.Inner" => ["my.pkg.MySecondClass","Inner"]<br/>
+     Sample 4: "my.pkg.MyThirdClass.Inner.SecInner" => ["my.pkg.MySecondClass","Inner","SecInner"]<br/>
+     */
+    public static StringList getAllInnerTypes(String _type, Analyzable _an) {
+        return getAllInnerTypes(_type,_an.getClasses().getPackagesFound());
+    }
+    public static StringList getAllInnerTypes(String _type, StringList _pkg) {
+        StringList types_ = new StringList();
+        int len_ = _type.length();
+        StringBuilder builtId_ = new StringBuilder();
+        int i_ = 0;
+        while (i_ < len_) {
+            char cur_ = _type.charAt(i_);
+            if (cur_ == SEP_CLASS_CHAR) {
+                //if builtId_.toString() is a type => inner_ is true
+                String foundId_ = builtId_.toString();
+                String tr_ = ContextEl.removeDottedSpaces(foundId_);
+                if (!StringList.contains(_pkg,tr_)) {
+                    break;
+                }
+            }
+            builtId_.append(cur_);
+            i_++;
+        }
+        while (i_ < len_) {
+            char cur_ = _type.charAt(i_);
+            if (cur_ == SEP_CLASS_CHAR) {
+                //if builtId_.toString() is a type => inner_ is true
+                types_.add(builtId_.toString());
+                builtId_.delete(0, builtId_.length());
             } else {
                 builtId_.append(cur_);
             }

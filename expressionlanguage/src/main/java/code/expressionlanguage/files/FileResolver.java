@@ -1335,7 +1335,7 @@ public final class FileResolver {
                             new OffsetStringInfo(templateOffset_, tmpPart_.trim()),
                             new OffsetStringInfo(expressionOffest_, expression_.trim()), new OffsetsBlock(instructionRealLocation_, instructionLocation_));
                 } else {
-                    br_ = new ElementBlock(new OffsetStringInfo(fieldOffest_, fieldName_.trim()),
+                    br_ = new ElementBlock((EnumBlock) currentParent_,new OffsetStringInfo(fieldOffest_, fieldName_.trim()),
                             new OffsetStringInfo(templateOffset_, tmpPart_.trim()),
                             new OffsetStringInfo(expressionOffest_, expression_.trim()), new OffsetsBlock(instructionRealLocation_, instructionLocation_));
                 }
@@ -1418,7 +1418,6 @@ public final class FileResolver {
                                 new OffsetStringInfo(realTypeOffset_, declaringType_.trim()),
                                 new OffsetsBlock(instructionRealLocation_, instructionLocation_));
                         currentParent_.appendChild(br_);
-                        inst_ = info_;
                     }
                     br_ = new Line(new OffsetStringInfo(afterDeclareOffset_, inst_.trim()), new OffsetsBlock(instructionRealLocation_, instructionLocation_));
                     currentParent_.appendChild(br_);

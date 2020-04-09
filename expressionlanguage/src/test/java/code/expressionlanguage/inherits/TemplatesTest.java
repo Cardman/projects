@@ -417,6 +417,42 @@ public final class TemplatesTest {
         assertEq(new StringList("Ex<ExTwo>","Inner[]"),Templates.getAllInnerTypesSingleDotted("Ex<ExTwo>.Inner[]", context_));
     }
     @Test
+    public void getAllInnerTypesSingleDotted1_Test(){
+        assertEq(new StringList("int"),Templates.getAllInnerTypes("int", new StringList()));
+    }
+    @Test
+    public void getAllInnerTypesSingleDotted2_Test(){
+        assertEq(new StringList("String"),Templates.getAllInnerTypes("String", new StringList()));
+    }
+    @Test
+    public void getAllInnerTypesSingleDotted3_Test(){
+        assertEq(new StringList("pkg.Ex"),Templates.getAllInnerTypes("pkg.Ex", new StringList("pkg")));
+    }
+    @Test
+    public void getAllInnerTypesSingleDotted4_Test(){
+        assertEq(new StringList("pkg.Ex","Inner"),Templates.getAllInnerTypes("pkg.Ex.Inner", new StringList("pkg")));
+    }
+    @Test
+    public void getAllInnerTypesSingleDotted5_Test(){
+        assertEq(new StringList("Ex"),Templates.getAllInnerTypes("Ex", new StringList("pkg")));
+    }
+    @Test
+    public void getAllInnerTypesSingleDotted6_Test(){
+        assertEq(new StringList("pkg.Ex","Inner"),Templates.getAllInnerTypes("pkg.Ex.Inner", new StringList("pkg")));
+    }
+    @Test
+    public void getAllInnerTypesSingleDotted7_Test(){
+        assertEq(new StringList("Ex","Inner"),Templates.getAllInnerTypes("Ex.Inner", new StringList("pkg")));
+    }
+    @Test
+    public void getAllInnerTypesSingleDotted8_Test(){
+        assertEq(new StringList("Ex","pkg","Inner"),Templates.getAllInnerTypes("Ex.pkg.Inner", new StringList("pkg")));
+    }
+    @Test
+    public void getAllInnerTypesSingleDotted9_Test(){
+        assertEq(new StringList("Ex","pkg","Inner","Outer"),Templates.getAllInnerTypes("Ex.pkg.Inner.Outer", new StringList("pkg")));
+    }
+    @Test
     public void getAllInnerTypes1Test(){
         assertEq(new StringList("String"), Templates.getAllInnerTypes("String"));
     }

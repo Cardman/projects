@@ -17,6 +17,9 @@ public final class ParserType {
     static final int TMP_PRIO = 4;
     private ParserType(){}
     public static Ints getIndexes(String _input, Analyzable _an) {
+        return getIndexes(_input,_an.getClasses().getPackagesFound());
+    }
+    public static Ints getIndexes(String _input, StringList _pkg) {
         int count_ = 0;
         int len_ = _input.length();
         int i_ = 0;
@@ -55,14 +58,8 @@ public final class ParserType {
                 continue;
             }
             if (curChar_ == Templates.SEP_CLASS_CHAR) {
-                boolean existPkg_ = false;
-                for (String p: _an.getClasses().getPackagesFound()) {
-                    if (StringList.quickEq(p, ContextEl.removeDottedSpaces(id_.toString()))) {
-                        existPkg_ = true;
-                        break;
-                    }
-                }
-                if (!existPkg_) {
+                String tr_ = ContextEl.removeDottedSpaces(id_.toString());
+                if (!StringList.contains(_pkg,tr_)) {
                     addDot_ = true;
                 }
                 if (addDot_) {

@@ -117,7 +117,6 @@ public final class FieldBlock extends Leaf implements InfoBlock,AccessibleBlock 
         return finalField;
     }
 
-    @Override
     public String getClassName() {
         return className;
     }

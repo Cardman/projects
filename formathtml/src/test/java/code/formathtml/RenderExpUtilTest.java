@@ -308,13 +308,13 @@ public final class RenderExpUtilTest extends CommonRender {
         lv_ = new LocalVariable();
         lv_.setStruct(new StringStruct("8"));
         lv_.setClassName(stringType_);
-        localVars_.put("2", lv_);
+        localVars_.put("d", lv_);
         lv_ = new LocalVariable();
         lv_.setStruct(new StringStruct("varargs:{0} {1} {2}"));
         lv_.setClassName(stringType_);
         localVars_.put("f", lv_);
         context_.getLastPage().setLocalVars(localVars_);
-        Argument arg_ = processEl("f;.format($vararg(java.lang.String),$firstopt(v;.),2;.,v;.)", context_);
+        Argument arg_ = processEl("f;.format($vararg(java.lang.String),$firstopt(v;.),d;.,v;.)", context_);
         assertEq("varargs:7 8 7",arg_.getString());
     }
     @Test
@@ -352,13 +352,13 @@ public final class RenderExpUtilTest extends CommonRender {
         lv_ = new LocalVariable();
         lv_.setStruct(new StringStruct("8"));
         lv_.setClassName(stringType_);
-        localVars_.put("2", lv_);
+        localVars_.put("d", lv_);
         lv_ = new LocalVariable();
         lv_.setStruct(new StringStruct("varargs:{0} {1} {2}"));
         lv_.setClassName(stringType_);
         localVars_.put("f", lv_);
         context_.getLastPage().setLocalVars(localVars_);
-        Argument arg_ = processEl("f;.format(v;.,2;.,v;.)", context_);
+        Argument arg_ = processEl("f;.format(v;.,d;.,v;.)", context_);
         assertEq("varargs:7 8 7",arg_.getString());
     }
     @Test
@@ -518,13 +518,13 @@ public final class RenderExpUtilTest extends CommonRender {
         lv_ = new LocalVariable();
         lv_.setStruct(new StringStruct("8"));
         lv_.setClassName(stringType_);
-        localVars_.put("2", lv_);
+        localVars_.put("d", lv_);
         lv_ = new LocalVariable();
         lv_.setStruct(new StringStruct("varargs:{0} {1} {2}"));
         lv_.setClassName(stringType_);
         localVars_.put("f", lv_);
         context_.getLastPage().setLocalVars(localVars_);
-        Argument arg_ = processEl("(f;.format($vararg(java.lang.String),$firstopt(v;.),2;.,v;.)+'\\'').length()", context_);
+        Argument arg_ = processEl("(f;.format($vararg(java.lang.String),$firstopt(v;.),d;.,v;.)+'\\'').length()", context_);
         assertEq(14, arg_.getNumber());
     }
     @Test
