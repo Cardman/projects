@@ -201,6 +201,8 @@ public final class ThreadActions implements Runnable {
         if (doc_ == null) {
             if (page.getArea() != null) {
                 page.getArea().append(conf_.getClasses().displayErrors());
+                page.getArea().append("\n");
+                page.getArea().append(conf_.getErrorsDet().display());
             }
             finish();
             return;

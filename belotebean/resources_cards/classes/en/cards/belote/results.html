@@ -21,7 +21,7 @@
 				</c:if> <c:if condition="!calledPlayersList.isEmpty()">
 					<ul>
 						<c:for var="p" list="calledPlayersList" className='java.lang.String'>
-							<li>{p;}</li>
+							<li>{p}</li>
 						</c:for>
 					</ul>
 				</c:if>
@@ -95,16 +95,16 @@
 			<tr>
 				<td></td>
 				<c:for var="p" list="getNicknames()" className='java.lang.String'>
-					<td>{p;}</td>
+					<td>{p}</td>
 				</c:for>
 			</tr>
 		</thead>
 		<tbody>
 			<c:for var="l" list="linesDeal" className='cards.belote.beans.LineDeal'>
 				<tr>
-					<td>{l;number}</td>
-					<c:for var="s" list="l;scores" className='java.lang.Long'>
-						<td>{s;}</td>
+					<td>{l.number}</td>
+					<c:for var="s" list="l.scores" className='java.lang.Long'>
+						<td>{s}</td>
 					</c:for>
 				</tr>
 			</c:for>

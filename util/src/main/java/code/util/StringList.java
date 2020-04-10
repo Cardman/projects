@@ -1385,6 +1385,15 @@ public final class StringList extends CustList<String> implements Equallable<Str
         }
         return true;
     }
+    public static String spliceIfFirst(char _ch, String _str) {
+        if (_str.isEmpty()) {
+            return _str;
+        }
+        if (_str.charAt(0) == _ch) {
+            return _str.substring(1);
+        }
+        return _str;
+    }
 
     private boolean disjoint(CustList<String> _list) {
         for (String s: _list) {

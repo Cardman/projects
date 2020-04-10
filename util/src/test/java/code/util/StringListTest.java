@@ -2752,6 +2752,18 @@ public class StringListTest {
         assertTrue(StringList.disjoints(lists_));
     }
     @Test
+    public void spliceIfFirst1Test() {
+        assertEq("p",StringList.spliceIfFirst('.',".p"));
+    }
+    @Test
+    public void spliceIfFirst2Test() {
+        assertEq("a.p",StringList.spliceIfFirst('.',"a.p"));
+    }
+    @Test
+    public void spliceIfFirst3Test() {
+        assertEq("",StringList.spliceIfFirst('.',""));
+    }
+    @Test
     public void retainAllElementsTest(){
         StringList list_ = new StringList();
         list_.add("hello");

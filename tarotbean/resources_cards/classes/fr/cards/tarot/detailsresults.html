@@ -16,15 +16,15 @@
 		<h1>Calcul des annonces des joueurs</h1>
 		<ul>
 			<c:for var="l" list="linesDeclaring" className='cards.tarot.beans.SumDeclaringPlayer'>
-				<li>annonces de {l;nickname} ({l;status}): <br/>
+				<li>annonces de {l.nickname} ({l.status}): <br/>
 					<ul>
-						<c:for key="h" value="p" map="l;handfuls" keyClassName='java.lang.String' varClassName='java.lang.Short'>
-							<li>{h;} : {p;}</li>
+						<c:for key="h" value="p" map="l.handfuls" keyClassName='java.lang.String' varClassName='java.lang.Short'>
+							<li>{h} : {p}</li>
 						</c:for>
-						<c:for key="m" value="p" map="l;miseres" keyClassName='$Miseres' varClassName='java.lang.Short'>
-							<li>{m;} : {p;}</li>
+						<c:for key="m" value="p" map="l.miseres" keyClassName='$Miseres' varClassName='java.lang.Short'>
+							<li>{m} : {p}</li>
 						</c:for>
-						<li>Somme : {l;sum}</li>
+						<li>Somme : {l.sum}</li>
 					</ul>
 				</li>
 			</c:for>
@@ -49,9 +49,9 @@
 			<tbody>
 				<c:for var="l" list="playersScores" className='cards.tarot.beans.ScoresPlayers'>
 					<tr>
-						<td>{l;nickname}</td>
-						<td>{l;rate}</td>
-						<td>{l;score}</td>
+						<td>{l.nickname}</td>
+						<td>{l.rate}</td>
+						<td>{l.score}</td>
 					</tr>
 				</c:for>
 			</tbody>
@@ -74,12 +74,12 @@
 			<tbody>
 				<c:for var="l" list="orderedPlayers" className='cards.tarot.beans.RankingPlayerVariantGame'>
 					<tr>
-						<td>{l;nickname}</td>
-						<td>{l;positionDiff}</td>
-						<td>{l;positionOudlers}</td>
-						<td>{l;positionCharacters}</td>
-						<td>{l;positionStrengthCharacters}</td>
-						<td>{l;finalPosition}</td>
+						<td>{l.nickname}</td>
+						<td>{l.positionDiff}</td>
+						<td>{l.positionOudlers}</td>
+						<td>{l.positionCharacters}</td>
+						<td>{l.positionStrengthCharacters}</td>
+						<td>{l.finalPosition}</td>
 					</tr>
 				</c:for>
 			</tbody>
@@ -99,12 +99,12 @@
 			<tbody>
 				<c:for var="l" list="pointsPlayers" className='cards.tarot.beans.PointsPlayerVariantGame'>
 					<tr>
-						<td>{l;nickname}</td>
-						<td>{l;pointsTricks}</td>
-						<td>{l;minimumPoints}</td>
-						<td>{l;differenceScore}</td>
-						<td>{l;rate}</td>
-						<td>{l;score}</td>
+						<td>{l.nickname}</td>
+						<td>{l.pointsTricks}</td>
+						<td>{l.minimumPoints}</td>
+						<td>{l.differenceScore}</td>
+						<td>{l.rate}</td>
+						<td>{l.score}</td>
 					</tr>
 				</c:for>
 			</tbody>
@@ -112,13 +112,13 @@
 		<h1>Calcul des annonces des joueurs</h1>
 		<ul>
 			<c:for var="l" list="linesDeclaring" className='cards.tarot.beans.SumDeclaringPlayer'>
-				<li>annonce de {l;nickname}: <br/>
+				<li>annonce de {l.nickname}: <br/>
 					<ul>
-						<c:for key="h" value="p" map="l;handfuls" keyClassName='java.lang.String' varClassName='java.lang.Short'>
-							<li>{h;}</li>
+						<c:for key="h" value="p" map="l.handfuls" keyClassName='java.lang.String' varClassName='java.lang.Short'>
+							<li>{h}</li>
 						</c:for>
-						<c:for key="m" value="p" map="l;miseres" keyClassName='$Miseres' varClassName='java.lang.Short'>
-							<li>{m;}</li>
+						<c:for key="m" value="p" map="l.miseres" keyClassName='$Miseres' varClassName='java.lang.Short'>
+							<li>{m}</li>
 						</c:for>
 					</ul>
 				</li>
@@ -136,8 +136,8 @@
 			<tbody>
 				<c:for var="l" list="bonuses" className='cards.tarot.beans.BonusesPlayers'>
 					<tr>
-						<td>{l;nickname}</td>
-						<td>{l;bonus}</td>
+						<td>{l.nickname}</td>
+						<td>{l.bonus}</td>
 					</tr>
 				</c:for>
 			</tbody>

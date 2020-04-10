@@ -85,7 +85,7 @@ public abstract class StandardType implements GeneType {
     public final String getFullName() {
         String pkg_ = getPackageName();
         String name_ = getName();
-        return StringList.concat(pkg_,".",name_);
+        return StringList.spliceIfFirst('.',StringList.concat(pkg_,".",name_));
     }
 
     @Override

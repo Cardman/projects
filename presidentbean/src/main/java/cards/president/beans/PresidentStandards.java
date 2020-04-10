@@ -2,18 +2,26 @@ package cards.president.beans;
 
 import code.bean.Bean;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.DefaultInitializer;
+import code.expressionlanguage.DefaultLockingClass;
 import code.expressionlanguage.ExecutableCode;
+import code.expressionlanguage.errors.AnalysisMessages;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.MethodModifier;
+import code.expressionlanguage.options.ContextFactory;
+import code.expressionlanguage.options.KeyWords;
+import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stds.ResultErrorStd;
 import code.expressionlanguage.stds.StandardClass;
 import code.expressionlanguage.stds.StandardConstructor;
 import code.expressionlanguage.stds.StandardField;
 import code.expressionlanguage.stds.StandardMethod;
 import code.expressionlanguage.structs.*;
+import code.expressionlanguage.variables.VariableSuffix;
+import code.formathtml.Configuration;
 import code.formathtml.structs.BeanStruct;
 import code.formathtml.structs.RealInstanceStruct;
 import code.formathtml.structs.StdStruct;
@@ -281,4 +289,14 @@ public final class PresidentStandards extends BeanNatLgNames {
         return new ResultErrorStd();
     }
 
+    @Override
+    public void setupNative(Configuration _conf) {
+        DefaultLockingClass lk_ = new DefaultLockingClass();
+        DefaultInitializer di_ = new DefaultInitializer();
+        AnalysisMessages a_ = new AnalysisMessages();
+        KeyWords kw_ = new KeyWords();
+        ContextEl context_ = ContextFactory.build(-1,lk_, di_, new Options(), a_,kw_, this,4);
+        _conf.setContext(context_);
+        context_.setAnalyzing();
+    }
 }

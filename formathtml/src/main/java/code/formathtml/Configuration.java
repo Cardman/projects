@@ -543,8 +543,13 @@ public final class Configuration implements ExecutableCode {
     }
 
     public boolean isEmptyErrors() {
-        return getContext().getClasses().isEmptyErrors() && errorsDet.isEmpty();
+        return getContext().getClasses().isEmptyErrors() && getErrorsDet().isEmpty();
     }
+
+    public ErrorList getErrorsDet() {
+        return errorsDet;
+    }
+
     @Override
     public Classes getClasses() {
         return getContext().getClasses();

@@ -23,7 +23,7 @@
 	<h1>Ench&egrave;res au d&eacute;but de la partie</h1>
 	<ul>
 		<c:for var="d" list="contrats" className='java.lang.String'>
-			<li>{d;}</li>
+			<li>{d}</li>
 		</c:for>
 	</ul>
 	<h1>Annonces autoris&eacute;es</h1>
@@ -39,8 +39,8 @@
 		<tbody>
 			<c:for key="h" value="n" map="poigneesAutorisees" keyClassName='java.lang.String' varClassName='java.lang.Integer'>
 				<tr>
-					<td>{h;}</td>
-					<td>{n;}</td>
+					<td>{h}</td>
+					<td>{n}</td>
 				</tr>
 			</c:for>
 		</tbody>
@@ -51,7 +51,7 @@
 	<c:if condition="!miseres.isEmpty()">
 		<ul>
 			<c:for var="m" list="miseres" className='java.lang.String'>
-				<li>{m;}</li>
+				<li>{m}</li>
 			</c:for>
 		</ul>
 	</c:if>

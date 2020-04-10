@@ -10,16 +10,16 @@
 			<tr>
 				<td></td>
 				<c:for var="p" list="nicknames" className='java.lang.String'>
-					<td>{p;}</td>
+					<td>{p}</td>
 				</c:for>
 			</tr>
 		</thead>
 		<tbody>
 			<c:for var="l" list="linesDeal" className='cards.president.beans.LineDeal'>
 				<tr>
-					<td>{l;number}</td>
-					<c:for var="s" list="l;scores" className='java.lang.Long'>
-						<td>{s;}</td>
+					<td>{l.number}</td>
+					<c:for var="s" list="l.scores" className='java.lang.Long'>
+						<td>{s}</td>
 					</c:for>
 				</tr>
 			</c:for>
