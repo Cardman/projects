@@ -17,7 +17,7 @@
 				<c:message value="msg_effbatonpass,effect_2"/>
 				<ul>
 					<c:for list="moves" var="m">
-						<li><a c:command="$clickMove({m;;})" href="">{getTrMove(m;;)}</a></li>
+						<li><a c:command="$clickMove({([m])})" href="">{getTrMove(([m]))}</a></li>
 					</c:for>
 				</ul>
 			</c:if>

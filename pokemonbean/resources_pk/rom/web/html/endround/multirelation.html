@@ -23,8 +23,8 @@
 					<tbody>
 						<c:for key="s" map="damageByStatus" value="r" varClassName='r'>
 							<tr>
-								<td><a c:command="$clickDamageStatus({index},{s;;})" href="">{getTrDamageStatus(s;;)}</a></td>
-								<td>{r;}</td>
+								<td><a c:command="$clickDamageStatus({index},{([s])})" href="">{getTrDamageStatus(([s]))}</a></td>
+								<td>{r}</td>
 							</tr>
 						</c:for>
 					</tbody>

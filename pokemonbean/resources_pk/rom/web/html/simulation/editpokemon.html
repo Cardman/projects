@@ -34,38 +34,38 @@
 					<tbody>
 						<c:for className="aiki.beans.facade.simulation.dto.SelectLineMove" list="moves" var="d">
 							<tr>
-								<td>{d;displayName}</td>
-								<td>{d;pp}</td>
+								<td>{d.displayName}</td>
+								<td>{d.pp}</td>
 								<td>
-									<c:for list="d;getTypes()" var="t" className='java.lang.String'>
-										{t;} -
+									<c:for list="d.getTypes()" var="t" className='java.lang.String'>
+										{t} -
 									</c:for>
 								</td>
-								<td>{d;category}</td>
+								<td>{d.category}</td>
 								<td>
-									<c:if condition="d;isDamageMove()">
+									<c:if condition="d.isDamageMove()">
 										<c:message value="msg_moves,damaging"/>
 									</c:if>
-									<c:if condition="!d;isDamageMove()">
+									<c:if condition="!d.isDamageMove()">
 										<c:message value="msg_moves,status"/>
 									</c:if>
 								</td>
 								<td>
-									<c:if condition="!d;isDamageMove()">
+									<c:if condition="!d.isDamageMove()">
 										<c:message value="msg_moves,status_indirect"/>
 									</c:if>
-									<c:if condition="d;isDamageMove()">
-										<c:if condition="d;isDirect()">
+									<c:if condition="d.isDamageMove()">
+										<c:if condition="d.isDirect()">
 											<c:message value="msg_moves,damaging_direct"/>
 										</c:if>
-										<c:if condition="!d;isDirect()">
+										<c:if condition="!d.isDirect()">
 											<c:message value="msg_moves,damaging_indirect"/>
 										</c:if>
 									</c:if>
 								</td>
-								<td>{d;priority}</td>
+								<td>{d.priority}</td>
 								<td>
-									<input c:varValue="d;selected" name="d;selected" type="checkbox"/>
+									<input c:varValue="d.selected" name="d.selected" type="checkbox"/>
 								</td>
 							</tr>
 						</c:for>
@@ -88,7 +88,7 @@
 				<c:message value="msg_simulation,ev"/>
 				<br/>
 				<c:for key="s" map="ev" value="e" varClassName="aiki.beans.facade.simulation.dto.EvLine">
-					{getTranslatedStatistic(s;;)}: <input c:validator="short_validator" c:varValue="e;ev" id="id{s;;}" name="e;ev" type="text"/><span c:for="id{s;;}" class="errormessage" c:valueMessage="msg_simulation,short_issue"> </span><br/>
+					{getTranslatedStatistic(([s]))}: <input c:validator="short_validator" c:varValue="e.ev" id="id{([s])}" name="e.ev" type="text"/><span c:for="id{([s])}" class="errormessage" c:valueMessage="msg_simulation,short_issue"> </span><br/>
 				</c:for>
 				<br/>
 				<input type="submit" value="OK"/>

@@ -46,7 +46,7 @@
 		<a c:command="$cancel" href=""><c:message value="msg_levelsimu,cancel"/></a><br/>
 		<map width="{getMapWidth()}">
 			<c:for key="p" map="tiles" value="b" varClassName='java.lang.String'>
-				<a c:command="$clickTile({p;;})"><c:img border="0" src="{b;}"/></a>
+				<a c:command="$clickTile({([p])})"><c:img border="0" src="{b}"/></a>
 			</c:for>
 		</map>
 		<br/>

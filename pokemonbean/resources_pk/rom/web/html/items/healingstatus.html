@@ -19,7 +19,7 @@
 				<c:message value="msg_healingstatus,status"/>
 				<ul>
 					<c:for list="status" var="s">
-						<li><a c:command="$clickStatus({s;;})" href="">{getTrStatus(s;;)}</a></li>
+						<li><a c:command="$clickStatus({([s])})" href="">{getTrStatus(([s]))}</a></li>
 					</c:for>
 				</ul>
 				<br/>

@@ -29,10 +29,10 @@
 			<tbody>
 				<c:for className="aiki.beans.facade.dto.ItemLine" list="items" var="d">
 					<tr>
-						<td><c:img src="{getMiniImage(d;;)}"/></td>
-						<td><a c:command="$clickLink({d;;})" href="">{d;displayName}</a></td>
-						<td>{d;price}</td>
-						<td>{d;descriptionClass}</td>
+						<td><c:img src="{getMiniImage(([d]))}"/></td>
+						<td><a c:command="$clickLink({([d])})" href="">{d.displayName}</a></td>
+						<td>{d.price}</td>
+						<td>{d.descriptionClass}</td>
 					</tr>
 				</c:for>
 			</tbody>

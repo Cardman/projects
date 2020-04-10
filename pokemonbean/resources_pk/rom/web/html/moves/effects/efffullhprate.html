@@ -25,9 +25,9 @@
 				<c:if condition="!mapVarsRestored.isEmpty()">
 					<ul>
 						<c:for key="k" map="mapVarsRestored" value="v" keyClassName='java.lang.String' varClassName='java.lang.String'>
-							<li>{k;} :
+							<li>{k} :
 								<c:message quoted="" value="msg_efffullhprate,formula">
-									<param value="v;"/>
+									<param value="v"/>
 								</c:message>
 							</li>
 						</c:for>

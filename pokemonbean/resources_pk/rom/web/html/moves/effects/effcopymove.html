@@ -32,7 +32,7 @@
 					</c:message>
 					<ul>
 						<c:for list="movesTransforming" var="m">
-							<li><a c:command="$clickMoveTrans({m;;})" href="">{getTrMoveTrans(m;;)}</a></li>
+							<li><a c:command="$clickMoveTrans({([m])})" href="">{getTrMoveTrans(([m]))}</a></li>
 						</c:for>
 					</ul>
 				</c:if>
@@ -47,7 +47,7 @@
 				<c:message value="msg_effcopymove,moves_not_copied"/>
 				<ul>
 					<c:for list="movesNotToBeCopied" var="s">
-						<li><a c:command="$clickMove({s;;})" href="">{getTrMove(s;;)}</a></li>
+						<li><a c:command="$clickMove({([s])})" href="">{getTrMove(([s]))}</a></li>
 					</c:for>
 				</ul>
 				<br/>

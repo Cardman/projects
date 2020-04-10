@@ -127,7 +127,7 @@
 		<c:message value="msg_fighter,types"/>
 		<ul>
 			<c:for list="types" var="t" className='java.lang.String'>
-				<li>{t;}</li>
+				<li>{t}</li>
 			</c:for>
 		</ul>
 		<c:message value="msg_fighter,moves"/>
@@ -142,9 +142,9 @@
 			<tbody>
 				<c:for key="m" map="moves" value="s" keyClassName='java.lang.String' varClassName="aiki.game.UsesOfMove">
 					<tr>
-						<td>{m;}</td>
-						<td>{s;getCurrent()}</td>
-						<td>{s;getMax()}</td>
+						<td>{m}</td>
+						<td>{s.getCurrent()}</td>
+						<td>{s.getMax()}</td>
 					</tr>
 				</c:for>
 			</tbody>
@@ -161,9 +161,9 @@
 			<tbody>
 				<c:for key="m" map="currentMoves" value="s" keyClassName='java.lang.String' varClassName="aiki.game.UsesOfMove">
 					<tr>
-						<td>{m;}</td>
-						<td>{s;getCurrent()}</td>
-						<td>{s;getMax()}</td>
+						<td>{m}</td>
+						<td>{s.getCurrent()}</td>
+						<td>{s.getMax()}</td>
 					</tr>
 				</c:for>
 			</tbody>
@@ -183,9 +183,9 @@
 			<tbody>
 				<c:for key="m" map="copiedMoves" value="s" keyClassName='java.lang.String' varClassName="aiki.game.fight.util.CopiedMove">
 					<tr>
-						<td>{m;}</td>
-						<td>{s;getMove()}</td>
-						<td>{s;getPp()}</td>
+						<td>{m}</td>
+						<td>{s.getMove()}</td>
+						<td>{s.getPp()}</td>
 					</tr>
 				</c:for>
 			</tbody>
@@ -204,29 +204,29 @@
 			<tbody>
 				<c:for className="aiki.beans.facade.fight.StatisticInfo" list="statistics" var="s">
 					<tr>
-						<td>{s;getDisplayStatistic()}</td>
-						<c:if condition="s;isBase()">
-							<td>{s;getStatisBase()}</td>
+						<td>{s.getDisplayStatistic()}</td>
+						<c:if condition="s.isBase()">
+							<td>{s.getStatisBase()}</td>
 						</c:if>
-						<c:if condition="!s;isBase()">
+						<c:if condition="!s.isBase()">
 							<td><c:message value="msg_fighter,statistics_no"/></td>
 						</c:if>
-						<c:if condition="s;isBase()">
-							<td>{s;getEv()}</td>
+						<c:if condition="s.isBase()">
+							<td>{s.getEv()}</td>
 						</c:if>
-						<c:if condition="!s;isBase()">
+						<c:if condition="!s.isBase()">
 							<td><c:message value="msg_fighter,statistics_no"/></td>
 						</c:if>
-						<c:if condition="s;isBase()">
-							<td>{s;getIv()}</td>
+						<c:if condition="s.isBase()">
+							<td>{s.getIv()}</td>
 						</c:if>
-						<c:if condition="!s;isBase()">
+						<c:if condition="!s.isBase()">
 							<td><c:message value="msg_fighter,statistics_no"/></td>
 						</c:if>
-						<c:if condition="s;isBoost()">
-							<td>{s;getStatisBoost()}</td>
+						<c:if condition="s.isBoost()">
+							<td>{s.getStatisBoost()}</td>
 						</c:if>
-						<c:if condition="!s;isBoost()">
+						<c:if condition="!s.isBoost()">
 							<td><c:message value="msg_fighter,statistics_no"/></td>
 						</c:if>
 					</tr>
@@ -245,9 +245,9 @@
 			<tbody>
 				<c:for key="m" map="damageRateByType" value="r" keyClassName='java.lang.String' varClassName="aiki.beans.facade.fight.MultPowerMoves">
 					<tr>
-						<td>{m;}</td>
-						<td>{r;getMultInflicted()}</td>
-						<td>{r;getMultSuffering()}</td>
+						<td>{m}</td>
+						<td>{r.getMultInflicted()}</td>
+						<td>{r.getMultSuffering()}</td>
 					</tr>
 				</c:for>
 			</tbody>
@@ -256,7 +256,7 @@
 			<c:message value="msg_fighter,types_protected"/>
 			<ul>
 				<c:for list="protectedAgainstMoveTypes" var="t" className='java.lang.String'>
-					<li>{t;}</li>
+					<li>{t}</li>
 				</c:for>
 			</ul>
 		</c:if>
@@ -272,9 +272,9 @@
 			<tbody>
 				<c:for key="c" map="damageSufferedCateg" value="r" keyClassName='java.lang.String' varClassName="aiki.beans.facade.fight.SufferedDamageCategory">
 					<tr>
-						<td>{c;}</td>
-						<td>{r;getRound()}</td>
-						<td>{r;getUsing()}</td>
+						<td>{c}</td>
+						<td>{r.getRound()}</td>
+						<td>{r.getUsing()}</td>
 					</tr>
 				</c:for>
 			</tbody>
@@ -291,17 +291,17 @@
 			<tbody>
 				<c:for key="m" map="enabledMoves" value="a" keyClassName='java.lang.String' varClassName="aiki.game.fight.ActivityOfMove">
 					<tr>
-						<td>{m;}</td>
-						<c:if condition="a;isEnabled()">
+						<td>{m}</td>
+						<c:if condition="a.isEnabled()">
 							<td><c:message value="msg_fighter,enbaled_moves_enabled_y"/></td>
 						</c:if>
-						<c:if condition="!a;isEnabled()">
+						<c:if condition="!a.isEnabled()">
 							<td><c:message value="msg_fighter,enbaled_moves_enabled_n"/></td>
 						</c:if>
-						<c:if condition="a;isIncrementCount()">
-							<td>{a;getNbTurn()}</td>
+						<c:if condition="a.isIncrementCount()">
+							<td>{a.getNbTurn()}</td>
 						</c:if>
-						<c:if condition="!a;isIncrementCount()">
+						<c:if condition="!a.isIncrementCount()">
 							<td><c:message value="msg_fighter,enbaled_moves_no"/></td>
 						</c:if>
 					</tr>
@@ -319,11 +319,11 @@
 			<tbody>
 				<c:for key="m" map="enabledMovesForAlly" value="a" keyClassName='java.lang.String' varClassName="java.lang.Boolean">
 					<tr>
-						<td>{m;}</td>
-						<c:if condition="a;">
+						<td>{m}</td>
+						<c:if condition="a">
 							<td><c:message value="msg_fighter,enbaled_moves_ally_enabled_y"/></td>
 						</c:if>
-						<c:if condition="!a;">
+						<c:if condition="!a">
 							<td><c:message value="msg_fighter,enbaled_moves_ally_enabled_n"/></td>
 						</c:if>
 					</tr>
@@ -341,8 +341,8 @@
 			<tbody>
 				<c:for key="m" map="nbUsesMoves" value="u" keyClassName='java.lang.String' varClassName='java.lang.Integer' >
 					<tr>
-						<td>{m;}</td>
-						<td>{u;}</td>
+						<td>{m}</td>
+						<td>{u}</td>
 					</tr>
 				</c:for>
 			</tbody>
@@ -378,7 +378,7 @@
 			<c:message value="msg_fighter,invoked_moves"/>
 			<ul>
 				<c:for list="alreadyInvokedMovesRound" var="m" className='java.lang.String'>
-					<li>{m;}</li>
+					<li>{m}</li>
 				</c:for>
 			</ul>
 		</c:if>
@@ -391,7 +391,7 @@
 			<c:message value="msg_fighter,last_suffered_move_types"/>
 			<ul>
 				<c:for list="lastSufferedMoveTypes" var="m" className='java.lang.String'>
-					<li>{m;}</li>
+					<li>{m}</li>
 				</c:for>
 			</ul>
 		</c:if>
@@ -415,8 +415,8 @@
 			<tbody>
 				<c:for key="s" map="status" value="r" keyClassName='java.lang.String' varClassName='java.lang.Short'>
 					<tr>
-						<td>{s;}</td>
-						<td>{r;}</td>
+						<td>{s}</td>
+						<td>{r}</td>
 					</tr>
 				</c:for>
 			</tbody>
@@ -434,18 +434,18 @@
 			<tbody>
 				<c:for key="s" keyClassName="aiki.game.fight.MoveTeamPosition" map="statusRelat" value="e">
 					<tr>
-						<td>{s;getMove()}</td>
-						<c:if condition="isFoeStatusRelatTeam(s;;)">
+						<td>{s.getMove()}</td>
+						<c:if condition="isFoeStatusRelatTeam(([s]))">
 							<td><c:message value="msg_fighter,status_rel_foe"/></td>
 						</c:if>
-						<c:if condition="!isFoeStatusRelatTeam(s;;)">
+						<c:if condition="!isFoeStatusRelatTeam(([s]))">
 							<td><c:message value="msg_fighter,status_rel_player"/></td>
 						</c:if>
-						<td>{getStatusRelatTeam(s;;)}</td>
-						<c:if condition="isEnabled(s;;)">
+						<td>{getStatusRelatTeam(([s]))}</td>
+						<c:if condition="isEnabled(([s]))">
 							<td><c:message value="msg_fighter,status_rel_enabled_y"/></td>
 						</c:if>
-						<c:if condition="!isEnabled(s;;)">
+						<c:if condition="!isEnabled(([s]))">
 							<td><c:message value="msg_fighter,status_rel_enabled_n"/></td>
 						</c:if>
 					</tr>
@@ -465,15 +465,15 @@
 			<tbody>
 				<c:for key="s" keyClassName="aiki.game.fight.MoveTeamPosition" varClassName='java.lang.String' map="privateMoves" value="m">
 					<tr>
-						<td>{s;getMove()}</td>
-						<c:if condition="isFoePrivateMovesTeam(s;;)">
+						<td>{s.getMove()}</td>
+						<c:if condition="isFoePrivateMovesTeam(([s]))">
 							<td><c:message value="msg_fighter,private_moves_foe"/></td>
 						</c:if>
-						<c:if condition="!isFoePrivateMovesTeam(s;;)">
+						<c:if condition="!isFoePrivateMovesTeam(([s]))">
 							<td><c:message value="msg_fighter,private_moves_player"/></td>
 						</c:if>
-						<td>{getIncrPrivateMovesTeam(s;;)}</td>
-						<td>{m;}</td>
+						<td>{getIncrPrivateMovesTeam(([s]))}</td>
+						<td>{m}</td>
 					</tr>
 				</c:for>
 			</tbody>
@@ -492,24 +492,24 @@
 			<tbody>
 				<c:for key="s" keyClassName="aiki.game.fight.MoveTeamPosition" map="trappingMoves" value="a" varClassName="aiki.game.fight.ActivityOfMove">
 					<tr>
-						<td>{s;getMove()}</td>
-						<c:if condition="isFoeTrappingMovesTeam(s;;)">
+						<td>{s.getMove()}</td>
+						<c:if condition="isFoeTrappingMovesTeam(([s]))">
 							<td><c:message value="msg_fighter,trapping_moves_foe"/></td>
 						</c:if>
-						<c:if condition="!isFoeTrappingMovesTeam(s;;)">
+						<c:if condition="!isFoeTrappingMovesTeam(([s]))">
 							<td><c:message value="msg_fighter,trapping_moves_player"/></td>
 						</c:if>
-						<td>{getIncrTrappingMovesTeam(s;;)}</td>
-						<c:if condition="a;isEnabled()">
+						<td>{getIncrTrappingMovesTeam(([s]))}</td>
+						<c:if condition="a.isEnabled()">
 							<td><c:message value="msg_fighter,trapping_moves_enabled_y"/></td>
 						</c:if>
-						<c:if condition="!a;isEnabled()">
+						<c:if condition="!a.isEnabled()">
 							<td><c:message value="msg_fighter,trapping_moves_enabled_n"/></td>
 						</c:if>
-						<c:if condition="a;isIncrementCount()">
-							<td>{a;getNbTurn()}</td>
+						<c:if condition="a.isIncrementCount()">
+							<td>{a.getNbTurn()}</td>
 						</c:if>
-						<c:if condition="!a;isIncrementCount()">
+						<c:if condition="!a.isIncrementCount()">
 							<td><c:message value="msg_fighter,trapping_moves_no"/></td>
 						</c:if>
 					</tr>
@@ -531,25 +531,25 @@
 			<tbody>
 				<c:for key="s" keyClassName="aiki.game.fight.MoveTeamPosition" map="trackingMoves" value="a" varClassName="aiki.game.fight.util.AffectedMove">
 					<tr>
-						<td>{s;getMove()}</td>
-						<c:if condition="isFoeTrackingMovesTeam(s;;)">
+						<td>{s.getMove()}</td>
+						<c:if condition="isFoeTrackingMovesTeam(([s]))">
 							<td><c:message value="msg_fighter,tracking_moves_foe"/></td>
 						</c:if>
-						<c:if condition="!isFoeTrackingMovesTeam(s;;)">
+						<c:if condition="!isFoeTrackingMovesTeam(([s]))">
 							<td><c:message value="msg_fighter,tracking_moves_player"/></td>
 						</c:if>
-						<td>{getIncrTrackingMovesTeam(s;;)}</td>
-						<td>{a;getMove()}</td>
-						<c:if condition="a;getActivity().isEnabled()">
+						<td>{getIncrTrackingMovesTeam(([s]))}</td>
+						<td>{a.getMove()}</td>
+						<c:if condition="a.getActivity().isEnabled()">
 							<td><c:message value="msg_fighter,tracking_moves_enabled_y"/></td>
 						</c:if>
-						<c:if condition="!a;getActivity().isEnabled()">
+						<c:if condition="!a.getActivity().isEnabled()">
 							<td><c:message value="msg_fighter,tracking_moves_enabled_n"/></td>
 						</c:if>
-						<c:if condition="a;getActivity().isIncrementCount()">
-							<td>{a;getActivity().getNbTurn()}</td>
+						<c:if condition="a.getActivity().isIncrementCount()">
+							<td>{a.getActivity().getNbTurn()}</td>
 						</c:if>
-						<c:if condition="!a;getActivity().isIncrementCount()">
+						<c:if condition="!a.getActivity().isIncrementCount()">
 							<td><c:message value="msg_fighter,tracking_moves_no"/></td>
 						</c:if>
 					</tr>
@@ -569,18 +569,18 @@
 			<tbody>
 				<c:for key="s" keyClassName="aiki.game.fight.MoveTeamPosition" map="incrUserAccuracy" value="a" varClassName="java.lang.Boolean">
 					<tr>
-						<td>{s;getMove()}</td>
-						<c:if condition="isFoeIncrUserAccuracyTeam(s;;)">
+						<td>{s.getMove()}</td>
+						<c:if condition="isFoeIncrUserAccuracyTeam(([s]))">
 							<td><c:message value="msg_fighter,inc_accuracy_foe"/></td>
 						</c:if>
-						<c:if condition="!isFoeIncrUserAccuracyTeam(s;;)">
+						<c:if condition="!isFoeIncrUserAccuracyTeam(([s]))">
 							<td><c:message value="msg_fighter,inc_accuracy_player"/></td>
 						</c:if>
-						<td>{getIncrUserAccuracyTeam(s;;)}</td>
-						<c:if condition="a;">
+						<td>{getIncrUserAccuracyTeam(([s]))}</td>
+						<c:if condition="a">
 							<td><c:message value="msg_fighter,inc_accuracy_enabled_y"/></td>
 						</c:if>
-						<c:if condition="!a;">
+						<c:if condition="!a">
 							<td><c:message value="msg_fighter,inc_accuracy_enabled_n"/></td>
 						</c:if>
 					</tr>

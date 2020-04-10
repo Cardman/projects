@@ -24,13 +24,13 @@
 						<c:message value="msg_effendround,reasons"/>
 						<ul>
 							<c:for list="reasonsEndRound" var="r" className="java.lang.String">
-								<li>{r;}</li>
+								<li>{r}</li>
 							</c:for>
 						</ul>
 						<br/>
 						<ul>
 							<c:for key="c" map="mapVarsFailEndRound" value="r" keyClassName="java.lang.String" varClassName="java.lang.String">
-								<li>{c;} : {r;}</li>
+								<li>{c} : {r}</li>
 							</c:for>
 						</ul>
 					</p>
@@ -148,8 +148,8 @@
 					<tbody>
 						<c:for key="s" map="multStatRank" value="r" varClassName="java.lang.Byte">
 							<tr>
-								<td>{getTrMultStatRank(s;;)}</td>
-								<td>{r;}</td>
+								<td>{getTrMultStatRank(([s]))}</td>
+								<td>{r}</td>
 							</tr>
 						</c:for>
 					</tbody>
@@ -169,9 +169,9 @@
 					<tbody>
 						<c:for key="s" map="multStatPokemonRank" value="r" varClassName="java.lang.Byte">
 							<tr>
-								<td>{getTrMultStatPkRank(s;;)}</td>
-								<td><a c:command="$clickMultStatPk({s;;})" href="">{getTrMultStatPk(s;;)}</a></td>
-								<td>{r;}</td>
+								<td>{getTrMultStatPkRank(([s]))}</td>
+								<td><a c:command="$clickMultStatPk({([s])})" href="">{getTrMultStatPk(([s]))}</a></td>
+								<td>{r}</td>
 							</tr>
 						</c:for>
 					</tbody>
@@ -190,8 +190,8 @@
 					<tbody>
 						<c:for key="s" map="boostStatisSuperEff" value="r" varClassName="java.lang.Byte">
 							<tr>
-								<td>{getTrMultStatisSuperEff(s;;)}</td>
-								<td>{r;}</td>
+								<td>{getTrMultStatisSuperEff(([s]))}</td>
+								<td>{r}</td>
 							</tr>
 						</c:for>
 					</tbody>
@@ -201,7 +201,7 @@
 			<c:if condition="!boostStatisTypes.isEmpty()">
 				<c:message value="msg_itemforbattle,boost_types"/>
 				<c:for key="t" map="boostStatisTypes" value="m" varClassName="lse">
-                    <h3>{getTrMultStatisTypes(t;;)}</h3>
+                    <h3>{getTrMultStatisTypes(([t]))}</h3>
                     <br/>
                     <table>
                         <thead>
@@ -211,10 +211,10 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <c:for key="s" map="m;" value="r" varClassName="java.lang.Byte">
+                            <c:for key="s" map="m" value="r" varClassName="java.lang.Byte">
                                 <tr>
-                                    <td>{getTrMultStatisTypesStat(t;;,s;;)}</td>
-                                    <td>{r;}</td>
+                                    <td>{getTrMultStatisTypesStat(([t]),([s]))}</td>
+                                    <td>{r}</td>
                                 </tr>
                             </c:for>
                         </tbody>
@@ -235,8 +235,8 @@
 					<tbody>
 						<c:for key="s" map="multStat" value="r" varClassName="java.lang.String">
 							<tr>
-								<td>{getTrMultStat(s;;)}</td>
-								<td>{r;}</td>
+								<td>{getTrMultStat(([s]))}</td>
+								<td>{r}</td>
 							</tr>
 						</c:for>
 					</tbody>
@@ -255,8 +255,8 @@
 					<tbody>
 						<c:for key="s" map="failStatus" value="r" varClassName="java.lang.String">
 							<tr>
-								<td><a c:command="$clickFailStatus({s;;})" href="">{getTrFailStatus(s;;)}</a></td>
-								<td>{r;}</td>
+								<td><a c:command="$clickFailStatus({([s])})" href="">{getTrFailStatus(([s]))}</a></td>
+								<td>{r}</td>
 							</tr>
 						</c:for>
 					</tbody>
@@ -266,9 +266,9 @@
 			<c:if condition="!mapVars.isEmpty()">
 				<ul>
 					<c:for key="k" map="mapVars" value="v" keyClassName="java.lang.String" varClassName="java.lang.String">
-						<li>{k;} :
+						<li>{k} :
 							<c:message quoted="" value="msg_itemforbattle,formula">
-								<param value="v;"/>
+								<param value="v"/>
 							</c:message>
 						</li>
 					</c:for>
@@ -280,14 +280,14 @@
 					<c:message value="msg_itemforbattle,types_pk"/>
 					<ul>
 						<c:for list="typesPkAbilities" var="a">
-							<li><a c:command="$clickTypesPkAbility({a;;})" href="">{getTrTypesPkAbility(a;;)}</a></li>
+							<li><a c:command="$clickTypesPkAbility({([a])})" href="">{getTrTypesPkAbility(([a]))}</a></li>
 						</c:for>
 					</ul>
 					<br/>
 					<c:message value="msg_itemforbattle,types_pk_2"/>
 					<ul>
 						<c:for list="typesPk" var="t">
-							<li>{getTrTypesPk(t;;)}</li>
+							<li>{getTrTypesPk(([t]))}</li>
 						</c:for>
 					</ul>
 					<br/>
@@ -298,7 +298,7 @@
 				<c:message value="msg_itemforbattle,immu_status"/>
 				<ul>
 					<c:for list="immuStatus" var="s">
-						<li><a c:command="$clickImmuStatus({s;;})" href="">{getTrImmuStatus(s;;)}</a></li>
+						<li><a c:command="$clickImmuStatus({([s])})" href="">{getTrImmuStatus(([s]))}</a></li>
 					</c:for>
 				</ul>
 				<br/>
@@ -308,7 +308,7 @@
 				<c:message value="msg_itemforbattle,immu_types"/>
 				<ul>
 					<c:for list="immuTypes" var="s">
-						<li>{getTrImmuTypes(s;;)}</li>
+						<li>{getTrImmuTypes(([s]))}</li>
 					</c:for>
 				</ul>
 				<br/>
@@ -317,7 +317,7 @@
 				<c:message value="msg_itemforbattle,synchro_status"/>
 				<ul>
 					<c:for list="synchroStatus" var="s">
-						<li><a c:command="$clickSynchroStatus({s;;})" href="">{getTrSynchroStatus(s;;)}</a></li>
+						<li><a c:command="$clickSynchroStatus({([s])})" href="">{getTrSynchroStatus(([s]))}</a></li>
 					</c:for>
 				</ul>
 				<br/>
@@ -334,8 +334,8 @@
 					<tbody>
 						<c:for key="s" map="winEvFight" value="r" varClassName="java.lang.Short">
 							<tr>
-								<td>{getTrWinEvFight(s;;)}</td>
-								<td>{r;}</td>
+								<td>{getTrWinEvFight(([s]))}</td>
+								<td>{r}</td>
 							</tr>
 						</c:for>
 					</tbody>
@@ -355,8 +355,8 @@
 					<tbody>
 						<c:for key="s" map="increasingMaxNbRoundTrap" value="r" varClassName="java.lang.Short">
 							<tr>
-								<td><a c:command="$clickTrapMove({s;;})">{getTrTrapMove(s;;)}</a></td>
-								<td>{r;}</td>
+								<td><a c:command="$clickTrapMove({([s])})">{getTrTrapMove(([s]))}</a></td>
+								<td>{r}</td>
 							</tr>
 						</c:for>
 					</tbody>
@@ -376,8 +376,8 @@
 					<tbody>
 						<c:for key="s" map="increasingMaxNbRoundGlobalMove" value="r" varClassName="java.lang.Short">
 							<tr>
-								<td><a c:command="$clickGlobalMove({s;;})">{getTrGlobalMove(s;;)}</a></td>
-								<td>{r;}</td>
+								<td><a c:command="$clickGlobalMove({([s])})">{getTrGlobalMove(([s]))}</a></td>
+								<td>{r}</td>
 							</tr>
 						</c:for>
 					</tbody>
@@ -397,8 +397,8 @@
 					<tbody>
 						<c:for key="s" map="increasingMaxNbRoundTeamMove" value="r" varClassName="java.lang.Short">
 							<tr>
-								<td><a c:command="$clickTeamMove({s;;})">{getTrTeamMove(s;;)}</a></td>
-								<td>{r;}</td>
+								<td><a c:command="$clickTeamMove({([s])})">{getTrTeamMove(([s]))}</a></td>
+								<td>{r}</td>
 							</tr>
 						</c:for>
 					</tbody>
@@ -409,7 +409,7 @@
 				<c:message value="msg_itemforbattle,immu_moves"/>
 				<ul>
 					<c:for list="immuMoves" var="m">
-						<li><a c:command="$clickImmuMove({m;;})" href="">{getTrImmuMove(m;;)}</a></li>
+						<li><a c:command="$clickImmuMove({([m])})" href="">{getTrImmuMove(([m]))}</a></li>
 					</c:for>
 				</ul>
 				<br/>
@@ -418,7 +418,7 @@
 				<c:message value="msg_itemforbattle,immu_weathers"/>
 				<ul>
 					<c:for list="immuWeather" var="m">
-						<li><a c:command="$clickWeather({m;;})" href="">{getTrWeather(m;;)}</a></li>
+						<li><a c:command="$clickWeather({([m])})" href="">{getTrWeather(([m]))}</a></li>
 					</c:for>
 				</ul>
 				<br/>

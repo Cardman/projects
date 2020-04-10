@@ -19,7 +19,7 @@
 			<c:if condition="!moves.isEmpty()">
 				<ul>
 					<c:for list="moves" var="m">
-						<li><a c:command="$clickMoves({index},{m;;})" href="">{getTrMoves(m;;)}</a></li>
+						<li><a c:command="$clickMoves({index},{([m])})" href="">{getTrMoves(([m]))}</a></li>
 					</c:for>
 				</ul>
 			</c:if>
@@ -33,13 +33,13 @@
 				<c:message value="msg_effendround,reasons"/>
 				<ul>
 					<c:for list="reasonsEndRound" var="r" className="java.lang.String">
-						<li>{r;}</li>
+						<li>{r}</li>
 					</c:for>
 				</ul>
 				<br/>
 				<ul>
 					<c:for key="c" map="mapVarsFailEndRound" value="r" keyClassName="java.lang.String" varClassName="java.lang.String">
-						<li>{c;} : {r;}</li>
+						<li>{c} : {r}</li>
 					</c:for>
 				</ul>
 			</p>

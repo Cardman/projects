@@ -23,7 +23,7 @@
 				<c:message value="msg_effteam,forbid_boost"/>
 				<ul>
 					<c:for list="forbiddenBoost" var="s" className='java.lang.String'>
-						<li>{s;}</li>
+						<li>{s}</li>
 					</c:for>
 				</ul>
 				<br/>
@@ -34,7 +34,7 @@
 				</c:message>
 				<ul>
 					<c:for list="cancelChgtStatFoeTeam" var="s" className='java.lang.String'>
-						<li>{s;}</li>
+						<li>{s}</li>
 					</c:for>
 				</ul>
 				<br/>
@@ -45,7 +45,7 @@
 				</c:message>
 				<ul>
 					<c:for list="cancelChgtStatTeam" var="s" className='java.lang.String'>
-						<li>{s;}</li>
+						<li>{s}</li>
 					</c:for>
 				</ul>
 				<br/>
@@ -54,7 +54,7 @@
 				<c:message value="msg_effteam,protect_ag_law_statis"/>
 				<ul>
 					<c:for list="protectAgainstLowStat" var="s" className='java.lang.String'>
-						<li>{s;}</li>
+						<li>{s}</li>
 					</c:for>
 				</ul>
 				<br/>
@@ -63,7 +63,7 @@
 				<c:message value="msg_effteam,protect_ag_status"/>
 				<ul>
 					<c:for list="protectAgainstStatus" var="s">
-						<li><a c:command="$clickStatus({index},{s;;})" href="">{getTrStatus(s;;)}</a></li>
+						<li><a c:command="$clickStatus({index},{([s])})" href="">{getTrStatus(([s]))}</a></li>
 					</c:for>
 				</ul>
 				<br/>
@@ -84,8 +84,8 @@
 					<tbody>
 						<c:for key="c" map="multStatistic" value="r" keyClassName='java.lang.String' varClassName='r'>
 							<tr>
-								<td>{c;}</td>
-								<td>{r;}</td>
+								<td>{c}</td>
+								<td>{r}</td>
 							</tr>
 						</c:for>
 					</tbody>
@@ -108,8 +108,8 @@
 					<tbody>
 						<c:for key="c" map="multStatisticFoe" value="r" keyClassName='java.lang.String' varClassName='r'>
 							<tr>
-								<td>{c;}</td>
-								<td>{r;}</td>
+								<td>{c}</td>
+								<td>{r}</td>
 							</tr>
 						</c:for>
 					</tbody>
@@ -135,9 +135,9 @@
 					<tbody>
 						<c:for key="c" keyClassName="aiki.fight.util.CategoryMult" map="multDamage" value="r" varClassName='r'>
 							<tr>
-								<td>{c;getCategory()}</td>
-								<td>{c;getMult()}</td>
-								<td>{r;}</td>
+								<td>{c.getCategory()}</td>
+								<td>{c.getMult()}</td>
+								<td>{r}</td>
 							</tr>
 						</c:for>
 					</tbody>
@@ -148,7 +148,7 @@
 				<c:message value="msg_effteam,forbid_move"/>
 				<ul>
 					<c:for list="unusableMoves" var="s">
-						<li><a c:command="$clickUnusableMove({index},{s;;})" href="">{getTrUnusableMove(s;;)}</a></li>
+						<li><a c:command="$clickUnusableMove({index},{([s])})" href="">{getTrUnusableMove(([s]))}</a></li>
 					</c:for>
 				</ul>
 				<br/>
@@ -157,7 +157,7 @@
 				<c:message value="msg_effteam,delete_effects"/>
 				<ul>
 					<c:for list="disableFoeTeamEffects" var="s">
-						<li><a c:command="$clickDisableFoeTeamEffects({index},{s;;})" href="">{getTrDisableFoeTeamEffects(s;;)}</a></li>
+						<li><a c:command="$clickDisableFoeTeamEffects({index},{([s])})" href="">{getTrDisableFoeTeamEffects(([s]))}</a></li>
 					</c:for>
 				</ul>
 				<br/>
@@ -166,7 +166,7 @@
 				<c:message value="msg_effteam,delete_status"/>
 				<ul>
 					<c:for list="disableFoeTeamStatus" var="s">
-						<li><a c:command="$clickDisableFoeTeamStatus({index},{s;;})" href="">{getTrDisableFoeTeamStatus(s;;)}</a></li>
+						<li><a c:command="$clickDisableFoeTeamStatus({index},{([s])})" href="">{getTrDisableFoeTeamStatus(([s]))}</a></li>
 					</c:for>
 				</ul>
 				<br/>

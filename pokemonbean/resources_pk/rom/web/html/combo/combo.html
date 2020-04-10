@@ -7,7 +7,7 @@
 			<c:message value="msg_combo,effect"/>
 			<ul>
 				<c:for list="moves" var="m" className="java.lang.String">
-					<li><a c:command="$clickMove({index},{m;;})" href="">{m;}</a></li>
+					<li><a c:command="$clickMove({index},{([m])})" href="">{m}</a></li>
 				</c:for>
 			</ul>
 			<c:if condition="endRound">
@@ -19,15 +19,15 @@
 					<c:message value="msg_effendround,reasons"/>
 					<ul>
 						<c:for list="reasonsEndRound" var="r" className="java.lang.String">
-							<li>{r;}</li>
+							<li>{r}</li>
 						</c:for>
 					</ul>
 					<br/>
 					<ul>
 						<c:for key="c" map="mapVarsFailEndRound" value="r" keyClassName="java.lang.String" varClassName="java.lang.String">
-							<li>{c;} : 
+							<li>{c} : 
 								<c:message quoted="" value="msg_status,formula">
-									<param value="r;"/>
+									<param value="r"/>
 								</c:message>
 							</li>
 						</c:for>
@@ -52,8 +52,8 @@
 					<tbody>
 						<c:for key="s" map="multStatisticFoe" value="b" varClassName="r">
 							<tr>
-								<td>{getTrStatistic(s;;)}</td>
-								<td>{b;}</td>
+								<td>{getTrStatistic(([s]))}</td>
+								<td>{b}</td>
 							</tr>
 						</c:for>
 					</tbody>
@@ -74,8 +74,8 @@
 				<tbody>
 					<c:for key="s" map="repeatedRoundsLaw" value="b" keyClassName="li" varClassName="r">
 						<tr>
-							<td>{s;}</td>
-							<td>{b;}</td>
+							<td>{s}</td>
+							<td>{b}</td>
 						</tr>
 					</c:for>
 				</tbody>

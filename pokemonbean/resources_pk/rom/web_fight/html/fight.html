@@ -33,28 +33,28 @@
 			<tbody>
 				<c:for key="m" map="enabledMoves" value="a" keyClassName='java.lang.String' varClassName="aiki.game.fight.ActivityOfMove">
 					<tr>
-						<td>{m;}</td>
-						<c:if condition="isStillEnabled(m;;)">
-							<c:if condition="a;isEnabled()">
+						<td>{m}</td>
+						<c:if condition="isStillEnabled(([m]))">
+							<c:if condition="a.isEnabled()">
 								<td><c:message value="msg_fight,enbaled_moves_enabled_y"/></td>
 							</c:if>
-							<c:if condition="!a;isEnabled()">
+							<c:if condition="!a.isEnabled()">
 								<td><c:message value="msg_fight,enbaled_moves_enabled_n"/></td>
 							</c:if>
 						</c:if>
-						<c:if condition="!isStillEnabled(m;;)">
+						<c:if condition="!isStillEnabled(([m]))">
 							<td><c:message value="msg_fight,enbaled_moves_no"/></td>
 						</c:if>
-						<c:if condition="a;isEnabled()">
+						<c:if condition="a.isEnabled()">
 							<td><c:message value="msg_fight,enbaled_moves_enabled_y"/></td>
 						</c:if>
-						<c:if condition="!a;isEnabled()">
+						<c:if condition="!a.isEnabled()">
 							<td><c:message value="msg_fight,enbaled_moves_enabled_n"/></td>
 						</c:if>
-						<c:if condition="a;isIncrementCount()">
-							<td>{a;getNbTurn()}</td>
+						<c:if condition="a.isIncrementCount()">
+							<td>{a.getNbTurn()}</td>
 						</c:if>
-						<c:if condition="!a;isIncrementCount()">
+						<c:if condition="!a.isIncrementCount()">
 							<td><c:message value="msg_fight,enbaled_moves_no"/></td>
 						</c:if>
 					</tr>

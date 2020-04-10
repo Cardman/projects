@@ -17,7 +17,7 @@
 				<ul>
 					<c:for list="getMovesSameCategory()" var="m">
 						<li>
-							<a c:command="$clickTargetRelationMove({m;;})" href="">{getTrTargetRelationMove(m;;)}</a>
+							<a c:command="$clickTargetRelationMove({([m])})" href="">{getTrTargetRelationMove(([m]))}</a>
 						</li>
 					</c:for>
 				</ul>

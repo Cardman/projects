@@ -74,9 +74,9 @@
 					<tbody>
 						<c:for key="s" map="multFoesDamage" value="b" varClassName="aiki.fight.util.EfficiencyRate">
 							<tr>
-								<td>{getTrMultFoesDamage(s;;)}</td>
-								<td>{b;getEff()}</td>
-								<td>{b;getHpRate()}</td>
+								<td>{getTrMultFoesDamage(([s]))}</td>
+								<td>{b.getEff()}</td>
+								<td>{b.getHpRate()}</td>
 							</tr>
 						</c:for>
 					</tbody>
@@ -97,9 +97,9 @@
 					<tbody>
 						<c:for key="s" map="multStat" value="b" varClassName="aiki.fight.util.BoostHpRate">
 							<tr>
-								<td>{getTrMultStat(s;;)}</td>
-								<td>{b;getHpRate()}</td>
-								<td>{b;getBoost()}</td>
+								<td>{getTrMultStat(([s]))}</td>
+								<td>{b.getHpRate()}</td>
+								<td>{b.getBoost()}</td>
 							</tr>
 						</c:for>
 					</tbody>
@@ -111,7 +111,7 @@
 				<c:message value="msg_berry,heal_status"/>
 				<ul>
 					<c:for list="healStatus" var="s">
-						<li><a c:command="$clickStatus({s;;})" href="">{getTrStatus(s;;)}</a></li>
+						<li><a c:command="$clickStatus({([s])})" href="">{getTrStatus(([s]))}</a></li>
 					</c:for>
 				</ul>
 				<br/>
@@ -129,8 +129,8 @@
 					<tbody>
 						<c:for key="s" map="damageRateRecoilFoe" value="b" varClassName="r">
 							<tr>
-								<td>{getTrCategRecoil(s;;)}</td>
-								<td>{b;}</td>
+								<td>{getTrCategRecoil(([s]))}</td>
+								<td>{b}</td>
 							</tr>
 						</c:for>
 					</tbody>
@@ -152,8 +152,8 @@
 					<tbody>
 						<c:for key="s" map="boostStatis" value="b" varClassName="java.lang.Byte">
 							<tr>
-								<td>{getTrBoostStat(s;;)}</td>
-								<td>{b;}</td>
+								<td>{getTrBoostStat(([s]))}</td>
+								<td>{b}</td>
 							</tr>
 						</c:for>
 					</tbody>

@@ -47,10 +47,10 @@
 						<tbody>
 							<c:for key="c" map="statisVarRank" value="r" keyClassName='java.lang.String' varClassName='java.lang.Byte'>
 								<tr>
-									<td>{c;}</td>
-									<td>{r;}</td>
-									<td>{getFail(c;;)}</td>
-									<td>{getRate(c;;)}</td>
+									<td>{c}</td>
+									<td>{r}</td>
+									<td>{getFail(([c]))}</td>
+									<td>{getRate(([c]))}</td>
 								</tr>
 							</c:for>
 						</tbody>
@@ -75,9 +75,9 @@
 						<tbody>
 							<c:for key="c" map="statisVarRank" value="r" keyClassName='java.lang.String' varClassName='java.lang.Byte'>
 								<tr>
-									<td>{c;}</td>
-									<td>{r;}</td>
-									<td>{getFail(c;;)}</td>
+									<td>{c}</td>
+									<td>{r}</td>
+									<td>{getFail(([c]))}</td>
 								</tr>
 							</c:for>
 						</tbody>
@@ -87,9 +87,9 @@
 				<c:if condition="!mapVarsStatistics.isEmpty()">
 					<ul>
 						<c:for key="k" map="mapVarsStatistics" value="v" keyClassName='java.lang.String' varClassName='java.lang.String'>
-							<li>{k;} :
+							<li>{k} :
 								<c:message quoted="" value="msg_effstatis,formula">
-									<param value="v;"/>
+									<param value="v"/>
 								</c:message>
 							</li>
 						</c:for>
@@ -112,8 +112,8 @@
 					<tbody>
 						<c:for list="swapBoostStatis" var="c" className='java.lang.String'>
 							<tr>
-								<td>{c;}</td>
-								<td>{getSwapFail(c;;)}</td>
+								<td>{c}</td>
+								<td>{getSwapFail(([c]))}</td>
 							</tr>
 						</c:for>
 					</tbody>
@@ -122,9 +122,9 @@
 				<c:if condition="!mapVarsStatistics.isEmpty()">
 					<ul>
 						<c:for key="k" map="mapVarsStatistics" value="v" keyClassName='java.lang.String' varClassName='java.lang.String'>
-							<li>{k;} :
+							<li>{k} :
 								<c:message quoted="" value="msg_effstatis,formula">
-									<param value="v;"/>
+									<param value="v"/>
 								</c:message>
 							</li>
 						</c:for>
@@ -137,7 +137,7 @@
 				</c:message>
 				<ul>
 					<c:for list="cancelLowStat" var="s" className='java.lang.String'>
-						<li>{s;}</li>
+						<li>{s}</li>
 					</c:for>
 				</ul>
 				<br/>
@@ -148,7 +148,7 @@
 				</c:message>
 				<ul>
 					<c:for list="cancelChgtStat" var="s" className='java.lang.String'>
-						<li>{s;}</li>
+						<li>{s}</li>
 					</c:for>
 				</ul>
 				<br/>
@@ -159,7 +159,7 @@
 				</c:message>
 				<ul>
 					<c:for list="copyBoost" var="s" className='java.lang.String'>
-						<li>{s;}</li>
+						<li>{s}</li>
 					</c:for>
 				</ul>
 				<br/>

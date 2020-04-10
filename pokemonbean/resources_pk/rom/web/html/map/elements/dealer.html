@@ -15,7 +15,7 @@
 		<c:if condition="!getItems().isEmpty()">
 			<ul>
 				<c:for list="getItems()" var="i">
-					<li><a c:command="$clickItem({i;;})">{getItem(i;;)}</a></li>
+					<li><a c:command="$clickItem({([i])})">{getItem(([i]))}</a></li>
 				</c:for>
 			</ul>
 		</c:if>
@@ -23,7 +23,7 @@
 		<c:if condition="!getAllTm().isEmpty()">
 			<ul>
 				<c:for list="getAllTm()" var="i">
-					<li><a c:command="$clickTm({i;;})">{getTm(i;;)}</a></li>
+					<li><a c:command="$clickTm({([i])})">{getTm(([i]))}</a></li>
 				</c:for>
 			</ul>
 		</c:if>

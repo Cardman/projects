@@ -19,15 +19,15 @@
 					<c:message value="msg_effendround,reasons"/>
 					<ul>
 						<c:for list="reasonsEndRound" var="r" className='java.lang.String'>
-							<li>{r;}</li>
+							<li>{r}</li>
 						</c:for>
 					</ul>
 					<br/>
 					<ul>
 						<c:for key="c" map="mapVarsFailEndRound" value="r" keyClassName='java.lang.String' varClassName='java.lang.String'>
-							<li>{c;} : 
+							<li>{c} : 
 								<c:message quoted="" value="msg_status,formula">
-									<param value="r;"/>
+									<param value="r"/>
 								</c:message>
 							</li>
 						</c:for>
@@ -80,8 +80,8 @@
 					<tbody>
 						<c:for key="s" map="multStat" value="r" varClassName='r'>
 							<tr>
-								<td>{getTrMultStat(s;;)}</td>
-								<td>{r;}</td>
+								<td>{getTrMultStat(([s]))}</td>
+								<td>{r}</td>
 							</tr>
 						</c:for>
 					</tbody>
@@ -92,15 +92,15 @@
 				<c:message value="msg_status,reasons"/>
 				<ul>
 					<c:for list="reasons" var="r" className='java.lang.String'>
-						<li>{r;}</li>
+						<li>{r}</li>
 					</c:for>
 				</ul>
 				<br/>
 				<ul>
 					<c:for key="c" map="mapVarsFail" value="r"keyClassName='java.lang.String' varClassName='java.lang.String'>
-						<li>{c;} : 
+						<li>{c} : 
 							<c:message quoted="" value="msg_status,formula">
-								<param value="r;"/>
+								<param value="r"/>
 							</c:message>
 						</li>
 					</c:for>
@@ -140,8 +140,8 @@
 					<tbody>
 						<c:for key="s" map="lawForUsingAMoveNbRound" value="r" keyClassName='li' varClassName='r'>
 							<tr>
-								<td>{s;}</td>
-								<td>{r;}</td>
+								<td>{s}</td>
+								<td>{r}</td>
 							</tr>
 						</c:for>
 					</tbody>

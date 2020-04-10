@@ -32,8 +32,8 @@
 						<tbody>
 							<c:for key="e" map="chgtTypeByEnv" value="t" varClassName='java.lang.String'>
 								<tr>
-									<td>{getTrEnv(e;;)}</td>
-									<td>{t;}</td>
+									<td>{getTrEnv(([e]))}</td>
+									<td>{t}</td>
 								</tr>
 							</c:for>
 						</tbody>
@@ -43,7 +43,7 @@
 						<c:message value="msg_effswitchtypes,envir_env_exc"/>
 						<ul>
 							<c:for list="globalMoves" var="m">
-								<li><a c:command="$clickGlobalMoveFctEnv({m;;})" href="">{getTrGlobalMoveFctEnv(m;;)}</a></li>
+								<li><a c:command="$clickGlobalMoveFctEnv({([m])})" href="">{getTrGlobalMoveFctEnv(([m]))}</a></li>
 							</c:for>
 						</ul>
 						<br/>
@@ -53,7 +53,7 @@
 					<c:message value="msg_effswitchtypes,added_types"/>
 					<ul>
 						<c:for list="addedTypes" var="t">
-							<li>{getTrAddedType(t;;)}</li>
+							<li>{getTrAddedType(([t]))}</li>
 						</c:for>
 					</ul>
 					<br/>
@@ -72,7 +72,7 @@
 						<c:message value="msg_effswitchtypes,affect_types"/>
 						<ul>
 							<c:for list="constTypes" var="t">
-								<li>{getTrConstType(t;;)}</li>
+								<li>{getTrConstType(([t]))}</li>
 							</c:for>
 						</ul>
 						<br/>

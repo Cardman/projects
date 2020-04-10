@@ -55,8 +55,8 @@
 					<tbody>
 						<c:for key="e" map="damageRatePlayerTable" value="r" keyClassName='r' varClassName='r'>
 							<tr>
-								<td>{e;}</td>
-								<td>{r;}</td>
+								<td>{e}</td>
+								<td>{r}</td>
 							</tr>
 						</c:for>
 					</tbody>
@@ -73,8 +73,8 @@
 					<tbody>
 						<c:for key="e" map="damageRateFoeTable" value="r" keyClassName='r' varClassName='r'>
 							<tr>
-								<td>{e;}</td>
-								<td>{r;}</td>
+								<td>{e}</td>
+								<td>{r}</td>
 							</tr>
 						</c:for>
 					</tbody>
@@ -108,19 +108,19 @@
 							<tbody>
 								<c:for className="aiki.beans.facade.simulation.dto.PokemonTrainerDto" list="foeTeam" var="p">
 									<tr>
-										<td><c:img src="{getImageFoe(p;;)}"/></td>
-										<td>{getNameFoe(p;;)}</td>
-										<td>{getLevelFoe(p;;)}</td>
-										<td>{getAbilityFoe(p;;)}</td>
-										<td>{getGenderFoe(p;;)}</td>
-										<td>{getItemFoe(p;;)}</td>
+										<td><c:img src="{getImageFoe(([p]))}"/></td>
+										<td>{getNameFoe(([p]))}</td>
+										<td>{getLevelFoe(([p]))}</td>
+										<td>{getAbilityFoe(([p]))}</td>
+										<td>{getGenderFoe(([p]))}</td>
+										<td>{getItemFoe(([p]))}</td>
 										<td>
-											<c:for list="getMovesFoe(p;;)" var="m" className='java.lang.String'>
-												{m;} - 
+											<c:for list="getMovesFoe(([p]))" var="m" className='java.lang.String'>
+												{m} - 
 											</c:for>
 										</td>
 										<td>
-											<input c:groupId="foePkTable" c:validator="selected_radio" c:varValue="p;index" name="selectedFoePk" type="radio"/>
+											<input c:groupId="foePkTable" c:validator="selected_radio" c:varValue="p.index" name="selectedFoePk" type="radio"/>
 										</td>
 									</tr>
 								</c:for>
@@ -154,19 +154,19 @@
 							<tbody>
 								<c:for className="aiki.beans.facade.simulation.dto.PokemonTrainerDto" list="allyTeam" var="p">
 									<tr>
-										<td><c:img src="{getImageAlly(p;;)}"/></td>
-										<td>{getNameAlly(p;;)}</td>
-										<td>{getLevelAlly(p;;)}</td>
-										<td>{getAbilityAlly(p;;)}</td>
-										<td>{getGenderAlly(p;;)}</td>
-										<td>{getItemAlly(p;;)}</td>
+										<td><c:img src="{getImageAlly(([p]))}"/></td>
+										<td>{getNameAlly(([p]))}</td>
+										<td>{getLevelAlly(([p]))}</td>
+										<td>{getAbilityAlly(([p]))}</td>
+										<td>{getGenderAlly(([p]))}</td>
+										<td>{getItemAlly(([p]))}</td>
 										<td>
-											<c:for list="getMovesAlly(p;;)" var="m" className='java.lang.String'>
-												{m;} - 
+											<c:for list="getMovesAlly(([p]))" var="m" className='java.lang.String'>
+												{m} - 
 											</c:for>
 										</td>
 										<td>
-											<input c:groupId="allyPkTable" c:validator="selected_radio" c:varValue="p;index" name="selectedAllyPk" type="radio"/>
+											<input c:groupId="allyPkTable" c:validator="selected_radio" c:varValue="p.index" name="selectedAllyPk" type="radio"/>
 										</td>
 									</tr>
 								</c:for>
@@ -186,18 +186,18 @@
 				<ul>
 					<c:for className="aiki.beans.facade.map.dto.PlaceIndex" list="places" var="p">
 						<li>
-							{p;getPlace().getName()}<br/>
-							<c:if condition="isMultiLayer(p;;)">
+							{p.getPlace().getName()}<br/>
+							<c:if condition="isMultiLayer(([p]))">
 								<ul>
-									<c:for list="layers(p;;)" var="l">
+									<c:for list="layers(([p]))" var="l">
 										<li>
-											<a c:command="$clickLevel({p;index},{l;;})">{l;;}</a>
+											<a c:command="$clickLevel({p.index},{([l])})">{([l])}</a>
 										</li>
 									</c:for>
 								</ul>
 							</c:if>
-							<c:if condition="!isMultiLayer(p;;)">
-								<a c:command="$clickLevel({p;index},0)"><c:message value="msg_levelmap,goLevel"/></a>
+							<c:if condition="!isMultiLayer(([p]))">
+								<a c:command="$clickLevel({p.index},0)"><c:message value="msg_levelmap,goLevel"/></a>
 							</c:if>
 						</li>
 					</c:for>
@@ -255,19 +255,19 @@
 						<tbody>
 							<c:for className="aiki.beans.facade.simulation.dto.PokemonPlayerDto" list="team" var="p">
 								<tr>
-									<td><c:img src="{getImage(p;;)}"/></td>
-									<td>{getName(p;;)}</td>
-									<td>{getLevel(p;;)}</td>
-									<td>{getAbility(p;;)}</td>
-									<td>{getGender(p;;)}</td>
-									<td>{getItem(p;;)}</td>
+									<td><c:img src="{getImage(([p]))}"/></td>
+									<td>{getName(([p]))}</td>
+									<td>{getLevel(([p]))}</td>
+									<td>{getAbility(([p]))}</td>
+									<td>{getGender(([p]))}</td>
+									<td>{getItem(([p]))}</td>
 									<td>
-										<c:for list="getMoves(p;;)" var="m" className='java.lang.String'>
-											{m;} - 
+										<c:for list="getMoves(([p]))" var="m" className='java.lang.String'>
+											{m} - 
 										</c:for>
 									</td>
 									<td>
-										<input c:groupId="pkTable" c:validator="selected_radio" c:varValue="p;index" name="selectedPk" type="radio"/>
+										<input c:groupId="pkTable" c:validator="selected_radio" c:varValue="p.index" name="selectedPk" type="radio"/>
 									</td>
 								</tr>
 							</c:for>
@@ -312,15 +312,15 @@
 				<tbody>
 					<c:for list="foeTeam" var="p">
 						<tr>
-							<td><c:img src="{getImageFoe(p;;)}"/></td>
-							<td>{getNameFoe(p;;)}</td>
-							<td>{getLevelFoe(p;;)}</td>
-							<td>{getAbilityFoe(p;;)}</td>
-							<td>{getGenderFoe(p;;)}</td>
-							<td>{getItemFoe(p;;)}</td>
+							<td><c:img src="{getImageFoe(([p]))}"/></td>
+							<td>{getNameFoe(([p]))}</td>
+							<td>{getLevelFoe(([p]))}</td>
+							<td>{getAbilityFoe(([p]))}</td>
+							<td>{getGenderFoe(([p]))}</td>
+							<td>{getItemFoe(([p]))}</td>
 							<td>
-								<c:for list="getMovesFoe(p;;)" var="m" className='java.lang.String'>
-									{m;} - 
+								<c:for list="getMovesFoe(([p]))" var="m" className='java.lang.String'>
+									{m} - 
 								</c:for>
 							</td>
 						</tr>
@@ -343,15 +343,15 @@
 				<tbody>
 					<c:for className="aiki.beans.facade.simulation.dto.PokemonTrainerDto" list="allyTeam" var="p">
 						<tr>
-							<td><c:img src="{getImageAlly(p;;)}"/></td>
-							<td>{getNameAlly(p;;)}</td>
-							<td>{getLevelAlly(p;;)}</td>
-							<td>{getAbilityAlly(p;;)}</td>
-							<td>{getGenderAlly(p;;)}</td>
-							<td>{getItemAlly(p;;)}</td>
+							<td><c:img src="{getImageAlly(([p]))}"/></td>
+							<td>{getNameAlly(([p]))}</td>
+							<td>{getLevelAlly(([p]))}</td>
+							<td>{getAbilityAlly(([p]))}</td>
+							<td>{getGenderAlly(([p]))}</td>
+							<td>{getItemAlly(([p]))}</td>
 							<td>
-								<c:for list="getMovesAlly(p;;)" var="m" className='java.lang.String'>
-									{m;} - 
+								<c:for list="getMovesAlly(([p]))" var="m" className='java.lang.String'>
+									{m} - 
 								</c:for>
 							</td>
 						</tr>
@@ -378,19 +378,19 @@
 					<tbody>
 						<c:for className="aiki.beans.facade.simulation.dto.PokemonPlayerDto" list="team" var="p">
 							<tr>
-								<td><c:img src="{getImage(p;;)}"/></td>
-								<td>{getName(p;;)}</td>
-								<td>{getLevel(p;;)}</td>
-								<td>{getAbility(p;;)}</td>
-								<td>{getGender(p;;)}</td>
-								<td>{getItem(p;;)}</td>
+								<td><c:img src="{getImage(([p]))}"/></td>
+								<td>{getName(([p]))}</td>
+								<td>{getLevel(([p]))}</td>
+								<td>{getAbility(([p]))}</td>
+								<td>{getGender(([p]))}</td>
+								<td>{getItem(([p]))}</td>
 								<td>
-									<c:for list="getMoves(p;;)" var="m" className='java.lang.String'>
-										{m;} - 
+									<c:for list="getMoves(([p]))" var="m" className='java.lang.String'>
+										{m} - 
 									</c:for>
 								</td>
 								<td>
-									<input c:groupId="pkTable" c:validator="selected_radio" c:varValue="p;index" name="selectedPk" type="radio"/>
+									<input c:groupId="pkTable" c:validator="selected_radio" c:varValue="p.index" name="selectedPk" type="radio"/>
 								</td>
 							</tr>
 						</c:for>
@@ -434,15 +434,15 @@
 				<tbody>
 					<c:for list="foeTeam" var="p">
 						<tr>
-							<td><c:img src="{getImageFoe(p;;)}"/></td>
-							<td>{getNameFoe(p;;)}</td>
-							<td>{getLevelFoe(p;;)}</td>
-							<td>{getAbilityFoe(p;;)}</td>
-							<td>{getGenderFoe(p;;)}</td>
-							<td>{getItemFoe(p;;)}</td>
+							<td><c:img src="{getImageFoe(([p]))}"/></td>
+							<td>{getNameFoe(([p]))}</td>
+							<td>{getLevelFoe(([p]))}</td>
+							<td>{getAbilityFoe(([p]))}</td>
+							<td>{getGenderFoe(([p]))}</td>
+							<td>{getItemFoe(([p]))}</td>
 							<td>
-								<c:for list="getMovesFoe(p;;)" var="m" className='java.lang.String'>
-									{m;} - 
+								<c:for list="getMovesFoe(([p]))" var="m" className='java.lang.String'>
+									{m} - 
 								</c:for>
 							</td>
 						</tr>
@@ -465,15 +465,15 @@
 				<tbody>
 					<c:for className="aiki.beans.facade.simulation.dto.PokemonTrainerDto" list="allyTeam" var="p">
 						<tr>
-							<td><c:img src="{getImageAlly(p;;)}"/></td>
-							<td>{getNameAlly(p;;)}</td>
-							<td>{getLevelAlly(p;;)}</td>
-							<td>{getAbilityAlly(p;;)}</td>
-							<td>{getGenderAlly(p;;)}</td>
-							<td>{getItemAlly(p;;)}</td>
+							<td><c:img src="{getImageAlly(([p]))}"/></td>
+							<td>{getNameAlly(([p]))}</td>
+							<td>{getLevelAlly(([p]))}</td>
+							<td>{getAbilityAlly(([p]))}</td>
+							<td>{getGenderAlly(([p]))}</td>
+							<td>{getItemAlly(([p]))}</td>
 							<td>
-								<c:for list="getMovesAlly(p;;)" var="m" className='java.lang.String'>
-									{m;} - 
+								<c:for list="getMovesAlly(([p]))" var="m" className='java.lang.String'>
+									{m} - 
 								</c:for>
 							</td>
 						</tr>
@@ -500,19 +500,19 @@
 					<tbody>
 						<c:for className="aiki.beans.facade.simulation.dto.PokemonPlayerDto" list="team" var="p">
 							<tr>
-								<td><c:img src="{getImage(p;;)}"/></td>
-								<td>{getName(p;;)}</td>
-								<td>{getLevel(p;;)}</td>
-								<td>{getAbility(p;;)}</td>
-								<td>{getGender(p;;)}</td>
-								<td>{getItem(p;;)}</td>
+								<td><c:img src="{getImage(([p]))}"/></td>
+								<td>{getName(([p]))}</td>
+								<td>{getLevel(([p]))}</td>
+								<td>{getAbility(([p]))}</td>
+								<td>{getGender(([p]))}</td>
+								<td>{getItem(([p]))}</td>
 								<td>
-									<c:for list="getMoves(p;;)" var="m" className='java.lang.String'>
-										{m;} - 
+									<c:for list="getMoves(([p]))" var="m" className='java.lang.String'>
+										{m} - 
 									</c:for>
 								</td>
 								<td>
-									<input c:groupId="pkTable" c:validator="selected_radio" c:varValue="p;index" name="selectedPk" type="radio"/>
+									<input c:groupId="pkTable" c:validator="selected_radio" c:varValue="p.index" name="selectedPk" type="radio"/>
 								</td>
 							</tr>
 						</c:for>
@@ -554,15 +554,15 @@
 				<tbody>
 					<c:for list="foeTeam" var="p">
 						<tr>
-							<td><c:img src="{getImageFoe(p;;)}"/></td>
-							<td>{getNameFoe(p;;)}</td>
-							<td>{getLevelFoe(p;;)}</td>
-							<td>{getAbilityFoe(p;;)}</td>
-							<td>{getGenderFoe(p;;)}</td>
-							<td>{getItemFoe(p;;)}</td>
+							<td><c:img src="{getImageFoe(([p]))}"/></td>
+							<td>{getNameFoe(([p]))}</td>
+							<td>{getLevelFoe(([p]))}</td>
+							<td>{getAbilityFoe(([p]))}</td>
+							<td>{getGenderFoe(([p]))}</td>
+							<td>{getItemFoe(([p]))}</td>
 							<td>
-								<c:for list="getMovesFoe(p;;)" var="m" className='java.lang.String'>
-									{m;} - 
+								<c:for list="getMovesFoe(([p]))" var="m" className='java.lang.String'>
+									{m} - 
 								</c:for>
 							</td>
 						</tr>
@@ -585,15 +585,15 @@
 				<tbody>
 					<c:for className="aiki.beans.facade.simulation.dto.PokemonTrainerDto" list="allyTeam" var="p">
 						<tr>
-							<td><c:img src="{getImageAlly(p;;)}"/></td>
-							<td>{getNameAlly(p;;)}</td>
-							<td>{getLevelAlly(p;;)}</td>
-							<td>{getAbilityAlly(p;;)}</td>
-							<td>{getGenderAlly(p;;)}</td>
-							<td>{getItemAlly(p;;)}</td>
+							<td><c:img src="{getImageAlly(([p]))}"/></td>
+							<td>{getNameAlly(([p]))}</td>
+							<td>{getLevelAlly(([p]))}</td>
+							<td>{getAbilityAlly(([p]))}</td>
+							<td>{getGenderAlly(([p]))}</td>
+							<td>{getItemAlly(([p]))}</td>
 							<td>
-								<c:for list="getMovesAlly(p;;)" var="m" className='java.lang.String'>
-									{m;} - 
+								<c:for list="getMovesAlly(([p]))" var="m" className='java.lang.String'>
+									{m} - 
 								</c:for>
 							</td>
 						</tr>
@@ -620,19 +620,19 @@
 					<tbody>
 						<c:for className="aiki.beans.facade.simulation.dto.PokemonPlayerDto" list="team" var="p">
 							<tr>
-								<td><c:img src="{getImage(p;;)}"/></td>
-								<td>{getName(p;;)}</td>
-								<td>{getLevel(p;;)}</td>
-								<td>{getAbility(p;;)}</td>
-								<td>{getGender(p;;)}</td>
-								<td>{getItem(p;;)}</td>
+								<td><c:img src="{getImage(([p]))}"/></td>
+								<td>{getName(([p]))}</td>
+								<td>{getLevel(([p]))}</td>
+								<td>{getAbility(([p]))}</td>
+								<td>{getGender(([p]))}</td>
+								<td>{getItem(([p]))}</td>
 								<td>
-									<c:for list="getMoves(p;;)" var="m" className='java.lang.String'>
-										{m;} - 
+									<c:for list="getMoves(([p]))" var="m" className='java.lang.String'>
+										{m} - 
 									</c:for>
 								</td>
 								<td>
-									<input c:groupId="pkTable" c:validator="selected_radio" c:varValue="p;index" name="selectedPk" type="radio"/>
+									<input c:groupId="pkTable" c:validator="selected_radio" c:varValue="p.index" name="selectedPk" type="radio"/>
 								</td>
 							</tr>
 						</c:for>
@@ -665,38 +665,38 @@
 							<tbody>
 								<c:for className="aiki.beans.facade.simulation.dto.SelectLineMove" list="keptMoves" var="d">
 									<tr>
-										<td>{d;displayName}</td>
-										<td>{d;pp}</td>
+										<td>{d.displayName}</td>
+										<td>{d.pp}</td>
 										<td>
-											<c:for list="d;getTypes()" var="t" className='java.lang.String'>
-												{t;} -
+											<c:for list="d.getTypes()" var="t" className='java.lang.String'>
+												{t} -
 											</c:for>
 										</td>
-										<td>{d;category}</td>
+										<td>{d.category}</td>
 										<td>
-											<c:if condition="d;isDamageMove()">
+											<c:if condition="d.isDamageMove()">
 												<c:message value="msg_moves,damaging"/>
 											</c:if>
-											<c:if condition="!d;isDamageMove()">
+											<c:if condition="!d.isDamageMove()">
 												<c:message value="msg_moves,status"/>
 											</c:if>
 										</td>
 										<td>
-											<c:if condition="!d;isDamageMove()">
+											<c:if condition="!d.isDamageMove()">
 												<c:message value="msg_moves,status_indirect"/>
 											</c:if>
-											<c:if condition="d;isDamageMove()">
-												<c:if condition="d;isDirect()">
+											<c:if condition="d.isDamageMove()">
+												<c:if condition="d.isDirect()">
 													<c:message value="msg_moves,damaging_direct"/>
 												</c:if>
-												<c:if condition="!d;isDirect()">
+												<c:if condition="!d.isDirect()">
 													<c:message value="msg_moves,damaging_indirect"/>
 												</c:if>
 											</c:if>
 										</td>
-										<td>{d;priority}</td>
+										<td>{d.priority}</td>
 										<td>
-											<input c:varValue="d;selected" name="d;selected" type="checkbox"/>
+											<input c:varValue="d.selected" name="d.selected" type="checkbox"/>
 										</td>
 									</tr>
 								</c:for>
@@ -737,15 +737,15 @@
 				<tbody>
 					<c:for list="foeTeam" var="p">
 						<tr>
-							<td><c:img src="{getImageFoe(p;;)}"/></td>
-							<td>{getNameFoe(p;;)}</td>
-							<td>{getLevelFoe(p;;)}</td>
-							<td>{getAbilityFoe(p;;)}</td>
-							<td>{getGenderFoe(p;;)}</td>
-							<td>{getItemFoe(p;;)}</td>
+							<td><c:img src="{getImageFoe(([p]))}"/></td>
+							<td>{getNameFoe(([p]))}</td>
+							<td>{getLevelFoe(([p]))}</td>
+							<td>{getAbilityFoe(([p]))}</td>
+							<td>{getGenderFoe(([p]))}</td>
+							<td>{getItemFoe(([p]))}</td>
 							<td>
-								<c:for list="getMovesFoe(p;;)" var="m" className='java.lang.String'>
-									{m;} - 
+								<c:for list="getMovesFoe(([p]))" var="m" className='java.lang.String'>
+									{m} - 
 								</c:for>
 							</td>
 						</tr>
@@ -768,15 +768,15 @@
 				<tbody>
 					<c:for className="aiki.beans.facade.simulation.dto.PokemonTrainerDto" list="allyTeam" var="p">
 						<tr>
-							<td><c:img src="{getImageAlly(p;;)}"/></td>
-							<td>{getNameAlly(p;;)}</td>
-							<td>{getLevelAlly(p;;)}</td>
-							<td>{getAbilityAlly(p;;)}</td>
-							<td>{getGenderAlly(p;;)}</td>
-							<td>{getItemAlly(p;;)}</td>
+							<td><c:img src="{getImageAlly(([p]))}"/></td>
+							<td>{getNameAlly(([p]))}</td>
+							<td>{getLevelAlly(([p]))}</td>
+							<td>{getAbilityAlly(([p]))}</td>
+							<td>{getGenderAlly(([p]))}</td>
+							<td>{getItemAlly(([p]))}</td>
 							<td>
-								<c:for list="getMovesAlly(p;;)" var="m" className='java.lang.String'>
-									{m;} - 
+								<c:for list="getMovesAlly(([p]))" var="m" className='java.lang.String'>
+									{m} - 
 								</c:for>
 							</td>
 						</tr>
@@ -803,19 +803,19 @@
 					<tbody>
 						<c:for className="aiki.beans.facade.simulation.dto.PokemonPlayerDto" list="team" var="p">
 							<tr>
-								<td><c:img src="{getImage(p;;)}"/></td>
-								<td>{getName(p;;)}</td>
-								<td>{getLevel(p;;)}</td>
-								<td>{getAbility(p;;)}</td>
-								<td>{getGender(p;;)}</td>
-								<td>{getItem(p;;)}</td>
+								<td><c:img src="{getImage(([p]))}"/></td>
+								<td>{getName(([p]))}</td>
+								<td>{getLevel(([p]))}</td>
+								<td>{getAbility(([p]))}</td>
+								<td>{getGender(([p]))}</td>
+								<td>{getItem(([p]))}</td>
 								<td>
-									<c:for list="getMoves(p;;)" var="m" className='java.lang.String'>
-										{m;} - 
+									<c:for list="getMoves(([p]))" var="m" className='java.lang.String'>
+										{m} - 
 									</c:for>
 								</td>
 								<td>
-									<input c:groupId="pkTable" c:validator="selected_radio" c:varValue="p;index" name="selectedPk" type="radio"/>
+									<input c:groupId="pkTable" c:validator="selected_radio" c:varValue="p.index" name="selectedPk" type="radio"/>
 								</td>
 							</tr>
 						</c:for>
@@ -845,38 +845,38 @@
 						<tbody>
 							<c:for className="aiki.beans.facade.simulation.dto.RadioLineMove" list="movesSet" var="d">
 								<tr>
-									<td>{d;displayName}</td>
-									<td>{d;pp}</td>
+									<td>{d.displayName}</td>
+									<td>{d.pp}</td>
 									<td>
-										<c:for list="d;getTypes()" var="t" className='java.lang.String'>
-											{t;} -
+										<c:for list="d.getTypes()" var="t" className='java.lang.String'>
+											{t} -
 										</c:for>
 									</td>
-									<td>{d;category}</td>
+									<td>{d.category}</td>
 									<td>
-										<c:if condition="d;isDamageMove()">
+										<c:if condition="d.isDamageMove()">
 											<c:message value="msg_moves,damaging"/>
 										</c:if>
-										<c:if condition="!d;isDamageMove()">
+										<c:if condition="!d.isDamageMove()">
 											<c:message value="msg_moves,status"/>
 										</c:if>
 									</td>
 									<td>
-										<c:if condition="!d;isDamageMove()">
+										<c:if condition="!d.isDamageMove()">
 											<c:message value="msg_moves,status_indirect"/>
 										</c:if>
-										<c:if condition="d;isDamageMove()">
-											<c:if condition="d;isDirect()">
+										<c:if condition="d.isDamageMove()">
+											<c:if condition="d.isDirect()">
 												<c:message value="msg_moves,damaging_direct"/>
 											</c:if>
-											<c:if condition="!d;isDirect()">
+											<c:if condition="!d.isDirect()">
 												<c:message value="msg_moves,damaging_indirect"/>
 											</c:if>
 										</c:if>
 									</td>
-									<td>{d;priority}</td>
+									<td>{d.priority}</td>
 									<td>
-										<input c:groupId="moveTable" c:validator="selected_radio" c:varValue="d;index" name="selectedMove" type="radio"/>
+										<input c:groupId="moveTable" c:validator="selected_radio" c:varValue="d.index" name="selectedMove" type="radio"/>
 									</td>
 								</tr>
 							</c:for>
@@ -917,15 +917,15 @@
 				<tbody>
 					<c:for list="foeTeam" var="p">
 						<tr>
-							<td><c:img src="{getImageFoe(p;;)}"/></td>
-							<td>{getNameFoe(p;;)}</td>
-							<td>{getLevelFoe(p;;)}</td>
-							<td>{getAbilityFoe(p;;)}</td>
-							<td>{getGenderFoe(p;;)}</td>
-							<td>{getItemFoe(p;;)}</td>
+							<td><c:img src="{getImageFoe(([p]))}"/></td>
+							<td>{getNameFoe(([p]))}</td>
+							<td>{getLevelFoe(([p]))}</td>
+							<td>{getAbilityFoe(([p]))}</td>
+							<td>{getGenderFoe(([p]))}</td>
+							<td>{getItemFoe(([p]))}</td>
 							<td>
-								<c:for list="getMovesFoe(p;;)" var="m" className='java.lang.String'>
-									{m;} - 
+								<c:for list="getMovesFoe(([p]))" var="m" className='java.lang.String'>
+									{m} - 
 								</c:for>
 							</td>
 						</tr>
@@ -948,15 +948,15 @@
 				<tbody>
 					<c:for list="allyTeam" var="p">
 						<tr>
-							<td><c:img src="{getImageAlly(p;;)}"/></td>
-							<td>{getNameAlly(p;;)}</td>
-							<td>{getLevelAlly(p;;)}</td>
-							<td>{getAbilityAlly(p;;)}</td>
-							<td>{getGenderAlly(p;;)}</td>
-							<td>{getItemAlly(p;;)}</td>
+							<td><c:img src="{getImageAlly(([p]))}"/></td>
+							<td>{getNameAlly(([p]))}</td>
+							<td>{getLevelAlly(([p]))}</td>
+							<td>{getAbilityAlly(([p]))}</td>
+							<td>{getGenderAlly(([p]))}</td>
+							<td>{getItemAlly(([p]))}</td>
 							<td>
-								<c:for list="getMovesAlly(p;;)" var="m" className='java.lang.String'>
-									{m;} - 
+								<c:for list="getMovesAlly(([p]))" var="m" className='java.lang.String'>
+									{m} - 
 								</c:for>
 							</td>
 						</tr>
@@ -971,7 +971,7 @@
 					<c:message value="msg_simulation,ko_player_fighters"/>
 					<ul>
 						<c:for list="getKoPlayers()" var="p" className='java.lang.String'>
-							<li>{p;}</li>
+							<li>{p}</li>
 						</c:for>
 					</ul>
 				</c:if>
@@ -980,7 +980,7 @@
 					<c:message value="msg_simulation,not_ko_foe_fighters"/>
 					<ul>
 						<c:for list="getNotKoFrontFoes()" var="p" className='java.lang.String'>
-							<li>{p;}</li>
+							<li>{p}</li>
 						</c:for>
 					</ul>
 				</c:if>
@@ -989,7 +989,7 @@
 					<c:message value="msg_simulation,ko_foe_fighters"/>
 					<ul>
 						<c:for list="getKoFoes()" var="p" className='java.lang.String'>
-							<li>{p;}</li>
+							<li>{p}</li>
 						</c:for>
 					</ul>
 				</c:if>
@@ -1030,7 +1030,7 @@
 					<br/>
 				</c:if>
 				<c:for list="comments" var="l" className='java.lang.String'>
-					{l;}<br/>
+					{l}<br/>
 				</c:for>
 			</c:if>
 			<hr/>
@@ -1056,21 +1056,21 @@
 					<tbody>
 						<c:for className="aiki.map.pokemon.PokemonPlayer" list="teamAfterFight" var="p">
 							<tr>
-								<td><c:img src="{getImageAfterFight(p;;)}"/></td>
-								<td>{getNameAfterFight(p;;)}</td>
-								<td>{getLevelAfterFight(p;;)}</td>
-								<td>{getAbilityAfterFight(p;;)}</td>
-								<td>{getGenderAfterFight(p;;)}</td>
-								<td>{getItemAfterFight(p;;)}</td>
+								<td><c:img src="{getImageAfterFight(([p]))}"/></td>
+								<td>{getNameAfterFight(([p]))}</td>
+								<td>{getLevelAfterFight(([p]))}</td>
+								<td>{getAbilityAfterFight(([p]))}</td>
+								<td>{getGenderAfterFight(([p]))}</td>
+								<td>{getItemAfterFight(([p]))}</td>
 								<td>
-									<c:for list="getMovesAfterFight(p;;)" var="m" className='java.lang.String'>
-										{m;} - 
+									<c:for list="getMovesAfterFight(([p]))" var="m" className='java.lang.String'>
+										{m} - 
 									</c:for>
 								</td>
-								<td>{getRemainingLifeRate(p;;)} %</td>
-								<td>{p;getWonExpSinceLastLevel()}</td>
-								<td>{numberNecessaryPointsForGrowingLevel(p;;)}</td>
-								<td>{p;getHappiness()}</td>
+								<td>{getRemainingLifeRate(([p]))} %</td>
+								<td>{p.getWonExpSinceLastLevel()}</td>
+								<td>{numberNecessaryPointsForGrowingLevel(([p]))}</td>
+								<td>{p.getHappiness()}</td>
 							</tr>
 						</c:for>
 					</tbody>
@@ -1096,7 +1096,7 @@
 					<c:submit message="msg_simulation,hide_comments"/>
 				</form>
 				<c:for list="comments" var="l" className='java.lang.String'>
-					{l;}<br/>
+					{l}<br/>
 				</c:for>
 			</c:if>
 		</c:if>
@@ -1123,23 +1123,23 @@
 					<tbody>
 						<c:for className="aiki.map.pokemon.PokemonPlayer" list="teamAfterFight" var="p">
 							<tr>
-								<td><c:img src="{getImageAfterFight(p;;)}"/></td>
-								<td>{getNameAfterFight(p;;)}</td>
-								<td>{getLevelAfterFight(p;;)}</td>
-								<td>{getAbilityAfterFight(p;;)}</td>
-								<td>{getGenderAfterFight(p;;)}</td>
-								<td>{getItemAfterFight(p;;)}</td>
+								<td><c:img src="{getImageAfterFight(([p]))}"/></td>
+								<td>{getNameAfterFight(([p]))}</td>
+								<td>{getLevelAfterFight(([p]))}</td>
+								<td>{getAbilityAfterFight(([p]))}</td>
+								<td>{getGenderAfterFight(([p]))}</td>
+								<td>{getItemAfterFight(([p]))}</td>
 								<td>
-									<c:for list="getMovesAfterFight(p;;)" var="m" className='java.lang.String'>
-										{m;} - 
+									<c:for list="getMovesAfterFight(([p]))" var="m" className='java.lang.String'>
+										{m} - 
 									</c:for>
 								</td>
-								<td>{getRemainingLifeRate(p;;)} %</td>
-								<td>{p;getWonExpSinceLastLevel()}</td>
-								<td>{numberNecessaryPointsForGrowingLevel(p;;)}</td>
-								<td>{p;getHappiness()}</td>
+								<td>{getRemainingLifeRate(([p]))} %</td>
+								<td>{p.getWonExpSinceLastLevel()}</td>
+								<td>{numberNecessaryPointsForGrowingLevel(([p]))}</td>
+								<td>{p.getHappiness()}</td>
 								<td>
-									<input c:groupId="pkTable" c:validator="selected_radio" c:varValue="p;;" name="selectedPk" type="radio"/>
+									<input c:groupId="pkTable" c:validator="selected_radio" c:varValue="([p])" name="selectedPk" type="radio"/>
 								</td>
 							</tr>
 						</c:for>
@@ -1177,38 +1177,38 @@
 						<tbody>
 							<c:for className="aiki.beans.facade.simulation.dto.SelectLineMove" list="keptMovesAfterFight" var="d">
 								<tr>
-									<td>{d;displayName}</td>
-									<td>{d;pp}</td>
+									<td>{d.displayName}</td>
+									<td>{d.pp}</td>
 									<td>
-										<c:for list="d;getTypes()" var="t" className='java.lang.String'>
-											{t;} -
+										<c:for list="d.getTypes()" var="t" className='java.lang.String'>
+											{t} -
 										</c:for>
 									</td>
-									<td>{d;category}</td>
+									<td>{d.category}</td>
 									<td>
-										<c:if condition="d;isDamageMove()">
+										<c:if condition="d.isDamageMove()">
 											<c:message value="msg_moves,damaging"/>
 										</c:if>
-										<c:if condition="!d;isDamageMove()">
+										<c:if condition="!d.isDamageMove()">
 											<c:message value="msg_moves,status"/>
 										</c:if>
 									</td>
 									<td>
-										<c:if condition="!d;isDamageMove()">
+										<c:if condition="!d.isDamageMove()">
 											<c:message value="msg_moves,status_indirect"/>
 										</c:if>
-										<c:if condition="d;isDamageMove()">
-											<c:if condition="d;isDirect()">
+										<c:if condition="d.isDamageMove()">
+											<c:if condition="d.isDirect()">
 												<c:message value="msg_moves,damaging_direct"/>
 											</c:if>
-											<c:if condition="!d;isDirect()">
+											<c:if condition="!d.isDirect()">
 												<c:message value="msg_moves,damaging_indirect"/>
 											</c:if>
 										</c:if>
 									</td>
-									<td>{d;priority}</td>
+									<td>{d.priority}</td>
 									<td>
-										<input c:varValue="d;selected" name="d;selected" type="checkbox"/>
+										<input c:varValue="d.selected" name="d.selected" type="checkbox"/>
 									</td>
 								</tr>
 							</c:for>

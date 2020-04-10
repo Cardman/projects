@@ -16,29 +16,29 @@
 		<br/>
 		<c:for className="aiki.map.pokemon.WildPk" list="area.getWildPokemon()" var="p">
 			<br/>
-			<c:img src="{getImage(p;;)}"/>
+			<c:img src="{getImage(([p]))}"/>
 			<br/>
 			<c:message value="msg_pokemon_npc,name"/>
-			<a c:command="$clickName({p;;})">{getName(p;;)}</a><br/>
+			<a c:command="$clickName({([p])})">{getName(([p]))}</a><br/>
 			<c:message value="msg_pokemon_npc,gender"/>
-			{getGender(p;;)}
+			{getGender(([p]))}
 			<br/>
 			<c:message value="msg_pokemon_npc,level"/>
-			{p;getLevel()}
+			{p.getLevel()}
 			<br/>
 			<c:message value="msg_pokemon_npc,ability"/>
-			<a c:command="$clickAbility({p;;})">{getAbility(p;;)}</a><br/>
+			<a c:command="$clickAbility({([p])})">{getAbility(([p]))}</a><br/>
 			<c:message value="msg_pokemon_npc,item"/>
-			<c:if condition="!p;getItem().isEmpty()">
-				<a c:command="$clickItem({p;;})">{getItem(p;;)}</a><br/>
+			<c:if condition="!p.getItem().isEmpty()">
+				<a c:command="$clickItem({([p])})">{getItem(([p]))}</a><br/>
 			</c:if>
-			<c:if condition="p;getItem().isEmpty()">
+			<c:if condition="p.getItem().isEmpty()">
 				<c:message value="msg_pokemon_npc,item_no"/><br/>
 			</c:if>
 			<c:message value="msg_pokemon_npc,moves"/>
 			<ul>
-				<c:for list="getMovesAtLevel(p;;)" var="m">
-					<li><a c:command="$clickMove({p;;},{m;;})">{getMove(p;;,m;;)}</a></li>
+				<c:for list="getMovesAtLevel(([p]))" var="m">
+					<li><a c:command="$clickMove({([p])},{([m])})">{getMove(([p]),([m]))}</a></li>
 				</c:for>
 			</ul>
 			<br/>
@@ -47,29 +47,29 @@
 		<hr/>
 		<c:for className="aiki.map.pokemon.WildPk" list="area.getWildPokemonFishing()" var="p">
 			<br/>
-			<c:img src="{getImageFishing(p;;)}"/>
+			<c:img src="{getImageFishing(([p]))}"/>
 			<br/>
 			<c:message value="msg_pokemon_npc,name"/>
-			<a c:command="$clickNameFishing({p;;})">{getNameFishing(p;;)}</a><br/>
+			<a c:command="$clickNameFishing({([p])})">{getNameFishing(([p]))}</a><br/>
 			<c:message value="msg_pokemon_npc,gender"/>
-			{getGender(p;;)}
+			{getGender(([p]))}
 			<br/>
 			<c:message value="msg_pokemon_npc,level"/>
-			{p;getLevel()}
+			{p.getLevel()}
 			<br/>
 			<c:message value="msg_pokemon_npc,ability"/>
-			<a c:command="$clickAbilityFishing({p;;})">{getAbilityFishing(p;;)}</a><br/>
+			<a c:command="$clickAbilityFishing({([p])})">{getAbilityFishing(([p]))}</a><br/>
 			<c:message value="msg_pokemon_npc,item"/>
-			<c:if condition="!p;getItem().isEmpty()">
-				<a c:command="$clickItemFishing({p;;})">{getItemFishing(p;;)}</a><br/>
+			<c:if condition="!p.getItem().isEmpty()">
+				<a c:command="$clickItemFishing({([p])})">{getItemFishing(([p]))}</a><br/>
 			</c:if>
-			<c:if condition="p;getItem().isEmpty()">
+			<c:if condition="p.getItem().isEmpty()">
 				<c:message value="msg_pokemon_npc,item_no"/><br/>
 			</c:if>
 			<c:message value="msg_pokemon_npc,moves"/>
 			<ul>
-				<c:for list="getMovesAtLevelFishing(p;;)" var="m">
-					<li><a c:command="$clickMoveFishing({p;;},{m;;})">{getMoveFishing(p;;,m;;)}</a></li>
+				<c:for list="getMovesAtLevelFishing(([p]))" var="m">
+					<li><a c:command="$clickMoveFishing({([p])},{([m])})">{getMoveFishing(([p]),([m]))}</a></li>
 				</c:for>
 			</ul>
 			<br/>

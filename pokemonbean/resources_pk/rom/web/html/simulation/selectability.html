@@ -14,7 +14,7 @@
 		<br/>
 		<ul>
 			<c:for list="sortedAbilities" var="a">
-				<li><a c:command="$clickAbility({a;;})" href="">{getTrAbility(a;;)}</a></li>
+				<li><a c:command="$clickAbility({([a])})" href="">{getTrAbility(([a]))}</a></li>
 			</c:for>
 		</ul>
 	</body>

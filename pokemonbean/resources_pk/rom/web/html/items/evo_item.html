@@ -16,7 +16,7 @@
 				<c:message value="msg_evo_item,item"/>
 				<ul>
 					<c:for list="pokemon" var="p">
-						<li><a c:command="$clickPokemon({p;;})" href="">{getTrPokemon(p;;)}</a></li>
+						<li><a c:command="$clickPokemon({([p])})" href="">{getTrPokemon(([p]))}</a></li>
 					</c:for>
 				</ul>
 			</c:if>

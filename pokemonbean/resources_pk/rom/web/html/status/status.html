@@ -14,7 +14,7 @@
 		<br/>
 		<ul>
 			<c:for list="sortedStatus" var="a">
-				<li><a c:command="$clickStatus({a;;})" href="">{getTrStatus(a;;)}</a></li>
+				<li><a c:command="$clickStatus({([a])})" href="">{getTrStatus(([a]))}</a></li>
 			</c:for>
 		</ul>
 	</body>

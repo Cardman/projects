@@ -36,7 +36,7 @@
 		<c:message value="msg_pokemon_npc,moves"/>
 		<ul>
 			<c:for list="getMovesAtLevel()" var="m">
-				<li><a c:command="$clickMove({m;;})">{getMove(m;;)}</a></li>
+				<li><a c:command="$clickMove({([m])})">{getMove(([m]))}</a></li>
 			</c:for>
 		</ul>
 		<br/>

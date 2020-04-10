@@ -14,8 +14,8 @@
 			<ul>
 				<c:for key="p" map="evolutions" value="e" varClassName='java.lang.String'>
 					<li>
-						{getEvo(p;;)}
-						<c:img src="{e;}"/>
+						{getEvo(([p]))}
+						<c:img src="{e}"/>
 					</li>
 				</c:for>
 			</ul>
@@ -65,14 +65,14 @@
 		<c:message value="msg_pokemon,types"/>
 		<ul>
 			<c:for list="types" var="t" className='java.lang.String'>
-				<li>{t;}</li>
+				<li>{t}</li>
 			</c:for>
 		</ul>
 		<c:if condition="!status.isEmpty()">
 			<c:message value="msg_pokemon,status"/>
 			<ul>
 				<c:for list="status" var="t" className='java.lang.String'>
-					<li>{t;}</li>
+					<li>{t}</li>
 				</c:for>
 			</ul>
 		</c:if>
@@ -88,9 +88,9 @@
 			<tbody>
 				<c:for key="m" map="moves" value="a" keyClassName='java.lang.String' varClassName="aiki.game.UsesOfMove">
 					<tr>
-						<td>{m;}</td>
-						<td>{a;getCurrent()}</td>
-						<td>{a;getMax()}</td>
+						<td>{m}</td>
+						<td>{a.getCurrent()}</td>
+						<td>{a.getMax()}</td>
 					</tr>
 				</c:for>
 			</tbody>
@@ -108,10 +108,10 @@
 			<tbody>
 				<c:for className="aiki.beans.facade.game.dto.StatisticInfoPkPlayer" list="statistics" var="s">
 					<tr>
-						<td>{s;getName()}</td>
-						<td>{s;getEv()}</td>
-						<td>{s;getIv()}</td>
-						<td>{s;getRate()}</td>
+						<td>{s.getName()}</td>
+						<td>{s.getEv()}</td>
+						<td>{s.getIv()}</td>
+						<td>{s.getRate()}</td>
 					</tr>
 				</c:for>
 			</tbody>

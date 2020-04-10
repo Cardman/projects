@@ -42,9 +42,9 @@
 		</c:message>
 		<c:message value="msg_generalhelp,goal_2"/>
 		<br/>
-		<map style="font-size: 0;" width="{getMapWidth()}">
+		<map style="font-size: 0" width="{getMapWidth()}">
 			<c:for key="p" map="miniMap" value="i">
-				<a title="{getPlaceName(p;;)}"><c:img src="{getMiniMapImage(p;;)}"/></a>
+				<a title="{getPlaceName(([p]))}"><c:img src="{getMiniMapImage(([p]))}"/></a>
 			</c:for>
 		</map>
 		<c:message value="msg_generalhelp,goal_3"/>
@@ -73,7 +73,7 @@
 		<c:message value="msg_pokemon_npc,moves"/>
 		<ul>
 			<c:for list="getMovesAtLevel()" var="m">
-				<li><a c:command="$clickMove({m;;})">{getMove(m;;)}</a></li>
+				<li><a c:command="$clickMove({([m])})">{getMove(([m]))}</a></li>
 			</c:for>
 		</ul>
 		<c:message value="msg_generalhelp,help_1">
@@ -128,7 +128,7 @@
 		<ul>
 			<c:for list="pokemonDefaultEggGroup" var="p">
 				<li>
-					<a c:command="$clickPokemon({p;;})">{getTrPokemon(p;;)}</a>
+					<a c:command="$clickPokemon({([p])})">{getTrPokemon(([p]))}</a>
 				</li>
 			</c:for>
 		</ul>
@@ -151,14 +151,14 @@
 					<c:for list="tm" var="m">
 						<tr>
 							<td>
-								<a c:command="$clickTm({m;;})">{getTrTm(m;;)}</a>
+								<a c:command="$clickTm({([m])})">{getTrTm(([m]))}</a>
 							</td>
 							<td>
-								<c:if condition="getTmPrice(m;;).isEmpty()">
+								<c:if condition="getTmPrice(([m])).isEmpty()">
 									<c:message value="msg_generalhelp,help_tm_hm_price_no"/>
 								</c:if>
-								<c:if condition="!getTmPrice(m;;).isEmpty()">
-									{getTmPrice(m;;)}
+								<c:if condition="!getTmPrice(([m])).isEmpty()">
+									{getTmPrice(([m]))}
 								</c:if>
 							</td>
 						</tr>
@@ -171,7 +171,7 @@
 			<ul>
 				<c:for list="hm" var="m">
 					<li>
-						<a c:command="$clickHm({m;;})">{getTrHm(m;;)}</a>
+						<a c:command="$clickHm({([m])})">{getTrHm(([m]))}</a>
 					</li>
 				</c:for>
 			</ul>
@@ -188,9 +188,9 @@
 			<tbody>
 				<c:for list="types" var="t">
 					<tr>
-						<td>{getTrType(t;;)}</td>
-						<td><c:img src="{getImageType(t;;)}"/></td>
-						<td><c:img src="{getColorType(t;;)}"/></td>
+						<td>{getTrType(([t]))}</td>
+						<td><c:img src="{getImageType(([t]))}"/></td>
+						<td><c:img src="{getColorType(([t]))}"/></td>
 					</tr>
 				</c:for>
 			</tbody>

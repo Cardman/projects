@@ -35,38 +35,38 @@
 				<tbody>
 					<c:for className="aiki.beans.facade.simulation.dto.SelectLineMove" list="moves" var="d">
 						<tr>
-							<td>{d;displayName}</td>
-							<td>{d;pp}</td>
+							<td>{d.displayName}</td>
+							<td>{d.pp}</td>
 							<td>
-								<c:for list="d;getTypes()" var="t" className='java.lang.String'>
-									{t;} -
+								<c:for list="d.getTypes()" var="t" className='java.lang.String'>
+									{t} -
 								</c:for>
 							</td>
-							<td>{d;category}</td>
+							<td>{d.category}</td>
 							<td>
-								<c:if condition="d;isDamageMove()">
+								<c:if condition="d.isDamageMove()">
 									<c:message value="msg_moves,damaging"/>
 								</c:if>
-								<c:if condition="!d;isDamageMove()">
+								<c:if condition="!d.isDamageMove()">
 									<c:message value="msg_moves,status"/>
 								</c:if>
 							</td>
 							<td>
-								<c:if condition="!d;isDamageMove()">
+								<c:if condition="!d.isDamageMove()">
 									<c:message value="msg_moves,status_indirect"/>
 								</c:if>
-								<c:if condition="d;isDamageMove()">
-									<c:if condition="d;isDirect()">
+								<c:if condition="d.isDamageMove()">
+									<c:if condition="d.isDirect()">
 										<c:message value="msg_moves,damaging_direct"/>
 									</c:if>
-									<c:if condition="!d;isDirect()">
+									<c:if condition="!d.isDirect()">
 										<c:message value="msg_moves,damaging_indirect"/>
 									</c:if>
 								</c:if>
 							</td>
-							<td>{d;priority}</td>
+							<td>{d.priority}</td>
 							<td>
-								<input c:varValue="d;selected" name="d;selected" type="checkbox"/>
+								<input c:varValue="d.selected" name="d.selected" type="checkbox"/>
 							</td>
 						</tr>
 					</c:for>

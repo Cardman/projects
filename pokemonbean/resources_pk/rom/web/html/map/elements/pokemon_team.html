@@ -7,26 +7,26 @@
 		<c:message value="msg_pokemon_npc,multiplicity"/> {multiplicity}<br/>
 		<c:for className="aiki.map.pokemon.PkTrainer" list="team" var="p">
 			<br/>
-			<c:img src="{getImage(p;;)}"/>
+			<c:img src="{getImage(([p]))}"/>
 			<br/>
 			<c:message value="msg_pokemon_npc,name"/>
-			<a c:command="$clickName({noFight},{p;;})">{getName(p;;)}</a><br/>
+			<a c:command="$clickName({noFight},{([p])})">{getName(([p]))}</a><br/>
 			<c:message value="msg_pokemon_npc,level"/>
-			{p;getLevel()}
+			{p.getLevel()}
 			<br/>
 			<c:message value="msg_pokemon_npc,ability"/>
-			<a c:command="$clickAbility({noFight},{p;;})">{getAbility(p;;)}</a><br/>
+			<a c:command="$clickAbility({noFight},{([p])})">{getAbility(([p]))}</a><br/>
 			<c:message value="msg_pokemon_npc,item"/>
-			<c:if condition="!p;getItem().isEmpty()">
-				<a c:command="$clickItem({noFight},{p;;})">{getItem(p;;)}</a><br/>
+			<c:if condition="!p.getItem().isEmpty()">
+				<a c:command="$clickItem({noFight},{([p])})">{getItem(([p]))}</a><br/>
 			</c:if>
-			<c:if condition="p;getItem().isEmpty()">
+			<c:if condition="p.getItem().isEmpty()">
 				<c:message value="msg_pokemon_npc,item_no"/><br/>
 			</c:if>
 			<c:message value="msg_pokemon_npc,moves"/>
 			<ul>
-				<c:for list="p;getMoves()" var="m">
-					<li><a c:command="$clickMove({noFight},{p;;},{m;;})">{getMove(p;;,m;;)}</a></li>
+				<c:for list="p.getMoves()" var="m">
+					<li><a c:command="$clickMove({noFight},{([p])},{([m])})">{getMove(([p]),([m]))}</a></li>
 				</c:for>
 			</ul>
 			<br/>

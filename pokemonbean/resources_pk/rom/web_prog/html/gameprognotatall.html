@@ -6,18 +6,18 @@
 	<body>
 		<a c:command="web_prog/html/gameprog.html"><c:message value="msg_prog,returnMain"/></a><br/>
 		<c:for key="k" map="notAtAllFamiliesBase" value="m" keyClassName='java.lang.String' varClassName="ls">
-			{k;}<br/>
+			{k}<br/>
 			<table>
 				<tbody>
 					<tr>
 						<td>
 							<c:message value="msg_prog,notCaughtPkCaughtNotPart"/>
 						</td>
-						<c:for className="ls" list="m;" var="l">
+						<c:for className="ls" list="m" var="l">
 							<td>
-								<c:for list="l;" var="e">
-									<c:img src="{getImagePokemonNotAll(k;;,l;;,e;;)}"/>
-									{getTrPokemonNotAll(k;;,l;;,e;;)}<br/>
+								<c:for list="l" var="e">
+									<c:img src="{getImagePokemonNotAll(([k]),([l]),([e]))}"/>
+									{getTrPokemonNotAll(([k]),([l]),([e]))}<br/>
 								</c:for>
 							</td>
 						</c:for>

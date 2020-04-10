@@ -45,15 +45,15 @@
 				<c:message value="msg_eff,reasons"/>
 				<ul>
 					<c:for list="reasons" var="r" className='java.lang.String'>
-						<li>{r;}</li>
+						<li>{r}</li>
 					</c:for>
 				</ul>
 				<br/>
 				<ul>
 					<c:for key="c" map="mapVarsFail" value="r" keyClassName='java.lang.String' varClassName='java.lang.String'>
-						<li>{c;} :
+						<li>{c} :
 							<c:message quoted="" value="msg_eff,formula">
-								<param value="r;"/>
+								<param value="r"/>
 							</c:message>
 						</li>
 					</c:for>

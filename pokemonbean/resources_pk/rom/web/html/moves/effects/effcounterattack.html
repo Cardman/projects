@@ -31,8 +31,8 @@
 					<tbody>
 						<c:for key="c" map="sufferingDamageTypes" value="r" varClassName='r'>
 							<tr>
-								<td>{getTrSufferingDamageTypes(c;;)}</td>
-								<td>{r;}</td>
+								<td>{getTrSufferingDamageTypes(([c]))}</td>
+								<td>{r}</td>
 							</tr>
 						</c:for>
 					</tbody>
@@ -57,8 +57,8 @@
 					<tbody>
 						<c:for key="c" map="droppedStatDirectMove" value="r" varClassName='java.lang.Byte'>
 							<tr>
-								<td>{getTrDroppedStatDirectMove(c;;)}</td>
-								<td>{r;}</td>
+								<td>{getTrDroppedStatDirectMove(([c]))}</td>
+								<td>{r}</td>
 							</tr>
 						</c:for>
 					</tbody>
@@ -78,7 +78,7 @@
 					</c:message>
 					<ul>
 						<c:for list="reasonsProtect" var="r" className='java.lang.String'>
-							<li>{r;}</li>
+							<li>{r}</li>
 						</c:for>
 					</ul>
 					<br/>
@@ -91,7 +91,7 @@
 					</c:message>
 					<ul>
 						<c:for list="reasonsCounter" var="r" className='java.lang.String'>
-							<li>{r;}</li>
+							<li>{r}</li>
 						</c:for>
 					</ul>
 					<br/>
@@ -100,9 +100,9 @@
 			<c:if condition="!getMapVarsFailCounter().isEmpty()">
 				<ul>
 					<c:for key="c" map="getMapVarsFailCounter()" value="r" keyClassName='java.lang.String' varClassName='java.lang.String'>
-						<li>{c;} :
+						<li>{c} :
 							<c:message quoted="" value="msg_effcounterattack,formula">
-								<param value="r;"/>
+								<param value="r"/>
 							</c:message>
 						</li>
 					</c:for>

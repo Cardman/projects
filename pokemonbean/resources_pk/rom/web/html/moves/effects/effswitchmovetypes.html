@@ -17,7 +17,7 @@
 				<c:message value="msg_effswitchmovetypes,replacing_types"/>
 				<ul>
 					<c:for list="replacingTypes" var="s">
-						<li>{getTrReplacingTypes(s;;)}</li>
+						<li>{getTrReplacingTypes(([s]))}</li>
 					</c:for>
 				</ul>
 				<br/>
@@ -43,8 +43,8 @@
 					<tbody>
 						<c:for key="c" map="changeTypes" value="r" varClassName='java.lang.String'>
 							<tr>
-								<td>{getTrChangedTypes(c;;)}</td>
-								<td>{r;}</td>
+								<td>{getTrChangedTypes(([c]))}</td>
+								<td>{r}</td>
 							</tr>
 						</c:for>
 					</tbody>

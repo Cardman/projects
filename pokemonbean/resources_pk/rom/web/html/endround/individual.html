@@ -45,8 +45,8 @@
 					<tbody>
 						<c:for key="s" map="multDamageStatus" value="r" varClassName="r">
 							<tr>
-								<td><a c:command="$clickDamageStatus({index},{s;;})" href="">{getTrDamageStatus(s;;)}</a></td>
-								<td>{r;}</td>
+								<td><a c:command="$clickDamageStatus({index},{([s])})" href="">{getTrDamageStatus(([s]))}</a></td>
+								<td>{r}</td>
 							</tr>
 						</c:for>
 					</tbody>
@@ -65,17 +65,17 @@
 					<tbody>
 						<c:for key="s" map="healHpByOwnerTypes" value="r" varClassName="r">
 							<tr>
-								<c:if condition="isType(s;;)">
-									<td>{getTrType(s;;)}</td>
+								<c:if condition="isType(([s]))">
+									<td>{getTrType(([s]))}</td>
 								</c:if>
-								<c:if condition="!isType(s;;)">
+								<c:if condition="!isType(([s]))">
 									<td><c:message value="msg_individual,heal_hp_by_owner_types_other"/></td>
 								</c:if>
-								<c:if condition="r;isZeroOrGt()">
-									<td><c:message value="msg_individual,heal_hp_by_owner_types_value_w"><param value="r;absNb()"/></c:message></td>
+								<c:if condition="r.isZeroOrGt()">
+									<td><c:message value="msg_individual,heal_hp_by_owner_types_value_w"><param value="r.absNb()"/></c:message></td>
 								</c:if>
-								<c:if condition="!r;isZeroOrGt()">
-									<td><c:message value="msg_individual,heal_hp_by_owner_types_value_l"><param value="r;absNb()"/></c:message></td>
+								<c:if condition="!r.isZeroOrGt()">
+									<td><c:message value="msg_individual,heal_hp_by_owner_types_value_l"><param value="r.absNb()"/></c:message></td>
 								</c:if>
 							</tr>
 						</c:for>

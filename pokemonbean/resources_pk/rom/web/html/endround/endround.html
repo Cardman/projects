@@ -7,10 +7,10 @@
 		<a c:command="web/html/index.html" href=""><c:message value="msg_moves,index"/></a>
 		<br/>
 		<c:for list="getEvts()" var="e">
-			<c:import page="{getPage(e;;)}">
+			<c:import page="{getPage(([e]))}">
 				<c:package name="aiki.beans.endround">
 					<c:class name="EffectEndRoundBean">
-						<c:field prepare="$intern.index=e;;"/>
+						<c:field prepare="$intern.index=([e])"/>
 					</c:class>
 				</c:package>
 			</c:import>

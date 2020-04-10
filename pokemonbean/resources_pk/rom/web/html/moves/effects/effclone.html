@@ -20,7 +20,7 @@
 				<c:message value="msg_effclone,effect_3"/>
 				<ul>
 					<c:for list="movesEndRound" var="m">
-						<li><a c:command="$clickMoveEndRound({m;;})" href="">{getTrMovesEndRound(m;;)}</a></li>
+						<li><a c:command="$clickMoveEndRound({([m])})" href="">{getTrMovesEndRound(([m]))}</a></li>
 					</c:for>
 				</ul>
 				<br/>
@@ -30,14 +30,14 @@
 					<c:message value="msg_effclone,effect_4"/>
 					<ul>
 						<c:for list="movesBatonPass" var="m">
-							<li><a c:command="$clickMoveBatonPass({m;;})" href="">{getTrMovesBatonPass(m;;)}</a></li>
+							<li><a c:command="$clickMoveBatonPass({([m])})" href="">{getTrMovesBatonPass(([m]))}</a></li>
 						</c:for>
 					</ul>
 					<br/>
 					<c:message value="msg_effclone,effect_5"/>
 					<ul>
 						<c:for list="movesSending" var="m">
-							<li><a c:command="$clickMoveSending({m;;})" href="">{getTrMovesSending(m;;)}</a></li>
+							<li><a c:command="$clickMoveSending({([m])})" href="">{getTrMovesSending(([m]))}</a></li>
 						</c:for>
 					</ul>
 					<br/>

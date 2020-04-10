@@ -32,14 +32,14 @@
 					<tbody>
 						<c:for key="c" map="lawStatus" value="r" varClassName='r'>
 							<tr>
-								<c:if condition="isStatus(c;;)">
-									<td><a c:command="$clickLink({index},{c;;})" href="">{getTrLink(c;;)}</a></td>
+								<c:if condition="isStatus(([c]))">
+									<td><a c:command="$clickLink({index},{([c])})" href="">{getTrLink(([c]))}</a></td>
 								</c:if>
-								<c:if condition="!isStatus(c;;)">
+								<c:if condition="!isStatus(([c]))">
 									<td><c:message value="msg_effstatus,other_status"/></td>
 								</c:if>
-								<td>{getFail(c;;)}</td>
-								<td>{r;}</td>
+								<td>{getFail(([c]))}</td>
+								<td>{r}</td>
 							</tr>
 						</c:for>
 					</tbody>
@@ -48,9 +48,9 @@
 				<c:if condition="!mapVarsStatus.isEmpty()">
 					<ul>
 						<c:for key="k" map="mapVarsStatus" value="v" keyClassName='java.lang.String' varClassName='java.lang.String'>
-							<li>{k;} :
+							<li>{k} :
 								<c:message quoted="" value="msg_effstatus,formula">
-									<param value="v;"/>
+									<param value="v"/>
 								</c:message>
 							</li>
 						</c:for>
@@ -62,7 +62,7 @@
 				<c:message value="msg_effstatus,deleted_status"/>
 				<ul>
 					<c:for list="deletedStatus" var="s">
-						<li><a c:command="$clickLinkDeleted({index},{s;;})" href="">{getTrLinkDeleted(s;;)}</a></li>
+						<li><a c:command="$clickLinkDeleted({index},{([s])})" href="">{getTrLinkDeleted(([s]))}</a></li>
 					</c:for>
 				</ul>
 				<br/>

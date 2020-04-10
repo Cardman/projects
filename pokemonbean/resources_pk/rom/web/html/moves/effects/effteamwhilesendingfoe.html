@@ -19,9 +19,9 @@
 				</c:message>
 				<ul>
 					<c:for key="k" map="mapVarsDamageSentFoe" value="v" keyClassName='java.lang.String' varClassName='java.lang.String'>
-						<li>{k;} :
+						<li>{k} :
 							<c:message quoted="" value="msg_effteamwhilesendingfoe,formula">
-								<param value="v;"/>
+								<param value="v"/>
 							</c:message>
 						</li>
 					</c:for>
@@ -44,8 +44,8 @@
 					<tbody>
 						<c:for key="s" map="statistics" value="b" varClassName='java.lang.Byte'>
 							<tr>
-								<td>{getTranslatedStatistic(s;;)}</td>
-								<td>{b;}</td>
+								<td>{getTranslatedStatistic(([s]))}</td>
+								<td>{b}</td>
 							</tr>
 						</c:for>
 					</tbody>
@@ -68,8 +68,8 @@
 					<tbody>
 						<c:for key="s" map="statusByNbUses" value="b" keyClassName='java.lang.Short'>
 							<tr>
-								<td>{s;}</td>
-								<td><a c:command="$clickStatus({index},{s;;})" href="">{getTranslatedStatus(s;;)}</a></td>
+								<td>{s}</td>
+								<td><a c:command="$clickStatus({index},{([s])})" href="">{getTranslatedStatus(([s]))}</a></td>
 							</tr>
 						</c:for>
 					</tbody>
@@ -81,15 +81,15 @@
 					<c:message value="msg_effteamwhilesendingfoe,reasons_sending"/>
 					<ul>
 						<c:for list="reasonsSending" var="r" className='java.lang.String'>
-							<li>{r;}</li>
+							<li>{r}</li>
 						</c:for>
 					</ul>
 					<br/>
 					<ul>
 						<c:for key="c" map="mapVarsFailSending" value="r" keyClassName='java.lang.String' varClassName='java.lang.String'>
-							<li>{c;} :
+							<li>{c} :
 								<c:message quoted="" value="msg_effteamwhilesendingfoe,formula">
-									<param value="r;"/>
+									<param value="r"/>
 								</c:message>
 							</li>
 						</c:for>
@@ -100,7 +100,7 @@
 				<c:message value="msg_effteamwhilesendingfoe,delete_status_if_types"/>
 				<ul>
 					<c:for list="deletedByFoeTypes" var="t">
-						<li>{getTranslatedType(t;;)}</li>
+						<li>{getTranslatedType(([t]))}</li>
 					</c:for>
 				</ul>
 				<br/>

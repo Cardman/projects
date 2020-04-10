@@ -33,7 +33,7 @@
 			<br/>
 			<ul>
 				<c:for list="possibleGenders" var="g" className='java.lang.String'>
-					<li>{g;}</li>
+					<li>{g}</li>
 				</c:for>
 			</ul>
 			<c:message value="msg_pkdata,types">
@@ -42,7 +42,7 @@
 			<br/>
 			<ul>
 				<c:for list="types" var="t" className='java.lang.String'>
-					<li>{t;}</li>
+					<li>{t}</li>
 				</c:for>
 			</ul>
 			<br/>
@@ -52,7 +52,7 @@
 			<ul>
 				<c:for list="abilities" var="a">
 					<li>
-						<a c:command="$clickAbility({a;;})" href="">{getTrAbility(a;;)}</a>
+						<a c:command="$clickAbility({([a])})" href="">{getTrAbility(([a]))}</a>
 					</li>
 				</c:for>
 			</ul>
@@ -78,11 +78,11 @@
 					</thead>
 					<tbody>
 						<c:for className="java.lang.String" list="evolutions" var="e">
-							<c:import page="{getPage(e;;)}">
+							<c:import page="{getPage(([e]))}">
 								<c:package name="aiki.beans.pokemon.evolutions">
 									<c:class name="EvolutionBean">
-										<c:field prepare="$intern.index=e;;"/>
-										<c:field prepare="$intern.name=e;"/>
+										<c:field prepare="$intern.index=([e])"/>
+										<c:field prepare="$intern.name=e"/>
 										<c:field prepare="$intern.base=name"/>
 									</c:class>
 								</c:package>
@@ -106,7 +106,7 @@
 			</c:message>
 			<ul>
 				<c:for key="k" map="mapVars" value="v" keyClassName='java.lang.String' varClassName='java.lang.String'>
-					<li>{k;} : {v;}</li>
+					<li>{k} : {v}</li>
 				</c:for>
 			</ul>
 			<br/>
@@ -133,9 +133,9 @@
 				<tbody>
 					<c:for list="statistics" var="s" className='java.lang.String'>
 						<tr>
-							<td>{s;}</td>
-							<td>{getBase(s;;)}</td>
-							<td>{getEv(s;;)}</td>
+							<td>{s}</td>
+							<td>{getBase(([s]))}</td>
+							<td>{getEv(([s]))}</td>
 						</tr>
 					</c:for>
 				</tbody>
@@ -158,8 +158,8 @@
 				<tbody>
 					<c:for className="aiki.fight.util.LevelMove" list="levMoves" var="l">
 						<tr>
-							<td>{l;getLevel()}</td>
-							<td><a c:command="$clickMove({l;;})" href="">{l;getMove()}</a></td>
+							<td>{l.getLevel()}</td>
+							<td><a c:command="$clickMove({([l])})" href="">{l.getMove()}</a></td>
 						</tr>
 					</c:for>
 				</tbody>
@@ -180,8 +180,8 @@
 				<tbody>
 					<c:for key="l" map="technicalMoves" value="m" keyClassName='java.lang.Short' varClassName='java.lang.String'>
 						<tr>
-							<td>{l;}</td>
-							<td><a c:command="$clickTechnicalMove({l;;})" href="">{m;}</a></td>
+							<td>{l}</td>
+							<td><a c:command="$clickTechnicalMove({([l])})" href="">{m}</a></td>
 						</tr>
 					</c:for>
 				</tbody>
@@ -202,8 +202,8 @@
 				<tbody>
 					<c:for key="l" map="hiddenMoves" value="m" keyClassName='java.lang.Short' varClassName='java.lang.String'>
 						<tr>
-							<td>{l;}</td>
-							<td><a c:command="$clickHiddenMove({l;;})" href="">{m;}</a></td>
+							<td>{l}</td>
+							<td><a c:command="$clickHiddenMove({([l])})" href="">{m}</a></td>
 						</tr>
 					</c:for>
 				</tbody>
@@ -216,7 +216,7 @@
 			<ul>
 				<c:for list="moveTutors" var="m">
 					<li>
-						<a c:command="$clickMoveTutors({m;;})" href="">{getMoveTutor(m;;)}</a>
+						<a c:command="$clickMoveTutors({([m])})" href="">{getMoveTutor(([m]))}</a>
 					</li>
 				</c:for>
 			</ul>
@@ -229,7 +229,7 @@
 			<ul>
 				<c:for list="eggGroupsPk" var="p">
 					<li>
-						<a c:command="$clickEggPk({p;;})" href="">{getEggPk(p;;)}</a>
+						<a c:command="$clickEggPk({([p])})" href="">{getEggPk(([p]))}</a>
 					</li>
 				</c:for>
 			</ul>
@@ -245,23 +245,23 @@
 			</c:message>
 			<ul>
 				<c:for className="aiki.beans.facade.map.dto.PlaceIndex" list="places" var="p">
-					<c:if condition="isAppearingPlace(p;;)">
+					<c:if condition="isAppearingPlace(([p]))">
 						<li>
-							{p;getPlace().getName()}<br/>
-							<c:if condition="isMultiLayer(p;;)">
+							{p.getPlace().getName()}<br/>
+							<c:if condition="isMultiLayer(([p]))">
 								<ul>
-									<c:for list="layers(p;;)" var="l">
-										<c:if condition="isAppearing(p;;,l;;)">
+									<c:for list="layers(([p]))" var="l">
+										<c:if condition="isAppearing(([p]),([l]))">
 											<li>
-												<a c:command="$clickLevel({p;index},{l;;})">{l;;}</a>
+												<a c:command="$clickLevel({p.index},{([l])})">{([l])}</a>
 											</li>
 										</c:if>
 									</c:for>
 								</ul>
 							</c:if>
-							<c:if condition="!isMultiLayer(p;;)">
-								<c:if condition="isAppearing(p;;,0)">
-									<a c:command="$clickLevel({p;index},0)"><c:message value="msg_pkdata,goLevel"/></a>
+							<c:if condition="!isMultiLayer(([p]))">
+								<c:if condition="isAppearing(([p]),0)">
+									<a c:command="$clickLevel({p.index},0)"><c:message value="msg_pkdata,goLevel"/></a>
 								</c:if>
 							</c:if>
 						</li>
@@ -271,7 +271,7 @@
 			<br/>
 			<map width="{getMapWidth()}">
 				<c:for key="p" map="images" value="i">
-					<a title="{getPlaceName(p;;)}"><c:img src="{getMiniMapImage(p;;)}"/></a>
+					<a title="{getPlaceName(([p]))}"><c:img src="{getMiniMapImage(([p]))}"/></a>
 				</c:for>
 			</map>
 		</c:if>

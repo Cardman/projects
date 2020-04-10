@@ -24,10 +24,10 @@
 				<tbody>
 					<c:for key="s" map="commonValue" value="f" varClassName='java.lang.String'>
 						<tr>
-							<td>{getTrStatistic(s;;)}</td>
+							<td>{getTrStatistic(([s]))}</td>
 							<td>
 								<c:message quoted="" value="msg_effcommonstatistics,formula">
-									<param value="f;"/>
+									<param value="f"/>
 								</c:message>
 							</td>
 						</tr>
@@ -37,9 +37,9 @@
 			<c:if condition="!mapVarsCommonStatistics.isEmpty()">
 				<ul>
 					<c:for key="c" map="mapVarsCommonStatistics" value="r" keyClassName='java.lang.String' varClassName='java.lang.String'>
-						<li>{c;} :
+						<li>{c} :
 							<c:message quoted="" value="msg_effcommonstatistics,formula">
-								<param value="r;"/>
+								<param value="r"/>
 							</c:message>
 						</li>
 					</c:for>

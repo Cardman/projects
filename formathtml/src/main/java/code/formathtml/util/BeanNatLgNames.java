@@ -381,8 +381,6 @@ public abstract class BeanNatLgNames extends BeanLgNames {
         AnalysisMessages a_ = new AnalysisMessages();
         KeyWords kw_ = new KeyWords();
         ContextEl context_ = ContextFactory.build(-1,lk_, di_, new Options(), a_,kw_, this,4);
-        context_.getOptions().setEndLineSemiColumn(false);
-        context_.getOptions().setSuffixVar(VariableSuffix.DISTINCT);
         _conf.setContext(context_);
         context_.setAnalyzing();
     }

@@ -29,13 +29,13 @@
 					<tbody>
 						<c:for key="b" map="happiness" value="w" varClassName="java.lang.Short">
 							<tr>
-								<c:if condition="!isBall(b;;)">
+								<c:if condition="!isBall(([b]))">
 									<td><c:message value="msg_boost,happiness_other_ball"/></td>
 								</c:if>
-								<c:if condition="isBall(b;;)">
-									<td><a c:command="$clickHappiness({b;;})" href="">{getTrHappiness(b;;)}</a></td>
+								<c:if condition="isBall(([b]))">
+									<td><a c:command="$clickHappiness({([b])})" href="">{getTrHappiness(([b]))}</a></td>
 								</c:if>
-								<td>{w;}</td>
+								<td>{w}</td>
 							</tr>
 						</c:for>
 					</tbody>
@@ -56,8 +56,8 @@
 					<tbody>
 						<c:for key="s" map="evs" value="w" varClassName="java.lang.Short">
 							<tr>
-								<td>{getTrEv(s;;)}</td>
-								<td>{w;}</td>
+								<td>{getTrEv(([s]))}</td>
+								<td>{w}</td>
 							</tr>
 						</c:for>
 					</tbody>

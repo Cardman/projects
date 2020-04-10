@@ -26,7 +26,7 @@
 		<ul>
 			<c:for className="aiki.fight.pokemon.TrainerPlaceNames" list="unBeatenImportantTrainers" var="p">
 				<li>
-					{p;getTrainer()} - {p;getPlace()}
+					{p.getTrainer()} - {p.getPlace()}
 				</li>
 			</c:for>
 		</ul>
@@ -35,7 +35,7 @@
 		<ul>
 			<c:for className="aiki.fight.pokemon.TrainerPlaceNames" list="beatenImportantTrainers" var="p">
 				<li>
-					{p;getTrainer()} - {p;getPlace()}
+					{p.getTrainer()} - {p.getPlace()}
 				</li>
 			</c:for>
 		</ul>
@@ -51,8 +51,8 @@
 			<tbody>
 				<c:for key="p" map="remainingOtherTrainerPlaces" value="n" varClassName='java.lang.Integer'>
 					<tr>
-						<td>{getRemainingOtherTrainersPlaceName(p;;)}</td>
-						<td>{n;}</td>
+						<td>{getRemainingOtherTrainersPlaceName(([p]))}</td>
+						<td>{n}</td>
 					</tr>
 				</c:for>
 			</tbody>
@@ -61,14 +61,14 @@
 		<c:message value="msg_prog,unVisitPlace"/>
 		<ul>
 			<c:for list="unVisitedPlaces" var="p" className='java.lang.String'>
-				<li>{p;}</li>
+				<li>{p}</li>
 			</c:for>
 		</ul>
 		<br/>
 		<c:message value="msg_prog,visitPlace"/>
 		<ul>
 			<c:for list="visitedPlaces" var="p" className='java.lang.String'>
-				<li>{p;}</li>
+				<li>{p}</li>
 			</c:for>
 		</ul>
 		<br/>

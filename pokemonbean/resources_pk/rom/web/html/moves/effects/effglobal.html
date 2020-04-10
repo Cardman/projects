@@ -60,7 +60,7 @@
 				<c:message value="msg_effglobal,forbid_status"/>
 				<ul>
 					<c:for list="preventStatus" var="s">
-						<li><a c:command="$clickPreventedStatus({s;;})" href="">{getTrPreventedStatus(s;;)}</a></li>
+						<li><a c:command="$clickPreventedStatus({([s])})" href="">{getTrPreventedStatus(([s]))}</a></li>
 					</c:for>
 				</ul>
 				<br/>
@@ -69,7 +69,7 @@
 				<c:message value="msg_effglobal,immune_types"/>
 				<ul>
 					<c:for list="immuneTypes" var="t" className='java.lang.String'>
-						<li>{t;}</li>
+						<li>{t}</li>
 					</c:for>
 				</ul>
 				<br/>
@@ -93,9 +93,9 @@
 					<tbody>
 						<c:for key="c" keyClassName="aiki.fight.util.TypesDuo" map="efficiencyMoves" value="r" varClassName='r'>
 							<tr>
-								<td>{c;getDamageType()}</td>
-								<td>{c;getPokemonType()}</td>
-								<td>{r;}</td>
+								<td>{c.getDamageType()}</td>
+								<td>{c.getPokemonType()}</td>
+								<td>{r}</td>
 							</tr>
 						</c:for>
 					</tbody>
@@ -106,7 +106,7 @@
 				<c:message value="msg_effglobal,disable_immu_types"/>
 				<ul>
 					<c:for list="disableImmuAgainstTypes" var="t" className='java.lang.String'>
-						<li>{t;}</li>
+						<li>{t}</li>
 					</c:for>
 				</ul>
 				<br/>
@@ -115,7 +115,7 @@
 				<c:message value="msg_effglobal,disable_immu_abilities"/>
 				<ul>
 					<c:for list="cancelProtectingAbilities" var="t">
-						<li><a c:command="$clickCancelledAbility({t;;})" href="">{getTrCancelledAbility(t;;)}</a></li>
+						<li><a c:command="$clickCancelledAbility({([t])})" href="">{getTrCancelledAbility(([t]))}</a></li>
 					</c:for>
 				</ul>
 				<br/>
@@ -124,7 +124,7 @@
 				<c:message value="msg_effglobal,unusable_moves"/>
 				<ul>
 					<c:for list="unusableMoves" var="t">
-						<li><a c:command="$clickUnusableMove({t;;})" href="">{getTrUnusableMoves(t;;)}</a></li>
+						<li><a c:command="$clickUnusableMove({([t])})" href="">{getTrUnusableMoves(([t]))}</a></li>
 					</c:for>
 				</ul>
 				<br/>
@@ -133,7 +133,7 @@
 				<c:message value="msg_effglobal,cancel_effects"/>
 				<ul>
 					<c:for list="cancelEffects" var="t">
-						<li><a c:command="$clickCancelledEffect({t;;})" href="">{getTrCancelledEffect(t;;)}</a></li>
+						<li><a c:command="$clickCancelledEffect({([t])})" href="">{getTrCancelledEffect(([t]))}</a></li>
 					</c:for>
 				</ul>
 				<br/>
@@ -154,8 +154,8 @@
 					<tbody>
 						<c:for key="c" map="multPowerMoves" value="r" varClassName='r'>
 							<tr>
-								<td><a c:command="$clickMultMovePower({c;;})" href="">{getTrMultMovePower(c;;)}</a></td>
-								<td>{r;}</td>
+								<td><a c:command="$clickMultMovePower({([c])})" href="">{getTrMultMovePower(([c]))}</a></td>
+								<td>{r}</td>
 							</tr>
 						</c:for>
 					</tbody>
@@ -178,8 +178,8 @@
 					<tbody>
 						<c:for key="c" map="multDamageTypesMoves" value="r" keyClassName='java.lang.String' varClassName='r'>
 							<tr>
-								<td>{c;}</td>
-								<td>{r;}</td>
+								<td>{c}</td>
+								<td>{r}</td>
 							</tr>
 						</c:for>
 					</tbody>
@@ -190,7 +190,7 @@
 				<c:message value="msg_effglobal,cancel_chgt_statis"/>
 				<ul>
 					<c:for list="cancelChgtStat" var="t" className='java.lang.String'>
-						<li>{t;}</li>
+						<li>{t}</li>
 					</c:for>
 				</ul>
 				<br/>
@@ -201,7 +201,7 @@
 				</c:message>
 				<ul>
 					<c:for list="invokingMoves" var="t">
-						<li><a c:command="$clickInvokingMove({t;;})" href="">{getTrInvokingMove(t;;)}</a></li>
+						<li><a c:command="$clickInvokingMove({([t])})" href="">{getTrInvokingMove(([t]))}</a></li>
 					</c:for>
 				</ul>
 				<br/>
@@ -210,14 +210,14 @@
 				<c:message value="msg_effglobal,changing_type_invoked"/>
 				<ul>
 					<c:for list="changedTypesTerrain" var="t" className='java.lang.String'>
-						<li>{t;}</li>
+						<li>{t}</li>
 					</c:for>
 				</ul>
 				<br/>
 				<c:message value="msg_effglobal,changing_type_invoking"/>
 				<ul>
 					<c:for list="invokingMovesChangingTypes" var="t">
-						<li><a c:command="$clickInvokingMoveTypes({t;;})" href="">{getTrInvokingMoveTypes(t;;)}</a></li>
+						<li><a c:command="$clickInvokingMoveTypes({([t])})" href="">{getTrInvokingMoveTypes(([t]))}</a></li>
 					</c:for>
 				</ul>
 				<br/>
@@ -241,9 +241,9 @@
 					<tbody>
 						<c:for key="c" map="multStatIfContainsType" value="r" varClassName='r'>
 							<tr>
-								<td>{getTrMultStatIfDamgeTypeFirst(c;;)}</td>
-								<td>{getTrMultStatIfDamgeTypeSecond(c;;)}</td>
-								<td>{r;}</td>
+								<td>{getTrMultStatIfDamgeTypeFirst(([c]))}</td>
+								<td>{getTrMultStatIfDamgeTypeSecond(([c]))}</td>
+								<td>{r}</td>
 							</tr>
 						</c:for>
 					</tbody>
@@ -254,7 +254,7 @@
 				<c:message value="msg_effglobal,mult_damage_type"/>
 				<ul>
 					<c:for list="movesUsedByTargetedFighters" var="t">
-						<li><a c:command="$clickMovesTarget({t;;})" href="">{getTrMovesTarget(t;;)}</a></li>
+						<li><a c:command="$clickMovesTarget({([t])})" href="">{getTrMovesTarget(([t]))}</a></li>
 					</c:for>
 				</ul>
 				<br/>
@@ -272,8 +272,8 @@
 					<tbody>
 						<c:for key="c" map="multDamagePrepaRound" value="r" keyClassName='java.lang.String' varClassName='r'>
 							<tr>
-								<td>{c;}</td>
-								<td>{r;}</td>
+								<td>{c}</td>
+								<td>{r}</td>
 							</tr>
 						</c:for>
 					</tbody>
