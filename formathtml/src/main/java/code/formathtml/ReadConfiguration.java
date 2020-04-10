@@ -100,7 +100,7 @@ public final class ReadConfiguration {
             context_.setAnalyzing();
         }
     }
-    static ContextEl loadContext(Element _elt, String _lg,BeanCustLgNames _stds, Configuration _conf) {
+    private static ContextEl loadContext(Element _elt, String _lg, BeanCustLgNames _stds, Configuration _conf) {
         DefaultLockingClass lk_ = new DefaultLockingClass();
         DefaultInitializer di_ = new DefaultInitializer();
         AnalysisMessages a_ = new AnalysisMessages();
@@ -159,7 +159,7 @@ public final class ReadConfiguration {
         }
         return context_;
     }
-    static Options loadOptions(Element _elt) {
+    private static Options loadOptions(Element _elt) {
         Options options_ = new Options();
         options_.setReadOnly(true);
         for (Element c: _elt.getChildElements()) {
@@ -178,7 +178,7 @@ public final class ReadConfiguration {
         }
         return options_;
     }
-    static StringMap<BeanInfo> loadBeans(Element _elt) {
+    private static StringMap<BeanInfo> loadBeans(Element _elt) {
         StringMap<BeanInfo> beans_ = new StringMap<BeanInfo>();
         StringList keys_ = new StringList();
         CustList<BeanInfo> values_ = new CustList<BeanInfo>();
@@ -195,7 +195,7 @@ public final class ReadConfiguration {
         }
         return beans_;
     }
-    static BeanInfo loadBean(Element _elt) {
+    private static BeanInfo loadBean(Element _elt) {
         BeanInfo bean_ = new BeanInfo();
         for (Element c: _elt.getChildElements()) {
             String fieldName_ = c.getAttribute("field");
@@ -205,12 +205,11 @@ public final class ReadConfiguration {
             }
             if (StringList.quickEq(fieldName_, "className")) {
                 bean_.setClassName(c.getAttribute("value"));
-                continue;
             }
         }
         return bean_;
     }
-    static StringMap<Validator> loadValidator(Element _elt, BeanNatLgNames _stds) {
+    private static StringMap<Validator> loadValidator(Element _elt, BeanNatLgNames _stds) {
         StringMap<Validator> validators_ = new StringMap<Validator>();
         int i_ = 0;
         String key_ = "";
@@ -224,7 +223,7 @@ public final class ReadConfiguration {
         }
         return validators_;
     }
-    static StringMap<StringMap<String>> loadStringMapStrings(Element _elt) {
+    private static StringMap<StringMap<String>> loadStringMapStrings(Element _elt) {
         StringMap<StringMap<String>> navigation_;
         navigation_ = new StringMap<StringMap<String>>();
         StringList keys_ = new StringList();
@@ -242,7 +241,7 @@ public final class ReadConfiguration {
         }
         return navigation_;
     }
-    static StringMap<String> loadStringMapString(Element _elt) {
+    private static StringMap<String> loadStringMapString(Element _elt) {
         StringMap<String> map_ = new StringMap<String>();
         StringList keys_ = new StringList();
         StringList values_ = new StringList();
@@ -260,7 +259,7 @@ public final class ReadConfiguration {
         return map_;
     }
 
-    static StringList getStringList(Element _elt) {
+    private static StringList getStringList(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
         StringList list_ = new StringList(new CollCapacity(len_));

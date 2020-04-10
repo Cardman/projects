@@ -796,7 +796,7 @@ public final class ForMutableIterativeLoop extends BracedStack implements
             }
             index_++;
         }
-        if (ip_.sizeEl() < 2) {
+        if (ip_.sizeEl() <= index_) {
             for (String v : variableNames) {
                 LoopVariable lv_ = ip_.getVars().getVal(v);
                 lv_.setIndex(lv_.getIndex() + 1);

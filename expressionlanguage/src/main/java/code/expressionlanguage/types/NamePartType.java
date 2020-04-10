@@ -46,8 +46,6 @@ final class NamePartType extends LeafPartType {
                 String in_ = StringList.concat(idOwner_,"..",type_);
                 RootBlock inner_ = classes_.getClassBody(in_);
                 if (inner_.isStaticType()) {
-                    String new_ = foundOwners_.first();
-                    last_.setAnalyzedType(new_);
                     setAnalyzedType(StringList.concat(idOwner_,"..",type_));
                     checkAccess(_an,_rooted,owner_);
                     return;
@@ -56,7 +54,6 @@ final class NamePartType extends LeafPartType {
                     return;
                 }
                 String new_ = Templates.quickFormat(owner_, foundOwners_.first(), _an);
-                last_.setAnalyzedType(new_);
                 setAnalyzedType(StringList.concat(new_,"..",type_));
                 checkAccess(_an,_rooted,owner_);
                 return;
@@ -146,7 +143,6 @@ final class NamePartType extends LeafPartType {
             StringList foundOwners_ = TypeUtil.getOwners(id_, type_, _an);
             if (foundOwners_.onlyOneElt()) {
                 String new_ = foundOwners_.first();
-                last_.setAnalyzedType(new_);
                 setAnalyzedType(StringList.concat(new_,"..",type_));
                 checkAccess(_an,_rooted,id_);
             }
@@ -353,14 +349,12 @@ final class NamePartType extends LeafPartType {
                 return;
             }
             if (inner_.isStaticType()) {
-                last_.setAnalyzedType(id_);
                 setAnalyzedType(StringList.concat(id_,"..",type_));
                 return;
             }
             if (!Templates.correctNbParameters(owner_, _an)) {
                 return;
             }
-            last_.setAnalyzedType(owner_);
             setAnalyzedType(StringList.concat(owner_,"..",type_));
             return;
         }
