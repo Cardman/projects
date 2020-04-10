@@ -3,7 +3,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 
-import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 
@@ -219,7 +218,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
         String lg_ = getOwner().getLanguageKey();
         editor.setLanguage(lg_);
         editor.setDataBase(rulesPresidentMulti);
-        editor.initializeHtml(FileConst.RESOURCES_HTML_FILES_RULES_PRESIDENT, new PresidentStandards());
+        editor.initialize(FileConst.RESOURCES_HTML_FILES_RULES_PRESIDENT, new PresidentStandards());
     }
 
     public void updateForBeginningGame(DealtHandPresident _hand) {

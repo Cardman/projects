@@ -773,10 +773,7 @@ public class ScenePanel {
         group_.add(new TextLabel(messages.getVal(RECEIVED_POKEMON)), BorderLayout.NORTH);
         ScrollPane scrollSession_ = new ScrollPane();
         receivedPk = new RenderedPage(scrollSession_);
-        receivedPk.setLanguage(facade.getLanguage());
-        receivedPk.setDataBase(facade);
 //        receivedPk.setFiles(facade.getData().getWebPk(), Resources.ACCESS_TO_DEFAULT_FILES);
-        receivedPk.setFiles(Resources.ACCESS_TO_DEFAULT_FILES);
         receivedPk.setFrame(window);
 //        receivedPk.prepare();
         JPanel panel_ = new JPanel();
@@ -805,7 +802,12 @@ public class ScenePanel {
     }
 
     public void seeNetPokemonDetail() {
-        receivedPk.initializeHtml(Resources.ACCESS_TO_DEFAULT_PK, new PokemonStandards());
+        Thread thread_ = window.getPreparedPkThread();
+        PreparedRenderedPages task_ = window.getPreparedPkNetTask();
+        if (thread_ == null || thread_.isAlive() || task_ == null) {
+            return;
+        }
+        receivedPk.initializeOnlyConf(facade, task_.getNavigation(),facade.getLanguage());
     }
 
     public void interact() {

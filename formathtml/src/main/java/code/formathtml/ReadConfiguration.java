@@ -88,16 +88,7 @@ public final class ReadConfiguration {
             }
         }
         if (!found_ && stds_ instanceof BeanNatLgNames) {
-            DefaultLockingClass lk_ = new DefaultLockingClass();
-            DefaultInitializer di_ = new DefaultInitializer();
-            AnalysisMessages a_ = new AnalysisMessages();
-            KeyWords kw_ = new KeyWords();
-            ContextEl context_ = ContextFactory.build(-1,lk_, di_, new Options(), a_,kw_, stds_,4);
-            context_.getOptions().setEndLineSemiColumn(false);
-            context_.getOptions().setSuffixVar(VariableSuffix.DISTINCT);
-            context_.setStandards(stds_);
-            _configuration.setContext(context_);
-            context_.setAnalyzing();
+            ((BeanNatLgNames)stds_).setupNative(_configuration);
         }
     }
     private static ContextEl loadContext(Element _elt, String _lg, BeanCustLgNames _stds, Configuration _conf) {

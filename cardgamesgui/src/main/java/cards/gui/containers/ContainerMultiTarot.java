@@ -1,7 +1,6 @@
 package cards.gui.containers;
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 
 import javax.swing.JOptionPane;
@@ -328,7 +327,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         String lg_ = getOwner().getLanguageKey();
         editor.setLanguage(lg_);
         editor.setDataBase(rulesTarotMulti);
-        editor.initializeHtml(FileConst.RESOURCES_HTML_FILES_RULES_TAROT, new TarotStandards());
+        editor.initialize(FileConst.RESOURCES_HTML_FILES_RULES_TAROT, new TarotStandards());
     }
     public void updateForBeginningGame(DealtHandTarot _hand) {
         repTarot = _hand.getRep();

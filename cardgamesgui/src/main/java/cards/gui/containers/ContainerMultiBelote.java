@@ -353,7 +353,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         String lg_ = getOwner().getLanguageKey();
         editor.setLanguage(lg_);
         editor.setDataBase(rulesBeloteMulti);
-        editor.initializeHtml(FileConst.RESOURCES_HTML_FILES_RULES_BELOTE, new BeloteStandards());
+        editor.initialize(FileConst.RESOURCES_HTML_FILES_RULES_BELOTE, new BeloteStandards());
     }
 
     public void updateForBeginningGame(DealtHandBelote _hand) {

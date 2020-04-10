@@ -3,13 +3,16 @@ package code.formathtml.util;
 import code.bean.BeanInfo;
 import code.bean.validator.Message;
 import code.bean.validator.Validator;
-import code.expressionlanguage.Argument;
-import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.ExecutableCode;
+import code.expressionlanguage.*;
+import code.expressionlanguage.errors.AnalysisMessages;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.opers.util.*;
+import code.expressionlanguage.options.ContextFactory;
+import code.expressionlanguage.options.KeyWords;
+import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
+import code.expressionlanguage.variables.VariableSuffix;
 import code.formathtml.*;
 import code.formathtml.structs.*;
 import code.sml.Element;
@@ -370,5 +373,17 @@ public abstract class BeanNatLgNames extends BeanLgNames {
     }
     public Validator buildValidator(Element _element) {
         return null;
+    }
+
+    public void setupNative(Configuration _conf) {
+        DefaultLockingClass lk_ = new DefaultLockingClass();
+        DefaultInitializer di_ = new DefaultInitializer();
+        AnalysisMessages a_ = new AnalysisMessages();
+        KeyWords kw_ = new KeyWords();
+        ContextEl context_ = ContextFactory.build(-1,lk_, di_, new Options(), a_,kw_, this,4);
+        context_.getOptions().setEndLineSemiColumn(false);
+        context_.getOptions().setSuffixVar(VariableSuffix.DISTINCT);
+        _conf.setContext(context_);
+        context_.setAnalyzing();
     }
 }

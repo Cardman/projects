@@ -226,11 +226,13 @@ public final class MainWindow extends NetGroupFrame {
     private PreparedRenderedPages preparedDataWebTask;
     private PreparedRenderedPages preparedFightTask;
     private PreparedRenderedPages preparedPkTask;
+    private PreparedRenderedPages preparedPkNetTask;
     private PreparedRenderedPages preparedDiffTask;
     private PreparedRenderedPages preparedProgTask;
     private Thread preparedDataWebThread;
     private Thread preparedFightThread;
     private Thread preparedPkThread;
+    private Thread preparedPkNetThread;
     private Thread preparedDiffThread;
     private Thread preparedProgThread;
 //    private KeyPadListener keyPadListener;
@@ -1567,6 +1569,14 @@ public final class MainWindow extends NetGroupFrame {
         preparedPkTask = _preparedPkTask;
     }
 
+    public PreparedRenderedPages getPreparedPkNetTask() {
+        return preparedPkNetTask;
+    }
+
+    public void setPreparedPkNetTask(PreparedRenderedPages _preparedPkTask) {
+        preparedPkNetTask = _preparedPkTask;
+    }
+
     public PreparedRenderedPages getPreparedDiffTask() {
         return preparedDiffTask;
     }
@@ -1605,6 +1615,14 @@ public final class MainWindow extends NetGroupFrame {
 
     public void setPreparedPkThread(Thread _preparedPkThread) {
         preparedPkThread = _preparedPkThread;
+    }
+
+    public Thread getPreparedPkNetThread() {
+        return preparedPkNetThread;
+    }
+
+    public void setPreparedPkNetThread(Thread _preparedPkThread) {
+        preparedPkNetThread = _preparedPkThread;
     }
 
     public Thread getPreparedDiffThread() {

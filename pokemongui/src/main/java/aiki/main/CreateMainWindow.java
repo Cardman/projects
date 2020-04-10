@@ -36,6 +36,7 @@ public final class CreateMainWindow implements Runnable {
         PreparedRenderedPages dataWeb_ = new PreparedRenderedPages(Resources.ACCESS_TO_DEFAULT_FILES,Resources.ACCESS_TO_DEFAULT_DATA);
         PreparedRenderedPages fight_ = new PreparedRenderedPages(Resources.ACCESS_TO_DEFAULT_FILES,Resources.ACCESS_TO_DEFAULT_FIGHT);
         PreparedRenderedPages pk_ = new PreparedRenderedPages(Resources.ACCESS_TO_DEFAULT_FILES,Resources.ACCESS_TO_DEFAULT_PK);
+        PreparedRenderedPages pkNet_ = new PreparedRenderedPages(Resources.ACCESS_TO_DEFAULT_FILES,Resources.ACCESS_TO_DEFAULT_PK);
         PreparedRenderedPages diff_ = new PreparedRenderedPages(Resources.ACCESS_TO_DEFAULT_FILES,Resources.ACCESS_TO_DEFAULT_DIFF);
         PreparedRenderedPages prog_ = new PreparedRenderedPages(Resources.ACCESS_TO_DEFAULT_FILES,Resources.ACCESS_TO_DEFAULT_PROG);
         MainWindow window_ = new MainWindow(lg);
@@ -45,6 +46,8 @@ public final class CreateMainWindow implements Runnable {
         fightThread_.start();
         Thread pkThread_ = CustComponent.newThread(pk_);
         pkThread_.start();
+        Thread pkNetThread_ = CustComponent.newThread(pkNet_);
+        pkNetThread_.start();
         Thread diffThread_ = CustComponent.newThread(diff_);
         diffThread_.start();
         Thread progThread_ = CustComponent.newThread(prog_);
@@ -52,11 +55,13 @@ public final class CreateMainWindow implements Runnable {
         window_.setPreparedDataWebThread(dataWebThread_);
         window_.setPreparedFightThread(fightThread_);
         window_.setPreparedPkThread(pkThread_);
+        window_.setPreparedPkNetThread(pkNetThread_);
         window_.setPreparedDiffThread(diffThread_);
         window_.setPreparedProgThread(progThread_);
         window_.setPreparedDataWebTask(dataWeb_);
         window_.setPreparedFightTask(fight_);
         window_.setPreparedPkTask(pk_);
+        window_.setPreparedPkNetTask(pkNet_);
         window_.setPreparedDiffTask(diff_);
         window_.setPreparedProgTask(prog_);
         SoftApplicationCore.setLocation(window_, topLeft);

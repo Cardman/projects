@@ -57,6 +57,6 @@ public class ListenerClickTree implements TreeSelectionListener {
         }
         ElementHelp element_ = node.element(indices_).getElementLocal();
         BeanLgNames bean_ = new GeneralHelpLgNames();
-        editor.reInitSession(element_.getFile(), bean_);
+        editor.initialize(element_.getFile(), bean_);
     }
 }

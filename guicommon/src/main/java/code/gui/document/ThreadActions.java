@@ -8,11 +8,9 @@ import code.expressionlanguage.calls.util.CallingState;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.NamedFunctionBlock;
-import code.expressionlanguage.methods.OverridableBlock;
 import code.expressionlanguage.methods.ProcessMethod;
 import code.expressionlanguage.opers.util.MethodAccessKind;
 import code.expressionlanguage.opers.util.MethodId;
-import code.expressionlanguage.opers.util.MethodModifier;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.ErroneousStruct;
@@ -56,13 +54,13 @@ public final class ThreadActions implements Runnable {
 
     private String methodName;
 
-    public ThreadActions(RenderedPage _page) {
+    ThreadActions(RenderedPage _page) {
         page = _page;
         page.start();
         directFirst = true;
     }
 
-    public ThreadActions(RenderedPage _page, BeanLgNames _lgNames, String _anchor, String _fileName, boolean _form, boolean _refresh, boolean _usedFirstUrl) {
+    ThreadActions(RenderedPage _page, BeanLgNames _lgNames, String _anchor, String _fileName, boolean _form, boolean _refresh, boolean _usedFirstUrl) {
         page = _page;
         page.start();
         stds = _lgNames;
@@ -73,7 +71,7 @@ public final class ThreadActions implements Runnable {
         usedFirstUrl = _usedFirstUrl;
     }
 
-    public ThreadActions(RenderedPage _page, BeanLgNames _lgNames, String _lgCode,String _anchor, String _fileName, StringMap<String> _fileNames, boolean _form, boolean _refresh, boolean _usedFirstUrl) {
+    ThreadActions(RenderedPage _page, BeanLgNames _lgNames, String _lgCode, String _anchor, String _fileName, StringMap<String> _fileNames, boolean _form, boolean _refresh, boolean _usedFirstUrl) {
         page = _page;
         page.start();
         stds = _lgNames;
@@ -86,11 +84,11 @@ public final class ThreadActions implements Runnable {
         usedFirstUrl = _usedFirstUrl;
     }
 
-    public void setClassDbName(String _classDbName) {
+    void setClassDbName(String _classDbName) {
         classDbName = _classDbName;
     }
 
-    public void setMethodName(String _methodName) {
+    void setMethodName(String _methodName) {
         methodName = _methodName;
     }
 
@@ -211,10 +209,10 @@ public final class ThreadActions implements Runnable {
         CustComponent.invokeLater(new WindowPage(metadoc_, page.getScroll(), page));
     }
 
-    void finish() {
+    private void finish() {
         if (timer != null) {
             timer.stop();
         }
-        page.finish(false);
+        page.finish();
     }
 }

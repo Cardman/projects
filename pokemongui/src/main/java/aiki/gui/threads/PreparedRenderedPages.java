@@ -44,7 +44,7 @@ public final class PreparedRenderedPages implements Runnable {
         String rel_ = StringList.concat(relative,realFilePath_);
         files_.put(realFilePath_,ResourceFiles.ressourceFichier(rel_));
         navigation.setFiles(files_);
-        navigation.setupRendClassesInit();
+        navigation.setupRendClasses();
     }
 
     public Navigation getNavigation() {

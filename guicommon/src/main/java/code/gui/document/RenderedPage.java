@@ -14,7 +14,6 @@ import code.gui.*;
 import code.resources.ResourceFiles;
 import code.sml.Document;
 import code.sml.util.ResourcesMessagesUtil;
-import code.stream.ThreadUtil;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringList;
@@ -28,7 +27,6 @@ public final class RenderedPage implements ProcessingSession {
     private DualPanel page;
     private final ScrollPane scroll;
     private Navigation navigation;
-    private String resourcesFolder;
     private IdMap<MetaComponent,DualComponent> refs = new IdMap<MetaComponent,DualComponent>();
     private FindEvent finding;
 
@@ -68,17 +66,8 @@ public final class RenderedPage implements ProcessingSession {
         navigation.setSession(new Configuration());
     }
 
-    public void setFiles(String _url) {
-        setFiles(new StringMap<String>(), _url);
-    }
-
     public void setFiles(StringMap<String> _web) {
         navigation.setFiles(_web);
-    }
-
-    public void setFiles(StringMap<String> _web, String _url) {
-        navigation.setFiles(_web);
-        resourcesFolder = _url;
     }
 
     public void setLanguage(String _language) {
@@ -135,30 +124,14 @@ public final class RenderedPage implements ProcessingSession {
         threadAction.start();
         animateProcess();
     }
-    public void animateProcess() {
+    void animateProcess() {
         if (!process.isEmpty()) {
             LoadingWeb load_ = new LoadingWeb(this, process, frame, dialog);
             CustComponent.newThread(load_).start();
         }
     }
-    public void initializeHtml(String _conf, BeanLgNames _lgNames) {
-        start();
-        standards = _lgNames;
-        String content_ = ResourceFiles.ressourceFichier(_conf);
-        navigation.loadConfiguration(content_,"", _lgNames);
-        if (navigation.isError()) {
-            setupText();
-            finish(false);
-            return;
-        }
-        updateFiles();
-        navigation.initializeRendSession();
-        setupText();
-        finish(false);
-    }
 
-
-    static String getRealFilePath(String _lg, String _link) {
+    private static String getRealFilePath(String _lg, String _link) {
         return StringList.replace(_link, IMPLICIT_LANGUAGE, StringList.concat(SEPARATOR_PATH,_lg,SEPARATOR_PATH));
     }
     public void refresh() {
@@ -180,60 +153,39 @@ public final class RenderedPage implements ProcessingSession {
         animateProcess();
     }
 
-    public void reInitSession(String _conf, BeanLgNames _lgNames) {
-        start();
-        standards = _lgNames;
-        String content_ = ResourceFiles.ressourceFichier(_conf);
-        navigation.loadConfiguration(content_,"", _lgNames);
-        if (navigation.isError()) {
-            setupText();
-            return;
-        }
-        updateFiles();
-        navigation.initializeRendSession();
-        setupText();
-    }
-
     void updateFiles() {
         String lg_ = navigation.getLanguage();
         StringMap<String> files_ = new StringMap<String>();
         Configuration session_ = navigation.getSession();
         for (String a: session_.getAddedFiles()) {
-            String name_ = StringList.concat(resourcesFolder, a);
-            files_.put(a,ResourceFiles.ressourceFichier(name_));
+            files_.put(a,ResourceFiles.ressourceFichier(a));
         }
         for (String l: navigation.getLanguages()) {
             for (String a: session_.getProperties().values()) {
                 String folder_ = session_.getMessagesFolder();
                 String fileName_ = ResourcesMessagesUtil.getPropertiesPath(folder_,l,a);
-                files_.put(fileName_,ResourceFiles.ressourceFichier(StringList.concat(resourcesFolder,fileName_)));
+                files_.put(fileName_,ResourceFiles.ressourceFichier(fileName_));
             }
         }
         String realFilePath_ = getRealFilePath(lg_, session_.getFirstUrl());
-        String rel_ = StringList.concat(resourcesFolder,realFilePath_);
-        files_.put(realFilePath_,ResourceFiles.ressourceFichier(rel_));
+        files_.put(realFilePath_,ResourceFiles.ressourceFichier(realFilePath_));
         navigation.setFiles(files_);
-        navigation.setupRendClassesInit();
+        navigation.setupRendClasses();
     }
-    public void start() {
+    void start() {
         processing.set(true);
     }
 
-    public void finish(boolean _wait) {
+    void finish() {
         //boolean _stop
         processing.set(false);
-        if (!_wait) {
-            return;
-        }
-        while (threadAction.isAlive()) {
-            ThreadUtil.sleep(0);
-        }
     }
 
-    void setupText() {
+    private void setupText() {
         if (!processing.get()) {
             return;
         }
+        processing.set(false);
         Document doc_ = navigation.getDocument();
         MetaDocument metadoc_ = MetaDocument.newInstance(doc_,navigation.getSession().getRendKeyWords());
         CustComponent.invokeLater(new WindowPage(metadoc_, scroll, this));
@@ -262,82 +214,52 @@ public final class RenderedPage implements ProcessingSession {
         if (frame != null) {
             frame.pack();
         }
-        finish(false);
+        finish();
     }
-    public TextArea getArea() {
+    TextArea getArea() {
         return area;
     }
     @Override
     public boolean isProcessing() {
         return processing.get();
     }
-    public void setFinding(MetaDocument _document) {
+    void setFinding(MetaDocument _document) {
         finding.setFinding(_document);
     }
-    public FindEvent getFinding() {
-        return finding;
-    }
-    public void setPage(DualPanel _page) {
+
+    void setPage(DualPanel _page) {
         page = _page;
     }
-    public IdMap<MetaComponent, DualComponent> getRefs() {
+    IdMap<MetaComponent, DualComponent> getRefs() {
         return refs;
     }
-    public Navigation getNavigation() {
+    Navigation getNavigation() {
         return navigation;
     }
     public ScrollPane getScroll() {
         return scroll;
     }
-    public DualPanel getPage() {
+    DualPanel getPage() {
         return page;
-    }
-
-    public ProgressingWebDialog getDialog() {
-        return dialog;
     }
 
     public void setDialog(ProgressingWebDialog _dialog) {
         dialog = _dialog;
     }
 
-    public ChangeableTitle getFrame() {
-        return frame;
-    }
-
     public void setFrame(ChangeableTitle _frame) {
         frame = _frame;
     }
 
-    public CustList<BufferedImage> getProcess() {
-        return process;
-    }
-
-    public void setRefs(IdMap<MetaComponent, DualComponent> _refs) {
-        refs = _refs;
-    }
-
-    public void setFinding(FindEvent _finding) {
-        finding = _finding;
-    }
-
-    public void setProcessing(boolean _processing) {
-        processing.set(_processing);
-    }
     public void setArea(TextArea _area) {
         area = _area;
     }
 
-    public BeanLgNames getStandards() {
+    BeanLgNames getStandards() {
         return standards;
     }
-    public void setStandards(BeanLgNames _standards) {
-        standards = _standards;
-    }
-    public void setAnims(CustList<DualAnimatedImage> _anims) {
-        anims = _anims;
-    }
-    public CustList<DualAnimatedImage> getAnims() {
+
+    CustList<DualAnimatedImage> getAnims() {
         return anims;
     }
 
