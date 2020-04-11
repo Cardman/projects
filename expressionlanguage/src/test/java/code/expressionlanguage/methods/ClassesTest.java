@@ -3,8 +3,6 @@ package code.expressionlanguage.methods;
 import code.expressionlanguage.*;
 import code.expressionlanguage.classes.CustLgNames;
 import code.expressionlanguage.errors.AnalysisMessages;
-import code.expressionlanguage.errors.KeyValueMemberName;
-import code.expressionlanguage.inherits.TypeUtil;
 import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.options.ContextFactory;
@@ -12,7 +10,6 @@ import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
-import code.expressionlanguage.variables.VariableSuffix;
 import code.util.*;
 import org.junit.Test;
 
@@ -31,15 +28,12 @@ public final class ClassesTest {
         assertTrue(cont_.isEmptyErrors());
         assertTrue(cont_.getClasses().getErrorsDet().isEmpty());
         assertNotNull(cont_.getMemoryError());
+        cont_.setAnalyzing();
+        assertNull(cont_.getCatchVar(""));
         assertEq(0, AssignmentsUtil.getOrEmptyBefore(new CustList<StringMap<AssignmentBefore>>(),0).size());
         assertEq(0, AssignmentsUtil.getOrEmpty(new CustList<StringMap<Assignment>>(),0).size());
         assertEq(0, AssignmentsUtil.getOrEmptyBool(new CustList<StringMap<BooleanAssignment>>(),0).size());
         assertEq(0, AssignmentsUtil.getOrEmptySimple(new CustList<StringMap<SimpleAssignment>>(),0).size());
-        assertSame(VariableSuffix.DISTINCT, VariableSuffix.getVariableSuffixByName("DISTINCT"));
-        assertSame(VariableSuffix.FIELDS, VariableSuffix.getVariableSuffixByName("FIELDS"));
-        assertSame(VariableSuffix.MERGED, VariableSuffix.getVariableSuffixByName("MERGED"));
-        assertSame(VariableSuffix.NONE, VariableSuffix.getVariableSuffixByName("NONE"));
-        assertSame(VariableSuffix.NONE, VariableSuffix.getVariableSuffixByName(""));
     }
 
     @Test
@@ -2374,7 +2368,7 @@ public final class ClassesTest {
         xml_.append("$public $enum pkg.ExEnum {\n");
         xml_.append("}\n");
         xml_.append("$public $enum pkg.ExEnumBis {\n");
-        xml_.append(" ONE{}:\n");
+        xml_.append(" ONE{};\n");
         xml_.append("}\n");
         xml_.append("$public $annotation pkg.Annot {\n");
         xml_.append("}\n");
@@ -2638,7 +2632,7 @@ public final class ClassesTest {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.OuterOne<#T:ExEnum&ExFinal> {\n");
         xml_.append("}\n");
-        xml_.append("$public $enum pkg.ExEnum {:\n");
+        xml_.append("$public $enum pkg.ExEnum {;\n");
         xml_.append("}\n");
         xml_.append("$public $final $class pkg.ExFinal {\n");
         xml_.append("}\n");
@@ -2769,8 +2763,8 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $int myf=2i:\n");
-        xml_.append(" $public $static $final $int mys=myf;;;+3i:\n");
+        xml_.append(" $public $static $final $int myf=2i;\n");
+        xml_.append(" $public $static $final $int mys=myf+3i;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -2786,12 +2780,12 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $int myf=$static(pkg.ExThree).myf;;;:\n");
+        xml_.append(" $public $static $final $int myf=$static(pkg.ExThree).myf;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExThree {\n");
-        xml_.append(" $public $static $final $int myf=$static(pkg.ExTwo).myf;;;:\n");
+        xml_.append(" $public $static $final $int myf=$static(pkg.ExTwo).myf;\n");
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -2803,13 +2797,13 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $int mys=$static(pkg.ExThree).myf;;;:\n");
-        xml_.append(" $public $static $final $int myf=$static(pkg.ExThree).myf;;;:\n");
+        xml_.append(" $public $static $final $int mys=$static(pkg.ExThree).myf;\n");
+        xml_.append(" $public $static $final $int myf=$static(pkg.ExThree).myf;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExThree {\n");
-        xml_.append(" $public $static $final $int myf=$static(pkg.ExTwo).myf;;;:\n");
+        xml_.append(" $public $static $final $int myf=$static(pkg.ExTwo).myf;\n");
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -2821,13 +2815,13 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $int mys=1i:\n");
-        xml_.append(" $public $static $final $int myf=$static(pkg.ExThree).myf;;;:\n");
+        xml_.append(" $public $static $final $int mys=1i;\n");
+        xml_.append(" $public $static $final $int myf=$static(pkg.ExThree).myf;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExThree {\n");
-        xml_.append(" $public $static $final $int myf=$static(pkg.ExTwo).myf;;;:\n");
+        xml_.append(" $public $static $final $int myf=$static(pkg.ExTwo).myf;\n");
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -2841,14 +2835,14 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $int mys=1i:\n");
-        xml_.append(" $public $static $final $int myt=mys;;;+2i:\n");
-        xml_.append(" $public $static $final $int myf=$static(pkg.ExThree).myf;;;:\n");
+        xml_.append(" $public $static $final $int mys=1i;\n");
+        xml_.append(" $public $static $final $int myt=mys+2i;\n");
+        xml_.append(" $public $static $final $int myf=$static(pkg.ExThree).myf;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExThree {\n");
-        xml_.append(" $public $static $final $int myf=$static(pkg.ExTwo).myf;;;:\n");
+        xml_.append(" $public $static $final $int myf=$static(pkg.ExTwo).myf;\n");
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -2864,10 +2858,10 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $int myf=meth():\n");
-        xml_.append(" $public $static $final $int mys=myf;;;+2i:\n");
+        xml_.append(" $public $static $final $int myf=meth();\n");
+        xml_.append(" $public $static $final $int mys=myf+2i;\n");
         xml_.append(" $public $static $int meth(){\n");
-        xml_.append("  $return 5i:\n");
+        xml_.append("  $return 5i;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
@@ -2880,10 +2874,10 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $int myf=$static(java.lang.Byte).MAX_VALUE:\n");
-        xml_.append(" $public $static $final $int mys=myf;;;+2i:\n");
+        xml_.append(" $public $static $final $int myf=$static(java.lang.Byte).MAX_VALUE;\n");
+        xml_.append(" $public $static $final $int mys=myf+2i;\n");
         xml_.append(" $public $static $int meth(){\n");
-        xml_.append("  $return 5i:\n");
+        xml_.append("  $return 5i;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
@@ -2900,7 +2894,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $int myf=2i,mys=myf;;;+3i:\n");
+        xml_.append(" $public $static $final $int myf=2i,mys=myf+3i;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -2916,7 +2910,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $byte myf=2i,mys=myf;;;+3i:\n");
+        xml_.append(" $public $static $final $byte myf=2i,mys=myf+3i;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -2932,9 +2926,9 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $int myf=meth(),mys=5i:\n");
+        xml_.append(" $public $static $final $int myf=meth(),mys=5i;\n");
         xml_.append(" $public $static $int meth(){\n");
-        xml_.append("  $return 5i:\n");
+        xml_.append("  $return 5i;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
@@ -2949,8 +2943,8 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $int mys=myf;;;+3i:\n");
-        xml_.append(" $public $static $final $int myf=2i:\n");
+        xml_.append(" $public $static $final $int mys=myf+3i;\n");
+        xml_.append(" $public $static $final $int myf=2i;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -2966,8 +2960,8 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $int mys=\"\".toString().length()+myf+1:\n");
-        xml_.append(" $public $static $final $int myf=1:\n");
+        xml_.append(" $public $static $final $int mys=\"\".toString().length()+myf+1;\n");
+        xml_.append(" $public $static $final $int myf=1;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -2983,7 +2977,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $int field=($int)$math.random():\n");
+        xml_.append(" $public $static $final $int field=($int)$math.random();\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -2995,8 +2989,8 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final Character ch=$null:\n");
-        xml_.append(" $public $static $final $int field=\"\".splitChars(ch).length:\n");
+        xml_.append(" $public $static $final Character ch=$null;\n");
+        xml_.append(" $public $static $final $int field=\"\".splitChars(ch).length;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -3011,9 +3005,9 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $int iOne=0:\n");
-        xml_.append(" $public $static $final $int iTwo=0:\n");
-        xml_.append(" $public $static $final $int field=iOne^iTwo:\n");
+        xml_.append(" $public $static $final $int iOne=0;\n");
+        xml_.append(" $public $static $final $int iTwo=0;\n");
+        xml_.append(" $public $static $final $int field=iOne^iTwo;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -3027,9 +3021,9 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $int iOne=0:\n");
-        xml_.append(" $public $static $final $int iTwo=0:\n");
-        xml_.append(" $public $static $final $int field=iOne|iTwo:\n");
+        xml_.append(" $public $static $final $int iOne=0;\n");
+        xml_.append(" $public $static $final $int iTwo=0;\n");
+        xml_.append(" $public $static $final $int field=iOne|iTwo;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -3043,9 +3037,9 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $int iOne=0:\n");
-        xml_.append(" $public $static $final $int iTwo=0:\n");
-        xml_.append(" $public $static $final $int field=iOne&iTwo:\n");
+        xml_.append(" $public $static $final $int iOne=0;\n");
+        xml_.append(" $public $static $final $int iTwo=0;\n");
+        xml_.append(" $public $static $final $int field=iOne&iTwo;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -3059,9 +3053,9 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $int iOne=0:\n");
-        xml_.append(" $public $static $final $int iTwo=0:\n");
-        xml_.append(" $public $static $final $int field=iOne<<iTwo:\n");
+        xml_.append(" $public $static $final $int iOne=0;\n");
+        xml_.append(" $public $static $final $int iTwo=0;\n");
+        xml_.append(" $public $static $final $int field=iOne<<iTwo;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -3075,9 +3069,9 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $int iOne=0:\n");
-        xml_.append(" $public $static $final $int iTwo=0:\n");
-        xml_.append(" $public $static $final $int field=iOne>>iTwo:\n");
+        xml_.append(" $public $static $final $int iOne=0;\n");
+        xml_.append(" $public $static $final $int iTwo=0;\n");
+        xml_.append(" $public $static $final $int field=iOne>>iTwo;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -3091,9 +3085,9 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $int iOne=0:\n");
-        xml_.append(" $public $static $final $int iTwo=0:\n");
-        xml_.append(" $public $static $final $int field=iOne<<<iTwo:\n");
+        xml_.append(" $public $static $final $int iOne=0;\n");
+        xml_.append(" $public $static $final $int iTwo=0;\n");
+        xml_.append(" $public $static $final $int field=iOne<<<iTwo;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -3107,9 +3101,9 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $int iOne=0:\n");
-        xml_.append(" $public $static $final $int iTwo=0:\n");
-        xml_.append(" $public $static $final $int field=iOne>>>iTwo:\n");
+        xml_.append(" $public $static $final $int iOne=0;\n");
+        xml_.append(" $public $static $final $int iTwo=0;\n");
+        xml_.append(" $public $static $final $int field=iOne>>>iTwo;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -3123,9 +3117,9 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $int iOne=0:\n");
-        xml_.append(" $public $static $final $int iTwo=0:\n");
-        xml_.append(" $public $static $final $int field=iOne<<<<iTwo:\n");
+        xml_.append(" $public $static $final $int iOne=0;\n");
+        xml_.append(" $public $static $final $int iTwo=0;\n");
+        xml_.append(" $public $static $final $int field=iOne<<<<iTwo;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -3139,9 +3133,9 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $int iOne=0:\n");
-        xml_.append(" $public $static $final $int iTwo=0:\n");
-        xml_.append(" $public $static $final $int field=iOne>>>>iTwo:\n");
+        xml_.append(" $public $static $final $int iOne=0;\n");
+        xml_.append(" $public $static $final $int iTwo=0;\n");
+        xml_.append(" $public $static $final $int field=iOne>>>>iTwo;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -3155,9 +3149,9 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final Integer iOne=$null:\n");
-        xml_.append(" $public $static $final $int iTwo=0:\n");
-        xml_.append(" $public $static $final $int field=iOne^iTwo:\n");
+        xml_.append(" $public $static $final Integer iOne=$null;\n");
+        xml_.append(" $public $static $final $int iTwo=0;\n");
+        xml_.append(" $public $static $final $int field=iOne^iTwo;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -3169,9 +3163,9 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final Integer iOne=$null:\n");
-        xml_.append(" $public $static $final $int iTwo=0:\n");
-        xml_.append(" $public $static $final $int field=iTwo^iOne:\n");
+        xml_.append(" $public $static $final Integer iOne=$null;\n");
+        xml_.append(" $public $static $final $int iTwo=0;\n");
+        xml_.append(" $public $static $final $int field=iTwo^iOne;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -3183,9 +3177,9 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final Integer iOne=$null:\n");
-        xml_.append(" $public $static $final $int iTwo=0:\n");
-        xml_.append(" $public $static $final $int field=iOne&iTwo:\n");
+        xml_.append(" $public $static $final Integer iOne=$null;\n");
+        xml_.append(" $public $static $final $int iTwo=0;\n");
+        xml_.append(" $public $static $final $int field=iOne&iTwo;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -3197,9 +3191,9 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final Integer iOne=$null:\n");
-        xml_.append(" $public $static $final $int iTwo=0:\n");
-        xml_.append(" $public $static $final $int field=iTwo&iOne:\n");
+        xml_.append(" $public $static $final Integer iOne=$null;\n");
+        xml_.append(" $public $static $final $int iTwo=0;\n");
+        xml_.append(" $public $static $final $int field=iTwo&iOne;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -3211,9 +3205,9 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final Integer iOne=$null:\n");
-        xml_.append(" $public $static $final $int iTwo=0:\n");
-        xml_.append(" $public $static $final $int field=iOne|iTwo:\n");
+        xml_.append(" $public $static $final Integer iOne=$null;\n");
+        xml_.append(" $public $static $final $int iTwo=0;\n");
+        xml_.append(" $public $static $final $int field=iOne|iTwo;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -3225,9 +3219,9 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final Integer iOne=$null:\n");
-        xml_.append(" $public $static $final $int iTwo=0:\n");
-        xml_.append(" $public $static $final $int field=iTwo|iOne:\n");
+        xml_.append(" $public $static $final Integer iOne=$null;\n");
+        xml_.append(" $public $static $final $int iTwo=0;\n");
+        xml_.append(" $public $static $final $int field=iTwo|iOne;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -3239,9 +3233,9 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final Integer iOne=$null:\n");
-        xml_.append(" $public $static $final $int iTwo=0:\n");
-        xml_.append(" $public $static $final $int field=iOne<<iTwo:\n");
+        xml_.append(" $public $static $final Integer iOne=$null;\n");
+        xml_.append(" $public $static $final $int iTwo=0;\n");
+        xml_.append(" $public $static $final $int field=iOne<<iTwo;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -3253,9 +3247,9 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final Integer iOne=$null:\n");
-        xml_.append(" $public $static $final $int iTwo=0:\n");
-        xml_.append(" $public $static $final $int field=iTwo<<iOne:\n");
+        xml_.append(" $public $static $final Integer iOne=$null;\n");
+        xml_.append(" $public $static $final $int iTwo=0;\n");
+        xml_.append(" $public $static $final $int field=iTwo<<iOne;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -3267,9 +3261,9 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final Integer iOne=$null:\n");
-        xml_.append(" $public $static $final $int iTwo=0:\n");
-        xml_.append(" $public $static $final $int field=iOne>>iTwo:\n");
+        xml_.append(" $public $static $final Integer iOne=$null;\n");
+        xml_.append(" $public $static $final $int iTwo=0;\n");
+        xml_.append(" $public $static $final $int field=iOne>>iTwo;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -3281,9 +3275,9 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final Integer iOne=$null:\n");
-        xml_.append(" $public $static $final $int iTwo=0:\n");
-        xml_.append(" $public $static $final $int field=iTwo>>iOne:\n");
+        xml_.append(" $public $static $final Integer iOne=$null;\n");
+        xml_.append(" $public $static $final $int iTwo=0;\n");
+        xml_.append(" $public $static $final $int field=iTwo>>iOne;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -3295,9 +3289,9 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final Integer iOne=$null:\n");
-        xml_.append(" $public $static $final $int iTwo=0:\n");
-        xml_.append(" $public $static $final $int field=iOne<<<iTwo:\n");
+        xml_.append(" $public $static $final Integer iOne=$null;\n");
+        xml_.append(" $public $static $final $int iTwo=0;\n");
+        xml_.append(" $public $static $final $int field=iOne<<<iTwo;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -3309,9 +3303,9 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final Integer iOne=$null:\n");
-        xml_.append(" $public $static $final $int iTwo=0:\n");
-        xml_.append(" $public $static $final $int field=iTwo<<<iOne:\n");
+        xml_.append(" $public $static $final Integer iOne=$null;\n");
+        xml_.append(" $public $static $final $int iTwo=0;\n");
+        xml_.append(" $public $static $final $int field=iTwo<<<iOne;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -3323,9 +3317,9 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final Integer iOne=$null:\n");
-        xml_.append(" $public $static $final $int iTwo=0:\n");
-        xml_.append(" $public $static $final $int field=iOne>>>iTwo:\n");
+        xml_.append(" $public $static $final Integer iOne=$null;\n");
+        xml_.append(" $public $static $final $int iTwo=0;\n");
+        xml_.append(" $public $static $final $int field=iOne>>>iTwo;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -3337,9 +3331,9 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final Integer iOne=$null:\n");
-        xml_.append(" $public $static $final $int iTwo=0:\n");
-        xml_.append(" $public $static $final $int field=iTwo>>>iOne:\n");
+        xml_.append(" $public $static $final Integer iOne=$null;\n");
+        xml_.append(" $public $static $final $int iTwo=0;\n");
+        xml_.append(" $public $static $final $int field=iTwo>>>iOne;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -3351,9 +3345,9 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final Integer iOne=$null:\n");
-        xml_.append(" $public $static $final $int iTwo=0:\n");
-        xml_.append(" $public $static $final $int field=iOne<<<<iTwo:\n");
+        xml_.append(" $public $static $final Integer iOne=$null;\n");
+        xml_.append(" $public $static $final $int iTwo=0;\n");
+        xml_.append(" $public $static $final $int field=iOne<<<<iTwo;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -3365,9 +3359,9 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final Integer iOne=$null:\n");
-        xml_.append(" $public $static $final $int iTwo=0:\n");
-        xml_.append(" $public $static $final $int field=iTwo<<<<iOne:\n");
+        xml_.append(" $public $static $final Integer iOne=$null;\n");
+        xml_.append(" $public $static $final $int iTwo=0;\n");
+        xml_.append(" $public $static $final $int field=iTwo<<<<iOne;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -3379,9 +3373,9 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final Integer iOne=$null:\n");
-        xml_.append(" $public $static $final $int iTwo=0:\n");
-        xml_.append(" $public $static $final $int field=iOne>>>>iTwo:\n");
+        xml_.append(" $public $static $final Integer iOne=$null;\n");
+        xml_.append(" $public $static $final $int iTwo=0;\n");
+        xml_.append(" $public $static $final $int field=iOne>>>>iTwo;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -3393,9 +3387,9 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final Integer iOne=$null:\n");
-        xml_.append(" $public $static $final $int iTwo=0:\n");
-        xml_.append(" $public $static $final $int field=iTwo>>>>iOne:\n");
+        xml_.append(" $public $static $final Integer iOne=$null;\n");
+        xml_.append(" $public $static $final $int iTwo=0;\n");
+        xml_.append(" $public $static $final $int field=iTwo>>>>iOne;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -3408,8 +3402,8 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $int iOne=0:\n");
-        xml_.append(" $public $static $final $int field=~iOne:\n");
+        xml_.append(" $public $static $final $int iOne=0;\n");
+        xml_.append(" $public $static $final $int field=~iOne;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -3424,8 +3418,8 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $int iOne=0:\n");
-        xml_.append(" $public $static $final $int field=-iOne:\n");
+        xml_.append(" $public $static $final $int iOne=0;\n");
+        xml_.append(" $public $static $final $int field=-iOne;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -3440,8 +3434,8 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $int iOne=0:\n");
-        xml_.append(" $public $static $final $int field=+iOne:\n");
+        xml_.append(" $public $static $final $int iOne=0;\n");
+        xml_.append(" $public $static $final $int field=+iOne;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -3456,8 +3450,8 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final Integer iOne=$null:\n");
-        xml_.append(" $public $static $final $int field=~iOne:\n");
+        xml_.append(" $public $static $final Integer iOne=$null;\n");
+        xml_.append(" $public $static $final $int field=~iOne;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -3470,8 +3464,8 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final Integer iOne=$null:\n");
-        xml_.append(" $public $static $final $int field=-iOne:\n");
+        xml_.append(" $public $static $final Integer iOne=$null;\n");
+        xml_.append(" $public $static $final $int field=-iOne;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -3484,8 +3478,8 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final Integer iOne=$null:\n");
-        xml_.append(" $public $static $final $int field=+iOne:\n");
+        xml_.append(" $public $static $final Integer iOne=$null;\n");
+        xml_.append(" $public $static $final $int field=+iOne;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -3498,9 +3492,9 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $int field=iOne^iTwo:\n");
-        xml_.append(" $public $static $final $int iOne=0:\n");
-        xml_.append(" $public $static $final $int iTwo=0:\n");
+        xml_.append(" $public $static $final $int field=iOne^iTwo;\n");
+        xml_.append(" $public $static $final $int iOne=0;\n");
+        xml_.append(" $public $static $final $int iTwo=0;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -3515,9 +3509,9 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $int field=iOne&iTwo:\n");
-        xml_.append(" $public $static $final $int iOne=0:\n");
-        xml_.append(" $public $static $final $int iTwo=0:\n");
+        xml_.append(" $public $static $final $int field=iOne&iTwo;\n");
+        xml_.append(" $public $static $final $int iOne=0;\n");
+        xml_.append(" $public $static $final $int iTwo=0;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -3532,9 +3526,9 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $int field=iOne|iTwo:\n");
-        xml_.append(" $public $static $final $int iOne=0:\n");
-        xml_.append(" $public $static $final $int iTwo=0:\n");
+        xml_.append(" $public $static $final $int field=iOne|iTwo;\n");
+        xml_.append(" $public $static $final $int iOne=0;\n");
+        xml_.append(" $public $static $final $int iTwo=0;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -3549,9 +3543,9 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $int field=iOne<<iTwo:\n");
-        xml_.append(" $public $static $final $int iOne=0:\n");
-        xml_.append(" $public $static $final $int iTwo=0:\n");
+        xml_.append(" $public $static $final $int field=iOne<<iTwo;\n");
+        xml_.append(" $public $static $final $int iOne=0;\n");
+        xml_.append(" $public $static $final $int iTwo=0;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -3566,9 +3560,9 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $int field=iOne>>iTwo:\n");
-        xml_.append(" $public $static $final $int iOne=0:\n");
-        xml_.append(" $public $static $final $int iTwo=0:\n");
+        xml_.append(" $public $static $final $int field=iOne>>iTwo;\n");
+        xml_.append(" $public $static $final $int iOne=0;\n");
+        xml_.append(" $public $static $final $int iTwo=0;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -3583,9 +3577,9 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $int field=iOne<<<iTwo:\n");
-        xml_.append(" $public $static $final $int iOne=0:\n");
-        xml_.append(" $public $static $final $int iTwo=0:\n");
+        xml_.append(" $public $static $final $int field=iOne<<<iTwo;\n");
+        xml_.append(" $public $static $final $int iOne=0;\n");
+        xml_.append(" $public $static $final $int iTwo=0;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -3600,9 +3594,9 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $int field=iOne>>>iTwo:\n");
-        xml_.append(" $public $static $final $int iOne=0:\n");
-        xml_.append(" $public $static $final $int iTwo=0:\n");
+        xml_.append(" $public $static $final $int field=iOne>>>iTwo;\n");
+        xml_.append(" $public $static $final $int iOne=0;\n");
+        xml_.append(" $public $static $final $int iTwo=0;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -3617,9 +3611,9 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $int field=iOne<<<<iTwo:\n");
-        xml_.append(" $public $static $final $int iOne=0:\n");
-        xml_.append(" $public $static $final $int iTwo=0:\n");
+        xml_.append(" $public $static $final $int field=iOne<<<<iTwo;\n");
+        xml_.append(" $public $static $final $int iOne=0;\n");
+        xml_.append(" $public $static $final $int iTwo=0;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -3634,9 +3628,9 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $int field=iOne>>>>iTwo:\n");
-        xml_.append(" $public $static $final $int iOne=0:\n");
-        xml_.append(" $public $static $final $int iTwo=0:\n");
+        xml_.append(" $public $static $final $int field=iOne>>>>iTwo;\n");
+        xml_.append(" $public $static $final $int iOne=0;\n");
+        xml_.append(" $public $static $final $int iTwo=0;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -3651,8 +3645,8 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $int field=~iOne:\n");
-        xml_.append(" $public $static $final $int iOne=0:\n");
+        xml_.append(" $public $static $final $int field=~iOne;\n");
+        xml_.append(" $public $static $final $int iOne=0;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -3667,8 +3661,8 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $int field=-iOne:\n");
-        xml_.append(" $public $static $final $int iOne=0:\n");
+        xml_.append(" $public $static $final $int field=-iOne;\n");
+        xml_.append(" $public $static $final $int iOne=0;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -3683,8 +3677,8 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $int field=+iOne:\n");
-        xml_.append(" $public $static $final $int iOne=0:\n");
+        xml_.append(" $public $static $final $int field=+iOne;\n");
+        xml_.append(" $public $static $final $int iOne=0;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -3699,9 +3693,9 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $boolean field=iOne!=iTwo:\n");
-        xml_.append(" $public $static $final $int iOne=0:\n");
-        xml_.append(" $public $static $final $int iTwo=0:\n");
+        xml_.append(" $public $static $final $boolean field=iOne!=iTwo;\n");
+        xml_.append(" $public $static $final $int iOne=0;\n");
+        xml_.append(" $public $static $final $int iTwo=0;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -3715,9 +3709,9 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $boolean field=iOne==iTwo:\n");
-        xml_.append(" $public $static $final $int iOne=0:\n");
-        xml_.append(" $public $static $final $int iTwo=0:\n");
+        xml_.append(" $public $static $final $boolean field=iOne==iTwo;\n");
+        xml_.append(" $public $static $final $int iOne=0;\n");
+        xml_.append(" $public $static $final $int iTwo=0;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -3732,10 +3726,10 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $boolean field=!prfield:\n");
-        xml_.append(" $public $static $final $boolean prfield=iOne!=iTwo:\n");
-        xml_.append(" $public $static $final $int iOne=0:\n");
-        xml_.append(" $public $static $final $int iTwo=0:\n");
+        xml_.append(" $public $static $final $boolean field=!prfield;\n");
+        xml_.append(" $public $static $final $boolean prfield=iOne!=iTwo;\n");
+        xml_.append(" $public $static $final $int iOne=0;\n");
+        xml_.append(" $public $static $final $int iTwo=0;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -3749,10 +3743,10 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $boolean field=!prfield:\n");
-        xml_.append(" $public $static $final $boolean prfield=iOne==iTwo:\n");
-        xml_.append(" $public $static $final $int iOne=0:\n");
-        xml_.append(" $public $static $final $int iTwo=0:\n");
+        xml_.append(" $public $static $final $boolean field=!prfield;\n");
+        xml_.append(" $public $static $final $boolean prfield=iOne==iTwo;\n");
+        xml_.append(" $public $static $final $int iOne=0;\n");
+        xml_.append(" $public $static $final $int iTwo=0;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -3766,9 +3760,9 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $int field=iOne*iTwo:\n");
-        xml_.append(" $public $static $final $int iOne=0:\n");
-        xml_.append(" $public $static $final $int iTwo=0:\n");
+        xml_.append(" $public $static $final $int field=iOne*iTwo;\n");
+        xml_.append(" $public $static $final $int iOne=0;\n");
+        xml_.append(" $public $static $final $int iTwo=0;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -3782,9 +3776,9 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $int field=iOne/iTwo:\n");
-        xml_.append(" $public $static $final $int iOne=0:\n");
-        xml_.append(" $public $static $final $int iTwo=1:\n");
+        xml_.append(" $public $static $final $int field=iOne/iTwo;\n");
+        xml_.append(" $public $static $final $int iOne=0;\n");
+        xml_.append(" $public $static $final $int iTwo=1;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -3798,9 +3792,9 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $int field=iOne%iTwo:\n");
-        xml_.append(" $public $static $final $int iOne=0:\n");
-        xml_.append(" $public $static $final $int iTwo=1:\n");
+        xml_.append(" $public $static $final $int field=iOne%iTwo;\n");
+        xml_.append(" $public $static $final $int iOne=0;\n");
+        xml_.append(" $public $static $final $int iTwo=1;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -3814,9 +3808,9 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $boolean field=iOne!=iTwo:\n");
-        xml_.append(" $public $static $final $int iOne=0:\n");
-        xml_.append(" $public $static $final $int iTwo=1:\n");
+        xml_.append(" $public $static $final $boolean field=iOne!=iTwo;\n");
+        xml_.append(" $public $static $final $int iOne=0;\n");
+        xml_.append(" $public $static $final $int iTwo=1;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -3830,9 +3824,9 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $boolean field=iOne==iTwo:\n");
-        xml_.append(" $public $static $final $int iOne=0:\n");
-        xml_.append(" $public $static $final $int iTwo=1:\n");
+        xml_.append(" $public $static $final $boolean field=iOne==iTwo;\n");
+        xml_.append(" $public $static $final $int iOne=0;\n");
+        xml_.append(" $public $static $final $int iTwo=1;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -3846,9 +3840,9 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $boolean field=iOne&&iTwo:\n");
-        xml_.append(" $public $static $final $boolean iOne=$true:\n");
-        xml_.append(" $public $static $final $boolean iTwo=$true:\n");
+        xml_.append(" $public $static $final $boolean field=iOne&&iTwo;\n");
+        xml_.append(" $public $static $final $boolean iOne=$true;\n");
+        xml_.append(" $public $static $final $boolean iTwo=$true;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -3862,9 +3856,9 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $boolean field=iOne||iTwo:\n");
-        xml_.append(" $public $static $final $boolean iOne=$false:\n");
-        xml_.append(" $public $static $final $boolean iTwo=$false:\n");
+        xml_.append(" $public $static $final $boolean field=iOne||iTwo;\n");
+        xml_.append(" $public $static $final $boolean iOne=$false;\n");
+        xml_.append(" $public $static $final $boolean iTwo=$false;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -3878,9 +3872,9 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $boolean field=iOne<iTwo:\n");
-        xml_.append(" $public $static $final String iOne=\"\":\n");
-        xml_.append(" $public $static $final String iTwo=\"\":\n");
+        xml_.append(" $public $static $final $boolean field=iOne<iTwo;\n");
+        xml_.append(" $public $static $final String iOne=\"\";\n");
+        xml_.append(" $public $static $final String iTwo=\"\";\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -3894,9 +3888,9 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $boolean field=iOne<=iTwo:\n");
-        xml_.append(" $public $static $final String iOne=\"\":\n");
-        xml_.append(" $public $static $final String iTwo=\"\":\n");
+        xml_.append(" $public $static $final $boolean field=iOne<=iTwo;\n");
+        xml_.append(" $public $static $final String iOne=\"\";\n");
+        xml_.append(" $public $static $final String iTwo=\"\";\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -3910,9 +3904,9 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $boolean field=iOne>iTwo:\n");
-        xml_.append(" $public $static $final String iOne=\"\":\n");
-        xml_.append(" $public $static $final String iTwo=\"\":\n");
+        xml_.append(" $public $static $final $boolean field=iOne>iTwo;\n");
+        xml_.append(" $public $static $final String iOne=\"\";\n");
+        xml_.append(" $public $static $final String iTwo=\"\";\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -3926,9 +3920,9 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $boolean field=iOne>=iTwo:\n");
-        xml_.append(" $public $static $final String iOne=\"\":\n");
-        xml_.append(" $public $static $final String iTwo=\"\":\n");
+        xml_.append(" $public $static $final $boolean field=iOne>=iTwo;\n");
+        xml_.append(" $public $static $final String iOne=\"\";\n");
+        xml_.append(" $public $static $final String iTwo=\"\";\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -3942,9 +3936,9 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final String field=iOne+iTwo:\n");
-        xml_.append(" $public $static $final String iOne=\"\":\n");
-        xml_.append(" $public $static $final String iTwo=\"\":\n");
+        xml_.append(" $public $static $final String field=iOne+iTwo;\n");
+        xml_.append(" $public $static $final String iOne=\"\";\n");
+        xml_.append(" $public $static $final String iTwo=\"\";\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -3958,8 +3952,8 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final String field=iOne.substring(0):\n");
-        xml_.append(" $public $static $final String iOne=\"\":\n");
+        xml_.append(" $public $static $final String field=iOne.substring(0);\n");
+        xml_.append(" $public $static $final String iOne=\"\";\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -3973,9 +3967,9 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $boolean field=iOne<iTwo:\n");
-        xml_.append(" $public $static $final $int iOne=0:\n");
-        xml_.append(" $public $static $final $int iTwo=0:\n");
+        xml_.append(" $public $static $final $boolean field=iOne<iTwo;\n");
+        xml_.append(" $public $static $final $int iOne=0;\n");
+        xml_.append(" $public $static $final $int iTwo=0;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -3989,9 +3983,9 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $boolean field=iOne<=iTwo:\n");
-        xml_.append(" $public $static $final $int iOne=0:\n");
-        xml_.append(" $public $static $final $int iTwo=0:\n");
+        xml_.append(" $public $static $final $boolean field=iOne<=iTwo;\n");
+        xml_.append(" $public $static $final $int iOne=0;\n");
+        xml_.append(" $public $static $final $int iTwo=0;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -4005,9 +3999,9 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $boolean field=iOne>iTwo:\n");
-        xml_.append(" $public $static $final $int iOne=0:\n");
-        xml_.append(" $public $static $final $int iTwo=0:\n");
+        xml_.append(" $public $static $final $boolean field=iOne>iTwo;\n");
+        xml_.append(" $public $static $final $int iOne=0;\n");
+        xml_.append(" $public $static $final $int iTwo=0;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -4021,9 +4015,9 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $boolean field=iOne>=iTwo:\n");
-        xml_.append(" $public $static $final $int iOne=0:\n");
-        xml_.append(" $public $static $final $int iTwo=0:\n");
+        xml_.append(" $public $static $final $boolean field=iOne>=iTwo;\n");
+        xml_.append(" $public $static $final $int iOne=0;\n");
+        xml_.append(" $public $static $final $int iTwo=0;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -4037,8 +4031,8 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final Character ch=$null:\n");
-        xml_.append(" $public $static $final $int field=\"\".splitChars($vararg($char),$firstopt(ch)).length:\n");
+        xml_.append(" $public $static $final Character ch=$null;\n");
+        xml_.append(" $public $static $final $int field=\"\".splitChars($vararg($char),$firstopt(ch)).length;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -4052,8 +4046,8 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final String ch=$null:\n");
-        xml_.append(" $public $static $final $int field=\"\".splitStrings($vararg(String),0,$firstopt(ch)).length:\n");
+        xml_.append(" $public $static $final String ch=$null;\n");
+        xml_.append(" $public $static $final $int field=\"\".splitStrings($vararg(String),0,$firstopt(ch)).length;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -4067,8 +4061,8 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $int field=\"\".splitChars($vararg($char),$firstopt(ch)).length:\n");
-        xml_.append(" $public $static $final Character ch=$null:\n");
+        xml_.append(" $public $static $final $int field=\"\".splitChars($vararg($char),$firstopt(ch)).length;\n");
+        xml_.append(" $public $static $final Character ch=$null;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -4082,8 +4076,8 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $int field=\"\".splitStrings($vararg(String),0,$firstopt(ch)).length:\n");
-        xml_.append(" $public $static $final String ch=$null:\n");
+        xml_.append(" $public $static $final $int field=\"\".splitStrings($vararg(String),0,$firstopt(ch)).length;\n");
+        xml_.append(" $public $static $final String ch=$null;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -4097,9 +4091,9 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $boolean field=(iOne>=iTwo):\n");
-        xml_.append(" $public $static $final $int iOne=0:\n");
-        xml_.append(" $public $static $final $int iTwo=0:\n");
+        xml_.append(" $public $static $final $boolean field=(iOne>=iTwo);\n");
+        xml_.append(" $public $static $final $int iOne=0;\n");
+        xml_.append(" $public $static $final $int iTwo=0;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -4113,9 +4107,9 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $boolean field=(iOne>=iTwo):\n");
-        xml_.append(" $public $static $final Integer iOne=$null:\n");
-        xml_.append(" $public $static $final $int iTwo=0:\n");
+        xml_.append(" $public $static $final $boolean field=(iOne>=iTwo);\n");
+        xml_.append(" $public $static $final Integer iOne=$null;\n");
+        xml_.append(" $public $static $final $int iTwo=0;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -4127,9 +4121,9 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $boolean field=(iTwo>=iOne):\n");
-        xml_.append(" $public $static $final Integer iOne=$null:\n");
-        xml_.append(" $public $static $final $int iTwo=0:\n");
+        xml_.append(" $public $static $final $boolean field=(iTwo>=iOne);\n");
+        xml_.append(" $public $static $final Integer iOne=$null;\n");
+        xml_.append(" $public $static $final $int iTwo=0;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -4141,9 +4135,9 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $int field=$bool(iTwo>=iOne,2,5):\n");
-        xml_.append(" $public $static $final $int iOne=0:\n");
-        xml_.append(" $public $static $final $int iTwo=0:\n");
+        xml_.append(" $public $static $final $int field=$bool(iTwo>=iOne,2,5);\n");
+        xml_.append(" $public $static $final $int iOne=0;\n");
+        xml_.append(" $public $static $final $int iTwo=0;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -4157,8 +4151,8 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $int field=$bool(iOne,2,5):\n");
-        xml_.append(" $public $static $final Boolean iOne=$null:\n");
+        xml_.append(" $public $static $final $int field=$bool(iOne,2,5);\n");
+        xml_.append(" $public $static $final Boolean iOne=$null;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -4170,9 +4164,9 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $int field=iOne+iTwo:\n");
-        xml_.append(" $public $static $final Integer iOne=$null:\n");
-        xml_.append(" $public $static $final $int iTwo=0:\n");
+        xml_.append(" $public $static $final $int field=iOne+iTwo;\n");
+        xml_.append(" $public $static $final Integer iOne=$null;\n");
+        xml_.append(" $public $static $final $int iTwo=0;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -4184,9 +4178,9 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $int field=iTwo+iOne:\n");
-        xml_.append(" $public $static $final Integer iOne=$null:\n");
-        xml_.append(" $public $static $final $int iTwo=0:\n");
+        xml_.append(" $public $static $final $int field=iTwo+iOne;\n");
+        xml_.append(" $public $static $final Integer iOne=$null;\n");
+        xml_.append(" $public $static $final $int iTwo=0;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -4198,9 +4192,9 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $int field=iOne*iTwo:\n");
-        xml_.append(" $public $static $final Integer iOne=$null:\n");
-        xml_.append(" $public $static $final $int iTwo=0:\n");
+        xml_.append(" $public $static $final $int field=iOne*iTwo;\n");
+        xml_.append(" $public $static $final Integer iOne=$null;\n");
+        xml_.append(" $public $static $final $int iTwo=0;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -4212,9 +4206,9 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $int field=iTwo*iOne:\n");
-        xml_.append(" $public $static $final Integer iOne=$null:\n");
-        xml_.append(" $public $static $final $int iTwo=0:\n");
+        xml_.append(" $public $static $final $int field=iTwo*iOne;\n");
+        xml_.append(" $public $static $final Integer iOne=$null;\n");
+        xml_.append(" $public $static $final $int iTwo=0;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -4226,9 +4220,9 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final Integer iOne=$null:\n");
-        xml_.append(" $public $static $final $int iTwo=0:\n");
-        xml_.append(" $public $static $final $int field=iOne+iTwo:\n");
+        xml_.append(" $public $static $final Integer iOne=$null;\n");
+        xml_.append(" $public $static $final $int iTwo=0;\n");
+        xml_.append(" $public $static $final $int field=iOne+iTwo;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -4240,9 +4234,9 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final Integer iOne=$null:\n");
-        xml_.append(" $public $static $final $int iTwo=0:\n");
-        xml_.append(" $public $static $final $int field=iTwo+iOne:\n");
+        xml_.append(" $public $static $final Integer iOne=$null;\n");
+        xml_.append(" $public $static $final $int iTwo=0;\n");
+        xml_.append(" $public $static $final $int field=iTwo+iOne;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -4254,9 +4248,9 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final Integer iOne=$null:\n");
-        xml_.append(" $public $static $final $int iTwo=0:\n");
-        xml_.append(" $public $static $final $int field=iOne*iTwo:\n");
+        xml_.append(" $public $static $final Integer iOne=$null;\n");
+        xml_.append(" $public $static $final $int iTwo=0;\n");
+        xml_.append(" $public $static $final $int field=iOne*iTwo;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -4268,9 +4262,9 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final Integer iOne=$null:\n");
-        xml_.append(" $public $static $final $int iTwo=0:\n");
-        xml_.append(" $public $static $final $int field=iTwo*iOne:\n");
+        xml_.append(" $public $static $final Integer iOne=$null;\n");
+        xml_.append(" $public $static $final $int iTwo=0;\n");
+        xml_.append(" $public $static $final $int field=iTwo*iOne;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -4282,14 +4276,14 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $int myf=$static(pkg.ExThree).myf;;;:\n");
-        xml_.append(" $public $static $final $int mys=$static(pkg.ExThree).mys;;;:\n");
+        xml_.append(" $public $static $final $int myf=$static(pkg.ExThree).myf;\n");
+        xml_.append(" $public $static $final $int mys=$static(pkg.ExThree).mys;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExThree {\n");
-        xml_.append(" $public $static $final $int myf=$static(pkg.ExTwo).myf;;;:\n");
-        xml_.append(" $public $static $final $int mys=$static(pkg.ExTwo).mys;;;:\n");
+        xml_.append(" $public $static $final $int myf=$static(pkg.ExTwo).myf;\n");
+        xml_.append(" $public $static $final $int mys=$static(pkg.ExTwo).mys;\n");
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -4301,9 +4295,9 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $int myf=~-1b:\n");
-        xml_.append(" $public $static $final $boolean mys=$true&&m():\n");
-        xml_.append(" $public $static $boolean m(){$return $true:}\n");
+        xml_.append(" $public $static $final $int myf=~-1y;\n");
+        xml_.append(" $public $static $final $boolean mys=$true&&m();\n");
+        xml_.append(" $public $static $boolean m(){$return $true;}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -4317,20 +4311,20 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $byte a1=Byte.MIN_VALUE:\n");
-        xml_.append(" $public $static $final Byte a2=Byte.MAX_VALUE:\n");
-        xml_.append(" $public $static $final $short a3=Short.MIN_VALUE:\n");
-        xml_.append(" $public $static $final Short a4=Short.MAX_VALUE:\n");
-        xml_.append(" $public $static $final $char a5=Character.MIN_VALUE:\n");
-        xml_.append(" $public $static $final Character a6=Character.MAX_VALUE:\n");
-        xml_.append(" $public $static $final $int a7=Integer.MIN_VALUE:\n");
-        xml_.append(" $public $static $final Integer a8=Integer.MAX_VALUE:\n");
-        xml_.append(" $public $static $final $long a9=Long.MIN_VALUE:\n");
-        xml_.append(" $public $static $final Long a10=Long.MAX_VALUE:\n");
-        xml_.append(" $public $static $final $float a11=Float.MIN_VALUE:\n");
-        xml_.append(" $public $static $final Float a12=Float.MAX_VALUE:\n");
-        xml_.append(" $public $static $final $double a13=Double.MIN_VALUE:\n");
-        xml_.append(" $public $static $final Double a14=Double.MAX_VALUE:\n");
+        xml_.append(" $public $static $final $byte a1=Byte.MIN_VALUE;\n");
+        xml_.append(" $public $static $final Byte a2=Byte.MAX_VALUE;\n");
+        xml_.append(" $public $static $final $short a3=Short.MIN_VALUE;\n");
+        xml_.append(" $public $static $final Short a4=Short.MAX_VALUE;\n");
+        xml_.append(" $public $static $final $char a5=Character.MIN_VALUE;\n");
+        xml_.append(" $public $static $final Character a6=Character.MAX_VALUE;\n");
+        xml_.append(" $public $static $final $int a7=Integer.MIN_VALUE;\n");
+        xml_.append(" $public $static $final Integer a8=Integer.MAX_VALUE;\n");
+        xml_.append(" $public $static $final $long a9=Long.MIN_VALUE;\n");
+        xml_.append(" $public $static $final Long a10=Long.MAX_VALUE;\n");
+        xml_.append(" $public $static $final $float a11=Float.MIN_VALUE;\n");
+        xml_.append(" $public $static $final Float a12=Float.MAX_VALUE;\n");
+        xml_.append(" $public $static $final $double a13=Double.MIN_VALUE;\n");
+        xml_.append(" $public $static $final Double a14=Double.MAX_VALUE;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -4342,7 +4336,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $double a1=0xAa.0:\n");
+        xml_.append(" $public $static $final $double a1=0xAa.0;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -4354,7 +4348,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $double a1=0b110p1:\n");
+        xml_.append(" $public $static $final $double a1=0b110p1;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -4366,7 +4360,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $double a1=0b101p-1:\n");
+        xml_.append(" $public $static $final $double a1=0b101p-1;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -4378,7 +4372,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $double a1=0110p1:\n");
+        xml_.append(" $public $static $final $double a1=0110p1;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -4390,7 +4384,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $double a1=0101p-1:\n");
+        xml_.append(" $public $static $final $double a1=0101p-1;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -4402,7 +4396,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $long a1=0xA:\n");
+        xml_.append(" $public $static $final $long a1=0xA;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -4414,7 +4408,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $long a1=0xFFFFFFFFFFFFFFFFxl:\n");
+        xml_.append(" $public $static $final $long a1=0xFFFFFFFFFFFFFFFFxl;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -4426,7 +4420,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $long a1=0xFFFFFFFFFFFFFFFFxL:\n");
+        xml_.append(" $public $static $final $long a1=0xFFFFFFFFFFFFFFFFxL;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -4438,7 +4432,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $int a1=0xFFFFFFFFxi:\n");
+        xml_.append(" $public $static $final $int a1=0xFFFFFFFFxi;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -4450,7 +4444,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $int a1=0xFFFFFFFFxI:\n");
+        xml_.append(" $public $static $final $int a1=0xFFFFFFFFxI;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -4462,7 +4456,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $short a1=0xFFFFxs:\n");
+        xml_.append(" $public $static $final $short a1=0xFFFFxs;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -4474,7 +4468,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $short a1=0xFFFFxS:\n");
+        xml_.append(" $public $static $final $short a1=0xFFFFxS;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -4486,7 +4480,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $byte a1=0xFFxb:\n");
+        xml_.append(" $public $static $final $byte a1=0xFFxy;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -4498,7 +4492,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $byte a1=0xFFxB:\n");
+        xml_.append(" $public $static $final $byte a1=0xFFxY;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -4510,7 +4504,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $char a1=0xFFFFxc:\n");
+        xml_.append(" $public $static $final $char a1=0xFFFFxc;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -4522,7 +4516,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $char a1=0xFFFFxC:\n");
+        xml_.append(" $public $static $final $char a1=0xFFFFxC;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -4534,7 +4528,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $char a1=012l:\n");
+        xml_.append(" $public $static $final $char a1=012l;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -4546,7 +4540,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $long a1=0b1111111111111111111111111111111111111111111111111111111111111111l:\n");
+        xml_.append(" $public $static $final $long a1=0b1111111111111111111111111111111111111111111111111111111111111111l;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -4558,7 +4552,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $long a1=0b1111111111111111111111111111111111111111111111111111111111111111L:\n");
+        xml_.append(" $public $static $final $long a1=0b1111111111111111111111111111111111111111111111111111111111111111L;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -4570,7 +4564,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $int a1=0b1i:\n");
+        xml_.append(" $public $static $final $int a1=0b1i;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -4582,7 +4576,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $int a1=0b1I:\n");
+        xml_.append(" $public $static $final $int a1=0b1I;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -4594,7 +4588,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $short a1=0b1s:\n");
+        xml_.append(" $public $static $final $short a1=0b1s;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -4606,7 +4600,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $short a1=0b1S:\n");
+        xml_.append(" $public $static $final $short a1=0b1S;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -4618,7 +4612,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $char a1=0b1c:\n");
+        xml_.append(" $public $static $final $char a1=0b1c;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -4630,7 +4624,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $char a1=0b1C:\n");
+        xml_.append(" $public $static $final $char a1=0b1C;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -4642,7 +4636,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $byte a1=0b1b:\n");
+        xml_.append(" $public $static $final $byte a1=0b1y;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -4654,7 +4648,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $byte a1=0b1B:\n");
+        xml_.append(" $public $static $final $byte a1=0b1Y;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -4667,7 +4661,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $long a1=01L:\n");
+        xml_.append(" $public $static $final $long a1=01L;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -4679,7 +4673,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $int a1=01I:\n");
+        xml_.append(" $public $static $final $int a1=01I;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -4691,7 +4685,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $short a1=01S:\n");
+        xml_.append(" $public $static $final $short a1=01S;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -4703,7 +4697,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $byte a1=01B:\n");
+        xml_.append(" $public $static $final $byte a1=01Y;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -4715,7 +4709,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $char a1=01C:\n");
+        xml_.append(" $public $static $final $char a1=01C;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -4727,7 +4721,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $char a1=01c:\n");
+        xml_.append(" $public $static $final $char a1=01c;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -4739,7 +4733,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $char a1=0077777C:\n");
+        xml_.append(" $public $static $final $char a1=0077777C;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -4751,7 +4745,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $char a1=0177777c:\n");
+        xml_.append(" $public $static $final $char a1=0177777c;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -4763,7 +4757,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $int a1=007777777777i:\n");
+        xml_.append(" $public $static $final $int a1=007777777777i;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -4775,7 +4769,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $int a1=017777777777i:\n");
+        xml_.append(" $public $static $final $int a1=017777777777i;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -4787,7 +4781,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $int a1=027777777777i:\n");
+        xml_.append(" $public $static $final $int a1=027777777777i;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -4799,7 +4793,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $int a1=037777777777i:\n");
+        xml_.append(" $public $static $final $int a1=037777777777i;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -4811,7 +4805,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $short a1=0077777s:\n");
+        xml_.append(" $public $static $final $short a1=0077777s;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -4823,7 +4817,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $short a1=0177777s:\n");
+        xml_.append(" $public $static $final $short a1=0177777s;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -4835,7 +4829,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $short a1=0277777s:\n");
+        xml_.append(" $public $static $final $short a1=0277777s;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -4847,7 +4841,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $short a1=0377777s:\n");
+        xml_.append(" $public $static $final $short a1=0377777s;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -4859,7 +4853,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $byte a1=0077b:\n");
+        xml_.append(" $public $static $final $byte a1=0077y;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -4871,7 +4865,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $byte a1=0177b:\n");
+        xml_.append(" $public $static $final $byte a1=0177y;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -4883,7 +4877,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $byte a1=0277b:\n");
+        xml_.append(" $public $static $final $byte a1=0277y;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -4895,7 +4889,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $byte a1=0377b:\n");
+        xml_.append(" $public $static $final $byte a1=0377y;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -4907,7 +4901,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $byte a1=1B:\n");
+        xml_.append(" $public $static $final $byte a1=1Y;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -4919,7 +4913,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $short a1=1S:\n");
+        xml_.append(" $public $static $final $short a1=1S;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -4931,7 +4925,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $char a1=1C:\n");
+        xml_.append(" $public $static $final $char a1=1C;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -4943,7 +4937,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $long a1=-9223372036854775808l:\n");
+        xml_.append(" $public $static $final $long a1=-9223372036854775808l;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -4956,7 +4950,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $long a1=- -9223372036854775808L:\n");
+        xml_.append(" $public $static $final $long a1=- -9223372036854775808L;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -4969,7 +4963,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $byte a1=-128b:\n");
+        xml_.append(" $public $static $final $byte a1=-128y;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -4981,7 +4975,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $char a1=65535c:\n");
+        xml_.append(" $public $static $final $char a1=65535c;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -4993,7 +4987,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $short a1=-32768s:\n");
+        xml_.append(" $public $static $final $short a1=-32768s;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -5005,7 +4999,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $int a1=-2147483648:\n");
+        xml_.append(" $public $static $final $int a1=-2147483648;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -5017,7 +5011,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $byte a1=-128B:\n");
+        xml_.append(" $public $static $final $byte a1=-128Y;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -5029,7 +5023,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $short a1=-32768S:\n");
+        xml_.append(" $public $static $final $short a1=-32768S;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -5041,7 +5035,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $int a1=-2147483648I:\n");
+        xml_.append(" $public $static $final $int a1=-2147483648I;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -5053,7 +5047,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $byte a1=0b:\n");
+        xml_.append(" $public $static $final $byte a1=0y;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -5065,7 +5059,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $double a1=01.3d:\n");
+        xml_.append(" $public $static $final $double a1=01.3d;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -5077,7 +5071,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $double a1=01._3d:\n");
+        xml_.append(" $public $static $final $double a1=01._3d;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -5089,7 +5083,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $long a1=0x1xb:\n");
+        xml_.append(" $public $static $final $long a1=0x1xy;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -5101,7 +5095,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $int a1=-+1:\n");
+        xml_.append(" $public $static $final $int a1=-+1;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -5113,7 +5107,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $int a1=-~1:\n");
+        xml_.append(" $public $static $final $int a1=-~1;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -5125,7 +5119,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $int a1=java.lang.Integer.MAX_VALUE:\n");
+        xml_.append(" $public $static $final $int a1=java.lang.Integer.MAX_VALUE;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = contextElSingleDot();
@@ -5138,7 +5132,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $boolean a1=java.lang.Integer.MAX_VALUE $instanceof java.lang.Integer:\n");
+        xml_.append(" $public $static $final $boolean a1=java.lang.Integer.MAX_VALUE $instanceof java.lang.Integer;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = contextElSingleDot();
@@ -5152,14 +5146,14 @@ public final class ClassesTest {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExSuper {\n");
         xml_.append(" $public $int m(){\n");
-        xml_.append("  $return 2:\n");
+        xml_.append("  $return 2;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.ExTwo:ExSuper {\n");
-        xml_.append(" $public $static $final ExTwo CST = $new ExTwo():\n");
-        xml_.append(" $public $static $final $int a1=pkg.ExTwo.CST.$super.m():\n");
+        xml_.append(" $public $static $final ExTwo CST = $new ExTwo();\n");
+        xml_.append(" $public $static $final $int a1=pkg.ExTwo.CST.$super.m();\n");
         xml_.append(" $public $final $int m(){\n");
-        xml_.append("  $return 1:\n");
+        xml_.append("  $return 1;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
@@ -5175,14 +5169,14 @@ public final class ClassesTest {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExSuper {\n");
         xml_.append(" $public $int m(){\n");
-        xml_.append("  $return 2:\n");
+        xml_.append("  $return 2;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.ExTwo:ExSuper {\n");
-        xml_.append(" $public $static $final ExTwo CST = $new ExTwo():\n");
-        xml_.append(" $public $static $final $int a1=pkg.ExTwo.CST.$classchoice(ExSuper)m():\n");
+        xml_.append(" $public $static $final ExTwo CST = $new ExTwo();\n");
+        xml_.append(" $public $static $final $int a1=pkg.ExTwo.CST.$classchoice(ExSuper)m();\n");
         xml_.append(" $public $final $int m(){\n");
-        xml_.append("  $return 1:\n");
+        xml_.append("  $return 1;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
@@ -5198,14 +5192,14 @@ public final class ClassesTest {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExSuper {\n");
         xml_.append(" $public $int m(){\n");
-        xml_.append("  $return 2:\n");
+        xml_.append("  $return 2;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.ExTwo:ExSuper {\n");
-        xml_.append(" $public $static $final ExTwo CST = $new ExTwo():\n");
-        xml_.append(" $public $static $final $int a1=pkg.ExTwo.CST.$that.m():\n");
+        xml_.append(" $public $static $final ExTwo CST = $new ExTwo();\n");
+        xml_.append(" $public $static $final $int a1=pkg.ExTwo.CST.$that.m();\n");
         xml_.append(" $public $final $int m(){\n");
-        xml_.append("  $return 1:\n");
+        xml_.append("  $return 1;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
@@ -5222,11 +5216,11 @@ public final class ClassesTest {
         xml_.append("$public $class pkg.ExTwo {\n");
         xml_.append(" $public $class Inner {\n");
         xml_.append("  $public $final $int n(){\n");
-        xml_.append("   $return 3:\n");
+        xml_.append("   $return 3;\n");
         xml_.append("  }\n");
         xml_.append(" }\n");
-        xml_.append(" $public $static $final ExTwo CST = $new ExTwo():\n");
-        xml_.append(" $public $static $final $int a1=pkg.ExTwo.CST.$new Inner().n():\n");
+        xml_.append(" $public $static $final ExTwo CST = $new ExTwo();\n");
+        xml_.append(" $public $static $final $int a1=pkg.ExTwo.CST.$new Inner().n();\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = contextElSingleDot();
@@ -5241,14 +5235,14 @@ public final class ClassesTest {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExSuper {\n");
         xml_.append(" $public $int m(){\n");
-        xml_.append("  $return 2:\n");
+        xml_.append("  $return 2;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.ExTwo:ExSuper {\n");
-        xml_.append(" $public $static $final ExTwo CST = $new ExTwo():\n");
-        xml_.append(" $public $static $final $int a1=(pkg.ExTwo.CST.$super.m()):\n");
+        xml_.append(" $public $static $final ExTwo CST = $new ExTwo();\n");
+        xml_.append(" $public $static $final $int a1=(pkg.ExTwo.CST.$super.m());\n");
         xml_.append(" $public $final $int m(){\n");
-        xml_.append("  $return 1:\n");
+        xml_.append("  $return 1;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
@@ -5264,14 +5258,14 @@ public final class ClassesTest {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExSuper {\n");
         xml_.append(" $public $int m(){\n");
-        xml_.append("  $return 2:\n");
+        xml_.append("  $return 2;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.ExTwo:ExSuper {\n");
-        xml_.append(" $public $static $final ExTwo CST = $new ExTwo():\n");
-        xml_.append(" $public $static $final $int a1=(pkg.ExTwo.CST.$classchoice(ExSuper)m()):\n");
+        xml_.append(" $public $static $final ExTwo CST = $new ExTwo();\n");
+        xml_.append(" $public $static $final $int a1=(pkg.ExTwo.CST.$classchoice(ExSuper)m());\n");
         xml_.append(" $public $final $int m(){\n");
-        xml_.append("  $return 1:\n");
+        xml_.append("  $return 1;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
@@ -5287,14 +5281,14 @@ public final class ClassesTest {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExSuper {\n");
         xml_.append(" $public $int m(){\n");
-        xml_.append("  $return 2:\n");
+        xml_.append("  $return 2;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.ExTwo:ExSuper {\n");
-        xml_.append(" $public $static $final ExTwo CST = $new ExTwo():\n");
-        xml_.append(" $public $static $final $int a1=(pkg.ExTwo.CST.$that.m()):\n");
+        xml_.append(" $public $static $final ExTwo CST = $new ExTwo();\n");
+        xml_.append(" $public $static $final $int a1=(pkg.ExTwo.CST.$that.m());\n");
         xml_.append(" $public $final $int m(){\n");
-        xml_.append("  $return 1:\n");
+        xml_.append("  $return 1;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
@@ -5311,11 +5305,11 @@ public final class ClassesTest {
         xml_.append("$public $class pkg.ExTwo {\n");
         xml_.append(" $public $class Inner {\n");
         xml_.append("  $public $final $int n(){\n");
-        xml_.append("   $return 3:\n");
+        xml_.append("   $return 3;\n");
         xml_.append("  }\n");
         xml_.append(" }\n");
-        xml_.append(" $public $static $final ExTwo CST = $new ExTwo():\n");
-        xml_.append(" $public $static $final $int a1=(pkg.ExTwo.CST.$new Inner().n()):\n");
+        xml_.append(" $public $static $final ExTwo CST = $new ExTwo();\n");
+        xml_.append(" $public $static $final $int a1=(pkg.ExTwo.CST.$new Inner().n());\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = contextElSingleDot();
@@ -5329,72 +5323,21 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $boolean a1=(5!=4):\n");
+        xml_.append(" $public $static $final $boolean a1=(5!=4);\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = contextElSingleDot();
         Classes.validateAll(files_,ctx_);
         assertTrue(ctx_.isEmptyErrors());
     }
-    @Test
-    public void calculateStaticField183Test() {
-        StringMap<String> files_ = new StringMap<String>();
-        StringBuilder xml_;
-        xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $int a1=(5!=4?0:1);\n");
-        xml_.append("}\n");
-        files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl ctx_ = contextElSingleDotDefault();
-        Classes.validateAll(files_,ctx_);
-        assertTrue(ctx_.isEmptyErrors());
-    }
-    @Test
-    public void calculateStaticField184Test() {
-        StringMap<String> files_ = new StringMap<String>();
-        StringBuilder xml_;
-        xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final Object[] a1=(Object[ ])$null;\n");
-        xml_.append("}\n");
-        files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl ctx_ = contextElSingleDotDefault();
-        Classes.validateAll(files_,ctx_);
-        assertTrue(ctx_.isEmptyErrors());
-    }
-    @Test
-    public void calculateStaticField185Test() {
-        StringMap<String> files_ = new StringMap<String>();
-        StringBuilder xml_;
-        xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $double a1=( .5);\n");
-        xml_.append("}\n");
-        files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl ctx_ = contextElSingleDotDefault();
-        Classes.validateAll(files_,ctx_);
-        assertTrue(ctx_.isEmptyErrors());
-    }
-    @Test
-    public void calculateStaticField186Test() {
-        StringMap<String> files_ = new StringMap<String>();
-        StringBuilder xml_;
-        xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $boolean a1=$null $instanceof Object[ ] && $true;\n");
-        xml_.append("}\n");
-        files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl ctx_ = contextElSingleDotDefault();
-        Classes.validateAll(files_,ctx_);
-        assertTrue(ctx_.isEmptyErrors());
-    }
+
     @Test
     public void calculateStaticField187Test() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $boolean a1=(0s&0s)==0:\n");
+        xml_.append(" $public $static $final $boolean a1=(0s&0s)==0;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = contextElSingleDot();
@@ -5407,38 +5350,26 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $short a4:\n");
-        xml_.append(" $public $static $double a3:\n");
-        xml_.append(" $public $static $float a2:\n");
-        xml_.append(" $public $static $char a1=0c:\n");
-        xml_.append(" $static {a1+=5c:}\n");
+        xml_.append(" $public $static $short a4;\n");
+        xml_.append(" $public $static $double a3;\n");
+        xml_.append(" $public $static $float a2;\n");
+        xml_.append(" $public $static $char a1=0c;\n");
+        xml_.append(" $static {a1+=5c;}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = contextElSingleDot();
         Classes.validateAll(files_,ctx_);
         assertTrue(ctx_.isEmptyErrors());
     }
-    @Test
-    public void calculateStaticField189Test() {
-        StringMap<String> files_ = new StringMap<String>();
-        StringBuilder xml_;
-        xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $boolean a1=1 $instanceof Integer || $false;\n");
-        xml_.append("}\n");
-        files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl ctx_ = contextElSingleDotDefault();
-        Classes.validateAll(files_,ctx_);
-        assertTrue(ctx_.isEmptyErrors());
-    }
+
     @Test
     public void calculateStaticField190Test() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $int myf=0:\n");
-        xml_.append(" $public $static $final $int mys=myf;;;+3i:\n");
+        xml_.append(" $public $static $int myf=0;\n");
+        xml_.append(" $public $static $final $int mys=myf+3i;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -5451,7 +5382,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $int outer(){$public $static $int inner(){$return 0:}$return 0:}\n");
+        xml_.append(" $public $static $int outer(){$public $static $int inner(){$return 0;}$return 0;}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
@@ -5464,7 +5395,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public ExTwo(){$this():}\n");
+        xml_.append(" $public ExTwo(){$this();}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
@@ -5477,7 +5408,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $int outer(){$public $static $int inner:$return 0:}\n");
+        xml_.append(" $public $static $int outer(){$public $static $int inner;$return 0;}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
@@ -5490,20 +5421,21 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $int outer(){$public $static $class Inn{}$return 0:}\n");
+        xml_.append(" $public $static $int outer(){$public $static $class Inn{}$return 0;}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().displayErrors(),!cont_.isEmptyErrors());
     }
+
     @Test
     public void validateEl5FailTest() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $int outer(){((String)$null<(String)$null):$return 0:}\n");
+        xml_.append(" $public $static $int outer(){((String)$null<(String)$null);$return 0;}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
@@ -5516,7 +5448,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $int outer(){($vararg($int)):$return 0:}\n");
+        xml_.append(" $public $static $int outer(){($vararg($int));$return 0;}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
@@ -5529,7 +5461,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $int outer(){$new $int[]{$vararg($int)}:$return 0:}\n");
+        xml_.append(" $public $static $int outer(){$new $int[]{$vararg($int)};$return 0;}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
@@ -5545,7 +5477,7 @@ public final class ClassesTest {
         xml_.append("}\n");
         xml_.append("@Annot($vararg($int))\n");
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $int outer(){$return 0:}\n");
+        xml_.append(" $public $static $int outer(){$return 0;}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
@@ -5558,7 +5490,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $int outer(){(0<\"\"):$return 0:}\n");
+        xml_.append(" $public $static $int outer(){(0<\"\");$return 0;}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
@@ -5571,7 +5503,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $int outer(){(\"\"<0):$return 0:}\n");
+        xml_.append(" $public $static $int outer(){(\"\"<0);$return 0;}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
@@ -5584,7 +5516,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $int outer(){(0<$false):$return 0:}\n");
+        xml_.append(" $public $static $int outer(){(0<$false);$return 0;}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
@@ -5597,7 +5529,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $int outer(){($false<0):$return 0:}\n");
+        xml_.append(" $public $static $int outer(){($false<0);$return 0;}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
@@ -5610,7 +5542,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $int outer(){($false+0):$return 0:}\n");
+        xml_.append(" $public $static $int outer(){($false+0);$return 0;}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
@@ -5623,7 +5555,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $int outer(){(0+$false):$return 0:}\n");
+        xml_.append(" $public $static $int outer(){(0+$false);$return 0;}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
@@ -5636,7 +5568,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $int outer(){($false-0):$return 0:}\n");
+        xml_.append(" $public $static $int outer(){($false-0);$return 0;}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
@@ -5649,7 +5581,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $int outer(){(0-$false):$return 0:}\n");
+        xml_.append(" $public $static $int outer(){(0-$false);$return 0;}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
@@ -5662,7 +5594,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $int outer(){($false*0):$return 0:}\n");
+        xml_.append(" $public $static $int outer(){($false*0);$return 0;}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
@@ -5675,57 +5607,45 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $int outer(){(0*$false):$return 0:}\n");
+        xml_.append(" $public $static $int outer(){(0*$false);$return 0;}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(!cont_.isEmptyErrors());
     }
-    @Test
-    public void validateEl19FailTest() {
-        StringMap<String> files_ = new StringMap<String>();
-        StringBuilder xml_;
-        xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $int outer(){$int $v = 0:$int $v = 0:e;..:p;.;:$return 0:}\n");
-        xml_.append("}\n");
-        files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
-        Classes.validateAll(files_, cont_);
-        assertTrue(!cont_.isEmptyErrors());
-    }
+
     @Test
     public void validateEl20FailTest() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $int a1 = $true&0:\n");
-        xml_.append(" $int a2 = 0&$true:\n");
-        xml_.append(" $int a3 = $true|0:\n");
-        xml_.append(" $int a4 = 0|$true:\n");
-        xml_.append(" $int a5 = $true^0:\n");
-        xml_.append(" $int a6 = 0^$true:\n");
-        xml_.append(" $int a7 = $true<<0:\n");
-        xml_.append(" $int a8 = 0<<$true:\n");
-        xml_.append(" $int a9 = $true<<<0:\n");
-        xml_.append(" $int a10 = 0<<<$true:\n");
-        xml_.append(" $int a11 = $true<<<<0:\n");
-        xml_.append(" $int a12 = 0<<<<$true:\n");
-        xml_.append(" $int a13 = $true>>0:\n");
-        xml_.append(" $int a14 = 0>>$true:\n");
-        xml_.append(" $int a15 = $true>>>0:\n");
-        xml_.append(" $int a16 = 0>>>$true:\n");
-        xml_.append(" $int a17 = $true>>>>0:\n");
-        xml_.append(" $int a18 = 0>>>>$true:\n");
-        xml_.append(" $int a19 = -$true:\n");
-        xml_.append(" $int a20 = ~$true:\n");
-        xml_.append(" $int a21 = $true&&0:\n");
-        xml_.append(" $int a22 = 0&&$true:\n");
-        xml_.append(" $int a23 = $false||0:\n");
-        xml_.append(" $int a24 = 0||$false:\n");
-        xml_.append(" $int a25 = \"\"+(ExTwo)$null:\n");
+        xml_.append(" $int a1 = $true&0;\n");
+        xml_.append(" $int a2 = 0&$true;\n");
+        xml_.append(" $int a3 = $true|0;\n");
+        xml_.append(" $int a4 = 0|$true;\n");
+        xml_.append(" $int a5 = $true^0;\n");
+        xml_.append(" $int a6 = 0^$true;\n");
+        xml_.append(" $int a7 = $true<<0;\n");
+        xml_.append(" $int a8 = 0<<$true;\n");
+        xml_.append(" $int a9 = $true<<<0;\n");
+        xml_.append(" $int a10 = 0<<<$true;\n");
+        xml_.append(" $int a11 = $true<<<<0;\n");
+        xml_.append(" $int a12 = 0<<<<$true;\n");
+        xml_.append(" $int a13 = $true>>0;\n");
+        xml_.append(" $int a14 = 0>>$true;\n");
+        xml_.append(" $int a15 = $true>>>0;\n");
+        xml_.append(" $int a16 = 0>>>$true;\n");
+        xml_.append(" $int a17 = $true>>>>0;\n");
+        xml_.append(" $int a18 = 0>>>>$true;\n");
+        xml_.append(" $int a19 = -$true;\n");
+        xml_.append(" $int a20 = ~$true;\n");
+        xml_.append(" $int a21 = $true&&0;\n");
+        xml_.append(" $int a22 = 0&&$true;\n");
+        xml_.append(" $int a23 = $false||0;\n");
+        xml_.append(" $int a24 = 0||$false;\n");
+        xml_.append(" $int a25 = \"\"+(ExTwo)$null;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
@@ -5738,7 +5658,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $int a1 = $new $int[\"\"]:\n");
+        xml_.append(" $int a1 = $new $int[\"\"];\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
@@ -5751,7 +5671,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $int a1 = $new $int[]{\"\"}:\n");
+        xml_.append(" $int a1 = $new $int[]{\"\"};\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
@@ -5764,7 +5684,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $int a1 = {\"\"}:\n");
+        xml_.append(" $int a1 = {\"\"};\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
@@ -5777,7 +5697,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $int a1 = $new $int[]{\"\"}.len:\n");
+        xml_.append(" $int a1 = $new $int[]{\"\"}.len;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
@@ -5790,7 +5710,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $int a1 = $new $int[]{\"\"}.clo:\n");
+        xml_.append(" $int a1 = $new $int[]{\"\"}.clo;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
@@ -5803,7 +5723,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $int[] a1 = {\"\"}:\n");
+        xml_.append(" $int[] a1 = {\"\"};\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
@@ -5816,7 +5736,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" {({}):}\n");
+        xml_.append(" {({});}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
@@ -5829,7 +5749,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $int[] a1 = {{}}:\n");
+        xml_.append(" $int[] a1 = {{}};\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
@@ -5842,7 +5762,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" Object a1 = {{}}:\n");
+        xml_.append(" Object a1 = {{}};\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
@@ -5855,7 +5775,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" {unknown;; = {}:}\n");
+        xml_.append(" {([unknown]) = {};}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
@@ -5868,7 +5788,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" {unknown;; = $bool($true,5,4):}\n");
+        xml_.append(" {([unknown]) = $bool($true,5,4);}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
@@ -5881,7 +5801,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" {$return $bool($true,5,4):}\n");
+        xml_.append(" {$return $bool($true,5,4);}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
@@ -5894,7 +5814,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $void m(){$return $bool($true,5,4):}\n");
+        xml_.append(" $public $void m(){$return $bool($true,5,4);}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
@@ -5908,7 +5828,7 @@ public final class ClassesTest {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
         xml_.append(" $void m(){}\n");
-        xml_.append(" {$bool(m(),m(),m()):tab[,]:tab[\"\"]:tab[-12345678912l]:tab[12345678912l]:}\n");
+        xml_.append(" {$bool(m(),m(),m());tab[,];tab[\"\"];tab[-12345678912l];tab[12345678912l];}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
@@ -5922,7 +5842,7 @@ public final class ClassesTest {
         xml_ = new StringBuilder();
         xml_.append("$class pkgtwo.ExThree {}\n");
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" {$static(pkgtwo.ExThree).m():}\n");
+        xml_.append(" {$static(pkgtwo.ExThree).m();}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
@@ -5936,11 +5856,11 @@ public final class ClassesTest {
         xml_ = new StringBuilder();
         xml_.append("$class pkgtwo.ExThree {}\n");
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" {$vararg($int):$firstopt(0):($firstopt(0)):$id(Object):($id(Object)):}\n");
-        xml_.append(" {m($firstopt(0),$vararg($int),$id(Object)):}\n");
-        xml_.append(" {m($id(Inexist)):}\n");
-        xml_.append(" {m($id(Object,Object...,Object)):}\n");
-        xml_.append(" {m(m()):}\n");
+        xml_.append(" {$vararg($int);$firstopt(0);($firstopt(0));$id(Object);($id(Object));}\n");
+        xml_.append(" {m($firstopt(0),$vararg($int),$id(Object));}\n");
+        xml_.append(" {m($id(Inexist));}\n");
+        xml_.append(" {m($id(Object,Object...,Object));}\n");
+        xml_.append(" {m(m());}\n");
         xml_.append(" $void m(){}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
@@ -5956,7 +5876,7 @@ public final class ClassesTest {
         xml_.append("$class pkgtwo.ExThree {}\n");
         xml_.append("$public $class pkg.ExTwo {\n");
         xml_.append(" $public $class Inner<T:Number> {}\n");
-        xml_.append(" {$new ExTwo().$new Inner<String>():}\n");
+        xml_.append(" {$new ExTwo().$new Inner<String>();}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
@@ -5971,7 +5891,7 @@ public final class ClassesTest {
         xml_.append("$class pkgtwo.ExThree {}\n");
         xml_.append("$public $class pkg.ExTwo {\n");
         xml_.append(" $public $class Inner<T:Number> {}\n");
-        xml_.append(" {$new ExTwo().$new InnerInner():}\n");
+        xml_.append(" {$new ExTwo().$new InnerInner();}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
@@ -5986,7 +5906,7 @@ public final class ClassesTest {
         xml_.append("$class pkgtwo.ExThree {}\n");
         xml_.append("$public $class pkg.ExTwo<T,U> {\n");
         xml_.append(" $public $class Inner {}\n");
-        xml_.append(" {$new ExTwo<?,!Number>().$new Inner():}\n");
+        xml_.append(" {$new ExTwo<?,!Number>().$new Inner();}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
@@ -6001,7 +5921,7 @@ public final class ClassesTest {
         xml_.append("$class pkgtwo.ExThree {}\n");
         xml_.append("$public $class pkg.ExTwo {\n");
         xml_.append(" $public $class Inner {}\n");
-        xml_.append(" {$new ExTwo[1].$new Inner():}\n");
+        xml_.append(" {$new ExTwo[1].$new Inner();}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
@@ -6016,7 +5936,7 @@ public final class ClassesTest {
         xml_.append("$class pkgtwo.ExThree {}\n");
         xml_.append("$public $class pkg.ExTwo {\n");
         xml_.append(" $public $class Inner {}\n");
-        xml_.append(" {$new ExTwo().$new ..Inner():}\n");
+        xml_.append(" {$new ExTwo().$new ..Inner();}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
@@ -6029,8 +5949,8 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$class pkgtwo.ExThree {}\n");
-        xml_.append("$public $enum pkg.ExTwo {:\n");
-        xml_.append(" {$new ExTwo():}\n");
+        xml_.append("$public $enum pkg.ExTwo {;\n");
+        xml_.append(" {$new ExTwo();}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
@@ -6043,8 +5963,8 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $abstract $class pkg.ExThree {}\n");
-        xml_.append("$public $enum pkg.ExTwo {:\n");
-        xml_.append(" {$new ExThree():}\n");
+        xml_.append("$public $enum pkg.ExTwo {;\n");
+        xml_.append(" {$new ExThree();}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
@@ -6057,8 +5977,8 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $interface pkg.ExThree {}\n");
-        xml_.append("$public $enum pkg.ExTwo {:\n");
-        xml_.append(" {$new ExThree():}\n");
+        xml_.append("$public $enum pkg.ExTwo {;\n");
+        xml_.append(" {$new ExThree();}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
@@ -6071,8 +5991,8 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $annotation pkg.ExThree {}\n");
-        xml_.append("$public $enum pkg.ExTwo {:\n");
-        xml_.append(" {$new ExThree():}\n");
+        xml_.append("$public $enum pkg.ExTwo {;\n");
+        xml_.append(" {$new ExThree();}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
@@ -6084,27 +6004,8 @@ public final class ClassesTest {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("$public $enum pkg.ExTwo {:\n");
-        xml_.append(" {$new Inexist():$new $int():}\n");
-        xml_.append("}\n");
-        files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
-        Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(),!cont_.isEmptyErrors());
-    }
-    @Test
-    public void validateEl56FailTest() {
-        StringMap<String> files_ = new StringMap<String>();
-        StringBuilder xml_;
-        xml_ = new StringBuilder();
-        xml_.append("$public $interface pkg.MyInt1 {}\n");
-        xml_.append("$public $interface pkg.MyInt2 {}\n");
-        xml_.append("$public $interface pkg.MyInt3:MyInt1:MyInt2 {}\n");
-        xml_.append("$public $interface pkg.MyInt4:MyInt1:MyInt2 {}\n");
-        xml_.append("$public $enum pkg.ExTwo {:\n");
-        xml_.append(" {$int i = $null:}\n");
-        xml_.append(" {$var v = 5: $var t = $bool($true,(MyInt3)$null,(MyInt4)$null):$if($true){$int k = 5:}}\n");
-        xml_.append(" {$for($var t = $bool($true,(MyInt3)$null,(MyInt4)$null)::){$int k = 5:}}\n");
+        xml_.append("$public $enum pkg.ExTwo {;\n");
+        xml_.append(" {$new Inexist();$new $int();}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
@@ -6116,8 +6017,8 @@ public final class ClassesTest {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("$public $enum pkg.ExTwo {:\n");
-        xml_.append(" {$int v = 5:$if($true){$var v = 5:}}\n");
+        xml_.append("$public $enum pkg.ExTwo {;\n");
+        xml_.append(" {$int v = 5;$if($true){$var v = 5;}}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
@@ -6130,14 +6031,14 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $byte a3=Short.MIN_VALUE:\n");
-        xml_.append(" $public $static $final Byte a4=Short.MAX_VALUE:\n");
-        xml_.append(" $public $static $final $short a5=Integer.MIN_VALUE:\n");
-        xml_.append(" $public $static $final Short a6=Integer.MAX_VALUE:\n");
-        xml_.append(" $public $static $final $char a7=Integer.MIN_VALUE:\n");
-        xml_.append(" $public $static $final Character a8=Integer.MAX_VALUE:\n");
-        xml_.append(" $public $static $final $int a9=Long.MIN_VALUE:\n");
-        xml_.append(" $public $static $final Integer a10=Long.MAX_VALUE:\n");
+        xml_.append(" $public $static $final $byte a3=Short.MIN_VALUE;\n");
+        xml_.append(" $public $static $final Byte a4=Short.MAX_VALUE;\n");
+        xml_.append(" $public $static $final $short a5=Integer.MIN_VALUE;\n");
+        xml_.append(" $public $static $final Short a6=Integer.MAX_VALUE;\n");
+        xml_.append(" $public $static $final $char a7=Integer.MIN_VALUE;\n");
+        xml_.append(" $public $static $final Character a8=Integer.MAX_VALUE;\n");
+        xml_.append(" $public $static $final $int a9=Long.MIN_VALUE;\n");
+        xml_.append(" $public $static $final Integer a10=Long.MAX_VALUE;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
@@ -6149,28 +6050,28 @@ public final class ClassesTest {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("$operator+ $int(pkg.ExThree p, pkg.ExThree q) {$return 0:}\n");
-        xml_.append("$operator++ $int(pkg.ExThree p) {$return 0:}\n");
+        xml_.append("$operator+ $int(pkg.ExThree p, pkg.ExThree q) {$return 0;}\n");
+        xml_.append("$operator++ $int(pkg.ExThree p) {$return 0;}\n");
         xml_.append("$public $class pkg.ExThree {}\n");
         xml_.append("$public $class pkg.ExTwo {\n");
         xml_.append(" $static{\n");
-        xml_.append("  ExTwo p = $null:\n");
-        xml_.append("  p;. += 1:\n");
-        xml_.append("  $int i = 1:\n");
-        xml_.append("  i;. &= $true:\n");
-        xml_.append("  $boolean j = $true:\n");
-        xml_.append("  j;. &= 1:\n");
-        xml_.append("  $boolean k = $true:\n");
-        xml_.append("  k;. -= 1:\n");
-        xml_.append("  $int l = 5:\n");
-        xml_.append("  l;. -= $true:\n");
-        xml_.append("  String m = \"\":\n");
-        xml_.append("  m;. &= \"\":\n");
-        xml_.append("  m;. ++:\n");
-        xml_.append("  ExThree n = $null:\n");
-        xml_.append("  n;. += (ExThree)$null:\n");
-        xml_.append("  n;. ++:\n");
-        xml_.append("  o;; += 8:\n");
+        xml_.append("  ExTwo p = $null;\n");
+        xml_.append("  p += 1;\n");
+        xml_.append("  $int i = 1;\n");
+        xml_.append("  i &= $true;\n");
+        xml_.append("  $boolean j = $true;\n");
+        xml_.append("  j &= 1;\n");
+        xml_.append("  $boolean k = $true;\n");
+        xml_.append("  k -= 1;\n");
+        xml_.append("  $int l = 5;\n");
+        xml_.append("  l -= $true;\n");
+        xml_.append("  String m = \"\";\n");
+        xml_.append("  m &= \"\";\n");
+        xml_.append("  m ++;\n");
+        xml_.append("  ExThree n = $null;\n");
+        xml_.append("  n += (ExThree)$null;\n");
+        xml_.append("  n ++;\n");
+        xml_.append("  ([o]) += 8;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
@@ -6183,11 +6084,11 @@ public final class ClassesTest {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("$enum pkgtwo.ExTwo {:\n");
+        xml_.append("$enum pkgtwo.ExTwo {;\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.Apply {\n");
         xml_.append(" $static {\n");
-        xml_.append("  $values(pkgtwo.ExTwo):\n");
+        xml_.append("  $values(pkgtwo.ExTwo);\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
@@ -6200,11 +6101,11 @@ public final class ClassesTest {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("$public $enum pkgtwo.ExTwo {:\n");
+        xml_.append("$public $enum pkgtwo.ExTwo {;\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.Apply {\n");
         xml_.append(" $static {\n");
-        xml_.append("  $values(ExTwo):\n");
+        xml_.append("  $values(ExTwo);\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
@@ -6217,11 +6118,11 @@ public final class ClassesTest {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("$enum pkgtwo.ExTwo {:\n");
+        xml_.append("$enum pkgtwo.ExTwo {;\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.Apply {\n");
         xml_.append(" $static {\n");
-        xml_.append("  $valueOf(pkgtwo.ExTwo,\"\"):\n");
+        xml_.append("  $valueOf(pkgtwo.ExTwo,\"\");\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
@@ -6234,11 +6135,11 @@ public final class ClassesTest {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("$public $enum pkgtwo.ExTwo {:\n");
+        xml_.append("$public $enum pkgtwo.ExTwo {;\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.Apply {\n");
         xml_.append(" $static {\n");
-        xml_.append("  $valueOf(ExTwo,\"\"):\n");
+        xml_.append("  $valueOf(ExTwo,\"\");\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
@@ -6251,20 +6152,20 @@ public final class ClassesTest {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("$enum pkgtwo.ExTwo {:\n");
+        xml_.append("$enum pkgtwo.ExTwo {;\n");
         xml_.append("}\n");
-        xml_.append("$interface pkgtwo.ExInt {:\n");
+        xml_.append("$interface pkgtwo.ExInt {;\n");
         xml_.append("}\n");
-        xml_.append("$annotation pkgtwo.ExAnnotation {:\n");
+        xml_.append("$annotation pkgtwo.ExAnnotation {;\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.Apply {\n");
         xml_.append(" $static {\n");
-        xml_.append("  $valueOf(pkgtwo.ExTwo,2):\n");
-        xml_.append("  $Fct<$int> f = $null:\n");
-        xml_.append("  f;.caller(5):\n");
-        xml_.append("  $new $int[1].clo():\n");
-        xml_.append("  pkgtwo.ExInt i:\n");
-        xml_.append("  pkgtwo.ExAnnotation j:\n");
+        xml_.append("  $valueOf(pkgtwo.ExTwo,2);\n");
+        xml_.append("  $Fct<$int> f = $null;\n");
+        xml_.append("  f.caller(5);\n");
+        xml_.append("  $new $int[1].clo();\n");
+        xml_.append("  pkgtwo.ExInt i;\n");
+        xml_.append("  pkgtwo.ExAnnotation j;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
@@ -6282,8 +6183,8 @@ public final class ClassesTest {
         xml_.append("}\n");
         xml_.append("$public $class pkg.Apply:ExTwo {\n");
         xml_.append(" $static {\n");
-        xml_.append("  Apply a = $new Apply():\n");
-        xml_.append("  a;.$super.m():\n");
+        xml_.append("  Apply a = $new Apply();\n");
+        xml_.append("  a.$super.m();\n");
         xml_.append(" }\n");
         xml_.append(" $public $void m() {}\n");
         xml_.append("}\n");
@@ -6302,8 +6203,8 @@ public final class ClassesTest {
         xml_.append("}\n");
         xml_.append("$public $class pkg.Apply:ExTwo {\n");
         xml_.append(" $static {\n");
-        xml_.append("  Apply a = $new Apply():\n");
-        xml_.append("  a;.$classchoice(ExTwo)m():\n");
+        xml_.append("  Apply a = $new Apply();\n");
+        xml_.append("  a.$classchoice(ExTwo)m();\n");
         xml_.append(" }\n");
         xml_.append(" $public $void m() {}\n");
         xml_.append("}\n");
@@ -6323,17 +6224,17 @@ public final class ClassesTest {
         xml_.append(" $public $static $void o() {}\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.Apply {\n");
-        xml_.append(" $static $final String CST = $null:\n");
-        xml_.append(" $static $final $int LEN = CST.length():\n");
-        xml_.append(" $static $final $int RES = \"\".len():\n");
+        xml_.append(" $static $final String CST = $null;\n");
+        xml_.append(" $static $final $int LEN = CST.length();\n");
+        xml_.append(" $static $final $int RES = \"\".len();\n");
         xml_.append(" $static {\n");
-        xml_.append("  m().$classchoice(ExTwo)m(n()):\n");
-        xml_.append("  m(n()):\n");
-        xml_.append("  m().n():\n");
-        xml_.append("  $new ExTwo().$classchoice(Apply)m():\n");
-        xml_.append("  m().$superaccess(ExThree)o():\n");
-        xml_.append("  $superaccess(ExThree)o(m()):\n");
-        xml_.append("  p($vararg($int),$firstopt(\"\")):\n");
+        xml_.append("  m().$classchoice(ExTwo)m(n());\n");
+        xml_.append("  m(n());\n");
+        xml_.append("  m().n();\n");
+        xml_.append("  $new ExTwo().$classchoice(Apply)m();\n");
+        xml_.append("  m().$superaccess(ExThree)o();\n");
+        xml_.append("  $superaccess(ExThree)o(m());\n");
+        xml_.append("  p($vararg($int),$firstopt(\"\"));\n");
         xml_.append(" }\n");
         xml_.append(" $public $static $void m() {}\n");
         xml_.append(" $public $static $void n() {}\n");
@@ -6354,8 +6255,8 @@ public final class ClassesTest {
         xml_.append("}\n");
         xml_.append("$public $class pkg.Apply:ExTwo {\n");
         xml_.append(" $static {\n");
-        xml_.append("  Apply a = $new Apply():\n");
-        xml_.append("  a;.$superaccess(ExTwo)m():\n");
+        xml_.append("  Apply a = $new Apply();\n");
+        xml_.append("  a.$superaccess(ExTwo)m();\n");
         xml_.append(" }\n");
         xml_.append(" $public $void m() {}\n");
         xml_.append("}\n");
@@ -6370,7 +6271,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Apply {\n");
-        xml_.append(" $static $final $long cst = -92233720368547758088L:\n");
+        xml_.append(" $static $final $long cst = -92233720368547758088L;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
@@ -6383,7 +6284,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Apply {\n");
-        xml_.append(" $static $final $long cst = 09L:\n");
+        xml_.append(" $static $final $long cst = 09L;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
@@ -6396,7 +6297,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Apply {\n");
-        xml_.append(" $static $final $char cst = 09C:\n");
+        xml_.append(" $static $final $char cst = 09C;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
@@ -6409,7 +6310,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Apply {\n");
-        xml_.append(" $static $final $int cst = 09I:\n");
+        xml_.append(" $static $final $int cst = 09I;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
@@ -6422,7 +6323,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Apply {\n");
-        xml_.append(" $static $final $int cst = 0400B:\n");
+        xml_.append(" $static $final $int cst = 0400Y;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
@@ -6435,7 +6336,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Apply {\n");
-        xml_.append(" $static $final $int cst = 01111B:\n");
+        xml_.append(" $static $final $int cst = 01111Y;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
@@ -6448,7 +6349,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Apply {\n");
-        xml_.append(" $static $final $int cst = 0400000S:\n");
+        xml_.append(" $static $final $int cst = 0400000S;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
@@ -6461,7 +6362,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Apply {\n");
-        xml_.append(" $static $final $int cst = 01111111S:\n");
+        xml_.append(" $static $final $int cst = 01111111S;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
@@ -6474,7 +6375,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Apply {\n");
-        xml_.append(" $static $final $int cst = 0200000C:\n");
+        xml_.append(" $static $final $int cst = 0200000C;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
@@ -6487,7 +6388,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Apply {\n");
-        xml_.append(" $static $final $int cst = 01111111C:\n");
+        xml_.append(" $static $final $int cst = 01111111C;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
@@ -6500,7 +6401,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Apply {\n");
-        xml_.append(" $static $final $int cst = 040000000000I:\n");
+        xml_.append(" $static $final $int cst = 040000000000I;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
@@ -6513,7 +6414,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Apply {\n");
-        xml_.append(" $static $final $int cst = 0111111111111I:\n");
+        xml_.append(" $static $final $int cst = 0111111111111I;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
@@ -6526,7 +6427,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Apply {\n");
-        xml_.append(" $static $final $int cst = 02000000000000000000000L:\n");
+        xml_.append(" $static $final $int cst = 02000000000000000000000L;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
@@ -6539,7 +6440,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Apply {\n");
-        xml_.append(" $static $final $int cst = 0111111111111111111111111L:\n");
+        xml_.append(" $static $final $int cst = 0111111111111111111111111L;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
@@ -6552,7 +6453,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Apply {\n");
-        xml_.append(" $static $final $int cst = 111111111111111111:\n");
+        xml_.append(" $static $final $int cst = 111111111111111111;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
@@ -6565,7 +6466,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Apply {\n");
-        xml_.append(" $static $final $int cst = -111111111111111111:\n");
+        xml_.append(" $static $final $int cst = -111111111111111111;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
@@ -6578,7 +6479,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Apply {\n");
-        xml_.append(" $static $final $int cst = 11111111s:\n");
+        xml_.append(" $static $final $int cst = 11111111s;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
@@ -6591,7 +6492,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Apply {\n");
-        xml_.append(" $static $final $int cst = -11111111s:\n");
+        xml_.append(" $static $final $int cst = -11111111s;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
@@ -6604,7 +6505,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Apply {\n");
-        xml_.append(" $static $final $int cst = 11111111c:\n");
+        xml_.append(" $static $final $int cst = 11111111c;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
@@ -6617,7 +6518,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Apply {\n");
-        xml_.append(" $static $final $int cst = -11111111c:\n");
+        xml_.append(" $static $final $int cst = -11111111c;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
@@ -6630,7 +6531,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Apply {\n");
-        xml_.append(" $static $final $int cst = 1111b:\n");
+        xml_.append(" $static $final $int cst = 1111y;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
@@ -6643,7 +6544,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Apply {\n");
-        xml_.append(" $static $final $int cst = -1111b:\n");
+        xml_.append(" $static $final $int cst = -1111y;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
@@ -6656,7 +6557,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Apply {\n");
-        xml_.append(" $static $final $long cst = -9223372036854775808:\n");
+        xml_.append(" $static $final $long cst = -9223372036854775808;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
@@ -6669,7 +6570,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Apply {\n");
-        xml_.append(" $static $final $float cst = 1e100f:\n");
+        xml_.append(" $static $final $float cst = 1e100f;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
@@ -6682,7 +6583,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Apply {\n");
-        xml_.append(" $static $final $float cst = -1e100f:\n");
+        xml_.append(" $static $final $float cst = -1e100f;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
@@ -6695,7 +6596,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Apply {\n");
-        xml_.append(" $static $final $long cst = 0b11111111111111111111111111111111111111111111111111111111111111111l:\n");
+        xml_.append(" $static $final $long cst = 0b11111111111111111111111111111111111111111111111111111111111111111l;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
@@ -6708,7 +6609,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Apply {\n");
-        xml_.append(" $static $final $int cst = 0b111111111111111111111111111111111i:\n");
+        xml_.append(" $static $final $int cst = 0b111111111111111111111111111111111i;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
@@ -6721,7 +6622,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Apply {\n");
-        xml_.append(" $static $final $int cst = 0b11111111111111111s:\n");
+        xml_.append(" $static $final $int cst = 0b11111111111111111s;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
@@ -6734,7 +6635,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Apply {\n");
-        xml_.append(" $static $final $int cst = 0b11111111111111111c:\n");
+        xml_.append(" $static $final $int cst = 0b11111111111111111c;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
@@ -6747,7 +6648,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Apply {\n");
-        xml_.append(" $static $final $int cst = 0b111111111b:\n");
+        xml_.append(" $static $final $int cst = 0b111111111y;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
@@ -6760,7 +6661,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Apply {\n");
-        xml_.append(" $static $final $int cst = 01$:\n");
+        xml_.append(" $static $final $int cst = 01$;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
@@ -6773,12 +6674,10 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("public classe pkg.Apply {\n");
-        xml_.append(" static final entier4 cst = 0b:\n");
+        xml_.append(" static final entier4 cst = 0y;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
         ContextEl ct_ = InitializationLgNames.buildStdOne("fr",opt_);
         Classes.validateAll(files_, ct_);
         assertTrue(!ct_.isEmptyErrors());
@@ -6789,12 +6688,10 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("public classe pkg.Apply {\n");
-        xml_.append(" static final entier4 cst = 0x:\n");
+        xml_.append(" static final entier4 cst = 0x;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
         ContextEl ct_ = InitializationLgNames.buildStdOne("fr",opt_);
         Classes.validateAll(files_, ct_);
         assertTrue(!ct_.isEmptyErrors());
@@ -6805,8 +6702,8 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Apply {\n");
-        xml_.append(" $static $int a:\n");
-        xml_.append(" $static {a.$static:}\n");
+        xml_.append(" $static $int a;\n");
+        xml_.append(" $static {a.$static;}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
@@ -6819,8 +6716,8 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Apply {\n");
-        xml_.append(" $static $int a:\n");
-        xml_.append(" $static {a.:}\n");
+        xml_.append(" $static $int a;\n");
+        xml_.append(" $static {a.;}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
@@ -6833,7 +6730,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Apply {\n");
-        xml_.append(" $static {$long l = 0x0x:}\n");
+        xml_.append(" $static {$long l = 0x0x;}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
@@ -6846,7 +6743,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Apply {\n");
-        xml_.append(" $static {$long l = 0x0x+1:}\n");
+        xml_.append(" $static {$long l = 0x0x+1;}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
@@ -6859,7 +6756,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Apply {\n");
-        xml_.append(" $static {$long l = 0x0xb.1:}\n");
+        xml_.append(" $static {$long l = 0x0xy.1;}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
@@ -6872,7 +6769,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Apply {\n");
-        xml_.append(" $static $final $long cst = 0xffffffffffffffff0l:\n");
+        xml_.append(" $static $final $long cst = 0xffffffffffffffff0l;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
@@ -6885,7 +6782,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Apply {\n");
-        xml_.append(" $static $final $long cst = 0xffffffff0:\n");
+        xml_.append(" $static $final $long cst = 0xffffffff0;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
@@ -6898,7 +6795,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Apply {\n");
-        xml_.append(" $static $final $long cst = 0xffff0xc:\n");
+        xml_.append(" $static $final $long cst = 0xffff0xc;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
@@ -6911,7 +6808,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Apply {\n");
-        xml_.append(" $static $final $long cst = 0xffff0s:\n");
+        xml_.append(" $static $final $long cst = 0xffff0s;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
@@ -6924,7 +6821,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Apply {\n");
-        xml_.append(" $static $final $long cst = 0xff0xb:\n");
+        xml_.append(" $static $final $long cst = 0xff0xy;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
@@ -6937,7 +6834,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Apply {\n");
-        xml_.append(" $static {a.$static:}\n");
+        xml_.append(" $static {a.$static;}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
@@ -6950,7 +6847,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Apply {\n");
-        xml_.append(" $static {a.:}\n");
+        xml_.append(" $static {a.;}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
@@ -6963,7 +6860,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Apply {\n");
-        xml_.append(" $static $final Object cst = 1<<<<:\n");
+        xml_.append(" $static $final Object cst = 1<<<<;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
@@ -6976,7 +6873,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Apply {\n");
-        xml_.append(" $static $final Object cst = 1<<<:\n");
+        xml_.append(" $static $final Object cst = 1<<<;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
@@ -6989,7 +6886,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Apply {\n");
-        xml_.append(" $static $final Object cst = 1<<:\n");
+        xml_.append(" $static $final Object cst = 1<<;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
@@ -7002,7 +6899,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Apply {\n");
-        xml_.append(" $static $final Object cst = $true&&:\n");
+        xml_.append(" $static $final Object cst = $true&&;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
@@ -7015,7 +6912,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Apply {\n");
-        xml_.append(" $static $final Object cst = 1<:\n");
+        xml_.append(" $static $final Object cst = 1<;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
@@ -7028,7 +6925,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Apply {\n");
-        xml_.append(" $static $final Object cst = 1&:\n");
+        xml_.append(" $static $final Object cst = 1&;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
@@ -7041,7 +6938,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Apply {\n");
-        xml_.append(" $static $final Object cst = 1+:\n");
+        xml_.append(" $static $final Object cst = 1+;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
@@ -7054,7 +6951,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Apply {\n");
-        xml_.append(" $static $final Object cst = 1-:\n");
+        xml_.append(" $static $final Object cst = 1-;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
@@ -7067,7 +6964,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Apply {\n");
-        xml_.append(" $static $final Object cst = 1-+:\n");
+        xml_.append(" $static $final Object cst = 1-+;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
@@ -7080,7 +6977,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Apply {\n");
-        xml_.append(" $static $final Object cst = pkg.MAX_VALUE:\n");
+        xml_.append(" $static $final Object cst = pkg.MAX_VALUE;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextElSingleDot();
@@ -7093,7 +6990,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Apply {\n");
-        xml_.append(" $static $final Object cst = pkg:\n");
+        xml_.append(" $static $final Object cst = pkg;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextElSingleDot();
@@ -7106,7 +7003,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Apply {\n");
-        xml_.append(" $static $final Object cst = java.lang.Integer.MAX:\n");
+        xml_.append(" $static $final Object cst = java.lang.Integer.MAX;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextElSingleDot();
@@ -7119,7 +7016,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Apply {\n");
-        xml_.append(" $static $final Object cst = java.lang.Integer:\n");
+        xml_.append(" $static $final Object cst = java.lang.Integer;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextElSingleDot();
@@ -7132,7 +7029,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Apply {\n");
-        xml_.append(" $static $final Object cst = java.lang:\n");
+        xml_.append(" $static $final Object cst = java.lang;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextElSingleDot();
@@ -7145,49 +7042,24 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Apply {\n");
-        xml_.append(" $static $final Object cst = java. .lang:\n");
+        xml_.append(" $static $final Object cst = java. .lang;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextElSingleDot();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().displayErrors(), !cont_.isEmptyErrors());
     }
-    @Test
-    public void validateEl129FailTest() {
-        StringMap<String> files_ = new StringMap<String>();
-        StringBuilder xml_;
-        xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Apply {\n");
-        xml_.append(" $static $final Object cst = a\"\";\n");
-        xml_.append("}\n");
-        files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElSingleDotDefault();
-        Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(), !cont_.isEmptyErrors());
-    }
-    @Test
-    public void validateEl130FailTest() {
-        StringMap<String> files_ = new StringMap<String>();
-        StringBuilder xml_;
-        xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Apply {\n");
-        xml_.append(" $static $final Object cst = a'';\n");
-        xml_.append("}\n");
-        files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElSingleDotDefault();
-        Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(), !cont_.isEmptyErrors());
-    }
+
     @Test
     public void validateEl131FailTest() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Apply {\n");
-        xml_.append(" $static $final Object cst = java.lang.Integer:\n");
-        xml_.append(" $static $final Object otherOne = $null:\n");
-        xml_.append(" $static $final Object otherTwo:\n");
-        xml_.append(" $static $final Object otherThree = $classchoice(Apply)otherTwo = $null:\n");
+        xml_.append(" $static $final Object cst = java.lang.Integer;\n");
+        xml_.append(" $static $final Object otherOne = $null;\n");
+        xml_.append(" $static $final Object otherTwo;\n");
+        xml_.append(" $static $final Object otherThree = $classchoice(Apply)otherTwo = $null;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
@@ -7249,7 +7121,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Apply {\n");
-        xml_.append(" $public $static $void p($int... i) {$int:}\n");
+        xml_.append(" $public $static $void p($int... i) {$int;}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
@@ -7262,7 +7134,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Apply {\n");
-        xml_.append(" $public $static $void p($int... i) {$int[]:}\n");
+        xml_.append(" $public $static $void p($int... i) {$int[];}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
@@ -7275,7 +7147,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Apply {\n");
-        xml_.append(" $public $static $void p($int... i) {$int :}\n");
+        xml_.append(" $public $static $void p($int... i) {$int ;}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
@@ -7288,7 +7160,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Apply {\n");
-        xml_.append(" $public $static $void p($int... i) {$int[] :}\n");
+        xml_.append(" $public $static $void p($int... i) {$int[] ;}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
@@ -7322,19 +7194,6 @@ public final class ClassesTest {
         assertTrue(cont_.getClasses().displayErrors(), !cont_.isEmptyErrors());
     }
     @Test
-    public void validateEl141FailTest() {
-        StringMap<String> files_ = new StringMap<String>();
-        StringBuilder xml_;
-        xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Apply {\n");
-        xml_.append(" $public $static $void p() {$for(String s=`v`){}}\n");
-        xml_.append("}\n");
-        files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
-        Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(), !cont_.isEmptyErrors());
-    }
-    @Test
     public void validateEl142FailTest() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
@@ -7353,7 +7212,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Apply {\n");
-        xml_.append(" $public $static $void p() {$throw:}\n");
+        xml_.append(" $public $static $void p() {$throw;}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
@@ -7366,7 +7225,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Apply {\n");
-        xml_.append(" $public $static $void p() {$iter($int ){$int j:}}\n");
+        xml_.append(" $public $static $void p() {$iter($int ){$int j;}}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
@@ -7379,7 +7238,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Apply {\n");
-        xml_.append(" $public $static $void p() {$foreach:}\n");
+        xml_.append(" $public $static $void p() {$foreach;}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
@@ -7392,7 +7251,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Apply {\n");
-        xml_.append(" $public $static $void p() {$iter:}\n");
+        xml_.append(" $public $static $void p() {$iter;}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
@@ -7405,66 +7264,10 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Apply {\n");
-        xml_.append(" $public $static $void p() {$for:}\n");
+        xml_.append(" $public $static $void p() {$for;}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
-        Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(), !cont_.isEmptyErrors());
-    }
-    @Test
-    public void validateEl148FailTest() {
-        StringMap<String> files_ = new StringMap<String>();
-        StringBuilder xml_ = new StringBuilder();
-        xml_.append("$class pkgtwo.ExClass {\n");
-        xml_.append(" $static {\n");
-        xml_.append("  $switch (value) {\n");
-        xml_.append("   $case 0:\n");
-        xml_.append("   //comment\n");
-        files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElSingleDotDefault();
-        Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(), !cont_.isEmptyErrors());
-    }
-    @Test
-    public void validateEl149FailTest() {
-        StringMap<String> files_ = new StringMap<String>();
-        StringBuilder xml_ = new StringBuilder();
-        xml_.append("$class pkgtwo.ExClass {\n");
-        xml_.append(" $static {\n");
-        xml_.append("  $switch (value) {\n");
-        xml_.append("   $case 0:\n");
-        xml_.append("   /");
-        files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElSingleDotDefault();
-        Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(), !cont_.isEmptyErrors());
-    }
-    @Test
-    public void validateEl150FailTest() {
-        StringMap<String> files_ = new StringMap<String>();
-        StringBuilder xml_ = new StringBuilder();
-        xml_.append("$class pkgtwo.ExClass {\n");
-        xml_.append(" $static {\n");
-        xml_.append("  $switch (value) {\n");
-        xml_.append("   $case 0:\n");
-        xml_.append("   /\\\n");
-        files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElSingleDotDefault();
-        Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(), !cont_.isEmptyErrors());
-    }
-    @Test
-    public void validateEl151FailTest() {
-        StringMap<String> files_ = new StringMap<String>();
-        StringBuilder xml_ = new StringBuilder();
-        xml_.append("$class pkgtwo.ExClass {\n");
-        xml_.append(" $static {\n");
-        xml_.append("  $switch (value) {\n");
-        xml_.append("   $case 0:\n");
-        xml_.append("   /* *");
-        files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElSingleDotDefault();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().displayErrors(), !cont_.isEmptyErrors());
     }
@@ -7565,7 +7368,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Apply {\n");
-        xml_.append(" $public $int v = m()):}\n");
+        xml_.append(" $public $int v = m());}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
@@ -7577,7 +7380,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Apply {\n");
-        xml_.append(" $public $int v = m[]]:}\n");
+        xml_.append(" $public $int v = m[]];}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
@@ -7589,7 +7392,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Apply {\n");
-        xml_.append(" $public $int v = m({}}):}\n");
+        xml_.append(" $public $int v = m({}});}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
@@ -7613,7 +7416,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Apply {\n");
-        xml_.append(" $public $int v = m({}}}}):}\n");
+        xml_.append(" $public $int v = m({}}}});}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
@@ -7625,7 +7428,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Apply {\n");
-        xml_.append(" $public $int v = m({}}}):}\n");
+        xml_.append(" $public $int v = m({}}});}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
@@ -7675,323 +7478,37 @@ public final class ClassesTest {
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().displayErrors(), !cont_.isEmptyErrors());
     }
-    @Test
-    public void validateEl167FailTest() {
-        StringMap<String> files_ = new StringMap<String>();
-        StringBuilder xml_;
-        xml_ = new StringBuilder();
-        xml_.append("$public $abstract\t$class pkg.Apply {}\n");
-        files_.put("pkg/ExTwo", xml_.toString());
-        xml_ = new StringBuilder();
-        xml_.append("$public $final\t$class pkg.Apply1 {}\n");
-        files_.put("pkg/ExThree", xml_.toString());
-        xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Apply2\t{}\n");
-        files_.put("pkg/ExFour", xml_.toString());
-        xml_ = new StringBuilder();
-        xml_.append("$public\t$class pkg.Apply3 {}\n");
-        files_.put("pkg/ExFive", xml_.toString());
-        xml_ = new StringBuilder();
-        xml_.append("$public $class $interfaces pkg.Apply4 {}\n");
-        files_.put("pkg/ExSix", xml_.toString());
-        xml_ = new StringBuilder();
-        xml_.append("$public $class $interfaces( pkg.Apply5 {}\n");
-        files_.put("pkg/ExSeven", xml_.toString());
-        xml_ = new StringBuilder();
-        xml_.append("$public $class $interfaces(\t) pkg.Apply6 {}\n");
-        files_.put("pkg/ExEight", xml_.toString());
-        xml_ = new StringBuilder();
-        xml_.append("$public $class $interfaces()\t pkg.Apply7 {}\n");
-        files_.put("pkg/ExNine", xml_.toString());
-        xml_ = new StringBuilder();
-        xml_.append("$public $classe pkg.Apply7 {}\n");
-        files_.put("pkg/ExTen", xml_.toString());
-        xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Apply8 {}/\n");
-        files_.put("pkg/ExEleven", xml_.toString());
-        xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Apply9 {}/* *");
-        files_.put("pkg/ExTwelve", xml_.toString());
-        xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Apply10 {}/");
-        files_.put("pkg/ExThirteen", xml_.toString());
-        xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Apply11 {}\t\t");
-        files_.put("pkg/ExFourteen", xml_.toString());
-        xml_ = new StringBuilder();
-        xml_.append("$operator\t");
-        files_.put("pkg/ExFifteen", xml_.toString());
-        xml_ = new StringBuilder();
-        xml_.append("$operator+\t\t");
-        files_.put("pkg/ExSixteen", xml_.toString());
-        xml_ = new StringBuilder();
-        xml_.append("$operator");
-        files_.put("pkg/ExSeventeen", xml_.toString());
-        xml_ = new StringBuilder();
-        xml_.append("$operator+[]\t");
-        files_.put("pkg/ExEighteen", xml_.toString());
-        xml_ = new StringBuilder();
-        xml_.append("$operator+[](");
-        files_.put("pkg/ExNineteen", xml_.toString());
-        xml_ = new StringBuilder();
-        xml_.append("$classe pkg.Apply12 {}\n");
-        files_.put("pkg/ExTwenty", xml_.toString());
-        xml_ = new StringBuilder();
-        xml_.append("$class pkg.Apply13 {}\n");
-        xml_.append("$classe pkg.Apply14 {}\n");
-        files_.put("pkg/ExTwentyOne", xml_.toString());
-        xml_ = new StringBuilder();
-        xml_.append("$operator+ $int\t");
-        files_.put("pkg/ExTwentyTwo", xml_.toString());
-        xml_ = new StringBuilder();
-        xml_.append("$operator+[] $int(]{");
-        files_.put("pkg/ExTwentyThree", xml_.toString());
-        xml_ = new StringBuilder();
-        xml_.append("/\\");
-        files_.put("pkg/ExTwentyFour", xml_.toString());
-        xml_ = new StringBuilder();
-        xml_.append("/");
-        files_.put("pkg/ExTwentyFive", xml_.toString());
-        xml_ = new StringBuilder();
-        xml_.append("a/");
-        files_.put("pkg/ExTwentySix", xml_.toString());
-        xml_ = new StringBuilder();
-        xml_.append("a\t");
-        files_.put("pkg/ExTwentySeven", xml_.toString());
-        xml_ = new StringBuilder();
-        xml_.append("/* *");
-        files_.put("pkg/ExTwentyEight", xml_.toString());
-        xml_ = new StringBuilder();
-        xml_.append("");
-        files_.put("pkg/ExTwentyNine", xml_.toString());
-        xml_ = new StringBuilder();
-        xml_.append("a\t\t");
-        files_.put("pkg/ExThirty", xml_.toString());
-        xml_ = new StringBuilder();
-        xml_.append("$operator+[] $int(a{");
-        files_.put("pkg/ExThirtyOne", xml_.toString());
-        xml_ = new StringBuilder();
-        xml_.append("$enum pkg.MyEnum{Object(]:}");
-        files_.put("pkg/ExThirtyThirtyTwo", xml_.toString());
-        xml_ = new StringBuilder();
-        xml_.append("$class pkg.OuterBad{ $class $interfaces(] MyClass{}}");
-        files_.put("pkg/ExThirtyThirtyThree", xml_.toString());
-        xml_ = new StringBuilder();
-        xml_.append("$class pkg.OuterBad{ $public $static $void m(]{}$public OuterBad(]{}}");
-        files_.put("pkg/ExThirtyThirtyFour", xml_.toString());
-        xml_ = new StringBuilder();
-        xml_.append("$class pkg.OuterBad{ $public OuterBad(a<)>{}}");
-        files_.put("pkg/ExThirtyThirtyFive", xml_.toString());
-        xml_ = new StringBuilder();
-        xml_.append("$class pkg.OuterBad{ $static{$switch($true){$case(5}{$int i:}}}}");
-        files_.put("pkg/ExThirtyThirtySix", xml_.toString());
-        xml_ = new StringBuilder();
-        xml_.append("$class pkg.OuterBad{ $static{$while $true {$int i:}}}");
-        files_.put("pkg/ExThirtyThirtySeven", xml_.toString());
-        xml_ = new StringBuilder();
-        xml_.append("$class pkg.OuterBad{ $static{$while [$true) {$int i:}}}");
-        files_.put("pkg/ExThirtyThirtyEight", xml_.toString());
-        xml_ = new StringBuilder();
-        xml_.append("$class pkg.OuterBad{ $static{$while ($true]:}}");
-        files_.put("pkg/ExThirtyThirtyNine", xml_.toString());
-        xml_ = new StringBuilder();
-        xml_.append("$class pkg.OuterBad{ $static{$catch ($true]:}}");
-        files_.put("pkg/ExThirtyForty", xml_.toString());
-        xml_ = new StringBuilder();
-        xml_.append("$class pkg.OuterBad{ $static{$if ($true]:}}");
-        files_.put("pkg/ExThirtyFortyOne", xml_.toString());
-        xml_ = new StringBuilder();
-        xml_.append("$class pkg.OuterBad{ $static{$if [$true):}}");
-        files_.put("pkg/ExThirtyFortyTwo", xml_.toString());
-        xml_ = new StringBuilder();
-        xml_.append("$class pkg.OuterBad{ $static{$elseif ($true]:}}");
-        files_.put("pkg/ExThirtyFortyThree", xml_.toString());
-        xml_ = new StringBuilder();
-        xml_.append("$class pkg.OuterBad{ $static{$elseif [$true):}}");
-        files_.put("pkg/ExThirtyFortyFour", xml_.toString());
-        xml_ = new StringBuilder();
-        xml_.append("$class pkg.OuterBad{ $static{$else $if ($true]:}}");
-        files_.put("pkg/ExThirtyFortyFive", xml_.toString());
-        xml_ = new StringBuilder();
-        xml_.append("$class pkg.OuterBad{ $static{$else $if [$true):}}");
-        files_.put("pkg/ExThirtyFortySix", xml_.toString());
-        xml_ = new StringBuilder();
-        xml_.append("$class pkg.OuterBad{ $static{$foreach [$true):}}");
-        files_.put("pkg/ExThirtyFortySeven", xml_.toString());
-        xml_ = new StringBuilder();
-        xml_.append("$class pkg.OuterBad{ $static{$foreach [$true](:]:}}");
-        files_.put("pkg/ExThirtyFortyEight", xml_.toString());
-        xml_ = new StringBuilder();
-        xml_.append("$class pkg.OuterBad{ $static{$foreach [$true](;:):}}");
-        files_.put("pkg/ExThirtyFortyNine", xml_.toString());
-        xml_ = new StringBuilder();
-        xml_.append("$class pkg.OuterBad{ $static{$foreach [$true](a b;c:):}}");
-        files_.put("pkg/ExThirtyFifty", xml_.toString());
-        xml_ = new StringBuilder();
-        xml_.append("$class pkg.OuterBad{ $static{$iter [$true)():}}");
-        files_.put("pkg/ExThirtyFiftyOne", xml_.toString());
-        xml_ = new StringBuilder();
-        xml_.append("$class pkg.OuterBad{ $static{$iter (]:}}");
-        files_.put("pkg/ExThirtyFiftyTwo", xml_.toString());
-        xml_ = new StringBuilder();
-        xml_.append("$class pkg.OuterBad{ $static{$iter ($int i=0):}}");
-        files_.put("pkg/ExThirtyFiftyThree", xml_.toString());
-        xml_ = new StringBuilder();
-        xml_.append("$class pkg.OuterBad{ $static{$iter ($int i=0:):}}");
-        files_.put("pkg/ExThirtyFiftyFour", xml_.toString());
-        xml_ = new StringBuilder();
-        xml_.append("$class pkg.OuterBad{ $static{$iter ($int i=0::):}}");
-        files_.put("pkg/ExThirtyFiftyFive", xml_.toString());
-        xml_ = new StringBuilder();
-        xml_.append("$class pkg.OuterBad{ $static{$for [$true)():}}");
-        files_.put("pkg/ExThirtyFiftySix", xml_.toString());
-        xml_ = new StringBuilder();
-        xml_.append("$class pkg.OuterBad{ $static{$for (]:}}");
-        files_.put("pkg/ExThirtyFiftySeven", xml_.toString());
-        xml_ = new StringBuilder();
-        xml_.append("$class pkg.OuterBad{ $static{$for ():}}");
-        files_.put("pkg/ExThirtyFiftyEight", xml_.toString());
-        xml_ = new StringBuilder();
-        xml_.append("$class pkg.OuterBad{ $static{$for (a!;:):}}");
-        files_.put("pkg/ExThirtyFiftyNine", xml_.toString());
-        xml_ = new StringBuilder();
-        xml_.append("$class pkg.OuterBad{ $static{$switch (a]:}}");
-        files_.put("pkg/ExThirtySixty", xml_.toString());
-        xml_ = new StringBuilder();
-        xml_.append("$class");
-        files_.put("pkg/ExThirtySixtyOne", xml_.toString());
-        xml_ = new StringBuilder();
-        xml_.append("$operator+[] $int(,]{");
-        files_.put("pkg/ExThirtySixtyTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
-        Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(), !cont_.isEmptyErrors());
-    }
-    @Test
-    public void validateEl168FailTest() {
-        StringMap<String> files_ = new StringMap<String>();
-        StringBuilder xml_;
-        xml_ = new StringBuilder();
-        xml_.append("$class pkg.OuterBad{ $static{$switch($true){$case(5}{$int i;}}}}");
-        files_.put("pkg/ExThirtyThirtySix", xml_.toString());
-        xml_ = new StringBuilder();
-        xml_.append("$class pkg.OuterBad{ $static{$while $true {$int i;}}}");
-        files_.put("pkg/ExThirtyThirtySeven", xml_.toString());
-        xml_ = new StringBuilder();
-        xml_.append("$class pkg.OuterBad{ $static{$while [$true) {$int i;}}}");
-        files_.put("pkg/ExThirtyThirtyEight", xml_.toString());
-        xml_ = new StringBuilder();
-        xml_.append("$class pkg.OuterBad{ $static{$while ($true];}}");
-        files_.put("pkg/ExThirtyThirtyNine", xml_.toString());
-        xml_ = new StringBuilder();
-        xml_.append("$class pkg.OuterBad{ $static{$catch ($true];}}");
-        files_.put("pkg/ExThirtyForty", xml_.toString());
-        xml_ = new StringBuilder();
-        xml_.append("$class pkg.OuterBad{ $static{$if ($true];}}");
-        files_.put("pkg/ExThirtyFortyOne", xml_.toString());
-        xml_ = new StringBuilder();
-        xml_.append("$class pkg.OuterBad{ $static{$if [$true);}}");
-        files_.put("pkg/ExThirtyFortyTwo", xml_.toString());
-        xml_ = new StringBuilder();
-        xml_.append("$class pkg.OuterBad{ $static{$elseif ($true];}}");
-        files_.put("pkg/ExThirtyFortyThree", xml_.toString());
-        xml_ = new StringBuilder();
-        xml_.append("$class pkg.OuterBad{ $static{$elseif [$true);}}");
-        files_.put("pkg/ExThirtyFortyFour", xml_.toString());
-        xml_ = new StringBuilder();
-        xml_.append("$class pkg.OuterBad{ $static{$else $if ($true];}}");
-        files_.put("pkg/ExThirtyFortyFive", xml_.toString());
-        xml_ = new StringBuilder();
-        xml_.append("$class pkg.OuterBad{ $static{$else $if [$true);}}");
-        files_.put("pkg/ExThirtyFortySix", xml_.toString());
-        xml_ = new StringBuilder();
-        xml_.append("$class pkg.OuterBad{ $static{$foreach [$true);}}");
-        files_.put("pkg/ExThirtyFortySeven", xml_.toString());
-        xml_ = new StringBuilder();
-        xml_.append("$class pkg.OuterBad{ $static{$foreach [$true](;];}}");
-        files_.put("pkg/ExThirtyFortyEight", xml_.toString());
-        xml_ = new StringBuilder();
-        xml_.append("$class pkg.OuterBad{ $static{$foreach [$true](:;);}}");
-        files_.put("pkg/ExThirtyFortyNine", xml_.toString());
-        xml_ = new StringBuilder();
-        xml_.append("$class pkg.OuterBad{ $static{$foreach [$true](a b:c;);}}");
-        files_.put("pkg/ExThirtyFifty", xml_.toString());
-        xml_ = new StringBuilder();
-        xml_.append("$class pkg.OuterBad{ $static{$iter [$true)();}}");
-        files_.put("pkg/ExThirtyFiftyOne", xml_.toString());
-        xml_ = new StringBuilder();
-        xml_.append("$class pkg.OuterBad{ $static{$iter (];}}");
-        files_.put("pkg/ExThirtyFiftyTwo", xml_.toString());
-        xml_ = new StringBuilder();
-        xml_.append("$class pkg.OuterBad{ $static{$iter ($int i=0);}}");
-        files_.put("pkg/ExThirtyFiftyThree", xml_.toString());
-        xml_ = new StringBuilder();
-        xml_.append("$class pkg.OuterBad{ $static{$iter ($int i=0;);}}");
-        files_.put("pkg/ExThirtyFiftyFour", xml_.toString());
-        xml_ = new StringBuilder();
-        xml_.append("$class pkg.OuterBad{ $static{$iter ($int i=0;;);}}");
-        files_.put("pkg/ExThirtyFiftyFive", xml_.toString());
-        xml_ = new StringBuilder();
-        xml_.append("$class pkg.OuterBad{ $static{$for [$true)();}}");
-        files_.put("pkg/ExThirtyFiftySix", xml_.toString());
-        xml_ = new StringBuilder();
-        xml_.append("$class pkg.OuterBad{ $static{$for (];}}");
-        files_.put("pkg/ExThirtyFiftySeven", xml_.toString());
-        xml_ = new StringBuilder();
-        xml_.append("$class pkg.OuterBad{ $static{$for ();}}");
-        files_.put("pkg/ExThirtyFiftyEight", xml_.toString());
-        xml_ = new StringBuilder();
-        xml_.append("$class pkg.OuterBad{ $static{$for (a!:;);}}");
-        files_.put("pkg/ExThirtyFiftyNine", xml_.toString());
-        xml_ = new StringBuilder();
-        xml_.append("$class pkg.OuterBad{ $static{$switch (a];}}");
-        files_.put("pkg/ExThirtySixty", xml_.toString());
-        xml_ = new StringBuilder();
-        xml_.append("$class pkg.OuterBad{ $static{$case (a];}}");
-        files_.put("pkg/ExThirtySixtyOne", xml_.toString());
-        xml_ = new StringBuilder();
-        xml_.append("$class pkg.OuterBad{ $static{$case (a];\t}}");
-        files_.put("pkg/ExThirtySixtyTwo", xml_.toString());
-        xml_ = new StringBuilder();
-        xml_.append("$class pkg.OuterBad{ $static{$for (a b,c d!:){}}}");
-        files_.put("pkg/ExThirtySixtyThree", xml_.toString());
-        xml_ = new StringBuilder();
-        xml_.append("$class pkg.OuterBad{ $static{$for (a b,c d!;:){}}}");
-        files_.put("pkg/ExThirtySixtyFour", xml_.toString());
-        ContextEl cont_ = contextElSingleDotDefault();
-        Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(), !cont_.isEmptyErrors());
-    }
+
     @Test
     public void validateEl169FailTest() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Apply {\n");
         xml_.append(" $public $static $int test(){\n");
-        xml_.append("  Ex e = $new ExSub():\n");
-        xml_.append("  e;.[0] = 5:\n");
-        xml_.append("  $return e;.[0]:\n");
+        xml_.append("  Ex e = $new ExSub();\n");
+        xml_.append("  e[0] = 5;\n");
+        xml_.append("  $return e[0];\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.ExSub:Ex {\n");
         xml_.append(" $protected $int $this($int p)\n");
         xml_.append(" {\n");
-        xml_.append("  $return inst[p;.;]*2:\n");
+        xml_.append("  $return inst[p]*2;\n");
         xml_.append(" }\n");
         xml_.append(" $protected $void $this($int p)\n");
         xml_.append(" {\n");
-        xml_.append("  inst[p;.;] = $value;.;*2:\n");
+        xml_.append("  inst[p] = $value*2;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.Ex {\n");
-        xml_.append(" $public $int[] inst=$new $int[2]:\n");
+        xml_.append(" $public $int[] inst=$new $int[2];\n");
         xml_.append(" $protected $long $this($int p)\n");
         xml_.append(" {\n");
-        xml_.append("  $return inst[p;.;]:\n");
+        xml_.append("  $return inst[p];\n");
         xml_.append(" }\n");
         xml_.append(" $protected $void $this($int p)\n");
         xml_.append(" {\n");
-        xml_.append("  inst[p;.;] = $value;.;:\n");
+        xml_.append("  inst[p] = $value;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
@@ -8005,38 +7522,38 @@ public final class ClassesTest {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Apply {\n");
         xml_.append(" $public $static $int test(){\n");
-        xml_.append("  Ex e = $new ExSub():\n");
-        xml_.append("  e;.[0] = 5:\n");
-        xml_.append("  $return e;.[0]:\n");
+        xml_.append("  Ex e = $new ExSub();\n");
+        xml_.append("  e[0] = 5;\n");
+        xml_.append("  $return e[0];\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.ExSub:Ex {\n");
         xml_.append(" $protected $int $this($int p)\n");
         xml_.append(" {\n");
-        xml_.append("  $return inst[p;.;]*2:\n");
+        xml_.append("  $return inst[p]*2;\n");
         xml_.append(" }\n");
         xml_.append(" $protected $int $this($int p)\n");
         xml_.append(" {\n");
-        xml_.append("  $return inst[p;.;]*2:\n");
+        xml_.append("  $return inst[p]*2;\n");
         xml_.append(" }\n");
         xml_.append(" $protected $void $this($int p)\n");
         xml_.append(" {\n");
-        xml_.append("  inst[p;.;] = $value;.;*2:\n");
+        xml_.append("  inst[p] = $value*2;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.Ex {\n");
-        xml_.append(" $public $int[] inst=$new $int[2]:\n");
+        xml_.append(" $public $int[] inst=$new $int[2];\n");
         xml_.append(" $protected $int $this($int p)\n");
         xml_.append(" {\n");
-        xml_.append("  $return inst[p;.;]:\n");
+        xml_.append("  $return inst[p];\n");
         xml_.append(" }\n");
         xml_.append(" $protected $void $this($int p)\n");
         xml_.append(" {\n");
-        xml_.append("  inst[p;.;] = $value;.;:\n");
+        xml_.append("  inst[p] = $value;\n");
         xml_.append(" }\n");
         xml_.append(" $protected $void $this($int p)\n");
         xml_.append(" {\n");
-        xml_.append("  inst[p;.;] = $value;.;:\n");
+        xml_.append("  inst[p] = $value;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
@@ -8050,22 +7567,22 @@ public final class ClassesTest {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Apply {\n");
         xml_.append(" $public $static $int test(){\n");
-        xml_.append("  Ex e = $new ExSub():\n");
-        xml_.append("  e;.[0] = 5:\n");
-        xml_.append("  $return e;.[0]:\n");
+        xml_.append("  Ex e = $new ExSub();\n");
+        xml_.append("  e[0] = 5;\n");
+        xml_.append("  $return e[0];\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.ExSub:Ex {\n");
         xml_.append(" $protected $int $this($int p)\n");
         xml_.append(" {\n");
-        xml_.append("  $return inst[p;.;]*2:\n");
+        xml_.append("  $return inst[p]*2;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.Ex {\n");
-        xml_.append(" $public $int[] inst=$new $int[2]:\n");
+        xml_.append(" $public $int[] inst=$new $int[2];\n");
         xml_.append(" $protected $void $this($int p)\n");
         xml_.append(" {\n");
-        xml_.append("  inst[p;.;] = $value;.;:\n");
+        xml_.append("  inst[p] = $value;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
@@ -8078,14 +7595,14 @@ public final class ClassesTest {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
-        xml_.append(" $public $int[] inst=$new $int[2]:\n");
+        xml_.append(" $public $int[] inst=$new $int[2];\n");
         xml_.append(" $protected $static $int $this($int p)\n");
         xml_.append(" {\n");
-        xml_.append("  $return inst[p;.;]:\n");
+        xml_.append("  $return inst[p];\n");
         xml_.append(" }\n");
         xml_.append(" $protected $static $void $this($int p)\n");
         xml_.append(" {\n");
-        xml_.append("  inst[p;.;] = $value;.;:\n");
+        xml_.append("  inst[p] = $value;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
@@ -8098,12 +7615,12 @@ public final class ClassesTest {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $abstract $class pkg.Ex {\n");
-        xml_.append(" $public $int[] inst=$new $int[2]:\n");
+        xml_.append(" $public $int[] inst=$new $int[2];\n");
         xml_.append(" $protected $final $int $this($int p)\n");
         xml_.append(" {\n");
-        xml_.append("  $return inst[p;.;]:\n");
+        xml_.append("  $return inst[p];\n");
         xml_.append(" }\n");
-        xml_.append(" $protected $abstract $void $this($int p):\n");
+        xml_.append(" $protected $abstract $void $this($int p);\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = contextEl();
@@ -8115,14 +7632,14 @@ public final class ClassesTest {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
-        xml_.append(" $public $int[] inst=$new $int[2]:\n");
+        xml_.append(" $public $int[] inst=$new $int[2];\n");
         xml_.append(" $public $int $this($int p)\n");
         xml_.append(" {\n");
-        xml_.append("  $return inst[p;.;]:\n");
+        xml_.append("  $return inst[p];\n");
         xml_.append(" }\n");
         xml_.append(" $protected $void $this($int p)\n");
         xml_.append(" {\n");
-        xml_.append("  inst[p;.;] = $value;.;:\n");
+        xml_.append("  inst[p] = $value;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
@@ -8130,93 +7647,14 @@ public final class ClassesTest {
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().displayErrors(), !cont_.isEmptyErrors());
     }
-    @Test
-    public void validateEl175FailTest() {
-        StringMap<String> files_ = new StringMap<String>();
-        StringBuilder xml_ = new StringBuilder();
-        xml_.append("public class pkg.Ex {\n");
-        xml_.append(" public int[] inst=new int[2];\n");
-        xml_.append(" public int this(int p)\n");
-        xml_.append(" {\n");
-        xml_.append("  return inst[p];\n");
-        xml_.append(" }\n");
-        xml_.append(" public void this(int value)\n");
-        xml_.append(" {\n");
-        xml_.append(" }\n");
-        xml_.append("}\n");
-        files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextEnElSingleDotDefault();
-        Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(), !cont_.isEmptyErrors());
-    }
-    @Test
-    public void validateEl176FailTest() {
-        StringMap<String> files_ = new StringMap<String>();
-        StringBuilder xml_ = new StringBuilder();
-        xml_.append("public class pkg.Ex {\n");
-        xml_.append(" public int[] inst=new int[2];\n");
-        xml_.append(" public int this()\n");
-        xml_.append(" {\n");
-        xml_.append("  return inst[0];\n");
-        xml_.append(" }\n");
-        xml_.append(" public void this()\n");
-        xml_.append(" {\n");
-        xml_.append(" }\n");
-        xml_.append("}\n");
-        files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextEnElSingleDotDefault();
-        Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(), !cont_.isEmptyErrors());
-    }
-    @Test
-    public void validateEl177FailTest() {
-        StringMap<String> files_ = new StringMap<String>();
-        StringBuilder xml_ = new StringBuilder();
-        xml_.append("public class pkg.Ex {\n");
-        xml_.append(" static{\n");
-        xml_.append("  super[0] = 0;\n");
-        xml_.append(" }\n");
-        xml_.append("}\n");
-        files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextEnElSingleDotDefault();
-        Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(), !cont_.isEmptyErrors());
-    }
-    @Test
-    public void validateEl178FailTest() {
-        StringMap<String> files_ = new StringMap<String>();
-        StringBuilder xml_ = new StringBuilder();
-        xml_.append("public class pkg.Ex {\n");
-        xml_.append(" {\n");
-        xml_.append("  [0];\n");
-        xml_.append(" }\n");
-        xml_.append("}\n");
-        files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextEnElSingleDotDefault();
-        Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(), !cont_.isEmptyErrors());
-    }
-    @Test
-    public void validateEl179FailTest() {
-        StringMap<String> files_ = new StringMap<String>();
-        StringBuilder xml_ = new StringBuilder();
-        xml_.append("public class pkg.Ex {\n");
-        xml_.append(" if(true){\n");
-        xml_.append("  \n");
-        xml_.append(" }\n");
-        xml_.append("}\n");
-        files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextEnElSingleDotDefault();
-        Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(), !cont_.isEmptyErrors());
-    }
+
     @Test
     public void validateEl180FailTest() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Apply {\n");
-        xml_.append(" $public $static $void p($int... i) {$new Integer($false):}\n");
+        xml_.append(" $public $static $void p($int... i) {$new Integer($false);}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
@@ -8229,7 +7667,7 @@ public final class ClassesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Apply {\n");
-        xml_.append(" $public $static $void p($int... i) {$new Integer($(Integer)$null):$new Integer($id(Integer,$int),0):\"\".format($id(CharSequence,CharSequence...),\"\",\"\"):}\n");
+        xml_.append(" $public $static $void p($int... i) {$new Integer($(Integer)$null);$new Integer($id(Integer,$int),0);\"\".format($id(CharSequence,CharSequence...),\"\",\"\");}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
@@ -8238,8 +7676,7 @@ public final class ClassesTest {
     }
     private ContextEl validateStaticFields(StringMap<String> _files) {
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes classes_ = cont_.getClasses();
         Classes.buildPredefinedBracesBodies(cont_);
@@ -8254,25 +7691,10 @@ public final class ClassesTest {
         assertTrue(classes_.displayErrors(), cont_.isEmptyErrors());
         return cont_;
     }
-    private ContextEl unfullValidateOverridingMethods(StringMap<String> _files) {
-        Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
-        Classes classes_ = cont_.getClasses();
-        Classes.buildPredefinedBracesBodies(cont_);
-        Classes.tryBuildBracedClassesBodies(_files, cont_, false);
-        assertTrue(classes_.displayErrors(), cont_.isEmptyErrors());
-        classes_.validateInheritingClasses(cont_, false);
-        assertTrue(classes_.displayErrors(), cont_.isEmptyErrors());
-        classes_.validateIds(cont_,false);
-        assertTrue(classes_.displayErrors(), cont_.isEmptyErrors());
-        return cont_;
-    }
+
     private ContextEl unfullValidateInheritingClasses(StringMap<String> _files) {
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes classes_ = cont_.getClasses();
         Classes.buildPredefinedBracesBodies(cont_);
@@ -8284,9 +7706,7 @@ public final class ClassesTest {
     }
     private ContextEl unfullValidateInheritingClassesSingle(StringMap<String> _files) {
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes classes_ = cont_.getClasses();
         Classes.buildPredefinedBracesBodies(cont_);
@@ -8299,8 +7719,6 @@ public final class ClassesTest {
 
     private void failValidateInheritingClasses(StringMap<String> _files) {
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes classes_ = cont_.getClasses();
         Classes.buildPredefinedBracesBodies(cont_);
@@ -8312,8 +7730,6 @@ public final class ClassesTest {
 
     private void failValidateInheritingClassesSingle(StringMap<String> _files) {
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
         
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes classes_ = cont_.getClasses();
@@ -8348,8 +7764,6 @@ public final class ClassesTest {
     }
     protected static ContextEl contextEl(int... _m) {
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
         ContextEl ct_;
         if (_m.length == 0) {
             ct_ = InitializationLgNames.buildStdOne(opt_);
@@ -8360,8 +7774,6 @@ public final class ClassesTest {
     }
     protected static ContextEl contextElSingleDot(int... _m) {
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
         
         ContextEl ct_;
         if (_m.length == 0) {

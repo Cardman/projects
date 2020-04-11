@@ -1,10 +1,14 @@
 package code.expressionlanguage.instr;
 
-import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.InitializationLgNames;
+import code.expressionlanguage.*;
+import code.expressionlanguage.classes.Ctx;
+import code.expressionlanguage.errors.AnalysisMessages;
 import code.expressionlanguage.methods.*;
+import code.expressionlanguage.opers.FinalVariableOperation;
+import code.expressionlanguage.opers.ValueOperation;
+import code.expressionlanguage.opers.VariableOperation;
+import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
-import code.expressionlanguage.variables.VariableSuffix;
 import code.util.*;
 import org.junit.Test;
 
@@ -361,21 +365,6 @@ public final class ElResolverTest extends ProcessMethodCommon{
         assertTrue(seq_.isCall());
     }
 
-    @Test
-    public void getOperationsSequence21Test() {
-        ContextEl conf_ = contextEl();
-        addImportingPage(conf_);
-        String el_ = "v;";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
-        OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
-        IntTreeMap<String> opers_ = seq_.getOperators();
-        assertEq(0, opers_.size());
-        IntTreeMap<String> values_ = seq_.getValues();
-        assertEq(1, values_.size());
-        assertEq("v", values_.getVal(0));
-        assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
-        assertSame(ConstType.LOOP_VAR, seq_.getConstType());
-    }
 
     @Test
     public void getOperationsSequence22Test() {
@@ -385,12 +374,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
-        assertEq(0, opers_.size());
-        IntTreeMap<String> values_ = seq_.getValues();
-        assertEq(1, values_.size());
-        assertEq("v", values_.getVal(0));
-        assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
-        assertSame(ConstType.LOC_VAR, seq_.getConstType());
+        assertEq(1, opers_.size());
     }
 
     @Test
@@ -538,16 +522,16 @@ public final class ElResolverTest extends ProcessMethodCommon{
     public void getOperationsSequence27Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.BeanOne {\n");
-        xml_.append(" $public pkg.Composite composite:\n");
+        xml_.append(" $public pkg.Composite composite;\n");
         xml_.append(" {\n");
-        xml_.append("  composite.integer:\n");
+        xml_.append("  composite.integer;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Composite {\n");
-        xml_.append(" $public $int integer:\n");
+        xml_.append(" $public $int integer;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl conf_ = contextEl();
@@ -591,12 +575,6 @@ public final class ElResolverTest extends ProcessMethodCommon{
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("", opers_.getVal(5));
-        IntTreeMap<String> values_ = seq_.getValues();
-        assertEq(2, values_.size());
-        assertEq("var;.", values_.getVal(0));
-        assertEq("call()", values_.getVal(5));
-        assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
 
     @Test
@@ -608,47 +586,6 @@ public final class ElResolverTest extends ProcessMethodCommon{
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("", opers_.getVal(6));
-        IntTreeMap<String> values_ = seq_.getValues();
-        assertEq(2, values_.size());
-        assertEq("var;.;", values_.getVal(0));
-        assertEq("call()", values_.getVal(6));
-    
-        assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
-    }
-
-    @Test
-    public void getOperationsSequence30Test() {
-        ContextEl conf_ = contextEl();
-        addImportingPage(conf_);
-        String el_ = "var;;call()";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
-        OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
-        IntTreeMap<String> opers_ = seq_.getOperators();
-        assertEq(1, opers_.size());
-        assertEq("", opers_.getVal(5));
-        IntTreeMap<String> values_ = seq_.getValues();
-        assertEq(2, values_.size());
-        assertEq("var;;", values_.getVal(0));
-        assertEq("call()", values_.getVal(5));
-        assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
-    }
-
-    @Test
-    public void getOperationsSequence31Test() {
-        ContextEl conf_ = contextEl();
-        addImportingPage(conf_);
-        String el_ = "var;call()";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
-        OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
-        IntTreeMap<String> opers_ = seq_.getOperators();
-        assertEq(1, opers_.size());
-        assertEq("", opers_.getVal(4));
-        IntTreeMap<String> values_ = seq_.getValues();
-        assertEq(2, values_.size());
-        assertEq("var;", values_.getVal(0));
-        assertEq("call()", values_.getVal(4));
-        assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
 
     @Test
@@ -1662,40 +1599,6 @@ public final class ElResolverTest extends ProcessMethodCommon{
     }
 
     @Test
-    public void getOperationsSequence87Test() {
-        ContextEl conf_ = contextEl();
-        addImportingPage(conf_);
-        String el_ = "v; a";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
-        OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
-        IntTreeMap<String> opers_ = seq_.getOperators();
-        assertEq(1, opers_.size());
-        assertEq("", opers_.getVal(2));
-        IntTreeMap<String> values_ = seq_.getValues();
-        assertEq(2, values_.size());
-        assertEq("v;", values_.getVal(0));
-        assertEq(" a", values_.getVal(2));
-    
-        assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
-    }
-
-    @Test
-    public void getOperationsSequence88Test() {
-        ContextEl conf_ = contextEl();
-        addImportingPage(conf_);
-        String el_ = "v; ";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
-        OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
-        IntTreeMap<String> opers_ = seq_.getOperators();
-        assertEq(0, opers_.size());
-        IntTreeMap<String> values_ = seq_.getValues();
-        assertEq(1, values_.size());
-        assertEq("v", values_.getVal(0));
-        assertSame(ConstType.LOOP_VAR, seq_.getConstType());
-        assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
-    }
-
-    @Test
     public void getOperationsSequence90Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
@@ -2030,9 +1933,9 @@ public final class ElResolverTest extends ProcessMethodCommon{
     public void getOperationsSequence109Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.BeanOne {\n");
-        xml_.append(" $public pkg.Composite composite:\n");
+        xml_.append(" $public pkg.Composite composite;\n");
         xml_.append(" {\n");
-        xml_.append("  composite.getOverridenFour(0):\n");
+        xml_.append("  composite.getOverridenFour(0);\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
@@ -2081,12 +1984,6 @@ public final class ElResolverTest extends ProcessMethodCommon{
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("", opers_.getVal(5));
-        IntTreeMap<String> values_ = seq_.getValues();
-        assertEq(2, values_.size());
-        assertEq("var;.", values_.getVal(0));
-        assertEq("f", values_.getVal(5));
-        assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
 
     @Test
@@ -2098,48 +1995,6 @@ public final class ElResolverTest extends ProcessMethodCommon{
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("", opers_.getVal(6));
-        IntTreeMap<String> values_ = seq_.getValues();
-        assertEq(2, values_.size());
-        assertEq("var;.;", values_.getVal(0));
-        assertEq("f", values_.getVal(6));
-    
-        assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
-    }
-
-    @Test
-    public void getOperationsSequence112Test() {
-        ContextEl conf_ = contextEl();
-        addImportingPage(conf_);
-        String el_ = "var;;f";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
-        OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
-        IntTreeMap<String> opers_ = seq_.getOperators();
-        assertEq(1, opers_.size());
-        assertEq("", opers_.getVal(5));
-        IntTreeMap<String> values_ = seq_.getValues();
-        assertEq(2, values_.size());
-        assertEq("var;;", values_.getVal(0));
-        assertEq("f", values_.getVal(5));
-        assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
-    }
-
-    @Test
-    public void getOperationsSequence113Test() {
-        ContextEl conf_ = contextEl();
-        addImportingPage(conf_);
-        String el_ = "var;f";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
-        OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
-        IntTreeMap<String> opers_ = seq_.getOperators();
-        assertEq(1, opers_.size());
-        assertEq("", opers_.getVal(4));
-        IntTreeMap<String> values_ = seq_.getValues();
-        assertEq(2, values_.size());
-        assertEq("var;", values_.getVal(0));
-        assertEq("f", values_.getVal(4));
-    
-        assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
 
     @Test
@@ -2366,30 +2221,6 @@ public final class ElResolverTest extends ProcessMethodCommon{
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("", opers_.getVal(5));
-        IntTreeMap<String> values_ = seq_.getValues();
-        assertEq(2, values_.size());
-        assertEq("var;.", values_.getVal(0));
-        assertEq("$new java.lang.Integer(\"8\")", values_.getVal(5));
-    
-        assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
-    }
-
-    @Test
-    public void getOperationsSequence127Test() {
-        ContextEl conf_ = contextEl();
-        addImportingPage(conf_);
-        String el_ = "var;$new java.lang.Integer(\"8\")";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
-        OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
-        IntTreeMap<String> opers_ = seq_.getOperators();
-        assertEq(1, opers_.size());
-        assertEq("", opers_.getVal(4));
-        IntTreeMap<String> values_ = seq_.getValues();
-        assertEq(2, values_.size());
-        assertEq("var;", values_.getVal(0));
-        assertEq("$new java.lang.Integer(\"8\")", values_.getVal(4));
-        assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
 
     @Test
@@ -2722,23 +2553,6 @@ public final class ElResolverTest extends ProcessMethodCommon{
         assertEq(1, values_.size());
         assertEq(" -a", values_.getVal(2));
         assertEq(ElResolver.UNARY_PRIO, seq_.getPriority());
-    }
-
-    @Test
-    public void getOperationsSequence149Test() {
-        ContextEl conf_ = contextEl();
-        addImportingPage(conf_);
-        String el_ = " v;";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
-        OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
-        IntTreeMap<String> opers_ = seq_.getOperators();
-        assertEq(0, opers_.size());
-        IntTreeMap<String> values_ = seq_.getValues();
-        assertEq(1, values_.size());
-        assertEq("v", values_.getVal(0));
-        assertSame(ConstType.LOOP_VAR, seq_.getConstType());
-        assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
-        assertEq(1, seq_.getOffset());
     }
 
     @Test
@@ -3455,18 +3269,18 @@ public final class ElResolverTest extends ProcessMethodCommon{
     public void getOperationsSequence195Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
-        xml_.append(" $public $static $int inst = exmeth(5i):\n");
+        xml_.append(" $public $static $int inst = exmeth(5i);\n");
         xml_.append(" $public $static $int exmeth($int e){\n");
-        xml_.append("  $long t:\n");
-        xml_.append("  t;.=8:\n");
-        xml_.append("  $return 1i+$($int)t;.+e;.;:\n");
+        xml_.append("  $long t;\n");
+        xml_.append("  t;.=8;\n");
+        xml_.append("  $return 1i+$($int)t;.+e;.;;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $int inst = pkg.Ex.exmeth(0i):\n");
+        xml_.append(" $public $static $int inst = pkg.Ex.exmeth(0i);\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl conf_ = contextEl();
@@ -3502,18 +3316,18 @@ public final class ElResolverTest extends ProcessMethodCommon{
     public void getOperationsSequence196Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
-        xml_.append(" $public $static $int inst = exmeth(5i):\n");
+        xml_.append(" $public $static $int inst = exmeth(5i);\n");
         xml_.append(" $public $static $int exmeth($int e){\n");
-        xml_.append("  $long t:\n");
-        xml_.append("  t;.=8:\n");
-        xml_.append("  $return 1i+$($int)t;.+e;.;:\n");
+        xml_.append("  $long t;\n");
+        xml_.append("  t;.=8;\n");
+        xml_.append("  $return 1i+$($int)t;.+e;.;;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $int inst = Ex.exmeth(0i):\n");
+        xml_.append(" $public $static $int inst = Ex.exmeth(0i);\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl conf_ = contextEl();
@@ -3549,18 +3363,18 @@ public final class ElResolverTest extends ProcessMethodCommon{
     public void getOperationsSequence197Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
-        xml_.append(" $public $static $int inst = exmeth(5i):\n");
+        xml_.append(" $public $static $int inst = exmeth(5i);\n");
         xml_.append(" $public $static $int exmeth($int e){\n");
-        xml_.append("  $long t:\n");
-        xml_.append("  t;.=8:\n");
-        xml_.append("  $return 1i+$($int)t;.+e;.;:\n");
+        xml_.append("  $long t;\n");
+        xml_.append("  t;.=8;\n");
+        xml_.append("  $return 1i+$($int)t;.+e;.;;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $String inst = $Class.forName(\"\"):\n");
+        xml_.append(" $public $static $String inst = $Class.forName(\"\");\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl conf_ = contextEl();
@@ -3596,18 +3410,18 @@ public final class ElResolverTest extends ProcessMethodCommon{
     public void getOperationsSequence198Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
-        xml_.append(" $public $static $int inst = exmeth(5i):\n");
+        xml_.append(" $public $static $int inst = exmeth(5i);\n");
         xml_.append(" $public $static $int exmeth($int e){\n");
-        xml_.append("  $long t:\n");
-        xml_.append("  t;.=8:\n");
-        xml_.append("  $return 1i+$($int)t;.+e;.;:\n");
+        xml_.append("  $long t;\n");
+        xml_.append("  t=8;\n");
+        xml_.append("  $return 1i+$($int)t+e;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $int inst = Ex.exmeth(0i):\n");
+        xml_.append(" $public $static $int inst = Ex.exmeth(0i);\n");
         xml_.append(" $public $static $class Ex{\n");
         xml_.append(" }\n");
         xml_.append("}\n");
@@ -3645,28 +3459,28 @@ public final class ElResolverTest extends ProcessMethodCommon{
     public void getOperationsSequence199Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
-        xml_.append(" $public $static $int inst = exmeth(5i):\n");
-        xml_.append(" $public $static $int Ex = exmeth(5i):\n");
+        xml_.append(" $public $static $int inst = exmeth(5i);\n");
+        xml_.append(" $public $static $int Ex = exmeth(5i);\n");
         xml_.append(" $public $static $int exmeth($int e){\n");
-        xml_.append("  $long t:\n");
-        xml_.append("  t;.=8:\n");
-        xml_.append("  $return 1i+$($int)t;.+e;.;:\n");
+        xml_.append("  $long t;\n");
+        xml_.append("  t;.=8;\n");
+        xml_.append("  $return 1i+$($int)t;.+e;.;;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.ExThree.Ex {\n");
-        xml_.append(" $public $static $int inst = exmeth(5i):\n");
-        xml_.append(" $public $static $int Ex = exmeth(5i):\n");
+        xml_.append(" $public $static $int inst = exmeth(5i);\n");
+        xml_.append(" $public $static $int Ex = exmeth(5i);\n");
         xml_.append(" $public $static $int exmeth($int e){\n");
-        xml_.append("  $long t:\n");
-        xml_.append("  t;.=8:\n");
-        xml_.append("  $return 1i+$($int)t;.+e;.;:\n");
+        xml_.append("  $long t;\n");
+        xml_.append("  t;.=8;\n");
+        xml_.append("  $return 1i+$($int)t;.+e;.;;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $int inst = pkg.ExThree.Ex.inst:\n");
+        xml_.append(" $public $static $int inst = pkg.ExThree.Ex.inst;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl conf_ = contextEl();
@@ -3702,18 +3516,18 @@ public final class ElResolverTest extends ProcessMethodCommon{
     public void getOperationsSequence200Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
-        xml_.append(" $public $static $int inst = exmeth(5i):\n");
+        xml_.append(" $public $static $int inst = exmeth(5i);\n");
         xml_.append(" $public $static $int exmeth($int e){\n");
-        xml_.append("  $long t:\n");
-        xml_.append("  t;.=8:\n");
-        xml_.append("  $return 1i+$($int)t;.+e;.;:\n");
+        xml_.append("  $long t;\n");
+        xml_.append("  t;.=8;\n");
+        xml_.append("  $return 1i+$($int)t;.+e;.;;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $int inst = ExTwo.Ex.exmeth(0i):\n");
+        xml_.append(" $public $static $int inst = ExTwo.Ex.exmeth(0i);\n");
         xml_.append(" $public $static $class Ex{\n");
         xml_.append(" }\n");
         xml_.append("}\n");
@@ -4302,15 +4116,6 @@ public final class ElResolverTest extends ProcessMethodCommon{
         IntTreeMap<String> values_ = seq_.getValues();
         assertEq(1, values_.size());
         assertEq("4. ", values_.getVal(0));
-    }
-
-    @Test
-    public void checkSyntax230FailTest() {
-        ContextEl conf_ = contextEl();
-        addImportingPage(conf_);
-        String el_ = "0x2. ";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
-        assertEq(4, d_.getBadOffset());
     }
 
     @Test
@@ -5227,7 +5032,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "v; .";
-        assertEq(2, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
+        assertEq(-1, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
     }
 
     @Test
@@ -5235,7 +5040,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "v;. ;";
-        assertEq(3, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
+        assertEq(-1, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
     }
 
     @Test
@@ -5243,7 +5048,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "v; ;";
-        assertEq(2, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
+        assertEq(-1, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
     }
 
     @Test
@@ -5251,7 +5056,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "v;  ;";
-        assertEq(2, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
+        assertEq(-1, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
     }
 
     @Test
@@ -5391,27 +5196,11 @@ public final class ElResolverTest extends ProcessMethodCommon{
     }
 
     @Test
-    public void checkSyntax39FailTest() {
-        ContextEl conf_ = contextEl();
-        addImportingPage(conf_);
-        String el_ = "1. 0";
-        assertEq(2, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
-    }
-
-    @Test
     public void checkSyntax40FailTest() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "$static(pkg$classname";
         assertEq(22, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
-    }
-
-    @Test
-    public void checkSyntax41FailTest() {
-        ContextEl conf_ = contextEl();
-        addImportingPage(conf_);
-        String el_ = ".1.0";
-        assertEq(2, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
     }
 
     @Test
@@ -5471,83 +5260,11 @@ public final class ElResolverTest extends ProcessMethodCommon{
     }
 
     @Test
-    public void checkSyntax49FailTest() {
-        ContextEl conf_ = contextEl();
-        addImportingPage(conf_);
-        String el_ = "1.0df";
-        assertEq(3, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
-    }
-
-    @Test
-    public void checkSyntax50FailTest() {
-        ContextEl conf_ = contextEl();
-        addImportingPage(conf_);
-        String el_ = "1df";
-        assertEq(1, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
-    }
-
-    @Test
-    public void checkSyntax51FailTest() {
-        ContextEl conf_ = contextEl();
-        addImportingPage(conf_);
-        String el_ = "1.df";
-        assertEq(2, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
-    }
-
-    @Test
     public void checkSyntax52FailTest() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "1.d.f";
         assertEq(3, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
-    }
-
-    @Test
-    public void checkSyntax53FailTest() {
-        ContextEl conf_ = contextEl();
-        addImportingPage(conf_);
-        String el_ = "1d.";
-        assertEq(2, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
-    }
-
-    @Test
-    public void checkSyntax54FailTest() {
-        ContextEl conf_ = contextEl();
-        addImportingPage(conf_);
-        String el_ = "1df.";
-        assertEq(1, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
-    }
-
-    @Test
-    public void checkSyntax55FailTest() {
-        ContextEl conf_ = contextEl();
-        addImportingPage(conf_);
-        String el_ = "1.0df";
-        assertEq(3, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
-    }
-
-    @Test
-    public void checkSyntax56FailTest() {
-        ContextEl conf_ = contextEl();
-        addImportingPage(conf_);
-        String el_ = "1.0dgf";
-        assertEq(3, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
-    }
-
-    @Test
-    public void checkSyntax57FailTest() {
-        ContextEl conf_ = contextEl();
-        addImportingPage(conf_);
-        String el_ = "1.0g";
-        assertEq(3, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
-    }
-
-    @Test
-    public void checkSyntax58FailTest() {
-        ContextEl conf_ = contextEl();
-        addImportingPage(conf_);
-        String el_ = "4g";
-        assertEq(1, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
     }
 
     @Test
@@ -5567,14 +5284,6 @@ public final class ElResolverTest extends ProcessMethodCommon{
     }
 
     @Test
-    public void checkSyntax61FailTest() {
-        ContextEl conf_ = contextEl();
-        addImportingPage(conf_);
-        String el_ = "1f2";
-        assertEq(1, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
-    }
-
-    @Test
     public void checkSyntax62FailTest() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
@@ -5591,75 +5300,11 @@ public final class ElResolverTest extends ProcessMethodCommon{
     }
 
     @Test
-    public void checkSyntax64FailTest() {
-        ContextEl conf_ = contextEl();
-        addImportingPage(conf_);
-        String el_ = "4.g";
-        assertEq(2, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
-    }
-
-    @Test
-    public void checkSyntax65FailTest() {
-        ContextEl conf_ = contextEl();
-        addImportingPage(conf_);
-        String el_ = ".4g";
-        assertEq(2, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
-    }
-
-    @Test
-    public void checkSyntax66FailTest() {
-        ContextEl conf_ = contextEl();
-        addImportingPage(conf_);
-        String el_ = "4.ff";
-        assertEq(2, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
-    }
-
-    @Test
-    public void checkSyntax67FailTest() {
-        ContextEl conf_ = contextEl();
-        addImportingPage(conf_);
-        String el_ = ".4ff";
-        assertEq(2, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
-    }
-
-    @Test
-    public void checkSyntax68FailTest() {
-        ContextEl conf_ = contextEl();
-        addImportingPage(conf_);
-        String el_ = "4f1";
-        assertEq(1, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
-    }
-
-    @Test
-    public void checkSyntax69FailTest() {
-        ContextEl conf_ = contextEl();
-        addImportingPage(conf_);
-        String el_ = ".4g";
-        assertEq(2, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
-    }
-
-    @Test
     public void checkSyntax70FailTest() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "1.0e4d.5";
         assertEq(6, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
-    }
-
-    @Test
-    public void checkSyntax71FailTest() {
-        ContextEl conf_ = contextEl();
-        addImportingPage(conf_);
-        String el_ = "1. .0";
-        assertEq(2, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
-    }
-
-    @Test
-    public void checkSyntax72FailTest() {
-        ContextEl conf_ = contextEl();
-        addImportingPage(conf_);
-        String el_ = "1..0";
-        assertEq(2, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
     }
 
     @Test
@@ -5847,8 +5492,50 @@ public final class ElResolverTest extends ProcessMethodCommon{
     }
     private ContextEl contextEl() {
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
         return InitializationLgNames.buildStdOne(opt_);
+    }
+    @Test
+    public void t() {
+        DefaultLockingClass lk_ = new DefaultLockingClass();
+        DefaultInitializer di_ = new DefaultInitializer();
+        AnalysisMessages a_ = new AnalysisMessages();
+        KeyWords kw_ = new KeyWords();
+        ContextEl out_ = new Ctx(CustList.INDEX_NOT_FOUND_ELT,lk_, di_, new Options(), a_, kw_, null,4);
+        ContextEl c_ = contextEl();
+        out_.setStandards(c_.getStandards());
+        c_.setExecutingInstance(out_);
+        Delimiters d_ = new Delimiters();
+        d_.getVariables().add(new VariableInfo());
+        d_ = new Delimiters();
+        VariableInfo vi = new VariableInfo();
+        vi.setKind(ConstType.WORD);
+        d_.getVariables().add(vi);
+        vi.setLastChar(0);
+        ResultAfterDoubleDotted out = new ResultAfterDoubleDotted();
+        out.setDeclaring(new StringList());
+        ResultAfterDoubleDotted res = new ResultAfterDoubleDotted();
+        res.setDeclaring(new StringList());
+        res.getDeclaring().add("word");
+        OperationsSequence op = new OperationsSequence();
+        op.setDelimiter(d_);
+        op.setValue("",0);
+        out_.setAnalyzing();
+        new VariableOperation(0,0,null, op).analyze(out_);
+        new ValueOperation(0,0,null, op).analyze(out_);
+        op = new OperationsSequence();
+        op.setDelimiter(d_);
+        op.setConstType(ConstType.PARAM);
+        op.setValue("",0);
+        new FinalVariableOperation(0,0,null,op).analyze(out_);
+        op = new OperationsSequence();
+        op.setDelimiter(d_);
+        op.setConstType(ConstType.CATCH_VAR);
+        op.setValue("",0);
+        new FinalVariableOperation(0,0,null,op).analyze(out_);
+        op = new OperationsSequence();
+        op.setDelimiter(d_);
+        op.setConstType(ConstType.LOOP_VAR);
+        op.setValue("",0);
+        new FinalVariableOperation(0,0,null,op).analyze(out_);
     }
 }

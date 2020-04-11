@@ -8,7 +8,6 @@ import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.structs.FieldableStruct;
 import code.expressionlanguage.structs.Struct;
-import code.expressionlanguage.variables.VariableSuffix;
 import code.formathtml.exec.RendDynOperationNode;
 import code.formathtml.util.BeanCustLgNames;
 import code.formathtml.util.BeanLgNames;
@@ -40,45 +39,7 @@ public abstract class CommonRender {
         context_.setExecutingInstance(nav_.getSession());
         return nav_;
     }
-    Configuration contextElThird() {
-        return contextElThird(new StringMap<String>());
-    }
-    Configuration contextElThird(StringMap<String> _files) {
-        Configuration conf_ =  EquallableExUtil.newConfiguration();
-        conf_.setPrefix("c:");
-        Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
-        ContextEl cont_ = InitializationLgNames.buildStdThree(opt_);
-        Classes.validateWithoutInit(_files, cont_);
-        assertTrue(cont_.isEmptyErrors());
-        conf_.setContext(cont_);
-        BeanLgNames standards_ = (BeanLgNames) cont_.getStandards();
-        conf_.setStandards(standards_);
-        cont_.setExecutingInstance(conf_);
-        ((BeanCustLgNames)standards_).buildIterables(conf_);
-        return conf_;
-    }
-    Configuration contextElFourth() {
-        return contextElFourth(new StringMap<String>());
-    }
-    Configuration contextElFourth(StringMap<String> _files) {
-        Configuration conf_ =  EquallableExUtil.newConfiguration();
-        conf_.setPrefix("c:");
-        Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
-        
-        ContextEl cont_ = InitializationLgNames.buildStdThree(opt_);
-        Classes.validateWithoutInit(_files, cont_);
-        assertTrue(cont_.isEmptyErrors());
-        conf_.setContext(cont_);
-        BeanLgNames standards_ = (BeanLgNames) cont_.getStandards();
-        conf_.setStandards(standards_);
-        cont_.setExecutingInstance(conf_);
-        ((BeanCustLgNames)standards_).buildIterables(conf_);
-        return conf_;
-    }
+
     Configuration contextElFive() {
         return contextElFive(new StringMap<String>());
     }
@@ -88,12 +49,12 @@ public abstract class CommonRender {
         Options opt_ = new Options();
         
         ContextEl cont_ = InitializationLgNames.buildStdThree(opt_);
-        Classes.validateWithoutInit(_files, cont_);
-        assertTrue(cont_.isEmptyErrors());
         conf_.setContext(cont_);
+        cont_.setExecutingInstance(conf_);
         BeanLgNames standards_ = (BeanLgNames) cont_.getStandards();
         conf_.setStandards(standards_);
-        cont_.setExecutingInstance(conf_);
+        Classes.validateWithoutInit(_files, cont_);
+        assertTrue(cont_.isEmptyErrors());
         ((BeanCustLgNames)standards_).buildIterables(conf_);
         return conf_;
     }

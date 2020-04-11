@@ -156,8 +156,8 @@ public final class KeyWords {
     private String keyWordNbSufCharacter = "C";
     private String keyWordNbSufShortPrim = "s";
     private String keyWordNbSufShort = "S";
-    private String keyWordNbSufBytePrim = "b";
-    private String keyWordNbSufByte = "B";
+    private String keyWordNbSufBytePrim = "y";
+    private String keyWordNbSufByte = "Y";
     private String keyWordNbHex = "x";
     private String keyWordNbBin = "b";
     
@@ -574,6 +574,7 @@ public final class KeyWords {
         keyWords_.addEntry(NB_EXP_DEC,keyWordNbExpDec);
         keyWords_.addEntry(NB_EXP_BIN,keyWordNbExpBin);
         keyWords_.addEntry(NB_HEX,keyWordNbHex);
+        keyWords_.addEntry(NB_BIN,keyWordNbBin);
         return keyWords_;
     }
     public StringMap<String> allNbWordsDec() {
@@ -585,6 +586,7 @@ public final class KeyWords {
         StringMap<String> keyWords_ = new StringMap<String>();
         keyWords_.addEntry(NB_EXP_BIN,keyWordNbExpBin);
         keyWords_.addEntry(NB_HEX,keyWordNbHex);
+        keyWords_.addEntry(NB_BIN,keyWordNbBin);
         return keyWords_;
     }
     public StringMap<String> allNbWords(StringMap<String> _othersWords) {

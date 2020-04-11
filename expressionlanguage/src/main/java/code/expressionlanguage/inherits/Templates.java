@@ -786,6 +786,9 @@ public final class Templates {
         int i_ = CustList.FIRST_INDEX;
         for (String t: root_.getParamTypesValues()) {
             i_++;
+            if (!types_.isValidIndex(i_)) {
+                return new StringMap<String>();
+            }
             String arg_ = types_.get(i_);
             varTypes_.put(t, arg_);
         }

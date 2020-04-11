@@ -202,6 +202,9 @@ final class NamePartType extends LeafPartType {
             }
             for (String a: allAncestors_) {
                 StringList owners_ = TypeUtil.getGenericOwners(a, type_, _an);
+                if (owners_.isEmpty()) {
+                    continue;
+                }
                 if (owners_.onlyOneElt()) {
                     String genStr_ = owners_.first();
                     String id_ = Templates.getIdFromAllTypes(genStr_);
@@ -219,8 +222,8 @@ final class NamePartType extends LeafPartType {
                     String new_ = Templates.quickFormat(f_, genStr_, _an);
                     setAnalyzedType(StringList.concat(new_,"..",type_));
                     checkAccess(_an,_rooted,a);
-                    return;
                 }
+                return;
             }
         }
         lookupImports(_an, _local,_rooted, type_,false);
@@ -239,12 +242,15 @@ final class NamePartType extends LeafPartType {
             }
             for (String a: allAncestors_) {
                 StringList owners_ = TypeUtil.getOwners(a, type_, _an);
+                if (owners_.isEmpty()) {
+                    continue;
+                }
                 if (owners_.onlyOneElt()) {
                     String new_ = owners_.first();
                     setAnalyzedType(StringList.concat(new_,"..",type_));
                     checkAccess(_an,_rooted,a);
-                    return;
                 }
+                return;
             }
         }
         lookupImports(_an, _local,_rooted, type_,true);

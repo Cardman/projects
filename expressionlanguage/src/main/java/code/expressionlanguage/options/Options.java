@@ -1,30 +1,14 @@
 package code.expressionlanguage.options;
 
-import code.expressionlanguage.variables.VariableSuffix;
 import code.util.StringList;
 
 public final class Options {
 
     private StringList typesInit = new StringList();
     private boolean initializeStaticClassFirst = true;
-    private VariableSuffix suffixVar = VariableSuffix.NONE;
     private boolean varTypeFirst = true;
-    private boolean endLineSemiColumn = true;
     private boolean readOnly;
     private boolean failIfNotAllInit;
-
-    public char getEndLine() {
-        if (endLineSemiColumn) {
-            return ';';
-        }
-        return ':';
-    }
-    public char getSuffix() {
-        if (!endLineSemiColumn) {
-            return ';';
-        }
-        return ':';
-    }
 
     public StringList getTypesInit() {
         return typesInit;
@@ -38,24 +22,12 @@ public final class Options {
         initializeStaticClassFirst = _initializeStaticClassFirst;
     }
 
-    public VariableSuffix getSuffixVar() {
-        return suffixVar;
-    }
-
-    public void setSuffixVar(VariableSuffix _suffixVar) {
-        suffixVar = _suffixVar;
-    }
-
     public boolean isVarTypeFirst() {
         return varTypeFirst;
     }
 
     public void setVarTypeFirst(boolean _varTypeFirst) {
         varTypeFirst = _varTypeFirst;
-    }
-
-    public void setEndLineSemiColumn(boolean _endLineSemiColumn) {
-        endLineSemiColumn = _endLineSemiColumn;
     }
 
     public boolean isReadOnly() {

@@ -5,7 +5,6 @@ import code.expressionlanguage.InitializationLgNames;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.options.Options;
-import code.expressionlanguage.variables.VariableSuffix;
 import code.util.StringMap;
 import org.junit.Test;
 
@@ -1140,8 +1139,6 @@ public final class PartTypeUtilTest {
 
     private ContextEl unfullValidateInheritingClassesVarFirst(StringMap<String> _files) {
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
         opt_.setVarTypeFirst(false);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes classes_ = cont_.getClasses();
@@ -1154,8 +1151,6 @@ public final class PartTypeUtilTest {
     }
     private ContextEl unfullValidateInheritingClasses(StringMap<String> _files) {
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes classes_ = cont_.getClasses();
         Classes.buildPredefinedBracesBodies(cont_);

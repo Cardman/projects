@@ -547,6 +547,13 @@ public final class TypeUtil {
     public static StringList getOwners(String _root, String _innerName, Analyzable _an) {
          return getOwners(_root,_innerName,false,_an);
     }
+    public static StringList getInners(String _root, String _innerName, boolean _staticOnly, Analyzable _an) {
+        StringList inners_ = new StringList();
+        for (String o: getOwners(_root, _innerName,_staticOnly, _an)) {
+            inners_.add(StringList.concat(o,"..",_innerName));
+        }
+        return inners_;
+    }
     public static StringList getOwners(String _root, String _innerName, boolean _staticOnly, Analyzable _an) {
         StringList ids_ = new StringList(_root);
         StringList owners_ = new StringList();

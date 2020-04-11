@@ -8,7 +8,6 @@ import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.options.Options;
-import code.expressionlanguage.variables.VariableSuffix;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
@@ -1088,10 +1087,10 @@ public final class AnalyzedOperationNodesTest {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo<#T:Number> {\n");
         xml_.append(" $public $normal $int get(String i){\n");
-        xml_.append("  $return 2i:\n");
+        xml_.append("  $return 2i;\n");
         xml_.append(" }\n");
         xml_.append(" $public $normal $int get(#T i){\n");
-        xml_.append("  $return 1i:\n");
+        xml_.append("  $return 1i;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         String g_ = StringList.concat("pkg.ExTwo<?>");
@@ -1114,10 +1113,10 @@ public final class AnalyzedOperationNodesTest {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo<#T:Number> {\n");
         xml_.append(" $public $normal $int get(String i){\n");
-        xml_.append("  $return 2i:\n");
+        xml_.append("  $return 2i;\n");
         xml_.append(" }\n");
         xml_.append(" $public $normal $int get(#T i){\n");
-        xml_.append("  $return 1i:\n");
+        xml_.append("  $return 1i;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         String g_ = StringList.concat("pkg.ExTwo<?>");
@@ -1140,10 +1139,10 @@ public final class AnalyzedOperationNodesTest {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo<#T:Number> {\n");
         xml_.append(" $public $normal $int get(#T... i){\n");
-        xml_.append("  $return 2i:\n");
+        xml_.append("  $return 2i;\n");
         xml_.append(" }\n");
         xml_.append(" $public $normal $int get(#T i){\n");
-        xml_.append("  $return 1i:\n");
+        xml_.append("  $return 1i;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         String g_ = StringList.concat("pkg.ExTwo<java.lang.Number>");
@@ -1166,10 +1165,10 @@ public final class AnalyzedOperationNodesTest {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
         xml_.append(" $public $normal $int get(Number... i){\n");
-        xml_.append("  $return 2i:\n");
+        xml_.append("  $return 2i;\n");
         xml_.append(" }\n");
         xml_.append(" $public $normal $int get(Integer... i){\n");
-        xml_.append("  $return 1i:\n");
+        xml_.append("  $return 1i;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         String g_ = StringList.concat("pkg.ExTwo");
@@ -1192,10 +1191,10 @@ public final class AnalyzedOperationNodesTest {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
         xml_.append(" $public $static $int get(Integer... i){\n");
-        xml_.append("  $return 2i:\n");
+        xml_.append("  $return 2i;\n");
         xml_.append(" }\n");
         xml_.append(" $public $normal $int get(Integer... i){\n");
-        xml_.append("  $return 1i:\n");
+        xml_.append("  $return 1i;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         String g_ = StringList.concat("pkg.ExTwo");
@@ -1218,12 +1217,12 @@ public final class AnalyzedOperationNodesTest {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $interface pkg.ExTwo {\n");
         xml_.append(" $public $normal $long get(Integer... i){\n");
-        xml_.append("  $return 2i:\n");
+        xml_.append("  $return 2i;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         xml_.append("$public $interface pkg.ExThree {\n");
         xml_.append(" $public $normal $int get(Integer... i){\n");
-        xml_.append("  $return 1i:\n");
+        xml_.append("  $return 1i;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         xml_.append("$public $abstract $class pkg.ExFour:ExThree:ExTwo {\n");
@@ -1248,12 +1247,12 @@ public final class AnalyzedOperationNodesTest {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $interface pkg.ExThree {\n");
         xml_.append(" $public $normal $int get(Integer... i){\n");
-        xml_.append("  $return 1i:\n");
+        xml_.append("  $return 1i;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         xml_.append("$public $interface pkg.ExTwo {\n");
         xml_.append(" $public $normal $long get(Integer... i){\n");
-        xml_.append("  $return 2i:\n");
+        xml_.append("  $return 2i;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         xml_.append("$public $abstract $class pkg.ExFour:ExTwo:ExThree {\n");
@@ -1278,10 +1277,10 @@ public final class AnalyzedOperationNodesTest {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
         xml_.append(" $public $normal $int get(Integer... i){\n");
-        xml_.append("  $return 1i:\n");
+        xml_.append("  $return 1i;\n");
         xml_.append(" }\n");
         xml_.append(" $public $static $int get(Integer... i){\n");
-        xml_.append("  $return 2i:\n");
+        xml_.append("  $return 2i;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         String g_ = StringList.concat("pkg.ExTwo");
@@ -1304,17 +1303,17 @@ public final class AnalyzedOperationNodesTest {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $interface pkg.ExThree {\n");
         xml_.append(" $public $normal $int get(Integer... i){\n");
-        xml_.append("  $return 1i:\n");
+        xml_.append("  $return 1i;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         xml_.append("$public $interface pkg.ExTwo {\n");
         xml_.append(" $public $normal $long get(Integer... i){\n");
-        xml_.append("  $return 2i:\n");
+        xml_.append("  $return 2i;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         xml_.append("$public $abstract $class pkg.ExFour:ExTwo:ExThree {\n");
         xml_.append(" $public $normal $int get(Integer... i){\n");
-        xml_.append("  $return 1i:\n");
+        xml_.append("  $return 1i;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         String g_ = StringList.concat("pkg.ExFour");
@@ -1337,17 +1336,17 @@ public final class AnalyzedOperationNodesTest {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $interface pkg.ExThree {\n");
         xml_.append(" $public $normal $int get(Integer... i){\n");
-        xml_.append("  $return 1i:\n");
+        xml_.append("  $return 1i;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         xml_.append("$public $interface pkg.ExTwo:ExThree {\n");
         xml_.append(" $public $normal $int get(Integer... i){\n");
-        xml_.append("  $return 2i:\n");
+        xml_.append("  $return 2i;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         xml_.append("$public $abstract $class pkg.ExFour:ExTwo {\n");
         xml_.append(" $public $normal $int get(Integer... i){\n");
-        xml_.append("  $return 1i:\n");
+        xml_.append("  $return 1i;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         String g_ = StringList.concat("pkg.ExFour");
@@ -1370,22 +1369,22 @@ public final class AnalyzedOperationNodesTest {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $interface pkg.ExThree:ExFive {\n");
         xml_.append(" $public $normal $int get(Integer... i){\n");
-        xml_.append("  $return 1i:\n");
+        xml_.append("  $return 1i;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         xml_.append("$public $interface pkg.ExTwo:ExFive {\n");
         xml_.append(" $public $normal $int get(Integer... i){\n");
-        xml_.append("  $return 2i:\n");
+        xml_.append("  $return 2i;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         xml_.append("$public $interface pkg.ExFive {\n");
         xml_.append(" $public $normal $int get(Integer... i){\n");
-        xml_.append("  $return 2i:\n");
+        xml_.append("  $return 2i;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         xml_.append("$public $abstract $class pkg.ExFour:ExTwo:ExThree {\n");
         xml_.append(" $public $normal $int get(Integer... i){\n");
-        xml_.append("  $return 1i:\n");
+        xml_.append("  $return 1i;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         String g_ = StringList.concat("pkg.ExFour");
@@ -1408,10 +1407,10 @@ public final class AnalyzedOperationNodesTest {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo<#T:Number> {\n");
         xml_.append(" $public $normal $int get(#T i){\n");
-        xml_.append("  $return 1i:\n");
+        xml_.append("  $return 1i;\n");
         xml_.append(" }\n");
         xml_.append(" $public $normal $int get(#T... i){\n");
-        xml_.append("  $return 2i:\n");
+        xml_.append("  $return 2i;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         String g_ = StringList.concat("pkg.ExTwo<java.lang.Number>");
@@ -1434,10 +1433,10 @@ public final class AnalyzedOperationNodesTest {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
         xml_.append(" $public $normal $int get(Object... i){\n");
-        xml_.append("  $return 1i:\n");
+        xml_.append("  $return 1i;\n");
         xml_.append(" }\n");
         xml_.append(" $public $normal $int get(Object[]... i){\n");
-        xml_.append("  $return 2i:\n");
+        xml_.append("  $return 2i;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         String g_ = StringList.concat("pkg.ExTwo");
@@ -1460,10 +1459,10 @@ public final class AnalyzedOperationNodesTest {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
         xml_.append(" $public $normal $int get(Object[]... i){\n");
-        xml_.append("  $return 2i:\n");
+        xml_.append("  $return 2i;\n");
         xml_.append(" }\n");
         xml_.append(" $public $normal $int get(Object... i){\n");
-        xml_.append("  $return 1i:\n");
+        xml_.append("  $return 1i;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         String g_ = StringList.concat("pkg.ExTwo");
@@ -1486,10 +1485,10 @@ public final class AnalyzedOperationNodesTest {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
         xml_.append(" $public $normal $int get(Object... i){\n");
-        xml_.append("  $return 1i:\n");
+        xml_.append("  $return 1i;\n");
         xml_.append(" }\n");
         xml_.append(" $public $normal $int get(Object j,Object... i){\n");
-        xml_.append("  $return 2i:\n");
+        xml_.append("  $return 2i;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         String g_ = StringList.concat("pkg.ExTwo");
@@ -1513,10 +1512,10 @@ public final class AnalyzedOperationNodesTest {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
         xml_.append(" $public $normal $int get(Object j,Object... i){\n");
-        xml_.append("  $return 2i:\n");
+        xml_.append("  $return 2i;\n");
         xml_.append(" }\n");
         xml_.append(" $public $normal $int get(Object... i){\n");
-        xml_.append("  $return 1i:\n");
+        xml_.append("  $return 1i;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         String g_ = StringList.concat("pkg.ExTwo");
@@ -1540,10 +1539,10 @@ public final class AnalyzedOperationNodesTest {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
         xml_.append(" $public $normal $int get(Number... i){\n");
-        xml_.append("  $return 1i:\n");
+        xml_.append("  $return 1i;\n");
         xml_.append(" }\n");
         xml_.append(" $public $normal $int get(Integer... i){\n");
-        xml_.append("  $return 2i:\n");
+        xml_.append("  $return 2i;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         String g_ = StringList.concat("pkg.ExTwo");
@@ -1566,10 +1565,10 @@ public final class AnalyzedOperationNodesTest {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
         xml_.append(" $public $static $int get(Number... i){\n");
-        xml_.append("  $return 1i:\n");
+        xml_.append("  $return 1i;\n");
         xml_.append(" }\n");
         xml_.append(" $public $static $int get(Integer... i){\n");
-        xml_.append("  $return 2i:\n");
+        xml_.append("  $return 2i;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         String g_ = StringList.concat("pkg.ExTwo");
@@ -1592,10 +1591,10 @@ public final class AnalyzedOperationNodesTest {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
         xml_.append(" $public $static $int get(Integer... i){\n");
-        xml_.append("  $return 2i:\n");
+        xml_.append("  $return 2i;\n");
         xml_.append(" }\n");
         xml_.append(" $public $static $int get(Number... i){\n");
-        xml_.append("  $return 1i:\n");
+        xml_.append("  $return 1i;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         String g_ = StringList.concat("pkg.ExTwo");
@@ -1618,17 +1617,17 @@ public final class AnalyzedOperationNodesTest {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$static pkg.ExThree.get;\n");
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $static {get($null,$null):}\n");
+        xml_.append(" $static {get($null,$null);}\n");
         xml_.append(" $public $static $int get(Number... i){\n");
-        xml_.append("  $return 2i:\n");
+        xml_.append("  $return 2i;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.ExThree {\n");
         xml_.append(" $public $static $int get(Integer... i){\n");
-        xml_.append("  $return 1i:\n");
+        xml_.append("  $return 1i;\n");
         xml_.append(" }\n");
         xml_.append(" $public $int get(Integer... i){\n");
-        xml_.append("  $return 1i:\n");
+        xml_.append("  $return 1i;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
@@ -1654,23 +1653,23 @@ public final class AnalyzedOperationNodesTest {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$static pkg.ExThree.get;\n");
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $static {get($null,$null):}\n");
+        xml_.append(" $static {get($null,$null);}\n");
         xml_.append(" $public $static $int get(Number... i){\n");
-        xml_.append("  $return 2i:\n");
+        xml_.append("  $return 2i;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.ExThree {\n");
         xml_.append(" $public $static $int get(Integer... i){\n");
-        xml_.append("  $return 1i:\n");
+        xml_.append("  $return 1i;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         String g_ = StringList.concat("pkg.ExTwo");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
+        
 
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.isEmptyErrors());
@@ -1694,12 +1693,12 @@ public final class AnalyzedOperationNodesTest {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
         xml_.append(" $public $static $int get(Integer... i){\n");
-        xml_.append("  $return 2i:\n");
+        xml_.append("  $return 2i;\n");
         xml_.append(" }\n");
         xml_.append(" $public $static $class Inner {\n");
-        xml_.append("  $static {get($null,$null):}\n");
+        xml_.append("  $static {get($null,$null);}\n");
         xml_.append("  $public $static $int get(Number... i){\n");
-        xml_.append("   $return 1i:\n");
+        xml_.append("   $return 1i;\n");
         xml_.append("  }\n");
         xml_.append(" }\n");
         xml_.append("}\n");
@@ -1726,10 +1725,10 @@ public final class AnalyzedOperationNodesTest {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
         xml_.append(" $private $static $int get(Integer... i){\n");
-        xml_.append("  $return 2i:\n");
+        xml_.append("  $return 2i;\n");
         xml_.append(" }\n");
         xml_.append(" $public $static $int get(Number... i){\n");
-        xml_.append("  $return 1i:\n");
+        xml_.append("  $return 1i;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         String g_ = StringList.concat("pkg.ExTwo");
@@ -1752,10 +1751,10 @@ public final class AnalyzedOperationNodesTest {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
         xml_.append(" $public $static $int get(Integer... i){\n");
-        xml_.append("  $return 2i:\n");
+        xml_.append("  $return 2i;\n");
         xml_.append(" }\n");
         xml_.append(" $public $static $int get(Number... i){\n");
-        xml_.append("  $return 1i:\n");
+        xml_.append("  $return 1i;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         String g_ = StringList.concat("pkg.ExTwo");
@@ -1778,12 +1777,12 @@ public final class AnalyzedOperationNodesTest {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo:ExPar {\n");
         xml_.append(" $public $static $int get(Integer... i){\n");
-        xml_.append("  $return 2i:\n");
+        xml_.append("  $return 2i;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.ExPar {\n");
         xml_.append(" $public $static $int get(Number... i){\n");
-        xml_.append("  $return 1i:\n");
+        xml_.append("  $return 1i;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         String g_ = StringList.concat("pkg.ExTwo");
@@ -1806,10 +1805,10 @@ public final class AnalyzedOperationNodesTest {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
         xml_.append(" $private $int get(Integer... i){\n");
-        xml_.append("  $return 2i:\n");
+        xml_.append("  $return 2i;\n");
         xml_.append(" }\n");
         xml_.append(" $public $int get(Number... i){\n");
-        xml_.append("  $return 1i:\n");
+        xml_.append("  $return 1i;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         String g_ = StringList.concat("pkg.ExTwo");
@@ -1831,16 +1830,16 @@ public final class AnalyzedOperationNodesTest {
     public void processEl188Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkgtwo.Apply {\n");
-        xml_.append(" $static {pkg.ExTwo.get($null,$null):}\n");
+        xml_.append(" $static {pkg.ExTwo.get($null,$null);}\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.ExTwo:pkgtwo.ExPar {\n");
         xml_.append("  $public $static $int get(Number... i){\n");
-        xml_.append("   $return 1i:\n");
+        xml_.append("   $return 1i;\n");
         xml_.append("  }\n");
         xml_.append("}\n");
         xml_.append("$public $class pkgtwo.ExPar {\n");
         xml_.append("  $static $int get(Integer... i){\n");
-        xml_.append("   $return 1i:\n");
+        xml_.append("   $return 1i;\n");
         xml_.append("  }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
@@ -1866,26 +1865,26 @@ public final class AnalyzedOperationNodesTest {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$static pkg.ExThree.get;\n");
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $static {get($id(ExThree,$static,Number...),$null,$null):}\n");
+        xml_.append(" $static {get($id(ExThree,$static,Number...),$null,$null);}\n");
         xml_.append(" $public $static $int get(Number... i){\n");
-        xml_.append("  $return 2i:\n");
+        xml_.append("  $return 2i;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.ExThree {\n");
         xml_.append(" $public $static $int get(Integer... i){\n");
-        xml_.append("  $return 1i:\n");
+        xml_.append("  $return 1i;\n");
         xml_.append(" }\n");
         xml_.append(" $public $static $int get(Number... i){\n");
-        xml_.append("  $return 3i:\n");
+        xml_.append("  $return 3i;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         String g_ = StringList.concat("pkg.ExTwo");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
+        
 
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.isEmptyErrors());
@@ -1909,12 +1908,12 @@ public final class AnalyzedOperationNodesTest {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo:ExPar {\n");
         xml_.append(" $public $int get(Integer... i){\n");
-        xml_.append("  $return 2i:\n");
+        xml_.append("  $return 2i;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.ExPar {\n");
         xml_.append(" $public $int get(Number... i){\n");
-        xml_.append("  $return 1i:\n");
+        xml_.append("  $return 1i;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         String g_ = StringList.concat("pkg.ExTwo");
@@ -1937,13 +1936,13 @@ public final class AnalyzedOperationNodesTest {
     public void processEl191Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkgtwo.Apply {\n");
-        xml_.append(" $static {pkg.ExTwo.get:}\n");
+        xml_.append(" $static {pkg.ExTwo.get;}\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.ExTwo:pkgtwo.ExPar {\n");
-        xml_.append("  $public $static $int get:\n");
+        xml_.append("  $public $static $int get;\n");
         xml_.append("}\n");
         xml_.append("$public $class pkgtwo.ExPar {\n");
-        xml_.append("  $static $int get:\n");
+        xml_.append("  $static $int get;\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
@@ -1960,13 +1959,13 @@ public final class AnalyzedOperationNodesTest {
     public void processEl192Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkgtwo.Apply {\n");
-        xml_.append(" $static {pkg.ExTwo.get:}\n");
+        xml_.append(" $static {pkg.ExTwo.get;}\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.ExTwo:pkgtwo.ExPar {\n");
-        xml_.append("  $private $static $int get:\n");
+        xml_.append("  $private $static $int get;\n");
         xml_.append("}\n");
         xml_.append("$public $class pkgtwo.ExPar {\n");
-        xml_.append("  $public $static $int get:\n");
+        xml_.append("  $public $static $int get;\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
@@ -1983,7 +1982,7 @@ public final class AnalyzedOperationNodesTest {
     public void processEl193Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkgtwo.Apply {\n");
-        xml_.append(" $static {$new pkg.ExTwo($vararg($int),$firstopt(0)):}\n");
+        xml_.append(" $static {$new pkg.ExTwo($vararg($int),$firstopt(0));}\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.ExTwo {\n");
         xml_.append("  $public ExTwo($int... v){}\n");
@@ -2009,7 +2008,7 @@ public final class AnalyzedOperationNodesTest {
     public void processEl193FailTest() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkgtwo.Apply {\n");
-        xml_.append(" $static {$new pkg.ExTwo($vararg($int),$null):}\n");
+        xml_.append(" $static {$new pkg.ExTwo($vararg($int),$null);}\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.ExTwo {\n");
         xml_.append("  $public ExTwo($int... v){}\n");
@@ -2023,7 +2022,7 @@ public final class AnalyzedOperationNodesTest {
     public void processEl194Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkgtwo.Apply {\n");
-        xml_.append(" $static {$new pkg.ExTwo(0):}\n");
+        xml_.append(" $static {$new pkg.ExTwo(0);}\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.ExTwo {\n");
         xml_.append("  $public ExTwo($int... v){}\n");
@@ -2032,8 +2031,8 @@ public final class AnalyzedOperationNodesTest {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        
+        
         
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
@@ -2055,7 +2054,7 @@ public final class AnalyzedOperationNodesTest {
     public void processEl195Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkgtwo.Apply {\n");
-        xml_.append(" $static {$new pkg.ExTwo($id(pkg.ExTwo,pkg.ExTwo.Inner),$null):}\n");
+        xml_.append(" $static {$new pkg.ExTwo($id(pkg.ExTwo,pkg.ExTwo.Inner),$null);}\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.ExTwo {\n");
         xml_.append(" $public $class Inner {\n");
@@ -2066,8 +2065,8 @@ public final class AnalyzedOperationNodesTest {
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = new Options();
 
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        
+        
         
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
@@ -2089,7 +2088,7 @@ public final class AnalyzedOperationNodesTest {
     public void processEl196Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkgtwo.Apply {\n");
-        xml_.append(" $static {$new pkg.ExTwo($id(pkg.ExTwo,pkg.ExTwo.Inner<String>),$null):}\n");
+        xml_.append(" $static {$new pkg.ExTwo($id(pkg.ExTwo,pkg.ExTwo.Inner<String>),$null);}\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.ExTwo {\n");
         xml_.append(" $public $class Inner<T> {\n");
@@ -2100,8 +2099,8 @@ public final class AnalyzedOperationNodesTest {
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = new Options();
 
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        
+        
         
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
@@ -2123,7 +2122,7 @@ public final class AnalyzedOperationNodesTest {
     public void processEl197Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkgtwo.Apply {\n");
-        xml_.append(" $static {$new pkg.ExTwo($id(pkg.ExTwo,pkg.ExTwo.Inner),$null):}\n");
+        xml_.append(" $static {$new pkg.ExTwo($id(pkg.ExTwo,pkg.ExTwo.Inner),$null);}\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.ExTwo {\n");
         xml_.append(" $public $static $class Inner {\n");
@@ -2133,9 +2132,9 @@ public final class AnalyzedOperationNodesTest {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
+        
 
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        
         
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
@@ -2157,7 +2156,7 @@ public final class AnalyzedOperationNodesTest {
     public void processEl198Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkgtwo.Apply {\n");
-        xml_.append(" $static {$new pkg.ExTwo($id(pkg.ExTwo,pkg.ExTwo.Inner<String>),$null):}\n");
+        xml_.append(" $static {$new pkg.ExTwo($id(pkg.ExTwo,pkg.ExTwo.Inner<String>),$null);}\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.ExTwo {\n");
         xml_.append(" $public $static $class Inner<T> {\n");
@@ -2167,9 +2166,9 @@ public final class AnalyzedOperationNodesTest {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
+        
 
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        
         
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
@@ -2191,7 +2190,7 @@ public final class AnalyzedOperationNodesTest {
     public void processEl199Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkgtwo.Apply {\n");
-        xml_.append(" $static {$new pkg.ExTwo<String>($id(pkg.ExTwo,pkg.ExTwo<#T>),$null):}\n");
+        xml_.append(" $static {$new pkg.ExTwo<String>($id(pkg.ExTwo,pkg.ExTwo<#T>),$null);}\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.ExTwo<T> {\n");
         xml_.append("  $public ExTwo(pkg.ExTwo<T> v){}\n");
@@ -2199,8 +2198,8 @@ public final class AnalyzedOperationNodesTest {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        
+        
         
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
@@ -2222,7 +2221,7 @@ public final class AnalyzedOperationNodesTest {
     public void processEl200Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkgtwo.Apply {\n");
-        xml_.append(" $static {$new pkg.ExTwo<String>($id(pkg.ExTwo,pkg.ExTwo.Inner),$null):}\n");
+        xml_.append(" $static {$new pkg.ExTwo<String>($id(pkg.ExTwo,pkg.ExTwo.Inner),$null);}\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.ExTwo<T> {\n");
         xml_.append(" $public $static $class Inner {\n");
@@ -2232,9 +2231,9 @@ public final class AnalyzedOperationNodesTest {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
+        
 
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        
         
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
@@ -2256,7 +2255,7 @@ public final class AnalyzedOperationNodesTest {
     public void processEl201Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkgtwo.Apply {\n");
-        xml_.append(" $static {$new pkg.ExTwo($id(pkg.ExTwo,java.lang.String[]),$null):}\n");
+        xml_.append(" $static {$new pkg.ExTwo($id(pkg.ExTwo,java.lang.String[]),$null);}\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.ExTwo {\n");
         xml_.append("  $public ExTwo(java.lang.String[] v){}\n");
@@ -2264,8 +2263,8 @@ public final class AnalyzedOperationNodesTest {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        
+        
         
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
@@ -2287,7 +2286,7 @@ public final class AnalyzedOperationNodesTest {
     public void processEl202Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkgtwo.Apply {\n");
-        xml_.append(" $static {$new pkg.ExTwo<String>($id(pkg.ExTwo,pkg.ExTwo<?>),$null):}\n");
+        xml_.append(" $static {$new pkg.ExTwo<String>($id(pkg.ExTwo,pkg.ExTwo<?>),$null);}\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.ExTwo<T> {\n");
         xml_.append("  $public ExTwo(pkg.ExTwo<?> v){}\n");
@@ -2295,8 +2294,8 @@ public final class AnalyzedOperationNodesTest {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        
+        
         
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
@@ -2318,7 +2317,7 @@ public final class AnalyzedOperationNodesTest {
     public void processEl203Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkgtwo.Apply {\n");
-        xml_.append(" $static {$new pkg.ExTwo<String>($id(pkg.ExTwo,pkg.ExTwo<?Number>),$null):}\n");
+        xml_.append(" $static {$new pkg.ExTwo<String>($id(pkg.ExTwo,pkg.ExTwo<?Number>),$null);}\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.ExTwo<T> {\n");
         xml_.append("  $public ExTwo(pkg.ExTwo<?Number> v){}\n");
@@ -2326,8 +2325,8 @@ public final class AnalyzedOperationNodesTest {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        
+        
         
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
@@ -2349,7 +2348,7 @@ public final class AnalyzedOperationNodesTest {
     public void processEl204Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkgtwo.Apply {\n");
-        xml_.append(" $static {$new pkg.ExTwo<String>($id(pkg.ExTwo,pkg.ExTwo<!Number>),$null):}\n");
+        xml_.append(" $static {$new pkg.ExTwo<String>($id(pkg.ExTwo,pkg.ExTwo<!Number>),$null);}\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.ExTwo<T> {\n");
         xml_.append("  $public ExTwo(pkg.ExTwo<!Number> v){}\n");
@@ -2357,8 +2356,8 @@ public final class AnalyzedOperationNodesTest {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        
+        
         
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
@@ -2380,7 +2379,7 @@ public final class AnalyzedOperationNodesTest {
     public void processEl205Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkgtwo.Apply {\n");
-        xml_.append(" $static {$new pkg.ExTwo<String>($id(pkg.ExTwo,$Fct<$void>),$null):}\n");
+        xml_.append(" $static {$new pkg.ExTwo<String>($id(pkg.ExTwo,$Fct<$void>),$null);}\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.ExTwo<T> {\n");
         xml_.append("  $public ExTwo($Fct<$void> v){}\n");
@@ -2388,8 +2387,8 @@ public final class AnalyzedOperationNodesTest {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        
+        
         
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
@@ -2411,7 +2410,7 @@ public final class AnalyzedOperationNodesTest {
     public void processEl206Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class [pkg.ExTwo;] pkgtwo.Apply {\n");
-        xml_.append(" $static {$new pkg.ExTwo<String>($id(pkg.ExTwo,ExTwo<!Number>),$null):}\n");
+        xml_.append(" $static {$new pkg.ExTwo<String>($id(pkg.ExTwo,ExTwo<!Number>),$null);}\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.ExTwo<T> {\n");
         xml_.append("  $public ExTwo(pkg.ExTwo<!Number> v){}\n");
@@ -2419,8 +2418,8 @@ public final class AnalyzedOperationNodesTest {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        
+        
         
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
@@ -2442,7 +2441,7 @@ public final class AnalyzedOperationNodesTest {
     public void processEl207Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class [pkg.*;] pkgtwo.Apply {\n");
-        xml_.append(" $static {$new pkg.ExTwo<String>($id(pkg.ExTwo,ExTwo<!Number>),$null):}\n");
+        xml_.append(" $static {$new pkg.ExTwo<String>($id(pkg.ExTwo,ExTwo<!Number>),$null);}\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.ExTwo<T> {\n");
         xml_.append("  $public ExTwo(pkg.ExTwo<!Number> v){}\n");
@@ -2450,8 +2449,8 @@ public final class AnalyzedOperationNodesTest {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        
+        
         
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
@@ -2473,7 +2472,7 @@ public final class AnalyzedOperationNodesTest {
     public void processEl208Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class [pkg.ExTwo;] pkgtwo.Apply {\n");
-        xml_.append(" $static {$new pkg.ExTwo<String>($id(pkg.ExTwo,ExTwo<!Number>),$null):}\n");
+        xml_.append(" $static {$new pkg.ExTwo<String>($id(pkg.ExTwo,ExTwo<!Number>),$null);}\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.ExTwo<T> {\n");
         xml_.append("  $public ExTwo(pkg.ExTwo<!Number> v){}\n");
@@ -2481,8 +2480,8 @@ public final class AnalyzedOperationNodesTest {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        
+        
         
         
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
@@ -2505,7 +2504,7 @@ public final class AnalyzedOperationNodesTest {
     public void processEl209Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class [pkg.*;] pkgtwo.Apply {\n");
-        xml_.append(" $static {$new pkg.ExTwo<String>($id(pkg.ExTwo,ExTwo<!Number>),$null):}\n");
+        xml_.append(" $static {$new pkg.ExTwo<String>($id(pkg.ExTwo,ExTwo<!Number>),$null);}\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.ExTwo<T> {\n");
         xml_.append("  $public ExTwo(pkg.ExTwo<!Number> v){}\n");
@@ -2513,8 +2512,8 @@ public final class AnalyzedOperationNodesTest {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        
+        
         
         
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
@@ -2537,7 +2536,7 @@ public final class AnalyzedOperationNodesTest {
     public void processEl210Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class [pkgthree.ExTwo;pkg.ExTwo;] pkgtwo.Apply {\n");
-        xml_.append(" $static {$new pkg.ExTwo<String>($id(pkg.ExTwo,ExTwo<!Number>),$null):}\n");
+        xml_.append(" $static {$new pkg.ExTwo<String>($id(pkg.ExTwo,ExTwo<!Number>),$null);}\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.ExTwo<T> {\n");
         xml_.append("  $public ExTwo(pkg.ExTwo<!Number> v){}\n");
@@ -2545,8 +2544,8 @@ public final class AnalyzedOperationNodesTest {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        
+        
         
         
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
@@ -2569,7 +2568,7 @@ public final class AnalyzedOperationNodesTest {
     public void processEl211Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class [pkgthree.ExTwo;pkg.ExTwo;] pkgtwo.Apply {\n");
-        xml_.append(" $static {$classchoice(ExTwo)m($id(ExTwo,$static)):}\n");
+        xml_.append(" $static {$classchoice(ExTwo)m($id(ExTwo,$static));}\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.ExTwo {\n");
         xml_.append("  $public $static $void m(){}\n");
@@ -2577,8 +2576,8 @@ public final class AnalyzedOperationNodesTest {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        
+        
         
         
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
@@ -2602,7 +2601,7 @@ public final class AnalyzedOperationNodesTest {
     public void processEl212Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class [pkgthree.ExTwo;pkg.ExTwo;] pkgtwo.Apply {\n");
-        xml_.append(" {$classchoice(ExTwo)m($id(ExTwo,$static)):}\n");
+        xml_.append(" {$classchoice(ExTwo)m($id(ExTwo,$static));}\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.ExTwo {\n");
         xml_.append("  $public $static $void m(){}\n");
@@ -2610,8 +2609,8 @@ public final class AnalyzedOperationNodesTest {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        
+        
         
         
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
@@ -2635,7 +2634,7 @@ public final class AnalyzedOperationNodesTest {
     public void processEl213Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class [pkgthree.ExTwo;pkg.ExTwo;] pkgtwo.Apply {\n");
-        xml_.append(" {ExTwo e = $new ExTwo():e;.$classchoice(ExTwo)m($id(ExTwo)):}\n");
+        xml_.append(" {ExTwo e = $new ExTwo();e.$classchoice(ExTwo)m($id(ExTwo));}\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.ExTwo {\n");
         xml_.append("  $public $void m(){}\n");
@@ -2643,8 +2642,8 @@ public final class AnalyzedOperationNodesTest {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        
+        
         
         
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
@@ -2668,7 +2667,7 @@ public final class AnalyzedOperationNodesTest {
     public void processEl214Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class [pkg.ExTwo;] pkgtwo.Apply:ExTwo {\n");
-        xml_.append(" $static {$superaccess(ExTwo)m($id(ExTwo,$static)):}\n");
+        xml_.append(" $static {$superaccess(ExTwo)m($id(ExTwo,$static));}\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.ExTwo {\n");
         xml_.append("  $public $static $void m(){}\n");
@@ -2676,8 +2675,8 @@ public final class AnalyzedOperationNodesTest {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        
+        
         
         
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
@@ -2701,7 +2700,7 @@ public final class AnalyzedOperationNodesTest {
     public void processEl215Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class [pkg.ExTwo;] pkgtwo.Apply:ExTwo {\n");
-        xml_.append(" {$superaccess(ExTwo)m($id(ExTwo,$static)):}\n");
+        xml_.append(" {$superaccess(ExTwo)m($id(ExTwo,$static));}\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.ExTwo {\n");
         xml_.append("  $public $static $void m(){}\n");
@@ -2709,8 +2708,8 @@ public final class AnalyzedOperationNodesTest {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        
+        
         
         
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
@@ -2734,7 +2733,7 @@ public final class AnalyzedOperationNodesTest {
     public void processEl216Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class [pkgthree.ExTwo;pkg.ExTwo;] pkgtwo.Apply {\n");
-        xml_.append(" {ExTwo e = $new ExTwo():e;.$superaccess(ExTwo)m($id(ExTwo)):}\n");
+        xml_.append(" {ExTwo e = $new ExTwo();e.$superaccess(ExTwo)m($id(ExTwo));}\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.ExTwo {\n");
         xml_.append("  $public $void m(){}\n");
@@ -2742,8 +2741,8 @@ public final class AnalyzedOperationNodesTest {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        
+        
         
         
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
@@ -2775,14 +2774,14 @@ public final class AnalyzedOperationNodesTest {
         xml_.append("}\n");
         xml_.append("$public $class pkg.Apply {\n");
         xml_.append(" $static {\n");
-        xml_.append("  $new ExTwo().$classchoice(Apply)m():\n");
+        xml_.append("  $new ExTwo().$classchoice(Apply)m();\n");
         xml_.append(" }\n");
         xml_.append(" $public $static $void m() {}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        
+        
         
         
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
@@ -2814,13 +2813,13 @@ public final class AnalyzedOperationNodesTest {
         xml_.append("}\n");
         xml_.append("$public $class pkg.Apply {\n");
         xml_.append(" $static {\n");
-        xml_.append("  $new ExTwo().$superaccess(ExThree)o():\n");
+        xml_.append("  $new ExTwo().$superaccess(ExThree)o();\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        
+        
         
         
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
@@ -2845,14 +2844,14 @@ public final class AnalyzedOperationNodesTest {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$static pkg.ExThree.get;\n");
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $static {get($null,$null):}\n");
+        xml_.append(" $static {get($null,$null);}\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.ExThree {\n");
         xml_.append(" $private $static $int get(Integer... i){\n");
-        xml_.append("  $return 1i:\n");
+        xml_.append("  $return 1i;\n");
         xml_.append(" }\n");
         xml_.append(" $public $static $int get(Number... i){\n");
-        xml_.append("  $return 1i:\n");
+        xml_.append("  $return 1i;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
@@ -2881,16 +2880,16 @@ public final class AnalyzedOperationNodesTest {
         xml_.append("$static pkg.ExInexistBis.*;\n");
         xml_.append("$static pkg.ExThree.get;\n");
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $static {get($null,$null):}\n");
+        xml_.append(" $static {get($null,$null);}\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.ExThree:pkgtwo.ExFour {\n");
         xml_.append("}\n");
         xml_.append("$public $class pkgtwo.ExFour {\n");
         xml_.append(" $static $int get(Integer... i){\n");
-        xml_.append("  $return 1i:\n");
+        xml_.append("  $return 1i;\n");
         xml_.append(" }\n");
         xml_.append(" $public $static $int get(Number... i){\n");
-        xml_.append("  $return 1i:\n");
+        xml_.append("  $return 1i;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
@@ -2917,13 +2916,13 @@ public final class AnalyzedOperationNodesTest {
         xml_.append("$static;\n");
         xml_.append("$static pkg.ExTwo.get;\n");
         xml_.append("$public $class pkgtwo.Apply {\n");
-        xml_.append(" $static {get:}\n");
+        xml_.append(" $static {get;}\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.ExTwo:pkgtwo.ExPar {\n");
-        xml_.append("  $public $static $int get:\n");
+        xml_.append("  $public $static $int get;\n");
         xml_.append("}\n");
         xml_.append("$public $class pkgtwo.ExPar {\n");
-        xml_.append("  $static $int get:\n");
+        xml_.append("  $static $int get;\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
@@ -2942,15 +2941,15 @@ public final class AnalyzedOperationNodesTest {
         xml_.append("$static pkgtwo.ExPar.*;\n");
         xml_.append("$static pkgtwo.ExTwo.*;\n");
         xml_.append("$public $class pkg.Apply {\n");
-        xml_.append(" $static {one:}\n");
+        xml_.append(" $static {one;}\n");
         xml_.append("}\n");
         xml_.append("$public $class pkgtwo.ExPar {\n");
-        xml_.append("  $public $static $int one:\n");
-        xml_.append("  $static $int two:\n");
+        xml_.append("  $public $static $int one;\n");
+        xml_.append("  $static $int two;\n");
         xml_.append("}\n");
         xml_.append("$public $class pkgtwo.ExTwo {\n");
-        xml_.append("  $static $int one:\n");
-        xml_.append("  $public $static $int two:\n");
+        xml_.append("  $static $int one;\n");
+        xml_.append("  $public $static $int two;\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
@@ -2969,15 +2968,15 @@ public final class AnalyzedOperationNodesTest {
         xml_.append("$static pkgtwo.ExPar.*;\n");
         xml_.append("$static pkgtwo.ExTwo.*;\n");
         xml_.append("$public $class pkg.Apply {\n");
-        xml_.append(" $static {one:}\n");
+        xml_.append(" $static {one;}\n");
         xml_.append("}\n");
         xml_.append("$public $class pkgtwo.ExPar {\n");
-        xml_.append("  $public $static $int one:\n");
-        xml_.append("  $static $int two:\n");
+        xml_.append("  $public $static $int one;\n");
+        xml_.append("  $static $int two;\n");
         xml_.append("}\n");
         xml_.append("$public $class pkgtwo.ExTwo {\n");
-        xml_.append("  $public $int one:\n");
-        xml_.append("  $public $static $int two:\n");
+        xml_.append("  $public $int one;\n");
+        xml_.append("  $public $static $int two;\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
@@ -2994,7 +2993,7 @@ public final class AnalyzedOperationNodesTest {
     public void processEl224Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Apply {\n");
-        xml_.append(" $static {$new pkg.ExTwo($id(pkg.ExTwo,ExTwo),$null):}\n");
+        xml_.append(" $static {$new pkg.ExTwo($id(pkg.ExTwo,ExTwo),$null);}\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.ExTwo {\n");
         xml_.append(" $public $class Inner {\n");
@@ -3004,8 +3003,8 @@ public final class AnalyzedOperationNodesTest {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        
+        
         
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
@@ -3027,7 +3026,7 @@ public final class AnalyzedOperationNodesTest {
     public void processEl225Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Apply {\n");
-        xml_.append(" $static {$new pkg.ExTwo($id(pkg.ExTwo,ExTwo),$null):}\n");
+        xml_.append(" $static {$new pkg.ExTwo($id(pkg.ExTwo,ExTwo),$null);}\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.ExTwo {\n");
         xml_.append(" $public $class Inner {\n");
@@ -3037,8 +3036,8 @@ public final class AnalyzedOperationNodesTest {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        
+        
         
         
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
@@ -3063,7 +3062,7 @@ public final class AnalyzedOperationNodesTest {
         xml_.append("$static;\n");
         xml_.append("$static pkg.ExTwo.Inner;\n");
         xml_.append("$public $class pkgtwo.Apply {\n");
-        xml_.append(" $static {$new pkg.ExTwo($id(pkg.ExTwo,Inner),$null):}\n");
+        xml_.append(" $static {$new pkg.ExTwo($id(pkg.ExTwo,Inner),$null);}\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.ExTwo {\n");
         xml_.append(" $public $static $class Inner {\n");
@@ -3073,8 +3072,8 @@ public final class AnalyzedOperationNodesTest {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        
+        
         
         
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
@@ -3099,7 +3098,7 @@ public final class AnalyzedOperationNodesTest {
         xml_.append("$static;\n");
         xml_.append("$static pkg.ExTwo.*;\n");
         xml_.append("$public $class pkgtwo.Apply {\n");
-        xml_.append(" $static {$new pkg.ExTwo($id(pkg.ExTwo,Inner),$null):}\n");
+        xml_.append(" $static {$new pkg.ExTwo($id(pkg.ExTwo,Inner),$null);}\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.ExTwo {\n");
         xml_.append(" $public $static $class Inner {\n");
@@ -3109,8 +3108,8 @@ public final class AnalyzedOperationNodesTest {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        
+        
         
         
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
@@ -3134,8 +3133,8 @@ public final class AnalyzedOperationNodesTest {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$static pkg.ExTwo.Inner;\n");
         xml_.append("$operator-- Object(pkg.ExTwo p){\n");
-        xml_.append(" $new pkg.ExTwo($id(pkg.ExTwo,Inner),$null):\n");
-        xml_.append(" $return $null:\n");
+        xml_.append(" $new pkg.ExTwo($id(pkg.ExTwo,Inner),$null);\n");
+        xml_.append(" $return $null;\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.ExTwo {\n");
         xml_.append(" $public $static $class Inner {\n");
@@ -3145,8 +3144,8 @@ public final class AnalyzedOperationNodesTest {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        
+        
         
         
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
@@ -3170,8 +3169,8 @@ public final class AnalyzedOperationNodesTest {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$static pkg.ExTwo.*;\n");
         xml_.append("$operator* Object(pkg.ExTwo p){\n");
-        xml_.append(" $new pkg.ExTwo($id(pkg.ExTwo,Inner),$null):\n");
-        xml_.append(" $return $null:\n");
+        xml_.append(" $new pkg.ExTwo($id(pkg.ExTwo,Inner),$null);\n");
+        xml_.append(" $return $null;\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.ExTwo {\n");
         xml_.append(" $public $static $class Inner {\n");
@@ -3181,8 +3180,8 @@ public final class AnalyzedOperationNodesTest {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        
+        
         
         
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
@@ -3205,14 +3204,14 @@ public final class AnalyzedOperationNodesTest {
     public void processEl230Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $static {\" \".charAt($id(CharSequence,$int),0):}\n");
+        xml_.append(" $static {\" \".charAt($id(CharSequence,$int),0);}\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
+        
 
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.isEmptyErrors());
@@ -3221,14 +3220,14 @@ public final class AnalyzedOperationNodesTest {
     public void processEl2300Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $static {$var c = \" \": c;.charAt($id(CharSequence,$int),0):}\n");
+        xml_.append(" $static {$var c = \" \"; c.charAt($id(CharSequence,$int),0);}\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
+        
 
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.isEmptyErrors());
@@ -3252,8 +3251,8 @@ public final class AnalyzedOperationNodesTest {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$class pkgtwo.ExClass {\n");
         xml_.append(" $private $static $final String multi=`\n");
-        xml_.append("  static {``next\"// /*\t)`,line=`now\nreturn to line\n``but capture all`:\n");
-        xml_.append(" $private $static $final String single=\"`\":\n");
+        xml_.append("  static {``next\"// /*\t)`,line=`now\nreturn to line\n``but capture all`;\n");
+        xml_.append(" $private $static $final String single=\"`\";\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
@@ -3274,7 +3273,7 @@ public final class AnalyzedOperationNodesTest {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$class pkgtwo.ExClass {\n");
         xml_.append(" $private $static $final String multi=`\n");
-        xml_.append("  static {``next\"// /*\t)`,line=`now\nreturn to line\n``but capture all`:\n");
+        xml_.append("  static {``next\"// /*\t)`,line=`now\nreturn to line\n``but capture all`;\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
@@ -3291,7 +3290,7 @@ public final class AnalyzedOperationNodesTest {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$class pkgtwo.ExClass {\n");
         xml_.append(" $private $static $final String multi=`\n");
-        xml_.append("  static {``next\"// /*\t)`:\n");
+        xml_.append("  static {``next\"// /*\t)`;\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
@@ -3308,7 +3307,7 @@ public final class AnalyzedOperationNodesTest {
         xml_.append("pkg.Ex;\n");
         xml_.append("pkg.ExTwo;\n");
         xml_.append("$public $class pkgtwo.Toto {\n");
-        xml_.append("\t$private String myf=\"ValueOne\",mys=\"ValueTwo\":\n");
+        xml_.append("\t$private String myf=\"ValueOne\",mys=\"ValueTwo\";\n");
         xml_.append("}");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
@@ -3324,7 +3323,7 @@ public final class AnalyzedOperationNodesTest {
     public void processEl235Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class [pkg.*;] pkgtwo.Apply:ExTwo {\n");
-        xml_.append(" {$superaccess(ExTwo)m($id(ExTwo,$static)):}\n");
+        xml_.append(" {$superaccess(ExTwo)m($id(ExTwo,$static));}\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.ExTwo {\n");
         xml_.append("  $public $static $void m(){}\n");
@@ -3332,8 +3331,8 @@ public final class AnalyzedOperationNodesTest {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        
+        
         
         
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
@@ -3357,7 +3356,7 @@ public final class AnalyzedOperationNodesTest {
     public void processEl236Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class [pkg.*;] pkgtwo.Apply:ExTwo {\n");
-        xml_.append(" {$superaccess(ExTwo)m($id(ExTwo,$static)):}\n");
+        xml_.append(" {$superaccess(ExTwo)m($id(ExTwo,$static));}\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.ExTwo {\n");
         xml_.append("  $public $static $void m(){}\n");
@@ -3365,8 +3364,8 @@ public final class AnalyzedOperationNodesTest {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        
+        
         
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
@@ -3389,7 +3388,7 @@ public final class AnalyzedOperationNodesTest {
     public void processEl237Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class [pkg.*;] pkgtwo.Apply:ExTwo<String> {\n");
-        xml_.append(" {$superaccess(ExTwo<?>)m($id(ExTwo,$static)):}\n");
+        xml_.append(" {$superaccess(ExTwo<?>)m($id(ExTwo,$static));}\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.ExTwo<T> {\n");
         xml_.append("  $public $static $void m(){}\n");
@@ -3397,8 +3396,8 @@ public final class AnalyzedOperationNodesTest {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        
+        
         
         
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
@@ -3422,7 +3421,7 @@ public final class AnalyzedOperationNodesTest {
     public void processEl238est() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class [pkg.*;] pkgtwo.Apply:ExTwo<String> {\n");
-        xml_.append(" {$superaccess(ExTwo<?>)m($id(ExTwo,$static)):}\n");
+        xml_.append(" {$superaccess(ExTwo<?>)m($id(ExTwo,$static));}\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.ExTwo<T> {\n");
         xml_.append("  $public $static $void m(){}\n");
@@ -3430,8 +3429,8 @@ public final class AnalyzedOperationNodesTest {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        
+        
         
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
@@ -3454,7 +3453,7 @@ public final class AnalyzedOperationNodesTest {
     public void processEl239Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class [pkg.*;] pkgtwo.Apply:ExTwo<Strin> {\n");
-        xml_.append(" {$superaccess(ExTwo<?>)m($id(ExTwo,$static)):}\n");
+        xml_.append(" {$superaccess(ExTwo<?>)m($id(ExTwo,$static));}\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.ExTwo<T> {\n");
         xml_.append("  $public $static $void m(){}\n");
@@ -3462,8 +3461,8 @@ public final class AnalyzedOperationNodesTest {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        
+        
         
         
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
@@ -3474,7 +3473,7 @@ public final class AnalyzedOperationNodesTest {
     public void processEl240Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class [pkg.Ex;] pkgtwo.Apply:pkg.ExTwo {\n");
-        xml_.append(" {$superaccess(Ex)m($id(Ex,$static)):}\n");
+        xml_.append(" {$superaccess(Ex)m($id(Ex,$static));}\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.ExTwo {\n");
         xml_.append("  $public $static $void m(){}\n");
@@ -3482,8 +3481,8 @@ public final class AnalyzedOperationNodesTest {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        
+        
 
         
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
@@ -3494,7 +3493,7 @@ public final class AnalyzedOperationNodesTest {
     public void processEl242est() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class [pkg.*;] pkgtwo.Apply:ExTwo<Strin> {\n");
-        xml_.append(" {$superaccess(ExTwo<?>)m($id(ExTwo,$static)):}\n");
+        xml_.append(" {$superaccess(ExTwo<?>)m($id(ExTwo,$static));}\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.ExTwo<T> {\n");
         xml_.append("  $public $static $void m(){}\n");
@@ -3502,8 +3501,8 @@ public final class AnalyzedOperationNodesTest {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        
+        
         
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
@@ -3513,17 +3512,17 @@ public final class AnalyzedOperationNodesTest {
     public void processEl243Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class [pkgthree.ExTwo;pkg.ExTwo;] pkgtwo.Apply {\n");
-        xml_.append(" $static {ExTwo e = $null:e;.$superaccess(ExTwo)m($id(ExTwo,$static)):}\n");
+        xml_.append(" $static {ExTwo e = $null;e.$superaccess(ExTwo)m($id(ExTwo,$static));}\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append("  $public $static $int i:\n");
+        xml_.append("  $public $static $int i;\n");
         xml_.append("  $public $static $void m(){}\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        
+        
         
         
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
@@ -3547,14 +3546,14 @@ public final class AnalyzedOperationNodesTest {
     public void processEl244Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $static {` `.charAt($id(CharSequence,$int),0):}\n");
+        xml_.append(" $static {` `.charAt($id(CharSequence,$int),0);}\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
+        
 
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.isEmptyErrors());
@@ -3563,14 +3562,14 @@ public final class AnalyzedOperationNodesTest {
     public void processEl2440Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $static {$var c=` `:c;.charAt($id(CharSequence,$int),0):}\n");
+        xml_.append(" $static {$var c=` `;c.charAt($id(CharSequence,$int),0);}\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
+        
 
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.isEmptyErrors());
@@ -3593,14 +3592,14 @@ public final class AnalyzedOperationNodesTest {
     public void processEl245Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $static {' '+\" \".charAt($id(CharSequence,$int),0):}\n");
+        xml_.append(" $static {' '+\" \".charAt($id(CharSequence,$int),0);}\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
+        
 
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.isEmptyErrors());
@@ -3609,14 +3608,14 @@ public final class AnalyzedOperationNodesTest {
     public void processEl2450Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $static {$var c =' '+\" \":c;.charAt($id(CharSequence,$int),0):}\n");
+        xml_.append(" $static {$var c =' '+\" \";c.charAt($id(CharSequence,$int),0);}\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
+        
 
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.isEmptyErrors());
@@ -3639,21 +3638,21 @@ public final class AnalyzedOperationNodesTest {
     public void processEl2451Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkgtwo.Apply {\n");
-        xml_.append(" $static {$new pkg.ExTwo().method():}\n");
+        xml_.append(" $static {$new pkg.ExTwo().method();}\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.ExTwo:IntOne:IntTwo {\n");
         xml_.append("}\n");
         xml_.append("$public $interface pkg.IntOne {\n");
-        xml_.append("  $final $int method(){$return 0:}\n");
+        xml_.append("  $final $int method(){$return 0;}\n");
         xml_.append("}\n");
         xml_.append("$public $interface pkg.IntTwo {\n");
-        xml_.append("  $int method():\n");
+        xml_.append("  $int method();\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        
+        
 
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
@@ -3676,15 +3675,15 @@ public final class AnalyzedOperationNodesTest {
     public void processEl2452Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Apply {\n");
-        xml_.append(" $static {ExEnum.values($id(ExEnum,$static)):}\n");
+        xml_.append(" $static {ExEnum.values($id(ExEnum,$static));}\n");
         xml_.append("}\n");
         xml_.append("$public $enum pkg.ExEnum {\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        
+        
 
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
@@ -3741,10 +3740,10 @@ public final class AnalyzedOperationNodesTest {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo<#T:java.lang.Number,#V:java.lang.Number> {\n");
         xml_.append(" $public $normal $int get(#V i){\n");
-        xml_.append("  $return 2i:\n");
+        xml_.append("  $return 2i;\n");
         xml_.append(" }\n");
         xml_.append(" $public $normal $int get(#T i){\n");
-        xml_.append("  $return 1i:\n");
+        xml_.append("  $return 1i;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         String g_ = StringList.concat("pkg.ExTwo<?,?>");
@@ -3755,10 +3754,10 @@ public final class AnalyzedOperationNodesTest {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo<#T:java.lang.Number,#V:java.lang.Number> {\n");
         xml_.append(" $public $normal $int get(#V... i){\n");
-        xml_.append("  $return 2i:\n");
+        xml_.append("  $return 2i;\n");
         xml_.append(" }\n");
         xml_.append(" $public $normal $int get(#T... i){\n");
-        xml_.append("  $return 1i:\n");
+        xml_.append("  $return 1i;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         String g_ = StringList.concat("pkg.ExTwo<?,?>");
@@ -3769,10 +3768,10 @@ public final class AnalyzedOperationNodesTest {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo<#T:java.lang.Number,#V:java.lang.Number> {\n");
         xml_.append(" $public $normal $int get(#V... i){\n");
-        xml_.append("  $return 2i:\n");
+        xml_.append("  $return 2i;\n");
         xml_.append(" }\n");
         xml_.append(" $public $normal $int get(#T... i){\n");
-        xml_.append("  $return 1i:\n");
+        xml_.append("  $return 1i;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         String g_ = StringList.concat("pkg.ExTwo<?,?>");
@@ -3783,11 +3782,11 @@ public final class AnalyzedOperationNodesTest {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $static $int b:\n");
-        xml_.append(" $static $int c:\n");
-        xml_.append(" $static $int d:\n");
+        xml_.append(" $static $int b;\n");
+        xml_.append(" $static $int c;\n");
+        xml_.append(" $static $int d;\n");
         xml_.append(" $static{\n");
-        xml_.append("  Object a = b < c < d:\n");
+        xml_.append("  Object a = b < c < d;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
@@ -3799,7 +3798,7 @@ public final class AnalyzedOperationNodesTest {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
         xml_.append(" $static{\n");
-        xml_.append("  Object a = :\n");
+        xml_.append("  Object a = ;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
@@ -3811,7 +3810,7 @@ public final class AnalyzedOperationNodesTest {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
         xml_.append(" $static{\n");
-        xml_.append("  Object a = -:\n");
+        xml_.append("  Object a = -;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
@@ -3822,10 +3821,10 @@ public final class AnalyzedOperationNodesTest {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $static $int b:\n");
-        xml_.append(" $static $int c:\n");
+        xml_.append(" $static $int b;\n");
+        xml_.append(" $static $int c;\n");
         xml_.append(" $static{\n");
-        xml_.append("  Object a = b++c:\n");
+        xml_.append("  Object a = b++c;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
@@ -3836,9 +3835,9 @@ public final class AnalyzedOperationNodesTest {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $static $int[][] b:\n");
+        xml_.append(" $static $int[][] b;\n");
         xml_.append(" $static{\n");
-        xml_.append("  Object a = b[0]1[2]:\n");
+        xml_.append("  Object a = b[0]1[2];\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
@@ -3850,7 +3849,7 @@ public final class AnalyzedOperationNodesTest {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
         xml_.append(" $static{\n");
-        xml_.append("  Object a = $new $int[0]1[2]:\n");
+        xml_.append("  Object a = $new $int[0]1[2];\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
@@ -3861,10 +3860,10 @@ public final class AnalyzedOperationNodesTest {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo<#T:java.lang.Number,#V:java.lang.Number> {\n");
         xml_.append(" $public $normal $int get(Number i){\n");
-        xml_.append("  $return 2i:\n");
+        xml_.append("  $return 2i;\n");
         xml_.append(" }\n");
         xml_.append(" $public $normal $int get(String i){\n");
-        xml_.append("  $return 1i:\n");
+        xml_.append("  $return 1i;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         analyzeIndirectLocalVars("myvar.get($null)", "myvar", "pkg.ExTwo<?,?>", xml_.toString(), true);
@@ -3882,7 +3881,7 @@ public final class AnalyzedOperationNodesTest {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
         xml_.append(" $static{\n");
-        xml_.append("  Object a = 1 ! 2:\n");
+        xml_.append("  Object a = 1 ! 2;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
@@ -3894,7 +3893,7 @@ public final class AnalyzedOperationNodesTest {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
         xml_.append(" $static{\n");
-        xml_.append("  Object a = get(,):\n");
+        xml_.append("  Object a = get(,);\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
@@ -3906,9 +3905,9 @@ public final class AnalyzedOperationNodesTest {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
         xml_.append(" $static{\n");
-        xml_.append("  ($static(ExTwo)).(call()):\n");
+        xml_.append("  ($static(ExTwo)).(call());\n");
         xml_.append(" }\n");
-        xml_.append(" $static $int call(){$return 0:}\n");
+        xml_.append(" $static $int call(){$return 0;}\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         contextEl(files_, true);
@@ -3919,7 +3918,7 @@ public final class AnalyzedOperationNodesTest {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $interface pkg.ExTwo {\n");
         xml_.append(" $public ExTwo(){\n");
-        xml_.append("  $super():\n");
+        xml_.append("  $super();\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
@@ -3931,7 +3930,7 @@ public final class AnalyzedOperationNodesTest {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
         xml_.append(" $static{\n");
-        xml_.append("  $int a = $true:\n");
+        xml_.append("  $int a = $true;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
@@ -3943,7 +3942,7 @@ public final class AnalyzedOperationNodesTest {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
         xml_.append(" $static{\n");
-        xml_.append("  Object a = !1:\n");
+        xml_.append("  Object a = !1;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
@@ -3955,7 +3954,7 @@ public final class AnalyzedOperationNodesTest {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
         xml_.append(" $static{\n");
-        xml_.append("  Object a = '':\n");
+        xml_.append("  Object a = '';\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
@@ -3967,7 +3966,7 @@ public final class AnalyzedOperationNodesTest {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
         xml_.append(" $static{\n");
-        xml_.append("  Object a = 0x123456789123456789:\n");
+        xml_.append("  Object a = 0x123456789123456789;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
@@ -3978,12 +3977,12 @@ public final class AnalyzedOperationNodesTest {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $interface pkg.ExThree {\n");
         xml_.append(" $public $normal String get(Integer... i){\n");
-        xml_.append("  $return \"\":\n");
+        xml_.append("  $return \"\";\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         xml_.append("$public $interface pkg.ExTwo {\n");
         xml_.append(" $public $normal Number get(Integer... i){\n");
-        xml_.append("  $return 2i:\n");
+        xml_.append("  $return 2i;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         xml_.append("$public $abstract $class pkg.ExFour:ExThree:ExTwo {\n");
@@ -3996,12 +3995,12 @@ public final class AnalyzedOperationNodesTest {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $interface pkg.ExThree {\n");
         xml_.append(" $public $normal String get(Integer... i){\n");
-        xml_.append("  $return $null:\n");
+        xml_.append("  $return $null;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         xml_.append("$public $interface pkg.ExTwo {\n");
         xml_.append(" $public $normal Number get(Integer... i){\n");
-        xml_.append("  $return $null:\n");
+        xml_.append("  $return $null;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         xml_.append("$public $abstract $class pkg.ExFour:ExTwo:ExThree {\n");
@@ -4015,12 +4014,12 @@ public final class AnalyzedOperationNodesTest {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $interface pkg.ExThree {\n");
         xml_.append(" $public $normal $int get(Integer... i){\n");
-        xml_.append("  $return 1i:\n");
+        xml_.append("  $return 1i;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         xml_.append("$public $interface pkg.ExTwo {\n");
         xml_.append(" $public $normal $int get(Integer... i){\n");
-        xml_.append("  $return 2i:\n");
+        xml_.append("  $return 2i;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         xml_.append("$public $abstract $class pkg.ExFour:ExTwo:ExThree {\n");
@@ -4034,12 +4033,12 @@ public final class AnalyzedOperationNodesTest {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $interface pkg.ExThree {\n");
         xml_.append(" $public $normal String get(Integer... i){\n");
-        xml_.append("  $return $null:\n");
+        xml_.append("  $return $null;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         xml_.append("$public $interface pkg.ExTwo:ExThree {\n");
         xml_.append(" $public $normal Number get(Integer... i){\n");
-        xml_.append("  $return $null:\n");
+        xml_.append("  $return $null;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         xml_.append("$public $abstract $class pkg.ExFour:ExTwo {\n");
@@ -4053,12 +4052,12 @@ public final class AnalyzedOperationNodesTest {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $interface pkg.ExThree {\n");
         xml_.append(" $public $normal String get(Integer... i){\n");
-        xml_.append("  $return $null:\n");
+        xml_.append("  $return $null;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         xml_.append("$public $interface pkg.ExTwo:ExThree {\n");
         xml_.append(" $public $normal Number get(Integer... i){\n");
-        xml_.append("  $return $null:\n");
+        xml_.append("  $return $null;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         xml_.append("$public $abstract $class pkg.ExFour:ExThree:ExTwo {\n");
@@ -4072,12 +4071,12 @@ public final class AnalyzedOperationNodesTest {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkgtwo.Apply {\n");
         xml_.append(" $static {\n");
-        xml_.append("  pkg.ExTwo<?> v = $null:\n");
-        xml_.append("  v;.get = $null:\n");
+        xml_.append("  pkg.ExTwo<?> v = $null;\n");
+        xml_.append("  v.get = $null;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.ExTwo<T> {\n");
-        xml_.append("  $public T get:\n");
+        xml_.append("  $public T get;\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
@@ -4088,10 +4087,10 @@ public final class AnalyzedOperationNodesTest {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExThree {\n");
         xml_.append(" $public $static String get(String i){\n");
-        xml_.append("  $return $null:\n");
+        xml_.append("  $return $null;\n");
         xml_.append(" }\n");
         xml_.append(" $public $static Number get(Number i){\n");
-        xml_.append("  $return $null:\n");
+        xml_.append("  $return $null;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         String g_ = StringList.concat("pkg.ExThree");
@@ -4103,7 +4102,7 @@ public final class AnalyzedOperationNodesTest {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkgtwo.Apply {\n");
         xml_.append(" $static {\n");
-        xml_.append("  $new pkg.ExTwo(m()):\n");
+        xml_.append("  $new pkg.ExTwo(m());\n");
         xml_.append(" }\n");
         xml_.append(" $static $void m(){}\n");
         xml_.append("}\n");
@@ -4117,7 +4116,7 @@ public final class AnalyzedOperationNodesTest {
     public void processEl125FailTest() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkgtwo.Apply {\n");
-        xml_.append(" $static {$new pkg.ExTwo($null):}\n");
+        xml_.append(" $static {$new pkg.ExTwo($null);}\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.ExTwo {\n");
         xml_.append("  $public ExTwo(String v){}\n");
@@ -4126,8 +4125,8 @@ public final class AnalyzedOperationNodesTest {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        
+        
         
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
@@ -4137,7 +4136,7 @@ public final class AnalyzedOperationNodesTest {
     public void processEl126FailTest() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkgtwo.Apply {\n");
-        xml_.append(" $static {$new pkg.ExTwo($null):}\n");
+        xml_.append(" $static {$new pkg.ExTwo($null);}\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.ExTwo {\n");
         xml_.append("  $public ExTwo(String v){}\n");
@@ -4146,8 +4145,8 @@ public final class AnalyzedOperationNodesTest {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        
+        
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
         assertTrue(!cont_.isEmptyErrors());
@@ -4157,8 +4156,8 @@ public final class AnalyzedOperationNodesTest {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$static pkg.ExTwo.*;\n");
         xml_.append("$operator* Object(pkg.ExTwo p){\n");
-        xml_.append(" Inner i:\n");
-        xml_.append(" $return $null:\n");
+        xml_.append(" Inner i;\n");
+        xml_.append(" $return $null;\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.ExTwo {\n");
         xml_.append(" $static $class Inner {\n");
@@ -4168,8 +4167,8 @@ public final class AnalyzedOperationNodesTest {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        
+        
         
         
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
@@ -4181,8 +4180,8 @@ public final class AnalyzedOperationNodesTest {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$static pkg.ExTwo.*;\n");
         xml_.append("$operator* Object(pkg.ExTwo p){\n");
-        xml_.append(" Inner i:\n");
-        xml_.append(" $return $null:\n");
+        xml_.append(" Inner i;\n");
+        xml_.append(" $return $null;\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.ExTwo {\n");
         xml_.append(" $package $static $class Inner {\n");
@@ -4192,8 +4191,8 @@ public final class AnalyzedOperationNodesTest {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        
+        
         
         
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
@@ -4209,8 +4208,8 @@ public final class AnalyzedOperationNodesTest {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        
+        
         
         
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
@@ -4226,8 +4225,8 @@ public final class AnalyzedOperationNodesTest {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        
+        
         
         
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
@@ -4364,7 +4363,7 @@ public final class AnalyzedOperationNodesTest {
     public void processEl128FailTest() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkgtwo.Apply {\n");
-        xml_.append(" $static {$new pkg.ExTwo($id(pkg.ExTwo,pkg.ExTwo..Inner),$null):}\n");
+        xml_.append(" $static {$new pkg.ExTwo($id(pkg.ExTwo,pkg.ExTwo..Inner),$null);}\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.ExTwo {\n");
         xml_.append(" $public $class InnerTwo {\n");
@@ -4373,8 +4372,8 @@ public final class AnalyzedOperationNodesTest {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        
+        
         
         
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
@@ -4385,7 +4384,7 @@ public final class AnalyzedOperationNodesTest {
     public void processEl129FailTest() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkgtwo.Apply {\n");
-        xml_.append(" $static {$new pkg.ExTwo($id(pkg.ExTwo,pkg.Inner),$null):}\n");
+        xml_.append(" $static {$new pkg.ExTwo($id(pkg.ExTwo,pkg.Inner),$null);}\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.ExTwo {\n");
         xml_.append(" $public $class InnerTwo {\n");
@@ -4394,8 +4393,8 @@ public final class AnalyzedOperationNodesTest {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        
+        
         
         
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
@@ -4406,15 +4405,15 @@ public final class AnalyzedOperationNodesTest {
     public void processEl140FailTest() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkgtwo.Apply {\n");
-        xml_.append(" $static {$new pkg.ExTwo<Number>($id(pkg.ExTwo,pkg.ExTwo<$void>),$null):}\n");
+        xml_.append(" $static {$new pkg.ExTwo<Number>($id(pkg.ExTwo,pkg.ExTwo<$void>),$null);}\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.ExTwo<T> {\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        
+        
         
         
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
@@ -4425,15 +4424,15 @@ public final class AnalyzedOperationNodesTest {
     public void processEl141FailTest() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkgtwo.Apply {\n");
-        xml_.append(" $static {$new pkg.ExTwo($id(pkg.ExTwo,$Fct<$void,Number>),$null):}\n");
+        xml_.append(" $static {$new pkg.ExTwo($id(pkg.ExTwo,$Fct<$void,Number>),$null);}\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.ExTwo {\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        
+        
         
         
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
@@ -4444,7 +4443,7 @@ public final class AnalyzedOperationNodesTest {
     public void processEl142FailTest() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkgtwo.Apply {\n");
-        xml_.append(" $static {$new pkg.ExTwo<Number>($id(pkg.ExTwo,pkg.ExTwo.InnerTwo),$null):}\n");
+        xml_.append(" $static {$new pkg.ExTwo<Number>($id(pkg.ExTwo,pkg.ExTwo.InnerTwo),$null);}\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.ExTwo<T> {\n");
         xml_.append(" $public $class InnerTwo {\n");
@@ -4453,8 +4452,8 @@ public final class AnalyzedOperationNodesTest {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        
+        
         
         
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
@@ -4465,7 +4464,7 @@ public final class AnalyzedOperationNodesTest {
     public void processEl143FailTest() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkgtwo.Apply<S> {\n");
-        xml_.append(" $static {$new pkg.ExTwo<Number>($id(pkg.ExTwo,#S),$null):}\n");
+        xml_.append(" $static {$new pkg.ExTwo<Number>($id(pkg.ExTwo,#S),$null);}\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.ExTwo<T> {\n");
         xml_.append(" $public $class InnerTwo {\n");
@@ -4474,8 +4473,8 @@ public final class AnalyzedOperationNodesTest {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        
+        
         
         
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
@@ -4486,7 +4485,7 @@ public final class AnalyzedOperationNodesTest {
     public void processEl144FailTest() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkgtwo.Apply<S> {\n");
-        xml_.append(" $static {$new pkg.ExTwo<Number>($id(pkg.ExTwo,#S<Number>),$null):}\n");
+        xml_.append(" $static {$new pkg.ExTwo<Number>($id(pkg.ExTwo,#S<Number>),$null);}\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.ExTwo<T> {\n");
         xml_.append(" $public $class InnerTwo {\n");
@@ -4495,8 +4494,8 @@ public final class AnalyzedOperationNodesTest {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        
+        
         
         
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
@@ -4507,7 +4506,7 @@ public final class AnalyzedOperationNodesTest {
     public void processEl145FailTest() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkgtwo.Apply<S> {\n");
-        xml_.append(" $static {$new pkg.ExTwo<Number>($id(pkg.ExTwo,#S..Number),$null):}\n");
+        xml_.append(" $static {$new pkg.ExTwo<Number>($id(pkg.ExTwo,#S..Number),$null);}\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.ExTwo<T> {\n");
         xml_.append(" $public $class InnerTwo {\n");
@@ -4516,8 +4515,8 @@ public final class AnalyzedOperationNodesTest {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        
+        
         
         
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
@@ -4528,7 +4527,7 @@ public final class AnalyzedOperationNodesTest {
     public void processEl146FailTest() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkgtwo.Apply {\n");
-        xml_.append(" $static {$new pkg.ExTwo($id(pkg.ExTwo,pkg.ExTwo.Inner),$null):}\n");
+        xml_.append(" $static {$new pkg.ExTwo($id(pkg.ExTwo,pkg.ExTwo.Inner),$null);}\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.ExTwo {\n");
         xml_.append(" $public $class InnerTwo {\n");
@@ -4537,8 +4536,8 @@ public final class AnalyzedOperationNodesTest {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        
+        
         
         
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
@@ -4549,7 +4548,7 @@ public final class AnalyzedOperationNodesTest {
     public void processEl147FailTest() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkgtwo.Apply<S> {\n");
-        xml_.append(" $static {$new pkg.ExTwo<Number>($id(pkg.ExTwo,?Number),$null):}\n");
+        xml_.append(" $static {$new pkg.ExTwo<Number>($id(pkg.ExTwo,?Number),$null);}\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.ExTwo<T> {\n");
         xml_.append(" $public $class InnerTwo {\n");
@@ -4558,8 +4557,8 @@ public final class AnalyzedOperationNodesTest {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        
+        
         
         
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
@@ -4570,7 +4569,7 @@ public final class AnalyzedOperationNodesTest {
     public void processEl148FailTest() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkgtwo.Apply<S> {\n");
-        xml_.append(" $static {$new pkg.ExTwo<Number>($id(pkg.ExTwo,!),$null):}\n");
+        xml_.append(" $static {$new pkg.ExTwo<Number>($id(pkg.ExTwo,!),$null);}\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.ExTwo<T> {\n");
         xml_.append(" $public $class InnerTwo {\n");
@@ -4579,8 +4578,8 @@ public final class AnalyzedOperationNodesTest {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        
+        
         
         
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
@@ -4591,7 +4590,7 @@ public final class AnalyzedOperationNodesTest {
     public void processEl149FailTest() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkgtwo.Apply<S> {\n");
-        xml_.append(" $static {$new pkg.ExTwo<Number>($id(pkg.ExTwo,?),$null):}\n");
+        xml_.append(" $static {$new pkg.ExTwo<Number>($id(pkg.ExTwo,?),$null);}\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.ExTwo<T> {\n");
         xml_.append(" $public $class InnerTwo {\n");
@@ -4600,8 +4599,8 @@ public final class AnalyzedOperationNodesTest {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        
+        
         
         
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
@@ -4612,7 +4611,7 @@ public final class AnalyzedOperationNodesTest {
     public void processEl150FailTest() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkgtwo.Apply<S> {\n");
-        xml_.append(" $static {$new pkg.ExTwo<Number>($id(pkg.ExTwo,$Fct<?Number>),$null):}\n");
+        xml_.append(" $static {$new pkg.ExTwo<Number>($id(pkg.ExTwo,$Fct<?Number>),$null);}\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.ExTwo<T> {\n");
         xml_.append(" $public $class InnerTwo {\n");
@@ -4621,8 +4620,8 @@ public final class AnalyzedOperationNodesTest {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        
+        
         
         
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
@@ -4633,7 +4632,7 @@ public final class AnalyzedOperationNodesTest {
     public void processEl151FailTest() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkgtwo.Apply<S> {\n");
-        xml_.append(" $static {$new pkg.ExTwo<Number>($id(pkg.ExTwo,a!b),$null):}\n");
+        xml_.append(" $static {$new pkg.ExTwo<Number>($id(pkg.ExTwo,a!b),$null);}\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.ExTwo<T> {\n");
         xml_.append(" $public $class InnerTwo {\n");
@@ -4642,8 +4641,8 @@ public final class AnalyzedOperationNodesTest {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        
+        
         
         
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
@@ -4654,7 +4653,7 @@ public final class AnalyzedOperationNodesTest {
     public void processEl152FailTest() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkgtwo.Apply<S> {\n");
-        xml_.append(" $static {$new pkg.ExTwo<Number>($id(pkg.ExTwo,$Fct<?),$null):}\n");
+        xml_.append(" $static {$new pkg.ExTwo<Number>($id(pkg.ExTwo,$Fct<?),$null);}\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.ExTwo<T> {\n");
         xml_.append(" $public $class InnerTwo {\n");
@@ -4663,8 +4662,8 @@ public final class AnalyzedOperationNodesTest {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        
+        
         
         
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
@@ -4675,7 +4674,7 @@ public final class AnalyzedOperationNodesTest {
     public void processEl153FailTest() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkgtwo.Apply<S> {\n");
-        xml_.append(" $static {$new pkg.ExTwo<Number>($id(pkg.ExTwo,#),$null):}\n");
+        xml_.append(" $static {$new pkg.ExTwo<Number>($id(pkg.ExTwo,#),$null);}\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.ExTwo<T> {\n");
         xml_.append(" $public $class InnerTwo {\n");
@@ -4684,8 +4683,8 @@ public final class AnalyzedOperationNodesTest {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        
+        
         
         
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
@@ -4696,7 +4695,7 @@ public final class AnalyzedOperationNodesTest {
     public void processEl154FailTest() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkgtwo.Apply<S> {\n");
-        xml_.append(" $static {$(#S..Number)$null:}\n");
+        xml_.append(" $static {$(#S..Number)$null;}\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.ExTwo<T> {\n");
         xml_.append(" $public $class InnerTwo {\n");
@@ -4705,8 +4704,8 @@ public final class AnalyzedOperationNodesTest {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        
+        
         
         
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
@@ -4717,7 +4716,7 @@ public final class AnalyzedOperationNodesTest {
     public void processEl155FailTest() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkgtwo.Apply<S> {\n");
-        xml_.append(" $static {$(#S<Number>)$null:}\n");
+        xml_.append(" $static {$(#S<Number>)$null;}\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.ExTwo<T> {\n");
         xml_.append(" $public $class InnerTwo {\n");
@@ -4726,8 +4725,8 @@ public final class AnalyzedOperationNodesTest {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        
+        
         
         
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
@@ -4738,7 +4737,7 @@ public final class AnalyzedOperationNodesTest {
     public void processEl156FailTest() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkgtwo.Apply<S> {\n");
-        xml_.append(" $static {$(#T)$null:}\n");
+        xml_.append(" $static {$(#T)$null;}\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.ExTwo<T> {\n");
         xml_.append(" $public $class InnerTwo {\n");
@@ -4747,8 +4746,8 @@ public final class AnalyzedOperationNodesTest {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        
+        
         
         
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
@@ -4759,7 +4758,7 @@ public final class AnalyzedOperationNodesTest {
     public void processEl157FailTest() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkgtwo.Apply<S> {\n");
-        xml_.append(" $static {$($Fct<Number>Number)$null:}\n");
+        xml_.append(" $static {$($Fct<Number>Number)$null;}\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.ExTwo<T> {\n");
         xml_.append(" $public $class InnerTwo {\n");
@@ -4768,8 +4767,8 @@ public final class AnalyzedOperationNodesTest {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        
+        
         
         
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
@@ -4780,7 +4779,7 @@ public final class AnalyzedOperationNodesTest {
     public void processEl158FailTest() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkgtwo.Apply<S> {\n");
-        xml_.append(" $static {$(..Number)$null:}\n");
+        xml_.append(" $static {$(..Number)$null;}\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.ExTwo<T> {\n");
         xml_.append(" $public $class InnerTwo {\n");
@@ -4789,8 +4788,8 @@ public final class AnalyzedOperationNodesTest {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        
+        
         
         
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
@@ -4801,7 +4800,7 @@ public final class AnalyzedOperationNodesTest {
     public void processEl159FailTest() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkgtwo.Apply<S> {\n");
-        xml_.append(" $static {$($Fct<)$null:}\n");
+        xml_.append(" $static {$($Fct<)$null;}\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.ExTwo<T> {\n");
         xml_.append(" $public $class InnerTwo {\n");
@@ -4810,8 +4809,8 @@ public final class AnalyzedOperationNodesTest {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        
+        
         
         
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
@@ -4822,7 +4821,7 @@ public final class AnalyzedOperationNodesTest {
     public void processEl160FailTest() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkgtwo.Apply<S> {\n");
-        xml_.append(" $static {$($Fct<Number>>)$null:}\n");
+        xml_.append(" $static {$($Fct<Number>>)$null;}\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.ExTwo<T> {\n");
         xml_.append(" $public $class InnerTwo {\n");
@@ -4831,8 +4830,8 @@ public final class AnalyzedOperationNodesTest {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        
+        
         
         
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
@@ -4843,7 +4842,7 @@ public final class AnalyzedOperationNodesTest {
     public void processEl161FailTest() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkgtwo.Apply<S> {\n");
-        xml_.append(" $static {$(Number,Number)$null:}\n");
+        xml_.append(" $static {$(Number,Number)$null;}\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.ExTwo<T> {\n");
         xml_.append(" $public $class InnerTwo {\n");
@@ -4852,8 +4851,8 @@ public final class AnalyzedOperationNodesTest {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        
+        
         
         
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
@@ -4864,7 +4863,7 @@ public final class AnalyzedOperationNodesTest {
     public void processEl162FailTest() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkgtwo.Apply<S> {\n");
-        xml_.append(" $static {$($Fct<)$null:}\n");
+        xml_.append(" $static {$($Fct<)$null;}\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.ExTwo<T> {\n");
         xml_.append(" $public $class InnerTwo {\n");
@@ -4873,8 +4872,8 @@ public final class AnalyzedOperationNodesTest {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        
+        
         
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
@@ -4884,7 +4883,7 @@ public final class AnalyzedOperationNodesTest {
     public void processEl163FailTest() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkgtwo.Apply<S> {\n");
-        xml_.append(" $static {$($Fct<Number>>)$null:}\n");
+        xml_.append(" $static {$($Fct<Number>>)$null;}\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.ExTwo<T> {\n");
         xml_.append(" $public $class InnerTwo {\n");
@@ -4893,8 +4892,8 @@ public final class AnalyzedOperationNodesTest {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        
+        
         
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
@@ -4904,7 +4903,7 @@ public final class AnalyzedOperationNodesTest {
     public void processEl164FailTest() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkgtwo.Apply<S> {\n");
-        xml_.append(" $static {$(Number,Number)$null:}\n");
+        xml_.append(" $static {$(Number,Number)$null;}\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.ExTwo<T> {\n");
         xml_.append(" $public $class InnerTwo {\n");
@@ -4913,8 +4912,8 @@ public final class AnalyzedOperationNodesTest {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        
+        
         
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
@@ -4924,7 +4923,7 @@ public final class AnalyzedOperationNodesTest {
     public void processEl165FailTest() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkgtwo.Apply<S> {\n");
-        xml_.append(" $static {$(Number.)$null:}\n");
+        xml_.append(" $static {$(Number.)$null;}\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.ExTwo<T> {\n");
         xml_.append(" $public $class InnerTwo {\n");
@@ -4933,8 +4932,8 @@ public final class AnalyzedOperationNodesTest {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        
+        
         
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
@@ -4944,7 +4943,7 @@ public final class AnalyzedOperationNodesTest {
     public void processEl166FailTest() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkgtwo.Apply<S> {\n");
-        xml_.append(" $static {$new pkg.ExTwo<Number>($id(pkg.ExTwo,pkg.ExTwo<String>),$null):}\n");
+        xml_.append(" $static {$new pkg.ExTwo<Number>($id(pkg.ExTwo,pkg.ExTwo<String>),$null);}\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.ExTwo<T:Number> {\n");
         xml_.append(" $public $class InnerTwo {\n");
@@ -4953,8 +4952,8 @@ public final class AnalyzedOperationNodesTest {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        
+        
         
         
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
@@ -4965,7 +4964,7 @@ public final class AnalyzedOperationNodesTest {
     public void processEl167FailTest() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkgtwo.Apply<S> {\n");
-        xml_.append(" $static {$new pkg.ExTwo<Number>($id(pkg.Ex,pkg.ExTwo),$null):}\n");
+        xml_.append(" $static {$new pkg.ExTwo<Number>($id(pkg.Ex,pkg.ExTwo),$null);}\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.ExTwo<T:Number> {\n");
         xml_.append(" $public $class InnerTwo {\n");
@@ -4974,8 +4973,8 @@ public final class AnalyzedOperationNodesTest {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        
+        
         
         
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
@@ -4986,7 +4985,7 @@ public final class AnalyzedOperationNodesTest {
     public void processEl168FailTest() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkgtwo.Apply<S> {\n");
-        xml_.append(" $static {$new pkg.ExTwo<Number>($id(pkg.ExTwo,$void),$null):}\n");
+        xml_.append(" $static {$new pkg.ExTwo<Number>($id(pkg.ExTwo,$void),$null);}\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.ExTwo<T:Number> {\n");
         xml_.append(" $public $class InnerTwo {\n");
@@ -4995,8 +4994,8 @@ public final class AnalyzedOperationNodesTest {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        
+        
         
         
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
@@ -5007,7 +5006,7 @@ public final class AnalyzedOperationNodesTest {
     public void processEl169FailTest() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkgtwo.Apply<S> {\n");
-        xml_.append(" $static {$new pkg.ExTwo<Number>($id(pkg.ExTwo.Inner,$void),$null):}\n");
+        xml_.append(" $static {$new pkg.ExTwo<Number>($id(pkg.ExTwo.Inner,$void),$null);}\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.ExTwo<T:Number> {\n");
         xml_.append(" $public $class InnerTwo {\n");
@@ -5016,8 +5015,8 @@ public final class AnalyzedOperationNodesTest {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        
+        
         
         
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
@@ -5028,7 +5027,7 @@ public final class AnalyzedOperationNodesTest {
     public void processEl170FailTest() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkgtwo.Apply<S> {\n");
-        xml_.append(" $static {$new pkg.ExTwo<Number>($id($void,$int),$null):}\n");
+        xml_.append(" $static {$new pkg.ExTwo<Number>($id($void,$int),$null);}\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.ExTwo<T:Number> {\n");
         xml_.append(" $public $class InnerTwo {\n");
@@ -5037,8 +5036,8 @@ public final class AnalyzedOperationNodesTest {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        
+        
         
         
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
@@ -5049,7 +5048,7 @@ public final class AnalyzedOperationNodesTest {
     public void processEl171FailTest() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkgtwo.Apply<S> {\n");
-        xml_.append(" $static {$($void)$null:}\n");
+        xml_.append(" $static {$($void)$null;}\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.ExTwo<T:Number> {\n");
         xml_.append(" $public $class InnerTwo {\n");
@@ -5058,8 +5057,8 @@ public final class AnalyzedOperationNodesTest {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        
+        
         
         
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
@@ -5070,7 +5069,7 @@ public final class AnalyzedOperationNodesTest {
     public void processEl172FailTest() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkgtwo.Apply<S> {\n");
-        xml_.append(" {(pkg.ExTwo<S>)$null:}\n");
+        xml_.append(" {(pkg.ExTwo<S>)$null;}\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.ExTwo<T:Number> {\n");
         xml_.append(" $public $class InnerTwo {\n");
@@ -5079,8 +5078,8 @@ public final class AnalyzedOperationNodesTest {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        
+        
         
         
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
@@ -5091,7 +5090,7 @@ public final class AnalyzedOperationNodesTest {
     public void processEl173FailTest() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkgtwo.Apply<S> {\n");
-        xml_.append(" {($void)$null:}\n");
+        xml_.append(" {($void)$null;}\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.ExTwo<T:Number> {\n");
         xml_.append(" $public $class InnerTwo {\n");
@@ -5100,8 +5099,8 @@ public final class AnalyzedOperationNodesTest {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        
+        
         
         
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
@@ -5112,10 +5111,10 @@ public final class AnalyzedOperationNodesTest {
     public void processEl174FailTest() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$operator** Object ($int $o,$int $o,$int o,$int o){\n");
-        xml_.append(" $return $null:\n");
+        xml_.append(" $return $null;\n");
         xml_.append("}\n");
         xml_.append("$operator** Object ($int $o,$int $o,$int o,$int o){\n");
-        xml_.append(" $return $null:\n");
+        xml_.append(" $return $null;\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.ExTwo<T:Number> {\n");
         xml_.append(" $public $class InnerTwo {\n");
@@ -5124,8 +5123,8 @@ public final class AnalyzedOperationNodesTest {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        
+        
         
         
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
@@ -5136,16 +5135,16 @@ public final class AnalyzedOperationNodesTest {
     public void processEl175FailTest() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$operator+ Object ($int o,$int p){\n");
-        xml_.append(" $return $new pkg.ExTwo().field:\n");
+        xml_.append(" $return $new pkg.ExTwo().field;\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $int field:\n");
+        xml_.append(" $int field;\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        
+        
         
         
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
@@ -5156,7 +5155,7 @@ public final class AnalyzedOperationNodesTest {
     public void processEl176FailTest() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkgtwo.ExThree {\n");
-        xml_.append(" pkg.ExTwo.Inner field:\n");
+        xml_.append(" pkg.ExTwo.Inner field;\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.ExTwo:pkgtwo.Sub {\n");
         xml_.append("}\n");
@@ -5167,8 +5166,8 @@ public final class AnalyzedOperationNodesTest {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        
+        
         
         
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
@@ -5179,7 +5178,7 @@ public final class AnalyzedOperationNodesTest {
     public void processEl177FailTest() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkgtwo.ExThree {\n");
-        xml_.append(" pkg.ExTwo.Inner field:\n");
+        xml_.append(" pkg.ExTwo.Inner field;\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.ExTwo:pkgtwo.Sub {\n");
         xml_.append("}\n");
@@ -5190,8 +5189,8 @@ public final class AnalyzedOperationNodesTest {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        
+        
         
         
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
@@ -5202,7 +5201,7 @@ public final class AnalyzedOperationNodesTest {
     public void processEl178FailTest() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExThree {\n");
-        xml_.append(" pkg.ExTwo.Inner field:\n");
+        xml_.append(" pkg.ExTwo.Inner field;\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.ExTwo:pkgtwo.Sub {\n");
         xml_.append("}\n");
@@ -5213,8 +5212,8 @@ public final class AnalyzedOperationNodesTest {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        
+        
         
         
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
@@ -5237,8 +5236,8 @@ public final class AnalyzedOperationNodesTest {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        
+        
         
         
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
@@ -5251,8 +5250,8 @@ public final class AnalyzedOperationNodesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class [pkgtwo.Out..OuterTwo;pkgtwo.OutTwo..OuterTwo;] pkg.Outer {\n");
-        xml_.append("  $public $static ..OuterTwo field:\n");
-        xml_.append("  $public $static ..OuterTwo field:\n");
+        xml_.append("  $public $static ..OuterTwo field;\n");
+        xml_.append("  $public $static ..OuterTwo field;\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
@@ -5266,8 +5265,8 @@ public final class AnalyzedOperationNodesTest {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        
+        
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
         assertTrue(!cont_.isEmptyErrors());
@@ -5278,8 +5277,8 @@ public final class AnalyzedOperationNodesTest {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class [pkgtwo.Out..*;pkgtwo.OutTwo..*;] pkg.Outer {\n");
-        xml_.append("  $public $static ..OuterTwo field:\n");
-        xml_.append("  $public $static ..OuterTwo field:\n");
+        xml_.append("  $public $static ..OuterTwo field;\n");
+        xml_.append("  $public $static ..OuterTwo field;\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
@@ -5293,8 +5292,8 @@ public final class AnalyzedOperationNodesTest {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        
+        
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
         assertTrue(!cont_.isEmptyErrors());
@@ -5347,9 +5346,9 @@ public final class AnalyzedOperationNodesTest {
         files_.put("pkg/ExTwo", addonFileStaticResult(_el, _className,"", _var));
         files_.put("pkg/Ex", _file);
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
+        
 
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
         if (_mustFail) {
@@ -5400,10 +5399,10 @@ public final class AnalyzedOperationNodesTest {
         str_.append(_type);
         str_.append(" ");
         str_.append(_var);
-        str_.append(":\n");
+        str_.append(";\n");
         str_.append(" $public java.lang.Object result = ");
         str_.append(_el);
-        str_.append(":\n");
+        str_.append(";\n");
         str_.append("}");
         return str_.toString();
     }
@@ -5415,303 +5414,303 @@ public final class AnalyzedOperationNodesTest {
         str_.append("\n");
         str_.append("$public $class code.formathtml.classes.CompositeImport {\n");
         str_.append("    $public $static java.lang.String getOverridenEight3($int _double,$int... _three) {\n");
-        str_.append("        $return \"Double\":\n");
+        str_.append("        $return \"Double\";\n");
         str_.append("    }\n");
         str_.append("}\n");
         str_.append("\n");
         str_.append("$public $class [$static code.formathtml.classes.CompositeImport.getOverridenEight3;] code.formathtml.classes.CompositeImported {\n");
         str_.append("    $static {\n");
-        str_.append("     getOverridenEight3(1,2):\n");
+        str_.append("     getOverridenEight3(1,2);\n");
         str_.append("    }\n");
         str_.append("    $public $static java.lang.String getOverridenEight3($int _double,$int _do,$int... _three) {\n");
-        str_.append("        $return \"long\":\n");
+        str_.append("        $return \"long\";\n");
         str_.append("    }\n");
         str_.append("}\n");
         str_.append("\n");
         str_.append("$public $class code.formathtml.classes.Composite {\n");
         str_.append("\n");
-        str_.append("    $public $int integer:\n");
+        str_.append("    $public $int integer;\n");
         str_.append("\n");
-        str_.append("    $public java.lang.Integer objInteger:\n");
+        str_.append("    $public java.lang.Integer objInteger;\n");
         str_.append("\n");
-        str_.append("    $public CompositeSec composite:\n");
+        str_.append("    $public CompositeSec composite;\n");
         str_.append("\n");
-        str_.append("    $public $int privateInt:\n");
+        str_.append("    $public $int privateInt;\n");
         str_.append("\n");
-        str_.append("    $public java.lang.String string:\n");
+        str_.append("    $public java.lang.String string;\n");
         str_.append("\n");
-        str_.append("    $public $char myChar = 't':\n");
+        str_.append("    $public $char myChar = 't';\n");
         str_.append("\n");
-        str_.append("    $public $boolean displayed = $true:\n");
+        str_.append("    $public $boolean displayed = $true;\n");
         str_.append("\n");
         str_.append("    $public() {\n");
         str_.append("    }\n");
         str_.append("\n");
         str_.append("    $private($int _privateInt) {\n");
-        str_.append("        privateInt = _privateInt;.;:\n");
+        str_.append("        privateInt = _privateInt;\n");
         str_.append("    }\n");
         str_.append("\n");
         str_.append("    $public(java.lang.String..._strings) {\n");
         str_.append("    }\n");
         str_.append("\n");
         str_.append("    $public($int _param, java.lang.String..._strings) {\n");
-        str_.append("        privateInt = _param;.;:\n");
+        str_.append("        privateInt = _param;\n");
         str_.append("    }\n");
         str_.append("\n");
         str_.append("    $public $normal CompositeSec getComposite() {\n");
-        str_.append("        $return composite:\n");
+        str_.append("        $return composite;\n");
         str_.append("    }\n");
         str_.append("\n");
         str_.append("    $public $normal $int getInteger() {\n");
-        str_.append("        $return integer:\n");
+        str_.append("        $return integer;\n");
         str_.append("    }\n");
         str_.append("\n");
         str_.append("    $public $normal $void setInteger($int _integer) {\n");
-        str_.append("        integer = _integer;.;:\n");
+        str_.append("        integer = _integer;\n");
         str_.append("    }\n");
         str_.append("\n");
         str_.append("    $public $normal java.lang.Integer getObjInteger() {\n");
-        str_.append("        $return objInteger:\n");
+        str_.append("        $return objInteger;\n");
         str_.append("    }\n");
         str_.append("\n");
         str_.append("    $public $normal $int getPrivateInt() {\n");
-        str_.append("        $return privateInt:\n");
+        str_.append("        $return privateInt;\n");
         str_.append("    }\n");
         str_.append("\n");
         str_.append("    $public $normal $void setPrivateInt($int _privateInt) {\n");
-        str_.append("        privateInt = _privateInt;.;:\n");
+        str_.append("        privateInt = _privateInt;\n");
         str_.append("    }\n");
         str_.append("\n");
         str_.append("    $public $normal $int summum($int _other) {\n");
-        str_.append("        $return integer + _other;.;:\n");
+        str_.append("        $return integer + _other;\n");
         str_.append("    }\n");
         str_.append("\n");
         str_.append("    $public $normal $int sum(java.lang.Long _other) {\n");
-        str_.append("        $return 0i:\n");
+        str_.append("        $return 0i;\n");
         str_.append("    }\n");
         str_.append("\n");
         str_.append("    $public $normal $int sum(java.lang.Long _other, java.lang.Long _otherTwo) {\n");
-        str_.append("        $return 0i:\n");
+        str_.append("        $return 0i;\n");
         str_.append("    }\n");
         str_.append("\n");
         str_.append("    $public $normal java.lang.String getOverridenOne(java.lang.String _string) {\n");
-        str_.append("        $return \"one\":\n");
+        str_.append("        $return \"one\";\n");
         str_.append("    }\n");
         str_.append("    $public $normal java.lang.String getOverridenOne(java.lang.Object _string) {\n");
-        str_.append("        $return \"two\":\n");
+        str_.append("        $return \"two\";\n");
         str_.append("    }\n");
         str_.append("    $public $normal java.lang.String getOverridenOne(java.lang.Boolean _string) {\n");
-        str_.append("        $return \"three\":\n");
+        str_.append("        $return \"three\";\n");
         str_.append("    }\n");
         str_.append("    $public $normal java.lang.String getOverridenTwo(java.lang.String _string) {\n");
-        str_.append("        $return \"one\":\n");
+        str_.append("        $return \"one\";\n");
         str_.append("    }\n");
         str_.append("    $public $normal java.lang.String getOverridenTwo(java.lang.Object _string) {\n");
-        str_.append("        $return \"two\":\n");
+        str_.append("        $return \"two\";\n");
         str_.append("    }\n");
         str_.append("    $public $normal java.lang.String getOverridenThree(java.lang.Double _double) {\n");
-        str_.append("        $return \"Double\":\n");
+        str_.append("        $return \"Double\";\n");
         str_.append("    }\n");
         str_.append("    $public $normal java.lang.String getOverridenThree(java.lang.Long _double) {\n");
-        str_.append("        $return \"Long\":\n");
+        str_.append("        $return \"Long\";\n");
         str_.append("    }\n");
         str_.append("    $public $normal java.lang.String getOverridenThree($double _double) {\n");
-        str_.append("        $return \"double\":\n");
+        str_.append("        $return \"double\";\n");
         str_.append("    }\n");
         str_.append("    $public $normal java.lang.String getOverridenThree($long _double) {\n");
-        str_.append("        $return \"long\":\n");
+        str_.append("        $return \"long\";\n");
         str_.append("    }\n");
         str_.append("    $public $normal java.lang.String getOverridenFour(java.lang.Long _double) {\n");
-        str_.append("        $return \"Long\":\n");
+        str_.append("        $return \"Long\";\n");
         str_.append("    }\n");
         str_.append("    $public $normal java.lang.String getOverridenFour($long _double) {\n");
-        str_.append("        $return \"long\":\n");
+        str_.append("        $return \"long\";\n");
         str_.append("    }\n");
         str_.append("    $public $normal java.lang.String getOverridenFive(java.lang.Long _double) {\n");
-        str_.append("        $return \"Long\":\n");
+        str_.append("        $return \"Long\";\n");
         str_.append("    }\n");
         str_.append("    $public $normal java.lang.String getOverridenFive($double _double) {\n");
-        str_.append("        $return \"double\":\n");
+        str_.append("        $return \"double\";\n");
         str_.append("    }\n");
         str_.append("    $public $normal java.lang.String getOverridenSix(java.lang.Long _double) {\n");
-        str_.append("        $return \"Long\":\n");
+        str_.append("        $return \"Long\";\n");
         str_.append("    }\n");
         str_.append("    $public $normal java.lang.String getOverridenSix($long _double) {\n");
-        str_.append("        $return \"long\":\n");
+        str_.append("        $return \"long\";\n");
         str_.append("    }\n");
         str_.append("    $public $normal java.lang.String getOverridenSix(java.lang.Double _double) {\n");
-        str_.append("        $return \"Double\":\n");
+        str_.append("        $return \"Double\";\n");
         str_.append("    }\n");
         str_.append("    $public $normal java.lang.String getOverridenSeven($long _double,$long _do) {\n");
-        str_.append("        $return \"long\":\n");
+        str_.append("        $return \"long\";\n");
         str_.append("    }\n");
         str_.append("    $public $normal java.lang.String getOverridenSeven($long _double,$double _do) {\n");
-        str_.append("        $return \"Double\":\n");
+        str_.append("        $return \"Double\";\n");
         str_.append("    }\n");
         str_.append("    $public $normal java.lang.String getOverridenEight($int _double,$long _do) {\n");
-        str_.append("        $return \"long\":\n");
+        str_.append("        $return \"long\";\n");
         str_.append("    }\n");
         str_.append("    $public $normal java.lang.String getOverridenEight($long _double,$int _do) {\n");
-        str_.append("        $return \"Double\":\n");
+        str_.append("        $return \"Double\";\n");
         str_.append("    }\n");
         str_.append("    $public $normal java.lang.String getOverridenEight1($long _double,$int _do) {\n");
-        str_.append("        $return \"Double\":\n");
+        str_.append("        $return \"Double\";\n");
         str_.append("    }\n");
         str_.append("    $public $normal java.lang.String getOverridenEight1($int _double,$long _do) {\n");
-        str_.append("        $return \"long\":\n");
+        str_.append("        $return \"long\";\n");
         str_.append("    }\n");
         str_.append("    $public $normal java.lang.String getOverridenEight2($int _double,$int _do,$int... _three) {\n");
-        str_.append("        $return \"Double\":\n");
+        str_.append("        $return \"Double\";\n");
         str_.append("    }\n");
         str_.append("    $public $normal java.lang.String getOverridenEight2($int _double,$int... _do) {\n");
-        str_.append("        $return \"long\":\n");
+        str_.append("        $return \"long\";\n");
         str_.append("    }\n");
         str_.append("    $public $normal java.lang.String getOverridenEight3($int _double,$int... _three) {\n");
-        str_.append("        $return \"Double\":\n");
+        str_.append("        $return \"Double\";\n");
         str_.append("    }\n");
         str_.append("    $public $normal java.lang.String getOverridenEight3($int _double,$int _do,$int... _three) {\n");
-        str_.append("        $return \"long\":\n");
+        str_.append("        $return \"long\";\n");
         str_.append("    }\n");
         str_.append("    $public $normal java.lang.String getOverridenNine($int _double,$long _do) {\n");
-        str_.append("        $return \"long\":\n");
+        str_.append("        $return \"long\";\n");
         str_.append("    }\n");
         str_.append("    $public $normal java.lang.String getOverridenNine($long _double) {\n");
-        str_.append("        $return \"Double\":\n");
+        str_.append("        $return \"Double\";\n");
         str_.append("    }\n");
         str_.append("    $public $normal java.lang.String getSampleVararg($int... _double) {\n");
-        str_.append("        $return \"Double\":\n");
+        str_.append("        $return \"Double\";\n");
         str_.append("    }\n");
         str_.append("    $public $normal java.lang.String getOvVararg($int... _double) {\n");
-        str_.append("        $return \"Double\":\n");
+        str_.append("        $return \"Double\";\n");
         str_.append("    }\n");
         str_.append("    $public $normal java.lang.String getOvVararg($long... _double) {\n");
-        str_.append("        $return \"Double\":\n");
+        str_.append("        $return \"Double\";\n");
         str_.append("    }\n");
         str_.append("    $public $normal java.lang.String getOvVarargTwo($int... _double) {\n");
-        str_.append("        $return \"Double\":\n");
+        str_.append("        $return \"Double\";\n");
         str_.append("    }\n");
         str_.append("    $public $normal java.lang.String getOvVarargTwo($long[] _double) {\n");
-        str_.append("        $return \"Double\":\n");
+        str_.append("        $return \"Double\";\n");
         str_.append("    }\n");
         str_.append("    $public $normal java.lang.String getOvVarargThree($int _id,$int... _double) {\n");
-        str_.append("        $return \"Double\":\n");
+        str_.append("        $return \"Double\";\n");
         str_.append("    }\n");
         str_.append("    $public $normal java.lang.String getOvVarargThree($int _id,$long[] _double) {\n");
-        str_.append("        $return \"Double\":\n");
+        str_.append("        $return \"Double\";\n");
         str_.append("    }\n");
         str_.append("    $public $normal java.lang.String getOvVarargFour($long... _double) {\n");
-        str_.append("        $return \"Double\":\n");
+        str_.append("        $return \"Double\";\n");
         str_.append("    }\n");
         str_.append("    $public $normal java.lang.String getOvVarargFour($int... _double) {\n");
-        str_.append("        $return \"Double\":\n");
+        str_.append("        $return \"Double\";\n");
         str_.append("    }\n");
         str_.append("    $public $normal java.lang.String getOvVarargFive($int _first,$long... _double) {\n");
-        str_.append("        $return \"Double\":\n");
+        str_.append("        $return \"Double\";\n");
         str_.append("    }\n");
         str_.append("    $public $normal java.lang.String getOvVarargFive($int... _double) {\n");
-        str_.append("        $return \"Double\":\n");
+        str_.append("        $return \"Double\";\n");
         str_.append("    }\n");
         str_.append("    $public $normal java.lang.String getOvVarargSix($long... _double) {\n");
-        str_.append("        $return \"Double\":\n");
+        str_.append("        $return \"Double\";\n");
         str_.append("    }\n");
         str_.append("    $public $normal java.lang.String getOvVarargSix($int _first,$int... _double) {\n");
-        str_.append("        $return \"Double\":\n");
+        str_.append("        $return \"Double\";\n");
         str_.append("    }\n");
         str_.append("    $public $normal java.lang.String getOvVarargSeven($int _first,$long... _double) {\n");
-        str_.append("        $return \"Double\":\n");
+        str_.append("        $return \"Double\";\n");
         str_.append("    }\n");
         str_.append("    $public $normal java.lang.String getOvVarargSeven($int _first,$int _second,$int... _double) {\n");
-        str_.append("        $return \"Double\":\n");
+        str_.append("        $return \"Double\";\n");
         str_.append("    }\n");
         str_.append("    $public $normal java.lang.String getOvVarargEight($long _first,$long... _double) {\n");
-        str_.append("        $return \"Double\":\n");
+        str_.append("        $return \"Double\";\n");
         str_.append("    }\n");
         str_.append("    $public $normal java.lang.String getOvVarargEight($int _first,$int _second,$int... _double) {\n");
-        str_.append("        $return \"Double\":\n");
+        str_.append("        $return \"Double\";\n");
         str_.append("    }\n");
         str_.append("    $public $normal java.lang.String getOvVarargNine($long _first,$long _second,$long... _double) {\n");
-        str_.append("        $return \"Double\":\n");
+        str_.append("        $return \"Double\";\n");
         str_.append("    }\n");
         str_.append("    $public $normal java.lang.String getOvVarargNine($int _first,$int... _double) {\n");
-        str_.append("        $return \"Double\":\n");
+        str_.append("        $return \"Double\";\n");
         str_.append("    }\n");
         str_.append("    $public $normal java.lang.String getOvVarargTen($int _first,$int... _double) {\n");
-        str_.append("        $return \"Double\":\n");
+        str_.append("        $return \"Double\";\n");
         str_.append("    }\n");
         str_.append("    $public $normal java.lang.String getOvVarargTen(java.lang.Integer _first,$long... _double) {\n");
-        str_.append("        $return \"Double\":\n");
+        str_.append("        $return \"Double\";\n");
         str_.append("    }\n");
         str_.append("    $public $normal java.lang.String getOvVarargEleven($int _first,java.lang.Integer... _double) {\n");
-        str_.append("        $return \"Double\":\n");
+        str_.append("        $return \"Double\";\n");
         str_.append("    }\n");
         str_.append("    $public $normal java.lang.String getOvVarargEleven(java.lang.Integer _first,java.lang.Number... _double) {\n");
-        str_.append("        $return \"Double\":\n");
+        str_.append("        $return \"Double\";\n");
         str_.append("    }\n");
         str_.append("    $package $normal $int sum() {\n");
-        str_.append("        $return integer + privateInt:\n");
+        str_.append("        $return integer + privateInt;\n");
         str_.append("    }\n");
         str_.append("\n");
         str_.append("    $public $normal java.lang.String getStringElt($int _ind) {\n");
-        str_.append("        $return $null:\n");
+        str_.append("        $return $null;\n");
         str_.append("    }\n");
         str_.append("\n");
         str_.append("    $public $normal java.lang.String internMethod() {\n");
-        str_.append("        $return \"sample\":\n");
+        str_.append("        $return \"sample\";\n");
         str_.append("    }\n");
         str_.append("\n");
         str_.append("    $package $normal java.lang.String privateMethod() {\n");
-        str_.append("        $return \"sample\":\n");
+        str_.append("        $return \"sample\";\n");
         str_.append("    }\n");
         str_.append("\n");
         str_.append("    $public $normal java.lang.String getString() {\n");
-        str_.append("        $return string:\n");
+        str_.append("        $return string;\n");
         str_.append("    }\n");
         str_.append("\n");
         str_.append("    $public $normal $void setString(java.lang.String _string) {\n");
-        str_.append("        string = _string;.;:\n");
+        str_.append("        string = _string;\n");
         str_.append("    }\n");
         str_.append("\n");
         str_.append("    $public $normal $char getMyChar() {\n");
-        str_.append("        $return myChar:\n");
+        str_.append("        $return myChar;\n");
         str_.append("    }\n");
         str_.append("\n");
         str_.append("    $public $normal $void setMyChar($char _myChar) {\n");
-        str_.append("        myChar = _myChar;.;:\n");
+        str_.append("        myChar = _myChar;\n");
         str_.append("    }\n");
         str_.append("\n");
         str_.append("    $public $normal $boolean isDisplayed() {\n");
-        str_.append("        $return displayed:\n");
+        str_.append("        $return displayed;\n");
         str_.append("    }\n");
         str_.append("\n");
         str_.append("    $public $normal $void setDisplayed($boolean _displayed) {\n");
-        str_.append("        displayed = _displayed;.;:\n");
+        str_.append("        displayed = _displayed;\n");
         str_.append("    }\n");
         str_.append("}\n");
         str_.append("\n");
         str_.append("$public $class code.formathtml.classes.CompositeSec {\n");
         str_.append("\n");
-        str_.append("    $public $int integer:\n");
+        str_.append("    $public $int integer;\n");
         str_.append("\n");
         str_.append("    $public $normal $int getInteger() {\n");
-        str_.append("        $return integer:\n");
+        str_.append("        $return integer;\n");
         str_.append("    }\n");
         str_.append("\n");
         str_.append("    $public $normal $void setInteger($int _integer) {\n");
-        str_.append("        integer = _integer;.;:\n");
+        str_.append("        integer = _integer;\n");
         str_.append("    }\n");
         str_.append("}\n");
         str_.append("\n");
         str_.append("\n");
         str_.append("$public $class code.formathtml.classes.BeanOne {\n");
         str_.append("\n");
-        str_.append("    $public Composite composite:\n");
+        str_.append("    $public Composite composite;\n");
         str_.append("\n");
         str_.append("    $public() {\n");
         str_.append("    }\n");
         str_.append("\n");
         str_.append("\n");
         str_.append("    $public $normal Composite getComposite() {\n");
-        str_.append("        $return composite:\n");
+        str_.append("        $return composite;\n");
         str_.append("    }\n");
         str_.append("\n");
         str_.append("}\n");
@@ -5719,52 +5718,52 @@ public final class AnalyzedOperationNodesTest {
         str_.append("\n");
         str_.append("}\n");
         str_.append("$public $interface myimpl.MyIntOne {\n");
-        str_.append("    $int sample($int p):\n");
-        str_.append("    $long sampleTwo($int p):\n");
-        str_.append("    $normal $int sampleFive($int p){$return 0:}\n");
-        str_.append("    $normal $int sampleSix($int... p){$return 0:}\n");
-        str_.append("    Number sampleSeven($int p):\n");
-        str_.append("    $static Number sampleEight($int p){$return 0:}\n");
-        str_.append("    $static Object sampleNine($int p){$return 0:}\n");
+        str_.append("    $int sample($int p);\n");
+        str_.append("    $long sampleTwo($int p);\n");
+        str_.append("    $normal $int sampleFive($int p){$return 0;}\n");
+        str_.append("    $normal $int sampleSix($int... p){$return 0;}\n");
+        str_.append("    Number sampleSeven($int p);\n");
+        str_.append("    $static Number sampleEight($int p){$return 0;}\n");
+        str_.append("    $static Object sampleNine($int p){$return 0;}\n");
         str_.append("}\n");
         str_.append("$public $class myimpl.MySuperOne {\n");
-        str_.append("    $public $final $int sampleThree($int p){$return 0:}\n");
-        str_.append("    $public $int sampleFour($int p){$return 0:}\n");
+        str_.append("    $public $final $int sampleThree($int p){$return 0;}\n");
+        str_.append("    $public $int sampleFour($int p){$return 0;}\n");
         str_.append("}\n");
         str_.append("$public $interface myimpl.MyIntTwo {\n");
-        str_.append("    $int sample($int p):\n");
-        str_.append("    $int sampleTwo($int p):\n");
-        str_.append("    $normal $long sampleThree($int p){$return 0:}\n");
-        str_.append("    $long sampleFour($int p):\n");
-        str_.append("    $int sampleFive($int p):\n");
-        str_.append("    $int sampleSix($int... p):\n");
-        str_.append("    Object sampleSeven($int p):\n");
-        str_.append("    $static Object sampleEight($int p){$return 0:}\n");
-        str_.append("    $static Number sampleNine($int p){$return 0:}\n");
+        str_.append("    $int sample($int p);\n");
+        str_.append("    $int sampleTwo($int p);\n");
+        str_.append("    $normal $long sampleThree($int p){$return 0;}\n");
+        str_.append("    $long sampleFour($int p);\n");
+        str_.append("    $int sampleFive($int p);\n");
+        str_.append("    $int sampleSix($int... p);\n");
+        str_.append("    Object sampleSeven($int p);\n");
+        str_.append("    $static Object sampleEight($int p){$return 0;}\n");
+        str_.append("    $static Number sampleNine($int p){$return 0;}\n");
         str_.append("}\n");
         str_.append("$public $abstract $class myimpl.MyGeneClass<#T> : MyGeneIntOne<#T> : MyGeneIntTwo<#T> {\n");
         str_.append("\n");
         str_.append("}\n");
         str_.append("$public $interface myimpl.MyGeneIntOne<#U> {\n");
-        str_.append("    $int sample(#U p):\n");
-        str_.append("    $long sampleTwo(#U p):\n");
-        str_.append("    $long sampleThree(#U p):\n");
-        str_.append("    $long sampleFour(#U... p):\n");
-        str_.append("    $long sampleThree(java.lang.Object p):\n");
+        str_.append("    $int sample(#U p);\n");
+        str_.append("    $long sampleTwo(#U p);\n");
+        str_.append("    $long sampleThree(#U p);\n");
+        str_.append("    $long sampleFour(#U... p);\n");
+        str_.append("    $long sampleThree(java.lang.Object p);\n");
         str_.append("}\n");
         str_.append("$public $interface myimpl.MyGeneIntTwo<#V> {\n");
-        str_.append("    $int sample(#V p):\n");
-        str_.append("    $int sampleTwo(#V p):\n");
-        str_.append("    $long sampleThree(#V p):\n");
-        str_.append("    $long sampleFour(#V... p):\n");
-        str_.append("    $long sampleThree(java.lang.Object p):\n");
+        str_.append("    $int sample(#V p);\n");
+        str_.append("    $int sampleTwo(#V p);\n");
+        str_.append("    $long sampleThree(#V p);\n");
+        str_.append("    $long sampleFour(#V... p);\n");
+        str_.append("    $long sampleThree(java.lang.Object p);\n");
         str_.append("}\n");
         return str_.toString();
     }
     private static ContextEl contextEl(StringMap<String> _files, boolean _mustFail) {
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        
+        
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(_files, cont_);
         if (_mustFail) {

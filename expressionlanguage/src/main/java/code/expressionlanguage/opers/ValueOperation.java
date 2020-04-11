@@ -37,6 +37,7 @@ public final class ValueOperation extends LeafOperation {
             }
             getIndexers_.add(i_);
         }
+        //later all undefined variables will be processed as field
         if (getIndexers_.size() != 1) {
             setResultClass(new ClassArgumentMatching(_conf.getStandards().getAliasObject()));
             return;

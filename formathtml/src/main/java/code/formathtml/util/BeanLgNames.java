@@ -20,13 +20,6 @@ public abstract class BeanLgNames extends LgNames {
 
     public static final String OFF = "off";
     public static final String ON = "on";
-    public static Double parseDouble(String _nb) {
-        NumberInfos infos_ = NumParsers.trySplitDouble(_nb);
-        if (infos_ == null) {
-            return null;
-        }
-        return NumParsers.parseDouble(infos_);
-    }
 
     public static int parseInt(String _string, int _def) {
         String value_ = _string.trim();
@@ -155,12 +148,12 @@ public abstract class BeanLgNames extends LgNames {
             }
             int order_ = PrimitiveTypeUtil.getIntOrderClass(cl_, _context);
             if (order_ == 0) {
-                Double val_ = parseDouble(_values.first());
-                if (val_ == null) {
+                DoubleInfo doubleInfo_ = NumParsers.splitDouble(_values.first());
+                if (!doubleInfo_.isValid()) {
                     res_.setError(getAliasCastType());
                     return res_;
                 }
-                res_.setResult(PrimitiveTypeUtil.convertObject(cl_,new DoubleStruct(val_),this));
+                res_.setResult(PrimitiveTypeUtil.convertObject(cl_,new DoubleStruct(doubleInfo_.getValue()),this));
                 return res_;
             }
             LongInfo val_ = NumParsers.parseLong(_values.first(), 10);

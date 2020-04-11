@@ -11,7 +11,7 @@ public final class PredefinedClasses {
     private PredefinedClasses() {
     }
     public static String getBracedIterableType(ContextEl _context) {
-        char endLine_ = _context.getOptions().getEndLine();
+        char endLine_ = ';';
         KeyWords keyWords_ = _context.getKeyWords();
         String public_ = keyWords_.getKeyWordPublic();
         String interface_ = keyWords_.getKeyWordInterface();
@@ -30,7 +30,7 @@ public final class PredefinedClasses {
     }
 
     public static String getBracedIteratorType(ContextEl _context) {
-        char endLine_ = _context.getOptions().getEndLine();
+        char endLine_ = ';';
         KeyWords keyWords_ = _context.getKeyWords();
         String public_ = keyWords_.getKeyWordPublic();
         String interface_ = keyWords_.getKeyWordInterface();
@@ -53,7 +53,7 @@ public final class PredefinedClasses {
     }
 
     public static String getBracedIterableTableType(ContextEl _context) {
-        char endLine_ = _context.getOptions().getEndLine();
+        char endLine_ = ';';
         KeyWords keyWords_ = _context.getKeyWords();
         String public_ = keyWords_.getKeyWordPublic();
         String interface_ = keyWords_.getKeyWordInterface();
@@ -73,7 +73,7 @@ public final class PredefinedClasses {
     }
 
     public static String getBracedIteratorTableType(ContextEl _context) {
-        char endLine_ = _context.getOptions().getEndLine();
+        char endLine_ = ';';
         KeyWords keyWords_ = _context.getKeyWords();
         String public_ = keyWords_.getKeyWordPublic();
         String interface_ = keyWords_.getKeyWordInterface();
@@ -98,7 +98,7 @@ public final class PredefinedClasses {
     }
 
     public static String getBracedPairType(ContextEl _context) {
-        char endLine_ = _context.getOptions().getEndLine();
+        char endLine_ = ';';
         KeyWords keyWords_ = _context.getKeyWords();
         String public_ = keyWords_.getKeyWordPublic();
         String interface_ = keyWords_.getKeyWordInterface();
@@ -128,7 +128,7 @@ public final class PredefinedClasses {
         StringBuilder iterable_ = new StringBuilder(public_).append(SPACE);
         iterable_.append(interface_).append(SPACE);
         iterable_.append(stds_.getAliasEnumType()).append("{\n");
-        char endLine_ = _context.getOptions().getEndLine();
+        char endLine_ = ';';
         String final_ = keyWords_.getKeyWordFinal();
         String static_ = keyWords_.getKeyWordStatic();
         String this_ = keyWords_.getKeyWordThis();

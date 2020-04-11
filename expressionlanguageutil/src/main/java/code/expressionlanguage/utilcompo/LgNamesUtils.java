@@ -8,7 +8,6 @@ import java.util.concurrent.atomic.AtomicLong;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ExecutableCode;
-import code.expressionlanguage.InitPhase;
 import code.expressionlanguage.calls.util.CustomFoundMethod;
 import code.expressionlanguage.errors.AnalysisMessages;
 import code.expressionlanguage.errors.KeyValueMemberName;
@@ -25,7 +24,6 @@ import code.expressionlanguage.stds.StandardField;
 import code.expressionlanguage.stds.StandardMethod;
 import code.expressionlanguage.stds.StandardType;
 import code.expressionlanguage.structs.*;
-import code.expressionlanguage.variables.VariableSuffix;
 import code.sml.DocumentBuilder;
 import code.sml.util.ResourcesMessagesUtil;
 import code.stream.AbstractLock;
@@ -379,32 +377,11 @@ public class LgNamesUtils extends LgNames {
         String iter_ = keyWords_.getKeyWordIter();
         String value_ = keyWords_.getKeyWordValue();
         String abstract_ = keyWords_.getKeyWordAbstract();
-        String endLine_ = String.valueOf(_context.getOptions().getEndLine());
-        String suffix_ = String.valueOf(_context.getOptions().getSuffix());
+        String endLine_ = String.valueOf(';');
         String suffixLocal_ = "";
-        if (_context.getOptions().getSuffixVar() == VariableSuffix.DISTINCT) {
-            suffixLocal_ = StringList.concat(suffix_,".");
-        } else if (_context.getOptions().getSuffixVar() != VariableSuffix.NONE) {
-            suffixLocal_ = suffix_;
-        }
         String suffixParam_ = "";
-        if (_context.getOptions().getSuffixVar() == VariableSuffix.DISTINCT) {
-            suffixParam_ = StringList.concat(suffix_,".",suffix_);
-        } else if (_context.getOptions().getSuffixVar() != VariableSuffix.NONE) {
-            suffixParam_ = suffix_;
-        }
         String suffixLoop_ = "";
-        if (_context.getOptions().getSuffixVar() == VariableSuffix.DISTINCT) {
-            suffixLoop_ = suffix_;
-        } else if (_context.getOptions().getSuffixVar() != VariableSuffix.NONE) {
-            suffixLoop_ = suffix_;
-        }
         String suffixCatch_ = "";
-        if (_context.getOptions().getSuffixVar() == VariableSuffix.DISTINCT) {
-            suffixCatch_ = StringList.concat(suffix_,"..");
-        } else if (_context.getOptions().getSuffixVar() != VariableSuffix.NONE) {
-            suffixCatch_ = suffix_;
-        }
         StringMap<String> map_;
         map_ = new StringMap<String>();
         map_.put("{public}", public_);

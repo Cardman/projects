@@ -1,6 +1,7 @@
 package code.expressionlanguage.instr;
 
 import code.expressionlanguage.Analyzable;
+import code.expressionlanguage.stds.DoubleInfo;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.LongInfo;
 import code.expressionlanguage.stds.NumParsers;
@@ -33,17 +34,20 @@ public final class ParsedArgument {
         String bytePrimType_ = stds_.getAliasPrimByte();
         char suffix_ = _infosNb.getSuffix();
         ParsedArgument out_ = new ParsedArgument();
+        if (_infosNb.isError()) {
+            return out_;
+        }
         if (suffix_ == 'D' || suffix_ == 'd' || suffix_ == 'F' || suffix_ == 'f') {
-            double d_ = NumParsers.parseDouble(_infosNb);
+            DoubleInfo doubleInfo_ = NumParsers.parseDoubleOrInvalid(_infosNb);
             if (suffix_ == 'D' || suffix_ == 'd') {
                 if (suffix_ == 'd') {
                     out_.type = doublePrimType_;
                 } else {
                     out_.type = doubleType_;
                 }
-                out_.object = new DoubleStruct(d_);
+                out_.object = new DoubleStruct(doubleInfo_.getValue());
             } else {
-                if (!checkedDoubleBounds(d_)) {
+                if (doubleInfo_.outOfRange(Float.MIN_VALUE,Float.MAX_VALUE)) {
                     return out_;
                 }
                 if (suffix_ == 'f') {
@@ -51,7 +55,7 @@ public final class ParsedArgument {
                 } else {
                     out_.type = floatType_;
                 }
-                out_.object = new FloatStruct((float) d_);
+                out_.object = new FloatStruct((float) doubleInfo_.getValue());
             }
             return out_;
         }
@@ -312,10 +316,10 @@ public final class ParsedArgument {
             out_.object = new ByteStruct((byte) value_);
             return out_;
         }
-        LongInfo longValue_ = NumParsers.parseLongTen(nb_);
+        LongInfo longValue_ = NumParsers.parseLong(nb_, 10);
         if (!longValue_.isValid()) {
             String str_  = StringList.concat("-",nb_);
-            LongInfo oppLongValue_ = NumParsers.parseLongTen(str_);
+            LongInfo oppLongValue_ = NumParsers.parseLong(str_, 10);
             if (oppLongValue_.isValid()) {
                 if (suffix_ == 'L' || suffix_ == 'l') {
                     out_.object = new LongStruct(Long.MIN_VALUE);
@@ -414,11 +418,6 @@ public final class ParsedArgument {
         return _value > _max;
     }
 
-
-    private static boolean checkedDoubleBounds(double _value) {
-        double value_ = Math.abs(_value);
-        return value_ <= (double) Float.MAX_VALUE;
-    }
 
     public Struct getStruct() {
         return object;

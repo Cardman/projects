@@ -11,7 +11,6 @@ import code.expressionlanguage.opers.util.MethodAccessKind;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.structs.*;
-import code.expressionlanguage.variables.VariableSuffix;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
@@ -536,13 +535,23 @@ public final class TemplatesTest {
     }
 
     @Test
+    public void quickFormat0Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<T,U> {}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        String first_ = "pkg.Ex<java.lang.Number>";
+        String second_ = "java.lang.String";
+        assertEq(second_,Templates.quickFormat(first_, second_, context_));
+    }
+    @Test
     public void quickFormat1Test() {
         ContextEl context_ = simpleContextEl();
         String first_ = context_.getStandards().getAliasString();
         String second_ = context_.getStandards().getAliasInteger();
         assertEq(second_,Templates.quickFormat(first_, second_, context_));
     }
-
     @Test
     public void quickFormat2Test() {
         StringBuilder xml_ = new StringBuilder();
@@ -4825,8 +4834,6 @@ public final class TemplatesTest {
     }
     private static ContextEl unfullValidateOverridingMethods(StringMap<String> _files) {
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes classes_ = cont_.getClasses();
         Classes.buildPredefinedBracesBodies(cont_);
@@ -4846,8 +4853,6 @@ public final class TemplatesTest {
     }
     private static ContextEl simpleContextEl() {
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.buildPredefinedBracesBodies(cont_);
         return cont_;

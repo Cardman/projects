@@ -1,6 +1,5 @@
 package code.expressionlanguage.opers;
 
-import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.InitializationLgNames;
@@ -16,7 +15,6 @@ import code.expressionlanguage.options.Options;
 import code.expressionlanguage.structs.*;
 import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.LoopVariable;
-import code.expressionlanguage.variables.VariableSuffix;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
@@ -125,13 +123,13 @@ public final class ExpressionLanguageTest {
 
     @Test
     public void processEl16Test() {
-        Argument arg_ = calculateIndirectLocalVars("v;.integer", "v", COMPOSITE);
+        Argument arg_ = calculateIndirectLocalVars("v.integer", "v", COMPOSITE);
         assertEq(0, arg_.getNumber());
     }
 
     @Test
     public void processEl17Test() {
-        Argument arg_ = calculateIndirectLoopVars("v;integer", "v", COMPOSITE);
+        Argument arg_ = calculateIndirectLoopVars("v.integer", "v", COMPOSITE);
         assertEq(0, arg_.getNumber());
     }
 
@@ -445,25 +443,25 @@ public final class ExpressionLanguageTest {
 
     @Test
     public void processEl119Test() {
-        Argument arg_ = directCalculate("(1b+2b)*3");
+        Argument arg_ = directCalculate("(1y+2y)*3");
         assertEq(9L, arg_.getNumber());
     }
 
     @Test
     public void processEl120Test() {
-        Argument arg_ = directCalculate("(1s+2b)*3");
+        Argument arg_ = directCalculate("(1s+2y)*3");
         assertEq(9L, arg_.getNumber());
     }
 
     @Test
     public void processEl121Test() {
-        Argument arg_ = directCalculate("- -1b");
+        Argument arg_ = directCalculate("- -1y");
         assertEq(1, arg_.getNumber());
     }
 
     @Test
     public void processEl122Test() {
-        Argument arg_ = directCalculate("-1b");
+        Argument arg_ = directCalculate("-1y");
         assertEq(-1, arg_.getNumber());
     }
 
@@ -476,13 +474,13 @@ public final class ExpressionLanguageTest {
 
     @Test
     public void processEl123FailTest() {
-        Argument arg_ = directCalculate("+1b");
+        Argument arg_ = directCalculate("+1y");
         assertEq(1, arg_.getNumber());
     }
 
     @Test
     public void processEl124Test() {
-        Argument arg_ = directCalculate("+-1b");
+        Argument arg_ = directCalculate("+-1y");
         assertEq(-1, arg_.getNumber());
     }
 
@@ -1127,13 +1125,13 @@ public final class ExpressionLanguageTest {
 
     @Test
     public void processEl358Test() {
-        Argument arg_ = directCalculate("0377b");
+        Argument arg_ = directCalculate("0377y");
         assertEq(-1, arg_.getNumber());
     }
 
     @Test
     public void processEl359Test() {
-        Argument arg_ = directCalculate("0200b");
+        Argument arg_ = directCalculate("0200y");
         assertEq(Byte.MIN_VALUE, arg_.getNumber());
     }
 
@@ -3827,7 +3825,7 @@ public final class ExpressionLanguageTest {
 
     @Test
     public void processEl770Test() {
-        Argument arg_ = directCalculate("0x1xb");
+        Argument arg_ = directCalculate("0x1xy");
         assertEq(1, arg_.getNumber());
     }
 
@@ -5930,7 +5928,7 @@ public final class ExpressionLanguageTest {
         cont_.getAnalyzing().initLocalVars();
         cont_.getAnalyzing().putLocalVar(var_, lv_);
         cont_.getAnalyzing().setGlobalClass(_className);
-        String form_ = StringList.concat(var_, ";.", _el);
+        String form_ = StringList.concat(var_, ".", _el);
         Calculation calc_ = Calculation.staticCalculation(MethodAccessKind.STATIC);
         CustList<ExecOperationNode> list_ = ElUtil.getAnalyzedOperationsReadOnly(form_, cont_, calc_);
         addImportingPage(cont_);
@@ -5970,7 +5968,7 @@ public final class ExpressionLanguageTest {
         str_.append("$public $class code.formathtml.classes.Apply {\n");
         str_.append(" $public $static $final java.lang.Object result = ");
         str_.append(_el);
-        str_.append(":\n");
+        str_.append(";\n");
         str_.append("}");
         return str_.toString();
     }
@@ -5980,7 +5978,7 @@ public final class ExpressionLanguageTest {
         str_.append("\n");
         str_.append("$public $class code.formathtml.classes.Composite {\n");
         str_.append("\n");
-        str_.append("    $public $int integer:\n");
+        str_.append("    $public $int integer;\n");
         str_.append("\n");
         str_.append("}\n");
         str_.append("\n");
@@ -5994,8 +5992,6 @@ public final class ExpressionLanguageTest {
 
     private static ContextEl contextEl(StringMap<String> _files) {
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(_files, cont_);
         assertTrue(cont_.isEmptyErrors());

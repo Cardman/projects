@@ -15,7 +15,7 @@ import static code.expressionlanguage.EquallableElUtil.assertEq;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-public class ProcessMethodStaticCallTest extends ProcessMethodCommon {
+public final class ProcessMethodStaticCallTest extends ProcessMethodCommon {
     @Test
     public void calculate1Test() {
         StringMap<String> files_ = new StringMap<String>();

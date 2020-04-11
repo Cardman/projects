@@ -5,11 +5,9 @@ import code.bean.BeanInfo;
 import code.bean.validator.Validator;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.variables.LocalVariable;
-import code.expressionlanguage.variables.VariableSuffix;
 import code.formathtml.*;
 import code.formathtml.classes.*;
 import code.formathtml.structs.BeanStruct;
@@ -43,7 +41,7 @@ public final class NativeTest extends CommonRender {
         localVars_.put("v", lv_);
         context_.getLastPage().setLocalVars(localVars_);
         assertEq(0, c_.getInteger());
-        processEl("v;.integer=12i", context_);
+        processEl("v.integer=12i", context_);
         assertEq(COMPOSITE, lv_.getClassName());
         assertEq(12, c_.getInteger());
     }
@@ -129,7 +127,7 @@ public final class NativeTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html c:bean='bean_one'><body><ul><c:for var=\"s\" list=\"composite.strings\" className='java.lang.String'><li>{s;length()}</li></c:for></ul></body></html>";
+        String html_ = "<html c:bean='bean_one'><body><ul><c:for var=\"s\" list=\"composite.strings\" className='java.lang.String'><li>{s.length()}</li></c:for></ul></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
@@ -153,7 +151,7 @@ public final class NativeTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html c:bean='bean_one'><body><ul><c:for var=\"s\" list=\"composite.strings\" className='$var'><li>{s;length()}</li></c:for></ul></body></html>";
+        String html_ = "<html c:bean='bean_one'><body><ul><c:for var=\"s\" list=\"composite.strings\" className='$var'><li>{s.length()}</li></c:for></ul></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
@@ -177,7 +175,7 @@ public final class NativeTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html c:bean='bean_one'><body><ul><c:for var=\"s\" list=\"composite.strings\" className='java.lang.Integer'><li>{s;length()}</li></c:for></ul></body></html>";
+        String html_ = "<html c:bean='bean_one'><body><ul><c:for var=\"s\" list=\"composite.strings\" className='java.lang.Integer'><li>{s.length()}</li></c:for></ul></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
@@ -199,7 +197,7 @@ public final class NativeTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html c:bean=\"bean_one\"><body><table><c:for key=\"k\" keyClassName=\"java.lang.String\" value=\"v\" varClassName=\"$int\" map=\"tree\"><tr><td>{k;}</td><td>{v;}</td></tr></c:for></table></body></html>";
+        String html_ = "<html c:bean=\"bean_one\"><body><table><c:for key=\"k\" keyClassName=\"java.lang.String\" value=\"v\" varClassName=\"$int\" map=\"tree\"><tr><td>{k}</td><td>{v}</td></tr></c:for></table></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
@@ -225,7 +223,7 @@ public final class NativeTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html c:bean=\"bean_one\"><body><table><c:for key=\"k\" value=\"v\" map=\"tree\"><tr><td>{k;}</td><td>{v;}</td></tr></c:for></table></body></html>";
+        String html_ = "<html c:bean=\"bean_one\"><body><table><c:for key=\"k\" value=\"v\" map=\"tree\"><tr><td>{k}</td><td>{v}</td></tr></c:for></table></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
@@ -251,7 +249,7 @@ public final class NativeTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html c:bean=\"bean_one\"><body><table><c:for key=\"k\" value=\"v\" map=\"tree\"><c:for key=\"l\" value=\"w\" map=\"tree\"><tr><td>{k;}</td><td>{v;}</td><td>{l;}</td><td>{w;}</td></tr></c:for></c:for></table></body></html>";
+        String html_ = "<html c:bean=\"bean_one\"><body><table><c:for key=\"k\" value=\"v\" map=\"tree\"><c:for key=\"l\" value=\"w\" map=\"tree\"><tr><td>{k}</td><td>{v}</td><td>{l}</td><td>{w}</td></tr></c:for></c:for></table></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
@@ -351,8 +349,6 @@ public final class NativeTest extends CommonRender {
         Configuration conf_ =  EquallableExUtil.newConfiguration();
         conf_.setPrefix("c");
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
         ContextEl cont_ = buildStdOne(opt_);
         conf_.setContext(cont_);
         BeanLgNames standards_ = (BeanLgNames) cont_.getStandards();
@@ -391,12 +387,8 @@ public final class NativeTest extends CommonRender {
     }
     private Configuration contextEl() {
         Configuration conf_ =  EquallableExUtil.newConfiguration();
-        StringMap<String> files_ = new StringMap<String>();
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
         ContextEl cont_ = buildStdTwo(opt_);
-        Classes.validateAll(files_, cont_);
         assertTrue(cont_.isEmptyErrors());
         conf_.setContext(cont_);
         BeanLgNames standards_ = (BeanLgNames) cont_.getStandards();
@@ -1481,15 +1473,10 @@ public final class NativeTest extends CommonRender {
     }
 
     private Configuration contextElSec() {
-        StringMap<String> files_ = new StringMap<String>();
         Configuration conf_ =  EquallableExUtil.newConfiguration();
         conf_.setPrefix("c:");
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
         ContextEl cont_ = buildStdOne(opt_);
-        Classes.validateWithoutInit(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
         conf_.setContext(cont_);
         BeanLgNames standards_ = (BeanLgNames) cont_.getStandards();
         conf_.setStandards(standards_);

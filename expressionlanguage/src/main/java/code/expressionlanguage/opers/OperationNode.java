@@ -183,9 +183,6 @@ public abstract class OperationNode implements Operable {
             if (ct_ == ConstType.NULL_CST) {
                 return new ConstantOperation(_index, _indexChild, _m, _op);
             }
-            if (ct_ == ConstType.CUST_FIELD) {
-                return new StandardFieldOperation(_index, _indexChild, _m, _op);
-            }
             if (ct_ == ConstType.CLASSCHOICE_KEYWORD) {
                 return new ChoiceFieldOperation(_index, _indexChild, _m, _op);
             }

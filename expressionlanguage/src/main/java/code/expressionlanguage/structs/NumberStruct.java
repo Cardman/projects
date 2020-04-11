@@ -9,10 +9,7 @@ import code.expressionlanguage.opers.exec.ExecCatOperation;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ConstructorId;
-import code.expressionlanguage.stds.LgNames;
-import code.expressionlanguage.stds.LongInfo;
-import code.expressionlanguage.stds.NumParsers;
-import code.expressionlanguage.stds.ResultErrorStd;
+import code.expressionlanguage.stds.*;
 import code.util.CustList;
 import code.util.*;
 import code.util.StringList;
@@ -474,16 +471,8 @@ public abstract class NumberStruct implements DisplayableStruct, ExportableStrin
             return;
         }
         String one_ = ((CharSequenceStruct) _arg).toStringInstance();
-        boolean valid_ = true;
-        NumberInfos infos_ = NumParsers.trySplitDouble(one_);
-        if (infos_ == null) {
-            valid_ = false;
-        }
-        Double d_ = null;
-        if (valid_) {
-            d_ = NumParsers.parseDouble(infos_);
-        }
-        if (!valid_) {
+        DoubleInfo v_ = NumParsers.splitDouble(one_);
+        if (!v_.isValid()) {
             if (!_exception) {
                 _res.setResult(NullStruct.NULL_VALUE);
                 return;
@@ -491,7 +480,7 @@ public abstract class NumberStruct implements DisplayableStruct, ExportableStrin
             _res.setErrorMessage(one_);
             _res.setError(_stds.getAliasNbFormat());
         } else {
-            _res.setResult(new DoubleStruct(d_));
+            _res.setResult(new DoubleStruct(v_.getValue()));
         }
     }
 
@@ -506,17 +495,12 @@ public abstract class NumberStruct implements DisplayableStruct, ExportableStrin
         }
         String one_ = ((CharSequenceStruct) _arg).toStringInstance();
         boolean valid_ = true;
-        NumberInfos infos_ = NumParsers.trySplitDouble(one_);
-        if (infos_ == null) {
-            valid_ = false;
-        }
+        DoubleInfo v_ = NumParsers.splitDouble(one_);
         double d_ = 0;
-        if (valid_) {
-            d_ = NumParsers.parseDouble(infos_);
-            double abs_ = Math.abs(d_);
-            if (abs_ > Float.MAX_VALUE) {
-                valid_ = false;
-            }
+        if (v_.outOfRange(Float.MIN_VALUE,Float.MAX_VALUE)) {
+            valid_ = false;
+        } else {
+            d_ = v_.getValue();
         }
         if (!valid_) {
             if (!_exception) {

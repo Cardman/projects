@@ -11,7 +11,6 @@ import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
 import code.expressionlanguage.utilcompo.*;
-import code.expressionlanguage.variables.VariableSuffix;
 import code.gui.OtherConfirmDialog;
 import code.gui.OtherFrame;
 import code.gui.OtherDialog;
@@ -4634,7 +4633,7 @@ public class LgNamesGui extends LgNamesUtils {
         String true_ = keyWords_.getKeyWordTrue();
         String false_ = keyWords_.getKeyWordFalse();
         String is_ = keyWords_.getKeyWordInstanceof();
-        String endLine_ = String.valueOf(_context.getOptions().getEndLine());
+        String endLine_ = String.valueOf(';');
         StringMap<String> map_;
         map_ = new StringMap<String>();
         map_.put("{public}", public_);
@@ -4775,25 +4774,10 @@ public class LgNamesGui extends LgNamesUtils {
         getPredefinedClasses().add(aliasListSelection);
         stds_.put(aliasListSelection, content_);
         getPredefinedInterfacesInitOrder().add(aliasListSelection);
-        String suffix_ = String.valueOf(_context.getOptions().getSuffix());
+        String suffix_ = String.valueOf(':');
         String suffixLocal_ = "";
-        if (_context.getOptions().getSuffixVar() == VariableSuffix.DISTINCT) {
-            suffixLocal_ = StringList.concat(suffix_,".");
-        } else if (_context.getOptions().getSuffixVar() != VariableSuffix.NONE) {
-            suffixLocal_ = suffix_;
-        }
         String suffixParam_ = "";
-        if (_context.getOptions().getSuffixVar() == VariableSuffix.DISTINCT) {
-            suffixParam_ = StringList.concat(suffix_,".",suffix_);
-        } else if (_context.getOptions().getSuffixVar() != VariableSuffix.NONE) {
-            suffixParam_ = suffix_;
-        }
         String suffixLoop_ = "";
-        if (_context.getOptions().getSuffixVar() == VariableSuffix.DISTINCT) {
-            suffixLoop_ = suffix_;
-        } else if (_context.getOptions().getSuffixVar() != VariableSuffix.NONE) {
-            suffixLoop_ = suffix_;
-        }
         content_ = ResourceFiles.ressourceFichier("resources_lg_gui/repaint.txt");
         map_ = new StringMap<String>();
         map_.put("{public}", public_);

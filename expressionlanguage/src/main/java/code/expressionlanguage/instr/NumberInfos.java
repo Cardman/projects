@@ -3,6 +3,7 @@ package code.expressionlanguage.instr;
 public final class NumberInfos {
 
     private boolean positive;
+    private boolean error;
 
     private StringBuilder intPart;
 
@@ -13,6 +14,14 @@ public final class NumberInfos {
     private char suffix;
 
     private int base;
+
+    public boolean isError() {
+        return error;
+    }
+
+    public void setError(boolean _error) {
+        error = _error;
+    }
 
     public boolean isPositive() {
         return positive;

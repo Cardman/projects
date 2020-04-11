@@ -20,7 +20,6 @@ import code.expressionlanguage.stds.StandardConstructor;
 import code.expressionlanguage.stds.StandardField;
 import code.expressionlanguage.stds.StandardMethod;
 import code.expressionlanguage.structs.*;
-import code.expressionlanguage.variables.VariableSuffix;
 import code.formathtml.Configuration;
 import code.formathtml.structs.BeanStruct;
 import code.formathtml.structs.RealInstanceStruct;

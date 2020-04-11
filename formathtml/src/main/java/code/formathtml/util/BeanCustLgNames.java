@@ -17,7 +17,6 @@ import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
 import code.expressionlanguage.variables.LocalVariable;
-import code.expressionlanguage.variables.VariableSuffix;
 import code.formathtml.*;
 import code.formathtml.errors.RendAnalysisMessages;
 import code.formathtml.errors.RendKeyWords;
@@ -486,14 +485,8 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         String null_ = keyWords_.getKeyWordNull();
         String new_ = keyWords_.getKeyWordNew();
         String int_ = getAliasPrimInteger();
-        String endLine_ = String.valueOf(_context.getOptions().getEndLine());
-        String suffix_ = String.valueOf(_context.getOptions().getSuffix());
+        String endLine_ = String.valueOf(';');
         String suffixParam_ = "";
-        if (_context.getOptions().getSuffixVar() == VariableSuffix.DISTINCT) {
-            suffixParam_ = StringList.concat(suffix_,".",suffix_);
-        } else if (_context.getOptions().getSuffixVar() != VariableSuffix.NONE) {
-            suffixParam_ = suffix_;
-        }
         StringBuilder file_ = new StringBuilder();
         file_.append(public_).append(" ").append(class_).append(" ").append(getAliasBean()).append("{");
         String string_ = getAliasString();
@@ -826,13 +819,8 @@ public abstract class BeanCustLgNames extends BeanLgNames {
             candidate_ = StringList.concatNbs(_var,index_);
             index_++;
         }
-        String suffix_ = String.valueOf(_context.getOptions().getSuffix());
+        String suffix_ = String.valueOf(':');
         String suffixLoop_ = "";
-        if (_context.getOptions().getSuffixVar() == VariableSuffix.DISTINCT) {
-            suffixLoop_ = suffix_;
-        } else if (_context.getOptions().getSuffixVar() != VariableSuffix.NONE) {
-            suffixLoop_ = suffix_;
-        }
         return StringList.concat(candidate_,suffixLoop_);
     }
     private static String trParam(String _var, ContextEl _context) {
@@ -845,13 +833,8 @@ public abstract class BeanCustLgNames extends BeanLgNames {
             candidate_ = StringList.concatNbs(_var,index_);
             index_++;
         }
-        String suffix_ = String.valueOf(_context.getOptions().getSuffix());
+        String suffix_ = String.valueOf(':');
         String suffixParam_ = "";
-        if (_context.getOptions().getSuffixVar() == VariableSuffix.DISTINCT) {
-            suffixParam_ = StringList.concat(suffix_,".",suffix_);
-        } else if (_context.getOptions().getSuffixVar() != VariableSuffix.NONE) {
-            suffixParam_ = suffix_;
-        }
         return StringList.concat(candidate_,suffixParam_);
     }
     private static String trLoc(String _var, ContextEl _context) {
@@ -868,13 +851,8 @@ public abstract class BeanCustLgNames extends BeanLgNames {
     }
 
     public static String sufficLocal(ContextEl _context, String _candidate) {
-        String suffix_ = String.valueOf(_context.getOptions().getSuffix());
+        String suffix_ = String.valueOf(':');
         String suffixLocal_ = "";
-        if (_context.getOptions().getSuffixVar() == VariableSuffix.DISTINCT) {
-            suffixLocal_ = StringList.concat(suffix_,".");
-        } else if (_context.getOptions().getSuffixVar() != VariableSuffix.NONE) {
-            suffixLocal_ = suffix_;
-        }
         return StringList.concat(_candidate,suffixLocal_);
     }
 

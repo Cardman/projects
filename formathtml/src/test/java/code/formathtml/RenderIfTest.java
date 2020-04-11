@@ -18,7 +18,7 @@ public final class RenderIfTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body><c:if condition=\"&quot;&quot;.length()==1\">ONE</c:if><c:elseif condition=\"!&quot;&quot;.isEmpty()\">NOT EMPTY</c:elseif></body></html>";
-        Configuration conf_ = contextElThird();
+        Configuration conf_ = contextElFive();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -34,7 +34,7 @@ public final class RenderIfTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body><c:if condition=\"&quot;&quot;.length()==1\">ONE</c:if><c:elseif condition=\"!&quot;string&quot;.isEmpty()\">NOT EMPTY</c:elseif></body></html>";
-        Configuration conf_ = contextElThird();
+        Configuration conf_ = contextElFive();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -50,7 +50,7 @@ public final class RenderIfTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body><c:if condition=\"&quot;&quot;.length()==1\">ONE</c:if><c:elseif condition=\"!&quot;&quot;.isEmpty()\">NOT EMPTY</c:elseif><c:else>EMPTY</c:else></body></html>";
-        Configuration conf_ = contextElThird();
+        Configuration conf_ = contextElFive();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -66,7 +66,7 @@ public final class RenderIfTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body><c:if condition=\"&quot;s&quot;.length()==1\">ONE</c:if><c:elseif condition=\"!&quot;&quot;.isEmpty()\">NOT EMPTY</c:elseif><c:else>EMPTY</c:else></body></html>";
-        Configuration conf_ = contextElThird();
+        Configuration conf_ = contextElFive();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -87,7 +87,7 @@ public final class RenderIfTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body><c:if condition=\"&quot;&quot;.length()==1\">ONE</c:if><c:elseif condition=\"!&quot;string&quot;.isEmpty()\">NOT EMPTY</c:elseif><c:else>EMPTY</c:else></body></html>";
-        Configuration conf_ = contextElThird();
+        Configuration conf_ = contextElFive();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -103,7 +103,7 @@ public final class RenderIfTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body><c:if condition=\"&quot;&quot;.length()==1\">ONE</c:if></body></html>";
-        Configuration conf_ = contextElThird();
+        Configuration conf_ = contextElFive();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -119,7 +119,7 @@ public final class RenderIfTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body><c:if condition=\"&quot;s&quot;.length()==1\">ONE</c:if></body></html>";
-        Configuration conf_ = contextElThird();
+        Configuration conf_ = contextElFive();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -135,7 +135,7 @@ public final class RenderIfTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body><c:if condition=\"&quot;&quot;.length()==1\">ONE</c:if><c:elseif condition=\"&quot;string&quot;.length()==2\">TWO</c:elseif><c:elseif condition=\"!&quot;string&quot;.isEmpty()\">NOT EMPTY</c:elseif><c:else>EMPTY</c:else></body></html>";
-        Configuration conf_ = contextElThird();
+        Configuration conf_ = contextElFive();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -152,7 +152,7 @@ public final class RenderIfTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body><c:if condition=\"&quot;&quot;.length()==1/0\">ONE</c:if><c:elseif condition=\"!&quot;&quot;.isEmpty()\">NOT EMPTY</c:elseif></body></html>";
-        Configuration conf_ = contextElThird();
+        Configuration conf_ = contextElFive();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -168,7 +168,7 @@ public final class RenderIfTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body><c:if condition=\"&quot;&quot;.length()==1\">ONE</c:if><c:elseif condition=\"&quot;&quot;.length()&gt;1/0\">NOT EMPTY</c:elseif></body></html>";
-        Configuration conf_ = contextElThird();
+        Configuration conf_ = contextElFive();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -184,7 +184,7 @@ public final class RenderIfTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body><c:if condition=\"&quot;&quot;.length()==1\" label='label'>ONE</c:if><c:elseif condition=\"&quot;string&quot;.length()==2\">TWO</c:elseif><c:elseif condition=\"!&quot;string&quot;.isEmpty()\">NOT EMPTY<c:break label='label'/></c:elseif><c:else>EMPTY</c:else></body></html>";
-        Configuration conf_ = contextElThird();
+        Configuration conf_ = contextElFive();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -201,7 +201,7 @@ public final class RenderIfTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body><c:if condition=\"&quot;s&quot;.length()==1\" label='label'>ONE<c:break label='label'/></c:if><c:elseif condition=\"!&quot;&quot;.isEmpty()\">NOT EMPTY</c:elseif><c:else>EMPTY</c:else></body></html>";
-        Configuration conf_ = contextElThird();
+        Configuration conf_ = contextElFive();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -217,7 +217,7 @@ public final class RenderIfTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body><c:if condition=\"&quot;&quot;.length()==1\" label='label'>ONE</c:if><c:elseif condition=\"!&quot;&quot;.isEmpty()\">NOT EMPTY</c:elseif><c:else>EMPTY<c:break label='label'/></c:else></body></html>";
-        Configuration conf_ = contextElThird();
+        Configuration conf_ = contextElFive();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -233,7 +233,7 @@ public final class RenderIfTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body><c:if condition=\"&quot;&quot;.length()==1\">ONE</c:if>\n<c:elseif condition=\"!&quot;&quot;.isEmpty()\">NOT EMPTY</c:elseif></body></html>";
-        Configuration conf_ = contextElThird();
+        Configuration conf_ = contextElFive();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -249,7 +249,7 @@ public final class RenderIfTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body><c:if condition=\"&quot;&quot;.length()==1\">ONE</c:if>\n<c:elseif condition=\"!&quot;string&quot;.isEmpty()\">NOT EMPTY</c:elseif></body></html>";
-        Configuration conf_ = contextElThird();
+        Configuration conf_ = contextElFive();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -265,7 +265,7 @@ public final class RenderIfTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body><c:if condition=\"&quot;&quot;.length()==1\">ONE</c:if>\n<c:elseif condition=\"!&quot;&quot;.isEmpty()\">NOT EMPTY</c:elseif>\n<c:else>EMPTY</c:else></body></html>";
-        Configuration conf_ = contextElThird();
+        Configuration conf_ = contextElFive();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -281,7 +281,7 @@ public final class RenderIfTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body><c:if condition=\"&quot;&quot;.length()==1\">ONE</c:if>\n<c:else>EMPTY</c:else></body></html>";
-        Configuration conf_ = contextElThird();
+        Configuration conf_ = contextElFive();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -297,7 +297,7 @@ public final class RenderIfTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body><c:if condition=\"&quot;&quot;.length()==1\">ONE</c:if>\n<c:elseif condition=\"&quot;string&quot;.length()==2\">TWO</c:elseif>\n<c:elseif condition=\"!&quot;string&quot;.isEmpty()\">NOT EMPTY</c:elseif>\n<c:else>EMPTY</c:else></body></html>";
-        Configuration conf_ = contextElThird();
+        Configuration conf_ = contextElFive();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -314,7 +314,7 @@ public final class RenderIfTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body><c:else>EMPTY</c:else></body></html>";
-        Configuration conf_ = contextElThird();
+        Configuration conf_ = contextElFive();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -328,7 +328,7 @@ public final class RenderIfTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body><c:elseif condition=\"&quot;string&quot;.length()==2\">TWO</c:elseif>\n<c:elseif condition=\"!&quot;string&quot;.isEmpty()\">NOT EMPTY</c:elseif>\n<c:else>EMPTY</c:else></body></html>";
-        Configuration conf_ = contextElThird();
+        Configuration conf_ = contextElFive();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -343,7 +343,7 @@ public final class RenderIfTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body>\n<c:else>EMPTY</c:else></body></html>";
-        Configuration conf_ = contextElThird();
+        Configuration conf_ = contextElFive();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -357,7 +357,7 @@ public final class RenderIfTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body>\n<c:elseif condition=\"&quot;string&quot;.length()==2\">TWO</c:elseif>\n<c:elseif condition=\"!&quot;string&quot;.isEmpty()\">NOT EMPTY</c:elseif>\n<c:else>EMPTY</c:else></body></html>";
-        Configuration conf_ = contextElThird();
+        Configuration conf_ = contextElFive();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -372,7 +372,7 @@ public final class RenderIfTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body><c:if condition=\"1\">ONE</c:if><c:elseif condition=\"!&quot;&quot;.isEmpty()\">NOT EMPTY</c:elseif></body></html>";
-        Configuration conf_ = contextElThird();
+        Configuration conf_ = contextElFive();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);

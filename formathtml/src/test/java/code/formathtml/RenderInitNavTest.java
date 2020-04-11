@@ -2,11 +2,7 @@ package code.formathtml;
 
 import code.bean.BeanInfo;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.options.Options;
-import code.expressionlanguage.variables.VariableSuffix;
-import code.formathtml.classes.CustBeanLgNames;
-import code.formathtml.util.BeanCustLgNames;
 import code.formathtml.util.BeanLgNames;
 import code.util.StringMap;
 import org.junit.Test;
@@ -27,7 +23,7 @@ public final class RenderInitNavTest extends CommonRender {
         StringBuilder file_ = new StringBuilder();
         file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
         file_.append(" $public String click($int p){");
-        file_.append("  $return $bool(p;.;>2,\"val1\",\"val2\"):");
+        file_.append("  $return $bool(p>2,\"val1\",\"val2\");");
         file_.append(" }");
         file_.append("}");
         files_.put("my_file",file_.toString());
@@ -37,8 +33,8 @@ public final class RenderInitNavTest extends CommonRender {
         Configuration conf_ =  EquallableExUtil.newConfiguration();
         conf_.setPrefix("c");
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        
+        
         ContextEl cont_ = InitializationLgNames.buildStdThree(opt_);
         conf_.setContext(cont_);
         BeanLgNames standards_ = (BeanLgNames) cont_.getStandards();
@@ -75,7 +71,7 @@ public final class RenderInitNavTest extends CommonRender {
         StringBuilder file_ = new StringBuilder();
         file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
         file_.append(" $public $int[] click($int p){");
-        file_.append("  $return p;.;:");
+        file_.append("  $return p;");
         file_.append(" }");
         file_.append("}");
         files_.put("my_file",file_.toString());
@@ -85,8 +81,8 @@ public final class RenderInitNavTest extends CommonRender {
         Configuration conf_ =  EquallableExUtil.newConfiguration();
         conf_.setPrefix("c");
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        
+        
         ContextEl cont_ = InitializationLgNames.buildStdThree(opt_);
         conf_.setContext(cont_);
         BeanLgNames standards_ = (BeanLgNames) cont_.getStandards();
@@ -122,7 +118,7 @@ public final class RenderInitNavTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
         file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
-        file_.append(" $public $int field:");
+        file_.append(" $public $int field;");
         file_.append("}");
         files_.put("my_file",file_.toString());
         file_ = new StringBuilder();
@@ -131,8 +127,8 @@ public final class RenderInitNavTest extends CommonRender {
         Configuration conf_ =  EquallableExUtil.newConfiguration();
         conf_.setPrefix("c");
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        
+        
         ContextEl cont_ = InitializationLgNames.buildStdThree(opt_);
         conf_.setContext(cont_);
         BeanLgNames standards_ = (BeanLgNames) cont_.getStandards();
@@ -168,7 +164,7 @@ public final class RenderInitNavTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
         file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
-        file_.append(" $public $int field:");
+        file_.append(" $public $int field;");
         file_.append("}");
         files_.put("my_file",file_.toString());
         file_ = new StringBuilder();
@@ -177,8 +173,8 @@ public final class RenderInitNavTest extends CommonRender {
         Configuration conf_ =  EquallableExUtil.newConfiguration();
         conf_.setPrefix("c");
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        
+        
         ContextEl cont_ = InitializationLgNames.buildStdThree(opt_);
         conf_.setContext(cont_);
         BeanLgNames standards_ = (BeanLgNames) cont_.getStandards();
@@ -228,8 +224,8 @@ public final class RenderInitNavTest extends CommonRender {
         file_.append("my_file");
         files_.put("conf",file_.toString());
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        
+        
         BeanLgNames lgNames_ = new BeanCustLgNamesImpl();
         basicStandards(lgNames_);
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
@@ -486,8 +482,8 @@ public final class RenderInitNavTest extends CommonRender {
         file_.append("my_file");
         files_.put("conf",file_.toString());
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        
+        
         BeanLgNames lgNames_ = new BeanCustLgNamesImpl();
         basicStandards(lgNames_);
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
@@ -562,8 +558,8 @@ public final class RenderInitNavTest extends CommonRender {
         file_.append("my_file");
         files_.put("conf",file_.toString());
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        
+        
         BeanLgNames lgNames_ = new BeanCustLgNamesImpl();
         basicStandards(lgNames_);
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);

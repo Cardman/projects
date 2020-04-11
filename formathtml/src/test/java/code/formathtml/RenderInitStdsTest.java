@@ -9,9 +9,7 @@ import code.expressionlanguage.options.ContextFactory;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.structs.NullStruct;
-import code.expressionlanguage.variables.VariableSuffix;
 import code.formathtml.classes.BeanOne;
-import code.formathtml.classes.SimpleRender;
 import code.formathtml.structs.BeanStruct;
 import code.formathtml.structs.StdStruct;
 import code.formathtml.util.BeanCustLgNames;
@@ -32,40 +30,6 @@ public final class RenderInitStdsTest {
     @Test
     public void process1Test() {
         Options o_ = new Options();
-        o_.setSuffixVar(VariableSuffix.NONE);
-        BeanLgNames b_ = new BeanCustLgNamesImpl();
-        basicStandards(b_);
-        AnalysisMessages a_ = new AnalysisMessages();
-        KeyWords k_ = new KeyWords();
-        contextEl(o_,b_,a_,k_);
-    }
-    @Test
-    public void process2Test() {
-        Options o_ = new Options();
-        o_.setEndLineSemiColumn(false);
-        o_.setSuffixVar(VariableSuffix.FIELDS);
-        BeanLgNames b_ = new BeanCustLgNamesImpl();
-        basicStandards(b_);
-        AnalysisMessages a_ = new AnalysisMessages();
-        KeyWords k_ = new KeyWords();
-        contextEl(o_,b_,a_,k_);
-    }
-    @Test
-    public void process3Test() {
-        Options o_ = new Options();
-        o_.setEndLineSemiColumn(false);
-        o_.setSuffixVar(VariableSuffix.MERGED);
-        BeanLgNames b_ = new BeanCustLgNamesImpl();
-        basicStandards(b_);
-        AnalysisMessages a_ = new AnalysisMessages();
-        KeyWords k_ = new KeyWords();
-        contextEl(o_,b_,a_,k_);
-    }
-    @Test
-    public void process4Test() {
-        Options o_ = new Options();
-        o_.setEndLineSemiColumn(false);
-        o_.setSuffixVar(VariableSuffix.FIELDS);
         BeanLgNames b_ = new BeanCustLgNamesImpl();
         basicStandards(b_);
         AnalysisMessages a_ = new AnalysisMessages();
@@ -75,7 +39,6 @@ public final class RenderInitStdsTest {
     @Test
     public void process5Test() {
         Options o_ = new Options();
-        o_.setSuffixVar(VariableSuffix.NONE);
         BeanLgNames b_ = new BeanCustLgNamesImpl();
         basicStandards(b_);
         AnalysisMessages a_ = new AnalysisMessages();
@@ -114,6 +77,8 @@ public final class RenderInitStdsTest {
         DefaultLockingClass lk_ = new DefaultLockingClass();
         DefaultInitializer di_ = new DefaultInitializer();
         ContextEl cont_ = ContextFactory.build(-1,lk_, di_, _opt, _mess,_kw, _beanLgNames,4);
+        conf_.setContext(cont_);
+        cont_.setExecutingInstance(conf_);
         Classes.validateWithoutInit(_files, cont_);
         assertTrue(cont_.isEmptyErrors());
         conf_.setContext(cont_);

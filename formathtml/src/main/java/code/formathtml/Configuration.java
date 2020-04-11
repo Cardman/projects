@@ -15,9 +15,7 @@ import code.expressionlanguage.errors.stds.StdWordError;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.inherits.TypeUtil;
-import code.expressionlanguage.instr.OperationsSequence;
-import code.expressionlanguage.instr.PartOffset;
-import code.expressionlanguage.instr.ResultAfterInstKeyWord;
+import code.expressionlanguage.instr.*;
 import code.expressionlanguage.methods.*;
 import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.OperationNode;
@@ -50,7 +48,14 @@ import code.sml.DocumentResult;
 import code.util.*;
 
 public final class Configuration implements ExecutableCode {
-
+    private static final String GET_INDEX = ";;";
+    private static final String GET_CATCH_VAR = ";..";
+    private static final String GET_LOC_VAR = ";.";
+    private static final String GET_ATTRIBUTE = ";";
+    private static final String SIMPLE_SIFFIX = ";";
+    private static final String GET_PARAM = ";.;";
+    private static final String GET_FIELD = ";;;";
+    private static final char PAR_LEFT = '(';
     private static final String NO_PARAM = "()";
 
     private static final String RETURN_LINE = "\n";
@@ -195,7 +200,6 @@ public final class Configuration implements ExecutableCode {
         standards.setupOverrides(context);
         renderFiles.removeAllString(firstUrl);
         renderFiles.add(firstUrl);
-        context.setExecutingInstance(this);
     }
 
     public void setupRendClasses(StringMap<String> _files) {
@@ -1585,4 +1589,6 @@ public final class Configuration implements ExecutableCode {
     public void setBeanName(String _beanName) {
         beanName = _beanName;
     }
+
+
 }

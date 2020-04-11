@@ -17,7 +17,7 @@ public final class RenderStyleTest extends CommonRender {
         String html_ = "<html><head><link href=\"main.css\" rel=\"stylesheet\"/></head><style>CONTENT</style><body/></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put("main.css", ".classTest{color:blue;}");
-        Configuration conf_ = contextElThird();
+        Configuration conf_ = contextElFive();
         conf_.setBeans(new StringMap<Bean>());
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
@@ -34,7 +34,7 @@ public final class RenderStyleTest extends CommonRender {
         String html_ = "<html><head><link href=\"main.css\" rel=\"stylesheet\" param0=\".classTest'{'color:{&quot;blue&quot;};'}'\"/></head><style>CONTENT</style><body/></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put("main.css", "{0}");
-        Configuration conf_ = contextElThird();
+        Configuration conf_ = contextElFive();
         conf_.setBeans(new StringMap<Bean>());
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
@@ -51,7 +51,7 @@ public final class RenderStyleTest extends CommonRender {
         String html_ = "<html><head><style>CONTENT</style><link href=\"main.css\" rel=\"stylesheet\" param0=\".classTest'{'color:{&quot;blue&quot;};'}'\"/></head><body/></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put("main.css", "{0}");
-        Configuration conf_ = contextElThird();
+        Configuration conf_ = contextElFive();
         conf_.setBeans(new StringMap<Bean>());
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
@@ -68,7 +68,7 @@ public final class RenderStyleTest extends CommonRender {
         String html_ = "<html><head><style/><link href=\"main.css\" rel=\"stylesheet\" param0=\".classTest'{'color:{&quot;blue&quot;};'}'\"/></head><body/></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put("main.css", "{0}");
-        Configuration conf_ = contextElThird();
+        Configuration conf_ = contextElFive();
         conf_.setBeans(new StringMap<Bean>());
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
@@ -85,7 +85,7 @@ public final class RenderStyleTest extends CommonRender {
         String html_ = "<html><head><link rel=\"stylesheet\"/></head><style>CONTENT</style><body/></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put("main.css", ".classTest{color:blue;}");
-        Configuration conf_ = contextElThird();
+        Configuration conf_ = contextElFive();
         conf_.setBeans(new StringMap<Bean>());
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
@@ -102,7 +102,7 @@ public final class RenderStyleTest extends CommonRender {
         String html_ = "<html><link href=\"main.css\" rel=\"stylesheet\"/><style>CONTENT</style><body/></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put("main.css", ".classTest{color:blue;}");
-        Configuration conf_ = contextElThird();
+        Configuration conf_ = contextElFive();
         conf_.setBeans(new StringMap<Bean>());
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
@@ -120,7 +120,7 @@ public final class RenderStyleTest extends CommonRender {
         String html_ = "<html><head><link href=\"main.css\"/></head><style>CONTENT</style><body/></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put("main.css", ".classTest{color:blue;}");
-        Configuration conf_ = contextElThird();
+        Configuration conf_ = contextElFive();
         conf_.setBeans(new StringMap<Bean>());
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
@@ -137,7 +137,7 @@ public final class RenderStyleTest extends CommonRender {
         String html_ = "<html><head><link href=\"main.css\" rel=\"stylesheet\"/></head><style>CONTENT</style><body/></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put("main1.css", ".classTest{color:blue;}");
-        Configuration conf_ = contextElThird();
+        Configuration conf_ = contextElFive();
         conf_.setBeans(new StringMap<Bean>());
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
@@ -154,7 +154,7 @@ public final class RenderStyleTest extends CommonRender {
         String html_ = "<html><head><link href=\"main.css\" rel=\"stylesheet\" param0=\".classTest'{'color:{&quot;blue&quot;+1/0};'}'\"/></head><style>CONTENT</style><body/></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put("main.css", "{0}");
-        Configuration conf_ = contextElThird();
+        Configuration conf_ = contextElFive();
         conf_.setBeans(new StringMap<Bean>());
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());

@@ -3,9 +3,7 @@ package code.expressionlanguage;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.errors.custom.FoundWarningInterpret;
-import code.expressionlanguage.instr.OperationsSequence;
-import code.expressionlanguage.instr.PartOffset;
-import code.expressionlanguage.instr.ResultAfterInstKeyWord;
+import code.expressionlanguage.instr.*;
 import code.expressionlanguage.methods.*;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.*;
@@ -148,4 +146,5 @@ public interface Analyzable {
     boolean isHidden(AccessingImportingBlock _global, RootBlock _type);
 
     String getIndexClassName();
+
 }

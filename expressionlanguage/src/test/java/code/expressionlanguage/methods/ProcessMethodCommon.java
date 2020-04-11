@@ -13,7 +13,6 @@ import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.FieldableStruct;
 import code.expressionlanguage.structs.Struct;
-import code.expressionlanguage.variables.VariableSuffix;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
@@ -74,8 +73,6 @@ public abstract class ProcessMethodCommon {
 
     protected static ContextEl contextElOtherInit(int... _m) {
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
         opt_.setInitializeStaticClassFirst(false);
         ContextEl ct_;
         if (_m.length == 0) {
@@ -86,19 +83,15 @@ public abstract class ProcessMethodCommon {
         return ct_;
     }
 
-    protected static ContextEl contextElCoverage() {
+    protected static ContextEl contextElCoverageDefault() {
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
         ContextEl ct_ = InitializationLgNames.buildStdOne(opt_);
         ct_.setCovering(true);
         return ct_;
     }
 
-    protected static ContextEl contextElCoverageReadOnly() {
+    protected static ContextEl contextElCoverageReadOnlyDef() {
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
         opt_.setReadOnly(true);
         ContextEl ct_ = InitializationLgNames.buildStdOne(opt_);
         ct_.setCovering(true);
@@ -112,20 +105,18 @@ public abstract class ProcessMethodCommon {
         ct_.setCovering(true);
         return ct_;
     }
-    protected static ContextEl contextElCoverageDisplay() {
+
+    protected static ContextEl contextElCoverageDisplayDef() {
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
         ContextEl ct_ = InitializationLgNames.buildStdOne(opt_);
         ct_.setCovering(true);
         ct_.getStandards().setTrueString("\"");
         ct_.getStandards().setFalseString("&");
         return ct_;
     }
-    protected static ContextEl contextElCoverageOtherIni() {
+
+    protected static ContextEl contextElCoverageOtherIniDef() {
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
         opt_.setInitializeStaticClassFirst(false);
         ContextEl ct_ = InitializationLgNames.buildStdOne(opt_);
         ct_.setCovering(true);
@@ -159,22 +150,9 @@ public abstract class ProcessMethodCommon {
         ct_.setCovering(true);
         return ct_;
     }
-    protected static ContextEl contextEl(int... _m) {
-        Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
-        ContextEl ct_;
-        if (_m.length == 0) {
-            ct_ = InitializationLgNames.buildStdOne(opt_);
-        } else {
-            ct_ = InitializationLgNames.buildStdOne(_m[0], opt_);
-        }
-        return ct_;
-    }
+
     protected static ContextEl contextElSingle(int... _m) {
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
         
         ContextEl ct_;
         if (_m.length == 0) {
@@ -186,27 +164,10 @@ public abstract class ProcessMethodCommon {
     }
     protected static ContextEl contextElEnum() {
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
         ContextEl ct_ = InitializationLgNames.buildStdEnums(opt_);
         return ct_;
     }
-    protected static ContextEl contextElReadOnly() {
-        Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
-        opt_.setReadOnly(true);
-        ContextEl ct_ = InitializationLgNames.buildStdOne(opt_);
-        return ct_;
-    }
-    protected static ContextEl contextElReadOnly(VariableSuffix _suf) {
-        Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(_suf);
-        opt_.setReadOnly(true);
-        ContextEl ct_ = InitializationLgNames.buildStdOne(opt_);
-        return ct_;
-    }
+
     protected static ContextEl contextElReadOnlyDef() {
         Options opt_ = new Options();
         opt_.setReadOnly(true);
@@ -228,8 +189,6 @@ public abstract class ProcessMethodCommon {
     }
     protected static ContextEl contextElReadOnlyMustInit() {
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
         opt_.setReadOnly(true);
         opt_.setFailIfNotAllInit(true);
         ContextEl ct_ = InitializationLgNames.buildStdOne(opt_);
@@ -237,14 +196,21 @@ public abstract class ProcessMethodCommon {
     }
     protected static ContextEl contextElToString() {
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
         ContextEl ct_ = InitializationLgNames.buildStdToString(opt_);
         return ct_;
     }
     protected static ContextEl contextEnElDefault() {
         Options opt_ = new Options();
         return InitializationLgNames.buildStdOne("en", opt_);
+    }
+    protected static ContextEl contextFrElDefault() {
+        Options opt_ = new Options();
+        return InitializationLgNames.buildStdOne("fr", opt_);
+    }
+    protected static ContextEl contextFrElDefaultReadOnly() {
+        Options opt_ = new Options();
+        opt_.setReadOnly(true);
+        return InitializationLgNames.buildStdOne("fr", opt_);
     }
     protected static ContextEl contextEnElDefaultInternType() {
         Options opt_ = new Options();
@@ -262,19 +228,8 @@ public abstract class ProcessMethodCommon {
         }
         return ct_;
     }
-    protected static ContextEl contextEl(VariableSuffix _suf,int... _m) {
-        Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(_suf);
-        ContextEl ct_;
-        if (_m.length == 0) {
-            ct_ = InitializationLgNames.buildStdOne(opt_);
-        } else {
-            ct_ = InitializationLgNames.buildStdOne(_m[0], opt_);
-        }
-        return ct_;
-    }
-    protected static ContextEl contextElTypes(VariableSuffix _suf,String... _types) {
+
+    protected static ContextEl contextElTypes(String... _types) {
         Options opt_ = new Options();
         for (String t: _types) {
             opt_.getTypesInit().add(t);

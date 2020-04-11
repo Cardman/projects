@@ -10,7 +10,6 @@ import code.expressionlanguage.errors.stds.StdWordError;
 import code.expressionlanguage.options.ContextFactory;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
-import code.expressionlanguage.variables.VariableSuffix;
 import code.formathtml.errors.RendAnalysisMessages;
 import code.formathtml.errors.RendKeyWords;
 import code.formathtml.util.BeanCustLgNames;
@@ -76,7 +75,7 @@ public final class ReadConfiguration {
             }
             if (stds_ instanceof BeanCustLgNames &&StringList.quickEq(fieldName_, "context")) {
                 found_ = true;
-                _configuration.setContext(loadContext(c, _lgCode, (BeanCustLgNames) stds_,_configuration));
+                loadContext(c, _lgCode, (BeanCustLgNames) stds_,_configuration);
                 continue;
             }
             if (StringList.quickEq(fieldName_, "addedFiles")) {
@@ -91,7 +90,7 @@ public final class ReadConfiguration {
             ((BeanNatLgNames)stds_).setupNative(_configuration);
         }
     }
-    private static ContextEl loadContext(Element _elt, String _lg, BeanCustLgNames _stds, Configuration _conf) {
+    private static void loadContext(Element _elt, String _lg, BeanCustLgNames _stds, Configuration _conf) {
         DefaultLockingClass lk_ = new DefaultLockingClass();
         DefaultInitializer di_ = new DefaultInitializer();
         AnalysisMessages a_ = new AnalysisMessages();
@@ -122,7 +121,8 @@ public final class ReadConfiguration {
         _conf.setContext(context_);
         AnalysisMessages.validateMessageContents(context_, rMess_.allMessages());
         if (!context_.getClasses().isEmptyMessageError()) {
-            return null;
+            _conf.setContext(null);
+            return;
         }
         StringMap<String> allTags_ = rkw_.allTags();
         rkw_.validateTagContents(_conf,allTags_);
@@ -146,9 +146,11 @@ public final class ReadConfiguration {
             context_.getClasses().addStdError(s);
         }
         if (!context_.getClasses().isEmptyStdError()) {
-            return null;
+            _conf.setContext(null);
+            return;
         }
-        return context_;
+        context_.setExecutingInstance(_conf);
+        _conf.setContext(context_);
     }
     private static Options loadOptions(Element _elt) {
         Options options_ = new Options();
@@ -157,10 +159,6 @@ public final class ReadConfiguration {
             String fieldName_ = c.getAttribute("field");
             if (StringList.quickEq(fieldName_, "initializeStaticClassFirst")) {
                 options_.setInitializeStaticClassFirst(StringList.quickEq(c.getAttribute("value"), "true"));
-                continue;
-            }
-            if (StringList.quickEq(fieldName_, "suffixVar")) {
-                options_.setSuffixVar(VariableSuffix.getVariableSuffixByName(c.getAttribute("value")));
                 continue;
             }
             if (StringList.quickEq(fieldName_, "classes")) {

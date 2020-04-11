@@ -6,9 +6,7 @@ import code.expressionlanguage.inherits.TypeUtil;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.MethodAccessKind;
 import code.expressionlanguage.opers.util.MethodId;
-import code.expressionlanguage.opers.util.MethodModifier;
 import code.expressionlanguage.options.Options;
-import code.expressionlanguage.variables.VariableSuffix;
 import code.util.*;
 import org.junit.Test;
 
@@ -1247,10 +1245,10 @@ public final class RootBlockTest {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo<#T:java.lang.Number,#U:java.lang.Number> {\n");
         xml_.append(" $public $normal $int get(#T i){\n");
-        xml_.append("  $return 1i:\n");
+        xml_.append("  $return 1i;\n");
         xml_.append(" }\n");
         xml_.append(" $public $normal $int get(#U i){\n");
-        xml_.append("  $return 2i:\n");
+        xml_.append("  $return 2i;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
@@ -1520,8 +1518,8 @@ public final class RootBlockTest {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        
+        
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes classes_ = cont_.getClasses();
         Classes.buildPredefinedBracesBodies(cont_);
@@ -1552,8 +1550,8 @@ public final class RootBlockTest {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        
+        
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes classes_ = cont_.getClasses();
         Classes.buildPredefinedBracesBodies(cont_);
@@ -1586,8 +1584,8 @@ public final class RootBlockTest {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        
+        
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes classes_ = cont_.getClasses();
         Classes.buildPredefinedBracesBodies(cont_);
@@ -1620,8 +1618,8 @@ public final class RootBlockTest {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        
+        
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes classes_ = cont_.getClasses();
         Classes.buildPredefinedBracesBodies(cont_);
@@ -1652,8 +1650,8 @@ public final class RootBlockTest {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        
+        
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes classes_ = cont_.getClasses();
         Classes.buildPredefinedBracesBodies(cont_);
@@ -1684,8 +1682,8 @@ public final class RootBlockTest {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        
+        
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes classes_ = cont_.getClasses();
         Classes.buildPredefinedBracesBodies(cont_);
@@ -1728,8 +1726,8 @@ public final class RootBlockTest {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        
+        
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes classes_ = cont_.getClasses();
         Classes.buildPredefinedBracesBodies(cont_);
@@ -1760,8 +1758,8 @@ public final class RootBlockTest {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        
+        
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes classes_ = cont_.getClasses();
         Classes.buildPredefinedBracesBodies(cont_);
@@ -1790,8 +1788,8 @@ public final class RootBlockTest {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        
+        
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes classes_ = cont_.getClasses();
         Classes.buildPredefinedBracesBodies(cont_);
@@ -1808,13 +1806,13 @@ public final class RootBlockTest {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExImp{\n");
         xml_.append(" $public $abstract String instancemethod(Object i){\n");
-        xml_.append("  $return \"\":\n");
+        xml_.append("  $return \"\";\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        
+        
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes classes_ = cont_.getClasses();
         Classes.buildPredefinedBracesBodies(cont_);
@@ -1843,8 +1841,8 @@ public final class RootBlockTest {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        
+        
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes classes_ = cont_.getClasses();
         Classes.buildPredefinedBracesBodies(cont_);
@@ -1944,8 +1942,8 @@ public final class RootBlockTest {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        
+        
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes classes_ = cont_.getClasses();
         Classes.buildPredefinedBracesBodies(cont_);
@@ -1957,8 +1955,8 @@ public final class RootBlockTest {
     }
     private static ContextEl unfullValidateOverridingMethods(StringMap<String> _files) {
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        
+        
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes classes_ = cont_.getClasses();
         Classes.buildPredefinedBracesBodies(cont_);
@@ -1970,8 +1968,8 @@ public final class RootBlockTest {
     }
     private static void failValidateOverridingMethods(StringMap<String> _files) {
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        
+        
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes classes_ = cont_.getClasses();
         Classes.buildPredefinedBracesBodies(cont_);

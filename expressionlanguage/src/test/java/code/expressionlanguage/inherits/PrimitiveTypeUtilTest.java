@@ -4,12 +4,10 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.InitializationLgNames;
 import code.expressionlanguage.calls.util.CallingState;
-import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.structs.*;
-import code.expressionlanguage.variables.VariableSuffix;
 import code.util.CustList;
 import code.util.Ints;
 import code.util.StringList;
@@ -3637,8 +3635,6 @@ public final class PrimitiveTypeUtilTest {
     }
     private ContextEl unfullValidateOverridingMethods(StringMap<String> _files) {
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes classes_ = cont_.getClasses();
         Classes.buildPredefinedBracesBodies(cont_);
@@ -3650,8 +3646,6 @@ public final class PrimitiveTypeUtilTest {
     }
     private ContextEl unfullValidateCheckInterfaces(StringMap<String> _files) {
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes classes_ = cont_.getClasses();
         Classes.buildPredefinedBracesBodies(cont_);
@@ -3676,8 +3670,6 @@ public final class PrimitiveTypeUtilTest {
     }
     private ContextEl simpleContextEl() {
         Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
         return InitializationLgNames.buildStdOne(opt_);
     }
 }

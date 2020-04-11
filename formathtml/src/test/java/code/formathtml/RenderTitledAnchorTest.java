@@ -20,7 +20,7 @@ public final class RenderTitledAnchorTest extends CommonRender {
         String html_ = "<html><body><c:a value=\"msg_example,three\" param0=\"TITLE\">Content</c:a></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
-        Configuration conf_ = contextElThird();
+        Configuration conf_ = contextElFive();
         conf_.setBeans(new StringMap<Bean>());
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
@@ -42,7 +42,7 @@ public final class RenderTitledAnchorTest extends CommonRender {
         String html_ = "<html><body><c:a value=\"msg_example,three\" param0=\"{1/0}\">Content</c:a></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
-        Configuration conf_ = contextElThird();
+        Configuration conf_ = contextElFive();
         conf_.setBeans(new StringMap<Bean>());
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
@@ -64,7 +64,7 @@ public final class RenderTitledAnchorTest extends CommonRender {
         String html_ = "<html><body><c:a value=\"msg_example,five\">Content</c:a></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
-        Configuration conf_ = contextElThird();
+        Configuration conf_ = contextElFive();
         conf_.setBeans(new StringMap<Bean>());
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());

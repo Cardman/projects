@@ -35,7 +35,7 @@ public final class NumParsers {
         if (exp_.length() == 0) {
             expNb_ = new LongInfo(0);
         } else {
-            expNb_ = parseLongTen(exp_.toString());
+            expNb_ = parseLong(exp_.toString(), 10);
         }
         if (!expNb_.isValid()) {
             if (positive_) {
@@ -558,52 +558,6 @@ public final class NumParsers {
         return result_;
     }
 
-    //this long parser is very naive
-    public static LongInfo parseLongTen(String _string) {
-        long result_ = 0;
-        boolean negative_ = false;
-        int i_ = 0;
-        int max_ = _string.length();
-        long limit_;
-        long multmin_;
-        int digit_;
-
-        if (_string.charAt(0) == '-') {
-            negative_ = true;
-            limit_ = Long.MIN_VALUE;
-            i_++;
-        } else {
-            limit_ = -Long.MAX_VALUE;
-        }
-        if (negative_) {
-            multmin_ = MULTMIN_RADIX_TEN;
-        } else {
-            multmin_ = N_MULTMAX_RADIX_TEN;
-        }
-        int ch_ = _string.charAt(i_);
-        i_++;
-        digit_ = ch_ - '0';
-        result_ = -digit_;
-        while (i_ < max_) {
-            // Accumulating negatively avoids surprises near MAX_VALUE
-            ch_ = _string.charAt(i_);
-            i_++;
-            digit_ = ch_ - '0';
-            if (result_ < multmin_) {
-                return new LongInfo();
-            }
-            result_ *= DEFAULT_RADIX;
-            if (result_ < limit_ + digit_) {
-                return new LongInfo();
-            }
-            result_ -= digit_;
-        }
-        if (negative_) {
-            return new LongInfo(result_);
-        }
-        return new LongInfo(-result_);
-    }
-
     public static long parseQuickLongTen(String _string) {
         int i_ = 0;
         int max_ = _string.length();
@@ -718,6 +672,16 @@ public final class NumParsers {
         return _ch >= 'A' && _ch <= 'Z';
     }
 
+    public static DoubleInfo splitDouble(String _nb) {
+        NumberInfos nb_ = trySplitDouble(_nb);
+        return parseDoubleOrInvalid(nb_);
+    }
+    public static DoubleInfo parseDoubleOrInvalid(NumberInfos _nb) {
+        if (_nb == null) {
+            return new DoubleInfo();
+        }
+        return new DoubleInfo(parseDouble(_nb));
+    }
     public static NumberInfos trySplitDouble(String _nb) {
         if (_nb.isEmpty()) {
             return null;

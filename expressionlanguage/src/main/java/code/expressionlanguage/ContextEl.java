@@ -6,10 +6,7 @@ import code.expressionlanguage.common.*;
 import code.expressionlanguage.errors.AnalysisMessages;
 import code.expressionlanguage.errors.custom.*;
 import code.expressionlanguage.inherits.*;
-import code.expressionlanguage.instr.ElUtil;
-import code.expressionlanguage.instr.OperationsSequence;
-import code.expressionlanguage.instr.PartOffset;
-import code.expressionlanguage.instr.ResultAfterInstKeyWord;
+import code.expressionlanguage.instr.*;
 import code.expressionlanguage.methods.*;
 import code.expressionlanguage.methods.util.Coverage;
 import code.expressionlanguage.methods.util.LocalThrowing;
@@ -25,11 +22,17 @@ import code.expressionlanguage.structs.*;
 import code.expressionlanguage.types.PartTypeUtil;
 import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.LoopVariable;
-import code.expressionlanguage.variables.VariableSuffix;
 import code.util.*;
 
 public abstract class ContextEl implements ExecutableCode {
-
+    private static final String GET_INDEX = ";;";
+    private static final String GET_CATCH_VAR = ";..";
+    private static final String GET_LOC_VAR = ";.";
+    private static final String GET_ATTRIBUTE = ";";
+    private static final String SIMPLE_SIFFIX = ";";
+    private static final String GET_PARAM = ";.;";
+    private static final String GET_FIELD = ";;;";
+    private static final char PAR_LEFT = '(';
     private static final int DEFAULT_TAB_WIDTH = 4;
     private static final String EMPTY_TYPE = "";
 
@@ -67,7 +70,6 @@ public abstract class ContextEl implements ExecutableCode {
                      AnalysisMessages _mess,
                      KeyWords _keyWords, LgNames _stds, int _tabWitdth) {
         this();
-        setExecutingInstance(this);
         setCovering(_covering);
         setOptions(_options);
         setStackOverFlow(_stackOverFlow);
@@ -81,6 +83,7 @@ public abstract class ContextEl implements ExecutableCode {
         classes.setLocks(_lock);
     }
     protected ContextEl() {
+        setExecutingInstance(this);
     }
     public boolean isSensibleField(String _clName) {
         if (!isInitEnums()) {
@@ -1535,8 +1538,14 @@ public abstract class ContextEl implements ExecutableCode {
             }
             for (RootBlock a: allAncestors_) {
                 String id_ = a.getFullName();
+                if (!StringList.contains(_readyTypes, id_)) {
+                    return EMPTY_TYPE;
+                }
                 String inner_ = getInner(_readyTypes, id_, baseInn_);
                 if (inner_ == null) {
+                    return null;
+                }
+                if (inner_.isEmpty()) {
                     continue;
                 }
                 innerName_ = true;
@@ -1544,9 +1553,6 @@ public abstract class ContextEl implements ExecutableCode {
                 break;
             }
             if (innerName_) {
-                if (name_.isEmpty()) {
-                    return name_;
-                }
                 res_ = name_;
             } else {
                 String member_ = lookupImportMemberTypes(baseInn_, _root, _readyTypes);
@@ -1594,6 +1600,9 @@ public abstract class ContextEl implements ExecutableCode {
             return EMPTY_TYPE;
         }
         StringList built_ = TypeUtil.getInners(_owner, _name, this);
+        if (built_.isEmpty()) {
+            return EMPTY_TYPE;
+        }
         if (built_.onlyOneElt()) {
             return built_.first();
         }
@@ -1695,10 +1704,13 @@ public abstract class ContextEl implements ExecutableCode {
                 if (_inherits && !StringList.contains(_readTypes,res_)) {
                     return true;
                 }
-                StringList builtInners_ = TypeUtil.getOwners(res_, i_, stQualifier_, this);
+                StringList builtInners_ = TypeUtil.getInners(res_, i_, stQualifier_, this);
                 if (builtInners_.onlyOneElt()) {
-                    res_ = StringList.concat(builtInners_.first(),"..",i_);
+                    res_ = builtInners_.first();
                     continue;
+                }
+                if (!builtInners_.isEmpty()) {
+                    return true;
                 }
                 addImport_ = false;
                 break;
@@ -2214,10 +2226,7 @@ public abstract class ContextEl implements ExecutableCode {
     }
 
     public boolean idDisjointToken(String _id) {
-        if (options.getSuffixVar() != VariableSuffix.DISTINCT) {
-            return isNotVar(_id);
-        }
-        return true;
+        return isNotVar(_id);
     }
 
     public boolean isNotVar(String _id) {
@@ -2308,4 +2317,5 @@ public abstract class ContextEl implements ExecutableCode {
         }
         return false;
     }
+
 }

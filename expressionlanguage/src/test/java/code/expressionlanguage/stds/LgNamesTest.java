@@ -1248,7 +1248,7 @@ public class LgNamesTest {
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
         Options opts_ = new Options();
-        kw_.setKeyWordNbSufLong("B");
+        kw_.setKeyWordNbSufLong("Y");
         SingleContextEl s_ = getCtx(lk_, di_, kw_, lgName_, opts_);
         s_.setStandards(lgName_);
         StringMap<String> keyWords_ = kw_.allKeyWords();

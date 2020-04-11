@@ -167,9 +167,6 @@ public final class Delimiters {
     public CustList<VariableInfo> getVariables() {
         return variables;
     }
-    public boolean isWordLastVariable() {
-        return variables.last().getKind() == ConstType.WORD;
-    }
 
     public Ints getDimsAddonIndexes() {
         return dimsAddonIndexes;
