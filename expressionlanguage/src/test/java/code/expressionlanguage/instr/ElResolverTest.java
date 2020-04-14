@@ -4244,22 +4244,6 @@ public final class ElResolverTest extends ProcessMethodCommon{
     }
 
     @Test
-    public void checkSyntax245FailTest() {
-        ContextEl conf_ = contextEl();
-        addImportingPage(conf_);
-        String el_ = "-(java.lang.Object[)";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
-        assertEq(19, d_.getBadOffset());
-    }
-    @Test
-    public void checkSyntax246FailTest() {
-        ContextEl conf_ = contextEl();
-        addImportingPage(conf_);
-        String el_ = "(java.lang.Object[ )";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
-        assertEq(19, d_.getBadOffset());
-    }
-    @Test
     public void checkSyntax247FailTest() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
@@ -4772,6 +4756,15 @@ public final class ElResolverTest extends ProcessMethodCommon{
         assertEq(1, d_.getAllowedOperatorsIndexes().first());
     }
     @Test
+    public void checkSyntax2Test() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_);
+        addBeanClassName(conf_, "code.expressionlanguage.classes.BeanOne");
+        String el_ = "1 ";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        assertEq(0, d_.getAllowedOperatorsIndexes().size());
+    }
+    @Test
     public void checkSyntaxDelimiters1Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
@@ -4980,14 +4973,6 @@ public final class ElResolverTest extends ProcessMethodCommon{
     }
 
     @Test
-    public void checkSyntax9FailTest() {
-        ContextEl conf_ = contextEl();
-        addImportingPage(conf_);
-        String el_ = "6 1*(\"te\"+[8])";
-        assertEq(1, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
-    }
-
-    @Test
     public void checkSyntax10FailTest() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
@@ -5188,14 +5173,6 @@ public final class ElResolverTest extends ProcessMethodCommon{
     }
 
     @Test
-    public void checkSyntax38FailTest() {
-        ContextEl conf_ = contextEl();
-        addImportingPage(conf_);
-        String el_ = "1 .0";
-        assertEq(1, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
-    }
-
-    @Test
     public void checkSyntax40FailTest() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
@@ -5203,141 +5180,6 @@ public final class ElResolverTest extends ProcessMethodCommon{
         assertEq(22, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
     }
 
-    @Test
-    public void checkSyntax42FailTest() {
-        ContextEl conf_ = contextEl();
-        addImportingPage(conf_);
-        String el_ = "1e.0";
-        assertEq(2, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
-    }
-
-    @Test
-    public void checkSyntax43FailTest() {
-        ContextEl conf_ = contextEl();
-        addImportingPage(conf_);
-        String el_ = "1e";
-        assertEq(1, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
-    }
-
-    @Test
-    public void checkSyntax44FailTest() {
-        ContextEl conf_ = contextEl();
-        addImportingPage(conf_);
-        String el_ = "1.0e.2";
-        assertEq(4, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
-    }
-
-    @Test
-    public void checkSyntax45FailTest() {
-        ContextEl conf_ = contextEl();
-        addImportingPage(conf_);
-        String el_ = "1.0e5.2";
-        assertEq(5, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
-    }
-
-    @Test
-    public void checkSyntax46FailTest() {
-        ContextEl conf_ = contextEl();
-        addImportingPage(conf_);
-        String el_ = "1.0.2";
-        assertEq(3, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
-    }
-
-    @Test
-    public void checkSyntax47FailTest() {
-        ContextEl conf_ = contextEl();
-        addImportingPage(conf_);
-        String el_ = "1  .0";
-        assertEq(1, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
-    }
-
-    @Test
-    public void checkSyntax48FailTest() {
-        ContextEl conf_ = contextEl();
-        addImportingPage(conf_);
-        String el_ = "1.0e5df";
-        assertEq(5, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
-    }
-
-    @Test
-    public void checkSyntax52FailTest() {
-        ContextEl conf_ = contextEl();
-        addImportingPage(conf_);
-        String el_ = "1.d.f";
-        assertEq(3, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
-    }
-
-    @Test
-    public void checkSyntax59FailTest() {
-        ContextEl conf_ = contextEl();
-        addImportingPage(conf_);
-        String el_ = "1ee2";
-        assertEq(2, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
-    }
-
-    @Test
-    public void checkSyntax60FailTest() {
-        ContextEl conf_ = contextEl();
-        addImportingPage(conf_);
-        String el_ = "1.0e1g";
-        assertEq(5, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
-    }
-
-    @Test
-    public void checkSyntax62FailTest() {
-        ContextEl conf_ = contextEl();
-        addImportingPage(conf_);
-        String el_ = ".0e1g";
-        assertEq(4, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
-    }
-
-    @Test
-    public void checkSyntax63FailTest() {
-        ContextEl conf_ = contextEl();
-        addImportingPage(conf_);
-        String el_ = ".0e1ff";
-        assertEq(4, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
-    }
-
-    @Test
-    public void checkSyntax70FailTest() {
-        ContextEl conf_ = contextEl();
-        addImportingPage(conf_);
-        String el_ = "1.0e4d.5";
-        assertEq(6, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
-    }
-
-    @Test
-    public void checkSyntax73FailTest() {
-        ContextEl conf_ = contextEl();
-        addImportingPage(conf_);
-        String el_ = "1e .0";
-        assertEq(2, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
-    }
-
-    @Test
-    public void checkSyntax74FailTest() {
-        ContextEl conf_ = contextEl();
-        addImportingPage(conf_);
-        String el_ = "2e 0";
-        assertEq(2, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
-    }
-
-    @Test
-    public void checkSyntax75FailTest() {
-        ContextEl conf_ = contextEl();
-        addImportingPage(conf_);
-        String el_ = "2e ";
-        assertEq(2, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
-    }
-
-    @Test
-    public void checkSyntax76FailTest() {
-        ContextEl conf_ = contextEl();
-        addImportingPage(conf_);
-        String el_ = ". 1";
-        assertEq(0, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
-    }
 
     @Test
     public void checkSyntax77FailTest() {

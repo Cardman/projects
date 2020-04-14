@@ -11,6 +11,7 @@ public final class NumParsers {
     private static final char DOT_VAR = '.';
     private static final char EXP_UPP = 'E';
     private static final char EXP = 'e';
+    private static final char PLUS_CHAR = '+';
     private static final char MINUS_CHAR = '-';
     private static final byte MAX_DIGITS_DOUBLE = 18;
 
@@ -35,7 +36,11 @@ public final class NumParsers {
         if (exp_.length() == 0) {
             expNb_ = new LongInfo(0);
         } else {
-            expNb_ = parseLong(exp_.toString(), 10);
+            String str_ = exp_.toString();
+            if (str_.startsWith("+")) {
+                str_ = str_.substring(1);
+            }
+            expNb_ = parseLong(str_, 10);
         }
         if (!expNb_.isValid()) {
             if (positive_) {
@@ -513,7 +518,7 @@ public final class NumParsers {
         return out_;
     }
 
-    public static double parseDoubleSixteen(String _string) {
+    private static double parseDoubleSixteen(String _string) {
         double result_ = 0;
         int i_ = 0;
         int max_ = _string.length();
@@ -530,7 +535,7 @@ public final class NumParsers {
         return result_;
     }
 
-    public static double parseDoubleOctal(String _string) {
+    private static double parseDoubleOctal(String _string) {
         double result_ = 0;
         int i_ = 0;
         int max_ = _string.length();
@@ -544,7 +549,7 @@ public final class NumParsers {
         return result_;
     }
 
-    public static double parseDoubleBinary(String _string) {
+    private static double parseDoubleBinary(String _string) {
         double result_ = 0;
         int i_ = 0;
         int max_ = _string.length();
@@ -558,7 +563,7 @@ public final class NumParsers {
         return result_;
     }
 
-    public static long parseQuickLongTen(String _string) {
+    private static long parseQuickLongTen(String _string) {
         int i_ = 0;
         int max_ = _string.length();
         int digit_;
@@ -682,7 +687,7 @@ public final class NumParsers {
         }
         return new DoubleInfo(parseDouble(_nb));
     }
-    public static NumberInfos trySplitDouble(String _nb) {
+    private static NumberInfos trySplitDouble(String _nb) {
         if (_nb.isEmpty()) {
             return null;
         }
@@ -690,10 +695,13 @@ public final class NumParsers {
         int i_ = 0;
         if (!ContextEl.isDigit(_nb.charAt(i_))) {
             if (_nb.charAt(i_) != MINUS_CHAR) {
-                if (_nb.charAt(i_) != DOT_VAR) {
+                if (_nb.charAt(i_) != DOT_VAR && _nb.charAt(i_) != PLUS_CHAR) {
                     return null;
                 }
                 infos_.setPositive(true);
+                if (_nb.charAt(i_) == PLUS_CHAR) {
+                    i_++;
+                }
             } else {
                 infos_.setPositive(false);
                 i_++;
@@ -746,7 +754,7 @@ public final class NumParsers {
             return null;
         }
         char cur_ = _nb.charAt(i_);
-        if (!ContextEl.isDigit(cur_) && cur_ != MINUS_CHAR) {
+        if (!ContextEl.isDigit(cur_) && cur_ != MINUS_CHAR && cur_ != PLUS_CHAR) {
             return null;
         }
         i_++;

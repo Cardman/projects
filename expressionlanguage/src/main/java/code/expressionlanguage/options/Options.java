@@ -6,7 +6,6 @@ public final class Options {
 
     private StringList typesInit = new StringList();
     private boolean initializeStaticClassFirst = true;
-    private boolean varTypeFirst = true;
     private boolean readOnly;
     private boolean failIfNotAllInit;
 
@@ -20,14 +19,6 @@ public final class Options {
 
     public void setInitializeStaticClassFirst(boolean _initializeStaticClassFirst) {
         initializeStaticClassFirst = _initializeStaticClassFirst;
-    }
-
-    public boolean isVarTypeFirst() {
-        return varTypeFirst;
-    }
-
-    public void setVarTypeFirst(boolean _varTypeFirst) {
-        varTypeFirst = _varTypeFirst;
     }
 
     public boolean isReadOnly() {

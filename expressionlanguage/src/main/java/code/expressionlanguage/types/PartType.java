@@ -24,24 +24,22 @@ abstract class PartType {
         index = _index;
         indexInType = _indexInType;
     }
-    static PartType createPartType(Analyzable _an, ParentPartType _parent, int _index, int _indexInType, AnalyzingType _analyze, IntTreeMap<String> _dels, Options _options) {
+    static PartType createPartType(Analyzable _an, ParentPartType _parent, int _index, int _indexInType, AnalyzingType _analyze, IntTreeMap<String> _dels) {
         if (_analyze.isError()) {
             return new EmptyPartType(_parent, _index, _indexInType, _dels.getValue(_index));
         }
         if (_analyze.getOperators().isEmpty()) {
             if (_analyze.getKind() == KindPartType.TYPE_NAME) {
                 String type_ = _dels.getValue(_index);
-                if (_options.isVarTypeFirst()) {
-                    type_ = ContextEl.removeDottedSpaces(type_);
-                    boolean okVarType_ = false;
-                    if (_parent == null || _parent instanceof ArraryPartType || _parent instanceof WildCardPartType) {
-                        okVarType_ = true;
-                    } else if (_parent instanceof TemplatePartType && _parent.getFirstChild() != null) {
-                        okVarType_ = true;
-                    }
-                    if (_an.getAvailableVariables().contains(type_) && okVarType_) {
-                        return new VariablePartType(_parent, _index, _indexInType, type_);
-                    }
+                type_ = ContextEl.removeDottedSpaces(type_);
+                boolean okVarType_ = false;
+                if (_parent == null || _parent instanceof ArraryPartType || _parent instanceof WildCardPartType) {
+                    okVarType_ = true;
+                } else if (_parent instanceof TemplatePartType && _parent.getFirstChild() != null) {
+                    okVarType_ = true;
+                }
+                if (_an.getAvailableVariables().contains(type_) && okVarType_) {
+                    return new VariablePartType(_parent, _index, _indexInType, type_);
                 }
                 return new NamePartType(_parent, _index, _indexInType, type_);
             }

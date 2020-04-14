@@ -21,7 +21,7 @@ public final class AnalyzingType {
         values.put((int)CustList.FIRST_INDEX, _string);
     }
 
-    public void setupValues(String _string, Options _options) {
+    public void setupValues(String _string) {
         values = new IntTreeMap<String>();
         if (operators.isEmpty()) {
             values.put((int)CustList.FIRST_INDEX, _string);

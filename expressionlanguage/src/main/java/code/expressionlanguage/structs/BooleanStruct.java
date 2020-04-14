@@ -5,12 +5,10 @@ import code.expressionlanguage.ExecutableCode;
 
 public final class BooleanStruct implements DisplayableStruct, ExportableStringStruct {
 
-    private static final BooleanStruct FALSE = new BooleanStruct(false);
-    private static final BooleanStruct TRUE = new BooleanStruct(true);
-    private final boolean value;
+    private static final BooleanStruct FALSE = new BooleanStruct();
+    private static final BooleanStruct TRUE = new BooleanStruct();
 
-    private BooleanStruct(boolean _value) {
-        value = _value;
+    private BooleanStruct() {
     }
 
     public static BooleanStruct of(boolean _value) {
@@ -32,21 +30,21 @@ public final class BooleanStruct implements DisplayableStruct, ExportableStringS
 
     @Override
     public StringStruct getDisplayedString(Analyzable _an) {
-        if (value) {
+        if (this == TRUE) {
             return new StringStruct(_an.getStandards().getTrueString());
         }
         return new StringStruct(_an.getStandards().getFalseString());
     }
     @Override
     public StringStruct exportValue() {
-        if (value) {
+        if (this == TRUE) {
             return new StringStruct("1");
         }
         return new StringStruct("0");
     }
 
     public boolean getInstance() {
-        return value;
+        return this == TRUE;
     }
 
     @Override

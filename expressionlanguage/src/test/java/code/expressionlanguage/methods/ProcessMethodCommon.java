@@ -143,14 +143,6 @@ public abstract class ProcessMethodCommon {
         return ct_;
     }
 
-    protected static ContextEl contextElCoverageEnDefaultOtherIni() {
-        Options opt_ = new Options();
-        opt_.setInitializeStaticClassFirst(false);
-        ContextEl ct_ = InitializationLgNames.buildStdOne("en",opt_);
-        ct_.setCovering(true);
-        return ct_;
-    }
-
     protected static ContextEl contextElSingle(int... _m) {
         Options opt_ = new Options();
         

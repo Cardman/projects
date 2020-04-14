@@ -3,7 +3,6 @@ package code.expressionlanguage.types;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.inherits.Templates;
-import code.expressionlanguage.options.Options;
 import code.util.CustList;
 import code.util.*;
 import code.util.Ints;
@@ -152,7 +151,7 @@ public final class ParserType {
         return _i + 1 < _len && _input.charAt(_i + 1) == Templates.SEP_CLASS_CHAR;
     }
 
-    public static AnalyzingType analyzeLocal(int _offset, String _string, Ints _indexes, Options _options) {
+    public static AnalyzingType analyzeLocal(int _offset, String _string, Ints _indexes) {
         AnalyzingType a_ = new AnalyzingType();
         a_.getIndexes().addAllElts(_indexes);
         if (_string.trim().isEmpty()) {
@@ -237,7 +236,7 @@ public final class ParserType {
         }
         a_.getOperators().putAllMap(operators_);
         a_.setPrio(prio_);
-        a_.setupValues(_string, _options);
+        a_.setupValues(_string);
         return a_;
     }
     public static AnalyzingType analyzeQuickLocal(int _offset, String _string, Ints _indexes) {

@@ -75,6 +75,19 @@ public final class ClassesBisTest {
         assertTrue(ctx_.isEmptyErrors());
     }
     @Test
+    public void calculateStaticField190Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $final $double a1=1e+0;\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl ctx_ = ClassesTest.contextElSingleDotDefault();
+        Classes.validateAll(files_,ctx_);
+        assertTrue(ctx_.isEmptyErrors());
+    }
+    @Test
     public void validateEl19FailTest() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
@@ -116,6 +129,33 @@ public final class ClassesBisTest {
         xml_.append(" $public $double dz = 4.ff;\n");
         xml_.append(" $public $double da = 4.ff+5;\n");
         xml_.append(" $public $double db = 0b;\n");
+        xml_.append(" $public $double dc = 2e ;\n");
+        xml_.append(" $public $double dd = 1e .0;\n");
+        xml_.append(" $public $double ea = 2e 0;\n");
+        xml_.append(" $public $double eb = (java.lang.Object[ )]$null;\n");
+        xml_.append(" $public $double ec = -(java.lang.Object[ )]$null;\n");
+        xml_.append(" $public $double ed = 1 2;\n");
+        xml_.append(" $public $double ee = . 1;\n");
+        xml_.append(" $public $double ef = 1  .0;\n");
+        xml_.append(" $public $double eg = 1 .0;\n");
+        xml_.append(" $public $double eh = 6 1*(\"te\"+[8]);\n");
+        xml_.append(" $public $double ei = 1.0.2;\n");
+        xml_.append(" $public $double ej = 1.d.f;\n");
+        xml_.append(" $public $double ek = 1.0e4d.5;\n");
+        xml_.append(" $public $double el = 1.0e5df;\n");
+        xml_.append(" $public $double em = 1ee2;\n");
+        xml_.append(" $public $double en = 1.0e1g;\n");
+        xml_.append(" $public $double ep = .0e1g;\n");
+        xml_.append(" $public $double eq = .0e1ff;\n");
+        xml_.append(" $public $double er = 1.0e4d.5;\n");
+        xml_.append(" $public $double es = 1e;\n");
+        xml_.append(" $public $double et = 1.0e.2;\n");
+        xml_.append(" $public $double eu = 1e.0;\n");
+        xml_.append(" $public $double ev = 1.0e5.2;\n");
+        xml_.append(" $public $double ew = 1.0e5d2+5;\n");
+        xml_.append(" $public $double ex = 1. 0. 5. 5;\n");
+        xml_.append(" $public $double ey = ..1;\n");
+        xml_.append(" $public $double ez = . .1;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = ProcessMethodCommon.contextElDefault();

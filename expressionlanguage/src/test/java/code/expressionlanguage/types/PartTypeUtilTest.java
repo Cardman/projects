@@ -738,7 +738,7 @@ public final class PartTypeUtilTest {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl context_ = unfullValidateInheritingClassesVarFirst(files_);
+        ContextEl context_ = unfullValidateInheritingClasses(files_);
         Classes cl_ = context_.getClasses();
         RootBlock root_ = cl_.getClassBody("pkg.Outer");
         String solved_ = PartTypeUtil.processAnalyze("OuterTwo.InnerThree<Outer.Inner>", "",context_, root_);
@@ -1137,18 +1137,6 @@ public final class PartTypeUtilTest {
         assertEq("", solved_);
     }
 
-    private ContextEl unfullValidateInheritingClassesVarFirst(StringMap<String> _files) {
-        Options opt_ = new Options();
-        opt_.setVarTypeFirst(false);
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
-        Classes classes_ = cont_.getClasses();
-        Classes.buildPredefinedBracesBodies(cont_);
-        Classes.tryBuildBracedClassesBodies(_files, cont_, false);
-        assertTrue(classes_.displayErrors(), cont_.isEmptyErrors());
-        classes_.validateInheritingClasses(cont_, false);
-        assertTrue(classes_.displayErrors(), cont_.isEmptyErrors());
-        return cont_;
-    }
     private ContextEl unfullValidateInheritingClasses(StringMap<String> _files) {
         Options opt_ = new Options();
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);

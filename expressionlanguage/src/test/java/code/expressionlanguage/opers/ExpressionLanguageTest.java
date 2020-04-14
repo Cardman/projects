@@ -5677,6 +5677,18 @@ public final class ExpressionLanguageTest {
         Struct arg_ = directCalculateExc("$($Fct<String,$int>[])$lambda(String,length)");
         assertNotNull(arg_);
     }
+
+    @Test
+    public void processEl103053Test() {
+        Argument arg_ = directCalculate("Double.parseDouble(\"15.0e+1\")");
+        assertEq(150, arg_.getDouble());
+    }
+
+    @Test
+    public void processEl103054Test() {
+        Argument arg_ = directCalculate("Double.parseDouble(\"+15.0e1\")");
+        assertEq(150, arg_.getDouble());
+    }
     @Test
     public void processElCmp1est() {
         Argument arg_ = directCalculate("Number.compare(1L,2d)");
