@@ -95,6 +95,8 @@ public final class KeyWordsMap {
         fr_.setKeyWordNbExpDec("e");
         en_.setKeyWordNbHex("x");
         fr_.setKeyWordNbHex("x");
+        en_.setKeyWordNbHexEnd("x");
+        fr_.setKeyWordNbHexEnd("x");
         en_.setKeyWordNbSufByte("Y");
         fr_.setKeyWordNbSufByte("O");
         en_.setKeyWordNbSufBytePrim("y");

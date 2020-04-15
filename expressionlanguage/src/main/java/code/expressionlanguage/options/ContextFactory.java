@@ -66,6 +66,8 @@ public final class ContextFactory {
         _definedKw.validateNbWordDuplicates(_context, nbWordsDec_);
         StringMap<String> nbWordsBin_ = _definedKw.allNbWords(_definedKw.allNbWordsBin());
         _definedKw.validateNbWordDuplicates(_context, nbWordsBin_);
+        StringMap<String> nbWordsPreBin_ = _definedKw.allNbWords(_definedKw.allNbWordsPreBin());
+        _definedKw.validateNbWordDuplicates(_context, nbWordsPreBin_);
         _definedKw.validateStartsPrefixesDuplicates(_context);
         StringMap<String> refTypes_ = _definedLgNames.allRefTypes();
         _definedLgNames.validateRefTypeContents(_context, refTypes_, prims_);

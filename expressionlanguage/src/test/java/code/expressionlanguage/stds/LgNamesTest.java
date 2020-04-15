@@ -131,7 +131,7 @@ public class LgNamesTest {
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
         Options opts_ = new Options();
-        kw_.setKeyWordNbHex("");
+        kw_.setKeyWordNbHexEnd("");
         SingleContextEl s_ = getCtx(lk_, di_, kw_, lgName_, opts_);
         s_.setStandards(lgName_);
         StringMap<String> keyWords_ = kw_.allKeyWords();
@@ -150,7 +150,7 @@ public class LgNamesTest {
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
         Options opts_ = new Options();
-        kw_.setKeyWordNbHex("<");
+        kw_.setKeyWordNbHexEnd("<");
         SingleContextEl s_ = getCtx(lk_, di_, kw_, lgName_, opts_);
         s_.setStandards(lgName_);
         StringMap<String> keyWords_ = kw_.allKeyWords();
@@ -169,7 +169,7 @@ public class LgNamesTest {
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
         Options opts_ = new Options();
-        kw_.setKeyWordNbHex("_");
+        kw_.setKeyWordNbHexEnd("_");
         SingleContextEl s_ = getCtx(lk_, di_, kw_, lgName_, opts_);
         s_.setStandards(lgName_);
         StringMap<String> keyWords_ = kw_.allKeyWords();
@@ -388,7 +388,7 @@ public class LgNamesTest {
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
         Options opts_ = new Options();
-        kw_.setKeyWordNbHex("");
+        kw_.setKeyWordNbHexEnd("");
         SingleContextEl s_ = getCtx(lk_, di_, kw_, lgName_, opts_);
         s_.setStandards(lgName_);
         StringMap<String> keyWords_ = kw_.allKeyWords();
@@ -408,7 +408,7 @@ public class LgNamesTest {
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
         Options opts_ = new Options();
-        kw_.setKeyWordNbHex("<");
+        kw_.setKeyWordNbHexEnd("<");
         SingleContextEl s_ = getCtx(lk_, di_, kw_, lgName_, opts_);
         s_.setStandards(lgName_);
         StringMap<String> keyWords_ = kw_.allKeyWords();
@@ -428,7 +428,7 @@ public class LgNamesTest {
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
         Options opts_ = new Options();
-        kw_.setKeyWordNbHex("1");
+        kw_.setKeyWordNbHexEnd("1");
         SingleContextEl s_ = getCtx(lk_, di_, kw_, lgName_, opts_);
         s_.setStandards(lgName_);
         StringMap<String> keyWords_ = kw_.allKeyWords();
@@ -448,7 +448,7 @@ public class LgNamesTest {
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
         Options opts_ = new Options();
-        kw_.setKeyWordNbHex("a");
+        kw_.setKeyWordNbHexEnd("a");
         SingleContextEl s_ = getCtx(lk_, di_, kw_, lgName_, opts_);
         s_.setStandards(lgName_);
         StringMap<String> keyWords_ = kw_.allKeyWords();
@@ -468,7 +468,7 @@ public class LgNamesTest {
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
         Options opts_ = new Options();
-        kw_.setKeyWordNbHex("A");
+        kw_.setKeyWordNbHexEnd("A");
         SingleContextEl s_ = getCtx(lk_, di_, kw_, lgName_, opts_);
         s_.setStandards(lgName_);
         StringMap<String> keyWords_ = kw_.allKeyWords();

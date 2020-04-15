@@ -30,6 +30,11 @@ public final class InitializationLgNames {
         basicStandards(lgName_);
         return buildToString(CustList.INDEX_NOT_FOUND_ELT,lgName_, _opt);
     }
+    public static ContextEl buildStdExp(Options _opt) {
+        LgNames lgName_ = new CustLgNames();
+        basicStandards(lgName_);
+        return builExp(lgName_, _opt);
+    }
     public static ContextEl buildStdOne(String _lg,Options _opt) {
         LgNames lgName_ = new CustLgNames();
         basicStandards(lgName_);
@@ -63,6 +68,17 @@ public final class InitializationLgNames {
         DefaultLockingClass lk_ = new DefaultLockingClass();
         DefaultInitializer di_ = new DefaultInitializer();
         ContextEl out_ = buildDefKw(_lang, lk_, di_, _opt, _lgNames,4);
+        Assert.assertTrue(out_.getClasses().isEmptyStdError());
+        return out_;
+    }
+    public static ContextEl builExp(LgNames _lgNames, Options _opt) {
+        DefaultLockingClass lk_ = new DefaultLockingClass();
+        DefaultInitializer di_ = new DefaultInitializer();
+        AnalysisMessages a_ = new AnalysisMessages();
+        KeyWords kw_ = new KeyWords();
+        kw_.setKeyWordNbExpBin("power");
+        kw_.setKeyWordNbExpDec("exp");
+        ContextEl out_ = ContextFactory.build(CustList.INDEX_NOT_FOUND_ELT,lk_, di_, _opt, a_, kw_, _lgNames,4);
         Assert.assertTrue(out_.getClasses().isEmptyStdError());
         return out_;
     }

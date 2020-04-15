@@ -64,6 +64,7 @@ public final class KeyWords {
     public static final String NORMAL = "Normal";
     public static final String ESC_TAB = "EscTab";
     public static final String NB_HEX = "NbHex";
+    public static final String NB_HEX_END = "NbHexEnd";
     public static final String NB_BIN = "NbBin";
     public static final String THAT = "That";
     public static final String BOOL = "Bool";
@@ -159,6 +160,7 @@ public final class KeyWords {
     private String keyWordNbSufBytePrim = "y";
     private String keyWordNbSufByte = "Y";
     private String keyWordNbHex = "x";
+    private String keyWordNbHexEnd = "x";
     private String keyWordNbBin = "b";
     
     private String keyWordCast = "$";
@@ -351,8 +353,9 @@ public final class KeyWords {
     }
     public void validateBinarySeparators(ContextEl _cont) {
         validateExpBin(_cont);
-        validatePreBin(_cont);
-        validatePreHex(_cont);
+        validatePreBin(keyWordNbBin,_cont);
+        validatePreBin(keyWordNbHex,_cont);
+        validateHexEnd(_cont);
     }
     public void validateStartsPrefixesDuplicates(ContextEl _cont) {
         AnalysisMessages a_ = _cont.getAnalysisMessages();
@@ -369,16 +372,16 @@ public final class KeyWords {
             _cont.getClasses().addStdError(err_);
         }
     }
-    private void validatePreHex(ContextEl _cont) {
+    private void validateHexEnd(ContextEl _cont) {
         AnalysisMessages a_ = _cont.getAnalysisMessages();
-        if (keyWordNbHex.isEmpty()) {
+        if (keyWordNbHexEnd.isEmpty()) {
             StdWordError err_ = new StdWordError();
             err_.setMessage(a_.getEmptyPreHex());
             err_.setErrCat(ErrorCat.WRITE_NB_WORD);
             _cont.getClasses().addStdError(err_);
             return;
         }
-        for (char c: keyWordNbHex.toCharArray()) {
+        for (char c: keyWordNbHexEnd.toCharArray()) {
             if (!StringList.isDollarWordChar(c)) {
                 StdWordError err_ = new StdWordError();
                 err_.setMessage(StringList.simpleStringsFormat(a_.getIllegalChar(),keyWordNbHex,Character.toString(c)));
@@ -392,7 +395,7 @@ public final class KeyWords {
                 _cont.getClasses().addStdError(err_);
             }
         }
-        char firstChar_ = keyWordNbHex.charAt(0);
+        char firstChar_ = keyWordNbHexEnd.charAt(0);
         if (!Character.isLetter(firstChar_)) {
             StdWordError err_ = new StdWordError();
             err_.setMessage(StringList.simpleStringsFormat(a_.getIllegalFirstChar(),keyWordNbHex,Character.toString(firstChar_)));
@@ -412,38 +415,38 @@ public final class KeyWords {
             _cont.getClasses().addStdError(err_);
         }
     }
-    private void validatePreBin(ContextEl _cont) {
+    private static void validatePreBin(String _sep, ContextEl _cont) {
         AnalysisMessages a_ = _cont.getAnalysisMessages();
-        if (keyWordNbBin.isEmpty()) {
+        if (_sep.isEmpty()) {
             StdWordError err_ = new StdWordError();
             err_.setMessage(a_.getEmptyPreBin());
             err_.setErrCat(ErrorCat.WRITE_NB_WORD);
             _cont.getClasses().addStdError(err_);
             return;
         }
-        for (char c: keyWordNbBin.toCharArray()) {
+        for (char c: _sep.toCharArray()) {
             if (!StringList.isDollarWordChar(c)) {
                 StdWordError err_ = new StdWordError();
-                err_.setMessage(StringList.simpleStringsFormat(a_.getIllegalChar(),keyWordNbBin,Character.toString(c)));
+                err_.setMessage(StringList.simpleStringsFormat(a_.getIllegalChar(),_sep,Character.toString(c)));
                 err_.setErrCat(ErrorCat.WRITE_NB_WORD);
                 _cont.getClasses().addStdError(err_);
             }
             if (c == '_') {
                 StdWordError err_ = new StdWordError();
-                err_.setMessage(StringList.simpleStringsFormat(a_.getIllegalChar(),keyWordNbBin,Character.toString(c)));
+                err_.setMessage(StringList.simpleStringsFormat(a_.getIllegalChar(),_sep,Character.toString(c)));
                 err_.setErrCat(ErrorCat.WRITE_NB_WORD);
                 _cont.getClasses().addStdError(err_);
             }
             if (ContextEl.isDigit(c)) {
                 StdWordError err_ = new StdWordError();
-                err_.setMessage(StringList.simpleStringsFormat(a_.getIllegalChar(),keyWordNbBin,Character.toString(c)));
+                err_.setMessage(StringList.simpleStringsFormat(a_.getIllegalChar(),_sep,Character.toString(c)));
                 err_.setErrCat(ErrorCat.WRITE_NB_WORD);
                 _cont.getClasses().addStdError(err_);
             }
         }
-        if (!Character.isLetter(keyWordNbBin.charAt(0))) {
+        if (!Character.isLetter(_sep.charAt(0))) {
             StdWordError err_ = new StdWordError();
-            err_.setMessage(StringList.simpleStringsFormat(a_.getIllegalFirstChar(),keyWordNbBin,Character.toString(keyWordNbBin.charAt(0))));
+            err_.setMessage(StringList.simpleStringsFormat(a_.getIllegalFirstChar(),_sep,Character.toString(_sep.charAt(0))));
             err_.setErrCat(ErrorCat.WRITE_NB_WORD);
             _cont.getClasses().addStdError(err_);
         }
@@ -574,6 +577,7 @@ public final class KeyWords {
         keyWords_.addEntry(NB_EXP_DEC,keyWordNbExpDec);
         keyWords_.addEntry(NB_EXP_BIN,keyWordNbExpBin);
         keyWords_.addEntry(NB_HEX,keyWordNbHex);
+        keyWords_.addEntry(NB_HEX_END,keyWordNbHexEnd);
         keyWords_.addEntry(NB_BIN,keyWordNbBin);
         return keyWords_;
     }
@@ -585,6 +589,11 @@ public final class KeyWords {
     public StringMap<String> allNbWordsBin() {
         StringMap<String> keyWords_ = new StringMap<String>();
         keyWords_.addEntry(NB_EXP_BIN,keyWordNbExpBin);
+        keyWords_.addEntry(NB_HEX_END,keyWordNbHexEnd);
+        return keyWords_;
+    }
+    public StringMap<String> allNbWordsPreBin() {
+        StringMap<String> keyWords_ = new StringMap<String>();
         keyWords_.addEntry(NB_HEX,keyWordNbHex);
         keyWords_.addEntry(NB_BIN,keyWordNbBin);
         return keyWords_;
@@ -1021,6 +1030,15 @@ public final class KeyWords {
     public void setKeyWordNbHex(String _keyWordNbHex) {
         keyWordNbHex = _keyWordNbHex;
     }
+
+    public String getKeyWordNbHexEnd() {
+        return keyWordNbHexEnd;
+    }
+
+    public void setKeyWordNbHexEnd(String _keyWordNbHexEnd) {
+        keyWordNbHexEnd = _keyWordNbHexEnd;
+    }
+
     public String getKeyWordNbBin() {
         return keyWordNbBin;
     }

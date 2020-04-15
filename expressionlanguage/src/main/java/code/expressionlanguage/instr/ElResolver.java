@@ -1129,7 +1129,6 @@ public final class ElResolver {
         KeyWords keyWords_ = _an.getKeyWords();
         ResultAfterInstKeyWord resTmp_ = new ResultAfterInstKeyWord();
         resTmp_.setNextIndex(i_);
-        String keyWordInstanceof_ = keyWords_.getKeyWordInstanceof();
         if (ContextEl.isDigit(_curChar)) {
             NumberInfosOutput res_ = processNb(keyWords_, i_, len_, _string, false);
             int nextIndex_ = res_.getNextIndex();
@@ -1144,30 +1143,6 @@ public final class ElResolver {
             char locChar_ = _string.charAt(i_);
             if (!StringList.isDollarWordChar(locChar_)) {
                 if (locChar_ != Templates.PREFIX_VAR_TYPE_CHAR) {
-                    int bk_ = i_;
-                    boolean spaces_ = false;
-                    while (Character.isWhitespace(locChar_)) {
-                        i_++;
-                        spaces_ = true;
-                        locChar_ = _string.charAt(i_);
-                    }
-                    if (ContextEl.startsWithKeyWord(_string.substring(i_), keyWordInstanceof_)) {
-                        i_=bk_;
-                        break;
-                    }
-                    i_=bk_;
-                    if (spaces_) {
-                        boolean keep_ = false;
-                        if (StringList.isDollarWordChar(locChar_)) {
-                            keep_ = true;
-                        } else if (locChar_ == Templates.PREFIX_VAR_TYPE_CHAR) {
-                            keep_ = true;
-                        }
-                        if (keep_) {
-                            i_++;
-                            continue;
-                        }
-                    }
                     break;
                 }
             }
@@ -1353,7 +1328,7 @@ public final class ElResolver {
         }
         if (curChar_ == DOT_VAR) {
             int n_ = nextPrintChar(i_ + 1, len_, _string);
-            if (isDigit(_string,n_)) {
+            if (isDigitOrDot(_string,n_)) {
                 NumberInfosOutput res_ = processNb(keyWords_, i_ + 1, len_, _string, true);
                 int nextIndex_ = res_.getNextIndex();
                 _dout.getNbInfos().add(res_.getInfos());
@@ -1701,7 +1676,7 @@ public final class ElResolver {
         doubleDotted_.setNextIndex(i_);
     }
 
-    private static boolean isDigit(String _string, int _n) {
+    private static boolean isDigitOrDot(String _string, int _n) {
         return _n > -1 && (ContextEl.isDigit(_string.charAt(_n)) || _string.charAt(_n) == DOT_VAR);
     }
 
@@ -2012,6 +1987,7 @@ public final class ElResolver {
         char startChar_ = _string.charAt(start_);
         int base_ = 10;
         String hexPre_ = _key.getKeyWordNbHex();
+        String hexEnd_ = _key.getKeyWordNbHexEnd();
         String binPre_ = _key.getKeyWordNbBin();
         String decExp_ = _key.getKeyWordNbExpDec();
         String binExp_ = _key.getKeyWordNbExpBin();
@@ -2082,6 +2058,11 @@ public final class ElResolver {
                         j_++;
                         continue;
                     }
+                    if (nbInfos_.isError()) {
+                        intPart_.append(current_);
+                        j_++;
+                        continue;
+                    }
                     if (n_ == -1) {
                         if (base_ == 10) {
                             nbInfos_.setSuffix(DOUBLE);
@@ -2094,12 +2075,7 @@ public final class ElResolver {
                         continue;
                     }
                     if (isWhite(j_ + 1, _max, _string)) {
-                        if (nbInfos_.isError()) {
-                            intPart_.append(current_);
-                            j_++;
-                            continue;
-                        }
-                        if (isDigit(_string,n_)) {
+                        if (isDigitOrDot(_string,n_)) {
                             nbInfos_.setError(true);
                             intPart_.append(current_);
                             j_++;
@@ -2120,7 +2096,7 @@ public final class ElResolver {
                         j_++;
                         continue;
                     }
-                    if (isDigit(_string,n_)) {
+                    if (isDigitOrDot(_string,n_)) {
                         nbInfos_.setError(true);
                         intPart_.append(current_);
                         j_++;
@@ -2131,8 +2107,12 @@ public final class ElResolver {
             }
             String sub_ = _string.substring(j_);
             int off_ = getExpLength(base_, decExp_, binExp_);
-            exp_ = isExp(base_, decExp_, binExp_, sub_);
-            if (exp_) {
+            if (isExp(base_, decExp_, binExp_, sub_)) {
+                if (nbInfos_.isError()) {
+                    append(_seenDot, intPart_, decPart_, current_);
+                    j_++;
+                    continue;
+                }
                 if (isWhite(j_ + off_,_max,_string)) {
                     nbInfos_.setError(true);
                     append(_seenDot, intPart_, decPart_, current_);
@@ -2142,10 +2122,11 @@ public final class ElResolver {
                 nbInfos_.setSuffix(DOUBLE);
                 iExp_ = j_ + off_ - 1;
                 j_ += off_ - 1;
+                exp_ = true;
                 break;
             }
             if (isNonNbPart(current_, base_) && Character.isLetter(current_)) {
-                j_ = incrSep(j_,base_,sub_,hexPre_);
+                j_ = incrSep(j_,base_,sub_,hexEnd_);
                 boolean ok_ = processSuffix(_key, _string, output_, nbInfos_, j_);
                 if (ok_) {
                     return output_;
@@ -2181,7 +2162,7 @@ public final class ElResolver {
                 j_++;
             }
             if (!added_) {
-                processDotSuffix(_key,base_,sub_,hexPre_, _string, output_, nbInfos_,j_, _max);
+                processDotSuffix(_key,base_,sub_,hexEnd_, _string, output_, nbInfos_,j_, _max);
                 return output_;
             }
             if (j_ >= _max) {
@@ -2190,10 +2171,11 @@ public final class ElResolver {
             }
             sub_ = _string.substring(j_);
             if (isExp(base_, decExp_, binExp_, sub_)) {
+                j_+=off_-1;
                 processExp(_key, j_, _max, _string, output_);
                 return output_;
             }
-            processDotSuffix(_key,base_,sub_,hexPre_, _string, output_, nbInfos_, j_, _max);
+            processDotSuffix(_key,base_,sub_,hexEnd_, _string, output_, nbInfos_, j_, _max);
             return output_;
         }
         if (exp_) {

@@ -2,10 +2,13 @@ package code.expressionlanguage.methods;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.InitializationLgNames;
+import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.options.Options;
+import code.expressionlanguage.structs.NumberStruct;
 import code.util.StringMap;
 import org.junit.Test;
 
+import static code.expressionlanguage.EquallableElUtil.assertEq;
 import static org.junit.Assert.assertTrue;
 
 public final class ClassesBisTest {
@@ -88,6 +91,30 @@ public final class ClassesBisTest {
         assertTrue(ctx_.isEmptyErrors());
     }
     @Test
+    public void calculateStaticField191Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $final $double a1=1exp1;\n");
+        xml_.append(" $public $static $final $double a2=1.0exp1;\n");
+        xml_.append(" $public $static $final $double a3=1.exp1;\n");
+        xml_.append(" $public $static $final $double a4=0x1power1;\n");
+        xml_.append(" $public $static $final $double a5=0x1.0power1;\n");
+        xml_.append(" $public $static $final $double a6=0x1.power1;\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl ctx_ = ProcessMethodCommon.contextElExp();
+        Classes.validateAll(files_,ctx_);
+        assertTrue(ctx_.isEmptyErrors());
+        assertEq(10.0,((NumberStruct)ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo","a1"))).doubleStruct());
+        assertEq(10.0,((NumberStruct)ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo","a2"))).doubleStruct());
+        assertEq(10.0,((NumberStruct)ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo","a3"))).doubleStruct());
+        assertEq(2.0,((NumberStruct)ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo","a4"))).doubleStruct());
+        assertEq(2.0,((NumberStruct)ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo","a5"))).doubleStruct());
+        assertEq(2.0,((NumberStruct)ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo","a6"))).doubleStruct());
+    }
+    @Test
     public void validateEl19FailTest() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
@@ -156,6 +183,7 @@ public final class ClassesBisTest {
         xml_.append(" $public $double ex = 1. 0. 5. 5;\n");
         xml_.append(" $public $double ey = ..1;\n");
         xml_.append(" $public $double ez = . .1;\n");
+        xml_.append(" $public $double fa = 1e e1;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = ProcessMethodCommon.contextElDefault();

@@ -191,6 +191,11 @@ public abstract class ProcessMethodCommon {
         ContextEl ct_ = InitializationLgNames.buildStdToString(opt_);
         return ct_;
     }
+    protected static ContextEl contextElExp() {
+        Options opt_ = new Options();
+        ContextEl ct_ = InitializationLgNames.buildStdExp(opt_);
+        return ct_;
+    }
     protected static ContextEl contextEnElDefault() {
         Options opt_ = new Options();
         return InitializationLgNames.buildStdOne("en", opt_);

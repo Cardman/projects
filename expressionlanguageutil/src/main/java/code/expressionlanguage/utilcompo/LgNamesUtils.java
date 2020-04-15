@@ -3669,6 +3669,7 @@ public class LgNamesUtils extends LgNames {
         _kw.setKeyWordNormal(get(_util,_cust, KeyWords.NORMAL));
         _kw.setKeyWordEscTab(get(_util,_cust, KeyWords.ESC_TAB));
         _kw.setKeyWordNbHex(get(_util,_cust, KeyWords.NB_HEX));
+        _kw.setKeyWordNbHexEnd(get(_util,_cust, KeyWords.NB_HEX_END));
         _kw.setKeyWordNbBin(get(_util,_cust, KeyWords.NB_BIN));
         _kw.setKeyWordThat(get(_util,_cust, KeyWords.THAT));
         _kw.setKeyWordBool(get(_util,_cust, KeyWords.BOOL));
