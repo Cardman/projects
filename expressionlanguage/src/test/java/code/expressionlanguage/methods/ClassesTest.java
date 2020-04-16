@@ -2741,6 +2741,44 @@ public final class ClassesTest {
         failValidateInheritingClassesSingle(files_);
     }
     @Test
+    public void resolve75_Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Outer {\n");
+        xml_.append(" $public $static $class Inner:InnerTwo.InnerThree {\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $class InnerTwo {\n");
+        xml_.append("  $public $static $class InnerThree {\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl ctx_ = unfullValidateInheritingClassesSingle(files_);
+        assertEq(1, ctx_.getClasses().getClassBody("pkg.Outer..Inner").getImportedDirectSuperTypes().size());
+        assertEq("pkg.Outer..InnerTwo..InnerThree", ctx_.getClasses().getClassBody("pkg.Outer..Inner").getImportedDirectSuperTypes().first());
+    }
+    @Test
+    public void resolve76_Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Outer {\n");
+        xml_.append(" $public $static $class Inner:InnerTwo.InnerThree.InnerFour {\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $class InnerTwo {\n");
+        xml_.append("  $public $static $class InnerThree {\n");
+        xml_.append("   $public $static $class InnerFour {\n");
+        xml_.append("   }\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl ctx_ = unfullValidateInheritingClassesSingle(files_);
+        assertEq(1, ctx_.getClasses().getClassBody("pkg.Outer..Inner").getImportedDirectSuperTypes().size());
+        assertEq("pkg.Outer..InnerTwo..InnerThree..InnerFour", ctx_.getClasses().getClassBody("pkg.Outer..Inner").getImportedDirectSuperTypes().first());
+    }
+    @Test
     public void resolve76FailTest() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
