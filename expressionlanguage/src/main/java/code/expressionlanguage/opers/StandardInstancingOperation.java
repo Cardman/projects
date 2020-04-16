@@ -29,8 +29,6 @@ import code.util.StringMap;
 public final class StandardInstancingOperation extends
         InvokingOperation implements PreAnalyzableOperation {
 
-    private boolean possibleInitClass;
-
     private String methodName;
 
     private ConstructorId constId;
@@ -459,7 +457,6 @@ public final class StandardInstancingOperation extends
             lastType = constId.getParametersTypes().last();
         }
         unwrapArgsFct(filter_, constId, naturalVararg, lastType, _firstArgs, _conf);
-        possibleInitClass = !_conf.getOptions().isInitializeStaticClassFirst() && g_.isStaticType();
         setResultClass(new ClassArgumentMatching(_realClassName));
     }
 
@@ -494,10 +491,6 @@ public final class StandardInstancingOperation extends
         Argument arg_ = Argument.createVoid();
         arg_.setStruct(out_);
         _current.setSimpleArgumentAna(arg_, _conf);
-    }
-
-    public boolean isPossibleInitClass() {
-        return possibleInitClass;
     }
 
     public String getMethodName() {

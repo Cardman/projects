@@ -16,8 +16,6 @@ import code.util.StringList;
 public final class ExecStandardInstancingOperation extends
         ExecInvokingOperation {
 
-    private boolean possibleInitClass;
-
     private String methodName;
 
     private ConstructorId constId;
@@ -32,7 +30,6 @@ public final class ExecStandardInstancingOperation extends
     private String lastType;
     public ExecStandardInstancingOperation(StandardInstancingOperation _s) {
         super(_s);
-        possibleInitClass = _s.isPossibleInitClass();
         methodName = _s.getMethodName();
         constId = _s.getConstId();
         className = _s.getClassName();
@@ -69,7 +66,7 @@ public final class ExecStandardInstancingOperation extends
         String className_;
         PageEl page_ = _conf.getOperationPageEl();
         className_ = page_.formatVarType(className, _conf);
-        if (possibleInitClass) {
+        if (fieldName.isEmpty()) {
             String base_ = Templates.getIdFromAllTypes(className_);
             if (ExecInvokingOperation.hasToExit(_conf, base_)) {
                 return Argument.createVoid();

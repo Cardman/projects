@@ -18,6 +18,7 @@ public final class FinalVariableOperation extends LeafOperation {
     private int off;
     private int delta;
     private ConstType type;
+    private String className = EMPTY_STRING;
 
     public FinalVariableOperation(int _indexInEl, int _indexChild,
             MethodOperation _m, OperationsSequence _op) {
@@ -29,6 +30,17 @@ public final class FinalVariableOperation extends LeafOperation {
         type = _op.getConstType();
     }
 
+    public FinalVariableOperation(int _indexInEl, int _indexChild,
+            MethodOperation _m, OperationsSequence _op, String _className) {
+        super(_indexInEl, _indexChild, _m, _op);
+        int relativeOff_ = _op.getOffset();
+        String originalStr_ = _op.getValues().getValue(CustList.FIRST_INDEX);
+        delta = _op.getDelta();
+        off = StringList.getFirstPrintableCharIndex(originalStr_)+relativeOff_;
+        type = _op.getConstType();
+        className = _className;
+    }
+
     @Override
     public void analyze(Analyzable _conf) {
         OperationsSequence op_ = getOperations();
@@ -36,73 +48,29 @@ public final class FinalVariableOperation extends LeafOperation {
         String str_ = originalStr_.trim();
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off, _conf);
         LgNames stds_ = _conf.getStandards();
-        if (type == ConstType.PARAM) {
+        if (!className.isEmpty()) {
             variableName = str_;
-            LocalVariable locVar_ = _conf.getParameters().getVal(variableName);
-            if (locVar_ != null) {
-                String paramType_ = locVar_.getClassName();
-                if (paramType_.endsWith(VARARG_SUFFIX)) {
-                    paramType_ = StringList.replace(paramType_, VARARG_SUFFIX, EMPTY_STRING);
-                    paramType_ = PrimitiveTypeUtil.getPrettyArrayType(paramType_);
-                }
-                setResultClass(new ClassArgumentMatching(paramType_));
-                return;
+            String paramType_ = className;
+            if (paramType_.endsWith(VARARG_SUFFIX)) {
+                paramType_ = StringList.replace(paramType_, VARARG_SUFFIX, EMPTY_STRING);
+                paramType_ = PrimitiveTypeUtil.getPrettyArrayType(paramType_);
             }
-            FoundErrorInterpret und_ = new FoundErrorInterpret();
-            und_.setFileName(_conf.getCurrentFileName());
-            und_.setIndexFile(_conf.getCurrentLocationIndex());
-            //variable name len
-            und_.buildError(_conf.getContextEl().getAnalysisMessages().getUndefinedVariable(),
-                    variableName);
-            _conf.addError(und_);
-            setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
+            setResultClass(new ClassArgumentMatching(paramType_));
             return;
         }
-        if (type == ConstType.CATCH_VAR) {
+        LoopVariable loopVar_ = _conf.getVar(str_);
+        if (loopVar_ != null) {
             variableName = str_;
-            LocalVariable locVar_ = _conf.getCatchVar(variableName);
-            if (locVar_ != null) {
-                setResultClass(new ClassArgumentMatching(locVar_.getClassName()));
-                return;
-            }
-            FoundErrorInterpret und_ = new FoundErrorInterpret();
-            und_.setFileName(_conf.getCurrentFileName());
-            und_.setIndexFile(_conf.getCurrentLocationIndex());
-            //variable name len
-            und_.buildError(_conf.getContextEl().getAnalysisMessages().getUndefinedVariable(),
-                    variableName);
-            _conf.addError(und_);
-            setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
+            setResultClass(new ClassArgumentMatching(loopVar_.getIndexClassName()));
             return;
         }
-        if (type == ConstType.LOOP_INDEX) {
+        loopVar_ = _conf.getMutableLoopVar(str_);
+        if (loopVar_ != null) {
             variableName = str_;
-            LoopVariable locVar_ = _conf.getVar(variableName);
-            if (locVar_ != null) {
-                setResultClass(new ClassArgumentMatching(locVar_.getIndexClassName()));
-                return;
-            }
-            locVar_ = _conf.getMutableLoopVar(variableName);
-            if (locVar_ != null) {
-                setResultClass(new ClassArgumentMatching(locVar_.getIndexClassName()));
-                return;
-            }
-            FoundErrorInterpret und_ = new FoundErrorInterpret();
-            und_.setFileName(_conf.getCurrentFileName());
-            und_.setIndexFile(_conf.getCurrentLocationIndex());
-            //variable name len
-            und_.buildError(_conf.getContextEl().getAnalysisMessages().getUndefinedVariable(),
-                    variableName);
-            _conf.addError(und_);
-            setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
+            setResultClass(new ClassArgumentMatching(loopVar_.getIndexClassName()));
             return;
         }
         variableName = str_;
-        LoopVariable locVar_ = _conf.getVar(variableName);
-        if (locVar_ != null) {
-            setResultClass(new ClassArgumentMatching(locVar_.getClassName()));
-            return;
-        }
         FoundErrorInterpret und_ = new FoundErrorInterpret();
         und_.setFileName(_conf.getCurrentFileName());
         und_.setIndexFile(_conf.getCurrentLocationIndex());

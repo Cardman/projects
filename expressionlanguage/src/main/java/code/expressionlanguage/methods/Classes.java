@@ -738,18 +738,6 @@ public final class Classes {
                         }
                     }
                     String foundType_ = _context.resolveBaseInherits(idSuper_, r_, readyTypes_);
-                    if (foundType_ == null) {
-                        FoundErrorInterpret undef_;
-                        undef_ = new FoundErrorInterpret();
-                        undef_.setFileName(r_.getFile().getFileName());
-                        undef_.setIndexFile(offset_);
-                        //e getValue len
-                        undef_.buildError(_context.getAnalysisMessages().getUnknownType(),
-                                idSuper_);
-                        _context.addError(undef_);
-                        index_++;
-                        continue;
-                    }
                     if (foundType_.isEmpty()) {
                         ready_ = false;
                         break;

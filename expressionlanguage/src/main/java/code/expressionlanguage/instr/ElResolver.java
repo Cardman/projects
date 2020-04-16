@@ -2125,7 +2125,7 @@ public final class ElResolver {
                 exp_ = true;
                 break;
             }
-            if (isNonNbPart(current_, base_) && Character.isLetter(current_)) {
+            if (isNonNbPart(current_, base_)) {
                 j_ = incrSep(j_,base_,sub_,hexEnd_);
                 boolean ok_ = processSuffix(_key, _string, output_, nbInfos_, j_);
                 if (ok_) {

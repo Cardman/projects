@@ -13,7 +13,54 @@ final class NamePartType extends LeafPartType {
     NamePartType(ParentPartType _parent, int _index, int _indexInType, String _type) {
         super(_parent, _index, _indexInType, _type);
     }
-
+    void analyzeInheritsLine(ContextEl _an, RootBlock _local, StringList _readyTypes) {
+        String type_ = getTypeName();
+        type_ = ContextEl.removeDottedSpaces(type_);
+        PartType last_ = getPreviousSibling();
+        if (last_ != null) {
+            String owner_ = last_.getAnalyzedType();
+            if (!StringList.contains(_readyTypes, owner_)) {
+                return;
+            }
+            StringList foundOwners_ = TypeUtil.getOwners(owner_, type_, _an);
+            if (foundOwners_.onlyOneElt()) {
+                String new_ = foundOwners_.first();
+                setAnalyzedType(StringList.concat(new_,"..",type_));
+            }
+            return;
+        }
+        String id_ = Templates.getIdFromAllTypes(type_);
+        RootBlock root_ = _an.getClasses().getClassBody(id_);
+        if (root_ != null) {
+            setAnalyzedType(type_);
+            return;
+        }
+        StringList allAncestors_ = new StringList();
+        RootBlock p_ = _local.getParentType();
+        while (p_ != null) {
+            allAncestors_.add(p_.getFullName());
+            p_ = p_.getParentType();
+        }
+        for (String a: allAncestors_) {
+            if (!StringList.contains(_readyTypes, a)) {
+                return;
+            }
+            StringList owners_ = TypeUtil.getOwners(a, type_, _an);
+            if (owners_.isEmpty()) {
+                continue;
+            }
+            if (owners_.onlyOneElt()) {
+                String new_ = owners_.first();
+                setAnalyzedType(StringList.concat(new_,"..",type_));
+            }
+            return;
+        }
+        String typeTr_ = getTypeName().trim();
+        String res_ = _an.lookupImportMemberType(typeTr_, _local, true, _readyTypes);
+        if (!res_.isEmpty()) {
+            setAnalyzedType(res_);
+        }
+    }
     @Override
     void analyze(Analyzable _an, CustList<IntTreeMap< String>> _dels, String _globalType, AccessingImportingBlock _local,AccessingImportingBlock _rooted) {
         CustList<PartType> previous_ = new CustList<PartType>();

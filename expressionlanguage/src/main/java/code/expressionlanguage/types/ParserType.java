@@ -15,6 +15,35 @@ public final class ParserType {
     static final int INT_PRIO = 3;
     static final int TMP_PRIO = 4;
     private ParserType(){}
+    public static Ints getInnerIndexes(String _input, Analyzable _an) {
+        return getInnerIndexes(_input,_an.getClasses().getPackagesFound());
+    }
+    public static Ints getInnerIndexes(String _input, StringList _pkg) {
+        int len_ = _input.length();
+        int i_ = 0;
+        Ints indexes_ = new Ints();
+        boolean addDot_ = false;
+        StringBuilder id_ = new StringBuilder();
+        while (i_ < len_) {
+            char curChar_ = _input.charAt(i_);
+            if (curChar_ == Templates.SEP_CLASS_CHAR) {
+                String tr_ = ContextEl.removeDottedSpaces(id_.toString());
+                if (!StringList.contains(_pkg,tr_)) {
+                    addDot_ = true;
+                }
+                if (addDot_) {
+                    indexes_.add(i_);
+                    id_.delete(0,id_.length());
+                } else {
+                    id_.append(curChar_);
+                }
+            } else {
+                id_.append(curChar_);
+            }
+            i_++;
+        }
+        return indexes_;
+    }
     public static Ints getIndexes(String _input, Analyzable _an) {
         return getIndexes(_input,_an.getClasses().getPackagesFound());
     }

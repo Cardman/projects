@@ -201,35 +201,6 @@ public abstract class OperationNode implements Operable {
             if (ElUtil.isDeclaringVariable(_m, _an)) {
                 return new VariableOperation(_index, _indexChild, _m, _op);
             }
-            if (ct_ == ConstType.PARAM) {
-                FunctionBlock fct_ = _an.getAnalyzing().getCurrentFct();
-                if (fct_ instanceof OverridableBlock) {
-                    OverridableBlock indexer_ = (OverridableBlock) fct_;
-                    if (indexer_.getKind() == MethodKind.SET_INDEX) {
-                        String keyWordValue_ = keyWords_.getKeyWordValue();
-                        if (StringList.quickEq(keyWordValue_, str_)) {
-                            return new ValueOperation(_index, _indexChild, _m, _op);
-                        }
-                    }
-                }
-                return new FinalVariableOperation(_index, _indexChild, _m, _op);
-            }
-            if (ct_ == ConstType.CATCH_VAR) {
-                return new FinalVariableOperation(_index, _indexChild, _m, _op);
-            }
-            if (ct_ == ConstType.LOOP_INDEX) {
-                return new FinalVariableOperation(_index, _indexChild, _m, _op);
-            }
-            if (ct_ == ConstType.LOOP_VAR) {
-                LoopVariable locVar_ = _an.getMutableLoopVar(str_);
-                if (locVar_ != null) {
-                    return new MutableLoopVariableOperation(_index, _indexChild, _m, _op, locVar_.getClassName());
-                }
-                return new FinalVariableOperation(_index, _indexChild, _m, _op);
-            }
-            if (ct_ == ConstType.LOC_VAR) {
-                return new VariableOperation(_index, _indexChild, _m, _op);
-            }
             if (_m instanceof DotOperation) {
                 OperationNode ch_ = _m.getFirstChild();
                 if (ch_ != null) {
@@ -239,13 +210,38 @@ public abstract class OperationNode implements Operable {
                     return new StandardFieldOperation(_index, _indexChild, _m, _op);
                 }
             }
+            if (ct_ == ConstType.LOOP_INDEX) {
+                return new FinalVariableOperation(_index, _indexChild, _m, _op);
+            }
+            LocalVariable locParam_ = _an.getParameters().getVal(str_);
+            if (locParam_ != null) {
+                FunctionBlock fct_ = _an.getAnalyzing().getCurrentFct();
+                if (fct_ instanceof OverridableBlock) {
+                    OverridableBlock indexer_ = (OverridableBlock) fct_;
+                    if (indexer_.getKind() == MethodKind.SET_INDEX) {
+                        String keyWordValue_ = keyWords_.getKeyWordValue();
+                        if (StringList.quickEq(keyWordValue_, str_)) {
+                            return new ValueOperation(_index, _indexChild, _m, _op,locParam_.getClassName());
+                        }
+                    }
+                }
+                return new FinalVariableOperation(_index, _indexChild, _m, _op,locParam_.getClassName());
+            }
+            LocalVariable catchVar_ = _an.getCatchVar(str_);
+            if (catchVar_ != null) {
+                return new FinalVariableOperation(_index, _indexChild, _m, _op,catchVar_.getClassName());
+            }
             LoopVariable mutVar_ = _an.getMutableLoopVar(str_);
             if (mutVar_ != null) {
                 return new MutableLoopVariableOperation(_index, _indexChild, _m, _op, mutVar_.getClassName());
             }
             LocalVariable locVar_ = _an.getLocalVar(str_);
             if (locVar_ != null) {
-                return new VariableOperation(_index, _indexChild, _m, _op);
+                return new VariableOperation(_index, _indexChild, _m, _op, locVar_.getClassName());
+            }
+            LoopVariable lVar_ = _an.getVar(str_);
+            if (lVar_ != null) {
+                return new FinalVariableOperation(_index, _indexChild, _m, _op,lVar_.getClassName());
             }
             return new StandardFieldOperation(_index, _indexChild, _m, _op);
         }

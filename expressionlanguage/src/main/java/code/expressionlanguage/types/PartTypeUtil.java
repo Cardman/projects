@@ -1,13 +1,13 @@
 package code.expressionlanguage.types;
 
 import code.expressionlanguage.Analyzable;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.methods.*;
-import code.expressionlanguage.options.Options;
 import code.util.CustList;
 import code.util.*;
 import code.util.Ints;
@@ -22,6 +22,39 @@ public final class PartTypeUtil {
             return;
         }
         _l.add((LeafPartType) _p);
+    }
+    public static String processAnalyzeInherits(String _input, ContextEl _an, RootBlock _local, StringList _readyTypes) {
+        Ints indexes_ = ParserType.getInnerIndexes(_input, _an);
+        CustList<NamePartType> pars_ = new CustList<NamePartType>();
+        if (indexes_.isEmpty()) {
+            pars_.add(new NamePartType(null, 0, 0, _input));
+        } else {
+            InnerPartType root_ = new InnerPartType(null,0,0);
+            int indBegin_ = 0;
+            int len_ = indexes_.size();
+            NamePartType prev_ = null;
+            for (int i = 0; i < len_; i++) {
+                int end_ = indexes_.get(i);
+                NamePartType elt_ = new NamePartType(null, i, indBegin_, _input.substring(indBegin_, end_));
+                pars_.add(elt_);
+                elt_.setPreviousSibling(prev_);
+                root_.appendChild(elt_);
+                indBegin_ = end_ +1;
+                prev_ = elt_;
+            }
+            NamePartType elt_ = new NamePartType(null, len_, indBegin_, _input.substring(indBegin_));
+            elt_.setPreviousSibling(prev_);
+            pars_.add(elt_);
+            root_.appendChild(elt_);
+        }
+        for (NamePartType n: pars_) {
+            n.analyzeInheritsLine(_an,_local,_readyTypes);
+        }
+        String analyzedType_ = pars_.last().getAnalyzedType();
+        if (!StringList.contains(_readyTypes, analyzedType_)) {
+            return "";
+        }
+        return analyzedType_;
     }
 
     static String processAnalyze(String _input, String _globalType, Analyzable _an, AccessingImportingBlock _rooted) {
@@ -564,9 +597,6 @@ public final class PartTypeUtil {
             IntTreeMap<String> values_;
             values_ = new IntTreeMap< String>();
             values_.putAllMap(_an.getValues());
-            if (values_.firstValue().trim().isEmpty()) {
-                values_.removeKey(values_.firstKey());
-            }
             _dels.add(values_);
         } else {
             _dels.add(_an.getValues());

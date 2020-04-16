@@ -24,6 +24,7 @@ public final class VariableOperation extends LeafOperation implements
 
     private String variableName = EMPTY_STRING;
     private int off;
+    private String className = EMPTY_STRING;
 
     public VariableOperation(int _indexInEl, int _indexChild,
             MethodOperation _m, OperationsSequence _op) {
@@ -31,6 +32,16 @@ public final class VariableOperation extends LeafOperation implements
         int relativeOff_ = _op.getOffset();
         String originalStr_ = _op.getValues().getValue(CustList.FIRST_INDEX);
         off = StringList.getFirstPrintableCharIndex(originalStr_)+relativeOff_;
+    }
+
+    public VariableOperation(int _indexInEl, int _indexChild,
+                             MethodOperation _m, OperationsSequence _op,
+                             String _className) {
+        super(_indexInEl, _indexChild, _m, _op);
+        int relativeOff_ = _op.getOffset();
+        String originalStr_ = _op.getValues().getValue(CustList.FIRST_INDEX);
+        off = StringList.getFirstPrintableCharIndex(originalStr_)+relativeOff_;
+        className = _className;
     }
 
     @Override
@@ -51,7 +62,6 @@ public final class VariableOperation extends LeafOperation implements
         String str_ = originalStr_.trim();
         int off_ = StringList.getFirstPrintableCharIndex(originalStr_) + relativeOff_;
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
-        LgNames stds_ = _conf.getStandards();
         if (ElUtil.isDeclaringVariable(this, _conf)) {
             AnalyzedPageEl page_ = _conf.getAnalyzing();
             if (_conf.containsLocalVar(str_)) {
@@ -95,20 +105,7 @@ public final class VariableOperation extends LeafOperation implements
             return;
         }
         variableName = str_;
-        LocalVariable locVar_ = _conf.getLocalVar(variableName);
-        if (locVar_ != null) {
-            String c_ = locVar_.getClassName();
-            setResultClass(new ClassArgumentMatching(c_));
-            return;
-        }
-        FoundErrorInterpret und_ = new FoundErrorInterpret();
-        und_.setFileName(_conf.getCurrentFileName());
-        und_.setIndexFile(_conf.getCurrentLocationIndex());
-        //variable name len
-        und_.buildError(_conf.getContextEl().getAnalysisMessages().getUndefinedVariable(),
-                variableName);
-        _conf.addError(und_);
-        setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
+        setResultClass(new ClassArgumentMatching(className));
     }
 
     @Override

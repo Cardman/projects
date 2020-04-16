@@ -1,13 +1,7 @@
 package code.expressionlanguage.instr;
 
 import code.expressionlanguage.*;
-import code.expressionlanguage.classes.Ctx;
-import code.expressionlanguage.errors.AnalysisMessages;
 import code.expressionlanguage.methods.*;
-import code.expressionlanguage.opers.FinalVariableOperation;
-import code.expressionlanguage.opers.ValueOperation;
-import code.expressionlanguage.opers.VariableOperation;
-import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
 import code.util.*;
 import org.junit.Test;
@@ -5335,49 +5329,5 @@ public final class ElResolverTest extends ProcessMethodCommon{
     private ContextEl contextEl() {
         Options opt_ = new Options();
         return InitializationLgNames.buildStdOne(opt_);
-    }
-    @Test
-    public void t() {
-        DefaultLockingClass lk_ = new DefaultLockingClass();
-        DefaultInitializer di_ = new DefaultInitializer();
-        AnalysisMessages a_ = new AnalysisMessages();
-        KeyWords kw_ = new KeyWords();
-        ContextEl out_ = new Ctx(CustList.INDEX_NOT_FOUND_ELT,lk_, di_, new Options(), a_, kw_, null,4);
-        ContextEl c_ = contextEl();
-        out_.setStandards(c_.getStandards());
-        c_.setExecutingInstance(out_);
-        Delimiters d_ = new Delimiters();
-        d_.getVariables().add(new VariableInfo());
-        d_ = new Delimiters();
-        VariableInfo vi = new VariableInfo();
-        vi.setKind(ConstType.WORD);
-        d_.getVariables().add(vi);
-        vi.setLastChar(0);
-        ResultAfterDoubleDotted out = new ResultAfterDoubleDotted();
-        out.setDeclaring(new StringList());
-        ResultAfterDoubleDotted res = new ResultAfterDoubleDotted();
-        res.setDeclaring(new StringList());
-        res.getDeclaring().add("word");
-        OperationsSequence op = new OperationsSequence();
-        op.setDelimiter(d_);
-        op.setValue("",0);
-        out_.setAnalyzing();
-        new VariableOperation(0,0,null, op).analyze(out_);
-        new ValueOperation(0,0,null, op).analyze(out_);
-        op = new OperationsSequence();
-        op.setDelimiter(d_);
-        op.setConstType(ConstType.PARAM);
-        op.setValue("",0);
-        new FinalVariableOperation(0,0,null,op).analyze(out_);
-        op = new OperationsSequence();
-        op.setDelimiter(d_);
-        op.setConstType(ConstType.CATCH_VAR);
-        op.setValue("",0);
-        new FinalVariableOperation(0,0,null,op).analyze(out_);
-        op = new OperationsSequence();
-        op.setDelimiter(d_);
-        op.setConstType(ConstType.LOOP_VAR);
-        op.setValue("",0);
-        new FinalVariableOperation(0,0,null,op).analyze(out_);
     }
 }

@@ -356,18 +356,26 @@ public final class KeyWords {
         validatePreBin(keyWordNbBin,_cont);
         validatePreBin(keyWordNbHex,_cont);
         validateHexEnd(_cont);
+        for (EntryCust<String, String> s: allNbWords(new StringMap<String>()).entryList()) {
+            for (EntryCust<String, String> p: allNbWordsBasic().entryList()) {
+                validateStartsDuplicates(s.getValue(),p.getValue(),_cont);
+            }
+        }
     }
     public void validateStartsPrefixesDuplicates(ContextEl _cont) {
+        validateStartsDuplicates(keyWordNbBin,keyWordNbHex,_cont);
+    }
+    private static void validateStartsDuplicates(String _first, String _second, ContextEl _cont) {
         AnalysisMessages a_ = _cont.getAnalysisMessages();
-        if (keyWordNbBin.startsWith(keyWordNbHex)) {
+        if (_first.startsWith(_second)) {
             StdWordError err_ = new StdWordError();
-            err_.setMessage(StringList.simpleStringsFormat(a_.getDuplicateStartingNb(),keyWordNbBin,keyWordNbHex));
+            err_.setMessage(StringList.simpleStringsFormat(a_.getDuplicateStartingNb(),_first,_second));
             err_.setErrCat(ErrorCat.DUPLICATE_NB_WORD);
             _cont.getClasses().addStdError(err_);
         }
-        if (keyWordNbHex.startsWith(keyWordNbBin)) {
+        if (_second.startsWith(_first)) {
             StdWordError err_ = new StdWordError();
-            err_.setMessage(StringList.simpleStringsFormat(a_.getDuplicateStartingNb(),keyWordNbHex,keyWordNbBin));
+            err_.setMessage(StringList.simpleStringsFormat(a_.getDuplicateStartingNb(),_second,_first));
             err_.setErrCat(ErrorCat.DUPLICATE_NB_WORD);
             _cont.getClasses().addStdError(err_);
         }

@@ -1851,6 +1851,16 @@ public final class ClassesTest {
         failValidateInheritingClasses(files_);
     }
     @Test
+    public void resolve15__FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Outer: CharSequence {\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        failValidateInheritingClasses(files_);
+    }
+    @Test
     public void resolve16FailTest() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;

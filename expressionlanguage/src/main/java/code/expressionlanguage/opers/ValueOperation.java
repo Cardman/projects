@@ -10,40 +10,18 @@ import code.util.StringList;
 
 public final class ValueOperation extends LeafOperation {
     private int off;
-    public ValueOperation(int _indexInEl, int _indexChild, MethodOperation _m, OperationsSequence _op) {
+    private String className;
+    public ValueOperation(int _indexInEl, int _indexChild, MethodOperation _m, OperationsSequence _op, String _className) {
         super(_indexInEl, _indexChild, _m, _op);
         int relativeOff_ = _op.getOffset();
         String originalStr_ = _op.getValues().getValue(CustList.FIRST_INDEX);
         off = StringList.getFirstPrintableCharIndex(originalStr_)+relativeOff_;
+        className = _className;
     }
 
     @Override
     public void analyze(Analyzable _conf) {
-        FunctionBlock fct_ = _conf.getAnalyzing().getCurrentFct();
-        OverridableBlock indexer_ = (OverridableBlock) fct_;
-        String gl_ = _conf.getGlobalClass();
-        gl_ = Templates.getIdFromAllTypes(gl_);
-        CustList<OverridableBlock> getIndexers_ = new CustList<OverridableBlock>();
-        for (Block b: Classes.getDirectChildren(_conf.getClasses().getClassBody(gl_))) {
-            if (!(b instanceof OverridableBlock)) {
-                continue;
-            }
-            OverridableBlock i_ = (OverridableBlock) b;
-            if (i_.getKind() != MethodKind.GET_INDEX) {
-                continue;
-            }
-            if (!i_.getId().eqPartial(indexer_.getId())) {
-                continue;
-            }
-            getIndexers_.add(i_);
-        }
-        //later all undefined variables will be processed as field
-        if (getIndexers_.size() != 1) {
-            setResultClass(new ClassArgumentMatching(_conf.getStandards().getAliasObject()));
-            return;
-        }
-        OverridableBlock matching_ = getIndexers_.first();
-        setResultClass(new ClassArgumentMatching(matching_.getImportedReturnType()));
+        setResultClass(new ClassArgumentMatching(className));
     }
 
     public int getOff() {

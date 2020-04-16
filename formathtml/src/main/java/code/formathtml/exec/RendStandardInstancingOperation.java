@@ -18,8 +18,6 @@ import code.util.StringList;
 
 public final class RendStandardInstancingOperation extends RendInvokingOperation implements RendCalculableOperation {
 
-    private boolean possibleInitClass;
-
     private String methodName;
 
     private ConstructorId constId;
@@ -34,7 +32,6 @@ public final class RendStandardInstancingOperation extends RendInvokingOperation
     private String lastType = EMPTY_STRING;
     public RendStandardInstancingOperation(StandardInstancingOperation _s) {
         super(_s);
-        possibleInitClass = _s.isPossibleInitClass();
         methodName = _s.getMethodName();
         constId = _s.getConstId();
         className = _s.getClassName();
@@ -74,11 +71,9 @@ public final class RendStandardInstancingOperation extends RendInvokingOperation
         String className_;
         PageEl page_ = _conf.getOperationPageEl();
         className_ = page_.formatVarType(className, _conf);
-        if (possibleInitClass) {
-            String base_ = Templates.getIdFromAllTypes(className_);
-            if (ExecInvokingOperation.hasToExit(_conf, base_)) {
-                return Argument.createVoid();
-            }
+        String base_ = Templates.getIdFromAllTypes(className_);
+        if (ExecInvokingOperation.hasToExit(_conf, base_)) {
+            return Argument.createVoid();
         }
         String lastType_ = Templates.quickFormat(className_, lastType, _conf);
         CustList<Argument> firstArgs_ = listArguments(filter_, naturalVararg, lastType_, _arguments, _conf);
