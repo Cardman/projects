@@ -31,9 +31,9 @@ public final class BooleanStruct implements DisplayableStruct, ExportableStringS
     @Override
     public StringStruct getDisplayedString(Analyzable _an) {
         if (this == TRUE) {
-            return new StringStruct(_an.getStandards().getTrueString());
+            return new StringStruct(_an.getStandards().getDisplayedStrings().getTrueString());
         }
-        return new StringStruct(_an.getStandards().getFalseString());
+        return new StringStruct(_an.getStandards().getDisplayedStrings().getFalseString());
     }
     @Override
     public StringStruct exportValue() {

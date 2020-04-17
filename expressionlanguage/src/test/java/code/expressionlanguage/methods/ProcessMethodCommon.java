@@ -110,8 +110,8 @@ public abstract class ProcessMethodCommon {
         Options opt_ = new Options();
         ContextEl ct_ = InitializationLgNames.buildStdOne(opt_);
         ct_.setCovering(true);
-        ct_.getStandards().setTrueString("\"");
-        ct_.getStandards().setFalseString("&");
+        ct_.getStandards().getDisplayedStrings().setTrueString("\"");
+        ct_.getStandards().getDisplayedStrings().setFalseString("&");
         return ct_;
     }
 

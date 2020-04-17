@@ -10,6 +10,7 @@ import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.inherits.Mapping;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
+import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.methods.util.AbstractCoverageResult;
@@ -245,7 +246,10 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
     }
 
     private void checkType(ContextEl _cont, ClassArgumentMatching _elementClass, ExecOperationNode _stepEl, int _offset) {
-        if (!PrimitiveTypeUtil.canBeUseAsArgument(_elementClass, _stepEl.getResultClass(), _cont)) {
+        Mapping m_ = new Mapping();
+        m_.setArg(_stepEl.getResultClass());
+        m_.setParam(_elementClass);
+        if (!Templates.isCorrectOrNumbers(m_,_cont)) {
             FoundErrorInterpret cast_ = new FoundErrorInterpret();
             cast_.setFileName(getFile().getFileName());
             cast_.setIndexFile(_offset);

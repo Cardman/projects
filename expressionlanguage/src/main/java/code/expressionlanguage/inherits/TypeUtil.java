@@ -73,6 +73,7 @@ public final class TypeUtil {
                 if (rs_ == null) {
                     continue;
                 }
+                RootBlock rsSup_ = rs_;
                 for (int j = i + 1; j < len_; j++) {
                     String sub_ = ContextEl.removeDottedSpaces(ints_.get(j));
                     int offsetSub_ = c.getStaticInitInterfacesOffset().get(j);
@@ -85,7 +86,7 @@ public final class TypeUtil {
                     if (rs_ == null) {
                         continue;
                     }
-                    if (PrimitiveTypeUtil.canBeUseAsArgument(sub_, sup_, _context)) {
+                    if (rsSup_.isSubTypeOf(sub_,_context)) {
                         FoundErrorInterpret undef_;
                         undef_ = new FoundErrorInterpret();
                         undef_.setFileName(d_);
@@ -385,7 +386,8 @@ public final class TypeUtil {
                     if (StringList.quickEq(baseSuperType_, baseClassFound_)) {
                         found_ = true;
                     }
-                    if (!PrimitiveTypeUtil.canBeUseAsArgument(baseClassFound_, baseSuperType_, _conf)) {
+                    RootBlock sub_ = _conf.getClasses().getClassBody(baseSuperType_);
+                    if (!sub_.isSubTypeOf(baseClassFound_,_conf)) {
                         continue;
                     }
                     foundSuperClasses_.add(t);

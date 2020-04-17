@@ -4133,9 +4133,11 @@ public class LgNamesUtils extends LgNames {
         setAliasAfter(get(_util,_cust, AFTER));
         setAliasSizeTa(get(_util,_cust, SIZE_TA));
         setAliasAssert(get(_util,_cust, ASSERT));
-        setFalseString(get(_util,_cust, FALSE_STRING));
-        setTrueString(get(_util,_cust, TRUE_STRING));
-        setNullString(get(_util,_cust, NULL_STRING));
+        getDisplayedStrings().setFalseString(get(_util,_cust, FALSE_STRING));
+        getDisplayedStrings().setTrueString(get(_util,_cust, TRUE_STRING));
+        getDisplayedStrings().setNullString(get(_util,_cust, NULL_STRING));
+        getDisplayedStrings().setStaticCallString(get(_util,_cust, STATIC_CALL_STRING));
+        getDisplayedStrings().setStaticString(get(_util,_cust, STATIC_STRING));
     }
     protected final String get(StringMap<String> _util, StringMap<String> _cust,String _key) {
         String val_ = _cust.getVal(_key);

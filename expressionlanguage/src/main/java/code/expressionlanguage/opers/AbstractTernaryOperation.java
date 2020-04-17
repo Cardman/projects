@@ -24,8 +24,6 @@ import code.util.StringMap;
 
 public abstract class AbstractTernaryOperation extends MethodOperation {
 
-    private static final int BOOLEAN_ARGS = 3;
-
     private int offsetLocal;
 
     public AbstractTernaryOperation(int _index, int _indexChild, MethodOperation _m,
@@ -49,9 +47,6 @@ public abstract class AbstractTernaryOperation extends MethodOperation {
         CustList<Argument> arguments_ = new CustList<Argument>();
         for (Operable o: chidren_) {
             arguments_.add(o.getArgument());
-        }
-        if (arguments_.size() != 3) {
-            return;
         }
         Argument argBool_ = arguments_.first();
         if (argBool_ == null) {
@@ -90,20 +85,6 @@ public abstract class AbstractTernaryOperation extends MethodOperation {
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+offsetLocal, _conf);
         LgNames stds_ = _conf.getStandards();
         String booleanPrimType_ = stds_.getAliasPrimBoolean();
-        if (chidren_.size() != BOOLEAN_ARGS) {
-            FoundErrorInterpret badNb_ = new FoundErrorInterpret();
-            badNb_.setFileName(_conf.getCurrentFileName());
-            badNb_.setIndexFile(_conf.getCurrentLocationIndex());
-            //=> move to BadTernaryOperation (underline key word)
-            badNb_.buildError(_conf.getContextEl().getAnalysisMessages().getOperatorNbDiff(),
-                    Integer.toString(BOOLEAN_ARGS),
-                    Integer.toString(chidren_.size()),
-                    _conf.getContextEl().getKeyWords().getKeyWordBool()
-            );
-            _conf.addError(badNb_);
-            setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
-            return;
-        }
         OperationNode opOne_ = chidren_.first();
         ClassArgumentMatching clMatch_ = opOne_.getResultClass();
         if (!clMatch_.isBoolType(_conf)) {
@@ -230,10 +211,6 @@ public abstract class AbstractTernaryOperation extends MethodOperation {
         Block block_ = _conf.getCurrentBlock();
         AssignedVariables vars_ = _conf.getContextEl().getAssignedVariables().getFinalVariables().getVal(block_);
         CustList<OperationNode> children_ = getChildrenNodes();
-        if (children_.size() != BOOLEAN_ARGS) {
-            analyzeStdAssignmentAfter(_conf);
-            return;
-        }
         StringMap<Assignment> fieldsAfter_ = new StringMap<Assignment>();
         CustList<StringMap<Assignment>> variablesAfter_ = new CustList<StringMap<Assignment>>();
         CustList<StringMap<Assignment>> mutableAfter_ = new CustList<StringMap<Assignment>>();

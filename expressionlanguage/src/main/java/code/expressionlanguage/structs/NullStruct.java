@@ -16,7 +16,7 @@ public final class NullStruct implements DisplayableStruct, ExportableStringStru
 
     @Override
     public StringStruct getDisplayedString(Analyzable _an) {
-        return new StringStruct(_an.getStandards().getNullString());
+        return new StringStruct(_an.getStandards().getDisplayedStrings().getNullString());
     }
 
     @Override

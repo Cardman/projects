@@ -455,9 +455,11 @@ public final class KeyWordsMap {
         _lgNames.setAliasRotateLeft("rotateLeft");
         _lgNames.setAliasRotateRight("rotateRight");
         _lgNames.setAliasRandom("random");
-        _lgNames.setFalseString("false");
-        _lgNames.setTrueString("true");
-        _lgNames.setNullString("");
+        _lgNames.getDisplayedStrings().setFalseString("false");
+        _lgNames.getDisplayedStrings().setTrueString("true");
+        _lgNames.getDisplayedStrings().setNullString("");
+        _lgNames.getDisplayedStrings().setStaticCallString("staticCall");
+        _lgNames.getDisplayedStrings().setStaticString("static");
         stds.put("en", _lgNames);
     }
     public void initFrStds(LgNames _lgNames) {
@@ -733,9 +735,11 @@ public final class KeyWordsMap {
         _lgNames.setAliasRotateLeft("rotGauche");
         _lgNames.setAliasRotateRight("rotDroite");
         _lgNames.setAliasRandom("alea");
-        _lgNames.setFalseString("faux");
-        _lgNames.setTrueString("vrai");
-        _lgNames.setNullString("");
+        _lgNames.getDisplayedStrings().setFalseString("faux");
+        _lgNames.getDisplayedStrings().setTrueString("vrai");
+        _lgNames.getDisplayedStrings().setNullString("");
+        _lgNames.getDisplayedStrings().setStaticCallString("staticAppel");
+        _lgNames.getDisplayedStrings().setStaticString("static");
         stds.put("fr", _lgNames);
     }
     public KeyWords getKeyWords(String _lg) {

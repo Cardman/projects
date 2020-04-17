@@ -5,10 +5,7 @@ import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.OperationsSequence;
-import code.expressionlanguage.methods.Block;
-import code.expressionlanguage.methods.BracedBlock;
-import code.expressionlanguage.methods.InterfaceBlock;
-import code.expressionlanguage.methods.Line;
+import code.expressionlanguage.methods.*;
 import code.expressionlanguage.opers.exec.ExecAbstractInvokingConstructor;
 import code.expressionlanguage.opers.exec.ExecInterfaceInvokingConstructor;
 import code.expressionlanguage.opers.exec.ExecOperationNode;
@@ -132,7 +129,8 @@ public final class InterfaceInvokingConstructor extends AbstractInvokingConstruc
     private static void checkInherits(Analyzable _conf, StringList _previousInts, Block _n, String _cl) {
         if (!_previousInts.isEmpty()) {
             String sup_ = _previousInts.last();
-            if (PrimitiveTypeUtil.canBeUseAsArgument(_cl, sup_, _conf)) {
+            RootBlock supType_ = _conf.getContextEl().getClasses().getClassBody(sup_);
+            if (supType_.isSubTypeOf(_cl,_conf)) {
                 FoundErrorInterpret undef_;
                 undef_ = new FoundErrorInterpret();
                 undef_.setFileName(_n.getFile().getFileName());

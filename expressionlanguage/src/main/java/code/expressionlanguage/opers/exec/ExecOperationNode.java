@@ -207,7 +207,7 @@ public abstract class ExecOperationNode implements Operable {
                 tmpOp_.setDelimiter(new Delimiters());
                 ErrorPartOperation e_ = new ErrorPartOperation(0, 0, null, tmpOp_);
                 e_.setResultClass(s_.getResultClass());
-                return new ExecErrorPartOperation(e_);
+                return new ExecErrorParentOperation(e_);
             }
             return new ExecSettableFieldOperation(s_);
         }

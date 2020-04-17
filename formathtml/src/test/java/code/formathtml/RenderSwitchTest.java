@@ -766,6 +766,21 @@ public final class RenderSwitchTest extends CommonRender {
         assertNull(getException(conf_));
     }
     @Test
+    public void process0FailTest() {
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String html_ = "<html><body><c:switch value='10'><c:case value='\"ONE\"'/></c:switch></body></html>";
+        StringMap<String> files_ = new StringMap<String>();
+        Configuration conf_ = contextElFive(files_);
+        conf_.setMessagesFolder(folder_);
+        conf_.setProperties(new StringMap<String>());
+        conf_.getProperties().put("msg_example", relative_);
+
+
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
+        assertTrue(!conf_.isEmptyErrors());
+    }
+    @Test
     public void process1FailTest() {
         String folder_ = "messages";
         String relative_ = "sample/file";

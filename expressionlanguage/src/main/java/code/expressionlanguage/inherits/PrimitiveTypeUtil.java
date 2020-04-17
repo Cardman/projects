@@ -4,7 +4,7 @@ import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.common.GeneType;
-import code.expressionlanguage.opers.util.AssignableFrom;
+import code.expressionlanguage.common.InheritedType;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.DimComp;
 import code.expressionlanguage.opers.util.IndexesComparator;
@@ -255,8 +255,31 @@ public final class PrimitiveTypeUtil {
         if (_current != NullStruct.NULL_VALUE) {
             String className_ = lgNames_.getStructClassName(_current, _an.getContextEl());
             String cl_ = Templates.getIdFromAllTypes(className_);
-            if (cl_.startsWith(Templates.ARR_BEG_STRING) || _an.getClassBody(cl_).withoutInstance()) {
-                if (!canBeUseAsArgument(id_, cl_, _an)) {
+            DimComp dimReq_ = getQuickComponentBaseType(id_);
+            DimComp dimCurrent_ = getQuickComponentBaseType(cl_);
+            if (StringList.quickEq(dimReq_.getComponent(),_an.getStandards().getAliasObject())) {
+                if (dimReq_.getDim() > dimCurrent_.getDim()) {
+                    _an.setException(new ErrorStruct(_an,cast_));
+                    return NullStruct.NULL_VALUE;
+                }
+                return _current;
+            }
+            if (dimReq_.getDim() != dimCurrent_.getDim()) {
+                _an.setException(new ErrorStruct(_an,cast_));
+                return NullStruct.NULL_VALUE;
+            }
+            PrimitiveType pr_ = _an.getStandards().getPrimitiveTypes().getVal(dimCurrent_.getComponent());
+            GeneType g_ = _an.getClassBody(dimCurrent_.getComponent());
+            InheritedType in_ = null;
+            if (pr_ != null) {
+                in_ = pr_;
+            } else {
+                if (cl_.startsWith(Templates.ARR_BEG_STRING) || g_.withoutInstance()) {
+                    in_ = g_;
+                }
+            }
+            if (in_ != null) {
+                if (!in_.isSubTypeOf(dimReq_.getComponent(),_an)) {
                     _an.setException(new ErrorStruct(_an,cast_));
                     return NullStruct.NULL_VALUE;
                 }
@@ -279,7 +302,8 @@ public final class PrimitiveTypeUtil {
         String className_ = lgNames_.getStructClassName(current_, _an.getContextEl());
         String cl_ = Templates.getIdFromAllTypes(className_);
         StringList list_ = new StringList();
-        while (!canBeUseAsArgument(id_, cl_, _an)) {
+        GeneType g_ = _an.getClassBody(cl_);
+        while (!g_.isSubTypeOf(id_,_an)) {
             if (StringList.contains(list_, cl_)) {
                 _an.setException(new ErrorStruct(_an,cast_));
                 break;
@@ -294,6 +318,7 @@ public final class PrimitiveTypeUtil {
             className_ = ((WithParentStruct)current_).getParentClassName();
             current_ = par_;
             cl_ = Templates.getIdFromAllTypes(className_);
+            g_ = _an.getClassBody(cl_);
         }
         return current_;
     }
@@ -380,7 +405,8 @@ public final class PrimitiveTypeUtil {
                 if (StringList.quickEq(baseSup_, baseSub_)) {
                     continue;
                 }
-                if (canBeUseAsArgument(baseSup_, baseSub_, _context)) {
+                GeneType subType_ = _context.getClassBody(baseSub_);
+                if (subType_.isSubTypeOf(baseSup_,_context)) {
                     sub_ = false;
                     break;
                 }
@@ -404,6 +430,7 @@ public final class PrimitiveTypeUtil {
             for (String j: _classNames) {
                 String baseSup_ = Templates.getIdFromAllTypes(i);
                 String baseSub_ = Templates.getIdFromAllTypes(j);
+                DimComp baseArrSup_ = getQuickComponentBaseType(baseSup_);
                 DimComp baseArrSub_ = getQuickComponentBaseType(baseSub_);
                 if (StringList.quickEq(baseSup_, baseSub_)) {
                     continue;
@@ -428,10 +455,28 @@ public final class PrimitiveTypeUtil {
                     }
                     continue;
                 }
-                if (baseSup_.startsWith(Templates.PREFIX_VAR_TYPE)) {
+                if (StringList.quickEq(baseArrSup_.getComponent(), _context.getStandards().getAliasObject())) {
+                    if (baseArrSub_.getDim() >= baseArrSup_.getDim()) {
+                        sub_ = false;
+                        break;
+                    }
                     continue;
                 }
-                if (canBeUseAsArgument(baseSup_, baseSub_, _context)) {
+                if (baseArrSub_.getDim() != baseArrSup_.getDim()) {
+                    continue;
+                }
+                if (baseArrSup_.getComponent().startsWith(Templates.PREFIX_VAR_TYPE)) {
+                    continue;
+                }
+                if (isPrimitive(baseArrSub_.getComponent(), _context)) {
+                    if (StringList.contains(_context.getStandards().getPrimitiveTypes().getVal(baseArrSub_.getComponent()).getAllPrimSuperType(_context),
+                            baseArrSup_.getComponent())){
+                        sub_ = false;
+                        break;
+                    }
+                    continue;
+                }
+                if (_context.getClassBody(baseArrSub_.getComponent()).isSubTypeOf(baseArrSup_.getComponent(),_context)) {
                     sub_ = false;
                     break;
                 }
@@ -539,143 +584,18 @@ public final class PrimitiveTypeUtil {
         return convertObject(new ClassArgumentMatching(_match), _obj, _stds);
     }
 
-    public static boolean canBeUseAsArgument(ClassArgumentMatching _param, ClassArgumentMatching _arg, Analyzable _context) {
-        for (String p: _param.getNames()) {
-            boolean ok_ = false;
-            for (String a: _arg.getNames()) {
-                if (canBeUseAsArgument(p,a,_context)) {
-                    ok_ = true;
-                    break;
-                }
-            }
-            if (!ok_) {
-                return false;
-            }
-        }
-        return true;
-    }
     public static int cmpTypes(String _one, String _two, Analyzable _context) {
-        if (PrimitiveTypeUtil.canBeUseAsArgument(_one, _two, _context)) {
+        GeneType one_ = _context.getClassBody(_one);
+        GeneType two_ = _context.getClassBody(_two);
+        if (two_.isSubTypeOf(_one,_context)) {
             return CustList.SWAP_SORT;
         }
-        if (PrimitiveTypeUtil.canBeUseAsArgument(_two, _one, _context)) {
+        if (one_.isSubTypeOf(_two,_context)) {
             return CustList.NO_SWAP_SORT;
         }
         return CustList.EQ_CMP;
     }
-    /**
-     param type id - arg type id
-     */
-    public static boolean canBeUseAsArgument(String _param, String _arg, Analyzable _context) {
-        LgNames stds_ = _context.getStandards();
-        if (StringList.quickEq(_param, stds_.getAliasVoid())) {
-            return false;
-        }
-        if (_arg == null || _arg.isEmpty()) {
-            return !isPrimitive(_param,stds_);
-        }
-        if (StringList.quickEq(_arg, stds_.getAliasVoid())) {
-            return false;
-        }
-        AssignableFrom a_ = isAssignableFromCust(_param, _arg, _context);
-        return a_ == AssignableFrom.YES;
-    }
 
-    /**
-     param type id - arg type id
-     */
-    private static AssignableFrom isAssignableFromCust(String _param, String _arg, Analyzable _classes) {
-        LgNames stds_ = _classes.getStandards();
-        if (StringList.quickEq(_param, stds_.getAliasObject())) {
-            return AssignableFrom.YES;
-        }
-        DimComp dPar_ = PrimitiveTypeUtil.getQuickComponentBaseType(_param);
-        String p_ = dPar_.getComponent();
-        GeneType clParBl_ = _classes.getClassBody(p_);
-        DimComp dArg_ = PrimitiveTypeUtil.getQuickComponentBaseType(_arg);
-        String a_ = dArg_.getComponent();
-        GeneType clArgBl_ = _classes.getClassBody(a_);
-        if (clArgBl_ != null && clParBl_ != null) {
-            if (dArg_.getDim() > 0 && dPar_.getDim() > 0) {
-                if (isArrayAssignable(_arg, _param, _classes)) {
-                    return AssignableFrom.YES;
-                }
-                return AssignableFrom.NO;
-            }
-            if (dArg_.getDim() != dPar_.getDim()) {
-                return AssignableFrom.NO;
-            }
-            if (StringList.quickEq(p_, a_)) {
-                return AssignableFrom.YES;
-            }
-            if (StringList.contains(clArgBl_.getAllSuperTypes(), p_)) {
-                return AssignableFrom.YES;
-            }
-            return AssignableFrom.NO;
-        }
-        if (canBeUseAsArgumentStd(_param, _arg, _classes)) {
-            return AssignableFrom.YES;
-        }
-        return AssignableFrom.NO;
-    }
-    /**
-     arg type id - param type id (not for primtives types)
-     */
-    private static boolean isArrayAssignable(String _arrArg, String _arrParam, Analyzable _context) {
-        LgNames stds_ = _context.getStandards();
-        String aliasObject_ = stds_.getAliasObject();
-        DimComp dArg_ = PrimitiveTypeUtil.getQuickComponentBaseType(_arrArg);
-        String a_ = dArg_.getComponent();
-        DimComp dPar_ = PrimitiveTypeUtil.getQuickComponentBaseType(_arrParam);
-        String p_ = dPar_.getComponent();
-        if (StringList.quickEq(p_, aliasObject_)) {
-            return dPar_.getDim() <= dArg_.getDim();
-        }
-        if (dPar_.getDim() != dArg_.getDim()) {
-            return false;
-        }
-        GeneType clArgBl_ = _context.getClassBody(a_);
-        if (StringList.contains(clArgBl_.getAllSuperTypes(), p_)) {
-            return true;
-        }
-        return StringList.quickEq(p_, a_);
-    }
-
-    /**
-     param type id - arg type id
-     Sample 1: int - int => true
-     Sample 2: long - int => true
-     Sample 3: int - long => false
-     Sample 4: Integer - Integer => true
-     Sample 5: Integer - int => true
-     Sample 6: int - Integer => false
-     */
-    private static boolean canBeUseAsArgumentStd(String _param, String _arg, Analyzable _context) {
-        LgNames stds_ = _context.getStandards();
-        //Here, one of the parameters types names base array is not a reference type
-        //So one of the parameters types names base array is a primitive type
-        DimComp paramComp_ = PrimitiveTypeUtil.getQuickComponentBaseType(_param);
-        DimComp argComp_ = PrimitiveTypeUtil.getQuickComponentBaseType(_arg);
-        String objAlias_ = stds_.getAliasObject();
-        if (StringList.quickEq(paramComp_.getComponent(), objAlias_)) {
-            return paramComp_.getDim() <= argComp_.getDim();
-        }
-        if (paramComp_.getDim() != argComp_.getDim()) {
-            return false;
-        }
-        ClassArgumentMatching arg_;
-        arg_ = new ClassArgumentMatching(argComp_.getComponent());
-        if (StringList.quickEq(paramComp_.getComponent(),argComp_.getComponent())) {
-            return true;
-        }
-        if (arg_.isPrimitive(_context)) {
-            String pName_ = paramComp_.getComponent();
-            String name_ = argComp_.getComponent();
-            PrimitiveType pr_ = stds_.getPrimitiveTypes().getVal(name_);
-            return StringList.contains(pr_.getAllSuperType(_context), pName_);
-        }
-        return false;
-    }
     private static CustList<ClassArgumentMatching> getAllSuperTypes(ClassArgumentMatching _class, Analyzable _context) {
         LgNames stds_ = _context.getStandards();
         CustList<ClassArgumentMatching> gt_ = new CustList<ClassArgumentMatching>();

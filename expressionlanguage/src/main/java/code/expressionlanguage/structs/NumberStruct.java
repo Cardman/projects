@@ -120,7 +120,7 @@ public abstract class NumberStruct implements DisplayableStruct, ExportableStrin
         if (StringList.quickEq(type_, booleanType_)) {
             if (StringList.quickEq(list_.first(), stringType_)) {
                 String one_ = ((CharSequenceStruct) _args[0]).toStringInstance();
-                if (StringList.quickEq(one_, lgNames_.getTrueString())) {
+                if (StringList.quickEq(one_, lgNames_.getDisplayedStrings().getTrueString())) {
                     _res.setResult(BooleanStruct.of(true));
                 } else {
                     _res.setResult(BooleanStruct.of(false));
@@ -203,7 +203,7 @@ public abstract class NumberStruct implements DisplayableStruct, ExportableStrin
                 BooleanStruct instance_ = (BooleanStruct) _struct;
                 _res.setResult(BooleanStruct.of(instance_.sameReference(_args[0])));
             } else if (StringList.quickEq(name_, lgNames_.getAliasParseBoolean())) {
-                if (StringList.quickEq(((DisplayableStruct) _args[0]).getDisplayedString(_cont).getInstance(),lgNames_.getTrueString())) {
+                if (StringList.quickEq(((DisplayableStruct) _args[0]).getDisplayedString(_cont).getInstance(),lgNames_.getDisplayedStrings().getTrueString())) {
                     _res.setResult(BooleanStruct.of(true));
                 } else {
                     _res.setResult(BooleanStruct.of(false));
@@ -219,7 +219,7 @@ public abstract class NumberStruct implements DisplayableStruct, ExportableStrin
                 if (StringList.quickEq(list_.first(), booleanPrimType_)) {
                     _res.setResult(_args[0]);
                 } else {
-                    if (StringList.quickEq(((DisplayableStruct) _args[0]).getDisplayedString(_cont).getInstance(),lgNames_.getTrueString())) {
+                    if (StringList.quickEq(((DisplayableStruct) _args[0]).getDisplayedString(_cont).getInstance(),lgNames_.getDisplayedStrings().getTrueString())) {
                         _res.setResult(BooleanStruct.of(true));
                     } else {
                         _res.setResult(BooleanStruct.of(false));

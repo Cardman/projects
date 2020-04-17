@@ -363,8 +363,10 @@ public final class InitializationLgNames {
         _lgNames.setAliasRotateLeft("rotateLeft");
         _lgNames.setAliasRotateRight("rotateRight");
         _lgNames.setAliasRandom("random");
-        _lgNames.setFalseString("false");
-        _lgNames.setTrueString("true");
-        _lgNames.setNullString("");
+        _lgNames.getDisplayedStrings().setFalseString("false");
+        _lgNames.getDisplayedStrings().setTrueString("true");
+        _lgNames.getDisplayedStrings().setNullString("");
+        _lgNames.getDisplayedStrings().setStaticCallString("staticCall");
+        _lgNames.getDisplayedStrings().setStaticString("static");
     }
 }

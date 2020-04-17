@@ -1353,11 +1353,11 @@ public final class Classes {
         String rootPkg_ = root_.getPackageName();
         if (_block.getAccess() == AccessEnum.PROTECTED) {
             if (parType_ != null) {
-                if (PrimitiveTypeUtil.canBeUseAsArgument(parType_.getFullName(), baseClass_, _context)) {
+                if (root_.isSubTypeOf(parType_.getFullName(),_context)) {
                     return true;
                 }
             }
-            if (PrimitiveTypeUtil.canBeUseAsArgument(belong_.getFullName(), baseClass_, _context)) {
+            if (root_.isSubTypeOf(belong_.getFullName(),_context)) {
                 return true;
             }
             return StringList.quickEq(belongPkg_, rootPkg_);

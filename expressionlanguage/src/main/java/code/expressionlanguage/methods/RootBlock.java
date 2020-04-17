@@ -1621,6 +1621,14 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
     public abstract StringList getAllSuperClasses();
 
     public abstract boolean mustImplement();
+
+    public boolean isSubTypeOf(String _fullName, Analyzable _an) {
+        if (StringList.quickEq(getFullName(),_fullName)) {
+            return true;
+        }
+        return StringList.contains(getAllSuperTypes(),_fullName);
+    }
+
     @Override
     public boolean isTypeHidden(RootBlock _class, Analyzable _analyzable) {
         return !Classes.canAccess(getFullName(), _class, _analyzable);

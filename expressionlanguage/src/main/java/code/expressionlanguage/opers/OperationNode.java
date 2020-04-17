@@ -60,6 +60,7 @@ public abstract class OperationNode implements Operable {
 
     protected static final String VARARG_SUFFIX = "...";
     protected static final String AROBASE = "@";
+    protected static final int BOOLEAN_ARGS = 3;
 
     private MethodOperation parent;
 
@@ -257,6 +258,21 @@ public abstract class OperationNode implements Operable {
                 return new AnnotationInstanceOperation(_index, _indexChild, _m, _op);
             }
         }
+        int ternary_ = 0;
+        if (_op.getPriority() == ElResolver.TERNARY_PRIO) {
+            ternary_ = _op.getValues().size();
+        } else if (_op.getPriority() == ElResolver.FCT_OPER_PRIO){
+            String fctName_ = _op.getFctName().trim();
+            if (StringList.quickEq(fctName_, keyWordBool_)) {
+                ternary_ = _op.getValues().size()-1;
+            }
+        }
+        if (ternary_ == BOOLEAN_ARGS) {
+            if (_op.getPriority() == ElResolver.TERNARY_PRIO) {
+                return new ShortTernaryOperation(_index, _indexChild, _m, _op);
+            }
+            return new TernaryOperation(_index, _indexChild, _m, _op);
+        }
         if (_op.getPriority() == ElResolver.FCT_OPER_PRIO && _op.isCallDbArray()) {
             String fctName_ = _op.getFctName().trim();
             if (_m instanceof DotOperation) {
@@ -295,7 +311,7 @@ public abstract class OperationNode implements Operable {
                 return new ValuesOperation(_index, _indexChild, _m, _op);
             }
             if (StringList.quickEq(fctName_, keyWordBool_)) {
-                return new TernaryOperation(_index, _indexChild, _m, _op);
+                return new BadTernaryOperation(_index, _indexChild, _m, _op);
             }
             if (ContextEl.startsWithKeyWord(fctName_, keyWordClasschoice_)) {
                 return new ChoiceFctOperation(_index, _indexChild, _m, _op);
@@ -393,9 +409,6 @@ public abstract class OperationNode implements Operable {
         }
         if (_op.getPriority() == ElResolver.OR_PRIO) {
             return new OrOperation(_index, _indexChild, _m, _op);
-        }
-        if (_op.getPriority() == ElResolver.TERNARY_PRIO) {
-            return new ShortTernaryOperation(_index, _indexChild, _m, _op);
         }
         if (_op.getPriority() == ElResolver.AFF_PRIO) {
             if (_m instanceof AnnotationInstanceOperation&&!((AnnotationInstanceOperation) _m).isArray()) {

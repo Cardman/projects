@@ -1028,12 +1028,12 @@ public final class ElUtil {
                 if (!result_.isFullCovered() && result_.isPartialCovered()) {
                     int offsetOp_ = val_.getOperations().getOperators().firstKey();
                     if(((BooleanCoverageResult)result_).isCoverTrue()){
-                        tag_ = "<a title=\""+ transform(_cont.getStandards().getTrueString())+"\">";
+                        tag_ = "<a title=\""+ transform(_cont.getStandards().getDisplayedStrings().getTrueString())+"\">";
                         _parts.add(new PartOffset(tag_, sum_ + val_.getIndexInEl()+offsetOp_));
                         tag_ = "</a>";
                         _parts.add(new PartOffset(tag_,sum_ + val_.getIndexInEl()+offsetOp_+1));
                     } else {
-                        tag_ = "<a title=\""+ transform(_cont.getStandards().getFalseString())+"\">";
+                        tag_ = "<a title=\""+ transform(_cont.getStandards().getDisplayedStrings().getFalseString())+"\">";
                         _parts.add(new PartOffset(tag_, sum_ + val_.getIndexInEl()+offsetOp_));
                         tag_ = "</a>";
                         _parts.add(new PartOffset(tag_,sum_ + val_.getIndexInEl()+offsetOp_+1));
@@ -1193,12 +1193,12 @@ public final class ElUtil {
                                 }
                                 if (partial_) {
                                     if(((BooleanCoverageResult)resultLast_).isCoverTrue()){
-                                        tag_ = "<a title=\""+ transform(_cont.getStandards().getTrueString())+"\">";
+                                        tag_ = "<a title=\""+ transform(_cont.getStandards().getDisplayedStrings().getTrueString())+"\">";
                                         _parts.add(new PartOffset(tag_, offsetEnd_));
                                         tag_ = "</a>";
                                         _parts.add(new PartOffset(tag_,offsetEnd_+opDelta_));
                                     } else {
-                                        tag_ = "<a title=\""+ transform(_cont.getStandards().getFalseString())+"\">";
+                                        tag_ = "<a title=\""+ transform(_cont.getStandards().getDisplayedStrings().getFalseString())+"\">";
                                         _parts.add(new PartOffset(tag_, offsetEnd_));
                                         tag_ = "</a>";
                                         _parts.add(new PartOffset(tag_,offsetEnd_+opDelta_));
@@ -1229,12 +1229,12 @@ public final class ElUtil {
                         int length_ = ((MiddleSymbolOperation) parent_).getOp().length();
                         if (!resultLoc_.isFullCovered() && resultLoc_.isPartialCovered()) {
                             if(((BooleanCoverageResult)resultLoc_).isCoverTrue()){
-                                tag_ = "<a title=\""+ transform(_cont.getStandards().getTrueString())+"\">";
+                                tag_ = "<a title=\""+ transform(_cont.getStandards().getDisplayedStrings().getTrueString())+"\">";
                                 _parts.add(new PartOffset(tag_, offsetEnd_));
                                 tag_ = "</a>";
                                 _parts.add(new PartOffset(tag_,offsetEnd_+length_));
                             } else {
-                                tag_ = "<a title=\""+ transform(_cont.getStandards().getFalseString())+"\">";
+                                tag_ = "<a title=\""+ transform(_cont.getStandards().getDisplayedStrings().getFalseString())+"\">";
                                 _parts.add(new PartOffset(tag_, offsetEnd_));
                                 tag_ = "</a>";
                                 _parts.add(new PartOffset(tag_,offsetEnd_+length_));
@@ -1253,23 +1253,23 @@ public final class ElUtil {
                         }
                         if (partial_) {
                             if(((BooleanCoverageResult)resultFirst_).isCoverTrue()){
-                                tag_ = "<a title=\""+ transform(_cont.getStandards().getTrueString())+"\">";
+                                tag_ = "<a title=\""+ transform(_cont.getStandards().getDisplayedStrings().getTrueString())+"\">";
                                 _parts.add(new PartOffset(tag_, offsetEnd_));
                                 tag_ = "</a>";
                                 _parts.add(new PartOffset(tag_,offsetEnd_+1));
                             } else {
-                                tag_ = "<a title=\""+ transform(_cont.getStandards().getFalseString())+"\">";
+                                tag_ = "<a title=\""+ transform(_cont.getStandards().getDisplayedStrings().getFalseString())+"\">";
                                 _parts.add(new PartOffset(tag_, offsetEnd_));
                                 tag_ = "</a>";
                                 _parts.add(new PartOffset(tag_,offsetEnd_+1));
                             }
                             if(((BooleanCoverageResult)resultLast_).isCoverTrue()){
-                                tag_ = "<a title=\""+ transform(_cont.getStandards().getTrueString())+"\">";
+                                tag_ = "<a title=\""+ transform(_cont.getStandards().getDisplayedStrings().getTrueString())+"\">";
                                 _parts.add(new PartOffset(tag_, offsetEnd_+1));
                                 tag_ = "</a>";
                                 _parts.add(new PartOffset(tag_,offsetEnd_+2));
                             } else if(((BooleanCoverageResult)resultLast_).isCoverFalse()){
-                                tag_ = "<a title=\""+ transform(_cont.getStandards().getFalseString())+"\">";
+                                tag_ = "<a title=\""+ transform(_cont.getStandards().getDisplayedStrings().getFalseString())+"\">";
                                 _parts.add(new PartOffset(tag_, offsetEnd_+1));
                                 tag_ = "</a>";
                                 _parts.add(new PartOffset(tag_,offsetEnd_+2));

@@ -7,6 +7,7 @@ import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
+import code.expressionlanguage.inherits.Mapping;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.Delimiters;
@@ -134,7 +135,10 @@ public final class RendCaseCondition extends RendParentBlock implements RendBuil
             _cont.addError(un_);
         } else {
             checkDuplicateCase(_cont, arg_);
-            if (!PrimitiveTypeUtil.canBeUseAsArgument(resSwitch_, resCase_, _cont)) {
+            Mapping m_ = new Mapping();
+            m_.setArg(resCase_);
+            m_.setParam(resSwitch_);
+            if (!Templates.isCorrectOrNumbers(m_,_cont)) {
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
                 un_.setFileName(_cont.getCurrentFileName());
                 un_.setIndexFile(valueOffset);

@@ -87,7 +87,7 @@ public abstract class RendDynOperationNode {
         }
         if (_anaNode instanceof ErrorPartOperation) {
             ErrorPartOperation c_ = (ErrorPartOperation) _anaNode;
-            return new RendErrorPartOperation(c_);
+            return new RendErrorParentOperation(c_);
         }
         if (_anaNode instanceof ForwardOperation) {
             ForwardOperation c_ = (ForwardOperation) _anaNode;
@@ -203,7 +203,7 @@ public abstract class RendDynOperationNode {
                 tmpOp_.setDelimiter(new Delimiters());
                 ErrorPartOperation e_ = new ErrorPartOperation(0, 0, null, tmpOp_);
                 e_.setResultClass(s_.getResultClass());
-                return new RendErrorPartOperation(e_);
+                return new RendErrorParentOperation(e_);
             }
             return new RendSettableFieldOperation(s_);
         }

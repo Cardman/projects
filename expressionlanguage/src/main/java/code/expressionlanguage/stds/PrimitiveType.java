@@ -1,10 +1,11 @@
 package code.expressionlanguage.stds;
 
 import code.expressionlanguage.Analyzable;
+import code.expressionlanguage.common.InheritedType;
 import code.util.StringList;
 import code.util.StringMap;
 
-public final class PrimitiveType {
+public final class PrimitiveType implements InheritedType {
 
     private final String name;
 
@@ -67,5 +68,10 @@ public final class PrimitiveType {
         }
         all_.add(stds_.getAliasObject());
         return all_;
+    }
+
+    @Override
+    public boolean isSubTypeOf(String _fullName, Analyzable _an) {
+        return StringList.contains(getAllSuperType(_an),_fullName);
     }
 }

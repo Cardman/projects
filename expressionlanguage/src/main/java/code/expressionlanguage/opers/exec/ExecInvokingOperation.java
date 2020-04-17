@@ -343,8 +343,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                 String first_;
                 CustList<GeneType> need_ = new CustList<GeneType>();
                 if (!(type_ instanceof RootBlock)) {
-                    String aliasNumber_ = stds_.getAliasNumber();
-                    if (PrimitiveTypeUtil.canBeUseAsArgument(aliasNumber_, id_, _conf)) {
+                    if (PrimitiveTypeUtil.isPureNumberClass(new ClassArgumentMatching(id_),_conf)) {
                         String pr_ = PrimitiveTypeUtil.toPrimitive(id_, _conf.getStandards());
                         return new Argument(PrimitiveTypeUtil.defaultValue(pr_, _conf));
                     }

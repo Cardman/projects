@@ -9,6 +9,7 @@ import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
+import code.expressionlanguage.inherits.Mapping;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.*;
@@ -224,7 +225,10 @@ public final class CaseCondition extends SwitchPartBlock {
             _cont.addError(un_);
         } else {
             checkDuplicateCase(_cont, arg_);
-            if (!PrimitiveTypeUtil.canBeUseAsArgument(_resSwitch, resCase_, _cont)) {
+            Mapping m_ = new Mapping();
+            m_.setArg(resCase_);
+            m_.setParam(_resSwitch);
+            if (!Templates.isCorrectOrNumbers(m_,_cont)) {
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
                 un_.setFileName(getFile().getFileName());
                 un_.setIndexFile(valueOffset);

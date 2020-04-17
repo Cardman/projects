@@ -5,14 +5,11 @@ import code.expressionlanguage.errors.AnalysisMessages;
 import code.expressionlanguage.errors.KeyValueMemberName;
 import code.expressionlanguage.errors.stds.ErrorCat;
 import code.expressionlanguage.errors.stds.StdWordError;
-import code.expressionlanguage.files.OffsetStringInfo;
-import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.inherits.Mapping;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.inherits.TypeUtil;
 import code.expressionlanguage.instr.ElUtil;
-import code.expressionlanguage.methods.ForEachLoop;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.PredefinedClasses;
 import code.expressionlanguage.opers.Calculation;
@@ -299,6 +296,8 @@ public abstract class LgNames {
     public static final String FALSE_STRING = "FalseString";
     public static final String TRUE_STRING = "TrueString";
     public static final String NULL_STRING = "NullString";
+    public static final String STATIC_STRING = "StaticString";
+    public static final String STATIC_CALL_STRING = "StaticCallString";
     protected static final String LOC_VAR = ".";
 
     protected static final String PARS = "()";
@@ -317,9 +316,7 @@ public abstract class LgNames {
     private AliasMath mathRef = new AliasMath();
     private PrimitiveTypes primTypes = new PrimitiveTypes();
     private AliasPredefinedTypes predefTypes = new AliasPredefinedTypes();
-    private String trueString;
-    private String falseString;
-    private String nullString;
+    private DisplayedStrings displayedStrings = new DisplayedStrings();
     private String defaultPkg = "";
     /**Called after setters*/
     public void build() {
@@ -3574,24 +3571,10 @@ public abstract class LgNames {
         return predefinedInterfacesInitOrder;
     }
 
-    public String getTrueString() {
-        return trueString;
+    public DisplayedStrings getDisplayedStrings() {
+        return displayedStrings;
     }
-    public void setTrueString(String _trueString) {
-        trueString = _trueString;
-    }
-    public String getFalseString() {
-        return falseString;
-    }
-    public void setFalseString(String _falseString) {
-        falseString = _falseString;
-    }
-    public String getNullString() {
-        return nullString;
-    }
-    public void setNullString(String _nullString) {
-        nullString = _nullString;
-    }
+
     public String getDefaultPkg() {
         return defaultPkg;
     }

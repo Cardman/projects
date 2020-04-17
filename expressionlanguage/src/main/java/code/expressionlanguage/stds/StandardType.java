@@ -1,5 +1,6 @@
 package code.expressionlanguage.stds;
 
+import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.util.MethodId;
@@ -99,5 +100,12 @@ public abstract class StandardType implements GeneType {
 
     public ObjectMap<MethodId, StandardMethod> getMethods() {
         return methods;
+    }
+
+    public boolean isSubTypeOf(String _fullName, Analyzable _an) {
+        if (StringList.quickEq(getFullName(),_fullName)) {
+            return true;
+        }
+        return StringList.contains(getAllSuperTypes(),_fullName);
     }
 }

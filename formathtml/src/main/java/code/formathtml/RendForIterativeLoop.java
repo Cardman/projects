@@ -8,6 +8,7 @@ import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.inherits.Mapping;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
+import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.ErrorStruct;
@@ -162,7 +163,10 @@ public final class RendForIterativeLoop extends RendParentBlock implements RendL
         _cont.getAnalyzingDoc().setAttribute(_cont.getRendKeyWords().getAttrFrom());
         opInit = RenderExpUtil.getAnalyzedOperations(init,initOffset,0, _cont);
         RendDynOperationNode initEl_ = opInit.last();
-        if (!PrimitiveTypeUtil.canBeUseAsArgument(elementClass_, initEl_.getResultClass(), _cont)) {
+        Mapping m_ = new Mapping();
+        m_.setArg(initEl_.getResultClass());
+        m_.setParam(elementClass_);
+        if (!Templates.isCorrectOrNumbers(m_,_cont)) {
             Mapping mapping_ = new Mapping();
             mapping_.setArg(initEl_.getResultClass());
             mapping_.setParam(elementClass_);
@@ -179,7 +183,9 @@ public final class RendForIterativeLoop extends RendParentBlock implements RendL
         _cont.getAnalyzingDoc().setAttribute(_cont.getRendKeyWords().getAttrTo());
         opExp = RenderExpUtil.getAnalyzedOperations(expression,expressionOffset,0, _cont);
         RendDynOperationNode expressionEl_ = opExp.last();
-        if (!PrimitiveTypeUtil.canBeUseAsArgument(elementClass_, expressionEl_.getResultClass(), _cont)) {
+        m_.setArg(expressionEl_.getResultClass());
+        m_.setParam(elementClass_);
+        if (!Templates.isCorrectOrNumbers(m_,_cont)) {
             Mapping mapping_ = new Mapping();
             mapping_.setArg(expressionEl_.getResultClass());
             mapping_.setParam(elementClass_);
@@ -196,7 +202,9 @@ public final class RendForIterativeLoop extends RendParentBlock implements RendL
         _cont.getAnalyzingDoc().setAttribute(_cont.getRendKeyWords().getAttrStep());
         opStep = RenderExpUtil.getAnalyzedOperations(step,stepOffset, 0,_cont);
         RendDynOperationNode stepEl_ = opStep.last();
-        if (!PrimitiveTypeUtil.canBeUseAsArgument(elementClass_, stepEl_.getResultClass(), _cont)) {
+        m_.setArg(stepEl_.getResultClass());
+        m_.setParam(elementClass_);
+        if (!Templates.isCorrectOrNumbers(m_,_cont)) {
             Mapping mapping_ = new Mapping();
             mapping_.setArg(stepEl_.getResultClass());
             mapping_.setParam(elementClass_);

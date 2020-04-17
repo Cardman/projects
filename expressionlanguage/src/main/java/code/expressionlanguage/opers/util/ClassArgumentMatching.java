@@ -103,8 +103,15 @@ public final class ClassArgumentMatching {
     public boolean isBoolType(Analyzable _context) {
         LgNames lgNames_ = _context.getStandards();
         String aliasBoolean_ = lgNames_.getAliasBoolean();
+        String aliasPrBoolean_ = lgNames_.getAliasPrimBoolean();
         for (String b: className) {
-            if (PrimitiveTypeUtil.canBeUseAsArgument(aliasBoolean_, b, _context)) {
+            if (b.isEmpty()) {
+                return true;
+            }
+            if (matchClass(aliasBoolean_)) {
+                return true;
+            }
+            if (matchClass(aliasPrBoolean_)) {
                 return true;
             }
         }

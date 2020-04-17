@@ -73,9 +73,9 @@ public final class MethodId implements Equallable<MethodId>, Identifiable {
     public String getSignature(Analyzable _ana) {
         String pref_ = EMPTY;
         if (kind == MethodAccessKind.STATIC) {
-            pref_ = StringList.concat(_ana.getKeyWords().getKeyWordStatic()," ");
+            pref_ = StringList.concat(_ana.getStandards().getDisplayedStrings().getStaticString()," ");
         } else if (kind == MethodAccessKind.STATIC_CALL) {
-            pref_ = StringList.concat(_ana.getKeyWords().getKeyWordStaticCall()," ");
+            pref_ = StringList.concat(_ana.getStandards().getDisplayedStrings().getStaticCallString()," ");
         }
         String suf_ = EMPTY;
         if (vararg) {

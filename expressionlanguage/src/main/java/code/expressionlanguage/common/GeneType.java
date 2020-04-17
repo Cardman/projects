@@ -5,7 +5,7 @@ import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.MethodId;
 import code.util.*;
 
-public interface GeneType {
+public interface GeneType extends InheritedType {
 
 
     StringList getAllSuperTypes();

@@ -1851,9 +1851,11 @@ public final class LgNamesRenderUtils extends BeanCustLgNames {
         setAliasRemoveTa(get(_util,_cust, REMOVE_TA));
         setAliasGetTa(get(_util,_cust, GET_TA));
         setAliasSizeTa(get(_util,_cust, SIZE_TA));
-        setFalseString(get(_util,_cust, FALSE_STRING));
-        setTrueString(get(_util,_cust, TRUE_STRING));
-        setNullString(get(_util,_cust, NULL_STRING));
+        getDisplayedStrings().setFalseString(get(_util,_cust, FALSE_STRING));
+        getDisplayedStrings().setTrueString(get(_util,_cust, TRUE_STRING));
+        getDisplayedStrings().setNullString(get(_util,_cust, NULL_STRING));
+        getDisplayedStrings().setStaticCallString(get(_util,_cust, STATIC_CALL_STRING));
+        getDisplayedStrings().setStaticString(get(_util,_cust, STATIC_STRING));
         setAliasBean(get(_util,_cust, BEAN));
         setAliasMapKeys(get(_util,_cust, MAP_KEYS));
         setAliasMapValues(get(_util,_cust, MAP_VALUES));

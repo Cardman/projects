@@ -29,12 +29,7 @@ public class CustInitializer extends DefaultInitializer {
     protected Struct init(ContextEl _context, Struct _parent,
                           String _className, String _fieldName, int _ordinal,
                           ObjectMap<ClassField, Struct> _fields) {
-        String base_ = Templates.getIdFromAllTypes(_className);
-        String run_ = ((LgNamesUtils)_context.getStandards()).getAliasRunnable();
-        if (PrimitiveTypeUtil.canBeUseAsArgument(run_, base_, _context)) {
-            return new RunnableStruct(_context, _className, _fieldName, _ordinal, _fields, _parent);
-        }
-        return super.init(_context, _parent, _className, _fieldName, _ordinal, _fields);
+        return new RunnableStruct(_context, _className, _fieldName, _ordinal, _fields, _parent);
     }
 
     @Override
@@ -81,7 +76,7 @@ public class CustInitializer extends DefaultInitializer {
                     String text_ = out_.getString();
                     log(_cont,text_);
                 } else {
-                    log(_cont,_cont.getStandards().getNullString());
+                    log(_cont,_cont.getStandards().getDisplayedStrings().getNullString());
                 }
             }
         }
