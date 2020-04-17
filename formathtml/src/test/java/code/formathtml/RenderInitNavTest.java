@@ -900,6 +900,7 @@ public final class RenderInitNavTest extends CommonRender {
         _lgNames.setAliasGetFileName("getFileName");
         _lgNames.setAliasGetName("getName");
         _lgNames.setAliasGetPrettyName("getPrettyName");
+        _lgNames.setAliasGetPrettySingleName("getPrettySingleName");
         _lgNames.setAliasGetField("get");
         _lgNames.setAliasSetField("set");
         _lgNames.setAliasGetClass("getClass");

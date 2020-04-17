@@ -28,6 +28,12 @@ final class InnerPartType extends BinaryType {
     String getSeparator(int _index) {
         return Templates.INNER_TYPE;
     }
+
+    @Override
+    String getSingleSeparator(int _index) {
+        return ".";
+    }
+
     @Override
     String getPrettyEnd() {
         return EMPTY_STRING;

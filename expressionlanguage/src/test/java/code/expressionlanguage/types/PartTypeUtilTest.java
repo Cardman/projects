@@ -1020,7 +1020,7 @@ public final class PartTypeUtilTest {
         ContextEl context_ = unfullValidateInheritingClasses(files_);
         Classes cl_ = context_.getClasses();
         RootBlock root_ = cl_.getClassBody("pkg.Outer");
-        String solved_ = PartTypeUtil.processAnalyzeLine("OuterThree<OuterFour>", "",context_, root_);
+        String solved_ = PartTypeUtil.processAnalyzeLine("OuterThree<OuterFour>", context_, root_);
         assertTrue(cl_.displayErrors(), context_.isEmptyErrors());
         assertEq("pkgtwo.OuterThree<pkgthree.OuterFour>", solved_);
     }
@@ -1048,7 +1048,7 @@ public final class PartTypeUtilTest {
         ContextEl context_ = unfullValidateInheritingClasses(files_);
         Classes cl_ = context_.getClasses();
         RootBlock root_ = cl_.getClassBody("pkg.Outer");
-        String solved_ = PartTypeUtil.processAnalyzeLine("OuterFour.OuterThree<OuterFour>", "",context_, root_);
+        String solved_ = PartTypeUtil.processAnalyzeLine("OuterFour.OuterThree<OuterFour>", context_, root_);
         assertTrue(cl_.displayErrors(), context_.isEmptyErrors());
         assertEq("pkgthree.OuterFour..OuterThree<pkgthree.OuterFour>", solved_);
     }
@@ -1076,7 +1076,7 @@ public final class PartTypeUtilTest {
         ContextEl context_ = unfullValidateInheritingClasses(files_);
         Classes cl_ = context_.getClasses();
         RootBlock root_ = cl_.getClassBody("pkg.Outer");
-        String solved_ = PartTypeUtil.processAnalyzeLine("OuterFour.OuterThree<$void>", "",context_, root_);
+        String solved_ = PartTypeUtil.processAnalyzeLine("OuterFour.OuterThree<$void>", context_, root_);
         assertTrue(cl_.displayErrors(), context_.isEmptyErrors());
         assertEq("", solved_);
     }
@@ -1104,7 +1104,7 @@ public final class PartTypeUtilTest {
         ContextEl context_ = unfullValidateInheritingClasses(files_);
         Classes cl_ = context_.getClasses();
         RootBlock root_ = cl_.getClassBody("pkg.Outer");
-        String solved_ = PartTypeUtil.processAnalyzeLine("OuterFour.OuterThree<$void", "",context_, root_);
+        String solved_ = PartTypeUtil.processAnalyzeLine("OuterFour.OuterThree<$void", context_, root_);
         assertTrue(cl_.displayErrors(), context_.isEmptyErrors());
         assertEq("", solved_);
     }
@@ -1132,7 +1132,7 @@ public final class PartTypeUtilTest {
         ContextEl context_ = unfullValidateInheritingClasses(files_);
         Classes cl_ = context_.getClasses();
         RootBlock root_ = cl_.getClassBody("pkg.Outer");
-        String solved_ = PartTypeUtil.processAnalyzeLine("OuterFour..OuterThree<$void>", "",context_, root_);
+        String solved_ = PartTypeUtil.processAnalyzeLine("OuterFour..OuterThree<$void>", context_, root_);
         assertTrue(cl_.displayErrors(), context_.isEmptyErrors());
         assertEq("", solved_);
     }

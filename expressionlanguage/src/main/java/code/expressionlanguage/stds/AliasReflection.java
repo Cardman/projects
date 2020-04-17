@@ -94,6 +94,7 @@ public final class AliasReflection {
     private String aliasGetFileName;
     private String aliasGetName;
     private String aliasGetPrettyName;
+    private String aliasGetPrettySingleName;
     private String aliasGetField;
     private String aliasSetField;
     private String aliasGetGenericType;
@@ -138,6 +139,9 @@ public final class AliasReflection {
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasGetPrettyName, params_, aliasString_, false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasGetPrettySingleName, params_, aliasString_, false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasObject_);
         method_ = new StandardMethod(aliasGetClass, params_, aliasClassType, false, MethodModifier.STATIC, stdcl_);
@@ -865,6 +869,11 @@ public final class AliasReflection {
             if (StringList.quickEq(name_, ref_.aliasGetPrettyName)) {
                 String nameCl_ = ((ClassMetaInfo)_struct).getName();
                 result_.setResult(new StringStruct(PartTypeUtil.processPrettyType(nameCl_)));
+                return result_;
+            }
+            if (StringList.quickEq(name_, ref_.aliasGetPrettySingleName)) {
+                String nameCl_ = ((ClassMetaInfo)_struct).getName();
+                result_.setResult(new StringStruct(PartTypeUtil.processPrettySingleType(nameCl_)));
                 return result_;
             }
             if (StringList.quickEq(name_, ref_.aliasGetEnclosingType)) {
@@ -2172,6 +2181,12 @@ public final class AliasReflection {
     }
     public void setAliasGetPrettyName(String _aliasGetPrettyName) {
         aliasGetPrettyName = _aliasGetPrettyName;
+    }
+    public String getAliasGetPrettySingleName() {
+        return aliasGetPrettySingleName;
+    }
+    public void setAliasGetPrettySingleName(String _aliasGetPrettyName) {
+        aliasGetPrettySingleName = _aliasGetPrettyName;
     }
     public String getAliasGetField() {
         return aliasGetField;

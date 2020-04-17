@@ -2532,6 +2532,312 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         assertEq("pkg.ExThree<?>",out_.getString());
     }
     @Test
+    public void processEl409_Test() {
+        StringBuilder xml_;
+        StringMap<String> files_ = new StringMap<String>();
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $int inst;\n");
+        xml_.append(" $public $static String exmeth(){\n");
+        xml_.append("  $return $class(Number).getPrettySingleName();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextElDefault();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument out_ = calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        assertEq("java.lang.Number",out_.getString());
+    }
+    @Test
+    public void processEl410_Test() {
+        StringBuilder xml_;
+        StringMap<String> files_ = new StringMap<String>();
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $int inst;\n");
+        xml_.append(" $public $static String exmeth(){\n");
+        xml_.append("  $return $class(ExTwo).getPrettySingleName();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextElDefault();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument out_ = calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        assertEq("pkg.ExTwo",out_.getString());
+    }
+    @Test
+    public void processEl411_Test() {
+        StringBuilder xml_;
+        StringMap<String> files_ = new StringMap<String>();
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $int inst;\n");
+        xml_.append(" $public $static String exmeth(){\n");
+        xml_.append("  $return $class(ExThree.ExEnum).getPrettySingleName();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExThree{\n");
+        xml_.append(" $public $enum ExEnum{\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextElDefault();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument out_ = calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        assertEq("pkg.ExThree.ExEnum",out_.getString());
+    }
+    @Test
+    public void processEl412_Test() {
+        StringBuilder xml_;
+        StringMap<String> files_ = new StringMap<String>();
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $int inst;\n");
+        xml_.append(" $public $static String exmeth(){\n");
+        xml_.append("  $return $class(ExThree.ExEnum[]).getPrettySingleName();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExThree{\n");
+        xml_.append(" $public $enum ExEnum{\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextElDefault();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument out_ = calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        assertEq("pkg.ExThree.ExEnum[]",out_.getString());
+    }
+    @Test
+    public void processEl413_Test() {
+        StringBuilder xml_;
+        StringMap<String> files_ = new StringMap<String>();
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $int inst;\n");
+        xml_.append(" $public $static String exmeth(){\n");
+        xml_.append("  $return $class(ExTwo[]).getPrettySingleName();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextElDefault();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument out_ = calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        assertEq("pkg.ExTwo[]",out_.getString());
+    }
+    @Test
+    public void processEl414_Test() {
+        StringBuilder xml_;
+        StringMap<String> files_ = new StringMap<String>();
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $int inst;\n");
+        xml_.append(" $public $static String exmeth(){\n");
+        xml_.append("  $return $class(ExThree<Number>).getPrettySingleName();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExThree<S>{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextElDefault();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument out_ = calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        assertEq("pkg.ExThree<java.lang.Number>",out_.getString());
+    }
+    @Test
+    public void processEl415_Test() {
+        StringBuilder xml_;
+        StringMap<String> files_ = new StringMap<String>();
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $int inst;\n");
+        xml_.append(" $public $static String exmeth(){\n");
+        xml_.append("  $return $class(ExThree<Number[]>).getPrettySingleName();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExThree<S>{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextElDefault();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument out_ = calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        assertEq("pkg.ExThree<java.lang.Number[]>",out_.getString());
+    }
+    @Test
+    public void processEl416_Test() {
+        StringBuilder xml_;
+        StringMap<String> files_ = new StringMap<String>();
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $int inst;\n");
+        xml_.append(" $public $static String exmeth(){\n");
+        xml_.append("  $return $class(ExThree<Number>[]).getPrettySingleName();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExThree<S>{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextElDefault();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument out_ = calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        assertEq("pkg.ExThree<java.lang.Number>[]",out_.getString());
+    }
+    @Test
+    public void processEl417_Test() {
+        StringBuilder xml_;
+        StringMap<String> files_ = new StringMap<String>();
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $int inst;\n");
+        xml_.append(" $public $static String exmeth(){\n");
+        xml_.append("  $return $class(ExThree<!Number>).getPrettySingleName();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExThree<S>{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextElDefault();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument out_ = calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        assertEq("pkg.ExThree<!java.lang.Number>",out_.getString());
+    }
+    @Test
+    public void processEl418_Test() {
+        StringBuilder xml_;
+        StringMap<String> files_ = new StringMap<String>();
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $int inst;\n");
+        xml_.append(" $public $static String exmeth(){\n");
+        xml_.append("  $return $class(ExThree<!Number[]>).getPrettySingleName();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExThree<S>{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextElDefault();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument out_ = calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        assertEq("pkg.ExThree<!java.lang.Number[]>",out_.getString());
+    }
+    @Test
+    public void processEl419_Test() {
+        StringBuilder xml_;
+        StringMap<String> files_ = new StringMap<String>();
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $int inst;\n");
+        xml_.append(" $public $static String exmeth(){\n");
+        xml_.append("  $return $class(ExThree<?Number>).getPrettySingleName();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExThree<S>{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextElDefault();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument out_ = calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        assertEq("pkg.ExThree<?java.lang.Number>",out_.getString());
+    }
+    @Test
+    public void processEl420_Test() {
+        StringBuilder xml_;
+        StringMap<String> files_ = new StringMap<String>();
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $int inst;\n");
+        xml_.append(" $public $static String exmeth(){\n");
+        xml_.append("  $return $class(ExThree<?Number[]>).getPrettySingleName();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExThree<S>{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextElDefault();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument out_ = calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        assertEq("pkg.ExThree<?java.lang.Number[]>",out_.getString());
+    }
+    @Test
+    public void processEl421_Test() {
+        StringBuilder xml_;
+        StringMap<String> files_ = new StringMap<String>();
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $int inst;\n");
+        xml_.append(" $public $static String exmeth(){\n");
+        xml_.append("  $return $class(ExThree<?>).getPrettySingleName();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExThree<S>{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextElDefault();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument out_ = calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        assertEq("pkg.ExThree<?>",out_.getString());
+    }
+    @Test
+    public void processEl422_Test() {
+        StringBuilder xml_;
+        StringMap<String> files_ = new StringMap<String>();
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $int inst;\n");
+        xml_.append(" $public $static String exmeth(){\n");
+        xml_.append("  $return $class(ExThree<Number,String>).getPrettySingleName();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExThree<S,T>{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextElDefault();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument out_ = calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        assertEq("pkg.ExThree<java.lang.Number,java.lang.String>",out_.getString());
+    }
+    @Test
     public void processEl422Test() {
         StringBuilder xml_;
         StringMap<String> files_ = new StringMap<String>();

@@ -6,4 +6,5 @@ abstract class BinaryType extends ParentPartType {
     }
 
     abstract String getSeparator(int _index);
+    abstract String getSingleSeparator(int _index);
 }

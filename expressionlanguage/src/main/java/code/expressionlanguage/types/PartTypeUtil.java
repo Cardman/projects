@@ -167,8 +167,8 @@ public final class PartTypeUtil {
         }
         return !root_.getAnalyzedType().isEmpty();
     }
-    static String processAnalyzeLine(String _input, String _globalType, Analyzable _an, AccessingImportingBlock _rooted) {
-        return processAnalyzeLine(_input,_globalType,_an,_rooted,_rooted,"",0,new CustList<PartOffset>());
+    static String processAnalyzeLine(String _input, Analyzable _an, AccessingImportingBlock _rooted) {
+        return processAnalyzeLine(_input,"",_an,_rooted,_rooted,"",0,new CustList<PartOffset>());
     }
     public static String processAnalyzeLine(String _input, String _globalType, Analyzable _an, AccessingImportingBlock _local,AccessingImportingBlock _rooted, String _fileName,int _loc, CustList<PartOffset> _offs) {
         Ints indexes_ = ParserType.getIndexes(_input, _an);
@@ -329,10 +329,11 @@ public final class PartTypeUtil {
                 String t_ = ((LeafPartType)current_).getTypeName();
                 out_.append(t_);
             }
-            PartType child_ = createFirstChildExec(current_, loc_, dels_);
+            ParentChildType parChild_ = createFirstChildExec(current_, loc_, dels_);
+            PartType child_ = parChild_.getChild();
             if (child_ != null) {
-                out_.append(((ParentPartType)current_).getPrettyBegin());
-                ((ParentPartType)current_).appendChild(child_);
+                out_.append(parChild_.getParentPartType().getPrettyBegin());
+                parChild_.getParentPartType().appendChild(child_);
                 current_ = child_;
                 continue;
             }
@@ -342,6 +343,57 @@ public final class PartTypeUtil {
                 ParentPartType par_ = current_.getParent();
                 if (next_ != null) {
                     out_.append(((BinaryType) par_).getSeparator(current_.getIndex()));
+                    par_.appendChild(next_);
+                    current_ = next_;
+                    break;
+                }
+                if (par_ == root_) {
+                    out_.append(par_.getPrettyEnd());
+                    stop_ = true;
+                    break;
+                }
+                if (par_ == null) {
+                    stop_ = true;
+                    break;
+                }
+                out_.append(par_.getPrettyEnd());
+                dels_.removeLast();
+                current_ = par_;
+            }
+            if (stop_) {
+                break;
+            }
+        }
+        return out_.toString();
+    }
+    public static String processPrettySingleType(String _input) {
+        StringBuilder out_ = new StringBuilder();
+        Ints indexes_ = ParserType.getIndexesExec(_input);
+        AnalyzingType loc_ = ParserType.analyzeLocalExec(0, _input, indexes_);
+        CustList<IntTreeMap< String>> dels_;
+        dels_ = new CustList<IntTreeMap< String>>();
+        PartType root_ = PartType.createPartTypeExec(null, 0, 0, loc_, loc_.getValues());
+        addValues(root_, dels_, loc_);
+        PartType current_ = root_;
+        while (true) {
+            if (current_ instanceof LeafPartType) {
+                String t_ = ((LeafPartType)current_).getTypeName();
+                out_.append(t_);
+            }
+            ParentChildType parChild_ = createFirstChildExec(current_, loc_, dels_);
+            PartType child_ = parChild_.getChild();
+            if (child_ != null) {
+                out_.append(parChild_.getParentPartType().getPrettyBegin());
+                parChild_.getParentPartType().appendChild(child_);
+                current_ = child_;
+                continue;
+            }
+            boolean stop_ = false;
+            while (true) {
+                PartType next_ = createNextSiblingExec(current_, loc_, dels_);
+                ParentPartType par_ = current_.getParent();
+                if (next_ != null) {
+                    out_.append(((BinaryType) par_).getSingleSeparator(current_.getIndex()));
                     par_.appendChild(next_);
                     current_ = next_;
                     break;
@@ -386,10 +438,11 @@ public final class PartTypeUtil {
                 }
                 out_.append(t_);
             }
-            PartType child_ = createFirstChildExec(current_, loc_, dels_);
+            ParentChildType parChild_ = createFirstChildExec(current_, loc_, dels_);
+            PartType child_ = parChild_.getChild();
             if (child_ != null) {
-                out_.append(((ParentPartType)current_).getBegin());
-                ((ParentPartType)current_).appendChild(child_);
+                out_.append(parChild_.getParentPartType().getBegin());
+                parChild_.getParentPartType().appendChild(child_);
                 current_ = child_;
                 continue;
             }
@@ -430,7 +483,7 @@ public final class PartTypeUtil {
         }
         return out_.toString();
     }
-    static PartType createFirstChild(Analyzable _an, PartType _parent, AnalyzingType _analyze, CustList<IntTreeMap<String>> _dels) {
+    private static PartType createFirstChild(Analyzable _an, PartType _parent, AnalyzingType _analyze, CustList<IntTreeMap<String>> _dels) {
         if (!(_parent instanceof ParentPartType)) {
             return null;
         }
@@ -452,9 +505,9 @@ public final class PartTypeUtil {
         addValues(p_, _dels, an_);
         return p_;
     }
-    static PartType createFirstChildExec(PartType _parent, AnalyzingType _analyze, CustList<IntTreeMap< String>> _dels) {
+    private static ParentChildType createFirstChildExec(PartType _parent, AnalyzingType _analyze, CustList<IntTreeMap<String>> _dels) {
         if (!(_parent instanceof ParentPartType)) {
-            return null;
+            return new ParentChildType(null,null);
         }
         ParentPartType par_ = (ParentPartType) _parent;
         int indexPar_ = 0;
@@ -472,9 +525,9 @@ public final class PartTypeUtil {
         AnalyzingType an_ = ParserType.analyzeLocalExec(off_, v_, _analyze.getIndexes());
         PartType p_ = PartType.createPartTypeExec(par_, 0, off_, an_, last_);
         addValues(p_, _dels, an_);
-        return p_;
+        return new ParentChildType(par_,p_);
     }
-    static PartType createQuickFirstChild(PartType _parent, AnalyzingType _analyze, CustList<IntTreeMap< String>> _dels) {
+    private static PartType createQuickFirstChild(PartType _parent, AnalyzingType _analyze, CustList<IntTreeMap<String>> _dels) {
         if (!(_parent instanceof ParentPartType)) {
             return null;
         }
@@ -496,7 +549,7 @@ public final class PartTypeUtil {
         addValues(p_, _dels, an_);
         return p_;
     }
-    static PartType createNextSibling(Analyzable _an, PartType _parent, AnalyzingType _analyze, CustList<IntTreeMap<String>> _dels) {
+    private static PartType createNextSibling(Analyzable _an, PartType _parent, AnalyzingType _analyze, CustList<IntTreeMap<String>> _dels) {
         ParentPartType par_ = _parent.getParent();
         if (!(par_ instanceof BinaryType)) {
             return null;
@@ -525,7 +578,7 @@ public final class PartTypeUtil {
         addValues(p_, _dels, an_);
         return p_;
     }
-    static PartType createQuickNextSibling(PartType _parent, AnalyzingType _analyze, CustList<IntTreeMap< String>> _dels) {
+    private static PartType createQuickNextSibling(PartType _parent, AnalyzingType _analyze, CustList<IntTreeMap<String>> _dels) {
         ParentPartType par_ = _parent.getParent();
         if (!(par_ instanceof BinaryType)) {
             return null;
@@ -554,7 +607,7 @@ public final class PartTypeUtil {
         addValues(p_, _dels, an_);
         return p_;
     }
-    static PartType createNextSiblingExec(PartType _parent, AnalyzingType _analyze, CustList<IntTreeMap< String>> _dels) {
+    private static PartType createNextSiblingExec(PartType _parent, AnalyzingType _analyze, CustList<IntTreeMap<String>> _dels) {
         ParentPartType par_ = _parent.getParent();
         if (!(par_ instanceof BinaryType)) {
             return null;

@@ -37,6 +37,14 @@ final class TemplatePartType extends BinaryType {
     }
 
     @Override
+    String getSingleSeparator(int _index) {
+        if (_index == 0) {
+            return Templates.TEMPLATE_BEGIN;
+        }
+        return Templates.TEMPLATE_SEP;
+    }
+
+    @Override
     String getPrettyEnd() {
         return Templates.TEMPLATE_END;
     }

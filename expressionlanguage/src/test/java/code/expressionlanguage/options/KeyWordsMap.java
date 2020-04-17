@@ -348,6 +348,7 @@ public final class KeyWordsMap {
         _lgNames.setAliasGetFileName("getFileName");
         _lgNames.setAliasGetName("getName");
         _lgNames.setAliasGetPrettyName("getPrettyName");
+        _lgNames.setAliasGetPrettySingleName("getPrettySingleName");
         _lgNames.setAliasGetField("get");
         _lgNames.setAliasSetField("set");
         _lgNames.setAliasGetClass("getClass");
@@ -628,6 +629,7 @@ public final class KeyWordsMap {
         _lgNames.setAliasGetFileName("valNomFichier");
         _lgNames.setAliasGetName("valNom");
         _lgNames.setAliasGetPrettyName("valJoliNom");
+        _lgNames.setAliasGetPrettySingleName("valJoliSimpleNom");
         _lgNames.setAliasGetField("obtenir");
         _lgNames.setAliasSetField("maj");
         _lgNames.setAliasGetClass("valClasse");

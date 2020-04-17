@@ -511,16 +511,7 @@ public abstract class OperationNode implements Operable {
         for (CustList<TypeInfo> g: typesGroup_) {
             StringList baseTypes_ = new StringList();
             StringMap<String> superTypesBaseAncBis_ = new StringMap<String>();
-            for (TypeInfo t: g) {
-                if (t.isBase()) {
-                    String id_ = Templates.getIdFromAllTypes(t.getType());
-                    baseTypes_.add(id_);
-                    superTypesBaseAncBis_.put(id_, id_);
-                    for (String m: t.getSuperTypes()) {
-                        superTypesBaseAncBis_.put(m, id_);
-                    }
-                }
-            }
+            feedTypes(g, baseTypes_, superTypesBaseAncBis_);
             for (TypeInfo t: g) {
                 String f_ = t.getType();
                 String cl_ = Templates.getIdFromAllTypes(f_);
@@ -583,6 +574,19 @@ public abstract class OperationNode implements Operable {
         return r_;
     }
 
+    private static void feedTypes(CustList<TypeInfo> _list, StringList _baseTypes, StringMap<String> _superTypesBaseAnc) {
+        for (TypeInfo t: _list) {
+            if (t.isBase()) {
+                String id_ = Templates.getIdFromAllTypes(t.getType());
+                _baseTypes.add(id_);
+                _superTypesBaseAnc.put(id_, id_);
+                for (String m: t.getSuperTypes()) {
+                    _superTypesBaseAnc.put(m, id_);
+                }
+            }
+        }
+    }
+
     private static void fetchFieldsType(Analyzable _conf, boolean _accessFromSuper, boolean _superClass, int _anc, boolean _static,
                                         boolean _aff,
                                         String _name, String _glClass, ObjectMap<ClassField, FieldResult> _ancestors,
@@ -605,25 +609,14 @@ public abstract class OperationNode implements Operable {
                 return;
             }
         }
-        String subType_ = _superTypesBaseMap.getVal(fullName_);
         GeneField e_ = fi_.getGeneField();
         if (e_ instanceof AccessibleBlock) {
-            if (!Classes.canAccess(subType_, (AccessibleBlock)e_, _conf)) {
-                return;
-            }
-            if (!Classes.canAccess(_glClass, (AccessibleBlock)e_, _conf)) {
+            if (cannotAccess(_conf,fullName_,(AccessibleBlock)e_,_glClass,_superTypesBaseMap)) {
                 return;
             }
         }
-        if (_accessFromSuper) {
-            if (StringList.contains(_superTypesBase, fullName_)) {
-                return;
-            }
-        }
-        if (!_superClass) {
-            if (!StringList.contains(_superTypesBase, fullName_)) {
-                return;
-            }
+        if (filterMember(_accessFromSuper,_superClass,_superTypesBase,fullName_)) {
+            return;
         }
         String formatted_;
         if (staticField_) {
@@ -986,16 +979,7 @@ public abstract class OperationNode implements Operable {
         for (CustList<TypeInfo> g: typeInfosGroups_) {
             StringList baseTypes_ = new StringList();
             StringMap<String> superTypesBaseAncBis_ = new StringMap<String>();
-            for (TypeInfo t: g) {
-                if (t.isBase()) {
-                    String id_ = Templates.getIdFromAllTypes(t.getType());
-                    baseTypes_.add(id_);
-                    superTypesBaseAncBis_.put(id_, id_);
-                    for (String m: t.getSuperTypes()) {
-                        superTypesBaseAncBis_.put(m, id_);
-                    }
-                }
-            }
+            feedTypes(g, baseTypes_, superTypesBaseAncBis_);
             for (TypeInfo t: g) {
                 String f_ = t.getType();
                 String cl_ = Templates.getIdFromAllTypes(f_);
@@ -1139,15 +1123,8 @@ public abstract class OperationNode implements Operable {
                     }
                 }
             }
-            if (_accessFromSuper) {
-                if (StringList.contains(_superTypesBase, fullName_)) {
-                    continue;
-                }
-            }
-            if (!_superClass) {
-                if (!StringList.contains(_superTypesBase, fullName_)) {
-                    continue;
-                }
+            if (filterMember(_accessFromSuper,_superClass,_superTypesBase,fullName_)) {
+                continue;
             }
             MethodInfo stMeth_ = fetchedParamMethod(e,genericString_,k_ == MethodAccessKind.STATIC,_conf, _uniqueId,_glClass,_anc, _cl,_superTypesBaseMap);
             if (stMeth_ == null) {
@@ -1163,6 +1140,19 @@ public abstract class OperationNode implements Operable {
             }
             _methods.add(e.getValue());
         }
+    }
+    private static boolean filterMember(boolean _accessFromSuper, boolean _superClass,StringList _superTypesBase, String _fullName) {
+        if (_accessFromSuper) {
+            if (StringList.contains(_superTypesBase, _fullName)) {
+                return true;
+            }
+        }
+        if (!_superClass) {
+            if (!StringList.contains(_superTypesBase, _fullName)) {
+                return true;
+            }
+        }
+        return false;
     }
     private static void fetchToStringMethods(Analyzable _conf, RootBlock _root,String _cl, CustList<MethodInfo> _methods) {
         StringList geneSuperTypes_ = new StringList();
@@ -1204,15 +1194,20 @@ public abstract class OperationNode implements Operable {
             formattedClass_ = _f;
         }
         if (_m instanceof AccessibleBlock) {
-            String subType_ = _superTypesBaseMap.getVal(base_);
-            if (!Classes.canAccess(subType_, (AccessibleBlock)_m, _conf)) {
-                return null;
-            }
-            if (!Classes.canAccess(_glClass, (AccessibleBlock)_m, _conf)) {
+            if (cannotAccess(_conf,base_,(AccessibleBlock)_m,_glClass,_superTypesBaseMap)) {
                 return null;
             }
         }
         return buildMethodInfo(_m, _keepParams, _conf, _anc, formattedClass_);
+    }
+
+    private static boolean cannotAccess(Analyzable _conf, String _base,AccessibleBlock _acc,
+                                        String _glClass,  StringMap<String> _superTypesBaseMap) {
+        String subType_ = _superTypesBaseMap.getVal(_base);
+        if (!Classes.canAccess(subType_, _acc, _conf)) {
+            return true;
+        }
+        return !Classes.canAccess(_glClass, _acc, _conf);
     }
 
     private static MethodInfo buildMethodInfo(GeneMethod _m, boolean _keepParams, Analyzable _conf, int _anc, String _formattedClass) {

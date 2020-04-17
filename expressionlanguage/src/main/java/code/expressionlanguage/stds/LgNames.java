@@ -255,6 +255,7 @@ public abstract class LgNames {
     public static final String BIT_SHIFT_RIGHT = "BitShiftRight";
     public static final String GET_PARAMETER_NAMES = "GetParameterNames";
     public static final String GET_PRETTY_NAME = "GetPrettyName";
+    public static final String GET_PRETTY_SINGLE_NAME = "GetPrettySingleName";
     public static final String GET_UPPER_BOUNDS = "GetUpperBounds";
     public static final String GET_PARAMETER_TYPES = "GetParameterTypes";
     public static final String GET_GENERIC_RETURN_TYPE = "GetGenericReturnType";
@@ -748,6 +749,7 @@ public abstract class LgNames {
                 new KeyValueMemberName(GET_NAME,getAliasGetName()),
                 new KeyValueMemberName(GET_OPERATORS,getAliasGetOperators()),
                 new KeyValueMemberName(GET_PRETTY_NAME,getAliasGetPrettyName()),
+                new KeyValueMemberName(GET_PRETTY_SINGLE_NAME,getAliasGetPrettySingleName()),
                 new KeyValueMemberName(GET_SUPER_CLASS,getAliasGetSuperClass()),
                 new KeyValueMemberName(GET_TYPE_PARAMETERS,getAliasGetTypeParameters()),
                 new KeyValueMemberName(GET_UPPER_BOUNDS,getAliasGetUpperBounds()),
@@ -3026,6 +3028,12 @@ public abstract class LgNames {
     }
     public void setAliasGetPrettyName(String _aliasGetName) {
         reflect.setAliasGetPrettyName(_aliasGetName);
+    }
+    public String getAliasGetPrettySingleName() {
+        return reflect.getAliasGetPrettySingleName();
+    }
+    public void setAliasGetPrettySingleName(String _aliasGetName) {
+        reflect.setAliasGetPrettySingleName(_aliasGetName);
     }
     public String getAliasGetField() {
         return reflect.getAliasGetField();

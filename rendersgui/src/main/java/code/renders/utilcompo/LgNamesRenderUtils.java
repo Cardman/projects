@@ -1761,6 +1761,7 @@ public final class LgNamesRenderUtils extends BeanCustLgNames {
         setAliasBitShiftRight(get(_util,_cust, BIT_SHIFT_RIGHT));
         setAliasGetParameterNames(get(_util,_cust, GET_PARAMETER_NAMES));
         setAliasGetPrettyName(get(_util,_cust, GET_PRETTY_NAME));
+        setAliasGetPrettySingleName(get(_util,_cust, GET_PRETTY_SINGLE_NAME));
         setAliasGetUpperBounds(get(_util,_cust, GET_UPPER_BOUNDS));
         setAliasGetParameterTypes(get(_util,_cust, GET_PARAMETER_TYPES));
         setAliasGetGenericReturnType(get(_util,_cust, GET_GENERIC_RETURN_TYPE));
