@@ -2,6 +2,7 @@ package code.expressionlanguage.instr;
 
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.inherits.TypeUtil;
 import code.expressionlanguage.methods.FieldBlock;
@@ -2483,7 +2484,9 @@ public final class ElResolver {
                         leftParFirstOperator_ = false;
                         if (instance_) {
                             fctName_ = _string.substring(firstPrintChar_, i_);
-                            operators_.put(i_, ANN_ARR);
+                            if (operators_.isEmpty()) {
+                                operators_.put(i_, ANN_ARR);
+                            }
                         } else {
                             fctName_ = EMPTY_STRING;
                             operators_.clear();
@@ -2813,10 +2816,7 @@ public final class ElResolver {
     }
 
     private static boolean nextCharIs(String _str, int _i, int _len, char _value) {
-        if (_i >= _len) {
-            return false;
-        }
-        return _str.charAt(_i) == _value;
+        return StringExpUtil.nextCharIs(_str,_i,_len,_value);
     }
     private static OperationsSequence tryGetSequence(int _offset, String _string,
             Analyzable _conf, Delimiters _d) {

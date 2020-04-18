@@ -8938,13 +8938,13 @@ public final class FileResolverTest {
         file_.append("class pkgtwo.ExClass {\n");
         file_.append(" static {\n");
         file_.append("  switch (value) {\n");
-        file_.append("   case 0{}\n");
+        file_.append("   case 0:{}\n");
         file_.append("  }\n");
         file_.append(" }\n");
         file_.append("}");
         ContextEl context_ = simpleContextEnDefault();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
-        assertEq(0, countCustomTypes(context_));
+        assertEq(1, countCustomTypes(context_));
         assertEq(1, countFileTypes(context_));
     }
     @Test
@@ -8956,9 +8956,8 @@ public final class FileResolverTest {
         file_.append("}");
         ContextEl context_ = simpleContext();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
-        assertEq(1, countCustomTypes(context_));
+        assertEq(0, countCustomTypes(context_));
         assertEq(1, countFileTypes(context_));
-        assertTrue(FileResolver.isaBoolean(2,1));
     }
     @Test
     public void parseFile159__Test() {
@@ -8978,14 +8977,14 @@ public final class FileResolverTest {
         file_.append("class pkgtwo.ExClass {\n");
         file_.append(" static {\n");
         file_.append("  switch (value) {\n");
-        file_.append("   case 0{}\n");
+        file_.append("   case 0:{}\n");
         file_.append("   case 1:\n");
         file_.append("  }\n");
         file_.append(" }\n");
         file_.append("}");
         ContextEl context_ = simpleContextEnDefault();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
-        assertEq(0, countCustomTypes(context_));
+        assertEq(1, countCustomTypes(context_));
         assertEq(1, countFileTypes(context_));
     }
     @Test
@@ -8994,7 +8993,7 @@ public final class FileResolverTest {
         file_.append("class pkgtwo.ExClass {\n");
         file_.append(" static {\n");
         file_.append("  switch (value) {\n");
-        file_.append("   case 0{\n");
+        file_.append("   case 0:{\n");
         file_.append("    call();\n");
         file_.append("   }\n");
         file_.append("   case 1:\n");
@@ -9003,7 +9002,7 @@ public final class FileResolverTest {
         file_.append("}");
         ContextEl context_ = simpleContextEnDefault();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
-        assertEq(0, countCustomTypes(context_));
+        assertEq(1, countCustomTypes(context_));
         assertEq(1, countFileTypes(context_));
     }
     @Test
@@ -9012,7 +9011,7 @@ public final class FileResolverTest {
         file_.append("class pkgtwo.ExClass {\n");
         file_.append(" static {\n");
         file_.append("  switch (value) {\n");
-        file_.append("   case 0{\n");
+        file_.append("   case 0:{\n");
         file_.append("    first();\n");
         file_.append("    second();\n");
         file_.append("   }\n");
@@ -9022,7 +9021,7 @@ public final class FileResolverTest {
         file_.append("}");
         ContextEl context_ = simpleContextEnDefault();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
-        assertEq(0, countCustomTypes(context_));
+        assertEq(1, countCustomTypes(context_));
         assertEq(1, countFileTypes(context_));
     }
     @Test
@@ -9032,7 +9031,7 @@ public final class FileResolverTest {
         file_.append(" static {\n");
         file_.append("  switch (value) {\n");
         file_.append("   case 0:\n");
-        file_.append("   case 1{\n");
+        file_.append("   case 1:{\n");
         file_.append("    first();\n");
         file_.append("    second();\n");
         file_.append("   }\n");
@@ -9041,7 +9040,7 @@ public final class FileResolverTest {
         file_.append("}");
         ContextEl context_ = simpleContextEnDefault();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
-        assertEq(0, countCustomTypes(context_));
+        assertEq(1, countCustomTypes(context_));
         assertEq(1, countFileTypes(context_));
     }
     @Test
@@ -9050,29 +9049,7 @@ public final class FileResolverTest {
         file_.append("class pkgtwo.ExClass {\n");
         file_.append(" static {\n");
         file_.append("  switch (value) {\n");
-        file_.append("   case 0{\n");
-        file_.append("    first();\n");
-        file_.append("    second();\n");
-        file_.append("   }\n");
-        file_.append("   default{\n");
-        file_.append("    third();\n");
-        file_.append("    fourth();\n");
-        file_.append("   }\n");
-        file_.append("  }\n");
-        file_.append(" }\n");
-        file_.append("}");
-        ContextEl context_ = simpleContextEnDefault();
-        FileResolver.parseFile("my_file",file_.toString(), false, context_);
-        assertEq(0, countCustomTypes(context_));
-        assertEq(1, countFileTypes(context_));
-    }
-    @Test
-    public void parseFile164Test() {
-        StringBuilder file_ = new StringBuilder();
-        file_.append("class pkgtwo.ExClass {\n");
-        file_.append(" static {\n");
-        file_.append("  switch (value) {\n");
-        file_.append("   case 0{\n");
+        file_.append("   case 0:{\n");
         file_.append("    first();\n");
         file_.append("    second();\n");
         file_.append("   }\n");
@@ -9085,7 +9062,29 @@ public final class FileResolverTest {
         file_.append("}");
         ContextEl context_ = simpleContextEnDefault();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
-        assertEq(0, countCustomTypes(context_));
+        assertEq(1, countCustomTypes(context_));
+        assertEq(1, countFileTypes(context_));
+    }
+    @Test
+    public void parseFile164Test() {
+        StringBuilder file_ = new StringBuilder();
+        file_.append("class pkgtwo.ExClass {\n");
+        file_.append(" static {\n");
+        file_.append("  switch (value) {\n");
+        file_.append("   case 0:{\n");
+        file_.append("    first();\n");
+        file_.append("    second();\n");
+        file_.append("   }\n");
+        file_.append("   default:{\n");
+        file_.append("    third();\n");
+        file_.append("    fourth();\n");
+        file_.append("   }\n");
+        file_.append("  }\n");
+        file_.append(" }\n");
+        file_.append("}");
+        ContextEl context_ = simpleContextEnDefault();
+        FileResolver.parseFile("my_file",file_.toString(), false, context_);
+        assertEq(1, countCustomTypes(context_));
         assertEq(1, countFileTypes(context_));
     }
     @Test

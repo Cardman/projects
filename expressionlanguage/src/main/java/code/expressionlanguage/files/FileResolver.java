@@ -1,18 +1,18 @@
 package code.expressionlanguage.files;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.methods.*;
 import code.expressionlanguage.options.KeyWords;
-import code.expressionlanguage.options.Options;
 import code.util.*;
 
 public final class FileResolver {
 
     private static final char INHERIT = ':';
     private static final char FOR_BLOCKS = ':';
-    public static final char END_LINE = ';';
+    private static final char END_LINE = ';';
     private static final char END_IMPORTS = END_LINE;
     private static final char LINE_RETURN = '\n';
     private static final char BEGIN_COMMENT = '/';
@@ -755,7 +755,6 @@ public final class FileResolver {
         KeyWords keyWords_ = _context.getKeyWords();
         String keyWordCase_ = keyWords_.getKeyWordCase();
         String keyWordDefault_ = keyWords_.getKeyWordDefault();
-        String keyWordReturn_ = keyWords_.getKeyWordReturn();
         StringBuilder instruction_ = new StringBuilder();
         int instLen_ = 0;
         int instructionLocation_ = -1;
@@ -961,24 +960,22 @@ public final class FileResolver {
             }
             boolean endInstruction_ = false;
             if (parentheses_.isEmpty()) {
-                if (!declType_) {
-                    if (currentChar_ == END_LINE) {
+                if (currentChar_ == END_LINE) {
+                    endInstruction_ = true;
+                }
+                if (currentChar_ == ':') {
+                    if (currentParent_ instanceof SwitchBlock) {
                         endInstruction_ = true;
                     }
-                    if (currentChar_ == ':') {
-                        if (currentParent_ instanceof SwitchBlock) {
+                    if (currentParent_ instanceof SwitchPartBlock) {
+                        String str_ = instruction_.toString().trim();
+                        if (ContextEl.startsWithKeyWord(str_, keyWordCase_)) {
+                            currentParent_ = currentParent_.getParent();
                             endInstruction_ = true;
                         }
-                        if (currentParent_ instanceof SwitchPartBlock) {
-                            String str_ = instruction_.toString().trim();
-                            if (ContextEl.startsWithKeyWord(str_, keyWordCase_)) {
-                                currentParent_ = currentParent_.getParent();
-                                endInstruction_ = true;
-                            }
-                            if (ContextEl.startsWithKeyWord(str_, keyWordDefault_)) {
-                                currentParent_ = currentParent_.getParent();
-                                endInstruction_ = true;
-                            }
+                        if (ContextEl.startsWithKeyWord(str_, keyWordDefault_)) {
+                            currentParent_ = currentParent_.getParent();
+                            endInstruction_ = true;
                         }
                     }
                 }
@@ -991,21 +988,11 @@ public final class FileResolver {
                     endInstruction_ = true;
                 }
                 if (currentChar_ == BEGIN_BLOCK) {
-                    String tr_ = instruction_.toString().trim();
-                    if (declType_) {
+                    EndInstruction end_ = endInstruction(currentParent_, instruction_, enableByEndLine_, _context);
+                    if (end_ != EndInstruction.NONE) {
                         endInstruction_ = true;
-                    } else if (tr_.isEmpty()) {
-                        endInstruction_ = true;
-                    } else if (!StringList.quickEq(tr_, keyWordReturn_)) {
-                        char lastChar_ = tr_.charAt(tr_.length() - 1);
-                        if (!(currentParent_ instanceof AnnotationBlock)) {
-                            if (lastChar_ != PART_SEPARATOR) {
-                                if (lastChar_ != END_ARRAY) {
-                                    if (lastChar_ != ':' && lastChar_ != '?') {
-                                        endInstruction_ = true;
-                                    }
-                                }
-                            }
+                        if (end_ == EndInstruction.DECLARE_TYPE) {
+                            declType_ = true;
                         }
                     }
                 }
@@ -1079,40 +1066,6 @@ public final class FileResolver {
                 currentParent_ = after_.getParent();
                 i_ = after_.getIndex();
                 declType_ = false;
-            } else {
-                if (StringList.isDollarWordChar(currentChar_) && i_ + 1 < len_ && !StringList.isDollarWordChar(_file.charAt(i_ + 1))) {
-                    StringList parts_ = StringList.getDollarWordSeparators(instruction_.toString());
-                    StringList printable_ = new StringList();
-                    for (String p: parts_) {
-                        String t_ = p.trim();
-                        if (!StringList.isDollarWord(t_)) {
-                            continue;
-                        }
-                        printable_.add(t_);
-                    }
-                    String category_ = printable_.last();
-                    if (isKeyWordCategory(category_, keyWords_)) {
-                        int j_ = i_ + 1;
-                        boolean pr_ = false;
-                        while (j_ < len_) {
-                            char next_ = _file.charAt(j_);
-                            if (Character.isWhitespace(next_)) {
-                                j_++;
-                                continue;
-                            }
-                            if (StringList.isDollarWordChar(next_)) {
-                                pr_ = true;
-                            }
-                            if (next_ == BEGIN_ARRAY) {
-                                pr_ = true;
-                            }
-                            break;
-                        }
-                        if (pr_) {
-                            declType_ = true;
-                        }
-                    }
-                }
             }
             if (_braces.isEmpty()) {
                 okType_ = true;
@@ -1130,6 +1083,250 @@ public final class FileResolver {
         _out.setNextIndex(i_);
         _out.setOk(okType_);
         return _out;
+    }
+    private static EndInstruction endInstruction(BracedBlock _parent, StringBuilder _instruction,
+                                                 boolean _enableByEndLine, ContextEl _context) {
+        String tr_ = _instruction.toString().trim();
+        if (tr_.isEmpty()) {
+            return EndInstruction.NO_DECLARE_TYPE;
+        }
+        if (_enableByEndLine) {
+            return EndInstruction.NO_DECLARE_TYPE;
+        }
+        KeyWords keyWords_ = _context.getKeyWords();
+        String trTmp_ = tr_;
+        if (tr_.charAt(0) == ANNOT) {
+            ParsedAnnotations par_ = new ParsedAnnotations(tr_, 0);
+            par_.parse();
+            tr_ = par_.getAfter();
+        }
+        String word_ = EMPTY_STRING;
+        if (ContextEl.startsWithKeyWord(tr_,keyWords_.getKeyWordPrivate())) {
+            word_ = keyWords_.getKeyWordPrivate();
+        } else if (ContextEl.startsWithKeyWord(tr_,keyWords_.getKeyWordPackage())) {
+            word_ = keyWords_.getKeyWordPackage();
+        } else if (ContextEl.startsWithKeyWord(tr_,keyWords_.getKeyWordProtected())) {
+            word_ = keyWords_.getKeyWordProtected();
+        } else if (ContextEl.startsWithKeyWord(tr_,keyWords_.getKeyWordPublic())) {
+            word_ = keyWords_.getKeyWordPublic();
+        }
+        String afterAccess_ = tr_.substring(word_.length()).trim();
+        String keyWordAbstract_ = keyWords_.getKeyWordAbstract();
+        String keyWordAnnotation_ = keyWords_.getKeyWordAnnotation();
+        String keyWordClass_ = keyWords_.getKeyWordClass();
+        String keyWordEnum_ = keyWords_.getKeyWordEnum();
+        String keyWordFinal_ = keyWords_.getKeyWordFinal();
+        String keyWordInterface_ = keyWords_.getKeyWordInterface();
+        String keyWordStatic_ = keyWords_.getKeyWordStatic();
+        String beforeQu_ = afterAccess_;
+        if (ContextEl.startsWithKeyWord(beforeQu_,keyWordAbstract_)) {
+            beforeQu_ = beforeQu_.substring(keyWordAbstract_.length()).trim();
+        }
+        if (ContextEl.startsWithKeyWord(beforeQu_,keyWordStatic_)) {
+            beforeQu_ = beforeQu_.substring(keyWordStatic_.length()).trim();
+        }
+        if (ContextEl.startsWithKeyWord(beforeQu_,keyWordFinal_)) {
+            beforeQu_ = beforeQu_.substring(keyWordFinal_.length()).trim();
+        }
+        boolean dType_ = false;
+        if (ContextEl.startsWithKeyWord(beforeQu_,keyWordClass_)) {
+            beforeQu_ = beforeQu_.substring(keyWordClass_.length()).trim();
+            dType_ = true;
+        } else if (ContextEl.startsWithKeyWord(beforeQu_,keyWordEnum_)) {
+            beforeQu_ = beforeQu_.substring(keyWordEnum_.length()).trim();
+            dType_ = true;
+        } else if (ContextEl.startsWithKeyWord(beforeQu_,keyWordInterface_)) {
+            beforeQu_ = beforeQu_.substring(keyWordInterface_.length()).trim();
+            dType_ = true;
+        } else if (ContextEl.startsWithKeyWord(beforeQu_,keyWordAnnotation_)) {
+            beforeQu_ = beforeQu_.substring(keyWordAnnotation_.length()).trim();
+            dType_ = true;
+        }
+        if (dType_) {
+            if (!StringExpUtil.nextCharIs(beforeQu_,0,beforeQu_.length(),'(')) {
+                return EndInstruction.DECLARE_TYPE;
+            }
+            return EndInstruction.NONE;
+        }
+        if (_parent instanceof AnnotationBlock){
+            return EndInstruction.NONE;
+        }
+        if (ContextEl.startsWithKeyWord(trTmp_,keyWords_.getKeyWordIf())) {
+            return EndInstruction.NO_DECLARE_TYPE;
+        }
+        if (ContextEl.startsWithKeyWord(trTmp_,keyWords_.getKeyWordElse())) {
+            return EndInstruction.NO_DECLARE_TYPE;
+        }
+        if (ContextEl.startsWithKeyWord(trTmp_,keyWords_.getKeyWordElseif())) {
+            return EndInstruction.NO_DECLARE_TYPE;
+        }
+        if (ContextEl.startsWithKeyWord(trTmp_,keyWords_.getKeyWordSwitch())) {
+            return EndInstruction.NO_DECLARE_TYPE;
+        }
+        if (ContextEl.startsWithKeyWord(trTmp_,keyWords_.getKeyWordTry())) {
+            return EndInstruction.NO_DECLARE_TYPE;
+        }
+        if (ContextEl.startsWithKeyWord(trTmp_,keyWords_.getKeyWordCatch())) {
+            return EndInstruction.NO_DECLARE_TYPE;
+        }
+        if (ContextEl.startsWithKeyWord(trTmp_,keyWords_.getKeyWordFinally())) {
+            return EndInstruction.NO_DECLARE_TYPE;
+        }
+        if (ContextEl.startsWithKeyWord(trTmp_,keyWords_.getKeyWordFor())) {
+            return EndInstruction.NO_DECLARE_TYPE;
+        }
+        if (ContextEl.startsWithKeyWord(trTmp_,keyWords_.getKeyWordForeach())) {
+            return EndInstruction.NO_DECLARE_TYPE;
+        }
+        if (ContextEl.startsWithKeyWord(trTmp_,keyWords_.getKeyWordIter())) {
+            return EndInstruction.NO_DECLARE_TYPE;
+        }
+        if (ContextEl.startsWithKeyWord(trTmp_,keyWords_.getKeyWordDo())) {
+            return EndInstruction.NO_DECLARE_TYPE;
+        }
+        if (ContextEl.startsWithKeyWord(trTmp_,keyWords_.getKeyWordWhile())) {
+            return EndInstruction.NO_DECLARE_TYPE;
+        }
+        if (StringList.quickEq(trTmp_, keyWordStatic_)) {
+            return EndInstruction.NO_DECLARE_TYPE;
+        }
+        if (ContextEl.startsWithKeyWord(trTmp_,keyWords_.getKeyWordReturn())) {
+            return EndInstruction.NONE;
+        }
+        if (ContextEl.startsWithKeyWord(trTmp_,keyWords_.getKeyWordThrow())) {
+            return EndInstruction.NONE;
+        }
+        if (ContextEl.startsWithKeyWord(trTmp_,keyWords_.getKeyWordBreak())) {
+            return EndInstruction.NONE;
+        }
+        if (ContextEl.startsWithKeyWord(trTmp_,keyWords_.getKeyWordContinue())) {
+            return EndInstruction.NONE;
+        }
+        char lastCh_ = trTmp_.charAt(trTmp_.length() - 1);
+        if (lastCh_ =='=') {
+            return EndInstruction.NONE;
+        }
+        if (lastCh_ ==']') {
+            return EndInstruction.NONE;
+        }
+        if (lastCh_ ==':') {
+            return EndInstruction.NONE;
+        }
+        if (lastCh_ =='?') {
+            return EndInstruction.NONE;
+        }
+        word_ = EMPTY_STRING;
+        if (ContextEl.startsWithKeyWord(tr_,keyWords_.getKeyWordPrivate())) {
+            word_ = keyWords_.getKeyWordPrivate();
+        } else if (ContextEl.startsWithKeyWord(tr_,keyWords_.getKeyWordPackage())) {
+            word_ = keyWords_.getKeyWordPackage();
+        } else if (ContextEl.startsWithKeyWord(tr_,keyWords_.getKeyWordProtected())) {
+            word_ = keyWords_.getKeyWordProtected();
+        } else if (ContextEl.startsWithKeyWord(tr_,keyWords_.getKeyWordPublic())) {
+            word_ = keyWords_.getKeyWordPublic();
+        }
+        afterAccess_ = tr_.substring(word_.length());
+        String trimmedAfterAccess_ = afterAccess_.trim();
+        String infoModifiers_;
+        infoModifiers_ = trimmedAfterAccess_;
+        boolean ctor_ = false;
+        if (_parent instanceof RootBlock) {
+            if (trimmedAfterAccess_.startsWith("(")) {
+                ctor_ = true;
+            } else {
+                int leftPar_ = trimmedAfterAccess_.indexOf('(');
+                if (leftPar_ > -1&&StringList.isDollarWord(trimmedAfterAccess_.substring(0,leftPar_).trim())){
+                    ctor_ = true;
+                }
+            }
+        }
+        if (ctor_) {
+            return EndInstruction.NO_DECLARE_TYPE;
+        }
+        String keyWordNormal_ = keyWords_.getKeyWordNormal();
+        String keyWordStaticCall_ = keyWords_.getKeyWordStaticCall();
+        StringList wordsSep_ = StringList.getDollarWordSeparators(infoModifiers_);
+        int i_ = 0;
+        int len_ = wordsSep_.size();
+        while (i_ < len_) {
+            String ws_ = wordsSep_.get(i_);
+            if (!StringList.isDollarWord(ws_)) {
+                i_++;
+                continue;
+            }
+            if (StringList.quickEq(ws_,keyWordNormal_)) {
+                i_++;
+                continue;
+            }
+            if (StringList.quickEq(ws_,keyWordAbstract_)) {
+                i_++;
+                continue;
+            }
+            if (StringList.quickEq(ws_,keyWordStatic_)) {
+                i_++;
+                continue;
+            }
+            if (StringList.quickEq(ws_,keyWordStaticCall_)) {
+                i_++;
+                continue;
+            }
+            if (StringList.quickEq(ws_,keyWordFinal_)) {
+                i_++;
+                continue;
+            }
+            break;
+        }
+        if (i_ >= len_) {
+            return EndInstruction.NONE;
+        }
+        String join_ = StringList.join(wordsSep_.mid(i_), "");
+        String joinAfter_ = StringList.join(wordsSep_.mid(i_+1), "");
+        if (!(_parent instanceof RootBlock)) {
+            if (StringList.quickEq(wordsSep_.get(i_), keyWords_.getKeyWordCast())) {
+                return EndInstruction.NONE;
+            }
+            if (StringList.quickEq(wordsSep_.get(i_), keyWords_.getKeyWordNew())) {
+                String typeStr_ = getDeclaringTypeBlock(joinAfter_);
+                infoModifiers_ = joinAfter_.substring(typeStr_.length()).trim();
+                int lenMod_ = infoModifiers_.length();
+                if (StringExpUtil.nextCharIs(infoModifiers_,0,lenMod_,BEGIN_CALLING)) {
+                    return EndInstruction.NONE;
+                }
+            }
+        }
+        String trJoin_ = joinAfter_.trim();
+        if (StringExpUtil.nextCharIs(trJoin_,0,trJoin_.length(),BEGIN_CALLING)){
+            return EndInstruction.NO_DECLARE_TYPE;
+        }
+        String typeStr_ = getDeclaringTypeBlock(join_);
+        infoModifiers_ = join_.substring(typeStr_.length());
+        int first_ = StringList.getFirstPrintableCharIndex(infoModifiers_);
+        if (first_ < 0) {
+            return EndInstruction.NONE;
+        }
+        infoModifiers_ = infoModifiers_.substring(first_);
+        int lenAfterModifiers_ = infoModifiers_.length();
+        int indexMod_ = 0;
+        StringBuilder methodWord_ = new StringBuilder();
+        while (indexMod_ < lenAfterModifiers_) {
+            char cur_ = infoModifiers_.charAt(indexMod_);
+            if (!StringList.isDollarWordChar(cur_)) {
+                break;
+            }
+            methodWord_.append(cur_);
+            indexMod_++;
+        }
+        while (indexMod_ < lenAfterModifiers_) {
+            char cur_ = infoModifiers_.charAt(indexMod_);
+            if (!Character.isWhitespace(cur_)) {
+                break;
+            }
+            indexMod_++;
+        }
+        if (!StringExpUtil.nextCharIs(infoModifiers_, indexMod_, lenAfterModifiers_, BEGIN_CALLING)) {
+            return EndInstruction.NONE;
+        }
+        return EndInstruction.NO_DECLARE_TYPE;
     }
     private static AfterBuiltInstruction processInstruction(ContextEl _context, InputTypeCreation _input, char _currentChar,
                                                             BracedBlock _currentParent, Ints _braces,
@@ -1517,13 +1714,11 @@ public final class FileResolver {
             locIndex_ = locIndex_ + keyWordAbstract_.length();
             locIndex_ = skipWhitespace(locIndex_, _file);
         }
-        if (!_defStatic) {
-            beforeQu_ = _file.substring(locIndex_);
-            if (ContextEl.startsWithKeyWord(beforeQu_,keyWordStatic_)) {
-                staticType_ = true;
-                locIndex_ = locIndex_ + keyWordStatic_.length();
-                locIndex_ = skipWhitespace(locIndex_, _file);
-            }
+        beforeQu_ = _file.substring(locIndex_);
+        if (ContextEl.startsWithKeyWord(beforeQu_,keyWordStatic_)) {
+            staticType_ = true;
+            locIndex_ = locIndex_ + keyWordStatic_.length();
+            locIndex_ = skipWhitespace(locIndex_, _file);
         }
         beforeQu_ = _file.substring(locIndex_);
         if (ContextEl.startsWithKeyWord(beforeQu_,keyWordFinal_)) {
@@ -1798,12 +1993,7 @@ public final class FileResolver {
                 infoModifiers_ = sub_.substring(delta_);
             }
             String typeStr_ = getDeclaringTypeBlock(infoModifiers_);
-            infoModifiers_ = infoModifiers_.substring(typeStr_.length());
-            int first_ = StringList.getFirstPrintableCharIndex(infoModifiers_);
-            if (first_ < 0) {
-                return null;
-            }
-            infoModifiers_ = infoModifiers_.substring(first_);
+            infoModifiers_ = infoModifiers_.substring(typeStr_.length()).trim();
             int lenAfterModifiers_ = infoModifiers_.length();
             int indexMod_ = 0;
             while (indexMod_ < lenAfterModifiers_) {
@@ -1820,7 +2010,7 @@ public final class FileResolver {
                 }
                 indexMod_++;
             }
-            if (infoModifiers_.indexOf(BEGIN_CALLING, indexMod_) == indexMod_) {
+            if (StringExpUtil.nextCharIs(infoModifiers_,indexMod_,lenAfterModifiers_,BEGIN_CALLING)) {
                 meth_ = true;
             }
         }
@@ -2277,7 +2467,7 @@ public final class FileResolver {
             exp_ = exp_.substring(declaringType_.length());
             int forBlocks_ = exp_.indexOf(FOR_BLOCKS);
             int endIndex_ = exp_.lastIndexOf(END_CALLING);
-            if (isaBoolean(forBlocks_, endIndex_)) {
+            if (forBlocks_ < 0 || endIndex_ < forBlocks_ + 1) {
                 _badIndexes.add(_i);
                 return null;
             }
@@ -2566,10 +2756,6 @@ public final class FileResolver {
         return br_;
     }
 
-    public static boolean isaBoolean(int _forBlocks, int _endIndex) {
-        return _forBlocks < 0 || _endIndex < _forBlocks + 1;
-    }
-
     private static int getLabelOffset(String _label) {
         if (_label.isEmpty()) {
             return 0;
@@ -2577,18 +2763,6 @@ public final class FileResolver {
         return StringList.getFirstPrintableCharIndex(_label);
     }
 
-    private static boolean isKeyWordCategory(String _key, KeyWords _keyWords) {
-        if (StringList.quickEq(_key, _keyWords.getKeyWordClass())) {
-            return true;
-        }
-        if (StringList.quickEq(_key, _keyWords.getKeyWordEnum())) {
-            return true;
-        }
-        if (StringList.quickEq(_key, _keyWords.getKeyWordInterface()))  {
-            return true;
-        }
-        return StringList.quickEq(_key, _keyWords.getKeyWordAnnotation());
-    }
     private static String getDeclaringParamType(String _found) {
         int indexInstr_ = 0;
         int instLen_ = _found.length();

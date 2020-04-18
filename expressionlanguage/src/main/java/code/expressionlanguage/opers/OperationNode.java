@@ -133,6 +133,9 @@ public abstract class OperationNode implements Operable {
         if (ct_ == ConstType.ERROR) {
             return new ErrorPartOperation(_index, _indexChild, _m, _op);
         }
+        if (ct_ == ConstType.ERROR_INST) {
+            return new BadInstancingOperation(_index, _indexChild, _m, _op);
+        }
         if (_op.getOperators().isEmpty()) {
             String originalStr_ = _op.getValues().getValue(CustList.FIRST_INDEX);
             String str_ = originalStr_.trim();

@@ -7,7 +7,7 @@ public enum ConstType {
     LOC_VAR(true),PARAM(true),CATCH_VAR(true),LOOP_VAR(true),LOOP_INDEX(true),
     CUST_FIELD,WORD,CLASSCHOICE_KEYWORD,SUPER_ACCESS_KEYWORD,SUPER_KEYWORD,
     THIS_KEYWORD,TRUE_CST,NULL_CST,FALSE_CST,ACCESS_INDEXER,
-    NOTHING,ERROR;
+    NOTHING,ERROR,ERROR_INST;
     private final boolean variable;
     ConstType(){
         variable = false;

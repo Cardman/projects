@@ -14,7 +14,27 @@ import static org.junit.Assert.assertTrue;
 
 
 public final class ProcessMethodSimpleTest extends ProcessMethodCommon {
-
+    @Test
+    public void calculateArgument0Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth (){\n");
+        xml_.append("  $long t;\n");
+        xml_.append("  t=8;\n");
+        xml_.append("  $return 1i+$($int)t;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElDefault();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq(9, ret_.getNumber());
+    }
     @Test
     public void calculateArgument1Test() {
         StringBuilder xml_ = new StringBuilder();
@@ -3210,6 +3230,64 @@ public final class ProcessMethodSimpleTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElDefault();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.isEmptyErrors());
+    }
+
+    @Test
+    public void calculateArgument8FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElDefault();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $void exmeth($int[] p){\n");
+        xml_.append("  p={};\n");
+        xml_.append("  $($int[]){};\n");
+        xml_.append("  a=$($int[]){};\n");
+        xml_.append("  $new CharSequence[]{};\n");
+        xml_.append("  $new CharSequence(){};\n");
+        xml_.append("  $new $iterable<>(){};\n");
+        xml_.append("  $class($int)+{};\n");
+        xml_.append("  $throw {};\n");
+        xml_.append("  $break {};\n");
+        xml_.append("  $continue {};\n");
+        xml_.append("  $return {};\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.isEmptyErrors());
+    }
+
+    @Test
+    public void calculateArgument9FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElDefault();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $void exmeth($int[] p){\n");
+        xml_.append("  $new CharSequence{}{};\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.isEmptyErrors());
+    }
+
+    @Test
+    public void calculateArgument10FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElDefault();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $void exmeth($int[] p){\n");
+        xml_.append("  $final{};\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(!cont_.isEmptyErrors());

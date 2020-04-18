@@ -92,6 +92,11 @@ public final class OperationsSequence {
                         initArrayDim_ = true;
                     }
                     if (!filter_.substring(afterLastPar_).trim().isEmpty()) {
+                        if (instance) {
+                            values.put((int)CustList.FIRST_INDEX, _string);
+                            constType = ConstType.ERROR_INST;
+                            return;
+                        }
                         operators.clear();
                         operators.put(afterLastPar_,"");
                         return;
