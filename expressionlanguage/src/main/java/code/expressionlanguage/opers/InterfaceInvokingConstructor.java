@@ -22,7 +22,6 @@ public final class InterfaceInvokingConstructor extends AbstractInvokingConstruc
 
     @Override
     ClassArgumentMatching getFrom(Analyzable _conf) {
-        String clCurName_ = _conf.getGlobalClass();
         String cl_ = getMethodName();
         cl_ = cl_.substring(cl_.indexOf(PAR_LEFT)+1, cl_.lastIndexOf(PAR_RIGHT));
         cl_ = _conf.resolveAccessibleIdType(cl_.indexOf(PAR_LEFT)+1,cl_);
@@ -35,6 +34,7 @@ public final class InterfaceInvokingConstructor extends AbstractInvokingConstruc
             _conf.addError(call_);
             return null;
         }
+        String clCurName_ = _conf.getGlobalClass();
         String superClass_ = Templates.getFullTypeByBases(clCurName_, cl_, _conf);
         if (superClass_ == null) {
             FoundErrorInterpret call_ = new FoundErrorInterpret();

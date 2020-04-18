@@ -235,7 +235,7 @@ public final class ElResolver {
             }
             resKeyWords_.setNextIndex(i_);
             resKeyWords_.setCallCtor(ctorCall_);
-            processAfterInstuctionKeyWord(_string, d_, resKeyWords_, _conf);
+            processAfterInstuctionKeyWord(beginIndex_,_string, d_, resKeyWords_, _conf);
             if (d_.getBadOffset() >= 0) {
                 return d_;
             }
@@ -304,7 +304,7 @@ public final class ElResolver {
         d_.setBadOffset(i_);
         return d_;
     }
-    private static void processAfterInstuctionKeyWord(String _string,Delimiters _d, ResultAfterInstKeyWord _out, Analyzable _conf) {
+    private static void processAfterInstuctionKeyWord(int _beginIndex,String _string,Delimiters _d, ResultAfterInstKeyWord _out, Analyzable _conf) {
         int len_ = _string.length();
         int i_ = _out.getNextIndex();
         KeyWords keyWords_ = _conf.getKeyWords();
@@ -1016,7 +1016,7 @@ public final class ElResolver {
                 _d.setBadOffset(afterClassChoice_);
                 return;
             }
-            if (ContextEl.startsWithKeyWord(sub_, keyWordInterfaces_)) {
+            if (ContextEl.startsWithKeyWord(sub_, keyWordInterfaces_)&&i_==_beginIndex) {
                 _out.setCallCtor(true);
             }
             _d.getCallings().add(afterClassChoice_);

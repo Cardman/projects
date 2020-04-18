@@ -5,21 +5,30 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.calls.util.CustomReflectMethod;
 import code.expressionlanguage.opers.exec.ExecInvokingOperation;
+import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.structs.AbstractFunctionalInstance;
+import code.expressionlanguage.structs.FieldableStruct;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
+import code.util.EntryCust;
+import code.util.ObjectMap;
 
-public final class RunnableFunctionalInstance implements AbstractFunctionalInstance, Runnable {
+public final class RunnableFunctionalInstance implements AbstractFunctionalInstance, Runnable,
+        FieldableStruct {
 
     private final String className;
 
     private Struct functional;
     private ContextEl original;
 
-    public RunnableFunctionalInstance(String _className, ContextEl _contextEl) {
+    private final ObjectMap<ClassField,Struct> fields;
+
+    public RunnableFunctionalInstance(String _className,
+                                      ObjectMap<ClassField,Struct> _fields, ContextEl _contextEl) {
         className = _className;
         original = _contextEl;
+        fields = _fields;
     }
 
     @Override
@@ -61,5 +70,15 @@ public final class RunnableFunctionalInstance implements AbstractFunctionalInsta
         } else {
             _localThread.getCustInit().prExc(_localThread);
         }
+    }
+
+    @Override
+    public EntryCust<ClassField, Struct> getEntryStruct(ClassField _classField) {
+        return fields.getEntryByKey(_classField);
+    }
+
+    @Override
+    public ObjectMap<ClassField, Struct> getFields() {
+        return fields;
     }
 }

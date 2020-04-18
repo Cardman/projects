@@ -324,6 +324,9 @@ public abstract class OperationNode implements Operable {
                 return new SuperFctOperation(_index, _indexChild, _m, _op);
             }
             if (ContextEl.startsWithKeyWord(fctName_, keyWordInterfaces_)) {
+                if (_m instanceof IdOperation) {
+                    return new InterfaceFctConstructor(_index, _indexChild, _m, _op);
+                }
                 return new InterfaceInvokingConstructor(_index, _indexChild, _m, _op);
             }
             if (ContextEl.startsWithKeyWord(fctName_, keyWordOperator_)) {

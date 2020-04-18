@@ -121,6 +121,10 @@ public abstract class RendDynOperationNode {
             StandardInstancingOperation s_ = (StandardInstancingOperation) _anaNode;
             return new RendStandardInstancingOperation(s_);
         }
+        if (_anaNode instanceof InterfaceFctConstructor) {
+            InterfaceFctConstructor s_ = (InterfaceFctConstructor) _anaNode;
+            return new RendInterfaceFctConstructor(s_);
+        }
         if (_anaNode instanceof ArrOperation) {
             ArrOperation a_ = (ArrOperation) _anaNode;
             if (a_.getClassMethodId() != null) {
@@ -134,7 +138,10 @@ public abstract class RendDynOperationNode {
         }
         if (_anaNode instanceof IdOperation) {
             IdOperation d_ = (IdOperation) _anaNode;
-            return new RendIdOperation(d_);
+            if (d_.isStandard()) {
+                return new RendIdOperation(d_);
+            }
+            return new RendMultIdOperation(d_);
         }
         if (_anaNode instanceof EnumValueOfOperation) {
             EnumValueOfOperation d_ = (EnumValueOfOperation) _anaNode;

@@ -7271,6 +7271,63 @@ public final class RenderExpUtilTest extends CommonRender {
         assertEq(14,argument_.getNumber());
     }
     @Test
+    public void processEl418___Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.Int {\n");
+        xml_.append(" $int pl($int a, $int b);\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        Configuration conf_ = getConfiguration4(files_);
+        addImportingPage(conf_);
+        Argument argument_ = processEl("($(pkg.Int)($static().$lambda($math,plus,$int,$int),$interfaces(pkg.Int)())).pl(6,8)", conf_);
+        assertEq(14,argument_.getNumber());
+    }
+    @Test
+    public void processEl419___Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.Int:Int2 {\n");
+        xml_.append(" $int pl($int a, $int b);\n");
+        xml_.append("}\n");
+        xml_.append("$public $interface pkg.Int2 {\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        Configuration conf_ = getConfiguration4(files_);
+        addImportingPage(conf_);
+        Argument argument_ = processEl("($(pkg.Int)($static().$lambda($math,plus,$int,$int),$interfaces(pkg.Int2)(),$interfaces(pkg.Int)())).pl(6,8)", conf_);
+        assertEq(14,argument_.getNumber());
+    }
+    @Test
+    public void processEl420___Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.Int:Int2 {\n");
+        xml_.append(" $int pl($int a, $int b);\n");
+        xml_.append("}\n");
+        xml_.append("$public $interface pkg.Int2 {\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        Configuration conf_ = getConfiguration4(files_);
+        addImportingPage(conf_);
+        Argument argument_ = processEl("($(pkg.Int)(5,$interfaces(pkg.Int2)(),$interfaces(pkg.Int)())).pl(6,8)", conf_);
+        assertNotNull(getException(conf_));
+    }
+    @Test
+    public void processEl421___Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.Int:Int2 {\n");
+        xml_.append("}\n");
+        xml_.append("$public $interface pkg.Int2 {\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        Configuration conf_ = getConfiguration4(files_);
+        addImportingPage(conf_);
+        Argument argument_ = processEl("($(pkg.Int)($static().$lambda($math,plus,$int,$int),$interfaces(pkg.Int2)(),$interfaces(pkg.Int)()))", conf_);
+        assertNotNull(getException(conf_));
+    }
+    @Test
     public void processEl418Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$operator+ pkg.Ex(pkg.Ex a,pkg.Ex b){\n");

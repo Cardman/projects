@@ -276,6 +276,10 @@ public final class RenderExpUtil {
     }
 
     private static void processAnalyze(Configuration _context, OperationNode _current) {
+        if (_current instanceof InterfaceFctConstructor) {
+            _current.analyze(_context);
+            return;
+        }
         if (!(_current instanceof AbstractInvokingConstructor)) {
             if (_current instanceof ThisOperation) {
                 if (((ThisOperation)_current).isIntermediateDottedOperation()) {

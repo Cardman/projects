@@ -82,7 +82,7 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation {
         setResultClass(new ClassArgumentMatching(stds_.getAliasVoid()));
     }
 
-    final void checkPositionBasis(Analyzable _conf) {
+    void checkPositionBasis(Analyzable _conf) {
         Block curBlock_ = _conf.getCurrentBlock();
         if (getParent() != null) {
             //error

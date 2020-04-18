@@ -39,7 +39,7 @@ public final class ExecSuperInvokingConstructor extends ExecAbstractInvokingCons
         ConstructorId ctorId_ = getConstId();
         firstArgs_ = listArguments(chidren_, natvararg_, lastType_, _arguments, _conf);
         calledCtorTemp_ = superClass_;
-        checkParameters(_conf, calledCtorTemp_, ctorId_, null, firstArgs_, true,false,InstancingStep.USING_SUPER,null);
+        checkParameters(_conf, calledCtorTemp_, ctorId_, arg_, firstArgs_, true,false,InstancingStep.USING_SUPER,null);
         return Argument.createVoid();
     }
 

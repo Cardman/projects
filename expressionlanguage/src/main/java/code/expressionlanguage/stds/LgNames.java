@@ -1873,6 +1873,10 @@ public abstract class LgNames {
     public AbstractFunctionalInstance newFunctionalInstance(String _className, ContextEl _contextEl) {
         return new FunctionalInstance(_className);
     }
+    public AbstractFunctionalInstance newFullFunctionalInstance(String _className, ContextEl _contextEl) {
+        ObjectMap<ClassField, Struct> fs_ = _contextEl.getInit().feedFields(_contextEl, _className);
+        return new FullFunctionalInstance(_className,fs_);
+    }
     public String getStructClassName(Struct _struct, ContextEl _context) {
         return _struct.getClassName(_context);
     }

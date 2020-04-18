@@ -3243,6 +3243,7 @@ public final class ProcessMethodSimpleTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
         xml_.append(" $public $static $void exmeth($int[] p){\n");
+        xml_.append("  $int z=();\n");
         xml_.append("  p={};\n");
         xml_.append("  $($int[]){};\n");
         xml_.append("  a=$($int[]){};\n");

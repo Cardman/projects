@@ -3,14 +3,14 @@ package code.expressionlanguage.guicompos;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ExecutableCode;
-import code.expressionlanguage.structs.AbstractFunctionalInstance;
-import code.expressionlanguage.structs.IntStruct;
-import code.expressionlanguage.structs.NullStruct;
-import code.expressionlanguage.structs.Struct;
+import code.expressionlanguage.opers.util.ClassField;
+import code.expressionlanguage.structs.*;
 import code.expressionlanguage.utilcompo.RunnableFunctionalInstance;
 import code.gui.ListSelection;
 import code.gui.SelectionInfo;
 import code.util.CustList;
+import code.util.EntryCust;
+import code.util.ObjectMap;
 
 import javax.swing.event.*;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -19,16 +19,19 @@ import java.awt.event.*;
 public final class EventFunctionalInstance implements AbstractFunctionalInstance,
         ActionListener,Runnable,MouseListener,WindowListener,ListSelection,
         KeyListener,ChangeListener,TreeSelectionListener,ListSelectionListener,
-        MouseMotionListener,MouseWheelListener{
+        MouseMotionListener,MouseWheelListener,FieldableStruct {
 
     private final String className;
 
     private Struct functional;
     private ContextEl original;
 
-    public EventFunctionalInstance(String _className, ContextEl _contextEl) {
+    private final ObjectMap<ClassField,Struct> fields;
+    public EventFunctionalInstance(String _className,
+                                   ObjectMap<ClassField,Struct> _fields,ContextEl _contextEl) {
         className = _className;
         original = _contextEl;
+        fields = _fields;
     }
 
     @Override
@@ -241,5 +244,15 @@ public final class EventFunctionalInstance implements AbstractFunctionalInstance
             args_.add(new Argument());
         }
         RunnableFunctionalInstance.callMethod(new GuiContextEl(original), functional, args_);
+    }
+
+    @Override
+    public EntryCust<ClassField, Struct> getEntryStruct(ClassField _classField) {
+        return fields.getEntryByKey(_classField);
+    }
+
+    @Override
+    public ObjectMap<ClassField, Struct> getFields() {
+        return fields;
     }
 }

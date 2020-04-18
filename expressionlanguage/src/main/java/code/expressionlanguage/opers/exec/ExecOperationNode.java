@@ -89,6 +89,10 @@ public abstract class ExecOperationNode implements Operable {
             AnnotationInstanceOperation n_ = (AnnotationInstanceOperation) _anaNode;
             return new ExecAnnotationInstanceOperation(n_);
         }
+        if (_anaNode instanceof InterfaceFctConstructor) {
+            InterfaceFctConstructor n_ = (InterfaceFctConstructor) _anaNode;
+            return new ExecInterfaceFctConstructor(n_);
+        }
         if (_anaNode instanceof InterfaceInvokingConstructor) {
             InterfaceInvokingConstructor n_ = (InterfaceInvokingConstructor) _anaNode;
             return new ExecInterfaceInvokingConstructor(n_);
@@ -134,7 +138,10 @@ public abstract class ExecOperationNode implements Operable {
         }
         if (_anaNode instanceof IdOperation) {
             IdOperation d_ = (IdOperation) _anaNode;
-            return new ExecIdOperation(d_);
+            if (d_.isStandard()) {
+                return new ExecIdOperation(d_);
+            }
+            return new ExecMultIdOperation(d_);
         }
         if (_anaNode instanceof EnumValueOfOperation) {
             EnumValueOfOperation d_ = (EnumValueOfOperation) _anaNode;

@@ -526,7 +526,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         return Argument.createVoid();
     }
 
-    static void checkParameters(ExecutableCode _conf, String _classNameFound, Identifiable _methodId,
+    public static void checkParameters(ExecutableCode _conf, String _classNameFound, Identifiable _methodId,
                                 Argument _previous, CustList<Argument> _firstArgs,
                                 boolean _ctor, boolean _method, InstancingStep _kindCall, Argument _right) {
         LgNames stds_ = _conf.getStandards();
@@ -534,13 +534,11 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         cast_ = stds_.getAliasCastType();
         String classFormat_ = _classNameFound;
         if (!_methodId.isStaticMethod()) {
-            if (_previous != null) {
-                String className_ = stds_.getStructClassName(_previous.getStruct(), _conf.getContextEl());
-                classFormat_ = Templates.getFullTypeByBases(className_, classFormat_, _conf);
-                if (classFormat_ == null) {
-                    _conf.setException(new ErrorStruct(_conf,cast_));
-                    return;
-                }
+            String className_ = stds_.getStructClassName(_previous.getStruct(), _conf.getContextEl());
+            classFormat_ = Templates.getFullTypeByBases(className_, classFormat_, _conf);
+            if (classFormat_ == null) {
+                _conf.setException(new ErrorStruct(_conf,cast_));
+                return;
             }
         }
         if (!Templates.okArgs(_methodId,false,classFormat_,_firstArgs, _conf, _right)) {
@@ -550,10 +548,9 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             return;
         }
         if (_ctor) {
-            Argument arg_ = _conf.getOperationPageEl().getGlobalArgument();
             String idClass_ = Templates.getIdFromAllTypes(_classNameFound);
             RootBlock superClass_ = _conf.getClasses().getClassBody(idClass_);
-            _conf.getContextEl().setCallingState(new CustomFoundConstructor(_classNameFound,superClass_, EMPTY_STRING, -1, (ConstructorId) _methodId, arg_, _firstArgs, _kindCall));
+            _conf.getContextEl().setCallingState(new CustomFoundConstructor(_classNameFound,superClass_, EMPTY_STRING, -1, (ConstructorId) _methodId, _previous, _firstArgs, _kindCall));
             return;
         }
         _conf.getContextEl().setCallingState(new CustomFoundMethod(Argument.createVoid(), _classNameFound, (MethodId) _methodId, _firstArgs, _right));

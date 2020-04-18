@@ -47,11 +47,11 @@ public final class ExecCastOperation extends ExecAbstractUnaryOperation {
         setRelativeOffsetPossibleLastPage(getIndexInEl()+offset, _conf);
         Argument objArg_ = _arguments.first();
         String paramName_ = _conf.getOperationPageEl().formatVarType(className, _conf);
-        wrapFct(paramName_,_arguments,_conf);
+        wrapFct(paramName_,false,_arguments,_conf);
         Templates.checkObject(paramName_, objArg_, _conf);
         return objArg_;
     }
-    public static void wrapFct(String _className,CustList<Argument> _arguments, ExecutableCode _conf) {
+    public static void wrapFct(String _className, boolean _full,CustList<Argument> _arguments, ExecutableCode _conf) {
         Argument objArg_ = _arguments.first();
         if (ExplicitOperation.customCast(_className)) {
             String argCl_ = objArg_.getObjectClassName(_conf.getContextEl());
@@ -80,7 +80,7 @@ public final class ExecCastOperation extends ExecAbstractUnaryOperation {
                         }
                     }
                     CustList<ClassMethodId> functional_ = ((RootBlock) r_).getFunctional();
-                    if (instEltCount_ == 0 && functional_.size() == 1) {
+                    if ((instEltCount_ == 0 || _full)&& functional_.size() == 1) {
                         ClassMethodId clRealId_ = functional_.first();
                         MethodId realId_ = clRealId_.getConstraints();
                         String geneStr_ = r_.getGenericString();
@@ -97,9 +97,15 @@ public final class ExecCastOperation extends ExecAbstractUnaryOperation {
                         String fctParam_ = LambdaOperation.formatReturn(EMPTY_STRING,_conf, parmMe_, false);
                         fctParam_ = Templates.quickFormat(geneFor_,fctParam_,_conf);
                         if (Templates.isCorrectExecute(argCl_,fctParam_,_conf)) {
-                            AbstractFunctionalInstance struct_ = _conf.getStandards().newFunctionalInstance(_className,_conf.getContextEl());
-                            struct_.setFunctional(objArg_.getStruct());
-                            objArg_.setStruct(struct_);
+                            if (_full) {
+                                AbstractFunctionalInstance struct_ = _conf.getStandards().newFullFunctionalInstance(_className,_conf.getContextEl());
+                                struct_.setFunctional(objArg_.getStruct());
+                                objArg_.setStruct(struct_);
+                            } else {
+                                AbstractFunctionalInstance struct_ = _conf.getStandards().newFunctionalInstance(_className,_conf.getContextEl());
+                                struct_.setFunctional(objArg_.getStruct());
+                                objArg_.setStruct(struct_);
+                            }
                         }
                     }
                 }

@@ -4861,7 +4861,14 @@ public class LgNamesGui extends LgNamesUtils {
 
     @Override
     public AbstractFunctionalInstance newFunctionalInstance(String _className, ContextEl _contextEl) {
-        return new EventFunctionalInstance(_className, _contextEl);
+        ObjectMap<ClassField, Struct> fs_ = _contextEl.getInit().feedFields(_contextEl, _className);
+        return new EventFunctionalInstance(_className,fs_, _contextEl);
+    }
+
+    @Override
+    public AbstractFunctionalInstance newFullFunctionalInstance(String _className, ContextEl _contextEl) {
+        ObjectMap<ClassField, Struct> fs_ = _contextEl.getInit().feedFields(_contextEl, _className);
+        return new EventFunctionalInstance(_className,fs_, _contextEl);
     }
 
     public String getAliasActionListener() {
