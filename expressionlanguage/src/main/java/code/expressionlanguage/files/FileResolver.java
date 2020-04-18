@@ -1307,13 +1307,11 @@ public final class FileResolver {
         infoModifiers_ = infoModifiers_.substring(first_);
         int lenAfterModifiers_ = infoModifiers_.length();
         int indexMod_ = 0;
-        StringBuilder methodWord_ = new StringBuilder();
         while (indexMod_ < lenAfterModifiers_) {
             char cur_ = infoModifiers_.charAt(indexMod_);
             if (!StringList.isDollarWordChar(cur_)) {
                 break;
             }
-            methodWord_.append(cur_);
             indexMod_++;
         }
         while (indexMod_ < lenAfterModifiers_) {

@@ -227,6 +227,10 @@ public abstract class RendDynOperationNode {
             DotOperation m_ = (DotOperation) _anaNode;
             return new RendDotOperation(m_);
         }
+        if (_anaNode instanceof ExplicitOperatorOperation) {
+            ExplicitOperatorOperation m_ = (ExplicitOperatorOperation) _anaNode;
+            return new RendExplicitOperatorOperation(m_);
+        }
         if (_anaNode instanceof SemiAffectationOperation) {
             SemiAffectationOperation m_ = (SemiAffectationOperation) _anaNode;
             return new RendSemiAffectationOperation(m_);

@@ -239,6 +239,10 @@ public abstract class ExecOperationNode implements Operable {
             DotOperation m_ = (DotOperation) _anaNode;
             return new ExecDotOperation(m_);
         }
+        if (_anaNode instanceof ExplicitOperatorOperation) {
+            ExplicitOperatorOperation m_ = (ExplicitOperatorOperation) _anaNode;
+            return new ExecExplicitOperatorOperation(m_);
+        }
         if (_anaNode instanceof SemiAffectationOperation) {
             SemiAffectationOperation m_ = (SemiAffectationOperation) _anaNode;
             return new ExecSemiAffectationOperation(m_);

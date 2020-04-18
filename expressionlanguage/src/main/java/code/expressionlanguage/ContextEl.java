@@ -1190,9 +1190,11 @@ public abstract class ContextEl implements ExecutableCode {
             ref_ = ((Block)from_).getFile().getRenderFileName();
         }
         getAvailableVariables().clear();
-        for (TypeVar t: from_.getParamTypesMapValues()) {
-            getAvailableVariables().addEntry(t.getName(),t.getOffset());
-            vars_.addEntry(t.getName(), t.getConstraints());
+        if (from_ != null) {
+            for (TypeVar t: from_.getParamTypesMapValues()) {
+                getAvailableVariables().addEntry(t.getName(),t.getOffset());
+                vars_.addEntry(t.getName(), t.getConstraints());
+            }
         }
         CustList<PartOffset> partOffsets_ = coverage.getCurrentParts();
         partOffsets_.clear();

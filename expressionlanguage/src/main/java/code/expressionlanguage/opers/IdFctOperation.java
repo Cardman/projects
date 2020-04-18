@@ -34,25 +34,6 @@ public final class IdFctOperation extends LeafOperation implements IdFctOperable
         setRelativeOffsetPossibleAnalyzable(getIndexInEl() + offset, _conf);
         LgNames stds_ = _conf.getStandards();
         MethodOperation m_ = getParent();
-        String extr_ = className.substring(className.indexOf('(')+1, className.lastIndexOf(')'));
-        StringList args_ = Templates.getAllSepCommaTypes(extr_);
-        String firstFull_ = args_.first();
-        int off_ = StringList.getFirstPrintableCharIndex(firstFull_);
-        String fromType_ = ContextEl.removeDottedSpaces(firstFull_);
-        String cl_ = _conf.resolveAccessibleIdType(off_+className.indexOf('(')+1,fromType_);
-        if (cl_.isEmpty()) {
-            setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
-            return;
-        }
-        partOffsets.addAllElts(_conf.getContextEl().getCoverage().getCurrentParts());
-        String keyWordStatic_ = _conf.getKeyWords().getKeyWordStatic();
-        String keyWordStaticCall_ = _conf.getKeyWords().getKeyWordStaticCall();
-        MethodAccessId idUpdate_ = new MethodAccessId(1);
-        idUpdate_.setupInfos(1,args_,keyWordStatic_,keyWordStaticCall_);
-        MethodAccessKind static_;
-        int i_ = idUpdate_.getIndex();
-        static_ = idUpdate_.getKind();
-        MethodId argsRes_ = resolveArguments(i_, _conf, cl_, EMPTY_STRING, static_, args_);
         if (m_ == null ||!m_.isCallMethodCtor()) {
             FoundErrorInterpret varg_ = new FoundErrorInterpret();
             varg_.setFileName(_conf.getCurrentFileName());
@@ -75,10 +56,35 @@ public final class IdFctOperation extends LeafOperation implements IdFctOperable
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             return;
         }
+        String extr_ = className.substring(className.indexOf('(')+1, className.lastIndexOf(')'));
+        StringList args_ = Templates.getAllSepCommaTypes(extr_);
+        MethodAccessKind static_ = MethodAccessKind.STATIC;
+        int i_ = 0;
+        String cl_ = "";
+        int anc_ = 0;
+        if (!(m_ instanceof ExplicitOperatorOperation)) {
+            String firstFull_ = args_.first();
+            int off_ = StringList.getFirstPrintableCharIndex(firstFull_);
+            String fromType_ = ContextEl.removeDottedSpaces(firstFull_);
+            cl_ = _conf.resolveAccessibleIdType(off_+className.indexOf('(')+1,fromType_);
+            if (cl_.isEmpty()) {
+                setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
+                return;
+            }
+            partOffsets.addAllElts(_conf.getContextEl().getCoverage().getCurrentParts());
+            String keyWordStatic_ = _conf.getKeyWords().getKeyWordStatic();
+            String keyWordStaticCall_ = _conf.getKeyWords().getKeyWordStaticCall();
+            MethodAccessId idUpdate_ = new MethodAccessId(1);
+            idUpdate_.setupInfos(1,args_,keyWordStatic_,keyWordStaticCall_);
+            static_ = idUpdate_.getKind();
+            i_ = idUpdate_.getIndex();
+            anc_ = idUpdate_.getAncestor();
+        }
+        MethodId argsRes_ = resolveArguments(i_, _conf, cl_, EMPTY_STRING, static_, args_);
         if (argsRes_ == null) {
             return;
         }
-        method = new ClassMethodIdAncestor(new ClassMethodId(cl_, argsRes_),idUpdate_.getAncestor());
+        method = new ClassMethodIdAncestor(new ClassMethodId(cl_, argsRes_),anc_);
         setSimpleArgument(new Argument());
         setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
     }

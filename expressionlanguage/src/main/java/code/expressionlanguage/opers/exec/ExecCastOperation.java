@@ -5,7 +5,6 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.common.GeneType;
-import code.expressionlanguage.inherits.Mapping;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.methods.*;
 import code.expressionlanguage.methods.util.ArgumentsPair;
@@ -95,7 +94,7 @@ public final class ExecCastOperation extends ExecAbstractUnaryOperation {
                         parmMe_.setRealId(realId_);
                         parmMe_.setReturnType(ret_);
                         parmMe_.setRealClass(gene_);
-                        String fctParam_ = LambdaOperation.formatReturn(EMPTY_STRING,_conf,false, parmMe_, false);
+                        String fctParam_ = LambdaOperation.formatReturn(EMPTY_STRING,_conf, parmMe_, false);
                         fctParam_ = Templates.quickFormat(geneFor_,fctParam_,_conf);
                         if (Templates.isCorrectExecute(argCl_,fctParam_,_conf)) {
                             AbstractFunctionalInstance struct_ = _conf.getStandards().newFunctionalInstance(_className,_conf.getContextEl());

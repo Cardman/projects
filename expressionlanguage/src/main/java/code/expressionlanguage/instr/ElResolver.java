@@ -333,6 +333,7 @@ public final class ElResolver {
         String keyWordValues_ = keyWords_.getKeyWordValues();
         String keyWordVararg_ = keyWords_.getKeyWordVararg();
         String keyWordDefaultValue_ = keyWords_.getKeyWordDefaultValue();
+        String keyWordOperator_ = keyWords_.getKeyWordOperator();
         String sub_ = _string.substring(i_);
         if (ContextEl.startsWithKeyWord(sub_, keyWordCast_)) {
             int indexParLeft_ = _string.indexOf(PAR_LEFT,i_+1);
@@ -961,8 +962,13 @@ public final class ElResolver {
             _d.setBadOffset(afterClassChoice_);
             return;
         }
-        if (ContextEl.startsWithKeyWord(sub_, keyWordInterfaces_)) {
-            int afterClassChoice_ = i_ + keyWordInterfaces_.length();
+        if (ContextEl.startsWithKeyWord(sub_, keyWordInterfaces_)||ContextEl.startsWithKeyWord(sub_, keyWordOperator_)) {
+            int afterClassChoice_;
+            if (ContextEl.startsWithKeyWord(sub_, keyWordInterfaces_)) {
+                afterClassChoice_ = i_ + keyWordInterfaces_.length();
+            } else {
+                afterClassChoice_ = i_ + keyWordOperator_.length();
+            }
             boolean foundHat_ = false;
             while (afterClassChoice_ < len_) {
                 if (_string.charAt(afterClassChoice_) == PAR_LEFT) {
@@ -1010,7 +1016,9 @@ public final class ElResolver {
                 _d.setBadOffset(afterClassChoice_);
                 return;
             }
-            _out.setCallCtor(true);
+            if (ContextEl.startsWithKeyWord(sub_, keyWordInterfaces_)) {
+                _out.setCallCtor(true);
+            }
             _d.getCallings().add(afterClassChoice_);
             i_ = afterClassChoice_;
             _out.setNextIndex(i_);

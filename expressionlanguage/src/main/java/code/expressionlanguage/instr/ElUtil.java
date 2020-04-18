@@ -1012,6 +1012,18 @@ public final class ElUtil {
                 tag_ = "</a>";
                 _parts.add(new PartOffset(tag_,sum_ + val_.getIndexInEl()+((AbstractInvokingConstructor)val_).getOffsetOper()));
             }
+            if (curOp_ instanceof ExecExplicitOperatorOperation) {
+                ExecExplicitOperatorOperation par_ = (ExecExplicitOperatorOperation) curOp_;
+                ClassMethodId classMethodId_ = par_.getClassMethodId();
+                MethodId id_ = classMethodId_.getConstraints();
+                NamedFunctionBlock operator_ = Classes.getOperatorsBodiesById(_cont, id_).first();
+                String file_ = operator_.getFile().getRenderFileName();
+                String rel_ = relativize(currentFileName_, file_ + "#m" + operator_.getNameOffset());
+                tag_ = "<a title=\""+ transform(id_.getSignature(_cont))+"\" href=\""+rel_+"\">";
+                _parts.add(new PartOffset(tag_,sum_ + val_.getIndexInEl()));
+                tag_ = "</a>";
+                _parts.add(new PartOffset(tag_,sum_ + val_.getIndexInEl()+((ExplicitOperatorOperation)val_).getOffsetOper()));
+            }
             if (curOp_ instanceof ExecCustNumericOperation && curOp_.getFirstChild().getNextSibling() == null) {
                 ExecCustNumericOperation par_ = (ExecCustNumericOperation) curOp_;
                 ClassMethodId classMethodId_ = par_.getClassMethodId();

@@ -124,6 +124,7 @@ public abstract class OperationNode implements Operable {
         String keyWordClasschoice_ = keyWords_.getKeyWordClasschoice();
         String keyWordFirstopt_ = keyWords_.getKeyWordFirstopt();
         String keyWordInterfaces_ = keyWords_.getKeyWordInterfaces();
+        String keyWordOperator_ = keyWords_.getKeyWordOperator();
         String keyWordSuper_ = keyWords_.getKeyWordSuper();
         String keyWordSuperaccess_ = keyWords_.getKeyWordSuperaccess();
         String keyWordThis_ = keyWords_.getKeyWordThis();
@@ -324,6 +325,9 @@ public abstract class OperationNode implements Operable {
             }
             if (ContextEl.startsWithKeyWord(fctName_, keyWordInterfaces_)) {
                 return new InterfaceInvokingConstructor(_index, _indexChild, _m, _op);
+            }
+            if (ContextEl.startsWithKeyWord(fctName_, keyWordOperator_)) {
+                return new ExplicitOperatorOperation(_index, _indexChild, _m, _op);
             }
             if (ContextEl.startsWithKeyWord(fctName_, keyWordFirstopt_)) {
                 return new FirstOptOperation(_index, _indexChild, _m, _op);
@@ -867,11 +871,8 @@ public abstract class OperationNode implements Operable {
         CustList<MethodInfo> methods_;
         methods_ = getDeclaredCustMethodByType(_conf, _staticContext, _accessFromSuper, _superClass, _classes, _name, _import, _uniqueId);
         int varargOnly_ = _varargOnly;
-        boolean uniq_ = false;
+        boolean uniq_ = uniq(_uniqueId,_varargOnly);
         if (_uniqueId != null) {
-            if (varargOnly_ > -1) {
-                uniq_ = true;
-            }
             varargOnly_ = -1;
         }
         return getCustResult(_conf,uniq_, varargOnly_, methods_, _name, _argsClass);
@@ -883,16 +884,46 @@ public abstract class OperationNode implements Operable {
     }
 
     static ClassMethodIdReturn getOperator(Analyzable _cont, String _op, ClassArgumentMatching... _argsClass) {
-        CustList<MethodInfo> ops_ = getOperators(_cont);
-        return getCustResult(_cont,false, -1, ops_, _op, _argsClass);
+        //implicit use of operator key word
+        return getOperator(_cont,null,-1,true,_op,_argsClass);
     }
-    static CustList<MethodInfo> getOperators(Analyzable _cont){
+    static ClassMethodIdReturn getOperator(Analyzable _cont, ClassMethodId _cl, int _varargOnly,
+                                           boolean _excVararg,
+                                           String _op, ClassArgumentMatching... _argsClass) {
+        CustList<MethodInfo> ops_ = getOperators(_cont,_excVararg,_cl);
+        int varargOnly_ = _varargOnly;
+        boolean uniq_ = uniq(_cl,_varargOnly);
+        if (_cl != null) {
+            varargOnly_ = -1;
+        }
+        return getCustResult(_cont,uniq_, varargOnly_, ops_, _op, _argsClass);
+    }
+    private static boolean uniq(Object _cl, int _varargOnly) {
+        boolean uniq_ = false;
+        if (_cl != null) {
+            if (_varargOnly > -1) {
+                uniq_ = true;
+            }
+        }
+        return uniq_;
+    }
+    static CustList<MethodInfo> getOperators(Analyzable _cont, boolean _excVararg,ClassMethodId _cl){
         String objType_ = _cont.getStandards().getAliasObject();
         CustList<MethodInfo> methods_;
         methods_ = new CustList<MethodInfo>();
         for (OperatorBlock o: _cont.getClasses().getOperators()) {
             String ret_ = o.getImportedReturnType();
             MethodId id_ = o.getId();
+            if (_cl != null) {
+                if (!_cl.getConstraints().eq(id_)) {
+                    continue;
+                }
+            }
+            if (_excVararg) {
+                if (id_.isVararg()) {
+                    continue;
+                }
+            }
             ParametersGroup p_ = new ParametersGroup();
             for (String c: id_.getParametersTypes()) {
                 p_.add(new ClassMatching(c));
@@ -904,7 +935,6 @@ public abstract class OperationNode implements Operable {
             mloc_.setParameters(p_);
             mloc_.setReturnType(ret_);
             mloc_.format(true,_cont);
-            ClassMethodId clId_ = new ClassMethodId(objType_, id_);
             methods_.add(mloc_);
         }
         return methods_;

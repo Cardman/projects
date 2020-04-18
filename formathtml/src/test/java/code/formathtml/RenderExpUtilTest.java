@@ -7249,6 +7249,28 @@ public final class RenderExpUtilTest extends CommonRender {
         assertEq(14,argument_.getNumber());
     }
     @Test
+    public void processEl417_Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$operator+ pkg.Ex(pkg.Ex a,pkg.Ex b){\n");
+        xml_.append(" $var o = $new pkg.Ex();\n");
+        xml_.append(" o.inst = a.inst+b.inst;\n");
+        xml_.append(" $return o;\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $int inst;\n");
+        xml_.append(" $public Ex(){}\n");
+        xml_.append(" $public Ex($int p){\n");
+        xml_.append("  inst=p;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        Configuration conf_ = getConfiguration4(files_);
+        addImportingPage(conf_);
+        Argument argument_ = processEl("$operator(+)($new pkg.Ex(6),$new pkg.Ex(8)).inst", conf_);
+        assertEq(14,argument_.getNumber());
+    }
+    @Test
     public void processEl418Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$operator+ pkg.Ex(pkg.Ex a,pkg.Ex b){\n");

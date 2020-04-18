@@ -1183,7 +1183,7 @@ public final class Classes {
             String name_ = o.getName();
             _context.getAnalyzing().setImporting(o);
             o.buildImportedTypes(_context);
-            if (!isOper(name_)) {
+            if (!StringExpUtil.isOper(name_)) {
                 FoundErrorInterpret badMeth_ = new FoundErrorInterpret();
                 badMeth_.setFileName(_context.getCurrentFileName());
                 badMeth_.setIndexFile(o.getNameOffset());
@@ -1233,75 +1233,6 @@ public final class Classes {
                 }
             }
         }
-    }
-    private static boolean isOper(String _op) {
-        if(StringList.quickEq(_op, "+")) {
-            return true;
-        }
-        if(StringList.quickEq(_op, "-")) {
-            return true;
-        }
-        if(StringList.quickEq(_op, "*")) {
-            return true;
-        }
-        if(StringList.quickEq(_op, "/")) {
-            return true;
-        }
-        if(StringList.quickEq(_op, "%")) {
-            return true;
-        }
-        if(StringList.quickEq(_op, "==")) {
-            return true;
-        }
-        if(StringList.quickEq(_op, "!=")) {
-            return true;
-        }
-        if(StringList.quickEq(_op, "<=")) {
-            return true;
-        }
-        if(StringList.quickEq(_op, ">")) {
-            return true;
-        }
-        if(StringList.quickEq(_op, ">=")) {
-            return true;
-        }
-        if(StringList.quickEq(_op, "<")) {
-            return true;
-        }
-        if(StringList.quickEq(_op, "&")) {
-            return true;
-        }
-        if(StringList.quickEq(_op, "|")) {
-            return true;
-        }
-        if(StringList.quickEq(_op, "^")) {
-            return true;
-        }
-        if(StringList.quickEq(_op, "~")) {
-            return true;
-        }
-        if(StringList.quickEq(_op, "<<")) {
-            return true;
-        }
-        if(StringList.quickEq(_op, ">>")) {
-            return true;
-        }
-        if(StringList.quickEq(_op, "<<<")) {
-            return true;
-        }
-        if(StringList.quickEq(_op, ">>>")) {
-            return true;
-        }
-        if(StringList.quickEq(_op, "<<<<")) {
-            return true;
-        }
-        if(StringList.quickEq(_op, ">>>>")) {
-            return true;
-        }
-        if(StringList.quickEq(_op, "++")) {
-            return true;
-        }
-        return StringList.quickEq(_op, "--");
     }
     public void validateOverridingInherit(ContextEl _context, boolean _predefined) {
         _context.setAnalyzing();
