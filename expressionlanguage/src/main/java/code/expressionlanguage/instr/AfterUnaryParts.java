@@ -63,7 +63,7 @@ final class AfterUnaryParts {
     private String fctName = EMPTY_STRING;
     private boolean enabledId = false;
     private boolean instance;
-    private Ints laterIndexesDouble = new Ints();
+    private final Ints laterIndexesDouble = new Ints();
     private final ExpPartDelimiters del;
 
     AfterUnaryParts(int _offset, String _string, ExpPartDelimiters _del, Delimiters _d) {
@@ -121,8 +121,6 @@ final class AfterUnaryParts {
     }
     void setState(int _offset, String _string, Delimiters _d) {
         int firstPrintChar_ = del.getFirstPrintIndex();
-        int lastPrintChar_ = del.getLastPrintIndex();
-        int len_ = lastPrintChar_ + 1;
         char curChar_ = _string.charAt(index);
         if (_d.getDimsAddonIndexes().containsObj(index+_offset)) {
             laterIndexesDouble.add(index);
@@ -263,145 +261,16 @@ final class AfterUnaryParts {
             index++;
             return;
         }
-        StringBuilder builtOperator_ = new StringBuilder();
+        addNumOperators(_offset, _string, _d, curChar_);
+    }
+
+    private void addNumOperators(int _offset, String _string, Delimiters _d, char _curChar) {
+        int lastPrintChar_ = del.getLastPrintIndex();
+        int len_ = lastPrintChar_ + 1;
         boolean clearOperators_ = false;
         boolean foundOperator_ = false;
-        int increment_ = 1;
-        if (curChar_ == DOT_VAR) {
-            builtOperator_.append(DOT_VAR);
-            if (prio == ElResolver.FCT_OPER_PRIO) {
-                clearOperators_ = true;
-                foundOperator_ = true;
-            }
-        }
-        if (curChar_ == NEG_BOOL_CHAR || curChar_ == EQ_CHAR) {
-            boolean nextIs_ = StringExpUtil.nextCharIs(_string, index + 1, len_, EQ_CHAR);
-            if (curChar_ == NEG_BOOL_CHAR || nextIs_) {
-                builtOperator_.append(curChar_);
-                if (nextIs_) {
-                    builtOperator_.append(EQ_CHAR);
-                }
-                if (prio > ElResolver.EQ_PRIO) {
-                    prio = ElResolver.EQ_PRIO;
-                }
-                if (prio == ElResolver.EQ_PRIO) {
-                    clearOperators_ = true;
-                    foundOperator_ = true;
-                }
-                increment_ = 2;
-            } else {
-                builtOperator_.append(curChar_);
-                if (isGreaterThanAff(prio)) {
-                    clearOperators_ = true;
-                    prio = ElResolver.AFF_PRIO;
-                    foundOperator_ = true;
-                }
-                increment_ = 1;
-            }
-        }
-        int prioOpMult_ = 0;
-        boolean andOr_ = false;
-        if (curChar_ == LOWER_CHAR || curChar_ == GREATER_CHAR) {
-            if (StringExpUtil.nextCharIs(_string, index + 1, len_, curChar_)) {
-                prioOpMult_ = ElResolver.SHIFT_PRIO;
-            }
-        }
-        if (curChar_ == MINUS_CHAR || curChar_ == PLUS_CHAR) {
-            prioOpMult_ = ElResolver.ADD_PRIO;
-        } else if (curChar_ == MULT_CHAR || curChar_ == DIV_CHAR || curChar_ == MOD_CHAR) {
-            prioOpMult_ = ElResolver.MULT_PRIO;
-        } else if (curChar_ == AND_CHAR) {
-            prioOpMult_ = ElResolver.AND_PRIO;
-            andOr_ = true;
-        } else if (curChar_ == OR_CHAR) {
-            prioOpMult_ = ElResolver.OR_PRIO;
-            andOr_ = true;
-        } else if (curChar_ == XOR_CHAR) {
-            prioOpMult_ = ElResolver.BIT_XOR_PRIO;
-        }
-        if (prioOpMult_ > 0) {
-            builtOperator_.append(curChar_);
-            boolean processDefaultOp_ = true;
-            if (index + 1 < len_) {
-                char nextChar_ = _string.charAt(index + 1);
-                int delta_ = 0;
-                if (prioOpMult_ == ElResolver.SHIFT_PRIO) {
-                    builtOperator_.append(nextChar_);
-                    if (StringExpUtil.nextCharIs(_string, index + 2, len_, nextChar_)) {
-                        delta_++;
-                        builtOperator_.append(nextChar_);
-                        if (StringExpUtil.nextCharIs(_string, index + 3, len_, nextChar_)) {
-                            delta_++;
-                            builtOperator_.append(nextChar_);
-                        }
-                    }
-                }
-                if (isIncrementOperator(curChar_, prioOpMult_, nextChar_)) {
-                    if (prio > ElResolver.POST_INCR_PRIO) {
-                        clearOperators_ = true;
-                        prio = ElResolver.POST_INCR_PRIO;
-                        foundOperator_ = true;
-                    }
-                    increment_ = 2;
-                    builtOperator_.append(nextChar_);
-                    processDefaultOp_ = false;
-                } else if (isLogicAndOr(curChar_, andOr_, nextChar_)) {
-                    builtOperator_.append(curChar_);
-                    if (StringExpUtil.nextCharIs(_string,index+2,len_,EQ_CHAR)) {
-                        increment_ = 3;
-                        if (isGreaterThanAff(prio)) {
-                            clearOperators_ = true;
-                            prio = ElResolver.AFF_PRIO;
-                            foundOperator_ = true;
-                        }
-                        builtOperator_.append(EQ_CHAR);
-                    } else {
-                        if (prio > prioOpMult_) {
-                            prio = prioOpMult_;
-                        }
-                        if (prio == prioOpMult_) {
-                            clearOperators_ = true;
-                            foundOperator_ = true;
-                        }
-                        increment_ = 2;
-                    }
-                    processDefaultOp_ = false;
-                } else if (isAffectation(nextChar_, prioOpMult_, _string, delta_+index + 2, len_)) {
-                    increment_ = 2;
-                    if (prioOpMult_ == ElResolver.SHIFT_PRIO) {
-                        increment_++;
-                    }
-                    if (isGreaterThanAff(prio)) {
-                        clearOperators_ = true;
-                        prio = ElResolver.AFF_PRIO;
-                        foundOperator_ = true;
-                    }
-                    builtOperator_.append(EQ_CHAR);
-                    processDefaultOp_ = false;
-                } else {
-                    if (curChar_ == AND_CHAR) {
-                        prioOpMult_ = ElResolver.BIT_AND_PRIO;
-                    } else if (curChar_ == OR_CHAR) {
-                        prioOpMult_ = ElResolver.BIT_OR_PRIO;
-                    }
-                    if (prioOpMult_ == ElResolver.SHIFT_PRIO) {
-                        increment_++;
-                        increment_ += delta_;
-                    }
-                }
-            }
-            if (processDefaultOp_) {
-                if (prio > prioOpMult_) {
-                    prio = prioOpMult_;
-                }
-                if (prio == prioOpMult_) {
-                    clearOperators_ = true;
-                    foundOperator_ = true;
-                }
-            }
-        }
         int min_ = _d.getDelInstanceof().indexOfObj(index+_offset);
-        if (min_ >= 0 && min_ % 2 == 0) {
+        if (isPairPositive(min_)) {
             int next_ = _d.getDelInstanceof().get(min_+1) - _offset;
             instOf = true;
             if (prio > ElResolver.CMP_PRIO) {
@@ -412,11 +281,77 @@ final class AfterUnaryParts {
                 foundOperator_ = true;
             }
             String op_ = _string.substring(index, next_);
-            builtOperator_.append(op_);
-            increment_ = op_.length();
+            addPossibleNumOp(op_, clearOperators_, foundOperator_);
+            return;
         }
-        if ((curChar_ == LOWER_CHAR || curChar_ == GREATER_CHAR) && prioOpMult_ != ElResolver.SHIFT_PRIO) {
-            builtOperator_.append(curChar_);
+        StringBuilder builtOperator_ = new StringBuilder();
+        if (_curChar == DOT_VAR) {
+            builtOperator_.append(DOT_VAR);
+            if (prio == ElResolver.FCT_OPER_PRIO) {
+                clearOperators_ = true;
+                foundOperator_ = true;
+            }
+            addPossibleNumOp(builtOperator_.toString(), clearOperators_, foundOperator_);
+            return;
+        }
+        if (_curChar == NEG_BOOL_CHAR || _curChar == EQ_CHAR) {
+            boolean nextIs_ = StringExpUtil.nextCharIs(_string, index + 1, len_, EQ_CHAR);
+            if (_curChar == NEG_BOOL_CHAR || nextIs_) {
+                builtOperator_.append(_curChar);
+                if (nextIs_) {
+                    builtOperator_.append(EQ_CHAR);
+                }
+                if (prio > ElResolver.EQ_PRIO) {
+                    prio = ElResolver.EQ_PRIO;
+                }
+                if (prio == ElResolver.EQ_PRIO) {
+                    clearOperators_ = true;
+                    foundOperator_ = true;
+                }
+            } else {
+                builtOperator_.append(_curChar);
+                if (isGreaterThanAff(prio)) {
+                    clearOperators_ = true;
+                    prio = ElResolver.AFF_PRIO;
+                    foundOperator_ = true;
+                }
+            }
+            addPossibleNumOp(builtOperator_.toString(), clearOperators_, foundOperator_);
+            return;
+        }
+        builtOperator_.append(_curChar);
+        if (index + 1 >= len_) {
+            changePrioAddPossible(_curChar, builtOperator_);
+            return;
+        }
+        char nextChar_ = _string.charAt(index + 1);
+        int delta_ = 0;
+        boolean sh_ = isShift(_curChar, nextChar_);
+        if (sh_) {
+            builtOperator_.append(nextChar_);
+            if (StringExpUtil.nextCharIs(_string, index + 2, len_, nextChar_)) {
+                delta_++;
+                builtOperator_.append(nextChar_);
+                if (StringExpUtil.nextCharIs(_string, index + 3, len_, nextChar_)) {
+                    delta_++;
+                    builtOperator_.append(nextChar_);
+                }
+            }
+            if (StringExpUtil.nextCharIs(_string,delta_+index+2,len_,EQ_CHAR)) {
+                addAffNumOp(builtOperator_);
+                return;
+            }
+            if (prio > ElResolver.SHIFT_PRIO) {
+                prio = ElResolver.SHIFT_PRIO;
+            }
+            if (prio == ElResolver.SHIFT_PRIO) {
+                clearOperators_ = true;
+                foundOperator_ = true;
+            }
+            addPossibleNumOp(builtOperator_.toString(), clearOperators_, foundOperator_);
+            return;
+        }
+        if (_curChar == LOWER_CHAR || _curChar == GREATER_CHAR) {
             if (prio > ElResolver.CMP_PRIO) {
                 clearOperators_ = true;
                 prio = ElResolver.CMP_PRIO;
@@ -427,11 +362,109 @@ final class AfterUnaryParts {
                 foundOperator_ = true;
             }
             if (StringExpUtil.nextCharIs(_string, index + 1, len_, EQ_CHAR)) {
-                char nextChar_ = _string.charAt(index + 1);
+                builtOperator_.append(_string.charAt(index + 1));
+            }
+            addPossibleNumOp(builtOperator_.toString(), clearOperators_, foundOperator_);
+            return;
+        }
+        if (_curChar == PLUS_CHAR || _curChar == MINUS_CHAR) {
+            if (_curChar == nextChar_) {
+                if (prio > ElResolver.POST_INCR_PRIO) {
+                    clearOperators_ = true;
+                    prio = ElResolver.POST_INCR_PRIO;
+                    foundOperator_ = true;
+                }
                 builtOperator_.append(nextChar_);
-                increment_++;
+                addPossibleNumOp(builtOperator_.toString(), clearOperators_, foundOperator_);
+                return;
             }
         }
+        if (isLogicAndOr(_curChar, nextChar_)) {
+            builtOperator_.append(_curChar);
+            if (StringExpUtil.nextCharIs(_string,index+2,len_,EQ_CHAR)) {
+                if (isGreaterThanAff(prio)) {
+                    clearOperators_ = true;
+                    prio = ElResolver.AFF_PRIO;
+                    foundOperator_ = true;
+                }
+                builtOperator_.append(EQ_CHAR);
+            } else {
+                int prioOpMult_;
+                if (_curChar == AND_CHAR) {
+                    prioOpMult_ = ElResolver.AND_PRIO;
+                } else {
+                    prioOpMult_ = ElResolver.OR_PRIO;
+                }
+                if (prio > prioOpMult_) {
+                    prio = prioOpMult_;
+                }
+                if (prio == prioOpMult_) {
+                    clearOperators_ = true;
+                    foundOperator_ = true;
+                }
+            }
+            addPossibleNumOp(builtOperator_.toString(), clearOperators_, foundOperator_);
+            return;
+        }
+        if (nextChar_ == EQ_CHAR){
+            addAffNumOp(builtOperator_);
+            return;
+        }
+        changePrioAddPossible(_curChar, builtOperator_);
+    }
+
+    private void changePrioAddPossible(char _curChar, StringBuilder builtOperator_) {
+        boolean clearOperators_ = false;
+        boolean foundOperator_ = false;
+        int prioOpMult_ = getNumPrio(_curChar);
+        if (prio > prioOpMult_) {
+            prio = prioOpMult_;
+        }
+        if (prio == prioOpMult_) {
+            clearOperators_ = true;
+            foundOperator_ = true;
+        }
+        addPossibleNumOp(builtOperator_.toString(), clearOperators_, foundOperator_);
+    }
+
+    private static boolean isShift(char _curChar, char _nextChar) {
+        boolean sh_ = false;
+        boolean lgGt_ = _curChar == LOWER_CHAR || _curChar == GREATER_CHAR;
+        if (lgGt_) {
+            if (_nextChar == _curChar) {
+                sh_ = true;
+            }
+        }
+        return sh_;
+    }
+
+    private void addAffNumOp(StringBuilder builtOperator_) {
+        boolean clearOperators_ = false;
+        boolean foundOperator_ = false;
+        if (isGreaterThanAff(prio)) {
+            clearOperators_ = true;
+            prio = ElResolver.AFF_PRIO;
+            foundOperator_ = true;
+        }
+        builtOperator_.append(EQ_CHAR);
+        addPossibleNumOp(builtOperator_.toString(), clearOperators_, foundOperator_);
+    }
+
+    private static boolean isAndOrChar(char _curChar) {
+        boolean andOr_ = false;
+        if (_curChar == AND_CHAR) {
+            andOr_ = true;
+        } else if (_curChar == OR_CHAR) {
+            andOr_ = true;
+        }
+        return andOr_;
+    }
+
+    private static boolean isPairPositive(int _nb) {
+        return _nb >= 0 && _nb % 2 == 0;
+    }
+
+    private void addPossibleNumOp(String _op, boolean clearOperators_, boolean foundOperator_) {
         if (foundOperator_) {
             if (clearOperators_) {
                 operators.clear();
@@ -441,9 +474,25 @@ final class AfterUnaryParts {
             instance = false;
             enPars = false;
             enabledId = false;
-            operators.put(index,builtOperator_.toString());
+            operators.put(index,_op);
         }
-        index += increment_;
+        index += _op.length();
+    }
+
+    private int getNumPrio(char _curChar) {
+        int prioOpMult_ = 0;
+        if (_curChar == MINUS_CHAR || _curChar == PLUS_CHAR) {
+            prioOpMult_ = ElResolver.ADD_PRIO;
+        } else if (_curChar == MULT_CHAR || _curChar == DIV_CHAR || _curChar == MOD_CHAR) {
+            prioOpMult_ = ElResolver.MULT_PRIO;
+        } else if (_curChar == AND_CHAR) {
+            prioOpMult_ = ElResolver.BIT_AND_PRIO;
+        } else if (_curChar == OR_CHAR) {
+            prioOpMult_ = ElResolver.BIT_OR_PRIO;
+        } else if (_curChar == XOR_CHAR) {
+            prioOpMult_ = ElResolver.BIT_XOR_PRIO;
+        }
+        return prioOpMult_;
     }
 
     private static int incrementUnary(String _string, int _from, int _to, int _offset, Delimiters _d) {
@@ -510,23 +559,11 @@ final class AfterUnaryParts {
             _operators.put(_i, String.valueOf(_op));
         }
     }
-    private static boolean isAffectation(char _nextChar, int _prioOpMult, String _string, int _lastCharIndex,int _len) {
-        boolean aff_ = false;
-        if (_nextChar == EQ_CHAR) {
-            aff_ = true;
-        } else if (_prioOpMult == ElResolver.SHIFT_PRIO && StringExpUtil.nextCharIs(_string, _lastCharIndex, _len, EQ_CHAR)) {
-            aff_ = true;
-        }
-        return aff_;
-    }
-    private static boolean isIncrementOperator(char _curChar, int _prioOpMult,
-                                               char _nextChar) {
-        return _prioOpMult == ElResolver.ADD_PRIO && _nextChar == _curChar;
-    }
 
-    private static boolean isLogicAndOr(char _curChar, boolean _andOr,
+    private static boolean isLogicAndOr(char _curChar,
                                         char _nextChar) {
-        return _andOr && _nextChar == _curChar;
+        boolean andOr_ = isAndOrChar(_curChar);
+        return andOr_ && _nextChar == _curChar;
     }
     int getIndex() {
         return index;
