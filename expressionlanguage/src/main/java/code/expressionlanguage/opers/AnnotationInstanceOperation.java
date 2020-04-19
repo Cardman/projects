@@ -123,6 +123,17 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
         CustList<OperationNode> chidren_ = getChildrenNodes();
         int off_ = StringList.getFirstPrintableCharIndex(methodName);
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
+        if (isIntermediateDottedOperation()){
+            FoundErrorInterpret un_ = new FoundErrorInterpret();
+            un_.setIndexFile(_conf.getCurrentLocationIndex());
+            un_.setFileName(_conf.getCurrentFileName());
+            //first separator char
+            un_.buildError(_conf.getContextEl().getAnalysisMessages().getUnexpectedType(),
+                    _conf.getStandards().getAliasObject());
+            _conf.addError(un_);
+            setResultClass(new ClassArgumentMatching(_conf.getStandards().getAliasObject()));
+            return;
+        }
         if (array) {
             StringMap<StringList> map_;
             map_ = new StringMap<StringList>();

@@ -4067,6 +4067,23 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         assertEq(0, ret_.getNumber());
     }
     @Test
+    public void calculateArgument0FailTest() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $annotation pkg.MyAnnot {\n");
+        xml_.append("}\n");
+        xml_.append("@MyAnnot(@MyAnnot().@MyAnnot())\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $void catching(){\n");
+        xml_.append("  $return \"\";\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElDefault();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.isEmptyErrors());
+    }
+    @Test
     public void calculateArgument1FailTest() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
