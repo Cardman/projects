@@ -81,4 +81,19 @@ public final class StringExpUtil {
         }
         return StringList.quickEq(_op, "--");
     }
+
+    public static boolean startsWithKeyWord(String _found, String _keyWord) {
+        return startsWithKeyWord(_found,0,_keyWord);
+    }
+
+    public static boolean startsWithKeyWord(String _found, int _start, String _keyWord) {
+        if (!_found.startsWith(_keyWord,_start)) {
+            return false;
+        }
+        if (_found.length() == _keyWord.length()+_start) {
+            return true;
+        }
+        char first_ = _found.charAt(_keyWord.length()+_start);
+        return !StringList.isDollarWordChar(first_);
+    }
 }

@@ -1581,7 +1581,7 @@ public abstract class ContextEl implements ExecutableCode {
         String beginImp_ = removeDottedSpaces(_import.substring(0, _import.lastIndexOf('.')+1));
         String keyWordStatic_ = keyWords.getKeyWordStatic();
         boolean stQualifier_ = false;
-        if (startsWithKeyWord(beginImp_, keyWordStatic_)) {
+        if (StringExpUtil.startsWithKeyWord(beginImp_, keyWordStatic_)) {
             beginImp_ = beginImp_.substring(keyWordStatic_.length()).trim();
             stQualifier_ = true;
         }
@@ -1645,7 +1645,7 @@ public abstract class ContextEl implements ExecutableCode {
                 if (!tr_.contains(".")) {
                     continue;
                 }
-                if (!startsWithKeyWord(tr_, keyWordStatic_)) {
+                if (!StringExpUtil.startsWithKeyWord(tr_, keyWordStatic_)) {
                     continue;
                 }
                 String st_ = tr_.substring(keyWordStatic_.length()).trim();
@@ -1671,7 +1671,7 @@ public abstract class ContextEl implements ExecutableCode {
                 if (!tr_.contains(".")) {
                     continue;
                 }
-                if (!startsWithKeyWord(tr_, keyWordStatic_)) {
+                if (!StringExpUtil.startsWithKeyWord(tr_, keyWordStatic_)) {
                     continue;
                 }
                 String st_ = tr_.substring(keyWordStatic_.length()).trim();
@@ -1732,7 +1732,7 @@ public abstract class ContextEl implements ExecutableCode {
                 if (!tr_.contains(".")) {
                     continue;
                 }
-                if (!startsWithKeyWord(tr_, keyWordStatic_)) {
+                if (!StringExpUtil.startsWithKeyWord(tr_, keyWordStatic_)) {
                     continue;
                 }
                 String st_ = tr_.substring(keyWordStatic_.length()).trim();
@@ -1758,7 +1758,7 @@ public abstract class ContextEl implements ExecutableCode {
                 if (!tr_.contains(".")) {
                     continue;
                 }
-                if (!startsWithKeyWord(tr_, keyWordStatic_)) {
+                if (!StringExpUtil.startsWithKeyWord(tr_, keyWordStatic_)) {
                     continue;
                 }
                 String st_ = tr_.substring(keyWordStatic_.length()).trim();
@@ -1926,16 +1926,6 @@ public abstract class ContextEl implements ExecutableCode {
             }
         }
         return null;
-    }
-    public static boolean startsWithKeyWord(String _found, String _keyWord) {
-        if (!_found.startsWith(_keyWord)) {
-            return false;
-        }
-        if (_found.length() == _keyWord.length()) {
-            return true;
-        }
-        char first_ = _found.charAt(_keyWord.length());
-        return !StringList.isDollarWordChar(first_);
     }
 
     @Override

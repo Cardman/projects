@@ -335,8 +335,7 @@ public final class ElResolver {
         String keyWordVararg_ = keyWords_.getKeyWordVararg();
         String keyWordDefaultValue_ = keyWords_.getKeyWordDefaultValue();
         String keyWordOperator_ = keyWords_.getKeyWordOperator();
-        String sub_ = _string.substring(i_);
-        if (ContextEl.startsWithKeyWord(sub_, keyWordCast_)) {
+        if (StringExpUtil.startsWithKeyWord(_string,i_, keyWordCast_)) {
             int indexParLeft_ = _string.indexOf(PAR_LEFT,i_+1);
             if (indexParLeft_ < 0) {
                 _d.setBadOffset(len_);
@@ -359,7 +358,7 @@ public final class ElResolver {
             _out.setNextIndex(i_);
             return;
         }
-        if (ContextEl.startsWithKeyWord(sub_, keyWordExplicit_)) {
+        if (StringExpUtil.startsWithKeyWord(_string,i_, keyWordExplicit_)) {
             int indexParLeft_ = _string.indexOf(PAR_LEFT,i_+1);
             if (indexParLeft_ < 0) {
                 _d.setBadOffset(len_);
@@ -380,7 +379,7 @@ public final class ElResolver {
             _out.setNextIndex(i_);
             return;
         }
-        if (ContextEl.startsWithKeyWord(sub_, keyWordVararg_)) {
+        if (StringExpUtil.startsWithKeyWord(_string,i_, keyWordVararg_)) {
             int indexParLeft_ = _string.indexOf(PAR_LEFT,i_+1);
             if (indexParLeft_ < 0) {
                 _d.setBadOffset(len_);
@@ -397,7 +396,7 @@ public final class ElResolver {
             _out.setNextIndex(i_);
             return;
         }
-        if (ContextEl.startsWithKeyWord(sub_, keyWordDefaultValue_)) {
+        if (StringExpUtil.startsWithKeyWord(_string,i_, keyWordDefaultValue_)) {
             int indexParLeft_ = _string.indexOf(PAR_LEFT,i_+1);
             if (indexParLeft_ < 0) {
                 _d.setBadOffset(len_);
@@ -414,7 +413,7 @@ public final class ElResolver {
             _out.setNextIndex(i_);
             return;
         }
-        if (ContextEl.startsWithKeyWord(sub_, keyWordClass_)) {
+        if (StringExpUtil.startsWithKeyWord(_string,i_, keyWordClass_)) {
             int indexParLeft_ = _string.indexOf(PAR_LEFT,i_+1);
             if (indexParLeft_ < 0) {
                 _d.setBadOffset(len_);
@@ -431,7 +430,7 @@ public final class ElResolver {
             _out.setNextIndex(i_);
             return;
         }
-        if (ContextEl.startsWithKeyWord(sub_, keyWordInstanceof_)) {
+        if (StringExpUtil.startsWithKeyWord(_string,i_, keyWordInstanceof_)) {
             int next_ = i_ + keyWordInstanceof_.length();
             if (Character.isWhitespace(_string.charAt(next_))) {
                 //instanceof
@@ -515,7 +514,7 @@ public final class ElResolver {
             _d.setBadOffset(next_);
             return;
         }
-        if (ContextEl.startsWithKeyWord(sub_, keyWordNew_)) {
+        if (StringExpUtil.startsWithKeyWord(_string,i_, keyWordNew_)) {
             int j_ = i_;
 
             int count_ = 0;
@@ -553,7 +552,7 @@ public final class ElResolver {
             _out.setNextIndex(i_);
             return;
         }
-        if (ContextEl.startsWithKeyWord(sub_, keyWordLambda_)) {
+        if (StringExpUtil.startsWithKeyWord(_string,i_, keyWordLambda_)) {
             //lambda
             int indexParLeft_ = _string.indexOf(PAR_LEFT,i_+1);
             if (indexParLeft_ < 0) {
@@ -571,7 +570,7 @@ public final class ElResolver {
             _out.setNextIndex(i_);
             return;
         }
-        if (ContextEl.startsWithKeyWord(sub_, keyWordId_)) {
+        if (StringExpUtil.startsWithKeyWord(_string,i_, keyWordId_)) {
             //lambda
             int indexParLeft_ = _string.indexOf(PAR_LEFT,i_+1);
             if (indexParLeft_ < 0) {
@@ -589,8 +588,8 @@ public final class ElResolver {
             _out.setNextIndex(i_);
             return;
         }
-        boolean isKeySt_ = ContextEl.startsWithKeyWord(sub_, keyWordStatic_);
-        boolean isKeyStCall_ = ContextEl.startsWithKeyWord(sub_, keyWordStaticCall_);
+        boolean isKeySt_ = StringExpUtil.startsWithKeyWord(_string,i_, keyWordStatic_);
+        boolean isKeyStCall_ = StringExpUtil.startsWithKeyWord(_string,i_, keyWordStaticCall_);
         if (isKeySt_||isKeyStCall_) {
             Ints indexes_;
             int afterStatic_;
@@ -656,7 +655,7 @@ public final class ElResolver {
             _out.setNextIndex(i_);
             return;
         }
-        if (ContextEl.startsWithKeyWord(sub_, keyWordSuper_)) {
+        if (StringExpUtil.startsWithKeyWord(_string,i_, keyWordSuper_)) {
             int afterSuper_ = i_ + keyWordSuper_.length();
             boolean foundHat_ = false;
             while (afterSuper_ < len_) {
@@ -717,7 +716,7 @@ public final class ElResolver {
             _out.setNextIndex(i_);
             return;
         }
-        if (ContextEl.startsWithKeyWord(sub_, keyWordClasschoice_)) {
+        if (StringExpUtil.startsWithKeyWord(_string,i_, keyWordClasschoice_)) {
             int afterClassChoice_ = i_ + keyWordClasschoice_.length();
             boolean foundHat_ = false;
             while (afterClassChoice_ < len_) {
@@ -801,7 +800,7 @@ public final class ElResolver {
             _out.setNextIndex(i_);
             return;
         }
-        if (ContextEl.startsWithKeyWord(sub_, keyWordSuperaccess_)) {
+        if (StringExpUtil.startsWithKeyWord(_string,i_, keyWordSuperaccess_)) {
             int afterClassChoice_ = i_ + keyWordSuperaccess_.length();
             boolean foundHat_ = false;
             while (afterClassChoice_ < len_) {
@@ -885,7 +884,7 @@ public final class ElResolver {
             _out.setNextIndex(i_);
             return;
         }
-        if (ContextEl.startsWithKeyWord(sub_, keyWordThisaccess_)) {
+        if (StringExpUtil.startsWithKeyWord(_string,i_, keyWordThisaccess_)) {
             int afterClassChoice_ = i_ + keyWordThisaccess_.length();
             boolean foundHat_ = false;
             while (afterClassChoice_ < len_) {
@@ -963,9 +962,9 @@ public final class ElResolver {
             _d.setBadOffset(afterClassChoice_);
             return;
         }
-        if (ContextEl.startsWithKeyWord(sub_, keyWordInterfaces_)||ContextEl.startsWithKeyWord(sub_, keyWordOperator_)) {
+        if (StringExpUtil.startsWithKeyWord(_string,i_, keyWordInterfaces_)|| StringExpUtil.startsWithKeyWord(_string,i_, keyWordOperator_)) {
             int afterClassChoice_;
-            if (ContextEl.startsWithKeyWord(sub_, keyWordInterfaces_)) {
+            if (StringExpUtil.startsWithKeyWord(_string,i_, keyWordInterfaces_)) {
                 afterClassChoice_ = i_ + keyWordInterfaces_.length();
             } else {
                 afterClassChoice_ = i_ + keyWordOperator_.length();
@@ -1017,7 +1016,7 @@ public final class ElResolver {
                 _d.setBadOffset(afterClassChoice_);
                 return;
             }
-            if (ContextEl.startsWithKeyWord(sub_, keyWordInterfaces_)&&i_==_beginIndex) {
+            if (StringExpUtil.startsWithKeyWord(_string,i_, keyWordInterfaces_)&&i_==_beginIndex) {
                 _out.setCallCtor(true);
             }
             _d.getCallings().add(afterClassChoice_);
@@ -1025,7 +1024,7 @@ public final class ElResolver {
             _out.setNextIndex(i_);
             return;
         }
-        if (ContextEl.startsWithKeyWord(sub_, keyWordThat_)) {
+        if (StringExpUtil.startsWithKeyWord(_string,i_, keyWordThat_)) {
             int afterSuper_ = i_ + keyWordThat_.length();
             boolean foundHat_ = false;
             while (afterSuper_ < len_) {
@@ -1077,7 +1076,7 @@ public final class ElResolver {
             _out.setNextIndex(i_);
             return;
         }
-        if (ContextEl.startsWithKeyWord(sub_, keyWordThis_)) {
+        if (StringExpUtil.startsWithKeyWord(_string,i_, keyWordThis_)) {
             int afterSuper_ = i_ + keyWordThis_.length();
             while (afterSuper_ < len_) {
                 if (!Character.isWhitespace(_string.charAt(afterSuper_))) {
@@ -1096,7 +1095,7 @@ public final class ElResolver {
         }
         boolean foundValue_ = false;
         for (String s: StringList.wrapStringArray(keyWordTrue_,keyWordFalse_,keyWordNull_)) {
-            if (ContextEl.startsWithKeyWord(sub_, s)) {
+            if (StringExpUtil.startsWithKeyWord(_string,i_, s)) {
                 int afterSuper_ = i_ + s.length();
                 while (afterSuper_ < len_) {
                     if (!Character.isWhitespace(_string.charAt(afterSuper_))) {
@@ -1114,7 +1113,7 @@ public final class ElResolver {
             return;
         }
         for (String s: StringList.wrapStringArray(keyWordFirstopt_,keyWordBool_,keyWordValueOf_,keyWordValues_)) {
-            if (ContextEl.startsWithKeyWord(sub_, s)) {
+            if (StringExpUtil.startsWithKeyWord(_string,i_, s)) {
                 int index_ = processPredefinedMethod(_string, i_, s);
                 if (index_ < 0) {
                     _d.setBadOffset(-index_);
@@ -1587,8 +1586,7 @@ public final class ElResolver {
                     j_++;
                     continue;
                 }
-                String subAfter_ = _string.substring(j_);
-                if (ContextEl.startsWithKeyWord(subAfter_, keyWordCast_)) {
+                if (StringExpUtil.startsWithKeyWord(_string,j_, keyWordCast_)) {
                     int indexParLeft_ = _string.indexOf(PAR_LEFT,j_+1);
                     if (indexParLeft_ < 0) {
                         _dout.setBadOffset(len_);
@@ -1610,7 +1608,7 @@ public final class ElResolver {
                     j_ = indexParRight_ + 1;
                     continue;
                 }
-                if (ContextEl.startsWithKeyWord(subAfter_, keyWordExplicit_)) {
+                if (StringExpUtil.startsWithKeyWord(_string,j_, keyWordExplicit_)) {
                     int indexParLeft_ = _string.indexOf(PAR_LEFT,j_+1);
                     if (indexParLeft_ < 0) {
                         _dout.setBadOffset(len_);

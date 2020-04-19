@@ -1,7 +1,6 @@
 package code.expressionlanguage.instr;
 
 import code.expressionlanguage.Analyzable;
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ExpPartDelimiters;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.options.KeyWords;
@@ -112,7 +111,7 @@ final class AfterUnaryParts {
         int firstPrintChar_ = del.getFirstPrintIndex();
         KeyWords keyWords_ = _conf.getKeyWords();
         String keyWordNew_ = keyWords_.getKeyWordNew();
-        if (ContextEl.startsWithKeyWord(_string.substring(firstPrintChar_), keyWordNew_)) {
+        if (StringExpUtil.startsWithKeyWord(_string,firstPrintChar_, keyWordNew_)) {
             instance = true;
         }
         if (_string.charAt(firstPrintChar_) == ANN_ARR_LEFT) {

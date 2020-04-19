@@ -2,7 +2,7 @@ package code.expressionlanguage.opers;
 
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.inherits.Mapping;
 import code.expressionlanguage.inherits.Templates;
@@ -49,14 +49,14 @@ public final class ForwardOperation extends LeafOperation implements PossibleInt
         String keyWordClasschoice_ = keyWords_.getKeyWordClasschoice();
         String trimMeth_ = originalStr_.trim();
         String kw_;
-        if (ContextEl.startsWithKeyWord(trimMeth_, keyWordSuper_)) {
+        if (StringExpUtil.startsWithKeyWord(trimMeth_, keyWordSuper_)) {
             kw_ = keyWordSuper_;
             staticChoiceMethod = true;
             accessFromSuper = true;
-        } else if (ContextEl.startsWithKeyWord(trimMeth_, keyWordThat_)) {
+        } else if (StringExpUtil.startsWithKeyWord(trimMeth_, keyWordThat_)) {
             kw_ = keyWordThat_;
             staticChoiceMethod = true;
-        } else if (ContextEl.startsWithKeyWord(trimMeth_, keyWordThisaccess_)) {
+        } else if (StringExpUtil.startsWithKeyWord(trimMeth_, keyWordThisaccess_)) {
             kw_ = keyWordThisaccess_;
             String className_ = trimMeth_.substring(0, trimMeth_.lastIndexOf(PAR_RIGHT));
             int lenPref_ = trimMeth_.indexOf(PAR_LEFT) + 1;
@@ -80,7 +80,7 @@ public final class ForwardOperation extends LeafOperation implements PossibleInt
                 _conf.addError(cast_);
             }
             accessSuperTypes = false;
-        } else if (ContextEl.startsWithKeyWord(trimMeth_, keyWordClasschoice_)) {
+        } else if (StringExpUtil.startsWithKeyWord(trimMeth_, keyWordClasschoice_)) {
             kw_ = keyWordClasschoice_;
             String className_ = trimMeth_.substring(0, trimMeth_.lastIndexOf(PAR_RIGHT));
             int lenPref_ = trimMeth_.indexOf(PAR_LEFT) + 1;

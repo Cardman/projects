@@ -9,6 +9,7 @@ import code.expressionlanguage.calls.PageEl;
 import code.expressionlanguage.calls.util.NotInitializedClass;
 import code.expressionlanguage.common.GeneMethod;
 import code.expressionlanguage.common.GeneType;
+import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.*;
 import code.expressionlanguage.errors.stds.StdErrorList;
 import code.expressionlanguage.errors.stds.StdWordError;
@@ -1001,7 +1002,7 @@ public final class Configuration implements ExecutableCode {
                 if (!i.contains(".")) {
                     continue;
                 }
-                if (!ContextEl.startsWithKeyWord(i.trim(), keyWordStatic_)) {
+                if (!StringExpUtil.startsWithKeyWord(i.trim(), keyWordStatic_)) {
                     continue;
                 }
                 String st_ = i.trim().substring(keyWordStatic_.length()).trim();
@@ -1026,7 +1027,7 @@ public final class Configuration implements ExecutableCode {
                 if (!i.contains(".")) {
                     continue;
                 }
-                if (!ContextEl.startsWithKeyWord(i.trim(), keyWordStatic_)) {
+                if (!StringExpUtil.startsWithKeyWord(i.trim(), keyWordStatic_)) {
                     continue;
                 }
                 String st_ = i.trim().substring(keyWordStatic_.length()).trim();
@@ -1085,7 +1086,7 @@ public final class Configuration implements ExecutableCode {
                 if (!i.contains(".")) {
                     continue;
                 }
-                if (!ContextEl.startsWithKeyWord(i.trim(), keyWordStatic_)) {
+                if (!StringExpUtil.startsWithKeyWord(i.trim(), keyWordStatic_)) {
                     continue;
                 }
                 String st_ = i.trim().substring(keyWordStatic_.length()).trim();
@@ -1110,7 +1111,7 @@ public final class Configuration implements ExecutableCode {
                 if (!i.contains(".")) {
                     continue;
                 }
-                if (!ContextEl.startsWithKeyWord(i.trim(), keyWordStatic_)) {
+                if (!StringExpUtil.startsWithKeyWord(i.trim(), keyWordStatic_)) {
                     continue;
                 }
                 String st_ = i.trim().substring(keyWordStatic_.length()).trim();
@@ -1183,7 +1184,7 @@ public final class Configuration implements ExecutableCode {
                 }
                 String beginImp_ = begin_;
                 String pre_ = "";
-                if (ContextEl.startsWithKeyWord(begin_, keyWordStatic_)) {
+                if (StringExpUtil.startsWithKeyWord(begin_, keyWordStatic_)) {
                     beginImp_ = beginImp_.substring(keyWordStatic_.length()).trim();
                     pre_ = keyWordStatic_;
                 }
@@ -1213,7 +1214,7 @@ public final class Configuration implements ExecutableCode {
                 String begin_ = ContextEl.removeDottedSpaces(i.substring(0, i.lastIndexOf('.')+1));
                 String beginImp_ = begin_;
                 String pre_ = "";
-                if (ContextEl.startsWithKeyWord(begin_, keyWordStatic_)) {
+                if (StringExpUtil.startsWithKeyWord(begin_, keyWordStatic_)) {
                     beginImp_ = beginImp_.substring(keyWordStatic_.length()).trim();
                     pre_ = keyWordStatic_;
                 }
@@ -1238,7 +1239,7 @@ public final class Configuration implements ExecutableCode {
     private String exist(String _type) {
         String typeFound_ = _type;
         String keyWordStatic_ = context.getKeyWords().getKeyWordStatic();
-        boolean stQualifier_ = ContextEl.startsWithKeyWord(_type, keyWordStatic_);
+        boolean stQualifier_ = StringExpUtil.startsWithKeyWord(_type, keyWordStatic_);
         if (stQualifier_) {
             typeFound_ = typeFound_.substring(keyWordStatic_.length()).trim();
         }
@@ -1402,7 +1403,7 @@ public final class Configuration implements ExecutableCode {
         String sub_ = _string.substring(_fr);
         int i_ = _fr;
         if (isInternGlobal()) {
-            if (ContextEl.startsWithKeyWord(sub_, keyWordIntern_)) {
+            if (StringExpUtil.startsWithKeyWord(sub_, keyWordIntern_)) {
                 int afterSuper_ = i_ + keyWordIntern_.length();
                 String trim_ = _string.substring(afterSuper_).trim();
                 if (trim_.startsWith(".")) {

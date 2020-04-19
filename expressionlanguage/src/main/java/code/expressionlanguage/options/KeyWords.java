@@ -1,6 +1,7 @@
 package code.expressionlanguage.options;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.AnalysisMessages;
 import code.expressionlanguage.errors.stds.ErrorCat;
 import code.expressionlanguage.errors.stds.StdWordError;
@@ -662,10 +663,9 @@ public final class KeyWords {
     }
     public String getNbKeyWord(String _string, int _from) {
         StringMap<String> keyWords_ = allNbWords(new StringMap<String>());
-        String sub_ = _string.substring(_from);
         StringList list_ = new StringList();
         for (String k: keyWords_.values()) {
-            if (ContextEl.startsWithKeyWord(sub_, k)) {
+            if (StringExpUtil.startsWithKeyWord(_string,_from, k)) {
                 list_.add(k);
             }
         }

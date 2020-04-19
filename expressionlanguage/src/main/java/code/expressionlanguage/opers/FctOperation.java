@@ -2,7 +2,7 @@ package code.expressionlanguage.opers;
 
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.inherits.Mapping;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
@@ -20,7 +20,6 @@ import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
-import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -83,14 +82,14 @@ public final class FctOperation extends InvokingOperation {
         String keyWordSuper_ = keyWords_.getKeyWordSuper();
         String keyWordThat_ = keyWords_.getKeyWordThat();
         String keyWordThisaccess_ = keyWords_.getKeyWordThisaccess();
-        if (ContextEl.startsWithKeyWord(trimMeth_, keyWordSuper_)) {
+        if (StringExpUtil.startsWithKeyWord(trimMeth_, keyWordSuper_)) {
             trimMeth_ = trimMeth_.substring(trimMeth_.indexOf('.')+1).trim();
             staticChoiceMethod_ = true;
             accessFromSuper_ = true;
-        } else if (ContextEl.startsWithKeyWord(trimMeth_, keyWordThat_)) {
+        } else if (StringExpUtil.startsWithKeyWord(trimMeth_, keyWordThat_)) {
             trimMeth_ = trimMeth_.substring(trimMeth_.indexOf('.')+1).trim();
             staticChoiceMethod_ = true;
-        } else if (ContextEl.startsWithKeyWord(trimMeth_, keyWordThisaccess_)) {
+        } else if (StringExpUtil.startsWithKeyWord(trimMeth_, keyWordThisaccess_)) {
             String className_ = trimMeth_.substring(0, trimMeth_.lastIndexOf(PAR_RIGHT));
             int lenPref_ = trimMeth_.indexOf(PAR_LEFT) + 1;
             className_ = className_.substring(lenPref_);
@@ -208,13 +207,13 @@ public final class FctOperation extends InvokingOperation {
         String keyWordThat_ = keyWords_.getKeyWordThat();
         String keyWordThisaccess_ = keyWords_.getKeyWordThisaccess();
         int delta_ = 0;
-        if (ContextEl.startsWithKeyWord(trimMeth_, keyWordSuper_)) {
+        if (StringExpUtil.startsWithKeyWord(trimMeth_, keyWordSuper_)) {
             delta_ = trimMeth_.indexOf('.')+1;
             delta_ += StringList.getFirstPrintableCharIndex(trimMeth_.substring(delta_));
-        } else if (ContextEl.startsWithKeyWord(trimMeth_, keyWordThat_)) {
+        } else if (StringExpUtil.startsWithKeyWord(trimMeth_, keyWordThat_)) {
             delta_ = trimMeth_.indexOf('.')+1;
             delta_ += StringList.getFirstPrintableCharIndex(trimMeth_.substring(delta_));
-        } else if (ContextEl.startsWithKeyWord(trimMeth_, keyWordThisaccess_)) {
+        } else if (StringExpUtil.startsWithKeyWord(trimMeth_, keyWordThisaccess_)) {
             delta_ = trimMeth_.lastIndexOf(PAR_RIGHT) + 1;
             delta_ += StringList.getFirstPrintableCharIndex(trimMeth_.substring(delta_));
         }

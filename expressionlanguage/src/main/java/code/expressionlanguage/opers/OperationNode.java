@@ -138,117 +138,7 @@ public abstract class OperationNode implements Operable {
             return new BadInstancingOperation(_index, _indexChild, _m, _op);
         }
         if (_op.getOperators().isEmpty()) {
-            String originalStr_ = _op.getValues().getValue(CustList.FIRST_INDEX);
-            String str_ = originalStr_.trim();
-            if (ct_ == ConstType.CHARACTER) {
-                return new ConstantOperation(_index, _indexChild, _m, _op);
-            }
-            if (ct_ == ConstType.STRING) {
-                return new ConstantOperation(_index, _indexChild, _m, _op);
-            }
-            if (ct_ == ConstType.SIMPLE_ANNOTATION) {
-                return new AnnotationInstanceOperation(_index, _indexChild, _m, _op);
-            }
-            if (ct_ == ConstType.STATIC_ACCESS) {
-                return new StaticAccessOperation(_index, _indexChild, _m, _op);
-            }
-            if (ct_ == ConstType.STATIC_CALL_ACCESS) {
-                return new StaticCallAccessOperation(_index, _indexChild, _m, _op);
-            }
-            if (ct_ == ConstType.VARARG) {
-                return new VarargOperation(_index, _indexChild, _m, _op);
-            }
-            if (ct_ == ConstType.DEFAULT_VALUE) {
-                return new DefaultValueOperation(_index, _indexChild, _m, _op);
-            }
-            if (ct_ == ConstType.ID) {
-                return new IdFctOperation(_index, _indexChild, _m, _op);
-            }
-            if (ct_ == ConstType.LAMBDA) {
-                return new LambdaOperation(_index, _indexChild, _m, _op);
-            }
-            if (ct_ == ConstType.CLASS_INFO) {
-                return new StaticInfoOperation(_index, _indexChild, _m, _op);
-            }
-            if (ct_ == ConstType.NUMBER) {
-                return new ConstantOperation(_index, _indexChild, _m, _op);
-            }
-            if (ct_ == ConstType.ACCESS_INDEXER) {
-                return new ForwardOperation(_index, _indexChild, _m, _op);
-            }
-            if (ct_ == ConstType.THIS_KEYWORD) {
-                return new ThisOperation(_index, _indexChild, _m, _op);
-            }
-            if (ct_ == ConstType.TRUE_CST) {
-                return new ConstantOperation(_index, _indexChild, _m, _op);
-            }
-            if (ct_ == ConstType.FALSE_CST) {
-                return new ConstantOperation(_index, _indexChild, _m, _op);
-            }
-            if (ct_ == ConstType.NULL_CST) {
-                return new ConstantOperation(_index, _indexChild, _m, _op);
-            }
-            if (ct_ == ConstType.CLASSCHOICE_KEYWORD) {
-                return new ChoiceFieldOperation(_index, _indexChild, _m, _op);
-            }
-            if (ct_ == ConstType.SUPER_ACCESS_KEYWORD) {
-                return new SuperFromFieldOperation(_index, _indexChild, _m, _op);
-            }
-            if (ct_ == ConstType.SUPER_KEYWORD) {
-                return new SuperFieldOperation(_index, _indexChild, _m, _op);
-            }
-            if (_an.isEnabledInternVars()) {
-                return new InternVariableOperation(_index, _indexChild, _m, _op);
-            }
-            if (ElUtil.isDeclaringLoopVariable(_m, _an)) {
-                return new MutableLoopVariableOperation(_index, _indexChild, _m, _op);
-            }
-            if (ElUtil.isDeclaringVariable(_m, _an)) {
-                return new VariableOperation(_index, _indexChild, _m, _op);
-            }
-            if (_m instanceof DotOperation) {
-                OperationNode ch_ = _m.getFirstChild();
-                if (ch_ != null) {
-                    if (ch_.getResultClass().isArray()) {
-                        return new ArrayFieldOperation(_index, _indexChild, _m, _op);
-                    }
-                    return new StandardFieldOperation(_index, _indexChild, _m, _op);
-                }
-            }
-            if (ct_ == ConstType.LOOP_INDEX) {
-                return new FinalVariableOperation(_index, _indexChild, _m, _op);
-            }
-            LocalVariable locParam_ = _an.getParameters().getVal(str_);
-            if (locParam_ != null) {
-                FunctionBlock fct_ = _an.getAnalyzing().getCurrentFct();
-                if (fct_ instanceof OverridableBlock) {
-                    OverridableBlock indexer_ = (OverridableBlock) fct_;
-                    if (indexer_.getKind() == MethodKind.SET_INDEX) {
-                        String keyWordValue_ = keyWords_.getKeyWordValue();
-                        if (StringList.quickEq(keyWordValue_, str_)) {
-                            return new ValueOperation(_index, _indexChild, _m, _op,locParam_.getClassName());
-                        }
-                    }
-                }
-                return new FinalVariableOperation(_index, _indexChild, _m, _op,locParam_.getClassName());
-            }
-            LocalVariable catchVar_ = _an.getCatchVar(str_);
-            if (catchVar_ != null) {
-                return new FinalVariableOperation(_index, _indexChild, _m, _op,catchVar_.getClassName());
-            }
-            LoopVariable mutVar_ = _an.getMutableLoopVar(str_);
-            if (mutVar_ != null) {
-                return new MutableLoopVariableOperation(_index, _indexChild, _m, _op, mutVar_.getClassName());
-            }
-            LocalVariable locVar_ = _an.getLocalVar(str_);
-            if (locVar_ != null) {
-                return new VariableOperation(_index, _indexChild, _m, _op, locVar_.getClassName());
-            }
-            LoopVariable lVar_ = _an.getVar(str_);
-            if (lVar_ != null) {
-                return new FinalVariableOperation(_index, _indexChild, _m, _op,lVar_.getClassName());
-            }
-            return new StandardFieldOperation(_index, _indexChild, _m, _op);
+            return createLeaf(_index, _indexChild, _m, _op, _an);
         }
         if (_op.getPriority() == ElResolver.DECL_PRIO) {
             return new DeclaringOperation(_index, _indexChild, _m, _op);
@@ -317,22 +207,22 @@ public abstract class OperationNode implements Operable {
             if (StringList.quickEq(fctName_, keyWordBool_)) {
                 return new BadTernaryOperation(_index, _indexChild, _m, _op);
             }
-            if (ContextEl.startsWithKeyWord(fctName_, keyWordClasschoice_)) {
+            if (StringExpUtil.startsWithKeyWord(fctName_, keyWordClasschoice_)) {
                 return new ChoiceFctOperation(_index, _indexChild, _m, _op);
             }
-            if (ContextEl.startsWithKeyWord(fctName_, keyWordSuperaccess_)) {
+            if (StringExpUtil.startsWithKeyWord(fctName_, keyWordSuperaccess_)) {
                 return new SuperFctOperation(_index, _indexChild, _m, _op);
             }
-            if (ContextEl.startsWithKeyWord(fctName_, keyWordInterfaces_)) {
+            if (StringExpUtil.startsWithKeyWord(fctName_, keyWordInterfaces_)) {
                 if (_m instanceof IdOperation) {
                     return new InterfaceFctConstructor(_index, _indexChild, _m, _op);
                 }
                 return new InterfaceInvokingConstructor(_index, _indexChild, _m, _op);
             }
-            if (ContextEl.startsWithKeyWord(fctName_, keyWordOperator_)) {
+            if (StringExpUtil.startsWithKeyWord(fctName_, keyWordOperator_)) {
                 return new ExplicitOperatorOperation(_index, _indexChild, _m, _op);
             }
-            if (ContextEl.startsWithKeyWord(fctName_, keyWordFirstopt_)) {
+            if (StringList.quickEq(fctName_, keyWordFirstopt_)) {
                 return new FirstOptOperation(_index, _indexChild, _m, _op);
             }
             if (StringList.quickEq(fctName_,keyWordThis_)) {
@@ -366,7 +256,7 @@ public abstract class OperationNode implements Operable {
             if (value_.startsWith(MINUS) || value_.startsWith(PLUS)) {
                 return new SemiAffectationOperation(_index, _indexChild, _m, _op, false);
             }
-            if (ContextEl.startsWithKeyWord(value_, _an.getKeyWords().getKeyWordExplicit())) {
+            if (StringExpUtil.startsWithKeyWord(value_, _an.getKeyWords().getKeyWordExplicit())) {
                 return new ExplicitOperation(_index, _indexChild, _m, _op);
             }
             return new CastOperation(_index, _indexChild, _m, _op);
@@ -432,6 +322,122 @@ public abstract class OperationNode implements Operable {
             return new AffectationOperation(_index, _indexChild, _m, _op);
         }
         return new ErrorPartOperation(_index, _indexChild, _m, _op);
+    }
+
+    private static OperationNode createLeaf(int _index, int _indexChild, MethodOperation _m, OperationsSequence _op, Analyzable _an) {
+        KeyWords keyWords_ = _an.getKeyWords();
+        ConstType ct_ = _op.getConstType();
+        String originalStr_ = _op.getValues().getValue(CustList.FIRST_INDEX);
+        String str_ = originalStr_.trim();
+        if (ct_ == ConstType.CHARACTER) {
+            return new ConstantOperation(_index, _indexChild, _m, _op);
+        }
+        if (ct_ == ConstType.STRING) {
+            return new ConstantOperation(_index, _indexChild, _m, _op);
+        }
+        if (ct_ == ConstType.SIMPLE_ANNOTATION) {
+            return new AnnotationInstanceOperation(_index, _indexChild, _m, _op);
+        }
+        if (ct_ == ConstType.STATIC_ACCESS) {
+            return new StaticAccessOperation(_index, _indexChild, _m, _op);
+        }
+        if (ct_ == ConstType.STATIC_CALL_ACCESS) {
+            return new StaticCallAccessOperation(_index, _indexChild, _m, _op);
+        }
+        if (ct_ == ConstType.VARARG) {
+            return new VarargOperation(_index, _indexChild, _m, _op);
+        }
+        if (ct_ == ConstType.DEFAULT_VALUE) {
+            return new DefaultValueOperation(_index, _indexChild, _m, _op);
+        }
+        if (ct_ == ConstType.ID) {
+            return new IdFctOperation(_index, _indexChild, _m, _op);
+        }
+        if (ct_ == ConstType.LAMBDA) {
+            return new LambdaOperation(_index, _indexChild, _m, _op);
+        }
+        if (ct_ == ConstType.CLASS_INFO) {
+            return new StaticInfoOperation(_index, _indexChild, _m, _op);
+        }
+        if (ct_ == ConstType.NUMBER) {
+            return new ConstantOperation(_index, _indexChild, _m, _op);
+        }
+        if (ct_ == ConstType.ACCESS_INDEXER) {
+            return new ForwardOperation(_index, _indexChild, _m, _op);
+        }
+        if (ct_ == ConstType.THIS_KEYWORD) {
+            return new ThisOperation(_index, _indexChild, _m, _op);
+        }
+        if (ct_ == ConstType.TRUE_CST) {
+            return new ConstantOperation(_index, _indexChild, _m, _op);
+        }
+        if (ct_ == ConstType.FALSE_CST) {
+            return new ConstantOperation(_index, _indexChild, _m, _op);
+        }
+        if (ct_ == ConstType.NULL_CST) {
+            return new ConstantOperation(_index, _indexChild, _m, _op);
+        }
+        if (ct_ == ConstType.CLASSCHOICE_KEYWORD) {
+            return new ChoiceFieldOperation(_index, _indexChild, _m, _op);
+        }
+        if (ct_ == ConstType.SUPER_ACCESS_KEYWORD) {
+            return new SuperFromFieldOperation(_index, _indexChild, _m, _op);
+        }
+        if (ct_ == ConstType.SUPER_KEYWORD) {
+            return new SuperFieldOperation(_index, _indexChild, _m, _op);
+        }
+        if (_an.isEnabledInternVars()) {
+            return new InternVariableOperation(_index, _indexChild, _m, _op);
+        }
+        if (ElUtil.isDeclaringLoopVariable(_m, _an)) {
+            return new MutableLoopVariableOperation(_index, _indexChild, _m, _op);
+        }
+        if (ElUtil.isDeclaringVariable(_m, _an)) {
+            return new VariableOperation(_index, _indexChild, _m, _op);
+        }
+        if (_m instanceof DotOperation) {
+            OperationNode ch_ = _m.getFirstChild();
+            if (ch_ != null) {
+                if (ch_.getResultClass().isArray()) {
+                    return new ArrayFieldOperation(_index, _indexChild, _m, _op);
+                }
+                return new StandardFieldOperation(_index, _indexChild, _m, _op);
+            }
+        }
+        if (ct_ == ConstType.LOOP_INDEX) {
+            return new FinalVariableOperation(_index, _indexChild, _m, _op);
+        }
+        LocalVariable locParam_ = _an.getParameters().getVal(str_);
+        if (locParam_ != null) {
+            FunctionBlock fct_ = _an.getAnalyzing().getCurrentFct();
+            if (fct_ instanceof OverridableBlock) {
+                OverridableBlock indexer_ = (OverridableBlock) fct_;
+                if (indexer_.getKind() == MethodKind.SET_INDEX) {
+                    String keyWordValue_ = keyWords_.getKeyWordValue();
+                    if (StringList.quickEq(keyWordValue_, str_)) {
+                        return new ValueOperation(_index, _indexChild, _m, _op,locParam_.getClassName());
+                    }
+                }
+            }
+            return new FinalVariableOperation(_index, _indexChild, _m, _op,locParam_.getClassName());
+        }
+        LocalVariable catchVar_ = _an.getCatchVar(str_);
+        if (catchVar_ != null) {
+            return new FinalVariableOperation(_index, _indexChild, _m, _op,catchVar_.getClassName());
+        }
+        LoopVariable mutVar_ = _an.getMutableLoopVar(str_);
+        if (mutVar_ != null) {
+            return new MutableLoopVariableOperation(_index, _indexChild, _m, _op, mutVar_.getClassName());
+        }
+        LocalVariable locVar_ = _an.getLocalVar(str_);
+        if (locVar_ != null) {
+            return new VariableOperation(_index, _indexChild, _m, _op, locVar_.getClassName());
+        }
+        LoopVariable lVar_ = _an.getVar(str_);
+        if (lVar_ != null) {
+            return new FinalVariableOperation(_index, _indexChild, _m, _op,lVar_.getClassName());
+        }
+        return new StandardFieldOperation(_index, _indexChild, _m, _op);
     }
 
     static void checkClassAccess(Analyzable _conf, String _glClass, String _classStr) {
