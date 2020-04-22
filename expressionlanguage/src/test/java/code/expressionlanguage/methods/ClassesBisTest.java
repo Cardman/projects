@@ -191,6 +191,19 @@ public final class ClassesBisTest {
         assertTrue(!cont_.isEmptyErrors());
     }
     @Test
+    public void validateEl21FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public ExTwo(){($this());}\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = ProcessMethodCommon.contextElDefault();
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.isEmptyErrors());
+    }
+    @Test
     public void resolve12Test() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;

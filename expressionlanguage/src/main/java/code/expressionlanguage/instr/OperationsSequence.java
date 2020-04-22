@@ -26,6 +26,7 @@ public final class OperationsSequence {
 
     private int offset;
     private int delta;
+    private boolean errorDot;
 
     private boolean instanceTest;
 
@@ -347,5 +348,13 @@ public final class OperationsSequence {
 
     public void setDelta(int _delta) {
         delta = _delta;
+    }
+
+    public boolean isErrorDot() {
+        return errorDot;
+    }
+
+    public void setErrorDot(boolean _errorDot) {
+        errorDot = _errorDot;
     }
 }

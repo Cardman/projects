@@ -2391,6 +2391,7 @@ public final class ElResolver {
         op_.setOperators(operators_);
         op_.setLeftParFirstOperator(leftParFirstOperator_);
         op_.setFctName(fctName_);
+        op_.setErrorDot(af_.isErrorDot());
         op_.setupValues(_string, is_, instance_, laterIndexesDouble_);
         String extracted_ = af_.getExtracted();
         op_.setExtractType(extracted_);

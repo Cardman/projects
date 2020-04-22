@@ -62,6 +62,7 @@ final class AfterUnaryParts {
     private String fctName = EMPTY_STRING;
     private boolean enabledId = false;
     private boolean instance;
+    private boolean errorDot;
     private final Ints laterIndexesDouble = new Ints();
     private final ExpPartDelimiters del;
 
@@ -139,6 +140,7 @@ final class AfterUnaryParts {
                 } else if (enabledId) {
                     instance = false;
                     operators.clear();
+                    errorDot = true;
                     operators.put(index, EMPTY_STRING);
                 }
             }
@@ -184,7 +186,8 @@ final class AfterUnaryParts {
                     } else {
                         fctName = EMPTY_STRING;
                         operators.clear();
-                        addOperIfBegin(operators, index, firstPrintChar_, ANN_ARR);
+                        operators.put(index,EMPTY_STRING);
+                        errorDot = true;
                     }
                 }
             }
@@ -564,6 +567,11 @@ final class AfterUnaryParts {
         boolean andOr_ = isAndOrChar(_curChar);
         return andOr_ && _nextChar == _curChar;
     }
+
+    boolean isErrorDot() {
+        return errorDot;
+    }
+
     int getIndex() {
         return index;
     }
