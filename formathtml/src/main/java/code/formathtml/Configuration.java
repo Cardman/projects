@@ -947,7 +947,7 @@ public final class Configuration implements ExecutableCode {
         AccessingImportingBlock a_ = getAccessingImportingBlock(r_, root_);
         String resType_;
         if (_exact) {
-            resType_ = PartTypeUtil.processAnalyze(_in, gl_, this, a_,r_, "",0,new CustList<PartOffset>());
+            resType_ = PartTypeUtil.processAnalyze(_in, false,gl_, this, a_,r_, "",0,new CustList<PartOffset>());
         } else {
             resType_ = PartTypeUtil.processAnalyzeLine(_in, gl_, this, a_,r_, "",0,new CustList<PartOffset>());
         }

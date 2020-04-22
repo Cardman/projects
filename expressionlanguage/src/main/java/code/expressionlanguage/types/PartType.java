@@ -3,7 +3,6 @@ package code.expressionlanguage.types;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.methods.AccessingImportingBlock;
-import code.expressionlanguage.options.Options;
 import code.util.CustList;
 import code.util.*;
 import code.util.StringList;
@@ -24,7 +23,7 @@ abstract class PartType {
         index = _index;
         indexInType = _indexInType;
     }
-    static PartType createPartType(Analyzable _an, ParentPartType _parent, int _index, int _indexInType, AnalyzingType _analyze, IntTreeMap<String> _dels) {
+    static PartType createPartType(Analyzable _an, boolean _rootName,ParentPartType _parent, int _index, int _indexInType, AnalyzingType _analyze, IntTreeMap<String> _dels) {
         if (_analyze.isError()) {
             return new EmptyPartType(_parent, _index, _indexInType, _dels.getValue(_index));
         }
@@ -33,7 +32,7 @@ abstract class PartType {
                 String type_ = _dels.getValue(_index);
                 type_ = ContextEl.removeDottedSpaces(type_);
                 boolean okVarType_ = false;
-                if (_parent == null || _parent instanceof ArraryPartType || _parent instanceof WildCardPartType) {
+                if (_parent == null && !_rootName || _parent instanceof ArraryPartType || _parent instanceof WildCardPartType) {
                     okVarType_ = true;
                 } else if (_parent instanceof TemplatePartType && _parent.getFirstChild() != null) {
                     okVarType_ = true;

@@ -1269,7 +1269,7 @@ public abstract class ContextEl implements ExecutableCode {
         String gl_ = getGlobalClass();
         String resType_;
         if (_exact) {
-            resType_ = PartTypeUtil.processAnalyze(tr_, gl_, this, r_,r_,curr_,rc_,partOffsets_);
+            resType_ = PartTypeUtil.processAnalyze(tr_, false,gl_, this, r_,r_,curr_,rc_,partOffsets_);
         } else {
             resType_ = PartTypeUtil.processAnalyzeLine(tr_, gl_, this,r_,r_,curr_,rc_,partOffsets_);
         }
@@ -1391,7 +1391,7 @@ public abstract class ContextEl implements ExecutableCode {
         int rc_ = getCurrentLocationIndex() + _loc;
         String resType_;
         if (_exact) {
-            resType_ = PartTypeUtil.processAnalyze(_in, gl_, this, r_,r_,curr_,rc_,partOffsets_);
+            resType_ = PartTypeUtil.processAnalyze(_in, false,gl_, this, r_,r_,curr_,rc_,partOffsets_);
         } else {
             resType_ = PartTypeUtil.processAnalyzeLine(_in, gl_, this, r_,r_,curr_,rc_,partOffsets_);
         }
@@ -1432,7 +1432,7 @@ public abstract class ContextEl implements ExecutableCode {
         String gl_ = _currentBlock.getGenericString();
         CustList<PartOffset> partOffsets_ = coverage.getCurrentParts();
         String curr_ = _currentBlock.getFile().getRenderFileName();
-        String resType_ = PartTypeUtil.processAnalyze(_in, gl_, this, _currentBlock,_currentBlock,curr_,_location,partOffsets_);
+        String resType_ = PartTypeUtil.processAnalyze(_in, false,gl_, this, _currentBlock,_currentBlock,curr_,_location,partOffsets_);
         if (resType_.trim().isEmpty()) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(_currentBlock.getFile().getFileName());
@@ -1460,7 +1460,7 @@ public abstract class ContextEl implements ExecutableCode {
         String gl_ = _currentBlock.getGenericString();
         CustList<PartOffset> partOffsets_ = _currentBlock.getSuperTypesParts();
         String curr_ = _currentBlock.getFile().getRenderFileName();
-        String resType_ = PartTypeUtil.processAnalyze(_in,gl_,this,_currentBlock,_currentBlock, curr_,_location,partOffsets_);
+        String resType_ = PartTypeUtil.processAnalyze(_in,true,gl_,this,_currentBlock,_currentBlock, curr_,_location,partOffsets_);
         if (resType_.trim().isEmpty()) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(_currentBlock.getFile().getFileName());
