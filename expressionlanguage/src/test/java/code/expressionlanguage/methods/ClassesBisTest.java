@@ -204,6 +204,49 @@ public final class ClassesBisTest {
         assertTrue(!cont_.isEmptyErrors());
     }
     @Test
+    public void validateEl22FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo:ExThree<> {\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExThree {\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = ProcessMethodCommon.contextElDefault();
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.isEmptyErrors());
+    }
+    @Test
+    public void validateEl23FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $int v = ($int)(pkgtwo.ExThree)$null;\n");
+        xml_.append("}\n");
+        xml_.append("$class pkgtwo.ExThree {\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = ProcessMethodCommon.contextElDefault();
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.isEmptyErrors());
+    }
+    @Test
+    public void validateEl24FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo<T:pkgtwo.ExThree> {\n");
+        xml_.append("}\n");
+        xml_.append("$class pkgtwo.ExThree {\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = ProcessMethodCommon.contextElDefault();
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.isEmptyErrors());
+    }
+    @Test
     public void resolve12Test() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;

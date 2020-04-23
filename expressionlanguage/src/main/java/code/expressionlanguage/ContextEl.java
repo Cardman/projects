@@ -19,7 +19,10 @@ import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
+import code.expressionlanguage.types.AlwaysReadyTypes;
+import code.expressionlanguage.types.InheritReadyTypes;
 import code.expressionlanguage.types.PartTypeUtil;
+import code.expressionlanguage.types.ReadyTypes;
 import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.LoopVariable;
 import code.util.*;
@@ -1097,7 +1100,7 @@ public abstract class ContextEl implements ExecutableCode {
         partOffsets_.clear();
         RootBlock b_ = classes.getClassBody(res_);
         if (b_ == null) {
-            String id_ = lookupImportType(base_,r_,true);
+            String id_ = lookupImportType(base_,r_, new AlwaysReadyTypes());
             if (id_.isEmpty()) {
                 FoundErrorInterpret undef_;
                 undef_ = new FoundErrorInterpret();
@@ -1151,7 +1154,7 @@ public abstract class ContextEl implements ExecutableCode {
         String curr_ = ((Block)r_).getFile().getRenderFileName();
         CustList<PartOffset> offs_ = coverage.getCurrentParts();
         offs_.clear();
-        return PartTypeUtil.processAnalyzeLine(_in,gl_,this,r_,r_,curr_,rc_, offs_);
+        return PartTypeUtil.processAnalyzeLine(_in,new AlwaysReadyTypes(),false,gl_,this,r_,r_,curr_,rc_, offs_);
     }
 
     @Override
@@ -1268,10 +1271,20 @@ public abstract class ContextEl implements ExecutableCode {
         partOffsets_.clear();
         String gl_ = getGlobalClass();
         String resType_;
+        getCurrentBadIndexes().clear();
         if (_exact) {
             resType_ = PartTypeUtil.processAnalyze(tr_, false,gl_, this, r_,r_,curr_,rc_,partOffsets_);
         } else {
-            resType_ = PartTypeUtil.processAnalyzeLine(tr_, gl_, this,r_,r_,curr_,rc_,partOffsets_);
+            resType_ = PartTypeUtil.processAnalyzeLine(tr_,new AlwaysReadyTypes(),false, gl_, this,r_,r_,curr_,rc_,partOffsets_);
+        }
+        for (int i: getCurrentBadIndexes()) {
+            FoundErrorInterpret un_ = new FoundErrorInterpret();
+            un_.setFileName(bl_.getFile().getFileName());
+            un_.setIndexFile(rc_+i);
+            //part len
+            un_.buildError(getAnalysisMessages().getInaccessibleType(),
+                    resType_,gl_);
+            addError(un_);
         }
         if (resType_.trim().isEmpty()) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
@@ -1389,13 +1402,18 @@ public abstract class ContextEl implements ExecutableCode {
         partOffsets_.clear();
         String gl_ = getGlobalClass();
         int rc_ = getCurrentLocationIndex() + _loc;
+        getCurrentBadIndexes().clear();
         String resType_;
         if (_exact) {
             resType_ = PartTypeUtil.processAnalyze(_in, false,gl_, this, r_,r_,curr_,rc_,partOffsets_);
         } else {
-            resType_ = PartTypeUtil.processAnalyzeLine(_in, gl_, this, r_,r_,curr_,rc_,partOffsets_);
+            resType_ = PartTypeUtil.processAnalyzeLine(_in, new AlwaysReadyTypes(),false,gl_, this, r_,r_,curr_,rc_,partOffsets_);
         }
         if (resType_.trim().isEmpty()) {
+            partOffsets_.clear();
+            return EMPTY_TYPE;
+        }
+        if (!getCurrentBadIndexes().isEmpty()) {
             partOffsets_.clear();
             return EMPTY_TYPE;
         }
@@ -1432,7 +1450,17 @@ public abstract class ContextEl implements ExecutableCode {
         String gl_ = _currentBlock.getGenericString();
         CustList<PartOffset> partOffsets_ = coverage.getCurrentParts();
         String curr_ = _currentBlock.getFile().getRenderFileName();
+        getCurrentBadIndexes().clear();
         String resType_ = PartTypeUtil.processAnalyze(_in, false,gl_, this, _currentBlock,_currentBlock,curr_,_location,partOffsets_);
+        for (int i: getCurrentBadIndexes()) {
+            FoundErrorInterpret un_ = new FoundErrorInterpret();
+            un_.setFileName(_currentBlock.getFile().getFileName());
+            un_.setIndexFile(_location+i);
+            //part len
+            un_.buildError(getAnalysisMessages().getInaccessibleType(),
+                    resType_,gl_);
+            addError(un_);
+        }
         if (resType_.trim().isEmpty()) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(_currentBlock.getFile().getFileName());
@@ -1460,7 +1488,18 @@ public abstract class ContextEl implements ExecutableCode {
         String gl_ = _currentBlock.getGenericString();
         CustList<PartOffset> partOffsets_ = _currentBlock.getSuperTypesParts();
         String curr_ = _currentBlock.getFile().getRenderFileName();
-        String resType_ = PartTypeUtil.processAnalyze(_in,true,gl_,this,_currentBlock,_currentBlock, curr_,_location,partOffsets_);
+        RootBlock scope_ = _currentBlock.getParentType();
+        getCurrentBadIndexes().clear();
+        String resType_ = PartTypeUtil.processAnalyze(_in,true,gl_,this,scope_,_currentBlock, curr_,_location,partOffsets_);
+        for (int i: getCurrentBadIndexes()) {
+            FoundErrorInterpret un_ = new FoundErrorInterpret();
+            un_.setFileName(_currentBlock.getFile().getFileName());
+            un_.setIndexFile(_location+i);
+            //part len
+            un_.buildError(getAnalysisMessages().getInaccessibleType(),
+                    resType_,gl_);
+            addError(un_);
+        }
         if (resType_.trim().isEmpty()) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(_currentBlock.getFile().getFileName());
@@ -1497,25 +1536,22 @@ public abstract class ContextEl implements ExecutableCode {
     }
 
     @Override
-    public String lookupImportMemberType(String _type, AccessingImportingBlock _rooted, boolean _inherits, StringList _readTypes) {
+    public String lookupImportType(String _type, AccessingImportingBlock _rooted, ReadyTypes _ready) {
         String prefixedType_;
-        prefixedType_ = getRealSinglePrefixedMemberType(_type, _rooted,_inherits,_readTypes);
-        return prefixedType_;
-    }
-
-    @Override
-    public String lookupImportType(String _type, AccessingImportingBlock _rooted, boolean _line) {
-        String prefixedType_;
-        prefixedType_ = getRealSinglePrefixedMemberType(_type, _rooted,false,new StringList());
+        prefixedType_ = getRealSinglePrefixedMemberType(_type, _rooted,_ready);
         return prefixedType_;
     }
 
     public String resolveBaseInherits(String _idSup, RootBlock _root, StringList _readyTypes) {
         String id_ = Templates.getIdFromAllTypes(_idSup);
-        return PartTypeUtil.processAnalyzeInherits(id_,this,_root,_readyTypes);
+        String gl_ = _root.getGenericString();
+        CustList<PartOffset> partOffsets_ = new CustList<PartOffset>();
+        RootBlock scope_ = _root.getParentType();
+        InheritReadyTypes inh_ = new InheritReadyTypes(_readyTypes);
+        return PartTypeUtil.processAnalyzeLine(id_, inh_,true,gl_,this,scope_,_root,"",-1,partOffsets_);
     }
 
-    private String getRealSinglePrefixedMemberType(String _type, AccessingImportingBlock _rooted, boolean _inherits, StringList _readTypes) {
+    private String getRealSinglePrefixedMemberType(String _type, AccessingImportingBlock _rooted, ReadyTypes _ready) {
         String look_ = _type.trim();
         StringList types_ = new StringList();
         CustList<StringList> imports_ = new CustList<StringList>();
@@ -1530,7 +1566,7 @@ public abstract class ContextEl implements ExecutableCode {
                 if (!StringList.quickEq(end_, look_)) {
                     continue;
                 }
-                if (stopLookup(types_,tr_,look_,_inherits,_readTypes)) {
+                if (stopLookup(types_,tr_,look_,_ready)) {
                     return EMPTY_TYPE;
                 }
             }
@@ -1558,7 +1594,7 @@ public abstract class ContextEl implements ExecutableCode {
                 if (!StringList.quickEq(end_, "*")) {
                     continue;
                 }
-                if (stopLookup(types_,tr_,look_,_inherits,_readTypes)) {
+                if (stopLookup(types_,tr_,look_,_ready)) {
                     return EMPTY_TYPE;
                 }
             }
@@ -1577,7 +1613,7 @@ public abstract class ContextEl implements ExecutableCode {
         return EMPTY_TYPE;
     }
 
-    private boolean stopLookup(StringList _types, String _import, String _look, boolean _inherits, StringList _readTypes) {
+    private boolean stopLookup(StringList _types, String _import, String _look, ReadyTypes _ready) {
         String beginImp_ = removeDottedSpaces(_import.substring(0, _import.lastIndexOf('.')+1));
         String keyWordStatic_ = keyWords.getKeyWordStatic();
         boolean stQualifier_ = false;
@@ -1595,7 +1631,7 @@ public abstract class ContextEl implements ExecutableCode {
         if (cl_ != null) {
             for (String i: allInnerTypes_.mid(1)) {
                 String i_ = i.trim();
-                if (_inherits && !StringList.contains(_readTypes,res_)) {
+                if (!_ready.isReady(res_)) {
                     return true;
                 }
                 StringList builtInners_ = TypeUtil.getInners(res_, i_, stQualifier_, this);

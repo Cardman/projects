@@ -105,7 +105,7 @@ abstract class PartType {
         return new WildCardPartType(_parent, _index, _indexInType, _analyze.getOperators().firstValue());
     }
     abstract void analyze(Analyzable _an, CustList<IntTreeMap< String>> _dels, String _globalType, AccessingImportingBlock _local,AccessingImportingBlock _rooted);
-    abstract void analyzeLine(Analyzable _an, CustList<IntTreeMap< String>> _dels, String _globalType, AccessingImportingBlock _local,AccessingImportingBlock _rooted);
+    abstract void analyzeLine(Analyzable _an, ReadyTypes _ready,CustList<IntTreeMap< String>> _dels, String _globalType, AccessingImportingBlock _local,AccessingImportingBlock _rooted);
 
     abstract void analyzeAccessibleId(Analyzable _an, CustList<IntTreeMap< String>>_dels, AccessingImportingBlock _rooted);
     abstract void analyzeTemplate(Analyzable _an, CustList<IntTreeMap<String>> _dels, StringMap<StringList> _inherit);

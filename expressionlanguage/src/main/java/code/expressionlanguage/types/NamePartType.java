@@ -13,140 +13,54 @@ final class NamePartType extends LeafPartType {
     NamePartType(ParentPartType _parent, int _index, int _indexInType, String _type) {
         super(_parent, _index, _indexInType, _type);
     }
-    void analyzeInheritsLine(ContextEl _an, RootBlock _local, StringList _readyTypes) {
-        String type_ = getTypeName();
-        type_ = ContextEl.removeDottedSpaces(type_);
-        PartType last_ = getPreviousSibling();
-        if (last_ != null) {
-            String owner_ = last_.getAnalyzedType();
-            if (!StringList.contains(_readyTypes, owner_)) {
-                return;
-            }
-            StringList foundOwners_ = TypeUtil.getOwners(owner_, type_, _an);
-            if (foundOwners_.onlyOneElt()) {
-                String new_ = foundOwners_.first();
-                setAnalyzedType(StringList.concat(new_,"..",type_));
-            }
-            return;
-        }
-        String id_ = Templates.getIdFromAllTypes(type_);
-        RootBlock root_ = _an.getClasses().getClassBody(id_);
-        if (root_ != null) {
-            setAnalyzedType(type_);
-            return;
-        }
-        StringList allAncestors_ = new StringList();
-        RootBlock p_ = _local.getParentType();
-        while (p_ != null) {
-            allAncestors_.add(p_.getFullName());
-            p_ = p_.getParentType();
-        }
-        for (String a: allAncestors_) {
-            if (!StringList.contains(_readyTypes, a)) {
-                return;
-            }
-            StringList owners_ = TypeUtil.getOwners(a, type_, _an);
-            if (owners_.isEmpty()) {
-                continue;
-            }
-            if (owners_.onlyOneElt()) {
-                String new_ = owners_.first();
-                setAnalyzedType(StringList.concat(new_,"..",type_));
-            }
-            return;
-        }
-        String typeTr_ = getTypeName().trim();
-        String res_ = _an.lookupImportMemberType(typeTr_, _local, true, _readyTypes);
-        if (!res_.isEmpty()) {
-            setAnalyzedType(res_);
-        }
-    }
+
     @Override
     void analyze(Analyzable _an, CustList<IntTreeMap< String>> _dels, String _globalType, AccessingImportingBlock _local,AccessingImportingBlock _rooted) {
-        CustList<PartType> previous_ = new CustList<PartType>();
-        InnerPartType i_ = null;
-        PartType parCur_ = null;
-        if (getParent() instanceof InnerPartType) {
-            parCur_ = this;
-            i_ = (InnerPartType) getParent();
-        } else if (getParent() instanceof TemplatePartType && getParent().getParent() instanceof InnerPartType && getIndex() == 0) {
-            parCur_ = getParent();
-            i_ = (InnerPartType) getParent().getParent();
+        if (skipGenericInners(_an,_dels, _rooted)) {
+            return;
         }
-        if (i_ != null) {
-            PartType part_ = parCur_.getPreviousSibling();
-            while (part_ != null) {
-                previous_.add(part_);
-                part_ = part_.getPreviousSibling();
-            }
-        }
+        tryAnalyzeInnerParts(_an, _globalType, _local,_rooted);
+    }
+
+    private boolean skipGenericInners(Analyzable _an, CustList<IntTreeMap<String>> _dels, AccessingImportingBlock _rooted) {
+        PartType part_ = getPreviousPartType();
         String type_ = getTypeName();
         type_ = ContextEl.removeDottedSpaces(type_);
-        if (!previous_.isEmpty()) {
-            previous_ = previous_.getReverse();
-            PartType last_ = previous_.last();
-            String owner_ = last_.getAnalyzedType();
-            Classes classes_ = _an.getClasses();
-            StringList foundOwners_ = TypeUtil.getGenericOwners(owner_, type_, _an);
-            if (foundOwners_.onlyOneElt()) {
-                String idOwner_= Templates.getIdFromAllTypes(foundOwners_.first());
-                String in_ = StringList.concat(idOwner_,"..",type_);
-                RootBlock inner_ = classes_.getClassBody(in_);
-                if (inner_.isStaticType()) {
-                    setAnalyzedType(StringList.concat(idOwner_,"..",type_));
-                    checkAccess(_an,_rooted,owner_);
-                    return;
-                }
-                if (!Templates.correctNbParameters(owner_, _an)) {
-                    return;
-                }
-                String new_ = Templates.quickFormat(owner_, foundOwners_.first(), _an);
-                setAnalyzedType(StringList.concat(new_,"..",type_));
-                checkAccess(_an,_rooted,owner_);
-                return;
-            }
+        if (part_ != null) {
+            analyzeGenericOnwer(_an, _rooted, part_, type_);
+            return true;
+        }
+        return analyzeFull(_an, _dels, _rooted, type_);
+    }
+    private void analyzeGenericOnwer(Analyzable _an, AccessingImportingBlock _rooted, PartType _part, String _type) {
+        String owner_ = _part.getAnalyzedType();
+        Classes classes_ = _an.getClasses();
+        StringList foundOwners_ = TypeUtil.getGenericOwners(owner_, _type, _an);
+        if (!foundOwners_.onlyOneElt()) {
             return;
         }
-        String id_ = Templates.getIdFromAllTypes(type_);
-        RootBlock root_ = _an.getClasses().getClassBody(id_);
-        if (root_ != null) {
-            analyzeFullType(_an, _local, type_);
+        String idOwner_= Templates.getIdFromAllTypes(foundOwners_.first());
+        String in_ = StringList.concat(idOwner_,"..", _type);
+        RootBlock inner_ = classes_.getClassBody(in_);
+        if (inner_.isStaticType()) {
+            setAnalyzedType(StringList.concat(idOwner_,"..", _type));
+            checkAccess(_an,_rooted,owner_);
             return;
         }
-        if (_an.getStandards().getStandards().contains(type_)) {
-            setAnalyzedType(type_);
+        if (!Templates.correctNbParameters(owner_, _an)) {
             return;
         }
-        if (PrimitiveTypeUtil.isPrimitive(type_, _an)) {
-            setAnalyzedType(type_);
-            return;
-        }
-        if (processFctVoid(_an, _dels)) {
-            return;
-        }
-        tryAnalyzeInnerParts(_an, _globalType, _local,_rooted
-        );
+        String new_ = Templates.quickFormat(owner_, foundOwners_.first(), _an);
+        setAnalyzedType(StringList.concat(new_,"..", _type));
+        checkAccess(_an,_rooted,owner_);
     }
 
     @Override
     void analyzeTemplate(Analyzable _an, CustList<IntTreeMap<String>> _dels, StringMap<StringList> _inherit) {
-
-
-        InnerPartType i_ = null;
-        PartType parCur_ = null;
-        if (getParent() instanceof InnerPartType) {
-            parCur_ = this;
-            i_ = (InnerPartType) getParent();
-        } else if (getParent() instanceof TemplatePartType && getParent().getParent() instanceof InnerPartType && getIndex() == 0) {
-            parCur_ = getParent();
-            i_ = (InnerPartType) getParent().getParent();
-        }
         String type_ = getTypeName();
-        if (i_ != null) {
-            PartType part_ = parCur_.getPreviousSibling();
-            if (part_ != null) {
-                type_ = StringList.concat(part_.getAnalyzedType(), "..", type_);
-            }
+        PartType part_ = getPreviousPartType();
+        if (part_ != null) {
+            type_ = StringList.concat(part_.getAnalyzedType(), "..", type_);
         }
         if (_dels.isEmpty() || _dels.last().size() -1 == getIndex()) {
             if (!Templates.correctNbParameters(type_, _an)) {
@@ -162,57 +76,54 @@ final class NamePartType extends LeafPartType {
     }
 
     @Override
-    void analyzeLine(Analyzable _an, CustList<IntTreeMap< String>> _dels, String _globalType, AccessingImportingBlock _local,AccessingImportingBlock _rooted) {
-        CustList<PartType> previous_ = new CustList<PartType>();
-        InnerPartType i_ = null;
-        PartType parCur_ = null;
-        if (getParent() instanceof InnerPartType) {
-            parCur_ = this;
-            i_ = (InnerPartType) getParent();
-        } else if (getParent() instanceof TemplatePartType && getParent().getParent() instanceof InnerPartType && getIndex() == 0) {
-            parCur_ = getParent();
-            i_ = (InnerPartType) getParent().getParent();
+    void analyzeLine(Analyzable _an, ReadyTypes _ready,CustList<IntTreeMap< String>> _dels, String _globalType, AccessingImportingBlock _local,AccessingImportingBlock _rooted) {
+        if (skipInners(_an,_ready,_dels, _rooted)) {
+            return;
         }
-        if (i_ != null) {
-            PartType part_ = parCur_.getPreviousSibling();
-            while (part_ != null) {
-                previous_.add(part_);
-                part_ = part_.getPreviousSibling();
-            }
-        }
+        tryAnalyzeInnerPartsLine(_an, _ready,_local,_rooted);
+    }
+
+    private boolean skipInners(Analyzable _an, ReadyTypes _ready,CustList<IntTreeMap<String>> _dels, AccessingImportingBlock _rooted) {
+        PartType part_ = getPreviousPartType();
         String type_ = getTypeName();
         type_ = ContextEl.removeDottedSpaces(type_);
-        if (!previous_.isEmpty()) {
-            previous_ = previous_.getReverse();
-            PartType last_ = previous_.last();
-            String owner_ = last_.getAnalyzedType();
-            String id_ = Templates.getIdFromAllTypes(owner_);
-            StringList foundOwners_ = TypeUtil.getOwners(id_, type_, _an);
-            if (foundOwners_.onlyOneElt()) {
-                String new_ = foundOwners_.first();
-                setAnalyzedType(StringList.concat(new_,"..",type_));
-                checkAccess(_an,_rooted,id_);
-            }
-            return;
+        if (part_ != null) {
+            analyzeOnwer(_an, _ready,_rooted, part_, type_);
+            return true;
         }
-        String id_ = Templates.getIdFromAllTypes(type_);
+        return analyzeFull(_an, _dels, _rooted, type_);
+    }
+
+    private boolean analyzeFull(Analyzable _an, CustList<IntTreeMap<String>> _dels, AccessingImportingBlock _rooted, String _type) {
+        String id_ = Templates.getIdFromAllTypes(_type);
         RootBlock root_ = _an.getClasses().getClassBody(id_);
         if (root_ != null) {
-            analyzeFullType(_an, _local, type_);
+            analyzeFullType(_an, _rooted, _type);
+            return true;
+        }
+        if (_an.getStandards().getStandards().contains(_type)) {
+            setAnalyzedType(_type);
+            return true;
+        }
+        if (PrimitiveTypeUtil.isPrimitive(_type, _an)) {
+            setAnalyzedType(_type);
+            return true;
+        }
+        return processFctVoid(_an, _dels);
+    }
+
+    private void analyzeOnwer(Analyzable _an, ReadyTypes _ready,AccessingImportingBlock _rooted, PartType _part, String _type) {
+        String owner_ = _part.getAnalyzedType();
+        String id_ = Templates.getIdFromAllTypes(owner_);
+        if (!_ready.isReady(id_)) {
             return;
         }
-        if (_an.getStandards().getStandards().contains(type_)) {
-            setAnalyzedType(type_);
-            return;
+        StringList foundOwners_ = TypeUtil.getOwners(id_, _type, _an);
+        if (foundOwners_.onlyOneElt()) {
+            String new_ = foundOwners_.first();
+            setAnalyzedType(StringList.concat(new_,"..", _type));
+            checkAccess(_an,_rooted,id_);
         }
-        if (PrimitiveTypeUtil.isPrimitive(type_, _an)) {
-            setAnalyzedType(type_);
-            return;
-        }
-        if (processFctVoid(_an, _dels)) {
-            return;
-        }
-        tryAnalyzeInnerPartsLine(_an, _local,_rooted);
     }
 
     private boolean processFctVoid(Analyzable _an, CustList<IntTreeMap< String>> _dels) {
@@ -226,9 +137,7 @@ final class NamePartType extends LeafPartType {
             base_ = Templates.getIdFromAllTypes(base_);
             if (StringList.quickEq(base_.trim(), _an.getStandards().getAliasFct()) && _dels.last().size() == getIndex() + 1) {
                 setAnalyzedType(getTypeName().trim());
-                return true;
             }
-            _an.getCurrentBadIndexes().add(getIndexInType());
             return true;
         }
         return false;
@@ -237,163 +146,149 @@ final class NamePartType extends LeafPartType {
     private void tryAnalyzeInnerParts(Analyzable _an, String _globalType,
                                       AccessingImportingBlock _local,
                                       AccessingImportingBlock _rooted) {
-        String type_ = getTypeName().trim();
         if (_local instanceof RootBlock) {
-            RootBlock c = (RootBlock)_local;
-            StringList allAncestors_ = new StringList();
-            RootBlock p_ = c;
-            Classes classes_ = _an.getClasses();
-            while (p_ != null) {
-                allAncestors_.add(p_.getGenericString());
-                p_ = p_.getParentType();
-            }
-            for (String a: allAncestors_) {
-                StringList owners_ = TypeUtil.getGenericOwners(a, type_, _an);
-                if (owners_.isEmpty()) {
-                    continue;
-                }
-                if (owners_.onlyOneElt()) {
-                    String genStr_ = owners_.first();
-                    String id_ = Templates.getIdFromAllTypes(genStr_);
-                    String f_ = Templates.quickFormat(_globalType, a, _an);
-                    String in_ = StringList.concat(id_,"..",type_);
-                    RootBlock inner_ = classes_.getClassBody(in_);
-                    if (inner_.isStaticType()) {
-                        setAnalyzedType(StringList.concat(id_,"..",type_));
-                        checkAccess(_an,_rooted,a);
-                        return;
-                    }
-                    if (_an.isStaticAccess()) {
-                        return;
-                    }
-                    String new_ = Templates.quickFormat(f_, genStr_, _an);
-                    setAnalyzedType(StringList.concat(new_,"..",type_));
-                    checkAccess(_an,_rooted,a);
-                }
+            if (skipGenericImports(_an,_globalType, (RootBlock)_local,_rooted)) {
                 return;
             }
         }
-        lookupImports(_an, _local,_rooted, type_,false);
+        lookupImports(_an, _rooted, false, new AlwaysReadyTypes());
+    }
+    private boolean skipGenericImports(Analyzable _an, String _globalType,
+                                       RootBlock _local,
+                                       AccessingImportingBlock _rooted) {
+        String type_ = getTypeName().trim();
+        RootBlock p_ = _local;
+        Classes classes_ = _an.getClasses();
+        StringList allAncestors_ = new StringList();
+        while (p_ != null) {
+            allAncestors_.add(p_.getGenericString());
+            p_ = p_.getParentType();
+        }
+        for (String a: allAncestors_) {
+            StringList owners_ = TypeUtil.getGenericOwners(a, type_, _an);
+            if (owners_.isEmpty()) {
+                continue;
+            }
+            if (owners_.onlyOneElt()) {
+                String genStr_ = owners_.first();
+                String id_ = Templates.getIdFromAllTypes(genStr_);
+                String f_ = Templates.quickFormat(_globalType, a, _an);
+                String in_ = StringList.concat(id_,"..",type_);
+                RootBlock inner_ = classes_.getClassBody(in_);
+                if (inner_.isStaticType()) {
+                    setAnalyzedType(StringList.concat(id_,"..",type_));
+                    checkAccess(_an,_rooted,a);
+                    return true;
+                }
+                if (_an.isStaticAccess()) {
+                    return true;
+                }
+                String new_ = Templates.quickFormat(f_, genStr_, _an);
+                setAnalyzedType(StringList.concat(new_,"..",type_));
+                checkAccess(_an,_rooted,a);
+            }
+            return true;
+        }
+        return false;
     }
     private void tryAnalyzeInnerPartsLine(Analyzable _an,
+                                          ReadyTypes _ready,
                                           AccessingImportingBlock _local,
                                           AccessingImportingBlock _rooted) {
-        String type_ = getTypeName().trim();
         if (_local instanceof RootBlock) {
-            RootBlock c = (RootBlock)_local;
-            StringList allAncestors_ = new StringList();
-            RootBlock p_ = c;
-            while (p_ != null) {
-                allAncestors_.add(p_.getFullName());
-                p_ = p_.getParentType();
-            }
-            for (String a: allAncestors_) {
-                StringList owners_ = TypeUtil.getOwners(a, type_, _an);
-                if (owners_.isEmpty()) {
-                    continue;
-                }
-                if (owners_.onlyOneElt()) {
-                    String new_ = owners_.first();
-                    setAnalyzedType(StringList.concat(new_,"..",type_));
-                    checkAccess(_an,_rooted,a);
-                }
+            if (skipImports(_an,_ready,(RootBlock)_local,_rooted)) {
                 return;
             }
         }
-        lookupImports(_an, _local,_rooted, type_,true);
+        lookupImports(_an, _rooted, true,_ready);
     }
 
-    private void lookupImports(Analyzable _an, AccessingImportingBlock _local, AccessingImportingBlock _rooted, String _type, boolean _line) {
-        String res_ = _an.lookupImportMemberType(_type, _rooted, false, new StringList());
+    private boolean skipImports(Analyzable _an,
+                                ReadyTypes _ready,
+                                RootBlock _local,
+                                AccessingImportingBlock _rooted) {
+        String type_ = getTypeName().trim();
+        RootBlock p_ = _local;
+        StringList allAncestors_ = new StringList();
+        while (p_ != null) {
+            allAncestors_.add(p_.getFullName());
+            p_ = p_.getParentType();
+        }
+        for (String a: allAncestors_) {
+            if (!_ready.isReady(a)) {
+                return true;
+            }
+            StringList owners_ = TypeUtil.getOwners(a, type_, _an);
+            if (owners_.isEmpty()) {
+                continue;
+            }
+            if (owners_.onlyOneElt()) {
+                String new_ = owners_.first();
+                setAnalyzedType(StringList.concat(new_,"..",type_));
+                checkAccess(_an,_rooted,a);
+            }
+            return true;
+        }
+        return false;
+    }
+    private void lookupImports(Analyzable _an, AccessingImportingBlock _rooted, boolean _line, ReadyTypes _ready) {
+        String type_ = getTypeName().trim();
+        String res_ = _an.lookupImportType(type_, _rooted, _ready);
         if (!res_.isEmpty()) {
             if (!_line) {
                 if (_an.isStaticAccess()) {
                     if (!_an.getClassBody(res_).isStaticType()) {
-                        _an.getCurrentBadIndexes().add(getIndexInType());
                         return;
                     }
                 }
             }
             setAnalyzedType(res_);
-            checkAccess(_an,_local);
-            return;
+            checkAccess(_an,_rooted);
         }
-        _an.getCurrentBadIndexes().add(getIndexInType());
     }
 
-    private void checkAccess(Analyzable _an,AccessingImportingBlock _global) {
+    private void checkAccess(Analyzable _an, AccessingImportingBlock _global) {
         StringList parts_ = Templates.getAllInnerTypes(getAnalyzedType());
         String idFound_ = Templates.getIdFromAllTypes(parts_.first());
         StringBuilder id_ = new StringBuilder(idFound_);
         StringBuilder idOwner_ = new StringBuilder(idFound_);
-        if (checkAccess(_an,_global,idFound_,idFound_,false)) {
-            return;
-        }
+        checkAccess(_an,_global,idFound_,idFound_);
         int len_ = parts_.size();
         for (int i = 1; i < len_; i++) {
             idFound_ = Templates.getIdFromAllTypes(parts_.get(i));
             id_.append("..");
             id_.append(idFound_);
-            if (checkAccess(_an,_global,id_.toString(),idOwner_.toString(),true)) {
-                setAnalyzedType("");
-                return;
-            }
+            checkAccess(_an,_global,id_.toString(),idOwner_.toString());
             idOwner_.append("..");
             idOwner_.append(idFound_);
         }
     }
-    private void checkAccess(Analyzable _an,AccessingImportingBlock _global, String _owner) {
-        if (checkAccess(_an,_global,getAnalyzedType(),_owner,true)){
-            setAnalyzedType("");
-        }
+    private void checkAccess(Analyzable _an, AccessingImportingBlock _global, String _owner) {
+        checkAccess(_an,_global,getAnalyzedType(),_owner);
     }
-    private boolean checkAccess(Analyzable _an,AccessingImportingBlock _global,String _found, String _owner, boolean _check) {
+    private void checkAccess(Analyzable _an, AccessingImportingBlock _global, String _found, String _owner) {
         String idOwner_ = Templates.getIdFromAllTypes(_owner);
         String idFound_ = Templates.getIdFromAllTypes(_found);
         RootBlock owner_ = _an.getClasses().getClassBody(idOwner_);
         RootBlock found_ = _an.getClasses().getClassBody(idFound_);
         if (found_ == null) {
-            return false;
+            return;
         }
-        boolean err_ = false;
         if (_an.isHidden(_global,found_)) {
-            setAnalyzedType("");
             _an.getCurrentBadIndexes().add(getIndexInType());
-            err_ = true;
         }
-        if (_check && owner_.isTypeHidden(found_,_an)) {
-            setAnalyzedType("");
+        if (owner_.isTypeHidden(found_,_an)) {
             _an.getCurrentBadIndexes().add(getIndexInType());
-            err_ = true;
         }
-        return err_;
     }
 
     @Override
     void analyzeAccessibleId(Analyzable _an, CustList<IntTreeMap<String>> _dels, AccessingImportingBlock _rooted) {
-        CustList<PartType> previous_ = new CustList<PartType>();
-        InnerPartType i_ = null;
-        PartType parCur_ = null;
-        if (getParent() instanceof InnerPartType) {
-            parCur_ = this;
-            i_ = (InnerPartType) getParent();
-        } else if (getParent() instanceof TemplatePartType && getParent().getParent() instanceof InnerPartType && getIndex() == 0) {
-            parCur_ = getParent();
-            i_ = (InnerPartType) getParent().getParent();
-        }
-        if (i_ != null) {
-            PartType part_ = parCur_.getPreviousSibling();
-            while (part_ != null) {
-                previous_.add(part_);
-                part_ = part_.getPreviousSibling();
-            }
-        }
+        PartType part_ = getPreviousPartType();
         String type_ = getTypeName();
         type_ = ContextEl.removeDottedSpaces(type_);
-        if (!previous_.isEmpty()) {
-            previous_ = previous_.getReverse();
-            PartType last_ = previous_.last();
-            String owner_ = last_.getAnalyzedType();
+        if (part_ != null) {
+            String owner_ = part_.getAnalyzedType();
             String id_ = Templates.getIdFromAllTypes(owner_);
             String in_ = StringList.concat(id_,"..",type_);
             Classes classes_ = _an.getClasses();
@@ -430,13 +325,12 @@ final class NamePartType extends LeafPartType {
                 base_ = Templates.getIdFromAllTypes(base_);
                 if (StringList.quickEq(base_.trim(), _an.getStandards().getAliasFct()) && _dels.last().size() == getIndex() + 1) {
                     setAnalyzedType(getTypeName().trim());
-                    return;
                 }
                 return;
             }
         }
         
-        String out_ = _an.lookupImportType(type_,_rooted,true);
+        String out_ = _an.lookupImportType(type_,_rooted, new AlwaysReadyTypes());
         if (out_.isEmpty()) {
             return;
         }
@@ -445,26 +339,14 @@ final class NamePartType extends LeafPartType {
     @Override
     void checkDynExistence(Analyzable _an,CustList<IntTreeMap< String>>_dels) {
         CustList<String> pr_ = new CustList<String>();
-        InnerPartType i_ = null;
-        PartType parCur_ = null;
-        if (getParent() instanceof InnerPartType) {
-            parCur_ = this;
-            i_ = (InnerPartType) getParent();
-        } else if (getParent() instanceof TemplatePartType && getParent().getParent() instanceof InnerPartType && getIndex() == 0) {
-            parCur_ = getParent();
-            i_ = (InnerPartType) getParent().getParent();
-        }
-        if (i_ != null) {
-            PartType part_ = parCur_.getPreviousSibling();
-            while (part_ != null) {
-                PartType f_ = part_;
-                while (f_.getFirstChild() != null) {
-                    f_ = f_.getFirstChild();
-                }
-                pr_.add(((LeafPartType)f_).exportHeader());
-                part_ = part_.getPreviousSibling();
+        PartType part_ = getPreviousPartType();
+        while (part_ != null) {
+            PartType f_ = part_;
+            while (f_.getFirstChild() != null) {
+                f_ = f_.getFirstChild();
             }
-            pr_ = pr_.getReverse();
+            pr_.add(0,((LeafPartType)f_).exportHeader());
+            part_ = part_.getPreviousSibling();
         }
         String typeName_ = getTypeName();
         typeName_ = ContextEl.removeDottedSpaces(typeName_);
@@ -495,5 +377,13 @@ final class NamePartType extends LeafPartType {
         }
     }
 
-
+    private PartType getPreviousPartType() {
+        if (getParent() instanceof InnerPartType) {
+            return getPreviousSibling();
+        }
+        if (getParent() instanceof TemplatePartType && getParent().getParent() instanceof InnerPartType && getIndex() == 0) {
+            return getParent().getPreviousSibling();
+        }
+        return null;
+    }
 }

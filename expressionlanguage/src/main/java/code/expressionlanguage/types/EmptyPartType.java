@@ -1,7 +1,6 @@
 package code.expressionlanguage.types;
 
 import code.expressionlanguage.Analyzable;
-import code.expressionlanguage.methods.AccessedBlock;
 import code.expressionlanguage.methods.AccessingImportingBlock;
 import code.util.CustList;
 import code.util.*;
@@ -19,18 +18,15 @@ final class EmptyPartType extends LeafPartType {
 
     @Override
     void analyzeTemplate(Analyzable _an, CustList<IntTreeMap<String>> _dels, StringMap<StringList> _inherit) {
-        _an.getCurrentBadIndexes().add(getIndexInType());
     }
 
     @Override
-    void analyzeLine(Analyzable _an, CustList<IntTreeMap< String>> _dels, String _globalType, AccessingImportingBlock _local,AccessingImportingBlock _rooted) {
-        _an.getCurrentBadIndexes().add(getIndexInType());
+    void analyzeLine(Analyzable _an, ReadyTypes _ready,CustList<IntTreeMap< String>> _dels, String _globalType, AccessingImportingBlock _local,AccessingImportingBlock _rooted) {
     }
     @Override
     void analyzeAccessibleId(Analyzable _an,
             CustList<IntTreeMap< String>> _dels,
                              AccessingImportingBlock _rooted) {
-        _an.getCurrentBadIndexes().add(getIndexInType());
     }
     @Override
     void checkDynExistence(Analyzable _an,CustList<IntTreeMap< String>>_dels) {

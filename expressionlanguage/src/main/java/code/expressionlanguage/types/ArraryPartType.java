@@ -46,7 +46,7 @@ final class ArraryPartType extends ParentPartType {
         setAnalyzedType(ch_);
     }
     @Override
-    void analyzeLine(Analyzable _an, CustList<IntTreeMap< String>>_dels, String _globalType, AccessingImportingBlock _local,AccessingImportingBlock _rooted) {
+    void analyzeLine(Analyzable _an, ReadyTypes _ready,CustList<IntTreeMap< String>>_dels, String _globalType, AccessingImportingBlock _local,AccessingImportingBlock _rooted) {
         String ch_ = getFirstChild().getAnalyzedType();
         ch_ = StringList.concat(getBegin(),ch_);
         setAnalyzedType(ch_);

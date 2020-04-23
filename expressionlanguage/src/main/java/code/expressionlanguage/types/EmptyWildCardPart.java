@@ -18,7 +18,7 @@ final class EmptyWildCardPart extends LeafPartType {
     void analyze(Analyzable _an,
             CustList<IntTreeMap< String>> _dels, String _globalType,
                  AccessingImportingBlock _local,AccessingImportingBlock _rooted) {
-        analyzeLine(_an,_dels,_globalType,_local,_rooted);
+        analyzeLine(_an,null,_dels,_globalType,_local,_rooted);
     }
 
     @Override
@@ -28,10 +28,9 @@ final class EmptyWildCardPart extends LeafPartType {
 
     @Override
     void analyzeLine(Analyzable _an,
-            CustList<IntTreeMap< String>> _dels, String _globalType,
+                     ReadyTypes _ready,CustList<IntTreeMap< String>> _dels, String _globalType,
                      AccessingImportingBlock _local,AccessingImportingBlock _rooted) {
         if (!(getParent() instanceof TemplatePartType)) {
-            _an.getCurrentBadIndexes().add(getIndexInType());
             return;
         }
         setAnalyzedType(Templates.SUB_TYPE);
@@ -42,7 +41,6 @@ final class EmptyWildCardPart extends LeafPartType {
             CustList<IntTreeMap< String>> _dels,
                              AccessingImportingBlock _rooted) {
         if (!(getParent() instanceof TemplatePartType)) {
-            _an.getCurrentBadIndexes().add(getIndexInType());
             return;
         }
         setAnalyzedType(Templates.SUB_TYPE);

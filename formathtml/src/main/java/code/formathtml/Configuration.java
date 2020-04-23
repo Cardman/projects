@@ -30,7 +30,9 @@ import code.expressionlanguage.structs.ClassMetaInfo;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.StackTraceElementStruct;
 import code.expressionlanguage.structs.Struct;
+import code.expressionlanguage.types.AlwaysReadyTypes;
 import code.expressionlanguage.types.PartTypeUtil;
+import code.expressionlanguage.types.ReadyTypes;
 import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.LoopVariable;
 import code.formathtml.errors.RendAnalysisMessages;
@@ -791,7 +793,7 @@ public final class Configuration implements ExecutableCode {
         AccessingImportingBlock r_ = analyzingDoc.getCurrentDoc();
         RootBlock b_ = getClasses().getClassBody(res_);
         if (b_ == null) {
-            String id_ = lookupImportType(base_,r_,true);
+            String id_ = lookupImportType(base_,r_,new AlwaysReadyTypes());
             if (id_.isEmpty()) {
                 FoundErrorInterpret undef_;
                 undef_ = new FoundErrorInterpret();
@@ -833,7 +835,7 @@ public final class Configuration implements ExecutableCode {
         String gl_ = getGlobalClass();
         RootBlock root_ = getContext().getClasses().getClassBody(Templates.getIdFromAllTypes(gl_));
         AccessingImportingBlock a_ = getAccessingImportingBlock(r_, root_);
-        return PartTypeUtil.processAnalyzeLine(_in,gl_,this,a_,r_, "",0,new CustList<PartOffset>());
+        return PartTypeUtil.processAnalyzeLine(_in,new AlwaysReadyTypes(),false,gl_,this,a_,r_, "",0,new CustList<PartOffset>());
     }
     @Override
     public String resolveCorrectType(String _in) {
@@ -945,11 +947,15 @@ public final class Configuration implements ExecutableCode {
         String gl_ = getGlobalClass();
         RootBlock root_ = getContext().getClasses().getClassBody(Templates.getIdFromAllTypes(gl_));
         AccessingImportingBlock a_ = getAccessingImportingBlock(r_, root_);
+        getCurrentBadIndexes().clear();
         String resType_;
         if (_exact) {
             resType_ = PartTypeUtil.processAnalyze(_in, false,gl_, this, a_,r_, "",0,new CustList<PartOffset>());
         } else {
-            resType_ = PartTypeUtil.processAnalyzeLine(_in, gl_, this, a_,r_, "",0,new CustList<PartOffset>());
+            resType_ = PartTypeUtil.processAnalyzeLine(_in, new AlwaysReadyTypes(),false,gl_, this, a_,r_, "",0,new CustList<PartOffset>());
+        }
+        if (!getCurrentBadIndexes().isEmpty()) {
+            return "";
         }
         if (resType_.trim().isEmpty()) {
             return "";
@@ -1138,13 +1144,6 @@ public final class Configuration implements ExecutableCode {
         ContextEl.fetchImportStaticFields(this,_glClass,_method,_methods,_import,_typeLoc,_typesLoc);
     }
 
-    @Override
-    public String lookupImportType(String _type, AccessingImportingBlock _rooted, boolean _line) {
-        String prefixedType_;
-        prefixedType_ = getRealSinglePrefixedMemberType(_type, _rooted);
-        return prefixedType_;
-    }
-
     private static CustList<StringList> fetch(AccessedBlock _rooted) {
         CustList<StringList> imports_ = new CustList<StringList>();
         if (_rooted != null) {
@@ -1161,7 +1160,7 @@ public final class Configuration implements ExecutableCode {
     }
 
     @Override
-    public String lookupImportMemberType(String _type, AccessingImportingBlock _rooted, boolean _inherits, StringList _readTypes) {
+    public String lookupImportType(String _type, AccessingImportingBlock _rooted, ReadyTypes _ready) {
         String prefixedType_;
         prefixedType_ = getRealSinglePrefixedMemberType(_type, _rooted);
         return prefixedType_;

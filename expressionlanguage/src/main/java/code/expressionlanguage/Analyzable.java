@@ -11,6 +11,7 @@ import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.ClassMetaInfo;
+import code.expressionlanguage.types.ReadyTypes;
 import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.LoopVariable;
 import code.util.CustList;
@@ -117,9 +118,7 @@ public interface Analyzable {
     ObjectMap<ClassMethodId,ImportedMethod> lookupImportStaticMethods(String _glClass,String _method, Block _rooted);
     ObjectMap<ClassField,ImportedField> lookupImportStaticFields(String _glClass,String _field, Block _rooted);
 
-    String lookupImportMemberType(String _type, AccessingImportingBlock _rooted, boolean _inherits, StringList _readTypes);
-
-    String lookupImportType(String _type, AccessingImportingBlock _rooted,boolean _line);
+    String lookupImportType(String _type, AccessingImportingBlock _rooted, ReadyTypes _ready);
 
     StringMap<Integer> getAvailableVariables();
     StringList getVariablesNamesLoopToInfer();

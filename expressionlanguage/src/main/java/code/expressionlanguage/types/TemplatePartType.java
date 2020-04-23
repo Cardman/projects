@@ -60,7 +60,7 @@ final class TemplatePartType extends BinaryType {
 
     @Override
     void analyze(Analyzable _an, CustList<IntTreeMap< String>>_dels, String _globalType, AccessingImportingBlock _local,AccessingImportingBlock _rooted) {
-        analyzeLine(_an,_dels,_globalType,_local,_rooted);
+        analyzeLine(_an,null,_dels,_globalType,_local,_rooted);
     }
 
     @Override
@@ -140,7 +140,7 @@ final class TemplatePartType extends BinaryType {
         return StringList.concat(t_, ch_.last().getAnalyzedType(),getEnd());
     }
     @Override
-    void analyzeLine(Analyzable _an, CustList<IntTreeMap< String>>_dels, String _globalType, AccessingImportingBlock _local,AccessingImportingBlock _rooted) {
+    void analyzeLine(Analyzable _an, ReadyTypes _ready,CustList<IntTreeMap< String>>_dels, String _globalType, AccessingImportingBlock _local,AccessingImportingBlock _rooted) {
         CustList<PartType> ch_ = new CustList<PartType>();
         PartType f_ = getFirstChild();
         while (f_ != null) {
