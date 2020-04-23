@@ -3,6 +3,7 @@ package code.expressionlanguage.types;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.InitializationLgNames;
 import code.expressionlanguage.methods.Classes;
+import code.expressionlanguage.methods.ProcessMethodCommon;
 import code.expressionlanguage.options.Options;
 import code.util.Ints;
 import code.util.StringList;
@@ -12,7 +13,7 @@ import org.junit.Test;
 import static code.expressionlanguage.EquallableElUtil.assertEq;
 import static org.junit.Assert.assertTrue;
 
-public class ParserTypeTest {
+public class ParserTypeTest extends ProcessMethodCommon {
     @Test
     public void getIndexes1_Test(){
         Ints indexes_ = ParserType.getIndexes("int", new StringList());
@@ -879,17 +880,12 @@ public class ParserTypeTest {
     private ContextEl unfullValidateInheritingClassesDeps(StringMap<String> _files) {
         ContextEl cont_ = contextEnElDefault();
         Classes classes_ = cont_.getClasses();
-        Classes.buildPredefinedBracesBodies(cont_);
-        Classes.tryBuildBracedClassesBodies(_files, cont_, false);
+        parseCustomFiles(_files, cont_);
         assertTrue(classes_.displayErrors(), cont_.isEmptyErrors());
         assertTrue(classes_.displayErrors(), cont_.isEmptyErrors());
-        classes_.validateInheritingClassesId(cont_, false);
+        Classes.validateInheritingClassesId(cont_, false);
         assertTrue(classes_.displayErrors(), cont_.isEmptyErrors());
         return cont_;
     }
-    private static ContextEl contextEnElDefault() {
-        Options opt_ = new Options();
-        
-        return InitializationLgNames.buildStdOne("en", opt_);
-    }
+
 }

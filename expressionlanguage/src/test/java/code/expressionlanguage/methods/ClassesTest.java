@@ -17,7 +17,7 @@ import static code.expressionlanguage.EquallableElUtil.assertEq;
 import static org.junit.Assert.*;
 
 
-public final class ClassesTest {
+public final class ClassesTest extends ProcessMethodCommon {
     @Test
     public void emptyClassesTest() {
         StringMap<String> files_ = new StringMap<String>();
@@ -6723,8 +6723,7 @@ public final class ClassesTest {
         xml_.append(" static final entier4 cst = 0y;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        Options opt_ = new Options();
-        ContextEl ct_ = InitializationLgNames.buildStdOne("fr",opt_);
+        ContextEl ct_ = getFrContextEl();
         Classes.validateAll(files_, ct_);
         assertTrue(!ct_.isEmptyErrors());
     }
@@ -6737,11 +6736,11 @@ public final class ClassesTest {
         xml_.append(" static final entier4 cst = 0x;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        Options opt_ = new Options();
-        ContextEl ct_ = InitializationLgNames.buildStdOne("fr",opt_);
+        ContextEl ct_ = getFrContextEl();
         Classes.validateAll(files_, ct_);
         assertTrue(!ct_.isEmptyErrors());
     }
+
     @Test
     public void validateEl102FailTest() {
         StringMap<String> files_ = new StringMap<String>();
@@ -7720,130 +7719,5 @@ public final class ClassesTest {
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.isEmptyErrors());
     }
-    private ContextEl validateStaticFields(StringMap<String> _files) {
-        Options opt_ = new Options();
 
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
-        Classes classes_ = cont_.getClasses();
-        Classes.buildPredefinedBracesBodies(cont_);
-        Classes.tryBuildBracedClassesBodies(_files, cont_, false);
-        assertTrue(classes_.displayErrors(), cont_.isEmptyErrors());
-        classes_.validateInheritingClasses(cont_, false);
-        assertTrue(classes_.displayErrors(), cont_.isEmptyErrors());
-        classes_.validateIds(cont_,false);
-        classes_.validateOverridingInherit(cont_, false);
-        assertTrue(classes_.displayErrors(), cont_.isEmptyErrors());
-        classes_.initStaticFields(cont_, false);
-        assertTrue(classes_.displayErrors(), cont_.isEmptyErrors());
-        return cont_;
-    }
-
-    private ContextEl unfullValidateInheritingClasses(StringMap<String> _files) {
-        Options opt_ = new Options();
-
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
-        Classes classes_ = cont_.getClasses();
-        Classes.buildPredefinedBracesBodies(cont_);
-        Classes.tryBuildBracedClassesBodies(_files, cont_, false);
-        assertTrue(classes_.displayErrors(), cont_.isEmptyErrors());
-        classes_.validateInheritingClasses(cont_, false);
-        assertTrue(classes_.displayErrors(), cont_.isEmptyErrors());
-        return cont_;
-    }
-    private ContextEl unfullValidateInheritingClassesSingle(StringMap<String> _files) {
-        Options opt_ = new Options();
-
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
-        Classes classes_ = cont_.getClasses();
-        Classes.buildPredefinedBracesBodies(cont_);
-        Classes.tryBuildBracedClassesBodies(_files, cont_, false);
-        assertTrue(classes_.displayErrors(), cont_.isEmptyErrors());
-        classes_.validateInheritingClasses(cont_, false);
-        assertTrue(classes_.displayErrors(), cont_.isEmptyErrors());
-        return cont_;
-    }
-
-    private void failValidateInheritingClasses(StringMap<String> _files) {
-        Options opt_ = new Options();
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
-        Classes classes_ = cont_.getClasses();
-        Classes.buildPredefinedBracesBodies(cont_);
-        Classes.tryBuildBracedClassesBodies(_files, cont_, false);
-        assertTrue(classes_.displayErrors(), cont_.isEmptyErrors());
-        classes_.validateInheritingClasses(cont_, false);
-        assertTrue(classes_.displayErrors(), !cont_.isEmptyErrors());
-    }
-
-    private void failValidateInheritingClassesSingle(StringMap<String> _files) {
-        Options opt_ = new Options();
-        
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
-        Classes classes_ = cont_.getClasses();
-        Classes.buildPredefinedBracesBodies(cont_);
-        Classes.tryBuildBracedClassesBodies(_files, cont_, false);
-        assertTrue(classes_.displayErrors(), cont_.isEmptyErrors());
-        classes_.validateInheritingClasses(cont_, false);
-        assertTrue(classes_.displayErrors(), !cont_.isEmptyErrors());
-    }
-    private ObjectMap<MethodId, StringList> toList(ObjectMap<MethodId, EqList<ClassMethodId>> _m) {
-        ObjectMap<MethodId, StringList> m_ = new ObjectMap<MethodId, StringList>();
-        for (EntryCust<MethodId, EqList<ClassMethodId>> e: _m.entryList()) {
-            StringList l_ = new StringList();
-            for (ClassMethodId c: e.getValue()) {
-                l_.add(c.getClassName());
-            }
-            m_.put(e.getKey(), l_);
-        }
-        return m_;
-    }
-
-    private ObjectMap<MethodId, EqList<ClassMethodId>> toId(ObjectMap<MethodId, StringList> _m) {
-        ObjectMap<MethodId, EqList<ClassMethodId>> m_ = new ObjectMap<MethodId, EqList<ClassMethodId>>();
-        for (EntryCust<MethodId, StringList> e: _m.entryList()) {
-            EqList<ClassMethodId> l_ = new EqList<ClassMethodId>();
-            for (String c: e.getValue()) {
-                l_.add(new ClassMethodId(c, e.getKey()));
-            }
-            m_.put(e.getKey(), l_);
-        }
-        return m_;
-    }
-    protected static ContextEl contextEl(int... _m) {
-        Options opt_ = new Options();
-        ContextEl ct_;
-        if (_m.length == 0) {
-            ct_ = InitializationLgNames.buildStdOne(opt_);
-        } else {
-            ct_ = InitializationLgNames.buildStdOne(_m[0], opt_);
-        }
-        return ct_;
-    }
-    protected static ContextEl contextElSingleDot(int... _m) {
-        Options opt_ = new Options();
-        
-        ContextEl ct_;
-        if (_m.length == 0) {
-            ct_ = InitializationLgNames.buildStdOne(opt_);
-        } else {
-            ct_ = InitializationLgNames.buildStdOne(_m[0], opt_);
-        }
-        return ct_;
-    }
-    protected static ContextEl contextElSingleDotDefault(int... _m) {
-        Options opt_ = new Options();
-        
-        ContextEl ct_;
-        if (_m.length == 0) {
-            ct_ = InitializationLgNames.buildStdOne(opt_);
-        } else {
-            ct_ = InitializationLgNames.buildStdOne(_m[0], opt_);
-        }
-        return ct_;
-    }
-    protected static ContextEl contextEnElSingleDotDefault() {
-        Options opt_ = new Options();
-        
-        ContextEl ct_ = InitializationLgNames.buildStdOne("en",opt_);
-        return ct_;
-    }
 }

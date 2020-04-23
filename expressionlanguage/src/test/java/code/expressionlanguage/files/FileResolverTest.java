@@ -12,7 +12,7 @@ import static code.expressionlanguage.EquallableElUtil.assertEq;
 import static org.junit.Assert.*;
 
 
-public final class FileResolverTest {
+public final class FileResolverTest extends ProcessMethodCommon {
     @Test
     public void parseFile1Test() {
         StringBuilder file_ = new StringBuilder();
@@ -22,7 +22,7 @@ public final class FileResolverTest {
         file_.append("comment*/\n");
         file_.append("$public $class pkgtwo.ExClass {");
         file_.append("}");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());
@@ -43,7 +43,7 @@ public final class FileResolverTest {
         file_.append("*comment*/\n");
         file_.append("$interface pkgtwo.ExClass {");
         file_.append("}");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file", file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_, 0).getFullName());
@@ -60,7 +60,7 @@ public final class FileResolverTest {
         file_.append("comment*/\n");
         file_.append("$final $class pkgtwo.ExClass {");
         file_.append("}");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file", file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_, 0).getFullName());
@@ -77,7 +77,7 @@ public final class FileResolverTest {
         file_.append("comment*/\n");
         file_.append("$abstract $class pkgtwo.ExClass {");
         file_.append("}");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file", file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_, 0).getFullName());
@@ -93,7 +93,7 @@ public final class FileResolverTest {
         file_.append("// multi line\n");
         file_.append("$annotation pkgtwo.ExClass {");
         file_.append("}");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file", file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_, 0).getFullName());
@@ -109,7 +109,7 @@ public final class FileResolverTest {
         file_.append("// multi line\n");
         file_.append("$package $class pkgtwo.ExClass {");
         file_.append("}");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file", file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_, 0).getFullName());
@@ -125,7 +125,7 @@ public final class FileResolverTest {
         file_.append("// multi line\n");
         file_.append("$private $class pkgtwo.ExClass {");
         file_.append("}");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file", file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_, 0).getFullName());
@@ -144,7 +144,7 @@ public final class FileResolverTest {
         file_.append("comment*/\n");
         file_.append("$interface pkgtwo.ExInt {");
         file_.append("}");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file", file_.toString(), false, context_);
         assertEq(2, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_, 0).getFullName());
@@ -166,7 +166,7 @@ public final class FileResolverTest {
         file_.append("// multi line\n");
         file_.append("$interface pkgtwo.ExInt {");
         file_.append("}");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file", file_.toString(), false, context_);
         assertEq(2, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_, 0).getFullName());
@@ -188,7 +188,7 @@ public final class FileResolverTest {
         file_.append(" $enum Inner {:");
         file_.append(" }");
         file_.append("}");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file", file_.toString(), false, context_);
         assertEq(2, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_, 0).getFullName());
@@ -207,7 +207,7 @@ public final class FileResolverTest {
         file_.append(" FOUR<FIVE,SIX>(\"\">\"\");\n");
         file_.append(" $public $static $void m(){}\n");
         file_.append("}");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file", file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_, 0).getFullName());
@@ -237,7 +237,7 @@ public final class FileResolverTest {
         file_.append(" FOUR<FIVE,SIX>(\"\">\"\"){};\n");
         file_.append(" $public $static $void m(){}\n");
         file_.append("}");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file", file_.toString(), false, context_);
         assertEq(3, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_, 0).getFullName());
@@ -278,7 +278,7 @@ public final class FileResolverTest {
         file_.append("comment*/\n");
         file_.append("$public $class pkgtwo.ExClass<#T> {");
         file_.append("}");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());
@@ -298,7 +298,7 @@ public final class FileResolverTest {
         file_.append("comment*/\n");
         file_.append("$public $class pkgtwo.Toto<#T:pktwo.Content> {");
         file_.append("}");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
@@ -318,7 +318,7 @@ public final class FileResolverTest {
         file_.append("comment*/\n");
         file_.append("$public $class pkgtwo.Toto<#Param> : pkgthree.Inherit {");
         file_.append("}");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
@@ -340,7 +340,7 @@ public final class FileResolverTest {
         file_.append("comment*/\n");
         file_.append("$public $class pkgtwo.Toto<#Param> : pkgthree.Inherit<#Param> {");
         file_.append("}");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
@@ -362,7 +362,7 @@ public final class FileResolverTest {
         file_.append("comment*/\n");
         file_.append("$public $class pkgtwo.Toto<#Param,#SecondParam> : pkgthree.Inherit<#Param> : pkgfour.Inherit<#SecondParam> {");
         file_.append("}");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
@@ -386,7 +386,7 @@ public final class FileResolverTest {
         file_.append("$public $class pkgtwo.Toto<#T:pkgtwo.Inherit> : pkgthree.Inherit<#T> : pkgfour.Inherit<#T> {\n");
         file_.append("\t$private $String exfield=\"{IN_BRACE}(){}\"({INNER});\n");
         file_.append("}");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
@@ -436,7 +436,7 @@ public final class FileResolverTest {
         file_.append("\t\t$return $unreachablebis;\n");
         file_.append("\t}\n");
         file_.append("}");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
@@ -600,7 +600,7 @@ public final class FileResolverTest {
         file_.append("\t\t$return $unreachable;\n");
         file_.append("\t}\n");
         file_.append("}");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
@@ -797,7 +797,7 @@ public final class FileResolverTest {
         file_.append("\t\t$return $unreachable;\n");
         file_.append("\t}\n");
         file_.append("}\n");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         StringMap<String> files_ = new StringMap<String>();
         files_.put("my_file", file_.toString());
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
@@ -918,7 +918,7 @@ public final class FileResolverTest {
         file_.append("\t\t$return $unreachable;\n");
         file_.append("\t}\n");
         file_.append("}\n");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         StringMap<String> files_ = new StringMap<String>();
         files_.put("my_file", file_.toString());
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
@@ -1040,7 +1040,7 @@ public final class FileResolverTest {
         file_.append("\t\t$return $unreachable;\n");
         file_.append("\t}\n");
         file_.append("}\n");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         StringMap<String> files_ = new StringMap<String>();
         files_.put("my_file", file_.toString());
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
@@ -1172,7 +1172,7 @@ public final class FileResolverTest {
         file_.append("}\n");
         file_.append("$public $class pkgtwo.ExClassTwo {\n");
         file_.append("}");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(2, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());
@@ -1205,7 +1205,7 @@ public final class FileResolverTest {
         file_.append("\t\t$return $unreachable;\n");
         file_.append("\t}\n");
         file_.append("}\n");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         StringMap<String> files_ = new StringMap<String>();
         files_.put("my_file", file_.toString());
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
@@ -1338,7 +1338,7 @@ public final class FileResolverTest {
         file_.append("\t\t$return $unreachable;\n");
         file_.append("\t}\n");
         file_.append("}\n");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         StringMap<String> files_ = new StringMap<String>();
         files_.put("my_file", file_.toString());
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
@@ -1481,7 +1481,7 @@ public final class FileResolverTest {
         file_.append("\t\t$return $unreachable;\n");
         file_.append("\t}\n");
         file_.append("}\n");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         StringMap<String> files_ = new StringMap<String>();
         files_.put("my_file", file_.toString());
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
@@ -1648,7 +1648,7 @@ public final class FileResolverTest {
         file_.append("\t\t$return $unreachable;\n");
         file_.append("\t}\n");
         file_.append("}\n");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         StringMap<String> files_ = new StringMap<String>();
         files_.put("my_file", file_.toString());
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
@@ -1813,7 +1813,7 @@ public final class FileResolverTest {
         file_.append("\t\t$return $unreachable;\n");
         file_.append("\t}\n");
         file_.append("}\n");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         StringMap<String> files_ = new StringMap<String>();
         files_.put("my_file", file_.toString());
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
@@ -1948,7 +1948,7 @@ public final class FileResolverTest {
         file_.append("\t\t$return $unreachable;\n");
         file_.append("\t}\n");
         file_.append("}\n");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         StringMap<String> files_ = new StringMap<String>();
         files_.put("my_file", file_.toString());
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
@@ -2083,7 +2083,7 @@ public final class FileResolverTest {
         file_.append("\t\t$return $unreachable;\n");
         file_.append("\t}\n");
         file_.append("}\n");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         StringMap<String> files_ = new StringMap<String>();
         files_.put("my_file", file_.toString());
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
@@ -2217,7 +2217,7 @@ public final class FileResolverTest {
         file_.append("\t\t$return $unreachable;\n");
         file_.append("\t}\n");
         file_.append("}\n");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         StringMap<String> files_ = new StringMap<String>();
         files_.put("my_file", file_.toString());
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
@@ -2336,7 +2336,7 @@ public final class FileResolverTest {
         file_.append("\t\t$throw $badthrows;\n");
         file_.append("\t}\n");
         file_.append("}\n");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         StringMap<String> files_ = new StringMap<String>();
         files_.put("my_file", file_.toString());
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
@@ -2371,7 +2371,7 @@ public final class FileResolverTest {
         file_.append("\t\t}\n");
         file_.append("\t}\n");
         file_.append("}\n");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         StringMap<String> files_ = new StringMap<String>();
         files_.put("my_file", file_.toString());
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
@@ -2417,7 +2417,7 @@ public final class FileResolverTest {
         file_.append("\t\t} $while(condition;.);\n");
         file_.append("\t}\n");
         file_.append("}\n");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         StringMap<String> files_ = new StringMap<String>();
         files_.put("my_file", file_.toString());
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
@@ -2469,7 +2469,7 @@ public final class FileResolverTest {
         file_.append("\t\t}\n");
         file_.append("\t}\n");
         file_.append("}\n");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         StringMap<String> files_ = new StringMap<String>();
         files_.put("my_file", file_.toString());
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
@@ -2532,7 +2532,7 @@ public final class FileResolverTest {
         file_.append("\t\t}\n");
         file_.append("\t}\n");
         file_.append("}\n");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         StringMap<String> files_ = new StringMap<String>();
         files_.put("my_file", file_.toString());
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
@@ -2602,7 +2602,7 @@ public final class FileResolverTest {
         file_.append("\t\t}\n");
         file_.append("\t}\n");
         file_.append("}\n");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         StringMap<String> files_ = new StringMap<String>();
         files_.put("my_file", file_.toString());
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
@@ -2664,7 +2664,7 @@ public final class FileResolverTest {
         file_.append("\t\t}\n");
         file_.append("\t}\n");
         file_.append("}\n");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         StringMap<String> files_ = new StringMap<String>();
         files_.put("my_file", file_.toString());
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
@@ -2726,7 +2726,7 @@ public final class FileResolverTest {
         file_.append("\t\t}\n");
         file_.append("\t}\n");
         file_.append("}\n");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         StringMap<String> files_ = new StringMap<String>();
         files_.put("my_file", file_.toString());
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
@@ -2784,7 +2784,7 @@ public final class FileResolverTest {
         file_.append("\t\t}\n");
         file_.append("\t}\n");
         file_.append("}\n");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         StringMap<String> files_ = new StringMap<String>();
         files_.put("my_file", file_.toString());
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
@@ -2840,7 +2840,7 @@ public final class FileResolverTest {
         file_.append("\t\t}\n");
         file_.append("\t}\n");
         file_.append("}\n");
-        ContextEl context_ = simpleContextDef();
+        ContextEl context_ = simpleCtx();
         StringMap<String> files_ = new StringMap<String>();
         files_.put("my_file", file_.toString());
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
@@ -2907,7 +2907,7 @@ public final class FileResolverTest {
         file_.append("\t\t}\n");
         file_.append("\t}\n");
         file_.append("}\n");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         StringMap<String> files_ = new StringMap<String>();
         files_.put("my_file", file_.toString());
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
@@ -2969,7 +2969,7 @@ public final class FileResolverTest {
         file_.append("\t\n");
         file_.append("\t$private $String exfield=\"{IN_BRACE}(){}\"({INNER});\n");
         file_.append("}");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
@@ -3007,7 +3007,7 @@ public final class FileResolverTest {
         file_.append("}\n");
         file_.append("$public $class pkgtwo.ExClassTwo {\n");
         file_.append("}");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(2, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());
@@ -3046,7 +3046,7 @@ public final class FileResolverTest {
         file_.append("}\n");
         file_.append("$public $class pkgtwo.ExClassTwo {\n");
         file_.append("}");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(2, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());
@@ -3092,7 +3092,7 @@ public final class FileResolverTest {
         file_.append("\t\t$return $unreachable;\n");
         file_.append("\t}\n");
         file_.append("}\n");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         StringMap<String> files_ = new StringMap<String>();
         files_.put("my_file", file_.toString());
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
@@ -3233,7 +3233,7 @@ public final class FileResolverTest {
         file_.append("\t\t$return $unreachable;\n");
         file_.append("\t}\n");
         file_.append("}\n");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         StringMap<String> files_ = new StringMap<String>();
         files_.put("my_file", file_.toString());
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
@@ -3372,7 +3372,7 @@ public final class FileResolverTest {
         file_.append("\t\t}\n");
         file_.append("\t}\n");
         file_.append("}\n");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         StringMap<String> files_ = new StringMap<String>();
         files_.put("my_file", file_.toString());
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
@@ -3435,7 +3435,7 @@ public final class FileResolverTest {
         file_.append("\t\t}\n");
         file_.append("\t}\n");
         file_.append("}\n");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         StringMap<String> files_ = new StringMap<String>();
         files_.put("my_file", file_.toString());
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
@@ -3499,7 +3499,7 @@ public final class FileResolverTest {
         file_.append("\t\t}\n");
         file_.append("\t}\n");
         file_.append("}\n");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         StringMap<String> files_ = new StringMap<String>();
         files_.put("my_file", file_.toString());
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
@@ -3558,7 +3558,7 @@ public final class FileResolverTest {
         file_.append("\t\t} $while(condition);\n");
         file_.append("\t}\n");
         file_.append("}\n");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         StringMap<String> files_ = new StringMap<String>();
         files_.put("my_file", file_.toString());
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
@@ -3611,7 +3611,7 @@ public final class FileResolverTest {
         file_.append("\t\t}\n");
         file_.append("\t}\n");
         file_.append("}\n");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         StringMap<String> files_ = new StringMap<String>();
         files_.put("my_file", file_.toString());
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
@@ -3681,7 +3681,7 @@ public final class FileResolverTest {
         file_.append("\t\t}\n");
         file_.append("\t}\n");
         file_.append("}\n");
-        ContextEl context_ = simpleContextDef();
+        ContextEl context_ = simpleCtx();
         StringMap<String> files_ = new StringMap<String>();
         files_.put("my_file", file_.toString());
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
@@ -3752,7 +3752,7 @@ public final class FileResolverTest {
         file_.append("\t\t$return $unreachablebis;\n");
         file_.append("\t}\n");
         file_.append("}");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
@@ -3898,7 +3898,7 @@ public final class FileResolverTest {
         file_.append("\t\t}\n");
         file_.append("\t}\n");
         file_.append("}\n");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         StringMap<String> files_ = new StringMap<String>();
         files_.put("my_file", file_.toString());
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
@@ -3954,7 +3954,7 @@ public final class FileResolverTest {
         file_.append("\t\t}\n");
         file_.append("\t}\n");
         file_.append("}\n");
-        ContextEl context_ = simpleContextDef();
+        ContextEl context_ = simpleCtx();
         StringMap<String> files_ = new StringMap<String>();
         files_.put("my_file", file_.toString());
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
@@ -4021,7 +4021,7 @@ public final class FileResolverTest {
         file_.append("\t\t}\n");
         file_.append("\t}\n");
         file_.append("}\n");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         StringMap<String> files_ = new StringMap<String>();
         files_.put("my_file", file_.toString());
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
@@ -4081,7 +4081,7 @@ public final class FileResolverTest {
         file_.append("$public $class pkgtwo.Toto<#T:pkgtwo.Inherit> : pkgthree.Inherit<#T> : pkgfour.Inherit<#T> {\n");
         file_.append("\t$private $String exfield='{IN_BRACE}(){}'({INNER});\n");
         file_.append("}");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
@@ -4117,7 +4117,7 @@ public final class FileResolverTest {
         file_.append("$public $class pkgtwo.Toto<#T:pkgtwo.Inherit> : pkgthree.Inherit<#T> : pkgfour.Inherit<#T> {\n");
         file_.append("\t$private $String exfield={INNER};\n");
         file_.append("}");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
@@ -4153,7 +4153,7 @@ public final class FileResolverTest {
         file_.append("$public $class pkgtwo.Toto<#T:pkgtwo.Inherit> : pkgthree.Inherit<#T> : pkgfour.Inherit<#T> {\n");
         file_.append("\t$private $String exfield=$new pkg.Ex[]{INNER};\n");
         file_.append("}");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
@@ -4210,7 +4210,7 @@ public final class FileResolverTest {
         file_.append("\t\t$return $unreachable;\n");
         file_.append("\t}\n");
         file_.append("}");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
@@ -4420,7 +4420,7 @@ public final class FileResolverTest {
         file_.append("\t\t$return $unreachable;\n");
         file_.append("\t}\n");
         file_.append("}");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
@@ -4612,7 +4612,7 @@ public final class FileResolverTest {
         file_.append("$public $class pkgtwo.ExClass {\n");
         file_.append("\t$private $String exfield=\"{IN_BRACE}(){}\"({INNER});\n");
         file_.append("}");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());
@@ -4637,7 +4637,7 @@ public final class FileResolverTest {
         file_.append("$public $class [pkg.ExThree;$static pkg.ExFour.methodtwo;] pkgtwo.ExClass {\n");
         file_.append("\t$private $String exfield=\"{IN_BRACE}(){}\"({INNER});\n");
         file_.append("}");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());
@@ -4669,7 +4669,7 @@ public final class FileResolverTest {
         file_.append("\tHERE;\n");
         file_.append("\t$private $String exfield=\"{IN_BRACE}(){}\"({INNER});\n");
         file_.append("}");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
@@ -4735,7 +4735,7 @@ public final class FileResolverTest {
         file_.append("pkgtwo.MyClassTwo;\n");
         file_.append("@MyAnnot\n");
         file_.append("$public $class pkg.MyClass{}");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkg.MyClass", getCustomTypes(context_,0).getFullName());
@@ -4758,7 +4758,7 @@ public final class FileResolverTest {
         file_.append("\t@MyAnnot THERE(1i,\n3i),\n");
         file_.append("\tHERE;\n");
         file_.append("}");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
@@ -4819,7 +4819,7 @@ public final class FileResolverTest {
         file_.append("$public $class pkgtwo.Toto {\n");
         file_.append("\t@MyAnnot $private $String exfield=\"{IN_BRACE}(){}\"({INNER});\n");
         file_.append("}");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
@@ -4857,7 +4857,7 @@ public final class FileResolverTest {
         file_.append("$public $class pkgtwo.Toto {\n");
         file_.append("\t@MyAnnot $private $normal $String exmethod(){}\n");
         file_.append("}");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
@@ -4898,7 +4898,7 @@ public final class FileResolverTest {
         file_.append("$public $class pkgtwo.Toto {\n");
         file_.append("\t@MyAnnot $private $normal $String exmethod(@MyAnnotTwo $int p){}\n");
         file_.append("}");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
@@ -4950,7 +4950,7 @@ public final class FileResolverTest {
         file_.append("comment*/\n");
         file_.append("$public $annotation pkg.MyAnnot {\n");
         file_.append("}\n");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkg.MyAnnot", getCustomTypes(context_,0).getFullName());
@@ -4973,7 +4973,7 @@ public final class FileResolverTest {
         file_.append("$public $annotation pkg.MyAnnot {\n");
         file_.append("\t$String exmethod();\n");
         file_.append("}\n");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkg.MyAnnot", getCustomTypes(context_,0).getFullName());
@@ -5014,7 +5014,7 @@ public final class FileResolverTest {
         file_.append("$public $annotation pkg.MyAnnot {\n");
         file_.append("\t$String exmethod()\"sample\";\n");
         file_.append("}\n");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkg.MyAnnot", getCustomTypes(context_,0).getFullName());
@@ -5057,7 +5057,7 @@ public final class FileResolverTest {
         file_.append("$public $annotation pkg.MyAnnot {\n");
         file_.append("\t@MyAnnot $String exmethod();\n");
         file_.append("}\n");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkg.MyAnnot", getCustomTypes(context_,0).getFullName());
@@ -5100,7 +5100,7 @@ public final class FileResolverTest {
         file_.append("$public $annotation pkg.MyAnnot {\n");
         file_.append("\t$String exmethod(){\"sample\"};\n");
         file_.append("}\n");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkg.MyAnnot", getCustomTypes(context_,0).getFullName());
@@ -5143,7 +5143,7 @@ public final class FileResolverTest {
         file_.append("$public $annotation pkg.MyAnnot {\n");
         file_.append("\t$String exmethod()(\"sample\")+\" test\";\n");
         file_.append("}\n");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkg.MyAnnot", getCustomTypes(context_,0).getFullName());
@@ -5182,7 +5182,7 @@ public final class FileResolverTest {
         file_.append("$operator+ $long ($int a, $short b) {\n");
         file_.append("\t$return plus(a;.;,b;.;);\n");
         file_.append("}\n");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         CustList<OperatorBlock> ops_ = context_.getClasses().getOperators();
         assertEq(1, ops_.size());
@@ -5222,7 +5222,7 @@ public final class FileResolverTest {
         file_.append("$operator+ $long ($int a, $short b) {\n");
         file_.append("\t$return plus(a;.;,b;.;);\n");
         file_.append("}\n");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         CustList<OperatorBlock> ops_ = context_.getClasses().getOperators();
         assertEq(1, ops_.size());
@@ -5261,7 +5261,7 @@ public final class FileResolverTest {
         file_.append("$operator+ $long (@MyAnnot\n$int a, $short b) {\n");
         file_.append("\t$return plus(a;.;,b;.;);\n");
         file_.append("}\n");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         CustList<OperatorBlock> ops_ = context_.getClasses().getOperators();
         assertEq(1, ops_.size());
@@ -5304,7 +5304,7 @@ public final class FileResolverTest {
         file_.append("\t$public $class [] Inner{\n");
         file_.append("\t}\n");
         file_.append("}\n");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(2, countCustomTypes(context_));
         assertEq("pkg.Outer", getCustomTypes(context_,0).getFullName());
@@ -5325,7 +5325,7 @@ public final class FileResolverTest {
         file_.append("\t$abstract $class [] Inner{\n");
         file_.append("\t}\n");
         file_.append("}\n");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(2, countCustomTypes(context_));
         assertEq("pkg.Outer", getCustomTypes(context_,0).getFullName());
@@ -5346,7 +5346,7 @@ public final class FileResolverTest {
         file_.append("\t$final $class [] Inner{\n");
         file_.append("\t}\n");
         file_.append("}\n");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(2, countCustomTypes(context_));
         assertEq("pkg.Outer", getCustomTypes(context_,0).getFullName());
@@ -5367,7 +5367,7 @@ public final class FileResolverTest {
         file_.append("\t$public $class [] Inner<#S>{\n");
         file_.append("\t}\n");
         file_.append("}\n");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(2, countCustomTypes(context_));
         assertEq("pkg.Outer", getCustomTypes(context_,0).getFullName());
@@ -5388,7 +5388,7 @@ public final class FileResolverTest {
         file_.append("\t$public $static $class [] Inner<#T>{\n");
         file_.append("\t}\n");
         file_.append("}\n");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(2, countCustomTypes(context_));
         assertEq("pkg.Outer", getCustomTypes(context_,0).getFullName());
@@ -5412,7 +5412,7 @@ public final class FileResolverTest {
         file_.append("$public $annotation pkg.MyAnnot {\n");
         file_.append("\t$String exfield;\n");
         file_.append("}\n");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkg.MyAnnot", getCustomTypes(context_,0).getFullName());
@@ -5446,7 +5446,7 @@ public final class FileResolverTest {
         file_.append("$public $annotation pkg.MyAnnot {\n");
         file_.append("\t$final $String exfield;\n");
         file_.append("}\n");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkg.MyAnnot", getCustomTypes(context_,0).getFullName());
@@ -5481,7 +5481,7 @@ public final class FileResolverTest {
         file_.append("$public $annotation pkg.MyAnnot {\n");
         file_.append("\t$String exfield = \"\";\n");
         file_.append("}\n");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkg.MyAnnot", getCustomTypes(context_,0).getFullName());
@@ -5516,7 +5516,7 @@ public final class FileResolverTest {
         file_.append("$public $annotation pkg.MyAnnot {\n");
         file_.append("\t$final $String exfield = \"\";\n");
         file_.append("}\n");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkg.MyAnnot", getCustomTypes(context_,0).getFullName());
@@ -5549,7 +5549,7 @@ public final class FileResolverTest {
         file_.append("\t$public $static $class Inner<#T>{\n");
         file_.append("\t}\n");
         file_.append("}\n");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(2, countCustomTypes(context_));
         assertEq("pkg.Outer", getCustomTypes(context_,0).getFullName());
@@ -5570,7 +5570,7 @@ public final class FileResolverTest {
         file_.append("\t$public $static $class Inner<#T>:pkg.Outer<#T>{\n");
         file_.append("\t}\n");
         file_.append("}\n");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(2, countCustomTypes(context_));
         assertEq("pkg.Outer", getCustomTypes(context_,0).getFullName());
@@ -5592,7 +5592,7 @@ public final class FileResolverTest {
         file_.append("\t$public $static $class Inner<#T>{\n");
         file_.append("\t}\n");
         file_.append("}\n");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(2, countCustomTypes(context_));
         assertEq("pkg.Outer", getCustomTypes(context_,0).getFullName());
@@ -5614,7 +5614,7 @@ public final class FileResolverTest {
         file_.append("\t$public $static $class Inner<#T>:pkg.Outer<#T>{\n");
         file_.append("\t}\n");
         file_.append("}\n");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(2, countCustomTypes(context_));
         assertEq("pkg.Outer", getCustomTypes(context_,0).getFullName());
@@ -5638,7 +5638,7 @@ public final class FileResolverTest {
         file_.append("\t\t$class(MyClass).method();\n");
         file_.append("\t}\n");
         file_.append("}");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
@@ -5680,7 +5680,7 @@ public final class FileResolverTest {
         file_.append("\t\t$class (MyClass).method();\n");
         file_.append("\t}\n");
         file_.append("}");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
@@ -5722,7 +5722,7 @@ public final class FileResolverTest {
         file_.append("\t\t$class  (MyClass).method();\n");
         file_.append("\t}\n");
         file_.append("}");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
@@ -5765,7 +5765,7 @@ public final class FileResolverTest {
         file_.append(" $class StaticInner{\n");
         file_.append(" }\n");
         file_.append("}\n");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(2, countCustomTypes(context_));
         assertEq("pkg.MyAnnot", getCustomTypes(context_,0).getFullName());
@@ -5792,7 +5792,7 @@ public final class FileResolverTest {
         file_.append(" $public $class [my.Class;] StaticInner{\n");
         file_.append(" }\n");
         file_.append("}\n");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(2, countCustomTypes(context_));
         assertEq("pkg.MyAnnot", getCustomTypes(context_,0).getFullName());
@@ -5821,7 +5821,7 @@ public final class FileResolverTest {
         file_.append(" $public $class StaticInner{\n");
         file_.append(" }\n");
         file_.append("}\n");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(2, countCustomTypes(context_));
         assertEq("pkg.MyAnnot", getCustomTypes(context_,0).getFullName());
@@ -5846,7 +5846,7 @@ public final class FileResolverTest {
         file_.append("\t$public $class [my.Import;] Inner{\n");
         file_.append("\t}\n");
         file_.append("}\n");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(2, countCustomTypes(context_));
         assertEq("pkg.Outer", getCustomTypes(context_,0).getFullName());
@@ -5884,7 +5884,7 @@ public final class FileResolverTest {
         file_.append("\t\t$return $unreachable;\n");
         file_.append("\t}\n");
         file_.append("}\n");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         StringMap<String> files_ = new StringMap<String>();
         files_.put("my_file", file_.toString());
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
@@ -6024,7 +6024,7 @@ public final class FileResolverTest {
         file_.append("\t\t$return $unreachable;\n");
         file_.append("\t}\n");
         file_.append("}\n");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         StringMap<String> files_ = new StringMap<String>();
         files_.put("my_file", file_.toString());
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
@@ -6162,7 +6162,7 @@ public final class FileResolverTest {
         file_.append("\t\t$return $unreachablebis;\n");
         file_.append("\t}\n");
         file_.append("}");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
     }
@@ -6176,7 +6176,7 @@ public final class FileResolverTest {
         file_.append("$public $final $class pkgtwo.Toto<#T> {\n");
         file_.append("\t$private $String exfield='\\'';\n");
         file_.append("}");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
@@ -6208,7 +6208,7 @@ public final class FileResolverTest {
         file_.append("$public $abstract $class pkgtwo.Toto<#T> {\n");
         file_.append("\t$private $String exfield=\"\\\"\";\n");
         file_.append("}");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
@@ -6240,7 +6240,7 @@ public final class FileResolverTest {
         file_.append("$public $abstract $final $class pkgtwo.Toto<#T> {\n");
         file_.append("\t$private $String exfield=\"\";\n");
         file_.append("}");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
@@ -6281,7 +6281,7 @@ public final class FileResolverTest {
         file_.append("\t\t}\n");
         file_.append("\t}\n");
         file_.append("}");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
@@ -6338,7 +6338,7 @@ public final class FileResolverTest {
         file_.append("\t\t}\n");
         file_.append("\t}\n");
         file_.append("}");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
@@ -6401,7 +6401,7 @@ public final class FileResolverTest {
         file_.append("\t\t$return $unreachablebis;\n");
         file_.append("\t}\n");
         file_.append("}");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
@@ -6531,7 +6531,7 @@ public final class FileResolverTest {
         file_.append("\t\t$return $unreachable;\n");
         file_.append("\t}\n");
         file_.append("}");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
@@ -6592,7 +6592,7 @@ public final class FileResolverTest {
         file_.append("\t\t$return $unreachable;\n");
         file_.append("\t}\n");
         file_.append("}");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
@@ -6646,7 +6646,7 @@ public final class FileResolverTest {
         file_.append("\t\t$return $unreachable;\n");
         file_.append("\t}\n");
         file_.append("}");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
@@ -6711,7 +6711,7 @@ public final class FileResolverTest {
         file_.append("\t\t$return $unreachablebis;\n");
         file_.append("\t}\n");
         file_.append("}");
-        ContextEl context_ = simpleContext(true);
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
@@ -6862,7 +6862,7 @@ public final class FileResolverTest {
         file_.append("\t\t$return $unreachablebis;\n");
         file_.append("\t}\n");
         file_.append("}");
-        ContextEl context_ = simpleContext(true);
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
@@ -6999,7 +6999,7 @@ public final class FileResolverTest {
         file_.append("$public $class pkgtwo.Toto {\n");
         file_.append("\t$private $String myf=\"ValueOne\",mys=\"ValueTwo\";\n");
         file_.append("}");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
@@ -7032,7 +7032,7 @@ public final class FileResolverTest {
         file_.append("comment*/\n");
         file_.append("$class pkgtwo.ExClass {");
         file_.append("}");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());
@@ -7921,7 +7921,7 @@ public final class FileResolverTest {
         file_.append("$public $enum pkgtwo.Toto : hello.word<Ex> : every.body {\n");
         file_.append("\tONE\n");
         file_.append("}\n");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
@@ -7970,7 +7970,7 @@ public final class FileResolverTest {
         file_.append("\t\t}\n");
         file_.append("\t}\n");
         file_.append("}\n");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         StringMap<String> files_ = new StringMap<String>();
         files_.put("my_file", file_.toString());
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
@@ -8020,7 +8020,7 @@ public final class FileResolverTest {
         file_.append("\t\t$return \"\";\n");
         file_.append("\t}\n");
         file_.append("}");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
@@ -8051,7 +8051,7 @@ public final class FileResolverTest {
         file_.append("\t\t$return \"\";\n");
         file_.append("\t}\n");
         file_.append("}");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
@@ -8082,7 +8082,7 @@ public final class FileResolverTest {
         file_.append("\t\t$return \"\";\n");
         file_.append("\t}\n");
         file_.append("}");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
@@ -8113,7 +8113,7 @@ public final class FileResolverTest {
         file_.append("\t\t$return \"\";\n");
         file_.append("\t}\n");
         file_.append("}");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
@@ -8144,7 +8144,7 @@ public final class FileResolverTest {
         file_.append("\t\t$return \"\";\n");
         file_.append("\t}\n");
         file_.append("}");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
@@ -8175,7 +8175,7 @@ public final class FileResolverTest {
         file_.append("\t\t$return \"\";\n");
         file_.append("\t}\n");
         file_.append("}");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
@@ -8206,7 +8206,7 @@ public final class FileResolverTest {
         file_.append("\t\t$return \"\";\n");
         file_.append("\t}\n");
         file_.append("}");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
@@ -8237,7 +8237,7 @@ public final class FileResolverTest {
         file_.append("\t\t$return \"\";\n");
         file_.append("\t}\n");
         file_.append("}");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
@@ -8268,7 +8268,7 @@ public final class FileResolverTest {
         file_.append("\t\tTemp<Other<String>>[] v;\n");
         file_.append("\t}\n");
         file_.append("}");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
@@ -8294,7 +8294,7 @@ public final class FileResolverTest {
         file_.append("\t\tTemp <Other<String>>[] v;\n");
         file_.append("\t}\n");
         file_.append("}");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
@@ -8320,7 +8320,7 @@ public final class FileResolverTest {
         file_.append("\t\tTemp<Other<String>> [] v;\n");
         file_.append("\t}\n");
         file_.append("}");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
@@ -8346,7 +8346,7 @@ public final class FileResolverTest {
         file_.append("\t\tTemp<Other<String>>[]v;\n");
         file_.append("\t}\n");
         file_.append("}");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
@@ -8372,7 +8372,7 @@ public final class FileResolverTest {
         file_.append("\t\tv.$new Cl();\n");
         file_.append("\t}\n");
         file_.append("}");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
@@ -8394,7 +8394,7 @@ public final class FileResolverTest {
         file_.append("\t\tv.a$new mycl;\n");
         file_.append("\t}\n");
         file_.append("}");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
@@ -8638,7 +8638,7 @@ public final class FileResolverTest {
         file_.append("$operator+ $long[] ($int a, $short b) {\n");
         file_.append("\t$return plus(a;.;,b;.;);\n");
         file_.append("}\n");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         CustList<OperatorBlock> ops_ = context_.getClasses().getOperators();
         assertEq(1, ops_.size());
@@ -8663,7 +8663,7 @@ public final class FileResolverTest {
         file_.append("$operator+ $long[ ] ($int a, $short b) {\n");
         file_.append("\t$return plus(a;.;,b;.;);\n");
         file_.append("}\n");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         CustList<OperatorBlock> ops_ = context_.getClasses().getOperators();
         assertEq(1, ops_.size());
@@ -8688,7 +8688,7 @@ public final class FileResolverTest {
         file_.append("$operator+ Tmp<Val> ($int a, $short b) {\n");
         file_.append("\t$return plus(a;.;,b;.;);\n");
         file_.append("}\n");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         CustList<OperatorBlock> ops_ = context_.getClasses().getOperators();
         assertEq(1, ops_.size());
@@ -8713,7 +8713,7 @@ public final class FileResolverTest {
         file_.append("$operator+ Tmp<U<Val>> ($int a, $short b) {\n");
         file_.append("\t$return plus(a;.;,b;.;);\n");
         file_.append("}\n");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         CustList<OperatorBlock> ops_ = context_.getClasses().getOperators();
         assertEq(1, ops_.size());
@@ -8738,7 +8738,7 @@ public final class FileResolverTest {
         file_.append("$operator+ Tmp <U<Val>> ($int a, $short b) {\n");
         file_.append("\t$return plus(a;.;,b;.;);\n");
         file_.append("}\n");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         CustList<OperatorBlock> ops_ = context_.getClasses().getOperators();
         assertEq(1, ops_.size());
@@ -8763,7 +8763,7 @@ public final class FileResolverTest {
         file_.append("$operator+ Tmp<U<Val>> [] ($int a, $short b) {\n");
         file_.append("\t$return plus(a;.;,b;.;);\n");
         file_.append("}\n");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         CustList<OperatorBlock> ops_ = context_.getClasses().getOperators();
         assertEq(1, ops_.size());
@@ -8788,7 +8788,7 @@ public final class FileResolverTest {
         file_.append("$operator+ Tmp<U<Val>>.Inner ($int a, $short b) {\n");
         file_.append("\t$return plus(a;.;,b;.;);\n");
         file_.append("}\n");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         CustList<OperatorBlock> ops_ = context_.getClasses().getOperators();
         assertEq(1, ops_.size());
@@ -8813,7 +8813,7 @@ public final class FileResolverTest {
         file_.append("$operator+ #T ($int a, $short b) {\n");
         file_.append("\t$return plus(a;.;,b;.;);\n");
         file_.append("}\n");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         CustList<OperatorBlock> ops_ = context_.getClasses().getOperators();
         assertEq(1, ops_.size());
@@ -8838,7 +8838,7 @@ public final class FileResolverTest {
         file_.append("$operator+ Tmp<U<Val>> [] [] ($int a, $short b) {\n");
         file_.append("\t$return plus(a;.;,b;.;);\n");
         file_.append("}\n");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         CustList<OperatorBlock> ops_ = context_.getClasses().getOperators();
         assertEq(1, ops_.size());
@@ -8863,7 +8863,7 @@ public final class FileResolverTest {
         file_.append("$operator+ pkg .Inner ($int a, $short b) {\n");
         file_.append("\t$return plus(a;.;,b;.;);\n");
         file_.append("}\n");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         CustList<OperatorBlock> ops_ = context_.getClasses().getOperators();
         assertEq(1, ops_.size());
@@ -8888,7 +8888,7 @@ public final class FileResolverTest {
         file_.append("$operator+ pkg. Inner ($int a, $short b) {\n");
         file_.append("\t$return plus(a;.;,b;.;);\n");
         file_.append("}\n");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         CustList<OperatorBlock> ops_ = context_.getClasses().getOperators();
         assertEq(1, ops_.size());
@@ -8913,7 +8913,7 @@ public final class FileResolverTest {
         file_.append("$operator+ Tmp<U<Val >> [] [] ($int a, $short b) {\n");
         file_.append("\t$return plus(a;.;,b;.;);\n");
         file_.append("}\n");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         CustList<OperatorBlock> ops_ = context_.getClasses().getOperators();
         assertEq(1, ops_.size());
@@ -8954,7 +8954,7 @@ public final class FileResolverTest {
         file_.append(" $foreach ([([)]):] {\n");
         file_.append(" }\n");
         file_.append("}");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(0, countCustomTypes(context_));
         assertEq(1, countFileTypes(context_));
@@ -9111,7 +9111,7 @@ public final class FileResolverTest {
         file_.append("\t\t$return $unreachablebis;\n");
         file_.append("\t}\n");
         file_.append("}");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
@@ -9252,7 +9252,7 @@ public final class FileResolverTest {
         file_.append("\t\t$return $unreachablebis;\n");
         file_.append("\t}\n");
         file_.append("}");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
@@ -9377,7 +9377,7 @@ public final class FileResolverTest {
         file_.append("\t\t$badthrowbis<y,tab[8]>p;\n");
         file_.append("\t}\n");
         file_.append("}");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
@@ -9419,7 +9419,7 @@ public final class FileResolverTest {
         file_.append("\t\t$badthrowbis<y?tab[8]>p;\n");
         file_.append("\t}\n");
         file_.append("}");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
@@ -9462,7 +9462,7 @@ public final class FileResolverTest {
         file_.append("comment*/\r\n");
         file_.append("$public $class pkgtwo.ExClass {");
         file_.append("}");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());
@@ -9483,7 +9483,7 @@ public final class FileResolverTest {
         file_.append("comment*/\r\n");
         file_.append("$public $class pkgtwo.ExClass {");
         file_.append("}\b");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(0, countCustomTypes(context_));
         assertTrue(!context_.isEmptyErrors());
@@ -9497,7 +9497,7 @@ public final class FileResolverTest {
         file_.append("comment*/\n");
         file_.append("$public $class pkgtwo.ExClass {");
         file_.append("}\r");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());
@@ -9516,7 +9516,7 @@ public final class FileResolverTest {
         file_.append("\t$public $class [] Outer{\n");
         file_.append("\t}\n");
         file_.append("}\n");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertTrue(!context_.isEmptyErrors());
     }
@@ -9527,7 +9527,7 @@ public final class FileResolverTest {
         file_.append("\t$public $class [] Inner<#T>{\n");
         file_.append("\t}\n");
         file_.append("}\n");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertTrue(!context_.isEmptyErrors());
     }
@@ -9549,7 +9549,7 @@ public final class FileResolverTest {
         file_.append("  $return t;.;\n");
         file_.append(" }\n");
         file_.append("}\n");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertTrue(!context_.isEmptyErrors());
     }
@@ -9558,7 +9558,7 @@ public final class FileResolverTest {
         StringBuilder file_ = new StringBuilder();
         file_.append("$public $class pkg.#Outer {\n");
         file_.append("}\n");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), true, context_);
         assertTrue(!context_.isEmptyErrors());
     }
@@ -9569,7 +9569,7 @@ public final class FileResolverTest {
         file_.append("}\n");
         file_.append("$public $class pkg.Outer {\t\n");
         file_.append("}\n");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertTrue(!context_.isEmptyErrors());
     }
@@ -9578,7 +9578,7 @@ public final class FileResolverTest {
         StringBuilder file_ = new StringBuilder();
         file_.append("$public $class pkg.Outer<,> {\n");
         file_.append("}\n");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertTrue(!context_.isEmptyErrors());
     }
@@ -9587,7 +9587,7 @@ public final class FileResolverTest {
         StringBuilder file_ = new StringBuilder();
         file_.append("$public $class pkg.Outer<T,T> {\n");
         file_.append("}\n");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertTrue(!context_.isEmptyErrors());
     }
@@ -9596,7 +9596,7 @@ public final class FileResolverTest {
         StringBuilder file_ = new StringBuilder();
         file_.append("$public $class pkg.Outer<$int> {\n");
         file_.append("}\n");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertTrue(!context_.isEmptyErrors());
     }
@@ -9605,7 +9605,7 @@ public final class FileResolverTest {
         StringBuilder file_ = new StringBuilder();
         file_.append("$public $class java.lang.String {\n");
         file_.append("}\n");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertTrue(!context_.isEmptyErrors());
     }
@@ -9625,7 +9625,7 @@ public final class FileResolverTest {
         file_.append("}\n");
         file_.append("$public $class pkg.Ex {\n");
         file_.append("}\n");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertTrue(!context_.isEmptyErrors());
     }
@@ -9641,9 +9641,7 @@ public final class FileResolverTest {
         file_.append("public class pkg.pkgtwo {\n");
         file_.append("}\n");
         ContextEl context_ = simpleContextEnDefault();
-        StringMap<String> s_ = new StringMap<String>();
-        s_.put("my_file",file_.toString());
-        Classes.tryBuildBracedClassesBodies(s_,context_,false);
+        FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertTrue(!context_.isEmptyErrors());
     }
     @Test
@@ -9656,7 +9654,7 @@ public final class FileResolverTest {
         file_.append(" $enum pkg.Inner {:");
         file_.append(" }");
         file_.append("}");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file", file_.toString(), false, context_);
         assertTrue(!context_.isEmptyErrors());
     }
@@ -9667,7 +9665,7 @@ public final class FileResolverTest {
         file_.append("}");
         file_.append("$annotation\tpkgtwo.ExClass {");
         file_.append("}");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file", file_.toString(), false, context_);
         assertTrue(!context_.isEmptyErrors());
     }
@@ -9678,7 +9676,7 @@ public final class FileResolverTest {
         file_.append("}");
         file_.append("$annotation []\tpkgtwo.ExClass {");
         file_.append("}");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file", file_.toString(), false, context_);
         assertTrue(!context_.isEmptyErrors());
     }
@@ -9686,7 +9684,7 @@ public final class FileResolverTest {
     public void parseFile16FailTest() {
         StringBuilder file_ = new StringBuilder();
         file_.append("$annotation []");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file", file_.toString(), false, context_);
         assertTrue(!context_.isEmptyErrors());
     }
@@ -9694,7 +9692,7 @@ public final class FileResolverTest {
     public void parseFile17FailTest() {
         StringBuilder file_ = new StringBuilder();
         file_.append("$annotation [");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file", file_.toString(), false, context_);
         assertTrue(!context_.isEmptyErrors());
     }
@@ -9702,7 +9700,7 @@ public final class FileResolverTest {
     public void parseFile18FailTest() {
         StringBuilder file_ = new StringBuilder();
         file_.append("$annotation pkg.MyAnnot{$public $int v=r{}y}");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file", file_.toString(), false, context_);
         assertTrue(!context_.isEmptyErrors());
     }
@@ -9715,7 +9713,7 @@ public final class FileResolverTest {
         file_.append("}\n");
         file_.append("}\n");
         file_.append("}\n");
-        ContextEl context_ = simpleContext();
+        ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertTrue(!context_.isEmptyErrors());
     }
@@ -9765,8 +9763,7 @@ public final class FileResolverTest {
     }
     private static ContextEl simpleContextEnDefault() {
         //key words in some language
-        Options opt_ = new Options();
-        ContextEl cont_ = InitializationLgNames.buildStdOne("en", opt_);
+        ContextEl cont_ = getEnContextEl();
         LgNames stds_ = cont_.getStandards();
         cont_.setAnalyzing();
         for (EntryCust<String, String> e: stds_.buildFiles(cont_).entryList()) {
@@ -9778,8 +9775,7 @@ public final class FileResolverTest {
     }
     private static ContextEl simpleContextFrDefault() {
         //key words in some language
-        Options opt_ = new Options();
-        ContextEl cont_ = InitializationLgNames.buildStdOne("fr", opt_);
+        ContextEl cont_ = getFrContextEl();
         LgNames stds_ = cont_.getStandards();
         cont_.setAnalyzing();
         for (EntryCust<String, String> e: stds_.buildFiles(cont_).entryList()) {
@@ -9789,40 +9785,5 @@ public final class FileResolverTest {
         }
         return cont_;
     }
-    private static ContextEl simpleContext() {
-        Options opt_ = new Options();
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
-        LgNames stds_ = cont_.getStandards();
-        cont_.setAnalyzing();
-        for (EntryCust<String, String> e: stds_.buildFiles(cont_).entryList()) {
-            String name_ = e.getKey();
-            String content_ = e.getValue();
-            FileResolver.parseFile(name_, content_, true, cont_);
-        }
-        return cont_;
-    }
-    private static ContextEl simpleContextDef() {
-        Options opt_ = new Options();
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
-        LgNames stds_ = cont_.getStandards();
-        cont_.setAnalyzing();
-        for (EntryCust<String, String> e: stds_.buildFiles(cont_).entryList()) {
-            String name_ = e.getKey();
-            String content_ = e.getValue();
-            FileResolver.parseFile(name_, content_, true, cont_);
-        }
-        return cont_;
-    }
-    private static ContextEl simpleContext(boolean _endLineSemiColumn) {
-        Options opt_ = new Options();
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
-        LgNames stds_ = cont_.getStandards();
-        cont_.setAnalyzing();
-        for (EntryCust<String, String> e: stds_.buildFiles(cont_).entryList()) {
-            String name_ = e.getKey();
-            String content_ = e.getValue();
-            FileResolver.parseFile(name_, content_, true, cont_);
-        }
-        return cont_;
-    }
+
 }

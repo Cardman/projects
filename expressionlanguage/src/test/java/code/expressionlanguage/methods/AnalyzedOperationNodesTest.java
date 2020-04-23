@@ -17,7 +17,7 @@ import static code.expressionlanguage.EquallableElUtil.assertEq;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-public final class AnalyzedOperationNodesTest {
+public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
     private static final String COMPOSITE = "code.formathtml.classes.Composite";
     private static final String MY_CLASS = "myimpl.MyClass";
     private static final String MY_GENE_CLASS = "myimpl.MyGeneClass";
@@ -1666,11 +1666,7 @@ public final class AnalyzedOperationNodesTest {
         String g_ = StringList.concat("pkg.ExTwo");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Options opt_ = new Options();
-        
-
-        
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        ContextEl cont_ = getSimpleContextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.isEmptyErrors());
         RootBlock r_ = cont_.getClasses().getClassBody("pkg.ExTwo");
@@ -1688,6 +1684,7 @@ public final class AnalyzedOperationNodesTest {
         assertEq(0, fct_.getNaturalVararg());
         assertTrue(id_.isStaticMethod());
     }
+
     @Test
     public void processEl183Test() {
         StringBuilder xml_ = new StringBuilder();
@@ -1881,11 +1878,7 @@ public final class AnalyzedOperationNodesTest {
         String g_ = StringList.concat("pkg.ExTwo");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Options opt_ = new Options();
-        
-
-        
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        ContextEl cont_ = getSimpleContextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.isEmptyErrors());
         RootBlock r_ = cont_.getClasses().getClassBody("pkg.ExTwo");
@@ -2030,11 +2023,7 @@ public final class AnalyzedOperationNodesTest {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Options opt_ = new Options();
-        
-        
-        
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        ContextEl cont_ = getSimpleContextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.isEmptyErrors());
         RootBlock r_ = cont_.getClasses().getClassBody("pkgtwo.Apply");
@@ -2063,12 +2052,7 @@ public final class AnalyzedOperationNodesTest {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Options opt_ = new Options();
-
-        
-        
-        
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        ContextEl cont_ = getSimpleContextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.isEmptyErrors());
         RootBlock r_ = cont_.getClasses().getClassBody("pkgtwo.Apply");
@@ -2097,12 +2081,7 @@ public final class AnalyzedOperationNodesTest {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Options opt_ = new Options();
-
-        
-        
-        
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        ContextEl cont_ = getSimpleContextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.isEmptyErrors());
         RootBlock r_ = cont_.getClasses().getClassBody("pkgtwo.Apply");
@@ -2131,12 +2110,7 @@ public final class AnalyzedOperationNodesTest {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Options opt_ = new Options();
-        
-
-        
-        
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        ContextEl cont_ = getSimpleContextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.isEmptyErrors());
         RootBlock r_ = cont_.getClasses().getClassBody("pkgtwo.Apply");
@@ -2165,12 +2139,7 @@ public final class AnalyzedOperationNodesTest {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Options opt_ = new Options();
-        
-
-        
-        
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        ContextEl cont_ = getSimpleContextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.isEmptyErrors());
         RootBlock r_ = cont_.getClasses().getClassBody("pkgtwo.Apply");
@@ -2197,11 +2166,7 @@ public final class AnalyzedOperationNodesTest {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Options opt_ = new Options();
-        
-        
-        
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        ContextEl cont_ = getSimpleContextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.isEmptyErrors());
         RootBlock r_ = cont_.getClasses().getClassBody("pkgtwo.Apply");
@@ -2230,12 +2195,7 @@ public final class AnalyzedOperationNodesTest {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Options opt_ = new Options();
-        
-
-        
-        
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        ContextEl cont_ = getSimpleContextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.isEmptyErrors());
         RootBlock r_ = cont_.getClasses().getClassBody("pkgtwo.Apply");
@@ -2262,11 +2222,7 @@ public final class AnalyzedOperationNodesTest {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Options opt_ = new Options();
-        
-        
-        
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        ContextEl cont_ = getSimpleContextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.isEmptyErrors());
         RootBlock r_ = cont_.getClasses().getClassBody("pkgtwo.Apply");
@@ -2293,11 +2249,7 @@ public final class AnalyzedOperationNodesTest {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Options opt_ = new Options();
-        
-        
-        
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        ContextEl cont_ = getSimpleContextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.isEmptyErrors());
         RootBlock r_ = cont_.getClasses().getClassBody("pkgtwo.Apply");
@@ -2324,11 +2276,7 @@ public final class AnalyzedOperationNodesTest {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Options opt_ = new Options();
-        
-        
-        
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        ContextEl cont_ = getSimpleContextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.isEmptyErrors());
         RootBlock r_ = cont_.getClasses().getClassBody("pkgtwo.Apply");
@@ -2355,11 +2303,7 @@ public final class AnalyzedOperationNodesTest {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Options opt_ = new Options();
-        
-        
-        
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        ContextEl cont_ = getSimpleContextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.isEmptyErrors());
         RootBlock r_ = cont_.getClasses().getClassBody("pkgtwo.Apply");
@@ -2386,11 +2330,7 @@ public final class AnalyzedOperationNodesTest {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Options opt_ = new Options();
-        
-        
-        
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        ContextEl cont_ = getSimpleContextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.isEmptyErrors());
         RootBlock r_ = cont_.getClasses().getClassBody("pkgtwo.Apply");
@@ -2417,11 +2357,7 @@ public final class AnalyzedOperationNodesTest {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Options opt_ = new Options();
-        
-        
-        
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        ContextEl cont_ = getSimpleContextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.isEmptyErrors());
         RootBlock r_ = cont_.getClasses().getClassBody("pkgtwo.Apply");
@@ -2448,11 +2384,7 @@ public final class AnalyzedOperationNodesTest {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Options opt_ = new Options();
-        
-        
-        
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        ContextEl cont_ = getSimpleContextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.isEmptyErrors());
         RootBlock r_ = cont_.getClasses().getClassBody("pkgtwo.Apply");
@@ -2479,12 +2411,7 @@ public final class AnalyzedOperationNodesTest {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Options opt_ = new Options();
-        
-        
-        
-        
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        ContextEl cont_ = getSimpleContextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.isEmptyErrors());
         RootBlock r_ = cont_.getClasses().getClassBody("pkgtwo.Apply");
@@ -2511,12 +2438,7 @@ public final class AnalyzedOperationNodesTest {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Options opt_ = new Options();
-        
-        
-        
-        
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        ContextEl cont_ = getSimpleContextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.isEmptyErrors());
         RootBlock r_ = cont_.getClasses().getClassBody("pkgtwo.Apply");
@@ -2543,12 +2465,7 @@ public final class AnalyzedOperationNodesTest {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Options opt_ = new Options();
-        
-        
-        
-        
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        ContextEl cont_ = getSimpleContextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.isEmptyErrors());
         RootBlock r_ = cont_.getClasses().getClassBody("pkgtwo.Apply");
@@ -2575,12 +2492,7 @@ public final class AnalyzedOperationNodesTest {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Options opt_ = new Options();
-        
-        
-        
-        
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        ContextEl cont_ = getSimpleContextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.isEmptyErrors());
         RootBlock r_ = cont_.getClasses().getClassBody("pkgtwo.Apply");
@@ -2608,12 +2520,7 @@ public final class AnalyzedOperationNodesTest {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Options opt_ = new Options();
-        
-        
-        
-        
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        ContextEl cont_ = getSimpleContextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.isEmptyErrors());
         RootBlock r_ = cont_.getClasses().getClassBody("pkgtwo.Apply");
@@ -2641,12 +2548,7 @@ public final class AnalyzedOperationNodesTest {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Options opt_ = new Options();
-        
-        
-        
-        
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        ContextEl cont_ = getSimpleContextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.isEmptyErrors());
         RootBlock r_ = cont_.getClasses().getClassBody("pkgtwo.Apply");
@@ -2674,12 +2576,7 @@ public final class AnalyzedOperationNodesTest {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Options opt_ = new Options();
-        
-        
-        
-        
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        ContextEl cont_ = getSimpleContextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.isEmptyErrors());
         RootBlock r_ = cont_.getClasses().getClassBody("pkgtwo.Apply");
@@ -2707,12 +2604,7 @@ public final class AnalyzedOperationNodesTest {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Options opt_ = new Options();
-        
-        
-        
-        
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        ContextEl cont_ = getSimpleContextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.isEmptyErrors());
         RootBlock r_ = cont_.getClasses().getClassBody("pkgtwo.Apply");
@@ -2740,12 +2632,7 @@ public final class AnalyzedOperationNodesTest {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Options opt_ = new Options();
-        
-        
-        
-        
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        ContextEl cont_ = getSimpleContextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.isEmptyErrors());
         RootBlock r_ = cont_.getClasses().getClassBody("pkgtwo.Apply");
@@ -2779,12 +2666,7 @@ public final class AnalyzedOperationNodesTest {
         xml_.append(" $public $static $void m() {}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        Options opt_ = new Options();
-        
-        
-        
-        
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        ContextEl cont_ = getSimpleContextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.isEmptyErrors());
         RootBlock r_ = cont_.getClasses().getClassBody("pkg.Apply");
@@ -2817,12 +2699,7 @@ public final class AnalyzedOperationNodesTest {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        Options opt_ = new Options();
-        
-        
-        
-        
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        ContextEl cont_ = getSimpleContextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.isEmptyErrors());
         RootBlock r_ = cont_.getClasses().getClassBody("pkg.Apply");
@@ -3002,11 +2879,7 @@ public final class AnalyzedOperationNodesTest {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Options opt_ = new Options();
-        
-        
-        
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        ContextEl cont_ = getSimpleContextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.isEmptyErrors());
         RootBlock r_ = cont_.getClasses().getClassBody("pkg.Apply");
@@ -3035,12 +2908,7 @@ public final class AnalyzedOperationNodesTest {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Options opt_ = new Options();
-        
-        
-        
-        
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        ContextEl cont_ = getSimpleContextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.isEmptyErrors());
         RootBlock r_ = cont_.getClasses().getClassBody("pkg.Apply");
@@ -3071,12 +2939,7 @@ public final class AnalyzedOperationNodesTest {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Options opt_ = new Options();
-        
-        
-        
-        
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        ContextEl cont_ = getSimpleContextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.isEmptyErrors());
         RootBlock r_ = cont_.getClasses().getClassBody("pkgtwo.Apply");
@@ -3107,12 +2970,7 @@ public final class AnalyzedOperationNodesTest {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Options opt_ = new Options();
-        
-        
-        
-        
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        ContextEl cont_ = getSimpleContextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.isEmptyErrors());
         RootBlock r_ = cont_.getClasses().getClassBody("pkgtwo.Apply");
@@ -3143,12 +3001,7 @@ public final class AnalyzedOperationNodesTest {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Options opt_ = new Options();
-        
-        
-        
-        
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        ContextEl cont_ = getSimpleContextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.isEmptyErrors());
         OperatorBlock r_ = cont_.getClasses().getOperators().first();
@@ -3179,12 +3032,7 @@ public final class AnalyzedOperationNodesTest {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Options opt_ = new Options();
-        
-        
-        
-        
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        ContextEl cont_ = getSimpleContextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.isEmptyErrors());
         OperatorBlock r_ = cont_.getClasses().getOperators().first();
@@ -3208,11 +3056,7 @@ public final class AnalyzedOperationNodesTest {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Options opt_ = new Options();
-        
-
-        
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        ContextEl cont_ = getSimpleContextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.isEmptyErrors());
     }
@@ -3224,11 +3068,7 @@ public final class AnalyzedOperationNodesTest {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Options opt_ = new Options();
-        
-
-        
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        ContextEl cont_ = getSimpleContextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.isEmptyErrors());
         RootBlock r_ = cont_.getClasses().getClassBody("pkg.ExTwo");
@@ -3330,12 +3170,7 @@ public final class AnalyzedOperationNodesTest {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Options opt_ = new Options();
-        
-        
-        
-        
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        ContextEl cont_ = getSimpleContextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.isEmptyErrors());
         RootBlock r_ = cont_.getClasses().getClassBody("pkgtwo.Apply");
@@ -3363,11 +3198,7 @@ public final class AnalyzedOperationNodesTest {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Options opt_ = new Options();
-        
-        
-        
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        ContextEl cont_ = getSimpleContextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.isEmptyErrors());
         RootBlock r_ = cont_.getClasses().getClassBody("pkgtwo.Apply");
@@ -3395,12 +3226,7 @@ public final class AnalyzedOperationNodesTest {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Options opt_ = new Options();
-        
-        
-        
-        
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        ContextEl cont_ = getSimpleContextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.isEmptyErrors());
         RootBlock r_ = cont_.getClasses().getClassBody("pkgtwo.Apply");
@@ -3428,11 +3254,7 @@ public final class AnalyzedOperationNodesTest {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Options opt_ = new Options();
-        
-        
-        
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        ContextEl cont_ = getSimpleContextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.isEmptyErrors());
         RootBlock r_ = cont_.getClasses().getClassBody("pkgtwo.Apply");
@@ -3460,12 +3282,7 @@ public final class AnalyzedOperationNodesTest {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Options opt_ = new Options();
-        
-        
-        
-        
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        ContextEl cont_ = getSimpleContextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(!cont_.isEmptyErrors());
     }
@@ -3480,12 +3297,7 @@ public final class AnalyzedOperationNodesTest {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Options opt_ = new Options();
-        
-        
-
-        
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        ContextEl cont_ = getSimpleContextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(!cont_.isEmptyErrors());
     }
@@ -3500,11 +3312,7 @@ public final class AnalyzedOperationNodesTest {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Options opt_ = new Options();
-        
-        
-        
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        ContextEl cont_ = getSimpleContextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(!cont_.isEmptyErrors());
     }
@@ -3520,12 +3328,7 @@ public final class AnalyzedOperationNodesTest {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Options opt_ = new Options();
-        
-        
-        
-        
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        ContextEl cont_ = getSimpleContextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.isEmptyErrors());
         RootBlock r_ = cont_.getClasses().getClassBody("pkgtwo.Apply");
@@ -3550,11 +3353,7 @@ public final class AnalyzedOperationNodesTest {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Options opt_ = new Options();
-        
-
-        
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        ContextEl cont_ = getSimpleContextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.isEmptyErrors());
     }
@@ -3566,11 +3365,7 @@ public final class AnalyzedOperationNodesTest {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Options opt_ = new Options();
-        
-
-        
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        ContextEl cont_ = getSimpleContextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.isEmptyErrors());
         RootBlock r_ = cont_.getClasses().getClassBody("pkg.ExTwo");
@@ -3596,11 +3391,7 @@ public final class AnalyzedOperationNodesTest {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Options opt_ = new Options();
-        
-
-        
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        ContextEl cont_ = getSimpleContextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.isEmptyErrors());
     }
@@ -3612,11 +3403,7 @@ public final class AnalyzedOperationNodesTest {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Options opt_ = new Options();
-        
-
-        
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        ContextEl cont_ = getSimpleContextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.isEmptyErrors());
         RootBlock r_ = cont_.getClasses().getClassBody("pkg.ExTwo");
@@ -3650,11 +3437,7 @@ public final class AnalyzedOperationNodesTest {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Options opt_ = new Options();
-        
-        
-
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        ContextEl cont_ = getSimpleContextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.isEmptyErrors());
         RootBlock r_ = cont_.getClasses().getClassBody("pkgtwo.Apply");
@@ -3681,11 +3464,7 @@ public final class AnalyzedOperationNodesTest {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Options opt_ = new Options();
-        
-        
-
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        ContextEl cont_ = getSimpleContextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.isEmptyErrors());
         RootBlock r_ = cont_.getClasses().getClassBody("pkg.Apply");
@@ -4124,11 +3903,7 @@ public final class AnalyzedOperationNodesTest {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Options opt_ = new Options();
-        
-        
-        
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        ContextEl cont_ = getSimpleContextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(!cont_.isEmptyErrors());
     }
@@ -4144,10 +3919,7 @@ public final class AnalyzedOperationNodesTest {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Options opt_ = new Options();
-        
-        
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        ContextEl cont_ = getSimpleContextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(!cont_.isEmptyErrors());
     }
@@ -4166,12 +3938,7 @@ public final class AnalyzedOperationNodesTest {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Options opt_ = new Options();
-        
-        
-        
-        
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        ContextEl cont_ = getSimpleContextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(!cont_.isEmptyErrors());
     }
@@ -4190,12 +3957,7 @@ public final class AnalyzedOperationNodesTest {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Options opt_ = new Options();
-        
-        
-        
-        
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        ContextEl cont_ = getSimpleContextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(!cont_.isEmptyErrors());
     }
@@ -4207,12 +3969,7 @@ public final class AnalyzedOperationNodesTest {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Options opt_ = new Options();
-        
-        
-        
-        
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        ContextEl cont_ = getSimpleContextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(!cont_.isEmptyErrors());
     }
@@ -4224,12 +3981,7 @@ public final class AnalyzedOperationNodesTest {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Options opt_ = new Options();
-        
-        
-        
-        
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        ContextEl cont_ = getSimpleContextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(!cont_.isEmptyErrors());
     }
@@ -4243,10 +3995,7 @@ public final class AnalyzedOperationNodesTest {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Options opt_ = new Options();
-        
-        
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        ContextEl cont_ = getSimpleContextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(!cont_.isEmptyErrors());
     }
@@ -4261,10 +4010,7 @@ public final class AnalyzedOperationNodesTest {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Options opt_ = new Options();
-        
-        
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        ContextEl cont_ = getSimpleContextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(!cont_.isEmptyErrors());
     }
@@ -4279,10 +4025,7 @@ public final class AnalyzedOperationNodesTest {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Options opt_ = new Options();
-        
-        
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        ContextEl cont_ = getSimpleContextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(!cont_.isEmptyErrors());
     }
@@ -4297,10 +4040,7 @@ public final class AnalyzedOperationNodesTest {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Options opt_ = new Options();
-        
-        
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        ContextEl cont_ = getSimpleContextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(!cont_.isEmptyErrors());
     }
@@ -4316,10 +4056,7 @@ public final class AnalyzedOperationNodesTest {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Options opt_ = new Options();
-        
-        
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        ContextEl cont_ = getSimpleContextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(!cont_.isEmptyErrors());
     }
@@ -4336,10 +4073,7 @@ public final class AnalyzedOperationNodesTest {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Options opt_ = new Options();
-        
-        
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        ContextEl cont_ = getSimpleContextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(!cont_.isEmptyErrors());
     }
@@ -4352,13 +4086,12 @@ public final class AnalyzedOperationNodesTest {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Options opt_ = new Options();
-        
-        
-        ContextEl cont_ = InitializationLgNames.buildStdOne("en", opt_);
+        ContextEl cont_ = getEnContextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(!cont_.isEmptyErrors());
     }
+
+
     @Test
     public void processEl128FailTest() {
         StringBuilder xml_ = new StringBuilder();
@@ -4371,12 +4104,7 @@ public final class AnalyzedOperationNodesTest {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Options opt_ = new Options();
-        
-        
-        
-        
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        ContextEl cont_ = getSimpleContextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().displayErrors(),!cont_.isEmptyErrors());
     }
@@ -4392,12 +4120,7 @@ public final class AnalyzedOperationNodesTest {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Options opt_ = new Options();
-        
-        
-        
-        
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        ContextEl cont_ = getSimpleContextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().displayErrors(),!cont_.isEmptyErrors());
     }
@@ -4411,12 +4134,7 @@ public final class AnalyzedOperationNodesTest {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Options opt_ = new Options();
-        
-        
-        
-        
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        ContextEl cont_ = getSimpleContextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().displayErrors(),!cont_.isEmptyErrors());
     }
@@ -4430,12 +4148,7 @@ public final class AnalyzedOperationNodesTest {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Options opt_ = new Options();
-        
-        
-        
-        
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        ContextEl cont_ = getSimpleContextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().displayErrors(),!cont_.isEmptyErrors());
     }
@@ -4451,12 +4164,7 @@ public final class AnalyzedOperationNodesTest {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Options opt_ = new Options();
-        
-        
-        
-        
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        ContextEl cont_ = getSimpleContextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().displayErrors(),!cont_.isEmptyErrors());
     }
@@ -4472,12 +4180,7 @@ public final class AnalyzedOperationNodesTest {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Options opt_ = new Options();
-        
-        
-        
-        
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        ContextEl cont_ = getSimpleContextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().displayErrors(),!cont_.isEmptyErrors());
     }
@@ -4493,12 +4196,7 @@ public final class AnalyzedOperationNodesTest {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Options opt_ = new Options();
-        
-        
-        
-        
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        ContextEl cont_ = getSimpleContextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().displayErrors(),!cont_.isEmptyErrors());
     }
@@ -4514,12 +4212,7 @@ public final class AnalyzedOperationNodesTest {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Options opt_ = new Options();
-        
-        
-        
-        
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        ContextEl cont_ = getSimpleContextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().displayErrors(),!cont_.isEmptyErrors());
     }
@@ -4535,12 +4228,7 @@ public final class AnalyzedOperationNodesTest {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Options opt_ = new Options();
-        
-        
-        
-        
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        ContextEl cont_ = getSimpleContextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().displayErrors(),!cont_.isEmptyErrors());
     }
@@ -4556,12 +4244,7 @@ public final class AnalyzedOperationNodesTest {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Options opt_ = new Options();
-        
-        
-        
-        
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        ContextEl cont_ = getSimpleContextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().displayErrors(),!cont_.isEmptyErrors());
     }
@@ -4577,12 +4260,7 @@ public final class AnalyzedOperationNodesTest {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Options opt_ = new Options();
-        
-        
-        
-        
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        ContextEl cont_ = getSimpleContextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().displayErrors(),!cont_.isEmptyErrors());
     }
@@ -4598,12 +4276,7 @@ public final class AnalyzedOperationNodesTest {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Options opt_ = new Options();
-        
-        
-        
-        
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        ContextEl cont_ = getSimpleContextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().displayErrors(),!cont_.isEmptyErrors());
     }
@@ -4619,12 +4292,7 @@ public final class AnalyzedOperationNodesTest {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Options opt_ = new Options();
-        
-        
-        
-        
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        ContextEl cont_ = getSimpleContextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().displayErrors(),!cont_.isEmptyErrors());
     }
@@ -4640,12 +4308,7 @@ public final class AnalyzedOperationNodesTest {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Options opt_ = new Options();
-        
-        
-        
-        
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        ContextEl cont_ = getSimpleContextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().displayErrors(),!cont_.isEmptyErrors());
     }
@@ -4661,12 +4324,7 @@ public final class AnalyzedOperationNodesTest {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Options opt_ = new Options();
-        
-        
-        
-        
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        ContextEl cont_ = getSimpleContextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().displayErrors(),!cont_.isEmptyErrors());
     }
@@ -4682,12 +4340,7 @@ public final class AnalyzedOperationNodesTest {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Options opt_ = new Options();
-        
-        
-        
-        
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        ContextEl cont_ = getSimpleContextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().displayErrors(),!cont_.isEmptyErrors());
     }
@@ -4703,12 +4356,7 @@ public final class AnalyzedOperationNodesTest {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Options opt_ = new Options();
-        
-        
-        
-        
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        ContextEl cont_ = getSimpleContextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().displayErrors(),!cont_.isEmptyErrors());
     }
@@ -4724,12 +4372,7 @@ public final class AnalyzedOperationNodesTest {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Options opt_ = new Options();
-        
-        
-        
-        
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        ContextEl cont_ = getSimpleContextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().displayErrors(),!cont_.isEmptyErrors());
     }
@@ -4745,12 +4388,7 @@ public final class AnalyzedOperationNodesTest {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Options opt_ = new Options();
-        
-        
-        
-        
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        ContextEl cont_ = getSimpleContextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().displayErrors(),!cont_.isEmptyErrors());
     }
@@ -4766,12 +4404,7 @@ public final class AnalyzedOperationNodesTest {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Options opt_ = new Options();
-        
-        
-        
-        
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        ContextEl cont_ = getSimpleContextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().displayErrors(),!cont_.isEmptyErrors());
     }
@@ -4787,12 +4420,7 @@ public final class AnalyzedOperationNodesTest {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Options opt_ = new Options();
-        
-        
-        
-        
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        ContextEl cont_ = getSimpleContextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().displayErrors(),!cont_.isEmptyErrors());
     }
@@ -4808,12 +4436,7 @@ public final class AnalyzedOperationNodesTest {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Options opt_ = new Options();
-        
-        
-        
-        
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        ContextEl cont_ = getSimpleContextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().displayErrors(),!cont_.isEmptyErrors());
     }
@@ -4829,12 +4452,7 @@ public final class AnalyzedOperationNodesTest {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Options opt_ = new Options();
-        
-        
-        
-        
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        ContextEl cont_ = getSimpleContextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().displayErrors(),!cont_.isEmptyErrors());
     }
@@ -4850,12 +4468,7 @@ public final class AnalyzedOperationNodesTest {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Options opt_ = new Options();
-        
-        
-        
-        
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        ContextEl cont_ = getSimpleContextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(!cont_.isEmptyErrors());
     }
@@ -4871,11 +4484,7 @@ public final class AnalyzedOperationNodesTest {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Options opt_ = new Options();
-        
-        
-        
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        ContextEl cont_ = getSimpleContextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(!cont_.isEmptyErrors());
     }
@@ -4891,11 +4500,7 @@ public final class AnalyzedOperationNodesTest {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Options opt_ = new Options();
-        
-        
-        
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        ContextEl cont_ = getSimpleContextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(!cont_.isEmptyErrors());
     }
@@ -4911,11 +4516,7 @@ public final class AnalyzedOperationNodesTest {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Options opt_ = new Options();
-        
-        
-        
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        ContextEl cont_ = getSimpleContextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(!cont_.isEmptyErrors());
     }
@@ -4931,11 +4532,7 @@ public final class AnalyzedOperationNodesTest {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Options opt_ = new Options();
-        
-        
-        
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        ContextEl cont_ = getSimpleContextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(!cont_.isEmptyErrors());
     }
@@ -4951,12 +4548,7 @@ public final class AnalyzedOperationNodesTest {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Options opt_ = new Options();
-        
-        
-        
-        
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        ContextEl cont_ = getSimpleContextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(!cont_.isEmptyErrors());
     }
@@ -4972,12 +4564,7 @@ public final class AnalyzedOperationNodesTest {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Options opt_ = new Options();
-        
-        
-        
-        
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        ContextEl cont_ = getSimpleContextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(!cont_.isEmptyErrors());
     }
@@ -4993,12 +4580,7 @@ public final class AnalyzedOperationNodesTest {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Options opt_ = new Options();
-        
-        
-        
-        
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        ContextEl cont_ = getSimpleContextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(!cont_.isEmptyErrors());
     }
@@ -5014,12 +4596,7 @@ public final class AnalyzedOperationNodesTest {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Options opt_ = new Options();
-        
-        
-        
-        
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        ContextEl cont_ = getSimpleContextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(!cont_.isEmptyErrors());
     }
@@ -5035,12 +4612,7 @@ public final class AnalyzedOperationNodesTest {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Options opt_ = new Options();
-        
-        
-        
-        
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        ContextEl cont_ = getSimpleContextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(!cont_.isEmptyErrors());
     }
@@ -5056,12 +4628,7 @@ public final class AnalyzedOperationNodesTest {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Options opt_ = new Options();
-        
-        
-        
-        
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        ContextEl cont_ = getSimpleContextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(!cont_.isEmptyErrors());
     }
@@ -5077,12 +4644,7 @@ public final class AnalyzedOperationNodesTest {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Options opt_ = new Options();
-        
-        
-        
-        
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        ContextEl cont_ = getSimpleContextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(!cont_.isEmptyErrors());
     }
@@ -5098,12 +4660,7 @@ public final class AnalyzedOperationNodesTest {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Options opt_ = new Options();
-        
-        
-        
-        
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        ContextEl cont_ = getSimpleContextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(!cont_.isEmptyErrors());
     }
@@ -5122,12 +4679,7 @@ public final class AnalyzedOperationNodesTest {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Options opt_ = new Options();
-        
-        
-        
-        
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        ContextEl cont_ = getSimpleContextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(!cont_.isEmptyErrors());
     }
@@ -5142,12 +4694,7 @@ public final class AnalyzedOperationNodesTest {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Options opt_ = new Options();
-        
-        
-        
-        
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        ContextEl cont_ = getSimpleContextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(!cont_.isEmptyErrors());
     }
@@ -5165,12 +4712,7 @@ public final class AnalyzedOperationNodesTest {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Options opt_ = new Options();
-        
-        
-        
-        
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        ContextEl cont_ = getSimpleContextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(!cont_.isEmptyErrors());
     }
@@ -5188,12 +4730,7 @@ public final class AnalyzedOperationNodesTest {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Options opt_ = new Options();
-        
-        
-        
-        
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        ContextEl cont_ = getSimpleContextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(!cont_.isEmptyErrors());
     }
@@ -5211,12 +4748,7 @@ public final class AnalyzedOperationNodesTest {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Options opt_ = new Options();
-        
-        
-        
-        
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        ContextEl cont_ = getSimpleContextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(!cont_.isEmptyErrors());
     }
@@ -5235,12 +4767,7 @@ public final class AnalyzedOperationNodesTest {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Options opt_ = new Options();
-        
-        
-        
-        
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        ContextEl cont_ = getSimpleContextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.isEmptyErrors());
     }
@@ -5264,10 +4791,7 @@ public final class AnalyzedOperationNodesTest {
         xml_.append("}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        Options opt_ = new Options();
-        
-        
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        ContextEl cont_ = getSimpleContextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(!cont_.isEmptyErrors());
     }
@@ -5291,10 +4815,7 @@ public final class AnalyzedOperationNodesTest {
         xml_.append("}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        Options opt_ = new Options();
-        
-        
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        ContextEl cont_ = getSimpleContextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(!cont_.isEmptyErrors());
     }
@@ -5345,11 +4866,7 @@ public final class AnalyzedOperationNodesTest {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/ExTwo", addonFileStaticResult(_el, _className,"", _var));
         files_.put("pkg/Ex", _file);
-        Options opt_ = new Options();
-        
-
-        
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        ContextEl cont_ = getSimpleContextEl();
         Classes.validateAll(files_, cont_);
         if (_mustFail) {
             assertTrue(!cont_.isEmptyErrors());
@@ -5761,10 +5278,7 @@ public final class AnalyzedOperationNodesTest {
         return str_.toString();
     }
     private static ContextEl contextEl(StringMap<String> _files, boolean _mustFail) {
-        Options opt_ = new Options();
-        
-        
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        ContextEl cont_ = getSimpleContextEl();
         Classes.validateAll(_files, cont_);
         if (_mustFail) {
             assertTrue(!cont_.isEmptyErrors());

@@ -19,7 +19,6 @@ import code.expressionlanguage.stds.StandardType;
 import code.expressionlanguage.structs.*;
 import code.expressionlanguage.variables.LocalVariable;
 import code.util.*;
-import code.util.graphs.SortedGraph;
 
 public final class Classes {
 
@@ -348,7 +347,9 @@ public final class Classes {
             //all standards errors are logged here
             return;
         }
+        _context.setAnalyzing();
         Classes.buildPredefinedBracesBodies(_context);
+        _context.setAnalyzing();
         tryValidateCustom(_files, _context);
         if (!_context.isEmptyErrors()) {
             //all errors are logged here
@@ -436,7 +437,6 @@ public final class Classes {
     }
 
     public static void buildPredefinedBracesBodies(ContextEl _context) {
-        _context.setAnalyzing();
         LgNames stds_ = _context.getStandards();
         StringMap<String> files_ = stds_.buildFiles(_context);
         builtTypes(files_, _context, true);
@@ -445,14 +445,13 @@ public final class Classes {
     private static void builtTypes(StringMap<String> _files, ContextEl _context, boolean _predefined) {
         tryBuildBracedClassesBodies(_files, _context, _predefined);
         Classes cl_ = _context.getClasses();
-        cl_.validateInheritingClasses(_context, _predefined);
-        cl_.validateIds(_context, _predefined);
-        cl_.validateOverridingInherit(_context, _predefined);
-        cl_.validateEl(_context, _predefined);
+        validateInheritingClasses(_context, _predefined);
+        validateIds(_context, _predefined);
+        validateOverridingInherit(_context, _predefined);
+        validateEl(_context, _predefined);
         TypeUtil.checkInterfaces(_context, cl_.classesBodies.getKeys(), _predefined);
     }
     public static void tryBuildBracedClassesBodies(StringMap<String> _files, ContextEl _context, boolean _predefined) {
-        _context.setAnalyzing();
         parseFiles(_context, _files, _predefined);
         Classes cl_ = _context.getClasses();
         StringList pkgFound_ = cl_.getPackagesFound();
@@ -549,20 +548,19 @@ public final class Classes {
         }
         return list_;
     }
-    public void validateInheritingClasses(ContextEl _context, boolean _predefined) {
-        _context.setAnalyzing();
+    public static void validateInheritingClasses(ContextEl _context, boolean _predefined) {
         String objectClassName_ = _context.getStandards().getAliasObject();
-        CustList<RootBlock> clBodies_ = classesBodies.values();
-        validateInheritingClassesId(_context, _predefined);
         Classes classes_ = _context.getClasses();
+        CustList<RootBlock> clBodies_ = classes_.classesBodies.values();
+        validateInheritingClassesId(_context, _predefined);
         StringList resTwo_ = new StringList();
-        for (RootBlock s: getClassBodies()) {
+        for (RootBlock s: classes_.getClassBodies()) {
             resTwo_.add(s.getFullName());
         }
         StringList listTypesNames_ = _context.getAnalyzing().getListTypesNames();
         if (StringList.equalsSet(listTypesNames_,resTwo_)) {
             for (String s: listTypesNames_) {
-                RootBlock c_ = getClassBody(s);
+                RootBlock c_ = classes_.getClassBody(s);
                 _context.getAnalyzing().setCurrentBlock(c_);
                 c_.buildDirectGenericSuperTypes(_context);
             }
@@ -641,10 +639,9 @@ public final class Classes {
             }
         }
         classes_.validateSingleParameterizedClasses(_context, _predefined);
-        checkTemplatesDef(_context, _predefined, objectClassName_);
+        classes_.checkTemplatesDef(_context, _predefined, objectClassName_);
     }
-    public void validateInheritingClassesId(ContextEl _context, boolean _predefined) {
-        _context.setAnalyzing();
+    public static void validateInheritingClassesId(ContextEl _context, boolean _predefined) {
         _context.getAnalyzing().getListTypesNames().clear();
         String objectClassName_ = _context.getStandards().getAliasObject();
         String enumClassName_ = _context.getStandards().getAliasEnumType();
@@ -653,19 +650,19 @@ public final class Classes {
         StringMap<Boolean> builtTypes_ = new StringMap<Boolean>();
         StringList stClNames_ = new StringList();
         if (!_predefined) {
-            for (RootBlock r: getClassBodies(true)) {
+            for (RootBlock r: _context.getClasses().getClassBodies(true)) {
                 String k_ = r.getFullName();
                 stClNames_.add(k_);
                 builtTypes_.put(k_, true);
                 _context.getAnalyzing().getListTypesNames().add(k_);
             }
-            for (RootBlock r: getClassBodies(false)) {
+            for (RootBlock r: _context.getClasses().getClassBodies(false)) {
                 String k_ = r.getFullName();
                 stClNames_.add(k_);
                 builtTypes_.put(k_, false);
             }
         } else {
-            for (RootBlock r: getClassBodies(true)) {
+            for (RootBlock r: _context.getClasses().getClassBodies(true)) {
                 String k_ = r.getFullName();
                 stClNames_.add(k_);
                 builtTypes_.put(k_, false);
@@ -675,7 +672,7 @@ public final class Classes {
             StringList next_ = new StringList();
             for (String c: stClNames_) {
                 boolean ready_ = true;
-                RootBlock r_ = getClassBody(c);
+                RootBlock r_ = _context.getClasses().getClassBody(c);
                 if (r_.getFile().isPredefined() != _predefined) {
                     continue;
                 }
@@ -811,7 +808,7 @@ public final class Classes {
                         r_.getImportedDirectBaseSuperTypes().put(ind_,k_);
                         continue;
                     }
-                    RootBlock s_ = getClassBody(k_);
+                    RootBlock s_ =_context.getClasses(). getClassBody(k_);
                     int offset_ = r_.getRowColDirectSuperTypes().getKey(indexType_);
                     if (s_ instanceof UniqueRootedBlock) {
                         nbDirectSuperClass_++;
@@ -898,7 +895,7 @@ public final class Classes {
                 }
                 r_.getAllSuperTypes().add(objectClassName_);
                 if (nbDirectSuperClass_ <= 1) {
-                    RootBlock superClass_ = getClassBody(dirSuper_);
+                    RootBlock superClass_ = _context.getClasses().getClassBody(dirSuper_);
                     if (superClass_ instanceof UniqueRootedBlock) {
                         r_.getAllSuperClasses().add(dirSuper_);
                         r_.getAllSuperClasses().addAllElts(superClass_.getAllSuperClasses());
@@ -911,7 +908,7 @@ public final class Classes {
             }
             if (next_.isEmpty()) {
                 for (String c: stClNames_) {
-                    RootBlock r_ = getClassBody(c);
+                    RootBlock r_ = _context.getClasses().getClassBody(c);
                     if (r_.getFile().isPredefined() != _predefined) {
                         continue;
                     }
@@ -1135,7 +1132,7 @@ public final class Classes {
     public CustList<OperatorBlock> getOperators() {
         return operators;
     }
-    public void validateSingleParameterizedClasses(ContextEl _context, boolean _predefined) {
+    private void validateSingleParameterizedClasses(ContextEl _context, boolean _predefined) {
         for (RootBlock i: getClassBodies(_predefined)) {
             StringList genericSuperTypes_ = i.getAllGenericSuperTypes(_context);
             StringMap<StringList> baseParams_ = getBaseParams(genericSuperTypes_);
@@ -1154,7 +1151,7 @@ public final class Classes {
             i.getAllGenericSuperTypes().addAllElts(genericSuperTypes_);
         }
     }
-    public static StringMap<StringList> getBaseParams(StringList _genericSuperTypes) {
+    private static StringMap<StringList> getBaseParams(StringList _genericSuperTypes) {
         StringMap<StringList> baseParams_ = new StringMap<StringList>();
         for (String t: _genericSuperTypes) {
             String key_ = Templates.getIdFromAllTypes(t);
@@ -1167,9 +1164,8 @@ public final class Classes {
         return baseParams_;
     }
 
-    public void validateIds(ContextEl _context, boolean _predefined) {
-        _context.setAnalyzing();
-        for (RootBlock c: getClassBodies(_predefined)) {
+    public static void validateIds(ContextEl _context, boolean _predefined) {
+        for (RootBlock c: _context.getClasses().getClassBodies(_predefined)) {
             _context.setGlobalClass(c.getGenericString());
             _context.getAnalyzing().setImporting(c);
             c.validateIds(_context);
@@ -1179,7 +1175,7 @@ public final class Classes {
         }
         EqList<MethodId> idMethods_ = new EqList<MethodId>();
         _context.setGlobalClass("");
-        for (OperatorBlock o: getOperators()) {
+        for (OperatorBlock o: _context.getClasses().getOperators()) {
             String name_ = o.getName();
             _context.getAnalyzing().setImporting(o);
             o.buildImportedTypes(_context);
@@ -1234,16 +1230,15 @@ public final class Classes {
             }
         }
     }
-    public void validateOverridingInherit(ContextEl _context, boolean _predefined) {
-        _context.setAnalyzing();
-        for (RootBlock c: getClassBodies(_predefined)) {
+    public static void validateOverridingInherit(ContextEl _context, boolean _predefined) {
+        for (RootBlock c: _context.getClasses().getClassBodies(_predefined)) {
             c.setupBasicOverrides(_context);
         }
-        for (RootBlock c: getClassBodies(_predefined)) {
+        for (RootBlock c: _context.getClasses().getClassBodies(_predefined)) {
             c.checkCompatibility(_context);
             c.checkImplements(_context);
         }
-        for (RootBlock c: getClassBodies(_predefined)) {
+        for (RootBlock c: _context.getClasses().getClassBodies(_predefined)) {
             c.checkCompatibilityBounds(_context);
         }
     }
@@ -1302,12 +1297,12 @@ public final class Classes {
     }
 
     //validate el and its possible returned type
-    public void validateEl(ContextEl _context, boolean _predefined) {
-        initStaticFields(_context, _predefined);
-        _context.setAnalyzing();
+    private static void validateEl(ContextEl _context, boolean _predefined) {
+        Classes cls_ = _context.getClasses();
+        cls_.initStaticFields(_context, _predefined);
         AnalyzedPageEl page_ = _context.getAnalyzing();
         if (!_context.getOptions().isReadOnly()) {
-            for (RootBlock c: getClassBodies(_predefined)) {
+            for (RootBlock c: cls_.getClassBodies(_predefined)) {
                 page_.setImporting(c);
                 page_.getInitFields().clear();
                 page_.getAssignedDeclaredFields().clear();
@@ -1326,7 +1321,7 @@ public final class Classes {
                     }
                     for (String f: f_.getFieldName()) {
                         AssignmentBefore as_ = new AssignmentBefore();
-                        checkConstField(_context, c, fullName_, f);
+                        cls_.checkConstField(_context, c, fullName_, f);
                         as_.setUnassignedBefore(true);
                         ass_.put(f, as_);
                     }
@@ -1382,7 +1377,7 @@ public final class Classes {
 
             }
             _context.setAssignedStaticFields(true);
-            for (RootBlock c: getClassBodies(_predefined)) {
+            for (RootBlock c: cls_.getClassBodies(_predefined)) {
                 page_.setImporting(c);
                 page_.getInitFields().clear();
                 page_.getAssignedDeclaredFields().clear();
@@ -1523,7 +1518,7 @@ public final class Classes {
             StringMap<AssignmentBefore> b_ = asBlock_.getFinalVariablesGlobal().getFieldsRootBefore();
             b_.clear();
 
-            for (RootBlock c: getClassBodies(_predefined)) {
+            for (RootBlock c: cls_.getClassBodies(_predefined)) {
                 page_.setImporting(c);
                 String fullName_ = c.getFullName();
                 CustList<Block> bl_ = getDirectChildren(c);
@@ -1547,7 +1542,7 @@ public final class Classes {
                         StringList params_ = method_.getParametersNames();
                         StringList types_ = method_.getImportedParametersTypes();
                         prepareParams(page_, params_, types_, method_.isVarargs());
-                        processValueParam(_context, page_, c, method_);
+                        cls_.processValueParam(_context, page_, c, method_);
                         method_.buildFctInstructions(_context);
                         page_.getParameters().clear();
                         page_.clearAllLocalVars();
@@ -1557,7 +1552,7 @@ public final class Classes {
             _context.setGlobalClass("");
             if (!_predefined) {
                 _context.getCoverage().putCalls(_context,"");
-                for (OperatorBlock o : getOperators()) {
+                for (OperatorBlock o : cls_.getOperators()) {
                     page_.setImporting(o);
                     _context.getCoverage().putCalls(_context,"",o);
                     StringList params_ = o.getParametersNames();
@@ -1569,7 +1564,7 @@ public final class Classes {
                 }
             }
         } else {
-            for (RootBlock c: getClassBodies(_predefined)) {
+            for (RootBlock c: cls_.getClassBodies(_predefined)) {
                 page_.setImporting(c);
                 page_.getInitFields().clear();
                 page_.getAssignedDeclaredFields().clear();
@@ -1592,7 +1587,7 @@ public final class Classes {
                         page_.getAssignedDeclaredFields().add(((InnerTypeOrElement)f_).getUniqueFieldName());
                     }
                     for (String f: f_.getFieldName()) {
-                        checkConstField(_context, c, fullName_, f);
+                        cls_.checkConstField(_context, c, fullName_, f);
                     }
                 }
                 for (Block b: bl_) {
@@ -1615,7 +1610,7 @@ public final class Classes {
 
             }
             _context.setAssignedStaticFields(true);
-            for (RootBlock c: getClassBodies(_predefined)) {
+            for (RootBlock c: cls_.getClassBodies(_predefined)) {
                 page_.setImporting(c);
                 page_.getInitFields().clear();
                 page_.getAssignedDeclaredFields().clear();
@@ -1673,7 +1668,7 @@ public final class Classes {
                 }
             }
             _context.setAssignedFields(true);
-            for (RootBlock c: getClassBodies(_predefined)) {
+            for (RootBlock c: cls_.getClassBodies(_predefined)) {
                 page_.setImporting(c);
                 String fullName_ = c.getFullName();
                 CustList<Block> bl_ = getDirectChildren(c);
@@ -1697,7 +1692,7 @@ public final class Classes {
                         StringList params_ = method_.getParametersNames();
                         StringList types_ = method_.getImportedParametersTypes();
                         prepareParams(page_, params_, types_, method_.isVarargs());
-                        processValueParam(_context, page_, c, method_);
+                        cls_.processValueParam(_context, page_, c, method_);
                         method_.buildFctInstructionsReadOnly(_context);
                         page_.getParameters().clear();
                         page_.clearAllLocalVarsReadOnly();
@@ -1707,7 +1702,7 @@ public final class Classes {
             _context.setGlobalClass("");
             if (!_predefined) {
                 _context.getCoverage().putCalls(_context,"");
-                for (OperatorBlock o : getOperators()) {
+                for (OperatorBlock o : cls_.getOperators()) {
                     page_.setImporting(o);
                     _context.getCoverage().putCalls(_context,"",o);
                     StringList params_ = o.getParametersNames();
@@ -1720,7 +1715,7 @@ public final class Classes {
             }
         }
         _context.setAnnotAnalysis(true);
-        for (RootBlock c: getClassBodies(_predefined)) {
+        for (RootBlock c: cls_.getClassBodies(_predefined)) {
             page_.setImporting(c);
             _context.setGlobalClass(c.getGenericString());
             CustList<Block> annotated_ = new CustList<Block>();
@@ -1742,7 +1737,7 @@ public final class Classes {
         }
         if (!_predefined) {
             _context.setGlobalClass("");
-            for (OperatorBlock o : getOperators()) {
+            for (OperatorBlock o : cls_.getOperators()) {
                 page_.setImporting(o);
                 _context.getAnalyzing().setCurrentBlock(o);
                 _context.setAnnotAnalysisField(false);
@@ -1752,7 +1747,7 @@ public final class Classes {
         }
         _context.setAnnotAnalysis(false);
         //init annotations here
-        for (RootBlock c: getClassBodies(_predefined)) {
+        for (RootBlock c: cls_.getClassBodies(_predefined)) {
             c.validateConstructors(_context);
         }
     }
@@ -1884,8 +1879,7 @@ public final class Classes {
         }
     }
 
-    public void initStaticFields(ContextEl _context, boolean _predefined) {
-        _context.setAnalyzing();
+    void initStaticFields(ContextEl _context, boolean _predefined) {
         AnalyzedPageEl page_ = _context.getAnalyzing();
         page_.setGearConst(true);
 
@@ -1974,8 +1968,9 @@ public final class Classes {
                 break;
             }
         }
+        page_.setGearConst(false);
     }
-    public StringList getPackages(boolean _predefined) {
+    private StringList getPackages(boolean _predefined) {
         StringList pkgs_ = new StringList();
         for (RootBlock r: getClassBodies(_predefined)) {
             String pkg_ = r.getPackageName();
@@ -2108,7 +2103,7 @@ public final class Classes {
     public void initializeStaticField(ClassField _clField, Struct _str) {
         staticFields.getVal(_clField.getClassName()).set(_clField.getFieldName(), _str);
     }
-    public int staticFieldCount() {
+    int staticFieldCount() {
         int sum_ = 0;
         for (EntryCust<String, StringMap<Struct>> c: staticFields.entryList()) {
             for (EntryCust<String, Struct> e: c.getValue().entryList()) {

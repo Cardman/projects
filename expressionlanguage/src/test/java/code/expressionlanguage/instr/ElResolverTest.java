@@ -2,7 +2,6 @@ package code.expressionlanguage.instr;
 
 import code.expressionlanguage.*;
 import code.expressionlanguage.methods.*;
-import code.expressionlanguage.options.Options;
 import code.util.*;
 import org.junit.Test;
 
@@ -528,15 +527,10 @@ public final class ElResolverTest extends ProcessMethodCommon{
         xml_.append(" $public $int integer;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl conf_ = contextEl();
-        Classes classes_ = conf_.getClasses();
-        Classes.buildPredefinedBracesBodies(conf_);
-        Classes.tryBuildBracedClassesBodies(files_, conf_, false);
-        classes_.validateInheritingClasses(conf_, false);
-        classes_.validateIds(conf_,false);
-        classes_.validateOverridingInherit(conf_, false);
+        ContextEl conf_ = prepare(files_);
         addImportingPage(conf_);
         conf_.setGlobalClass("pkg.BeanOne");
+        Classes classes_ = conf_.getClasses();
         RootBlock r_ = classes_.getClassBody("pkg.BeanOne");
         Block field_ = r_.getFirstChild();
         conf_.getAnalyzing().setCurrentBlock(field_);
@@ -1939,15 +1933,10 @@ public final class ElResolverTest extends ProcessMethodCommon{
         xml_.append(" $public $void getOverridenFour($int p){}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl conf_ = contextEl();
-        Classes classes_ = conf_.getClasses();
-        Classes.buildPredefinedBracesBodies(conf_);
-        Classes.tryBuildBracedClassesBodies(files_, conf_, false);
-        classes_.validateInheritingClasses(conf_, false);
-        classes_.validateIds(conf_,false);
-        classes_.validateOverridingInherit(conf_, false);
+        ContextEl conf_ = prepare(files_);
         addImportingPage(conf_);
         conf_.setGlobalClass("pkg.BeanOne");
+        Classes classes_ = conf_.getClasses();
         RootBlock r_ = classes_.getClassBody("pkg.BeanOne");
         Block field_ = r_.getFirstChild();
         conf_.getAnalyzing().setCurrentBlock(field_);
@@ -3277,15 +3266,10 @@ public final class ElResolverTest extends ProcessMethodCommon{
         xml_.append(" $public $static $int inst = pkg.Ex.exmeth(0i);\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl conf_ = contextEl();
-        Classes classes_ = conf_.getClasses();
-        Classes.buildPredefinedBracesBodies(conf_);
-        Classes.tryBuildBracedClassesBodies(files_, conf_, false);
-        classes_.validateInheritingClasses(conf_, false);
-        classes_.validateIds(conf_,false);
-        classes_.validateOverridingInherit(conf_, false);
+        ContextEl conf_ = prepare(files_);
         addImportingPage(conf_);
         conf_.setGlobalClass("pkg.ExTwo");
+        Classes classes_ = conf_.getClasses();
         RootBlock r_ = classes_.getClassBody("pkg.ExTwo");
         Block b_ = r_.getFirstChild();
         conf_.getAnalyzing().setCurrentBlock(b_);
@@ -3324,15 +3308,10 @@ public final class ElResolverTest extends ProcessMethodCommon{
         xml_.append(" $public $static $int inst = Ex.exmeth(0i);\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl conf_ = contextEl();
-        Classes classes_ = conf_.getClasses();
-        Classes.buildPredefinedBracesBodies(conf_);
-        Classes.tryBuildBracedClassesBodies(files_, conf_, false);
-        classes_.validateInheritingClasses(conf_, false);
-        classes_.validateIds(conf_,false);
-        classes_.validateOverridingInherit(conf_, false);
+        ContextEl conf_ = prepare(files_);
         addImportingPage(conf_);
         conf_.setGlobalClass("pkg.ExTwo");
+        Classes classes_ = conf_.getClasses();
         RootBlock r_ = classes_.getClassBody("pkg.ExTwo");
         Block b_ = r_.getFirstChild();
         conf_.getAnalyzing().setCurrentBlock(b_);
@@ -3371,15 +3350,10 @@ public final class ElResolverTest extends ProcessMethodCommon{
         xml_.append(" $public $static $String inst = $Class.forName(\"\");\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl conf_ = contextEl();
-        Classes classes_ = conf_.getClasses();
-        Classes.buildPredefinedBracesBodies(conf_);
-        Classes.tryBuildBracedClassesBodies(files_, conf_, false);
-        classes_.validateInheritingClasses(conf_, false);
-        classes_.validateIds(conf_,false);
-        classes_.validateOverridingInherit(conf_, false);
+        ContextEl conf_ = prepare(files_);
         addImportingPage(conf_);
         conf_.setGlobalClass("pkg.ExTwo");
+        Classes classes_ = conf_.getClasses();
         RootBlock r_ = classes_.getClassBody("pkg.ExTwo");
         Block b_ = r_.getFirstChild();
         conf_.getAnalyzing().setCurrentBlock(b_);
@@ -3420,15 +3394,10 @@ public final class ElResolverTest extends ProcessMethodCommon{
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl conf_ = contextElSingle();
-        Classes classes_ = conf_.getClasses();
-        Classes.buildPredefinedBracesBodies(conf_);
-        Classes.tryBuildBracedClassesBodies(files_, conf_, false);
-        classes_.validateInheritingClasses(conf_, false);
-        classes_.validateIds(conf_,false);
-        classes_.validateOverridingInherit(conf_, false);
+        ContextEl conf_ = prepare(files_);
         addImportingPage(conf_);
         conf_.setGlobalClass("pkg.ExTwo");
+        Classes classes_ = conf_.getClasses();
         RootBlock r_ = classes_.getClassBody("pkg.ExTwo");
         Block b_ = r_.getFirstChild();
         conf_.getAnalyzing().setCurrentBlock(b_);
@@ -3477,15 +3446,10 @@ public final class ElResolverTest extends ProcessMethodCommon{
         xml_.append(" $public $static $int inst = pkg.ExThree.Ex.inst;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl conf_ = contextEl();
-        Classes classes_ = conf_.getClasses();
-        Classes.buildPredefinedBracesBodies(conf_);
-        Classes.tryBuildBracedClassesBodies(files_, conf_, false);
-        classes_.validateInheritingClasses(conf_, false);
-        classes_.validateIds(conf_,false);
-        classes_.validateOverridingInherit(conf_, false);
+        ContextEl conf_ = prepare(files_);
         addImportingPage(conf_);
         conf_.setGlobalClass("pkg.ExTwo");
+        Classes classes_ = conf_.getClasses();
         RootBlock r_ = classes_.getClassBody("pkg.ExTwo");
         Block b_ = r_.getFirstChild();
         conf_.getAnalyzing().setCurrentBlock(b_);
@@ -3526,15 +3490,10 @@ public final class ElResolverTest extends ProcessMethodCommon{
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl conf_ = contextEl();
-        Classes classes_ = conf_.getClasses();
-        Classes.buildPredefinedBracesBodies(conf_);
-        Classes.tryBuildBracedClassesBodies(files_, conf_, false);
-        classes_.validateInheritingClasses(conf_, false);
-        classes_.validateIds(conf_,false);
-        classes_.validateOverridingInherit(conf_, false);
+        ContextEl conf_ = prepare(files_);
         addImportingPage(conf_);
         conf_.setGlobalClass("pkg.ExTwo");
+        Classes classes_ = conf_.getClasses();
         RootBlock r_ = classes_.getClassBody("pkg.ExTwo");
         Block b_ = r_.getFirstChild();
         conf_.getAnalyzing().setCurrentBlock(b_);
@@ -3555,6 +3514,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         assertEq(1, d_.getDelKeyWordStaticExtract().size());
         assertEq("pkg.ExTwo..Ex", d_.getDelKeyWordStaticExtract().first());
     }
+
 
     @Test
     public void getOperationsSequence201Test() {
@@ -3733,7 +3693,6 @@ public final class ElResolverTest extends ProcessMethodCommon{
     public void getOperationsSequence210Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
-        addBeanClassName(conf_, "code.expressionlanguage.classes.BeanOne");
         String el_ = "composite.integer.int";
         Delimiters d_ = new Delimiters();
         d_.getAllowedOperatorsIndexes().add(9);
@@ -3765,7 +3724,6 @@ public final class ElResolverTest extends ProcessMethodCommon{
     public void getOperationsSequence211Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
-        addBeanClassName(conf_, "code.expressionlanguage.classes.BeanOne");
         String el_ = "integer=1=0";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
@@ -4743,7 +4701,6 @@ public final class ElResolverTest extends ProcessMethodCommon{
     public void checkSyntax1Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
-        addBeanClassName(conf_, "code.expressionlanguage.classes.BeanOne");
         String el_ = "1==0";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         assertEq(1, d_.getAllowedOperatorsIndexes().size());
@@ -4753,7 +4710,6 @@ public final class ElResolverTest extends ProcessMethodCommon{
     public void checkSyntax2Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
-        addBeanClassName(conf_, "code.expressionlanguage.classes.BeanOne");
         String el_ = "1 ";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         assertEq(0, d_.getAllowedOperatorsIndexes().size());
@@ -5323,11 +5279,15 @@ public final class ElResolverTest extends ProcessMethodCommon{
         _conf.setAnalyzing();
     }
 
-    private static void addBeanClassName(ContextEl _conf, String _bean) {
-        _conf.setGlobalClass(_bean);
+    private ContextEl prepare(StringMap<String> _files) {
+        ContextEl conf_ = contextEl();
+        parseCustomFiles(_files, conf_);
+        Classes.validateInheritingClasses(conf_, false);
+        Classes.validateIds(conf_,false);
+        Classes.validateOverridingInherit(conf_, false);
+        return conf_;
     }
     private ContextEl contextEl() {
-        Options opt_ = new Options();
-        return InitializationLgNames.buildStdOne(opt_);
+        return getSimpleContextEl();
     }
 }

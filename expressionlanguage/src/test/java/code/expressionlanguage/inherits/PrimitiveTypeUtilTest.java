@@ -2,11 +2,9 @@ package code.expressionlanguage.inherits;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.InitializationLgNames;
-import code.expressionlanguage.calls.util.CallingState;
 import code.expressionlanguage.methods.Classes;
+import code.expressionlanguage.methods.ProcessMethodCommon;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
-import code.expressionlanguage.options.Options;
 import code.expressionlanguage.structs.*;
 import code.util.CustList;
 import code.util.Ints;
@@ -18,7 +16,7 @@ import static code.expressionlanguage.EquallableElUtil.assertEq;
 import static org.junit.Assert.*;
 
 
-public final class PrimitiveTypeUtilTest {
+public final class PrimitiveTypeUtilTest extends ProcessMethodCommon {
 
     private static final String CUST_CLASS = "pkg.CustClass";
     private static final String ARR_ARR_CUST_CLASS = "[[pkg.CustClass";
@@ -2845,42 +2843,16 @@ public final class PrimitiveTypeUtilTest {
         assertTrue(!res_.isUnwrapSecond());
     }
     private ContextEl unfullValidateOverridingMethods(StringMap<String> _files) {
-        Options opt_ = new Options();
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        ContextEl cont_ = getSimpleContextEl();
+        parseCustomFiles(_files, cont_);
         Classes classes_ = cont_.getClasses();
-        Classes.buildPredefinedBracesBodies(cont_);
-        Classes.tryBuildBracedClassesBodies(_files, cont_, false);
         assertTrue(classes_.displayErrors(), cont_.isEmptyErrors());
-        classes_.validateInheritingClasses(cont_, false);
+        Classes.validateInheritingClasses(cont_, false);
         assertTrue(classes_.displayErrors(), cont_.isEmptyErrors());
         return cont_;
     }
-    private ContextEl unfullValidateCheckInterfaces(StringMap<String> _files) {
-        Options opt_ = new Options();
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
-        Classes classes_ = cont_.getClasses();
-        Classes.buildPredefinedBracesBodies(cont_);
-        Classes.tryBuildBracedClassesBodies(_files, cont_, false);
-        assertTrue(classes_.displayErrors(), cont_.isEmptyErrors());
-        classes_.validateInheritingClasses(cont_, false);
-        assertTrue(classes_.displayErrors(), cont_.isEmptyErrors());
-        classes_.validateIds(cont_, false);
-        assertTrue(classes_.displayErrors(), cont_.isEmptyErrors());
-        classes_.validateOverridingInherit(cont_, false);
-        assertTrue(classes_.displayErrors(), cont_.isEmptyErrors());
-        classes_.validateEl(cont_, false);
-        assertTrue(classes_.displayErrors(), cont_.isEmptyErrors());
-        return cont_;
-    }
-    private static Struct getException(ContextEl _cont) {
-        CallingState str_ = _cont.getCallingState();
-        if (str_ instanceof Struct) {
-            return (Struct) str_;
-        }
-        return null;
-    }
+
     private ContextEl simpleContextEl() {
-        Options opt_ = new Options();
-        return InitializationLgNames.buildStdOne(opt_);
+        return getSimpleContextEl();
     }
 }

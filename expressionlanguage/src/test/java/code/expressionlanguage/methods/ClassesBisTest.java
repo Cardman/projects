@@ -11,7 +11,7 @@ import org.junit.Test;
 import static code.expressionlanguage.EquallableElUtil.assertEq;
 import static org.junit.Assert.assertTrue;
 
-public final class ClassesBisTest {
+public final class ClassesBisTest extends ProcessMethodCommon {
     @Test
     public void calculateStaticField183Test() {
         StringMap<String> files_ = new StringMap<String>();
@@ -21,7 +21,7 @@ public final class ClassesBisTest {
         xml_.append(" $public $static $final $int a1=(5!=4?0:1);\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl ctx_ = ClassesTest.contextElSingleDotDefault();
+        ContextEl ctx_ = contextElSingleDotDefault();
         Classes.validateAll(files_,ctx_);
         assertTrue(ctx_.isEmptyErrors());
     }
@@ -34,7 +34,7 @@ public final class ClassesBisTest {
         xml_.append(" $public $static $final Object[] a1=(Object[ ])$null;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl ctx_ = ClassesTest.contextElSingleDotDefault();
+        ContextEl ctx_ = contextElSingleDotDefault();
         Classes.validateAll(files_,ctx_);
         assertTrue(ctx_.isEmptyErrors());
     }
@@ -47,7 +47,7 @@ public final class ClassesBisTest {
         xml_.append(" $public $static $final $double a1=( .5);\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl ctx_ = ClassesTest.contextElSingleDotDefault();
+        ContextEl ctx_ = contextElSingleDotDefault();
         Classes.validateAll(files_,ctx_);
         assertTrue(ctx_.isEmptyErrors());
     }
@@ -60,7 +60,7 @@ public final class ClassesBisTest {
         xml_.append(" $public $static $final $boolean a1=$null $instanceof Object[ ] && $true;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl ctx_ = ClassesTest.contextElSingleDotDefault();
+        ContextEl ctx_ = contextElSingleDotDefault();
         Classes.validateAll(files_,ctx_);
         assertTrue(ctx_.isEmptyErrors());
     }
@@ -73,7 +73,7 @@ public final class ClassesBisTest {
         xml_.append(" $public $static $final $boolean a1=1 $instanceof Integer || $false;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl ctx_ = ClassesTest.contextElSingleDotDefault();
+        ContextEl ctx_ = contextElSingleDotDefault();
         Classes.validateAll(files_,ctx_);
         assertTrue(ctx_.isEmptyErrors());
     }
@@ -86,7 +86,7 @@ public final class ClassesBisTest {
         xml_.append(" $public $static $final $double a1=1e+0;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl ctx_ = ClassesTest.contextElSingleDotDefault();
+        ContextEl ctx_ = contextElSingleDotDefault();
         Classes.validateAll(files_,ctx_);
         assertTrue(ctx_.isEmptyErrors());
     }
@@ -389,7 +389,7 @@ public final class ClassesBisTest {
         xml_.append("   $case 0:\n");
         xml_.append("   //comment\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = ClassesTest.contextElSingleDotDefault();
+        ContextEl cont_ = contextElSingleDotDefault();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().displayErrors(), !cont_.isEmptyErrors());
     }
@@ -403,7 +403,7 @@ public final class ClassesBisTest {
         xml_.append("   $case 0:\n");
         xml_.append("   /");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = ClassesTest.contextElSingleDotDefault();
+        ContextEl cont_ = contextElSingleDotDefault();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().displayErrors(), !cont_.isEmptyErrors());
     }
@@ -417,7 +417,7 @@ public final class ClassesBisTest {
         xml_.append("   $case 0:\n");
         xml_.append("   /\\\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = ClassesTest.contextElSingleDotDefault();
+        ContextEl cont_ = contextElSingleDotDefault();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().displayErrors(), !cont_.isEmptyErrors());
     }
@@ -431,7 +431,7 @@ public final class ClassesBisTest {
         xml_.append("   $case 0:\n");
         xml_.append("   /* *");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = ClassesTest.contextElSingleDotDefault();
+        ContextEl cont_ = contextElSingleDotDefault();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().displayErrors(), !cont_.isEmptyErrors());
     }
@@ -444,7 +444,7 @@ public final class ClassesBisTest {
         xml_.append(" $static $final Object cst = a\"\";\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = ClassesTest.contextElSingleDotDefault();
+        ContextEl cont_ = contextElSingleDotDefault();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().displayErrors(), !cont_.isEmptyErrors());
     }
@@ -457,7 +457,7 @@ public final class ClassesBisTest {
         xml_.append(" $static $final Object cst = a'';\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = ClassesTest.contextElSingleDotDefault();
+        ContextEl cont_ = contextElSingleDotDefault();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().displayErrors(), !cont_.isEmptyErrors());
     }
@@ -841,27 +841,9 @@ public final class ClassesBisTest {
         xml_ = new StringBuilder();
         xml_.append("$class pkg.OuterBad{ $static{$for (a b,c d!;:){}}}");
         files_.put("pkg/ExThirtySixtyFour", xml_.toString());
-        ContextEl cont_ = ClassesTest.contextElSingleDotDefault();
+        ContextEl cont_ = contextElSingleDotDefault();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().displayErrors(), !cont_.isEmptyErrors());
     }
-    private void failValidateInheritingClasses(StringMap<String> _files) {
-        Options opt_ = new Options();
 
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
-        Classes classes_ = cont_.getClasses();
-        Classes.buildPredefinedBracesBodies(cont_);
-        Classes.tryBuildBracedClassesBodies(_files, cont_, false);
-        assertTrue(classes_.displayErrors(), cont_.isEmptyErrors());
-        classes_.validateInheritingClasses(cont_, false);
-        assertTrue(classes_.displayErrors(), !cont_.isEmptyErrors());
-    }
-    private void failValidate(StringMap<String> _files) {
-        Options opt_ = new Options();
-
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
-        Classes.validateWithoutInit(_files,cont_);
-        Classes classes_ = cont_.getClasses();
-        assertTrue(classes_.displayErrors(), !cont_.isEmptyErrors());
-    }
 }

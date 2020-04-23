@@ -5,6 +5,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.InitializationLgNames;
 import code.expressionlanguage.calls.util.CallingState;
 import code.expressionlanguage.errors.AnalysisMessages;
+import code.expressionlanguage.files.FileResolver;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.options.ContextFactory;
@@ -14,8 +15,11 @@ import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.FieldableStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
+import code.util.EntryCust;
 import code.util.StringList;
 import code.util.StringMap;
+
+import static org.junit.Assert.assertTrue;
 
 public abstract class ProcessMethodCommon {
 
@@ -232,6 +236,155 @@ public abstract class ProcessMethodCommon {
             opt_.getTypesInit().add(t);
         }
         return InitializationLgNames.buildStdOne(opt_);
+    }
+
+    protected static ContextEl getFrContextEl() {
+        Options opt_ = new Options();
+        return InitializationLgNames.buildStdOne("fr",opt_);
+    }
+    protected static ContextEl contextEl(int... _m) {
+        Options opt_ = new Options();
+        ContextEl ct_;
+        if (_m.length == 0) {
+            ct_ = InitializationLgNames.buildStdOne(opt_);
+        } else {
+            ct_ = InitializationLgNames.buildStdOne(_m[0], opt_);
+        }
+        return ct_;
+    }
+    protected static ContextEl contextElSingleDot(int... _m) {
+        Options opt_ = new Options();
+
+        ContextEl ct_;
+        if (_m.length == 0) {
+            ct_ = InitializationLgNames.buildStdOne(opt_);
+        } else {
+            ct_ = InitializationLgNames.buildStdOne(_m[0], opt_);
+        }
+        return ct_;
+    }
+
+    protected static ContextEl getSimpleContextEl() {
+        Options opt_ = new Options();
+
+
+        return InitializationLgNames.buildStdOne(opt_);
+    }
+
+    protected static ContextEl getEnContextEl() {
+        Options opt_ = new Options();
+
+
+        return InitializationLgNames.buildStdOne("en", opt_);
+    }
+    protected void failValidate(StringMap<String> _files) {
+        Options opt_ = new Options();
+
+        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        Classes.validateWithoutInit(_files,cont_);
+        Classes classes_ = cont_.getClasses();
+        assertTrue(classes_.displayErrors(), !cont_.isEmptyErrors());
+    }
+    protected static ContextEl contextElSingleDotDefault(int... _m) {
+        Options opt_ = new Options();
+
+        ContextEl ct_;
+        if (_m.length == 0) {
+            ct_ = InitializationLgNames.buildStdOne(opt_);
+        } else {
+            ct_ = InitializationLgNames.buildStdOne(_m[0], opt_);
+        }
+        return ct_;
+    }
+    protected static ContextEl contextEnElSingleDotDefault() {
+        Options opt_ = new Options();
+
+        return InitializationLgNames.buildStdOne("en",opt_);
+    }
+    protected ContextEl validateStaticFields(StringMap<String> _files) {
+        Options opt_ = new Options();
+
+        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        Classes classes_ = cont_.getClasses();
+        parseCustomFiles(_files, cont_);
+        assertTrue(classes_.displayErrors(), cont_.isEmptyErrors());
+        Classes.validateInheritingClasses(cont_, false);
+        assertTrue(classes_.displayErrors(), cont_.isEmptyErrors());
+        Classes.validateIds(cont_,false);
+        Classes.validateOverridingInherit(cont_, false);
+        assertTrue(classes_.displayErrors(), cont_.isEmptyErrors());
+        classes_.initStaticFields(cont_, false);
+        assertTrue(classes_.displayErrors(), cont_.isEmptyErrors());
+        return cont_;
+    }
+
+    protected ContextEl unfullValidateInheritingClasses(StringMap<String> _files) {
+        Options opt_ = new Options();
+
+        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        Classes classes_ = cont_.getClasses();
+        parseCustomFiles(_files, cont_);
+        assertTrue(classes_.displayErrors(), cont_.isEmptyErrors());
+        Classes.validateInheritingClasses(cont_, false);
+        assertTrue(classes_.displayErrors(), cont_.isEmptyErrors());
+        return cont_;
+    }
+    protected ContextEl unfullValidateInheritingClassesSingle(StringMap<String> _files) {
+        Options opt_ = new Options();
+
+        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        Classes classes_ = cont_.getClasses();
+        parseCustomFiles(_files, cont_);
+        assertTrue(classes_.displayErrors(), cont_.isEmptyErrors());
+        Classes.validateInheritingClasses(cont_, false);
+        assertTrue(classes_.displayErrors(), cont_.isEmptyErrors());
+        return cont_;
+    }
+
+    protected void failValidateInheritingClasses(StringMap<String> _files) {
+        Options opt_ = new Options();
+        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        Classes classes_ = cont_.getClasses();
+        parseCustomFiles(_files, cont_);
+        assertTrue(classes_.displayErrors(), cont_.isEmptyErrors());
+        Classes.validateInheritingClasses(cont_, false);
+        assertTrue(classes_.displayErrors(), !cont_.isEmptyErrors());
+    }
+
+    protected void failValidateInheritingClassesSingle(StringMap<String> _files) {
+        Options opt_ = new Options();
+
+        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        parseCustomFiles(_files, cont_);
+        Classes classes_ = cont_.getClasses();
+        assertTrue(classes_.displayErrors(), cont_.isEmptyErrors());
+        Classes.validateInheritingClasses(cont_, false);
+        assertTrue(classes_.displayErrors(), !cont_.isEmptyErrors());
+    }
+
+    protected static void parseCustomFiles(StringMap<String> _files, ContextEl _cont) {
+        _cont.setAnalyzing();
+        Classes.buildPredefinedBracesBodies(_cont);
+        _cont.setAnalyzing();
+        Classes.tryBuildBracedClassesBodies(_files, _cont, false);
+    }
+
+    protected static ContextEl getRootContextEl() {
+        Options opt_ = new Options();
+        return InitializationLgNames.buildStdOne(opt_);
+    }
+
+    protected static ContextEl simpleCtx() {
+        Options opt_ = new Options();
+        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        LgNames stds_ = cont_.getStandards();
+        cont_.setAnalyzing();
+        for (EntryCust<String, String> e: stds_.buildFiles(cont_).entryList()) {
+            String name_ = e.getKey();
+            String content_ = e.getValue();
+            FileResolver.parseFile(name_, content_, true, cont_);
+        }
+        return cont_;
     }
     protected static Struct getStruct(Struct _struct, ClassField _cl) {
         return ((FieldableStruct) _struct).getEntryStruct(_cl).getValue();

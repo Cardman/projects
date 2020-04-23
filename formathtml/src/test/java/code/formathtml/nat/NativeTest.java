@@ -348,8 +348,7 @@ public final class NativeTest extends CommonRender {
         files_.put("page2.html", htmlTwo_);
         Configuration conf_ =  EquallableExUtil.newConfiguration();
         conf_.setPrefix("c");
-        Options opt_ = new Options();
-        ContextEl cont_ = buildStdOne(opt_);
+        ContextEl cont_ = getContextEl();
         conf_.setContext(cont_);
         BeanLgNames standards_ = (BeanLgNames) cont_.getStandards();
         conf_.setStandards(standards_);
@@ -374,6 +373,12 @@ public final class NativeTest extends CommonRender {
         assertEq("<html><body><form action=\"\" name=\"myform\" c:command=\"go\" n-f=\"0\"><input type=\"text\" name=\"bean_two.typedString\" n-i=\"0\" value=\"TYPED_STRING\"/></form></body></html>", n_.getHtmlText());
         assertEq("page2.html", n_.getCurrentUrl());
     }
+
+    private static ContextEl getContextEl() {
+        Options opt_ = new Options();
+        return buildStdOne(opt_);
+    }
+
     private static Argument processEl(String _el, Configuration _cont) {
         if (_cont.hasPages() && _cont.getContext().getAnalyzing() != null) {
             _cont.getContext().setGlobalClass(_cont.getLastPage().getGlobalClass());
@@ -1475,8 +1480,7 @@ public final class NativeTest extends CommonRender {
     private Configuration contextElSec() {
         Configuration conf_ =  EquallableExUtil.newConfiguration();
         conf_.setPrefix("c:");
-        Options opt_ = new Options();
-        ContextEl cont_ = buildStdOne(opt_);
+        ContextEl cont_ = getContextEl();
         conf_.setContext(cont_);
         BeanLgNames standards_ = (BeanLgNames) cont_.getStandards();
         conf_.setStandards(standards_);

@@ -32,10 +32,7 @@ public final class RenderInitNavTest extends CommonRender {
         files_.put("conf",file_.toString());
         Configuration conf_ =  EquallableExUtil.newConfiguration();
         conf_.setPrefix("c");
-        Options opt_ = new Options();
-        
-        
-        ContextEl cont_ = InitializationLgNames.buildStdThree(opt_);
+        ContextEl cont_ = buildStdThree();
         conf_.setContext(cont_);
         BeanLgNames standards_ = (BeanLgNames) cont_.getStandards();
         conf_.setStandards(standards_);
@@ -80,10 +77,7 @@ public final class RenderInitNavTest extends CommonRender {
         files_.put("conf",file_.toString());
         Configuration conf_ =  EquallableExUtil.newConfiguration();
         conf_.setPrefix("c");
-        Options opt_ = new Options();
-        
-        
-        ContextEl cont_ = InitializationLgNames.buildStdThree(opt_);
+        ContextEl cont_ = buildStdThree();
         conf_.setContext(cont_);
         BeanLgNames standards_ = (BeanLgNames) cont_.getStandards();
         conf_.setStandards(standards_);
@@ -107,6 +101,14 @@ public final class RenderInitNavTest extends CommonRender {
         n_.initializeRendSession();
         assertTrue(!n_.getSession().isEmptyErrors());
     }
+
+    private static ContextEl buildStdThree() {
+        Options opt_ = new Options();
+
+
+        return InitializationLgNames.buildStdThree(opt_);
+    }
+
     @Test
     public void process3Test() {
         String locale_ = "en";
@@ -126,10 +128,7 @@ public final class RenderInitNavTest extends CommonRender {
         files_.put("conf",file_.toString());
         Configuration conf_ =  EquallableExUtil.newConfiguration();
         conf_.setPrefix("c");
-        Options opt_ = new Options();
-        
-        
-        ContextEl cont_ = InitializationLgNames.buildStdThree(opt_);
+        ContextEl cont_ = buildStdThree();
         conf_.setContext(cont_);
         BeanLgNames standards_ = (BeanLgNames) cont_.getStandards();
         conf_.setStandards(standards_);
@@ -172,10 +171,7 @@ public final class RenderInitNavTest extends CommonRender {
         files_.put("conf",file_.toString());
         Configuration conf_ =  EquallableExUtil.newConfiguration();
         conf_.setPrefix("c");
-        Options opt_ = new Options();
-        
-        
-        ContextEl cont_ = InitializationLgNames.buildStdThree(opt_);
+        ContextEl cont_ = buildStdThree();
         conf_.setContext(cont_);
         BeanLgNames standards_ = (BeanLgNames) cont_.getStandards();
         conf_.setStandards(standards_);
@@ -223,7 +219,6 @@ public final class RenderInitNavTest extends CommonRender {
         file_ = new StringBuilder();
         file_.append("my_file");
         files_.put("conf",file_.toString());
-        Options opt_ = new Options();
         
         
         BeanLgNames lgNames_ = new BeanCustLgNamesImpl();
@@ -481,7 +476,6 @@ public final class RenderInitNavTest extends CommonRender {
         file_ = new StringBuilder();
         file_.append("my_file");
         files_.put("conf",file_.toString());
-        Options opt_ = new Options();
         
         
         BeanLgNames lgNames_ = new BeanCustLgNamesImpl();
@@ -557,7 +551,6 @@ public final class RenderInitNavTest extends CommonRender {
         file_ = new StringBuilder();
         file_.append("my_file");
         files_.put("conf",file_.toString());
-        Options opt_ = new Options();
         
         
         BeanLgNames lgNames_ = new BeanCustLgNamesImpl();

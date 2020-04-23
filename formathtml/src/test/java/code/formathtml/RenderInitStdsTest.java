@@ -29,16 +29,14 @@ import static org.junit.Assert.assertTrue;
 public final class RenderInitStdsTest {
     @Test
     public void process1Test() {
-        Options o_ = new Options();
         BeanLgNames b_ = new BeanCustLgNamesImpl();
         basicStandards(b_);
         AnalysisMessages a_ = new AnalysisMessages();
         KeyWords k_ = new KeyWords();
-        contextEl(o_,b_,a_,k_);
+        contextEl(b_,a_,k_);
     }
     @Test
     public void process5Test() {
-        Options o_ = new Options();
         BeanLgNames b_ = new BeanCustLgNamesImpl();
         basicStandards(b_);
         AnalysisMessages a_ = new AnalysisMessages();
@@ -46,7 +44,7 @@ public final class RenderInitStdsTest {
         k_.setKeyWordIf("i");
         k_.setKeyWordElseif("m");
         k_.setKeyWordElse("index");
-        contextEl(o_,b_,a_,k_);
+        contextEl(b_,a_,k_);
     }
     @Test
     public void process6Test() {
@@ -68,8 +66,8 @@ public final class RenderInitStdsTest {
         s_ = StdStruct.newListByte(new Bytes(),"");
         assertSame(NullStruct.NULL_VALUE,s_.getParent());
     }
-    private Configuration contextEl(Options _opt, BeanLgNames _beanLgNames, AnalysisMessages _mess, KeyWords _kw) {
-        return contextEl(new StringMap<String>(),_opt,_beanLgNames,_mess,_kw);
+    private Configuration contextEl(BeanLgNames _beanLgNames, AnalysisMessages _mess, KeyWords _kw) {
+        return contextEl(new StringMap<String>(),new Options(),_beanLgNames,_mess,_kw);
     }
     private Configuration contextEl(StringMap<String> _files,Options _opt, BeanLgNames _beanLgNames, AnalysisMessages _mess, KeyWords _kw) {
         Configuration conf_ =  EquallableExUtil.newConfiguration();

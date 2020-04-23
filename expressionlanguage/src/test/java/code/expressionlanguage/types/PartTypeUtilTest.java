@@ -1,10 +1,9 @@
 package code.expressionlanguage.types;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.InitializationLgNames;
 import code.expressionlanguage.methods.Classes;
+import code.expressionlanguage.methods.ProcessMethodCommon;
 import code.expressionlanguage.methods.RootBlock;
-import code.expressionlanguage.options.Options;
 import code.util.StringMap;
 import org.junit.Test;
 
@@ -12,7 +11,7 @@ import static code.expressionlanguage.EquallableElUtil.assertEq;
 import static org.junit.Assert.assertTrue;
 
 
-public final class PartTypeUtilTest {
+public final class PartTypeUtilTest extends ProcessMethodCommon {
 
     @Test
     public void process1Test() {
@@ -1137,15 +1136,4 @@ public final class PartTypeUtilTest {
         assertEq("", solved_);
     }
 
-    private ContextEl unfullValidateInheritingClasses(StringMap<String> _files) {
-        Options opt_ = new Options();
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
-        Classes classes_ = cont_.getClasses();
-        Classes.buildPredefinedBracesBodies(cont_);
-        Classes.tryBuildBracedClassesBodies(_files, cont_, false);
-        assertTrue(classes_.displayErrors(), cont_.isEmptyErrors());
-        classes_.validateInheritingClasses(cont_, false);
-        assertTrue(classes_.displayErrors(), cont_.isEmptyErrors());
-        return cont_;
-    }
 }

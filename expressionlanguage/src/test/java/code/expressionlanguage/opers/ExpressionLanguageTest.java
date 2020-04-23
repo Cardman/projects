@@ -2,16 +2,15 @@ package code.expressionlanguage.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.InitializationLgNames;
 import code.expressionlanguage.calls.MethodPageEl;
 import code.expressionlanguage.calls.util.CallingState;
 import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.FieldBlock;
+import code.expressionlanguage.methods.ProcessMethodCommon;
 import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.opers.exec.ExecOperationNode;
 import code.expressionlanguage.opers.util.MethodAccessKind;
-import code.expressionlanguage.options.Options;
 import code.expressionlanguage.structs.*;
 import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.LoopVariable;
@@ -23,7 +22,7 @@ import org.junit.Test;
 import static code.expressionlanguage.EquallableElUtil.assertEq;
 import static org.junit.Assert.*;
 
-public final class ExpressionLanguageTest {
+public final class ExpressionLanguageTest extends ProcessMethodCommon {
 
     private static final String ARR_INT = "[$int";
     private static final String ARR_ARR_INT = "[[$int";
@@ -6003,8 +6002,7 @@ public final class ExpressionLanguageTest {
     }
 
     private static ContextEl contextEl(StringMap<String> _files) {
-        Options opt_ = new Options();
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        ContextEl cont_ = getSimpleContextEl();
         Classes.validateAll(_files, cont_);
         assertTrue(cont_.isEmptyErrors());
         return cont_;

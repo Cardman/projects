@@ -7,6 +7,7 @@ import code.expressionlanguage.InitializationLgNames;
 import code.expressionlanguage.calls.util.CallingState;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.methods.Classes;
+import code.expressionlanguage.methods.ProcessMethodCommon;
 import code.expressionlanguage.opers.util.MethodAccessKind;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.options.Options;
@@ -20,7 +21,7 @@ import static code.expressionlanguage.EquallableElUtil.assertEq;
 import static org.junit.Assert.*;
 
 
-public final class TemplatesTest {
+public final class TemplatesTest extends ProcessMethodCommon {
 
     private static final String ARR_OBJECT = "[java.lang.Object";
     private static final String ARR_STRING = "[java.lang.String";
@@ -4819,42 +4820,31 @@ public final class TemplatesTest {
     }
     private static ContextEl unfullValidateOverridingMethodsStd(StringMap<String> _files) {
         ContextEl cont_ = contextEnElDefault();
-        Classes classes_ = cont_.getClasses();
-        Classes.buildPredefinedBracesBodies(cont_);
-        Classes.tryBuildBracedClassesBodies(_files, cont_, false);
-        assertTrue(classes_.displayErrors(), cont_.isEmptyErrors());
-        assertTrue(classes_.displayErrors(), cont_.isEmptyErrors());
-        classes_.validateInheritingClasses(cont_, false);
-        assertTrue(classes_.displayErrors(), cont_.isEmptyErrors());
-        return cont_;
-    }
-    private static ContextEl contextEnElDefault() {
-        Options opt_ = new Options();
-        return InitializationLgNames.buildStdOne("en", opt_);
+        return getContextEl(_files, cont_);
     }
     private static ContextEl unfullValidateOverridingMethods(StringMap<String> _files) {
-        Options opt_ = new Options();
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
-        Classes classes_ = cont_.getClasses();
-        Classes.buildPredefinedBracesBodies(cont_);
-        Classes.tryBuildBracedClassesBodies(_files, cont_, false);
-        assertTrue(classes_.displayErrors(), cont_.isEmptyErrors());
-        assertTrue(classes_.displayErrors(), cont_.isEmptyErrors());
-        classes_.validateInheritingClasses(cont_, false);
-        assertTrue(classes_.displayErrors(), cont_.isEmptyErrors());
-        return cont_;
+        ContextEl cont_ = getSimpleContextEl();
+        return getContextEl(_files, cont_);
     }
-    private static Struct getException(ContextEl _cont) {
-        CallingState str_ = _cont.getCallingState();
-        if (str_ instanceof Struct) {
-            return (Struct) str_;
-        }
-        return null;
+
+    private static ContextEl getContextEl(StringMap<String> _files, ContextEl _cont) {
+        Classes classes_ = _cont.getClasses();
+        _cont.setAnalyzing();
+        Classes.buildPredefinedBracesBodies(_cont);
+        _cont.setAnalyzing();
+        Classes.tryBuildBracedClassesBodies(_files, _cont, false);
+        assertTrue(classes_.displayErrors(), _cont.isEmptyErrors());
+        assertTrue(classes_.displayErrors(), _cont.isEmptyErrors());
+        Classes.validateInheritingClasses(_cont, false);
+        assertTrue(classes_.displayErrors(), _cont.isEmptyErrors());
+        return _cont;
     }
+
     private static ContextEl simpleContextEl() {
-        Options opt_ = new Options();
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        ContextEl cont_ = getSimpleContextEl();
+        cont_.setAnalyzing();
         Classes.buildPredefinedBracesBodies(cont_);
+        cont_.setAnalyzing();
         return cont_;
     }
 }
