@@ -11,7 +11,6 @@ import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.inherits.*;
 import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.instr.PartOffset;
-import code.expressionlanguage.methods.util.ConstructorEdge;
 import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.OperationNode;
@@ -20,7 +19,6 @@ import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.LgNames;
 import code.util.*;
-import code.util.graphs.Graph;
 
 public abstract class RootBlock extends BracedBlock implements GeneType, AccessingImportingBlock, AnnotableBlock {
 
@@ -1488,9 +1486,11 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
     public void validateConstructors(ContextEl _cont) {
         boolean opt_ = optionalCallConstr(_cont);
         CustList<ConstructorBlock> ctors_ = new CustList<ConstructorBlock>();
+        ObjectMap<ConstructorId,ConstructorBlock> ctorsId_ = new ObjectMap<ConstructorId,ConstructorBlock>();
         for (Block b: Classes.getDirectChildren(this)) {
             if (b instanceof ConstructorBlock) {
                 ctors_.add((ConstructorBlock) b);
+                ctorsId_.addEntry(((ConstructorBlock) b).getId(),(ConstructorBlock) b);
             }
         }
         if (ctors_.isEmpty() && !opt_) {
@@ -1516,44 +1516,36 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                 _cont.addError(un_);
             }
         }
-        CustList<ConstructorBlock> l_ = new CustList<ConstructorBlock>();
-        for (ConstructorBlock c: ctors_) {
-            if (c.getConstIdSameClass() != null) {
-                l_.add(c);
+        for (EntryCust<ConstructorId, ConstructorBlock> e: ctorsId_.entryList()) {
+            ConstructorBlock f = e.getValue();
+            ConstructorId co_ = e.getKey();
+            CustList<ConstructorId> cycle_ = new CustList<ConstructorId>();
+            while (true) {
+                ConstructorBlock found_ = null;
+                if (co_ != null) {
+                    cycle_.add(co_);
+                    found_ = ctorsId_.getVal(co_);
+                }
+                if (found_ == null) {
+                    break;
+                }
+                if (found_ == f && cycle_.size() > 1) {
+                    FoundErrorInterpret cyclic_ = new FoundErrorInterpret();
+                    StringList c_ = new StringList();
+                    for (ConstructorId c: cycle_) {
+                        c_.add(c.getSignature(_cont));
+                    }
+                    cyclic_.setFileName(getFile().getFileName());
+                    cyclic_.setIndexFile(getOffset().getOffsetTrim());
+                    //original contructor id len
+                    cyclic_.buildError(_cont.getAnalysisMessages().getCyclicCtorCall(),
+                            StringList.join(c_,"&"),
+                            getFullName());
+                    _cont.addError(cyclic_);
+                    break;
+                }
+                co_ = found_.getConstIdSameClass();
             }
-        }
-        Graph<ConstructorEdge> graph_;
-        graph_ = new Graph<ConstructorEdge>();
-        EqList<ConstructorEdge> edges_ = new EqList<ConstructorEdge>();
-        for (ConstructorBlock f: l_) {
-            edges_.add(new ConstructorEdge(f.getId()));
-        }
-        int index_ = 0;
-        for (ConstructorBlock f: l_) {
-            ConstructorEdge f_ = edges_.get(index_);
-            index_++;
-            ConstructorId co_ = f.getConstIdSameClass();
-            ConstructorEdge t_ = new ConstructorEdge(co_);
-            int i_ = edges_.indexOfObj(t_);
-            if (i_ < 0){
-                continue;
-            }
-            graph_.addSegment(f_, edges_.get(i_));
-        }
-        EqList<ConstructorEdge> cycle_ = graph_.elementsCycle();
-        if (!cycle_.isEmpty()) {
-            FoundErrorInterpret cyclic_ = new FoundErrorInterpret();
-            StringList c_ = new StringList();
-            for (ConstructorEdge c: cycle_) {
-                c_.add(c.getId().getSignature(_cont));
-            }
-            cyclic_.setFileName(getFile().getFileName());
-            cyclic_.setIndexFile(getOffset().getOffsetTrim());
-            //original id len
-            cyclic_.buildError(_cont.getAnalysisMessages().getCyclicCtorCall(),
-                    StringList.join(c_,"&"),
-                    getFullName());
-            _cont.addError(cyclic_);
         }
     }
 

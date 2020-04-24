@@ -32,6 +32,9 @@ public final class AnalyzedPageEl {
     private FunctionBlock currentFct;
     private AccessingImportingBlock importing;
     private final StringList listTypesNames = new StringList();
+    private final CustList<RootBlock> foundTypes = new CustList<RootBlock>();
+    private final CustList<RootBlock> previousFoundTypes = new CustList<RootBlock>();
+    private boolean duplicatedType;
 
     private int offset;
 
@@ -501,5 +504,21 @@ public final class AnalyzedPageEl {
 
     public StringList getListTypesNames() {
         return listTypesNames;
+    }
+
+    public CustList<RootBlock> getFoundTypes() {
+        return foundTypes;
+    }
+
+    public CustList<RootBlock> getPreviousFoundTypes() {
+        return previousFoundTypes;
+    }
+
+    public boolean isDuplicatedType() {
+        return duplicatedType;
+    }
+
+    public void setDuplicatedType(boolean _duplicatedType) {
+        duplicatedType = _duplicatedType;
     }
 }

@@ -95,7 +95,9 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock,Acce
             _classes.addErrorIfNoMatch(s_,c_,this,index_);
             RootBlock r_ = _classes.getClasses().getClassBody(base_);
             if (!(r_ instanceof ClassBlock)) {
-                importedDirectSuperInterfaces.add(s_);
+                if (r_ instanceof InterfaceBlock) {
+                    importedDirectSuperInterfaces.add(s_);
+                }
             } else {
                 importedDirectSuperClass = s_;
             }

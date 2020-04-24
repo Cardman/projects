@@ -32,6 +32,9 @@ public final class ClassesTest extends ProcessMethodCommon {
         assertEq(0, AssignmentsUtil.getOrEmpty(new CustList<StringMap<Assignment>>(),0).size());
         assertEq(0, AssignmentsUtil.getOrEmptyBool(new CustList<StringMap<BooleanAssignment>>(),0).size());
         assertEq(0, AssignmentsUtil.getOrEmptySimple(new CustList<StringMap<SimpleAssignment>>(),0).size());
+        assertEq(0, new AssignedVariables().getLastFieldsOrEmpty().size());
+        assertEq(0, new AssignedVariables().getLastVariablesOrEmpty().size());
+        assertEq(0, new AssignedVariables().getLastMutableLoopOrEmpty().size());
     }
 
     @Test

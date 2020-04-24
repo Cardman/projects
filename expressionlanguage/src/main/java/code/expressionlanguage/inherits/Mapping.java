@@ -1,12 +1,8 @@
 package code.expressionlanguage.inherits;
 
-import code.expressionlanguage.methods.util.ClassEdge;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
-import code.util.EntryCust;
-import code.util.EqList;
 import code.util.StringList;
 import code.util.StringMap;
-import code.util.graphs.Graph;
 
 public class Mapping {
 
@@ -14,29 +10,43 @@ public class Mapping {
     private ClassArgumentMatching param;
     private StringMap<StringList> mapping = new StringMap<StringList>();
 
-    public boolean isCyclic() {
-        Graph<ClassEdge> graph_ = new Graph<ClassEdge>();
-        EqList<ClassEdge> keys_ = new EqList<ClassEdge>();
+    public StringList getCyclic() {
         for (String k: mapping.getKeys()) {
-            keys_.add(new ClassEdge(k));
-        }
-        int index_ = 0;
-        for (EntryCust<String, StringList> e: mapping.entryList()) {
-            ClassEdge from_ = keys_.get(index_);
-            //unresolved constraints => singleton default type
-            for (String s: e.getValue()) {
-                if (!s.startsWith(Templates.PREFIX_VAR_TYPE)) {
-                    continue;
+            StringList visitedBounds_ = new StringList();
+            StringList visitedBoundsAll_ = new StringList();
+            StringList currentBounds_ = new StringList(k);
+            while (true) {
+                StringList nextBounds_ = new StringList();
+                for (String c: currentBounds_) {
+                    String var_ = c;
+                    if (c.startsWith(Templates.PREFIX_VAR_TYPE)) {
+                        var_ = c.substring(1);
+                    }
+                    if (!mapping.contains(var_)) {
+                        continue;
+                    }
+                    visitedBounds_.add(var_);
+                    for (String n: mapping.getVal(var_)) {
+                        if (n.startsWith(Templates.PREFIX_VAR_TYPE)) {
+                            if (StringList.quickEq(n.substring(1),k)) {
+                                return visitedBounds_;
+                            }
+                        }
+                        if (StringList.contains(visitedBoundsAll_, n)) {
+                            continue;
+                        }
+                        visitedBoundsAll_.add(n);
+                        nextBounds_.add(n);
+                    }
                 }
-                String sub_ = s.substring(1);
-                int i_ = keys_.indexOfObj(new ClassEdge(sub_));
-                graph_.addSegment(from_, keys_.get(i_));
+                if (nextBounds_.isEmpty()) {
+                    break;
+                }
+                currentBounds_ = nextBounds_;
             }
-            index_++;
         }
-        return graph_.hasCycle();
+        return new StringList();
     }
-
     public static StringList getAllUpperBounds(StringMap<StringList> _mapping, String _className, String _objectClassName) {
         StringList visitedBounds_ = new StringList();
         StringList visitedBoundsAll_ = new StringList();

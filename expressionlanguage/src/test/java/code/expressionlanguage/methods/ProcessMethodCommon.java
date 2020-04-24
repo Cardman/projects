@@ -308,12 +308,12 @@ public abstract class ProcessMethodCommon {
         Classes classes_ = cont_.getClasses();
         parseCustomFiles(_files, cont_);
         assertTrue(classes_.displayErrors(), cont_.isEmptyErrors());
-        Classes.validateInheritingClasses(cont_, false);
+        Classes.validateInheritingClasses(cont_);
         assertTrue(classes_.displayErrors(), cont_.isEmptyErrors());
-        Classes.validateIds(cont_,false);
-        Classes.validateOverridingInherit(cont_, false);
+        Classes.validateIds(cont_);
+        Classes.validateOverridingInherit(cont_);
         assertTrue(classes_.displayErrors(), cont_.isEmptyErrors());
-        classes_.initStaticFields(cont_, false);
+        classes_.initStaticFields(cont_);
         assertTrue(classes_.displayErrors(), cont_.isEmptyErrors());
         return cont_;
     }
@@ -325,7 +325,7 @@ public abstract class ProcessMethodCommon {
         Classes classes_ = cont_.getClasses();
         parseCustomFiles(_files, cont_);
         assertTrue(classes_.displayErrors(), cont_.isEmptyErrors());
-        Classes.validateInheritingClasses(cont_, false);
+        Classes.validateInheritingClasses(cont_);
         assertTrue(classes_.displayErrors(), cont_.isEmptyErrors());
         return cont_;
     }
@@ -336,7 +336,7 @@ public abstract class ProcessMethodCommon {
         Classes classes_ = cont_.getClasses();
         parseCustomFiles(_files, cont_);
         assertTrue(classes_.displayErrors(), cont_.isEmptyErrors());
-        Classes.validateInheritingClasses(cont_, false);
+        Classes.validateInheritingClasses(cont_);
         assertTrue(classes_.displayErrors(), cont_.isEmptyErrors());
         return cont_;
     }
@@ -347,7 +347,7 @@ public abstract class ProcessMethodCommon {
         Classes classes_ = cont_.getClasses();
         parseCustomFiles(_files, cont_);
         assertTrue(classes_.displayErrors(), cont_.isEmptyErrors());
-        Classes.validateInheritingClasses(cont_, false);
+        Classes.validateInheritingClasses(cont_);
         assertTrue(classes_.displayErrors(), !cont_.isEmptyErrors());
     }
 
@@ -358,14 +358,16 @@ public abstract class ProcessMethodCommon {
         parseCustomFiles(_files, cont_);
         Classes classes_ = cont_.getClasses();
         assertTrue(classes_.displayErrors(), cont_.isEmptyErrors());
-        Classes.validateInheritingClasses(cont_, false);
+        Classes.validateInheritingClasses(cont_);
         assertTrue(classes_.displayErrors(), !cont_.isEmptyErrors());
     }
 
     protected static void parseCustomFiles(StringMap<String> _files, ContextEl _cont) {
         _cont.setAnalyzing();
         Classes.buildPredefinedBracesBodies(_cont);
+        CustList<RootBlock> foundTypes_ = _cont.getAnalyzing().getFoundTypes();
         _cont.setAnalyzing();
+        _cont.getAnalyzing().getPreviousFoundTypes().addAllElts(foundTypes_);
         Classes.tryBuildBracedClassesBodies(_files, _cont, false);
     }
 

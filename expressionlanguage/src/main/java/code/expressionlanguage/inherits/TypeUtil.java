@@ -21,9 +21,9 @@ public final class TypeUtil {
         }
     }
 
-    public static void checkInterfaces(ContextEl _context, CustList<String> _types, boolean _predefined) {
+    public static void checkInterfaces(ContextEl _context) {
         Classes classes_ = _context.getClasses();
-        for (RootBlock c: classes_.getClassBodies(_predefined)) {
+        for (RootBlock c: _context.getAnalyzing().getFoundTypes()) {
             _context.getAnalyzing().setImporting(c);
             _context.getAnalyzing().setCurrentBlock(c);
             _context.getAnalyzing().setGlobalClass(c.getGenericString());
@@ -101,18 +101,17 @@ public final class TypeUtil {
                 }
             }
         }
-        for (String c: _types) {
-            RootBlock bl_ = _context.getClasses().getClassBody(c);
-            if (!(bl_ instanceof UniqueRootedBlock)) {
+        for (RootBlock c: _context.getAnalyzing().getFoundTypes()) {
+            if (!(c instanceof UniqueRootedBlock)) {
                 continue;
             }
-            UniqueRootedBlock un_ = (UniqueRootedBlock)bl_;
+            UniqueRootedBlock un_ = (UniqueRootedBlock)c;
             StringList ints_ = un_.getStaticInitImportedInterfaces();
             StringList trimmedInt_ = new StringList();
             for (String i: ints_) {
                 trimmedInt_.add(i);
             }
-            StringList all_ = bl_.getAllSuperTypes();
+            StringList all_ = c.getAllSuperTypes();
             StringList allCopy_ = new StringList(all_);
             StringList.removeAllElements(allCopy_, _context.getStandards().getPredefinedInterfacesInitOrder());
             String clName_ = un_.getImportedDirectGenericSuperClass();

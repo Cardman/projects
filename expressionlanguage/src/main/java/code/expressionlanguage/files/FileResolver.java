@@ -964,19 +964,14 @@ public final class FileResolver {
                     endInstruction_ = true;
                 }
                 if (currentChar_ == ':') {
-                    if (currentParent_ instanceof SwitchBlock) {
+                    String str_ = instruction_.toString().trim();
+                    if (StringExpUtil.startsWithKeyWord(str_, keyWordCase_)) {
+                        endInstruction_ = true;
+                    } else if (StringExpUtil.startsWithKeyWord(str_, keyWordDefault_)) {
                         endInstruction_ = true;
                     }
-                    if (currentParent_ instanceof SwitchPartBlock) {
-                        String str_ = instruction_.toString().trim();
-                        if (StringExpUtil.startsWithKeyWord(str_, keyWordCase_)) {
-                            currentParent_ = currentParent_.getParent();
-                            endInstruction_ = true;
-                        }
-                        if (StringExpUtil.startsWithKeyWord(str_, keyWordDefault_)) {
-                            currentParent_ = currentParent_.getParent();
-                            endInstruction_ = true;
-                        }
+                    if (endInstruction_ && currentParent_ instanceof SwitchPartBlock) {
+                        currentParent_ = currentParent_.getParent();
                     }
                 }
                 if (currentChar_ == SEP_ENUM_CONST && enableByEndLine_) {

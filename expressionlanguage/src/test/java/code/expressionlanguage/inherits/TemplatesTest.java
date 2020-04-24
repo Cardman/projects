@@ -3,14 +3,12 @@ package code.expressionlanguage.inherits;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ErrorType;
-import code.expressionlanguage.InitializationLgNames;
-import code.expressionlanguage.calls.util.CallingState;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.ProcessMethodCommon;
+import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.opers.util.MethodAccessKind;
 import code.expressionlanguage.opers.util.MethodId;
-import code.expressionlanguage.options.Options;
 import code.expressionlanguage.structs.*;
 import code.util.CustList;
 import code.util.StringList;
@@ -4831,11 +4829,13 @@ public final class TemplatesTest extends ProcessMethodCommon {
         Classes classes_ = _cont.getClasses();
         _cont.setAnalyzing();
         Classes.buildPredefinedBracesBodies(_cont);
+        CustList<RootBlock> foundTypes_ = _cont.getAnalyzing().getFoundTypes();
         _cont.setAnalyzing();
+        _cont.getAnalyzing().getPreviousFoundTypes().addAllElts(foundTypes_);
         Classes.tryBuildBracedClassesBodies(_files, _cont, false);
         assertTrue(classes_.displayErrors(), _cont.isEmptyErrors());
         assertTrue(classes_.displayErrors(), _cont.isEmptyErrors());
-        Classes.validateInheritingClasses(_cont, false);
+        Classes.validateInheritingClasses(_cont);
         assertTrue(classes_.displayErrors(), _cont.isEmptyErrors());
         return _cont;
     }
@@ -4844,7 +4844,9 @@ public final class TemplatesTest extends ProcessMethodCommon {
         ContextEl cont_ = getSimpleContextEl();
         cont_.setAnalyzing();
         Classes.buildPredefinedBracesBodies(cont_);
+        CustList<RootBlock> foundTypes_ = cont_.getAnalyzing().getFoundTypes();
         cont_.setAnalyzing();
+        cont_.getAnalyzing().getPreviousFoundTypes().addAllElts(foundTypes_);
         return cont_;
     }
 }

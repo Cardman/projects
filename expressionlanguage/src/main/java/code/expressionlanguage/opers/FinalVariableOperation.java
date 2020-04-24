@@ -50,12 +50,7 @@ public final class FinalVariableOperation extends LeafOperation {
         LgNames stds_ = _conf.getStandards();
         if (!className.isEmpty()) {
             variableName = str_;
-            String paramType_ = className;
-            if (paramType_.endsWith(VARARG_SUFFIX)) {
-                paramType_ = StringList.replace(paramType_, VARARG_SUFFIX, EMPTY_STRING);
-                paramType_ = PrimitiveTypeUtil.getPrettyArrayType(paramType_);
-            }
-            setResultClass(new ClassArgumentMatching(paramType_));
+            setResultClass(new ClassArgumentMatching(className));
             return;
         }
         LoopVariable loopVar_ = _conf.getVar(str_);

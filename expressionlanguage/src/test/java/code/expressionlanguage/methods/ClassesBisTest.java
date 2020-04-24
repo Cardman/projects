@@ -247,6 +247,33 @@ public final class ClassesBisTest extends ProcessMethodCommon {
         assertTrue(!cont_.isEmptyErrors());
     }
     @Test
+    public void validateEl25FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.ExTwo:ExThree<> {\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExThree {\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = ProcessMethodCommon.contextElDefault();
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.isEmptyErrors());
+    }
+    @Test
+    public void validateEl26FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("public class pkg.ExTwo {\n");
+        xml_.append(" public int v = (];\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = ProcessMethodCommon.contextElReadOnlyDefault();
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.isEmptyErrors());
+    }
+    @Test
     public void resolve12Test() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;

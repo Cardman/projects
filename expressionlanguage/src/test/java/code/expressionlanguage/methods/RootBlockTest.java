@@ -1,12 +1,10 @@
 package code.expressionlanguage.methods;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.InitializationLgNames;
 import code.expressionlanguage.inherits.TypeUtil;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.MethodAccessKind;
 import code.expressionlanguage.opers.util.MethodId;
-import code.expressionlanguage.options.Options;
 import code.util.*;
 import org.junit.Test;
 
@@ -1726,7 +1724,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
         parseCustomFiles(_files, cont_);
         Classes classes_ = cont_.getClasses();
         assertTrue(classes_.displayErrors(), cont_.isEmptyErrors());
-        Classes.validateInheritingClasses(cont_, false);
+        Classes.validateInheritingClasses(cont_);
         assertTrue(classes_.displayErrors(), cont_.isEmptyErrors());
         return cont_;
     }
@@ -1737,15 +1735,15 @@ public final class RootBlockTest extends ProcessMethodCommon {
         parseCustomFiles(_files, cont_);
         Classes classes_ = cont_.getClasses();
         assertTrue(classes_.displayErrors(), cont_.isEmptyErrors());
-        Classes.validateInheritingClasses(cont_, false);
+        Classes.validateInheritingClasses(cont_);
         assertTrue(classes_.displayErrors(), !cont_.isEmptyErrors());
     }
 
     private static void checkOverrides(ContextEl _cont) {
         Classes classes_ = _cont.getClasses();
-        Classes.validateIds(_cont,false);
+        Classes.validateIds(_cont);
         assertTrue(classes_.displayErrors(), _cont.isEmptyErrors());
-        Classes.validateOverridingInherit(_cont, false);
+        Classes.validateOverridingInherit(_cont);
         assertTrue(classes_.displayErrors(), _cont.isEmptyErrors());
     }
 
@@ -1756,18 +1754,18 @@ public final class RootBlockTest extends ProcessMethodCommon {
 
     private static void checkErrors(ContextEl _cont) {
         Classes classes_ = _cont.getClasses();
-        Classes.validateIds(_cont,false);
+        Classes.validateIds(_cont);
         assertTrue(classes_.displayErrors(), _cont.isEmptyErrors());
-        Classes.validateOverridingInherit(_cont, false);
+        Classes.validateOverridingInherit(_cont);
         assertTrue(classes_.displayErrors(),!_cont.isEmptyErrors());
     }
 
     private static ContextEl getContextEl(StringMap<String> _files) {
         ContextEl cont_ = getRootContextEl();
         parseCustomFiles(_files, cont_);
-        Classes.validateInheritingClasses(cont_, false);
-        Classes.validateIds(cont_,false);
-        Classes.validateOverridingInherit(cont_, false);
+        Classes.validateInheritingClasses(cont_);
+        Classes.validateIds(cont_);
+        Classes.validateOverridingInherit(cont_);
         return cont_;
     }
 

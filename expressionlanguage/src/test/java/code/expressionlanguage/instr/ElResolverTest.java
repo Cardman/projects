@@ -5282,9 +5282,9 @@ public final class ElResolverTest extends ProcessMethodCommon{
     private ContextEl prepare(StringMap<String> _files) {
         ContextEl conf_ = contextEl();
         parseCustomFiles(_files, conf_);
-        Classes.validateInheritingClasses(conf_, false);
-        Classes.validateIds(conf_,false);
-        Classes.validateOverridingInherit(conf_, false);
+        Classes.validateInheritingClasses(conf_);
+        Classes.validateIds(conf_);
+        Classes.validateOverridingInherit(conf_);
         return conf_;
     }
     private ContextEl contextEl() {

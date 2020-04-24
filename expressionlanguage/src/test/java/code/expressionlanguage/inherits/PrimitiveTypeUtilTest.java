@@ -2847,7 +2847,7 @@ public final class PrimitiveTypeUtilTest extends ProcessMethodCommon {
         parseCustomFiles(_files, cont_);
         Classes classes_ = cont_.getClasses();
         assertTrue(classes_.displayErrors(), cont_.isEmptyErrors());
-        Classes.validateInheritingClasses(cont_, false);
+        Classes.validateInheritingClasses(cont_);
         assertTrue(classes_.displayErrors(), cont_.isEmptyErrors());
         return cont_;
     }

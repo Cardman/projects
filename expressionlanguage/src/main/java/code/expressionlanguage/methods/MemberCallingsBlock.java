@@ -6,13 +6,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.inherits.Mapping;
-import code.expressionlanguage.instr.ElUtil;
-import code.expressionlanguage.instr.PartOffset;
-import code.expressionlanguage.opers.Calculation;
-import code.expressionlanguage.opers.exec.ExecOperationNode;
-import code.expressionlanguage.opers.util.MethodAccessKind;
 import code.util.CustList;
-import code.util.Ints;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -120,7 +114,7 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
 
     private static void addPossibleEmpty(Block _en) {
         if (_en instanceof BracedBlock && _en.getFirstChild() == null) {
-            if (!(_en instanceof SwitchBlock) && !(_en instanceof DoWhileCondition)) {
+            if (!(_en instanceof SwitchBlock) && !(_en instanceof DoWhileCondition) && (_en instanceof BuildableElMethod || _en instanceof UnclassedBracedBlock)) {
                 OffsetsBlock off_ = _en.getOffset();
                 EmptyInstruction empty_ = new EmptyInstruction(off_);
                 ((BracedBlock) _en).appendChild(empty_);
