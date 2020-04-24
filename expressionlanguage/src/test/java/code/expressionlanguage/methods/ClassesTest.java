@@ -5426,6 +5426,46 @@ public final class ClassesTest extends ProcessMethodCommon {
     }
 
     @Test
+    public void validateE0FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $final $int outer(){$return $void;}\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().displayErrors(),!cont_.isEmptyErrors());
+    }
+
+    @Test
+    public void validateEE0FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static{\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().displayErrors(),!cont_.isEmptyErrors());
+    }
+
+    @Test
+    public void validateEE_0FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $void outer(){$static{}}\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextElReadOnlyDef();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().displayErrors(),!cont_.isEmptyErrors());
+    }
+    @Test
     public void validateElFailTest() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;

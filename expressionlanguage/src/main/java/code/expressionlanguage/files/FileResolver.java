@@ -1049,7 +1049,7 @@ public final class FileResolver {
                 break;
             }
             if (endInstruction_) {
-                after_ = processInstruction(_context, _input, currentChar_, currentParent_,
+                after_ = processInstruction(_context,currentChar_, _input, currentChar_, currentParent_,
                         _braces, instructionLocation_,
                         instruction_, _file, declType_, i_, _nextIndex, enableByEndLine_);
                 instLen_ = 0;
@@ -1210,6 +1210,9 @@ public final class FileResolver {
         if (lastCh_ =='?') {
             return EndInstruction.NONE;
         }
+        if (!(_parent instanceof RootBlock)) {
+            return EndInstruction.NONE;
+        }
         word_ = EMPTY_STRING;
         if (StringExpUtil.startsWithKeyWord(tr_,keyWords_.getKeyWordPrivate())) {
             word_ = keyWords_.getKeyWordPrivate();
@@ -1225,14 +1228,12 @@ public final class FileResolver {
         String infoModifiers_;
         infoModifiers_ = trimmedAfterAccess_;
         boolean ctor_ = false;
-        if (_parent instanceof RootBlock) {
-            if (trimmedAfterAccess_.startsWith("(")) {
+        if (trimmedAfterAccess_.startsWith("(")) {
+            ctor_ = true;
+        } else {
+            int leftPar_ = trimmedAfterAccess_.indexOf('(');
+            if (leftPar_ > -1&&StringList.isDollarWord(trimmedAfterAccess_.substring(0,leftPar_).trim())){
                 ctor_ = true;
-            } else {
-                int leftPar_ = trimmedAfterAccess_.indexOf('(');
-                if (leftPar_ > -1&&StringList.isDollarWord(trimmedAfterAccess_.substring(0,leftPar_).trim())){
-                    ctor_ = true;
-                }
             }
         }
         if (ctor_) {
@@ -1275,24 +1276,6 @@ public final class FileResolver {
             return EndInstruction.NONE;
         }
         String join_ = StringList.join(wordsSep_.mid(i_), "");
-        String joinAfter_ = StringList.join(wordsSep_.mid(i_+1), "");
-        if (!(_parent instanceof RootBlock)) {
-            if (StringList.quickEq(wordsSep_.get(i_), keyWords_.getKeyWordCast())) {
-                return EndInstruction.NONE;
-            }
-            if (StringList.quickEq(wordsSep_.get(i_), keyWords_.getKeyWordNew())) {
-                String typeStr_ = getDeclaringTypeBlock(joinAfter_);
-                infoModifiers_ = joinAfter_.substring(typeStr_.length()).trim();
-                int lenMod_ = infoModifiers_.length();
-                if (StringExpUtil.nextCharIs(infoModifiers_,0,lenMod_,BEGIN_CALLING)) {
-                    return EndInstruction.NONE;
-                }
-            }
-        }
-        String trJoin_ = joinAfter_.trim();
-        if (StringExpUtil.nextCharIs(trJoin_,0,trJoin_.length(),BEGIN_CALLING)){
-            return EndInstruction.NO_DECLARE_TYPE;
-        }
         String typeStr_ = getDeclaringTypeBlock(join_);
         infoModifiers_ = join_.substring(typeStr_.length());
         int first_ = StringList.getFirstPrintableCharIndex(infoModifiers_);
@@ -1321,7 +1304,7 @@ public final class FileResolver {
         }
         return EndInstruction.NO_DECLARE_TYPE;
     }
-    private static AfterBuiltInstruction processInstruction(ContextEl _context, InputTypeCreation _input, char _currentChar,
+    private static AfterBuiltInstruction processInstruction(ContextEl _context, char _end,InputTypeCreation _input, char _currentChar,
                                                             BracedBlock _currentParent, Ints _braces,
                                                             int _instructionLocation, StringBuilder _instruction, String _file, boolean _declType, int _i, int _nextIndex, boolean _enabledEnum) {
         AfterBuiltInstruction after_ = new AfterBuiltInstruction();
@@ -1553,7 +1536,7 @@ public final class FileResolver {
                         }
                         br_ = built_;
                     } else {
-                        br_ = processTypeMember(_context, _instruction, instructionLocation_, i_, currentParent_);
+                        br_ = processTypeMember(_context,_end,_input, _instruction, instructionLocation_, i_, currentParent_);
                         if (br_ == null) {
                             return null;
                         }
@@ -1875,7 +1858,7 @@ public final class FileResolver {
         return typeBlock_;
     }
 
-    private static Block processTypeMember(ContextEl _context,
+    private static Block processTypeMember(ContextEl _context,char _end,InputTypeCreation _input,
                                            StringBuilder _instruction, int _instructionLocation, int _i, BracedBlock _currentParent) {
         int instructionLocation_ = _instructionLocation;
         String found_ = _instruction.toString();
@@ -1925,7 +1908,7 @@ public final class FileResolver {
         String trimmedAfterAccess_ = afterAccess_.trim();
         String infoModifiers_ = trimmedAfterAccess_;
         boolean field_ = false;
-        if (StringExpUtil.startsWithKeyWord(infoModifiers_,keyWordStatic_)) {
+        if (_end == ';' && StringExpUtil.startsWithKeyWord(infoModifiers_,keyWordStatic_)) {
             String otherModifier_;
             otherModifier_ = keyWordStatic_;
             int lenLoc_ = otherModifier_.length();
@@ -2007,7 +1990,7 @@ public final class FileResolver {
                 meth_ = true;
             }
         }
-        if (meth_||ctor_) {
+        if (meth_||ctor_||_end != ';') {
             if (_currentParent instanceof InterfaceBlock) {
                 if (word_.isEmpty()) {
                     accessFct_ = AccessEnum.PUBLIC;
@@ -2153,6 +2136,9 @@ public final class FileResolver {
                 ov_.setKind(kind_);
                 br_ = ov_;
             } else {
+                if (!ctor_) {
+                    _input.getBadIndexes().add(_i);
+                }
                 br_ = new ConstructorBlock(new OffsetAccessInfo(accessOffest_, accessFct_),
                         new OffsetStringInfo(accessOffest_, EMPTY_STRING),
                         new OffsetStringInfo(accessOffest_, EMPTY_STRING), parametersType_, offestsTypes_,
