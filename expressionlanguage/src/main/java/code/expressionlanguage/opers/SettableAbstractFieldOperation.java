@@ -216,7 +216,7 @@ public abstract class SettableAbstractFieldOperation extends
             _oper.setSimpleArgumentAna(arg_,_conf);
             return;
         }
-        if (ElUtil.isInlineDeclaringField(_oper, _conf)) {
+        if (ElUtil.isDeclaringField(_oper, _conf)) {
             Argument arg_ = Argument.createVoid();
             _oper.setSimpleArgument(arg_);
             return;

@@ -99,7 +99,6 @@ public interface Analyzable {
     void setupDeclaratorClass(String _className);
     boolean hasLoopDeclarator();
     void setupLoopDeclaratorClass(String _className);
-    boolean isGearConst();
 
 
     String resolveCorrectType(String _in);

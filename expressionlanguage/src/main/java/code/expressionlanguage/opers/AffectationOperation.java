@@ -362,7 +362,7 @@ public final class AffectationOperation extends MethodOperation implements Affec
     }
 
     public static void setArg(Analyzable _conf, ParentOperable _current, Operable _settable) {
-        if (!ElUtil.isInlineDeclaringField(_settable, _conf)) {
+        if (!ElUtil.isDeclaringField(_settable, _conf)) {
             return;
         }
         StandardFieldOperable fieldRef_ = (StandardFieldOperable) _settable;

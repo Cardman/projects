@@ -1858,7 +1858,6 @@ public final class Classes {
 
     void initStaticFields(ContextEl _context) {
         AnalyzedPageEl page_ = _context.getAnalyzing();
-        page_.setGearConst(true);
 
         for (RootBlock c: _context.getAnalyzing().getFoundTypes()) {
             page_.setImporting(c);
@@ -1945,7 +1944,6 @@ public final class Classes {
                 break;
             }
         }
-        page_.setGearConst(false);
     }
     private static StringList getPackages(ContextEl _context) {
         StringList pkgs_ = new StringList();

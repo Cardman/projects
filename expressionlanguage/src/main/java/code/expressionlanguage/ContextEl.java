@@ -856,11 +856,6 @@ public abstract class ContextEl implements ExecutableCode {
         return analyzing.isStaticContext();
     }
 
-    @Override
-    public boolean isGearConst() {
-        return analyzing.isGearConst();
-    }
-
     public boolean callsOrException() {
         if (callingState != null) {
             return true;

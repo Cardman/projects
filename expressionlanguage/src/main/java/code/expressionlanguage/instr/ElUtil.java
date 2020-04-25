@@ -427,12 +427,7 @@ public final class ElUtil {
         }
         return out_;
     }
-    public static boolean isInlineDeclaringField(Operable _var, Analyzable _an) {
-        if (!_an.isGearConst()) {
-            return false;
-        }
-        return isDeclaringField(_var,_an);
-    }
+
     public static boolean isDeclaringField(Operable _var, Analyzable _an) {
         Block bl_ = _an.getCurrentBlock();
         if (!(bl_ instanceof FieldBlock)) {

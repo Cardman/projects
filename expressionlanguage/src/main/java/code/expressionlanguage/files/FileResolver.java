@@ -1225,8 +1225,6 @@ public final class FileResolver {
         }
         afterAccess_ = tr_.substring(word_.length());
         String trimmedAfterAccess_ = afterAccess_.trim();
-        String infoModifiers_;
-        infoModifiers_ = trimmedAfterAccess_;
         boolean ctor_ = false;
         if (trimmedAfterAccess_.startsWith("(")) {
             ctor_ = true;
@@ -1241,7 +1239,7 @@ public final class FileResolver {
         }
         String keyWordNormal_ = keyWords_.getKeyWordNormal();
         String keyWordStaticCall_ = keyWords_.getKeyWordStaticCall();
-        StringList wordsSep_ = StringList.getDollarWordSeparators(infoModifiers_);
+        StringList wordsSep_ = StringList.getDollarWordSeparators(trimmedAfterAccess_);
         int i_ = 0;
         int len_ = wordsSep_.size();
         while (i_ < len_) {
@@ -1275,35 +1273,35 @@ public final class FileResolver {
         if (i_ >= len_) {
             return EndInstruction.NONE;
         }
-        String join_ = StringList.join(wordsSep_.mid(i_), "");
-        String typeStr_ = getDeclaringTypeBlock(join_);
-        infoModifiers_ = join_.substring(typeStr_.length());
-        int first_ = StringList.getFirstPrintableCharIndex(infoModifiers_);
-        if (first_ < 0) {
-            return EndInstruction.NONE;
-        }
-        infoModifiers_ = infoModifiers_.substring(first_);
-        int lenAfterModifiers_ = infoModifiers_.length();
-        int indexMod_ = 0;
-        while (indexMod_ < lenAfterModifiers_) {
-            char cur_ = infoModifiers_.charAt(indexMod_);
+        String trAfterType_ = afterDeclaringType(wordsSep_, i_);
+        int lenTrAfterType_ = trAfterType_.length();
+        int indexTrAfterType_ = 0;
+        while (indexTrAfterType_ < lenTrAfterType_) {
+            char cur_ = trAfterType_.charAt(indexTrAfterType_);
             if (!StringList.isDollarWordChar(cur_)) {
                 break;
             }
-            indexMod_++;
+            indexTrAfterType_++;
         }
-        while (indexMod_ < lenAfterModifiers_) {
-            char cur_ = infoModifiers_.charAt(indexMod_);
+        while (indexTrAfterType_ < lenTrAfterType_) {
+            char cur_ = trAfterType_.charAt(indexTrAfterType_);
             if (!Character.isWhitespace(cur_)) {
                 break;
             }
-            indexMod_++;
+            indexTrAfterType_++;
         }
-        if (!StringExpUtil.nextCharIs(infoModifiers_, indexMod_, lenAfterModifiers_, BEGIN_CALLING)) {
+        if (!StringExpUtil.nextCharIs(trAfterType_, indexTrAfterType_, lenTrAfterType_, BEGIN_CALLING)) {
             return EndInstruction.NONE;
         }
         return EndInstruction.NO_DECLARE_TYPE;
     }
+
+    private static String afterDeclaringType(StringList _wordsSep, int _index) {
+        String join_ = StringList.join(_wordsSep.mid(_index), "");
+        String typeStr_ = getDeclaringTypeBlock(join_);
+        return join_.substring(typeStr_.length()).trim();
+    }
+
     private static AfterBuiltInstruction processInstruction(ContextEl _context, char _end,InputTypeCreation _input, char _currentChar,
                                                             BracedBlock _currentParent, Ints _braces,
                                                             int _instructionLocation, StringBuilder _instruction, String _file, boolean _declType, int _i, int _nextIndex, boolean _enabledEnum) {

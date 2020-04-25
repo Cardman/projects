@@ -725,11 +725,6 @@ public final class Configuration implements ExecutableCode {
     }
 
     @Override
-    public boolean isGearConst() {
-        return context.isGearConst();
-    }
-
-    @Override
     public CustList<StringMap<LocalVariable>> getLocalVariables() {
         return context.getLocalVariables();
     }
