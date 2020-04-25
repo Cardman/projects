@@ -246,7 +246,9 @@ final class AfterUnaryParts {
             index++;
             return;
         }
-        if (curChar_ == BEGIN_TERNARY) {
+        int lastPrintChar_ = del.getLastPrintIndex();
+        int len_ = lastPrintChar_ + 1;
+        if (curChar_ == BEGIN_TERNARY && !StringExpUtil.nextCharIs(_string, index + 1, len_, BEGIN_TERNARY)) {
             if (parsBrackets.isEmpty() && prio > ElResolver.TERNARY_PRIO) {
                 operators.clear();
                 leftParFirstOperator = false;
@@ -419,6 +421,26 @@ final class AfterUnaryParts {
             addPossibleNumOp(builtOperator_.toString(), clearOperators_, foundOperator_);
             return;
         }
+        if (_curChar == BEGIN_TERNARY) {
+            builtOperator_.append(_curChar);
+            if (StringExpUtil.nextCharIs(_string,index+2,len_,EQ_CHAR)) {
+                if (isGreaterThanAff(prio)) {
+                    clearOperators_ = true;
+                    prio = ElResolver.AFF_PRIO;
+                    foundOperator_ = true;
+                }
+                builtOperator_.append(EQ_CHAR);
+            } else {
+                int prioOpMult_ = ElResolver.NULL_SAFE_PRIO;
+                if (prio > prioOpMult_) {
+                    prio = prioOpMult_;
+                    clearOperators_ = true;
+                    foundOperator_ = true;
+                }
+            }
+            addPossibleNumOp(builtOperator_.toString(), clearOperators_, foundOperator_);
+            return;
+        }
         if (nextChar_ == EQ_CHAR){
             addAffNumOp(builtOperator_);
             return;
@@ -533,7 +555,7 @@ final class AfterUnaryParts {
     }
 
     private static boolean isGreaterThanAff(int _prio) {
-        return _prio > ElResolver.AFF_PRIO && _prio != ElResolver.TERNARY_PRIO;
+        return _prio > ElResolver.AFF_PRIO && _prio != ElResolver.TERNARY_PRIO && _prio != ElResolver.NULL_SAFE_PRIO;
     }
 
     private static void addOperIfBegin(IntTreeMap< String> _operators, int _i, int _first, String _arr) {

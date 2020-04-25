@@ -14,10 +14,7 @@ import code.expressionlanguage.opers.exec.ExecOperationNode;
 import code.expressionlanguage.opers.exec.Operable;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.stds.LgNames;
-import code.expressionlanguage.structs.BooleanStruct;
-import code.expressionlanguage.structs.DisplayableStruct;
-import code.expressionlanguage.structs.ErrorStruct;
-import code.expressionlanguage.structs.Struct;
+import code.expressionlanguage.structs.*;
 import code.formathtml.Configuration;
 import code.util.CustList;
 import code.util.IdMap;
@@ -327,6 +324,10 @@ public abstract class RendDynOperationNode {
             BitXorOperation c_ = (BitXorOperation) _anaNode;
             return new RendBitXorOperation(c_);
         }
+        if (_anaNode instanceof NullSafeOperation) {
+            NullSafeOperation n_ = (NullSafeOperation) _anaNode;
+            return new RendNullSafeOperation(n_);
+        }
         if (_anaNode instanceof QuickOperation) {
             QuickOperation q_ = (QuickOperation) _anaNode;
             if (!q_.isOkNum()) {
@@ -422,6 +423,14 @@ public abstract class RendDynOperationNode {
     public static int getNextIndex(RendDynOperationNode _operation, Struct _value) {
         int index_ = _operation.getIndexChild();
         RendMethodOperation par_ = _operation.getParent();
+        if (par_ instanceof RendCompoundAffectationOperation) {
+            RendCompoundAffectationOperation p_ = (RendCompoundAffectationOperation)par_;
+            if (StringList.quickEq(p_.getOper(),"??=")) {
+                if (_value != NullStruct.NULL_VALUE) {
+                    return par_.getOrder();
+                }
+            }
+        }
         if (_value instanceof BooleanStruct) {
             if (par_ instanceof RendCompoundAffectationOperation) {
                 RendCompoundAffectationOperation p_ = (RendCompoundAffectationOperation)par_;
@@ -435,6 +444,11 @@ public abstract class RendDynOperationNode {
                         return par_.getOrder();
                     }
                 }
+            }
+        }
+        if (par_ instanceof RendNullSafeOperation) {
+            if (_value != NullStruct.NULL_VALUE) {
+                return par_.getOrder();
             }
         }
         if (par_ instanceof RendQuickOperation) {

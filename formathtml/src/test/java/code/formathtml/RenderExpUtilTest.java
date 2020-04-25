@@ -1668,6 +1668,74 @@ public final class RenderExpUtilTest extends CommonRender {
         assertTrue(argument_.isFalse());
     }
     @Test
+    public void processEl500_Test() {
+        Configuration context_ = getConfiguration4();
+        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
+        LocalVariable lv_ = new LocalVariable();
+        lv_.setClassName(context_.getStandards().getAliasPrimBoolean());
+        lv_.setStruct(BooleanStruct.of(false));
+        localVars_.put("arg", lv_);
+        lv_ = new LocalVariable();
+        lv_.setClassName(context_.getStandards().getAliasPrimBoolean());
+        lv_.setStruct(BooleanStruct.of(false));
+        localVars_.put("arg2", lv_);
+        addImportingPage(context_);
+        context_.getLastPage().setLocalVars(localVars_);
+        Argument argument_ = processEl("arg??=1/0>1", context_);
+        assertTrue(argument_.isFalse());
+    }
+    @Test
+    public void processEl501_Test() {
+        Configuration context_ = getConfiguration4();
+        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
+        LocalVariable lv_ = new LocalVariable();
+        lv_.setClassName(context_.getStandards().getAliasBoolean());
+        lv_.setStruct(NullStruct.NULL_VALUE);
+        localVars_.put("arg", lv_);
+        lv_ = new LocalVariable();
+        lv_.setClassName(context_.getStandards().getAliasBoolean());
+        lv_.setStruct(BooleanStruct.of(false));
+        localVars_.put("arg2", lv_);
+        addImportingPage(context_);
+        context_.getLastPage().setLocalVars(localVars_);
+        Argument argument_ = processEl("arg??=arg2", context_);
+        assertTrue(argument_.isFalse());
+    }
+    @Test
+    public void processEl500__Test() {
+        Configuration context_ = getConfiguration4();
+        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
+        LocalVariable lv_ = new LocalVariable();
+        lv_.setClassName(context_.getStandards().getAliasPrimBoolean());
+        lv_.setStruct(BooleanStruct.of(false));
+        localVars_.put("arg", lv_);
+        lv_ = new LocalVariable();
+        lv_.setClassName(context_.getStandards().getAliasPrimBoolean());
+        lv_.setStruct(BooleanStruct.of(false));
+        localVars_.put("arg2", lv_);
+        addImportingPage(context_);
+        context_.getLastPage().setLocalVars(localVars_);
+        Argument argument_ = processEl("arg??arg2", context_);
+        assertTrue(argument_.isFalse());
+    }
+    @Test
+    public void processEl501__Test() {
+        Configuration context_ = getConfiguration4();
+        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
+        LocalVariable lv_ = new LocalVariable();
+        lv_.setClassName(context_.getStandards().getAliasBoolean());
+        lv_.setStruct(NullStruct.NULL_VALUE);
+        localVars_.put("arg", lv_);
+        lv_ = new LocalVariable();
+        lv_.setClassName(context_.getStandards().getAliasBoolean());
+        lv_.setStruct(BooleanStruct.of(false));
+        localVars_.put("arg2", lv_);
+        addImportingPage(context_);
+        context_.getLastPage().setLocalVars(localVars_);
+        Argument argument_ = processEl("arg??arg2", context_);
+        assertTrue(argument_.isFalse());
+    }
+    @Test
     public void processEl501Test() {
         Configuration context_ = getConfiguration4();
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
@@ -7326,6 +7394,34 @@ public final class RenderExpUtilTest extends CommonRender {
         addImportingPage(conf_);
         Argument argument_ = processEl("($(pkg.Int)($static().$lambda($math,plus,$int,$int),$interfaces(pkg.Int2)(),$interfaces(pkg.Int)()))", conf_);
         assertNotNull(getException(conf_));
+    }
+    @Test
+    public void processEl422___Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.Int:Int2 {\n");
+        xml_.append("}\n");
+        xml_.append("$public $interface pkg.Int2 {\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        Configuration conf_ = getConfiguration4(files_);
+        addImportingPage(conf_);
+        Argument argument_ = processEl("$($int)(1??2)", conf_);
+        assertEq(1,argument_.getNumber());
+    }
+    @Test
+    public void processEl423___Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.Int:Int2 {\n");
+        xml_.append("}\n");
+        xml_.append("$public $interface pkg.Int2 {\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        Configuration conf_ = getConfiguration4(files_);
+        addImportingPage(conf_);
+        Argument argument_ = processEl("$($int)($null??2)", conf_);
+        assertEq(2,argument_.getNumber());
     }
     @Test
     public void processEl418Test() {

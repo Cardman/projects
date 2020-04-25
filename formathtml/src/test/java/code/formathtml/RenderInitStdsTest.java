@@ -364,6 +364,8 @@ public final class RenderInitStdsTest {
         _lgNames.getDisplayedStrings().setFalseString("false");
         _lgNames.getDisplayedStrings().setTrueString("true");
         _lgNames.getDisplayedStrings().setNullString("");
+        _lgNames.getDisplayedStrings().setNotNullCoverString("not null");
+        _lgNames.getDisplayedStrings().setNullCoverString("null");
         _lgNames.getDisplayedStrings().setStaticCallString("staticCall");
         _lgNames.getDisplayedStrings().setStaticString("static");
     }

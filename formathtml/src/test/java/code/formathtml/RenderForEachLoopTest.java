@@ -373,7 +373,18 @@ public final class RenderForEachLoopTest extends CommonRender {
         assertEq("<html>0-Pair-1-Impair-2-Pair-3-Impair-</html>", RendBlock.getRes(rendDocumentBlock_,context_));
         assertNull(getException(context_));
     }
-
+    @Test
+    public void process22Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(CUST_ITER_PATH, getCustomIterator());
+        files_.put(CUST_LIST_PATH, getCustomList());
+        Configuration context_ = contextElFive(files_);
+        String html_ = "<html><c:set className='$var' value='l=$(pkg.CustList&lt;$int&gt;)$null'/><c:for var=\"i\" list=\"l\" className='$int'>{i}-<c:if condition=\"i%2==0\">Pair</c:if><c:else>Impair</c:else>-</c:for></html>";
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, context_);
+        assertTrue(context_.isEmptyErrors());
+        RendBlock.getRes(rendDocumentBlock_,context_);
+        assertNotNull(getException(context_));
+    }
     @Test
     public void process1FailTest() {
         String locale_ = "en";
@@ -572,6 +583,56 @@ public final class RenderForEachLoopTest extends CommonRender {
         xml_.append(" $public $normal $iterator<#U> iterator(){\n");
         xml_.append("  $int i = 1/0;\n");
         xml_.append("  $return $new pkg.CustIter<#U>($this);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        return xml_.toString();
+    }
+
+    private static String getCustomFailListBis() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.CustList<#U> :$iterable<#U>{\n");
+        xml_.append(" $private #U[] list;\n");
+        xml_.append(" $private $int length;\n");
+        xml_.append(" $public (){\n");
+        xml_.append("  list=$new #U[0i];\n");
+        xml_.append(" }\n");
+        xml_.append(" $public (U...elts){\n");
+        xml_.append("  list=elts;\n");
+        xml_.append("  length=elts.length;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $normal $void add(#U elt){\n");
+        xml_.append("  add(length,elt);\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $normal $void add($int index,#U elt){\n");
+        xml_.append("  #U[] newlist=$new #U[length+1i];\n");
+        xml_.append("  $iter($int i=0i;index;1i){\n");
+        xml_.append("   newlist[i]=list[i];\n");
+        xml_.append("  }\n");
+        xml_.append("  newlist[index]=elt;\n");
+        xml_.append("  $iter($int i=index+1i;length+1i;1i){\n");
+        xml_.append("   newlist[i]=list[i-1i];\n");
+        xml_.append("  }\n");
+        xml_.append("  length++;\n");
+        xml_.append("  list=newlist;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $normal $int size(){\n");
+        xml_.append("  $return length;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $normal #U get($int index){\n");
+        xml_.append("  $return list[index];\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $normal $void set($int index,#U elt){\n");
+        xml_.append("  list[index]=elt;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $normal $void remove($int index){\n");
+        xml_.append("  $iter($int i=index;length-1i;1i){\n");
+        xml_.append("   list[i]=list[i+1i];\n");
+        xml_.append("  }\n");
+        xml_.append("  list[length-1i]=$null;\n");
+        xml_.append("  length--;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $normal $iterator<#U> iterator(){\n");
+        xml_.append("  $return $null;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         return xml_.toString();

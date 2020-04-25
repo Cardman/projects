@@ -555,12 +555,19 @@ public final class ForEachLoop extends BracedStack implements ForLoop,ImportForE
         boolean finished_ = false;
         ExecOperationNode el_ = opList.last();
         if (el_.getResultClass().isArray()) {
-            ArrayStruct arr_ = (ArrayStruct)its_;
-            length_ = arr_.getInstance().length;
+            length_ = getLength(its_,_cont);
             if (length_ == CustList.SIZE_EMPTY) {
                 finished_ = true;
             }
+            if (_cont.callsOrException()) {
+                return;
+            }
         } else {
+            if (its_ == NullStruct.NULL_VALUE) {
+                String npe_ = _cont.getStandards().getAliasNullPe();
+                _cont.setException(new ErrorStruct(_cont, npe_));
+                return;
+            }
             String locName_ = getIteratorVar(_cont);
             LocalVariable locVar_ = LocalVariable.newLocalVariable(its_,_cont);
             ip_.getInternVars().put(locName_, locVar_);
@@ -595,6 +602,14 @@ public final class ForEachLoop extends BracedStack implements ForLoop,ImportForE
         incrOrFinish(_cont, finished_);
     }
 
+    private int getLength(Struct _str,ContextEl _cont) {
+        if (_str instanceof ArrayStruct) {
+            return ((ArrayStruct)_str).getInstance().length;
+        }
+        String npe_ = _cont.getStandards().getAliasNullPe();
+        _cont.setException(new ErrorStruct(_cont, npe_));
+        return -1;
+    }
     private void incrOrFinish(ContextEl _cont, boolean _finished) {
         AbstractPageEl ip_ = _cont.getLastPage();
         LoopBlockStack l_ = (LoopBlockStack) ip_.getLastStack();
@@ -654,12 +669,7 @@ public final class ForEachLoop extends BracedStack implements ForLoop,ImportForE
         if (_conf.callsOrException()) {
             return NullStruct.NULL_VALUE;
         }
-        Struct ito_ = arg_.getStruct();
-        if (ito_ == NullStruct.NULL_VALUE) {
-            String npe_ = _conf.getStandards().getAliasNullPe();
-            _conf.setException(new ErrorStruct(_conf, npe_));
-        }
-        return ito_;
+        return arg_.getStruct();
         
     }
 

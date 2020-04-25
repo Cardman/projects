@@ -175,6 +175,21 @@ public final class PrimitiveTypeUtil {
         LgNames stds_ = _conf.getStandards();
         String obj_ = stds_.getAliasObject();
         String bool_ = stds_.getAliasPrimBoolean();
+        boolean exit_ = false;
+        for (String c: _first) {
+            DimComp dc_ = getQuickComponentBaseType(c);
+            String base_ = dc_.getComponent();
+            String id_ = Templates.getIdFromAllTypes(base_);
+            if (!StringList.quickEq(id_, _conf.getStandards().getAliasVoid())) {
+                continue;
+            }
+            exit_ = true;
+            superTypes_.add(obj_);
+        }
+        if (exit_) {
+            superTypes_.removeDuplicates();
+            return superTypes_;
+        }
         for (String c: _first) {
             DimComp dc_ = getQuickComponentBaseType(c);
             String base_ = dc_.getComponent();
@@ -234,7 +249,11 @@ public final class PrimitiveTypeUtil {
             String id_ = Templates.getIdFromAllTypes(base_);
             GeneType g_ = _conf.getClassBody(id_);
             for (String t: g_.getAllGenericSuperTypes()) {
-                superTypes_.add(getPrettyArrayType(t, d_));
+                String f_ = Templates.format(base_, t, _conf);
+                if (f_ == null) {
+                    continue;
+                }
+                superTypes_.add(getPrettyArrayType(f_, d_));
             }
             for (int d = 1; d <= d_; d++) {
                 superTypes_.add(getPrettyArrayType(obj_, d));

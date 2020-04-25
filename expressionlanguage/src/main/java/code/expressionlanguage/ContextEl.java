@@ -28,14 +28,7 @@ import code.expressionlanguage.variables.LoopVariable;
 import code.util.*;
 
 public abstract class ContextEl implements ExecutableCode {
-    private static final String GET_INDEX = ";;";
-    private static final String GET_CATCH_VAR = ";..";
-    private static final String GET_LOC_VAR = ";.";
-    private static final String GET_ATTRIBUTE = ";";
-    private static final String SIMPLE_SIFFIX = ";";
-    private static final String GET_PARAM = ";.;";
-    private static final String GET_FIELD = ";;;";
-    private static final char PAR_LEFT = '(';
+
     private static final int DEFAULT_TAB_WIDTH = 4;
     private static final String EMPTY_TYPE = "";
 

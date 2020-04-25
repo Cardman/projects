@@ -1855,6 +1855,8 @@ public final class LgNamesRenderUtils extends BeanCustLgNames {
         getDisplayedStrings().setFalseString(get(_util,_cust, FALSE_STRING));
         getDisplayedStrings().setTrueString(get(_util,_cust, TRUE_STRING));
         getDisplayedStrings().setNullString(get(_util,_cust, NULL_STRING));
+        getDisplayedStrings().setNullCoverString(get(_util,_cust, NULL_COVER_STRING));
+        getDisplayedStrings().setNotNullCoverString(get(_util,_cust, NOT_NULL_COVER_STRING));
         getDisplayedStrings().setStaticCallString(get(_util,_cust, STATIC_CALL_STRING));
         getDisplayedStrings().setStaticString(get(_util,_cust, STATIC_STRING));
         setAliasBean(get(_util,_cust, BEAN));

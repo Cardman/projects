@@ -359,6 +359,10 @@ public abstract class ExecOperationNode implements Operable {
             OrOperation c_ = (OrOperation) _anaNode;
             return new ExecOrOperation(c_);
         }
+        if (_anaNode instanceof NullSafeOperation) {
+            NullSafeOperation c_ = (NullSafeOperation) _anaNode;
+            return new ExecNullSafeOperation(c_);
+        }
         if (_anaNode instanceof AssocationOperation) {
             AssocationOperation c_ = (AssocationOperation) _anaNode;
             return new ExecAssocationOperation(c_);
@@ -456,6 +460,14 @@ public abstract class ExecOperationNode implements Operable {
     public static int getNextIndex(ExecOperationNode _operation, Struct _value) {
         int index_ = _operation.getIndexChild();
         ExecMethodOperation par_ = _operation.getParent();
+        if (par_ instanceof ExecCompoundAffectationOperation) {
+            ExecCompoundAffectationOperation p_ = (ExecCompoundAffectationOperation)par_;
+            if (StringList.quickEq(p_.getOper(),"??=")) {
+                if (_value != NullStruct.NULL_VALUE) {
+                    return par_.getOrder();
+                }
+            }
+        }
         if (_value instanceof BooleanStruct) {
             if (par_ instanceof ExecCompoundAffectationOperation) {
                 ExecCompoundAffectationOperation p_ = (ExecCompoundAffectationOperation)par_;
@@ -469,6 +481,11 @@ public abstract class ExecOperationNode implements Operable {
                         return par_.getOrder();
                     }
                 }
+            }
+        }
+        if (par_ instanceof ExecNullSafeOperation) {
+            if (_value != NullStruct.NULL_VALUE) {
+                return par_.getOrder();
             }
         }
         if (par_ instanceof ExecQuickOperation) {

@@ -3,6 +3,7 @@ package code.expressionlanguage.structs;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.instr.NumberInfos;
 import code.expressionlanguage.opers.exec.ExecCatOperation;
@@ -21,7 +22,7 @@ public abstract class NumberStruct implements DisplayableStruct, ExportableStrin
     public final Struct getParent() {
         return NullStruct.NULL_VALUE;
     }
-    public static void calculateOperator(Analyzable _cont, ResultErrorStd _res, ClassArgumentMatching _order, String _op, boolean _catString, Struct... _args) {
+    public static void calculateOperator(ExecutableCode _cont, ResultErrorStd _res, ClassArgumentMatching _order, String _op, boolean _catString, Struct... _args) {
         if (_catString) {
             catenize(_cont, _res, _args);
             return;
@@ -81,6 +82,14 @@ public abstract class NumberStruct implements DisplayableStruct, ExportableStrin
         }
         if (StringList.quickEq(op_, ">>>>")) {
             _res.setResult(calculateRotateRight((NumberStruct)_args[0], (NumberStruct)_args[1], _cont, _order));
+            return;
+        }
+        if (StringList.quickEq(op_, "??")) {
+            if (_args[0] != NullStruct.NULL_VALUE) {
+                _res.setResult(ClassArgumentMatching.convert(_order,_args[0],_cont));
+                return;
+            }
+            _res.setResult(ClassArgumentMatching.convert(_order,_args[1],_cont));
             return;
         }
         if (StringList.quickEq(op_, "&&")) {

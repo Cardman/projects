@@ -297,6 +297,8 @@ public abstract class LgNames {
     public static final String FALSE_STRING = "FalseString";
     public static final String TRUE_STRING = "TrueString";
     public static final String NULL_STRING = "NullString";
+    public static final String NULL_COVER_STRING = "NullCoverString";
+    public static final String NOT_NULL_COVER_STRING = "NotNullCoverString";
     public static final String STATIC_STRING = "StaticString";
     public static final String STATIC_CALL_STRING = "StaticCallString";
     protected static final String LOC_VAR = ".";

@@ -741,6 +741,26 @@ public final class PrimitiveTypeUtilTest extends ProcessMethodCommon {
         assertTrue(StringList.contains(res_, "java.lang.Object"));
     }
     @Test
+    public void getSuperTypesSet34Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo<T> :pkg.ExThree<$iterable<?T>>{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExThree<T>{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExThree", xml_.toString());
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        map_.put("T", new StringList(c_.getStandards().getAliasObject()));
+        StringList res_ = PrimitiveTypeUtil.getSuperTypesSet(new StringList("pkg.ExTwo<?T>"), map_, c_);
+        assertEq(2, res_.size());
+        assertTrue(StringList.contains(res_, "pkg.ExTwo<?T>"));
+        assertTrue(StringList.contains(res_, "java.lang.Object"));
+    }
+    @Test
     public void getTernarySubclasses1Test() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;

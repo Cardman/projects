@@ -459,6 +459,8 @@ public final class KeyWordsMap {
         _lgNames.getDisplayedStrings().setFalseString("false");
         _lgNames.getDisplayedStrings().setTrueString("true");
         _lgNames.getDisplayedStrings().setNullString("");
+        _lgNames.getDisplayedStrings().setNotNullCoverString("not null");
+        _lgNames.getDisplayedStrings().setNullCoverString("null");
         _lgNames.getDisplayedStrings().setStaticCallString("staticCall");
         _lgNames.getDisplayedStrings().setStaticString("static");
         stds.put("en", _lgNames);
@@ -740,6 +742,8 @@ public final class KeyWordsMap {
         _lgNames.getDisplayedStrings().setFalseString("faux");
         _lgNames.getDisplayedStrings().setTrueString("vrai");
         _lgNames.getDisplayedStrings().setNullString("");
+        _lgNames.getDisplayedStrings().setNotNullCoverString("non nul");
+        _lgNames.getDisplayedStrings().setNullCoverString("nul");
         _lgNames.getDisplayedStrings().setStaticCallString("staticAppel");
         _lgNames.getDisplayedStrings().setStaticString("static");
         stds.put("fr", _lgNames);

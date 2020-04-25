@@ -4,8 +4,10 @@ import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.errors.custom.DeadCodeTernary;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
+import code.expressionlanguage.inherits.Mapping;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.ResultTernary;
+import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.methods.*;
 import code.expressionlanguage.opers.exec.Operable;
@@ -173,7 +175,12 @@ public abstract class AbstractTernaryOperation extends MethodOperation {
         }
         KeyWords keyWords_ = _conf.getKeyWords();
         String keyWordVar_ = keyWords_.getKeyWordVar();
-        if (!type_.isEmpty() && !StringList.quickEq(type_, keyWordVar_)) {
+        ResultTernary res_ = PrimitiveTypeUtil.getResultTernary(one_, firstArg_, two_, secondArg_, vars_, _conf);
+        Mapping mapping_ = new Mapping();
+        mapping_.setMapping(vars_);
+        mapping_.setArg(new ClassArgumentMatching(res_.getTypes()));
+        mapping_.setParam(new ClassArgumentMatching(type_));
+        if (!type_.isEmpty() && !StringList.quickEq(type_, keyWordVar_)&&Templates.isCorrectOrNumbers(mapping_, _conf)) {
             if (PrimitiveTypeUtil.isPrimitive(type_, _conf)) {
                 opTwo_.getResultClass().setUnwrapObject(type_);
                 opThree_.getResultClass().setUnwrapObject(type_);
@@ -184,7 +191,6 @@ public abstract class AbstractTernaryOperation extends MethodOperation {
             checkDeadCode(_conf, opOne_);
             return;
         }
-        ResultTernary res_ = PrimitiveTypeUtil.getResultTernary(one_, firstArg_, two_, secondArg_, vars_, _conf);
         if (res_.isUnwrapFirst()) {
             opTwo_.getResultClass().setUnwrapObject(res_.getTypes().first());
             opTwo_.cancelArgument();

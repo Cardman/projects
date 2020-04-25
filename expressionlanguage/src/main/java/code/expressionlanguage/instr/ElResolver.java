@@ -20,19 +20,20 @@ public final class ElResolver {
     public static final int DECL_PRIO = 1;
     public static final int AFF_PRIO = 2;
     public static final int TERNARY_PRIO = 3;
-    public static final int OR_PRIO = 4;
-    public static final int AND_PRIO = 5;
-    public static final int BIT_OR_PRIO = 6;
-    public static final int BIT_XOR_PRIO = 7;
-    public static final int BIT_AND_PRIO = 8;
-    public static final int EQ_PRIO = 9;
-    public static final int CMP_PRIO = 10;
-    public static final int SHIFT_PRIO = 11;
-    public static final int ADD_PRIO = 12;
-    public static final int MULT_PRIO = 13;
-    public static final int UNARY_PRIO = 14;
-    public static final int POST_INCR_PRIO = 15;
-    public static final int FCT_OPER_PRIO = 16;
+    public static final int NULL_SAFE_PRIO = 4;
+    public static final int OR_PRIO = 5;
+    public static final int AND_PRIO = 6;
+    public static final int BIT_OR_PRIO = 7;
+    public static final int BIT_XOR_PRIO = 8;
+    public static final int BIT_AND_PRIO = 9;
+    public static final int EQ_PRIO = 10;
+    public static final int CMP_PRIO = 11;
+    public static final int SHIFT_PRIO = 12;
+    public static final int ADD_PRIO = 13;
+    public static final int MULT_PRIO = 14;
+    public static final int UNARY_PRIO = 15;
+    public static final int POST_INCR_PRIO = 16;
+    public static final int FCT_OPER_PRIO = 17;
     public static final byte UNICODE_SIZE = 4;
 
     private static final String EMPTY_STRING = "";
@@ -1446,7 +1447,7 @@ public final class ElResolver {
             }
             parsBrackets_.removeKey(parsBrackets_.lastKey());
         }
-        if (curChar_ == BEGIN_TERNARY) {
+        if (curChar_ == BEGIN_TERNARY && !StringExpUtil.nextCharIs(_string, i_ + 1, len_, BEGIN_TERNARY)) {
             parsBrackets_.put(i_, curChar_);
         }
         if (curChar_ == END_TERNARY) {
@@ -1469,6 +1470,7 @@ public final class ElResolver {
         boolean escapeOpers_ = false;
         boolean addOp_ = true;
         boolean andOr_ = false;
+        boolean nullSafe_ = false;
         boolean ltGt_ = false;
         if (curChar_ == MULT_CHAR) {
             escapeOpers_ = true;
@@ -1512,6 +1514,7 @@ public final class ElResolver {
         }
         if (curChar_ == BEGIN_TERNARY) {
             escapeOpers_ = true;
+            nullSafe_ = true;
         }
         if (curChar_ == END_TERNARY) {
             escapeOpers_ = true;
@@ -1553,6 +1556,9 @@ public final class ElResolver {
                 j_++;
             }
             if (andOr_ && j_ < len_ && _string.charAt(j_) == curChar_) {
+                j_++;
+            }
+            if (nullSafe_ && j_ < len_ && _string.charAt(j_) == curChar_) {
                 j_++;
             }
             if (j_ < len_ && _string.charAt(j_) == EQ_CHAR) {

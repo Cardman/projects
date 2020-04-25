@@ -4,6 +4,8 @@ public final class DisplayedStrings {
     private String trueString;
     private String falseString;
     private String nullString;
+    private String nullCoverString;
+    private String notNullCoverString;
 
     private String staticString;
     private String staticCallString;
@@ -27,6 +29,21 @@ public final class DisplayedStrings {
         nullString = _nullString;
     }
 
+    public String getNullCoverString() {
+        return nullCoverString;
+    }
+
+    public void setNullCoverString(String _nullCoverString) {
+        nullCoverString = _nullCoverString;
+    }
+
+    public String getNotNullCoverString() {
+        return notNullCoverString;
+    }
+
+    public void setNotNullCoverString(String _notNullCoverString) {
+        notNullCoverString = _notNullCoverString;
+    }
     public String getStaticString() {
         return staticString;
     }

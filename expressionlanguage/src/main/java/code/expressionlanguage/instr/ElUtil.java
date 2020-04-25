@@ -9,10 +9,7 @@ import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.methods.*;
-import code.expressionlanguage.methods.util.AbstractCoverageResult;
-import code.expressionlanguage.methods.util.ArgumentsPair;
-import code.expressionlanguage.methods.util.BooleanCoverageResult;
-import code.expressionlanguage.methods.util.StandardCoverageResult;
+import code.expressionlanguage.methods.util.*;
 import code.expressionlanguage.opers.*;
 import code.expressionlanguage.opers.exec.*;
 import code.expressionlanguage.opers.util.*;
@@ -1190,12 +1187,21 @@ public final class ElUtil {
                             _parts.add(new PartOffset(tag_, offsetEnd_));
                             tag_ = "</i>";
                             _parts.add(new PartOffset(tag_,offsetEnd_+opDelta_));
+                        } else if (StringList.quickEq(par_.getOper(),"??=")){
+                            AbstractCoverageResult resultLast_ = getCovers(_cont, _block, nextSiblingOp_, _annotation);
+                            boolean partial_ = false;
+                            if (resultLast_.isStrictPartialCovered()) {
+                                partial_ = true;
+                            }
+                            if (partial_) {
+                                safe(resultLast_,_cont,offsetEnd_,_parts, opDelta_);
+                            }
                         } else {
                             String b_ = _cont.getStandards().getAliasPrimBoolean();
                             if (nextSiblingOp_.getResultClass().matchClass(b_)) {
                                 AbstractCoverageResult resultLast_ = getCovers(_cont, _block, nextSiblingOp_, _annotation);
                                 boolean partial_ = false;
-                                if (!resultLast_.isFullCovered() && resultLast_.isPartialCovered()) {
+                                if (resultLast_.isStrictPartialCovered()) {
                                     partial_ = true;
                                 }
                                 if (partial_) {
@@ -1246,6 +1252,21 @@ public final class ElUtil {
                                 tag_ = "</a>";
                                 _parts.add(new PartOffset(tag_,offsetEnd_+length_));
                             }
+                        }
+                    }
+                    if (parentOp_ instanceof ExecNullSafeOperation) {
+                        AbstractCoverageResult resultFirst_ = getCovers(_cont, _block, curOp_, _annotation);
+                        AbstractCoverageResult resultLast_ = getCovers(_cont, _block, nextSiblingOp_, _annotation);
+                        boolean partial_ = false;
+                        if (resultFirst_.isStrictPartialCovered()) {
+                            partial_ = true;
+                        }
+                        if (resultLast_.isStrictPartialCovered()) {
+                            partial_ = true;
+                        }
+                        if (partial_) {
+                            safe(resultFirst_,_cont,offsetEnd_,_parts, 1);
+                            safe(resultLast_,_cont,offsetEnd_+1,_parts, 1);
                         }
                     }
                     if (parentOp_ instanceof ExecQuickOperation) {
@@ -1364,6 +1385,46 @@ public final class ElUtil {
         }
     }
 
+    private static void safe(AbstractCoverageResult _res, ContextEl _cont, int offsetEnd_, CustList<PartOffset> _parts, int _delta) {
+        if (_res instanceof NullCoverageResult) {
+            nullSafe((NullCoverageResult)_res,_cont,offsetEnd_,_parts, _delta);
+        } else if (_res instanceof NullBooleanCoverageResult){
+            nullBooleanSafe((NullBooleanCoverageResult)_res,_cont,offsetEnd_,_parts, _delta);
+        }
+    }
+    private static void nullBooleanSafe(NullBooleanCoverageResult _res, ContextEl _cont, int offsetEnd_, CustList<PartOffset> _parts, int _delta) {
+        StringList founds_ = new StringList();
+        if (_res.isCoverNull()) {
+            founds_.add(_cont.getStandards().getDisplayedStrings().getNullCoverString());
+        }
+        if (_res.isCoverTrue()) {
+            founds_.add(_cont.getStandards().getDisplayedStrings().getTrueString());
+        }
+        if (_res.isCoverFalse()) {
+            founds_.add(_cont.getStandards().getDisplayedStrings().getFalseString());
+        }
+        if (!founds_.isEmpty()) {
+            String tag_ = "<a title=\"" + transform(StringList.join(founds_, ",")) + "\">";
+            _parts.add(new PartOffset(tag_, offsetEnd_));
+            tag_ = "</a>";
+            _parts.add(new PartOffset(tag_, offsetEnd_ + _delta));
+        }
+    }
+    private static void nullSafe(NullCoverageResult _res, ContextEl _cont, int offsetEnd_, CustList<PartOffset> _parts, int _delta) {
+        StringList founds_ = new StringList();
+        if (_res.isCoverNull()) {
+            founds_.add(_cont.getStandards().getDisplayedStrings().getNullCoverString());
+        }
+        if (_res.isCoverNotNull()) {
+            founds_.add(_cont.getStandards().getDisplayedStrings().getNotNullCoverString());
+        }
+        if (!founds_.isEmpty()) {
+            String tag_ = "<a title=\""+ transform(StringList.join(founds_,","))+"\">";
+            _parts.add(new PartOffset(tag_, offsetEnd_));
+            tag_ = "</a>";
+            _parts.add(new PartOffset(tag_,offsetEnd_+ _delta));
+        }
+    }
     static String getFullInit(AbstractCoverageResult _resultPar) {
         String tag_;
         if (_resultPar.isInit()) {

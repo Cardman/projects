@@ -104,16 +104,13 @@ public final class CompoundAffectationOperation extends MethodOperation {
         elt_.setVariable(false);
         String stringType_ = stds_.getAliasString();
         boolean isString_ = elt_.getResultClass().matchClass(stringType_);
-        if (isString_) {
+        if (isString_&&!StringList.quickEq(oper, Block.NULL_EQ)) {
             settable.setCatenizeStrings();
         }
         ClassArgumentMatching clMatchRight_ = right_.getResultClass();
         ClassArgumentMatching clMatchLeft_ = elt_.getResultClass();
         root_.setRelativeOffsetPossibleAnalyzable(root_.getIndexInEl(), _conf);
 
-        Mapping mapping_ = new Mapping();
-        mapping_.setArg(clMatchRight_);
-        mapping_.setParam(clMatchLeft_);
         if (StringList.quickEq(oper, Block.PLUS_EQ)) {
             if (!PrimitiveTypeUtil.isPureNumberClass(clMatchLeft_, _conf)) {
                 if (!isString_) {
@@ -173,6 +170,45 @@ public final class CompoundAffectationOperation extends MethodOperation {
                 _conf.addError(cast_);
                 return;
             }
+        } else if (StringList.quickEq(oper, Block.NULL_EQ)) {
+            CustList<ClassArgumentMatching> cls_ = new CustList<ClassArgumentMatching>();
+            boolean okConv_ = true;
+            cls_.add(clMatchLeft_);
+            cls_.add(clMatchRight_);
+            for (ClassArgumentMatching c: cls_) {
+                if (c.matchVoid(_conf)) {
+                    okConv_ = false;
+                    break;
+                }
+            }
+            if (!okConv_) {
+                FoundErrorInterpret cast_ = new FoundErrorInterpret();
+                cast_.setFileName(_conf.getCurrentFileName());
+                cast_.setIndexFile(_conf.getCurrentLocationIndex());
+                //oper len
+                cast_.buildError(_conf.getContextEl().getAnalysisMessages().getBadImplicitCast(),
+                        StringList.join(clMatchRight_.getNames(),"&"),
+                        StringList.join(clMatchLeft_.getNames(),"&"));
+                _conf.addError(cast_);
+                return;
+            }
+            StringMap<StringList> vars_ = _conf.getCurrentConstraints();
+            Mapping mapping_ = new Mapping();
+            mapping_.setMapping(vars_);
+            mapping_.setArg(clMatchRight_);
+            mapping_.setParam(clMatchLeft_);
+            if (!Templates.isCorrectOrNumbers(mapping_, _conf)) {
+                FoundErrorInterpret cast_ = new FoundErrorInterpret();
+                cast_.setFileName(_conf.getCurrentFileName());
+                cast_.setIndexFile(_conf.getCurrentLocationIndex());
+                //oper
+                cast_.buildError(_conf.getContextEl().getAnalysisMessages().getBadImplicitCast(),
+                        StringList.join(clMatchRight_.getNames(),"&"),
+                        StringList.join(clMatchLeft_.getNames(),"&"));
+                _conf.addError(cast_);
+            }
+            setResultClass(new ClassArgumentMatching(clMatchLeft_));
+            return;
         } else if (!PrimitiveTypeUtil.isPureNumberClass(clMatchLeft_, _conf)) {
             FoundErrorInterpret cast_ = new FoundErrorInterpret();
             cast_.setFileName(_conf.getCurrentFileName());

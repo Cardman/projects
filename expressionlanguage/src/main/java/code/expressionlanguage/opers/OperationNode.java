@@ -313,6 +313,9 @@ public abstract class OperationNode implements Operable {
         if (_op.getPriority() == ElResolver.OR_PRIO) {
             return new OrOperation(_index, _indexChild, _m, _op);
         }
+        if (_op.getPriority() == ElResolver.NULL_SAFE_PRIO) {
+            return new NullSafeOperation(_index,_indexChild,_m,_op);
+        }
         if (_op.getPriority() == ElResolver.AFF_PRIO) {
             if (_m instanceof AnnotationInstanceOperation&&!((AnnotationInstanceOperation) _m).isArray()) {
                 String value_ = _op.getValues().firstValue();

@@ -15,6 +15,9 @@ public abstract class AbstractCoverageResult {
         }
     }
 
+    public boolean isStrictPartialCovered() {
+        return !isFullCovered() && isPartialCovered();
+    }
     public boolean isPartialCovered() {
         return getCovered() > 0;
     }

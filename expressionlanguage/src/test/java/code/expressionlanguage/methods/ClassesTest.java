@@ -3852,6 +3852,22 @@ public final class ClassesTest extends ProcessMethodCommon {
         assertEq(0,((NumberStruct)str_).intStruct());
     }
     @Test
+    public void calculateStaticField67_Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $final $int field=iOne??iTwo;\n");
+        xml_.append(" $public $static $final $int iOne=0;\n");
+        xml_.append(" $public $static $final $int iTwo=1;\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl ctx_ = validateStaticFields(files_);
+        assertEq(3, ctx_.getClasses().staticFieldCount());
+        Struct str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "field"));
+        assertEq(0,((NumberStruct)str_).intStruct());
+    }
+    @Test
     public void calculateStaticField68Test() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;

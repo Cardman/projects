@@ -1,7 +1,12 @@
 package code.expressionlanguage.opers.util;
 import code.expressionlanguage.Analyzable;
+import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.stds.LgNames;
+import code.expressionlanguage.structs.BooleanStruct;
+import code.expressionlanguage.structs.ByteStruct;
+import code.expressionlanguage.structs.NumberStruct;
+import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.StringList;
 
@@ -29,6 +34,31 @@ public final class ClassArgumentMatching {
         unwrapObject = _copy.unwrapObject;
         checkOnlyNullPe = _copy.checkOnlyNullPe;
         convertToString = _copy.convertToString;
+    }
+
+    public static Struct convert(ClassArgumentMatching _dest,Struct _arg,
+                                 ExecutableCode _exec) {
+        ClassArgumentMatching format_ = _dest.format(_exec);
+        if (format_.isBoolType(_exec)) {
+            if (_arg instanceof BooleanStruct) {
+                return _arg;
+            }
+            return BooleanStruct.of(false);
+        }
+        if (PrimitiveTypeUtil.isPureNumberClass(format_,_exec)) {
+            if (_arg instanceof NumberStruct) {
+                return PrimitiveTypeUtil.convertObject(format_,_arg,_exec.getStandards());
+            }
+            return PrimitiveTypeUtil.convertObject(format_,new ByteStruct((byte)0),_exec.getStandards());
+        }
+        return _arg;
+    }
+    private ClassArgumentMatching format(ExecutableCode _exec) {
+        StringList className_ = new StringList();
+        for (String s: className) {
+            className_.add(_exec.getOperationPageEl().formatVarType(s,_exec));
+        }
+        return new ClassArgumentMatching(className_);
     }
 
     public static ClassArgumentMatching[] toArgArray(CustList<ClassArgumentMatching> _args) {

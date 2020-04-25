@@ -271,12 +271,19 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
         boolean finished_ = false;
         RendDynOperationNode el_ = opList.last();
         if (el_.getResultClass().isArray()) {
-            ArrayStruct arr_ = (ArrayStruct)its_;
-            length_ = arr_.getInstance().length;
+            length_ = getLength(its_,_cont);
             if (length_ == CustList.SIZE_EMPTY) {
                 finished_ = true;
             }
+            if (_cont.getContext().hasException()) {
+                return;
+            }
         } else {
+            if (its_ == NullStruct.NULL_VALUE) {
+                String npe_ = _cont.getStandards().getAliasNullPe();
+                _cont.setException(new ErrorStruct(_cont, npe_));
+                return;
+            }
             Argument arg_ = iterator(its_,_cont);
             if (_cont.getContext().hasException()) {
                 return;
@@ -301,6 +308,14 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
         processLastElementLoop(_cont);
     }
 
+    private int getLength(Struct _str,Configuration _cont) {
+        if (_str instanceof ArrayStruct) {
+            return ((ArrayStruct)_str).getInstance().length;
+        }
+        String npe_ = _cont.getStandards().getAliasNullPe();
+        _cont.setException(new ErrorStruct(_cont, npe_));
+        return -1;
+    }
     Struct processLoop(Configuration _conf) {
         ImportingPage ip_ = _conf.getLastPage();
         ip_.setOffset(expressionOffset);
@@ -309,12 +324,7 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
         if (_conf.getContext().hasException()) {
             return NullStruct.NULL_VALUE;
         }
-        Struct ito_ = arg_.getStruct();
-        if (ito_ == NullStruct.NULL_VALUE) {
-            String npe_ = _conf.getStandards().getAliasNullPe();
-            _conf.setException(new ErrorStruct(_conf, npe_));
-        }
-        return ito_;
+        return arg_.getStruct();
 
     }
 
