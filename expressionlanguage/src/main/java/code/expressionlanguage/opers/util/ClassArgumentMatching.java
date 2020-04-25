@@ -39,6 +39,12 @@ public final class ClassArgumentMatching {
     public static Struct convert(ClassArgumentMatching _dest,Struct _arg,
                                  ExecutableCode _exec) {
         ClassArgumentMatching format_ = _dest.format(_exec);
+        if (format_.matchClass(_exec.getStandards().getAliasNumber())) {
+            if (_arg instanceof NumberStruct) {
+                return _arg;
+            }
+            return PrimitiveTypeUtil.convertObject(format_,new ByteStruct((byte)0),_exec.getStandards());
+        }
         if (format_.isBoolType(_exec)) {
             if (_arg instanceof BooleanStruct) {
                 return _arg;
