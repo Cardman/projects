@@ -43,7 +43,7 @@ public final class ClassArgumentMatching {
             if (_arg instanceof NumberStruct) {
                 return _arg;
             }
-            return PrimitiveTypeUtil.convertObject(format_,new ByteStruct((byte)0),_exec.getStandards());
+            return new ByteStruct((byte)0);
         }
         if (format_.isBoolType(_exec)) {
             if (_arg instanceof BooleanStruct) {
