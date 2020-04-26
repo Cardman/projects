@@ -105,10 +105,6 @@ public final class ExecLambdaOperation extends ExecLeafOperation implements Atom
         return realId;
     }
 
-    public boolean isDirectCast() {
-        return directCast;
-    }
-
     public ClassField getFieldId() {
         return fieldId;
     }

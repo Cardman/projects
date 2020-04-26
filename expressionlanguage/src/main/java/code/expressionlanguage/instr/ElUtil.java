@@ -819,15 +819,8 @@ public final class ElUtil {
             } else {
                 id_ = new MethodId(MethodAccessKind.INSTANCE,"[]",methodId_.getParametersTypes(),methodId_.isVararg());
             }
-            RootBlock type_ = (RootBlock) _cont.getClassBody(className_);
-            NamedFunctionBlock method_ = Classes.getMethodBodiesById(_cont, className_, id_).first();
-            String file_ = type_.getFile().getRenderFileName();
             int offsetEnd_ = sum_ + val_.getIndexInEl();
-            String rel_ = relativize(currentFileName_, file_ + "#m" + method_.getNameOffset());
-            String tag_ = "<a title=\""+ transform(className_ +"."+ id_.getSignature(_cont))+"\" href=\""+rel_+"\">";
-            _parts.add(new PartOffset(tag_, offsetEnd_));
-            tag_ = "</a>";
-            _parts.add(new PartOffset(tag_, offsetEnd_+1));
+            addParts(_cont,currentFileName_,className_,id_,offsetEnd_,1,_parts);
         }
     }
 
@@ -868,15 +861,9 @@ public final class ElUtil {
             String className_ = classMethodId_.getClassName();
             className_ = Templates.getIdFromAllTypes(className_);
             MethodId id_ = classMethodId_.getConstraints();
-            GeneType type_ = _cont.getClassBody(className_);
-            if (isFromCustFile(type_)) {
-                String file_ = ((RootBlock) type_).getFile().getRenderFileName();
-                String rel_ = getRelativize(_cont, currentFileName_, className_, id_, type_, file_);
-                String tag_ = "<a title=\""+transform(className_ +"."+ id_.getSignature(_cont))+"\" href=\""+rel_+"\">";
-                _parts.add(new PartOffset(tag_,sum_ +delta_+ val_.getIndexInEl()));
-                tag_ = "</a>";
-                _parts.add(new PartOffset(tag_,sum_ +delta_+ val_.getIndexInEl()+id_.getName().length()));
-            }
+            addParts(_cont,currentFileName_,className_,id_,
+                    sum_ +delta_+ val_.getIndexInEl(),id_.getName().length(),
+                    _parts);
         }
         if (val_ instanceof AnnotationInstanceOperation) {
             _parts.addAllElts(((AnnotationInstanceOperation)val_).getPartOffsets());
@@ -1018,22 +1005,14 @@ public final class ElUtil {
             String cl_ = ((ExecStandardInstancingOperation)curOp_).getClassName();
             cl_ = Templates.getIdFromAllTypes(cl_);
             ConstructorId c_ = ((ExecStandardInstancingOperation)curOp_).getConstId();
-            GeneType type_ = _cont.getClassBody(cl_);
-            if (isFromCustFile(type_)) {
-                String file_ = ((RootBlock) type_).getFile().getRenderFileName();
-                CustList<ConstructorBlock> ctors_ = Classes.getConstructorBodiesById(_cont, cl_, c_);
-                StandardInstancingOperation inst_ = (StandardInstancingOperation) val_;
-                if (!ctors_.isEmpty() && inst_.getFieldName().isEmpty()) {
-                    ConstructorBlock ctor_ = ctors_.first();
-                    String rel_ = relativize(currentFileName_, file_ + "#m" + ctor_.getNameOffset());
-                    String tag_ = "<a title=\""+ transform(cl_ +"."+ c_.getSignature(_cont))+"\" href=\""+rel_+"\">";
-                    int offsetNew_ =StringList.getFirstPrintableCharIndex(inst_.getMethodName());
-                    _parts.add(new PartOffset(tag_,offsetNew_+sum_ + val_.getIndexInEl()));
-                    tag_ = "</a>";
-                    _parts.add(new PartOffset(tag_,offsetNew_+sum_ + val_.getIndexInEl()+_cont.getKeyWords().getKeyWordNew().length()));
-                }
+            StandardInstancingOperation inst_ = (StandardInstancingOperation) val_;
+            if (inst_.getFieldName().isEmpty()) {
+                int offsetNew_ =StringList.getFirstPrintableCharIndex(inst_.getMethodName());
+                addParts(_cont,currentFileName_,cl_,c_,
+                        offsetNew_+sum_ + val_.getIndexInEl(),_cont.getKeyWords().getKeyWordNew().length(),
+                        _parts);
             }
-            _parts.addAllElts(((StandardInstancingOperation)val_).getPartOffsets());
+            _parts.addAllElts(inst_.getPartOffsets());
         }
         if (curOp_ instanceof ExecDimensionArrayInstancing) {
             _parts.addAllElts(((DimensionArrayInstancing)val_).getPartOffsets());
@@ -1079,50 +1058,19 @@ public final class ElUtil {
             String className_ = classMethodId_.getClassName();
             className_ = Templates.getIdFromAllTypes(className_);
             MethodId id_ = classMethodId_.getConstraints();
-            if (!StringList.isDollarWord(id_.getName()) && !id_.getName().startsWith("[]")) {
-                NamedFunctionBlock operator_ = Classes.getOperatorsBodiesById(_cont, id_).first();
-                String file_ = operator_.getFile().getRenderFileName();
-                String rel_ = relativize(currentFileName_, file_ + "#m" + operator_.getNameOffset());
-                String tag_ = "<a title=\""+ transform(id_.getSignature(_cont))+"\" href=\""+rel_+"\">";
-                _parts.add(new PartOffset(tag_,off_+sum_ + val_.getIndexInEl()));
-                tag_ = "</a>";
-                _parts.add(new PartOffset(tag_,off_+sum_ + val_.getIndexInEl()+_cont.getKeyWords().getKeyWordLambda().length()));
-            } else {
-                GeneType type_ = _cont.getClassBody(className_);
-                if (isFromCustFile(type_) && isExplicitCastCall(_cont, (ExecLambdaOperation) curOp_, id_)) {
-                    String file_ = ((RootBlock) type_).getFile().getRenderFileName();
-                    String rel_ = getRelativize(_cont, currentFileName_, className_, id_, type_, file_);
-                    String tag_ = "<a title=\"" + transform(className_ + "." + id_.getSignature(_cont)) + "\" href=\"" + rel_ + "\">";
-                    _parts.add(new PartOffset(tag_, off_ + sum_ + val_.getIndexInEl()));
-                    tag_ = "</a>";
-                    _parts.add(new PartOffset(tag_, off_ + sum_ + val_.getIndexInEl() + _cont.getKeyWords().getKeyWordLambda().length()));
-                }
-            }
+            addParts(_cont,currentFileName_,className_,id_,
+                    off_+sum_ + val_.getIndexInEl(),_cont.getKeyWords().getKeyWordLambda().length(),
+            _parts);
         } else if (realId_ != null) {
             String cl_ = ((ExecLambdaOperation) curOp_).getFoundClass();
             cl_ = Templates.getIdFromAllTypes(cl_);
-            GeneType type_ = _cont.getClassBody(cl_);
-            if (isFromCustFile(type_)) {
-                String file_ = ((RootBlock) type_).getFile().getRenderFileName();
-                CustList<ConstructorBlock> ctors_ = Classes.getConstructorBodiesById(_cont, cl_, realId_);
-                if (!ctors_.isEmpty()) {
-                    ConstructorBlock ctor_ = ctors_.first();
-                    String rel_ = relativize(currentFileName_, file_ + "#m" + ctor_.getNameOffset());
-                    String tag_ = "<a title=\""+ transform(cl_ +"."+ realId_.getSignature(_cont))+"\" href=\""+rel_+"\">";
-                    _parts.add(new PartOffset(tag_,off_+sum_ + val_.getIndexInEl()));
-                    tag_ = "</a>";
-                    _parts.add(new PartOffset(tag_,off_+sum_ + val_.getIndexInEl()+_cont.getKeyWords().getKeyWordLambda().length()));
-                }
-            }
+            addParts(_cont,currentFileName_,cl_,realId_,
+                    off_+sum_ + val_.getIndexInEl(),_cont.getKeyWords().getKeyWordLambda().length(),
+                    _parts);
         } else {
             updateFieldAnchor(_cont,_parts,fieldId_,off_+sum_ + val_.getIndexInEl(),_cont.getKeyWords().getKeyWordLambda().length(),false);
         }
         _parts.addAllElts(((LambdaOperation)val_).getPartOffsets());
-    }
-
-    private static boolean isExplicitCastCall(ContextEl _cont, ExecLambdaOperation curOp_, MethodId id_) {
-        return !StringList.quickEq(id_.getName(),_cont.getKeyWords().getKeyWordExplicit())
-                ||!curOp_.isDirectCast();
     }
 
     private static void processRichHeader(ContextEl _cont, String currentFileName_, int sum_, OperationNode val_, ExecOperationNode curOp_, CustList<PartOffset> _parts) {
@@ -1130,26 +1078,17 @@ public final class ElUtil {
             ConstructorId c_ = ((ExecAbstractInvokingConstructor)curOp_).getConstId();
             String cl_ = c_.getName();
             cl_ = Templates.getIdFromAllTypes(cl_);
-            RootBlock type_ = (RootBlock) _cont.getClassBody(cl_);
-            String file_ = type_.getFile().getRenderFileName();
-            ConstructorBlock ctor_ = Classes.getConstructorBodiesById(_cont, cl_, c_).first();
-            String rel_ = relativize(currentFileName_, file_ + "#m" + ctor_.getNameOffset());
-            String tag_ = "<a title=\""+ transform(cl_ +"."+ c_.getSignature(_cont))+"\" href=\""+rel_+"\">";
-            _parts.add(new PartOffset(tag_,sum_ + val_.getIndexInEl()));
-            tag_ = "</a>";
-            _parts.add(new PartOffset(tag_,sum_ + val_.getIndexInEl()+((AbstractInvokingConstructor)val_).getOffsetOper()));
+            addParts(_cont,currentFileName_,cl_,c_,
+                    sum_ + val_.getIndexInEl(),((AbstractInvokingConstructor)val_).getOffsetOper(),
+                    _parts);
         }
         if (curOp_ instanceof ExecExplicitOperatorOperation) {
             ExecExplicitOperatorOperation par_ = (ExecExplicitOperatorOperation) curOp_;
             ClassMethodId classMethodId_ = par_.getClassMethodId();
             MethodId id_ = classMethodId_.getConstraints();
-            NamedFunctionBlock operator_ = Classes.getOperatorsBodiesById(_cont, id_).first();
-            String file_ = operator_.getFile().getRenderFileName();
-            String rel_ = relativize(currentFileName_, file_ + "#m" + operator_.getNameOffset());
-            String tag_ = "<a title=\""+ transform(id_.getSignature(_cont))+"\" href=\""+rel_+"\">";
-            _parts.add(new PartOffset(tag_,sum_ + val_.getIndexInEl()));
-            tag_ = "</a>";
-            _parts.add(new PartOffset(tag_,sum_ + val_.getIndexInEl()+((ExplicitOperatorOperation)val_).getOffsetOper()));
+            addParts(_cont,currentFileName_,"",id_,
+                    sum_ + val_.getIndexInEl(),((ExplicitOperatorOperation)val_).getOffsetOper(),
+                    _parts);
         }
     }
 
@@ -1158,13 +1097,9 @@ public final class ElUtil {
             ExecCustNumericOperation par_ = (ExecCustNumericOperation) curOp_;
             ClassMethodId classMethodId_ = par_.getClassMethodId();
             MethodId id_ = classMethodId_.getConstraints();
-            NamedFunctionBlock operator_ = Classes.getOperatorsBodiesById(_cont, id_).first();
-            String file_ = operator_.getFile().getRenderFileName();
-            String rel_ = relativize(currentFileName_, file_ + "#m" + operator_.getNameOffset());
-            String tag_ = "<a title=\""+ transform(id_.getSignature(_cont))+"\" href=\""+rel_+"\">";
-            _parts.add(new PartOffset(tag_,sum_ + val_.getIndexInEl()+par_.getOpOffset()));
-            tag_ = "</a>";
-            _parts.add(new PartOffset(tag_,sum_ + val_.getIndexInEl()+par_.getOpOffset()+id_.getName().length()));
+            addParts(_cont,currentFileName_,"",id_,
+                    sum_ + val_.getIndexInEl()+par_.getOpOffset(),id_.getName().length(),
+                    _parts);
         }
         if (curOp_ instanceof ExecUnaryBooleanOperation && result_.isStrictPartialCovered()) {
             int offsetOp_ = val_.getOperations().getOperators().firstKey();
@@ -1186,18 +1121,10 @@ public final class ElUtil {
         if (curOp_ instanceof ExecExplicitOperation) {
             String className_ = ((ExplicitOperation) val_).getClassName();
             int offsetOp_ = val_.getOperations().getOperators().firstKey();
-            GeneType type_ = _cont.getClassBody(className_);
-            if (isFromCustFile(type_)) {
-                MethodId castId_ = ((ExplicitOperation) val_).getCastOpId();
-                if (castId_ != null) {
-                    String file_ = ((RootBlock) type_).getFile().getRenderFileName();
-                    String rel_ = getRelativize(_cont, currentFileName_, className_, castId_, type_, file_);
-                    String tag_ = "<a title=\""+transform(className_ +"."+ castId_.getSignature(_cont))+"\" href=\""+rel_+"\">";
-                    _parts.add(new PartOffset(tag_,offsetOp_+sum_ + val_.getIndexInEl()));
-                    tag_ = "</a>";
-                    _parts.add(new PartOffset(tag_,offsetOp_+sum_ + val_.getIndexInEl()+_cont.getKeyWords().getKeyWordExplicit().length()));
-                }
-            }
+            MethodId castId_ = ((ExplicitOperation) val_).getCastOpId();
+            addParts(_cont,currentFileName_,Templates.getIdFromAllTypes(className_),castId_,
+                    offsetOp_+sum_ + val_.getIndexInEl(),_cont.getKeyWords().getKeyWordExplicit().length(),
+                    _parts);
             _parts.addAllElts(((ExplicitOperation)val_).getPartOffsets());
         }
         if (curOp_ instanceof ExecSemiAffectationOperation) {
@@ -1207,13 +1134,9 @@ public final class ElUtil {
                 ClassMethodId classMethodId_ = par_.getClassMethodId();
                 if (classMethodId_ != null) {
                     MethodId id_ = classMethodId_.getConstraints();
-                    NamedFunctionBlock operator_ = Classes.getOperatorsBodiesById(_cont, id_).first();
-                    String file_ = operator_.getFile().getRenderFileName();
-                    String rel_ = relativize(currentFileName_, file_ + "#m" + operator_.getNameOffset());
-                    String tag_ = "<a title=\""+ transform(id_.getSignature(_cont))+"\" href=\""+rel_+"\">";
-                    _parts.add(new PartOffset(tag_,sum_ + val_.getIndexInEl()+offsetOp_));
-                    tag_ = "</a>";
-                    _parts.add(new PartOffset(tag_,sum_ + val_.getIndexInEl()+offsetOp_+1));
+                    addParts(_cont,currentFileName_,"",id_,
+                            sum_ + val_.getIndexInEl()+offsetOp_,1,
+                            _parts);
                 }
                 if (par_.getSettable() instanceof ExecCustArrOperation) {
                     ExecCustArrOperation parArr_ = (ExecCustArrOperation) par_.getSettable();
@@ -1222,14 +1145,9 @@ public final class ElUtil {
                     className_ = Templates.getIdFromAllTypes(className_);
                     MethodId methodId_ = classMethodIdArr_.getConstraints();
                     MethodId id_ = new MethodId(MethodAccessKind.INSTANCE,"[]=",methodId_.getParametersTypes(),methodId_.isVararg());
-                    RootBlock type_ = (RootBlock) _cont.getClassBody(className_);
-                    NamedFunctionBlock method_ = Classes.getMethodBodiesById(_cont, className_, id_).first();
-                    String file_ = type_.getFile().getRenderFileName();
-                    String rel_ = relativize(currentFileName_, file_ + "#m" + method_.getNameOffset());
-                    String tag_ = "<a title=\""+ transform(className_ +"."+ id_.getSignature(_cont))+"\" href=\""+rel_+"\">";
-                    _parts.add(new PartOffset(tag_, sum_ + val_.getIndexInEl()+offsetOp_+1));
-                    tag_ = "</a>";
-                    _parts.add(new PartOffset(tag_, sum_ + val_.getIndexInEl()+offsetOp_+2));
+                    addParts(_cont,currentFileName_,className_,id_,
+                            sum_ + val_.getIndexInEl()+offsetOp_+1,1,
+                            _parts);
                 }
             }
         }
@@ -1275,13 +1193,7 @@ public final class ElUtil {
             ExecCustNumericOperation par_ = (ExecCustNumericOperation) parentOp_;
             ClassMethodId classMethodId_ = par_.getClassMethodId();
             MethodId id_ = classMethodId_.getConstraints();
-            NamedFunctionBlock operator_ = Classes.getOperatorsBodiesById(_cont, id_).first();
-            String file_ = operator_.getFile().getRenderFileName();
-            String rel_ = relativize(currentFileName_, file_ + "#m" + operator_.getNameOffset());
-            String tag_ = "<a title=\""+ transform(id_.getSignature(_cont))+"\" href=\""+rel_+"\">";
-            _parts.add(new PartOffset(tag_, offsetEnd_));
-            tag_ = "</a>";
-            _parts.add(new PartOffset(tag_,offsetEnd_+id_.getName().length()));
+            addParts(_cont,currentFileName_,"",id_,offsetEnd_,id_.getName().length(),_parts);
         }
     }
 
@@ -1345,13 +1257,7 @@ public final class ElUtil {
         int opDelta_ = par_.getOper().length() - 1;
         if (classMethodId_ != null) {
             MethodId id_ = classMethodId_.getConstraints();
-            NamedFunctionBlock operator_ = Classes.getOperatorsBodiesById(_cont, id_).first();
-            String file_ = operator_.getFile().getRenderFileName();
-            String rel_ = relativize(currentFileName_, file_ + "#m" + operator_.getNameOffset());
-            String tag_ = "<a title=\""+ transform(id_.getSignature(_cont))+"\" href=\""+rel_+"\">";
-            _parts.add(new PartOffset(tag_, offsetEnd_));
-            tag_ = "</a>";
-            _parts.add(new PartOffset(tag_,offsetEnd_+opDelta_));
+            addParts(_cont,currentFileName_,"",id_,offsetEnd_,opDelta_,_parts);
         } else if (nextSiblingOp_.getResultClass().isConvertToString() && canCallToString(nextSiblingOp_.getResultClass(),_cont)){
             String tag_ = "<i>";
             _parts.add(new PartOffset(tag_, offsetEnd_));
@@ -1396,14 +1302,7 @@ public final class ElUtil {
             className_ = Templates.getIdFromAllTypes(className_);
             MethodId methodId_ = classMethodIdArr_.getConstraints();
             MethodId id_ = new MethodId(MethodAccessKind.INSTANCE,"[]=",methodId_.getParametersTypes(),methodId_.isVararg());
-            RootBlock type_ = (RootBlock) _cont.getClassBody(className_);
-            NamedFunctionBlock method_ = Classes.getMethodBodiesById(_cont, className_, id_).first();
-            String file_ = type_.getFile().getRenderFileName();
-            String rel_ = relativize(currentFileName_, file_ + "#m" + method_.getNameOffset());
-            String tag_ = "<a title=\""+ transform(className_ +"."+ id_.getSignature(_cont))+"\" href=\""+rel_+"\">";
-            _parts.add(new PartOffset(tag_, opDelta_+offsetEnd_));
-            tag_ = "</a>";
-            _parts.add(new PartOffset(tag_, opDelta_+offsetEnd_+1));
+            addParts(_cont,currentFileName_,className_,id_,opDelta_+offsetEnd_,1,_parts);
         }
     }
 
@@ -1471,14 +1370,7 @@ public final class ElUtil {
             } else {
                 id_ = new MethodId(MethodAccessKind.INSTANCE,"[]",methodId_.getParametersTypes(),methodId_.isVararg());
             }
-            RootBlock type_ = (RootBlock) _cont.getClassBody(className_);
-            NamedFunctionBlock method_ = Classes.getMethodBodiesById(_cont, className_, id_).first();
-            String file_ = type_.getFile().getRenderFileName();
-            String rel_ = relativize(currentFileName_, file_ + "#m" + method_.getNameOffset());
-            String tag_ = "<a title=\""+ transform(className_ +"."+ id_.getSignature(_cont))+"\" href=\""+rel_+"\">";
-            _parts.add(new PartOffset(tag_, offsetEnd_));
-            tag_ = "</a>";
-            _parts.add(new PartOffset(tag_, offsetEnd_+1));
+            addParts(_cont,currentFileName_,className_,id_,offsetEnd_,1,_parts);
         }
     }
 
@@ -1492,13 +1384,7 @@ public final class ElUtil {
                 ClassMethodId classMethodId_ = par_.getClassMethodId();
                 if (classMethodId_ != null) {
                     MethodId id_ = classMethodId_.getConstraints();
-                    NamedFunctionBlock operator_ = Classes.getOperatorsBodiesById(_cont, id_).first();
-                    String file_ = operator_.getFile().getRenderFileName();
-                    String rel_ = relativize(currentFileName_, file_ + "#m" + operator_.getNameOffset());
-                    String tag_ = "<a title=\""+ transform(id_.getSignature(_cont))+"\" href=\""+rel_+"\">";
-                    _parts.add(new PartOffset(tag_,offsetEnd_));
-                    tag_ = "</a>";
-                    _parts.add(new PartOffset(tag_,offsetEnd_+1));
+                    addParts(_cont,currentFileName_,"",id_,offsetEnd_,1,_parts);
                 }
                 if (par_.getSettable() instanceof ExecCustArrOperation) {
                     ExecCustArrOperation parArr_ = (ExecCustArrOperation) par_.getSettable();
@@ -1507,14 +1393,7 @@ public final class ElUtil {
                     className_ = Templates.getIdFromAllTypes(className_);
                     MethodId methodId_ = classMethodIdArr_.getConstraints();
                     MethodId id_ = new MethodId(MethodAccessKind.INSTANCE,"[]=",methodId_.getParametersTypes(),methodId_.isVararg());
-                    RootBlock type_ = (RootBlock) _cont.getClassBody(className_);
-                    NamedFunctionBlock method_ = Classes.getMethodBodiesById(_cont, className_, id_).first();
-                    String file_ = type_.getFile().getRenderFileName();
-                    String rel_ = relativize(currentFileName_, file_ + "#m" + method_.getNameOffset());
-                    String tag_ = "<a title=\""+ transform(className_ +"."+ id_.getSignature(_cont))+"\" href=\""+rel_+"\">";
-                    _parts.add(new PartOffset(tag_, offsetEnd_+1));
-                    tag_ = "</a>";
-                    _parts.add(new PartOffset(tag_, offsetEnd_+2));
+                    addParts(_cont,currentFileName_,className_,id_,offsetEnd_+1,1,_parts);
                 }
             }
         }
@@ -1571,16 +1450,65 @@ public final class ElUtil {
         }
         return tag_;
     }
-
-    private static String getRelativize(ContextEl _cont, String _currentFileName, String _className, MethodId _id, GeneType _type, String _file) {
+    private static void addParts(ContextEl _cont, String _currentFileName, String _className,
+                                 Identifiable _id, int _begin, int _length,
+                                 CustList<PartOffset> _parts) {
+        if (_id == null) {
+            return;
+        }
+        String cl_ = Templates.getIdFromAllTypes(_className);
+        GeneType type_ = _cont.getClassBody(cl_);
+        String rel_ = getRelativize(_cont, _currentFileName, _className, _id, type_);
+        if (rel_.isEmpty()) {
+            return;
+        }
+        String tag_;
+        if (_id instanceof MethodId) {
+            if (!StringList.isDollarWord(_id.getName()) && !_id.getName().startsWith("[]")) {
+                tag_ = "<a title=\""+ transform(_id.getSignature(_cont))+"\" href=\""+rel_+"\">";
+            } else {
+                tag_ = "<a title=\""+ transform(cl_ +"."+ _id.getSignature(_cont))+"\" href=\""+rel_+"\">";
+            }
+        } else {
+            tag_ = "<a title=\""+ transform(cl_ +"."+ _id.getSignature(_cont))+"\" href=\""+rel_+"\">";
+        }
+        _parts.add(new PartOffset(tag_,_begin));
+        tag_ = "</a>";
+        _parts.add(new PartOffset(tag_,_begin+_length));
+    }
+    private static String getRelativize(ContextEl _cont, String _currentFileName, String _className, Identifiable _id, GeneType _type) {
         String rel_;
         if (_type instanceof AnnotationBlock) {
             CustList<AnnotationMethodBlock> list_ = Classes.getMethodAnnotationBodiesById((RootBlock) _type, _id.getName());
-            rel_ = relativize(_currentFileName, _file + "#m" + list_.first().getNameOffset());
+            AnnotationMethodBlock annotAt_ = list_.first();
+            rel_ = relativize(_currentFileName, annotAt_.getFile().getRenderFileName() + "#m" + annotAt_.getNameOffset());
+        } else if (_id instanceof MethodId){
+            if (!StringList.isDollarWord(_id.getName()) && !_id.getName().startsWith("[]")) {
+                NamedFunctionBlock operator_ = Classes.getOperatorsBodiesById(_cont, (MethodId) _id).first();
+                String file_ = operator_.getFile().getRenderFileName();
+                rel_ = relativize(_currentFileName, file_ + "#m" + operator_.getNameOffset());
+            } else {
+                if (!isFromCustFile(_type)) {
+                    return "";
+                }
+                NamedFunctionBlock method_;
+                CustList<NamedFunctionBlock> methods_ = Classes.getMethodBodiesById(_cont, _className, (MethodId) _id);
+                if (methods_.isEmpty()) {
+                    return "";
+                }
+                method_ = methods_.first();
+                rel_ = relativize(_currentFileName, method_.getFile().getRenderFileName() + "#m" + method_.getNameOffset());
+            }
         } else {
-            NamedFunctionBlock method_;
-            method_ = Classes.getMethodBodiesById(_cont, _className, _id).first();
-            rel_ = relativize(_currentFileName, _file + "#m" + method_.getNameOffset());
+            if (!isFromCustFile(_type)) {
+                return "";
+            }
+            CustList<ConstructorBlock> ctors_ = Classes.getConstructorBodiesById(_cont, _className, (ConstructorId) _id);
+            if (ctors_.isEmpty()) {
+                return "";
+            }
+            ConstructorBlock ctor_ = ctors_.first();
+            rel_ = relativize(_currentFileName, ctor_.getFile().getRenderFileName() + "#m" + ctor_.getNameOffset());
         }
         return rel_;
     }

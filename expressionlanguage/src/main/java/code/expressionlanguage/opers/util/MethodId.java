@@ -8,7 +8,7 @@ import code.util.ints.Equallable;
 public final class MethodId implements Equallable<MethodId>, Identifiable {
 
     private static final String EMPTY = "";
-    private static final String VARARG = "...";
+    private static final String VARARG_DOTS = "...";
     private static final String SEP_TYPE = ",";
     private static final String LEFT = "(";
     private static final String RIGHT = ")";
@@ -74,12 +74,14 @@ public final class MethodId implements Equallable<MethodId>, Identifiable {
         String pref_ = EMPTY;
         if (kind == MethodAccessKind.STATIC) {
             pref_ = StringList.concat(_ana.getStandards().getDisplayedStrings().getStaticString()," ");
-        } else if (kind == MethodAccessKind.STATIC_CALL) {
-            pref_ = StringList.concat(_ana.getStandards().getDisplayedStrings().getStaticCallString()," ");
+        } else {
+            if (kind == MethodAccessKind.STATIC_CALL) {
+                pref_ = StringList.concat(_ana.getStandards().getDisplayedStrings().getStaticCallString()," ");
+            }
         }
         String suf_ = EMPTY;
         if (vararg) {
-            suf_ = VARARG;
+            suf_ = VARARG_DOTS;
         }
         return StringList.concat(pref_,name,LEFT, StringList.join(classNames, SEP_TYPE),suf_,RIGHT);
     }

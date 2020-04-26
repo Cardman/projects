@@ -8709,7 +8709,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Apply </a>{\n" +
                 " public static <a title=\"pkg.ExClass\" href=\"#m118\">ExClass</a>&lt;int&gt; <a name=\"m53\">method</a>(){\n" +
-                "  return <span class=\"f\">explicit(<a title=\"pkg.ExClass\" href=\"#m118\">ExClass</a>&lt;int&gt;,<a href=\"#m130\">#T</a>)<span class=\"f\">5</span></span>;\n" +
+                "  return <span class=\"f\"><a title=\"pkg.ExClass.static explicit(#T)\" href=\"#m178\">explicit</a>(<a title=\"pkg.ExClass\" href=\"#m118\">ExClass</a>&lt;int&gt;,<a href=\"#m130\">#T</a>)<span class=\"f\">5</span></span>;\n" +
                 " }\n" +
                 "}\n" +
                 "public class <a name=\"m118\">pkg.ExClass</a>&lt;<a name=\"m130\">T</a>&gt; {\n" +
