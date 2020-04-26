@@ -349,15 +349,13 @@ public final class ElUtil {
         }
         MethodOperation block_ = (MethodOperation) _block;
         if (block_.getChildren().isEmpty()) {
-            if (_context.getOptions().isInitializeStaticClassFirst() && block_ instanceof StandardInstancingOperation) {
-                if (_index == CustList.FIRST_INDEX) {
-                    Delimiters d_ = block_.getOperations().getDelimiter();
-                    OperationsSequence opSeq_ = new OperationsSequence();
-                    opSeq_.setFctName(block_.getOperations().getFctName());
-                    opSeq_.setDelimiter(new Delimiters());
-                    opSeq_.getDelimiter().setIndexBegin(d_.getIndexBegin());
-                    return new StaticInitOperation(block_.getIndexInEl(), CustList.FIRST_INDEX, block_, opSeq_);
-                }
+            if (isInitializeStaticClassFirst(_context, _index, block_)) {
+                Delimiters d_ = block_.getOperations().getDelimiter();
+                OperationsSequence opSeq_ = new OperationsSequence();
+                opSeq_.setFctName(block_.getOperations().getFctName());
+                opSeq_.setDelimiter(new Delimiters());
+                opSeq_.getDelimiter().setIndexBegin(d_.getIndexBegin());
+                return new StaticInitOperation(block_.getIndexInEl(), CustList.FIRST_INDEX, block_, opSeq_);
             }
             return null;
         }
@@ -365,19 +363,21 @@ public final class ElUtil {
         Delimiters d_ = block_.getOperations().getDelimiter();
         int curKey_ = block_.getChildren().getKey(0);
         int offset_ = block_.getIndexInEl()+curKey_;
-        if (_context.getOptions().isInitializeStaticClassFirst() && block_ instanceof StandardInstancingOperation) {
-            if (_index == CustList.FIRST_INDEX) {
-                OperationsSequence opSeq_ = new OperationsSequence();
-                opSeq_.setFctName(block_.getOperations().getFctName());
-                opSeq_.setDelimiter(new Delimiters());
-                opSeq_.getDelimiter().setIndexBegin(d_.getIndexBegin());
-                return new StaticInitOperation(block_.getIndexInEl(), CustList.FIRST_INDEX, block_, opSeq_);
-            }
+        if (isInitializeStaticClassFirst(_context, _index, block_)) {
+            OperationsSequence opSeq_ = new OperationsSequence();
+            opSeq_.setFctName(block_.getOperations().getFctName());
+            opSeq_.setDelimiter(new Delimiters());
+            opSeq_.getDelimiter().setIndexBegin(d_.getIndexBegin());
+            return new StaticInitOperation(block_.getIndexInEl(), CustList.FIRST_INDEX, block_, opSeq_);
         }
         OperationsSequence r_ = ElResolver.getOperationsSequence(offset_, value_, _context, d_);
         OperationNode op_ = OperationNode.createOperationNode(offset_, _index, block_, r_, _context);
         setFieldName(_fieldName, block_, op_);
         return op_;
+    }
+
+    private static boolean isInitializeStaticClassFirst(ContextEl _context, int _index, MethodOperation block_) {
+        return _context.getOptions().isInitializeStaticClassFirst() && block_ instanceof StandardInstancingOperation && _index == CustList.FIRST_INDEX;
     }
 
     private static OperationNode createNextSibling(OperationNode _block, ContextEl _context, String _fieldName) {
@@ -387,10 +387,8 @@ public final class ElUtil {
         }
         IntTreeMap<String> children_ = p_.getChildren();
         int delta_ = 1;
-        if (p_ instanceof StandardInstancingOperation) {
-            if (p_.getFirstChild() instanceof StaticInitOperation) {
-                delta_ = 0;
-            }
+        if (p_ instanceof StandardInstancingOperation && p_.getFirstChild() instanceof StaticInitOperation) {
+            delta_ = 0;
         }
         if (_block.getIndexChild() + delta_ >= children_.size()) {
             return null;
@@ -711,7 +709,9 @@ public final class ElUtil {
         String tag_;
         if (!addCover_ ||val_ instanceof StaticInitOperation) {
             tag_ = "";
-        } else if (val_.getArgument() != null) {
+            return tag_;
+        }
+        if (val_.getArgument() != null) {
             ExecOperationNode par_ = curOp_;
             while (par_ != root_) {
                 if (par_.getArgument() == null) {
@@ -722,24 +722,33 @@ public final class ElUtil {
             AbstractCoverageResult resultPar_ = getCovers(_cont, _block, par_, _annotation);
             if (resultPar_.isPartialCovered()) {
                 tag_ = getFullInit(resultPar_);
-            } else {
-                tag_ = "<span class=\"n\">";
+                return tag_;
             }
-        } else if (result_.isFullCovered()) {
-            tag_ = getFullInit(result_);
-        } else if (result_.isPartialCovered()) {
-            if (val_ instanceof AffectationOperation && val_.getFirstChild().getNextSibling().getArgument() != null) {
-                tag_ = getFullInit(result_);
-            } else {
-                if (result_.isInit()) {
-                    tag_ = "<span class=\"q\">";
-                } else {
-                    tag_ = "<span class=\"p\">";
-                }
-            }
-        } else {
             tag_ = "<span class=\"n\">";
+            return tag_;
         }
+        if (result_.isFullCovered()) {
+            tag_ = getFullInit(result_);
+            return tag_;
+        }
+        if (result_.isPartialCovered()) {
+            return getPartialInit(val_, result_);
+        }
+        tag_ = "<span class=\"n\">";
+        return tag_;
+    }
+
+    private static String getPartialInit(OperationNode val_, AbstractCoverageResult result_) {
+        String tag_;
+        if (val_ instanceof AffectationOperation && val_.getFirstChild().getNextSibling().getArgument() != null) {
+            tag_ = getFullInit(result_);
+            return tag_;
+        }
+        if (result_.isInit()) {
+            tag_ = "<span class=\"q\">";
+            return tag_;
+        }
+        tag_ = "<span class=\"p\">";
         return tag_;
     }
 
@@ -1059,64 +1068,61 @@ public final class ElUtil {
     }
 
     private static void processLamba(ContextEl _cont, String currentFileName_, int sum_, OperationNode val_, ExecOperationNode curOp_, CustList<PartOffset> _parts) {
-        if (curOp_ instanceof ExecLambdaOperation) {
-            ClassMethodId classMethodId_ = ((ExecLambdaOperation) curOp_).getMethod();
-            ConstructorId realId_ = ((ExecLambdaOperation) curOp_).getRealId();
-            ClassField fieldId_ = ((ExecLambdaOperation) curOp_).getFieldId();
-            int off_ = ((LambdaOperation)val_).getClassNameOffset();
-            if (classMethodId_ != null) {
-                String className_ = classMethodId_.getClassName();
-                className_ = Templates.getIdFromAllTypes(className_);
-                MethodId id_ = classMethodId_.getConstraints();
-                if (!StringList.isDollarWord(id_.getName()) && !id_.getName().startsWith("[]")) {
-                    NamedFunctionBlock operator_ = Classes.getOperatorsBodiesById(_cont, id_).first();
-                    String file_ = operator_.getFile().getRenderFileName();
-                    String rel_ = relativize(currentFileName_, file_ + "#m" + operator_.getNameOffset());
-                    String tag_ = "<a title=\""+ transform(id_.getSignature(_cont))+"\" href=\""+rel_+"\">";
+        if (!(curOp_ instanceof ExecLambdaOperation)) {
+            return;
+        }
+        ClassMethodId classMethodId_ = ((ExecLambdaOperation) curOp_).getMethod();
+        ConstructorId realId_ = ((ExecLambdaOperation) curOp_).getRealId();
+        ClassField fieldId_ = ((ExecLambdaOperation) curOp_).getFieldId();
+        int off_ = ((LambdaOperation)val_).getClassNameOffset();
+        if (classMethodId_ != null) {
+            String className_ = classMethodId_.getClassName();
+            className_ = Templates.getIdFromAllTypes(className_);
+            MethodId id_ = classMethodId_.getConstraints();
+            if (!StringList.isDollarWord(id_.getName()) && !id_.getName().startsWith("[]")) {
+                NamedFunctionBlock operator_ = Classes.getOperatorsBodiesById(_cont, id_).first();
+                String file_ = operator_.getFile().getRenderFileName();
+                String rel_ = relativize(currentFileName_, file_ + "#m" + operator_.getNameOffset());
+                String tag_ = "<a title=\""+ transform(id_.getSignature(_cont))+"\" href=\""+rel_+"\">";
+                _parts.add(new PartOffset(tag_,off_+sum_ + val_.getIndexInEl()));
+                tag_ = "</a>";
+                _parts.add(new PartOffset(tag_,off_+sum_ + val_.getIndexInEl()+_cont.getKeyWords().getKeyWordLambda().length()));
+            } else {
+                GeneType type_ = _cont.getClassBody(className_);
+                if (isFromCustFile(type_) && isExplicitCastCall(_cont, (ExecLambdaOperation) curOp_, id_)) {
+                    String file_ = ((RootBlock) type_).getFile().getRenderFileName();
+                    String rel_ = getRelativize(_cont, currentFileName_, className_, id_, type_, file_);
+                    String tag_ = "<a title=\"" + transform(className_ + "." + id_.getSignature(_cont)) + "\" href=\"" + rel_ + "\">";
+                    _parts.add(new PartOffset(tag_, off_ + sum_ + val_.getIndexInEl()));
+                    tag_ = "</a>";
+                    _parts.add(new PartOffset(tag_, off_ + sum_ + val_.getIndexInEl() + _cont.getKeyWords().getKeyWordLambda().length()));
+                }
+            }
+        } else if (realId_ != null) {
+            String cl_ = ((ExecLambdaOperation) curOp_).getFoundClass();
+            cl_ = Templates.getIdFromAllTypes(cl_);
+            GeneType type_ = _cont.getClassBody(cl_);
+            if (isFromCustFile(type_)) {
+                String file_ = ((RootBlock) type_).getFile().getRenderFileName();
+                CustList<ConstructorBlock> ctors_ = Classes.getConstructorBodiesById(_cont, cl_, realId_);
+                if (!ctors_.isEmpty()) {
+                    ConstructorBlock ctor_ = ctors_.first();
+                    String rel_ = relativize(currentFileName_, file_ + "#m" + ctor_.getNameOffset());
+                    String tag_ = "<a title=\""+ transform(cl_ +"."+ realId_.getSignature(_cont))+"\" href=\""+rel_+"\">";
                     _parts.add(new PartOffset(tag_,off_+sum_ + val_.getIndexInEl()));
                     tag_ = "</a>";
                     _parts.add(new PartOffset(tag_,off_+sum_ + val_.getIndexInEl()+_cont.getKeyWords().getKeyWordLambda().length()));
-                } else {
-                    GeneType type_ = _cont.getClassBody(className_);
-                    if (isFromCustFile(type_)) {
-                        if (!StringList.quickEq(id_.getName(),_cont.getKeyWords().getKeyWordExplicit())) {
-                            String file_ = ((RootBlock) type_).getFile().getRenderFileName();
-                            String rel_ = getRelativize(_cont, currentFileName_, className_, id_, type_, file_);
-                            String tag_ = "<a title=\""+transform(className_ +"."+ id_.getSignature(_cont))+"\" href=\""+rel_+"\">";
-                            _parts.add(new PartOffset(tag_,off_+sum_ + val_.getIndexInEl()));
-                            tag_ = "</a>";
-                            _parts.add(new PartOffset(tag_,off_+sum_ + val_.getIndexInEl()+_cont.getKeyWords().getKeyWordLambda().length()));
-                        } else if (!((ExecLambdaOperation) curOp_).isDirectCast()){
-                            String file_ = ((RootBlock) type_).getFile().getRenderFileName();
-                            String rel_ = getRelativize(_cont, currentFileName_, className_, id_, type_, file_);
-                            String tag_ = "<a title=\""+transform(className_ +"."+ id_.getSignature(_cont))+"\" href=\""+rel_+"\">";
-                            _parts.add(new PartOffset(tag_,off_+sum_ + val_.getIndexInEl()));
-                            tag_ = "</a>";
-                            _parts.add(new PartOffset(tag_,off_+sum_ + val_.getIndexInEl()+_cont.getKeyWords().getKeyWordLambda().length()));
-                        }
-                    }
                 }
-            } else if (realId_ != null) {
-                String cl_ = ((ExecLambdaOperation) curOp_).getFoundClass();
-                cl_ = Templates.getIdFromAllTypes(cl_);
-                GeneType type_ = _cont.getClassBody(cl_);
-                if (isFromCustFile(type_)) {
-                    String file_ = ((RootBlock) type_).getFile().getRenderFileName();
-                    CustList<ConstructorBlock> ctors_ = Classes.getConstructorBodiesById(_cont, cl_, realId_);
-                    if (!ctors_.isEmpty()) {
-                        ConstructorBlock ctor_ = ctors_.first();
-                        String rel_ = relativize(currentFileName_, file_ + "#m" + ctor_.getNameOffset());
-                        String tag_ = "<a title=\""+ transform(cl_ +"."+ realId_.getSignature(_cont))+"\" href=\""+rel_+"\">";
-                        _parts.add(new PartOffset(tag_,off_+sum_ + val_.getIndexInEl()));
-                        tag_ = "</a>";
-                        _parts.add(new PartOffset(tag_,off_+sum_ + val_.getIndexInEl()+_cont.getKeyWords().getKeyWordLambda().length()));
-                    }
-                }
-            } else {
-                updateFieldAnchor(_cont,_parts,fieldId_,off_+sum_ + val_.getIndexInEl(),_cont.getKeyWords().getKeyWordLambda().length(),false);
             }
-            _parts.addAllElts(((LambdaOperation)val_).getPartOffsets());
+        } else {
+            updateFieldAnchor(_cont,_parts,fieldId_,off_+sum_ + val_.getIndexInEl(),_cont.getKeyWords().getKeyWordLambda().length(),false);
         }
+        _parts.addAllElts(((LambdaOperation)val_).getPartOffsets());
+    }
+
+    private static boolean isExplicitCastCall(ContextEl _cont, ExecLambdaOperation curOp_, MethodId id_) {
+        return !StringList.quickEq(id_.getName(),_cont.getKeyWords().getKeyWordExplicit())
+                ||!curOp_.isDirectCast();
     }
 
     private static void processRichHeader(ContextEl _cont, String currentFileName_, int sum_, OperationNode val_, ExecOperationNode curOp_, CustList<PartOffset> _parts) {
@@ -1160,20 +1166,18 @@ public final class ElUtil {
             tag_ = "</a>";
             _parts.add(new PartOffset(tag_,sum_ + val_.getIndexInEl()+par_.getOpOffset()+id_.getName().length()));
         }
-        if (curOp_ instanceof ExecUnaryBooleanOperation) {
-            if (!result_.isFullCovered() && result_.isPartialCovered()) {
-                int offsetOp_ = val_.getOperations().getOperators().firstKey();
-                if(((BooleanCoverageResult)result_).isCoverTrue()){
-                    String tag_ = "<a title=\""+ transform(_cont.getStandards().getDisplayedStrings().getTrueString())+"\">";
-                    _parts.add(new PartOffset(tag_, sum_ + val_.getIndexInEl()+offsetOp_));
-                    tag_ = "</a>";
-                    _parts.add(new PartOffset(tag_,sum_ + val_.getIndexInEl()+offsetOp_+1));
-                } else {
-                    String tag_ = "<a title=\""+ transform(_cont.getStandards().getDisplayedStrings().getFalseString())+"\">";
-                    _parts.add(new PartOffset(tag_, sum_ + val_.getIndexInEl()+offsetOp_));
-                    tag_ = "</a>";
-                    _parts.add(new PartOffset(tag_,sum_ + val_.getIndexInEl()+offsetOp_+1));
-                }
+        if (curOp_ instanceof ExecUnaryBooleanOperation && result_.isStrictPartialCovered()) {
+            int offsetOp_ = val_.getOperations().getOperators().firstKey();
+            if (((BooleanCoverageResult) result_).isCoverTrue()) {
+                String tag_ = "<a title=\"" + transform(_cont.getStandards().getDisplayedStrings().getTrueString()) + "\">";
+                _parts.add(new PartOffset(tag_, sum_ + val_.getIndexInEl() + offsetOp_));
+                tag_ = "</a>";
+                _parts.add(new PartOffset(tag_, sum_ + val_.getIndexInEl() + offsetOp_ + 1));
+            } else {
+                String tag_ = "<a title=\"" + transform(_cont.getStandards().getDisplayedStrings().getFalseString()) + "\">";
+                _parts.add(new PartOffset(tag_, sum_ + val_.getIndexInEl() + offsetOp_));
+                tag_ = "</a>";
+                _parts.add(new PartOffset(tag_, sum_ + val_.getIndexInEl() + offsetOp_ + 1));
             }
         }
         if (curOp_ instanceof ExecCastOperation) {
@@ -1282,14 +1286,16 @@ public final class ElUtil {
     }
 
     private static void processCat(ContextEl _cont, int offsetEnd_, ExecOperationNode curOp_, ExecOperationNode nextSiblingOp_, ExecMethodOperation parentOp_, CustList<PartOffset> _parts) {
-        if (parentOp_ instanceof ExecCatOperation) {
-            if (canCallToString(curOp_.getResultClass(),_cont) || canCallToString(nextSiblingOp_.getResultClass(),_cont)) {
-                String tag_ = "<i>";
-                _parts.add(new PartOffset(tag_, offsetEnd_));
-                tag_ = "</i>";
-                _parts.add(new PartOffset(tag_,offsetEnd_+1));
-            }
+        if (parentOp_ instanceof ExecCatOperation && canCallToString(_cont, curOp_, nextSiblingOp_)) {
+            String tag_ = "<i>";
+            _parts.add(new PartOffset(tag_, offsetEnd_));
+            tag_ = "</i>";
+            _parts.add(new PartOffset(tag_, offsetEnd_ + 1));
         }
+    }
+
+    private static boolean canCallToString(ContextEl _cont, ExecOperationNode curOp_, ExecOperationNode nextSiblingOp_) {
+        return canCallToString(curOp_.getResultClass(),_cont) || canCallToString(nextSiblingOp_.getResultClass(),_cont);
     }
 
     private static void processNullSafe(ContextEl _cont, Block _block, boolean _annotation, int offsetEnd_, ExecOperationNode curOp_, ExecOperationNode nextSiblingOp_, ExecMethodOperation parentOp_, CustList<PartOffset> _parts) {
@@ -1331,104 +1337,108 @@ public final class ElUtil {
     }
 
     private static void processCompoundAff(ContextEl _cont, String currentFileName_, Block _block, boolean _annotation, int offsetEnd_, ExecOperationNode nextSiblingOp_, ExecMethodOperation parentOp_, CustList<PartOffset> _parts) {
-        if (parentOp_ instanceof ExecCompoundAffectationOperation) {
-            ExecCompoundAffectationOperation par_ = (ExecCompoundAffectationOperation) parentOp_;
-            ClassMethodId classMethodId_ = par_.getClassMethodId();
-            int opDelta_ = par_.getOper().length() - 1;
-            if (classMethodId_ != null) {
-                MethodId id_ = classMethodId_.getConstraints();
-                NamedFunctionBlock operator_ = Classes.getOperatorsBodiesById(_cont, id_).first();
-                String file_ = operator_.getFile().getRenderFileName();
-                String rel_ = relativize(currentFileName_, file_ + "#m" + operator_.getNameOffset());
-                String tag_ = "<a title=\""+ transform(id_.getSignature(_cont))+"\" href=\""+rel_+"\">";
-                _parts.add(new PartOffset(tag_, offsetEnd_));
-                tag_ = "</a>";
-                _parts.add(new PartOffset(tag_,offsetEnd_+opDelta_));
-            } else if (nextSiblingOp_.getResultClass().isConvertToString() && canCallToString(nextSiblingOp_.getResultClass(),_cont)){
-                String tag_ = "<i>";
-                _parts.add(new PartOffset(tag_, offsetEnd_));
-                tag_ = "</i>";
-                _parts.add(new PartOffset(tag_,offsetEnd_+opDelta_));
-            } else if (StringList.quickEq(par_.getOper(),"??=")){
+        if (!(parentOp_ instanceof ExecCompoundAffectationOperation)) {
+            return;
+        }
+        ExecCompoundAffectationOperation par_ = (ExecCompoundAffectationOperation) parentOp_;
+        ClassMethodId classMethodId_ = par_.getClassMethodId();
+        int opDelta_ = par_.getOper().length() - 1;
+        if (classMethodId_ != null) {
+            MethodId id_ = classMethodId_.getConstraints();
+            NamedFunctionBlock operator_ = Classes.getOperatorsBodiesById(_cont, id_).first();
+            String file_ = operator_.getFile().getRenderFileName();
+            String rel_ = relativize(currentFileName_, file_ + "#m" + operator_.getNameOffset());
+            String tag_ = "<a title=\""+ transform(id_.getSignature(_cont))+"\" href=\""+rel_+"\">";
+            _parts.add(new PartOffset(tag_, offsetEnd_));
+            tag_ = "</a>";
+            _parts.add(new PartOffset(tag_,offsetEnd_+opDelta_));
+        } else if (nextSiblingOp_.getResultClass().isConvertToString() && canCallToString(nextSiblingOp_.getResultClass(),_cont)){
+            String tag_ = "<i>";
+            _parts.add(new PartOffset(tag_, offsetEnd_));
+            tag_ = "</i>";
+            _parts.add(new PartOffset(tag_,offsetEnd_+opDelta_));
+        } else if (StringList.quickEq(par_.getOper(),"??=")){
+            AbstractCoverageResult resultLast_ = getCovers(_cont, _block, nextSiblingOp_, _annotation);
+            boolean partial_ = false;
+            if (resultLast_.isStrictPartialCovered()) {
+                partial_ = true;
+            }
+            if (partial_) {
+                safe(resultLast_,_cont,offsetEnd_,_parts, opDelta_);
+            }
+        } else {
+            String b_ = _cont.getStandards().getAliasPrimBoolean();
+            if (nextSiblingOp_.getResultClass().matchClass(b_)) {
                 AbstractCoverageResult resultLast_ = getCovers(_cont, _block, nextSiblingOp_, _annotation);
                 boolean partial_ = false;
                 if (resultLast_.isStrictPartialCovered()) {
                     partial_ = true;
                 }
                 if (partial_) {
-                    safe(resultLast_,_cont,offsetEnd_,_parts, opDelta_);
-                }
-            } else {
-                String b_ = _cont.getStandards().getAliasPrimBoolean();
-                if (nextSiblingOp_.getResultClass().matchClass(b_)) {
-                    AbstractCoverageResult resultLast_ = getCovers(_cont, _block, nextSiblingOp_, _annotation);
-                    boolean partial_ = false;
-                    if (resultLast_.isStrictPartialCovered()) {
-                        partial_ = true;
-                    }
-                    if (partial_) {
-                        if(((BooleanCoverageResult)resultLast_).isCoverTrue()){
-                            String tag_ = "<a title=\""+ transform(_cont.getStandards().getDisplayedStrings().getTrueString())+"\">";
-                            _parts.add(new PartOffset(tag_, offsetEnd_));
-                            tag_ = "</a>";
-                            _parts.add(new PartOffset(tag_,offsetEnd_+opDelta_));
-                        } else {
-                            String tag_ = "<a title=\""+ transform(_cont.getStandards().getDisplayedStrings().getFalseString())+"\">";
-                            _parts.add(new PartOffset(tag_, offsetEnd_));
-                            tag_ = "</a>";
-                            _parts.add(new PartOffset(tag_,offsetEnd_+opDelta_));
-                        }
+                    if(((BooleanCoverageResult)resultLast_).isCoverTrue()){
+                        String tag_ = "<a title=\""+ transform(_cont.getStandards().getDisplayedStrings().getTrueString())+"\">";
+                        _parts.add(new PartOffset(tag_, offsetEnd_));
+                        tag_ = "</a>";
+                        _parts.add(new PartOffset(tag_,offsetEnd_+opDelta_));
+                    } else {
+                        String tag_ = "<a title=\""+ transform(_cont.getStandards().getDisplayedStrings().getFalseString())+"\">";
+                        _parts.add(new PartOffset(tag_, offsetEnd_));
+                        tag_ = "</a>";
+                        _parts.add(new PartOffset(tag_,offsetEnd_+opDelta_));
                     }
                 }
             }
-            if (par_.getSettable() instanceof ExecCustArrOperation) {
-                ExecCustArrOperation parArr_ = (ExecCustArrOperation) par_.getSettable();
-                ClassMethodId classMethodIdArr_ = parArr_.getClassMethodId();
-                String className_ = classMethodIdArr_.getClassName();
-                className_ = Templates.getIdFromAllTypes(className_);
-                MethodId methodId_ = classMethodIdArr_.getConstraints();
-                MethodId id_ = new MethodId(MethodAccessKind.INSTANCE,"[]=",methodId_.getParametersTypes(),methodId_.isVararg());
-                RootBlock type_ = (RootBlock) _cont.getClassBody(className_);
-                NamedFunctionBlock method_ = Classes.getMethodBodiesById(_cont, className_, id_).first();
-                String file_ = type_.getFile().getRenderFileName();
-                String rel_ = relativize(currentFileName_, file_ + "#m" + method_.getNameOffset());
-                String tag_ = "<a title=\""+ transform(className_ +"."+ id_.getSignature(_cont))+"\" href=\""+rel_+"\">";
-                _parts.add(new PartOffset(tag_, opDelta_+offsetEnd_));
-                tag_ = "</a>";
-                _parts.add(new PartOffset(tag_, opDelta_+offsetEnd_+1));
-            }
+        }
+        if (par_.getSettable() instanceof ExecCustArrOperation) {
+            ExecCustArrOperation parArr_ = (ExecCustArrOperation) par_.getSettable();
+            ClassMethodId classMethodIdArr_ = parArr_.getClassMethodId();
+            String className_ = classMethodIdArr_.getClassName();
+            className_ = Templates.getIdFromAllTypes(className_);
+            MethodId methodId_ = classMethodIdArr_.getConstraints();
+            MethodId id_ = new MethodId(MethodAccessKind.INSTANCE,"[]=",methodId_.getParametersTypes(),methodId_.isVararg());
+            RootBlock type_ = (RootBlock) _cont.getClassBody(className_);
+            NamedFunctionBlock method_ = Classes.getMethodBodiesById(_cont, className_, id_).first();
+            String file_ = type_.getFile().getRenderFileName();
+            String rel_ = relativize(currentFileName_, file_ + "#m" + method_.getNameOffset());
+            String tag_ = "<a title=\""+ transform(className_ +"."+ id_.getSignature(_cont))+"\" href=\""+rel_+"\">";
+            _parts.add(new PartOffset(tag_, opDelta_+offsetEnd_));
+            tag_ = "</a>";
+            _parts.add(new PartOffset(tag_, opDelta_+offsetEnd_+1));
         }
     }
 
     private static void processLogicAndOrOperation(ContextEl _cont, Block _block, boolean _annotation, int offsetEnd_, ExecOperationNode curOp_, ExecOperationNode nextSiblingOp_, ExecMethodOperation parentOp_, CustList<PartOffset> _parts) {
-        if (parentOp_ instanceof ExecQuickOperation) {
-            AbstractCoverageResult resultFirst_ = getCovers(_cont, _block, curOp_, _annotation);
-            AbstractCoverageResult resultLast_ = getCovers(_cont, _block, nextSiblingOp_, _annotation);
-            boolean partial_ = false;
-            if (!resultFirst_.isFullCovered() && resultFirst_.isPartialCovered()) {
-                partial_ = true;
+        if (!(parentOp_ instanceof ExecQuickOperation)) {
+            return;
+        }
+        AbstractCoverageResult resultFirst_ = getCovers(_cont, _block, curOp_, _annotation);
+        AbstractCoverageResult resultLast_ = getCovers(_cont, _block, nextSiblingOp_, _annotation);
+        boolean partial_ = false;
+        if (!resultFirst_.isFullCovered() && resultFirst_.isPartialCovered()) {
+            partial_ = true;
+        }
+        if (!resultLast_.isFullCovered() && resultLast_.isPartialCovered()) {
+            partial_ = true;
+        }
+        if (partial_) {
+            if(((BooleanCoverageResult)resultFirst_).isCoverTrue()){
+                String tag_ = "<a title=\""+ transform(_cont.getStandards().getDisplayedStrings().getTrueString())+"\">";
+                _parts.add(new PartOffset(tag_, offsetEnd_));
+                tag_ = "</a>";
+                _parts.add(new PartOffset(tag_,offsetEnd_+1));
+            } else {
+                String tag_ = "<a title=\""+ transform(_cont.getStandards().getDisplayedStrings().getFalseString())+"\">";
+                _parts.add(new PartOffset(tag_, offsetEnd_));
+                tag_ = "</a>";
+                _parts.add(new PartOffset(tag_,offsetEnd_+1));
             }
-            if (!resultLast_.isFullCovered() && resultLast_.isPartialCovered()) {
-                partial_ = true;
-            }
-            if (partial_) {
-                if(((BooleanCoverageResult)resultFirst_).isCoverTrue()){
-                    String tag_ = "<a title=\""+ transform(_cont.getStandards().getDisplayedStrings().getTrueString())+"\">";
-                    _parts.add(new PartOffset(tag_, offsetEnd_));
-                    tag_ = "</a>";
-                    _parts.add(new PartOffset(tag_,offsetEnd_+1));
-                } else {
-                    String tag_ = "<a title=\""+ transform(_cont.getStandards().getDisplayedStrings().getFalseString())+"\">";
-                    _parts.add(new PartOffset(tag_, offsetEnd_));
-                    tag_ = "</a>";
-                    _parts.add(new PartOffset(tag_,offsetEnd_+1));
-                }
-                if(((BooleanCoverageResult)resultLast_).isCoverTrue()){
-                    String tag_ = "<a title=\""+ transform(_cont.getStandards().getDisplayedStrings().getTrueString())+"\">";
-                    _parts.add(new PartOffset(tag_, offsetEnd_+1));
-                    tag_ = "</a>";
-                    _parts.add(new PartOffset(tag_,offsetEnd_+2));
-                } else if(((BooleanCoverageResult)resultLast_).isCoverFalse()){
+            if(((BooleanCoverageResult)resultLast_).isCoverTrue()){
+                String tag_ = "<a title=\""+ transform(_cont.getStandards().getDisplayedStrings().getTrueString())+"\">";
+                _parts.add(new PartOffset(tag_, offsetEnd_+1));
+                tag_ = "</a>";
+                _parts.add(new PartOffset(tag_,offsetEnd_+2));
+            } else {
+                if(((BooleanCoverageResult)resultLast_).isCoverFalse()){
                     String tag_ = "<a title=\""+ transform(_cont.getStandards().getDisplayedStrings().getFalseString())+"\">";
                     _parts.add(new PartOffset(tag_, offsetEnd_+1));
                     tag_ = "</a>";
@@ -1513,8 +1523,10 @@ public final class ElUtil {
     private static void safe(AbstractCoverageResult _res, ContextEl _cont, int offsetEnd_, CustList<PartOffset> _parts, int _delta) {
         if (_res instanceof NullCoverageResult) {
             nullSafe((NullCoverageResult)_res,_cont,offsetEnd_,_parts, _delta);
-        } else if (_res instanceof NullBooleanCoverageResult){
-            nullBooleanSafe((NullBooleanCoverageResult)_res,_cont,offsetEnd_,_parts, _delta);
+        } else {
+            if (_res instanceof NullBooleanCoverageResult){
+                nullBooleanSafe((NullBooleanCoverageResult)_res,_cont,offsetEnd_,_parts, _delta);
+            }
         }
     }
     private static void nullBooleanSafe(NullBooleanCoverageResult _res, ContextEl _cont, int offsetEnd_, CustList<PartOffset> _parts, int _delta) {
@@ -1597,61 +1609,62 @@ public final class ElUtil {
         String currentFileName_ = _cont.getCoverage().getCurrentFileName();
         className_ = Templates.getIdFromAllTypes(className_);
         GeneType type_ = _cont.getClassBody(className_);
-        if (isFromCustFile(type_)) {
-            if (_annotation) {
-                for (AnnotationMethodBlock m: Classes.getMethodAnnotationBodiesById((Block) type_,_id.getFieldName())) {
-                    String file_ = ((RootBlock) type_).getFile().getRenderFileName();
-                    String rel_ = relativize(currentFileName_,file_+"#m"+m.getNameOffset());
-                    String tag_ = "<a title=\""+transform(className_ +"."+ _id.getFieldName())+"\" href=\""+rel_+"\">";
-                    _parts.add(new PartOffset(tag_,_begin));
-                    tag_ = "</a>";
-                    _parts.add(new PartOffset(tag_,_begin+_length));
+        if (!isFromCustFile(type_)) {
+            return;
+        }
+        if (_annotation) {
+            for (AnnotationMethodBlock m: Classes.getMethodAnnotationBodiesById((Block) type_,_id.getFieldName())) {
+                String file_ = ((RootBlock) type_).getFile().getRenderFileName();
+                String rel_ = relativize(currentFileName_,file_+"#m"+m.getNameOffset());
+                String tag_ = "<a title=\""+transform(className_ +"."+ _id.getFieldName())+"\" href=\""+rel_+"\">";
+                _parts.add(new PartOffset(tag_,_begin));
+                tag_ = "</a>";
+                _parts.add(new PartOffset(tag_,_begin+_length));
+            }
+        } else {
+            int delta_ = -1;
+            for (Block b: Classes.getDirectChildren((Block) type_)) {
+                if (!(b instanceof FieldBlock)) {
+                    continue;
                 }
+                FieldBlock f_ = (FieldBlock) b;
+                int i_ = 0;
+                int index_ = -1;
+                for (String n: f_.getFieldName()) {
+                    if (StringList.quickEq(n, _id.getFieldName())) {
+                        index_ = i_;
+                        break;
+                    }
+                    i_++;
+                }
+                if (index_ > -1) {
+                    delta_ = f_.getValuesOffset().get(index_);
+                }
+            }
+            if (delta_ > -1) {
+                String file_ = ((RootBlock) type_).getFile().getRenderFileName();
+                String rel_ = relativize(currentFileName_,file_+"#m"+delta_);
+                String tag_ = "<a title=\""+transform(className_ +"."+ _id.getFieldName())+"\" href=\""+rel_+"\">";
+                _parts.add(new PartOffset(tag_,_begin));
+                tag_ = "</a>";
+                _parts.add(new PartOffset(tag_,_begin+_length));
             } else {
-                int delta_ = -1;
                 for (Block b: Classes.getDirectChildren((Block) type_)) {
-                    if (!(b instanceof FieldBlock)) {
+                    if (!(b instanceof InnerTypeOrElement)) {
                         continue;
                     }
-                    FieldBlock f_ = (FieldBlock) b;
-                    int i_ = 0;
-                    int index_ = -1;
-                    for (String n: f_.getFieldName()) {
-                        if (StringList.quickEq(n, _id.getFieldName())) {
-                            index_ = i_;
-                            break;
-                        }
-                        i_++;
+                    InnerTypeOrElement f_ = (InnerTypeOrElement)b;
+                    if (!StringList.quickEq(f_.getUniqueFieldName(),_id.getFieldName())) {
+                        continue;
                     }
-                    if (index_ > -1) {
-                        delta_ = f_.getValuesOffset().get(index_);
-                    }
+                    delta_ = f_.getFieldNameOffset();
                 }
-                if (delta_ > -1) {
-                    String file_ = ((RootBlock) type_).getFile().getRenderFileName();
-                    String rel_ = relativize(currentFileName_,file_+"#m"+delta_);
-                    String tag_ = "<a title=\""+transform(className_ +"."+ _id.getFieldName())+"\" href=\""+rel_+"\">";
-                    _parts.add(new PartOffset(tag_,_begin));
-                    tag_ = "</a>";
-                    _parts.add(new PartOffset(tag_,_begin+_length));
-                } else {
-                    for (Block b: Classes.getDirectChildren((Block) type_)) {
-                        if (!(b instanceof InnerTypeOrElement)) {
-                            continue;
-                        }
-                        InnerTypeOrElement f_ = (InnerTypeOrElement)b;
-                        if (!StringList.quickEq(f_.getUniqueFieldName(),_id.getFieldName())) {
-                            continue;
-                        }
-                        delta_ = f_.getFieldNameOffset();
-                    }
-                    String file_ = ((RootBlock) type_).getFile().getRenderFileName();
-                    String rel_ = relativize(currentFileName_,file_+"#m"+delta_);
-                    String tag_ = "<a title=\""+transform(className_ +"."+ _id.getFieldName())+"\" href=\""+rel_+"\">";
-                    _parts.add(new PartOffset(tag_,_begin));
-                    tag_ = "</a>";
-                    _parts.add(new PartOffset(tag_,_begin+_length));
-                }
+                String file_ = ((RootBlock) type_).getFile().getRenderFileName();
+                String rel_ = relativize(currentFileName_,file_+"#m"+delta_);
+                String tag_ = "<a title=\""+transform(className_ +"."+ _id.getFieldName())+"\" href=\""+rel_+"\">";
+                _parts.add(new PartOffset(tag_,_begin));
+                tag_ = "</a>";
+                _parts.add(new PartOffset(tag_,_begin+_length));
             }
         }
     }
@@ -1843,11 +1856,9 @@ public final class ElUtil {
         ExecOperationNode current_ = _root;
         while (current_ != null) {
             ExecOperationNode op_ = current_.getFirstChild();
-            if (op_ != null) {
-                if (current_.getArgument() == null) {
-                    current_ = op_;
-                    continue;
-                }
+            if (op_ != null && current_.getArgument() == null) {
+                current_ = op_;
+                continue;
             }
             while (true) {
                 current_.setOrder(out_.size());
