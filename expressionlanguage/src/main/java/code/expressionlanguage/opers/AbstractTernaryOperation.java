@@ -159,12 +159,6 @@ public abstract class AbstractTernaryOperation extends MethodOperation {
                     type_ = ret_;
                 }
             }
-        } else if (m_ == null && cur_ instanceof ForEachLoop) {
-            ForEachLoop i_ = (ForEachLoop) _conf.getCurrentBlock();
-            type_ = i_.getImportedClassName();
-            if (!type_.isEmpty()) {
-                type_ = PrimitiveTypeUtil.getPrettyArrayType(type_);
-            }
         } else if (m_ instanceof AffectationOperation) {
             AffectationOperation a_ = (AffectationOperation) m_;
             SettableElResult s_ = AffectationOperation.tryGetSettable(a_);
@@ -176,11 +170,7 @@ public abstract class AbstractTernaryOperation extends MethodOperation {
         KeyWords keyWords_ = _conf.getKeyWords();
         String keyWordVar_ = keyWords_.getKeyWordVar();
         ResultTernary res_ = PrimitiveTypeUtil.getResultTernary(one_, firstArg_, two_, secondArg_, vars_, _conf);
-        Mapping mapping_ = new Mapping();
-        mapping_.setMapping(vars_);
-        mapping_.setArg(new ClassArgumentMatching(res_.getTypes()));
-        mapping_.setParam(new ClassArgumentMatching(type_));
-        if (!type_.isEmpty() && !StringList.quickEq(type_, keyWordVar_)&&Templates.isCorrectOrNumbers(mapping_, _conf)) {
+        if (!type_.isEmpty() && !StringList.quickEq(type_, keyWordVar_)) {
             if (PrimitiveTypeUtil.isPrimitive(type_, _conf)) {
                 opTwo_.getResultClass().setUnwrapObject(type_);
                 opThree_.getResultClass().setUnwrapObject(type_);
