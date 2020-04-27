@@ -157,7 +157,6 @@ public final class FileResolver {
                     str_.append(currentChar_);
                 }
             }
-
             i_ = i_ + 1;
         }
         if (i_ >= len_) {
