@@ -48,7 +48,6 @@ public final class FileResolver {
         cls_.putFileBlock(_fileName, fileBlock_);
         StringList importedTypes_ = new StringList();
         StringBuilder str_ = new StringBuilder();
-        int instLen_ = 0;
         KeyWords keyWords_ = _context.getKeyWords();
         String keyWordOperator_ = keyWords_.getKeyWordOperator();
         String keyWordPackage_ = keyWords_.getKeyWordPackage();
@@ -126,7 +125,7 @@ public final class FileResolver {
             if (currentChar_ == ANNOT) {
                 break;
             }
-            if (instLen_ == 0) {
+            if (str_.toString().trim().isEmpty()) {
                 boolean skip_= false;
                 for (CommentDelimiters c: comments_) {
                     if (_file.startsWith(c.getBegin(),i_)) {
@@ -145,14 +144,12 @@ public final class FileResolver {
                 importedTypes_.add(str_.toString());
                 offsetsImports_.add(indexImport_);
                 str_.delete(0, str_.length());
-                instLen_ = 0;
             } else {
                 if (!Character.isWhitespace(currentChar_)) {
                     if (str_.length() == 0) {
                         indexImport_ = i_;
                     }
                     str_.append(currentChar_);
-                    instLen_++;
                 } else {
                     str_.append(currentChar_);
                 }
