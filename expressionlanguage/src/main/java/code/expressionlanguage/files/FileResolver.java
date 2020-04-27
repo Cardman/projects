@@ -66,103 +66,78 @@ public final class FileResolver {
         }
         int i_ = CustList.FIRST_INDEX;
         int len_ = _file.length();
-        boolean commentedSingleLine_ = false;
-        boolean commentedMultiLine_ = false;
+        CustList<CommentDelimiters> comments_ = new CustList<CommentDelimiters>();
+        comments_.add(new CommentDelimiters("//","\n"));
+        comments_.add(new CommentDelimiters("/*","*/"));
         int indexImport_ = 0;
         Ints badIndexes_ = new Ints();
         Ints offsetsImports_ = new Ints();
+        CommentDelimiters current_ = null;
         while (i_ < len_) {
             char currentChar_ = _file.charAt(i_);
-            if (commentedSingleLine_) {
-                if (currentChar_ == LINE_RETURN) {
-                    commentedSingleLine_ = false;
-                    fileBlock_.getEndComments().add(i_-1);
+            if (current_ != null) {
+                String end_ = current_.getEnd();
+                if (_file.startsWith(end_,i_)) {
+                    i_ += end_.length();
+                    if (StringList.quickEq(end_,"\n")) {
+                        fileBlock_.getEndComments().add(i_-2);
+                    } else {
+                        fileBlock_.getEndComments().add(i_-1);
+                    }
+                    current_ = null;
+                    continue;
                 }
-
-                i_ = i_ + 1;
+                i_++;
                 continue;
             }
-            if (commentedMultiLine_) {
-                if (currentChar_ == SECOND_COMMENT) {
-                    if (i_ + 1 >= len_) {
-                        //ERROR
-                        badIndexes_.add(i_);
-                        break;
-                    }
-                    char nextChar_ = _file.charAt(i_ + 1);
-                    if (nextChar_ == BEGIN_COMMENT) {
-                        commentedMultiLine_ = false;
-
-                        i_ = i_ + 1;
-                        fileBlock_.getEndComments().add(i_);
-
-                        i_ = i_ + 1;
-                        continue;
-                    }
-                }
-
-                i_ = i_ + 1;
-                continue;
-            }
-            if (_file.indexOf(keyWordPublic_, i_) == i_) {
+            if (StringExpUtil.startsWithKeyWord(_file,i_,keyWordPublic_)) {
                 break;
             }
-            if (_file.indexOf(keyWordOperator_, i_) == i_) {
+            if (StringExpUtil.startsWithKeyWord(_file,i_,keyWordOperator_)) {
                 break;
             }
-            if (_file.indexOf(keyWordProtected_, i_) == i_) {
+            if (StringExpUtil.startsWithKeyWord(_file,i_,keyWordProtected_)) {
                 break;
             }
-            if (_file.indexOf(keyWordPackage_, i_) == i_) {
+            if (StringExpUtil.startsWithKeyWord(_file,i_,keyWordPackage_)) {
                 break;
             }
-            if (_file.indexOf(keyWordPrivate_, i_) == i_) {
+            if (StringExpUtil.startsWithKeyWord(_file,i_,keyWordPrivate_)) {
                 break;
             }
-            if (_file.indexOf(keyWordAbstract_, i_) == i_) {
+            if (StringExpUtil.startsWithKeyWord(_file,i_,keyWordAbstract_)) {
                 break;
             }
-            if (_file.indexOf(keyWordAnnotation_, i_) == i_) {
+            if (StringExpUtil.startsWithKeyWord(_file,i_,keyWordAnnotation_)) {
                 break;
             }
-            if (_file.indexOf(keyWordClass_, i_) == i_) {
+            if (StringExpUtil.startsWithKeyWord(_file,i_,keyWordClass_)) {
                 break;
             }
-            if (_file.indexOf(keyWordEnum_, i_) == i_) {
+            if (StringExpUtil.startsWithKeyWord(_file,i_,keyWordEnum_)) {
                 break;
             }
-            if (_file.indexOf(keyWordFinal_, i_) == i_) {
+            if (StringExpUtil.startsWithKeyWord(_file,i_,keyWordFinal_)) {
                 break;
             }
-            if (_file.indexOf(keyWordInterface_, i_) == i_) {
+            if (StringExpUtil.startsWithKeyWord(_file,i_,keyWordInterface_)) {
                 break;
             }
             if (currentChar_ == ANNOT) {
                 break;
             }
-            if (currentChar_ == BEGIN_COMMENT && instLen_ == 0) {
-                if (i_ + 1 >= len_) {
-                    //ERROR
-                    badIndexes_.add(i_);
-                    break;
+            if (instLen_ == 0) {
+                boolean skip_= false;
+                for (CommentDelimiters c: comments_) {
+                    if (_file.startsWith(c.getBegin(),i_)) {
+                        current_ = c;
+                        fileBlock_.getBeginComments().add(i_);
+                        i_ += c.getBegin().length();
+                        skip_ = true;
+                        break;
+                    }
                 }
-                char nextChar_ = _file.charAt(i_ + 1);
-                if (nextChar_ == BEGIN_COMMENT) {
-                    commentedSingleLine_ = true;
-                    fileBlock_.getBeginComments().add(i_);
-
-                    i_ = i_ + 1;
-
-                    i_ = i_ + 1;
-                    continue;
-                }
-                if (nextChar_ == SECOND_COMMENT) {
-                    commentedMultiLine_ = true;
-                    fileBlock_.getBeginComments().add(i_);
-
-                    i_ = i_ + 1;
-
-                    i_ = i_ + 1;
+                if (skip_) {
                     continue;
                 }
             }
@@ -286,35 +261,25 @@ public final class FileResolver {
             i_ = res_.getNextIndex();
             boolean hasNext_ = false;
             boolean ended_ = true;
+            current_ = null;
             while (i_ < len_) {
                 char currentChar_ = _file.charAt(i_);
-                if (commentedSingleLine_) {
-                    if (currentChar_ == LINE_RETURN) {
-                        commentedSingleLine_ = false;
-                        fileBlock_.getEndComments().add(i_-1);
-                    }
-
-                    i_ = i_ + 1;
-                    continue;
-                }
-                if (commentedMultiLine_) {
-                    if (currentChar_ == SECOND_COMMENT) {
-                        if (i_ + 1 >= len_) {
-                            break;
+                if (current_ != null) {
+                    String end_ = current_.getEnd();
+                    if (_file.startsWith(end_,i_)) {
+                        i_ += end_.length();
+                        if (StringList.quickEq(end_,"\n")) {
+                            fileBlock_.getEndComments().add(i_-2);
+                        } else {
+                            fileBlock_.getEndComments().add(i_-1);
                         }
-                        char nextChar_ = _file.charAt(i_ + 1);
-                        if (nextChar_ == BEGIN_COMMENT) {
-                            commentedMultiLine_ = false;
-
-                            i_ = i_ + 1;
-                            fileBlock_.getEndComments().add(i_);
-
-                            i_ = i_ + 1;
-                            continue;
-                        }
+                        current_ = null;
+                        continue;
                     }
-
-                    i_ = i_ + 1;
+                    if (i_ + end_.length() >= _file.length()) {
+                        break;
+                    }
+                    i_++;
                     continue;
                 }
                 if (StringList.isDollarWordChar(currentChar_)) {
@@ -327,38 +292,23 @@ public final class FileResolver {
                     ended_ = false;
                     break;
                 }
-                if (currentChar_ == BEGIN_COMMENT) {
-                    if (i_ + 1 >= len_) {
+                boolean skip_= false;
+                for (CommentDelimiters c: comments_) {
+                    if (_file.startsWith(c.getBegin(),i_)) {
+                        current_ = c;
+                        fileBlock_.getBeginComments().add(i_);
+                        i_ += c.getBegin().length();
+                        skip_ = true;
                         break;
                     }
-                    char nextChar_ = _file.charAt(i_ + 1);
-                    if (nextChar_ == BEGIN_COMMENT) {
-                        commentedSingleLine_ = true;
-                        fileBlock_.getBeginComments().add(i_);
-
-                        i_ = i_ + 1;
-
-                        i_ = i_ + 1;
-                        continue;
-                    }
-                    if (nextChar_ == SECOND_COMMENT) {
-                        commentedMultiLine_ = true;
-                        fileBlock_.getBeginComments().add(i_);
-
-                        i_ = i_ + 1;
-
-                        i_ = i_ + 1;
-                        continue;
-                    }
-                    //ERROR
-                    badIndexes_.add(i_);
-                    ended_ = false;
-                    break;
+                }
+                if (skip_) {
+                    continue;
                 }
 
                 i_ = i_ + 1;
             }
-            if (ended_ && (commentedSingleLine_ || commentedMultiLine_)) {
+            if (ended_ && current_ != null) {
                 fileBlock_.getEndComments().add(len_ - 1);
             }
             if (!hasNext_) {
