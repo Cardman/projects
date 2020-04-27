@@ -707,8 +707,6 @@ public final class FileResolver {
         FileBlock fileBlock_ = _input.getFile();
         Ints badIndexes_ = _input.getBadIndexes();
         Ints parentheses_ = new Ints();
-        boolean commentedSingleLine_ = false;
-        boolean commentedMultiLine_ = false;
         boolean constChar_ = false;
         boolean constString_ = false;
         boolean constText_ = false;
@@ -723,41 +721,27 @@ public final class FileResolver {
         after_.setIndex(i_);
         after_.setParent(currentParent_);
         int ltGt_ = 0;
+        CustList<CommentDelimiters> comments_ = new CustList<CommentDelimiters>();
+        comments_.add(new CommentDelimiters("//","\n"));
+        comments_.add(new CommentDelimiters("/*","*/"));
+        CommentDelimiters current_ = null;
         while (i_ < len_) {
             char currentChar_ = _file.charAt(i_);
-            if (commentedSingleLine_) {
-                if (currentChar_ == LINE_RETURN) {
-                    commentedSingleLine_ = false;
+            if (current_ != null) {
+                String end_ = current_.getEnd();
+                if (_file.startsWith(end_,i_)) {
+                    i_ += end_.length();
+                    if (StringList.quickEq(end_,"\n")) {
+                        fileBlock_.getEndComments().add(i_-2);
+                    } else {
+                        fileBlock_.getEndComments().add(i_-1);
+                    }
                     instruction_.delete(0, instruction_.length());
                     instLen_ = 0;
-                    fileBlock_.getEndComments().add(i_-1);
+                    current_ = null;
+                    continue;
                 }
-
-                i_ = i_ + 1;
-                continue;
-            }
-            if (commentedMultiLine_) {
-                if (currentChar_ == SECOND_COMMENT) {
-                    if (i_ + 1 >= len_) {
-                        //ERROR
-                        badIndexes_.add(i_);
-                        break;
-                    }
-                    char nextChar_ = _file.charAt(i_ + 1);
-                    if (nextChar_ == BEGIN_COMMENT) {
-                        commentedMultiLine_ = false;
-                        instruction_.delete(0, instruction_.length());
-                        instLen_ = 0;
-
-                        i_ = i_ + 1;
-                        fileBlock_.getEndComments().add(i_);
-
-                        i_ = i_ + 1;
-                        continue;
-                    }
-                }
-
-                i_ = i_ + 1;
+                i_++;
                 continue;
             }
             if (constChar_) {
@@ -841,29 +825,18 @@ public final class FileResolver {
                 i_ = i_ + 1;
                 continue;
             }
-            if (currentChar_ == BEGIN_COMMENT) {
-                if (i_ + 1 >= len_) {
-                    //ERROR
-                    badIndexes_.add(i_);
-                    break;
+            if (instLen_ == 0) {
+                boolean skip_= false;
+                for (CommentDelimiters c: comments_) {
+                    if (_file.startsWith(c.getBegin(),i_)) {
+                        current_ = c;
+                        fileBlock_.getBeginComments().add(i_);
+                        i_ += c.getBegin().length();
+                        skip_ = true;
+                        break;
+                    }
                 }
-                char nextChar_ = _file.charAt(i_ + 1);
-                if (nextChar_ == BEGIN_COMMENT && instLen_ == 0) {
-                    fileBlock_.getBeginComments().add(i_);
-                    commentedSingleLine_ = true;
-
-                    i_ = i_ + 1;
-
-                    i_ = i_ + 1;
-                    continue;
-                }
-                if (nextChar_ == SECOND_COMMENT && instLen_ == 0) {
-                    fileBlock_.getBeginComments().add(i_);
-                    commentedMultiLine_ = true;
-
-                    i_ = i_ + 1;
-
-                    i_ = i_ + 1;
+                if (skip_) {
                     continue;
                 }
             }
