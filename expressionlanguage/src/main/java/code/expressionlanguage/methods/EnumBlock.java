@@ -1,6 +1,5 @@
 package code.expressionlanguage.methods;
 
-import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.files.OffsetAccessInfo;
 import code.expressionlanguage.files.OffsetsBlock;
@@ -29,16 +28,6 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock,Acce
     @Override
     public void setupBasicOverrides(ContextEl _context) {
         checkAccess(_context);
-    }
-
-    @Override
-    public StringList getDirectGenericSuperTypes(Analyzable _classes) {
-        StringList interfaces_ = new StringList();
-        if (!StringList.quickEq(importedDirectSuperClass, _classes.getStandards().getAliasObject())) {
-            interfaces_.add(importedDirectSuperClass);
-        }
-        interfaces_.addAllElts(importedDirectSuperInterfaces);
-        return interfaces_;
     }
 
     @Override

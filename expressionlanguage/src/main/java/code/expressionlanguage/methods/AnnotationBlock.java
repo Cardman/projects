@@ -1,6 +1,5 @@
 package code.expressionlanguage.methods;
 
-import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.files.OffsetAccessInfo;
 import code.expressionlanguage.files.OffsetsBlock;
@@ -24,11 +23,6 @@ public final class AnnotationBlock extends RootBlock implements AccessibleBlock 
     @Override
     public boolean isStaticType() {
         return true;
-    }
-
-    @Override
-    public StringList getDirectGenericSuperTypes(Analyzable _classes) {
-        return new StringList(importedDirectSuperInterfaces);
     }
 
     @Override

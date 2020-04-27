@@ -593,7 +593,7 @@ public final class TypeUtil {
                 }
                 RootBlock sub_ = (RootBlock)g_;
                 added(_innerName, false, owners_, s, sub_);
-                for (String t: sub_.getDirectGenericSuperTypes(_an)) {
+                for (String t: sub_.getImportedDirectSuperTypes()) {
                     if (!Templates.correctNbParameters(s,_an)) {
                         String format_ = Templates.getIdFromAllTypes(t);
                         GeneType sup_ = _an.getClassBody(format_);

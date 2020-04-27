@@ -598,6 +598,54 @@ public final class ProcessMethodWildCardBisTest extends ProcessMethodCommon {
         assertEq(2, ((NumberStruct)field_).intStruct());
     }
     @Test
+    public void instanceArgument143_Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public pkg.ExTwo<java.lang.Number> inst=$new pkg.ExThree<java.lang.Number>();\n");
+        xml_.append(" $public $int ance;\n");
+        xml_.append(" {\n");
+        xml_.append("  $try{\n");
+        xml_.append("   ance=inst.$classchoice(pkg.ExTwo<!java.lang.Object>)get(8i,\"\");\n");
+        xml_.append("  }\n");
+        xml_.append("  $catch(code.expressionlanguage.exceptions.DynamicCastClassException e){\n");
+        xml_.append("   ance=2i;\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo<#T> {\n");
+        xml_.append(" $public $normal $int get(#T... i){\n");
+        xml_.append("  $return 1i;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExThree<#U> :pkg.ExTwo<#U>{\n");
+        xml_.append(" $public $normal $int get(#U... i){\n");
+        xml_.append("  $return 3i;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExThree", xml_.toString());
+        ContextEl cont_ = contextElDefault();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        ConstructorId id_ = getConstructorId("pkg.Ex");
+
+        Argument ret_;
+        ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
+        Struct str_ = ret_.getStruct();
+        assertEq("pkg.Ex", str_.getClassName(cont_));
+        Struct field_;
+        field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.Ex", "inst"));
+        assertEq("pkg.ExThree<java.lang.Number>", field_.getClassName(cont_));
+        field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.Ex", "ance"));
+        assertEq(INTEGER, field_.getClassName(cont_));
+        assertEq(2, ((NumberStruct)field_).intStruct());
+    }
+    @Test
     public void instanceArgument1431Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex<#T> {\n");

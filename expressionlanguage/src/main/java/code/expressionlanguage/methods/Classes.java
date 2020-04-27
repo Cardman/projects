@@ -597,7 +597,7 @@ public final class Classes {
                 p_ = p_.getParentType();
             }
             for (String s: c.getImportedDirectSuperTypes()) {
-                GeneType s_ = _context.getClassBody(s);
+                GeneType s_ = _context.getClassBody(Templates.getIdFromAllTypes(s));
                 if (!(s_ instanceof RootBlock)) {
                     continue;
                 }
@@ -1102,7 +1102,7 @@ public final class Classes {
                     }
                 }
             }
-            for (String t: s.getDirectGenericSuperTypes(_context)) {
+            for (String t: s.getImportedDirectSuperTypes()) {
                 if (!Templates.isCorrectTemplateAll(t, map_, _context)) {
                     FoundErrorInterpret un_ = new FoundErrorInterpret();
                     un_.setFileName(s.getFile().getFileName());

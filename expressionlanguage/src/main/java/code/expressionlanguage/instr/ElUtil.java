@@ -4,6 +4,7 @@ import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.calls.AbstractPageEl;
+import code.expressionlanguage.common.FunctionIdUtil;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
@@ -831,7 +832,13 @@ public final class ElUtil {
             String annotation_ = a_.getAnnotation();
             ClassField c_ = new ClassField(annotation_,fieldName_);
             int delta_ = a_.getSum();
-            updateFieldAnchor(_cont,_parts,c_,sum_ +delta_+ val_.getIndexInEl(),fieldName_.length(),true);
+            String className_ = c_.getClassName();
+            String currentFileName_ = _cont.getCoverage().getCurrentFileName();
+            className_ = Templates.getIdFromAllTypes(className_);
+            addParts(_cont,currentFileName_,className_,
+                    new MethodId(MethodAccessKind.INSTANCE,c_.getFieldName(),new StringList()),
+                    sum_ +delta_+ val_.getIndexInEl(),fieldName_.length(),_parts
+            );
         }
     }
 
@@ -889,7 +896,7 @@ public final class ElUtil {
                 _parts.addAllElts(((SettableAbstractFieldOperation) val_).getPartOffsets());
                 ClassField c_ = ((ExecSettableFieldOperation)curOp_).getFieldId();
                 int delta_ = ((SettableAbstractFieldOperation) val_).getOff();
-                updateFieldAnchor(_cont,_parts,c_,sum_ +delta_+ val_.getIndexInEl() + ((ExecSettableFieldOperation)curOp_).getDelta(),c_.getFieldName().length(),false);
+                updateFieldAnchor(_cont,_parts,c_,sum_ +delta_+ val_.getIndexInEl() + ((ExecSettableFieldOperation)curOp_).getDelta(),c_.getFieldName().length());
             }
         }
     }
@@ -1068,7 +1075,7 @@ public final class ElUtil {
                     off_+sum_ + val_.getIndexInEl(),_cont.getKeyWords().getKeyWordLambda().length(),
                     _parts);
         } else {
-            updateFieldAnchor(_cont,_parts,fieldId_,off_+sum_ + val_.getIndexInEl(),_cont.getKeyWords().getKeyWordLambda().length(),false);
+            updateFieldAnchor(_cont,_parts,fieldId_,off_+sum_ + val_.getIndexInEl(),_cont.getKeyWords().getKeyWordLambda().length());
         }
         _parts.addAllElts(((LambdaOperation)val_).getPartOffsets());
     }
@@ -1457,8 +1464,7 @@ public final class ElUtil {
             return;
         }
         String cl_ = Templates.getIdFromAllTypes(_className);
-        GeneType type_ = _cont.getClassBody(cl_);
-        String rel_ = getRelativize(_cont, _currentFileName, _className, _id, type_);
+        String rel_ = getRelativize(_cont, _currentFileName, _className, _id);
         if (rel_.isEmpty()) {
             return;
         }
@@ -1476,33 +1482,28 @@ public final class ElUtil {
         tag_ = "</a>";
         _parts.add(new PartOffset(tag_,_begin+_length));
     }
-    private static String getRelativize(ContextEl _cont, String _currentFileName, String _className, Identifiable _id, GeneType _type) {
+    private static String getRelativize(ContextEl _cont, String _currentFileName, String _className, Identifiable _id) {
         String rel_;
-        if (_type instanceof AnnotationBlock) {
-            CustList<AnnotationMethodBlock> list_ = Classes.getMethodAnnotationBodiesById((RootBlock) _type, _id.getName());
-            AnnotationMethodBlock annotAt_ = list_.first();
-            rel_ = relativize(_currentFileName, annotAt_.getFile().getRenderFileName() + "#m" + annotAt_.getNameOffset());
-        } else if (_id instanceof MethodId){
-            if (!StringList.isDollarWord(_id.getName()) && !_id.getName().startsWith("[]")) {
-                NamedFunctionBlock operator_ = Classes.getOperatorsBodiesById(_cont, (MethodId) _id).first();
-                String file_ = operator_.getFile().getRenderFileName();
-                rel_ = relativize(_currentFileName, file_ + "#m" + operator_.getNameOffset());
-            } else {
-                if (!isFromCustFile(_type)) {
-                    return "";
-                }
-                NamedFunctionBlock method_;
-                CustList<NamedFunctionBlock> methods_ = Classes.getMethodBodiesById(_cont, _className, (MethodId) _id);
-                if (methods_.isEmpty()) {
-                    return "";
-                }
-                method_ = methods_.first();
-                rel_ = relativize(_currentFileName, method_.getFile().getRenderFileName() + "#m" + method_.getNameOffset());
-            }
-        } else {
-            if (!isFromCustFile(_type)) {
+        if (_id instanceof MethodId && FunctionIdUtil.isOperatorName(_id)) {
+            NamedFunctionBlock operator_ = Classes.getOperatorsBodiesById(_cont, (MethodId) _id).first();
+            String file_ = operator_.getFile().getRenderFileName();
+            rel_ = relativize(_currentFileName, file_ + "#m" + operator_.getNameOffset());
+            return rel_;
+        }
+        String cl_ = Templates.getIdFromAllTypes(_className);
+        GeneType type_ = _cont.getClassBody(cl_);
+        if (!isFromCustFile(type_)) {
+            return "";
+        }
+        if (_id instanceof MethodId){
+            NamedFunctionBlock method_;
+            CustList<NamedFunctionBlock> methods_ = Classes.getMethodBodiesById(_cont, _className, (MethodId) _id);
+            if (methods_.isEmpty()) {
                 return "";
             }
+            method_ = methods_.first();
+            rel_ = relativize(_currentFileName, method_.getFile().getRenderFileName() + "#m" + method_.getNameOffset());
+        } else {
             CustList<ConstructorBlock> ctors_ = Classes.getConstructorBodiesById(_cont, _className, (ConstructorId) _id);
             if (ctors_.isEmpty()) {
                 return "";
@@ -1532,7 +1533,7 @@ public final class ElUtil {
         return _cont.getCoverage().getMapping().getVal(_block).getVal(_curOp);
     }
 
-    private static void updateFieldAnchor(ContextEl _cont,CustList<PartOffset> _parts,ClassField _id, int _begin, int _length, boolean _annotation) {
+    private static void updateFieldAnchor(ContextEl _cont, CustList<PartOffset> _parts, ClassField _id, int _begin, int _length) {
         String className_ = _id.getClassName();
         String currentFileName_ = _cont.getCoverage().getCurrentFileName();
         className_ = Templates.getIdFromAllTypes(className_);
@@ -1540,60 +1541,49 @@ public final class ElUtil {
         if (!isFromCustFile(type_)) {
             return;
         }
-        if (_annotation) {
-            for (AnnotationMethodBlock m: Classes.getMethodAnnotationBodiesById((Block) type_,_id.getFieldName())) {
-                String file_ = ((RootBlock) type_).getFile().getRenderFileName();
-                String rel_ = relativize(currentFileName_,file_+"#m"+m.getNameOffset());
-                String tag_ = "<a title=\""+transform(className_ +"."+ _id.getFieldName())+"\" href=\""+rel_+"\">";
-                _parts.add(new PartOffset(tag_,_begin));
-                tag_ = "</a>";
-                _parts.add(new PartOffset(tag_,_begin+_length));
+        int delta_ = -1;
+        for (Block b: Classes.getDirectChildren((Block) type_)) {
+            if (!(b instanceof FieldBlock)) {
+                continue;
             }
+            FieldBlock f_ = (FieldBlock) b;
+            int i_ = 0;
+            int index_ = -1;
+            for (String n: f_.getFieldName()) {
+                if (StringList.quickEq(n, _id.getFieldName())) {
+                    index_ = i_;
+                    break;
+                }
+                i_++;
+            }
+            if (index_ > -1) {
+                delta_ = f_.getValuesOffset().get(index_);
+            }
+        }
+        if (delta_ > -1) {
+            String file_ = ((RootBlock) type_).getFile().getRenderFileName();
+            String rel_ = relativize(currentFileName_,file_+"#m"+delta_);
+            String tag_ = "<a title=\""+transform(className_ +"."+ _id.getFieldName())+"\" href=\""+rel_+"\">";
+            _parts.add(new PartOffset(tag_,_begin));
+            tag_ = "</a>";
+            _parts.add(new PartOffset(tag_,_begin+_length));
         } else {
-            int delta_ = -1;
             for (Block b: Classes.getDirectChildren((Block) type_)) {
-                if (!(b instanceof FieldBlock)) {
+                if (!(b instanceof InnerTypeOrElement)) {
                     continue;
                 }
-                FieldBlock f_ = (FieldBlock) b;
-                int i_ = 0;
-                int index_ = -1;
-                for (String n: f_.getFieldName()) {
-                    if (StringList.quickEq(n, _id.getFieldName())) {
-                        index_ = i_;
-                        break;
-                    }
-                    i_++;
+                InnerTypeOrElement f_ = (InnerTypeOrElement)b;
+                if (!StringList.quickEq(f_.getUniqueFieldName(),_id.getFieldName())) {
+                    continue;
                 }
-                if (index_ > -1) {
-                    delta_ = f_.getValuesOffset().get(index_);
-                }
+                delta_ = f_.getFieldNameOffset();
             }
-            if (delta_ > -1) {
-                String file_ = ((RootBlock) type_).getFile().getRenderFileName();
-                String rel_ = relativize(currentFileName_,file_+"#m"+delta_);
-                String tag_ = "<a title=\""+transform(className_ +"."+ _id.getFieldName())+"\" href=\""+rel_+"\">";
-                _parts.add(new PartOffset(tag_,_begin));
-                tag_ = "</a>";
-                _parts.add(new PartOffset(tag_,_begin+_length));
-            } else {
-                for (Block b: Classes.getDirectChildren((Block) type_)) {
-                    if (!(b instanceof InnerTypeOrElement)) {
-                        continue;
-                    }
-                    InnerTypeOrElement f_ = (InnerTypeOrElement)b;
-                    if (!StringList.quickEq(f_.getUniqueFieldName(),_id.getFieldName())) {
-                        continue;
-                    }
-                    delta_ = f_.getFieldNameOffset();
-                }
-                String file_ = ((RootBlock) type_).getFile().getRenderFileName();
-                String rel_ = relativize(currentFileName_,file_+"#m"+delta_);
-                String tag_ = "<a title=\""+transform(className_ +"."+ _id.getFieldName())+"\" href=\""+rel_+"\">";
-                _parts.add(new PartOffset(tag_,_begin));
-                tag_ = "</a>";
-                _parts.add(new PartOffset(tag_,_begin+_length));
-            }
+            String file_ = ((RootBlock) type_).getFile().getRenderFileName();
+            String rel_ = relativize(currentFileName_,file_+"#m"+delta_);
+            String tag_ = "<a title=\""+transform(className_ +"."+ _id.getFieldName())+"\" href=\""+rel_+"\">";
+            _parts.add(new PartOffset(tag_,_begin));
+            tag_ = "</a>";
+            _parts.add(new PartOffset(tag_,_begin+_length));
         }
     }
     public static String relativize(String _currentFile,String _refFile) {

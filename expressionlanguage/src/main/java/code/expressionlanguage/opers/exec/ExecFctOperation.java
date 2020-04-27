@@ -2,13 +2,11 @@ package code.expressionlanguage.opers.exec;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.FctOperation;
 import code.expressionlanguage.opers.util.ClassMethodId;
-import code.expressionlanguage.opers.util.MethodAccessKind;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.ArrayStruct;
@@ -59,7 +57,7 @@ public final class ExecFctOperation extends ExecInvokingOperation implements Nam
     public void quickCalculate(Analyzable _conf) {
         FctOperation.tryGetArg(this, getPreviousArgument(),_conf, classMethodId, naturalVararg, lastType);
     }
-    Argument getArgument(Argument _previous, CustList<Argument> _arguments, ExecutableCode _conf) {
+    Argument getArgument(Argument _previous, CustList<Argument> _arguments, ContextEl _conf) {
         CustList<ExecOperationNode> chidren_ = getChildrenNodes();
         int off_ = StringList.getFirstPrintableCharIndex(methodName);
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
@@ -78,21 +76,20 @@ public final class ExecFctOperation extends ExecInvokingOperation implements Nam
                 return callPrepare(_conf, classNameFound_, methodId_, _previous, firstArgs_, null);
             }
             prev_.setStruct(PrimitiveTypeUtil.getParent(anc, classNameFound_, argPrev_, _conf));
-            if (_conf.getContextEl().callsOrException()) {
+            if (_conf.callsOrException()) {
                 return new Argument();
             }
             String base_ = Templates.getIdFromAllTypes(classNameFound_);
             if (staticChoiceMethod) {
-                String argClassName_ = prev_.getObjectClassName(_conf.getContextEl());
+                String argClassName_ = prev_.getObjectClassName(_conf);
                 String fullClassNameFound_ = Templates.getFullTypeByBases(argClassName_, base_, _conf);
                 lastType_ = Templates.quickFormat(fullClassNameFound_, lastType_, _conf);
                 firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, _arguments, _conf);
                 methodId_ = classMethodId.getConstraints();
             } else {
                 Struct previous_ = prev_.getStruct();
-                ContextEl context_ = _conf.getContextEl();
-                ClassMethodId methodToCall_ = polymorph(context_, previous_, classMethodId);
-                String argClassName_ = stds_.getStructClassName(previous_, context_);
+                ClassMethodId methodToCall_ = polymorph(_conf, previous_, classMethodId);
+                String argClassName_ = stds_.getStructClassName(previous_, _conf);
                 String fullClassNameFound_ = Templates.getFullTypeByBases(argClassName_, base_, _conf);
                 lastType_ = Templates.quickFormat(fullClassNameFound_, lastType_, _conf);
                 firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, _arguments, _conf);

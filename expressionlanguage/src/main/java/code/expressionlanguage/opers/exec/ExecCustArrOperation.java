@@ -113,7 +113,7 @@ public final class ExecCustArrOperation extends ExecInvokingOperation implements
         return getArgument(previous_, arguments_, _conf,_right);
     }
 
-    Argument getArgument(Argument _previous, CustList<Argument> _arguments, ExecutableCode _conf, Argument _right) {
+    private Argument getArgument(Argument _previous, CustList<Argument> _arguments, ContextEl _conf, Argument _right) {
         CustList<ExecOperationNode> chidren_ = getChildrenNodes();
         setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
         LgNames stds_ = _conf.getStandards();
@@ -126,12 +126,12 @@ public final class ExecCustArrOperation extends ExecInvokingOperation implements
         classNameFound_ = classMethodId.getClassName();
         Struct argPrev_ = _previous.getStruct();
         prev_.setStruct(PrimitiveTypeUtil.getParent(anc, classNameFound_, argPrev_, _conf));
-        if (_conf.getContextEl().callsOrException()) {
+        if (_conf.callsOrException()) {
             return new Argument();
         }
         String base_ = Templates.getIdFromAllTypes(classNameFound_);
         if (staticChoiceMethod) {
-            String argClassName_ = prev_.getObjectClassName(_conf.getContextEl());
+            String argClassName_ = prev_.getObjectClassName(_conf);
             classNameFound_ = Templates.quickFormat(argClassName_, classNameFound_, _conf);
             if (!Templates.isCorrectExecute(argClassName_, classNameFound_, _conf)) {
                 setRelativeOffsetPossibleLastPage(chidren_.last().getIndexInEl(), _conf);
@@ -146,9 +146,8 @@ public final class ExecCustArrOperation extends ExecInvokingOperation implements
             methodId_ = classMethodId.getConstraints();
         } else {
             Struct previous_ = prev_.getStruct();
-            ContextEl context_ = _conf.getContextEl();
-            ClassMethodId methodToCall_ = polymorph(context_, previous_, classMethodId);
-            String argClassName_ = stds_.getStructClassName(previous_, context_);
+            ClassMethodId methodToCall_ = polymorph(_conf, previous_, classMethodId);
+            String argClassName_ = stds_.getStructClassName(previous_, _conf);
             String fullClassNameFound_ = Templates.getFullTypeByBases(argClassName_, base_, _conf);
             lastType_ = Templates.quickFormat(fullClassNameFound_, lastType_, _conf);
             firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, _arguments, _conf);

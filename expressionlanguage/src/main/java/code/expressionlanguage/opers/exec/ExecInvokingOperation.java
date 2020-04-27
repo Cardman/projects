@@ -3,6 +3,7 @@ package code.expressionlanguage.opers.exec;
 import code.expressionlanguage.*;
 import code.expressionlanguage.calls.PageEl;
 import code.expressionlanguage.calls.util.*;
+import code.expressionlanguage.common.FunctionIdUtil;
 import code.expressionlanguage.common.GeneCustMethod;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
@@ -180,19 +181,17 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
     public static ClassMethodId polymorph(ContextEl _conf, Struct _previous, ClassMethodId _classMethodId) {
         String classNameFound_ = _classMethodId.getClassName();
         classNameFound_ = Templates.getIdFromAllTypes(classNameFound_);
-        String argClassName_ = _conf.getStandards().getStructClassName(_previous, _conf);
+        String argClassName_ = _previous.getClassName(_conf);
         String base_ = Templates.getIdFromAllTypes(argClassName_);
         MethodId id_ = _classMethodId.getConstraints();
         MethodId methodId_;
-        if (!_conf.getClasses().isCustomType(classNameFound_)) {
-            classNameFound_ = _classMethodId.getClassName();
-            methodId_ = id_;
-        } else if (((GeneCustMethod)Classes.getMethodBodiesById(_conf,classNameFound_, id_).first()).isFinalMethod()) {
+        if (!_conf.getClasses().isCustomType(classNameFound_)
+                || ((GeneCustMethod) Classes.getMethodBodiesById(_conf, classNameFound_, id_).first()).isFinalMethod()) {
             classNameFound_ = _classMethodId.getClassName();
             methodId_ = id_;
         } else {
             GeneType info_ = _conf.getClassBody(classNameFound_);
-            StringMap<ClassMethodId> overriding_ = TypeUtil.getConcreteMethodsToCall(info_,id_, _conf.getContextEl());
+            StringMap<ClassMethodId> overriding_ = TypeUtil.getConcreteMethodsToCall(info_,id_, _conf);
             if (overriding_.contains(base_)) {
                 ClassMethodId res_ = overriding_.getVal(base_);
                 classNameFound_ = res_.getClassName();
@@ -714,7 +713,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             nList_.add(new Argument(arr_));
             return redirect(_conf, l_, pr_, nList_);
         }
-        if (!StringList.isDollarWord(fid_.getName()) && !fid_.getName().startsWith("[]")) {
+        if (FunctionIdUtil.isOperatorName(fid_)) {
             ArrayStruct arr_ = new ArrayStruct(new Struct[_values.size()+1],obj_);
             int i_ = 1;
             arr_.getInstance()[0] = instance_.getStruct();

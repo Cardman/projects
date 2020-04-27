@@ -51,7 +51,7 @@ public final class ExecChoiceFctOperation extends ExecInvokingOperation implemen
         Argument res_ = getArgument(previous_, arguments_, _conf);
         setSimpleArgument(res_, _conf, _nodes);
     }
-    Argument getArgument(Argument _previous, CustList<Argument> _arguments, ExecutableCode _conf) {
+    Argument getArgument(Argument _previous, CustList<Argument> _arguments, ContextEl _conf) {
         CustList<ExecOperationNode> chidren_ = getChildrenNodes();
         int off_ = StringList.getFirstPrintableCharIndex(methodName);
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
@@ -67,10 +67,10 @@ public final class ExecChoiceFctOperation extends ExecInvokingOperation implemen
         if (!staticMethod) {
             classNameFound_ = classMethodId.getClassName();
             prev_.setStruct(PrimitiveTypeUtil.getParent(anc, classNameFound_, _previous.getStruct(), _conf));
-            if (_conf.getContextEl().callsOrException()) {
+            if (_conf.callsOrException()) {
                 return new Argument();
             }
-            String argClassName_ = prev_.getObjectClassName(_conf.getContextEl());
+            String argClassName_ = prev_.getStruct().getClassName(_conf);
             classNameFound_ = Templates.quickFormat(argClassName_, classNameFound_, _conf);
             if (!Templates.isCorrectExecute(argClassName_, classNameFound_, _conf)) {
                 setRelativeOffsetPossibleLastPage(chidren_.last().getIndexInEl(), _conf);

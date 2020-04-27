@@ -57,10 +57,10 @@ final class AfterUnaryParts {
     private int index;
 
     private boolean enPars = true;
-    private boolean leftParFirstOperator = false;
-    private boolean instOf = false;
+    private boolean leftParFirstOperator;
+    private boolean instOf;
     private String fctName = EMPTY_STRING;
-    private boolean enabledId = false;
+    private boolean enabledId;
     private boolean instance;
     private boolean errorDot;
     private final Ints laterIndexesDouble = new Ints();
@@ -83,29 +83,33 @@ final class AfterUnaryParts {
             String ch_ = String.valueOf(_string.charAt(firstPrintChar_));
             operators.put(firstPrintChar_, StringList.concat(EMPTY_STRING,ch_,ch_));
             index = incrementUnary(_string, firstPrintChar_ + 2, lastPrintChar_, _offset, _d);
-        } else if (_string.charAt(firstPrintChar_) == MINUS_CHAR || _string.charAt(firstPrintChar_) == PLUS_CHAR) {
+            return;
+        }
+        if (_string.charAt(firstPrintChar_) == MINUS_CHAR || _string.charAt(firstPrintChar_) == PLUS_CHAR
+                || _string.charAt(firstPrintChar_) == NEG_BOOL_CHAR || _string.charAt(firstPrintChar_) == NEG_BOOL) {
             prio = ElResolver.UNARY_PRIO;
             operators.put(firstPrintChar_, String.valueOf(_string.charAt(firstPrintChar_)));
             index = incrementUnary(_string, firstPrintChar_ + 1, lastPrintChar_, _offset, _d);
-        } else if (_string.charAt(firstPrintChar_) == NEG_BOOL_CHAR || _string.charAt(firstPrintChar_) == NEG_BOOL) {
+            return;
+        }
+        if (_d.getDelCast().contains(firstPrintChar_ + _offset)) {
             prio = ElResolver.UNARY_PRIO;
-            operators.put(firstPrintChar_, String.valueOf(_string.charAt(firstPrintChar_)));
-            index = incrementUnary(_string, firstPrintChar_ + 1, lastPrintChar_, _offset, _d);
-        } else if (_d.getDelCast().contains(firstPrintChar_+_offset)) {
-            prio = ElResolver.UNARY_PRIO;
-            int min_ = _d.getDelCast().indexOfObj(firstPrintChar_+_offset);
+            int min_ = _d.getDelCast().indexOfObj(firstPrintChar_ + _offset);
             int max_ = _d.getDelCast().get(min_ + 1) - _offset;
             operators.put(firstPrintChar_, _string.substring(firstPrintChar_, max_ + 1));
             int ext_ = min_ / 2;
             extracted = _d.getDelCastExtract().get(ext_);
             partsOffs.addAllElts(_d.getCastParts().get(ext_));
             index = incrementUnary(_string, firstPrintChar_, lastPrintChar_, _offset, _d);
-        } else if (_d.getDelExplicit().contains(firstPrintChar_+_offset)) {
+            return;
+        }
+        if (_d.getDelExplicit().contains(firstPrintChar_ + _offset)) {
             prio = ElResolver.UNARY_PRIO;
-            int min_ = _d.getDelExplicit().indexOfObj(firstPrintChar_+_offset);
+            int min_ = _d.getDelExplicit().indexOfObj(firstPrintChar_ + _offset);
             int max_ = _d.getDelExplicit().get(min_ + 1) - _offset;
             operators.put(firstPrintChar_, _string.substring(firstPrintChar_, max_ + 1));
             index = incrementUnary(_string, firstPrintChar_, lastPrintChar_, _offset, _d);
+            return;
         }
     }
     void setInstance(String _string, Analyzable _conf) {
@@ -476,9 +480,7 @@ final class AfterUnaryParts {
 
     private static boolean isAndOrChar(char _curChar) {
         boolean andOr_ = false;
-        if (_curChar == AND_CHAR) {
-            andOr_ = true;
-        } else if (_curChar == OR_CHAR) {
+        if (_curChar == AND_CHAR || _curChar == OR_CHAR) {
             andOr_ = true;
         }
         return andOr_;
@@ -507,14 +509,23 @@ final class AfterUnaryParts {
         int prioOpMult_ = 0;
         if (_curChar == MINUS_CHAR || _curChar == PLUS_CHAR) {
             prioOpMult_ = ElResolver.ADD_PRIO;
-        } else if (_curChar == MULT_CHAR || _curChar == DIV_CHAR || _curChar == MOD_CHAR) {
+            return prioOpMult_;
+        }
+        if (_curChar == MULT_CHAR || _curChar == DIV_CHAR || _curChar == MOD_CHAR) {
             prioOpMult_ = ElResolver.MULT_PRIO;
-        } else if (_curChar == AND_CHAR) {
+            return prioOpMult_;
+        }
+        if (_curChar == AND_CHAR) {
             prioOpMult_ = ElResolver.BIT_AND_PRIO;
-        } else if (_curChar == OR_CHAR) {
+            return prioOpMult_;
+        }
+        if (_curChar == OR_CHAR) {
             prioOpMult_ = ElResolver.BIT_OR_PRIO;
-        } else if (_curChar == XOR_CHAR) {
+            return prioOpMult_;
+        }
+        if (_curChar == XOR_CHAR) {
             prioOpMult_ = ElResolver.BIT_XOR_PRIO;
+            return prioOpMult_;
         }
         return prioOpMult_;
     }

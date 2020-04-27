@@ -1,6 +1,5 @@
 package code.expressionlanguage.methods;
 
-import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.GeneInterface;
 import code.expressionlanguage.files.OffsetAccessInfo;
@@ -30,13 +29,6 @@ public final class InterfaceBlock extends RootBlock implements GeneInterface,Acc
     @Override
     public void setupBasicOverrides(ContextEl _context) {
         useSuperTypesOverrides(_context);
-    }
-
-    @Override
-    public StringList getDirectGenericSuperTypes(Analyzable _classes) {
-        StringList interfaces_ = new StringList();
-        interfaces_.addAllElts(importedDirectSuperInterfaces);
-        return interfaces_;
     }
 
     @Override

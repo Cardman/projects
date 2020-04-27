@@ -110,8 +110,6 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
         return categoryOffset;
     }
 
-    public abstract StringList getDirectGenericSuperTypes(Analyzable _classes);
-
     public RootBlock getOuter() {
         RootBlock t = this;
         RootBlock o = this;
@@ -1040,6 +1038,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
         Classes classes_ = _classes.getClasses();
         StringList current_ = new StringList(getGenericString());
         StringList all_ = new StringList();
+        String obj_ = _classes.getStandards().getAliasObject();
         while (true) {
             StringList next_ = new StringList();
             for (String c: current_) {
@@ -1048,13 +1047,15 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                 if (curType_ == null) {
                     continue;
                 }
-                StringList superTypes_ = curType_.getDirectGenericSuperTypes(_classes);
+                StringList superTypes_ = curType_.getImportedDirectSuperTypes();
                 for (String t: superTypes_) {
                     String format_ = Templates.quickFormat(c, t, _classes);
                     if (StringList.contains(all_, format_)) {
                         continue;
                     }
-                    all_.add(format_);
+                    if (!StringList.quickEq(format_,obj_)) {
+                        all_.add(format_);
+                    }
                     next_.add(format_);
                 }
             }

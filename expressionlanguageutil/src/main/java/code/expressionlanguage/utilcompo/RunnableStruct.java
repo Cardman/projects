@@ -96,7 +96,7 @@ public final class RunnableStruct implements WithParentStruct, EnumerableStruct,
     }
     public static void invoke(Struct _instance,RunnableContextEl _r, String _typeName, String _methName, StringList _argTypes, CustList<Argument> _args) {
         MethodId id_ = new MethodId(MethodAccessKind.INSTANCE, _methName, _argTypes);
-        GeneType type_ = _r.getClassBody(_typeName);
+        GeneType type_ = _r.getClassBody(Templates.getIdFromAllTypes(_typeName));
         String base_ = Templates.getIdFromAllTypes(_instance.getClassName(_r));
         ClassMethodId mId_ = TypeUtil.getConcreteMethodsToCall(type_, id_, _r).getVal(base_);
         if (mId_ == null) {

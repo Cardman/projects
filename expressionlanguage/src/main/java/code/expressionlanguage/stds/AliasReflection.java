@@ -1661,7 +1661,7 @@ public final class AliasReflection {
         if (Templates.correctNbParameters(_instClass, _cont)) {
             DimComp dc_ = PrimitiveTypeUtil.getQuickComponentBaseType(_idCl);
             String compo_ = dc_.getComponent();
-            String geneForm_ = _cont.getClassBody(compo_).getGenericString();
+            String geneForm_ = _cont.getClassBody(Templates.getIdFromAllTypes(compo_)).getGenericString();
             ret_ = PrimitiveTypeUtil.getPrettyArrayType(geneForm_,dc_.getDim());
         } else {
             ret_ = _instClass;

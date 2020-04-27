@@ -264,13 +264,6 @@ public final class InnerElementBlock extends RootBlock implements InnerTypeOrEle
     }
 
     @Override
-    public StringList getDirectGenericSuperTypes(Analyzable _classes) {
-        StringList interfaces_ = new StringList();
-        interfaces_.add(importedDirectSuperClass);
-        return interfaces_;
-    }
-
-    @Override
     public boolean isStaticType() {
         return false;
     }
