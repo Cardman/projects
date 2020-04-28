@@ -160,16 +160,17 @@ public final class FileBlock extends BracedBlock implements ImportingBlock {
             StringBuilder xml_ = new StringBuilder(value_.length());
             int i_ = value_.length() - 1;
             for (PartOffset t:listStr_.getReverse()) {
-                int off_ = t.getOffset();
-                if (t.getPart().isEmpty()) {
+                String part_ = t.getPart();
+                if (part_.isEmpty()) {
                     continue;
                 }
+                int off_ = t.getOffset();
                 while (i_ >= off_) {
                     char ch_ = value_.charAt(i_);
                     fileBlock_.insertTr(xml_, ch_,i_);
                     i_--;
                 }
-                xml_.insert(0,t.getPart());
+                xml_.insert(0, part_);
             }
             while (i_ >= 0) {
                 char ch_ = value_.charAt(i_);

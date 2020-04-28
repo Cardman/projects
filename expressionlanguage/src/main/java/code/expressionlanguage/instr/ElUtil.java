@@ -646,13 +646,11 @@ public final class ElUtil {
         int sum_ = _tr + _offsetBlock - _fieldName.length();
         String currentFileName_ = _cont.getCoverage().getCurrentFileName();
         boolean addCover_ = !(_block instanceof CaseCondition) && !(_block instanceof AnnotationMethodBlock) && !_annotation;
+        IdMap<ExecOperationNode, OperationNode> mapping_ = getMapping(_cont, _block, _annotation);
         while (true) {
-            OperationNode val_ = getMapping(_cont, _block, curOp_, _annotation);
-            AbstractCoverageResult result_ = getCovers(_cont, _block, curOp_, _annotation);
-            if (curOp_ != root_ || _fieldName.isEmpty()) {
-                String tag_ = getBegin(_cont, _block, _annotation, root_, curOp_, addCover_, val_, result_);
-                _parts.add(new PartOffset(tag_,sum_ + val_.getIndexInEl()));
-            }
+            OperationNode val_ = mapping_.getVal(curOp_);
+            AbstractCoverageResult result_ = getCovers(_cont, _block, curOp_);
+            getBeginOp(_cont, _block, _parts, _fieldName, root_, curOp_, sum_, addCover_, val_, result_);
             left(_cont,currentFileName_,_offsetBlock,_block,sum_,val_,curOp_,result_,_parts);
             ExecOperationNode firstChildOp_ = curOp_.getFirstChild();
             if (firstChildOp_ != null) {
@@ -666,39 +664,50 @@ public final class ElUtil {
                 String tag_ = getEndTag(addCover_, val_);
                 ExecOperationNode nextSiblingOp_ = curOp_.getNextSibling();
                 ExecMethodOperation parentOp_ = curOp_.getParent();
+                _parts.add(new PartOffset(tag_,offsetEnd_));
                 if (nextSiblingOp_ != null) {
-                    _parts.add(new PartOffset(tag_,offsetEnd_));
-                    middle(_cont,currentFileName_,_block,_annotation,offsetEnd_,curOp_,nextSiblingOp_,
+                    middle(_cont,currentFileName_,_block, offsetEnd_,curOp_,nextSiblingOp_,
                             parentOp_,parent_,_parts);
                     curOp_=nextSiblingOp_;
                     break;
                 }
                 if (parentOp_ == null) {
+                    getEnd(_endBlock, _parts, _tr, _fieldName, addCover_);
                     stopOp_ = true;
                     break;
                 }
-                _parts.add(new PartOffset(tag_,offsetEnd_));
                 right(_cont,currentFileName_,offsetEnd_,parentOp_,parent_,_parts);
                 if (parentOp_ == root_) {
+                    getEnd(_endBlock, _parts, _tr, _fieldName, addCover_);
                     stopOp_ = true;
                     break;
                 }
                 curOp_ = parentOp_;
-                val_ = getMapping(_cont, _block, curOp_, _annotation);
+                val_ = mapping_.getVal(curOp_);
             }
             if (stopOp_) {
-                String tag_ = "</span>";
-                if (addCover_ && _fieldName.isEmpty()) {
-                    _parts.add(new PartOffset(tag_,_endBlock+_tr));
-                }
                 break;
             }
         }
     }
 
+    private static void getBeginOp(ContextEl _cont, Block _block, CustList<PartOffset> _parts, String _fieldName, ExecOperationNode root_, ExecOperationNode curOp_, int sum_, boolean addCover_, OperationNode val_, AbstractCoverageResult result_) {
+        if (curOp_ != root_ || _fieldName.isEmpty()) {
+            String tag_ = getBegin(_cont, _block, root_, curOp_, addCover_, val_, result_);
+            _parts.add(new PartOffset(tag_,sum_ + val_.getIndexInEl()));
+        }
+    }
+
+    private static void getEnd(int _endBlock, CustList<PartOffset> _parts, int _tr, String _fieldName, boolean addCover_) {
+        String tag_ = "</span>";
+        if (addCover_ && _fieldName.isEmpty()) {
+            _parts.add(new PartOffset(tag_,_endBlock+_tr));
+        }
+    }
+
     private static String getEndTag(boolean addCover_, OperationNode val_) {
         String tag_;
-        if (!addCover_ || val_ instanceof StaticInitOperation) {
+        if (!addCover_ || val_ instanceof StaticInitOperation || val_.getParent() == null) {
             tag_ = "";
         } else {
             tag_ = "</span>";
@@ -706,7 +715,7 @@ public final class ElUtil {
         return tag_;
     }
 
-    private static String getBegin(ContextEl _cont, Block _block, boolean _annotation, ExecOperationNode root_, ExecOperationNode curOp_, boolean addCover_, OperationNode val_, AbstractCoverageResult result_) {
+    private static String getBegin(ContextEl _cont, Block _block, ExecOperationNode root_, ExecOperationNode curOp_, boolean addCover_, OperationNode val_, AbstractCoverageResult result_) {
         String tag_;
         if (!addCover_ ||val_ instanceof StaticInitOperation) {
             tag_ = "";
@@ -720,7 +729,7 @@ public final class ElUtil {
                 }
                 par_ = par_.getParent();
             }
-            AbstractCoverageResult resultPar_ = getCovers(_cont, _block, par_, _annotation);
+            AbstractCoverageResult resultPar_ = getCovers(_cont, _block, par_);
             if (resultPar_.isPartialCovered()) {
                 tag_ = getFullInit(resultPar_);
                 return tag_;
@@ -773,7 +782,8 @@ public final class ElUtil {
         processLeafType(val_, curOp_, _parts);
         processDynamicCall(_cont, sum_, val_, curOp_, _parts);
         processRichHeader(_cont, currentFileName_, sum_, val_, curOp_, _parts);
-        processUnaryLeftOperations(_cont, currentFileName_, sum_, val_, curOp_, result_, _parts);
+        processUnaryLeftOperationsCovers(_cont, sum_, val_, curOp_, result_, _parts);
+        processUnaryLeftOperationsLinks(_cont, currentFileName_, sum_, val_, curOp_, _parts);
         processLeftIndexer(_cont, currentFileName_, sum_, val_, curOp_, _parts);
     }
 
@@ -1099,7 +1109,14 @@ public final class ElUtil {
         }
     }
 
-    private static void processUnaryLeftOperations(ContextEl _cont, String currentFileName_, int sum_, OperationNode val_, ExecOperationNode curOp_, AbstractCoverageResult result_, CustList<PartOffset> _parts) {
+    private static void processUnaryLeftOperationsCovers(ContextEl _cont, int sum_, OperationNode val_, ExecOperationNode curOp_, AbstractCoverageResult result_, CustList<PartOffset> _parts) {
+        if (curOp_ instanceof ExecUnaryBooleanOperation && result_.isStrictPartialCovered()) {
+            int offsetOp_ = val_.getOperations().getOperators().firstKey();
+            safe(result_,_cont,sum_ + val_.getIndexInEl() + offsetOp_,_parts,1);
+        }
+    }
+
+    private static void processUnaryLeftOperationsLinks(ContextEl _cont, String currentFileName_, int sum_, OperationNode val_, ExecOperationNode curOp_, CustList<PartOffset> _parts) {
         if (curOp_ instanceof ExecCustNumericOperation && curOp_.getFirstChild().getNextSibling() == null) {
             ExecCustNumericOperation par_ = (ExecCustNumericOperation) curOp_;
             ClassMethodId classMethodId_ = par_.getClassMethodId();
@@ -1107,20 +1124,6 @@ public final class ElUtil {
             addParts(_cont,currentFileName_,"",id_,
                     sum_ + val_.getIndexInEl()+par_.getOpOffset(),id_.getName().length(),
                     _parts);
-        }
-        if (curOp_ instanceof ExecUnaryBooleanOperation && result_.isStrictPartialCovered()) {
-            int offsetOp_ = val_.getOperations().getOperators().firstKey();
-            if (((BooleanCoverageResult) result_).isCoverTrue()) {
-                String tag_ = "<a title=\"" + transform(_cont.getStandards().getDisplayedStrings().getTrueString()) + "\">";
-                _parts.add(new PartOffset(tag_, sum_ + val_.getIndexInEl() + offsetOp_));
-                tag_ = "</a>";
-                _parts.add(new PartOffset(tag_, sum_ + val_.getIndexInEl() + offsetOp_ + 1));
-            } else {
-                String tag_ = "<a title=\"" + transform(_cont.getStandards().getDisplayedStrings().getFalseString()) + "\">";
-                _parts.add(new PartOffset(tag_, sum_ + val_.getIndexInEl() + offsetOp_));
-                tag_ = "</a>";
-                _parts.add(new PartOffset(tag_, sum_ + val_.getIndexInEl() + offsetOp_ + 1));
-            }
         }
         if (curOp_ instanceof ExecCastOperation) {
             _parts.addAllElts(((CastOperation)val_).getPartOffsets());
@@ -1179,7 +1182,7 @@ public final class ElUtil {
 
     private static void middle(ContextEl _cont,
                                String currentFileName_,
-                               Block _block, boolean _annotation,
+                               Block _block,
                                int offsetEnd_,
                                ExecOperationNode curOp_,
                                ExecOperationNode nextSiblingOp_,
@@ -1188,11 +1191,13 @@ public final class ElUtil {
                                CustList<PartOffset> _parts) {
         processCat(_cont, offsetEnd_, curOp_, nextSiblingOp_, parentOp_, _parts);
         processCustomOperator(_cont, currentFileName_, offsetEnd_, parentOp_, _parts);
-        processCompoundAff(_cont, currentFileName_, _block, _annotation, offsetEnd_, nextSiblingOp_, parentOp_, _parts);
+        processCompoundAffLeftOp(_cont, currentFileName_, offsetEnd_, nextSiblingOp_, parentOp_, _parts);
+        processCompoundAffCover(_cont, _block, offsetEnd_, nextSiblingOp_, parentOp_, _parts);
+        processCompoundAffRightOp(_cont, currentFileName_, offsetEnd_, parentOp_, _parts);
 
-        processCompare(_cont, _block, _annotation, offsetEnd_, parentOp_, parent_, _parts);
-        processNullSafe(_cont, _block, _annotation, offsetEnd_, curOp_, nextSiblingOp_, parentOp_, _parts);
-        processLogicAndOrOperation(_cont, _block, _annotation, offsetEnd_, curOp_, nextSiblingOp_, parentOp_, _parts);
+        processCompare(_cont, _block, offsetEnd_, parentOp_, parent_, _parts);
+        processNullSafe(_cont, _block, offsetEnd_, curOp_, nextSiblingOp_, parentOp_, _parts);
+        processLogicAndOrOperation(_cont, _block, offsetEnd_, curOp_, nextSiblingOp_, parentOp_, _parts);
     }
 
     private static void processCustomOperator(ContextEl _cont, String currentFileName_, int offsetEnd_, ExecMethodOperation parentOp_, CustList<PartOffset> _parts) {
@@ -1217,45 +1222,24 @@ public final class ElUtil {
         return canCallToString(curOp_.getResultClass(),_cont) || canCallToString(nextSiblingOp_.getResultClass(),_cont);
     }
 
-    private static void processNullSafe(ContextEl _cont, Block _block, boolean _annotation, int offsetEnd_, ExecOperationNode curOp_, ExecOperationNode nextSiblingOp_, ExecMethodOperation parentOp_, CustList<PartOffset> _parts) {
+    private static void processNullSafe(ContextEl _cont, Block _block, int offsetEnd_, ExecOperationNode curOp_, ExecOperationNode nextSiblingOp_, ExecMethodOperation parentOp_, CustList<PartOffset> _parts) {
         if (parentOp_ instanceof ExecNullSafeOperation) {
-            AbstractCoverageResult resultFirst_ = getCovers(_cont, _block, curOp_, _annotation);
-            AbstractCoverageResult resultLast_ = getCovers(_cont, _block, nextSiblingOp_, _annotation);
-            boolean partial_ = false;
-            if (resultFirst_.isStrictPartialCovered()) {
-                partial_ = true;
-            }
-            if (resultLast_.isStrictPartialCovered()) {
-                partial_ = true;
-            }
-            if (partial_) {
-                safe(resultFirst_,_cont,offsetEnd_,_parts, 1);
-                safe(resultLast_,_cont,offsetEnd_+1,_parts, 1);
-            }
+            AbstractCoverageResult resultFirst_ = getCovers(_cont, _block, curOp_);
+            AbstractCoverageResult resultLast_ = getCovers(_cont, _block, nextSiblingOp_);
+            safe(resultFirst_,_cont,offsetEnd_,_parts, 1);
+            safe(resultLast_,_cont,offsetEnd_+1,_parts, 1);
         }
     }
 
-    private static void processCompare(ContextEl _cont, Block _block, boolean _annotation, int offsetEnd_, ExecMethodOperation parentOp_, MethodOperation parent_, CustList<PartOffset> _parts) {
-        AbstractCoverageResult resultLoc_ = getCovers(_cont, _block, parentOp_, _annotation);
+    private static void processCompare(ContextEl _cont, Block _block, int offsetEnd_, ExecMethodOperation parentOp_, MethodOperation parent_, CustList<PartOffset> _parts) {
         if (parentOp_ instanceof ExecEqOperation || parentOp_ instanceof ExecNbCmpOperation || parentOp_ instanceof ExecStrCmpOperation) {
             int length_ = ((MiddleSymbolOperation)parent_) .getOp().length();
-            if (!resultLoc_.isFullCovered() && resultLoc_.isPartialCovered()) {
-                if(((BooleanCoverageResult)resultLoc_).isCoverTrue()){
-                    String tag_ = "<a title=\""+ transform(_cont.getStandards().getDisplayedStrings().getTrueString())+"\">";
-                    _parts.add(new PartOffset(tag_, offsetEnd_));
-                    tag_ = "</a>";
-                    _parts.add(new PartOffset(tag_,offsetEnd_+length_));
-                } else {
-                    String tag_ = "<a title=\""+ transform(_cont.getStandards().getDisplayedStrings().getFalseString())+"\">";
-                    _parts.add(new PartOffset(tag_, offsetEnd_));
-                    tag_ = "</a>";
-                    _parts.add(new PartOffset(tag_,offsetEnd_+length_));
-                }
-            }
+            AbstractCoverageResult resultLoc_ = getCovers(_cont, _block, parentOp_);
+            safe(resultLoc_,_cont,offsetEnd_,_parts,length_);
         }
     }
 
-    private static void processCompoundAff(ContextEl _cont, String currentFileName_, Block _block, boolean _annotation, int offsetEnd_, ExecOperationNode nextSiblingOp_, ExecMethodOperation parentOp_, CustList<PartOffset> _parts) {
+    private static void processCompoundAffLeftOp(ContextEl _cont, String currentFileName_, int offsetEnd_, ExecOperationNode nextSiblingOp_, ExecMethodOperation parentOp_, CustList<PartOffset> _parts) {
         if (!(parentOp_ instanceof ExecCompoundAffectationOperation)) {
             return;
         }
@@ -1270,38 +1254,38 @@ public final class ElUtil {
             _parts.add(new PartOffset(tag_, offsetEnd_));
             tag_ = "</i>";
             _parts.add(new PartOffset(tag_,offsetEnd_+opDelta_));
-        } else if (StringList.quickEq(par_.getOper(),"??=")){
-            AbstractCoverageResult resultLast_ = getCovers(_cont, _block, nextSiblingOp_, _annotation);
-            boolean partial_ = false;
-            if (resultLast_.isStrictPartialCovered()) {
-                partial_ = true;
-            }
-            if (partial_) {
-                safe(resultLast_,_cont,offsetEnd_,_parts, opDelta_);
-            }
+        }
+    }
+    private static void processCompoundAffCover(ContextEl _cont, Block _block, int offsetEnd_, ExecOperationNode nextSiblingOp_, ExecMethodOperation parentOp_, CustList<PartOffset> _parts) {
+        if (!(parentOp_ instanceof ExecCompoundAffectationOperation)) {
+            return;
+        }
+        ExecCompoundAffectationOperation par_ = (ExecCompoundAffectationOperation) parentOp_;
+        ClassMethodId classMethodId_ = par_.getClassMethodId();
+        if (classMethodId_ != null) {
+            return;
+        }
+        if (nextSiblingOp_.getResultClass().isConvertToString() && canCallToString(nextSiblingOp_.getResultClass(),_cont)){
+            return;
+        }
+        int opDelta_ = par_.getOper().length() - 1;
+        if (StringList.quickEq(par_.getOper(),"??=")){
+            AbstractCoverageResult resultLast_ = getCovers(_cont, _block, nextSiblingOp_);
+            safe(resultLast_,_cont,offsetEnd_,_parts, opDelta_);
         } else {
             String b_ = _cont.getStandards().getAliasPrimBoolean();
             if (nextSiblingOp_.getResultClass().matchClass(b_)) {
-                AbstractCoverageResult resultLast_ = getCovers(_cont, _block, nextSiblingOp_, _annotation);
-                boolean partial_ = false;
-                if (resultLast_.isStrictPartialCovered()) {
-                    partial_ = true;
-                }
-                if (partial_) {
-                    if(((BooleanCoverageResult)resultLast_).isCoverTrue()){
-                        String tag_ = "<a title=\""+ transform(_cont.getStandards().getDisplayedStrings().getTrueString())+"\">";
-                        _parts.add(new PartOffset(tag_, offsetEnd_));
-                        tag_ = "</a>";
-                        _parts.add(new PartOffset(tag_,offsetEnd_+opDelta_));
-                    } else {
-                        String tag_ = "<a title=\""+ transform(_cont.getStandards().getDisplayedStrings().getFalseString())+"\">";
-                        _parts.add(new PartOffset(tag_, offsetEnd_));
-                        tag_ = "</a>";
-                        _parts.add(new PartOffset(tag_,offsetEnd_+opDelta_));
-                    }
-                }
+                AbstractCoverageResult resultLast_ = getCovers(_cont, _block, nextSiblingOp_);
+                safe(resultLast_,_cont,offsetEnd_,_parts,opDelta_);
             }
         }
+    }
+    private static void processCompoundAffRightOp(ContextEl _cont, String currentFileName_, int offsetEnd_, ExecMethodOperation parentOp_, CustList<PartOffset> _parts) {
+        if (!(parentOp_ instanceof ExecCompoundAffectationOperation)) {
+            return;
+        }
+        ExecCompoundAffectationOperation par_ = (ExecCompoundAffectationOperation) parentOp_;
+        int opDelta_ = par_.getOper().length() - 1;
         if (par_.getSettable() instanceof ExecCustArrOperation) {
             ExecCustArrOperation parArr_ = (ExecCustArrOperation) par_.getSettable();
             ClassMethodId classMethodIdArr_ = parArr_.getClassMethodId();
@@ -1312,46 +1296,14 @@ public final class ElUtil {
             addParts(_cont,currentFileName_,className_,id_,opDelta_+offsetEnd_,1,_parts);
         }
     }
-
-    private static void processLogicAndOrOperation(ContextEl _cont, Block _block, boolean _annotation, int offsetEnd_, ExecOperationNode curOp_, ExecOperationNode nextSiblingOp_, ExecMethodOperation parentOp_, CustList<PartOffset> _parts) {
+    private static void processLogicAndOrOperation(ContextEl _cont, Block _block, int offsetEnd_, ExecOperationNode curOp_, ExecOperationNode nextSiblingOp_, ExecMethodOperation parentOp_, CustList<PartOffset> _parts) {
         if (!(parentOp_ instanceof ExecQuickOperation)) {
             return;
         }
-        AbstractCoverageResult resultFirst_ = getCovers(_cont, _block, curOp_, _annotation);
-        AbstractCoverageResult resultLast_ = getCovers(_cont, _block, nextSiblingOp_, _annotation);
-        boolean partial_ = false;
-        if (!resultFirst_.isFullCovered() && resultFirst_.isPartialCovered()) {
-            partial_ = true;
-        }
-        if (!resultLast_.isFullCovered() && resultLast_.isPartialCovered()) {
-            partial_ = true;
-        }
-        if (partial_) {
-            if(((BooleanCoverageResult)resultFirst_).isCoverTrue()){
-                String tag_ = "<a title=\""+ transform(_cont.getStandards().getDisplayedStrings().getTrueString())+"\">";
-                _parts.add(new PartOffset(tag_, offsetEnd_));
-                tag_ = "</a>";
-                _parts.add(new PartOffset(tag_,offsetEnd_+1));
-            } else {
-                String tag_ = "<a title=\""+ transform(_cont.getStandards().getDisplayedStrings().getFalseString())+"\">";
-                _parts.add(new PartOffset(tag_, offsetEnd_));
-                tag_ = "</a>";
-                _parts.add(new PartOffset(tag_,offsetEnd_+1));
-            }
-            if(((BooleanCoverageResult)resultLast_).isCoverTrue()){
-                String tag_ = "<a title=\""+ transform(_cont.getStandards().getDisplayedStrings().getTrueString())+"\">";
-                _parts.add(new PartOffset(tag_, offsetEnd_+1));
-                tag_ = "</a>";
-                _parts.add(new PartOffset(tag_,offsetEnd_+2));
-            } else {
-                if(((BooleanCoverageResult)resultLast_).isCoverFalse()){
-                    String tag_ = "<a title=\""+ transform(_cont.getStandards().getDisplayedStrings().getFalseString())+"\">";
-                    _parts.add(new PartOffset(tag_, offsetEnd_+1));
-                    tag_ = "</a>";
-                    _parts.add(new PartOffset(tag_,offsetEnd_+2));
-                }
-            }
-        }
+        AbstractCoverageResult resultFirst_ = getCovers(_cont, _block, curOp_);
+        AbstractCoverageResult resultLast_ = getCovers(_cont, _block, nextSiblingOp_);
+        safe(resultFirst_,_cont,offsetEnd_,_parts,1);
+        safe(resultLast_,_cont,offsetEnd_+1,_parts,1);
     }
 
     private static void right(ContextEl _cont,
@@ -1407,14 +1359,35 @@ public final class ElUtil {
     }
 
     private static void safe(AbstractCoverageResult _res, ContextEl _cont, int offsetEnd_, CustList<PartOffset> _parts, int _delta) {
+        if (!_res.isStrictPartialCovered()) {
+            return;
+        }
+        if (_res instanceof BooleanCoverageResult) {
+            logicalAndOr((BooleanCoverageResult) _res,_cont,offsetEnd_,_parts,_delta);
+        }
         if (_res instanceof NullCoverageResult) {
             nullSafe((NullCoverageResult)_res,_cont,offsetEnd_,_parts, _delta);
-        } else {
-            if (_res instanceof NullBooleanCoverageResult){
-                nullBooleanSafe((NullBooleanCoverageResult)_res,_cont,offsetEnd_,_parts, _delta);
-            }
+        }
+        if (_res instanceof NullBooleanCoverageResult){
+            nullBooleanSafe((NullBooleanCoverageResult)_res,_cont,offsetEnd_,_parts, _delta);
         }
     }
+
+    private static void logicalAndOr(BooleanCoverageResult _res, ContextEl _cont,
+                                     int offsetEnd_, CustList<PartOffset> _parts, int _delta) {
+        StringList founds_ = new StringList();
+        if (_res.isCoverTrue()) {
+            founds_.add(_cont.getStandards().getDisplayedStrings().getTrueString());
+        }
+        if (_res.isCoverFalse()) {
+            founds_.add(_cont.getStandards().getDisplayedStrings().getFalseString());
+        }
+        String tag_ = "<a title=\""+ transform(StringList.join(founds_, ","))+"\">";
+        _parts.add(new PartOffset(tag_, offsetEnd_));
+        tag_ = "</a>";
+        _parts.add(new PartOffset(tag_,offsetEnd_+_delta));
+    }
+
     private static void nullBooleanSafe(NullBooleanCoverageResult _res, ContextEl _cont, int offsetEnd_, CustList<PartOffset> _parts, int _delta) {
         StringList founds_ = new StringList();
         if (_res.isCoverNull()) {
@@ -1426,12 +1399,10 @@ public final class ElUtil {
         if (_res.isCoverFalse()) {
             founds_.add(_cont.getStandards().getDisplayedStrings().getFalseString());
         }
-        if (!founds_.isEmpty()) {
-            String tag_ = "<a title=\"" + transform(StringList.join(founds_, ",")) + "\">";
-            _parts.add(new PartOffset(tag_, offsetEnd_));
-            tag_ = "</a>";
-            _parts.add(new PartOffset(tag_, offsetEnd_ + _delta));
-        }
+        String tag_ = "<a title=\"" + transform(StringList.join(founds_, ",")) + "\">";
+        _parts.add(new PartOffset(tag_, offsetEnd_));
+        tag_ = "</a>";
+        _parts.add(new PartOffset(tag_, offsetEnd_ + _delta));
     }
     private static void nullSafe(NullCoverageResult _res, ContextEl _cont, int offsetEnd_, CustList<PartOffset> _parts, int _delta) {
         StringList founds_ = new StringList();
@@ -1441,12 +1412,10 @@ public final class ElUtil {
         if (_res.isCoverNotNull()) {
             founds_.add(_cont.getStandards().getDisplayedStrings().getNotNullCoverString());
         }
-        if (!founds_.isEmpty()) {
-            String tag_ = "<a title=\""+ transform(StringList.join(founds_,","))+"\">";
-            _parts.add(new PartOffset(tag_, offsetEnd_));
-            tag_ = "</a>";
-            _parts.add(new PartOffset(tag_,offsetEnd_+ _delta));
-        }
+        String tag_ = "<a title=\""+ transform(StringList.join(founds_,","))+"\">";
+        _parts.add(new PartOffset(tag_, offsetEnd_));
+        tag_ = "</a>";
+        _parts.add(new PartOffset(tag_,offsetEnd_+ _delta));
     }
     private static String getFullInit(AbstractCoverageResult _resultPar) {
         String tag_;
@@ -1514,25 +1483,28 @@ public final class ElUtil {
         return rel_;
     }
 
-    private static AbstractCoverageResult getCovers(ContextEl _cont, Block _block, ExecOperationNode _oper, boolean _annotation) {
-        if (_block instanceof AnnotationMethodBlock || _annotation) {
-            StandardCoverageResult res_ = new StandardCoverageResult();
-            res_.fullCover();
-            return res_;
+    private static AbstractCoverageResult getCovers(ContextEl _cont, Block _block, ExecOperationNode _oper) {
+        IdMap<ExecOperationNode, AbstractCoverageResult> map_ = _cont.getCoverage().getCovers().getVal(_block);
+        if (map_ == null) {
+            map_ = new IdMap<ExecOperationNode, AbstractCoverageResult>();
         }
-        return _cont.getCoverage().getCovers().getVal(_block).getVal(_oper);
+        AbstractCoverageResult res_ = map_.getVal(_oper);
+        if (res_ == null) {
+            res_ = new StandardCoverageResult();
+            res_.fullCover();
+        }
+        return res_;
     }
 
-    private static OperationNode getMapping(ContextEl _cont, Block _block, ExecOperationNode _curOp, boolean _annotation) {
+    private static IdMap<ExecOperationNode, OperationNode> getMapping(ContextEl _cont, Block _block, boolean _annotation) {
         if (_annotation) {
-            return _cont.getCoverage().getMappingAnnotMembers().getVal(_block).getVal(_curOp);
+            return _cont.getCoverage().getMappingAnnotMembers().getVal(_block);
         }
         if (_block instanceof AnnotationMethodBlock) {
-            return _cont.getCoverage().getMappingAnnot().getVal(_block).getVal(_curOp);
+            return _cont.getCoverage().getMappingAnnot().getVal(_block);
         }
-        return _cont.getCoverage().getMapping().getVal(_block).getVal(_curOp);
+        return _cont.getCoverage().getMapping().getVal(_block);
     }
-
     private static void updateFieldAnchor(ContextEl _cont, CustList<PartOffset> _parts, ClassField _id, int _begin, int _length) {
         String className_ = _id.getClassName();
         String currentFileName_ = _cont.getCoverage().getCurrentFileName();

@@ -1670,7 +1670,6 @@ public final class Templates {
     private static MappingPairs getSimpleMapping(String _arg, String _param, StringMap<StringList> _inherit, Analyzable _context) {
         StringList typesArg_ = getAllTypes(_arg);
         StringList typesParam_ = getAllTypes(_param);
-        String baseArg_ = typesArg_.first();
         DimComp dArg_ = PrimitiveTypeUtil.getQuickComponentBaseType(_arg);
         DimComp dParam_ = PrimitiveTypeUtil.getQuickComponentBaseType(_param);
         String baseArrayParam_ = dParam_.getComponent();
@@ -1711,7 +1710,7 @@ public final class Templates {
                 }
                 return newMappingPairsFct(typesArg_, typesParam_, obj_);
             }
-            return getMappingFctPairs(_context, baseArg_, dParam_, baseArrayParam_);
+            return getMappingFctPairs(_context, dArg_, dParam_, baseArrayParam_);
         }
         if (StringList.quickEq(idBaseArrayParam_, fct_)) {
             return null;
@@ -1746,7 +1745,6 @@ public final class Templates {
     private static MappingPairs getExecutingCorrect(String _arg, String _param, Analyzable _context) {
         StringList typesArg_ = getAllTypes(_arg);
         StringList typesParam_ = getAllTypes(_param);
-        String baseArg_ = typesArg_.first();
         DimComp dArg_ = PrimitiveTypeUtil.getQuickComponentBaseType(_arg);
         DimComp dParam_ = PrimitiveTypeUtil.getQuickComponentBaseType(_param);
         String baseArrayArg_ = dArg_.getComponent();
@@ -1770,7 +1768,7 @@ public final class Templates {
                 }
                 return newMappingPairsFct(typesArg_, typesParam_, obj_);
             }
-            return getMappingFctPairs(_context, baseArg_, dParam_, baseArrayParam_);
+            return getMappingFctPairs(_context, dArg_, dParam_, baseArrayParam_);
         }
         if (StringList.quickEq(idBaseArrayParam_, fct_)) {
             return null;
@@ -1783,10 +1781,9 @@ public final class Templates {
         return newMappingPairs(generic_, typesParam_);
     }
 
-    private static MappingPairs getMappingFctPairs(Analyzable _context, String _baseArg, DimComp _dParam, String _baseArrayParam) {
+    private static MappingPairs getMappingFctPairs(Analyzable _context, DimComp _dArg, DimComp _dParam, String _baseArrayParam) {
         if (StringList.quickEq(_baseArrayParam, _context.getStandards().getAliasObject())) {
-            DimComp dLoc_ = PrimitiveTypeUtil.getQuickComponentBaseType(_baseArg);
-            int dim_ = dLoc_.getDim();
+            int dim_ = _dArg.getDim();
             if (dim_ >= _dParam.getDim()) {
                 return new MappingPairs();
             }

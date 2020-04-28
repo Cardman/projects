@@ -14,9 +14,6 @@ public final class FileResolver {
     private static final char FOR_BLOCKS = ':';
     private static final char END_LINE = ';';
     private static final char END_IMPORTS = END_LINE;
-    private static final char LINE_RETURN = '\n';
-    private static final char BEGIN_COMMENT = '/';
-    private static final char SECOND_COMMENT = '*';
     private static final char PKG = '.';
     private static final char TYPE_VAR = '#';
     private static final String EMPTY_STRING = "";
@@ -68,10 +65,10 @@ public final class FileResolver {
         CustList<CommentDelimiters> comments_ = new CustList<CommentDelimiters>();
         comments_.add(new CommentDelimiters("//","\n"));
         comments_.add(new CommentDelimiters("/*","*/"));
+        CommentDelimiters current_ = null;
         int indexImport_ = 0;
         Ints badIndexes_ = new Ints();
         Ints offsetsImports_ = new Ints();
-        CommentDelimiters current_ = null;
         while (i_ < len_) {
             char currentChar_ = _file.charAt(i_);
             if (current_ != null) {
@@ -1508,18 +1505,16 @@ public final class FileResolver {
                 br_ = bl_;
             }
             boolean emptySwitchPart_ = false;
-            if (currentParent_ instanceof SwitchBlock && _currentChar == ':') {
-                String next_;
+            if (br_ instanceof SwitchPartBlock) {
                 int c_ = afterComments(_file, i_ + 1);
                 if (c_ < 0) {
                     badIndexes_.add(_file.length());
                     return null;
                 }
-                next_ = _file.substring(c_);
-                if (StringExpUtil.startsWithKeyWord(next_, keyWordCase_)) {
+                if (StringExpUtil.startsWithKeyWord(_file,c_, keyWordCase_)) {
                     emptySwitchPart_ = true;
                 }
-                if (StringExpUtil.startsWithKeyWord(next_, keyWordDefault_)) {
+                if (StringExpUtil.startsWithKeyWord(_file,c_, keyWordDefault_)) {
                     emptySwitchPart_ = true;
                 }
             }
@@ -3290,40 +3285,33 @@ public final class FileResolver {
     private static int afterComments(String _found, int _from) {
         int i_ = _from;
         int len_ = _found.length();
-        boolean commentedSingleLine_ = false;
-        boolean commentedMultiLine_ = false;
+        CustList<CommentDelimiters> comments_ = new CustList<CommentDelimiters>();
+        comments_.add(new CommentDelimiters("//","\n"));
+        comments_.add(new CommentDelimiters("/*","*/"));
+        CommentDelimiters current_ = null;
         while (i_ < len_) {
             char cur_ = _found.charAt(i_);
-            if (commentedSingleLine_) {
-                if (cur_ == LINE_RETURN) {
-                    commentedSingleLine_ = false;
-                }
-                i_++;
-                continue;
-            }
-            if (commentedMultiLine_) {
-                if (cur_ == SECOND_COMMENT && i_ + 1 < len_ && _found.charAt(i_ + 1) == BEGIN_COMMENT) {
-                    commentedMultiLine_ = false;
-                    i_++;
-                    i_++;
+            if (current_ != null) {
+                String end_ = current_.getEnd();
+                if (_found.startsWith(end_,i_)) {
+                    i_ += end_.length();
+                    current_ = null;
                     continue;
                 }
                 i_++;
                 continue;
             }
-            if (cur_ == BEGIN_COMMENT && i_ + 1 < len_) {
-                if (_found.charAt(i_ + 1) == BEGIN_COMMENT) {
-                    commentedSingleLine_ = true;
-                    i_++;
-                    i_++;
-                    continue;
+            boolean skip_= false;
+            for (CommentDelimiters c: comments_) {
+                if (_found.startsWith(c.getBegin(),i_)) {
+                    current_ = c;
+                    i_ += c.getBegin().length();
+                    skip_ = true;
+                    break;
                 }
-                if (_found.charAt(i_ + 1) == SECOND_COMMENT) {
-                    commentedMultiLine_ = true;
-                    i_++;
-                    i_++;
-                    continue;
-                }
+            }
+            if (skip_) {
+                continue;
             }
             if (Character.isWhitespace(cur_)) {
                 i_++;
