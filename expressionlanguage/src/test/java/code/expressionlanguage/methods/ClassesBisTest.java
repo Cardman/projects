@@ -288,6 +288,20 @@ public final class ClassesBisTest extends ProcessMethodCommon {
         assertTrue(!cont_.isEmptyErrors());
     }
     @Test
+    public void validateEl28FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $int a+=1;\n");
+        xml_.append(" $public $int b,c+=1;\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = ProcessMethodCommon.contextElDefault();
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.isEmptyErrors());
+    }
+    @Test
     public void resolve12Test() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;

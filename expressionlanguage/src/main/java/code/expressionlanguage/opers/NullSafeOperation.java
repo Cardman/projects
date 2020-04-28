@@ -77,10 +77,6 @@ public final class NullSafeOperation extends MethodOperation {
                     m_ = m_.getParent();
                     continue;
                 }
-                if (m_ instanceof CastOperation) {
-                    setResultClass(new ClassArgumentMatching(((CastOperation) m_).getClassName()));
-                    return;
-                }
                 break;
             }
             if (m_.getFirstChild() == current_) {
@@ -100,6 +96,9 @@ public final class NullSafeOperation extends MethodOperation {
                     type_ = ret_;
                 }
             }
+        } else if (m_ instanceof CastOperation) {
+            CastOperation c_ = (CastOperation) m_;
+            type_ = c_.getClassName();
         } else if (m_ instanceof AffectationOperation) {
             AffectationOperation a_ = (AffectationOperation) m_;
             SettableElResult s_ = AffectationOperation.tryGetSettable(a_);

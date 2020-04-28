@@ -185,6 +185,9 @@ public final class StandardInstancingOperation extends
                 String iter_ = _an.getStandards().getAliasIterableTable();
                 typeAff_ = StringList.concat(iter_,Templates.TEMPLATE_BEGIN,typeAffOne_,Templates.TEMPLATE_SEP,typeAffTwo_,Templates.TEMPLATE_END);
             }
+        } else if (m_ instanceof CastOperation) {
+            CastOperation c_ = (CastOperation) m_;
+            typeAff_ = c_.getClassName();
         } else if (m_ instanceof AffectationOperation) {
             AffectationOperation a_ = (AffectationOperation) m_;
             SettableElResult s_ = AffectationOperation.tryGetSettable(a_);

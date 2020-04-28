@@ -53,7 +53,8 @@ public final class ElUtil {
             }
             return names_;
         }
-        if (opTwo_.getPriority() == ElResolver.AFF_PRIO) {
+        if (opTwo_.getPriority() == ElResolver.AFF_PRIO
+                && StringList.quickEq(opTwo_.getOperators().firstValue(),"=")) {
             String var_ = opTwo_.getValues().firstValue();
             int off_ = opTwo_.getValues().firstKey();
             addIfNotEmpty(names_,var_,_valueOffset+off_,true);
@@ -62,20 +63,28 @@ public final class ElUtil {
     }
 
     private static void addIfNotEmpty(CustList<PartOffsetAffect> _list, String _name, int _offset, boolean _aff) {
-        String name_ = getFieldName(_name);
+        String trimmed_ = _name.trim();
+        String name_ = getFieldName(trimmed_);
         if (name_.isEmpty()) {
             return;
         }
-        int delta_ = StringList.getFirstPrintableCharIndex(_name);
-        _list.add(new PartOffsetAffect(new PartOffset(name_,delta_+_offset),_aff || _name.indexOf('=') > -1));
+        if (StringList.isDollarWord(trimmed_)) {
+            int delta_ = StringList.getFirstPrintableCharIndex(_name);
+            _list.add(new PartOffsetAffect(new PartOffset(name_,delta_+_offset),_aff));
+            return;
+        }
+        String afterName_ = trimmed_.substring(name_.length()).trim();
+        if (afterName_.startsWith("=")) {
+            int delta_ = StringList.getFirstPrintableCharIndex(_name);
+            _list.add(new PartOffsetAffect(new PartOffset(name_,delta_+_offset),true));
+        }
     }
     private static String getFieldName(String _v) {
-        String v_ = _v.trim();
         int k_ = 0;
-        int lenField_ = v_.length();
+        int lenField_ = _v.length();
         StringBuilder fieldName_ = new StringBuilder();
         while (k_ < lenField_) {
-            char fieldChar_ = v_.charAt(k_);
+            char fieldChar_ = _v.charAt(k_);
             if (!StringList.isDollarWordChar(fieldChar_)) {
                 break;
             }

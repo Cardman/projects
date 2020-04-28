@@ -90,6 +90,9 @@ public final class DimensionArrayInstancing extends
                     typeAff_ = ret_;
                 }
             }
+        } else if (m_ instanceof CastOperation) {
+            CastOperation c_ = (CastOperation) m_;
+            typeAff_ = c_.getClassName();
         } else if (m_ instanceof AffectationOperation) {
             AffectationOperation a_ = (AffectationOperation) m_;
             SettableElResult s_ = AffectationOperation.tryGetSettable(a_);

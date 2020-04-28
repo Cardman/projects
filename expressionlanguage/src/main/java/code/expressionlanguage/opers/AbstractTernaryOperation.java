@@ -159,6 +159,9 @@ public abstract class AbstractTernaryOperation extends MethodOperation {
                     type_ = ret_;
                 }
             }
+        } else if (m_ instanceof CastOperation) {
+            CastOperation c_ = (CastOperation) m_;
+            type_ = c_.getClassName();
         } else if (m_ instanceof AffectationOperation) {
             AffectationOperation a_ = (AffectationOperation) m_;
             SettableElResult s_ = AffectationOperation.tryGetSettable(a_);

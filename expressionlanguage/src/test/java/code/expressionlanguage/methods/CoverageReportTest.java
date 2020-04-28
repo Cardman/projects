@@ -10128,6 +10128,58 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "</pre></body></html>", filesExp_.firstValue());
     }
     @Test
+    public void coverage267Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex<T> {\n");
+        xml_.append(" public static Ex<int> field = new Ex<>();\n");
+        xml_.append(" public static Ex<int> exmeth(){\n");
+        xml_.append("  return field;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElCoverageEnDefault();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validate(cont_,files_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateArgument("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = FileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a>&lt;<a name=\"m20\">T</a>&gt; {\n" +
+                " public static <a title=\"pkg.Ex\" href=\"#m13\">Ex</a>&lt;int&gt; <span class=\"g\"><span class=\"g\"><a name=\"m48\">field</a> </span>=<span class=\"g\"> new <a title=\"pkg.Ex\" href=\"#m13\">Ex</a><a title=\"pkg.Ex&lt;int&gt;\">&lt;&gt;</a>()</span></span>;\n" +
+                " public static <a title=\"pkg.Ex\" href=\"#m13\">Ex</a>&lt;int&gt; <a name=\"m91\">exmeth</a>(){\n" +
+                "  return <span class=\"f\"><a title=\"pkg.Ex.field\" href=\"#m48\">field</a></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage268Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex<T> {\n");
+        xml_.append(" public static final Ex<int> field = new Ex<>();\n");
+        xml_.append(" public static Ex<int> exmeth(){\n");
+        xml_.append("  return field;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElCoverageEnDefault();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validate(cont_,files_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateArgument("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = FileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a>&lt;<a name=\"m20\">T</a>&gt; {\n" +
+                " public static final <a title=\"pkg.Ex\" href=\"#m13\">Ex</a>&lt;int&gt; <span class=\"g\"><span class=\"g\"><a name=\"m54\">field</a> </span>=<span class=\"g\"> new <a title=\"pkg.Ex\" href=\"#m13\">Ex</a><a title=\"pkg.Ex&lt;int&gt;\">&lt;&gt;</a>()</span></span>;\n" +
+                " public static <a title=\"pkg.Ex\" href=\"#m13\">Ex</a>&lt;int&gt; <a name=\"m97\">exmeth</a>(){\n" +
+                "  return <span class=\"f\"><a title=\"pkg.Ex.field\" href=\"#m54\">field</a></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
     public void coverageComment1Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");

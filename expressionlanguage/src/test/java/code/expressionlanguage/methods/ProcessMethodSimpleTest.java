@@ -3177,6 +3177,118 @@ public final class ProcessMethodSimpleTest extends ProcessMethodCommon {
         assertTrue(res_.longStruct() < 8);
     }
     @Test
+    public void calculateArgument48Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $final Object[] arr = ($int[]){1,2};\n");
+        xml_.append(" $public $static Object exmeth (){\n");
+        xml_.append("  $return arr;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElDefault();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        Struct arr_ = ret_.getStruct();
+        assertEq("[$int", arr_.getClassName(cont_));
+        assertEq(2, ((ArrayStruct)arr_).getInstance().length);
+        assertEq(1, ((IntStruct)((ArrayStruct)arr_).getInstance()[0]).intStruct());
+        assertEq(2, ((IntStruct)((ArrayStruct)arr_).getInstance()[1]).intStruct());
+    }
+    @Test
+    public void calculateArgument49Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $final Object[] arr = (ExTwo<$int>[])$new ExTwo<>[2];\n");
+        xml_.append(" $static {arr[0]=(ExTwo<$int>)$new ExTwo<>(1);arr[1]=(ExTwo<$int>)$new ExTwo<>(2);}\n");
+        xml_.append(" $public $static Object exmeth (){\n");
+        xml_.append("  $return arr;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExTwo<T> {\n");
+        xml_.append(" $private T v;\n");
+        xml_.append(" $public ExTwo(T v){\n");
+        xml_.append("  $this.v=v;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElDefault();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        Struct arr_ = ret_.getStruct();
+        assertEq("[pkg.ExTwo<$int>", arr_.getClassName(cont_));
+        assertEq(2, ((ArrayStruct)arr_).getInstance().length);
+        Struct first_ = ((ArrayStruct) arr_).getInstance()[0];
+        Struct second_ = ((ArrayStruct) arr_).getInstance()[1];
+        assertEq("pkg.ExTwo<$int>", first_.getClassName(cont_));
+        assertEq("pkg.ExTwo<$int>", second_.getClassName(cont_));
+        assertEq(1, ((IntStruct)((FieldableStruct)first_).getEntryStruct(new ClassField("pkg.ExTwo","v")).getValue()).intStruct());
+        assertEq(2, ((IntStruct)((FieldableStruct)second_).getEntryStruct(new ClassField("pkg.ExTwo","v")).getValue()).intStruct());
+    }
+    @Test
+    public void calculateArgument50Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $final Object[] arr = (ExTwo<$int>[]){$new ExTwo<>(1),$new ExTwo<>(2)};\n");
+        xml_.append(" $public $static Object exmeth (){\n");
+        xml_.append("  $return arr;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExTwo<T> {\n");
+        xml_.append(" $private T v;\n");
+        xml_.append(" $public ExTwo(T v){\n");
+        xml_.append("  $this.v=v;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElDefault();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        Struct arr_ = ret_.getStruct();
+        assertEq("[pkg.ExTwo<$int>", arr_.getClassName(cont_));
+        assertEq(2, ((ArrayStruct)arr_).getInstance().length);
+        Struct first_ = ((ArrayStruct) arr_).getInstance()[0];
+        Struct second_ = ((ArrayStruct) arr_).getInstance()[1];
+        assertEq("pkg.ExTwo<$int>", first_.getClassName(cont_));
+        assertEq("pkg.ExTwo<$int>", second_.getClassName(cont_));
+        assertEq(1, ((IntStruct)((FieldableStruct)first_).getEntryStruct(new ClassField("pkg.ExTwo","v")).getValue()).intStruct());
+        assertEq(2, ((IntStruct)((FieldableStruct)second_).getEntryStruct(new ClassField("pkg.ExTwo","v")).getValue()).intStruct());
+    }
+    @Test
+    public void calculateArgument51Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth (){\n");
+        xml_.append("  $return ($int)($true?1:2);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElDefault();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq(1,ret_.getNumber());
+    }
+    @Test
     public void calculateArgument3FailTest() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");

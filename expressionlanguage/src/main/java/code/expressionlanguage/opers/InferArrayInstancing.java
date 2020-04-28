@@ -69,6 +69,9 @@ public final class InferArrayInstancing extends AbstractArrayInstancingOperation
             if (!type_.isEmpty()) {
                 type_ = PrimitiveTypeUtil.getPrettyArrayType(type_);
             }
+        } else if (m_ instanceof CastOperation) {
+            CastOperation c_ = (CastOperation) m_;
+            type_ = c_.getClassName();
         } else if (m_ instanceof AffectationOperation) {
             AffectationOperation a_ = (AffectationOperation) m_;
             SettableElResult s_ = AffectationOperation.tryGetSettable(a_);
