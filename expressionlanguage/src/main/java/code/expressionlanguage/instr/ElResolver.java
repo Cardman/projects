@@ -1247,8 +1247,7 @@ public final class ElResolver {
         info_.setLastChar(i_);
         info_.setName(word_);
         if (_out.getStack().isEmpty()) {
-            int index_ = nextPrintCharIs(i_, len_, _string, '=');
-            if (hasCharOtherThanEq(_string, len_, index_)
+            if (isPureAffectation(_string, len_, i_)
                     && isPrevEmptyOrComma(prev_)
                     && isDeclaringMutableVar(_an)) {
                 _out.getDeclaring().add(word_);
@@ -1266,6 +1265,11 @@ public final class ElResolver {
             _d.getVariables().add(info_);
         }
         _out.setNextIndex(i_);
+    }
+
+    static boolean isPureAffectation(String _string, int len_, int i_) {
+        int index_ = nextPrintCharIs(i_, len_, _string, '=');
+        return hasCharOtherThanEq(_string, len_, index_);
     }
 
     private static boolean hasCharOtherThanEq(String _string, int len_, int index_) {

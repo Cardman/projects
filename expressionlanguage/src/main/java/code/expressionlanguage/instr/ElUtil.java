@@ -43,13 +43,13 @@ public final class ElUtil {
         CustList<PartOffsetAffect> names_ = new CustList<PartOffsetAffect>();
         if (opTwo_.getOperators().isEmpty()) {
             for (EntryCust<Integer,String> e: opTwo_.getValues().entryList()) {
-                addIfNotEmpty(names_,e.getValue(),_valueOffset+e.getKey(),false);
+                addIfNotEmpty(names_,e.getValue(),_valueOffset+e.getKey());
             }
             return names_;
         }
         if (opTwo_.getPriority() == ElResolver.DECL_PRIO) {
             for (EntryCust<Integer,String> e: opTwo_.getValues().entryList()) {
-                addIfNotEmpty(names_,e.getValue(),_valueOffset+e.getKey(),false);
+                addIfNotEmpty(names_,e.getValue(),_valueOffset+e.getKey());
             }
             return names_;
         }
@@ -57,28 +57,36 @@ public final class ElUtil {
                 && StringList.quickEq(opTwo_.getOperators().firstValue(),"=")) {
             String var_ = opTwo_.getValues().firstValue();
             int off_ = opTwo_.getValues().firstKey();
-            addIfNotEmpty(names_,var_,_valueOffset+off_,true);
+            String trimmed_ = var_.trim();
+            String name_ = getFieldName(trimmed_);
+            if (StringList.isDollarWord(trimmed_)) {
+                addFieldName(names_,var_,_valueOffset+off_,true,name_);
+            }
         }
         return names_;
     }
 
-    private static void addIfNotEmpty(CustList<PartOffsetAffect> _list, String _name, int _offset, boolean _aff) {
+    private static void addIfNotEmpty(CustList<PartOffsetAffect> _list, String _name, int _offset) {
         String trimmed_ = _name.trim();
         String name_ = getFieldName(trimmed_);
         if (name_.isEmpty()) {
             return;
         }
         if (StringList.isDollarWord(trimmed_)) {
-            int delta_ = StringList.getFirstPrintableCharIndex(_name);
-            _list.add(new PartOffsetAffect(new PartOffset(name_,delta_+_offset),_aff));
+            addFieldName(_list, _name, _offset, false, name_);
             return;
         }
         String afterName_ = trimmed_.substring(name_.length()).trim();
-        if (afterName_.startsWith("=")) {
-            int delta_ = StringList.getFirstPrintableCharIndex(_name);
-            _list.add(new PartOffsetAffect(new PartOffset(name_,delta_+_offset),true));
+        if (ElResolver.isPureAffectation(afterName_,afterName_.length(),0)) {
+            addFieldName(_list, _name, _offset, true, name_);
         }
     }
+
+    private static void addFieldName(CustList<PartOffsetAffect> _list, String _name, int _offset, boolean _aff, String name_) {
+        int delta_ = StringList.getFirstPrintableCharIndex(_name);
+        _list.add(new PartOffsetAffect(new PartOffset(name_,delta_+_offset),_aff));
+    }
+
     private static String getFieldName(String _v) {
         int k_ = 0;
         int lenField_ = _v.length();
