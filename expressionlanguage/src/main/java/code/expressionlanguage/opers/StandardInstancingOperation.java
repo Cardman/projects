@@ -43,6 +43,7 @@ public final class StandardInstancingOperation extends
     private String lastType = EMPTY_STRING;
     private String typeInfer = EMPTY_STRING;
     private CustList<PartOffset> partOffsets = new CustList<PartOffset>();
+    private boolean newBefore = true;
 
     public StandardInstancingOperation(int _index, int _indexChild,
             MethodOperation _m, OperationsSequence _op) {
@@ -59,7 +60,14 @@ public final class StandardInstancingOperation extends
         KeyWords keyWords_ = _an.getKeyWords();
         String newKeyWord_ = keyWords_.getKeyWordNew();
         String afterNew_ = methodName.trim().substring(newKeyWord_.length());
-        int local_ = StringList.getFirstPrintableCharIndex(afterNew_);
+        int j_ = afterNew_.indexOf("}");
+        int delta_ = 0;
+        if (j_ > -1) {
+            afterNew_ = afterNew_.substring(j_+1);
+            delta_ = j_+1;
+            newBefore = false;
+        }
+        int local_ = StringList.getFirstPrintableCharIndex(afterNew_)+delta_;
         String className_ = afterNew_.trim();
         ClassArgumentMatching arg_ = getPreviousResultClass();
         StringMap<String> ownersMap_ = new StringMap<String>();
@@ -208,11 +216,16 @@ public final class StandardInstancingOperation extends
     public void analyze(Analyzable _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         int off_ = StringList.getFirstPrintableCharIndex(methodName);
-        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
         className = _conf.getStandards().getAliasObject();
         KeyWords keyWords_ = _conf.getKeyWords();
         String newKeyWord_ = keyWords_.getKeyWordNew();
         String realClassName_ = methodName.trim().substring(newKeyWord_.length());
+        int j_ = realClassName_.indexOf("}");
+        if (j_ > -1) {
+            realClassName_ = realClassName_.substring(j_+1);
+            off_ += j_+1;
+        }
+        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
         CustList<OperationNode> filter_ = ElUtil.filterInvoking(chidren_);
         CustList<ClassArgumentMatching> firstArgs_ = listClasses(filter_, _conf);
         if (!isIntermediateDottedOperation()) {
@@ -519,6 +532,10 @@ public final class StandardInstancingOperation extends
 
     public String getLastType() {
         return lastType;
+    }
+
+    public boolean isNewBefore() {
+        return newBefore;
     }
 
     public CustList<PartOffset> getPartOffsets() {

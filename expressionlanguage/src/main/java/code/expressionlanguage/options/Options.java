@@ -5,20 +5,11 @@ import code.util.StringList;
 public final class Options {
 
     private StringList typesInit = new StringList();
-    private boolean initializeStaticClassFirst = true;
     private boolean readOnly;
     private boolean failIfNotAllInit;
 
     public StringList getTypesInit() {
         return typesInit;
-    }
-
-    public boolean isInitializeStaticClassFirst() {
-        return initializeStaticClassFirst;
-    }
-
-    public void setInitializeStaticClassFirst(boolean _initializeStaticClassFirst) {
-        initializeStaticClassFirst = _initializeStaticClassFirst;
     }
 
     public boolean isReadOnly() {

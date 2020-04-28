@@ -272,7 +272,7 @@ public final class ProcessMethodInstanceCoreTest extends ProcessMethodCommon {
         xml_.append("}\n");
         xml_.append("$public $class pkg.Apply {\n");
         xml_.append(" $public $static Ex exec(){\n");
-        xml_.append("  $return $new Ex();\n");
+        xml_.append("  $return $new {} Ex();\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.Ex {\n");
@@ -343,7 +343,7 @@ public final class ProcessMethodInstanceCoreTest extends ProcessMethodCommon {
         xml_.append("}\n");
         xml_.append("$public $class pkg.Apply {\n");
         xml_.append(" $public $static Ex exec(){\n");
-        xml_.append("  $return $new Ex(5);\n");
+        xml_.append("  $return $new{ } Ex(5);\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.Ex {\n");

@@ -10,7 +10,6 @@ public final class ExecutingOptions {
     private String srcFolder = "src";
     private String logFolder = "logs";
     private String mainThread = "main_thread.txt";
-    private boolean initializeStaticClassFirst;
     private int tabWidth = 4;
     private AtomicBoolean interrupt = new AtomicBoolean();
     private boolean covering;
@@ -45,14 +44,6 @@ public final class ExecutingOptions {
 
     public void setMainThread(String _mainThread) {
         mainThread = _mainThread;
-    }
-
-    public boolean isInitializeStaticClassFirst() {
-        return initializeStaticClassFirst;
-    }
-
-    public void setInitializeStaticClassFirst(boolean initializeStaticClassFirst) {
-        this.initializeStaticClassFirst = initializeStaticClassFirst;
     }
 
     public AtomicBoolean getInterrupt() {

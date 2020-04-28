@@ -511,9 +511,36 @@ public final class ElResolver {
             return;
         }
         if (StringExpUtil.startsWithKeyWord(_string,i_, keyWordNew_)) {
-            int j_ = i_;
+            int j_ = i_+keyWordNew_.length();
 
             int count_ = 0;
+            boolean foundLeft_ = false;
+            while (j_ < len_) {
+                char curLoc_ = _string.charAt(j_);
+                if (!Character.isWhitespace(curLoc_)) {
+                    if (curLoc_ == ANN_ARR_LEFT) {
+                        foundLeft_ = true;
+                    }
+                    j_++;
+                    break;
+                }
+                j_++;
+            }
+            boolean found_ = false;
+            while (j_ < len_) {
+                char curLoc_ = _string.charAt(j_);
+                if (!Character.isWhitespace(curLoc_)) {
+                    if (curLoc_ == ANN_ARR_RIGHT) {
+                        found_ = true;
+                    }
+                    break;
+                }
+                j_++;
+            }
+            if (foundLeft_ && !found_) {
+                _d.setBadOffset(j_);
+                return;
+            }
             while (j_ < len_) {
                 char curLoc_ = _string.charAt(j_);
                 if (curLoc_ == Templates.LT) {

@@ -77,7 +77,6 @@ public abstract class ProcessMethodCommon {
 
     protected static ContextEl contextElOtherInit(int... _m) {
         Options opt_ = new Options();
-        opt_.setInitializeStaticClassFirst(false);
         ContextEl ct_;
         if (_m.length == 0) {
             ct_ = InitializationLgNames.buildStdOne(opt_);
@@ -121,7 +120,6 @@ public abstract class ProcessMethodCommon {
 
     protected static ContextEl contextElCoverageOtherIniDef() {
         Options opt_ = new Options();
-        opt_.setInitializeStaticClassFirst(false);
         ContextEl ct_ = InitializationLgNames.buildStdOne(opt_);
         ct_.setCovering(true);
         return ct_;

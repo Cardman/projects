@@ -8,7 +8,6 @@ import code.expressionlanguage.methods.*;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.options.KeyWords;
-import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.ClassMetaInfo;
 import code.expressionlanguage.types.ReadyTypes;
@@ -86,8 +85,6 @@ public interface Analyzable {
 
     boolean isFinalVariable();
     void setFinalVariable(boolean _finalVariable);
-
-    Options getOptions();
 
     AnalyzedPageEl getAnalyzing();
 

@@ -668,11 +668,6 @@ public final class Configuration implements ExecutableCode {
     }
 
     @Override
-    public Options getOptions() {
-        return context.getOptions();
-    }
-
-    @Override
     public boolean isFinalVariable() {
         return context.isFinalVariable();
     }

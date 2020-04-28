@@ -3014,7 +3014,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" $public Ex(){\n");
         xml_.append(" }\n");
         xml_.append(" $public $static Object exmeth(){\n");
-        xml_.append("  $return $new Ex();\n");
+        xml_.append("  $return $new{} Ex();\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
@@ -3030,7 +3030,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 " <a name=\"m25\">$public Ex(</a>){\n" +
                 " }\n" +
                 " $public $static Object <a name=\"m66\">exmeth</a>(){\n" +
-                "  $return <span class=\"f\"><a title=\"pkg.Ex.pkg.Ex()\" href=\"#m25\">$new</a> <a title=\"pkg.Ex\" href=\"#m15\">Ex</a>()</span>;\n" +
+                "  $return <span class=\"f\"><a title=\"pkg.Ex.pkg.Ex()\" href=\"#m25\">$new</a>{} <a title=\"pkg.Ex\" href=\"#m15\">Ex</a>()</span>;\n" +
                 " }\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
@@ -3042,7 +3042,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" $public Ex($int p){\n");
         xml_.append(" }\n");
         xml_.append(" $public $static Object exmeth(){\n");
-        xml_.append("  $return $new Ex(0);\n");
+        xml_.append("  $return $new{} Ex(0);\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
@@ -3058,7 +3058,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 " <a name=\"m25\">$public Ex(</a>$int <a name=\"m41\">p</a>){\n" +
                 " }\n" +
                 " $public $static Object <a name=\"m72\">exmeth</a>(){\n" +
-                "  $return <span class=\"f\"><a title=\"pkg.Ex.pkg.Ex($int)\" href=\"#m25\">$new</a> <a title=\"pkg.Ex\" href=\"#m15\">Ex</a>(<span class=\"f\">0</span>)</span>;\n" +
+                "  $return <span class=\"f\"><a title=\"pkg.Ex.pkg.Ex($int)\" href=\"#m25\">$new</a>{} <a title=\"pkg.Ex\" href=\"#m15\">Ex</a>(<span class=\"f\">0</span>)</span>;\n" +
                 " }\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());

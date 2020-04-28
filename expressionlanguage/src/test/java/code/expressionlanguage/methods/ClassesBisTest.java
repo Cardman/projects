@@ -274,6 +274,20 @@ public final class ClassesBisTest extends ProcessMethodCommon {
         assertTrue(!cont_.isEmptyErrors());
     }
     @Test
+    public void validateEl27FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $void outer(){($new{]);}\n");
+        xml_.append(" $public $static $void outer2(){a=$new;}\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = ProcessMethodCommon.contextElDefault();
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.isEmptyErrors());
+    }
+    @Test
     public void resolve12Test() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;

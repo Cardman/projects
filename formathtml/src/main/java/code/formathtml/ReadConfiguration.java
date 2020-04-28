@@ -157,10 +157,6 @@ public final class ReadConfiguration {
         options_.setReadOnly(true);
         for (Element c: _elt.getChildElements()) {
             String fieldName_ = c.getAttribute("field");
-            if (StringList.quickEq(fieldName_, "initializeStaticClassFirst")) {
-                options_.setInitializeStaticClassFirst(StringList.quickEq(c.getAttribute("value"), "true"));
-                continue;
-            }
             if (StringList.quickEq(fieldName_, "classes")) {
                 options_.getTypesInit().add(c.getAttribute("value"));
             }

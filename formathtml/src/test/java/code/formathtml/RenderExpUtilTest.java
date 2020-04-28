@@ -5786,7 +5786,7 @@ public final class RenderExpUtilTest extends CommonRender {
         files_.put("pkg/ExTwo", xml_.toString());
         Configuration cont_ = getConfiguration4(files_,false);
         addImportingPage(cont_);
-        Argument arg_ = processEl("$new pkg.Ex().inst", cont_);
+        Argument arg_ = processEl("$new{} pkg.Ex().inst", cont_);
         assertEq(1,arg_.getNumber());
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         assertTrue(cont_.getClasses().isSuccessfulInitialized("pkg.Ex"));
@@ -5878,7 +5878,7 @@ public final class RenderExpUtilTest extends CommonRender {
         files_.put("pkg/ExTwo", xml_.toString());
         Configuration conf_ = getConfiguration4(files_,false);
         addImportingPage(conf_);
-        Argument arg_ = processEl("$new pkg.Ex().inst", conf_);
+        Argument arg_ = processEl("$new{} pkg.Ex().inst", conf_);
         assertEq(1,arg_.getNumber());
         assertTrue(conf_.getClasses().isInitialized("pkg.Ex"));
         assertTrue(conf_.getClasses().isSuccessfulInitialized("pkg.Ex"));
@@ -5911,7 +5911,7 @@ public final class RenderExpUtilTest extends CommonRender {
         files_.put("pkg/ExTwo", xml_.toString());
         Configuration conf_ = getConfiguration4(files_,false);
         addImportingPage(conf_);
-        Argument arg_ = processEl("$new pkg.Ex(5).inst", conf_);
+        Argument arg_ = processEl("$new{} pkg.Ex(5).inst", conf_);
         assertEq(5,arg_.getNumber());
         assertTrue(conf_.getClasses().isInitialized("pkg.Ex"));
         assertTrue(conf_.getClasses().isSuccessfulInitialized("pkg.Ex"));
@@ -5958,7 +5958,7 @@ public final class RenderExpUtilTest extends CommonRender {
         files_.put("pkg/ExTwo", xml_.toString());
         Configuration conf_ = getConfiguration4(files_,false);
         addImportingPage(conf_);
-        processEl("$new pkg.Ex(5).inst", conf_);
+        processEl("$new{} pkg.Ex(5).inst", conf_);
         assertNotNull(getException(conf_));
         assertTrue(conf_.getClasses().isInitialized("pkg.Ex"));
         assertTrue(!conf_.getClasses().isSuccessfulInitialized("pkg.Ex"));
@@ -6400,7 +6400,7 @@ public final class RenderExpUtilTest extends CommonRender {
         files_.put("pkg/ExTwo", xml_.toString());
         Configuration conf_ = getConfiguration4(files_,false);
         addImportingPage(conf_);
-        processEl("$new pkg.Ex(5).inst/=0", conf_);
+        processEl("$new{} pkg.Ex(5).inst/=0", conf_);
         assertNotNull(getException(conf_));
     }
     @Test
@@ -6459,7 +6459,7 @@ public final class RenderExpUtilTest extends CommonRender {
         files_.put("pkg/ExTwo", xml_.toString());
         Configuration conf_ = getConfiguration4(files_,false);
         addImportingPage(conf_);
-        Argument argument_ = processEl("$new pkg.Ex(5).inst=10", conf_);
+        Argument argument_ = processEl("$new{} pkg.Ex(5).inst=10", conf_);
         assertEq(10,argument_.getNumber());
     }
     @Test
@@ -6638,7 +6638,7 @@ public final class RenderExpUtilTest extends CommonRender {
         files_.put("pkg/ExTwo", xml_.toString());
         Configuration conf_ = getConfiguration4(files_,false);
         addImportingPage(conf_);
-        Argument argument_ = processEl("$new pkg.Ex(52).$that.res(8)", conf_);
+        Argument argument_ = processEl("$new{} pkg.Ex(52).$that.res(8)", conf_);
         assertEq(60,argument_.getNumber());
     }
     @Test
@@ -9417,7 +9417,6 @@ public final class RenderExpUtilTest extends CommonRender {
     private static Configuration getConfiguration(StringMap<String> _files, boolean _init) {
         Configuration conf_ = EquallableExUtil.newConfiguration();
         Options opt_ = new Options();
-        opt_.setInitializeStaticClassFirst(_init);
         ContextEl cont_ = InitializationLgNames.buildStdThree(opt_);
         conf_.setContext(cont_);
         cont_.setExecutingInstance(conf_);

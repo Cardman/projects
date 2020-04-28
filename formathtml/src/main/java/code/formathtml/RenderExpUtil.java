@@ -328,15 +328,13 @@ public final class RenderExpUtil {
         }
         MethodOperation block_ = (MethodOperation) _block;
         if (block_.getChildren().isEmpty()) {
-            if (_context.getOptions().isInitializeStaticClassFirst() && block_ instanceof StandardInstancingOperation) {
-                if (_index == CustList.FIRST_INDEX) {
-                    Delimiters d_ = block_.getOperations().getDelimiter();
-                    OperationsSequence opSeq_ = new OperationsSequence();
-                    opSeq_.setFctName(block_.getOperations().getFctName());
-                    opSeq_.setDelimiter(new Delimiters());
-                    opSeq_.getDelimiter().setIndexBegin(d_.getIndexBegin());
-                    return new StaticInitOperation(block_.getIndexInEl(), CustList.FIRST_INDEX, block_, opSeq_);
-                }
+            if (isInitializeStaticClassFirst(_index, block_)) {
+                Delimiters d_ = block_.getOperations().getDelimiter();
+                OperationsSequence opSeq_ = new OperationsSequence();
+                opSeq_.setFctName(block_.getOperations().getFctName());
+                opSeq_.setDelimiter(new Delimiters());
+                opSeq_.getDelimiter().setIndexBegin(d_.getIndexBegin());
+                return new StaticInitOperation(block_.getIndexInEl(), CustList.FIRST_INDEX, block_, opSeq_);
             }
             return null;
         }
@@ -344,17 +342,21 @@ public final class RenderExpUtil {
         Delimiters d_ = block_.getOperations().getDelimiter();
         int curKey_ = block_.getChildren().getKey(0);
         int offset_ = block_.getIndexInEl()+curKey_;
-        if (_context.getOptions().isInitializeStaticClassFirst() && block_ instanceof StandardInstancingOperation) {
-            if (_index == CustList.FIRST_INDEX) {
-                OperationsSequence opSeq_ = new OperationsSequence();
-                opSeq_.setFctName(block_.getOperations().getFctName());
-                opSeq_.setDelimiter(new Delimiters());
-                opSeq_.getDelimiter().setIndexBegin(d_.getIndexBegin());
-                return new StaticInitOperation(block_.getIndexInEl(), CustList.FIRST_INDEX, block_, opSeq_);
-            }
+        if (isInitializeStaticClassFirst(_index, block_)) {
+            OperationsSequence opSeq_ = new OperationsSequence();
+            opSeq_.setFctName(block_.getOperations().getFctName());
+            opSeq_.setDelimiter(new Delimiters());
+            opSeq_.getDelimiter().setIndexBegin(d_.getIndexBegin());
+            return new StaticInitOperation(block_.getIndexInEl(), CustList.FIRST_INDEX, block_, opSeq_);
         }
         OperationsSequence r_ = getOperationsSequence(offset_, value_, _context, d_);
         return createOperationNode(offset_, _index, block_, r_, _context);
+    }
+
+    private static boolean isInitializeStaticClassFirst(int _index, MethodOperation block_) {
+        return block_ instanceof StandardInstancingOperation
+                && _index == CustList.FIRST_INDEX
+                && ((StandardInstancingOperation) block_).isNewBefore();
     }
 
     private static OperationNode createNextSibling(OperationNode _block, Configuration _context) {

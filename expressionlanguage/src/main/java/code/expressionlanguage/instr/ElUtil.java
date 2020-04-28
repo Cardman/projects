@@ -350,7 +350,7 @@ public final class ElUtil {
         }
         MethodOperation block_ = (MethodOperation) _block;
         if (block_.getChildren().isEmpty()) {
-            if (isInitializeStaticClassFirst(_context, _index, block_)) {
+            if (isInitializeStaticClassFirst(_index, block_)) {
                 Delimiters d_ = block_.getOperations().getDelimiter();
                 OperationsSequence opSeq_ = new OperationsSequence();
                 opSeq_.setFctName(block_.getOperations().getFctName());
@@ -364,7 +364,7 @@ public final class ElUtil {
         Delimiters d_ = block_.getOperations().getDelimiter();
         int curKey_ = block_.getChildren().getKey(0);
         int offset_ = block_.getIndexInEl()+curKey_;
-        if (isInitializeStaticClassFirst(_context, _index, block_)) {
+        if (isInitializeStaticClassFirst(_index, block_)) {
             OperationsSequence opSeq_ = new OperationsSequence();
             opSeq_.setFctName(block_.getOperations().getFctName());
             opSeq_.setDelimiter(new Delimiters());
@@ -377,8 +377,10 @@ public final class ElUtil {
         return op_;
     }
 
-    private static boolean isInitializeStaticClassFirst(ContextEl _context, int _index, MethodOperation block_) {
-        return _context.getOptions().isInitializeStaticClassFirst() && block_ instanceof StandardInstancingOperation && _index == CustList.FIRST_INDEX;
+    private static boolean isInitializeStaticClassFirst(int _index, MethodOperation block_) {
+        return block_ instanceof StandardInstancingOperation
+                && _index == CustList.FIRST_INDEX
+                && ((StandardInstancingOperation) block_).isNewBefore();
     }
 
     private static OperationNode createNextSibling(OperationNode _block, ContextEl _context, String _fieldName) {
