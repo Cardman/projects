@@ -295,6 +295,7 @@ public final class ClassesBisTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExTwo {\n");
         xml_.append(" $public $int a+=1;\n");
         xml_.append(" $public $int b,c+=1;\n");
+        xml_.append(" $public $int d+f=e=1;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = ProcessMethodCommon.contextElDefault();
