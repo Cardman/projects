@@ -10248,6 +10248,42 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "</pre></body></html>", filesExp_.firstValue());
     }
     @Test
+    public void coverage271Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static boolean exmeth(){\n");
+        xml_.append("  boolean count=false;\n");
+        xml_.append("  for (Boolean i: {null,true,false}){\n");
+        xml_.append("   for (Boolean j: {null,true,false}){\n");
+        xml_.append("    count = i ?? j;\n");
+        xml_.append("   }\n");
+        xml_.append("  }\n");
+        xml_.append("  return count;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElCoverageEnDefault();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validate(cont_,files_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateArgument("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = FileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
+                " public static boolean <a name=\"m45\">exmeth</a>(){\n" +
+                "  boolean <span class=\"f\"><span class=\"f\"><a name=\"m65\">count</a></span>=<span class=\"f\">false</span></span>;\n" +
+                "  <span class=\"f\">for (Boolean <a name=\"m93\">i</a></span>: <span class=\"f\">{<span class=\"f\">null</span>,<span class=\"f\">true</span>,<span class=\"f\">false</span>}</span>){\n" +
+                "   <span class=\"f\">for (Boolean <a name=\"m132\">j</a></span>: <span class=\"f\">{<span class=\"f\">null</span>,<span class=\"f\">true</span>,<span class=\"f\">false</span>}</span>){\n" +
+                "    <span class=\"f\"><span class=\"f\"><a href=\"#m65\">count</a> </span>=<span class=\"f\"><span class=\"f\"> <a href=\"#m93\">i</a> </span>??<span class=\"f\"> <a href=\"#m132\">j</a></span></span></span>;\n" +
+                "   }\n" +
+                "  }\n" +
+                "  return <span class=\"p\"><a href=\"#m65\">count</a></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
     public void coverageComment1Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
