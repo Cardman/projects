@@ -43,13 +43,30 @@ public final class ElUtil {
         CustList<PartOffsetAffect> names_ = new CustList<PartOffsetAffect>();
         if (opTwo_.getOperators().isEmpty()) {
             for (EntryCust<Integer,String> e: opTwo_.getValues().entryList()) {
-                addIfNotEmpty(names_,e.getValue(),_valueOffset+e.getKey());
+                String var_ = e.getValue();
+                String trimmed_ = var_.trim();
+                String name_ = getFieldName(trimmed_);
+                int offset_ = _valueOffset + e.getKey();
+                if (StringList.isDollarWord(trimmed_)) {
+                    addFieldName(names_, var_, offset_, false, name_);
+                }
             }
             return names_;
         }
         if (opTwo_.getPriority() == ElResolver.DECL_PRIO) {
             for (EntryCust<Integer,String> e: opTwo_.getValues().entryList()) {
-                addIfNotEmpty(names_,e.getValue(),_valueOffset+e.getKey());
+                String var_ = e.getValue();
+                String trimmed_ = var_.trim();
+                String name_ = getFieldName(trimmed_);
+                int offset_ = _valueOffset + e.getKey();
+                if (StringList.isDollarWord(trimmed_)) {
+                    addFieldName(names_, var_, offset_, false, name_);
+                    continue;
+                }
+                String afterName_ = trimmed_.substring(name_.length()).trim();
+                if (ElResolver.isPureAffectation(afterName_,afterName_.length(),0)) {
+                    addFieldName(names_, var_, offset_, true, name_);
+                }
             }
             return names_;
         }
@@ -64,22 +81,6 @@ public final class ElUtil {
             }
         }
         return names_;
-    }
-
-    private static void addIfNotEmpty(CustList<PartOffsetAffect> _list, String _name, int _offset) {
-        String trimmed_ = _name.trim();
-        String name_ = getFieldName(trimmed_);
-        if (name_.isEmpty()) {
-            return;
-        }
-        if (StringList.isDollarWord(trimmed_)) {
-            addFieldName(_list, _name, _offset, false, name_);
-            return;
-        }
-        String afterName_ = trimmed_.substring(name_.length()).trim();
-        if (ElResolver.isPureAffectation(afterName_,afterName_.length(),0)) {
-            addFieldName(_list, _name, _offset, true, name_);
-        }
     }
 
     private static void addFieldName(CustList<PartOffsetAffect> _list, String _name, int _offset, boolean _aff, String name_) {
