@@ -109,7 +109,9 @@ final class AfterUnaryParts {
             int max_ = _d.getDelExplicit().get(min_ + 1) - _offset;
             operators.put(firstPrintChar_, _string.substring(firstPrintChar_, max_ + 1));
             index = incrementUnary(_string, firstPrintChar_, lastPrintChar_, _offset, _d);
+            return;
         }
+        index = firstPrintChar_;
     }
     void setInstance(String _string, Analyzable _conf) {
         int firstPrintChar_ = del.getFirstPrintIndex();
