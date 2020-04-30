@@ -115,6 +115,10 @@ public abstract class GroupFrame extends CommonFrame {
     }
 
     protected void exit() {
+        nativeExit();
+    }
+
+    protected void nativeExit() {
         for (WindowListener l: getFrame().getWindowListeners()) {
             getFrame().removeWindowListener(l);
         }

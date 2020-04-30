@@ -129,7 +129,7 @@ public final class MainWindow extends GroupFrame {
             return;
         }
         writeCoords();
-        ProcessUtil.exit();
+        nativeExit();
     }
     @Override
     public boolean canChangeLanguage() {
