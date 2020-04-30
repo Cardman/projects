@@ -190,7 +190,7 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
         }
         OperationNode firstChild_ = par_.getFirstChild();
         ForwardOperation elt_;
-        if (!(firstChild_ instanceof DotOperation)) {
+        if (!(firstChild_ instanceof AbstractDotOperation)) {
             elt_ = castTo(firstChild_);
         } else {
             OperationNode beforeLast_ = ((MethodOperation)firstChild_).getChildrenNodes().last();

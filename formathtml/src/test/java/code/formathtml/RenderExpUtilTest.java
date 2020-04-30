@@ -7424,6 +7424,153 @@ public final class RenderExpUtilTest extends CommonRender {
         assertEq(2,argument_.getNumber());
     }
     @Test
+    public void processEl424___Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.Int:Int2 {\n");
+        xml_.append("}\n");
+        xml_.append("$public $interface pkg.Int2 {\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        Configuration conf_ = getConfiguration4(files_);
+        addImportingPage(conf_);
+        Argument argument_ = processEl("\"\"?.length()", conf_);
+        assertEq(0,argument_.getNumber());
+    }
+    @Test
+    public void processEl425___Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Cl {\n");
+        xml_.append(" $public String str;\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        Configuration conf_ = getConfiguration4(files_);
+        addImportingPage(conf_);
+        Argument argument_ = processEl("($new pkg.Cl().str)?.length()", conf_);
+        assertEq(0,argument_.getNumber());
+    }
+    @Test
+    public void processEl426___Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Cl {\n");
+        xml_.append(" $public String str;\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        Configuration conf_ = getConfiguration4(files_);
+        addImportingPage(conf_);
+        Argument argument_ = processEl("$new pkg.Cl()?.str=\"hello\"", conf_);
+        assertEq("hello",argument_.getString());
+    }
+    @Test
+    public void processEl427___Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ClOwner {\n");
+        xml_.append(" $public Cl owner;\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Cl {\n");
+        xml_.append(" $public String str;\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        Configuration conf_ = getConfiguration4(files_);
+        addImportingPage(conf_);
+        Argument argument_ = processEl("$new pkg.ClOwner()?.owner?.str=\"hello\"", conf_);
+        assertNull(getException(conf_));
+        assertSame(NullStruct.NULL_VALUE,argument_.getStruct());
+    }
+    @Test
+    public void processEl428___Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Cl {\n");
+        xml_.append(" $public String str=\"\";\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        Configuration conf_ = getConfiguration4(files_);
+        addImportingPage(conf_);
+        Argument argument_ = processEl("$new pkg.Cl()?.str+=\"hello\"", conf_);
+        assertEq("hello",argument_.getString());
+    }
+    @Test
+    public void processEl429___Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ClOwner {\n");
+        xml_.append(" $public Cl owner;\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Cl {\n");
+        xml_.append(" $public String str;\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        Configuration conf_ = getConfiguration4(files_);
+        addImportingPage(conf_);
+        Argument argument_ = processEl("$new pkg.ClOwner()?.owner?.str+=\"hello\"", conf_);
+        assertNull(getException(conf_));
+        assertSame(NullStruct.NULL_VALUE,argument_.getStruct());
+    }
+    @Test
+    public void processEl430___Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Cl {\n");
+        xml_.append(" $public $int str=5;\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        Configuration conf_ = getConfiguration4(files_);
+        addImportingPage(conf_);
+        Argument argument_ = processEl("$new pkg.Cl()?.str++", conf_);
+        assertEq(5,argument_.getNumber());
+    }
+    @Test
+    public void processEl431___Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Cl {\n");
+        xml_.append(" $public $int str=5;\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        Configuration conf_ = getConfiguration4(files_);
+        addImportingPage(conf_);
+        Argument argument_ = processEl("++$new pkg.Cl()?.str", conf_);
+        assertEq(6,argument_.getNumber());
+    }
+    @Test
+    public void processEl432___Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ClOwner {\n");
+        xml_.append(" $public Cl owner;\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Cl {\n");
+        xml_.append(" $public $int str=5;\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        Configuration conf_ = getConfiguration4(files_);
+        addImportingPage(conf_);
+        Argument argument_ = processEl("$new pkg.ClOwner()?.owner?.str++", conf_);
+        assertNull(getException(conf_));
+        assertEq(0,argument_.getNumber());
+    }
+    @Test
+    public void processEl433___Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ClOwner {\n");
+        xml_.append(" $public Cl owner;\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Cl {\n");
+        xml_.append(" $public $int str=5;\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        Configuration conf_ = getConfiguration4(files_);
+        addImportingPage(conf_);
+        Argument argument_ = processEl("++$new pkg.ClOwner()?.owner?.str", conf_);
+        assertNull(getException(conf_));
+        assertEq(0,argument_.getNumber());
+    }
+    @Test
     public void processEl418Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$operator+ pkg.Ex(pkg.Ex a,pkg.Ex b){\n");

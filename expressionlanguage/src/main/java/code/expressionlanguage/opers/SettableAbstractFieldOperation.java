@@ -57,7 +57,7 @@ public abstract class SettableAbstractFieldOperation extends
         boolean baseAccess_ = isBaseAccess();
         boolean superAccess_ = isSuperAccess();
         boolean affect_ = false;
-        if (getParent() instanceof DotOperation && isIntermediateDottedOperation()) {
+        if (getParent() instanceof AbstractDotOperation && isIntermediateDottedOperation()) {
             if (getParent().getParent() instanceof AffectationOperation && getParent().getParent().getFirstChild() == getParent()) {
                 affect_ = true;
             } else if (getParent().getParent() instanceof CompoundAffectationOperation && getParent().getParent().getFirstChild() == getParent()) {
@@ -145,7 +145,7 @@ public abstract class SettableAbstractFieldOperation extends
             return true;
         }
         MethodOperation par_ = getParent();
-        if (!(par_ instanceof DotOperation)) {
+        if (!(par_ instanceof AbstractDotOperation)) {
             return false;
         }
         if (par_.getFirstChild() instanceof ThisOperation) {
@@ -154,8 +154,8 @@ public abstract class SettableAbstractFieldOperation extends
         if (par_.getFirstChild() instanceof StaticAccessOperation) {
             return true;
         }
-        if (par_.getFirstChild() instanceof DotOperation) {
-            OperationNode op_ = ((DotOperation)par_.getFirstChild()).getChildrenNodes().last();
+        if (par_.getFirstChild() instanceof AbstractDotOperation) {
+            OperationNode op_ = ((AbstractDotOperation)par_.getFirstChild()).getChildrenNodes().last();
             return op_ instanceof ThisOperation;
         }
         return false;
@@ -174,8 +174,8 @@ public abstract class SettableAbstractFieldOperation extends
         if (par_.getFirstChild() instanceof StaticAccessOperation) {
             return true;
         }
-        if (par_.getFirstChild() instanceof DotOperation) {
-            OperationNode op_ = ((DotOperation)par_.getFirstChild()).getChildrenNodes().last();
+        if (par_.getFirstChild() instanceof AbstractDotOperation) {
+            OperationNode op_ = ((AbstractDotOperation)par_.getFirstChild()).getChildrenNodes().last();
             return op_ instanceof ThisOperation;
         }
         return false;
@@ -253,14 +253,14 @@ public abstract class SettableAbstractFieldOperation extends
         if (par_ instanceof AffectationOperation && isFirstChildInParent()) {
             procField_ = false;
         } else {
-            if (par_ instanceof DotOperation) {
+            if (par_ instanceof AbstractDotOperation) {
                 boolean cancelCheck_ = false;
                 if (par_.getFirstChild() instanceof ThisOperation) {
                     cancelCheck_ = true;
                 } else if (par_.getFirstChild() instanceof StaticAccessOperation) {
                     cancelCheck_ = true;
-                } else if (par_.getFirstChild() instanceof DotOperation) {
-                    OperationNode op_ = ((DotOperation)par_.getFirstChild()).getChildrenNodes().last();
+                } else if (par_.getFirstChild() instanceof AbstractDotOperation) {
+                    OperationNode op_ = ((AbstractDotOperation)par_.getFirstChild()).getChildrenNodes().last();
                     if (op_ instanceof ThisOperation) {
                         cancelCheck_ = true;
                     }

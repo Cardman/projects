@@ -246,6 +246,10 @@ public abstract class ExecOperationNode implements Operable {
             DotOperation m_ = (DotOperation) _anaNode;
             return new ExecDotOperation(m_);
         }
+        if (_anaNode instanceof SafeDotOperation) {
+            SafeDotOperation m_ = (SafeDotOperation) _anaNode;
+            return new ExecSafeDotOperation(m_);
+        }
         if (_anaNode instanceof ExplicitOperatorOperation) {
             ExplicitOperatorOperation m_ = (ExplicitOperatorOperation) _anaNode;
             return new ExecExplicitOperatorOperation(m_);
@@ -481,6 +485,11 @@ public abstract class ExecOperationNode implements Operable {
                         return par_.getOrder();
                     }
                 }
+            }
+        }
+        if (par_ instanceof ExecSafeDotOperation) {
+            if (_value == NullStruct.NULL_VALUE) {
+                return par_.getOrder();
             }
         }
         if (par_ instanceof ExecNullSafeOperation) {

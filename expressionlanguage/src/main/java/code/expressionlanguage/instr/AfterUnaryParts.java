@@ -109,7 +109,6 @@ final class AfterUnaryParts {
             int max_ = _d.getDelExplicit().get(min_ + 1) - _offset;
             operators.put(firstPrintChar_, _string.substring(firstPrintChar_, max_ + 1));
             index = incrementUnary(_string, firstPrintChar_, lastPrintChar_, _offset, _d);
-            return;
         }
     }
     void setInstance(String _string, Analyzable _conf) {
@@ -231,8 +230,10 @@ final class AfterUnaryParts {
                         }
                     } else {
                         fctName = EMPTY_STRING;
-                        operators.clear();
-                        addOperIfBegin(operators, index, firstPrintChar_, ARR);
+                        if (operators.isEmpty()||!StringList.quickEq(operators.firstValue(),"?")) {
+                            operators.clear();
+                            addArrayOperIfBegin(operators, index, firstPrintChar_);
+                        }
                     }
                 }
             }
@@ -252,15 +253,48 @@ final class AfterUnaryParts {
         }
         int lastPrintChar_ = del.getLastPrintIndex();
         int len_ = lastPrintChar_ + 1;
-        if (curChar_ == BEGIN_TERNARY && !StringExpUtil.nextCharIs(_string, index + 1, len_, BEGIN_TERNARY)) {
-            if (parsBrackets.isEmpty() && prio > ElResolver.TERNARY_PRIO) {
-                operators.clear();
-                leftParFirstOperator = false;
-                operators.put(index, String.valueOf(curChar_));
+        if (curChar_ == BEGIN_TERNARY) {
+            boolean ternary_ = false;
+            boolean dot_ = false;
+            if (StringExpUtil.nextCharIs(_string, index + 1, len_, DOT_VAR)) {
+                int n_ = ElResolver.nextPrintChar(index + 2, len_, _string);
+                if (ElResolver.isDigitOrDot(_string,n_)) {
+                    ternary_ = true;
+                } else {
+                    dot_ = true;
+                }
+            } else {
+                if (StringExpUtil.nextCharIs(_string, index + 1, len_, ARR_LEFT)) {
+                    dot_ = true;
+                } else if (!StringExpUtil.nextCharIs(_string, index + 1, len_, BEGIN_TERNARY)) {
+                    ternary_ = true;
+                }
             }
-            parsBrackets.put(index, curChar_);
-            index++;
-            return;
+            if (ternary_) {
+                if (parsBrackets.isEmpty() && prio > ElResolver.TERNARY_PRIO) {
+                    operators.clear();
+                    leftParFirstOperator = false;
+                    operators.put(index, String.valueOf(curChar_));
+                }
+                parsBrackets.put(index, curChar_);
+                index++;
+                return;
+            }
+            if (parsBrackets.isEmpty()&&dot_&&prio != ElResolver.DECL_PRIO) {
+                StringBuilder builtOperator_ = new StringBuilder();
+                builtOperator_.append(curChar_);
+                if (StringExpUtil.nextCharIs(_string, index + 1, len_, DOT_VAR)) {
+                    builtOperator_.append(DOT_VAR);
+                }
+                boolean clearOperators_ = false;
+                boolean foundOperator_ = false;
+                if (prio == ElResolver.FCT_OPER_PRIO) {
+                    clearOperators_ = true;
+                    foundOperator_ = true;
+                }
+                addPossibleNumOp(builtOperator_.toString(), clearOperators_, foundOperator_);
+                return;
+            }
         }
         if (curChar_ == END_TERNARY) {
             parsBrackets.removeKey(parsBrackets.lastKey());
@@ -569,9 +603,9 @@ final class AfterUnaryParts {
         return _prio > ElResolver.AFF_PRIO && _prio != ElResolver.TERNARY_PRIO && _prio != ElResolver.NULL_SAFE_PRIO;
     }
 
-    private static void addOperIfBegin(IntTreeMap< String> _operators, int _i, int _first, String _arr) {
+    private static void addArrayOperIfBegin(IntTreeMap<String> _operators, int _i, int _first) {
         if (_first == _i) {
-            _operators.put(_i, _arr);
+            _operators.put(_i, ARR);
         } else {
             _operators.put(_i, EMPTY_STRING);
         }

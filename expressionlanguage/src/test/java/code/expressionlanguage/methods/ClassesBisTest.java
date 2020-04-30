@@ -115,6 +115,20 @@ public final class ClassesBisTest extends ProcessMethodCommon {
         assertEq(2.0,((NumberStruct)ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo","a6"))).doubleStruct());
     }
     @Test
+    public void calculateStaticField192Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $final $double a1=$true?.5:.2;\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl ctx_ = ProcessMethodCommon.contextElExp();
+        Classes.validateAll(files_,ctx_);
+        assertTrue(ctx_.isEmptyErrors());
+        assertEq(0.5,((NumberStruct)ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo","a1"))).doubleStruct());
+     }
+    @Test
     public void validateEl19FailTest() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;

@@ -282,7 +282,7 @@ public final class ElUtil {
     }
 
     private static void processDot(ContextEl _context, OperationNode _next, OperationNode _current, MethodOperation _par) {
-        if (_par instanceof DotOperation) {
+        if (_par instanceof AbstractDotOperation) {
             if (!(_next instanceof PossibleIntermediateDotted)) {
                 return;
             }
@@ -1216,6 +1216,7 @@ public final class ElUtil {
         processCompoundAffRightOp(_cont, currentFileName_, offsetEnd_, parentOp_, _parts);
 
         processCompare(_cont, _block, offsetEnd_, parentOp_, parent_, _parts);
+        processDotSafe(_cont, _block, offsetEnd_, curOp_, nextSiblingOp_, parentOp_, _parts);
         processNullSafe(_cont, _block, offsetEnd_, curOp_, nextSiblingOp_, parentOp_, _parts);
         processLogicAndOrOperation(_cont, _block, offsetEnd_, curOp_, nextSiblingOp_, parentOp_, _parts);
     }
@@ -1241,7 +1242,12 @@ public final class ElUtil {
     private static boolean canCallToString(ContextEl _cont, ExecOperationNode curOp_, ExecOperationNode nextSiblingOp_) {
         return canCallToString(curOp_.getResultClass(),_cont) || canCallToString(nextSiblingOp_.getResultClass(),_cont);
     }
-
+    private static void processDotSafe(ContextEl _cont, Block _block, int offsetEnd_, ExecOperationNode curOp_, ExecOperationNode nextSiblingOp_, ExecMethodOperation parentOp_, CustList<PartOffset> _parts) {
+        if (parentOp_ instanceof ExecSafeDotOperation) {
+            AbstractCoverageResult resultFirst_ = getCovers(_cont, _block, curOp_);
+            safe(resultFirst_,_cont,offsetEnd_,_parts, 1);
+        }
+    }
     private static void processNullSafe(ContextEl _cont, Block _block, int offsetEnd_, ExecOperationNode curOp_, ExecOperationNode nextSiblingOp_, ExecMethodOperation parentOp_, CustList<PartOffset> _parts) {
         if (parentOp_ instanceof ExecNullSafeOperation) {
             AbstractCoverageResult resultFirst_ = getCovers(_cont, _block, curOp_);
@@ -1728,7 +1734,7 @@ public final class ElUtil {
                     _an.getContextEl().getCoverage().putBlockOperation(_an,bl_,op_,loc_);
                     ExecMethodOperation par_ = exp_.getParent();
                     par_.appendChild(loc_);
-                    if (op_.getParent() instanceof DotOperation && loc_ instanceof ExecPossibleIntermediateDotted) {
+                    if (op_.getParent() instanceof AbstractDotOperation && loc_ instanceof ExecPossibleIntermediateDotted) {
                         exp_.setSiblingSet((ExecPossibleIntermediateDotted) loc_);
                     }
                     exp_ = loc_;

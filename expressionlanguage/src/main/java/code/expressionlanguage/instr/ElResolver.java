@@ -1294,7 +1294,7 @@ public final class ElResolver {
         }
         return j_;
     }
-    private static int nextPrintChar(int _j, int _len, String _string) {
+    static int nextPrintChar(int _j, int _len, String _string) {
         int j_ = _j;
         while (j_ < _len) {
             if (!Character.isWhitespace(_string.charAt(j_))) {
@@ -1467,8 +1467,22 @@ public final class ElResolver {
             }
             parsBrackets_.removeKey(parsBrackets_.lastKey());
         }
-        if (curChar_ == BEGIN_TERNARY && !StringExpUtil.nextCharIs(_string, i_ + 1, len_, BEGIN_TERNARY)) {
-            parsBrackets_.put(i_, curChar_);
+        if (curChar_ == BEGIN_TERNARY) {
+            boolean ternary_ = false;
+            if (nextCharIs(_string, i_ + 1, len_, DOT_VAR)) {
+                int n_ = nextPrintChar(i_ + 2, len_, _string);
+                if (isDigitOrDot(_string,n_)) {
+                    ternary_ = true;
+                }
+            } else {
+                if (!nextCharIs(_string, i_ + 1, len_, BEGIN_TERNARY)
+                        &&!nextCharIs(_string, i_ + 1, len_, ARR_LEFT)) {
+                    ternary_ = true;
+                }
+            }
+            if (ternary_) {
+                parsBrackets_.put(i_, curChar_);
+            }
         }
         if (curChar_ == END_TERNARY) {
             if (parsBrackets_.isEmpty()) {
@@ -1575,6 +1589,12 @@ public final class ElResolver {
             }
             if (andOr_ && j_ < len_ && _string.charAt(j_) == curChar_) {
                 j_++;
+            }
+            if (nullSafe_ && nextCharIs(_string, j_, len_, DOT_VAR)) {
+                int n_ = nextPrintChar(j_ + 1, len_, _string);
+                if (!isDigitOrDot(_string,n_)) {
+                    j_++;
+                }
             }
             if (nullSafe_ && j_ < len_ && _string.charAt(j_) == curChar_) {
                 j_++;
@@ -1712,7 +1732,7 @@ public final class ElResolver {
         return !_conf.isAcceptCommaInstr() && !(_conf.getCurrentBlock() instanceof FieldBlock);
     }
 
-    private static boolean isDigitOrDot(String _string, int _n) {
+    static boolean isDigitOrDot(String _string, int _n) {
         return _n > -1 && (ContextEl.isDigit(_string.charAt(_n)) || _string.charAt(_n) == DOT_VAR);
     }
 

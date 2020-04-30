@@ -5,6 +5,9 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.AffectationOperation;
+import code.expressionlanguage.opers.util.ClassArgumentMatching;
+import code.expressionlanguage.structs.NullStruct;
+import code.util.CustList;
 import code.util.IdMap;
 
 public final class ExecAffectationOperation extends ExecMethodOperation implements AtomicExecCalculableOperation, AffectationOperable {
@@ -21,7 +24,7 @@ public final class ExecAffectationOperation extends ExecMethodOperation implemen
     static ExecSettableElResult tryGetSettable(ExecMethodOperation _operation) {
         ExecOperationNode root_ = getFirstToBeAnalyzed(_operation);
         ExecSettableElResult elt_;
-        if (!(root_ instanceof ExecDotOperation)) {
+        if (!(root_ instanceof ExecAbstractDotOperation)) {
             elt_ = castTo(root_);
         } else {
             ExecOperationNode beforeLast_ = ((ExecMethodOperation)root_).getChildrenNodes().last();
@@ -53,6 +56,15 @@ public final class ExecAffectationOperation extends ExecMethodOperation implemen
     @Override
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
                           ContextEl _conf) {
+        if (((ExecOperationNode) settable).getParent() instanceof ExecSafeDotOperation) {
+            ExecOperationNode left_ = ((ExecOperationNode) settable).getParent().getFirstChild();
+            Argument leftArg_ = getArgument(_nodes,left_);
+            if (leftArg_.isNull()) {
+                leftArg_ = new Argument(ClassArgumentMatching.convert(getResultClass(),NullStruct.NULL_VALUE,_conf));
+                setQuickConvertSimpleArgument(leftArg_, _conf, _nodes);
+                return;
+            }
+        }
         ExecOperationNode right_ = getChildrenNodes().last();
         Argument rightArg_ = getArgument(_nodes, right_);
         Argument arg_ = settable.calculateSetting(_nodes, _conf, rightArg_);

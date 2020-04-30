@@ -176,7 +176,7 @@ public final class RenderExpUtil {
                     RendDynOperationNode loc_ = RendDynOperationNode.createExecOperationNode(op_);
                     RendMethodOperation par_ = exp_.getParent();
                     par_.appendChild(loc_);
-                    if (op_.getParent() instanceof DotOperation && loc_ instanceof RendPossibleIntermediateDotted) {
+                    if (op_.getParent() instanceof AbstractDotOperation && loc_ instanceof RendPossibleIntermediateDotted) {
                         exp_.setSiblingSet((RendPossibleIntermediateDotted) loc_);
                     }
                     exp_ = loc_;
@@ -244,7 +244,7 @@ public final class RenderExpUtil {
             }
             MethodOperation par_ = current_.getParent();
             if (next_ != null) {
-                if (par_ instanceof DotOperation) {
+                if (par_ instanceof AbstractDotOperation) {
                     if (next_ instanceof PossibleIntermediateDotted) {
                         PossibleIntermediateDotted possible_ = (PossibleIntermediateDotted) next_;
                         MethodAccessKind static_ = MethodId.getKind(current_ instanceof StaticAccessOperation);

@@ -4,8 +4,10 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.methods.ProcessMethod;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.CompoundAffectationOperation;
+import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.MethodId;
+import code.expressionlanguage.structs.NullStruct;
 import code.formathtml.Configuration;
 import code.util.CustList;
 import code.util.IdMap;
@@ -28,6 +30,15 @@ public final class RendCompoundAffectationOperation extends RendMethodOperation 
 
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf) {
+        if (((RendDynOperationNode) settable).getParent() instanceof RendSafeDotOperation) {
+            RendDynOperationNode left_ = ((RendDynOperationNode) settable).getParent().getFirstChild();
+            Argument leftArg_ = getArgument(_nodes,left_);
+            if (leftArg_.isNull()) {
+                leftArg_ = new Argument(ClassArgumentMatching.convert(getResultClass(),NullStruct.NULL_VALUE,_conf));
+                setQuickConvertSimpleArgument(leftArg_, _conf, _nodes);
+                return;
+            }
+        }
         RendDynOperationNode right_ = getChildrenNodes().last();
         Argument rightArg_ = getArgument(_nodes,right_);
         if (classMethodId != null) {

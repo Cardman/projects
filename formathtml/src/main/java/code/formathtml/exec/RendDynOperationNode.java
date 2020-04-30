@@ -231,6 +231,10 @@ public abstract class RendDynOperationNode {
             DotOperation m_ = (DotOperation) _anaNode;
             return new RendDotOperation(m_);
         }
+        if (_anaNode instanceof SafeDotOperation) {
+            SafeDotOperation m_ = (SafeDotOperation) _anaNode;
+            return new RendSafeDotOperation(m_);
+        }
         if (_anaNode instanceof ExplicitOperatorOperation) {
             ExplicitOperatorOperation m_ = (ExplicitOperatorOperation) _anaNode;
             return new RendExplicitOperatorOperation(m_);
@@ -444,6 +448,11 @@ public abstract class RendDynOperationNode {
                         return par_.getOrder();
                     }
                 }
+            }
+        }
+        if (par_ instanceof RendSafeDotOperation) {
+            if (_value == NullStruct.NULL_VALUE) {
+                return par_.getOrder();
             }
         }
         if (par_ instanceof RendNullSafeOperation) {

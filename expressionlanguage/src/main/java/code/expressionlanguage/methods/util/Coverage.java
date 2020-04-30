@@ -13,6 +13,7 @@ import code.expressionlanguage.methods.NamedFunctionBlock;
 import code.expressionlanguage.opers.CompoundAffectationOperation;
 import code.expressionlanguage.opers.NullSafeOperation;
 import code.expressionlanguage.opers.OperationNode;
+import code.expressionlanguage.opers.SafeDotOperation;
 import code.expressionlanguage.opers.exec.ExecInternVariableOperation;
 import code.expressionlanguage.opers.exec.ExecOperationNode;
 import code.util.CustList;
@@ -94,6 +95,12 @@ public final class Coverage {
         instr_ = covers.getVal(_block);
         IdMap<ExecOperationNode, OperationNode> mapping_ = getMapping().getVal(_block);
         mapping_.put(_exec,_op);
+        if (_op.getParent() instanceof SafeDotOperation) {
+            if (_op.getParent().getFirstChild() == _op) {
+                instr_.put(_exec, new NullCoverageResult());
+                return;
+            }
+        }
         if (_op.getParent() instanceof NullSafeOperation) {
             if (_exec.getArgument() == null) {
                 if (_op.getResultClass().isBoolType(_context)) {

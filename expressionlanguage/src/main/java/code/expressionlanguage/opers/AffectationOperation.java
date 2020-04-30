@@ -222,7 +222,7 @@ public final class AffectationOperation extends MethodOperation implements Affec
     static SettableElResult tryGetSettable(MethodOperation _operation) {
         OperationNode root_ = getFirstToBeAnalyzed(_operation);
         SettableElResult elt_;
-        if (!(root_ instanceof DotOperation)) {
+        if (!(root_ instanceof AbstractDotOperation)) {
             elt_ = castTo(root_);
         } else {
             OperationNode beforeLast_ = ((MethodOperation)root_).getChildrenNodes().last();

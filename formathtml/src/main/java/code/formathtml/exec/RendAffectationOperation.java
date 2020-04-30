@@ -4,6 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.AffectationOperation;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
+import code.expressionlanguage.structs.NullStruct;
 import code.formathtml.Configuration;
 import code.util.IdMap;
 
@@ -38,7 +39,7 @@ public final class RendAffectationOperation extends RendMethodOperation implemen
 
     public static RendSettableElResult castDottedTo(RendDynOperationNode _root) {
         RendSettableElResult elt_;
-        if (!(_root instanceof RendDotOperation)) {
+        if (!(_root instanceof RendAbstractDotOperation)) {
             elt_ = castTo(_root);
         } else {
             RendDynOperationNode beforeLast_ = ((RendMethodOperation) _root).getChildrenNodes().last();
@@ -59,6 +60,15 @@ public final class RendAffectationOperation extends RendMethodOperation implemen
 
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf) {
+        if (((RendDynOperationNode) settable).getParent() instanceof RendSafeDotOperation) {
+            RendDynOperationNode left_ = ((RendDynOperationNode) settable).getParent().getFirstChild();
+            Argument leftArg_ = getArgument(_nodes,left_);
+            if (leftArg_.isNull()) {
+                leftArg_ = new Argument(ClassArgumentMatching.convert(getResultClass(),NullStruct.NULL_VALUE,_conf));
+                setQuickConvertSimpleArgument(leftArg_, _conf, _nodes);
+                return;
+            }
+        }
         RendDynOperationNode right_ = getChildrenNodes().last();
         Argument rightArg_ = getArgument(_nodes,right_);
         Argument arg_ = settable.calculateSetting(_nodes, _conf, rightArg_);

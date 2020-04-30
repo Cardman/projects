@@ -112,7 +112,7 @@ public abstract class OperationNode implements Operable {
     public static OperationNode createOperationNode(int _index,
                                                     int _indexChild, MethodOperation _m, OperationsSequence _op, Analyzable _an) {
         OperationNode res_ = createOperationNodeBis(_index, _indexChild, _m, _op, _an);
-        if (_m instanceof DotOperation&&_m.getFirstChild() != null && !(res_ instanceof PossibleIntermediateDotted)) {
+        if (_m instanceof AbstractDotOperation&&_m.getFirstChild() != null && !(res_ instanceof PossibleIntermediateDotted)) {
             return new ErrorPartOperation(_index, _indexChild, _m, _op);
         }
         return res_;
@@ -169,7 +169,7 @@ public abstract class OperationNode implements Operable {
         }
         if (_op.getPriority() == ElResolver.FCT_OPER_PRIO && _op.isCallDbArray()) {
             String fctName_ = _op.getFctName().trim();
-            if (_m instanceof DotOperation) {
+            if (_m instanceof AbstractDotOperation) {
                 OperationNode ch_ = _m.getFirstChild();
                 if (ch_ != null) {
                     String type_ = ch_.getResultClass().getSingleNameOrEmpty();
@@ -239,6 +239,9 @@ public abstract class OperationNode implements Operable {
         if (_op.getPriority() == ElResolver.FCT_OPER_PRIO && !_op.getValues().isEmpty()) {
             if (_op.isErrorDot()) {
                 return new BadDottedOperation(_index, _indexChild, _m, _op);
+            }
+            if (_op.getOperators().firstValue().contains("?")) {
+                return new SafeDotOperation(_index, _indexChild, _m, _op);
             }
             return new DotOperation(_index, _indexChild, _m, _op);
         }
@@ -401,7 +404,7 @@ public abstract class OperationNode implements Operable {
         if (ElUtil.isDeclaringVariable(_m, _an)) {
             return new VariableOperation(_index, _indexChild, _m, _op);
         }
-        if (_m instanceof DotOperation) {
+        if (_m instanceof AbstractDotOperation) {
             OperationNode ch_ = _m.getFirstChild();
             if (ch_ != null) {
                 if (ch_.getResultClass().isArray()) {
