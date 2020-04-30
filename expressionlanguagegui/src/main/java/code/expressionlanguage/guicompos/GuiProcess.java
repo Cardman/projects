@@ -127,12 +127,16 @@ public final class GuiProcess implements Runnable {
         } else {
             context.getCustInit().removeThreadFromList(context);
         }
-        if (!context.getFrame().isVisible()) {
+        if (!isVisible()) {
             context.getGuiInit().launchHooks(context);
             window.setNullCurrent();
             Thread th_ = CustComponent.newThread(new CoveringCodeTask(context, executingOptions));
             th_.start();
             ThreadUtil.join(th_);
         }
+    }
+
+    public boolean isVisible() {
+        return context.getFrame().isVisible();
     }
 }

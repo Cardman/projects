@@ -43,7 +43,7 @@ public final class GuiContextEl extends RunnableContextEl {
         textLabel = new TextLabel("");
         OtherFrame fr_ = new OtherFrame();
         fr_.setMainFrame(true);
-        fr_.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        fr_.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         frame = new FrameStruct(fr_);
         guiInit.getWindows().add(frame,false);
         confirm = new OtherConfirmDialog();

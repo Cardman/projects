@@ -113,7 +113,7 @@ public final class MainWindow extends GroupFrame {
 
     @Override
     public void quit() {
-        if (current != null) {
+        if (current != null&&current.isVisible()) {
             return;
         }
         dispose();
