@@ -1,7 +1,9 @@
 package code.gui;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.awt.image.BufferedImage;
 
-import javax.swing.JOptionPane;
+import javax.swing.*;
 
 import code.sml.stream.ExtractFromFiles;
 import code.util.CustList;
@@ -113,7 +115,11 @@ public abstract class GroupFrame extends CommonFrame {
     }
 
     protected void exit() {
-        ProcessUtil.exit();
+        for (WindowListener l: getFrame().getWindowListeners()) {
+            getFrame().removeWindowListener(l);
+        }
+        getFrame().setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        getFrame().dispatchEvent(new WindowEvent(getFrame(), WindowEvent.WINDOW_CLOSING));
     }
 
     @Override
