@@ -230,9 +230,14 @@ final class AfterUnaryParts {
                         }
                     } else {
                         fctName = EMPTY_STRING;
-                        if (operators.isEmpty()||!StringList.quickEq(operators.firstValue(),"?")) {
+                        if (firstPrintChar_ == index) {
                             operators.clear();
-                            addArrayOperIfBegin(operators, index, firstPrintChar_);
+                            operators.put(index, ARR);
+                        } else {
+                            if (_string.charAt(index - 1) != '?') {
+                                operators.clear();
+                                operators.put(index, EMPTY_STRING);
+                            }
                         }
                     }
                 }
@@ -603,13 +608,6 @@ final class AfterUnaryParts {
         return _prio > ElResolver.AFF_PRIO && _prio != ElResolver.TERNARY_PRIO && _prio != ElResolver.NULL_SAFE_PRIO;
     }
 
-    private static void addArrayOperIfBegin(IntTreeMap<String> _operators, int _i, int _first) {
-        if (_first == _i) {
-            _operators.put(_i, ARR);
-        } else {
-            _operators.put(_i, EMPTY_STRING);
-        }
-    }
     private static void addCommaOperIfNotEmpty(IntTreeMap<String> _operators, int _i, char... _open) {
         String oper_ = _operators.firstValue();
         int len_ = oper_.length();
