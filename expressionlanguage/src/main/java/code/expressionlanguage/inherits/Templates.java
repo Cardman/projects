@@ -562,8 +562,7 @@ public final class Templates {
         if (generic_ == null) {
             return null;
         }
-        generic_ = format(_subType, generic_, _context);
-        return generic_;
+        return quickFormat(_subType, generic_, _context);
     }
 
     public static boolean isCorrectTemplateAll(String _className, StringMap<StringList> _inherit, Analyzable _context) {
@@ -826,13 +825,21 @@ public final class Templates {
         return str_.toString();
     }
     private static void quickReplaceType(StringBuilder _str, String _type, StringMap<String> _varTypes, int _diese, int _max) {
+        int j_ = getMaxIndex(_str, _str.length() - 1);
         String sub_ = _type.substring(_diese+1, _max);
-        if (_varTypes.contains(sub_)) {
-            String value_ = _varTypes.getVal(sub_);
-            _str.append(value_);
-        } else {
-            sub_ = _type.substring(_diese, _max);
+        String value_ = _varTypes.getVal(sub_);
+        if (value_ == null) {
             _str.append(sub_);
+            return;
+        }
+        if (value_.startsWith(SUB_TYPE)) {
+            _str.insert(j_ +1, SUB_TYPE);
+            _str.append(value_.substring(SUB_TYPE.length()));
+        } else if (value_.startsWith(SUP_TYPE)) {
+            _str.insert(j_ +1, SUP_TYPE);
+            _str.append(value_.substring(SUP_TYPE.length()));
+        } else {
+            _str.append(value_);
         }
     }
     static String getFormattedType(String _type, StringMap<String> _varTypes) {

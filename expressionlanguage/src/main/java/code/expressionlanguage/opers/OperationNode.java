@@ -1149,7 +1149,6 @@ public abstract class OperationNode implements Operable {
             if (stMeth_ == null) {
                 continue;
             }
-            stMeth_.setReturnType(e.getImportedReturnType());
             _methods.add(stMeth_);
         }
     }

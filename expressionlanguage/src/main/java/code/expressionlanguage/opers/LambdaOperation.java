@@ -141,7 +141,6 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                         shiftArgument = false;
                         directCast = true;
                         String fct_ = formatReturn(foundClass, _conf, idDef_, false);
-                        fct_ = Templates.quickFormat(type_,fct_,_conf);
                         setResultClass(new ClassArgumentMatching(fct_));
                         return;
                     }
@@ -185,7 +184,6 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 shiftArgument = false;
                 directCast = true;
                 String fct_ = formatReturn(foundClass, _conf, idDef_, false);
-                fct_ = Templates.quickFormat(type_,fct_,_conf);
                 setResultClass(new ClassArgumentMatching(fct_));
                 return;
             }
@@ -211,7 +209,6 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 shiftArgument = false;
                 directCast = true;
                 String fct_ = formatReturn(foundClass, _conf, idDef_, false);
-                fct_ = Templates.quickFormat(type_,fct_,_conf);
                 setResultClass(new ClassArgumentMatching(fct_));
                 return;
             }
@@ -224,7 +221,6 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             abstractMethod = id_.isAbstractMethod();
             shiftArgument = false;
             String fct_ = formatReturn(foundClass, _conf, id_, false);
-            fct_ = Templates.quickFormat(type_,fct_,_conf);
             setResultClass(new ClassArgumentMatching(fct_));
             return;
         }

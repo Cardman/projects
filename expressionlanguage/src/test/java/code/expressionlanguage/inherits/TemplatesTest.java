@@ -534,6 +534,17 @@ public final class TemplatesTest extends ProcessMethodCommon {
     }
 
     @Test
+    public void quickFormat00Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<T,U> {}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        String first_ = "pkg.Ex<java.lang.Number,java.lang.Number>";
+        String second_ = "#S";
+        assertEq("S",Templates.quickFormat(first_, second_, context_));
+    }
+    @Test
     public void quickFormat0Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex<T,U> {}\n");
@@ -1587,12 +1598,19 @@ public final class TemplatesTest extends ProcessMethodCommon {
         assertNull(t_);
     }
 
-
-
-
-
-
-
+    @Test
+    public void getGenericTypeByBases3Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<T>:ExTwo<$iterable<?T>> {}\n");
+        xml_.append("$public $class pkg.ExTwo<T> {}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        String first_ = "pkg.Ex<java.lang.Object>";
+        String second_ = "pkg.ExTwo";
+        String t_ = Templates.getFullTypeByBases(first_, second_, context_);
+        assertEq("pkg.ExTwo<java.lang.$iterable<?java.lang.Object>>",t_);
+    }
 
 
 

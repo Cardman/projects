@@ -325,8 +325,8 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         Classes cl_ = context_.getClasses();
         RootBlock root_ = cl_.getClassBody("pkg.Outer");
         
-        String solved_ = PartTypeUtil.processAnalyze("InnerThree<java.lang.String>", "pkg.Outer<#W>",context_, root_);
-        assertEq("pkgtwo.OuterTwo<#W>..InnerThree<java.lang.String>", solved_);
+        String solved_ = PartTypeUtil.processAnalyze("InnerThree<java.lang.String>", "pkg.Outer<#U>",context_, root_);
+        assertEq("pkgtwo.OuterTwo<#U>..InnerThree<java.lang.String>", solved_);
     }
     @Test
     public void process12Test() {

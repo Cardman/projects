@@ -19,7 +19,7 @@ final class NamePartType extends LeafPartType {
         if (skipGenericInners(_an,_dels, _rooted)) {
             return;
         }
-        tryAnalyzeInnerParts(_an, _globalType, _local,_rooted);
+        tryAnalyzeInnerParts(_an, _local,_rooted);
     }
 
     private boolean skipGenericInners(Analyzable _an, CustList<IntTreeMap<String>> _dels, AccessingImportingBlock _rooted) {
@@ -50,8 +50,7 @@ final class NamePartType extends LeafPartType {
         if (!Templates.correctNbParameters(owner_, _an)) {
             return;
         }
-        String new_ = Templates.quickFormat(owner_, foundOwners_.first(), _an);
-        setAnalyzedType(StringList.concat(new_,"..", _type));
+        setAnalyzedType(StringList.concat(foundOwners_.first(),"..", _type));
         checkAccess(_an,_rooted,owner_);
     }
 
@@ -143,17 +142,17 @@ final class NamePartType extends LeafPartType {
         return false;
     }
 
-    private void tryAnalyzeInnerParts(Analyzable _an, String _globalType,
+    private void tryAnalyzeInnerParts(Analyzable _an,
                                       AccessingImportingBlock _local,
                                       AccessingImportingBlock _rooted) {
         if (_local instanceof RootBlock) {
-            if (skipGenericImports(_an,_globalType, (RootBlock)_local,_rooted)) {
+            if (skipGenericImports(_an, (RootBlock)_local,_rooted)) {
                 return;
             }
         }
         lookupImports(_an, _rooted, false, new AlwaysReadyTypes());
     }
-    private boolean skipGenericImports(Analyzable _an, String _globalType,
+    private boolean skipGenericImports(Analyzable _an,
                                        RootBlock _local,
                                        AccessingImportingBlock _rooted) {
         String type_ = getTypeName().trim();
@@ -172,7 +171,6 @@ final class NamePartType extends LeafPartType {
             if (owners_.onlyOneElt()) {
                 String genStr_ = owners_.first();
                 String id_ = Templates.getIdFromAllTypes(genStr_);
-                String f_ = Templates.quickFormat(_globalType, a, _an);
                 String in_ = StringList.concat(id_,"..",type_);
                 RootBlock inner_ = classes_.getClassBody(in_);
                 if (inner_.isStaticType()) {
@@ -183,8 +181,7 @@ final class NamePartType extends LeafPartType {
                 if (_an.isStaticAccess()) {
                     return true;
                 }
-                String new_ = Templates.quickFormat(f_, genStr_, _an);
-                setAnalyzedType(StringList.concat(new_,"..",type_));
+                setAnalyzedType(StringList.concat(genStr_,"..",type_));
                 checkAccess(_an,_rooted,a);
             }
             return true;
