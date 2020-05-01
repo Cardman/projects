@@ -1786,7 +1786,7 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
     @Test
     public void processE451Test() {
         Argument arg_ = directCalculate("\"\".length()");
-        assertEq(0,arg_.getInt());
+        assertEq(0,arg_.getNumber());
     }
 
     @Test
@@ -1821,7 +1821,7 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
     @Test
     public void processE456Test() {
         Argument arg_ = directCalculate("\"hello word\".length()");
-        assertEq(10,arg_.getInt());
+        assertEq(10,arg_.getNumber());
     }
     @Test
     public void processE457Test() {
@@ -3359,13 +3359,13 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
     @Test
     public void processEl693Test() {
         Argument arg_ = directCalculate("\"my_string\".charAt(0)");
-        assertEq('m',arg_.getInt());
+        assertEq('m',arg_.getChar());
     }
 
     @Test
     public void processEl694Test() {
         Argument arg_ = directCalculate("$new StringBuilder(\"my_string\").charAt(0)");
-        assertEq('m',arg_.getInt());
+        assertEq('m',arg_.getChar());
     }
 
     @Test

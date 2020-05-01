@@ -1008,7 +1008,7 @@ public class LgNamesUtils extends LgNames {
         getStandards().put(aliasConcurrentError, stdcl_);
     }
     @Override
-    public Struct getStringOfObject(ContextEl _cont, Struct _arg) {
+    public DisplayableStruct getStringOfObject(ContextEl _cont, Struct _arg) {
         if (_arg instanceof RunnableStruct) {
             String className_ = _arg.getClassName(_cont);
             String id_ = Templates.getIdFromAllTypes(className_);

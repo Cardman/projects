@@ -93,7 +93,7 @@ public final class UnaryBinOperation extends AbstractUnaryOperation implements S
             return;
         }
         ClassArgumentMatching res_ = _par.getResultClass();
-        out_.setStruct(NumberStruct.negBinNumber((NumberStruct) nb_, _conf, res_));
+        out_.setStruct(NumberStruct.negBinNumber(ClassArgumentMatching.convertToNumber(nb_), _conf, res_));
         _par.setSimpleArgumentAna(out_, _conf);
     }
 

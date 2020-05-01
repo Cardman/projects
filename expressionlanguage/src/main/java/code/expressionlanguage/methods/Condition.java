@@ -14,6 +14,7 @@ import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.exec.ExecOperationNode;
 import code.expressionlanguage.opers.util.AssignedBooleanVariables;
 import code.expressionlanguage.opers.util.AssignedVariables;
+import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.util.CustList;
@@ -116,7 +117,7 @@ public abstract class Condition extends BracedStack implements WithNotEmptyEl, B
             return ConditionReturn.CALL_EX;
         }
         last_.clearCurrentEls();
-        if (((BooleanStruct) arg_.getStruct()).getInstance()) {
+        if (ClassArgumentMatching.convertToBoolean(arg_.getStruct()).getInstance()) {
             return ConditionReturn.YES;
         }
         return ConditionReturn.NO;

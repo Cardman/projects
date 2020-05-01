@@ -74,7 +74,7 @@ public final class PrimitiveTypeUtil {
                 }
             }
             if (_secondArg != null && _secondArg.getStruct() instanceof IntStruct) {
-                int value_ = _secondArg.getInt();
+                int value_ = ClassArgumentMatching.convertToNumber(_secondArg.getStruct()).intStruct();
                 if (StringList.contains(_first, primByte_) && value_ >= Byte.MIN_VALUE && value_ <= Byte.MAX_VALUE) {
                     return new ResultTernary(new StringList(primByte_), false, true);
                 }
@@ -95,7 +95,7 @@ public final class PrimitiveTypeUtil {
                 }
             }
             if (_firstArg != null && _firstArg.getStruct() instanceof IntStruct) {
-                int value_ = _firstArg.getInt();
+                int value_ = ClassArgumentMatching.convertToNumber(_firstArg.getStruct()).intStruct();
                 if (StringList.contains(_second, primByte_) && value_ >= Byte.MIN_VALUE && value_ <= Byte.MAX_VALUE) {
                     return new ResultTernary(new StringList(primByte_), true, false);
                 }

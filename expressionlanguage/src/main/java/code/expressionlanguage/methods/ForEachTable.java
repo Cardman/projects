@@ -828,7 +828,7 @@ public final class ForEachTable extends BracedStack implements Loop, WithNotEmpt
         if (_conf.callsOrException()) {
             return ConditionReturn.CALL_EX;
         }
-        if (((BooleanStruct) arg_.getStruct()).getInstance()) {
+        if (ClassArgumentMatching.convertToBoolean(arg_.getStruct()).getInstance()) {
             return ConditionReturn.YES;
         }
         return ConditionReturn.NO;

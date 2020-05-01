@@ -49,11 +49,13 @@ public final class ExecCatOperation extends ExecNumericOperation {
         return new Argument(new StringStruct(str_.toString()));
     }
     public static String getString(Argument _value,ExecutableCode _cont) {
+        return getDisplayable(_value,_cont).getDisplayedString(_cont).getInstance();
+    }
+    public static DisplayableStruct getDisplayable(Argument _value,ExecutableCode _cont) {
         Struct a_ = _value.getStruct();
         if (!(a_ instanceof DisplayableStruct)) {
-            return ((StringStruct) _cont.getStandards().getStringOfObject(_cont.getContextEl(),a_)).getInstance();
+            return _cont.getStandards().getStringOfObject(_cont.getContextEl(),a_);
         }
-        return ((DisplayableStruct) a_).getDisplayedString(_cont).getInstance();
+        return (DisplayableStruct) a_;
     }
-
 }

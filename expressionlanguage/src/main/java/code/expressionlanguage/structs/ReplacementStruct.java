@@ -19,10 +19,10 @@ public final class ReplacementStruct implements Struct {
     public static void instantiate(ResultErrorStd _res, Struct... _args) {
         Replacement rep_ = new Replacement();
         if (_args[0] instanceof CharSequenceStruct) {
-            rep_.setOldString(((CharSequenceStruct)_args[0]).toStringInstance());
+            rep_.setOldString(LgNames.getCharSeq(_args[0]).toStringInstance());
         }
         if (_args[1] instanceof CharSequenceStruct) {
-            rep_.setNewString(((CharSequenceStruct)_args[1]).toStringInstance());
+            rep_.setNewString(LgNames.getCharSeq(_args[1]).toStringInstance());
         }
         _res.setResult(new ReplacementStruct(rep_));
     }
@@ -30,7 +30,7 @@ public final class ReplacementStruct implements Struct {
     public static void calculate(Analyzable _cont, ResultErrorStd _res, ClassMethodId _method, Struct _struct) {
         String name_ = _method.getConstraints().getName();
         LgNames lgNames_ = _cont.getStandards();
-        ReplacementStruct rp_ = (ReplacementStruct)_struct;
+        ReplacementStruct rp_ = LgNames.getReplacement(_struct);
         if (StringList.quickEq(name_, lgNames_.getAliasGetNewString())) {
             rp_.getNewString(_res);
             return;
@@ -76,7 +76,7 @@ public final class ReplacementStruct implements Struct {
         if (!(_other instanceof ReplacementStruct)) {
             return false;
         }
-        ReplacementStruct other_ = (ReplacementStruct) _other;
+        ReplacementStruct other_ = LgNames.getReplacement(_other);
         if (!StringList.quickEq(instance.getOldString(),other_.instance.getOldString())) {
             return false;
         }

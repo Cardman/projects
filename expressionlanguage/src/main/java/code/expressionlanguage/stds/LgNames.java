@@ -13,6 +13,7 @@ import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.PredefinedClasses;
 import code.expressionlanguage.opers.Calculation;
+import code.expressionlanguage.opers.exec.ExecCatOperation;
 import code.expressionlanguage.opers.exec.ExecOperationNode;
 import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.structs.*;
@@ -333,7 +334,7 @@ public abstract class LgNames {
         buildOther();
     }
 
-    public Struct getStringOfObject(ContextEl _cont, Struct _arg) {
+    public DisplayableStruct getStringOfObject(ContextEl _cont, Struct _arg) {
         if (_arg instanceof EnumerableStruct) {
             return new StringStruct(((EnumerableStruct)_arg).getName());
         }
@@ -1447,7 +1448,7 @@ public abstract class LgNames {
             if (paramList_.isEmpty()) {
                 result_.setResult(new DoubleStruct(Math.random()));
             } else {
-                result_.setResult(new LongStruct(AbMonteCarlo.randomLong(((NumberStruct) args_[0]).longStruct())));
+                result_.setResult(new LongStruct(AbMonteCarlo.randomLong(ClassArgumentMatching.convertToNumber(args_[0]).longStruct())));
             }
             return result_;
         }
@@ -1484,7 +1485,7 @@ public abstract class LgNames {
         	if (StringList.quickEq(name_, lgNames_.getAliasReadResourcesNames())) {
         		result_.setResult(ResourcesStruct.getResourceNames(_cont));
         	} else {
-        		result_.setResult(ResourcesStruct.getResource(_cont, (StringStruct) args_[0]));
+        		result_.setResult(ResourcesStruct.getResource(_cont, LgNames.getString(args_[0])));
         	}
         	return result_;
         }
@@ -1593,6 +1594,64 @@ public abstract class LgNames {
             }
         }
         return result_;
+    }
+
+    public static Struct defaultInstance(ExecutableCode _conf, String _id, CustList<Argument> _firstArgs) {
+        LgNames stds_ = _conf.getStandards();
+        Struct previous_ = NullStruct.NULL_VALUE;
+        if (!_firstArgs.isEmpty()) {
+            previous_ = _firstArgs.first().getStruct();
+        }
+        if (PrimitiveTypeUtil.isPureNumberClass(new ClassArgumentMatching(_id),_conf)) {
+            return PrimitiveTypeUtil.convertToNumber(new ClassArgumentMatching(_id),previous_,stds_);
+        }
+        String aliasBoolean_ = stds_.getAliasBoolean();
+        if (StringList.quickEq(aliasBoolean_, _id)) {
+            return ClassArgumentMatching.convertToBoolean(previous_);
+        }
+        String aliasString_ = stds_.getAliasString();
+        String aliasStringBuilder_ = stds_.getAliasStringBuilder();
+        if (StringList.quickEq(aliasString_, _id)) {
+            return getString(previous_);
+        }
+        if (StringList.quickEq(aliasStringBuilder_, _id)) {
+            return getStrBuilder(previous_);
+        }
+        String aliasRepl_ = stds_.getAliasReplacement();
+        if (StringList.quickEq(aliasRepl_, _id)) {
+            return getReplacement(previous_);
+        }
+        return stds_.defaultInstance(_conf,_id).getStruct();
+    }
+
+    public static ReplacementStruct getReplacement(Struct _previous) {
+        if (_previous instanceof ReplacementStruct) {
+            return (ReplacementStruct) _previous;
+        }
+        Replacement r_ = new Replacement();
+        r_.setOldString("");
+        r_.setNewString("");
+        return new ReplacementStruct(r_);
+    }
+
+    public static CharSequenceStruct getCharSeq(Struct _previous) {
+        if (_previous instanceof StringBuilderStruct) {
+            return (StringBuilderStruct) _previous;
+        }
+        return getString(_previous);
+    }
+    public static StringStruct getString(Struct _previous) {
+        if (_previous instanceof StringStruct) {
+            return (StringStruct) _previous;
+        }
+        return new StringStruct("");
+    }
+
+    public static StringBuilderStruct getStrBuilder(Struct _previous) {
+        if (_previous instanceof StringBuilderStruct) {
+            return (StringBuilderStruct) _previous;
+        }
+        return new StringBuilderStruct(new StringBuilder());
     }
 
     public Argument defaultInstance(ExecutableCode _cont, String _id) {

@@ -6,6 +6,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.AbstractTernaryOperation;
+import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.util.CustList;
 import code.util.IdMap;
@@ -37,7 +38,7 @@ public final class ExecTernaryOperation extends ExecMethodOperation implements A
     }
     Argument  getArgument(CustList<Argument> _arguments, ExecutableCode _conf) {
         setRelativeOffsetPossibleLastPage(getIndexInEl()+offsetLocal, _conf);
-        boolean obj_ = ((BooleanStruct) _arguments.first().getStruct()).getInstance();
+        boolean obj_ = ClassArgumentMatching.convertToBoolean(_arguments.first().getStruct()).getInstance();
         Argument arg_;
         if (obj_) {
             arg_ = _arguments.get(CustList.SECOND_INDEX);

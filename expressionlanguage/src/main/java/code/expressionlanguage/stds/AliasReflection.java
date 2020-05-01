@@ -1499,7 +1499,7 @@ public final class AliasReflection {
                     return result_;
                 }
                 for (Struct s: arrayDim_) {
-                    int dim_ = ((NumberStruct)s).intStruct();
+                    int dim_ = ClassArgumentMatching.convertToNumber(s).intStruct();
                     if (dim_ < 0) {
                         result_.setErrorMessage(StringList.concat(Integer.toString(dim_),"<0"));
                         result_.setError(size_);

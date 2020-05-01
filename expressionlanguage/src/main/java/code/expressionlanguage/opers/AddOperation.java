@@ -32,9 +32,11 @@ public final class AddOperation extends NumericOperation {
             if (catString) {
                 return ExecCatOperation.localSumDiff(_a,_b,_cont);
             }
-            return new Argument(NumberStruct.calculateSum((NumberStruct)_a.getStruct(),(NumberStruct) _b.getStruct(), _cont, getResultClass()));
+            return new Argument(NumberStruct.calculateSum(ClassArgumentMatching.convertToNumber(_a.getStruct()),
+                    ClassArgumentMatching.convertToNumber(_b.getStruct()), _cont, getResultClass()));
         }
-        return new Argument(NumberStruct.calculateDiff((NumberStruct) _a.getStruct(),(NumberStruct) _b.getStruct(), _cont, getResultClass()));
+        return new Argument(NumberStruct.calculateDiff(ClassArgumentMatching.convertToNumber(_a.getStruct()),
+                ClassArgumentMatching.convertToNumber(_b.getStruct()), _cont, getResultClass()));
     }
     @Override
     ResultOperand analyzeOper(ClassArgumentMatching _a, String _op, ClassArgumentMatching _b, Analyzable _cont) {

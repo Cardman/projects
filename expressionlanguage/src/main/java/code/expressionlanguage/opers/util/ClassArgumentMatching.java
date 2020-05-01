@@ -3,10 +3,7 @@ import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.stds.LgNames;
-import code.expressionlanguage.structs.BooleanStruct;
-import code.expressionlanguage.structs.ByteStruct;
-import code.expressionlanguage.structs.NumberStruct;
-import code.expressionlanguage.structs.Struct;
+import code.expressionlanguage.structs.*;
 import code.util.CustList;
 import code.util.StringList;
 
@@ -40,22 +37,41 @@ public final class ClassArgumentMatching {
                                  ExecutableCode _exec) {
         ClassArgumentMatching format_ = _dest.format(_exec);
         if (format_.matchClass(_exec.getStandards().getAliasNumber())) {
-            if (_arg instanceof NumberStruct) {
-                return _arg;
-            }
-            return new ByteStruct((byte)0);
+            return convertToNumber(_arg);
         }
         if (format_.isBoolType(_exec)) {
-            if (_arg instanceof BooleanStruct) {
-                return _arg;
-            }
-            return BooleanStruct.of(false);
+            return convertToBoolean(_arg);
+        }
+        if (PrimitiveTypeUtil.toPrimitive(format_,_exec).matchClass(_exec.getStandards().getAliasPrimChar())) {
+            return convertToChar(_arg);
         }
         if (PrimitiveTypeUtil.isPureNumberClass(format_,_exec)) {
             return PrimitiveTypeUtil.convertToNumber(format_,_arg,_exec.getStandards());
         }
         return _arg;
     }
+
+    public static BooleanStruct convertToBoolean(Struct _arg) {
+        if (_arg instanceof BooleanStruct) {
+            return (BooleanStruct) _arg;
+        }
+        return BooleanStruct.of(false);
+    }
+
+    public static CharStruct convertToChar(Struct _arg) {
+        if (_arg instanceof CharStruct) {
+            return (CharStruct) _arg;
+        }
+        return new CharStruct((char)0);
+    }
+
+    public static NumberStruct convertToNumber(Struct _arg) {
+        if (_arg instanceof NumberStruct) {
+            return (NumberStruct) _arg;
+        }
+        return new ByteStruct((byte)0);
+    }
+
     private ClassArgumentMatching format(ExecutableCode _exec) {
         StringList className_ = new StringList();
         for (String s: className) {

@@ -43,9 +43,9 @@ public final class ExecUnaryOperation extends ExecAbstractUnaryOperation {
     public static Argument getArgument(ExecutableCode _conf, Argument _in, ClassArgumentMatching _to, String _oper) {
         Argument out_ = new Argument();
         if (StringList.quickEq(_oper, PLUS)) {
-            out_.setStruct(NumberStruct.idNumber((NumberStruct) _in.getStruct(), _conf, _to));
+            out_.setStruct(NumberStruct.idNumber(ClassArgumentMatching.convertToNumber(_in.getStruct()), _conf, _to));
         } else {
-            out_.setStruct(NumberStruct.opposite((NumberStruct) _in.getStruct(), _conf, _to));
+            out_.setStruct(NumberStruct.opposite(ClassArgumentMatching.convertToNumber(_in.getStruct()), _conf, _to));
         }
         return out_;
     }

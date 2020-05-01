@@ -35,7 +35,7 @@ public final class ExecUnaryBinOperation extends ExecAbstractUnaryOperation {
         Argument out_ = new Argument();
         setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
         ClassArgumentMatching res_ = getResultClass();
-        out_.setStruct(NumberStruct.negBinNumber((NumberStruct)_in.getStruct(), _conf, res_));
+        out_.setStruct(NumberStruct.negBinNumber(ClassArgumentMatching.convertToNumber(_in.getStruct()), _conf, res_));
         return out_;
     }
 }

@@ -1,7 +1,10 @@
 package code.expressionlanguage.structs;
 
 import code.expressionlanguage.Analyzable;
+import code.expressionlanguage.Argument;
 import code.expressionlanguage.ExecutableCode;
+import code.expressionlanguage.opers.exec.ExecCatOperation;
+import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.stds.LgNames;
@@ -63,7 +66,7 @@ public final class StringStruct extends CharSequenceStruct {
         int len_ = argArr_.length;
         char[] arr_ = new char[len_];
         for (int i = 0; i < len_; i++) {
-            arr_[i] = ((CharStruct)argArr_[i]).getChar();
+            arr_[i] = ClassArgumentMatching.convertToChar(argArr_[i]).getChar();
         }
         _res.setResult(new StringStruct(new String(arr_)));
     }
@@ -78,10 +81,10 @@ public final class StringStruct extends CharSequenceStruct {
         int len_ = argArr_.length;
         char[] arr_ = new char[len_];
         for (int i = 0; i < len_; i++) {
-            arr_[i] = ((CharStruct)argArr_[i]).getChar();
+            arr_[i] = ClassArgumentMatching.convertToChar(argArr_[i]).getChar();
         }
-        int one_ = ((NumberStruct) _one).intStruct();
-        int two_ = ((NumberStruct) _two).intStruct();
+        int one_ = ClassArgumentMatching.convertToNumber(_one).intStruct();
+        int two_ = ClassArgumentMatching.convertToNumber(_two).intStruct();
         if (one_ < 0 || two_ < 0 || one_ > arr_.length - two_) {
             if (one_ < 0) {
                 _res.setErrorMessage(StringList.concat(Long.toString(one_),"<0"));
@@ -106,7 +109,7 @@ public final class StringStruct extends CharSequenceStruct {
         int len_ = argArr_.length;
         byte[] arr_ = new byte[len_];
         for (int i = 0; i < len_; i++) {
-            arr_[i] = ((NumberStruct)argArr_[i]).byteStruct();
+            arr_[i] = ClassArgumentMatching.convertToNumber(argArr_[i]).byteStruct();
         }
         String chars_ = StringList.decode(arr_);
         if (chars_ == null) {
@@ -128,10 +131,10 @@ public final class StringStruct extends CharSequenceStruct {
         int len_ = argArr_.length;
         byte[] arr_ = new byte[len_];
         for (int i = 0; i < len_; i++) {
-            arr_[i] = ((NumberStruct)argArr_[i]).byteStruct();
+            arr_[i] = ClassArgumentMatching.convertToNumber(argArr_[i]).byteStruct();
         }
-        int one_ = ((NumberStruct) _one).intStruct();
-        int two_ = ((NumberStruct) _two).intStruct();
+        int one_ = ClassArgumentMatching.convertToNumber(_one).intStruct();
+        int two_ = ClassArgumentMatching.convertToNumber(_two).intStruct();
         if (one_ < 0 || two_ < 0 || one_ > arr_.length - two_) {
             if (one_ < 0) {
                 _res.setErrorMessage(StringList.concat(Long.toString(one_),"<0"));
@@ -158,13 +161,13 @@ public final class StringStruct extends CharSequenceStruct {
             _res.setError(nullPe_);
             return;
         }
-        StringBuilderStruct arg_ = (StringBuilderStruct) _arg;
+        StringBuilderStruct arg_ = LgNames.getStrBuilder(_arg);
         _res.setResult(new StringStruct(arg_.getInstance().toString()));
     }
 
     public static void calculateString(Analyzable _cont, ResultErrorStd _res, ClassMethodId _method, Struct _struct, Struct... _args) {
         if (!_method.getConstraints().isStaticMethod()) {
-            ((StringStruct)_struct).calculateLocString(_cont, _res, _method, _args);
+            LgNames.getString(_struct).calculateLocString(_cont, _res, _method, _args);
             return;
         }
         String name_ = _method.getConstraints().getName();
@@ -189,7 +192,7 @@ public final class StringStruct extends CharSequenceStruct {
         }
         if (list_.size() == 1) {
             if (arg_ instanceof DisplayableStruct) {
-                _res.setResult(((DisplayableStruct)arg_).getDisplayedString(_cont));
+                _res.setResult(ExecCatOperation.getDisplayable(new Argument(arg_),_cont.getContextEl()).getDisplayedString(_cont));
                 return;
             }
         }
@@ -206,14 +209,14 @@ public final class StringStruct extends CharSequenceStruct {
         int len_ = argArr_.length;
         char[] arr_ = new char[len_];
         for (int i = 0; i < len_; i++) {
-            arr_[i] = ((CharStruct)argArr_[i]).getChar();
+            arr_[i] = ClassArgumentMatching.convertToChar(argArr_[i]).getChar();
         }
         if (_list.size() == 1) {
             _res.setResult(new StringStruct(String.valueOf(arr_)));
             return;
         }
-        int one_ = ((NumberStruct)_args[0]).intStruct();
-        int two_ = ((NumberStruct)_args[1]).intStruct();
+        int one_ = (ClassArgumentMatching.convertToNumber(_args[0])).intStruct();
+        int two_ = (ClassArgumentMatching.convertToNumber(_args[1])).intStruct();
         if (one_ < 0 || two_ < 0 || one_ + two_ > arr_.length) {
             if (one_ < 0) {
                 _res.setErrorMessage(StringList.concat(Long.toString(one_),"<0"));
@@ -234,7 +237,8 @@ public final class StringStruct extends CharSequenceStruct {
         LgNames lgNames_ = _cont.getStandards();
         String stringType_ = lgNames_.getAliasString();
         if (StringList.quickEq(name_, lgNames_.getAliasRegionMatches())) {
-            regionMatches((BooleanStruct) _args[0],(NumberStruct)_args[1], _args[2], (NumberStruct)_args[3], (NumberStruct)_args[4], lgNames_, _res);
+            regionMatches(ClassArgumentMatching.convertToBoolean(_args[0]),ClassArgumentMatching.convertToNumber(_args[1]), _args[2],
+                    ClassArgumentMatching.convertToNumber(_args[3]), ClassArgumentMatching.convertToNumber(_args[4]), lgNames_, _res);
             return;
         }
         if (StringList.quickEq(name_, lgNames_.getAliasReplace())) {
@@ -242,7 +246,7 @@ public final class StringStruct extends CharSequenceStruct {
                 replaceString(_args[0], _args[1], _res);
                 return;
             }
-            replace((CharStruct)_args[0], (CharStruct)_args[1], _res);
+            replace(ClassArgumentMatching.convertToChar(_args[0]), ClassArgumentMatching.convertToChar(_args[1]), _res);
             return;
         }
         if (StringList.quickEq(name_, lgNames_.getAliasReplaceMultiple())) {
@@ -341,7 +345,7 @@ public final class StringStruct extends CharSequenceStruct {
                 _res.setError(nullPe_);
                 return;
             }
-            seps_[i] = ((ReplacementStruct)curSep_).getInstance();
+            seps_[i] = LgNames.getReplacement(curSep_).getInstance();
             if (seps_[i].getNewString() == null) {
                 _res.setError(nullPe_);
                 return;

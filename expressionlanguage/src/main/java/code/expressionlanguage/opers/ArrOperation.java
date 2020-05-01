@@ -144,7 +144,7 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
         Argument rightArg_ = right_.getArgument();
         boolean convertNumber_ = false;
         if (rightArg_ != null && rightArg_.getStruct() instanceof NumberStruct) {
-            long valueUnwrapped_ = ((NumberStruct)rightArg_.getStruct()).longStruct();
+            long valueUnwrapped_ = ClassArgumentMatching.convertToNumber(rightArg_.getStruct()).longStruct();
             if (valueUnwrapped_ >= Integer.MIN_VALUE && valueUnwrapped_ <= Integer.MAX_VALUE) {
                 right_.getResultClass().setUnwrapObject(primInt_);
                 convertNumber_ = true;

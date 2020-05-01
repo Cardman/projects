@@ -32,9 +32,9 @@ public abstract class ExecNumericOperation extends ExecMethodOperation implement
     public static Argument calculateIncrDecr(Argument _left,ExecutableCode _conf, String _op, ClassArgumentMatching _arg) {
         Argument o_;
         if (StringList.quickEq(_op, Block.INCR)) {
-            o_ = new Argument(ExecAddOperation.addOne((NumberStruct) _left.getStruct(), _conf, _arg));
+            o_ = new Argument(ExecAddOperation.addOne(ClassArgumentMatching.convertToNumber(_left.getStruct()), _conf, _arg));
         } else {
-            o_ = new Argument(ExecAddOperation.removeOne((NumberStruct) _left.getStruct(), _conf, _arg));
+            o_ = new Argument(ExecAddOperation.removeOne(ClassArgumentMatching.convertToNumber(_left.getStruct()), _conf, _arg));
         }
         return o_;
     }
@@ -43,7 +43,8 @@ public abstract class ExecNumericOperation extends ExecMethodOperation implement
         LgNames stds_ = _cont.getStandards();
         String div_;
         div_ = stds_.getAliasDivisionZero();
-        Struct res_ = NumberStruct.calculateDiv((NumberStruct)_a.getStruct(),(NumberStruct) _b.getStruct(), _cont, _order);
+        Struct res_ = NumberStruct.calculateDiv(ClassArgumentMatching.convertToNumber(_a.getStruct()),
+                ClassArgumentMatching.convertToNumber(_b.getStruct()), _cont, _order);
         if (res_ == NullStruct.NULL_VALUE) {
             _cont.setException(new ErrorStruct(_cont,div_));
         }
@@ -53,7 +54,8 @@ public abstract class ExecNumericOperation extends ExecMethodOperation implement
         LgNames stds_ = _cont.getStandards();
         String div_;
         div_ = stds_.getAliasDivisionZero();
-        Struct res_ = NumberStruct.calculateMod((NumberStruct)_a.getStruct(),(NumberStruct) _b.getStruct(), _cont, _order);
+        Struct res_ = NumberStruct.calculateMod(ClassArgumentMatching.convertToNumber(_a.getStruct()),
+                ClassArgumentMatching.convertToNumber(_b.getStruct()), _cont, _order);
         if (res_ == NullStruct.NULL_VALUE) {
             _cont.setException(new ErrorStruct(_cont,div_));
         }

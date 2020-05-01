@@ -2,6 +2,7 @@ package code.expressionlanguage.structs;
 
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
+import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.ResultErrorStd;
@@ -18,7 +19,7 @@ public abstract class CharSequenceStruct implements DisplayableStruct, Exportabl
         if (!(_other instanceof CharSequenceStruct)) {
             return false;
         }
-        CharSequenceStruct other_ = (CharSequenceStruct) _other;
+        CharSequenceStruct other_ = LgNames.getCharSeq(_other);
         int len_ = _current.length();
         if (len_ != other_.length()) {
             return false;
@@ -32,14 +33,14 @@ public abstract class CharSequenceStruct implements DisplayableStruct, Exportabl
     }
     public static void calculateCharSeq(Analyzable _cont, ResultErrorStd _res, ClassMethodId _method, Struct _struct, Struct... _args) {
         if (!_method.getConstraints().isStaticMethod()) {
-            ((CharSequenceStruct) _struct).calculateLocCharSeq(_cont, _res, _method, _args);
+            LgNames.getCharSeq(_struct).calculateLocCharSeq(_cont, _res, _method, _args);
             return;
         }
         if (!(_args[0] instanceof CharSequenceStruct)) {
             _res.setResult(BooleanStruct.of(_args[1] == NullStruct.NULL_VALUE));
             return;
         }
-        _res.setResult(BooleanStruct.of(sameEq((CharSequenceStruct)_args[0],_args[1])));
+        _res.setResult(BooleanStruct.of(sameEq(LgNames.getCharSeq(_args[0]),_args[1])));
     }
     private void calculateLocCharSeq(Analyzable _cont, ResultErrorStd _res, ClassMethodId _method, Struct... _args) {
         String name_ = _method.getConstraints().getName();
@@ -66,7 +67,7 @@ public abstract class CharSequenceStruct implements DisplayableStruct, Exportabl
             return;
         }
         if (StringList.quickEq(name_, lgNames_.getAliasRegionMatches())) {
-            regionMatches((NumberStruct)_args[0], _args[1], (NumberStruct)_args[2], (NumberStruct)_args[3], lgNames_, _res);
+            regionMatches(ClassArgumentMatching.convertToNumber(_args[0]), _args[1], ClassArgumentMatching.convertToNumber(_args[2]), ClassArgumentMatching.convertToNumber(_args[3]), lgNames_, _res);
             return;
         }
         if (StringList.quickEq(name_, lgNames_.getAliasStartsWith())) {
@@ -74,7 +75,7 @@ public abstract class CharSequenceStruct implements DisplayableStruct, Exportabl
                 startsWith(_args[0], lgNames_, _res);
                 return;
             }
-            startsWith(_args[0], (NumberStruct)_args[1], lgNames_, _res);
+            startsWith(_args[0], ClassArgumentMatching.convertToNumber(_args[1]), lgNames_, _res);
             return;
         }
         if (StringList.quickEq(name_, lgNames_.getAliasEndsWith())) {
@@ -91,7 +92,7 @@ public abstract class CharSequenceStruct implements DisplayableStruct, Exportabl
                 return;
             }
             if (!(_args[0] instanceof NumberStruct)) {
-                indexOfString(_args[0], (NumberStruct) _args[1], lgNames_, _res);
+                indexOfString(_args[0], ClassArgumentMatching.convertToNumber(_args[1]), lgNames_, _res);
                 return;
             }
             indexOf(_args[0], _args[1], _res);
@@ -111,7 +112,7 @@ public abstract class CharSequenceStruct implements DisplayableStruct, Exportabl
                 return;
             }
             if (!(_args[0] instanceof NumberStruct)) {
-                lastIndexOfString(_args[0], (NumberStruct) _args[1], lgNames_, _res);
+                lastIndexOfString(_args[0], ClassArgumentMatching.convertToNumber(_args[1]), lgNames_, _res);
                 return;
             }
             lastIndexOf(_args[0], _args[1], _res);
@@ -119,10 +120,10 @@ public abstract class CharSequenceStruct implements DisplayableStruct, Exportabl
         }
         if (StringList.quickEq(name_, lgNames_.getAliasSubstring()) || StringList.quickEq(name_, lgNames_.getAliasSubSequence())) {
             if (list_.size() == 1) {
-                substring((NumberStruct) _args[0], lgNames_, _res);
+                substring(ClassArgumentMatching.convertToNumber(_args[0]), lgNames_, _res);
                 return;
             }
-            substring((NumberStruct) _args[0], (NumberStruct) _args[1], lgNames_, _res);
+            substring(ClassArgumentMatching.convertToNumber(_args[0]), ClassArgumentMatching.convertToNumber(_args[1]), lgNames_, _res);
             return;
         }
         if (StringList.quickEq(name_, lgNames_.getAliasSplit())) {
@@ -135,10 +136,10 @@ public abstract class CharSequenceStruct implements DisplayableStruct, Exportabl
                 return;
             }
             if (!(_args[0] instanceof CharStruct)) {
-                splitSingleString(_args[0], (NumberStruct) _args[1], lgNames_, _res);
+                splitSingleString(_args[0], ClassArgumentMatching.convertToNumber(_args[1]), lgNames_, _res);
                 return;
             }
-            splitSingleChar((CharStruct)_args[0], (NumberStruct) _args[1], lgNames_, _res);
+            splitSingleChar((CharStruct)_args[0], ClassArgumentMatching.convertToNumber(_args[1]), lgNames_, _res);
             return;
         }
         if (StringList.quickEq(name_, lgNames_.getAliasTrim())) {
@@ -154,7 +155,7 @@ public abstract class CharSequenceStruct implements DisplayableStruct, Exportabl
                 splitStrings(_args[0], lgNames_, _res);
                 return;
             }
-            splitStrings((NumberStruct) _args[0], _args[1], lgNames_, _res);
+            splitStrings(ClassArgumentMatching.convertToNumber(_args[0]), _args[1], lgNames_, _res);
             return;
         }
         if (StringList.quickEq(name_, lgNames_.getAliasSplitChars())) {
@@ -176,7 +177,7 @@ public abstract class CharSequenceStruct implements DisplayableStruct, Exportabl
     }
 
     private void charAt(Struct _index, LgNames _stds, ResultErrorStd _res) {
-        NumberStruct nb_ = (NumberStruct)_index;
+        NumberStruct nb_ = ClassArgumentMatching.convertToNumber(_index);
         int ind_ = nb_.intStruct();
         String badIndex_ = _stds.getAliasBadIndex();
         if (ind_ < 0 || ind_ >= length()) {
@@ -210,7 +211,7 @@ public abstract class CharSequenceStruct implements DisplayableStruct, Exportabl
             _res.setError(nullPe_);
             return;
         }
-        CharSequenceStruct st_ = (CharSequenceStruct)_anotherString;
+        CharSequenceStruct st_ = LgNames.getCharSeq(_anotherString);
         _res.setResult(new IntStruct(toStringInstance().compareTo(st_.toStringInstance())));
     }
 
@@ -221,7 +222,7 @@ public abstract class CharSequenceStruct implements DisplayableStruct, Exportabl
             _res.setError(nullPe_);
             return;
         }
-        CharSequenceStruct other_ = (CharSequenceStruct) _other;
+        CharSequenceStruct other_ = LgNames.getCharSeq(_other);
         int comLen_ = _len.intStruct();
         int to_ = _toffset.intStruct();
         int po_ = _ooffset.intStruct();
@@ -238,7 +239,7 @@ public abstract class CharSequenceStruct implements DisplayableStruct, Exportabl
             _res.setError(nullPe_);
             return;
         }
-        CharSequenceStruct suffix_ = (CharSequenceStruct) _suffix;
+        CharSequenceStruct suffix_ = LgNames.getCharSeq(_suffix);
         _res.setResult(BooleanStruct.of(toStringInstance().endsWith(suffix_.toStringInstance())));
     }
     private void startsWith(Struct _prefix, NumberStruct _toffset, LgNames _stds, ResultErrorStd _res) {
@@ -247,7 +248,7 @@ public abstract class CharSequenceStruct implements DisplayableStruct, Exportabl
             _res.setError(nullPe_);
             return;
         }
-        CharSequenceStruct pref_ = (CharSequenceStruct) _prefix;
+        CharSequenceStruct pref_ = LgNames.getCharSeq(_prefix);
         int to_ = _toffset.intStruct();
         _res.setResult(BooleanStruct.of(toStringInstance().startsWith(pref_.toStringInstance(), to_)));
     }
@@ -257,9 +258,9 @@ public abstract class CharSequenceStruct implements DisplayableStruct, Exportabl
     }
 
     private void indexOf(Struct _ch, Struct _fromIndex, ResultErrorStd _res) {
-        NumberStruct ch_ = (NumberStruct) _ch;
+        NumberStruct ch_ = ClassArgumentMatching.convertToNumber(_ch);
         int int_ = ch_.intStruct();
-        NumberStruct index_ = (NumberStruct) _fromIndex;
+        NumberStruct index_ = ClassArgumentMatching.convertToNumber(_fromIndex);
         int from_ = index_.intStruct();
         _res.setResult(new IntStruct(toStringInstance().indexOf(int_, from_)));
     }
@@ -271,7 +272,7 @@ public abstract class CharSequenceStruct implements DisplayableStruct, Exportabl
             _res.setError(nullPe_);
             return;
         }
-        CharSequenceStruct arg_ = (CharSequenceStruct) _str;
+        CharSequenceStruct arg_ = LgNames.getCharSeq(_str);
         _res.setResult(BooleanStruct.of(toStringInstance().contains(arg_.toStringInstance())));
     }
 
@@ -281,7 +282,7 @@ public abstract class CharSequenceStruct implements DisplayableStruct, Exportabl
             _res.setError(nullPe_);
             return;
         }
-        CharSequenceStruct str_ = (CharSequenceStruct) _str;
+        CharSequenceStruct str_ = LgNames.getCharSeq(_str);
         _res.setResult(new IntStruct(toStringInstance().indexOf(str_.toStringInstance())));
     }
 
@@ -292,7 +293,7 @@ public abstract class CharSequenceStruct implements DisplayableStruct, Exportabl
             _res.setError(nullPe_);
             return;
         }
-        CharSequenceStruct str_ = (CharSequenceStruct) _str;
+        CharSequenceStruct str_ = LgNames.getCharSeq(_str);
         _res.setResult(new IntStruct(toStringInstance().indexOf(str_.toStringInstance(), from_)));
     }
 
@@ -301,9 +302,9 @@ public abstract class CharSequenceStruct implements DisplayableStruct, Exportabl
     }
 
     private void lastIndexOf(Struct _ch, Struct _fromIndex, ResultErrorStd _res) {
-        NumberStruct ch_ = (NumberStruct) _ch;
+        NumberStruct ch_ = ClassArgumentMatching.convertToNumber(_ch);
         int int_ = ch_.intStruct();
-        NumberStruct index_ = (NumberStruct) _fromIndex;
+        NumberStruct index_ = ClassArgumentMatching.convertToNumber(_fromIndex);
         int from_ = index_.intStruct();
         _res.setResult(new IntStruct(toStringInstance().lastIndexOf(int_, from_)));
     }
@@ -318,7 +319,7 @@ public abstract class CharSequenceStruct implements DisplayableStruct, Exportabl
             _res.setError(nullPe_);
             return;
         }
-        CharSequenceStruct str_ = (CharSequenceStruct)_str;
+        CharSequenceStruct str_ = LgNames.getCharSeq(_str);
         int from_ = _fromIndex.intStruct();
         _res.setResult(new IntStruct(toStringInstance().lastIndexOf(str_.toStringInstance(), from_)));
     }
@@ -377,7 +378,7 @@ public abstract class CharSequenceStruct implements DisplayableStruct, Exportabl
         char[] seps_ = new char[lenSeps_];
         for (int i = 0; i < lenSeps_; i++) {
             Struct curSep_ = arrStructSep_[i];
-            seps_[i] = ((CharStruct)curSep_).getChar();
+            seps_[i] = ClassArgumentMatching.convertToChar(curSep_).getChar();
         }
         StringList parts_ = StringList.splitChars(toStringInstance(), seps_);
         int lenArr_ = parts_.size();
@@ -411,7 +412,7 @@ public abstract class CharSequenceStruct implements DisplayableStruct, Exportabl
                 _res.setError(nullPe_);
                 return;
             }
-            seps_[i] = ((CharSequenceStruct)curSep_).toStringInstance();
+            seps_[i] = LgNames.getCharSeq(curSep_).toStringInstance();
         }
         int lim_ = _lim.intStruct();
         if (lim_ < -1) {
@@ -440,7 +441,7 @@ public abstract class CharSequenceStruct implements DisplayableStruct, Exportabl
         if (lim_ < -1) {
             lim_ = -1;
         }
-        CharSequenceStruct str_ = (CharSequenceStruct)_sep;
+        CharSequenceStruct str_ = LgNames.getCharSeq(_sep);
         StringList parts_ = StringList.splitStrings(toStringInstance(), str_.toStringInstance());
         int lenArr_ = parts_.size();
         if (lim_ >= 0) {
@@ -487,7 +488,7 @@ public abstract class CharSequenceStruct implements DisplayableStruct, Exportabl
                 _res.setError(nullPe_);
                 return;
             }
-            seps_[i] = ((CharSequenceStruct)curSep_).toStringInstance();
+            seps_[i] = LgNames.getCharSeq(curSep_).toStringInstance();
         }
         _res.setResult(new StringStruct(StringList.simpleStringsFormat(toStringInstance(), seps_)));
     }

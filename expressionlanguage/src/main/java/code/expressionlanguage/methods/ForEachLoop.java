@@ -716,7 +716,7 @@ public final class ForEachLoop extends BracedStack implements ForLoop,ImportForE
         if (_conf.callsOrException()) {
             return ConditionReturn.CALL_EX;
         }
-        if (((BooleanStruct) arg_.getStruct()).getInstance()) {
+        if (ClassArgumentMatching.convertToBoolean(arg_.getStruct()).getInstance()) {
             return ConditionReturn.YES;
         }
         return ConditionReturn.NO;

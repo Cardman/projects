@@ -770,7 +770,7 @@ public final class ForMutableIterativeLoop extends BracedStack implements
             return ConditionReturn.CALL_EX;
         }
         last_.clearCurrentEls();
-        if (((BooleanStruct)arg_.getStruct()).getInstance()) {
+        if (ClassArgumentMatching.convertToBoolean(arg_.getStruct()).getInstance()) {
             return ConditionReturn.YES;
         }
         return ConditionReturn.NO;

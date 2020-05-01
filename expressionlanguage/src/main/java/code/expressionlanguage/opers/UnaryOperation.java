@@ -112,9 +112,9 @@ public final class UnaryOperation extends AbstractUnaryOperation implements Symb
         }
         ClassArgumentMatching to_ = _par.getResultClass();
         if (StringList.quickEq(_oper, PLUS)) {
-            out_.setStruct(NumberStruct.idNumber((NumberStruct) nb_, _conf, to_));
+            out_.setStruct(NumberStruct.idNumber(ClassArgumentMatching.convertToNumber(nb_), _conf, to_));
         } else {
-            out_.setStruct(NumberStruct.opposite((NumberStruct) nb_, _conf, to_));
+            out_.setStruct(NumberStruct.opposite(ClassArgumentMatching.convertToNumber(nb_), _conf, to_));
         }
         _par.setSimpleArgumentAna(out_, _conf);
     }

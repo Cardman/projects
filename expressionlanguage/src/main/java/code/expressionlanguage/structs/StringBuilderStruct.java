@@ -1,13 +1,17 @@
 package code.expressionlanguage.structs;
 
 import code.expressionlanguage.Analyzable;
+import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
+import code.expressionlanguage.opers.exec.ExecCatOperation;
+import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.ResultErrorStd;
+import code.util.CustList;
 import code.util.StringList;
 
 public final class StringBuilderStruct extends CharSequenceStruct {
@@ -32,7 +36,7 @@ public final class StringBuilderStruct extends CharSequenceStruct {
             return;
         }
         if (StringList.quickEq(list_.first(), intPrimType_)) {
-            newStringBuilderStructByNumber((NumberStruct) _args[0], lgNames_, _res);
+            newStringBuilderStructByNumber(ClassArgumentMatching.convertToNumber(_args[0]), lgNames_, _res);
             return;
         }
         newStringBuilderStructByString(_args[0], lgNames_, _res);
@@ -46,7 +50,7 @@ public final class StringBuilderStruct extends CharSequenceStruct {
             _res.setError(nullPe_);
             return;
         }
-        CharSequenceStruct arg_ = (CharSequenceStruct) _arg;
+        CharSequenceStruct arg_ = LgNames.getCharSeq(_arg);
         _res.setResult(new StringBuilderStruct(new StringBuilder(arg_.toStringInstance())));
     }
     private static void newStringBuilderStructByNumber(NumberStruct _arg, LgNames _stds, ResultErrorStd _res) {
@@ -68,21 +72,21 @@ public final class StringBuilderStruct extends CharSequenceStruct {
             _res.setResult(BooleanStruct.of(_args[0] == _args[1]));
             return;
         }
-        StringBuilderStruct one_ = (StringBuilderStruct) _struct;
+        StringBuilderStruct one_ = LgNames.getStrBuilder(_struct);
         if (StringList.quickEq(name_, lgNames_.getAliasAppend())) {
             if (list_.size() == 1 && StringList.quickEq(list_.first(), PrimitiveTypeUtil.getPrettyArrayType(aliasPrimChar_))) {
                 one_.appendChars(_args[0], _cont, _res);
                 return;
             }
             if (list_.size() == 1) {
-                one_.append((DisplayableStruct) _args[0], _cont, _res);
+                one_.append(ExecCatOperation.getDisplayable(new Argument(_args[0]),_cont.getContextEl()), _cont, _res);
                 return;
             }
             if (StringList.quickEq(list_.first(), PrimitiveTypeUtil.getPrettyArrayType(lgNames_.getAliasPrimChar()))) {
-                one_.appendChars(_args[0], (NumberStruct) _args[1], (NumberStruct) _args[2], _cont, _res);
+                one_.appendChars(_args[0], ClassArgumentMatching.convertToNumber(_args[1]), ClassArgumentMatching.convertToNumber(_args[2]), _cont, _res);
                 return;
             }
-            one_.append((DisplayableStruct) _args[0], (NumberStruct) _args[1], (NumberStruct) _args[2], _cont, _res);
+            one_.append(ExecCatOperation.getDisplayable(new Argument(_args[0]),_cont.getContextEl()), ClassArgumentMatching.convertToNumber(_args[1]), ClassArgumentMatching.convertToNumber(_args[2]), _cont, _res);
             return;
         }
         if (StringList.quickEq(name_, lgNames_.getAliasCapacity())) {
@@ -94,35 +98,37 @@ public final class StringBuilderStruct extends CharSequenceStruct {
             return;
         }
         if (StringList.quickEq(name_, lgNames_.getAliasDelete())) {
-            one_.delete((NumberStruct) _args[0], (NumberStruct) _args[1], _cont, _res);
+            one_.delete(ClassArgumentMatching.convertToNumber(_args[0]), ClassArgumentMatching.convertToNumber(_args[1]), _cont, _res);
             return;
         }
         if (StringList.quickEq(name_, lgNames_.getAliasDeleteCharAt())) {
-            one_.deleteCharAt((NumberStruct) _args[0], _cont, _res);
+            one_.deleteCharAt(ClassArgumentMatching.convertToNumber(_args[0]), _cont, _res);
             return;
         }
         if (StringList.quickEq(name_, lgNames_.getAliasEnsureCapacity())) {
-            one_.ensureCapacity((NumberStruct) _args[0], _cont, _res);
+            one_.ensureCapacity(ClassArgumentMatching.convertToNumber(_args[0]), _cont, _res);
             return;
         }
         if (StringList.quickEq(name_, lgNames_.getAliasInsert())) {
             if (list_.size() == 2 && StringList.quickEq(list_.get(1), PrimitiveTypeUtil.getPrettyArrayType(aliasPrimChar_))) {
-                one_.insertChars((NumberStruct)_args[0], _args[1], _cont, _res);
+                one_.insertChars(ClassArgumentMatching.convertToNumber(_args[0]), _args[1], _cont, _res);
                 return;
             }
             if (list_.size() == 2) {
-                one_.insert((NumberStruct)_args[0],(DisplayableStruct) _args[1], _cont, _res);
+                one_.insert(ClassArgumentMatching.convertToNumber(_args[0]),
+                        ExecCatOperation.getDisplayable(new Argument(_args[1]),_cont.getContextEl()), _cont, _res);
                 return;
             }
             if (StringList.quickEq(list_.get(1), PrimitiveTypeUtil.getPrettyArrayType(lgNames_.getAliasPrimChar()))) {
-                one_.insertChars((NumberStruct)_args[0], _args[1], (NumberStruct)_args[2], (NumberStruct)_args[3], _cont, _res);
+                one_.insertChars(ClassArgumentMatching.convertToNumber(_args[0]), _args[1], ClassArgumentMatching.convertToNumber(_args[2]), ClassArgumentMatching.convertToNumber(_args[3]), _cont, _res);
                 return;
             }
-            one_.insert((NumberStruct)_args[0],(DisplayableStruct) _args[1], (NumberStruct)_args[2], (NumberStruct)_args[3], _cont, _res);
+            one_.insert(ClassArgumentMatching.convertToNumber(_args[0]),
+                    ExecCatOperation.getDisplayable(new Argument(_args[1]),_cont.getContextEl()), ClassArgumentMatching.convertToNumber(_args[2]), ClassArgumentMatching.convertToNumber(_args[3]), _cont, _res);
             return;
         }
         if (StringList.quickEq(name_, lgNames_.getAliasReplace())) {
-            one_.replace((NumberStruct)_args[0], (NumberStruct)_args[1], _args[2], _cont, _res);
+            one_.replace(ClassArgumentMatching.convertToNumber(_args[0]), ClassArgumentMatching.convertToNumber(_args[1]), _args[2], _cont, _res);
             return;
         }
         if (StringList.quickEq(name_, lgNames_.getAliasReverse())) {
@@ -130,11 +136,11 @@ public final class StringBuilderStruct extends CharSequenceStruct {
             return;
         }
         if (StringList.quickEq(name_, lgNames_.getAliasSetCharAt())) {
-            one_.setCharAt((NumberStruct) _args[0],(CharStruct) _args[1], _cont, _res);
+            one_.setCharAt(ClassArgumentMatching.convertToNumber(_args[0]),ClassArgumentMatching.convertToChar(_args[1]), _cont, _res);
             return;
         }
         if (StringList.quickEq(name_, lgNames_.getAliasSetLength())) {
-            one_.setLength((NumberStruct) _args[0], _cont, _res);
+            one_.setLength(ClassArgumentMatching.convertToNumber(_args[0]), _cont, _res);
             return;
         }
         one_.trimToSize(_cont, _res);
@@ -216,7 +222,7 @@ public final class StringBuilderStruct extends CharSequenceStruct {
         int len_ = arr_.length;
         char[] chars_ = new char[len_];
         for (int i = 0; i < len_; i++) {
-            chars_[i] = ((CharStruct)arr_[i]).getChar();
+            chars_[i] = ClassArgumentMatching.convertToChar(arr_[i]).getChar();
         }
         instance.append(chars_);
         _out.setResult(this);
@@ -250,7 +256,7 @@ public final class StringBuilderStruct extends CharSequenceStruct {
         }
         char[] chars_ = new char[lenChar_];
         for (int i = 0; i < lenChar_; i++) {
-            chars_[i] = ((CharStruct)arr_[i]).getChar();
+            chars_[i] = ClassArgumentMatching.convertToChar(arr_[i]).getChar();
         }
         instance.append(chars_, offset_, len_);
         _out.setResult(this);
@@ -335,7 +341,7 @@ public final class StringBuilderStruct extends CharSequenceStruct {
             _out.setError(lgNames_.getAliasNullPe());
             return;
         }
-        CharSequenceStruct ch_ = (CharSequenceStruct) _str;
+        CharSequenceStruct ch_ = LgNames.getCharSeq(_str);
         instance.replace(start_, end_, ch_.toStringInstance());
         _out.setResult(this);
     }
@@ -365,7 +371,7 @@ public final class StringBuilderStruct extends CharSequenceStruct {
         int lenArr_ = arr_.length;
         char[] chars_ = new char[lenArr_];
         for (int i = 0; i < lenArr_; i++) {
-            chars_[i] = ((CharStruct)arr_[i]).getChar();
+            chars_[i] = ClassArgumentMatching.convertToChar(arr_[i]).getChar();
         }
         int offset_ = _offset.intStruct();
         int len_ = _len.intStruct();
@@ -409,7 +415,7 @@ public final class StringBuilderStruct extends CharSequenceStruct {
         int len_ = arr_.length;
         char[] chars_ = new char[len_];
         for (int i = 0; i < len_; i++) {
-            chars_[i] = ((CharStruct)arr_[i]).getChar();
+            chars_[i] = ClassArgumentMatching.convertToChar(arr_[i]).getChar();
         }
         instance.insert(index_, chars_);
         _out.setResult(this);

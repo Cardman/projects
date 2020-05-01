@@ -51,7 +51,8 @@ public final class ShiftRightOperation extends NumericOperation {
     @Override
     Argument calculateOperAna(Argument _a, String _op, Argument _b,
             Analyzable _an) {
-        return new Argument(NumberStruct.calculateShiftRight((NumberStruct)_a.getStruct(),(NumberStruct) _b.getStruct(), _an, getResultClass()));
+        return new Argument(NumberStruct.calculateShiftRight(ClassArgumentMatching.convertToNumber(_a.getStruct()),
+                ClassArgumentMatching.convertToNumber(_b.getStruct()), _an, getResultClass()));
     }
 
     @Override

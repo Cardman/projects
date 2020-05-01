@@ -83,12 +83,6 @@ public final class Argument {
         return ((NumberStruct)object).doubleStruct();
     }
 
-    public long getLong() {
-        return ((NumberStruct)object).longStruct();
-    }
-    public int getInt() {
-        return ((NumberStruct)object).intStruct();
-    }
     public boolean isTrue() {
         return ((BooleanStruct)object).getInstance();
     }

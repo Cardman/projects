@@ -4461,6 +4461,46 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertEq("",out_.getString());
     }
     @Test
+    public void processEl356_Test() {
+        StringBuilder xml_;
+        StringMap<String> files_ = new StringMap<String>();
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $int inst;\n");
+        xml_.append(" $public $static String exmeth(){\n");
+        xml_.append("  $return (String) $class(String).defaultInstance(1);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextElDefault();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument out_ = calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        assertEq("",out_.getString());
+    }
+    @Test
+    public void processEl356__Test() {
+        StringBuilder xml_;
+        StringMap<String> files_ = new StringMap<String>();
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $int inst;\n");
+        xml_.append(" $public $static String exmeth(){\n");
+        xml_.append("  $return (String) $class(String).defaultInstance(\"1\");\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextElDefault();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument out_ = calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        assertEq("1",out_.getString());
+    }
+    @Test
     public void processEl357Test() {
         StringBuilder xml_;
         StringMap<String> files_ = new StringMap<String>();
@@ -4521,6 +4561,46 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertEq("",out_.getString());
     }
     @Test
+    public void processEl359_Test() {
+        StringBuilder xml_;
+        StringMap<String> files_ = new StringMap<String>();
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $int inst;\n");
+        xml_.append(" $public $static StringBuilder exmeth(){\n");
+        xml_.append("  $return (StringBuilder) $class(StringBuilder).defaultInstance(1);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextElDefault();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument out_ = calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        assertEq("",out_.getString());
+    }
+    @Test
+    public void processEl359__Test() {
+        StringBuilder xml_;
+        StringMap<String> files_ = new StringMap<String>();
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $int inst;\n");
+        xml_.append(" $public $static StringBuilder exmeth(){\n");
+        xml_.append("  $return (StringBuilder) $class(StringBuilder).defaultInstance($new StringBuilder(\"HELLO\"));\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextElDefault();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument out_ = calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        assertEq("HELLO",out_.getString());
+    }
+    @Test
     public void processEl360Test() {
         StringBuilder xml_;
         StringMap<String> files_ = new StringMap<String>();
@@ -4529,6 +4609,46 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         xml_.append(" $public $static $int inst;\n");
         xml_.append(" $public $static code.util.Replacement exmeth(){\n");
         xml_.append("  $return (code.util.Replacement) $class(code.util.Replacement).defaultInstance();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextElDefault();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument out_ = calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        assertEq("code.util.Replacement",out_.getObjectClassName(cont_));
+    }
+    @Test
+    public void processEl360_Test() {
+        StringBuilder xml_;
+        StringMap<String> files_ = new StringMap<String>();
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $int inst;\n");
+        xml_.append(" $public $static code.util.Replacement exmeth(){\n");
+        xml_.append("  $return (code.util.Replacement) $class(code.util.Replacement).defaultInstance(1);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextElDefault();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument out_ = calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        assertEq("code.util.Replacement",out_.getObjectClassName(cont_));
+    }
+    @Test
+    public void processEl360__Test() {
+        StringBuilder xml_;
+        StringMap<String> files_ = new StringMap<String>();
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $int inst;\n");
+        xml_.append(" $public $static code.util.Replacement exmeth(){\n");
+        xml_.append("  $return (code.util.Replacement) $class(code.util.Replacement).defaultInstance($new code.util.Replacement(\"\",\"\"));\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());

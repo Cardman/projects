@@ -147,7 +147,7 @@ public final class AffectationOperation extends MethodOperation implements Affec
             Argument rightArg_ = right_.getArgument();
             if (rightArg_ != null && rightArg_.getStruct() instanceof NumberStruct) {
                 StringList first_ = clMatchLeft_.getNames();
-                long valueUnwrapped_ = ((NumberStruct) rightArg_.getStruct()).longStruct();
+                long valueUnwrapped_ = ClassArgumentMatching.convertToNumber(rightArg_.getStruct()).longStruct();
                 if ((StringList.contains(first_, primByte_) || StringList.contains(first_, byte_)) && valueUnwrapped_ >= Byte.MIN_VALUE && valueUnwrapped_ <= Byte.MAX_VALUE) {
                     right_.getResultClass().setUnwrapObject(clMatchLeft_);
                     return;

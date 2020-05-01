@@ -38,9 +38,11 @@ public final class ExecAddOperation extends ExecStdNumericOperation {
     private Argument localSumDiff(Argument _a, String _op, Argument _b,
             ExecutableCode _cont) {
         if (StringList.quickEq(_op.trim(), PLUS)) {
-            return new Argument(NumberStruct.calculateSum((NumberStruct)_a.getStruct(),(NumberStruct) _b.getStruct(), _cont, getResultClass()));
+            return new Argument(NumberStruct.calculateSum(ClassArgumentMatching.convertToNumber(_a.getStruct()),
+                    ClassArgumentMatching.convertToNumber(_b.getStruct()), _cont, getResultClass()));
         }
-        return new Argument(NumberStruct.calculateDiff((NumberStruct) _a.getStruct(),(NumberStruct) _b.getStruct(), _cont, getResultClass()));
+        return new Argument(NumberStruct.calculateDiff(ClassArgumentMatching.convertToNumber(_a.getStruct()),
+                ClassArgumentMatching.convertToNumber(_b.getStruct()), _cont, getResultClass()));
     }
 
 }

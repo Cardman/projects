@@ -2363,7 +2363,7 @@ public class LgNamesGui extends LgNamesUtils {
         return super.getSimpleResult(_conf, _classField);
     }
     @Override
-    public Struct getStringOfObject(ContextEl _cont, Struct _arg) {
+    public DisplayableStruct getStringOfObject(ContextEl _cont, Struct _arg) {
         if (_arg instanceof EventStruct) {
             String className_ = _arg.getClassName(_cont);
             String id_ = Templates.getIdFromAllTypes(className_);

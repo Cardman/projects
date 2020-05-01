@@ -21,12 +21,15 @@ public final class MultOperation extends NumericOperation {
     Argument calculateOperAna(Argument _a, String _op, Argument _b,
             Analyzable _an) {
         if (StringList.quickEq(_op.trim(), MULT)) {
-            return new Argument(NumberStruct.calculateMult((NumberStruct)_a.getStruct(),(NumberStruct) _b.getStruct(), _an, getResultClass()));
+            return new Argument(NumberStruct.calculateMult(ClassArgumentMatching.convertToNumber(_a.getStruct()),
+                    ClassArgumentMatching.convertToNumber(_b.getStruct()), _an, getResultClass()));
         }
         if (StringList.quickEq(_op.trim(), DIV)) {
-            return new Argument(NumberStruct.calculateDiv((NumberStruct)_a.getStruct(),(NumberStruct) _b.getStruct(), _an, getResultClass()));
+            return new Argument(NumberStruct.calculateDiv(ClassArgumentMatching.convertToNumber(_a.getStruct()),
+                    ClassArgumentMatching.convertToNumber(_b.getStruct()), _an, getResultClass()));
         }
-        return new Argument(NumberStruct.calculateMod((NumberStruct)_a.getStruct(),(NumberStruct) _b.getStruct(), _an, getResultClass()));
+        return new Argument(NumberStruct.calculateMod(ClassArgumentMatching.convertToNumber(_a.getStruct()),
+                ClassArgumentMatching.convertToNumber(_b.getStruct()), _an, getResultClass()));
     }
 
     @Override

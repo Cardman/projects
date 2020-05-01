@@ -287,17 +287,18 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             }
             if (StringList.quickEq(aliasForName_, _methodId.getName())) {
                 Argument clArg_ = _firstArgs.first();
-                if (clArg_.isNull()) {
+                Struct struct_ = clArg_.getStruct();
+                if (!(struct_ instanceof StringStruct)) {
                     _conf.setException(new ErrorStruct(_conf,stds_.getAliasNullPe()));
                     return new Argument();
                 }
-                String clDyn_ = ((StringStruct) clArg_.getStruct()).getInstance();
+                String clDyn_ = ((StringStruct) struct_).getInstance();
                 if (StringList.quickEq(clDyn_.trim(), _conf.getStandards().getAliasVoid())) {
                     Argument a_ = new Argument();
                     a_.setStruct(_conf.getExtendedClassMetaInfo(clDyn_));
                     return a_;
                 }
-                boolean init_ = ((BooleanStruct) _firstArgs.last().getStruct()).getInstance();
+                boolean init_ = ClassArgumentMatching.convertToBoolean(_firstArgs.last().getStruct()).getInstance();
                 boolean gene_ = clDyn_.contains(Templates.TEMPLATE_BEGIN);
                 String res_ = Templates.correctClassPartsDynamic(clDyn_, _conf, gene_, false);
                 if (res_.isEmpty()) {
@@ -342,30 +343,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                 String first_;
                 CustList<GeneType> need_ = new CustList<GeneType>();
                 if (!(type_ instanceof RootBlock)) {
-                    if (PrimitiveTypeUtil.isPureNumberClass(new ClassArgumentMatching(id_),_conf)) {
-                        String pr_ = PrimitiveTypeUtil.toPrimitive(id_, _conf.getStandards());
-                        return new Argument(PrimitiveTypeUtil.defaultValue(pr_, _conf));
-                    }
-                    String aliasBoolean_ = stds_.getAliasBoolean();
-                    if (StringList.quickEq(aliasBoolean_, id_)) {
-                        return new Argument(BooleanStruct.of(false));
-                    }
-                    String aliasString_ = stds_.getAliasString();
-                    if (StringList.quickEq(aliasString_, id_)) {
-                        return new Argument(new StringStruct(""));
-                    }
-                    String aliasStringBuilder_ = stds_.getAliasStringBuilder();
-                    if (StringList.quickEq(aliasStringBuilder_, id_)) {
-                        return new Argument(new StringBuilderStruct(new StringBuilder()));
-                    }
-                    String aliasRepl_ = stds_.getAliasReplacement();
-                    if (StringList.quickEq(aliasRepl_, id_)) {
-                        Replacement r_ = new Replacement();
-                        r_.setOldString("");
-                        r_.setNewString("");
-                        return new Argument(new ReplacementStruct(r_));
-                    }
-                    return _conf.getStandards().defaultInstance(_conf,id_);
+                    return new Argument(LgNames.defaultInstance(_conf,id_,_firstArgs));
                 }
                 CustList<RootBlock> needRoot_;
                 needRoot_ = ((RootBlock)type_).getSelfAndParentTypes();
@@ -583,7 +561,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                 String size_;
                 size_ = lgNames_.getAliasBadSize();
                 for (Argument a: _values) {
-                    int dim_ = ((NumberStruct)a.getStruct()).intStruct();
+                    int dim_ = ClassArgumentMatching.convertToNumber(a.getStruct()).intStruct();
                     if (dim_ < 0) {
                         String mess_ = StringList.concat(Long.toString(dim_),"<0");
                         _conf.setException(new ErrorStruct(_conf,mess_,size_));
