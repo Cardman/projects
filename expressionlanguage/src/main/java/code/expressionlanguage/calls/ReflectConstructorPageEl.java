@@ -19,13 +19,13 @@ public final class ReflectConstructorPageEl extends AbstractReflectPageEl {
     private boolean calledMethod;
     @Override
     public boolean checkCondition(ContextEl _context) {
-        ConstructorMetaInfo method_ = (ConstructorMetaInfo) getGlobalArgument().getStruct();
+        LgNames stds_ = _context.getStandards();
+        ConstructorMetaInfo method_ = LgNames.getCtor(getGlobalArgument().getStruct(),stds_);
         String className_ = method_.getClassName();
         String id_ = Templates.getIdFromAllTypes(className_);
         GeneType type_ = _context.getClassBody(id_);
         boolean static_ = type_.isStaticType();
         if (ContextEl.isAbstractType(type_)) {
-            LgNames stds_ = _context.getStandards();
             String null_;
             null_ = stds_.getAliasIllegalArg();
             _context.setException(new ErrorStruct(_context,null_));
@@ -33,7 +33,6 @@ public final class ReflectConstructorPageEl extends AbstractReflectPageEl {
         }
         String res_ = Templates.correctClassPartsDynamic(className_, _context, true, true);
         if (res_.isEmpty()) {
-            LgNames stds_ = _context.getStandards();
             String null_;
             null_ = stds_.getAliasIllegalArg();
             _context.setException(new ErrorStruct(_context,null_));
@@ -53,7 +52,6 @@ public final class ReflectConstructorPageEl extends AbstractReflectPageEl {
             CustList<Argument> args_ = new CustList<Argument>();
             Struct struct_ = getArguments().last().getStruct();
             if (!(struct_ instanceof ArrayStruct)) {
-                LgNames stds_ = _context.getStandards();
                 String null_;
                 null_ = stds_.getAliasNullPe();
                 _context.setException(new ErrorStruct(_context,null_));
@@ -67,7 +65,6 @@ public final class ReflectConstructorPageEl extends AbstractReflectPageEl {
             Argument previous_;
             if (static_) {
                 if (args_.size() != mid_.getParametersTypes().size()) {
-                    LgNames stds_ = _context.getStandards();
                     String null_;
                     null_ = stds_.getAliasIllegalArg();
                     _context.setException(new ErrorStruct(_context,null_));
@@ -76,7 +73,6 @@ public final class ReflectConstructorPageEl extends AbstractReflectPageEl {
                 previous_ = Argument.createVoid();
             } else {
                 if (args_.size() != 1 + mid_.getParametersTypes().size()) {
-                    LgNames stds_ = _context.getStandards();
                     String null_;
                     null_ = stds_.getAliasIllegalArg();
                     _context.setException(new ErrorStruct(_context,null_));

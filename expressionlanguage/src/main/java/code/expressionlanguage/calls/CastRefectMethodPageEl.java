@@ -17,17 +17,17 @@ public final class CastRefectMethodPageEl extends AbstractRefectMethodPageEl {
     }
 
     @Override
-    boolean initType() {
+    boolean initType(ContextEl _cont) {
         return false;
     }
 
     @Override
-    boolean isAbstract() {
+    boolean isAbstract(ContextEl _cont) {
         return false;
     }
 
     @Override
-    boolean isPolymorph() {
+    boolean isPolymorph(ContextEl _cont) {
         return false;
     }
 

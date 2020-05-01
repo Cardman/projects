@@ -6356,6 +6356,37 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertTrue(ret_.isTrue());
     }
     @Test
+    public void processEl_1Test() {
+        StringBuilder xml_;
+        StringMap<String> files_ = new StringMap<String>();
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $int inst;\n");
+        xml_.append(" $public $static $void exmeth(){\n");
+        xml_.append("  $class($Method).defaultInstance(1);\n");
+        xml_.append("  $class($Method).defaultInstance($class(ExTwo).getDeclaredMethods()[0]);\n");
+        xml_.append("  $class($Method).defaultInstance();\n");
+        xml_.append("  $class($Constructor).defaultInstance(1);\n");
+        xml_.append("  $class($Constructor).defaultInstance($class(StringBuilder).getDeclaredConstructors()[0]);\n");
+        xml_.append("  $class($Constructor).defaultInstance();\n");
+        xml_.append("  $class($Field).defaultInstance(1);\n");
+        xml_.append("  $class($Field).defaultInstance($class(Character).getDeclaredFields()[0]);\n");
+        xml_.append("  $class($Field).defaultInstance();\n");
+        xml_.append("  $class($Class).defaultInstance(1);\n");
+        xml_.append("  $class($Class).defaultInstance($class(ExTwo));\n");
+        xml_.append("  $class($Class).defaultInstance();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextElDefault();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        assertNull(getException(cont_));
+    }
+    @Test
     public void reflect1Test() {
         ContextEl cont_ = contextElDefault();
         StringMap<String> files_ = new StringMap<String>();

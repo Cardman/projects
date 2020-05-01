@@ -12,10 +12,7 @@ import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.exec.ExecOperationNode;
 import code.expressionlanguage.opers.util.*;
-import code.expressionlanguage.stds.LgNames;
-import code.expressionlanguage.stds.StandardClass;
-import code.expressionlanguage.stds.StandardConstructor;
-import code.expressionlanguage.stds.StandardType;
+import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
 import code.expressionlanguage.variables.LocalVariable;
 import code.util.*;
@@ -350,6 +347,33 @@ public final class Classes {
             //all standards errors are logged here
             return;
         }
+        LgNames stds_ = _context.getStandards();
+        StandardType type_ = stds_.getStandards().getVal(stds_.getAliasFct());
+        StandardMethod method_ = type_.getMethods().getVal(new MethodId(
+                MethodAccessKind.INSTANCE,
+                stds_.getAliasCall(),
+                new StringList(stds_.getAliasObject()),
+                true
+        ));
+        MethodId id_ = method_.getId();
+        String ret_ = method_.getImportedReturnType();
+        String decl_ = method_.getDeclaringType();
+        stds_.setMethodMetaInfo(new MethodMetaInfo(AccessEnum.PUBLIC,decl_, id_, method_.getModifier(), ret_, id_, decl_));
+        String strBuilder_ = stds_.getAliasStringBuilder();
+        type_ = stds_.getStandards().getVal(strBuilder_);
+        StandardConstructor ctor_ = type_.getConstructors().first();
+        ConstructorId idCtor_ = ctor_.getGenericId();
+        decl_ = ctor_.getDeclaringType();
+        ret_ = ctor_.getImportedReturnType();
+        stds_.setConstructorMetaInfo(new ConstructorMetaInfo(strBuilder_, AccessEnum.PUBLIC, idCtor_, ret_, idCtor_, decl_));
+        String charType_ = stds_.getAliasCharacter();
+        type_ = stds_.getStandards().getVal(charType_);
+        StandardField field_ = type_.getFields().getVal(stds_.getAliasMinValueField());
+        ret_ = field_.getImportedClassName();
+        boolean staticElement_ = field_.isStaticField();
+        boolean finalElement_ = field_.isFinalField();
+        stds_.setFieldMetaInfo(new FieldMetaInfo(charType_, field_.getFieldName().first(), ret_, staticElement_, finalElement_, AccessEnum.PUBLIC));
+        stds_.setClassMetaInfo(new ClassMetaInfo(stds_.getAliasVoid(),_context, ClassCategory.VOID,""));
         _context.setAnalyzing();
         Classes.buildPredefinedBracesBodies(_context);
         CustList<RootBlock> foundTypes_ = _context.getAnalyzing().getFoundTypes();

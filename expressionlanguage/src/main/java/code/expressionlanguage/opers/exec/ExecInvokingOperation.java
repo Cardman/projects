@@ -220,7 +220,6 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             return Argument.createVoid();
         }
         Classes classes_ = _conf.getClasses();
-        String aliasClass_ = stds_.getAliasClassType();
         String aliasForName_ = stds_.getAliasForName();
         String aliasValueOf_ = stds_.getAliasEnumValueOf();
         String aliasEnumsValues_ = stds_.getAliasGetEnumConstants();
@@ -262,12 +261,16 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                 _conf.getContextEl().setCallingState(new CustomReflectMethod(ReflectingType.ANNOTATION_PARAM, _previous, _firstArgs, false));
                 return new Argument();
             }
-            String fileName_ = ((AnnotatedStruct) _previous.getStruct()).getFileName();
+            String fileName_ = LgNames.getAnnotated(_previous.getStruct(),stds_).getFileName();
             return new Argument(new StringStruct(fileName_));
         }
+        String aliasField_ = stds_.getAliasField();
+        String aliasMethod_ = stds_.getAliasMethod();
+        String aliasConstructor_ = stds_.getAliasConstructor();
+        String aliasClass_ = stds_.getAliasClassType();
         if (StringList.quickEq(aliasClass_, _classNameFound)) {
             if (StringList.quickEq(aliasValueOf_, _methodId.getName())) {
-                ClassMetaInfo cl_ = (ClassMetaInfo) _previous.getStruct();
+                ClassMetaInfo cl_ = LgNames.getClass(_previous.getStruct(),stds_);
                 if (!cl_.isTypeEnum()) {
                     return new Argument();
                 }
@@ -276,7 +279,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                 return getEnumValue(enumName_, clArg_, _conf);
             }
             if (StringList.quickEq(aliasEnumsValues_, _methodId.getName())) {
-                ClassMetaInfo cl_ = (ClassMetaInfo) _previous.getStruct();
+                ClassMetaInfo cl_ = LgNames.getClass(_previous.getStruct(),stds_);
                 String enumName_ = cl_.getName();
                 RootBlock r_ = classes_.getClassBody(enumName_);
                 if (r_ == null || !cl_.isTypeEnum()) {
@@ -315,7 +318,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                 return a_;
             }
             if (StringList.quickEq(aliasDefaultInstance_, _methodId.getName())) {
-                ClassMetaInfo cl_ = (ClassMetaInfo) _previous.getStruct();
+                ClassMetaInfo cl_ = LgNames.getClass(_previous.getStruct(),stds_);
                 String className_ = cl_.getName();
                 ContextEl cont_ = _conf.getContextEl();
                 String id_ = Templates.getIdFromAllTypes(className_);
@@ -325,6 +328,12 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                     null_ = stds_.getAliasNullPe();
                     cont_.setException(new ErrorStruct(_conf,null_));
                     return Argument.createVoid();
+                }
+                if (StringList.quickEq(id_,aliasMethod_)
+                    ||StringList.quickEq(id_,aliasConstructor_)
+                    ||StringList.quickEq(id_,aliasField_)
+                    ||StringList.quickEq(id_,aliasClass_)) {
+                    return new Argument(LgNames.defaultMeta(_conf,id_,_firstArgs));
                 }
                 if (ContextEl.isAbstractType(type_)) {
                     String null_;
@@ -394,16 +403,12 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                 return a_;
             }
             if (StringList.quickEq(aliasInit_, _methodId.getName())) {
-                ClassMetaInfo cl_ = (ClassMetaInfo) _previous.getStruct();
+                ClassMetaInfo cl_ = LgNames.getClass(_previous.getStruct(),stds_);
                 String clDyn_ = cl_.getName();
                 hasToExit(_conf, clDyn_);
                 return Argument.createVoid();
             }
         }
-        String aliasField_ = stds_.getAliasField();
-        String aliasMethod_ = stds_.getAliasMethod();
-        String aliasFct_ = stds_.getAliasFct();
-        String aliasConstructor_ = stds_.getAliasConstructor();
         String aliasGetField_ = stds_.getAliasGetField();
         String aliasSetField_ = stds_.getAliasSetField();
         String aliasInvoke_ = stds_.getAliasInvoke();
@@ -418,7 +423,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             boolean invoke_ = StringList.quickEq(aliasInvoke_, _methodId.getName());
             boolean invokeDirect_ = StringList.quickEq(aliasInvokeDirect_, _methodId.getName());
             if (invoke_) {
-                MethodMetaInfo m_ = (MethodMetaInfo) _previous.getStruct();
+                MethodMetaInfo m_ = LgNames.getMethod(_previous.getStruct(),stds_);
                 if (m_.getRealId().canAccessParamTypesStatic(_conf)) {
                     _conf.getContextEl().setCallingState(new CustomReflectMethod(ReflectingType.CAST, _previous, _firstArgs, false));
                     return new Argument();
@@ -427,7 +432,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                 return new Argument();
             }
             if (invokeDirect_) {
-                MethodMetaInfo m_ = (MethodMetaInfo) _previous.getStruct();
+                MethodMetaInfo m_ = LgNames.getMethod(_previous.getStruct(),stds_);
                 if (m_.getRealId().canAccessParamTypesStatic(_conf)) {
                     _conf.getContextEl().setCallingState(new CustomReflectMethod(ReflectingType.CAST_DIRECT, _previous, _firstArgs, false));
                     return new Argument();
@@ -440,6 +445,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         ContextEl context_ = _conf.getContextEl();
         CustList<NamedFunctionBlock> methods_ = Classes.getMethodBodiesById(context_, _classNameFound, _methodId);
         CustList<Argument> ar_ = new CustList<Argument>();
+        String aliasFct_ = stds_.getAliasFct();
         if (StringList.quickEq(aliasFct_, _classNameFound)) {
             Argument instance_ = _firstArgs.first();
             Struct inst_ = instance_.getStruct();

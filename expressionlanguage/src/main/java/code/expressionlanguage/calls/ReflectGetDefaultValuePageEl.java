@@ -10,6 +10,7 @@ import code.expressionlanguage.methods.AnnotationBlock;
 import code.expressionlanguage.methods.AnnotationMethodBlock;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.exec.ExecOperationNode;
+import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.MethodMetaInfo;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
@@ -22,7 +23,8 @@ public final class ReflectGetDefaultValuePageEl extends AbstractReflectPageEl {
 
     @Override
     public boolean checkCondition(ContextEl _context) {
-        MethodMetaInfo instance_ = (MethodMetaInfo) getGlobalArgument().getStruct();
+        LgNames stds_ = _context.getStandards();
+        MethodMetaInfo instance_ = LgNames.getMethod(getGlobalArgument().getStruct(),stds_);
         String cl_ = instance_.getFormClassName();
         String id_ = Templates.getIdFromAllTypes(cl_);
         GeneType type_ = _context.getClassBody(id_);

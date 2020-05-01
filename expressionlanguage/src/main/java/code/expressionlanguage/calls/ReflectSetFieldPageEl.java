@@ -14,7 +14,8 @@ public final class ReflectSetFieldPageEl extends AbstractReflectPageEl {
 
     @Override
     public boolean checkCondition(ContextEl _context) {
-        FieldMetaInfo method_ = (FieldMetaInfo) getGlobalArgument().getStruct();
+        LgNames stds_ = _context.getStandards();
+        FieldMetaInfo method_ = LgNames.getField(getGlobalArgument().getStruct(),stds_);
         if (!initClass) {
             initClass = true;
             if (method_.isStaticField()) {
@@ -28,7 +29,6 @@ public final class ReflectSetFieldPageEl extends AbstractReflectPageEl {
         }
         setWrapException(false);
         String baseClass_ = method_.getDeclaringClass();
-        LgNames stds_ = _context.getStandards();
         if (stds_.getStandards().contains(baseClass_)) {
             String ill_;
             ill_ = stds_.getAliasIllegalArg();

@@ -21,10 +21,11 @@ public abstract class AbstractRefectMethodPageEl extends AbstractReflectPageEl {
     private boolean calledMethod;
     @Override
     public boolean checkCondition(ContextEl _context) {
-        MethodMetaInfo method_ = (MethodMetaInfo) getGlobalArgument().getStruct();
+        LgNames stds_ = _context.getStandards();
+        MethodMetaInfo method_ = LgNames.getMethod(getGlobalArgument().getStruct(),stds_);
         if (!initClass) {
             initClass = true;
-            if (initType()) {
+            if (initType(_context)) {
                 if (ExecInvokingOperation.hasToExit(_context, method_.getClassName())) {
                     setWrapException(true);
                     return false;
@@ -33,7 +34,6 @@ public abstract class AbstractRefectMethodPageEl extends AbstractReflectPageEl {
         }
         setWrapException(false);
         if (methodToCall == null) {
-            LgNames stds_ = _context.getStandards();
             if (!method_.isWideStatic()) {
                 Argument instance_ = getArguments().first();
                 if (instance_.isNull()) {
@@ -43,14 +43,14 @@ public abstract class AbstractRefectMethodPageEl extends AbstractReflectPageEl {
                     return false;
                 }
             }
-            if (isAbstract()) {
+            if (isAbstract(_context)) {
                 String null_;
                 null_ = stds_.getAliasIllegalArg();
                 _context.setException(new ErrorStruct(_context,null_));
                 return false;
             }
             String className_ = method_.getClassName();
-            if (isPolymorph()) {
+            if (isPolymorph(_context)) {
                 Struct instance_ = getArguments().first().getStruct();
                 ClassMethodId clId_ = new ClassMethodId(className_, method_.getRealId());
                 methodToCall = ExecInvokingOperation.polymorph(_context, instance_, clId_);
@@ -71,7 +71,6 @@ public abstract class AbstractRefectMethodPageEl extends AbstractReflectPageEl {
             CustList<Argument> args_ = new CustList<Argument>();
             Struct struct_ = getArguments().last().getStruct();
             if (!(struct_ instanceof ArrayStruct)) {
-                LgNames stds_ = _context.getStandards();
                 String null_;
                 null_ = stds_.getAliasNullPe();
                 _context.setException(new ErrorStruct(_context,null_));
@@ -85,7 +84,6 @@ public abstract class AbstractRefectMethodPageEl extends AbstractReflectPageEl {
             Argument right_ = null;
             if (!StringList.quickEq(mid_.getName(),"[]=")) {
                 if (args_.size() != mid_.getParametersTypes().size()) {
-                    LgNames stds_ = _context.getStandards();
                     String null_;
                     null_ = stds_.getAliasIllegalArg();
                     _context.setException(new ErrorStruct(_context,null_));
@@ -93,7 +91,6 @@ public abstract class AbstractRefectMethodPageEl extends AbstractReflectPageEl {
                 }
             } else {
                 if (args_.size() != mid_.getParametersTypes().size() + 1) {
-                    LgNames stds_ = _context.getStandards();
                     String null_;
                     null_ = stds_.getAliasIllegalArg();
                     _context.setException(new ErrorStruct(_context,null_));
@@ -121,7 +118,7 @@ public abstract class AbstractRefectMethodPageEl extends AbstractReflectPageEl {
         return ExecInvokingOperation.callPrepare(_context, _className, _mid, _instance, _args, _right);
     }
 
-    abstract boolean initType();
-    abstract boolean isAbstract();
-    abstract boolean isPolymorph();
+    abstract boolean initType(ContextEl _context);
+    abstract boolean isAbstract(ContextEl _context);
+    abstract boolean isPolymorph(ContextEl _context);
 }

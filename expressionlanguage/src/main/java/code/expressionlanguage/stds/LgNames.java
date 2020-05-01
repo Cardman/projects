@@ -10,6 +10,7 @@ import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.inherits.TypeUtil;
 import code.expressionlanguage.instr.ElUtil;
+import code.expressionlanguage.methods.AccessEnum;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.PredefinedClasses;
 import code.expressionlanguage.opers.Calculation;
@@ -322,6 +323,12 @@ public abstract class LgNames {
     private AliasPredefinedTypes predefTypes = new AliasPredefinedTypes();
     private DisplayedStrings displayedStrings = new DisplayedStrings();
     private String defaultPkg = "";
+
+    private MethodMetaInfo methodMetaInfo;
+    private ConstructorMetaInfo constructorMetaInfo;
+    private FieldMetaInfo fieldMetaInfo;
+    private ClassMetaInfo classMetaInfo;
+
     /**Called after setters*/
     public void build() {
         coreNames.build(this);
@@ -1598,6 +1605,62 @@ public abstract class LgNames {
         return result_;
     }
 
+    public static Struct defaultMeta(ExecutableCode _conf, String _id, CustList<Argument> _firstArgs) {
+        LgNames stds_ = _conf.getStandards();
+        String aliasField_ = stds_.getAliasField();
+        String aliasMethod_ = stds_.getAliasMethod();
+        String aliasConstructor_ = stds_.getAliasConstructor();
+        Struct previous_ = NullStruct.NULL_VALUE;
+        if (!_firstArgs.isEmpty()) {
+            previous_ = _firstArgs.first().getStruct();
+        }
+        if (StringList.quickEq(_id,aliasMethod_)) {
+            return getMethod(previous_,stds_);
+        }
+        if (StringList.quickEq(_id,aliasConstructor_)) {
+            return getCtor(previous_,stds_);
+        }
+        if (StringList.quickEq(_id,aliasField_)) {
+            return getField(previous_,stds_);
+        }
+        return getClass(previous_,stds_);
+    }
+    public static AnnotatedStruct getAnnotated(Struct _struct, LgNames _stds) {
+        if (_struct instanceof MethodMetaInfo) {
+            return (MethodMetaInfo) _struct;
+        }
+        if (_struct instanceof ConstructorMetaInfo) {
+            return (ConstructorMetaInfo) _struct;
+        }
+        if (_struct instanceof FieldMetaInfo) {
+            return (FieldMetaInfo) _struct;
+        }
+        return getClass(_struct,_stds);
+    }
+    public static MethodMetaInfo getMethod(Struct _struct, LgNames _stds) {
+        if (_struct instanceof MethodMetaInfo) {
+            return (MethodMetaInfo) _struct;
+        }
+        return _stds.getMethodMetaInfo();
+    }
+    public static ConstructorMetaInfo getCtor(Struct _struct, LgNames _stds) {
+        if (_struct instanceof ConstructorMetaInfo) {
+            return (ConstructorMetaInfo) _struct;
+        }
+        return _stds.getConstructorMetaInfo();
+    }
+    public static FieldMetaInfo getField(Struct _struct, LgNames _stds) {
+        if (_struct instanceof FieldMetaInfo) {
+            return (FieldMetaInfo) _struct;
+        }
+        return _stds.getFieldMetaInfo();
+    }
+    public static ClassMetaInfo getClass(Struct _struct, LgNames _stds) {
+        if (_struct instanceof ClassMetaInfo) {
+            return (ClassMetaInfo) _struct;
+        }
+        return _stds.getClassMetaInfo();
+    }
     public static Struct defaultInstance(ExecutableCode _conf, String _id, CustList<Argument> _firstArgs) {
         LgNames stds_ = _conf.getStandards();
         Struct previous_ = NullStruct.NULL_VALUE;
@@ -3657,4 +3720,35 @@ public abstract class LgNames {
         defaultPkg = _defaultPkg;
     }
 
+    public MethodMetaInfo getMethodMetaInfo() {
+        return methodMetaInfo;
+    }
+
+    public void setMethodMetaInfo(MethodMetaInfo methodMetaInfo) {
+        this.methodMetaInfo = methodMetaInfo;
+    }
+
+    public ConstructorMetaInfo getConstructorMetaInfo() {
+        return constructorMetaInfo;
+    }
+
+    public void setConstructorMetaInfo(ConstructorMetaInfo constructorMetaInfo) {
+        this.constructorMetaInfo = constructorMetaInfo;
+    }
+
+    public FieldMetaInfo getFieldMetaInfo() {
+        return fieldMetaInfo;
+    }
+
+    public void setFieldMetaInfo(FieldMetaInfo fieldMetaInfo) {
+        this.fieldMetaInfo = fieldMetaInfo;
+    }
+
+    public ClassMetaInfo getClassMetaInfo() {
+        return classMetaInfo;
+    }
+
+    public void setClassMetaInfo(ClassMetaInfo classMetaInfo) {
+        this.classMetaInfo = classMetaInfo;
+    }
 }

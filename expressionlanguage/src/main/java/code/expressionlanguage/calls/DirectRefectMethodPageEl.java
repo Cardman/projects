@@ -1,23 +1,27 @@
 package code.expressionlanguage.calls;
 
+import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.MethodMetaInfo;
 
 public final class DirectRefectMethodPageEl extends AbstractRefectMethodPageEl {
 
     @Override
-    boolean initType() {
-        MethodMetaInfo method_ = (MethodMetaInfo) getGlobalArgument().getStruct();
+    boolean initType(ContextEl _cont) {
+        LgNames stds_ = _cont.getStandards();
+        MethodMetaInfo method_ = LgNames.getMethod(getGlobalArgument().getStruct(),stds_);
         return method_.isWideStatic();
     }
 
     @Override
-    boolean isAbstract() {
-        MethodMetaInfo method_ = (MethodMetaInfo) getGlobalArgument().getStruct();
+    boolean isAbstract(ContextEl _cont) {
+        LgNames stds_ = _cont.getStandards();
+        MethodMetaInfo method_ = LgNames.getMethod(getGlobalArgument().getStruct(),stds_);
         return method_.isAbstract();
     }
 
     @Override
-    boolean isPolymorph() {
+    boolean isPolymorph(ContextEl _cont) {
         return false;
     }
 }

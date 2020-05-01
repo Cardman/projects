@@ -12,6 +12,7 @@ import code.expressionlanguage.opers.exec.ExecOperationNode;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.MethodId;
+import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.*;
 import code.util.CustList;
 import code.util.StringList;
@@ -27,6 +28,7 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
 
     @Override
     public boolean checkCondition(ContextEl _context) {
+        LgNames stds_ = _context.getStandards();
         Struct structBlock_ = getGlobalArgument().getStruct();
         if (!retrievedAnnot) {
             if (onParameters) {
@@ -92,8 +94,8 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
                 }
             } else {
                 //Field
-                String fieldId_ = ((FieldMetaInfo)structBlock_).getName();
-                String cl_ = ((FieldMetaInfo)structBlock_).getDeclaringClass();
+                String fieldId_ = LgNames.getField(structBlock_,stds_).getName();
+                String cl_ = LgNames.getField(structBlock_,stds_).getDeclaringClass();
                 String idClass_ = Templates.getIdFromAllTypes(cl_);
                 RootBlock type_ = _context.getClasses().getClassBody(idClass_);
                 if (type_ != null) {
@@ -140,7 +142,7 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
             }
             if (onParameters) {
                 int len_ = annotationsParams.size();
-                String annot_ = _context.getStandards().getAliasAnnotationType();
+                String annot_ = stds_.getAliasAnnotationType();
                 annot_ = PrimitiveTypeUtil.getPrettyArrayType(annot_);
                 String annotArr_ = PrimitiveTypeUtil.getPrettyArrayType(annot_);
                 array = new ArrayStruct(new Struct[len_], annotArr_);
@@ -153,7 +155,7 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
                 }
             } else {
                 int len_ = annotations.size();
-                String annot_ = _context.getStandards().getAliasAnnotationType();
+                String annot_ = stds_.getAliasAnnotationType();
                 annot_ = PrimitiveTypeUtil.getPrettyArrayType(annot_);
                 array = new ArrayStruct(new Struct[len_], annot_);
             }
