@@ -696,4 +696,91 @@ public final class ProcessMethodDotSafeTest extends ProcessMethodCommon {
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(1, ret_.getNumber());
     }
+    @Test
+    public void calculateArgument31Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  Content c = null;\n");
+        xml_.append("  return c?[0,1]+1;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.Content{\n");
+        xml_.append(" public int[] content={1,5,9};\n");
+        xml_.append(" public int this(int i, int j){\n");
+        xml_.append("  return content[i+j];\n");
+        xml_.append(" }\n");
+        xml_.append(" public void this(int i, int j){\n");
+        xml_.append("  content[i+j]=value;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEnElDefault();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq(1, ret_.getNumber());
+    }
+    @Test
+    public void calculateArgument32Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  Content c = new Content();\n");
+        xml_.append("  return c?[0,1]+1;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.Content{\n");
+        xml_.append(" public int[] content={1,5,9};\n");
+        xml_.append(" public int this(int i, int j){\n");
+        xml_.append("  return content[i+j];\n");
+        xml_.append(" }\n");
+        xml_.append(" public void this(int i, int j){\n");
+        xml_.append("  content[i+j]=value;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEnElDefault();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq(6, ret_.getNumber());
+    }
+    @Test
+    public void calculateArgument33Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  Content c = null;\n");
+        xml_.append("  return c?[0,1]+1;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.Content{\n");
+        xml_.append(" public int[] content;\n");
+        xml_.append(" public int this(int i, int j){\n");
+        xml_.append("  return content[i+j];\n");
+        xml_.append(" }\n");
+        xml_.append(" public void this(int i, int j){\n");
+        xml_.append("  content[i+j]=value;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEnElDefault();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq(1, ret_.getNumber());
+    }
 }
