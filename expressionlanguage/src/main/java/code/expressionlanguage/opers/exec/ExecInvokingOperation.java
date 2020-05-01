@@ -439,6 +439,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         Struct prev_ =_previous.getStruct();
         ContextEl context_ = _conf.getContextEl();
         CustList<NamedFunctionBlock> methods_ = Classes.getMethodBodiesById(context_, _classNameFound, _methodId);
+        CustList<Argument> ar_ = new CustList<Argument>();
         if (StringList.quickEq(aliasFct_, _classNameFound)) {
             Argument instance_ = _firstArgs.first();
             Struct inst_ = instance_.getStruct();
@@ -448,11 +449,13 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             }
             ArrayStruct arr_ = (ArrayStruct) inst_;
             Struct[] real_ = arr_.getInstance();
-            CustList<Argument> ar_ = new CustList<Argument>();
             for (Struct str_ : real_) {
                 ar_.add(new Argument(str_));
             }
-            return prepareCallDyn(_previous, ar_, _conf);
+        }
+        Argument ret_ = prepareCallDyn(_previous, ar_, _conf);
+        if (isLambda(prev_)) {
+            return ret_;
         }
         if (StringList.quickEq(aliasConstructor_, _classNameFound)) {
             if (StringList.quickEq(aliasNewInstance_, _methodId.getName())) {
@@ -503,6 +506,12 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         return Argument.createVoid();
     }
 
+    public static boolean isLambda(Struct _prev) {
+        return _prev instanceof LambdaConstructorStruct
+                || _prev instanceof LambdaFieldStruct
+                || _prev instanceof LambdaMethodStruct;
+    }
+
     public static void checkParameters(ExecutableCode _conf, String _classNameFound, Identifiable _methodId,
                                 Argument _previous, CustList<Argument> _firstArgs,
                                 boolean _ctor, boolean _method, InstancingStep _kindCall, Argument _right) {
@@ -535,21 +544,23 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
     public static Argument prepareCallDyn(Argument _previous, CustList<Argument> _values, ExecutableCode _conf) {
         Struct ls_ = _previous.getStruct();
         LgNames lgNames_ = _conf.getStandards();
-        String typeFct_ = lgNames_.getStructClassName(ls_, _conf.getContextEl());
-        StringList parts_ = Templates.getAllTypes(typeFct_);
-        CustList<String> paramsFct_ = parts_.mid(1, parts_.size() - 2);
-        int valuesSize_ = _values.size();
-        if (valuesSize_ != paramsFct_.size()) {
-            String null_;
-            null_ = lgNames_.getAliasIllegalArg();
-            _conf.setException(new ErrorStruct(_conf,null_));
-            return new Argument();
-        }
-        for (int i = 0; i < valuesSize_; i++) {
-            Argument arg_ = _values.get(i);
-            String param_ = paramsFct_.get(i);
-            if (!Templates.checkObject(param_, arg_, _conf)) {
+        if (isLambda(ls_)) {
+            String typeFct_ = lgNames_.getStructClassName(ls_, _conf.getContextEl());
+            StringList parts_ = Templates.getAllTypes(typeFct_);
+            CustList<String> paramsFct_ = parts_.mid(1, parts_.size() - 2);
+            int valuesSize_ = _values.size();
+            if (valuesSize_ != paramsFct_.size()) {
+                String null_;
+                null_ = lgNames_.getAliasIllegalArg();
+                _conf.setException(new ErrorStruct(_conf,null_));
                 return new Argument();
+            }
+            for (int i = 0; i < valuesSize_; i++) {
+                Argument arg_ = _values.get(i);
+                String param_ = paramsFct_.get(i);
+                if (!Templates.checkObject(param_, arg_, _conf)) {
+                    return new Argument();
+                }
             }
         }
         if (ls_ instanceof LambdaConstructorStruct) {
@@ -648,87 +659,90 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             _conf.getContextEl().setCallingState(new CustomReflectMethod(type_, pr_, nList_, true));
             return new Argument();
         }
-        LambdaMethodStruct l_ =  (LambdaMethodStruct) ls_;
-        int nbAncestors_ = l_.getAncestor();
-        String id_;
-        MethodId fid_ = l_.getFid();
-        if (fid_.canAccessParamTypesStatic(_conf)) {
-            id_ = l_.getFormClassName();
-        } else {
-            id_ = Templates.getIdFromAllTypes(l_.getFormClassName());
-        }
-        MethodModifier met_;
-        boolean static_ = fid_.isStaticMethod();
-        if (l_.isAbstractMethod()) {
-            met_ = MethodModifier.ABSTRACT;
-        } else if (static_) {
-            met_ = MethodModifier.STATIC;
-        } else {
-            met_ = MethodModifier.NORMAL;
-        }
-        MethodMetaInfo m_ = new MethodMetaInfo(AccessEnum.PUBLIC, id_, fid_, met_, "", fid_, "");
-        Argument pr_ = new Argument();
-        pr_.setStruct(m_);
-        Argument instance_ = l_.getInstanceCall();
-        String obj_ = _conf.getStandards().getAliasObject();
-        obj_ = PrimitiveTypeUtil.getPrettyArrayType(obj_);
-        if (!l_.isShiftInstance()) {
-            ArrayStruct arr_ = new ArrayStruct(new Struct[_values.size()],obj_);
+        if (ls_ instanceof LambdaMethodStruct) {
+            LambdaMethodStruct l_ =  (LambdaMethodStruct) ls_;
+            int nbAncestors_ = l_.getAncestor();
+            String id_;
+            MethodId fid_ = l_.getFid();
+            if (fid_.canAccessParamTypesStatic(_conf)) {
+                id_ = l_.getFormClassName();
+            } else {
+                id_ = Templates.getIdFromAllTypes(l_.getFormClassName());
+            }
+            MethodModifier met_;
+            boolean static_ = fid_.isStaticMethod();
+            if (l_.isAbstractMethod()) {
+                met_ = MethodModifier.ABSTRACT;
+            } else if (static_) {
+                met_ = MethodModifier.STATIC;
+            } else {
+                met_ = MethodModifier.NORMAL;
+            }
+            MethodMetaInfo m_ = new MethodMetaInfo(AccessEnum.PUBLIC, id_, fid_, met_, "", fid_, "");
+            Argument pr_ = new Argument();
+            pr_.setStruct(m_);
+            Argument instance_ = l_.getInstanceCall();
+            String obj_ = _conf.getStandards().getAliasObject();
+            obj_ = PrimitiveTypeUtil.getPrettyArrayType(obj_);
+            if (!l_.isShiftInstance()) {
+                ArrayStruct arr_ = new ArrayStruct(new Struct[_values.size()],obj_);
+                int i_ = 0;
+                for (Argument v: _values) {
+                    arr_.getInstance()[i_] = v.getStruct();
+                    i_++;
+                }
+                CustList<Argument> nList_ = new CustList<Argument>();
+                if (!static_) {
+                    Struct value_ = instance_.getStruct();
+                    instance_.setStruct(PrimitiveTypeUtil.getParent(nbAncestors_, id_, value_, _conf));
+                    if (_conf.getContextEl().callsOrException()) {
+                        return new Argument();
+                    }
+                }
+                nList_.add(instance_);
+                nList_.add(new Argument(arr_));
+                return redirect(_conf, l_, pr_, nList_);
+            }
+            if (FunctionIdUtil.isOperatorName(fid_)) {
+                ArrayStruct arr_ = new ArrayStruct(new Struct[_values.size()+1],obj_);
+                int i_ = 1;
+                arr_.getInstance()[0] = instance_.getStruct();
+                for (Argument v: _values) {
+                    arr_.getInstance()[i_] = v.getStruct();
+                    i_++;
+                }
+                CustList<Argument> nList_ = new CustList<Argument>();
+                nList_.add(new Argument(arr_));
+                _conf.getContextEl().setCallingState(new CustomReflectMethod(ReflectingType.DIRECT, pr_, nList_, true));
+                return new Argument();
+            }
+            ArrayStruct arr_ = new ArrayStruct(new Struct[_values.size()-1],obj_);
             int i_ = 0;
-            for (Argument v: _values) {
+            for (Argument v: _values.mid(1, _values.size() - 1)) {
                 arr_.getInstance()[i_] = v.getStruct();
                 i_++;
             }
             CustList<Argument> nList_ = new CustList<Argument>();
-            if (!static_) {
-                Struct value_ = instance_.getStruct();
-                instance_.setStruct(PrimitiveTypeUtil.getParent(nbAncestors_, id_, value_, _conf));
-                if (_conf.getContextEl().callsOrException()) {
-                    return new Argument();
-                }
+            Argument firstValue_ = _values.first();
+            Struct value_ = firstValue_.getStruct();
+            firstValue_.setStruct(PrimitiveTypeUtil.getParent(nbAncestors_, id_, value_, _conf));
+            if (_conf.getContextEl().callsOrException()) {
+                return new Argument();
             }
-            nList_.add(instance_);
+            nList_.add(firstValue_);
             nList_.add(new Argument(arr_));
             return redirect(_conf, l_, pr_, nList_);
         }
-        if (FunctionIdUtil.isOperatorName(fid_)) {
-            ArrayStruct arr_ = new ArrayStruct(new Struct[_values.size()+1],obj_);
-            int i_ = 1;
-            arr_.getInstance()[0] = instance_.getStruct();
-            for (Argument v: _values) {
-                arr_.getInstance()[i_] = v.getStruct();
-                i_++;
-            }
-            CustList<Argument> nList_ = new CustList<Argument>();
-            nList_.add(new Argument(arr_));
-            _conf.getContextEl().setCallingState(new CustomReflectMethod(ReflectingType.DIRECT, pr_, nList_, true));
-            return new Argument();
-        }
-        ArrayStruct arr_ = new ArrayStruct(new Struct[_values.size()-1],obj_);
-        int i_ = 0;
-        for (Argument v: _values.mid(1, _values.size() - 1)) {
-            arr_.getInstance()[i_] = v.getStruct();
-            i_++;
-        }
-        CustList<Argument> nList_ = new CustList<Argument>();
-        Argument firstValue_ = _values.first();
-        Struct value_ = firstValue_.getStruct();
-        firstValue_.setStruct(PrimitiveTypeUtil.getParent(nbAncestors_, id_, value_, _conf));
-        if (_conf.getContextEl().callsOrException()) {
-            return new Argument();
-        }
-        nList_.add(firstValue_);
-        nList_.add(new Argument(arr_));
-        return redirect(_conf, l_, pr_, nList_);
+        return Argument.createVoid();
     }
 
     private static Argument redirect(ExecutableCode _conf, LambdaMethodStruct _l, Argument _pr, CustList<Argument> _nList) {
         if (_l.getFormClassName().startsWith(PrimitiveTypeUtil.ARR_CLASS) && _l.getFid().getName().startsWith("[]")) {
             Struct arr_ = _nList.first().getStruct();
-            ArrayStruct argArr_ = (ArrayStruct) _nList.get(1).getStruct();
+            ArrayStruct argArr_ = ExecArrayFieldOperation.getArray(_nList.get(1).getStruct(),_conf);
             int len_ = argArr_.getInstance().length - 1;
             if (len_ < 0) {
-                return new Argument(new IntStruct(((ArrayStruct)arr_).getInstance().length));
+                return new Argument(new IntStruct(ExecArrayFieldOperation.getLength(arr_,_conf)));
             }
             if (!StringList.quickEq(_l.getFid().getName(),"[]")) {
                 len_--;

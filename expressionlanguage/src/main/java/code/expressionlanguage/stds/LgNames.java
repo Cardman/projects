@@ -335,11 +335,16 @@ public abstract class LgNames {
     }
 
     public DisplayableStruct getStringOfObject(ContextEl _cont, Struct _arg) {
-        if (_arg instanceof EnumerableStruct) {
-            return new StringStruct(((EnumerableStruct)_arg).getName());
-        }
-        return new StringStruct(_arg.getClassName(_cont));
+        return new StringStruct(getStringOfEnum(_cont, _arg));
     }
+
+    public static String getStringOfEnum(ContextEl _cont, Struct _arg) {
+        if (_arg instanceof EnumerableStruct) {
+            return ((EnumerableStruct)_arg).getName();
+        }
+        return _arg.getClassName(_cont);
+    }
+
     public static StringList parseLineArg(String _line) {
         StringList args_ = new StringList();
         StringBuilder arg_ = new StringBuilder();
@@ -1519,43 +1524,32 @@ public abstract class LgNames {
             if (StringList.quickEq(name_, lgNames_.getAliasCurrentStack())) {
                 ErroneousStruct err_;
                 if (args_.length == 0) {
-                    err_ = (ErroneousStruct) _struct;
+                    err_ = getError(_struct,_cont.getContextEl());
                     result_.setResult(err_.getStack());
                     return result_;
                 }
-                if (args_[0] instanceof ErroneousStruct){
-                    err_ = (ErroneousStruct) args_[0];
-                    result_.setResult(err_.getFullStack());
-                    return result_;
-                }
-                Struct[] arr_ = new Struct[0];
-                String cl_ = lgNames_.getAliasStackTraceElement();
-                cl_ = PrimitiveTypeUtil.getPrettyArrayType(cl_);
-                result_.setResult(new ArrayStruct(arr_, cl_));
+                err_ = getError(args_[0],_cont.getContextEl());
+                result_.setResult(err_.getFullStack());
                 return result_;
             }
             if (StringList.quickEq(name_, lgNames_.getAliasGetMessage())) {
-                ErroneousStruct err_ = (ErroneousStruct) _struct;
+                ErroneousStruct err_ = getError(_struct,_cont.getContextEl());
                 result_.setResult(err_.getMessage());
                 return result_;
             }
             if (StringList.quickEq(name_, lgNames_.getAliasGetCause())) {
-                ErroneousStruct err_ = (ErroneousStruct) _struct;
+                ErroneousStruct err_ = getError(_struct,_cont.getContextEl());
                 result_.setResult(err_.getCause());
                 return result_;
             }
             ErroneousStruct err_;
             if (args_.length == 0) {
-                err_ = (ErroneousStruct) _struct;
+                err_ = getError(_struct,_cont.getContextEl());
                 result_.setResult(err_.getDisplayedString(_cont));
                 return result_;
             }
-            if (args_[0] instanceof ErroneousStruct){
-                err_ = (ErroneousStruct) args_[0];
-                result_.setResult(new StringStruct(err_.getStringRep(_cont,err_.getFullStack().getInstance())));
-                return result_;
-            }
-            result_.setResult(new StringStruct(""));
+            err_ = getError(args_[0],_cont.getContextEl());
+            result_.setResult(new StringStruct(err_.getStringRep(_cont,err_.getFullStack().getInstance())));
             return result_;
         }
         if (StringList.quickEq(type_, mathType_)) {
@@ -1569,6 +1563,14 @@ public abstract class LgNames {
             return result_;
         }
         return result_;
+    }
+
+    private static ErroneousStruct getError(Struct _err, ExecutableCode _cont) {
+        if (_err instanceof ErroneousStruct) {
+            return (ErroneousStruct) _err;
+        }
+        String null_ = _cont.getStandards().getAliasNullPe();
+        return new ErrorStruct(_cont,null_);
     }
 
     public ResultErrorStd getOtherResult(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {

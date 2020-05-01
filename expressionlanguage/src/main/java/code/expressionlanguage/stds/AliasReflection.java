@@ -522,8 +522,7 @@ public final class AliasReflection {
         String aliasField_ = ref_.aliasField;
         String aliasVoid_ = lgNames_.getAliasVoid();
         if (StringList.quickEq(type_, ref_.aliasAnnotationType)) {
-            FieldableStruct poly_ = (FieldableStruct) args_[0];
-            result_.setResult(new StringStruct(ExportAnnotationUtil.exportAnnotation(poly_)));
+            result_.setResult(new StringStruct(ExportAnnotationUtil.exportAnnotation(args_[0])));
             return result_;
         }
         if (StringList.quickEq(type_, ref_.aliasField)) {

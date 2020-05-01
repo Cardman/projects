@@ -35,16 +35,22 @@ public final class StackTraceElementStruct implements DisplayableStruct {
 
     @Override
     public boolean sameReference(Struct _other) {
+        StackTraceElementStruct other_ = getStack(_other);
         if (!(_other instanceof StackTraceElementStruct)) {
             return false;
         }
-        StackTraceElementStruct other_ = (StackTraceElementStruct) _other;
         if (!StringList.quickEq(fileName, other_.fileName)) {
             return false;
         }
         return Numbers.eq(indexFileType, other_.indexFileType);
     }
 
+    public static StackTraceElementStruct getStack(Struct _str) {
+        if (_str instanceof StackTraceElementStruct) {
+            return (StackTraceElementStruct) _str;
+        }
+        return new StackTraceElementStruct("",-1,-1,-1,"","");
+    }
     @Override
     public StringStruct getDisplayedString(Analyzable _an) {
         return new StringStruct(getStringRep());

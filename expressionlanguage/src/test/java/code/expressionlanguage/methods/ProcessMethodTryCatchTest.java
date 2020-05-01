@@ -1427,7 +1427,7 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_;
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq("0;", ret_.getString());
+        assertEq("1;", ret_.getString());
     }
     @Test
     public void calculateArgument95Test() {
@@ -1647,7 +1647,7 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_;
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq("", ret_.getString());
+        assertEq("code.util.exceptions.NullObjectException\n", ret_.getString());
     }
     @Test
     public void calculateArgument991Test() {

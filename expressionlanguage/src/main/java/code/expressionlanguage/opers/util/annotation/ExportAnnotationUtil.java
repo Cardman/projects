@@ -1,13 +1,13 @@
 package code.expressionlanguage.opers.util.annotation;
 
-import code.expressionlanguage.structs.FieldableStruct;
+import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 
 public final class ExportAnnotationUtil {
 
     private ExportAnnotationUtil(){
     }
-    public static String exportAnnotation(FieldableStruct _str) {
+    public static String exportAnnotation(Struct _str) {
         StringBuilder out_ = new StringBuilder();
         CustList<CustList<StackObject>> elts_;
         elts_ = new CustList<CustList<StackObject>>();

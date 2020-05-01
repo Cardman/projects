@@ -19,6 +19,7 @@ import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.exec.ExecOperationNode;
 import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.stacks.SwitchBlockStack;
+import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.EnumerableStruct;
 import code.util.*;
 
@@ -332,7 +333,7 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock, Wi
                 }
             }
         } else if (enumTest) {
-            EnumerableStruct en_ = (EnumerableStruct) arg_.getStruct();
+            String name_ = LgNames.getStringOfEnum(_cont, arg_.getStruct());
             for (Block b: children_) {
                 if (!(b instanceof CaseCondition)) {
                     def_ = b;
@@ -343,7 +344,7 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock, Wi
                 if (op_.getArgument() != null) {
                     continue;
                 }
-                if (StringList.quickEq(c_.getValue().trim(), en_.getName())) {
+                if (StringList.quickEq(c_.getValue().trim(), name_)) {
                     found_ = c_;
                     break;
                 }

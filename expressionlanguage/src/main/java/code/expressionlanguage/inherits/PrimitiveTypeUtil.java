@@ -5,6 +5,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.common.InheritedType;
+import code.expressionlanguage.opers.exec.ExecArrayFieldOperation;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.DimComp;
 import code.expressionlanguage.opers.util.IndexesComparator;
@@ -408,7 +409,7 @@ public final class PrimitiveTypeUtil {
             ind_.removeLast();
             int lastIndex_ = key_.last();
             Struct str_ = indexesArray_.getVal(ind_);
-            Struct[] array_ = ((ArrayStruct)str_).getInstance();
+            Struct[] array_ = ExecArrayFieldOperation.getArray(str_,_cont.getContextEl()).getInstance();
             array_[lastIndex_] = value_;
         }
         return output_;

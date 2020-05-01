@@ -7,6 +7,7 @@ import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.methods.*;
 import code.expressionlanguage.opers.ExpressionLanguage;
+import code.expressionlanguage.opers.exec.ExecArrayFieldOperation;
 import code.expressionlanguage.opers.exec.ExecOperationNode;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ConstructorId;
@@ -172,7 +173,7 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
                         return false;
                     }
                     clearCurrentEls();
-                    ((ArrayStruct)loc_).getInstance()[j] = ret_.getStruct();
+                    ExecArrayFieldOperation.getArray(loc_,_context).getInstance()[j] = ret_.getStruct();
                     indexAnnotation++;
                 }
                 indexAnnotationParam++;

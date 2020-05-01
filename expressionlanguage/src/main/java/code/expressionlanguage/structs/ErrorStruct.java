@@ -57,7 +57,7 @@ public final class ErrorStruct implements ErroneousStruct {
         str_.add(className);
         str_.add(message);
         for (Struct s: _array) {
-            str_.add(((StackTraceElementStruct)s).getStringRep());
+            str_.add(StackTraceElementStruct.getStack(s).getStringRep());
         }
         return StringList.join(str_, "\n");
     }

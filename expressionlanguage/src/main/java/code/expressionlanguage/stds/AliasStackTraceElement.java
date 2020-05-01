@@ -60,7 +60,7 @@ public final class AliasStackTraceElement {
             result_.setResult(_cont.getExecutingInstance().newStackTraceElementArray());
             return result_;
         }
-        result_.setResult(((StackTraceElementStruct)_struct).getDisplayedString(_cont));
+        result_.setResult(StackTraceElementStruct.getStack(_struct).getDisplayedString(_cont));
         return result_;
     }
     public String getAliasStackTraceElement() {

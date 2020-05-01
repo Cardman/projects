@@ -21,10 +21,10 @@ public final class ExecArrayFieldOperation extends ExecAbstractFieldOperation {
         Argument a_;
         setRelativeOffsetPossibleLastPage(getIndexInEl()+getOff(), _conf);
         Struct inst_ = _previous.getStruct();
+        int len_ = getLength(inst_,_conf);
         if (inst_ instanceof ArrayStruct) {
-            ArrayStruct arr_ = (ArrayStruct) inst_;
             a_ = new Argument();
-            a_.setStruct(new IntStruct(arr_.getInstance().length));
+            a_.setStruct(new IntStruct(len_));
             return a_;
         }
         String npe_;
@@ -38,4 +38,15 @@ public final class ExecArrayFieldOperation extends ExecAbstractFieldOperation {
         return a_;
     }
 
+    public static int getLength(Struct _str, ExecutableCode _cont) {
+        return getArray(_str,_cont).getInstance().length;
+    }
+
+    public static ArrayStruct getArray(Struct _str, ExecutableCode _cont) {
+        if (_str instanceof ArrayStruct) {
+            return (ArrayStruct) _str;
+        }
+        String arr_ = PrimitiveTypeUtil.getPrettyArrayType(_cont.getStandards().getAliasObject());
+        return new ArrayStruct(new Struct[0], arr_);
+    }
 }

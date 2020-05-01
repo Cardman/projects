@@ -5,7 +5,6 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.methods.AnnotationMethodBlock;
 import code.expressionlanguage.opers.util.AnnotationTypeInfo;
-import code.expressionlanguage.structs.AnnotationStruct;
 import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
@@ -19,8 +18,8 @@ public final class NewAnnotationPageEl extends AbstractCallingInstancingPageEl {
     public void tryProcessEl(ContextEl _context) {
         //set fields for annotation after calculating default one
         int len_ = names.size();
-        AnnotationStruct str_ = (AnnotationStruct) getGlobalArgument().getStruct();
-        String className_ = str_.getClassName();
+        Struct str_ = getGlobalArgument().getStruct();
+        String className_ = str_.getClassName(_context);
         for (int i = 0; i <len_; i++) {
             String name_ = names.getKey(i);
             Argument value_ = args.get(i);

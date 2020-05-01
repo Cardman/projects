@@ -73,7 +73,7 @@ public final class InvokeTargetErrorStruct implements ErroneousStruct {
         str_.add(getClassName(_an.getContextEl()));
         str_.add(message);
         for (Struct s: _arr) {
-            str_.add(((StackTraceElementStruct)s).getStringRep());
+            str_.add(StackTraceElementStruct.getStack(s).getStringRep());
         }
         return StringList.join(str_, "\n");
     }
