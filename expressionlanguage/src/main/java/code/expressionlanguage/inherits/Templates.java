@@ -1961,7 +1961,6 @@ public final class Templates {
     */
     public static boolean correctNbParameters(String _genericClass, Analyzable _context) {
         //From analyze
-        StringList inners_ = getAllInnerTypes(_genericClass);
         String idCl_ = getIdFromAllTypes(_genericClass);
         String compo_ = PrimitiveTypeUtil.getQuickComponentBaseType(idCl_).getComponent();
         GeneType info_ = _context.getClassBody(compo_);
@@ -1973,6 +1972,7 @@ public final class Templates {
         }
         String fct_ = _context.getStandards().getAliasFct();
         Ints rep_ = info_.getTypeVarCounts();
+        StringList inners_ = getAllInnerTypes(_genericClass);
         int len_ = inners_.size();
         if (!StringList.quickEq(compo_, fct_)) {
             for (int i = 0; i < len_; i++) {

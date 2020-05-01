@@ -52,10 +52,7 @@ public final class ClassArgumentMatching {
             return BooleanStruct.of(false);
         }
         if (PrimitiveTypeUtil.isPureNumberClass(format_,_exec)) {
-            if (_arg instanceof NumberStruct) {
-                return PrimitiveTypeUtil.convertObject(format_,_arg,_exec.getStandards());
-            }
-            return PrimitiveTypeUtil.convertObject(format_,new ByteStruct((byte)0),_exec.getStandards());
+            return PrimitiveTypeUtil.convertToNumber(format_,_arg,_exec.getStandards());
         }
         return _arg;
     }

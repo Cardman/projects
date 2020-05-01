@@ -11,8 +11,11 @@ import code.util.StringList;
 
 final class InnerPartType extends BinaryType {
 
-    InnerPartType(ParentPartType _parent, int _index, int _indexInType) {
+    private CustList<String> operators;
+
+    InnerPartType(ParentPartType _parent, int _index, int _indexInType, CustList<String> _operators) {
         super(_parent, _index, _indexInType);
+        operators = _operators;
     }
 
     @Override
@@ -26,12 +29,15 @@ final class InnerPartType extends BinaryType {
 
     @Override
     String getSeparator(int _index) {
-        return Templates.INNER_TYPE;
+        return operators.get(_index);
     }
 
     @Override
     String getSingleSeparator(int _index) {
-        return ".";
+        if (StringList.quickEq(operators.get(_index),"..")) {
+            return ".";
+        }
+        return "..";
     }
 
     @Override
@@ -89,5 +95,9 @@ final class InnerPartType extends BinaryType {
         }
         String t_ = ch_.last().getAnalyzedType();
         setAnalyzedType(t_);
+    }
+
+    public CustList<String> getOperators() {
+        return operators;
     }
 }

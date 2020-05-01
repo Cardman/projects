@@ -11,8 +11,8 @@ import code.util.StringList;
 
 final class VariablePartType extends LeafPartType {
 
-    VariablePartType(ParentPartType _parent, int _index, int _indexInType, String _type) {
-        super(_parent, _index, _indexInType, _type);
+    VariablePartType(ParentPartType _parent, int _index, int _indexInType, String _type, String _previousSeparator) {
+        super(_parent, _index, _indexInType, _type,_previousSeparator);
     }
 
     @Override

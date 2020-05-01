@@ -2312,6 +2312,31 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         assertEq("pkg.ExThree..ExEnum",out_.getString());
     }
     @Test
+    public void processEl411__Test() {
+        StringBuilder xml_;
+        StringMap<String> files_ = new StringMap<String>();
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $int inst;\n");
+        xml_.append(" $public $static String exmeth(){\n");
+        xml_.append("  $return $static($Class).forName(\"pkg.ExThree..ExEnum-ONE\",$true).getPrettyName();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExThree{\n");
+        xml_.append(" $public $enum ExEnum{\n");
+        xml_.append("  ONE{};\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextElDefault();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument out_ = calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        assertEq("pkg.ExThree..ExEnum-ONE",out_.getString());
+    }
+    @Test
     public void processEl412Test() {
         StringBuilder xml_;
         StringMap<String> files_ = new StringMap<String>();
@@ -2594,6 +2619,31 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument out_ = calculateArgument("pkg.ExTwo", id_, args_, cont_);
         assertEq("pkg.ExThree.ExEnum",out_.getString());
+    }
+    @Test
+    public void processEl411___Test() {
+        StringBuilder xml_;
+        StringMap<String> files_ = new StringMap<String>();
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $int inst;\n");
+        xml_.append(" $public $static String exmeth(){\n");
+        xml_.append("  $return $static($Class).forName(\"pkg.ExThree..ExEnum-ONE\",$true).getPrettySingleName();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExThree{\n");
+        xml_.append(" $public $enum ExEnum{\n");
+        xml_.append("  ONE{};\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextElDefault();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument out_ = calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        assertEq("pkg.ExThree.ExEnum..ONE",out_.getString());
     }
     @Test
     public void processEl412_Test() {

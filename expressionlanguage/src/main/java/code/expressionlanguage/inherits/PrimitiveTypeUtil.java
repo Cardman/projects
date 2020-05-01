@@ -569,13 +569,20 @@ public final class PrimitiveTypeUtil {
         return className_;
     }
 
+    public static NumberStruct convertToNumber(ClassArgumentMatching _match, Struct _obj, LgNames _context) {
+        if (_obj instanceof NumberStruct) {
+            return convertObject(_match, (NumberStruct)_obj,_context);
+        }
+        return convertObject(_match,new ByteStruct((byte)0),_context);
+    }
+
     public static Struct convertObject(ClassArgumentMatching _match, Struct _obj, LgNames _context) {
         if (_obj instanceof NumberStruct) {
             return convertObject(_match, (NumberStruct)_obj, _context);
         }
         return _obj;
     }
-    private static Struct convertObject(ClassArgumentMatching _match, NumberStruct _obj, LgNames _stds) {
+    private static NumberStruct convertObject(ClassArgumentMatching _match, NumberStruct _obj, LgNames _stds) {
         if (_match.matchClass(_stds.getAliasPrimDouble()) || _match.matchClass(_stds.getAliasDouble())) {
             return new DoubleStruct(_obj.doubleStruct());
         }

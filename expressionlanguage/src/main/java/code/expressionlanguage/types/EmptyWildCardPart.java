@@ -10,8 +10,8 @@ import code.util.*;
 final class EmptyWildCardPart extends LeafPartType {
 
     EmptyWildCardPart(ParentPartType _parent, int _index,
-            int _indexInType, String _type) {
-        super(_parent, _index, _indexInType, _type);
+            int _indexInType, String _type, String _previousSeparator) {
+        super(_parent, _index, _indexInType, _type,_previousSeparator);
     }
 
     @Override

@@ -10,8 +10,8 @@ import code.util.StringList;
 
 final class NamePartType extends LeafPartType {
 
-    NamePartType(ParentPartType _parent, int _index, int _indexInType, String _type) {
-        super(_parent, _index, _indexInType, _type);
+    NamePartType(ParentPartType _parent, int _index, int _indexInType, String _type, String _previousSeparator) {
+        super(_parent, _index, _indexInType, _type, _previousSeparator);
     }
 
     @Override
@@ -59,7 +59,7 @@ final class NamePartType extends LeafPartType {
         String type_ = getTypeName();
         PartType part_ = getPreviousPartType();
         if (part_ != null) {
-            type_ = StringList.concat(part_.getAnalyzedType(), "..", type_);
+            type_ = StringList.concat(part_.getAnalyzedType(), getPreviousSeparator(), type_);
         }
         if (_dels.isEmpty() || _dels.last().size() -1 == getIndex()) {
             if (!Templates.correctNbParameters(type_, _an)) {
@@ -336,21 +336,25 @@ final class NamePartType extends LeafPartType {
     @Override
     void checkDynExistence(Analyzable _an,CustList<IntTreeMap< String>>_dels) {
         CustList<String> pr_ = new CustList<String>();
-        PartType part_ = getPreviousPartType();
-        while (part_ != null) {
-            PartType f_ = part_;
-            while (f_.getFirstChild() != null) {
-                f_ = f_.getFirstChild();
-            }
-            pr_.add(0,((LeafPartType)f_).exportHeader());
-            part_ = part_.getPreviousSibling();
+        PartType curr_ = getPartType();
+        PartType part_;
+        if (curr_ != null) {
+            part_ = curr_.getPreviousSibling();
+        } else {
+            part_ = null;
         }
         String typeName_ = getTypeName();
         typeName_ = ContextEl.removeDottedSpaces(typeName_);
-        String type_ = typeName_;
-        if (!pr_.isEmpty()) {
-            type_ = StringList.concat(StringList.join(pr_, ".."),"..",type_);
+        pr_.add(typeName_);
+        while (part_ != null) {
+            PartType c_ = getDeepFirstChild(curr_);
+            pr_.add(0,((LeafPartType)c_).getPreviousSeparator());
+            PartType f_ = getDeepFirstChild(part_);
+            pr_.add(0,((LeafPartType)f_).exportHeader());
+            part_ = part_.getPreviousSibling();
+            curr_ = curr_.getPreviousSibling();
         }
+        String type_ = StringList.join(pr_, "");
         if (_an.getClasses().isCustomType(type_)) {
             setImportedTypeName(typeName_);
             return;
@@ -374,12 +378,29 @@ final class NamePartType extends LeafPartType {
         }
     }
 
+    private static PartType getDeepFirstChild(PartType _part) {
+        PartType f_ = _part;
+        while (f_.getFirstChild() != null) {
+            f_ = f_.getFirstChild();
+        }
+        return f_;
+    }
+
     private PartType getPreviousPartType() {
         if (getParent() instanceof InnerPartType) {
             return getPreviousSibling();
         }
         if (getParent() instanceof TemplatePartType && getParent().getParent() instanceof InnerPartType && getIndex() == 0) {
             return getParent().getPreviousSibling();
+        }
+        return null;
+    }
+    private PartType getPartType() {
+        if (getParent() instanceof InnerPartType) {
+            return this;
+        }
+        if (getParent() instanceof TemplatePartType && getParent().getParent() instanceof InnerPartType && getIndex() == 0) {
+            return getParent();
         }
         return null;
     }

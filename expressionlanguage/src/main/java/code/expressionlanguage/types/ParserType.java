@@ -114,6 +114,8 @@ public final class ParserType {
                     indexes_.add(i_);
                     i_++;
                 }
+            } else if (curChar_ == '-') {
+                indexes_.add(i_);
             }
             i_++;
         }
@@ -142,6 +144,8 @@ public final class ParserType {
                     indexes_.add(i_);
                     i_++;
                 }
+            } else if (curChar_ == '-') {
+                indexes_.add(i_);
             }
             i_++;
         }
@@ -301,12 +305,18 @@ public final class ParserType {
                     operators_.put(i_,Templates.TEMPLATE_END);
                 }
             }
-            if (curChar_ == Templates.SEP_CLASS_CHAR && count_ == 0) {
-                if (prio_ > INT_PRIO) {
-                    operators_.clear();
-                    prio_ = INT_PRIO;
+            if (count_ == 0) {
+                if (curChar_ == Templates.SEP_CLASS_CHAR || curChar_ == '-') {
+                    if (prio_ > INT_PRIO) {
+                        operators_.clear();
+                        prio_ = INT_PRIO;
+                    }
+                    if (curChar_ == Templates.SEP_CLASS_CHAR){
+                        operators_.put(i_,Templates.INNER_TYPE);
+                    } else {
+                        operators_.put(i_,"-");
+                    }
                 }
-                operators_.put(i_,Templates.INNER_TYPE);
             }
             i_++;
         }
@@ -387,12 +397,18 @@ public final class ParserType {
                     operators_.put(i_,Templates.TEMPLATE_END);
                 }
             }
-            if (curChar_ == Templates.SEP_CLASS_CHAR && count_ == 0) {
-                if (prio_ > INT_PRIO) {
-                    operators_.clear();
-                    prio_ = INT_PRIO;
+            if (count_ == 0) {
+                if (curChar_ == Templates.SEP_CLASS_CHAR || curChar_ == '-') {
+                    if (prio_ > INT_PRIO) {
+                        operators_.clear();
+                        prio_ = INT_PRIO;
+                    }
+                    if (curChar_ == Templates.SEP_CLASS_CHAR){
+                        operators_.put(i_,Templates.INNER_TYPE);
+                    } else {
+                        operators_.put(i_,"-");
+                    }
                 }
-                operators_.put(i_,Templates.INNER_TYPE);
             }
             i_++;
         }
