@@ -348,7 +348,7 @@ public final class TypeUtil {
         for (RootBlock c: _conf.getClasses().getClassBodies()) {
             String name_ = c.getFullName();
             String baseCond_ = Templates.getFullTypeByBases(c.getGenericString(), baseClassFound_, _conf);
-            if (baseCond_ == null) {
+            if (baseCond_.isEmpty()) {
                 continue;
             }
             ClassMethodId f_ = tryGetUniqueId(baseClassFound_, c, _realId, _conf);
@@ -368,7 +368,7 @@ public final class TypeUtil {
                 }
                 String gene_ = r_.getGenericString();
                 String v_ = Templates.getFullTypeByBases(gene_, baseClassFound_, _conf);
-                if (v_ == null) {
+                if (v_.isEmpty()) {
                     continue;
                 }
                 //r_, as super interface of c, is a sub type of type input
@@ -487,7 +487,7 @@ public final class TypeUtil {
             RootBlock r_ = _conf.getClasses().getClassBody(s);
             String gene_ = r_.getGenericString();
             String v_ = Templates.getFullTypeByBases(gene_, _subTypeName, _conf);
-            if (v_ == null) {
+            if (v_.isEmpty()) {
                 continue;
             }
             //r_, as super class of c, is a sub type of type input
@@ -495,11 +495,7 @@ public final class TypeUtil {
             ObjectMap<MethodId, EqList<ClassMethodId>> ov_ = r_.getAllOverridingMethods();
             //r_ inherit the formatted method
             boolean found_ = false;
-            StringList allSuperClasses_ = new StringList(gene_);
-            for (String t: r_.getAllSuperClasses()) {
-                allSuperClasses_.add(Templates.getFullTypeByBases(gene_, t, _conf));
-            }
-            TreeMap<String,MethodId> tree_ = new TreeMap<String,MethodId>(new ComparingByTypeList(allSuperClasses_));
+            TreeMap<String,MethodId> tree_ = new TreeMap<String,MethodId>(new ComparingByTypeList(r_.getAllGenericClasses()));
             //if the overridden types contain the type input, then look for the "most sub typed" super class of r_
             for (ClassMethodId t: getList(ov_,l_)) {
                 String t_ = t.getClassName();

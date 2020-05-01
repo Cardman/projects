@@ -1595,7 +1595,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
     public void getGenericTypeByBases2Test() {
         ContextEl context_ = simpleContextEl();
         String t_ = Templates.getFullTypeByBases("java.lang.Object", "java.lang.String", context_);
-        assertNull(t_);
+        assertEq("",t_);
     }
 
     @Test
@@ -1683,7 +1683,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String t_ = Templates.getFullTypeByBases("pkg.Ex", "pkg.ExTwo", cont_);
-        assertNull(t_);
+        assertEq("",t_);
     }
 
 

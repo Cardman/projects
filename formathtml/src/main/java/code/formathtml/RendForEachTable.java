@@ -130,7 +130,7 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
         for (String f : _names) {
             String iterable_ = stds_.getAliasIterableTable();
             String type_ = Templates.getGeneric(f,iterable_,_context,mapping_);
-            if (type_ != null) {
+            if (!type_.isEmpty()) {
                 out_.add(type_);
             }
         }

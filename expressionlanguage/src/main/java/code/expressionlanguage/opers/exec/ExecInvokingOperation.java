@@ -528,7 +528,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         if (!_methodId.isStaticMethod()) {
             String className_ = stds_.getStructClassName(_previous.getStruct(), _conf.getContextEl());
             classFormat_ = Templates.getFullTypeByBases(className_, classFormat_, _conf);
-            if (classFormat_ == null) {
+            if (classFormat_.isEmpty()) {
                 _conf.setException(new ErrorStruct(_conf,cast_));
                 return;
             }

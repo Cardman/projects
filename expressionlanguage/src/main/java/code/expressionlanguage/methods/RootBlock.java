@@ -67,6 +67,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
     private CustList<CustList<ExecOperationNode>> annotationsOps = new CustList<CustList<ExecOperationNode>>();
     private Ints annotationsIndexes = new Ints();
     private final StringList allGenericSuperTypes = new StringList();
+    private final StringList allGenericClasses = new StringList();
     private final CustList<ClassMethodId> functional = new CustList<ClassMethodId>();
 
     RootBlock(int _idRowCol, int _categoryOffset, String _name,
@@ -148,6 +149,10 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
 
     public final StringList getAllGenericSuperTypes() {
         return allGenericSuperTypes;
+    }
+
+    public StringList getAllGenericClasses() {
+        return allGenericClasses;
     }
 
     public abstract StringList getImportedDirectSuperTypes();
@@ -1050,13 +1055,12 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                 StringList superTypes_ = curType_.getImportedDirectSuperTypes();
                 for (String t: superTypes_) {
                     String format_ = Templates.quickFormat(c, t, _classes);
-                    if (StringList.contains(all_, format_)) {
+                    if (!added(format_,all_,next_)) {
                         continue;
                     }
                     if (!StringList.quickEq(format_,obj_)) {
                         all_.add(format_);
                     }
-                    next_.add(format_);
                 }
             }
             if (next_.isEmpty()) {
@@ -1065,6 +1069,40 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
             current_ = next_;
         }
         return all_;
+    }
+
+    public final StringList getAllGenericClasses(Analyzable _classes) {
+        Classes classes_ = _classes.getClasses();
+        StringList current_ = new StringList(getGenericString());
+        StringList all_ = new StringList();
+        while (true) {
+            StringList next_ = new StringList();
+            for (String c: current_) {
+                String baseType_ = Templates.getIdFromAllTypes(c);
+                RootBlock curType_ = classes_.getClassBody(baseType_);
+                if (!(curType_ instanceof UniqueRootedBlock)) {
+                    continue;
+                }
+                all_.add(c);
+                StringList superTypes_ = curType_.getImportedDirectSuperTypes();
+                for (String t: superTypes_) {
+                    String format_ = Templates.quickFormat(c, t, _classes);
+                    added(format_, all_, next_);
+                }
+            }
+            if (next_.isEmpty()) {
+                break;
+            }
+            current_ = next_;
+        }
+        return all_;
+    }
+    private static boolean added(String _type, StringList _all, StringList _next) {
+        if (StringList.contains(_all, _type)) {
+            return false;
+        }
+        _next.add(_type);
+        return true;
     }
     public final void checkCompatibilityBounds(ContextEl _context) {
         StringMap<StringList> vars_ = new StringMap<StringList>();

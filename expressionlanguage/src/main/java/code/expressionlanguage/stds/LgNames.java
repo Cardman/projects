@@ -1947,7 +1947,7 @@ public abstract class LgNames {
         for (String f: _names) {
             String iterable_ = getAliasIterable();
             String type_ = Templates.getGeneric(f,iterable_,_context,mapping_);
-            if (type_ != null) {
+            if (!type_.isEmpty()) {
                 out_.add(type_);
             }
         }

@@ -36,7 +36,7 @@ public final class InterfaceInvokingConstructor extends AbstractInvokingConstruc
         }
         String clCurName_ = _conf.getGlobalClass();
         String superClass_ = Templates.getFullTypeByBases(clCurName_, cl_, _conf);
-        if (superClass_ == null) {
+        if (superClass_.isEmpty()) {
             FoundErrorInterpret call_ = new FoundErrorInterpret();
             call_.setFileName(_conf.getCurrentFileName());
             call_.setIndexFile(_conf.getCurrentLocationIndex());

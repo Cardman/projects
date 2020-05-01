@@ -1159,6 +1159,8 @@ public final class Classes {
                 }
             }
             i.getAllGenericSuperTypes().addAllElts(genericSuperTypes_);
+            StringList genericClasses_ = i.getAllGenericClasses(_context);
+            i.getAllGenericClasses().addAllElts(genericClasses_);
         }
     }
     private static StringMap<StringList> getBaseParams(StringList _genericSuperTypes) {

@@ -494,7 +494,7 @@ public final class Templates {
      */
     public static String getFullTypeByBases(String _subType, String _superType, Analyzable _context) {
         if (!correctNbParameters(_subType,_context)) {
-            return null;
+            return "";
         }
         String idArg_ = Templates.getIdFromAllTypes(_subType);
         String idSuperType_ = getIdFromAllTypes(_superType);
@@ -508,25 +508,25 @@ public final class Templates {
         String baseArr_ = dBaseArg_.getComponent();
         if (StringList.quickEq(classParam_, _context.getStandards().getAliasObject())) {
             if (dBaseArg_.getDim() < dim_) {
-                return null;
+                return "";
             }
             return _superType;
         }
         if (dBaseArg_.getDim() != dim_) {
-            return null;
+            return "";
         }
         if (PrimitiveTypeUtil.isPrimitive(baseArr_,_context)) {
             PrimitiveType pr_ = _context.getStandards().getPrimitiveTypes().getVal(baseArr_);
             if (StringList.contains(pr_.getAllSuperType(_context), classParam_)) {
                 return _superType;
             }
-            return null;
+            return "";
         }
         if (StringList.quickEq(_subType, _context.getStandards().getAliasVoid())) {
-            return null;
+            return "";
         }
         if (StringList.quickEq(_superType, _context.getStandards().getAliasVoid())) {
-            return null;
+            return "";
         }
         String geneSubType_ = _context.getClassBody(baseArr_).getGenericString();
         String generic_ = null;
@@ -560,7 +560,7 @@ public final class Templates {
             curClasses_ = nextClasses_;
         }
         if (generic_ == null) {
-            return null;
+            return "";
         }
         return quickFormat(_subType, generic_, _context);
     }
@@ -1723,7 +1723,7 @@ public final class Templates {
             return null;
         }
         String generic_ = getGeneric(_arg, _param, _context, map_);
-        if (generic_ == null) {
+        if (generic_.isEmpty()) {
             return null;
         }
         return newMappingPairs(generic_, typesParam_);
@@ -1733,13 +1733,13 @@ public final class Templates {
         String objType_ = _context.getStandards().getAliasObject();
         DimComp dArg_ = PrimitiveTypeUtil.getQuickComponentBaseType(_arg);
         String baseArrayArg_ = dArg_.getComponent();
-        String generic_ = null;
+        String generic_ = "";
         if (baseArrayArg_.startsWith(PREFIX_VAR_TYPE)) {
             StringMap<StringList> mapping_ = map_.getMapping();
             for (String c: Mapping.getAllUpperBounds(mapping_,baseArrayArg_.substring(PREFIX_VAR_TYPE.length()), objType_)) {
                 String arr_ = PrimitiveTypeUtil.getPrettyArrayType(c,dArg_.getDim());
                 generic_ = getFullTypeByBases(arr_, _param, _context);
-                if (generic_ != null) {
+                if (!generic_.isEmpty()) {
                     break;
                 }
             }
@@ -1782,7 +1782,7 @@ public final class Templates {
         }
         String generic_;
         generic_ = getFullTypeByBases(_arg, _param, _context);
-        if (generic_ == null) {
+        if (generic_.isEmpty()) {
             return null;
         }
         return newMappingPairs(generic_, typesParam_);
