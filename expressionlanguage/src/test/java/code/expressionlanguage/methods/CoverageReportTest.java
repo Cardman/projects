@@ -32,7 +32,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex </a>{\n" +
                 " $public $static $int <a name=\"m46\">exmeth</a>(){\n" +
@@ -58,7 +58,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex </a>{\n" +
                 " $public $static $int <a name=\"m46\">exmeth</a>(){\n" +
@@ -86,7 +86,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
@@ -114,7 +114,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
@@ -146,7 +146,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
@@ -183,7 +183,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
@@ -220,7 +220,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
@@ -256,7 +256,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
@@ -295,7 +295,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
@@ -341,7 +341,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $annotation <a name=\"m20\">pkg.MyAnnot </a>{\n" +
                 "}\n" +
@@ -390,7 +390,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $annotation <a name=\"m20\">pkg.MyAnnot </a>{\n" +
                 " $int <a name=\"m40\">infoInt</a>()1i;\n" +
@@ -429,7 +429,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex </a>{\n" +
                 " $public $static $int <span class=\"g\"><span class=\"g\"><a name=\"m46\">st</a> </span>=<span class=\"g\"> 0</span></span>;\n" +
@@ -464,7 +464,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex </a>{\n" +
                 " $public $static $int <a name=\"m46\">catching</a>(){\n" +
@@ -504,7 +504,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex </a>{\n" +
                 " $public $static $int <a name=\"m46\">catching</a>(){\n" +
@@ -544,7 +544,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex </a>{\n" +
                 " $public $static $int <a name=\"m46\">exmeth</a>(){\n" +
@@ -583,7 +583,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex </a>{\n" +
                 " $public $static $int <a name=\"m46\">exmeth</a>(){\n" +
@@ -622,7 +622,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex </a>{\n" +
                 " $public $static $int <a name=\"m46\">exmeth</a>(){\n" +
@@ -663,7 +663,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex </a>{\n" +
                 " $public $static $int <a name=\"m46\">exmeth</a>(){\n" +
@@ -706,7 +706,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex </a>{\n" +
                 " $public $static $int <a name=\"m46\">exmeth</a>(){\n" +
@@ -742,7 +742,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex </a>{\n" +
                 " $public $static $int <a name=\"m46\">exmeth</a>(){\n" +
@@ -772,7 +772,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex </a>{\n" +
                 " $public $static $int <a name=\"m46\">exmeth</a>(){\n" +
@@ -817,7 +817,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$operator<a name=\"m9\">+</a> <a title=\"pkg.Ex\" href=\"#m245\">pkg.Ex</a> (<a title=\"pkg.Ex\" href=\"#m245\">pkg.Ex</a> <a name=\"m26\">p</a>, <a title=\"pkg.Ex\" href=\"#m245\">pkg.Ex</a> <a name=\"m36\">q</a>){\n" +
                 " <a title=\"pkg.Ex\" href=\"#m245\">pkg.Ex</a> <span class=\"f\"><span class=\"f\"><a name=\"m48\">out</a> </span>=<span class=\"f\"> $new <a title=\"pkg.Ex\" href=\"#m245\">pkg.Ex</a>()</span></span>;\n" +
@@ -869,7 +869,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex </a>{\n" +
                 " $public $static $int <a name=\"m46\">catching</a>(){\n" +
@@ -913,7 +913,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex </a>{\n" +
                 " $public $static $int <a name=\"m46\">catching</a>(){\n" +
@@ -963,7 +963,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public enum <a name=\"m12\">pkg.ExEnum </a>{\n" +
                 " <a name=\"m26\" title=\"pkg.ExEnum.pkg.ExEnum()\" href=\"#m51\">ONE</a>;\n" +
@@ -1019,7 +1019,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public enum <a name=\"m12\">pkg.ExEnum </a>{\n" +
                 " <a name=\"m26\" title=\"pkg.ExEnum.pkg.ExEnum(int)\" href=\"#m54\">ONE</a>(<span class=\"g\">5</span>);\n" +
@@ -1075,7 +1075,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public enum <a name=\"m12\">pkg.ExEnum </a>{\n" +
                 " <a name=\"m26\" title=\"pkg.ExEnum.pkg.ExEnum(int)\" href=\"#m55\">FOUR</a>(<span class=\"g\">5</span>);\n" +
@@ -1127,7 +1127,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public enum <a name=\"m12\">pkg.ExEnum </a>{\n" +
                 " <a name=\"m26\">ONE</a>;\n" +
@@ -1183,7 +1183,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public enum <a name=\"m12\">pkg.ExEnum </a>{\n" +
                 " <a name=\"m26\" title=\"pkg.ExEnum-FOUR.pkg.ExEnum-FOUR(int)\" href=\"#m37\">FOUR</a>(<span class=\"g\">5</span>){\n" +
@@ -1250,7 +1250,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public enum <a name=\"m12\">pkg.ExEnum </a>{\n" +
                 " <a name=\"m26\" title=\"pkg.ExEnum-FOUR.pkg.ExEnum-FOUR()\" href=\"#m34\">FOUR</a>{\n" +
@@ -1311,7 +1311,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public enum <a name=\"m12\">pkg.ExEnum </a>{\n" +
                 " <a name=\"m26\">FOUR</a>{\n" +
@@ -1402,7 +1402,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>operator<a name=\"m8\">+</a> <a title=\"pkg.Ex\" href=\"#m215\">pkg.Ex</a>(<a title=\"pkg.Ex\" href=\"#m215\">pkg.Ex</a> <a name=\"m24\">f</a>,<a title=\"pkg.Ex\" href=\"#m215\">pkg.Ex</a> <a name=\"m33\">s</a>) {\n" +
                 " return <span class=\"f\"><a title=\"pkg.Ex.pkg.Ex(int)\" href=\"#m244\">new</a> <a title=\"pkg.Ex\" href=\"#m215\">pkg.Ex</a>(<span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m24\">f</a></span>.<span class=\"f\"><a title=\"pkg.Ex.field\" href=\"#m236\">field</a> </span></span>+<span class=\"f\"><span class=\"f\"> <a href=\"#m33\">s</a></span>.<span class=\"f\"><a title=\"pkg.Ex.field\" href=\"#m236\">field</a></span></span></span>)</span>;\n" +
@@ -1526,7 +1526,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>operator<a name=\"m8\">+</a> <a title=\"pkg.Ex\" href=\"#m215\">pkg.Ex</a>(<a title=\"pkg.Ex\" href=\"#m215\">pkg.Ex</a> <a name=\"m24\">f</a>,<a title=\"pkg.Ex\" href=\"#m215\">pkg.Ex</a> <a name=\"m33\">s</a>) {\n" +
                 " return <span class=\"n\"><a title=\"pkg.Ex.pkg.Ex(int)\" href=\"#m244\">new</a> <a title=\"pkg.Ex\" href=\"#m215\">pkg.Ex</a>(<span class=\"n\"><span class=\"n\"><span class=\"n\"><a href=\"#m24\">f</a></span>.<span class=\"n\"><a title=\"pkg.Ex.field\" href=\"#m236\">field</a> </span></span>+<span class=\"n\"><span class=\"n\"> <a href=\"#m33\">s</a></span>.<span class=\"n\"><a title=\"pkg.Ex.field\" href=\"#m236\">field</a></span></span></span>)</span>;\n" +
@@ -1644,7 +1644,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>operator<a name=\"m8\">+</a> <a title=\"pkg.Ex\" href=\"#m215\">pkg.Ex</a>(<a title=\"pkg.Ex\" href=\"#m215\">pkg.Ex</a> <a name=\"m24\">f</a>,<a title=\"pkg.Ex\" href=\"#m215\">pkg.Ex</a> <a name=\"m33\">s</a>) {\n" +
                 " return <span class=\"n\"><a title=\"pkg.Ex.pkg.Ex(int)\" href=\"#m244\">new</a> <a title=\"pkg.Ex\" href=\"#m215\">pkg.Ex</a>(<span class=\"n\"><span class=\"n\"><span class=\"n\"><a href=\"#m24\">f</a></span>.<span class=\"n\"><a title=\"pkg.Ex.field\" href=\"#m236\">field</a> </span></span>+<span class=\"n\"><span class=\"n\"> <a href=\"#m33\">s</a></span>.<span class=\"n\"><a title=\"pkg.Ex.field\" href=\"#m236\">field</a></span></span></span>)</span>;\n" +
@@ -1718,7 +1718,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
@@ -1749,7 +1749,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
@@ -1781,7 +1781,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
@@ -1814,7 +1814,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public annotation <a name=\"m18\">pkg.Annotation </a>{}\n" +
                 "public class <a name=\"m49\">pkg.Ex </a>{\n" +
@@ -1849,7 +1849,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
@@ -1891,7 +1891,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex </a>{\n" +
                 " $public $static <a title=\"pkg.CustList\" href=\"CustList.html#m15\">pkg.CustList</a>&lt;java.lang.Number&gt; <span class=\"g\"><span class=\"g\"><a name=\"m72\">inst</a></span>=<span class=\"g\"><a title=\"pkg.CustList.pkg.CustList()\" href=\"CustList.html#m93\">$new</a> <a title=\"pkg.CustList\" href=\"CustList.html#m15\">pkg.CustList</a>&lt;java.lang.Number&gt;()</span></span>;\n" +
@@ -1938,7 +1938,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex </a>{\n" +
                 " $public $static <a title=\"pkg.CustList\" href=\"CustList.html#m15\">pkg.CustList</a>&lt;java.lang.Number&gt; <span class=\"g\"><span class=\"g\"><a name=\"m72\">inst</a></span>=<span class=\"g\"><a title=\"pkg.CustList.pkg.CustList()\" href=\"CustList.html#m93\">$new</a> <a title=\"pkg.CustList\" href=\"CustList.html#m15\">pkg.CustList</a>&lt;java.lang.Number&gt;()</span></span>;\n" +
@@ -1982,7 +1982,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex </a>{\n" +
                 " $public $static <a title=\"pkg.CustList\" href=\"CustList.html#m15\">pkg.CustList</a>&lt;java.lang.Number&gt; <span class=\"g\"><span class=\"g\"><a name=\"m72\">inst</a></span>=<span class=\"g\"><a title=\"pkg.CustList.pkg.CustList()\" href=\"CustList.html#m93\">$new</a> <a title=\"pkg.CustList\" href=\"CustList.html#m15\">pkg.CustList</a>&lt;java.lang.Number&gt;()</span></span>;\n" +
@@ -2025,7 +2025,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex </a>{\n" +
                 " $public $static <a title=\"pkg.CustList\" href=\"CustList.html#m15\">pkg.CustList</a>&lt;java.lang.Number&gt; <span class=\"g\"><span class=\"g\"><a name=\"m72\">inst</a></span>=<span class=\"g\"><a title=\"pkg.CustList.pkg.CustList()\" href=\"CustList.html#m93\">$new</a> <a title=\"pkg.CustList\" href=\"CustList.html#m15\">pkg.CustList</a>&lt;java.lang.Number&gt;()</span></span>;\n" +
@@ -2074,7 +2074,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex </a>{\n" +
                 " $public $static <a title=\"pkg.CustTable\" href=\"CustTable.html#m15\">CustTable</a>&lt;Number,Number&gt; <span class=\"g\"><span class=\"g\"><a name=\"m66\">inst</a></span>=<span class=\"g\"><a title=\"pkg.CustTable.pkg.CustTable()\" href=\"CustTable.html#m97\">$new</a> <a title=\"pkg.CustTable\" href=\"CustTable.html#m15\">CustTable</a>&lt;Number,Number&gt;()</span></span>;\n" +
@@ -2125,7 +2125,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex </a>{\n" +
                 " $public $static <a title=\"pkg.CustTable\" href=\"CustTable.html#m15\">CustTable</a>&lt;Number,Number&gt; <span class=\"g\"><span class=\"g\"><a name=\"m66\">inst</a></span>=<span class=\"g\"><a title=\"pkg.CustTable.pkg.CustTable()\" href=\"CustTable.html#m97\">$new</a> <a title=\"pkg.CustTable\" href=\"CustTable.html#m15\">CustTable</a>&lt;Number,Number&gt;()</span></span>;\n" +
@@ -2173,7 +2173,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex </a>{\n" +
                 " $public $static <a title=\"pkg.CustTable\" href=\"CustTable.html#m15\">CustTable</a>&lt;Number,Number&gt; <span class=\"g\"><span class=\"g\"><a name=\"m66\">inst</a></span>=<span class=\"g\"><a title=\"pkg.CustTable.pkg.CustTable()\" href=\"CustTable.html#m97\">$new</a> <a title=\"pkg.CustTable\" href=\"CustTable.html#m15\">CustTable</a>&lt;Number,Number&gt;()</span></span>;\n" +
@@ -2220,7 +2220,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex </a>{\n" +
                 " $public $static <a title=\"pkg.CustTable\" href=\"CustTable.html#m15\">CustTable</a>&lt;Number,Number&gt; <span class=\"g\"><span class=\"g\"><a name=\"m66\">inst</a></span>=<span class=\"g\"><a title=\"pkg.CustTable.pkg.CustTable()\" href=\"CustTable.html#m97\">$new</a> <a title=\"pkg.CustTable\" href=\"CustTable.html#m15\">CustTable</a>&lt;Number,Number&gt;()</span></span>;\n" +
@@ -2268,7 +2268,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
@@ -2320,7 +2320,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
@@ -2370,7 +2370,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
@@ -2419,7 +2419,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $annotation <a name=\"m20\">pkg.MyAnnot </a>{\n" +
                 "}\n" +
@@ -2466,7 +2466,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
@@ -2510,7 +2510,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
@@ -2555,7 +2555,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
@@ -2592,7 +2592,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex </a>{\n" +
                 " <a name=\"m25\">$public Ex(</a>){\n" +
@@ -2618,7 +2618,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex </a>{\n" +
                 " $public $static StringBuilder <a name=\"m55\">exmeth</a>(){\n" +
@@ -2649,7 +2649,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
@@ -2690,7 +2690,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
@@ -2736,7 +2736,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex </a>{\n" +
                 " $public $static $int <a name=\"m46\">catching</a>(){\n" +
@@ -2784,7 +2784,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex </a>{\n" +
                 " $public $static $int <a name=\"m46\">catching</a>(){\n" +
@@ -2830,7 +2830,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex </a>{\n" +
                 " $public $static $int <a name=\"m46\">catching</a>(){\n" +
@@ -2870,7 +2870,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
@@ -2906,7 +2906,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
@@ -2945,7 +2945,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
@@ -2988,7 +2988,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
@@ -3024,7 +3024,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex </a>{\n" +
                 " <a name=\"m25\">$public Ex(</a>){\n" +
@@ -3052,7 +3052,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex </a>{\n" +
                 " <a name=\"m25\">$public Ex(</a>$int <a name=\"m41\">p</a>){\n" +
@@ -3090,7 +3090,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.CustIter</a>&lt;<a name=\"m28\">#T</a>&gt; :$iterator&lt;<a href=\"#m28\">#T</a>&gt;{\n" +
                 " $private <a title=\"pkg.CustList\" href=\"CustList.html#m15\">pkg.CustList</a>&lt;<a href=\"#m28\">#T</a>&gt; <span class=\"g\"><a name=\"m75\">list</a></span>;\n" +
@@ -3138,7 +3138,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.CustList</a>&lt;<a name=\"m28\">#U</a>&gt; :$iterable&lt;<a href=\"#m28\">#U</a>&gt;{\n" +
                 " $private <a href=\"#m28\">#U</a>[] <span class=\"g\"><a name=\"m63\">list</a></span>;\n" +
@@ -3213,7 +3213,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.CustIterTable</a>&lt;<a name=\"m33\">U</a>,<a name=\"m35\">V</a>&gt; :$iteratorTable&lt;<a href=\"#m33\">U</a>,<a href=\"#m35\">V</a>&gt;{\n" +
                 " $private <a title=\"pkg.CustTable\" href=\"CustTable.html#m15\">CustTable</a>&lt;<a href=\"#m33\">U</a>,<a href=\"#m35\">V</a>&gt; <span class=\"g\"><a name=\"m85\">list</a></span>;\n" +
@@ -3264,7 +3264,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.CustTable</a>&lt;<a name=\"m29\">U</a>,<a name=\"m31\">V</a>&gt; :$iterableTable&lt;<a href=\"#m29\">U</a>,<a href=\"#m31\">V</a>&gt;{\n" +
                 " $private <a title=\"pkg.CustList\" href=\"CustList.html#m15\">CustList</a>&lt;<a title=\"pkg.CustPair\" href=\"CustPair.html#m15\">CustPair</a>&lt;<a href=\"#m29\">U</a>,<a href=\"#m31\">V</a>&gt;&gt; <span class=\"g\"><a name=\"m90\">list</a></span>;\n" +
@@ -3319,7 +3319,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.CustPair</a>&lt;<a name=\"m28\">U</a>,<a name=\"m30\">V</a>&gt; :$pair&lt;<a href=\"#m28\">U</a>,<a href=\"#m30\">V</a>&gt;{\n" +
                 " $private <a href=\"#m28\">U</a> <span class=\"g\"><a name=\"m58\">first</a></span>;\n" +
@@ -3372,7 +3372,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$operator<a name=\"m9\">&lt;</a> $boolean (<a title=\"pkg.Ex\" href=\"#m155\">pkg.Ex</a> <a name=\"m28\">p</a>, <a title=\"pkg.Ex\" href=\"#m155\">pkg.Ex</a> <a name=\"m38\">q</a>){\n" +
                 " $return <span class=\"p\"><span class=\"f\"><span class=\"f\"><a href=\"#m28\">p</a></span>.<span class=\"f\"><a title=\"pkg.Ex.field\" href=\"#m178\">field</a></span></span><a title=\"&quot;\">&lt;</a><span class=\"f\"><span class=\"f\"><a href=\"#m38\">q</a></span>.<span class=\"f\"><a title=\"pkg.Ex.field\" href=\"#m178\">field</a></span></span></span>;\n" +
@@ -3417,7 +3417,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
@@ -3454,7 +3454,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
@@ -3491,7 +3491,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
@@ -3530,7 +3530,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
@@ -3563,7 +3563,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex </a>{\n" +
                 " $public $static StringBuilder <a name=\"m55\">exmeth</a>(){\n" +
@@ -3587,7 +3587,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex </a>{\n" +
                 " $public $static StringBuilder <a name=\"m55\">exmeth</a>(){\n" +
@@ -3611,7 +3611,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex </a>{\n" +
                 " $public $static $char <a name=\"m47\">exmeth</a>(){\n" +
@@ -3650,7 +3650,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$operator<a name=\"m9\">+</a> <a title=\"pkg.Ex\" href=\"#m130\">pkg.Ex</a> (<a title=\"pkg.Ex\" href=\"#m130\">pkg.Ex</a> <a name=\"m26\">p</a>, <a title=\"pkg.Ex\" href=\"#m130\">pkg.Ex</a> <a name=\"m36\">q</a>){\n" +
                 " <a title=\"pkg.Ex\" href=\"#m130\">pkg.Ex</a> <span class=\"f\"><span class=\"f\"><a name=\"m48\">out</a> </span>=<span class=\"f\"> $new <a title=\"pkg.Ex\" href=\"#m130\">pkg.Ex</a>()</span></span>;\n" +
@@ -3707,7 +3707,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$operator<a name=\"m9\">+</a> <a title=\"pkg.Ex\" href=\"#m130\">pkg.Ex</a> (<a title=\"pkg.Ex\" href=\"#m130\">pkg.Ex</a> <a name=\"m26\">p</a>, <a title=\"pkg.Ex\" href=\"#m130\">pkg.Ex</a> <a name=\"m36\">q</a>){\n" +
                 " <a title=\"pkg.Ex\" href=\"#m130\">pkg.Ex</a> <span class=\"f\"><span class=\"f\"><a name=\"m48\">out</a> </span>=<span class=\"f\"> $new <a title=\"pkg.Ex\" href=\"#m130\">pkg.Ex</a>()</span></span>;\n" +
@@ -3756,7 +3756,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex </a>{\n" +
                 " $public $int <span class=\"f\"><span class=\"f\"><a name=\"m38\">one</a></span>,<span class=\"f\"><a name=\"m42\">two</a></span></span>;\n" +
@@ -3794,7 +3794,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex </a>{\n" +
                 " $public $int <span class=\"f\"><span class=\"f\"><span class=\"f\"><a name=\"m38\">one</a></span>=<span class=\"f\">7</span></span>,<span class=\"f\"><span class=\"f\"><a name=\"m44\">two</a></span>=<span class=\"f\">8</span></span></span>;\n" +
@@ -3828,7 +3828,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $enum <a name=\"m14\">pkg.ExEnum </a>{\n" +
                 " <a name=\"m28\">ONE</a>,<a name=\"m32\">TWO</a>;\n" +
@@ -3870,7 +3870,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex </a>{\n" +
                 " $public $static <a title=\"pkg.CustList\" href=\"CustList.html#m15\">pkg.CustList</a>&lt;java.lang.Number&gt; <span class=\"g\"><span class=\"g\"><a name=\"m72\">inst</a></span>=<span class=\"g\"><a title=\"pkg.CustList.pkg.CustList()\" href=\"CustList.html#m93\">$new</a> <a title=\"pkg.CustList\" href=\"CustList.html#m15\">pkg.CustList</a>&lt;java.lang.Number&gt;()</span></span>;\n" +
@@ -3922,7 +3922,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex </a>{\n" +
                 " $public $static <a title=\"pkg.CustList\" href=\"CustList.html#m15\">pkg.CustList</a>&lt;java.lang.Number&gt; <span class=\"g\"><span class=\"g\"><a name=\"m72\">inst</a></span>=<span class=\"g\"><a title=\"pkg.CustList.pkg.CustList()\" href=\"CustList.html#m93\">$new</a> <a title=\"pkg.CustList\" href=\"CustList.html#m15\">pkg.CustList</a>&lt;java.lang.Number&gt;()</span></span>;\n" +
@@ -3960,7 +3960,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$static java.lang.Integer.MAX_VALUE;\n" +
                 "$public $class <a name=\"m52\">pkg.Ex </a>{\n" +
@@ -3986,7 +3986,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex </a>{\n" +
                 " $public $static $int <span class=\"g\"><a name=\"m46\">field</a></span>;\n" +
@@ -4014,7 +4014,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $enum <a name=\"m14\">pkg.ExEnum </a>{\n" +
                 " <a name=\"m28\">ONE</a>;\n" +
@@ -4044,7 +4044,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $enum <a name=\"m14\">pkg.ExEnum </a>{\n" +
                 " <a name=\"m28\">ONE</a>{};\n" +
@@ -4071,7 +4071,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex </a>{\n" +
                 " $public $static $int <a name=\"m46\">exmeth</a>(){\n" +
@@ -4095,7 +4095,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex </a>{\n" +
                 " $public $static StringBuilder <a name=\"m55\">exmeth</a>(){\n" +
@@ -4119,7 +4119,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex </a>{\n" +
                 " $public $static <a title=\"pkg.Ex\" href=\"#m15\">Ex</a> <a name=\"m44\">exmeth</a>(){\n" +
@@ -4145,7 +4145,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex </a>{\n" +
                 " <a name=\"m25\">$public Ex(</a>){\n" +
@@ -4175,7 +4175,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex </a>{\n" +
                 " $public $int <span class=\"f\"><a name=\"m38\">field</a></span>;\n" +
@@ -4203,7 +4203,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex </a>{\n" +
                 " $public $static <a title=\"pkg.Ex\" href=\"#m15\">Ex</a>[] <a name=\"m46\">exmeth</a>(){\n" +
@@ -4227,7 +4227,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex </a>{\n" +
                 " $public $static $int <a name=\"m46\">exmeth</a>(){\n" +
@@ -4254,7 +4254,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex </a>{\n" +
                 " $public $static $int <a name=\"m46\">exmeth</a>(){\n" +
@@ -4288,7 +4288,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex </a>{\n" +
                 " $public $int <span class=\"f\"><a name=\"m38\">field</a></span>;\n" +
@@ -4326,7 +4326,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex </a>{\n" +
                 " $public $int <span class=\"f\"><a name=\"m38\">field</a></span>;\n" +
@@ -4367,7 +4367,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$operator<a name=\"m9\">+</a> <a title=\"pkg.Ex\" href=\"#m123\">pkg.Ex</a>(<a title=\"pkg.Ex\" href=\"#m123\">pkg.Ex</a> <a name=\"m25\">a</a>,<a title=\"pkg.Ex\" href=\"#m123\">pkg.Ex</a> <a name=\"m34\">b</a>) {\n" +
                 " <b title=\"pkg.Ex\">$var</b> <span class=\"f\"><span class=\"f\"><a name=\"m45\">o</a> </span>=<span class=\"f\"> $new <a title=\"pkg.Ex\" href=\"#m123\">pkg.Ex</a>()</span></span>;\n" +
@@ -4411,7 +4411,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$operator<a name=\"m9\">+</a> <a title=\"pkg.Ex\" href=\"#m123\">pkg.Ex</a>(<a title=\"pkg.Ex\" href=\"#m123\">pkg.Ex</a> <a name=\"m25\">a</a>,<a title=\"pkg.Ex\" href=\"#m123\">pkg.Ex</a> <a name=\"m34\">b</a>) {\n" +
                 " <b title=\"pkg.Ex\">$var</b> <span class=\"f\"><span class=\"f\"><a name=\"m45\">o</a> </span>=<span class=\"f\"> $new <a title=\"pkg.Ex\" href=\"#m123\">pkg.Ex</a>()</span></span>;\n" +
@@ -4455,7 +4455,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$operator<a name=\"m9\">+</a> <a title=\"pkg.Ex\" href=\"#m123\">pkg.Ex</a>(<a title=\"pkg.Ex\" href=\"#m123\">pkg.Ex</a> <a name=\"m25\">a</a>,<a title=\"pkg.Ex\" href=\"#m123\">pkg.Ex</a> <a name=\"m34\">b</a>) {\n" +
                 " <b title=\"pkg.Ex\">$var</b> <span class=\"f\"><span class=\"f\"><a name=\"m45\">o</a> </span>=<span class=\"f\"> $new <a title=\"pkg.Ex\" href=\"#m123\">pkg.Ex</a>()</span></span>;\n" +
@@ -4500,7 +4500,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$operator<a name=\"m9\">+</a> $int (<a title=\"pkg.Ex\" href=\"#m73\">pkg.Ex</a> <a name=\"m24\">a</a>, <a title=\"pkg.Ex\" href=\"#m73\">pkg.Ex</a> <a name=\"m34\">b</a>){\n" +
                 " $return <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m24\">a</a></span>.<span class=\"f\"><a title=\"pkg.Ex.a\" href=\"#m96\">a</a></span></span>+<span class=\"f\"><span class=\"f\"><a href=\"#m34\">b</a></span>.<span class=\"f\"><a title=\"pkg.Ex.a\" href=\"#m96\">a</a></span></span></span>;\n" +
@@ -4541,7 +4541,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $enum <a name=\"m14\">pkg.ExEnum </a>{\n" +
                 " <a name=\"m28\">ONE</a>{};\n" +
@@ -4578,7 +4578,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex </a>{\n" +
                 " $public $int <span class=\"f\"><span class=\"f\"><a name=\"m38\">one</a></span>,<span class=\"f\"><span class=\"f\"><a name=\"m42\">two</a></span>=<span class=\"f\"><a title=\"pkg.Ex.one\" href=\"#m38\">one</a></span></span></span>;\n" +
@@ -4627,7 +4627,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$operator<a name=\"m9\">+</a> <a title=\"pkg.Ex\" href=\"#m130\">pkg.Ex</a> (<a title=\"pkg.Ex\" href=\"#m130\">pkg.Ex</a> <a name=\"m26\">p</a>, <a title=\"pkg.Ex\" href=\"#m130\">pkg.Ex</a> <a name=\"m36\">q</a>){\n" +
                 " <a title=\"pkg.Ex\" href=\"#m130\">pkg.Ex</a> <span class=\"f\"><span class=\"f\"><a name=\"m48\">out</a> </span>=<span class=\"f\"> $new <a title=\"pkg.Ex\" href=\"#m130\">pkg.Ex</a>()</span></span>;\n" +
@@ -4687,7 +4687,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$operator<a name=\"m9\">+</a> <a title=\"pkg.Ex\" href=\"#m130\">pkg.Ex</a> (<a title=\"pkg.Ex\" href=\"#m130\">pkg.Ex</a> <a name=\"m26\">p</a>, <a title=\"pkg.Ex\" href=\"#m130\">pkg.Ex</a> <a name=\"m36\">q</a>){\n" +
                 " <a title=\"pkg.Ex\" href=\"#m130\">pkg.Ex</a> <span class=\"f\"><span class=\"f\"><a name=\"m48\">out</a> </span>=<span class=\"f\"> $new <a title=\"pkg.Ex\" href=\"#m130\">pkg.Ex</a>()</span></span>;\n" +
@@ -4732,7 +4732,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex </a>{\n" +
                 " $public $static $char <a name=\"m47\">exmeth</a>(){\n" +
@@ -4762,7 +4762,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex </a>{\n" +
                 " $public $static $int <a name=\"m46\">exmeth</a>(){\n" +
@@ -4792,7 +4792,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex </a>{\n" +
                 " $public $static $int <a name=\"m46\">exmeth</a>(){\n" +
@@ -4823,7 +4823,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex </a>{\n" +
                 " $public $static $int <a name=\"m46\">exmeth</a>(){\n" +
@@ -4855,7 +4855,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex </a>{\n" +
                 " $public $static $int <a name=\"m46\">exmeth</a>(){\n" +
@@ -4886,7 +4886,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex </a>{\n" +
                 " $public $static $int <a name=\"m46\">exmeth</a>(){\n" +
@@ -4919,7 +4919,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex </a>{\n" +
                 " $public $static $int <a name=\"m46\">exmeth</a>(){\n" +
@@ -4953,7 +4953,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex </a>{\n" +
                 " $public $static $int <a name=\"m46\">exmeth</a>(){\n" +
@@ -4983,7 +4983,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
@@ -5013,7 +5013,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
@@ -5045,7 +5045,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
@@ -5075,7 +5075,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
@@ -5105,7 +5105,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
@@ -5137,7 +5137,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
@@ -5169,7 +5169,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex </a>{\n" +
                 " $public $static $int <a name=\"m46\">exmeth</a>(){\n" +
@@ -5201,7 +5201,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
@@ -5238,7 +5238,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex </a>{\n" +
                 " $public $static $int <a name=\"m46\">catching</a>(){\n" +
@@ -5278,7 +5278,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex </a>{\n" +
                 " $public $static $int <a name=\"m46\">exmeth</a>(){\n" +
@@ -5309,7 +5309,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex </a>{\n" +
                 " $public $static $int <a name=\"m46\">exmeth</a>(){\n" +
@@ -5340,7 +5340,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex </a>{\n" +
                 " $public $static $int <a name=\"m46\">exmeth</a>(){\n" +
@@ -5371,7 +5371,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex </a>{\n" +
                 " $public $static $int <a name=\"m46\">exmeth</a>(){\n" +
@@ -5402,7 +5402,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex </a>{\n" +
                 " $public $static $int <a name=\"m46\">exmeth</a>(){\n" +
@@ -5436,7 +5436,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
@@ -5482,7 +5482,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
@@ -5531,7 +5531,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
@@ -5577,7 +5577,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
@@ -5625,7 +5625,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex </a>{\n" +
                 " $public $static <a title=\"pkg.CustList\" href=\"CustList.html#m15\">pkg.CustList</a>&lt;java.lang.Number&gt; <span class=\"g\"><span class=\"g\"><a name=\"m72\">inst</a></span>=<span class=\"g\"><a title=\"pkg.CustList.pkg.CustList()\" href=\"CustList.html#m93\">$new</a> <a title=\"pkg.CustList\" href=\"CustList.html#m15\">pkg.CustList</a>&lt;java.lang.Number&gt;()</span></span>;\n" +
@@ -5677,7 +5677,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex </a>{\n" +
                 " $public $static <a title=\"pkg.CustList\" href=\"CustList.html#m15\">pkg.CustList</a>&lt;java.lang.Number&gt; <span class=\"g\"><span class=\"g\"><a name=\"m72\">inst</a></span>=<span class=\"g\"><a title=\"pkg.CustList.pkg.CustList()\" href=\"CustList.html#m93\">$new</a> <a title=\"pkg.CustList\" href=\"CustList.html#m15\">pkg.CustList</a>&lt;java.lang.Number&gt;()</span></span>;\n" +
@@ -5720,7 +5720,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
@@ -5765,7 +5765,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex </a>{\n" +
                 " $public $static <a title=\"pkg.CustTable\" href=\"CustTable.html#m15\">CustTable</a>&lt;Number,Number&gt; <span class=\"g\"><span class=\"g\"><a name=\"m66\">inst</a></span>=<span class=\"g\"><a title=\"pkg.CustTable.pkg.CustTable()\" href=\"CustTable.html#m97\">$new</a> <a title=\"pkg.CustTable\" href=\"CustTable.html#m15\">CustTable</a>&lt;Number,Number&gt;()</span></span>;\n" +
@@ -5805,7 +5805,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
@@ -5847,7 +5847,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $enum <a name=\"m14\">pkg.ExEnum </a>{\n" +
                 "<a name=\"m27\">ONE</a>,<a name=\"m31\">TWO</a>\n" +
@@ -5894,7 +5894,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public enum <a name=\"m12\">pkg.ExEnum </a>{\n" +
                 "<a name=\"m25\">ONE</a>,<a name=\"m29\">TWO</a>\n" +
@@ -5941,7 +5941,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $enum <a name=\"m14\">pkg.ExEnum </a>{\n" +
                 "<a name=\"m27\">ONE</a>,<a name=\"m31\">TWO</a>\n" +
@@ -5988,7 +5988,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public enum <a name=\"m12\">pkg.ExEnum </a>{\n" +
                 "<a name=\"m25\">ONE</a>,<a name=\"m29\">TWO</a>\n" +
@@ -6036,7 +6036,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.ExEnum </a>{\n" +
                 " $public $static $final $int <span class=\"g\"><span class=\"g\"><a name=\"m57\">ONE</a> </span>=<span class=\"g\"> 10</span></span>;\n" +
@@ -6085,7 +6085,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.ExEnum </a>{\n" +
                 " public static final int <span class=\"g\"><span class=\"g\"><a name=\"m51\">ONE</a> </span>=<span class=\"g\"> 10</span></span>;\n" +
@@ -6134,7 +6134,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $enum <a name=\"m14\">pkg.ExEnum </a>{\n" +
                 "<a name=\"m27\">ONE</a>,<a name=\"m31\">TWO</a>;\n" +
@@ -6183,7 +6183,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public enum <a name=\"m12\">pkg.ExEnum </a>{\n" +
                 "<a name=\"m25\">ONE</a>,<a name=\"m29\">TWO</a>;\n" +
@@ -6226,7 +6226,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
@@ -6264,7 +6264,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
@@ -6295,7 +6295,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex </a>{\n" +
                 " $public $static <a title=\"pkg.Ex\" href=\"#m15\">Ex</a> <a name=\"m44\">exmeth</a>(){\n" +
@@ -6319,7 +6319,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
                 " public static <a title=\"pkg.Ex\" href=\"#m13\">Ex</a> <a name=\"m40\">exmeth</a>(){\n" +
@@ -6343,7 +6343,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex </a>{\n" +
                 " $public $static <a title=\"pkg.Ex\" href=\"#m15\">Ex</a> <a name=\"m44\">exmeth</a>(){\n" +
@@ -6367,7 +6367,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
                 " public static <a title=\"pkg.Ex\" href=\"#m13\">Ex</a> <a name=\"m40\">exmeth</a>(){\n" +
@@ -6392,7 +6392,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex </a>{\n" +
                 " $public $static $int <span class=\"g\"><span class=\"g\"><a name=\"m46\">i</a></span>=<span class=\"g\">0</span></span>;\n" +
@@ -6418,7 +6418,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
                 " public static int <span class=\"g\"><span class=\"g\"><a name=\"m41\">i</a></span>=<span class=\"g\">0</span></span>;\n" +
@@ -6443,7 +6443,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
                 " public static boolean <a name=\"m45\">exmeth</a>(){\n" +
@@ -6468,7 +6468,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a>&lt;<a name=\"m20\">#T</a>&gt; {\n" +
                 " public static class <a name=\"m47\">ExTwo</a>{}\n" +
@@ -6511,7 +6511,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a>&lt;<a name=\"m20\">T</a>&gt; {\n" +
                 " public class <a name=\"m39\">Inner</a>&lt;<a name=\"m45\">U</a>&gt; {\n" +
@@ -6571,7 +6571,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a>&lt;<a name=\"m20\">T</a>&gt; {\n" +
                 " public class <a name=\"m39\">Inner</a>&lt;<a name=\"m45\">U</a>&gt; {\n" +
@@ -6616,7 +6616,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
@@ -6643,7 +6643,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
                 " public static <a title=\"pkg.Ex\" href=\"#m13\">Ex</a> <a name=\"m40\">exmeth</a>(){\n" +
@@ -6670,7 +6670,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
@@ -6704,7 +6704,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
@@ -6731,7 +6731,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
@@ -6758,7 +6758,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a>&lt;<a name=\"m20\">T</a>&gt; {\n" +
                 " public static <a title=\"pkg.Ex\" href=\"#m13\">Ex</a>&lt;int&gt; <a name=\"m48\">exmeth</a>(){\n" +
@@ -6787,7 +6787,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a>&lt;<a name=\"m20\">T</a>&gt; {\n" +
                 " public class <a name=\"m39\">Inner</a>&lt;<a name=\"m45\">S</a>&gt; {\n" +
@@ -6818,7 +6818,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a>&lt;<a name=\"m20\">T</a>&gt; {\n" +
                 " public class <a name=\"m39\">Inner</a>&lt;<a name=\"m45\">S</a>&gt; {\n" +
@@ -6844,7 +6844,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a>&lt;<a name=\"m20\">T</a>&gt; {\n" +
                 " public static <a title=\"pkg.Ex\" href=\"#m13\">Ex</a>&lt;int&gt;[] <a name=\"m50\">exmeth</a>(){\n" +
@@ -6868,7 +6868,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a>&lt;<a name=\"m20\">T</a>&gt; {\n" +
                 " public static <a title=\"pkg.Ex\" href=\"#m13\">Ex</a>&lt;?&gt; <a name=\"m46\">exmeth</a>(){\n" +
@@ -6892,7 +6892,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
                 " public static <a title=\"pkg.Ex\" href=\"#m13\">Ex</a>[] <a name=\"m42\">exmeth</a>(){\n" +
@@ -6916,7 +6916,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
                 " public static <a title=\"pkg.Ex\" href=\"#m13\">Ex</a>[] <a name=\"m42\">exmeth</a>(){\n" +
@@ -6943,7 +6943,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
@@ -6973,7 +6973,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
@@ -7010,7 +7010,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.ExSuper </a>{\n" +
                 " public int <span class=\"f\"><a name=\"m39\">field</a></span>;\n" +
@@ -7052,7 +7052,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
                 " public int <span class=\"f\"><a name=\"m34\">field</a></span>;\n" +
@@ -7092,7 +7092,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
                 " public int <span class=\"f\"><a name=\"m34\">field</a></span>;\n" +
@@ -7132,7 +7132,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
                 " public int <span class=\"f\"><a name=\"m34\">field</a></span>;\n" +
@@ -7172,7 +7172,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
                 " public int <span class=\"f\"><a name=\"m34\">field</a></span>;\n" +
@@ -7209,7 +7209,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public enum <a name=\"m12\">pkg.ExEnum</a>&lt;<a name=\"m23\">T</a>,<a name=\"m25\">S</a>&gt; {\n" +
                 " <a name=\"m31\">ONE</a>&lt;<a title=\"pkg.Ex\" href=\"#m104\">Ex</a>,<a title=\"pkg.ExTwo\" href=\"#m78\">ExTwo</a>&gt;,\n" +
@@ -7246,7 +7246,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.ExTwo </a>{\n" +
                 " public static int <span class=\"g\"><a name=\"m44\">count</a></span>;\n" +
@@ -7292,7 +7292,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.ExTwo </a>{\n" +
                 "}\n" +
@@ -7331,7 +7331,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
                 " public int <span class=\"f\"><span class=\"f\"><a name=\"m34\">field</a> </span>=<span class=\"f\"> 15</span></span>;\n" +
@@ -7364,7 +7364,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
                 " public int <span class=\"f\"><span class=\"f\"><a name=\"m34\">field</a> </span>=<span class=\"f\"> 15</span></span>;\n" +
@@ -7397,7 +7397,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $annotation <a name=\"m20\">pkg.MyAnnot </a>{\n" +
                 "}\n" +
@@ -7434,7 +7434,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $annotation <a name=\"m20\">pkg.MyAnnot </a>{\n" +
                 "}\n" +
@@ -7472,7 +7472,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $annotation <a name=\"m20\">pkg.MyAnnot </a>{\n" +
                 "}\n" +
@@ -7509,7 +7509,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $annotation <a name=\"m20\">pkg.MyAnnot </a>{\n" +
                 "}\n" +
@@ -7546,7 +7546,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $annotation <a name=\"m20\">pkg.MyAnnot </a>{\n" +
                 "}\n" +
@@ -7582,7 +7582,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $annotation <a name=\"m20\">pkg.MyAnnot </a>{\n" +
                 " $int <a name=\"m40\">method</a>()1;\n" +
@@ -7622,7 +7622,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public annotation <a name=\"m18\">pkg.MyAnnot </a>{\n" +
                 "}\n" +
@@ -7664,7 +7664,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public annotation <a name=\"m18\">pkg.MyAnnot </a>{\n" +
                 "}\n" +
@@ -7701,7 +7701,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public annotation <a name=\"m18\">pkg.MyAnnot </a>{\n" +
                 "}\n" +
@@ -7739,7 +7739,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public annotation <a name=\"m18\">pkg.MyAnnot </a>{\n" +
                 "}\n" +
@@ -7780,7 +7780,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $annotation <a name=\"m20\">pkg.MyAnnot </a>{\n" +
                 "}\n" +
@@ -7822,7 +7822,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $annotation <a name=\"m20\">pkg.MyAnnot </a>{\n" +
                 "}\n" +
@@ -7870,7 +7870,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$operator<a name=\"m9\">+</a> <a title=\"pkg.Ex\" href=\"#m130\">pkg.Ex</a> (<a title=\"pkg.Ex\" href=\"#m130\">pkg.Ex</a> <a name=\"m26\">p</a>, <a title=\"pkg.Ex\" href=\"#m130\">pkg.Ex</a> <a name=\"m36\">q</a>){\n" +
                 " <a title=\"pkg.Ex\" href=\"#m130\">pkg.Ex</a> <span class=\"f\"><span class=\"f\"><a name=\"m48\">out</a> </span>=<span class=\"f\"> $new <a title=\"pkg.Ex\" href=\"#m130\">pkg.Ex</a>()</span></span>;\n" +
@@ -7924,7 +7924,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$operator<a name=\"m9\">+</a> <a title=\"pkg.Ex\" href=\"#m130\">pkg.Ex</a> (<a title=\"pkg.Ex\" href=\"#m130\">pkg.Ex</a> <a name=\"m26\">p</a>, <a title=\"pkg.Ex\" href=\"#m130\">pkg.Ex</a> <a name=\"m36\">q</a>){\n" +
                 " <a title=\"pkg.Ex\" href=\"#m130\">pkg.Ex</a> <span class=\"f\"><span class=\"f\"><a name=\"m48\">out</a> </span>=<span class=\"f\"> $new <a title=\"pkg.Ex\" href=\"#m130\">pkg.Ex</a>()</span></span>;\n" +
@@ -7968,7 +7968,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $annotation <a name=\"m20\">pkg.MyAnnot </a>{\n" +
                 " <a title=\"pkg.MyAnnotTwo\" href=\"#m90\">MyAnnotTwo</a> <a name=\"m46\">method</a>() @<a title=\"pkg.MyAnnotTwo\" href=\"#m90\">MyAnnotTwo</a>;\n" +
@@ -8002,7 +8002,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $interface <a name=\"m19\">pkg.IntOne </a>{}\n" +
                 "$public $interface <a name=\"m52\">pkg.IntTwo </a>{}\n" +
@@ -8036,7 +8036,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $interface <a name=\"m19\">pkg.IntOne </a>{}\n" +
                 "$public $interface <a name=\"m52\">pkg.IntTwo </a>{}\n" +
@@ -8070,7 +8070,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $interface <a name=\"m19\">pkg.IntOne </a>{}\n" +
                 "$public $interface <a name=\"m52\">pkg.IntTwo </a>{}\n" +
@@ -8104,7 +8104,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $annotation <a name=\"m20\">pkg.MyAnnot </a>{\n" +
                 " $int <a name=\"m40\">method</a>()1;\n" +
@@ -8138,7 +8138,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $annotation <a name=\"m20\">pkg.MyAnnot </a>{\n" +
                 " $int <a name=\"m40\">method</a>()1;\n" +
@@ -8173,7 +8173,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $annotation <a name=\"m20\">pkg.MyAnnot </a>{\n" +
                 " $int <a name=\"m40\">method</a>()1;\n" +
@@ -8208,7 +8208,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $annotation <a name=\"m20\">pkg.MyAnnot </a>{\n" +
                 " $int <a name=\"m40\">method</a>()1;\n" +
@@ -8243,7 +8243,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $annotation <a name=\"m20\">pkg.MyAnnot </a>{\n" +
                 " $int <span class=\"g\"><span class=\"g\"><a name=\"m40\">method</a> </span>=<span class=\"g\"> 5</span></span>;\n" +
@@ -8278,7 +8278,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $annotation <a name=\"m20\">pkg.MyAnnot </a>{\n" +
                 " $int <a name=\"m40\">method</a>()1;\n" +
@@ -8312,7 +8312,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $annotation <a name=\"m20\">pkg.MyAnnot </a>{\n" +
                 " $int <a name=\"m40\">method</a>()1;\n" +
@@ -8342,7 +8342,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex </a>{\n" +
                 " $public $static $final $int <span class=\"g\"><span class=\"g\"><a name=\"m53\">FIELD</a> </span>=<span class=\"g\"> 2</span></span>;\n" +
@@ -8371,7 +8371,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex </a>{\n" +
                 " $public $static $final $int <span class=\"g\"><span class=\"g\"><a name=\"m53\">FIELD</a> </span>=<span class=\"g\"> 2</span></span>;\n" +
@@ -8404,7 +8404,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $annotation <a name=\"m20\">pkg.MyAnnot </a>{\n" +
                 " String <a name=\"m42\">method</a>()<span class=\"s\">\"1\"</span>;\n" +
@@ -8436,7 +8436,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex </a>{\n" +
                 " $public $static $int <a name=\"m46\">exmeth</a>(){\n" +
@@ -8466,7 +8466,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex </a>{\n" +
                 " $public $static $int <a name=\"m46\">exmeth</a>(){\n" +
@@ -8496,7 +8496,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex </a>{\n" +
                 " $public $static $int <a name=\"m46\">exmeth</a>(){\n" +
@@ -8526,7 +8526,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex </a>{\n" +
                 " $public $static $int <a name=\"m46\">exmeth</a>(){\n" +
@@ -8553,7 +8553,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
-        calculateArgument("pkg.Apply", id_, args_, cont_);
+        calculateNormal("pkg.Apply", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Apply </a>{\n" +
                 " public static int <a name=\"m44\">method</a>(){\n" +
@@ -8585,7 +8585,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
-        calculateArgument("pkg.Apply", id_, args_, cont_);
+        calculateNormal("pkg.Apply", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Apply </a>{\n" +
                 " public static <a title=\"pkg.ExClass\" href=\"#m105\">ExClass</a> <a name=\"m48\">method</a>(){\n" +
@@ -8625,7 +8625,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
-        calculateArgument("pkg.Apply", id_, args_, cont_);
+        calculateNormal("pkg.Apply", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Apply </a>{\n" +
                 " public static <a title=\"pkg.ExClass\" href=\"#m117\">ExClass</a> <a name=\"m48\">method</a>(){\n" +
@@ -8665,7 +8665,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
-        calculateArgument("pkg.Apply", id_, args_, cont_);
+        calculateNormal("pkg.Apply", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Apply </a>{\n" +
                 " public static <a title=\"pkg.ExClass\" href=\"#m109\">ExClass</a> <a name=\"m48\">method</a>(){\n" +
@@ -8705,7 +8705,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
-        calculateArgument("pkg.Apply", id_, args_, cont_);
+        calculateNormal("pkg.Apply", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Apply </a>{\n" +
                 " public static <a title=\"pkg.ExClass\" href=\"#m118\">ExClass</a>&lt;int&gt; <a name=\"m53\">method</a>(){\n" +
@@ -8746,7 +8746,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
-        calculateArgument("pkg.Apply", id_, args_, cont_);
+        calculateNormal("pkg.Apply", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Apply </a>{\n" +
                 " public static <a title=\"pkg.ExClass\" href=\"#m154\">ExClass</a> <a name=\"m48\">method</a>(){\n" +
@@ -8788,7 +8788,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
-        calculateArgument("pkg.Apply", id_, args_, cont_);
+        calculateNormal("pkg.Apply", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Apply </a>{\n" +
                 " public static <a title=\"pkg.ExClass\" href=\"#m158\">ExClass</a> <a name=\"m48\">method</a>(){\n" +
@@ -8835,7 +8835,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
-        calculateArgument("pkg.Apply", id_, args_, cont_);
+        calculateNormal("pkg.Apply", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Apply </a>{\n" +
                 " public static <a title=\"pkg.ExClass\" href=\"#m273\">ExClass</a>&lt;int&gt; <a name=\"m53\">method</a>(){\n" +
@@ -8882,7 +8882,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
-        calculateArgument("pkg.Apply", id_, args_, cont_);
+        calculateNormal("pkg.Apply", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Apply </a>{\n" +
                 " public static <a title=\"pkg.ExClass\" href=\"#m172\">ExClass</a>&lt;int&gt; <a name=\"m53\">method</a>(){\n" +
@@ -8916,7 +8916,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
-        calculateArgument("pkg.Apply", id_, args_, cont_);
+        calculateNormal("pkg.Apply", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Apply </a>{\n" +
                 " public static String <a name=\"m47\">method</a>(){\n" +
@@ -8942,7 +8942,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
-        calculateArgument("pkg.Apply", id_, args_, cont_);
+        calculateNormal("pkg.Apply", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Apply </a>{\n" +
                 " public static <a title=\"pkg.Apply\" href=\"#m13\">Apply</a> <a name=\"m46\">method</a>(){\n" +
@@ -8983,7 +8983,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
-        calculateArgument("pkg.Apply", id_, args_, cont_);
+        calculateNormal("pkg.Apply", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Apply </a>{\n" +
                 " public static <a title=\"pkg.ExClassTwo\" href=\"#m294\">ExClassTwo</a> <a name=\"m51\">method</a>(){\n" +
@@ -9024,7 +9024,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
                 " public static int <span class=\"g\"><span class=\"g\"><a name=\"m41\">i</a></span>=<span class=\"g\">0</span></span>;\n" +
@@ -9049,7 +9049,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex </a>{\n" +
                 " $public $static StringBuilder <a name=\"m55\">exmeth</a>(){\n" +
@@ -9073,7 +9073,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex </a>{\n" +
                 " $public $static $int <a name=\"m46\">exmeth</a>(){\n" +
@@ -9097,7 +9097,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
@@ -9121,7 +9121,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
@@ -9145,7 +9145,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
@@ -9169,7 +9169,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
@@ -9196,7 +9196,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth1");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
@@ -9226,7 +9226,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth1");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
@@ -9256,7 +9256,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth1");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
@@ -9286,7 +9286,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth1");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
@@ -9315,7 +9315,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
@@ -9343,7 +9343,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
@@ -9371,7 +9371,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
@@ -9399,7 +9399,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
@@ -9427,7 +9427,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
                 " public static boolean <a name=\"m45\">exmeth</a>(){\n" +
@@ -9455,7 +9455,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
                 " public static boolean <a name=\"m45\">exmeth</a>(){\n" +
@@ -9483,7 +9483,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
                 " public static boolean <a name=\"m45\">exmeth</a>(){\n" +
@@ -9511,7 +9511,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
                 " public static boolean <a name=\"m45\">exmeth</a>(){\n" +
@@ -9539,7 +9539,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
                 " public static boolean <a name=\"m45\">exmeth</a>(){\n" +
@@ -9567,7 +9567,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
                 " public static boolean <a name=\"m45\">exmeth</a>(){\n" +
@@ -9595,7 +9595,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
                 " public static boolean <a name=\"m45\">exmeth</a>(){\n" +
@@ -9623,7 +9623,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
                 " public static boolean <a name=\"m45\">exmeth</a>(){\n" +
@@ -9649,7 +9649,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
                 " public static boolean <a name=\"m45\">exmeth</a>(){\n" +
@@ -9674,7 +9674,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
                 " public static boolean <a name=\"m45\">exmeth</a>(){\n" +
@@ -9700,7 +9700,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
                 " public static boolean <a name=\"m45\">exmeth</a>(){\n" +
@@ -9726,7 +9726,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
@@ -9753,7 +9753,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
                 " public static Boolean <a name=\"m45\">exmeth</a>(){\n" +
@@ -9781,7 +9781,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
                 " public static Boolean <a name=\"m45\">exmeth</a>(){\n" +
@@ -9809,7 +9809,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
                 " public static Boolean <a name=\"m45\">exmeth</a>(){\n" +
@@ -9837,7 +9837,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
                 " public static Boolean <a name=\"m45\">exmeth</a>(){\n" +
@@ -9865,7 +9865,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
                 " public static Boolean <a name=\"m45\">exmeth</a>(){\n" +
@@ -9893,7 +9893,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
                 " public static Integer <a name=\"m45\">exmeth</a>(){\n" +
@@ -9921,7 +9921,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
                 " public static Integer <a name=\"m45\">exmeth</a>(){\n" +
@@ -9949,7 +9949,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
                 " public static Integer <a name=\"m45\">exmeth</a>(){\n" +
@@ -9977,7 +9977,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
                 " public static Integer <a name=\"m45\">exmeth</a>(){\n" +
@@ -10008,7 +10008,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth1");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
                 " public static int <a name=\"m41\">exmeth1</a>(){\n" +
@@ -10038,7 +10038,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
                 " public static Boolean <a name=\"m45\">exmeth</a>(){\n" +
@@ -10064,7 +10064,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
                 " public static Boolean <a name=\"m45\">exmeth</a>(){\n" +
@@ -10091,7 +10091,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
                 " public static Integer <a name=\"m45\">exmeth</a>(){\n" +
@@ -10117,7 +10117,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
                 " public static Integer <a name=\"m45\">exmeth</a>(){\n" +
@@ -10143,7 +10143,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a>&lt;<a name=\"m20\">T</a>&gt; {\n" +
                 " public static <a title=\"pkg.Ex\" href=\"#m13\">Ex</a>&lt;int&gt; <span class=\"g\"><span class=\"g\"><a name=\"m48\">field</a> </span>=<span class=\"g\"> new <a title=\"pkg.Ex\" href=\"#m13\">Ex</a><a title=\"pkg.Ex&lt;int&gt;\">&lt;&gt;</a>()</span></span>;\n" +
@@ -10169,7 +10169,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a>&lt;<a name=\"m20\">T</a>&gt; {\n" +
                 " public static final <a title=\"pkg.Ex\" href=\"#m13\">Ex</a>&lt;int&gt; <span class=\"g\"><span class=\"g\"><a name=\"m54\">field</a> </span>=<span class=\"g\"> new <a title=\"pkg.Ex\" href=\"#m13\">Ex</a><a title=\"pkg.Ex&lt;int&gt;\">&lt;&gt;</a>()</span></span>;\n" +
@@ -10198,7 +10198,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
@@ -10232,7 +10232,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
@@ -10268,7 +10268,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
                 " public static boolean <a name=\"m45\">exmeth</a>(){\n" +
@@ -10302,7 +10302,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
@@ -10334,7 +10334,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
@@ -10366,7 +10366,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
@@ -10395,7 +10395,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex </a>{\n" +
                 " $public $static $int <a name=\"m46\">exmeth</a>(){\n" +
@@ -10421,7 +10421,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex </a>{\n" +
                 " $public $static $int <a name=\"m46\">exmeth</a>(){\n" +
@@ -10447,7 +10447,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"c\">//comment</span>\n" +
                 "$public $class <a name=\"m25\">pkg.Ex </a>{\n" +
@@ -10473,7 +10473,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"c\">/*comment*/</span>\n" +
                 "$public $class <a name=\"m27\">pkg.Ex </a>{\n" +
@@ -10499,7 +10499,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex </a>{\n" +
                 " $public $static $int <a name=\"m46\">exmeth</a>(){\n" +
@@ -10525,7 +10525,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex </a>{\n" +
                 " $public $static $int <a name=\"m46\">exmeth</a>(){\n" +
@@ -10551,7 +10551,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex </a>{\n" +
                 " $public $static $int <a name=\"m46\">exmeth</a>(){\n" +
@@ -10577,7 +10577,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex </a>{\n" +
                 " $public $static $int <a name=\"m46\">exmeth</a>(){\n" +

@@ -35,7 +35,7 @@ public final class ProcessMethodForIterativeTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(10, ret_.getNumber());
     }
 
@@ -60,7 +60,7 @@ public final class ProcessMethodForIterativeTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(10, ret_.getNumber());
     }
 
@@ -85,7 +85,7 @@ public final class ProcessMethodForIterativeTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(10, ret_.getNumber());
     }
 
@@ -110,7 +110,7 @@ public final class ProcessMethodForIterativeTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(6, ret_.getNumber());
     }
 
@@ -135,7 +135,7 @@ public final class ProcessMethodForIterativeTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(4, ret_.getNumber());
     }
 
@@ -160,7 +160,7 @@ public final class ProcessMethodForIterativeTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(6, ret_.getNumber());
     }
 
@@ -185,7 +185,7 @@ public final class ProcessMethodForIterativeTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(4, ret_.getNumber());
     }
 
@@ -210,7 +210,7 @@ public final class ProcessMethodForIterativeTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(0, ret_.getNumber());
     }
 
@@ -233,7 +233,7 @@ public final class ProcessMethodForIterativeTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(0, ret_.getNumber());
     }
 
@@ -260,7 +260,7 @@ public final class ProcessMethodForIterativeTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(23, ret_.getNumber());
     }
 }

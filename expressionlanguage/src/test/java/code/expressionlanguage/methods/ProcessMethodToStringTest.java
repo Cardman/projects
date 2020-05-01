@@ -35,7 +35,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq("2,4", ret_.getString());
     }
     @Test
@@ -57,7 +57,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq("pkg.Ex", ret_.getString());
     }
     @Test
@@ -84,7 +84,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq("2,4", ret_.getString());
     }
     @Test
@@ -113,7 +113,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq("2,4", ret_.getString());
     }
     @Test
@@ -171,7 +171,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq("5,0", ret_.getString());
     }
     @Test
@@ -229,7 +229,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq("6,1", ret_.getString());
     }
     @Test
@@ -255,7 +255,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq("2,4", ret_.getString());
     }
     @Test
@@ -283,7 +283,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq("2,4", ret_.getString());
     }
     @Test
@@ -346,7 +346,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq("20,3", ret_.getString());
     }
     @Test
@@ -409,7 +409,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq("5,1", ret_.getString());
     }
     @Test
@@ -466,7 +466,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq("5,0", ret_.getString());
     }
     @Test
@@ -523,7 +523,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq("6,1", ret_.getString());
     }
     @Test
@@ -585,7 +585,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq("20,4", ret_.getString());
     }
     @Test
@@ -647,7 +647,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq("15,1", ret_.getString());
     }
     @Test
@@ -681,7 +681,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq("2,4,6,8", ret_.getString());
     }
     @Test
@@ -715,7 +715,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq("2,4,6,8", ret_.getString());
     }
     @Test
@@ -746,7 +746,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq("2,4,6,8", ret_.getString());
     }
     @Test
@@ -777,7 +777,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq("2,4,6,8", ret_.getString());
     }
     @Test
@@ -814,7 +814,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq("2,4,6,8", ret_.getString());
     }
     @Test
@@ -846,7 +846,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq("2,4", ret_.getString());
     }
     @Test
@@ -884,7 +884,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq("2,4", ret_.getString());
     }
     @Test
@@ -919,7 +919,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq("2,4", ret_.getString());
     }
     @Test
@@ -944,7 +944,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq("static", ret_.getString());
     }
     @Test
@@ -970,7 +970,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq("static", ret_.getString());
     }
     @Test
@@ -997,7 +997,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq("false", ret_.getString());
     }
     @Test
@@ -1024,7 +1024,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq("true", ret_.getString());
     }
     @Test
@@ -1082,7 +1082,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq("5,0", ret_.getString());
     }
     @Test
@@ -1144,7 +1144,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq("15,1", ret_.getString());
     }
     @Test
@@ -1206,7 +1206,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq("15,1", ret_.getString());
     }
     @Test
@@ -1226,7 +1226,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq("code.util.Replacement", ret_.getString());
     }
     @Test
@@ -1246,7 +1246,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq("code.util.Replacement", ret_.getString());
     }
     @Test
@@ -1275,7 +1275,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq("2,4", ret_.getString());
     }
     @Test
@@ -1338,7 +1338,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq("20,3", ret_.getString());
     }
     @Test
@@ -1401,7 +1401,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq("20,3", ret_.getString());
     }
     @Test
@@ -1430,7 +1430,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq("2,4", ret_.getString());
     }
     @Test
@@ -1486,7 +1486,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq("5,0", ret_.getString());
     }
     @Test
@@ -1542,7 +1542,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq("6,1", ret_.getString());
     }
    
@@ -1601,7 +1601,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq("5,0", ret_.getString());
     }
     @Test
@@ -1659,7 +1659,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq("6,1", ret_.getString());
     }
     @Test
@@ -1717,7 +1717,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq("4,-1", ret_.getString());
     }
     @Test
@@ -1743,7 +1743,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq("[$int", ret_.getString());
     }
     @Test
@@ -1762,7 +1762,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq("string", ret_.getString());
     }
     @Test
@@ -1788,7 +1788,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq("2,4", ret_.getString());
     }
     @Test
@@ -1817,7 +1817,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq("static:4", ret_.getString());
     }
     @Test
@@ -1850,7 +1850,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq("static:", ret_.getString());
     }
     @Test
@@ -1872,7 +1872,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq("ONE", ret_.getString());
     }
     @Test
@@ -1899,7 +1899,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq("2,4", ret_.getString());
     }
     @Test
@@ -1921,7 +1921,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq("ONE", ret_.getString());
     }
     @Test
@@ -1948,7 +1948,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq("2,4", ret_.getString());
     }
     @Test
@@ -2005,7 +2005,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq("2,4", ret_.getString());
     }
     @Test
@@ -2036,7 +2036,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq("2,4", ret_.getString());
     }
     @Test
@@ -2073,7 +2073,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq("2,4,6,8", ret_.getString());
     }
     @Test
@@ -2110,7 +2110,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq("2,4,6,8", ret_.getString());
     }
     @Test
@@ -2142,7 +2142,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq("2,4", ret_.getString());
     }
     @Test
@@ -2176,7 +2176,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq("2,4,6,8", ret_.getString());
     }
     @Test
@@ -2197,7 +2197,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq("@pkg.Annot()", ret_.getString());
     }
     @Test
@@ -2218,7 +2218,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq("pkg.Apply", ret_.getString());
     }
     @Test
@@ -2239,7 +2239,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq("[pkg.Apply", ret_.getString());
     }
     @Test
@@ -2260,7 +2260,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq("pkg.Apply;pkg.Apply()", ret_.getString());
     }
     @Test
@@ -2281,7 +2281,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq("pkg.Apply.$static test()", ret_.getString());
     }
     @Test
@@ -2303,7 +2303,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq("pkg.Apply.test", ret_.getString());
     }
     @Test
@@ -2324,7 +2324,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq("pkg.Apply<java.lang.String>;#T", ret_.getString());
     }
 }

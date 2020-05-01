@@ -38,7 +38,7 @@ public final class ProcessMethodForeachArrayTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(24, ret_.getNumber());
     }
 
@@ -65,7 +65,7 @@ public final class ProcessMethodForeachArrayTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(0, ret_.getNumber());
     }
 
@@ -94,7 +94,7 @@ public final class ProcessMethodForeachArrayTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(24, ret_.getNumber());
     }
 
@@ -127,7 +127,7 @@ public final class ProcessMethodForeachArrayTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(5, ret_.getNumber());
     }
 
@@ -157,7 +157,7 @@ public final class ProcessMethodForeachArrayTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(30, ret_.getNumber());
     }
     @Test
@@ -189,7 +189,7 @@ public final class ProcessMethodForeachArrayTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(5, ret_.getNumber());
     }
     @Test
@@ -216,7 +216,7 @@ public final class ProcessMethodForeachArrayTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateError("pkg.Ex", id_, args_, cont_);
         assertEq("code.util.exceptions.NullObjectException", getException(cont_).getClassName(cont_));
     }
 }

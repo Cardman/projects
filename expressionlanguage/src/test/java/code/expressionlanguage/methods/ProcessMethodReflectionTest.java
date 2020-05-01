@@ -36,7 +36,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq("pkg.Ex-ONE", ret_.getString());
     }
 
@@ -61,7 +61,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq("pkg.Cl..Ex-ONE", ret_.getString());
     }
 
@@ -84,7 +84,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq("pkg.Ex-ONE", ret_.getString());
     }
 
@@ -109,7 +109,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq("pkg.Cl..Ex-ONE", ret_.getString());
     }
     @Test
@@ -136,7 +136,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq("pkg.Ex", ret_.getString());
     }
     @Test
@@ -171,7 +171,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq("pkg.Ex", ret_.getString());
         assertEq(14, ((NumberStruct)cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "inst"))).intStruct());
     }
@@ -192,7 +192,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq("$void", ret_.getString());
     }
     @Test
@@ -210,7 +210,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Apply", id_, args_, cont_);
+        calculateError("pkg.Apply", id_, args_, cont_);
         assertNotNull(getException(cont_));
     }
     @Test
@@ -228,7 +228,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Apply", id_, args_, cont_);
+        calculateError("pkg.Apply", id_, args_, cont_);
         assertNotNull(getException(cont_));
     }
     @Test
@@ -246,7 +246,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Apply", id_, args_, cont_);
+        calculateError("pkg.Apply", id_, args_, cont_);
         assertNotNull(getException(cont_));
     }
     @Test
@@ -293,7 +293,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Apply", id_, args_, cont_);
+        calculateError("pkg.Apply", id_, args_, cont_);
         assertNotNull(getException(cont_));
     }
     @Test
@@ -311,7 +311,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Apply", id_, args_, cont_);
+        calculateError("pkg.Apply", id_, args_, cont_);
         assertNotNull(getException(cont_));
     }
     @Test
@@ -329,7 +329,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Apply", id_, args_, cont_);
+        calculateError("pkg.Apply", id_, args_, cont_);
         assertNotNull(getException(cont_));
     }
     @Test
@@ -381,7 +381,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Apply", id_, args_, cont_);
+        calculateError("pkg.Apply", id_, args_, cont_);
         assertNotNull(getException(cont_));
     }
     @Test
@@ -433,7 +433,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Apply", id_, args_, cont_);
+        calculateError("pkg.Apply", id_, args_, cont_);
         assertNotNull(getException(cont_));
     }
     @Test
@@ -482,7 +482,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq(14, ret_.getNumber());
     }
     @Test
@@ -501,7 +501,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq(1, ret_.getNumber());
     }
     @Test
@@ -549,7 +549,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq(15, ret_.getNumber());
         NumberStruct res_ = (NumberStruct) cont_.getContextEl().getClasses().getStaticField(new ClassField("pkg.Ex", "inst"));
         assertEq(14, res_.intStruct());
@@ -599,7 +599,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq(14, ret_.getNumber());
     }
     @Test
@@ -647,7 +647,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq("out", ret_.getString());
     }
     @Test
@@ -692,7 +692,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
-        ret_ = calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
         assertEq("super", ret_.getString());
     }
     @Test
@@ -740,7 +740,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
-        ret_ = calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
         assertEq(19, ret_.getNumber());
     }
     @Test
@@ -785,7 +785,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
-        ret_ = calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
         assertEq(14, ret_.getNumber());
     }
     @Test
@@ -833,7 +833,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
-        ret_ = calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
         assertEq(19, ret_.getNumber());
     }
     @Test
@@ -883,7 +883,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
-        ret_ = calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
         assertEq(9, ret_.getNumber());
     }
     @Test
@@ -934,7 +934,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
-        ret_ = calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
         assertEq(19, ret_.getNumber());
     }
     @Test
@@ -988,7 +988,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
-        ret_ = calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
         assertTrue(ret_.isNull());
         assertNull(getException(cont_));
         assertEq(10, ((NumberStruct)cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "inst"))).intStruct());
@@ -1038,7 +1038,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        calculateError("pkg.ExTwo", id_, args_, cont_);
         assertNotNull(getException(cont_));
     }
     @Test
@@ -1089,7 +1089,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        calculateError("pkg.ExTwo", id_, args_, cont_);
         assertNotNull(getException(cont_));
     }
     @Test
@@ -1140,7 +1140,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        calculateError("pkg.ExTwo", id_, args_, cont_);
         assertNotNull(getException(cont_));
     }
     @Test
@@ -1191,7 +1191,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        calculateError("pkg.ExTwo", id_, args_, cont_);
         assertNotNull(getException(cont_));
     }
     @Test
@@ -1242,7 +1242,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        calculateError("pkg.ExTwo", id_, args_, cont_);
         assertNotNull(getException(cont_));
     }
     @Test
@@ -1291,7 +1291,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
-        ret_ = calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
         assertEq(19, ret_.getNumber());
     }
     @Test
@@ -1343,7 +1343,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
-        ret_ = calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
         assertEq(22, ret_.getNumber());
     }
     @Test
@@ -1395,7 +1395,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
-        ret_ = calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
          assertEq(28, ret_.getNumber());
     }
     @Test
@@ -1449,7 +1449,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
-        ret_ = calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
         assertEq(32, ret_.getNumber());
     }
     @Test
@@ -1505,7 +1505,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
-        ret_ = calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
         assertEq(19, ret_.getNumber());
     }
     @Test
@@ -1558,7 +1558,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        calculateError("pkg.ExTwo", id_, args_, cont_);
         assertNotNull(getException(cont_));
     }
     @Test
@@ -1613,7 +1613,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        calculateError("pkg.ExTwo", id_, args_, cont_);
         assertNotNull(getException(cont_));
     }
     @Test
@@ -1662,7 +1662,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        calculateError("pkg.ExTwo", id_, args_, cont_);
         assertNotNull(getException(cont_));
     }
     @Test
@@ -1716,7 +1716,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
-        ret_ = calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
         assertEq(19, ret_.getNumber());
     }
     @Test
@@ -1766,7 +1766,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
-        ret_ = calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
         assertEq(19, ret_.getNumber());
     }
 
@@ -1819,7 +1819,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
-        ret_ = calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
         assertEq(15, ret_.getNumber());
     }
     @Test
@@ -1868,7 +1868,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        calculateError("pkg.ExTwo", id_, args_, cont_);
         assertNotNull(getException(cont_));
     }
     @Test
@@ -1916,7 +1916,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        calculateError("pkg.ExTwo", id_, args_, cont_);
         assertNotNull(getException(cont_));
     }
     @Test
@@ -1964,7 +1964,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        calculateError("pkg.ExTwo", id_, args_, cont_);
         assertNotNull(getException(cont_));
     }
     @Test
@@ -2012,7 +2012,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        calculateError("pkg.ExTwo", id_, args_, cont_);
         assertNotNull(getException(cont_));
     }
     @Test
@@ -2061,7 +2061,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
-        ret_ = calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
         assertEq(15, ret_.getNumber());
     }
     @Test
@@ -2110,7 +2110,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
-        ret_ = calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
         assertEq("hello", ret_.getString());
     }
     @Test
@@ -2164,7 +2164,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Apply", id_, args_, cont_);
+        calculateError("pkg.Apply", id_, args_, cont_);
         assertNotNull(getException(cont_));
     }
     @Test
@@ -2213,7 +2213,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        calculateError("pkg.ExTwo", id_, args_, cont_);
         assertNotNull(getException(cont_));
     }
     @Test
@@ -2263,7 +2263,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument arg_;
-        arg_ = calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        arg_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
         assertTrue(arg_.isNull());
         assertNull(getException(cont_));
     }
@@ -2313,7 +2313,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        calculateError("pkg.ExTwo", id_, args_, cont_);
         assertNotNull(getException(cont_));
     }
     @Test
@@ -2362,7 +2362,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        calculateError("pkg.ExTwo", id_, args_, cont_);
         assertNotNull(getException(cont_));
     }
     @Test
@@ -2411,7 +2411,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        calculateError("pkg.ExTwo", id_, args_, cont_);
         assertNotNull(getException(cont_));
     }
     @Test
@@ -2460,7 +2460,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        calculateError("pkg.ExTwo", id_, args_, cont_);
         assertNotNull(getException(cont_));
     }
     @Test
@@ -2509,7 +2509,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        calculateError("pkg.ExTwo", id_, args_, cont_);
         assertNotNull(getException(cont_));
     }
     @Test
@@ -2560,7 +2560,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
-        ret_ = calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
         assertEq(16, ret_.getNumber());
     }
     @Test
@@ -2611,7 +2611,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
-        ret_ = calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
         assertTrue(ret_.isNull());
         assertNull(getException(cont_));
     }
@@ -2663,7 +2663,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
-        ret_ = calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
         assertEq(16, ret_.getNumber());
     }
     @Test
@@ -2713,7 +2713,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        calculateError("pkg.ExTwo", id_, args_, cont_);
         assertNotNull(getException(cont_));
     }
     @Test
@@ -2756,7 +2756,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        calculateError("pkg.ExTwo", id_, args_, cont_);
         Struct exc_ = getException(cont_);
         assertTrue(exc_ instanceof InvokeTargetErrorStruct);
         Struct cause_ = ((InvokeTargetErrorStruct)exc_).getCause();
@@ -2804,7 +2804,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        calculateError("pkg.ExTwo", id_, args_, cont_);
         Struct exc_ = getException(cont_);
         assertTrue(exc_ instanceof InvokeTargetErrorStruct);
         Struct cause_ = ((InvokeTargetErrorStruct)exc_).getCause();
@@ -2854,7 +2854,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        Argument arg_ = calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        Argument arg_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
         assertEq(cont_.getStandards().getAliasNullPe(), arg_.getString());
     }
     @Test
@@ -2901,7 +2901,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        Argument arg_ = calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        Argument arg_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
         assertEq("", arg_.getString());
     }
     @Test
@@ -2948,7 +2948,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        Argument arg_ = calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        Argument arg_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
         assertEq(cont_.getStandards().getAliasNullPe(), arg_.getString());
     }
     @Test
@@ -2991,7 +2991,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        calculateError("pkg.ExTwo", id_, args_, cont_);
         Struct exc_ = getException(cont_);
         assertTrue(exc_ instanceof InvokeTargetErrorStruct);
         Struct cause_ = ((InvokeTargetErrorStruct)exc_).getCause();
@@ -3041,7 +3041,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        calculateError("pkg.ExTwo", id_, args_, cont_);
         Struct exc_ = getException(cont_);
         assertTrue(exc_ instanceof CausingErrorStruct);
         Struct cause_ = ((CausingErrorStruct)exc_).getCause();
@@ -3073,7 +3073,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        calculateError("pkg.ExTwo", id_, args_, cont_);
         Struct exc_ = getException(cont_);
         assertEq(cont_.getStandards().getAliasClassNotFoundError(), exc_.getClassName(cont_));
     }
@@ -3103,7 +3103,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        calculateError("pkg.ExTwo", id_, args_, cont_);
         Struct exc_ = getException(cont_);
         assertEq(cont_.getStandards().getAliasNullPe(), exc_.getClassName(cont_));
     }
@@ -3123,7 +3123,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        calculateError("pkg.ExTwo", id_, args_, cont_);
         assertNotNull(getException(cont_));
     }
     @Test
@@ -3142,7 +3142,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        calculateError("pkg.ExTwo", id_, args_, cont_);
         assertNotNull(getException(cont_));
     }
     @Test
@@ -3162,7 +3162,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument arg_;
-        arg_ = calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        arg_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
         assertTrue(arg_.getStruct() instanceof ArrayStruct);
         assertEq("[java.lang.String",arg_.getStruct().getClassName(cont_));
         assertEq(0,(((ArrayStruct)arg_.getStruct()).getInstance()).length);
@@ -3184,7 +3184,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument arg_;
-        arg_ = calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        arg_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
         assertTrue(arg_.getStruct() instanceof ArrayStruct);
         assertEq("[java.lang.String",arg_.getStruct().getClassName(cont_));
         assertEq(1,(((ArrayStruct)arg_.getStruct()).getInstance()).length);
@@ -3208,7 +3208,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument arg_;
-        arg_ = calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        arg_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
         assertTrue(arg_.getStruct() instanceof ArrayStruct);
         assertEq("[java.lang.String",arg_.getStruct().getClassName(cont_));
         assertEq(1,(((ArrayStruct)arg_.getStruct()).getInstance()).length);
@@ -3242,7 +3242,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
-        ret_ = calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
         assertEq("[pkg.Ex", ret_.getString());
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
     }
@@ -3273,7 +3273,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
-        ret_ = calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
         assertEq("[pkg.Ex", ret_.getString());
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
     }
@@ -3329,7 +3329,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq(16, ret_.getNumber());
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
     }
@@ -3384,7 +3384,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq(15, ret_.getNumber());
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
     }
@@ -3438,7 +3438,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        calculateError("pkg.ExTwo", id_, args_, cont_);
         assertNotNull(getException(cont_));
     }
     @Test
@@ -3491,7 +3491,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        calculateError("pkg.ExTwo", id_, args_, cont_);
         assertNotNull(getException(cont_));
     }
     @Test
@@ -3544,7 +3544,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        calculateError("pkg.ExTwo", id_, args_, cont_);
         assertNotNull(getException(cont_));
     }
     @Test
@@ -3598,7 +3598,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
-        ret_ =  calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        ret_ =  calculateNormal("pkg.ExTwo", id_, args_, cont_);
         assertEq(35, ret_.getNumber());
     }
     @Test
@@ -3652,7 +3652,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
-        ret_ =  calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        ret_ =  calculateNormal("pkg.ExTwo", id_, args_, cont_);
         assertEq(35, ret_.getNumber());
     }
     @Test
@@ -3695,7 +3695,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        Argument ret_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
         assertEq(14, ret_.getNumber());
     }
     @Test
@@ -3713,7 +3713,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Apply", id_, args_, cont_);
+        calculateError("pkg.Apply", id_, args_, cont_);
         assertNotNull(getException(cont_));
     }
     @Test
@@ -3738,7 +3738,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq("pkg.Ex", ret_.getString());
     }
     @Test
@@ -3782,7 +3782,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        calculateError("pkg.ExTwo", id_, args_, cont_);
         assertNotNull(getException(cont_));
     }
     @Test
@@ -3826,7 +3826,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        calculateError("pkg.ExTwo", id_, args_, cont_);
         assertNotNull(getException(cont_));
     }
     @Test
@@ -3852,7 +3852,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq("pkg.Ex", ret_.getString());
     }
     @Test
@@ -3913,7 +3913,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(0, ret_.getNumber());
     }
     @Test
@@ -3956,7 +3956,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument arg_;
-        arg_ = calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        arg_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
         assertTrue(arg_.isNull());
         assertNull(getException(cont_));
     }
@@ -3999,7 +3999,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument arg_;
-        arg_ = calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        arg_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
         assertEq(15, arg_.getNumber());
         assertNull(getException(cont_));
     }
@@ -4020,7 +4020,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        calculateError("pkg.ExTwo", id_, args_, cont_);
         ErrorStruct err_ = (ErrorStruct) getException(cont_);
         assertEq("java.lang.$classNotFound",err_.getClassName(cont_));
         assertEq("$void",((StringStruct) err_.getMessage()).getInstance());
@@ -4042,7 +4042,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        calculateError("pkg.ExTwo", id_, args_, cont_);
         ErrorStruct err_ = (ErrorStruct) getException(cont_);
         assertEq("code.expressionlanguage.exceptions.IllegalArgument",err_.getClassName(cont_));
         assertEq("?java.lang.String",((StringStruct) err_.getMessage()).getInstance());
@@ -4067,7 +4067,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        calculateError("pkg.ExTwo", id_, args_, cont_);
         ErrorStruct err_ = (ErrorStruct) getException(cont_);
         assertEq("code.expressionlanguage.exceptions.IllegalArgument",err_.getClassName(cont_));
         assertEq("#T",((StringStruct) err_.getMessage()).getInstance());
@@ -4092,7 +4092,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        calculateError("pkg.ExTwo", id_, args_, cont_);
         ErrorStruct err_ = (ErrorStruct) getException(cont_);
         assertEq("code.expressionlanguage.exceptions.IllegalArgument",err_.getClassName(cont_));
         assertEq("pkg.ExParam",((StringStruct) err_.getMessage()).getInstance());
@@ -4114,7 +4114,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        calculateError("pkg.ExTwo", id_, args_, cont_);
         ErrorStruct err_ = (ErrorStruct) getException(cont_);
         assertEq("code.expressionlanguage.exceptions.NegativeSizeException",err_.getClassName(cont_));
     }
@@ -4135,7 +4135,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        calculateError("pkg.ExTwo", id_, args_, cont_);
         ErrorStruct err_ = (ErrorStruct) getException(cont_);
         assertEq("code.expressionlanguage.exceptions.NegativeSizeException",err_.getClassName(cont_));
         assertEq("-1<0",((StringStruct) err_.getMessage()).getInstance());
@@ -4157,7 +4157,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        Argument argument_ = calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        Argument argument_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
         assertEq("[java.lang.String",argument_.getString());
     }
     @Test
@@ -4177,7 +4177,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        calculateError("pkg.ExTwo", id_, args_, cont_);
         ErrorStruct err_ = (ErrorStruct) getException(cont_);
         assertEq("code.expressionlanguage.exceptions.IllegalArgument",err_.getClassName(cont_));
         assertEq("java.lang.Integer",((StringStruct) err_.getMessage()).getInstance());
@@ -4199,7 +4199,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        Argument argument_ = calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        Argument argument_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
         assertEq(1,argument_.getNumber());
     }
     @Test
@@ -4219,7 +4219,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        calculateError("pkg.ExTwo", id_, args_, cont_);
         ErrorStruct err_ = (ErrorStruct) getException(cont_);
         assertEq("code.expressionlanguage.exceptions.DynamicCastClassException",err_.getClassName(cont_));
         assertEq("java.lang.Integer",((StringStruct) err_.getMessage()).getInstance());
@@ -4241,7 +4241,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        calculateError("pkg.ExTwo", id_, args_, cont_);
         ErrorStruct err_ = (ErrorStruct) getException(cont_);
         assertEq("code.expressionlanguage.exceptions.BadIndexException",err_.getClassName(cont_));
         assertEq("1>=0",((StringStruct) err_.getMessage()).getInstance());
@@ -4263,7 +4263,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        calculateError("pkg.ExTwo", id_, args_, cont_);
         ErrorStruct err_ = (ErrorStruct) getException(cont_);
         assertEq("code.expressionlanguage.exceptions.BadIndexException",err_.getClassName(cont_));
         assertEq("-1<0",((StringStruct) err_.getMessage()).getInstance());
@@ -4285,7 +4285,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        Argument argument_ = calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        Argument argument_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
         assertEq("hello",argument_.getString());
     }
     @Test
@@ -4305,7 +4305,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        calculateError("pkg.ExTwo", id_, args_, cont_);
         ErrorStruct err_ = (ErrorStruct) getException(cont_);
         assertEq("code.expressionlanguage.exceptions.DynamicCastClassException",err_.getClassName(cont_));
         assertEq("java.lang.Integer",((StringStruct) err_.getMessage()).getInstance());
@@ -4327,7 +4327,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        calculateError("pkg.ExTwo", id_, args_, cont_);
         ErrorStruct err_ = (ErrorStruct) getException(cont_);
         assertEq("code.expressionlanguage.exceptions.BadIndexException",err_.getClassName(cont_));
         assertEq("-1<0",((StringStruct) err_.getMessage()).getInstance());
@@ -4349,7 +4349,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        calculateError("pkg.ExTwo", id_, args_, cont_);
         ErrorStruct err_ = (ErrorStruct) getException(cont_);
         assertEq("code.util.exceptions.NullObjectException",err_.getClassName(cont_));
     }
@@ -4370,7 +4370,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        calculateError("pkg.ExTwo", id_, args_, cont_);
         ErrorStruct err_ = (ErrorStruct) getException(cont_);
         assertEq("code.expressionlanguage.exceptions.BadIndexException",err_.getClassName(cont_));
         assertEq("1>=0",((StringStruct) err_.getMessage()).getInstance());
@@ -4392,7 +4392,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        calculateError("pkg.ExTwo", id_, args_, cont_);
         ErrorStruct err_ = (ErrorStruct) getException(cont_);
         assertEq("code.expressionlanguage.exceptions.DynamicArrayStoreException",err_.getClassName(cont_));
         assertEq("java.lang.Integer!=java.lang.String",((StringStruct) err_.getMessage()).getInstance());
@@ -4416,7 +4416,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        Argument argument_ = calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        Argument argument_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
         assertEq("world",argument_.getString());
     }
     @Test
@@ -4436,7 +4436,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        calculateError("pkg.ExTwo", id_, args_, cont_);
         ErrorStruct err_ = (ErrorStruct) getException(cont_);
         assertEq("code.util.exceptions.NullObjectException",err_.getClassName(cont_));
     }
@@ -4457,7 +4457,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        Argument out_ = calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        Argument out_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
         assertEq("",out_.getString());
     }
     @Test
@@ -4477,7 +4477,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        Argument out_ = calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        Argument out_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
         assertEq("",out_.getString());
     }
     @Test
@@ -4497,7 +4497,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        Argument out_ = calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        Argument out_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
         assertEq("1",out_.getString());
     }
     @Test
@@ -4517,7 +4517,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        Argument out_ = calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        Argument out_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
         assertEq(0,out_.getNumber());
     }
     @Test
@@ -4537,7 +4537,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        Argument out_ = calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        Argument out_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
         assertTrue(out_.isFalse());
     }
     @Test
@@ -4557,7 +4557,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        Argument out_ = calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        Argument out_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
         assertEq("",out_.getString());
     }
     @Test
@@ -4577,7 +4577,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        Argument out_ = calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        Argument out_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
         assertEq("",out_.getString());
     }
     @Test
@@ -4597,7 +4597,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        Argument out_ = calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        Argument out_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
         assertEq("HELLO",out_.getString());
     }
     @Test
@@ -4617,7 +4617,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        Argument out_ = calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        Argument out_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
         assertEq("code.util.Replacement",out_.getObjectClassName(cont_));
     }
     @Test
@@ -4637,7 +4637,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        Argument out_ = calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        Argument out_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
         assertEq("code.util.Replacement",out_.getObjectClassName(cont_));
     }
     @Test
@@ -4657,7 +4657,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        Argument out_ = calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        Argument out_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
         assertEq("code.util.Replacement",out_.getObjectClassName(cont_));
     }
     @Test
@@ -4677,7 +4677,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        Argument out_ = calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        Argument out_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
         assertEq("java.lang.Object",out_.getObjectClassName(cont_));
     }
     @Test
@@ -4699,7 +4699,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        calculateError("pkg.ExTwo", id_, args_, cont_);
         ErrorStruct err_ = (ErrorStruct) getException(cont_);
         assertEq("code.util.exceptions.NullObjectException",err_.getClassName(cont_));
     }
@@ -4722,7 +4722,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        calculateError("pkg.ExTwo", id_, args_, cont_);
         ErrorStruct err_ = (ErrorStruct) getException(cont_);
         assertEq("code.util.exceptions.NullObjectException",err_.getClassName(cont_));
     }
@@ -4745,7 +4745,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        calculateError("pkg.ExTwo", id_, args_, cont_);
         ErrorStruct err_ = (ErrorStruct) getException(cont_);
         assertEq("code.util.exceptions.NullObjectException",err_.getClassName(cont_));
     }
@@ -4768,7 +4768,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        Argument out_ = calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        Argument out_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
         assertTrue(out_.isNull());
     }
     @Test
@@ -4790,7 +4790,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        Argument out_ = calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        Argument out_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
         assertTrue(out_.isNull());
     }
     @Test
@@ -4817,7 +4817,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertTrue(!cont_.getClasses().isInitialized("pkg.ExTwo..ExThree"));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        Argument out_ = calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        Argument out_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
         assertEq("ONE",out_.getString());
     }
     @Test
@@ -4844,7 +4844,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertTrue(!cont_.getClasses().isInitialized("pkg.ExTwo..ExThree"));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        Argument out_ = calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        Argument out_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
         assertEq("TWO",out_.getString());
     }
     @Test
@@ -4871,7 +4871,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertTrue(!cont_.getClasses().isInitialized("pkg.ExTwo..ExThree"));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        Argument out_ = calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        Argument out_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
         assertEq(1,out_.getNumber());
     }
     @Test
@@ -4893,7 +4893,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        Argument out_ = calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        Argument out_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
         assertTrue(out_.isNull());
     }
     @Test
@@ -4921,7 +4921,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq("pkg.Ex", ret_.getString());
         assertTrue(!cont_.getClasses().isInitialized("pkg.Ex"));
         assertTrue(cont_.getClasses().isInitialized("pkg.ExTwo"));
@@ -4951,7 +4951,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq("pkg.Ex", ret_.getString());
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         assertTrue(cont_.getClasses().isInitialized("pkg.ExTwo"));
@@ -4981,7 +4981,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq("pkg.Ex<java.lang.Number,java.lang.String>", ret_.getString());
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         assertTrue(cont_.getClasses().isInitialized("pkg.ExTwo"));
@@ -5011,7 +5011,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq("[pkg.Ex", ret_.getString());
         assertTrue(!cont_.getClasses().isInitialized("pkg.Ex"));
         assertTrue(cont_.getClasses().isInitialized("pkg.ExTwo"));
@@ -5041,7 +5041,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq("[pkg.Ex", ret_.getString());
         assertTrue(!cont_.getClasses().isInitialized("pkg.Ex"));
         assertTrue(cont_.getClasses().isInitialized("pkg.ExTwo"));
@@ -5071,7 +5071,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq("[pkg.Ex", ret_.getString());
         assertTrue(!cont_.getClasses().isInitialized("pkg.Ex"));
         assertTrue(cont_.getClasses().isInitialized("pkg.ExTwo"));
@@ -5101,7 +5101,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq("[pkg.Ex", ret_.getString());
         assertTrue(!cont_.getClasses().isInitialized("pkg.Ex"));
         assertTrue(cont_.getClasses().isInitialized("pkg.ExTwo"));
@@ -5131,7 +5131,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq("[pkg.Ex", ret_.getString());
         assertTrue(!cont_.getClasses().isInitialized("pkg.Ex"));
         assertTrue(cont_.getClasses().isInitialized("pkg.ExTwo"));
@@ -5162,7 +5162,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq("pkg.Ex..ExTwo", ret_.getString());
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex..ExTwo"));
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
@@ -5194,7 +5194,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq("pkg.ExThree<pkg.Ex..ExTwo>", ret_.getString());
         assertTrue(!cont_.getClasses().isInitialized("pkg.Ex..ExTwo"));
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
@@ -5227,7 +5227,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq("pkg.ExFour<pkg.ExThree<java.lang.Number,pkg.Ex..ExTwo>>", ret_.getString());
         assertTrue(!cont_.getClasses().isInitialized("pkg.Ex..ExTwo"));
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
@@ -5259,7 +5259,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq("pkg.Ex..ExTwo<java.lang.Number,pkg.ExThree>", ret_.getString());
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex..ExTwo"));
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
@@ -5291,7 +5291,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq("pkg.ExThree<?pkg.Ex..ExTwo>", ret_.getString());
         assertTrue(!cont_.getClasses().isInitialized("pkg.Ex..ExTwo"));
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
@@ -5323,7 +5323,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq("pkg.ExThree<!pkg.Ex..ExTwo>", ret_.getString());
         assertTrue(!cont_.getClasses().isInitialized("pkg.Ex..ExTwo"));
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
@@ -5355,7 +5355,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq("pkg.ExThree<?>", ret_.getString());
         assertTrue(!cont_.getClasses().isInitialized("pkg.Ex..ExTwo"));
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
@@ -5387,7 +5387,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq("[pkg.ExThree<java.lang.Number,?java.lang.Number>", ret_.getString());
         assertTrue(!cont_.getClasses().isInitialized("pkg.Ex..ExTwo"));
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
@@ -5419,7 +5419,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq("java.lang.$Fct<java.lang.Number,$void>", ret_.getString());
         assertTrue(!cont_.getClasses().isInitialized("pkg.Ex..ExTwo"));
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
@@ -5451,7 +5451,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq("$int", ret_.getString());
         assertTrue(!cont_.getClasses().isInitialized("pkg.Ex..ExTwo"));
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
@@ -5480,7 +5480,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Apply", id_, args_, cont_);
+        calculateError("pkg.Apply", id_, args_, cont_);
         ErrorStruct err_ = (ErrorStruct) getException(cont_);
         assertEq("java.lang.$classNotFound",err_.getClassName(cont_));
         assertEq("pkg.Ex<",((StringStruct)err_.getMessage()).getInstance());
@@ -5509,7 +5509,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Apply", id_, args_, cont_);
+        calculateError("pkg.Apply", id_, args_, cont_);
         ErrorStruct err_ = (ErrorStruct) getException(cont_);
         assertEq("java.lang.$classNotFound",err_.getClassName(cont_));
         assertEq("pkg.Ex<>",((StringStruct)err_.getMessage()).getInstance());
@@ -5538,7 +5538,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Apply", id_, args_, cont_);
+        calculateError("pkg.Apply", id_, args_, cont_);
         ErrorStruct err_ = (ErrorStruct) getException(cont_);
         assertEq("java.lang.$classNotFound",err_.getClassName(cont_));
         assertEq("pkg.Ex<>>",((StringStruct)err_.getMessage()).getInstance());
@@ -5567,7 +5567,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Apply", id_, args_, cont_);
+        calculateError("pkg.Apply", id_, args_, cont_);
         ErrorStruct err_ = (ErrorStruct) getException(cont_);
         assertEq("java.lang.$classNotFound",err_.getClassName(cont_));
         assertEq("??pkg.Ex",((StringStruct)err_.getMessage()).getInstance());
@@ -5596,7 +5596,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Apply", id_, args_, cont_);
+        calculateError("pkg.Apply", id_, args_, cont_);
         ErrorStruct err_ = (ErrorStruct) getException(cont_);
         assertEq("java.lang.$classNotFound",err_.getClassName(cont_));
         assertEq("?pkg.Ex..ExTwo",((StringStruct)err_.getMessage()).getInstance());
@@ -5622,7 +5622,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        Argument res_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        Argument res_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq("pkg.Ex..ExTwo..ExThree",res_.getString());
     }
     @Test
@@ -5649,7 +5649,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Apply", id_, args_, cont_);
+        calculateError("pkg.Apply", id_, args_, cont_);
         ErrorStruct err_ = (ErrorStruct) getException(cont_);
         assertEq("java.lang.$classNotFound",err_.getClassName(cont_));
         assertEq("pkg.Ex..ExTwo",((StringStruct)err_.getMessage()).getInstance());
@@ -5678,7 +5678,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Apply", id_, args_, cont_);
+        calculateError("pkg.Apply", id_, args_, cont_);
         ErrorStruct err_ = (ErrorStruct) getException(cont_);
         assertEq("java.lang.$classNotFound",err_.getClassName(cont_));
         assertEq("?pkg.Ex",((StringStruct)err_.getMessage()).getInstance());
@@ -5707,7 +5707,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Apply", id_, args_, cont_);
+        calculateError("pkg.Apply", id_, args_, cont_);
         ErrorStruct err_ = (ErrorStruct) getException(cont_);
         assertEq("java.lang.$classNotFound",err_.getClassName(cont_));
         assertEq("pkg.Ex,pkg.Ex",((StringStruct)err_.getMessage()).getInstance());
@@ -5736,7 +5736,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Apply", id_, args_, cont_);
+        calculateError("pkg.Apply", id_, args_, cont_);
         ErrorStruct err_ = (ErrorStruct) getException(cont_);
         assertEq("java.lang.$classNotFound",err_.getClassName(cont_));
         assertEq("pkg.Ex.",((StringStruct)err_.getMessage()).getInstance());
@@ -5765,7 +5765,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Apply", id_, args_, cont_);
+        calculateError("pkg.Apply", id_, args_, cont_);
         ErrorStruct err_ = (ErrorStruct) getException(cont_);
         assertEq("java.lang.$classNotFound",err_.getClassName(cont_));
         assertEq("#T",((StringStruct)err_.getMessage()).getInstance());
@@ -5794,7 +5794,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Apply", id_, args_, cont_);
+        calculateError("pkg.Apply", id_, args_, cont_);
         ErrorStruct err_ = (ErrorStruct) getException(cont_);
         assertEq("java.lang.$classNotFound",err_.getClassName(cont_));
         assertEq("!!pkg.Ex",((StringStruct)err_.getMessage()).getInstance());
@@ -5823,7 +5823,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Apply", id_, args_, cont_);
+        calculateError("pkg.Apply", id_, args_, cont_);
         ErrorStruct err_ = (ErrorStruct) getException(cont_);
         assertEq("java.lang.$classNotFound",err_.getClassName(cont_));
         assertEq("pkg.Ex[",((StringStruct)err_.getMessage()).getInstance());
@@ -5852,7 +5852,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Apply", id_, args_, cont_);
+        calculateError("pkg.Apply", id_, args_, cont_);
         ErrorStruct err_ = (ErrorStruct) getException(cont_);
         assertEq("java.lang.$classNotFound",err_.getClassName(cont_));
         assertEq("pkg.Ex]",((StringStruct)err_.getMessage()).getInstance());
@@ -5881,7 +5881,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Apply", id_, args_, cont_);
+        calculateError("pkg.Apply", id_, args_, cont_);
         ErrorStruct err_ = (ErrorStruct) getException(cont_);
         assertEq("java.lang.$classNotFound",err_.getClassName(cont_));
         assertEq("pkg.Ex[]$int[]",((StringStruct)err_.getMessage()).getInstance());
@@ -5910,7 +5910,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Apply", id_, args_, cont_);
+        calculateError("pkg.Apply", id_, args_, cont_);
         ErrorStruct err_ = (ErrorStruct) getException(cont_);
         assertEq("java.lang.$classNotFound",err_.getClassName(cont_));
         assertEq("pkg.Ex<Number>$int",((StringStruct)err_.getMessage()).getInstance());
@@ -5939,7 +5939,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Apply", id_, args_, cont_);
+        calculateError("pkg.Apply", id_, args_, cont_);
         ErrorStruct err_ = (ErrorStruct) getException(cont_);
         assertEq("java.lang.$classNotFound",err_.getClassName(cont_));
         assertEq("..pkg.Ex",((StringStruct)err_.getMessage()).getInstance());
@@ -5968,7 +5968,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Apply", id_, args_, cont_);
+        calculateError("pkg.Apply", id_, args_, cont_);
         ErrorStruct err_ = (ErrorStruct) getException(cont_);
         assertEq("java.lang.$classNotFound",err_.getClassName(cont_));
         assertEq("[",((StringStruct)err_.getMessage()).getInstance());
@@ -5997,7 +5997,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Apply", id_, args_, cont_);
+        calculateError("pkg.Apply", id_, args_, cont_);
         ErrorStruct err_ = (ErrorStruct) getException(cont_);
         assertEq("java.lang.$classNotFound",err_.getClassName(cont_));
         assertEq("]",((StringStruct)err_.getMessage()).getInstance());
@@ -6026,7 +6026,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Apply", id_, args_, cont_);
+        calculateError("pkg.Apply", id_, args_, cont_);
         ErrorStruct err_ = (ErrorStruct) getException(cont_);
         assertEq("java.lang.$classNotFound",err_.getClassName(cont_));
         assertEq("[]",((StringStruct)err_.getMessage()).getInstance());
@@ -6055,7 +6055,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Apply", id_, args_, cont_);
+        calculateError("pkg.Apply", id_, args_, cont_);
         ErrorStruct err_ = (ErrorStruct) getException(cont_);
         assertEq("java.lang.$classNotFound",err_.getClassName(cont_));
         assertEq("!",((StringStruct)err_.getMessage()).getInstance());
@@ -6084,7 +6084,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Apply", id_, args_, cont_);
+        calculateError("pkg.Apply", id_, args_, cont_);
         ErrorStruct err_ = (ErrorStruct) getException(cont_);
         assertEq("java.lang.$classNotFound",err_.getClassName(cont_));
         assertEq("?",((StringStruct)err_.getMessage()).getInstance());
@@ -6113,7 +6113,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Apply", id_, args_, cont_);
+        calculateError("pkg.Apply", id_, args_, cont_);
         ErrorStruct err_ = (ErrorStruct) getException(cont_);
         assertEq("java.lang.$classNotFound",err_.getClassName(cont_));
         assertEq("java.lang.$Fct<?java.lang.Number>",((StringStruct)err_.getMessage()).getInstance());
@@ -6142,7 +6142,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Apply", id_, args_, cont_);
+        calculateError("pkg.Apply", id_, args_, cont_);
         ErrorStruct err_ = (ErrorStruct) getException(cont_);
         assertEq("java.lang.$classNotFound",err_.getClassName(cont_));
         assertEq("java.lang.$Fct<$void,java.lang.Number>",((StringStruct)err_.getMessage()).getInstance());
@@ -6171,7 +6171,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Apply", id_, args_, cont_);
+        calculateError("pkg.Apply", id_, args_, cont_);
         ErrorStruct err_ = (ErrorStruct) getException(cont_);
         assertEq("java.lang.$classNotFound",err_.getClassName(cont_));
         assertEq("$void[]",((StringStruct)err_.getMessage()).getInstance());
@@ -6200,7 +6200,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Apply", id_, args_, cont_);
+        calculateError("pkg.Apply", id_, args_, cont_);
         ErrorStruct err_ = (ErrorStruct) getException(cont_);
         assertEq("java.lang.$classNotFound",err_.getClassName(cont_));
         assertEq("pkg.Ex<$void>",((StringStruct)err_.getMessage()).getInstance());
@@ -6229,7 +6229,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Apply", id_, args_, cont_);
+        calculateError("pkg.Apply", id_, args_, cont_);
         ErrorStruct err_ = (ErrorStruct) getException(cont_);
         assertEq("java.lang.$classNotFound",err_.getClassName(cont_));
         assertEq("pkg.Ex<Number>",((StringStruct)err_.getMessage()).getInstance());
@@ -6258,7 +6258,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Apply", id_, args_, cont_);
+        calculateError("pkg.Apply", id_, args_, cont_);
         ErrorStruct err_ = (ErrorStruct) getException(cont_);
         assertEq("java.lang.$classNotFound",err_.getClassName(cont_));
         assertEq("..",((StringStruct)err_.getMessage()).getInstance());
@@ -6287,7 +6287,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Apply", id_, args_, cont_);
+        calculateError("pkg.Apply", id_, args_, cont_);
         ErrorStruct err_ = (ErrorStruct) getException(cont_);
         assertEq("java.lang.$classNotFound",err_.getClassName(cont_));
         assertEq("<java.lang.Number>",((StringStruct)err_.getMessage()).getInstance());
@@ -6309,7 +6309,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq(127, ret_.getNumber());
     }
 
@@ -6328,7 +6328,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Apply", id_, args_, cont_);
+        calculateError("pkg.Apply", id_, args_, cont_);
         ErrorStruct err_ = (ErrorStruct) getException(cont_);
         assertEq("code.expressionlanguage.exceptions.IllegalArgument",err_.getClassName(cont_));
     }
@@ -6352,7 +6352,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertTrue(ret_.isTrue());
     }
     @Test
@@ -6383,7 +6383,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        calculateNormal("pkg.ExTwo", id_, args_, cont_);
         assertNull(getException(cont_));
     }
     @Test
@@ -6401,6 +6401,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ArrayStruct s_ = new ArrayStruct(arr_,"[java.lang.Object");
         args_.add(new Argument(s_));
         Argument out_ = ProcessMethod.reflectArgument(new Argument(m_), args_, cont_, ReflectingType.METHOD, false);
+        assertNull(getException(cont_));
         assertEq(1, out_.getNumber());
     }
     @Test
@@ -6418,6 +6419,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ArrayStruct s_ = new ArrayStruct(arr_,"[java.lang.Object");
         args_.add(new Argument(s_));
         Argument out_ = ProcessMethod.reflectArgument(new Argument(m_), args_, cont_, ReflectingType.DIRECT, false);
+        assertNull(getException(cont_));
         assertEq(1, out_.getNumber());
     }
 }

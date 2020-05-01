@@ -43,7 +43,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
-        ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
+        ret_ = instanceNormal("pkg.Ex", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
@@ -81,7 +81,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
-        ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
+        ret_ = instanceNormal("pkg.Ex", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
@@ -126,7 +126,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
-        ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
+        ret_ = instanceNormal("pkg.Ex", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
@@ -172,7 +172,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
-        ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
+        ret_ = instanceNormal("pkg.Ex", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
@@ -219,7 +219,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
-        ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
+        ret_ = instanceNormal("pkg.Ex", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
@@ -265,7 +265,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
-        ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
+        ret_ = instanceNormal("pkg.Ex", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
@@ -318,7 +318,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
         Argument ret_;
-        ret_ = instanceArgument("pkg.ExCont", null, id_, args_, cont_);
+        ret_ = instanceNormal("pkg.ExCont", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
         assertEq("pkg.ExCont", str_.getClassName(cont_));
         Struct field_;
@@ -364,7 +364,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
         Argument ret_;
-        ret_ = instanceArgument("pkg.ExCont", null, id_, args_, cont_);
+        ret_ = instanceNormal("pkg.ExCont", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
         assertEq("pkg.ExCont", str_.getClassName(cont_));
         Struct field_;
@@ -410,7 +410,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
         Argument ret_;
-        ret_ = instanceArgument("pkg.ExCont", null, id_, args_, cont_);
+        ret_ = instanceNormal("pkg.ExCont", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
         assertEq("pkg.ExCont", str_.getClassName(cont_));
         Struct field_;
@@ -462,7 +462,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
         Argument ret_;
-        ret_ = instanceArgument("pkg.ExCont", null, id_, args_, cont_);
+        ret_ = instanceNormal("pkg.ExCont", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
         assertEq("pkg.ExCont", str_.getClassName(cont_));
         Struct field_;
@@ -514,7 +514,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
         Argument ret_;
-        ret_ = instanceArgument("pkg.ExCont", null, id_, args_, cont_);
+        ret_ = instanceNormal("pkg.ExCont", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
         assertEq("pkg.ExCont", str_.getClassName(cont_));
         Struct field_;
@@ -566,7 +566,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
         Argument ret_;
-        ret_ = instanceArgument("pkg.ExCont", null, id_, args_, cont_);
+        ret_ = instanceNormal("pkg.ExCont", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
         assertEq("pkg.ExCont", str_.getClassName(cont_));
         Struct field_;
@@ -604,7 +604,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         ConstructorId id_ = getConstructorId("pkgtwo.ExThree");
 
         Argument ret_;
-        ret_ = instanceArgument("pkgtwo.ExThree", null, id_, args_, cont_);
+        ret_ = instanceNormal("pkgtwo.ExThree", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkgtwo.ExThree"));
         Struct str_ = ret_.getStruct();
         assertEq("pkgtwo.ExThree", str_.getClassName(cont_));
@@ -642,7 +642,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
-        ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
+        ret_ = instanceNormal("pkg.Ex", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
@@ -680,7 +680,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
-        ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
+        ret_ = instanceNormal("pkg.Ex", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
@@ -718,7 +718,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
-        ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
+        ret_ = instanceNormal("pkg.Ex", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
@@ -754,7 +754,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         ConstructorId id_ = getConstructorId("pkgtwo.ExThree");
 
         Argument ret_;
-        ret_ = instanceArgument("pkgtwo.ExThree", null, id_, args_, cont_);
+        ret_ = instanceNormal("pkgtwo.ExThree", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkgtwo.ExThree"));
         Struct str_ = ret_.getStruct();
         assertEq("pkgtwo.ExThree", str_.getClassName(cont_));
@@ -807,7 +807,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
         Argument ret_;
-        ret_ = instanceArgument("pkg.ExCont", null, id_, args_, cont_);
+        ret_ = instanceNormal("pkg.ExCont", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
         assertEq("pkg.ExCont", str_.getClassName(cont_));
         Struct field_;
@@ -850,7 +850,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
         Argument ret_;
-        ret_ = instanceArgument("pkg.ExThree", null, id_, args_, cont_);
+        ret_ = instanceNormal("pkg.ExThree", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
         assertEq("pkg.ExThree", str_.getClassName(cont_));
         Struct field_;
@@ -893,7 +893,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
         Argument ret_;
-        ret_ = instanceArgument("pkg.ExThree", null, id_, args_, cont_);
+        ret_ = instanceNormal("pkg.ExThree", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
         assertEq("pkg.ExThree", str_.getClassName(cont_));
         Struct field_;
@@ -921,7 +921,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         ConstructorId id_ = getConstructorId("pkg.ExTwo");
 
         Argument ret_;
-        ret_ = instanceArgument("pkg.ExTwo", null, id_, args_, cont_);
+        ret_ = instanceNormal("pkg.ExTwo", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
         assertEq("pkg.ExTwo", str_.getClassName(cont_));
         Struct field_;
@@ -949,7 +949,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         ConstructorId id_ = getConstructorId("pkg.ExTwo");
 
         Argument ret_;
-        ret_ = instanceArgument("pkg.ExTwo", null, id_, args_, cont_);
+        ret_ = instanceNormal("pkg.ExTwo", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
         assertEq("pkg.ExTwo", str_.getClassName(cont_));
         Struct field_;
@@ -987,7 +987,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         ConstructorId id_ = getConstructorId("pkgtwo.ExThree");
 
         Argument ret_;
-        ret_ = instanceArgument("pkgtwo.ExThree", null, id_, args_, cont_);
+        ret_ = instanceNormal("pkgtwo.ExThree", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkgtwo.ExThree"));
         Struct str_ = ret_.getStruct();
         assertEq("pkgtwo.ExThree", str_.getClassName(cont_));
@@ -1026,7 +1026,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         ConstructorId id_ = getConstructorId("pkgtwo.ExThree");
 
         Argument ret_;
-        ret_ = instanceArgument("pkgtwo.ExThree", null, id_, args_, cont_);
+        ret_ = instanceNormal("pkgtwo.ExThree", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkgtwo.ExThree"));
         Struct str_ = ret_.getStruct();
         assertEq("pkgtwo.ExThree", str_.getClassName(cont_));
@@ -1066,7 +1066,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
         Argument ret_;
-        ret_ = instanceArgument("pkg.ExCont", null, id_, args_, cont_);
+        ret_ = instanceNormal("pkg.ExCont", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
         assertEq("pkg.ExCont", str_.getClassName(cont_));
         Struct field_;
@@ -1105,7 +1105,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
         Argument ret_;
-        ret_ = instanceArgument("pkg.ExCont", null, id_, args_, cont_);
+        ret_ = instanceNormal("pkg.ExCont", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
         assertEq("pkg.ExCont", str_.getClassName(cont_));
         Struct field_;
@@ -1156,7 +1156,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
         Argument ret_;
-        ret_ = instanceArgument("pkg.ExCont", null, id_, args_, cont_);
+        ret_ = instanceNormal("pkg.ExCont", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
         assertEq("pkg.ExCont", str_.getClassName(cont_));
         Struct field_;
@@ -1207,7 +1207,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
         Argument ret_;
-        ret_ = instanceArgument("pkg.ExCont", null, id_, args_, cont_);
+        ret_ = instanceNormal("pkg.ExCont", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
         assertEq("pkg.ExCont", str_.getClassName(cont_));
         Struct field_;
@@ -1309,7 +1309,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         ConstructorId id_ = getConstructorId("pkgtwo.ExThree");
 
         Argument ret_;
-        ret_ = instanceArgument("pkgtwo.ExThree", null, id_, args_, cont_);
+        ret_ = instanceNormal("pkgtwo.ExThree", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkgtwo.ExThree"));
         Struct str_ = ret_.getStruct();
         assertEq("pkgtwo.ExThree", str_.getClassName(cont_));
@@ -1348,7 +1348,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         ConstructorId id_ = getConstructorId("pkgtwo.ExThree");
 
         Argument ret_;
-        ret_ = instanceArgument("pkgtwo.ExThree", null, id_, args_, cont_);
+        ret_ = instanceNormal("pkgtwo.ExThree", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkgtwo.ExThree"));
         Struct str_ = ret_.getStruct();
         assertEq("pkgtwo.ExThree", str_.getClassName(cont_));
@@ -1387,7 +1387,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         ConstructorId id_ = getConstructorId("pkgtwo.ExThree");
 
         Argument ret_;
-        ret_ = instanceArgument("pkgtwo.ExThree", null, id_, args_, cont_);
+        ret_ = instanceNormal("pkgtwo.ExThree", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkgtwo.ExThree"));
         Struct str_ = ret_.getStruct();
         assertEq("pkgtwo.ExThree", str_.getClassName(cont_));

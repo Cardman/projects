@@ -47,7 +47,7 @@ public final class ProcessIndexerBisTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq(6, ret_.getNumber());
         assertEq("1 set at 0,5;2 get at 0;3 set at 0,6;4 get at 0;", ((StringStruct)cont_.getClasses().getStaticField(new ClassField("pkg.Ex","calls"))).getInstance());
     }
@@ -84,7 +84,7 @@ public final class ProcessIndexerBisTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq(15, ret_.getNumber());
         assertEq("1 set at 0,5;2 get at 0;3 set at 0,15;", ((StringStruct)cont_.getClasses().getStaticField(new ClassField("pkg.Ex","calls"))).getInstance());
     }
@@ -117,7 +117,7 @@ public final class ProcessIndexerBisTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq(5, ret_.getNumber());
     }
     @Test
@@ -149,7 +149,7 @@ public final class ProcessIndexerBisTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq(5, ret_.getNumber());
     }
     @Test
@@ -181,7 +181,7 @@ public final class ProcessIndexerBisTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq(23, ret_.getNumber());
     }
     @Test
@@ -213,7 +213,7 @@ public final class ProcessIndexerBisTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq(23, ret_.getNumber());
     }
     @Test
@@ -245,7 +245,7 @@ public final class ProcessIndexerBisTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq(23, ret_.getNumber());
     }
     @Test
@@ -277,7 +277,7 @@ public final class ProcessIndexerBisTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq(39, ret_.getNumber());
     }
     @Test
@@ -309,7 +309,7 @@ public final class ProcessIndexerBisTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq(39, ret_.getNumber());
     }
     @Test
@@ -341,7 +341,7 @@ public final class ProcessIndexerBisTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq(5, ret_.getNumber());
     }
     @Test
@@ -383,7 +383,7 @@ public final class ProcessIndexerBisTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq(20, ret_.getNumber());
     }
     @Test

@@ -50,7 +50,7 @@ public final class ProcessMethodIterableTableTest extends ProcessMethodCommon {
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
-        ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
+        ret_ = instanceNormal("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
@@ -88,7 +88,7 @@ public final class ProcessMethodIterableTableTest extends ProcessMethodCommon {
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
-        ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
+        ret_ = instanceNormal("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
@@ -126,7 +126,7 @@ public final class ProcessMethodIterableTableTest extends ProcessMethodCommon {
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
-        ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
+        ret_ = instanceNormal("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
@@ -161,7 +161,7 @@ public final class ProcessMethodIterableTableTest extends ProcessMethodCommon {
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
-        ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
+        ret_ = instanceNormal("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
@@ -202,7 +202,7 @@ public final class ProcessMethodIterableTableTest extends ProcessMethodCommon {
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
-        ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
+        ret_ = instanceNormal("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
@@ -237,7 +237,7 @@ public final class ProcessMethodIterableTableTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
-        instanceArgument("pkg.Ex", null, id_, args_, cont_);
+        instanceError("pkg.Ex", null, id_, args_, cont_);
         assertEq("code.util.exceptions.NullObjectException",getException(cont_).getClassName(cont_));
     }
     @Test
@@ -266,7 +266,7 @@ public final class ProcessMethodIterableTableTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
-        instanceArgument("pkg.Ex", null, id_, args_, cont_);
+        instanceError("pkg.Ex", null, id_, args_, cont_);
         assertEq("code.util.exceptions.NullObjectException",getException(cont_).getClassName(cont_));
     }
     @Test
@@ -294,7 +294,7 @@ public final class ProcessMethodIterableTableTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
-        instanceArgument("pkg.Ex", null, id_, args_, cont_);
+        instanceError("pkg.Ex", null, id_, args_, cont_);
         assertEq("code.util.exceptions.NullObjectException",getException(cont_).getClassName(cont_));
     }
     @Test
@@ -329,7 +329,7 @@ public final class ProcessMethodIterableTableTest extends ProcessMethodCommon {
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
-        ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
+        ret_ = instanceNormal("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
@@ -370,7 +370,7 @@ public final class ProcessMethodIterableTableTest extends ProcessMethodCommon {
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
-        ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
+        ret_ = instanceNormal("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
@@ -411,7 +411,7 @@ public final class ProcessMethodIterableTableTest extends ProcessMethodCommon {
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
-        ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
+        ret_ = instanceNormal("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
@@ -452,7 +452,7 @@ public final class ProcessMethodIterableTableTest extends ProcessMethodCommon {
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
-        ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
+        ret_ = instanceNormal("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
@@ -492,7 +492,7 @@ public final class ProcessMethodIterableTableTest extends ProcessMethodCommon {
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
-        ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
+        ret_ = instanceNormal("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
@@ -530,7 +530,7 @@ public final class ProcessMethodIterableTableTest extends ProcessMethodCommon {
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
-        ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
+        ret_ = instanceNormal("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
@@ -568,7 +568,7 @@ public final class ProcessMethodIterableTableTest extends ProcessMethodCommon {
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
-        ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
+        ret_ = instanceNormal("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
@@ -606,7 +606,7 @@ public final class ProcessMethodIterableTableTest extends ProcessMethodCommon {
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
-        ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
+        ret_ = instanceNormal("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
@@ -644,7 +644,7 @@ public final class ProcessMethodIterableTableTest extends ProcessMethodCommon {
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
-        ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
+        ret_ = instanceNormal("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
@@ -685,7 +685,7 @@ public final class ProcessMethodIterableTableTest extends ProcessMethodCommon {
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
-        ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
+        ret_ = instanceNormal("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
@@ -726,7 +726,7 @@ public final class ProcessMethodIterableTableTest extends ProcessMethodCommon {
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
-        ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
+        ret_ = instanceNormal("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
@@ -769,7 +769,7 @@ public final class ProcessMethodIterableTableTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("apply");
 
         Argument ret_;
-        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(25, ret_.getNumber());
     }
     @Test
@@ -822,7 +822,7 @@ public final class ProcessMethodIterableTableTest extends ProcessMethodCommon {
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
-        ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
+        ret_ = instanceNormal("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));

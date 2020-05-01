@@ -30,7 +30,7 @@ public final class CoverageBisTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(9, cont_.getCoverage().getCovers().size());
         assertEq(0, cont_.getCoverage().getCovers().getValue(4).size());
         assertEq(0, cont_.getCoverage().getCovers().getValue(5).size());
@@ -68,7 +68,7 @@ public final class CoverageBisTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(14, cont_.getCoverage().getCovers().size());
     }
     @Test
@@ -98,7 +98,7 @@ public final class CoverageBisTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(14, cont_.getCoverage().getCovers().size());
     }
     @Test
@@ -119,7 +119,7 @@ public final class CoverageBisTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(10, cont_.getCoverage().getCovers().size());
         assertEq(3, cont_.getCoverage().getCovers().getValue(4).size());
         assertTrue(cont_.getCoverage().getCovers().getValue(4).firstValue().isFullCovered());
@@ -147,7 +147,7 @@ public final class CoverageBisTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(13, cont_.getCoverage().getCovers().size());
         assertEq(3, cont_.getCoverage().getCovers().getValue(8).size());
         AbstractCoverageResult value_ = cont_.getCoverage().getCovers().getValue(8).firstValue();
@@ -179,7 +179,7 @@ public final class CoverageBisTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(13, cont_.getCoverage().getCovers().size());
         assertEq(3, cont_.getCoverage().getCovers().getValue(8).size());
         AbstractCoverageResult value_ = cont_.getCoverage().getCovers().getValue(8).firstValue();
@@ -206,7 +206,7 @@ public final class CoverageBisTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(8, cont_.getCoverage().getCovers().size());
         assertEq(1, cont_.getCoverage().getCovers().getValue(5).size());
         assertTrue(cont_.getCoverage().getCovers().getValue(5).firstValue().isFullCovered());
@@ -229,7 +229,7 @@ public final class CoverageBisTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(2, cont_.getCoverage().getCalls().getVal("pkg.Ex").size());
         assertTrue(cont_.getCoverage().getCalls().getVal("pkg.Ex").firstValue());
         assertTrue(!cont_.getCoverage().getCalls().getVal("pkg.Ex").lastValue());
@@ -267,7 +267,7 @@ public final class CoverageBisTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        Argument out_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        Argument out_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(3, out_.getNumber());
         assertEq(2, cont_.getCoverage().getCalls().getVal("").size());
         assertTrue(cont_.getCoverage().getCalls().getVal("").firstValue());
@@ -298,7 +298,7 @@ public final class CoverageBisTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(1, cont_.getCoverage().getCatches().size());
         assertTrue(cont_.getCoverage().getCatches().firstValue());
     }
@@ -327,7 +327,7 @@ public final class CoverageBisTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(1, cont_.getCoverage().getCatches().size());
         assertTrue(!cont_.getCoverage().getCatches().firstValue());
     }

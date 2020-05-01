@@ -19,6 +19,8 @@ import code.util.EntryCust;
 import code.util.StringList;
 import code.util.StringMap;
 
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 public abstract class ProcessMethodCommon {
@@ -36,7 +38,8 @@ public abstract class ProcessMethodCommon {
     protected static void validate(AnalysisMessages _mess, KeyWords _definedKw, LgNames _definedLgNames, StringMap<String> _files, ContextEl _contextEl) {
         ContextFactory.validate(_mess, _definedKw,_definedLgNames,_files,_contextEl,"src");
     }
-    protected static Argument calculateArgument(String _class, MethodId _method, CustList<Argument> _args, ContextEl _cont) {
+
+    protected static Argument calculateError(String _class, MethodId _method, CustList<Argument> _args, ContextEl _cont) {
         MethodId fct_ = new MethodId(_method.getKind(), _method.getName(),_method.getParametersTypes());
         NamedFunctionBlock method_ = Classes.getMethodBodiesById(_cont, _class, fct_).first();
         Block firstChild_ = method_.getFirstChild();
@@ -44,7 +47,21 @@ public abstract class ProcessMethodCommon {
             return new Argument();
         }
         Argument argGlLoc_ = new Argument();
-        return ProcessMethod.calculateArgument(argGlLoc_, _class, fct_, _args, _cont,null);
+        Argument arg_ = ProcessMethod.calculateArgument(argGlLoc_, _class, fct_, _args, _cont, null);
+        assertNotNull(getException(_cont));
+        return arg_;
+    }
+    protected static Argument calculateNormal(String _class, MethodId _method, CustList<Argument> _args, ContextEl _cont) {
+        MethodId fct_ = new MethodId(_method.getKind(), _method.getName(),_method.getParametersTypes());
+        NamedFunctionBlock method_ = Classes.getMethodBodiesById(_cont, _class, fct_).first();
+        Block firstChild_ = method_.getFirstChild();
+        if (firstChild_ == null) {
+            return new Argument();
+        }
+        Argument argGlLoc_ = new Argument();
+        Argument arg_ = ProcessMethod.calculateArgument(argGlLoc_, _class, fct_, _args, _cont, null);
+        assertNull(getException(_cont));
+        return arg_;
     }
 
     protected static MethodId getMethodId(String _name, String..._classNames) {
@@ -55,7 +72,7 @@ public abstract class ProcessMethodCommon {
         return new MethodId(MethodAccessKind.STATIC, _name, cl_);
     }
 
-    protected static Argument instanceArgument(String _class, Argument _global, ConstructorId _id, CustList<Argument> _args, ContextEl _cont) {
+    protected static Argument instanceError(String _class, Argument _global, ConstructorId _id, CustList<Argument> _args, ContextEl _cont) {
         int len_ = _id.getParametersTypes().size();
         StringList constraints_ = new StringList();
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
@@ -64,9 +81,23 @@ public abstract class ProcessMethodCommon {
         }
         ConstructorId id_ = new ConstructorId(_id.getName(),constraints_, false);
         RootBlock type_ = _cont.getClasses().getClassBody(Templates.getIdFromAllTypes(_class));
-        return ProcessMethod.instanceArgument(_class,type_, _global, id_, _args, _cont);
+        Argument arg_ = ProcessMethod.instanceArgument(_class, type_, _global, id_, _args, _cont);
+        assertNotNull(getException(_cont));
+        return arg_;
     }
-
+    protected static Argument instanceNormal(String _class, Argument _global, ConstructorId _id, CustList<Argument> _args, ContextEl _cont) {
+        int len_ = _id.getParametersTypes().size();
+        StringList constraints_ = new StringList();
+        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
+            String n_ = _id.getParametersTypes().get(i);
+            constraints_.add(n_);
+        }
+        ConstructorId id_ = new ConstructorId(_id.getName(),constraints_, false);
+        RootBlock type_ = _cont.getClasses().getClassBody(Templates.getIdFromAllTypes(_class));
+        Argument arg_ = ProcessMethod.instanceArgument(_class, type_, _global, id_, _args, _cont);
+        assertNull(getException(_cont));
+        return arg_;
+    }
     protected static ConstructorId getConstructorId(String _name, String..._classNames) {
         StringList cl_ = new StringList();
         for (String c: _classNames) {

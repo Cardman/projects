@@ -34,7 +34,7 @@ public final class ProcessMethodFullFunctionalInterfaceTest extends ProcessMetho
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertTrue(ret_.getStruct() instanceof FullFunctionalInstance);
         assertEq(0, ((FullFunctionalInstance)ret_.getStruct()).getFields().size());
     }
@@ -58,7 +58,7 @@ public final class ProcessMethodFullFunctionalInterfaceTest extends ProcessMetho
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertSame(NullStruct.NULL_VALUE,ret_.getStruct());
         assertNull(getException(cont_));
     }
@@ -83,7 +83,7 @@ public final class ProcessMethodFullFunctionalInterfaceTest extends ProcessMetho
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertTrue(ret_.isFalse());
         assertNull(getException(cont_));
     }
@@ -108,7 +108,7 @@ public final class ProcessMethodFullFunctionalInterfaceTest extends ProcessMetho
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertTrue(ret_.isTrue());
         assertNull(getException(cont_));
     }
@@ -138,7 +138,7 @@ public final class ProcessMethodFullFunctionalInterfaceTest extends ProcessMetho
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq(15, ret_.getNumber());
     }
     @Test
@@ -170,7 +170,7 @@ public final class ProcessMethodFullFunctionalInterfaceTest extends ProcessMetho
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq(26, ret_.getNumber());
     }
     @Test
@@ -193,7 +193,7 @@ public final class ProcessMethodFullFunctionalInterfaceTest extends ProcessMetho
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq(3, ret_.getNumber());
     }
 
@@ -220,7 +220,7 @@ public final class ProcessMethodFullFunctionalInterfaceTest extends ProcessMetho
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq("simple", ret_.getString());
     }
     @Test
@@ -243,7 +243,7 @@ public final class ProcessMethodFullFunctionalInterfaceTest extends ProcessMetho
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq(3, ret_.getNumber());
     }
 
@@ -273,7 +273,7 @@ public final class ProcessMethodFullFunctionalInterfaceTest extends ProcessMetho
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq(3, ret_.getNumber());
     }
     @Test
@@ -305,7 +305,7 @@ public final class ProcessMethodFullFunctionalInterfaceTest extends ProcessMetho
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq(6, ret_.getNumber());
     }
     @Test
@@ -340,7 +340,7 @@ public final class ProcessMethodFullFunctionalInterfaceTest extends ProcessMetho
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq(10, ret_.getNumber());
     }
     @Test
@@ -378,7 +378,7 @@ public final class ProcessMethodFullFunctionalInterfaceTest extends ProcessMetho
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq(10, ret_.getNumber());
     }
     @Test
@@ -416,7 +416,7 @@ public final class ProcessMethodFullFunctionalInterfaceTest extends ProcessMetho
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq(10, ret_.getNumber());
     }
     @Test
@@ -454,7 +454,7 @@ public final class ProcessMethodFullFunctionalInterfaceTest extends ProcessMetho
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq(10, ret_.getNumber());
     }
 
@@ -493,7 +493,7 @@ public final class ProcessMethodFullFunctionalInterfaceTest extends ProcessMetho
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq(10, ret_.getNumber());
     }
     @Test
@@ -517,7 +517,7 @@ public final class ProcessMethodFullFunctionalInterfaceTest extends ProcessMetho
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq(3, ret_.getNumber());
     }
     @Test
@@ -549,7 +549,7 @@ public final class ProcessMethodFullFunctionalInterfaceTest extends ProcessMetho
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq(16, ret_.getNumber());
     }
     @Test
@@ -589,7 +589,7 @@ public final class ProcessMethodFullFunctionalInterfaceTest extends ProcessMetho
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq(16, ret_.getNumber());
     }
     @Test
@@ -618,7 +618,7 @@ public final class ProcessMethodFullFunctionalInterfaceTest extends ProcessMetho
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ =getMethodId("test");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq("simple call here", ret_.getString());
     }
     @Test
@@ -647,7 +647,7 @@ public final class ProcessMethodFullFunctionalInterfaceTest extends ProcessMetho
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ =getMethodId("test");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq("simple 0", ret_.getString());
     }
     @Test
@@ -672,7 +672,7 @@ public final class ProcessMethodFullFunctionalInterfaceTest extends ProcessMetho
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
-        calculateArgument("pkg.Apply", id_, args_, cont_);
+        calculateError("pkg.Apply", id_, args_, cont_);
         assertNotNull(getException(cont_));
     }
 
@@ -699,7 +699,7 @@ public final class ProcessMethodFullFunctionalInterfaceTest extends ProcessMetho
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
-        calculateArgument("pkg.Apply", id_, args_, cont_);
+        calculateError("pkg.Apply", id_, args_, cont_);
         assertNotNull(getException(cont_));
     }
 
@@ -726,7 +726,7 @@ public final class ProcessMethodFullFunctionalInterfaceTest extends ProcessMetho
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
-        calculateArgument("pkg.Apply", id_, args_, cont_);
+        calculateError("pkg.Apply", id_, args_, cont_);
         assertNotNull(getException(cont_));
     }
     @Test

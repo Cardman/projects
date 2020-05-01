@@ -5,6 +5,7 @@ import code.expressionlanguage.classes.CustLgNames;
 import code.expressionlanguage.errors.AnalysisMessages;
 import code.expressionlanguage.errors.KeyValueMemberName;
 import code.expressionlanguage.methods.ProcessMethod;
+import code.expressionlanguage.methods.ProcessMethodCommon;
 import code.expressionlanguage.opers.util.MethodAccessKind;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.options.ContextFactory;
@@ -16,9 +17,10 @@ import code.util.StringMap;
 import org.junit.Test;
 
 import static code.expressionlanguage.EquallableElUtil.assertEq;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
-public class LgNamesTest {
+public class LgNamesTest extends ProcessMethodCommon {
     @Test
     public void fail1Test() {
         DefaultLockingClass lk_ = new DefaultLockingClass();
@@ -1560,6 +1562,7 @@ public class LgNamesTest {
         MethodId fct_ = new MethodId(MethodAccessKind.STATIC, "exmeth",new StringList());
         Argument argGlLoc_ = new Argument();
         Argument ret_ = ProcessMethod.calculateArgument(argGlLoc_, "pkg.Ex", fct_, args_, contextEl_,null);
+        assertNull(getException(contextEl_));
         assertEq(2, ret_.getNumber());
     }
     @Test
@@ -1590,6 +1593,7 @@ public class LgNamesTest {
         MethodId fct_ = new MethodId(MethodAccessKind.STATIC, "exmeth",new StringList());
         Argument argGlLoc_ = new Argument();
         Argument ret_ = ProcessMethod.calculateArgument(argGlLoc_, "pkg.Ex", fct_, args_, contextEl_,null);
+        assertNull(getException(contextEl_));
         assertEq(2, ret_.getNumber());
     }
     @Test

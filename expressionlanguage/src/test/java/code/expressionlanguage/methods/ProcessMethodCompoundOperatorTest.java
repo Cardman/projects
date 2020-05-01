@@ -44,7 +44,7 @@ public final class ProcessMethodCompoundOperatorTest extends ProcessMethodCommon
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(0, ret_.getNumber());
     }
     @Test
@@ -77,7 +77,7 @@ public final class ProcessMethodCompoundOperatorTest extends ProcessMethodCommon
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(0, ret_.getNumber());
     }
     @Test
@@ -113,7 +113,7 @@ public final class ProcessMethodCompoundOperatorTest extends ProcessMethodCommon
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(0, ret_.getNumber());
     }
 
@@ -148,7 +148,7 @@ public final class ProcessMethodCompoundOperatorTest extends ProcessMethodCommon
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(0, ret_.getNumber());
     }
     @Test
@@ -182,7 +182,7 @@ public final class ProcessMethodCompoundOperatorTest extends ProcessMethodCommon
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(0, ret_.getNumber());
     }
     @Test
@@ -219,7 +219,7 @@ public final class ProcessMethodCompoundOperatorTest extends ProcessMethodCommon
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(0, ret_.getNumber());
     }
 
@@ -254,7 +254,7 @@ public final class ProcessMethodCompoundOperatorTest extends ProcessMethodCommon
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(0, ret_.getNumber());
     }
     @Test
@@ -288,7 +288,7 @@ public final class ProcessMethodCompoundOperatorTest extends ProcessMethodCommon
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(0, ret_.getNumber());
     }
     @Test
@@ -325,7 +325,7 @@ public final class ProcessMethodCompoundOperatorTest extends ProcessMethodCommon
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(0, ret_.getNumber());
     }
     @Test
@@ -359,7 +359,7 @@ public final class ProcessMethodCompoundOperatorTest extends ProcessMethodCommon
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(0, ret_.getNumber());
     }
     @Test
@@ -395,7 +395,7 @@ public final class ProcessMethodCompoundOperatorTest extends ProcessMethodCommon
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(0, ret_.getNumber());
     }
     @Test
@@ -431,7 +431,7 @@ public final class ProcessMethodCompoundOperatorTest extends ProcessMethodCommon
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(0, ret_.getNumber());
     }
     @Test
@@ -462,7 +462,7 @@ public final class ProcessMethodCompoundOperatorTest extends ProcessMethodCommon
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(0, ret_.getNumber());
     }
     @Test
@@ -506,7 +506,7 @@ public final class ProcessMethodCompoundOperatorTest extends ProcessMethodCommon
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        Argument ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        Argument ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq(1, ret_.getNumber());
     }
     @Test
@@ -548,7 +548,7 @@ public final class ProcessMethodCompoundOperatorTest extends ProcessMethodCommon
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        Argument ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        Argument ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq(1, ret_.getNumber());
     }
     @Test
@@ -582,7 +582,7 @@ public final class ProcessMethodCompoundOperatorTest extends ProcessMethodCommon
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        Argument ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        Argument ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(0, ret_.getNumber());
     }
     @Test
@@ -616,7 +616,7 @@ public final class ProcessMethodCompoundOperatorTest extends ProcessMethodCommon
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        Argument ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        Argument ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(0, ret_.getNumber());
     }
     @Test
@@ -660,7 +660,7 @@ public final class ProcessMethodCompoundOperatorTest extends ProcessMethodCommon
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        Argument ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        Argument ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq(1, ret_.getNumber());
     }
     @Test
@@ -702,7 +702,7 @@ public final class ProcessMethodCompoundOperatorTest extends ProcessMethodCommon
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        Argument ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        Argument ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq(1, ret_.getNumber());
     }
     @Test
@@ -733,7 +733,7 @@ public final class ProcessMethodCompoundOperatorTest extends ProcessMethodCommon
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        calculateArgument("pkg.Apply", id_, args_, cont_);
+        calculateError("pkg.Apply", id_, args_, cont_);
         Struct exc_ = getException(cont_);
         assertEq("$core.DefErrorClass",exc_.getClassName(cont_));
         CausingErrorStruct cause_ = (CausingErrorStruct)exc_;
@@ -765,7 +765,7 @@ public final class ProcessMethodCompoundOperatorTest extends ProcessMethodCommon
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        Argument ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        Argument ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq(8, ret_.getNumber());
     }
     @Test
@@ -795,7 +795,7 @@ public final class ProcessMethodCompoundOperatorTest extends ProcessMethodCommon
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        Argument ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        Argument ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq(8, ret_.getNumber());
     }
     @Test
@@ -827,7 +827,7 @@ public final class ProcessMethodCompoundOperatorTest extends ProcessMethodCommon
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        calculateArgument("pkg.Apply", id_, args_, cont_);
+        calculateError("pkg.Apply", id_, args_, cont_);
         Struct exc_ = getException(cont_);
         assertEq("$core.DefErrorClass",exc_.getClassName(cont_));
         CausingErrorStruct cause_ = (CausingErrorStruct)exc_;
@@ -861,7 +861,7 @@ public final class ProcessMethodCompoundOperatorTest extends ProcessMethodCommon
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        calculateArgument("pkg.Apply", id_, args_, cont_);
+        calculateError("pkg.Apply", id_, args_, cont_);
         Struct exc_ = getException(cont_);
         assertEq("$core.DefErrorClass",exc_.getClassName(cont_));
         CausingErrorStruct cause_ = (CausingErrorStruct)exc_;

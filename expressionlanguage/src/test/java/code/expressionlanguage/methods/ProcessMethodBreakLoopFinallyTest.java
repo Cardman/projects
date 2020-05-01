@@ -43,7 +43,7 @@ public final class ProcessMethodBreakLoopFinallyTest extends ProcessMethodCommon
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(323, ret_.getNumber());
     }
 
@@ -78,7 +78,7 @@ public final class ProcessMethodBreakLoopFinallyTest extends ProcessMethodCommon
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(2323, ret_.getNumber());
     }
 
@@ -117,7 +117,7 @@ public final class ProcessMethodBreakLoopFinallyTest extends ProcessMethodCommon
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(3323, ret_.getNumber());
     }
 
@@ -153,7 +153,7 @@ public final class ProcessMethodBreakLoopFinallyTest extends ProcessMethodCommon
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
-        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(323, ret_.getNumber());
     }
 

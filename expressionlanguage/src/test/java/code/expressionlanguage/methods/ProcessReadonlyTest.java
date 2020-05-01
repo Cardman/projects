@@ -44,7 +44,7 @@ public final class ProcessReadonlyTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(10, ret_.getNumber());
     }
     @Test
@@ -71,7 +71,7 @@ public final class ProcessReadonlyTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(10, ret_.getNumber());
     }
     @Test
@@ -98,7 +98,7 @@ public final class ProcessReadonlyTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(10, ret_.getNumber());
     }
     @Test
@@ -124,7 +124,7 @@ public final class ProcessReadonlyTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(50, ret_.getNumber());
     }
     @Test
@@ -164,7 +164,7 @@ public final class ProcessReadonlyTest extends ProcessMethodCommon {
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
         Argument ret_;
-        ret_ = instanceArgument("pkg.ExCont", null, id_, args_, cont_);
+        ret_ = instanceNormal("pkg.ExCont", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
         assertEq("pkg.ExCont", str_.getClassName(cont_));
         Struct field_;
@@ -209,7 +209,7 @@ public final class ProcessReadonlyTest extends ProcessMethodCommon {
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
         Argument ret_;
-        ret_ = instanceArgument("pkg.ExCont", null, id_, args_, cont_);
+        ret_ = instanceNormal("pkg.ExCont", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
         assertEq("pkg.ExCont", str_.getClassName(cont_));
         Struct field_;
@@ -254,7 +254,7 @@ public final class ProcessReadonlyTest extends ProcessMethodCommon {
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
         Argument ret_;
-        ret_ = instanceArgument("pkg.ExCont", null, id_, args_, cont_);
+        ret_ = instanceNormal("pkg.ExCont", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
         assertEq("pkg.ExCont", str_.getClassName(cont_));
         Struct field_;
@@ -299,7 +299,7 @@ public final class ProcessReadonlyTest extends ProcessMethodCommon {
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
         Argument ret_;
-        ret_ = instanceArgument("pkg.ExCont", null, id_, args_, cont_);
+        ret_ = instanceNormal("pkg.ExCont", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
         assertEq("pkg.ExCont", str_.getClassName(cont_));
         Struct field_;
@@ -344,7 +344,7 @@ public final class ProcessReadonlyTest extends ProcessMethodCommon {
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
         Argument ret_;
-        ret_ = instanceArgument("pkg.ExCont", null, id_, args_, cont_);
+        ret_ = instanceNormal("pkg.ExCont", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
         assertEq("pkg.ExCont", str_.getClassName(cont_));
         Struct field_;
@@ -390,7 +390,7 @@ public final class ProcessReadonlyTest extends ProcessMethodCommon {
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
         Argument ret_;
-        ret_ = instanceArgument("pkg.ExCont", null, id_, args_, cont_);
+        ret_ = instanceNormal("pkg.ExCont", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
         assertEq("pkg.ExCont", str_.getClassName(cont_));
         Struct field_;
@@ -420,7 +420,7 @@ public final class ProcessReadonlyTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(4, ret_.getNumber());
     }
     @Test
@@ -444,7 +444,7 @@ public final class ProcessReadonlyTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(10, ret_.getNumber());
     }
     @Test
@@ -478,7 +478,7 @@ public final class ProcessReadonlyTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
-        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(25, ret_.getNumber());
     }
     @Test
@@ -521,7 +521,7 @@ public final class ProcessReadonlyTest extends ProcessMethodCommon {
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
         Argument ret_;
-        ret_ = instanceArgument("pkg.ExCont", null, id_, args_, cont_);
+        ret_ = instanceNormal("pkg.ExCont", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
         assertEq("pkg.ExCont", str_.getClassName(cont_));
         Struct field_;
@@ -549,7 +549,7 @@ public final class ProcessReadonlyTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
         Argument ret_;
-        ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
+        ret_ = instanceNormal("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
@@ -580,7 +580,7 @@ public final class ProcessReadonlyTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
         Argument ret_;
-        ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
+        ret_ = instanceNormal("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
