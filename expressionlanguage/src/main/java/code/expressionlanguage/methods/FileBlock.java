@@ -195,27 +195,31 @@ public final class FileBlock extends BracedBlock implements ImportingBlock {
     }
 
     private void insertTr(StringBuilder _xml, char _ch, int _index) {
-        if (_ch == '<') {
-            _xml.insert(0,"&lt;");
-        } else if (_ch == '>') {
-            _xml.insert(0,"&gt;");
-        } else if (_ch == '&') {
-            _xml.insert(0,"&amp;");
-        } else {
-            if (beginComments.containsObj(_index)) {
-                _xml.insert(0, _ch);
-                _xml.insert(0, "<span class=\"c\">");
-                return;
-            }
-            if (endComments.containsObj(_index)) {
-                _xml.insert(0, "</span>");
-                _xml.insert(0, _ch);
-                return;
-            }
-            _xml.insert(0, _ch);
+        String tr_ = transformText(_ch);
+        if (beginComments.containsObj(_index)) {
+            _xml.insert(0, tr_);
+            _xml.insert(0, "<span class=\"c\">");
+            return;
         }
+        if (endComments.containsObj(_index)) {
+            _xml.insert(0, "</span>");
+            _xml.insert(0, tr_);
+            return;
+        }
+        _xml.insert(0, tr_);
     }
-
+    private static String transformText(char _ch) {
+        if (_ch == '<') {
+            return("&lt;");
+        }
+        if (_ch == '>') {
+            return("&gt;");
+        }
+        if (_ch == '&') {
+            return("&amp;");
+        }
+        return Character.toString(_ch);
+    }
     public CustList<PartOffset> processReport(ContextEl _cont){
         CustList<PartOffset> list_ = new CustList<PartOffset>();
         Block child_ = this;
