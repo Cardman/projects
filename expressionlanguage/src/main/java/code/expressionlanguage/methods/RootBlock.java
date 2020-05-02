@@ -124,7 +124,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
         StringList allElements_ = new StringList();
         for (Block e: Classes.getDirectChildren(this)) {
             if (e instanceof InnerTypeOrElement) {
-                String type_ = ((InnerTypeOrElement)e).getImportedClassName();
+                String type_ = ((InnerTypeOrElement)e).getRealImportedClassName();
                 allElements_.add(type_);
             }
         }

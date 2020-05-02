@@ -9,6 +9,7 @@ public interface InfoBlock extends WithNotEmptyEl, GeneField, AnnotableBlock {
     void buildExpressionLanguageReadOnly(ContextEl _cont);
     void buildExpressionLanguage(ContextEl _cont);
     String getImportedClassName();
+    String getRealImportedClassName();
     void buildImportedType(ContextEl _cont);
     void setAssignmentBefore(Analyzable _an);
     void setAssignmentAfter(Analyzable _an);

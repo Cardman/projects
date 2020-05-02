@@ -123,6 +123,11 @@ public final class FieldBlock extends Leaf implements InfoBlock,AccessibleBlock 
 
     @Override
     public String getImportedClassName() {
+        return getRealImportedClassName();
+    }
+
+    @Override
+    public String getRealImportedClassName() {
         return importedClassName;
     }
 

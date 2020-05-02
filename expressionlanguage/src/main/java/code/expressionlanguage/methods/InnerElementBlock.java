@@ -196,6 +196,11 @@ public final class InnerElementBlock extends RootBlock implements InnerTypeOrEle
 
     @Override
     public String getImportedClassName() {
+        return getFullName();
+    }
+
+    @Override
+    public String getRealImportedClassName() {
         return importedClassName;
     }
 

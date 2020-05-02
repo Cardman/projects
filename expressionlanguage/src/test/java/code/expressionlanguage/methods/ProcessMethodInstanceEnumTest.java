@@ -857,6 +857,58 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
     }
 
     @Test
+    public void initializeClass26Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Ex {;\n");
+        xml_.append("$public $enum ExInner {\n");
+        xml_.append(" ONE{$public $int first=4i;};\n");
+        xml_.append("}\n");
+        xml_.append("$public $static $int field = ExInner.ONE.first;\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElDefault();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        assertTrue(cont_.getClasses().isInitialized("pkg.Ex..ExInner"));
+        assertTrue(cont_.getClasses().isInitialized("pkg.Ex..ExInner-ONE"));
+        Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex..ExInner", "ONE"));
+        assertEq("pkg.Ex..ExInner-ONE", str_.getClassName(cont_));
+        Struct field_;
+        field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.Ex..ExInner-ONE", "first"));
+        assertEq(INTEGER, field_.getClassName(cont_));
+        assertEq(4, ((NumberStruct)field_).intStruct());
+        field_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "field"));
+        assertEq(INTEGER, field_.getClassName(cont_));
+        assertEq(4, ((NumberStruct)field_).intStruct());
+    }
+
+    @Test
+    public void initializeClass27Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Ex {;\n");
+        xml_.append("$public $enum ExInner {\n");
+        xml_.append(" ONE{$public $int first($int add){$return 4i+add;}};\n");
+        xml_.append("}\n");
+        xml_.append("$public $static $int field = ExInner.ONE.first(2);\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElDefault();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        assertTrue(cont_.getClasses().isInitialized("pkg.Ex..ExInner"));
+        assertTrue(cont_.getClasses().isInitialized("pkg.Ex..ExInner-ONE"));
+        Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex..ExInner", "ONE"));
+        assertEq("pkg.Ex..ExInner-ONE", str_.getClassName(cont_));
+        Struct field_;
+        field_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "field"));
+        assertEq(INTEGER, field_.getClassName(cont_));
+        assertEq(6, ((NumberStruct)field_).intStruct());
+    }
+    @Test
     public void initializeClass1FailTest() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $enum pkg.Ex {\n");

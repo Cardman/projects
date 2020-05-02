@@ -249,6 +249,11 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
 
     @Override
     public String getImportedClassName() {
+        return getRealImportedClassName();
+    }
+
+    @Override
+    public String getRealImportedClassName() {
         return importedClassName;
     }
 
