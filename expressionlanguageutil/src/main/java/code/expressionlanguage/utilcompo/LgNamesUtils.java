@@ -4164,7 +4164,7 @@ public class LgNamesUtils extends LgNames {
     }
 
     public CustList<CommentDelimiters> defComments() {
-        String content_ = infos.getReader().read("resources_lg/comments.properties");
+        String content_ = infos.getReader().read("resources_lg/aliases/comments.properties");
         content_ = content_.substring(content_.indexOf('=')+1);
         CustList<CommentDelimiters> comments_ = new CustList<CommentDelimiters>();
         for (String c: StringList.splitChar(

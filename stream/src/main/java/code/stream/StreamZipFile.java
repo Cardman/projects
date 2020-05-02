@@ -15,6 +15,9 @@ public final class StreamZipFile {
 
     public static StringMap<byte[]> zippedBinaryFiles(byte[] _bytes) {
         StringMap<byte[]> files_ = new StringMap<byte[]>();
+        if (_bytes == null) {
+            return null;
+        }
         try {
             ByteArrayInputStream bais_ = new ByteArrayInputStream(_bytes);
             ZipInputStream zis_ = new ZipInputStream(bais_);
