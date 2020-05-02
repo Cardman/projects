@@ -5,6 +5,7 @@ import code.expressionlanguage.calls.util.*;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.errors.AnalysisMessages;
 import code.expressionlanguage.errors.custom.*;
+import code.expressionlanguage.files.CommentDelimiters;
 import code.expressionlanguage.inherits.*;
 import code.expressionlanguage.instr.*;
 import code.expressionlanguage.methods.*;
@@ -60,6 +61,7 @@ public abstract class ContextEl implements ExecutableCode {
     private boolean covering;
     private Coverage coverage;
     private ExecutableCode executingInstance;
+    private CustList<CommentDelimiters> comments = new CustList<CommentDelimiters>();
 
     public ContextEl(boolean _covering, int _stackOverFlow,
                      DefaultLockingClass _lock,Options _options,
@@ -77,6 +79,9 @@ public abstract class ContextEl implements ExecutableCode {
         setThrowing(new LocalThrowing());
         setCoverage(new Coverage());
         classes.setLocks(_lock);
+        comments = _options.getComments();
+//        comments.add(new CommentDelimiters("//",new StringList("\r\n","\r","\n")));
+//        comments.add(new CommentDelimiters("/*",new StringList("*/")));
     }
     protected ContextEl() {
         setExecutingInstance(this);
@@ -2225,4 +2230,7 @@ public abstract class ContextEl implements ExecutableCode {
         return false;
     }
 
+    public CustList<CommentDelimiters> getComments() {
+        return comments;
+    }
 }

@@ -1,5 +1,7 @@
 package code.expressionlanguage.options;
 
+import code.expressionlanguage.files.CommentDelimiters;
+import code.util.CustList;
 import code.util.StringList;
 
 public final class Options {
@@ -7,6 +9,7 @@ public final class Options {
     private StringList typesInit = new StringList();
     private boolean readOnly;
     private boolean failIfNotAllInit;
+    private final CustList<CommentDelimiters> comments = new CustList<CommentDelimiters>();
 
     public StringList getTypesInit() {
         return typesInit;
@@ -26,5 +29,9 @@ public final class Options {
 
     public void setFailIfNotAllInit(boolean _failIfNotAllInit) {
         failIfNotAllInit = _failIfNotAllInit;
+    }
+
+    public CustList<CommentDelimiters> getComments() {
+        return comments;
     }
 }

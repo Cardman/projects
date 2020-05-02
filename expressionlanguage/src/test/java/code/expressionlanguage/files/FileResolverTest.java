@@ -140,11 +140,11 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("pkg.ExTwo;\n");
         file_.append("$class pkgtwo.ExClass {");
         file_.append("}");
-        file_.append("/* multi line*\n");
-        file_.append("comment*/\n");
+        file_.append("\\* multi line*\n");
+        file_.append("comment*\\\n");
         file_.append("$interface pkgtwo.ExInt {");
         file_.append("}");
-        ContextEl context_ = simpleCtx();
+        ContextEl context_ = simpleCtxComment();
         FileResolver.parseFile("my_file", file_.toString(), false, context_);
         assertEq(2, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_, 0).getFullName());
@@ -163,10 +163,10 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("pkg.ExTwo;\n");
         file_.append("$class pkgtwo.ExClass {");
         file_.append("}");
-        file_.append("// multi line\n");
+        file_.append("\\\\ multi line\n");
         file_.append("$interface pkgtwo.ExInt {");
         file_.append("}");
-        ContextEl context_ = simpleCtx();
+        ContextEl context_ = simpleCtxComment();
         FileResolver.parseFile("my_file", file_.toString(), false, context_);
         assertEq(2, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_, 0).getFullName());
@@ -574,11 +574,11 @@ public final class FileResolverTest extends ProcessMethodCommon {
         StringBuilder file_ = new StringBuilder();
         file_.append("pkg.Ex;\n");
         file_.append("pkg.ExTwo;\n");
-        file_.append("/* multi line\n");
-        file_.append("comment*/\n");
+        file_.append("\\* multi line\n");
+        file_.append("comment*\\\n");
         file_.append("$public $enum pkgtwo.Toto : hello.word<Ex> : every.body {\n");
         file_.append("\tONE,\n");
-        file_.append("\t//Simple comment\n");
+        file_.append("\t\\\\Simple comment\n");
         file_.append("\tTHERE(1i,\n3i),\n");
         file_.append("\tHERE;\n");
         file_.append("\t$private $String exfield=\"{IN_BRACE}(){}\"({INNER});\n");
@@ -600,7 +600,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("\t\t$return $unreachable;\n");
         file_.append("\t}\n");
         file_.append("}");
-        ContextEl context_ = simpleCtx();
+        ContextEl context_ = simpleCtxComment();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
@@ -4184,10 +4184,10 @@ public final class FileResolverTest extends ProcessMethodCommon {
         StringBuilder file_ = new StringBuilder();
         file_.append("pkg.Ex;\n");
         file_.append("pkg.ExTwo;\n");
-        file_.append("/* multi line\n");
-        file_.append("comment*/\n");
+        file_.append("\\* multi line\n");
+        file_.append("comment*\\\n");
         file_.append("$public $enum pkgtwo.Toto : hello.word<Ex> : every.body {\n");
-        file_.append("\t//Simple comment\n");
+        file_.append("\t\\\\Simple comment\n");
         file_.append("\tONE,\n");
         file_.append("\tTHERE(1i,\n3i),\n");
         file_.append("\tHERE;\n");
@@ -4210,7 +4210,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("\t\t$return $unreachable;\n");
         file_.append("\t}\n");
         file_.append("}");
-        ContextEl context_ = simpleCtx();
+        ContextEl context_ = simpleCtxComment();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
@@ -4394,10 +4394,10 @@ public final class FileResolverTest extends ProcessMethodCommon {
         StringBuilder file_ = new StringBuilder();
         file_.append("pkg.Ex;\n");
         file_.append("pkg.ExTwo;\n");
-        file_.append("/* multi line\n");
-        file_.append("comment*/\n");
+        file_.append("\\* multi line\n");
+        file_.append("comment*\\\n");
         file_.append("$public $enum pkgtwo.Toto : hello.word<Ex> : every.body {\n");
-        file_.append("\t/*Simple commt*/\n");
+        file_.append("\t\\*Simple commt*\\\n");
         file_.append("\tONE,\n");
         file_.append("\tTHERE(1i,\n3i),\n");
         file_.append("\tHERE;\n");
@@ -4420,7 +4420,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("\t\t$return $unreachable;\n");
         file_.append("\t}\n");
         file_.append("}");
-        ContextEl context_ = simpleCtx();
+        ContextEl context_ = simpleCtxComment();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
@@ -4660,16 +4660,16 @@ public final class FileResolverTest extends ProcessMethodCommon {
         StringBuilder file_ = new StringBuilder();
         file_.append("pkg.Ex;\n");
         file_.append("pkg.ExTwo;\n");
-        file_.append("/* multi line\n");
-        file_.append("comment*/\n");
+        file_.append("\\* multi line\n");
+        file_.append("comment*\\\n");
         file_.append("$public $enum pkgtwo.Toto : hello.word<Ex> : every.body {\n");
         file_.append("\tONE<ExTwo>,\n");
-        file_.append("\t//Simple comment\n");
+        file_.append("\t\\\\Simple comment\n");
         file_.append("\tTHERE<ExThree>(1i,\n3i),\n");
         file_.append("\tHERE;\n");
         file_.append("\t$private $String exfield=\"{IN_BRACE}(){}\"({INNER});\n");
         file_.append("}");
-        ContextEl context_ = simpleCtx();
+        ContextEl context_ = simpleCtxComment();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
@@ -4750,15 +4750,15 @@ public final class FileResolverTest extends ProcessMethodCommon {
         StringBuilder file_ = new StringBuilder();
         file_.append("pkg.Ex;\n");
         file_.append("pkg.ExTwo;\n");
-        file_.append("/* multi line\n");
-        file_.append("comment*/\n");
+        file_.append("\\* multi line\n");
+        file_.append("comment*\\\n");
         file_.append("$public $enum pkgtwo.Toto : hello.word<Ex> : every.body {\n");
         file_.append("\tONE,\n");
-        file_.append("\t//Simple comment\n");
+        file_.append("\t\\\\Simple comment\n");
         file_.append("\t@MyAnnot THERE(1i,\n3i),\n");
         file_.append("\tHERE;\n");
         file_.append("}");
-        ContextEl context_ = simpleCtx();
+        ContextEl context_ = simpleCtxComment();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
@@ -7891,12 +7891,12 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append(" static {\n");
         file_.append("  switch (value) {\n");
         file_.append("   case 0:\n");
-        file_.append("   //comment\n");
+        file_.append("   \\\\comment\n");
         file_.append("   case 1:\n");
         file_.append("  }\n");
         file_.append(" }\n");
         file_.append("}");
-        ContextEl context_ = simpleContextEnDefault();
+        ContextEl context_ = simpleContextEnDefaultComment();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());
@@ -7932,12 +7932,12 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("   case 0:\n");
         file_.append("    first();\n");
         file_.append("    return condition?one:two;\n");
-        file_.append("   //comment\n");
+        file_.append("   \\\\comment\n");
         file_.append("   case 1:\n");
         file_.append("  }\n");
         file_.append(" }\n");
         file_.append("}");
-        ContextEl context_ = simpleContextEnDefault();
+        ContextEl context_ = simpleContextEnDefaultComment();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());
@@ -8645,14 +8645,14 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append(" static {\n");
         file_.append("  switch (value) {\n");
         file_.append("   case 0:\n");
-        file_.append("   //comment\n");
+        file_.append("   \\\\comment\n");
         file_.append("    first();\n");
         file_.append("    return condition?one:two;\n");
         file_.append("   case 1:\n");
         file_.append("  }\n");
         file_.append(" }\n");
         file_.append("}");
-        ContextEl context_ = simpleContextEnDefault();
+        ContextEl context_ = simpleContextEnDefaultComment();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());
@@ -8692,14 +8692,14 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append(" static {\n");
         file_.append("  switch (value) {\n");
         file_.append("   case 0:\n");
-        file_.append("   /*comment * */\n");
+        file_.append("   \\*comment * *\\\n");
         file_.append("    first();\n");
         file_.append("    return condition?one:two;\n");
         file_.append("   case 1:\n");
         file_.append("  }\n");
         file_.append(" }\n");
         file_.append("}");
-        ContextEl context_ = simpleContextEnDefault();
+        ContextEl context_ = simpleContextEnDefaultComment();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());
@@ -9896,6 +9896,20 @@ public final class FileResolverTest extends ProcessMethodCommon {
     private static ContextEl simpleContextEnDefault() {
         //key words in some language
         ContextEl cont_ = getEnContextEl();
+        LgNames stds_ = cont_.getStandards();
+        cont_.setAnalyzing();
+        for (EntryCust<String, String> e: stds_.buildFiles(cont_).entryList()) {
+            String name_ = e.getKey();
+            String content_ = e.getValue();
+            FileResolver.parseFile(name_, content_, true, cont_);
+        }
+        return cont_;
+    }
+    private static ContextEl simpleContextEnDefaultComment() {
+        //key words in some language
+        ContextEl cont_ = getEnContextEl();
+        cont_.getComments().add(new CommentDelimiters("\\\\",new StringList("\r\n","\r","\n")));
+        cont_.getComments().add(new CommentDelimiters("\\*",new StringList("*\\")));
         LgNames stds_ = cont_.getStandards();
         cont_.setAnalyzing();
         for (EntryCust<String, String> e: stds_.buildFiles(cont_).entryList()) {

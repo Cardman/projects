@@ -460,9 +460,9 @@ public final class ClassesBisTest extends ProcessMethodCommon {
         xml_.append(" $static {\n");
         xml_.append("  $switch (value) {\n");
         xml_.append("   $case 0:\n");
-        xml_.append("   //comment\n");
+        xml_.append("   \\\\comment\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElSingleDotDefault();
+        ContextEl cont_ = contextElSingleDotDefaultComment();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().displayErrors(), !cont_.isEmptyErrors());
     }

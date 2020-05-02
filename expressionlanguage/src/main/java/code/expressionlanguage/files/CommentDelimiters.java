@@ -1,9 +1,11 @@
 package code.expressionlanguage.files;
 
+import code.util.StringList;
+
 public final class CommentDelimiters {
     private final String begin;
-    private final String end;
-    public CommentDelimiters(String _begin, String _end) {
+    private final StringList end;
+    public CommentDelimiters(String _begin, StringList _end) {
         begin = _begin;
         end = _end;
     }
@@ -12,7 +14,7 @@ public final class CommentDelimiters {
         return begin;
     }
 
-    public String getEnd() {
+    public StringList getEnd() {
         return end;
     }
 }

@@ -62,9 +62,6 @@ public final class FileResolver {
         }
         int i_ = CustList.FIRST_INDEX;
         int len_ = _file.length();
-        CustList<CommentDelimiters> comments_ = new CustList<CommentDelimiters>();
-        comments_.add(new CommentDelimiters("//","\n"));
-        comments_.add(new CommentDelimiters("/*","*/"));
         CommentDelimiters current_ = null;
         int indexImport_ = 0;
         Ints badIndexes_ = new Ints();
@@ -72,14 +69,20 @@ public final class FileResolver {
         while (i_ < len_) {
             char currentChar_ = _file.charAt(i_);
             if (current_ != null) {
-                String end_ = current_.getEnd();
-                if (_file.startsWith(end_,i_)) {
-                    i_ += end_.length();
-                    if (StringList.quickEq(end_,"\n")) {
-                        fileBlock_.getEndComments().add(i_-2);
-                    } else {
-                        fileBlock_.getEndComments().add(i_-1);
+                boolean endedComment_ = false;
+                for (String e: current_.getEnd()) {
+                    if (_file.startsWith(e,i_)) {
+                        i_ += e.length();
+                        if (e.trim().isEmpty()) {
+                            fileBlock_.getEndComments().add(i_-2);
+                        } else {
+                            fileBlock_.getEndComments().add(i_-1);
+                        }
+                        endedComment_ = true;
+                        break;
                     }
+                }
+                if (endedComment_) {
                     current_ = null;
                     continue;
                 }
@@ -124,7 +127,7 @@ public final class FileResolver {
             }
             if (str_.toString().trim().isEmpty()) {
                 boolean skip_= false;
-                for (CommentDelimiters c: comments_) {
+                for (CommentDelimiters c: _context.getComments()) {
                     if (_file.startsWith(c.getBegin(),i_)) {
                         current_ = c;
                         fileBlock_.getBeginComments().add(i_);
@@ -258,19 +261,22 @@ public final class FileResolver {
             while (i_ < len_) {
                 char currentChar_ = _file.charAt(i_);
                 if (current_ != null) {
-                    String end_ = current_.getEnd();
-                    if (_file.startsWith(end_,i_)) {
-                        i_ += end_.length();
-                        if (StringList.quickEq(end_,"\n")) {
-                            fileBlock_.getEndComments().add(i_-2);
-                        } else {
-                            fileBlock_.getEndComments().add(i_-1);
+                    boolean endedComment_ = false;
+                    for (String e: current_.getEnd()) {
+                        if (_file.startsWith(e,i_)) {
+                            i_ += e.length();
+                            if (e.trim().isEmpty()) {
+                                fileBlock_.getEndComments().add(i_ - 2);
+                            } else {
+                                fileBlock_.getEndComments().add(i_ - 1);
+                            }
+                            endedComment_ = true;
+                            break;
                         }
+                    }
+                    if (endedComment_) {
                         current_ = null;
                         continue;
-                    }
-                    if (i_ + end_.length() >= _file.length()) {
-                        break;
                     }
                     i_++;
                     continue;
@@ -286,7 +292,7 @@ public final class FileResolver {
                     break;
                 }
                 boolean skip_= false;
-                for (CommentDelimiters c: comments_) {
+                for (CommentDelimiters c: _context.getComments()) {
                     if (_file.startsWith(c.getBegin(),i_)) {
                         current_ = c;
                         fileBlock_.getBeginComments().add(i_);
@@ -715,21 +721,24 @@ public final class FileResolver {
         after_.setIndex(i_);
         after_.setParent(currentParent_);
         int ltGt_ = 0;
-        CustList<CommentDelimiters> comments_ = new CustList<CommentDelimiters>();
-        comments_.add(new CommentDelimiters("//","\n"));
-        comments_.add(new CommentDelimiters("/*","*/"));
         CommentDelimiters current_ = null;
         while (i_ < len_) {
             char currentChar_ = _file.charAt(i_);
             if (current_ != null) {
-                String end_ = current_.getEnd();
-                if (_file.startsWith(end_,i_)) {
-                    i_ += end_.length();
-                    if (StringList.quickEq(end_,"\n")) {
-                        fileBlock_.getEndComments().add(i_-2);
-                    } else {
-                        fileBlock_.getEndComments().add(i_-1);
+                boolean ended_ = false;
+                for (String e: current_.getEnd()) {
+                    if (_file.startsWith(e,i_)) {
+                        i_ += e.length();
+                        if (StringList.quickEq(e,"\n")) {
+                            fileBlock_.getEndComments().add(i_-2);
+                        } else {
+                            fileBlock_.getEndComments().add(i_-1);
+                        }
+                        ended_ = true;
+                        break;
                     }
+                }
+                if (ended_) {
                     instruction_.delete(0, instruction_.length());
                     instLen_ = 0;
                     current_ = null;
@@ -821,7 +830,7 @@ public final class FileResolver {
             }
             if (instLen_ == 0) {
                 boolean skip_= false;
-                for (CommentDelimiters c: comments_) {
+                for (CommentDelimiters c: _context.getComments()) {
                     if (_file.startsWith(c.getBegin(),i_)) {
                         current_ = c;
                         fileBlock_.getBeginComments().add(i_);
@@ -1506,7 +1515,7 @@ public final class FileResolver {
             }
             boolean emptySwitchPart_ = false;
             if (br_ instanceof SwitchPartBlock) {
-                int c_ = afterComments(_file, i_ + 1);
+                int c_ = afterComments(_context,_file, i_ + 1);
                 if (c_ < 0) {
                     badIndexes_.add(_file.length());
                     return null;
@@ -3282,19 +3291,22 @@ public final class FileResolver {
         return -1;
     }
 
-    private static int afterComments(String _found, int _from) {
+    private static int afterComments(ContextEl _context,String _found, int _from) {
         int i_ = _from;
         int len_ = _found.length();
-        CustList<CommentDelimiters> comments_ = new CustList<CommentDelimiters>();
-        comments_.add(new CommentDelimiters("//","\n"));
-        comments_.add(new CommentDelimiters("/*","*/"));
         CommentDelimiters current_ = null;
         while (i_ < len_) {
             char cur_ = _found.charAt(i_);
             if (current_ != null) {
-                String end_ = current_.getEnd();
-                if (_found.startsWith(end_,i_)) {
-                    i_ += end_.length();
+                boolean ended_ = false;
+                for (String e: current_.getEnd()) {
+                    if (_found.startsWith(e,i_)) {
+                        i_ += e.length();
+                        ended_ = true;
+                        break;
+                    }
+                }
+                if (ended_) {
                     current_ = null;
                     continue;
                 }
@@ -3302,7 +3314,7 @@ public final class FileResolver {
                 continue;
             }
             boolean skip_= false;
-            for (CommentDelimiters c: comments_) {
+            for (CommentDelimiters c: _context.getComments()) {
                 if (_found.startsWith(c.getBegin(),i_)) {
                     current_ = c;
                     i_ += c.getBegin().length();

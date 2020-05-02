@@ -5,6 +5,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.InitializationLgNames;
 import code.expressionlanguage.calls.util.CallingState;
 import code.expressionlanguage.errors.AnalysisMessages;
+import code.expressionlanguage.files.CommentDelimiters;
 import code.expressionlanguage.files.FileResolver;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.opers.util.*;
@@ -124,6 +125,14 @@ public abstract class ProcessMethodCommon {
         return ct_;
     }
 
+    protected static ContextEl contextElCoverageDefaultComment() {
+        Options opt_ = new Options();
+        opt_.getComments().add(new CommentDelimiters("\\\\",new StringList("\r\n","\r","\n")));
+        opt_.getComments().add(new CommentDelimiters("\\*",new StringList("*\\")));
+        ContextEl ct_ = InitializationLgNames.buildStdOne(opt_);
+        ct_.setCovering(true);
+        return ct_;
+    }
     protected static ContextEl contextElCoverageReadOnlyDef() {
         Options opt_ = new Options();
         opt_.setReadOnly(true);
@@ -325,6 +334,19 @@ public abstract class ProcessMethodCommon {
         }
         return ct_;
     }
+    protected static ContextEl contextElSingleDotDefaultComment(int... _m) {
+        Options opt_ = new Options();
+        opt_.getComments().add(new CommentDelimiters("\\\\",new StringList("\r\n","\r","\n")));
+        opt_.getComments().add(new CommentDelimiters("\\*",new StringList("*\\")));
+
+        ContextEl ct_;
+        if (_m.length == 0) {
+            ct_ = InitializationLgNames.buildStdOne(opt_);
+        } else {
+            ct_ = InitializationLgNames.buildStdOne(_m[0], opt_);
+        }
+        return ct_;
+    }
     protected static ContextEl contextEnElSingleDotDefault() {
         Options opt_ = new Options();
 
@@ -407,6 +429,20 @@ public abstract class ProcessMethodCommon {
 
     protected static ContextEl simpleCtx() {
         Options opt_ = new Options();
+        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        LgNames stds_ = cont_.getStandards();
+        cont_.setAnalyzing();
+        for (EntryCust<String, String> e: stds_.buildFiles(cont_).entryList()) {
+            String name_ = e.getKey();
+            String content_ = e.getValue();
+            FileResolver.parseFile(name_, content_, true, cont_);
+        }
+        return cont_;
+    }
+    protected static ContextEl simpleCtxComment() {
+        Options opt_ = new Options();
+        opt_.getComments().add(new CommentDelimiters("\\\\",new StringList("\r\n","\r","\n")));
+        opt_.getComments().add(new CommentDelimiters("\\*",new StringList("*\\")));
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         LgNames stds_ = cont_.getStandards();
         cont_.setAnalyzing();
