@@ -272,7 +272,7 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
         if (!ctors_.isEmpty()) {
             ConstructorBlock ctor_ = ctors_.first();
             String rel_ = ElUtil.relativize(fileName_,file_+"#m"+ctor_.getNameOffset());
-            String tag_ = "<a name=\"m"+fieldNameOffest+"\" title=\""+ cl_ +"."+ c_.getSignature(_cont)+"\" href=\""+rel_+"\">";
+            String tag_ = "<a name=\"m"+fieldNameOffest+"\" title=\""+ ElUtil.transform(cl_ +"."+ c_.getSignature(_cont))+"\" href=\""+rel_+"\">";
             _parts.add(new PartOffset(tag_,fieldNameOffest));
             tag_ = "</a>";
             _parts.add(new PartOffset(tag_,fieldNameOffest+fieldName.length()));
