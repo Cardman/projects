@@ -10828,6 +10828,48 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "</pre></body></html>", filesExp_.firstValue());
     }
     @Test
+    public void coverageComment15Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static String exmeth(){\n");
+        xml_.append("  String t;\n");
+        xml_.append("  t=\"\\\\\";\n");
+        xml_.append("  \\\\comment\n");
+        xml_.append("  $switch(t){\n");
+        xml_.append("   $default:\n");
+        xml_.append("   \\*EIGHT*\\\n");
+        xml_.append("   $case \"\\\\\":\n");
+        xml_.append("    t+=\"12\";\n");
+        xml_.append("  }\n");
+        xml_.append("  $return t;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElCoverageDefaultComment();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validate(cont_,files_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = FileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex </a>{\n" +
+                " $public $static String <a name=\"m48\">exmeth</a>(){\n" +
+                "  String <span class=\"f\"><a name=\"m67\">t</a></span>;\n" +
+                "  <span class=\"f\"><span class=\"f\"><a href=\"#m67\">t</a></span>=<span class=\"f\"><span class=\"s\">\"\\\\\"</span></span></span>;\n" +
+                "  <span class=\"c\">\\\\comment</span>\n" +
+                "  <span class=\"p\"><a title=\"1/2\">$switch</a></span>(<span class=\"f\"><a href=\"#m67\">t</a></span>){\n" +
+                "   <span class=\"n\">$default</span>:\n" +
+                "   <span class=\"c\">\\*EIGHT*\\</span>\n" +
+                "   $case <span class=\"f\"><span class=\"s\">\"\\\\\"</span></span>:\n" +
+                "    <span class=\"f\"><span class=\"f\"><a href=\"#m67\">t</a></span>+=<span class=\"f\"><span class=\"s\">\"12\"</span></span></span>;\n" +
+                "  }\n" +
+                "  $return <span class=\"f\"><a href=\"#m67\">t</a></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
     public void coverageFailTest() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
