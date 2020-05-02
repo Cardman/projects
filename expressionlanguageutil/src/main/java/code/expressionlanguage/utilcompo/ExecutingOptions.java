@@ -1,5 +1,7 @@
 package code.expressionlanguage.utilcompo;
 
+import code.expressionlanguage.files.CommentDelimiters;
+import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -21,6 +23,7 @@ public final class ExecutingOptions {
     private StringMap<String> messages = new StringMap<String>();
     private StringMap<String> keyWords = new StringMap<String>();
     private StringMap<String> aliases = new StringMap<String>();
+    private CustList<CommentDelimiters> comments = new CustList<CommentDelimiters>();
 
     public String getSrcFolder() {
         return srcFolder;
@@ -128,5 +131,13 @@ public final class ExecutingOptions {
 
     public void setKeyWords(StringMap<String> _keyWords) {
         keyWords = _keyWords;
+    }
+
+    public CustList<CommentDelimiters> getComments() {
+        return comments;
+    }
+
+    public void setComments(CustList<CommentDelimiters> comments) {
+        this.comments = comments;
     }
 }

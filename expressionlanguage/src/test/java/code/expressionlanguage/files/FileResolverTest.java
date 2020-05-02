@@ -9907,9 +9907,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
     }
     private static ContextEl simpleContextEnDefaultComment() {
         //key words in some language
-        ContextEl cont_ = getEnContextEl();
-        cont_.getComments().add(new CommentDelimiters("\\\\",new StringList("\r\n","\r","\n")));
-        cont_.getComments().add(new CommentDelimiters("\\*",new StringList("*\\")));
+        ContextEl cont_ = getEnContextElComment();
         LgNames stds_ = cont_.getStandards();
         cont_.setAnalyzing();
         for (EntryCust<String, String> e: stds_.buildFiles(cont_).entryList()) {

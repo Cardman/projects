@@ -4,6 +4,7 @@ import code.expressionlanguage.*;
 import code.expressionlanguage.classes.CustLgNames;
 import code.expressionlanguage.errors.AnalysisMessages;
 import code.expressionlanguage.errors.KeyValueMemberName;
+import code.expressionlanguage.files.CommentDelimiters;
 import code.expressionlanguage.methods.ProcessMethod;
 import code.expressionlanguage.methods.ProcessMethodCommon;
 import code.expressionlanguage.opers.util.MethodAccessKind;
@@ -1556,7 +1557,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         all_.putAllMap(srcFiles_);
         all_.putAllMap(others_);
         ContextEl contextEl_ = getCtx(lk_, di_, kw_, lgName_);
-        ContextFactory.validate(contextEl_.getAnalysisMessages(),kw_,lgName_,all_,contextEl_,"src");
+        ContextFactory.validate(contextEl_.getAnalysisMessages(),kw_,lgName_,all_,contextEl_,"src", new CustList<CommentDelimiters>());
         assertTrue(contextEl_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId fct_ = new MethodId(MethodAccessKind.STATIC, "exmeth",new StringList());

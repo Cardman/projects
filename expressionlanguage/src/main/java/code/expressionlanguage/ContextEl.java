@@ -80,8 +80,6 @@ public abstract class ContextEl implements ExecutableCode {
         setCoverage(new Coverage());
         classes.setLocks(_lock);
         comments = _options.getComments();
-//        comments.add(new CommentDelimiters("//",new StringList("\r\n","\r","\n")));
-//        comments.add(new CommentDelimiters("/*",new StringList("*/")));
     }
     protected ContextEl() {
         setExecutingInstance(this);

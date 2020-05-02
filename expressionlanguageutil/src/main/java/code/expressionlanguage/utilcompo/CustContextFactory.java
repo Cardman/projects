@@ -96,7 +96,7 @@ public final class CustContextFactory {
         CustInitializer ci_ = new CustInitializer();
         RunnableContextEl r_ = new RunnableContextEl(_stack, cl_, ci_, _options, _exec, _mess,_definedKw, _definedLgNames,_tabWidth);
         r_.setCovering(_exec.isCovering());
-        ContextFactory.validate(_mess,_definedKw,_definedLgNames,_files,r_,_exec.getSrcFolder());
+        ContextFactory.validate(_mess,_definedKw,_definedLgNames,_files,r_,_exec.getSrcFolder(),_definedLgNames.defComments());
         return r_;
     }
 }

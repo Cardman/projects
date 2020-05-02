@@ -6,6 +6,7 @@ import code.expressionlanguage.Initializer;
 import code.expressionlanguage.SingleContextEl;
 import code.expressionlanguage.errors.AnalysisMessages;
 import code.expressionlanguage.errors.KeyValueMemberName;
+import code.expressionlanguage.files.CommentDelimiters;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
@@ -20,11 +21,12 @@ public final class ContextFactory {
     public static ContextEl build(int _stack, DefaultLockingClass _lock,Initializer _init,
             Options _options,AnalysisMessages _mess, KeyWords _definedKw, LgNames _definedLgNames, StringMap<String> _files, int _tabWidth, String _folder) {
         ContextEl contextEl_ = new SingleContextEl(_stack, _lock, _init, _options,  _mess, _definedKw, _definedLgNames, _tabWidth);
-        return validate( _mess,_definedKw,_definedLgNames, _files, contextEl_,_folder);
+        return validate( _mess,_definedKw,_definedLgNames, _files, contextEl_,_folder, new CustList<CommentDelimiters>());
     }
 
-    public static ContextEl validate(AnalysisMessages _mess, KeyWords _definedKw, LgNames _definedLgNames, StringMap<String> _files, ContextEl _contextEl, String _folder) {
-        validateStds(_contextEl, _mess, _definedKw, _definedLgNames);
+    public static ContextEl validate(AnalysisMessages _mess, KeyWords _definedKw, LgNames _definedLgNames, StringMap<String> _files, ContextEl _contextEl, String _folder,
+                                     CustList<CommentDelimiters> _comments) {
+        validateStds(_contextEl, _mess, _definedKw, _definedLgNames,_comments);
         StringMap<String> srcFiles_ = new StringMap<String>();
         String pref_ = StringList.concat(_folder,"/");
         for (EntryCust<String, String> e: _files.entryList()) {
@@ -41,10 +43,12 @@ public final class ContextFactory {
     public static ContextEl build(int _stack, DefaultLockingClass _lock, Initializer _init,
                                   Options _options, AnalysisMessages _mess, KeyWords _definedKw, LgNames _definedLgNames, int _tabWidth) {
         ContextEl contextEl_ = new SingleContextEl(_stack, _lock, _init, _options,  _mess, _definedKw, _definedLgNames,_tabWidth);
-        validateStds(contextEl_,_mess,_definedKw,_definedLgNames);
+        validateStds(contextEl_,_mess,_definedKw,_definedLgNames, new CustList<CommentDelimiters>());
         return contextEl_;
     }
-    public static void validateStds(ContextEl _context, AnalysisMessages _mess, KeyWords _definedKw, LgNames _definedLgNames) {
+    public static void validateStds(ContextEl _context, AnalysisMessages _mess, KeyWords _definedKw, LgNames _definedLgNames,
+                                    CustList<CommentDelimiters> _comments) {
+        CommentsUtil.checkAndUpdateComments(_context.getComments(),_comments);
         _context.setStandards(_definedLgNames);
         AnalysisMessages.validateMessageContents(_context,_mess.allMessages());
         if (!_context.getClasses().isEmptyMessageError()) {

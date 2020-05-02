@@ -37,7 +37,7 @@ public abstract class ProcessMethodCommon {
     protected static final String BOOLEAN = "java.lang.Boolean";
 
     protected static void validate(AnalysisMessages _mess, KeyWords _definedKw, LgNames _definedLgNames, StringMap<String> _files, ContextEl _contextEl) {
-        ContextFactory.validate(_mess, _definedKw,_definedLgNames,_files,_contextEl,"src");
+        ContextFactory.validate(_mess, _definedKw,_definedLgNames,_files,_contextEl,"src", new CustList<CommentDelimiters>());
     }
 
     protected static Argument calculateError(String _class, MethodId _method, CustList<Argument> _args, ContextEl _cont) {
@@ -311,6 +311,15 @@ public abstract class ProcessMethodCommon {
 
     protected static ContextEl getEnContextEl() {
         Options opt_ = new Options();
+
+
+        return InitializationLgNames.buildStdOne("en", opt_);
+    }
+
+    protected static ContextEl getEnContextElComment() {
+        Options opt_ = new Options();
+        opt_.getComments().add(new CommentDelimiters("\\\\",new StringList("\r\n","\r","\n")));
+        opt_.getComments().add(new CommentDelimiters("\\*",new StringList("*\\")));
 
 
         return InitializationLgNames.buildStdOne("en", opt_);

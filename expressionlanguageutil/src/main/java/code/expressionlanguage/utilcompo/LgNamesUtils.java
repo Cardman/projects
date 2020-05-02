@@ -11,6 +11,7 @@ import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.calls.util.CustomFoundMethod;
 import code.expressionlanguage.errors.AnalysisMessages;
 import code.expressionlanguage.errors.KeyValueMemberName;
+import code.expressionlanguage.files.CommentDelimiters;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.methods.RootBlock;
@@ -4162,4 +4163,20 @@ public class LgNamesUtils extends LgNames {
         return val_;
     }
 
+    public CustList<CommentDelimiters> defComments() {
+        String content_ = infos.getReader().read("resources_lg/comments.properties");
+        content_ = content_.substring(content_.indexOf('=')+1);
+        CustList<CommentDelimiters> comments_ = new CustList<CommentDelimiters>();
+        for (String c: StringList.splitChar(
+                content_.trim(),
+                ';')) {
+            StringList parts_ = StringList.splitChar(
+                    c.trim(),
+                    ',');
+            String begin_ = LgNames.parseValue(parts_.first());
+            String end_ = LgNames.parseValue(parts_.last());
+            comments_.add(new CommentDelimiters(begin_,new StringList(end_)));
+        }
+        return comments_;
+    }
 }

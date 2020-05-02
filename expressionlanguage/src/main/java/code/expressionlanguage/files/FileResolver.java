@@ -3291,16 +3291,16 @@ public final class FileResolver {
         return -1;
     }
 
-    private static int afterComments(ContextEl _context,String _found, int _from) {
+    private static int afterComments(ContextEl _context,String _file, int _from) {
         int i_ = _from;
-        int len_ = _found.length();
+        int len_ = _file.length();
         CommentDelimiters current_ = null;
         while (i_ < len_) {
-            char cur_ = _found.charAt(i_);
+            char cur_ = _file.charAt(i_);
             if (current_ != null) {
                 boolean ended_ = false;
                 for (String e: current_.getEnd()) {
-                    if (_found.startsWith(e,i_)) {
+                    if (_file.startsWith(e,i_)) {
                         i_ += e.length();
                         ended_ = true;
                         break;
@@ -3315,7 +3315,7 @@ public final class FileResolver {
             }
             boolean skip_= false;
             for (CommentDelimiters c: _context.getComments()) {
-                if (_found.startsWith(c.getBegin(),i_)) {
+                if (_file.startsWith(c.getBegin(),i_)) {
                     current_ = c;
                     i_ += c.getBegin().length();
                     skip_ = true;

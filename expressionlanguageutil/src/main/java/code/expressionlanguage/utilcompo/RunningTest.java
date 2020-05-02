@@ -1,7 +1,9 @@
 package code.expressionlanguage.utilcompo;
 
+import code.expressionlanguage.files.CommentDelimiters;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stds.LgNames;
+import code.util.CustList;
 import code.util.Numbers;
 import code.util.StringList;
 import code.util.StringMap;
@@ -68,6 +70,7 @@ public final class RunningTest implements Runnable {
         }
         Options opt_ = new Options();
         opt_.getTypesInit().addAllElts(exec_.getTypesInit());
+        opt_.getComments().addAllElts(exec_.getComments());
         opt_.setReadOnly(true);
         opt_.setFailIfNotAllInit(true);
         CustContextFactory.executeDefKw(lg_,opt_,exec_,zipFiles_,_progressingTests,_infos);
@@ -130,6 +133,25 @@ public final class RunningTest implements Runnable {
             }
             if (l.startsWith("keyWords=")) {
                 keyWordsPart_.append(l.substring("keyWords=".length()));
+            }
+            if (l.startsWith("comments=")) {
+                CustList<CommentDelimiters> comments_ = new CustList<CommentDelimiters>();
+                for (String c: StringList.splitChar(
+                        l.substring("comments=".length()).trim(),
+                        ';')) {
+                    StringList parts_ = StringList.splitChar(
+                            c.trim(),
+                            ',');
+                    if (parts_.size() <= 2) {
+                        parts_.clear();
+                        parts_.add(" ");
+                        parts_.add(" ");
+                    }
+                    String begin_ = LgNames.parseValue(parts_.first());
+                    String end_ = LgNames.parseValue(parts_.last());
+                    comments_.add(new CommentDelimiters(begin_,new StringList(end_)));
+                }
+                _exec.setComments(comments_);
             }
         }
         if (_exec.isHasArg()) {
