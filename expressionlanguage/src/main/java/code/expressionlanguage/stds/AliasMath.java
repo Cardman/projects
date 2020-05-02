@@ -375,8 +375,7 @@ public final class AliasMath {
                 result_.setResult(new LongStruct(NumParsers.toLong(bits_)));
             }
         } else if (StringList.quickEq(name_, am_.aliasNeg)) {
-            boolean left_ = ClassArgumentMatching.convertToBoolean(_args[0].getStruct()).getInstance();
-            result_.setResult(BooleanStruct.of(!left_));
+            result_.setResult(ClassArgumentMatching.convertToBoolean(_args[0].getStruct()).neg());
         } else if (StringList.quickEq(name_, am_.aliasAnd)) {
             ClassArgumentMatching clArg_ = new ClassArgumentMatching(paramList_.first());
             result_.setResult(NumberStruct.calculateAnd(args_[0], args_[1], _cont, clArg_));

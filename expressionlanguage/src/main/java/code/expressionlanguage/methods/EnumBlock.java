@@ -9,8 +9,6 @@ import code.util.StringList;
 
 public final class EnumBlock extends RootBlock implements UniqueRootedBlock,AccessibleBlock {
 
-    private final StringList allSuperClasses = new StringList();
-
     private final StringList allSuperTypes = new StringList();
 
     private String importedDirectSuperClass = "";
@@ -28,11 +26,6 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock,Acce
     @Override
     public void setupBasicOverrides(ContextEl _context) {
         checkAccess(_context);
-    }
-
-    @Override
-    public StringList getAllSuperClasses() {
-        return allSuperClasses;
     }
 
     @Override

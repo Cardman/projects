@@ -898,22 +898,13 @@ public final class Classes {
                     _context.addError(enum_);
                 }
                 r.getAllSuperTypes().addAllElts(foundNames_.getKeys());
-                String dirSuper_ = objectClassName_;
                 for (String f: foundNames_.getKeys()) {
-                    GeneType s_ = _context.getClassBody(f);
-                    if (s_ instanceof UniqueRootedBlock) {
-                        dirSuper_ = f;
+                    RootBlock s_ = _context.getClasses().getClassBody(f);
+                    if (s_ != null) {
+                        r.getAllSuperTypes().addAllElts(s_.getAllSuperTypes());
                     }
-                    r.getAllSuperTypes().addAllElts(s_.getAllSuperTypes());
                 }
                 r.getAllSuperTypes().add(objectClassName_);
-                if (nbDirectSuperClass_ <= 1) {
-                    RootBlock superClass_ = _context.getClasses().getClassBody(dirSuper_);
-                    if (superClass_ instanceof UniqueRootedBlock) {
-                        r.getAllSuperClasses().add(dirSuper_);
-                        r.getAllSuperClasses().addAllElts(superClass_.getAllSuperClasses());
-                    }
-                }
                 r.getAllSuperTypes().removeDuplicates();
                 _context.getAnalyzing().getListTypesNames().add(c);
                 builtTypes_.set(c, true);

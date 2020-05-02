@@ -116,9 +116,10 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExTwo<#T> :Ex<#T>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClasses(files_);
-        StringList types_ = context_.getClasses().getClassBody("pkg.ExTwo").getAllSuperClasses();
-        assertEq(1, types_.size());
-        assertEq("pkg.Ex", types_.first());
+        StringList types_ = context_.getClasses().getClassBody("pkg.ExTwo").getAllGenericClasses();
+        assertEq(2, types_.size());
+        assertEq("pkg.ExTwo<#T>", types_.first());
+        assertEq("pkg.Ex<#T>", types_.last());
     }
 
     @Test
@@ -136,9 +137,10 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExTwo<#T> :Ex<#T>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClasses(files_);
-        StringList types_ = context_.getClasses().getClassBody("pkg.ExTwo").getAllSuperClasses();
-        assertEq(1, types_.size());
-        assertEq("pkgtwo.Ex", types_.first());
+        StringList types_ = context_.getClasses().getClassBody("pkg.ExTwo").getAllGenericClasses();
+        assertEq(2, types_.size());
+        assertEq("pkg.ExTwo<#T>", types_.first());
+        assertEq("pkgtwo.Ex<#T>", types_.last());
     }
 
     @Test
@@ -156,9 +158,10 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExTwo<#T> :Ex<#T>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClasses(files_);
-        StringList types_ = context_.getClasses().getClassBody("pkg.ExTwo").getAllSuperClasses();
-        assertEq(1, types_.size());
-        assertEq("pkgtwo.Ex", types_.first());
+        StringList types_ = context_.getClasses().getClassBody("pkg.ExTwo").getAllGenericClasses();
+        assertEq(2, types_.size());
+        assertEq("pkg.ExTwo<#T>", types_.first());
+        assertEq("pkgtwo.Ex<#T>", types_.last());
     }
 
     @Test
@@ -181,9 +184,10 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExTwo<#T> :Ex<#T>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClasses(files_);
-        StringList types_ = context_.getClasses().getClassBody("pkg.ExTwo").getAllSuperClasses();
-        assertEq(1, types_.size());
-        assertEq("pkgtwo.Ex", types_.first());
+        StringList types_ = context_.getClasses().getClassBody("pkg.ExTwo").getAllGenericClasses();
+        assertEq(2, types_.size());
+        assertEq("pkg.ExTwo<#T>", types_.first());
+        assertEq("pkgtwo.Ex<#T>", types_.last());
     }
 
     @Test
@@ -202,9 +206,10 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex<#T> {}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClasses(files_);
-        StringList types_ = context_.getClasses().getClassBody("pkg.ExTwo").getAllSuperClasses();
-        assertEq(1, types_.size());
-        assertEq("pkgtwo.Ex", types_.first());
+        StringList types_ = context_.getClasses().getClassBody("pkg.ExTwo").getAllGenericClasses();
+        assertEq(2, types_.size());
+        assertEq("pkg.ExTwo<#T>", types_.first());
+        assertEq("pkgtwo.Ex<#T>", types_.last());
     }
 
     @Test
@@ -223,9 +228,10 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex<#T> {}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClasses(files_);
-        StringList types_ = context_.getClasses().getClassBody("pkg.ExTwo").getAllSuperClasses();
-        assertEq(1, types_.size());
-        assertEq("pkg.Ex", types_.first());
+        StringList types_ = context_.getClasses().getClassBody("pkg.ExTwo").getAllGenericClasses();
+        assertEq(2, types_.size());
+        assertEq("pkg.ExTwo<#T>", types_.first());
+        assertEq("pkg.Ex<#T>", types_.last());
     }
 
     @Test
@@ -245,9 +251,10 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkgthree.ExFour<#T> {}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClasses(files_);
-        StringList types_ = context_.getClasses().getClassBody("pkg.ExTwo").getAllSuperClasses();
-        assertEq(1, types_.size());
-        assertEq("pkgtwo.Ex", types_.first());
+        StringList types_ = context_.getClasses().getClassBody("pkg.ExTwo").getAllGenericClasses();
+        assertEq(2, types_.size());
+        assertEq("pkg.ExTwo<#T>", types_.first());
+        assertEq("pkgtwo.Ex<#T>", types_.last());
     }
     @Test
     public void resolve8Test() {
@@ -428,9 +435,10 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExThree<#U>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClasses(files_);
-        StringList types_ = context_.getClasses().getClassBody("pkg.ExTwo").getAllSuperClasses();
-        assertEq(1, types_.size());
-        assertEq("pkgtwo.Ex", types_.first());
+        StringList types_ = context_.getClasses().getClassBody("pkg.ExTwo").getAllGenericClasses();
+        assertEq(2, types_.size());
+        assertEq("pkg.ExTwo<#T>", types_.first());
+        assertEq("pkgtwo.Ex<pkg.ExThree<?#T>>", types_.last());
     }
     @Test
     public void resolve17Test() {
@@ -448,9 +456,10 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExThree<#U>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClasses(files_);
-        StringList types_ = context_.getClasses().getClassBody("pkg.ExTwo").getAllSuperClasses();
-        assertEq(1, types_.size());
-        assertEq("pkgtwo.Ex", types_.first());
+        StringList types_ = context_.getClasses().getClassBody("pkg.ExTwo").getAllGenericClasses();
+        assertEq(2, types_.size());
+        assertEq("pkg.ExTwo<#T>", types_.first());
+        assertEq("pkgtwo.Ex<pkg.ExThree<?>>", types_.last());
     }
     @Test
     public void resolve18Test() {
@@ -468,9 +477,10 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExThree<#U>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClasses(files_);
-        StringList types_ = context_.getClasses().getClassBody("pkg.ExTwo").getAllSuperClasses();
-        assertEq(1, types_.size());
-        assertEq("pkgtwo.Ex", types_.first());
+        StringList types_ = context_.getClasses().getClassBody("pkg.ExTwo").getAllGenericClasses();
+        assertEq(2, types_.size());
+        assertEq("pkg.ExTwo<#T>", types_.first());
+        assertEq("pkgtwo.Ex<pkg.ExThree<!#T>>", types_.last());
     }
     @Test
     public void resolve19Test() {
@@ -488,9 +498,10 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExThree<#U>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClasses(files_);
-        StringList types_ = context_.getClasses().getClassBody("pkg.ExTwo").getAllSuperClasses();
-        assertEq(1, types_.size());
-        assertEq("pkgtwo.Ex", types_.first());
+        StringList types_ = context_.getClasses().getClassBody("pkg.ExTwo").getAllGenericClasses();
+        assertEq(2, types_.size());
+        assertEq("pkg.ExTwo<#T>", types_.first());
+        assertEq("pkgtwo.Ex<pkg.ExThree<?[#T>>", types_.last());
     }
     @Test
     public void resolve20Test() {
@@ -508,9 +519,10 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExThree<#U>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClasses(files_);
-        StringList types_ = context_.getClasses().getClassBody("pkg.ExTwo").getAllSuperClasses();
-        assertEq(1, types_.size());
-        assertEq("pkgtwo.Ex", types_.first());
+        StringList types_ = context_.getClasses().getClassBody("pkg.ExTwo").getAllGenericClasses();
+        assertEq(2, types_.size());
+        assertEq("pkg.ExTwo<#T>", types_.first());
+        assertEq("pkgtwo.Ex<pkg.ExThree<![#T>>", types_.last());
     }
     @Test
     public void resolve21Test() {
@@ -533,9 +545,10 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClasses(files_);
-        StringList types_ = context_.getClasses().getClassBody("pkg.Outer..InnerTwo").getAllSuperClasses();
-        assertEq(1, types_.size());
-        assertEq("pkg.OuterTwo..InnerThree", types_.first());
+        StringList types_ = context_.getClasses().getClassBody("pkg.Outer..InnerTwo").getAllGenericClasses();
+        assertEq(2, types_.size());
+        assertEq("pkg.Outer..InnerTwo", types_.first());
+        assertEq("pkg.OuterTwo..InnerThree", types_.last());
     }
     @Test
     public void resolve22Test() {
@@ -558,9 +571,10 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClasses(files_);
-        StringList types_ = context_.getClasses().getClassBody("pkg.Outer..InnerTwo").getAllSuperClasses();
-        assertEq(1, types_.size());
-        assertEq("pkg.OuterTwo..InnerThree", types_.first());
+        StringList types_ = context_.getClasses().getClassBody("pkg.Outer..InnerTwo").getAllGenericClasses();
+        assertEq(2, types_.size());
+        assertEq("pkg.Outer..InnerTwo", types_.first());
+        assertEq("pkg.OuterTwo..InnerThree", types_.last());
     }
     @Test
     public void resolve23Test() {
@@ -583,9 +597,10 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClasses(files_);
-        StringList types_ = context_.getClasses().getClassBody("pkg.Outer..InnerTwo").getAllSuperClasses();
-        assertEq(1, types_.size());
-        assertEq("pkgtwo.OuterTwo..InnerThree", types_.first());
+        StringList types_ = context_.getClasses().getClassBody("pkg.Outer..InnerTwo").getAllGenericClasses();
+        assertEq(2, types_.size());
+        assertEq("pkg.Outer..InnerTwo", types_.first());
+        assertEq("pkgtwo.OuterTwo..InnerThree", types_.last());
     }
     @Test
     public void resolve24Test() {
@@ -608,9 +623,10 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClasses(files_);
-        StringList types_ = context_.getClasses().getClassBody("pkg.Outer..InnerTwo").getAllSuperClasses();
-        assertEq(1, types_.size());
-        assertEq("pkgtwo.OuterTwo..InnerThree", types_.first());
+        StringList types_ = context_.getClasses().getClassBody("pkg.Outer..InnerTwo").getAllGenericClasses();
+        assertEq(2, types_.size());
+        assertEq("pkg.Outer..InnerTwo", types_.first());
+        assertEq("pkgtwo.OuterTwo..InnerThree", types_.last());
     }
     @Test
     public void resolve25Test() {
@@ -633,9 +649,10 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClasses(files_);
-        StringList types_ = context_.getClasses().getClassBody("pkg.Outer..InnerTwo").getAllSuperClasses();
-        assertEq(1, types_.size());
-        assertEq("pkgtwo.OuterTwo..InnerThree", types_.first());
+        StringList types_ = context_.getClasses().getClassBody("pkg.Outer..InnerTwo").getAllGenericClasses();
+        assertEq(2, types_.size());
+        assertEq("pkg.Outer..InnerTwo", types_.first());
+        assertEq("pkgtwo.OuterTwo..InnerThree<java.lang.Number>", types_.last());
     }
     @Test
     public void resolve26Test() {
@@ -658,9 +675,10 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClasses(files_);
-        StringList types_ = context_.getClasses().getClassBody("pkg.Outer..InnerTwo").getAllSuperClasses();
-        assertEq(1, types_.size());
-        assertEq("pkgtwo.OuterTwo..InnerThree", types_.first());
+        StringList types_ = context_.getClasses().getClassBody("pkg.Outer..InnerTwo").getAllGenericClasses();
+        assertEq(2, types_.size());
+        assertEq("pkg.Outer..InnerTwo", types_.first());
+        assertEq("pkgtwo.OuterTwo..InnerThree<java.lang.Number>", types_.last());
     }
     @Test
     public void resolve27Test() {
@@ -683,9 +701,10 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClasses(files_);
-        StringList types_ = context_.getClasses().getClassBody("pkg.Outer..InnerTwo").getAllSuperClasses();
-        assertEq(1, types_.size());
-        assertEq("pkgtwo.OuterTwo..InnerThree", types_.first());
+        StringList types_ = context_.getClasses().getClassBody("pkg.Outer..InnerTwo").getAllGenericClasses();
+        assertEq(2, types_.size());
+        assertEq("pkg.Outer..InnerTwo", types_.first());
+        assertEq("pkgtwo.OuterTwo..InnerThree<java.lang.Number>", types_.last());
     }
     @Test
     public void resolve28Test() {
@@ -708,9 +727,10 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClasses(files_);
-        StringList types_ = context_.getClasses().getClassBody("pkg.Outer..InnerTwo").getAllSuperClasses();
-        assertEq(1, types_.size());
-        assertEq("pkgtwo.OuterTwo..InnerThree", types_.first());
+        StringList types_ = context_.getClasses().getClassBody("pkg.Outer..InnerTwo").getAllGenericClasses();
+        assertEq(2, types_.size());
+        assertEq("pkg.Outer..InnerTwo", types_.first());
+        assertEq("pkgtwo.OuterTwo..InnerThree<java.lang.Number>", types_.last());
     }
     @Test
     public void resolve29Test() {
@@ -733,9 +753,10 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClasses(files_);
-        StringList types_ = context_.getClasses().getClassBody("pkg.Outer..InnerTwo").getAllSuperClasses();
-        assertEq(1, types_.size());
-        assertEq("pkgtwo.OuterTwo..InnerThree", types_.first());
+        StringList types_ = context_.getClasses().getClassBody("pkg.Outer..InnerTwo").getAllGenericClasses();
+        assertEq(2, types_.size());
+        assertEq("pkg.Outer..InnerTwo", types_.first());
+        assertEq("pkgtwo.OuterTwo..InnerThree<java.lang.Number>", types_.last());
     }
     @Test
     public void resolve30Test() {
@@ -758,9 +779,10 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClasses(files_);
-        StringList types_ = context_.getClasses().getClassBody("pkg.Outer..InnerTwo").getAllSuperClasses();
-        assertEq(1, types_.size());
-        assertEq("pkgtwo.OuterTwo..InnerThree", types_.first());
+        StringList types_ = context_.getClasses().getClassBody("pkg.Outer..InnerTwo").getAllGenericClasses();
+        assertEq(2, types_.size());
+        assertEq("pkg.Outer..InnerTwo", types_.first());
+        assertEq("pkgtwo.OuterTwo..InnerThree<java.lang.Number>", types_.last());
     }
     @Test
     public void resolve31Test() {
@@ -783,9 +805,10 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClassesSingle(files_);
-        StringList types_ = context_.getClasses().getClassBody("pkg.Outer..InnerTwo").getAllSuperClasses();
-        assertEq(1, types_.size());
-        assertEq("pkgtwo.OuterTwo..InnerThree", types_.first());
+        StringList types_ = context_.getClasses().getClassBody("pkg.Outer..InnerTwo").getAllGenericClasses();
+        assertEq(2, types_.size());
+        assertEq("pkg.Outer..InnerTwo", types_.first());
+        assertEq("pkgtwo.OuterTwo..InnerThree<java.lang.Number>", types_.last());
     }
     @Test
     public void resolve31_Test() {
@@ -810,9 +833,10 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClassesSingle(files_);
-        StringList types_ = context_.getClasses().getClassBody("pkg.Outer..InnerTwo").getAllSuperClasses();
-        assertEq(1, types_.size());
-        assertEq("pkgtwo.OuterTwo..InnerThree", types_.first());
+        StringList types_ = context_.getClasses().getClassBody("pkg.Outer..InnerTwo").getAllGenericClasses();
+        assertEq(2, types_.size());
+        assertEq("pkg.Outer..InnerTwo", types_.first());
+        assertEq("pkgtwo.OuterTwo..InnerThree<java.lang.Number>", types_.last());
     }
     @Test
     public void resolve31__Test() {
@@ -843,9 +867,10 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClassesSingle(files_);
-        StringList types_ = context_.getClasses().getClassBody("pkg.Outer..InnerTwo").getAllSuperClasses();
-        assertEq(1, types_.size());
-        assertEq("pkgtwo.OuterFour..IntSup..InnerThree", types_.first());
+        StringList types_ = context_.getClasses().getClassBody("pkg.Outer..InnerTwo").getAllGenericClasses();
+        assertEq(2, types_.size());
+        assertEq("pkg.Outer..InnerTwo", types_.first());
+        assertEq("pkgtwo.OuterFour..IntSup..InnerThree<java.lang.Number>", types_.last());
     }
     @Test
     public void resolve32Test() {
@@ -868,9 +893,10 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClassesSingle(files_);
-        StringList types_ = context_.getClasses().getClassBody("pkg.Outer..InnerTwo").getAllSuperClasses();
-        assertEq(1, types_.size());
-        assertEq("pkgtwo.OuterTwo..InnerThree", types_.first());
+        StringList types_ = context_.getClasses().getClassBody("pkg.Outer..InnerTwo").getAllGenericClasses();
+        assertEq(2, types_.size());
+        assertEq("pkg.Outer..InnerTwo", types_.first());
+        assertEq("pkgtwo.OuterTwo..InnerThree<java.lang.Number>", types_.last());
     }
     @Test
     public void resolve33Test() {
@@ -893,9 +919,10 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClasses(files_);
-        StringList types_ = context_.getClasses().getClassBody("pkg.Outer..InnerTwo").getAllSuperClasses();
-        assertEq(1, types_.size());
-        assertEq("pkgtwo.OuterTwo..InnerThree", types_.first());
+        StringList types_ = context_.getClasses().getClassBody("pkg.Outer..InnerTwo").getAllGenericClasses();
+        assertEq(2, types_.size());
+        assertEq("pkg.Outer..InnerTwo", types_.first());
+        assertEq("pkgtwo.OuterTwo..InnerThree<java.lang.Number>", types_.last());
     }
     @Test
     public void resolve34Test() {
@@ -918,9 +945,10 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClassesSingle(files_);
-        StringList types_ = context_.getClasses().getClassBody("pkg.Outer..InnerTwo").getAllSuperClasses();
-        assertEq(1, types_.size());
-        assertEq("pkgtwo.OuterTwo..InnerThree", types_.first());
+        StringList types_ = context_.getClasses().getClassBody("pkg.Outer..InnerTwo").getAllGenericClasses();
+        assertEq(2, types_.size());
+        assertEq("pkg.Outer..InnerTwo", types_.first());
+        assertEq("pkgtwo.OuterTwo..InnerThree<java.lang.Number>", types_.last());
     }
     @Test
     public void resolve35Test() {
@@ -943,9 +971,10 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClassesSingle(files_);
-        StringList types_ = context_.getClasses().getClassBody("pkg.Outer..InnerTwo").getAllSuperClasses();
-        assertEq(1, types_.size());
-        assertEq("pkgtwo.OuterTwo..InnerThree", types_.first());
+        StringList types_ = context_.getClasses().getClassBody("pkg.Outer..InnerTwo").getAllGenericClasses();
+        assertEq(2, types_.size());
+        assertEq("pkg.Outer..InnerTwo", types_.first());
+        assertEq("pkgtwo.OuterTwo..InnerThree<java.lang.Number>", types_.last());
     }
     @Test
     public void resolve36Test() {
@@ -970,9 +999,10 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClasses(files_);
-        StringList types_ = context_.getClasses().getClassBody("pkg.Outer..InnerTwo").getAllSuperClasses();
-        assertEq(1, types_.size());
-        assertEq("pkgtwo.OuterTwo..InnerThree..InnerFive", types_.first());
+        StringList types_ = context_.getClasses().getClassBody("pkg.Outer..InnerTwo").getAllGenericClasses();
+        assertEq(2, types_.size());
+        assertEq("pkg.Outer..InnerTwo", types_.first());
+        assertEq("pkgtwo.OuterTwo..InnerThree..InnerFive", types_.last());
     }
     @Test
     public void resolve37Test() {
@@ -997,9 +1027,10 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClassesSingle(files_);
-        StringList types_ = context_.getClasses().getClassBody("pkg.Outer..InnerTwo").getAllSuperClasses();
-        assertEq(1, types_.size());
-        assertEq("pkgtwo.OuterTwo..InnerThree..InnerFive", types_.first());
+        StringList types_ = context_.getClasses().getClassBody("pkg.Outer..InnerTwo").getAllGenericClasses();
+        assertEq(2, types_.size());
+        assertEq("pkg.Outer..InnerTwo", types_.first());
+        assertEq("pkgtwo.OuterTwo..InnerThree..InnerFive", types_.last());
     }
     @Test
     public void resolve38Test() {
@@ -1024,9 +1055,10 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClassesSingle(files_);
-        StringList types_ = context_.getClasses().getClassBody("pkg.Outer..InnerTwo").getAllSuperClasses();
-        assertEq(1, types_.size());
-        assertEq("pkgtwo.OuterTwo..InnerThree..InnerFive", types_.first());
+        StringList types_ = context_.getClasses().getClassBody("pkg.Outer..InnerTwo").getAllGenericClasses();
+        assertEq(2, types_.size());
+        assertEq("pkg.Outer..InnerTwo", types_.first());
+        assertEq("pkgtwo.OuterTwo..InnerThree..InnerFive", types_.last());
     }
     @Test
     public void resolve39Test() {
@@ -1049,9 +1081,10 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClassesSingle(files_);
-        StringList types_ = context_.getClasses().getClassBody("pkg.Outer..InnerTwo").getAllSuperClasses();
-        assertEq(1, types_.size());
-        assertEq("pkgtwo.OuterTwo..InnerThree", types_.first());
+        StringList types_ = context_.getClasses().getClassBody("pkg.Outer..InnerTwo").getAllGenericClasses();
+        assertEq(2, types_.size());
+        assertEq("pkg.Outer..InnerTwo", types_.first());
+        assertEq("pkgtwo.OuterTwo..InnerThree<java.lang.Number>", types_.last());
     }
     @Test
     public void resolve40Test() {
@@ -1076,9 +1109,10 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClassesSingle(files_);
-        StringList types_ = context_.getClasses().getClassBody("pkg.Outer..InnerTwo").getAllSuperClasses();
-        assertEq(1, types_.size());
-        assertEq("pkgtwo.OuterTwo..InnerThree", types_.first());
+        StringList types_ = context_.getClasses().getClassBody("pkg.Outer..InnerTwo").getAllGenericClasses();
+        assertEq(2, types_.size());
+        assertEq("pkg.Outer..InnerTwo", types_.first());
+        assertEq("pkgtwo.OuterTwo..InnerThree<pkgtwo.OuterThree..InnerFour>", types_.last());
     }
     @Test
     public void resolve41Test() {
@@ -1103,9 +1137,10 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClassesSingle(files_);
-        StringList types_ = context_.getClasses().getClassBody("pkg.Outer..InnerTwo").getAllSuperClasses();
-        assertEq(1, types_.size());
-        assertEq("pkgtwo.OuterTwo..InnerThree", types_.first());
+        StringList types_ = context_.getClasses().getClassBody("pkg.Outer..InnerTwo").getAllGenericClasses();
+        assertEq(2, types_.size());
+        assertEq("pkg.Outer..InnerTwo", types_.first());
+        assertEq("pkgtwo.OuterTwo..InnerThree<pkgtwo.OuterThree..InnerFour>", types_.last());
     }
     @Test
     public void resolve42Test() {
@@ -1128,9 +1163,10 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClassesSingle(files_);
-        StringList types_ = context_.getClasses().getClassBody("pkg.Outer..InnerTwo").getAllSuperClasses();
-        assertEq(1, types_.size());
-        assertEq("pkgtwo.OuterTwo..InnerThree", types_.first());
+        StringList types_ = context_.getClasses().getClassBody("pkg.Outer..InnerTwo").getAllGenericClasses();
+        assertEq(2, types_.size());
+        assertEq("pkg.Outer..InnerTwo", types_.first());
+        assertEq("pkgtwo.OuterTwo..InnerThree<$int>", types_.last());
     }
     @Test
     public void resolve43Test() {
@@ -1153,9 +1189,10 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClassesSingle(files_);
-        StringList types_ = context_.getClasses().getClassBody("pkg.Outer..InnerTwo").getAllSuperClasses();
-        assertEq(1, types_.size());
-        assertEq("pkgtwo.OuterTwo..InnerThree", types_.first());
+        StringList types_ = context_.getClasses().getClassBody("pkg.Outer..InnerTwo").getAllGenericClasses();
+        assertEq(2, types_.size());
+        assertEq("pkg.Outer..InnerTwo", types_.first());
+        assertEq("pkgtwo.OuterTwo..InnerThree<pkgtwo.OuterTwo..InnerThree<pkgtwo.OuterThree>>", types_.last());
     }
     @Test
     public void resolve44Test() {
@@ -1178,9 +1215,10 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClassesSingle(files_);
-        StringList types_ = context_.getClasses().getClassBody("pkg.Outer..InnerTwo").getAllSuperClasses();
-        assertEq(1, types_.size());
-        assertEq("pkgtwo.OuterTwo..InnerThree", types_.first());
+        StringList types_ = context_.getClasses().getClassBody("pkg.Outer..InnerTwo").getAllGenericClasses();
+        assertEq(2, types_.size());
+        assertEq("pkg.Outer..InnerTwo", types_.first());
+        assertEq("pkgtwo.OuterTwo..InnerThree<java.lang.$Fct<$void>>", types_.last());
     }
     @Test
     public void resolve45Test() {
@@ -1203,9 +1241,10 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClassesSingle(files_);
-        StringList types_ = context_.getClasses().getClassBody("pkg.Outer..InnerTwo").getAllSuperClasses();
-        assertEq(1, types_.size());
-        assertEq("pkgtwo.OuterThree..InnerThree", types_.first());
+        StringList types_ = context_.getClasses().getClassBody("pkg.Outer..InnerTwo").getAllGenericClasses();
+        assertEq(2, types_.size());
+        assertEq("pkg.Outer..InnerTwo", types_.first());
+        assertEq("pkgtwo.OuterThree..InnerThree", types_.last());
     }
     @Test
     public void resolve46Test() {
@@ -1228,9 +1267,10 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClassesSingle(files_);
-        StringList types_ = context_.getClasses().getClassBody("pkg.Outer..InnerTwo").getAllSuperClasses();
-        assertEq(1, types_.size());
-        assertEq("pkg.OuterThree..InnerThree", types_.first());
+        StringList types_ = context_.getClasses().getClassBody("pkg.Outer..InnerTwo").getAllGenericClasses();
+        assertEq(2, types_.size());
+        assertEq("pkg.Outer..InnerTwo", types_.first());
+        assertEq("pkg.OuterThree..InnerThree", types_.last());
     }
     @Test
     public void resolve47Test() {
@@ -1253,9 +1293,10 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClassesSingle(files_);
-        StringList types_ = context_.getClasses().getClassBody("pkg.Outer..InnerTwo").getAllSuperClasses();
-        assertEq(1, types_.size());
-        assertEq("pkg.OuterThree..InnerThree", types_.first());
+        StringList types_ = context_.getClasses().getClassBody("pkg.Outer..InnerTwo").getAllGenericClasses();
+        assertEq(2, types_.size());
+        assertEq("pkg.Outer..InnerTwo", types_.first());
+        assertEq("pkg.OuterThree..InnerThree", types_.last());
     }
     @Test
     public void resolve48Test() {
@@ -1433,9 +1474,10 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClasses(files_);
-        StringList types_ = context_.getClasses().getClassBody("pkg.Outer..InnerTwo").getAllSuperClasses();
-        assertEq(1, types_.size());
-        assertEq("pkgtwo.OuterTwo..InnerThree", types_.first());
+        StringList types_ = context_.getClasses().getClassBody("pkg.Outer..InnerTwo").getAllGenericClasses();
+        assertEq(2, types_.size());
+        assertEq("pkg.Outer..InnerTwo", types_.first());
+        assertEq("pkgtwo.OuterTwo..InnerThree<java.lang.Number>", types_.last());
     }
     @Test
     public void resolve36FailTest() {

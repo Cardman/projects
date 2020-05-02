@@ -27,9 +27,8 @@ public final class RendTernaryOperation extends RendMethodOperation implements R
 
     Argument  getArgument(CustList<Argument> _arguments, Configuration _conf) {
         setRelativeOffsetPossibleLastPage(getIndexInEl()+offsetLocal, _conf);
-        boolean obj_ = ((BooleanStruct) _arguments.first().getStruct()).getInstance();
         Argument arg_;
-        if (obj_) {
+        if (BooleanStruct.of(true).sameReference(_arguments.first().getStruct())) {
             arg_ = _arguments.get(CustList.SECOND_INDEX);
         } else {
             arg_ = _arguments.last();

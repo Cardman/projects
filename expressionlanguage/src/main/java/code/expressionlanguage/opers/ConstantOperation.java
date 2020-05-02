@@ -118,14 +118,13 @@ public final class ConstantOperation extends LeafOperation {
         StringMap<Assignment> assA_ = new StringMap<Assignment>();
 
         if (arg_.getStruct() instanceof BooleanStruct) {
-            boolean value_ = ((BooleanStruct)arg_.getStruct()).getInstance();
             //boolean constant assignment
             for (StringMap<AssignmentBefore> s: assB_) {
                 StringMap<Assignment> sm_ = new StringMap<Assignment>();
                 for (EntryCust<String, AssignmentBefore> e: s.entryList()) {
                     AssignmentBefore bf_ = e.getValue();
                     BooleanAssignment b_ = new BooleanAssignment();
-                    if (value_) {
+                    if (BooleanStruct.of(true).sameReference(arg_.getStruct())) {
                         b_.setAssignedAfterWhenFalse(true);
                         b_.setUnassignedAfterWhenFalse(true);
                         b_.setAssignedAfterWhenTrue(bf_.isAssignedBefore());
@@ -145,7 +144,7 @@ public final class ConstantOperation extends LeafOperation {
                 for (EntryCust<String, AssignmentBefore> e: s.entryList()) {
                     AssignmentBefore bf_ = e.getValue();
                     BooleanAssignment b_ = new BooleanAssignment();
-                    if (value_) {
+                    if (BooleanStruct.of(true).sameReference(arg_.getStruct())) {
                         b_.setAssignedAfterWhenFalse(true);
                         b_.setUnassignedAfterWhenFalse(true);
                         b_.setAssignedAfterWhenTrue(bf_.isAssignedBefore());
@@ -163,7 +162,7 @@ public final class ConstantOperation extends LeafOperation {
             for (EntryCust<String, AssignmentBefore> e: assF_.entryList()) {
                 AssignmentBefore bf_ = e.getValue();
                 BooleanAssignment b_ = new BooleanAssignment();
-                if (value_) {
+                if (BooleanStruct.of(true).sameReference(arg_.getStruct())) {
                     b_.setAssignedAfterWhenFalse(true);
                     b_.setUnassignedAfterWhenFalse(true);
                     b_.setAssignedAfterWhenTrue(bf_.isAssignedBefore());

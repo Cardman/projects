@@ -1649,7 +1649,6 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
     public CustList<PartOffset> getSuperTypesParts() {
         return superTypesParts;
     }
-    public abstract StringList getAllSuperClasses();
 
     public abstract boolean mustImplement();
 

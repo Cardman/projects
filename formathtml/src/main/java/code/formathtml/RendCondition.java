@@ -59,7 +59,7 @@ public abstract class RendCondition extends RendParentBlock implements RendWithE
         if (_context.getContext().hasException()) {
             return ConditionReturn.CALL_EX;
         }
-        if (((BooleanStruct) arg_.getStruct()).getInstance()) {
+        if (BooleanStruct.of(true).sameReference(arg_.getStruct())) {
             return ConditionReturn.YES;
         }
         return ConditionReturn.NO;

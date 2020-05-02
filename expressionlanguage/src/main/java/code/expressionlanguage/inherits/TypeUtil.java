@@ -473,7 +473,6 @@ public final class TypeUtil {
     }
 
     private static ClassMethodId tryGetUniqueId(String _subTypeName, RootBlock _type, MethodId _realId, ContextEl _conf) {
-        String name_ = _type.getFullName();
         if (ContextEl.isEnumType(_type)) {
             String en_ = _conf.getStandards().getAliasEnumType();
             if (!Classes.getMethodBodiesById(_conf,en_, _realId).isEmpty()) {
@@ -481,10 +480,8 @@ public final class TypeUtil {
             }
         }
         //c is a concrete sub type of type input
-        StringList allBaseClasses_ = new StringList(name_);
-        allBaseClasses_.addAllElts(_type.getAllSuperClasses());
-        for (String s: allBaseClasses_) {
-            RootBlock r_ = _conf.getClasses().getClassBody(s);
+        for (String s: _type.getAllGenericClasses()) {
+            RootBlock r_ = _conf.getClasses().getClassBody(Templates.getIdFromAllTypes(s));
             String gene_ = r_.getGenericString();
             String v_ = Templates.getFullTypeByBases(gene_, _subTypeName, _conf);
             if (v_.isEmpty()) {

@@ -95,7 +95,7 @@ public abstract class NumberStruct implements DisplayableStruct, ExportableStrin
         }
         if (StringList.quickEq(op_, "&&")) {
             BooleanStruct b_ = ClassArgumentMatching.convertToBoolean(_first);
-            if (!b_.getInstance()) {
+            if (BooleanStruct.of(false).sameReference(b_)) {
                 _res.setResult(b_);
                 return;
             }
@@ -103,7 +103,7 @@ public abstract class NumberStruct implements DisplayableStruct, ExportableStrin
             return;
         }
         BooleanStruct b_ = ClassArgumentMatching.convertToBoolean(_first);
-        if (b_.getInstance()) {
+        if (BooleanStruct.of(true).sameReference(b_)) {
             _res.setResult(b_);
             return;
         }
@@ -136,8 +136,7 @@ public abstract class NumberStruct implements DisplayableStruct, ExportableStrin
                     _res.setResult(BooleanStruct.of(false));
                 }
             } else {
-                boolean one_ = (ClassArgumentMatching.convertToBoolean(_args[0])).getInstance();
-                _res.setResult(BooleanStruct.of(one_));
+                _res.setResult(ClassArgumentMatching.convertToBoolean(_args[0]));
             }
         } else if (StringList.quickEq(type_, charType_)) {
             _res.setResult(_args[0]);
@@ -203,12 +202,12 @@ public abstract class NumberStruct implements DisplayableStruct, ExportableStrin
         if (StringList.quickEq(type_, booleanType_)) {
             if (StringList.quickEq(name_, lgNames_.getAliasBooleanValue())) {
                 BooleanStruct instance_ = ClassArgumentMatching.convertToBoolean(_struct);
-                _res.setResult(BooleanStruct.of(instance_.getInstance()));
+                _res.setResult(instance_);
             } else if (StringList.quickEq(name_, lgNames_.getAliasCompare())) {
-                _res.setResult(new IntStruct(ComparatorBoolean.cmp((ClassArgumentMatching.convertToBoolean(_args[0])).getInstance(),(ClassArgumentMatching.convertToBoolean(_args[1])).getInstance())));
+                _res.setResult(cmpBool((ClassArgumentMatching.convertToBoolean(_args[0])),(ClassArgumentMatching.convertToBoolean(_args[1]))));
             } else if (StringList.quickEq(name_, lgNames_.getAliasCompareTo())) {
                 BooleanStruct instance_ = ClassArgumentMatching.convertToBoolean(_struct);
-                _res.setResult(new IntStruct(ComparatorBoolean.cmp(instance_.getInstance(),(ClassArgumentMatching.convertToBoolean(_args[0])).getInstance())));
+                _res.setResult(cmpBool(instance_,(ClassArgumentMatching.convertToBoolean(_args[0]))));
             } else if (StringList.quickEq(name_, lgNames_.getAliasEquals())) {
                 BooleanStruct instance_ = ClassArgumentMatching.convertToBoolean(_struct);
                 _res.setResult(BooleanStruct.of(instance_.sameReference(_args[0])));
@@ -844,9 +843,7 @@ public abstract class NumberStruct implements DisplayableStruct, ExportableStrin
         String bool_ = stds_.getAliasPrimBoolean();
         String int_ = stds_.getAliasPrimInteger();
         if (_order.matchClass(bool_)) {
-            boolean left_ = (ClassArgumentMatching.convertToBoolean(_a)).getInstance();
-            boolean right_ = (ClassArgumentMatching.convertToBoolean(_b)).getInstance();
-            return BooleanStruct.of(left_ && right_);
+            return ClassArgumentMatching.convertToBoolean(_a).and(ClassArgumentMatching.convertToBoolean(_b));
         }
         if (_order.matchClass(int_)) {
             int left_ = ClassArgumentMatching.convertToNumber(_a).getInt();
@@ -879,9 +876,7 @@ public abstract class NumberStruct implements DisplayableStruct, ExportableStrin
         String bool_ = stds_.getAliasPrimBoolean();
         String int_ = stds_.getAliasPrimInteger();
         if (_order.matchClass(bool_)) {
-            boolean left_ = (ClassArgumentMatching.convertToBoolean(_a)).getInstance();
-            boolean right_ = (ClassArgumentMatching.convertToBoolean(_b)).getInstance();
-            return BooleanStruct.of(left_ || right_);
+            return ClassArgumentMatching.convertToBoolean(_a).or(ClassArgumentMatching.convertToBoolean(_b));
         }
         if (_order.matchClass(int_)) {
             int left_ = ClassArgumentMatching.convertToNumber(_a).getInt();
@@ -914,9 +909,7 @@ public abstract class NumberStruct implements DisplayableStruct, ExportableStrin
         String bool_ = stds_.getAliasPrimBoolean();
         String int_ = stds_.getAliasPrimInteger();
         if (_order.matchClass(bool_)) {
-            boolean left_ = (ClassArgumentMatching.convertToBoolean(_a)).getInstance();
-            boolean right_ = (ClassArgumentMatching.convertToBoolean(_b)).getInstance();
-            return BooleanStruct.of(left_ != right_);
+            return BooleanStruct.of(!ClassArgumentMatching.convertToBoolean(_a).sameReference(ClassArgumentMatching.convertToBoolean(_b)));
         }
         if (_order.matchClass(int_)) {
             int left_ = ClassArgumentMatching.convertToNumber(_a).getInt();
@@ -1138,6 +1131,15 @@ public abstract class NumberStruct implements DisplayableStruct, ExportableStrin
             bitsLeft_[0] = firstBit_;
         }
         return new LongStruct(NumParsers.toLong(bitsLeft_));
+    }
+    private static IntStruct cmpBool(BooleanStruct _one, BooleanStruct _two) {
+        if (_one.sameReference(_two)) {
+            return new IntStruct(CustList.EQ_CMP);
+        }
+        if (BooleanStruct.of(true).sameReference(_one)) {
+            return new IntStruct(CustList.SWAP_SORT);
+        }
+        return new IntStruct(CustList.NO_SWAP_SORT);
     }
     private double getDouble() {
         return doubleStruct();

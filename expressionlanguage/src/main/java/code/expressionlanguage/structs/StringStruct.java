@@ -298,7 +298,7 @@ public final class StringStruct extends CharSequenceStruct {
             _res.setError(nullPe_);
             return;
         }
-        boolean case_ = _case.getInstance();
+        boolean case_ = BooleanStruct.of(true).sameReference(_case);
         StringStruct other_ = (StringStruct) _other;
         int comLen_ = _len.intStruct();
         int to_ = _toffset.intStruct();

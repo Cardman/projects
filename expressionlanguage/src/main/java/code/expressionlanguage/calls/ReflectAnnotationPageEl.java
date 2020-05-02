@@ -33,7 +33,7 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
         if (!retrievedAnnot) {
             if (onParameters) {
                 if (structBlock_ instanceof ConstructorMetaInfo){
-                    ConstructorId cid_ = ((ConstructorMetaInfo)structBlock_).getRealId();
+                    ConstructorId cid_ = LgNames.getCtor(structBlock_,stds_).getRealId();
                     String cl_ = cid_.getName();
                     String idClass_ = Templates.getIdFromAllTypes(cl_);
                     RootBlock type_ = _context.getClasses().getClassBody(idClass_);
@@ -43,8 +43,8 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
                         }
                     }
                 } else if (structBlock_ instanceof MethodMetaInfo){
-                    MethodId mid_ =  ((MethodMetaInfo)structBlock_).getRealId();
-                    String cl_ = ((MethodMetaInfo)structBlock_).getFormClassName();
+                    MethodId mid_ =  LgNames.getMethod(structBlock_,stds_).getRealId();
+                    String cl_ = LgNames.getMethod(structBlock_,stds_).getFormClassName();
                     String idClass_ = Templates.getIdFromAllTypes(cl_);
                     RootBlock type_ = _context.getClasses().getClassBody(idClass_);
                     if (type_ != null) {
@@ -61,14 +61,14 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
                     annotationsParams = new CustList<CustList<CustList<ExecOperationNode>>>();
                 }
             } else if (structBlock_ instanceof ClassMetaInfo) {
-                String cl_ = ((ClassMetaInfo)structBlock_).getName();
+                String cl_ = LgNames.getClass(structBlock_,stds_).getName();
                 String id_ = Templates.getIdFromAllTypes(cl_);
                 RootBlock type_ = _context.getClasses().getClassBody(id_);
                 if (type_ != null) {
                     annotations= type_.getAnnotationsOps();
                 }
             } else if (structBlock_ instanceof ConstructorMetaInfo){
-                ConstructorId cid_ = ((ConstructorMetaInfo)structBlock_).getRealId();
+                ConstructorId cid_ = LgNames.getCtor(structBlock_,stds_).getRealId();
                 String cl_ = cid_.getName();
                 String idClass_ = Templates.getIdFromAllTypes(cl_);
                 RootBlock type_ = _context.getClasses().getClassBody(idClass_);
@@ -78,8 +78,8 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
                     }
                 }
             } else if (structBlock_ instanceof MethodMetaInfo){
-                MethodId mid_ =  ((MethodMetaInfo)structBlock_).getRealId();
-                String cl_ = ((MethodMetaInfo)structBlock_).getFormClassName();
+                MethodId mid_ =  LgNames.getMethod(structBlock_,stds_).getRealId();
+                String cl_ = LgNames.getMethod(structBlock_,stds_).getFormClassName();
                 String idClass_ = Templates.getIdFromAllTypes(cl_);
                 RootBlock type_ = _context.getClasses().getClassBody(idClass_);
                 if (type_ != null) {
@@ -112,7 +112,7 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
             if (!args_.isEmpty()) {
                 Struct arg_ = args_.first().getStruct();
                 if (arg_ instanceof ClassMetaInfo) {
-                    cl_ = ((ClassMetaInfo)arg_).getName();
+                    cl_ = LgNames.getClass(arg_,stds_).getName();
                 }
             }
             if (!cl_.isEmpty()) {

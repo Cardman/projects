@@ -215,11 +215,10 @@ public final class CmpOperation extends MethodOperation implements MiddleSymbolO
         } else {
             arg_ = NumberStruct.quickCalculateGreaterNb(_one.getStruct(), _two.getStruct());
         }
-        boolean b_ = arg_.getInstance();
         if (complement_) {
-            b_ = !b_;
+            arg_ = arg_.neg();
         }
-        return new Argument(BooleanStruct.of(b_));
+        return new Argument(arg_);
     }
     public static Argument calculateCommonStr(Argument _one, Argument _two, String _op) {
         boolean complement_ = false;
@@ -237,11 +236,10 @@ public final class CmpOperation extends MethodOperation implements MiddleSymbolO
         } else {
             arg_ = NumberStruct.quickCalculateGreaterStr(_one.getStruct(), _two.getStruct());
         }
-        boolean b_ = arg_.getInstance();
         if (complement_) {
-            b_ = !b_;
+            arg_ = arg_.neg();
         }
-        return new Argument(BooleanStruct.of(b_));
+        return new Argument(arg_);
     }
 
     @Override

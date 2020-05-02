@@ -38,9 +38,8 @@ public final class ExecTernaryOperation extends ExecMethodOperation implements A
     }
     Argument  getArgument(CustList<Argument> _arguments, ExecutableCode _conf) {
         setRelativeOffsetPossibleLastPage(getIndexInEl()+offsetLocal, _conf);
-        boolean obj_ = ClassArgumentMatching.convertToBoolean(_arguments.first().getStruct()).getInstance();
         Argument arg_;
-        if (obj_) {
+        if (BooleanStruct.of(true).sameReference(_arguments.first().getStruct())) {
             arg_ = _arguments.get(CustList.SECOND_INDEX);
         } else {
             arg_ = _arguments.last();

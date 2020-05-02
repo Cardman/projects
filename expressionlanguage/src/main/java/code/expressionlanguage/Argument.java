@@ -39,19 +39,13 @@ public final class Argument {
         if (_arg == null) {
             return true;
         }
-        if (!(_arg.getStruct() instanceof BooleanStruct)) {
-            return true;
-        }
-        return !_arg.isFalse();
+        return !BooleanStruct.of(false).sameReference(_arg.getStruct());
     }
     public static boolean isTrueValue(Argument _arg) {
         if (_arg == null) {
             return false;
         }
-        if (!(_arg.getStruct() instanceof BooleanStruct)) {
-            return false;
-        }
-        return _arg.isTrue();
+        return BooleanStruct.of(true).sameReference(_arg.getStruct());
     }
     public static boolean isNullValue(Argument _arg) {
         if (_arg == null) {
@@ -84,10 +78,10 @@ public final class Argument {
     }
 
     public boolean isTrue() {
-        return ((BooleanStruct)object).getInstance();
+        return BooleanStruct.of(true).sameReference(object);
     }
     public boolean isFalse() {
-        return !((BooleanStruct)object).getInstance();
+        return BooleanStruct.of(false).sameReference(object);
     }
 
     public void setObject(char _object) {

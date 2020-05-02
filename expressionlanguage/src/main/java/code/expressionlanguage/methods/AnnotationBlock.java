@@ -8,8 +8,6 @@ import code.util.StringList;
 
 public final class AnnotationBlock extends RootBlock implements AccessibleBlock {
 
-    private final StringList allSuperClasses = new StringList();
-
     private final StringList allSuperTypes = new StringList();
 
     private StringList importedDirectSuperInterfaces = new StringList();
@@ -23,11 +21,6 @@ public final class AnnotationBlock extends RootBlock implements AccessibleBlock 
     @Override
     public boolean isStaticType() {
         return true;
-    }
-
-    @Override
-    public StringList getAllSuperClasses() {
-        return allSuperClasses;
     }
 
     @Override

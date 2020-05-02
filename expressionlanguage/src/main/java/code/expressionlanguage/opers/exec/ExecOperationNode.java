@@ -472,18 +472,16 @@ public abstract class ExecOperationNode implements Operable {
                 }
             }
         }
-        if (_value instanceof BooleanStruct) {
-            if (par_ instanceof ExecCompoundAffectationOperation) {
-                ExecCompoundAffectationOperation p_ = (ExecCompoundAffectationOperation)par_;
-                if (StringList.quickEq(p_.getOper(),"&&=")) {
-                    if (!((BooleanStruct)_value).getInstance()) {
-                        return par_.getOrder();
-                    }
+        if (par_ instanceof ExecCompoundAffectationOperation) {
+            ExecCompoundAffectationOperation p_ = (ExecCompoundAffectationOperation)par_;
+            if (StringList.quickEq(p_.getOper(),"&&=")) {
+                if (BooleanStruct.of(false).sameReference(_value)) {
+                    return par_.getOrder();
                 }
-                if (StringList.quickEq(p_.getOper(),"||=")) {
-                    if (((BooleanStruct)_value).getInstance()) {
-                        return par_.getOrder();
-                    }
+            }
+            if (StringList.quickEq(p_.getOper(),"||=")) {
+                if (BooleanStruct.of(true).sameReference(_value)) {
+                    return par_.getOrder();
                 }
             }
         }

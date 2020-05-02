@@ -10,8 +10,6 @@ import code.util.StringList;
 
 public final class InterfaceBlock extends RootBlock implements GeneInterface,AccessibleBlock {
 
-    private final StringList allSuperClasses = new StringList();
-
     private final StringList allSuperTypes = new StringList();
     private StringList importedDirectSuperInterfaces = new StringList();
     private final boolean staticType;
@@ -29,11 +27,6 @@ public final class InterfaceBlock extends RootBlock implements GeneInterface,Acc
     @Override
     public void setupBasicOverrides(ContextEl _context) {
         useSuperTypesOverrides(_context);
-    }
-
-    @Override
-    public StringList getAllSuperClasses() {
-        return allSuperClasses;
     }
 
     @Override

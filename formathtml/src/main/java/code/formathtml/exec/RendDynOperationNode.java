@@ -435,18 +435,16 @@ public abstract class RendDynOperationNode {
                 }
             }
         }
-        if (_value instanceof BooleanStruct) {
-            if (par_ instanceof RendCompoundAffectationOperation) {
-                RendCompoundAffectationOperation p_ = (RendCompoundAffectationOperation)par_;
-                if (StringList.quickEq(p_.getOper(),"&&=")) {
-                    if (!((BooleanStruct)_value).getInstance()) {
-                        return par_.getOrder();
-                    }
+        if (par_ instanceof RendCompoundAffectationOperation) {
+            RendCompoundAffectationOperation p_ = (RendCompoundAffectationOperation)par_;
+            if (StringList.quickEq(p_.getOper(),"&&=")) {
+                if (BooleanStruct.of(false).sameReference(_value)) {
+                    return par_.getOrder();
                 }
-                if (StringList.quickEq(p_.getOper(),"||=")) {
-                    if (((BooleanStruct)_value).getInstance()) {
-                        return par_.getOrder();
-                    }
+            }
+            if (StringList.quickEq(p_.getOper(),"||=")) {
+                if (BooleanStruct.of(true).sameReference(_value)) {
+                    return par_.getOrder();
                 }
             }
         }

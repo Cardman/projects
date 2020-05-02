@@ -421,7 +421,7 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
             if (_conf.getContext().hasException()) {
                 return;
             }
-            if (!((BooleanStruct)hasNext_.getStruct()).getInstance()) {
+            if (BooleanStruct.of(false).sameReference(hasNext_.getStruct())) {
                 break;
             }
             Argument nextPair_ = nextPair(_l, _conf);
@@ -503,7 +503,7 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
                 if (_conf.getContext().hasException()) {
                     return obj_;
                 }
-                if (!((BooleanStruct)hasNext_.getStruct()).getInstance()) {
+                if (BooleanStruct.of(false).sameReference(hasNext_.getStruct())) {
                     break;
                 }
                 Argument next_ = next(it_, _conf);

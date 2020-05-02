@@ -301,14 +301,13 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                     a_.setStruct(_conf.getExtendedClassMetaInfo(clDyn_));
                     return a_;
                 }
-                boolean init_ = ClassArgumentMatching.convertToBoolean(_firstArgs.last().getStruct()).getInstance();
                 boolean gene_ = clDyn_.contains(Templates.TEMPLATE_BEGIN);
                 String res_ = Templates.correctClassPartsDynamic(clDyn_, _conf, gene_, false);
                 if (res_.isEmpty()) {
                     _conf.setException(new ErrorStruct(_conf,clDyn_,stds_.getAliasClassNotFoundError()));
                     return new Argument();
                 }
-                if (init_) {
+                if (BooleanStruct.of(true).sameReference(_firstArgs.last().getStruct())) {
                     if (hasToExit(_conf, res_)) {
                         return Argument.createVoid();
                     }

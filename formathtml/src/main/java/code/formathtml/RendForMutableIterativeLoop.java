@@ -269,7 +269,7 @@ public final class RendForMutableIterativeLoop extends RendParentBlock implement
         if (_context.getContext().hasException()) {
             return ConditionReturn.CALL_EX;
         }
-        if (((BooleanStruct)arg_.getStruct()).getInstance()) {
+        if (BooleanStruct.of(true).sameReference(arg_.getStruct())) {
             return ConditionReturn.YES;
         }
         return ConditionReturn.NO;

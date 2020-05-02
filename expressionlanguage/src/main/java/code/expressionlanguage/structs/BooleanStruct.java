@@ -43,6 +43,27 @@ public final class BooleanStruct implements DisplayableStruct, ExportableStringS
         return new StringStruct("0");
     }
 
+    public BooleanStruct neg() {
+        if (this == TRUE) {
+            return FALSE;
+        }
+        return TRUE;
+    }
+
+    public BooleanStruct and(BooleanStruct _other) {
+        if (this == FALSE) {
+            return FALSE;
+        }
+        return _other;
+    }
+
+    public BooleanStruct or(BooleanStruct _other) {
+        if (this == TRUE) {
+            return TRUE;
+        }
+        return _other;
+    }
+
     public boolean getInstance() {
         return this == TRUE;
     }

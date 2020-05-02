@@ -42,8 +42,6 @@ public final class InnerElementBlock extends RootBlock implements InnerTypeOrEle
 
     private int trOffset;
 
-    private final StringList allSuperClasses = new StringList();
-
     private final StringList allSuperTypes = new StringList();
 
     private String importedDirectSuperClass = "";
@@ -108,11 +106,6 @@ public final class InnerElementBlock extends RootBlock implements InnerTypeOrEle
     @Override
     public StringList getParamTypesValues() {
         return new StringList();
-    }
-
-    @Override
-    public StringList getAllSuperClasses() {
-        return allSuperClasses;
     }
 
     @Override

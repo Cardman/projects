@@ -746,7 +746,6 @@ public final class AliasReflection {
                     result_.setResult(_cont.getExtendedClassMetaInfo(Templates.SUB_TYPE, varOwn_));
                     return result_;
                 }
-                boolean isUpperValue_ = ((BooleanStruct) isUpper_).getInstance();
                 String baseWildCard_ = nameCl_;
                 if (StringList.quickEq(nameCl_,Templates.SUB_TYPE)) {
                     result_.setResult(_cont.getExtendedClassMetaInfo(Templates.SUB_TYPE, varOwn_));
@@ -757,7 +756,7 @@ public final class AliasReflection {
                 } else if (nameCl_.startsWith(Templates.SUP_TYPE)) {
                     baseWildCard_ = nameCl_.substring(Templates.SUP_TYPE.length());
                 }
-                if (isUpperValue_) {
+                if (BooleanStruct.of(true).sameReference(isUpper_)) {
                     result_.setResult(_cont.getExtendedClassMetaInfo(StringList.concat(Templates.SUB_TYPE,baseWildCard_), varOwn_));
                 } else {
                     result_.setResult(_cont.getExtendedClassMetaInfo(StringList.concat(Templates.SUP_TYPE,baseWildCard_), varOwn_));
@@ -854,7 +853,7 @@ public final class AliasReflection {
                     result_.setResult(BooleanStruct.of(Templates.isCorrectOrNumbers(mapping_, _cont)));
                     return result_;
                 }
-                String arg_ = ((ClassMetaInfo)subType_).getName();
+                String arg_ = LgNames.getClass(subType_,lgNames_).getName();
                 Mapping mapping_ = new Mapping();
                 mapping_.setArg(arg_);
                 mapping_.setParam(param_);
@@ -929,7 +928,7 @@ public final class AliasReflection {
                 candidates_ = new CustList<MethodMetaInfo>();
                 for (OperatorBlock o: _cont.getClasses().getOperators()) {
                     MethodId id_ = o.getId();
-                    if (eq(id_,args_[0],NullStruct.NULL_VALUE,args_[1],args_[2])) {
+                    if (eq(lgNames_,id_,args_[0],NullStruct.NULL_VALUE,args_[1],args_[2])) {
                         String ret_ = o.getImportedReturnType();
                         AccessEnum acc_ = o.getAccess();
                         MethodId fid_;
@@ -1007,14 +1006,14 @@ public final class AliasReflection {
                 if (Templates.correctNbParameters(instClassName_,_cont)) {
                     for (EntryCust<ConstructorId, ConstructorMetaInfo> e: ctors_.entryList()) {
                         ConstructorId id_ = e.getKey();
-                        if (eq(id_.reflectFormat(instClassName_, _cont), NullStruct.NULL_VALUE, NullStruct.NULL_VALUE, args_[0],args_[1])) {
+                        if (eq(lgNames_,id_.reflectFormat(instClassName_, _cont), NullStruct.NULL_VALUE, NullStruct.NULL_VALUE, args_[0],args_[1])) {
                             candidates_.add(e.getValue());
                         }
                     }
                 } else {
                     for (EntryCust<ConstructorId, ConstructorMetaInfo> e: ctors_.entryList()) {
                         ConstructorId id_ = e.getKey();
-                        if (eq(id_, NullStruct.NULL_VALUE, NullStruct.NULL_VALUE, args_[0],args_[1])) {
+                        if (eq(lgNames_,id_, NullStruct.NULL_VALUE, NullStruct.NULL_VALUE, args_[0],args_[1])) {
                             candidates_.add(e.getValue());
                         }
                     }
@@ -1059,7 +1058,7 @@ public final class AliasReflection {
                 }
                 if (cl_.isTypeArray()) {
                     MethodId id_ = new MethodId(MethodAccessKind.INSTANCE, lgNames_.getAliasClone(), new StringList());
-                    if (!eq(id_,args_[0],args_[1],args_[2],args_[3])) {
+                    if (!eq(lgNames_,id_,args_[0],args_[1],args_[2],args_[3])) {
                         Struct[] methodsArr_ = new Struct[0];
                         ArrayStruct str_ = new ArrayStruct(methodsArr_, className_);
                         result_.setResult(str_);
@@ -1081,14 +1080,14 @@ public final class AliasReflection {
                 if (Templates.correctNbParameters(instClassName_,_cont)) {
                     for (EntryCust<MethodId, MethodMetaInfo> e: methods_.entryList()) {
                         MethodId id_ = e.getKey();
-                        if (eq(id_.reflectFormat(instClassName_, _cont),args_[0],args_[1],args_[2],args_[3])) {
+                        if (eq(lgNames_,id_.reflectFormat(instClassName_, _cont),args_[0],args_[1],args_[2],args_[3])) {
                             candidates_.add(e.getValue());
                         }
                     }
                 } else {
                     for (EntryCust<MethodId, MethodMetaInfo> e : methods_.entryList()) {
                         MethodId id_ = e.getKey();
-                        if (eq(id_,args_[0],args_[1],args_[2],args_[3])) {
+                        if (eq(lgNames_,id_,args_[0],args_[1],args_[2],args_[3])) {
                             candidates_.add(e.getValue());
                         }
                     }
@@ -1138,14 +1137,14 @@ public final class AliasReflection {
                 if (Templates.correctNbParameters(instClassName_,_cont)) {
                     for (EntryCust<MethodId, MethodMetaInfo> e: methods_.entryList()) {
                         MethodId id_ = e.getKey();
-                        if (eqType(id_.reflectFormat(instClassName_, _cont),args_[0],args_[1],args_[2],args_[3])) {
+                        if (eqType(lgNames_,id_.reflectFormat(instClassName_, _cont),args_[0],args_[1],args_[2],args_[3])) {
                             candidates_.add(e.getValue());
                         }
                     }
                 } else {
                     for (EntryCust<MethodId, MethodMetaInfo> e : methods_.entryList()) {
                         MethodId id_ = e.getKey();
-                        if (eqType(id_,args_[0],args_[1],args_[2],args_[3])) {
+                        if (eqType(lgNames_,id_,args_[0],args_[1],args_[2],args_[3])) {
                             candidates_.add(e.getValue());
                         }
                     }
@@ -1451,7 +1450,7 @@ public final class AliasReflection {
                         result_.setResult(NullStruct.NULL_VALUE);
                         return result_;
                     }
-                    classesNames_.add(((ClassMetaInfo)s).getName());
+                    classesNames_.add(LgNames.getClass(s,lgNames_).getName());
                 }
                 String res_ = Templates.getMadeVarTypes(cl_.getName(), classesNames_, _cont);
                 if (res_ == null) {
@@ -1668,20 +1667,21 @@ public final class AliasReflection {
         return ret_;
     }
 
-    private static boolean eq(Identifiable _id, Struct _name, Struct _static, Struct _vararg, Struct _params) {
-        boolean stMeth_ = _id.isStaticMethod();
-        return eqStatic(_id, _name, _static, _vararg, _params, stMeth_);
+    private static boolean eq(LgNames _stds,Identifiable _id, Struct _name, Struct _static, Struct _vararg, Struct _params) {
+        BooleanStruct stMeth_ = BooleanStruct.of(_id.isStaticMethod());
+        return eqStatic(_stds,_id, _name, _static, _vararg, _params, stMeth_);
     }
 
-    private static boolean eqType(MethodId _id, Struct _name, Struct _static, Struct _vararg, Struct _params) {
+    private static boolean eqType(LgNames _stds,MethodId _id, Struct _name, Struct _static, Struct _vararg, Struct _params) {
         if (_id.getKind() == MethodAccessKind.INSTANCE) {
             return false;
         }
-        boolean stMeth_ = !_id.canAccessParamTypes();
-        return eqStatic(_id, _name, _static, _vararg, _params, stMeth_);
+        BooleanStruct stMeth_ = BooleanStruct.of(!_id.canAccessParamTypes());
+        return eqStatic(_stds,_id, _name, _static, _vararg, _params, stMeth_);
     }
 
-    private static boolean eqStatic(Identifiable _id, Struct _name, Struct _static, Struct _vararg, Struct _params, boolean _stMeth) {
+    private static boolean eqStatic(LgNames _stds,Identifiable _id, Struct _name,
+                                    Struct _static, Struct _vararg, Struct _params, BooleanStruct _stMeth) {
         if (_name instanceof StringStruct) {
             StringStruct name_ = (StringStruct) _name;
             if (!StringList.quickEq(name_.getInstance(), _id.getName())) {
@@ -1689,14 +1689,12 @@ public final class AliasReflection {
             }
         }
         if (_static instanceof BooleanStruct) {
-            BooleanStruct static_ = (BooleanStruct) _static;
-            if (static_.getInstance() != _stMeth) {
+            if (!_static.sameReference(_stMeth)) {
                 return false;
             }
         }
         if (_vararg instanceof BooleanStruct) {
-            BooleanStruct vararg_ = (BooleanStruct) _vararg;
-            if (vararg_.getInstance() != _id.isVararg()) {
+            if (!_vararg.sameReference(BooleanStruct.of(_id.isVararg()))) {
                 return false;
             }
         }
@@ -1711,7 +1709,7 @@ public final class AliasReflection {
             for (int i = 0; i < parLen_; i++) {
                 Struct par_ = pars_[i];
                 if (par_ instanceof ClassMetaInfo) {
-                    ClassMetaInfo p_ = (ClassMetaInfo) par_;
+                    ClassMetaInfo p_ = LgNames.getClass(par_,_stds);
                     if (!StringList.quickEq(p_.getName(), parTypes_.get(i))) {
                         return false;
                     }
