@@ -18,6 +18,7 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation {
 
     private String methodName;
     private ConstructorId constId;
+    private String classFromName = EMPTY_STRING;
 
     private String lastType = EMPTY_STRING;
 
@@ -58,6 +59,7 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation {
             feed_ = new ConstructorId(idClass_, params_, vararg_);
         }
         String clCurName_ = clArg_.getName();
+        classFromName = clCurName_;
         RootBlock type_ = _conf.getClasses().getClassBody(Templates.getIdFromAllTypes(clCurName_));
         ConstrustorIdVarArg ctorRes_;
         ctorRes_ = getDeclaredCustConstructor(_conf, varargOnly_, clArg_,type_, feed_, ClassArgumentMatching.toArgArray(firstArgs_));
@@ -128,6 +130,10 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation {
 
     public final ConstructorId getConstId() {
         return constId;
+    }
+
+    public String getClassFromName() {
+        return classFromName;
     }
 
     public String getMethodName() {

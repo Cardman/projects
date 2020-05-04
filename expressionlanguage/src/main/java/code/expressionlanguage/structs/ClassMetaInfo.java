@@ -17,7 +17,7 @@ import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
 
-public final class ClassMetaInfo implements AnnotatedStruct, ExportableStringStruct {
+public final class ClassMetaInfo implements AnnotatedStruct {
 
     private static final String EMPTY_STRING = "";
 
@@ -311,7 +311,7 @@ public final class ClassMetaInfo implements AnnotatedStruct, ExportableStringStr
         return StringList.quickEq(name, info_.name);
     }
 
-    @Override
+
     public StringStruct exportValue() {
         return getDisplayedString();
     }

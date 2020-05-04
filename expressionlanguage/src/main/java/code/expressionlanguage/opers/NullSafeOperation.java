@@ -134,11 +134,8 @@ public final class NullSafeOperation extends MethodOperation {
             _to.setSimpleArgumentAna(f_, _conf);
             return;
         }
-        if (s_ == null) {
-            return;
-        }
-        v_ = s_.getStruct();
-        if (v_ != NullStruct.NULL_VALUE) {
+        Struct value_ = Argument.getNull(Argument.getNullable(s_));
+        if (value_ != NullStruct.NULL_VALUE) {
             _to.setSimpleArgumentAna(s_, _conf);
         }
     }

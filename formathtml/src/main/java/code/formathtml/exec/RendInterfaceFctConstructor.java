@@ -21,6 +21,7 @@ public final class RendInterfaceFctConstructor extends RendInvokingOperation imp
 
     private int naturalVararg;
     private int offsetOper;
+    private String classFromName;
     public RendInterfaceFctConstructor(InterfaceFctConstructor _abs) {
         super(_abs);
         className = _abs.getClassName();
@@ -28,6 +29,7 @@ public final class RendInterfaceFctConstructor extends RendInvokingOperation imp
         lastType = _abs.getLastType();
         naturalVararg = _abs.getNaturalVararg();
         offsetOper = _abs.getOffsetOper();
+        classFromName = _abs.getClassFromName();
     }
 
     @Override
@@ -64,11 +66,8 @@ public final class RendInterfaceFctConstructor extends RendInvokingOperation imp
         CustList<RendDynOperationNode> chidren_ = getChildrenNodes();
         setRelativeOffsetPossibleLastPage(getIndexInEl()+offsetOper, _conf);
         Argument arg_ = _arguments.first();
-        String clCurName_ = arg_.getObjectClassName(_conf.getContextEl());
         CustList<Argument> firstArgs_;
-        String cl_ = getConstId().getName();
-        cl_ = Templates.getIdFromAllTypes(cl_);
-        String superClass_ = Templates.getFullTypeByBases(clCurName_, cl_, _conf);
+        String superClass_ = _conf.getOperationPageEl().formatVarType(classFromName,_conf);
         String lastType_ = getLastType();
         lastType_ = Templates.quickFormat(superClass_, lastType_, _conf);
         int natvararg_ = getNaturalVararg();

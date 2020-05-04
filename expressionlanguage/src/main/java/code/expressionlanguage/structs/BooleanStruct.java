@@ -3,7 +3,7 @@ package code.expressionlanguage.structs;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ExecutableCode;
 
-public final class BooleanStruct implements DisplayableStruct, ExportableStringStruct {
+public final class BooleanStruct implements DisplayableStruct {
 
     private static final BooleanStruct FALSE = new BooleanStruct();
     private static final BooleanStruct TRUE = new BooleanStruct();
@@ -35,7 +35,7 @@ public final class BooleanStruct implements DisplayableStruct, ExportableStringS
         }
         return new StringStruct(_an.getStandards().getDisplayedStrings().getFalseString());
     }
-    @Override
+
     public StringStruct exportValue() {
         if (this == TRUE) {
             return new StringStruct("1");

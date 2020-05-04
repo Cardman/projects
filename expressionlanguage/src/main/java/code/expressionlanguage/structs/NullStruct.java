@@ -3,7 +3,7 @@ package code.expressionlanguage.structs;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ExecutableCode;
 
-public final class NullStruct implements DisplayableStruct, ExportableStringStruct {
+public final class NullStruct implements DisplayableStruct {
 
     public static final NullStruct NULL_VALUE = new NullStruct();
 
@@ -17,11 +17,6 @@ public final class NullStruct implements DisplayableStruct, ExportableStringStru
     @Override
     public StringStruct getDisplayedString(Analyzable _an) {
         return new StringStruct(_an.getStandards().getDisplayedStrings().getNullString());
-    }
-
-    @Override
-    public StringStruct exportValue() {
-        return new StringStruct(";");
     }
 
 

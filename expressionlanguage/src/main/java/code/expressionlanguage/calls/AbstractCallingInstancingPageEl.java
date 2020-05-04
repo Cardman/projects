@@ -64,9 +64,7 @@ public abstract class AbstractCallingInstancingPageEl extends AbstractPageEl imp
                     calledImplicitConstructor = true;
                     ConstructorId super_ = new ConstructorId(superClassBase_, new StringList(), false);
                     Argument global_ = getGlobalArgument();
-                    String instClass_ = getGlobalArgument().getObjectClassName(_context);
-                    String generic_ = Templates.getFullTypeByBases(instClass_, superClassBase_, _context);
-                    _context.setCallingState(new CustomFoundConstructor(generic_, superClass_,EMPTY_STRING, -1, super_, global_, new CustList<Argument>(), InstancingStep.USING_SUPER_IMPL));
+                    _context.setCallingState(new CustomFoundConstructor(Templates.quickFormat(curClass_,id_,_context), superClass_,EMPTY_STRING, -1, super_, global_, new CustList<Argument>(), InstancingStep.USING_SUPER_IMPL));
                     return false;
                 }
                 //the super constructor is called here

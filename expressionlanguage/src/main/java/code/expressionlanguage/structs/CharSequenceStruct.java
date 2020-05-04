@@ -9,7 +9,7 @@ import code.expressionlanguage.stds.ResultErrorStd;
 import code.util.CustList;
 import code.util.StringList;
 
-public abstract class CharSequenceStruct implements DisplayableStruct, ExportableStringStruct {
+public abstract class CharSequenceStruct implements DisplayableStruct {
     @Override
     public final Struct getParent() {
         return NullStruct.NULL_VALUE;
@@ -498,7 +498,7 @@ public abstract class CharSequenceStruct implements DisplayableStruct, Exportabl
         return new StringStruct(toStringInstance());
     }
 
-    @Override
+
     public StringStruct exportValue() {
         StringBuilder out_ = new StringBuilder();
         out_.append("\"");

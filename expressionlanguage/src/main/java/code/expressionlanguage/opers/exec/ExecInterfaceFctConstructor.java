@@ -55,11 +55,8 @@ public final class ExecInterfaceFctConstructor extends ExecAbstractInvokingConst
         int off_ = getOffsetOper();
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
         Argument arg_ = _arguments.first();
-        String clCurName_ = arg_.getObjectClassName(_conf.getContextEl());
         CustList<Argument> firstArgs_;
-        String cl_ = getConstId().getName();
-        cl_ = Templates.getIdFromAllTypes(cl_);
-        String superClass_ = Templates.getFullTypeByBases(clCurName_, cl_, _conf);
+        String superClass_ = _conf.getOperationPageEl().formatVarType(getClassFromName(),_conf);
         String lastType_ = getLastType();
         lastType_ = Templates.quickFormat(superClass_, lastType_, _conf);
         int natvararg_ = getNaturalVararg();

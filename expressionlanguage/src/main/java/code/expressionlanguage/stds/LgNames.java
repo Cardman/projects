@@ -342,14 +342,20 @@ public abstract class LgNames {
     }
 
     public DisplayableStruct getStringOfObject(ContextEl _cont, Struct _arg) {
-        return new StringStruct(getStringOfEnum(_cont, _arg));
+        String str_;
+        if (_arg instanceof EnumerableStruct) {
+            str_ = ((EnumerableStruct)_arg).getName();
+        } else {
+            str_ = _arg.getClassName(_cont);
+        }
+        return new StringStruct(str_);
     }
 
-    public static String getStringOfEnum(ContextEl _cont, Struct _arg) {
+    public static String getNameOfEnum(Struct _arg) {
         if (_arg instanceof EnumerableStruct) {
             return ((EnumerableStruct)_arg).getName();
         }
-        return _arg.getClassName(_cont);
+        return ";";
     }
 
     public static StringList parseLineArg(String _line) {

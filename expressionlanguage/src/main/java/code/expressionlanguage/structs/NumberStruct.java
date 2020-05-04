@@ -13,9 +13,8 @@ import code.expressionlanguage.stds.*;
 import code.util.CustList;
 import code.util.*;
 import code.util.StringList;
-import code.util.comparators.ComparatorBoolean;
 
-public abstract class NumberStruct implements DisplayableStruct, ExportableStringStruct {
+public abstract class NumberStruct implements DisplayableStruct {
     private static final int DEFAULT_RADIX = 10;
     @Override
     public final Struct getParent() {
@@ -1183,10 +1182,14 @@ public abstract class NumberStruct implements DisplayableStruct, ExportableStrin
 
     @Override
     public StringStruct getDisplayedString(Analyzable _an) {
-        return exportValue();
+        return getStringValue();
     }
-    @Override
+
     public StringStruct exportValue() {
+        return getStringValue();
+    }
+
+    private StringStruct getStringValue() {
         if (this instanceof DoubleStruct) {
             return new StringStruct(Double.toString(doubleStruct()));
         }

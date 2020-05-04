@@ -24,11 +24,8 @@ public final class ExecSuperInvokingConstructor extends ExecAbstractInvokingCons
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
 
         Argument arg_ = _conf.getOperationPageEl().getGlobalArgument();
-        String clCurName_ = arg_.getObjectClassName(_conf.getContextEl());
         String gl_ = _conf.getOperationPageEl().getGlobalClass();
-        gl_ = Templates.getIdFromAllTypes(gl_);
         String base_ = Templates.getIdFromAllTypes(gl_);
-        gl_ = Templates.getFullTypeByBases(clCurName_, gl_, _conf);
         UniqueRootedBlock unique_ =(UniqueRootedBlock) classes_.getClassBody(base_);
         CustList<Argument> firstArgs_;
         String calledCtorTemp_;

@@ -21,18 +21,14 @@ public final class ExecCurrentInvokingConstructor extends ExecAbstractInvokingCo
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
 
         Argument arg_ = _conf.getOperationPageEl().getGlobalArgument();
-        String clCurName_ = arg_.getObjectClassName(_conf.getContextEl());
         String gl_ = _conf.getOperationPageEl().getGlobalClass();
-        gl_ = Templates.getIdFromAllTypes(gl_);
-        gl_ = Templates.getFullTypeByBases(clCurName_, gl_, _conf);
         CustList<Argument> firstArgs_;
-        String calledCtorTemp_ = gl_;
         String lastType_ = getLastType();
         lastType_ = Templates.quickFormat(gl_, lastType_, _conf);
         int natvararg_ = getNaturalVararg();
         ConstructorId ctorId_ = getConstId();
         firstArgs_ = listArguments(chidren_, natvararg_, lastType_, _arguments, _conf);
-        checkParameters(_conf, calledCtorTemp_, ctorId_, arg_, firstArgs_, true,false,InstancingStep.USING_THIS,null);
+        checkParameters(_conf, gl_, ctorId_, arg_, firstArgs_, true,false,InstancingStep.USING_THIS,null);
         return Argument.createVoid();
     }
 

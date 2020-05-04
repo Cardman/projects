@@ -12,6 +12,7 @@ import code.util.IdMap;
 public abstract class ExecAbstractInvokingConstructor extends ExecInvokingOperation {
 
     private ConstructorId constId;
+    private String classFromName;
 
     private String lastType;
 
@@ -23,6 +24,7 @@ public abstract class ExecAbstractInvokingConstructor extends ExecInvokingOperat
         lastType = _abs.getLastType();
         naturalVararg = _abs.getNaturalVararg();
         offsetOper = _abs.getOffsetOper();
+        classFromName = _abs.getClassFromName();
     }
 
     public int getOffsetOper() {
@@ -49,5 +51,9 @@ public abstract class ExecAbstractInvokingConstructor extends ExecInvokingOperat
 
     public int getNaturalVararg() {
         return naturalVararg;
+    }
+
+    public String getClassFromName() {
+        return classFromName;
     }
 }

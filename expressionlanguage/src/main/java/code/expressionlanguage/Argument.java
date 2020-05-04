@@ -23,6 +23,19 @@ public final class Argument {
         return args_;
     }
 
+    public static Struct getNullable(Argument _arg) {
+        if (_arg != null) {
+            return _arg.getStruct();
+        }
+        return null;
+    }
+
+    public static Struct getNull(Struct _arg) {
+        if (_arg != null) {
+            return _arg;
+        }
+        return NullStruct.NULL_VALUE;
+    }
     public static Argument createVoid() {
         return new Argument();
     }

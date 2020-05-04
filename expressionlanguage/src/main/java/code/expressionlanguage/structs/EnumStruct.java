@@ -5,7 +5,7 @@ import code.expressionlanguage.opers.util.ClassField;
 import code.util.EntryCust;
 import code.util.ObjectMap;
 
-public final class EnumStruct implements FieldableStruct, EnumerableStruct, ExportableStringStruct {
+public final class EnumStruct implements FieldableStruct, EnumerableStruct {
 
     private final int ordinal;
 
@@ -60,8 +60,4 @@ public final class EnumStruct implements FieldableStruct, EnumerableStruct, Expo
         return fields;
     }
 
-    @Override
-    public StringStruct exportValue() {
-        return new StringStruct(getName());
-    }
 }
