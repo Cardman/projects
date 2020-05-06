@@ -1050,6 +1050,7 @@ public abstract class OperationNode implements Operable {
                 continue;
             }
             String gene_ = root_.getGenericString();
+            root_.getGenericString();
             addToList(_conf,typeInfos_,_staticContext,s,gene_,0,true);
             for (String m : root_.getAllGenericSuperTypes()) {
                 addToList(_conf,typeInfos_,_staticContext,s,m,0,false);

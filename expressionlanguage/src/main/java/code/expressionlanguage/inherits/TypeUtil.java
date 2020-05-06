@@ -454,8 +454,9 @@ public final class TypeUtil {
         list_ = PrimitiveTypeUtil.getSubclasses(list_, _conf);
         if (list_.onlyOneElt()) {
             String class_ = list_.first();
-            String classBase_ = Templates.getIdFromAllTypes(class_);
-            return new ClassMethodId(classBase_, defs_.getVal(class_));
+//            String classBase_ = Templates.getIdFromAllTypes(class_);
+//            return new ClassMethodId(classBase_, defs_.getVal(class_));
+            return new ClassMethodId(class_, defs_.getVal(class_));
         }
         defs_ = new StringMap<MethodId>();
         list_ = new StringList();
@@ -466,8 +467,9 @@ public final class TypeUtil {
         list_ = PrimitiveTypeUtil.getSubclasses(list_, _conf);
         if (list_.onlyOneElt()) {
             String class_ = list_.first();
-            String classBase_ = Templates.getIdFromAllTypes(class_);
-            return new ClassMethodId(classBase_, defs_.getVal(class_));
+//            String classBase_ = Templates.getIdFromAllTypes(class_);
+//            return new ClassMethodId(classBase_, defs_.getVal(class_));
+            return new ClassMethodId(class_, defs_.getVal(class_));
         }
         return null;
     }
@@ -515,7 +517,7 @@ public final class TypeUtil {
             }
             classNameFound_ = tree_.firstKey();
             realId_ = tree_.firstValue();
-            classNameFound_ = Templates.getIdFromAllTypes(classNameFound_);
+//            classNameFound_ = Templates.getIdFromAllTypes(classNameFound_);
             if (((GeneCustMethod) Classes.getMethodBodiesById(_conf,classNameFound_, realId_).first()).isAbstractMethod()) {
                 continue;
             }

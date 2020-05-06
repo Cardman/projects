@@ -421,6 +421,7 @@ public final class FileResolver {
         boolean enableByEndLine_ = false;
         BracedBlock currentParent_;
         Ints braces_ = new Ints();
+        String packageName_ = EMPTY_STRING;
         if (oper_) {
             ParsedImportedTypes p_ = new ParsedImportedTypes(nextIndex_, _file);
             importedTypes_ = p_.getImportedTypes();
@@ -659,7 +660,6 @@ public final class FileResolver {
             RootBlock typeBlock_;
             String tempDef_ = templateDef_.toString();
             String typeName_ = typeNamePref_.toString();
-            String packageName_ = EMPTY_STRING;
             String baseName_;
             int lastDot_ = typeName_.lastIndexOf(PKG);
             if (lastDot_ >= 0) {
@@ -693,9 +693,9 @@ public final class FileResolver {
             ((ResultTypeCreation) out_).setType(typeBlock_);
             currentParent_ = typeBlock_;
         }
-        return processOuterTypeBody(_context, _input, nextIndex_, _file, currentParent_, braces_, enableByEndLine_, out_);
+        return processOuterTypeBody(_context, _input, packageName_,nextIndex_, _file, currentParent_, braces_, enableByEndLine_, out_);
     }
-    private static ResultCreation processOuterTypeBody(ContextEl _context, InputTypeCreation _input, int _nextIndex,
+    private static ResultCreation processOuterTypeBody(ContextEl _context, InputTypeCreation _input, String _pkgName,int _nextIndex,
             String _file, BracedBlock _currentParent, Ints _braces, boolean _enabledEnum, ResultCreation _out) {
         int len_ = _file.length();
         KeyWords keyWords_ = _context.getKeyWords();
@@ -964,7 +964,7 @@ public final class FileResolver {
                 break;
             }
             if (endInstruction_) {
-                after_ = processInstruction(_context,currentChar_, _input, currentChar_, currentParent_,
+                after_ = processInstruction(_context,currentChar_, _input,_pkgName, currentChar_, currentParent_,
                         instructionLocation_,
                         instruction_, _file, declType_, i_, _nextIndex, enableByEndLine_);
                 instLen_ = 0;
@@ -1227,7 +1227,7 @@ public final class FileResolver {
         return join_.substring(typeStr_.length()).trim();
     }
 
-    private static AfterBuiltInstruction processInstruction(ContextEl _context, char _end, InputTypeCreation _input, char _currentChar,
+    private static AfterBuiltInstruction processInstruction(ContextEl _context, char _end, InputTypeCreation _input, String _pkgName,char _currentChar,
                                                             BracedBlock _currentParent,
                                                             int _instructionLocation, StringBuilder _instruction, String _file, boolean _declType, int _i, int _nextIndex, boolean _enabledEnum) {
         AfterBuiltInstruction after_ = new AfterBuiltInstruction();
@@ -1257,7 +1257,7 @@ public final class FileResolver {
                 Ints annotationsIndexes_ = new Ints();
                 StringList annotations_ = new StringList();
                 if (_declType) {
-                    RootBlock built_ = processTypeHeader(_context, _input, true,
+                    RootBlock built_ = processTypeHeader(_context, _input, _pkgName,true,
                             _file,
                             instructionLocation_, instructionRealLocation_,
                             found_,
@@ -1419,7 +1419,7 @@ public final class FileResolver {
                 }
                 if (_currentChar == BEGIN_BLOCK) {
                     enableByEndLine_ = false;
-                    br_ = new InnerElementBlock((EnumBlock) currentParent_, new OffsetStringInfo(fieldOffest_, fieldName_.trim()),
+                    br_ = new InnerElementBlock((EnumBlock) currentParent_,_pkgName, new OffsetStringInfo(fieldOffest_, fieldName_.trim()),
                             new OffsetStringInfo(templateOffset_, tmpPart_.trim()),
                             new OffsetStringInfo(expressionOffest_, expression_.trim()), new OffsetsBlock(instructionRealLocation_, instructionLocation_));
                 } else {
@@ -1447,7 +1447,7 @@ public final class FileResolver {
                     //fields, constructors or methods
                     if (_declType) {
                         //Inner types
-                        RootBlock built_ = processTypeHeader(_context, _input, false,
+                        RootBlock built_ = processTypeHeader(_context, _input, _pkgName,false,
                                 _file,
                                 instructionLocation_, instructionRealLocation_,
                                 found_,
@@ -1549,7 +1549,7 @@ public final class FileResolver {
         after_.setEnabledEnumHeader(enableByEndLine_);
         return after_;
     }
-    private static RootBlock processTypeHeader(ContextEl _context, InputTypeCreation _input,
+    private static RootBlock processTypeHeader(ContextEl _context, InputTypeCreation _input,String _pkgName,
                                                boolean _defStatic, String _file,
                                                int _instructionLocation, int _instructionRealLocation, String _found,
                                                BracedBlock _currentParent, String _trimmedInstruction,
@@ -1645,13 +1645,13 @@ public final class FileResolver {
         }
         locIndex_ = skipWhitespace(locIndex_, _file);
 
-        return tryBuiltTypeWithInfos(_file, _instructionLocation, _instructionRealLocation,
+        return tryBuiltTypeWithInfos(_file, _instructionLocation, _instructionRealLocation,_pkgName,
                 _currentParent, accessFct_, trFound_, annotationsIndexes_, annotations_, typeOffset_,
                 locIndex_, badIndexes_, staticType_, abstractType_, finalType_, keyWordClass_,
                 keyWordEnum_, keyWordInterface_, keyWordInterfaces_, type_, categoryOffset_);
     }
 
-    private static RootBlock tryBuiltTypeWithInfos(String _file, int _instructionLocation, int _instructionRealLocation, BracedBlock _currentParent, AccessEnum _accessFct, int _trFound,
+    private static RootBlock tryBuiltTypeWithInfos(String _file, int _instructionLocation, int _instructionRealLocation, String _pkgName,BracedBlock _currentParent, AccessEnum _accessFct, int _trFound,
                                                    Ints _annotationsIndexes, StringList _annotations, int _typeOffset, int _locIndex, Ints _badIndexes,
                                                    boolean _staticType, boolean _abstractType, boolean _finalType,
                                                    String _keyWordClass, String _keyWordEnum, String _keyWordInterface, String _keyWordInterfaces, String _type,
@@ -1685,14 +1685,14 @@ public final class FileResolver {
             }
             locIndex_ = end_ + 1;
         }
-        return tryBuildType(_file, _instructionLocation, _instructionRealLocation,
+        return tryBuildType(_file, _instructionLocation, _instructionRealLocation,_pkgName,
                 _currentParent, _accessFct, _trFound, _annotationsIndexes,
                 _annotations, _typeOffset, locIndex_, _staticType, _abstractType, _finalType,
                 _keyWordClass, _keyWordEnum, _keyWordInterface, _type, _categoryOffset, importedTypes_,
                 offsetsImports_, staticInitInterfaces_, staticInitInterfacesOffset_);
     }
 
-    private static RootBlock tryBuildType(String _file, int _instructionLocation, int _instructionRealLocation, BracedBlock _currentParent,
+    private static RootBlock tryBuildType(String _file, int _instructionLocation, int _instructionRealLocation, String _pkgName,BracedBlock _currentParent,
                                           AccessEnum _accessFct, int _trFound, Ints _annotationsIndexes, StringList _annotations, int _typeOffset, int _locIndex,
                                           boolean _staticType, boolean _abstractType, boolean _finalType,
                                           String _keyWordClass, String _keyWordEnum, String _keyWordInterface, String _type, int _categoryOffset, StringList _importedTypes,
@@ -1754,25 +1754,25 @@ public final class FileResolver {
         RootBlock typeBlock_;
         String tempDef_ = templateDef_.toString();
         String typeName_ = typeNamePref_.toString();
-        String packageName_ = EMPTY_STRING;
 
         if (StringList.quickEq(_type, _keyWordEnum)) {
-            typeBlock_ = new EnumBlock(beginDefinition_, _categoryOffset, typeName_, packageName_,
+            typeBlock_ = new EnumBlock(beginDefinition_, _categoryOffset, typeName_, _pkgName,
                     new OffsetAccessInfo(_typeOffset - 1, _accessFct) , tempDef_, superTypes_,
                     new OffsetsBlock(_instructionRealLocation + _trFound, _instructionLocation + _trFound));
         } else if (StringList.quickEq(_type, _keyWordClass)) {
-            typeBlock_ = new ClassBlock(beginDefinition_, _categoryOffset, typeName_, packageName_,
+            typeBlock_ = new ClassBlock(beginDefinition_, _categoryOffset, typeName_, _pkgName,
                     new OffsetAccessInfo(_typeOffset - 1, _accessFct), tempDef_, superTypes_, _finalType, _abstractType, _staticType,
                     new OffsetsBlock(_instructionRealLocation + _trFound, _instructionLocation + _trFound));
         } else if (StringList.quickEq(_type, _keyWordInterface)) {
-            typeBlock_ = new InterfaceBlock(beginDefinition_, _categoryOffset, typeName_, packageName_,
+            typeBlock_ = new InterfaceBlock(beginDefinition_, _categoryOffset, typeName_, _pkgName,
                     new OffsetAccessInfo(_typeOffset - 1, _accessFct) , tempDef_, superTypes_, _staticType,
                     new OffsetsBlock(_instructionRealLocation + _trFound, _instructionLocation + _trFound));
         } else {
-            typeBlock_ = new AnnotationBlock(beginDefinition_, _categoryOffset, typeName_, packageName_,
+            typeBlock_ = new AnnotationBlock(beginDefinition_, _categoryOffset, typeName_, _pkgName,
                     new OffsetAccessInfo(_typeOffset - 1, _accessFct) , tempDef_, superTypes_,
                     new OffsetsBlock(_instructionRealLocation + _trFound, _instructionLocation + _trFound));
         }
+        typeBlock_.setupOffsets(typeName_,"");
         typeBlock_.getImports().addAllElts(_importedTypes);
         typeBlock_.getImportsOffset().addAllElts(_offsetsImports);
         typeBlock_.getStaticInitInterfaces().addAllElts(_staticInitInterfaces);

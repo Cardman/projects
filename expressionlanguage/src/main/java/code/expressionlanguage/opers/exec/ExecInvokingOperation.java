@@ -204,7 +204,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         return new ClassMethodId(classNameFound_, methodId_);
     }
     public static Argument callPrepare(ExecutableCode _conf, String _classNameFound, MethodId _methodId, Argument _previous, CustList<Argument> _firstArgs, Argument _right) {
-        checkParameters(_conf, _classNameFound, _methodId, _previous, _firstArgs, false,true,null, _right);
+        String classFound_ = checkParameters(_conf, _classNameFound, _methodId, _previous, _firstArgs, false, true, null, _right);
         LgNames stds_ = _conf.getStandards();
         String cast_;
         cast_ = stds_.getAliasCastType();
@@ -212,11 +212,11 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             return Argument.createVoid();
         }
         if (_right != null) {
-            _conf.getContextEl().setCallingState(new CustomFoundMethod(_previous, _classNameFound, _methodId, _firstArgs,_right));
+            _conf.getContextEl().setCallingState(new CustomFoundMethod(_previous, classFound_, _methodId, _firstArgs,_right));
             return Argument.createVoid();
         }
         if (!StringList.isDollarWord(_methodId.getName())) {
-            _conf.getContextEl().setCallingState(new CustomFoundMethod(_previous, _classNameFound, _methodId, _firstArgs,null));
+            _conf.getContextEl().setCallingState(new CustomFoundMethod(_previous, classFound_, _methodId, _firstArgs,null));
             return Argument.createVoid();
         }
         Classes classes_ = _conf.getClasses();
@@ -504,10 +504,10 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             }
         }
         if (_methodId.getKind() == MethodAccessKind.STATIC_CALL) {
-            context_.setCallingState(new CustomFoundCast(_classNameFound, _methodId, _firstArgs));
+            context_.setCallingState(new CustomFoundCast(classFound_, _methodId, _firstArgs));
             return Argument.createVoid();
         }
-        context_.setCallingState(new CustomFoundMethod(_previous, _classNameFound, _methodId, _firstArgs, null));
+        context_.setCallingState(new CustomFoundMethod(_previous, classFound_, _methodId, _firstArgs, null));
         return Argument.createVoid();
     }
 
@@ -517,7 +517,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                 || _prev instanceof LambdaMethodStruct;
     }
 
-    public static void checkParameters(ExecutableCode _conf, String _classNameFound, Identifiable _methodId,
+    public static String checkParameters(ExecutableCode _conf, String _classNameFound, Identifiable _methodId,
                                 Argument _previous, CustList<Argument> _firstArgs,
                                 boolean _ctor, boolean _method, InstancingStep _kindCall, Argument _right) {
         LgNames stds_ = _conf.getStandards();
@@ -529,22 +529,23 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             classFormat_ = Templates.getFullTypeByBases(className_, classFormat_, _conf);
             if (classFormat_.isEmpty()) {
                 _conf.setException(new ErrorStruct(_conf,cast_));
-                return;
+                return "";
             }
         }
         if (!Templates.okArgs(_methodId,false,classFormat_,_firstArgs, _conf, _right)) {
-            return;
+            return "";
         }
         if (_method) {
-            return;
+            return classFormat_;
         }
         if (_ctor) {
             String idClass_ = Templates.getIdFromAllTypes(_classNameFound);
             RootBlock superClass_ = _conf.getClasses().getClassBody(idClass_);
             _conf.getContextEl().setCallingState(new CustomFoundConstructor(_classNameFound,superClass_, EMPTY_STRING, -1, (ConstructorId) _methodId, _previous, _firstArgs, _kindCall));
-            return;
+            return "";
         }
         _conf.getContextEl().setCallingState(new CustomFoundMethod(Argument.createVoid(), _classNameFound, (MethodId) _methodId, _firstArgs, _right));
+        return "";
     }
     public static Argument prepareCallDyn(Argument _previous, CustList<Argument> _values, ExecutableCode _conf) {
         Struct ls_ = _previous.getStruct();

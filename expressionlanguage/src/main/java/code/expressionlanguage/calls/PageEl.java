@@ -38,11 +38,7 @@ public abstract class PageEl {
         if (globalArgument.isNull()) {
             return _varType;
         }
-        String objClass_ = globalArgument.getObjectClassName(_cont.getContextEl());
-        String gl_ = globalClass;
-        gl_ = Templates.getIdFromAllTypes(gl_);
-        gl_ = Templates.getFullTypeByBases(objClass_, gl_, _cont);
-        return Templates.quickFormat(gl_, _varType, _cont);
+        return Templates.quickFormat(globalClass, _varType, _cont);
     }
 
     public Argument getGlobalArgument() {

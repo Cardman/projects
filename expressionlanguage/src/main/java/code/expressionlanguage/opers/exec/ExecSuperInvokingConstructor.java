@@ -4,8 +4,6 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.calls.util.InstancingStep;
 import code.expressionlanguage.inherits.Templates;
-import code.expressionlanguage.methods.Classes;
-import code.expressionlanguage.methods.UniqueRootedBlock;
 import code.expressionlanguage.opers.SuperInvokingConstructor;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.util.CustList;
@@ -18,18 +16,15 @@ public final class ExecSuperInvokingConstructor extends ExecAbstractInvokingCons
 
     @Override
     Argument getArgument(CustList<Argument> _arguments, ExecutableCode _conf) {
-        Classes classes_ = _conf.getClasses();
         CustList<ExecOperationNode> chidren_ = getChildrenNodes();
         int off_ = getOffsetOper();
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
 
         Argument arg_ = _conf.getOperationPageEl().getGlobalArgument();
         String gl_ = _conf.getOperationPageEl().getGlobalClass();
-        String base_ = Templates.getIdFromAllTypes(gl_);
-        UniqueRootedBlock unique_ =(UniqueRootedBlock) classes_.getClassBody(base_);
         CustList<Argument> firstArgs_;
         String calledCtorTemp_;
-        String superClass_ = Templates.quickFormat(gl_, unique_.getImportedDirectGenericSuperClass(), _conf);
+        String superClass_ = Templates.quickFormat(gl_, getClassFromName(), _conf);
         String lastType_ = getLastType();
         lastType_ = Templates.quickFormat(superClass_, lastType_, _conf);
         int natvararg_ = getNaturalVararg();

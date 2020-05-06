@@ -119,7 +119,7 @@ public final class Classes {
         }
         String className_;
         className_ = _root.getName().trim();
-        if (!_context.isValidToken(className_) && !(_root instanceof InnerTypeOrElement)) {
+        if (!_context.isValidToken(className_)) {
             FoundErrorInterpret badCl_ = new FoundErrorInterpret();
             badCl_.setFileName(_root.getFile().getFileName());
             badCl_.setIndexFile(_root.getIdRowCol());

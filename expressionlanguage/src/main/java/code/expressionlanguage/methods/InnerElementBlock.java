@@ -12,7 +12,6 @@ import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.instr.PartOffset;
-import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.exec.ExecAffectationOperation;
@@ -49,10 +48,10 @@ public final class InnerElementBlock extends RootBlock implements InnerTypeOrEle
     private CustList<PartOffset> partOffsets = new CustList<PartOffset>();
     private String className;
 
-    public InnerElementBlock(EnumBlock _m, OffsetStringInfo _fieldName,
+    public InnerElementBlock(EnumBlock _m, String _pkgName,OffsetStringInfo _fieldName,
                              OffsetStringInfo _type,
                              OffsetStringInfo _value, OffsetsBlock _offset) {
-        super(0, 0, StringList.concat(_m.getFullName(),"-",_fieldName.getInfo()), _m.getPackageName(), new OffsetAccessInfo(0,AccessEnum.PUBLIC), "", new IntMap< String>(), _offset);
+        super(0, 0, _fieldName.getInfo(), _pkgName, new OffsetAccessInfo(0,AccessEnum.PUBLIC), "", new IntMap< String>(), _offset);
         className = _m.getOriginalName();
         fieldNameOffest = _fieldName.getOffset();
         valueOffest = _value.getOffset();
@@ -62,25 +61,6 @@ public final class InnerElementBlock extends RootBlock implements InnerTypeOrEle
         tempClassOffset = _type.getOffset();
     }
 
-    @Override
-    public String getFullName() {
-        return getName();
-    }
-
-    @Override
-    public Ints getTypeVarCounts() {
-        Ints generic_ = new Ints();
-        CustList<RootBlock> pars_ = getAllParentTypes();
-        int lenPar_ = pars_.size();
-        for (int i = 0; i < lenPar_; i++) {
-            generic_.add(0);
-        }
-        return generic_;
-    }
-    @Override
-    public String getGenericString() {
-        return getName();
-    }
     @Override
     public void setupBasicOverrides(ContextEl _context) {
         checkAccess(_context);
@@ -96,16 +76,6 @@ public final class InnerElementBlock extends RootBlock implements InnerTypeOrEle
 
     public int getTempClassOffset() {
         return tempClassOffset;
-    }
-
-    @Override
-    public CustList<TypeVar> getParamTypesMapValues() {
-        return new CustList<TypeVar>();
-    }
-
-    @Override
-    public StringList getParamTypesValues() {
-        return new StringList();
     }
 
     @Override

@@ -1,6 +1,7 @@
 package code.expressionlanguage.methods;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.inherits.TypeUtil;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.MethodAccessKind;
@@ -152,7 +153,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
         MethodId resId_;
         ClassMethodId res_;
         RootBlock r_ = classes_.getClassBody("pkg.Ex");
-        StringMap<ClassMethodId> concrete_ = TypeUtil.getConcreteMethodsToCall(r_, id_, cont_);
+        StringMap<ClassMethodId> concrete_ = getConcreteMethodsToCall(cont_, id_, r_);
         assertEq(2, concrete_.size());
         assertTrue(concrete_.contains("pkg.ExTwo"));
         res_ = concrete_.getVal("pkg.ExTwo");
@@ -194,7 +195,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
         MethodId resId_;
         ClassMethodId res_;
         RootBlock r_ = classes_.getClassBody("pkg.Ex");
-        StringMap<ClassMethodId> concrete_ = TypeUtil.getConcreteMethodsToCall(r_, id_, cont_);
+        StringMap<ClassMethodId> concrete_ = getConcreteMethodsToCall(cont_, id_, r_);
         assertEq(2, concrete_.size());
         assertTrue(concrete_.contains("pkg.ExTwo"));
         res_ = concrete_.getVal("pkg.ExTwo");
@@ -378,7 +379,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
         MethodId resId_;
         ClassMethodId res_;
         RootBlock r_ = classes_.getClassBody("pkg.Int");
-        StringMap<ClassMethodId> concrete_ = TypeUtil.getConcreteMethodsToCall(r_, id_, cont_);
+        StringMap<ClassMethodId> concrete_ = getConcreteMethodsToCall(cont_, id_, r_);
         assertEq(2, concrete_.size());
         assertTrue(concrete_.contains("pkg.ExTwo"));
         res_ = concrete_.getVal("pkg.ExTwo");
@@ -560,7 +561,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
         MethodId resId_;
         ClassMethodId res_;
         RootBlock r_ = classes_.getClassBody("pkg.ExTwo");
-        StringMap<ClassMethodId> concrete_ = TypeUtil.getConcreteMethodsToCall(r_, id_, cont_);
+        StringMap<ClassMethodId> concrete_ = getConcreteMethodsToCall(cont_, id_, r_);
         assertEq(2, concrete_.size());
         assertTrue(concrete_.contains("pkg.ExThree"));
         res_ = concrete_.getVal("pkg.ExThree");
@@ -574,7 +575,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
         assertEq(resId_, res_.getConstraints(),cont_);
         id_ = new MethodId(MethodAccessKind.INSTANCE,"instancemethod", new StringList("#E"));
         r_ = classes_.getClassBody("pkg.Ex");
-        concrete_ = TypeUtil.getConcreteMethodsToCall(r_, id_, cont_);
+        concrete_ = getConcreteMethodsToCall(cont_, id_, r_);
         assertEq(2, concrete_.size());
         assertTrue(concrete_.contains("pkg.ExThree"));
         res_ = concrete_.getVal("pkg.ExThree");
@@ -748,7 +749,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
         MethodId resId_;
         ClassMethodId res_;
         RootBlock r_ = classes_.getClassBody("pkg.Ex");
-        StringMap<ClassMethodId> concrete_ = TypeUtil.getConcreteMethodsToCall(r_, id_, cont_);
+        StringMap<ClassMethodId> concrete_ = getConcreteMethodsToCall(cont_, id_, r_);
         assertEq(2, concrete_.size());
         assertTrue(concrete_.contains("pkg.Ex"));
         res_ = concrete_.getVal("pkg.ExTwo");
@@ -761,7 +762,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
         assertEq("pkg.Ex", res_.getClassName());
         assertEq(resId_, res_.getConstraints(),cont_);
         r_ = classes_.getClassBody("pkg.ExTwo");
-        concrete_ = TypeUtil.getConcreteMethodsToCall(r_, id_, cont_);
+        concrete_ = getConcreteMethodsToCall(cont_, id_, r_);
         assertEq(1, concrete_.size());
         assertTrue(concrete_.contains("pkg.ExTwo"));
         res_ = concrete_.getVal("pkg.ExTwo");
@@ -806,7 +807,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
         MethodId resId_;
         ClassMethodId res_;
         RootBlock r_ = classes_.getClassBody("pkg.Int");
-        StringMap<ClassMethodId> concrete_ = TypeUtil.getConcreteMethodsToCall(r_, id_, cont_);
+        StringMap<ClassMethodId> concrete_ = getConcreteMethodsToCall(cont_, id_, r_);
         assertEq(2, concrete_.size());
         assertTrue(concrete_.contains("pkg.ExTwo"));
         res_ = concrete_.getVal("pkg.ExTwo");
@@ -885,7 +886,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
         MethodId resId_;
         ClassMethodId res_;
         RootBlock r_ = classes_.getClassBody("pkg.Ex");
-        StringMap<ClassMethodId> concrete_ = TypeUtil.getConcreteMethodsToCall(r_, id_, cont_);
+        StringMap<ClassMethodId> concrete_ = getConcreteMethodsToCall(cont_, id_, r_);
         assertEq(2, concrete_.size());
         assertTrue(concrete_.contains("pkg.ExTwo"));
         res_ = concrete_.getVal("pkg.ExTwo");
@@ -934,7 +935,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
         MethodId resId_;
         ClassMethodId res_;
         RootBlock r_ = classes_.getClassBody("pkg.Ex");
-        StringMap<ClassMethodId> concrete_ = TypeUtil.getConcreteMethodsToCall(r_, id_, cont_);
+        StringMap<ClassMethodId> concrete_ = getConcreteMethodsToCall(cont_, id_, r_);
         assertEq(2, concrete_.size());
         assertTrue(concrete_.contains("pkg.ExTwo"));
         res_ = concrete_.getVal("pkg.ExTwo");
@@ -948,7 +949,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
         assertEq(resId_, res_.getConstraints(),cont_);
         id_ = new MethodId(MethodAccessKind.INSTANCE,"instancemethod", new StringList("#S"));
         r_ = classes_.getClassBody("pkg.ExThree");
-        concrete_ = TypeUtil.getConcreteMethodsToCall(r_, id_, cont_);
+        concrete_ = getConcreteMethodsToCall(cont_, id_, r_);
         assertEq(2, concrete_.size());
         assertTrue(concrete_.contains("pkg.ExTwo"));
         res_ = concrete_.getVal("pkg.ExTwo");
@@ -998,7 +999,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
         MethodId resId_;
         ClassMethodId res_;
         RootBlock r_ = classes_.getClassBody("pkg.Ex");
-        StringMap<ClassMethodId> concrete_ = TypeUtil.getConcreteMethodsToCall(r_, id_, cont_);
+        StringMap<ClassMethodId> concrete_ = getConcreteMethodsToCall(cont_, id_, r_);
         assertEq(3, concrete_.size());
         assertTrue(concrete_.contains("pkg.ExTwo"));
         res_ = concrete_.getVal("pkg.ExTwo");
@@ -1017,7 +1018,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
         assertEq(resId_, res_.getConstraints(),cont_);
         id_ = new MethodId(MethodAccessKind.INSTANCE,"instancemethod", new StringList("#S"));
         r_ = classes_.getClassBody("pkg.ExThree");
-        concrete_ = TypeUtil.getConcreteMethodsToCall(r_, id_, cont_);
+        concrete_ = getConcreteMethodsToCall(cont_, id_, r_);
         assertEq(2, concrete_.size());
         assertTrue(concrete_.contains("pkg.ExTwo"));
         res_ = concrete_.getVal("pkg.ExTwo");
@@ -1067,7 +1068,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
         MethodId resId_;
         ClassMethodId res_;
         RootBlock r_ = classes_.getClassBody("pkg.Ex");
-        StringMap<ClassMethodId> concrete_ = TypeUtil.getConcreteMethodsToCall(r_, id_, cont_);
+        StringMap<ClassMethodId> concrete_ = getConcreteMethodsToCall(cont_, id_, r_);
         assertEq(2, concrete_.size());
         assertTrue(concrete_.contains("pkg.ExTwo"));
         res_ = concrete_.getVal("pkg.ExTwo");
@@ -1081,7 +1082,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
         assertEq(resId_, res_.getConstraints(),cont_);
         id_ = new MethodId(MethodAccessKind.INSTANCE,"instancemethod", new StringList("#S"));
         r_ = classes_.getClassBody("pkg.ExThree");
-        concrete_ = TypeUtil.getConcreteMethodsToCall(r_, id_, cont_);
+        concrete_ = getConcreteMethodsToCall(cont_, id_, r_);
         assertEq(2, concrete_.size());
         assertTrue(concrete_.contains("pkg.ExTwo"));
         res_ = concrete_.getVal("pkg.ExTwo");
@@ -1131,7 +1132,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
         MethodId resId_;
         ClassMethodId res_;
         RootBlock r_ = classes_.getClassBody("pkg.Ex");
-        StringMap<ClassMethodId> concrete_ = TypeUtil.getConcreteMethodsToCall(r_, id_, cont_);
+        StringMap<ClassMethodId> concrete_ = getConcreteMethodsToCall(cont_, id_, r_);
         assertEq(2, concrete_.size());
         assertTrue(concrete_.contains("pkg.ExTwo"));
         res_ = concrete_.getVal("pkg.ExTwo");
@@ -1145,7 +1146,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
         assertEq(resId_, res_.getConstraints(),cont_);
         id_ = new MethodId(MethodAccessKind.INSTANCE,"instancemethod", new StringList("#S"));
         r_ = classes_.getClassBody("pkg.ExThree");
-        concrete_ = TypeUtil.getConcreteMethodsToCall(r_, id_, cont_);
+        concrete_ = getConcreteMethodsToCall(cont_, id_, r_);
         assertEq(2, concrete_.size());
         assertTrue(concrete_.contains("pkg.ExTwo"));
         res_ = concrete_.getVal("pkg.ExTwo");
@@ -1158,6 +1159,17 @@ public final class RootBlockTest extends ProcessMethodCommon {
         assertEq("pkg.ExThree", res_.getClassName());
         assertEq(resId_, res_.getConstraints(),cont_);
     }
+
+    private static StringMap<ClassMethodId> getConcreteMethodsToCall(ContextEl cont_, MethodId id_, RootBlock r_) {
+        StringMap<ClassMethodId> conc_ = TypeUtil.getConcreteMethodsToCall(r_, id_, cont_);
+        StringMap<ClassMethodId> tr_ = new StringMap<ClassMethodId>();
+        for (EntryCust<String,ClassMethodId> e: conc_.entryList()) {
+            ClassMethodId value_ = e.getValue();
+            tr_.addEntry(e.getKey(),new ClassMethodId(Templates.getIdFromAllTypes(value_.getClassName()),value_.getConstraints()));
+        }
+        return tr_;
+    }
+
     @Test
     public void overrideFailTest() {
         StringMap<String> files_ = new StringMap<String>();

@@ -81,9 +81,20 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
         access = _access.getInfo();
         accessOffset = _access.getOffset();
         templateDef = _templateDef;
-        if (!_templateDef.isEmpty()) {
+        idRowCol = _idRowCol;
+        setupOffsets(_name, _packageName);
+        rowColDirectSuperTypes = _directSuperTypes;
+        for (EntryCust<Integer, String> t: _directSuperTypes.entryList()) {
+            String type_ = ContextEl.removeDottedSpaces(t.getValue());
+            directSuperTypes.add(type_);
+            explicitDirectSuperTypes.put(t.getKey(), true);
+        }
+    }
+
+    public void setupOffsets(String _name, String _packageName) {
+        if (!templateDef.isEmpty()) {
             nameLength = _name.length();
-            templateDefOffset = _idRowCol + nameLength;
+            templateDefOffset = idRowCol + nameLength;
             if (!_packageName.isEmpty()) {
                 templateDefOffset += _packageName.length() + 1;
                 nameLength += _packageName.length() + 1;
@@ -93,13 +104,6 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
             if (!_packageName.isEmpty()) {
                 nameLength += _packageName.length() + 1;
             }
-        }
-        rowColDirectSuperTypes = _directSuperTypes;
-        idRowCol = _idRowCol;
-        for (EntryCust<Integer, String> t: _directSuperTypes.entryList()) {
-            String type_ = ContextEl.removeDottedSpaces(t.getValue());
-            directSuperTypes.add(type_);
-            explicitDirectSuperTypes.put(t.getKey(), true);
         }
     }
 
@@ -363,7 +367,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
         RootBlock c_ = this;
         while (true) {
             pars_.add(c_);
-            if (c_.isStaticType()) {
+            if (c_.withoutInstance()) {
                 break;
             }
             c_ = c_.getParentType();
@@ -497,11 +501,14 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
         StringBuilder generic_ = new StringBuilder();
         addPkgIfNotEmpty(pkg_, generic_);
         CustList<RootBlock> pars_ = getSelfAndParentTypes();
+        RootBlock previous_ = null;
         for (RootBlock r: pars_.first().getAllParentTypesReverse()) {
+            appendParts(generic_, previous_, r, "-", "..");
             generic_.append(r.getName());
-            generic_.append("..");
+            previous_ = r;
         }
         for (RootBlock r: pars_) {
+            appendParts(generic_, previous_, r, "-", "..");
             generic_.append(r.getName());
             if (!r.paramTypes.isEmpty()) {
                 StringList vars_ = new StringList();
@@ -513,14 +520,18 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                 generic_.append(StringList.join(vars_, Templates.TEMPLATE_SEP));
                 generic_.append(Templates.TEMPLATE_END);
             }
-            appendSepInner(generic_, r);
+            previous_ = r;
         }
         return generic_.toString();
     }
 
-    private void appendSepInner(StringBuilder _generic, RootBlock _r) {
-        if (_r != this) {
-            _generic.append("..");
+    private static void appendParts(StringBuilder generic_, RootBlock previous_, RootBlock r, String _sepInn, String _sep) {
+        if (previous_ != null) {
+            if (r instanceof InnerElementBlock) {
+                generic_.append(_sepInn);
+            } else {
+                generic_.append(_sep);
+            }
         }
     }
 
@@ -537,11 +548,14 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
         StringBuilder generic_ = new StringBuilder();
         addPkgIfNotEmpty(pkg_, generic_);
         CustList<RootBlock> pars_ = getSelfAndParentTypes();
+        RootBlock previous_ = null;
         for (RootBlock r: pars_.first().getAllParentTypesReverse()) {
+            appendParts(generic_, previous_, r, "-", "..");
             generic_.append(r.getName());
-            generic_.append("..");
+            previous_ = r;
         }
         for (RootBlock r: pars_) {
+            appendParts(generic_, previous_, r, "-", "..");
             generic_.append(r.getName());
             if (!r.paramTypes.isEmpty()) {
                 StringList vars_ = new StringList();
@@ -552,7 +566,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                 generic_.append(StringList.join(vars_, Templates.TEMPLATE_SEP));
                 generic_.append(Templates.TEMPLATE_END);
             }
-            appendSepInner(generic_, r);
+            previous_ = r;
         }
         return generic_.toString();
     }
@@ -571,11 +585,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
 
     @Override
     public String getPackageName() {
-        Block par_ = this;
-        while (par_.getParent() instanceof RootBlock) {
-            par_ = par_.getParent();
-        }
-        return ((RootBlock)par_).packageName;
+        return packageName;
     }
 
     public AccessEnum getAccess() {
@@ -591,25 +601,21 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
 
     @Override
     public String getFullName() {
-        String packageName_ = getPackageName();
-        StringList names_ = getNames();
-        return joinParts("..", packageName_, names_);
+        return formatName("-","..");
     }
 
-
-    protected String joinParts(String _sep, String _packageName, StringList _names) {
-        if (_packageName.isEmpty()) {
-            return getName();
+    protected String formatName(String _sepInner, String _sep) {
+        CustList<RootBlock> all_ = new CustList<RootBlock>(this);
+        all_.addAllElts(getAllParentTypes());
+        RootBlock p_ = null;
+        StringBuilder strBuilder_ = new StringBuilder();
+        addPkgIfNotEmpty(packageName,strBuilder_);
+        for (RootBlock r: all_.getReverse()) {
+            appendParts(strBuilder_,p_,r,_sepInner,_sep);
+            strBuilder_.append(r.getName());
+            p_ = r;
         }
-        return StringList.concat(_packageName,DOT, StringList.join(_names.getReverse(), _sep));
-    }
-
-    protected StringList getNames() {
-        StringList names_ = new StringList(getName());
-        for (RootBlock r: getAllParentTypes()) {
-            names_.add(r.getName());
-        }
-        return names_;
+        return strBuilder_.toString();
     }
 
     public final void validateIds(ContextEl _context) {
