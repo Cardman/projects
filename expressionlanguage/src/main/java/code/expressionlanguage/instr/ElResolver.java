@@ -116,7 +116,6 @@ public final class ElResolver {
         ResultAfterOperators resOpers_ = new ResultAfterOperators();
         resOpers_.setParsBrackets(parsBrackets_);
         resOpers_.setPartOfString(partOfString_);
-        StringList declaring_ = new StringList();
 
         boolean constString_ = false;
         boolean constChar_ = false;
@@ -2370,8 +2369,7 @@ public final class ElResolver {
             _output.getInfos().setError(true);
             _str.append(_string.charAt(j_));
             while (j_ < _max) {
-                char curChar_ = _string.charAt(j_);
-                if (!StringList.isDollarWordChar(curChar_) && curChar_ != DOT_VAR) {
+                if (!isDotDollarWordChar(_string,j_)) {
                     break;
                 }
                 _str.append(_string.charAt(j_));
@@ -2735,9 +2733,15 @@ public final class ElResolver {
                 "*=","/=","%=",
                 "^=","&=","|=",
                 "||","&&","?",
-                "<",">",
+                "<",">",",",
                 "!=","=",")","]","}")) {
             if (_string.startsWith(s,next_)) {
+                return _from;
+            }
+        }
+        if (_string.startsWith(".",next_)) {
+            int n_ = nextPrintChar(next_ + 1, _string.length(), _string);
+            if (!isDigitOrDot(_string,n_)) {
                 return _from;
             }
         }
