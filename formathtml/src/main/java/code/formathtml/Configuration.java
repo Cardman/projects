@@ -22,7 +22,6 @@ import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.options.KeyWords;
-import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.CausingErrorStruct;
@@ -818,7 +817,7 @@ public final class Configuration implements ExecutableCode {
         String gl_ = getGlobalClass();
         RootBlock root_ = getContext().getClasses().getClassBody(Templates.getIdFromAllTypes(gl_));
         AccessingImportingBlock a_ = getAccessingImportingBlock(r_, root_);
-        return PartTypeUtil.processAnalyzeLine(_in,new AlwaysReadyTypes(),false,gl_,this,a_,r_, "",0,new CustList<PartOffset>());
+        return PartTypeUtil.processAnalyzeLine(_in,new AlwaysReadyTypes(),false,gl_,this,a_,r_, 0,new CustList<PartOffset>());
     }
     @Override
     public String resolveCorrectType(String _in) {
@@ -854,7 +853,7 @@ public final class Configuration implements ExecutableCode {
         }
         getAvailableVariables().clear();
         getAvailableVariables().putAllMap(available_);
-        String resType_ = PartTypeUtil.processAnalyzeAccessibleId(_in, this, r_,"","",0,new CustList<PartOffset>());
+        String resType_ = PartTypeUtil.processAnalyzeAccessibleId(_in, this, r_, "",0,new CustList<PartOffset>());
         if (resType_.trim().isEmpty()) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(analyzingDoc.getFileName());
@@ -933,9 +932,9 @@ public final class Configuration implements ExecutableCode {
         getCurrentBadIndexes().clear();
         String resType_;
         if (_exact) {
-            resType_ = PartTypeUtil.processAnalyze(_in, false,gl_, this, a_,r_, "",0,new CustList<PartOffset>());
+            resType_ = PartTypeUtil.processAnalyze(_in, false,gl_, this, a_,r_, 0,new CustList<PartOffset>());
         } else {
-            resType_ = PartTypeUtil.processAnalyzeLine(_in, new AlwaysReadyTypes(),false,gl_, this, a_,r_, "",0,new CustList<PartOffset>());
+            resType_ = PartTypeUtil.processAnalyzeLine(_in, new AlwaysReadyTypes(),false,gl_, this, a_,r_, 0,new CustList<PartOffset>());
         }
         if (!getCurrentBadIndexes().isEmpty()) {
             return "";

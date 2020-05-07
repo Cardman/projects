@@ -24,9 +24,9 @@ public final class PartTypeUtil {
     }
 
     static String processAnalyze(String _input, String _globalType, Analyzable _an, AccessingImportingBlock _rooted) {
-        return processAnalyze(_input, false,_globalType,_an,_rooted,_rooted,"",0,new CustList<PartOffset>());
+        return processAnalyze(_input, false,_globalType,_an,_rooted,_rooted, 0,new CustList<PartOffset>());
     }
-    public static String processAnalyze(String _input, boolean _rootName,String _globalType, Analyzable _an, AccessingImportingBlock _local,AccessingImportingBlock _rooted, String _fileName,int _loc, CustList<PartOffset> _offs) {
+    public static String processAnalyze(String _input, boolean _rootName, String _globalType, Analyzable _an, AccessingImportingBlock _local, AccessingImportingBlock _rooted, int _loc, CustList<PartOffset> _offs) {
         Ints indexes_ = ParserType.getIndexes(_input, _an);
         if (indexes_ == null) {
             return "";
@@ -78,7 +78,7 @@ public final class PartTypeUtil {
             }
         }
         if (_loc > -1) {
-            addTypeParts(_an, _fileName, "", _loc, _offs, l_);
+            addTypeParts(_an, _rooted, "", _loc, _offs, l_);
         }
         return root_.getAnalyzedType();
     }
@@ -133,9 +133,9 @@ public final class PartTypeUtil {
         return !root_.getAnalyzedType().isEmpty();
     }
     static String processAnalyzeLine(String _input, Analyzable _an, AccessingImportingBlock _rooted) {
-        return processAnalyzeLine(_input, new AlwaysReadyTypes(),false,"",_an,_rooted,_rooted,"",0,new CustList<PartOffset>());
+        return processAnalyzeLine(_input, new AlwaysReadyTypes(),false,"",_an,_rooted,_rooted, 0,new CustList<PartOffset>());
     }
-    public static String processAnalyzeLine(String _input, ReadyTypes _ready,boolean _rootName,String _globalType, Analyzable _an, AccessingImportingBlock _local,AccessingImportingBlock _rooted, String _fileName,int _loc, CustList<PartOffset> _offs) {
+    public static String processAnalyzeLine(String _input, ReadyTypes _ready, boolean _rootName, String _globalType, Analyzable _an, AccessingImportingBlock _local, AccessingImportingBlock _rooted, int _loc, CustList<PartOffset> _offs) {
         Ints indexes_ = ParserType.getIndexes(_input, _an);
         if (indexes_ == null) {
             return "";
@@ -187,7 +187,7 @@ public final class PartTypeUtil {
             }
         }
         if (_loc > -1) {
-            addTypeParts(_an, _fileName, "", _loc, _offs, l_);
+            addTypeParts(_an, _rooted, "", _loc, _offs, l_);
         }
         String ana_ = root_.getAnalyzedType();
         if (!_ready.isReady(ana_)) {
@@ -197,7 +197,7 @@ public final class PartTypeUtil {
     }
 
 
-    public static String processAnalyzeAccessibleId(String _input, Analyzable _an, AccessingImportingBlock _rooted, String _fileName, String _refFileName, int _loc, CustList<PartOffset> _offs) {
+    public static String processAnalyzeAccessibleId(String _input, Analyzable _an, AccessingImportingBlock _rooted, String _refFileName, int _loc, CustList<PartOffset> _offs) {
         Ints indexes_ = ParserType.getIndexes(_input, _an);
         if (indexes_ == null) {
             return "";
@@ -248,12 +248,14 @@ public final class PartTypeUtil {
                 break;
             }
         }
-        addTypeParts(_an, _fileName, _refFileName, _loc, _offs, l_);
+        addTypeParts(_an, _rooted, _refFileName, _loc, _offs, l_);
         return root_.getAnalyzedType();
     }
 
-    private static void addTypeParts(Analyzable _an, String _fileName, String _refFileName, int _loc, CustList<PartOffset> _offs, CustList<LeafPartType> _leaves) {
+    private static void addTypeParts(Analyzable _an, AccessingImportingBlock _rooted,
+                                     String _refFileName, int _loc, CustList<PartOffset> _offs, CustList<LeafPartType> _leaves) {
         if (_an.getContextEl().isCovering()) {
+            String curr_ = ((Block)_rooted).getFile().getRenderFileName();
             for (LeafPartType l: _leaves){
                 if (l instanceof NamePartType) {
                     String type_ = l.getTypeName();
@@ -262,7 +264,7 @@ public final class PartTypeUtil {
                     GeneType g_ = _an.getClassBody(idCl_);
                     if (ElUtil.isFromCustFile(g_)) {
                         String ref_ = ((RootBlock) g_).getFile().getRenderFileName();
-                        String rel_ = ElUtil.relativize(_fileName,ref_);
+                        String rel_ = ElUtil.relativize(curr_,ref_);
                         int id_ = ((RootBlock) g_).getIdRowCol();
                         int begin_ = _loc + l.getIndexInType();
                         _offs.add(new PartOffset("<a title=\""+g_.getFullName()+"\" href=\""+rel_+"#m"+id_+"\">", begin_));
@@ -275,7 +277,7 @@ public final class PartTypeUtil {
                     Integer id_ = _an.getAvailableVariables().getVal(imported_.substring(1));
                     String rel_ = "";
                     if (!_refFileName.isEmpty()) {
-                        rel_ = ElUtil.relativize(_fileName,_refFileName);
+                        rel_ = ElUtil.relativize(curr_,_refFileName);
                     }
                     int begin_ = _loc + l.getIndexInType();
                     _offs.add(new PartOffset("<a href=\""+rel_+"#m"+id_+"\">", begin_));

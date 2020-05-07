@@ -1249,6 +1249,9 @@ public final class Classes {
             if (!(b instanceof RootBlock)) {
                 continue;
             }
+            if (b instanceof InnerElementBlock) {
+                continue;
+            }
             RootBlock r_ = (RootBlock) b;
             inners_.add(r_);
         }

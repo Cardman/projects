@@ -64,7 +64,7 @@ public final class ElUtil {
                     continue;
                 }
                 String afterName_ = trimmed_.substring(name_.length()).trim();
-                if (ElResolver.isPureAffectation(afterName_,afterName_.length(),0)) {
+                if (ElResolver.isPureAffectation(afterName_,afterName_.length())) {
                     addFieldName(names_, var_, offset_, true, name_);
                 }
             }

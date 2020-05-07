@@ -149,8 +149,6 @@ public final class ElResolver {
         resWords_.setNextIndex(i_);
         resWords_.setLastDoubleDot(i_);
         resWords_.setCallCtor(false);
-        resWords_.setDeclaring(declaring_);
-        resWords_.setStack(parsBrackets_);
         resOpers_.setDoubleDotted(resWords_);
         while (i_ < len_) {
             char curChar_ = _string.charAt(i_);
@@ -267,7 +265,7 @@ public final class ElResolver {
             resOpers_.getDoubleDotted().setNextIndex(i_);
             resOpers_.getDoubleDotted().setLastDoubleDot(lastDoubleDot_);
             resOpers_.getDoubleDotted().setCallCtor(ctorCall_);
-            processOperators(beginIndex_,_minIndex,_string, _delimiters, ctorCall_, d_, resOpers_, _conf);
+            processOperators(beginIndex_,_minIndex,_string, _delimiters, d_, resOpers_, _conf);
             if (d_.getBadOffset() >= 0) {
                 return d_;
             }
@@ -1246,13 +1244,6 @@ public final class ElResolver {
         info_.setFirstChar(beginWord_);
         info_.setLastChar(i_);
         info_.setName(word_);
-        if (_out.getStack().isEmpty()) {
-            if (isPureAffectation(_string, len_, i_)
-                    && isPrevEmptyOrComma(prev_)
-                    && isDeclaringMutableVar(_an)) {
-                _out.getDeclaring().add(word_);
-            }
-        }
         String look_ = _an.getLookLocalClass();
         if (!look_.isEmpty()) {
             _d.getVariables().add(info_);
@@ -1267,21 +1258,13 @@ public final class ElResolver {
         _out.setNextIndex(i_);
     }
 
-    static boolean isPureAffectation(String _string, int len_, int i_) {
-        int index_ = nextPrintCharIs(i_, len_, _string, '=');
+    static boolean isPureAffectation(String _string, int len_) {
+        int index_ = nextPrintCharIs(0, len_, _string, '=');
         return hasCharOtherThanEq(_string, len_, index_);
     }
 
     private static boolean hasCharOtherThanEq(String _string, int len_, int index_) {
         return index_ > -1 && !nextCharIs(_string, index_ + 1, len_, '=');
-    }
-
-    private static boolean isPrevEmptyOrComma(String prev_) {
-        return prev_.endsWith(",") || prev_.isEmpty();
-    }
-
-    private static boolean isDeclaringMutableVar(Analyzable _an) {
-        return ElUtil.isDeclaringVariable(_an) || ElUtil.isDeclaringLoopVariable(_an);
     }
 
     private static int nextPrintCharIs(int _j, int _len, String _string, char _ch) {
@@ -1307,7 +1290,7 @@ public final class ElResolver {
         }
         return j_;
     }
-    private static void processOperators(int _beginIndex, int _minIndex, String _string, boolean _delimiters, boolean _ctorCall,
+    private static void processOperators(int _beginIndex, int _minIndex, String _string, boolean _delimiters,
                                          Delimiters _dout, ResultAfterOperators _out, Analyzable _conf) {
         IntTreeMap<Character> parsBrackets_;
         parsBrackets_ = _out.getParsBrackets();
@@ -1393,12 +1376,13 @@ public final class ElResolver {
             return;
         }
         if (curChar_ == PAR_LEFT) {
-            int j_ = indexAfterPossibleCast(_conf,doubleDotted_, _ctorCall, _string, i_, len_, _dout);
+            int j_ = indexAfterPossibleCast(_conf, _string, i_, _dout);
             if (j_ > i_) {
                 i_ = j_;
                 doubleDotted_.setNextIndex(i_);
                 return;
             }
+            _dout.getCallings().add(i_);
             parsBrackets_.put(i_, curChar_);
         }
         if (curChar_ == PAR_RIGHT) {
@@ -1674,12 +1658,13 @@ public final class ElResolver {
                 }
                 if (curLoc_ == PAR_LEFT) {
                     int before_ = _dout.getDelCastExtract().size();
-                    int k_ = indexAfterPossibleCast(_conf,doubleDotted_, _ctorCall, _string, j_, len_, _dout);
+                    int k_ = indexAfterPossibleCast(_conf, _string, j_, _dout);
                     int after_ = _dout.getDelCastExtract().size();
                     j_ = k_;
                     if (before_ != after_) {
                         continue;
                     }
+                    _dout.getCallings().add(k_);
                 }
                 break;
             }
@@ -2728,13 +2713,8 @@ public final class ElResolver {
         return _begin > CustList.INDEX_NOT_FOUND_ELT && _begin + 1 == _end;
     }
 
-    private static int indexAfterPossibleCast(Analyzable _conf,  ResultAfterDoubleDotted _out,boolean _ctor,String _string, int _from, int _len, Delimiters _d) {
+    private static int indexAfterPossibleCast(Analyzable _conf, String _string, int _from, Delimiters _d) {
         int indexParRight_ = _string.indexOf(PAR_RIGHT, _from +1);
-        KeyWords keyWords_ = _conf.getKeyWords();
-        String keyWordClasschoice_ = keyWords_.getKeyWordClasschoice();
-        String keyWordSuper_ = keyWords_.getKeyWordSuper();
-        String keyWordThat_ = keyWords_.getKeyWordThat();
-        String keyWordThis_ = keyWords_.getKeyWordThis();
         if (indexParRight_ < 0) {
             return _from;
         }
@@ -2750,223 +2730,28 @@ public final class ElResolver {
             _d.getDelLoopVars().add(indexParRight_);
             return indexParRight_ + 1;
         }
-        int j_ = _from + 1;
-        while (true) {
-            char locChar_ = _string.charAt(j_);
-            if (!Character.isWhitespace(locChar_)) {
-                break;
-            }
-            j_++;
-        }
-        boolean cast_ = true;
-        boolean type_ = false;
-        if (j_ >= indexParRight_ || ContextEl.isDigit(_string.charAt(j_))) {
-            cast_ = false;
-        }
-        if (cast_) {
-            char locCar_ = _string.charAt(j_);
-            if (!StringList.isDollarWordChar(locCar_)) {
-                if (locCar_ == Templates.PREFIX_VAR_TYPE_CHAR) {
-                    type_ = true;
-                } else {
-                    cast_ = false;
-                }
-            }
-            int k_ = indexParRight_+1;
-            while (k_ < _len) {
-                char locChar_ = _string.charAt(k_);
-                if (Character.isWhitespace(locChar_)) {
-                    k_++;
-                    continue;
-                }
-                if (StringList.isDollarWordChar(locChar_)) {
-                    type_ = true;
-                }
-                if (locChar_ == PAR_LEFT) {
-                    type_ = true;
-                }
-                break;
+        int next_ = nextPrintChar(indexParRight_+1,_string.length(),_string);
+        for (String s: StringList.wrapStringArray("+=","-=",
+                "*=","/=","%=",
+                "^=","&=","|=",
+                "||","&&","?",
+                "<",">",
+                "!=","=",")","]","}")) {
+            if (_string.startsWith(s,next_)) {
+                return _from;
             }
         }
-        int count_ = 0;
-        boolean foundLtGt_ = false;
-        Ints indexes_ = new Ints();
-        StringBuilder part_ = new StringBuilder();
-        StringList partsFields_ = new StringList();
-        int lChar_ = -1;
-        if (cast_) {
-            while (j_ < indexParRight_) {
-                char locCar_ = _string.charAt(j_);
-                if (locCar_ == Templates.GT) {
-                    if (count_ == 0) {
-                        cast_ = false;
-                        break;
-                    }
-                    count_--;
-                    j_++;
-                    continue;
-                }
-                if (locCar_ == Templates.LT) {
-                    foundLtGt_ = true;
-                    count_++;
-                    j_++;
-                    continue;
-                }
-                if (locCar_ == Templates.PREFIX_VAR_TYPE_CHAR) {
-                    type_ = true;
-                    j_++;
-                    continue;
-                }
-                if (isPartOfTempateType(locCar_) && count_ > 0) {
-                    type_ = true;
-                    j_++;
-                    continue;
-                }
-                if (locCar_ == ARR_LEFT) {
-                    int next_ = j_ + 1;
-                    while (next_ < indexParRight_) {
-                        char nChar_ = _string.charAt(next_);
-                        if (Character.isWhitespace(nChar_)) {
-                            next_++;
-                            continue;
-                        }
-                        if (nChar_ == ARR_RIGHT) {
-                            type_ = true;
-                        } else {
-                            cast_ = false;
-                        }
-                        break;
-                    }
-                    break;
-                }
-                if (StringList.isDollarWordChar(locCar_)) {
-                    if (lChar_ != -1 && lChar_ + 1 != j_ && count_ == 0) {
-                        cast_ = false;
-                        break;
-                    }
-                    lChar_ = j_;
-                    part_.append(locCar_);
-                    j_++;
-                    continue;
-                }
-                if (Character.isWhitespace(locCar_)) {
-                    part_.append(locCar_);
-                    j_++;
-                    continue;
-                }
-                String tr_ = part_.toString().trim();
-                if (StringList.quickEq(keyWordThis_, tr_)) {
-                    cast_ = false;
-                    break;
-                }
-                if (StringList.quickEq(keyWordSuper_, tr_)) {
-                    cast_ = false;
-                    break;
-                }
-                if (StringList.quickEq(keyWordThat_, tr_)) {
-                    cast_ = false;
-                    break;
-                }
-                if (StringList.quickEq(keyWordClasschoice_, tr_)) {
-                    cast_ = false;
-                    break;
-                }
-                if (locCar_ == DOT_VAR) {
-                    indexes_.add(j_);
-                    String strPart_ = part_.toString();
-                    if (isFieldOrVariable(_conf, _out,_ctor, partsFields_, strPart_)) {
-                       cast_ = false;
-                        break;
-                    }
-                    partsFields_.add(strPart_);
-                    part_.delete(0, part_.length());
-                    lChar_ = -1;
-                    j_++;
-                    continue;
-                }
-                cast_ = false;
-                break;
-            }
-            if (count_ != 0) {
-                cast_ = false;
-            } else {
-                if (foundLtGt_) {
-                    type_ = true;
-                }
-            }
-        }
-        if (cast_ && type_) {
-            String typeRes_ = _conf.resolveCorrectTypeWithoutErrors(_from + 1, sub_, true);
-            if (!typeRes_.isEmpty()) {
-                _d.getDelCast().add(_from);
-                _d.getDelCast().add(indexParRight_);
-                _d.getDelCastExtract().add(typeRes_);
-                _d.getCastParts().add(new CustList<PartOffset>(_conf.getContextEl().getCoverage().getCurrentParts()));
-                return indexParRight_ + 1;
-            }
-            cast_ = false;
-        }
-        if (cast_) {
-           String strPart_ = part_.toString();
-           if (isFieldOrVariable(_conf, _out,_ctor, partsFields_, strPart_)) {
-               cast_ = false;
-            }
-        }
-        if (cast_) {
-            String typeRes_ = _conf.resolveCorrectTypeWithoutErrors(_from+1,sub_, true);
-            if (!typeRes_.isEmpty()) {
-                _d.getDelCast().add(_from);
-                _d.getDelCast().add(indexParRight_);
-                _d.getDelCastExtract().add(typeRes_);
-                _d.getCastParts().add(new CustList<PartOffset>(_conf.getContextEl().getCoverage().getCurrentParts()));
-                return indexParRight_ + 1;
-            }
+        String typeOut_ = _conf.resolveCorrectTypeWithoutErrors(_from + 1, sub_, true);
+        if (!typeOut_.isEmpty()) {
+            _d.getDelCast().add(_from);
+            _d.getDelCast().add(indexParRight_);
+            _d.getDelCastExtract().add(typeOut_);
+            _d.getCastParts().add(new CustList<PartOffset>(_conf.getContextEl().getCoverage().getCurrentParts()));
+            return indexParRight_ + 1;
         }
         return _from;
     }
 
-    private static boolean isPartOfTempateType(char locCar_) {
-        return isWildCardChar(locCar_)
-                || isTemplateDelChar(locCar_);
-    }
-
-    private static boolean isTemplateDelChar(char locCar_) {
-        return locCar_ == Templates.COMMA
-                || locCar_ == ARR_RIGHT
-                || locCar_ == ARR_LEFT;
-    }
-
-    private static boolean isWildCardChar(char locCar_) {
-        return locCar_ == Templates.SUB_TYPE_CHAR
-                || locCar_ == Templates.SUP_TYPE_CHAR;
-    }
-
-    private static boolean isFieldOrVariable(Analyzable _conf,  ResultAfterDoubleDotted _out,boolean _ctor, StringList _parts, String _partToAdd) {
-       if (!_parts.isEmpty()) {
-          return false;
-       }
-       String word_ = _partToAdd.trim();
-       if (_out.isDeclared(word_)) {
-           return true;
-       }
-       if (_conf.getParameters().contains(word_)) {
-          return true;
-       }
-       if (_conf.getAnalyzing().containsCatchVar(word_)) {
-          return true;
-       }
-       if (_conf.containsMutableLoopVar(word_)) {
-          return true;
-       }
-       if (_conf.getAnalyzing().containsVar(word_)) {
-          return true;
-       }
-       if (_conf.getAnalyzing().containsLocalVar(word_)) {
-          return true;
-       }
-       String gl_ = _conf.getGlobalClass();
-      return isField(_conf, gl_, _ctor, word_);
-    }
     private static boolean isField(Analyzable _conf, String _fromClass, boolean _ctor, String _word) {
         boolean field_;
         boolean stCtx_ = _conf.isStaticContext() || _ctor;

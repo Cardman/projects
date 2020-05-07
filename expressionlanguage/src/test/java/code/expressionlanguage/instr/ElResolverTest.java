@@ -3806,7 +3806,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
     public void getOperationsSequence216Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
-        String el_ = "abs(4,3)[0](1)";
+        String el_ = "abs(4,3)[0](1,2)";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
@@ -3816,8 +3816,74 @@ public final class ElResolverTest extends ProcessMethodCommon{
         IntTreeMap<String> values_ = seq_.getValues();
         assertEq(2, values_.size());
         assertEq("abs(4,3)[0]", values_.getVal(0));
-        assertEq("(1)", values_.getVal(11));
+        assertEq("(1,2)", values_.getVal(11));
         assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
+    }
+    @Test
+    public void getOperationsSequence216_Test() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_);
+        String el_ = "abs(4,3)[0]((1,2))";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
+        IntTreeMap<String> opers_ = seq_.getOperators();
+        assertEq(1, opers_.size());
+        assertEq("", opers_.getVal(11));
+        assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
+        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq(2, values_.size());
+        assertEq("abs(4,3)[0]", values_.getVal(0));
+        assertEq("((1,2))", values_.getVal(11));
+        assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
+    }
+    @Test
+    public void getOperationsSequence217_Test() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_);
+        String el_ = "abs(4,3)[0](-(1,2))";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
+        IntTreeMap<String> opers_ = seq_.getOperators();
+        assertEq(1, opers_.size());
+        assertEq("", opers_.getVal(11));
+        assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
+        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq(2, values_.size());
+        assertEq("abs(4,3)[0]", values_.getVal(0));
+        assertEq("(-(1,2))", values_.getVal(11));
+        assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
+    }
+    @Test
+    public void getOperationsSequence218_Test() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_);
+        String el_ = "((1))";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
+        IntTreeMap<String> opers_ = seq_.getOperators();
+        assertEq(2, opers_.size());
+        assertEq("(", opers_.getVal(0));
+        assertEq(")", opers_.getVal(4));
+        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq(1, values_.size());
+        assertEq("(1)", values_.getVal(1));
+        assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
+    }
+    @Test
+    public void getOperationsSequence219_Test() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_);
+        String el_ = "(1)=5";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
+        IntTreeMap<String> opers_ = seq_.getOperators();
+        assertEq(1, opers_.size());
+        assertEq("=", opers_.getVal(3));
+        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq(2, values_.size());
+        assertEq("(1)", values_.getVal(0));
+        assertEq("5", values_.getVal(4));
+        assertEq(ElResolver.AFF_PRIO,seq_.getPriority());
     }
     @Test
     public void getOperationsSequence217Test() {
