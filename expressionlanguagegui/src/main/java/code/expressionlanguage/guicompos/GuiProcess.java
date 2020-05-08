@@ -1,6 +1,7 @@
 package code.expressionlanguage.guicompos;
 
 import code.expressionlanguage.*;
+import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.NamedFunctionBlock;
 import code.expressionlanguage.methods.ProcessMethod;
@@ -47,7 +48,7 @@ public final class GuiProcess implements Runnable {
         String mName_ = "";
         int from_ = 2;
         if (lg_.startsWith("main=")) {
-            String line_ = ContextEl.removeDottedSpaces(lg_);
+            String line_ = StringExpUtil.removeDottedSpaces(lg_);
             if (line_.startsWith("main=")) {
                 String subLine_ = line_.substring("main=".length());
                 int last_ = subLine_.lastIndexOf('.');
@@ -58,7 +59,7 @@ public final class GuiProcess implements Runnable {
             }
         } else {
             from_++;
-            String line_ = ContextEl.removeDottedSpaces(linesFiles_.get(2));
+            String line_ = StringExpUtil.removeDottedSpaces(linesFiles_.get(2));
             if (line_.startsWith("main=")) {
                 String subLine_ = line_.substring("main=".length());
                 int last_ = subLine_.lastIndexOf('.');

@@ -7,6 +7,7 @@ import code.expressionlanguage.opers.exec.ExecCatOperation;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ConstructorId;
+import code.expressionlanguage.stds.ApplyCoreMethodUtil;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.ResultErrorStd;
 import code.util.Replacement;
@@ -161,13 +162,13 @@ public final class StringStruct extends CharSequenceStruct {
             _res.setError(nullPe_);
             return;
         }
-        StringBuilderStruct arg_ = LgNames.getStrBuilder(_arg);
+        StringBuilderStruct arg_ = ApplyCoreMethodUtil.getStrBuilder(_arg);
         _res.setResult(new StringStruct(arg_.getInstance().toString()));
     }
 
     public static void calculateString(Analyzable _cont, ResultErrorStd _res, ClassMethodId _method, Struct _struct, Struct... _args) {
         if (!_method.getConstraints().isStaticMethod()) {
-            LgNames.getString(_struct).calculateLocString(_cont, _res, _method, _args);
+            ApplyCoreMethodUtil.getString(_struct).calculateLocString(_cont, _res, _method, _args);
             return;
         }
         String name_ = _method.getConstraints().getName();
@@ -345,7 +346,7 @@ public final class StringStruct extends CharSequenceStruct {
                 _res.setError(nullPe_);
                 return;
             }
-            seps_[i] = LgNames.getReplacement(curSep_).getInstance();
+            seps_[i] = ApplyCoreMethodUtil.getReplacement(curSep_).getInstance();
             if (seps_[i].getNewString() == null) {
                 _res.setError(nullPe_);
                 return;

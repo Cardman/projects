@@ -10,6 +10,8 @@ import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.opers.exec.Operable;
 import code.expressionlanguage.opers.exec.ParentOperable;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
+import code.expressionlanguage.stds.ApplyCoreMethodUtil;
+import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.types.ResolvingImportTypes;
 import code.util.CustList;
 
@@ -52,7 +54,7 @@ public final class CastOperation extends AbstractUnaryOperation implements PreAn
     @Override
     public void analyzeUnary(Analyzable _conf) {
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+offset, _conf);
-        className = _conf.getStandards().checkExactType(_conf,beginType, className,originalClassName);
+        className = ApplyCoreMethodUtil.checkExactType(_conf,beginType, className,originalClassName);
         setResultClass(new ClassArgumentMatching(className));
         if (PrimitiveTypeUtil.isPrimitive(className, _conf)) {
             getFirstChild().getResultClass().setUnwrapObject(className);

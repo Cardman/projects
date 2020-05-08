@@ -5,6 +5,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.opers.exec.ExecInvokingOperation;
 import code.expressionlanguage.opers.util.ClassField;
+import code.expressionlanguage.stds.ApplyCoreMethodUtil;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.FieldMetaInfo;
 
@@ -15,7 +16,7 @@ public final class ReflectGetFieldPageEl extends AbstractReflectPageEl {
     @Override
     public boolean checkCondition(ContextEl _context) {
         LgNames stds_ = _context.getStandards();
-        FieldMetaInfo method_ = LgNames.getField(getGlobalArgument().getStruct(),stds_);
+        FieldMetaInfo method_ = ApplyCoreMethodUtil.getField(getGlobalArgument().getStruct(),stds_);
         if (!initClass) {
             initClass = true;
             if (method_.isStaticField()) {

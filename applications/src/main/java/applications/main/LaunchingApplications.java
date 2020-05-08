@@ -11,6 +11,7 @@ import cards.main.LaunchingCards;
 import cards.president.GamePresident;
 import cards.tarot.GameTarot;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.guicompos.GuiProcess;
 import code.expressionlanguage.gui.unit.LaunchingAppUnitTests;
 import code.expressionlanguage.guicompos.LaunchingFull;
@@ -102,7 +103,7 @@ public class LaunchingApplications extends SoftApplicationCore {
                     launch_.launchWithoutLanguage(_language, _args);
                     return;
                 }
-                String possibleMethod_ = ContextEl.removeDottedSpaces(linesFiles_.get(2));
+                String possibleMethod_ = StringExpUtil.removeDottedSpaces(linesFiles_.get(2));
                 if (possibleMethod_.startsWith("initDb=")) {
                     launchWindow(_language);
                     LaunchingRenders launch_ = new LaunchingRenders();

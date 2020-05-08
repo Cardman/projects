@@ -12,6 +12,7 @@ import code.expressionlanguage.inherits.TypeUtil;
 import code.expressionlanguage.methods.*;
 import code.expressionlanguage.opers.InvokingOperation;
 import code.expressionlanguage.opers.util.*;
+import code.expressionlanguage.stds.ApplyCoreMethodUtil;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.ResultErrorStd;
 import code.expressionlanguage.structs.*;
@@ -162,7 +163,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             return new Argument();
         }
         if (!_conf.getClasses().isCustomType(base_)) {
-            ResultErrorStd res_ = LgNames.newInstance(_conf.getContextEl(), _constId, Argument.toArgArray(_arguments));
+            ResultErrorStd res_ = ApplyCoreMethodUtil.newInstance(_conf.getContextEl(), _constId, Argument.toArgArray(_arguments));
             Argument arg_ = new Argument();
             arg_.setStruct(res_.getResult());
             return arg_;
@@ -261,7 +262,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                 _conf.getContextEl().setCallingState(new CustomReflectMethod(ReflectingType.ANNOTATION_PARAM, _previous, _firstArgs, false));
                 return new Argument();
             }
-            String fileName_ = LgNames.getAnnotated(_previous.getStruct(),stds_).getFileName();
+            String fileName_ = ApplyCoreMethodUtil.getAnnotated(_previous.getStruct(),stds_).getFileName();
             return new Argument(new StringStruct(fileName_));
         }
         String aliasField_ = stds_.getAliasField();
@@ -270,7 +271,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         String aliasClass_ = stds_.getAliasClassType();
         if (StringList.quickEq(aliasClass_, _classNameFound)) {
             if (StringList.quickEq(aliasValueOf_, _methodId.getName())) {
-                ClassMetaInfo cl_ = LgNames.getClass(_previous.getStruct(),stds_);
+                ClassMetaInfo cl_ = ApplyCoreMethodUtil.getClass(_previous.getStruct(),stds_);
                 if (!cl_.isTypeEnum()) {
                     return new Argument();
                 }
@@ -279,7 +280,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                 return getEnumValue(enumName_, clArg_, _conf);
             }
             if (StringList.quickEq(aliasEnumsValues_, _methodId.getName())) {
-                ClassMetaInfo cl_ = LgNames.getClass(_previous.getStruct(),stds_);
+                ClassMetaInfo cl_ = ApplyCoreMethodUtil.getClass(_previous.getStruct(),stds_);
                 String enumName_ = cl_.getName();
                 RootBlock r_ = classes_.getClassBody(enumName_);
                 if (r_ == null || !cl_.isTypeEnum()) {
@@ -317,7 +318,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                 return a_;
             }
             if (StringList.quickEq(aliasDefaultInstance_, _methodId.getName())) {
-                ClassMetaInfo cl_ = LgNames.getClass(_previous.getStruct(),stds_);
+                ClassMetaInfo cl_ = ApplyCoreMethodUtil.getClass(_previous.getStruct(),stds_);
                 String className_ = cl_.getName();
                 ContextEl cont_ = _conf.getContextEl();
                 String id_ = Templates.getIdFromAllTypes(className_);
@@ -332,7 +333,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                     ||StringList.quickEq(id_,aliasConstructor_)
                     ||StringList.quickEq(id_,aliasField_)
                     ||StringList.quickEq(id_,aliasClass_)) {
-                    return new Argument(LgNames.defaultMeta(_conf,id_,_firstArgs));
+                    return new Argument(ApplyCoreMethodUtil.defaultMeta(_conf,id_,_firstArgs));
                 }
                 if (ContextEl.isAbstractType(type_)) {
                     String null_;
@@ -351,7 +352,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                 String first_;
                 CustList<GeneType> need_ = new CustList<GeneType>();
                 if (!(type_ instanceof RootBlock)) {
-                    return new Argument(LgNames.defaultInstance(_conf,id_,_firstArgs));
+                    return new Argument(ApplyCoreMethodUtil.defaultInstance(_conf,id_,_firstArgs));
                 }
                 CustList<RootBlock> needRoot_;
                 needRoot_ = ((RootBlock)type_).getSelfAndParentTypes();
@@ -402,7 +403,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                 return a_;
             }
             if (StringList.quickEq(aliasInit_, _methodId.getName())) {
-                ClassMetaInfo cl_ = LgNames.getClass(_previous.getStruct(),stds_);
+                ClassMetaInfo cl_ = ApplyCoreMethodUtil.getClass(_previous.getStruct(),stds_);
                 String clDyn_ = cl_.getName();
                 hasToExit(_conf, clDyn_);
                 return Argument.createVoid();
@@ -422,7 +423,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             boolean invoke_ = StringList.quickEq(aliasInvoke_, _methodId.getName());
             boolean invokeDirect_ = StringList.quickEq(aliasInvokeDirect_, _methodId.getName());
             if (invoke_) {
-                MethodMetaInfo m_ = LgNames.getMethod(_previous.getStruct(),stds_);
+                MethodMetaInfo m_ = ApplyCoreMethodUtil.getMethod(_previous.getStruct(),stds_);
                 if (m_.getRealId().canAccessParamTypesStatic(_conf)) {
                     _conf.getContextEl().setCallingState(new CustomReflectMethod(ReflectingType.CAST, _previous, _firstArgs, false));
                     return new Argument();
@@ -431,7 +432,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                 return new Argument();
             }
             if (invokeDirect_) {
-                MethodMetaInfo m_ = LgNames.getMethod(_previous.getStruct(),stds_);
+                MethodMetaInfo m_ = ApplyCoreMethodUtil.getMethod(_previous.getStruct(),stds_);
                 if (m_.getRealId().canAccessParamTypesStatic(_conf)) {
                     _conf.getContextEl().setCallingState(new CustomReflectMethod(ReflectingType.CAST_DIRECT, _previous, _firstArgs, false));
                     return new Argument();

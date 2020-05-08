@@ -17,13 +17,7 @@ import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.options.KeyWords;
-import code.expressionlanguage.stds.LgNames;
-import code.expressionlanguage.stds.ResultErrorStd;
-import code.expressionlanguage.stds.StandardClass;
-import code.expressionlanguage.stds.StandardConstructor;
-import code.expressionlanguage.stds.StandardField;
-import code.expressionlanguage.stds.StandardMethod;
-import code.expressionlanguage.stds.StandardType;
+import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
 import code.sml.DocumentBuilder;
 import code.sml.util.ResourcesMessagesUtil;
@@ -1191,7 +1185,7 @@ public class LgNamesUtils extends LgNames {
         } catch (RuntimeException e) {
             ResultErrorStd res_ = new ResultErrorStd();
             res_.setError(aliasConcurrentError);
-            processError(_cont,res_);
+            ApplyCoreMethodUtil.processError(_cont,res_);
             return res_;
         }
     }
@@ -1202,7 +1196,7 @@ public class LgNamesUtils extends LgNames {
         } catch (RuntimeException e) {
             ResultErrorStd res_ = new ResultErrorStd();
             res_.setError(aliasConcurrentError);
-            processError(_cont,res_);
+            ApplyCoreMethodUtil.processError(_cont,res_);
             return res_;
         }
     }
@@ -4173,8 +4167,8 @@ public class LgNamesUtils extends LgNames {
             StringList parts_ = StringList.splitChar(
                     c.trim(),
                     ',');
-            String begin_ = LgNames.parseValue(parts_.first());
-            String end_ = LgNames.parseValue(parts_.last());
+            String begin_ = ParseLinesArgUtil.parseValue(parts_.first());
+            String end_ = ParseLinesArgUtil.parseValue(parts_.last());
             comments_.add(new CommentDelimiters(begin_,new StringList(end_)));
         }
         return comments_;

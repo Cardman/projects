@@ -19,6 +19,7 @@ import code.expressionlanguage.opers.exec.PossibleIntermediateDottedOperable;
 import code.expressionlanguage.opers.exec.StaticInitOperable;
 import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.options.KeyWords;
+import code.expressionlanguage.stds.ApplyCoreMethodUtil;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.ResultErrorStd;
 import code.expressionlanguage.structs.Struct;
@@ -500,7 +501,7 @@ public final class StandardInstancingOperation extends
             return;
         }
         CustList<Argument> firstArgs_ = quickListArguments(filter_, _naturalVararg, _lastType, arguments_, _conf);
-        ResultErrorStd res_ = LgNames.newInstanceStd(_conf, _constId, Argument.toArgArray(firstArgs_));
+        ResultErrorStd res_ = ApplyCoreMethodUtil.newInstanceStd(_conf, _constId, Argument.toArgArray(firstArgs_));
         Struct out_ = res_.getResult();
         if (out_ == null) {
             return;

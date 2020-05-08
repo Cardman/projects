@@ -1,5 +1,6 @@
 package code.expressionlanguage.opers.util.annotation;
 
+import code.expressionlanguage.stds.ApplyCoreMethodUtil;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.*;
 
@@ -24,6 +25,6 @@ final class LeafAnnotPart extends InfoAnnotPart {
         if (part instanceof ClassMetaInfo) {
             return ((ClassMetaInfo)part).exportValue().getInstance();
         }
-        return LgNames.getNameOfEnum(part);
+        return ApplyCoreMethodUtil.getNameOfEnum(part);
     }
 }

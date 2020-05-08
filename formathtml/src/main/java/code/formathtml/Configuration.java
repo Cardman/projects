@@ -20,6 +20,7 @@ import code.expressionlanguage.methods.*;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.options.KeyWords;
+import code.expressionlanguage.stds.ApplyCoreMethodUtil;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.CausingErrorStruct;
@@ -187,7 +188,7 @@ public final class Configuration implements ExecutableCode {
         currentUrl = firstUrl;
         prefix = StringList.concat(prefix,SEP);
         standards.build();
-        standards.setupOverrides(context);
+        ApplyCoreMethodUtil.setupOverrides(context);
         renderFiles.removeAllString(firstUrl);
         renderFiles.add(firstUrl);
     }

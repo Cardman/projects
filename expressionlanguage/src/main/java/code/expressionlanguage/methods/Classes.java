@@ -470,7 +470,7 @@ public final class Classes {
         LgNames stds_ = _context.getStandards();
         StringMap<String> files_ = stds_.buildFiles(_context);
         builtTypes(files_, _context, true);
-        _context.getStandards().buildIterable(_context);
+        ApplyCoreMethodUtil.buildIterable(_context);
     }
     private static void builtTypes(StringMap<String> _files, ContextEl _context, boolean _predefined) {
         tryBuildBracedClassesBodies(_files, _context, _predefined);

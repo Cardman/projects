@@ -1,6 +1,7 @@
 package code.renders;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.common.StringExpUtil;
 import code.formathtml.DefaultInitialization;
 import code.formathtml.util.BeanCustLgNames;
 import code.gui.*;
@@ -109,7 +110,7 @@ public final class MainWindow extends GroupFrame {
         String clName_ = "";
         String mName_ = "";
         if (linesFiles_.size() > 2) {
-            String line_ = ContextEl.removeDottedSpaces(linesFiles_.get(2));
+            String line_ = StringExpUtil.removeDottedSpaces(linesFiles_.get(2));
             if (line_.startsWith("initDb=")) {
                 String subLine_ = line_.substring("initDb=".length());
                 int last_ = subLine_.lastIndexOf('.');

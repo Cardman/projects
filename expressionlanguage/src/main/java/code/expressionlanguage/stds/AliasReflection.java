@@ -511,7 +511,7 @@ public final class AliasReflection {
     }
     public static ResultErrorStd invokeMethod(ContextEl _cont, ClassMethodId _method, Struct _struct, Argument... _args) {
         ResultErrorStd result_ = new ResultErrorStd();
-        Struct[] args_ = LgNames.getObjects(_args);
+        Struct[] args_ = ApplyCoreMethodUtil.getObjects(_args);
         String type_ = _method.getClassName();
         String name_ = _method.getConstraints().getName();
         LgNames lgNames_ = _cont.getStandards();
@@ -527,47 +527,47 @@ public final class AliasReflection {
         }
         if (StringList.quickEq(type_, ref_.aliasField)) {
             if (StringList.quickEq(name_, ref_.aliasIsStatic)) {
-                FieldMetaInfo class_ = LgNames.getField(_struct,lgNames_);
+                FieldMetaInfo class_ = ApplyCoreMethodUtil.getField(_struct,lgNames_);
                 result_.setResult(BooleanStruct.of(class_.isStaticField()));
                 return result_;
             }
             if (StringList.quickEq(name_, ref_.aliasIsFinal)) {
-                FieldMetaInfo class_ = LgNames.getField(_struct,lgNames_);
+                FieldMetaInfo class_ = ApplyCoreMethodUtil.getField(_struct,lgNames_);
                 result_.setResult(BooleanStruct.of(class_.isFinalField()));
                 return result_;
             }
             if (StringList.quickEq(name_, ref_.aliasIsPackage)) {
-                FieldMetaInfo class_ = LgNames.getField(_struct,lgNames_);
+                FieldMetaInfo class_ = ApplyCoreMethodUtil.getField(_struct,lgNames_);
                 result_.setResult(BooleanStruct.of(class_.isPackage()));
                 return result_;
             }
             if (StringList.quickEq(name_, ref_.aliasIsPrivate)) {
-                FieldMetaInfo class_ = LgNames.getField(_struct,lgNames_);
+                FieldMetaInfo class_ = ApplyCoreMethodUtil.getField(_struct,lgNames_);
                 result_.setResult(BooleanStruct.of(class_.isPrivate()));
                 return result_;
             }
             if (StringList.quickEq(name_, ref_.aliasIsProtected)) {
-                FieldMetaInfo class_ = LgNames.getField(_struct,lgNames_);
+                FieldMetaInfo class_ = ApplyCoreMethodUtil.getField(_struct,lgNames_);
                 result_.setResult(BooleanStruct.of(class_.isProtected()));
                 return result_;
             }
             if (StringList.quickEq(name_, ref_.aliasIsPublic)) {
-                FieldMetaInfo class_ = LgNames.getField(_struct,lgNames_);
+                FieldMetaInfo class_ = ApplyCoreMethodUtil.getField(_struct,lgNames_);
                 result_.setResult(BooleanStruct.of(class_.isPublic()));
                 return result_;
             }
             if (StringList.quickEq(name_, ref_.aliasGetName)) {
-                FieldMetaInfo field_ = LgNames.getField(_struct,lgNames_);
+                FieldMetaInfo field_ = ApplyCoreMethodUtil.getField(_struct,lgNames_);
                 result_.setResult(new StringStruct(field_.getName()));
                 return result_;
             }
             if (StringList.quickEq(name_, ref_.aliasGetDeclaringClass)) {
-                FieldMetaInfo field_ = LgNames.getField(_struct,lgNames_);
+                FieldMetaInfo field_ = ApplyCoreMethodUtil.getField(_struct,lgNames_);
                 result_.setResult(_cont.getExtendedClassMetaInfo(field_.getDeclaringClass()));
                 return result_;
             }
             if (StringList.quickEq(name_, ref_.aliasGetType)) {
-                FieldMetaInfo field_ = LgNames.getField(_struct,lgNames_);
+                FieldMetaInfo field_ = ApplyCoreMethodUtil.getField(_struct,lgNames_);
                 String owner_ = field_.getDeclaringClass();
                 String typeField_ = field_.getType();
                 if (Templates.correctNbParameters(owner_,_cont)) {
@@ -576,7 +576,7 @@ public final class AliasReflection {
                 result_.setResult(_cont.getExtendedClassMetaInfo(typeField_,owner_));
                 return result_;
             }
-            FieldMetaInfo field_ = LgNames.getField(_struct,lgNames_);
+            FieldMetaInfo field_ = ApplyCoreMethodUtil.getField(_struct,lgNames_);
             String owner_ = field_.getDeclaringClass();
             String typeField_ = field_.getType();
             result_.setResult(_cont.getExtendedClassMetaInfo(typeField_,owner_));
@@ -584,62 +584,62 @@ public final class AliasReflection {
         }
         if (StringList.quickEq(type_, ref_.aliasMethod)) {
             if (StringList.quickEq(name_, ref_.aliasIsAbstract)) {
-                MethodMetaInfo method_ = LgNames.getMethod(_struct,lgNames_);
+                MethodMetaInfo method_ = ApplyCoreMethodUtil.getMethod(_struct,lgNames_);
                 result_.setResult(BooleanStruct.of(method_.isAbstract()));
                 return result_;
             }
             if (StringList.quickEq(name_, ref_.aliasIsFinal)) {
-                MethodMetaInfo class_ = LgNames.getMethod(_struct,lgNames_);
+                MethodMetaInfo class_ = ApplyCoreMethodUtil.getMethod(_struct,lgNames_);
                 result_.setResult(BooleanStruct.of(class_.isFinal()));
                 return result_;
             }
             if (StringList.quickEq(name_, ref_.aliasIsStatic)) {
-                MethodMetaInfo class_ = LgNames.getMethod(_struct,lgNames_);
+                MethodMetaInfo class_ = ApplyCoreMethodUtil.getMethod(_struct,lgNames_);
                 result_.setResult(BooleanStruct.of(class_.isStatic()));
                 return result_;
             }
             if (StringList.quickEq(name_, ref_.aliasIsStaticCall)) {
-                MethodMetaInfo class_ = LgNames.getMethod(_struct,lgNames_);
+                MethodMetaInfo class_ = ApplyCoreMethodUtil.getMethod(_struct,lgNames_);
                 result_.setResult(BooleanStruct.of(class_.isStaticCall()));
                 return result_;
             }
             if (StringList.quickEq(name_, ref_.aliasIsInstanceMethod)) {
-                MethodMetaInfo class_ = LgNames.getMethod(_struct,lgNames_);
+                MethodMetaInfo class_ = ApplyCoreMethodUtil.getMethod(_struct,lgNames_);
                 result_.setResult(BooleanStruct.of(class_.isInstanceMethod()));
                 return result_;
             }
             if (StringList.quickEq(name_, ref_.aliasIsNormal)) {
-                MethodMetaInfo class_ = LgNames.getMethod(_struct,lgNames_);
+                MethodMetaInfo class_ = ApplyCoreMethodUtil.getMethod(_struct,lgNames_);
                 result_.setResult(BooleanStruct.of(class_.isNormal()));
                 return result_;
             }
             if (StringList.quickEq(name_, ref_.aliasIsVarargs)) {
-                MethodMetaInfo class_ = LgNames.getMethod(_struct,lgNames_);
+                MethodMetaInfo class_ = ApplyCoreMethodUtil.getMethod(_struct,lgNames_);
                 result_.setResult(BooleanStruct.of(class_.isVararg()));
                 return result_;
             }
             if (StringList.quickEq(name_, ref_.aliasIsPackage)) {
-                MethodMetaInfo class_ = LgNames.getMethod(_struct,lgNames_);
+                MethodMetaInfo class_ = ApplyCoreMethodUtil.getMethod(_struct,lgNames_);
                 result_.setResult(BooleanStruct.of(class_.isPackage()));
                 return result_;
             }
             if (StringList.quickEq(name_, ref_.aliasIsPrivate)) {
-                MethodMetaInfo class_ = LgNames.getMethod(_struct,lgNames_);
+                MethodMetaInfo class_ = ApplyCoreMethodUtil.getMethod(_struct,lgNames_);
                 result_.setResult(BooleanStruct.of(class_.isPrivate()));
                 return result_;
             }
             if (StringList.quickEq(name_, ref_.aliasIsProtected)) {
-                MethodMetaInfo class_ = LgNames.getMethod(_struct,lgNames_);
+                MethodMetaInfo class_ = ApplyCoreMethodUtil.getMethod(_struct,lgNames_);
                 result_.setResult(BooleanStruct.of(class_.isProtected()));
                 return result_;
             }
             if (StringList.quickEq(name_, ref_.aliasIsPublic)) {
-                MethodMetaInfo class_ = LgNames.getMethod(_struct,lgNames_);
+                MethodMetaInfo class_ = ApplyCoreMethodUtil.getMethod(_struct,lgNames_);
                 result_.setResult(BooleanStruct.of(class_.isPublic()));
                 return result_;
             }
             if (StringList.quickEq(name_, ref_.aliasGetParameterTypes)) {
-                MethodMetaInfo method_ = LgNames.getMethod(_struct,lgNames_);
+                MethodMetaInfo method_ = ApplyCoreMethodUtil.getMethod(_struct,lgNames_);
                 String declaring_ = method_.getFormClassName();
                 StringList geneInterfaces_ =  method_.getFid().getParametersTypes();
                 int len_ = geneInterfaces_.size();
@@ -665,7 +665,7 @@ public final class AliasReflection {
                 return result_;
             }
             if (StringList.quickEq(name_, ref_.aliasGetParameterNames)) {
-                MethodMetaInfo method_ = LgNames.getMethod(_struct,lgNames_);
+                MethodMetaInfo method_ = ApplyCoreMethodUtil.getMethod(_struct,lgNames_);
                 String declaring_ = method_.getFormClassName();
                 StringList geneInterfaces_ =  method_.getRealId().getParametersTypes();
                 int len_ = geneInterfaces_.size();
@@ -691,7 +691,7 @@ public final class AliasReflection {
                 return result_;
             }
             if (StringList.quickEq(name_, ref_.aliasGetReturnType)) {
-                MethodMetaInfo method_ = LgNames.getMethod(_struct,lgNames_);
+                MethodMetaInfo method_ = ApplyCoreMethodUtil.getMethod(_struct,lgNames_);
                 String owner_ = method_.getFormClassName();
                 String typeMethod_ = method_.getReturnType();
                 if (Templates.correctNbParameters(owner_,_cont)) {
@@ -701,18 +701,18 @@ public final class AliasReflection {
                 return result_;
             }
             if (StringList.quickEq(name_, ref_.aliasGetGenericReturnType)) {
-                MethodMetaInfo method_ = LgNames.getMethod(_struct,lgNames_);
+                MethodMetaInfo method_ = ApplyCoreMethodUtil.getMethod(_struct,lgNames_);
                 String owner_ = method_.getFormClassName();
                 String typeMethod_ = method_.getReturnType();
                 result_.setResult(_cont.getExtendedClassMetaInfo(typeMethod_,owner_));
                 return result_;
             }
             if (StringList.quickEq(name_, ref_.aliasGetName)) {
-                MethodMetaInfo method_ = LgNames.getMethod(_struct,lgNames_);
+                MethodMetaInfo method_ = ApplyCoreMethodUtil.getMethod(_struct,lgNames_);
                 result_.setResult(new StringStruct(method_.getName()));
                 return result_;
             }
-            MethodMetaInfo method_ = LgNames.getMethod(_struct,lgNames_);
+            MethodMetaInfo method_ = ApplyCoreMethodUtil.getMethod(_struct,lgNames_);
             String cl_ = method_.getFormClassName();
             if (cl_.isEmpty()) {
                 result_.setResult(NullStruct.NULL_VALUE);
@@ -723,22 +723,22 @@ public final class AliasReflection {
         }
         if (StringList.quickEq(type_, aliasClass_)) {
             if (StringList.quickEq(name_, ref_.aliasIsAbstract)) {
-                ClassMetaInfo class_ = LgNames.getClass(_struct,lgNames_);
+                ClassMetaInfo class_ = ApplyCoreMethodUtil.getClass(_struct,lgNames_);
                 result_.setResult(BooleanStruct.of(class_.isAbstractType()));
                 return result_;
             }
             if (StringList.quickEq(name_, ref_.aliasIsStatic)) {
-                ClassMetaInfo class_ = LgNames.getClass(_struct,lgNames_);
+                ClassMetaInfo class_ = ApplyCoreMethodUtil.getClass(_struct,lgNames_);
                 result_.setResult(BooleanStruct.of(class_.isStaticType()));
                 return result_;
             }
             if (StringList.quickEq(name_, ref_.aliasIsArray)) {
-                ClassMetaInfo class_ = LgNames.getClass(_struct,lgNames_);
+                ClassMetaInfo class_ = ApplyCoreMethodUtil.getClass(_struct,lgNames_);
                 result_.setResult(BooleanStruct.of(class_.isTypeArray()));
                 return result_;
             }
             if (StringList.quickEq(name_, ref_.aliasMakeWildCard)) {
-                ClassMetaInfo class_ = LgNames.getClass(_struct,lgNames_);
+                ClassMetaInfo class_ = ApplyCoreMethodUtil.getClass(_struct,lgNames_);
                 Struct isUpper_ = args_[0];
                 String varOwn_ = class_.getVariableOwner();
                 String nameCl_ = class_.getName();
@@ -764,72 +764,72 @@ public final class AliasReflection {
                 return result_;
             }
             if (StringList.quickEq(name_, ref_.aliasIsAnnotation)) {
-                ClassMetaInfo class_ = LgNames.getClass(_struct,lgNames_);
+                ClassMetaInfo class_ = ApplyCoreMethodUtil.getClass(_struct,lgNames_);
                 result_.setResult(BooleanStruct.of(class_.isTypeAnnotation()));
                 return result_;
             }
             if (StringList.quickEq(name_, ref_.aliasIsClass)) {
-                ClassMetaInfo class_ = LgNames.getClass(_struct,lgNames_);
+                ClassMetaInfo class_ = ApplyCoreMethodUtil.getClass(_struct,lgNames_);
                 result_.setResult(BooleanStruct.of(class_.isTypeClass()));
                 return result_;
             }
             if (StringList.quickEq(name_, ref_.aliasIsWildCard)) {
-                ClassMetaInfo class_ = LgNames.getClass(_struct,lgNames_);
+                ClassMetaInfo class_ = ApplyCoreMethodUtil.getClass(_struct,lgNames_);
                 result_.setResult(BooleanStruct.of(class_.isTypeWildCard()));
                 return result_;
             }
             if (StringList.quickEq(name_, ref_.aliasIsEnum)) {
-                ClassMetaInfo class_ = LgNames.getClass(_struct,lgNames_);
+                ClassMetaInfo class_ = ApplyCoreMethodUtil.getClass(_struct,lgNames_);
                 result_.setResult(BooleanStruct.of(class_.isTypeEnum()));
                 return result_;
             }
             if (StringList.quickEq(name_, ref_.aliasIsFinal)) {
-                ClassMetaInfo class_ = LgNames.getClass(_struct,lgNames_);
+                ClassMetaInfo class_ = ApplyCoreMethodUtil.getClass(_struct,lgNames_);
                 result_.setResult(BooleanStruct.of(class_.isFinalType()));
                 return result_;
             }
             if (StringList.quickEq(name_, ref_.aliasIsTypeVariable)) {
-                ClassMetaInfo class_ = LgNames.getClass(_struct,lgNames_);
+                ClassMetaInfo class_ = ApplyCoreMethodUtil.getClass(_struct,lgNames_);
                 result_.setResult(BooleanStruct.of(class_.isTypeVariable()));
                 return result_;
             }
             if (StringList.quickEq(name_, ref_.aliasIsVariable)) {
-                ClassMetaInfo class_ = LgNames.getClass(_struct,lgNames_);
+                ClassMetaInfo class_ = ApplyCoreMethodUtil.getClass(_struct,lgNames_);
                 result_.setResult(BooleanStruct.of(class_.isVariable()));
                 return result_;
             }
             if (StringList.quickEq(name_, ref_.aliasIsInterface)) {
-                ClassMetaInfo class_ = LgNames.getClass(_struct,lgNames_);
+                ClassMetaInfo class_ = ApplyCoreMethodUtil.getClass(_struct,lgNames_);
                 result_.setResult(BooleanStruct.of(class_.isTypeInterface()));
                 return result_;
             }
             if (StringList.quickEq(name_, ref_.aliasIsPackage)) {
-                ClassMetaInfo class_ = LgNames.getClass(_struct,lgNames_);
+                ClassMetaInfo class_ = ApplyCoreMethodUtil.getClass(_struct,lgNames_);
                 result_.setResult(BooleanStruct.of(class_.isPackage()));
                 return result_;
             }
             if (StringList.quickEq(name_, ref_.aliasIsPrimitive)) {
-                ClassMetaInfo class_ = LgNames.getClass(_struct,lgNames_);
+                ClassMetaInfo class_ = ApplyCoreMethodUtil.getClass(_struct,lgNames_);
                 result_.setResult(BooleanStruct.of(class_.isTypePrimitive()));
                 return result_;
             }
             if (StringList.quickEq(name_, ref_.aliasIsPrivate)) {
-                ClassMetaInfo class_ = LgNames.getClass(_struct,lgNames_);
+                ClassMetaInfo class_ = ApplyCoreMethodUtil.getClass(_struct,lgNames_);
                 result_.setResult(BooleanStruct.of(class_.isPrivate()));
                 return result_;
             }
             if (StringList.quickEq(name_, ref_.aliasIsProtected)) {
-                ClassMetaInfo class_ = LgNames.getClass(_struct,lgNames_);
+                ClassMetaInfo class_ = ApplyCoreMethodUtil.getClass(_struct,lgNames_);
                 result_.setResult(BooleanStruct.of(class_.isProtected()));
                 return result_;
             }
             if (StringList.quickEq(name_, ref_.aliasIsPublic)) {
-                ClassMetaInfo class_ = LgNames.getClass(_struct,lgNames_);
+                ClassMetaInfo class_ = ApplyCoreMethodUtil.getClass(_struct,lgNames_);
                 result_.setResult(BooleanStruct.of(class_.isPublic()));
                 return result_;
             }
             if (StringList.quickEq(name_, ref_.aliasIsInstance)) {
-                ClassMetaInfo class_ = LgNames.getClass(_struct,lgNames_);
+                ClassMetaInfo class_ = ApplyCoreMethodUtil.getClass(_struct,lgNames_);
                 String param_ = class_.getName();
                 if (param_.contains(Templates.PREFIX_VAR_TYPE)) {
                     result_.setResult(BooleanStruct.of(false));
@@ -843,7 +843,7 @@ public final class AliasReflection {
                 return result_;
             }
             if (StringList.quickEq(name_, ref_.aliasIsAssignableFrom)) {
-                ClassMetaInfo class_ = LgNames.getClass(_struct,lgNames_);
+                ClassMetaInfo class_ = ApplyCoreMethodUtil.getClass(_struct,lgNames_);
                 String param_ = class_.getName();
                 Struct subType_ = args_[0];
                 if (!(subType_ instanceof ClassMetaInfo)) {
@@ -853,7 +853,7 @@ public final class AliasReflection {
                     result_.setResult(BooleanStruct.of(Templates.isCorrectOrNumbers(mapping_, _cont)));
                     return result_;
                 }
-                String arg_ = LgNames.getClass(subType_,lgNames_).getName();
+                String arg_ = ApplyCoreMethodUtil.getClass(subType_,lgNames_).getName();
                 Mapping mapping_ = new Mapping();
                 mapping_.setArg(arg_);
                 mapping_.setParam(param_);
@@ -861,21 +861,21 @@ public final class AliasReflection {
                 return result_;
             }
             if (StringList.quickEq(name_, ref_.aliasGetName)) {
-                result_.setResult(new StringStruct((LgNames.getClass(_struct,lgNames_)).getName()));
+                result_.setResult(new StringStruct((ApplyCoreMethodUtil.getClass(_struct,lgNames_)).getName()));
                 return result_;
             }
             if (StringList.quickEq(name_, ref_.aliasGetPrettyName)) {
-                String nameCl_ = (LgNames.getClass(_struct,lgNames_)).getName();
+                String nameCl_ = (ApplyCoreMethodUtil.getClass(_struct,lgNames_)).getName();
                 result_.setResult(new StringStruct(PartTypeUtil.processPrettyType(nameCl_)));
                 return result_;
             }
             if (StringList.quickEq(name_, ref_.aliasGetPrettySingleName)) {
-                String nameCl_ = (LgNames.getClass(_struct,lgNames_)).getName();
+                String nameCl_ = (ApplyCoreMethodUtil.getClass(_struct,lgNames_)).getName();
                 result_.setResult(new StringStruct(PartTypeUtil.processPrettySingleType(nameCl_)));
                 return result_;
             }
             if (StringList.quickEq(name_, ref_.aliasGetEnclosingType)) {
-                String t_ = (LgNames.getClass(_struct,lgNames_)).getTypeOwner();
+                String t_ = (ApplyCoreMethodUtil.getClass(_struct,lgNames_)).getTypeOwner();
                 if (t_.isEmpty()) {
                     result_.setResult(NullStruct.NULL_VALUE);
                     return result_;
@@ -884,7 +884,7 @@ public final class AliasReflection {
                 return result_;
             }
             if (StringList.quickEq(name_, ref_.aliasGetDeclaredClasses)) {
-                ClassMetaInfo cl_ = LgNames.getClass(_struct,lgNames_);
+                ClassMetaInfo cl_ = ApplyCoreMethodUtil.getClass(_struct,lgNames_);
                 StringList methods_;
                 methods_ = cl_.getMemberTypes();
                 String className_= PrimitiveTypeUtil.getPrettyArrayType(aliasClass_);
@@ -985,7 +985,7 @@ public final class AliasReflection {
                 return result_;
             }
             if (StringList.quickEq(name_, ref_.aliasGetDeclaredConstructors)) {
-                ClassMetaInfo cl_ = LgNames.getClass(_struct,lgNames_);
+                ClassMetaInfo cl_ = ApplyCoreMethodUtil.getClass(_struct,lgNames_);
                 ObjectMap<ConstructorId, ConstructorMetaInfo> ctors_;
                 ctors_ = cl_.getConstructorsInfos();
                 String className_= PrimitiveTypeUtil.getPrettyArrayType(aliasConstructor_);
@@ -1029,7 +1029,7 @@ public final class AliasReflection {
                 return result_;
             }
             if (StringList.quickEq(name_, ref_.aliasGetDeclaredMethods)) {
-                ClassMetaInfo cl_ = LgNames.getClass(_struct,lgNames_);
+                ClassMetaInfo cl_ = ApplyCoreMethodUtil.getClass(_struct,lgNames_);
                 ObjectMap<MethodId, MethodMetaInfo> methods_;
                 methods_ = cl_.getMethodsInfos();
                 String className_= PrimitiveTypeUtil.getPrettyArrayType(aliasMethod_);
@@ -1103,7 +1103,7 @@ public final class AliasReflection {
                 return result_;
             }
             if (StringList.quickEq(name_, ref_.aliasGetDeclaredStaticMethods)) {
-                ClassMetaInfo cl_ = LgNames.getClass(_struct,lgNames_);
+                ClassMetaInfo cl_ = ApplyCoreMethodUtil.getClass(_struct,lgNames_);
                 ObjectMap<MethodId, MethodMetaInfo> methods_;
                 methods_ = cl_.getMethodsInfos();
                 String className_= PrimitiveTypeUtil.getPrettyArrayType(aliasMethod_);
@@ -1160,7 +1160,7 @@ public final class AliasReflection {
                 return result_;
             }
             if (StringList.quickEq(name_, ref_.aliasGetDeclaredFields)) {
-                ClassMetaInfo cl_ = LgNames.getClass(_struct,lgNames_);
+                ClassMetaInfo cl_ = ApplyCoreMethodUtil.getClass(_struct,lgNames_);
                 StringMap<FieldMetaInfo> fields_;
                 fields_ = cl_.getFieldsInfos();
                 String className_= PrimitiveTypeUtil.getPrettyArrayType(aliasField_);
@@ -1189,7 +1189,7 @@ public final class AliasReflection {
                 return result_;
             }
             if (StringList.quickEq(name_, ref_.aliasGetSuperClass)) {
-                ClassMetaInfo cl_ = LgNames.getClass(_struct,lgNames_);
+                ClassMetaInfo cl_ = ApplyCoreMethodUtil.getClass(_struct,lgNames_);
                 String genericSuperClassName_ = cl_.getSuperClass();
                 if (genericSuperClassName_.isEmpty()) {
                     result_.setResult(NullStruct.NULL_VALUE);
@@ -1204,7 +1204,7 @@ public final class AliasReflection {
                 return result_;
             }
             if (StringList.quickEq(name_, ref_.aliasGetGenericSuperClass)) {
-                ClassMetaInfo cl_ = LgNames.getClass(_struct,lgNames_);
+                ClassMetaInfo cl_ = ApplyCoreMethodUtil.getClass(_struct,lgNames_);
                 String genericSuperClassName_ = cl_.getSuperClass();
                 if (genericSuperClassName_.isEmpty()) {
                     result_.setResult(NullStruct.NULL_VALUE);
@@ -1215,7 +1215,7 @@ public final class AliasReflection {
                 return result_;
             }
             if (StringList.quickEq(name_, ref_.aliasGetInterfaces)) {
-                ClassMetaInfo cl_ = LgNames.getClass(_struct,lgNames_);
+                ClassMetaInfo cl_ = ApplyCoreMethodUtil.getClass(_struct,lgNames_);
                 StringList geneInterfaces_ = cl_.getSuperInterfaces();
                 int len_ = geneInterfaces_.size();
                 String className_= PrimitiveTypeUtil.getPrettyArrayType(aliasClass_);
@@ -1238,7 +1238,7 @@ public final class AliasReflection {
                 return result_;
             }
             if (StringList.quickEq(name_, ref_.aliasGetGenericInterfaces)) {
-                ClassMetaInfo cl_ = LgNames.getClass(_struct,lgNames_);
+                ClassMetaInfo cl_ = ApplyCoreMethodUtil.getClass(_struct,lgNames_);
                 StringList geneInterfaces_ = cl_.getSuperInterfaces();
                 int len_ = geneInterfaces_.size();
                 String className_= PrimitiveTypeUtil.getPrettyArrayType(aliasClass_);
@@ -1252,7 +1252,7 @@ public final class AliasReflection {
                 return result_;
             }
             if (StringList.quickEq(name_, ref_.aliasGetLowerBounds)) {
-                ClassMetaInfo cl_ = LgNames.getClass(_struct,lgNames_);
+                ClassMetaInfo cl_ = ApplyCoreMethodUtil.getClass(_struct,lgNames_);
                 StringList geneInterfaces_ = cl_.getLowerBounds();
                 int len_ = geneInterfaces_.size();
                 String className_= PrimitiveTypeUtil.getPrettyArrayType(aliasClass_);
@@ -1281,7 +1281,7 @@ public final class AliasReflection {
                 return result_;
             }
             if (StringList.quickEq(name_, ref_.aliasGetUpperBounds)) {
-                ClassMetaInfo cl_ = LgNames.getClass(_struct,lgNames_);
+                ClassMetaInfo cl_ = ApplyCoreMethodUtil.getClass(_struct,lgNames_);
                 StringList geneInterfaces_ = cl_.getUpperBounds();
                 int len_ = geneInterfaces_.size();
                 String className_= PrimitiveTypeUtil.getPrettyArrayType(aliasClass_);
@@ -1310,7 +1310,7 @@ public final class AliasReflection {
                 return result_;
             }
             if (StringList.quickEq(name_, ref_.aliasMakeArray)) {
-                ClassMetaInfo cl_ = LgNames.getClass(_struct,lgNames_);
+                ClassMetaInfo cl_ = ApplyCoreMethodUtil.getClass(_struct,lgNames_);
                 String clName_ = cl_.getName();
                 String baseWildCard_ = clName_;
                 if (StringList.quickEq(clName_, Templates.SUB_TYPE)) {
@@ -1335,7 +1335,7 @@ public final class AliasReflection {
                 return result_;
             }
             if (StringList.quickEq(name_, ref_.aliasGetVariableOwner)) {
-                ClassMetaInfo cl_ = LgNames.getClass(_struct,lgNames_);
+                ClassMetaInfo cl_ = ApplyCoreMethodUtil.getClass(_struct,lgNames_);
                 String owner_ = cl_.getVariableOwner();
                 if (owner_.isEmpty()) {
                     result_.setResult(NullStruct.NULL_VALUE);
@@ -1345,7 +1345,7 @@ public final class AliasReflection {
                 return result_;
             }
             if (StringList.quickEq(name_, ref_.aliasGetGenericVariableOwner)) {
-                ClassMetaInfo cl_ = LgNames.getClass(_struct,lgNames_);
+                ClassMetaInfo cl_ = ApplyCoreMethodUtil.getClass(_struct,lgNames_);
                 String owner_ = cl_.getVariableOwner();
                 if (owner_.isEmpty()) {
                     result_.setResult(NullStruct.NULL_VALUE);
@@ -1356,7 +1356,7 @@ public final class AliasReflection {
                 return result_;
             }
             if (StringList.quickEq(name_, ref_.aliasGetTypeParameters)) {
-                ClassMetaInfo cl_ = LgNames.getClass(_struct,lgNames_);
+                ClassMetaInfo cl_ = ApplyCoreMethodUtil.getClass(_struct,lgNames_);
                 CustList<ClassMetaInfo> list_ = cl_.getTypeParameters(_cont);
                 int len_ = list_.size();
                 String className_= PrimitiveTypeUtil.getPrettyArrayType(aliasClass_);
@@ -1369,7 +1369,7 @@ public final class AliasReflection {
                 return result_;
             }
             if (StringList.quickEq(name_, ref_.aliasGetBounds)) {
-                ClassMetaInfo cl_ = LgNames.getClass(_struct,lgNames_);
+                ClassMetaInfo cl_ = ApplyCoreMethodUtil.getClass(_struct,lgNames_);
                 CustList<ClassMetaInfo> list_ = cl_.getBounds(_cont);
                 int len_ = list_.size();
                 String className_= PrimitiveTypeUtil.getPrettyArrayType(aliasClass_);
@@ -1399,7 +1399,7 @@ public final class AliasReflection {
                 return result_;
             }
             if (StringList.quickEq(name_, ref_.aliasGetGenericBounds)) {
-                ClassMetaInfo cl_ = LgNames.getClass(_struct,lgNames_);
+                ClassMetaInfo cl_ = ApplyCoreMethodUtil.getClass(_struct,lgNames_);
                 CustList<ClassMetaInfo> list_ = cl_.getBounds(_cont);
                 int len_ = list_.size();
                 String className_= PrimitiveTypeUtil.getPrettyArrayType(aliasClass_);
@@ -1412,7 +1412,7 @@ public final class AliasReflection {
                 return result_;
             }
             if (StringList.quickEq(name_, ref_.aliasGetComponentType)) {
-                ClassMetaInfo cl_ = LgNames.getClass(_struct,lgNames_);
+                ClassMetaInfo cl_ = ApplyCoreMethodUtil.getClass(_struct,lgNames_);
                 String owner_ = cl_.getVariableOwner();
                 String clName_ = cl_.getName();
                 String baseWildCard_ = clName_;
@@ -1439,7 +1439,7 @@ public final class AliasReflection {
                 return result_;
             }
             if (StringList.quickEq(name_, ref_.aliasMakeGeneric)) {
-                ClassMetaInfo cl_ = LgNames.getClass(_struct,lgNames_);
+                ClassMetaInfo cl_ = ApplyCoreMethodUtil.getClass(_struct,lgNames_);
                 StringList classesNames_ = new StringList();
                 if (!(args_[0] instanceof ArrayStruct)) {
                     result_.setResult(NullStruct.NULL_VALUE);
@@ -1450,7 +1450,7 @@ public final class AliasReflection {
                         result_.setResult(NullStruct.NULL_VALUE);
                         return result_;
                     }
-                    classesNames_.add(LgNames.getClass(s,lgNames_).getName());
+                    classesNames_.add(ApplyCoreMethodUtil.getClass(s,lgNames_).getName());
                 }
                 String res_ = Templates.getMadeVarTypes(cl_.getName(), classesNames_, _cont);
                 if (res_ == null) {
@@ -1461,7 +1461,7 @@ public final class AliasReflection {
                 return result_;
             }
             if (StringList.quickEq(name_, ref_.aliasArrayNewInstance)) {
-                ClassMetaInfo cl_ = LgNames.getClass(_struct,lgNames_);
+                ClassMetaInfo cl_ = ApplyCoreMethodUtil.getClass(_struct,lgNames_);
                 String clDyn_ = cl_.getName();
                 if (cl_.isTypeWildCard()) {
                     result_.setErrorMessage(clDyn_);
@@ -1533,7 +1533,7 @@ public final class AliasReflection {
                 result_.setResult(NullStruct.NULL_VALUE);
                 return result_;
             }
-            ClassMetaInfo cl_ = LgNames.getClass(_struct,lgNames_);
+            ClassMetaInfo cl_ = ApplyCoreMethodUtil.getClass(_struct,lgNames_);
             StringList types_ = Templates.getAllTypes(cl_.getName());
             String owner_ = cl_.getName();
             int len_ = types_.size();
@@ -1549,32 +1549,32 @@ public final class AliasReflection {
         }
         if (StringList.quickEq(type_, aliasConstructor_)) {
             if (StringList.quickEq(name_, ref_.aliasIsVarargs)) {
-                ConstructorMetaInfo class_ = LgNames.getCtor(_struct,lgNames_);
+                ConstructorMetaInfo class_ = ApplyCoreMethodUtil.getCtor(_struct,lgNames_);
                 result_.setResult(BooleanStruct.of(class_.isVararg()));
                 return result_;
             }
             if (StringList.quickEq(name_, ref_.aliasIsPackage)) {
-                ConstructorMetaInfo class_ = LgNames.getCtor(_struct,lgNames_);
+                ConstructorMetaInfo class_ = ApplyCoreMethodUtil.getCtor(_struct,lgNames_);
                 result_.setResult(BooleanStruct.of(class_.isPackage()));
                 return result_;
             }
             if (StringList.quickEq(name_, ref_.aliasIsPrivate)) {
-                ConstructorMetaInfo class_ = LgNames.getCtor(_struct,lgNames_);
+                ConstructorMetaInfo class_ = ApplyCoreMethodUtil.getCtor(_struct,lgNames_);
                 result_.setResult(BooleanStruct.of(class_.isPrivate()));
                 return result_;
             }
             if (StringList.quickEq(name_, ref_.aliasIsProtected)) {
-                ConstructorMetaInfo class_ = LgNames.getCtor(_struct,lgNames_);
+                ConstructorMetaInfo class_ = ApplyCoreMethodUtil.getCtor(_struct,lgNames_);
                 result_.setResult(BooleanStruct.of(class_.isProtected()));
                 return result_;
             }
             if (StringList.quickEq(name_, ref_.aliasIsPublic)) {
-                ConstructorMetaInfo class_ = LgNames.getCtor(_struct,lgNames_);
+                ConstructorMetaInfo class_ = ApplyCoreMethodUtil.getCtor(_struct,lgNames_);
                 result_.setResult(BooleanStruct.of(class_.isPublic()));
                 return result_;
             }
             if (StringList.quickEq(name_, ref_.aliasGetParameterTypes)) {
-                ConstructorMetaInfo method_ = LgNames.getCtor(_struct,lgNames_);
+                ConstructorMetaInfo method_ = ApplyCoreMethodUtil.getCtor(_struct,lgNames_);
                 String declaring_ = method_.getFormClassName();
                 StringList geneInterfaces_ =  method_.getFid().getParametersTypes();
                 int len_ = geneInterfaces_.size();
@@ -1600,7 +1600,7 @@ public final class AliasReflection {
                 return result_;
             }
             if (StringList.quickEq(name_, ref_.aliasGetParameterNames)) {
-                ConstructorMetaInfo method_ = LgNames.getCtor(_struct,lgNames_);
+                ConstructorMetaInfo method_ = ApplyCoreMethodUtil.getCtor(_struct,lgNames_);
                 String declaring_ = method_.getFormClassName();
                 StringList geneInterfaces_ =  method_.getRealId().getParametersTypes();
                 int len_ = geneInterfaces_.size();
@@ -1626,7 +1626,7 @@ public final class AliasReflection {
                 return result_;
             }
             if (StringList.quickEq(name_, ref_.aliasGetReturnType)) {
-                ConstructorMetaInfo method_ = LgNames.getCtor(_struct,lgNames_);
+                ConstructorMetaInfo method_ = ApplyCoreMethodUtil.getCtor(_struct,lgNames_);
                 String owner_ = method_.getFormClassName();
                 String typeMethod_ = method_.getReturnType();
                 if (Templates.correctNbParameters(owner_,_cont)) {
@@ -1636,18 +1636,18 @@ public final class AliasReflection {
                 return result_;
             }
             if (StringList.quickEq(name_, ref_.aliasGetGenericReturnType)) {
-                ConstructorMetaInfo method_ = LgNames.getCtor(_struct,lgNames_);
+                ConstructorMetaInfo method_ = ApplyCoreMethodUtil.getCtor(_struct,lgNames_);
                 String owner_ = method_.getFormClassName();
                 String typeMethod_ = method_.getReturnType();
                 result_.setResult(_cont.getExtendedClassMetaInfo(typeMethod_,owner_));
                 return result_;
             }
             if (StringList.quickEq(name_, ref_.aliasGetName)) {
-                ConstructorMetaInfo method_ = LgNames.getCtor(_struct,lgNames_);
+                ConstructorMetaInfo method_ = ApplyCoreMethodUtil.getCtor(_struct,lgNames_);
                 result_.setResult(new StringStruct(method_.getName()));
                 return result_;
             }
-            ConstructorMetaInfo method_ = LgNames.getCtor(_struct,lgNames_);
+            ConstructorMetaInfo method_ = ApplyCoreMethodUtil.getCtor(_struct,lgNames_);
             result_.setResult(_cont.getExtendedClassMetaInfo(method_.getFormClassName()));
             return result_;
         }
@@ -1709,7 +1709,7 @@ public final class AliasReflection {
             for (int i = 0; i < parLen_; i++) {
                 Struct par_ = pars_[i];
                 if (par_ instanceof ClassMetaInfo) {
-                    ClassMetaInfo p_ = LgNames.getClass(par_,_stds);
+                    ClassMetaInfo p_ = ApplyCoreMethodUtil.getClass(par_,_stds);
                     if (!StringList.quickEq(p_.getName(), parTypes_.get(i))) {
                         return false;
                     }

@@ -9,6 +9,7 @@ import code.expressionlanguage.opers.exec.ExecCatOperation;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ConstructorId;
+import code.expressionlanguage.stds.ApplyCoreMethodUtil;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.ResultErrorStd;
 import code.util.CustList;
@@ -50,7 +51,7 @@ public final class StringBuilderStruct extends CharSequenceStruct {
             _res.setError(nullPe_);
             return;
         }
-        CharSequenceStruct arg_ = LgNames.getCharSeq(_arg);
+        CharSequenceStruct arg_ = ApplyCoreMethodUtil.getCharSeq(_arg);
         _res.setResult(new StringBuilderStruct(new StringBuilder(arg_.toStringInstance())));
     }
     private static void newStringBuilderStructByNumber(NumberStruct _arg, LgNames _stds, ResultErrorStd _res) {
@@ -72,7 +73,7 @@ public final class StringBuilderStruct extends CharSequenceStruct {
             _res.setResult(BooleanStruct.of(_args[0] == _args[1]));
             return;
         }
-        StringBuilderStruct one_ = LgNames.getStrBuilder(_struct);
+        StringBuilderStruct one_ = ApplyCoreMethodUtil.getStrBuilder(_struct);
         if (StringList.quickEq(name_, lgNames_.getAliasAppend())) {
             if (list_.size() == 1 && StringList.quickEq(list_.first(), PrimitiveTypeUtil.getPrettyArrayType(aliasPrimChar_))) {
                 one_.appendChars(_args[0], _cont, _res);
@@ -341,7 +342,7 @@ public final class StringBuilderStruct extends CharSequenceStruct {
             _out.setError(lgNames_.getAliasNullPe());
             return;
         }
-        CharSequenceStruct ch_ = LgNames.getCharSeq(_str);
+        CharSequenceStruct ch_ = ApplyCoreMethodUtil.getCharSeq(_str);
         instance.replace(start_, end_, ch_.toStringInstance());
         _out.setResult(this);
     }

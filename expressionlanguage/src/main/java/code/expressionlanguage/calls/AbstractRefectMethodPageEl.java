@@ -6,6 +6,7 @@ import code.expressionlanguage.calls.util.NotInitializedClass;
 import code.expressionlanguage.opers.exec.ExecInvokingOperation;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.MethodId;
+import code.expressionlanguage.stds.ApplyCoreMethodUtil;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.ErrorStruct;
@@ -22,7 +23,7 @@ public abstract class AbstractRefectMethodPageEl extends AbstractReflectPageEl {
     @Override
     public boolean checkCondition(ContextEl _context) {
         LgNames stds_ = _context.getStandards();
-        MethodMetaInfo method_ = LgNames.getMethod(getGlobalArgument().getStruct(),stds_);
+        MethodMetaInfo method_ = ApplyCoreMethodUtil.getMethod(getGlobalArgument().getStruct(),stds_);
         if (!initClass) {
             initClass = true;
             if (initType(_context)) {

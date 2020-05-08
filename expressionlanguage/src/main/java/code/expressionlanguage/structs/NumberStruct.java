@@ -128,7 +128,7 @@ public abstract class NumberStruct implements DisplayableStruct {
         String floatType_ = lgNames_.getAliasFloat();
         if (StringList.quickEq(type_, booleanType_)) {
             if (StringList.quickEq(list_.first(), stringType_)) {
-                String one_ = LgNames.getCharSeq(_args[0]).toStringInstance();
+                String one_ = ApplyCoreMethodUtil.getCharSeq(_args[0]).toStringInstance();
                 if (StringList.quickEq(one_, lgNames_.getDisplayedStrings().getTrueString())) {
                     _res.setResult(BooleanStruct.of(true));
                 } else {
@@ -482,7 +482,7 @@ public abstract class NumberStruct implements DisplayableStruct {
             _res.setError(_stds.getAliasNullPe());
             return;
         }
-        String one_ = LgNames.getCharSeq(_arg).toStringInstance();
+        String one_ = ApplyCoreMethodUtil.getCharSeq(_arg).toStringInstance();
         DoubleInfo v_ = NumParsers.splitDouble(one_);
         if (!v_.isValid()) {
             if (!_exception) {
@@ -505,7 +505,7 @@ public abstract class NumberStruct implements DisplayableStruct {
             _res.setError(_stds.getAliasNullPe());
             return;
         }
-        String one_ = LgNames.getCharSeq(_arg).toStringInstance();
+        String one_ = ApplyCoreMethodUtil.getCharSeq(_arg).toStringInstance();
         boolean valid_ = true;
         DoubleInfo v_ = NumParsers.splitDouble(one_);
         double d_ = 0;
@@ -535,7 +535,7 @@ public abstract class NumberStruct implements DisplayableStruct {
             _res.setError(_stds.getAliasNullPe());
             return;
         }
-        String one_ = LgNames.getCharSeq(_args[0]).toStringInstance();
+        String one_ = ApplyCoreMethodUtil.getCharSeq(_args[0]).toStringInstance();
         LongInfo lg_;
         int radix_ = DEFAULT_RADIX;
         if (_list.size() != 1) {
@@ -563,7 +563,7 @@ public abstract class NumberStruct implements DisplayableStruct {
             _res.setError(_stds.getAliasNullPe());
             return;
         }
-        String one_ = LgNames.getCharSeq(_args[0]).toStringInstance();
+        String one_ = ApplyCoreMethodUtil.getCharSeq(_args[0]).toStringInstance();
         LongInfo lg_;
         int radix_ = DEFAULT_RADIX;
         if (_list.size() != 1) {
@@ -591,7 +591,7 @@ public abstract class NumberStruct implements DisplayableStruct {
             _res.setError(_stds.getAliasNullPe());
             return;
         }
-        String one_ = LgNames.getCharSeq(_args[0]).toStringInstance();
+        String one_ = ApplyCoreMethodUtil.getCharSeq(_args[0]).toStringInstance();
         LongInfo lg_;
         int radix_ = DEFAULT_RADIX;
         if (_list.size() != 1) {
@@ -619,7 +619,7 @@ public abstract class NumberStruct implements DisplayableStruct {
             _res.setError(_stds.getAliasNullPe());
             return;
         }
-        String one_ = LgNames.getCharSeq(_args[0]).toStringInstance();
+        String one_ = ApplyCoreMethodUtil.getCharSeq(_args[0]).toStringInstance();
         LongInfo lg_;
         int radix_ = DEFAULT_RADIX;
         if (_list.size() != 1) {
@@ -652,14 +652,14 @@ public abstract class NumberStruct implements DisplayableStruct {
         return BooleanStruct.of(ClassArgumentMatching.convertToNumber(_a).longStruct() > ClassArgumentMatching.convertToNumber(_b).longStruct());
     }
     public static BooleanStruct quickCalculateLowerStr(Struct _a, Struct _b) {
-        String first_ = LgNames.getCharSeq(_a).toStringInstance();
-        String second_ = LgNames.getCharSeq(_b).toStringInstance();
+        String first_ = ApplyCoreMethodUtil.getCharSeq(_a).toStringInstance();
+        String second_ = ApplyCoreMethodUtil.getCharSeq(_b).toStringInstance();
         return BooleanStruct.of(first_.compareTo(second_) < 0);
     }
 
     public static BooleanStruct quickCalculateGreaterStr(Struct _a, Struct _b) {
-        String first_ = LgNames.getCharSeq(_a).toStringInstance();
-        String second_ = LgNames.getCharSeq(_b).toStringInstance();
+        String first_ = ApplyCoreMethodUtil.getCharSeq(_a).toStringInstance();
+        String second_ = ApplyCoreMethodUtil.getCharSeq(_b).toStringInstance();
         return BooleanStruct.of(first_.compareTo(second_) > 0);
     }
     public static NumberStruct idNumber(NumberStruct _a, Analyzable _an,ClassArgumentMatching _order) {

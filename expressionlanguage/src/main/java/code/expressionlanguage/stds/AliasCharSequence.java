@@ -422,14 +422,14 @@ public final class AliasCharSequence {
     public static ResultErrorStd invokeMethod(ContextEl _cont, ClassMethodId _method, Struct _struct, Argument... _args) {
         ResultErrorStd result_;
         result_ = new ResultErrorStd();
-        Struct[] args_ = LgNames.getObjects(_args);
+        Struct[] args_ = ApplyCoreMethodUtil.getObjects(_args);
         StringBuilderStruct.calculateStrBuilder(_cont, result_, _method, _struct, args_);
         return result_;
     }
 
     static ResultErrorStd invokeStdMethod(Analyzable _cont, ClassMethodId _method, Struct _struct, Argument... _args) {
         ResultErrorStd result_ = new ResultErrorStd();
-        Struct[] args_ = LgNames.getObjects(_args);
+        Struct[] args_ = ApplyCoreMethodUtil.getObjects(_args);
         LgNames lgNames_ = _cont.getStandards();
         String type_ = _method.getClassName();
         String stringType_ = lgNames_.getAliasString();

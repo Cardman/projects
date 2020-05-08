@@ -4,6 +4,7 @@ import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassMethodId;
+import code.expressionlanguage.stds.ApplyCoreMethodUtil;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.ResultErrorStd;
 import code.util.CustList;
@@ -19,7 +20,7 @@ public abstract class CharSequenceStruct implements DisplayableStruct {
         if (!(_other instanceof CharSequenceStruct)) {
             return false;
         }
-        CharSequenceStruct other_ = LgNames.getCharSeq(_other);
+        CharSequenceStruct other_ = ApplyCoreMethodUtil.getCharSeq(_other);
         int len_ = _current.length();
         if (len_ != other_.length()) {
             return false;
@@ -33,14 +34,14 @@ public abstract class CharSequenceStruct implements DisplayableStruct {
     }
     public static void calculateCharSeq(Analyzable _cont, ResultErrorStd _res, ClassMethodId _method, Struct _struct, Struct... _args) {
         if (!_method.getConstraints().isStaticMethod()) {
-            LgNames.getCharSeq(_struct).calculateLocCharSeq(_cont, _res, _method, _args);
+            ApplyCoreMethodUtil.getCharSeq(_struct).calculateLocCharSeq(_cont, _res, _method, _args);
             return;
         }
         if (!(_args[0] instanceof CharSequenceStruct)) {
             _res.setResult(BooleanStruct.of(_args[1] == NullStruct.NULL_VALUE));
             return;
         }
-        _res.setResult(BooleanStruct.of(sameEq(LgNames.getCharSeq(_args[0]),_args[1])));
+        _res.setResult(BooleanStruct.of(sameEq(ApplyCoreMethodUtil.getCharSeq(_args[0]),_args[1])));
     }
     private void calculateLocCharSeq(Analyzable _cont, ResultErrorStd _res, ClassMethodId _method, Struct... _args) {
         String name_ = _method.getConstraints().getName();
@@ -211,7 +212,7 @@ public abstract class CharSequenceStruct implements DisplayableStruct {
             _res.setError(nullPe_);
             return;
         }
-        CharSequenceStruct st_ = LgNames.getCharSeq(_anotherString);
+        CharSequenceStruct st_ = ApplyCoreMethodUtil.getCharSeq(_anotherString);
         _res.setResult(new IntStruct(toStringInstance().compareTo(st_.toStringInstance())));
     }
 
@@ -222,7 +223,7 @@ public abstract class CharSequenceStruct implements DisplayableStruct {
             _res.setError(nullPe_);
             return;
         }
-        CharSequenceStruct other_ = LgNames.getCharSeq(_other);
+        CharSequenceStruct other_ = ApplyCoreMethodUtil.getCharSeq(_other);
         int comLen_ = _len.intStruct();
         int to_ = _toffset.intStruct();
         int po_ = _ooffset.intStruct();
@@ -239,7 +240,7 @@ public abstract class CharSequenceStruct implements DisplayableStruct {
             _res.setError(nullPe_);
             return;
         }
-        CharSequenceStruct suffix_ = LgNames.getCharSeq(_suffix);
+        CharSequenceStruct suffix_ = ApplyCoreMethodUtil.getCharSeq(_suffix);
         _res.setResult(BooleanStruct.of(toStringInstance().endsWith(suffix_.toStringInstance())));
     }
     private void startsWith(Struct _prefix, NumberStruct _toffset, LgNames _stds, ResultErrorStd _res) {
@@ -248,7 +249,7 @@ public abstract class CharSequenceStruct implements DisplayableStruct {
             _res.setError(nullPe_);
             return;
         }
-        CharSequenceStruct pref_ = LgNames.getCharSeq(_prefix);
+        CharSequenceStruct pref_ = ApplyCoreMethodUtil.getCharSeq(_prefix);
         int to_ = _toffset.intStruct();
         _res.setResult(BooleanStruct.of(toStringInstance().startsWith(pref_.toStringInstance(), to_)));
     }
@@ -272,7 +273,7 @@ public abstract class CharSequenceStruct implements DisplayableStruct {
             _res.setError(nullPe_);
             return;
         }
-        CharSequenceStruct arg_ = LgNames.getCharSeq(_str);
+        CharSequenceStruct arg_ = ApplyCoreMethodUtil.getCharSeq(_str);
         _res.setResult(BooleanStruct.of(toStringInstance().contains(arg_.toStringInstance())));
     }
 
@@ -282,7 +283,7 @@ public abstract class CharSequenceStruct implements DisplayableStruct {
             _res.setError(nullPe_);
             return;
         }
-        CharSequenceStruct str_ = LgNames.getCharSeq(_str);
+        CharSequenceStruct str_ = ApplyCoreMethodUtil.getCharSeq(_str);
         _res.setResult(new IntStruct(toStringInstance().indexOf(str_.toStringInstance())));
     }
 
@@ -293,7 +294,7 @@ public abstract class CharSequenceStruct implements DisplayableStruct {
             _res.setError(nullPe_);
             return;
         }
-        CharSequenceStruct str_ = LgNames.getCharSeq(_str);
+        CharSequenceStruct str_ = ApplyCoreMethodUtil.getCharSeq(_str);
         _res.setResult(new IntStruct(toStringInstance().indexOf(str_.toStringInstance(), from_)));
     }
 
@@ -319,7 +320,7 @@ public abstract class CharSequenceStruct implements DisplayableStruct {
             _res.setError(nullPe_);
             return;
         }
-        CharSequenceStruct str_ = LgNames.getCharSeq(_str);
+        CharSequenceStruct str_ = ApplyCoreMethodUtil.getCharSeq(_str);
         int from_ = _fromIndex.intStruct();
         _res.setResult(new IntStruct(toStringInstance().lastIndexOf(str_.toStringInstance(), from_)));
     }
@@ -412,7 +413,7 @@ public abstract class CharSequenceStruct implements DisplayableStruct {
                 _res.setError(nullPe_);
                 return;
             }
-            seps_[i] = LgNames.getCharSeq(curSep_).toStringInstance();
+            seps_[i] = ApplyCoreMethodUtil.getCharSeq(curSep_).toStringInstance();
         }
         int lim_ = _lim.intStruct();
         if (lim_ < -1) {
@@ -441,7 +442,7 @@ public abstract class CharSequenceStruct implements DisplayableStruct {
         if (lim_ < -1) {
             lim_ = -1;
         }
-        CharSequenceStruct str_ = LgNames.getCharSeq(_sep);
+        CharSequenceStruct str_ = ApplyCoreMethodUtil.getCharSeq(_sep);
         StringList parts_ = StringList.splitStrings(toStringInstance(), str_.toStringInstance());
         int lenArr_ = parts_.size();
         if (lim_ >= 0) {
@@ -488,7 +489,7 @@ public abstract class CharSequenceStruct implements DisplayableStruct {
                 _res.setError(nullPe_);
                 return;
             }
-            seps_[i] = LgNames.getCharSeq(curSep_).toStringInstance();
+            seps_[i] = ApplyCoreMethodUtil.getCharSeq(curSep_).toStringInstance();
         }
         _res.setResult(new StringStruct(StringList.simpleStringsFormat(toStringInstance(), seps_)));
     }

@@ -6,6 +6,7 @@ import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.opers.exec.ExecInvokingOperation;
 import code.expressionlanguage.opers.util.ConstructorId;
+import code.expressionlanguage.stds.ApplyCoreMethodUtil;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.ConstructorMetaInfo;
@@ -20,7 +21,7 @@ public final class ReflectConstructorPageEl extends AbstractReflectPageEl {
     @Override
     public boolean checkCondition(ContextEl _context) {
         LgNames stds_ = _context.getStandards();
-        ConstructorMetaInfo method_ = LgNames.getCtor(getGlobalArgument().getStruct(),stds_);
+        ConstructorMetaInfo method_ = ApplyCoreMethodUtil.getCtor(getGlobalArgument().getStruct(),stds_);
         String className_ = method_.getClassName();
         String id_ = Templates.getIdFromAllTypes(className_);
         GeneType type_ = _context.getClassBody(id_);

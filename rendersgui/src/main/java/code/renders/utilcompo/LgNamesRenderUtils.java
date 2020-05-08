@@ -1297,7 +1297,7 @@ public final class LgNamesRenderUtils extends BeanCustLgNames {
                 }
                 String key_ = l.substring(0, sep_).trim();
                 String value_ = StringList.removeAllSpaces(l.substring(sep_ +1));
-                value_ = LgNames.parseValue(value_);
+                value_ = ParseLinesArgUtil.parseValue(value_);
                 _map.put(key_,value_);
             }
         }

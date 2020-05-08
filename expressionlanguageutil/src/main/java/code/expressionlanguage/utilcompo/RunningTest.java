@@ -3,6 +3,7 @@ package code.expressionlanguage.utilcompo;
 import code.expressionlanguage.files.CommentDelimiters;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stds.LgNames;
+import code.expressionlanguage.stds.ParseLinesArgUtil;
 import code.util.CustList;
 import code.util.Numbers;
 import code.util.StringList;
@@ -147,18 +148,18 @@ public final class RunningTest implements Runnable {
                         parts_.add(" ");
                         parts_.add(" ");
                     }
-                    String begin_ = LgNames.parseValue(parts_.first());
-                    String end_ = LgNames.parseValue(parts_.last());
+                    String begin_ = ParseLinesArgUtil.parseValue(parts_.first());
+                    String end_ = ParseLinesArgUtil.parseValue(parts_.last());
                     comments_.add(new CommentDelimiters(begin_,new StringList(end_)));
                 }
                 _exec.setComments(comments_);
             }
         }
         if (_exec.isHasArg()) {
-            _exec.setArgs(LgNames.parseLineArg(argParts_.toString()));
+            _exec.setArgs(ParseLinesArgUtil.parseLineArg(argParts_.toString()));
         }
         if (classesPart_.length() > 0) {
-            _exec.setTypesInit(LgNames.parseLineArg(classesPart_.toString()));
+            _exec.setTypesInit(ParseLinesArgUtil.parseLineArg(classesPart_.toString()));
         }
         if (aliasesPart_.length() > 0) {
             StringList infos_ = StringList.splitChars(aliasesPart_.toString(),',');
@@ -170,7 +171,7 @@ public final class RunningTest implements Runnable {
                 }
                 String key_ = l.substring(0, sep_).trim();
                 String value_ = StringList.removeAllSpaces(l.substring(sep_ +1));
-                value_ = LgNames.parseValue(value_);
+                value_ = ParseLinesArgUtil.parseValue(value_);
                 al_.put(key_,value_);
             }
             _exec.setAliases(al_);
@@ -185,7 +186,7 @@ public final class RunningTest implements Runnable {
                 }
                 String key_ = l.substring(0, sep_).trim();
                 String value_ = StringList.removeAllSpaces(l.substring(sep_ +1));
-                value_ = LgNames.parseValue(value_);
+                value_ = ParseLinesArgUtil.parseValue(value_);
                 kw_.put(key_,value_);
             }
             _exec.setMessages(kw_);
@@ -200,7 +201,7 @@ public final class RunningTest implements Runnable {
                 }
                 String key_ = l.substring(0, sep_).trim();
                 String value_ = StringList.removeAllSpaces(l.substring(sep_ +1));
-                value_ = LgNames.parseValue(value_);
+                value_ = ParseLinesArgUtil.parseValue(value_);
                 kw_.put(key_,value_);
             }
             _exec.setKeyWords(kw_);
