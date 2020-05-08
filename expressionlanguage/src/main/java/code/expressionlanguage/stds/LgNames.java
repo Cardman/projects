@@ -3,6 +3,7 @@ package code.expressionlanguage.stds;
 import code.expressionlanguage.*;
 import code.expressionlanguage.errors.AnalysisMessages;
 import code.expressionlanguage.errors.KeyValueMemberName;
+import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.errors.stds.ErrorCat;
 import code.expressionlanguage.errors.stds.StdWordError;
 import code.expressionlanguage.inherits.Mapping;
@@ -18,6 +19,7 @@ import code.expressionlanguage.opers.exec.ExecCatOperation;
 import code.expressionlanguage.opers.exec.ExecOperationNode;
 import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.structs.*;
+import code.expressionlanguage.types.ResolvingImportTypes;
 import code.expressionlanguage.variables.LocalVariable;
 import code.maths.montecarlo.AbMonteCarlo;
 import code.util.*;
@@ -341,6 +343,24 @@ public abstract class LgNames {
         buildOther();
     }
 
+    public String checkCorrectType(Analyzable _an,int _loc,String _in, boolean _exact) {
+        return ResolvingImportTypes.resolveCorrectType(_an,_loc,_in,_exact);
+    }
+    public final String checkExactType(Analyzable _an,int _loc, String _in, String _orig) {
+        if (!_in.isEmpty()) {
+            return _in;
+        }
+        ContextEl ctx_ = _an.getContextEl();
+        int rc_ = _an.getCurrentLocationIndex() + _loc;
+        FoundErrorInterpret un_ = new FoundErrorInterpret();
+        un_.setFileName(_an.getCurrentFileName());
+        un_.setIndexFile(rc_);
+        //original type len
+        un_.buildError(ctx_.getAnalysisMessages().getUnknownType(),
+                _orig);
+        _an.addError(un_);
+        return getAliasObject();
+    }
     public DisplayableStruct getStringOfObject(ContextEl _cont, Struct _arg) {
         String str_;
         if (_arg instanceof EnumerableStruct) {

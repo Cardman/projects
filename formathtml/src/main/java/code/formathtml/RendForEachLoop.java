@@ -17,6 +17,7 @@ import code.expressionlanguage.opers.util.MethodAccessKind;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.IterableAnalysisResult;
 import code.expressionlanguage.structs.*;
+import code.expressionlanguage.types.ResolvingImportTypes;
 import code.expressionlanguage.variables.LoopVariable;
 import code.formathtml.exec.RendDynOperationNode;
 import code.formathtml.stacks.RendLoopBlockStack;
@@ -90,7 +91,7 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
         return importedClassName;
     }
     public void buildEl(Configuration _cont,RendDocumentBlock _doc) {
-        importedClassIndexName = _cont.resolveCorrectType(classIndexName);
+        importedClassIndexName = ResolvingImportTypes.resolveCorrectType(_cont,classIndexName);
         if (!PrimitiveTypeUtil.isPureNumberClass(new ClassArgumentMatching(importedClassIndexName), _cont)) {
             Mapping mapping_ = new Mapping();
             mapping_.setArg(importedClassIndexName);
@@ -130,7 +131,7 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
         page_.setGlobalOffset(classNameOffset);
         page_.setOffset(0);
         if (!toInfer(_cont)) {
-            importedClassName = _cont.resolveCorrectType(className);
+            importedClassName = ResolvingImportTypes.resolveCorrectType(_cont,className);
         } else {
             importedClassName = EMPTY_STRING;
         }

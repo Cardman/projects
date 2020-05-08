@@ -10,6 +10,7 @@ import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.opers.exec.Operable;
 import code.expressionlanguage.opers.exec.ParentOperable;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
+import code.expressionlanguage.types.ResolvingImportTypes;
 import code.util.CustList;
 
 public final class CastOperation extends AbstractUnaryOperation implements PreAnalyzableOperation {
@@ -37,7 +38,7 @@ public final class CastOperation extends AbstractUnaryOperation implements PreAn
         } else {
             beginType = className.indexOf(PAR_LEFT) + 1;
             String res_ = className.substring(beginType, className.lastIndexOf(PAR_RIGHT));
-            res_ = _an.resolveCorrectTypeWithoutErrors(className.indexOf(PAR_LEFT)+1,res_,true);
+            res_ = ResolvingImportTypes.resolveCorrectTypeWithoutErrors(_an,className.indexOf(PAR_LEFT)+1,res_,true);
             if (!res_.isEmpty()) {
                 className = res_;
                 partOffsets = new CustList<PartOffset>(_an.getContextEl().getCoverage().getCurrentParts());
@@ -51,7 +52,7 @@ public final class CastOperation extends AbstractUnaryOperation implements PreAn
     @Override
     public void analyzeUnary(Analyzable _conf) {
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+offset, _conf);
-        className = _conf.checkExactType(beginType, className,originalClassName);
+        className = _conf.getStandards().checkExactType(_conf,beginType, className,originalClassName);
         setResultClass(new ClassArgumentMatching(className));
         if (PrimitiveTypeUtil.isPrimitive(className, _conf)) {
             getFirstChild().getResultClass().setUnwrapObject(className);

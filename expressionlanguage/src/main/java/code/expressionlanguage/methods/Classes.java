@@ -14,6 +14,7 @@ import code.expressionlanguage.opers.exec.ExecOperationNode;
 import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
+import code.expressionlanguage.types.ResolvingImportTypes;
 import code.expressionlanguage.variables.LocalVariable;
 import code.util.*;
 
@@ -430,7 +431,7 @@ public final class Classes {
         _context.setInitEnums(InitPhase.LIST);
         dl_.initAlwaysSuccess();
         for (String t: _context.getOptions().getTypesInit()) {
-            String res_ = _context.resolveCandidate(ContextEl.removeDottedSpaces(t));
+            String res_ = ResolvingImportTypes.resolveCandidate(_context,StringExpUtil.removeDottedSpaces(t));
             if (_context.getClasses().getClassBody(res_) == null) {
                 continue;
             }
@@ -693,7 +694,7 @@ public final class Classes {
                 StringMap<Integer> foundNames_ = new StringMap<Integer>();
                 for (EntryCust<Integer, String> e: r.getRowColDirectSuperTypes().entryList()) {
                     String s = e.getValue();
-                    s = ContextEl.removeDottedSpaces(s);
+                    s = StringExpUtil.removeDottedSpaces(s);
                     String idSuper_ = Templates.getIdFromAllTypes(s);
                     int offset_ = e.getKey();
                     String void_ = _context.getStandards().getAliasVoid();
@@ -747,7 +748,7 @@ public final class Classes {
                             readyTypes_.add(f.getKey());
                         }
                     }
-                    String foundType_ = _context.resolveBaseInherits(idSuper_, r, readyTypes_);
+                    String foundType_ = ResolvingSuperTypes.resolveBaseInherits(_context,idSuper_, r, readyTypes_);
                     if (foundType_.isEmpty()) {
                         ready_ = false;
                         break;

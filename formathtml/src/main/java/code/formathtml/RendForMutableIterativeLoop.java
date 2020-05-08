@@ -16,6 +16,7 @@ import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.Struct;
+import code.expressionlanguage.types.ResolvingImportTypes;
 import code.expressionlanguage.variables.LoopVariable;
 import code.formathtml.exec.RendDynOperationNode;
 import code.formathtml.stacks.RendLoopBlockStack;
@@ -100,7 +101,7 @@ public final class RendForMutableIterativeLoop extends RendParentBlock implement
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         page_.setGlobalOffset(classIndexNameOffset);
         page_.setOffset(0);
-        importedClassIndexName = _cont.resolveCorrectType(classIndexName);
+        importedClassIndexName = ResolvingImportTypes.resolveCorrectType(_cont,classIndexName);
         if (!PrimitiveTypeUtil.isPureNumberClass(new ClassArgumentMatching(importedClassIndexName), _cont)) {
             Mapping mapping_ = new Mapping();
             mapping_.setArg(importedClassIndexName);
@@ -120,7 +121,7 @@ public final class RendForMutableIterativeLoop extends RendParentBlock implement
             if (StringList.quickEq(className.trim(), keyWordVar_)) {
                 importedClassName = keyWordVar_;
             } else {
-                importedClassName = _cont.resolveCorrectType(className);
+                importedClassName = ResolvingImportTypes.resolveCorrectType(_cont,className);
             }
             _cont.setMerged(true);
             _cont.setFinalVariable(false);

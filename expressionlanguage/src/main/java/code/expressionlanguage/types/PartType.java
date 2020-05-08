@@ -2,6 +2,7 @@ package code.expressionlanguage.types;
 
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.methods.AccessingImportingBlock;
 import code.util.CustList;
 import code.util.*;
@@ -31,7 +32,7 @@ abstract class PartType {
         if (operators_.isEmpty()) {
             if (_analyze.getKind() == KindPartType.TYPE_NAME) {
                 String type_ = _dels.getValue(_index);
-                type_ = ContextEl.removeDottedSpaces(type_);
+                type_ = StringExpUtil.removeDottedSpaces(type_);
                 boolean okVarType_ = false;
                 if (_parent == null && !_rootName || _parent instanceof ArraryPartType || _parent instanceof WildCardPartType) {
                     okVarType_ = true;

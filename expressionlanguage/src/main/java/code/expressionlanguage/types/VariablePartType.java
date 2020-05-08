@@ -2,6 +2,7 @@ package code.expressionlanguage.types;
 
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.methods.AccessedBlock;
 import code.expressionlanguage.methods.AccessingImportingBlock;
@@ -42,7 +43,7 @@ final class VariablePartType extends LeafPartType {
         } else {
             t_ = StringList.concat(Templates.PREFIX_VAR_TYPE,t_);
         }
-        type_ = ContextEl.removeDottedSpaces(type_);
+        type_ = StringExpUtil.removeDottedSpaces(type_);
         if (!_an.getAvailableVariables().contains(type_)) {
             return;
         }
@@ -61,7 +62,7 @@ final class VariablePartType extends LeafPartType {
         String type_ = getTypeName();
         String t_ = StringList.removeAllSpaces(type_);
         type_ = type_.trim().substring(Templates.PREFIX_VAR_TYPE.length()).trim();
-        type_ = ContextEl.removeDottedSpaces(type_);
+        type_ = StringExpUtil.removeDottedSpaces(type_);
         if (!_an.getAvailableVariables().contains(type_)) {
             return;
         }

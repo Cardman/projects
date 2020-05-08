@@ -98,23 +98,10 @@ public interface Analyzable {
     void setupLoopDeclaratorClass(String _className);
 
 
-    String resolveCorrectType(String _in);
-    String resolveCorrectType(int _loc,String _in);
-    String resolveAccessibleIdType(int _loc,String _in);
-    String resolveAccessibleIdTypeWithoutError(int _loc,String _in);
-    String resolveCorrectAccessibleType(int _loc,String _in, String _fromType);
-    String resolveCorrectType(int _loc,String _in, boolean _exact);
     StringMap<StringList> getCurrentConstraints();
 
     void appendParts(int _begin, int _end, String _in, CustList<PartOffset> _parts);
     void appendTitleParts(int _begin, int _end, String _in, CustList<PartOffset> _parts);
-    String checkExactType(int _loc,String _in, String _orig);
-    String resolveCorrectTypeWithoutErrors(int _loc,String _in, boolean _exact);
-
-    ObjectMap<ClassMethodId,ImportedMethod> lookupImportStaticMethods(String _glClass,String _method, Block _rooted);
-    ObjectMap<ClassField,ImportedField> lookupImportStaticFields(String _glClass,String _field, Block _rooted);
-
-    String lookupImportType(String _type, AccessingImportingBlock _rooted, ReadyTypes _ready);
 
     StringMap<Integer> getAvailableVariables();
     StringList getVariablesNamesLoopToInfer();
@@ -142,4 +129,9 @@ public interface Analyzable {
 
     String getIndexClassName();
 
+    AccessingImportingBlock getCurrentGlobalBlock();
+    AccessingImportingBlock getCurrentGlobalBlock(AccessingImportingBlock _bl);
+    CustList<PartOffset> getCurrentParts();
+
+    void buildCurrentConstraintsFull();
 }

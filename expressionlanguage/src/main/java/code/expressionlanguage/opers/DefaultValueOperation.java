@@ -33,7 +33,7 @@ public final class DefaultValueOperation extends LeafOperation implements Reduct
         String realCl_ = str_.substring(afterLeftPar_, str_.lastIndexOf(PAR_RIGHT));
         int offLoc_ = StringList.getFirstPrintableCharIndex(realCl_);
         String classStr_;
-        classStr_ = _conf.resolveCorrectType(afterLeftPar_+offLoc_,realCl_, realCl_.contains(Templates.TEMPLATE_BEGIN));
+        classStr_ = _conf.getStandards().checkCorrectType(_conf,afterLeftPar_+offLoc_,realCl_, realCl_.contains(Templates.TEMPLATE_BEGIN));
         partOffsets.addAllElts(_conf.getContextEl().getCoverage().getCurrentParts());
         className = classStr_;
         setResultClass(new ClassArgumentMatching(className));

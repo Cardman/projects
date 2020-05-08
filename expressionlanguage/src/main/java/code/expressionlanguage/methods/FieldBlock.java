@@ -18,6 +18,7 @@ import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.exec.ExecOperationNode;
 import code.expressionlanguage.opers.util.*;
+import code.expressionlanguage.types.ResolvingImportTypes;
 import code.util.*;
 
 public final class FieldBlock extends Leaf implements InfoBlock,AccessibleBlock {
@@ -194,7 +195,7 @@ public final class FieldBlock extends Leaf implements InfoBlock,AccessibleBlock 
         page_.setGlobalOffset(getClassNameOffset());
         page_.setOffset(0);
         page_.setCurrentBlock(this);
-        importedClassName = _cont.resolveCorrectType(className);
+        importedClassName = ResolvingImportTypes.resolveCorrectType(_cont,className);
         partOffsets.addAllElts(_cont.getCoverage().getCurrentParts());
     }
     public void retrieveNames(ContextEl _cont, StringList _fieldNames) {

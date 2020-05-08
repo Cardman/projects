@@ -26,6 +26,7 @@ import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.LongStruct;
 import code.expressionlanguage.structs.NumberStruct;
+import code.expressionlanguage.types.ResolvingImportTypes;
 import code.expressionlanguage.variables.LoopVariable;
 import code.util.*;
 
@@ -265,7 +266,7 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         page_.setGlobalOffset(classIndexNameOffset);
         page_.setOffset(0);
-        importedClassIndexName = _cont.resolveCorrectType(classIndexName);
+        importedClassIndexName = ResolvingImportTypes.resolveCorrectType(_cont,classIndexName);
         if (!PrimitiveTypeUtil.isPureNumberClass(new ClassArgumentMatching(importedClassIndexName), _cont)) {
             FoundErrorInterpret cast_ = new FoundErrorInterpret();
             cast_.setFileName(getFile().getFileName());
@@ -277,7 +278,7 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
         }
         page_.setGlobalOffset(classNameOffset);
         page_.setOffset(0);
-        importedClassName = _cont.resolveCorrectType(className);
+        importedClassName = ResolvingImportTypes.resolveCorrectType(_cont,className);
         String cl_ = importedClassName;
         ClassArgumentMatching elementClass_ = new ClassArgumentMatching(cl_);
         if (!PrimitiveTypeUtil.isPureNumberClass(elementClass_, _cont)) {

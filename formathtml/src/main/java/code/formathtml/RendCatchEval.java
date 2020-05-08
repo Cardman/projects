@@ -4,6 +4,7 @@ import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
+import code.expressionlanguage.types.ResolvingImportTypes;
 import code.expressionlanguage.variables.LocalVariable;
 import code.util.StringList;
 
@@ -56,7 +57,7 @@ public final class RendCatchEval extends RendAbstractCatchEval {
             _cont.addError(b_);
         }
         page_.setGlobalOffset(classNameOffset);
-        importedClassName = _cont.resolveCorrectType(className);
+        importedClassName = ResolvingImportTypes.resolveCorrectType(_cont,className);
         LocalVariable lv_ = new LocalVariable();
         lv_.setClassName(importedClassName);
         _cont.getAnalyzing().putCatchVar(variableName, lv_);

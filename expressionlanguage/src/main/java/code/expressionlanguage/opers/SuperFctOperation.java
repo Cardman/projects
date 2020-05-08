@@ -9,6 +9,7 @@ import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.stds.LgNames;
+import code.expressionlanguage.types.ResolvingImportTypes;
 import code.util.CustList;
 import code.util.*;
 import code.util.StringList;
@@ -57,7 +58,7 @@ public final class SuperFctOperation extends InvokingOperation {
         int lenPref_ = methodName.indexOf(PAR_LEFT) + 1;
         className_ = className_.substring(lenPref_);
         int loc_ = StringList.getFirstPrintableCharIndex(className_);
-        className_ = _conf.resolveCorrectType(lenPref_+loc_,className_);
+        className_ = ResolvingImportTypes.resolveCorrectType(_conf,lenPref_+loc_,className_);
         partOffsets.addAllElts(_conf.getContextEl().getCoverage().getCurrentParts());
         String clCurName_ = className_;
         StringList bounds_ = getBounds(clCurName_, _conf);

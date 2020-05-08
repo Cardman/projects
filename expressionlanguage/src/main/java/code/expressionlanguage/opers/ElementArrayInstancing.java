@@ -9,6 +9,7 @@ import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.options.KeyWords;
+import code.expressionlanguage.types.ResolvingImportTypes;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
@@ -33,7 +34,7 @@ public final class ElementArrayInstancing extends AbstractArrayInstancingOperati
         String new_ = keyWords_.getKeyWordNew();
         String className_ = m_.trim().substring(new_.length());
         int loc_ = StringList.getFirstPrintableCharIndex(className_);
-        className_ = _conf.resolveCorrectType(new_.length()+loc_,className_);
+        className_ = ResolvingImportTypes.resolveCorrectType(_conf,new_.length()+loc_,className_);
         partOffsets.addAllElts(_conf.getContextEl().getCoverage().getCurrentParts());
         if (!className_.startsWith(ARR)) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();

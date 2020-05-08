@@ -14,6 +14,7 @@ import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.LongStruct;
 import code.expressionlanguage.structs.NumberStruct;
+import code.expressionlanguage.types.ResolvingImportTypes;
 import code.expressionlanguage.variables.LoopVariable;
 import code.formathtml.exec.RendDynOperationNode;
 import code.formathtml.stacks.RendLoopBlockStack;
@@ -104,7 +105,7 @@ public final class RendForIterativeLoop extends RendParentBlock implements RendL
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         page_.setGlobalOffset(classIndexNameOffset);
         page_.setOffset(0);
-        importedClassIndexName = _cont.resolveCorrectType(classIndexName);
+        importedClassIndexName = ResolvingImportTypes.resolveCorrectType(_cont,classIndexName);
         if (!PrimitiveTypeUtil.isPureNumberClass(new ClassArgumentMatching(importedClassIndexName), _cont)) {
             Mapping mapping_ = new Mapping();
             mapping_.setArg(importedClassIndexName);
@@ -118,7 +119,7 @@ public final class RendForIterativeLoop extends RendParentBlock implements RendL
         }
         page_.setGlobalOffset(classNameOffset);
         page_.setOffset(0);
-        importedClassName = _cont.resolveCorrectType(className);
+        importedClassName = ResolvingImportTypes.resolveCorrectType(_cont,className);
         String cl_ = importedClassName;
         ClassArgumentMatching elementClass_ = new ClassArgumentMatching(cl_);
         if (!PrimitiveTypeUtil.isPureNumberClass(elementClass_, _cont)) {

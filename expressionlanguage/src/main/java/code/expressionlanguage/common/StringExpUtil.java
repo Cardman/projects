@@ -131,4 +131,12 @@ public final class StringExpUtil {
         }
         return true;
     }
+
+    public static String removeDottedSpaces(String _type) {
+        StringBuilder b_ = new StringBuilder();
+        for (String q: StringList.splitCharSep(_type, Templates.SEP_CLASS_CHAR)) {
+            b_.append(q.trim());
+        }
+        return b_.toString();
+    }
 }

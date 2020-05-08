@@ -19,6 +19,7 @@ import code.expressionlanguage.stds.ResultErrorStd;
 import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
+import code.expressionlanguage.types.ResolvingImportTypes;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
@@ -94,7 +95,7 @@ public final class FctOperation extends InvokingOperation {
             int lenPref_ = trimMeth_.indexOf(PAR_LEFT) + 1;
             className_ = className_.substring(lenPref_);
             int loc_ = StringList.getFirstPrintableCharIndex(className_);
-            className_ = _conf.resolveCorrectType(lenPref_+loc_,className_);
+            className_ = ResolvingImportTypes.resolveCorrectType(_conf,lenPref_+loc_,className_);
             partOffsets.addAllElts(_conf.getContextEl().getCoverage().getCurrentParts());
             Mapping map_ = new Mapping();
             map_.setParam(className_);

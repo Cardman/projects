@@ -14,6 +14,7 @@ import code.expressionlanguage.opers.exec.ExecOperationNode;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.MethodAccessKind;
 import code.expressionlanguage.stds.LgNames;
+import code.expressionlanguage.types.ResolvingImportTypes;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.Ints;
@@ -218,7 +219,7 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
             CustList<PartOffset> partOffsets_ = new CustList<PartOffset>();
             _stds.getAnalyzing().setGlobalOffset(parametersTypesOffset.get(i_));
             _stds.getAnalyzing().setOffset(0);
-            params_.add(_stds.resolveCorrectType(p));
+            params_.add(ResolvingImportTypes.resolveCorrectType(_stds,p));
             partOffsets_.addAllElts(_stds.getContextEl().getCoverage().getCurrentParts());
             partOffsetsParams.add(partOffsets_);
             i_++;
@@ -237,7 +238,7 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
         _stds.getAnalyzing().setCurrentBlock(this);
         _stds.getAnalyzing().setGlobalOffset(returnTypeOffset);
         _stds.getAnalyzing().setOffset(0);
-        importedReturnType = _stds.resolveCorrectType(returnType);
+        importedReturnType = ResolvingImportTypes.resolveCorrectType(_stds,returnType);
         partOffsetsReturn.addAllElts(_stds.getContextEl().getCoverage().getCurrentParts());
     }
     public String getReturnType() {

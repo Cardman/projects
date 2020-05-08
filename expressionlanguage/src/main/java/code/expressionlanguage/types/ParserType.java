@@ -59,7 +59,7 @@ public final class ParserType {
                 continue;
             }
             if (curChar_ == Templates.SEP_CLASS_CHAR) {
-                String tr_ = ContextEl.removeDottedSpaces(id_.toString());
+                String tr_ = StringExpUtil.removeDottedSpaces(id_.toString());
                 if (!StringList.contains(_pkg,tr_)) {
                     addDot_ = true;
                 }

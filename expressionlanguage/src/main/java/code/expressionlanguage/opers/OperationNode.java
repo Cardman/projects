@@ -17,6 +17,7 @@ import code.expressionlanguage.opers.exec.PossibleIntermediateDottedOperable;
 import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.LgNames;
+import code.expressionlanguage.types.ResolvingImportTypes;
 import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.LoopVariable;
 import code.util.*;
@@ -564,7 +565,7 @@ public abstract class OperationNode implements Operable {
         if (_import) {
             Block curBlock_ = _cont.getCurrentBlock();
             int maxLoc_ = maxAnc_ + 1;
-            for (EntryCust<ClassField, ImportedField> e: _cont.lookupImportStaticFields(curClassBase_, _name, curBlock_).entryList()) {
+            for (EntryCust<ClassField, ImportedField> e: ResolvingImportTypes.lookupImportStaticFields(_cont,curClassBase_, _name, curBlock_).entryList()) {
                 ImportedField v_ = e.getValue();
                 max_ = Math.max(max_, v_.getImported() +maxAnc_);
                 FieldResult res_ = new FieldResult();
@@ -979,7 +980,7 @@ public abstract class OperationNode implements Operable {
         methods_ = new CustList<MethodInfo>();
         fetchParamClassAncMethods(_conf,_fromClasses,_staticContext,_accessFromSuper,_superClass,_uniqueId,methods_);
         if (_import) {
-            for (EntryCust<ClassMethodId, ImportedMethod> e: _conf.lookupImportStaticMethods(glClass_, _name, _conf.getCurrentBlock()).entryList()) {
+            for (EntryCust<ClassMethodId, ImportedMethod> e: ResolvingImportTypes.lookupImportStaticMethods(_conf,glClass_, _name, _conf.getCurrentBlock()).entryList()) {
                 ClassMethodId m = e.getKey();
                 String clName_ = m.getClassName();
                 MethodId id_ = m.getConstraints();

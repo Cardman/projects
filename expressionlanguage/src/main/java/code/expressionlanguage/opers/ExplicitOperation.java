@@ -8,6 +8,7 @@ import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.opers.util.*;
+import code.expressionlanguage.types.ResolvingImportTypes;
 import code.util.CustList;
 import code.util.StringList;
 
@@ -43,7 +44,7 @@ public final class ExplicitOperation extends AbstractUnaryOperation {
         }
         String res_;
         int leftPar_ = className.indexOf(PAR_LEFT);
-        res_ = _conf.resolveCorrectType(leftPar_ +1,types_.first());
+        res_ = ResolvingImportTypes.resolveCorrectType(_conf,leftPar_ +1,types_.first());
         className = res_;
         partOffsets = new CustList<PartOffset>(_conf.getContextEl().getCoverage().getCurrentParts());
         setResultClass(new ClassArgumentMatching(className));
@@ -63,7 +64,7 @@ public final class ExplicitOperation extends AbstractUnaryOperation {
         if (types_.size() == 2){
             String lastType_ = "";
             String arg_ = types_.last();
-            lastType_ = _conf.resolveCorrectAccessibleType(leftPar_ +types_.first().length()+2,arg_, className);
+            lastType_ = ResolvingImportTypes.resolveCorrectAccessibleType(_conf,leftPar_ +types_.first().length()+2,arg_, className);
             partOffsets.addAllElts(_conf.getContextEl().getCoverage().getCurrentParts());
             uniq_ = new ClassMethodId(className,new MethodId(MethodAccessKind.STATIC,exp_,new StringList(lastType_)));
         }

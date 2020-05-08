@@ -3,6 +3,7 @@ package code.expressionlanguage.methods;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.files.OffsetAccessInfo;
 import code.expressionlanguage.files.OffsetsBlock;
+import code.expressionlanguage.inherits.ResolvingSuperTypes;
 import code.expressionlanguage.inherits.Templates;
 import code.util.*;
 import code.util.StringList;
@@ -68,7 +69,7 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock,Acce
         importedDirectSuperInterfaces.clear();
         for (String s: getDirectSuperTypes()) {
             int index_ = rcs_.getKey(i_);
-            String s_ = _classes.resolveTypeInherits(s, this,index_);
+            String s_ = ResolvingSuperTypes.resolveTypeInherits(_classes,s, this,index_);
             String c_ = getImportedDirectBaseSuperType(i_);
             i_++;
             String base_ = Templates.getIdFromAllTypes(s_);

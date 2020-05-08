@@ -21,6 +21,7 @@ import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stacks.LoopBlockStack;
 import code.expressionlanguage.stds.IterableAnalysisResult;
 import code.expressionlanguage.structs.*;
+import code.expressionlanguage.types.ResolvingImportTypes;
 import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.LoopVariable;
 import code.util.*;
@@ -152,7 +153,7 @@ public final class ForEachLoop extends BracedStack implements ForLoop,ImportForE
 
     private MethodAccessKind processVarTypes(ContextEl _cont) {
         FunctionBlock f_ = _cont.getAnalyzing().getCurrentFct();
-        importedClassIndexName = _cont.resolveCorrectType(classIndexName);
+        importedClassIndexName = ResolvingImportTypes.resolveCorrectType(_cont,classIndexName);
         if (!PrimitiveTypeUtil.isPureNumberClass(new ClassArgumentMatching(importedClassIndexName), _cont)) {
             Mapping mapping_ = new Mapping();
             mapping_.setArg(importedClassIndexName);
@@ -198,7 +199,7 @@ public final class ForEachLoop extends BracedStack implements ForLoop,ImportForE
         KeyWords keyWords_ = _cont.getKeyWords();
         String keyWordVar_ = keyWords_.getKeyWordVar();
         if (!StringList.quickEq(className.trim(), keyWordVar_)) {
-            importedClassName = _cont.resolveCorrectType(className);
+            importedClassName = ResolvingImportTypes.resolveCorrectType(_cont,className);
             partOffsets.addAllElts(_cont.getCoverage().getCurrentParts());
         } else {
             importedClassName = "";

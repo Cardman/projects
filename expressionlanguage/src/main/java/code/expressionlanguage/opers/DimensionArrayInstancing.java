@@ -12,6 +12,7 @@ import code.expressionlanguage.methods.NamedFunctionBlock;
 import code.expressionlanguage.methods.ReturnMethod;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.options.KeyWords;
+import code.expressionlanguage.types.ResolvingImportTypes;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
@@ -50,7 +51,7 @@ public final class DimensionArrayInstancing extends
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _an);
         CustList<PartOffset> partOffsets_ = new CustList<PartOffset>();
         MethodOperation m_;
-        type_ = _an.resolveAccessibleIdTypeWithoutError(newKeyWord_.length()+local_,inferForm_);
+        type_ = ResolvingImportTypes.resolveAccessibleIdTypeWithoutError(_an,newKeyWord_.length()+local_,inferForm_);
         partOffsets_.addAllElts(_an.getContextEl().getCoverage().getCurrentParts());
         if (type_.isEmpty()) {
             return;
@@ -133,7 +134,7 @@ public final class DimensionArrayInstancing extends
         String className_ = m_.trim().substring(new_.length());
         if (typeInfer.isEmpty()) {
             int local_ = StringList.getFirstPrintableCharIndex(className_);
-            className_ = _conf.resolveCorrectType(new_.length()+local_,className_);
+            className_ = ResolvingImportTypes.resolveCorrectType(_conf,new_.length()+local_,className_);
             partOffsets.addAllElts(_conf.getContextEl().getCoverage().getCurrentParts());
         } else {
             className_ = typeInfer;

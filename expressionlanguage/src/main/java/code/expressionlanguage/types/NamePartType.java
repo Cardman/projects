@@ -2,6 +2,7 @@ package code.expressionlanguage.types;
 
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.inherits.*;
 import code.expressionlanguage.methods.*;
 import code.util.CustList;
@@ -25,7 +26,7 @@ final class NamePartType extends LeafPartType {
     private boolean skipGenericInners(Analyzable _an, CustList<IntTreeMap<String>> _dels, AccessingImportingBlock _rooted) {
         PartType part_ = getPreviousPartType();
         String type_ = getTypeName();
-        type_ = ContextEl.removeDottedSpaces(type_);
+        type_ = StringExpUtil.removeDottedSpaces(type_);
         if (part_ != null) {
             analyzeGenericOnwer(_an, _rooted, part_, type_);
             return true;
@@ -85,7 +86,7 @@ final class NamePartType extends LeafPartType {
     private boolean skipInners(Analyzable _an, ReadyTypes _ready,CustList<IntTreeMap<String>> _dels, AccessingImportingBlock _rooted) {
         PartType part_ = getPreviousPartType();
         String type_ = getTypeName();
-        type_ = ContextEl.removeDottedSpaces(type_);
+        type_ = StringExpUtil.removeDottedSpaces(type_);
         if (part_ != null) {
             analyzeOnwer(_an, _ready,_rooted, part_, type_);
             return true;
@@ -230,7 +231,7 @@ final class NamePartType extends LeafPartType {
     }
     private void lookupImports(Analyzable _an, AccessingImportingBlock _rooted, boolean _line, ReadyTypes _ready) {
         String type_ = getTypeName().trim();
-        String res_ = _an.lookupImportType(type_, _rooted, _ready);
+        String res_ = ResolvingImportTypes.lookupImportType(_an,type_, _rooted, _ready);
         if (!res_.isEmpty()) {
             if (!_line) {
                 if (_an.isStaticAccess()) {
@@ -283,7 +284,7 @@ final class NamePartType extends LeafPartType {
     void analyzeAccessibleId(Analyzable _an, CustList<IntTreeMap<String>> _dels, AccessingImportingBlock _rooted) {
         PartType part_ = getPreviousPartType();
         String type_ = getTypeName();
-        type_ = ContextEl.removeDottedSpaces(type_);
+        type_ = StringExpUtil.removeDottedSpaces(type_);
         if (part_ != null) {
             String owner_ = part_.getAnalyzedType();
             String id_ = Templates.getIdFromAllTypes(owner_);
@@ -327,7 +328,8 @@ final class NamePartType extends LeafPartType {
             }
         }
         
-        String out_ = _an.lookupImportType(type_,_rooted, new AlwaysReadyTypes());
+        String out_ = ResolvingImportTypes.lookupImportType(_an,type_,_rooted, new AlwaysReadyTypes());
+//        String out_ = _an.lookupImportType(type_,_rooted, new AlwaysReadyTypes());
         if (out_.isEmpty()) {
             return;
         }
@@ -344,7 +346,7 @@ final class NamePartType extends LeafPartType {
             part_ = null;
         }
         String typeName_ = getTypeName();
-        typeName_ = ContextEl.removeDottedSpaces(typeName_);
+        typeName_ = StringExpUtil.removeDottedSpaces(typeName_);
         pr_.add(typeName_);
         while (part_ != null) {
             PartType c_ = getDeepFirstChild(curr_);

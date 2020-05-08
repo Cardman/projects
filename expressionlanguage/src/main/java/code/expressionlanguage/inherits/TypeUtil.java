@@ -8,6 +8,7 @@ import code.expressionlanguage.methods.*;
 import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.stds.StandardType;
+import code.expressionlanguage.types.ResolvingImportTypes;
 import code.util.*;
 
 public final class TypeUtil {
@@ -42,11 +43,11 @@ public final class TypeUtil {
             }
             for (int i = 0; i < len_; i++) {
                 int offset_ = c.getStaticInitInterfacesOffset().get(i);
-                String base_ = ContextEl.removeDottedSpaces(ints_.get(i));
+                String base_ = StringExpUtil.removeDottedSpaces(ints_.get(i));
                 _context.getAnalyzing().setCurrentBlock(c);
                 _context.getAnalyzing().setGlobalOffset(offset_);
                 _context.getAnalyzing().setOffset(0);
-                base_ = _context.resolveAccessibleIdType(0,base_);
+                base_ = ResolvingImportTypes.resolveAccessibleIdType(_context,0,base_);
                 RootBlock r_ = classes_.getClassBody(base_);
                 if (!(r_ instanceof InterfaceBlock)) {
                     FoundErrorInterpret enum_;
@@ -62,26 +63,26 @@ public final class TypeUtil {
                 }
             }
             for (int i = 0; i < len_; i++) {
-                String sup_ = ContextEl.removeDottedSpaces(ints_.get(i));
+                String sup_ = StringExpUtil.removeDottedSpaces(ints_.get(i));
                 int offsetSup_ = c.getStaticInitInterfacesOffset().get(i);
                 _context.getAnalyzing().setCurrentBlock(c);
                 _context.getAnalyzing().setGlobalClass(c.getGenericString());
                 _context.getAnalyzing().setGlobalOffset(offsetSup_);
                 _context.getAnalyzing().setOffset(0);
-                sup_ = _context.resolveAccessibleIdType(0,sup_);
+                sup_ = ResolvingImportTypes.resolveAccessibleIdType(_context,0,sup_);
                 RootBlock rs_ = classes_.getClassBody(sup_);
                 if (rs_ == null) {
                     continue;
                 }
                 RootBlock rsSup_ = rs_;
                 for (int j = i + 1; j < len_; j++) {
-                    String sub_ = ContextEl.removeDottedSpaces(ints_.get(j));
+                    String sub_ = StringExpUtil.removeDottedSpaces(ints_.get(j));
                     int offsetSub_ = c.getStaticInitInterfacesOffset().get(j);
                     _context.getAnalyzing().setCurrentBlock(c);
                     _context.getAnalyzing().setGlobalClass(c.getGenericString());
                     _context.getAnalyzing().setGlobalOffset(offsetSub_);
                     _context.getAnalyzing().setOffset(0);
-                    sub_ = _context.resolveAccessibleIdType(0,sub_);
+                    sub_ = ResolvingImportTypes.resolveAccessibleIdType(_context,0,sub_);
                     rs_ = classes_.getClassBody(sub_);
                     if (rs_ == null) {
                         continue;

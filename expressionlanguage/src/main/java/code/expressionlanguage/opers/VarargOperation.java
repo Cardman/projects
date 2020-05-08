@@ -7,6 +7,7 @@ import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.stds.LgNames;
+import code.expressionlanguage.types.ResolvingImportTypes;
 import code.util.CustList;
 import code.util.StringList;
 
@@ -55,7 +56,7 @@ public final class VarargOperation extends LeafOperation implements VarargOperab
         int afterLeftPar_ = className.indexOf(PAR_LEFT) + 1;
         String str_ = className.substring(afterLeftPar_, className.lastIndexOf(PAR_RIGHT));
         int off_ = StringList.getFirstPrintableCharIndex(str_);
-        str_ = _conf.resolveCorrectType(afterLeftPar_+off_,str_);
+        str_ = ResolvingImportTypes.resolveCorrectType(_conf,afterLeftPar_+off_,str_);
         partOffsets.addAllElts(_conf.getContextEl().getCoverage().getCurrentParts());
         setResultClass(new ClassArgumentMatching(str_));
         className = str_;

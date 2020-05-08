@@ -3,12 +3,14 @@ package code.expressionlanguage.opers;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.stds.LgNames;
+import code.expressionlanguage.types.ResolvingImportTypes;
 import code.util.CustList;
 import code.util.StringList;
 
@@ -65,8 +67,8 @@ public final class IdFctOperation extends LeafOperation implements IdFctOperable
         if (!(m_ instanceof ExplicitOperatorOperation)) {
             String firstFull_ = args_.first();
             int off_ = StringList.getFirstPrintableCharIndex(firstFull_);
-            String fromType_ = ContextEl.removeDottedSpaces(firstFull_);
-            cl_ = _conf.resolveAccessibleIdType(off_+className.indexOf('(')+1,fromType_);
+            String fromType_ = StringExpUtil.removeDottedSpaces(firstFull_);
+            cl_ = ResolvingImportTypes.resolveAccessibleIdType(_conf,off_+className.indexOf('(')+1,fromType_);
             if (cl_.isEmpty()) {
                 setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
                 return;
@@ -100,7 +102,7 @@ public final class IdFctOperation extends LeafOperation implements IdFctOperable
         for (int i = _from; i < len_; i++) {
             String full_ = _params.get(i);
             int loc_ = StringList.getFirstPrintableCharIndex(full_);
-            String arg_ = ContextEl.removeDottedSpaces(full_);
+            String arg_ = StringExpUtil.removeDottedSpaces(full_);
             String type_;
             if (arg_.endsWith(VARARG_SUFFIX)) {
                 if (i + 1 != len_) {
@@ -119,7 +121,7 @@ public final class IdFctOperation extends LeafOperation implements IdFctOperable
             } else {
                 type_ = arg_;
             }
-            arg_ = _conf.resolveCorrectAccessibleType(off_ + loc_,type_, _fromType);
+            arg_ = ResolvingImportTypes.resolveCorrectAccessibleType(_conf,off_ + loc_,type_, _fromType);
             partOffsets.addAllElts(_conf.getContextEl().getCoverage().getCurrentParts());
             off_ += _params.get(i).length() + 1;
             out_.add(arg_);

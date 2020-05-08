@@ -57,7 +57,7 @@ public abstract class RendBlock implements AnalyzedBlock {
 
     private OffsetsBlock offset;
 
-    private StringMap<IntTreeMap<Integer>> escapedChars;
+    private StringMap<IntTreeMap<Integer>> escapedChars = new StringMap<IntTreeMap<Integer>>();
     private StringMap<AttributePart> attributeDelimiters = new StringMap<AttributePart>();
 
     RendBlock(OffsetsBlock _offset) {

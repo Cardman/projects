@@ -23,6 +23,7 @@ import code.expressionlanguage.stacks.LoopBlockStack;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.Struct;
+import code.expressionlanguage.types.ResolvingImportTypes;
 import code.expressionlanguage.variables.LoopVariable;
 import code.util.*;
 
@@ -332,7 +333,7 @@ public final class ForMutableIterativeLoop extends BracedStack implements
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         page_.setGlobalOffset(classIndexNameOffset);
         page_.setOffset(0);
-        importedClassIndexName = _cont.resolveCorrectType(classIndexName);
+        importedClassIndexName = ResolvingImportTypes.resolveCorrectType(_cont,classIndexName);
         if (!PrimitiveTypeUtil.isPureNumberClass(new ClassArgumentMatching(importedClassIndexName), _cont)) {
             FoundErrorInterpret cast_ = new FoundErrorInterpret();
             cast_.setFileName(getFile().getFileName());
@@ -350,7 +351,7 @@ public final class ForMutableIterativeLoop extends BracedStack implements
             if (StringList.quickEq(className.trim(), keyWordVar_)) {
                 importedClassName = keyWordVar_;
             } else {
-                importedClassName = _cont.resolveCorrectType(className);
+                importedClassName = ResolvingImportTypes.resolveCorrectType(_cont,className);
                 partOffsets.addAllElts(_cont.getCoverage().getCurrentParts());
             }
             _cont.setMerged(true);

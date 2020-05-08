@@ -4,6 +4,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.GeneInterface;
 import code.expressionlanguage.files.OffsetAccessInfo;
 import code.expressionlanguage.files.OffsetsBlock;
+import code.expressionlanguage.inherits.ResolvingSuperTypes;
 import code.expressionlanguage.inherits.Templates;
 import code.util.*;
 import code.util.StringList;
@@ -62,7 +63,7 @@ public final class InterfaceBlock extends RootBlock implements GeneInterface,Acc
         importedDirectSuperInterfaces.clear();
         for (String s: getDirectSuperTypes()) {
             int index_ = rcs_.getKey(i_);
-            String s_ = _classes.resolveTypeInherits(s, this,index_);
+            String s_ = ResolvingSuperTypes.resolveTypeInherits(_classes,s, this,index_);
             String c_ = getImportedDirectBaseSuperType(i_);
             _classes.addErrorIfNoMatch(s_,c_,this,index_);
             i_++;

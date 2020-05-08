@@ -3,9 +3,11 @@ package code.expressionlanguage.opers;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
+import code.expressionlanguage.types.ResolvingImportTypes;
 import code.util.CustList;
 import code.util.StringList;
 
@@ -20,7 +22,7 @@ public final class StaticAccessOperation extends LeafOperation {
     public void analyze(Analyzable _conf) {
         OperationsSequence op_ = getOperations();
         String ext_ = op_.getExtractType();
-        ext_ = ContextEl.removeDottedSpaces(ext_);
+        ext_ = StringExpUtil.removeDottedSpaces(ext_);
         if (!ext_.isEmpty()) {
             partOffsets = op_.getPartOffsets();
             Argument a_ = new Argument();
@@ -37,7 +39,7 @@ public final class StaticAccessOperation extends LeafOperation {
         String glClass_ = _conf.getGlobalClass();
         String classStr_;
         if (!realCl_.trim().isEmpty()) {
-            classStr_ = _conf.resolveAccessibleIdType(str_.indexOf(PAR_LEFT)+1,realCl_);
+            classStr_ = ResolvingImportTypes.resolveAccessibleIdType(_conf,str_.indexOf(PAR_LEFT)+1,realCl_);
             partOffsets = new CustList<PartOffset>(_conf.getContextEl().getCoverage().getCurrentParts());
         } else {
             classStr_ = glClass_;

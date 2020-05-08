@@ -4,6 +4,7 @@ import code.expressionlanguage.*;
 import code.expressionlanguage.common.GeneCustMethod;
 import code.expressionlanguage.common.GeneMethod;
 import code.expressionlanguage.common.GeneType;
+import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.methods.*;
 import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.exec.ExecInvokingOperation;
@@ -146,7 +147,7 @@ public final class Templates {
                 if (!inner_) {
                     boolean foundPkg_ = false;
                     for (String p: _an.getClasses().getPackagesFound()) {
-                        if (StringList.quickEq(p, ContextEl.removeDottedSpaces(foundId_))) {
+                        if (StringList.quickEq(p, StringExpUtil.removeDottedSpaces(foundId_))) {
                             foundPkg_ = true;
                             break;
                         }
@@ -198,7 +199,7 @@ public final class Templates {
             if (cur_ == SEP_CLASS_CHAR) {
                 //if builtId_.toString() is a type => inner_ is true
                 String foundId_ = builtId_.toString();
-                String tr_ = ContextEl.removeDottedSpaces(foundId_);
+                String tr_ = StringExpUtil.removeDottedSpaces(foundId_);
                 if (!StringList.contains(_pkg,tr_)) {
                     break;
                 }
@@ -368,7 +369,7 @@ public final class Templates {
             }
             return null;
         }
-        return ContextEl.removeDottedSpaces(tr_);
+        return StringExpUtil.removeDottedSpaces(tr_);
     }
     public static String tryInfer(String _erased, StringMap<String> _vars, String _declaring, Analyzable _context) {
         GeneType g_ = _context.getClassBody(_erased);

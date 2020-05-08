@@ -1,6 +1,6 @@
 package code.formathtml;
 
-import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
@@ -27,7 +27,7 @@ public final class RendClass extends RendParentBlock {
         } else {
             RendPackage par_ = (RendPackage) getParent();
             fullName = StringList.concat(par_.getName(),DOT,name);
-            fullName = ContextEl.removeDottedSpaces(fullName);
+            fullName = StringExpUtil.removeDottedSpaces(fullName);
             if (_cont.getClassBody(fullName) == null) {
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
                 un_.setFileName(_cont.getCurrentFileName());

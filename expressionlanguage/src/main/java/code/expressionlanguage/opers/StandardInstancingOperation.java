@@ -22,6 +22,7 @@ import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.ResultErrorStd;
 import code.expressionlanguage.structs.Struct;
+import code.expressionlanguage.types.ResolvingImportTypes;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
@@ -118,7 +119,7 @@ public final class StandardInstancingOperation extends
         if (!isIntermediateDottedOperation()) {
             int off_ = StringList.getFirstPrintableCharIndex(methodName);
             setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _an);
-            type_ = _an.resolveAccessibleIdTypeWithoutError(newKeyWord_.length()+local_,inferForm_);
+            type_ = ResolvingImportTypes.resolveAccessibleIdTypeWithoutError(_an,newKeyWord_.length()+local_,inferForm_);
             partOffsets_.addAllElts(_an.getContextEl().getCoverage().getCurrentParts());
             if (type_.isEmpty()) {
                 return;
@@ -237,7 +238,7 @@ public final class StandardInstancingOperation extends
                 realClassName_ = typeInfer;
             } else if (fieldName.isEmpty()) {
                 int local_ = StringList.getFirstPrintableCharIndex(realClassName_);
-                realClassName_ = _conf.resolveCorrectType(newKeyWord_.length()+local_,realClassName_);
+                realClassName_ = ResolvingImportTypes.resolveCorrectType(_conf,newKeyWord_.length()+local_,realClassName_);
                 partOffsets.addAllElts(_conf.getContextEl().getCoverage().getCurrentParts());
             } else {
                 realClassName_ = realClassName_.trim();
@@ -366,7 +367,7 @@ public final class StandardInstancingOperation extends
         StringList partsArgs_ = new StringList();
         for (String a: Templates.getAllTypes(realClassName_).mid(1)) {
             int loc_ = StringList.getFirstPrintableCharIndex(a);
-            partsArgs_.add(_conf.resolveCorrectType(offset_+loc_,a));
+            partsArgs_.add(ResolvingImportTypes.resolveCorrectType(_conf,offset_+loc_,a));
             partOffsets.addAllElts(_conf.getContextEl().getCoverage().getCurrentParts());
             offset_ += a.length() + 1;
         }

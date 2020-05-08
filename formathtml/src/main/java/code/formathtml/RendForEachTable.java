@@ -18,6 +18,7 @@ import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
+import code.expressionlanguage.types.ResolvingImportTypes;
 import code.expressionlanguage.variables.LoopVariable;
 import code.formathtml.exec.RendDynOperationNode;
 import code.formathtml.util.BeanCustLgNames;
@@ -138,7 +139,7 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
     }
 
     public void buildEl(Configuration _cont,RendDocumentBlock _doc) {
-        importedClassIndexName = _cont.resolveCorrectType(classIndexName);
+        importedClassIndexName = ResolvingImportTypes.resolveCorrectType(_cont,classIndexName);
         if (!PrimitiveTypeUtil.isPureNumberClass(new ClassArgumentMatching(importedClassIndexName), _cont)) {
             Mapping mapping_ = new Mapping();
             mapping_.setArg(importedClassIndexName);
@@ -202,14 +203,14 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
         page_.setGlobalOffset(classNameOffsetFirst);
         page_.setOffset(0);
         if (!toInferFirst(_cont)) {
-            importedClassNameFirst = _cont.resolveCorrectType(classNameFirst);
+            importedClassNameFirst = ResolvingImportTypes.resolveCorrectType(_cont,classNameFirst);
         } else {
             importedClassNameFirst = EMPTY_STRING;
         }
         page_.setGlobalOffset(classNameOffsetSecond);
         page_.setOffset(0);
         if (!toInferSecond(_cont)) {
-            importedClassNameSecond = _cont.resolveCorrectType(classNameSecond);
+            importedClassNameSecond = ResolvingImportTypes.resolveCorrectType(_cont,classNameSecond);
         } else {
             importedClassNameSecond = EMPTY_STRING;
         }

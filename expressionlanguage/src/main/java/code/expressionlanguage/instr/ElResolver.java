@@ -11,6 +11,7 @@ import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.NumParsers;
+import code.expressionlanguage.types.ResolvingImportTypes;
 import code.util.*;
 
 
@@ -1801,7 +1802,7 @@ public final class ElResolver {
             _conf.appendParts(_from, _from +inns_.first().length(),trim_,partOffsets_);
             nextOff_ += inns_.first().length() + 1;
         } else {
-            start_ = _conf.resolveCorrectTypeWithoutErrors(_from,inns_.first(), false);
+            start_ = ResolvingImportTypes.resolveCorrectTypeWithoutErrors(_conf,_from,inns_.first(), false);
             partOffsets_.addAllElts(_conf.getContextEl().getCoverage().getCurrentParts());
             nb_ = 0;
             nextOff_ += inns_.first().length() + 1;
@@ -2745,7 +2746,7 @@ public final class ElResolver {
                 return _from;
             }
         }
-        String typeOut_ = _conf.resolveCorrectTypeWithoutErrors(_from + 1, sub_, true);
+        String typeOut_ = ResolvingImportTypes.resolveCorrectTypeWithoutErrors(_conf,_from + 1, sub_, true);
         if (!typeOut_.isEmpty()) {
             _d.getDelCast().add(_from);
             _d.getDelCast().add(indexParRight_);

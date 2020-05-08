@@ -15,10 +15,8 @@ import code.expressionlanguage.errors.stds.StdErrorList;
 import code.expressionlanguage.errors.stds.StdWordError;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
-import code.expressionlanguage.inherits.TypeUtil;
 import code.expressionlanguage.instr.*;
 import code.expressionlanguage.methods.*;
-import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.options.KeyWords;
@@ -29,9 +27,6 @@ import code.expressionlanguage.structs.ClassMetaInfo;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.StackTraceElementStruct;
 import code.expressionlanguage.structs.Struct;
-import code.expressionlanguage.types.AlwaysReadyTypes;
-import code.expressionlanguage.types.PartTypeUtil;
-import code.expressionlanguage.types.ReadyTypes;
 import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.LoopVariable;
 import code.formathtml.errors.RendAnalysisMessages;
@@ -754,137 +749,6 @@ public final class Configuration implements ExecutableCode {
     }
 
     @Override
-    public String resolveAccessibleIdType(int _loc,String _in) {
-        int rc_ = getCurrentLocationIndex();
-        String void_ = standards.getAliasVoid();
-        if (StringList.quickEq(_in.trim(), void_)) {
-            FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setFileName(analyzingDoc.getFileName());
-            un_.setIndexFile(rc_);
-            un_.buildError(context.getAnalysisMessages().getVoidType(),
-                    void_);
-            addError(un_);
-            return "";
-        }
-        StringList inners_ = context.getParts(_in);
-        String base_ = inners_.first().trim();
-        String res_ = ContextEl.removeDottedSpaces(base_);
-        if (standards.getStandards().contains(res_)) {
-            return res_;
-        }
-        AccessingImportingBlock r_ = analyzingDoc.getCurrentDoc();
-        RootBlock b_ = getClasses().getClassBody(res_);
-        if (b_ == null) {
-            String id_ = lookupImportType(base_,r_,new AlwaysReadyTypes());
-            if (id_.isEmpty()) {
-                FoundErrorInterpret undef_;
-                undef_ = new FoundErrorInterpret();
-                undef_.setFileName(analyzingDoc.getFileName());
-                undef_.setIndexFile(rc_);
-                undef_.buildError(context.getAnalysisMessages().getUnknownType(),
-                        _in);
-                addError(undef_);
-                return "";
-            }
-            res_ = id_;
-        }
-        for (String i: inners_.mid(1)) {
-            String resId_ = StringList.concat(res_,"..",i.trim());
-            RootBlock inner_ = getClasses().getClassBody(resId_);
-            if (inner_ == null) {
-                //ERROR
-                FoundErrorInterpret undef_;
-                undef_ = new FoundErrorInterpret();
-                undef_.setFileName(analyzingDoc.getFileName());
-                undef_.setIndexFile(rc_);
-                undef_.buildError(context.getAnalysisMessages().getUnknownType(),
-                        _in);
-                addError(undef_);
-                return "";
-            }
-            res_ = resId_;
-        }
-        return res_;
-    }
-
-    @Override
-    public String resolveAccessibleIdTypeWithoutError(int _loc,String _in) {
-        String void_ = standards.getAliasVoid();
-        if (StringList.quickEq(_in.trim(), void_)) {
-            return "";
-        }
-        AccessingImportingBlock r_ = analyzingDoc.getCurrentDoc();
-        String gl_ = getGlobalClass();
-        RootBlock root_ = getContext().getClasses().getClassBody(Templates.getIdFromAllTypes(gl_));
-        AccessingImportingBlock a_ = getAccessingImportingBlock(r_, root_);
-        return PartTypeUtil.processAnalyzeLine(_in,new AlwaysReadyTypes(),false,gl_,this,a_,r_, 0,new CustList<PartOffset>());
-    }
-    @Override
-    public String resolveCorrectType(String _in) {
-        return resolveCorrectType(0,_in,true);
-    }
-
-    @Override
-    public String resolveCorrectType(int _loc, String _in) {
-        return resolveCorrectType(_loc,_in,true);
-    }
-
-    @Override
-    public String resolveCorrectAccessibleType(int _loc,String _in, String _fromType) {
-        int rc_ = getCurrentLocationIndex();
-        String void_ = standards.getAliasVoid();
-        if (StringList.quickEq(_in.trim(), void_)) {
-            FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setFileName(analyzingDoc.getFileName());
-            un_.setIndexFile(rc_);
-            un_.buildError(context.getAnalysisMessages().getVoidType(),
-                    void_);
-            addError(un_);
-            return standards.getAliasObject();
-        }
-        AccessingImportingBlock r_ = analyzingDoc.getCurrentDoc();
-        StringMap<StringList> vars_ = new StringMap<StringList>();
-        String idFromType_ = Templates.getIdFromAllTypes(_fromType);
-        GeneType from_ = getClassBody(idFromType_);
-        StringMap<Integer> available_ = new StringMap<Integer>();
-        for (TypeVar t: from_.getParamTypesMapValues()) {
-            available_.addEntry(t.getName(),0);
-            vars_.put(t.getName(), t.getConstraints());
-        }
-        getAvailableVariables().clear();
-        getAvailableVariables().putAllMap(available_);
-        String resType_ = PartTypeUtil.processAnalyzeAccessibleId(_in, this, r_, "",0,new CustList<PartOffset>());
-        if (resType_.trim().isEmpty()) {
-            FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setFileName(analyzingDoc.getFileName());
-            un_.setIndexFile(rc_);
-            un_.buildError(context.getAnalysisMessages().getUnknownType(),
-                    _in);
-            addError(un_);
-            return standards.getAliasObject();
-        }
-        if (!Templates.isCorrectTemplateAll(resType_, vars_, this)) {
-            FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setFileName(analyzingDoc.getFileName());
-            un_.setIndexFile(rc_);
-            un_.buildError(context.getAnalysisMessages().getBadParamerizedType(),
-                    _in);
-            addError(un_);
-            return standards.getAliasObject();
-        }
-        return resType_;
-    }
-    @Override
-    public String resolveCorrectType(int _loc, String _in, boolean _exact) {
-        String res_ = resolveCorrectTypeWithoutErrors(0,_in, _exact);
-        if (!res_.isEmpty()) {
-            return res_;
-        }
-        checkCustom(_loc, _in);
-        return standards.getAliasObject();
-    }
-
-    @Override
     public void appendParts(int _begin, int _end, String _in, CustList<PartOffset> _parts) {
         //implement
     }
@@ -892,60 +756,6 @@ public final class Configuration implements ExecutableCode {
     @Override
     public void appendTitleParts(int _begin, int _end, String _in, CustList<PartOffset> _parts) {
         //implement
-    }
-
-    @Override
-    public String checkExactType(int _loc, String _in, String _orig) {
-        if (!_in.isEmpty()) {
-            return _in;
-        }
-        checkCustom(_loc, _orig);
-        return standards.getAliasObject();
-    }
-
-    private void checkCustom(int _loc, String _in) {
-        if (getAdvStandards() instanceof BeanCustLgNames) {
-            int rc_ = getCurrentLocationIndex() + _loc;
-            FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setFileName(analyzingDoc.getFileName());
-            un_.setIndexFile(rc_);
-            un_.buildError(context.getAnalysisMessages().getUnknownType(),
-                    _in);
-            addError(un_);
-        }
-    }
-
-    @Override
-    public String resolveCorrectTypeWithoutErrors(int _loc,String _in, boolean _exact) {
-        String void_ = standards.getAliasVoid();
-        if (StringList.quickEq(_in.trim(), void_)) {
-            return "";
-        }
-        AccessingImportingBlock r_ = analyzingDoc.getCurrentDoc();
-        StringMap<StringList> vars_ = getCurrentConstraints();
-        StringMap<Integer> available_ = new StringMap<Integer>();
-        getAvailableVariables().clear();
-        getAvailableVariables().putAllMap(available_);
-        String gl_ = getGlobalClass();
-        RootBlock root_ = getContext().getClasses().getClassBody(Templates.getIdFromAllTypes(gl_));
-        AccessingImportingBlock a_ = getAccessingImportingBlock(r_, root_);
-        getCurrentBadIndexes().clear();
-        String resType_;
-        if (_exact) {
-            resType_ = PartTypeUtil.processAnalyze(_in, false,gl_, this, a_,r_, 0,new CustList<PartOffset>());
-        } else {
-            resType_ = PartTypeUtil.processAnalyzeLine(_in, new AlwaysReadyTypes(),false,gl_, this, a_,r_, 0,new CustList<PartOffset>());
-        }
-        if (!getCurrentBadIndexes().isEmpty()) {
-            return "";
-        }
-        if (resType_.trim().isEmpty()) {
-            return "";
-        }
-        if (!Templates.isCorrectTemplateAll(resType_, vars_, this, _exact)) {
-            return "";
-        }
-        return resType_;
     }
 
     private static AccessingImportingBlock getAccessingImportingBlock(AccessingImportingBlock _r, RootBlock _root) {
@@ -977,267 +787,6 @@ public final class Configuration implements ExecutableCode {
         return context.getAnalyzing().getLocalVars();
     }
 
-    @Override
-    public ObjectMap<ClassMethodId,ImportedMethod> lookupImportStaticMethods(
-            String _glClass, String _method, Block _rooted) {
-        ObjectMap<ClassMethodId,ImportedMethod> methods_ = new ObjectMap<ClassMethodId,ImportedMethod>();
-        AccessingImportingBlock type_ = analyzingDoc.getCurrentDoc();
-        CustList<StringList> imports_ = fetch(type_);
-        String keyWordStatic_ = context.getKeyWords().getKeyWordStatic();
-        int import_ = 1;
-        for (StringList t: imports_) {
-            for (String i: t) {
-                if (!i.contains(".")) {
-                    continue;
-                }
-                if (!StringExpUtil.startsWithKeyWord(i.trim(), keyWordStatic_)) {
-                    continue;
-                }
-                String st_ = i.trim().substring(keyWordStatic_.length()).trim();
-                String typeLoc_ = ContextEl.removeDottedSpaces(st_.substring(0,st_.lastIndexOf('.')));
-                String foundCandidate_ = context.resolveCandidate(typeLoc_);
-                GeneType root_ = getClassBody(foundCandidate_);
-                if (root_ == null) {
-                    continue;
-                }
-                String end_ = ContextEl.removeDottedSpaces(st_.substring(st_.lastIndexOf('.')+1));
-                if (!StringList.quickEq(end_, _method.trim())) {
-                    continue;
-                }
-                StringList typesLoc_ = new StringList(foundCandidate_);
-                typesLoc_.addAllElts(root_.getAllSuperTypes());
-                fetchImportStaticMethods(_glClass, _method, methods_, import_, foundCandidate_, typesLoc_);
-            }
-            import_++;
-        }
-        for (StringList t: imports_) {
-            for (String i: t) {
-                if (!i.contains(".")) {
-                    continue;
-                }
-                if (!StringExpUtil.startsWithKeyWord(i.trim(), keyWordStatic_)) {
-                    continue;
-                }
-                String st_ = i.trim().substring(keyWordStatic_.length()).trim();
-                String end_ = ContextEl.removeDottedSpaces(st_.substring(st_.lastIndexOf('.')+1));
-                if (!StringList.quickEq(end_, "*")) {
-                    continue;
-                }
-                String typeLoc_ = ContextEl.removeDottedSpaces(st_.substring(0,st_.lastIndexOf('.')));
-                String foundCandidate_ = context.resolveCandidate(typeLoc_);
-                GeneType root_ = getClassBody(foundCandidate_);
-                if (root_ == null) {
-                    continue;
-                }
-                StringList typesLoc_ = new StringList(foundCandidate_);
-                typesLoc_.addAllElts(root_.getAllSuperTypes());
-                fetchImportStaticMethods(_glClass, _method, methods_, import_, foundCandidate_, typesLoc_);
-            }
-            import_++;
-        }
-        return methods_;
-    }
-
-    private void fetchImportStaticMethods(String _glClass, String _method, ObjectMap<ClassMethodId, ImportedMethod> _methods, int _import, String _typeLoc, StringList _typesLoc) {
-        for (String s: _typesLoc) {
-            GeneType super_ = getClassBody(s);
-            for (GeneMethod e: ContextEl.getMethodBlocks(super_)) {
-                if (!e.isStaticMethod()) {
-                    continue;
-                }
-                if (!StringList.quickEq(_method.trim(), e.getId().getName())) {
-                    continue;
-                }
-                if (e instanceof AccessibleBlock) {
-                    if (!Classes.canAccess(_typeLoc, (AccessibleBlock)e, this)) {
-                        continue;
-                    }
-                    if (!Classes.canAccess(_glClass, (AccessibleBlock)e, this)) {
-                        continue;
-                    }
-                }
-                ClassMethodId clMet_ = new ClassMethodId(s, e.getId());
-                _methods.add(clMet_, new ImportedMethod(_import,e.getImportedReturnType()));
-            }
-        }
-    }
-    @Override
-    public ObjectMap<ClassField,ImportedField> lookupImportStaticFields(String _glClass,String _field,
-            Block _rooted) {
-        ObjectMap<ClassField,ImportedField> methods_ = new ObjectMap<ClassField,ImportedField>();
-        int import_ = 1;
-        AccessingImportingBlock type_ = analyzingDoc.getCurrentDoc();
-        CustList<StringList> imports_ = fetch(type_);
-        String keyWordStatic_ = context.getKeyWords().getKeyWordStatic();
-        for (StringList t: imports_) {
-            for (String i: t) {
-                if (!i.contains(".")) {
-                    continue;
-                }
-                if (!StringExpUtil.startsWithKeyWord(i.trim(), keyWordStatic_)) {
-                    continue;
-                }
-                String st_ = i.trim().substring(keyWordStatic_.length()).trim();
-                String typeLoc_ = ContextEl.removeDottedSpaces(st_.substring(0,st_.lastIndexOf('.')));
-                String foundCandidate_ = context.resolveCandidate(typeLoc_);
-                GeneType root_ = getClassBody(foundCandidate_);
-                if (root_ == null) {
-                    continue;
-                }
-                String end_ = ContextEl.removeDottedSpaces(st_.substring(st_.lastIndexOf('.')+1));
-                if (!StringList.quickEq(end_, _field.trim())) {
-                    continue;
-                }
-                StringList typesLoc_ = new StringList(foundCandidate_);
-                typesLoc_.addAllElts(root_.getAllSuperTypes());
-                fetchImportStaticFields(_glClass, _field, methods_, import_, foundCandidate_, typesLoc_);
-            }
-            import_++;
-        }
-        for (StringList t: imports_) {
-            for (String i: t) {
-                if (!i.contains(".")) {
-                    continue;
-                }
-                if (!StringExpUtil.startsWithKeyWord(i.trim(), keyWordStatic_)) {
-                    continue;
-                }
-                String st_ = i.trim().substring(keyWordStatic_.length()).trim();
-                String end_ = ContextEl.removeDottedSpaces(st_.substring(st_.lastIndexOf('.')+1));
-                if (!StringList.quickEq(end_, "*")) {
-                    continue;
-                }
-                String typeLoc_ = ContextEl.removeDottedSpaces(st_.substring(0,st_.lastIndexOf('.')));
-                String foundCandidate_ = context.resolveCandidate(typeLoc_);
-                GeneType root_ = getClassBody(foundCandidate_);
-                if (root_ == null) {
-                    continue;
-                }
-                StringList typesLoc_ = new StringList(foundCandidate_);
-                typesLoc_.addAllElts(root_.getAllSuperTypes());
-                fetchImportStaticFields(_glClass, _field, methods_, import_, foundCandidate_, typesLoc_);
-            }
-            import_++;
-        }
-        return methods_;
-    }
-
-    private void fetchImportStaticFields(String _glClass, String _method, ObjectMap<ClassField, ImportedField> _methods, int _import, String _typeLoc, StringList _typesLoc) {
-        ContextEl.fetchImportStaticFields(this,_glClass,_method,_methods,_import,_typeLoc,_typesLoc);
-    }
-
-    private static CustList<StringList> fetch(AccessedBlock _rooted) {
-        CustList<StringList> imports_ = new CustList<StringList>();
-        if (_rooted != null) {
-            imports_.add(_rooted.getFileImports());
-        }
-        return imports_;
-    }
-
-    private String getTypeOrEmpty(String _type) {
-        if (getClassBody(_type) != null) {
-            return _type;
-        }
-        return "";
-    }
-
-    @Override
-    public String lookupImportType(String _type, AccessingImportingBlock _rooted, ReadyTypes _ready) {
-        String prefixedType_;
-        prefixedType_ = getRealSinglePrefixedMemberType(_type, _rooted);
-        return prefixedType_;
-    }
-
-    private String getRealSinglePrefixedMemberType(String _type, AccessingImportingBlock _rooted) {
-        String look_ = _type.trim();
-        StringList types_ = new StringList();
-        CustList<StringList> imports_ = fetch(_rooted);
-        String keyWordStatic_ = context.getKeyWords().getKeyWordStatic();
-        for (StringList s: imports_) {
-            for (String i: s) {
-                if (!i.contains(".")) {
-                    continue;
-                }
-                String begin_ = ContextEl.removeDottedSpaces(i.substring(0, i.lastIndexOf('.')+1));
-                String end_ = ContextEl.removeDottedSpaces(i.substring(i.lastIndexOf('.')+1));
-                if (!StringList.quickEq(end_, look_)) {
-                    continue;
-                }
-                String beginImp_ = begin_;
-                String pre_ = "";
-                if (StringExpUtil.startsWithKeyWord(begin_, keyWordStatic_)) {
-                    beginImp_ = beginImp_.substring(keyWordStatic_.length()).trim();
-                    pre_ = keyWordStatic_;
-                }
-                String typeInner_ = StringList.concat(beginImp_, look_);
-                String foundCandidate_ = StringList.join(Templates.getAllInnerTypes(typeInner_, this), "..");
-                String typeLoc_ = ContextEl.removeDottedSpaces(StringList.concat(pre_," ", foundCandidate_));
-                String ft_ = exist(typeLoc_);
-                if (ft_.isEmpty()) {
-                    continue;
-                }
-                types_.add(ft_);
-            }
-            if (types_.onlyOneElt()) {
-                return types_.first();
-            }
-            types_.clear();
-        }
-        for (StringList s: imports_) {
-            for (String i: s) {
-                if (!i.contains(".")) {
-                    continue;
-                }
-                String end_ = ContextEl.removeDottedSpaces(i.substring(i.lastIndexOf('.')+1));
-                if (!StringList.quickEq(end_, "*")) {
-                    continue;
-                }
-                String begin_ = ContextEl.removeDottedSpaces(i.substring(0, i.lastIndexOf('.')+1));
-                String beginImp_ = begin_;
-                String pre_ = "";
-                if (StringExpUtil.startsWithKeyWord(begin_, keyWordStatic_)) {
-                    beginImp_ = beginImp_.substring(keyWordStatic_.length()).trim();
-                    pre_ = keyWordStatic_;
-                }
-                String typeInner_ = StringList.concat(beginImp_, look_);
-                String foundCandidate_ = StringList.join(Templates.getAllInnerTypes(typeInner_, this), "..");
-                String typeLoc_ = ContextEl.removeDottedSpaces(StringList.concat(pre_," ", foundCandidate_));
-                String ft_ = exist(typeLoc_);
-                if (ft_.isEmpty()) {
-                    continue;
-                }
-                types_.add(ft_);
-            }
-            if (types_.onlyOneElt()) {
-                return types_.first();
-            }
-            types_.clear();
-        }
-        String defPkg_ = standards.getDefaultPkg();
-        String type_ = ContextEl.removeDottedSpaces(StringList.concat(defPkg_,".",_type));
-        return getTypeOrEmpty(type_);
-    }
-    private String exist(String _type) {
-        String typeFound_ = _type;
-        String keyWordStatic_ = context.getKeyWords().getKeyWordStatic();
-        boolean stQualifier_ = StringExpUtil.startsWithKeyWord(_type, keyWordStatic_);
-        if (stQualifier_) {
-            typeFound_ = typeFound_.substring(keyWordStatic_.length()).trim();
-        }
-        StringList inners_;
-        inners_ = Templates.getAllInnerTypes(typeFound_);
-        String res_ = inners_.first();
-        for (String i: inners_.mid(1)) {
-            String i_ = i.trim();
-            StringList builtInners_ = TypeUtil.getOwners(res_, i_, stQualifier_, this);
-            if (builtInners_.onlyOneElt()) {
-                res_ = StringList.concat(builtInners_.first(),"..",i_);
-                continue;
-            }
-            return "";
-        }
-        return getTypeOrEmpty(res_);
-    }
     @Override
     public StringMap<Integer> getAvailableVariables() {
         return context.getAvailableVariables();
@@ -1340,7 +889,7 @@ public final class Configuration implements ExecutableCode {
 
     @Override
     public StringMap<StringList> getCurrentConstraints() {
-        return context.getCurrentConstraints();
+        return new StringMap<StringList>();
     }
 
     @Override
@@ -1572,5 +1121,25 @@ public final class Configuration implements ExecutableCode {
         beanName = _beanName;
     }
 
+    @Override
+    public AccessingImportingBlock getCurrentGlobalBlock() {
+        return analyzingDoc.getCurrentDoc();
+    }
 
+    @Override
+    public AccessingImportingBlock getCurrentGlobalBlock(AccessingImportingBlock _bl) {
+        String gl_ = getGlobalClass();
+        RootBlock root_ = getContext().getClasses().getClassBody(Templates.getIdFromAllTypes(gl_));
+        return getAccessingImportingBlock(_bl, root_);
+    }
+
+    @Override
+    public CustList<PartOffset> getCurrentParts() {
+        return new CustList<PartOffset>();
+    }
+
+    @Override
+    public void buildCurrentConstraintsFull() {
+        getAvailableVariables().clear();
+    }
 }

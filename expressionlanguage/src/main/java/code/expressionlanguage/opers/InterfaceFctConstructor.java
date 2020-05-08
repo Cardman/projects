@@ -7,6 +7,7 @@ import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.methods.InterfaceBlock;
 import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
+import code.expressionlanguage.types.ResolvingImportTypes;
 
 public final class InterfaceFctConstructor extends AbstractInvokingConstructor {
     private String className = EMPTY_STRING;
@@ -22,7 +23,7 @@ public final class InterfaceFctConstructor extends AbstractInvokingConstructor {
         }
         String cl_ = getMethodName();
         cl_ = cl_.substring(cl_.indexOf(PAR_LEFT)+1, cl_.lastIndexOf(PAR_RIGHT));
-        cl_ = _conf.resolveAccessibleIdType(cl_.indexOf(PAR_LEFT)+1,cl_);
+        cl_ = ResolvingImportTypes.resolveAccessibleIdType(_conf,cl_.indexOf(PAR_LEFT)+1,cl_);
         if (!(_conf.getClasses().getClassBody(cl_) instanceof InterfaceBlock)) {
             FoundErrorInterpret call_ = new FoundErrorInterpret();
             call_.setFileName(_conf.getCurrentFileName());

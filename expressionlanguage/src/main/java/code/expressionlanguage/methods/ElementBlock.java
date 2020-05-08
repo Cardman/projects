@@ -23,6 +23,7 @@ import code.expressionlanguage.opers.exec.ExecStandardInstancingOperation;
 import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.structs.Struct;
+import code.expressionlanguage.types.ResolvingImportTypes;
 import code.util.*;
 
 public final class ElementBlock extends Leaf implements InnerTypeOrElement{
@@ -113,7 +114,7 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
         page_.setCurrentBlock(this);
         int len_ = -className.length();
         String fullClassName_ = StringList.concat(className, tempClass);
-        importedClassName = _cont.resolveCorrectType(len_,fullClassName_);
+        importedClassName = ResolvingImportTypes.resolveCorrectType(_cont,len_,fullClassName_);
         partOffsets.addAllElts(_cont.getCoverage().getCurrentParts().mid(2));
     }
     @Override

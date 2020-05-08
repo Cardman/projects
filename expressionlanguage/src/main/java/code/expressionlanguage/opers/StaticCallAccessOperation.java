@@ -7,6 +7,7 @@ import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
+import code.expressionlanguage.types.ResolvingImportTypes;
 import code.util.CustList;
 import code.util.StringList;
 
@@ -29,7 +30,7 @@ public final class StaticCallAccessOperation extends LeafOperation {
         String glClass_ = _conf.getGlobalClass();
         String classStr_;
         if (!realCl_.trim().isEmpty()) {
-            classStr_ = _conf.resolveCorrectType(str_.indexOf(PAR_LEFT)+1,realCl_);
+            classStr_ = ResolvingImportTypes.resolveCorrectType(_conf,str_.indexOf(PAR_LEFT)+1,realCl_);
             partOffsets = new CustList<PartOffset>(_conf.getContextEl().getCoverage().getCurrentParts());
         } else {
             implicit = true;

@@ -11,6 +11,7 @@ import code.expressionlanguage.opers.exec.ExecInterfaceInvokingConstructor;
 import code.expressionlanguage.opers.exec.ExecOperationNode;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ConstructorId;
+import code.expressionlanguage.types.ResolvingImportTypes;
 import code.util.StringList;
 
 public final class InterfaceInvokingConstructor extends AbstractInvokingConstructor {
@@ -24,7 +25,7 @@ public final class InterfaceInvokingConstructor extends AbstractInvokingConstruc
     ClassArgumentMatching getFrom(Analyzable _conf) {
         String cl_ = getMethodName();
         cl_ = cl_.substring(cl_.indexOf(PAR_LEFT)+1, cl_.lastIndexOf(PAR_RIGHT));
-        cl_ = _conf.resolveAccessibleIdType(cl_.indexOf(PAR_LEFT)+1,cl_);
+        cl_ = ResolvingImportTypes.resolveAccessibleIdType(_conf,cl_.indexOf(PAR_LEFT)+1,cl_);
         if (!(_conf.getClasses().getClassBody(cl_) instanceof InterfaceBlock)) {
             FoundErrorInterpret call_ = new FoundErrorInterpret();
             call_.setFileName(_conf.getCurrentFileName());

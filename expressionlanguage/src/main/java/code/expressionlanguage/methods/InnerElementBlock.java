@@ -9,6 +9,7 @@ import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.files.OffsetAccessInfo;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
+import code.expressionlanguage.inherits.ResolvingSuperTypes;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.instr.PartOffset;
@@ -19,6 +20,7 @@ import code.expressionlanguage.opers.exec.ExecOperationNode;
 import code.expressionlanguage.opers.exec.ExecStandardInstancingOperation;
 import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.options.KeyWords;
+import code.expressionlanguage.types.ResolvingImportTypes;
 import code.util.*;
 
 public final class InnerElementBlock extends RootBlock implements InnerTypeOrElement, UniqueRootedBlock {
@@ -182,7 +184,7 @@ public final class InnerElementBlock extends RootBlock implements InnerTypeOrEle
         page_.setCurrentBlock(this);
         int len_ = -className.length();
         String fullClassName_ =  StringList.concat(className, tempClass);
-        importedClassName = _cont.resolveCorrectType(len_,fullClassName_);
+        importedClassName = ResolvingImportTypes.resolveCorrectType(_cont,len_,fullClassName_);
         partOffsets.addAllElts(_cont.getCoverage().getCurrentParts().mid(2));
     }
 
@@ -256,7 +258,7 @@ public final class InnerElementBlock extends RootBlock implements InnerTypeOrEle
         importedDirectSuperInterfaces.clear();
         for (String s: getDirectSuperTypes()) {
             int index_ = rcs_.getKey(i_);
-            String s_ = _classes.resolveTypeInherits(s, this,index_);
+            String s_ = ResolvingSuperTypes.resolveTypeInherits(_classes,s, this,index_);
             String c_ = getImportedDirectBaseSuperType(i_);
             _classes.addErrorIfNoMatch(s_,c_,this,index_);
             i_++;

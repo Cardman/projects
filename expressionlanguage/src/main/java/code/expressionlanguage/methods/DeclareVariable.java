@@ -11,6 +11,7 @@ import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.structs.Struct;
+import code.expressionlanguage.types.ResolvingImportTypes;
 import code.expressionlanguage.variables.LocalVariable;
 import code.util.CustList;
 import code.util.StringList;
@@ -71,7 +72,7 @@ public final class DeclareVariable extends Leaf implements InitVariable,Buildabl
         if (StringList.quickEq(className.trim(), keyWordVar_)) {
             importedClassName = keyWordVar_;
         } else {
-            importedClassName = _cont.resolveCorrectType(className);
+            importedClassName = ResolvingImportTypes.resolveCorrectType(_cont,className);
             partOffsets.addAllElts(_cont.getCoverage().getCurrentParts());
         }
         _cont.setMerged(true);

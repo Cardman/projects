@@ -16,6 +16,7 @@ import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.opers.util.AnnotationFieldInfo;
 import code.expressionlanguage.opers.util.AnnotationTypeInfo;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
+import code.expressionlanguage.types.ResolvingImportTypes;
 import code.util.*;
 
 public final class AnnotationInstanceOperation extends InvokingOperation implements PreAnalyzableOperation {
@@ -101,7 +102,7 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
             int off_ = StringList.getFirstPrintableCharIndex(methodName);
             setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
             String realClassName_ = methodName.trim().substring(AROBASE.length());
-            realClassName_ = _conf.resolveCorrectType(1,realClassName_);
+            realClassName_ = ResolvingImportTypes.resolveCorrectType(_conf,1,realClassName_);
             partOffsets.addAllElts(_conf.getContextEl().getCoverage().getCurrentParts());
             GeneType g_ = _conf.getClassBody(realClassName_);
             if (!(g_ instanceof AnnotationBlock)) {

@@ -12,6 +12,7 @@ import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
+import code.expressionlanguage.types.ResolvingImportTypes;
 import code.formathtml.*;
 import code.formathtml.structs.*;
 import code.sml.Element;
@@ -31,6 +32,15 @@ public abstract class BeanNatLgNames extends BeanLgNames {
     private static final String TYPE_ENTRIES = "$custentries";
     private StringMapObject storedForms;
     private StringMap<String> iterables = new StringMap<String>();
+
+    @Override
+    public String checkCorrectType(Analyzable _an, int _loc, String _in, boolean _exact) {
+        String res_ = ResolvingImportTypes.resolveCorrectTypeWithoutErrors(_an,_loc,_in, _exact);
+        if (!res_.isEmpty()) {
+            return res_;
+        }
+        return getAliasObject();
+    }
 
     private static Object[] adaptedArgs(StringList _params, Struct... _args) {
         int len_ = _params.size();

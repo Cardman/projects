@@ -5,6 +5,7 @@ import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.GeneCustMethod;
 import code.expressionlanguage.common.GeneType;
+import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.*;
 import code.expressionlanguage.files.OffsetAccessInfo;
 import code.expressionlanguage.files.OffsetsBlock;
@@ -77,7 +78,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
         categoryOffset = _categoryOffset;
         allOverridingMethods = new ObjectMap<MethodId, EqList<ClassMethodId>>();
         name = _name.trim();
-        packageName = ContextEl.removeDottedSpaces(_packageName);
+        packageName = StringExpUtil.removeDottedSpaces(_packageName);
         access = _access.getInfo();
         accessOffset = _access.getOffset();
         templateDef = _templateDef;
@@ -85,7 +86,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
         setupOffsets(_name, _packageName);
         rowColDirectSuperTypes = _directSuperTypes;
         for (EntryCust<Integer, String> t: _directSuperTypes.entryList()) {
-            String type_ = ContextEl.removeDottedSpaces(t.getValue());
+            String type_ = StringExpUtil.removeDottedSpaces(t.getValue());
             directSuperTypes.add(type_);
             explicitDirectSuperTypes.put(t.getKey(), true);
         }
@@ -389,7 +390,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                     int i_ = 0;
                     for (String c: t.getConstraints()) {
                         int d_ = ints_.get(i_);
-                        const_.add(_analyze.resolveTypeMapping(c,this, off_+d_));
+                        const_.add(ResolvingSuperTypes.resolveTypeMapping(_analyze,c,this, off_+d_));
                         i_++;
                     }
                     constraintsParts.addAllElts(_analyze.getCoverage().getCurrentParts());

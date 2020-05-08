@@ -23,6 +23,7 @@ import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
+import code.expressionlanguage.types.ResolvingImportTypes;
 import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.LoopVariable;
 import code.util.*;
@@ -188,7 +189,7 @@ public final class ForEachTable extends BracedStack implements Loop, WithNotEmpt
 
     private MethodAccessKind processVarTypes(ContextEl _cont) {
         FunctionBlock f_ = _cont.getAnalyzing().getCurrentFct();
-        importedClassIndexName = _cont.resolveCorrectType(classIndexName);
+        importedClassIndexName = ResolvingImportTypes.resolveCorrectType(_cont,classIndexName);
         if (!PrimitiveTypeUtil.isPureNumberClass(new ClassArgumentMatching(importedClassIndexName), _cont)) {
             Mapping mapping_ = new Mapping();
             mapping_.setArg(importedClassIndexName);
@@ -261,7 +262,7 @@ public final class ForEachTable extends BracedStack implements Loop, WithNotEmpt
         page_.setGlobalOffset(classNameOffsetFirst);
         page_.setOffset(0);
         if (!StringList.quickEq(classNameFirst.trim(), keyWordVar_)) {
-            importedClassNameFirst = _cont.resolveCorrectType(classNameFirst);
+            importedClassNameFirst = ResolvingImportTypes.resolveCorrectType(_cont,classNameFirst);
             partOffsetsFirst.addAllElts(_cont.getCoverage().getCurrentParts());
         } else {
             importedClassNameFirst = "";
@@ -269,7 +270,7 @@ public final class ForEachTable extends BracedStack implements Loop, WithNotEmpt
         page_.setGlobalOffset(classNameOffsetSecond);
         page_.setOffset(0);
         if (!StringList.quickEq(classNameSecond.trim(), keyWordVar_)) {
-            importedClassNameSecond = _cont.resolveCorrectType(classNameSecond);
+            importedClassNameSecond = ResolvingImportTypes.resolveCorrectType(_cont,classNameSecond);
             partOffsetsSecond.addAllElts(_cont.getCoverage().getCurrentParts());
         } else {
             importedClassNameSecond = "";

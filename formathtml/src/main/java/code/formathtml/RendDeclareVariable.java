@@ -6,6 +6,7 @@ import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.structs.Struct;
+import code.expressionlanguage.types.ResolvingImportTypes;
 import code.expressionlanguage.variables.LocalVariable;
 import code.util.StringList;
 
@@ -43,7 +44,7 @@ public final class RendDeclareVariable extends RendLeaf implements RendBuildable
         if (StringList.quickEq(className.trim(), keyWordVar_)) {
             importedClassName = keyWordVar_;
         } else {
-            importedClassName = _cont.resolveCorrectType(className);
+            importedClassName = ResolvingImportTypes.resolveCorrectType(_cont,className);
         }
         _cont.setMerged(true);
         _cont.setAcceptCommaInstr(true);

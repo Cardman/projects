@@ -3820,6 +3820,23 @@ public final class ElResolverTest extends ProcessMethodCommon{
         assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
     @Test
+    public void getOperationsSequence216___Test() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_);
+        String el_ = "abs(4,3)[0](1)";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
+        IntTreeMap<String> opers_ = seq_.getOperators();
+        assertEq(1, opers_.size());
+        assertEq("", opers_.getVal(11));
+        assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
+        IntTreeMap<String> values_ = seq_.getValues();
+        assertEq(2, values_.size());
+        assertEq("abs(4,3)[0]", values_.getVal(0));
+        assertEq("(1)", values_.getVal(11));
+        assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
+    }
+    @Test
     public void getOperationsSequence216_Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);

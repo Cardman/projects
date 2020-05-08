@@ -7,6 +7,7 @@ import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.instr.PartOffset;
+import code.expressionlanguage.types.ResolvingImportTypes;
 import code.expressionlanguage.variables.LocalVariable;
 import code.util.CustList;
 import code.util.StringList;
@@ -94,7 +95,7 @@ public final class CatchEval extends AbstractCatchEval {
         AnalyzedPageEl page_ = _an.getAnalyzing();
         page_.setGlobalOffset(classNameOffset);
         page_.setOffset(0);
-        importedClassName = _an.resolveCorrectType(className);
+        importedClassName = ResolvingImportTypes.resolveCorrectType(_an,className);
         partOffsets.addAllElts(_an.getContextEl().getCoverage().getCurrentParts());
         StringList classes_ = new StringList();
         Block p_ = getPreviousSibling();

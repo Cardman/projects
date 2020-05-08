@@ -8,6 +8,7 @@ import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.EnumBlock;
 import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
+import code.expressionlanguage.types.ResolvingImportTypes;
 import code.util.CustList;
 import code.util.*;
 
@@ -39,7 +40,7 @@ public final class EnumValueOfOperation extends AbstractUnaryOperation {
         String glClass_ = _conf.getGlobalClass();
         Classes classes_ = _conf.getClasses();
         String clName_;
-        clName_ = _conf.resolveAccessibleIdType(0,className);
+        clName_ = ResolvingImportTypes.resolveAccessibleIdType(_conf,0,className);
         RootBlock r_ = classes_.getClassBody(clName_);
         if (!(r_ instanceof EnumBlock)) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
