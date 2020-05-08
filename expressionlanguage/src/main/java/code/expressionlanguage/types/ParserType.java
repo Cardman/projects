@@ -2,6 +2,7 @@ package code.expressionlanguage.types;
 
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.util.CustList;
 import code.util.*;
@@ -164,12 +165,12 @@ public final class ParserType {
             a_.setError(true);
             return a_;
         }
-        if (isVar(_string)) {
+        if (StringExpUtil.isVar(_string)) {
             a_.setKind(KindPartType.VARIABLE);
             a_.setupValue(_string);
             return a_;
         }
-        if (isTypeLeafPart(_string.trim())) {
+        if (StringExpUtil.isTypeLeafPart(_string.trim())) {
             a_.setKind(KindPartType.TYPE_NAME);
             a_.setupValue(_string);
             return a_;
@@ -233,7 +234,7 @@ public final class ParserType {
             i_++;
         }
         if (operators_.isEmpty()) {
-            if (isTypeLeaf(_string)) {
+            if (StringExpUtil.isTypeLeaf(_string)) {
                 a_.setKind(KindPartType.TYPE_NAME);
                 a_.setupValue(_string);
                 return a_;
@@ -247,12 +248,12 @@ public final class ParserType {
     public static AnalyzingType analyzeQuickLocal(int _offset, String _string, Ints _indexes) {
         AnalyzingType a_ = new AnalyzingType();
         a_.getIndexes().addAllElts(_indexes);
-        if (isVar(_string)) {
+        if (StringExpUtil.isVar(_string)) {
             a_.setKind(KindPartType.VARIABLE);
             a_.setupValue(_string);
             return a_;
         }
-        if (isTypeLeaf(_string)) {
+        if (StringExpUtil.isTypeLeaf(_string)) {
             a_.setKind(KindPartType.TYPE_NAME);
             a_.setupValue(_string);
             return a_;
@@ -333,12 +334,12 @@ public final class ParserType {
             a_.setError(true);
             return a_;
         }
-        if (isVar(_string)) {
+        if (StringExpUtil.isVar(_string)) {
             a_.setKind(KindPartType.VARIABLE);
             a_.setupValueExec(_string);
             return a_;
         }
-        if (isTypeLeaf(_string)) {
+        if (StringExpUtil.isTypeLeaf(_string)) {
             a_.setKind(KindPartType.TYPE_NAME);
             a_.setupValueExec(_string);
             return a_;
@@ -465,38 +466,5 @@ public final class ParserType {
         }
         return false;
     }
-    private static boolean isVar(String _string) {
-        String tr_ = _string.trim();
-        if (!tr_.startsWith(Templates.PREFIX_VAR_TYPE)) {
-            return false;
-        }
-        tr_ = tr_.substring(Templates.PREFIX_VAR_TYPE.length());
-        return isTypeLeaf(tr_);
-    }
-    private static boolean isTypeLeaf(String _string) {
-        if (_string.trim().isEmpty()) {
-            return false;
-        }
-        for (String p : StringList.splitChars(_string, Templates.SEP_CLASS_CHAR)) {
-            if (!isTypeLeafPart(p.trim())) {
-                return false;
-            }
-        }
-        return true;
-    }
-    private static boolean isTypeLeafPart(String _string) {
-        if (_string.trim().isEmpty()) {
-            return false;
-        }
-        for (char c: _string.toCharArray()) {
-            if (StringList.isDollarWordChar(c)) {
-                continue;
-            }
-            if (c == Templates.PREFIX_VAR_TYPE_CHAR) {
-                continue;
-            }
-            return false;
-        }
-        return true;
-    }
+
 }

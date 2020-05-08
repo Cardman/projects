@@ -1,8 +1,10 @@
 package code.expressionlanguage.types;
 
 import code.expressionlanguage.Analyzable;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.common.GeneType;
+import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.instr.PartOffset;
@@ -16,6 +18,91 @@ public final class PartTypeUtil {
 
     private PartTypeUtil() {}
 
+    public static boolean isCorrectType(String _input) {
+        Ints indexes_ = ParserType.getIndexes(_input, new StringList());
+        if (indexes_ == null) {
+            return false;
+        }
+        AnalyzingType loc_ = ParserType.analyzeLocal(0, _input, indexes_);
+        CustList<IntTreeMap< String>> dels_;
+        dels_ = new CustList<IntTreeMap< String>>();
+        PartType root_ = PartType.createPartType(null, 0, 0, loc_, loc_.getValues());
+        addValues(root_, dels_, loc_);
+        PartType current_ = root_;
+        while (true) {
+            PartType child_ = createFirstChild(current_, loc_, dels_);
+            if (child_ != null) {
+                ((ParentPartType)current_).appendChild(child_);
+                current_ = child_;
+                continue;
+            }
+            boolean stop_ = false;
+            while (true) {
+                if (current_ instanceof EmptyPartType) {
+                    return false;
+                }
+                if (current_ instanceof NamePartType) {
+                    String typeName_ = ((LeafPartType) current_).getTypeName();
+                    if (isKoForWord(typeName_)) {
+                        return false;
+                    }
+                }
+                if (current_ instanceof VariablePartType) {
+                    if (current_.getParent() instanceof InnerPartType) {
+                        return false;
+                    }
+                    if (current_.getParent() instanceof TemplatePartType && current_.getIndex() == 0) {
+                        return false;
+                    }
+                    String typeName_ = ((LeafPartType) current_).getTypeName();
+                    if (isKoForWord(typeName_)) {
+                        return false;
+                    }
+                }
+                if (current_ instanceof EmptyWildCardPart
+                        || current_ instanceof WildCardPartType) {
+                    if (!(current_.getParent() instanceof TemplatePartType)) {
+                        return false;
+                    }
+                }
+                PartType next_ = createNextSibling(current_, loc_, dels_);
+                ParentPartType par_ = current_.getParent();
+                if (next_ != null) {
+                    par_.appendChild(next_);
+                    current_ = next_;
+                    break;
+                }
+                if (par_ == root_) {
+                    stop_ = true;
+                    break;
+                }
+                if (par_ == null) {
+                    stop_ = true;
+                    break;
+                }
+                dels_.removeLast();
+                current_ = par_;
+            }
+            if (stop_) {
+                break;
+            }
+        }
+        if (root_ instanceof WildCardPartType) {
+            return root_.getParent() instanceof TemplatePartType;
+        }
+        return true;
+    }
+
+    static boolean isKoForWord(String _type) {
+        String typeName_ = _type.trim();
+        if (typeName_.startsWith("#")) {
+            typeName_ = typeName_.substring("#".length()).trim();
+        }
+        if (!StringExpUtil.isTypeLeafPart(typeName_)) {
+            return true;
+        }
+        return ContextEl.isDigit(typeName_.charAt(0));
+    }
     private static void addIfLeaf(PartType _p,CustList<LeafPartType> _l) {
         if (!(_p instanceof LeafPartType)) {
             return;
@@ -454,6 +541,28 @@ public final class PartTypeUtil {
         }
         return out_.toString();
     }
+    private static PartType createFirstChild(PartType _parent, AnalyzingType _analyze, CustList<IntTreeMap<String>> _dels) {
+        if (!(_parent instanceof ParentPartType)) {
+            return null;
+        }
+        ParentPartType par_ = (ParentPartType) _parent;
+        int indexPar_ = 0;
+        int off_ = 0;
+        PartType g_ = par_;
+        for (int i = _dels.size()-1; i >= 0; i--) {
+            IntTreeMap< String> befLast_;
+            befLast_ = _dels.get(i);
+            off_ += befLast_.getKey(indexPar_);
+            indexPar_ = g_.getIndex();
+            g_ = g_.getParent();
+        }
+        IntTreeMap< String> last_ = _dels.last();
+        String v_ = last_.firstValue();
+        AnalyzingType an_ = ParserType.analyzeLocal(off_, v_, _analyze.getIndexes());
+        PartType p_ = PartType.createPartType(par_, 0, off_, an_, last_);
+        addValues(p_, _dels, an_);
+        return p_;
+    }
     private static PartType createFirstChild(Analyzable _an, boolean _rootName,PartType _parent, AnalyzingType _analyze, CustList<IntTreeMap<String>> _dels) {
         if (!(_parent instanceof ParentPartType)) {
             return null;
@@ -517,6 +626,35 @@ public final class PartTypeUtil {
         String v_ = last_.firstValue();
         AnalyzingType an_ = ParserType.analyzeQuickLocal(off_, v_, _analyze.getIndexes());
         PartType p_ = PartType.createQuickPartType(par_, 0, off_, an_, last_);
+        addValues(p_, _dels, an_);
+        return p_;
+    }
+    private static PartType createNextSibling(PartType _parent, AnalyzingType _analyze, CustList<IntTreeMap<String>> _dels) {
+        ParentPartType par_ = _parent.getParent();
+        if (!(par_ instanceof BinaryType)) {
+            return null;
+        }
+        BinaryType b_ = (BinaryType) par_;
+        int indexCur_ = _parent.getIndex();
+        int indexNext_ = indexCur_ + 1;
+        IntTreeMap< String> last_ = _dels.last();
+        if (last_.size() <= indexNext_) {
+            return null;
+        }
+        int indexPar_ = indexNext_;
+        int off_ = 0;
+        PartType g_ = par_;
+        for (int i = _dels.size()-1; i >= 0; i--) {
+            IntTreeMap< String> befLast_;
+            befLast_ = _dels.get(i);
+            off_ += befLast_.getKey(indexPar_);
+            indexPar_ = g_.getIndex();
+            g_ = g_.getParent();
+        }
+        String v_ = last_.getValue(indexNext_);
+        AnalyzingType an_ = ParserType.analyzeLocal(off_, v_, _analyze.getIndexes());
+        PartType p_ = PartType.createPartType(b_,indexNext_, off_, an_, last_);
+        p_.setPreviousSibling(_parent);
         addValues(p_, _dels, an_);
         return p_;
     }

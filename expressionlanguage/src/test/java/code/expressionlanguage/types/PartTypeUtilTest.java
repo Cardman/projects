@@ -1136,4 +1136,226 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         assertEq("", solved_);
     }
 
+    @Test
+    public void isKoForWord1Test() {
+        assertTrue(!PartTypeUtil.isKoForWord("$int"));
+    }
+
+    @Test
+    public void isKoForWord2Test() {
+        assertTrue(PartTypeUtil.isKoForWord("$int+$int"));
+    }
+
+    @Test
+    public void isKoForWord3Test() {
+        assertTrue(PartTypeUtil.isKoForWord("1l"));
+    }
+
+    @Test
+    public void isKoForWord4Test() {
+        assertTrue(PartTypeUtil.isKoForWord(""));
+    }
+
+    @Test
+    public void isKoForWord5Test() {
+        assertTrue(!PartTypeUtil.isKoForWord("#int"));
+    }
+    @Test
+    public void isCorrectType1Test() {
+        assertTrue(PartTypeUtil.isCorrectType("$int"));
+    }
+
+    @Test
+    public void isCorrectType2Test() {
+        assertTrue(PartTypeUtil.isCorrectType("$int[]"));
+    }
+
+    @Test
+    public void isCorrectType3Test() {
+        assertTrue(PartTypeUtil.isCorrectType("pkg.Ex"));
+    }
+    @Test
+    public void isCorrectType4Test() {
+        assertTrue(PartTypeUtil.isCorrectType("pkg.Ex[]"));
+    }
+    @Test
+    public void isCorrectType5Test() {
+        assertTrue(!PartTypeUtil.isCorrectType("pkg()"));
+    }
+    @Test
+    public void isCorrectType6Test() {
+        assertTrue(!PartTypeUtil.isCorrectType("pkg.Ex()"));
+    }
+    @Test
+    public void isCorrectType7Test() {
+        assertTrue(!PartTypeUtil.isCorrectType("a<b"));
+    }
+    @Test
+    public void isCorrectType8Test() {
+        assertTrue(PartTypeUtil.isCorrectType("a<b>"));
+    }
+    @Test
+    public void isCorrectType9Test() {
+        assertTrue(PartTypeUtil.isCorrectType("a<b>[]"));
+    }
+    @Test
+    public void isCorrectType10Test() {
+        assertTrue(PartTypeUtil.isCorrectType("a<b>.c"));
+    }
+    @Test
+    public void isCorrectType11Test() {
+        assertTrue(!PartTypeUtil.isCorrectType("a<b>c"));
+    }
+    @Test
+    public void isCorrectType12Test() {
+        assertTrue(PartTypeUtil.isCorrectType("a<b,c>"));
+    }
+    @Test
+    public void isCorrectType13Test() {
+        assertTrue(PartTypeUtil.isCorrectType("a<b,c>[]"));
+    }
+    @Test
+    public void isCorrectType14Test() {
+        assertTrue(PartTypeUtil.isCorrectType("a<b,d>.c"));
+    }
+    @Test
+    public void isCorrectType15Test() {
+        assertTrue(!PartTypeUtil.isCorrectType("a<b,d>c"));
+    }
+    @Test
+    public void isCorrectType16Test() {
+        assertTrue(PartTypeUtil.isCorrectType("a<b,d[]>"));
+    }
+    @Test
+    public void isCorrectType17Test() {
+        assertTrue(PartTypeUtil.isCorrectType("a<b[],d>"));
+    }
+    @Test
+    public void isCorrectType18Test() {
+        assertTrue(PartTypeUtil.isCorrectType("a<b<e>,d>"));
+    }
+    @Test
+    public void isCorrectType19Test() {
+        assertTrue(PartTypeUtil.isCorrectType("a<b<e,f>,d>"));
+    }
+    @Test
+    public void isCorrectType20Test() {
+        assertTrue(!PartTypeUtil.isCorrectType("a>b"));
+    }
+    @Test
+    public void isCorrectType21Test() {
+        assertTrue(!PartTypeUtil.isCorrectType("a?b:c"));
+    }
+    @Test
+    public void isCorrectType22Test() {
+        assertTrue(!PartTypeUtil.isCorrectType("?b"));
+    }
+    @Test
+    public void isCorrectType24Test() {
+        assertTrue(!PartTypeUtil.isCorrectType("!b"));
+    }
+    @Test
+    public void isCorrectType25Test() {
+        assertTrue(!PartTypeUtil.isCorrectType("?"));
+    }
+    @Test
+    public void isCorrectType26Test() {
+        assertTrue(PartTypeUtil.isCorrectType("a<?b>"));
+    }
+    @Test
+    public void isCorrectType27Test() {
+        assertTrue(PartTypeUtil.isCorrectType("a<!b>"));
+    }
+    @Test
+    public void isCorrectType28Test() {
+        assertTrue(PartTypeUtil.isCorrectType("a<?b[]>"));
+    }
+    @Test
+    public void isCorrectType29Test() {
+        assertTrue(PartTypeUtil.isCorrectType("a<!b[]>"));
+    }
+    @Test
+    public void isCorrectType30Test() {
+        assertTrue(PartTypeUtil.isCorrectType("a<c,?b[]>"));
+    }
+    @Test
+    public void isCorrectType31Test() {
+        assertTrue(PartTypeUtil.isCorrectType("a<c,!b[]>"));
+    }
+    @Test
+    public void isCorrectType32Test() {
+        assertTrue(PartTypeUtil.isCorrectType("a<#c,?b[]>"));
+    }
+    @Test
+    public void isCorrectType33Test() {
+        assertTrue(PartTypeUtil.isCorrectType("a<#c,!b[]>"));
+    }
+    @Test
+    public void isCorrectType34Test() {
+        assertTrue(!PartTypeUtil.isCorrectType("a<b>.1"));
+    }
+    @Test
+    public void isCorrectType35Test() {
+        assertTrue(!PartTypeUtil.isCorrectType("#1"));
+    }
+    @Test
+    public void isCorrectType36Test() {
+        assertTrue(!PartTypeUtil.isCorrectType("a<>"));
+    }
+    @Test
+    public void isCorrectType37Test() {
+        assertTrue(!PartTypeUtil.isCorrectType("a<b*c>"));
+    }
+    @Test
+    public void isCorrectType38Test() {
+        assertTrue(!PartTypeUtil.isCorrectType("a<#b*c>"));
+    }
+    @Test
+    public void isCorrectType39Test() {
+        assertTrue(!PartTypeUtil.isCorrectType("?a"));
+    }
+    @Test
+    public void isCorrectType40Test() {
+        assertTrue(!PartTypeUtil.isCorrectType("a<!>"));
+    }
+    @Test
+    public void isCorrectType41Test() {
+        assertTrue(!PartTypeUtil.isCorrectType("a[b]"));
+    }
+    @Test
+    public void isCorrectType42Test() {
+        assertTrue(!PartTypeUtil.isCorrectType("a b"));
+    }
+    @Test
+    public void isCorrectType43Test() {
+        assertTrue(!PartTypeUtil.isCorrectType("c<a b>"));
+    }
+    @Test
+    public void isCorrectType44Test() {
+        assertTrue(PartTypeUtil.isCorrectType("c<a#>"));
+    }
+    @Test
+    public void isCorrectType45Test() {
+        assertTrue(PartTypeUtil.isCorrectType("c<#a#>"));
+    }
+    @Test
+    public void isCorrectType46Test() {
+        assertTrue(!PartTypeUtil.isCorrectType("a,b"));
+    }
+    @Test
+    public void isCorrectType47Test() {
+        assertTrue(!PartTypeUtil.isCorrectType("#a.b"));
+    }
+    @Test
+    public void isCorrectType48Test() {
+        assertTrue(!PartTypeUtil.isCorrectType("a.#b"));
+    }
+    @Test
+    public void isCorrectType49Test() {
+        assertTrue(!PartTypeUtil.isCorrectType("#a<b>"));
+    }
+    @Test
+    public void isCorrectType50Test() {
+        assertTrue(!PartTypeUtil.isCorrectType("a<b..c,>"));
+    }
 }
