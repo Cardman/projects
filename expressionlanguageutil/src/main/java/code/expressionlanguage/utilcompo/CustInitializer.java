@@ -37,13 +37,7 @@ public class CustInitializer extends DefaultInitializer {
         if (((RunnableContextEl)_owner).stopped()) {
             return true;
         }
-        try {
-            return super.exitAfterCall(_owner);
-        } catch (OutOfMemoryError _0) {
-            _owner.setException(_owner.getMemoryError());
-            _owner.getThrowing().removeBlockFinally(_owner);
-            return _owner.hasException();
-        }
+        return super.exitAfterCall(_owner);
     }
 
     String getCurrentTreadIdDate(RunnableContextEl _ctx) {

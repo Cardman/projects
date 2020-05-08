@@ -59,7 +59,7 @@
 			<c:if condition="!preventStatus.isEmpty()">
 				<c:message value="msg_effglobal,forbid_status"/>
 				<ul>
-					<c:for list="preventStatus" var="s">
+					<c:for list="preventStatus" var="s" className="java.lang.Object" >
 						<li><a c:command="$clickPreventedStatus({([s])})" href="">{getTrPreventedStatus(([s]))}</a></li>
 					</c:for>
 				</ul>
@@ -114,7 +114,7 @@
 			<c:if condition="!cancelProtectingAbilities.isEmpty()">
 				<c:message value="msg_effglobal,disable_immu_abilities"/>
 				<ul>
-					<c:for list="cancelProtectingAbilities" var="t">
+					<c:for list="cancelProtectingAbilities" var="t" className="java.lang.Object" >
 						<li><a c:command="$clickCancelledAbility({([t])})" href="">{getTrCancelledAbility(([t]))}</a></li>
 					</c:for>
 				</ul>
@@ -152,7 +152,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<c:for key="c" map="multPowerMoves" value="r" varClassName='r'>
+						<c:for key="c" map="multPowerMoves" value="r" keyClassName="java.lang.Object" varClassName='r'>
 							<tr>
 								<td><a c:command="$clickMultMovePower({([c])})" href="">{getTrMultMovePower(([c]))}</a></td>
 								<td>{r}</td>
@@ -216,7 +216,7 @@
 				<br/>
 				<c:message value="msg_effglobal,changing_type_invoking"/>
 				<ul>
-					<c:for list="invokingMovesChangingTypes" var="t">
+					<c:for list="invokingMovesChangingTypes" var="t" className="java.lang.Object" >
 						<li><a c:command="$clickInvokingMoveTypes({([t])})" href="">{getTrInvokingMoveTypes(([t]))}</a></li>
 					</c:for>
 				</ul>
@@ -239,7 +239,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<c:for key="c" map="multStatIfContainsType" value="r" varClassName='r'>
+						<c:for key="c" map="multStatIfContainsType" value="r" keyClassName="java.lang.Object" varClassName='r'>
 							<tr>
 								<td>{getTrMultStatIfDamgeTypeFirst(([c]))}</td>
 								<td>{getTrMultStatIfDamgeTypeSecond(([c]))}</td>

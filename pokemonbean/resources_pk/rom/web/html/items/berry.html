@@ -72,7 +72,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<c:for key="s" map="multFoesDamage" value="b" varClassName="aiki.fight.util.EfficiencyRate">
+						<c:for key="s" map="multFoesDamage" value="b" keyClassName="java.lang.Object" varClassName="aiki.fight.util.EfficiencyRate">
 							<tr>
 								<td>{getTrMultFoesDamage(([s]))}</td>
 								<td>{b.getEff()}</td>
@@ -95,7 +95,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<c:for key="s" map="multStat" value="b" varClassName="aiki.fight.util.BoostHpRate">
+						<c:for key="s" map="multStat" value="b" keyClassName="java.lang.Object" varClassName="aiki.fight.util.BoostHpRate">
 							<tr>
 								<td>{getTrMultStat(([s]))}</td>
 								<td>{b.getHpRate()}</td>
@@ -127,7 +127,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<c:for key="s" map="damageRateRecoilFoe" value="b" varClassName="r">
+						<c:for key="s" map="damageRateRecoilFoe" value="b" keyClassName="java.lang.Object" varClassName="r">
 							<tr>
 								<td>{getTrCategRecoil(([s]))}</td>
 								<td>{b}</td>
@@ -150,7 +150,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<c:for key="s" map="boostStatis" value="b" varClassName="java.lang.Byte">
+						<c:for key="s" map="boostStatis" value="b" keyClassName="java.lang.Object" varClassName="java.lang.Byte">
 							<tr>
 								<td>{getTrBoostStat(([s]))}</td>
 								<td>{b}</td>

@@ -40,7 +40,7 @@
 		<a c:command="web/html/index.html" href=""><c:message value="msg_levelmap,index"/></a><br/>
 		<a c:command="web/html/map/map.html" href=""><c:message value="msg_levelmap,map"/></a><br/>
 		<map width="{getMapWidth()}">
-			<c:for key="p" map="tiles" value="b" varClassName='java.lang.String'>
+			<c:for key="p" map="tiles" value="b" keyClassName="java.lang.Object" varClassName='java.lang.String'>
 				<c:if condition="withoutTitle(([p]))">
 					<c:if condition="!isAccessibleByBeatingSomeTrainers(([p]))">
 						<a c:command="$clickTileOnMap({([p])})"><c:img border="0" src="{b}"/></a>
@@ -78,7 +78,7 @@
 		</c:if>
 		<c:if condition="!dirs.isEmpty()">
 			<ul>
-				<c:for key="d" keyClassName="aiki.map.enums.Direction" map="dirs" value="e">
+				<c:for key="d" keyClassName="aiki.map.enums.Direction" varClassName="java.lang.Object"  map="dirs" value="e">
 					<c:if condition="isUp(([d]))">
 						<li><a c:command="$clickDirectedLink({([d])})"><c:message value="msg_levelmap,UP"/></a></li>
 					</c:if>

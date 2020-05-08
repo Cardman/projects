@@ -12,7 +12,7 @@
 		<c:if condition="!evolutions.isEmpty()">
 			<c:message value="msg_pokemon,evolutions"/>
 			<ul>
-				<c:for key="p" map="evolutions" value="e" varClassName='java.lang.String'>
+				<c:for key="p" map="evolutions" value="e" keyClassName="java.lang.Object" varClassName='java.lang.String'>
 					<li>
 						{getEvo(([p]))}
 						<c:img src="{e}"/>

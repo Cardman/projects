@@ -57,7 +57,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<c:for key="m" map="enabledMovesByGroup" value="a" varClassName="aiki.game.fight.ActivityOfMove">
+				<c:for key="m" map="enabledMovesByGroup" value="a" keyClassName="java.lang.Object" varClassName="aiki.game.fight.ActivityOfMove">
 					<tr>
 						<td>{getKey(([m]))}</td>
 						<c:if condition="a.isEnabled()">
@@ -190,7 +190,7 @@
 		<c:if condition="!playerFightersAgainstFoe.isEmpty()">
 			<c:message value="msg_team,player_foe"/>
 			<ul>
-				<c:for key="p" map="playerFightersAgainstFoe" value="f" varClassName="ls">
+				<c:for key="p" map="playerFightersAgainstFoe" value="f" keyClassName="java.lang.Object" varClassName="ls">
 					<li>
 						{getPlayerFigtherAgainstFoe(([p]))}:<br/>
 						<c:if condition="!f.isEmpty()">

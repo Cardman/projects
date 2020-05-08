@@ -9,13 +9,10 @@ import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.LgNames;
-import code.expressionlanguage.structs.ClassMetaInfo;
-import code.expressionlanguage.types.ReadyTypes;
 import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.LoopVariable;
 import code.util.CustList;
 import code.util.Ints;
-import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
 

@@ -692,7 +692,7 @@
 			<li><c:message value="msg_helpround,round_process_move_final_20"/></li>
 			<li>
 				<c:message value="msg_helpround,round_process_move_final_20_0"/>
-				<c:for key="d" map="lawsRates" value="l" varClassName="lse">
+				<c:for key="d" map="lawsRates" value="l" keyClassName="java.lang.Object" varClassName="lse">
 					<ul>
 						<li>
 							{getTrLawRate(([d]))}<br/>
@@ -963,7 +963,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<c:for key="d" map="rates" value="f" varClassName='java.lang.String'>
+				<c:for key="d" map="rates" value="f" keyClassName="java.lang.Object" varClassName='java.lang.String'>
 					<tr>
 						<td>{getTrDifficulty(([d]))}</td>
 						<td>{f}</td>

@@ -42,7 +42,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<c:for key="s" map="statistics" value="b" varClassName='java.lang.Byte'>
+						<c:for key="s" map="statistics" value="b" keyClassName="java.lang.Object" varClassName='java.lang.Byte'>
 							<tr>
 								<td>{getTranslatedStatistic(([s]))}</td>
 								<td>{b}</td>
@@ -66,7 +66,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<c:for key="s" map="statusByNbUses" value="b" keyClassName='java.lang.Short'>
+						<c:for key="s" map="statusByNbUses" value="b" keyClassName='java.lang.Short' varClassName="java.lang.Object" >
 							<tr>
 								<td>{s}</td>
 								<td><a c:command="$clickStatus({index},{([s])})" href="">{getTranslatedStatus(([s]))}</a></td>

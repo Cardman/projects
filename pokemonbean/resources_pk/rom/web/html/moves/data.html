@@ -33,7 +33,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:for key="i" map="typesByOwnedItems" value="t" varClassName='java.lang.String'>
+					<c:for key="i" map="typesByOwnedItems" value="t" keyClassName="java.lang.Object" varClassName='java.lang.String'>
 						<tr>
 							<c:if condition="isItem(([i]))">
 								<td><a c:command="$clickTypesByOwnedItems({([i])})">{getTrTypesByOwnedItems(([i]))}</a></td>
@@ -57,7 +57,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:for key="i" map="typesByWeathers" value="t" varClassName='java.lang.String'>
+					<c:for key="i" map="typesByWeathers" value="t" keyClassName="java.lang.Object" varClassName='java.lang.String'>
 						<tr>
 							<c:if condition="isWeather(([i]))">
 								<td><a c:command="$clickTypesByWeathers({([i])})">{getTrTypesByWeathers(([i]))}</a></td>
@@ -81,7 +81,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:for key="i" map="typesByOwnedItems" value="t" varClassName='java.lang.String'>
+					<c:for key="i" map="typesByOwnedItems" value="t" keyClassName="java.lang.Object" varClassName='java.lang.String'>
 						<tr>
 							<c:if condition="isItem(([i]))">
 								<td><a c:command="$clickTypesByOwnedItems({([i])})">{getTrTypesByOwnedItems(([i]))}</a></td>
@@ -105,7 +105,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:for key="i" map="typesByWeathers" value="t" varClassName='java.lang.String'>
+					<c:for key="i" map="typesByWeathers" value="t" keyClassName="java.lang.Object" varClassName='java.lang.String'>
 						<tr>
 							<c:if condition="isWeather(([i]))">
 								<td><a c:command="$clickTypesByWeathers({([i])})">{getTrTypesByWeathers(([i]))}</a></td>
@@ -381,7 +381,7 @@
 				</c:if>
 			</c:for>
 			<h2><c:message value="msg_movedata,effects_sec_dpt"/></h2>
-			<c:for key="e" map="secEffectsByItem" value="l" varClassName="ls">
+			<c:for key="e" map="secEffectsByItem" value="l" keyClassName="java.lang.Object" varClassName="ls">
 				<h3>{([e])} <a c:command="$clickItemSecEffect({([e])})" href="">{translateItemSecEffect(([e]))}</a></h3>
 				    <c:if condition="secEffectIfNoDamage">
 						<c:message value="msg_movedata,effect_while_no_damage"/>

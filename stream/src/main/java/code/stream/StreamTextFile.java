@@ -115,38 +115,14 @@ public final class StreamTextFile {
     }
 
     private static String readFile(String _filePath, String _encoding) {
-        InputStream inputStream_ = null;
-        InputStreamReader reader_ = null;
-        BufferedReader br_ = null;
         try {
             File file_ = new File(_filePath);
-            inputStream_ = new FileInputStream(file_);
-            reader_ = new InputStreamReader(inputStream_, _encoding);
-            br_ = new BufferedReader(reader_);
-            return readingFile(br_, file_.length());
+            return readingFile(new BufferedReader(new InputStreamReader(new FileInputStream(file_), _encoding)), file_.length());
         } catch (IOException _0) {
             return null;
-        } finally {
-            close(inputStream_, reader_, br_);
         }
     }
 
-    private static void close(InputStream _inputStream,
-            InputStreamReader _reader, BufferedReader _br) {
-        try {
-            if (_br != null) {
-                _br.close();
-            }
-            if (_reader != null) {
-                _reader.close();
-            }
-            if (_inputStream != null) {
-                _inputStream.close();
-            }
-        } catch (IOException _0) {
-            //
-        }
-    }
     public static Element contenuDocumentXmlExterne(String _nomFichier) {
         Document doc_ = documentXmlExterne(_nomFichier);
         if (doc_ == null) {

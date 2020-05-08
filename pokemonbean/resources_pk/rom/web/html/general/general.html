@@ -43,7 +43,7 @@
 		<c:message value="msg_generalhelp,goal_2"/>
 		<br/>
 		<map style="font-size: 0" width="{getMapWidth()}">
-			<c:for key="p" map="miniMap" value="i">
+			<c:for key="p" map="miniMap" value="i" keyClassName="java.lang.Object" varClassName="java.lang.Object">
 				<a title="{getPlaceName(([p]))}"><c:img src="{getMiniMapImage(([p]))}"/></a>
 			</c:for>
 		</map>

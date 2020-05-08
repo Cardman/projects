@@ -30,7 +30,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<c:for key="c" map="lawStatus" value="r" varClassName='r'>
+						<c:for key="c" map="lawStatus" value="r" keyClassName="java.lang.Object" varClassName='r'>
 							<tr>
 								<c:if condition="isStatus(([c]))">
 									<td><a c:command="$clickLink({index},{([c])})" href="">{getTrLink(([c]))}</a></td>

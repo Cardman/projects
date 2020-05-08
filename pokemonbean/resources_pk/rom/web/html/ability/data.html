@@ -78,7 +78,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:for key="s" map="chgtTypeByWeather" value="r">
+					<c:for key="s" map="chgtTypeByWeather" value="r" keyClassName="java.lang.Object" varClassName="java.lang.Object">
 						<tr>
 							<c:if condition="isChgtTypeByWeather(([s]))">
 								<td><a c:command="$clickChgtTypeByWeatherKey({([s])})" href="">{getTrChgtTypeByWeatherKey(([s]))}</a></td>
@@ -344,7 +344,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<c:for key="s" map="changingBoostTypes" value="r" varClassName="aiki.fight.util.TypeDamageBoost">
+						<c:for key="s" map="changingBoostTypes" value="r" keyClassName="java.lang.Object" varClassName="aiki.fight.util.TypeDamageBoost">
 							<tr>
 								<td>{getTrChangingBoostTypesOld(([s]))}</td>
 								<td>{getTrChangingBoostTypesNew(([s]))}</td>
@@ -377,7 +377,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:for key="s" map="healHpByWeather" value="r" varClassName="r">
+					<c:for key="s" map="healHpByWeather" value="r" keyClassName="java.lang.Object" varClassName="r">
 						<tr>
 							<c:if condition="isHealHpByWeather(([s]))">
 								<td><a c:command="$clickHealHpByWeatherKey({([s])})" href="">{getTrHealHpByWeatherKey(([s]))}</a></td>
@@ -409,7 +409,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:for key="s" map="healHpByTypeIfWeather" value="r" varClassName="r">
+					<c:for key="s" map="healHpByTypeIfWeather" value="r" keyClassName="java.lang.Object" varClassName="r">
 						<tr>
 							<c:if condition="isHealHpByTypeIfWeather(([s]))">
 								<td><a c:command="$clickHealHpByTypeIfWeatherKey({([s])})" href="">{getTrHealHpByTypeIfWeatherKey(([s]))}</a></td>
@@ -472,7 +472,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:for key="s" map="immuLowStatisTypes" value="r" varClassName="ls">
+					<c:for key="s" map="immuLowStatisTypes" value="r" keyClassName="java.lang.Object" varClassName="ls">
 						<c:for list="r" var="t">
 							<tr>
 								<td>{getTrImmuLowStatisTypes(([s]))}</td>
@@ -505,7 +505,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:for key="s" map="singleStatus" value="r" varClassName="r">
+					<c:for key="s" map="singleStatus" value="r" keyClassName="java.lang.Object" varClassName="r">
 						<tr>
 							<c:if condition="isStatus(([s]))">
 								<td><a c:command="$clickSingleStatus({([s])})" href="">{getTrSingleStatus(([s]))}</a></td>
@@ -531,7 +531,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:for key="s" map="immuMoveTypesByWeather" value="r" varClassName="ls">
+					<c:for key="s" map="immuMoveTypesByWeather" value="r" keyClassName="java.lang.Object" varClassName="ls">
 						<c:for list="r" var="t">
 							<tr>
 								<c:if condition="isMoveByWeather(([s]))">
@@ -559,7 +559,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:for key="s" map="immuStatus" value="r" varClassName="ls">
+					<c:for key="s" map="immuStatus" value="r" keyClassName="java.lang.Object" varClassName="ls">
 						<c:for list="r" var="t">
 							<tr>
 								<c:if condition="isMoveByStatus(([s]))">
@@ -587,7 +587,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:for key="s" map="immuStatusTypes" value="r" varClassName="ls">
+					<c:for key="s" map="immuStatusTypes" value="r" keyClassName="java.lang.Object" varClassName="ls">
 						<c:for list="r" var="t">
 							<tr>
 								<td>{getTrImmuStatusTypes(([s]))}</td>
@@ -610,7 +610,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:for key="s" map="divideStatusRound" value="r" varClassName="r">
+					<c:for key="s" map="divideStatusRound" value="r" keyClassName="java.lang.Object" varClassName="r">
 						<tr>
 							<td><a c:command="$clickDivideStatusRoundKey({([s])})" href="">{getTrDivideStatusRoundKey(([s]))}</a></td>
 							<td>{r}</td>
@@ -631,7 +631,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:for key="s" map="forwardStatus" value="r">
+					<c:for key="s" map="forwardStatus" value="r" keyClassName="java.lang.Object" varClassName="java.lang.Object">
 						<tr>
 							<td><a c:command="$clickForwardStatusKey({([s])})" href="">{getTrForwardStatusKey(([s]))}</a></td>
 							<td><a c:command="$clickForwardStatusValue({([s])})" href="">{getTrForwardStatusValue(([s]))}</a></td>
@@ -674,7 +674,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:for key="s" map="multStat" value="r" varClassName="java.lang.String">
+					<c:for key="s" map="multStat" value="r" keyClassName="java.lang.Object" varClassName="java.lang.String">
 						<tr>
 							<td>{getTrMultStat(([s]))}</td>
 							<td>{r}</td>
@@ -696,7 +696,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:for key="s" map="multStatIfDamageCat" value="r" varClassName="java.lang.Byte">
+					<c:for key="s" map="multStatIfDamageCat" value="r" keyClassName="java.lang.Object" varClassName="java.lang.Byte">
 						<tr>
 							<td>{getTrMultStatIfDamageCatKey(([s]))}</td>
 							<td>{getTrMultStatIfDamageCatKeySec(([s]))}</td>
@@ -719,7 +719,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:for key="s" map="multStatIfDamgeType" value="r" varClassName="java.lang.Byte">
+					<c:for key="s" map="multStatIfDamgeType" value="r" keyClassName="java.lang.Object" varClassName="java.lang.Byte">
 						<tr>
 							<td>{getTrMultStatIfDamgeType(([s]))}</td>
 							<td>{getTrMultStatIfDamgeTypeSec(([s]))}</td>
@@ -742,7 +742,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:for key="s" map="multStatIfCat" value="r" varClassName="r">
+					<c:for key="s" map="multStatIfCat" value="r" keyClassName="java.lang.Object" varClassName="r">
 						<tr>
 							<td>{getTrMultStatIfCatKey(([s]))}</td>
 							<td>{getTrMultStatIfCatKeySec(([s]))}</td>
@@ -765,7 +765,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:for key="s" map="multStatIfStatutRank" value="r" varClassName="java.lang.Byte">
+					<c:for key="s" map="multStatIfStatutRank" value="r" keyClassName="java.lang.Object" varClassName="java.lang.Byte">
 						<tr>
 							<td>{getTrMultStatIfStatutRank(([s]))}</td>
 							<td><a c:command="$clickMultStatIfStatutRankSec({([s])})" href="">{getTrMultStatIfStatutRankSec(([s]))}</a></td>
@@ -787,7 +787,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:for key="s" map="bonusStatRank" value="r" varClassName="java.lang.Byte">
+					<c:for key="s" map="bonusStatRank" value="r" keyClassName="java.lang.Object" varClassName="java.lang.Byte">
 						<tr>
 							<td>{getTrBonusStatRank(([s]))}</td>
 							<td>{r}</td>
@@ -808,7 +808,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:for key="s" map="boostStatRankEndRound" value="r" varClassName="java.lang.Byte">
+					<c:for key="s" map="boostStatRankEndRound" value="r" keyClassName="java.lang.Object" varClassName="java.lang.Byte">
 						<tr>
 							<td>{getTrBoostStatRankEndRound(([s]))}</td>
 							<td>{r}</td>
@@ -829,7 +829,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:for key="s" map="boostStatRankProtected" value="r" varClassName="java.lang.Byte">
+					<c:for key="s" map="boostStatRankProtected" value="r" keyClassName="java.lang.Object" varClassName="java.lang.Byte">
 						<tr>
 							<td>{getTrBoostStatRankProtected(([s]))}</td>
 							<td>{r}</td>
@@ -850,7 +850,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:for key="s" map="lowStatFoeHit" value="r" varClassName="java.lang.Byte">
+					<c:for key="s" map="lowStatFoeHit" value="r" keyClassName="java.lang.Object" varClassName="java.lang.Byte">
 						<tr>
 							<td>{getTrLowStatFoeHit(([s]))}</td>
 							<td>{r}</td>
@@ -871,7 +871,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:for key="s" map="multStatIfKoFoe" value="r" varClassName="java.lang.Byte">
+					<c:for key="s" map="multStatIfKoFoe" value="r" keyClassName="java.lang.Object" varClassName="java.lang.Byte">
 						<tr>
 							<td>{getTrMultStatIfKoFoe(([s]))}</td>
 							<td>{r}</td>
@@ -892,7 +892,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:for key="s" map="multStatIfLowStat" value="r" varClassName="java.lang.Byte">
+					<c:for key="s" map="multStatIfLowStat" value="r" keyClassName="java.lang.Object" varClassName="java.lang.Byte">
 						<tr>
 							<td>{getTrMultStatIfLowStat(([s]))}</td>
 							<td>{r}</td>
@@ -912,7 +912,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:for key="s" map="multStatAlly" value="r" varClassName="r">
+					<c:for key="s" map="multStatAlly" value="r" keyClassName="java.lang.Object" varClassName="r">
 						<tr>
 							<td>{getTrMultStatAlly(([s]))}</td>
 							<td>{r}</td>
@@ -933,7 +933,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:for key="s" map="increasedPrio" value="r" varClassName="java.lang.Short">
+					<c:for key="s" map="increasedPrio" value="r" keyClassName="java.lang.Object" varClassName="java.lang.Short">
 						<tr>
 							<td>{getTrIncreasedPrio(([s]))}</td>
 							<td>{r}</td>
@@ -954,7 +954,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:for key="s" map="increasedPrioTypes" value="r" varClassName="java.lang.Short">
+					<c:for key="s" map="increasedPrioTypes" value="r" keyClassName="java.lang.Object" varClassName="java.lang.Short">
 						<tr>
 							<td>{getTrIncreasedPrioTypes(([s]))}</td>
 							<td>{r}</td>
@@ -975,7 +975,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:for key="s" map="multDamageFoe" value="r" varClassName="r">
+					<c:for key="s" map="multDamageFoe" value="r" keyClassName="java.lang.Object" varClassName="r">
 						<tr>
 							<td>{getTrMultDamageFoe(([s]))}</td>
 							<td>{r}</td>
@@ -996,7 +996,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:for key="s" map="multPowerMovesTypesGlobal" value="r" varClassName="r">
+					<c:for key="s" map="multPowerMovesTypesGlobal" value="r" keyClassName="java.lang.Object" varClassName="r">
 						<tr>
 							<td>{getTrMultPowerMovesTypesGlobalKey(([s]))}</td>
 							<td>{r}</td>
@@ -1016,7 +1016,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:for key="s" map="failStatus" value="r" varClassName="java.lang.String">
+					<c:for key="s" map="failStatus" value="r" keyClassName="java.lang.Object" varClassName="java.lang.String">
 						<tr>
 							<td><a c:command="$clickFailStatus({([s])})" href="">{getTrFailStatus(([s]))}</a></td>
 							<td>{r}</td>

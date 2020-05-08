@@ -105,27 +105,6 @@ public class RunnableContextEl extends ContextEl implements Locking {
         return super.callsOrException();
     }
 
-    protected EndCallValue removeCall() {
-        try {
-            return super.removeCall();
-        } catch (OutOfMemoryError _0) {
-            setException(getMemoryError());
-            getThrowing().removeBlockFinally(this);
-            if (hasException()) {
-                return EndCallValue.EXIT;
-            }
-            return EndCallValue.NEXT;
-        }
-    }
-    protected void processTags() {
-        try {
-            super.processTags();
-        } catch (OutOfMemoryError _0) {
-            setException(getMemoryError());
-            getThrowing().removeBlockFinally(this);
-        }
-    }
-
     boolean stopped() {
         return interrupt.get() || isCurrentThreadEnded();
     }

@@ -50,7 +50,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<c:for key="c" map="moveFctEnv" value="r">
+						<c:for key="c" map="moveFctEnv" value="r" keyClassName="java.lang.Object" varClassName="java.lang.Object" >
 							<tr>
 								<td>{getTrEnv(([c]))}</td>
 								<td><a c:command="$clickMoveFctEnv({([c])})" href="">{getTrMoveFctEnv(([c]))}</a></td>
@@ -83,7 +83,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<c:for key="c" map="invokingMoveByUserTypes" value="r">
+						<c:for key="c" map="invokingMoveByUserTypes" value="r" keyClassName="java.lang.Object" varClassName="java.lang.Object">
 							<tr>
 								<c:if condition="!isType(([c]))">
 									<td><c:message value="msg_effinvoke,other_owned_type"/></td>

@@ -47,12 +47,11 @@ public final class BasicClient extends SendReceive {
                 }
                 ThreadInvoker.invokeNow(new LoopClient(window, readObject_, getSocket()));
             }
-        } catch (IOException e){
-            //
-        } finally {
             if (!noLine_) {
                 CustComponent.invokeLater(new Quitting(ex_, window, getSocket()));
             }
+        } catch (IOException e){
+            CustComponent.invokeLater(new Quitting(null, window, getSocket()));
         }
     }
 }

@@ -36,9 +36,8 @@ public abstract class BasicServer extends SendReceive implements Locking {
                 }
                 loopServer(input_, readObject_);
             }
+            close(getSocket());
         } catch (IOException _0) {
-            //
-        } finally {
             close(getSocket());
         }
     }

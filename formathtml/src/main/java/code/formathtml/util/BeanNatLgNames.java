@@ -33,15 +33,6 @@ public abstract class BeanNatLgNames extends BeanLgNames {
     private StringMapObject storedForms;
     private StringMap<String> iterables = new StringMap<String>();
 
-    @Override
-    public String checkCorrectType(Analyzable _an, int _loc, String _in, boolean _exact) {
-        String res_ = ResolvingImportTypes.resolveCorrectTypeWithoutErrors(_an,_loc,_in, _exact);
-        if (!res_.isEmpty()) {
-            return res_;
-        }
-        return getAliasObject();
-    }
-
     private static Object[] adaptedArgs(StringList _params, Struct... _args) {
         int len_ = _params.size();
         Object[] args_ = new Object[len_];

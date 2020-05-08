@@ -43,7 +43,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<c:for key="s" map="multDamageStatus" value="r" varClassName="r">
+						<c:for key="s" map="multDamageStatus" value="r" keyClassName="java.lang.Object" varClassName="r">
 							<tr>
 								<td><a c:command="$clickDamageStatus({index},{([s])})" href="">{getTrDamageStatus(([s]))}</a></td>
 								<td>{r}</td>
@@ -63,7 +63,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<c:for key="s" map="healHpByOwnerTypes" value="r" varClassName="r">
+						<c:for key="s" map="healHpByOwnerTypes" value="r" keyClassName="java.lang.Object" varClassName="r">
 							<tr>
 								<c:if condition="isType(([s]))">
 									<td>{getTrType(([s]))}</td>

@@ -4,12 +4,10 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
 
 public final class ResourceFiles {
     public static final String SEPARATEUR = "/";
     private static final String EMPTY_STRING = "";
-    private static final char INVALID_CHARACTER = 65533;
 
     private ResourceFiles() {
     }
@@ -19,34 +17,19 @@ public final class ResourceFiles {
     }
 
     private static String resourceTextFile(String _filePath) {
-        String lignes_ = readFile(_filePath, StandardCharsets.UTF_8.getName());
+        String lignes_ = readFile(_filePath);
         if (lignes_ == null) {
             return EMPTY_STRING;
-        }
-        int ind_ = lignes_.indexOf(INVALID_CHARACTER);
-        if (ind_ >= 0) {
-            lignes_ = readFile(_filePath, StandardCharsets.ISO_8859_1.getName());
         }
         return lignes_;
     }
 
-    private static String readFile(String _file, String _encoding) {
-        InputStream inputStream_ = null;
-        InputStreamReader reader_ = null;
-        BufferedReader br_ = null;
-        try {
-            inputStream_ = ClassLoader.getSystemResourceAsStream(_file);
-            if (inputStream_ == null) {
-                return null;
-            }
-            reader_ = new InputStreamReader(inputStream_, _encoding);
-            br_ = new BufferedReader(reader_);
-            return readingFile(br_);
-        } catch (UnsupportedEncodingException _0) {
+    private static String readFile(String _file) {
+        InputStream inputStream_ = ClassLoader.getSystemResourceAsStream(_file);
+        if (inputStream_ == null) {
             return null;
-        } finally {
-            close(inputStream_, reader_, br_);
         }
+        return readingFile(new BufferedReader(new InputStreamReader(inputStream_)));
     }
 
     private static String readingFile(BufferedReader _br) {
@@ -68,20 +51,4 @@ public final class ResourceFiles {
         }
     }
 
-    private static void close(InputStream _inputStream,
-            InputStreamReader _reader, BufferedReader _br) {
-        try {
-            if (_br != null) {
-                _br.close();
-            }
-            if (_reader != null) {
-                _reader.close();
-            }
-            if (_inputStream != null) {
-                _inputStream.close();
-            }
-        } catch (IOException _0) {
-            //
-        }
-    }
 }
