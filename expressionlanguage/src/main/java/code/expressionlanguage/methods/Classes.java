@@ -409,11 +409,11 @@ public final class Classes {
             }
         }
         CustList<String> all_ = cl_.classesBodies.getKeys();
-        _context.setInitEnums(InitPhase.READ_ONLY_OTHERS);
+        _context.getInitializingTypeInfos().setInitEnums(InitPhase.READ_ONLY_OTHERS);
         while (true) {
             StringList new_ = new StringList();
             for (String c: all_) {
-                _context.resetInitEnums();
+                _context.getInitializingTypeInfos().resetInitEnums(_context);
                 StringMap<StringMap<Struct>> bk_ = buildFieldValues(cl_.staticFields);
                 ProcessMethod.initializeClassPre(c, _context);
                 if (_context.isFailInit()) {
@@ -427,18 +427,18 @@ public final class Classes {
                 break;
             }
         }
-        _context.resetInitEnums();
-        _context.setInitEnums(InitPhase.LIST);
+        _context.getInitializingTypeInfos().resetInitEnums(_context);
+        _context.getInitializingTypeInfos().setInitEnums(InitPhase.LIST);
         dl_.initAlwaysSuccess();
         for (String t: _context.getOptions().getTypesInit()) {
             String res_ = ResolvingImportTypes.resolveCandidate(_context,StringExpUtil.removeDottedSpaces(t));
             if (_context.getClasses().getClassBody(res_) == null) {
                 continue;
             }
-            _context.resetInitEnums();
+            _context.getInitializingTypeInfos().resetInitEnums(_context);
             ProcessMethod.initializeClass(res_,_context);
         }
-        _context.resetInitEnums();
+        _context.getInitializingTypeInfos().resetInitEnums(_context);
         StringList notInit_ = dl_.initAlwaysSuccess();
         if (_context.getOptions().isFailIfNotAllInit()) {
             for (String s: notInit_) {
@@ -452,7 +452,7 @@ public final class Classes {
                 _context.addError(n_);
             }
         }
-        _context.setInitEnums(InitPhase.NOTHING);
+        _context.getInitializingTypeInfos().setInitEnums(InitPhase.NOTHING);
     }
     private static StringMap<StringMap<Struct>> buildFieldValues(StringMap<StringMap<Struct>> _infos) {
         StringMap<StringMap<Struct>> bkSt_ = new StringMap<StringMap<Struct>>();

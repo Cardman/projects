@@ -3,6 +3,7 @@ package code.expressionlanguage.structs;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ExecutableCode;
+import code.expressionlanguage.ExecutingUtil;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
@@ -183,7 +184,7 @@ public final class ClassMetaInfo implements AnnotatedStruct {
                 continue;
             }
             for (String u: b.getConstraints()) {
-                list_.add(_cont.getExtendedClassMetaInfo(u, variableOwner));
+                list_.add(ExecutingUtil.getExtendedClassMetaInfo(_cont,u, variableOwner));
             }
         }
         return list_;

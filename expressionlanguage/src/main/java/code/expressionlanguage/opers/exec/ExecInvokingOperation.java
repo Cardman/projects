@@ -237,7 +237,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                 Argument a_ = new Argument();
                 ArrayStruct arr_ = (ArrayStruct) prev_;
                 ArrayStruct copy_ = arr_.swallowCopy();
-                _conf.getContextEl().addSensibleElementsFromClonedArray(arr_, copy_);
+                _conf.getContextEl().getInitializingTypeInfos().addSensibleElementsFromClonedArray(arr_, copy_);
                 a_.setStruct(copy_);
                 return a_;
             }
@@ -299,7 +299,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                 String clDyn_ = ((StringStruct) struct_).getInstance();
                 if (StringList.quickEq(clDyn_.trim(), _conf.getStandards().getAliasVoid())) {
                     Argument a_ = new Argument();
-                    a_.setStruct(_conf.getExtendedClassMetaInfo(clDyn_));
+                    a_.setStruct(ExecutingUtil.getClassMetaInfo(_conf.getContextEl(),clDyn_));
                     return a_;
                 }
                 boolean gene_ = clDyn_.contains(Templates.TEMPLATE_BEGIN);
@@ -314,7 +314,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                     }
                 }
                 Argument a_ = new Argument();
-                a_.setStruct(_conf.getExtendedClassMetaInfo(res_));
+                a_.setStruct(ExecutingUtil.getClassMetaInfo(_conf.getContextEl(),res_));
                 return a_;
             }
             if (StringList.quickEq(aliasDefaultInstance_, _methodId.getName())) {
@@ -786,7 +786,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
     }
     public static Struct getElement(Struct _struct, Struct _index, ExecutableCode _conf) {
         Struct elt_ = Templates.gearErrorWhenIndex(_struct, _index, _conf);
-        _conf.getContextEl().addSensibleField(_struct, elt_);
+        _conf.getContextEl().getInitializingTypeInfos().addSensibleField(_struct, elt_);
         return elt_;
     }
     public static void setElement(Struct _struct, Struct _index, Struct _value, ExecutableCode _conf) {
@@ -807,7 +807,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             InnerTypeOrElement b_ = (InnerTypeOrElement)b;
             String fieldName_ = b_.getUniqueFieldName();
             Struct str_ = classes_.getStaticField(new ClassField(id_, fieldName_),b_.getImportedClassName(),c_);
-            _conf.getContextEl().addSensibleField(id_, str_);
+            _conf.getContextEl().getInitializingTypeInfos().addSensibleField(_conf.getContextEl(),id_, str_);
             enums_.add(str_);
         }
         Struct[] o_ = new Struct[enums_.size()];
@@ -842,7 +842,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             if (StringList.quickEq(fieldName_, ((StringStruct) name_).getInstance())) {
                 Argument argres_ = new Argument();
                 Struct str_ = classes_.getStaticField(new ClassField(enumName_, fieldName_),b_.getImportedClassName(),c_);
-                _conf.getContextEl().addSensibleField(enumName_, str_);
+                _conf.getContextEl().getInitializingTypeInfos().addSensibleField(_conf.getContextEl(),enumName_, str_);
                 argres_.setStruct(str_);
                 return argres_;
             }
@@ -894,7 +894,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             return _previous;
         }
         Struct struct_ = entry_.getValue();
-        _conf.getContextEl().addSensibleField(previous_, struct_);
+        _conf.getContextEl().getInitializingTypeInfos().addSensibleField(previous_, struct_);
         a_ = new Argument();
         a_.setStruct(struct_);
         return a_;
@@ -909,7 +909,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         }
         ContextEl c_ = _conf.getContextEl();
         Struct struct_ = classes_.getStaticField(fieldId_,_ret,c_);
-        _conf.getContextEl().addSensibleField(fieldId_.getClassName(), struct_);
+        _conf.getContextEl().getInitializingTypeInfos().addSensibleField(_conf.getContextEl(),fieldId_.getClassName(), struct_);
         a_ = new Argument();
         a_.setStruct(struct_);
         return a_;
@@ -969,8 +969,8 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         if (!Templates.checkObject(fieldType_, _right, _conf)) {
             return Argument.createVoid();
         }
-        if (_conf.getContextEl().isContainedSensibleFields(previous_)) {
-            _conf.getContextEl().failInitEnums();
+        if (_conf.getContextEl().getInitializingTypeInfos().isContainedSensibleFields(previous_)) {
+            _conf.getContextEl().getInitializingTypeInfos().failInitEnums();
             return _right;
         }
         entry_.setValue(_right.getStruct());
@@ -995,8 +995,8 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         if (!Templates.checkObject(fieldType_, _right, _conf)) {
             return Argument.createVoid();
         }
-        if (_conf.getContextEl().isSensibleField(fieldId_.getClassName())) {
-            _conf.getContextEl().failInitEnums();
+        if (_conf.getContextEl().getInitializingTypeInfos().isSensibleField(_conf.getContextEl(),fieldId_.getClassName())) {
+            _conf.getContextEl().getInitializingTypeInfos().failInitEnums();
             return _right;
         }
         classes_.initializeStaticField(fieldId_, _right.getStruct());

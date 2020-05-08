@@ -70,8 +70,6 @@ public interface Analyzable {
     GeneType getClassBody(String _type);
 
 
-    ClassMetaInfo getExtendedClassMetaInfo(String _name);
-
     FieldInfo getFieldInfo(ClassField _classField);
 
     int getCurrentChildTypeIndex(OperationNode _op, GeneType _type, String _fieldName, String _className);

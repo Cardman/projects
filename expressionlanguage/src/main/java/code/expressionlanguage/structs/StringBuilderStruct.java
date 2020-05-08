@@ -148,8 +148,8 @@ public final class StringBuilderStruct extends CharSequenceStruct {
     }
     private void ensureCapacity(NumberStruct _minimumCapacity, ExecutableCode _an, ResultErrorStd _out) {
         ContextEl cont_ = _an.getContextEl();
-        if (cont_.isContainedSensibleFields(this)) {
-            cont_.failInitEnums();
+        if (cont_.getInitializingTypeInfos().isContainedSensibleFields(this)) {
+            cont_.getInitializingTypeInfos().failInitEnums();
             return;
         }
         instance.ensureCapacity(_minimumCapacity.intStruct());
@@ -158,8 +158,8 @@ public final class StringBuilderStruct extends CharSequenceStruct {
 
     private void trimToSize(ExecutableCode _an, ResultErrorStd _out) {
         ContextEl cont_ = _an.getContextEl();
-        if (cont_.isContainedSensibleFields(this)) {
-            cont_.failInitEnums();
+        if (cont_.getInitializingTypeInfos().isContainedSensibleFields(this)) {
+            cont_.getInitializingTypeInfos().failInitEnums();
             return;
         }
         instance.trimToSize();
@@ -168,8 +168,8 @@ public final class StringBuilderStruct extends CharSequenceStruct {
 
     private void setLength(NumberStruct _newLength, ExecutableCode _an, ResultErrorStd _out) {
         ContextEl cont_ = _an.getContextEl();
-        if (cont_.isContainedSensibleFields(this)) {
-            cont_.failInitEnums();
+        if (cont_.getInitializingTypeInfos().isContainedSensibleFields(this)) {
+            cont_.getInitializingTypeInfos().failInitEnums();
             return;
         }
         LgNames lgNames_ = cont_.getStandards();
@@ -185,8 +185,8 @@ public final class StringBuilderStruct extends CharSequenceStruct {
 
     private void append(DisplayableStruct _s, NumberStruct _start, NumberStruct _end, ExecutableCode _an, ResultErrorStd _out) {
         ContextEl cont_ = _an.getContextEl();
-        if (cont_.isContainedSensibleFields(this)) {
-            cont_.failInitEnums();
+        if (cont_.getInitializingTypeInfos().isContainedSensibleFields(this)) {
+            cont_.getInitializingTypeInfos().failInitEnums();
             return;
         }
         LgNames lgNames_ = cont_.getStandards();
@@ -210,8 +210,8 @@ public final class StringBuilderStruct extends CharSequenceStruct {
 
     private void appendChars(Struct _str, ExecutableCode _an, ResultErrorStd _out) {
         ContextEl cont_ = _an.getContextEl();
-        if (cont_.isContainedSensibleFields(this)) {
-            cont_.failInitEnums();
+        if (cont_.getInitializingTypeInfos().isContainedSensibleFields(this)) {
+            cont_.getInitializingTypeInfos().failInitEnums();
             return;
         }
         LgNames lgNames_ = cont_.getStandards();
@@ -231,8 +231,8 @@ public final class StringBuilderStruct extends CharSequenceStruct {
 
     private void appendChars(Struct _str, NumberStruct _offset, NumberStruct _len, ExecutableCode _an, ResultErrorStd _out) {
         ContextEl cont_ = _an.getContextEl();
-        if (cont_.isContainedSensibleFields(this)) {
-            cont_.failInitEnums();
+        if (cont_.getInitializingTypeInfos().isContainedSensibleFields(this)) {
+            cont_.getInitializingTypeInfos().failInitEnums();
             return;
         }
         LgNames lgNames_ = cont_.getStandards();
@@ -265,8 +265,8 @@ public final class StringBuilderStruct extends CharSequenceStruct {
 
     private void append(DisplayableStruct _b, ExecutableCode _an, ResultErrorStd _out) {
         ContextEl cont_ = _an.getContextEl();
-        if (cont_.isContainedSensibleFields(this)) {
-            cont_.failInitEnums();
+        if (cont_.getInitializingTypeInfos().isContainedSensibleFields(this)) {
+            cont_.getInitializingTypeInfos().failInitEnums();
             return;
         }
         instance.append(_b.getDisplayedString(_an).getInstance());
@@ -275,8 +275,8 @@ public final class StringBuilderStruct extends CharSequenceStruct {
 
     private void delete(NumberStruct _start, NumberStruct _end, ExecutableCode _an, ResultErrorStd _out) {
         ContextEl cont_ = _an.getContextEl();
-        if (cont_.isContainedSensibleFields(this)) {
-            cont_.failInitEnums();
+        if (cont_.getInitializingTypeInfos().isContainedSensibleFields(this)) {
+            cont_.getInitializingTypeInfos().failInitEnums();
             return;
         }
         LgNames lgNames_ = cont_.getStandards();
@@ -299,8 +299,8 @@ public final class StringBuilderStruct extends CharSequenceStruct {
 
     private void deleteCharAt(NumberStruct _index, ExecutableCode _an, ResultErrorStd _out) {
         ContextEl cont_ = _an.getContextEl();
-        if (cont_.isContainedSensibleFields(this)) {
-            cont_.failInitEnums();
+        if (cont_.getInitializingTypeInfos().isContainedSensibleFields(this)) {
+            cont_.getInitializingTypeInfos().failInitEnums();
             return;
         }
         LgNames lgNames_ = cont_.getStandards();
@@ -320,8 +320,8 @@ public final class StringBuilderStruct extends CharSequenceStruct {
 
     private void replace(NumberStruct _start, NumberStruct _end, Struct _str, ExecutableCode _an, ResultErrorStd _out) {
         ContextEl cont_ = _an.getContextEl();
-        if (cont_.isContainedSensibleFields(this)) {
-            cont_.failInitEnums();
+        if (cont_.getInitializingTypeInfos().isContainedSensibleFields(this)) {
+            cont_.getInitializingTypeInfos().failInitEnums();
             return;
         }
         LgNames lgNames_ = cont_.getStandards();
@@ -349,8 +349,8 @@ public final class StringBuilderStruct extends CharSequenceStruct {
 
     private void insertChars(NumberStruct _index, Struct _str, NumberStruct _offset, NumberStruct _len, ExecutableCode _an, ResultErrorStd _out) {
         ContextEl cont_ = _an.getContextEl();
-        if (cont_.isContainedSensibleFields(this)) {
-            cont_.failInitEnums();
+        if (cont_.getInitializingTypeInfos().isContainedSensibleFields(this)) {
+            cont_.getInitializingTypeInfos().failInitEnums();
             return;
         }
         LgNames lgNames_ = cont_.getStandards();
@@ -393,8 +393,8 @@ public final class StringBuilderStruct extends CharSequenceStruct {
 
     private void insertChars(NumberStruct _offset, Struct _str, ExecutableCode _an, ResultErrorStd _out) {
         ContextEl cont_ = _an.getContextEl();
-        if (cont_.isContainedSensibleFields(this)) {
-            cont_.failInitEnums();
+        if (cont_.getInitializingTypeInfos().isContainedSensibleFields(this)) {
+            cont_.getInitializingTypeInfos().failInitEnums();
             return;
         }
         LgNames lgNames_ = cont_.getStandards();
@@ -424,8 +424,8 @@ public final class StringBuilderStruct extends CharSequenceStruct {
 
     private void insert(NumberStruct _dstOffset,DisplayableStruct _s, ExecutableCode _an, ResultErrorStd _out) {
         ContextEl cont_ = _an.getContextEl();
-        if (cont_.isContainedSensibleFields(this)) {
-            cont_.failInitEnums();
+        if (cont_.getInitializingTypeInfos().isContainedSensibleFields(this)) {
+            cont_.getInitializingTypeInfos().failInitEnums();
             return;
         }
         LgNames lgNames_ = cont_.getStandards();
@@ -446,8 +446,8 @@ public final class StringBuilderStruct extends CharSequenceStruct {
     private void insert(NumberStruct _dstOffset, DisplayableStruct _s, NumberStruct _start,
             NumberStruct _end, ExecutableCode _an, ResultErrorStd _out) {
         ContextEl cont_ = _an.getContextEl();
-        if (cont_.isContainedSensibleFields(this)) {
-            cont_.failInitEnums();
+        if (cont_.getInitializingTypeInfos().isContainedSensibleFields(this)) {
+            cont_.getInitializingTypeInfos().failInitEnums();
             return;
         }
         LgNames lgNames_ = cont_.getStandards();
@@ -483,8 +483,8 @@ public final class StringBuilderStruct extends CharSequenceStruct {
 
     private void clear(ExecutableCode _an, ResultErrorStd _out) {
         ContextEl cont_ = _an.getContextEl();
-        if (cont_.isContainedSensibleFields(this)) {
-            cont_.failInitEnums();
+        if (cont_.getInitializingTypeInfos().isContainedSensibleFields(this)) {
+            cont_.getInitializingTypeInfos().failInitEnums();
             return;
         }
         instance.delete(0, instance.length());
@@ -492,8 +492,8 @@ public final class StringBuilderStruct extends CharSequenceStruct {
     }
     private void reverse(ExecutableCode _an, ResultErrorStd _out) {
         ContextEl cont_ = _an.getContextEl();
-        if (cont_.isContainedSensibleFields(this)) {
-            cont_.failInitEnums();
+        if (cont_.getInitializingTypeInfos().isContainedSensibleFields(this)) {
+            cont_.getInitializingTypeInfos().failInitEnums();
             return;
         }
         instance.reverse();
@@ -502,8 +502,8 @@ public final class StringBuilderStruct extends CharSequenceStruct {
 
     private void setCharAt(NumberStruct _index, CharStruct _ch,ExecutableCode _an, ResultErrorStd _out) {
         ContextEl cont_ = _an.getContextEl();
-        if (cont_.isContainedSensibleFields(this)) {
-            cont_.failInitEnums();
+        if (cont_.getInitializingTypeInfos().isContainedSensibleFields(this)) {
+            cont_.getInitializingTypeInfos().failInitEnums();
             return;
         }
         LgNames lgNames_ = cont_.getStandards();

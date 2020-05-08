@@ -1063,7 +1063,7 @@ public class LgNamesUtils extends LgNames {
             return res_;
         }
         if (StringList.quickEq(name_,aliasThread)) {
-            if (_cont.isWideInitEnums()) {
+            if (_cont.getInitializingTypeInfos().isWideInitEnums()) {
                 processFailInit(_cont.getContextEl());
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
@@ -1212,8 +1212,8 @@ public class LgNamesUtils extends LgNames {
         if (StringList.quickEq(className_,aliasThreadSet)) {
             String name_ = _method.getConstraints().getName();
             if (StringList.quickEq(name_,aliasThreadSetAdd)) {
-                if (_cont.isContainedSensibleFields(_instance)) {
-                    _cont.failInitEnums();
+                if (_cont.getInitializingTypeInfos().isContainedSensibleFields(_instance)) {
+                    _cont.getInitializingTypeInfos().failInitEnums();
                     res_.setResult(NullStruct.NULL_VALUE);
                     return res_;
                 }
@@ -1227,7 +1227,7 @@ public class LgNamesUtils extends LgNames {
                 return res_;
             }
             if (StringList.quickEq(name_,aliasThreadSetAll)) {
-                if (_cont.isWideInitEnums()) {
+                if (_cont.getInitializingTypeInfos().isWideInitEnums()) {
                     processFailInit(_cont.getContextEl());
                     res_.setResult(NullStruct.NULL_VALUE);
                     return res_;
@@ -1236,8 +1236,8 @@ public class LgNamesUtils extends LgNames {
                 return res_;
             }
             if (StringList.quickEq(name_,aliasThreadSetRemove)) {
-                if (_cont.isContainedSensibleFields(_instance)) {
-                    _cont.failInitEnums();
+                if (_cont.getInitializingTypeInfos().isContainedSensibleFields(_instance)) {
+                    _cont.getInitializingTypeInfos().failInitEnums();
                     res_.setResult(NullStruct.NULL_VALUE);
                     return res_;
                 }
@@ -1247,8 +1247,8 @@ public class LgNamesUtils extends LgNames {
                 return res_;
             }
             if (StringList.quickEq(name_,aliasThreadSetContains)) {
-                if (_cont.isContainedSensibleFields(_instance)) {
-                    _cont.failInitEnums();
+                if (_cont.getInitializingTypeInfos().isContainedSensibleFields(_instance)) {
+                    _cont.getInitializingTypeInfos().failInitEnums();
                     res_.setResult(NullStruct.NULL_VALUE);
                     return res_;
                 }
@@ -1263,7 +1263,7 @@ public class LgNamesUtils extends LgNames {
         if (StringList.quickEq(className_,aliasThread)) {
             String name_ = _method.getConstraints().getName();
             if (StringList.quickEq(name_,aliasPrint)) {
-                if (_cont.isWideInitEnums()) {
+                if (_cont.getInitializingTypeInfos().isWideInitEnums()) {
                     processFailInit(_cont.getContextEl());
                     res_.setResult(NullStruct.NULL_VALUE);
                     return res_;
@@ -1285,7 +1285,7 @@ public class LgNamesUtils extends LgNames {
                 return res_;
             }
             if (StringList.quickEq(name_,aliasSleep)) {
-                if (_cont.isWideInitEnums()) {
+                if (_cont.getInitializingTypeInfos().isWideInitEnums()) {
                     processFailInit(_cont.getContextEl());
                     res_.setResult(NullStruct.NULL_VALUE);
                     return res_;
@@ -1305,7 +1305,7 @@ public class LgNamesUtils extends LgNames {
                 return res_;
             }
             if (StringList.quickEq(name_,aliasCurrentThread)) {
-                if (_cont.isWideInitEnums()) {
+                if (_cont.getInitializingTypeInfos().isWideInitEnums()) {
                     processFailInit(_cont.getContextEl());
                     res_.setResult(NullStruct.NULL_VALUE);
                     return res_;
@@ -1314,7 +1314,7 @@ public class LgNamesUtils extends LgNames {
                 return res_;
             }
             if (StringList.quickEq(name_,aliasThreadExitHook)) {
-                if (_cont.isWideInitEnums()) {
+                if (_cont.getInitializingTypeInfos().isWideInitEnums()) {
                     processFailInit(_cont.getContextEl());
                     res_.setResult(NullStruct.NULL_VALUE);
                     return res_;
@@ -1329,7 +1329,7 @@ public class LgNamesUtils extends LgNames {
                 return res_;
             }
             if (StringList.quickEq(name_,aliasJoinOthers)) {
-                if (_cont.isWideInitEnums()) {
+                if (_cont.getInitializingTypeInfos().isWideInitEnums()) {
                     processFailInit(_cont.getContextEl());
                     res_.setResult(NullStruct.NULL_VALUE);
                     return res_;
@@ -1375,7 +1375,7 @@ public class LgNamesUtils extends LgNames {
                 return res_;
             }
             if (StringList.quickEq(name_,aliasYield)) {
-                if (_cont.isWideInitEnums()) {
+                if (_cont.getInitializingTypeInfos().isWideInitEnums()) {
                     processFailInit(_cont.getContextEl());
                     res_.setResult(NullStruct.NULL_VALUE);
                     return res_;
@@ -1384,7 +1384,7 @@ public class LgNamesUtils extends LgNames {
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (_cont.isWideInitEnums()) {
+            if (_cont.getInitializingTypeInfos().isWideInitEnums()) {
                 processFailInit(_cont.getContextEl());
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
@@ -1393,7 +1393,7 @@ public class LgNamesUtils extends LgNames {
             return res_;
         }
         if (StringList.quickEq(className_,aliasReentrantLock)) {
-            if (_cont.isWideInitEnums()) {
+            if (_cont.getInitializingTypeInfos().isWideInitEnums()) {
                 processFailInit(_cont.getContextEl());
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
@@ -1424,8 +1424,8 @@ public class LgNamesUtils extends LgNames {
                 res_.setResult(BooleanStruct.of(held_));
                 return res_;
             }
-            if (_cont.isContainedSensibleFields(_instance)) {
-                _cont.failInitEnums();
+            if (_cont.getInitializingTypeInfos().isContainedSensibleFields(_instance)) {
+                _cont.getInitializingTypeInfos().failInitEnums();
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
@@ -1458,8 +1458,8 @@ public class LgNamesUtils extends LgNames {
                 res_.setResult(new IntStruct(held_));
                 return res_;
             }
-            if (_cont.isContainedSensibleFields(_instance)) {
-                _cont.failInitEnums();
+            if (_cont.getInitializingTypeInfos().isContainedSensibleFields(_instance)) {
+                _cont.getInitializingTypeInfos().failInitEnums();
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
@@ -1522,8 +1522,8 @@ public class LgNamesUtils extends LgNames {
                 res_.setResult(new LongStruct(held_));
                 return res_;
             }
-            if (_cont.isContainedSensibleFields(_instance)) {
-                _cont.failInitEnums();
+            if (_cont.getInitializingTypeInfos().isContainedSensibleFields(_instance)) {
+                _cont.getInitializingTypeInfos().failInitEnums();
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
@@ -1596,13 +1596,13 @@ public class LgNamesUtils extends LgNames {
                 return res_;
             }
             ArrayStruct bin_ = inst_.getBinary();
-            _cont.getContextEl().addSensibleField(inst_, bin_);
+            _cont.getContextEl().getInitializingTypeInfos().addSensibleField(inst_, bin_);
             res_.setResult(bin_);
             return res_;
         }
         if (StringList.quickEq(className_,aliasFile)) {
         	String name_ = _method.getConstraints().getName();
-        	if (_cont.isWideInitEnums()) {
+        	if (_cont.getInitializingTypeInfos().isWideInitEnums()) {
                 processFailInit(_cont.getContextEl());
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
@@ -1925,8 +1925,8 @@ public class LgNamesUtils extends LgNames {
         return StringList.concat(((StringStruct)_cont.getStandards().getStringOfObject(_cont,_struct)).getInstance(),"...");
     }
     protected void processFailInit(ContextEl _cont) {
-        if (_cont.isInitEnums()) {
-            _cont.failInitEnums();
+        if (_cont.getInitializingTypeInfos().isInitEnums()) {
+            _cont.getInitializingTypeInfos().failInitEnums();
         } else {
             _cont.setException(new ErrorStruct(_cont, aliasConcurrentError));
         }

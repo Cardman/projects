@@ -32,7 +32,7 @@ public class RunnableContextEl extends ContextEl implements Locking {
         setThread();
     }
     protected RunnableContextEl(ContextEl _context) {
-        setInitEnums(InitPhase.NOTHING);
+        getInitializingTypeInfos().setInitEnums(InitPhase.NOTHING);
         setClasses(_context.getClasses());
         setOptions(_context.getOptions());
         setStandards(_context.getStandards());

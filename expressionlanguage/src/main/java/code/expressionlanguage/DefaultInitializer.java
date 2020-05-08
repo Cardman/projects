@@ -99,11 +99,11 @@ public class DefaultInitializer implements Initializer {
     }
 
     protected boolean exitAfterCall(ContextEl _owner) {
-        AbstractPageEl abs_ = _owner.processAfterOperation();
+        AbstractPageEl abs_ = ExecutingUtil.processAfterOperation(_owner);
         if (abs_ != null) {
             _owner.addPage(abs_);
         }
-        _owner.processException();
+        ExecutingUtil.processException(_owner);
         return _owner.callsOrException();
     }
 

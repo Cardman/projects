@@ -1334,8 +1334,8 @@ public final class Templates {
             String param_ = PrimitiveTypeUtil.getQuickComponentType(arrType_);
             ClassArgumentMatching cl_ = new ClassArgumentMatching(param_);
             Struct conv_ = PrimitiveTypeUtil.convertObject(cl_, _value, stds_);
-            if (_context.getContextEl().isContainedSensibleFields(arr_)) {
-                _context.getContextEl().failInitEnums();
+            if (_context.getContextEl().getInitializingTypeInfos().isContainedSensibleFields(arr_)) {
+                _context.getContextEl().getInitializingTypeInfos().failInitEnums();
                 return;
             }
             inst_[index_] = conv_;

@@ -2,6 +2,7 @@ package code.expressionlanguage.opers;
 
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.ExecutingUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.instr.PartOffset;
@@ -53,7 +54,7 @@ public final class StaticInfoOperation extends LeafOperation implements Reductib
             return;
         }
         Argument a_ = new Argument();
-        a_.setStruct(_conf.getExtendedClassMetaInfo(_className));
+        a_.setStruct(ExecutingUtil.getClassMetaInfo(_conf.getContextEl(),_className));
         _current.setSimpleArgumentAna(a_, _conf);
     }
 

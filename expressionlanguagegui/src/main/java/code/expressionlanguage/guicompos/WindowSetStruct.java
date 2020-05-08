@@ -35,7 +35,7 @@ public final class WindowSetStruct implements Struct {
         ArrayStruct arr_ = new ArrayStruct(innArr_,PrimitiveTypeUtil.getPrettyArrayType(thClass_));
         for (int i = 0; i < len_; i++) {
             Struct e_ = instantKeys_.get(i);
-            _contextEl.getContextEl().addSensibleField(this,e_);
+            _contextEl.getContextEl().getInitializingTypeInfos().addSensibleField(this,e_);
             innArr_[i] = e_;
         }
         return arr_;

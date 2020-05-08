@@ -309,7 +309,7 @@ public final class PrimitiveTypeUtil {
             for (int i = 0; i < _nbAncestors; i++) {
                 Struct enc_ = arg_.getStruct();
                 Struct par_ = enc_.getParent();
-                _an.getContextEl().addSensibleField(enc_, par_);
+                _an.getContextEl().getInitializingTypeInfos().addSensibleField(enc_, par_);
                 arg_.setStruct(par_);
             }
         }
@@ -334,7 +334,7 @@ public final class PrimitiveTypeUtil {
                 break;
             }
             Struct par_ = current_.getParent();
-            _an.getContextEl().addSensibleField(current_, par_);
+            _an.getContextEl().getInitializingTypeInfos().addSensibleField(current_, par_);
             className_ = ((WithParentStruct)current_).getParentClassName();
             current_ = par_;
             cl_ = Templates.getIdFromAllTypes(className_);

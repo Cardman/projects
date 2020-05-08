@@ -508,8 +508,8 @@ public class ApplyCoreMethodUtil {
                 result_.setResult(NullStruct.NULL_VALUE);
                 return result_;
             }
-            if (_cont.isContainedSensibleFields(i_)) {
-                _cont.failInitEnums();
+            if (_cont.getInitializingTypeInfos().isContainedSensibleFields(i_)) {
+                _cont.getInitializingTypeInfos().failInitEnums();
                 return result_;
             }
             i_.setParent(par_);
@@ -527,8 +527,8 @@ public class ApplyCoreMethodUtil {
             return result_;
         }
         if (StringList.quickEq(type_, mathType_)) {
-            if (_cont.isInitEnums()) {
-                _cont.failInitEnums();
+            if (_cont.getInitializingTypeInfos().isInitEnums()) {
+                _cont.getInitializingTypeInfos().failInitEnums();
                 return result_;
             }
             /** mathematics "random" calls in order to facilitate uses,
@@ -702,7 +702,7 @@ public class ApplyCoreMethodUtil {
             if (StringList.quickEq(name_, lgNames_.getAliasGetParent())) {
                 Struct arg_ = args_[0];
                 Struct par_ = arg_.getParent();
-                _cont.getContextEl().addSensibleField(arg_, par_);
+                _cont.getContextEl().getInitializingTypeInfos().addSensibleField(arg_, par_);
                 result_.setResult(par_);
                 return result_;
             }

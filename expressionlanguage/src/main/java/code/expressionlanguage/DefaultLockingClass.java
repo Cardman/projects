@@ -70,7 +70,7 @@ public class DefaultLockingClass {
         return new CausingErrorStruct(_cause,_context);
     }
     private void errorClass(ContextEl _context, String _className) {
-        _context.failInitEnums();
+        _context.getInitializingTypeInfos().failInitEnums();
         String base_ = Templates.getIdFromAllTypes(_className);
         classes.put(base_, InitClassState.ERROR);
     }

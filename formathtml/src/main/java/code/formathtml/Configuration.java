@@ -7,7 +7,6 @@ import code.bean.validator.ValidatorInfo;
 import code.expressionlanguage.*;
 import code.expressionlanguage.calls.PageEl;
 import code.expressionlanguage.calls.util.NotInitializedClass;
-import code.expressionlanguage.common.GeneMethod;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.*;
@@ -24,7 +23,6 @@ import code.expressionlanguage.stds.ApplyCoreMethodUtil;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.CausingErrorStruct;
-import code.expressionlanguage.structs.ClassMetaInfo;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.StackTraceElementStruct;
 import code.expressionlanguage.structs.Struct;
@@ -767,11 +765,6 @@ public final class Configuration implements ExecutableCode {
             a_ = _r;
         }
         return a_;
-    }
-
-    @Override
-    public ClassMetaInfo getExtendedClassMetaInfo(String _name) {
-        return context.getExtendedClassMetaInfo(_name);
     }
 
     @Override

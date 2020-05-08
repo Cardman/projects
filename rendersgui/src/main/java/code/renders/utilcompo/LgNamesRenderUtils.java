@@ -478,8 +478,8 @@ public final class LgNamesRenderUtils extends BeanCustLgNames {
                 res_.setResult(BooleanStruct.of(held_));
                 return res_;
             }
-            if (_cont.isContainedSensibleFields(_instance)) {
-                _cont.failInitEnums();
+            if (_cont.getInitializingTypeInfos().isContainedSensibleFields(_instance)) {
+                _cont.getInitializingTypeInfos().failInitEnums();
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
@@ -512,8 +512,8 @@ public final class LgNamesRenderUtils extends BeanCustLgNames {
                 res_.setResult(new IntStruct(held_));
                 return res_;
             }
-            if (_cont.isContainedSensibleFields(_instance)) {
-                _cont.failInitEnums();
+            if (_cont.getInitializingTypeInfos().isContainedSensibleFields(_instance)) {
+                _cont.getInitializingTypeInfos().failInitEnums();
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
@@ -576,8 +576,8 @@ public final class LgNamesRenderUtils extends BeanCustLgNames {
                 res_.setResult(new LongStruct(held_));
                 return res_;
             }
-            if (_cont.isContainedSensibleFields(_instance)) {
-                _cont.failInitEnums();
+            if (_cont.getInitializingTypeInfos().isContainedSensibleFields(_instance)) {
+                _cont.getInitializingTypeInfos().failInitEnums();
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
